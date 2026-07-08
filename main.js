@@ -141,6 +141,11 @@ var isStationGuideMapOpen = false;
 var stationGuideMapStylesReady = false;
 var stationGuideMapEventsReady = false;
 
+var stationGuideMapImageReady = false;
+var stationGuideMapImageError = false;
+var stationGuideMapRevealTimer = null;
+
+
 var STATION_GUIDE_MAP_HOTSPOTS = [
     {
         id: "shinpo",
@@ -283,11 +288,231 @@ function ensureStationGuideMapStyles() {
     document.head.appendChild(style);
 }
 
+function ensureStationGuideMapLoadingStyles() {
+    if (document.getElementById("station-guide-map-loading-style")) return;
+
+    var style = document.createElement("style");
+    style.id = "station-guide-map-loading-style";
+    style.textContent =
+        "#station-guide-map-layer .station-guide-map-window{" +
+        "opacity:0;transform:translateY(10px) scale(.985);" +
+        "pointer-events:none;" +
+        "transition:opacity 360ms ease, transform 420ms cubic-bezier(.22,.8,.28,1);" +
+        "}" +
+        "#station-guide-map-layer.map-ready .station-guide-map-window{" +
+        "opacity:1;transform:translateY(0) scale(1);" +
+        "pointer-events:auto;" +
+        "}" +
+        ".station-guide-map-loading{" +
+        "position:absolute;inset:0;z-index:4;" +
+        "display:flex;align-items:center;justify-content:center;" +
+        "box-sizing:border-box;padding:18px;" +
+        "opacity:0;pointer-events:none;" +
+        "transition:opacity 260ms ease;" +
+        "}" +
+        "#station-guide-map-layer.map-loading .station-guide-map-loading," +
+        "#station-guide-map-layer.map-error .station-guide-map-loading{" +
+        "opacity:1;pointer-events:auto;" +
+        "}" +
+        ".station-guide-map-loading-card{" +
+        "min-width:min(82vw,330px);box-sizing:border-box;" +
+        "border:3px solid rgba(255,239,200,.68);" +
+        "border-radius:18px;" +
+        "background:rgba(37,27,20,.95);" +
+        "color:#fff4df;" +
+        "box-shadow:0 18px 44px rgba(0,0,0,.48);" +
+        "padding:22px 18px 18px;" +
+        "text-align:center;" +
+        "}" +
+        ".station-guide-map-loading-mark{" +
+        "width:34px;height:34px;margin:0 auto 12px;" +
+        "border-radius:50%;" +
+        "background:radial-gradient(circle at 50% 45%, #fff0c8 0 22%, #b89153 23% 48%, rgba(255,240,200,.14) 49% 100%);" +
+        "box-shadow:0 0 18px rgba(255,224,160,.28);" +
+        "animation:stationGuideMapLamp 1.4s ease-in-out infinite;" +
+        "}" +
+        ".station-guide-map-loading-label{" +
+        "font-weight:800;font-size:17px;letter-spacing:.06em;line-height:1.6;" +
+        "white-space:pre-line;" +
+        "}" +
+        ".station-guide-map-loading-dots{" +
+        "margin-top:8px;font-weight:900;letter-spacing:.22em;color:#f4dec0;" +
+        "}" +
+        ".station-guide-map-loading-dots span{" +
+        "animation:stationGuideMapDots 1.2s ease-in-out infinite;" +
+        "}" +
+        ".station-guide-map-loading-dots span:nth-child(2){animation-delay:.18s;}" +
+        ".station-guide-map-loading-dots span:nth-child(3){animation-delay:.36s;}" +
+        ".station-guide-map-loading-close{" +
+        "display:none;margin:14px auto 0;" +
+        "appearance:none;-webkit-appearance:none;" +
+        "border:2px solid rgba(255,239,200,.56);" +
+        "border-radius:999px;" +
+        "background:rgba(255,244,223,.12);" +
+        "color:#fff4df;" +
+        "font-weight:800;font-size:14px;" +
+        "padding:9px 14px;" +
+        "}" +
+        "#station-guide-map-layer.map-error .station-guide-map-loading-close{" +
+        "display:block;" +
+        "}" +
+        "@keyframes stationGuideMapLamp{" +
+        "0%,100%{opacity:.72;transform:scale(.96);}" +
+        "50%{opacity:1;transform:scale(1.04);}" +
+        "}" +
+        "@keyframes stationGuideMapDots{" +
+        "0%,100%{opacity:.28;}" +
+        "50%{opacity:1;}" +
+        "}" +
+        "@media (max-width:720px){" +
+        ".station-guide-map-loading-card{min-width:min(86vw,300px);padding:20px 15px 16px;}" +
+        ".station-guide-map-loading-label{font-size:15px;}" +
+        ".station-guide-map-loading-mark{width:30px;height:30px;}" +
+        "}";
+
+    document.head.appendChild(style);
+}
+
+function setupStationGuideMapLoadingLayer(layer) {
+    if (!layer || document.getElementById("station-guide-map-loading")) return;
+
+    var loading = document.createElement("div");
+    loading.id = "station-guide-map-loading";
+    loading.className = "station-guide-map-loading";
+    loading.setAttribute("aria-hidden", "false");
+
+    loading.innerHTML =
+        '<div class="station-guide-map-loading-card" role="status" aria-live="polite">' +
+        '<div class="station-guide-map-loading-mark" aria-hidden="true"></div>' +
+        '<div id="station-guide-map-loading-label" class="station-guide-map-loading-label">地図を広げています…</div>' +
+        '<div class="station-guide-map-loading-dots" aria-hidden="true"><span>・</span><span>・</span><span>・</span></div>' +
+        '<button class="station-guide-map-loading-close" type="button">地図を閉じる</button>' +
+        '</div>';
+
+    var closeButton = loading.querySelector(".station-guide-map-loading-close");
+    if (closeButton) {
+        closeButton.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeStationGuideMap();
+        });
+    }
+
+    layer.appendChild(loading);
+}
+
+function setStationGuideMapLoadingLabel(text) {
+    var label = document.getElementById("station-guide-map-loading-label");
+    if (label) {
+        label.textContent = text || "地図を広げています…";
+    }
+}
+
+function markStationGuideMapReady() {
+    stationGuideMapImageReady = true;
+    stationGuideMapImageError = false;
+
+    var layer = document.getElementById("station-guide-map-layer");
+    if (!layer) return;
+
+    if (stationGuideMapRevealTimer) {
+        window.clearTimeout(stationGuideMapRevealTimer);
+    }
+
+    stationGuideMapRevealTimer = window.setTimeout(function() {
+        layer.classList.remove("map-loading");
+        layer.classList.remove("map-error");
+        layer.classList.add("map-ready");
+        stationGuideMapRevealTimer = null;
+    }, isStationGuideMapOpen ? 160 : 0);
+}
+
+function markStationGuideMapError() {
+    stationGuideMapImageReady = false;
+    stationGuideMapImageError = true;
+
+    var layer = document.getElementById("station-guide-map-layer");
+    if (!layer) return;
+
+    if (stationGuideMapRevealTimer) {
+        window.clearTimeout(stationGuideMapRevealTimer);
+        stationGuideMapRevealTimer = null;
+    }
+
+    setStationGuideMapLoadingLabel("地図の紙が少し湿っているようです。\nもう一度開いてみてください。");
+
+    layer.classList.remove("map-ready");
+    layer.classList.remove("map-loading");
+    layer.classList.add("map-error");
+}
+
+function setupStationGuideMapImageLoading(layer) {
+    if (!layer || layer.dataset.imageLoadingReady === "true") return;
+    layer.dataset.imageLoadingReady = "true";
+
+    var image = layer.querySelector(".station-guide-map-image");
+    if (!image) return;
+
+    image.addEventListener("load", function() {
+        markStationGuideMapReady();
+    });
+
+    image.addEventListener("error", function() {
+        markStationGuideMapError();
+    });
+
+    if (image.complete) {
+        if (image.naturalWidth && image.naturalWidth > 0) {
+            markStationGuideMapReady();
+        } else {
+            markStationGuideMapError();
+        }
+    }
+}
+
+function prepareStationGuideMapOpening(layer) {
+    if (!layer) return;
+
+    hideStationGuideMapConfirm();
+
+    if (stationGuideMapRevealTimer) {
+        window.clearTimeout(stationGuideMapRevealTimer);
+        stationGuideMapRevealTimer = null;
+    }
+
+    if (stationGuideMapImageReady) {
+        layer.classList.remove("map-loading");
+        layer.classList.remove("map-error");
+        layer.classList.add("map-ready");
+        return;
+    }
+
+    if (stationGuideMapImageError) {
+        setStationGuideMapLoadingLabel("地図の紙が少し湿っているようです。\nもう一度開いてみてください。");
+        layer.classList.remove("map-ready");
+        layer.classList.remove("map-loading");
+        layer.classList.add("map-error");
+        return;
+    }
+
+    setStationGuideMapLoadingLabel("地図を広げています…");
+    layer.classList.remove("map-ready");
+    layer.classList.remove("map-error");
+    layer.classList.add("map-loading");
+
+    var image = layer.querySelector(".station-guide-map-image");
+    if (image && image.complete && image.naturalWidth && image.naturalWidth > 0) {
+        markStationGuideMapReady();
+    }
+}
+
+
 function getOrCreateStationGuideMapLayer() {
     var existing = document.getElementById("station-guide-map-layer");
     if (existing) return existing;
 
     ensureStationGuideMapStyles();
+    ensureStationGuideMapLoadingStyles();
 
     var layer = document.createElement("div");
     layer.id = "station-guide-map-layer";
@@ -306,6 +531,9 @@ function getOrCreateStationGuideMapLayer() {
 
     var container = document.getElementById("game-container") || document.body;
     container.appendChild(layer);
+
+    setupStationGuideMapLoadingLayer(layer);
+    setupStationGuideMapImageLoading(layer);
 
     var closeButton = layer.querySelector(".station-guide-map-close");
     if (closeButton) {
@@ -365,6 +593,7 @@ function openStationGuideMap() {
     if (!layer) return;
 
     isStationGuideMapOpen = true;
+    prepareStationGuideMapOpening(layer);
 
     var params = new URLSearchParams(window.location.search || "");
     var debugAllowed =
@@ -400,6 +629,11 @@ function closeStationGuideMap() {
     if (layer) {
         layer.classList.remove("visible");
         layer.setAttribute("aria-hidden", "true");
+
+        // 次回開く時に、読み込み中・エラー中の見え方が残らないようにする。
+        if (!stationGuideMapImageReady) {
+            layer.classList.remove("map-ready");
+        }
     }
 
     clearDpadInput();
