@@ -389,6 +389,8 @@ function openStationGuideMap() {
 function closeStationGuideMap() {
     var layer = document.getElementById("station-guide-map-layer");
 
+    hideStationGuideMapConfirm();
+
     isStationGuideMapOpen = false;
 
     if (layer) {
@@ -400,8 +402,228 @@ function closeStationGuideMap() {
     updateControlVisibility();
 }
 
+
 function handleStationGuideMapHotspot(spot) {
     if (!spot) return;
+    showStationGuideMapConfirm(spot);
+}
+
+
+function ensureStationGuideMapConfirmStyles() {
+    if (document.getElementById("station-guide-map-confirm-style")) return;
+
+    var style = document.createElement("style");
+    style.id = "station-guide-map-confirm-style";
+    style.textContent =
+        "#station-guide-map-layer.confirming .station-guide-map-hotspots{" +
+        "pointer-events:none;" +
+        "}" +
+        ".station-guide-map-confirm{" +
+        "position:absolute;inset:0;z-index:4;display:none;" +
+        "align-items:center;justify-content:center;" +
+        "padding:18px;box-sizing:border-box;line-height:1.5;" +
+        "background:rgba(12,8,5,.18);" +
+        "}" +
+        ".station-guide-map-confirm.visible{display:flex;}" +
+        ".station-guide-map-confirm-card{" +
+        "width:min(86%,360px);box-sizing:border-box;" +
+        "border:2px solid rgba(255,239,200,.76);border-radius:16px;" +
+        "background:rgba(37,27,20,.94);color:#fff4df;" +
+        "box-shadow:0 14px 34px rgba(0,0,0,.48);" +
+        "padding:18px 16px 14px;text-align:center;" +
+        "}" +
+        ".station-guide-map-confirm-title{" +
+        "font-weight:800;font-size:18px;letter-spacing:.04em;margin-bottom:8px;" +
+        "}" +
+        ".station-guide-map-confirm-body{" +
+        "font-size:15px;white-space:pre-line;margin-bottom:14px;color:#f4dec0;" +
+        "}" +
+        ".station-guide-map-confirm-actions{" +
+        "display:flex;gap:10px;justify-content:center;align-items:center;" +
+        "}" +
+        ".station-guide-map-confirm-actions button{" +
+        "appearance:none;-webkit-appearance:none;border-radius:999px;" +
+        "border:2px solid rgba(255,239,200,.58);" +
+        "padding:10px 14px;font-weight:800;font-size:14px;" +
+        "background:rgba(255,244,223,.12);color:#fff4df;" +
+        "}" +
+        ".station-guide-map-confirm-actions button[data-action='confirm']{" +
+        "background:#fff0c8;color:#332217;border-color:#fff0c8;" +
+        "}" +
+        ".station-guide-map-confirm-actions button:focus-visible{" +
+        "outline:3px solid rgba(255,245,180,.95);outline-offset:2px;" +
+        "}" +
+        "@media (max-width:720px){" +
+        ".station-guide-map-confirm-card{width:min(90%,320px);padding:16px 13px 13px;}" +
+        ".station-guide-map-confirm-title{font-size:16px;}" +
+        ".station-guide-map-confirm-body{font-size:13px;}" +
+        ".station-guide-map-confirm-actions button{font-size:13px;padding:9px 12px;}" +
+        "}";
+
+    document.head.appendChild(style);
+}
+
+function getOrCreateStationGuideMapConfirmPanel() {
+    ensureStationGuideMapConfirmStyles();
+
+    var layer = getOrCreateStationGuideMapLayer();
+    if (!layer) return null;
+
+    var existing = document.getElementById("station-guide-map-confirm");
+    if (existing) return existing;
+
+    var wrap = layer.querySelector(".station-guide-map-image-wrap") || layer;
+    var panel = document.createElement("div");
+    panel.id = "station-guide-map-confirm";
+    panel.className = "station-guide-map-confirm";
+    panel.setAttribute("aria-hidden", "true");
+
+    panel.innerHTML =
+        '<div class="station-guide-map-confirm-card" role="dialog" aria-modal="true" aria-label="移動確認">' +
+        '<div class="station-guide-map-confirm-title"></div>' +
+        '<div class="station-guide-map-confirm-body"></div>' +
+        '<div class="station-guide-map-confirm-actions">' +
+        '<button type="button" data-action="confirm">移動する</button>' +
+        '<button type="button" data-action="cancel">地図に戻る</button>' +
+        '</div>' +
+        '</div>';
+
+    panel.addEventListener("pointerdown", function(e) {
+        e.stopPropagation();
+    });
+
+    var confirmButton = panel.querySelector("button[data-action='confirm']");
+    var cancelButton = panel.querySelector("button[data-action='cancel']");
+
+    if (confirmButton) {
+        confirmButton.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            confirmStationGuideMapMove();
+        });
+    }
+
+    if (cancelButton) {
+        cancelButton.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            hideStationGuideMapConfirm();
+        });
+    }
+
+    wrap.appendChild(panel);
+    return panel;
+}
+
+function getStationGuideMapConfirmText(spot) {
+    if (!spot) return "この場所へ移動しますか？";
+
+    if (spot.kind === "message") {
+        return spot.text || "この場所は、まだ準備中です。";
+    }
+
+    if (spot.kind === "close") {
+        return "駅前広場に戻りますか？";
+    }
+
+    if (spot.id === "shinpo") {
+        return "湯間庭新報を読みますか？";
+    }
+
+    return (spot.label || "この場所") + "へ移動しますか？";
+}
+
+function getStationGuideMapConfirmActionLabel(spot) {
+    if (!spot) return "移動する";
+
+    if (spot.kind === "message") {
+        return "";
+    }
+
+    if (spot.kind === "close") {
+        return "閉じる";
+    }
+
+    if (spot.id === "shinpo") {
+        return "読む";
+    }
+
+    return "移動する";
+}
+
+function showStationGuideMapConfirm(spot) {
+    if (!spot) return;
+
+    window.pendingStationGuideMapSpot = spot;
+
+    var layer = document.getElementById("station-guide-map-layer");
+    var panel = getOrCreateStationGuideMapConfirmPanel();
+    if (!panel) return;
+
+    var title = panel.querySelector(".station-guide-map-confirm-title");
+    var body = panel.querySelector(".station-guide-map-confirm-body");
+    var confirmButton = panel.querySelector("button[data-action='confirm']");
+    var cancelButton = panel.querySelector("button[data-action='cancel']");
+
+    if (title) {
+        title.textContent = spot.label || "行き先";
+    }
+
+    if (body) {
+        body.textContent = getStationGuideMapConfirmText(spot);
+    }
+
+    var actionLabel = getStationGuideMapConfirmActionLabel(spot);
+    if (confirmButton) {
+        if (actionLabel) {
+            confirmButton.hidden = false;
+            confirmButton.textContent = actionLabel;
+        } else {
+            confirmButton.hidden = true;
+        }
+    }
+
+    if (cancelButton) {
+        cancelButton.textContent = "地図に戻る";
+    }
+
+    if (layer) {
+        layer.classList.add("confirming");
+    }
+
+    panel.classList.add("visible");
+    panel.setAttribute("aria-hidden", "false");
+
+    window.setTimeout(function() {
+        if (confirmButton && !confirmButton.hidden) {
+            confirmButton.focus();
+        } else if (cancelButton) {
+            cancelButton.focus();
+        }
+    }, 0);
+}
+
+function hideStationGuideMapConfirm() {
+    window.pendingStationGuideMapSpot = null;
+
+    var layer = document.getElementById("station-guide-map-layer");
+    var panel = document.getElementById("station-guide-map-confirm");
+
+    if (layer) {
+        layer.classList.remove("confirming");
+    }
+
+    if (panel) {
+        panel.classList.remove("visible");
+        panel.setAttribute("aria-hidden", "true");
+    }
+}
+
+function confirmStationGuideMapMove() {
+    var spot = window.pendingStationGuideMapSpot;
+    if (!spot) return;
+
+    hideStationGuideMapConfirm();
 
     if (spot.kind === "close") {
         closeStationGuideMap();
@@ -409,8 +631,6 @@ function handleStationGuideMapHotspot(spot) {
     }
 
     if (spot.kind === "message") {
-        closeStationGuideMap();
-        showMessage(spot.text || "この場所は、まだ準備中です。");
         return;
     }
 
@@ -432,6 +652,7 @@ function handleStationGuideMapHotspot(spot) {
         }
     }
 }
+
 
 
 // ==========================================
