@@ -624,42 +624,58 @@ function hideStationGuideMapConfirm() {
 }
 
 function playStationGuideMapDarkTransition(callback) {
-    var fade = document.createElement("div");
+    var oldFade = document.getElementById("town-rpg-fade-transition");
+    if (oldFade && oldFade.parentNode) {
+        oldFade.parentNode.removeChild(oldFade);
+    }
 
-    fade.className = "station-guide-map-dark-transition";
+    var fadeOutMs = 520;
+    var holdMs = 180;
+    var fadeInMs = 620;
+
+    var fade = document.createElement("div");
+    fade.id = "town-rpg-fade-transition";
     fade.style.position = "fixed";
     fade.style.left = "0";
     fade.style.top = "0";
     fade.style.right = "0";
     fade.style.bottom = "0";
-    fade.style.zIndex = "9000";
+    fade.style.zIndex = "12000";
     fade.style.background = "#050403";
     fade.style.opacity = "0";
-    fade.style.pointerEvents = "none";
-    fade.style.transition = "opacity 180ms ease";
+    fade.style.pointerEvents = "auto";
+    fade.style.transition = "opacity " + fadeOutMs + "ms cubic-bezier(.22,.8,.28,1)";
+    fade.style.willChange = "opacity";
 
     document.body.appendChild(fade);
 
+    // 1. まず、RPGの場面転換のようにゆっくり暗くする。
     window.requestAnimationFrame(function() {
-        fade.style.opacity = "1";
+        window.requestAnimationFrame(function() {
+            fade.style.opacity = "1";
+        });
     });
 
     window.setTimeout(function() {
+        // 2. 真っ黒になってから、地図を閉じて移動先へ切り替える。
         if (typeof callback === "function") {
             callback();
         }
 
-        window.requestAnimationFrame(function() {
-            fade.style.opacity = "0";
-        });
-
+        // 3. 少しだけ黒を保持してから、ゆっくり明るく戻す。
         window.setTimeout(function() {
-            if (fade && fade.parentNode) {
-                fade.parentNode.removeChild(fade);
-            }
-        }, 220);
-    }, 230);
+            fade.style.transition = "opacity " + fadeInMs + "ms cubic-bezier(.22,.8,.28,1)";
+            fade.style.opacity = "0";
+
+            window.setTimeout(function() {
+                if (fade && fade.parentNode) {
+                    fade.parentNode.removeChild(fade);
+                }
+            }, fadeInMs + 80);
+        }, holdMs);
+    }, fadeOutMs + 40);
 }
+
 
 
 function confirmStationGuideMapMove() {
