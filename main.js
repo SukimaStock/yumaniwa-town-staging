@@ -180,7 +180,8 @@ var STATION_GUIDE_MAP_HOTSPOTS = [
     {
         id: "station",
         label: "湯間庭駅",
-        kind: "close",
+        kind: "message",
+        text: "湯間庭駅。\n\nのんびりしたローカル線の小さな駅だ。\nここから、湯気と看板の町歩きが始まる。",
         rect: { left: 33.2, top: 67.2, width: 33.2, height: 28.9 }
     },
     {
@@ -299,7 +300,7 @@ function getOrCreateStationGuideMapLayer() {
         '<img class="station-guide-map-image" src="' + STATION_GUIDE_MAP_IMAGE + '" alt="湯間庭町 駅前案内図">' +
         '<div class="station-guide-map-hotspots" aria-label="行き先"></div>' +
         '<button class="station-guide-map-close" type="button" aria-label="地図を閉じる">閉じる</button>' +
-        '<div class="station-guide-map-hint">行き先の札をタップ</div>' +
+        '<div class="station-guide-map-hint">行き先をタップ</div>' +
         '</div>' +
         '</div>';
 
@@ -622,6 +623,45 @@ function hideStationGuideMapConfirm() {
     }
 }
 
+function playStationGuideMapDarkTransition(callback) {
+    var fade = document.createElement("div");
+
+    fade.className = "station-guide-map-dark-transition";
+    fade.style.position = "fixed";
+    fade.style.left = "0";
+    fade.style.top = "0";
+    fade.style.right = "0";
+    fade.style.bottom = "0";
+    fade.style.zIndex = "9000";
+    fade.style.background = "#050403";
+    fade.style.opacity = "0";
+    fade.style.pointerEvents = "none";
+    fade.style.transition = "opacity 180ms ease";
+
+    document.body.appendChild(fade);
+
+    window.requestAnimationFrame(function() {
+        fade.style.opacity = "1";
+    });
+
+    window.setTimeout(function() {
+        if (typeof callback === "function") {
+            callback();
+        }
+
+        window.requestAnimationFrame(function() {
+            fade.style.opacity = "0";
+        });
+
+        window.setTimeout(function() {
+            if (fade && fade.parentNode) {
+                fade.parentNode.removeChild(fade);
+            }
+        }, 220);
+    }, 230);
+}
+
+
 function confirmStationGuideMapMove() {
     var spot = window.pendingStationGuideMapSpot;
     if (!spot) return;
@@ -638,23 +678,27 @@ function confirmStationGuideMapMove() {
     }
 
     if (spot.kind === "place" && spot.target) {
-        closeStationGuideMap();
-
         if (!DESTINATIONS[spot.target]) {
+            closeStationGuideMap();
             showMessage("この場所は、まだ地図に描かれているだけのようです。");
             return;
         }
 
-        changeScene(spot.target);
+        playStationGuideMapDarkTransition(function() {
+            closeStationGuideMap();
 
-        // 地図から来た時は、施設説明よりも行き先一覧をすぐ見せる。
-        // 湯間庭新報だけは既存仕様の新聞ラックをそのまま開く。
-        if (spot.target !== "shinpo_board") {
-            destinationViewMode = "menu";
-            renderDestination();
-        }
+            changeScene(spot.target);
+
+            // 地図から来た時は、施設説明よりも行き先一覧をすぐ見せる。
+            // 湯間庭新報だけは既存仕様の新聞ラックをそのまま開く。
+            if (spot.target !== "shinpo_board") {
+                destinationViewMode = "menu";
+                renderDestination();
+            }
+        });
     }
 }
+
 
 
 
