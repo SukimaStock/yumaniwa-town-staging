@@ -264,16 +264,19 @@ function ensureStationGuideMapStyles() {
         "box-shadow:0 3px 10px rgba(0,0,0,.35);" +
         "}" +
         ".station-guide-map-hint{" +
-        "position:absolute;left:50%;bottom:10px;transform:translateX(-50%);" +
-        "z-index:3;padding:7px 12px;border-radius:999px;" +
-        "background:rgba(35,25,20,.78);color:#fff4df;" +
-        "font-size:13px;letter-spacing:.04em;white-space:nowrap;" +
+        "position:relative;z-index:3;" +
+        "display:block;box-sizing:border-box;width:100%;" +
+        "padding:12px 14px 13px;" +
+        "background:rgba(35,25,20,.94);color:#fff4df;" +
+        "border-top:2px solid rgba(255,239,200,.42);" +
+        "font-size:18px;font-weight:800;line-height:1.35;" +
+        "letter-spacing:.08em;text-align:center;white-space:nowrap;" +
         "pointer-events:none;" +
         "}" +
         "@media (max-width: 720px){" +
         ".station-guide-map-window{width:98vw;border-width:2px;border-radius:10px;}" +
         ".station-guide-map-close{right:7px;top:7px;font-size:12px;padding:8px 10px;}" +
-        ".station-guide-map-hint{font-size:11px;bottom:7px;}" +
+        ".station-guide-map-hint{font-size:16px;padding:11px 10px 12px;}" +
         "}";
 
     document.head.appendChild(style);
@@ -296,7 +299,7 @@ function getOrCreateStationGuideMapLayer() {
         '<img class="station-guide-map-image" src="' + STATION_GUIDE_MAP_IMAGE + '" alt="湯間庭町 駅前案内図">' +
         '<div class="station-guide-map-hotspots" aria-label="行き先"></div>' +
         '<button class="station-guide-map-close" type="button" aria-label="地図を閉じる">閉じる</button>' +
-        '<div class="station-guide-map-hint">気になる場所をタップ</div>' +
+        '<div class="station-guide-map-hint">行き先の札をタップ</div>' +
         '</div>' +
         '</div>';
 
