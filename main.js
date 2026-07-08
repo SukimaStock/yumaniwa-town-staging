@@ -136,6 +136,304 @@ function getWorkPlayerFrameTitle(work) {
     return (work && work.title) || "湯間庭町";
 }
 
+var STATION_GUIDE_MAP_IMAGE = "assets/station-guide-map.png";
+var isStationGuideMapOpen = false;
+var stationGuideMapStylesReady = false;
+var stationGuideMapEventsReady = false;
+
+var STATION_GUIDE_MAP_HOTSPOTS = [
+    {
+        id: "shinpo",
+        label: "湯間庭新報",
+        kind: "place",
+        target: "shinpo_board",
+        rect: { left: 7.3, top: 12.3, width: 19.8, height: 18.9 }
+    },
+    {
+        id: "tomogushi",
+        label: "灯串横丁",
+        kind: "place",
+        target: "tomogushi_alley_map",
+        rect: { left: 2.7, top: 40.1, width: 26.9, height: 35.4 }
+    },
+    {
+        id: "yumado",
+        label: "湯窓通り",
+        kind: "place",
+        target: "yumado_street_map",
+        rect: { left: 71.6, top: 11.8, width: 24.9, height: 29.5 }
+    },
+    {
+        id: "tourist_info",
+        label: "観光案内所",
+        kind: "place",
+        target: "tourist_info_interior",
+        rect: { left: 56.2, top: 22.4, width: 19.0, height: 28.3 }
+    },
+    {
+        id: "leisure_center",
+        label: "湯窓レジャーセンター",
+        kind: "place",
+        target: "leisure_center_map",
+        rect: { left: 74.8, top: 43.6, width: 22.5, height: 40.1 }
+    },
+    {
+        id: "station",
+        label: "湯間庭駅",
+        kind: "close",
+        rect: { left: 33.2, top: 67.2, width: 33.2, height: 28.9 }
+    },
+    {
+        id: "current",
+        label: "現在地",
+        kind: "close",
+        rect: { left: 45.1, top: 41.3, width: 12.7, height: 15.9 }
+    },
+    {
+        id: "onsen",
+        label: "湯けむり坂 工事中",
+        kind: "message",
+        text: "この先、湯けむり坂。\n\n温泉方面は、ただいま工事中です。",
+        rect: { left: 41.1, top: 10.1, width: 19.0, height: 17.1 }
+    }
+];
+
+function setupStationGuideMapEvents() {
+    if (stationGuideMapEventsReady) return;
+    stationGuideMapEventsReady = true;
+
+    window.addEventListener("keydown", function(e) {
+        if (!isStationGuideMapOpen) return;
+
+        if (e.key === "Escape") {
+            e.preventDefault();
+            closeStationGuideMap();
+        }
+    });
+}
+
+function ensureStationGuideMapStyles() {
+    if (stationGuideMapStylesReady) return;
+    stationGuideMapStylesReady = true;
+
+    var style = document.createElement("style");
+    style.id = "station-guide-map-style";
+    style.textContent =
+        "#station-guide-map-layer{" +
+        "position:absolute;inset:0;z-index:6500;display:none;" +
+        "align-items:center;justify-content:center;" +
+        "padding:calc(env(safe-area-inset-top,0px) + 10px) 10px calc(env(safe-area-inset-bottom,0px) + 10px);" +
+        "box-sizing:border-box;" +
+        "}" +
+        "#station-guide-map-layer.visible{display:flex;}" +
+        ".station-guide-map-backdrop{" +
+        "position:absolute;inset:0;background:rgba(4,6,8,.72);" +
+        "}" +
+        ".station-guide-map-window{" +
+        "position:relative;width:min(96vw,1040px);max-height:94vh;" +
+        "border:3px solid rgba(42,30,23,.95);border-radius:14px;" +
+        "background:#2b2119;box-shadow:0 18px 50px rgba(0,0,0,.55);" +
+        "overflow:hidden;" +
+        "}" +
+        ".station-guide-map-image-wrap{" +
+        "position:relative;width:100%;line-height:0;background:#211811;" +
+        "}" +
+        ".station-guide-map-image{" +
+        "display:block;width:100%;height:auto;user-select:none;-webkit-user-select:none;" +
+        "}" +
+        ".station-guide-map-hotspots{" +
+        "position:absolute;inset:0;" +
+        "}" +
+        ".station-guide-map-hotspot{" +
+        "position:absolute;border:0;background:rgba(255,255,255,0);" +
+        "border-radius:10px;padding:0;margin:0;cursor:pointer;" +
+        "-webkit-tap-highlight-color:rgba(255,255,255,.18);" +
+        "}" +
+        ".station-guide-map-hotspot:focus-visible{" +
+        "outline:3px solid rgba(255,245,180,.95);outline-offset:2px;" +
+        "background:rgba(255,245,180,.14);" +
+        "}" +
+        "#station-guide-map-layer[data-debug-hotspots='true'] .station-guide-map-hotspot{" +
+        "outline:2px dashed rgba(255,70,70,.85);background:rgba(255,70,70,.12);" +
+        "}" +
+        ".station-guide-map-close{" +
+        "position:absolute;right:10px;top:10px;z-index:3;" +
+        "border:2px solid rgba(255,245,220,.7);border-radius:999px;" +
+        "background:rgba(35,25,20,.86);color:#fff4df;" +
+        "font-weight:700;font-size:14px;line-height:1;padding:9px 12px;" +
+        "box-shadow:0 3px 10px rgba(0,0,0,.35);" +
+        "}" +
+        ".station-guide-map-hint{" +
+        "position:absolute;left:50%;bottom:10px;transform:translateX(-50%);" +
+        "z-index:3;padding:7px 12px;border-radius:999px;" +
+        "background:rgba(35,25,20,.78);color:#fff4df;" +
+        "font-size:13px;letter-spacing:.04em;white-space:nowrap;" +
+        "pointer-events:none;" +
+        "}" +
+        "@media (max-width: 720px){" +
+        ".station-guide-map-window{width:98vw;border-width:2px;border-radius:10px;}" +
+        ".station-guide-map-close{right:7px;top:7px;font-size:12px;padding:8px 10px;}" +
+        ".station-guide-map-hint{font-size:11px;bottom:7px;}" +
+        "}";
+
+    document.head.appendChild(style);
+}
+
+function getOrCreateStationGuideMapLayer() {
+    var existing = document.getElementById("station-guide-map-layer");
+    if (existing) return existing;
+
+    ensureStationGuideMapStyles();
+
+    var layer = document.createElement("div");
+    layer.id = "station-guide-map-layer";
+    layer.setAttribute("aria-hidden", "true");
+
+    layer.innerHTML =
+        '<div class="station-guide-map-backdrop" aria-hidden="true"></div>' +
+        '<div class="station-guide-map-window" role="dialog" aria-modal="true" aria-label="駅前案内図">' +
+        '<div class="station-guide-map-image-wrap">' +
+        '<img class="station-guide-map-image" src="' + STATION_GUIDE_MAP_IMAGE + '" alt="湯間庭町 駅前案内図">' +
+        '<div class="station-guide-map-hotspots" aria-label="行き先"></div>' +
+        '<button class="station-guide-map-close" type="button" aria-label="地図を閉じる">閉じる</button>' +
+        '<div class="station-guide-map-hint">気になる場所をタップ</div>' +
+        '</div>' +
+        '</div>';
+
+    var container = document.getElementById("game-container") || document.body;
+    container.appendChild(layer);
+
+    var closeButton = layer.querySelector(".station-guide-map-close");
+    if (closeButton) {
+        closeButton.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeStationGuideMap();
+        });
+    }
+
+    var backdrop = layer.querySelector(".station-guide-map-backdrop");
+    if (backdrop) {
+        backdrop.addEventListener("pointerdown", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeStationGuideMap();
+        });
+    }
+
+    var hotspotRoot = layer.querySelector(".station-guide-map-hotspots");
+    if (hotspotRoot) {
+        for (var i = 0; i < STATION_GUIDE_MAP_HOTSPOTS.length; i++) {
+            (function(spot) {
+                var btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "station-guide-map-hotspot";
+                btn.setAttribute("aria-label", spot.label);
+                btn.dataset.hotspotId = spot.id;
+
+                btn.style.left = spot.rect.left + "%";
+                btn.style.top = spot.rect.top + "%";
+                btn.style.width = spot.rect.width + "%";
+                btn.style.height = spot.rect.height + "%";
+
+                btn.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleStationGuideMapHotspot(spot);
+                });
+
+                hotspotRoot.appendChild(btn);
+            })(STATION_GUIDE_MAP_HOTSPOTS[i]);
+        }
+    }
+
+    return layer;
+}
+
+function openStationGuideMap() {
+    setupStationGuideMapEvents();
+
+    if (typeof cancelTapMove === "function") {
+        cancelTapMove();
+    }
+
+    var layer = getOrCreateStationGuideMapLayer();
+    if (!layer) return;
+
+    isStationGuideMapOpen = true;
+
+    var params = new URLSearchParams(window.location.search || "");
+    var debugAllowed =
+        params.get("debugMap") === "1" &&
+        (
+            location.hostname.indexOf("yumaniwa-town-staging") !== -1 ||
+            location.search.indexOf("dev=1") !== -1
+        );
+
+    layer.dataset.debugHotspots = debugAllowed ? "true" : "false";
+
+    layer.classList.add("visible");
+    layer.setAttribute("aria-hidden", "false");
+
+    clearDpadInput();
+    updateControlVisibility();
+
+    var closeButton = layer.querySelector(".station-guide-map-close");
+    if (closeButton) {
+        window.setTimeout(function() {
+            closeButton.focus();
+        }, 0);
+    }
+}
+
+function closeStationGuideMap() {
+    var layer = document.getElementById("station-guide-map-layer");
+
+    isStationGuideMapOpen = false;
+
+    if (layer) {
+        layer.classList.remove("visible");
+        layer.setAttribute("aria-hidden", "true");
+    }
+
+    clearDpadInput();
+    updateControlVisibility();
+}
+
+function handleStationGuideMapHotspot(spot) {
+    if (!spot) return;
+
+    if (spot.kind === "close") {
+        closeStationGuideMap();
+        return;
+    }
+
+    if (spot.kind === "message") {
+        closeStationGuideMap();
+        showMessage(spot.text || "この場所は、まだ準備中です。");
+        return;
+    }
+
+    if (spot.kind === "place" && spot.target) {
+        closeStationGuideMap();
+
+        if (!DESTINATIONS[spot.target]) {
+            showMessage("この場所は、まだ地図に描かれているだけのようです。");
+            return;
+        }
+
+        changeScene(spot.target);
+
+        // 地図から来た時は、施設説明よりも行き先一覧をすぐ見せる。
+        // 湯間庭新報だけは既存仕様の新聞ラックをそのまま開く。
+        if (spot.target !== "shinpo_board") {
+            destinationViewMode = "menu";
+            renderDestination();
+        }
+    }
+}
+
+
 // ==========================================
 // 町内直リンク
 // ?work=midnight-cola のように、外から来た人を
@@ -296,12 +594,20 @@ function updateControlVisibility() {
     var controls = document.getElementById("mobile-controls");
     if (!controls) return;
 
-    if (isMessageOpen || isEditMode || debugMode || isWorkPlayerOpen || currentScene !== "station_plaza") {
+    if (
+        isMessageOpen ||
+        isEditMode ||
+        debugMode ||
+        isWorkPlayerOpen ||
+        isStationGuideMapOpen ||
+        currentScene !== "station_plaza"
+    ) {
         controls.classList.add("disabled");
     } else {
         controls.classList.remove("disabled");
     }
 }
+
 
 
 function applyDeveloperModeVisibility() {
@@ -1251,6 +1557,11 @@ function showAreaTitle(zone) {
 function handleAction() {
     var t = getNearbyTrigger();
     if (t) {
+        if (t.id === "tourist_map") {
+            openStationGuideMap();
+            return;
+        }
+
         if (t.type === "inspect") {
             showMessage(t.text);
         } else if (t.type === "warp" || t.type === "menu") {
@@ -1260,6 +1571,7 @@ function handleAction() {
         }
     }
 }
+
 
 
 // ==========================================
