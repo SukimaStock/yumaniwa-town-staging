@@ -465,6 +465,7 @@ function applyTownSceneDefinition(sceneId, spawnKey) {
     pendingWarp = null;
     cancelTapMove();
     initGrid();
+    carveTownEdgeWarpTiles(def);
     loadTownSceneBackground(def);
     placePlayerAtTownSpawn(def, spawnKey || 'default');
     updateUI();
@@ -540,6 +541,53 @@ function drawTownSceneBackground(cam) {
             ctx.fillText(it.label, px + pw / 2, py + ph / 2);
             ctx.textAlign = 'left';
             ctx.textBaseline = 'alphabetic';
+        }
+    }
+}
+
+
+function carveTownEdgeWarpTiles(def) {
+    if (!def || !def.edgeWarps || !collisionGrid || !collisionGrid.length) return;
+
+    for (var i = 0; i < def.edgeWarps.length; i++) {
+        var warp = def.edgeWarps[i];
+        if (!warp) continue;
+
+        var min = Math.max(0, Number(warp.min) || 0);
+        var max = Math.min(
+            (warp.side === 'left' || warp.side === 'right') ? MAP_HEIGHT - 1 : MAP_WIDTH - 1,
+            Number(warp.max)
+        );
+
+        if (!isFinite(max)) max = min;
+
+        // 出口は「装飾や建物があっても必ず通れる」ことを優先する。
+        // 端から3タイル分を通行可能に戻して、マップ間移動の導線を確保する。
+        for (var n = min; n <= max; n++) {
+            for (var depth = 0; depth <= 2; depth++) {
+                var x = 0;
+                var y = 0;
+
+                if (warp.side === 'left') {
+                    x = depth;
+                    y = n;
+                } else if (warp.side === 'right') {
+                    x = MAP_WIDTH - 1 - depth;
+                    y = n;
+                } else if (warp.side === 'up') {
+                    x = n;
+                    y = depth;
+                } else if (warp.side === 'down') {
+                    x = n;
+                    y = MAP_HEIGHT - 1 - depth;
+                } else {
+                    continue;
+                }
+
+                if (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT) {
+                    collisionGrid[y][x] = 1;
+                }
+            }
         }
     }
 }
