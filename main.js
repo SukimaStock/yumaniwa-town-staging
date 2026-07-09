@@ -92,6 +92,30 @@ var GAME_VIEW_H = 780;
 // 現在のモバイル表示に近い見え方を維持するため、カメラ倍率は固定。
 var GAME_CAMERA_ZOOM = 2.5;
 
+//
+// PCではゲーム画面が大きくなりすぎないように最大表示倍率を制限する。
+// スマホでは従来通り、画面幅・高さに合わせて自然にフィットさせる。
+var GAME_DESKTOP_SCALE_BREAKPOINT_W = 700;
+var GAME_DESKTOP_MAX_DISPLAY_SCALE = 1.22;
+
+function getTownDisplayScale(rawScale, viewport) {
+    var scale = rawScale;
+
+    if (!isFinite(scale) || scale <= 0) {
+        scale = 1;
+    }
+
+    // 横幅が広い画面だけ、拡大しすぎを止める。
+    // 360px * 1.22 = 約439px。
+    // PCでは少し見やすく、でも「ドン」と出すぎない大きさ。
+    if (viewport && viewport.w >= GAME_DESKTOP_SCALE_BREAKPOINT_W) {
+        scale = Math.min(scale, GAME_DESKTOP_MAX_DISPLAY_SCALE);
+    }
+
+    return scale;
+}
+
+
 function getTownViewport() {
     var vv = window.visualViewport;
 
@@ -134,14 +158,11 @@ function applyCanvasDisplaySize() {
     if (!canvas) return;
 
     var vp = getTownViewport();
-    var scale = Math.min(vp.w / GAME_VIEW_W, vp.h / GAME_VIEW_H);
+    var rawScale = Math.min(vp.w / GAME_VIEW_W, vp.h / GAME_VIEW_H);
+    var scale = getTownDisplayScale(rawScale, vp);
 
-    if (!isFinite(scale) || scale <= 0) {
-        scale = 1;
-    }
-
-    var displayW = Math.floor(GAME_VIEW_W * scale);
-    var displayH = Math.floor(GAME_VIEW_H * scale);
+    var displayW = Math.max(1, Math.floor(GAME_VIEW_W * scale));
+    var displayH = Math.max(1, Math.floor(GAME_VIEW_H * scale));
     var displayLeft = Math.floor(vp.offsetLeft + (vp.w - displayW) / 2);
     var displayTop = Math.floor(vp.offsetTop + (vp.h - displayH) / 2);
 
@@ -157,12 +178,17 @@ function applyCanvasDisplaySize() {
     canvas.style.webkitUserSelect = "none";
     canvas.style.userSelect = "none";
 
+    // PCで中央に小さなゲーム画面として浮いた時に、少しだけ額縁感を出す。
+    canvas.style.background = "#0e1418";
+    canvas.style.boxShadow = "0 0 0 1px rgba(255, 244, 210, 0.10), 0 18px 50px rgba(0, 0, 0, 0.35)";
+
     document.documentElement.style.setProperty("--town-game-left", displayLeft + "px");
     document.documentElement.style.setProperty("--town-game-top", displayTop + "px");
     document.documentElement.style.setProperty("--town-game-width", displayW + "px");
     document.documentElement.style.setProperty("--town-game-height", displayH + "px");
     document.documentElement.style.setProperty("--town-game-scale", String(scale));
 }
+
 
 function getCanvasPointerPoint(e) {
     if (!canvas) return null;
