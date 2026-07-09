@@ -62,16 +62,24 @@
       spawnPoints: {
         default: { x: 12, y: 6, dir: 'down' },
         fromPlaza: { x: 12, y: 4, dir: 'down' },
-        fromAlley: { x: 20, y: 12, dir: 'left' },
-        fromLeisure: { x: 3, y: 12, dir: 'right' }
+
+        // 画面上の左 = x が小さい側。
+        // 横丁は駅の左、レジャーセンターは駅の右。
+        fromAlley: { x: 3, y: 12, dir: 'right' },
+        fromLeisure: { x: 20, y: 12, dir: 'left' }
       },
       edgeWarps: [
+        // 駅の上端 → 広場
         { side: 'up', min: 9, max: 14, target: 'station_plaza', targetSpawn: 'fromStation' },
+
+        // 駅の左端 → 横丁
         { side: 'left', min: 9, max: 14, target: 'tomogushi_alley_map', targetSpawn: 'fromStation' },
+
+        // 駅の右端 → レジャーセンター
         { side: 'right', min: 9, max: 14, target: 'leisure_center_map', targetSpawn: 'fromStation' }
       ],
       passableRects: [rect(0, 9, 24, 6), rect(9, 0, 6, 18), rect(7, 18, 10, 6)],
-      blockedRects: [rect(0, 6, 5, 12), rect(19, 6, 5, 12), rect(6, 18, 12, 6), rect(9, 0, 6, 3)],
+      blockedRects: [rect(6, 18, 12, 6), rect(9, 0, 6, 3)],
       blockedPoints: [],
       areaZones: [{ id: 'station', title: '湯間庭駅', subtitle: '列車の小さな終着点', area: rect(0, 0, 24, 24) }],
       triggers: [
@@ -171,9 +179,13 @@
       backgroundStyle: 'alley',
       spawnPoints: {
         default: { x: 20, y: 12, dir: 'left' },
+
+        // 駅から横丁へ来た時:
+        // 横丁は駅の左側にあるので、駅側の出入口は横丁マップの右端。
         fromStation: { x: 20, y: 12, dir: 'left' }
       },
       edgeWarps: [
+        // 横丁の右端 → 駅の左側
         { side: 'right', min: 9, max: 14, target: 'station_map', targetSpawn: 'fromAlley' }
       ],
       passableRects: [rect(0, 9, 24, 6), rect(4, 6, 16, 12)],
@@ -208,9 +220,13 @@
       backgroundStyle: 'leisure',
       spawnPoints: {
         default: { x: 3, y: 12, dir: 'right' },
+
+        // 駅からレジャーセンターへ来た時:
+        // レジャーセンターは駅の右側にあるので、駅側の出入口はレジャーマップの左端。
         fromStation: { x: 3, y: 12, dir: 'right' }
       },
       edgeWarps: [
+        // レジャーセンターの左端 → 駅の右側
         { side: 'left', min: 9, max: 14, target: 'station_map', targetSpawn: 'fromLeisure' }
       ],
       passableRects: [rect(0, 9, 24, 6), rect(4, 5, 18, 14)],
