@@ -1378,3 +1378,234 @@ body {
     }
 }
 
+
+
+/* ==========================================
+   仮置きマップ（灯串横丁 / レジャーセンター）
+   ========================================== */
+.submap-window {
+    width: min(100%, 720px);
+    margin: 0 auto;
+    border: 4px solid #2f241a;
+    border-radius: 16px;
+    background: linear-gradient(180deg, #f4ecd9 0%, #efe3ca 100%);
+    box-shadow: 0 18px 45px rgba(0,0,0,0.25);
+    color: #33261b;
+    overflow: hidden;
+}
+
+.submap-header {
+    padding: 18px 18px 10px;
+    border-bottom: 2px solid rgba(80, 58, 36, 0.18);
+    background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
+}
+
+.submap-title {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.submap-subtitle {
+    margin-top: 4px;
+    font-size: 13px;
+    color: #7a5f46;
+    letter-spacing: 0.08em;
+}
+
+.submap-description {
+    margin: 0;
+    padding: 14px 18px 0;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #493829;
+}
+
+.submap-stage-wrap {
+    padding: 16px 18px 18px;
+}
+
+.submap-stage-label {
+    font-size: 13px;
+    color: #735740;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+}
+
+.submap-stage {
+    position: relative;
+    min-height: 360px;
+    border: 3px solid rgba(63, 45, 31, 0.55);
+    border-radius: 16px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #66503a 0%, #574231 100%);
+}
+
+.submap-window.is-alley .submap-stage {
+    background:
+        radial-gradient(circle at 15% 18%, rgba(255, 214, 116, 0.28), transparent 14%),
+        radial-gradient(circle at 75% 14%, rgba(255, 214, 116, 0.24), transparent 16%),
+        linear-gradient(180deg, #5c4632 0%, #4a3628 100%);
+}
+
+.submap-window.is-leisure .submap-stage {
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0)),
+        linear-gradient(180deg, #6a6258 0%, #5a5148 100%);
+}
+
+.submap-path {
+    position: absolute;
+    background: rgba(245, 223, 172, 0.14);
+    border-radius: 999px;
+}
+
+.submap-path-a {
+    left: 10%;
+    top: 48%;
+    width: 78%;
+    height: 16%;
+}
+
+.submap-path-b {
+    left: 46%;
+    top: 18%;
+    width: 14%;
+    height: 62%;
+}
+
+.submap-path-c {
+    left: 18%;
+    top: 22%;
+    width: 46%;
+    height: 12%;
+}
+
+.submap-window.is-leisure .submap-path-a {
+    left: 12%;
+    top: 24%;
+    width: 72%;
+    height: 14%;
+}
+
+.submap-window.is-leisure .submap-path-b {
+    left: 20%;
+    top: 56%;
+    width: 60%;
+    height: 12%;
+}
+
+.submap-window.is-leisure .submap-path-c {
+    left: 44%;
+    top: 24%;
+    width: 12%;
+    height: 42%;
+}
+
+.submap-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    min-width: 116px;
+    max-width: 160px;
+    min-height: 54px;
+    padding: 12px 12px 11px;
+    border: 3px solid rgba(71, 49, 33, 0.85);
+    border-radius: 14px;
+    background: linear-gradient(180deg, #fbf2dd 0%, #efe0bc 100%);
+    color: #342619;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.22);
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.25;
+    text-align: center;
+    white-space: normal;
+}
+
+.submap-node.is-accent {
+    background: linear-gradient(180deg, #f3d598 0%, #e8bf70 100%);
+}
+
+.submap-node.is-back {
+    background: linear-gradient(180deg, #e4eef8 0%, #c8d5e4 100%);
+}
+
+.submap-node.is-small {
+    min-width: 92px;
+    min-height: 46px;
+    font-size: 14px;
+}
+
+.submap-node.is-wide {
+    min-width: 148px;
+}
+
+.submap-node .submap-node-label {
+    display: block;
+}
+
+.submap-node.rpg-menu-selected {
+    border-color: #a1301f;
+    box-shadow: 0 0 0 4px rgba(161,48,31,0.22), 0 10px 20px rgba(0,0,0,0.22);
+}
+
+.submap-stage-hint {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #6f563f;
+    text-align: right;
+    letter-spacing: 0.05em;
+}
+
+.submap-footer {
+    display: flex;
+    gap: 10px;
+    padding: 0 18px 18px;
+}
+
+.submap-footer-btn {
+    flex: 1;
+}
+
+@media (max-width: 720px) {
+    .submap-window {
+        border-width: 3px;
+        border-radius: 12px;
+    }
+
+    .submap-title {
+        font-size: 24px;
+    }
+
+    .submap-description {
+        font-size: 14px;
+        line-height: 1.75;
+    }
+
+    .submap-stage-wrap {
+        padding: 14px 12px 14px;
+    }
+
+    .submap-stage {
+        min-height: 312px;
+        border-width: 2px;
+        border-radius: 12px;
+    }
+
+    .submap-node {
+        min-width: 100px;
+        max-width: 136px;
+        min-height: 48px;
+        padding: 9px 10px;
+        font-size: 13px;
+        border-width: 2px;
+        border-radius: 12px;
+    }
+
+    .submap-node.is-wide {
+        min-width: 126px;
+    }
+
+    .submap-footer {
+        flex-direction: column;
+    }
+}

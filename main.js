@@ -464,6 +464,71 @@ var STATION_GUIDE_MAP_HOTSPOTS = [
     }
 ];
 
+function ensureProvisionalTownMaps() {
+    if (typeof DESTINATIONS === "undefined") {
+        window.DESTINATIONS = {};
+    }
+
+    DESTINATIONS.tomogushi_alley_map = Object.assign({}, DESTINATIONS.tomogushi_alley_map || {}, {
+        id: "tomogushi_alley_map",
+        title: "灯串横丁",
+        subtitle: "提灯の路地 / 仮置きマップ",
+        sceneType: "submap",
+        description: "赤い提灯の下に、小さな屋台とゲームの入口が並ぶ。\n仮の地図なので、まずは歩く流れを確かめる場所。",
+        flavor: "路地の奥ほど、湯気と賑わいが少し濃くなる。",
+        stageLabel: "駅前から一本入った、灯串横丁の仮マップです。",
+        stageHint: "↑↓で選択 / Enterで決定",
+        stageClass: "is-alley",
+        menuTitle: "横丁の行き先",
+        items: [
+            { workId: "midnight-cola", label: "真夜中コーラ" },
+            { kind: "message", label: "横丁について", text: "灯串横丁。\n\n夜のゲームや屋台が少しずつ増えていく予定の通りです。" },
+            { kind: "back", label: "駅前へ戻る" }
+        ],
+        mapNodes: [
+            { id: "alley-back", label: "駅前へ", kind: "back", top: 77, left: 9, small: true },
+            { id: "alley-guide", label: "横丁の案内札", kind: "message", top: 18, left: 14, text: "灯串横丁。\n\n今は仮置きの地図ですが、将来は屋台や看板が増えていきます。" },
+            { id: "midnight-cola", label: "真夜中コーラ", workId: "midnight-cola", top: 44, left: 36, accent: true },
+            { id: "yakitori-wars", label: "Yakitori Wars", workId: "yakitori-wars", top: 28, left: 67 },
+            { id: "alley-menu", label: "作品一覧を見る", kind: "menu", top: 70, left: 72, wide: true },
+            { id: "alley-empty", label: "空き屋台", kind: "message", top: 58, left: 54, text: "空き屋台。\n\nここには、次のゲームや小さな遊びを置けそうです。" }
+        ]
+    });
+
+    DESTINATIONS.leisure_center_map = Object.assign({}, DESTINATIONS.leisure_center_map || {}, {
+        id: "leisure_center_map",
+        title: "湯窓レジャーセンター",
+        subtitle: "展示ホール / 仮置きマップ",
+        sceneType: "submap",
+        description: "触れるらくがきや、ゲーム未満の展示を少しずつ並べていく場所。\nまずは入口と流れを確かめるための仮マップです。",
+        flavor: "古いゲームセンターと展示室のあいだのような、少し不思議な室内。",
+        stageLabel: "湯窓レジャーセンターの仮マップです。",
+        stageHint: "展示を選ぶ / 右上は駅前への出口",
+        stageClass: "is-leisure",
+        menuTitle: "展示の行き先",
+        items: [
+            { kind: "message", label: "展示準備中", text: "展示棚は、これから少しずつ増えていきます。\n\nまずは、この場所に何を置けるかを確かめる段階です。" },
+            { kind: "message", label: "本日のおすすめ", text: "将来は、ここにおすすめの作品やランダム展示を並べる予定です。" },
+            { kind: "back", label: "駅前へ戻る" }
+        ],
+        mapNodes: [
+            { id: "leisure-back", label: "駅前へ", kind: "back", top: 14, left: 82, small: true },
+            { id: "leisure-info", label: "案内カウンター", kind: "message", top: 18, left: 19, text: "湯窓レジャーセンターへようこそ。\n\n今は仮置きですが、ここに作品展示や筐体を増やしていく予定です。" },
+            { id: "leisure-menu", label: "展示一覧を見る", kind: "menu", top: 43, left: 49, wide: true, accent: true },
+            { id: "leisure-recommend", label: "本日のおすすめ", kind: "message", top: 66, left: 23, text: "本日のおすすめ。\n\nここには、季節展示やピックアップ作品を置けそうです。" },
+            { id: "leisure-random", label: "ランダム展示台", kind: "message", top: 70, left: 71, text: "ランダム展示台。\n\nいずれ、ふらっと作品に出会える入口にしたい場所です。" }
+        ]
+    });
+}
+
+function getDestinationInitialViewMode(destId) {
+    var dest = (typeof DESTINATIONS !== "undefined") ? DESTINATIONS[destId] : null;
+
+    if (destId === "shinpo_board") return "note_rack";
+    if (dest && dest.sceneType === "submap") return "submap";
+    return "intro";
+}
+
 function setupStationGuideMapEvents() {
     if (stationGuideMapEventsReady) return;
     stationGuideMapEventsReady = true;
@@ -1335,9 +1400,10 @@ function confirmStationGuideMapMove() {
 
             changeScene(spot.target);
 
-            // 地図から来た時は、施設説明よりも行き先一覧をすぐ見せる。
-            // 湯間庭新報だけは既存仕様の新聞ラックをそのまま開く。
-            if (spot.target !== "shinpo_board") {
+            // 地図から来た時は、通常の施設は一覧をすぐ見せる。
+            // ただし仮置きマップ系は、そのままマップ画面を見せる。
+            var targetDest = DESTINATIONS[spot.target];
+            if (spot.target !== "shinpo_board" && !(targetDest && targetDest.sceneType === "submap")) {
                 destinationViewMode = "menu";
                 renderDestination();
             }
@@ -1397,9 +1463,10 @@ function openTownPlaceFromRoute(placeId) {
 
     changeScene(placeId);
 
-    // 直リンクで来た人には、施設説明よりも選択肢を先に見せる。
-    // 新報だけは、既存仕様どおり記事ラックを直接開く。
-    if (placeId !== "shinpo_board") {
+    // 直リンクで来た人には、通常の施設は選択肢を先に見せる。
+    // 仮置きマップ系はそのままマップ画面、新報は記事ラックを保つ。
+    var routeDest = DESTINATIONS[placeId];
+    if (placeId !== "shinpo_board" && !(routeDest && routeDest.sceneType === "submap")) {
         destinationViewMode = "menu";
         renderDestination();
     }
@@ -3047,10 +3114,7 @@ window.changeScene = function(sceneId) {
 
 window.openDestination = function(destId) {
     currentDestinationId = destId;
-
-    // 湯間庭新報は、タイトル一覧を一度挟まずに
-    // 記事カードが並ぶ「新聞ラック」を直接開く。
-    destinationViewMode = (destId === "shinpo_board") ? "note_rack" : "intro";
+    destinationViewMode = getDestinationInitialViewMode(destId);
     currentDestinationMessage = "";
     currentDestinationMessageTitle = "";
     renderDestination();
@@ -3069,6 +3133,8 @@ window.renderDestination = function() {
         html = renderDestinationMessage(dest, currentDestinationMessageTitle, currentDestinationMessage);
     } else if (destinationViewMode === "note_rack") {
         html = renderNoteCardRack(dest);
+    } else if (destinationViewMode === "submap") {
+        html = renderDestinationSubmap(dest);
     }
 
     var sceneContainer = document.getElementById('scene-container');
@@ -3174,6 +3240,92 @@ window.renderDestinationMessage = function(dest, title, text) {
     html += '</div></div>';
 
     return html;
+};
+
+window.renderDestinationSubmap = function(dest) {
+    var nodes = Array.isArray(dest.mapNodes) ? dest.mapNodes : [];
+    var html = '';
+
+    html += '<div class="submap-window ' + (dest.stageClass || '') + '">';
+    html += '<div class="submap-header">';
+    html += '<div class="submap-title">' + dest.title + '</div>';
+    if (dest.subtitle) html += '<div class="submap-subtitle">' + dest.subtitle + '</div>';
+    html += '</div>';
+
+    if (dest.description) {
+        html += '<p class="submap-description">' + formatText(dest.description) + '</p>';
+    }
+
+    html += '<div class="submap-stage-wrap">';
+    html += '<div class="submap-stage-label">' + (dest.stageLabel || '') + '</div>';
+    html += '<div class="submap-stage">';
+    html += '<div class="submap-path submap-path-a"></div>';
+    html += '<div class="submap-path submap-path-b"></div>';
+    html += '<div class="submap-path submap-path-c"></div>';
+
+    for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        var classes = 'rpg-menu-item submap-node';
+        if (node.small) classes += ' is-small';
+        if (node.wide) classes += ' is-wide';
+        if (node.accent) classes += ' is-accent';
+        if (node.kind === 'back') classes += ' is-back';
+
+        var style = 'left:' + Number(node.left || 50) + '%;top:' + Number(node.top || 50) + '%;';
+        html += '<button class="' + classes + '" type="button" style="' + style + '" onclick="handleSubmapNode(\'' + dest.id + '\',' + i + ')">';
+        html += '<span class="submap-node-label">' + node.label + '</span>';
+        html += '</button>';
+    }
+
+    html += '</div>';
+    if (dest.stageHint) html += '<div class="submap-stage-hint">' + dest.stageHint + '</div>';
+    html += '</div>';
+
+    html += '<div class="submap-footer">';
+    html += '<button class="rpg-menu-item submap-footer-btn" type="button" onclick="returnDestinationMenu()">一覧で見る</button>';
+    html += '<button class="rpg-menu-item rpg-back submap-footer-btn" type="button" onclick="changeScene(\'station_plaza\')">駅前へ戻る</button>';
+    html += '</div>';
+    html += '</div>';
+
+    return html;
+};
+
+window.handleSubmapNode = function(destId, index) {
+    var dest = DESTINATIONS[destId];
+    if (!dest || !Array.isArray(dest.mapNodes)) return;
+
+    var node = dest.mapNodes[index];
+    if (!node) return;
+
+    if (node.kind === 'back') {
+        changeScene('station_plaza');
+        return;
+    }
+
+    if (node.kind === 'menu') {
+        returnDestinationMenu();
+        return;
+    }
+
+    if (node.kind === 'place' && node.target) {
+        changeScene(node.target);
+        return;
+    }
+
+    if (node.kind === 'message') {
+        showDestinationMessage(node.label, node.text || 'まだ準備中です。');
+        return;
+    }
+
+    if (node.workId) {
+        var work = getWorkById(node.workId);
+        if (work) {
+            launchWork(work);
+            return;
+        }
+    }
+
+    showDestinationMessage(node.label, 'まだ準備中です。');
 };
 
 window.showDestinationMessage = function(title, text) {
@@ -3853,6 +4005,17 @@ window.handleDestinationMenuItem = function(destId, index) {
         return;
     }
 
+    if (item.kind === 'menu') {
+        destinationViewMode = 'submap';
+        renderDestination();
+        return;
+    }
+
+    if (item.kind === 'place' && item.target) {
+        changeScene(item.target);
+        return;
+    }
+
     if (item.kind === 'back') {
         changeScene('station_plaza');
     }
@@ -3888,6 +4051,8 @@ window.handleDestinationItem = function(destId, index) {
         return;
     }
 };
+
+ensureProvisionalTownMaps();
 
 // ==========================================
 // 8. 描画処理 (Canvas)
