@@ -1182,6 +1182,27 @@ body {
     }
 }
 
+
+/* スマホでは横幅優先。
+   town-screen 自体を端末の表示領域いっぱいにし、
+   main.js 側で canvas の内部高さだけを可変にする。
+   これにより、ドット絵を横に引き伸ばさずに左右の余白を消す。 */
+@media (max-width: 768px) and (pointer: coarse) {
+    #game-container {
+        align-items: stretch;
+        justify-content: stretch;
+    }
+
+    #town-screen {
+        width: 100vw;
+        height: 100dvh;
+        max-width: none;
+        max-height: none;
+        aspect-ratio: auto;
+        box-shadow: none;
+    }
+}
+
 @media (max-width: 390px), (max-height: 720px) {
     :root {
         --town-dialog-bottom: 120px;

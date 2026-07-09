@@ -89,6 +89,57 @@ var tapMarkerPos = null;
 var GAME_VIEW_W = 390;
 var GAME_VIEW_H = 780;
 
+// PCでは 390x780 固定。
+// スマホでは横幅いっぱいの表示に合わせ、canvas内部の高さだけ可変にする。
+// これにより、横に引き伸ばさずにスマホの横幅を使える。
+var currentGameViewH = GAME_VIEW_H;
+var MOBILE_FLUID_HEIGHT_MIN = 620;
+var MOBILE_FLUID_HEIGHT_MAX = 860;
+
+function isTownMobileFluidViewport() {
+    var w = window.innerWidth || 0;
+    var hasCoarsePointer = false;
+
+    if (window.matchMedia) {
+        hasCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    }
+
+    var hasTouch = hasCoarsePointer || ((navigator.maxTouchPoints || 0) > 0);
+
+    // iPhone / Android phone を主対象にする。
+    // PCでブラウザ幅を狭めた時は、基本的には固定画面のまま扱う。
+    return hasTouch && w > 0 && w <= 768;
+}
+
+function getCurrentGameViewH() {
+    return currentGameViewH || GAME_VIEW_H;
+}
+
+function updateCurrentGameViewSizeFromScreen() {
+    currentGameViewH = GAME_VIEW_H;
+
+    if (!canvas || !isTownMobileFluidViewport()) {
+        return;
+    }
+
+    var screen = document.getElementById("town-screen");
+    if (!screen) return;
+
+    var rect = screen.getBoundingClientRect();
+    if (!rect || !rect.width || !rect.height) return;
+
+    // 表示中の town-screen の比率を、canvas内部解像度へ反映する。
+    // 横は 390 固定。高さだけ変えるので、絵は太らない。
+    var nextH = Math.round(GAME_VIEW_W * (rect.height / rect.width));
+
+    if (!isFinite(nextH) || nextH <= 0) {
+        nextH = GAME_VIEW_H;
+    }
+
+    nextH = Math.max(MOBILE_FLUID_HEIGHT_MIN, Math.min(MOBILE_FLUID_HEIGHT_MAX, nextH));
+    currentGameViewH = nextH;
+}
+
 // 現在のモバイル表示に近い見え方を維持するため、カメラ倍率は固定。
 var GAME_CAMERA_ZOOM = 2.5;
 
@@ -219,7 +270,8 @@ function applyTownPageFrameStyle() {
 function applyCanvasDisplaySize() {
     if (!canvas) return;
 
-    // canvas の内部解像度は resizeCanvas() で GAME_VIEW_W/H に固定する。
+    // canvas の内部解像度は resizeCanvas() で設定する。
+    // PCは390x780固定、スマホは横幅優先で高さだけ可変。
     // 表示サイズ・中央配置・PC上限幅は style.css の #town-screen に任せる。
     canvas.style.removeProperty("position");
     canvas.style.removeProperty("left");
@@ -1577,8 +1629,10 @@ window.onload = function() {
 function resizeCanvas() {
     applyTownPageFrameStyle();
 
+    updateCurrentGameViewSizeFromScreen();
+
     canvas.width = GAME_VIEW_W;
-    canvas.height = GAME_VIEW_H;
+    canvas.height = getCurrentGameViewH();
 
     applyCanvasDisplaySize();
 
@@ -2058,7 +2112,7 @@ function updateTapMove() {
 function getCamera() {
     var zoom = GAME_CAMERA_ZOOM;
     var viewW = GAME_VIEW_W / zoom;
-    var viewH = GAME_VIEW_H / zoom;
+    var viewH = getCurrentGameViewH() / zoom;
     var mapPixelW = MAP_WIDTH * TILE_SIZE;
     var mapPixelH = MAP_HEIGHT * TILE_SIZE;
 
