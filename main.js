@@ -82,6 +82,126 @@ var tapMoveTargetTile = null;
 var tapMarkerTimer = 0;
 var tapMarkerPos = null;
 
+//
+// PC / モバイル共通の固定ゲーム画面。
+// iPhone縦持ちに近い比率を基準にする。
+// canvas内部は常にこのサイズで描画し、実画面には比率維持で拡大縮小して表示する。
+var GAME_VIEW_W = 360;
+var GAME_VIEW_H = 780;
+
+// 現在のモバイル表示に近い見え方を維持するため、カメラ倍率は固定。
+var GAME_CAMERA_ZOOM = 2.5;
+
+function getTownViewport() {
+    var vv = window.visualViewport;
+
+    if (vv) {
+        return {
+            w: vv.width,
+            h: vv.height,
+            offsetLeft: vv.offsetLeft || 0,
+            offsetTop: vv.offsetTop || 0
+        };
+    }
+
+    return {
+        w: window.innerWidth,
+        h: window.innerHeight,
+        offsetLeft: 0,
+        offsetTop: 0
+    };
+}
+
+function applyTownPageFrameStyle() {
+    document.documentElement.style.margin = "0";
+    document.documentElement.style.padding = "0";
+    document.documentElement.style.width = "100%";
+    document.documentElement.style.height = "100%";
+    document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.background = "#11161b";
+
+    document.body.style.margin = "0";
+    document.body.style.padding = "0";
+    document.body.style.width = "100%";
+    document.body.style.height = "100%";
+    document.body.style.overflow = "hidden";
+    document.body.style.background =
+        "radial-gradient(circle at 50% 38%, #1b252c 0%, #10161b 55%, #080b0e 100%)";
+    document.body.style.touchAction = "none";
+}
+
+function applyCanvasDisplaySize() {
+    if (!canvas) return;
+
+    var vp = getTownViewport();
+    var scale = Math.min(vp.w / GAME_VIEW_W, vp.h / GAME_VIEW_H);
+
+    if (!isFinite(scale) || scale <= 0) {
+        scale = 1;
+    }
+
+    var displayW = Math.floor(GAME_VIEW_W * scale);
+    var displayH = Math.floor(GAME_VIEW_H * scale);
+    var displayLeft = Math.floor(vp.offsetLeft + (vp.w - displayW) / 2);
+    var displayTop = Math.floor(vp.offsetTop + (vp.h - displayH) / 2);
+
+    canvas.style.position = "fixed";
+    canvas.style.left = displayLeft + "px";
+    canvas.style.top = displayTop + "px";
+    canvas.style.width = displayW + "px";
+    canvas.style.height = displayH + "px";
+    canvas.style.display = "block";
+    canvas.style.imageRendering = "pixelated";
+    canvas.style.touchAction = "none";
+    canvas.style.webkitTouchCallout = "none";
+    canvas.style.webkitUserSelect = "none";
+    canvas.style.userSelect = "none";
+
+    document.documentElement.style.setProperty("--town-game-left", displayLeft + "px");
+    document.documentElement.style.setProperty("--town-game-top", displayTop + "px");
+    document.documentElement.style.setProperty("--town-game-width", displayW + "px");
+    document.documentElement.style.setProperty("--town-game-height", displayH + "px");
+    document.documentElement.style.setProperty("--town-game-scale", String(scale));
+}
+
+function getCanvasPointerPoint(e) {
+    if (!canvas) return null;
+
+    var rect = canvas.getBoundingClientRect();
+
+    if (!rect.width || !rect.height) {
+        return null;
+    }
+
+    return {
+        x: (e.clientX - rect.left) * (canvas.width / rect.width),
+        y: (e.clientY - rect.top) * (canvas.height / rect.height)
+    };
+}
+
+function getPointerTile(e) {
+    var point = getCanvasPointerPoint(e);
+    if (!point) return null;
+
+    var cam = getCamera();
+    var worldX = (point.x / cam.zoom) + cam.cameraX;
+    var worldY = (point.y / cam.zoom) + cam.cameraY;
+    var tileX = Math.floor(worldX / TILE_SIZE);
+    var tileY = Math.floor(worldY / TILE_SIZE);
+
+    if (tileX < 0 || tileX >= MAP_WIDTH || tileY < 0 || tileY >= MAP_HEIGHT) {
+        return null;
+    }
+
+    return {
+        x: tileX,
+        y: tileY,
+        worldX: worldX,
+        worldY: worldY
+    };
+}
+
+
 var tapMoveTargetTrigger = null;
 var tapFocusedTrigger = null;
 
@@ -1403,6 +1523,12 @@ window.onload = function() {
     setupTouchSelectionGuards();
     if (typeof refreshTownContent === 'function') refreshTownContent();
     window.addEventListener('resize', resizeCanvas);
+
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', resizeCanvas);
+        window.visualViewport.addEventListener('scroll', resizeCanvas);
+    }
+
     resizeCanvas();
 
     initGrid();
@@ -1436,14 +1562,22 @@ window.onload = function() {
 };
 
 function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    applyTownPageFrameStyle();
 
-    // iPad/PCで町のサイズが変わっても、縦長ゲームは画面内に収まる大きさを保つ。
-    if (isWorkPlayerOpen) {
-        window.requestAnimationFrame(updateWorkPlayerLayoutSize);
+    canvas.width = GAME_VIEW_W;
+    canvas.height = GAME_VIEW_H;
+
+    applyCanvasDisplaySize();
+
+    if (ctx) {
+        ctx.imageSmoothingEnabled = false;
+    }
+
+    if (typeof updateInteractionHint === "function") {
+        updateInteractionHint();
     }
 }
+
 
 function loadPlayerSprites() {
     var poses = ['stand', 'walk'];
@@ -1908,23 +2042,40 @@ function updateTapMove() {
 // 3. カメラ計算
 // ==========================================
 function getCamera() {
-    var zoom = (window.innerWidth < 768) ? 2.5 : 2;
-    var viewW = canvas.width / zoom;
-    var viewH = canvas.height / zoom;
+    var zoom = GAME_CAMERA_ZOOM;
+    var viewW = GAME_VIEW_W / zoom;
+    var viewH = GAME_VIEW_H / zoom;
     var mapPixelW = MAP_WIDTH * TILE_SIZE;
     var mapPixelH = MAP_HEIGHT * TILE_SIZE;
 
     var cameraX = (player.x + player.w / 2) - (viewW / 2);
     var cameraY = (player.y + player.h / 2) - (viewH / 2);
 
-    if (viewW > mapPixelW) cameraX = -(viewW - mapPixelW) / 2;
-    else { if (cameraX < 0) cameraX = 0; if (cameraX > mapPixelW - viewW) cameraX = mapPixelW - viewW; }
+    if (viewW > mapPixelW) {
+        cameraX = -(viewW - mapPixelW) / 2;
+    } else {
+        if (cameraX < 0) cameraX = 0;
+        if (cameraX > mapPixelW - viewW) cameraX = mapPixelW - viewW;
+    }
 
-    if (viewH > mapPixelH) cameraY = -(viewH - mapPixelH) / 2;
-    else { if (cameraY < 0) cameraY = 0; if (cameraY > mapPixelH - viewH) cameraY = mapPixelH - viewH; }
+    if (viewH > mapPixelH) {
+        cameraY = -(viewH - mapPixelH) / 2;
+    } else {
+        if (cameraY < 0) cameraY = 0;
+        if (cameraY > mapPixelH - viewH) cameraY = mapPixelH - viewH;
+    }
 
-    return { zoom: zoom, viewW: viewW, viewH: viewH, cameraX: cameraX, cameraY: cameraY, mapPixelW: mapPixelW, mapPixelH: mapPixelH };
+    return {
+        zoom: zoom,
+        viewW: viewW,
+        viewH: viewH,
+        cameraX: cameraX,
+        cameraY: cameraY,
+        mapPixelW: mapPixelW,
+        mapPixelH: mapPixelH
+    };
 }
+
 
 // ==========================================
 // 4. 入力イベント
@@ -2092,14 +2243,11 @@ function setupEvents() {
 
         if (isMessageOpen || currentScene !== 'station_plaza') return;
 
-        var rect = canvas.getBoundingClientRect();
-        var cam = getCamera();
-        var worldX = ((e.clientX - rect.left) / cam.zoom) + cam.cameraX;
-        var worldY = ((e.clientY - rect.top) / cam.zoom) + cam.cameraY;
-        var tileX = Math.floor(worldX / TILE_SIZE);
-        var tileY = Math.floor(worldY / TILE_SIZE);
+        var tappedTile = getPointerTile(e);
+        if (!tappedTile) return;
 
-        if (tileX < 0 || tileX >= MAP_WIDTH || tileY < 0 || tileY >= MAP_HEIGHT) return;
+        var tileX = tappedTile.x;
+        var tileY = tappedTile.y;
 
         if (isEditMode) {
             document.getElementById('clicked-coord').innerText = "タップ: x=" + tileX + ", y=" + tileY;
@@ -2124,11 +2272,13 @@ function setupEvents() {
         e.preventDefault();
 
         if (!isEditMode || editStep !== 1) return;
-        var rect = canvas.getBoundingClientRect();
-        var cam = getCamera();
-        var worldX = ((e.clientX - rect.left) / cam.zoom) + cam.cameraX;
-        var worldY = ((e.clientY - rect.top) / cam.zoom) + cam.cameraY;
-        currentHoverTile = { x: Math.floor(worldX / TILE_SIZE), y: Math.floor(worldY / TILE_SIZE) };
+        var hoverTile = getPointerTile(e);
+        if (!hoverTile) return;
+
+        currentHoverTile = {
+            x: hoverTile.x,
+            y: hoverTile.y
+        };
     });
 }
 
