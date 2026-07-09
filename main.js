@@ -628,7 +628,7 @@ var STATION_GUIDE_MAP_HOTSPOTS = [
         id: "shinpo",
         label: "湯間庭新報",
         kind: "place",
-        target: "shinpo_board_map",
+        target: "shinpo_board",
         rect: { left: 7.3, top: 12.3, width: 19.8, height: 18.9 }
     },
     {
