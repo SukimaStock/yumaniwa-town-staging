@@ -339,6 +339,10 @@ var currentDestinationId = null;
 var currentDestinationMessage = "";
 var currentDestinationMessageTitle = "";
 
+// PC向けRPGメニュー操作: キーボードだけで選択肢を選べるようにする。
+// 表示上の ▶ カーソル位置をここで管理する。
+var rpgMenuCursorIndex = 0;
+
 // 町内コンテンツ用: 触れるらくがき・itch.ioゲームを iframe 内で開く共通プレイヤー
 var isWorkPlayerOpen = false;
 var currentWorkId = null;
@@ -2145,11 +2149,176 @@ function getCamera() {
 }
 
 
+
+// ==========================================
+// 4-A. PC向けRPGメニュー操作
+// ==========================================
+function isDestinationSceneOpen() {
+    var sceneContainer = document.getElementById('scene-container');
+    return !!(
+        sceneContainer &&
+        sceneContainer.style.display !== 'none' &&
+        currentScene !== 'station_plaza' &&
+        !isWorkPlayerOpen &&
+        !isStationGuideMapOpen
+    );
+}
+
+function getRpgMenuButtons() {
+    var sceneContainer = document.getElementById('scene-container');
+    if (!sceneContainer || sceneContainer.style.display === 'none') return [];
+
+    var nodes = sceneContainer.querySelectorAll('.rpg-menu-item');
+    var buttons = [];
+
+    for (var i = 0; i < nodes.length; i++) {
+        var el = nodes[i];
+        if (!el.disabled && el.offsetParent !== null) {
+            buttons.push(el);
+        }
+    }
+
+    return buttons;
+}
+
+function setRpgMenuCursorIndex(nextIndex, shouldFocus) {
+    var buttons = getRpgMenuButtons();
+    if (buttons.length === 0) {
+        rpgMenuCursorIndex = 0;
+        return;
+    }
+
+    if (!isFinite(nextIndex)) nextIndex = 0;
+
+    while (nextIndex < 0) nextIndex += buttons.length;
+    nextIndex = nextIndex % buttons.length;
+    rpgMenuCursorIndex = nextIndex;
+
+    for (var i = 0; i < buttons.length; i++) {
+        var selected = i === rpgMenuCursorIndex;
+        buttons[i].classList.toggle('rpg-menu-selected', selected);
+        buttons[i].setAttribute('aria-selected', selected ? 'true' : 'false');
+        buttons[i].setAttribute('tabindex', selected ? '0' : '-1');
+    }
+
+    if (shouldFocus && buttons[rpgMenuCursorIndex]) {
+        try {
+            buttons[rpgMenuCursorIndex].focus({ preventScroll: true });
+        } catch (err) {
+            buttons[rpgMenuCursorIndex].focus();
+        }
+
+        if (buttons[rpgMenuCursorIndex].scrollIntoView) {
+            buttons[rpgMenuCursorIndex].scrollIntoView({ block: 'nearest' });
+        }
+    }
+}
+
+function resetRpgMenuCursor() {
+    rpgMenuCursorIndex = 0;
+    window.requestAnimationFrame(function() {
+        setRpgMenuCursorIndex(0, false);
+    });
+}
+
+function moveRpgMenuCursor(delta) {
+    setRpgMenuCursorIndex(rpgMenuCursorIndex + delta, true);
+}
+
+function activateRpgMenuCursor() {
+    var buttons = getRpgMenuButtons();
+    if (buttons.length === 0) return;
+    var index = Math.max(0, Math.min(rpgMenuCursorIndex, buttons.length - 1));
+    buttons[index].click();
+}
+
+function backFromRpgMenu() {
+    if (destinationViewMode === 'message') {
+        returnDestinationMenu();
+        return;
+    }
+
+    changeScene('station_plaza');
+}
+
+function handleRpgMenuKeyboard(e) {
+    if (!isDestinationSceneOpen() || isEditMode || debugMode) return false;
+
+    var key = e.key;
+
+    // 新報ラックなど、通常のRPGメニューではない画面では戻る操作だけ受ける。
+    if (destinationViewMode === 'note_rack') {
+        if (key === 'Escape' || key === 'Backspace' || key === 'ArrowLeft') {
+            e.preventDefault();
+            e.stopPropagation();
+            changeScene('station_plaza');
+            return true;
+        }
+        return false;
+    }
+
+    if (key === 'ArrowUp' || key === 'w' || key === 'W' || key === 'k' || key === 'K') {
+        e.preventDefault();
+        e.stopPropagation();
+        moveRpgMenuCursor(-1);
+        return true;
+    }
+
+    if (key === 'ArrowDown' || key === 's' || key === 'S' || key === 'j' || key === 'J') {
+        e.preventDefault();
+        e.stopPropagation();
+        moveRpgMenuCursor(1);
+        return true;
+    }
+
+    if (key === 'Enter' || key === ' ' || key === 'z' || key === 'Z' || key === 'ArrowRight') {
+        e.preventDefault();
+        e.stopPropagation();
+        activateRpgMenuCursor();
+        return true;
+    }
+
+    if (key === 'Escape' || key === 'Backspace' || key === 'x' || key === 'X' || key === 'ArrowLeft') {
+        e.preventDefault();
+        e.stopPropagation();
+        backFromRpgMenu();
+        return true;
+    }
+
+    return false;
+}
+
+function setupRpgMenuPointerSelection(sceneContainer) {
+    if (!sceneContainer || sceneContainer.dataset.rpgCursorReady === 'true') return;
+    sceneContainer.dataset.rpgCursorReady = 'true';
+
+    function selectFromPointer(e) {
+        var target = e.target;
+        if (!target || !target.closest) return;
+
+        var button = target.closest('.rpg-menu-item');
+        if (!button || !sceneContainer.contains(button)) return;
+
+        var buttons = getRpgMenuButtons();
+        for (var i = 0; i < buttons.length; i++) {
+            if (buttons[i] === button) {
+                setRpgMenuCursorIndex(i, false);
+                break;
+            }
+        }
+    }
+
+    sceneContainer.addEventListener('pointermove', selectFromPointer);
+    sceneContainer.addEventListener('focusin', selectFromPointer);
+}
+
 // ==========================================
 // 4. 入力イベント
 // ==========================================
 function setupEvents() {
     window.addEventListener('keydown', function(e) {
+        if (handleRpgMenuKeyboard(e)) return;
+
         keys[e.key] = true;
         if (DEV_MODE_ENABLED && (e.key === 'g' || e.key === 'G' || e.key === 'd' || e.key === 'D')) toggleDebugMode();
         if (e.key === 'Escape') {
@@ -2263,6 +2432,7 @@ function setupEvents() {
     if (sceneContainer) {
         sceneContainer.addEventListener('pointerdown', stopProp);
         sceneContainer.addEventListener('touchstart', stopProp, {passive: false});
+        setupRpgMenuPointerSelection(sceneContainer);
     }
 
     // Safariの虫眼鏡・長押し選択を、ゲームCanvas自身で確実に抑止する。
@@ -2905,6 +3075,10 @@ window.renderDestination = function() {
     sceneContainer.classList.toggle('newspaper-rack', destinationViewMode === "note_rack");
     sceneContainer.innerHTML = html;
     sceneContainer.style.display = 'block';
+
+    if (destinationViewMode !== "note_rack") {
+        resetRpgMenuCursor();
+    }
 };
 
 window.renderDestinationIntro = function(dest) {
@@ -2918,7 +3092,7 @@ window.renderDestinationIntro = function(dest) {
     if (dest.flavor) html += '<p class="rpg-flavor">' + formatText(dest.flavor) + '</p>';
 
     html += '<div class="rpg-menu-list">';
-    html += '<button class="rpg-menu-item" onclick="returnDestinationMenu()">▶ つづける</button>';
+    html += '<button class="rpg-menu-item" onclick="returnDestinationMenu()">つづける</button>';
     html += '<button class="rpg-menu-item rpg-back" onclick="changeScene(\'station_plaza\')">駅前へ戻る</button>';
     html += '</div></div>';
 
@@ -2975,7 +3149,7 @@ window.renderDestinationMenu = function(dest) {
             btnClass += ' rpg-back';
             html += '<button class="' + btnClass + '" onclick="changeScene(\'station_plaza\')">' + item.label + '</button>';
         } else {
-            var label = '▶ ' + item.label;
+            var label = item.label;
             // 生成済みのメニュー配列を直接渡すことで、
             // works.jsの並びと表示内容を必ず一致させる。
             html += '<button class="' + btnClass + '" onclick="handleDestinationMenuItem(\'' + dest.id + '\', ' + i + ')">' + label + '</button>';
@@ -2995,7 +3169,7 @@ window.renderDestinationMessage = function(dest, title, text) {
     html += '<p class="rpg-description">' + formatText(text) + '</p>';
 
     html += '<div class="rpg-menu-list" style="margin-top: 20px;">';
-    html += '<button class="rpg-menu-item" onclick="returnDestinationMenu()">▶ 選択肢へ戻る</button>';
+    html += '<button class="rpg-menu-item" onclick="returnDestinationMenu()">選択肢へ戻る</button>';
     html += '<button class="rpg-menu-item rpg-back" onclick="changeScene(\'station_plaza\')">駅前へ戻る</button>';
     html += '</div></div>';
 
@@ -3021,6 +3195,7 @@ function closeDestinationScene() {
     sceneContainer.classList.remove('newspaper-rack');
     sceneContainer.style.display = 'none';
     sceneContainer.innerHTML = '';
+    rpgMenuCursorIndex = 0;
     updateInteractionHint();
     updateCurrentArea();
 }
