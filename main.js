@@ -562,9 +562,11 @@ function carveTownEdgeWarpTiles(def) {
         if (!isFinite(max)) max = min;
 
         // 出口は「装飾や建物があっても必ず通れる」ことを優先する。
-        // 端から3タイル分を通行可能に戻して、マップ間移動の導線を確保する。
+        // 横方向の仮建物が深くかぶっていたため、端から8タイル分を通行可能に戻す。
+        // 見た目は仮のままでも、まずはマップ間移動の導線を確実に確保する。
+        var corridorDepth = Number(warp.corridorDepth) || 8;
         for (var n = min; n <= max; n++) {
-            for (var depth = 0; depth <= 2; depth++) {
+            for (var depth = 0; depth < corridorDepth; depth++) {
                 var x = 0;
                 var y = 0;
 
