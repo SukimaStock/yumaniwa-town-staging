@@ -1649,6 +1649,15 @@ function cancelTapMove() {
     tapFocusedTrigger = null;
 }
 
+function cancelTapMoveForAction() {
+    // ヒントや調べるボタンを押す時用。
+    // 移動予約だけ止めて、到着後に覚えている対象 tapFocusedTrigger は消さない。
+    tapMovePath = [];
+    tapMoveTargetTile = null;
+    tapMoveTargetTrigger = null;
+}
+
+
 function isTileInsideRectWithPadding(tileX, tileY, rect, padding) {
     if (!rect) return false;
 
@@ -1751,19 +1760,57 @@ function findApproachTileForTrigger(trigger) {
 }
 
 function faceTrigger(trigger) {
-    if (!trigger) return;
+    if (!trigger || !trigger.area) return;
 
     var playerTile = getPlayerTile();
-    var center = getTriggerCenterTile(trigger);
-    var dx = center.x - (playerTile.x + 0.5);
-    var dy = center.y - (playerTile.y + 0.5);
+    var px = playerTile.x + 0.5;
+    var py = playerTile.y + 0.5;
+
+    var left = trigger.area.x;
+    var right = trigger.area.x + trigger.area.w;
+    var top = trigger.area.y;
+    var bottom = trigger.area.y + trigger.area.h;
+
+    var dx = 0;
+    var dy = 0;
+
+    // 対象の横幅・縦幅の内側にいる場合は、その軸の差分を0にする。
+    // これで掲示板のような横長オブジェクトの下に立った時、横ではなく上を向きやすくなる。
+    if (px < left) {
+        dx = left - px;
+    } else if (px > right) {
+        dx = right - px;
+    }
+
+    if (py < top) {
+        dy = top - py;
+    } else if (py > bottom) {
+        dy = bottom - py;
+    }
 
     if (Math.abs(dx) > Math.abs(dy)) {
         player.dir = dx > 0 ? "right" : "left";
     } else if (Math.abs(dy) > 0.01) {
         player.dir = dy > 0 ? "down" : "up";
+    } else {
+        // 完全に重なっているような特殊ケースでは、従来どおり中心を見る。
+        var center = getTriggerCenterTile(trigger);
+        var cdx = center.x - px;
+        var cdy = center.y - py;
+
+        if (Math.abs(cdx) > Math.abs(cdy)) {
+            player.dir = cdx > 0 ? "right" : "left";
+        } else if (Math.abs(cdy) > 0.01) {
+            player.dir = cdy > 0 ? "down" : "up";
+        }
     }
+
+    player.isMoving = false;
+    player.walkFrame = 0;
+    player.walkDistance = 0;
+    player.walkWasMoving = false;
 }
+
 
 function isPlayerNearTrigger(trigger) {
     if (!trigger || !trigger.area) return false;
@@ -1987,7 +2034,7 @@ function setupEvents() {
             e.preventDefault();
             e.stopPropagation();
             if (!isEditMode && !debugMode) {
-                cancelTapMove();
+                cancelTapMoveForAction();
                 handleActionTrigger();
             }
         });
