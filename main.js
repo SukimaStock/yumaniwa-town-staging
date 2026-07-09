@@ -169,93 +169,23 @@ var TOWN_DIALOG_SELECTOR = [
 
 
 function ensureTownDialogFrameStyle() {
-    var styleId = "town-dialog-frame-style";
-    var old = document.getElementById(styleId);
-
-    if (old) {
-        return;
-    }
-
-    var style = document.createElement("style");
-    style.id = styleId;
-
-    style.textContent =
-        TOWN_DIALOG_SELECTOR + " {" +
-        "position: fixed !important;" +
-        "left: var(--town-dialog-left) !important;" +
-        "right: auto !important;" +
-        "bottom: var(--town-dialog-bottom) !important;" +
-        "width: var(--town-dialog-width) !important;" +
-        "max-width: var(--town-dialog-width) !important;" +
-        "max-height: var(--town-dialog-max-height) !important;" +
-        "box-sizing: border-box !important;" +
-        "overflow-wrap: break-word !important;" +
-        "z-index: 95 !important;" +
-        "}";
-
-    document.head.appendChild(style);
+    // レイアウトは style.css の #town-screen / #message-window で管理する。
+    // 以前の動的 style 注入は、CSS 管理と競合するため無効化。
 }
+
 
 
 function updateTownDialogFrameVars(vp, displayLeft, displayTop, displayW, displayH, scale) {
-    var isDesktop = vp && vp.w >= GAME_DESKTOP_SCALE_BREAKPOINT_W;
-    var marginX = isDesktop ? GAME_DIALOG_DESKTOP_MARGIN_X : GAME_DIALOG_MOBILE_MARGIN_X;
-    var maxW = isDesktop ? GAME_DIALOG_DESKTOP_MAX_W : displayW;
-    var dialogW = Math.min(displayW - marginX * 2, maxW);
-
-    if (!isFinite(dialogW) || dialogW <= 0) {
-        dialogW = Math.max(1, displayW - 24);
-    }
-
-    dialogW = Math.floor(dialogW);
-
-    var dialogLeft = Math.floor(displayLeft + (displayW - dialogW) / 2);
-    var bottomSpace = Math.max(0, Math.floor((vp.offsetTop + vp.h) - (displayTop + displayH)));
-    var dialogBottom = bottomSpace + Math.max(12, Math.floor(GAME_DIALOG_BOTTOM_GAP * scale));
-    var dialogMaxH = Math.floor(displayH * 0.34);
-
-    document.documentElement.style.setProperty("--town-dialog-left", dialogLeft + "px");
-    document.documentElement.style.setProperty("--town-dialog-width", dialogW + "px");
-    document.documentElement.style.setProperty("--town-dialog-bottom", dialogBottom + "px");
-    document.documentElement.style.setProperty("--town-dialog-max-height", dialogMaxH + "px");
+    // セリフ枠は #town-screen 内の absolute 配置に統一。
+    // ここでは何もしない。
 }
+
 
 function updateStationGuideMapFrameVars(vp, displayLeft, displayTop, displayW, displayH, scale) {
-    var isDesktop = vp && vp.w >= GAME_DESKTOP_SCALE_BREAKPOINT_W;
-
-    var sideMargin = isDesktop
-        ? STATION_GUIDE_MAP_DESKTOP_MARGIN_X
-        : STATION_GUIDE_MAP_MOBILE_MARGIN_X;
-
-    var maxByViewport = Math.max(1, vp.w - sideMargin * 2);
-
-    var guideW;
-
-    if (isDesktop) {
-        // PCではゲーム画面より少し大きめ。
-        // ただし巨大な観光地図のようにはしない。
-        guideW = Math.min(
-            maxByViewport,
-            STATION_GUIDE_MAP_DESKTOP_MAX_W,
-            Math.floor(displayW * STATION_GUIDE_MAP_DESKTOP_SCALE_FROM_GAME)
-        );
-
-        // 小さすぎるPC表示では、ゲーム画面幅は最低限確保する。
-        guideW = Math.max(displayW, guideW);
-        guideW = Math.min(maxByViewport, guideW);
-    } else {
-        // スマホではこれまで通り、画面内で見やすく広げる。
-        guideW = maxByViewport;
-    }
-
-    var guideMaxH = Math.max(
-        1,
-        Math.floor(vp.h - STATION_GUIDE_MAP_VERTICAL_MARGIN * 2)
-    );
-
-    document.documentElement.style.setProperty("--town-guide-map-width", Math.floor(guideW) + "px");
-    document.documentElement.style.setProperty("--town-guide-map-max-height", guideMaxH + "px");
+    // 駅前案内図のサイズは style.css の .station-guide-map-window で管理する。
+    // ここでは何もしない。
 }
+
 
 
 
@@ -281,61 +211,30 @@ function getTownViewport() {
 }
 
 function applyTownPageFrameStyle() {
-    document.documentElement.style.margin = "0";
-    document.documentElement.style.padding = "0";
-    document.documentElement.style.width = "100%";
-    document.documentElement.style.height = "100%";
-    document.documentElement.style.overflow = "hidden";
-    document.documentElement.style.background = "#11161b";
-
-    document.body.style.margin = "0";
-    document.body.style.padding = "0";
-    document.body.style.width = "100%";
-    document.body.style.height = "100%";
-    document.body.style.overflow = "hidden";
-    document.body.style.background =
-        "radial-gradient(circle at 50% 38%, #1b252c 0%, #10161b 55%, #080b0e 100%)";
-    document.body.style.touchAction = "none";
+    // body / #game-container / #town-screen の見た目は style.css に集約。
+    // JS から body や canvas の表示サイズを直接変更しない。
 }
+
 
 function applyCanvasDisplaySize() {
     if (!canvas) return;
 
-    var vp = getTownViewport();
-    var rawScale = Math.min(vp.w / GAME_VIEW_W, vp.h / GAME_VIEW_H);
-    var scale = getTownDisplayScale(rawScale, vp);
+    // canvas の内部解像度は resizeCanvas() で GAME_VIEW_W/H に固定する。
+    // 表示サイズ・中央配置・PC上限幅は style.css の #town-screen に任せる。
+    canvas.style.removeProperty("position");
+    canvas.style.removeProperty("left");
+    canvas.style.removeProperty("top");
+    canvas.style.removeProperty("width");
+    canvas.style.removeProperty("height");
+    canvas.style.removeProperty("box-shadow");
 
-    var displayW = Math.max(1, Math.floor(GAME_VIEW_W * scale));
-    var displayH = Math.max(1, Math.floor(GAME_VIEW_H * scale));
-    var displayLeft = Math.floor(vp.offsetLeft + (vp.w - displayW) / 2);
-    var displayTop = Math.floor(vp.offsetTop + (vp.h - displayH) / 2);
-
-    canvas.style.position = "fixed";
-    canvas.style.left = displayLeft + "px";
-    canvas.style.top = displayTop + "px";
-    canvas.style.width = displayW + "px";
-    canvas.style.height = displayH + "px";
-    canvas.style.display = "block";
     canvas.style.imageRendering = "pixelated";
     canvas.style.touchAction = "none";
     canvas.style.webkitTouchCallout = "none";
     canvas.style.webkitUserSelect = "none";
     canvas.style.userSelect = "none";
-
-    // PCで中央に小さなゲーム画面として浮いた時に、少しだけ額縁感を出す。
-    canvas.style.background = "#0e1418";
-    canvas.style.boxShadow = "0 0 0 1px rgba(255, 244, 210, 0.10), 0 18px 50px rgba(0, 0, 0, 0.35)";
-
-    document.documentElement.style.setProperty("--town-game-left", displayLeft + "px");
-    document.documentElement.style.setProperty("--town-game-top", displayTop + "px");
-    document.documentElement.style.setProperty("--town-game-width", displayW + "px");
-    document.documentElement.style.setProperty("--town-game-height", displayH + "px");
-    document.documentElement.style.setProperty("--town-game-scale", String(scale));
-
-    ensureTownDialogFrameStyle();
-    updateTownDialogFrameVars(vp, displayLeft, displayTop, displayW, displayH, scale);
-    updateStationGuideMapFrameVars(vp, displayLeft, displayTop, displayW, displayH, scale);
 }
+
 
 
 
@@ -524,77 +423,11 @@ function setupStationGuideMapEvents() {
 }
 
 function ensureStationGuideMapStyles() {
-    if (stationGuideMapStylesReady) return;
+    // 駅前案内図のベースCSSは style.css に移動。
+    // DOM生成側からは、二重注入を避けるため ready フラグだけ立てる。
     stationGuideMapStylesReady = true;
-
-    var style = document.createElement("style");
-    style.id = "station-guide-map-style";
-    style.textContent =
-        "#station-guide-map-layer{" +
-        "position:fixed;inset:0;z-index:6500;display:none;" +
-        "align-items:center;justify-content:center;" +
-        "padding:calc(env(safe-area-inset-top,0px) + 10px) 10px calc(env(safe-area-inset-bottom,0px) + 10px);" +
-        "box-sizing:border-box;" +
-        "}" +
-        "#station-guide-map-layer.visible{display:flex;}" +
-        ".station-guide-map-backdrop{" +
-        "position:absolute;inset:0;background:rgba(4,6,8,.72);" +
-        "}" +
-        ".station-guide-map-window{" +
-        "position:relative;" +
-        "width:var(--town-guide-map-width, min(92vw,610px));" +
-        "max-width:calc(100vw - 20px);" +
-        "max-height:var(--town-guide-map-max-height,88vh);" +
-        "border:3px solid rgba(42,30,23,.95);border-radius:14px;" +
-        "background:#2b2119;box-shadow:0 18px 50px rgba(0,0,0,.55);" +
-        "overflow:hidden;" +
-        "}" +
-        ".station-guide-map-image-wrap{" +
-        "position:relative;width:100%;line-height:0;background:#211811;" +
-        "}" +
-        ".station-guide-map-image{" +
-        "display:block;width:100%;height:auto;user-select:none;-webkit-user-select:none;" +
-        "}" +
-        ".station-guide-map-hotspots{" +
-        "position:absolute;inset:0;" +
-        "}" +
-        ".station-guide-map-hotspot{" +
-        "position:absolute;border:0;background:rgba(255,255,255,0);" +
-        "border-radius:10px;padding:0;margin:0;cursor:pointer;" +
-        "-webkit-tap-highlight-color:rgba(255,255,255,.18);" +
-        "}" +
-        ".station-guide-map-hotspot:focus-visible{" +
-        "outline:3px solid rgba(255,245,180,.95);outline-offset:2px;" +
-        "background:rgba(255,245,180,.14);" +
-        "}" +
-        "#station-guide-map-layer[data-debug-hotspots='true'] .station-guide-map-hotspot{" +
-        "outline:2px dashed rgba(255,70,70,.85);background:rgba(255,70,70,.12);" +
-        "}" +
-        ".station-guide-map-close{" +
-        "position:absolute;right:10px;top:10px;z-index:3;" +
-        "border:2px solid rgba(255,245,220,.7);border-radius:999px;" +
-        "background:rgba(35,25,20,.86);color:#fff4df;" +
-        "font-weight:700;font-size:14px;line-height:1;padding:9px 12px;" +
-        "box-shadow:0 3px 10px rgba(0,0,0,.35);" +
-        "}" +
-        ".station-guide-map-hint{" +
-        "position:relative;z-index:3;" +
-        "display:block;box-sizing:border-box;width:100%;" +
-        "padding:12px 14px 13px;" +
-        "background:rgba(35,25,20,.94);color:#fff4df;" +
-        "border-top:2px solid rgba(255,239,200,.42);" +
-        "font-size:18px;font-weight:800;line-height:1.35;" +
-        "letter-spacing:.08em;text-align:center;white-space:nowrap;" +
-        "pointer-events:none;" +
-        "}" +
-        "@media (max-width: 720px){" +
-        ".station-guide-map-window{width:var(--town-guide-map-width, calc(100vw - 20px));border-width:2px;border-radius:10px;}" +
-        ".station-guide-map-close{right:7px;top:7px;font-size:12px;padding:8px 10px;}" +
-        ".station-guide-map-hint{font-size:16px;padding:11px 10px 12px;}" +
-        "}";
-
-    document.head.appendChild(style);
 }
+
 
 
 function ensureStationGuideMapLoadingStyles() {
@@ -1757,6 +1590,7 @@ function resizeCanvas() {
         updateInteractionHint();
     }
 }
+
 
 
 function loadPlayerSprites() {
