@@ -1049,7 +1049,7 @@ textarea {
 :root {
     --town-design-w: 360;
     --town-design-h: 780;
-    --town-screen-max-w: 470px;
+    --town-screen-max-w: 500px;
     --town-screen-ratio-w: 360;
     --town-screen-ratio-h: 780;
     --town-screen-bg: #0e1418;
