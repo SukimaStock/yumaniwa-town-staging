@@ -1609,3 +1609,146 @@ body {
         flex-direction: column;
     }
 }
+
+
+/* ==========================================
+   仮置きマップ（整理版）
+   ========================================== */
+.provisional-map-window {
+    width: min(100%, 720px);
+    margin: 0 auto;
+}
+
+.provisional-map-description {
+    margin-bottom: 10px;
+}
+
+.provisional-map-caption {
+    margin: 0 22px 10px;
+    font-size: 13px;
+    color: #7d634a;
+    letter-spacing: 0.05em;
+}
+
+.provisional-map-board {
+    position: relative;
+    min-height: 320px;
+    margin: 0 22px;
+    border: 3px solid rgba(72, 55, 38, 0.55);
+    border-radius: 14px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #67503a 0%, #55402f 100%);
+}
+
+.provisional-map-board.is-alley {
+    background:
+      radial-gradient(circle at 18% 15%, rgba(247, 213, 126, 0.28), transparent 13%),
+      radial-gradient(circle at 76% 20%, rgba(247, 213, 126, 0.22), transparent 16%),
+      linear-gradient(180deg, #5d4633 0%, #493628 100%);
+}
+
+.provisional-map-board.is-leisure {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0)),
+      linear-gradient(180deg, #6e665d 0%, #5b534a 100%);
+}
+
+.provisional-map-road {
+    position: absolute;
+    border-radius: 999px;
+    background: rgba(244, 225, 182, 0.15);
+}
+
+.provisional-map-road.road-a {
+    left: 10%; top: 46%; width: 80%; height: 15%;
+}
+
+.provisional-map-road.road-b {
+    left: 43%; top: 14%; width: 14%; height: 70%;
+}
+
+.provisional-map-board.is-leisure .provisional-map-road.road-a {
+    left: 10%; top: 28%; width: 78%; height: 14%;
+}
+
+.provisional-map-board.is-leisure .provisional-map-road.road-b {
+    left: 18%; top: 58%; width: 64%; height: 12%;
+}
+
+.provisional-map-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    min-width: 102px;
+    max-width: 154px;
+    min-height: 48px;
+    padding: 10px 10px 9px;
+    border-width: 2px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.25;
+    text-align: center;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+}
+
+.provisional-map-node.is-small {
+    min-width: 84px;
+}
+
+.provisional-map-node.is-wide {
+    min-width: 140px;
+}
+
+.provisional-map-node.is-accent {
+    background: linear-gradient(180deg, #f5d796 0%, #e9bf6d 100%);
+}
+
+.provisional-map-node.is-back {
+    background: linear-gradient(180deg, #dbe8f3 0%, #c7d5e1 100%);
+}
+
+.provisional-map-node.is-info {
+    background: linear-gradient(180deg, #f7f0df 0%, #eadcc0 100%);
+}
+
+.provisional-map-node-label {
+    display: block;
+}
+
+.provisional-map-hint {
+    margin: 10px 22px 0;
+    font-size: 13px;
+    color: #77604a;
+    line-height: 1.65;
+}
+
+.provisional-map-footer {
+    margin-top: 14px;
+}
+
+@media (max-width: 720px) {
+    .provisional-map-caption,
+    .provisional-map-hint {
+        margin-left: 14px;
+        margin-right: 14px;
+    }
+
+    .provisional-map-board {
+        min-height: 280px;
+        margin-left: 14px;
+        margin-right: 14px;
+        border-width: 2px;
+        border-radius: 12px;
+    }
+
+    .provisional-map-node {
+        min-width: 92px;
+        max-width: 126px;
+        min-height: 44px;
+        padding: 8px 8px 7px;
+        font-size: 13px;
+    }
+
+    .provisional-map-node.is-wide {
+        min-width: 120px;
+    }
+}

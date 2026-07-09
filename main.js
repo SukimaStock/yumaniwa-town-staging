@@ -477,7 +477,7 @@ function ensureProvisionalTownMaps() {
         description: "赤い提灯の下に、小さな屋台とゲームの入口が並ぶ。\n仮の地図なので、まずは歩く流れを確かめる場所。",
         flavor: "路地の奥ほど、湯気と賑わいが少し濃くなる。",
         stageLabel: "駅前から一本入った、灯串横丁の仮マップです。",
-        stageHint: "↑↓で選択 / Enterで決定",
+        stageHint: "仮マップ上の行き先を選んで、入口や戻り方を確認できます。",
         stageClass: "is-alley",
         menuTitle: "横丁の行き先",
         items: [
@@ -503,7 +503,7 @@ function ensureProvisionalTownMaps() {
         description: "触れるらくがきや、ゲーム未満の展示を少しずつ並べていく場所。\nまずは入口と流れを確かめるための仮マップです。",
         flavor: "古いゲームセンターと展示室のあいだのような、少し不思議な室内。",
         stageLabel: "湯窓レジャーセンターの仮マップです。",
-        stageHint: "展示を選ぶ / 右上は駅前への出口",
+        stageHint: "展示の置き場や、駅前への戻り口を確認するための仮マップです。",
         stageClass: "is-leisure",
         menuTitle: "展示の行き先",
         items: [
@@ -3246,44 +3246,42 @@ window.renderDestinationSubmap = function(dest) {
     var nodes = Array.isArray(dest.mapNodes) ? dest.mapNodes : [];
     var html = '';
 
-    html += '<div class="submap-window ' + (dest.stageClass || '') + '">';
-    html += '<div class="submap-header">';
-    html += '<div class="submap-title">' + dest.title + '</div>';
-    if (dest.subtitle) html += '<div class="submap-subtitle">' + dest.subtitle + '</div>';
+    html += '<div class="rpg-window provisional-map-window">';
+    html += '<div class="rpg-window-header">';
+    html += '<div class="rpg-title">' + dest.title + '</div>';
+    if (dest.subtitle) html += '<div class="rpg-subtitle">' + dest.subtitle + '</div>';
     html += '</div>';
 
     if (dest.description) {
-        html += '<p class="submap-description">' + formatText(dest.description) + '</p>';
+        html += '<p class="rpg-description provisional-map-description">' + formatText(dest.description) + '</p>';
     }
 
-    html += '<div class="submap-stage-wrap">';
-    html += '<div class="submap-stage-label">' + (dest.stageLabel || '') + '</div>';
-    html += '<div class="submap-stage">';
-    html += '<div class="submap-path submap-path-a"></div>';
-    html += '<div class="submap-path submap-path-b"></div>';
-    html += '<div class="submap-path submap-path-c"></div>';
+    html += '<div class="provisional-map-caption">' + (dest.stageLabel || '') + '</div>';
+    html += '<div class="provisional-map-board ' + (dest.stageClass || '') + '">';
+    html += '<div class="provisional-map-road road-a"></div>';
+    html += '<div class="provisional-map-road road-b"></div>';
 
     for (var i = 0; i < nodes.length; i++) {
         var node = nodes[i];
-        var classes = 'rpg-menu-item submap-node';
+        var classes = 'rpg-menu-item provisional-map-node';
         if (node.small) classes += ' is-small';
         if (node.wide) classes += ' is-wide';
         if (node.accent) classes += ' is-accent';
         if (node.kind === 'back') classes += ' is-back';
+        if (node.kind === 'message') classes += ' is-info';
 
         var style = 'left:' + Number(node.left || 50) + '%;top:' + Number(node.top || 50) + '%;';
         html += '<button class="' + classes + '" type="button" style="' + style + '" onclick="handleSubmapNode(\'' + dest.id + '\',' + i + ')">';
-        html += '<span class="submap-node-label">' + node.label + '</span>';
+        html += '<span class="provisional-map-node-label">' + node.label + '</span>';
         html += '</button>';
     }
 
     html += '</div>';
-    if (dest.stageHint) html += '<div class="submap-stage-hint">' + dest.stageHint + '</div>';
-    html += '</div>';
+    if (dest.stageHint) html += '<div class="provisional-map-hint">' + dest.stageHint + '</div>';
 
-    html += '<div class="submap-footer">';
-    html += '<button class="rpg-menu-item submap-footer-btn" type="button" onclick="returnDestinationMenu()">一覧で見る</button>';
-    html += '<button class="rpg-menu-item rpg-back submap-footer-btn" type="button" onclick="changeScene(\'station_plaza\')">駅前へ戻る</button>';
+    html += '<div class="rpg-menu-list provisional-map-footer">';
+    html += '<button class="rpg-menu-item" type="button" onclick="returnDestinationMenu()">一覧で見る</button>';
+    html += '<button class="rpg-menu-item rpg-back" type="button" onclick="changeScene(\'station_plaza\')">駅前へ戻る</button>';
     html += '</div>';
     html += '</div>';
 
