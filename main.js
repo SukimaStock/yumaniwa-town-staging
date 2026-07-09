@@ -145,6 +145,11 @@ var stationGuideMapImageReady = false;
 var stationGuideMapImageError = false;
 var stationGuideMapRevealTimer = null;
 
+var townArrivalLoadingStartedAt = 0;
+var townArrivalLoadingMinMs = 720;
+var townArrivalLoadingHideTimer = null;
+
+
 
 var STATION_GUIDE_MAP_HOTSPOTS = [
     {
@@ -505,6 +510,204 @@ function prepareStationGuideMapOpening(layer) {
         markStationGuideMapReady();
     }
 }
+
+function ensureTownLoadingStyles() {
+    if (document.getElementById("town-loading-style")) return;
+
+    var style = document.createElement("style");
+    style.id = "town-loading-style";
+    style.textContent =
+        "#town-loading-layer{" +
+        "position:fixed;inset:0;z-index:11500;" +
+        "display:flex;align-items:center;justify-content:center;" +
+        "box-sizing:border-box;padding:24px;" +
+        "background:linear-gradient(180deg,#120c09 0%,#1f1711 100%);" +
+        "color:#fff4df;opacity:0;pointer-events:none;" +
+        "transition:opacity 420ms ease;" +
+        "}" +
+        "#town-loading-layer.visible{opacity:1;pointer-events:auto;}" +
+        ".town-loading-card{" +
+        "width:min(82vw,360px);box-sizing:border-box;" +
+        "border:3px solid rgba(255,239,200,.68);border-radius:20px;" +
+        "background:rgba(37,27,20,.96);" +
+        "box-shadow:0 18px 48px rgba(0,0,0,.52);" +
+        "padding:24px 18px 20px;text-align:center;" +
+        "}" +
+        ".town-loading-mark{" +
+        "width:38px;height:38px;margin:0 auto 13px;border-radius:50%;" +
+        "background:radial-gradient(circle at 50% 45%, #fff0c8 0 20%, #b89153 21% 48%, rgba(255,240,200,.12) 49% 100%);" +
+        "box-shadow:0 0 22px rgba(255,224,160,.28);" +
+        "animation:townLoadingLamp 1.45s ease-in-out infinite;" +
+        "}" +
+        ".town-loading-label{" +
+        "font-weight:850;font-size:18px;letter-spacing:.06em;line-height:1.6;" +
+        "white-space:pre-line;" +
+        "}" +
+        ".town-loading-dots{margin-top:8px;font-weight:900;letter-spacing:.22em;color:#f4dec0;}" +
+        ".town-loading-dots span{animation:townLoadingDots 1.2s ease-in-out infinite;}" +
+        ".town-loading-dots span:nth-child(2){animation-delay:.18s;}" +
+        ".town-loading-dots span:nth-child(3){animation-delay:.36s;}" +
+        "#work-player.is-loading #work-player-frame{opacity:0;}" +
+        "#work-player-frame{transition:opacity 360ms ease;}" +
+        "@keyframes townLoadingLamp{0%,100%{opacity:.72;transform:scale(.96);}50%{opacity:1;transform:scale(1.04);}}" +
+        "@keyframes townLoadingDots{0%,100%{opacity:.28;}50%{opacity:1;}}" +
+        "@media (max-width:720px){" +
+        ".town-loading-card{width:min(86vw,320px);padding:22px 16px 18px;}" +
+        ".town-loading-label{font-size:16px;}" +
+        ".town-loading-mark{width:34px;height:34px;}" +
+        "}";
+
+    document.head.appendChild(style);
+}
+
+function getOrCreateTownLoadingLayer() {
+    ensureTownLoadingStyles();
+
+    var existing = document.getElementById("town-loading-layer");
+    if (existing) return existing;
+
+    var layer = document.createElement("div");
+    layer.id = "town-loading-layer";
+    layer.setAttribute("aria-hidden", "true");
+
+    layer.innerHTML =
+        '<div class="town-loading-card" role="status" aria-live="polite">' +
+        '<div class="town-loading-mark" aria-hidden="true"></div>' +
+        '<div id="town-loading-label" class="town-loading-label">湯間庭町に到着しています…</div>' +
+        '<div class="town-loading-dots" aria-hidden="true"><span>・</span><span>・</span><span>・</span></div>' +
+        '</div>';
+
+    document.body.appendChild(layer);
+    return layer;
+}
+
+function showTownLoading(label) {
+    var layer = getOrCreateTownLoadingLayer();
+    var labelEl = document.getElementById("town-loading-label");
+
+    if (labelEl) {
+        labelEl.textContent = label || "湯間庭町に到着しています…";
+    }
+
+    if (townArrivalLoadingHideTimer) {
+        window.clearTimeout(townArrivalLoadingHideTimer);
+        townArrivalLoadingHideTimer = null;
+    }
+
+    townArrivalLoadingStartedAt = Date.now();
+
+    layer.classList.add("visible");
+    layer.setAttribute("aria-hidden", "false");
+}
+
+function hideTownLoading() {
+    var layer = document.getElementById("town-loading-layer");
+    if (!layer) return;
+
+    var elapsed = Date.now() - townArrivalLoadingStartedAt;
+    var wait = Math.max(0, townArrivalLoadingMinMs - elapsed);
+
+    if (townArrivalLoadingHideTimer) {
+        window.clearTimeout(townArrivalLoadingHideTimer);
+    }
+
+    townArrivalLoadingHideTimer = window.setTimeout(function() {
+        layer.classList.remove("visible");
+        layer.setAttribute("aria-hidden", "true");
+        townArrivalLoadingHideTimer = null;
+    }, wait);
+}
+
+function showTownArrivalLoading() {
+    showTownLoading("湯間庭町に到着しています…");
+}
+
+function finishTownArrivalLoading() {
+    hideTownLoading();
+}
+
+function playTownRpgFadeTransition(callback) {
+    var oldFade = document.getElementById("town-rpg-fade-transition");
+    if (oldFade && oldFade.parentNode) {
+        oldFade.parentNode.removeChild(oldFade);
+    }
+
+    var fadeOutMs = 560;
+    var holdMs = 180;
+    var fadeInMs = 660;
+
+    var fade = document.createElement("div");
+    fade.id = "town-rpg-fade-transition";
+    fade.style.position = "fixed";
+    fade.style.left = "0";
+    fade.style.top = "0";
+    fade.style.right = "0";
+    fade.style.bottom = "0";
+    fade.style.zIndex = "12000";
+    fade.style.background = "#050403";
+    fade.style.opacity = "0";
+    fade.style.pointerEvents = "auto";
+    fade.style.transition = "opacity " + fadeOutMs + "ms cubic-bezier(.22,.8,.28,1)";
+    fade.style.willChange = "opacity";
+
+    document.body.appendChild(fade);
+
+    window.requestAnimationFrame(function() {
+        window.requestAnimationFrame(function() {
+            fade.style.opacity = "1";
+        });
+    });
+
+    window.setTimeout(function() {
+        if (typeof callback === "function") {
+            callback();
+        }
+
+        window.setTimeout(function() {
+            fade.style.transition = "opacity " + fadeInMs + "ms cubic-bezier(.22,.8,.28,1)";
+            fade.style.opacity = "0";
+
+            window.setTimeout(function() {
+                if (fade && fade.parentNode) {
+                    fade.parentNode.removeChild(fade);
+                }
+            }, fadeInMs + 80);
+        }, holdMs);
+    }, fadeOutMs + 40);
+}
+
+function changeSceneWithTownFade(sceneId) {
+    playTownRpgFadeTransition(function() {
+        changeScene(sceneId);
+    });
+}
+
+function getWorkOpeningLabel(work) {
+    if (!work) return "作品を準備しています…";
+
+    if (work.id === "midnight-cola") {
+        return "仕込み場を開けています…";
+    }
+
+    if (work.id === "yakitori-wars") {
+        return "炭火を起こしています…";
+    }
+
+    if (work.id === "rainy-window") {
+        return "窓辺を準備しています…";
+    }
+
+    if (work.kind === "game") {
+        return "店先を開けています…";
+    }
+
+    if (work.kind === "work") {
+        return "筐体を起動しています…";
+    }
+
+    return "作品を準備しています…";
+}
+
 
 
 function getOrCreateStationGuideMapLayer() {
@@ -1188,6 +1391,8 @@ function setupTouchSelectionGuards() {
 
 
 window.onload = function() {
+    showTownArrivalLoading();
+
     canvas = document.getElementById('game-canvas');
     ctx = canvas.getContext('2d');
     applyDeveloperModeVisibility();
@@ -1198,8 +1403,14 @@ window.onload = function() {
 
     initGrid();
 
-    bgImage.onload = function() { bgLoaded = true; };
-    bgImage.onerror = function() { bgError = true; };
+    bgImage.onload = function() {
+        bgLoaded = true;
+        finishTownArrivalLoading();
+    };
+    bgImage.onerror = function() {
+        bgError = true;
+        finishTownArrivalLoading();
+    };
     bgImage.src = BG_IMAGE_PATH;
     loadPlayerSprites();
 
@@ -1696,7 +1907,7 @@ function setupMessageLayerEvents() {
             var target = pendingWarp;
             pendingWarp = null;
             closeMessage();
-            changeScene(target);
+            changeSceneWithTownFade(target);
             return;
         }
 
@@ -1712,6 +1923,7 @@ function setupMessageLayerEvents() {
     }
 }
 
+
 function handleActionTrigger() {
     if (isEditMode) return;
 
@@ -1720,7 +1932,7 @@ function handleActionTrigger() {
             var target = pendingWarp;
             pendingWarp = null;
             closeMessage();
-            changeScene(target);
+            changeSceneWithTownFade(target);
             return;
         }
         closeMessage();
@@ -1731,6 +1943,7 @@ function handleActionTrigger() {
         handleAction();
     }
 }
+
 
 function toggleDebugMode() {
     if (!DEV_MODE_ENABLED) return;
@@ -2714,7 +2927,7 @@ window.openNoteReader = function(article) {
         sourceButton.setAttribute("aria-label", "noteで全文を開く");
     }
 
-    setWorkPlayerLoading(true, "記事を開いています…");
+    setWorkPlayerLoading(true, "今日の紙面を開いています…");
     frame.src = embedUrl;
 
     playerLayer.classList.add("visible");
@@ -2725,8 +2938,13 @@ window.openNoteReader = function(article) {
 };
 
 function setWorkPlayerLoading(isLoading, label) {
+    var playerLayer = document.getElementById("work-player");
     var loading = document.getElementById("work-player-loading");
     var loadingLabel = document.getElementById("work-player-loading-label");
+
+    if (playerLayer) {
+        playerLayer.classList.toggle("is-loading", !!isLoading);
+    }
 
     if (!loading) return;
 
@@ -2737,6 +2955,7 @@ function setWorkPlayerLoading(isLoading, label) {
     loading.classList.toggle("visible", !!isLoading);
     loading.setAttribute("aria-hidden", isLoading ? "false" : "true");
 }
+
 
 function setupWorkPlayerEvents() {
     var closeButton = document.getElementById("btn-close-work");
@@ -2849,7 +3068,7 @@ window.openWorkPlayer = function(work) {
         closeButton.setAttribute("aria-label", destinationLabel + "へ戻る");
     }
 
-    setWorkPlayerLoading(true, "作品を準備しています…");
+    setWorkPlayerLoading(true, getWorkOpeningLabel(work));
     frame.src = source;
 
     playerLayer.classList.add("visible");
