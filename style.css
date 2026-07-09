@@ -1047,10 +1047,11 @@ textarea {
    ============================================================ */
 
 :root {
-    --town-design-w: 360;
+    /* 論理解像度。main.js の GAME_VIEW_W/H と必ず揃える。 */
+    --town-design-w: 390;
     --town-design-h: 780;
-    --town-screen-max-w: 500px;
-    --town-screen-ratio-w: 360;
+    --town-screen-max-w: 470px;
+    --town-screen-ratio-w: 390;
     --town-screen-ratio-h: 780;
     --town-screen-bg: #0e1418;
     --town-page-bg-a: #1b252c;
@@ -1089,9 +1090,13 @@ body {
 #town-screen {
     position: relative;
     flex: 0 0 auto;
-    width: min(100vw, 52dvh, var(--town-screen-max-w));
+    width: min(
+        100vw,
+        calc(100dvh * var(--town-screen-ratio-w) / var(--town-screen-ratio-h)),
+        var(--town-screen-max-w)
+    );
     max-width: 100vw;
-    aspect-ratio: 360 / 780;
+    aspect-ratio: var(--town-screen-ratio-w) / var(--town-screen-ratio-h);
     max-height: 100dvh;
     overflow: hidden;
     background: var(--town-screen-bg);

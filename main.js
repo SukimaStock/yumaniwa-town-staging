@@ -86,7 +86,7 @@ var tapMarkerPos = null;
 // PC / モバイル共通の固定ゲーム画面。
 // iPhone縦持ちに近い比率を基準にする。
 // canvas内部は常にこのサイズで描画し、実画面には比率維持で拡大縮小して表示する。
-var GAME_VIEW_W = 360;
+var GAME_VIEW_W = 390;
 var GAME_VIEW_H = 780;
 
 // 現在のモバイル表示に近い見え方を維持するため、カメラ倍率は固定。
