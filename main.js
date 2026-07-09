@@ -115,6 +115,99 @@ function getTownDisplayScale(rawScale, viewport) {
     return scale;
 }
 
+//
+// セリフ・メッセージ枠も、ブラウザ幅ではなく湯間庭町のゲーム画面幅に合わせる。
+// PCでは少し小ぶりにして、「画面幅いっぱいのWeb UI」に見えないようにする。
+var GAME_DIALOG_MOBILE_MARGIN_X = 14;
+var GAME_DIALOG_DESKTOP_MARGIN_X = 24;
+var GAME_DIALOG_DESKTOP_MAX_W = 390;
+var GAME_DIALOG_BOTTOM_GAP = 18;
+
+var TOWN_DIALOG_SELECTOR = [
+    "#dialogueBox",
+    "#dialogBox",
+    "#dialoguePanel",
+    "#dialogPanel",
+    "#messageBox",
+    "#messagePanel",
+    "#messageWindow",
+    "#talkBox",
+    "#talkPanel",
+    "#speechBox",
+    "#speechPanel",
+    "#textBox",
+    "#infoBox",
+    "#noticeBox",
+    "#dialogue",
+    ".dialogue-box",
+    ".dialog-box",
+    ".dialogue-panel",
+    ".dialog-panel",
+    ".message-box",
+    ".message-panel",
+    ".message-window",
+    ".talk-box",
+    ".talk-panel",
+    ".speech-box",
+    ".speech-panel",
+    ".text-box",
+    ".info-box",
+    ".notice-box",
+    ".speech-bubble"
+].join(",");
+
+function ensureTownDialogFrameStyle() {
+    var styleId = "town-dialog-frame-style";
+    var old = document.getElementById(styleId);
+
+    if (old) {
+        return;
+    }
+
+    var style = document.createElement("style");
+    style.id = styleId;
+
+    style.textContent =
+        TOWN_DIALOG_SELECTOR + " {" +
+        "position: fixed !important;" +
+        "left: var(--town-dialog-left) !important;" +
+        "right: auto !important;" +
+        "bottom: var(--town-dialog-bottom) !important;" +
+        "width: var(--town-dialog-width) !important;" +
+        "max-width: var(--town-dialog-width) !important;" +
+        "max-height: var(--town-dialog-max-height) !important;" +
+        "box-sizing: border-box !important;" +
+        "overflow-wrap: break-word !important;" +
+        "z-index: 40 !important;" +
+        "}";
+
+    document.head.appendChild(style);
+}
+
+function updateTownDialogFrameVars(vp, displayLeft, displayTop, displayW, displayH, scale) {
+    var isDesktop = vp && vp.w >= GAME_DESKTOP_SCALE_BREAKPOINT_W;
+    var marginX = isDesktop ? GAME_DIALOG_DESKTOP_MARGIN_X : GAME_DIALOG_MOBILE_MARGIN_X;
+    var maxW = isDesktop ? GAME_DIALOG_DESKTOP_MAX_W : displayW;
+    var dialogW = Math.min(displayW - marginX * 2, maxW);
+
+    if (!isFinite(dialogW) || dialogW <= 0) {
+        dialogW = Math.max(1, displayW - 24);
+    }
+
+    dialogW = Math.floor(dialogW);
+
+    var dialogLeft = Math.floor(displayLeft + (displayW - dialogW) / 2);
+    var bottomSpace = Math.max(0, Math.floor((vp.offsetTop + vp.h) - (displayTop + displayH)));
+    var dialogBottom = bottomSpace + Math.max(12, Math.floor(GAME_DIALOG_BOTTOM_GAP * scale));
+    var dialogMaxH = Math.floor(displayH * 0.34);
+
+    document.documentElement.style.setProperty("--town-dialog-left", dialogLeft + "px");
+    document.documentElement.style.setProperty("--town-dialog-width", dialogW + "px");
+    document.documentElement.style.setProperty("--town-dialog-bottom", dialogBottom + "px");
+    document.documentElement.style.setProperty("--town-dialog-max-height", dialogMaxH + "px");
+}
+
+
 
 function getTownViewport() {
     var vv = window.visualViewport;
@@ -187,7 +280,11 @@ function applyCanvasDisplaySize() {
     document.documentElement.style.setProperty("--town-game-width", displayW + "px");
     document.documentElement.style.setProperty("--town-game-height", displayH + "px");
     document.documentElement.style.setProperty("--town-game-scale", String(scale));
+
+    ensureTownDialogFrameStyle();
+    updateTownDialogFrameVars(vp, displayLeft, displayTop, displayW, displayH, scale);
 }
+
 
 
 function getCanvasPointerPoint(e) {
