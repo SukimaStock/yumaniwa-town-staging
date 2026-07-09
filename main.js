@@ -82,6 +82,10 @@ var tapMoveTargetTile = null;
 var tapMarkerTimer = 0;
 var tapMarkerPos = null;
 
+var tapMoveTargetTrigger = null;
+var tapFocusedTrigger = null;
+
+
 // ★ 新規追加: RPGメニュー用状態変数
 var destinationViewMode = "intro"; // "intro" | "menu" | "message" | "note_rack"
 var currentDestinationId = null;
@@ -632,9 +636,9 @@ function playTownRpgFadeTransition(callback) {
         oldFade.parentNode.removeChild(oldFade);
     }
 
-    var fadeOutMs = 560;
-    var holdMs = 180;
-    var fadeInMs = 660;
+    var fadeOutMs = 400;
+    var holdMs = 70;
+    var fadeInMs = 460;
 
     var fade = document.createElement("div");
     fade.id = "town-rpg-fade-transition";
@@ -1066,9 +1070,9 @@ function playStationGuideMapDarkTransition(callback) {
         oldFade.parentNode.removeChild(oldFade);
     }
 
-    var fadeOutMs = 520;
-    var holdMs = 180;
-    var fadeInMs = 620;
+    var fadeOutMs = 380;
+    var holdMs = 70;
+    var fadeInMs = 430;
 
     var fade = document.createElement("div");
     fade.id = "town-rpg-fade-transition";
@@ -1611,21 +1615,197 @@ function findPath(startX, startY, goalX, goalY) {
 }
 
 function startTapMoveTo(tileX, tileY) {
-    if (!isWalkableTile(tileX, tileY)) return;
+    tapMoveTargetTrigger = null;
+    tapFocusedTrigger = null;
+
+    if (!isWalkableTile(tileX, tileY)) return false;
+
     var startTile = getPlayerTile();
     var path = findPath(startTile.x, startTile.y, tileX, tileY);
-    if (path && path.length > 0) {
-        tapMovePath = path;
-        tapMoveTargetTile = path[0];
+
+    if (path) {
+        if (path.length > 0) {
+            tapMovePath = path;
+            tapMoveTargetTile = path[0];
+        } else {
+            tapMovePath = [];
+            tapMoveTargetTile = null;
+        }
+
         tapMarkerPos = { x: tileX, y: tileY };
         tapMarkerTimer = 60;
+        updateInteractionHint();
+        return true;
     }
+
+    return false;
 }
+
 
 function cancelTapMove() {
     tapMovePath = [];
     tapMoveTargetTile = null;
+    tapMoveTargetTrigger = null;
+    tapFocusedTrigger = null;
 }
+
+function isTileInsideRectWithPadding(tileX, tileY, rect, padding) {
+    if (!rect) return false;
+
+    var p = padding || 0;
+    return (
+        tileX >= rect.x - p &&
+        tileX < rect.x + rect.w + p &&
+        tileY >= rect.y - p &&
+        tileY < rect.y + rect.h + p
+    );
+}
+
+function getTriggerCenterTile(trigger) {
+    var area = trigger && trigger.area ? trigger.area : { x: 0, y: 0, w: 1, h: 1 };
+
+    return {
+        x: area.x + area.w / 2,
+        y: area.y + area.h / 2
+    };
+}
+
+function getTileDistanceToTriggerCenter(tileX, tileY, trigger) {
+    var center = getTriggerCenterTile(trigger);
+    var dx = (tileX + 0.5) - center.x;
+    var dy = (tileY + 0.5) - center.y;
+
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
+function getTapTriggerCandidate(tileX, tileY) {
+    var best = null;
+    var bestScore = Infinity;
+
+    for (var i = 0; i < triggers.length; i++) {
+        var t = triggers[i];
+        if (!t || !t.area) continue;
+
+        // 建物や札は、正確に1マスを押さなくても反応してほしいので少し広めに見る。
+        var padding = (typeof t.tapPadding === "number") ? t.tapPadding : 2;
+
+        if (!isTileInsideRectWithPadding(tileX, tileY, t.area, padding)) continue;
+
+        var score = getTileDistanceToTriggerCenter(tileX, tileY, t);
+
+        // 本来のトリガー範囲を直接押している場合は優先する。
+        if (isTileInsideRectWithPadding(tileX, tileY, t.area, 0)) {
+            score -= 4;
+        }
+
+        if (score < bestScore) {
+            bestScore = score;
+            best = t;
+        }
+    }
+
+    return best;
+}
+
+function findApproachTileForTrigger(trigger) {
+    if (!trigger || !trigger.area) return null;
+
+    var startTile = getPlayerTile();
+    var best = null;
+    var bestScore = Infinity;
+
+    // まずは対象のすぐ周囲。無理なら少しだけ広げる。
+    for (var radius = 1; radius <= 3; radius++) {
+        var minX = trigger.area.x - radius;
+        var maxX = trigger.area.x + trigger.area.w + radius - 1;
+        var minY = trigger.area.y - radius;
+        var maxY = trigger.area.y + trigger.area.h + radius - 1;
+
+        for (var y = minY; y <= maxY; y++) {
+            for (var x = minX; x <= maxX; x++) {
+                if (!isWalkableTile(x, y)) continue;
+
+                var path = findPath(startTile.x, startTile.y, x, y);
+                if (!path) continue;
+
+                var distanceToTrigger = getTileDistanceToTriggerCenter(x, y, trigger);
+                var pathLength = path.length;
+
+                // 近くて、移動距離も短い場所を選ぶ。
+                var score = pathLength * 10 + distanceToTrigger;
+
+                if (score < bestScore) {
+                    bestScore = score;
+                    best = {
+                        tile: { x: x, y: y },
+                        path: path
+                    };
+                }
+            }
+        }
+
+        if (best) return best;
+    }
+
+    return null;
+}
+
+function faceTrigger(trigger) {
+    if (!trigger) return;
+
+    var playerTile = getPlayerTile();
+    var center = getTriggerCenterTile(trigger);
+    var dx = center.x - (playerTile.x + 0.5);
+    var dy = center.y - (playerTile.y + 0.5);
+
+    if (Math.abs(dx) > Math.abs(dy)) {
+        player.dir = dx > 0 ? "right" : "left";
+    } else if (Math.abs(dy) > 0.01) {
+        player.dir = dy > 0 ? "down" : "up";
+    }
+}
+
+function isPlayerNearTrigger(trigger) {
+    if (!trigger || !trigger.area) return false;
+
+    var tile = getPlayerTile();
+    return isTileInsideRectWithPadding(tile.x, tile.y, trigger.area, 2);
+}
+
+function startTapMoveToTrigger(trigger) {
+    if (!trigger) return false;
+
+    var approach = findApproachTileForTrigger(trigger);
+    if (!approach) return false;
+
+    tapFocusedTrigger = null;
+    tapMoveTargetTrigger = trigger;
+    tapMarkerPos = { x: approach.tile.x, y: approach.tile.y };
+    tapMarkerTimer = 60;
+
+    if (approach.path.length === 0) {
+        faceTrigger(trigger);
+        tapMoveTargetTrigger = null;
+        tapFocusedTrigger = trigger;
+        updateInteractionHint();
+        updateCurrentArea();
+        return true;
+    }
+
+    tapMovePath = approach.path;
+    tapMoveTargetTile = approach.path[0];
+    updateInteractionHint();
+    return true;
+}
+
+function startTapMoveToNearbyTrigger(tileX, tileY) {
+    var trigger = getTapTriggerCandidate(tileX, tileY);
+    if (!trigger) return false;
+
+    return startTapMoveToTrigger(trigger);
+}
+
+
 
 function updateTapMove() {
     if (!tapMoveTargetTile) return false;
@@ -1649,6 +1829,13 @@ function updateTapMove() {
             tapMoveTargetTile = tapMovePath[0];
         } else {
             tapMoveTargetTile = null;
+
+            if (tapMoveTargetTrigger) {
+                faceTrigger(tapMoveTargetTrigger);
+                tapFocusedTrigger = tapMoveTargetTrigger;
+                tapMoveTargetTrigger = null;
+            }
+
             updateInteractionHint();
             updateCurrentArea();
         }
@@ -1876,6 +2063,10 @@ function setupEvents() {
         if (debugMode) {
             document.getElementById('clicked-coord').innerText = "タップ: x=" + tileX + ", y=" + tileY;
             currentHoverTile = { x: tileX, y: tileY };
+            return;
+        }
+
+        if (startTapMoveToNearbyTrigger(tileX, tileY)) {
             return;
         }
 
@@ -2211,20 +2402,43 @@ function checkCollision(x, y) {
 function isColliding(r1, r2) { return r1.x < r2.x + r2.w && r1.x + r1.w > r2.x && r1.y < r2.y + r2.h && r1.y + r1.h > r2.y; }
 
 function getNearbyTrigger() {
-    var checkX = player.x; var checkY = player.y; var checkSize = TILE_SIZE;
-    if (player.dir === 'up') checkY -= checkSize; if (player.dir === 'down') checkY += checkSize;
-    if (player.dir === 'left') checkX -= checkSize; if (player.dir === 'right') checkX += checkSize;
+    if (tapFocusedTrigger) {
+        if (isPlayerNearTrigger(tapFocusedTrigger)) {
+            return tapFocusedTrigger;
+        }
+
+        tapFocusedTrigger = null;
+    }
+
+    var checkX = player.x;
+    var checkY = player.y;
+    var checkSize = TILE_SIZE;
+
+    if (player.dir === 'up') checkY -= checkSize;
+    if (player.dir === 'down') checkY += checkSize;
+    if (player.dir === 'left') checkX -= checkSize;
+    if (player.dir === 'right') checkX += checkSize;
 
     var targetRect = getPlayerHitbox(checkX, checkY);
     var pRect = getPlayerHitbox(player.x, player.y);
 
     for (var i = 0; i < triggers.length; i++) {
         var t = triggers[i];
-        var tr = { x: t.area.x * TILE_SIZE, y: t.area.y * TILE_SIZE, w: t.area.w * TILE_SIZE, h: t.area.h * TILE_SIZE };
-        if (isColliding(targetRect, tr) || isColliding(pRect, tr)) return t;
+        var tr = {
+            x: t.area.x * TILE_SIZE,
+            y: t.area.y * TILE_SIZE,
+            w: t.area.w * TILE_SIZE,
+            h: t.area.h * TILE_SIZE
+        };
+
+        if (isColliding(targetRect, tr) || isColliding(pRect, tr)) {
+            return t;
+        }
     }
+
     return null;
 }
+
 
 function updateInteractionHint() {
     var hintEl = document.getElementById('interaction-hint');
