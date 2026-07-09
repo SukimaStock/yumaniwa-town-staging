@@ -404,6 +404,173 @@ var townArrivalLoadingStartedAt = 0;
 var townArrivalLoadingMinMs = 720;
 var townArrivalLoadingHideTimer = null;
 
+var activeTownSceneDef = null;
+
+function cloneTownData(data) {
+    return JSON.parse(JSON.stringify(data || []));
+}
+
+function isTownScene(sceneId) {
+    return !!(window.TOWN_SCENE_MAPS && window.TOWN_SCENE_MAPS[sceneId]);
+}
+
+function getTownSceneDefinition(sceneId) {
+    if (!window.TOWN_SCENE_MAPS) return null;
+    return window.TOWN_SCENE_MAPS[sceneId] || null;
+}
+
+function loadTownSceneBackground(def) {
+    activeTownSceneDef = def || null;
+    bgLoaded = false;
+    bgError = false;
+
+    var bgPath = def && def.backgroundImagePath ? def.backgroundImagePath : '';
+    if (!bgPath) {
+        finishTownArrivalLoading();
+        return;
+    }
+
+    bgImage.src = bgPath;
+}
+
+function placePlayerAtTownSpawn(def, spawnKey) {
+    if (!def) return;
+
+    var spawns = def.spawnPoints || {};
+    var spawn = spawns[spawnKey] || spawns.default || { x: 12, y: 12, dir: 'down' };
+
+    player.x = spawn.x * TILE_SIZE;
+    player.y = spawn.y * TILE_SIZE;
+    player.dir = spawn.dir || 'down';
+    player.isMoving = false;
+    player.walkDistance = 0;
+    player.walkFrame = 0;
+    player.walkWasMoving = false;
+}
+
+function applyTownSceneDefinition(sceneId, spawnKey) {
+    var def = getTownSceneDefinition(sceneId);
+    if (!def) return false;
+
+    activeTownSceneDef = def;
+    MAP_WIDTH = Number(def.mapWidth) || 24;
+    MAP_HEIGHT = Number(def.mapHeight) || 24;
+    passableRects = cloneTownData(def.passableRects);
+    blockedRects = cloneTownData(def.blockedRects);
+    blockedPoints = cloneTownData(def.blockedPoints);
+    triggers = cloneTownData(def.triggers);
+    areaZones = cloneTownData(def.areaZones);
+    currentAreaId = null;
+    tapFocusedTrigger = null;
+    pendingWarp = null;
+    cancelTapMove();
+    initGrid();
+    loadTownSceneBackground(def);
+    placePlayerAtTownSpawn(def, spawnKey || 'default');
+    updateUI();
+    updateInteractionHint();
+    setTimeout(function() { updateCurrentArea(); }, 10);
+    return true;
+}
+
+function getTownSceneTitle(sceneId) {
+    var def = getTownSceneDefinition(sceneId);
+    return def ? def.title : sceneId;
+}
+
+function drawTownSceneBackground(cam) {
+    var def = activeTownSceneDef;
+
+    if (bgLoaded) {
+        ctx.drawImage(bgImage, 0, 0, cam.mapPixelW, cam.mapPixelH);
+        return;
+    }
+
+    var baseColor = '#b7a385';
+    if (def && def.backgroundStyle === 'alley') baseColor = '#4f4033';
+    if (def && def.backgroundStyle === 'leisure') baseColor = '#57565d';
+    if (def && def.backgroundStyle === 'onsen') baseColor = '#c5b79f';
+    if (def && def.backgroundStyle === 'street') baseColor = '#d1c2a9';
+
+    ctx.fillStyle = baseColor;
+    ctx.fillRect(0, 0, cam.mapPixelW, cam.mapPixelH);
+
+    var grounds = (def && def.groundRects) || [];
+    for (var i = 0; i < grounds.length; i++) {
+        var g = grounds[i];
+        ctx.fillStyle = g.color || '#d9ccb3';
+        ctx.fillRect(g.x * TILE_SIZE, g.y * TILE_SIZE, g.w * TILE_SIZE, g.h * TILE_SIZE);
+    }
+
+    ctx.strokeStyle = 'rgba(105, 84, 60, 0.20)';
+    ctx.lineWidth = 1;
+    for (var gx = 0; gx <= cam.mapPixelW; gx += TILE_SIZE * 2) {
+        ctx.beginPath();
+        ctx.moveTo(gx, 0);
+        ctx.lineTo(gx, cam.mapPixelH);
+        ctx.stroke();
+    }
+    for (var gy = 0; gy <= cam.mapPixelH; gy += TILE_SIZE * 2) {
+        ctx.beginPath();
+        ctx.moveTo(0, gy);
+        ctx.lineTo(cam.mapPixelW, gy);
+        ctx.stroke();
+    }
+
+    var decor = (def && def.decor) || [];
+    for (var d = 0; d < decor.length; d++) {
+        var it = decor[d];
+        var px = it.x * TILE_SIZE;
+        var py = it.y * TILE_SIZE;
+        var pw = it.w * TILE_SIZE;
+        var ph = it.h * TILE_SIZE;
+
+        ctx.fillStyle = it.fill || '#7a6650';
+        ctx.fillRect(px, py, pw, ph);
+
+        ctx.strokeStyle = it.stroke || '#2d241b';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(px + 1, py + 1, Math.max(0, pw - 2), Math.max(0, ph - 2));
+
+        if (it.label) {
+            ctx.fillStyle = it.labelColor || '#ffffff';
+            ctx.font = 'bold 9px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(it.label, px + pw / 2, py + ph / 2);
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'alphabetic';
+        }
+    }
+}
+
+function tryTownEdgeWarp(requestedSide) {
+    if (!isTownScene(currentScene) || !activeTownSceneDef || !activeTownSceneDef.edgeWarps || isMessageOpen) return false;
+
+    var tile = getPlayerTile();
+    var warps = activeTownSceneDef.edgeWarps;
+
+    for (var i = 0; i < warps.length; i++) {
+        var warp = warps[i];
+        if (!warp) continue;
+        if (requestedSide && warp.side !== requestedSide) continue;
+
+        var hit = false;
+        if (warp.side === 'left' && tile.x <= 0 && tile.y >= warp.min && tile.y <= warp.max) hit = true;
+        if (warp.side === 'right' && tile.x >= MAP_WIDTH - 1 && tile.y >= warp.min && tile.y <= warp.max) hit = true;
+        if (warp.side === 'up' && tile.y <= 0 && tile.x >= warp.min && tile.x <= warp.max) hit = true;
+        if (warp.side === 'down' && tile.y >= MAP_HEIGHT - 1 && tile.x >= warp.min && tile.x <= warp.max) hit = true;
+
+        if (hit) {
+            clearDpadInput();
+            cancelTapMove();
+            changeSceneWithTownFade(warp.target, warp.targetSpawn || 'default');
+            return true;
+        }
+    }
+
+    return false;
+}
 
 
 var STATION_GUIDE_MAP_HOTSPOTS = [
@@ -411,7 +578,7 @@ var STATION_GUIDE_MAP_HOTSPOTS = [
         id: "shinpo",
         label: "湯間庭新報",
         kind: "place",
-        target: "shinpo_board",
+        target: "shinpo_board_map",
         rect: { left: 7.3, top: 12.3, width: 19.8, height: 18.9 }
     },
     {
@@ -458,76 +625,11 @@ var STATION_GUIDE_MAP_HOTSPOTS = [
     {
         id: "onsen",
         label: "湯けむり坂 工事中",
-        kind: "message",
-        text: "この先、湯けむり坂。\n\n温泉方面は、ただいま工事中です。",
+        kind: "place",
+        target: "onsen_slope_map",
         rect: { left: 41.1, top: 10.1, width: 19.0, height: 17.1 }
     }
 ];
-
-function ensureProvisionalTownMaps() {
-    if (typeof DESTINATIONS === "undefined") {
-        window.DESTINATIONS = {};
-    }
-
-    DESTINATIONS.tomogushi_alley_map = Object.assign({}, DESTINATIONS.tomogushi_alley_map || {}, {
-        id: "tomogushi_alley_map",
-        title: "灯串横丁",
-        subtitle: "提灯の路地 / 仮置きマップ",
-        sceneType: "submap",
-        description: "赤い提灯の下に、小さな屋台とゲームの入口が並ぶ。\n仮の地図なので、まずは歩く流れを確かめる場所。",
-        flavor: "路地の奥ほど、湯気と賑わいが少し濃くなる。",
-        stageLabel: "駅前から一本入った、灯串横丁の仮マップです。",
-        stageHint: "仮マップ上の行き先を選んで、入口や戻り方を確認できます。",
-        stageClass: "is-alley",
-        menuTitle: "横丁の行き先",
-        items: [
-            { workId: "midnight-cola", label: "真夜中コーラ" },
-            { kind: "message", label: "横丁について", text: "灯串横丁。\n\n夜のゲームや屋台が少しずつ増えていく予定の通りです。" },
-            { kind: "back", label: "駅前へ戻る" }
-        ],
-        mapNodes: [
-            { id: "alley-back", label: "駅前へ", kind: "back", top: 77, left: 9, small: true },
-            { id: "alley-guide", label: "横丁の案内札", kind: "message", top: 18, left: 14, text: "灯串横丁。\n\n今は仮置きの地図ですが、将来は屋台や看板が増えていきます。" },
-            { id: "midnight-cola", label: "真夜中コーラ", workId: "midnight-cola", top: 44, left: 36, accent: true },
-            { id: "yakitori-wars", label: "Yakitori Wars", workId: "yakitori-wars", top: 28, left: 67 },
-            { id: "alley-menu", label: "作品一覧を見る", kind: "menu", top: 70, left: 72, wide: true },
-            { id: "alley-empty", label: "空き屋台", kind: "message", top: 58, left: 54, text: "空き屋台。\n\nここには、次のゲームや小さな遊びを置けそうです。" }
-        ]
-    });
-
-    DESTINATIONS.leisure_center_map = Object.assign({}, DESTINATIONS.leisure_center_map || {}, {
-        id: "leisure_center_map",
-        title: "湯窓レジャーセンター",
-        subtitle: "展示ホール / 仮置きマップ",
-        sceneType: "submap",
-        description: "触れるらくがきや、ゲーム未満の展示を少しずつ並べていく場所。\nまずは入口と流れを確かめるための仮マップです。",
-        flavor: "古いゲームセンターと展示室のあいだのような、少し不思議な室内。",
-        stageLabel: "湯窓レジャーセンターの仮マップです。",
-        stageHint: "展示の置き場や、駅前への戻り口を確認するための仮マップです。",
-        stageClass: "is-leisure",
-        menuTitle: "展示の行き先",
-        items: [
-            { kind: "message", label: "展示準備中", text: "展示棚は、これから少しずつ増えていきます。\n\nまずは、この場所に何を置けるかを確かめる段階です。" },
-            { kind: "message", label: "本日のおすすめ", text: "将来は、ここにおすすめの作品やランダム展示を並べる予定です。" },
-            { kind: "back", label: "駅前へ戻る" }
-        ],
-        mapNodes: [
-            { id: "leisure-back", label: "駅前へ", kind: "back", top: 14, left: 82, small: true },
-            { id: "leisure-info", label: "案内カウンター", kind: "message", top: 18, left: 19, text: "湯窓レジャーセンターへようこそ。\n\n今は仮置きですが、ここに作品展示や筐体を増やしていく予定です。" },
-            { id: "leisure-menu", label: "展示一覧を見る", kind: "menu", top: 43, left: 49, wide: true, accent: true },
-            { id: "leisure-recommend", label: "本日のおすすめ", kind: "message", top: 66, left: 23, text: "本日のおすすめ。\n\nここには、季節展示やピックアップ作品を置けそうです。" },
-            { id: "leisure-random", label: "ランダム展示台", kind: "message", top: 70, left: 71, text: "ランダム展示台。\n\nいずれ、ふらっと作品に出会える入口にしたい場所です。" }
-        ]
-    });
-}
-
-function getDestinationInitialViewMode(destId) {
-    var dest = (typeof DESTINATIONS !== "undefined") ? DESTINATIONS[destId] : null;
-
-    if (destId === "shinpo_board") return "note_rack";
-    if (dest && dest.sceneType === "submap") return "submap";
-    return "intro";
-}
 
 function setupStationGuideMapEvents() {
     if (stationGuideMapEventsReady) return;
@@ -934,9 +1036,9 @@ function playTownRpgFadeTransition(callback) {
     }, fadeOutMs + 40);
 }
 
-function changeSceneWithTownFade(sceneId) {
+function changeSceneWithTownFade(sceneId, spawnKey) {
     playTownRpgFadeTransition(function() {
-        changeScene(sceneId);
+        changeScene(sceneId, spawnKey);
     });
 }
 
@@ -1400,10 +1502,9 @@ function confirmStationGuideMapMove() {
 
             changeScene(spot.target);
 
-            // 地図から来た時は、通常の施設は一覧をすぐ見せる。
-            // ただし仮置きマップ系は、そのままマップ画面を見せる。
-            var targetDest = DESTINATIONS[spot.target];
-            if (spot.target !== "shinpo_board" && !(targetDest && targetDest.sceneType === "submap")) {
+            // 地図から来た時は、施設説明よりも行き先一覧をすぐ見せる。
+            // 湯間庭新報だけは既存仕様の新聞ラックをそのまま開く。
+            if (spot.target !== "shinpo_board") {
                 destinationViewMode = "menu";
                 renderDestination();
             }
@@ -1459,14 +1560,11 @@ function openTownPlaceFromRoute(placeId) {
         return true;
     }
 
-    if (!DESTINATIONS[placeId]) return false;
+    if (!DESTINATIONS[placeId] && !isTownScene(placeId)) return false;
 
     changeScene(placeId);
 
-    // 直リンクで来た人には、通常の施設は選択肢を先に見せる。
-    // 仮置きマップ系はそのままマップ画面、新報は記事ラックを保つ。
-    var routeDest = DESTINATIONS[placeId];
-    if (placeId !== "shinpo_board" && !(routeDest && routeDest.sceneType === "submap")) {
+    if (!isTownScene(placeId) && placeId !== "shinpo_board") {
         destinationViewMode = "menu";
         renderDestination();
     }
@@ -1482,10 +1580,12 @@ function openTownWorkFromRoute(workId) {
 
     var destinationId = getWorkVenueDestinationId(work);
 
-    if (destinationId && DESTINATIONS[destinationId]) {
+    if (destinationId && (DESTINATIONS[destinationId] || isTownScene(destinationId))) {
         changeScene(destinationId);
-        destinationViewMode = "menu";
-        renderDestination();
+        if (!isTownScene(destinationId)) {
+            destinationViewMode = "menu";
+            renderDestination();
+        }
     }
 
     launchWork(work);
@@ -1581,7 +1681,7 @@ function updateControlVisibility() {
         debugMode ||
         isWorkPlayerOpen ||
         isStationGuideMapOpen ||
-        currentScene !== "station_plaza"
+        !isTownScene(currentScene)
     ) {
         controls.classList.add("disabled");
     } else {
@@ -1667,8 +1767,6 @@ window.onload = function() {
 
     resizeCanvas();
 
-    initGrid();
-
     bgImage.onload = function() {
         bgLoaded = true;
         finishTownArrivalLoading();
@@ -1677,7 +1775,16 @@ window.onload = function() {
         bgError = true;
         finishTownArrivalLoading();
     };
-    bgImage.src = BG_IMAGE_PATH;
+
+    if (!applyTownSceneDefinition(currentScene, 'default')) {
+        initGrid();
+        if (typeof BG_IMAGE_PATH !== 'undefined' && BG_IMAGE_PATH) {
+            bgImage.src = BG_IMAGE_PATH;
+        } else {
+            finishTownArrivalLoading();
+        }
+    }
+
     loadPlayerSprites();
 
     setupEvents();
@@ -2225,7 +2332,7 @@ function isDestinationSceneOpen() {
     return !!(
         sceneContainer &&
         sceneContainer.style.display !== 'none' &&
-        currentScene !== 'station_plaza' &&
+        !isTownScene(currentScene) &&
         !isWorkPlayerOpen &&
         !isStationGuideMapOpen
     );
@@ -2394,7 +2501,7 @@ function setupEvents() {
                 return;
             }
             closeMessage();
-            if (currentScene !== 'station_plaza') changeScene('station_plaza');
+            if (!isTownScene(currentScene)) changeScene('station_plaza');
             pendingWarp = null;
         }
         if (e.key === 'Enter' || e.key === ' ') handleActionTrigger();
@@ -2416,7 +2523,7 @@ function setupEvents() {
             e.preventDefault();
             e.stopPropagation();
 
-            if (isMessageOpen || isEditMode || debugMode || currentScene !== "station_plaza") return;
+            if (isMessageOpen || isEditMode || debugMode || !isTownScene(currentScene)) return;
 
             cancelTapMove();
             dpad[dir] = true;
@@ -2546,7 +2653,7 @@ function setupEvents() {
     canvas.addEventListener('pointerdown', function(e) {
         e.preventDefault();
 
-        if (isMessageOpen || currentScene !== 'station_plaza') return;
+        if (isMessageOpen || !isTownScene(currentScene)) return;
 
         var tappedTile = getPointerTile(e);
         if (!tappedTile) return;
@@ -2632,7 +2739,7 @@ function handleActionTrigger() {
         return;
     }
 
-    if (currentScene === 'station_plaza') {
+    if (isTownScene(currentScene)) {
         handleAction();
     }
 }
@@ -2796,7 +2903,7 @@ function showExportModal() {
 function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
 
 function update() {
-    if (isMessageOpen || currentScene !== 'station_plaza' || isEditMode) {
+    if (isMessageOpen || !isTownScene(currentScene) || isEditMode) {
         player.isMoving = false;
         updatePlayerWalkAnimation(0);
         return;
@@ -2846,6 +2953,15 @@ function update() {
         updateUI();
         updateInteractionHint();
         updateCurrentArea();
+
+        var warpSide = null;
+        if (player.isMoving) {
+            if (player.dir === 'left' && (keys['ArrowLeft'] || keys['a'] || keys['A'] || dpad.left)) warpSide = 'left';
+            if (player.dir === 'right' && (keys['ArrowRight'] || keys['d'] || keys['D'] || dpad.right)) warpSide = 'right';
+            if (player.dir === 'up' && (keys['ArrowUp'] || keys['w'] || keys['W'] || dpad.up)) warpSide = 'up';
+            if (player.dir === 'down' && (keys['ArrowDown'] || keys['s'] || keys['S'] || dpad.down)) warpSide = 'down';
+        }
+        if (warpSide && tryTownEdgeWarp(warpSide)) return;
     } else {
         // 経路の最初・最後の短い一歩も含め、タップ移動中は歩行アニメを維持する。
         var tapPathWasActive = !!tapMoveTargetTile;
@@ -2873,6 +2989,7 @@ function update() {
             updateUI();
             updateInteractionHint();
             updateCurrentArea();
+            if (tryTownEdgeWarp()) return;
         }
     }
 
@@ -2946,7 +3063,7 @@ function updateInteractionHint() {
     var hintEl = document.getElementById('interaction-hint');
     var btnAction = document.getElementById('btn-action');
 
-    if (isEditMode || currentScene !== 'station_plaza') {
+    if (isEditMode || !isTownScene(currentScene)) {
         hintEl.classList.remove('visible');
         btnAction.innerText = "調べる";
         return;
@@ -2965,7 +3082,7 @@ function updateInteractionHint() {
 }
 
 function updateCurrentArea() {
-    if (currentScene !== 'station_plaza') return;
+    if (!isTownScene(currentScene)) return;
 
     var pRect = getPlayerHitbox(player.x, player.y);
     var centerX = pRect.x + pRect.w / 2;
@@ -3027,9 +3144,10 @@ function handleAction() {
 function updateUI() {
     var tileX = Math.floor((player.x + player.w/2) / TILE_SIZE);
     var tileY = Math.floor((player.y + player.h/2) / TILE_SIZE);
-    var sceneNameMap = { 'station_plaza': '駅前広場' };
-    if (DESTINATIONS[currentScene]) sceneNameMap[currentScene] = DESTINATIONS[currentScene].title;
-    document.getElementById('scene-name').innerText = sceneNameMap[currentScene] || currentScene;
+    var sceneName = currentScene;
+    if (isTownScene(currentScene)) sceneName = getTownSceneTitle(currentScene);
+    else if (DESTINATIONS[currentScene]) sceneName = DESTINATIONS[currentScene].title;
+    document.getElementById('scene-name').innerText = sceneName;
     if (debugMode) document.getElementById('coord-display').innerText = "現在座標: (" + tileX + ", " + tileY + ")";
 }
 
@@ -3086,9 +3204,8 @@ function resetDestinationState() {
 }
 
 // ★ RPG共通メニューの生成と遷移
-window.changeScene = function(sceneId) {
+window.changeScene = function(sceneId, spawnKey) {
     currentScene = sceneId;
-    updateUI();
 
     var sceneContainer = document.getElementById('scene-container');
     document.getElementById('area-title').classList.remove('visible');
@@ -3098,14 +3215,16 @@ window.changeScene = function(sceneId) {
         btnAction.innerText = "調べる";
     }
 
-    if (sceneId === 'station_plaza') {
+    if (isTownScene(sceneId)) {
         resetDestinationState();
         closeDestinationScene();
+        applyTownSceneDefinition(sceneId, spawnKey || 'default');
         clearDpadInput();
         updateControlVisibility();
         return;
     }
 
+    updateUI();
     openDestination(sceneId);
     clearDpadInput();
     updateControlVisibility();
@@ -3114,7 +3233,10 @@ window.changeScene = function(sceneId) {
 
 window.openDestination = function(destId) {
     currentDestinationId = destId;
-    destinationViewMode = getDestinationInitialViewMode(destId);
+
+    // 湯間庭新報は、タイトル一覧を一度挟まずに
+    // 記事カードが並ぶ「新聞ラック」を直接開く。
+    destinationViewMode = (destId === "shinpo_board") ? "note_rack" : "intro";
     currentDestinationMessage = "";
     currentDestinationMessageTitle = "";
     renderDestination();
@@ -3133,8 +3255,6 @@ window.renderDestination = function() {
         html = renderDestinationMessage(dest, currentDestinationMessageTitle, currentDestinationMessage);
     } else if (destinationViewMode === "note_rack") {
         html = renderNoteCardRack(dest);
-    } else if (destinationViewMode === "submap") {
-        html = renderDestinationSubmap(dest);
     }
 
     var sceneContainer = document.getElementById('scene-container');
@@ -3240,90 +3360,6 @@ window.renderDestinationMessage = function(dest, title, text) {
     html += '</div></div>';
 
     return html;
-};
-
-window.renderDestinationSubmap = function(dest) {
-    var nodes = Array.isArray(dest.mapNodes) ? dest.mapNodes : [];
-    var html = '';
-
-    html += '<div class="rpg-window provisional-map-window">';
-    html += '<div class="rpg-window-header">';
-    html += '<div class="rpg-title">' + dest.title + '</div>';
-    if (dest.subtitle) html += '<div class="rpg-subtitle">' + dest.subtitle + '</div>';
-    html += '</div>';
-
-    if (dest.description) {
-        html += '<p class="rpg-description provisional-map-description">' + formatText(dest.description) + '</p>';
-    }
-
-    html += '<div class="provisional-map-caption">' + (dest.stageLabel || '') + '</div>';
-    html += '<div class="provisional-map-board ' + (dest.stageClass || '') + '">';
-    html += '<div class="provisional-map-road road-a"></div>';
-    html += '<div class="provisional-map-road road-b"></div>';
-
-    for (var i = 0; i < nodes.length; i++) {
-        var node = nodes[i];
-        var classes = 'rpg-menu-item provisional-map-node';
-        if (node.small) classes += ' is-small';
-        if (node.wide) classes += ' is-wide';
-        if (node.accent) classes += ' is-accent';
-        if (node.kind === 'back') classes += ' is-back';
-        if (node.kind === 'message') classes += ' is-info';
-
-        var style = 'left:' + Number(node.left || 50) + '%;top:' + Number(node.top || 50) + '%;';
-        html += '<button class="' + classes + '" type="button" style="' + style + '" onclick="handleSubmapNode(\'' + dest.id + '\',' + i + ')">';
-        html += '<span class="provisional-map-node-label">' + node.label + '</span>';
-        html += '</button>';
-    }
-
-    html += '</div>';
-    if (dest.stageHint) html += '<div class="provisional-map-hint">' + dest.stageHint + '</div>';
-
-    html += '<div class="rpg-menu-list provisional-map-footer">';
-    html += '<button class="rpg-menu-item" type="button" onclick="returnDestinationMenu()">一覧で見る</button>';
-    html += '<button class="rpg-menu-item rpg-back" type="button" onclick="changeScene(\'station_plaza\')">駅前へ戻る</button>';
-    html += '</div>';
-    html += '</div>';
-
-    return html;
-};
-
-window.handleSubmapNode = function(destId, index) {
-    var dest = DESTINATIONS[destId];
-    if (!dest || !Array.isArray(dest.mapNodes)) return;
-
-    var node = dest.mapNodes[index];
-    if (!node) return;
-
-    if (node.kind === 'back') {
-        changeScene('station_plaza');
-        return;
-    }
-
-    if (node.kind === 'menu') {
-        returnDestinationMenu();
-        return;
-    }
-
-    if (node.kind === 'place' && node.target) {
-        changeScene(node.target);
-        return;
-    }
-
-    if (node.kind === 'message') {
-        showDestinationMessage(node.label, node.text || 'まだ準備中です。');
-        return;
-    }
-
-    if (node.workId) {
-        var work = getWorkById(node.workId);
-        if (work) {
-            launchWork(work);
-            return;
-        }
-    }
-
-    showDestinationMessage(node.label, 'まだ準備中です。');
 };
 
 window.showDestinationMessage = function(title, text) {
@@ -4003,17 +4039,6 @@ window.handleDestinationMenuItem = function(destId, index) {
         return;
     }
 
-    if (item.kind === 'menu') {
-        destinationViewMode = 'submap';
-        renderDestination();
-        return;
-    }
-
-    if (item.kind === 'place' && item.target) {
-        changeScene(item.target);
-        return;
-    }
-
     if (item.kind === 'back') {
         changeScene('station_plaza');
     }
@@ -4050,8 +4075,6 @@ window.handleDestinationItem = function(destId, index) {
     }
 };
 
-ensureProvisionalTownMaps();
-
 // ==========================================
 // 8. 描画処理 (Canvas)
 // ==========================================
@@ -4063,8 +4086,7 @@ function draw() {
     ctx.scale(cam.zoom, cam.zoom);
     ctx.translate(-cam.cameraX, -cam.cameraY);
 
-    if (bgLoaded) ctx.drawImage(bgImage, 0, 0, cam.mapPixelW, cam.mapPixelH);
-    else { ctx.fillStyle = '#b0a080'; ctx.fillRect(0, 0, cam.mapPixelW, cam.mapPixelH); }
+    drawTownSceneBackground(cam);
 
     if (tapMarkerTimer > 0 && tapMarkerPos && !isEditMode && !debugMode) {
         ctx.beginPath();
@@ -4112,7 +4134,7 @@ function draw() {
         }
     }
 
-    if (currentScene === 'station_plaza') {
+    if (isTownScene(currentScene)) {
         var px = player.x;
         var py = player.y;
 
