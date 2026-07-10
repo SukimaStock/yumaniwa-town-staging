@@ -392,7 +392,7 @@ function getWorkPlayerFrameTitle(work) {
     return (work && work.title) || "湯間庭町";
 }
 
-var STATION_GUIDE_MAP_IMAGE = "assets/station-guide-map.png";
+var STATION_GUIDE_MAP_IMAGE = "assets/station-guide-map.png?rev=20260710-final";
 var isStationGuideMapOpen = false;
 var stationGuideMapStylesReady = false;
 var stationGuideMapEventsReady = false;
@@ -817,55 +817,48 @@ var STATION_GUIDE_MAP_HOTSPOTS = [
         label: "湯間庭新報",
         kind: "place",
         target: "shinpo_board",
-        rect: { left: 7.3, top: 12.3, width: 19.8, height: 18.9 }
+        rect: { left: 22.8, top: 20.6, width: 16.0, height: 11.2 }
     },
     {
         id: "tomogushi",
         label: "灯串横丁",
         kind: "place",
         target: "tomogushi_alley_map",
-        rect: { left: 2.7, top: 40.1, width: 26.9, height: 35.4 }
+        rect: { left: 0.0, top: 0.0, width: 24.0, height: 70.0 }
     },
     {
         id: "yumado",
         label: "湯窓通り",
         kind: "place",
         target: "yumado_street_map",
-        rect: { left: 71.6, top: 11.8, width: 24.9, height: 29.5 }
-    },
-    {
-        id: "tourist_info",
-        label: "観光案内所",
-        kind: "place",
-        target: "tourist_info_interior",
-        rect: { left: 56.2, top: 22.4, width: 19.0, height: 28.3 }
+        rect: { left: 63.0, top: 0.0, width: 37.0, height: 56.0 }
     },
     {
         id: "leisure_center",
         label: "湯窓レジャーセンター",
         kind: "place",
         target: "leisure_center_map",
-        rect: { left: 74.8, top: 43.6, width: 22.5, height: 40.1 }
+        rect: { left: 74.5, top: 52.5, width: 25.5, height: 36.0 }
     },
     {
         id: "station",
         label: "湯間庭駅",
         kind: "message",
         text: "湯間庭駅。\n\nのんびりしたローカル線の小さな駅だ。\nここから、湯気と看板の町歩きが始まる。",
-        rect: { left: 33.2, top: 67.2, width: 33.2, height: 28.9 }
+        rect: { left: 38.0, top: 58.0, width: 27.0, height: 31.0 }
     },
     {
         id: "current",
         label: "現在地",
         kind: "close",
-        rect: { left: 45.1, top: 41.3, width: 12.7, height: 15.9 }
+        rect: { left: 42.0, top: 39.0, width: 16.5, height: 15.0 }
     },
     {
         id: "onsen",
         label: "湯けむり坂 工事中",
         kind: "place",
         target: "onsen_slope_map",
-        rect: { left: 41.1, top: 10.1, width: 19.0, height: 17.1 }
+        rect: { left: 38.0, top: 0.0, width: 24.0, height: 29.0 }
     }
 ];
 
