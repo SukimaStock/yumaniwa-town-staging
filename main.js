@@ -72,6 +72,7 @@ var editStartX = 0;
 var editStartY = 0;
 var currentHoverTile = null;
 var editHistory = [];
+var editingTriggerIndex = -1;
 
 var collisionGrid = [];
 var currentAreaId = null;
@@ -3203,6 +3204,8 @@ function toggleDebugMode() {
 // 5. エディタ機能
 // ==========================================
 function setupEditorEvents() {
+    ensureTriggerEditorExtraFields();
+
     document.getElementById('btn-close-editor').addEventListener('click', function() {
         document.getElementById('editor-panel').style.display = 'none';
         document.getElementById('btn-debug-toggle').style.display = DEV_MODE_ENABLED ? 'block' : 'none';
@@ -3214,8 +3217,9 @@ function setupEditorEvents() {
     });
 
     document.getElementById('edit-target').addEventListener('change', function(e) {
-        editTarget = e.target.value; editStep = 0; currentHoverTile = null;
+        editTarget = e.target.value; editStep = 0; currentHoverTile = null; editingTriggerIndex = -1;
         document.getElementById('trigger-form').style.display = (editTarget === 'triggers') ? 'block' : 'none';
+        if (editTarget === 'triggers') ensureTriggerEditorExtraFields();
         updateEditorStatus(editTarget + " を編集します");
     });
 
@@ -3223,7 +3227,11 @@ function setupEditorEvents() {
         if (editHistory.length === 0) { updateEditorStatus("Undoする履歴がありません"); return; }
         var last = editHistory.pop();
         if (last.type === 'grid') { collisionGrid = last.prev; }
-        else if (last.type === 'triggers') { triggers.pop(); }
+        else if (last.type === 'triggers') {
+            if (last.prev) restoreTriggers(last.prev);
+            else triggers.pop();
+            editingTriggerIndex = -1;
+        }
         updateEditorStatus("直前の編集を取り消しました");
         editStep = 0; currentHoverTile = null;
     });
@@ -3239,6 +3247,208 @@ function setupEditorEvents() {
     });
 }
 
+function ensureTriggerEditorExtraFields() {
+    var form = document.getElementById("trigger-form");
+    if (!form || form.dataset.extraTriggerFieldsReady === "true") return;
+
+    form.dataset.extraTriggerFieldsReady = "true";
+
+    function makeLabel(text, input) {
+        var label = document.createElement("label");
+        label.appendChild(document.createTextNode(text + " "));
+        label.appendChild(input);
+        return label;
+    }
+
+    var labelInput = document.createElement("input");
+    labelInput.id = "trigger-label";
+    labelInput.type = "text";
+    labelInput.value = "新規トリガー";
+
+    var actionInput = document.createElement("input");
+    actionInput.id = "trigger-action-label";
+    actionInput.type = "text";
+    actionInput.value = "調べる";
+
+    var updateButton = document.createElement("button");
+    updateButton.id = "btn-update-trigger";
+    updateButton.type = "button";
+    updateButton.innerText = "選択中トリガーを更新";
+
+    updateButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        updateSelectedTriggerFromForm();
+    });
+
+    form.insertBefore(makeLabel("表示名", labelInput), form.firstChild);
+    form.insertBefore(makeLabel("動作名", actionInput), form.children[1] || null);
+    form.appendChild(updateButton);
+}
+
+function cloneTrigger(trigger) {
+    var copied = {};
+    for (var key in trigger) {
+        if (!Object.prototype.hasOwnProperty.call(trigger, key)) continue;
+
+        if (key === "area" && trigger.area) {
+            copied.area = {
+                x: trigger.area.x,
+                y: trigger.area.y,
+                w: trigger.area.w,
+                h: trigger.area.h
+            };
+        } else {
+            copied[key] = trigger[key];
+        }
+    }
+    return copied;
+}
+
+function cloneTriggers() {
+    var copied = [];
+    for (var i = 0; i < triggers.length; i++) {
+        copied.push(cloneTrigger(triggers[i]));
+    }
+    return copied;
+}
+
+function restoreTriggers(prev) {
+    triggers = [];
+    for (var i = 0; i < prev.length; i++) {
+        triggers.push(cloneTrigger(prev[i]));
+    }
+}
+
+function getTriggerIndexAtTile(tx, ty) {
+    for (var i = triggers.length - 1; i >= 0; i--) {
+        var t = triggers[i];
+        if (!t || !t.area) continue;
+
+        if (
+            tx >= t.area.x &&
+            tx < t.area.x + t.area.w &&
+            ty >= t.area.y &&
+            ty < t.area.y + t.area.h
+        ) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+function getTriggerFormValues(area) {
+    var idInput = document.getElementById("trigger-id");
+    var labelInput = document.getElementById("trigger-label");
+    var actionInput = document.getElementById("trigger-action-label");
+    var typeInput = document.getElementById("trigger-type");
+    var targetInput = document.getElementById("trigger-target");
+    var textInput = document.getElementById("trigger-text");
+
+    return {
+        id: idInput ? idInput.value : "new_trigger",
+        label: labelInput ? labelInput.value : "新規トリガー",
+        actionLabel: actionInput ? actionInput.value : "調べる",
+        area: area,
+        type: typeInput ? typeInput.value : "inspect",
+        target: targetInput ? targetInput.value : "",
+        text: textInput ? textInput.value : ""
+    };
+}
+
+function setTriggerFormValues(trigger) {
+    if (!trigger) return;
+
+    ensureTriggerEditorExtraFields();
+
+    var idInput = document.getElementById("trigger-id");
+    var labelInput = document.getElementById("trigger-label");
+    var actionInput = document.getElementById("trigger-action-label");
+    var typeInput = document.getElementById("trigger-type");
+    var targetInput = document.getElementById("trigger-target");
+    var textInput = document.getElementById("trigger-text");
+
+    if (idInput) idInput.value = trigger.id || "";
+    if (labelInput) labelInput.value = trigger.label || "";
+    if (actionInput) actionInput.value = trigger.actionLabel || "";
+    if (typeInput) typeInput.value = trigger.type || "inspect";
+    if (targetInput) targetInput.value = trigger.target || "";
+    if (textInput) textInput.value = trigger.text || "";
+}
+
+function applyTriggerValues(index, values) {
+    if (index < 0 || index >= triggers.length || !values) return false;
+
+    triggers[index] = {
+        id: values.id || "trigger",
+        label: values.label || "トリガー",
+        actionLabel: values.actionLabel || "調べる",
+        area: values.area || triggers[index].area,
+        type: values.type || "inspect",
+        target: values.target || "",
+        text: values.text || ""
+    };
+
+    return true;
+}
+
+function selectExistingTriggerForEdit(index) {
+    if (index < 0 || index >= triggers.length) return false;
+
+    var trigger = triggers[index];
+    if (!trigger || !trigger.area) return false;
+
+    editingTriggerIndex = index;
+    editStep = 1;
+    editStartX = trigger.area.x;
+    editStartY = trigger.area.y;
+    currentHoverTile = {
+        x: trigger.area.x + trigger.area.w - 1,
+        y: trigger.area.y + trigger.area.h - 1
+    };
+
+    setTriggerFormValues(trigger);
+
+    updateEditorStatus(
+        "既存トリガーを選択中: " +
+        (trigger.label || trigger.id || "trigger") +
+        " / 内容変更後に「選択中トリガーを更新」、または終点タップで範囲変更"
+    );
+
+    return true;
+}
+
+function updateSelectedTriggerFromForm() {
+    if (editingTriggerIndex < 0 || editingTriggerIndex >= triggers.length) {
+        updateEditorStatus("更新する既存トリガーが選択されていません");
+        return;
+    }
+
+    var current = triggers[editingTriggerIndex];
+    if (!current || !current.area) {
+        updateEditorStatus("選択中トリガーが見つかりません");
+        editingTriggerIndex = -1;
+        return;
+    }
+
+    editHistory.push({ type: "triggers", prev: cloneTriggers() });
+
+    applyTriggerValues(editingTriggerIndex, getTriggerFormValues({
+        x: current.area.x,
+        y: current.area.y,
+        w: current.area.w,
+        h: current.area.h
+    }));
+
+    editStep = 0;
+    currentHoverTile = null;
+    editingTriggerIndex = -1;
+
+    updateEditorStatus("既存トリガーの内容を更新しました");
+}
+
+
 
 function updateEditorStatus(msg) { document.getElementById('editor-status').innerText = msg; }
 function copyGrid() { var arr = []; for (var y = 0; y < MAP_HEIGHT; y++) arr.push(collisionGrid[y].slice()); return arr; }
@@ -3250,36 +3460,92 @@ function handleEditorTap(tx, ty) {
         updateEditorStatus("Point追加: (" + tx + ", " + ty + ")");
         return;
     }
+
     if (editStep === 0) {
-        editStartX = tx; editStartY = ty; editStep = 1; currentHoverTile = { x: tx, y: ty };
-        updateEditorStatus("終点をタップしてください");
-    } else if (editStep === 1) {
-        var minX = Math.min(editStartX, tx); var minY = Math.min(editStartY, ty);
-        var w = Math.max(editStartX, tx) - minX + 1; var h = Math.max(editStartY, ty) - minY + 1;
+        if (editTarget === 'triggers') {
+            ensureTriggerEditorExtraFields();
+
+            var hitIndex = getTriggerIndexAtTile(tx, ty);
+            if (hitIndex >= 0) {
+                selectExistingTriggerForEdit(hitIndex);
+                return;
+            }
+
+            editingTriggerIndex = -1;
+        }
+
+        editStartX = tx;
+        editStartY = ty;
+        editStep = 1;
+        currentHoverTile = { x: tx, y: ty };
+
+        if (editTarget === 'triggers') {
+            updateEditorStatus("新規トリガー範囲の終点をタップしてください");
+        } else {
+            updateEditorStatus("終点をタップしてください");
+        }
+
+        return;
+    }
+
+    if (editStep === 1) {
+        var minX = Math.min(editStartX, tx);
+        var minY = Math.min(editStartY, ty);
+        var w = Math.max(editStartX, tx) - minX + 1;
+        var h = Math.max(editStartY, ty) - minY + 1;
         var newRect = { x: minX, y: minY, w: w, h: h };
 
         if (editTarget === 'passableRects' || editTarget === 'blockedRects') {
             editHistory.push({ type: 'grid', prev: copyGrid() });
             var val = (editTarget === 'passableRects') ? 1 : 2;
+
             for (var cy = minY; cy < minY + h; cy++) {
                 for (var cx = minX; cx < minX + w; cx++) {
-                    if (cx >= 0 && cx < MAP_WIDTH && cy >= 0 && cy < MAP_HEIGHT) collisionGrid[cy][cx] = val;
+                    if (cx >= 0 && cx < MAP_WIDTH && cy >= 0 && cy < MAP_HEIGHT) {
+                        collisionGrid[cy][cx] = val;
+                    }
                 }
             }
-        } else if (editTarget === 'triggers') {
-            for (var i = triggers.length - 1; i >= 0; i--) {
-                if (triggers[i].area.x === minX && triggers[i].area.y === minY && triggers[i].area.w === w && triggers[i].area.h === h) triggers.splice(i, 1);
-            }
-            var tType = document.getElementById('trigger-type').value;
-            var tId = document.getElementById('trigger-id').value;
-            var tText = document.getElementById('trigger-text').value;
-            var tTarget = document.getElementById('trigger-target').value;
-            triggers.push({ id: tId, label: "新規トリガー", actionLabel: "調べる", area: newRect, type: tType, target: tTarget, text: tText });
-            editHistory.push({ type: 'triggers' });
+
+            editStep = 0;
+            currentHoverTile = null;
+            updateEditorStatus("追加完了。次の始点をタップ");
+            return;
         }
-        editStep = 0; currentHoverTile = null; updateEditorStatus("追加完了。次の始点をタップ");
+
+        if (editTarget === 'triggers') {
+            ensureTriggerEditorExtraFields();
+            editHistory.push({ type: 'triggers', prev: cloneTriggers() });
+
+            if (editingTriggerIndex >= 0 && editingTriggerIndex < triggers.length) {
+                applyTriggerValues(editingTriggerIndex, getTriggerFormValues(newRect));
+                updateEditorStatus("既存トリガーの範囲と内容を更新しました");
+            } else {
+                var values = getTriggerFormValues(newRect);
+                triggers.push({
+                    id: values.id || "new_trigger",
+                    label: values.label || "新規トリガー",
+                    actionLabel: values.actionLabel || "調べる",
+                    area: values.area,
+                    type: values.type || "inspect",
+                    target: values.target || "",
+                    text: values.text || ""
+                });
+                updateEditorStatus("新規トリガーを追加しました");
+            }
+
+            editStep = 0;
+            currentHoverTile = null;
+            editingTriggerIndex = -1;
+            return;
+        }
+
+        editStep = 0;
+        currentHoverTile = null;
+        updateEditorStatus("追加完了。次の始点をタップ");
     }
 }
+
 
 function gridToRects(targetValue) {
     var rects = []; var visited = [];
