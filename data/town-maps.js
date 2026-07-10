@@ -158,6 +158,7 @@
       mapWidth: 24,
       mapHeight: 24,
       backgroundStyle: 'street',
+      backgroundImagePath: 'assets/maps/grounds/yumado-street-ground.png',
       spawnPoints: {
         default: { x: 3, y: 12, dir: 'right' },
         fromPlaza: { x: 3, y: 12, dir: 'right' }
@@ -280,6 +281,7 @@
       mapWidth: 24,
       mapHeight: 24,
       backgroundStyle: 'onsen',
+      backgroundImagePath: 'assets/maps/grounds/onsen-slope-ground.png',
       spawnPoints: {
         default: { x: 12, y: 20, dir: 'up' },
         fromPlaza: { x: 12, y: 20, dir: 'up' }
