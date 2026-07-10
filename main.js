@@ -743,10 +743,16 @@ function carveTownEdgeWarpTiles(def) {
 
         if (!isFinite(max)) max = min;
 
-        // 出口は「装飾や建物があっても必ず通れる」ことを優先する。
-        // 横方向の仮建物が深くかぶっていたため、端から8タイル分を通行可能に戻す。
-        // 見た目は仮のままでも、まずはマップ間移動の導線を確実に確保する。
-        var corridorDepth = Number(warp.corridorDepth) || 8;
+        // 出口は「画面端の1タイル」だけを基本として通行可能に戻す。
+        // 以前は8タイル分を強制通行にしていたため、マップごとの当たり判定を大きく上書きしていた。
+        // もっと奥まで出口を確保したい場合だけ、data/town-maps.js の edgeWarps に corridorDepth を指定する。
+        var corridorDepth = Number(warp.corridorDepth);
+
+        if (!isFinite(corridorDepth)) {
+            corridorDepth = 1;
+        }
+
+        corridorDepth = Math.max(0, Math.min(8, Math.floor(corridorDepth)));
         for (var n = min; n <= max; n++) {
             for (var depth = 0; depth < corridorDepth; depth++) {
                 var x = 0;
