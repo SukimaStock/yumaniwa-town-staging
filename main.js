@@ -2842,7 +2842,7 @@ function backFromRpgMenu() {
         return;
     }
 
-    changeScene('station_plaza');
+    backToDestinationReturnScene(currentDestinationId);
 }
 
 function handleRpgMenuKeyboard(e) {
@@ -3827,6 +3827,18 @@ function handleAction() {
             return;
         }
 
+        if (t.type === "work") {
+            var work = t.workId ? getWorkById(t.workId) : null;
+
+            if (work) {
+                launchWork(work);
+            } else {
+                showMessage(t.text || "この作品は、まだ準備中です。");
+            }
+
+            return;
+        }
+
         if (t.type === "inspect") {
             showMessage(t.text);
         } else if (t.type === "warp" || t.type === "menu") {
@@ -3904,6 +3916,30 @@ function resetDestinationState() {
     currentDestinationMessageTitle = "";
 }
 
+function getDestinationReturnSceneId(destOrId) {
+    var dest = (typeof destOrId === "string") ? DESTINATIONS[destOrId] : destOrId;
+
+    if (dest && dest.returnScene && isTownScene(dest.returnScene)) {
+        return dest.returnScene;
+    }
+
+    return "station_plaza";
+}
+
+function getDestinationReturnLabel(destOrId) {
+    var dest = (typeof destOrId === "string") ? DESTINATIONS[destOrId] : destOrId;
+
+    if (dest && dest.returnLabel) {
+        return dest.returnLabel;
+    }
+
+    return "駅前";
+}
+
+window.backToDestinationReturnScene = function(destId) {
+    changeScene(getDestinationReturnSceneId(destId || currentDestinationId));
+};
+
 // ★ RPG共通メニューの生成と遷移
 window.changeScene = function(sceneId, spawnKey) {
     currentScene = sceneId;
@@ -3980,7 +4016,7 @@ window.renderDestinationIntro = function(dest) {
 
     html += '<div class="rpg-menu-list">';
     html += '<button class="rpg-menu-item" onclick="returnDestinationMenu()">つづける</button>';
-    html += '<button class="rpg-menu-item rpg-back" onclick="changeScene(\'station_plaza\')">駅前へ戻る</button>';
+    html += '<button class="rpg-menu-item rpg-back" onclick="backToDestinationReturnScene(\'' + dest.id + '\')">' + getDestinationReturnLabel(dest) + 'へ戻る</button>';
     html += '</div></div>';
 
     return html;
@@ -4034,7 +4070,7 @@ window.renderDestinationMenu = function(dest) {
         
         if (item.kind === 'back') {
             btnClass += ' rpg-back';
-            html += '<button class="' + btnClass + '" onclick="changeScene(\'station_plaza\')">' + item.label + '</button>';
+            html += '<button class="' + btnClass + '" onclick="backToDestinationReturnScene(\'' + dest.id + '\')">' + item.label + '</button>';
         } else {
             var label = item.label;
             // 生成済みのメニュー配列を直接渡すことで、
@@ -4057,7 +4093,7 @@ window.renderDestinationMessage = function(dest, title, text) {
 
     html += '<div class="rpg-menu-list" style="margin-top: 20px;">';
     html += '<button class="rpg-menu-item" onclick="returnDestinationMenu()">選択肢へ戻る</button>';
-    html += '<button class="rpg-menu-item rpg-back" onclick="changeScene(\'station_plaza\')">駅前へ戻る</button>';
+    html += '<button class="rpg-menu-item rpg-back" onclick="backToDestinationReturnScene(\'' + dest.id + '\')">' + getDestinationReturnLabel(dest) + 'へ戻る</button>';
     html += '</div></div>';
 
     return html;
@@ -4577,7 +4613,9 @@ window.openWorkPlayer = function(work) {
 
     currentWorkId = work.id || null;
     currentFrameSourceUrl = "";
-    workPlayerReturnDestinationId = currentDestinationId;
+    workPlayerReturnDestinationId = (!isTownScene(currentScene) && currentDestinationId && DESTINATIONS[currentDestinationId])
+        ? currentDestinationId
+        : null;
     isWorkPlayerOpen = true;
 
     // 作品ごとに見せ方を選べるよう、フレームのモードをデータとして保持する。
@@ -4741,7 +4779,7 @@ window.handleDestinationMenuItem = function(destId, index) {
     }
 
     if (item.kind === 'back') {
-        changeScene('station_plaza');
+        backToDestinationReturnScene(destId);
     }
 };
 
