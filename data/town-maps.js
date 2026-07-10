@@ -535,12 +535,14 @@
       subtitle: '灯串横丁',
       description: '灯串横丁で遊べるゲームをまとめた屋台です。',
       flavor: '屋台を毎回増やさなくても、ここから一覧で選べるようにしておきます。',
+      returnScene: 'tomogushi_alley_map',
+      returnLabel: '灯串横丁',
       menuTitle: '遊ぶゲームを選ぶ',
       items: [
         { workId: 'midnight-cola', label: '真夜中コーラ' },
         { workId: 'yakitori-wars', label: 'Yakitori Wars' },
         { kind: 'message', label: 'これから増えるゲーム', text: '新しいゲームは、まずこの一覧に追加していく想定です。\n\n常設屋台は看板作品だけに絞ると、横丁の管理がかなり楽になります。' },
-        { kind: 'back', label: '駅前へ戻る' }
+        { kind: 'back', label: '横丁へ戻る' }
       ]
     };
   }
@@ -552,12 +554,14 @@
       subtitle: '湯窓レジャーセンター',
       description: '展示を全部個別の台にせず、ここから選択肢で見られるようにしたガイドです。',
       flavor: '展示が増えても、通路や棚を毎回作り直さずに済む構成です。',
+      returnScene: 'leisure_center_map',
+      returnLabel: 'レジャーセンター',
       menuTitle: '見たい展示を選ぶ',
       items: [
         { kind: 'message', label: '触れるらくがき一覧', text: '触れるらくがきの一覧をここから見せる想定です。\n\n今後はカテゴリ別や新着順にも広げられます。' },
         { kind: 'message', label: 'おすすめ展示', text: 'いま推したい展示や、最近追加した展示をここから案内できます。' },
         { kind: 'message', label: 'テーマ別に見る', text: 'たとえば「時計」「音」「くだらないもの」など、テーマ別の選び方にも対応しやすい構成です。' },
-        { kind: 'back', label: '駅前へ戻る' }
+        { kind: 'back', label: 'レジャーセンターへ戻る' }
       ]
     };
   }
