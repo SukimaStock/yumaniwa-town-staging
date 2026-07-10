@@ -419,19 +419,180 @@ function getTownSceneDefinition(sceneId) {
     return window.TOWN_SCENE_MAPS[sceneId] || null;
 }
 
+var townSceneBackgroundCache = {};
+
+function flushTownSceneBackgroundCallbacks(entry) {
+    if (!entry || !entry.callbacks) return;
+
+    var callbacks = entry.callbacks.slice();
+    entry.callbacks.length = 0;
+
+    for (var i = 0; i < callbacks.length; i++) {
+        if (typeof callbacks[i] === "function") {
+            callbacks[i](entry);
+        }
+    }
+}
+
+function preloadTownSceneBackgroundAsset(path, callback) {
+    if (!path) {
+        if (typeof callback === "function") {
+            window.setTimeout(function() {
+                callback({ loaded: true, error: false, image: null, path: "" });
+            }, 0);
+        }
+        return null;
+    }
+
+    var entry = townSceneBackgroundCache[path];
+
+    if (entry) {
+        if (typeof callback === "function") {
+            if (entry.loaded || entry.error) {
+                window.setTimeout(function() {
+                    callback(entry);
+                }, 0);
+            } else {
+                entry.callbacks.push(callback);
+            }
+        }
+
+        return entry;
+    }
+
+    var image = new Image();
+
+    entry = {
+        path: path,
+        image: image,
+        loaded: false,
+        error: false,
+        callbacks: []
+    };
+
+    if (typeof callback === "function") {
+        entry.callbacks.push(callback);
+    }
+
+    townSceneBackgroundCache[path] = entry;
+
+    image.onload = function() {
+        entry.loaded = true;
+        entry.error = false;
+        flushTownSceneBackgroundCallbacks(entry);
+    };
+
+    image.onerror = function() {
+        entry.loaded = false;
+        entry.error = true;
+        flushTownSceneBackgroundCallbacks(entry);
+    };
+
+    image.src = path;
+
+    return entry;
+}
+
+function preloadTownSceneBackgrounds() {
+    if (!window.TOWN_SCENE_MAPS) return;
+
+    for (var sceneId in window.TOWN_SCENE_MAPS) {
+        if (!Object.prototype.hasOwnProperty.call(window.TOWN_SCENE_MAPS, sceneId)) continue;
+
+        var def = window.TOWN_SCENE_MAPS[sceneId];
+        if (def && def.backgroundImagePath) {
+            preloadTownSceneBackgroundAsset(def.backgroundImagePath);
+        }
+    }
+}
+
+function waitForTownSceneBackground(sceneId, done) {
+    var finished = false;
+
+    function finish() {
+        if (finished) return;
+        finished = true;
+
+        if (timeoutId) {
+            window.clearTimeout(timeoutId);
+        }
+
+        if (typeof done === "function") {
+            done();
+        }
+    }
+
+    var def = getTownSceneDefinition(sceneId);
+    var path = def && def.backgroundImagePath ? def.backgroundImagePath : "";
+
+    if (!path) {
+        finish();
+        return;
+    }
+
+    var entry = preloadTownSceneBackgroundAsset(path, function() {
+        finish();
+    });
+
+    if (!entry || entry.loaded || entry.error) {
+        finish();
+        return;
+    }
+
+    // 通信やキャッシュの都合で読み込みが詰まった場合でも、暗転したまま固まらないようにする。
+    var timeoutId = window.setTimeout(function() {
+        finish();
+    }, 2200);
+}
+
+
 function loadTownSceneBackground(def) {
     activeTownSceneDef = def || null;
     bgLoaded = false;
     bgError = false;
 
-    var bgPath = def && def.backgroundImagePath ? def.backgroundImagePath : '';
+    var bgPath = def && def.backgroundImagePath ? def.backgroundImagePath : "";
+
     if (!bgPath) {
         finishTownArrivalLoading();
         return;
     }
 
-    bgImage.src = bgPath;
+    var entry = preloadTownSceneBackgroundAsset(bgPath, function(doneEntry) {
+        var currentPath = activeTownSceneDef && activeTownSceneDef.backgroundImagePath
+            ? activeTownSceneDef.backgroundImagePath
+            : "";
+
+        if (currentPath !== bgPath) return;
+
+        bgLoaded = !!doneEntry.loaded;
+        bgError = !!doneEntry.error;
+
+        if (doneEntry.image) {
+            bgImage = doneEntry.image;
+        }
+
+        finishTownArrivalLoading();
+    });
+
+    if (entry && entry.image) {
+        bgImage = entry.image;
+    }
+
+    if (entry && entry.loaded) {
+        bgLoaded = true;
+        bgError = false;
+        finishTownArrivalLoading();
+        return;
+    }
+
+    if (entry && entry.error) {
+        bgLoaded = false;
+        bgError = true;
+        finishTownArrivalLoading();
+    }
 }
+
 
 function placePlayerAtTownSpawn(def, spawnKey) {
     if (!def) return;
@@ -482,16 +643,35 @@ function getTownSceneTitle(sceneId) {
 function drawTownSceneBackground(cam) {
     var def = activeTownSceneDef;
 
+    if (def && def.backgroundImagePath) {
+        var entry = preloadTownSceneBackgroundAsset(def.backgroundImagePath);
+
+        if (entry && entry.loaded && entry.image) {
+            ctx.drawImage(entry.image, 0, 0, cam.mapPixelW, cam.mapPixelH);
+            return;
+        }
+
+        if (!entry || !entry.error) {
+            // 背景アセットがまだ読めていない間は、仮矩形マップを描かない。
+            // これにより、マップ遷移直後に開発中の仮画面が一瞬見えるのを防ぐ。
+            ctx.fillStyle = "#050403";
+            ctx.fillRect(0, 0, cam.mapPixelW, cam.mapPixelH);
+            return;
+        }
+
+        // 読み込み失敗時だけ、下の仮描画へフォールバックする。
+    }
+
     if (bgLoaded) {
         ctx.drawImage(bgImage, 0, 0, cam.mapPixelW, cam.mapPixelH);
         return;
     }
 
-    var baseColor = '#b7a385';
-    if (def && def.backgroundStyle === 'alley') baseColor = '#4f4033';
-    if (def && def.backgroundStyle === 'leisure') baseColor = '#57565d';
-    if (def && def.backgroundStyle === 'onsen') baseColor = '#c5b79f';
-    if (def && def.backgroundStyle === 'street') baseColor = '#d1c2a9';
+    var baseColor = "#b7a385";
+    if (def && def.backgroundStyle === "alley") baseColor = "#4f4033";
+    if (def && def.backgroundStyle === "leisure") baseColor = "#57565d";
+    if (def && def.backgroundStyle === "onsen") baseColor = "#c5b79f";
+    if (def && def.backgroundStyle === "street") baseColor = "#d1c2a9";
 
     ctx.fillStyle = baseColor;
     ctx.fillRect(0, 0, cam.mapPixelW, cam.mapPixelH);
@@ -499,11 +679,11 @@ function drawTownSceneBackground(cam) {
     var grounds = (def && def.groundRects) || [];
     for (var i = 0; i < grounds.length; i++) {
         var g = grounds[i];
-        ctx.fillStyle = g.color || '#d9ccb3';
+        ctx.fillStyle = g.color || "#d9ccb3";
         ctx.fillRect(g.x * TILE_SIZE, g.y * TILE_SIZE, g.w * TILE_SIZE, g.h * TILE_SIZE);
     }
 
-    ctx.strokeStyle = 'rgba(105, 84, 60, 0.20)';
+    ctx.strokeStyle = "rgba(105, 84, 60, 0.20)";
     ctx.lineWidth = 1;
     for (var gx = 0; gx <= cam.mapPixelW; gx += TILE_SIZE * 2) {
         ctx.beginPath();
@@ -526,24 +706,25 @@ function drawTownSceneBackground(cam) {
         var pw = it.w * TILE_SIZE;
         var ph = it.h * TILE_SIZE;
 
-        ctx.fillStyle = it.fill || '#7a6650';
+        ctx.fillStyle = it.fill || "#7a6650";
         ctx.fillRect(px, py, pw, ph);
 
-        ctx.strokeStyle = it.stroke || '#2d241b';
+        ctx.strokeStyle = it.stroke || "#2d241b";
         ctx.lineWidth = 2;
         ctx.strokeRect(px + 1, py + 1, Math.max(0, pw - 2), Math.max(0, ph - 2));
 
         if (it.label) {
-            ctx.fillStyle = it.labelColor || '#ffffff';
-            ctx.font = 'bold 9px sans-serif';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
+            ctx.fillStyle = it.labelColor || "#ffffff";
+            ctx.font = "bold 9px sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
             ctx.fillText(it.label, px + pw / 2, py + ph / 2);
-            ctx.textAlign = 'left';
-            ctx.textBaseline = 'alphabetic';
+            ctx.textAlign = "left";
+            ctx.textBaseline = "alphabetic";
         }
     }
 }
+
 
 
 function carveTownEdgeWarpTiles(def) {
@@ -1036,7 +1217,7 @@ function finishTownArrivalLoading() {
     hideTownLoading();
 }
 
-function playTownRpgFadeTransition(callback) {
+function playTownRpgFadeTransition(callback, waitForReady) {
     var oldFade = document.getElementById("town-rpg-fade-transition");
     if (oldFade && oldFade.parentNode) {
         oldFade.parentNode.removeChild(oldFade);
@@ -1068,11 +1249,7 @@ function playTownRpgFadeTransition(callback) {
         });
     });
 
-    window.setTimeout(function() {
-        if (typeof callback === "function") {
-            callback();
-        }
-
+    function startFadeIn() {
         window.setTimeout(function() {
             fade.style.transition = "opacity " + fadeInMs + "ms cubic-bezier(.22,.8,.28,1)";
             fade.style.opacity = "0";
@@ -1083,14 +1260,33 @@ function playTownRpgFadeTransition(callback) {
                 }
             }, fadeInMs + 80);
         }, holdMs);
+    }
+
+    window.setTimeout(function() {
+        if (typeof callback === "function") {
+            callback();
+        }
+
+        if (typeof waitForReady === "function") {
+            waitForReady(startFadeIn);
+        } else {
+            startFadeIn();
+        }
     }, fadeOutMs + 40);
 }
 
+
 function changeSceneWithTownFade(sceneId, spawnKey) {
-    playTownRpgFadeTransition(function() {
-        changeScene(sceneId, spawnKey);
-    });
+    playTownRpgFadeTransition(
+        function() {
+            changeScene(sceneId, spawnKey);
+        },
+        function(reveal) {
+            waitForTownSceneBackground(sceneId, reveal);
+        }
+    );
 }
+
 
 function getWorkOpeningLabel(work) {
     if (!work) return "作品を準備しています…";
@@ -1807,6 +2003,7 @@ window.onload = function() {
     ctx = canvas.getContext('2d');
     applyDeveloperModeVisibility();
     setupTouchSelectionGuards();
+    preloadTownSceneBackgrounds();
     if (typeof refreshTownContent === 'function') refreshTownContent();
     window.addEventListener('resize', resizeCanvas);
 
