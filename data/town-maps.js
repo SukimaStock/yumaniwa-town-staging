@@ -12,6 +12,7 @@
       mapWidth: 24,
       mapHeight: 24,
       backgroundStyle: 'plaza',
+      backgroundImagePath: 'assets/maps/grounds/station-plaza-ground.png',
       spawnPoints: {
         default: { x: 12, y: 15, dir: 'up' },
         fromAlley: { x: 3, y: 12, dir: 'right' },
@@ -92,6 +93,7 @@
       mapWidth: 24,
       mapHeight: 24,
       backgroundStyle: 'alley',
+      backgroundImagePath: 'assets/maps/grounds/tomogushi-alley-ground.png',
       spawnPoints: {
         default: { x: 20, y: 12, dir: 'left' },
         fromPlaza: { x: 20, y: 12, dir: 'left' }
@@ -215,6 +217,7 @@
       mapWidth: 24,
       mapHeight: 24,
       backgroundStyle: 'leisure',
+      backgroundImagePath: 'assets/maps/grounds/leisure-center-ground.png',
       spawnPoints: {
         default: { x: 12, y: 3, dir: 'down' },
         fromPlaza: { x: 12, y: 3, dir: 'down' }
