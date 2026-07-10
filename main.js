@@ -60,7 +60,7 @@ var isMessageOpen = false;
 var pendingWarp = null;
 
 // 開発モードを戻すときは、この値だけ true にしてください。
-var DEV_MODE_ENABLED = false;
+var DEV_MODE_ENABLED = true;
 var debugMode = false;
 var keys = {};
 var dpad = { up: false, down: false, left: false, right: false };
@@ -2199,6 +2199,189 @@ function getPlayerTile() {
     };
 }
 
+function getTownDevTileText(tile) {
+    if (!tile) return "-";
+    return "x=" + tile.x + ", y=" + tile.y;
+}
+
+function updateTownDevInfo(tile) {
+    if (!debugMode && !isEditMode) return;
+
+    var coord = document.getElementById("coord-display");
+    if (!coord) return;
+
+    var playerTile = getPlayerTile();
+    var sceneTitle = currentScene;
+    var def = getTownSceneDefinition(currentScene);
+
+    if (def && def.title) {
+        sceneTitle = currentScene + " / " + def.title;
+    }
+
+    coord.innerText =
+        "map: " + sceneTitle +
+        " ｜ player: " + getTownDevTileText(playerTile) +
+        " ｜ tile: " + getTownDevTileText(tile || currentHoverTile);
+}
+
+function drawTownDevGridLabels(cam) {
+    ctx.save();
+
+    ctx.font = "bold 7px sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    for (var x = 0; x < MAP_WIDTH; x++) {
+        if (x % 2 !== 0 && x !== MAP_WIDTH - 1) continue;
+
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x * TILE_SIZE + 1, 1, TILE_SIZE - 2, 8);
+
+        ctx.fillStyle = "rgba(255,255,255,0.88)";
+        ctx.fillText(String(x), x * TILE_SIZE + TILE_SIZE / 2, 5);
+    }
+
+    ctx.textAlign = "left";
+
+    for (var y = 0; y < MAP_HEIGHT; y++) {
+        if (y % 2 !== 0 && y !== MAP_HEIGHT - 1) continue;
+
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(1, y * TILE_SIZE + 1, 12, TILE_SIZE - 2);
+
+        ctx.fillStyle = "rgba(255,255,255,0.88)";
+        ctx.fillText(String(y), 3, y * TILE_SIZE + TILE_SIZE / 2);
+    }
+
+    ctx.restore();
+}
+
+function drawTownDevTileCallout(tile) {
+    if (!tile) return;
+
+    var label = "x=" + tile.x + " y=" + tile.y;
+    var px = tile.x * TILE_SIZE;
+    var py = tile.y * TILE_SIZE;
+
+    ctx.save();
+
+    ctx.fillStyle = "rgba(255, 165, 0, 0.78)";
+    ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
+
+    ctx.fillStyle = "rgba(0,0,0,0.78)";
+    ctx.fillRect(px + 2, py - 12, Math.max(42, label.length * 6), 11);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 8px sans-serif";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    ctx.fillText(label, px + 5, py - 6);
+
+    ctx.restore();
+}
+
+function drawTownDevOverlay(cam) {
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.28)";
+    ctx.lineWidth = 1;
+
+    for (var gx = 0; gx <= cam.mapPixelW; gx += TILE_SIZE) {
+        ctx.beginPath();
+        ctx.moveTo(gx, 0);
+        ctx.lineTo(gx, cam.mapPixelH);
+        ctx.stroke();
+    }
+
+    for (var gy = 0; gy <= cam.mapPixelH; gy += TILE_SIZE) {
+        ctx.beginPath();
+        ctx.moveTo(0, gy);
+        ctx.lineTo(cam.mapPixelW, gy);
+        ctx.stroke();
+    }
+
+    // 通行可能エリア
+    ctx.fillStyle = "rgba(0, 120, 255, 0.20)";
+    for (var y1 = 0; y1 < MAP_HEIGHT; y1++) {
+        for (var x1 = 0; x1 < MAP_WIDTH; x1++) {
+            if (collisionGrid[y1][x1] === 1) {
+                ctx.fillRect(x1 * TILE_SIZE, y1 * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+            }
+        }
+    }
+
+    // 通行不可エリア
+    ctx.fillStyle = "rgba(255, 0, 0, 0.28)";
+    for (var y2 = 0; y2 < MAP_HEIGHT; y2++) {
+        for (var x2 = 0; x2 < MAP_WIDTH; x2++) {
+            if (collisionGrid[y2][x2] === 2) {
+                ctx.fillRect(x2 * TILE_SIZE, y2 * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+            }
+        }
+    }
+
+    // 調べる場所
+    ctx.fillStyle = "rgba(255, 230, 0, 0.42)";
+    for (var k = 0; k < triggers.length; k++) {
+        var t = triggers[k];
+        if (!t || !t.area) continue;
+
+        ctx.fillRect(
+            t.area.x * TILE_SIZE,
+            t.area.y * TILE_SIZE,
+            t.area.w * TILE_SIZE,
+            t.area.h * TILE_SIZE
+        );
+
+        ctx.fillStyle = "rgba(0,0,0,0.70)";
+        ctx.fillRect(t.area.x * TILE_SIZE + 1, t.area.y * TILE_SIZE + 1, Math.min(72, Math.max(28, String(t.label || t.id || "").length * 7)), 11);
+
+        ctx.fillStyle = "#fff7b0";
+        ctx.font = "bold 8px sans-serif";
+        ctx.textAlign = "left";
+        ctx.textBaseline = "middle";
+        ctx.fillText(String(t.label || t.id || "trigger"), t.area.x * TILE_SIZE + 4, t.area.y * TILE_SIZE + 6);
+
+        ctx.fillStyle = "rgba(255, 230, 0, 0.42)";
+    }
+
+    // エリア名
+    for (var a = 0; a < areaZones.length; a++) {
+        var z = areaZones[a].area;
+        ctx.fillStyle = "rgba(180, 80, 255, 0.16)";
+        ctx.fillRect(z.x * TILE_SIZE, z.y * TILE_SIZE, z.w * TILE_SIZE, z.h * TILE_SIZE);
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "10px sans-serif";
+        ctx.textAlign = "left";
+        ctx.textBaseline = "alphabetic";
+        ctx.fillText(areaZones[a].title, z.x * TILE_SIZE + 2, z.y * TILE_SIZE + 10);
+    }
+
+    drawTownDevGridLabels(cam);
+
+    if (isEditMode) {
+        if (editStep === 1 && currentHoverTile) {
+            var minX = Math.min(editStartX, currentHoverTile.x);
+            var minY = Math.min(editStartY, currentHoverTile.y);
+            var w = Math.max(editStartX, currentHoverTile.x) - minX + 1;
+            var h = Math.max(editStartY, currentHoverTile.y) - minY + 1;
+
+            ctx.fillStyle = "rgba(0, 255, 255, 0.36)";
+            ctx.fillRect(minX * TILE_SIZE, minY * TILE_SIZE, w * TILE_SIZE, h * TILE_SIZE);
+        }
+
+        if (currentHoverTile && editStep === 0 && editTarget === "blockedPoints") {
+            drawTownDevTileCallout(currentHoverTile);
+        } else if (editStep === 1) {
+            drawTownDevTileCallout({ x: editStartX, y: editStartY });
+        }
+    } else if (currentHoverTile) {
+        drawTownDevTileCallout(currentHoverTile);
+    }
+
+    updateTownDevInfo(currentHoverTile);
+}
+
+
 function isWalkableTile(tx, ty) {
     if (tx < 0 || tx >= MAP_WIDTH || ty < 0 || ty >= MAP_HEIGHT) return false;
     return collisionGrid[ty][tx] === 1;
@@ -2910,6 +3093,8 @@ function setupEvents() {
 
         if (isEditMode) {
             document.getElementById('clicked-coord').innerText = "タップ: x=" + tileX + ", y=" + tileY;
+            currentHoverTile = { x: tileX, y: tileY };
+            updateTownDevInfo(currentHoverTile);
             handleEditorTap(tileX, tileY);
             return;
         }
@@ -2917,6 +3102,7 @@ function setupEvents() {
         if (debugMode) {
             document.getElementById('clicked-coord').innerText = "タップ: x=" + tileX + ", y=" + tileY;
             currentHoverTile = { x: tileX, y: tileY };
+            updateTownDevInfo(currentHoverTile);
             return;
         }
 
@@ -2930,7 +3116,8 @@ function setupEvents() {
     canvas.addEventListener('pointermove', function(e) {
         e.preventDefault();
 
-        if (!isEditMode || editStep !== 1) return;
+        if (!debugMode && !isEditMode) return;
+
         var hoverTile = getPointerTile(e);
         if (!hoverTile) return;
 
@@ -2938,6 +3125,8 @@ function setupEvents() {
             x: hoverTile.x,
             y: hoverTile.y
         };
+
+        updateTownDevInfo(currentHoverTile);
     });
 }
 
@@ -4343,42 +4532,7 @@ function draw() {
     }
 
     if (debugMode || isEditMode) {
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)'; ctx.lineWidth = 1;
-        for (var x = 0; x <= cam.mapPixelW; x += TILE_SIZE) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, cam.mapPixelH); ctx.stroke(); }
-        for (var y = 0; y <= cam.mapPixelH; y += TILE_SIZE) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(cam.mapPixelW, y); ctx.stroke(); }
-
-        ctx.fillStyle = 'rgba(0, 120, 255, 0.25)';
-        for (var y = 0; y < MAP_HEIGHT; y++) {
-            for (var x = 0; x < MAP_WIDTH; x++) { if (collisionGrid[y][x] === 1) ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE); }
-        }
-        ctx.fillStyle = 'rgba(255, 0, 0, 0.35)';
-        for (var y = 0; y < MAP_HEIGHT; y++) {
-            for (var x = 0; x < MAP_WIDTH; x++) { if (collisionGrid[y][x] === 2) ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE); }
-        }
-
-        ctx.fillStyle = 'rgba(255, 230, 0, 0.45)';
-        for (var k = 0; k < triggers.length; k++) ctx.fillRect(triggers[k].area.x * TILE_SIZE, triggers[k].area.y * TILE_SIZE, triggers[k].area.w * TILE_SIZE, triggers[k].area.h * TILE_SIZE);
-
-        for (var a = 0; a < areaZones.length; a++) {
-            var z = areaZones[a].area;
-            ctx.fillStyle = 'rgba(180, 80, 255, 0.20)'; ctx.fillRect(z.x * TILE_SIZE, z.y * TILE_SIZE, z.w * TILE_SIZE, z.h * TILE_SIZE);
-            ctx.fillStyle = '#fff'; ctx.font = '10px sans-serif'; ctx.fillText(areaZones[a].title, z.x * TILE_SIZE + 2, z.y * TILE_SIZE + 10);
-        }
-
-        if (isEditMode) {
-            if (editStep === 1 && currentHoverTile) {
-                var minX = Math.min(editStartX, currentHoverTile.x); var minY = Math.min(editStartY, currentHoverTile.y);
-                var w = Math.max(editStartX, currentHoverTile.x) - minX + 1; var h = Math.max(editStartY, currentHoverTile.y) - minY + 1;
-                ctx.fillStyle = 'rgba(0, 255, 255, 0.4)'; ctx.fillRect(minX * TILE_SIZE, minY * TILE_SIZE, w * TILE_SIZE, h * TILE_SIZE);
-            }
-            if (currentHoverTile && editStep === 0 && editTarget === 'blockedPoints') {
-                ctx.fillStyle = 'rgba(255, 165, 0, 0.7)'; ctx.fillRect(currentHoverTile.x * TILE_SIZE, currentHoverTile.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-            } else if (editStep === 1) {
-                ctx.fillStyle = 'rgba(255, 165, 0, 0.7)'; ctx.fillRect(editStartX * TILE_SIZE, editStartY * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-            }
-        } else if (currentHoverTile) {
-            ctx.fillStyle = 'rgba(255, 165, 0, 0.7)'; ctx.fillRect(currentHoverTile.x * TILE_SIZE, currentHoverTile.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-        }
+        drawTownDevOverlay(cam);
     }
 
     if (isTownScene(currentScene)) {
