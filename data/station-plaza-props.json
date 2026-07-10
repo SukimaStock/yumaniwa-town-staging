@@ -1,0 +1,307 @@
+{
+  "scene": "station_plaza",
+  "grid": {
+    "width": 24,
+    "height": 24
+  },
+  "assetRoot": "assets/maps/props/station-plaza/",
+  "rendering": {
+    "coordinateUnit": "tile",
+    "positionMode": "top-left",
+    "anchorForSort": "bottom-center",
+    "imageSmoothingEnabled": false,
+    "sortRule": "props and player are sorted by footY",
+    "note": "Do not bake these props into the ground image."
+  },
+  "assets": {
+    "noticeBoard": {
+      "file": "station-notice-board.png",
+      "defaultDrawTiles": [
+        5.5,
+        3.6
+      ],
+      "sourceCanvasPx": [
+        670,
+        670
+      ],
+      "visibleBoundsPx": [
+        52,
+        265,
+        616,
+        637
+      ],
+      "exportCanvasPx": [
+        580,
+        388
+      ],
+      "transparentPaddingPx": 8
+    },
+    "touristMap": {
+      "file": "station-tourist-map.png",
+      "defaultDrawTiles": [
+        3.4,
+        3.6
+      ],
+      "sourceCanvasPx": [
+        670,
+        670
+      ],
+      "visibleBoundsPx": [
+        169,
+        280,
+        511,
+        640
+      ],
+      "exportCanvasPx": [
+        358,
+        376
+      ],
+      "transparentPaddingPx": 8
+    },
+    "bench": {
+      "file": "station-bench.png",
+      "defaultDrawTiles": [
+        3.0,
+        2.0
+      ],
+      "sourceCanvasPx": [
+        670,
+        670
+      ],
+      "visibleBoundsPx": [
+        147,
+        389,
+        519,
+        641
+      ],
+      "exportCanvasPx": [
+        388,
+        268
+      ],
+      "transparentPaddingPx": 8
+    },
+    "streetLamp": {
+      "file": "station-street-lamp.png",
+      "defaultDrawTiles": [
+        0.9,
+        3.4
+      ],
+      "sourceCanvasPx": [
+        670,
+        670
+      ],
+      "visibleBoundsPx": [
+        303,
+        340,
+        381,
+        640
+      ],
+      "exportCanvasPx": [
+        94,
+        316
+      ],
+      "transparentPaddingPx": 8
+    },
+    "planter": {
+      "file": "station-planter.png",
+      "defaultDrawTiles": [
+        1.1,
+        1.8
+      ],
+      "sourceCanvasPx": [
+        670,
+        670
+      ],
+      "visibleBoundsPx": [
+        281,
+        446,
+        395,
+        638
+      ],
+      "exportCanvasPx": [
+        130,
+        208
+      ],
+      "transparentPaddingPx": 8
+    },
+    "directionSign": {
+      "file": "station-direction-sign.png",
+      "defaultDrawTiles": [
+        1.4,
+        2.4
+      ],
+      "sourceCanvasPx": [
+        670,
+        670
+      ],
+      "visibleBoundsPx": [
+        269,
+        388,
+        413,
+        640
+      ],
+      "exportCanvasPx": [
+        160,
+        268
+      ],
+      "transparentPaddingPx": 8
+    }
+  },
+  "instances": [
+    {
+      "id": "station_notice_board",
+      "asset": "noticeBoard",
+      "x": 0.75,
+      "y": 5.4,
+      "w": 5.5,
+      "h": 3.6,
+      "footY": 9.0,
+      "triggerId": "shinpo_board_trigger",
+      "collision": {
+        "reuseExistingBlockedArea": true
+      },
+      "enabled": true
+    },
+    {
+      "id": "station_tourist_map",
+      "asset": "touristMap",
+      "x": 10.3,
+      "y": 5.7,
+      "w": 3.4,
+      "h": 3.6,
+      "footY": 9.3,
+      "triggerId": "tourist_map",
+      "collision": {
+        "reuseExistingBlockedRect": [
+          11,
+          9,
+          2,
+          1
+        ]
+      },
+      "enabled": true
+    },
+    {
+      "id": "station_bench_left",
+      "asset": "bench",
+      "x": 6.6,
+      "y": 6.9,
+      "w": 3.0,
+      "h": 2.0,
+      "footY": 8.9,
+      "collision": {
+        "addBlockedRect": [
+          7,
+          8,
+          2,
+          1
+        ]
+      },
+      "enabled": true
+    },
+    {
+      "id": "station_bench_right",
+      "asset": "bench",
+      "x": 14.5,
+      "y": 11.1,
+      "w": 3.0,
+      "h": 2.0,
+      "footY": 13.1,
+      "collision": {
+        "addBlockedRect": [
+          15,
+          13,
+          2,
+          1
+        ]
+      },
+      "enabled": true
+    },
+    {
+      "id": "station_lamp_left",
+      "asset": "streetLamp",
+      "x": 5.55,
+      "y": 6.7,
+      "w": 0.9,
+      "h": 3.4,
+      "footY": 10.1,
+      "collision": {
+        "addBlockedPoint": [
+          6,
+          10
+        ]
+      },
+      "enabled": true
+    },
+    {
+      "id": "station_lamp_right",
+      "asset": "streetLamp",
+      "x": 17.55,
+      "y": 6.7,
+      "w": 0.9,
+      "h": 3.4,
+      "footY": 10.1,
+      "collision": {
+        "addBlockedPoint": [
+          18,
+          10
+        ]
+      },
+      "enabled": true
+    },
+    {
+      "id": "station_planter_left",
+      "asset": "planter",
+      "x": 5.45,
+      "y": 13.3,
+      "w": 1.1,
+      "h": 1.8,
+      "footY": 15.1,
+      "collision": {
+        "reuseExistingBlockedArea": true
+      },
+      "enabled": true
+    },
+    {
+      "id": "station_planter_right",
+      "asset": "planter",
+      "x": 16.45,
+      "y": 13.3,
+      "w": 1.1,
+      "h": 1.8,
+      "footY": 15.1,
+      "collision": {
+        "reuseExistingBlockedArea": true
+      },
+      "enabled": true
+    },
+    {
+      "id": "station_direction_sign_candidate",
+      "asset": "directionSign",
+      "x": 14.2,
+      "y": 6.6,
+      "w": 1.4,
+      "h": 2.4,
+      "footY": 9.0,
+      "collision": {
+        "addBlockedPoint": [
+          14,
+          8
+        ]
+      },
+      "enabled": false,
+      "note": "Keep disabled for the first pass; enable only if the plaza still needs more direction guidance."
+    }
+  ],
+  "replacePlaceholderDecor": [
+    "notice board body and roof",
+    "two benches",
+    "tourist map",
+    "two lamp placeholders",
+    "two planter placeholders"
+  ],
+  "keepExistingTriggers": [
+    "shinpo_board_trigger",
+    "tourist_map"
+  ]
+}
