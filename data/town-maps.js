@@ -32,7 +32,7 @@
         rect(8, 15, 8, 6)
       ],
       blockedRects: [
-        rect(0, 5, 5, 8),
+        rect(1, 6, 3, 6),
         rect(19, 5, 5, 8),
         rect(8, 0, 8, 3),
         rect(7, 17, 4, 4),
@@ -47,7 +47,7 @@
       triggers: [
         { id: 'station_notice', label: '駅の案内', actionLabel: '読む', type: 'inspect', text: '湯間庭駅前広場。\n\n左に灯串横丁、右に湯窓通り、上に温泉方面、下にレジャーセンターがあります。', area: rect(9, 18, 6, 2), tapPadding: 1 },
         { id: 'tourist_map', label: '観光案内板', actionLabel: '調べる', type: 'inspect', text: '駅前広場の観光案内板。\n\n町の中心なので、ここから各マップへ散歩していけます。', area: rect(11, 9, 2, 2), tapPadding: 1 },
-        { id: 'shinpo_board_trigger', label: '掲示板を読む', actionLabel: '読む', type: 'menu', target: 'shinpo_board', text: '広場の掲示板。\n\nnoteの記事やお知らせを並べていく場所です。', area: rect(1, 6, 3, 6), tapPadding: 1 }
+        { id: 'shinpo_board_trigger', label: '掲示板を読む', actionLabel: '読む', type: 'menu', target: 'shinpo_board', text: '広場の小さな掲示板。\n\nnoteの記事やお知らせを並べていく場所です。', area: rect(1, 6, 3, 6), tapPadding: 1 }
       ],
       groundRects: [
         { x: 0, y: 0, w: 24, h: 24, color: '#d9ccb3' },
@@ -57,7 +57,7 @@
         { x: 8, y: 15, w: 8, h: 6, color: '#e6d2a8' }
       ],
       decor: [
-        deco(0, 5, 5, 8, '#735944', '#2d241b', '掲示板'),
+        deco(1, 6, 3, 6, '#735944', '#2d241b', '板'),
         deco(19, 5, 5, 8, '#72806a', '#2d241b', '通り'),
         deco(8, 0, 8, 3, '#8a7d6a', '#2d241b', '温泉'),
         deco(7, 17, 4, 4, '#8c7b64', '#2d241b', '駅'),
@@ -101,6 +101,7 @@
       triggers: [
         { id: 'midnight_cola_booth', label: '真夜中コーラ', actionLabel: '遊ぶ', type: 'work', workId: 'midnight-cola', text: '真夜中コーラ。', area: rect(2, 4, 5, 4), tapPadding: 1 },
         { id: 'yakitori_wars_booth', label: 'Yakitori Wars', actionLabel: '遊ぶ', type: 'work', workId: 'yakitori-wars', text: 'Yakitori Wars。', area: rect(9, 4, 6, 4), tapPadding: 1 },
+        { id: 'game_list_stall', label: 'ゲーム案内屋台', actionLabel: '見る', type: 'menu', target: 'tomogushi_game_board', text: 'ゲーム案内屋台。\n\n灯串横丁で遊べるゲームを一覧で見られます。', area: rect(4, 16, 4, 4), tapPadding: 1 },
         { id: 'empty_stall', label: '空き屋台', actionLabel: '調べる', type: 'inspect', text: '空き屋台。\n\nここには次のゲームや小さな遊びを置けそうです。', area: rect(12, 16, 5, 4), tapPadding: 1 }
       ],
       groundRects: [
@@ -112,7 +113,7 @@
       decor: [
         deco(2, 4, 5, 4, '#7d5a42', '#2d241b', 'コーラ'),
         deco(9, 4, 6, 4, '#8a6445', '#2d241b', '焼き鳥'),
-        deco(4, 16, 4, 4, '#73553d', '#2d241b', '屋台'),
+        deco(4, 16, 4, 4, '#73553d', '#2d241b', '一覧'),
         deco(12, 16, 5, 4, '#73553d', '#2d241b', '空き'),
         deco(21, 10, 3, 5, '#a9b8c5', '#2d241b', '広場')
       ]
@@ -191,18 +192,16 @@
       blockedRects: [
         rect(4, 4, 5, 4),
         rect(15, 4, 5, 4),
-        rect(6, 16, 5, 3),
-        rect(14, 16, 5, 3)
+        rect(9, 16, 6, 3)
       ],
       blockedPoints: [],
       areaZones: [
         { id: 'leisure', title: '湯窓レジャーセンター', subtitle: '展示と遊びの入口', area: rect(0, 0, 24, 24) }
       ],
       triggers: [
-        { id: 'leisure_counter', label: '案内カウンター', actionLabel: '調べる', type: 'inspect', text: '案内カウンター。\n\nここには展示案内や説明を置けそうです。', area: rect(4, 4, 5, 4), tapPadding: 1 },
-        { id: 'leisure_pickup', label: 'おすすめ棚', actionLabel: '調べる', type: 'inspect', text: 'おすすめ棚。\n\nランダム展示やピックアップ作品を置けそうです。', area: rect(15, 4, 5, 4), tapPadding: 1 },
-        { id: 'leisure_showcase_left', label: '展示台', actionLabel: '調べる', type: 'inspect', text: '展示台。\n\n触れるらくがきや展示物を置く場所として使えそうです。', area: rect(6, 16, 5, 3), tapPadding: 1 },
-        { id: 'leisure_showcase_right', label: '展示台', actionLabel: '調べる', type: 'inspect', text: '展示台。\n\n触れるらくがきや展示物を置く場所として使えそうです。', area: rect(14, 16, 5, 3), tapPadding: 1 }
+        { id: 'leisure_counter', label: '案内カウンター', actionLabel: '調べる', type: 'inspect', text: '案内カウンター。\n\nここでは展示の見方や、この建物の使い方を案内できます。', area: rect(4, 4, 5, 4), tapPadding: 1 },
+        { id: 'leisure_pickup', label: 'おすすめ棚', actionLabel: '調べる', type: 'inspect', text: 'おすすめ棚。\n\nピックアップした展示や、今おすすめしたいものを置けそうです。', area: rect(15, 4, 5, 4), tapPadding: 1 },
+        { id: 'leisure_catalog', label: '展示ガイド', actionLabel: '見る', type: 'menu', target: 'leisure_catalog', text: '展示ガイド。\n\n触れるらくがきや展示を、選択肢からまとめて見られます。', area: rect(9, 16, 6, 3), tapPadding: 1 }
       ],
       groundRects: [
         { x: 0, y: 0, w: 24, h: 24, color: '#4a4b55' },
@@ -214,8 +213,7 @@
       decor: [
         deco(4, 4, 5, 4, '#7c756c', '#222', '案内'),
         deco(15, 4, 5, 4, '#90856d', '#222', '棚'),
-        deco(6, 16, 5, 3, '#7d715e', '#222', '展示'),
-        deco(14, 16, 5, 3, '#7d715e', '#222', '展示'),
+        deco(9, 16, 6, 3, '#7d715e', '#222', 'ガイド'),
         deco(10, 0, 4, 3, '#a9b8c5', '#222', '広場')
       ]
     },
@@ -265,4 +263,42 @@
       ]
     }
   };
+
+
+  window.DESTINATIONS = window.DESTINATIONS || {};
+
+  if (!window.DESTINATIONS.tomogushi_game_board) {
+    window.DESTINATIONS.tomogushi_game_board = {
+      id: 'tomogushi_game_board',
+      title: 'ゲーム案内屋台',
+      subtitle: '灯串横丁',
+      description: '灯串横丁で遊べるゲームをまとめた屋台です。',
+      flavor: '屋台を毎回増やさなくても、ここから一覧で選べるようにしておきます。',
+      menuTitle: '遊ぶゲームを選ぶ',
+      items: [
+        { workId: 'midnight-cola', label: '真夜中コーラ' },
+        { workId: 'yakitori-wars', label: 'Yakitori Wars' },
+        { kind: 'message', label: 'これから増えるゲーム', text: '新しいゲームは、まずこの一覧に追加していく想定です。\n\n常設屋台は看板作品だけに絞ると、横丁の管理がかなり楽になります。' },
+        { kind: 'back', label: '駅前へ戻る' }
+      ]
+    };
+  }
+
+  if (!window.DESTINATIONS.leisure_catalog) {
+    window.DESTINATIONS.leisure_catalog = {
+      id: 'leisure_catalog',
+      title: '展示ガイド',
+      subtitle: '湯窓レジャーセンター',
+      description: '展示を全部個別の台にせず、ここから選択肢で見られるようにしたガイドです。',
+      flavor: '展示が増えても、通路や棚を毎回作り直さずに済む構成です。',
+      menuTitle: '見たい展示を選ぶ',
+      items: [
+        { kind: 'message', label: '触れるらくがき一覧', text: '触れるらくがきの一覧をここから見せる想定です。\n\n今後はカテゴリ別や新着順にも広げられます。' },
+        { kind: 'message', label: 'おすすめ展示', text: 'いま推したい展示や、最近追加した展示をここから案内できます。' },
+        { kind: 'message', label: 'テーマ別に見る', text: 'たとえば「時計」「音」「くだらないもの」など、テーマ別の選び方にも対応しやすい構成です。' },
+        { kind: 'back', label: '駅前へ戻る' }
+      ]
+    };
+  }
+
 })();
