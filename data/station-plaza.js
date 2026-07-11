@@ -9,8 +9,8 @@ var TILE_SIZE = 16;
 var MAP_WIDTH = 24;
 var MAP_HEIGHT = 24;
 var PLAYER_START = {
-    "x": 13,
-    "y": 9
+    "x": 15,
+    "y": 10
 };
 
 var passableRects = [
@@ -509,19 +509,71 @@ var stationPlazaProps = [
     {
         "id": "station_stationBuilding_10",
         "src": "assets/maps/props/station-plaza/station-building.png?rev=editor",
-        "x": 2.5625,
-        "y": 16.875,
-        "w": 7.1875,
-        "h": 7.125,
+        "x": 2.179166666666667,
+        "y": 16.5625,
+        "w": 7.5,
+        "h": 7.4375,
         "footY": 24,
         "enabled": true,
         "catalogKey": "stationBuilding",
         "collision": {
+            "enabled": false,
+            "x": 0.06086956521739131,
+            "y": 0.7807017543859649,
+            "w": 0.8869565217391304,
+            "h": 0.21929824561403508
+        },
+        "interaction": {
+            "enabled": false,
+            "triggerId": "",
+            "x": 0,
+            "y": 0.6,
+            "w": 1,
+            "h": 0.4
+        }
+    },
+    {
+        "id": "station_streetLamp_11",
+        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=editor",
+        "x": 8.88166666666667,
+        "y": 13.999999999999998,
+        "w": 1.02,
+        "h": 3.4,
+        "footY": 17.4,
+        "enabled": true,
+        "catalogKey": "streetLamp",
+        "collision": {
             "enabled": true,
-            "x": 0.058333333333333334,
-            "y": 0.7815126050420168,
-            "w": 0.8833333333333333,
-            "h": 0.2184873949579832
+            "x": 0.28,
+            "y": 0.92,
+            "w": 0.44,
+            "h": 0.22
+        },
+        "interaction": {
+            "enabled": false,
+            "triggerId": "",
+            "x": 0,
+            "y": 0.6,
+            "w": 1,
+            "h": 0.4
+        }
+    },
+    {
+        "id": "station_streetLamp_12",
+        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=editor",
+        "x": 13.923333333333334,
+        "y": 13.974999999999994,
+        "w": 1.02,
+        "h": 3.4,
+        "footY": 17.374999999999993,
+        "enabled": true,
+        "catalogKey": "streetLamp",
+        "collision": {
+            "enabled": true,
+            "x": 0.28,
+            "y": 0.92,
+            "w": 0.44,
+            "h": 0.22
         },
         "interaction": {
             "enabled": false,
