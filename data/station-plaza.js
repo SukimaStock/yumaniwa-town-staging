@@ -1,233 +1,320 @@
 // ==========================================
-// 湯間庭町 / 駅前マップ設定
-// このファイルは、背景・当たり判定・入口・エリア名だけを持ちます。
-// 日々の記事・作品・更新履歴は data/notes.js / works.js / updates.js を更新してください。
+// 湯間庭町 / 駅前広場 編集データ
+// 開発モードの「書き出す」で生成した内容を保存します。
+// data/station-plaza-props.js がこのデータを TOWN_SCENE_MAPS.station_plaza に反映します。
 // ==========================================
 
-// ==========================================
-// 1. 定数・データ定義
-// ==========================================
-var BG_IMAGE_PATH = 'assets/yumaniwa_station_mock_clean.png';
+var BG_IMAGE_PATH = 'assets/maps/grounds/station-plaza-ground.png';
 var TILE_SIZE = 16;
-var MAP_WIDTH = 48;
-var MAP_HEIGHT = 32;
-var PLAYER_START = { x: 24, y: 17 };
+var MAP_WIDTH = 24;
+var MAP_HEIGHT = 24;
+var PLAYER_START = { x: 12, y: 15 };
 
 var passableRects = [
-    { x: 19, y: 7, w: 8, h: 2 },
-    { x: 11, y: 8, w: 5, h: 3 },
-    { x: 38, y: 8, w: 5, h: 7 },
-    { x: 5, y: 9, w: 4, h: 6 },
-    { x: 16, y: 9, w: 5, h: 1 },
-    { x: 22, y: 9, w: 4, h: 13 },
-    { x: 3, y: 10, w: 2, h: 5 },
-    { x: 9, y: 10, w: 2, h: 5 },
-    { x: 0, y: 11, w: 3, h: 4 },
-    { x: 11, y: 11, w: 3, h: 7 },
-    { x: 36, y: 13, w: 2, h: 4 },
-    { x: 43, y: 13, w: 2, h: 2 },
-    { x: 31, y: 14, w: 2, h: 7 },
-    { x: 45, y: 14, w: 3, h: 1 },
-    { x: 4, y: 15, w: 3, h: 17 },
-    { x: 14, y: 15, w: 8, h: 7 },
-    { x: 26, y: 15, w: 2, h: 7 },
-    { x: 38, y: 15, w: 2, h: 1 },
-    { x: 47, y: 15, w: 1, h: 1 },
-    { x: 28, y: 16, w: 1, h: 6 },
-    { x: 29, y: 17, w: 2, h: 4 },
-    { x: 33, y: 17, w: 4, h: 6 },
-    { x: 13, y: 18, w: 1, h: 3 },
-    { x: 29, y: 21, w: 1, h: 1 },
-    { x: 32, y: 21, w: 1, h: 11 },
-    { x: 14, y: 22, w: 3, h: 2 },
-    { x: 33, y: 23, w: 3, h: 9 },
-    { x: 15, y: 24, w: 2, h: 4 },
-    { x: 11, y: 26, w: 3, h: 6 },
-    { x: 42, y: 26, w: 2, h: 6 },
-    { x: 23, y: 28, w: 1, h: 3 },
-    { x: 0, y: 29, w: 4, h: 3 },
-    { x: 7, y: 29, w: 4, h: 3 },
-    { x: 14, y: 29, w: 9, h: 2 },
-    { x: 24, y: 29, w: 8, h: 2 },
-    { x: 36, y: 29, w: 6, h: 3 },
-    { x: 44, y: 29, w: 4, h: 3 },
-    { x: 14, y: 31, w: 2, h: 1 }
+    { x: 9, y: 0, w: 6, h: 1 },
+    { x: 10, y: 1, w: 4, h: 8 },
+    { x: 7, y: 7, w: 3, h: 9 },
+    { x: 14, y: 7, w: 2, h: 9 },
+    { x: 0, y: 9, w: 7, h: 5 },
+    { x: 10, y: 9, w: 1, h: 2 },
+    { x: 13, y: 9, w: 1, h: 15 },
+    { x: 16, y: 9, w: 1, h: 5 },
+    { x: 20, y: 9, w: 4, h: 5 },
+    { x: 11, y: 10, w: 2, h: 1 },
+    { x: 17, y: 10, w: 3, h: 4 },
+    { x: 10, y: 12, w: 3, h: 12 },
+    { x: 0, y: 14, w: 1, h: 1 },
+    { x: 23, y: 14, w: 1, h: 1 },
+    { x: 9, y: 23, w: 1, h: 1 },
+    { x: 14, y: 23, w: 1, h: 1 }
 ];
-
 
 var blockedRects = [
-    { x: 0, y: 0, w: 48, h: 7 },
-    { x: 0, y: 7, w: 19, h: 1 },
-    { x: 27, y: 7, w: 21, h: 1 },
-    { x: 0, y: 8, w: 11, h: 1 },
-    { x: 16, y: 8, w: 3, h: 1 },
-    { x: 27, y: 8, w: 11, h: 5 },
-    { x: 43, y: 8, w: 5, h: 5 },
-    { x: 0, y: 9, w: 5, h: 1 },
-    { x: 9, y: 9, w: 2, h: 1 },
-    { x: 21, y: 9, w: 1, h: 6 },
-    { x: 26, y: 9, w: 1, h: 6 },
-    { x: 0, y: 10, w: 3, h: 1 },
-    { x: 16, y: 10, w: 5, h: 5 },
-    { x: 14, y: 11, w: 2, h: 4 },
-    { x: 27, y: 13, w: 9, h: 1 },
-    { x: 45, y: 13, w: 3, h: 1 },
-    { x: 27, y: 14, w: 4, h: 1 },
-    { x: 33, y: 14, w: 3, h: 3 },
-    { x: 0, y: 15, w: 4, h: 14 },
-    { x: 7, y: 15, w: 4, h: 14 },
-    { x: 28, y: 15, w: 3, h: 1 },
-    { x: 40, y: 15, w: 7, h: 11 },
-    { x: 29, y: 16, w: 2, h: 1 },
-    { x: 38, y: 16, w: 2, h: 13 },
-    { x: 47, y: 16, w: 1, h: 13 },
-    { x: 37, y: 17, w: 1, h: 12 },
-    { x: 11, y: 18, w: 2, h: 8 },
-    { x: 13, y: 21, w: 1, h: 5 },
-    { x: 30, y: 21, w: 2, h: 8 },
-    { x: 17, y: 22, w: 13, h: 6 },
-    { x: 36, y: 23, w: 1, h: 6 },
-    { x: 14, y: 24, w: 1, h: 5 },
-    { x: 40, y: 26, w: 2, h: 3 },
-    { x: 44, y: 26, w: 3, h: 3 },
-    { x: 15, y: 28, w: 8, h: 1 },
-    { x: 24, y: 28, w: 6, h: 1 },
-    { x: 16, y: 31, w: 16, h: 1 }
+    { x: 0, y: 0, w: 9, h: 7 },
+    { x: 15, y: 0, w: 9, h: 7 },
+    { x: 9, y: 1, w: 1, h: 6 },
+    { x: 14, y: 1, w: 1, h: 6 },
+    { x: 0, y: 7, w: 7, h: 2 },
+    { x: 16, y: 7, w: 8, h: 2 },
+    { x: 17, y: 9, w: 3, h: 1 },
+    { x: 10, y: 11, w: 3, h: 1 },
+    { x: 1, y: 14, w: 6, h: 10 },
+    { x: 16, y: 14, w: 7, h: 10 },
+    { x: 0, y: 15, w: 1, h: 9 },
+    { x: 23, y: 15, w: 1, h: 9 },
+    { x: 7, y: 16, w: 3, h: 7 },
+    { x: 14, y: 16, w: 2, h: 7 },
+    { x: 7, y: 23, w: 2, h: 1 }
 ];
 
-
-var blockedPoints = [];
-
+var blockedPoints = [
+    { x: 15, y: 23 }
+];
 
 var triggers = [
     {
-        id: "station", label: "湯間庭駅", actionLabel: "調べる",
-        area: { x: 23, y: 27, w: 2, h: 1 },
+        id: "station_notice", label: "駅の案内", actionLabel: "読む",
+        area: { x: 9, y: 18, w: 5, h: 2 },
         type: "inspect",
-        text: "湯間庭駅。\n\nのんびりしたローカル線の小さな駅だ。\nここから、湯気と看板の町歩きが始まる。"
+        text: "湯間庭駅前広場。左に灯串横丁、右に湯窓通り、上に温泉方面、下にレジャーセンターがあります。"
     },
     {
-        id: "tourist_info", label: "観光案内所", actionLabel: "入る",
-        area: { x: 31, y: 13, w: 2, h: 1 },
-        type: "warp",
-        target: "tourist_info_interior",
-        text: "観光案内所に入りますか?"
+        id: "tourist_map", label: "観光案内板", actionLabel: "調べる",
+        area: { x: 10, y: 11, w: 3, h: 1 },
+        type: "inspect",
+        text: "駅前広場の観光案内板。町の中心なので、ここから各マップへ散歩していけます。"
     },
     {
-        id: "yumado_street", label: "湯窓通り", actionLabel: "進む",
-        area: { x: 38, y: 11, w: 6, h: 1 },
-        type: "warp",
-        target: "yumado_street_map",
-        text: "湯窓通りへ進みますか?"
-    },
-    {
-        id: "leisure_center", label: "湯窓レジャーセンター", actionLabel: "入る",
-        area: { x: 42, y: 26, w: 3, h: 1 },
-        type: "warp",
-        target: "leisure_center_map",
-        text: "湯窓レジャーセンターに入りますか?"
-    },
-    {
-        id: "tomogushi_alley", label: "灯串横丁", actionLabel: "入る",
-        area: { x: 4, y: 28, w: 3, h: 2 },
-        type: "warp",
-        target: "tomogushi_alley_map",
-        text: "灯串横丁へ入りますか?"
-    },
-    {
-        id: "newspaper_board", label: "湯間庭新報", actionLabel: "読む",
-        area: { x: 5, y: 8, w: 4, h: 1 },
+        id: "shinpo_board_trigger", label: "掲示板を読む", actionLabel: "読む",
+        area: { x: 1, y: 7, w: 6, h: 2 },
         type: "menu",
         target: "shinpo_board",
-        text: "湯間庭新報の掲示板だ。記事を読んでみますか?"
-    },
-    {
-        id: "tourist_map", label: "観光マップ", actionLabel: "調べる",
-        area: { x: 16, y: 14, w: 5, h: 1 },
-        type: "inspect",
-        text: "湯間庭観光マップだ。町の見どころが載っている。"
-    },
-    {
-        id: "onsen_construction", label: "湯間庭温泉方面", actionLabel: "調べる",
-        area: { x: 22, y: 6, w: 4, h: 1 },
-        type: "inspect",
-        text: "この先、湯間庭温泉。\n\n現在、石段と湯けむりの整備中です。\nもう少し町が広がったら、入れるようになるかもしれません。"
-    },
-    {
-        id: "Kanban1", label: "看板", actionLabel: "調べる",
-        area: { x: 10, y: 9, w: 1, h: 1 },
-        type: "inspect",
-        target: "看板",
-        text: "「今日も、急がなくていい。」と書いてある。"
-    },
-    {
-        id: "Kanban2", label: "ポスター", actionLabel: "調べる",
-        area: { x: 26, y: 14, w: 1, h: 1 },
-        type: "inspect",
-        target: "看板",
-        text: "「湯けむり注意」と書かれたポスターだ。"
-    },
-    {
-        id: "Kanban3", label: "看板", actionLabel: "調べる",
-        area: { x: 29, y: 16, w: 1, h: 1 },
-        type: "inspect",
-        target: "看板",
-        text: "「観光案内所　この先」と書いてある。"
-    },
-    {
-        id: "Kanban4", label: "ポスター", actionLabel: "調べる",
-        area: { x: 13, y: 22, w: 1, h: 2 },
-        type: "inspect",
-        target: "看板",
-        text: "「喫茶まどべ　準備中」と書かれた貼り紙だ。"
-    },
-    {
-        id: "Kanban5", label: "ポスター", actionLabel: "調べる",
-        area: { x: 38, y: 28, w: 2, h: 1 },
-        type: "inspect",
-        target: "看板",
-        text: "「さわれるらくがき　稼働中」と書いてある。"
-    },
-    {
-        id: "Kanban6", label: "貼り紙", actionLabel: "調べる",
-        area: { x: 26, y: 28, w: 1, h: 1 },
-        type: "inspect",
-        target: "看板",
-        text: "電車はめったに来ないらしい。"
-    },
-    {
-        id: "Kanban7", label: "ポスター", actionLabel: "調べる",
-        area: { x: 8, y: 28, w: 1, h: 1 },
-        type: "inspect",
-        target: "看板",
-        text: "「灯串横丁　今夜も営業中」と書かれたポスターだ。"
+        text: "広場の横長掲示板。noteの記事やお知らせを並べていく場所です。"
     }
 ];
 
-
 var areaZones = [
     {
-        id: "station_plaza_center", title: "湯間庭駅前", subtitle: "Station Plaza",
-        area: { x: 14, y: 15, w: 18, h: 10 }
+        id: "station_plaza", title: "駅前広場", subtitle: "駅と広場がひとつになった中心地",
+        area: { x: 0, y: 0, w: 24, h: 24 }
+    }
+];
+
+// マップパーツ。
+// collision と interaction は画像内の相対比率（0〜1）で保持します。
+var stationPlazaProps = [
+    {
+        "id": "station_notice_board",
+        "src": "assets/maps/props/station-plaza/station-notice-board.png?rev=20260710-2",
+        "x": 0.75,
+        "y": 5.4,
+        "w": 5.5,
+        "h": 3.6,
+        "footY": 9,
+        "enabled": true,
+        "catalogKey": "noticeBoard",
+        "collision": {
+            "enabled": true,
+            "x": 0.06,
+            "y": 0.76,
+            "w": 0.88,
+            "h": 0.22
+        },
+        "interaction": {
+            "enabled": true,
+            "triggerId": "shinpo_board_trigger",
+            "x": 0.05,
+            "y": 0.45,
+            "w": 0.95,
+            "h": 0.55
+        }
     },
     {
-        id: "yumado_street_gate", title: "湯窓通り入口", subtitle: "Yumado Street",
-        area: { x: 38, y: 8, w: 7, h: 8 }
+        "id": "station_tourist_map",
+        "src": "assets/maps/props/station-plaza/station-tourist-map.png?rev=20260710-2",
+        "x": 10.070459641255606,
+        "y": 8.039125560538118,
+        "w": 3.4,
+        "h": 3.6,
+        "footY": 11.639125560538117,
+        "enabled": true,
+        "catalogKey": "touristMap",
+        "collision": {
+            "enabled": true,
+            "x": 0.22,
+            "y": 0.9,
+            "w": 0.56,
+            "h": 0.12
+        },
+        "interaction": {
+            "enabled": true,
+            "triggerId": "tourist_map",
+            "x": 0.22,
+            "y": 0.92,
+            "w": 0.56,
+            "h": 0.1
+        }
     },
     {
-        id: "leisure_center_front", title: "湯窓レジャーセンター前", subtitle: "Yumado Leisure Center",
-        area: { x: 39, y: 24, w: 8, h: 6 }
+        "id": "station_bench_left",
+        "src": "assets/maps/props/station-plaza/station-bench.png?rev=20260710-2",
+        "x": 6.992096412556053,
+        "y": 5.911603139013454,
+        "w": 3,
+        "h": 2,
+        "footY": 7.911603139013454,
+        "enabled": true,
+        "catalogKey": "bench",
+        "collision": {
+            "enabled": true,
+            "x": 0.14,
+            "y": 0.72,
+            "w": 0.72,
+            "h": 0.3
+        },
+        "interaction": {
+            "enabled": false,
+            "triggerId": "",
+            "x": 0,
+            "y": 0.6,
+            "w": 1,
+            "h": 0.4
+        }
     },
     {
-        id: "tomogushi_alley_gate", title: "灯串横丁", subtitle: "Tomogushi Alley",
-        area: { x: 4, y: 24, w: 5, h: 6 }
+        "id": "station_bench_right",
+        "src": "assets/maps/props/station-plaza/station-bench.png?rev=20260710-2",
+        "x": 16.95913677130045,
+        "y": 8.092488789237665,
+        "w": 3,
+        "h": 2,
+        "footY": 10.092488789237665,
+        "enabled": true,
+        "catalogKey": "bench",
+        "collision": {
+            "enabled": true,
+            "x": 0.14,
+            "y": 0.72,
+            "w": 0.72,
+            "h": 0.3
+        },
+        "interaction": {
+            "enabled": false,
+            "triggerId": "",
+            "x": 0,
+            "y": 0.6,
+            "w": 1,
+            "h": 0.4
+        }
     },
     {
-        id: "shinpo_board_area", title: "湯間庭新報 掲示板前", subtitle: "Yumaniwa Shinpo",
-        area: { x: 4, y: 7, w: 8, h: 5 }
+        "id": "station_lamp_left",
+        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260710-2",
+        "x": 8.878452914798206,
+        "y": 2.9945627802690575,
+        "w": 1.02,
+        "h": 3.4,
+        "footY": 6.394562780269057,
+        "enabled": true,
+        "catalogKey": "streetLamp",
+        "collision": {
+            "enabled": true,
+            "x": 0.28,
+            "y": 0.92,
+            "w": 0.44,
+            "h": 0.22
+        },
+        "interaction": {
+            "enabled": false,
+            "triggerId": "",
+            "x": 0,
+            "y": 0.6,
+            "w": 1,
+            "h": 0.4
+        }
     },
     {
-        id: "onsen_road_closed", title: "湯間庭温泉方面", subtitle: "Under Construction",
-        area: { x: 20, y: 6, w: 8, h: 4 }
+        "id": "station_lamp_right",
+        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260710-2",
+        "x": 13.92665919282511,
+        "y": 2.6885089686098658,
+        "w": 1.02,
+        "h": 3.4,
+        "footY": 6.088508968609865,
+        "enabled": true,
+        "catalogKey": "streetLamp",
+        "collision": {
+            "enabled": true,
+            "x": 0.28,
+            "y": 0.92,
+            "w": 0.44,
+            "h": 0.22
+        },
+        "interaction": {
+            "enabled": false,
+            "triggerId": "",
+            "x": 0,
+            "y": 0.6,
+            "w": 1,
+            "h": 0.4
+        }
+    },
+    {
+        "id": "station_planter_left",
+        "src": "assets/maps/props/station-plaza/station-planter.png?rev=20260710-2",
+        "x": 5.962107623318385,
+        "y": 15.734473094170404,
+        "w": 1.1,
+        "h": 1.8,
+        "footY": 17.534473094170405,
+        "enabled": true,
+        "catalogKey": "planter",
+        "collision": {
+            "enabled": true,
+            "x": 0.14,
+            "y": 0.58,
+            "w": 0.72,
+            "h": 0.42
+        },
+        "interaction": {
+            "enabled": false,
+            "triggerId": "",
+            "x": 0,
+            "y": 0.6,
+            "w": 1,
+            "h": 0.4
+        }
+    },
+    {
+        "id": "station_planter_right",
+        "src": "assets/maps/props/station-plaza/station-planter.png?rev=20260710-2",
+        "x": 16.025336322869954,
+        "y": 16.291928251121075,
+        "w": 1.1,
+        "h": 1.8,
+        "footY": 18.091928251121075,
+        "enabled": true,
+        "catalogKey": "planter",
+        "collision": {
+            "enabled": true,
+            "x": 0.14,
+            "y": 0.58,
+            "w": 0.72,
+            "h": 0.42
+        },
+        "interaction": {
+            "enabled": false,
+            "triggerId": "",
+            "x": 0,
+            "y": 0.6,
+            "w": 1,
+            "h": 0.4
+        }
+    },
+    {
+        "id": "station_direction_sign_candidate",
+        "src": "assets/maps/props/station-plaza/station-direction-sign.png?rev=20260710-2",
+        "x": 14.2,
+        "y": 6.6,
+        "w": 1.4,
+        "h": 2.4,
+        "footY": 9,
+        "enabled": false,
+        "catalogKey": "directionSign",
+        "collision": {
+            "enabled": true,
+            "x": 0.34,
+            "y": 0.84,
+            "w": 0.32,
+            "h": 0.2
+        },
+        "interaction": {
+            "enabled": false,
+            "triggerId": "",
+            "x": 0,
+            "y": 0.6,
+            "w": 1,
+            "h": 0.4
+        }
     }
 ];
