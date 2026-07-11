@@ -9,8 +9,8 @@ var TILE_SIZE = 16;
 var MAP_WIDTH = 24;
 var MAP_HEIGHT = 24;
 var PLAYER_START = {
-    "x": 15,
-    "y": 8
+    "x": 13,
+    "y": 9
 };
 
 var passableRects = [
@@ -221,9 +221,10 @@ var triggers = [
             "x": 9,
             "y": 18,
             "w": 5,
-            "h": 2
+            "h": 5
         },
         "type": "inspect",
+        "target": "",
         "text": "湯間庭駅前広場。左に灯串横丁、右に湯窓通り、上に温泉方面、下にレジャーセンターがあります。"
     },
     {
@@ -495,6 +496,32 @@ var stationPlazaProps = [
             "y": 0.84,
             "w": 0.32,
             "h": 0.2
+        },
+        "interaction": {
+            "enabled": false,
+            "triggerId": "",
+            "x": 0,
+            "y": 0.6,
+            "w": 1,
+            "h": 0.4
+        }
+    },
+    {
+        "id": "station_stationBuilding_10",
+        "src": "assets/maps/props/station-plaza/station-building.png?rev=editor",
+        "x": 2.5625,
+        "y": 16.875,
+        "w": 7.1875,
+        "h": 7.125,
+        "footY": 24,
+        "enabled": true,
+        "catalogKey": "stationBuilding",
+        "collision": {
+            "enabled": true,
+            "x": 0.058333333333333334,
+            "y": 0.7815126050420168,
+            "w": 0.8833333333333333,
+            "h": 0.2184873949579832
         },
         "interaction": {
             "enabled": false,
