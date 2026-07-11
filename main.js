@@ -3640,6 +3640,14 @@ var TOWN_PART_CATALOG = [
         w: 1.4,
         h: 2.4,
         collision: { enabled: true, x: 0.34, y: 0.84, w: 0.32, h: 0.20 }
+    },
+    {
+        key: 'stationBuilding',
+        label: '湯間庭駅舎',
+        file: 'station-building.png',
+        w: 8.6,
+        h: 8.5,
+        collision: { enabled: true, x: 0.06, y: 0.78, w: 0.88, h: 0.22 }
     }
 ];
 
@@ -3710,6 +3718,7 @@ function inferTownPartCatalogKey(part) {
     if (src.indexOf('station-street-lamp') !== -1 || id.indexOf('lamp') !== -1) return 'streetLamp';
     if (src.indexOf('station-planter') !== -1 || id.indexOf('planter') !== -1) return 'planter';
     if (src.indexOf('station-direction-sign') !== -1 || id.indexOf('direction') !== -1) return 'directionSign';
+    if (src.indexOf('station-building') !== -1 || id.indexOf('station_building') !== -1 || id.indexOf('stationbuilding') !== -1) return 'stationBuilding';
 
     return 'bench';
 }
