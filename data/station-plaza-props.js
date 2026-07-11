@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    var PROP_REV = '20260710-1';
+    var PROP_REV = '20260710-2';
     var PROP_BASE = 'assets/maps/props/station-plaza/';
     var propImageCache = {};
 
@@ -29,29 +29,29 @@
         {
             id: 'station_bench_left',
             src: PROP_BASE + 'station-bench.png?rev=' + PROP_REV,
-            x: 6.6,
-            y: 6.9,
+            x: 6.85,
+            y: 6.95,
             w: 3.0,
             h: 2.0,
-            footY: 8.9,
+            footY: 8.95,
             enabled: true
         },
         {
             id: 'station_bench_right',
             src: PROP_BASE + 'station-bench.png?rev=' + PROP_REV,
-            x: 14.5,
-            y: 11.1,
+            x: 14.15,
+            y: 11.0,
             w: 3.0,
             h: 2.0,
-            footY: 13.1,
+            footY: 13.0,
             enabled: true
         },
         {
             id: 'station_lamp_left',
             src: PROP_BASE + 'station-street-lamp.png?rev=' + PROP_REV,
-            x: 5.55,
+            x: 5.49,
             y: 6.7,
-            w: 0.9,
+            w: 1.02,
             h: 3.4,
             footY: 10.1,
             enabled: true
@@ -59,9 +59,9 @@
         {
             id: 'station_lamp_right',
             src: PROP_BASE + 'station-street-lamp.png?rev=' + PROP_REV,
-            x: 17.55,
+            x: 17.49,
             y: 6.7,
-            w: 0.9,
+            w: 1.02,
             h: 3.4,
             footY: 10.1,
             enabled: true
@@ -69,21 +69,21 @@
         {
             id: 'station_planter_left',
             src: PROP_BASE + 'station-planter.png?rev=' + PROP_REV,
-            x: 5.45,
-            y: 13.3,
+            x: 5.35,
+            y: 13.45,
             w: 1.1,
             h: 1.8,
-            footY: 15.1,
+            footY: 15.25,
             enabled: true
         },
         {
             id: 'station_planter_right',
             src: PROP_BASE + 'station-planter.png?rev=' + PROP_REV,
-            x: 16.45,
-            y: 13.3,
+            x: 16.55,
+            y: 13.45,
             w: 1.1,
             h: 1.8,
-            footY: 15.1,
+            footY: 15.25,
             enabled: true
         },
         {
@@ -99,27 +99,45 @@
     ];
 
     function sameRect(a, b) {
-        return !!a && !!b && a.x === b.x && a.y === b.y && a.w === b.w && a.h === b.h;
+        return !!a && !!b &&
+            a.x === b.x &&
+            a.y === b.y &&
+            a.w === b.w &&
+            a.h === b.h;
     }
 
     function hasRect(list, target) {
         for (var i = 0; i < list.length; i++) {
             if (sameRect(list[i], target)) return true;
         }
+
         return false;
     }
 
     function hasPoint(list, target) {
         for (var i = 0; i < list.length; i++) {
-            if (list[i] && list[i].x === target.x && list[i].y === target.y) return true;
+            if (
+                list[i] &&
+                list[i].x === target.x &&
+                list[i].y === target.y
+            ) {
+                return true;
+            }
         }
+
         return false;
     }
 
     function isReplacedStationPlaceholder(item) {
         if (!item) return false;
 
-        var key = [item.x, item.y, item.w, item.h].join(':');
+        var key = [
+            item.x,
+            item.y,
+            item.w,
+            item.h
+        ].join(':');
+
         var replaced = {
             '1:7:4:2': true,
             '1:6:4:1': true,
@@ -140,11 +158,13 @@
     function installStationPlazaData() {
         var maps = window.TOWN_SCENE_MAPS;
         var def = maps && maps.station_plaza;
+
         if (!def) return;
 
         def.props = stationPlazaProps;
 
         def.blockedRects = def.blockedRects || [];
+
         var extraRects = [
             { x: 7, y: 8, w: 2, h: 1 },
             { x: 15, y: 13, w: 2, h: 1 }
@@ -157,6 +177,7 @@
         }
 
         def.blockedPoints = def.blockedPoints || [];
+
         var extraPoints = [
             { x: 6, y: 10 },
             { x: 18, y: 10 }
@@ -168,7 +189,8 @@
             }
         }
 
-        // 背景画像が読めなかった時の仮描画でも、旧プレースホルダーと新しい画像が重ならないようにする。
+        // 背景画像が読めなかった時の仮描画でも、
+        // 旧プレースホルダーと新しい画像が重ならないようにする。
         if (def.decor && def.decor.length) {
             def.decor = def.decor.filter(function(item) {
                 return !isReplacedStationPlaceholder(item);
@@ -178,9 +200,13 @@
 
     function getPropImage(src) {
         if (!src) return null;
-        if (propImageCache[src]) return propImageCache[src];
+
+        if (propImageCache[src]) {
+            return propImageCache[src];
+        }
 
         var image = new Image();
+
         var entry = {
             image: image,
             loaded: false,
@@ -199,6 +225,7 @@
 
         propImageCache[src] = entry;
         image.src = src;
+
         return entry;
     }
 
@@ -210,7 +237,11 @@
 
     function getActiveProps() {
         var def = window.activeTownSceneDef;
-        if (!def || !def.props || !def.props.length) return [];
+
+        if (!def || !def.props || !def.props.length) {
+            return [];
+        }
+
         return def.props;
     }
 
@@ -218,7 +249,10 @@
         if (!prop || prop.enabled === false) return;
 
         var entry = getPropImage(prop.src);
-        if (!entry || !entry.loaded || !entry.image) return;
+
+        if (!entry || !entry.loaded || !entry.image) {
+            return;
+        }
 
         var tileSize = window.TILE_SIZE || 16;
         var dx = Math.round(prop.x * tileSize);
@@ -228,7 +262,13 @@
 
         window.ctx.save();
         window.ctx.imageSmoothingEnabled = false;
-        window.ctx.drawImage(entry.image, dx, dy, dw, dh);
+        window.ctx.drawImage(
+            entry.image,
+            dx,
+            dy,
+            dw,
+            dh
+        );
         window.ctx.restore();
     }
 
@@ -239,9 +279,16 @@
 
         for (var i = 0; i < props.length; i++) {
             var prop = props[i];
-            if (!prop || prop.enabled === false) continue;
 
-            var footY = (typeof prop.footY === 'number') ? prop.footY : (prop.y + prop.h);
+            if (!prop || prop.enabled === false) {
+                continue;
+            }
+
+            var footY =
+                typeof prop.footY === 'number'
+                    ? prop.footY
+                    : prop.y + prop.h;
+
             drawItems.push({
                 kind: 'prop',
                 footY: footY * tileSize,
@@ -257,7 +304,10 @@
         });
 
         drawItems.sort(function(a, b) {
-            if (a.footY !== b.footY) return a.footY - b.footY;
+            if (a.footY !== b.footY) {
+                return a.footY - b.footY;
+            }
+
             return a.order - b.order;
         });
 
@@ -267,7 +317,10 @@
             if (item.kind === 'prop') {
                 drawTownProp(item.prop);
             } else {
-                window.drawPlayerSprite(window.player.x, window.player.y);
+                window.drawPlayerSprite(
+                    window.player.x,
+                    window.player.y
+                );
             }
         }
     }
@@ -282,16 +335,28 @@
                 typeof window.getCamera !== 'function' ||
                 typeof window.drawTownSceneBackground !== 'function'
             ) {
-                if (typeof fallbackDraw === 'function') fallbackDraw();
+                if (typeof fallbackDraw === 'function') {
+                    fallbackDraw();
+                }
+
                 return;
             }
 
-            window.ctx.clearRect(0, 0, window.canvas.width, window.canvas.height);
+            window.ctx.clearRect(
+                0,
+                0,
+                window.canvas.width,
+                window.canvas.height
+            );
+
             var cam = window.getCamera();
 
             window.ctx.save();
             window.ctx.scale(cam.zoom, cam.zoom);
-            window.ctx.translate(-cam.cameraX, -cam.cameraY);
+            window.ctx.translate(
+                -cam.cameraX,
+                -cam.cameraY
+            );
 
             window.drawTownSceneBackground(cam);
 
@@ -302,18 +367,29 @@
                 !window.debugMode
             ) {
                 window.ctx.beginPath();
+
                 window.ctx.arc(
-                    window.tapMarkerPos.x * window.TILE_SIZE + window.TILE_SIZE / 2,
-                    window.tapMarkerPos.y * window.TILE_SIZE + window.TILE_SIZE / 2,
+                    window.tapMarkerPos.x * window.TILE_SIZE +
+                        window.TILE_SIZE / 2,
+                    window.tapMarkerPos.y * window.TILE_SIZE +
+                        window.TILE_SIZE / 2,
                     4,
                     0,
                     Math.PI * 2
                 );
-                window.ctx.fillStyle = 'rgba(255, 255, 255, ' + (window.tapMarkerTimer / 60) + ')';
+
+                window.ctx.fillStyle =
+                    'rgba(255, 255, 255, ' +
+                    window.tapMarkerTimer / 60 +
+                    ')';
+
                 window.ctx.fill();
             }
 
-            if (typeof window.isTownScene === 'function' && window.isTownScene(window.currentScene)) {
+            if (
+                typeof window.isTownScene === 'function' &&
+                window.isTownScene(window.currentScene)
+            ) {
                 drawTownActorsAndProps();
             }
 
@@ -330,10 +406,20 @@
                 (window.debugMode || window.isEditMode) &&
                 typeof window.getPlayerHitbox === 'function'
             ) {
-                var hitbox = window.getPlayerHitbox(window.player.x, window.player.y);
+                var hitbox = window.getPlayerHitbox(
+                    window.player.x,
+                    window.player.y
+                );
+
                 window.ctx.strokeStyle = '#00ff66';
                 window.ctx.lineWidth = 1;
-                window.ctx.strokeRect(hitbox.x, hitbox.y, hitbox.w, hitbox.h);
+
+                window.ctx.strokeRect(
+                    hitbox.x,
+                    hitbox.y,
+                    hitbox.w,
+                    hitbox.h
+                );
             }
 
             window.ctx.restore();
