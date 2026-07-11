@@ -3341,7 +3341,7 @@ function setupEditorEvents() {
     btnCopy.addEventListener('click', function() {
         var textarea = document.getElementById('export-textarea');
         textarea.select();
-        try { document.execCommand('copy'); btnCopy.innerText = "コピー完了!"; setTimeout(function(){ btnCopy.innerText = "コピーする"; }, 2000); }
+        try { document.execCommand('copy'); btnCopy.innerText = "コピー完了!"; setTimeout(function(){ btnCopy.innerText = "完全版コードをコピー"; }, 2000); }
         catch(err) { alert("コピーに失敗しました。手動でコピーしてください。"); }
     });
 }
@@ -3380,9 +3380,24 @@ function ensureTriggerEditorExtraFields() {
         updateSelectedTriggerFromForm();
     });
 
+    var deleteButton = document.createElement("button");
+    deleteButton.id = "btn-delete-trigger";
+    deleteButton.type = "button";
+    deleteButton.innerText = "選択中トリガーを削除";
+    deleteButton.style.background = "#7f2f2f";
+    deleteButton.style.color = "#ffffff";
+    deleteButton.style.borderColor = "#b85b5b";
+
+    deleteButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        deleteSelectedTrigger();
+    });
+
     form.insertBefore(makeLabel("表示名", labelInput), form.firstChild);
     form.insertBefore(makeLabel("動作名", actionInput), form.children[1] || null);
     form.appendChild(updateButton);
+    form.appendChild(deleteButton);
 }
 
 
@@ -4860,6 +4875,33 @@ function updateSelectedTriggerFromForm() {
 }
 
 
+function deleteSelectedTrigger() {
+    if (editingTriggerIndex < 0 || editingTriggerIndex >= triggers.length) {
+        updateEditorStatus("削除する既存トリガーが選択されていません");
+        return;
+    }
+
+    var current = triggers[editingTriggerIndex];
+    var triggerName = current
+        ? (current.label || current.id || "トリガー")
+        : "トリガー";
+
+    if (!window.confirm("「" + triggerName + "」を削除しますか？")) {
+        updateEditorStatus("トリガーの削除を取り消しました");
+        return;
+    }
+
+    editHistory.push({ type: "triggers", prev: cloneTriggers() });
+    triggers.splice(editingTriggerIndex, 1);
+
+    editStep = 0;
+    currentHoverTile = null;
+    editingTriggerIndex = -1;
+
+    updateEditorStatus("トリガーを削除しました。Undoで元に戻せます");
+}
+
+
 
 function updateEditorStatus(msg) { document.getElementById('editor-status').innerText = msg; }
 function copyGrid() { return cloneCollisionGrid(baseCollisionGrid.length ? baseCollisionGrid : collisionGrid); }
@@ -4985,44 +5027,79 @@ function gridToRects(targetValue, sourceGrid) {
     return rects;
 }
 
-function showExportModal() {
-    // 固定地形だけを書き出す。パーツ由来の判定は各 part.collision に保持する。
-    var exportGrid = baseCollisionGrid.length ? baseCollisionGrid : collisionGrid;
-    var pRects = gridToRects(1, exportGrid); var bAll = gridToRects(2, exportGrid);
-    var newBlockedRects = []; var newBlockedPoints = [];
-    for(var i=0; i<bAll.length; i++) {
-        if(bAll[i].w === 1 && bAll[i].h === 1) newBlockedPoints.push({ x: bAll[i].x, y: bAll[i].y });
-        else newBlockedRects.push(bAll[i]);
+function buildFullStationPlazaExportCode() {
+    // 固定地形だけを書き出す。
+    // パーツ由来の判定は各 prop.collision に保持する。
+    var exportGrid = baseCollisionGrid.length
+        ? baseCollisionGrid
+        : collisionGrid;
+
+    var pRects = gridToRects(1, exportGrid);
+    var bAll = gridToRects(2, exportGrid);
+    var newBlockedRects = [];
+    var newBlockedPoints = [];
+
+    for (var i = 0; i < bAll.length; i++) {
+        if (bAll[i].w === 1 && bAll[i].h === 1) {
+            newBlockedPoints.push({
+                x: bAll[i].x,
+                y: bAll[i].y
+            });
+        } else {
+            newBlockedRects.push(bAll[i]);
+        }
     }
-    var str = "// data/station-plaza.js に貼り付けるエクスポート\n\nvar passableRects = [\n";
-    for(var i=0; i<pRects.length; i++) { str += "    { x: " + pRects[i].x + ", y: " + pRects[i].y + ", w: " + pRects[i].w + ", h: " + pRects[i].h + " }"; if(i < pRects.length - 1) str += ","; str += "\n"; }
-    str += "];\n\nvar blockedRects = [\n";
-    for(var i=0; i<newBlockedRects.length; i++) { str += "    { x: " + newBlockedRects[i].x + ", y: " + newBlockedRects[i].y + ", w: " + newBlockedRects[i].w + ", h: " + newBlockedRects[i].h + " }"; if(i < newBlockedRects.length - 1) str += ","; str += "\n"; }
-    str += "];\n\nvar blockedPoints = [\n";
-    for(var i=0; i<newBlockedPoints.length; i++) { str += "    { x: " + newBlockedPoints[i].x + ", y: " + newBlockedPoints[i].y + " }"; if(i < newBlockedPoints.length - 1) str += ","; str += "\n"; }
-    str += "];\n\nvar triggers = [\n";
-    for(var i=0; i<triggers.length; i++) {
-        var t = triggers[i];
-        str += "    {\n        id: \"" + t.id + "\", label: \"" + (t.label||"") + "\", actionLabel: \"" + (t.actionLabel||"調べる") + "\",\n";
-        str += "        area: { x: " + t.area.x + ", y: " + t.area.y + ", w: " + t.area.w + ", h: " + t.area.h + " },\n";
-        str += "        type: \"" + t.type + "\",\n"; if (t.target) str += "        target: \"" + t.target + "\",\n"; str += "        text: \"" + t.text + "\"\n    }";
-        if(i < triggers.length - 1) str += ","; str += "\n";
-    }
-    str += "\n];\n\nvar areaZones = [\n";
-    for(var i=0; i<areaZones.length; i++) {
-        var z = areaZones[i];
-        str += "    {\n        id: \"" + z.id + "\", title: \"" + z.title + "\", subtitle: \"" + z.subtitle + "\",\n";
-        str += "        area: { x: " + z.area.x + ", y: " + z.area.y + ", w: " + z.area.w + ", h: " + z.area.h + " }\n    }";
-        if(i < areaZones.length - 1) str += ","; str += "\n";
-    }
-    str += "\n];\n";
 
     var exportedParts = cloneTownParts();
-    str += "\n// マップパーツ（collision と interaction を含む。data/station-plaza-props.js の stationPlazaProps と置き換え）\n";
-    str += "var stationPlazaProps = " + JSON.stringify(exportedParts, null, 4) + ";\n";
 
-    document.getElementById('export-textarea').value = str;
-    document.getElementById('export-modal').style.display = 'flex';
+    var lines = [
+        "// ==========================================",
+        "// 湯間庭町 / 駅前広場 編集データ",
+        "// 開発モードの「書き出す」で生成した完全版です。",
+        "// この内容で data/station-plaza.js を丸ごと置き換えてください。",
+        "// ==========================================",
+        "",
+        "var BG_IMAGE_PATH = " + JSON.stringify(
+            (activeTownSceneDef && activeTownSceneDef.backgroundImagePath) ||
+            "assets/maps/grounds/station-plaza-ground.png"
+        ) + ";",
+        "var TILE_SIZE = " + JSON.stringify(Number(TILE_SIZE) || 16) + ";",
+        "var MAP_WIDTH = " + JSON.stringify(Number(MAP_WIDTH) || 24) + ";",
+        "var MAP_HEIGHT = " + JSON.stringify(Number(MAP_HEIGHT) || 24) + ";",
+        "var PLAYER_START = " + JSON.stringify({
+            x: Math.round((player && player.x ? player.x : 0) / (Number(TILE_SIZE) || 16)),
+            y: Math.round((player && player.y ? player.y : 0) / (Number(TILE_SIZE) || 16))
+        }, null, 4) + ";",
+        "",
+        "var passableRects = " + JSON.stringify(pRects, null, 4) + ";",
+        "",
+        "var blockedRects = " + JSON.stringify(newBlockedRects, null, 4) + ";",
+        "",
+        "var blockedPoints = " + JSON.stringify(newBlockedPoints, null, 4) + ";",
+        "",
+        "var triggers = " + JSON.stringify(triggers, null, 4) + ";",
+        "",
+        "var areaZones = " + JSON.stringify(areaZones, null, 4) + ";",
+        "",
+        "// マップパーツ。collision と interaction は画像内の相対比率（0〜1）です。",
+        "var stationPlazaProps = " + JSON.stringify(exportedParts, null, 4) + ";",
+        ""
+    ];
+
+    return lines.join("\n");
+}
+
+function showExportModal() {
+    var textarea = document.getElementById("export-textarea");
+    if (!textarea) return;
+
+    textarea.value = buildFullStationPlazaExportCode();
+    document.getElementById("export-modal").style.display = "flex";
+
+    var copyButton = document.getElementById("btn-copy-export");
+    if (copyButton) {
+        copyButton.innerText = "完全版コードをコピー";
+    }
 }
 
 // ==========================================
