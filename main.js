@@ -74,6 +74,10 @@ var currentHoverTile = null;
 var editHistory = [];
 var editingTriggerIndex = -1;
 
+// 開発モード / 保存状態・アコーディオン
+var editorHasUnsavedChanges = false;
+var editorPanelCollapsed = false;
+
 // 開発モード / マップパーツ編集
 var editingPartIndex = -1;
 var partEditorMode = 'select'; // select | add
@@ -2061,6 +2065,7 @@ window.onload = function() {
 
     setupEvents();
     setupEditorEvents();
+    markEditorExportCopied();
     setupMessageLayerEvents();
     setupWorkPlayerEvents();
 
@@ -3257,6 +3262,7 @@ function toggleDebugMode() {
     var btn = document.getElementById('btn-debug-toggle');
     if (panel.style.display === 'none') {
         panel.style.display = 'flex'; btn.style.display = 'none';
+        setEditorPanelCollapsed(false);
         debugMode = true; isEditMode = true;
         document.getElementById('debug-info').style.display = 'inline-block';
         ensurePartEditorFields();
@@ -3274,7 +3280,140 @@ function toggleDebugMode() {
 // ==========================================
 // 5. エディタ機能
 // ==========================================
+
+function ensureEditorSafetyUI() {
+    var panel = document.getElementById("editor-panel");
+    if (!panel || panel.dataset.safetyUiReady === "true") return;
+
+    panel.dataset.safetyUiReady = "true";
+
+    var header = panel.querySelector(".editor-header");
+    var content = panel.querySelector(".editor-content");
+    var closeButton = document.getElementById("btn-close-editor");
+
+    if (!header || !content) return;
+
+    var title = header.querySelector("strong");
+    var status = document.createElement("span");
+    status.id = "editor-save-state";
+    status.setAttribute("aria-live", "polite");
+    status.style.display = "inline-flex";
+    status.style.alignItems = "center";
+    status.style.marginLeft = "8px";
+    status.style.padding = "3px 8px";
+    status.style.borderRadius = "999px";
+    status.style.fontSize = "11px";
+    status.style.fontWeight = "800";
+    status.style.whiteSpace = "nowrap";
+
+    var collapseButton = document.createElement("button");
+    collapseButton.id = "btn-toggle-editor-collapse";
+    collapseButton.type = "button";
+    collapseButton.setAttribute("aria-expanded", "true");
+    collapseButton.setAttribute("aria-label", "開発ウィンドウを折りたたむ");
+    collapseButton.innerText = "−";
+    collapseButton.style.marginLeft = "auto";
+    collapseButton.style.minWidth = "34px";
+
+    if (title && title.parentNode === header) {
+        title.insertAdjacentElement("afterend", status);
+    } else {
+        header.insertBefore(status, header.firstChild);
+    }
+
+    if (closeButton && closeButton.parentNode === header) {
+        header.insertBefore(collapseButton, closeButton);
+    } else {
+        header.appendChild(collapseButton);
+    }
+
+    collapseButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        setEditorPanelCollapsed(!editorPanelCollapsed);
+    });
+
+    header.addEventListener("dblclick", function(e) {
+        if (e.target && e.target.closest && e.target.closest("button")) return;
+        setEditorPanelCollapsed(!editorPanelCollapsed);
+    });
+
+    updateEditorSaveStateUI();
+    setEditorPanelCollapsed(false);
+}
+
+function setEditorPanelCollapsed(collapsed) {
+    var panel = document.getElementById("editor-panel");
+    var content = panel ? panel.querySelector(".editor-content") : null;
+    var button = document.getElementById("btn-toggle-editor-collapse");
+
+    editorPanelCollapsed = !!collapsed;
+
+    if (panel) {
+        panel.classList.toggle("editor-collapsed", editorPanelCollapsed);
+        panel.style.height = editorPanelCollapsed ? "auto" : "";
+        panel.style.maxHeight = editorPanelCollapsed ? "none" : "";
+    }
+
+    if (content) {
+        content.style.display = editorPanelCollapsed ? "none" : "";
+    }
+
+    if (button) {
+        button.innerText = editorPanelCollapsed ? "＋" : "−";
+        button.setAttribute("aria-expanded", editorPanelCollapsed ? "false" : "true");
+        button.setAttribute(
+            "aria-label",
+            editorPanelCollapsed
+                ? "開発ウィンドウを開く"
+                : "開発ウィンドウを折りたたむ"
+        );
+    }
+}
+
+function updateEditorSaveStateUI() {
+    var status = document.getElementById("editor-save-state");
+    if (!status) return;
+
+    if (editorHasUnsavedChanges) {
+        status.innerText = "● 未保存";
+        status.style.background = "rgba(165, 64, 48, .92)";
+        status.style.color = "#fff7ed";
+        status.title = "まだ完全版コードをコピーしていない変更があります";
+    } else {
+        status.innerText = "✓ コピー済み";
+        status.style.background = "rgba(51, 111, 73, .92)";
+        status.style.color = "#f3fff6";
+        status.title = "現在の編集内容は完全版コードとしてコピー済みです";
+    }
+}
+
+function markEditorDirty() {
+    editorHasUnsavedChanges = true;
+    updateEditorSaveStateUI();
+}
+
+function markEditorExportCopied() {
+    editorHasUnsavedChanges = false;
+    updateEditorSaveStateUI();
+}
+
+function setupEditorUnsavedGuard() {
+    if (window.__yumaniwaEditorUnsavedGuardReady) return;
+    window.__yumaniwaEditorUnsavedGuardReady = true;
+
+    window.addEventListener("beforeunload", function(e) {
+        if (!editorHasUnsavedChanges) return;
+
+        e.preventDefault();
+        e.returnValue = "";
+        return "";
+    });
+}
+
 function setupEditorEvents() {
+    ensureEditorSafetyUI();
+    setupEditorUnsavedGuard();
     ensureTriggerEditorExtraFields();
     ensurePartEditorFields();
 
@@ -3331,6 +3470,7 @@ function setupEditorEvents() {
             partDragState = null;
             updatePartEditorSelectionUi();
         }
+        markEditorDirty();
         updateEditorStatus("直前の編集を取り消しました");
         editStep = 0; currentHoverTile = null;
     });
@@ -3340,9 +3480,57 @@ function setupEditorEvents() {
     var btnCopy = document.getElementById('btn-copy-export');
     btnCopy.addEventListener('click', function() {
         var textarea = document.getElementById('export-textarea');
+        var code = textarea ? textarea.value : "";
+
+        function copied() {
+            markEditorExportCopied();
+            btnCopy.innerText = "コピー完了!";
+            setTimeout(function() {
+                btnCopy.innerText = "完全版コードをコピー";
+            }, 2000);
+        }
+
+        function failed() {
+            btnCopy.innerText = "コピー失敗";
+            setTimeout(function() {
+                btnCopy.innerText = "完全版コードをコピー";
+            }, 2000);
+        }
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(code).then(copied).catch(function() {
+                if (!textarea) {
+                    failed();
+                    return;
+                }
+
+                textarea.focus();
+                textarea.select();
+
+                try {
+                    if (document.execCommand("copy")) copied();
+                    else failed();
+                } catch (err) {
+                    failed();
+                }
+            });
+            return;
+        }
+
+        if (!textarea) {
+            failed();
+            return;
+        }
+
+        textarea.focus();
         textarea.select();
-        try { document.execCommand('copy'); btnCopy.innerText = "コピー完了!"; setTimeout(function(){ btnCopy.innerText = "完全版コードをコピー"; }, 2000); }
-        catch(err) { alert("コピーに失敗しました。手動でコピーしてください。"); }
+
+        try {
+            if (document.execCommand("copy")) copied();
+            else failed();
+        } catch (err) {
+            failed();
+        }
     });
 }
 
@@ -4310,6 +4498,7 @@ function applyPartInteractionInputs() {
 }
 
 function pushTownPartHistory() {
+    markEditorDirty();
     editHistory.push({
         type: 'props',
         prev: cloneTownParts()
@@ -4556,7 +4745,8 @@ function finishPartEditorDrag(e) {
     partDragState = null;
 
     if (moved) {
-        editHistory.push({
+        markEditorDirty();
+    editHistory.push({
             type: 'props',
             prev: prev
         });
@@ -4858,6 +5048,7 @@ function updateSelectedTriggerFromForm() {
         return;
     }
 
+    markEditorDirty();
     editHistory.push({ type: "triggers", prev: cloneTriggers() });
 
     applyTriggerValues(editingTriggerIndex, getTriggerFormValues({
@@ -4891,6 +5082,7 @@ function deleteSelectedTrigger() {
         return;
     }
 
+    markEditorDirty();
     editHistory.push({ type: "triggers", prev: cloneTriggers() });
     triggers.splice(editingTriggerIndex, 1);
 
@@ -4912,7 +5104,8 @@ function handleEditorTap(tx, ty) {
     }
 
     if (editTarget === 'blockedPoints') {
-        editHistory.push({ type: 'grid', prev: copyGrid() });
+        markEditorDirty();
+    editHistory.push({ type: 'grid', prev: copyGrid() });
         if (baseCollisionGrid[ty]) baseCollisionGrid[ty][tx] = 2;
         rebuildCollisionGridFromBase();
         updateEditorStatus("Point追加: (" + tx + ", " + ty + ")");
@@ -4954,7 +5147,8 @@ function handleEditorTap(tx, ty) {
         var newRect = { x: minX, y: minY, w: w, h: h };
 
         if (editTarget === 'passableRects' || editTarget === 'blockedRects') {
-            editHistory.push({ type: 'grid', prev: copyGrid() });
+            markEditorDirty();
+    editHistory.push({ type: 'grid', prev: copyGrid() });
             var val = (editTarget === 'passableRects') ? 1 : 2;
 
             for (var cy = minY; cy < minY + h; cy++) {
@@ -4974,7 +5168,8 @@ function handleEditorTap(tx, ty) {
 
         if (editTarget === 'triggers') {
             ensureTriggerEditorExtraFields();
-            editHistory.push({ type: 'triggers', prev: cloneTriggers() });
+            markEditorDirty();
+    editHistory.push({ type: 'triggers', prev: cloneTriggers() });
 
             if (editingTriggerIndex >= 0 && editingTriggerIndex < triggers.length) {
                 applyTriggerValues(editingTriggerIndex, getTriggerFormValues(newRect));
@@ -5100,6 +5295,12 @@ function showExportModal() {
     if (copyButton) {
         copyButton.innerText = "完全版コードをコピー";
     }
+
+    updateEditorStatus(
+        editorHasUnsavedChanges
+            ? "完全版コードをコピーすると「コピー済み」になります"
+            : "現在の内容はコピー済みです"
+    );
 }
 
 // ==========================================
