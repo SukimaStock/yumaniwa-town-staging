@@ -1,143 +1,20 @@
 (function() {
     'use strict';
 
-    var PROP_REV = '20260710-2';
-    var PROP_BASE = 'assets/maps/props/station-plaza/';
+    var PROP_REV = '20260711-1';
     var propImageCache = {};
+    var stationPlazaProps = Array.isArray(window.stationPlazaProps)
+        ? window.stationPlazaProps
+        : [];
 
-    var stationPlazaProps = [
-        {
-            id: 'station_notice_board',
-            src: PROP_BASE + 'station-notice-board.png?rev=' + PROP_REV,
-            x: 0.75,
-            y: 5.4,
-            w: 5.5,
-            h: 3.6,
-            footY: 9.0,
-            enabled: true
-        },
-        {
-            id: 'station_tourist_map',
-            src: PROP_BASE + 'station-tourist-map.png?rev=' + PROP_REV,
-            x: 10.3,
-            y: 5.7,
-            w: 3.4,
-            h: 3.6,
-            footY: 9.3,
-            enabled: true
-        },
-        {
-            id: 'station_bench_left',
-            src: PROP_BASE + 'station-bench.png?rev=' + PROP_REV,
-            x: 6.85,
-            y: 6.95,
-            w: 3.0,
-            h: 2.0,
-            footY: 8.95,
-            enabled: true
-        },
-        {
-            id: 'station_bench_right',
-            src: PROP_BASE + 'station-bench.png?rev=' + PROP_REV,
-            x: 14.15,
-            y: 11.0,
-            w: 3.0,
-            h: 2.0,
-            footY: 13.0,
-            enabled: true
-        },
-        {
-            id: 'station_lamp_left',
-            src: PROP_BASE + 'station-street-lamp.png?rev=' + PROP_REV,
-            x: 5.49,
-            y: 6.7,
-            w: 1.02,
-            h: 3.4,
-            footY: 10.1,
-            enabled: true
-        },
-        {
-            id: 'station_lamp_right',
-            src: PROP_BASE + 'station-street-lamp.png?rev=' + PROP_REV,
-            x: 17.49,
-            y: 6.7,
-            w: 1.02,
-            h: 3.4,
-            footY: 10.1,
-            enabled: true
-        },
-        {
-            id: 'station_planter_left',
-            src: PROP_BASE + 'station-planter.png?rev=' + PROP_REV,
-            x: 5.35,
-            y: 13.45,
-            w: 1.1,
-            h: 1.8,
-            footY: 15.25,
-            enabled: true
-        },
-        {
-            id: 'station_planter_right',
-            src: PROP_BASE + 'station-planter.png?rev=' + PROP_REV,
-            x: 16.55,
-            y: 13.45,
-            w: 1.1,
-            h: 1.8,
-            footY: 15.25,
-            enabled: true
-        },
-        {
-            id: 'station_direction_sign_candidate',
-            src: PROP_BASE + 'station-direction-sign.png?rev=' + PROP_REV,
-            x: 14.2,
-            y: 6.6,
-            w: 1.4,
-            h: 2.4,
-            footY: 9.0,
-            enabled: false
-        }
-    ];
-
-    function sameRect(a, b) {
-        return !!a && !!b &&
-            a.x === b.x &&
-            a.y === b.y &&
-            a.w === b.w &&
-            a.h === b.h;
-    }
-
-    function hasRect(list, target) {
-        for (var i = 0; i < list.length; i++) {
-            if (sameRect(list[i], target)) return true;
-        }
-
-        return false;
-    }
-
-    function hasPoint(list, target) {
-        for (var i = 0; i < list.length; i++) {
-            if (
-                list[i] &&
-                list[i].x === target.x &&
-                list[i].y === target.y
-            ) {
-                return true;
-            }
-        }
-
-        return false;
+    function cloneData(data) {
+        return JSON.parse(JSON.stringify(data || []));
     }
 
     function isReplacedStationPlaceholder(item) {
         if (!item) return false;
 
-        var key = [
-            item.x,
-            item.y,
-            item.w,
-            item.h
-        ].join(':');
-
+        var key = [item.x, item.y, item.w, item.h].join(':');
         var replaced = {
             '1:7:4:2': true,
             '1:6:4:1': true,
@@ -161,36 +38,18 @@
 
         if (!def) return;
 
+        // 開発モードの書き出し結果を、実際に使う町マップ定義へ反映する。
+        def.mapWidth = Number(window.MAP_WIDTH) || def.mapWidth || 24;
+        def.mapHeight = Number(window.MAP_HEIGHT) || def.mapHeight || 24;
+        def.passableRects = cloneData(window.passableRects);
+        def.blockedRects = cloneData(window.blockedRects);
+        def.blockedPoints = cloneData(window.blockedPoints);
+        def.triggers = cloneData(window.triggers);
+        def.areaZones = cloneData(window.areaZones);
         def.props = stationPlazaProps;
 
-        def.blockedRects = def.blockedRects || [];
-
-        var extraRects = [
-            { x: 7, y: 8, w: 2, h: 1 },
-            { x: 15, y: 13, w: 2, h: 1 }
-        ];
-
-        for (var i = 0; i < extraRects.length; i++) {
-            if (!hasRect(def.blockedRects, extraRects[i])) {
-                def.blockedRects.push(extraRects[i]);
-            }
-        }
-
-        def.blockedPoints = def.blockedPoints || [];
-
-        var extraPoints = [
-            { x: 6, y: 10 },
-            { x: 18, y: 10 }
-        ];
-
-        for (var p = 0; p < extraPoints.length; p++) {
-            if (!hasPoint(def.blockedPoints, extraPoints[p])) {
-                def.blockedPoints.push(extraPoints[p]);
-            }
-        }
-
-        // 背景画像が読めなかった時の仮描画でも、
-        // 旧プレースホルダーと新しい画像が重ならないようにする。
+        // パーツ自身が collision を持つため、旧版で追加していた
+        // ベンチ・街灯の固定座標判定はここでは追加しない。
         if (def.decor && def.decor.length) {
             def.decor = def.decor.filter(function(item) {
                 return !isReplacedStationPlaceholder(item);
@@ -200,13 +59,9 @@
 
     function getPropImage(src) {
         if (!src) return null;
-
-        if (propImageCache[src]) {
-            return propImageCache[src];
-        }
+        if (propImageCache[src]) return propImageCache[src];
 
         var image = new Image();
-
         var entry = {
             image: image,
             loaded: false,
@@ -225,7 +80,6 @@
 
         propImageCache[src] = entry;
         image.src = src;
-
         return entry;
     }
 
@@ -262,13 +116,7 @@
 
         window.ctx.save();
         window.ctx.imageSmoothingEnabled = false;
-        window.ctx.drawImage(
-            entry.image,
-            dx,
-            dy,
-            dw,
-            dh
-        );
+        window.ctx.drawImage(entry.image, dx, dy, dw, dh);
         window.ctx.restore();
     }
 
@@ -284,10 +132,9 @@
                 continue;
             }
 
-            var footY =
-                typeof prop.footY === 'number'
-                    ? prop.footY
-                    : prop.y + prop.h;
+            var footY = typeof prop.footY === 'number'
+                ? prop.footY
+                : prop.y + prop.h;
 
             drawItems.push({
                 kind: 'prop',
@@ -317,10 +164,7 @@
             if (item.kind === 'prop') {
                 drawTownProp(item.prop);
             } else {
-                window.drawPlayerSprite(
-                    window.player.x,
-                    window.player.y
-                );
+                window.drawPlayerSprite(window.player.x, window.player.y);
             }
         }
     }
@@ -338,7 +182,6 @@
                 if (typeof fallbackDraw === 'function') {
                     fallbackDraw();
                 }
-
                 return;
             }
 
@@ -353,10 +196,7 @@
 
             window.ctx.save();
             window.ctx.scale(cam.zoom, cam.zoom);
-            window.ctx.translate(
-                -cam.cameraX,
-                -cam.cameraY
-            );
+            window.ctx.translate(-cam.cameraX, -cam.cameraY);
 
             window.drawTownSceneBackground(cam);
 
@@ -367,22 +207,17 @@
                 !window.debugMode
             ) {
                 window.ctx.beginPath();
-
                 window.ctx.arc(
-                    window.tapMarkerPos.x * window.TILE_SIZE +
-                        window.TILE_SIZE / 2,
-                    window.tapMarkerPos.y * window.TILE_SIZE +
-                        window.TILE_SIZE / 2,
+                    window.tapMarkerPos.x * window.TILE_SIZE + window.TILE_SIZE / 2,
+                    window.tapMarkerPos.y * window.TILE_SIZE + window.TILE_SIZE / 2,
                     4,
                     0,
                     Math.PI * 2
                 );
-
                 window.ctx.fillStyle =
                     'rgba(255, 255, 255, ' +
                     window.tapMarkerTimer / 60 +
                     ')';
-
                 window.ctx.fill();
             }
 
@@ -413,7 +248,6 @@
 
                 window.ctx.strokeStyle = '#00ff66';
                 window.ctx.lineWidth = 1;
-
                 window.ctx.strokeRect(
                     hitbox.x,
                     hitbox.y,
