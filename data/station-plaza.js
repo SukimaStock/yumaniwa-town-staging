@@ -1,19 +1,16 @@
 // ==========================================
 // 湯間庭町 / 駅前広場 編集データ
-// 正方形アセット統一版
-//
-// この内容で data/station-plaza.js を
-// 丸ごと置き換えてください。
+// 開発モードの「書き出す」で生成した完全版です。
+// この内容で data/station-plaza.js を丸ごと置き換えてください。
 // ==========================================
 
 var BG_IMAGE_PATH = "assets/maps/grounds/station-plaza-ground.png";
 var TILE_SIZE = 16;
 var MAP_WIDTH = 24;
 var MAP_HEIGHT = 24;
-
 var PLAYER_START = {
     "x": 15,
-    "y": 10
+    "y": 13
 };
 
 var passableRects = [
@@ -273,16 +270,7 @@ var areaZones = [
     }
 ];
 
-// ==========================================
-// マップパーツ
-//
-// すべて正方形PNGとして扱うため、
-// 各アセットの w と h を同じ値にしています。
-//
-// サイズ変更後も、画像の中心と footY、
-// 当たり判定の実座標が変わらないよう調整済みです。
-// ==========================================
-
+// マップパーツ。collision と interaction は画像内の相対比率(0〜1)です。
 var stationPlazaProps = [
     {
         "id": "station_notice_board",
@@ -417,11 +405,11 @@ var stationPlazaProps = [
     {
         "id": "station_lamp_right",
         "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
-        "x": 12.86165919282511,
-        "y": 3.3760089686098658,
+        "x": 12.928325859491775,
+        "y": 3.326008968609866,
         "w": 3.4,
         "h": 3.4,
-        "footY": 6.776008968609865,
+        "footY": 6.726008968609866,
         "enabled": true,
         "catalogKey": "streetLamp",
         "collision": {
@@ -443,11 +431,11 @@ var stationPlazaProps = [
     {
         "id": "station_planter_left",
         "src": "assets/maps/props/station-plaza/station-planter.png?rev=20260712-square-32px",
-        "x": 5.512107623318384,
-        "y": 13.184417040358747,
-        "w": 2,
-        "h": 2,
-        "footY": 15.184417040358747,
+        "x": 5.6875,
+        "y": 13.1875,
+        "w": 1.75,
+        "h": 1.75,
+        "footY": 14.9375,
         "enabled": true,
         "catalogKey": "planter",
         "collision": {
@@ -469,11 +457,11 @@ var stationPlazaProps = [
     {
         "id": "station_planter_right",
         "src": "assets/maps/props/station-plaza/station-planter.png?rev=20260712-square-32px",
-        "x": 16.30767937219731,
-        "y": 13.1734865470852,
-        "w": 2,
-        "h": 2,
-        "footY": 15.1734865470852,
+        "x": 16.3125,
+        "y": 13.1875,
+        "w": 1.75,
+        "h": 1.75,
+        "footY": 14.9375,
         "enabled": true,
         "catalogKey": "planter",
         "collision": {
@@ -521,7 +509,7 @@ var stationPlazaProps = [
     {
         "id": "station_stationBuilding_10",
         "src": "assets/maps/props/station-plaza/station-building.png?rev=20260712-square",
-        "x": 2.179166666666667,
+        "x": 2.116666666666667,
         "y": 16.5,
         "w": 7.5,
         "h": 7.5,
@@ -547,7 +535,7 @@ var stationPlazaProps = [
     {
         "id": "station_streetLamp_11",
         "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
-        "x": 7.69166666666667,
+        "x": 7.62916666666667,
         "y": 13.999999999999998,
         "w": 3.4,
         "h": 3.4,
@@ -573,7 +561,7 @@ var stationPlazaProps = [
     {
         "id": "station_streetLamp_12",
         "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
-        "x": 12.733333333333334,
+        "x": 12.920833333333334,
         "y": 13.974999999999994,
         "w": 3.4,
         "h": 3.4,
