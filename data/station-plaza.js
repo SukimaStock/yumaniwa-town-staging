@@ -9,7 +9,7 @@ var TILE_SIZE = 16;
 var MAP_WIDTH = 24;
 var MAP_HEIGHT = 24;
 var PLAYER_START = {
-    "x": 8,
+    "x": 12,
     "y": 10
 };
 
@@ -24,13 +24,13 @@ var passableRects = [
         "x": 10,
         "y": 1,
         "w": 4,
-        "h": 8
+        "h": 9
     },
     {
         "x": 14,
         "y": 7,
         "w": 2,
-        "h": 9
+        "h": 3
     },
     {
         "x": 7,
@@ -45,18 +45,6 @@ var passableRects = [
         "h": 5
     },
     {
-        "x": 10,
-        "y": 9,
-        "w": 1,
-        "h": 2
-    },
-    {
-        "x": 13,
-        "y": 9,
-        "w": 1,
-        "h": 15
-    },
-    {
         "x": 16,
         "y": 9,
         "w": 1,
@@ -69,10 +57,16 @@ var passableRects = [
         "h": 5
     },
     {
-        "x": 11,
+        "x": 10,
         "y": 10,
         "w": 2,
-        "h": 1
+        "h": 14
+    },
+    {
+        "x": 15,
+        "y": 10,
+        "w": 1,
+        "h": 6
     },
     {
         "x": 17,
@@ -81,10 +75,10 @@ var passableRects = [
         "h": 4
     },
     {
-        "x": 10,
-        "y": 12,
+        "x": 12,
+        "y": 11,
         "w": 3,
-        "h": 12
+        "h": 5
     },
     {
         "x": 0,
@@ -97,6 +91,12 @@ var passableRects = [
         "y": 14,
         "w": 1,
         "h": 1
+    },
+    {
+        "x": 12,
+        "y": 16,
+        "w": 2,
+        "h": 8
     },
     {
         "x": 9,
@@ -156,8 +156,8 @@ var blockedRects = [
         "h": 1
     },
     {
-        "x": 10,
-        "y": 11,
+        "x": 12,
+        "y": 10,
         "w": 3,
         "h": 1
     },
@@ -232,8 +232,8 @@ var triggers = [
         "label": "観光案内板",
         "actionLabel": "調べる",
         "area": {
-            "x": 11,
-            "y": 11,
+            "x": 12,
+            "y": 10,
             "w": 3,
             "h": 1
         },
@@ -301,11 +301,11 @@ var stationPlazaProps = [
     {
         "id": "station_tourist_map",
         "src": "assets/maps/props/station-plaza/station-tourist-map.png?rev=20260712-square",
-        "x": 10.345459641255607,
-        "y": 8.039125560538118,
-        "w": 3.6,
-        "h": 3.6,
-        "footY": 11.639125560538117,
+        "x": 11.904166666666665,
+        "y": 7.495833333333332,
+        "w": 3.125,
+        "h": 3.125,
+        "footY": 10.620833333333332,
         "enabled": true,
         "catalogKey": "touristMap",
         "collision": {
@@ -327,11 +327,11 @@ var stationPlazaProps = [
     {
         "id": "station_bench_left",
         "src": "assets/maps/props/station-plaza/station-bench.png?rev=20260712-square",
-        "x": 7.533333333333333,
-        "y": 5.958333333333334,
-        "w": 2.25,
-        "h": 2.25,
-        "footY": 8.208333333333334,
+        "x": 7.5625,
+        "y": 5.9375,
+        "w": 2.5,
+        "h": 2.5,
+        "footY": 8.4375,
         "enabled": true,
         "catalogKey": "bench",
         "collision": {
@@ -353,11 +353,11 @@ var stationPlazaProps = [
     {
         "id": "station_bench_right",
         "src": "assets/maps/props/station-plaza/station-bench.png?rev=20260712-square",
-        "x": 17.34583333333333,
-        "y": 7.929166666666667,
-        "w": 2.25,
-        "h": 2.25,
-        "footY": 10.179166666666667,
+        "x": 17.375,
+        "y": 7.9375,
+        "w": 2.5,
+        "h": 2.5,
+        "footY": 10.4375,
         "enabled": true,
         "catalogKey": "bench",
         "collision": {
@@ -379,11 +379,11 @@ var stationPlazaProps = [
     {
         "id": "station_lamp_left",
         "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
-        "x": 7.688452914798206,
-        "y": 3.3695627802690575,
-        "w": 3.4,
-        "h": 3.4,
-        "footY": 6.769562780269057,
+        "x": 7.895833333333334,
+        "y": 3.633333333333333,
+        "w": 2.875,
+        "h": 2.875,
+        "footY": 6.508333333333333,
         "enabled": true,
         "catalogKey": "streetLamp",
         "collision": {
@@ -405,11 +405,11 @@ var stationPlazaProps = [
     {
         "id": "station_lamp_right",
         "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
-        "x": 12.928325859491775,
-        "y": 3.326008968609866,
-        "w": 3.4,
-        "h": 3.4,
-        "footY": 6.726008968609866,
+        "x": 13.145833333333334,
+        "y": 3.6875,
+        "w": 2.875,
+        "h": 2.875,
+        "footY": 6.5625,
         "enabled": true,
         "catalogKey": "streetLamp",
         "collision": {
@@ -535,11 +535,11 @@ var stationPlazaProps = [
     {
         "id": "station_streetLamp_11",
         "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
-        "x": 7.62916666666667,
-        "y": 13.999999999999998,
-        "w": 3.4,
-        "h": 3.4,
-        "footY": 17.4,
+        "x": 7.9375,
+        "y": 14.191666666666666,
+        "w": 3,
+        "h": 3,
+        "footY": 17.191666666666666,
         "enabled": true,
         "catalogKey": "streetLamp",
         "collision": {
@@ -561,11 +561,11 @@ var stationPlazaProps = [
     {
         "id": "station_streetLamp_12",
         "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
-        "x": 12.920833333333334,
-        "y": 13.974999999999994,
-        "w": 3.4,
-        "h": 3.4,
-        "footY": 17.374999999999993,
+        "x": 13.0875,
+        "y": 14.183333333333334,
+        "w": 3,
+        "h": 3,
+        "footY": 17.183333333333334,
         "enabled": true,
         "catalogKey": "streetLamp",
         "collision": {
