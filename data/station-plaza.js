@@ -9,8 +9,8 @@ var TILE_SIZE = 16;
 var MAP_WIDTH = 24;
 var MAP_HEIGHT = 24;
 var PLAYER_START = {
-    "x": 15,
-    "y": 13
+    "x": 8,
+    "y": 10
 };
 
 var passableRects = [
@@ -245,10 +245,10 @@ var triggers = [
         "label": "掲示板を読む",
         "actionLabel": "読む",
         "area": {
-            "x": 1,
-            "y": 7,
-            "w": 6,
-            "h": 2
+            "x": 0,
+            "y": 6,
+            "w": 8,
+            "h": 3
         },
         "type": "menu",
         "target": "shinpo_board",
@@ -275,11 +275,11 @@ var stationPlazaProps = [
     {
         "id": "station_notice_board",
         "src": "assets/maps/props/station-plaza/station-notice-board.png?rev=20260712-square",
-        "x": 0.75,
-        "y": 3.5,
-        "w": 5.5,
-        "h": 5.5,
-        "footY": 9,
+        "x": 0.375,
+        "y": 1.4375,
+        "w": 7.5,
+        "h": 7.5,
+        "footY": 8.9375,
         "enabled": true,
         "catalogKey": "noticeBoard",
         "collision": {
@@ -327,11 +327,11 @@ var stationPlazaProps = [
     {
         "id": "station_bench_left",
         "src": "assets/maps/props/station-plaza/station-bench.png?rev=20260712-square",
-        "x": 7.367096412556053,
-        "y": 5.2241031390134545,
-        "w": 3,
-        "h": 3,
-        "footY": 8.224103139013454,
+        "x": 7.533333333333333,
+        "y": 5.958333333333334,
+        "w": 2.25,
+        "h": 2.25,
+        "footY": 8.208333333333334,
         "enabled": true,
         "catalogKey": "bench",
         "collision": {
@@ -353,11 +353,11 @@ var stationPlazaProps = [
     {
         "id": "station_bench_right",
         "src": "assets/maps/props/station-plaza/station-bench.png?rev=20260712-square",
-        "x": 16.95913677130045,
-        "y": 7.092488789237665,
-        "w": 3,
-        "h": 3,
-        "footY": 10.092488789237665,
+        "x": 17.34583333333333,
+        "y": 7.929166666666667,
+        "w": 2.25,
+        "h": 2.25,
+        "footY": 10.179166666666667,
         "enabled": true,
         "catalogKey": "bench",
         "collision": {
