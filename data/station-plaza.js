@@ -1,6 +1,6 @@
 // ==========================================
 // 湯間庭町 / 駅前広場 編集データ
-// 開発モードの「書き出す」で生成した完全版です。
+// 正方形アセット対応版
 // この内容で data/station-plaza.js を丸ごと置き換えてください。
 // ==========================================
 
@@ -270,7 +270,9 @@ var areaZones = [
     }
 ];
 
-// マップパーツ。collision と interaction は画像内の相対比率(0〜1)です。
+// マップパーツ。
+// collision と interaction は画像内の相対比率(0〜1)です。
+// 正方形PNGは、原則として w と h を同じ値にします。
 var stationPlazaProps = [
     {
         "id": "station_notice_board",
@@ -378,20 +380,20 @@ var stationPlazaProps = [
     },
     {
         "id": "station_lamp_left",
-        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260710-2",
-        "x": 8.878452914798206,
+        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
+        "x": 7.688452914798206,
         "y": 3.3695627802690575,
-        "w": 1.02,
+        "w": 3.4,
         "h": 3.4,
         "footY": 6.769562780269057,
         "enabled": true,
         "catalogKey": "streetLamp",
         "collision": {
             "enabled": true,
-            "x": 0.28,
-            "y": 0.92,
-            "w": 0.44,
-            "h": 0.22
+            "x": 0.36,
+            "y": 0.88,
+            "w": 0.28,
+            "h": 0.12
         },
         "interaction": {
             "enabled": false,
@@ -404,20 +406,20 @@ var stationPlazaProps = [
     },
     {
         "id": "station_lamp_right",
-        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260710-2",
-        "x": 14.05165919282511,
+        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
+        "x": 12.86165919282511,
         "y": 3.3760089686098658,
-        "w": 1.02,
+        "w": 3.4,
         "h": 3.4,
         "footY": 6.776008968609865,
         "enabled": true,
         "catalogKey": "streetLamp",
         "collision": {
             "enabled": true,
-            "x": 0.28,
-            "y": 0.92,
-            "w": 0.44,
-            "h": 0.22
+            "x": 0.36,
+            "y": 0.88,
+            "w": 0.28,
+            "h": 0.12
         },
         "interaction": {
             "enabled": false,
@@ -430,20 +432,20 @@ var stationPlazaProps = [
     },
     {
         "id": "station_planter_left",
-        "src": "assets/maps/props/station-plaza/station-planter.png?rev=20260710-2",
-        "x": 5.962107623318384,
+        "src": "assets/maps/props/station-plaza/station-planter.png?rev=20260712-square",
+        "x": 5.612107623318384,
         "y": 13.384417040358747,
-        "w": 1.1,
+        "w": 1.8,
         "h": 1.8,
         "footY": 15.184417040358747,
         "enabled": true,
         "catalogKey": "planter",
         "collision": {
             "enabled": true,
-            "x": 0.14,
+            "x": 0.24,
             "y": 0.58,
-            "w": 0.72,
-            "h": 0.42
+            "w": 0.52,
+            "h": 0.4
         },
         "interaction": {
             "enabled": false,
@@ -456,20 +458,20 @@ var stationPlazaProps = [
     },
     {
         "id": "station_planter_right",
-        "src": "assets/maps/props/station-plaza/station-planter.png?rev=20260710-2",
-        "x": 16.75767937219731,
+        "src": "assets/maps/props/station-plaza/station-planter.png?rev=20260712-square",
+        "x": 16.40767937219731,
         "y": 13.3734865470852,
-        "w": 1.1,
+        "w": 1.8,
         "h": 1.8,
         "footY": 15.1734865470852,
         "enabled": true,
         "catalogKey": "planter",
         "collision": {
             "enabled": true,
-            "x": 0.14,
+            "x": 0.24,
             "y": 0.58,
-            "w": 0.72,
-            "h": 0.42
+            "w": 0.52,
+            "h": 0.4
         },
         "interaction": {
             "enabled": false,
@@ -534,20 +536,20 @@ var stationPlazaProps = [
     },
     {
         "id": "station_streetLamp_11",
-        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=editor",
-        "x": 8.88166666666667,
+        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
+        "x": 7.69166666666667,
         "y": 13.999999999999998,
-        "w": 1.02,
+        "w": 3.4,
         "h": 3.4,
         "footY": 17.4,
         "enabled": true,
         "catalogKey": "streetLamp",
         "collision": {
             "enabled": true,
-            "x": 0.28,
-            "y": 0.92,
-            "w": 0.44,
-            "h": 0.22
+            "x": 0.36,
+            "y": 0.88,
+            "w": 0.28,
+            "h": 0.12
         },
         "interaction": {
             "enabled": false,
@@ -560,20 +562,20 @@ var stationPlazaProps = [
     },
     {
         "id": "station_streetLamp_12",
-        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=editor",
-        "x": 13.923333333333334,
+        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
+        "x": 12.733333333333334,
         "y": 13.974999999999994,
-        "w": 1.02,
+        "w": 3.4,
         "h": 3.4,
         "footY": 17.374999999999993,
         "enabled": true,
         "catalogKey": "streetLamp",
         "collision": {
             "enabled": true,
-            "x": 0.28,
-            "y": 0.92,
-            "w": 0.44,
-            "h": 0.22
+            "x": 0.36,
+            "y": 0.88,
+            "w": 0.28,
+            "h": 0.12
         },
         "interaction": {
             "enabled": false,
