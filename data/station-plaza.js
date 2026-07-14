@@ -9,8 +9,8 @@ var TILE_SIZE = 16;
 var MAP_WIDTH = 24;
 var MAP_HEIGHT = 24;
 var PLAYER_START = {
-    "x": 12,
-    "y": 10
+    "x": 11,
+    "y": 18
 };
 
 var passableRects = [
@@ -33,16 +33,22 @@ var passableRects = [
         "h": 3
     },
     {
-        "x": 7,
+        "x": 8,
         "y": 8,
-        "w": 3,
+        "w": 1,
         "h": 8
     },
     {
         "x": 0,
         "y": 9,
-        "w": 7,
+        "w": 8,
         "h": 5
+    },
+    {
+        "x": 9,
+        "y": 9,
+        "w": 1,
+        "h": 7
     },
     {
         "x": 16,
@@ -69,22 +75,28 @@ var passableRects = [
         "h": 6
     },
     {
-        "x": 17,
-        "y": 10,
-        "w": 3,
-        "h": 4
-    },
-    {
         "x": 12,
         "y": 11,
         "w": 3,
         "h": 5
     },
     {
+        "x": 17,
+        "y": 11,
+        "w": 3,
+        "h": 3
+    },
+    {
         "x": 0,
         "y": 14,
         "w": 1,
         "h": 1
+    },
+    {
+        "x": 7,
+        "y": 14,
+        "w": 1,
+        "h": 2
     },
     {
         "x": 23,
@@ -129,7 +141,7 @@ var blockedRects = [
         "x": 9,
         "y": 1,
         "w": 1,
-        "h": 7
+        "h": 8
     },
     {
         "x": 14,
@@ -146,14 +158,14 @@ var blockedRects = [
     {
         "x": 0,
         "y": 8,
-        "w": 7,
+        "w": 8,
         "h": 1
     },
     {
         "x": 17,
         "y": 9,
         "w": 3,
-        "h": 1
+        "h": 2
     },
     {
         "x": 12,
@@ -214,20 +226,6 @@ var blockedPoints = [
 
 var triggers = [
     {
-        "id": "station_notice",
-        "label": "駅の案内",
-        "actionLabel": "読む",
-        "area": {
-            "x": 9,
-            "y": 18,
-            "w": 5,
-            "h": 5
-        },
-        "type": "inspect",
-        "target": "",
-        "text": "湯間庭駅前広場。左に灯串横丁、右に湯窓通り、上に温泉方面、下にレジャーセンターがあります。"
-    },
-    {
         "id": "tourist_map",
         "label": "観光案内板",
         "actionLabel": "調べる",
@@ -253,6 +251,20 @@ var triggers = [
         "type": "menu",
         "target": "shinpo_board",
         "text": "広場の横長掲示板。noteの記事やお知らせを並べていく場所です。"
+    },
+    {
+        "id": "station_notice",
+        "label": "駅の案内",
+        "actionLabel": "読む",
+        "area": {
+            "x": 10,
+            "y": 16,
+            "w": 4,
+            "h": 3
+        },
+        "type": "inspect",
+        "target": "",
+        "text": "湯間庭駅前広場。左に灯串横丁、右に湯窓通り、上に温泉方面、下にレジャーセンターがあります。"
     }
 ];
 
