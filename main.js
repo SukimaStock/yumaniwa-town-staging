@@ -365,6 +365,47 @@ var isWorkPlayerOpen = false;
 var currentWorkId = null;
 var workPlayerReturnDestinationId = null;
 
+var workPlayerReturnDestinationId = null;
+
+// お店・看板などを開いた直前の町内位置
+var townWindowReturnPoint = null;
+
+function rememberTownWindowReturnPoint() {
+    if (!isTownScene(currentScene)) return;
+
+    townWindowReturnPoint = {
+        sceneId: currentScene,
+        x: player.x,
+        y: player.y,
+        dir: player.dir || "down"
+    };
+}
+
+function restoreTownWindowReturnPoint(fallbackSceneId) {
+    var point = townWindowReturnPoint;
+    townWindowReturnPoint = null;
+
+    if (!point || !isTownScene(point.sceneId)) {
+        changeScene(fallbackSceneId || "station_plaza");
+        return;
+    }
+
+    changeScene(point.sceneId);
+
+    player.x = point.x;
+    player.y = point.y;
+    player.dir = point.dir || "down";
+    player.isMoving = false;
+    player.walkDistance = 0;
+    player.walkFrame = 0;
+    player.walkWasMoving = false;
+
+    cancelTapMove();
+    updateInteractionHint();
+    updateCurrentArea();
+}
+
+
 // 湯間庭フレームで表示中の元ページ。
 // 現在はnote読書室だけが右上の「noteで開く」に使う。
 var currentFrameSourceUrl = "";
@@ -5651,16 +5692,25 @@ function getDestinationReturnLabel(destOrId) {
 }
 
 window.backToDestinationReturnScene = function(destId) {
-    changeScene(getDestinationReturnSceneId(destId || currentDestinationId));
+    restoreTownWindowReturnPoint(
+        getDestinationReturnSceneId(destId || currentDestinationId)
+    );
 };
+
 
 // ★ RPG共通メニューの生成と遷移
 window.changeScene = function(sceneId, spawnKey) {
+    // 町内から、お店・看板などの専用画面へ移る直前に位置を保存
+    if (isTownScene(currentScene) && !isTownScene(sceneId)) {
+        rememberTownWindowReturnPoint();
+    }
+
     currentScene = sceneId;
 
     var sceneContainer = document.getElementById('scene-container');
     document.getElementById('area-title').classList.remove('visible');
     document.getElementById('interaction-hint').classList.remove('visible');
+
     var btnAction = document.getElementById('btn-action');
     if (btnAction) {
         btnAction.innerText = "調べる";
@@ -5680,6 +5730,7 @@ window.changeScene = function(sceneId, spawnKey) {
     clearDpadInput();
     updateControlVisibility();
 };
+
 
 
 window.openDestination = function(destId) {
