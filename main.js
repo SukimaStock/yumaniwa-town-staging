@@ -5840,7 +5840,6 @@ function getDestinationMenuItems(dest) {
 }
 
 window.renderDestinationMenu = function(dest) {
-    // 作品棚用スタイルもこの関数内で確実に用意する。
     if (!document.getElementById("destination-work-shelf-style")) {
         var style = document.createElement("style");
         style.id = "destination-work-shelf-style";
@@ -5848,11 +5847,18 @@ window.renderDestinationMenu = function(dest) {
         style.textContent =
             ".rpg-menu-item.rpg-work-shelf-item{" +
                 "display:block;" +
+                "position:relative;" +
                 "width:100%;" +
                 "box-sizing:border-box;" +
                 "text-align:left;" +
-                "padding:13px 14px 12px;" +
+                "padding:13px 14px 12px 27px;" +
                 "line-height:1.45;" +
+            "}" +
+
+            // 既存の選択カーソルがカード左端に出ても、
+            // 文字に重ならないよう本文側の余白を確保する。
+            ".rpg-menu-item.rpg-work-shelf-item.rpg-menu-selected{" +
+                "padding-left:38px;" +
             "}" +
 
             ".rpg-work-shelf-category{" +
@@ -5906,11 +5912,17 @@ window.renderDestinationMenu = function(dest) {
 
             "@media (max-width:720px){" +
                 ".rpg-menu-item.rpg-work-shelf-item{" +
-                    "padding:12px 12px 11px;" +
+                    "padding:12px 12px 11px 27px;" +
                 "}" +
+
+                ".rpg-menu-item.rpg-work-shelf-item.rpg-menu-selected{" +
+                    "padding-left:38px;" +
+                "}" +
+
                 ".rpg-work-shelf-title{" +
                     "font-size:14px;" +
                 "}" +
+
                 ".rpg-work-shelf-description{" +
                     "font-size:11px;" +
                 "}" +
@@ -5930,7 +5942,6 @@ window.renderDestinationMenu = function(dest) {
 
     html += '</div>';
 
-    // 直リンクから遊び終えた場合だけ案内を表示する。
     if (
         typeof destinationReturnGuideText !== "undefined" &&
         destinationReturnGuideText
@@ -5951,6 +5962,14 @@ window.renderDestinationMenu = function(dest) {
     for (var i = 0; i < menuItems.length; i++) {
         var item = menuItems[i];
         if (!item) continue;
+
+        // 「これから増えるゲーム」は表示しない。
+        if (
+            item.label === "これから増えるゲーム" ||
+            item.label === "これから増える作品"
+        ) {
+            continue;
+        }
 
         if (item.kind === "back") {
             html +=
@@ -6022,6 +6041,7 @@ window.renderDestinationMenu = function(dest) {
 
     return html;
 };
+
 
 
 
