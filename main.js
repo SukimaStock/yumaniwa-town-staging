@@ -367,6 +367,19 @@ var workPlayerReturnDestinationId = null;
 
 var workPlayerReturnDestinationId = null;
 
+// 作品直リンクから町へ入ったかどうか。
+// 直リンクで遊び終えた人にだけ、施設内の別作品を案内する。
+var isDirectWorkVisit = false;
+
+// 施設メニューへ戻った直後に表示する案内。
+var destinationReturnGuideText = "";
+
+// 直前に遊んでいた作品。
+var lastClosedWorkId = null;
+
+
+var workPlayerReturnDestinationId = null;
+
 // お店・看板などを開いた直前の町内位置
 var townWindowReturnPoint = null;
 
@@ -1896,8 +1909,14 @@ function openTownWorkFromRoute(workId) {
 
     var destinationId = getWorkVenueDestinationId(work);
 
+    // 外部リンクから直接作品へ来たことを記録する。
+    isDirectWorkVisit = true;
+    destinationReturnGuideText = "";
+    lastClosedWorkId = null;
+
     if (destinationId && (DESTINATIONS[destinationId] || isTownScene(destinationId))) {
         changeScene(destinationId);
+
         if (!isTownScene(destinationId)) {
             destinationViewMode = "menu";
             renderDestination();
@@ -1907,6 +1926,7 @@ function openTownWorkFromRoute(workId) {
     launchWork(work);
     return true;
 }
+
 
 function openInitialTownRouteFromUrl() {
     var workId = getRouteParam(["work", "spot"]);
@@ -2950,12 +2970,12 @@ function handleRpgMenuKeyboard(e) {
 
     var key = e.key;
 
-    // 新報ラックなど、通常のRPGメニューではない画面では戻る操作だけ受ける。
+    // 湯間庭新報も、開いた直前の場所へ戻す
     if (destinationViewMode === 'note_rack') {
         if (key === 'Escape' || key === 'Backspace' || key === 'ArrowLeft') {
             e.preventDefault();
             e.stopPropagation();
-            changeScene('station_plaza');
+            backToDestinationReturnScene(currentDestinationId);
             return true;
         }
         return false;
@@ -2991,6 +3011,7 @@ function handleRpgMenuKeyboard(e) {
 
     return false;
 }
+
 
 function setupRpgMenuPointerSelection(sceneContainer) {
     if (!sceneContainer || sceneContainer.dataset.rpgCursorReady === 'true') return;
@@ -5819,34 +5840,111 @@ function getDestinationMenuItems(dest) {
 }
 
 window.renderDestinationMenu = function(dest) {
+    ensureDestinationWorkShelfStyles();
+
     var html = '<div class="rpg-window">';
+
     html += '<div class="rpg-window-header">';
     html += '<div class="rpg-title">' + dest.title + '</div>';
-    if (dest.subtitle) html += '<div class="rpg-subtitle">' + dest.subtitle + '</div>';
+
+    if (dest.subtitle) {
+        html += '<div class="rpg-subtitle">' + dest.subtitle + '</div>';
+    }
+
     html += '</div>';
 
-    if (dest.menuTitle) html += '<div class="rpg-menu-title">' + dest.menuTitle + '</div>';
+    // 直リンクで作品を遊び終えた場合の案内
+    if (
+        typeof destinationReturnGuideText !== "undefined" &&
+        destinationReturnGuideText
+    ) {
+        html += '<div class="rpg-work-shelf-return-guide">';
+        html += formatText(destinationReturnGuideText);
+        html += '</div>';
+    }
+
+    if (dest.menuTitle) {
+        html += '<div class="rpg-menu-title">' + dest.menuTitle + '</div>';
+    }
 
     html += '<div class="rpg-menu-list">';
+
     var menuItems = getDestinationMenuItems(dest);
+
     for (var i = 0; i < menuItems.length; i++) {
         var item = menuItems[i];
-        var btnClass = 'rpg-menu-item';
-        
+
         if (item.kind === 'back') {
-            btnClass += ' rpg-back';
-            html += '<button class="' + btnClass + '" onclick="backToDestinationReturnScene(\'' + dest.id + '\')">' + item.label + '</button>';
-        } else {
-            var label = item.label;
-            // 生成済みのメニュー配列を直接渡すことで、
-            // works.jsの並びと表示内容を必ず一致させる。
-            html += '<button class="' + btnClass + '" onclick="handleDestinationMenuItem(\'' + dest.id + '\', ' + i + ')">' + label + '</button>';
+            html +=
+                '<button class="rpg-menu-item rpg-back" ' +
+                'onclick="backToDestinationReturnScene(\'' +
+                dest.id +
+                '\')">' +
+                item.label +
+                '</button>';
+
+            continue;
         }
+
+        var isWorkItem = !!item.workId;
+        var btnClass = 'rpg-menu-item';
+
+        if (isWorkItem) {
+            btnClass += ' rpg-work-shelf-item';
+        }
+
+        html +=
+            '<button class="' +
+            btnClass +
+            '" onclick="handleDestinationMenuItem(\'' +
+            dest.id +
+            '\', ' +
+            i +
+            ')">';
+
+        if (isWorkItem) {
+            if (item.menuCategory) {
+                html +=
+                    '<span class="rpg-work-shelf-category">' +
+                    item.menuCategory +
+                    '</span>';
+            }
+
+            html +=
+                '<span class="rpg-work-shelf-title">' +
+                item.label +
+                '</span>';
+
+            if (item.menuDescription) {
+                html +=
+                    '<span class="rpg-work-shelf-description">' +
+                    item.menuDescription +
+                    '</span>';
+            }
+
+            if (
+                typeof lastClosedWorkId !== "undefined" &&
+                lastClosedWorkId &&
+                item.workId === lastClosedWorkId
+            ) {
+                html +=
+                    '<span class="rpg-work-shelf-played">' +
+                    'さっき遊びました' +
+                    '</span>';
+            }
+        } else {
+            html += item.label;
+        }
+
+        html += '</button>';
     }
+
     html += '</div></div>';
 
     return html;
 };
+
+
 
 window.renderDestinationMessage = function(dest, title, text) {
     var html = '<div class="rpg-window">';
@@ -6203,7 +6301,9 @@ window.renderNoteCardRack = function(dest) {
         html += '<div class="shinpo-rack-subtitle">' + escapeNoteRackHtml(dest.subtitle) + '</div>';
     }
     html += '</div>';
-    html += '<button class="shinpo-rack-back" type="button" onclick="changeScene(\'station_plaza\')">駅前へ戻る</button>';
+
+    // 駅前固定ではなく、掲示板を開いた場所へ戻る
+    html += '<button class="shinpo-rack-back" type="button" onclick="backToDestinationReturnScene(\'shinpo_board\')">元の場所へ戻る</button>';
     html += '</div>';
 
     html += '<p class="shinpo-rack-lead">今日の棚には、少しずつ違う紙面が届いています。</p>';
@@ -6221,6 +6321,7 @@ window.renderNoteCardRack = function(dest) {
     html += '</div>';
     return html;
 };
+
 
 window.openNoteReader = function(article) {
     var embedUrl = getNoteEmbedUrl(article);
@@ -6358,7 +6459,9 @@ window.openWorkPlayer = function(work) {
     if (!work || !source) {
         showDestinationMessage(
             work && work.title ? work.title : "作品",
-            work && work.emptyText ? work.emptyText : "この作品は、まだ準備中です。"
+            work && work.emptyText
+                ? work.emptyText
+                : "この作品は、まだ準備中です。"
         );
         return;
     }
@@ -6376,25 +6479,32 @@ window.openWorkPlayer = function(work) {
         cancelTapMove();
     }
 
+    // 施設メニューから別作品を選んだ時点で、
+    // 前の作品についての案内表示は終了する。
+    if (!isDirectWorkVisit) {
+        destinationReturnGuideText = "";
+        lastClosedWorkId = null;
+    }
+
     currentWorkId = work.id || null;
     currentFrameSourceUrl = "";
-    workPlayerReturnDestinationId = (!isTownScene(currentScene) && currentDestinationId && DESTINATIONS[currentDestinationId])
+
+    workPlayerReturnDestinationId = (
+        !isTownScene(currentScene) &&
+        currentDestinationId &&
+        DESTINATIONS[currentDestinationId]
+    )
         ? currentDestinationId
         : null;
+
     isWorkPlayerOpen = true;
 
-    // 作品ごとに見せ方を選べるよう、フレームのモードをデータとして保持する。
-    // 現在は standard が基本。将来、らくがきだけ控えめな soft 表示にもできる。
     playerLayer.dataset.frameMode = work.frameMode || "standard";
-
-    // 縦長ゲームは、iPadやPCでもiPhone相当の画面として中央に置く。
-    // 触れるらくがきは playerLayout 未指定のまま、従来どおり画面全体を使う。
     setWorkPlayerLayout(work, playerLayer);
 
     title.innerText = getWorkPlayerFrameTitle(work);
     frame.title = work.title || "町内コンテンツ";
 
-    // itch.ioの埋め込みゲームでも、音・全画面・ゲームパッド利用を許可する。
     frame.setAttribute("allow", "autoplay; fullscreen; gamepad");
     frame.setAttribute("allowfullscreen", "");
     frame.allowFullscreen = true;
@@ -6405,11 +6515,16 @@ window.openWorkPlayer = function(work) {
     }
 
     var destinationLabel = getWorkPlayerReturnLabel(work);
+
     if (returnLabel) {
         returnLabel.innerText = destinationLabel;
     }
+
     if (closeButton) {
-        closeButton.setAttribute("aria-label", destinationLabel + "へ戻る");
+        closeButton.setAttribute(
+            "aria-label",
+            destinationLabel + "へ戻る"
+        );
     }
 
     setWorkPlayerLoading(true, getWorkOpeningLabel(work));
@@ -6418,15 +6533,17 @@ window.openWorkPlayer = function(work) {
     playerLayer.classList.add("visible");
     playerLayer.setAttribute("aria-hidden", "false");
 
-    // 上部バーの高さを含めた実際の余白が確定してから、ゲーム画面をフィットさせる。
     window.requestAnimationFrame(updateWorkPlayerLayoutSize);
 
     clearDpadInput();
     updateControlVisibility();
 };
 
+
 window.closeWorkPlayer = function() {
     if (!isWorkPlayerOpen) return;
+
+    var closedWorkId = currentWorkId;
 
     var playerLayer = document.getElementById("work-player");
     var frame = document.getElementById("work-player-frame");
@@ -6434,7 +6551,6 @@ window.closeWorkPlayer = function() {
     setWorkPlayerLoading(false);
 
     if (frame) {
-        // iframe を空ページへ戻して、作品側のアニメーション・音・入力を確実に止める。
         frame.src = "about:blank";
     }
 
@@ -6446,12 +6562,15 @@ window.closeWorkPlayer = function() {
     if (returnLabel) {
         returnLabel.innerText = "町";
     }
+
     if (closeButton) {
         closeButton.setAttribute("aria-label", "町へ戻る");
     }
+
     if (title) {
         title.innerText = "";
     }
+
     if (sourceButton) {
         sourceButton.hidden = true;
     }
@@ -6471,7 +6590,22 @@ window.closeWorkPlayer = function() {
     currentWorkId = null;
     currentFrameSourceUrl = "";
 
-    if (workPlayerReturnDestinationId && DESTINATIONS[workPlayerReturnDestinationId]) {
+    if (
+        isDirectWorkVisit &&
+        closedWorkId &&
+        workPlayerReturnDestinationId
+    ) {
+        lastClosedWorkId = closedWorkId;
+
+        destinationReturnGuideText =
+            "店先に戻ってきました。\n" +
+            "ここには、ほかの遊びも並んでいるようです。";
+    }
+
+    if (
+        workPlayerReturnDestinationId &&
+        DESTINATIONS[workPlayerReturnDestinationId]
+    ) {
         currentDestinationId = workPlayerReturnDestinationId;
         destinationViewMode = "menu";
         currentDestinationMessage = "";
@@ -6479,10 +6613,14 @@ window.closeWorkPlayer = function() {
         renderDestination();
     }
 
+    // 直リンク専用案内は、最初の作品を閉じた時だけ。
+    isDirectWorkVisit = false;
     workPlayerReturnDestinationId = null;
+
     clearDpadInput();
     updateControlVisibility();
 };
+
 
 window.launchWork = function(work) {
     if (!work) {
@@ -6551,6 +6689,7 @@ window.handleDestinationMenuItem = function(destId, index) {
 window.handleDestinationItem = function(destId, index) {
     var dest = DESTINATIONS[destId];
     if (!dest) return;
+
     var item = dest.items[index];
     if (!item) return;
 
@@ -6568,16 +6707,20 @@ window.handleDestinationItem = function(destId, index) {
         if (item.url && item.url !== "") {
             window.open(item.url, '_blank');
         } else {
-            showDestinationMessage(item.label, item.emptyText || "まだ準備中です。");
+            showDestinationMessage(
+                item.label,
+                item.emptyText || "まだ準備中です。"
+            );
         }
         return;
     }
 
     if (item.kind === 'back') {
-        changeScene('station_plaza');
+        backToDestinationReturnScene(destId);
         return;
     }
 };
+
 
 // ==========================================
 // 8. 描画処理 (Canvas)
