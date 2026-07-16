@@ -239,15 +239,14 @@ function buildWorkMenuItems(venue) {
         var work = works[i];
 
         items.push({
-            label: work.title,
+            label: work.menuTitle || work.title,
             kind: work.kind || "work",
             workId: work.id,
 
-            // 施設メニューの作品棚で使う補足情報。
             menuCategory: work.menuCategory || (
                 work.kind === "game"
-                    ? "ゲーム"
-                    : "触れるらくがき"
+                    ? "ゲーム"
+                    : "触れるらくがき"
             ),
 
             menuDescription:
@@ -267,9 +266,10 @@ function buildWorkMenuItems(venue) {
             frameTitle: work.frameTitle || work.title,
             returnLabel: work.returnLabel || "",
             frameMode: work.frameMode || "standard",
-            emptyText: work.emptyText || "この作品は、まだ準備中です。"
+            emptyText: work.emptyText || "この作品は、まだ準備中です。"
         });
     }
 
     return items;
 }
+
