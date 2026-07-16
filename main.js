@@ -5840,7 +5840,84 @@ function getDestinationMenuItems(dest) {
 }
 
 window.renderDestinationMenu = function(dest) {
-    ensureDestinationWorkShelfStyles();
+    // 作品棚用スタイルもこの関数内で確実に用意する。
+    if (!document.getElementById("destination-work-shelf-style")) {
+        var style = document.createElement("style");
+        style.id = "destination-work-shelf-style";
+
+        style.textContent =
+            ".rpg-menu-item.rpg-work-shelf-item{" +
+                "display:block;" +
+                "width:100%;" +
+                "box-sizing:border-box;" +
+                "text-align:left;" +
+                "padding:13px 14px 12px;" +
+                "line-height:1.45;" +
+            "}" +
+
+            ".rpg-work-shelf-category{" +
+                "display:block;" +
+                "margin-bottom:4px;" +
+                "font-size:10px;" +
+                "font-weight:800;" +
+                "letter-spacing:.12em;" +
+                "opacity:.68;" +
+            "}" +
+
+            ".rpg-work-shelf-title{" +
+                "display:block;" +
+                "font-size:15px;" +
+                "font-weight:800;" +
+                "line-height:1.5;" +
+            "}" +
+
+            ".rpg-work-shelf-description{" +
+                "display:block;" +
+                "margin-top:5px;" +
+                "font-size:12px;" +
+                "font-weight:500;" +
+                "line-height:1.55;" +
+                "opacity:.78;" +
+            "}" +
+
+            ".rpg-work-shelf-played{" +
+                "display:inline-block;" +
+                "margin-top:7px;" +
+                "padding:2px 7px;" +
+                "border-radius:999px;" +
+                "font-size:10px;" +
+                "font-weight:800;" +
+                "letter-spacing:.04em;" +
+                "background:rgba(255,244,223,.12);" +
+                "opacity:.82;" +
+            "}" +
+
+            ".rpg-work-shelf-return-guide{" +
+                "box-sizing:border-box;" +
+                "margin:0 0 16px;" +
+                "padding:11px 13px;" +
+                "border:2px solid rgba(255,239,200,.34);" +
+                "border-radius:12px;" +
+                "background:rgba(255,244,223,.07);" +
+                "font-size:13px;" +
+                "line-height:1.7;" +
+                "opacity:.9;" +
+            "}" +
+
+            "@media (max-width:720px){" +
+                ".rpg-menu-item.rpg-work-shelf-item{" +
+                    "padding:12px 12px 11px;" +
+                "}" +
+                ".rpg-work-shelf-title{" +
+                    "font-size:14px;" +
+                "}" +
+                ".rpg-work-shelf-description{" +
+                    "font-size:11px;" +
+                "}" +
+            "}";
+
+        document.head.appendChild(style);
+    }
 
     var html = '<div class="rpg-window">';
 
@@ -5853,7 +5930,7 @@ window.renderDestinationMenu = function(dest) {
 
     html += '</div>';
 
-    // 直リンクで作品を遊び終えた場合の案内
+    // 直リンクから遊び終えた場合だけ案内を表示する。
     if (
         typeof destinationReturnGuideText !== "undefined" &&
         destinationReturnGuideText
@@ -5873,10 +5950,11 @@ window.renderDestinationMenu = function(dest) {
 
     for (var i = 0; i < menuItems.length; i++) {
         var item = menuItems[i];
+        if (!item) continue;
 
-        if (item.kind === 'back') {
+        if (item.kind === "back") {
             html +=
-                '<button class="rpg-menu-item rpg-back" ' +
+                '<button type="button" class="rpg-menu-item rpg-back" ' +
                 'onclick="backToDestinationReturnScene(\'' +
                 dest.id +
                 '\')">' +
@@ -5887,18 +5965,18 @@ window.renderDestinationMenu = function(dest) {
         }
 
         var isWorkItem = !!item.workId;
-        var btnClass = 'rpg-menu-item';
+        var buttonClass = "rpg-menu-item";
 
         if (isWorkItem) {
-            btnClass += ' rpg-work-shelf-item';
+            buttonClass += " rpg-work-shelf-item";
         }
 
         html +=
-            '<button class="' +
-            btnClass +
+            '<button type="button" class="' +
+            buttonClass +
             '" onclick="handleDestinationMenuItem(\'' +
             dest.id +
-            '\', ' +
+            "', " +
             i +
             ')">';
 
@@ -5929,7 +6007,7 @@ window.renderDestinationMenu = function(dest) {
             ) {
                 html +=
                     '<span class="rpg-work-shelf-played">' +
-                    'さっき遊びました' +
+                    "さっき遊びました" +
                     '</span>';
             }
         } else {
@@ -5939,10 +6017,12 @@ window.renderDestinationMenu = function(dest) {
         html += '</button>';
     }
 
-    html += '</div></div>';
+    html += '</div>';
+    html += '</div>';
 
     return html;
 };
+
 
 
 
