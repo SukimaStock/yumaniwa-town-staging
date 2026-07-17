@@ -3207,13 +3207,42 @@ function setupEvents() {
         document.getElementById("btn-action");
 
     if (actionButton) {
-        actionButton.addEventListener(
-            "click",
-            function(e) {
+        var lastActionButtonTime = 0;
+
+        function activateActionButton(e) {
+            if (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                handleActionTrigger();
             }
+
+            // pointerupの直後にclickも発生した場合の二重実行を防ぐ。
+            var now = Date.now();
+
+            if (now - lastActionButtonTime < 350) {
+                return;
+            }
+
+            lastActionButtonTime = now;
+
+            // 移動途中で押した場合は移動だけ止め、
+            // 到着済みの対象情報は残して調べられるようにする。
+            if (typeof cancelTapMoveForAction === "function") {
+                cancelTapMoveForAction();
+            }
+
+            handleActionTrigger();
+        }
+
+        actionButton.addEventListener(
+            "pointerup",
+            activateActionButton,
+            { passive: false }
+        );
+
+        // PCや古いブラウザ向けの保険。
+        actionButton.addEventListener(
+            "click",
+            activateActionButton
         );
     }
 
