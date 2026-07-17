@@ -113,115 +113,174 @@
       ]
     },
 
-    tomogushi_alley_map: {
-      id: 'tomogushi_alley_map',
-      title: '横丁',
-      subtitle: '灯串横丁',
-      mapWidth: 24,
-      mapHeight: 24,
-      backgroundStyle: 'alley',
-      backgroundImagePath: 'assets/maps/grounds/tomogushi-alley-ground.png',
-      spawnPoints: {
-        default: { x: 20, y: 12, dir: 'left' },
-        fromPlaza: { x: 20, y: 12, dir: 'left' }
-      },
-      edgeWarps: [
-        { side: 'right', min: 9, max: 14, target: 'station_plaza', targetSpawn: 'fromAlley' }
-      ],
-      passableRects: [
-        rect(4, 4, 15, 16),
-        rect(19, 8, 5, 7),
-        rect(0, 10, 4, 4)
-      ],
-      blockedRects: [
-        rect(0, 0, 24, 4),
-        rect(0, 4, 4, 6),
-        rect(19, 4, 5, 4),
-        rect(0, 14, 4, 9),
-        rect(19, 15, 5, 9),
-        rect(4, 20, 15, 4),
-        rect(2, 23, 2, 1)
-      ],
-      blockedPoints: [
+tomogushi_alley_map: {
+  id: 'tomogushi_alley_map',
+  title: '横丁',
+  subtitle: '灯串横丁',
+  mapWidth: 24,
+  mapHeight: 24,
+  backgroundStyle: 'alley',
+  backgroundImagePath: 'assets/maps/grounds/tomogushi-alley-ground.png',
 
-      ],
-      areaZones: [
-        { id: 'alley', title: '灯串横丁', subtitle: '夜の遊び場の路地', area: rect(0, 0, 24, 24) }
-      ],
-      triggers: [
-        {
-          id: 'yakitori_wars_booth',
-          label: 'Yakitori Wars',
-          actionLabel: '遊ぶ',
-          type: 'work',
-          workId: 'yakitori-wars',
-          text: 'Yakitori Wars。',
-          area: rect(16, 4, 3, 4),
-          tapPadding: 1
-        },
-        {
-          id: 'midnight_cola_booth',
-          label: '真夜中コーラ',
-          actionLabel: '遊ぶ',
-          type: 'work',
-          workId: 'midnight-cola',
-          text: '真夜中コーラ。',
-          area: rect(13, 4, 3, 4),
-          tapPadding: 1
-        },
-        {
-          id: 'empty_stall_small',
-          label: '空き屋台',
-          actionLabel: '調べる',
-          type: 'inspect',
-          text: '空き屋台。ここには次のゲームや小さな遊びを置けそうです。',
-          area: rect(18, 16, 1, 1),
-          tapPadding: 1
-        },
-        {
-          id: 'game_list_stall',
-          label: 'ゲーム案内屋台',
-          actionLabel: '見る',
-          type: 'menu',
-          target: 'tomogushi_game_board',
-          text: 'ゲーム案内屋台。灯串横丁で遊べるゲームを一覧で見られます。',
-          area: rect(16, 16, 3, 4),
-          tapPadding: 1
-        },
-        {
-          id: 'empty_stall',
-          label: '空き屋台',
-          actionLabel: '調べる',
-          type: 'inspect',
-          text: '空き屋台。ここには次のゲームや小さな遊びを置けそうです。',
-          area: rect(12, 16, 4, 4),
-          tapPadding: 1
-        }
-      ],
-      groundRects: [
-        { x: 0, y: 0, w: 24, h: 24, color: '#49392f' },
-        { x: 0, y: 10, w: 24, h: 5, color: '#6f5b46' },
-        { x: 4, y: 6, w: 16, h: 12, color: '#5a4738' },
-        { x: 3, y: 15, w: 16, h: 4, color: '#6a543f' }
-      ],
-      decor: [
-        deco(2, 4, 5, 4, '#7d5a42', '#2d241b', 'コーラ'),
-        deco(9, 4, 6, 4, '#8a6445', '#2d241b', '焼き鳥'),
-        deco(4, 16, 4, 3, '#73553d', '#2d241b', '一覧'),
-        deco(12, 16, 5, 3, '#73553d', '#2d241b', '空き'),
-        deco(21, 10, 3, 5, '#a9b8c5', '#2d241b', '広場'),
-        deco(2, 15, 1, 2, '#6a4d36', '#2d241b', ''),
-        deco(18, 15, 1, 2, '#6a4d36', '#2d241b', ''),
-        deco(3, 3, 1, 1, '#cf9a4c', '#2d241b', ''),
-        deco(6, 3, 1, 1, '#cf9a4c', '#2d241b', ''),
-        deco(10, 3, 1, 1, '#cf9a4c', '#2d241b', ''),
-        deco(14, 3, 1, 1, '#cf9a4c', '#2d241b', ''),
-        deco(17, 3, 1, 1, '#cf9a4c', '#2d241b', ''),
-        deco(8, 16, 1, 1, '#8c6b4c', '#2d241b', ''),
-        deco(11, 16, 1, 1, '#8c6b4c', '#2d241b', '')
-      ]
+  spawnPoints: {
+    default: { x: 20, y: 12, dir: 'left' },
+    fromPlaza: { x: 20, y: 12, dir: 'left' }
+  },
+
+  edgeWarps: [
+    {
+      side: 'right',
+      min: 9,
+      max: 14,
+      target: 'station_plaza',
+      targetSpawn: 'fromAlley'
+    }
+  ],
+
+  passableRects: [
+    rect(4, 4, 15, 16),
+    rect(19, 8, 5, 7),
+    rect(0, 10, 4, 4)
+  ],
+
+  blockedRects: [
+    rect(0, 0, 24, 4),
+    rect(0, 4, 4, 6),
+    rect(19, 4, 5, 4),
+    rect(0, 14, 4, 9),
+    rect(19, 15, 5, 9),
+    rect(4, 20, 15, 4),
+    rect(2, 23, 2, 1)
+  ],
+
+  blockedPoints: [],
+
+  areaZones: [
+    {
+      id: 'alley',
+      title: '灯串横丁',
+      subtitle: '夜の遊び場の路地',
+      area: rect(0, 0, 24, 24)
+    }
+  ],
+
+  triggers: [
+    {
+      id: 'yakitori_wars_booth',
+      label: 'やきとり屋 ゆまど',
+      actionLabel: '遊ぶ',
+      type: 'work',
+      workId: 'yakitori-wars',
+      text: '炭火の向こうから、焼き鳥の香りが漂っている。',
+      area: rect(9, 7, 7, 3),
+      tapPadding: 1
     },
 
+    {
+      id: 'midnight_cola_booth',
+      label: '真夜中コーラ',
+      actionLabel: '遊ぶ',
+      type: 'work',
+      workId: 'midnight-cola',
+      text: '夜の研究所から、柑橘とスパイスの香りがする。',
+      area: rect(2, 4, 5, 4),
+      tapPadding: 1
+    },
+
+    {
+      id: 'empty_stall_small',
+      label: '空き屋台',
+      actionLabel: '調べる',
+      type: 'inspect',
+      text: '空き屋台。ここには次のゲームや小さな遊びを置けそうです。',
+      area: rect(18, 16, 1, 1),
+      tapPadding: 1
+    },
+
+    {
+      id: 'game_list_stall',
+      label: 'ゲーム案内屋台',
+      actionLabel: '見る',
+      type: 'menu',
+      target: 'tomogushi_game_board',
+      text: 'ゲーム案内屋台。灯串横丁で遊べるゲームを一覧で見られます。',
+      area: rect(4, 16, 4, 3),
+      tapPadding: 1
+    },
+
+    {
+      id: 'empty_stall',
+      label: '空き屋台',
+      actionLabel: '調べる',
+      type: 'inspect',
+      text: '空き屋台。ここには次のゲームや小さな遊びを置けそうです。',
+      area: rect(12, 16, 5, 3),
+      tapPadding: 1
+    }
+  ],
+
+  groundRects: [
+    { x: 0, y: 0, w: 24, h: 24, color: '#49392f' },
+    { x: 0, y: 10, w: 24, h: 5, color: '#6f5b46' },
+    { x: 4, y: 6, w: 16, h: 12, color: '#5a4738' },
+    { x: 3, y: 15, w: 16, h: 4, color: '#6a543f' }
+  ],
+
+  // 画像アセットとして描画する建物
+  props: [
+    {
+      id: 'yakitori_yumado_shop',
+      src: 'assets/maps/props/tomogushi-alley/yakitori-yumado.png?rev=20260716-1',
+
+      // 256×256画像を、横丁内では約8タイル四方で表示
+      x: 8.5,
+      y: 1.5,
+      w: 8,
+      h: 8,
+      footY: 9.5,
+      enabled: true,
+
+      // 建物の下部だけを通行不可にする
+      collision: {
+        enabled: true,
+        x: 0.13,
+        y: 0.79,
+        w: 0.74,
+        h: 0.18
+      },
+
+      // 店の正面付近で「遊ぶ」を表示
+      interaction: {
+        enabled: true,
+        triggerId: 'yakitori_wars_booth',
+        x: 0.12,
+        y: 0.68,
+        w: 0.76,
+        h: 0.32
+      }
+    }
+  ],
+
+  // 画像化していない仮設物だけを残す
+  decor: [
+    deco(2, 4, 5, 4, '#7d5a42', '#2d241b', 'コーラ'),
+
+    deco(4, 16, 4, 3, '#73553d', '#2d241b', '一覧'),
+    deco(12, 16, 5, 3, '#73553d', '#2d241b', '空き'),
+
+    deco(21, 10, 3, 5, '#a9b8c5', '#2d241b', '広場'),
+
+    deco(2, 15, 1, 2, '#6a4d36', '#2d241b', ''),
+    deco(18, 15, 1, 2, '#6a4d36', '#2d241b', ''),
+
+    deco(3, 3, 1, 1, '#cf9a4c', '#2d241b', ''),
+    deco(6, 3, 1, 1, '#cf9a4c', '#2d241b', ''),
+    deco(17, 3, 1, 1, '#cf9a4c', '#2d241b', ''),
+
+    deco(8, 16, 1, 1, '#8c6b4c', '#2d241b', ''),
+    deco(11, 16, 1, 1, '#8c6b4c', '#2d241b', '')
+  ]
+},
     yumado_street_map: {
       id: 'yumado_street_map',
       title: '湯窓通り',
