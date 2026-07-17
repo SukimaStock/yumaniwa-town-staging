@@ -1377,19 +1377,21 @@ body {
         padding: 11px 10px 12px;
     }
 }
+
 /* ==========================================
    湯間庭町 / 操作UI整理
    ========================================== */
 
-/* 右下の独立した調べるボタンは非表示 */
+/* 右下の独立した「調べる」ボタンは使わない。 */
+#action-btns,
 #btn-action {
     display: none !important;
     pointer-events: none !important;
 }
 
-/* 中央の案内表示そのものを操作ボタンにする */
+/* 中央の案内そのものを操作ボタンにする。 */
 #interaction-hint {
-    touch-action: none;
+    touch-action: manipulation;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none;
@@ -1406,49 +1408,57 @@ body {
 }
 
 #interaction-hint.hint-pressed {
-    transform:
-        translateX(-50%)
-        translateY(2px)
-        scale(0.985);
+    transform: translateX(-50%) translateY(2px) scale(0.985);
     background: rgba(23, 30, 40, 0.96);
     border-color: rgba(255, 240, 205, 0.78);
 }
 
-/* 子要素ではなく案内全体でタップを受ける */
 #interaction-label,
 #interaction-action {
     pointer-events: none;
 }
 
 /*
- * 十字キーの周囲に透明な安全領域を追加。
- * 見た目の大きさは変えず、周囲18pxでは
- * 背景へのタップ移動が発生しない。
+ * 十字キーは元の108px角を維持する。
+ * 疑似要素だけを周囲18pxへ広げ、背景への誤タップを受け止める。
  */
 #dpad {
-    box-sizing: content-box;
-    padding: 18px;
-    margin: -18px;
-    opacity: 0.55;
-    pointer-events: auto;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    isolation: isolate;
     touch-action: none;
 }
 
-/* 十字キー全体を押しても全体は明るくしない */
+#dpad::before {
+    content: "";
+    position: absolute;
+    inset: -18px;
+    z-index: 0;
+    background: transparent;
+    pointer-events: auto;
+}
+
 #dpad:active {
+    opacity: 1;
+}
+
+/* 通常時は各キーを控えめに見せる。 */
+#dpad .dpad-btn {
+    z-index: 1;
     opacity: 0.55;
+    transition:
+        opacity 0.12s ease,
+        background-color 0.12s ease,
+        border-color 0.12s ease,
+        color 0.12s ease;
 }
 
-/* 押していないキーは常に通常表示 */
-#dpad .dpad-btn:not(.pressed) {
-    background: rgba(20, 20, 20, 0.5);
-    border-color: rgba(255, 255, 255, 0.3);
-    color: #fff;
-    box-shadow: none;
-}
-
-/* 押している方向だけを明るくする */
+/* 押している方向だけを明るくする。位置や大きさは変えない。 */
+#dpad .dpad-btn:active,
 #dpad .dpad-btn.pressed {
+    opacity: 1;
     background: rgba(242, 226, 192, 0.92);
     border-color: rgba(255, 245, 218, 0.98);
     color: #29231d;
@@ -1456,21 +1466,3 @@ body {
         0 0 0 2px rgba(255, 238, 200, 0.14),
         0 3px 8px rgba(0, 0, 0, 0.34);
 }
-
-/* 元の各方向の位置指定を壊さず、押し込みだけ表現 */
-#dpad .dpad-btn.up.pressed {
-    transform: translateX(-50%) translateY(2px) scale(0.96);
-}
-
-#dpad .dpad-btn.down.pressed {
-    transform: translateX(-50%) translateY(2px) scale(0.96);
-}
-
-#dpad .dpad-btn.left.pressed {
-    transform: translateY(-50%) translateX(2px) scale(0.96);
-}
-
-#dpad .dpad-btn.right.pressed {
-    transform: translateY(-50%) translateX(-2px) scale(0.96);
-}
-

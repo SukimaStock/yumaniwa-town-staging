@@ -3050,6 +3050,143 @@ function setupRpgMenuPointerSelection(sceneContainer) {
 // ==========================================
 // 4. 入力イベント
 // ==========================================
+
+function setupInteractionHintButton() {
+    var hint = document.getElementById("interaction-hint");
+
+    if (!hint || hint.dataset.buttonReady === "true") {
+        return;
+    }
+
+    hint.dataset.buttonReady = "true";
+    hint.setAttribute("role", "button");
+    hint.setAttribute("tabindex", "0");
+
+    var pointerPressed = false;
+    var activePointerId = null;
+    var lastActionTime = 0;
+
+    function canUseHint() {
+        return (
+            hint.classList.contains("visible") &&
+            !isMessageOpen &&
+            !isEditMode &&
+            !debugMode &&
+            isTownScene(currentScene)
+        );
+    }
+
+    function activateHint(e) {
+        if (!canUseHint()) return;
+
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        var now = Date.now();
+        if (now - lastActionTime < 350) {
+            return;
+        }
+        lastActionTime = now;
+
+        if (typeof cancelTapMoveForAction === "function") {
+            cancelTapMoveForAction();
+        }
+
+        handleActionTrigger();
+    }
+
+    function beginPress(e) {
+        if (!canUseHint()) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        pointerPressed = true;
+        activePointerId = e.pointerId;
+        hint.classList.add("hint-pressed");
+
+        if (
+            hint.setPointerCapture &&
+            e.pointerId !== undefined
+        ) {
+            try {
+                hint.setPointerCapture(e.pointerId);
+            } catch (err) {}
+        }
+    }
+
+    function finishPress(e) {
+        if (
+            activePointerId !== null &&
+            e.pointerId !== undefined &&
+            e.pointerId !== activePointerId
+        ) {
+            return;
+        }
+
+        var shouldActivate = pointerPressed && canUseHint();
+
+        pointerPressed = false;
+        activePointerId = null;
+        hint.classList.remove("hint-pressed");
+
+        if (shouldActivate) {
+            activateHint(e);
+        }
+    }
+
+    function cancelPress(e) {
+        pointerPressed = false;
+        activePointerId = null;
+        hint.classList.remove("hint-pressed");
+
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }
+
+    hint.addEventListener(
+        "pointerdown",
+        beginPress,
+        { passive: false }
+    );
+
+    hint.addEventListener(
+        "pointerup",
+        finishPress,
+        { passive: false }
+    );
+
+    hint.addEventListener(
+        "pointercancel",
+        cancelPress,
+        { passive: false }
+    );
+
+    hint.addEventListener(
+        "lostpointercapture",
+        cancelPress,
+        { passive: false }
+    );
+
+    // pointerイベントに対応しない環境向けの保険。
+    // pointerup直後のclickはactivateHint内の時間判定で二重実行を防ぐ。
+    hint.addEventListener("click", function(e) {
+        activateHint(e);
+    });
+
+    hint.addEventListener("keydown", function(e) {
+        if (e.key !== "Enter" && e.key !== " ") {
+            return;
+        }
+
+        activateHint(e);
+    });
+}
+
 function setupEvents() {
     window.addEventListener('keydown', function(e) {
         if (handleRpgMenuKeyboard(e)) return;
