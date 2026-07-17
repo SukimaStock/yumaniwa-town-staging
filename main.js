@@ -2130,11 +2130,7 @@ window.onload = function() {
     loadPlayerSprites();
 
     setupEvents();
-
-    ensureTownControlRefreshStyles();
-    setupTownInteractionHintControl();
-    setupDpadTapShield();
-
+    setupInteractionHintButton();
     setupEditorEvents();
     markEditorExportCopied();
     setupMessageLayerEvents();
