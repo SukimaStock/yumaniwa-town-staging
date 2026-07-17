@@ -102,7 +102,6 @@ var tapMarkerPos = null;
 var tapMarkerPos = null;
 
 // 画面端タップで予約された出口方向。
-var tapMoveRequestedWarpSide = null;
 
 
 //
@@ -3312,16 +3311,6 @@ function setupEvents() {
                 return;
             }
 
-            // 通常プレイ中は、画面端タップを先に出口として判定する。
-            // マップ外を指していても、隣接エリアへ移動できる。
-            if (
-                !isEditMode &&
-                !debugMode &&
-                startTapMoveToTownEdge(e)
-            ) {
-                return;
-            }
-
             var tappedTile = getPointerTile(e);
             if (!tappedTile) return;
 
@@ -3365,12 +3354,6 @@ function setupEvents() {
                 return;
             }
 
-            // 画面端に出口がある場合は、
-            // 通常移動より先に隣マップへの移動を予約する。
-            if (startTapMoveToTownEdge(e)) {
-                return;
-            }
-
             if (
                 startTapMoveToNearbyTrigger(
                     tileX,
@@ -3380,7 +3363,6 @@ function setupEvents() {
                 return;
             }
 
-            tapMoveRequestedWarpSide = null;
             startTapMoveTo(tileX, tileY);
         }
     );
