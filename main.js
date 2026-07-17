@@ -2130,6 +2130,11 @@ window.onload = function() {
     loadPlayerSprites();
 
     setupEvents();
+
+    ensureTownControlRefreshStyles();
+    setupTownInteractionHintControl();
+    setupDpadTapShield();
+
     setupEditorEvents();
     markEditorExportCopied();
     setupMessageLayerEvents();
@@ -5940,26 +5945,79 @@ function getNearbyTrigger() {
 
 
 function updateInteractionHint() {
-    var hintEl = document.getElementById('interaction-hint');
-    var btnAction = document.getElementById('btn-action');
+    var hintEl =
+        document.getElementById("interaction-hint");
 
-    if (isEditMode || !isTownScene(currentScene)) {
-        hintEl.classList.remove('visible');
-        btnAction.innerText = "調べる";
+    var btnAction =
+        document.getElementById("btn-action");
+
+    if (!hintEl) {
+        return;
+    }
+
+    if (
+        isEditMode ||
+        !isTownScene(currentScene)
+    ) {
+        hintEl.classList.remove("visible");
+        hintEl.classList.remove("hint-pressed");
+        hintEl.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        if (btnAction) {
+            btnAction.innerText = "調べる";
+        }
+
         return;
     }
 
     var t = getNearbyTrigger();
+
     if (t) {
-        document.getElementById('interaction-label').innerText = t.label || "";
-        document.getElementById('interaction-action').innerText = t.actionLabel || "調べる";
-        hintEl.classList.add('visible');
-        btnAction.innerText = t.actionLabel || "調べる";
+        var label = t.label || "";
+        var actionLabel =
+            t.actionLabel || "調べる";
+
+        document
+            .getElementById("interaction-label")
+            .innerText = label;
+
+        document
+            .getElementById("interaction-action")
+            .innerText = actionLabel;
+
+        hintEl.classList.add("visible");
+        hintEl.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        hintEl.setAttribute(
+            "aria-label",
+            label
+                ? label + "を" + actionLabel
+                : actionLabel
+        );
+
+        if (btnAction) {
+            btnAction.innerText = actionLabel;
+        }
     } else {
-        hintEl.classList.remove('visible');
-        btnAction.innerText = "調べる";
+        hintEl.classList.remove("visible");
+        hintEl.classList.remove("hint-pressed");
+        hintEl.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        if (btnAction) {
+            btnAction.innerText = "調べる";
+        }
     }
 }
+
 
 function updateCurrentArea() {
     if (!isTownScene(currentScene)) return;
