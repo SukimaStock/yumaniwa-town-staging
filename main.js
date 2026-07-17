@@ -3190,26 +3190,19 @@ function setupInteractionHintButton() {
 
 
 function setupCompactTownController() {
-    var dpadElement = document.getElementById("dpad");
     var actionButton = document.getElementById("btn-action");
-
-    if (!dpadElement || !actionButton) {
-        return;
-    }
-
-    // 既存の右側アクションボタンを、十字キー中央へ移す。
-    // setupEvents() 済みなので、登録済みのイベントはそのまま維持される。
-    if (actionButton.parentNode !== dpadElement) {
-        dpadElement.appendChild(actionButton);
-    }
-
-    actionButton.type = "button";
-    actionButton.classList.add("compact-action-button");
-    actionButton.disabled = true;
-    actionButton.innerText = "・";
-    actionButton.setAttribute("aria-label", "近くに操作できるものはありません");
-
     var actionButtons = document.getElementById("action-btns");
+
+    // 独立アクションボタンは使わない。
+    // 操作は、十字キーの上に表示される案内そのものへ集約する。
+    if (actionButton) {
+        actionButton.disabled = true;
+        actionButton.classList.remove("compact-action-button");
+        actionButton.classList.remove("action-ready");
+        actionButton.setAttribute("aria-hidden", "true");
+        actionButton.setAttribute("tabindex", "-1");
+    }
+
     if (actionButtons) {
         actionButtons.setAttribute("aria-hidden", "true");
     }
@@ -6107,36 +6100,9 @@ function getNearbyTrigger() {
 
 function updateInteractionHint() {
     var hintEl = document.getElementById("interaction-hint");
-    var btnAction = document.getElementById("btn-action");
 
     if (!hintEl) {
         return;
-    }
-
-    function setControllerAction(trigger) {
-        if (!btnAction) return;
-
-        if (!trigger) {
-            btnAction.disabled = true;
-            btnAction.innerText = "・";
-            btnAction.classList.remove("action-ready");
-            btnAction.setAttribute(
-                "aria-label",
-                "近くに操作できるものはありません"
-            );
-            return;
-        }
-
-        var label = trigger.label || "対象";
-        var actionLabel = trigger.actionLabel || "調べる";
-
-        btnAction.disabled = false;
-        btnAction.innerText = actionLabel;
-        btnAction.classList.add("action-ready");
-        btnAction.setAttribute(
-            "aria-label",
-            label + "を" + actionLabel
-        );
     }
 
     if (
@@ -6146,7 +6112,6 @@ function updateInteractionHint() {
         hintEl.classList.remove("visible");
         hintEl.classList.remove("hint-pressed");
         hintEl.setAttribute("aria-hidden", "true");
-        setControllerAction(null);
         return;
     }
 
@@ -6155,7 +6120,6 @@ function updateInteractionHint() {
     if (t) {
         var label = t.label || "";
         var actionLabel = t.actionLabel || "調べる";
-
         var labelEl = document.getElementById("interaction-label");
         var actionEl = document.getElementById("interaction-action");
 
@@ -6168,13 +6132,10 @@ function updateInteractionHint() {
             "aria-label",
             label ? label + "を" + actionLabel : actionLabel
         );
-
-        setControllerAction(t);
     } else {
         hintEl.classList.remove("visible");
         hintEl.classList.remove("hint-pressed");
         hintEl.setAttribute("aria-hidden", "true");
-        setControllerAction(null);
     }
 }
 

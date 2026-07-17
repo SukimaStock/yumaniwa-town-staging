@@ -1400,8 +1400,10 @@ body {
     pointer-events: none;
 }
 
-#action-btns {
+#action-btns,
+#btn-action {
     display: none !important;
+    pointer-events: none !important;
 }
 
 #dpad {
@@ -1455,64 +1457,8 @@ body {
         0 3px 8px rgba(0, 0, 0, 0.34);
 }
 
-/* 十字キー中央の状況アクション。 */
-#dpad #btn-action {
-    display: flex !important;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 3;
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    min-height: 36px;
-    margin: 0;
-    padding: 0 2px;
-    box-sizing: border-box;
-    align-items: center;
-    justify-content: center;
-    transform: translate(-50%, -50%);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    border-radius: 50%;
-    background: rgba(20, 20, 20, 0.42);
-    color: rgba(255, 255, 255, 0.45);
-    font-size: 10px;
-    line-height: 1;
-    letter-spacing: -0.08em;
-    font-weight: 800;
-    white-space: nowrap;
-    pointer-events: none;
-    opacity: 0.45;
-    touch-action: none;
-    -webkit-tap-highlight-color: transparent;
-    transition:
-        opacity 0.14s ease,
-        background-color 0.14s ease,
-        border-color 0.14s ease,
-        color 0.14s ease,
-        box-shadow 0.14s ease,
-        transform 0.10s ease;
-}
-
-#dpad #btn-action.action-ready:not(:disabled) {
-    pointer-events: auto;
-    opacity: 0.96;
-    background: rgba(184, 133, 77, 0.92);
-    border-color: rgba(255, 230, 188, 0.92);
-    color: #fff8e9;
-    box-shadow:
-        0 0 0 2px rgba(255, 225, 174, 0.13),
-        0 3px 9px rgba(0, 0, 0, 0.34);
-}
-
-#dpad #btn-action.action-ready:not(:disabled):active {
-    transform: translate(-50%, -50%) scale(0.92);
-    background: rgba(215, 160, 94, 0.98);
-}
-
-#dpad #btn-action:disabled {
-    cursor: default;
-}
+/* 十字キー中央は、親指を休めるための空白として残す。
+ * ボタン間の空白を押しても、マップへのタップ移動は発生しない。 */
 
 /* 案内は操作盤のすぐ上。案内そのものも引き続きタップできる。 */
 #town-screen #interaction-hint {
