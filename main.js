@@ -6098,6 +6098,163 @@ function getNearbyTrigger() {
 }
 
 
+
+var interactionHintLayoutFrame = 0;
+
+function getElementOuterWidth(el) {
+    if (!el) return 0;
+
+    var style = window.getComputedStyle(el);
+    var marginLeft = parseFloat(style.marginLeft) || 0;
+    var marginRight = parseFloat(style.marginRight) || 0;
+
+    return el.scrollWidth + marginLeft + marginRight;
+}
+
+function refreshInteractionHintTextLayout(hintEl) {
+    if (!hintEl) return;
+
+    if (interactionHintLayoutFrame) {
+        window.cancelAnimationFrame(interactionHintLayoutFrame);
+        interactionHintLayoutFrame = 0;
+    }
+
+    hintEl.classList.remove("hint-compact");
+    hintEl.classList.remove("hint-tight");
+
+    interactionHintLayoutFrame = window.requestAnimationFrame(function() {
+        interactionHintLayoutFrame = 0;
+
+        if (!hintEl.classList.contains("visible")) return;
+
+        var labelEl = document.getElementById("interaction-label");
+        var actionEl = document.getElementById("interaction-action");
+        var screenEl = document.getElementById("town-screen");
+        var screenWidth = screenEl ? screenEl.clientWidth : window.innerWidth;
+        var maxWidth = Math.max(180, screenWidth - 28);
+
+        function requiredWidth() {
+            var style = window.getComputedStyle(hintEl);
+            var gap = parseFloat(style.columnGap || style.gap) || 0;
+            var padding =
+                (parseFloat(style.paddingLeft) || 0) +
+                (parseFloat(style.paddingRight) || 0);
+            var border =
+                (parseFloat(style.borderLeftWidth) || 0) +
+                (parseFloat(style.borderRightWidth) || 0);
+
+            return (
+                getElementOuterWidth(labelEl) +
+                getElementOuterWidth(actionEl) +
+                gap +
+                padding +
+                border
+            );
+        }
+
+        if (requiredWidth() > maxWidth) {
+            hintEl.classList.add("hint-compact");
+        }
+
+        if (requiredWidth() > maxWidth) {
+            hintEl.classList.add("hint-tight");
+        }
+    });
+}
+
+function getAreaTitleLines(zone) {
+    if (!zone) return [""];
+
+    if (Array.isArray(zone.titleLines)) {
+        var explicitLines = zone.titleLines
+            .map(function(line) { return String(line || "").trim(); })
+            .filter(function(line) { return !!line; })
+            .slice(0, 2);
+
+        if (explicitLines.length) {
+            return explicitLines;
+        }
+    }
+
+    var title = String(zone.title || "").trim();
+    if (!title) return [""];
+
+    if (title.indexOf("\n") >= 0) {
+        var writtenLines = title
+            .split(/\n+/)
+            .map(function(line) { return line.trim(); })
+            .filter(function(line) { return !!line; })
+            .slice(0, 2);
+
+        if (writtenLines.length) {
+            return writtenLines;
+        }
+    }
+
+    var chars = Array.from(title);
+
+    // 画面幅に十分収まる短い名称は、むやみに分割しない。
+    if (chars.length <= 8) {
+        return [title];
+    }
+
+    // 施設名でよく使う語尾を優先し、意味の切れ目で改行する。
+    var preferredSuffixes = [
+        "センター",
+        "研究所",
+        "案内所",
+        "資料館",
+        "美術館",
+        "博物館",
+        "商店街"
+    ];
+
+    for (var i = 0; i < preferredSuffixes.length; i++) {
+        var suffix = preferredSuffixes[i];
+
+        if (
+            title.endsWith(suffix) &&
+            title.length > suffix.length + 2
+        ) {
+            var prefix = title.slice(0, -suffix.length).trim();
+
+            if (prefix) {
+                return [prefix, suffix];
+            }
+        }
+    }
+
+    // 空白がある名称は、中央に近い空白を候補にする。
+    var spaces = [];
+    for (var n = 0; n < chars.length; n++) {
+        if (/\s/.test(chars[n])) spaces.push(n);
+    }
+
+    if (spaces.length) {
+        var middle = chars.length / 2;
+        spaces.sort(function(a, b) {
+            return Math.abs(a - middle) - Math.abs(b - middle);
+        });
+
+        var splitAtSpace = spaces[0];
+        var first = chars.slice(0, splitAtSpace).join("").trim();
+        var second = chars.slice(splitAtSpace + 1).join("").trim();
+
+        if (first && second) {
+            return [first, second];
+        }
+    }
+
+    // 最後の保険として、極端に片方が短くならない位置で2行に均等化する。
+    var splitAt = Math.ceil(chars.length / 2);
+    splitAt = Math.max(3, Math.min(chars.length - 3, splitAt));
+
+    return [
+        chars.slice(0, splitAt).join(""),
+        chars.slice(splitAt).join("")
+    ];
+}
+
 function updateInteractionHint() {
     var hintEl = document.getElementById("interaction-hint");
 
@@ -6111,6 +6268,8 @@ function updateInteractionHint() {
     ) {
         hintEl.classList.remove("visible");
         hintEl.classList.remove("hint-pressed");
+        hintEl.classList.remove("hint-compact");
+        hintEl.classList.remove("hint-tight");
         hintEl.setAttribute("aria-hidden", "true");
         return;
     }
@@ -6132,9 +6291,13 @@ function updateInteractionHint() {
             "aria-label",
             label ? label + "を" + actionLabel : actionLabel
         );
+
+        refreshInteractionHintTextLayout(hintEl);
     } else {
         hintEl.classList.remove("visible");
         hintEl.classList.remove("hint-pressed");
+        hintEl.classList.remove("hint-compact");
+        hintEl.classList.remove("hint-tight");
         hintEl.setAttribute("aria-hidden", "true");
     }
 }
@@ -6165,15 +6328,28 @@ function updateCurrentArea() {
 
 function showAreaTitle(zone) {
     if (isEditMode) return;
-    var titleEl = document.getElementById('area-title');
-    document.getElementById('area-title-main').innerText = zone.title;
-    document.getElementById('area-title-sub').innerText = zone.subtitle;
 
-    titleEl.classList.remove('visible');
-    setTimeout(function() { titleEl.classList.add('visible'); }, 50);
+    var titleEl = document.getElementById("area-title");
+    var mainEl = document.getElementById("area-title-main");
+    var subEl = document.getElementById("area-title-sub");
+
+    if (!titleEl || !mainEl || !subEl) return;
+
+    var titleLines = getAreaTitleLines(zone);
+
+    mainEl.textContent = titleLines.join("\n");
+    subEl.textContent = zone.subtitle || "";
+    titleEl.classList.toggle("multi-line", titleLines.length > 1);
+
+    titleEl.classList.remove("visible");
+    setTimeout(function() {
+        titleEl.classList.add("visible");
+    }, 50);
 
     if (areaTitleTimer) clearTimeout(areaTitleTimer);
-    areaTitleTimer = setTimeout(function() { titleEl.classList.remove('visible'); }, 2200);
+    areaTitleTimer = setTimeout(function() {
+        titleEl.classList.remove("visible");
+    }, 2200);
 }
 
 function handleAction() {

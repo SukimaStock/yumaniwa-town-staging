@@ -1506,3 +1506,92 @@ body {
         bottom: 154px;
     }
 }
+
+/* ==========================================
+   湯間庭町 / 文字組み・改行ルール
+   ========================================== */
+
+/* エリア名は、画面右半分だけで縮まないように表示幅を明示する。 */
+#town-screen #area-title {
+    width: max-content;
+    max-width: calc(100% - 32px);
+}
+
+#area-title-main {
+    width: max-content;
+    max-width: min(86vw, 340px);
+    white-space: pre-line;
+    word-break: keep-all;
+    overflow-wrap: normal;
+    text-wrap: balance;
+    line-height: 1.24;
+}
+
+#area-title.multi-line #area-title-main {
+    font-size: 22px;
+    line-height: 1.28;
+}
+
+#area-title-sub {
+    max-width: min(86vw, 340px);
+    text-wrap: balance;
+    line-height: 1.35;
+}
+
+/* 操作案内はボタンとして一行を維持する。 */
+#town-screen #interaction-hint {
+    box-sizing: border-box;
+    width: max-content;
+    max-width: calc(100% - 28px);
+    flex-wrap: nowrap;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+#interaction-label {
+    min-width: 0;
+    flex: 0 1 auto;
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow-wrap: normal;
+}
+
+#interaction-action {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    word-break: keep-all;
+}
+
+/* 長い施設名だけ、実測結果に応じて一段ずつ小さくする。 */
+#interaction-hint.hint-compact {
+    gap: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+#interaction-hint.hint-compact #interaction-label {
+    font-size: 13px;
+    letter-spacing: 0;
+}
+
+#interaction-hint.hint-compact #interaction-action {
+    font-size: 11px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+#interaction-hint.hint-tight {
+    gap: 6px;
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
+#interaction-hint.hint-tight #interaction-label {
+    font-size: 12px;
+}
+
+#interaction-hint.hint-tight #interaction-action {
+    font-size: 10px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
