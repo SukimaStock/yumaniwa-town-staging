@@ -167,7 +167,7 @@ tomogushi_alley_map: {
   triggers: [
     {
       id: 'yakitori_wars_booth',
-      label: 'やきとり屋 ゆまど',
+      label: '焼き鳥屋 ゆまど',
       actionLabel: '遊ぶ',
       type: 'work',
       workId: 'yakitori-wars',
@@ -178,7 +178,7 @@ tomogushi_alley_map: {
 
     {
       id: 'midnight_cola_booth',
-      label: '真夜中コーラ',
+      label: 'クラフトコーラ研究所',
       actionLabel: '遊ぶ',
       type: 'work',
       workId: 'midnight-cola',
