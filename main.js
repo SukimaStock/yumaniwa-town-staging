@@ -2130,6 +2130,7 @@ window.onload = function() {
     loadPlayerSprites();
 
     setupEvents();
+    setupCompactTownController();
     setupInteractionHintButton();
     setupEditorEvents();
     markEditorExportCopied();
@@ -3185,6 +3186,33 @@ function setupInteractionHintButton() {
 
         activateHint(e);
     });
+}
+
+
+function setupCompactTownController() {
+    var dpadElement = document.getElementById("dpad");
+    var actionButton = document.getElementById("btn-action");
+
+    if (!dpadElement || !actionButton) {
+        return;
+    }
+
+    // 既存の右側アクションボタンを、十字キー中央へ移す。
+    // setupEvents() 済みなので、登録済みのイベントはそのまま維持される。
+    if (actionButton.parentNode !== dpadElement) {
+        dpadElement.appendChild(actionButton);
+    }
+
+    actionButton.type = "button";
+    actionButton.classList.add("compact-action-button");
+    actionButton.disabled = true;
+    actionButton.innerText = "・";
+    actionButton.setAttribute("aria-label", "近くに操作できるものはありません");
+
+    var actionButtons = document.getElementById("action-btns");
+    if (actionButtons) {
+        actionButtons.setAttribute("aria-hidden", "true");
+    }
 }
 
 function setupEvents() {
@@ -6078,14 +6106,37 @@ function getNearbyTrigger() {
 
 
 function updateInteractionHint() {
-    var hintEl =
-        document.getElementById("interaction-hint");
-
-    var btnAction =
-        document.getElementById("btn-action");
+    var hintEl = document.getElementById("interaction-hint");
+    var btnAction = document.getElementById("btn-action");
 
     if (!hintEl) {
         return;
+    }
+
+    function setControllerAction(trigger) {
+        if (!btnAction) return;
+
+        if (!trigger) {
+            btnAction.disabled = true;
+            btnAction.innerText = "・";
+            btnAction.classList.remove("action-ready");
+            btnAction.setAttribute(
+                "aria-label",
+                "近くに操作できるものはありません"
+            );
+            return;
+        }
+
+        var label = trigger.label || "対象";
+        var actionLabel = trigger.actionLabel || "調べる";
+
+        btnAction.disabled = false;
+        btnAction.innerText = actionLabel;
+        btnAction.classList.add("action-ready");
+        btnAction.setAttribute(
+            "aria-label",
+            label + "を" + actionLabel
+        );
     }
 
     if (
@@ -6094,15 +6145,8 @@ function updateInteractionHint() {
     ) {
         hintEl.classList.remove("visible");
         hintEl.classList.remove("hint-pressed");
-        hintEl.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        if (btnAction) {
-            btnAction.innerText = "調べる";
-        }
-
+        hintEl.setAttribute("aria-hidden", "true");
+        setControllerAction(null);
         return;
     }
 
@@ -6110,47 +6154,29 @@ function updateInteractionHint() {
 
     if (t) {
         var label = t.label || "";
-        var actionLabel =
-            t.actionLabel || "調べる";
+        var actionLabel = t.actionLabel || "調べる";
 
-        document
-            .getElementById("interaction-label")
-            .innerText = label;
+        var labelEl = document.getElementById("interaction-label");
+        var actionEl = document.getElementById("interaction-action");
 
-        document
-            .getElementById("interaction-action")
-            .innerText = actionLabel;
+        if (labelEl) labelEl.innerText = label;
+        if (actionEl) actionEl.innerText = actionLabel;
 
         hintEl.classList.add("visible");
-        hintEl.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
+        hintEl.setAttribute("aria-hidden", "false");
         hintEl.setAttribute(
             "aria-label",
-            label
-                ? label + "を" + actionLabel
-                : actionLabel
+            label ? label + "を" + actionLabel : actionLabel
         );
 
-        if (btnAction) {
-            btnAction.innerText = actionLabel;
-        }
+        setControllerAction(t);
     } else {
         hintEl.classList.remove("visible");
         hintEl.classList.remove("hint-pressed");
-        hintEl.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        if (btnAction) {
-            btnAction.innerText = "調べる";
-        }
+        hintEl.setAttribute("aria-hidden", "true");
+        setControllerAction(null);
     }
 }
-
 
 function updateCurrentArea() {
     if (!isTownScene(currentScene)) return;
