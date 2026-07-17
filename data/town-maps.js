@@ -227,39 +227,33 @@ tomogushi_alley_map: {
   ],
 
   // 画像アセットとして描画する建物
-  props: [
+props: [
     {
-      id: 'yakitori_yumado_shop',
-      src: 'assets/maps/props/tomogushi-alley/yakitori-yumado.png?rev=20260716-1',
-
-      // 256×256画像を、横丁内では約8タイル四方で表示
-      x: 8.5,
-      y: 1.5,
-      w: 8,
-      h: 8,
-      footY: 9.5,
-      enabled: true,
-
-      // 建物の下部だけを通行不可にする
-      collision: {
-        enabled: true,
-        x: 0.13,
-        y: 0.79,
-        w: 0.74,
-        h: 0.18
-      },
-
-      // 店の正面付近で「遊ぶ」を表示
-      interaction: {
-        enabled: true,
-        triggerId: 'yakitori_wars_booth',
-        x: 0.12,
-        y: 0.68,
-        w: 0.76,
-        h: 0.32
-      }
+        "id": "yakitori_yumado_shop",
+        "src": "assets/maps/props/tomogushi-alley/yakitori-yumado.png?rev=20260716-1",
+        "x": 11.708333333333334,
+        "y": 0,
+        "w": 8,
+        "h": 8,
+        "footY": 8,
+        "enabled": true,
+        "collision": {
+            "enabled": true,
+            "x": 0.13,
+            "y": 0.79,
+            "w": 0.74,
+            "h": 0.18
+        },
+        "interaction": {
+            "enabled": true,
+            "triggerId": "yakitori_wars_booth",
+            "x": 0.12,
+            "y": 0.68,
+            "w": 0.76,
+            "h": 0.32
+        }
     }
-  ],
+],
 
   // 画像化していない仮設物だけを残す
   decor: [
