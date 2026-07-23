@@ -376,6 +376,19 @@ var workPlayerReturnDestinationId = null;
 // 直リンクで遊び終えた人にだけ、施設内の別作品を案内する。
 var isDirectWorkVisit = false;
 
+function trackYumaniwaEvent(name, props){
+ try{
+  if(typeof window.plausible!=="function") return false;
+  window.plausible(name, props?{props:props}:undefined);
+  if(window.__YUMANIWA_ANALYTICS_DEBUG__) console.info("[Yumaniwa]",name,props||{});
+  return true;
+ }catch(e){
+  if(window.__YUMANIWA_ANALYTICS_DEBUG__) console.warn(e);
+  return false;
+ }
+}
+
+
 // 施設メニューへ戻った直後に表示する案内。
 var destinationReturnGuideText = "";
 
@@ -7494,6 +7507,12 @@ window.launchWork = function(work) {
     }
 
     var launch = work.launch || (work.url ? "external" : "embedded");
+
+    trackYumaniwaEvent("Work Open", {
+        work_id: work.id || "unknown",
+        launch: launch,
+        entry: isDirectWorkVisit ? "direct" : "town"
+    });
 
     if (launch === "embedded" || launch === "itch_embed") {
         openWorkPlayer(work);
