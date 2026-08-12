@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#10151b">
+  <title>新しい触れるらくがき</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <canvas id="rakugaki-canvas" aria-label="触れるらくがき"></canvas>
+
+  <script src="./work-meta.js"></script>
+  <script src="../../engine/rakugaki-engine.v1.js"></script>
+  <script src="./sketch.js"></script>
+  <script>
+    // sketch.js の setup / draw / touched を読み込んだ後に、作品を始めます。
+    CodeaLite.start("rakugaki-canvas");
+  </script>
+</body>
+</html>
