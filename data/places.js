@@ -57,6 +57,17 @@ var DESTINATIONS = {
         menuTitle: "どの筐体で遊びますか?",
         items: []
     },
+    leisure_catalog: {
+        id: "leisure_catalog",
+        title: "展示ガイド",
+        subtitle: "Yumado Leisure Center",
+        description: "館内で遊べる作品をまとめた、小さな展示ガイド。",
+        flavor: "古い案内板に、いま動いている筐体の名前が並んでいる。",
+        menuTitle: "どの展示を見ますか?",
+        returnScene: "leisure_center_map",
+        returnLabel: "湯窓レジャーセンター",
+        items: []
+    },
     tomogushi_alley_map: {
         id: "tomogushi_alley_map",
         title: "灯串横丁",
@@ -64,6 +75,17 @@ var DESTINATIONS = {
         description: "提灯の灯りが続く小さな横丁。\n炭のにおいと、柑橘やスパイス、コーヒーの香りが混じっている。",
         flavor: "路地の奥では、今夜も誰かが何かを仕込んでいる。",
         menuTitle: "今夜はどこへ寄りますか?",
+        items: []
+    },
+    tomogushi_game_board: {
+        id: "tomogushi_game_board",
+        title: "ゲーム案内屋台",
+        subtitle: "Tomogushi Alley",
+        description: "灯串横丁で今夜遊べる店とゲームをまとめた案内屋台。",
+        flavor: "手書きの札が、提灯の明かりの下に並んでいる。",
+        menuTitle: "今夜はどこへ寄りますか?",
+        returnScene: "tomogushi_alley_map",
+        returnLabel: "灯串横丁",
         items: []
     },
     yumado_street_map: {
@@ -171,6 +193,12 @@ function refreshTownContent() {
         leisureCenter.items.push({ label: "駅前へ戻る", kind: "back" });
     }
 
+    if (DESTINATIONS.leisure_catalog) {
+        var catalogItems = buildWorkMenuItems("leisure_center");
+        catalogItems.push({ label: "レジャーセンターへ戻る", kind: "back" });
+        DESTINATIONS.leisure_catalog.items = catalogItems;
+    }
+
     if (DESTINATIONS.tomogushi_alley_map) {
         var alleyItems = buildWorkMenuItems("tomogushi_alley");
         alleyItems.push({
@@ -180,5 +208,11 @@ function refreshTownContent() {
         });
         alleyItems.push({ label: "駅前へ戻る", kind: "back" });
         DESTINATIONS.tomogushi_alley_map.items = alleyItems;
+    }
+
+    if (DESTINATIONS.tomogushi_game_board) {
+        var gameBoardItems = buildWorkMenuItems("tomogushi_alley");
+        gameBoardItems.push({ label: "灯串横丁へ戻る", kind: "back" });
+        DESTINATIONS.tomogushi_game_board.items = gameBoardItems;
     }
 }
