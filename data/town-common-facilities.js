@@ -49,4 +49,35 @@
 
     removePlaceholderDecor(leisure, 9, 16, 6, 2);
   }
+
+  var alley = maps.tomogushi_alley_map;
+  if (alley) {
+    replaceProp(alley, {
+      id: 'common_temporary_storefront',
+      src: 'assets/maps/props/tomogushi-alley/common-temporary-storefront.png?v=20260812-1',
+      x: 3.75,
+      y: 11.25,
+      w: 4.5,
+      h: 6.7173913043,
+      footY: 17.9673913043,
+      enabled: true,
+      collision: {
+        enabled: true,
+        x: 0.18,
+        y: 0.80,
+        w: 0.64,
+        h: 0.18
+      },
+      interaction: {
+        enabled: true,
+        triggerId: 'game_list_stall',
+        x: 0.06,
+        y: 0.58,
+        w: 0.88,
+        h: 0.40
+      }
+    });
+
+    removePlaceholderDecor(alley, 4, 16, 4, 3);
+  }
 })();
