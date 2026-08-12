@@ -19,32 +19,11 @@
     def.props.push(prop);
   }
 
-  function attachBase64Png(prop, sourceUrl, expectedLength) {
-    if (!prop || !sourceUrl) return;
-
-    fetch(sourceUrl, { cache: 'no-store' })
-      .then(function (response) {
-        if (!response.ok) throw new Error('asset fetch failed: ' + response.status);
-        return response.text();
-      })
-      .then(function (text) {
-        var compact = String(text || '').replace(/\s+/g, '');
-        if (expectedLength && compact.length >= expectedLength) {
-          compact = compact.slice(0, expectedLength);
-        }
-        if (!compact) throw new Error('asset payload is empty');
-        prop.src = 'data:image/png;base64,' + compact;
-      })
-      .catch(function (error) {
-        console.warn('[Yumaniwa] common facility asset load failed', error);
-      });
-  }
-
   var leisure = maps.leisure_center_map;
   if (leisure) {
-    var terminalProp = {
+    replaceProp(leisure, {
       id: 'leisure_catalog_terminal',
-      src: '',
+      src: 'assets/maps/props/leisure-center/leisure-catalog-terminal.png?v=20260812-1',
       x: 9.5,
       y: 13.0,
       w: 5.0,
@@ -66,15 +45,8 @@
         w: 0.90,
         h: 0.42
       }
-    };
+    });
 
-    replaceProp(leisure, terminalProp);
     removePlaceholderDecor(leisure, 9, 16, 6, 2);
-
-    attachBase64Png(
-      terminalProp,
-      'assets/maps/props/leisure-center/leisure-catalog-terminal.png.base64.txt?v=20260812-1',
-      9252
-    );
   }
 })();
