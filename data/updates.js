@@ -6,6 +6,18 @@
 var TOWN_UPDATES = [
     // [UPDATES:ADD_NEWEST_HERE]
     {
+        date: "2026-08-10",
+        title: "灯串横丁に『純喫茶ダイヴ』が開店",
+        body: "深夜だけ開く小さな純喫茶が、今夜から営業しています。",
+        tags: ["tomogushi-alley", "game", "open"]
+    },
+    {
+        date: "2026-08-06",
+        title: "レジャーセンターに『DotWeather』を設置",
+        body: "世界の空を、静かなドットで眺められるようになりました。",
+        tags: ["leisure-center", "app", "open"]
+    },
+    {
         date: "2026-07-06",
         title: "湯間庭町を公開",
         body: "駅前から、町を歩けるようになりました。",
