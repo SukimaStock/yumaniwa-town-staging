@@ -1,25 +1,25 @@
 // ==========================================
-// 湯間庭町 / 作品データ
-// 新しいゲーム・触れるらくがきは、この配列の先頭に追加します。
+// 湯間庭町 / 作品データ
+// 新しいゲーム・触れるらくがきは、この配列の先頭に追加します。
 //
 // status: "open" | "preparing" | "hidden"
-// open      : 町に表示し、実際に遊べる
-// preparing : 制作中。データは残すが、町にはまだ表示しない
-// hidden    : データは残しつつ、町には置かない
+// open      : 町に表示し、実際に遊べる
+// preparing : 制作中。データは残すが、町にはまだ表示しない
+// hidden    : データは残しつつ、町には置かない
 //
 // launch: "embedded" | "itch_embed" | "external"
-// embedded   : 町の共通プレイヤー内で開く。entry に作品の index.html を指定
-// itch_embed : itch.ioの埋め込みURLを、町の共通プレイヤー内で開く。embedUrl を指定
-// external   : 外部ページを別タブで開く。url を指定
+// embedded   : 町の共通プレイヤー内で開く。entry に作品の index.html を指定
+// itch_embed : itch.ioの埋め込みURLを、町の共通プレイヤー内で開く。embedUrl を指定
+// external   : 外部ページを別タブで開く。url を指定
 //
-// frameTitle  : 湯間庭フレーム上部に表示する町内での呼び名
-// returnLabel : 左側の戻り先表示(例: "灯串横丁")
+// frameTitle  : 湯間庭フレーム上部に表示する町内での呼び名
+// returnLabel : 左側の戻り先表示（例: "灯串横丁"）
 // frameMode   : "standard" | "soft" | "phone-cola" | "phone-yakitori"
-//   phone-cola / phone-yakitori は、iPad・PCでは縦長の小型ゲーム機として中央に表示する。
-// playerLayout / playerWidth / playerHeight は、作品の本来の表示器サイズのメモとして残す。
+//   phone-cola / phone-yakitori は、iPad・PCでは縦長の小型ゲーム機として中央に表示する。
+// playerLayout / playerWidth / playerHeight は、作品の本来の表示器サイズのメモとして残す。
 //
-// menuCategory    : 施設メニューで作品名の上に表示する分類
-// menuDescription : 施設メニューで作品名の下に表示する短い説明
+// menuCategory    : 施設メニューで作品名の上に表示する分類
+// menuDescription : 施設メニューで作品名の下に表示する短い説明
 // ==========================================
 
 var WORKS = [
@@ -39,11 +39,64 @@ var WORKS = [
     //     frameMode: "standard",
     //     menuCategory: "",
     //     menuDescription: "",
-    //     emptyText: "この作品は準備中です。"
+    //     emptyText: "この作品は準備中です。"
     // },
 
-    // 作品プレイヤーの動作確認用。
-    // 必要なときだけ status を open に変更してください。
+    {
+        id: "dotweather",
+        title: "DotWeather",
+        venue: "leisure_center",
+        kind: "work",
+        status: "open",
+
+        launch: "embedded",
+        entry: "./works/dotweather/index.html",
+
+        frameTitle: "DotWeather",
+        returnLabel: "湯窓レジャーセンター",
+        frameMode: "soft",
+
+        playerLayout: "phone",
+        playerWidth: 360,
+        playerHeight: 640,
+
+        menuCategory: "アプリ",
+        menuDescription: "世界の空を、静かなドットで眺める天気アプリ。",
+
+        description: "世界の空を、静かなドットで眺める天気アプリ。",
+        emptyText: "空模様を読み込んでいます。"
+    },
+
+    {
+        id: "junkissa-dive",
+        title: "純喫茶ダイヴ",
+        venue: "tomogushi_alley",
+        kind: "game",
+        status: "open",
+
+        launch: "itch_embed",
+        embedUrl: "https://itch.io/embed-upload/18746640?color=743f39",
+
+        // 町内表示で問題が出た際に確認できる通常ページURL。
+        url: "https://sukimastock.itch.io/junkissa-dive",
+
+        frameTitle: "純喫茶ダイヴ",
+        returnLabel: "灯串横丁",
+        frameMode: "phone-cola",
+
+        playerLayout: "phone",
+        playerWidth: 360,
+        playerHeight: 640,
+
+        menuCategory: "ゲーム",
+        menuDescription: "深夜だけ開く純喫茶で、トッピングを飛ばして商品を仕上げる小さなゲーム。",
+
+        description: "深夜だけ開く純喫茶で、トッピングを飛ばして商品を仕上げる小さなゲーム。",
+        emptyText: "純喫茶ダイヴは、今夜の開店準備をしています。"
+    },
+
+    // 作品プレイヤーの動作確認用。
+    // 必要なときだけ status を open に変更してください。
     {
         id: "rakugaki-template-test",
         title: "新しい筐体の見本",
@@ -53,10 +106,10 @@ var WORKS = [
         launch: "embedded",
         entry: "./works/_template/index.html",
 
-        menuCategory: "触れるらくがき",
+        menuCategory: "触れるらくがき",
         menuDescription: "次の作品を置くための、空の筐体。",
 
-        emptyText: "この筐体は、次のらくがきのために空けてあります。"
+        emptyText: "この筐体は、次のらくがきのために空けてあります。"
     },
 
     {
@@ -67,9 +120,9 @@ var WORKS = [
         status: "open",
 
         launch: "itch_embed",
-        embedUrl: "https://itch.io/embed-upload/18206711?color=743f39",
+        embedUrl: "https://itch.io/embed-upload/18681243?color=743f39",
 
-        // 町内表示で問題が出た際に確認できる通常ページURL。
+        // 町内表示で問題が出た際に確認できる通常ページURL。
         url: "https://sukimastock.itch.io/midnight-cola",
 
         frameTitle: "クラフトコーラ研究所",
@@ -80,16 +133,16 @@ var WORKS = [
         playerWidth: 360,
         playerHeight: 660,
 
-        menuCategory: "仕込みゲーム",
-        menuDescription: "材料を重ねて、今夜の一本を仕込むすごろく。",
+        menuCategory: "仕込みゲーム",
+        menuDescription: "材料を重ねて、今夜の一本を仕込むすごろく。",
 
-        description: "夜の研究所で、クラフトコーラを仕込む小さなゲーム。",
+        description: "夜の研究所で、クラフトコーラを仕込む小さなゲーム。",
         emptyText: "真夜中の工房は、いま次の仕込みを整えています。"
     },
 
     {
         id: "yakitori-wars",
-        title: "やきとり屋 ゆまど【Yakitori Wars】",
+        title: "やきとり屋 ゆまど【Yakitori Wars】",
         venue: "tomogushi_alley",
         kind: "game",
         status: "open",
@@ -97,10 +150,10 @@ var WORKS = [
         launch: "itch_embed",
         embedUrl: "https://itch.io/embed-upload/17899376?color=3f2832",
 
-        // 町内表示で問題が出た際に確認できる通常ページURL。
+        // 町内表示で問題が出た際に確認できる通常ページURL。
         url: "https://sukimastock.itch.io/yakitori-wars",
 
-        frameTitle: "やきとり屋 ゆまど",
+        frameTitle: "やきとり屋 ゆまど",
         returnLabel: "灯串横丁",
         frameMode: "phone-yakitori",
 
@@ -108,10 +161,10 @@ var WORKS = [
         playerWidth: 360,
         playerHeight: 660,
 
-        menuCategory: "対戦ゲーム",
-        menuDescription: "焼き加減と取りどきを読み合う、二人対戦ゲーム。",
+        menuCategory: "対戦ゲーム",
+        menuDescription: "焼き加減と取りどきを読み合う、二人対戦ゲーム。",
 
-        emptyText: "やきとり屋 ゆまどは、今夜の炭火を整えています。"
+        emptyText: "やきとり屋 ゆまどは、今夜の炭火を整えています。"
     },
 
     {
@@ -125,19 +178,19 @@ var WORKS = [
         entry: "./works/rainy-window/index.html",
 
         frameTitle: "雨の日の窓",
-        returnLabel: "湯窓レジャーセンター",
+        returnLabel: "湯窓レジャーセンター",
         frameMode: "soft",
 
-        menuCategory: "触れるらくがき",
-        menuDescription: "雨粒を指でなぞり、窓の向こうを眺める作品。",
+        menuCategory: "触れるらくがき",
+        menuDescription: "雨粒を指でなぞり、窓の向こうを眺める作品。",
 
-        description: "窓についた雨粒を、指でなぞる小さな作品。",
-        emptyText: "この筐体は現在調整中です。ガラスの向こうで、雨音だけが聞こえます。"
+        description: "窓についた雨粒を、指でなぞる小さな作品。",
+        emptyText: "この筐体は現在調整中です。ガラスの向こうで、雨音だけが聞こえます。"
     },
 
     {
         id: "unpushable-button",
-        title: "絶対に押せないボタン",
+        title: "絶対に押せないボタン",
         venue: "leisure_center",
         kind: "work",
         status: "preparing",
@@ -145,15 +198,15 @@ var WORKS = [
         launch: "embedded",
         entry: "./works/unpushable-button/index.html",
 
-        menuCategory: "触れるらくがき",
-        menuDescription: "押そうとすると逃げていく、警戒心の強いボタン。",
+        menuCategory: "触れるらくがき",
+        menuDescription: "押そうとすると逃げていく、警戒心の強いボタン。",
 
-        emptyText: "この筐体は現在調整中です。ボタンだけが、こちらを警戒しています。"
+        emptyText: "この筐体は現在調整中です。ボタンだけが、こちらを警戒しています。"
     },
 
     {
         id: "notification-badge",
-        title: "通知バッジ増殖",
+        title: "通知バッジ増殖",
         venue: "leisure_center",
         kind: "work",
         status: "preparing",
@@ -161,10 +214,10 @@ var WORKS = [
         launch: "embedded",
         entry: "./works/notification-badge/index.html",
 
-        menuCategory: "触れるらくがき",
-        menuDescription: "赤い通知バッジが、画面いっぱいに増殖する作品。",
+        menuCategory: "触れるらくがき",
+        menuDescription: "赤い通知バッジが、画面いっぱいに増殖する作品。",
 
-        emptyText: "この筐体は現在調整中です。赤い丸が、まだ眠っています。"
+        emptyText: "この筐体は現在調整中です。赤い丸が、まだ眠っています。"
     },
 
     {
@@ -177,10 +230,10 @@ var WORKS = [
         launch: "embedded",
         entry: "./works/someone-pedometer/index.html",
 
-        menuCategory: "触れるらくがき",
+        menuCategory: "触れるらくがき",
         menuDescription: "画面の向こうの誰かと歩数を重ねる、小さな歩数計。",
 
-        emptyText: "この筐体は現在調整中です。小さな数字だけが、ときどき動きます。"
+        emptyText: "この筐体は現在調整中です。小さな数字だけが、ときどき動きます。"
     },
 
     {
@@ -193,10 +246,10 @@ var WORKS = [
         launch: "embedded",
         entry: "./works/fast-forward-clock/index.html",
 
-        menuCategory: "触れるらくがき",
+        menuCategory: "触れるらくがき",
         menuDescription: "時間を早送りし、空に残る光の軌跡を眺める時計。",
 
-        emptyText: "この筐体は現在調整中です。針だけが、少し先の時間を見ているようです。"
+        emptyText: "この筐体は現在調整中です。針だけが、少し先の時間を見ているようです。"
     }
 ];
 
@@ -216,7 +269,7 @@ function getVisibleWorksForVenue(venue) {
     for (var i = 0; i < WORKS.length; i++) {
         var work = WORKS[i];
 
-        // 町の一覧には、実際に起動できる作品だけを並べる。
+        // 町の一覧には、実際に起動できる作品だけを並べる。
         if (
             !work ||
             work.venue !== venue ||
@@ -272,4 +325,3 @@ function buildWorkMenuItems(venue) {
 
     return items;
 }
-
