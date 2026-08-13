@@ -1,0 +1,18 @@
+{
+  "name": "MIDNIGHT COLA",
+  "short_name": "MIDNIGHT COLA",
+  "id": "../../?work=midnight-cola",
+  "start_url": "../../?work=midnight-cola",
+  "scope": "../../",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "../../assets/works/midnight-cola/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
