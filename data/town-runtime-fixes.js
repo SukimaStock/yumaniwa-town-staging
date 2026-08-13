@@ -84,6 +84,67 @@
     window.getTownPartTriggerArea = patched;
   }
 
+  // 共通看板アセットは、既存の当たり判定・triggerとは分離して見た目だけ差し替える。
+  // 完成PNGを同じパスへ置けば、町側の判定を触らず更新できる。
+  function applyCommonSignAssets() {
+    var maps = window.TOWN_SCENE_MAPS;
+    if (!maps) return;
+
+    function removeDecor(scene, matcher) {
+      if (!scene || !Array.isArray(scene.decor)) return;
+      scene.decor = scene.decor.filter(function (item) {
+        return !matcher(item || {});
+      });
+    }
+
+    function upsertProp(scene, prop) {
+      if (!scene) return;
+      if (!Array.isArray(scene.props)) scene.props = [];
+
+      for (var i = 0; i < scene.props.length; i++) {
+        if (scene.props[i] && scene.props[i].id === prop.id) {
+          scene.props[i] = prop;
+          return;
+        }
+      }
+
+      scene.props.push(prop);
+    }
+
+    var street = maps.yumado_street_map;
+    if (street) {
+      removeDecor(street, function (item) {
+        return item.x === 11 && item.y === 10 && item.w === 2 && item.h === 2 && item.label === '札';
+      });
+
+      upsertProp(street, {
+        id: 'standing_signboard',
+        src: 'assets/maps/props/common/standing-signboard.png',
+        x: 11, y: 10, w: 2, h: 2, footY: 12, enabled: true,
+        collision: { enabled: false, x: 0, y: 0, w: 0, h: 0 },
+        interaction: { enabled: false, triggerId: '', x: 0, y: 0, w: 0, h: 0 },
+        catalogKey: 'bench'
+      });
+    }
+
+    var onsen = maps.onsen_slope_map;
+    if (onsen) {
+      removeDecor(onsen, function (item) {
+        return item.x === 6 && item.y === 3 && item.w === 12 && item.h === 3 && item.label === '工事中';
+      });
+
+      upsertProp(onsen, {
+        id: 'no_entry_sign',
+        src: 'assets/maps/props/common/no-entry-sign.png',
+        x: 6, y: 3, w: 12, h: 3, footY: 6, enabled: true,
+        collision: { enabled: false, x: 0, y: 0, w: 0, h: 0 },
+        interaction: { enabled: false, triggerId: '', x: 0, y: 0, w: 0, h: 0 },
+        catalogKey: 'bench'
+      });
+    }
+  }
+
+  applyCommonSignAssets();
   applyCameraZoom();
   preserveExplicitTriggerAreas();
 
