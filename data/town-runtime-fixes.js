@@ -57,17 +57,51 @@
     button.addEventListener('click', activate);
   }
 
+  // マップ編集で明示された trigger.area を正本にする。
+  // パーツ側 interaction は、対応する明示triggerが無い場合だけ範囲生成に使う。
+  function preserveExplicitTriggerAreas() {
+    var original = window.getTownPartTriggerArea;
+    if (typeof original !== 'function' || original.__yumaniwaExplicitAreaPatched) return;
+
+    function patched(part) {
+      var interaction = part && part.interaction;
+      var triggerId = interaction && interaction.triggerId ? String(interaction.triggerId) : '';
+      var templates = window.townPartTriggerTemplates || {};
+      var template = triggerId ? templates[triggerId] : null;
+
+      if (template && template.area) {
+        return {
+          x: Number(template.area.x) || 0,
+          y: Number(template.area.y) || 0,
+          w: Math.max(1, Number(template.area.w) || 1),
+          h: Math.max(1, Number(template.area.h) || 1)
+        };
+      }
+
+      return original(part);
+    }
+
+    patched.__yumaniwaExplicitAreaPatched = true;
+    window.getTownPartTriggerArea = patched;
+  }
+
   applyCameraZoom();
+  preserveExplicitTriggerAreas();
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bindDeveloperButton);
+    document.addEventListener('DOMContentLoaded', function () {
+      bindDeveloperButton();
+      preserveExplicitTriggerAreas();
+    });
   } else {
     bindDeveloperButton();
+    preserveExplicitTriggerAreas();
   }
 
   window.addEventListener('load', function () {
     applyCameraZoom();
     bindDeveloperButton();
+    preserveExplicitTriggerAreas();
   });
 
   window.addEventListener('resize', applyCameraZoom);
