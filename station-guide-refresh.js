@@ -3,7 +3,7 @@
     // 町本体のマップ・当たり判定・interactionには触れず、
     // 案内図画像、案内ラベル、地図内タップ領域だけをここで管理する。
 
-    var GUIDE_IMAGE = "assets/station-guide-map-20260813.jpg?v=20260813-1";
+    var GUIDE_IMAGE = "assets/station-guide-map-20260813.png?v=20260813-1";
 
     STATION_GUIDE_MAP_IMAGE = GUIDE_IMAGE;
 
