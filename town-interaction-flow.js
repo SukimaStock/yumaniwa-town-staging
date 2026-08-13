@@ -7,10 +7,9 @@
     var EDGE_WARP_TAP_DEPTH = 2;
 
     // main.js の既存移動処理はそのまま使い、到着後の自動実行と
-    // 「見えている物をそのまま触れる」ためのタップ判定だけをこの層で足す。
+    // 「直接タップ」と「近づいて調べる」の判定分離だけをこの層で足す。
     var baseStartTapMoveTo = window.startTapMoveTo;
     var baseStartTapMoveToTrigger = window.startTapMoveToTrigger;
-    var baseStartTapMoveToNearbyTrigger = window.startTapMoveToNearbyTrigger;
     var baseUpdateTapMove = window.updateTapMove;
     var baseCancelTapMove = window.cancelTapMove;
 
@@ -51,14 +50,50 @@
         return null;
     }
 
-    function getInteractivePartTriggerAtTile(tileX, tileY) {
+    function getTapTargetSpec(part) {
+        if (!part) return null;
+
+        // 将来、開発モード側が part.tap を書き出せるようになった場合はそちらを優先する。
+        if (part.tap && part.tap.enabled !== false) {
+            return part.tap;
+        }
+
+        var sceneTargets = window.TOWN_TAP_TARGETS && window.TOWN_TAP_TARGETS[currentScene];
+        if (!sceneTargets || !part.id) return null;
+
+        var spec = sceneTargets[part.id];
+        if (!spec || spec.enabled === false) return null;
+
+        return spec;
+    }
+
+    function getTapManagedTriggerIds() {
+        var managed = {};
+        if (typeof getActiveTownParts !== "function") return managed;
+
+        var parts = getActiveTownParts();
+        if (!parts || !parts.length) return managed;
+
+        for (var i = 0; i < parts.length; i++) {
+            var part = parts[i];
+            if (!part || part.enabled === false || !getTapTargetSpec(part)) continue;
+
+            var interaction = part.interaction;
+            if (!interaction || interaction.enabled === false || !interaction.triggerId) continue;
+
+            managed[String(interaction.triggerId)] = true;
+        }
+
+        return managed;
+    }
+
+    function getTapPartTriggerAtTile(tileX, tileY) {
         if (typeof getActiveTownParts !== "function") return null;
 
         var parts = getActiveTownParts();
         if (!parts || !parts.length) return null;
 
-        // 既存canvas入力はタイル単位なので、そのタイルの中心点で画像矩形を判定する。
-        // collision / interaction の矩形はここでは使わない。
+        // canvas入力はタイル単位なので、そのタイル中心が専用tap矩形に入った時だけ反応する。
         var pointX = tileX + 0.5;
         var pointY = tileY + 0.5;
         var best = null;
@@ -67,6 +102,9 @@
             var part = parts[i];
             if (!part || part.enabled === false) continue;
 
+            var tap = getTapTargetSpec(part);
+            if (!tap) continue;
+
             var interaction = part.interaction;
             if (!interaction || interaction.enabled === false || !interaction.triggerId) continue;
 
@@ -74,16 +112,30 @@
             var y = Number(part.y);
             var w = Number(part.w);
             var h = Number(part.h);
+            var tapX = Number(tap.x);
+            var tapY = Number(tap.y);
+            var tapW = Number(tap.w);
+            var tapH = Number(tap.h);
 
             if (!isFinite(x) || !isFinite(y) || !isFinite(w) || !isFinite(h) || w <= 0 || h <= 0) {
                 continue;
             }
 
+            if (!isFinite(tapX)) tapX = 0;
+            if (!isFinite(tapY)) tapY = 0;
+            if (!isFinite(tapW) || tapW <= 0) continue;
+            if (!isFinite(tapH) || tapH <= 0) continue;
+
+            var left = x + tapX * w;
+            var top = y + tapY * h;
+            var right = left + tapW * w;
+            var bottom = top + tapH * h;
+
             if (
-                pointX < x ||
-                pointX >= x + w ||
-                pointY < y ||
-                pointY >= y + h
+                pointX < left ||
+                pointX >= right ||
+                pointY < top ||
+                pointY >= bottom
             ) {
                 continue;
             }
@@ -91,7 +143,7 @@
             var trigger = getTownTriggerById(String(interaction.triggerId));
             if (!trigger) continue;
 
-            // 画像が重なった場合は、描画上手前になりやすい footY が大きい方を優先する。
+            // tap矩形が重なった場合は、描画上手前になりやすい footY が大きい方を優先する。
             var footY = (typeof part.footY === "number") ? part.footY : y + h;
 
             if (
@@ -108,6 +160,35 @@
         }
 
         return best ? best.trigger : null;
+    }
+
+    function getDirectTapTriggerCandidate(tileX, tileY, skippedIds) {
+        var best = null;
+        var bestScore = Infinity;
+
+        for (var i = 0; i < triggers.length; i++) {
+            var t = triggers[i];
+            if (!t || !t.area) continue;
+            if (skippedIds && skippedIds[t.id]) continue;
+
+            // 専用tapを持たない従来triggerだけは、これまでのtapPadding仕様を維持する。
+            var padding = (typeof t.tapPadding === "number") ? t.tapPadding : 2;
+
+            if (!isTileInsideRectWithPadding(tileX, tileY, t.area, padding)) continue;
+
+            var score = getTileDistanceToTriggerCenter(tileX, tileY, t);
+
+            if (isTileInsideRectWithPadding(tileX, tileY, t.area, 0)) {
+                score -= 4;
+            }
+
+            if (score < bestScore) {
+                bestScore = score;
+                best = t;
+            }
+        }
+
+        return best;
     }
 
     function getEdgeWarpTapCandidate(tileX, tileY) {
@@ -305,17 +386,20 @@
         return true;
     };
 
-    // 優先順位は「触れる物 → 既存trigger → 出口 → 地面」。
-    // 出口はマップ外周2タイル以内かつ、その方向に実在する edgeWarp の範囲だけ反応する。
+    // 優先順位は「専用tap → 従来trigger → 出口 → 地面」。
+    // 専用tapを持つ物は、直接タップ時には広いinteraction / trigger.areaを使わない。
     window.startTapMoveToNearbyTrigger = function(tileX, tileY) {
-        var partTrigger = getInteractivePartTriggerAtTile(tileX, tileY);
+        var tapPartTrigger = getTapPartTriggerAtTile(tileX, tileY);
 
-        if (partTrigger) {
-            return window.startTapMoveToTrigger(partTrigger);
+        if (tapPartTrigger) {
+            return window.startTapMoveToTrigger(tapPartTrigger);
         }
 
-        if (baseStartTapMoveToNearbyTrigger(tileX, tileY)) {
-            return true;
+        var tapManagedTriggerIds = getTapManagedTriggerIds();
+        var directTrigger = getDirectTapTriggerCandidate(tileX, tileY, tapManagedTriggerIds);
+
+        if (directTrigger) {
+            return window.startTapMoveToTrigger(directTrigger);
         }
 
         var edgeCandidate = getEdgeWarpTapCandidate(tileX, tileY);
