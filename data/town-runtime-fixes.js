@@ -20,37 +20,6 @@
     window.GAME_CAMERA_ZOOM = isPhoneViewport() ? PHONE_CAMERA_ZOOM : DEFAULT_CAMERA_ZOOM;
   }
 
-  function removeObsoleteEmptyStall() {
-    var maps = window.TOWN_SCENE_MAPS;
-    var alley = maps && maps.tomogushi_alley_map;
-    if (!alley) return;
-
-    if (Array.isArray(alley.triggers)) {
-      alley.triggers = alley.triggers.filter(function (trigger) {
-        return !trigger || trigger.id !== 'empty_stall_small';
-      });
-    }
-
-    if (Array.isArray(alley.decor)) {
-      alley.decor = alley.decor.filter(function (item) {
-        if (!item) return true;
-        return !(
-          Number(item.x) === 18 &&
-          Number(item.y) === 15 &&
-          Number(item.w) === 1 &&
-          Number(item.h) === 2 &&
-          item.fill === '#6a4d36'
-        );
-      });
-    }
-
-    if (window.currentScene === 'tomogushi_alley_map' && Array.isArray(window.triggers)) {
-      window.triggers = window.triggers.filter(function (trigger) {
-        return !trigger || trigger.id !== 'empty_stall_small';
-      });
-    }
-  }
-
   function bindDeveloperButton() {
     var button = document.getElementById('btn-debug-toggle');
     if (!button || button.dataset.yumaniwaDevBound === '1') return;
@@ -115,24 +84,20 @@
     window.getTownPartTriggerArea = patched;
   }
 
-  removeObsoleteEmptyStall();
   applyCameraZoom();
   preserveExplicitTriggerAreas();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
-      removeObsoleteEmptyStall();
       bindDeveloperButton();
       preserveExplicitTriggerAreas();
     });
   } else {
-    removeObsoleteEmptyStall();
     bindDeveloperButton();
     preserveExplicitTriggerAreas();
   }
 
   window.addEventListener('load', function () {
-    removeObsoleteEmptyStall();
     applyCameraZoom();
     bindDeveloperButton();
     preserveExplicitTriggerAreas();
