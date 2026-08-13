@@ -151,6 +151,12 @@
     var alley = maps && maps.tomogushi_alley_map;
     if (!alley || !Array.isArray(alley.props)) return;
 
+    if (Array.isArray(alley.blockedRects)) {
+      alley.blockedRects = alley.blockedRects.filter(function (item) {
+        return !(item && item.x === 13 && item.y === 16 && item.w === 3 && item.h === 2);
+      });
+    }
+
     for (var i = 0; i < alley.props.length; i++) {
       var prop = alley.props[i];
       if (!prop || prop.id !== 'common_temporary_storefront') continue;
