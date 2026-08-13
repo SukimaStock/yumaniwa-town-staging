@@ -3,6 +3,8 @@
     // RPGらしい歩行や発見の手触りは残しつつ、対象を「使う」操作は1回にまとめる。
 
     var tapAutoActionTrigger = null;
+    var tapAutoWarpSide = null;
+    var EDGE_WARP_TAP_DEPTH = 2;
 
     // main.js の既存移動処理はそのまま使い、到着後の自動実行と
     // 「見えている物をそのまま触れる」ためのタップ判定だけをこの層で足す。
@@ -108,6 +110,84 @@
         return best ? best.trigger : null;
     }
 
+    function getEdgeWarpTapCandidate(tileX, tileY) {
+        if (!activeTownSceneDef || !activeTownSceneDef.edgeWarps || !activeTownSceneDef.edgeWarps.length) {
+            return null;
+        }
+
+        var startTile = getPlayerTile();
+        var best = null;
+        var warps = activeTownSceneDef.edgeWarps;
+
+        for (var i = 0; i < warps.length; i++) {
+            var warp = warps[i];
+            if (!warp || !warp.side) continue;
+
+            var min = Math.max(0, Math.floor(Number(warp.min) || 0));
+            var max = Math.floor(Number(warp.max));
+            if (!isFinite(max)) max = min;
+
+            var tappedAlongExit = false;
+            var tapCross = 0;
+
+            if (warp.side === "left") {
+                tappedAlongExit = tileX < EDGE_WARP_TAP_DEPTH && tileY >= min && tileY <= max;
+                tapCross = tileY;
+            } else if (warp.side === "right") {
+                tappedAlongExit = tileX >= MAP_WIDTH - EDGE_WARP_TAP_DEPTH && tileY >= min && tileY <= max;
+                tapCross = tileY;
+            } else if (warp.side === "up") {
+                tappedAlongExit = tileY < EDGE_WARP_TAP_DEPTH && tileX >= min && tileX <= max;
+                tapCross = tileX;
+            } else if (warp.side === "down") {
+                tappedAlongExit = tileY >= MAP_HEIGHT - EDGE_WARP_TAP_DEPTH && tileX >= min && tileX <= max;
+                tapCross = tileX;
+            }
+
+            if (!tappedAlongExit) continue;
+
+            // 出口幅の中から、現在地から実際に歩いて到達できる最寄りの端タイルを探す。
+            for (var n = min; n <= max; n++) {
+                var goalX = 0;
+                var goalY = 0;
+
+                if (warp.side === "left") {
+                    goalX = 0;
+                    goalY = n;
+                } else if (warp.side === "right") {
+                    goalX = MAP_WIDTH - 1;
+                    goalY = n;
+                } else if (warp.side === "up") {
+                    goalX = n;
+                    goalY = 0;
+                } else if (warp.side === "down") {
+                    goalX = n;
+                    goalY = MAP_HEIGHT - 1;
+                } else {
+                    continue;
+                }
+
+                if (!isWalkableTile(goalX, goalY)) continue;
+
+                var path = findPath(startTile.x, startTile.y, goalX, goalY);
+                if (!path) continue;
+
+                // 基本は歩行距離を優先し、同程度ならタップした位置に近い出口を選ぶ。
+                var score = path.length * 10 + Math.abs(n - tapCross);
+
+                if (!best || score < best.score) {
+                    best = {
+                        side: warp.side,
+                        tile: { x: goalX, y: goalY },
+                        score: score
+                    };
+                }
+            }
+        }
+
+        return best;
+    }
+
     window.activateTownTrigger = function(trigger) {
         if (!trigger) return false;
 
@@ -178,8 +258,40 @@
         return true;
     }
 
+    function finishTapAutoWarpIfReady() {
+        var side = tapAutoWarpSide;
+        if (!side) return false;
+
+        if (tapMoveTargetTile || tapMoveTargetTrigger) {
+            return false;
+        }
+
+        // tryTownEdgeWarp() 内で cancelTapMove() が呼ばれるので、先に予約だけ外す。
+        tapAutoWarpSide = null;
+        return tryTownEdgeWarp(side);
+    }
+
+    function startTapMoveToEdgeWarp(candidate) {
+        if (!candidate || !candidate.side || !candidate.tile) return false;
+
+        tapAutoActionTrigger = null;
+        tapAutoWarpSide = candidate.side;
+
+        // wrapper版 startTapMoveTo() は出口予約を消すため、ここだけ既存本体を直接使う。
+        var started = baseStartTapMoveTo(candidate.tile.x, candidate.tile.y);
+        if (!started) {
+            tapAutoWarpSide = null;
+            return false;
+        }
+
+        // すでに出口タイルにいる場合も、そのタップでそのまま移動する。
+        finishTapAutoWarpIfReady();
+        return true;
+    }
+
     // 対象をタップした時だけ「到着後に使う」を予約する。
     window.startTapMoveToTrigger = function(trigger) {
+        tapAutoWarpSide = null;
         tapAutoActionTrigger = trigger || null;
 
         var started = baseStartTapMoveToTrigger(trigger);
@@ -193,8 +305,8 @@
         return true;
     };
 
-    // interaction を持つpropは、画像全体を「指で選べる範囲」として先に見る。
-    // 該当しなければ、従来の trigger.area + tapPadding 判定へそのまま戻す。
+    // 優先順位は「触れる物 → 既存trigger → 出口 → 地面」。
+    // 出口はマップ外周2タイル以内かつ、その方向に実在する edgeWarp の範囲だけ反応する。
     window.startTapMoveToNearbyTrigger = function(tileX, tileY) {
         var partTrigger = getInteractivePartTriggerAtTile(tileX, tileY);
 
@@ -202,13 +314,26 @@
             return window.startTapMoveToTrigger(partTrigger);
         }
 
-        return baseStartTapMoveToNearbyTrigger(tileX, tileY);
+        if (baseStartTapMoveToNearbyTrigger(tileX, tileY)) {
+            return true;
+        }
+
+        var edgeCandidate = getEdgeWarpTapCandidate(tileX, tileY);
+        if (edgeCandidate) {
+            return startTapMoveToEdgeWarp(edgeCandidate);
+        }
+
+        return false;
     };
 
-    // 歩き切ったフレームで、そのまま対象を使う。
+    // 歩き切ったフレームで、そのまま対象を使う／隣エリアへ抜ける。
     window.updateTapMove = function() {
         var moved = baseUpdateTapMove();
-        finishTapAutoActionIfReady();
+
+        if (!finishTapAutoActionIfReady()) {
+            finishTapAutoWarpIfReady();
+        }
+
         return moved;
     };
 
@@ -216,6 +341,7 @@
     // 自動実行中に別の地面を選んだ場合も、前の予約はここでキャンセルされる。
     window.startTapMoveTo = function(tileX, tileY) {
         tapAutoActionTrigger = null;
+        tapAutoWarpSide = null;
         return baseStartTapMoveTo(tileX, tileY);
     };
 
@@ -223,6 +349,7 @@
     // すべて自動実行予約も一緒に解除する。
     window.cancelTapMove = function() {
         tapAutoActionTrigger = null;
+        tapAutoWarpSide = null;
         return baseCancelTapMove.apply(this, arguments);
     };
 
