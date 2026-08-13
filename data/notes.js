@@ -357,3 +357,66 @@ function getVisibleNoteArticles() {
 
     return articles;
 }
+
+// 初回来訪時だけ駅前広場の案内を表示する。
+// このファイルは index.html 側で Date.now() 付き読み込みのため、キャッシュ更新を待たず反映できる。
+(function setupFirstStationVisitGuide() {
+    var repoPath = (window.location.pathname.split("/")[1] || "root");
+    var storageKey = "yumaniwa:first-station-guide-v1:" + repoPath;
+    var shownThisPage = false;
+    var hookInstalled = false;
+
+    function hasSeen() {
+        if (shownThisPage) return true;
+        try {
+            return window.localStorage.getItem(storageKey) === "1";
+        } catch (err) {
+            return false;
+        }
+    }
+
+    function markSeen() {
+        shownThisPage = true;
+        try {
+            window.localStorage.setItem(storageKey, "1");
+        } catch (err) {
+            // 保存できなくても、このページ内では一度だけ表示する。
+        }
+    }
+
+    function showIfReady() {
+        if (hasSeen()) return false;
+        if (typeof currentScene === "undefined" || currentScene !== "station_plaza") return false;
+        if (typeof isWorkPlayerOpen !== "undefined" && isWorkPlayerOpen) return false;
+        if (typeof isMessageOpen !== "undefined" && isMessageOpen) return false;
+        if (typeof isStationGuideMapOpen !== "undefined" && isStationGuideMapOpen) return false;
+        if (typeof showMessage !== "function") return false;
+
+        markSeen();
+        showMessage(
+            "ここは駅前広場だ。\n" +
+            "町は上下左右につながっている。\n" +
+            "中央の案内板で地図を見られるようだ。"
+        );
+        return true;
+    }
+
+    function installSceneHook() {
+        if (hookInstalled || typeof window.changeScene !== "function") return;
+        var baseChangeScene = window.changeScene;
+        hookInstalled = true;
+
+        window.changeScene = function(sceneId, spawnKey) {
+            var result = baseChangeScene.apply(this, arguments);
+            if (sceneId === "station_plaza") {
+                window.setTimeout(showIfReady, 120);
+            }
+            return result;
+        };
+    }
+
+    window.addEventListener("load", function() {
+        installSceneHook();
+        window.setTimeout(showIfReady, 900);
+    });
+})();
