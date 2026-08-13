@@ -164,7 +164,7 @@
           "src": "assets/maps/props/tomogushi-alley/common-temporary-storefront.png?v=20260813-1",
           "x": 12.25, "y": 12.2, "w": 4.5, "h": 6.7173913043, "footY": 18.9173913043, "enabled": true,
           "collision": { "enabled": true, "x": 0.18, "y": 0.8, "w": 0.64, "h": 0.18 },
-          "interaction": { "enabled": true, "triggerId": "game_list_stall", "x": 0.06, "y": 0.58, "w": 0.88,h: 0.4 },
+          "interaction": { "enabled": true, "triggerId": "game_list_stall", "x": 0.06, "y": 0.58, "w": 0.88, "h": 0.4 },
           "catalogKey": "bench"
         }
       ],
