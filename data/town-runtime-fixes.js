@@ -136,7 +136,7 @@
       upsertProp(onsen, {
         id: 'no_entry_sign',
         src: 'assets/maps/props/common/no-entry-sign.png',
-        x: 6, y: 3, w: 12, h: 3, footY: 6, enabled: true,
+        x: 8, y: 0, w: 8, h: 8, footY: 8, enabled: true,
         collision: { enabled: false, x: 0, y: 0, w: 0, h: 0 },
         interaction: { enabled: false, triggerId: '', x: 0, y: 0, w: 0, h: 0 },
         catalogKey: 'bench'
