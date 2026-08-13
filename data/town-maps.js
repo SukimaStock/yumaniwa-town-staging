@@ -267,20 +267,10 @@
       ],
       "triggers": [
         {
-          "id": "leisure_counter", "label": "案内カウンター", "actionLabel": "調べる", "type": "inspect",
-          "text": "案内カウンター。ここでは展示の見方や、この建物の使い方を案内できます。",
-          "area": { "x": 1, "y": 2, "w": 5, "h": 4 }, "tapPadding": 1
-        },
-        {
           "id": "leisure_catalog", "label": "展示ガイド", "actionLabel": "見る",
           "area": { "x": 10, "y": 13, "w": 4, "h": 4 },
           "type": "menu", "target": "leisure_catalog",
           "text": "展示ガイド。触れるらくがきや展示を、選択肢からまとめて見られます。"
-        },
-        {
-          "id": "leisure_pickup", "label": "おすすめ棚", "actionLabel": "調べる", "type": "inspect",
-          "text": "おすすめ棚。ピックアップした展示や、今おすすめしたいものを置けそうです。",
-          "area": { "x": 17, "y": 2, "w": 6, "h": 5 }, "tapPadding": 1
         }
       ],
       "groundRects": [
@@ -301,8 +291,6 @@
         }
       ],
       "decor": [
-        { "x": 4, "y": 4, "w": 5, "h": 3, "fill": "#7c756c", "stroke": "#222", "label": "案内", "labelColor": "#ffffff" },
-        { "x": 15, "y": 4, "w": 5, "h": 3, "fill": "#90856d", "stroke": "#222", "label": "棚", "labelColor": "#ffffff" },
         { "x": 10, "y": 0, "w": 4, "h": 3, "fill": "#a9b8c5", "stroke": "#222", "label": "広場", "labelColor": "#ffffff" },
         { "x": 4, "y": 8, "w": 1, "h": 1, "fill": "#6d846d", "stroke": "#222", "label": "", "labelColor": "#ffffff" },
         { "x": 19, "y": 8, "w": 1, "h": 1, "fill": "#6d846d", "stroke": "#222", "label": "", "labelColor": "#ffffff" },
