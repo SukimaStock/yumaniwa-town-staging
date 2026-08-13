@@ -5,7 +5,7 @@
     var repoPath = (window.location.pathname.split("/")[1] || "root");
     var FIRST_VISIT_KEY = "yumaniwa:first-station-guide-v1:" + repoPath;
     var shownThisPage = false;
-    var baseChangeScene = window.changeScene;
+    var changeSceneHookInstalled = false;
 
     function hasSeenFirstVisitGuide() {
         if (shownThisPage) return true;
@@ -29,7 +29,7 @@
 
     function showFirstVisitGuideIfReady() {
         if (hasSeenFirstVisitGuide()) return false;
-        if (currentScene !== "station_plaza") return false;
+        if (typeof currentScene === "undefined" || currentScene !== "station_plaza") return false;
         if (typeof isWorkPlayerOpen !== "undefined" && isWorkPlayerOpen) return false;
         if (typeof isMessageOpen !== "undefined" && isMessageOpen) return false;
         if (typeof isStationGuideMapOpen !== "undefined" && isStationGuideMapOpen) return false;
@@ -44,8 +44,12 @@
         return true;
     }
 
-    // 町内移動で初めて駅前広場へ来たケース（作品直リンクから入った場合など）にも対応する。
-    if (typeof baseChangeScene === "function") {
+    function installChangeSceneHook() {
+        if (changeSceneHookInstalled || typeof window.changeScene !== "function") return;
+
+        var baseChangeScene = window.changeScene;
+        changeSceneHookInstalled = true;
+
         window.changeScene = function(sceneId, spawnKey) {
             var result = baseChangeScene.apply(this, arguments);
 
@@ -57,8 +61,15 @@
         };
     }
 
-    // 通常アクセスでは、町の初期化と到着演出が落ち着いてから一度だけ表示する。
-    window.addEventListener("load", function() {
+    function bootFirstVisitGuide() {
+        installChangeSceneHook();
         window.setTimeout(showFirstVisitGuideIfReady, 900);
-    });
+    }
+
+    // main.js より前後どちらで読み込まれても成立するようにする。
+    if (document.readyState === "complete") {
+        bootFirstVisitGuide();
+    } else {
+        window.addEventListener("load", bootFirstVisitGuide);
+    }
 })();
