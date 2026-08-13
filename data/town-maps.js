@@ -85,99 +85,349 @@
     },
 
     tomogushi_alley_map: {
-      "id": "tomogushi_alley_map",
-      "title": "横丁",
-      "subtitle": "灯串横丁",
-      "mapWidth": 24,
-      "mapHeight": 24,
-      "backgroundStyle": "alley",
-      "backgroundImagePath": "assets/maps/grounds/tomogushi-alley-ground.png",
-      "spawnPoints": {
-        "default": { "x": 20, "y": 12, "dir": "left" },
-        "fromPlaza": { "x": 20, "y": 12, "dir": "left" }
-      },
-      "edgeWarps": [
-        { "side": "right", "min": 9, "max": 14, "target": "station_plaza", "targetSpawn": "fromAlley" }
-      ],
-      "passableRects": [
-        { "x": 4, "y": 4, "w": 15, "h": 12 },
-        { "x": 19, "y": 8, "w": 5, "h": 7 },
-        { "x": 0, "y": 10, "w": 4, "h": 4 },
-        { "x": 4, "y": 16, "w": 9, "h": 4 },
-        { "x": 16, "y": 16, "w": 3, "h": 4 },
-        { "x": 13, "y": 18, "w": 3, "h": 2 }
-      ],
-      "blockedRects": [
-        { "x": 0, "y": 0, "w": 24, "h": 4 },
-        { "x": 0, "y": 4, "w": 4, "h": 6 },
-        { "x": 19, "y": 4, "w": 5, "h": 4 },
-        { "x": 0, "y": 14, "w": 4, "h": 9 },
-        { "x": 19, "y": 15, "w": 5, "h": 9 },
-        { "x": 13, "y": 16, "w": 3, "h": 2 },
-        { "x": 4, "y": 20, "w": 15, "h": 4 },
-        { "x": 2, "y": 23, "w": 2, "h": 1 }
-      ],
-      "blockedPoints": [],
-      "areaZones": [
-        {
-          "id": "alley", "title": "灯串横丁", "subtitle": "夜の遊び場の路地",
-          "area": { "x": 0, "y": 0, "w": 24, "h": 24 }
-        }
-      ],
-      "triggers": [
-        {
-          "id": "yakitori_wars_booth", "label": "焼き鳥屋 ゆまど", "actionLabel": "遊ぶ",
-          "type": "work", "workId": "yakitori-wars",
-          "text": "炭火の向こうから、焼き鳥の香りが漂っている。",
-          "area": { "x": 12, "y": 5, "w": 7, "h": 3 }, "tapPadding": 1
+        "id": "tomogushi_alley_map",
+        "title": "横丁",
+        "subtitle": "灯串横丁",
+        "mapWidth": 24,
+        "mapHeight": 24,
+        "backgroundStyle": "alley",
+        "backgroundImagePath": "assets/maps/grounds/tomogushi-alley-ground.png",
+        "spawnPoints": {
+            "default": {
+                "x": 20,
+                "y": 12,
+                "dir": "left"
+            },
+            "fromPlaza": {
+                "x": 20,
+                "y": 12,
+                "dir": "left"
+            }
         },
-        {
-          "id": "midnight_cola_booth", "label": "クラフトコーラ研究所", "actionLabel": "遊ぶ",
-          "type": "work", "workId": "midnight-cola",
-          "text": "夜の研究所から、柑橘とスパイスの香りがする。",
-          "area": { "x": 2, "y": 4, "w": 5, "h": 4 }, "tapPadding": 1
-        },
-        {
-          "id": "game_list_stall", "label": "ゲーム案内所", "actionLabel": "見る", "type": "menu",
-          "target": "tomogushi_game_board",
-          "text": "灯串横丁で今夜遊べるゲームをまとめて案内しています。",
-          "area": { "x": 12, "y": 16, "w": 5, "h": 3 }, "tapPadding": 1
-        }
-      ],
-      "groundRects": [
-        { "x": 0, "y": 0, "w": 24, "h": 24, "color": "#49392f" },
-        { "x": 0, "y": 10, "w": 24, "h": 5, "color": "#6f5b46" },
-        { "x": 4, "y": 6, "w": 16, "h": 12, "color": "#5a4738" },
-        { "x": 3, "y": 15, "w": 16, "h": 4, "color": "#6a543f" }
-      ],
-      "props": [
-        {
-          "id": "yakitori_yumado_shop",
-          "src": "assets/maps/props/tomogushi-alley/yakitori-yumado.png?rev=20260716-1",
-          "x": 11.708333333333334, "y": 0, "w": 8, "h": 8, "footY": 8, "enabled": true,
-          "collision": { "enabled": true, "x": 0.13, "y": 0.79, "w": 0.74, "h": 0.18 },
-          "interaction": { "enabled": true, "triggerId": "yakitori_wars_booth", "x": 0.12, "y": 0.68, "w": 0.76, "h": 0.32 },
-          "catalogKey": "bench"
-        },
-        {
-          "id": "common_temporary_storefront",
-          "src": "assets/maps/props/tomogushi-alley/common-temporary-storefront.png?v=20260813-1",
-          "x": 13.4, "y": 15.6, "w": 2.2, "h": 3.3, "footY": 18.9, "enabled": true,
-          "collision": { "enabled": true, "x": 0.18, "y": 0.8, "w": 0.64, "h": 0.18 },
-          "interaction": { "enabled": true, "triggerId": "game_list_stall", "x": 0.06, "y": 0.58, "w": 0.88, "h": 0.4 },
-          "catalogKey": "bench"
-        }
-      ],
-      "decor": [
-        { "x": 2, "y": 4, "w": 5, "h": 4, "fill": "#7d5a42", "stroke": "#2d241b", "label": "コーラ", "labelColor": "#ffffff" },
-        { "x": 21, "y": 10, "w": 3, "h": 5, "fill": "#a9b8c5", "stroke": "#2d241b", "label": "広場", "labelColor": "#ffffff" },
-        { "x": 2, "y": 15, "w": 1, "h": 2, "fill": "#6a4d36", "stroke": "#2d241b", "label": "", "labelColor": "#ffffff" },
-        { "x": 3, "y": 3, "w": 1, "h": 1, "fill": "#cf9a4c", "stroke": "#2d241b", "label": "", "labelColor": "#ffffff" },
-        { "x": 6, "y": 3, "w": 1, "h": 1, "fill": "#cf9a4c", "stroke": "#2d241b", "label": "", "labelColor": "#ffffff" },
-        { "x": 17, "y": 3, "w": 1, "h": 1, "fill": "#cf9a4c", "stroke": "#2d241b", "label": "", "labelColor": "#ffffff" },
-        { "x": 8, "y": 16, "w": 1, "h": 1, "fill": "#8c6b4c", "stroke": "#2d241b", "label": "", "labelColor": "#ffffff" },
-        { "x": 11, "y": 16, "w": 1, "h": 1, "fill": "#8c6b4c", "stroke": "#2d241b", "label": "", "labelColor": "#ffffff" }
-      ]
+        "edgeWarps": [
+            {
+                "side": "right",
+                "min": 9,
+                "max": 14,
+                "target": "station_plaza",
+                "targetSpawn": "fromAlley"
+            }
+        ],
+        "passableRects": [
+            {
+                "x": 4,
+                "y": 4,
+                "w": 15,
+                "h": 12
+            },
+            {
+                "x": 19,
+                "y": 8,
+                "w": 5,
+                "h": 7
+            },
+            {
+                "x": 0,
+                "y": 10,
+                "w": 4,
+                "h": 4
+            },
+            {
+                "x": 4,
+                "y": 16,
+                "w": 9,
+                "h": 4
+            },
+            {
+                "x": 16,
+                "y": 16,
+                "w": 3,
+                "h": 4
+            },
+            {
+                "x": 13,
+                "y": 19,
+                "w": 3,
+                "h": 1
+            }
+        ],
+        "blockedRects": [
+            {
+                "x": 0,
+                "y": 0,
+                "w": 24,
+                "h": 4
+            },
+            {
+                "x": 0,
+                "y": 4,
+                "w": 4,
+                "h": 6
+            },
+            {
+                "x": 19,
+                "y": 4,
+                "w": 5,
+                "h": 4
+            },
+            {
+                "x": 0,
+                "y": 14,
+                "w": 4,
+                "h": 9
+            },
+            {
+                "x": 19,
+                "y": 15,
+                "w": 5,
+                "h": 9
+            },
+            {
+                "x": 13,
+                "y": 16,
+                "w": 3,
+                "h": 3
+            },
+            {
+                "x": 4,
+                "y": 20,
+                "w": 15,
+                "h": 4
+            },
+            {
+                "x": 2,
+                "y": 23,
+                "w": 2,
+                "h": 1
+            }
+        ],
+        "blockedPoints": [],
+        "areaZones": [
+            {
+                "id": "alley",
+                "title": "灯串横丁",
+                "subtitle": "夜の遊び場の路地",
+                "area": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 24,
+                    "h": 24
+                }
+            }
+        ],
+        "triggers": [
+            {
+                "id": "yakitori_wars_booth",
+                "label": "焼き鳥屋 ゆまど",
+                "actionLabel": "遊ぶ",
+                "type": "work",
+                "workId": "yakitori-wars",
+                "text": "炭火の向こうから、焼き鳥の香りが漂っている。",
+                "area": {
+                    "x": 12,
+                    "y": 5,
+                    "w": 7,
+                    "h": 3
+                },
+                "tapPadding": 1
+            },
+            {
+                "id": "midnight_cola_booth",
+                "label": "クラフトコーラ研究所",
+                "actionLabel": "遊ぶ",
+                "type": "work",
+                "workId": "midnight-cola",
+                "text": "夜の研究所から、柑橘とスパイスの香りがする。",
+                "area": {
+                    "x": 2,
+                    "y": 4,
+                    "w": 5,
+                    "h": 4
+                },
+                "tapPadding": 1
+            },
+            {
+                "id": "game_list_stall",
+                "label": "ゲーム案内所",
+                "actionLabel": "見る",
+                "type": "menu",
+                "target": "tomogushi_game_board",
+                "text": "灯串横丁で今夜遊べるゲームをまとめて案内しています。",
+                "area": {
+                    "x": 12,
+                    "y": 16,
+                    "w": 5,
+                    "h": 3
+                },
+                "tapPadding": 1
+            }
+        ],
+        "groundRects": [
+            {
+                "x": 0,
+                "y": 0,
+                "w": 24,
+                "h": 24,
+                "color": "#49392f"
+            },
+            {
+                "x": 0,
+                "y": 10,
+                "w": 24,
+                "h": 5,
+                "color": "#6f5b46"
+            },
+            {
+                "x": 4,
+                "y": 6,
+                "w": 16,
+                "h": 12,
+                "color": "#5a4738"
+            },
+            {
+                "x": 3,
+                "y": 15,
+                "w": 16,
+                "h": 4,
+                "color": "#6a543f"
+            }
+        ],
+        "props": [
+            {
+                "id": "yakitori_yumado_shop",
+                "src": "assets/maps/props/tomogushi-alley/yakitori-yumado.png?rev=20260716-1",
+                "x": 11.708333333333334,
+                "y": 0,
+                "w": 8,
+                "h": 8,
+                "footY": 8,
+                "enabled": true,
+                "collision": {
+                    "enabled": true,
+                    "x": 0.13,
+                    "y": 0.79,
+                    "w": 0.74,
+                    "h": 0.18
+                },
+                "interaction": {
+                    "enabled": true,
+                    "triggerId": "yakitori_wars_booth",
+                    "x": 0.12,
+                    "y": 0.68,
+                    "w": 0.76,
+                    "h": 0.32
+                },
+                "catalogKey": "bench"
+            },
+            {
+                "id": "common_temporary_storefront",
+                "src": "assets/maps/props/tomogushi-alley/common-temporary-storefront.png?v=20260813-1",
+                "x": 13,
+                "y": 14.7,
+                "w": 3,
+                "h": 4.2,
+                "footY": 18.9,
+                "enabled": true,
+                "collision": {
+                    "enabled": true,
+                    "x": 0.18,
+                    "y": 0.8,
+                    "w": 0.64,
+                    "h": 0.18
+                },
+                "interaction": {
+                    "enabled": true,
+                    "triggerId": "game_list_stall",
+                    "x": 0.06,
+                    "y": 0.58,
+                    "w": 0.88,
+                    "h": 0.4
+                },
+                "catalogKey": "bench"
+            }
+        ],
+        "decor": [
+            {
+                "x": 2,
+                "y": 4,
+                "w": 5,
+                "h": 4,
+                "fill": "#7d5a42",
+                "stroke": "#2d241b",
+                "label": "コーラ",
+                "labelColor": "#ffffff"
+            },
+            {
+                "x": 21,
+                "y": 10,
+                "w": 3,
+                "h": 5,
+                "fill": "#a9b8c5",
+                "stroke": "#2d241b",
+                "label": "広場",
+                "labelColor": "#ffffff"
+            },
+            {
+                "x": 2,
+                "y": 15,
+                "w": 1,
+                "h": 2,
+                "fill": "#6a4d36",
+                "stroke": "#2d241b",
+                "label": "",
+                "labelColor": "#ffffff"
+            },
+            {
+                "x": 3,
+                "y": 3,
+                "w": 1,
+                "h": 1,
+                "fill": "#cf9a4c",
+                "stroke": "#2d241b",
+                "label": "",
+                "labelColor": "#ffffff"
+            },
+            {
+                "x": 6,
+                "y": 3,
+                "w": 1,
+                "h": 1,
+                "fill": "#cf9a4c",
+                "stroke": "#2d241b",
+                "label": "",
+                "labelColor": "#ffffff"
+            },
+            {
+                "x": 17,
+                "y": 3,
+                "w": 1,
+                "h": 1,
+                "fill": "#cf9a4c",
+                "stroke": "#2d241b",
+                "label": "",
+                "labelColor": "#ffffff"
+            },
+            {
+                "x": 8,
+                "y": 16,
+                "w": 1,
+                "h": 1,
+                "fill": "#8c6b4c",
+                "stroke": "#2d241b",
+                "label": "",
+                "labelColor": "#ffffff"
+            },
+            {
+                "x": 11,
+                "y": 16,
+                "w": 1,
+                "h": 1,
+                "fill": "#8c6b4c",
+                "stroke": "#2d241b",
+                "label": "",
+                "labelColor": "#ffffff"
+            }
+        ]
     },
 
     yumado_street_map: {
