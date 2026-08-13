@@ -162,7 +162,7 @@
         {
           "id": "common_temporary_storefront",
           "src": "assets/maps/props/tomogushi-alley/common-temporary-storefront.png?v=20260813-1",
-          "x": 12.25, "y": 12.2, "w": 4.5, "h": 6.7173913043, "footY": 18.9173913043, "enabled": true,
+          "x": 13.4, "y": 15.6, "w": 2.2, "h": 3.3, "footY": 18.9, "enabled": true,
           "collision": { "enabled": true, "x": 0.18, "y": 0.8, "w": 0.64, "h": 0.18 },
           "interaction": { "enabled": true, "triggerId": "game_list_stall", "x": 0.06, "y": 0.58, "w": 0.88, "h": 0.4 },
           "catalogKey": "bench"
@@ -278,7 +278,7 @@
         {
           "id": "leisure_catalog_terminal",
           "src": "assets/maps/props/leisure-center/leisure-catalog-terminal.png?v=20260813-1",
-          "x": 10.5, "y": 14, "w": 3, "h": 3, "footY": 17, "enabled": true,
+          "x": 10.8, "y": 14.6, "w": 2.4, "h": 2.4, "footY": 17, "enabled": true,
           "collision": { "enabled": true, "x": 0.06, "y": 0.08, "w": 0.88, "h": 0.9 },
           "interaction": { "enabled": true, "triggerId": "leisure_catalog", "x": 0.04, "y": 0.48, "w": 0.92, "h": 0.5 },
           "catalogKey": "bench"
