@@ -1,6 +1,6 @@
-/* Yumaniwa responsive stability fixes / 2026-08-12
-   Keep the town at the canonical 390:780 aspect ratio on every device.
-   This file intentionally overrides the older mobile fluid-height rules in style.css. */
+/* Yumaniwa responsive stability fixes / 2026-08-13
+   Desktop/tablet keep the canonical 390:780 frame.
+   Phones use a slightly wider 9:16 frame so the town does not feel excessively tall. */
 
 #town-screen {
     width: min(
@@ -39,9 +39,19 @@
     }
 }
 
-/* Phones: cancel the old full-viewport stretch and center a true 1:2 frame. */
+/*
+   Phones: use 9:16 instead of 1:2.
+   main.js reads this rendered ratio and adjusts only the canvas logical height,
+   so sprites keep their original proportions.
+*/
 @media (max-width: 768px) and (pointer: coarse) {
+    :root {
+        --town-screen-ratio-w: 9;
+        --town-screen-ratio-h: 16;
+    }
+
     #game-container {
+        display: flex !important;
         align-items: center !important;
         justify-content: center !important;
     }
@@ -49,12 +59,12 @@
     #town-screen {
         width: min(
             100vw,
-            calc(100dvh * var(--town-screen-ratio-w) / var(--town-screen-ratio-h))
+            calc(100dvh * 9 / 16)
         ) !important;
         height: auto !important;
         max-width: 100vw !important;
         max-height: 100dvh !important;
-        aspect-ratio: var(--town-screen-ratio-w) / var(--town-screen-ratio-h) !important;
+        aspect-ratio: 9 / 16 !important;
         box-shadow: none;
     }
 }
