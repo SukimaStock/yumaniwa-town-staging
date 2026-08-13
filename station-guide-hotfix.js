@@ -30,4 +30,24 @@
             return baseConfirmStationGuideMapMove.apply(this, arguments);
         };
     }
+
+    // staging QA用: Xなどのアプリ内ブラウザで100dvhと実表示高がずれる場合、
+    // Visual Viewportの実測値をスマホ用CSSへ渡す。
+    function syncTownViewportHeight() {
+        var viewport = window.visualViewport;
+        var height = viewport && viewport.height ? viewport.height : window.innerHeight;
+        if (!height || !isFinite(height)) return;
+
+        document.documentElement.style.setProperty(
+            "--town-viewport-h",
+            Math.round(height) + "px"
+        );
+    }
+
+    syncTownViewportHeight();
+    window.addEventListener("resize", syncTownViewportHeight, { passive: true });
+
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", syncTownViewportHeight, { passive: true });
+    }
 })();
