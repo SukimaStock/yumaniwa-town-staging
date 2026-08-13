@@ -79,9 +79,9 @@ var DESTINATIONS = {
     },
     tomogushi_game_board: {
         id: "tomogushi_game_board",
-        title: "ゲーム案内屋台",
+        title: "ゲーム案内所",
         subtitle: "Tomogushi Alley",
-        description: "灯串横丁で今夜遊べる店とゲームをまとめた案内屋台。",
+        description: "灯串横丁で今夜遊べる店とゲームをまとめた案内所。",
         flavor: "手書きの札が、提灯の明かりの下に並んでいる。",
         menuTitle: "今夜はどこへ寄りますか?",
         returnScene: "tomogushi_alley_map",
