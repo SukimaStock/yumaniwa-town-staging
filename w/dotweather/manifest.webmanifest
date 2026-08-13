@@ -1,0 +1,18 @@
+{
+  "name": "DotWeather",
+  "short_name": "DotWeather",
+  "id": "../../?work=dotweather",
+  "start_url": "../../?work=dotweather",
+  "scope": "../../",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "../../assets/works/dotweather/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
