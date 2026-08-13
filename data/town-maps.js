@@ -164,7 +164,7 @@
           "src": "assets/maps/props/tomogushi-alley/common-temporary-storefront.png?v=20260813-1",
           "x": 12.25, "y": 12.2, "w": 4.5, "h": 6.7173913043, "footY": 18.9173913043, "enabled": true,
           "collision": { "enabled": true, "x": 0.18, "y": 0.8, "w": 0.64, "h": 0.18 },
-          "interaction": { "enabled": true, "triggerId": "game_list_stall", "x": 0.06, "y": 0.58, "w": 0.88, "h": 0.4 },
+          "interaction": { "enabled": true, "triggerId": "game_list_stall", "x": 0.06, "y": 0.58, "w": 0.88,h: 0.4 },
           "catalogKey": "bench"
         }
       ],
@@ -208,13 +208,7 @@
           id: 'street_info', label: '通りの立て札', actionLabel: '読む', type: 'inspect',
           text: '湯窓通り。\n\n今後、店や看板を少しずつ増やしていく予定の通りです。',
           area: rect(11, 10, 2, 2), tapPadding: 1
-        },
-        { id: 'street_shop_upper_right', label: '空き店舗', actionLabel: '調べる', type: 'inspect', text: '空き店舗。展示やお店、あるいは別の入口を置けそうです。', area: rect(18, 3, 5, 6), tapPadding: 1 },
-        { id: 'street_shop_lower_right', label: '空き店舗', actionLabel: '調べる', type: 'inspect', text: '空き店舗。展示やお店、あるいは別の入口を置けそうです。', area: rect(18, 15, 5, 5), tapPadding: 1 },
-        { id: 'street_shop_upper_center', label: '空き店舗', actionLabel: '調べる', type: 'inspect', text: '空き店舗。展示やお店、あるいは別の入口を置けそうです。', area: rect(11, 3, 5, 6), tapPadding: 1 },
-        { id: 'street_shop_lower_center', label: '空き店舗', actionLabel: '調べる', type: 'inspect', text: '空き店舗。展示やお店、あるいは別の入口を置けそうです。', area: rect(11, 15, 5, 5), tapPadding: 1 },
-        { id: 'street_shop_upper_left', label: '空き店舗', actionLabel: '調べる', type: 'inspect', text: '空き店舗。展示やお店、あるいは別の入口を置けそうです。', area: rect(4, 3, 5, 6), tapPadding: 1 },
-        { id: 'street_shop_lower_left', label: '空き店舗', actionLabel: '調べる', type: 'inspect', text: '空き店舗。展示やお店、あるいは別の入口を置けそうです。', area: rect(4, 15, 5, 5), tapPadding: 1 }
+        }
       ],
       groundRects: [
         { x: 0, y: 0, w: 24, h: 24, color: '#d5c8b0' },
