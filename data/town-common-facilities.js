@@ -47,27 +47,28 @@
     replaceProp(leisure, {
       id: 'leisure_catalog_terminal',
       src: 'assets/maps/props/leisure-center/leisure-catalog-terminal.png?v=20260813-1',
-      x: 9.5,
-      y: 13.0,
-      w: 5.0,
-      h: 5.0,
-      footY: 18.0,
+      x: 10.5,
+      y: 14.0,
+      w: 3.0,
+      h: 3.0,
+      footY: 17.0,
       enabled: true,
       collision: {
         enabled: true,
-        x: 0.18,
-        y: 0.72,
-        w: 0.64,
-        h: 0.24
+        x: 0.06,
+        y: 0.08,
+        w: 0.88,
+        h: 0.90
       },
       interaction: {
         enabled: true,
         triggerId: 'leisure_catalog',
-        x: 0.05,
-        y: 0.56,
-        w: 0.90,
-        h: 0.42
-      }
+        x: 0.04,
+        y: 0.48,
+        w: 0.92,
+        h: 0.50
+      },
+      catalogKey: 'bench'
     });
 
     removePlaceholderDecor(leisure, 9, 16, 6, 2);
@@ -83,6 +84,7 @@
       text: '灯串横丁で今夜遊べるゲームをまとめて案内しています。'
     });
 
+    // 開発モードで調整した配置値を正式採用。
     replaceProp(alley, {
       id: 'common_temporary_storefront',
       src: 'assets/maps/props/tomogushi-alley/common-temporary-storefront.png?v=20260813-1',
@@ -94,10 +96,10 @@
       enabled: true,
       collision: {
         enabled: true,
-        x: 0.18,
-        y: 0.80,
-        w: 0.64,
-        h: 0.18
+        x: 0.08,
+        y: 0.06,
+        w: 0.84,
+        h: 0.92
       },
       interaction: {
         enabled: true,
@@ -106,7 +108,8 @@
         y: 0.58,
         w: 0.88,
         h: 0.40
-      }
+      },
+      catalogKey: 'bench'
     });
 
     // 旧「一覧」表示と、新しい配置先の「空き」表示を両方消す。
