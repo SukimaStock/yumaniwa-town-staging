@@ -1,0 +1,3 @@
+# STAGING ONLY — do not copy this file to production.
+User-agent: *
+Disallow: /
