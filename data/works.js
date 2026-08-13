@@ -133,6 +133,7 @@ var WORKS = [
         playerWidth: 360,
         playerHeight: 660,
 
+        menuTitle: "MIDNIGHT COLA",
         menuCategory: "仕込みゲーム",
         menuDescription: "材料を重ねて、今夜の一本を仕込むすごろく。",
 
@@ -161,6 +162,7 @@ var WORKS = [
         playerWidth: 360,
         playerHeight: 660,
 
+        menuTitle: "Yakitori Wars",
         menuCategory: "対戦ゲーム",
         menuDescription: "焼き加減と取りどきを読み合う、二人対戦ゲーム。",
 
