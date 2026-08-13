@@ -96,10 +96,10 @@
       enabled: true,
       collision: {
         enabled: true,
-        x: 0.08,
-        y: 0.06,
-        w: 0.84,
-        h: 0.92
+        x: 0.18,
+        y: 0.80,
+        w: 0.64,
+        h: 0.18
       },
       interaction: {
         enabled: true,
