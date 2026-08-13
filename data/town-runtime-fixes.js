@@ -136,7 +136,7 @@
       upsertProp(onsen, {
         id: 'no_entry_sign',
         src: 'assets/maps/props/common/no-entry-sign.png',
-        x: 10, y: 2, w: 1, h: 1, footY: 6, enabled: true,
+        x: 10, y: 2, w: 4, h: 4, footY: 6, enabled: true,
         collision: { enabled: false, x: 0, y: 0, w: 0, h: 0 },
         interaction: { enabled: false, triggerId: '', x: 0, y: 0, w: 0, h: 0 },
         catalogKey: 'bench'
@@ -144,7 +144,28 @@
     }
   }
 
+  // ゲーム案内所は、駅前広場の主人公を基準にした小型案内所サイズへ揃える。
+  // trigger.area は既存の広い範囲をそのまま使う。
+  function applyGuidePropScale() {
+    var maps = window.TOWN_SCENE_MAPS;
+    var alley = maps && maps.tomogushi_alley_map;
+    if (!alley || !Array.isArray(alley.props)) return;
+
+    for (var i = 0; i < alley.props.length; i++) {
+      var prop = alley.props[i];
+      if (!prop || prop.id !== 'common_temporary_storefront') continue;
+
+      prop.x = 13.0;
+      prop.y = 14.7;
+      prop.w = 3.0;
+      prop.h = 4.2;
+      prop.footY = 18.9;
+      break;
+    }
+  }
+
   applyCommonSignAssets();
+  applyGuidePropScale();
   applyCameraZoom();
   preserveExplicitTriggerAreas();
 
