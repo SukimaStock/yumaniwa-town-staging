@@ -138,11 +138,6 @@
           "area": { "x": 2, "y": 4, "w": 5, "h": 4 }, "tapPadding": 1
         },
         {
-          "id": "empty_stall_small", "label": "空き屋台", "actionLabel": "調べる", "type": "inspect",
-          "text": "空き屋台。ここには次のゲームや小さな遊びを置けそうです。",
-          "area": { "x": 18, "y": 16, "w": 1, "h": 1 }, "tapPadding": 1
-        },
-        {
           "id": "game_list_stall", "label": "ゲーム案内所", "actionLabel": "見る", "type": "menu",
           "target": "tomogushi_game_board",
           "text": "灯串横丁で今夜遊べるゲームをまとめて案内しています。",
@@ -177,7 +172,6 @@
         { "x": 2, "y": 4, "w": 5, "h": 4, "fill": "#7d5a42", "stroke": "#2d241b", "label": "コーラ", "labelColor": "#ffffff" },
         { "x": 21, "y": 10, "w": 3, "h": 5, "fill": "#a9b8c5", "stroke": "#2d241b", "label": "広場", "labelColor": "#ffffff" },
         { "x": 2, "y": 15, "w": 1, "h": 2, "fill": "#6a4d36", "stroke": "#2d241b", "label": "", "labelColor": "#ffffff" },
-        { "x": 18, "y": 15, "w": 1, "h": 2, "fill": "#6a4d36", "stroke": "#2d241b", "label": "", "labelColor": "#ffffff" },
         { "x": 3, "y": 3, "w": 1, "h": 1, "fill": "#cf9a4c", "stroke": "#2d241b", "label": "", "labelColor": "#ffffff" },
         { "x": 6, "y": 3, "w": 1, "h": 1, "fill": "#cf9a4c", "stroke": "#2d241b", "label": "", "labelColor": "#ffffff" },
         { "x": 17, "y": 3, "w": 1, "h": 1, "fill": "#cf9a4c", "stroke": "#2d241b", "label": "", "labelColor": "#ffffff" },
