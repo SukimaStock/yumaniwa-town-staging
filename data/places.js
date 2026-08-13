@@ -21,7 +21,7 @@ var DESTINATIONS = {
             {
                 label: "町の案内",
                 kind: "message",
-                text: "駅前の掲示板には湯間庭新報。レジャーセンターには、触れるらくがき。灯串横丁には、今夜開いている三つの店があります。\n\n温泉へ続く石段は、もう少し先の話です。"
+                text: "駅前の掲示板には湯間庭新報。レジャーセンターには、触れるらくがき。灯串横丁には、今夜もいくつかの店やゲームがあります。\n\n温泉へ続く石段は、もう少し先の話です。"
             },
             {
                 label: "この町の作り手について",
@@ -204,7 +204,7 @@ function refreshTownContent() {
         alleyItems.push({
             label: "灯串横丁について",
             kind: "message",
-            text: "灯串横丁は、駅前のはずれにある小さな横丁です。\n\n炭火の店と、コーラを仕込む研究所、それから深夜だけ開く純喫茶が、提灯の下で今夜も開いています。"
+            text: "灯串横丁は、駅前のはずれにある小さな横丁です。\n\n提灯の下では、今夜もいくつかの店やゲームが開いています。"
         });
         alleyItems.push({ label: "駅前へ戻る", kind: "back" });
         DESTINATIONS.tomogushi_alley_map.items = alleyItems;
