@@ -8,6 +8,7 @@
    - Map Open
    - Venue Open
    - Work Open
+   - Work Close
    - Share
    ========================================== */
 (function () {
@@ -20,6 +21,7 @@
     var PLAUSIBLE_SCRIPT = "https://plausible.io/js/pa-sYe-y0PqpZapFe6FJVlK2.js";
     var workOpenSource = "";
     var previousWorkId = "";
+    var currentWorkSource = "";
 
     window.__YUMANIWA_ANALYTICS_DEBUG__ = IS_STAGING;
 
@@ -43,13 +45,15 @@
             var workId = String(normalized.work || normalized.work_id || window.currentWorkId || "unknown");
             var work = getWork(workId);
             var fromWorkId = previousWorkId || "none";
+            var openSource = workOpenSource || normalized.source || normalized.entry || "town";
             previousWorkId = workId;
+            currentWorkSource = openSource;
 
             return {
                 work: workId,
                 from_work: fromWorkId,
                 venue: (work && work.venue) || normalized.venue || "unknown",
-                source: workOpenSource || normalized.source || normalized.entry || "town",
+                source: openSource,
                 launch: normalized.launch || (work && work.launch) || "unknown"
             };
         }
@@ -181,6 +185,33 @@
         window.handleDestinationMenuItem = wrappedHandleDestinationMenuItem;
     }
 
+    function wrapWorkClose() {
+        var baseClose = window.closeWorkPlayer;
+        if (typeof baseClose !== "function" || baseClose.__yumaniwaAnalyticsWrapped) return;
+
+        function wrappedCloseWorkPlayer() {
+            var wasOpen = !!window.isWorkPlayerOpen;
+            var workId = String(window.currentWorkId || "");
+            var wasDirect = !!window.isDirectWorkVisit;
+            var work = getWork(workId);
+            var result = baseClose.apply(this, arguments);
+
+            if (wasOpen && workId && !window.isWorkPlayerOpen) {
+                track("Work Close", {
+                    work: workId,
+                    venue: (work && work.venue) || "unknown",
+                    source: currentWorkSource || (wasDirect ? "direct" : "town")
+                });
+                currentWorkSource = "";
+            }
+
+            return result;
+        }
+
+        wrappedCloseWorkPlayer.__yumaniwaAnalyticsWrapped = true;
+        window.closeWorkPlayer = wrappedCloseWorkPlayer;
+    }
+
     // share-bridge.js は navigator.share() を呼ぶため、成功Promiseだけを後付けで計測する。
     // 共有キャンセルや失敗は Share に数えない。
     function wrapNativeShare() {
@@ -223,6 +254,7 @@
     wrapStationGuideMap();
     wrapTownTriggerActivation();
     wrapDestinationMenuSelection();
+    wrapWorkClose();
     wrapNativeShare();
 
     // main.js の初期ルート処理が先に走った環境では、既に開いている直リンク作品を補足する。
