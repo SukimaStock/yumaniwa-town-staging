@@ -1,7 +1,7 @@
 // ==========================================
-// 湯間庭町 / 駅前広場 編集データ
-// 開発モードの「書き出す」で生成した完全版です。
-// この内容で data/station-plaza.js を丸ごと置き換えてください。
+// 湯間庭町 / 駅前広場 編集データ
+// 開発モードの「書き出す」で生成した完全版です。
+// この内容で data/station-plaza.js を丸ごと置き換えてください。
 // ==========================================
 
 var BG_IMAGE_PATH = "assets/maps/grounds/station-plaza-ground.png";
@@ -9,8 +9,8 @@ var TILE_SIZE = 16;
 var MAP_WIDTH = 24;
 var MAP_HEIGHT = 24;
 var PLAYER_START = {
-    "x": 11,
-    "y": 18
+    "x": 16,
+    "y": 6
 };
 
 var passableRects = [
@@ -29,7 +29,7 @@ var passableRects = [
     {
         "x": 14,
         "y": 7,
-        "w": 2,
+        "w": 3,
         "h": 3
     },
     {
@@ -51,12 +51,6 @@ var passableRects = [
         "h": 7
     },
     {
-        "x": 16,
-        "y": 9,
-        "w": 1,
-        "h": 5
-    },
-    {
         "x": 20,
         "y": 9,
         "w": 4,
@@ -71,7 +65,7 @@ var passableRects = [
     {
         "x": 15,
         "y": 10,
-        "w": 1,
+        "w": 2,
         "h": 6
     },
     {
@@ -150,9 +144,9 @@ var blockedRects = [
         "h": 6
     },
     {
-        "x": 16,
+        "x": 17,
         "y": 7,
-        "w": 8,
+        "w": 7,
         "h": 2
     },
     {
@@ -180,9 +174,9 @@ var blockedRects = [
         "h": 10
     },
     {
-        "x": 16,
+        "x": 17,
         "y": 14,
-        "w": 7,
+        "w": 6,
         "h": 10
     },
     {
@@ -206,7 +200,7 @@ var blockedRects = [
     {
         "x": 14,
         "y": 16,
-        "w": 2,
+        "w": 3,
         "h": 7
     },
     {
@@ -214,15 +208,16 @@ var blockedRects = [
         "y": 23,
         "w": 2,
         "h": 1
+    },
+    {
+        "x": 15,
+        "y": 23,
+        "w": 2,
+        "h": 1
     }
 ];
 
-var blockedPoints = [
-    {
-        "x": 15,
-        "y": 23
-    }
-];
+var blockedPoints = [];
 
 var triggers = [
     {
@@ -265,6 +260,36 @@ var triggers = [
         "type": "inspect",
         "target": "",
         "text": "湯間庭駅前広場。左に灯串横丁、右に湯窓通り、上に温泉方面、下にレジャーセンターがあります。"
+    },
+    {
+        "id": "town_update_history_sign",
+        "label": "町の更新記録",
+        "actionLabel": "読む",
+        "type": "menu",
+        "target": "town_update_history",
+        "text": "町の更新記録が、新しい順に並んでいます。",
+        "area": {
+            "x": 14,
+            "y": 14,
+            "w": 3,
+            "h": 3
+        },
+        "tapPadding": 1
+    },
+    {
+        "id": "town_feedback_box_trigger",
+        "label": "町へのおたより",
+        "actionLabel": "見る",
+        "type": "menu",
+        "target": "town_feedback_box",
+        "text": "町へのおたよりを入れられるようです。",
+        "area": {
+            "x": 14,
+            "y": 5,
+            "w": 3,
+            "h": 3
+        },
+        "tapPadding": 1
     }
 ];
 
@@ -282,7 +307,7 @@ var areaZones = [
     }
 ];
 
-// マップパーツ。collision と interaction は画像内の相対比率(0〜1)です。
+// マップパーツ。collision と interaction は画像内の相対比率（0〜1）です。
 var stationPlazaProps = [
     {
         "id": "station_notice_board",
@@ -594,6 +619,72 @@ var stationPlazaProps = [
             "y": 0.6,
             "w": 0.3,
             "h": 0.4
+        }
+    },
+    {
+        "id": "station_update_history_signboard",
+        "src": "assets/maps/props/common/standing-signboard.png?v=20260816-1",
+        "x": 14.278788130432376,
+        "y": 14.040514449427004,
+        "w": 2.375,
+        "h": 2.375,
+        "footY": 16.415514449427004,
+        "enabled": true,
+        "catalogKey": "standingSignboard",
+        "collision": {
+            "enabled": true,
+            "x": 0.18,
+            "y": 0.72,
+            "w": 0.64,
+            "h": 0.28
+        },
+        "interaction": {
+            "enabled": true,
+            "triggerId": "town_update_history_sign",
+            "x": 0.05,
+            "y": 0.2,
+            "w": 0.9,
+            "h": 0.8
+        },
+        "tap": {
+            "enabled": true,
+            "x": 0.05,
+            "y": 0.12,
+            "w": 0.9,
+            "h": 0.88
+        }
+    },
+    {
+        "id": "station_feedback_box_placeholder",
+        "src": "assets/maps/props/common/town-feedback-postbox.png?v=20260816-2",
+        "x": 15.01958353092807,
+        "y": 4.513234433754954,
+        "w": 1.6829268292682926,
+        "h": 3,
+        "footY": 7.513234433754954,
+        "enabled": true,
+        "catalogKey": "standingSignboard",
+        "collision": {
+            "enabled": true,
+            "x": 0.3,
+            "y": 0.82,
+            "w": 0.4,
+            "h": 0.14
+        },
+        "interaction": {
+            "enabled": true,
+            "triggerId": "town_feedback_box_trigger",
+            "x": 0.1,
+            "y": 0.08,
+            "w": 0.8,
+            "h": 0.84
+        },
+        "tap": {
+            "enabled": true,
+            "x": 0.08,
+            "y": 0.06,
+            "w": 0.84,
+            "h": 0.88
         }
     }
 ];
