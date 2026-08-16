@@ -28,7 +28,20 @@
   <meta name="twitter:image:alt" content="純喫茶ダイヴ">
 
   <title>純喫茶ダイヴ｜湯間庭町</title>
-  <script>window.location.replace("../../?work=junkissa-dive");</script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      params.delete("work");
+
+      var target = "../../?work=junkissa-dive";
+      var preserved = params.toString();
+
+      if (preserved) target += "&" + preserved;
+      if (window.location.hash) target += window.location.hash;
+
+      window.location.replace(target);
+    })();
+  </script>
 </head>
 <body>
   <p><a href="../../?work=junkissa-dive">湯間庭町で純喫茶ダイヴを開く</a></p>

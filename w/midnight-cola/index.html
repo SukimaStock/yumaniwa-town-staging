@@ -28,7 +28,20 @@
   <meta name="twitter:image:alt" content="MIDNIGHT COLA">
 
   <title>MIDNIGHT COLA｜湯間庭町</title>
-  <script>window.location.replace("../../?work=midnight-cola");</script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      params.delete("work");
+
+      var target = "../../?work=midnight-cola";
+      var preserved = params.toString();
+
+      if (preserved) target += "&" + preserved;
+      if (window.location.hash) target += window.location.hash;
+
+      window.location.replace(target);
+    })();
+  </script>
 </head>
 <body>
   <p><a href="../../?work=midnight-cola">湯間庭町でMIDNIGHT COLAを開く</a></p>

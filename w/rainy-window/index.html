@@ -28,7 +28,20 @@
   <meta name="twitter:image:alt" content="雨の日の窓">
 
   <title>雨の日の窓｜湯間庭町</title>
-  <script>window.location.replace("../../?work=rainy-window");</script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      params.delete("work");
+
+      var target = "../../?work=rainy-window";
+      var preserved = params.toString();
+
+      if (preserved) target += "&" + preserved;
+      if (window.location.hash) target += window.location.hash;
+
+      window.location.replace(target);
+    })();
+  </script>
 </head>
 <body>
   <p><a href="../../?work=rainy-window">湯間庭町で雨の日の窓を開く</a></p>

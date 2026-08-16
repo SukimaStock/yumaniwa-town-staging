@@ -28,7 +28,20 @@
   <meta name="twitter:image:alt" content="Yakitori Wars">
 
   <title>Yakitori Wars｜湯間庭町</title>
-  <script>window.location.replace("../../?work=yakitori-wars");</script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      params.delete("work");
+
+      var target = "../../?work=yakitori-wars";
+      var preserved = params.toString();
+
+      if (preserved) target += "&" + preserved;
+      if (window.location.hash) target += window.location.hash;
+
+      window.location.replace(target);
+    })();
+  </script>
 </head>
 <body>
   <p><a href="../../?work=yakitori-wars">湯間庭町でYakitori Warsを開く</a></p>

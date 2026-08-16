@@ -28,7 +28,20 @@
   <meta name="twitter:image:alt" content="DotWeather">
 
   <title>DotWeather｜湯間庭町</title>
-  <script>window.location.replace("../../?work=dotweather");</script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      params.delete("work");
+
+      var target = "../../?work=dotweather";
+      var preserved = params.toString();
+
+      if (preserved) target += "&" + preserved;
+      if (window.location.hash) target += window.location.hash;
+
+      window.location.replace(target);
+    })();
+  </script>
 </head>
 <body>
   <p><a href="../../?work=dotweather">湯間庭町でDotWeatherを開く</a></p>
