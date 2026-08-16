@@ -11,6 +11,24 @@
         return JSON.parse(JSON.stringify(data || []));
     }
 
+    function openStationTile16x8(rects) {
+        var result = [];
+
+        for (var i = 0; i < rects.length; i++) {
+            var item = rects[i];
+
+            if (item && item.x === 16 && item.y === 7 && item.w === 8 && item.h === 2) {
+                result.push({ x: 16, y: 7, w: 8, h: 1 });
+                result.push({ x: 17, y: 8, w: 7, h: 1 });
+                continue;
+            }
+
+            result.push(item);
+        }
+
+        return result;
+    }
+
     function isReplacedStationPlaceholder(item) {
         if (!item) return false;
 
@@ -42,7 +60,7 @@
         def.mapWidth = Number(window.MAP_WIDTH) || def.mapWidth || 24;
         def.mapHeight = Number(window.MAP_HEIGHT) || def.mapHeight || 24;
         def.passableRects = cloneData(window.passableRects);
-        def.blockedRects = cloneData(window.blockedRects);
+        def.blockedRects = openStationTile16x8(cloneData(window.blockedRects));
         def.blockedPoints = cloneData(window.blockedPoints);
         def.triggers = cloneData(window.triggers);
         def.areaZones = cloneData(window.areaZones);
