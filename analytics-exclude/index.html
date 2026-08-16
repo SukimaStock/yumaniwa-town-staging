@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#111111">
+  <title>Plausible 自分のアクセス除外</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: #111;
+      color: #f4f1e8;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+    }
+    main {
+      width: min(100%, 420px);
+      padding: 28px;
+      border: 1px solid #3a3834;
+      border-radius: 18px;
+      background: #1b1a18;
+    }
+    h1 { margin: 0 0 12px; font-size: 22px; }
+    p { margin: 0 0 20px; line-height: 1.7; color: #c9c3b7; }
+    .status {
+      margin: 20px 0;
+      padding: 16px;
+      border-radius: 12px;
+      background: #24221f;
+      font-weight: 700;
+    }
+    button {
+      width: 100%;
+      min-height: 52px;
+      margin-top: 10px;
+      border: 0;
+      border-radius: 12px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    #exclude { background: #f4f1e8; color: #111; }
+    #include { background: #33302b; color: #f4f1e8; }
+    small { display: block; margin-top: 18px; line-height: 1.6; color: #918b80; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Plausible 自分のアクセス除外</h1>
+    <p>このブラウザからのアクセスを、Plausible の集計対象から外します。</p>
+
+    <div class="status" id="status" aria-live="polite"></div>
+
+    <button id="exclude" type="button">自分のアクセスを除外する</button>
+    <button id="include" type="button">除外を解除する</button>
+
+    <small>設定はこのブラウザの localStorage に保存されます。別のブラウザや、将来別ドメインへ移行した場合は、そこで再設定が必要です。</small>
+  </main>
+
+  <script>
+    (function () {
+      var status = document.getElementById("status");
+      var exclude = document.getElementById("exclude");
+      var include = document.getElementById("include");
+
+      function render() {
+        var ignored = localStorage.getItem("plausible_ignore") === "true";
+        status.textContent = ignored
+          ? "現在：除外中（Plausible に送信しません）"
+          : "現在：計測対象";
+      }
+
+      exclude.addEventListener("click", function () {
+        localStorage.setItem("plausible_ignore", "true");
+        render();
+      });
+
+      include.addEventListener("click", function () {
+        localStorage.removeItem("plausible_ignore");
+        render();
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
