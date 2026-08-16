@@ -11,43 +11,83 @@
 
     var TRIGGER_ID = 'town_update_history_sign';
     var PROP_ID = 'station_update_history_signboard';
+    var DESTINATION_ID = 'town_update_history';
 
-    function hasId(items, id) {
-        if (!Array.isArray(items)) return false;
+    function upsertById(items, item) {
+        if (!Array.isArray(items) || !item || !item.id) return;
         for (var i = 0; i < items.length; i++) {
-            if (items[i] && items[i].id === id) return true;
+            if (items[i] && items[i].id === item.id) {
+                items[i] = item;
+                return;
+            }
         }
-        return false;
-    }
-
-    function addOnce(items, item) {
-        if (!Array.isArray(items) || !item || !item.id || hasId(items, item.id)) return;
         items.push(item);
     }
 
-    var historyText = (typeof window.buildTownUpdateHistoryText === 'function')
-        ? window.buildTownUpdateHistoryText(6)
-        : '町の更新記録は、いま整理中です。';
+    function formatDate(date) {
+        return String(date || '').replace(/-/g, '.');
+    }
+
+    function buildUpdateMenuItems(limit) {
+        var maxCount = typeof limit === 'number' ? limit : 6;
+        var source = Array.isArray(window.TOWN_UPDATES) ? window.TOWN_UPDATES : [];
+        var items = [];
+
+        for (var i = 0; i < source.length && items.length < maxCount; i++) {
+            var entry = source[i] || {};
+            items.push({
+                label: formatDate(entry.date) + '　' + (entry.title || '更新'),
+                kind: 'message',
+                text: entry.body || '記録だけが残っています。'
+            });
+        }
+
+        if (items.length === 0) {
+            items.push({
+                label: 'まだ記録はありません',
+                kind: 'message',
+                text: '町は、静かに次の準備をしています。'
+            });
+        }
+
+        items.push({ label: '駅前へ戻る', kind: 'back' });
+        return items;
+    }
+
+    if (window.DESTINATIONS) {
+        window.DESTINATIONS[DESTINATION_ID] = {
+            id: DESTINATION_ID,
+            title: '町の更新記録',
+            subtitle: 'Town Updates',
+            description: '駅前の小さな立て看板。町で起きたことが、新しい順に書き足されている。',
+            flavor: '紙の端に、少しだけ雨染みが残っている。',
+            menuTitle: 'どの記録を読みますか?',
+            returnScene: 'station_plaza',
+            returnLabel: '駅前広場',
+            items: buildUpdateMenuItems(6)
+        };
+    }
 
     var trigger = {
         id: TRIGGER_ID,
         label: '町の更新記録',
         actionLabel: '読む',
-        type: 'inspect',
-        text: historyText,
-        area: { x: 17, y: 11, w: 3, h: 3 },
+        type: 'menu',
+        target: DESTINATION_ID,
+        text: '町の更新記録が、新しい順に並んでいます。',
+        area: { x: 14, y: 14, w: 3, h: 3 },
         tapPadding: 1
     };
 
-    // 駅前右側の端へ仮配置。中央の歩行ルートは塞がない。
+    // 開発モードで調整した位置・大きさをそのまま反映する。
     var prop = {
         id: PROP_ID,
         src: 'assets/maps/props/common/standing-signboard.png?v=20260816-1',
-        x: 17.6,
-        y: 11.4,
-        w: 2.4,
-        h: 3.2,
-        footY: 14.6,
+        x: 14.278788130432376,
+        y: 14.040514449427004,
+        w: 2.375,
+        h: 2.375,
+        footY: 16.415514449427004,
         enabled: true,
         catalogKey: 'standingSignboard',
         collision: {
@@ -76,12 +116,12 @@
 
     station.triggers = Array.isArray(station.triggers) ? station.triggers : [];
     station.props = Array.isArray(station.props) ? station.props : [];
-    addOnce(station.triggers, trigger);
-    addOnce(station.props, prop);
+    upsertById(station.triggers, trigger);
+    upsertById(station.props, prop);
 
     // 初回表示中の駅前にも即時反映する。
-    if (Array.isArray(window.triggers)) addOnce(window.triggers, trigger);
-    if (Array.isArray(window.stationPlazaProps)) addOnce(window.stationPlazaProps, prop);
+    if (Array.isArray(window.triggers)) upsertById(window.triggers, trigger);
+    if (Array.isArray(window.stationPlazaProps)) upsertById(window.stationPlazaProps, prop);
 
     if (window.activeTownSceneDef && window.currentScene === 'station_plaza') {
         window.activeTownSceneDef.triggers = Array.isArray(window.activeTownSceneDef.triggers)
@@ -90,7 +130,7 @@
         window.activeTownSceneDef.props = Array.isArray(window.activeTownSceneDef.props)
             ? window.activeTownSceneDef.props
             : [];
-        addOnce(window.activeTownSceneDef.triggers, trigger);
-        addOnce(window.activeTownSceneDef.props, prop);
+        upsertById(window.activeTownSceneDef.triggers, trigger);
+        upsertById(window.activeTownSceneDef.props, prop);
     }
 })();
