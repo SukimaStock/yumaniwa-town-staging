@@ -122,6 +122,7 @@
 
         function wrappedOpenStationGuideMap() {
             track("Map Open", {
+                from_work: previousWorkId || "none",
                 scene: String(window.currentScene || "unknown")
             });
             return baseOpen.apply(this, arguments);
@@ -150,6 +151,7 @@
                 track("Venue Open", {
                     venue: venueTargets[trigger.target],
                     guide: String(trigger.target),
+                    from_work: previousWorkId || "none",
                     scene: String(window.currentScene || "unknown")
                 });
             }
