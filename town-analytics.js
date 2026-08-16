@@ -19,6 +19,7 @@
     var IS_STAGING = /\/yumaniwa-town-staging(?:\/|$)/.test(window.location.pathname || "");
     var PLAUSIBLE_SCRIPT = "https://plausible.io/js/pa-sYe-y0PqpZapFe6FJVlK2.js";
     var workOpenSource = "";
+    var previousWorkId = "";
 
     window.__YUMANIWA_ANALYTICS_DEBUG__ = IS_STAGING;
 
@@ -41,9 +42,12 @@
         if (name === "Work Open") {
             var workId = String(normalized.work || normalized.work_id || window.currentWorkId || "unknown");
             var work = getWork(workId);
+            var fromWorkId = previousWorkId || "none";
+            previousWorkId = workId;
 
             return {
                 work: workId,
+                from_work: fromWorkId,
                 venue: (work && work.venue) || normalized.venue || "unknown",
                 source: workOpenSource || normalized.source || normalized.entry || "town",
                 launch: normalized.launch || (work && work.launch) || "unknown"
