@@ -1,7 +1,6 @@
 // ==========================================
-// 湯間庭町 / ご意見箱（仮設）
-// 駅前の立て看板から Google フォームへ案内する。
-// 専用ポストアセット完成後は prop の src / geometry を差し替える。
+// 湯間庭町 / ご意見箱
+// 駅前の赤いポストから Google フォームへ案内する。
 // ==========================================
 (function () {
     'use strict';
@@ -32,7 +31,7 @@
             title: '町へのおたより',
             subtitle: 'Feedback Box',
             description: '駅前に置かれた、小さなご意見箱。町や作品へのおたよりを入れられます。',
-            flavor: '投入口のそばに、小さな鉛筆の絵が描かれている。',
+            flavor: '赤い箱の正面に、白い〒マークが小さく描かれている。',
             menuTitle: 'どうしますか?',
             returnScene: 'station_plaza',
             returnLabel: '駅前広場',
@@ -62,42 +61,42 @@
         type: 'menu',
         target: DESTINATION_ID,
         text: '町へのおたよりを入れられるようです。',
-        area: { x: 0, y: 10, w: 4, h: 4 },
+        area: { x: 14, y: 5, w: 3, h: 3 },
         tapPadding: 1
     };
 
-    // 専用アセット完成まで、共通の立て看板を仮の受付札として使う。
-    // 位置は開発モードで調整できる。
+    // 開発モードで決めた場所を基準に、縦長のPNG比率を保って配置する。
+    // 透明余白を含む画像の足元が、仮看板の元の接地点に合うようにしている。
     var prop = {
         id: PROP_ID,
-        src: 'assets/maps/props/common/standing-signboard.png?v=20260816-1',
-        x: 0.7,
-        y: 10.5,
-        w: 2.375,
-        h: 2.375,
-        footY: 12.875,
+        src: 'assets/maps/props/common/town-feedback-postbox.png?v=20260816-1',
+        x: 14.79716688856392,
+        y: 4.907328921943931,
+        w: 1.6829268292682926,
+        h: 3.0,
+        footY: 7.724402092675638,
         enabled: true,
         catalogKey: 'standingSignboard',
         collision: {
             enabled: true,
-            x: 0.18,
-            y: 0.72,
-            w: 0.64,
-            h: 0.28
+            x: 0.30,
+            y: 0.82,
+            w: 0.40,
+            h: 0.14
         },
         interaction: {
             enabled: true,
             triggerId: TRIGGER_ID,
-            x: 0.05,
-            y: 0.20,
-            w: 0.90,
-            h: 0.80
+            x: 0.10,
+            y: 0.08,
+            w: 0.80,
+            h: 0.84
         },
         tap: {
             enabled: true,
-            x: 0.05,
-            y: 0.12,
-            w: 0.90,
+            x: 0.08,
+            y: 0.06,
+            w: 0.84,
             h: 0.88
         }
     };
