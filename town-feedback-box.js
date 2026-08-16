@@ -1,0 +1,140 @@
+// ==========================================
+// 湯間庭町 / ご意見箱（仮設）
+// 駅前の立て看板から Google フォームへ案内する。
+// 専用ポストアセット完成後は prop の src / geometry を差し替える。
+// ==========================================
+(function () {
+    'use strict';
+
+    var maps = window.TOWN_SCENE_MAPS;
+    var station = maps && maps.station_plaza;
+    if (!station) return;
+
+    var TRIGGER_ID = 'town_feedback_box_trigger';
+    var PROP_ID = 'station_feedback_box_placeholder';
+    var DESTINATION_ID = 'town_feedback_box';
+    var FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeGM7r27mkUrUPnqAio7bW7mZpF4O1Mf5x_74xZgRwl_LEUtQ/viewform';
+
+    function upsertById(items, item) {
+        if (!Array.isArray(items) || !item || !item.id) return;
+        for (var i = 0; i < items.length; i++) {
+            if (items[i] && items[i].id === item.id) {
+                items[i] = item;
+                return;
+            }
+        }
+        items.push(item);
+    }
+
+    if (window.DESTINATIONS) {
+        window.DESTINATIONS[DESTINATION_ID] = {
+            id: DESTINATION_ID,
+            title: '町へのおたより',
+            subtitle: 'Feedback Box',
+            description: '駅前に置かれた、小さなご意見箱。町や作品へのおたよりを入れられます。',
+            flavor: '投入口のそばに、小さな鉛筆の絵が描かれている。',
+            menuTitle: 'どうしますか?',
+            returnScene: 'station_plaza',
+            returnLabel: '駅前広場',
+            items: [
+                {
+                    label: 'おたよりを送る',
+                    kind: 'external',
+                    url: FORM_URL
+                },
+                {
+                    label: 'この箱について',
+                    kind: 'message',
+                    text: '町の感想やご要望、不具合の報告などを入れられます。\n\n「おたよりを送る」を選ぶと、外の入力フォームが開きます。'
+                },
+                {
+                    label: '駅前へ戻る',
+                    kind: 'back'
+                }
+            ]
+        };
+    }
+
+    var trigger = {
+        id: TRIGGER_ID,
+        label: '町へのおたより',
+        actionLabel: '見る',
+        type: 'menu',
+        target: DESTINATION_ID,
+        text: '町へのおたよりを入れられるようです。',
+        area: { x: 0, y: 10, w: 4, h: 4 },
+        tapPadding: 1
+    };
+
+    // 専用アセット完成まで、共通の立て看板を仮の受付札として使う。
+    // 位置は開発モードで調整できる。
+    var prop = {
+        id: PROP_ID,
+        src: 'assets/maps/props/common/standing-signboard.png?v=20260816-1',
+        x: 0.7,
+        y: 10.5,
+        w: 2.375,
+        h: 2.375,
+        footY: 12.875,
+        enabled: true,
+        catalogKey: 'standingSignboard',
+        collision: {
+            enabled: true,
+            x: 0.18,
+            y: 0.72,
+            w: 0.64,
+            h: 0.28
+        },
+        interaction: {
+            enabled: true,
+            triggerId: TRIGGER_ID,
+            x: 0.05,
+            y: 0.20,
+            w: 0.90,
+            h: 0.80
+        },
+        tap: {
+            enabled: true,
+            x: 0.05,
+            y: 0.12,
+            w: 0.90,
+            h: 0.88
+        }
+    };
+
+    station.triggers = Array.isArray(station.triggers) ? station.triggers : [];
+    station.props = Array.isArray(station.props) ? station.props : [];
+    upsertById(station.triggers, trigger);
+    upsertById(station.props, prop);
+
+    if (Array.isArray(window.triggers)) upsertById(window.triggers, trigger);
+    if (Array.isArray(window.stationPlazaProps)) upsertById(window.stationPlazaProps, prop);
+
+    if (window.activeTownSceneDef && window.currentScene === 'station_plaza') {
+        window.activeTownSceneDef.triggers = Array.isArray(window.activeTownSceneDef.triggers)
+            ? window.activeTownSceneDef.triggers
+            : [];
+        window.activeTownSceneDef.props = Array.isArray(window.activeTownSceneDef.props)
+            ? window.activeTownSceneDef.props
+            : [];
+        upsertById(window.activeTownSceneDef.triggers, trigger);
+        upsertById(window.activeTownSceneDef.props, prop);
+    }
+
+    // 既存の external メニュー処理はそのまま使い、
+    // このフォームを開いた時だけ計測イベントを足す。
+    if (!window.__YUMANIWA_FEEDBACK_OPEN_WRAPPED__ && typeof window.open === 'function') {
+        var baseWindowOpen = window.open;
+        window.open = function (url, target, features) {
+            if (String(url || '') === FORM_URL && typeof window.trackYumaniwaEvent === 'function') {
+                window.trackYumaniwaEvent('Feedback Open', {
+                    place: 'station_plaza',
+                    source: 'town',
+                    kind: 'google_form'
+                });
+            }
+            return baseWindowOpen.call(window, url, target, features);
+        };
+        window.__YUMANIWA_FEEDBACK_OPEN_WRAPPED__ = true;
+    }
+})();
