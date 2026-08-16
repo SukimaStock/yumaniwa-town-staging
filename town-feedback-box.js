@@ -65,31 +65,30 @@
         tapPadding: 1
     };
 
-    // 開発モードで決めた場所を基準に、縦長のPNG比率を保って配置する。
-    // 透明余白を含む画像の足元が、仮看板の元の接地点に合うようにしている。
+    // 開発モードで微調整した最終位置をそのまま採用する。
     var prop = {
         id: PROP_ID,
-        src: 'assets/maps/props/common/town-feedback-postbox.png?v=20260816-1',
-        x: 14.79716688856392,
-        y: 4.907328921943931,
+        src: 'assets/maps/props/common/town-feedback-postbox.png?v=20260816-2',
+        x: 15.01958353092807,
+        y: 4.513234433754954,
         w: 1.6829268292682926,
-        h: 3.0,
-        footY: 7.724402092675638,
+        h: 3,
+        footY: 7.513234433754954,
         enabled: true,
         catalogKey: 'standingSignboard',
         collision: {
             enabled: true,
-            x: 0.30,
+            x: 0.3,
             y: 0.82,
-            w: 0.40,
+            w: 0.4,
             h: 0.14
         },
         interaction: {
             enabled: true,
             triggerId: TRIGGER_ID,
-            x: 0.10,
+            x: 0.1,
             y: 0.08,
-            w: 0.80,
+            w: 0.8,
             h: 0.84
         },
         tap: {
