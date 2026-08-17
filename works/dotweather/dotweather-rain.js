@@ -230,12 +230,10 @@
       }
 
       if (target.dataset.debugKey === "weather" && !target.classList.contains("dw-rain-debug-chip")) {
-        const value = target.dataset.debugValue || null;
-        if (value !== "rain") debug.state.rainLevel = null;
-        if (value === "rain" && debug.state.rainLevel === null) {
-          // Plain RAIN keeps the live description when available, otherwise
-          // resolves to the normal profile.
-        }
+        // The main WEATHER row always cancels a rain-detail override. Its RAIN
+        // button therefore means the normal profile; the row below is used for
+        // drizzle/light/heavy comparisons.
+        debug.state.rainLevel = null;
         refreshRainButtons();
       }
     });
