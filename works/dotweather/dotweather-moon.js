@@ -29,6 +29,14 @@
     { key: "waning-crescent", label: "WAN C", center: 0.875, amount: 0.22, side: -1, coreKey: "waning-crescent" },
   ];
 
+  // FULL uses a hand-tuned bitmap rather than the mathematical circle used by
+  // the partial phases. This removes isolated one-cell tips at the four poles
+  // and gives the full moon a cleaner, intentionally pixel-drawn silhouette.
+  const FULL_MOON_ROW_WIDTHS = [
+    5, 9, 13, 15, 17, 17, 19, 19, 19, 19,
+    19, 19, 19, 17, 17, 15, 13, 9, 5,
+  ];
+
   function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
   }
@@ -123,6 +131,24 @@
     const moonStrength = clamp((style.moonAlpha * 0.88) / 255, 0, 1);
     const moonColor = mix(skyColor, white, moonStrength);
 
+    if (phase.key === "full") {
+      const centerRow = Math.floor(FULL_MOON_ROW_WIDTHS.length / 2);
+      FULL_MOON_ROW_WIDTHS.forEach((cellCount, rowIndex) => {
+        const x = cx - Math.floor(cellCount / 2) * pixel;
+        const y = cy + (rowIndex - centerRow) * pixel;
+        P().drawBlock(
+          x,
+          y,
+          cellCount * pixel,
+          pixel,
+          moonColor,
+          255,
+          0.12
+        );
+      });
+      return;
+    }
+
     for (let y = -radius; y <= radius; y += pixel) {
       const rowSpan = Math.sqrt(Math.max(0, radiusSquared - y * y));
       let runStart = null;
@@ -131,11 +157,8 @@
       for (let x = -radius; x <= radius; x += pixel) {
         if (x * x + y * y > radiusSquared) continue;
 
-        let isLit = phase.key === "full";
-        if (!isLit) {
-          const threshold = rowSpan * (1 - phase.amount * 2);
-          isLit = phase.side > 0 ? x >= threshold : x <= -threshold;
-        }
+        const threshold = rowSpan * (1 - phase.amount * 2);
+        const isLit = phase.side > 0 ? x >= threshold : x <= -threshold;
 
         if (isLit) {
           if (runStart === null) runStart = x;
