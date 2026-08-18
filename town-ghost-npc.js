@@ -1,7 +1,6 @@
 // ==========================================
 // 湯間庭町 / 駅前のおばけNPC
-// ベンチ横に常駐し、町のことを一言だけ話す。
-// セリフは GHOST_NPC_LINES に追加するだけで増やせる。
+// ベンチ横に常駐し、町とプレイヤーの足取りを少しだけ覚えている。
 // ==========================================
 (function () {
     'use strict';
@@ -12,38 +11,133 @@
 
     var TRIGGER_ID = 'station_ghost_npc_trigger';
     var PROP_ID = 'station_ghost_npc';
+    var NPC_ID = 'ghost';
+    var memory = window.YumaniwaMemory || null;
+    var dialogue = window.GHOST_DIALOGUE || {};
+    var lastLine = '';
 
-    // 今後ここへセリフを足していく。
-    // 2件以上になったら、話しかけるたびにランダムで選ぶ。
-    window.GHOST_NPC_LINES = window.GHOST_NPC_LINES || [
-        '最近、赤い箱が置かれたんだけど、なんだろう…'
-    ];
+    function pickLine(lines) {
+        var pool = Array.isArray(lines) ? lines.filter(function (line) {
+            return typeof line === 'string' && line.trim();
+        }) : [];
 
-    var lastLineIndex = -1;
-
-    function pickGhostLine() {
-        var lines = Array.isArray(window.GHOST_NPC_LINES)
-            ? window.GHOST_NPC_LINES.filter(function (line) {
-                return typeof line === 'string' && line.trim();
-            })
-            : [];
-
-        if (lines.length === 0) {
-            return '今日は静かだね。';
+        if (!pool.length) return '今日は静かだね。';
+        if (pool.length === 1) {
+            lastLine = pool[0];
+            return pool[0];
         }
 
-        if (lines.length === 1) {
-            lastLineIndex = 0;
-            return lines[0];
+        var candidates = pool.filter(function (line) { return line !== lastLine; });
+        if (!candidates.length) candidates = pool;
+        var chosen = candidates[Math.floor(Math.random() * candidates.length)];
+        lastLine = chosen;
+        return chosen;
+    }
+
+    function pickRecentWorkLine() {
+        if (!memory || typeof memory.getRecentWorkCandidates !== 'function') return null;
+        var candidates = memory.getRecentWorkCandidates(7).filter(function (item) {
+            if (!item || !dialogue.works || !dialogue.works[item.id]) return false;
+            if (item.mentionDaysAgo !== null && item.mentionDaysAgo < 3) return false;
+            if (memory.topicRecentlyUsed(NPC_ID, 'work:' + item.id)) return false;
+            return true;
+        });
+
+        if (!candidates.length) return null;
+
+        // 最近の足取りを優先しつつ、同じ作品ばかりにならないよう上位3件から選ぶ。
+        var shortList = candidates.slice(0, 3);
+        var selected = shortList[Math.floor(Math.random() * shortList.length)];
+        return {
+            workId: selected.id,
+            topic: 'work:' + selected.id,
+            line: pickLine(dialogue.works[selected.id])
+        };
+    }
+
+    function chooseGhostLine() {
+        // 記憶機能が読めない環境でも、NPC自体は従来どおり使える。
+        if (!memory) {
+            return pickLine(dialogue.firstMeet || ['最近、赤い箱が置かれたんだけど、なんだろう…']);
         }
 
-        var nextIndex = Math.floor(Math.random() * lines.length);
-        if (nextIndex === lastLineIndex) {
-            nextIndex = (nextIndex + 1 + Math.floor(Math.random() * (lines.length - 1))) % lines.length;
+        var today = memory.today();
+        var before = memory.getNpcSnapshot(NPC_ID);
+        var metDays = Number(before.metDays || 0);
+        var isFirstMeet = metDays === 0;
+        var metToday = before.lastMetDay === today;
+        var daysAway = before.lastMetDay ? memory.daysSince(before.lastMetDay) : null;
+        var topic = 'ambient';
+        var line = '';
+        var mentionedWorkId = null;
+
+        // 初対面より先に赤い箱を見つけた人には、その事実だけを静かに拾う。
+        if (isFirstMeet) {
+            if (memory.hasFlag('feedbackBoxSeen')) {
+                topic = 'feedback_box';
+                line = pickLine(dialogue.firstMeetAfterFeedback || dialogue.events && dialogue.events.feedbackBox);
+                memory.consumeNpcEvent(NPC_ID, 'feedbackBoxSeen');
+            } else {
+                topic = 'first_meet';
+                line = pickLine(dialogue.firstMeet);
+            }
+        }
+        // 初対面の「赤い箱」が後からつながる、v1の最初の記憶イベント。
+        else if (
+            memory.hasFlag('feedbackBoxSeen') &&
+            !memory.isNpcEventConsumed(NPC_ID, 'feedbackBoxSeen')
+        ) {
+            topic = 'feedback_box';
+            line = pickLine(dialogue.events && dialogue.events.feedbackBox);
+            memory.consumeNpcEvent(NPC_ID, 'feedbackBoxSeen');
+        }
+        // 来なかったことは責めず、久しぶりという事実だけを返す。
+        else if (!metToday && daysAway !== null && daysAway >= 7) {
+            topic = 'long_absence';
+            line = pickLine(dialogue.longAbsence);
+        }
+        else {
+            // 同日連打で関係が進まないことを、軽い一言で自然に見せる。
+            if (metToday && Math.random() < 0.55) {
+                topic = 'same_day';
+                line = pickLine(dialogue.sameDay);
+            }
+
+            // 記憶は毎回見せない。知っていても黙っている余白を残す。
+            if (!line && Math.random() < 0.33) {
+                var workLine = pickRecentWorkLine();
+                if (workLine) {
+                    topic = workLine.topic;
+                    line = workLine.line;
+                    mentionedWorkId = workLine.workId;
+                }
+            }
+
+            // 別日に会った時だけ、ときどき距離の変化を感じる言葉を混ぜる。
+            if (!line && !metToday && Math.random() < 0.35) {
+                var effectiveMetDays = metDays + 1;
+                var stage = memory.relationshipStage(NPC_ID, effectiveMetDays);
+                if (stage === 'regular') {
+                    topic = 'regular';
+                    line = pickLine(dialogue.regular);
+                } else if (stage === 'familiar') {
+                    topic = 'familiar';
+                    line = pickLine(dialogue.familiar);
+                }
+            }
+
+            // 普段はただ町のことを話す。記憶を毎回証明しない。
+            if (!line) {
+                topic = 'ambient';
+                line = pickLine(dialogue.ambient);
+            }
         }
 
-        lastLineIndex = nextIndex;
-        return lines[nextIndex];
+        memory.recordNpcMeet(NPC_ID);
+        memory.pushNpcTopic(NPC_ID, topic);
+        if (mentionedWorkId) memory.markWorkMention(NPC_ID, mentionedWorkId);
+
+        return line || '今日は静かだね。';
     }
 
     function upsertById(items, item) {
@@ -71,7 +165,7 @@
         label: '？？？',
         actionLabel: '話す',
         type: 'inspect',
-        text: pickGhostLine(),
+        text: '……',
         area: { x: 20, y: 8, w: 2, h: 2 },
         tapPadding: 0
     };
@@ -129,14 +223,14 @@
         upsertById(window.activeTownSceneDef.props, prop);
     }
 
-    // inspect の既存処理は変えず、このNPCだけ話しかける直前にセリフを選び直す。
+    // inspect の既存処理は変えず、このNPCだけ話しかける直前に会話を決める。
     var baseActivateTownTrigger = window.activateTownTrigger;
     if (typeof baseActivateTownTrigger === 'function') {
         window.activateTownTrigger = function (targetTrigger) {
             if (targetTrigger && targetTrigger.id === TRIGGER_ID) {
-                targetTrigger.text = pickGhostLine();
+                targetTrigger.text = chooseGhostLine();
             }
-            return baseActivateTownTrigger(targetTrigger);
+            return baseActivateTownTrigger.apply(this, arguments);
         };
     }
 
