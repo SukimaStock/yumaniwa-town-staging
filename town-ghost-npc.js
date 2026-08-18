@@ -55,10 +55,65 @@
         };
     }
 
+    function getTalkMode(topic) {
+        if (topic === 'first_meet') return 'first_meet';
+        if (topic === 'ambient') return 'ambient';
+        if (topic === 'same_day') return 'same_day';
+        if (topic === 'familiar' || topic === 'regular') return 'relationship';
+        return 'memory';
+    }
+
+    function getMemoryKind(topic) {
+        if (topic === 'feedback_box') return 'feedback_box';
+        if (topic === 'long_absence') return 'long_absence';
+        if (topic === 'familiar' || topic === 'regular') return 'relationship';
+        if (String(topic || '').indexOf('work:') === 0) return 'work';
+        return '';
+    }
+
+    function trackGhostTalk(topic, mentionedWorkId) {
+        if (typeof window.trackYumaniwaEvent !== 'function') return;
+
+        var relationship = 'stranger';
+        if (memory && typeof memory.relationshipStage === 'function') {
+            relationship = memory.relationshipStage(NPC_ID);
+        }
+
+        var mode = getTalkMode(topic);
+        var memoryKind = getMemoryKind(topic);
+
+        window.trackYumaniwaEvent('Ghost Talk', {
+            scene: 'station_plaza',
+            mode: mode,
+            relationship: relationship
+        });
+
+        // 記憶が会話へにじんだ時だけ別イベントにする。
+        // 台詞本文や個人識別情報は送らない。
+        if (memoryKind) {
+            var props = {
+                kind: memoryKind,
+                relationship: relationship
+            };
+            if (memoryKind === 'work' && mentionedWorkId) {
+                props.work = mentionedWorkId;
+            }
+            window.trackYumaniwaEvent('Ghost Memory Reaction', props);
+        }
+    }
+
     function chooseGhostLine() {
         // 記憶機能が読めない環境でも、NPC自体は従来どおり使える。
         if (!memory) {
-            return pickLine(dialogue.firstMeet || ['最近、赤い箱が置かれたんだけど、なんだろう…']);
+            var fallbackLine = pickLine(dialogue.firstMeet || ['最近、赤い箱が置かれたんだけど、なんだろう…']);
+            if (typeof window.trackYumaniwaEvent === 'function') {
+                window.trackYumaniwaEvent('Ghost Talk', {
+                    scene: 'station_plaza',
+                    mode: 'fallback',
+                    relationship: 'unknown'
+                });
+            }
+            return fallbackLine;
         }
 
         var today = memory.today();
@@ -136,6 +191,7 @@
         memory.recordNpcMeet(NPC_ID);
         memory.pushNpcTopic(NPC_ID, topic);
         if (mentionedWorkId) memory.markWorkMention(NPC_ID, mentionedWorkId);
+        trackGhostTalk(topic, mentionedWorkId);
 
         return line || '今日は静かだね。';
     }
@@ -153,12 +209,15 @@
         items.push(item);
     }
 
-    // 右側ベンチの横。到着地点からは見えず、ほかの案内物とも距離がある位置。
-    var baseX = 19.45;
-    var baseY = 7.45;
-    var propW = 2.5;
-    var propH = 2.5;
-    var baseFootY = baseY + propH;
+    // 右側ベンチの横。元の40px表示から37pxへ縮小し、足元と中心位置は維持する。
+    var ORIGINAL_PROP_SIZE = 2.5;
+    var propW = 37 / 16;
+    var propH = 37 / 16;
+    var originalBaseX = 19.45;
+    var originalBaseY = 7.45;
+    var baseFootY = originalBaseY + ORIGINAL_PROP_SIZE;
+    var baseX = originalBaseX + (ORIGINAL_PROP_SIZE - propW) / 2;
+    var baseY = baseFootY - propH;
 
     var trigger = {
         id: TRIGGER_ID,
