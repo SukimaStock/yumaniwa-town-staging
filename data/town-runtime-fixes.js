@@ -144,9 +144,9 @@
     }
   }
 
-  // ゲーム案内所は、駅前広場の主人公を基準にした小型案内所サイズへ揃える。
+  // 横丁の既存パーツは、開発モードで確定した表示サイズを実行時に適用する。
   // trigger.area は既存の広い範囲をそのまま使う。
-  function applyGuidePropScale() {
+  function applyAlleyPropScale() {
     var maps = window.TOWN_SCENE_MAPS;
     var alley = maps && maps.tomogushi_alley_map;
     if (!alley || !Array.isArray(alley.props)) return;
@@ -159,19 +159,29 @@
 
     for (var i = 0; i < alley.props.length; i++) {
       var prop = alley.props[i];
-      if (!prop || prop.id !== 'common_temporary_storefront') continue;
+      if (!prop) continue;
 
-      prop.x = 13.0;
-      prop.y = 14.7;
-      prop.w = 3.0;
-      prop.h = 4.2;
-      prop.footY = 18.9;
-      break;
+      if (prop.id === 'yakitori_yumado_shop') {
+        prop.x = 13.731457260698665;
+        prop.y = 1.913957399103139;
+        prop.w = 6.25;
+        prop.h = 6.25;
+        prop.footY = 8.16395739910314;
+        continue;
+      }
+
+      if (prop.id === 'common_temporary_storefront') {
+        prop.x = 12.9375;
+        prop.y = 14.625;
+        prop.w = 3.125;
+        prop.h = 4.375;
+        prop.footY = 19;
+      }
     }
   }
 
   applyCommonSignAssets();
-  applyGuidePropScale();
+  applyAlleyPropScale();
   applyCameraZoom();
   preserveExplicitTriggerAreas();
 
