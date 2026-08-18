@@ -61,7 +61,7 @@
     }
 
     const tempText = this.formatTemperature(city.temp);
-    root.DotWeatherPixel.drawText(tempText, 180, 458, {
+    root.DotWeatherPixel.drawText(tempText, 180, 388, {
       scale: 8,
       spacing: 5,
       color: colors.main,
