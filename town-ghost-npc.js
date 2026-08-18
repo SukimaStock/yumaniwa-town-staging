@@ -68,7 +68,7 @@
 
     var trigger = {
         id: TRIGGER_ID,
-        label: 'おばけ',
+        label: '？？？',
         actionLabel: '話す',
         type: 'inspect',
         text: pickGhostLine(),
