@@ -32,6 +32,7 @@
         if (id === 'station_ghost_npc') return 'town-ghost-npc.js';
 
         if (
+            id === 'yakitori_yumado_shop' ||
             id === 'common_temporary_storefront' ||
             id === 'no_entry_sign' ||
             (sceneId === 'yumado_street_map' && id === 'standing_signboard')
@@ -139,6 +140,22 @@
         return clone(Array.isArray(window.areaZones) ? window.areaZones : []);
     }
 
+    function getEditHistoryLength() {
+        return Array.isArray(window.editHistory) ? window.editHistory.length : 0;
+    }
+
+    function hasGridEditSinceBaseline(baseline) {
+        if (!baseline || !Array.isArray(window.editHistory)) return false;
+
+        var start = Math.max(0, Number(baseline.historyLength) || 0);
+        for (var i = start; i < window.editHistory.length; i++) {
+            var entry = window.editHistory[i];
+            if (entry && entry.type === 'grid') return true;
+        }
+
+        return false;
+    }
+
     function captureBaselineNow() {
         if (!window.currentScene) return;
 
@@ -147,7 +164,8 @@
             parts: getCurrentParts(),
             triggers: getCurrentTriggers(),
             collision: getCurrentCollisionData(),
-            areaZones: getCurrentAreaZones()
+            areaZones: getCurrentAreaZones(),
+            historyLength: getEditHistoryLength()
         };
     }
 
@@ -179,7 +197,8 @@
             parts: [],
             triggers: [],
             collision: null,
-            areaZones: []
+            areaZones: [],
+            historyLength: getEditHistoryLength()
         };
 
         var currentParts = getCurrentParts();
@@ -201,13 +220,21 @@
             sceneId
         );
 
-        var collisionChange = same(baseline.collision, currentCollision)
-            ? null
-            : {
+        // パーツの移動・拡縮後には、そのパーツ由来のcollisionが
+        // 一時的にグリッドへ反映されることがある。
+        // 固定地形の編集履歴（type: grid）が実際に増えた時だけ
+        // collision差分として扱う。
+        var collisionWasEdited = hasGridEditSinceBaseline(baseline);
+        var collisionChange = (
+            collisionWasEdited &&
+            !same(baseline.collision, currentCollision)
+        )
+            ? {
                 source: getSceneSource(sceneId),
                 before: clone(baseline.collision),
                 after: clone(currentCollision)
-            };
+            }
+            : null;
 
         var areaZonesChange = same(baseline.areaZones, currentAreaZones)
             ? null
