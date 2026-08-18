@@ -69,11 +69,11 @@
     var prop = {
         id: PROP_ID,
         src: 'assets/maps/props/common/town-feedback-postbox.png?v=20260816-2',
-        x: 15.01958353092807,
-        y: 4.513234433754954,
-        w: 1.6829268292682926,
-        h: 3,
-        footY: 7.513234433754954,
+        x: 15.125,
+        y: 4.25,
+        w: 1.875,
+        h: 3.3125,
+        footY: 7.5625,
         enabled: true,
         catalogKey: 'standingSignboard',
         collision: {
@@ -119,8 +119,7 @@
         upsertById(window.activeTownSceneDef.props, prop);
     }
 
-    // 既存の external メニュー処理はそのまま使い、
-    // このフォームを開いた時だけ計測イベントを足す。
+    // 既存の external メニュー処理はそのまま使い、このフォームを開いた時だけ計測イベントを足す。
     if (!window.__YUMANIWA_FEEDBACK_OPEN_WRAPPED__ && typeof window.open === 'function') {
         var baseWindowOpen = window.open;
         window.open = function (url, target, features) {
