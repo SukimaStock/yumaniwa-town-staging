@@ -48,7 +48,6 @@
     function buildUpdateMenuItems(pageIndex) {
         var source = getUpdateSource();
         var page = clampPageIndex(pageIndex);
-        var pageCount = getPageCount();
         var start = page * PAGE_SIZE;
         var end = Math.min(start + PAGE_SIZE, source.length);
         var items = [];
@@ -56,48 +55,32 @@
         for (var i = start; i < end; i++) {
             var entry = source[i] || {};
             items.push({
-                label: formatDate(entry.date) + '　' + (entry.title || '更新'),
+                label: formatDate(entry.date) + ' ' + (entry.title || '更新'),
                 kind: 'message',
-                text: entry.body || '記録だけが残っています。'
+                text: entry.body || '記録だけが残っています。'
             });
         }
 
         if (source.length === 0) {
             items.push({
-                label: 'まだ記録はありません',
+                label: 'まだ記録はありません',
                 kind: 'message',
                 text: '町は、静かに次の準備をしています。'
             });
         }
 
-        if (page > 0) {
-            items.push({
-                label: '← 新しい記録へ',
-                kind: 'update-page',
-                page: page - 1
-            });
-        }
-
-        if (page < pageCount - 1) {
-            items.push({
-                label: '古い記録へ →',
-                kind: 'update-page',
-                page: page + 1
-            });
-        }
+        // ページ送りUIの差し込み用プレースホルダ
+        items.push({
+            label: '',
+            kind: 'update-nav'
+        });
 
         items.push({ label: '駅前へ戻る', kind: 'back' });
         return items;
     }
 
     function getMenuTitle(pageIndex) {
-        var page = clampPageIndex(pageIndex);
-        var pageCount = getPageCount();
-
-        return 'どの記録を読みますか?' +
-            '<span class="town-update-page-indicator">' +
-            (page + 1) + ' / ' + pageCount +
-            '</span>';
+        return 'どの記録を読みますか?';
     }
 
     function applyUpdatePage(pageIndex, shouldRender) {
@@ -121,53 +104,53 @@
         var style = document.createElement('style');
         style.id = 'town-update-pagination-style';
         style.textContent =
-            '.town-update-page-indicator{' +
-                'display:block;' +
-                'margin-top:8px;' +
-                'font-size:.72em;' +
-                'font-weight:400;' +
-                'letter-spacing:.12em;' +
-                'opacity:.68;' +
-            '}' +
-            '#scene-container.town-update-history .town-update-page-nav-wrap{' +
-                'margin:8px 0 6px;' +
-                'padding:10px 12px 12px;' +
-                'border:1px solid rgba(244,237,213,.24);' +
-                'border-radius:14px;' +
-                'background:rgba(255,255,255,.04);' +
-                'box-shadow:inset 0 1px 0 rgba(255,255,255,.04);' +
-            '}' +
-            '#scene-container.town-update-history .town-update-page-nav-label{' +
-                'margin:0 0 8px;' +
-                'font-size:.68em;' +
-                'letter-spacing:.18em;' +
-                'text-align:center;' +
-                'opacity:.72;' +
-            '}' +
-            '#scene-container.town-update-history .town-update-page-nav{' +
+            '#scene-container.town-update-history .town-update-nav-row{' +
                 'display:flex;' +
-                'gap:8px;' +
-                'width:100%;' +
-            '}' +
-            '#scene-container.town-update-history .town-update-page-nav.single-nav{' +
+                'align-items:center;' +
                 'justify-content:center;' +
+                'gap:18px;' +
+                'margin:8px 0 4px;' +
+                'padding:2px 0;' +
             '}' +
-            '#scene-container.town-update-history .town-update-page-button{' +
-                'flex:1 1 0;' +
-                'width:auto;' +
-                'min-width:0;' +
-                'margin:0;' +
+            '#scene-container.town-update-history .town-update-nav-spacer{' +
+                'width:44px;' +
+                'height:44px;' +
+                'flex:0 0 44px;' +
+                'opacity:0;' +
+                'pointer-events:none;' +
+            '}' +
+            '#scene-container.town-update-history .town-update-nav-page{' +
+                'min-width:56px;' +
                 'text-align:center;' +
-                'font-size:.92em;' +
-                'line-height:1.35;' +
-                'background:rgba(255,255,255,.03);' +
-                'border-color:rgba(244,237,213,.34);' +
+                'font-size:.78em;' +
+                'letter-spacing:.12em;' +
+                'opacity:.82;' +
             '}' +
-            '#scene-container.town-update-history .town-update-page-nav.single-nav .town-update-page-button{' +
-                'flex:0 1 78%;' +
+            '#scene-container.town-update-history .town-update-nav-arrow{' +
+                'width:44px;' +
+                'height:44px;' +
+                'padding:0;' +
+                'margin:0;' +
+                'display:flex;' +
+                'align-items:center;' +
+                'justify-content:center;' +
+                'font-size:1.05em;' +
+                'line-height:1;' +
+                'border-radius:12px;' +
             '}';
 
         document.head.appendChild(style);
+    }
+
+    function buildArrowButton(direction, targetPage) {
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'rpg-menu-item town-update-nav-arrow';
+        button.textContent = direction === 'prev' ? '◀' : '▶';
+        button.addEventListener('click', function () {
+            applyUpdatePage(targetPage, true);
+        });
+        return button;
     }
 
     function decorateUpdateHistoryMenu() {
@@ -181,37 +164,50 @@
         sceneContainer.classList.toggle('town-update-history', isUpdateHistory);
         if (!isUpdateHistory) return;
 
+        var dest = window.DESTINATIONS && window.DESTINATIONS[DESTINATION_ID];
         var list = sceneContainer.querySelector('.rpg-menu-list');
-        if (!list || list.querySelector('.town-update-page-nav-wrap')) return;
+        if (!list || !dest || list.querySelector('.town-update-nav-row')) return;
 
         var buttons = list.querySelectorAll(':scope > .rpg-menu-item');
-        var navButtons = [];
+        var navPlaceholder = null;
 
         for (var i = 0; i < buttons.length; i++) {
-            var text = (buttons[i].textContent || '').trim();
-            if (text === '← 新しい記録へ' || text === '古い記録へ →') {
-                navButtons.push(buttons[i]);
-                buttons[i].classList.add('town-update-page-button');
+            if ((buttons[i].textContent || '').trim() === '') {
+                navPlaceholder = buttons[i];
+                break;
             }
         }
 
-        if (navButtons.length === 0) return;
+        if (!navPlaceholder) return;
 
-        var wrap = document.createElement('div');
-        wrap.className = 'town-update-page-nav-wrap';
+        var page = clampPageIndex(dest.updatePageIndex || 0);
+        var pageCount = getPageCount();
 
-        var label = document.createElement('div');
-        label.className = 'town-update-page-nav-label';
-        label.textContent = 'ページをめくる';
-        wrap.appendChild(label);
+        var row = document.createElement('div');
+        row.className = 'town-update-nav-row';
 
-        var nav = document.createElement('div');
-        nav.className = 'town-update-page-nav';
-        if (navButtons.length === 1) nav.classList.add('single-nav');
-        wrap.appendChild(nav);
+        if (page > 0) {
+            row.appendChild(buildArrowButton('prev', page - 1));
+        } else {
+            var prevSpacer = document.createElement('div');
+            prevSpacer.className = 'town-update-nav-spacer';
+            row.appendChild(prevSpacer);
+        }
 
-        list.insertBefore(wrap, navButtons[0]);
-        for (var j = 0; j < navButtons.length; j++) nav.appendChild(navButtons[j]);
+        var pageLabel = document.createElement('div');
+        pageLabel.className = 'town-update-nav-page';
+        pageLabel.textContent = (page + 1) + ' / ' + pageCount;
+        row.appendChild(pageLabel);
+
+        if (page < pageCount - 1) {
+            row.appendChild(buildArrowButton('next', page + 1));
+        } else {
+            var nextSpacer = document.createElement('div');
+            nextSpacer.className = 'town-update-nav-spacer';
+            row.appendChild(nextSpacer);
+        }
+
+        navPlaceholder.replaceWith(row);
     }
 
     if (window.DESTINATIONS) {
@@ -219,8 +215,8 @@
             id: DESTINATION_ID,
             title: '町の更新記録',
             subtitle: 'Town Updates',
-            description: '駅前の小さな立て看板。町で起きたことが、新しい順に書き足されている。',
-            flavor: '紙の端に、少しだけ雨染みが残っている。',
+            description: '駅前の小さな立て看板。町で起きたことが、新しい順に書き足されている。',
+            flavor: '紙の端に、少しだけ雨染みが残っている。',
             menuTitle: getMenuTitle(0),
             returnScene: 'station_plaza',
             returnLabel: '駅前広場',
@@ -229,25 +225,12 @@
         };
     }
 
-    var originalHandleDestinationMenuItem = window.handleDestinationMenuItem;
-    if (typeof originalHandleDestinationMenuItem === 'function') {
-        window.handleDestinationMenuItem = function (destId, index) {
-            if (destId === DESTINATION_ID) {
-                var dest = window.DESTINATIONS && window.DESTINATIONS[destId];
-                var item = dest && Array.isArray(dest.items) ? dest.items[index] : null;
-                if (item && item.kind === 'update-page') {
-                    applyUpdatePage(item.page, true);
-                    return;
-                }
-            }
-            return originalHandleDestinationMenuItem.apply(this, arguments);
-        };
-    }
-
     var originalOpenDestination = window.openDestination;
     if (typeof originalOpenDestination === 'function') {
         window.openDestination = function (destId) {
-            if (destId === DESTINATION_ID) applyUpdatePage(0, false);
+            if (destId === DESTINATION_ID) {
+                applyUpdatePage(0, false);
+            }
             return originalOpenDestination.apply(this, arguments);
         };
     }
@@ -269,7 +252,7 @@
         actionLabel: '読む',
         type: 'menu',
         target: DESTINATION_ID,
-        text: '町の更新記録が、新しい順に並んでいます。',
+        text: '町の更新記録が、新しい順に並んでいます。',
         area: { x: 14, y: 14, w: 3, h: 3 },
         tapPadding: 1
     };
@@ -284,9 +267,28 @@
         footY: 16.5625,
         enabled: true,
         catalogKey: 'standingSignboard',
-        collision: { enabled: true, x: 0.18, y: 0.72, w: 0.64, h: 0.28 },
-        interaction: { enabled: true, triggerId: TRIGGER_ID, x: 0.05, y: 0.20, w: 0.90, h: 0.80 },
-        tap: { enabled: true, x: 0.05, y: 0.12, w: 0.90, h: 0.88 }
+        collision: {
+            enabled: true,
+            x: 0.18,
+            y: 0.72,
+            w: 0.64,
+            h: 0.28
+        },
+        interaction: {
+            enabled: true,
+            triggerId: TRIGGER_ID,
+            x: 0.05,
+            y: 0.20,
+            w: 0.90,
+            h: 0.80
+        },
+        tap: {
+            enabled: true,
+            x: 0.05,
+            y: 0.12,
+            w: 0.90,
+            h: 0.88
+        }
     };
 
     station.triggers = Array.isArray(station.triggers) ? station.triggers : [];
@@ -298,8 +300,12 @@
     if (Array.isArray(window.stationPlazaProps)) upsertById(window.stationPlazaProps, prop);
 
     if (window.activeTownSceneDef && window.currentScene === 'station_plaza') {
-        window.activeTownSceneDef.triggers = Array.isArray(window.activeTownSceneDef.triggers) ? window.activeTownSceneDef.triggers : [];
-        window.activeTownSceneDef.props = Array.isArray(window.activeTownSceneDef.props) ? window.activeTownSceneDef.props : [];
+        window.activeTownSceneDef.triggers = Array.isArray(window.activeTownSceneDef.triggers)
+            ? window.activeTownSceneDef.triggers
+            : [];
+        window.activeTownSceneDef.props = Array.isArray(window.activeTownSceneDef.props)
+            ? window.activeTownSceneDef.props
+            : [];
         upsertById(window.activeTownSceneDef.triggers, trigger);
         upsertById(window.activeTownSceneDef.props, prop);
     }
