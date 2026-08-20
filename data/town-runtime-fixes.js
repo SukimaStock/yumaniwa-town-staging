@@ -180,6 +180,130 @@
     }
   }
 
+  // レジャーセンターの開発モード配置案を staging に反映する。
+  // 配置検討中は runtime-fixes で固定し、最終確定後に town-maps へ統合する。
+  function applyLeisureCenterLayout() {
+    var maps = window.TOWN_SCENE_MAPS;
+    var leisure = maps && maps.leisure_center_map;
+    if (!leisure) return;
+
+    function upsertProp(prop) {
+      if (!Array.isArray(leisure.props)) leisure.props = [];
+      for (var i = 0; i < leisure.props.length; i++) {
+        if (leisure.props[i] && leisure.props[i].id === prop.id) {
+          leisure.props[i] = prop;
+          return;
+        }
+      }
+      leisure.props.push(prop);
+    }
+
+    function updateTriggerArea(id, area) {
+      if (!Array.isArray(leisure.triggers)) return;
+      for (var i = 0; i < leisure.triggers.length; i++) {
+        if (leisure.triggers[i] && leisure.triggers[i].id === id) {
+          leisure.triggers[i].area = area;
+          return;
+        }
+      }
+    }
+
+    leisure.passableRects = [
+      { x: 9, y: 0, w: 6, h: 1 },
+      { x: 10, y: 1, w: 5, h: 15 },
+      { x: 1, y: 2, w: 9, h: 20 },
+      { x: 15, y: 2, w: 8, h: 20 },
+      { x: 14, y: 16, w: 1, h: 6 },
+      { x: 10, y: 18, w: 4, h: 6 }
+    ];
+
+    leisure.blockedRects = [
+      { x: 0, y: 0, w: 9, h: 2 },
+      { x: 15, y: 0, w: 9, h: 2 },
+      { x: 0, y: 2, w: 1, h: 22 },
+      { x: 23, y: 2, w: 1, h: 22 },
+      { x: 10, y: 16, w: 4, h: 2 },
+      { x: 1, y: 22, w: 9, h: 2 },
+      { x: 14, y: 22, w: 9, h: 2 }
+    ];
+
+    leisure.blockedPoints = [
+      { x: 9, y: 1 }
+    ];
+
+    updateTriggerArea('leisure_catalog', { x: 10, y: 13, w: 4, h: 6 });
+
+    upsertProp({
+      id: 'leisure_catalog_terminal',
+      src: 'assets/maps/props/leisure-center/leisure-catalog-terminal.png?v=20260813-1',
+      x: 7.403000608979685,
+      y: 1.4213751868460398,
+      w: 2.4,
+      h: 2.4,
+      footY: 3.8213751868460397,
+      enabled: true,
+      collision: { enabled: true, x: 0.06, y: 0.08, w: 0.88, h: 0.9 },
+      interaction: { enabled: true, triggerId: 'leisure_catalog', x: 0.04, y: 0.48, w: 0.92, h: 0.5 },
+      catalogKey: 'bench'
+    });
+
+    upsertProp({
+      id: 'station_leisureDirectionSign_2',
+      src: 'assets/maps/props/leisure-center/leisure-direction-sign.png?rev=editor',
+      x: 5.769653435199023,
+      y: 13.294593921275531,
+      w: 3.5,
+      h: 3.5,
+      footY: 16.79459392127553,
+      enabled: true,
+      catalogKey: 'leisureDirectionSign',
+      collision: { enabled: true, x: 0.35, y: 0.82, w: 0.3, h: 0.16 },
+      interaction: { enabled: false, triggerId: '', x: 0, y: 0.6, w: 1, h: 0.4 }
+    });
+
+    upsertProp({
+      id: 'station_leisurePamphletRack_3',
+      src: 'assets/maps/props/leisure-center/leisure-pamphlet-rack.png?rev=editor',
+      x: 14.299726420491243,
+      y: 0,
+      w: 3.75,
+      h: 3.75,
+      footY: 3.75,
+      enabled: true,
+      catalogKey: 'leisurePamphletRack',
+      collision: { enabled: true, x: 0.15, y: 0.84, w: 0.7, h: 0.14 },
+      interaction: { enabled: false, triggerId: '', x: 0, y: 0.6, w: 1, h: 0.4 }
+    });
+
+    upsertProp({
+      id: 'station_leisureBulletinBoard_4',
+      src: 'assets/maps/props/leisure-center/leisure-bulletin-board.png?rev=editor',
+      x: 1.9070567827418827,
+      y: 0,
+      w: 4,
+      h: 4,
+      footY: 4,
+      enabled: true,
+      catalogKey: 'leisureBulletinBoard',
+      collision: { enabled: true, x: 0.08, y: 0.82, w: 0.84, h: 0.14 },
+      interaction: { enabled: false, triggerId: '', x: 0, y: 0.6, w: 1, h: 0.4 }
+    });
+
+    upsertProp({
+      id: 'station_leisureGuideTerminal_5',
+      src: 'assets/maps/props/leisure-center/leisure-guide-terminal.png?rev=editor',
+      x: 10.71010721733193,
+      y: 14.87746013951171,
+      w: 3,
+      h: 3,
+      footY: 17.87746013951171,
+      enabled: true,
+      catalogKey: 'leisureGuideTerminal',
+      collision: { enabled: true, x: 0.05, y: 0.76, w: 0.9, h: 0.18 },
+      interaction: { enabled: false, triggerId: '', x: 0, y: 0.6, w: 1, h: 0.4 }
+    });
+  }
+
   // レジャーセンター用の新規アセットを開発モードの追加カタログへ登録する。
   // TOWN_PART_ASSET_BASE は station-plaza 基準なので、../leisure-center/ で参照する。
   function registerLeisureCenterEditorAssets() {
@@ -233,6 +357,7 @@
   registerLeisureCenterEditorAssets();
   applyCommonSignAssets();
   applyAlleyPropScale();
+  applyLeisureCenterLayout();
   applyCameraZoom();
   preserveExplicitTriggerAreas();
 
