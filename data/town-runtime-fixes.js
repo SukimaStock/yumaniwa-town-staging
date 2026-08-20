@@ -180,6 +180,57 @@
     }
   }
 
+  // レジャーセンター用の新規アセットを開発モードの追加カタログへ登録する。
+  // TOWN_PART_ASSET_BASE は station-plaza 基準なので、../leisure-center/ で参照する。
+  function registerLeisureCenterEditorAssets() {
+    var catalog = window.TOWN_PART_CATALOG;
+    if (!Array.isArray(catalog)) return;
+
+    function add(entry) {
+      for (var i = 0; i < catalog.length; i++) {
+        if (catalog[i] && catalog[i].key === entry.key) return;
+      }
+      catalog.push(entry);
+    }
+
+    add({
+      key: 'leisureDirectionSign',
+      label: '簡易案内サイン（レジャーセンター）',
+      file: '../leisure-center/leisure-direction-sign.png',
+      w: 3.5,
+      h: 3.5,
+      collision: { enabled: true, x: 0.35, y: 0.82, w: 0.30, h: 0.16 }
+    });
+
+    add({
+      key: 'leisurePamphletRack',
+      label: 'パンフレットラック（レジャーセンター）',
+      file: '../leisure-center/leisure-pamphlet-rack.png',
+      w: 3.75,
+      h: 3.75,
+      collision: { enabled: true, x: 0.15, y: 0.84, w: 0.70, h: 0.14 }
+    });
+
+    add({
+      key: 'leisureBulletinBoard',
+      label: '掲示スタンド（レジャーセンター）',
+      file: '../leisure-center/leisure-bulletin-board.png',
+      w: 4.0,
+      h: 4.0,
+      collision: { enabled: true, x: 0.08, y: 0.82, w: 0.84, h: 0.14 }
+    });
+
+    add({
+      key: 'leisureGuideTerminal',
+      label: '展示ガイド端末（レジャーセンター）',
+      file: '../leisure-center/leisure-guide-terminal.png',
+      w: 4.0,
+      h: 4.0,
+      collision: { enabled: true, x: 0.05, y: 0.76, w: 0.90, h: 0.18 }
+    });
+  }
+
+  registerLeisureCenterEditorAssets();
   applyCommonSignAssets();
   applyAlleyPropScale();
   applyCameraZoom();
