@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.9
+Yumaniwa Desk v0.9.2
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,17 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.9.2:
+- update / delete の before を現在の正本と照合し、古い差分や別経路の上書きを拒否
+- collision / areaZones も before を照合してから反映
+- data/town-maps.js / data/station-plaza.js の配列オブジェクトを安全なJSリテラル解析で確認
+- props / triggers 配列が未作成のシーンでも、最初の add で配列を安全に新設
+
+v0.9.1:
+- 開発モード差分の props / triggers で add / update / delete を正式対応
+- add はID重複を拒否、delete は対象IDの存在を確認してから安全に配列へ反映
+- 新規パーツ・新規コメント・旧仮トリガー削除を1回の差分取り込みで処理可能
 
 v0.9:
 - Web開発モードの yumaniwa-editor-diff-v1 差分形式を正式対応
@@ -99,6 +110,7 @@ v0.2:
 from __future__ import print_function
 
 import datetime
+import ast
 import hashlib
 import math
 import json
@@ -1262,15 +1274,133 @@ def _replace_object_in_array(text, open_index, close_index, object_id, after):
     raise ValueError("配列内に編集対象IDがありません: " + object_id)
 
 
+def _find_array_object_matches(text, open_index, close_index, object_id):
+    matches = []
+    for index, (start, end) in enumerate(extract_object_spans(text, open_index + 1, close_index)):
+        if _object_id_from_block(text[start:end]) == object_id:
+            matches.append((index, start, end))
+    return matches
+
+
+def _insert_object_into_array(text, open_index, close_index, object_id, after):
+    if _find_array_object_matches(text, open_index, close_index, object_id):
+        raise ValueError("配列内に同じIDが既にあります: " + object_id)
+
+    spans = extract_object_spans(text, open_index + 1, close_index)
+    array_indent = _line_indent(text, open_index)
+
+    if spans:
+        item_indent = _line_indent(text, spans[0][0]) or (array_indent + "    ")
+        last_end = spans[-1][1]
+        tail = text[last_end:close_index]
+        # 配列末尾にコメント等がある場合、誤って壊さないため自動挿入しない。
+        if not re.fullmatch(r"[\s,]*", tail):
+            raise ValueError("配列末尾の形式が複雑なため、安全に追加できません: " + object_id)
+        rendered = item_indent + _js_render(after, item_indent)
+        replacement = ",\n" + rendered + "\n" + array_indent
+        return text[:last_end] + replacement + text[close_index:]
+
+    rendered = (array_indent + "    ") + _js_render(after, array_indent + "    ")
+    replacement = "\n" + rendered + "\n" + array_indent
+    return text[:open_index + 1] + replacement + text[close_index:]
+
+
+def _delete_object_from_array(text, open_index, close_index, object_id):
+    spans = extract_object_spans(text, open_index + 1, close_index)
+    matches = [
+        (index, start, end)
+        for index, (start, end) in enumerate(spans)
+        if _object_id_from_block(text[start:end]) == object_id
+    ]
+    if not matches:
+        raise ValueError("配列内に削除対象IDがありません: " + object_id)
+    if len(matches) != 1:
+        raise ValueError("配列内に削除対象IDが複数あります: " + object_id)
+
+    index, start, end = matches[0]
+
+    if len(spans) == 1:
+        before_gap = text[open_index + 1:start]
+        after_gap = text[end:close_index]
+        if not re.fullmatch(r"[\s,]*", before_gap + after_gap):
+            raise ValueError("配列内の形式が複雑なため、安全に削除できません: " + object_id)
+        array_indent = _line_indent(text, open_index)
+        return text[:open_index + 1] + "\n" + array_indent + text[close_index:]
+
+    if index == 0:
+        next_start = spans[1][0]
+        separator = text[end:next_start]
+        if not re.fullmatch(r"[\s,]*", separator):
+            raise ValueError("削除対象の後ろにコメント等があるため、安全に削除できません: " + object_id)
+        return text[:start] + text[next_start:]
+
+    prev_end = spans[index - 1][1]
+    separator = text[prev_end:start]
+    if not re.fullmatch(r"[\s,]*", separator):
+        raise ValueError("削除対象の前にコメント等があるため、安全に削除できません: " + object_id)
+    return text[:prev_end] + text[end:]
+
+
 def _replace_var_array_object(text, var_name, object_id, after):
     open_index, close_index = _find_var_array_span(text, var_name)
     return _replace_object_in_array(text, open_index, close_index, object_id, after)
+
+
+def _insert_var_array_object(text, var_name, object_id, after):
+    open_index, close_index = _find_var_array_span(text, var_name)
+    return _insert_object_into_array(text, open_index, close_index, object_id, after)
+
+
+def _delete_var_array_object(text, var_name, object_id):
+    open_index, close_index = _find_var_array_span(text, var_name)
+    return _delete_object_from_array(text, open_index, close_index, object_id)
 
 
 def _replace_scene_array_object(text, scene_id, array_name, object_id, after):
     scene_open, scene_close = _find_scene_span(text, scene_id)
     arr_open, arr_close = _find_named_array_span(text, array_name, scene_open, scene_close)
     return _replace_object_in_array(text, arr_open, arr_close, object_id, after)
+
+
+def _insert_scene_array_property(text, scene_open, scene_close, array_name, object_id, after):
+    # props/triggers 配列がまだ存在しない新しいシーンでも、最初の add を安全に受けられるようにする。
+    scene_indent = _line_indent(text, scene_open)
+    property_indent = scene_indent + "  "
+    item_indent = property_indent + "  "
+    body = text[scene_open + 1:scene_close]
+    stripped = body.rstrip()
+    if not stripped:
+        separator = "\n"
+    else:
+        last_non_ws = stripped[-1]
+        separator = "\n" if last_non_ws == "," else ",\n"
+
+    rendered = _js_render(after, item_indent)
+    insertion = (
+        separator +
+        property_indent + array_name + ": [\n" +
+        item_indent + rendered + "\n" +
+        property_indent + "]\n" +
+        scene_indent
+    )
+    return text[:scene_close] + insertion + text[scene_close:]
+
+
+def _insert_scene_array_object(text, scene_id, array_name, object_id, after):
+    scene_open, scene_close = _find_scene_span(text, scene_id)
+    try:
+        arr_open, arr_close = _find_named_array_span(text, array_name, scene_open, scene_close)
+    except ValueError as exc:
+        if "配列を見つけられません" not in str(exc):
+            raise
+        return _insert_scene_array_property(text, scene_open, scene_close, array_name, object_id, after)
+    return _insert_object_into_array(text, arr_open, arr_close, object_id, after)
+
+
+def _delete_scene_array_object(text, scene_id, array_name, object_id):
+    scene_open, scene_close = _find_scene_span(text, scene_id)
+    arr_open, arr_close = _find_named_array_span(text, array_name, scene_open, scene_close)
+    return _delete_object_from_array(text, arr_open, arr_close, object_id)
 
 
 def _replace_var_array_value(text, var_name, value):
@@ -1360,6 +1490,261 @@ def _replace_prop_assignment_block(text, object_id, after):
     return text[:open_index] + block + text[close_index + 1:]
 
 
+
+class _SafeJsLiteralParser(object):
+    """湯間庭町の設定データで使うJSリテラルだけを、コード実行せずに読む。"""
+    def __init__(self, text):
+        self.text = text or ""
+        self.pos = 0
+        self.length = len(self.text)
+
+    def _skip(self):
+        while self.pos < self.length:
+            if self.text[self.pos].isspace():
+                self.pos += 1
+                continue
+            if self.text.startswith("//", self.pos):
+                end = self.text.find("\n", self.pos + 2)
+                self.pos = self.length if end < 0 else end + 1
+                continue
+            if self.text.startswith("/*", self.pos):
+                end = self.text.find("*/", self.pos + 2)
+                if end < 0:
+                    raise ValueError("JSコメントが閉じていません。")
+                self.pos = end + 2
+                continue
+            break
+
+    def _peek(self):
+        self._skip()
+        return self.text[self.pos] if self.pos < self.length else ""
+
+    def _consume(self, expected=None):
+        self._skip()
+        if self.pos >= self.length:
+            raise ValueError("JSリテラルが途中で終わっています。")
+        ch = self.text[self.pos]
+        if expected is not None and ch != expected:
+            raise ValueError("JSリテラルの形式が不正です。")
+        self.pos += 1
+        return ch
+
+    def _string(self):
+        self._skip()
+        quote = self._consume()
+        if quote not in ('"', "'"):
+            raise ValueError("文字列の開始記号が不正です。")
+        start = self.pos - 1
+        escaped = False
+        while self.pos < self.length:
+            ch = self.text[self.pos]
+            self.pos += 1
+            if escaped:
+                escaped = False
+                continue
+            if ch == "\\":
+                escaped = True
+                continue
+            if ch == quote:
+                token = self.text[start:self.pos]
+                try:
+                    if quote == '"':
+                        return json.loads(token)
+                    return ast.literal_eval(token)
+                except Exception:
+                    raise ValueError("JS文字列を安全に読めません。")
+        raise ValueError("JS文字列が閉じていません。")
+
+    def _identifier(self):
+        self._skip()
+        m = re.match(r"[A-Za-z_$][A-Za-z0-9_$]*", self.text[self.pos:])
+        if not m:
+            raise ValueError("JS識別子を読めません。")
+        value = m.group(0)
+        self.pos += len(value)
+        return value
+
+    def _number(self):
+        self._skip()
+        m = re.match(r"-?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?", self.text[self.pos:])
+        if not m:
+            raise ValueError("数値を読めません。")
+        raw = m.group(0)
+        self.pos += len(raw)
+        value = float(raw) if any(c in raw for c in ".eE") else int(raw)
+        if isinstance(value, float) and not math.isfinite(value):
+            raise ValueError("有限でない数値は使えません。")
+        return value
+
+    def _array(self):
+        self._consume('[')
+        values = []
+        if self._peek() == ']':
+            self._consume(']')
+            return values
+        while True:
+            values.append(self.value())
+            ch = self._peek()
+            if ch == ',':
+                self._consume(',')
+                if self._peek() == ']':
+                    self._consume(']')
+                    return values
+                continue
+            if ch == ']':
+                self._consume(']')
+                return values
+            raise ValueError("JS配列の区切りが不正です。")
+
+    def _object(self):
+        self._consume('{')
+        result = {}
+        if self._peek() == '}':
+            self._consume('}')
+            return result
+        while True:
+            ch = self._peek()
+            key = self._string() if ch in ('"', "'") else self._identifier()
+            self._consume(':')
+            result[key] = self.value()
+            ch = self._peek()
+            if ch == ',':
+                self._consume(',')
+                if self._peek() == '}':
+                    self._consume('}')
+                    return result
+                continue
+            if ch == '}':
+                self._consume('}')
+                return result
+            raise ValueError("JSオブジェクトの区切りが不正です。")
+
+    def _call(self, name):
+        self._consume('(')
+        args = []
+        if self._peek() != ')':
+            while True:
+                args.append(self.value())
+                if self._peek() == ',':
+                    self._consume(',')
+                    continue
+                break
+        self._consume(')')
+        if name == 'rect' and len(args) == 4:
+            return {"x": args[0], "y": args[1], "w": args[2], "h": args[3]}
+        raise ValueError("正本照合で未対応の関数呼び出しです: " + name)
+
+    def value(self):
+        ch = self._peek()
+        if ch == '{':
+            return self._object()
+        if ch == '[':
+            return self._array()
+        if ch in ('"', "'"):
+            return self._string()
+        if ch == '-' or ch == '.' or ch.isdigit():
+            return self._number()
+        name = self._identifier()
+        if name == 'true':
+            return True
+        if name == 'false':
+            return False
+        if name == 'null':
+            return None
+        if self._peek() == '(':
+            return self._call(name)
+        raise ValueError("正本照合で未対応の値です: " + name)
+
+    def parse(self):
+        value = self.value()
+        self._skip()
+        if self.pos != self.length:
+            raise ValueError("JSリテラルの後ろに未解釈の内容があります。")
+        return value
+
+
+def _parse_safe_js_literal(text):
+    return _SafeJsLiteralParser(text).parse()
+
+
+def _read_array_object_value(text, open_index, close_index, object_id):
+    matches = _find_array_object_matches(text, open_index, close_index, object_id)
+    if not matches:
+        raise ValueError("正本に対象IDがありません: " + object_id)
+    if len(matches) != 1:
+        raise ValueError("正本に対象IDが複数あります: " + object_id)
+    _index, start, end = matches[0]
+    return _parse_safe_js_literal(text[start:end])
+
+
+def _read_current_diff_object(source, text, scene_id, kind, object_id):
+    if kind not in ("props", "triggers"):
+        raise ValueError("正本照合の種類が不正です: " + kind)
+
+    if source == "data/station-plaza.js":
+        var_name = "stationPlazaProps" if kind == "props" else "triggers"
+        open_index, close_index = _find_var_array_span(text, var_name)
+        return _read_array_object_value(text, open_index, close_index, object_id)
+
+    if source == "data/town-maps.js":
+        scene_open, scene_close = _find_scene_span(text, scene_id)
+        arr_open, arr_close = _find_named_array_span(text, kind, scene_open, scene_close)
+        return _read_array_object_value(text, arr_open, arr_close, object_id)
+
+    # 専用スクリプトや runtime-fixes は式を含むものがあるため、
+    # 既存の専用パッチ検証 + ファイルSHA検証に任せる。
+    return None
+
+
+def _assert_diff_before_matches(source, text, scene_id, kind, change):
+    op = str(change.get("op") or "")
+    if op not in ("update", "delete"):
+        return
+    before = change.get("before")
+    object_id = str(change.get("id") or "")
+    current = _read_current_diff_object(source, text, scene_id, kind, object_id)
+    if current is None:
+        return
+    if current != before:
+        raise ValueError(
+            "正本が開発モード開始時の内容と一致しません: {0} {1}。"
+            "古い差分を上書きせず、Working Copyを同期して開発モードからもう一度書き出してください。".format(
+                kind, object_id
+            )
+        )
+
+
+def _read_current_array_value(source, text, scene_id, key):
+    if source == "data/station-plaza.js":
+        open_index, close_index = _find_var_array_span(text, key)
+    elif source == "data/town-maps.js":
+        scene_open, scene_close = _find_scene_span(text, scene_id)
+        open_index, close_index = _find_named_array_span(text, key, scene_open, scene_close)
+    else:
+        return None
+    return _parse_safe_js_literal(text[open_index:close_index + 1])
+
+
+def _assert_collection_before_matches(source, text, scene_id, change, keys=None):
+    if not change:
+        return
+    before = change.get("before")
+    if keys is None:
+        current = _read_current_array_value(source, text, scene_id, "areaZones")
+        if current is not None and current != before:
+            raise ValueError("areaZones の正本が開発モード開始時の内容と一致しません。もう一度書き出してください。")
+        return
+
+    if not isinstance(before, dict):
+        raise ValueError("collision.before がオブジェクトではありません。")
+    for key in keys:
+        if key not in before:
+            continue
+        current = _read_current_array_value(source, text, scene_id, key)
+        if current is not None and current != before.get(key):
+            raise ValueError("{0} の正本が開発モード開始時の内容と一致しません。もう一度書き出してください。".format(key))
+
+
 def _changed_top_keys(before, after):
     before = before if isinstance(before, dict) else {}
     after = after if isinstance(after, dict) else {}
@@ -1380,13 +1765,38 @@ def _patch_ghost_prop(text, before, after):
     return text
 
 
-def _validate_diff_part(root, change):
-    after = change.get("after")
-    if not isinstance(after, dict):
-        raise ValueError("props の after がオブジェクトではありません: " + str(change.get("id") or ""))
+def _validate_diff_change_identity(change, kind):
+    if not isinstance(change, dict):
+        raise ValueError(kind + " の差分形式が不正です。")
+
+    op = str(change.get("op") or "")
+    if op not in ("add", "update", "delete"):
+        raise ValueError(kind + " の未対応操作です: " + (op or "(空)"))
+
     object_id = str(change.get("id") or "")
-    if not object_id or str(after.get("id") or "") != object_id:
-        raise ValueError("props のIDが一致しません: " + object_id)
+    if not object_id:
+        raise ValueError(kind + " の差分にIDがありません。")
+
+    before = change.get("before")
+    after = change.get("after")
+
+    if op in ("update", "delete"):
+        if not isinstance(before, dict) or str(before.get("id") or "") != object_id:
+            raise ValueError(kind + " の before とIDが一致しません: " + object_id)
+
+    if op in ("add", "update"):
+        if not isinstance(after, dict) or str(after.get("id") or "") != object_id:
+            raise ValueError(kind + " の after とIDが一致しません: " + object_id)
+
+    return op, object_id
+
+
+def _validate_diff_part(root, change):
+    op, object_id = _validate_diff_change_identity(change, "props")
+    if op == "delete":
+        return
+
+    after = change.get("after")
     for key in ("x", "y", "w", "h"):
         try:
             value = float(after.get(key))
@@ -1401,6 +1811,10 @@ def _validate_diff_part(root, change):
             raise ValueError("画像ファイルが見つかりません: " + rel)
 
 
+def _validate_diff_trigger(change):
+    return _validate_diff_change_identity(change, "triggers")
+
+
 def _normalize_diff_source(value):
     rel = relative_safe_path(str(value or ""))
     if not rel or rel not in EDITOR_DIFF_ALLOWED_SOURCES:
@@ -1412,18 +1826,42 @@ def _patch_diff_file(source, current_text, scene_id, prop_changes, trigger_chang
     result = current_text
 
     for change in prop_changes:
+        op = str(change.get("op") or "")
         object_id = str(change.get("id") or "")
         after = change.get("after")
         before = change.get("before")
+
+        _assert_diff_before_matches(source, result, scene_id, "props", change)
+
         if source == "data/station-plaza.js":
-            result = _replace_var_array_object(result, "stationPlazaProps", object_id, after)
+            if op == "add":
+                result = _insert_var_array_object(result, "stationPlazaProps", object_id, after)
+            elif op == "delete":
+                result = _delete_var_array_object(result, "stationPlazaProps", object_id)
+            else:
+                result = _replace_var_array_object(result, "stationPlazaProps", object_id, after)
+
         elif source == "data/town-maps.js":
-            result = _replace_scene_array_object(result, scene_id, "props", object_id, after)
+            if op == "add":
+                result = _insert_scene_array_object(result, scene_id, "props", object_id, after)
+            elif op == "delete":
+                result = _delete_scene_array_object(result, scene_id, "props", object_id)
+            else:
+                result = _replace_scene_array_object(result, scene_id, "props", object_id, after)
+
         elif source in ("town-update-sign.js", "town-feedback-box.js"):
+            if op != "update":
+                raise ValueError(source + " のパーツは update 以外を安全に反映できません。")
             result = _replace_var_object(result, "prop", after)
+
         elif source == "town-ghost-npc.js":
+            if op != "update":
+                raise ValueError("おばけNPCは update 以外を安全に反映できません。")
             result = _patch_ghost_prop(result, before, after)
+
         elif source == "data/town-runtime-fixes.js":
+            if op != "update":
+                raise ValueError("runtime-fixes.js のパーツは update 以外を安全に反映できません。")
             if object_id in ("yakitori_yumado_shop", "common_temporary_storefront"):
                 unsupported = _changed_top_keys(before, after) - {"x", "y", "w", "h", "footY"}
                 if unsupported:
@@ -1437,20 +1875,40 @@ def _patch_diff_file(source, current_text, scene_id, prop_changes, trigger_chang
             raise ValueError("props の未対応反映先です: " + source)
 
     for change in trigger_changes:
+        op = str(change.get("op") or "")
         object_id = str(change.get("id") or "")
         after = change.get("after")
-        if not isinstance(after, dict) or str(after.get("id") or "") != object_id:
-            raise ValueError("trigger のIDが一致しません: " + object_id)
+
+        _assert_diff_before_matches(source, result, scene_id, "triggers", change)
+
         if source == "data/station-plaza.js":
-            result = _replace_var_array_object(result, "triggers", object_id, after)
+            if op == "add":
+                result = _insert_var_array_object(result, "triggers", object_id, after)
+            elif op == "delete":
+                result = _delete_var_array_object(result, "triggers", object_id)
+            else:
+                result = _replace_var_array_object(result, "triggers", object_id, after)
+
         elif source == "data/town-maps.js":
-            result = _replace_scene_array_object(result, scene_id, "triggers", object_id, after)
+            if op == "add":
+                result = _insert_scene_array_object(result, scene_id, "triggers", object_id, after)
+            elif op == "delete":
+                result = _delete_scene_array_object(result, scene_id, "triggers", object_id)
+            else:
+                result = _replace_scene_array_object(result, scene_id, "triggers", object_id, after)
+
         elif source in ("town-update-sign.js", "town-feedback-box.js", "town-ghost-npc.js"):
+            if op != "update":
+                raise ValueError(source + " のトリガーは update 以外を安全に反映できません。")
             result = _replace_var_object(result, "trigger", after)
         else:
             raise ValueError("triggers の未対応反映先です: " + source)
 
     if collision_change:
+        _assert_collection_before_matches(
+            source, result, scene_id, collision_change,
+            ("passableRects", "blockedRects", "blockedPoints")
+        )
         after_collision = collision_change.get("after") or {}
         if not isinstance(after_collision, dict):
             raise ValueError("collision.after がオブジェクトではありません。")
@@ -1466,6 +1924,7 @@ def _patch_diff_file(source, current_text, scene_id, prop_changes, trigger_chang
             raise ValueError("collision の反映先が不正です: " + source)
 
     if area_change:
+        _assert_collection_before_matches(source, result, scene_id, area_change, None)
         after_zones = area_change.get("after")
         if not isinstance(after_zones, list):
             raise ValueError("areaZones.after が配列ではありません。")
@@ -1480,7 +1939,6 @@ def _patch_diff_file(source, current_text, scene_id, prop_changes, trigger_chang
     if not ok:
         raise ValueError(source + " へ差分を反映すると構文が崩れます: " + message)
     return result
-
 
 def _plan_editor_diff_import(root, manifest):
     scene_id = str(manifest.get("scene") or "")
@@ -1505,20 +1963,24 @@ def _plan_editor_diff_import(root, manifest):
         source = _normalize_diff_source(source)
         return grouped.setdefault(source, {"props": [], "triggers": [], "collision": None, "areaZones": None})
 
+    op_labels = {"add": "追加", "update": "更新", "delete": "削除"}
+
     for change in props:
-        if not isinstance(change, dict) or change.get("op") != "update":
-            raise ValueError("v0.9 は props の update 差分だけを安全に取り込めます。")
         _validate_diff_part(root, change)
+        op = str(change.get("op") or "")
         source = _normalize_diff_source(change.get("source"))
         bucket(source)["props"].append(change)
-        detail_lines.append("・{0}: パーツ {1}".format(source, change.get("id")))
+        detail_lines.append(
+            "・{0}: パーツ{1} {2}".format(source, op_labels.get(op, op), change.get("id"))
+        )
 
     for change in triggers:
-        if not isinstance(change, dict) or change.get("op") != "update":
-            raise ValueError("v0.9 は triggers の update 差分だけを安全に取り込めます。")
+        op, _ = _validate_diff_trigger(change)
         source = _normalize_diff_source(change.get("source"))
         bucket(source)["triggers"].append(change)
-        detail_lines.append("・{0}: トリガー {1}".format(source, change.get("id")))
+        detail_lines.append(
+            "・{0}: トリガー{1} {2}".format(source, op_labels.get(op, op), change.get("id"))
+        )
 
     if collision:
         if not isinstance(collision, dict):
@@ -1590,7 +2052,7 @@ def plan_town_editor_import(root, clipboard_text):
     if not text:
         raise ValueError("クリップボードが空です。開発モードの[変更を書き出す]→[変更差分をコピー]を先に行ってください。")
 
-    # v0.9: 新しい差分形式を最優先で読む。
+    # v0.9.2: 新しい差分形式を最優先で読む。
     manifest = _extract_editor_diff_manifest(text)
     if manifest is not None:
         return _plan_editor_diff_import(root, manifest)
