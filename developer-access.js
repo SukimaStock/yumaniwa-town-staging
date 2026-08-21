@@ -78,8 +78,33 @@
         });
     }
 
+    // 最新の開発モード差分：掲示スタンドの位置・サイズ。
+    // town-runtime-fixes.js が後から旧値を適用するため、ロード完了時にも再適用する。
+    function applyLeisureBulletinBoardDraft() {
+        var maps = window.TOWN_SCENE_MAPS;
+        var leisure = maps && maps.leisure_center_map;
+        if (!leisure || !Array.isArray(leisure.props)) return;
+
+        for (var i = 0; i < leisure.props.length; i++) {
+            var prop = leisure.props[i];
+            if (!prop || prop.id !== 'station_leisureBulletinBoard_4') continue;
+
+            prop.x = 2.375;
+            prop.y = 0.5625;
+            prop.w = 3.25;
+            prop.h = 3.25;
+            prop.footY = 3.8125;
+            return;
+        }
+    }
+
     if (enabled) {
         applyLeisureCenterInteractionDraft();
+        applyLeisureBulletinBoardDraft();
+
+        // このスクリプトより後に読み込まれる runtime-fixes の上書き後に再適用する。
+        window.setTimeout(applyLeisureBulletinBoardDraft, 0);
+        window.addEventListener('load', applyLeisureBulletinBoardDraft);
     }
 
     if (!enabled || typeof window.getTriggerFormValues !== 'function') return;
