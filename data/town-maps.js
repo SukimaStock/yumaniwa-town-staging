@@ -85,349 +85,90 @@
     },
 
     tomogushi_alley_map: {
-        "id": "tomogushi_alley_map",
-        "title": "横丁",
-        "subtitle": "灯串横丁",
-        "mapWidth": 24,
-        "mapHeight": 24,
-        "backgroundStyle": "alley",
-        "backgroundImagePath": "assets/maps/grounds/tomogushi-alley-ground.png",
-        "spawnPoints": {
-            "default": {
-                "x": 20,
-                "y": 12,
-                "dir": "left"
-            },
-            "fromPlaza": {
-                "x": 20,
-                "y": 12,
-                "dir": "left"
-            }
+      id: 'tomogushi_alley_map',
+      title: '横丁',
+      subtitle: '灯串横丁',
+      mapWidth: 24,
+      mapHeight: 24,
+      backgroundStyle: 'alley',
+      backgroundImagePath: 'assets/maps/grounds/tomogushi-alley-ground.png',
+      spawnPoints: {
+        default: { x: 20, y: 12, dir: 'left' },
+        fromPlaza: { x: 20, y: 12, dir: 'left' }
+      },
+      edgeWarps: [
+        { side: 'right', min: 9, max: 14, target: 'station_plaza', targetSpawn: 'fromAlley' }
+      ],
+      passableRects: [
+        { x: 4, y: 4, w: 15, h: 12 },
+        { x: 19, y: 8, w: 5, h: 7 },
+        { x: 0, y: 10, w: 4, h: 4 },
+        { x: 4, y: 16, w: 9, h: 4 },
+        { x: 16, y: 16, w: 3, h: 4 },
+        { x: 13, y: 19, w: 3, h: 1 }
+      ],
+      blockedRects: [
+        { x: 0, y: 0, w: 24, h: 4 },
+        { x: 0, y: 4, w: 4, h: 6 },
+        { x: 19, y: 4, w: 5, h: 4 },
+        { x: 0, y: 14, w: 4, h: 9 },
+        { x: 19, y: 15, w: 5, h: 9 },
+        { x: 13, y: 16, w: 3, h: 3 },
+        { x: 4, y: 20, w: 15, h: 4 },
+        { x: 2, y: 23, w: 2, h: 1 }
+      ],
+      blockedPoints: [],
+      areaZones: [
+        { id: 'alley', title: '灯串横丁', subtitle: '夜の遊び場の路地', area: { x: 0, y: 0, w: 24, h: 24 } }
+      ],
+      triggers: [
+        {
+          id: 'yakitori_wars_booth', label: '焼き鳥屋 ゆまど', actionLabel: '遊ぶ', type: 'work', workId: 'yakitori-wars',
+          text: '炭火の向こうから、焼き鳥の香りが漂っている。', area: { x: 12, y: 5, w: 7, h: 3 }, tapPadding: 1
         },
-        "edgeWarps": [
-            {
-                "side": "right",
-                "min": 9,
-                "max": 14,
-                "target": "station_plaza",
-                "targetSpawn": "fromAlley"
-            }
-        ],
-        "passableRects": [
-            {
-                "x": 4,
-                "y": 4,
-                "w": 15,
-                "h": 12
-            },
-            {
-                "x": 19,
-                "y": 8,
-                "w": 5,
-                "h": 7
-            },
-            {
-                "x": 0,
-                "y": 10,
-                "w": 4,
-                "h": 4
-            },
-            {
-                "x": 4,
-                "y": 16,
-                "w": 9,
-                "h": 4
-            },
-            {
-                "x": 16,
-                "y": 16,
-                "w": 3,
-                "h": 4
-            },
-            {
-                "x": 13,
-                "y": 19,
-                "w": 3,
-                "h": 1
-            }
-        ],
-        "blockedRects": [
-            {
-                "x": 0,
-                "y": 0,
-                "w": 24,
-                "h": 4
-            },
-            {
-                "x": 0,
-                "y": 4,
-                "w": 4,
-                "h": 6
-            },
-            {
-                "x": 19,
-                "y": 4,
-                "w": 5,
-                "h": 4
-            },
-            {
-                "x": 0,
-                "y": 14,
-                "w": 4,
-                "h": 9
-            },
-            {
-                "x": 19,
-                "y": 15,
-                "w": 5,
-                "h": 9
-            },
-            {
-                "x": 13,
-                "y": 16,
-                "w": 3,
-                "h": 3
-            },
-            {
-                "x": 4,
-                "y": 20,
-                "w": 15,
-                "h": 4
-            },
-            {
-                "x": 2,
-                "y": 23,
-                "w": 2,
-                "h": 1
-            }
-        ],
-        "blockedPoints": [],
-        "areaZones": [
-            {
-                "id": "alley",
-                "title": "灯串横丁",
-                "subtitle": "夜の遊び場の路地",
-                "area": {
-                    "x": 0,
-                    "y": 0,
-                    "w": 24,
-                    "h": 24
-                }
-            }
-        ],
-        "triggers": [
-            {
-                "id": "yakitori_wars_booth",
-                "label": "焼き鳥屋 ゆまど",
-                "actionLabel": "遊ぶ",
-                "type": "work",
-                "workId": "yakitori-wars",
-                "text": "炭火の向こうから、焼き鳥の香りが漂っている。",
-                "area": {
-                    "x": 12,
-                    "y": 5,
-                    "w": 7,
-                    "h": 3
-                },
-                "tapPadding": 1
-            },
-            {
-                "id": "midnight_cola_booth",
-                "label": "クラフトコーラ研究所",
-                "actionLabel": "遊ぶ",
-                "type": "work",
-                "workId": "midnight-cola",
-                "text": "夜の研究所から、柑橘とスパイスの香りがする。",
-                "area": {
-                    "x": 2,
-                    "y": 4,
-                    "w": 5,
-                    "h": 4
-                },
-                "tapPadding": 1
-            },
-            {
-                "id": "game_list_stall",
-                "label": "ゲーム案内所",
-                "actionLabel": "見る",
-                "type": "menu",
-                "target": "tomogushi_game_board",
-                "text": "灯串横丁で今夜遊べるゲームをまとめて案内しています。",
-                "area": {
-                    "x": 12,
-                    "y": 16,
-                    "w": 5,
-                    "h": 3
-                },
-                "tapPadding": 1
-            }
-        ],
-        "groundRects": [
-            {
-                "x": 0,
-                "y": 0,
-                "w": 24,
-                "h": 24,
-                "color": "#49392f"
-            },
-            {
-                "x": 0,
-                "y": 10,
-                "w": 24,
-                "h": 5,
-                "color": "#6f5b46"
-            },
-            {
-                "x": 4,
-                "y": 6,
-                "w": 16,
-                "h": 12,
-                "color": "#5a4738"
-            },
-            {
-                "x": 3,
-                "y": 15,
-                "w": 16,
-                "h": 4,
-                "color": "#6a543f"
-            }
-        ],
-        "props": [
-            {
-                "id": "yakitori_yumado_shop",
-                "src": "assets/maps/props/tomogushi-alley/yakitori-yumado.png?rev=20260716-1",
-                "x": 11.708333333333334,
-                "y": 0,
-                "w": 8,
-                "h": 8,
-                "footY": 8,
-                "enabled": true,
-                "collision": {
-                    "enabled": true,
-                    "x": 0.13,
-                    "y": 0.79,
-                    "w": 0.74,
-                    "h": 0.18
-                },
-                "interaction": {
-                    "enabled": true,
-                    "triggerId": "yakitori_wars_booth",
-                    "x": 0.12,
-                    "y": 0.68,
-                    "w": 0.76,
-                    "h": 0.32
-                },
-                "catalogKey": "bench"
-            },
-            {
-                "id": "common_temporary_storefront",
-                "src": "assets/maps/props/tomogushi-alley/common-temporary-storefront.png?v=20260813-1",
-                "x": 13,
-                "y": 14.7,
-                "w": 3,
-                "h": 4.2,
-                "footY": 18.9,
-                "enabled": true,
-                "collision": {
-                    "enabled": true,
-                    "x": 0.18,
-                    "y": 0.8,
-                    "w": 0.64,
-                    "h": 0.18
-                },
-                "interaction": {
-                    "enabled": true,
-                    "triggerId": "game_list_stall",
-                    "x": 0.06,
-                    "y": 0.58,
-                    "w": 0.88,
-                    "h": 0.4
-                },
-                "catalogKey": "bench"
-            }
-        ],
-        "decor": [
-            {
-                "x": 2,
-                "y": 4,
-                "w": 5,
-                "h": 4,
-                "fill": "#7d5a42",
-                "stroke": "#2d241b",
-                "label": "コーラ",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 21,
-                "y": 10,
-                "w": 3,
-                "h": 5,
-                "fill": "#a9b8c5",
-                "stroke": "#2d241b",
-                "label": "広場",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 2,
-                "y": 15,
-                "w": 1,
-                "h": 2,
-                "fill": "#6a4d36",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 3,
-                "y": 3,
-                "w": 1,
-                "h": 1,
-                "fill": "#cf9a4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 6,
-                "y": 3,
-                "w": 1,
-                "h": 1,
-                "fill": "#cf9a4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 17,
-                "y": 3,
-                "w": 1,
-                "h": 1,
-                "fill": "#cf9a4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 8,
-                "y": 16,
-                "w": 1,
-                "h": 1,
-                "fill": "#8c6b4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 11,
-                "y": 16,
-                "w": 1,
-                "h": 1,
-                "fill": "#8c6b4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            }
-        ]
+        {
+          id: 'midnight_cola_booth', label: 'クラフトコーラ研究所', actionLabel: '遊ぶ', type: 'work', workId: 'midnight-cola',
+          text: '夜の研究所から、柑橘とスパイスの香りがする。', area: { x: 2, y: 4, w: 5, h: 4 }, tapPadding: 1
+        },
+        {
+          id: 'game_list_stall', label: 'ゲーム案内所', actionLabel: '見る', type: 'menu', target: 'tomogushi_game_board',
+          text: '灯串横丁で今夜遊べるゲームをまとめて案内しています。', area: { x: 12, y: 16, w: 5, h: 3 }, tapPadding: 1
+        }
+      ],
+      groundRects: [
+        { x: 0, y: 0, w: 24, h: 24, color: '#49392f' },
+        { x: 0, y: 10, w: 24, h: 5, color: '#6f5b46' },
+        { x: 4, y: 6, w: 16, h: 12, color: '#5a4738' },
+        { x: 3, y: 15, w: 16, h: 4, color: '#6a543f' }
+      ],
+      props: [
+        {
+          id: 'yakitori_yumado_shop',
+          src: 'assets/maps/props/tomogushi-alley/yakitori-yumado.png?rev=20260716-1',
+          x: 11.708333333333334, y: 0, w: 8, h: 8, footY: 8, enabled: true,
+          collision: { enabled: true, x: 0.13, y: 0.79, w: 0.74, h: 0.18 },
+          interaction: { enabled: true, triggerId: 'yakitori_wars_booth', x: 0.12, y: 0.68, w: 0.76, h: 0.32 },
+          catalogKey: 'bench'
+        },
+        {
+          id: 'common_temporary_storefront',
+          src: 'assets/maps/props/tomogushi-alley/common-temporary-storefront.png?v=20260813-1',
+          x: 13, y: 14.7, w: 3, h: 4.2, footY: 18.9, enabled: true,
+          collision: { enabled: true, x: 0.18, y: 0.8, w: 0.64, h: 0.18 },
+          interaction: { enabled: true, triggerId: 'game_list_stall', x: 0.06, y: 0.58, w: 0.88, h: 0.4 },
+          catalogKey: 'bench'
+        }
+      ],
+      decor: [
+        { x: 2, y: 4, w: 5, h: 4, fill: '#7d5a42', stroke: '#2d241b', label: 'コーラ', labelColor: '#ffffff' },
+        { x: 21, y: 10, w: 3, h: 5, fill: '#a9b8c5', stroke: '#2d241b', label: '広場', labelColor: '#ffffff' },
+        { x: 2, y: 15, w: 1, h: 2, fill: '#6a4d36', stroke: '#2d241b', label: '', labelColor: '#ffffff' },
+        { x: 3, y: 3, w: 1, h: 1, fill: '#cf9a4c', stroke: '#2d241b', label: '', labelColor: '#ffffff' },
+        { x: 6, y: 3, w: 1, h: 1, fill: '#cf9a4c', stroke: '#2d241b', label: '', labelColor: '#ffffff' },
+        { x: 17, y: 3, w: 1, h: 1, fill: '#cf9a4c', stroke: '#2d241b', label: '', labelColor: '#ffffff' },
+        { x: 8, y: 16, w: 1, h: 1, fill: '#8c6b4c', stroke: '#2d241b', label: '', labelColor: '#ffffff' },
+        { x: 11, y: 16, w: 1, h: 1, fill: '#8c6b4c', stroke: '#2d241b', label: '', labelColor: '#ffffff' }
+      ]
     },
 
     yumado_street_map: {
@@ -476,72 +217,131 @@
     },
 
     leisure_center_map: {
-      "id": "leisure_center_map",
-      "title": "レジャーセンター",
-      "subtitle": "湯窓レジャーセンター",
-      "mapWidth": 24,
-      "mapHeight": 24,
-      "backgroundStyle": "leisure",
-      "backgroundImagePath": "assets/maps/grounds/leisure-center-ground.png",
-      "spawnPoints": {
-        "default": { "x": 12, "y": 3, "dir": "down" },
-        "fromPlaza": { "x": 12, "y": 3, "dir": "down" }
+      id: 'leisure_center_map',
+      title: 'レジャーセンター',
+      subtitle: '湯窓レジャーセンター',
+      mapWidth: 24,
+      mapHeight: 24,
+      backgroundStyle: 'leisure',
+      backgroundImagePath: 'assets/maps/grounds/leisure-center-ground.png',
+      spawnPoints: {
+        default: { x: 12, y: 3, dir: 'down' },
+        fromPlaza: { x: 12, y: 3, dir: 'down' }
       },
-      "edgeWarps": [
-        { "side": "up", "min": 9, "max": 14, "target": "station_plaza", "targetSpawn": "fromLeisure" }
+      edgeWarps: [
+        { side: 'up', min: 9, max: 14, target: 'station_plaza', targetSpawn: 'fromLeisure' }
       ],
-      "passableRects": [
-        { "x": 9, "y": 0, "w": 6, "h": 1 },
-        { "x": 10, "y": 1, "w": 5, "h": 21 },
-        { "x": 1, "y": 2, "w": 9, "h": 20 },
-        { "x": 15, "y": 2, "w": 8, "h": 20 },
-        { "x": 10, "y": 22, "w": 4, "h": 2 }
+      passableRects: [
+        { x: 9, y: 0, w: 6, h: 1 },
+        { x: 10, y: 1, w: 5, h: 15 },
+        { x: 1, y: 2, w: 9, h: 20 },
+        { x: 15, y: 2, w: 8, h: 20 },
+        { x: 14, y: 16, w: 1, h: 6 },
+        { x: 10, y: 18, w: 4, h: 6 }
       ],
-      "blockedRects": [
-        { "x": 0, "y": 0, "w": 9, "h": 2 },
-        { "x": 15, "y": 0, "w": 9, "h": 2 },
-        { "x": 0, "y": 2, "w": 1, "h": 22 },
-        { "x": 23, "y": 2, "w": 1, "h": 22 },
-        { "x": 1, "y": 22, "w": 9, "h": 2 },
-        { "x": 14, "y": 22, "w": 9, "h": 2 }
+      blockedRects: [
+        { x: 0, y: 0, w: 9, h: 2 },
+        { x: 15, y: 0, w: 9, h: 2 },
+        { x: 0, y: 2, w: 1, h: 22 },
+        { x: 23, y: 2, w: 1, h: 22 },
+        { x: 10, y: 16, w: 4, h: 2 },
+        { x: 1, y: 22, w: 9, h: 2 },
+        { x: 14, y: 22, w: 9, h: 2 }
       ],
-      "blockedPoints": [{ "x": 9, "y": 1 }],
-      "areaZones": [
-        { "id": "leisure", "title": "湯窓レジャーセンター", "subtitle": "展示と遊びの入口", "area": { "x": 0, "y": 0, "w": 24, "h": 24 } }
+      blockedPoints: [{ x: 9, y: 1 }],
+      areaZones: [
+        { id: 'leisure', title: '湯窓レジャーセンター', subtitle: '展示と遊びの入口', area: { x: 0, y: 0, w: 24, h: 24 } }
       ],
-      "triggers": [
+      triggers: [
         {
-          "id": "leisure_catalog", "label": "展示ガイド", "actionLabel": "見る",
-          "area": { "x": 10, "y": 13, "w": 4, "h": 4 },
-          "type": "menu", "target": "leisure_catalog",
-          "text": "展示ガイド。触れるらくがきや展示を、選択肢からまとめて見られます。"
+          id: 'leisure_catalog', label: '展示ガイド', actionLabel: '見る',
+          area: { x: 10, y: 13, w: 4, h: 6 },
+          type: 'menu', target: 'leisure_catalog',
+          text: '展示ガイド。触れるらくがきや展示を、選択肢からまとめて見られます。'
+        },
+        {
+          id: 'Panf', label: 'パンフレット', actionLabel: '調べる',
+          area: { x: 15, y: 3, w: 2, h: 1 }, type: 'inspect', target: '',
+          text: '「ご自由にお持ちください」と書かれている'
+        },
+        {
+          id: 'Uketsuke', label: '受付端末', actionLabel: '調べる',
+          area: { x: 8, y: 3, w: 2, h: 1 }, type: 'inspect', target: '',
+          text: '「湯窓レジャーセンターへようこそ」と音声が流れている'
+        },
+        {
+          id: 'Poster', label: '掲示板', actionLabel: '調べる',
+          area: { x: 3, y: 3, w: 2, h: 1 }, type: 'inspect', target: '',
+          text: '催し物のポスターが貼られているようだ'
+        },
+        {
+          id: 'Annai', label: '案内板', actionLabel: '調べる',
+          area: { x: 7, y: 16, w: 1, h: 1 }, type: 'inspect', target: '',
+          text: '展示ガイドはこちら→'
         }
       ],
-      "groundRects": [
-        { "x": 0, "y": 0, "w": 24, "h": 24, "color": "#4a4b55" },
-        { "x": 0, "y": 10, "w": 24, "h": 5, "color": "#6e6b63" },
-        { "x": 5, "y": 5, "w": 14, "h": 14, "color": "#5e594f" },
-        { "x": 10, "y": 0, "w": 4, "h": 24, "color": "#7a756a" },
-        { "x": 7, "y": 15, "w": 10, "h": 5, "color": "#676157" }
+      groundRects: [
+        { x: 0, y: 0, w: 24, h: 24, color: '#4a4b55' },
+        { x: 0, y: 10, w: 24, h: 5, color: '#6e6b63' },
+        { x: 5, y: 5, w: 14, h: 14, color: '#5e594f' },
+        { x: 10, y: 0, w: 4, h: 24, color: '#7a756a' },
+        { x: 7, y: 15, w: 10, h: 5, color: '#676157' }
       ],
-      "props": [
+      props: [
         {
-          "id": "leisure_catalog_terminal",
-          "src": "assets/maps/props/leisure-center/leisure-catalog-terminal.png?v=20260813-1",
-          "x": 10.8, "y": 14.6, "w": 2.4, "h": 2.4, "footY": 17, "enabled": true,
-          "collision": { "enabled": true, "x": 0.06, "y": 0.08, "w": 0.88, "h": 0.9 },
-          "interaction": { "enabled": true, "triggerId": "leisure_catalog", "x": 0.04, "y": 0.48, "w": 0.92, "h": 0.5 },
-          "catalogKey": "bench"
+          id: 'leisure_catalog_terminal',
+          src: 'assets/maps/props/leisure-center/leisure-catalog-terminal.png?v=20260813-1',
+          x: 7.403000608979685, y: 1.4213751868460398, w: 2.4, h: 2.4, footY: 3.8213751868460397,
+          enabled: true,
+          collision: { enabled: true, x: 0.06, y: 0.08, w: 0.88, h: 0.9 },
+          interaction: { enabled: true, triggerId: 'leisure_catalog', x: 0.04, y: 0.48, w: 0.92, h: 0.5 },
+          catalogKey: 'bench'
+        },
+        {
+          id: 'station_leisureDirectionSign_2',
+          src: 'assets/maps/props/leisure-center/leisure-direction-sign.png?rev=editor',
+          x: 5.769653435199023, y: 13.294593921275531, w: 3.5, h: 3.5, footY: 16.79459392127553,
+          enabled: true,
+          catalogKey: 'leisureDirectionSign',
+          collision: { enabled: true, x: 0.35, y: 0.82, w: 0.3, h: 0.16 },
+          interaction: { enabled: false, triggerId: '', x: 0, y: 0.6, w: 1, h: 0.4 }
+        },
+        {
+          id: 'station_leisurePamphletRack_3',
+          src: 'assets/maps/props/leisure-center/leisure-pamphlet-rack.png?rev=editor',
+          x: 14.299726420491243, y: 0, w: 3.75, h: 3.75, footY: 3.75,
+          enabled: true,
+          catalogKey: 'leisurePamphletRack',
+          collision: { enabled: true, x: 0.15, y: 0.84, w: 0.7, h: 0.14 },
+          interaction: { enabled: false, triggerId: '', x: 0, y: 0.6, w: 1, h: 0.4 }
+        },
+        {
+          id: 'station_leisureBulletinBoard_4',
+          src: 'assets/maps/props/leisure-center/leisure-bulletin-board.png?rev=editor',
+          x: 2.375, y: 0.5625, w: 3.25, h: 3.25, footY: 3.8125,
+          enabled: true,
+          catalogKey: 'leisureBulletinBoard',
+          collision: { enabled: true, x: 0.08, y: 0.82, w: 0.84, h: 0.14 },
+          interaction: { enabled: false, triggerId: '', x: 0, y: 0.6, w: 1, h: 0.4 }
+        },
+        {
+          id: 'station_leisureGuideTerminal_5',
+          src: 'assets/maps/props/leisure-center/leisure-guide-terminal.png?rev=editor',
+          x: 10.71010721733193, y: 14.87746013951171, w: 3, h: 3, footY: 17.87746013951171,
+          enabled: true,
+          catalogKey: 'leisureGuideTerminal',
+          collision: { enabled: true, x: 0.05, y: 0.76, w: 0.9, h: 0.18 },
+          interaction: { enabled: false, triggerId: '', x: 0, y: 0.6, w: 1, h: 0.4 }
         }
       ],
-      "decor": [
-        { "x": 10, "y": 0, "w": 4, "h": 3, "fill": "#a9b8c5", "stroke": "#222", "label": "広場", "labelColor": "#ffffff" },
-        { "x": 4, "y": 8, "w": 1, "h": 1, "fill": "#6d846d", "stroke": "#222", "label": "", "labelColor": "#ffffff" },
-        { "x": 19, "y": 8, "w": 1, "h": 1, "fill": "#6d846d", "stroke": "#222", "label": "", "labelColor": "#ffffff" },
-        { "x": 8, "y": 18, "w": 1, "h": 1, "fill": "#8a806f", "stroke": "#222", "label": "", "labelColor": "#ffffff" },
-        { "x": 15, "y": 18, "w": 1, "h": 1, "fill": "#8a806f", "stroke": "#222", "label": "", "labelColor": "#ffffff" },
-        { "x": 11, "y": 18, "w": 1, "h": 1, "fill": "#8a806f", "stroke": "#222", "label": "", "labelColor": "#ffffff" },
-        { "x": 13, "y": 18, "w": 1, "h": 1, "fill": "#8a806f", "stroke": "#222", "label": "", "labelColor": "#ffffff" }
+      decor: [
+        { x: 10, y: 0, w: 4, h: 3, fill: '#a9b8c5', stroke: '#222', label: '広場', labelColor: '#ffffff' },
+        { x: 4, y: 8, w: 1, h: 1, fill: '#6d846d', stroke: '#222', label: '', labelColor: '#ffffff' },
+        { x: 19, y: 8, w: 1, h: 1, fill: '#6d846d', stroke: '#222', label: '', labelColor: '#ffffff' },
+        { x: 8, y: 18, w: 1, h: 1, fill: '#8a806f', stroke: '#222', label: '', labelColor: '#ffffff' },
+        { x: 15, y: 18, w: 1, h: 1, fill: '#8a806f', stroke: '#222', label: '', labelColor: '#ffffff' },
+        { x: 11, y: 18, w: 1, h: 1, fill: '#8a806f', stroke: '#222', label: '', labelColor: '#ffffff' },
+        { x: 13, y: 18, w: 1, h: 1, fill: '#8a806f', stroke: '#222', label: '', labelColor: '#ffffff' }
       ]
     },
 
