@@ -260,11 +260,11 @@
     var prop = {
         id: PROP_ID,
         src: 'assets/maps/props/common/standing-signboard.png?v=20260816-1',
-        x: 14.375,
-        y: 13.9375,
-        w: 2.625,
-        h: 2.625,
-        footY: 16.5625,
+        x: 14.6875,
+        y: 14.5,
+        w: 2.25,
+        h: 1.875,
+        footY: 16.375,
         enabled: true,
         catalogKey: 'standingSignboard',
         collision: {
