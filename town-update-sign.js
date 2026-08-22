@@ -69,12 +69,7 @@
             });
         }
 
-        // ページ送りUIの差し込み用プレースホルダ
-        items.push({
-            label: '',
-            kind: 'update-nav'
-        });
-
+        items.push({ label: '', kind: 'update-nav' });
         items.push({ label: '駅前へ戻る', kind: 'back' });
         return items;
     }
@@ -86,12 +81,10 @@
     function applyUpdatePage(pageIndex, shouldRender) {
         var dest = window.DESTINATIONS && window.DESTINATIONS[DESTINATION_ID];
         if (!dest) return;
-
         var page = clampPageIndex(pageIndex);
         dest.updatePageIndex = page;
         dest.menuTitle = getMenuTitle(page);
         dest.items = buildUpdateMenuItems(page);
-
         if (shouldRender && typeof window.renderDestination === 'function') {
             window.destinationViewMode = 'menu';
             window.renderDestination();
@@ -100,45 +93,21 @@
 
     function ensurePaginationStyle() {
         if (document.getElementById('town-update-pagination-style')) return;
-
         var style = document.createElement('style');
         style.id = 'town-update-pagination-style';
         style.textContent =
             '#scene-container.town-update-history .town-update-nav-row{' +
-                'display:flex;' +
-                'align-items:center;' +
-                'justify-content:center;' +
-                'gap:18px;' +
-                'margin:8px 0 4px;' +
-                'padding:2px 0;' +
+                'display:flex;align-items:center;justify-content:center;gap:18px;margin:8px 0 4px;padding:2px 0;' +
             '}' +
             '#scene-container.town-update-history .town-update-nav-spacer{' +
-                'width:44px;' +
-                'height:44px;' +
-                'flex:0 0 44px;' +
-                'opacity:0;' +
-                'pointer-events:none;' +
+                'width:44px;height:44px;flex:0 0 44px;opacity:0;pointer-events:none;' +
             '}' +
             '#scene-container.town-update-history .town-update-nav-page{' +
-                'min-width:56px;' +
-                'text-align:center;' +
-                'font-size:.78em;' +
-                'letter-spacing:.12em;' +
-                'opacity:.82;' +
+                'min-width:56px;text-align:center;font-size:.78em;letter-spacing:.12em;opacity:.82;' +
             '}' +
             '#scene-container.town-update-history .town-update-nav-arrow{' +
-                'width:44px;' +
-                'height:44px;' +
-                'padding:0;' +
-                'margin:0;' +
-                'display:flex;' +
-                'align-items:center;' +
-                'justify-content:center;' +
-                'font-size:1.05em;' +
-                'line-height:1;' +
-                'border-radius:12px;' +
+                'width:44px;height:44px;padding:0;margin:0;display:flex;align-items:center;justify-content:center;font-size:1.05em;line-height:1;border-radius:12px;' +
             '}';
-
         document.head.appendChild(style);
     }
 
@@ -156,11 +125,9 @@
     function decorateUpdateHistoryMenu() {
         var sceneContainer = document.getElementById('scene-container');
         if (!sceneContainer) return;
-
         var isUpdateHistory =
             window.currentDestinationId === DESTINATION_ID &&
             window.destinationViewMode === 'menu';
-
         sceneContainer.classList.toggle('town-update-history', isUpdateHistory);
         if (!isUpdateHistory) return;
 
@@ -170,25 +137,21 @@
 
         var buttons = list.querySelectorAll(':scope > .rpg-menu-item');
         var navPlaceholder = null;
-
         for (var i = 0; i < buttons.length; i++) {
             if ((buttons[i].textContent || '').trim() === '') {
                 navPlaceholder = buttons[i];
                 break;
             }
         }
-
         if (!navPlaceholder) return;
 
         var page = clampPageIndex(dest.updatePageIndex || 0);
         var pageCount = getPageCount();
-
         var row = document.createElement('div');
         row.className = 'town-update-nav-row';
 
-        if (page > 0) {
-            row.appendChild(buildArrowButton('prev', page - 1));
-        } else {
+        if (page > 0) row.appendChild(buildArrowButton('prev', page - 1));
+        else {
             var prevSpacer = document.createElement('div');
             prevSpacer.className = 'town-update-nav-spacer';
             row.appendChild(prevSpacer);
@@ -199,14 +162,12 @@
         pageLabel.textContent = (page + 1) + ' / ' + pageCount;
         row.appendChild(pageLabel);
 
-        if (page < pageCount - 1) {
-            row.appendChild(buildArrowButton('next', page + 1));
-        } else {
+        if (page < pageCount - 1) row.appendChild(buildArrowButton('next', page + 1));
+        else {
             var nextSpacer = document.createElement('div');
             nextSpacer.className = 'town-update-nav-spacer';
             row.appendChild(nextSpacer);
         }
-
         navPlaceholder.replaceWith(row);
     }
 
@@ -228,9 +189,7 @@
     var originalOpenDestination = window.openDestination;
     if (typeof originalOpenDestination === 'function') {
         window.openDestination = function (destId) {
-            if (destId === DESTINATION_ID) {
-                applyUpdatePage(0, false);
-            }
+            if (destId === DESTINATION_ID) applyUpdatePage(0, false);
             return originalOpenDestination.apply(this, arguments);
         };
     }
@@ -259,7 +218,7 @@
 
     var prop = {
         id: PROP_ID,
-        src: 'assets/maps/props/common/standing-signboard.png?v=20260816-1',
+        src: 'assets/maps/props/common/standing-signboard.png?v=20260822-clean',
         x: 14.6875,
         y: 14.5,
         w: 2.25,
@@ -267,45 +226,20 @@
         footY: 16.375,
         enabled: true,
         catalogKey: 'standingSignboard',
-        collision: {
-            enabled: true,
-            x: 0.18,
-            y: 0.72,
-            w: 0.64,
-            h: 0.28
-        },
-        interaction: {
-            enabled: true,
-            triggerId: TRIGGER_ID,
-            x: 0.05,
-            y: 0.20,
-            w: 0.90,
-            h: 0.80
-        },
-        tap: {
-            enabled: true,
-            x: 0.05,
-            y: 0.12,
-            w: 0.90,
-            h: 0.88
-        }
+        collision: { enabled: true, x: 0.18, y: 0.72, w: 0.64, h: 0.28 },
+        interaction: { enabled: true, triggerId: TRIGGER_ID, x: 0.05, y: 0.20, w: 0.90, h: 0.80 },
+        tap: { enabled: true, x: 0.05, y: 0.12, w: 0.90, h: 0.88 }
     };
 
     station.triggers = Array.isArray(station.triggers) ? station.triggers : [];
     station.props = Array.isArray(station.props) ? station.props : [];
     upsertById(station.triggers, trigger);
     upsertById(station.props, prop);
-
     if (Array.isArray(window.triggers)) upsertById(window.triggers, trigger);
     if (Array.isArray(window.stationPlazaProps)) upsertById(window.stationPlazaProps, prop);
-
     if (window.activeTownSceneDef && window.currentScene === 'station_plaza') {
-        window.activeTownSceneDef.triggers = Array.isArray(window.activeTownSceneDef.triggers)
-            ? window.activeTownSceneDef.triggers
-            : [];
-        window.activeTownSceneDef.props = Array.isArray(window.activeTownSceneDef.props)
-            ? window.activeTownSceneDef.props
-            : [];
+        window.activeTownSceneDef.triggers = Array.isArray(window.activeTownSceneDef.triggers) ? window.activeTownSceneDef.triggers : [];
+        window.activeTownSceneDef.props = Array.isArray(window.activeTownSceneDef.props) ? window.activeTownSceneDef.props : [];
         upsertById(window.activeTownSceneDef.triggers, trigger);
         upsertById(window.activeTownSceneDef.props, prop);
     }
