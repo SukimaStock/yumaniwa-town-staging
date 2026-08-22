@@ -69,11 +69,11 @@
     var prop = {
         id: PROP_ID,
         src: 'assets/maps/props/common/town-feedback-postbox.png?v=20260816-2',
-        x: 15.125,
-        y: 4.25,
-        w: 1.875,
-        h: 3.3125,
-        footY: 7.5625,
+        x: 14.424488826145527,
+        y: 4.364474339810663,
+        w: 3.125,
+        h: 3.125,
+        footY: 7.489474339810663,
         enabled: true,
         catalogKey: 'standingSignboard',
         collision: {
