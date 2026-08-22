@@ -1,6 +1,6 @@
 // DotWeather — staging-only view mode experiment.
-// FORECAST keeps the current UI. AMBIENT leaves only city, condition, and
-// current temperature so the weather scene can work as a quiet background.
+// FORECAST keeps the current UI. AMBIENT leaves only city and condition so
+// the weather scene can work as a quiet background rather than a data display.
 
 (function (root) {
   "use strict";
@@ -56,18 +56,8 @@
 
   const originalDrawCurrent = UI.prototype.drawCurrent;
   UI.prototype.drawCurrent = function drawCurrentWithViewMode(city, colors) {
-    if (ensureMode(this) !== AMBIENT) {
-      return originalDrawCurrent.call(this, city, colors);
-    }
-
-    const tempText = this.formatTemperature(city.temp);
-    root.DotWeatherPixel.drawText(tempText, 180, 388, {
-      scale: 8,
-      spacing: 5,
-      color: colors.main,
-      alpha: 248,
-      align: "center",
-    });
+    if (ensureMode(this) === AMBIENT) return;
+    return originalDrawCurrent.call(this, city, colors);
   };
 
   const originalDrawHourly = UI.prototype.drawHourly;
