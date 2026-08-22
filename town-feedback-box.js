@@ -36,20 +36,13 @@
             returnScene: 'station_plaza',
             returnLabel: '駅前広場',
             items: [
-                {
-                    label: 'おたよりを送る',
-                    kind: 'external',
-                    url: FORM_URL
-                },
+                { label: 'おたよりを送る', kind: 'external', url: FORM_URL },
                 {
                     label: 'この箱について',
                     kind: 'message',
                     text: '町の感想やご要望、不具合の報告などを入れられます。\n\n「おたよりを送る」を選ぶと、外の入力フォームが開きます。'
                 },
-                {
-                    label: '駅前へ戻る',
-                    kind: 'back'
-                }
+                { label: '駅前へ戻る', kind: 'back' }
             ]
         };
     }
@@ -65,10 +58,9 @@
         tapPadding: 1
     };
 
-    // 開発モードで微調整した最終位置をそのまま採用する。
     var prop = {
         id: PROP_ID,
-        src: 'assets/maps/props/common/town-feedback-postbox.png?v=20260816-2',
+        src: 'assets/maps/props/common/town-feedback-postbox.png?v=20260822-clean',
         x: 14.424488826145527,
         y: 4.364474339810663,
         w: 3.125,
@@ -76,50 +68,25 @@
         footY: 7.489474339810663,
         enabled: true,
         catalogKey: 'standingSignboard',
-        collision: {
-            enabled: true,
-            x: 0.3,
-            y: 0.82,
-            w: 0.4,
-            h: 0.14
-        },
-        interaction: {
-            enabled: true,
-            triggerId: TRIGGER_ID,
-            x: 0.1,
-            y: 0.08,
-            w: 0.8,
-            h: 0.84
-        },
-        tap: {
-            enabled: true,
-            x: 0.08,
-            y: 0.06,
-            w: 0.84,
-            h: 0.88
-        }
+        collision: { enabled: true, x: 0.3, y: 0.82, w: 0.4, h: 0.14 },
+        interaction: { enabled: true, triggerId: TRIGGER_ID, x: 0.1, y: 0.08, w: 0.8, h: 0.84 },
+        tap: { enabled: true, x: 0.08, y: 0.06, w: 0.84, h: 0.88 }
     };
 
     station.triggers = Array.isArray(station.triggers) ? station.triggers : [];
     station.props = Array.isArray(station.props) ? station.props : [];
     upsertById(station.triggers, trigger);
     upsertById(station.props, prop);
-
     if (Array.isArray(window.triggers)) upsertById(window.triggers, trigger);
     if (Array.isArray(window.stationPlazaProps)) upsertById(window.stationPlazaProps, prop);
 
     if (window.activeTownSceneDef && window.currentScene === 'station_plaza') {
-        window.activeTownSceneDef.triggers = Array.isArray(window.activeTownSceneDef.triggers)
-            ? window.activeTownSceneDef.triggers
-            : [];
-        window.activeTownSceneDef.props = Array.isArray(window.activeTownSceneDef.props)
-            ? window.activeTownSceneDef.props
-            : [];
+        window.activeTownSceneDef.triggers = Array.isArray(window.activeTownSceneDef.triggers) ? window.activeTownSceneDef.triggers : [];
+        window.activeTownSceneDef.props = Array.isArray(window.activeTownSceneDef.props) ? window.activeTownSceneDef.props : [];
         upsertById(window.activeTownSceneDef.triggers, trigger);
         upsertById(window.activeTownSceneDef.props, prop);
     }
 
-    // 既存の external メニュー処理はそのまま使い、このフォームを開いた時だけ計測イベントを足す。
     if (!window.__YUMANIWA_FEEDBACK_OPEN_WRAPPED__ && typeof window.open === 'function') {
         var baseWindowOpen = window.open;
         window.open = function (url, target, features) {
