@@ -1,6 +1,7 @@
 // ==========================================
 // 湯間庭町 / ご意見箱
 // 駅前の赤いポストから Google フォームへ案内する。
+// 位置・調べる範囲はマップ正本側の編集値を優先する。
 // ==========================================
 (function () {
     'use strict';
@@ -14,15 +15,26 @@
     var DESTINATION_ID = 'town_feedback_box';
     var FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeGM7r27mkUrUPnqAio7bW7mZpF4O1Mf5x_74xZgRwl_LEUtQ/viewform';
 
-    function upsertById(items, item) {
-        if (!Array.isArray(items) || !item || !item.id) return;
+    // runtime の既定値を補いつつ、すでにマップ側にある編集済み値を優先する。
+    // これにより x/y や area、triggerArea などを毎回固定値へ戻さない。
+    function mergeById(items, defaults) {
+        if (!Array.isArray(items) || !defaults || !defaults.id) return;
         for (var i = 0; i < items.length; i++) {
-            if (items[i] && items[i].id === item.id) {
-                items[i] = item;
+            if (items[i] && items[i].id === defaults.id) {
+                var existing = items[i];
+                var merged = {};
+                var key;
+                for (key in defaults) {
+                    if (Object.prototype.hasOwnProperty.call(defaults, key)) merged[key] = defaults[key];
+                }
+                for (key in existing) {
+                    if (Object.prototype.hasOwnProperty.call(existing, key)) merged[key] = existing[key];
+                }
+                items[i] = merged;
                 return;
             }
         }
-        items.push(item);
+        items.push(defaults);
     }
 
     if (window.DESTINATIONS) {
@@ -75,16 +87,16 @@
 
     station.triggers = Array.isArray(station.triggers) ? station.triggers : [];
     station.props = Array.isArray(station.props) ? station.props : [];
-    upsertById(station.triggers, trigger);
-    upsertById(station.props, prop);
-    if (Array.isArray(window.triggers)) upsertById(window.triggers, trigger);
-    if (Array.isArray(window.stationPlazaProps)) upsertById(window.stationPlazaProps, prop);
+    mergeById(station.triggers, trigger);
+    mergeById(station.props, prop);
+    if (Array.isArray(window.triggers)) mergeById(window.triggers, trigger);
+    if (Array.isArray(window.stationPlazaProps)) mergeById(window.stationPlazaProps, prop);
 
     if (window.activeTownSceneDef && window.currentScene === 'station_plaza') {
         window.activeTownSceneDef.triggers = Array.isArray(window.activeTownSceneDef.triggers) ? window.activeTownSceneDef.triggers : [];
         window.activeTownSceneDef.props = Array.isArray(window.activeTownSceneDef.props) ? window.activeTownSceneDef.props : [];
-        upsertById(window.activeTownSceneDef.triggers, trigger);
-        upsertById(window.activeTownSceneDef.props, prop);
+        mergeById(window.activeTownSceneDef.triggers, trigger);
+        mergeById(window.activeTownSceneDef.props, prop);
     }
 
     if (!window.__YUMANIWA_FEEDBACK_OPEN_WRAPPED__ && typeof window.open === 'function') {
