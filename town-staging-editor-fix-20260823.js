@@ -2,6 +2,7 @@
 // 湯間庭町 / staging editor follow-up 2026-08-23
 // - パーツ削除を上部に表示
 // - 調べる場所を矢印で移動
+// - パーツ連動トリガーもマップ上の独立範囲として編集可能
 // - パーツ連動トリガー削除後の復活を防止
 // ==========================================
 (function () {
@@ -17,6 +18,17 @@
         }
         var def = window.activeTownSceneDef;
         return def && Array.isArray(def.props) ? def.props : [];
+    }
+
+    function clampArea(area) {
+        var mapW = Number(window.MAP_WIDTH) || 24;
+        var mapH = Number(window.MAP_HEIGHT) || 24;
+        var source = area || {};
+        var w = Math.max(1, Math.min(mapW, Math.round(Number(source.w) || 1)));
+        var h = Math.max(1, Math.min(mapH, Math.round(Number(source.h) || 1)));
+        var x = Math.max(0, Math.min(mapW - w, Math.round(Number(source.x) || 0)));
+        var y = Math.max(0, Math.min(mapH - h, Math.round(Number(source.y) || 0)));
+        return { x: x, y: y, w: w, h: h };
     }
 
     function syncTriggersToScene() {
@@ -37,6 +49,11 @@
         return -1;
     }
 
+    function findTriggerById(id) {
+        var index = findTriggerIndexById(id);
+        return index >= 0 ? window.triggers[index] : null;
+    }
+
     function linkedPartsForTrigger(id) {
         var parts = currentParts();
         var result = [];
@@ -46,6 +63,62 @@
             if (String(part.interaction.triggerId || '') === String(id || '')) result.push(part);
         }
         return result;
+    }
+
+    // --------------------------------------------------
+    // 調べる範囲のモデルを整理する。
+    // 従来: part.interaction の相対矩形だけが正本で、パーツ画像内に拘束される。
+    // 今回: part.triggerArea があればマップ座標の絶対矩形を正本にする。
+    // これにより、看板・おたより・更新記録なども自由に移動できる。
+    // --------------------------------------------------
+    var baseGetTownPartTriggerArea = typeof window.getTownPartTriggerArea === 'function'
+        ? window.getTownPartTriggerArea
+        : null;
+    var baseGetTownPartInteractionRectPixels = typeof window.getTownPartInteractionRectPixels === 'function'
+        ? window.getTownPartInteractionRectPixels
+        : null;
+
+    function seedAbsoluteTriggerAreas() {
+        var parts = currentParts();
+        for (var i = 0; i < parts.length; i++) {
+            var part = parts[i];
+            if (!part || !part.interaction || part.interaction.enabled === false || !part.interaction.triggerId) continue;
+            if (part.triggerArea) {
+                part.triggerArea = clampArea(part.triggerArea);
+                continue;
+            }
+
+            // まず現在のパーツ位置から従来方式の範囲を求める。
+            // staging でパーツを散らした後の位置を初期値にするため。
+            var derived = baseGetTownPartTriggerArea
+                ? baseGetTownPartTriggerArea(part)
+                : null;
+            var existing = findTriggerById(part.interaction.triggerId);
+            part.triggerArea = clampArea(derived || (existing && existing.area) || { x: 0, y: 0, w: 1, h: 1 });
+        }
+    }
+
+    if (baseGetTownPartTriggerArea) {
+        window.getTownPartTriggerArea = function (part) {
+            if (part && part.triggerArea) return clampArea(part.triggerArea);
+            return baseGetTownPartTriggerArea.apply(this, arguments);
+        };
+    }
+
+    if (baseGetTownPartInteractionRectPixels) {
+        window.getTownPartInteractionRectPixels = function (part) {
+            if (part && part.triggerArea && part.interaction && part.interaction.enabled !== false && part.interaction.triggerId) {
+                var tile = Number(window.TILE_SIZE) || 16;
+                var a = clampArea(part.triggerArea);
+                return {
+                    x: a.x * tile,
+                    y: a.y * tile,
+                    w: a.w * tile,
+                    h: a.h * tile
+                };
+            }
+            return baseGetTownPartInteractionRectPixels.apply(this, arguments);
+        };
     }
 
     function updateTriggerMoveUi() {
@@ -85,27 +158,13 @@
         updateTriggerMoveUi();
     }
 
-    function moveLinkedInteraction(part, dxTiles, dyTiles) {
-        if (!part || !part.interaction) return;
-        if (typeof window.ensureTownPartMetadata === 'function') {
-            window.ensureTownPartMetadata(part);
+    function setLinkedTriggerArea(triggerId, area) {
+        var linked = linkedPartsForTrigger(triggerId);
+        var nextArea = clampArea(area);
+        for (var i = 0; i < linked.length; i++) {
+            linked[i].triggerArea = clone(nextArea);
         }
-        var rect = typeof window.getPartRectPixels === 'function'
-            ? window.getPartRectPixels(part)
-            : null;
-        if (!rect) return;
-
-        var tile = Number(window.TILE_SIZE) || 16;
-        var spec = part.interaction;
-        var w = Math.max(1, Number(spec.w || 0.001) * rect.w);
-        var h = Math.max(1, Number(spec.h || 0.001) * rect.h);
-        var x = Number(spec.x || 0) * rect.w + dxTiles * tile;
-        var y = Number(spec.y || 0) * rect.h + dyTiles * tile;
-        x = Math.max(0, Math.min(rect.w - w, x));
-        y = Math.max(0, Math.min(rect.h - h, y));
-
-        spec.x = x / rect.w;
-        spec.y = y / rect.h;
+        return linked.length;
     }
 
     function moveSelectedTrigger(dxTiles, dyTiles) {
@@ -121,38 +180,68 @@
         var trigger = list[index];
         if (!trigger || !trigger.area) return;
         var triggerId = String(trigger.id || '');
+        var nextArea = clampArea({
+            x: trigger.area.x + dxTiles,
+            y: trigger.area.y + dyTiles,
+            w: trigger.area.w,
+            h: trigger.area.h
+        });
         var linked = linkedPartsForTrigger(triggerId);
 
-        if (linked.length) {
-            if (typeof window.pushTownPartHistory === 'function') {
-                window.pushTownPartHistory();
-            } else if (typeof window.markEditorDirty === 'function') {
-                window.markEditorDirty();
-            }
-            for (var i = 0; i < linked.length; i++) {
-                moveLinkedInteraction(linked[i], dxTiles, dyTiles);
-            }
-            if (typeof window.refreshTownPartDerivedData === 'function') {
-                window.refreshTownPartDerivedData();
-            }
-            window.editingTriggerIndex = findTriggerIndexById(triggerId);
+        if (linked.length && typeof window.pushTownPartHistory === 'function') {
+            window.pushTownPartHistory();
         } else {
             if (typeof window.markEditorDirty === 'function') window.markEditorDirty();
             if (Array.isArray(window.editHistory) && typeof window.cloneTriggers === 'function') {
                 window.editHistory.push({ type: 'triggers', prev: window.cloneTriggers() });
             }
+        }
 
-            var mapW = Number(window.MAP_WIDTH) || 24;
-            var mapH = Number(window.MAP_HEIGHT) || 24;
-            trigger.area.x = Math.max(0, Math.min(mapW - trigger.area.w, trigger.area.x + dxTiles));
-            trigger.area.y = Math.max(0, Math.min(mapH - trigger.area.h, trigger.area.y + dyTiles));
+        trigger.area = clone(nextArea);
+        setLinkedTriggerArea(triggerId, nextArea);
+
+        if (linked.length && typeof window.refreshTownPartDerivedData === 'function') {
+            window.refreshTownPartDerivedData();
+            window.editingTriggerIndex = findTriggerIndexById(triggerId);
         }
 
         syncTriggersToScene();
         setTriggerFormFromCurrent();
         if (typeof window.updateEditorStatus === 'function') {
-            window.updateEditorStatus('調べる場所を' + (Math.abs(dxTiles) + Math.abs(dyTiles)) + 'マス移動しました');
+            window.updateEditorStatus('調べる場所を1マス移動しました');
         }
+    }
+
+    function resizeSelectedTrigger(dw, dh) {
+        var list = Array.isArray(window.triggers) ? window.triggers : [];
+        var index = Number(window.editingTriggerIndex);
+        if (!(index >= 0 && index < list.length)) return;
+        var trigger = list[index];
+        if (!trigger || !trigger.area) return;
+
+        var triggerId = String(trigger.id || '');
+        var linked = linkedPartsForTrigger(triggerId);
+        if (linked.length && typeof window.pushTownPartHistory === 'function') {
+            window.pushTownPartHistory();
+        } else if (typeof window.markEditorDirty === 'function') {
+            window.markEditorDirty();
+        }
+
+        var nextArea = clampArea({
+            x: trigger.area.x,
+            y: trigger.area.y,
+            w: trigger.area.w + dw,
+            h: trigger.area.h + dh
+        });
+        trigger.area = clone(nextArea);
+        setLinkedTriggerArea(triggerId, nextArea);
+
+        if (linked.length && typeof window.refreshTownPartDerivedData === 'function') {
+            window.refreshTownPartDerivedData();
+            window.editingTriggerIndex = findTriggerIndexById(triggerId);
+        }
+        syncTriggersToScene();
+        setTriggerFormFromCurrent();
     }
 
     function deleteSelectedTriggerStrong() {
@@ -180,10 +269,11 @@
             }
         }
 
-        // パーツに紐づいたトリガーは、リンクを切らないと syncTownPartTriggers() が再生成する。
+        // パーツとの関連も切る。triggerArea も消して、再生成されない状態にする。
         for (var i = 0; i < linked.length; i++) {
             linked[i].interaction.enabled = false;
             linked[i].interaction.triggerId = '';
+            delete linked[i].triggerArea;
         }
 
         var next = [];
@@ -221,7 +311,12 @@
                 '<button type="button" data-trigger-dy="-1">↑ 1マス</button>' +
                 '<button type="button" data-trigger-dy="1">↓ 1マス</button>' +
                 '<button type="button" data-trigger-dx="1">→ 1マス</button>' +
-            '</div>';
+            '</div>' +
+            '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">' +
+                '<button type="button" data-trigger-resize="-1">範囲を小さく</button>' +
+                '<button type="button" data-trigger-resize="1">範囲を大きく</button>' +
+            '</div>' +
+            '<div style="font-size:11px;opacity:.72;margin-top:6px">パーツに紐づく場所も、マップ上で独立して移動できます。</div>';
 
         var deleteButton = document.getElementById('btn-delete-trigger');
         form.insertBefore(box, deleteButton || null);
@@ -235,6 +330,16 @@
                     Number(this.getAttribute('data-trigger-dx') || 0),
                     Number(this.getAttribute('data-trigger-dy') || 0)
                 );
+            });
+        }
+
+        var resizeButtons = box.querySelectorAll('[data-trigger-resize]');
+        for (var r = 0; r < resizeButtons.length; r++) {
+            resizeButtons[r].addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var d = Number(this.getAttribute('data-trigger-resize') || 0);
+                resizeSelectedTrigger(d, d);
             });
         }
 
@@ -325,7 +430,15 @@
     }
 
     window.addEventListener('load', function () {
-        enhanceEditor();
-        window.setTimeout(enhanceEditor, 100);
+        // main.js のシーン初期化後に絶対範囲を作り、同期し直す。
+        window.setTimeout(function () {
+            seedAbsoluteTriggerAreas();
+            if (typeof window.refreshTownPartDerivedData === 'function') {
+                window.refreshTownPartDerivedData();
+            }
+            syncTriggersToScene();
+            enhanceEditor();
+        }, 0);
+        window.setTimeout(enhanceEditor, 150);
     });
 })();
