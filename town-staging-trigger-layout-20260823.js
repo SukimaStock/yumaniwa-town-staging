@@ -94,7 +94,7 @@
                 area: { x: 13, y: 10, w: 3, h: 1 },
                 type: 'inspect',
                 target: '',
-                text: '駅前広場の観光案内板。町の中心なので、ここから各マップへ散歩していけます。'
+                text: '駅前広場の観光案内板。'
             },
             {
                 id: 'town_update_history_sign',
