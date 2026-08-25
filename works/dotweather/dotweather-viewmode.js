@@ -26,6 +26,14 @@
     return ui.viewMode;
   }
 
+  function trackAmbientOpen(ui, source) {
+    if (ui.__ambientModeOpenTracked) return;
+    ui.__ambientModeOpenTracked = true;
+    root.SSE.analytics?.track?.("Ambient Mode Open", {
+      source: source === "switch" ? "switch" : "saved",
+    });
+  }
+
   function setMode(ui, value) {
     const next = normalizeMode(value);
     const previous = ensureMode(ui);
@@ -36,6 +44,11 @@
     ui.scrollVelocity = 0;
     root.SSE.storage.set(STORAGE_KEY, next);
     root.SSE.analytics?.track?.("View Mode Change", { mode: next });
+
+    if (next === AMBIENT) {
+      trackAmbientOpen(ui, "switch");
+    }
+
     root.SSE.audio?.tone?.({
       frequency: next === AMBIENT ? 390 : 470,
       endFrequency: next === AMBIENT ? 330 : 540,
@@ -50,8 +63,15 @@
 
   const originalEnter = UI.prototype.enter;
   UI.prototype.enter = function enterWithViewMode(context) {
-    ensureMode(this);
-    return originalEnter.call(this, context);
+    this.__ambientModeOpenTracked = false;
+    const mode = ensureMode(this);
+    const result = originalEnter.call(this, context);
+
+    if (mode === AMBIENT) {
+      trackAmbientOpen(this, "saved");
+    }
+
+    return result;
   };
 
   const originalDrawCurrent = UI.prototype.drawCurrent;
