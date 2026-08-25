@@ -188,6 +188,7 @@
                 {
                     id: 'recreation_road',
                     title: '湯間庭レクリエーションロード',
+                    titleLines: ['湯間庭', 'レクリエーションロード'],
                     subtitle: '駅前と湯窓レジャーセンターを結ぶ道',
                     area: { x: 0, y: 0, w: 24, h: 24 }
                 }
