@@ -1,6 +1,7 @@
 // ==========================================
 // 湯間庭町 / staging trigger layout 2026-08-23
 // 開発モードで確定した「調べる場所」を、パーツ本体から独立して保持する。
+// 2026-08-25: 湯間庭レクリエーションロードを staging に追加。
 // ==========================================
 (function () {
     'use strict';
@@ -139,8 +140,133 @@
         }
     }
 
+    // ------------------------------------------
+    // 2026-08-25: 駅前広場とレジャーセンターの間に
+    // 「湯間庭レクリエーションロード」を挟む。
+    // 右側の枝道は将来拡張用として、今は画面端まで歩けるだけにする。
+    // ------------------------------------------
+    function applyRecreationRoad() {
+        var maps = window.TOWN_SCENE_MAPS;
+        if (!maps) return;
+
+        var recreationRoad = {
+            id: 'recreation_road_map',
+            title: '湯間庭レクリエーションロード',
+            subtitle: 'レジャセン前',
+            mapWidth: 24,
+            mapHeight: 24,
+            backgroundStyle: 'street',
+            backgroundImagePath: 'assets/maps/grounds/recreation-road.png?rev=20260825-1',
+            spawnPoints: {
+                default: { x: 12, y: 3, dir: 'down' },
+                fromPlaza: { x: 12, y: 3, dir: 'down' },
+                fromLeisure: { x: 12, y: 20, dir: 'up' }
+            },
+            edgeWarps: [
+                { side: 'up', min: 10, max: 14, target: 'station_plaza', targetSpawn: 'fromRecreation' },
+                { side: 'down', min: 10, max: 15, target: 'leisure_center_map', targetSpawn: 'fromRecreation' }
+            ],
+            passableRects: [
+                { x: 10, y: 0, w: 5, h: 8 },
+                { x: 10, y: 8, w: 6, h: 1 },
+                { x: 9, y: 9, w: 7, h: 2 },
+                { x: 9, y: 11, w: 15, h: 2 },
+                { x: 9, y: 13, w: 8, h: 3 },
+                { x: 10, y: 16, w: 6, h: 8 }
+            ],
+            blockedRects: [
+                { x: 0, y: 0, w: 10, h: 9 },
+                { x: 15, y: 0, w: 9, h: 8 },
+                { x: 16, y: 8, w: 8, h: 3 },
+                { x: 0, y: 9, w: 9, h: 7 },
+                { x: 17, y: 13, w: 7, h: 3 },
+                { x: 0, y: 16, w: 10, h: 8 },
+                { x: 16, y: 16, w: 8, h: 8 }
+            ],
+            blockedPoints: [],
+            areaZones: [
+                {
+                    id: 'recreation_road',
+                    title: '湯間庭レクリエーションロード',
+                    subtitle: '駅前とレジャセンを結ぶ道',
+                    area: { x: 0, y: 0, w: 24, h: 24 }
+                }
+            ],
+            triggers: [],
+            groundRects: [
+                { x: 0, y: 0, w: 24, h: 24, color: '#cbbb9c' },
+                { x: 10, y: 0, w: 5, h: 24, color: '#aaa79c' },
+                { x: 9, y: 9, w: 8, h: 7, color: '#aaa79c' },
+                { x: 16, y: 11, w: 8, h: 2, color: '#aaa79c' }
+            ],
+            props: [],
+            decor: []
+        };
+
+        maps.recreation_road_map = recreationRoad;
+
+        var station = maps.station_plaza;
+        if (station) {
+            station.spawnPoints = station.spawnPoints || {};
+            station.spawnPoints.fromRecreation = { x: 12, y: 20, dir: 'up' };
+            station.edgeWarps = Array.isArray(station.edgeWarps) ? station.edgeWarps : [];
+
+            for (var i = 0; i < station.edgeWarps.length; i++) {
+                var stationWarp = station.edgeWarps[i];
+                if (stationWarp && stationWarp.side === 'down') {
+                    stationWarp.target = 'recreation_road_map';
+                    stationWarp.targetSpawn = 'fromPlaza';
+                    stationWarp.min = 9;
+                    stationWarp.max = 14;
+                }
+            }
+
+            var stationNotice = findById(station.triggers, 'station_notice');
+            if (stationNotice) {
+                stationNotice.text = '湯間庭駅前広場。左に灯串横丁、右に湯窓通り、上に温泉方面、下に湯間庭レクリエーションロードがあり、その先が湯窓レジャーセンターです。';
+            }
+        }
+
+        if (Array.isArray(window.triggers)) {
+            var sourceNotice = findById(window.triggers, 'station_notice');
+            if (sourceNotice) {
+                sourceNotice.text = '湯間庭駅前広場。左に灯串横丁、右に湯窓通り、上に温泉方面、下に湯間庭レクリエーションロードがあり、その先が湯窓レジャーセンターです。';
+            }
+        }
+
+        var leisure = maps.leisure_center_map;
+        if (leisure) {
+            leisure.spawnPoints = leisure.spawnPoints || {};
+            leisure.spawnPoints.fromRecreation = { x: 12, y: 3, dir: 'down' };
+            leisure.edgeWarps = Array.isArray(leisure.edgeWarps) ? leisure.edgeWarps : [];
+
+            for (var j = 0; j < leisure.edgeWarps.length; j++) {
+                var leisureWarp = leisure.edgeWarps[j];
+                if (leisureWarp && leisureWarp.side === 'up') {
+                    leisureWarp.target = 'recreation_road_map';
+                    leisureWarp.targetSpawn = 'fromLeisure';
+                    leisureWarp.min = 9;
+                    leisureWarp.max = 14;
+                }
+            }
+        }
+
+        // main.js がすでに駅前を active scene として保持していても、
+        // staging 反映後の南ワープと案内文をその場で使えるようにする。
+        if (window.activeTownSceneDef && window.activeTownSceneDef.id === 'station_plaza' && station) {
+            window.activeTownSceneDef.spawnPoints = station.spawnPoints;
+            window.activeTownSceneDef.edgeWarps = station.edgeWarps;
+            window.activeTownSceneDef.triggers = station.triggers;
+        }
+    }
+
     applyLatestTriggerLayout();
+    applyRecreationRoad();
+
     window.YUMANIWA_STAGING_TRIGGER_LAYOUT_20260823 = {
         apply: applyLatestTriggerLayout
+    };
+    window.YUMANIWA_STAGING_RECREATION_ROAD_20260825 = {
+        apply: applyRecreationRoad
     };
 })();
