@@ -187,8 +187,8 @@
             areaZones: [
                 {
                     id: 'recreation_road',
-                    title: '湯間庭レクリエーションロード',
-                    subtitle: '駅前とレジャセンを結ぶ道',
+                    title: '湯間庭',
+                    subtitle: 'レクリエーションロード',
                     area: { x: 0, y: 0, w: 24, h: 24 }
                 }
             ],
