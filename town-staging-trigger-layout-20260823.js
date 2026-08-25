@@ -152,7 +152,7 @@
         var recreationRoad = {
             id: 'recreation_road_map',
             title: '湯間庭レクリエーションロード',
-            subtitle: 'レジャセン前',
+            subtitle: '湯窓レジャーセンター前',
             mapWidth: 24,
             mapHeight: 24,
             backgroundStyle: 'street',
@@ -187,8 +187,8 @@
             areaZones: [
                 {
                     id: 'recreation_road',
-                    title: '湯間庭',
-                    subtitle: 'レクリエーションロード',
+                    title: '湯間庭レクリエーションロード',
+                    subtitle: '駅前と湯窓レジャーセンターを結ぶ道',
                     area: { x: 0, y: 0, w: 24, h: 24 }
                 }
             ],
