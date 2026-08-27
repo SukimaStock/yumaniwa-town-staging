@@ -113,6 +113,13 @@
         return true;
     }
 
+    function clearLegacyPhoneHiddenState() {
+        // phone-layout.js also controls the same town header for phone works.
+        // When this experiment reveals the header, clear that older collapsed
+        // state too; otherwise the peek button appears to do nothing.
+        playerLayer.classList.remove("phone-controls-hidden");
+    }
+
     function hideHeader() {
         if (!isDotWeatherActive() || loading.classList.contains("visible")) return;
         applyFrameModeIfNeeded();
@@ -124,6 +131,7 @@
         if (!isDotWeatherActive()) return;
         applyFrameModeIfNeeded();
         clearTimer();
+        clearLegacyPhoneHiddenState();
         playerLayer.classList.remove("dotweather-immersive");
         peekTab.hidden = true;
         hideTimer = window.setTimeout(hideHeader, delay || REVEAL_VISIBLE_MS);
@@ -132,6 +140,7 @@
     function beginExperimentForOpen() {
         clearTimer();
         applyFrameModeIfNeeded();
+        clearLegacyPhoneHiddenState();
         playerLayer.classList.remove("dotweather-immersive");
         peekTab.hidden = true;
 
