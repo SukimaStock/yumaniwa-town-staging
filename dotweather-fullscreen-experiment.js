@@ -1,13 +1,13 @@
 /* ==========================================
    DotWeather / staging-only expand experiment
 
-   - Default: keep the existing framed phone presentation.
-   - DotWeather only: double-tap the middle sky area to expand the work to the
-     whole town player area.
-   - Double-tap the sky again to return to the framed presentation.
-   - No hint text, no fullscreen button, no auto expansion.
-   - While DotWeather is framed, keep the town header visible and suppress the
-     phone-layout peek tab so there is no floating control over the scene.
+   - Default state is owned entirely by the existing phone-layout.js behavior.
+     The town header may auto-collapse exactly as before.
+   - DotWeather only: double-tap the middle sky area to expand the iframe to
+     the whole town player area.
+   - Double-tap the sky again to return to the normal framed presentation.
+   - No hint text, no fullscreen button, no automatic expansion.
+   - While expanded, town chrome and the peek tab are hidden.
    ========================================== */
 (function () {
     "use strict";
@@ -16,17 +16,18 @@
     if (!isStaging) return;
 
     var playerLayer = document.getElementById("work-player");
-    var controls = document.getElementById("work-player-controls");
     var content = document.getElementById("work-player-content");
     var frame = document.getElementById("work-player-frame");
-    var peekTab = document.getElementById("work-player-peek-tab");
 
-    if (!playerLayer || !controls || !content || !frame || !peekTab) return;
+    if (!playerLayer || !content || !frame) return;
 
     var style = document.createElement("style");
     style.id = "dotweather-expand-experiment-style";
     style.textContent = [
         '#work-player.dotweather-expanded #work-player-controls {',
+        '  display: none !important;',
+        '}',
+        '#work-player.dotweather-expanded #work-player-peek-tab {',
         '  display: none !important;',
         '}',
         '#work-player.dotweather-expanded #work-player-content {',
@@ -46,12 +47,10 @@
         '  max-width: none !important;',
         '  max-height: none !important;',
         '  flex: none !important;',
+        '  border: 0 !important;',
         '  border-radius: 0 !important;',
         '  box-shadow: none !important;',
         '  background: #070a17 !important;',
-        '}',
-        '#work-player.dotweather-experiment-active #work-player-peek-tab {',
-        '  display: none !important;',
         '}'
     ].join("\n");
     document.head.appendChild(style);
@@ -72,25 +71,38 @@
         return window.currentWorkId === "dotweather" || frameLooksLikeDotWeather();
     }
 
-    function clearPhoneCollapseState() {
-        playerLayer.classList.remove("phone-controls-hidden");
-        peekTab.hidden = true;
+    function notifyDotWeatherResize() {
+        function dispatchResize() {
+            if (!isDotWeatherActive()) return;
+            try {
+                var win = frame.contentWindow;
+                if (win) win.dispatchEvent(new Event("resize"));
+            } catch (error) {
+                // Same-origin in normal use. If that changes, simply skip it.
+            }
+        }
+
+        window.requestAnimationFrame(dispatchResize);
+        window.setTimeout(dispatchResize, 80);
+        window.setTimeout(dispatchResize, 220);
     }
 
     function setExpanded(expanded) {
         if (!isDotWeatherActive()) return;
 
-        clearPhoneCollapseState();
         playerLayer.classList.toggle("dotweather-expanded", !!expanded);
 
-        // Let the existing phone-layout code recalculate the framed size after
-        // leaving expanded mode.
-        window.requestAnimationFrame(function () {
-            clearPhoneCollapseState();
-            if (!expanded && typeof window.updateWorkPlayerLayoutSize === "function") {
+        // The iframe viewport changes substantially here. Safari can lag a
+        // frame before reporting the new innerWidth / innerHeight, so notify
+        // DotWeather more than once after layout settles.
+        notifyDotWeatherResize();
+
+        if (!expanded && typeof window.updateWorkPlayerLayoutSize === "function") {
+            window.requestAnimationFrame(function () {
                 window.updateWorkPlayerLayoutSize();
-            }
-        });
+                notifyDotWeatherResize();
+            });
+        }
     }
 
     function toggleExpanded() {
@@ -112,15 +124,15 @@
         var nx = x / rect.width;
         var ny = y / rect.height;
 
-        // Keep the hidden gesture away from the city/menu controls at the top
-        // and from the skyline / forecast rows near the bottom. The broad
-        // middle band is the visual sky in both framed and expanded layouts.
+        // Avoid city/menu controls at the top and the skyline / forecast area
+        // at the bottom. This middle band is open sky in both view modes.
         return nx >= 0.08 && nx <= 0.92 && ny >= 0.30 && ny <= 0.72;
     }
 
     function onCanvasPointerUp(event) {
-        if (!isDotWeatherActive()) return;
+        if (!isDotWeatherActive() || !boundCanvas) return;
         if (event.pointerType === "mouse" && event.button !== 0) return;
+
         if (!isSkyTap(boundCanvas, event)) {
             resetTapState();
             return;
@@ -168,55 +180,36 @@
                 passive: false
             });
         } catch (error) {
-            // DotWeather is same-origin in normal use. If that ever changes,
-            // leave the experiment inactive rather than affecting the player.
             boundCanvas = null;
         }
     }
 
     function activateExperiment() {
-        playerLayer.classList.add("dotweather-experiment-active");
-        setExpanded(false);
-        clearPhoneCollapseState();
+        playerLayer.classList.remove("dotweather-expanded");
         window.requestAnimationFrame(bindDotWeatherCanvas);
     }
 
     function deactivateExperiment() {
         unbindCanvas();
-        playerLayer.classList.remove("dotweather-experiment-active");
         playerLayer.classList.remove("dotweather-expanded");
-        playerLayer.classList.remove("phone-controls-hidden");
-        peekTab.hidden = true;
     }
 
     function sync() {
         var active = isDotWeatherActive();
 
-        if (active) {
-            playerLayer.classList.add("dotweather-experiment-active");
-            clearPhoneCollapseState();
-
-            if (!wasActive) {
-                activateExperiment();
-            }
-        } else if (wasActive) {
+        if (active && !wasActive) {
+            activateExperiment();
+        } else if (!active && wasActive) {
             deactivateExperiment();
         }
 
         wasActive = active;
     }
 
-    // phone-layout.js may try to collapse the header after its normal delay.
-    // For this DotWeather experiment, immediately undo that state so the only
-    // transition is the deliberate sky double-tap.
+    // Observe only open/close/layout changes. Do not modify phone-controls-hidden:
+    // that class belongs to the existing automatic town-header behavior.
     var playerObserver = new MutationObserver(function () {
-        window.requestAnimationFrame(function () {
-            if (isDotWeatherActive()) {
-                playerLayer.classList.add("dotweather-experiment-active");
-                clearPhoneCollapseState();
-            }
-            sync();
-        });
+        window.requestAnimationFrame(sync);
     });
     playerObserver.observe(playerLayer, {
         attributes: true,
@@ -232,8 +225,8 @@
 
     document.addEventListener("visibilitychange", function () {
         if (!document.hidden && isDotWeatherActive()) {
-            clearPhoneCollapseState();
             bindDotWeatherCanvas();
+            notifyDotWeatherResize();
         }
     });
 
