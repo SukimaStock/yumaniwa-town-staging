@@ -1,13 +1,12 @@
 /* ==========================================
    DotWeather / staging-only expand experiment
 
-   - Default state is owned entirely by the existing phone-layout.js behavior.
-     The town header may auto-collapse exactly as before.
-   - DotWeather only: double-tap the middle sky area to expand the iframe to
-     the whole town player area.
-   - Double-tap the sky again to return to the normal framed presentation.
+   - Default: keep the existing framed phone presentation.
+   - The town header may auto-collapse as before, but DotWeather's framed size
+     stays fixed so header collapse does not become a second enlargement step.
+   - Double-tap the middle sky area to expand to the whole town player area.
+   - Double-tap the sky again to return to the same framed size.
    - No hint text, no fullscreen button, no automatic expansion.
-   - While expanded, town chrome and the peek tab are hidden.
    ========================================== */
 (function () {
     "use strict";
@@ -24,6 +23,11 @@
     var style = document.createElement("style");
     style.id = "dotweather-expand-experiment-style";
     style.textContent = [
+        '#work-player.dotweather-expand-ready:not(.dotweather-expanded) #work-player-frame {',
+        '  width: var(--dotweather-framed-width) !important;',
+        '  height: var(--dotweather-framed-height) !important;',
+        '  flex: 0 0 auto !important;',
+        '}',
         '#work-player.dotweather-expanded #work-player-controls {',
         '  display: none !important;',
         '}',
@@ -60,6 +64,8 @@
     var lastTapAt = 0;
     var lastTapX = 0;
     var lastTapY = 0;
+    var framedWidth = 0;
+    var framedHeight = 0;
 
     function frameLooksLikeDotWeather() {
         var src = String(frame.getAttribute("src") || frame.src || "");
@@ -71,6 +77,38 @@
         return window.currentWorkId === "dotweather" || frameLooksLikeDotWeather();
     }
 
+    function hasStoredFramedSize() {
+        return framedWidth > 0 && framedHeight > 0;
+    }
+
+    function applyStoredFramedSize() {
+        if (!hasStoredFramedSize()) return;
+        playerLayer.style.setProperty("--dotweather-framed-width", framedWidth + "px");
+        playerLayer.style.setProperty("--dotweather-framed-height", framedHeight + "px");
+        playerLayer.classList.add("dotweather-expand-ready");
+    }
+
+    function captureFramedSize() {
+        if (!isDotWeatherActive()) return false;
+        if (playerLayer.classList.contains("dotweather-expanded")) return false;
+        if (playerLayer.classList.contains("phone-controls-hidden")) return false;
+
+        var rect = frame.getBoundingClientRect();
+        if (!rect || rect.width < 40 || rect.height < 80) return false;
+
+        framedWidth = Math.round(rect.width * 100) / 100;
+        framedHeight = Math.round(rect.height * 100) / 100;
+        applyStoredFramedSize();
+        return true;
+    }
+
+    function scheduleInitialFrameCapture() {
+        window.requestAnimationFrame(function () {
+            if (captureFramedSize()) return;
+            window.setTimeout(captureFramedSize, 80);
+        });
+    }
+
     function notifyDotWeatherResize() {
         function dispatchResize() {
             if (!isDotWeatherActive()) return;
@@ -78,7 +116,7 @@
                 var win = frame.contentWindow;
                 if (win) win.dispatchEvent(new Event("resize"));
             } catch (error) {
-                // Same-origin in normal use. If that changes, simply skip it.
+                // DotWeather is same-origin in normal use.
             }
         }
 
@@ -90,16 +128,22 @@
     function setExpanded(expanded) {
         if (!isDotWeatherActive()) return;
 
+        if (!expanded && !hasStoredFramedSize()) {
+            captureFramedSize();
+        }
+
         playerLayer.classList.toggle("dotweather-expanded", !!expanded);
 
-        // The iframe viewport changes substantially here. Safari can lag a
-        // frame before reporting the new innerWidth / innerHeight, so notify
-        // DotWeather more than once after layout settles.
+        if (!expanded) {
+            applyStoredFramedSize();
+        }
+
         notifyDotWeatherResize();
 
         if (!expanded && typeof window.updateWorkPlayerLayoutSize === "function") {
             window.requestAnimationFrame(function () {
                 window.updateWorkPlayerLayoutSize();
+                applyStoredFramedSize();
                 notifyDotWeatherResize();
             });
         }
@@ -124,8 +168,6 @@
         var nx = x / rect.width;
         var ny = y / rect.height;
 
-        // Avoid city/menu controls at the top and the skyline / forecast area
-        // at the bottom. This middle band is open sky in both view modes.
         return nx >= 0.08 && nx <= 0.92 && ny >= 0.30 && ny <= 0.72;
     }
 
@@ -185,13 +227,24 @@
     }
 
     function activateExperiment() {
+        framedWidth = 0;
+        framedHeight = 0;
         playerLayer.classList.remove("dotweather-expanded");
+        playerLayer.classList.remove("dotweather-expand-ready");
+        playerLayer.style.removeProperty("--dotweather-framed-width");
+        playerLayer.style.removeProperty("--dotweather-framed-height");
+        scheduleInitialFrameCapture();
         window.requestAnimationFrame(bindDotWeatherCanvas);
     }
 
     function deactivateExperiment() {
         unbindCanvas();
+        framedWidth = 0;
+        framedHeight = 0;
         playerLayer.classList.remove("dotweather-expanded");
+        playerLayer.classList.remove("dotweather-expand-ready");
+        playerLayer.style.removeProperty("--dotweather-framed-width");
+        playerLayer.style.removeProperty("--dotweather-framed-height");
     }
 
     function sync() {
@@ -203,11 +256,15 @@
             deactivateExperiment();
         }
 
+        // If phone-layout auto-collapses the town header, keep the already
+        // captured DotWeather window size instead of letting it grow.
+        if (active && hasStoredFramedSize() && !playerLayer.classList.contains("dotweather-expanded")) {
+            applyStoredFramedSize();
+        }
+
         wasActive = active;
     }
 
-    // Observe only open/close/layout changes. Do not modify phone-controls-hidden:
-    // that class belongs to the existing automatic town-header behavior.
     var playerObserver = new MutationObserver(function () {
         window.requestAnimationFrame(sync);
     });
@@ -219,14 +276,33 @@
     frame.addEventListener("load", function () {
         window.requestAnimationFrame(function () {
             sync();
+            scheduleInitialFrameCapture();
             bindDotWeatherCanvas();
         });
     });
 
+    window.addEventListener("resize", function () {
+        if (!isDotWeatherActive()) return;
+
+        // Re-measure on a genuinely new viewport when the town header is
+        // visible. Otherwise preserve the current framed size until next open.
+        if (!playerLayer.classList.contains("phone-controls-hidden") &&
+            !playerLayer.classList.contains("dotweather-expanded")) {
+            framedWidth = 0;
+            framedHeight = 0;
+            playerLayer.classList.remove("dotweather-expand-ready");
+            playerLayer.style.removeProperty("--dotweather-framed-width");
+            playerLayer.style.removeProperty("--dotweather-framed-height");
+            scheduleInitialFrameCapture();
+        }
+    });
+
     document.addEventListener("visibilitychange", function () {
         if (!document.hidden && isDotWeatherActive()) {
-            bindDotWeatherCanvas();
-            notifyDotWeatherResize();
+            window.requestAnimationFrame(function () {
+                if (!hasStoredFramedSize()) scheduleInitialFrameCapture();
+                bindDotWeatherCanvas();
+            });
         }
     });
 
