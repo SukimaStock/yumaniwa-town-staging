@@ -538,7 +538,7 @@
   function drawAnalogClock(W, H) {
     const clockX = W / 2;
     const clockY = H / 1.83;
-    const clockSize = W * 0.69;
+    const clockSize = W * 0.63;
 
     if (imageReady(images.dial)) {
       sprite(images.dial, clockX, clockY, clockSize, clockSize);
