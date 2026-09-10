@@ -43,6 +43,31 @@ var WORKS = [
     // },
 
     {
+        id: "steamclock",
+        title: "SteamClock",
+        venue: "leisure_center",
+        kind: "work",
+        status: "open",
+
+        launch: "embedded",
+        entry: "./works/steamclock/index.html",
+
+        frameTitle: "SteamClock",
+        returnLabel: "湯窓レジャーセンター",
+        frameMode: "soft",
+
+        playerLayout: "phone",
+        playerWidth: 390,
+        playerHeight: 844,
+
+        menuCategory: "アプリ",
+        menuDescription: "歯車と蒸気を眺める、スチームパンクの時計。",
+
+        description: "歯車と蒸気が静かに動き続ける、スチームパンクの時計。",
+        emptyText: "時計の機構を読み込んでいます。"
+    },
+
+    {
         id: "dotweather",
         title: "DotWeather",
         venue: "leisure_center",
