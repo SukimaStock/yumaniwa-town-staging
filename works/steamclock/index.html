@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+
+  <title>SteamClock</title>
+  <meta name="description" content="SteamClock — a steampunk analog and nixie clock by SukimaStock.">
+  <meta name="theme-color" content="#100c0b">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Plausible Analytics
+       Keep local/Koder previews out of production stats. The tracker loads only
+       on the published SukimaStock GitHub Pages host. -->
+  <script>
+    (() => {
+      const isProduction =
+        location.protocol === "https:" &&
+        location.hostname === "sukimastock.github.io";
+
+      if (!isProduction) return;
+
+      window.plausible = window.plausible || function () {
+        (window.plausible.q = window.plausible.q || []).push(arguments);
+      };
+      window.plausible.init = window.plausible.init || function (options) {
+        window.plausible.o = options || {};
+      };
+      window.plausible.init();
+
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://plausible.io/js/pa-sYe-y0PqpZapFe6FJVlK2.js";
+      document.head.appendChild(script);
+    })();
+  </script>
+
+  <!-- PWA -->
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512.png">
+
+  <!-- iPhone / iPad Home Screen -->
+  <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SteamClock">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #100c0b;
+      overscroll-behavior: none;
+      touch-action: none;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    #gameCanvas {
+      position: fixed;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      opacity: 1;
+      transition: opacity 120ms linear;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- Low-level Codea-compatible canvas runtime -->
+  <script src="codea-lite.js"></script>
+
+  <!-- Reusable SukimaStock experience layer -->
+  <script src="sukimastock-engine.js"></script>
+
+  <!-- App-specific scenes and rules -->
+  <script src="sketch.js"></script>
+
+  <script>
+    CodeaLite.start("gameCanvas");
+
+    // Service workers require HTTPS (localhost is also allowed).
+    // GitHub Pages is HTTPS, so offline support becomes active after deployment.
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch((error) => {
+          console.warn("SteamClock service worker registration failed:", error);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
