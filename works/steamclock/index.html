@@ -8,12 +8,16 @@
   <meta name="description" content="SteamClock — a steampunk analog and nixie clock by SukimaStock.">
   <meta name="theme-color" content="#100c0b">
   <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="canonical" href="https://sukimastock.github.io/yumaniwa-town/?work=steamclock">
 
-  <!-- Plausible Analytics
-       Keep local/Koder previews out of production stats. The tracker loads only
-       on the published SukimaStock GitHub Pages host. -->
+  <!-- Privacy-friendly analytics by Plausible.
+       staging では本番解析へテストアクセスを混ぜない。 -->
   <script>
     (() => {
+      const isStaging = /\/yumaniwa-town-staging(?:\/|$)/.test(window.location.pathname);
+      if (isStaging) return;
+
       const isProduction =
         location.protocol === "https:" &&
         location.hostname === "sukimastock.github.io";
