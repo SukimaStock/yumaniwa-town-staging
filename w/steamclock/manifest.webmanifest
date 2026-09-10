@@ -1,0 +1,18 @@
+{
+  "name": "SteamClock",
+  "short_name": "SteamClock",
+  "id": "../../?work=steamclock",
+  "start_url": "../../?work=steamclock",
+  "scope": "../../",
+  "display": "standalone",
+  "background_color": "#100c0b",
+  "theme_color": "#100c0b",
+  "icons": [
+    {
+      "src": "../../assets/works/steamclock/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
