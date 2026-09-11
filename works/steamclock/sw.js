@@ -1,6 +1,6 @@
 // SteamClock PWA service worker
 // Bump CACHE_VERSION when shipping a new release that should replace cached files.
-const CACHE_VERSION = "steamclock-v2";
+const CACHE_VERSION = "steamclock-v3";
 
 const PRECACHE_URLS = [
   "./",
