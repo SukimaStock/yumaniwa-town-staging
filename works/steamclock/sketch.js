@@ -1,6 +1,6 @@
-// SteamClock — Step 11.6: video-mode toggle + displayed-time sparks
-// Goal: keep the completed Step 8 behavior while restoring the last small
-// Codea visual details and switching the app from development to release mode.
+// SteamClock — Step 12: release build + opt-in debug tools
+// Normal visitors see the finished clock only. Add ?debug=1 to enable the
+// developer panel for fixed-time checks, geometry overlays, and effect tests.
 
 (function () {
   "use strict";
@@ -13,6 +13,30 @@
   const DESIGN_H = 844;
 
   const images = {};
+
+  function locationHasDebug(targetWindow) {
+    try {
+      const value = new URLSearchParams(targetWindow.location.search).get("debug");
+      return value === "1" || value === "true";
+    } catch (_error) {
+      return false;
+    }
+  }
+
+  // The work can be opened directly or inside the same-origin Yumaniwa frame.
+  // In the latter case, allow ?debug=1 on the parent town URL as well.
+  const DEBUG_ENABLED = typeof window !== "undefined" && (
+    locationHasDebug(window) ||
+    (window.top && window.top !== window && locationHasDebug(window.top))
+  );
+
+  const debugState = {
+    fixedTime: null,
+    overlay: false,
+    panel: null,
+    status: null,
+    overlayButton: null,
+  };
 
   // Same idea as the current Codea TimeOffset: 0 in normal mode.
   // A double tap toggles the displayed clock between real time and 10:08:42.
@@ -65,9 +89,29 @@
     hour:   { x: 0.00, y: 0.00 },
   };
 
+  function clampInt(value, min, max) {
+    const number = Math.round(Number(value));
+    if (!Number.isFinite(number)) return min;
+    return Math.max(min, Math.min(max, number));
+  }
+
+  function format2(value) {
+    return String(value).padStart(2, "0");
+  }
+
   // Current Codea version uses one shared time source for analog + nixie.
   // Keep that behavior here so both displays stay synchronized.
   function getClockDate() {
+    if (DEBUG_ENABLED && debugState.fixedTime) {
+      const now = new Date();
+      now.setHours(
+        debugState.fixedTime.h,
+        debugState.fixedTime.m,
+        debugState.fixedTime.s,
+        0
+      );
+      return now;
+    }
     return new Date(Date.now() + timeOffsetMs);
   }
 
@@ -80,14 +124,260 @@
     };
   }
 
+  function syncDebugPanel() {
+    if (!DEBUG_ENABLED) return;
+
+    if (debugState.status) {
+      if (debugState.fixedTime) {
+        const t = debugState.fixedTime;
+        debugState.status.textContent =
+          "FIXED  " + format2(t.h) + ":" + format2(t.m) + ":" + format2(t.s);
+      } else if (videoTimeMode) {
+        debugState.status.textContent = "VIDEO  10:08:42 →";
+      } else {
+        debugState.status.textContent = "REAL TIME";
+      }
+    }
+
+    if (debugState.overlayButton) {
+      debugState.overlayButton.textContent = debugState.overlay
+        ? "OVERLAY  ON"
+        : "OVERLAY  OFF";
+      debugState.overlayButton.setAttribute("aria-pressed", debugState.overlay ? "true" : "false");
+    }
+  }
+
+  function setDebugTime(h, m, s) {
+    if (!DEBUG_ENABLED) return false;
+
+    debugState.fixedTime = {
+      h: clampInt(h, 0, 23),
+      m: clampInt(m, 0, 59),
+      s: clampInt(s, 0, 59),
+    };
+    timeOffsetMs = 0;
+    videoTimeMode = false;
+    fx.lastSecond = debugState.fixedTime.s;
+    syncDebugPanel();
+    return true;
+  }
+
+  function useRealTime() {
+    if (!DEBUG_ENABLED) return false;
+
+    debugState.fixedTime = null;
+    timeOffsetMs = 0;
+    videoTimeMode = false;
+    fx.lastSecond = new Date().getSeconds();
+    syncDebugPanel();
+    return true;
+  }
+
+  function toggleDebugOverlay() {
+    if (!DEBUG_ENABLED) return false;
+    debugState.overlay = !debugState.overlay;
+    syncDebugPanel();
+    return debugState.overlay;
+  }
+
+  function triggerDebugFlicker() {
+    if (!DEBUG_ENABLED) return false;
+    // Hold a clearly visible flicker for about a third of a second, then let
+    // the normal subtle flicker resume on its own.
+    fx.flickerAlpha = 62;
+    fx.flickerTimer = -0.24;
+    return true;
+  }
+
+  function triggerAllDebugEffects() {
+    if (!DEBUG_ENABLED) return false;
+    createSteamPuff();
+    createSparkEffect();
+    triggerDebugFlicker();
+    return true;
+  }
+
+  function installDebugPanel() {
+    if (!DEBUG_ENABLED || typeof document === "undefined" || debugState.panel) return;
+
+    const panel = document.createElement("details");
+    panel.id = "steamclock-debug-panel";
+    panel.open = true;
+    panel.innerHTML = `
+      <summary>STEAMCLOCK DEBUG</summary>
+      <div class="sc-debug-body">
+        <div class="sc-debug-status" data-role="status">REAL TIME</div>
+        <div class="sc-debug-time">
+          <input data-role="hour" type="number" min="0" max="23" value="10" inputmode="numeric" aria-label="hour">
+          <span>:</span>
+          <input data-role="minute" type="number" min="0" max="59" value="08" inputmode="numeric" aria-label="minute">
+          <span>:</span>
+          <input data-role="second" type="number" min="0" max="59" value="42" inputmode="numeric" aria-label="second">
+        </div>
+        <div class="sc-debug-row">
+          <button data-action="set-time">SET TIME</button>
+          <button data-action="real-time">REAL TIME</button>
+        </div>
+        <button class="sc-debug-wide" data-action="overlay">OVERLAY  OFF</button>
+        <div class="sc-debug-label">EFFECT</div>
+        <div class="sc-debug-grid">
+          <button data-action="steam">STEAM</button>
+          <button data-action="spark">SPARK</button>
+          <button data-action="flicker">FLICKER</button>
+          <button data-action="all">ALL</button>
+        </div>
+      </div>
+    `;
+
+    const style = document.createElement("style");
+    style.id = "steamclock-debug-style";
+    style.textContent = `
+      #steamclock-debug-panel {
+        position: fixed;
+        top: max(8px, env(safe-area-inset-top));
+        left: max(8px, env(safe-area-inset-left));
+        z-index: 2147483647;
+        width: min(224px, calc(100vw - 16px));
+        box-sizing: border-box;
+        color: #f1dfbd;
+        background: rgba(20, 14, 12, 0.92);
+        border: 1px solid rgba(239, 206, 151, 0.55);
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.38);
+        font: 11px/1.25 ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+        letter-spacing: 0.03em;
+        -webkit-user-select: none;
+        user-select: none;
+        touch-action: manipulation;
+      }
+      #steamclock-debug-panel summary {
+        padding: 9px 10px;
+        cursor: pointer;
+        color: #f5c777;
+        font-weight: 700;
+        list-style-position: inside;
+      }
+      #steamclock-debug-panel .sc-debug-body {
+        padding: 0 10px 10px;
+      }
+      #steamclock-debug-panel .sc-debug-status {
+        margin: 0 0 8px;
+        padding: 5px 7px;
+        color: #9ee7ef;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 4px;
+      }
+      #steamclock-debug-panel .sc-debug-time {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr auto 1fr;
+        align-items: center;
+        gap: 4px;
+        margin-bottom: 7px;
+      }
+      #steamclock-debug-panel input,
+      #steamclock-debug-panel button {
+        box-sizing: border-box;
+        min-height: 30px;
+        border: 1px solid rgba(239, 216, 171, 0.42);
+        border-radius: 5px;
+        color: #f4e7cd;
+        background: rgba(255, 255, 255, 0.08);
+        font: inherit;
+      }
+      #steamclock-debug-panel input {
+        width: 100%;
+        padding: 4px;
+        text-align: center;
+        -webkit-user-select: text;
+        user-select: text;
+      }
+      #steamclock-debug-panel button {
+        padding: 5px 7px;
+      }
+      #steamclock-debug-panel button:active {
+        transform: translateY(1px);
+        background: rgba(245, 199, 119, 0.20);
+      }
+      #steamclock-debug-panel .sc-debug-row,
+      #steamclock-debug-panel .sc-debug-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+      #steamclock-debug-panel .sc-debug-wide {
+        width: 100%;
+        margin-top: 6px;
+      }
+      #steamclock-debug-panel .sc-debug-label {
+        margin: 9px 0 5px;
+        color: rgba(241, 223, 189, 0.62);
+        font-size: 9px;
+      }
+    `;
+
+    document.head.appendChild(style);
+    document.body.appendChild(panel);
+
+    const hour = panel.querySelector('[data-role="hour"]');
+    const minute = panel.querySelector('[data-role="minute"]');
+    const second = panel.querySelector('[data-role="second"]');
+    debugState.panel = panel;
+    debugState.status = panel.querySelector('[data-role="status"]');
+    debugState.overlayButton = panel.querySelector('[data-action="overlay"]');
+
+    // Keep taps on the debug panel out of the app's gesture layer.
+    for (const eventName of ["pointerdown", "pointerup", "touchstart", "touchend", "click"]) {
+      panel.addEventListener(eventName, (event) => event.stopPropagation());
+    }
+
+    panel.querySelector('[data-action="set-time"]').addEventListener("click", () => {
+      const h = clampInt(hour.value, 0, 23);
+      const m = clampInt(minute.value, 0, 59);
+      const s = clampInt(second.value, 0, 59);
+      hour.value = format2(h);
+      minute.value = format2(m);
+      second.value = format2(s);
+      setDebugTime(h, m, s);
+    });
+
+    panel.querySelector('[data-action="real-time"]').addEventListener("click", useRealTime);
+    debugState.overlayButton.addEventListener("click", toggleDebugOverlay);
+    panel.querySelector('[data-action="steam"]').addEventListener("click", createSteamPuff);
+    panel.querySelector('[data-action="spark"]').addEventListener("click", createSparkEffect);
+    panel.querySelector('[data-action="flicker"]').addEventListener("click", triggerDebugFlicker);
+    panel.querySelector('[data-action="all"]').addEventListener("click", triggerAllDebugEffects);
+
+    window.SteamClockDebug = {
+      enabled: true,
+      setTime: setDebugTime,
+      realTime: useRealTime,
+      toggleOverlay: toggleDebugOverlay,
+      steam: createSteamPuff,
+      spark: createSparkEffect,
+      flicker: triggerDebugFlicker,
+      all: triggerAllDebugEffects,
+      getState() {
+        return {
+          fixedTime: debugState.fixedTime ? { ...debugState.fixedTime } : null,
+          overlay: debugState.overlay,
+          videoTimeMode,
+        };
+      },
+    };
+
+    syncDebugPanel();
+  }
+
   function enterVideoTimeMode() {
     const now = new Date();
     const target = new Date(now);
     target.setHours(10, 8, 42, 0);
+    debugState.fixedTime = null;
     timeOffsetMs = target.getTime() - now.getTime();
     videoTimeMode = true;
     // Keep minute-boundary effects synchronized to the displayed clock.
     fx.lastSecond = getClockDate().getSeconds();
+    syncDebugPanel();
     console.log('Video Mode: 10:08:42 (Running)');
   }
 
@@ -96,6 +386,7 @@
     videoTimeMode = false;
     // Reset the effect edge detector to real time after the jump back.
     fx.lastSecond = getClockDate().getSeconds();
+    syncDebugPanel();
     console.log('Video Mode: Off (Real Time)');
   }
 
@@ -535,6 +826,76 @@
     popMatrix();
   }
 
+  function drawDebugRay(clockX, clockY, angleDeg, length) {
+    const rad = (90 - angleDeg) * Math.PI / 180;
+    line(
+      clockX,
+      clockY,
+      clockX + Math.cos(rad) * length,
+      clockY + Math.sin(rad) * length
+    );
+  }
+
+  function drawDebugOverlay(clockX, clockY, clockSize) {
+    if (!DEBUG_ENABLED || !debugState.overlay) return;
+
+    const radius = clockSize * 0.5;
+
+    // Sprite bounds and exact shared center.
+    fill(0, 0, 0, 0);
+    strokeWidth(1);
+    stroke(70, 220, 255, 125);
+    rect(clockX, clockY, clockSize, clockSize);
+    ellipse(clockX, clockY, clockSize);
+
+    // 60 minute ticks, with stronger 5-minute marks.
+    for (let i = 0; i < 60; i += 1) {
+      const angle = i * 6;
+      const rad = (90 - angle) * Math.PI / 180;
+      const major = i % 5 === 0;
+      const inner = radius * (major ? 0.82 : 0.89);
+      const outer = radius * 0.98;
+      stroke(70, 220, 255, major ? 180 : 90);
+      strokeWidth(major ? 1.5 : 1);
+      line(
+        clockX + Math.cos(rad) * inner,
+        clockY + Math.sin(rad) * inner,
+        clockX + Math.cos(rad) * outer,
+        clockY + Math.sin(rad) * outer
+      );
+    }
+
+    // 12 exact hour spokes make numeral alignment easy to inspect.
+    stroke(70, 220, 255, 62);
+    strokeWidth(1);
+    for (let i = 0; i < 12; i += 1) {
+      drawDebugRay(clockX, clockY, i * 30, radius * 0.97);
+    }
+
+    // Strong horizontal / vertical axes.
+    stroke(255, 255, 255, 145);
+    line(clockX - radius, clockY, clockX + radius, clockY);
+    line(clockX, clockY - radius, clockX, clockY + radius);
+
+    // Theoretical hand directions for the currently displayed time.
+    const { h, m, s } = getClockHMS();
+    strokeWidth(2);
+    stroke(255, 92, 92, 205);
+    drawDebugRay(clockX, clockY, s * 6, radius * 0.92);
+    stroke(103, 213, 255, 205);
+    drawDebugRay(clockX, clockY, (m + s / 60) * 6, radius * 0.76);
+    stroke(142, 255, 157, 205);
+    drawDebugRay(clockX, clockY, ((h % 12) + m / 60) * 30, radius * 0.59);
+
+    // Exact pivot marker.
+    noStroke();
+    fill(255, 255, 255, 230);
+    ellipse(clockX, clockY, 6);
+    fill(255, 70, 70, 240);
+    ellipse(clockX, clockY, 2.5);
+    noStroke();
+  }
+
   function drawAnalogClock(W, H) {
     const clockX = W / 2;
     const clockY = H / 1.83;
@@ -576,7 +937,7 @@
     const fs = tubeH * 0.72;
 
     textAlign(CENTER);
-    font('"AvenirNext-UltraLight", "Avenir Next", Avenir, system-ui, sans-serif');
+    font('\"AvenirNext-UltraLight\", \"Avenir Next\", Avenir, system-ui, sans-serif');
 
     for (let i = 0; i < n; i += 1) {
       const x = startX + i * spacing;
@@ -649,7 +1010,10 @@
       drawPendulumAnimated(clock.clockX, clock.clockY, clock.clockSize);
       drawSteamEffect();
       drawBarometerAnimated(W, H);
-      drawAnalogClock(W, H);
+      const analogClock = drawAnalogClock(W, H);
+      if (analogClock) {
+        drawDebugOverlay(analogClock.clockX, analogClock.clockY, analogClock.clockSize);
+      }
       drawDigitalClock(W, H);
       drawForegroundElements(W, H);
       drawSparkEffect();
@@ -697,7 +1061,7 @@
     initialScene: "clock",
     outerBackground: [0, 0, 0],
     sceneBackground: [0, 0, 0],
-    debug: false,
+    debug: DEBUG_ENABLED,
 
     analytics: {
       enabled: true,
@@ -709,6 +1073,7 @@
       rectMode(CENTER);
       noStroke();
       initEffects(DESIGN_W, DESIGN_H);
+      installDebugPanel();
 
       images.background = readImage("assets/background.png");
       images.dial = readImage("assets/dial.png");
