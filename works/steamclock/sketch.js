@@ -1,14 +1,10 @@
-// SteamClock — Step 12: release build + opt-in debug tools
+// SteamClock — Step 12.1: release build + opt-in debug tools
 // Normal visitors see the finished clock only. Add ?debug=1 to enable the
 // developer panel for fixed-time checks, geometry overlays, and effect tests.
 
 (function () {
   "use strict";
 
-  // Fixed logical canvas.
-  // Keep the SteamClock composition identical across Working Copy Preview,
-  // Safari UI states, and installed PWA. The engine scales this 390x844
-  // design canvas to the actual browser viewport without changing layout.
   const DESIGN_W = 390;
   const DESIGN_H = 844;
 
@@ -37,24 +33,6 @@
     status: null,
     overlayButton: null,
   };
-
-  // Same idea as the current Codea TimeOffset: 0 in normal mode.
-  // A double tap toggles the displayed clock between real time and 10:08:42.
-  // In video mode, time continues to run normally from 10:08:42.
-  let timeOffsetMs = 0;
-  let videoTimeMode = false;
-
-  const tap = {
-    startX: 0,
-    startY: 0,
-    moved: false,
-    lastTapAt: 0,
-    lastTapX: 0,
-    lastTapY: 0,
-  };
-  const DOUBLE_TAP_MS = 400;
-  const DOUBLE_TAP_DISTANCE = 64;
-  const TAP_MOVE_TOLERANCE = 24;
 
   const mech = {
     gears: null,
@@ -99,8 +77,8 @@
     return String(value).padStart(2, "0");
   }
 
-  // Current Codea version uses one shared time source for analog + nixie.
-  // Keep that behavior here so both displays stay synchronized.
+  // One shared time source keeps analog and nixie displays synchronized.
+  // Normal visitors always see real time; debug mode can temporarily freeze it.
   function getClockDate() {
     if (DEBUG_ENABLED && debugState.fixedTime) {
       const now = new Date();
@@ -112,7 +90,7 @@
       );
       return now;
     }
-    return new Date(Date.now() + timeOffsetMs);
+    return new Date();
   }
 
   function getClockHMS() {
@@ -132,8 +110,6 @@
         const t = debugState.fixedTime;
         debugState.status.textContent =
           "FIXED  " + format2(t.h) + ":" + format2(t.m) + ":" + format2(t.s);
-      } else if (videoTimeMode) {
-        debugState.status.textContent = "VIDEO  10:08:42 →";
       } else {
         debugState.status.textContent = "REAL TIME";
       }
@@ -155,8 +131,6 @@
       m: clampInt(m, 0, 59),
       s: clampInt(s, 0, 59),
     };
-    timeOffsetMs = 0;
-    videoTimeMode = false;
     fx.lastSecond = debugState.fixedTime.s;
     syncDebugPanel();
     return true;
@@ -166,8 +140,6 @@
     if (!DEBUG_ENABLED) return false;
 
     debugState.fixedTime = null;
-    timeOffsetMs = 0;
-    videoTimeMode = false;
     fx.lastSecond = new Date().getSeconds();
     syncDebugPanel();
     return true;
@@ -182,8 +154,6 @@
 
   function triggerDebugFlicker() {
     if (!DEBUG_ENABLED) return false;
-    // Hold a clearly visible flicker for about a third of a second, then let
-    // the normal subtle flicker resume on its own.
     fx.flickerAlpha = 62;
     fx.flickerTimer = -0.24;
     return true;
@@ -325,7 +295,6 @@
     debugState.status = panel.querySelector('[data-role="status"]');
     debugState.overlayButton = panel.querySelector('[data-action="overlay"]');
 
-    // Keep taps on the debug panel out of the app's gesture layer.
     for (const eventName of ["pointerdown", "pointerup", "touchstart", "touchend", "click"]) {
       panel.addEventListener(eventName, (event) => event.stopPropagation());
     }
@@ -360,65 +329,11 @@
         return {
           fixedTime: debugState.fixedTime ? { ...debugState.fixedTime } : null,
           overlay: debugState.overlay,
-          videoTimeMode,
         };
       },
     };
 
     syncDebugPanel();
-  }
-
-  function enterVideoTimeMode() {
-    const now = new Date();
-    const target = new Date(now);
-    target.setHours(10, 8, 42, 0);
-    debugState.fixedTime = null;
-    timeOffsetMs = target.getTime() - now.getTime();
-    videoTimeMode = true;
-    // Keep minute-boundary effects synchronized to the displayed clock.
-    fx.lastSecond = getClockDate().getSeconds();
-    syncDebugPanel();
-    console.log('Video Mode: 10:08:42 (Running)');
-  }
-
-  function exitVideoTimeMode() {
-    timeOffsetMs = 0;
-    videoTimeMode = false;
-    // Reset the effect edge detector to real time after the jump back.
-    fx.lastSecond = getClockDate().getSeconds();
-    syncDebugPanel();
-    console.log('Video Mode: Off (Real Time)');
-  }
-
-  function toggleVideoTimeMode() {
-    if (videoTimeMode) {
-      exitVideoTimeMode();
-      return false;
-    }
-
-    enterVideoTimeMode();
-    return true;
-  }
-
-  function registerTap(x, y) {
-    const now = performance.now();
-    const dt = now - tap.lastTapAt;
-    const distance = Math.hypot(x - tap.lastTapX, y - tap.lastTapY);
-
-    if (tap.lastTapAt > 0 && dt <= DOUBLE_TAP_MS && distance <= DOUBLE_TAP_DISTANCE) {
-      const enabled = toggleVideoTimeMode();
-      SSE.analytics.track("Video Mode", {
-        input: "double_tap",
-        state: enabled ? "on" : "off",
-      });
-      // Clear the first-tap state so a third quick tap does not immediately retrigger.
-      tap.lastTapAt = 0;
-      return;
-    }
-
-    tap.lastTapAt = now;
-    tap.lastTapX = x;
-    tap.lastTapY = y;
   }
 
   function imageReady(img) {
@@ -458,7 +373,6 @@
       w = H * imageRatio;
     }
 
-    // Same two-pass treatment as the Codea version.
     sprite(img, W / 2, H / 2, w, h);
     sprite(img, W / 2, H / 2, W);
   }
@@ -474,45 +388,10 @@
 
   function buildGears(W, H) {
     const gears = [
-      {
-        type: "linked",
-        img: images.gear2,
-        x: W * 0.455,
-        y: H * 0.77,
-        size: 160,
-        z: 11,
-        speed: -23,
-        angle: 10,
-        parent: null,
-      },
-      {
-        type: "linked",
-        img: images.gear1,
-        size: 110,
-        z: 10,
-        parent: 0,
-        phase: 18,
-        parentAngle: 210,
-        parentDistanceFactor: 0.8,
-      },
-      {
-        type: "decorative",
-        img: images.gear1,
-        x: W * 0.73,
-        y: H * 0.795,
-        size: 100,
-        speed: 25,
-        angle: 20,
-      },
-      {
-        type: "decorative",
-        img: images.gear2,
-        x: W * 0.75,
-        y: H * 0.42,
-        size: 80,
-        speed: 40,
-        angle: 0,
-      },
+      { type: "linked", img: images.gear2, x: W * 0.455, y: H * 0.77, size: 160, z: 11, speed: -23, angle: 10, parent: null },
+      { type: "linked", img: images.gear1, size: 110, z: 10, parent: 0, phase: 18, parentAngle: 210, parentDistanceFactor: 0.8 },
+      { type: "decorative", img: images.gear1, x: W * 0.73, y: H * 0.795, size: 100, speed: 25, angle: 20 },
+      { type: "decorative", img: images.gear2, x: W * 0.75, y: H * 0.42, size: 80, speed: 40, angle: 0 },
     ];
 
     const parent = gears[0];
@@ -522,7 +401,6 @@
     child.x = parent.x + Math.cos(aR) * d;
     child.y = parent.y + Math.sin(aR) * d;
     child.angle = -parent.angle * (parent.z / child.z) + child.phase;
-
     return gears;
   }
 
@@ -533,7 +411,6 @@
 
   function drawGearsAnimated(W, H) {
     const gears = ensureGears(W, H);
-
     for (const g of gears) {
       if (g.type === "linked") {
         if (g.parent !== null && g.parent !== undefined) {
@@ -546,19 +423,12 @@
         g.angle += g.speed * DeltaTime;
       }
     }
-
-    for (const g of gears) {
-      drawRotatedSprite(g.img, g.x, g.y, g.angle, g.size, g.size);
-    }
+    for (const g of gears) drawRotatedSprite(g.img, g.x, g.y, g.angle, g.size, g.size);
   }
 
   function drawDummyElements(W, H) {
-    if (imageReady(images.valve)) {
-      sprite(images.valve, W * 0.81, H * 0.08, 120, 120);
-    }
-    if (imageReady(images.gaugeDummy)) {
-      sprite(images.gaugeDummy, W * 0.20, H * 0.845, 100, 100);
-    }
+    if (imageReady(images.valve)) sprite(images.valve, W * 0.81, H * 0.08, 120, 120);
+    if (imageReady(images.gaugeDummy)) sprite(images.gaugeDummy, W * 0.20, H * 0.845, 100, 100);
   }
 
   function drawPendulumAnimated(clockX, clockY, clockSize) {
@@ -617,17 +487,13 @@
 
   function createSteamPuff() {
     if (!fx.steamEmitters.length) return;
-
-    // The current Codea version kicks the pressure gauge high whenever steam vents.
     mech.targetBarometerAngle = mapPressureToAngle(randomRange(85, 100));
-
     const emitter = fx.steamEmitters[randomInt(0, fx.steamEmitters.length - 1)];
     for (let i = 0; i < 80; i += 1) {
       const angle = emitter.angle + randomInt(-70, 45);
       const speed = randomInt(100, 250) * emitter.strength;
       const angleRad = angle * Math.PI / 180;
       const life = randomInt(80, 150) / 100;
-
       fx.steamParticles.push({
         x: emitter.x,
         y: emitter.y,
@@ -645,16 +511,13 @@
     noStroke();
     const turbulenceStrength = 200;
     const buoyancy = -80;
-
     for (let i = fx.steamParticles.length - 1; i >= 0; i -= 1) {
       const p = fx.steamParticles[i];
       p.life -= DeltaTime;
-
       if (p.life <= 0) {
         fx.steamParticles.splice(i, 1);
         continue;
       }
-
       p.xSpeed += randomRange(-turbulenceStrength, turbulenceStrength) * DeltaTime;
       p.ySpeed += randomRange(-turbulenceStrength, turbulenceStrength) * DeltaTime;
       p.ySpeed -= buoyancy * DeltaTime;
@@ -663,7 +526,6 @@
       p.x += p.xSpeed * DeltaTime;
       p.y += p.ySpeed * DeltaTime;
       p.size += 10 * DeltaTime;
-
       const lifeRatio = p.life / p.initialLife;
       p.alpha = Math.sin(lifeRatio * Math.PI) * 80;
       fill(255, 255, 255, p.alpha);
@@ -673,13 +535,11 @@
 
   function createSparkEffect() {
     if (!fx.sparkEmitters.length) return;
-
     const emitter = fx.sparkEmitters[randomInt(0, fx.sparkEmitters.length - 1)];
     for (let i = 0; i < 10; i += 1) {
       const angle = randomRange(0, 360);
       const speed = randomRange(300, 600);
       const rad = angle * Math.PI / 180;
-
       fx.sparkParticles.push({
         x: emitter.x,
         y: emitter.y,
@@ -695,27 +555,22 @@
     blendMode(ADDITIVE);
     strokeWidth(3);
     const gravity = 400;
-
     for (let i = fx.sparkParticles.length - 1; i >= 0; i -= 1) {
       const p = fx.sparkParticles[i];
       p.life -= DeltaTime;
-
       if (p.life <= 0) {
         fx.sparkParticles.splice(i, 1);
         continue;
       }
-
       p.ySpeed += gravity * DeltaTime;
       const px = p.x;
       const py = p.y;
       p.x += p.xSpeed * DeltaTime;
       p.y += p.ySpeed * DeltaTime;
       p.brightness *= 0.95;
-
       stroke(255, 230, 200, p.brightness);
       line(p.x, p.y, px, py);
     }
-
     blendMode(NORMAL);
   }
 
@@ -725,7 +580,6 @@
       fx.flickerAlpha = randomRange(0, 7);
       fx.flickerTimer = 0;
     }
-
     noStroke();
     fill(80, 60, 40, fx.flickerAlpha);
     rect(W / 2, H / 2, W, H);
@@ -733,22 +587,17 @@
 
   function drawDustEffect(W, H) {
     noStroke();
-
     for (const p of fx.dustParticles) {
-      const accelX = randomRange(-50, 50) * DeltaTime;
-      const accelY = randomRange(-50, 50) * DeltaTime;
-      p.xSpeed += accelX;
-      p.ySpeed += accelY;
+      p.xSpeed += randomRange(-50, 50) * DeltaTime;
+      p.ySpeed += randomRange(-50, 50) * DeltaTime;
       p.xSpeed *= 0.97;
       p.ySpeed *= 0.97;
       p.x += p.xSpeed * DeltaTime;
       p.y += p.ySpeed * DeltaTime;
-
       if (p.y > H + 10) p.y = -10;
       if (p.x > W + 10) p.x = -10;
       if (p.y < -10) p.y = H + 10;
       if (p.x < -10) p.x = W + 10;
-
       fill(255, 1);
       ellipse(p.x, p.y, p.size * 1.9);
       fill(255, 4);
@@ -764,52 +613,35 @@
       createSteamPuff();
       fx.nextSteamTime = randomRange(4, 30);
     }
-
     const currentSecond = getClockDate().getSeconds();
-    if (currentSecond === 0 && fx.lastSecond === 59) {
-      createSparkEffect();
-    }
+    if (currentSecond === 0 && fx.lastSecond === 59) createSparkEffect();
     fx.lastSecond = currentSecond;
   }
 
   function drawBarometerAnimated(W, H) {
     if (!imageReady(images.barometerDial) || !imageReady(images.barometerNeedle)) return;
-
     const barometerSize = 100;
     const barometerX = W * 0.9;
     const barometerY = H * 0.48;
     const needleHeight = barometerSize * 0.8;
     const needlePivotOffsetY = 25;
-
     if (mech.barometerAngle === null) {
       mech.targetBarometerAngle = mapPressureToAngle(20);
       mech.barometerAngle = mech.targetBarometerAngle;
     }
-
-    // Match the Codea version: frame-based easing toward a periodically changing target.
     mech.barometerAngle += (mech.targetBarometerAngle - mech.barometerAngle) * 0.05;
-
     sprite(images.barometerDial, barometerX, barometerY, barometerSize, barometerSize);
-
     const aspectRatio = images.barometerNeedle.width / images.barometerNeedle.height;
     const needleWidth = needleHeight * aspectRatio;
-
     pushMatrix();
     translate(barometerX, barometerY);
     rotate(mech.barometerAngle);
-    sprite(
-      images.barometerNeedle,
-      0,
-      needleHeight * 0.5 - needlePivotOffsetY,
-      needleWidth * 0.5,
-      needleHeight * 0.8
-    );
+    sprite(images.barometerNeedle, 0, needleHeight * 0.5 - needlePivotOffsetY, needleWidth * 0.5, needleHeight * 0.8);
     popMatrix();
   }
 
   function drawHand(img, angleDeg, length, hole, which, clockX, clockY) {
     if (!imageReady(img)) return;
-
     const h = length;
     const w = h * (img.width / img.height);
     const dx = (hole.x - 0.5) * w;
@@ -817,7 +649,6 @@
     const n = HandNudge[which] || { x: 0, y: 0 };
     const nx = n.x * h;
     const ny = n.y * h;
-
     pushMatrix();
     translate(clockX, clockY);
     rotate(HandDir * angleDeg + HandZero[which]);
@@ -828,27 +659,17 @@
 
   function drawDebugRay(clockX, clockY, angleDeg, length) {
     const rad = (90 - angleDeg) * Math.PI / 180;
-    line(
-      clockX,
-      clockY,
-      clockX + Math.cos(rad) * length,
-      clockY + Math.sin(rad) * length
-    );
+    line(clockX, clockY, clockX + Math.cos(rad) * length, clockY + Math.sin(rad) * length);
   }
 
   function drawDebugOverlay(clockX, clockY, clockSize) {
     if (!DEBUG_ENABLED || !debugState.overlay) return;
-
     const radius = clockSize * 0.5;
-
-    // Sprite bounds and exact shared center.
     fill(0, 0, 0, 0);
     strokeWidth(1);
     stroke(70, 220, 255, 125);
     rect(clockX, clockY, clockSize, clockSize);
     ellipse(clockX, clockY, clockSize);
-
-    // 60 minute ticks, with stronger 5-minute marks.
     for (let i = 0; i < 60; i += 1) {
       const angle = i * 6;
       const rad = (90 - angle) * Math.PI / 180;
@@ -857,27 +678,14 @@
       const outer = radius * 0.98;
       stroke(70, 220, 255, major ? 180 : 90);
       strokeWidth(major ? 1.5 : 1);
-      line(
-        clockX + Math.cos(rad) * inner,
-        clockY + Math.sin(rad) * inner,
-        clockX + Math.cos(rad) * outer,
-        clockY + Math.sin(rad) * outer
-      );
+      line(clockX + Math.cos(rad) * inner, clockY + Math.sin(rad) * inner, clockX + Math.cos(rad) * outer, clockY + Math.sin(rad) * outer);
     }
-
-    // 12 exact hour spokes make numeral alignment easy to inspect.
     stroke(70, 220, 255, 62);
     strokeWidth(1);
-    for (let i = 0; i < 12; i += 1) {
-      drawDebugRay(clockX, clockY, i * 30, radius * 0.97);
-    }
-
-    // Strong horizontal / vertical axes.
+    for (let i = 0; i < 12; i += 1) drawDebugRay(clockX, clockY, i * 30, radius * 0.97);
     stroke(255, 255, 255, 145);
     line(clockX - radius, clockY, clockX + radius, clockY);
     line(clockX, clockY - radius, clockX, clockY + radius);
-
-    // Theoretical hand directions for the currently displayed time.
     const { h, m, s } = getClockHMS();
     strokeWidth(2);
     stroke(255, 92, 92, 205);
@@ -886,8 +694,6 @@
     drawDebugRay(clockX, clockY, (m + s / 60) * 6, radius * 0.76);
     stroke(142, 255, 157, 205);
     drawDebugRay(clockX, clockY, ((h % 12) + m / 60) * 30, radius * 0.59);
-
-    // Exact pivot marker.
     noStroke();
     fill(255, 255, 255, 230);
     ellipse(clockX, clockY, 6);
@@ -900,31 +706,20 @@
     const clockX = W / 2;
     const clockY = H / 1.83;
     const clockSize = W * 0.63;
-
-    if (imageReady(images.dial)) {
-      sprite(images.dial, clockX, clockY, clockSize, clockSize);
-    }
-
+    if (imageReady(images.dial)) sprite(images.dial, clockX, clockY, clockSize, clockSize);
     const { h, m, s } = getClockHMS();
-
     const secL = clockSize * 0.50;
     const minL = clockSize * 0.68;
     const hourL = clockSize * 0.53;
-
     drawHand(images.secondHand, s * 6, secL, HandHole.second, "second", clockX, clockY);
     drawHand(images.minuteHand, (m + s / 60) * 6, minL, HandHole.minute, "minute", clockX, clockY);
     drawHand(images.hourHand, ((h % 12) + m / 60) * 30, hourL, HandHole.hour, "hour", clockX, clockY);
-
-    if (imageReady(images.centerPiece)) {
-      sprite(images.centerPiece, clockX, clockY, clockSize * 0.20, clockSize * 0.20);
-    }
-
+    if (imageReady(images.centerPiece)) sprite(images.centerPiece, clockX, clockY, clockSize * 0.20, clockSize * 0.20);
     return { clockX, clockY, clockSize };
   }
 
   function drawDigitalClock(W, H) {
     if (!imageReady(images.nixieTube)) return;
-
     const n = 4;
     const tubeH = H * 0.18;
     const tubeW = tubeH * 0.6;
@@ -935,25 +730,18 @@
     const total = spacing * (n - 1);
     const startX = W / 2 - total / 2;
     const fs = tubeH * 0.72;
-
     textAlign(CENTER);
-    font('\"AvenirNext-UltraLight\", \"Avenir Next\", Avenir, system-ui, sans-serif');
-
+    font('"AvenirNext-UltraLight", "Avenir Next", Avenir, system-ui, sans-serif');
     for (let i = 0; i < n; i += 1) {
       const x = startX + i * spacing;
       sprite(images.nixieTube, x, y, tubeW, tubeH);
-
       const d = digits[i];
-      // Match the Codea version: the nixie core gently flickers every frame.
-      // fill() clamps values above 255, just like the original Codea color path.
       const coreAlpha = randomInt(180, 300);
       const glowAlpha = coreAlpha * 0.4;
-
       blendMode(ADDITIVE);
       fontSize(fs * 0.85);
       fill(255, 120, 0, glowAlpha);
       text(d, x, y * 0.955);
-
       fontSize(fs * 0.8);
       fill(255, 180, 100, coreAlpha);
       text(d, x, y * 0.95);
@@ -969,18 +757,15 @@
       sprite(images.pipeElbow, 330, -11, 75, 75);
       popMatrix();
     }
-
     if (imageReady(images.pipeStraight)) {
       pushMatrix();
       translate(W * 0.4, H * 0.1);
       sprite(images.pipeStraight, -70, 30, 80, 80);
       popMatrix();
-
       pushMatrix();
       translate(W * 0.4, H * 0.1);
       sprite(images.pipeStraight, 40, 30, 80, 80);
       popMatrix();
-
       pushMatrix();
       translate(W * 0.5, H * 0.1);
       sprite(images.pipeStraight, 110, 30, 80, 80);
@@ -990,37 +775,24 @@
 
   const clockScene = {
     opaque: true,
-
     draw() {
       const W = DESIGN_W;
       const H = DESIGN_H;
-
       background(0);
       drawCoverBackground(W, H);
-
-      // Same layer order as the current Codea version.
       drawGearsAnimated(W, H);
       drawDummyElements(W, H);
-
-      const clock = {
-        clockX: W / 2,
-        clockY: H / 1.83,
-        clockSize: W * 0.69,
-      };
+      const clock = { clockX: W / 2, clockY: H / 1.83, clockSize: W * 0.69 };
       drawPendulumAnimated(clock.clockX, clock.clockY, clock.clockSize);
       drawSteamEffect();
       drawBarometerAnimated(W, H);
       const analogClock = drawAnalogClock(W, H);
-      if (analogClock) {
-        drawDebugOverlay(analogClock.clockX, analogClock.clockY, analogClock.clockSize);
-      }
+      if (analogClock) drawDebugOverlay(analogClock.clockX, analogClock.clockY, analogClock.clockSize);
       drawDigitalClock(W, H);
       drawForegroundElements(W, H);
       drawSparkEffect();
       drawFlicker(W, H);
       drawDustEffect(W, H);
-
-      // Original Codea timing order: advance timers after the frame has been drawn.
       updateEffectTimers();
       mech.pendulumTime += DeltaTime;
       mech.barometerUpdateTimer -= DeltaTime;
@@ -1029,27 +801,7 @@
         mech.barometerUpdateTimer = randomRange(2, 5);
       }
     },
-
-    touch(touch) {
-      if (touch.state === BEGAN) {
-        tap.startX = touch.x;
-        tap.startY = touch.y;
-        tap.moved = false;
-        return true;
-      }
-
-      if (touch.state === MOVING) {
-        if (Math.hypot(touch.x - tap.startX, touch.y - tap.startY) > TAP_MOVE_TOLERANCE) {
-          tap.moved = true;
-        }
-        return true;
-      }
-
-      if (touch.state === ENDED) {
-        if (!tap.moved) registerTap(touch.x, touch.y);
-        return true;
-      }
-
+    touch() {
       return true;
     },
   };
@@ -1062,11 +814,7 @@
     outerBackground: [0, 0, 0],
     sceneBackground: [0, 0, 0],
     debug: DEBUG_ENABLED,
-
-    analytics: {
-      enabled: true,
-    },
-
+    analytics: { enabled: true },
     setup() {
       spriteMode(CENTER);
       ellipseMode(CENTER);
@@ -1074,7 +822,6 @@
       noStroke();
       initEffects(DESIGN_W, DESIGN_H);
       installDebugPanel();
-
       images.background = readImage("assets/background.png");
       images.dial = readImage("assets/dial.png");
       images.centerPiece = readImage("assets/center_piece.png");
@@ -1093,9 +840,6 @@
       images.gaugeDummy = readImage("assets/gauge_dummy.png");
       images.spring = readImage("assets/spring.png");
     },
-
-    scenes: {
-      clock: clockScene,
-    },
+    scenes: { clock: clockScene },
   });
 })();
