@@ -1,0 +1,17 @@
+{
+  "name": "路地裏マサラ",
+  "short_name": "路地裏マサラ",
+  "id": "../../?work=rojiura-masala",
+  "start_url": "../../?work=rojiura-masala",
+  "scope": "../../",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "../../assets/works/rojiura-masala/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ]
+}
