@@ -6,6 +6,12 @@
 var TOWN_UPDATES = [
     // [UPDATES:ADD_NEWEST_HERE]
     {
+        date: "2026-09-14",
+        title: "灯串横丁に『路地裏マサラ』が開店",
+        body: "夜の路地を走って、冷める前にカレーを届ける店が開きました。",
+        tags: ["tomogushi-alley", "game", "open"]
+    },
+    {
         date: "2026-08-10",
         title: "灯串横丁に『純喫茶ダイヴ』が開店",
         body: "深夜だけ開く小さな純喫茶が、今夜から営業しています。",
