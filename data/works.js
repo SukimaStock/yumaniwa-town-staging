@@ -24,6 +24,36 @@
 
 var WORKS = [
     // [WORKS:ADD_NEWEST_HERE]
+
+    {
+        id: "rojiura-masala",
+        title: "路地裏マサラ - ROJIURA MASALA",
+        venue: "tomogushi_alley",
+        kind: "game",
+        status: "open",
+
+        launch: "itch_embed",
+        embedUrl: "https://itch.io/embed-upload/19218324?color=333333",
+
+        // 町内表示で問題が出た際に確認できる通常ページURL。
+        url: "https://sukimastock.itch.io/rojiura-masala",
+
+        frameTitle: "路地裏マサラ",
+        returnLabel: "灯串横丁",
+        frameMode: "phone-cola",
+
+        playerLayout: "phone",
+        playerWidth: 360,
+        playerHeight: 660,
+
+        menuTitle: "路地裏マサラ",
+        menuCategory: "配達ゲーム",
+        menuDescription: "夜の路地を走って、冷める前にカレーを届ける。",
+
+        description: "夜の小さなカレー屋から、路地の奥へ注文を届ける配達ゲーム。",
+        emptyText: "路地裏のカレー屋は、今夜の注文を準備しています。"
+    },
+
     // {
     //     id: "work-id",
     //     title: "作品名",
