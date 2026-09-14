@@ -130,7 +130,7 @@ var WORKS = [
         status: "open",
 
         launch: "itch_embed",
-        embedUrl: "https://itch.io/embed-upload/18746640?color=743f39",
+        embedUrl: "https://itch.io/embed-upload/18750036?color=743f39",
 
         // 町内表示で問題が出た際に確認できる通常ページURL。
         url: "https://sukimastock.itch.io/junkissa-dive",
