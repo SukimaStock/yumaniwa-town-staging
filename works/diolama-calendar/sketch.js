@@ -765,7 +765,8 @@
         "  reduce: " + state.reducedMotion,
       "API O/M: " + hasOrientation + "/" + hasMotion +
         "  request O/M: " + orientationRequest + "/" + motionRequest,
-      "request attempted: " + state.sensorDebug.requestAttempted,
+      "request attempted: " + state.sensorDebug.requestAttempted +
+        "  activation: " + Boolean(navigator.userActivation && navigator.userActivation.isActive),
       "permission O/M: " + state.sensorDebug.orientationPermission +
         "/" + state.sensorDebug.motionPermission,
       "raw O x/y: " + debugNumber(state.sensorRaw.x) + "/" + debugNumber(state.sensorRaw.y),
@@ -883,12 +884,8 @@
         state.pointerMode = insideFrame ? "frame" : "outside";
         state.dragging = insideFrame;
 
-        // iOS/WebKit requires a user gesture before showing the native
-        // device-orientation permission dialog. Trigger it on the first
-        // interaction anywhere inside the framed diorama; no custom UI.
-        if (insideFrame && state.sensorStatus === "needs-permission") {
-          requestSensorPermission();
-        }
+        // On touch devices, pointerdown does not create transient user activation.
+        // Sensor permission is therefore requested on ENDED (pointerup) instead.
         return true;
       }
 
@@ -923,14 +920,31 @@
       }
 
       if (touch.state === ENDED) {
+        const stationaryFrameTap =
+          state.pointerMode === "frame" &&
+          state.pointerStart &&
+          !state.pointerMoved;
+
+        // Touchscreen transient activation is created by pointerup/touchend,
+        // not pointerdown. Request motion/orientation permission here so
+        // iOS Safari sees a valid user activation and can show its native prompt.
+        // The first permission tap is consumed by permission setup rather than
+        // also changing the displayed month.
+        if (stationaryFrameTap && state.sensorStatus === "needs-permission") {
+          requestSensorPermission();
+
+          state.dragging = false;
+          state.lastPointer = null;
+          state.pointerStart = null;
+          state.pointerMode = "none";
+          state.pointerMoved = false;
+          return true;
+        }
+
         // A short, stationary tap anywhere inside the framed diorama changes
         // month. Left half = previous month, right half = next month.
         // A drag uses the exact same area for parallax instead.
-        if (
-          state.pointerMode === "frame" &&
-          state.pointerStart &&
-          !state.pointerMoved
-        ) {
+        if (stationaryFrameTap) {
           cycleMonth(state.pointerStart.x < CONFIG.centerX ? -1 : 1);
         }
 
