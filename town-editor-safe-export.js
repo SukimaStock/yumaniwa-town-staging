@@ -175,7 +175,6 @@
         baselineCaptureToken += 1;
         var token = baselineCaptureToken;
 
-        // おばけ等の実行時アニメーションが編集モード用の基準位置へ戻った後に記録する。
         window.requestAnimationFrame(function () {
             window.requestAnimationFrame(function () {
                 if (token !== baselineCaptureToken) return;
@@ -220,10 +219,6 @@
             sceneId
         );
 
-        // パーツの移動・拡縮後には、そのパーツ由来のcollisionが
-        // 一時的にグリッドへ反映されることがある。
-        // 固定地形の編集履歴（type: grid）が実際に増えた時だけ
-        // collision差分として扱う。
         var collisionWasEdited = hasGridEditSinceBaseline(baseline);
         var collisionChange = (
             collisionWasEdited &&
@@ -342,8 +337,6 @@
         window.markEditorExportCopied = function () {
             var result = baseMarkEditorExportCopied.apply(this, arguments);
 
-            // コピー後は、そこを新しい基準にする。
-            // 初期ロード時は編集モードではないので基準を作らない。
             if (window.isEditMode) {
                 captureBaselineNow();
             }
