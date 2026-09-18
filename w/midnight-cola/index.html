@@ -4,46 +4,57 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0a0a0a">
-  <meta name="description" content="材料を重ねて、今夜の一本を仕込むすごろく。">
+  <meta name="description" content="材料を重ねて、今夜の一本を仕込むすごろく。深夜の工房で自分だけのコーラを作るゲーム。">
   <meta name="robots" content="noindex,nofollow">
   <link rel="canonical" href="https://sukimastock.github.io/yumaniwa-town/w/midnight-cola/">
 
   <meta property="og:locale" content="ja_JP">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="湯間庭町">
-  <meta property="og:title" content="MIDNIGHT COLA｜湯間庭町">
-  <meta property="og:description" content="材料を重ねて、今夜の一本を仕込むすごろく。">
+  <meta property="og:title" content="真夜中コーラ｜湯間庭町">
+  <meta property="og:description" content="材料を重ねて、今夜の一本を仕込むすごろく。深夜の工房で自分だけのコーラを作るゲーム。">
   <meta property="og:url" content="https://sukimastock.github.io/yumaniwa-town/w/midnight-cola/">
   <meta property="og:image" content="https://sukimastock.github.io/yumaniwa-town/assets/works/midnight-cola/ogp.jpg?v=1">
   <meta property="og:image:secure_url" content="https://sukimastock.github.io/yumaniwa-town/assets/works/midnight-cola/ogp.jpg?v=1">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="MIDNIGHT COLA">
+  <meta property="og:image:alt" content="真夜中コーラ">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="MIDNIGHT COLA｜湯間庭町">
-  <meta name="twitter:description" content="材料を重ねて、今夜の一本を仕込むすごろく。">
+  <meta name="twitter:title" content="真夜中コーラ｜湯間庭町">
+  <meta name="twitter:description" content="材料を重ねて、今夜の一本を仕込むすごろく。深夜の工房で自分だけのコーラを作るゲーム。">
   <meta name="twitter:image" content="https://sukimastock.github.io/yumaniwa-town/assets/works/midnight-cola/ogp.jpg?v=1">
-  <meta name="twitter:image:alt" content="MIDNIGHT COLA">
+  <meta name="twitter:image:alt" content="真夜中コーラ">
 
-  <title>MIDNIGHT COLA｜湯間庭町</title>
+  <title>真夜中コーラ｜湯間庭町</title>
+  <style>
+    :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;background:#0a0a0a;color:#f4efe5;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}.card{width:min(680px,100%);padding:24px}img{display:block;width:100%;height:auto;border-radius:16px}h1{margin:22px 0 8px;font-size:clamp(28px,7vw,42px);line-height:1.2}p{margin:0;color:#c9c1b4;font-size:16px;line-height:1.8}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}a{display:inline-block;padding:13px 18px;border-radius:999px;text-decoration:none;font-weight:700}.play{background:#f0b35d;color:#25170b}.town{border:1px solid #5a554c;color:#eee7dc}.note{margin-top:18px;font-size:13px;color:#8f887e}
+  </style>
   <script>
     (function () {
       var params = new URLSearchParams(window.location.search);
+      if (params.get("open") !== "1") return;
+      params.delete("open");
       params.delete("work");
-
       var target = "../../?work=midnight-cola";
       var preserved = params.toString();
-
       if (preserved) target += "&" + preserved;
       if (window.location.hash) target += window.location.hash;
-
       window.location.replace(target);
     })();
   </script>
 </head>
 <body>
-  <p><a href="../../?work=midnight-cola">湯間庭町でMIDNIGHT COLAを開く</a></p>
+  <main class="card">
+    <img src="../../assets/works/midnight-cola/ogp.jpg?v=1" alt="真夜中コーラのゲーム画面">
+    <h1>真夜中コーラ</h1>
+    <p>深夜の工房で、材料をひとつずつ重ねながら今夜の一本を仕込むすごろくゲーム。できあがったコーラには、その夜だけの名前がつきます。</p>
+    <div class="actions">
+      <a class="play" href="../../?work=midnight-cola">湯間庭町で遊ぶ</a>
+      <a class="town" href="../../">湯間庭町へ</a>
+    </div>
+    <p class="note">湯間庭町にある作品のひとつです。</p>
+  </main>
 </body>
 </html>
