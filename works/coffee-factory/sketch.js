@@ -802,7 +802,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
       if(dynamicTarget)tw.to={...dynamicTarget};
       tw.elapsed=Math.min(tw.duration,tw.elapsed+dt);
       const u=tw.duration>0?tw.elapsed/tw.duration:1;
-      // Quintic smootherstep avoids the short, mechanical "Flash tween" feel.
+      // One continuous ease-in/ease-out motion: no intermediate pose or stop.
       const e=u*u*u*(u*(u*6-15)+10);
       const lerp=(a,b)=>a+(b-a)*e;
       v.kettlePose={
@@ -812,21 +812,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
         flip:lerp(tw.from.flip,tw.to.flip)
       };
       if(u>=1){v.kettleTween=null;return true;}return false;
-    }
-    function beginBrewSettle(v){
-      // Do not morph the whole brewer straight from POUR to IDLE.
-      // First finish the pour: briefly hold the body while the kettle comes upright.
-      // Then the body follows and the kettle is placed back with a shallow arc.
-      const from=v.kettlePose,rest=v.waitKettlePose;
-      const upright={
-        x:from.x+(rest.x-from.x)*.12,
-        y:from.y+(rest.y-from.y)*.08,
-        angle:from.angle*.28,
-        flip:from.flip+(rest.flip-from.flip)*.10
-      };
-      v.mode='settleUpright';
-      v.brewer.setPaused(true);
-      beginKettleTween(v,upright,.22,{arcY:.18});
     }
     function updateBrew(v,dt,sample){
       const preparing=!!state.brewStarting;
@@ -844,47 +829,37 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
           v.brewer.setPaused(actorPaused);
           beginKettleTween(v,v.kettlePose,.40);
         }else if(desired==='wait'){
-          beginBrewSettle(v);
+          // Finish the pour in one continuous return. Clear the pour anchor while
+          // the current pose is still settled, then blend body + kettle together.
+          v.mode='settling';
+          v.brewer.setAnchor(null);
+          v.brewer.blendDuration=.62;
+          v.brewer.setMotion('idle');
+          v.brewer.setPaused(actorPaused);
+          beginKettleTween(v,v.waitKettlePose,.62,{arcY:.20});
         }else{
           v.mode='ready';
+          v.brewer.setAnchor(null);
           v.brewer.blendDuration=.46;
-          v.brewer.setMotion('idle');v.brewer.setAnchor(null);
+          v.brewer.setMotion('idle');
           v.brewer.setPaused(actorPaused);
           beginKettleTween(v,v.waitKettlePose,.28);
         }
       }
 
       if(pouring)v.brewer.setAnchor(invPoint(v.brewer,v.brewerScale,64,34));
-      const holdingReturn=desired==='wait'&&v.mode==='settleUpright';
-      v.brewer.setPaused(actorPaused||holdingReturn);
+      v.brewer.setPaused(actorPaused);
       v.watcher.setPaused(actorPaused);
 
       if(!actorPaused){
         const g=v.glance;g.elapsed+=dt;if(!g.active&&g.elapsed>=g.next){g.active=true;g.elapsed=0;g.duration=.55+Math.random()*.25;g.next=3.2+Math.random()*2.4;}let w=0;if(g.active){const u=g.elapsed/g.duration;if(u>=1){g.active=false;g.elapsed=0;}else w=Math.sin(Math.PI*u);}v.watcher.headBias=-.16*w;
-        v.watcher.update(dt);
-
+        v.brewer.update(dt);v.watcher.update(dt);
         if(pouring){
-          v.brewer.setPaused(false);
-          v.brewer.update(dt);
           const t=v.brewer.tool,c=mapPoint(v.brewer,v.brewerScale,t);
           const target={x:c.x,y:c.y,angle:t.angle,flip:v.brewer.facing};
           if(v.kettleTween){if(stepKettleTween(v,dt,target))v.mode='pour';}
           else {v.kettlePose=target;v.mode='pour';}
-        }else if(holdingReturn){
-          // A short, intentional finish to the pour. The worker does not snap back
-          // at the exact recipe boundary; the kettle first loses its pouring tilt.
-          if(stepKettleTween(v,dt,null)){
-            v.mode='settling';
-            v.brewer.blendDuration=.68;
-            v.brewer.setMotion('idle');
-            v.brewer.setAnchor(null);
-            v.brewer.setPaused(false);
-            beginKettleTween(v,v.waitKettlePose,.58,{arcY:.72});
-          }
-          v.dripT=(v.dripT+dt)%3.2;
         }else{
-          v.brewer.setPaused(false);
-          v.brewer.update(dt);
           if(v.kettleTween){
             if(stepKettleTween(v,dt,null)){
               v.mode=desired==='ready'?'ready':'wait';
