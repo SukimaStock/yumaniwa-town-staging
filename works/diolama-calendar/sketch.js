@@ -704,6 +704,12 @@
     // The generated matte is only as large as the frame sprite. With the wider
     // original-style parallax, inner layers can move beyond that square. Cover
     // everything outside the moving frame square so no image strip leaks out.
+    //
+    // Desktop browsers often scale the 360x640 logical canvas by a fractional
+    // amount. If these cover rectangles meet the moving square on the exact
+    // same subpixel boundary, canvas antialiasing can leave a 1px seam where
+    // the BACK layer peeks through. Slightly overlap the cover into the frame
+    // square; frame.png is drawn afterwards, so this overlap stays invisible.
     const frame = LAYERS.find((item) => item.key === "frame");
     const offset = layerOffset(frame ? frame.depth : 0.20);
     const half = CONFIG.dioramaSize / 2;
@@ -711,15 +717,26 @@
     const right = CONFIG.centerX + offset.x + half;
     const bottom = CONFIG.centerY + offset.y - half;
     const top = CONFIG.centerY + offset.y + half;
+    const bleed = 1.25;
 
     pushStyle();
     rectMode(CORNER);
     noStroke();
     fill(247, 245, 239, 255);
-    rect(0, 0, Math.max(0, left), LOGICAL_H);
-    rect(right, 0, Math.max(0, LOGICAL_W - right), LOGICAL_H);
-    rect(left, 0, Math.max(0, right - left), Math.max(0, bottom));
-    rect(left, top, Math.max(0, right - left), Math.max(0, LOGICAL_H - top));
+    rect(0, 0, Math.max(0, left + bleed), LOGICAL_H);
+    rect(right - bleed, 0, Math.max(0, LOGICAL_W - right + bleed), LOGICAL_H);
+    rect(
+      left - bleed,
+      0,
+      Math.max(0, right - left + bleed * 2),
+      Math.max(0, bottom + bleed)
+    );
+    rect(
+      left - bleed,
+      top - bleed,
+      Math.max(0, right - left + bleed * 2),
+      Math.max(0, LOGICAL_H - top + bleed)
+    );
     popStyle();
   }
 
