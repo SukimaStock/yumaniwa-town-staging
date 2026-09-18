@@ -33,7 +33,7 @@ var WORKS = [
         status: "open",
 
         launch: "embedded",
-        entry: "./works/diolama-calendar/index.html",
+        entry: "./works/diorama-calendar/index.html",
 
         frameTitle: "Diorama Calendar",
         returnLabel: "湯窓レジャーセンター",
