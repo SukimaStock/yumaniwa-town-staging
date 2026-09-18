@@ -1275,7 +1275,8 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     },{textOnly:true,size:1,tone:"muted"});
     const icon=SSE.audio.enabled?SOUND_ICONS.on:SOUND_ICONS.off;
     if(icon){
-      drawSetupIcon(icon,316,610,36,36);
+      const iconSize=SSE.audio.enabled?36:34;
+      drawSetupIcon(icon,316,610,iconSize,iconSize);
     }else{
       speakerIcon(316,610,SSE.audio.enabled);
     }
