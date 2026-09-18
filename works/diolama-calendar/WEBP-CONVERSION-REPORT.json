@@ -1,0 +1,346 @@
+{
+  "format": "WebP",
+  "quality": 90,
+  "dimensions": "unchanged (1254x1254)",
+  "original_png_total_bytes": 68462201,
+  "webp_total_bytes": 11593454,
+  "reduction_pct": 83.1,
+  "files": [
+    {
+      "theme": "snow",
+      "layer": "back",
+      "png_bytes": 2392208,
+      "webp_bytes": 274946,
+      "reduction_pct": 88.5
+    },
+    {
+      "theme": "snow",
+      "layer": "midback",
+      "png_bytes": 1073314,
+      "webp_bytes": 210478,
+      "reduction_pct": 80.4
+    },
+    {
+      "theme": "snow",
+      "layer": "mid",
+      "png_bytes": 848343,
+      "webp_bytes": 150368,
+      "reduction_pct": 82.3
+    },
+    {
+      "theme": "snow",
+      "layer": "front",
+      "png_bytes": 890699,
+      "webp_bytes": 194860,
+      "reduction_pct": 78.1
+    },
+    {
+      "theme": "winter_light",
+      "layer": "back",
+      "png_bytes": 2332714,
+      "webp_bytes": 252364,
+      "reduction_pct": 89.2
+    },
+    {
+      "theme": "winter_light",
+      "layer": "midback",
+      "png_bytes": 1059453,
+      "webp_bytes": 215220,
+      "reduction_pct": 79.7
+    },
+    {
+      "theme": "winter_light",
+      "layer": "mid",
+      "png_bytes": 904011,
+      "webp_bytes": 140182,
+      "reduction_pct": 84.5
+    },
+    {
+      "theme": "winter_light",
+      "layer": "front",
+      "png_bytes": 997789,
+      "webp_bytes": 275842,
+      "reduction_pct": 72.4
+    },
+    {
+      "theme": "spring_wait",
+      "layer": "back",
+      "png_bytes": 2506255,
+      "webp_bytes": 308246,
+      "reduction_pct": 87.7
+    },
+    {
+      "theme": "spring_wait",
+      "layer": "midback",
+      "png_bytes": 1283767,
+      "webp_bytes": 264062,
+      "reduction_pct": 79.4
+    },
+    {
+      "theme": "spring_wait",
+      "layer": "mid",
+      "png_bytes": 1027921,
+      "webp_bytes": 168716,
+      "reduction_pct": 83.6
+    },
+    {
+      "theme": "spring_wait",
+      "layer": "front",
+      "png_bytes": 897508,
+      "webp_bytes": 217872,
+      "reduction_pct": 75.7
+    },
+    {
+      "theme": "spring",
+      "layer": "back",
+      "png_bytes": 2174687,
+      "webp_bytes": 217422,
+      "reduction_pct": 90.0
+    },
+    {
+      "theme": "spring",
+      "layer": "midback",
+      "png_bytes": 1202509,
+      "webp_bytes": 213338,
+      "reduction_pct": 82.3
+    },
+    {
+      "theme": "spring",
+      "layer": "mid",
+      "png_bytes": 924524,
+      "webp_bytes": 151066,
+      "reduction_pct": 83.7
+    },
+    {
+      "theme": "spring",
+      "layer": "front",
+      "png_bytes": 1370866,
+      "webp_bytes": 348804,
+      "reduction_pct": 74.6
+    },
+    {
+      "theme": "fresh_green",
+      "layer": "back",
+      "png_bytes": 2364420,
+      "webp_bytes": 269606,
+      "reduction_pct": 88.6
+    },
+    {
+      "theme": "fresh_green",
+      "layer": "midback",
+      "png_bytes": 1315599,
+      "webp_bytes": 277910,
+      "reduction_pct": 78.9
+    },
+    {
+      "theme": "fresh_green",
+      "layer": "mid",
+      "png_bytes": 911774,
+      "webp_bytes": 175378,
+      "reduction_pct": 80.8
+    },
+    {
+      "theme": "fresh_green",
+      "layer": "front",
+      "png_bytes": 1292390,
+      "webp_bytes": 378086,
+      "reduction_pct": 70.7
+    },
+    {
+      "theme": "rainy",
+      "layer": "back",
+      "png_bytes": 2311189,
+      "webp_bytes": 276446,
+      "reduction_pct": 88.0
+    },
+    {
+      "theme": "rainy",
+      "layer": "midback",
+      "png_bytes": 1187667,
+      "webp_bytes": 239198,
+      "reduction_pct": 79.9
+    },
+    {
+      "theme": "rainy",
+      "layer": "mid",
+      "png_bytes": 1600136,
+      "webp_bytes": 249934,
+      "reduction_pct": 84.4
+    },
+    {
+      "theme": "rainy",
+      "layer": "front",
+      "png_bytes": 1499656,
+      "webp_bytes": 283356,
+      "reduction_pct": 81.1
+    },
+    {
+      "theme": "summer_evening",
+      "layer": "back",
+      "png_bytes": 2177375,
+      "webp_bytes": 228220,
+      "reduction_pct": 89.5
+    },
+    {
+      "theme": "summer_evening",
+      "layer": "midback",
+      "png_bytes": 1288544,
+      "webp_bytes": 258864,
+      "reduction_pct": 79.9
+    },
+    {
+      "theme": "summer_evening",
+      "layer": "mid",
+      "png_bytes": 883322,
+      "webp_bytes": 152818,
+      "reduction_pct": 82.7
+    },
+    {
+      "theme": "summer_evening",
+      "layer": "front",
+      "png_bytes": 1314388,
+      "webp_bytes": 292702,
+      "reduction_pct": 77.7
+    },
+    {
+      "theme": "seaside",
+      "layer": "back",
+      "png_bytes": 2341179,
+      "webp_bytes": 279716,
+      "reduction_pct": 88.1
+    },
+    {
+      "theme": "seaside",
+      "layer": "midback",
+      "png_bytes": 1225576,
+      "webp_bytes": 271044,
+      "reduction_pct": 77.9
+    },
+    {
+      "theme": "seaside",
+      "layer": "mid",
+      "png_bytes": 1042454,
+      "webp_bytes": 190560,
+      "reduction_pct": 81.7
+    },
+    {
+      "theme": "seaside",
+      "layer": "front",
+      "png_bytes": 772790,
+      "webp_bytes": 194448,
+      "reduction_pct": 74.8
+    },
+    {
+      "theme": "sunset",
+      "layer": "back",
+      "png_bytes": 2351922,
+      "webp_bytes": 265940,
+      "reduction_pct": 88.7
+    },
+    {
+      "theme": "sunset",
+      "layer": "midback",
+      "png_bytes": 1439577,
+      "webp_bytes": 228626,
+      "reduction_pct": 84.1
+    },
+    {
+      "theme": "sunset",
+      "layer": "mid",
+      "png_bytes": 820807,
+      "webp_bytes": 128858,
+      "reduction_pct": 84.3
+    },
+    {
+      "theme": "sunset",
+      "layer": "front",
+      "png_bytes": 808975,
+      "webp_bytes": 204324,
+      "reduction_pct": 74.7
+    },
+    {
+      "theme": "autumn",
+      "layer": "back",
+      "png_bytes": 2254269,
+      "webp_bytes": 255696,
+      "reduction_pct": 88.7
+    },
+    {
+      "theme": "autumn",
+      "layer": "midback",
+      "png_bytes": 1360399,
+      "webp_bytes": 277972,
+      "reduction_pct": 79.6
+    },
+    {
+      "theme": "autumn",
+      "layer": "mid",
+      "png_bytes": 1124251,
+      "webp_bytes": 219622,
+      "reduction_pct": 80.5
+    },
+    {
+      "theme": "autumn",
+      "layer": "front",
+      "png_bytes": 1303668,
+      "webp_bytes": 382370,
+      "reduction_pct": 70.7
+    },
+    {
+      "theme": "late_autumn",
+      "layer": "back",
+      "png_bytes": 2461374,
+      "webp_bytes": 299972,
+      "reduction_pct": 87.8
+    },
+    {
+      "theme": "late_autumn",
+      "layer": "midback",
+      "png_bytes": 1161087,
+      "webp_bytes": 200116,
+      "reduction_pct": 82.8
+    },
+    {
+      "theme": "late_autumn",
+      "layer": "mid",
+      "png_bytes": 1262896,
+      "webp_bytes": 243256,
+      "reduction_pct": 80.7
+    },
+    {
+      "theme": "late_autumn",
+      "layer": "front",
+      "png_bytes": 939426,
+      "webp_bytes": 246878,
+      "reduction_pct": 73.7
+    },
+    {
+      "theme": "winter_cozy",
+      "layer": "back",
+      "png_bytes": 2434907,
+      "webp_bytes": 304802,
+      "reduction_pct": 87.5
+    },
+    {
+      "theme": "winter_cozy",
+      "layer": "midback",
+      "png_bytes": 954364,
+      "webp_bytes": 203382,
+      "reduction_pct": 78.7
+    },
+    {
+      "theme": "winter_cozy",
+      "layer": "mid",
+      "png_bytes": 1161010,
+      "webp_bytes": 224630,
+      "reduction_pct": 80.7
+    },
+    {
+      "theme": "winter_cozy",
+      "layer": "front",
+      "png_bytes": 1208242,
+      "webp_bytes": 284938,
+      "reduction_pct": 76.4
+    }
+  ]
+}
