@@ -86,8 +86,6 @@
       return originalUpdate.call(this, dt, options);
     }
 
-    // Let the original update handle time, falling particles, sky life, and the
-    // shooting star, but temporarily disable its fixed rightward cloud drift.
     const farSpeeds = this.cloudsFar.map((cloud) => cloud.speed);
     const nearSpeeds = this.cloudsNear.map((cloud) => cloud.speed);
 
@@ -124,7 +122,6 @@
       });
     }
 
-    // Birds disappear before the weather is severe enough to feel stormy.
     if (wind.hasData && wind.speed >= 28) {
       this.birds.length = 0;
     }
