@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.2
+Yumaniwa Desk v0.10.3
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,12 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.3:
+- Files / Pythonista 経由で __file__ から Working Copy を辿れない場合、保存済みの旧 project_root を「探索ヒント」としてのみ利用
+- 保存済みが production の場合、その同じ親フォルダにある yumaniwa-town-staging だけを候補にして厳密検証
+- staging と検証できた実パスだけを project_root として保存し、production 自体は引き続き接続拒否
+- 「stagingを再検出」もスクリプト位置・保存済みstaging・旧productionの兄弟stagingの順に安全探索
 
 v0.10.2:
 - 「Pull・同期状態を確認済み」後の画面再描画を Pythonista のメインUIスレッドへ戻すよう修正
@@ -435,12 +441,60 @@ def save_settings(data):
     safe_json_dump(data, SETTINGS_PATH)
 
 
-def default_project_root():
-    # 起動場所から staging を直接検出できた場合だけ接続する。
-    # 前回の project_root は再利用しない。検出失敗時は必ず未接続で止める。
+def remember_verified_staging_root(root):
+    require_staging_project(root)
+    settings = read_settings()
+    settings["project_root"] = str(root)
+    save_settings(settings)
+
+
+def staging_root_candidates():
+    # 1) スクリプトの実パスから見つかる場合
     direct = find_project_root(APP_DIR)
-    if direct and project_is_staging(direct):
-        return direct
+    if direct:
+        yield direct
+
+    # 2) 過去に記録した実パスは「ヒント」としてのみ使う。
+    #    そのパス自体が staging と検証できる場合のみ採用する。
+    settings = read_settings()
+    stored = str(settings.get("project_root") or "").strip()
+    if not stored:
+        return
+
+    yield stored
+
+    # 3) 旧版が production を記録していた場合は、同じ親フォルダの
+    #    yumaniwa-town-staging だけを候補にする。production 自体は採用しない。
+    try:
+        if project_repo_name(stored) == PRODUCTION_PROJECT_DIR_NAME:
+            parent = os.path.dirname(os.path.normpath(stored))
+            if parent:
+                yield os.path.join(parent, EXPECTED_PROJECT_DIR_NAME)
+    except Exception:
+        pass
+
+
+def find_verified_staging_root():
+    seen = set()
+    for candidate in staging_root_candidates():
+        value = str(candidate or "").strip()
+        if not value or value in seen:
+            continue
+        seen.add(value)
+        if project_is_staging(value):
+            return value
+    return ""
+
+
+def default_project_root():
+    # 自動検出できなくても、保存済みパスは必ず staging と再検証してから使う。
+    root = find_verified_staging_root()
+    if root:
+        try:
+            remember_verified_staging_root(root)
+        except Exception:
+            pass
+        return root
     return ""
 
 
@@ -3367,7 +3421,7 @@ class YumaniwaDesk(ui.View):
 
         if not project_is_staging(self.project_root):
             b.section("先にstagingを接続")
-            b.label("Working Copy の yumaniwa-town-staging 内からこのDeskを起動し、[案内]で町を再検出してください。接続できるまで編集は開始できません。", lines=0, color=COLORS["red"], size=14, gap=12)
+            b.label("［案内］で『Working Copyのstagingを再検出』を押してください。staging と検証できる実パスが見つかるまで編集は開始できません。", lines=0, color=COLORS["red"], size=14, gap=12)
             b.button("案内へ戻る", "panel_alt", lambda sender: self.show_tab(0))
             return
 
@@ -3405,7 +3459,7 @@ class YumaniwaDesk(ui.View):
         if project_looks_valid(self.project_root):
             alert("本番への接続を拒否しました", "YumaniwaDesk は staging 専用です。本番 yumaniwa-town は編集できません。")
         else:
-            alert("staging が未接続です", "Working Copy の yumaniwa-town-staging 内(直下または tools/)にこのスクリプトを置いて起動し、[案内]の『Working Copyのstagingを再検出』を押してください。")
+            alert("staging が未接続です", "［案内］の『Working Copyのstagingを再検出』を押してください。保存済みの接続情報も staging と再検証してから利用します。")
         self.show_tab(0)
         return False
 
@@ -3475,7 +3529,7 @@ class YumaniwaDesk(ui.View):
         b.button("Working Copyのstagingを再検出", "blue", self.detect_project_from_script)
         b.button("このリポジトリを確認する", "panel_alt", self.check_current_project)
         b.section("Working Copy 運用")
-        b.label("このスクリプトを Working Copy の yumaniwa-town-staging 内(直下または tools/)に置いて起動します。保存すると Working Copy に変更として現れます。\n\n保存後は Working Copy で差分を確認 → Commit → Push。GPTがGitHub側を更新した後は、Deskを使う前に Working Copy で Pull します。", lines=0, color=COLORS["text"], size=15, gap=14)
+        b.label("Desk は検証済みの yumaniwa-town-staging 実パスだけへ接続します。保存すると Working Copy に変更として現れます。\n\n保存後は Working Copy で差分を確認 → Commit → Push。GPTがGitHub側を更新した後は、Deskを使う前に Working Copy で Pull します。", lines=0, color=COLORS["text"], size=15, gap=14)
         b.section("本番への反映")
         b.label("YumaniwaDesk から production は編集しません。staging で検証後、必要な差分だけを production 用 branch へ移し、PR → safety checks → merge で昇格します。緊急で本番修正した場合も、修正内容は必ず staging へ戻します。", lines=0, color=COLORS["accent"], size=14, gap=14)
         b.section("安全な使い方")
@@ -3488,28 +3542,35 @@ class YumaniwaDesk(ui.View):
 
     def detect_project_from_script(self, sender):
         global RUNTIME_SYNC_CONFIRMED, RUNTIME_SYNC_PROJECT_KEY
-        root = find_project_root(APP_DIR)
+
+        root = find_verified_staging_root()
         if not root:
             self.project_root = ""
             RUNTIME_SYNC_CONFIRMED = False
             RUNTIME_SYNC_PROJECT_KEY = ""
-            alert("staging を見つけられません", "この YumaniwaDesk.py を Working Copy の yumaniwa-town-staging 直下、またはその中の tools/ フォルダへ置いてからもう一度実行してください。\n\n前回の接続先へはフォールバックしません。")
+            alert(
+                "staging を見つけられません",
+                "Pythonista から Working Copy の実パスを取得できませんでした。\n\n"
+                "以前の接続情報が残っていれば、同じ親フォルダの yumaniwa-town-staging も自動探索しますが、"
+                "staging と検証できないパスには接続しません。"
+            )
             return
-        if not project_is_staging(root):
+
+        try:
+            require_staging_project(root)
+            remember_verified_staging_root(root)
+        except Exception as exc:
             self.project_root = ""
             RUNTIME_SYNC_CONFIRMED = False
             RUNTIME_SYNC_PROJECT_KEY = ""
-            if project_repo_name(root) == PRODUCTION_PROJECT_DIR_NAME:
-                alert("本番への接続を拒否しました", "本番 yumaniwa-town を検出しました。YumaniwaDesk は staging 専用のため接続しません。\n\nWorking Copy の yumaniwa-town-staging から起動してください。")
-            else:
-                alert("staging ではありません", "検出したフォルダ: " + project_repo_name(root) + "\n\nYumaniwaDesk は yumaniwa-town-staging だけを編集します。")
-            self.show_tab(0)
+            alert("staging の接続確認に失敗しました", str(exc))
             return
+
         self.project_root = root
         RUNTIME_SYNC_CONFIRMED = False
         RUNTIME_SYNC_PROJECT_KEY = ""
         hud("Working Copy の staging を検出しました", "success")
-        self.show_tab(0)
+        ui.delay(lambda: self.show_tab(0), 0.05)
 
     def check_current_project(self, sender):
         if not project_is_staging(self.project_root):
