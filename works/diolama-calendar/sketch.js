@@ -14,7 +14,11 @@
     // 360-wide logical canvas.  v0.2 used only 18px, which made the
     // diorama feel almost flat.
     parallaxPx: 72,
-    sensorRangeDeg: 14,
+    // Portrait handheld neutral: a calendar is normally viewed with the phone
+    // mostly upright, but slightly reclined rather than perfectly vertical.
+    sensorNeutralBetaDeg: 72,
+    sensorRangeXDeg: 18,
+    sensorRangeYDeg: 18,
     motionRange: 2.4,
     smoothing: 7.5,
     dragGain: 2.0,
@@ -64,8 +68,6 @@
     manual: { x: 0, y: 0 },
     sensor: { x: 0, y: 0 },
     sensorRaw: { x: 0, y: 0 },
-    sensorBias: { x: 0, y: 0 },
-    sensorHasBias: false,
     sensorAvailable: false,
     sensorActive: false,
     sensorStatus: "none", // none | insecure | needs-permission | waiting | active | denied | unavailable
@@ -122,16 +124,10 @@
     return host === "localhost" || host === "127.0.0.1" || host === "::1";
   }
 
-  function calibrateSensor() {
-    if (state.sensorSource === "motion") {
-      state.motionBias.x = state.motionRaw.x;
-      state.motionBias.y = state.motionRaw.y;
-      state.motionHasBias = true;
-    } else {
-      state.sensorBias.x = state.sensorRaw.x;
-      state.sensorBias.y = state.sensorRaw.y;
-      state.sensorHasBias = true;
-    }
+  function calibrateMotion() {
+    state.motionBias.x = state.motionRaw.x;
+    state.motionBias.y = state.motionRaw.y;
+    state.motionHasBias = true;
     state.sensor.x = 0;
     state.sensor.y = 0;
   }
@@ -143,7 +139,6 @@
     }
     if (state.sensorSource !== source) {
       state.sensorSource = source;
-      state.sensorHasBias = false;
       state.motionHasBias = false;
     }
     state.sensorAvailable = true;
@@ -154,16 +149,23 @@
   function handleOrientation(e) {
     if (!Number.isFinite(e.gamma) || !Number.isFinite(e.beta)) return;
 
-    const oriented = rotateForScreen(e.gamma, e.beta);
+    // Do not calibrate against the first sensor sample: on iOS that sample is
+    // often captured while the user is reaching to dismiss the permission
+    // dialog. Instead use a stable portrait viewing posture as neutral.
+    //
+    // gamma 0deg  = no left/right roll
+    // beta 72deg  = mostly upright, slightly reclined natural handheld posture
+    const oriented = rotateForScreen(
+      e.gamma,
+      e.beta - CONFIG.sensorNeutralBetaDeg
+    );
     state.sensorRaw.x = oriented.x;
     state.sensorRaw.y = oriented.y;
     markSensorActive("orientation");
 
-    if (!state.sensorHasBias) calibrateSensor();
-
-    const dx = (state.sensorRaw.x - state.sensorBias.x) / CONFIG.sensorRangeDeg;
-    // Screen y is up in Codea Lite, so invert device beta delta for a natural feel.
-    const dy = -(state.sensorRaw.y - state.sensorBias.y) / CONFIG.sensorRangeDeg;
+    const dx = state.sensorRaw.x / CONFIG.sensorRangeXDeg;
+    // Screen y is up in Codea Lite, so invert beta delta for a natural feel.
+    const dy = -state.sensorRaw.y / CONFIG.sensorRangeYDeg;
     state.sensor.x = clamp(dx, -CONFIG.maxTilt, CONFIG.maxTilt);
     state.sensor.y = clamp(dy, -CONFIG.maxTilt, CONFIG.maxTilt);
   }
@@ -180,7 +182,7 @@
     state.motionRaw.y = oriented.y;
     markSensorActive("motion");
 
-    if (!state.motionHasBias) calibrateSensor();
+    if (!state.motionHasBias) calibrateMotion();
 
     const dx = (state.motionRaw.x - state.motionBias.x) / CONFIG.motionRange;
     const dy = -(state.motionRaw.y - state.motionBias.y) / CONFIG.motionRange;
@@ -231,7 +233,6 @@
     }
 
     const resetBias = () => {
-      state.sensorHasBias = false;
       state.motionHasBias = false;
     };
     window.addEventListener("orientationchange", resetBias, { passive: true });
@@ -287,7 +288,6 @@
         return;
       }
 
-      state.sensorHasBias = false;
       state.motionHasBias = false;
       addSensorListeners({
         orientation: orientationGranted || (
