@@ -1,12 +1,9 @@
-// DotWeather — staging-only view mode experiment.
-// FORECAST keeps the current UI. AMBIENT leaves only city and condition so
-// the weather scene can work as a quiet background rather than a data display.
+// DotWeather — FORECAST / AMBIENT view modes.
+// FORECAST keeps the full weather UI. AMBIENT leaves only city and condition
+// so the weather scene can work as a quiet background rather than a data display.
 
 (function (root) {
   "use strict";
-
-  const isStaging = /\/yumaniwa-town-staging(?:\/|$)/.test(root.location?.pathname || "");
-  if (!isStaging) return;
 
   const UI = root.DotWeatherUI;
   if (!UI || !root.SSE || !root.DotWeatherPixel) return;
