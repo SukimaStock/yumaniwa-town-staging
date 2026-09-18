@@ -26,6 +26,57 @@ var WORKS = [
     // [WORKS:ADD_NEWEST_HERE]
 
     {
+        id: "diorama-calendar",
+        title: "Diorama Calendar",
+        venue: "leisure_center",
+        kind: "work",
+        status: "open",
+
+        launch: "embedded",
+        entry: "./works/diolama-calendar/index.html",
+
+        frameTitle: "Diorama Calendar",
+        returnLabel: "湯窓レジャーセンター",
+        frameMode: "soft",
+
+        playerLayout: "phone",
+        playerWidth: 360,
+        playerHeight: 640,
+
+        menuCategory: "カレンダー",
+        menuDescription: "季節の小さな景色を、傾けて眺めるカレンダー。",
+
+        description: "12か月の小さな景色を、端末の傾きや指の動きで立体的に眺めるカレンダー。",
+        emptyText: "季節の景色を読み込んでいます。"
+    },
+
+    {
+        id: "coffee-factory",
+        title: "CoffeeFactory",
+        venue: "leisure_center",
+        kind: "work",
+        status: "open",
+
+        launch: "embedded",
+        entry: "./works/coffee-factory/index.html",
+
+        frameTitle: "CoffeeFactory",
+        returnLabel: "湯窓レジャーセンター",
+        frameMode: "soft",
+
+        playerLayout: "phone",
+        playerWidth: 360,
+        playerHeight: 640,
+
+        menuCategory: "抽出タイマー",
+        menuDescription: "こびと達と一緒に、一杯を淹れるコーヒー抽出タイマー。",
+
+        description: "豆を選び、準備し、注ぎ、一杯を完成させるコーヒー抽出タイマー。",
+        emptyText: "小さな工場が、抽出の準備をしています。"
+    },
+
+
+    {
         id: "rojiura-masala",
         title: "路地裏マサラ - ROJIURA MASALA",
         venue: "tomogushi_alley",
