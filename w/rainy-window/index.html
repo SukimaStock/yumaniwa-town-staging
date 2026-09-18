@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0a0a0a">
-  <meta name="description" content="雨粒を指でなぞり、窓の向こうを眺める作品。">
+  <meta name="description" content="雨粒を指でなぞり、窓の向こうを眺める作品。静かな雨の日を触って楽しめます。">
   <meta name="robots" content="noindex,nofollow">
   <link rel="canonical" href="https://sukimastock.github.io/yumaniwa-town/w/rainy-window/">
 
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="湯間庭町">
   <meta property="og:title" content="雨の日の窓｜湯間庭町">
-  <meta property="og:description" content="雨粒を指でなぞり、窓の向こうを眺める作品。">
+  <meta property="og:description" content="雨粒を指でなぞり、窓の向こうを眺める作品。静かな雨の日を触って楽しめます。">
   <meta property="og:url" content="https://sukimastock.github.io/yumaniwa-town/w/rainy-window/">
   <meta property="og:image" content="https://sukimastock.github.io/yumaniwa-town/assets/works/rainy-window/ogp.jpg?v=1">
   <meta property="og:image:secure_url" content="https://sukimastock.github.io/yumaniwa-town/assets/works/rainy-window/ogp.jpg?v=1">
@@ -23,27 +23,38 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="雨の日の窓｜湯間庭町">
-  <meta name="twitter:description" content="雨粒を指でなぞり、窓の向こうを眺める作品。">
+  <meta name="twitter:description" content="雨粒を指でなぞり、窓の向こうを眺める作品。静かな雨の日を触って楽しめます。">
   <meta name="twitter:image" content="https://sukimastock.github.io/yumaniwa-town/assets/works/rainy-window/ogp.jpg?v=1">
   <meta name="twitter:image:alt" content="雨の日の窓">
 
   <title>雨の日の窓｜湯間庭町</title>
+  <style>
+    :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;background:#0a0a0a;color:#f4efe5;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}.card{width:min(680px,100%);padding:24px}img{display:block;width:100%;height:auto;border-radius:16px}h1{margin:22px 0 8px;font-size:clamp(28px,7vw,42px);line-height:1.2}p{margin:0;color:#c9c1b4;font-size:16px;line-height:1.8}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}a{display:inline-block;padding:13px 18px;border-radius:999px;text-decoration:none;font-weight:700}.play{background:#f0b35d;color:#25170b}.town{border:1px solid #5a554c;color:#eee7dc}.note{margin-top:18px;font-size:13px;color:#8f887e}
+  </style>
   <script>
     (function () {
       var params = new URLSearchParams(window.location.search);
+      if (params.get("open") !== "1") return;
+      params.delete("open");
       params.delete("work");
-
       var target = "../../?work=rainy-window";
       var preserved = params.toString();
-
       if (preserved) target += "&" + preserved;
       if (window.location.hash) target += window.location.hash;
-
       window.location.replace(target);
     })();
   </script>
 </head>
 <body>
-  <p><a href="../../?work=rainy-window">湯間庭町で雨の日の窓を開く</a></p>
+  <main class="card">
+    <img src="../../assets/works/rainy-window/ogp.jpg?v=1" alt="雨の日の窓の画面">
+    <h1>雨の日の窓</h1>
+    <p>窓を流れる雨粒を指でなぞりながら、雨の日の景色を静かに眺める触れる作品。ゲームの勝ち負けではなく、手触りと時間を楽しむための小さな場所です。</p>
+    <div class="actions">
+      <a class="play" href="../../?work=rainy-window">湯間庭町で開く</a>
+      <a class="town" href="../../">湯間庭町へ</a>
+    </div>
+    <p class="note">湯間庭町にある作品のひとつです。</p>
+  </main>
 </body>
 </html>
