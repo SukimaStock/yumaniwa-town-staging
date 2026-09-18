@@ -142,7 +142,8 @@
         }
     }
 
-    applyStationPlazaPatch();
+    // Station plaza spatial data is now canonical in data/station-plaza.js.
+    // Keep this legacy function only as history; do not override the source data.
 
     // ------------------------------------------
     // 2. 開発モード: 調べる範囲をパーツ画面から1pxずつ動かす
