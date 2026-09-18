@@ -1,10 +1,10 @@
 /* ==========================================
-   DotWeather / staging-only peek-on-tap experiment
+   Immersive phone works / peek-on-tap
 
    - Keep the existing phone-layout.js auto-collapse behavior.
-   - DotWeather only: after the town header collapses, keep the top-left peek
-     tab hidden while the scene is idle.
-   - A tap anywhere inside DotWeather reveals the peek tab briefly.
+   - DotWeather / SteamClock: after the town header collapses, keep the top-left
+     peek tab hidden while the scene is idle.
+   - A tap anywhere inside the work reveals the peek tab briefly.
    - Pressing the peek tab is still handled by phone-layout.js and restores
      the town header as before.
    - Other phone-layout works are untouched.
@@ -12,10 +12,12 @@
 (function () {
     "use strict";
 
-    var isStaging = /\/yumaniwa-town-staging(?:\/|$)/.test(window.location.pathname || "");
-    if (!isStaging) return;
-
     var REVEAL_MS = 2500;
+    var IMMERSIVE_WORK_IDS = {
+        dotweather: true,
+        steamclock: true
+    };
+
     var playerLayer = document.getElementById("work-player");
     var frame = document.getElementById("work-player-frame");
     var peekTab = document.getElementById("work-player-peek-tab");
@@ -25,14 +27,14 @@
     var boundCanvas = null;
     var hideTimer = null;
 
-    function frameLooksLikeDotWeather() {
+    function frameLooksLikeImmersiveWork() {
         var src = String(frame.getAttribute("src") || frame.src || "");
-        return /\/works\/dotweather\//i.test(src);
+        return /\/works\/(?:dotweather|steamclock)\//i.test(src);
     }
 
-    function isDotWeatherActive() {
+    function isImmersiveWorkActive() {
         if (!playerLayer.classList.contains("visible")) return false;
-        return window.currentWorkId === "dotweather" || frameLooksLikeDotWeather();
+        return !!IMMERSIVE_WORK_IDS[window.currentWorkId] || frameLooksLikeImmersiveWork();
     }
 
     function isHeaderCollapsed() {
@@ -48,18 +50,18 @@
 
     function hidePeek() {
         clearHideTimer();
-        if (!isDotWeatherActive()) return;
+        if (!isImmersiveWorkActive()) return;
         peekTab.hidden = true;
     }
 
     function revealPeekBriefly() {
-        if (!isDotWeatherActive() || !isHeaderCollapsed()) return;
+        if (!isImmersiveWorkActive() || !isHeaderCollapsed()) return;
 
         clearHideTimer();
         peekTab.hidden = false;
         hideTimer = window.setTimeout(function () {
             hideTimer = null;
-            if (isDotWeatherActive() && isHeaderCollapsed()) {
+            if (isImmersiveWorkActive() && isHeaderCollapsed()) {
                 peekTab.hidden = true;
             }
         }, REVEAL_MS);
@@ -77,7 +79,7 @@
 
     function bindCanvas() {
         unbindCanvas();
-        if (!isDotWeatherActive()) return;
+        if (!isImmersiveWorkActive()) return;
 
         try {
             var doc = frame.contentDocument;
@@ -92,7 +94,7 @@
     }
 
     function sync() {
-        if (!isDotWeatherActive()) {
+        if (!isImmersiveWorkActive()) {
             clearHideTimer();
             unbindCanvas();
             return;
@@ -100,7 +102,7 @@
 
         if (isHeaderCollapsed()) {
             // phone-layout.js shows the peek tab automatically when it collapses.
-            // DotWeather overrides that idle state: keep it hidden until a tap.
+            // Immersive works override that idle state: keep it hidden until a tap.
             hidePeek();
         } else {
             clearHideTimer();
@@ -128,7 +130,7 @@
     });
 
     peekTab.addEventListener("pointerdown", function () {
-        if (isDotWeatherActive()) clearHideTimer();
+        if (isImmersiveWorkActive()) clearHideTimer();
     }, { passive: true });
 
     document.addEventListener("visibilitychange", function () {
