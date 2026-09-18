@@ -1,0 +1,10 @@
+{
+  "name": "CoffeeFactory",
+  "short_name": "CoffeeFactory",
+  "id": "../../?work=coffee-factory",
+  "start_url": "../../?work=coffee-factory",
+  "scope": "../../",
+  "display": "standalone",
+  "background_color": "#F2E9DA",
+  "theme_color": "#F2E9DA"
+}
