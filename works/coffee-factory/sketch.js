@@ -1388,16 +1388,16 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     SSE.app.replace(scene,null,fade ? SCREEN_FADE : {duration:0});
   }
   const BGM_LEVELS = Object.freeze({
-    setup:0.045,
-    prep:0.085,
-    brew:0.145,
-    finish:0.17,
+    setup:0.065,
+    prep:0.12,
+    brew:0.20,
+    finish:0.24,
   });
   const FINISH_BGM_BREAK = Object.freeze({
     dropSeconds:0.20,
     holdSeconds:0.50,
     riseSeconds:2.50,
-    lowLevel:0.035,
+    lowLevel:0.05,
   });
   const BGM_FADE_TAU = 1.10;
   const bgm = {
