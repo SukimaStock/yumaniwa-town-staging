@@ -13,7 +13,7 @@
   const P = () => root.DotWeatherPixel;
 
   const SYNODIC_MONTH_DAYS = 29.53059;
-  const NEW_MOON_REFERENCE_UTC = Date.UTC(2026, 7, 12, 17, 37, 0); // 2026-08-12 17:37 UTC
+  const NEW_MOON_REFERENCE_UTC = Date.UTC(2026, 7, 12, 17, 37, 0);
   const DAY_MS = 86400000;
 
   const PHASES = [
@@ -22,16 +22,11 @@
     { key: "first-quarter", label: "1Q", center: 0.250, amount: 0.50, side: 1, coreKey: "first-quarter" },
     { key: "waxing-gibbous", label: "WAX G", center: 0.375, amount: 0.78, side: 1, coreKey: "waxing-gibbous" },
     { key: "full", label: "FULL", center: 0.500, amount: 1.00, side: 0, coreKey: "full" },
-    // The original renderer has no waning-gibbous entry. We draw it here,
-    // while feeding FULL to the legacy star-brightness logic as a close proxy.
     { key: "waning-gibbous", label: "WAN G", center: 0.625, amount: 0.78, side: -1, coreKey: "full" },
     { key: "last-quarter", label: "3Q", center: 0.750, amount: 0.50, side: -1, coreKey: "last-quarter" },
     { key: "waning-crescent", label: "WAN C", center: 0.875, amount: 0.22, side: -1, coreKey: "waning-crescent" },
   ];
 
-  // FULL uses a hand-tuned bitmap rather than the mathematical circle used by
-  // the partial phases. This removes isolated one-cell tips at the four poles
-  // and gives the full moon a cleaner, intentionally pixel-drawn silhouette.
   const FULL_MOON_ROW_WIDTHS = [
     5, 9, 13, 15, 17, 17, 19, 19, 19, 19,
     19, 19, 19, 17, 17, 15, 13, 9, 5,
@@ -91,8 +86,6 @@
     return PHASES.find((phase) => phase.key === key) || null;
   }
 
-  // Always inject a date-linked moon phase into the renderer. Existing explicit
-  // data can still be forced by the staging debug control below.
   const previousGetDisplayCity = UI.prototype.getDisplayCity;
   UI.prototype.getDisplayCity = function getDisplayCityWithMoon() {
     const city = previousGetDisplayCity.call(this);
@@ -109,8 +102,6 @@
     };
   };
 
-  // Replace only moon drawing. Stars continue using the legacy phase resolver;
-  // moonPhase above supplies it with the nearest compatible phase key.
   const previousDrawMoon = World.prototype.drawMoon;
   World.prototype.drawMoon = function drawDateLinkedMoon(style, city, position) {
     const visualKey = city?.moonPhaseVisual;
@@ -185,7 +176,6 @@
     calculate: calculateMoon,
   };
 
-  // Staging developer controls.
   const debug = root.DotWeatherDebug;
   if (!debug) return;
 
