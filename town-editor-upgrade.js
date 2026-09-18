@@ -4,6 +4,7 @@
 // ==========================================
 (function () {
     if (typeof TOWN_PART_CATALOG === 'undefined') return;
+    if (typeof DEV_MODE_ENABLED !== 'undefined' && !DEV_MODE_ENABLED) return;
 
     function addCatalogEntry(entry) {
         for (var i = 0; i < TOWN_PART_CATALOG.length; i++) {
