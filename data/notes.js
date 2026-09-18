@@ -40,6 +40,14 @@ var SHINPO_RACK = {
 var NOTE_ARTICLES = [
     // [NOTES:ADD_NEWEST_HERE]
     {
+        id: "note-20260917-c12ade65",
+        title: "ゲームジャムで、カレーを配達した",
+        url: "https://note.com/hamamah/n/na42fdcfeabf2",
+        publishedAt: "2026-09-17",
+        featured: false
+    },
+
+    {
         id: "note-20260904-ddca9fa0",
         title: "自分専用だったアプリを、初めて外に出した",
         url: "https://note.com/hamamah/n/n4e18da793516",
