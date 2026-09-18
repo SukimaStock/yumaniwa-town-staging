@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10
+Yumaniwa Desk v0.10.1
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,11 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.1:
+- Pythonista の Files / Working Copy 経由起動で、未接続時に os.path.abspath("") が cwd へ触れて PermissionError になる問題を修正
+- 未接続時は project key / repo name を純粋な文字列処理だけで扱い、ファイルシステムへ触れないよう fail-closed を強化
+- staging 探索中の PermissionError / OSError は「未接続」として安全に扱う
 
 v0.10:
 - YumaniwaDesk を staging 専用ツールへ変更し、本番 yumaniwa-town への接続・書き込みを拒否
@@ -145,9 +150,16 @@ APP_NAME = "Yumaniwa Desk — STAGING"
 # Pythonistaでは起動方法によって __file__ が無い場合があります。
 # note.py / rakugaki_cabinet.py と同じく、安全に作業フォルダへフォールバックします。
 try:
-    APP_DIR = os.path.dirname(os.path.abspath(__file__))
+    _script_path = str(__file__ or "")
 except NameError:
-    APP_DIR = os.getcwd()
+    _script_path = ""
+
+# File Provider 経由で cwd に権限がない場合があるため、
+# 空パスを abspath/getcwd で解決しない。取得できなければ未接続で開始する。
+try:
+    APP_DIR = os.path.dirname(os.path.normpath(_script_path)) if _script_path else ""
+except Exception:
+    APP_DIR = ""
 
 # Working Copy のリポジトリを汚さないため、Desk 自身の管理データは
 # Pythonista の Documents 側へ分離します。
@@ -287,20 +299,33 @@ def relative_safe_path(value):
 
 
 def project_looks_valid(root):
-    if not root or not os.path.isdir(root):
+    if not root:
         return False
-    required = [
-        "index.html",
-        "data/notes.js",
-        "data/works.js",
-        "data/updates.js",
-        "works",
-    ]
-    return all(os.path.exists(os.path.join(root, rel)) for rel in required)
+    try:
+        if not os.path.isdir(root):
+            return False
+        required = [
+            "index.html",
+            "data/notes.js",
+            "data/works.js",
+            "data/updates.js",
+            "works",
+        ]
+        return all(os.path.exists(os.path.join(root, rel)) for rel in required)
+    except (OSError, PermissionError):
+        return False
 
 
 def project_repo_name(root):
-    return os.path.basename(os.path.abspath(root or "").rstrip("/"))
+    # 空パスを abspath() すると Pythonista が cwd を参照するため、
+    # 未接続時は純粋な文字列処理だけで返す。
+    value = str(root or "").strip()
+    if not value:
+        return ""
+    try:
+        return os.path.basename(os.path.normpath(value))
+    except Exception:
+        return ""
 
 
 def project_is_staging(root):
@@ -325,16 +350,28 @@ def require_staging_project(root):
 
 
 def find_project_root(start_path):
-    current = os.path.abspath(start_path)
-    if os.path.isfile(current):
-        current = os.path.dirname(current)
-    for _ in range(9):
-        if project_looks_valid(current):
-            return current
-        parent = os.path.dirname(current)
-        if parent == current:
-            break
-        current = parent
+    value = str(start_path or "").strip()
+    if not value:
+        return None
+    # cwd を暗黙参照しないため、相対パスは推測せず未接続にする。
+    try:
+        current = os.path.normpath(value)
+        if not os.path.isabs(current):
+            return None
+        try:
+            if os.path.isfile(current):
+                current = os.path.dirname(current)
+        except (OSError, PermissionError):
+            return None
+        for _ in range(9):
+            if project_looks_valid(current):
+                return current
+            parent = os.path.dirname(current)
+            if parent == current:
+                break
+            current = parent
+    except (OSError, PermissionError):
+        return None
     return None
 
 
@@ -345,10 +382,17 @@ def ensure_desk_data_dir():
 
 
 def project_storage_key(root):
-    root = os.path.abspath(root or "")
-    base = os.path.basename(root.rstrip("/")) or EXPECTED_PROJECT_DIR_NAME
+    # 未接続でも cwd / File Provider に触れず安全に状態キーを作る。
+    value = str(root or "").strip()
+    if not value:
+        return "unconnected"
+    try:
+        normalized = os.path.normpath(value)
+    except Exception:
+        normalized = value
+    base = os.path.basename(normalized) or EXPECTED_PROJECT_DIR_NAME
     safe_base = re.sub(r"[^A-Za-z0-9._-]+", "-", base).strip("-") or "project"
-    digest = hashlib.sha1(root.encode("utf-8")).hexdigest()[:8]
+    digest = hashlib.sha1(normalized.encode("utf-8")).hexdigest()[:8]
     return safe_base + "-" + digest
 
 
@@ -424,12 +468,23 @@ def save_operation_state(root, state):
 
 
 def safe_session_info(root):
+    # 未接続中は settings の project state すら読まず、完全にロック状態を返す。
+    if not project_is_staging(root):
+        return {
+            "valid": False,
+            "confirmed_at": None,
+            "age_minutes": None,
+            "pending_push": False,
+            "last_change_label": "",
+            "last_change_files": [],
+        }
+
     state = operation_state(root)
     confirmed = _parse_iso_datetime(state.get("sync_confirmed_at"))
     age_minutes = None
     valid = False
     root_key = project_storage_key(root)
-    if confirmed is not None and project_is_staging(root):
+    if confirmed is not None:
         try:
             age_minutes = max(0.0, (datetime.datetime.now() - confirmed).total_seconds() / 60.0)
             valid = (
