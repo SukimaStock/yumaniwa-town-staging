@@ -261,9 +261,8 @@
         }
     }
 
-    // Station trigger layout is now canonical in data/station-plaza.js.
-    // Recreation Road remains an intentional staging-only feature.
-    applyRecreationRoad();
+    // Station trigger layout and Recreation Road are now canonical in
+    // production-synced data files. Keep legacy functions only as history.
 
     window.YUMANIWA_STAGING_TRIGGER_LAYOUT_20260823 = {
         apply: applyLatestTriggerLayout
