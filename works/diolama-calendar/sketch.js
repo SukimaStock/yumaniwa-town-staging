@@ -89,12 +89,6 @@
     },
     pendingMonth: null,
     reducedMotion: false,
-    sensorDebug: {
-      requestAttempted: false,
-      orientationPermission: "n/a",
-      motionPermission: "n/a",
-      lastError: "",
-    },
   };
 
   function clamp(v, lo, hi) {
@@ -247,9 +241,6 @@
   }
 
   function requestSensorPermission() {
-    state.sensorDebug.requestAttempted = true;
-    state.sensorDebug.lastError = "";
-
     if (!isTrustedSensorContext()) {
       state.sensorStatus = "insecure";
       return;
@@ -264,29 +255,15 @@
     if (hasOrientation && typeof DeviceOrientationEvent.requestPermission === "function") {
       requests.push(
         DeviceOrientationEvent.requestPermission()
-          .then((result) => {
-            state.sensorDebug.orientationPermission = String(result);
-            return { kind: "orientation", result };
-          })
-          .catch((error) => {
-            state.sensorDebug.orientationPermission = "error";
-            state.sensorDebug.lastError = "orientation: " + String(error && (error.name || error.message || error));
-            return { kind: "orientation", result: "denied" };
-          })
+          .then((result) => ({ kind: "orientation", result }))
+          .catch(() => ({ kind: "orientation", result: "denied" }))
       );
     }
     if (hasMotion && typeof DeviceMotionEvent.requestPermission === "function") {
       requests.push(
         DeviceMotionEvent.requestPermission()
-          .then((result) => {
-            state.sensorDebug.motionPermission = String(result);
-            return { kind: "motion", result };
-          })
-          .catch((error) => {
-            state.sensorDebug.motionPermission = "error";
-            state.sensorDebug.lastError = "motion: " + String(error && (error.name || error.message || error));
-            return { kind: "motion", result: "denied" };
-          })
+          .then((result) => ({ kind: "motion", result }))
+          .catch(() => ({ kind: "motion", result: "denied" }))
       );
     }
 
@@ -746,58 +723,6 @@
     popStyle();
   }
 
-  function debugNumber(value) {
-    return Number.isFinite(value) ? value.toFixed(2) : "n/a";
-  }
-
-  function drawSensorDebug() {
-    const hasOrientation = "DeviceOrientationEvent" in window;
-    const hasMotion = "DeviceMotionEvent" in window;
-    const orientationRequest =
-      hasOrientation && typeof DeviceOrientationEvent.requestPermission === "function";
-    const motionRequest =
-      hasMotion && typeof DeviceMotionEvent.requestPermission === "function";
-
-    const lines = [
-      "SENSOR DEBUG",
-      "status: " + state.sensorStatus + "  source: " + state.sensorSource,
-      "active: " + state.sensorActive + "  secure: " + isTrustedSensorContext() +
-        "  reduce: " + state.reducedMotion,
-      "API O/M: " + hasOrientation + "/" + hasMotion +
-        "  request O/M: " + orientationRequest + "/" + motionRequest,
-      "request attempted: " + state.sensorDebug.requestAttempted +
-        "  activation: " + Boolean(navigator.userActivation && navigator.userActivation.isActive),
-      "permission O/M: " + state.sensorDebug.orientationPermission +
-        "/" + state.sensorDebug.motionPermission,
-      "raw O x/y: " + debugNumber(state.sensorRaw.x) + "/" + debugNumber(state.sensorRaw.y),
-      "raw M x/y: " + debugNumber(state.motionRaw.x) + "/" + debugNumber(state.motionRaw.y),
-      "sensor x/y: " + debugNumber(state.sensor.x) + "/" + debugNumber(state.sensor.y),
-    ];
-
-    if (state.sensorDebug.lastError) {
-      lines.push("error: " + state.sensorDebug.lastError.slice(0, 54));
-    }
-
-    const boxH = 14 + lines.length * 12;
-
-    pushStyle();
-    rectMode(CORNER);
-    noStroke();
-    fill(20, 20, 20, 210);
-    rect(6, LOGICAL_H - boxH - 6, LOGICAL_W - 12, boxH, 5);
-
-    textMode(CORNER);
-    font("Menlo");
-    fontSize(8.5);
-    fill(255, 255, 255, 245);
-
-    const top = LOGICAL_H - 17;
-    for (let i = 0; i < lines.length; i += 1) {
-      text(lines[i], 12, top - i * 12);
-    }
-    popStyle();
-  }
-
   function updateTilt(dt) {
     const useSensor = state.sensorActive && !state.reducedMotion;
     const baseX = useSensor ? state.sensor.x : 0;
@@ -865,7 +790,6 @@
       drawLayer("matte");
       drawOuterCover();
       drawLayer("frame");
-      drawSensorDebug();
 
     },
 
