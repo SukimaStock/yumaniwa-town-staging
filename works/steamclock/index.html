@@ -11,8 +11,16 @@
   <meta name="robots" content="noindex,nofollow">
   <link rel="canonical" href="https://sukimastock.github.io/yumaniwa-town/?work=steamclock">
 
-  <!-- Privacy-friendly analytics by Plausible.
-       staging では本番解析へテストアクセスを混ぜない。 -->
+  <!-- Start the two largest above-the-fold images before the runtime scripts. -->
+  <link rel="preload" as="image" href="./assets/background.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="./assets/dial.png" fetchpriority="high">
+
+  <!-- Production nixie font: keep the thin filament look consistent across OSes. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100&display=swap">
+
+  <!-- Privacy-friendly analytics by Plausible. -->
   <script>
     (() => {
       const isStaging = /\/yumaniwa-town-staging(?:\/|$)/.test(window.location.pathname);
@@ -81,20 +89,224 @@
 <body>
   <canvas id="gameCanvas"></canvas>
 
-  <!-- Low-level Codea-compatible canvas runtime -->
   <script src="codea-lite.js"></script>
-
-  <!-- Reusable SukimaStock experience layer -->
   <script src="sukimastock-engine.js"></script>
 
-  <!-- App-specific scenes and rules -->
+  <!--
+    Keep the first load focused on the clock itself. Decorative machinery starts
+    only after the page load event, then fills in over a short interval.
+  -->
+  <script>
+    (() => {
+      const originalReadImage = window.readImage;
+      const CodeaImageClass = window.CodeaImage;
+      if (typeof originalReadImage !== "function" || typeof CodeaImageClass !== "function") return;
+
+      // Truly transparent 1x1 GIF. The previous placeholder was opaque, so
+      // deferred sprites briefly appeared as gray rectangles on Safari.
+      const transparentPixel =
+        "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+
+      const deferredAssets = new Map([
+        ["assets/center_piece.png", 0],
+        ["assets/gear1.png", 0],
+        ["assets/gear2.png", 0],
+        ["assets/pendulum.png", 0],
+        ["assets/barometer_dial.png", 150],
+        ["assets/barometer_needle.png", 150],
+        ["assets/pipe_elbow.png", 300],
+        ["assets/pipe_straight.png", 300],
+        ["assets/valve.png", 300],
+        ["assets/gauge_dummy.png", 300]
+      ]);
+
+      function afterPageLoad(callback, delay) {
+        const run = () => window.setTimeout(callback, delay);
+        if (document.readyState === "complete") {
+          run();
+        } else {
+          window.addEventListener("load", run, { once: true });
+        }
+      }
+
+      window.readImage = function steamClockReadImage(src) {
+        const key = String(src);
+
+        // Legacy asset: the current scene never draws it, so do not request it.
+        if (key === "assets/spring.png") {
+          return new CodeaImageClass(transparentPixel);
+        }
+
+        const delay = deferredAssets.get(key);
+        if (delay === undefined) return originalReadImage(src);
+
+        const image = new CodeaImageClass(transparentPixel);
+        if (image.element && "fetchPriority" in image.element) {
+          image.element.fetchPriority = "low";
+        }
+
+        afterPageLoad(() => {
+          image.src = key;
+          image.loaded = false;
+          image.error = null;
+          image.element.src = key;
+        }, delay);
+
+        return image;
+      };
+    })();
+  </script>
+
+  <!-- Production nixie font. The sketch still asks for its legacy Avenir stack;
+       translate only that request so the rest of the app remains unchanged. -->
+  <script>
+    (() => {
+      const originalFont = window.font;
+      if (typeof originalFont !== "function") return;
+
+      window.font = function steamClockProductionFont(fontName) {
+        if (arguments.length === 0) return originalFont();
+        const isNixieFontRequest =
+          typeof fontName === "string" && fontName.includes("AvenirNext-UltraLight");
+        if (isNixieFontRequest) {
+          return originalFont('"Barlow Condensed", "Avenir Next", Avenir, system-ui, sans-serif');
+        }
+        return originalFont(fontName);
+      };
+    })();
+  </script>
+
+  <!-- Debug-only nixie font comparison. Production remains Barlow Condensed. -->
+  <script>
+    (() => {
+      function hasDebug(targetWindow) {
+        try {
+          const value = new URLSearchParams(targetWindow.location.search).get("debug");
+          return value === "1" || value === "true";
+        } catch (_error) {
+          return false;
+        }
+      }
+
+      const enabled =
+        hasDebug(window) ||
+        (window.top && window.top !== window && hasDebug(window.top));
+
+      if (!enabled || typeof window.font !== "function") return;
+
+      const choices = {
+        raleway: {
+          label: "RALEWAY",
+          stack: '"Raleway", sans-serif'
+        },
+        roboto: {
+          label: "ROBOTO COND",
+          stack: '"Roboto Condensed", sans-serif'
+        },
+        barlow: {
+          label: "BARLOW COND",
+          stack: '"Barlow Condensed", sans-serif'
+        },
+        ibm: {
+          label: "IBM PLEX COND",
+          stack: '"IBM Plex Sans Condensed", sans-serif'
+        }
+      };
+
+      let selected = "barlow";
+      const originalFont = window.font;
+
+      const fontSheet = document.createElement("link");
+      fontSheet.rel = "stylesheet";
+      fontSheet.href =
+        "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@100&family=Raleway:wght@100&family=Roboto+Condensed:wght@100&display=swap";
+      document.head.appendChild(fontSheet);
+
+      window.font = function steamClockDebugFont(fontName) {
+        if (arguments.length === 0) return originalFont();
+        const isNixieFontRequest =
+          typeof fontName === "string" && fontName.includes("AvenirNext-UltraLight");
+        if (isNixieFontRequest) {
+          return originalFont(choices[selected].stack);
+        }
+        return originalFont(fontName);
+      };
+
+      function setFont(key) {
+        if (!choices[key]) return selected;
+        selected = key;
+        const buttons = document.querySelectorAll("[data-nixie-font]");
+        for (const button of buttons) {
+          const active = button.dataset.nixieFont === selected;
+          button.setAttribute("aria-pressed", active ? "true" : "false");
+        }
+        return selected;
+      }
+
+      function mount() {
+        const body = document.querySelector("#steamclock-debug-panel .sc-debug-body");
+        if (!body || body.querySelector("[data-role='nixie-font-switcher']")) return false;
+
+        const style = document.createElement("style");
+        style.textContent = `
+          #steamclock-debug-panel [data-role="nixie-font-switcher"] {
+            margin-top: 9px;
+          }
+          #steamclock-debug-panel [data-nixie-font][aria-pressed="true"] {
+            color: #17100d;
+            background: #f5c777;
+            border-color: #f5c777;
+          }
+          #steamclock-debug-panel .sc-debug-note {
+            margin-top: 6px;
+            color: rgba(241, 223, 189, 0.54);
+            font-size: 9px;
+          }
+        `;
+        document.head.appendChild(style);
+
+        const section = document.createElement("div");
+        section.dataset.role = "nixie-font-switcher";
+        section.innerHTML = `
+          <div class="sc-debug-label">NIXIE FONT</div>
+          <div class="sc-debug-grid">
+            <button data-nixie-font="raleway" aria-pressed="false">RALEWAY</button>
+            <button data-nixie-font="roboto" aria-pressed="false">ROBOTO COND</button>
+            <button data-nixie-font="barlow" aria-pressed="true">BARLOW COND</button>
+            <button data-nixie-font="ibm" aria-pressed="false">IBM PLEX COND</button>
+          </div>
+          <div class="sc-debug-note">All candidates use weight 100.</div>
+        `;
+        body.appendChild(section);
+
+        for (const button of section.querySelectorAll("[data-nixie-font]")) {
+          button.addEventListener("click", () => setFont(button.dataset.nixieFont));
+        }
+
+        if (window.SteamClockDebug) {
+          const previousGetState = window.SteamClockDebug.getState;
+          window.SteamClockDebug.setNixieFont = setFont;
+          window.SteamClockDebug.getNixieFont = () => selected;
+          window.SteamClockDebug.getState = () => ({
+            ...(typeof previousGetState === "function" ? previousGetState() : {}),
+            nixieFont: selected
+          });
+        }
+
+        setFont(selected);
+        return true;
+      }
+
+      window.SteamClockFontDebug = { mount, setFont, getFont: () => selected };
+    })();
+  </script>
+
   <script src="sketch.js"></script>
 
   <script>
     CodeaLite.start("gameCanvas");
+    if (window.SteamClockFontDebug) window.SteamClockFontDebug.mount();
 
-    // Service workers require HTTPS (localhost is also allowed).
-    // GitHub Pages is HTTPS, so offline support becomes active after deployment.
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("./sw.js").catch((error) => {
