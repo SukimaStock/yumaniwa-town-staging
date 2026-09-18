@@ -76,8 +76,6 @@
     if (text.includes("LIGHT RAIN")) return "light";
     if (text.includes("HEAVY RAIN") || text.includes("HEAVY SHOWERS")) return "heavy";
 
-    // Showers remain intentionally folded into the normal/heavy buckets for
-    // this pass. Their changing rhythm will be handled as a separate update.
     return "normal";
   }
 
@@ -134,8 +132,6 @@
     resolveRainLevel,
   };
 
-  // Staging DEV panel extension. Production has no DotWeatherDebug object, so
-  // everything below becomes a no-op there.
   if (!UI || !root.DotWeatherDebug) return;
 
   const debug = root.DotWeatherDebug;
@@ -163,8 +159,6 @@
     if (normalized) {
       debug.setWeather("rain");
     } else {
-      // "LIVE" in the rain-detail row means return the weather itself to live
-      // as well, while leaving time/wind overrides untouched.
       debug.setWeather(null);
     }
 
@@ -217,8 +211,6 @@
     if (weatherGroup?.nextSibling) panel.insertBefore(group, weatherGroup.nextSibling);
     else panel.appendChild(group);
 
-    // Existing weather buttons remain the source of truth. Selecting another
-    // weather clears a stale rain-detail override.
     panel.addEventListener("click", (event) => {
       const target = event.target?.closest?.(".dw-debug-chip");
       if (!target) return;
@@ -230,9 +222,6 @@
       }
 
       if (target.dataset.debugKey === "weather" && !target.classList.contains("dw-rain-debug-chip")) {
-        // The main WEATHER row always cancels a rain-detail override. Its RAIN
-        // button therefore means the normal profile; the row below is used for
-        // drizzle/light/heavy comparisons.
         debug.state.rainLevel = null;
         refreshRainButtons();
       }
