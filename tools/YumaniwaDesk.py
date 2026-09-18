@@ -1,10 +1,10 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.9.2
+Yumaniwa Desk v0.10
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
-  yumaniwa-town/              ← GitHub から clone した正規ローカルコピー
+  yumaniwa-town-staging/      ← GitHub から clone した staging 専用ローカルコピー
     tools/
       YumaniwaDesk.py         ← このファイルをここへ置く(直下でも可)
     data/notes.js
@@ -16,6 +16,15 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10:
+- YumaniwaDesk を staging 専用ツールへ変更し、本番 yumaniwa-town への接続・書き込みを拒否
+- 起動場所の検出に失敗したとき、前回の project_root を再利用するフォールバックを廃止して fail-closed 化
+- Working Copy の Status 導線を yumaniwa-town-staging 固定へ変更
+- 同期確認・未Push状態をプロジェクト単位で保存し、この起動中に確認した staging と一致するときだけ書き込み許可
+- 書き込み直前にも staging identity を再検証し、production 誤編集を二重に防止
+- staging の noindex,nofollow を「このリポジトリを確認する」で検証
+- 画面上に STAGING を常時表示し、production は branch → PR → safety checks → merge で昇格する運用を明記
 
 v0.9.2:
 - update / delete の before を現在の正本と照合し、古い差分や別経路の上書きを拒否
@@ -131,7 +140,7 @@ except ImportError:
     raise RuntimeError("このアプリは Pythonista で実行してください。")
 
 
-APP_NAME = "Yumaniwa Desk"
+APP_NAME = "Yumaniwa Desk — STAGING"
 
 # Pythonistaでは起動方法によって __file__ が無い場合があります。
 # note.py / rakugaki_cabinet.py と同じく、安全に作業フォルダへフォールバックします。
@@ -150,12 +159,15 @@ STATE_ROOT_DIR = os.path.join(DESK_DATA_DIR, "state")
 LAST_TRANSACTION_NAME = "last_transaction.json"
 MAX_BACKUPS = 40
 SAFE_SESSION_MAX_MINUTES = 180
-OPERATION_STATE_KEY = "operation_state"
-WORKING_COPY_REPO_NAME = "yumaniwa-town"
+OPERATION_STATE_KEY = "operation_state_by_project"
+EXPECTED_PROJECT_DIR_NAME = "yumaniwa-town-staging"
+PRODUCTION_PROJECT_DIR_NAME = "yumaniwa-town"
+WORKING_COPY_REPO_NAME = EXPECTED_PROJECT_DIR_NAME
 
 # 同期確認は「このDeskを起動している間」だけ有効にする。
 # settings.json には前回確認時刻を残すが、アプリを起動し直したら必ず再確認する。
 RUNTIME_SYNC_CONFIRMED = False
+RUNTIME_SYNC_PROJECT_KEY = ""
 
 COLORS = {
     "bg": "#11161B",
@@ -287,6 +299,31 @@ def project_looks_valid(root):
     return all(os.path.exists(os.path.join(root, rel)) for rel in required)
 
 
+def project_repo_name(root):
+    return os.path.basename(os.path.abspath(root or "").rstrip("/"))
+
+
+def project_is_staging(root):
+    return project_looks_valid(root) and project_repo_name(root) == EXPECTED_PROJECT_DIR_NAME
+
+
+def require_staging_project(root):
+    if not project_looks_valid(root):
+        raise RuntimeError("staging プロジェクトを確認できません。")
+    name = project_repo_name(root)
+    if name != EXPECTED_PROJECT_DIR_NAME:
+        if name == PRODUCTION_PROJECT_DIR_NAME:
+            raise RuntimeError(
+                "YumaniwaDesk は staging 専用です。本番 yumaniwa-town への書き込みは拒否しました。"
+            )
+        raise RuntimeError(
+            "YumaniwaDesk は {0} だけを編集します。現在のフォルダ: {1}".format(
+                EXPECTED_PROJECT_DIR_NAME, name or "不明"
+            )
+        )
+    return True
+
+
 def find_project_root(start_path):
     current = os.path.abspath(start_path)
     if os.path.isfile(current):
@@ -309,7 +346,7 @@ def ensure_desk_data_dir():
 
 def project_storage_key(root):
     root = os.path.abspath(root or "")
-    base = os.path.basename(root.rstrip("/")) or "yumaniwa-town"
+    base = os.path.basename(root.rstrip("/")) or EXPECTED_PROJECT_DIR_NAME
     safe_base = re.sub(r"[^A-Za-z0-9._-]+", "-", base).strip("-") or "project"
     digest = hashlib.sha1(root.encode("utf-8")).hexdigest()[:8]
     return safe_base + "-" + digest
@@ -350,13 +387,11 @@ def save_settings(data):
 
 
 def default_project_root():
+    # 起動場所から staging を直接検出できた場合だけ接続する。
+    # 前回の project_root は再利用しない。検出失敗時は必ず未接続で止める。
     direct = find_project_root(APP_DIR)
-    if direct:
+    if direct and project_is_staging(direct):
         return direct
-    settings = read_settings()
-    stored = settings.get("project_root", "")
-    if project_looks_valid(stored):
-        return stored
     return ""
 
 
@@ -369,28 +404,39 @@ def _parse_iso_datetime(value):
         return None
 
 
-def operation_state():
+def operation_state(root):
     settings = read_settings()
-    state = settings.get(OPERATION_STATE_KEY, {})
+    states = settings.get(OPERATION_STATE_KEY, {})
+    if not isinstance(states, dict):
+        states = {}
+    state = states.get(project_storage_key(root), {})
     return dict(state) if isinstance(state, dict) else {}
 
 
-def save_operation_state(state):
+def save_operation_state(root, state):
     settings = read_settings()
-    settings[OPERATION_STATE_KEY] = dict(state or {})
+    states = settings.get(OPERATION_STATE_KEY, {})
+    if not isinstance(states, dict):
+        states = {}
+    states[project_storage_key(root)] = dict(state or {})
+    settings[OPERATION_STATE_KEY] = states
     save_settings(settings)
 
 
-def safe_session_info():
-    state = operation_state()
+def safe_session_info(root):
+    state = operation_state(root)
     confirmed = _parse_iso_datetime(state.get("sync_confirmed_at"))
     age_minutes = None
     valid = False
-    if confirmed is not None:
+    root_key = project_storage_key(root)
+    if confirmed is not None and project_is_staging(root):
         try:
             age_minutes = max(0.0, (datetime.datetime.now() - confirmed).total_seconds() / 60.0)
-            # 時刻だけではなく、このDesk起動中に確認したことも必須。
-            valid = bool(RUNTIME_SYNC_CONFIRMED) and age_minutes <= SAFE_SESSION_MAX_MINUTES
+            valid = (
+                bool(RUNTIME_SYNC_CONFIRMED)
+                and RUNTIME_SYNC_PROJECT_KEY == root_key
+                and age_minutes <= SAFE_SESSION_MAX_MINUTES
+            )
         except Exception:
             pass
     return {
@@ -403,35 +449,39 @@ def safe_session_info():
     }
 
 
-def confirm_safe_session():
-    global RUNTIME_SYNC_CONFIRMED
-    state = operation_state()
+def confirm_safe_session(root):
+    global RUNTIME_SYNC_CONFIRMED, RUNTIME_SYNC_PROJECT_KEY
+    require_staging_project(root)
+    state = operation_state(root)
     now = datetime.datetime.now().isoformat(timespec="seconds")
     state["sync_confirmed_at"] = now
     state["pending_push"] = False
     state["last_sync_confirmed_at"] = now
-    save_operation_state(state)
+    save_operation_state(root, state)
     RUNTIME_SYNC_CONFIRMED = True
+    RUNTIME_SYNC_PROJECT_KEY = project_storage_key(root)
 
 
-def require_safe_write_session():
-    info = safe_session_info()
+def require_safe_write_session(root):
+    # 書き込み直前に環境をもう一度検証する。UIの接続状態だけを信用しない。
+    require_staging_project(root)
+    info = safe_session_info(root)
     if info.get("valid"):
         return True
     raise RuntimeError(
-        "安全ロック中です。書き込む前に[案内]でWorking Copyを開き、"
+        "安全ロック中です。書き込む前に[案内]で staging の Working Copyを開き、"
         "Pull後に HEAD / main / origin/main が一致し、未コミット変更がないことを確認してから"
         "「同期確認済み」を押してください。"
     )
 
 
-def mark_pending_push(label, files):
-    state = operation_state()
+def mark_pending_push(root, label, files):
+    state = operation_state(root)
     state["pending_push"] = True
     state["last_change_label"] = str(label or "update")
     state["last_change_files"] = list(files or [])
     state["last_change_at"] = datetime.datetime.now().isoformat(timespec="seconds")
-    save_operation_state(state)
+    save_operation_state(root, state)
 
 
 # -----------------------------------------------------------------------------
@@ -2154,7 +2204,7 @@ def backup_dir_for(root, label):
 
 
 def create_transaction(root, label, target_rel_paths):
-    require_safe_write_session()
+    require_safe_write_session(root)
     destination = backup_dir_for(root, label)
     os.makedirs(destination)
     files = []
@@ -2191,7 +2241,7 @@ def finish_transaction(root, transaction):
         os.makedirs(state_dir)
     safe_json_dump(transaction, last_transaction_path(root))
     prune_backups(root)
-    mark_pending_push(transaction.get("label", "update"), transaction.get("files", []))
+    mark_pending_push(root, transaction.get("label", "update"), transaction.get("files", []))
 
 
 def prune_backups(root):
@@ -2209,6 +2259,7 @@ def last_transaction(root):
 
 
 def undo_last_transaction(root):
+    require_safe_write_session(root)
     tx = last_transaction(root)
     if not tx:
         raise ValueError("戻せる更新がありません。")
@@ -2245,7 +2296,7 @@ def undo_last_transaction(root):
     tx["undone_at"] = datetime.datetime.now().isoformat(timespec="seconds")
     safe_json_dump(tx, os.path.join(backup_abs, "manifest.json"))
     safe_json_dump(tx, last_transaction_path(root))
-    mark_pending_push("undo-" + str(tx.get("label") or "update"), tx.get("files", []))
+    mark_pending_push(root, "undo-" + str(tx.get("label") or "update"), tx.get("files", []))
 
 
 def validate_project(root):
@@ -2253,6 +2304,18 @@ def validate_project(root):
     if not project_looks_valid(root):
         report["errors"].append("湯間庭町のプロジェクトとして認識できません。index.html / data / works を確認してください。")
         return report
+
+    if not project_is_staging(root):
+        report["errors"].append(
+            "YumaniwaDesk は staging 専用です。フォルダ名を {0} にしてください。".format(EXPECTED_PROJECT_DIR_NAME)
+        )
+        return report
+
+    index_text = safe_read(os.path.join(root, "index.html"))
+    if 'noindex,nofollow' not in index_text.replace(" ", "").lower():
+        report["errors"].append("staging の index.html に noindex,nofollow がありません。")
+    else:
+        report["ok"].append("staging: noindex,nofollow を確認")
 
     for key, (rel, var_name, marker) in REQUIRED_DATA.items():
         path = os.path.join(root, rel)
@@ -3138,10 +3201,6 @@ class YumaniwaDesk(ui.View):
         self.name = APP_NAME
         self.background_color = COLORS["bg"]
         self.project_root = default_project_root()
-        if project_looks_valid(self.project_root):
-            settings = read_settings()
-            settings["project_root"] = self.project_root
-            save_settings(settings)
         self.current_tab = 0
         self._last_layout_width = 0
         self._initial_page_built = False
@@ -3151,7 +3210,7 @@ class YumaniwaDesk(ui.View):
         self.header.background_color = COLORS["panel"]
         self.add_subview(self.header)
 
-        self.title_label = make_label("湯間庭町 管理室", 20, COLORS["text"], lines=1)
+        self.title_label = make_label("湯間庭町 管理室 · STAGING", 20, COLORS["text"], lines=1)
         self.header.add_subview(self.title_label)
         self.status_label = make_label("", 12, COLORS["muted"], lines=1, alignment=ui.ALIGN_RIGHT)
         self.header.add_subview(self.status_label)
@@ -3184,20 +3243,19 @@ class YumaniwaDesk(ui.View):
         self._last_layout_width = width
 
     def update_status(self):
-        if project_looks_valid(self.project_root):
-            name = os.path.basename(self.project_root.rstrip("/")) or "湯間庭町"
-            info = safe_session_info()
+        if project_is_staging(self.project_root):
+            info = safe_session_info(self.project_root)
             if info.get("pending_push"):
-                self.status_label.text = "未Push確認あり"
+                self.status_label.text = "STAGING · 未Push確認あり"
                 self.status_label.text_color = COLORS["accent"]
             elif info.get("valid"):
-                self.status_label.text = "同期確認済み"
+                self.status_label.text = "STAGING · 同期確認済み"
                 self.status_label.text_color = COLORS["green"]
             else:
-                self.status_label.text = "安全ロック中"
+                self.status_label.text = "STAGING · 安全ロック中"
                 self.status_label.text_color = COLORS["red"]
         else:
-            self.status_label.text = "プロジェクト未選択"
+            self.status_label.text = "STAGING · 未接続"
             self.status_label.text_color = COLORS["red"]
 
     def clear_page(self):
@@ -3241,19 +3299,19 @@ class YumaniwaDesk(ui.View):
 
     def edit_session_ready(self):
         """編集UIを見せてよい状態か。プロジェクト接続と、この起動中の同期確認を両方要求する。"""
-        return project_looks_valid(self.project_root) and bool(safe_session_info().get("valid"))
+        return project_is_staging(self.project_root) and bool(safe_session_info(self.project_root).get("valid"))
 
     def build_edit_lock(self, b, index):
         tab_name = self.TAB_TITLES[index] if 0 <= index < len(self.TAB_TITLES) else "編集"
         b.title("安全ロック中", "{0}の入力欄は、Working Copyの同期確認が終わるまで表示しません。".format(tab_name))
 
-        if not project_looks_valid(self.project_root):
-            b.section("先にプロジェクトを接続")
-            b.label("Working Copy の yumaniwa-town 内からこのDeskを起動し、[案内]で町を再検出してください。接続できるまで編集は開始できません。", lines=0, color=COLORS["red"], size=14, gap=12)
+        if not project_is_staging(self.project_root):
+            b.section("先にstagingを接続")
+            b.label("Working Copy の yumaniwa-town-staging 内からこのDeskを起動し、[案内]で町を再検出してください。接続できるまで編集は開始できません。", lines=0, color=COLORS["red"], size=14, gap=12)
             b.button("案内へ戻る", "panel_alt", lambda sender: self.show_tab(0))
             return
 
-        info = safe_session_info()
+        info = safe_session_info(self.project_root)
         b.section("作業前の確認")
         b.label("""1. Working CopyでStatusを開く
 2. Pullを行う
@@ -3270,10 +3328,10 @@ class YumaniwaDesk(ui.View):
 
     def require_edit_session(self):
         """別室など、タブ外から編集画面を開く入口にも同じロックを適用する。"""
-        if not project_looks_valid(self.project_root):
+        if not project_is_staging(self.project_root):
             self.require_project()
             return False
-        if safe_session_info().get("valid"):
+        if safe_session_info(self.project_root).get("valid"):
             return True
         alert(
             "安全ロック中です",
@@ -3282,9 +3340,12 @@ class YumaniwaDesk(ui.View):
         return False
 
     def require_project(self):
-        if project_looks_valid(self.project_root):
+        if project_is_staging(self.project_root):
             return True
-        alert("プロジェクトが未選択です", "Working Copy の yumaniwa-town 内(直下または tools/)にこのスクリプトを置いて起動し、[案内]の『Working Copyの町を再検出』を押してください。")
+        if project_looks_valid(self.project_root):
+            alert("本番への接続を拒否しました", "YumaniwaDesk は staging 専用です。本番 yumaniwa-town は編集できません。")
+        else:
+            alert("staging が未接続です", "Working Copy の yumaniwa-town-staging 内(直下または tools/)にこのスクリプトを置いて起動し、[案内]の『Working Copyのstagingを再検出』を押してください。")
         self.show_tab(0)
         return False
 
@@ -3295,8 +3356,8 @@ class YumaniwaDesk(ui.View):
             alert("Working Copyを開けません", str(exc))
 
     def confirm_working_copy_sync(self, sender):
-        if not project_looks_valid(self.project_root):
-            alert("プロジェクトが未選択です", "先に[案内]でWorking Copyの湯間庭町を再検出してください。")
+        if not project_is_staging(self.project_root):
+            alert("staging が未接続です", "先に[案内]で Working Copy の yumaniwa-town-staging を再検出してください。")
             self.show_tab(0)
             return
         message = (
@@ -3307,7 +3368,7 @@ class YumaniwaDesk(ui.View):
         )
         if not confirm("同期確認", message, "確認済み"):
             return
-        confirm_safe_session()
+        confirm_safe_session(self.project_root)
         hud("安全ロックを解除しました", "success")
         self.show_tab(self.current_tab)
 
@@ -3315,8 +3376,8 @@ class YumaniwaDesk(ui.View):
     # 案内
     # -----------------------------------------------------------------
     def build_home(self, b):
-        b.title("湯間庭町 管理室", "Working Copy の町を直接編集します。GitHubへの反映は Working Copy で差分確認してから行います。")
-        info = safe_session_info()
+        b.title("湯間庭町 管理室 · STAGING", "Deskはstagingだけを直接編集します。本番への反映はbranch → PR → safety checks → mergeで行います。")
+        info = safe_session_info(self.project_root)
         b.section("作業前の安全確認")
         if info.get("valid"):
             when = info.get("confirmed_at").strftime("%H:%M") if info.get("confirmed_at") else ""
@@ -3335,10 +3396,12 @@ class YumaniwaDesk(ui.View):
         root_view = make_text_view(root_text)
         root_view.editable = False
         b.add(root_view, 72, gap=10)
-        b.button("Working Copyの町を再検出", "blue", self.detect_project_from_script)
+        b.button("Working Copyのstagingを再検出", "blue", self.detect_project_from_script)
         b.button("このリポジトリを確認する", "panel_alt", self.check_current_project)
         b.section("Working Copy 運用")
-        b.label("このスクリプトを Working Copy の yumaniwa-town 内(直下または tools/)に置いて起動します。保存すると Working Copy に変更として現れます。\n\n保存後は Working Copy で差分を確認 → Commit → Push。GPTがGitHub側を更新した後は、Deskを使う前に Working Copy で Pull します。", lines=0, color=COLORS["text"], size=15, gap=14)
+        b.label("このスクリプトを Working Copy の yumaniwa-town-staging 内(直下または tools/)に置いて起動します。保存すると Working Copy に変更として現れます。\n\n保存後は Working Copy で差分を確認 → Commit → Push。GPTがGitHub側を更新した後は、Deskを使う前に Working Copy で Pull します。", lines=0, color=COLORS["text"], size=15, gap=14)
+        b.section("本番への反映")
+        b.label("YumaniwaDesk から production は編集しません。staging で検証後、必要な差分だけを production 用 branch へ移し、PR → safety checks → merge で昇格します。緊急で本番修正した場合も、修正内容は必ず staging へ戻します。", lines=0, color=COLORS["accent"], size=14, gap=14)
         b.section("安全な使い方")
         b.label("作業前にWorking CopyでPullし、日々の台帳更新は[記事][作品][履歴]を使います。町の配置変更はWebの開発モード→[書き出す]→[町]から取り込みます。保存のたびに対象ファイルをリポジトリ外へバックアップします。\n\nmain.js / engine / works/*/sketch.js は直接編集しません。設定・バックアップ・Undo情報も Git の変更には出ません。", lines=0, color=COLORS["muted"], size=15, gap=14)
         b.section("過去の記録を直すとき")
@@ -3348,20 +3411,33 @@ class YumaniwaDesk(ui.View):
         b.label(DESK_DATA_DIR + "\n\nここには設定・バックアップ・Undo情報だけを保存します。湯間庭町リポジトリには作りません。", lines=0, color=COLORS["muted"], size=13)
 
     def detect_project_from_script(self, sender):
+        global RUNTIME_SYNC_CONFIRMED, RUNTIME_SYNC_PROJECT_KEY
         root = find_project_root(APP_DIR)
         if not root:
-            alert("湯間庭町を見つけられません", "この YumaniwaDesk.py を Working Copy の yumaniwa-town 直下、またはその中の tools/ フォルダへ置いてからもう一度実行してください。\n\nファイルピッカー経由の一時ファイルには接続しません。")
+            self.project_root = ""
+            RUNTIME_SYNC_CONFIRMED = False
+            RUNTIME_SYNC_PROJECT_KEY = ""
+            alert("staging を見つけられません", "この YumaniwaDesk.py を Working Copy の yumaniwa-town-staging 直下、またはその中の tools/ フォルダへ置いてからもう一度実行してください。\n\n前回の接続先へはフォールバックしません。")
+            return
+        if not project_is_staging(root):
+            self.project_root = ""
+            RUNTIME_SYNC_CONFIRMED = False
+            RUNTIME_SYNC_PROJECT_KEY = ""
+            if project_repo_name(root) == PRODUCTION_PROJECT_DIR_NAME:
+                alert("本番への接続を拒否しました", "本番 yumaniwa-town を検出しました。YumaniwaDesk は staging 専用のため接続しません。\n\nWorking Copy の yumaniwa-town-staging から起動してください。")
+            else:
+                alert("staging ではありません", "検出したフォルダ: " + project_repo_name(root) + "\n\nYumaniwaDesk は yumaniwa-town-staging だけを編集します。")
+            self.show_tab(0)
             return
         self.project_root = root
-        settings = read_settings()
-        settings["project_root"] = root
-        save_settings(settings)
-        hud("Working Copy の湯間庭町を検出しました", "success")
+        RUNTIME_SYNC_CONFIRMED = False
+        RUNTIME_SYNC_PROJECT_KEY = ""
+        hud("Working Copy の staging を検出しました", "success")
         self.show_tab(0)
 
     def check_current_project(self, sender):
-        if not project_looks_valid(self.project_root):
-            alert("接続できていません", "Working Copy の yumaniwa-town 内からこのスクリプトを起動し、『Working Copyの町を再検出』を押してください。")
+        if not project_is_staging(self.project_root):
+            alert("接続できていません", "Working Copy の yumaniwa-town-staging 内からこのスクリプトを起動し、『Working Copyのstagingを再検出』を押してください。")
             return
         report = validate_project(self.project_root)
         title = "町の確認"
@@ -3842,7 +3918,7 @@ class YumaniwaDesk(ui.View):
     # -----------------------------------------------------------------
     def build_town(self, b):
         b.title("町の編集を取り込む", "Webの開発モードで触った差分だけを読み取り、必要な正本ファイルへ安全に反映します。")
-        info = safe_session_info()
+        info = safe_session_info(self.project_root)
         if not info.get("valid"):
             b.section("安全ロック")
             b.label("町へ反映する前に、Working CopyでPullと同期状態を確認してください。", lines=0, color=COLORS["red"], size=14, gap=8)
@@ -3980,8 +4056,8 @@ class YumaniwaDesk(ui.View):
     # -----------------------------------------------------------------
     def build_safety(self, b):
         b.title("町の状態を確認", "データの入口、重複、公開中作品のリンク先を確認します。")
-        if not project_looks_valid(self.project_root):
-            b.label("まず Working Copy の yumaniwa-town 内からこのスクリプトを起動し、[案内]で町を再検出してください。", lines=0, color=COLORS["red"], size=15, gap=14)
+        if not project_is_staging(self.project_root):
+            b.label("まず Working Copy の yumaniwa-town-staging 内からこのスクリプトを起動し、[案内]でstagingを再検出してください。", lines=0, color=COLORS["red"], size=15, gap=14)
             return
 
         report = validate_project(self.project_root)
