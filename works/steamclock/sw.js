@@ -1,7 +1,9 @@
 // SteamClock PWA service worker
 // Bump CACHE_VERSION when shipping a new release that should replace cached files.
-const CACHE_VERSION = "steamclock-v4";
+const CACHE_VERSION = "steamclock-staging-v10";
 
+// Keep installation light. Decorative images are cached by the fetch handler
+// when they are requested after the first screen has appeared.
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -12,26 +14,13 @@ const PRECACHE_URLS = [
 
   "./icons/apple-touch-icon.png",
   "./icons/icon-192.png",
-  "./icons/icon-512.png",
-  "./icons/icon-512-maskable.png",
 
-  "./assets/background.png",
+  "./assets/background.jpg",
   "./assets/dial.png",
-  "./assets/center_piece.png",
   "./assets/hour_hand.png",
   "./assets/minute_hand.png",
   "./assets/second_hand.png",
-  "./assets/nixie_tube.png",
-  "./assets/gear1.png",
-  "./assets/gear2.png",
-  "./assets/pendulum.png",
-  "./assets/barometer_dial.png",
-  "./assets/barometer_needle.png",
-  "./assets/pipe_elbow.png",
-  "./assets/pipe_straight.png",
-  "./assets/valve.png",
-  "./assets/gauge_dummy.png",
-  "./assets/spring.png"
+  "./assets/nixie_tube.png"
 ];
 
 self.addEventListener("install", (event) => {
@@ -47,7 +36,10 @@ self.addEventListener("activate", (event) => {
     caches.keys()
       .then((keys) => Promise.all(
         keys
-          .filter((key) => key !== CACHE_VERSION)
+          .filter((key) =>
+            key.startsWith("steamclock-staging-v") &&
+            key !== CACHE_VERSION
+          )
           .map((key) => caches.delete(key))
       ))
       .then(() => self.clients.claim())
@@ -62,7 +54,6 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  // Navigation uses network-first so publishing a new index.html is reflected quickly.
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
@@ -76,7 +67,6 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Static app files are cache-first; fall back to network and cache successful responses.
   event.respondWith(
     caches.match(request).then((cached) => {
       if (cached) return cached;
