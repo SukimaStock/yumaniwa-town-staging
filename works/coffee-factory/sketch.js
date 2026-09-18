@@ -782,7 +782,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     function makeBrew(){
       // The brewer works from the raised stand again. This is part of the
       // human-scale-equipment story, so do not flatten both workers to one floor.
-      const brewer=new Kobito({x:98,ground:32,direction:-1,appearance:{hatBend:1,bodyWidth:7.2,apronLength:9.2}});brewer.hideTool=true;brewer.setMotion('idle');brewer.blendDuration=.40;
+      const brewer=new Kobito({x:98,ground:32,direction:-1,appearance:{hatBend:1,bodyWidth:7.2,apronLength:9.2}});brewer.hideTool=true;brewer.setMotion('idle');brewer.blendDuration=.46;
       const watcher=new Kobito({x:24,ground:78,direction:1,appearance:{hatBend:3,bodyWidth:7,apronLength:8}});watcher.setMotion('inspect');
       const waitKettlePose={x:84.5,y:24.8,angle:0,flip:-1};
       return {
@@ -794,21 +794,39 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
         dripT:0
       };
     }
-    function beginKettleTween(v,target,duration){
-      v.kettleTween={from:{...v.kettlePose},to:{...target},elapsed:0,duration};
+    function beginKettleTween(v,target,duration,{arcY=0}={}){
+      v.kettleTween={from:{...v.kettlePose},to:{...target},elapsed:0,duration,arcY};
     }
     function stepKettleTween(v,dt,dynamicTarget){
       const tw=v.kettleTween;if(!tw)return false;
       if(dynamicTarget)tw.to={...dynamicTarget};
       tw.elapsed=Math.min(tw.duration,tw.elapsed+dt);
       const u=tw.duration>0?tw.elapsed/tw.duration:1;
-      const e=u*u*(3-2*u);
+      // Quintic smootherstep avoids the short, mechanical "Flash tween" feel.
+      const e=u*u*u*(u*(u*6-15)+10);
       const lerp=(a,b)=>a+(b-a)*e;
       v.kettlePose={
-        x:lerp(tw.from.x,tw.to.x),y:lerp(tw.from.y,tw.to.y),
-        angle:lerp(tw.from.angle,tw.to.angle),flip:lerp(tw.from.flip,tw.to.flip)
+        x:lerp(tw.from.x,tw.to.x),
+        y:lerp(tw.from.y,tw.to.y)-Math.sin(Math.PI*u)*(tw.arcY||0),
+        angle:lerp(tw.from.angle,tw.to.angle),
+        flip:lerp(tw.from.flip,tw.to.flip)
       };
       if(u>=1){v.kettleTween=null;return true;}return false;
+    }
+    function beginBrewSettle(v){
+      // Do not morph the whole brewer straight from POUR to IDLE.
+      // First finish the pour: briefly hold the body while the kettle comes upright.
+      // Then the body follows and the kettle is placed back with a shallow arc.
+      const from=v.kettlePose,rest=v.waitKettlePose;
+      const upright={
+        x:from.x+(rest.x-from.x)*.12,
+        y:from.y+(rest.y-from.y)*.08,
+        angle:from.angle*.28,
+        flip:from.flip+(rest.flip-from.flip)*.10
+      };
+      v.mode='settleUpright';
+      v.brewer.setPaused(true);
+      beginKettleTween(v,upright,.22,{arcY:.18});
     }
     function updateBrew(v,dt,sample){
       const preparing=!!state.brewStarting;
@@ -819,28 +837,62 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
       if(desired!==v.phaseTarget){
         v.phaseTarget=desired;
         if(desired==='pour'){
-          v.mode='lifting';v.brewer.setMotion('pour');
+          v.mode='lifting';
+          v.brewer.blendDuration=.46;
+          v.brewer.setMotion('pour');
           v.brewer.setAnchor(invPoint(v.brewer,v.brewerScale,64,34));
-          beginKettleTween(v,v.kettlePose,.38);
+          v.brewer.setPaused(actorPaused);
+          beginKettleTween(v,v.kettlePose,.40);
+        }else if(desired==='wait'){
+          beginBrewSettle(v);
         }else{
-          v.mode=desired==='ready'?'ready':'settling';
+          v.mode='ready';
+          v.brewer.blendDuration=.46;
           v.brewer.setMotion('idle');v.brewer.setAnchor(null);
-          beginKettleTween(v,v.waitKettlePose,desired==='ready'?.28:.42);
+          v.brewer.setPaused(actorPaused);
+          beginKettleTween(v,v.waitKettlePose,.28);
         }
       }
+
       if(pouring)v.brewer.setAnchor(invPoint(v.brewer,v.brewerScale,64,34));
-      v.brewer.setPaused(actorPaused);v.watcher.setPaused(actorPaused);
+      const holdingReturn=desired==='wait'&&v.mode==='settleUpright';
+      v.brewer.setPaused(actorPaused||holdingReturn);
+      v.watcher.setPaused(actorPaused);
+
       if(!actorPaused){
         const g=v.glance;g.elapsed+=dt;if(!g.active&&g.elapsed>=g.next){g.active=true;g.elapsed=0;g.duration=.55+Math.random()*.25;g.next=3.2+Math.random()*2.4;}let w=0;if(g.active){const u=g.elapsed/g.duration;if(u>=1){g.active=false;g.elapsed=0;}else w=Math.sin(Math.PI*u);}v.watcher.headBias=-.16*w;
-        v.brewer.update(dt);v.watcher.update(dt);
+        v.watcher.update(dt);
+
         if(pouring){
+          v.brewer.setPaused(false);
+          v.brewer.update(dt);
           const t=v.brewer.tool,c=mapPoint(v.brewer,v.brewerScale,t);
           const target={x:c.x,y:c.y,angle:t.angle,flip:v.brewer.facing};
           if(v.kettleTween){if(stepKettleTween(v,dt,target))v.mode='pour';}
           else {v.kettlePose=target;v.mode='pour';}
+        }else if(holdingReturn){
+          // A short, intentional finish to the pour. The worker does not snap back
+          // at the exact recipe boundary; the kettle first loses its pouring tilt.
+          if(stepKettleTween(v,dt,null)){
+            v.mode='settling';
+            v.brewer.blendDuration=.68;
+            v.brewer.setMotion('idle');
+            v.brewer.setAnchor(null);
+            v.brewer.setPaused(false);
+            beginKettleTween(v,v.waitKettlePose,.58,{arcY:.72});
+          }
+          v.dripT=(v.dripT+dt)%3.2;
         }else{
-          if(v.kettleTween){if(stepKettleTween(v,dt,null))v.mode=desired==='ready'?'ready':'wait';}
-          else {v.kettlePose={...v.waitKettlePose};v.mode=desired==='ready'?'ready':'wait';}
+          v.brewer.setPaused(false);
+          v.brewer.update(dt);
+          if(v.kettleTween){
+            if(stepKettleTween(v,dt,null)){
+              v.mode=desired==='ready'?'ready':'wait';
+              if(v.mode==='wait')v.brewer.blendDuration=.46;
+            }
+          }else{
+            v.kettlePose={...v.waitKettlePose};v.mode=desired==='ready'?'ready':'wait';
+          }
           if(desired==='wait')v.dripT=(v.dripT+dt)%3.2;
         }
       }
