@@ -16,7 +16,6 @@
     var FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeGM7r27mkUrUPnqAio7bW7mZpF4O1Mf5x_74xZgRwl_LEUtQ/viewform';
 
     // runtime の既定値を補いつつ、すでにマップ側にある編集済み値を優先する。
-    // これにより x/y や area、triggerArea などを毎回固定値へ戻さない。
     function mergeById(items, defaults) {
         if (!Array.isArray(items) || !defaults || !defaults.id) return;
         for (var i = 0; i < items.length; i++) {
