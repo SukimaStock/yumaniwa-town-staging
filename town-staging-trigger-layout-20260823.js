@@ -261,7 +261,8 @@
         }
     }
 
-    applyLatestTriggerLayout();
+    // Station trigger layout is now canonical in data/station-plaza.js.
+    // Recreation Road remains an intentional staging-only feature.
     applyRecreationRoad();
 
     window.YUMANIWA_STAGING_TRIGGER_LAYOUT_20260823 = {
