@@ -36,13 +36,8 @@
 
   function showerIntensity(time, city) {
     const phase = cityPhase(city);
-
-    // One broad wave takes ~14 seconds. Squaring the wave keeps the shower
-    // quiet for longer and makes the stronger burst feel comparatively brief.
     const broad = 0.5 - 0.5 * Math.cos((time / 14) * Math.PI * 2 + phase);
     const burst = Math.pow(broad, 2.15);
-
-    // A small faster wobble stops every cycle from reading like a metronome.
     const flutter = 0.88 + 0.12 * Math.sin(time * 1.37 + phase * 1.7);
     return clamp(0.10 + 0.90 * burst * flutter, 0.08, 1);
   }
@@ -71,7 +66,6 @@
       ? this.getWindState(city)
       : { hasData: false, speed: 0, screenX: 0 };
 
-    // Sparse shower rain is visibly lighter and can be pushed around more.
     const windFactor = lerp(1.28, 0.84, intensity);
     const tailStepX = wind.hasData
       ? clamp(wind.screenX * wind.speed / 18 * windFactor, -4, 4)
@@ -109,7 +103,6 @@
     },
   };
 
-  // DEV extension. On production DotWeatherDebug is absent, so this is a no-op.
   if (!UI || !root.DotWeatherDebug) return;
 
   const debug = root.DotWeatherDebug;
@@ -133,8 +126,6 @@
     debug.state.showerMode = Boolean(enabled);
 
     if (debug.state.showerMode) {
-      // Keep the rain-strength row meaningful: SHOWERS is the rhythm layered
-      // on top of the normal rain profile, not a fifth strength.
       debug.state.rainLevel = "normal";
       debug.setWeather("rain");
     }
@@ -193,15 +184,12 @@
         return;
       }
 
-      // Choosing a specific strength means "steady rain" unless SHOWERS is
-      // explicitly selected again afterwards.
       if (target.classList.contains("dw-rain-debug-chip")) {
         debug.state.showerMode = false;
         refreshButtons();
         return;
       }
 
-      // Leaving rain in the main weather row also cancels a forced shower.
       if (target.dataset.debugKey === "weather") {
         const value = target.dataset.debugValue || null;
         if (value !== "rain") {
