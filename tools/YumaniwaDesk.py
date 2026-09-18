@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.1
+Yumaniwa Desk v0.10.2
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,11 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.2:
+- 「Pull・同期状態を確認済み」後の画面再描画を Pythonista のメインUIスレッドへ戻すよう修正
+- 同期確認直後に safe_session_info を再検証し、ロック解除に失敗した場合は無反応にせず理由を表示
+- background action 内での例外を同期確認ボタン上で明示表示し、止まったように見える状態を防止
 
 v0.10.1:
 - Pythonista の Files / Working Copy 経由起動で、未接続時に os.path.abspath("") が cwd へ触れて PermissionError になる問題を修正
@@ -3413,7 +3418,7 @@ class YumaniwaDesk(ui.View):
     def confirm_working_copy_sync(self, sender):
         if not project_is_staging(self.project_root):
             alert("staging が未接続です", "先に[案内]で Working Copy の yumaniwa-town-staging を再検出してください。")
-            self.show_tab(0)
+            ui.delay(lambda: self.show_tab(0), 0.01)
             return
         message = (
             "Working CopyでPullを行い、次の2点を確認しましたか?\n\n"
@@ -3423,9 +3428,25 @@ class YumaniwaDesk(ui.View):
         )
         if not confirm("同期確認", message, "確認済み"):
             return
-        confirm_safe_session(self.project_root)
+
+        try:
+            confirm_safe_session(self.project_root)
+            info = safe_session_info(self.project_root)
+            if not info.get("valid"):
+                raise RuntimeError(
+                    "同期確認の保存後も安全ロックが解除されませんでした。"
+                    "staging の接続状態を再確認してください。"
+                )
+        except Exception as exc:
+            alert("同期確認に失敗しました", str(exc))
+            return
+
+        target_tab = self.current_tab
         hud("安全ロックを解除しました", "success")
-        self.show_tab(self.current_tab)
+
+        # button action は ui.in_background() で動くため、
+        # View の作り直しはメインUIスレッドへ戻して行う。
+        ui.delay(lambda: self.show_tab(target_tab), 0.05)
 
     # -----------------------------------------------------------------
     # 案内
