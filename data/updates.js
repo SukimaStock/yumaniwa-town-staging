@@ -6,6 +6,18 @@
 var TOWN_UPDATES = [
     // [UPDATES:ADD_NEWEST_HERE]
     {
+        date: "2026-09-18",
+        title: "レジャーセンターに『Diorama Calendar』を設置",
+        body: "季節の小さな景色を、傾けて眺めるカレンダーです。",
+        tags: ["leisure-center", "app", "open"]
+    },
+    {
+        date: "2026-09-18",
+        title: "レジャーセンターに『CoffeeFactory』を設置",
+        body: "こびと達と一緒に、一杯を淹れるコーヒー抽出タイマーです。",
+        tags: ["leisure-center", "app", "open"]
+    },
+    {
         date: "2026-09-14",
         title: "灯串横丁に『路地裏マサラ』が開店",
         body: "夜の路地を走って、冷める前にカレーを届ける店が開きました。",
