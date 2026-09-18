@@ -1,0 +1,10 @@
+{
+  "name": "Diorama Calendar",
+  "short_name": "Diorama",
+  "id": "../../?work=diorama-calendar",
+  "start_url": "../../?work=diorama-calendar",
+  "scope": "../../",
+  "display": "standalone",
+  "background_color": "#f7f5ef",
+  "theme_color": "#f7f5ef"
+}
