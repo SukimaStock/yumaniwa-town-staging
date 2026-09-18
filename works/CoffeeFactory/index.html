@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#F2E9DA">
+  <meta name="description" content="コーヒーを準備し、注ぎ、一杯を完成させる抽出タイマー。">
+  <title>CoffeeFactory — Kobito Factory Coffee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400&display=swap" rel="stylesheet">
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #F2E9DA;
+      overscroll-behavior: none;
+      touch-action: none;
+    }
+
+    #gameCanvas {
+      position: fixed;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      opacity: 1;
+      transition: opacity 120ms linear;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" role="application" aria-label="CoffeeFactory 抽出タイマー。豆量と抽出方法を選んで準備へ進んでください。"></canvas>
+  <noscript>この抽出タイマーにはJavaScriptが必要です。</noscript>
+
+  <!-- Low-level Codea-compatible canvas runtime -->
+  <script src="codea-lite.js"></script>
+
+  <!-- Reusable SukimaStock experience layer -->
+  <script src="sukimastock-engine.js"></script>
+
+  <!-- App-specific scenes and rules -->
+  <script src="sketch.js"></script>
+
+  <script>
+    CodeaLite.start("gameCanvas");
+  </script>
+</body>
+</html>
