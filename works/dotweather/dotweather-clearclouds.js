@@ -1,12 +1,9 @@
-// DotWeather — staging-only clear-sky cloud detail experiment.
+// DotWeather — clear-sky cloud detail.
 // MAINLY CLEAR keeps the broad "clear" weather state but allows just a couple
 // of quiet clouds so AMBIENT view does not become visually empty.
 
 (function (root) {
   "use strict";
-
-  const isStaging = /\/yumaniwa-town-staging(?:\/|$)/.test(root.location?.pathname || "");
-  if (!isStaging) return;
 
   const World = root.DotWeatherWorld;
   if (!World) return;
