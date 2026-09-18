@@ -98,8 +98,6 @@
     if (forced) return 1;
     if (!result.hit) return 0;
 
-    // The result is fixed for the local hour, but the image softly arrives and
-    // leaves so crossing an hour boundary never feels like a hard game-state cut.
     const fadeIn = clamp(result.minute / 6, 0, 1);
     const fadeOut = clamp((60 - result.minute) / 8, 0, 1);
     return Math.min(fadeIn, fadeOut);
@@ -149,8 +147,6 @@
     return result;
   }
 
-  // Rainbow sits behind the clouds but in front of the sky/celestial layer.
-  // Skyline and rain are drawn later, naturally hiding the low ends of the arc.
   const previousDrawClouds = World.prototype.drawClouds;
   World.prototype.drawClouds = function drawCloudsWithRainbow(style, city) {
     const forced = root.DotWeatherDebug?.state?.rainbowMode === "force";
@@ -163,7 +159,6 @@
     rainKind,
   };
 
-  // Staging DEV controls.
   const debug = root.DotWeatherDebug;
   if (!UI || !debug) return;
 
