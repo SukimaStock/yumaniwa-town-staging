@@ -6,10 +6,13 @@
 
    Events:
    - Map Open
-   - Venue Open
-   - Work Open
-   - Work Close
-   - Share
+   - Venue Open: <venue>
+   - Work Open: <work-id>
+   - Work Close: <work-id>
+   - Share: <work-id>
+
+   Starter プランでも作品別に見分けられるよう、作品ID・施設IDは
+   Custom Properties ではなくイベント名そのものへ含める。
    ========================================== */
 (function () {
     "use strict";
@@ -72,6 +75,23 @@
         return normalized;
     }
 
+    function getEventName(name, props) {
+        var eventName = String(name || "Event");
+        var normalized = props || {};
+
+        if (name === "Work Open" || name === "Work Close" || name === "Share") {
+            var workId = String(normalized.work || normalized.work_id || window.currentWorkId || "unknown");
+            return eventName + ": " + workId;
+        }
+
+        if (name === "Venue Open") {
+            var venueId = String(normalized.venue || "unknown");
+            return eventName + ": " + venueId;
+        }
+
+        return eventName;
+    }
+
     function logDebug(name, props) {
         if (!window.__YUMANIWA_ANALYTICS_DEBUG__ || !window.console) return;
         window.console.info("[Yumaniwa Analytics]", name, props || {});
@@ -79,15 +99,16 @@
 
     function track(name, props) {
         var normalized = normalizeProps(name, props);
+        var eventName = getEventName(name, normalized);
 
         if (IS_STAGING) {
-            logDebug(name, normalized);
+            logDebug(eventName, normalized);
             return false;
         }
 
         try {
             if (typeof window.plausible !== "function") return false;
-            window.plausible(name, { props: normalized });
+            window.plausible(eventName, { props: normalized });
             return true;
         } catch (error) {
             return false;
