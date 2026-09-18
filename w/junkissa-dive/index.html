@@ -28,22 +28,33 @@
   <meta name="twitter:image:alt" content="純喫茶ダイヴ">
 
   <title>純喫茶ダイヴ｜湯間庭町</title>
+  <style>
+    :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;background:#0a0a0a;color:#f4efe5;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}.card{width:min(680px,100%);padding:24px}img{display:block;width:100%;height:auto;border-radius:16px}h1{margin:22px 0 8px;font-size:clamp(28px,7vw,42px);line-height:1.2}p{margin:0;color:#c9c1b4;font-size:16px;line-height:1.8}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}a{display:inline-block;padding:13px 18px;border-radius:999px;text-decoration:none;font-weight:700}.play{background:#f0b35d;color:#25170b}.town{border:1px solid #5a554c;color:#eee7dc}.note{margin-top:18px;font-size:13px;color:#8f887e}
+  </style>
   <script>
     (function () {
       var params = new URLSearchParams(window.location.search);
+      if (params.get("open") !== "1") return;
+      params.delete("open");
       params.delete("work");
-
       var target = "../../?work=junkissa-dive";
       var preserved = params.toString();
-
       if (preserved) target += "&" + preserved;
       if (window.location.hash) target += window.location.hash;
-
       window.location.replace(target);
     })();
   </script>
 </head>
 <body>
-  <p><a href="../../?work=junkissa-dive">湯間庭町で純喫茶ダイヴを開く</a></p>
+  <main class="card">
+    <img src="../../assets/works/junkissa-dive/ogp.jpg?v=1" alt="純喫茶ダイヴのゲーム画面">
+    <h1>純喫茶ダイヴ</h1>
+    <p>深夜だけ開く純喫茶で、さくらんぼや角砂糖などのトッピングを飛ばして商品を仕上げる物理アクションゲーム。うまく乗っても、跳ね返っても、その結果ごと楽しめます。</p>
+    <div class="actions">
+      <a class="play" href="../../?work=junkissa-dive">湯間庭町で遊ぶ</a>
+      <a class="town" href="../../">湯間庭町へ</a>
+    </div>
+    <p class="note">湯間庭町にある作品のひとつです。</p>
+  </main>
 </body>
 </html>
