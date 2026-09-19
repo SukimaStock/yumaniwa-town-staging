@@ -216,6 +216,7 @@
     config: deepClone(DEFAULT_CONFIG),
     theme: deepClone(DEFAULT_THEME),
     activePointerId: null,
+    activePointerRaw: null,
     drawGuardActive: false,
   };
 
@@ -1775,6 +1776,40 @@
   const input = {
     reset() {
       state.activePointerId = null;
+      state.activePointerRaw = null;
+    },
+
+    remember(rawTouch) {
+      if (!rawTouch) return;
+      const x = Number(rawTouch.x) || 0;
+      const y = Number(rawTouch.y) || 0;
+      state.activePointerRaw = {
+        id: rawTouch.id ?? "mouse",
+        state: rawTouch.state,
+        x,
+        y,
+        prevX: Number(rawTouch.prevX ?? x),
+        prevY: Number(rawTouch.prevY ?? y),
+      };
+    },
+
+    cancelActive() {
+      if (state.activePointerId === null || !state.activePointerRaw) {
+        this.reset();
+        return null;
+      }
+
+      const last = state.activePointerRaw;
+      const cancelled = {
+        id: state.activePointerId,
+        state: root.CANCELLED,
+        x: last.x,
+        y: last.y,
+        prevX: last.x,
+        prevY: last.y,
+      };
+      this.reset();
+      return cancelled;
     },
 
     normalize(rawTouch) {
@@ -1790,17 +1825,20 @@
         if (!viewport.containsScreen(rawTouch.x, rawTouch.y)) return false;
         if (state.activePointerId !== null && state.activePointerId !== id) return false;
         state.activePointerId = id;
+        this.remember(rawTouch);
         return true;
       }
 
       if (state.activePointerId !== null && state.activePointerId !== id) return false;
-      return state.activePointerId !== null;
+      if (state.activePointerId === null) return false;
+      this.remember(rawTouch);
+      return true;
     },
 
     finish(rawTouch) {
       if (!rawTouch) return;
       if (rawTouch.state === root.ENDED || rawTouch.state === root.CANCELLED) {
-        state.activePointerId = null;
+        this.reset();
       }
     },
   };
@@ -1868,8 +1906,17 @@
     }
 
     if (typeof root.addEventListener === "function") {
-      root.addEventListener("blur", input.reset);
-      root.addEventListener("pagehide", input.reset);
+      const cancelActiveInput = () => {
+        const rawTouch = input.cancelActive();
+        if (!rawTouch) return;
+        try {
+          app.touch(input.normalize(rawTouch));
+        } catch (error) {
+          debug.capture(error, "touch-cancel");
+        }
+      };
+      root.addEventListener("blur", cancelActiveInput);
+      root.addEventListener("pagehide", cancelActiveInput);
     }
   }
 
