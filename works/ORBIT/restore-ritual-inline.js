@@ -302,6 +302,9 @@
   }
 
   function resize(){
+    const oldW=W, oldH=H, oldCX=CX, oldCY=CY;
+    const hadLayout = oldW > 0 && oldH > 0;
+
     const dpr = DPR();
     canvas.width = Math.floor(innerWidth*dpr);
     canvas.height = Math.floor(innerHeight*dpr);
@@ -311,6 +314,33 @@
     W=innerWidth; H=innerHeight;
     CX=W/2;
     CY=H/2 + (W < 520 ? 18 : 0);
+
+    if(!hadLayout || !runtime.active || !state || (oldW===W && oldH===H)) return;
+
+    // Phase 17: orientation/viewport changes must not strand ritual targets
+    // outside the new canvas. Preserve progress and remap only spatial state.
+    cancelActivePointer();
+
+    const oldSpan = Math.max(1, Math.min(oldW,oldH));
+    const newSpan = Math.max(1, Math.min(W,H));
+    const scale = newSpan / oldSpan;
+    const remapPoint = (p) => {
+      if(!p || !Number.isFinite(p.x) || !Number.isFinite(p.y)) return;
+      p.x = CX + (p.x-oldCX)*scale;
+      p.y = CY + (p.y-oldCY)*scale;
+    };
+
+    if(ritual==='memory'){
+      for(const h of state.hints || []) remapPoint(h);
+      for(const tr of state.trace || []) remapPoint(tr);
+      for(const p of state.patches || []){
+        remapPoint(p);
+        if(Number.isFinite(p.r)) p.r *= scale;
+      }
+    } else if(ritual==='resonance'){
+      for(const n of state.nodes || []) remapPoint(n);
+      remapPoint(state.dragPos);
+    }
   }
 
   function markStarted(){
@@ -428,6 +458,46 @@
     const mean=values.reduce((a,b)=>a+b,0)/values.length;
     const variance=values.reduce((a,v)=>a+(v-mean)*(v-mean),0)/values.length;
     return Math.sqrt(variance);
+  }
+
+  function cancelActivePointer(){
+    if(!state) return;
+
+    if(state.mode==='SUCCESS_WAIT' || state.mode==='RESPONSE'){
+      state.inputReleasedAfterSuccess = true;
+    }
+
+    if(ritual==='link'){
+      state.activePointer = null;
+      state.prevAng = null;
+      state.prevTime = 0;
+      state.trailLast = null;
+      state.comboHold = 0;
+      return;
+    }
+
+    if(ritual==='memory'){
+      state.activePointer = null;
+      state.lastPt = null;
+      return;
+    }
+
+    if(ritual==='resonance'){
+      state.activePointer = null;
+      state.activeFrom = null;
+      state.dragPos = null;
+      return;
+    }
+
+    if(ritual==='rebirth'){
+      state.activePointer = null;
+      state.isCharging = false;
+    }
+  }
+
+  function handleCancel(e){
+    e?.preventDefault?.();
+    cancelActivePointer();
   }
 
   function handleDown(e){
@@ -653,7 +723,10 @@
   canvas.addEventListener('pointerdown', handleDown);
   canvas.addEventListener('pointermove', handleMove);
   canvas.addEventListener('pointerup', handleUp);
-  canvas.addEventListener('pointercancel', handleUp);
+  canvas.addEventListener('pointercancel', handleCancel);
+  canvas.addEventListener('lostpointercapture', handleCancel);
+  window.addEventListener('blur', cancelActivePointer);
+  window.addEventListener('pagehide', cancelActivePointer);
 
   document.addEventListener('contextmenu', e=>e.preventDefault(), {passive:false});
   document.addEventListener('selectstart', e=>e.preventDefault(), {passive:false});
