@@ -496,11 +496,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     beans: typeof loadImage === "function" ? loadImage("./assets/beans-icon.png") : null,
     water: typeof loadImage === "function" ? loadImage("./assets/kettle-icon.png") : null,
   };
-  const SOUND_ICONS = {
-    on: typeof loadImage === "function" ? loadImage("./assets/sound-icon.png") : null,
-    off: typeof loadImage === "function" ? loadImage("./assets/sound-mute-icon.png") : null,
-  };
-
   const factoryView = (() => {
     const KM = root.KobitoMotion;
     if (!KM) return null;
@@ -1269,8 +1264,8 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
   }
   function speakerIcon(x,y,enabled=true) {
     const tone=enabled?"muted":"rule";
-    noFill(); stroke(...C[tone]); strokeWidth(1.7);
-    // left box + right cone, avoiding circular reading
+    noFill(); stroke(...C[tone]); strokeWidth(1.45);
+    // Simple line icon with no surrounding asset border.
     line(x-10,y-4,x-6,y-4);
     line(x-6,y-4,x-1,y-8);
     line(x-1,y-8,x-1,y+8);
@@ -1278,8 +1273,30 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     line(x-6,y+4,x-10,y+4);
     line(x-10,y+4,x-10,y-4);
     if(enabled){
-      line(x+4,y-4,x+7,y); line(x+7,y,x+4,y+4);
-      line(x+8,y-6.5,x+12,y); line(x+12,y,x+8,y+6.5);
+      // Smooth sound waves instead of angular line segments.
+      if(typeof withCanvasContext === "function"){
+        withCanvasContext(ctx=>{
+          ctx.save();
+          ctx.strokeStyle=`rgb(${C[tone].join(",")})`;
+          ctx.lineWidth=1.45;
+          ctx.lineCap="round";
+          ctx.fillStyle="transparent";
+
+          ctx.beginPath();
+          ctx.moveTo(x+4,y-4.2);
+          ctx.quadraticCurveTo(x+9,y,x+4,y+4.2);
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(x+7.2,y-7);
+          ctx.quadraticCurveTo(x+14,y,x+7.2,y+7);
+          ctx.stroke();
+          ctx.restore();
+        });
+      }else{
+        line(x+4,y-4,x+7,y); line(x+7,y,x+4,y+4);
+        line(x+8,y-6.5,x+12,y); line(x+12,y,x+8,y+6.5);
+      }
     }else{
       line(x+4,y-5,x+11,y+5);
       line(x+11,y-5,x+4,y+5);
@@ -1300,13 +1317,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
       bgm.setEnabled(next);
       if(next) playSE("ui_select",{force:true});
     },{textOnly:true,size:1,tone:"muted"});
-    const icon=SSE.audio.enabled?SOUND_ICONS.on:SOUND_ICONS.off;
-    if(icon){
-      const iconSize=SSE.audio.enabled?36:34;
-      drawSetupIcon(icon,316,610,iconSize,iconSize);
-    }else{
-      speakerIcon(316,610,SSE.audio.enabled);
-    }
+    speakerIcon(316,610,SSE.audio.enabled);
   }
   function syncDocumentLanguage(){
     const english=SSE.i18n.language==="en";
