@@ -849,6 +849,7 @@
         pulseTimer: 0,
         lastKind: null,
         lastAmount: 0,
+        loggedThisLanding: false,
         sparks: [],
       };
 
@@ -977,6 +978,7 @@
         schema: SAVE_TUNE.schema,
         savedAt: Date.now(),
         reason,
+        systemLog: Array.isArray(this.systemLog) ? this.systemLog.slice(-12) : [],
         resources: {
           fuel: this.resources.fuel,
           ore: this.resources.ore,
@@ -1047,6 +1049,10 @@
       const checkpointCopy = rememberCheckpoint ? this.cloneSaveData(data) : null;
 
       this.reset();
+
+      if (Array.isArray(data.systemLog) && data.systemLog.length) {
+        this.systemLog = data.systemLog.slice(-12).map((line) => String(line));
+      }
 
       const rr = data.resources || {};
       this.base.level = clamp(Math.floor(Number(data.baseLevel || 1)), 1, 5);
@@ -1520,6 +1526,7 @@
         }
       }
       this.mergeDiscoveryProgress(discovery);
+      this.pushSystemLog("EMERGENCY RETURN");
       this.saveGame("rescue-discovery");
       this.eve.lowFuelNotified = false;
 
@@ -1725,6 +1732,8 @@
       this.echoes.carriedThisTrip += 1;
       this.echoes.pulseTimer = ECHO_TUNE.pulseSec;
       this.queueEchoMemory(this.echoes.found);
+      this.pushSystemLog(`ECHO ${String(this.echoes.found).padStart(2, "0")} RECOVERED`);
+      if (this.harvest) this.harvest.loggedThisLanding = true;
       return true;
     }
 
@@ -2013,6 +2022,8 @@
       }
       this.resetAstraQuiet(true);
       if (p.kind === "base") {
+        if (this.hasDepartedBase) this.pushSystemLog("RETURNED HOME");
+        this.hasDepartedBase = false;
         this.baseRefuelTimer = 0;
         this.openHomeTerminal();
         const away = Math.max(0, this.simTime - this.tripStartTime);
@@ -2368,6 +2379,7 @@
       this.resources.ore -= cost.ore;
       this.resources.data -= cost.data;
       this.base.level = Math.min(5, this.base.level + 1);
+      this.pushSystemLog(`RESTORE LEVEL ${this.base.level}`);
       this.mode = "landed";
       this.pressing = false;
       this.departHold = 0;
@@ -2418,6 +2430,7 @@
       this.harvest.pulseTimer = 0;
       this.harvest.lastKind = null;
       this.harvest.lastAmount = 0;
+      this.harvest.loggedThisLanding = false;
     }
 
     planetInteractionTier(planet) {
@@ -2526,6 +2539,22 @@
       this.harvest.lastKind = kind;
       this.harvest.lastAmount = Math.max(1, Math.round(amount));
       this.harvest.pulseTimer = 0.72;
+
+      // SYSTEM records one quiet fact per resource stop, never every harvest tick.
+      if (
+        this.landPlanet &&
+        this.landPlanet.kind !== "base" &&
+        !this.harvest.loggedThisLanding
+      ) {
+        if (kind === "mine") {
+          this.pushSystemLog("ORE RECOVERED");
+          this.harvest.loggedThisLanding = true;
+        } else if (kind === "refuel") {
+          this.pushSystemLog("FUEL RECOVERED");
+          this.harvest.loggedThisLanding = true;
+        }
+      }
+
       if (kind === "mine") this.spawnMiningSparks();
     }
 
@@ -2690,6 +2719,7 @@
         this.closeHomeTerminal();
         // Departure is still HOME, so it is the cleanest rollback checkpoint:
         // refuel/repairs performed while docked are locked in before launch.
+        this.pushSystemLog("DEPARTED HOME");
         this.saveGame("base-departure");
         this.tripStartTime = this.simTime;
         this.hasDepartedBase = true;
@@ -3173,6 +3203,17 @@
       }
     }
 
+    pushSystemLog(message) {
+      const line = String(message || "").trim();
+      if (!line) return;
+      if (!Array.isArray(this.systemLog)) this.systemLog = [];
+      if (this.systemLog[this.systemLog.length - 1] === line) return;
+      this.systemLog.push(line);
+      if (this.systemLog.length > 12) {
+        this.systemLog.splice(0, this.systemLog.length - 12);
+      }
+    }
+
     drawSystemConsole() {
       if (this.mode === "rescue") return;
       if (this.echoStory && this.echoStory.active) return;
@@ -3244,7 +3285,7 @@
         }
         if (lineText) visual.push(lineText);
       }
-      const lines = visual.slice(0, 3);
+      const lines = visual;
       if (!lines.length) return;
 
       const dur = Math.max(0.1, this.eve.duration || this.eve.timer || 0.1);
@@ -3989,7 +4030,7 @@
       fill(120, 140, 166, 175);
       fontSize(9);
       text("touch a side to fire the thruster", W / 2, 60);
-      text("approach the planet marker to land", W / 2, 45);
+      text("approach a planet slowly to land", W / 2, 45);
       text("returning to BASE saves your orbit", W / 2, 30);
     },
 
