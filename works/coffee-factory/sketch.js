@@ -1311,6 +1311,25 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     rect(x-gap/2-w, y-h/2, w, h, 1.6);
     rect(x+gap/2, y-h/2, w, h, 1.6);
   }
+  function controlGlyphOffset(id){
+    return state.gesture?.id===id&&!state.gesture.cancelled?-1.5:0;
+  }
+  function stepperGlyph(id,kind,x,y,disabled=false){
+    const tone=disabled?"rule":"ink",dy=controlGlyphOffset(id);
+    noFill();stroke(...C[tone]);strokeWidth(1.35);
+    const arm=6.2;
+    line(x-arm,y+dy,x+arm,y+dy);
+    if(kind==="plus")line(x,y-arm+dy,x,y+arm+dy);
+    noStroke();
+  }
+  function navChevron(id,direction,x,y,disabled=false){
+    const tone=disabled?"rule":"ink",dy=controlGlyphOffset(id);
+    noFill();stroke(...C[tone]);strokeWidth(1.7);
+    const sx=direction<0?-1:1,dx=4.4,dyArm=6.1;
+    line(x-sx*dx,y+dyArm+dy,x+sx*dx,y+dy);
+    line(x+sx*dx,y+dy,x-sx*dx,y-dyArm+dy);
+    noStroke();
+  }
   function soundButton() {
     button("sound","",300,594,32,32,()=>{
       const next=!SSE.audio.enabled;
@@ -1825,10 +1844,14 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
       cupChoiceButton("cup1",1,28,240,149,38,()=>selectCupPreset(1),state.settings.cupPreset===1);
       cupChoiceButton("cup2",2,183,240,149,38,()=>selectCupPreset(2),state.settings.cupPreset===2);
 
-      button("minus","−",38,184,42,30,()=>adjustBeanGrams(-1),{disabled:state.settings.beanGrams<=5,size:23,textOnly:true,subtle:true});
+      const minusDisabled=state.settings.beanGrams<=5;
+      const plusDisabled=state.settings.beanGrams>=40;
+      button("minus","",38,184,42,30,()=>adjustBeanGrams(-1),{disabled:minusDisabled,textOnly:true,subtle:true});
+      stepperGlyph("minus","minus",59,199,minusDisabled);
       drawSetupIcon(SETUP_ICONS.beans,143,199,21,24);
       label(state.settings.beanGrams+"g",202,198,28,CENTER,"ink");
-      button("plus","+",280,184,42,30,()=>adjustBeanGrams(1),{disabled:state.settings.beanGrams>=40,size:23,textOnly:true,subtle:true});
+      button("plus","",280,184,42,30,()=>adjustBeanGrams(1),{disabled:plusDisabled,textOnly:true,subtle:true});
+      stepperGlyph("plus","plus",301,199,plusDisabled);
 
       segmented("roast",["Light","Medium","Dark"],state.settings.roast,118,selectRoast,roastLabel);
       button("prepare",tr("prepare"),28,50,304,42,confirmPlan,{primary:true,size:16});
@@ -1947,9 +1970,13 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
 
           label(pouring?(SSE.i18n.language==="jp"?s.cumulativeGrams+"gまで":"to "+s.cumulativeGrams+"g"):(SSE.i18n.language==="jp"?"ここまで "+s.cumulativeGrams+"g":s.cumulativeGrams+"g so far"),180,157,16,CENTER,"muted");
 
-          button("prev","‹",28,28,83,42,()=>movePour(-1),{disabled:s.index===0,textOnly:true,size:34});
+          const prevDisabled=s.index===0;
+          const nextDisabled=s.index===p.pours.length-1;
+          button("prev","",28,28,83,42,()=>movePour(-1),{disabled:prevDisabled,textOnly:true});
+          navChevron("prev",-1,69.5,49,prevDisabled);
           button("pause",s.paused?tr("resume"):tr("pause"),117,28,126,42,pauseResume,{size:15});
-          button("next","›",249,28,83,42,()=>movePour(1),{disabled:s.index===p.pours.length-1,textOnly:true,size:34});
+          button("next","",249,28,83,42,()=>movePour(1),{disabled:nextDisabled,textOnly:true});
+          navChevron("next",1,290.5,49,nextDisabled);
         });
       }
       languageFadeOverlay();
