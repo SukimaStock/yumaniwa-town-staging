@@ -608,10 +608,12 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
       ctx.save();ctx.translate(x,y);ctx.scale(scale,scale);
       ctx.strokeStyle=INK;ctx.lineWidth=TOOL_OUTLINE;
       // Rear handle first so it sits behind the cup body.
+      // Keep the handle's visual weight slightly above center so it reads
+      // naturally on the upright mug rather than feeling vertically flipped.
       ctx.beginPath();
-      ctx.moveTo(12.0,-4.6);
-      ctx.bezierCurveTo(18.0,-5.2,18.8,-1.1,18.1,2.8);
-      ctx.bezierCurveTo(17.2,7.0,14.6,8.5,10.8,7.1);
+      ctx.moveTo(11.9,-5.9);
+      ctx.bezierCurveTo(18.5,-6.4,20.0,-2.9,19.5,0.5);
+      ctx.bezierCurveTo(19.0,4.0,16.6,5.8,11.2,4.8);
       ctx.stroke();
       ctx.fillStyle=fill;
       cupPath(ctx);ctx.fill();ctx.stroke();
