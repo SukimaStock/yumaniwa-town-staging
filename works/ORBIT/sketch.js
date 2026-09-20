@@ -551,6 +551,20 @@
     return s;
   }
 
+  // Position-only hash for the Web starfield. The old sequential LCG made
+  // neighboring samples visibly correlate into columns on the 360px canvas.
+  // X and Y now use separate avalanche hashes; all visual properties below
+  // keep their original LCG sequence unchanged.
+  function starPosition01(seed, salt) {
+    let x = (seed ^ salt) >>> 0;
+    x ^= x >>> 16;
+    x = Math.imul(x, 0x7feb352d) >>> 0;
+    x ^= x >>> 15;
+    x = Math.imul(x, 0x846ca68b) >>> 0;
+    x ^= x >>> 16;
+    return (x >>> 0) / 4294967296;
+  }
+
   class Starfield {
     constructor() {
       this.sectorSize = SOURCE_LOCK.starSectorSize;
@@ -567,13 +581,19 @@
       const out = [];
       for (let i = 1; i <= this.starsPerSector; i += 1) {
         let s = seedMix(this.seed, sx, sy, i);
-        let rx, ry, rc, ra, rs;
-        [s, rx] = lcg(s);
-        [s, ry] = lcg(s);
+
+        // Keep advancing the original LCG exactly as before so color, alpha
+        // and size remain unchanged. Only position comes from independent
+        // X/Y hashes to remove the visible column pattern.
+        let legacyRx, legacyRy, rc, ra, rs;
+        [s, legacyRx] = lcg(s);
+        [s, legacyRy] = lcg(s);
         [s, rc] = lcg(s);
         [s, ra] = lcg(s);
         [s, rs] = lcg(s);
 
+        const rx = starPosition01(seedMix(this.seed, sx, sy, i), 0xA341316C);
+        const ry = starPosition01(seedMix(this.seed, sx, sy, i), 0xC8013EA4);
         const x = sx * S + rx * S;
         const y = sy * S + ry * S;
 
