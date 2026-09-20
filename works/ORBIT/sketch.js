@@ -803,6 +803,9 @@
         mode: "browse",     // browse | confirm
         pressed: null,
         status: "OFFLINE",
+        // Shown only immediately after RESTORE. Closing the terminal consumes
+        // the report; the next HOME return opens the ordinary operations view.
+        restoreReportLevel: 0,
       };
 
       // v2.7.8: SYSTEM status and E.V.E.'s actual voice are separate layers.
@@ -2145,12 +2148,19 @@
     openHomeTerminal() {
       if (!this.landPlanet || this.landPlanet.kind !== "base") return false;
       if (!this.homeTerminal) {
-        this.homeTerminal = { visible: false, mode: "browse", pressed: null, status: "OFFLINE" };
+        this.homeTerminal = {
+          visible: false,
+          mode: "browse",
+          pressed: null,
+          status: "OFFLINE",
+          restoreReportLevel: 0,
+        };
       }
       this.homeTerminal.visible = true;
       this.homeTerminal.mode = "browse";
       this.homeTerminal.pressed = null;
       this.homeTerminal.status = "CONNECTED";
+      this.homeTerminal.restoreReportLevel = 0;
       this.pressing = false;
       this.departHold = 0;
       this.repairTapArmed = false;
@@ -2163,6 +2173,7 @@
       this.homeTerminal.mode = "browse";
       this.homeTerminal.pressed = null;
       this.homeTerminal.status = "DISCONNECTED";
+      this.homeTerminal.restoreReportLevel = 0;
       this.pressing = false;
       this.departHold = 0;
     }
@@ -2206,7 +2217,11 @@
       }
 
       if (this.pointInRect(x, y, L.close)) return "close";
-      if (this.pointInRect(x, y, L.restore) && this.canBaseRepair()) return "restore";
+      if (
+        !(this.homeTerminal.restoreReportLevel >= 2) &&
+        this.pointInRect(x, y, L.restore) &&
+        this.canBaseRepair()
+      ) return "restore";
       return null;
     }
 
@@ -2292,6 +2307,60 @@
       text(label, r.x + r.w / 2, r.y + r.h / 2 + 0.5);
     }
 
+    restoreReportLines(level) {
+      const lv = clamp(Math.floor(Number(level || 0)), 2, 5);
+      const prev = PROGRESSION_TUNE.levels[lv - 1] || PROGRESSION_TUNE.levels[1];
+      const curr = PROGRESSION_TUNE.levels[lv] || PROGRESSION_TUNE.levels[1];
+      const prevRange = MINIMAP_RESTORE_TUNE.rangeMul[lv - 1] || 1;
+      const currRange = MINIMAP_RESTORE_TUNE.rangeMul[lv] || 1;
+      const prevStep = MINIMAP_RESTORE_TUNE.directionStepDeg[lv - 1];
+      const currStep = MINIMAP_RESTORE_TUNE.directionStepDeg[lv];
+      const deg = (value) => value > 0 ? `${value} DEG` : "PRECISE";
+
+      const rows = [
+        "RESTORE COMPLETE",
+        `BASE CORE      : LEVEL ${lv}`,
+        `SHIP FRAME     : ${lv >= 5 ? "FULLY RESTORED" : "UPDATED"}`,
+        `E.V.E. LANGUAGE: ${lv >= 5 ? "COMPLETE" : "UPDATED"}`,
+        `FUEL CAPACITY  : ${prev.fuelMax} > ${curr.fuelMax}`,
+      ];
+
+      if (curr.oreMax !== prev.oreMax) {
+        rows.push(`ORE CAPACITY   : ${prev.oreMax} > ${curr.oreMax}`);
+      }
+
+      rows.push(
+        `NAV RANGE      : ${prevRange.toFixed(2)} > ${currRange.toFixed(2)}`,
+        `HOME FIX       : ${deg(prevStep)} > ${deg(currStep)}`,
+        `ACCESS BAND    : LEVEL ${lv} ONLINE`
+      );
+      return rows;
+    }
+
+    drawRestoreReport(sx, sy, sw, sh, level) {
+      const rows = this.restoreReportLines(level);
+      const top = sy + sh - 15;
+      const bottom = sy + 9;
+      const usable = Math.max(1, top - bottom);
+      const lineH = Math.min(13.2, usable / Math.max(1, rows.length - 1));
+
+      font("monospace");
+      textAlign(LEFT);
+      noStroke();
+
+      for (let i = 0; i < rows.length; i += 1) {
+        const y = top - i * lineH;
+        if (i === 0) {
+          fill(0, 0, 128, 255);
+          fontSize(9.8);
+        } else {
+          fill(0, 0, 0, 255);
+          fontSize(8.6);
+        }
+        text(rows[i], sx + 10, y);
+      }
+    }
+
     drawHomeTerminal() {
       if (!this.homeTerminal || !this.homeTerminal.visible) return;
       if (!this.landPlanet || this.landPlanet.kind !== "base") return;
@@ -2345,37 +2414,44 @@
       line(sx, sy, sx + sw, sy);
       line(sx + sw, sy, sx + sw, sy + sh);
 
-      font("monospace");
-      textAlign(LEFT);
-      noStroke();
-      fill(0, 0, 0, 255);
-      fontSize(9.8);
-
-      const line1 = sy + sh - 17;
-      text("SYSTEM LINK   : ONLINE", sx + 10, line1);
-      text(`RESTORE       : ${level}/5`, sx + 10, line1 - 18);
-      text(`ECHO ARCHIVE  : ${echoFound}/${echoTotal}`, sx + 10, line1 - 36);
-
-      if (cost) {
-        const oreOk = this.resources.ore >= cost.ore;
-        const dataOk = this.resources.data >= cost.data;
-        fill(oreOk ? 0 : 145, 0, 0, 255);
-        text(`ORE           : ${Math.floor(this.resources.ore)}/${cost.ore}`, sx + 10, line1 - 58);
-        fill(dataOk ? 0 : 145, 0, 0, 255);
-        text(`DATA          : ${Math.floor(this.resources.data)}/${cost.data}`, sx + 10, line1 - 76);
-        fill(0, 0, 0, 255);
-        text(`STATUS        : ${ready ? "RESTORE READY" : "WAITING FOR RESOURCES"}`, sx + 10, line1 - 98);
+      const reportLevel = Math.floor(Number(this.homeTerminal.restoreReportLevel || 0));
+      if (reportLevel >= 2) {
+        this.drawRestoreReport(sx, sy, sw, sh, reportLevel);
       } else {
-        text(`ORE           : ${Math.floor(this.resources.ore)}/${this.resources.oreMax}`, sx + 10, line1 - 58);
-        text(`DATA          : ${Math.floor(this.resources.data)}/${this.resources.dataMax}`, sx + 10, line1 - 76);
-        text("STATUS        : RESTORE COMPLETE", sx + 10, line1 - 98);
+        font("monospace");
+        textAlign(LEFT);
+        noStroke();
+        fill(0, 0, 0, 255);
+        fontSize(9.8);
+
+        const line1 = sy + sh - 17;
+        text("SYSTEM LINK   : ONLINE", sx + 10, line1);
+        text(`RESTORE       : ${level}/5`, sx + 10, line1 - 18);
+        text(`ECHO ARCHIVE  : ${echoFound}/${echoTotal}`, sx + 10, line1 - 36);
+
+        if (cost) {
+          const oreOk = this.resources.ore >= cost.ore;
+          const dataOk = this.resources.data >= cost.data;
+          fill(oreOk ? 0 : 145, 0, 0, 255);
+          text(`ORE           : ${Math.floor(this.resources.ore)}/${cost.ore}`, sx + 10, line1 - 58);
+          fill(dataOk ? 0 : 145, 0, 0, 255);
+          text(`DATA          : ${Math.floor(this.resources.data)}/${cost.data}`, sx + 10, line1 - 76);
+          fill(0, 0, 0, 255);
+          text(`STATUS        : ${ready ? "RESTORE READY" : "WAITING FOR RESOURCES"}`, sx + 10, line1 - 98);
+        } else {
+          text(`ORE           : ${Math.floor(this.resources.ore)}/${this.resources.oreMax}`, sx + 10, line1 - 58);
+          text(`DATA          : ${Math.floor(this.resources.data)}/${this.resources.dataMax}`, sx + 10, line1 - 76);
+          text("STATUS        : RESTORE COMPLETE", sx + 10, line1 - 98);
+        }
       }
 
-      const restoreLabel = cost ? (ready ? "RESTORE SYSTEM" : "RESTORE LOCKED") : "RESTORE COMPLETE";
+      const restoreLabel = reportLevel >= 2
+        ? "RESTORE COMPLETE"
+        : (cost ? (ready ? "RESTORE SYSTEM" : "RESTORE LOCKED") : "RESTORE COMPLETE");
       this.drawHomeTerminalButton(
         L.restore,
         restoreLabel,
-        !!(cost && ready),
+        reportLevel >= 2 ? false : !!(cost && ready),
         this.homeTerminal.pressed === "restore"
       );
 
@@ -2478,6 +2554,7 @@
       this.repairInputLock = 0;
       this.applyRestoreCaps(this.base.level, true);
       this.openHomeTerminal();
+      this.homeTerminal.restoreReportLevel = this.base.level;
       this.base.repairPulse = REPAIR_TUNE.pulseSec;
       if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
       if (this.minimap) this.minimap.pulseTimer = 1.2;
