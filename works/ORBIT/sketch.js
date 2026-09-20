@@ -3967,7 +3967,7 @@
       textAlign(LEFT);
       text(tx("home.labels.ore"), resourceX, firstResourceY);
       text(tx("home.labels.data"), resourceX, firstResourceY - resourceRowH);
-      text("ECHO", resourceX, firstResourceY - resourceRowH * 2);
+      text(tx("hud.echoLabel"), resourceX, firstResourceY - resourceRowH * 2);
 
       fill(225, 235, 244, 215);
       textAlign(RIGHT);

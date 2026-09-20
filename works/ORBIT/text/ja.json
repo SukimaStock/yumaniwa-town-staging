@@ -19,7 +19,8 @@
     "echo": "ECHO {found}/{total}",
     "fuelPickup": "+{amount} FUEL",
     "memoryFragment": "MEMORY FRAGMENT",
-    "eveLabel": "E.V.E."
+    "eveLabel": "E.V.E.",
+    "echoLabel": "ECHO"
   },
   "system": {
     "boot": "SYSTEM BOOT",
