@@ -451,6 +451,36 @@
     ]),
   });
 
+  // Original StoryManager resource-landing lines. These fire when
+  // landing is completed on a resource planet, not when harvesting begins.
+  const EVE_LANDING_LINES = Object.freeze({
+    1: Object.freeze({
+      mine: Object.freeze(["...MINE... PLANET...", "...RESOURCE... DETECTED..."]),
+      data: Object.freeze(["...DATA... PLANET...", "...SIGNAL... DETECTED..."]),
+      refuel: Object.freeze(["...FUEL... PLANET...", "...SAFE... REFUEL..."]),
+    }),
+    2: Object.freeze({
+      mine: Object.freeze(["Mine planet. Resources likely.", "High density minerals detected."]),
+      data: Object.freeze(["Data signals strong. Be careful.", "Unstable readings from this planet."]),
+      refuel: Object.freeze(["Fuel source confirmed. Safe to land.", "Refueling planet. Stable."]),
+    }),
+    3: Object.freeze({
+      mine: Object.freeze(["コウブツ ワクセイ。シゲン カクホ カノウ。", "コウミツド ノ ミネラル ヲ ケンチ。"]),
+      data: Object.freeze(["データ シンゴウ キョウ。フアンテイ。キヲツケテ。", "コノ ワクセイ ノ データ... キョウミ フカイ。"]),
+      refuel: Object.freeze(["ネンリョウ ゲン カクニン。アンゼン ランド... OK。"]),
+    }),
+    4: Object.freeze({
+      mine: Object.freeze(["ここ、たくさん とれそう。", "きらきら した もの が いっぱい。"]),
+      data: Object.freeze(["ふしぎな かんじ が する...。", "なんだか... さむい ばしょ。"]),
+      refuel: Object.freeze(["ふう。あんぜん な ばしょ だね。", "ここで すこし、ゆっくり できる。"]),
+    }),
+    5: Object.freeze({
+      mine: Object.freeze(["この惑星は資源の宝庫ですね。", "高純度の鉱脈を感知しました。採掘を開始します。"]),
+      data: Object.freeze(["この惑星...古いデータが眠っている気がします。", "解析を開始。ノイズが...多いですね。"]),
+      refuel: Object.freeze(["安全な燃料惑星です。補給はスムーズでしょう。", "エネルギー反応、安定。補給します。"]),
+    }),
+  });
+
   // Echo text has two separate jobs. The recovered memory itself is fixed
   // above; only E.V.E.'s *present-day reaction* changes with BASE restoration.
   // Five emotional bands keep the dialogue sparse instead of writing 60 bespoke
@@ -870,6 +900,8 @@
         lowFuelNotified: false,
         idleTimer: 45 + Math.random() * 45,
         idleLastIndex: -1,
+        landingQueues: {},
+        landingLastAt: {},
         // Persistent until the next HOME departure; consumed exactly once.
         restoreDepartureLevel: 0,
         // Volatile handoff from launch start to the flight transition.
@@ -1833,6 +1865,43 @@
       this.eve.idleTimer = 45 + Math.random() * 45;
     }
 
+    eveLandingLines(kind) {
+      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      const phase = EVE_LANDING_LINES[level] || EVE_LANDING_LINES[1];
+      return phase[kind] || null;
+    }
+
+    pickEveLandingLine(kind) {
+      if (!this.eve) return "";
+      const lines = this.eveLandingLines(kind);
+      if (!lines || !lines.length) return "";
+
+      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      const eventId = `land_${kind}`;
+      const lastAt = Number(this.eve.landingLastAt[eventId] ?? -Infinity);
+      if (this.simTime - lastAt < 4.0) return "";
+
+      const key = `${level}:${eventId}`;
+      let queue = this.eve.landingQueues[key];
+      if (!Array.isArray(queue) || queue.length === 0) {
+        queue = Array.from({ length: lines.length }, (_, i) => i);
+        for (let i = queue.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [queue[i], queue[j]] = [queue[j], queue[i]];
+        }
+        this.eve.landingQueues[key] = queue;
+      }
+
+      const index = queue.shift();
+      this.eve.landingLastAt[eventId] = this.simTime;
+      return lines[index] || "";
+    }
+
+    sayEveLanding(kind) {
+      const line = this.pickEveLandingLine(kind);
+      if (line) this.sayEve(line, 2.5);
+    }
+
     echoBand(index) {
       if (index <= 3) return 0;
       if (index <= 6) return 1;
@@ -2218,6 +2287,11 @@
         return;
       }
       this.resetAstraQuiet(true);
+
+      if (p.kind === "mine" || p.kind === "data" || p.kind === "refuel") {
+        this.sayEveLanding(p.kind);
+      }
+
       if (p.kind === "base") {
         if (this.hasDepartedBase) this.pushSystemLog("RETURNED HOME");
         this.hasDepartedBase = false;
