@@ -1,8 +1,8 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 1,
-    "note": "ORBIT Web runtime text. Current Japanese build preserved verbatim before editorial review."
+    "version": 2,
+    "note": "ORBIT Web Japanese runtime text. Editorial pass aligned E.V.E. dialogue with the current Web systems and five-stage language recovery."
   },
   "meta": {
     "documentTitle": "ORBIT — Silent Reboot / Web v2.7.7"
@@ -103,10 +103,10 @@
         "lowFuel": "えねるぎー が たりない。\nいったん もどろう。"
       },
       "5": {
-        "short": "ドッキング完了。船体の損傷はありません。",
-        "normal": "お帰りなさい。各系統正常。\nあなたは安全です。",
-        "long": "お帰りなさい。\n少し...心配していました。",
-        "lowFuel": "燃料残量が少ないです。帰投を推奨。"
+        "short": "ドッキング完了。機体各部、正常です。",
+        "normal": "お帰りなさい。各系統、正常です。\n……ここなら安心です。",
+        "long": "お帰りなさい。\n……少し、心配していました。",
+        "lowFuel": "燃料が少なくなっています。\n無理せず、いったん戻りましょう。"
       }
     },
     "idle": {
@@ -128,12 +128,12 @@
       "4": [
         "きょう は いい てんき...? ううん、ずっと よる...。",
         "あの ほし、きれい。",
-        "エラー 404: ジョーク ガ ミツカリマセン。"
+        "えらー 404: じょうだん が みつかりません。"
       ],
       "5": [
-        "次のパッチ...いえ、何でもありません。",
+        "……あの星、前にも見た気がします。",
         "この宇宙は...静かですね。",
-        "冗談を検索します。...『宇宙飛行士の好きな飲み物は?』 ...『コウシー』 ...理解不能です。"
+        "冗談を検索しました。……『コウシー』。これは、笑うところですか？"
       ]
     },
     "landing": {
@@ -154,28 +154,28 @@
       "2": {
         "mine": [
           "Mine planet. Resources likely.",
-          "High density minerals detected."
+          "Mineral signals detected."
         ],
         "data": [
-          "Data signals strong. Be careful.",
-          "Unstable readings from this planet."
+          "Data signals detected.",
+          "Readings are noisy."
         ],
         "refuel": [
-          "Fuel source confirmed. Safe to land.",
+          "Fuel source confirmed. Landing stable.",
           "Refueling planet. Stable."
         ]
       },
       "3": {
         "mine": [
           "コウブツ ワクセイ。シゲン カクホ カノウ。",
-          "コウミツド ノ ミネラル ヲ ケンチ。"
+          "コウブツ ハンノウ ヲ ケンチ。"
         ],
         "data": [
-          "データ シンゴウ キョウ。フアンテイ。キヲツケテ。",
+          "データ シンゴウ ケンチ。ノイズ アリ。",
           "コノ ワクセイ ノ データ... キョウミ フカイ。"
         ],
         "refuel": [
-          "ネンリョウ ゲン カクニン。アンゼン ランド... OK。"
+          "ネンリョウ ゲン カクニン。チャクリク... アンテイ。"
         ]
       },
       "4": {
@@ -195,11 +195,11 @@
       "5": {
         "mine": [
           "この惑星は資源の宝庫ですね。",
-          "高純度の鉱脈を感知しました。採掘を開始します。"
+          "鉱物反応を確認しました。採掘できます。"
         ],
         "data": [
           "この惑星...古いデータが眠っている気がします。",
-          "解析を開始。ノイズが...多いですね。"
+          "データ反応を確認。少し、ノイズがあります。"
         ],
         "refuel": [
           "安全な燃料惑星です。補給はスムーズでしょう。",
@@ -210,23 +210,23 @@
     "collision": {
       "1": [
         "...WARNING... IMPACT.",
-        "...HULL... DAMAGE..."
+        "...COLLISION... DETECTED..."
       ],
       "2": [
-        "Impact! Check systems.",
-        "Hull integrity dropping."
+        "Impact detected.",
+        "Pilot... are you okay?"
       ],
       "3": [
-        "ショウゲキ! センタイ チェック...",
-        "ガイカク オンド... ジョウショウ。"
+        "ショウゲキ ケンチ。",
+        "パイロット... ダイジョウブ デスカ。"
       ],
       "4": [
         "きゃっ!... いま、ぶつかった?",
-        "だいじょうぶ? いたい..."
+        "だいじょうぶ? びっくりした..."
       ],
       "5": [
-        "衝撃! Pilot、大丈夫ですか!",
-        "機体に被弾! シールドチェック...問題なし。"
+        "衝撃を検知。……大丈夫ですか？",
+        "今のは少し強かったですね。"
       ]
     },
     "echoAnalysis": {
@@ -240,35 +240,35 @@
       "1": [
         "...KNOWN...?",
         "...WARM... DATA...?",
-        "...I... WAITED...?",
+        "...YOU... FAMILIAR...?",
         "...YOU... TRUST... ME...?",
         "...ALL... CONNECT..."
       ],
       "2": [
         "This data... feels familiar.",
         "I think... this was ours.",
-        "I remember... waiting for you.",
+        "I remember... more about you.",
         "You trusted me... with something.",
-        "All Echoes... connect. But... I cannot read it yet."
+        "All Echoes... connected.\nBut... not here."
       ],
       "3": [
         "コノ キオク... シッテイル...?",
         "コレハ... ワタシタチ ノ キオク...?",
-        "ワタシ... アナタヲ マッテイタ。",
+        "アナタ ノ コト... モット オモイダシテイル。",
         "アナタハ... ワタシニ ナニカヲ アズケタ。",
-        "エコー... ゼンブ ツナガッタ。\nデモ... マダ ヨメナイ。"
+        "エコー... ゼンブ ツナガッタ。\nデモ... ココ ジャ ナイ。"
       ],
       "4": [
         "この きおく、しってる きがする。",
         "これ、わたしたちの きおくなのかな。",
-        "わたし、あなたが かえるのを まってた。",
+        "あなたの こと、すこしずつ おもいだしてる。",
         "あなたは、たいせつなものを わたしに あずけた。",
         "ぜんぶ つながった。\nでも、まだ うまく ことばに できない。"
       ],
       "5": [
         "この記憶……知っています。",
         "これは、私たちの記憶です。",
-        "私は、あなたが帰ってくるのを待っていた。",
+        "……あなたのことを、少しずつ思い出しています。",
         "あなたは、大切なものを私に預けた。",
         "全部、繋がりました。\n……でも、ここではまだ。"
       ]
@@ -278,7 +278,7 @@
       "2": "Welcome back.\nEcho archive: {a}/{b}.",
       "3": "オカエリナサイ。\nエコー シュウトク {a}/{b}。",
       "4": "おかえり。\nのこされた こえ は {a}/{b} あつまったよ。",
-      "5": "お帰りなさい。\n残響回収: {a}/{b}。"
+      "5": "お帰りなさい。\n残響は、{a}/{b}まで集まりました。"
     },
     "restoreDeparture": {
       "2": "I can see... farther now.",
