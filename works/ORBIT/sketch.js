@@ -1080,7 +1080,15 @@
       this.finale.active = false;
       this.finale.stage = "intro";
       this.finale.timer = this.finale.completed ? 3.2 : 0;
+
+      const hasCreditsSeenField = Object.prototype.hasOwnProperty.call(ff, "creditsSeen");
       this.credits.seen = !!ff.creditsSeen;
+      // Existing completed saves predate the end roll. Give them one clean
+      // farewell + credits departure instead of silently treating it as seen.
+      if (this.finale.completed && !hasCreditsSeenField && !this.credits.seen) {
+        this.finale.farewellPending = true;
+        this.finale.farewellInFlight = false;
+      }
       this.credits.active = false;
       this.credits.pending = false;
       this.credits.pendingTimer = 0;
@@ -1692,7 +1700,7 @@
     }
 
     updateCapture(dt) {
-      if (this.credits && (this.credits.active || this.credits.landingLock > 0)) {
+      if (this.credits && (this.credits.pending || this.credits.active || this.credits.landingLock > 0)) {
         this.captureReady = false;
         this.scanProgress = 0;
         this.ringStayTimer = 0;
@@ -1824,7 +1832,7 @@
       // Keep the intentionally silent beats silent.
       if (this.mode === "rescue") return;
       if (this.finale && this.finale.active) return;
-      if (this.credits && this.credits.active) return;
+      if (this.credits && (this.credits.pending || this.credits.active)) return;
       if (this.homeTerminal && this.homeTerminal.visible) return;
       if (
         this.echoStory &&
@@ -1912,7 +1920,7 @@
     }
 
     sayEveCollision() {
-      if (this.credits && this.credits.active) return;
+      if (this.credits && (this.credits.pending || this.credits.active)) return;
       const line = this.pickEveCollisionLine();
       if (line) this.sayEve(line, 2.0);
     }
@@ -3586,7 +3594,7 @@
     }
 
     drawCaptureEffects() {
-      if (this.credits && (this.credits.active || this.credits.landingLock > 0)) return;
+      if (this.credits && (this.credits.pending || this.credits.active || this.credits.landingLock > 0)) return;
       if (this.mode !== "flight" || !this.dominantPlanet || this.relandLock > 0) return;
       const p = this.dominantPlanet;
       if (!this.canLandOnPlanet(p)) return;
