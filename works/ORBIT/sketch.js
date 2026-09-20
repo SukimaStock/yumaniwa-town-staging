@@ -481,6 +481,31 @@
     }),
   });
 
+  // Original StoryManager hard-collision lines. These are tied to
+  // hard repulsion only (radial impact speed > 150), not ordinary contact.
+  const EVE_COLLISION_LINES = Object.freeze({
+    1: Object.freeze([
+      "...WARNING... IMPACT.",
+      "...HULL... DAMAGE...",
+    ]),
+    2: Object.freeze([
+      "Impact! Check systems.",
+      "Hull integrity dropping.",
+    ]),
+    3: Object.freeze([
+      "ショウゲキ! センタイ チェック...",
+      "ガイカク オンド... ジョウショウ。",
+    ]),
+    4: Object.freeze([
+      "きゃっ!... いま、ぶつかった?",
+      "だいじょうぶ? いたい...",
+    ]),
+    5: Object.freeze([
+      "衝撃! Pilot、大丈夫ですか!",
+      "機体に被弾! シールドチェック...問題なし。",
+    ]),
+  });
+
   // Echo text has two separate jobs. The recovered memory itself is fixed
   // above; only E.V.E.'s *present-day reaction* changes with BASE restoration.
   // Five emotional bands keep the dialogue sparse instead of writing 60 bespoke
@@ -902,6 +927,8 @@
         idleLastIndex: -1,
         landingQueues: {},
         landingLastAt: {},
+        collisionQueue: [],
+        collisionLastAt: -Infinity,
         // Persistent until the next HOME departure; consumed exactly once.
         restoreDepartureLevel: 0,
         // Volatile handoff from launch start to the flight transition.
@@ -1900,6 +1927,33 @@
     sayEveLanding(kind) {
       const line = this.pickEveLandingLine(kind);
       if (line) this.sayEve(line, 2.5);
+    }
+
+    pickEveCollisionLine() {
+      if (!this.eve) return "";
+      if (this.simTime - Number(this.eve.collisionLastAt ?? -Infinity) < 4.0) return "";
+
+      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      const lines = EVE_COLLISION_LINES[level] || EVE_COLLISION_LINES[1];
+      if (!lines.length) return "";
+
+      if (!Array.isArray(this.eve.collisionQueue) || this.eve.collisionQueue.length === 0) {
+        this.eve.collisionQueue = Array.from({ length: lines.length }, (_, i) => i);
+        for (let i = this.eve.collisionQueue.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [this.eve.collisionQueue[i], this.eve.collisionQueue[j]] =
+            [this.eve.collisionQueue[j], this.eve.collisionQueue[i]];
+        }
+      }
+
+      const index = this.eve.collisionQueue.shift();
+      this.eve.collisionLastAt = this.simTime;
+      return lines[index] || "";
+    }
+
+    sayEveCollision() {
+      const line = this.pickEveCollisionLine();
+      if (line) this.sayEve(line, 2.0);
     }
 
     echoBand(index) {
@@ -3258,6 +3312,7 @@
               mul(nrm, radialVel * (1 + SOURCE_LOCK.hardRepelBounce))
             );
             this.ship.pos = sub(this.ship.pos, mul(nrm, hardShellRadius - d));
+            this.sayEveCollision();
             continue;
           }
         }
