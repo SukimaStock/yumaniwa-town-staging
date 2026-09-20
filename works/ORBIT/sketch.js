@@ -3337,17 +3337,109 @@
 
       // E.V.E. is deliberately not another full UI window. A faint receiving
       // plate and one hairline distinguish a living voice from SYSTEM telemetry.
-      const maxChars = Math.max(12, Math.floor((w - 22) / 8.4));
-      const visual = [];
-      for (const raw of String(this.eve.text).split(/\n+/)) {
-        let lineText = String(raw || "").trim();
-        if (!lineText) continue;
-        while (lineText.length > maxChars) {
-          visual.push(lineText.slice(0, maxChars));
-          lineText = lineText.slice(maxChars);
+      //
+      // Wrap against the *actual rendered width*. The old implementation cut by
+      // character count, which made Japanese, Latin words and punctuation break
+      // at visibly wrong positions.
+      const bodyFontSize = 9.7;
+      const bodyFont = (typeof SSE !== "undefined" && SSE.theme)
+        ? SSE.theme.font("mono")
+        : "monospace";
+      const textMaxWidth = Math.max(40, w - 16); // 8px padding on both sides
+      const measure = (value) => {
+        const s = String(value || "");
+        if (
+          typeof SSE !== "undefined" &&
+          SSE.type &&
+          typeof SSE.type.measure === "function"
+        ) {
+          return SSE.type.measure(s, "mono", { size: bodyFontSize, font: "mono" });
         }
-        if (lineText) visual.push(lineText);
-      }
+        return Array.from(s).length * bodyFontSize * 0.62;
+      };
+
+      const visual = [];
+      const noLineStart = new Set(Array.from("、。，．！？!?：；)]｝〕〉》」』】〙〗〟’”"));
+      const noLineEnd = new Set(Array.from("([｛〔〈《「『【〘〖〝‘“"));
+
+      const pushWrapped = (source) => {
+        const raw = String(source || "").trim();
+        if (!raw) return;
+
+        // Keep Latin words together where possible, while treating Japanese
+        // characters individually so wrapping can happen naturally between them.
+        const tokens = raw.match(/[A-Za-z0-9][A-Za-z0-9._:+\-/?'’]*/g) || [];
+        const mixed = [];
+        let cursor = 0;
+        for (const token of tokens) {
+          const at = raw.indexOf(token, cursor);
+          if (at > cursor) mixed.push(...Array.from(raw.slice(cursor, at)));
+          mixed.push(token);
+          cursor = at + token.length;
+        }
+        if (cursor < raw.length) mixed.push(...Array.from(raw.slice(cursor)));
+
+        let line = "";
+        const flush = () => {
+          const out = line.trimEnd();
+          if (out) visual.push(out);
+          line = "";
+        };
+
+        for (let token of mixed) {
+          if (/^\s+$/.test(token)) {
+            if (line && !line.endsWith(" ")) token = " ";
+            else continue;
+          }
+
+          const candidate = line + token;
+          if (!line || measure(candidate) <= textMaxWidth) {
+            line = candidate;
+            continue;
+          }
+
+          // Never begin a new line with Japanese closing punctuation. Move one
+          // preceding character with it when necessary so both typography and
+          // the measured width remain valid.
+          const first = Array.from(token)[0] || "";
+          if (noLineStart.has(first) && line) {
+            const chars = Array.from(line.trimEnd());
+            const carry = chars.pop() || "";
+            const previous = chars.join("").trimEnd();
+            if (previous) visual.push(previous);
+            line = carry + token;
+            continue;
+          }
+
+          // Opening punctuation should not be stranded at the end of a line.
+          const lineChars = Array.from(line.trimEnd());
+          const last = lineChars[lineChars.length - 1] || "";
+          if (noLineEnd.has(last)) {
+            lineChars.pop();
+            const previous = lineChars.join("").trimEnd();
+            if (previous) visual.push(previous);
+            line = last;
+          } else {
+            flush();
+          }
+
+          // A single long Latin token can still exceed the panel. Split only
+          // that exceptional token by measured glyph width.
+          if (measure(line + token) > textMaxWidth && token.length > 1) {
+            for (const ch of Array.from(token)) {
+              const next = line + ch;
+              if (line && measure(next) > textMaxWidth) flush();
+              line += ch;
+            }
+          } else {
+            line += token;
+          }
+        }
+        flush();
+      };
+
+      for (const raw of String(this.eve.text).split(/\n+/)) pushWrapped(raw);
+
       const lines = visual;
       if (!lines.length) return;
 
@@ -3389,7 +3481,7 @@
       strokeWidth(0.8);
       rect(x, yy, w, h);
 
-      font("monospace");
+      font(bodyFont);
       textAlign(LEFT);
       fontSize(8.4);
       noStroke();
