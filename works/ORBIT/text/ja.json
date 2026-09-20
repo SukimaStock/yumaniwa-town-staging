@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 8,
-    "note": "ORBIT Web Japanese runtime text. ORE + DATA are practical RESTORE resources; ECHO is a permanent memory archive discovered by analyzing DATA. Finale and Ritual refined for narrative continuity aligned with self-recovery mechanics and E.V.E. language evolution."
+    "version": 9,
+    "note": "ORBIT Web Japanese runtime text. ORE + DATA are practical RESTORE resources; ECHO is a permanent memory archive discovered by analyzing DATA. Finale/Ritual continuity and a restrained post-accident reboot prologue are included."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.8"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.8.1"
   },
   "title": {
     "title": "O R B I T",
@@ -447,5 +447,12 @@
       "",
       "Thank you for drifting."
     ]
+  },
+  "prologue": {
+    "reboot": "SYSTEM REBOOT",
+    "navigation": "NAVIGATION ........ ERROR",
+    "coreLink": "CORE LINK ......... LOST",
+    "eve": "E.V.E. ............ PARTIAL",
+    "pilot": "PILOT ............. ?"
   }
 }
