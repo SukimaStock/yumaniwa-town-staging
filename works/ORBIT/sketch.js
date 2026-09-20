@@ -2421,27 +2421,49 @@
         font("monospace");
         textAlign(LEFT);
         noStroke();
-        fill(0, 0, 0, 255);
-        fontSize(9.8);
+        fontSize(8.9);
 
-        const line1 = sy + sh - 17;
-        text("SYSTEM LINK   : ONLINE", sx + 10, line1);
-        text(`RESTORE       : ${level}/5`, sx + 10, line1 - 18);
-        text(`ECHO ARCHIVE  : ${echoFound}/${echoTotal}`, sx + 10, line1 - 36);
+        // Use real columns instead of padding labels with spaces. The previous
+        // single-string layout depended on glyph spacing and looked stretched
+        // on mobile Safari.
+        const labelX = sx + 10;
+        const colonX = sx + 105;
+        const valueX = sx + 119;
+        const firstY = sy + sh - 17;
+        const rowH = 17;
+        const drawStatusRow = (row, label, value, valueColor = 0) => {
+          const y = firstY - row * rowH;
+          fill(0, 0, 0, 255);
+          text(label, labelX, y);
+          text(":", colonX, y);
+          fill(valueColor, 0, 0, 255);
+          text(String(value), valueX, y);
+        };
+
+        drawStatusRow(0, "SYSTEM LINK", "ONLINE");
+        drawStatusRow(1, "RESTORE", `${level}/5`);
+        drawStatusRow(2, "ECHO ARCHIVE", `${echoFound}/${echoTotal}`);
 
         if (cost) {
           const oreOk = this.resources.ore >= cost.ore;
           const dataOk = this.resources.data >= cost.data;
-          fill(oreOk ? 0 : 145, 0, 0, 255);
-          text(`ORE           : ${Math.floor(this.resources.ore)}/${cost.ore}`, sx + 10, line1 - 58);
-          fill(dataOk ? 0 : 145, 0, 0, 255);
-          text(`DATA          : ${Math.floor(this.resources.data)}/${cost.data}`, sx + 10, line1 - 76);
-          fill(0, 0, 0, 255);
-          text(`STATUS        : ${ready ? "RESTORE READY" : "WAITING FOR RESOURCES"}`, sx + 10, line1 - 98);
+          drawStatusRow(
+            3,
+            "ORE",
+            `${Math.floor(this.resources.ore)}/${cost.ore}`,
+            oreOk ? 0 : 145
+          );
+          drawStatusRow(
+            4,
+            "DATA",
+            `${Math.floor(this.resources.data)}/${cost.data}`,
+            dataOk ? 0 : 145
+          );
+          drawStatusRow(5, "STATUS", ready ? "RESTORE READY" : "WAITING FOR RESOURCES");
         } else {
-          text(`ORE           : ${Math.floor(this.resources.ore)}/${this.resources.oreMax}`, sx + 10, line1 - 58);
-          text(`DATA          : ${Math.floor(this.resources.data)}/${this.resources.dataMax}`, sx + 10, line1 - 76);
-          text("STATUS        : RESTORE COMPLETE", sx + 10, line1 - 98);
+          drawStatusRow(3, "ORE", `${Math.floor(this.resources.ore)}/${this.resources.oreMax}`);
+          drawStatusRow(4, "DATA", `${Math.floor(this.resources.data)}/${this.resources.dataMax}`);
+          drawStatusRow(5, "STATUS", "RESTORE COMPLETE");
         }
       }
 
@@ -2456,9 +2478,13 @@
       );
 
       fill(75, 75, 75, 255);
-      fontSize(8.3);
+      font("monospace");
+      fontSize(7.2);
       textAlign(CENTER);
-      text("X DISCONNECTS TERMINAL · HOLD 1 SEC AFTER DISCONNECT TO LAUNCH", L.x + L.w / 2, L.y + 16);
+      // Two compact lines keep the launch instruction inside the terminal on
+      // narrow phones instead of letting it run through the right frame.
+      text("X DISCONNECTS TERMINAL", L.x + L.w / 2, L.y + 20);
+      text("HOLD 1 SEC AFTER DISCONNECT TO LAUNCH", L.x + L.w / 2, L.y + 9);
 
       if (this.homeTerminal.mode === "confirm") {
         // Classic modal confirmation. It intentionally blocks all other HOME
