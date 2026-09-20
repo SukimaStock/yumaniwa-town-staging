@@ -1425,7 +1425,7 @@
       if (this.harvest && this.harvest.pulseTimer > 0) {
         this.harvest.pulseTimer = Math.max(0, this.harvest.pulseTimer - dt);
       }
-      this.updateMiningSparks(dt);
+      this.updateHarvestSparks(dt);
       if (this.base && this.base.repairPulse > 0) {
         this.base.repairPulse = Math.max(0, this.base.repairPulse - dt);
       }
@@ -2753,16 +2753,18 @@
         }
       }
 
-      if (kind === "mine") this.spawnMiningSparks();
+      if (kind === "mine" || kind === "refuel" || kind === "data") {
+        this.spawnHarvestSparks(kind);
+      }
     }
 
-    spawnMiningSparks() {
+    spawnHarvestSparks(kind = "mine") {
       if (!this.harvest) return;
       if (!Array.isArray(this.harvest.sparks)) this.harvest.sparks = [];
 
-      // Source-faithful mining FX:
-      // the original spawned 10 small particles at fxPos, which was placed
-      // 20 units outward from the landed ship. No streaks or glow tips.
+      // Source-faithful resource FX. Original FXManager uses the same
+      // 10-particle motion for fuel / ore / data; only the color changes.
+      // fxPos sits 20 units outward from the landed ship.
       const p = this.landPlanet;
       let outward = v(0, 1);
       if (p && p.pos) {
@@ -2781,6 +2783,7 @@
           vy: Math.sin(a) * speed,
           age: 0,
           life: 0.5,
+          kind,
         });
       }
 
@@ -2789,7 +2792,7 @@
       }
     }
 
-    updateMiningSparks(dt) {
+    updateHarvestSparks(dt) {
       if (!this.harvest || !Array.isArray(this.harvest.sparks)) return;
       for (let i = this.harvest.sparks.length - 1; i >= 0; i -= 1) {
         const s = this.harvest.sparks[i];
@@ -2799,14 +2802,14 @@
           continue;
         }
 
-        // Original FXManager gravity for ore/data particles.
+        // Original FXManager gravity for fuel / ore / data particles.
         s.vy -= 30 * dt;
         s.x += s.vx * dt;
         s.y += s.vy * dt;
       }
     }
 
-    drawMiningSparks() {
+    drawHarvestSparks() {
       if (!this.harvest || !Array.isArray(this.harvest.sparks)) return;
 
       noStroke();
@@ -2815,7 +2818,13 @@
         const a = 255 * (1 - q);
         const size = 6 * (1 - q);
 
-        fill(255, 200, 120, a);
+        if (s.kind === "refuel") {
+          fill(100, 220, 255, a);
+        } else if (s.kind === "data") {
+          fill(120, 255, 140, a);
+        } else {
+          fill(255, 200, 120, a);
+        }
         ellipse(s.x, s.y, size, size);
       }
     }
@@ -3102,7 +3111,7 @@
       this.drawCaptureEffects();
       this.drawTrail();
       this.drawShip();
-      this.drawMiningSparks();
+      this.drawHarvestSparks();
       popMatrix();
 
       this.drawPhaseFeedback();
