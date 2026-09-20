@@ -92,23 +92,29 @@
         return eventName;
     }
 
-    function logDebug(name, props) {
+    function logDebug(name, props, options) {
         if (!window.__YUMANIWA_ANALYTICS_DEBUG__ || !window.console) return;
-        window.console.info("[Yumaniwa Analytics]", name, props || {});
+        var interactive = !(options && options.interactive === false);
+        window.console.info("[Yumaniwa Analytics]", name, props || {}, { interactive: interactive });
     }
 
-    function track(name, props) {
+    function track(name, props, options) {
         var normalized = normalizeProps(name, props);
         var eventName = getEventName(name, normalized);
+        var eventOptions = options || {};
 
         if (IS_STAGING) {
-            logDebug(eventName, normalized);
+            logDebug(eventName, normalized, eventOptions);
             return false;
         }
 
         try {
             if (typeof window.plausible !== "function") return false;
-            window.plausible(eventName, { props: normalized });
+            var payload = { props: normalized };
+            if (eventOptions.interactive === false) {
+                payload.interactive = false;
+            }
+            window.plausible(eventName, payload);
             return true;
         } catch (error) {
             return false;
