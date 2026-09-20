@@ -3584,7 +3584,16 @@
       const sourceLines = Array.isArray(this.systemLog) && this.systemLog.length
         ? this.systemLog
         : [{ key: "boot", vars: {} }, { key: "eveOnline", vars: {} }];
-      const lines = sourceLines.slice(-3).map((entry) => this.systemLogText(entry));
+      const saving = this.savePulse > 0;
+      const lines = sourceLines
+        .slice(saving ? -2 : -3)
+        .map((entry) => ({ text: this.systemLogText(entry), transient: false }));
+
+      // SAVED is a display-only system event. It never enters systemLog, so
+      // repeated checkpoints cannot fill the voyage history with save notices.
+      if (saving) {
+        lines.push({ text: tx("hud.saved"), transient: true });
+      }
 
       font("monospace");
       textAlign(LEFT);
@@ -3593,10 +3602,13 @@
       const topY = dividerY - 15;
       for (let i = 0; i < lines.length; i += 1) {
         const age = lines.length - 1 - i;
-        const a = age === 0 ? 165 : Math.max(72, 132 - age * 24);
+        const baseAlpha = age === 0 ? 165 : Math.max(72, 132 - age * 24);
+        const saveAlpha = lines[i].transient
+          ? clamp(this.savePulse / SAVE_TUNE.pulseSec, 0, 1)
+          : 1;
         noStroke();
-        fill(190, 218, 236, a);
-        text(String(lines[i]), P.x + 9, topY - i * lineH);
+        fill(190, 218, 236, baseAlpha * saveAlpha);
+        text(String(lines[i].text), P.x + 9, topY - i * lineH);
       }
 
       // One tiny idle cursor keeps the lower instrument alive without
@@ -3736,21 +3748,24 @@
 
       const flicker = 1.0 + Math.sin((performance.now() / 1000) * 15) * 0.15;
 
+      // E.V.E.'s voice is intentionally brighter than the cockpit telemetry.
+      // A pale paper-like surface makes speech immediately readable against
+      // dark space while the blue hairline preserves the communications feel.
       noStroke();
-      fill(5, 9, 15, 54 + 24 * speechAlpha);
+      fill(240, 243, 244, 224 * speechAlpha);
       rect(P.x, P.y, P.w, P.h);
 
       noFill();
       stroke(
-        125, 190, 225,
-        (112 + 30 * speechAlpha) * flicker
+        105, 165, 205,
+        145 * speechAlpha * flicker
       );
       strokeWidth(0.8);
       rect(P.x, P.y, P.w, P.h);
 
       // A short divider makes the source-like label/message relationship
       // explicit without splitting the frame into two heavy cards.
-      stroke(105, 165, 205, 52);
+      stroke(105, 145, 170, 80 * speechAlpha);
       strokeWidth(0.7);
       line(P.x + labelCol - 8, P.y + 12, P.x + labelCol - 8, P.y + P.h - 12);
 
@@ -3760,13 +3775,13 @@
       textAlign(LEFT);
       noStroke();
       fontSize(9.0);
-      fill(145, 195, 225, 185);
+      fill(70, 112, 138, 225 * speechAlpha);
       text(tx("hud.eveLabel"), P.x + 12, firstY);
 
       if (!visual.length) return;
 
       fontSize(bodyFontSize);
-      fill(224, 236, 244, 232 * speechAlpha);
+      fill(31, 39, 46, 245 * speechAlpha);
       const lineH = 16;
       for (let i = 0; i < visual.length; i += 1) {
         const yy = firstY + slideY - i * lineH;
@@ -3946,16 +3961,6 @@
         fuelX + fuelW / 2,
         fuelY + fuelH / 2 + 0.3
       );
-
-      // SAVED remains transient, now tucked into the instrument frame rather
-      // than occupying the otherwise-empty upper field.
-      if (this.savePulse > 0) {
-        const a = clamp(this.savePulse / SAVE_TUNE.pulseSec, 0, 1);
-        fill(150, 185, 205, 125 * a);
-        fontSize(7.2);
-        textAlign(RIGHT);
-        text(tx("hud.saved"), P.x + P.w - 8, P.y + P.h - 6);
-      }
 
       // RESOURCE BALANCE
       const resourceX = P.x + 9;
