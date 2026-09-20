@@ -3919,11 +3919,24 @@
       if (!this.credits || !this.credits.active) return;
       if (!Array.isArray(CREDITS_LINES) || CREDITS_LINES.length === 0) return;
 
+      // Keep the live universe visible, but dim it like a film ending rather
+      // than placing credits on a separate screen. The centre stays clearer;
+      // top and bottom fall gradually into a little more black.
+      const bands = 28;
+      noStroke();
+      for (let i = 0; i < bands; i += 1) {
+        const t = (i + 0.5) / bands;
+        const edge = Math.abs(t - 0.5) * 2;
+        const alpha = 62 + 58 * Math.pow(edge, 1.6);
+        fill(0, 0, 0, alpha);
+        rect(0, (H * i) / bands, W, H / bands + 1);
+      }
+
       const progress = clamp(this.credits.timer / Math.max(0.001, this.credits.duration), 0, 1);
       const gap = 28;
       const span = Math.max(0, (CREDITS_LINES.length - 1) * gap);
       const baseY = -32 + progress * (H + span + 96);
-      const x = W * 0.72;
+      const x = W / 2;
 
       font("monospace");
       textAlign(CENTER);
@@ -4625,15 +4638,21 @@
       rectMode(CORNER);
     }
 
+    homeStationCenter(planet) {
+      if (!planet) return v(0, 0);
+      const planetBodyDiameter = planet.range * 0.34;
+      const offset = planetBodyDiameter + STATION_MAX_RADIUS * STATION_SCALE + 30;
+      return v(planet.pos.x, planet.pos.y + offset);
+    }
+
     drawHomeStation(planet, now) {
       const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
       const P = STATION_PRESETS[level];
       if (!P) return;
       const sc = STATION_SCALE;
-      const planetBodyDiameter = planet.range * 0.34;
-      const offset = planetBodyDiameter + STATION_MAX_RADIUS * sc + 30;
-      const sx = planet.pos.x;
-      const sy = planet.pos.y + offset;
+      const stationCenter = this.homeStationCenter(planet);
+      const sx = stationCenter.x;
+      const sy = stationCenter.y;
       const rotDeg = (this.simTime * 0.05) * 180 / Math.PI;
       const C = STATION_COLORS;
 
@@ -4785,10 +4804,17 @@
 
           if (this.base.repairPulse > 0) {
             const q = 1 - this.base.repairPulse / REPAIR_TUNE.pulseSec;
+            const eveCenter = this.homeStationCenter(p);
+            const startDiameter = 34;
             noFill();
             stroke(220, 255, 230, 150 * (1 - q));
             strokeWidth(1.4);
-            ellipse(p.pos.x, p.pos.y, baseDiameter + 24 + q * 54, baseDiameter + 24 + q * 54);
+            ellipse(
+              eveCenter.x,
+              eveCenter.y,
+              startDiameter + q * 78,
+              startDiameter + q * 78
+            );
           }
         }
       }
