@@ -250,9 +250,10 @@
     total: 12,
     pulseSec: 1.6,
     memorySec: 4.2,
-    // DATA first lands as a small HUD pickup. The memory window waits until
-    // that pickup has finished, so acquisition and reading never compete.
+    // DATA first lands as a small HUD pickup. E.V.E. then analyzes the Echo
+    // before the recovered memory is played back.
     memoryRevealDelaySec: 0.78,
+    analysisSec: 2.4,
   });
 
   // Phase 9: returning home is also persistence. Save is intentionally quiet:
@@ -423,6 +424,17 @@
   // above; only E.V.E.'s *present-day reaction* changes with BASE restoration.
   // Five emotional bands keep the dialogue sparse instead of writing 60 bespoke
   // lines that merely restate each memory.
+  // Before playback, present-day E.V.E. explicitly receives and analyzes the
+  // recovered Echo. This bridges the language gap between E.V.E.'s damaged
+  // speech and the intact Japanese stored inside the memory fragment.
+  const ECHO_ANALYSIS_LINES = Object.freeze({
+    1: "...ECHO... DETECTED.\n...ANALYZING...",
+    2: "Echo detected.\nAnalyzing memory...",
+    3: "エコー カクニン。\nキオク ヲ カイセキ...",
+    4: "エコー かくにん。\nきおくを かいせき...",
+    5: "Echoを確認。\n記憶を解析します。",
+  });
+
   const ECHO_REACTIONS = Object.freeze({
     1: Object.freeze([
       "...KNOWN...?",
@@ -814,6 +826,8 @@
         timer: 0,
         pendingIndex: 0,
         pendingTimer: 0,
+        analyzing: false,
+        analysisTimer: 0,
       };
       this.finale = {
         active: false,
@@ -1711,22 +1725,40 @@
         .replaceAll("{b}", String(this.echoes.total));
     }
 
+    echoAnalysisLine() {
+      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      return ECHO_ANALYSIS_LINES[level] || ECHO_ANALYSIS_LINES[1];
+    }
+
+    startEchoAnalysis(index) {
+      this.echoStory.pendingIndex = 0;
+      this.echoStory.pendingTimer = 0;
+      this.echoStory.index = index;
+      this.echoStory.analyzing = true;
+      this.echoStory.analysisTimer = ECHO_TUNE.analysisSec;
+      this.sayEve(this.echoAnalysisLine(), ECHO_TUNE.analysisSec);
+    }
+
     startEchoMemory(index) {
       this.echoStory.pendingIndex = 0;
       this.echoStory.pendingTimer = 0;
+      this.echoStory.analyzing = false;
+      this.echoStory.analysisTimer = 0;
       this.echoStory.active = true;
       this.echoStory.index = index;
       this.echoStory.timer = ECHO_TUNE.memorySec;
-      // Let the recovered memory have the screen to itself before the current
-      // E.V.E. reacts to it. This preserves past vs. present as separate voices.
+      // The recovered text is past data, not present-day E.V.E. speech.
+      // Clear the analysis line before playback so the two voices stay distinct.
       this.eve.timer = 0;
     }
 
     queueEchoMemory(index) {
-      // DATA itself is already committed. Only the memory presentation waits
-      // until the small [DATA icon] +1 pickup has faded away.
+      // DATA itself is already committed. After the pickup fades, present-day
+      // E.V.E. analyzes the Echo; only then is the intact memory played back.
       this.echoStory.pendingIndex = index;
       this.echoStory.pendingTimer = ECHO_TUNE.memoryRevealDelaySec;
+      this.echoStory.analyzing = false;
+      this.echoStory.analysisTimer = 0;
     }
 
     echoIdForPlanet(planet) {
@@ -1818,11 +1850,20 @@
       if (
         this.echoStory &&
         !this.echoStory.active &&
+        !this.echoStory.analyzing &&
         this.echoStory.pendingIndex > 0
       ) {
         this.echoStory.pendingTimer = Math.max(0, this.echoStory.pendingTimer - dt);
         if (this.echoStory.pendingTimer <= 0) {
           const index = this.echoStory.pendingIndex;
+          this.startEchoAnalysis(index);
+        }
+      }
+
+      if (this.echoStory && this.echoStory.analyzing) {
+        this.echoStory.analysisTimer = Math.max(0, this.echoStory.analysisTimer - dt);
+        if (this.echoStory.analysisTimer <= 0) {
+          const index = this.echoStory.index;
           this.startEchoMemory(index);
         }
       }
@@ -1846,6 +1887,10 @@
         if (previous < 0 && this.finale.timer >= 0) {
           this.eve.timer = 0;
           this.echoStory.active = false;
+          this.echoStory.analyzing = false;
+          this.echoStory.analysisTimer = 0;
+          this.echoStory.pendingIndex = 0;
+          this.echoStory.pendingTimer = 0;
         }
         if (!this.finale.pulseFired && this.finale.timer >= 10.8) {
           this.finale.pulseFired = true;
