@@ -1732,6 +1732,13 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     playSE("factory_start",{force:true});
     go("prep");
   }
+  function coffeeAnalyticsProps() {
+    return {
+      method: String(state.settings.recipeMode || "kasuya"),
+      cups: state.plan?.cupPreset || state.settings.cupPreset || 1,
+    };
+  }
+
   function startBrew() {
     // Enter Brew softly, then give the user three full seconds to move from the
     // phone to the kettle. RecipeClock stays paused until the countdown ends.
@@ -1760,6 +1767,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     state.previousSample = sample; state.lastSampleMono = now; state.suppressCue = false;
     if (sample.status === "COMPLETE" && !state.finishing) {
       state.finishing = true;
+      SSE.analytics.track("Coffee Brew Complete", coffeeAnalyticsProps());
       bgm.beginFinishBreak(audible);
       go("finish");
     }
@@ -1916,6 +1924,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
         if(state.brewCountdown<=0){
           state.brewStarting=false;
           state.brewUiFade=0;
+          SSE.analytics.track("Coffee Brew Start", coffeeAnalyticsProps());
           state.clock.resume();
           state.sample=state.clock.snapshot(); state.previousSample=state.sample;
           state.lastSampleMono=performance.now(); state.suppressCue=false;
@@ -1996,7 +2005,10 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
       const p=state.plan;
       label(p.cupPreset===2?tr("finishTwo"):tr("finishOne"),180,247,28,CENTER,"ink");
       label(tr("finishTime")+" "+clockText(p.totalDuration).replace(/^0/,""),180,211,17,CENTER,"muted");
-      button("again",tr("again"),28,84,304,42,()=>go("prep"),{primary:true,size:16});
+      button("again",tr("again"),28,84,304,42,()=>{
+        SSE.analytics.track("Coffee Again", coffeeAnalyticsProps());
+        go("prep");
+      },{primary:true,size:16});
       button("setup",tr("back"),70,30,220,34,()=>go("setup"),{textOnly:true,size:13});
       languageFadeOverlay();
     },
@@ -2015,7 +2027,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     outerBackground:"paper",sceneBackground:"paper",
     theme:{colors:{paper:C.paper},motion:{scene:SCREEN_FADE.duration}},
     i18n:{defaultLanguage:"jp",storageKey:"coffeefactory.v1.language",text:TEXT},
-    analytics:{enabled:false},
+    analytics:{enabled:true},
     audio:{
       masterVolume:.72,
       storageKey:"coffeefactory.v1.sound",
