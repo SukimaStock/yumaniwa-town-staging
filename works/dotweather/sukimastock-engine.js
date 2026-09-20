@@ -1542,6 +1542,7 @@
       if (
         root.parent &&
         root.parent !== root &&
+        root.parent.__YUMANIWA_ANALYTICS_READY__ === true &&
         typeof root.parent.trackYumaniwaEvent === "function"
       ) {
         return root.parent.trackYumaniwaEvent(name, props || {}, options || {});
