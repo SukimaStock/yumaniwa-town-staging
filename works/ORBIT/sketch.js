@@ -420,6 +420,37 @@
     }),
   });
 
+  // Original StoryManager idle_chatter, restored as sparse ambient speech.
+  // These lines are deliberately separate from mission/progression feedback:
+  // E.V.E. sometimes speaks simply because she is there.
+  const EVE_IDLE_LINES = Object.freeze({
+    1: Object.freeze([
+      "... ... ...",
+      "... ... ...",
+      "...QUERY: ...PENGUIN...?",
+    ]),
+    2: Object.freeze([
+      "Query: Why... sky... dark?",
+      "Calculating... trajectory... optimal.",
+      "Error... 418. I am... a teapot.",
+    ]),
+    3: Object.freeze([
+      "スベテノ ... システム... グリーン。",
+      "...キコエル...",
+      "ワタシ ハ... ワタシ...?",
+    ]),
+    4: Object.freeze([
+      "きょう は いい てんき...? ううん、ずっと よる...。",
+      "あの ほし、きれい。",
+      "エラー 404: ジョーク ガ ミツカリマセン。",
+    ]),
+    5: Object.freeze([
+      "次のパッチ...いえ、何でもありません。",
+      "この宇宙は...静かですね。",
+      "冗談を検索します。...『宇宙飛行士の好きな飲み物は?』 ...『コウシー』 ...理解不能です。",
+    ]),
+  });
+
   // Echo text has two separate jobs. The recovered memory itself is fixed
   // above; only E.V.E.'s *present-day reaction* changes with BASE restoration.
   // Five emotional bands keep the dialogue sparse instead of writing 60 bespoke
@@ -837,6 +868,8 @@
         timer: 0,
         duration: 0,
         lowFuelNotified: false,
+        idleTimer: 45 + Math.random() * 45,
+        idleLastIndex: -1,
         // Persistent until the next HOME departure; consumed exactly once.
         restoreDepartureLevel: 0,
         // Volatile handoff from launch start to the flight transition.
@@ -1438,6 +1471,7 @@
         }
       }
       if (this.eve && this.eve.timer > 0) this.eve.timer = Math.max(0, this.eve.timer - dt);
+      this.updateEveIdle(dt);
       if (this.relandLock > 0) this.relandLock = Math.max(0, this.relandLock - dt);
       if (this.feedback.timer > 0) {
         this.feedback.timer = Math.max(0, this.feedback.timer - dt);
@@ -1751,6 +1785,52 @@
     evePhaseLines() {
       const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
       return EVE_PHASE_LINES[level] || EVE_PHASE_LINES[1];
+    }
+
+    eveIdleLines() {
+      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      return EVE_IDLE_LINES[level] || EVE_IDLE_LINES[1];
+    }
+
+    pickEveIdleLine() {
+      const lines = this.eveIdleLines();
+      if (!lines.length) return "";
+      if (lines.length === 1) return lines[0];
+
+      let index = Math.floor(Math.random() * lines.length);
+      if (index === this.eve.idleLastIndex) {
+        index = (index + 1 + Math.floor(Math.random() * (lines.length - 1))) % lines.length;
+      }
+      this.eve.idleLastIndex = index;
+      return lines[index];
+    }
+
+    updateEveIdle(dt) {
+      if (!this.eve) return;
+
+      // Keep the intentionally silent beats silent.
+      if (this.mode === "rescue") return;
+      if (this.finale && this.finale.active) return;
+      if (this.homeTerminal && this.homeTerminal.visible) return;
+      if (
+        this.echoStory &&
+        (this.echoStory.active || this.echoStory.analyzing || this.echoStory.pendingIndex > 0)
+      ) return;
+      if (this.mode === "landed" && this.landPlanet && this.landPlanet.kind === "neutral") return;
+
+      // Match the original spirit: chatter while travelling, or while quietly
+      // sitting on an ordinary resource world. Do not interrupt another line.
+      const eligible =
+        this.mode === "flight" ||
+        (this.mode === "landed" && this.landPlanet && this.landPlanet.kind !== "base");
+      if (!eligible || this.eve.timer > 0) return;
+
+      this.eve.idleTimer -= dt;
+      if (this.eve.idleTimer > 0) return;
+
+      const line = this.pickEveIdleLine();
+      if (line) this.sayEve(line, 4.0);
+      this.eve.idleTimer = 45 + Math.random() * 45;
     }
 
     echoBand(index) {
