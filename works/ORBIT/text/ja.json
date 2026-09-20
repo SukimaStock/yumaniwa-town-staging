@@ -1,8 +1,8 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 4,
-    "note": "ORBIT Web Japanese runtime text. DATA currency removed: progression is FUEL / ORE / permanent ECHO memory milestones."
+    "version": 5,
+    "note": "ORBIT Web Japanese runtime text. ORE + DATA are practical RESTORE resources; ECHO is a permanent memory archive discovered within DATA."
   },
   "meta": {
     "documentTitle": "ORBIT — Silent Reboot / Web v2.7.7"
@@ -40,13 +40,13 @@
       "restore": "RESTORE",
       "echoArchive": "ECHO ARCHIVE",
       "ore": "ORE",
-      "status": "STATUS",
-      "echoSync": "ECHO SYNC"
+      "data": "DATA",
+      "status": "STATUS"
     },
     "values": {
       "online": "ONLINE",
       "restoreReady": "RESTORE READY",
-      "waitingResources": "WAITING FOR REQUIREMENTS",
+      "waitingResources": "WAITING FOR RESOURCES",
       "restoreComplete": "RESTORE COMPLETE"
     },
     "restoreButton": {
@@ -143,13 +143,13 @@
           "...MINE... PLANET...",
           "...RESOURCE... DETECTED..."
         ],
+        "data": [
+          "...DATA... PLANET...",
+          "...SIGNAL... DETECTED..."
+        ],
         "refuel": [
           "...FUEL... PLANET...",
           "...SAFE... REFUEL..."
-        ],
-        "echo": [
-          "...ECHO... SIGNAL...",
-          "...TRACE... DETECTED..."
         ]
       },
       "2": {
@@ -157,13 +157,13 @@
           "Mine planet. Resources likely.",
           "Mineral signals detected."
         ],
+        "data": [
+          "Data signals detected.",
+          "Readings are noisy."
+        ],
         "refuel": [
           "Fuel source confirmed. Landing stable.",
           "Refueling planet. Stable."
-        ],
-        "echo": [
-          "Echo signals detected.",
-          "Readings are noisy."
         ]
       },
       "3": {
@@ -171,12 +171,12 @@
           "コウブツ ワクセイ。シゲン カクホ カノウ。",
           "コウブツ ハンノウ ヲ ケンチ。"
         ],
+        "data": [
+          "データ シンゴウ ケンチ。ノイズ アリ。",
+          "コノ ワクセイ ノ データ...カイセキ ヲ カイシ。"
+        ],
         "refuel": [
           "ネンリョウ ゲン カクニン。チャクリク...アンテイ。"
-        ],
-        "echo": [
-          "エコー シンゴウ ケンチ。ノイズ アリ。",
-          "キオク ハンノウ...カイセキ ヲ カイシ。"
         ]
       },
       "4": {
@@ -184,13 +184,13 @@
           "ここ、しげんが たくさん とれそうです。",
           "きらきら したもの、いっぱいです。"
         ],
+        "data": [
+          "ふしぎな かんじが します……。",
+          "なんだか……すこし さむい ばしょですね。"
+        ],
         "refuel": [
           "ふう。あんぜんな ばしょ ですね。",
           "ここで すこし、きゅうけい できます。"
-        ],
-        "echo": [
-          "ふしぎな こえが します……。",
-          "なにか……おぼえている きがします。"
         ]
       },
       "5": {
@@ -198,13 +198,13 @@
           "この惑星は資源の宝庫ですね。",
           "鉱物反応を確認しました。採掘可能です。"
         ],
+        "data": [
+          "この惑星……古いデータが眠っている気がします。",
+          "データ反応を確認。微弱なノイズがあります。"
+        ],
         "refuel": [
           "安全な燃料補給地点です。安定しています。",
           "エネルギー反応、安定。補給を開始します。"
-        ],
-        "echo": [
-          "この惑星……古い記憶が眠っている気がします。",
-          "微弱なエコー反応を確認しました。"
         ]
       }
     },
