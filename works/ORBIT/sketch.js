@@ -3752,21 +3752,21 @@
       // A pale paper-like surface makes speech immediately readable against
       // dark space while the blue hairline preserves the communications feel.
       noStroke();
-      fill(240, 243, 244, 224 * speechAlpha);
+      fill(242, 244, 245, 142 * speechAlpha);
       rect(P.x, P.y, P.w, P.h);
 
       noFill();
       stroke(
         105, 165, 205,
-        145 * speechAlpha * flicker
+        88 * speechAlpha * flicker
       );
-      strokeWidth(0.8);
+      strokeWidth(0.72);
       rect(P.x, P.y, P.w, P.h);
 
       // A short divider makes the source-like label/message relationship
       // explicit without splitting the frame into two heavy cards.
-      stroke(105, 145, 170, 80 * speechAlpha);
-      strokeWidth(0.7);
+      stroke(105, 145, 170, 46 * speechAlpha);
+      strokeWidth(0.65);
       line(P.x + labelCol - 8, P.y + 12, P.x + labelCol - 8, P.y + P.h - 12);
 
       const firstY = P.y + P.h - 27;
@@ -3775,13 +3775,13 @@
       textAlign(LEFT);
       noStroke();
       fontSize(9.0);
-      fill(70, 112, 138, 225 * speechAlpha);
+      fill(72, 108, 132, 192 * speechAlpha);
       text(tx("hud.eveLabel"), P.x + 12, firstY);
 
       if (!visual.length) return;
 
       fontSize(bodyFontSize);
-      fill(31, 39, 46, 245 * speechAlpha);
+      fill(31, 39, 46, 235 * speechAlpha);
       const lineH = 16;
       for (let i = 0; i < visual.length; i += 1) {
         const yy = firstY + slideY - i * lineH;
@@ -3840,38 +3840,64 @@
 
     drawCargoIcon(kind, x, y, scale = 1, alpha = 1) {
       const a = clamp(alpha, 0, 1);
+      const s = scale;
+      const w = Math.max(0.65, 0.78 * s);
+
+      noFill();
+      strokeWidth(w);
 
       if (kind === "ore") {
-        // VOX / ORE = warm red-orange mineral cluster.
-        // Keep only a hairline under-stroke: enough separation for the glyph,
-        // but no heavy outline in the quiet cockpit HUD.
-        stroke(35, 22, 24, 180 * a);
-        strokeWidth(0.85 * scale);
-        fill(255, 90, 70, 225 * a);
-        ellipse(x - 4.0 * scale, y - 0.5 * scale, 6.5 * scale, 5.5 * scale);
-        ellipse(x + 1.0 * scale, y + 2.0 * scale, 7.0 * scale, 6.0 * scale);
-        ellipse(x + 4.2 * scale, y - 2.0 * scale, 5.5 * scale, 5.0 * scale);
+        // ORE = three irregular angular shards. No circles, no fill.
+        // It should read as matter/mineral even when the label is unfamiliar.
+        stroke(225, 112, 92, 215 * a);
+
+        line(x - 5.2*s, y + 0.5*s, x - 3.6*s, y + 4.0*s);
+        line(x - 3.6*s, y + 4.0*s, x - 0.8*s, y + 2.5*s);
+        line(x - 0.8*s, y + 2.5*s, x - 1.9*s, y - 1.5*s);
+        line(x - 1.9*s, y - 1.5*s, x - 5.2*s, y + 0.5*s);
+
+        line(x + 0.2*s, y + 3.7*s, x + 3.4*s, y + 5.0*s);
+        line(x + 3.4*s, y + 5.0*s, x + 5.2*s, y + 2.1*s);
+        line(x + 5.2*s, y + 2.1*s, x + 2.1*s, y + 0.8*s);
+        line(x + 2.1*s, y + 0.8*s, x + 0.2*s, y + 3.7*s);
+
+        line(x + 0.6*s, y - 0.8*s, x + 4.3*s, y - 1.8*s);
+        line(x + 4.3*s, y - 1.8*s, x + 3.6*s, y - 4.8*s);
+        line(x + 3.6*s, y - 4.8*s, x + 0.7*s, y - 4.0*s);
+        line(x + 0.7*s, y - 4.0*s, x + 0.6*s, y - 0.8*s);
 
       } else if (kind === "data") {
-        // SERA / DATA = yellow signal crystal.
-        noFill();
-        stroke(38, 34, 20, 220 * a);
-        strokeWidth(2.0 * scale);
-        line(x, y + 5.5 * scale, x + 5.0 * scale, y);
-        line(x + 5.0 * scale, y, x, y - 5.5 * scale);
-        line(x, y - 5.5 * scale, x - 5.0 * scale, y);
-        line(x - 5.0 * scale, y, x, y + 5.5 * scale);
+        // DATA = one precise crystal. Regular geometry contrasts with ORE.
+        stroke(224, 205, 112, 220 * a);
+        line(x, y + 5.0*s, x + 4.4*s, y);
+        line(x + 4.4*s, y, x, y - 5.0*s);
+        line(x, y - 5.0*s, x - 4.4*s, y);
+        line(x - 4.4*s, y, x, y + 5.0*s);
 
-        stroke(240, 230, 120, 235 * a);
-        strokeWidth(1.0 * scale);
-        line(x, y + 5.0 * scale, x + 4.5 * scale, y);
-        line(x + 4.5 * scale, y, x, y - 5.0 * scale);
-        line(x, y - 5.0 * scale, x - 4.5 * scale, y);
-        line(x - 4.5 * scale, y, x, y + 5.0 * scale);
+        // Tiny internal data mark; still line-only and square.
+        line(x - 1.4*s, y, x + 1.4*s, y);
+        line(x, y - 1.4*s, x, y + 1.4*s);
 
-        noStroke();
-        fill(255, 248, 180, 225 * a);
-        ellipse(x, y, 2.4 * scale, 2.4 * scale);
+      } else if (kind === "echo") {
+        // ECHO = old storage medium / memory backup. Deliberately reads as
+        // a tiny floppy rather than a modern rounded save-app icon.
+        stroke(166, 197, 218, 220 * a);
+        const l = x - 4.8*s;
+        const r = x + 4.8*s;
+        const b = y - 5.0*s;
+        const t = y + 5.0*s;
+
+        line(l, b, l, t);
+        line(l, t, r, t);
+        line(r, t, r, b);
+        line(r, b, l, b);
+
+        // shutter / label cut
+        line(x - 2.8*s, y + 2.9*s, x + 2.2*s, y + 2.9*s);
+        line(x + 2.2*s, y + 2.9*s, x + 2.2*s, y + 0.7*s);
+        line(x - 2.8*s, y - 1.4*s, x + 2.8*s, y - 1.4*s);
+        line(x - 2.8*s, y - 1.4*s, x - 2.8*s, y - 3.5*s);
+        line(x + 2.8*s, y - 1.4*s, x + 2.8*s, y - 3.5*s);
       }
     }
 
@@ -3963,27 +3989,37 @@
       );
 
       // RESOURCE BALANCE
-      const resourceX = P.x + 9;
+      // Three shared instrument glyphs make ORE / DATA / ECHO readable as
+      // matter / information / stored memory before the labels are parsed.
+      const iconX = P.x + 15;
+      const labelX = P.x + 27;
       const valueX = P.x + P.w - 9;
       const firstResourceY = fuelY - 17;
       const resourceRowH = 14;
+      const oreY = firstResourceY;
+      const dataY = firstResourceY - resourceRowH;
+      const echoY = firstResourceY - resourceRowH * 2;
+
+      this.drawCargoIcon("ore", iconX, oreY - 0.5, 0.74, 0.92);
+      this.drawCargoIcon("data", iconX, dataY - 0.5, 0.74, 0.92);
+      this.drawCargoIcon("echo", iconX, echoY - 0.5, 0.74, 0.92);
 
       noStroke();
       fill(205, 222, 235, 190);
       fontSize(8.4);
       textAlign(LEFT);
-      text(tx("home.labels.ore"), resourceX, firstResourceY);
-      text(tx("home.labels.data"), resourceX, firstResourceY - resourceRowH);
-      text(tx("hud.echoLabel"), resourceX, firstResourceY - resourceRowH * 2);
+      text(tx("home.labels.ore"), labelX, oreY);
+      text(tx("home.labels.data"), labelX, dataY);
+      text(tx("hud.echoLabel"), labelX, echoY);
 
       fill(225, 235, 244, 215);
       textAlign(RIGHT);
-      text(`${Math.floor(r.ore)}/${r.oreMax}`, valueX, firstResourceY);
-      text(`${Math.floor(r.data)}/${r.dataMax}`, valueX, firstResourceY - resourceRowH);
+      text(`${Math.floor(r.ore)}/${r.oreMax}`, valueX, oreY);
+      text(`${Math.floor(r.data)}/${r.dataMax}`, valueX, dataY);
       text(
         `${this.echoes ? this.echoes.found : 0}/${this.echoes ? this.echoes.total : ECHO_TUNE.total}`,
         valueX,
-        firstResourceY - resourceRowH * 2
+        echoY
       );
 
       // Hairline division only. SYSTEM LOG is drawn by drawSystemConsole()
