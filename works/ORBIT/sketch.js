@@ -2090,7 +2090,7 @@
         if (!this.finale || !this.finale.active) return;
         this.finale.stage = "outro";
         this.finale.timer = 0;
-        this.finale.speechStage = 5;
+        this.finale.speechStage = 7;
         this.sayEve(tx("finale.outro"), 3.05);
         this.base.repairPulse = Math.max(this.base.repairPulse || 0, 2.2);
         if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
@@ -2189,31 +2189,34 @@
         }
 
         if (this.finale.speechStage < 3 && this.finale.timer >= 6.2) {
-          this.sayEve(
-            [
-              tx("finale.accident1"),
-              tx("finale.accident2"),
-              tx("finale.accident3"),
-            ].join("\n"),
-            4.25
-          );
+          this.sayEve(tx("finale.accident1"), 3.2);
           this.finale.speechStage = 3;
         }
 
-        if (!this.finale.pulseFired && this.finale.timer >= 10.8) {
+        if (this.finale.speechStage < 4 && this.finale.timer >= 9.7) {
+          this.sayEve(tx("finale.accident2"), 4.0);
+          this.finale.speechStage = 4;
+        }
+
+        if (this.finale.speechStage < 5 && this.finale.timer >= 14.0) {
+          this.sayEve(tx("finale.accident3"), 3.3);
+          this.finale.speechStage = 5;
+        }
+
+        if (!this.finale.pulseFired && this.finale.timer >= 17.6) {
           this.finale.pulseFired = true;
           this.base.repairPulse = Math.max(this.base.repairPulse || 0, 2.2);
           if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
         }
 
-        if (this.finale.speechStage < 4 && this.finale.timer >= 10.8) {
-          this.sayEve(tx("finale.returnMemory"), 2.3);
-          this.finale.speechStage = 4;
+        if (this.finale.speechStage < 6 && this.finale.timer >= 17.6) {
+          this.sayEve(tx("finale.returnMemory"), 3.4);
+          this.finale.speechStage = 6;
         }
 
-        // "……お返しします。" is E.V.E.'s final line before the approved
-        // REBIRTH ritual. The ritual then returns control to HOME.
-        if (this.finale.timer >= 13.2) this.startRebirthRitual();
+        // The final return line completes before REBIRTH begins, leaving one
+        // short silent beat between recognition and the player's hold gesture.
+        if (this.finale.timer >= 21.4) this.startRebirthRitual();
         return;
       }
 
@@ -4091,7 +4094,9 @@
       if (!this.eve) return;
       if (this.mode === "rescue") return;
       if (this.echoStory && this.echoStory.active) return;
-      if (this.finale && this.finale.active) return;
+      // Finale dialogue uses this same communications window. The dedicated
+      // RESTORE/REBIRTH overlay owns the screen only while the ritual is active.
+      if (this.finale && this.finale.active && this.finale.stage === "ritual") return;
 
       const L = this.cockpitHudLayout();
       const P = L.eve;
