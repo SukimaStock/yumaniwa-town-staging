@@ -26,6 +26,29 @@ var tinyDrops = [];
 var drops = [];
 var trails = [];
 var touchPaths = {};
+var rainyWindowInteractionTracked = false;
+
+function trackRainyWindowInteraction() {
+  if (rainyWindowInteractionTracked) return;
+  rainyWindowInteractionTracked = true;
+
+  try {
+    if (
+      window.parent &&
+      window.parent !== window &&
+      typeof window.parent.trackYumaniwaEvent === "function"
+    ) {
+      window.parent.trackYumaniwaEvent("Rainy Window Interaction", {
+        method: "touch"
+      });
+      return;
+    }
+  } catch (_) {}
+
+  if (/\/yumaniwa-town-staging(?:\/|$)/.test(window.location.pathname || "")) {
+    console.info("[SukimaStock Analytics]", "Rainy Window Interaction", { method: "touch" });
+  }
+}
 
 // Codea座標で扱えるオフスクリーン層。
 // ブラウザCanvasの左上原点への変換はRakugaki Engineが吸収する。
@@ -409,6 +432,7 @@ function touched(touch) {
   var id = touch.id || 0;
 
   if (touch.state === BEGAN) {
+    trackRainyWindowInteraction();
     touchPaths[id] = { x: touch.x, y: touch.y };
     eraseFogEllipse(touch.x, touch.y, 18, 16, 0.72);
     clearTinyDrops(touch.x, touch.y, 22, 19);
