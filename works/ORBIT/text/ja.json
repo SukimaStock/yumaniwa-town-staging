@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 7,
-    "note": "ORBIT Web Japanese runtime text. ORE + DATA are practical RESTORE resources; ECHO is a permanent memory archive discovered by analyzing DATA."
+    "version": 8,
+    "note": "ORBIT Web Japanese runtime text. ORE + DATA are practical RESTORE resources; ECHO is a permanent memory archive discovered by analyzing DATA. Finale and Ritual refined for narrative continuity aligned with self-recovery mechanics and E.V.E. language evolution."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.7.7"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.8"
   },
   "title": {
     "title": "O R B I T",
@@ -271,7 +271,7 @@
         "これは、私たちの記憶です。",
         "……あなたのことを、少しずつ思い出しています。",
         "あなたは、大切なものを私に預けてくれた。",
-        "全部、繋がりました。\n……でも、ここではまだ。"
+        "……これで、全部です。\n……帰りましょう。"
       ]
     },
     "echoReturn": {
@@ -395,10 +395,10 @@
     "connected": "……すべて、繋がりました。",
     "eveName": "E.V.E.",
     "expansion": "Echo of Vital Emotion.",
-    "accident1": "あの航行不能事故のとき――",
-    "accident2": "あなたが失いかけていた“あなた自身”を、",
-    "accident3": "ずっと、私が預かっていました。",
-    "returnMemory": "……お返しします。"
+    "accident1": "「これだけは、なくしたくないんだ」――あの日、あなたが私に託したもの。",
+    "accident2": "星の海に散らばったそれを、あなたはひとつずつ拾い集めてきました。",
+    "accident3": "……修復していたのは、システムだけではなかったのですね。",
+    "returnMemory": "お返しします。\nあなたを、あなた自身に。"
   },
   "ritual": {
     "shellLabel": "ORBIT / RESTORE",
@@ -406,22 +406,22 @@
     "responseHint": "タップして戻る",
     "wake": {
       "name": "WAKE",
-      "response": "System... responds to touch.",
+      "response": "...PULSE... RESPONDS... TO TOUCH...",
       "instruction": "タップする"
     },
     "link": {
       "name": "LINK",
-      "response": "トキ モ キオク モ マワリダス",
+      "response": "コドウ ト キオク ガ マワリダス",
       "instruction": "右回りになぞる"
     },
     "memory": {
       "name": "MEMORY",
-      "response": "……あなたの て、おぼえています。",
+      "response": "……あなたの おんど、おぼえています。",
       "instruction": "光をなぞる"
     },
     "resonance": {
       "name": "RESONANCE",
-      "response": "線がつながる。\n思い出がつながる。",
+      "response": "途切れていた線が繋がる。\nあなたの輪郭が、少しずつ戻ってくる。",
       "instruction": "点を順につなぐ"
     },
     "rebirth": {
