@@ -1529,6 +1529,29 @@
   // Safe analytics
   // ------------------------------------------------------------
 
+  function isAnalyticsStaging() {
+    try {
+      return /\/yumaniwa-town-staging(?:\/|$)/.test(root.location?.pathname || "");
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function trackViaHost(name, props, options) {
+    try {
+      if (
+        root.parent &&
+        root.parent !== root &&
+        typeof root.parent.trackYumaniwaEvent === "function"
+      ) {
+        return root.parent.trackYumaniwaEvent(name, props || {}, options || {});
+      }
+    } catch (_) {
+      // Cross-origin parents are intentionally ignored.
+    }
+    return null;
+  }
+
   const analytics = {
     enabled: false,
     provider: null,
@@ -1538,17 +1561,38 @@
       this.enabled = source.enabled !== false;
       this.provider = typeof source.provider === "function"
         ? source.provider
-        : function defaultProvider(name, props) {
+        : function defaultProvider(name, props, eventOptions) {
+            const opts = eventOptions || {};
+            const hostResult = trackViaHost(name, props, opts);
+            if (hostResult !== null) return hostResult;
+
+            if (isAnalyticsStaging()) {
+              try {
+                root.console?.info?.(
+                  "[SukimaStock Analytics]",
+                  name,
+                  props || {},
+                  { interactive: opts.interactive !== false }
+                );
+              } catch (_) {}
+              return false;
+            }
+
             if (typeof root.plausible !== "function") return false;
-            root.plausible(name, props ? { props } : undefined);
+
+            const payload = { props: props || {} };
+            if (opts.interactive === false) {
+              payload.interactive = false;
+            }
+            root.plausible(name, payload);
             return true;
           };
     },
 
-    track(name, props) {
+    track(name, props, options) {
       if (!this.enabled || !this.provider) return false;
       try {
-        return this.provider(name, props || {}) !== false;
+        return this.provider(name, props || {}, options || {}) !== false;
       } catch (error) {
         debug.log("Analytics error", error);
         return false;
