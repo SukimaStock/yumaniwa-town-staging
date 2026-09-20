@@ -248,17 +248,19 @@
     5:Object.freeze({bodyR:78,body:[230,236,248,255],outline:[34,40,58,255],inner:{r:62.4,fill:[248,250,255,150],stroke:[90,110,165,210]},inner2:{r:45.24,fill:[255,255,255,70],stroke:[120,150,200,90]},glass:[210,225,255,230],gStroke:2.5}),
   });
 
-  // Phase 7: Echoes are discoveries, not another spendable resource. As in
-  // the Lua version, the first successful DATA harvest on a unique DATA planet
-  // reveals one Echo.
+  // Echoes are permanent memory fragments found inside recovered DATA.
+  // DATA itself remains useful after all 12 Echoes have been recovered, so every
+  // fresh SERA still goes through E.V.E.'s analysis step.
   const ECHO_TUNE = Object.freeze({
     total: 12,
     pulseSec: 1.6,
     memorySec: 4.2,
-    // DATA first lands as a small HUD pickup. E.V.E. then analyzes the Echo
-    // before the recovered memory is played back.
+    // DATA first lands as a small HUD pickup. E.V.E. then analyzes the recovered
+    // packet before revealing whether an Echo was present.
     memoryRevealDelaySec: 0.78,
     analysisSec: 2.4,
+    analysisResultSec: 0.72,
+    emptyResultSec: 1.05,
   });
 
   // Phase 9: returning home is also persistence. Save is intentionally quiet:
@@ -762,8 +764,18 @@
         timer: 0,
         pendingIndex: 0,
         pendingTimer: 0,
+        pendingPlanet: null,
         analyzing: false,
         analysisTimer: 0,
+        analysisPlanet: null,
+        analysisResult: null,
+        analysisResultTimer: 0,
+        analysisResultIndex: 0,
+      };
+      // DATA and ECHO are related but not identical. This archive remembers
+      // every SERA packet already decoded, including post-12 packets with no Echo.
+      this.dataSignals = {
+        decoded: new Set(),
       };
       this.finale = {
         active: false,
@@ -800,6 +812,8 @@
         lastKind: null,
         lastAmount: 0,
         loggedThisLanding: false,
+        fullSteamTimer: 0,
+        fullSteamActive: false,
         sparks: [],
       };
 
@@ -943,6 +957,9 @@
           discovered: Array.from(this.echoes.discovered),
           carriedThisTrip: this.echoes.carriedThisTrip,
         },
+        dataSignals: {
+          decoded: this.dataSignals ? Array.from(this.dataSignals.decoded || []) : [],
+        },
         finale: {
           completed: !!this.finale.completed,
           farewellPending: !!this.finale.farewellPending,
@@ -1019,12 +1036,26 @@
       this.eve.departureLineLevel = 0;
       this.resources.fuel = clamp(Number(rr.fuel ?? this.resources.fuelMax), 0, this.resources.fuelMax);
       this.resources.ore = clamp(Number(rr.ore ?? 0), 0, this.resources.oreMax);
-      this.resources.data = clamp(Number(rr.data ?? 0), 0, this.resources.dataMax);
 
       const ee = data.echoes || {};
       this.echoes.discovered = new Set(Array.isArray(ee.discovered) ? ee.discovered : []);
       this.echoes.found = clamp(Math.floor(Number(ee.found ?? this.echoes.discovered.size)), 0, this.echoes.total);
       this.echoes.carriedThisTrip = Math.max(0, Math.floor(Number(ee.carriedThisTrip || 0)));
+
+      // v2.7.30 migration: one short-lived build omitted DATA from saves while
+      // RESTORE temporarily used Echo thresholds. Preserve normal saves exactly;
+      // only reconstruct DATA when the field is genuinely absent.
+      if (Object.prototype.hasOwnProperty.call(rr, "data")) {
+        this.resources.data = clamp(Number(rr.data ?? 0), 0, this.resources.dataMax);
+      } else {
+        const spentByLevel = [0, 0, 2, 4, 7, 10];
+        const spent = spentByLevel[this.base.level] || 0;
+        this.resources.data = clamp(Math.max(0, this.echoes.found - spent), 0, this.resources.dataMax);
+      }
+
+      const ds = data.dataSignals || {};
+      const savedDecoded = Array.isArray(ds.decoded) ? ds.decoded : Array.from(this.echoes.discovered);
+      this.dataSignals.decoded = new Set(savedDecoded);
 
       const ff = data.finale || {};
       this.finale.completed = !!ff.completed;
@@ -1679,7 +1710,12 @@
       if (this.homeTerminal && this.homeTerminal.visible) return;
       if (
         this.echoStory &&
-        (this.echoStory.active || this.echoStory.analyzing || this.echoStory.pendingIndex > 0)
+        (
+          this.echoStory.active ||
+          this.echoStory.analyzing ||
+          this.echoStory.pendingTimer > 0 ||
+          this.echoStory.analysisResultTimer > 0
+        )
       ) return;
       if (this.mode === "landed" && this.landPlanet && this.landPlanet.kind === "neutral") return;
 
@@ -1794,35 +1830,60 @@
       return ECHO_ANALYSIS_LINES[level] || ECHO_ANALYSIS_LINES[1];
     }
 
-    startEchoAnalysis(index) {
+    startEchoAnalysis(index, planet) {
       this.echoStory.pendingIndex = 0;
       this.echoStory.pendingTimer = 0;
-      this.echoStory.index = index;
+      this.echoStory.pendingPlanet = null;
+      this.echoStory.index = Math.max(0, Math.floor(Number(index || 0)));
+      this.echoStory.analysisPlanet = planet || null;
       this.echoStory.analyzing = true;
       this.echoStory.analysisTimer = ECHO_TUNE.analysisSec;
-      this.sayEve(this.echoAnalysisLine(), ECHO_TUNE.analysisSec);
+      this.echoStory.analysisResult = null;
+      this.echoStory.analysisResultTimer = 0;
+      this.echoStory.analysisResultIndex = 0;
+
+      // The Windows-style DATA ANALYSIS window now represents E.V.E.'s actual
+      // processing. Clear any landing line so speech and system work stay distinct.
+      this.eve.timer = 0;
     }
 
     startEchoMemory(index) {
       this.echoStory.pendingIndex = 0;
       this.echoStory.pendingTimer = 0;
+      this.echoStory.pendingPlanet = null;
       this.echoStory.analyzing = false;
       this.echoStory.analysisTimer = 0;
+      this.echoStory.analysisPlanet = null;
+      this.echoStory.analysisResult = null;
+      this.echoStory.analysisResultTimer = 0;
+      this.echoStory.analysisResultIndex = 0;
       this.echoStory.active = true;
       this.echoStory.index = index;
       this.echoStory.timer = ECHO_TUNE.memorySec;
       // The recovered text is past data, not present-day E.V.E. speech.
-      // Clear the analysis line before playback so the two voices stay distinct.
       this.eve.timer = 0;
     }
 
-    queueEchoMemory(index) {
-      // DATA itself is already committed. After the pickup fades, present-day
-      // E.V.E. analyzes the Echo; only then is the intact memory played back.
-      this.echoStory.pendingIndex = index;
+    queueDataAnalysis(planet) {
+      if (!planet || planet.kind !== "data") return false;
+      if (
+        this.echoStory.active ||
+        this.echoStory.analyzing ||
+        this.echoStory.pendingTimer > 0 ||
+        this.echoStory.analysisResultTimer > 0
+      ) return false;
+
+      // Before 12/12 every fresh SERA carries the next Echo. After 12/12 DATA
+      // remains recoverable, but analysis resolves to NO ECHO TRACE.
+      const stagedIndex = Math.max(0, Math.floor(Number(this.echoStory.pendingIndex || 0)));
+      this.echoStory.pendingIndex = stagedIndex > 0
+        ? stagedIndex
+        : (this.canDiscoverEcho(planet) ? this.echoes.found + 1 : 0);
+      this.echoStory.pendingPlanet = planet;
       this.echoStory.pendingTimer = ECHO_TUNE.memoryRevealDelaySec;
       this.echoStory.analyzing = false;
       this.echoStory.analysisTimer = 0;
+      return true;
     }
 
     echoIdForPlanet(planet) {
@@ -1844,7 +1905,6 @@
       this.echoes.found = Math.min(this.echoes.total, this.echoes.found + 1);
       this.echoes.carriedThisTrip += 1;
       this.echoes.pulseTimer = ECHO_TUNE.pulseSec;
-      this.queueEchoMemory(this.echoes.found);
       this.pushSystemLog("echoRecovered", { index: String(this.echoes.found).padStart(2, "0") });
       if (this.harvest) this.harvest.loggedThisLanding = true;
       return true;
@@ -1915,20 +1975,44 @@
         this.echoStory &&
         !this.echoStory.active &&
         !this.echoStory.analyzing &&
-        this.echoStory.pendingIndex > 0
+        this.echoStory.pendingTimer > 0
       ) {
         this.echoStory.pendingTimer = Math.max(0, this.echoStory.pendingTimer - dt);
         if (this.echoStory.pendingTimer <= 0) {
           const index = this.echoStory.pendingIndex;
-          this.startEchoAnalysis(index);
+          const planet = this.echoStory.pendingPlanet;
+          this.startEchoAnalysis(index, planet);
         }
       }
 
       if (this.echoStory && this.echoStory.analyzing) {
         this.echoStory.analysisTimer = Math.max(0, this.echoStory.analysisTimer - dt);
         if (this.echoStory.analysisTimer <= 0) {
-          const index = this.echoStory.index;
-          this.startEchoMemory(index);
+          const candidate = this.echoStory.analysisPlanet;
+          const expectedIndex = this.echoStory.index;
+          const found = expectedIndex > 0 && candidate ? this.discoverEcho(candidate) : false;
+
+          this.echoStory.analyzing = false;
+          this.echoStory.analysisTimer = 0;
+          this.echoStory.analysisPlanet = null;
+          this.echoStory.analysisResult = found ? "echo" : "empty";
+          this.echoStory.analysisResultIndex = found ? this.echoes.found : 0;
+          this.echoStory.analysisResultTimer = found
+            ? ECHO_TUNE.analysisResultSec
+            : ECHO_TUNE.emptyResultSec;
+        }
+      }
+
+      if (this.echoStory && this.echoStory.analysisResultTimer > 0) {
+        this.echoStory.analysisResultTimer = Math.max(0, this.echoStory.analysisResultTimer - dt);
+        if (this.echoStory.analysisResultTimer <= 0) {
+          const result = this.echoStory.analysisResult;
+          const index = this.echoStory.analysisResultIndex;
+          this.echoStory.analysisResult = null;
+          this.echoStory.analysisResultIndex = 0;
+          if (result === "echo" && index > 0) {
+            this.startEchoMemory(index);
+          }
         }
       }
 
@@ -1953,8 +2037,13 @@
           this.echoStory.active = false;
           this.echoStory.analyzing = false;
           this.echoStory.analysisTimer = 0;
+          this.echoStory.analysisPlanet = null;
+          this.echoStory.analysisResult = null;
+          this.echoStory.analysisResultTimer = 0;
+          this.echoStory.analysisResultIndex = 0;
           this.echoStory.pendingIndex = 0;
           this.echoStory.pendingTimer = 0;
+          this.echoStory.pendingPlanet = null;
         }
         if (!this.finale.pulseFired && this.finale.timer >= 10.8) {
           this.finale.pulseFired = true;
@@ -2674,6 +2763,8 @@
       this.harvest.lastKind = null;
       this.harvest.lastAmount = 0;
       this.harvest.loggedThisLanding = false;
+      this.harvest.fullSteamTimer = 0;
+      this.harvest.fullSteamActive = false;
     }
 
     planetInteractionTier(planet) {
@@ -2702,6 +2793,11 @@
       if (planet.kind === "neutral") return true;
 
       if (planet.depleted || Number(planet.resourceCurrent || 0) <= 0) return false;
+      if (
+        planet.kind === "data" &&
+        this.dataSignals &&
+        this.dataSignals.decoded.has(this.echoIdForPlanet(planet))
+      ) return false;
       if ((planet.kind === "mine" || planet.kind === "data") && !this.canInteractWithPlanet(planet)) return false;
 
       // LUMA is intentionally progression-open; it only becomes unavailable
@@ -2711,10 +2807,15 @@
 
     syncDiscoveredSeraState() {
       if (!this.echoes || !this.echoes.discovered) return;
+      const decoded = new Set(this.dataSignals ? Array.from(this.dataSignals.decoded || []) : []);
+      // Older saves predate the separate DATA archive; every discovered Echo in
+      // those builds necessarily came from one decoded SERA.
+      for (const id of this.echoes.discovered) decoded.add(id);
+
       const sync = (planet) => {
         if (!planet || planet.kind !== "data") return;
         const id = this.echoIdForPlanet(planet);
-        if (id && this.echoes.discovered.has(id)) {
+        if (id && decoded.has(id)) {
           planet.resourceCurrent = 0;
           planet.depleted = true;
         }
@@ -2722,9 +2823,8 @@
       for (const planet of this.fixedPlanets || []) sync(planet);
       if (this.planetAtlas) {
         // A rescued procedural SERA may no longer be in the active cache after
-        // the HOME rollback. Rebuild only the few sectors named by discovered
-        // ids so the decoded signal remains visibly exhausted on a later visit.
-        for (const id of this.echoes.discovered) {
+        // the HOME rollback. Rebuild only sectors named by decoded signal ids.
+        for (const id of decoded) {
           const m = /^P:(-?\d+):(-?\d+):(\d+)$/.exec(id);
           if (!m) continue;
           const planets = this.planetAtlas.getSector(Number(m[1]), Number(m[2]));
@@ -2743,6 +2843,7 @@
         data: Math.max(0, Math.floor(Number(this.resources && this.resources.data || 0))),
         found: Math.max(0, Math.floor(Number(this.echoes && this.echoes.found || 0))),
         discovered: this.echoes ? Array.from(this.echoes.discovered || []) : [],
+        decoded: this.dataSignals ? Array.from(this.dataSignals.decoded || []) : [],
       };
     }
 
@@ -2753,8 +2854,14 @@
       this.echoes.discovered = merged;
       this.echoes.found = clamp(Math.max(this.echoes.found || 0, snapshot.found || 0, merged.size), 0, this.echoes.total);
       this.echoes.carriedThisTrip = 0;
-      // DATA is knowledge, not physical cargo in v2.5. Once decoded it survives
-      // an emergency return, unlike unreturned ORE.
+
+      const decoded = new Set(this.dataSignals ? Array.from(this.dataSignals.decoded || []) : []);
+      for (const id of snapshot.decoded || []) decoded.add(id);
+      for (const id of merged) decoded.add(id);
+      this.dataSignals.decoded = decoded;
+
+      // DATA is decoded knowledge, not physical ORE. Once recovered it survives
+      // an emergency return; the decoded-SERA archive prevents re-reading it.
       this.resources.data = clamp(Math.max(this.resources.data || 0, snapshot.data || 0), 0, this.resources.dataMax);
       this.syncDiscoveredSeraState();
       this.refreshActivePlanets(true);
@@ -2803,6 +2910,37 @@
       }
     }
 
+    spawnHarvestSteam() {
+      if (!this.harvest) return;
+      if (!Array.isArray(this.harvest.sparks)) this.harvest.sparks = [];
+
+      const p = this.landPlanet;
+      let outward = v(0, 1);
+      if (p && p.pos) {
+        const away = sub(this.ship.pos, p.pos);
+        if (len(away) > 0.001) outward = norm(away);
+      }
+      const source = add(this.ship.pos, mul(outward, 20));
+
+      // Source steam: five slow grey-blue puffs, expanding as they rise.
+      for (let i = 0; i < 5; i += 1) {
+        const a = Math.random() * Math.PI * 2;
+        const speed = 10 + Math.random() * 20;
+        this.harvest.sparks.push({
+          x: source.x,
+          y: source.y,
+          vx: Math.cos(a) * speed,
+          vy: Math.sin(a) * speed,
+          age: 0,
+          life: 0.8 + Math.random() * 0.4,
+          kind: "steam",
+        });
+      }
+      if (this.harvest.sparks.length > 50) {
+        this.harvest.sparks.splice(0, this.harvest.sparks.length - 50);
+      }
+    }
+
     spawnHarvestSparks(kind = "mine") {
       if (!this.harvest) return;
       if (!Array.isArray(this.harvest.sparks)) this.harvest.sparks = [];
@@ -2847,8 +2985,15 @@
           continue;
         }
 
-        // Original FXManager gravity for fuel / ore / data particles.
-        s.vy -= 30 * dt;
+        if (s.kind === "steam") {
+          // Original steam drifts upward slowly with strong horizontal drag.
+          s.vy += 8 * dt;
+          s.vx *= Math.max(0, 1 - 0.9 * dt);
+          s.vy *= Math.max(0, 1 - 0.5 * dt);
+        } else {
+          // Original FXManager gravity for fuel / ore / data particles.
+          s.vy -= 30 * dt;
+        }
         s.x += s.vx * dt;
         s.y += s.vy * dt;
       }
@@ -2860,9 +3005,16 @@
       noStroke();
       for (const s of this.harvest.sparks) {
         const q = clamp(s.age / Math.max(0.001, s.life), 0, 1);
+
+        if (s.kind === "steam") {
+          const fade = (1 - q) * (1 - q);
+          fill(200, 200, 220, 120 * fade);
+          ellipse(s.x, s.y, 5 + 15 * q, 5 + 15 * q);
+          continue;
+        }
+
         const a = 255 * (1 - q);
         const size = 6 * (1 - q);
-
         if (s.kind === "refuel") {
           fill(100, 220, 255, a);
         } else if (s.kind === "data") {
@@ -2945,21 +3097,58 @@
         return;
       }
 
-      // A SERA is a one-time discovery. Once decoded, returning after a rescue
-      // cannot farm another DATA unit from the same signal.
-      const echoPending = p.kind === "data" && this.canDiscoverEcho(p);
-      if (p.kind === "data" && !echoPending) {
-        p.resourceCurrent = 0;
-        p.depleted = true;
-        this.harvest.timer = 0;
-        return;
+      // A DATA packet can only be decoded once from each SERA. This archive is
+      // intentionally separate from Echo discovery because post-12 DATA can be
+      // valid even when its analysis contains no Echo.
+      if (p.kind === "data") {
+        const dataId = this.echoIdForPlanet(p);
+        if (dataId && this.dataSignals && this.dataSignals.decoded.has(dataId)) {
+          p.resourceCurrent = 0;
+          p.depleted = true;
+          this.harvest.timer = 0;
+          return;
+        }
+
+        // Keep one analysis pipeline at a time. The planet remains landed and
+        // will begin recovery automatically once the previous analysis clears.
+        if (
+          this.echoStory.active ||
+          this.echoStory.analyzing ||
+          this.echoStory.pendingTimer > 0 ||
+          this.echoStory.analysisResultTimer > 0
+        ) {
+          this.harvest.timer = 0;
+          return;
+        }
       }
+
       if (p.depleted) return;
 
       const room = this.resourceRoom(p.kind);
-      // Echo analysis is knowledge rather than cargo; a full DATA bar does not
-      // block a new memory from being decoded.
-      if (room <= 0 && !echoPending) return;
+      if (room <= 0) {
+        this.harvest.timer = 0;
+
+        // ORE/DATA full means the ship cannot accept more cargo. Reuse the
+        // original small steam "sputter" as physical feedback. FUEL full stays
+        // silent: refuelling simply has nothing left to do.
+        if (p.kind === "mine" || p.kind === "data") {
+          if (!this.harvest.fullSteamActive) {
+            this.spawnHarvestSteam();
+            this.harvest.fullSteamActive = true;
+            this.harvest.fullSteamTimer = 0;
+          } else {
+            this.harvest.fullSteamTimer += dt;
+            if (this.harvest.fullSteamTimer >= 2.0) {
+              this.spawnHarvestSteam();
+              this.harvest.fullSteamTimer = 0;
+            }
+          }
+        }
+        return;
+      }
+
+      this.harvest.fullSteamActive = false;
+      this.harvest.fullSteamTimer = 0;
 
       this.harvest.timer += dt;
       const threshold = p.kind === "refuel" ? RESOURCE_TUNE.refuelTick : this.harvest.threshold;
@@ -2982,7 +3171,10 @@
       if (p.kind === "mine" || p.kind === "data") {
         gained = Math.max(0, Math.floor(gained + 1e-6));
       }
+
       if (gained > 0) {
+        const echoCandidate = p.kind === "data" && this.canDiscoverEcho(p);
+
         if (p.kind === "mine") this.resources.ore += gained;
         else if (p.kind === "data") this.resources.data += gained;
         else if (p.kind === "refuel") this.resources.fuel += gained;
@@ -2990,11 +3182,18 @@
         p.resourceCurrent = Math.max(0, available - gained);
         if (p.resourceCurrent <= 0) p.depleted = true;
         this.recordHarvest(p.kind, gained);
-      }
-      if (p.kind === "data" && echoPending) {
-        this.discoverEcho(p);
-        p.resourceCurrent = 0;
-        p.depleted = true;
+
+        if (p.kind === "data") {
+          const dataId = this.echoIdForPlanet(p);
+          if (dataId && this.dataSignals) this.dataSignals.decoded.add(dataId);
+
+          // One SERA packet is one DATA recovery. The analysis window, not the
+          // pickup itself, reveals whether that packet contains an Echo.
+          p.resourceCurrent = 0;
+          p.depleted = true;
+          this.echoStory.pendingIndex = echoCandidate ? this.echoes.found + 1 : 0;
+          this.queueDataAnalysis(p);
+        }
       }
 
       if (p.kind === "mine") {
@@ -3226,6 +3425,7 @@
       this.drawResourceHUD();
       this.drawMiniMap();
       this.drawFaintSignal();
+      this.drawDataAnalysis();
       this.drawEchoMemory();
       this.drawSystemConsole();
       this.drawHomeTerminal();
@@ -3428,6 +3628,81 @@
       }
       fill(0, 0, 0, a);
       rect(0, 0, W, H);
+    }
+
+    drawDataAnalysis() {
+      if (!this.echoStory) return;
+      const showingAnalysis = this.echoStory.analyzing;
+      const showingResult = this.echoStory.analysisResultTimer > 0 && !!this.echoStory.analysisResult;
+      if (!showingAnalysis && !showingResult) return;
+      if (this.finale && this.finale.active) return;
+
+      const w = 264;
+      const h = 126;
+      const x = (W - w) / 2;
+      const y = H / 2 - h / 2 + 8;
+
+      this.drawWinBevel(x, y, w, h, false);
+      noStroke();
+      fill(0, 0, 128, 255);
+      rect(x + 3, y + h - 24, w - 6, 21);
+
+      fill(255, 255, 255, 255);
+      font("monospace");
+      fontSize(9.8);
+      textAlign(LEFT);
+      text(tx("dataAnalysis.title"), x + 9, y + h - 14);
+
+      if (showingAnalysis) {
+        const lines = String(this.echoAnalysisLine() || tx("dataAnalysis.analyzing")).split("\n");
+        fill(0, 0, 0, 255);
+        fontSize(9.4);
+        textAlign(LEFT);
+        const firstY = y + h - 46;
+        for (let i = 0; i < Math.min(2, lines.length); i += 1) {
+          text(lines[i], x + 14, firstY - i * 14);
+        }
+
+        // Classic segmented progress: visibly mechanical, no percentage text.
+        const blocks = 16;
+        const gap = 2;
+        const barX = x + 14;
+        const barY = y + 20;
+        const barW = w - 28;
+        const barH = 17;
+        this.drawWinBevel(barX, barY, barW, barH, true);
+
+        const innerX = barX + 4;
+        const innerY = barY + 4;
+        const innerW = barW - 8;
+        const innerH = barH - 8;
+        const bw = (innerW - gap * (blocks - 1)) / blocks;
+        const progress = clamp(1 - this.echoStory.analysisTimer / Math.max(0.001, ECHO_TUNE.analysisSec), 0, 1);
+        const lit = Math.floor(progress * blocks + 1e-6);
+
+        noStroke();
+        for (let i = 0; i < blocks; i += 1) {
+          if (i < lit) fill(0, 0, 128, 255);
+          else fill(190, 190, 190, 255);
+          rect(innerX + i * (bw + gap), innerY, bw, innerH);
+        }
+        return;
+      }
+
+      fill(0, 0, 0, 255);
+      fontSize(9.5);
+      textAlign(CENTER);
+      text(tx("dataAnalysis.complete"), W / 2, y + 65);
+
+      if (this.echoStory.analysisResult === "echo") {
+        fill(0, 0, 128, 255);
+        fontSize(11.2);
+        text(tx("dataAnalysis.echoDetected"), W / 2, y + 40);
+      } else {
+        fill(75, 75, 75, 255);
+        fontSize(10.7);
+        text(tx("dataAnalysis.noEcho"), W / 2, y + 40);
+      }
     }
 
     drawEchoMemory() {
