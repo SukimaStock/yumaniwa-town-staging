@@ -1,7 +1,7 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 6,
+    "version": 7,
     "note": "ORBIT Web Japanese runtime text. ORE + DATA are practical RESTORE resources; ECHO is a permanent memory archive discovered by analyzing DATA."
   },
   "meta": {
@@ -436,5 +436,16 @@
     "complete": "ANALYSIS COMPLETE",
     "echoDetected": "ECHO DETECTED",
     "noEcho": "NO ECHO TRACE"
+  },
+  "credits": {
+    "lines": [
+      "O R B I T",
+      "Silent Reboot",
+      "",
+      "Created by",
+      "SukimaStock",
+      "",
+      "Thank you for drifting."
+    ]
   }
 }
