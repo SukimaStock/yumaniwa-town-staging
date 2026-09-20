@@ -481,6 +481,16 @@
     5: "お帰りなさい。\n残響回収: {a}/{b}。",
   });
 
+  // The first launch after each RESTORE is a narrative beat of its own:
+  // E.V.E. experiences the repaired ship/sensors in open space, using the
+  // newly restored language level rather than repeating the ritual response.
+  const RESTORE_DEPARTURE_LINES = Object.freeze({
+    2: "I can see... farther now.",
+    3: "ホシガ... マエヨリ トオク マデ ミエル。",
+    4: "そらが、まえより ひろく みえる。",
+    5: "……前より遠くまで、一緒に行けます。",
+  });
+
 
   const TUNE = {
     fixedHz: SOURCE_LOCK.fixedHz,
@@ -803,6 +813,10 @@
         timer: 0,
         duration: 0,
         lowFuelNotified: false,
+        // Persistent until the next HOME departure; consumed exactly once.
+        restoreDepartureLevel: 0,
+        // Volatile handoff from launch start to the flight transition.
+        departureLineLevel: 0,
       };
       // ASTRA is intentionally quiet. After a short stillness the camera
       // opens outward, and rare meteors remind the player that the universe
@@ -999,6 +1013,9 @@
           data: this.resources.data,
         },
         baseLevel: this.base.level,
+        eve: {
+          restoreDepartureLevel: Math.max(0, Math.floor(Number(this.eve && this.eve.restoreDepartureLevel || 0))),
+        },
         echoes: {
           found: this.echoes.found,
           discovered: Array.from(this.echoes.discovered),
@@ -1071,6 +1088,13 @@
       const rr = data.resources || {};
       this.base.level = clamp(Math.floor(Number(data.baseLevel || 1)), 1, 5);
       this.applyRestoreCaps(this.base.level, false);
+      const savedEve = data.eve || {};
+      this.eve.restoreDepartureLevel = clamp(
+        Math.floor(Number(savedEve.restoreDepartureLevel || 0)),
+        0,
+        5
+      );
+      this.eve.departureLineLevel = 0;
       this.resources.fuel = clamp(Number(rr.fuel ?? this.resources.fuelMax), 0, this.resources.fuelMax);
       this.resources.ore = clamp(Number(rr.ore ?? 0), 0, this.resources.oreMax);
       this.resources.data = clamp(Number(rr.data ?? 0), 0, this.resources.dataMax);
@@ -1522,7 +1546,13 @@
         this.ship.damp = TUNE.openSpaceDamp;
         if (this.finale && this.finale.farewellInFlight) {
           this.finale.farewellInFlight = false;
+          this.eve.departureLineLevel = 0;
           this.sayEve("……いってらっしゃい。", 3.4);
+        } else {
+          const restoredLevel = Math.floor(Number(this.eve && this.eve.departureLineLevel || 0));
+          const restoredLine = RESTORE_DEPARTURE_LINES[restoredLevel];
+          this.eve.departureLineLevel = 0;
+          if (restoredLine) this.sayEve(restoredLine, restoredLevel === 5 ? 4.0 : 3.4);
         }
       }
     }
@@ -2452,9 +2482,12 @@
       if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
       if (this.minimap) this.minimap.pulseTimer = 1.2;
       this.feedback = { kind: "repair", timer: 1.1 };
-      // The ritual itself already carried E.V.E.'s restoration line. Returning
-      // to flight therefore stays quiet instead of immediately duplicating it.
+      // The ritual owns the immediate repair response. The *next departure*
+      // owns a different beat: E.V.E. experiences the repaired body/sensors
+      // once the ship is back in open space.
       this.eve.timer = 0;
+      this.eve.restoreDepartureLevel = this.base.level;
+      this.eve.departureLineLevel = 0;
       this.saveGame("base-repair");
 
       // Echo 12 may already be home when the last practical RESTORE completes.
@@ -2779,6 +2812,12 @@
       if (this.landPlanet.kind === "base") {
         if (this.homeTerminal && this.homeTerminal.visible) return;
         this.closeHomeTerminal();
+        // Consume the one-time post-RESTORE voice before writing the HOME
+        // departure checkpoint, so CONTINUE never replays a line already earned.
+        const pendingRestoreLevel = Math.floor(Number(this.eve && this.eve.restoreDepartureLevel || 0));
+        this.eve.departureLineLevel = pendingRestoreLevel;
+        this.eve.restoreDepartureLevel = 0;
+
         // Departure is still HOME, so it is the cleanest rollback checkpoint:
         // refuel/repairs performed while docked are locked in before launch.
         this.pushSystemLog("DEPARTED HOME");
