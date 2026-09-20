@@ -3631,16 +3631,17 @@
       const speaking = this.eve.timer > 0 && !!this.eve.text;
       if (!speaking) return;
 
-      // Keep the source-like large dialogue window, but only reveal it when
-      // E.V.E. actually speaks. The lower instruments remain persistent while
-      // the voice arrives as a distinct event above them.
-      const bodyFontSize = 10.0;
+      // E.V.E. is a voice, not telemetry. The original was easy to read
+      // because it used a normal medium-weight face at a generous size against
+      // a strongly isolated dark surface. Preserve that reason, not the exact UI.
+      const bodyFontSize = 13.5;
+      const labelFontSize = 12.5;
       const bodyFont = (typeof SSE !== "undefined" && SSE.theme)
-        ? SSE.theme.font("mono")
-        : "monospace";
-      const labelCol = Math.min(82, Math.max(68, P.w * 0.24));
+        ? SSE.theme.font("ui")
+        : '"Hiragino Sans", "Noto Sans JP", sans-serif';
+      const labelCol = Math.min(86, Math.max(72, P.w * 0.245));
       const bodyX = P.x + labelCol;
-      const textMaxWidth = Math.max(60, P.x + P.w - bodyX - 12);
+      const textMaxWidth = Math.max(60, P.x + P.w - bodyX - 14);
 
       const measure = (value) => {
         const s = String(value || "");
@@ -3649,9 +3650,9 @@
           SSE.type &&
           typeof SSE.type.measure === "function"
         ) {
-          return SSE.type.measure(s, "mono", { size: bodyFontSize, font: "mono" });
+          return SSE.type.measure(s, "body", { size: bodyFontSize, font: "ui" });
         }
-        return Array.from(s).length * bodyFontSize * 0.62;
+        return Array.from(s).length * bodyFontSize * 0.58;
       };
 
       const visual = [];
@@ -3743,46 +3744,39 @@
         const exitEase = exitT * exitT;
         speechAlpha = Math.min(enterEase, 1 - exitEase);
         const slidePhase = Math.max(1 - enterEase, exitEase);
-        slideY = -8 * slidePhase;
+        slideY = -3 * slidePhase;
       }
 
       const flicker = 1.0 + Math.sin((performance.now() / 1000) * 15) * 0.15;
 
-      // E.V.E.'s voice is intentionally brighter than the cockpit telemetry.
-      // A pale paper-like surface makes speech immediately readable against
-      // dark space while the blue hairline preserves the communications feel.
+      // Communications surface: the backdrop deliberately blocks most of the
+      // planet/space pattern so contrast is stable regardless of what is behind it.
       noStroke();
-      fill(242, 244, 245, 142 * speechAlpha);
+      fill(10, 15, 30, 214 * speechAlpha);
       rect(P.x, P.y, P.w, P.h);
 
       noFill();
       stroke(
-        105, 165, 205,
-        88 * speechAlpha * flicker
+        120, 190, 225,
+        104 * speechAlpha * flicker
       );
-      strokeWidth(0.72);
+      strokeWidth(0.68);
       rect(P.x, P.y, P.w, P.h);
 
-      // A short divider makes the source-like label/message relationship
-      // explicit without splitting the frame into two heavy cards.
-      stroke(105, 145, 170, 46 * speechAlpha);
-      strokeWidth(0.65);
-      line(P.x + labelCol - 8, P.y + 12, P.x + labelCol - 8, P.y + P.h - 12);
-
-      const firstY = P.y + P.h - 27;
+      const firstY = P.y + P.h - 25;
 
       font(bodyFont);
       textAlign(LEFT);
       noStroke();
-      fontSize(9.0);
-      fill(72, 108, 132, 192 * speechAlpha);
+      fontSize(labelFontSize);
+      fill(210, 232, 246, 228 * speechAlpha);
       text(tx("hud.eveLabel"), P.x + 12, firstY);
 
       if (!visual.length) return;
 
       fontSize(bodyFontSize);
-      fill(31, 39, 46, 235 * speechAlpha);
-      const lineH = 16;
+      fill(248, 250, 252, 250 * speechAlpha);
+      const lineH = 18.5;
       for (let i = 0; i < visual.length; i += 1) {
         const yy = firstY + slideY - i * lineH;
         if (yy < P.y + 10) break;
