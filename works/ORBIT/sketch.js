@@ -751,6 +751,7 @@
       this.accumulator = 0;
       this.trailAccumulator = 0;
       this.trail = [];
+      this.takeoffParticles = [];
 
       // Phase 3 state. DRIFT physics remains untouched while mode === flight.
       this.mode = "flight";
@@ -1426,6 +1427,7 @@
         this.harvest.pulseTimer = Math.max(0, this.harvest.pulseTimer - dt);
       }
       this.updateHarvestSparks(dt);
+      this.updateTakeoffParticles(dt);
       if (this.base && this.base.repairPulse > 0) {
         this.base.repairPulse = Math.max(0, this.base.repairPulse - dt);
       }
@@ -2829,6 +2831,65 @@
       }
     }
 
+    spawnTakeoffParticles() {
+      if (!this.landPlanet || !this.landPlanet.pos) return;
+      if (!Array.isArray(this.takeoffParticles)) this.takeoffParticles = [];
+
+      // Source-faithful takeoff blast:
+      // 40 pale-blue particles fire back toward the planet (opposite launch),
+      // spreading +/-45 degrees and easing out over 1.8 seconds.
+      const towardPlanet = sub(this.landPlanet.pos, this.ship.pos);
+      let blastDir = len(towardPlanet) > 0.001 ? norm(towardPlanet) : v(0, -1);
+      const baseAngle = Math.atan2(blastDir.y, blastDir.x);
+      const life = 1.8;
+
+      for (let i = 0; i < 40; i += 1) {
+        const angle = baseAngle + ((Math.random() * 90 - 45) * Math.PI / 180);
+        const speed = 180 * (0.8 + Math.random() * 0.4);
+        const startX = this.ship.pos.x;
+        const startY = this.ship.pos.y;
+        const endX = startX + Math.cos(angle) * speed * life;
+        const endY = startY + Math.sin(angle) * speed * life;
+
+        this.takeoffParticles.push({
+          startX,
+          startY,
+          endX,
+          endY,
+          age: 0,
+          life,
+          size: 4 + Math.floor(Math.random() * 5),
+          alpha: 150 + Math.floor(Math.random() * 71),
+        });
+      }
+    }
+
+    updateTakeoffParticles(dt) {
+      if (!Array.isArray(this.takeoffParticles)) return;
+      for (let i = this.takeoffParticles.length - 1; i >= 0; i -= 1) {
+        const p = this.takeoffParticles[i];
+        p.age += dt;
+        if (p.age >= p.life) this.takeoffParticles.splice(i, 1);
+      }
+    }
+
+    drawTakeoffParticles() {
+      if (!Array.isArray(this.takeoffParticles) || !this.takeoffParticles.length) return;
+
+      noStroke();
+      for (const p of this.takeoffParticles) {
+        const q = clamp(p.age / Math.max(0.001, p.life), 0, 1);
+        const eased = 1 - (1 - q) * (1 - q); // tween.easing.quadOut
+        const x = p.startX + (p.endX - p.startX) * eased;
+        const y = p.startY + (p.endY - p.startY) * eased;
+        const size = p.size * (1 - eased);
+        const alpha = p.alpha * (1 - eased);
+
+        fill(180, 220, 255, alpha);
+        ellipse(x, y, size, size);
+      }
+    }
+
     updateHarvest(dt) {
       const p = this.landPlanet;
       if (!p || !p.kind) return;
@@ -2953,6 +3014,7 @@
       // original feel.
       this.launchDir = dirOut;
       this.launchTimer = 0;
+      this.spawnTakeoffParticles();
       this.ship.vel = mul(dirOut, ORBIT_TUNE.launchSpeed);
       this.ship.damp = 1.0;
       this.relandLock = ORBIT_TUNE.relandLockSec;
@@ -3110,6 +3172,7 @@
       this.drawPlanets();
       this.drawCaptureEffects();
       this.drawTrail();
+      this.drawTakeoffParticles();
       this.drawShip();
       this.drawHarvestSparks();
       popMatrix();
