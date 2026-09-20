@@ -1208,7 +1208,23 @@
       // The final memory return is the only deliberately non-interactive beat.
       // It lasts only a few seconds, then hands control straight back to ORBIT.
       if (this.finale && this.finale.active) return true;
-      if (this.mode === "landing" || this.mode === "takeoff" || this.mode === "rescue") return true;
+      if (this.mode === "landing" || this.mode === "rescue") return true;
+
+      // Phase 17.1: takeoff keeps the same pointer session that began with the
+      // one-second launch hold. The short launch impulse remains automatic, but
+      // releasing or moving the finger is still observed so normal flight can
+      // continue without requiring a second touch.
+      if (this.mode === "takeoff") {
+        if (touch.state === BEGAN) {
+          this.pressing = true;
+          this.setPointer(touch);
+        } else if (touch.state === MOVING) {
+          if (this.pressing) this.setPointer(touch);
+        } else if (touch.state === ENDED || touch.state === CANCELLED) {
+          this.pressing = false;
+        }
+        return true;
+      }
 
       if (this.mode === "landed") {
         // HOME terminal and launch are now two separate interaction modes.
@@ -1226,6 +1242,9 @@
         if (touch.state === BEGAN) {
           this.departHold = 0;
           this.pressing = true;
+          this.setPointer(touch);
+        } else if (touch.state === MOVING) {
+          if (this.pressing) this.setPointer(touch);
         } else if (touch.state === ENDED || touch.state === CANCELLED) {
           this.pressing = false;
           this.departHold = 0;
@@ -1472,8 +1491,6 @@
     }
 
     fixedTakeoff(dt) {
-      this.pressing = false;
-
       // Web launch phase: the one-second hold remains the ritual, but the
       // release is intentionally not ordinary flight physics. For a brief
       // moment the ship is thrown cleanly away from the planet: no gravity,
@@ -2729,7 +2746,8 @@
         }
       }
       this.mode = "takeoff";
-      this.pressing = false;
+      // Keep the launch-hold pointer alive. fixedTakeoff ignores steering for
+      // the brief launch impulse, then fixedFlight inherits the same held touch.
       this.departHold = 0;
       let dirOut = sub(this.ship.pos, this.landPlanet.pos);
       dirOut = len(dirOut) < 1 ? v(0, 1) : norm(dirOut);
