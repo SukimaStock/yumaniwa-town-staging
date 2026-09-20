@@ -4283,76 +4283,158 @@
     newButton: { x: 104, y: 86, w: 152, h: 44 },
     soloButton: { x: 104, y: 114, w: 152, h: 48 },
 
-    // The original title never felt like a static menu. Space kept drifting
-    // behind it, with only the occasional meteor interrupting the quiet.
-    starCam: { x: 0, y: 0 },
+    // Original Codea MenuScene values.
+    starConfig: {
+      count: [70, 40, 22],
+      speed: [8, 16, 28],
+      size: [1.2, 1.6, 2.0],
+    },
+    meteorConfig: {
+      max: 3,
+      spawnP60: 0.020,
+      vel: 560,
+      lifeMin: 0.75,
+      lifeMax: 1.25,
+      angle: -22 * Math.PI / 180,
+    },
+    stars: [[], [], []],
     meteors: [],
-    meteorTimer: 5.5,
+    time: 0,
 
     enter() {
-      this.starCam.x = 0;
-      this.starCam.y = 0;
+      this.time = 0;
       this.meteors = [];
-      this.meteorTimer = 4.5 + Math.random() * 4.5;
-    },
+      this.stars = [[], [], []];
 
-    spawnMeteor() {
-      const y = 300 + Math.random() * 260;
-      const speed = 185 + Math.random() * 75;
-      const dir = norm(v(-1, -0.28 - Math.random() * 0.16));
-      this.meteors.push({
-        x: W + 38,
-        y,
-        vx: dir.x * speed,
-        vy: dir.y * speed,
-        age: 0,
-        life: 2.0,
-        len: 24 + Math.random() * 18,
-      });
+      // Original: three independently moving layers with random position,
+      // size (0.8..1.2x) and base alpha (180..240).
+      for (let layer = 0; layer < 3; layer += 1) {
+        const count = this.starConfig.count[layer];
+        const baseSize = this.starConfig.size[layer];
+        const out = [];
+        for (let i = 0; i < count; i += 1) {
+          out.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            size: baseSize * (0.8 + Math.random() * 0.4),
+            alpha: 180 + Math.random() * 60,
+          });
+        }
+        this.stars[layer] = out;
+      }
     },
 
     update(dt) {
       const step = Math.min(Math.max(Number(dt || 0), 0), 0.1);
+      this.time += step;
 
-      // A very slow diagonal camera drift makes the whole star field slide
-      // continuously without looking like a screensaver.
-      this.starCam.x += 7.0 * step;
-      this.starCam.y += 2.6 * step;
+      // Original layers move left at 8 / 16 / 28 px per second.
+      for (let layer = 0; layer < 3; layer += 1) {
+        const speed = this.starConfig.speed[layer];
+        for (const s of this.stars[layer]) {
+          s.x -= speed * step;
+          if (s.x < -2) {
+            s.x = W + Math.random() * 20;
+            s.y = Math.random() * H;
+          }
+        }
+      }
 
-      this.meteorTimer -= step;
-      if (this.meteorTimer <= 0) {
-        this.spawnMeteor();
-        this.meteorTimer = 6.5 + Math.random() * 7.5;
+      // Codea checked a 2% spawn chance every update. Convert that 60 Hz
+      // probability to a dt-based probability so the Web version preserves
+      // the same timing without becoming frame-rate dependent.
+      const cfg = this.meteorConfig;
+      const spawnChance = 1 - Math.pow(1 - cfg.spawnP60, step * 60);
+      if (this.meteors.length < cfg.max && Math.random() < spawnChance) {
+        const startX = W + 60 + Math.random() * 80;
+        const startY = H * (0.55 + Math.random() * 0.35);
+        this.meteors.push({
+          x: startX,
+          y: startY,
+          vx: -Math.cos(cfg.angle) * cfg.vel,
+          vy: Math.sin(cfg.angle) * cfg.vel,
+          life: cfg.lifeMin + Math.random() * (cfg.lifeMax - cfg.lifeMin),
+          t: 0,
+        });
       }
 
       for (let i = this.meteors.length - 1; i >= 0; i -= 1) {
         const m = this.meteors[i];
-        m.age += step;
+        m.t += step;
         m.x += m.vx * step;
         m.y += m.vy * step;
-        if (m.age >= m.life || m.x < -90 || m.y < -80) this.meteors.splice(i, 1);
+        if (m.t > m.life || m.x < -80 || m.y < -80) {
+          this.meteors.splice(i, 1);
+        }
+      }
+    },
+
+    drawTitleGradient() {
+      // Original MenuScene: bgTop(10,14,24) -> bgBottom(3,5,9),
+      // rendered in 64 horizontal bands.
+      noStroke();
+      const bands = 64;
+      const bandH = H / bands;
+      for (let i = 0; i < bands; i += 1) {
+        const t = i / (bands - 1);
+        const r = 10 + (3 - 10) * t;
+        const g = 14 + (5 - 14) * t;
+        const b = 24 + (9 - 24) * t;
+        fill(r, g, b, 255);
+        rect(0, i * bandH, W, bandH + 1);
+      }
+    },
+
+    drawTitleStars() {
+      noStroke();
+      for (let layer = 0; layer < 3; layer += 1) {
+        for (const s of this.stars[layer]) {
+          const alpha = s.alpha +
+            40 * Math.sin((this.time * 1.3) + ((s.x + s.y) * 0.01));
+          fill(240, 250, 255, alpha);
+          ellipse(s.x, s.y, s.size, s.size);
+        }
       }
     },
 
     drawMeteors() {
-      if (!this.meteors.length) return;
-      noFill();
+      const cfg = this.meteorConfig;
+      strokeWidth(2);
       for (const m of this.meteors) {
-        const q = clamp(m.age / Math.max(0.001, m.life), 0, 1);
-        const fadeIn = clamp(q / 0.10, 0, 1);
-        const fadeOut = clamp((1 - q) / 0.28, 0, 1);
-        const a = 175 * Math.min(fadeIn, fadeOut);
-        const mag = Math.max(0.001, Math.hypot(m.vx, m.vy));
-        const nx = m.vx / mag;
-        const ny = m.vy / mag;
+        const u = clamp(1 - (m.t / m.life), 0, 1);
+        const tailLen = 90 + 130 * u;
+        const nx = Math.cos(cfg.angle);
+        const ny = -Math.sin(cfg.angle);
+        const hx = m.x;
+        const hy = m.y;
+        const tx = m.x + nx * tailLen;
+        const ty = m.y + ny * tailLen;
 
-        stroke(150, 185, 220, a * 0.24);
-        strokeWidth(3.2);
-        line(m.x - nx * m.len * 0.55, m.y - ny * m.len * 0.55, m.x, m.y);
-        stroke(228, 238, 248, a);
-        strokeWidth(1.0);
-        line(m.x - nx * m.len, m.y - ny * m.len, m.x, m.y);
+        for (let i = 0; i <= 7; i += 1) {
+          const t = i / 7;
+          const ax = hx * (1 - t) + tx * t;
+          const ay = hy * (1 - t) + ty * t;
+          const a = 160 * (1 - t) * u;
+          stroke(200, 230, 255, a);
+          line(ax, ay, hx, hy);
+        }
+
+        noStroke();
+        fill(255, 255, 255, 180 * u);
+        const head = 3.6 + 1.8 * u;
+        ellipse(hx, hy, head, head);
       }
+    },
+
+    drawTitleVignette() {
+      // Original uses four 32 px black strips at alpha 90.
+      noStroke();
+      fill(0, 0, 0, 90);
+      const t = 32;
+      rect(0, H - t, W, t);
+      rect(0, 0, W, t);
+      rect(0, 0, t, H);
+      rect(W - t, 0, t, H);
     },
 
     drawButton(rectData, label, strong = false) {
@@ -4369,11 +4451,10 @@
     },
 
     draw() {
-      const bg = SOURCE_LOCK.background;
-      background(bg[0], bg[1], bg[2]);
-
-      world.starfield.draw(this.starCam);
+      this.drawTitleGradient();
+      this.drawTitleStars();
       this.drawMeteors();
+      this.drawTitleVignette();
 
       fill(226, 235, 247, 245);
       font("monospace");
