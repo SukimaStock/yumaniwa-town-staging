@@ -4279,9 +4279,9 @@
 
   const titleScene = {
     opaque: true,
-    continueButton: { x: 104, y: 142, w: 152, h: 44 },
-    newButton: { x: 104, y: 86, w: 152, h: 44 },
-    soloButton: { x: 104, y: 114, w: 152, h: 48 },
+    continueButton: { x: 16, y: 142, w: 328, h: 46 },
+    newButton: { x: 16, y: 86, w: 328, h: 46 },
+    soloButton: { x: 16, y: 114, w: 328, h: 50 },
     pressedButton: null,
 
     // Original Codea MenuScene values.
@@ -4447,28 +4447,13 @@
       const x = cx - w / 2;
       const y = cy - h / 2;
 
-      // Original visual language, kept at the Web menu's original size:
-      // dark translucent face, near-square corners, fine cyan hairline.
+      // Wide, borderless translucent-white panel.
+      // Keep the title layout untouched; only the button surface changes.
       noStroke();
-      fill(24, 32, 48, 180);
-      rect(x, y, w, h, 3);
+      fill(255, 255, 255, pressed ? 64 : 48);
+      rect(x, y, w, h, 2);
 
-      stroke(255, 255, 255, 20);
-      strokeWidth(1);
-      line(x, y + h, x + w, y + h);
-
-      stroke(
-        primary ? 180 : 150,
-        primary ? 230 : 210,
-        255,
-        primary ? 230 : 190
-      );
-      strokeWidth(1);
-      noFill();
-      rect(x, y, w, h, 3);
-
-      noStroke();
-      fill(245, 248, 255, 235);
+      fill(245, 248, 255, 245);
       font("monospace");
       fontSize(12);
       textAlign(CENTER);
