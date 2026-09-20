@@ -188,7 +188,7 @@
             city_count: this.cityIds.length,
             has_custom_cities: hasCustomCities,
             duration: durationBucket(result.durationMs ?? (Date.now() - requestStartedAt)),
-          });
+          }, { interactive: false });
 
           if (opts.force) {
             SSE.audio.tone({ frequency: 390, endFrequency: 520, duration: 0.07, volume: 0.018 });
@@ -208,7 +208,7 @@
             http_status: diagnostic.httpStatus ? String(diagnostic.httpStatus) : "none",
             duration: durationBucket(diagnostic.durationMs ?? (Date.now() - requestStartedAt)),
             online: typeof navigator === "undefined" ? "unknown" : (navigator.onLine ? "yes" : "no"),
-          });
+          }, { interactive: false });
           if (opts.force) {
             SSE.audio.tone({ frequency: 260, endFrequency: 190, duration: 0.09, volume: 0.018 });
           }
