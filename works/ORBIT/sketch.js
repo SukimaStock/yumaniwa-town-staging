@@ -2221,7 +2221,10 @@
       const w = Math.min(310, W - 34);
       const h = Math.min(238, H * 0.43);
       const x = (W - w) / 2;
-      const y = (H - h) / 2 + 28;
+      const hud = this.cockpitHudLayout();
+      const centeredY = (H - h) / 2 + 28;
+      const eveClearY = hud.eve.y + hud.eve.h + 12;
+      const y = Math.max(centeredY, eveClearY);
       const titleH = 24;
       const close = { x: x + w - 24, y: y + h - 21, w: 17, h: 16 };
       const restore = { x: x + 26, y: y + 30, w: w - 52, h: 32 };
@@ -3614,10 +3617,11 @@
       const L = this.cockpitHudLayout();
       const P = L.eve;
       const speaking = this.eve.timer > 0 && !!this.eve.text;
+      if (!speaking) return;
 
-      // The frame is permanent. This is the crucial source-like hierarchy:
-      // E.V.E. has a place even while silent, so speech is not another fleeting
-      // notification competing with telemetry.
+      // Keep the source-like large dialogue window, but only reveal it when
+      // E.V.E. actually speaks. The lower instruments remain persistent while
+      // the voice arrives as a distinct event above them.
       const bodyFontSize = 10.0;
       const bodyFont = (typeof SSE !== "undefined" && SSE.theme)
         ? SSE.theme.font("mono")
@@ -3730,9 +3734,7 @@
         slideY = -8 * slidePhase;
       }
 
-      const flicker = speaking
-        ? 1.0 + Math.sin((performance.now() / 1000) * 15) * 0.15
-        : 1.0;
+      const flicker = 1.0 + Math.sin((performance.now() / 1000) * 15) * 0.15;
 
       noStroke();
       fill(5, 9, 15, 54 + 24 * speechAlpha);
@@ -3741,14 +3743,14 @@
       noFill();
       stroke(
         125, 190, 225,
-        (speaking ? 112 + 30 * speechAlpha : 55) * flicker
+        (112 + 30 * speechAlpha) * flicker
       );
       strokeWidth(0.8);
       rect(P.x, P.y, P.w, P.h);
 
       // A short divider makes the source-like label/message relationship
       // explicit without splitting the frame into two heavy cards.
-      stroke(105, 165, 205, speaking ? 52 : 28);
+      stroke(105, 165, 205, 52);
       strokeWidth(0.7);
       line(P.x + labelCol - 8, P.y + 12, P.x + labelCol - 8, P.y + P.h - 12);
 
@@ -3758,10 +3760,10 @@
       textAlign(LEFT);
       noStroke();
       fontSize(9.0);
-      fill(145, 195, 225, speaking ? 185 : 92);
+      fill(145, 195, 225, 185);
       text(tx("hud.eveLabel"), P.x + 12, firstY);
 
-      if (!speaking || !visual.length) return;
+      if (!visual.length) return;
 
       fontSize(bodyFontSize);
       fill(224, 236, 244, 232 * speechAlpha);
