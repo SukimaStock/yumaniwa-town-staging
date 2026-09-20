@@ -4493,10 +4493,6 @@
       fontSize(13);
       text("Silent Reboot", W / 2, 370);
 
-      fill(135, 156, 182, 190);
-      fontSize(10);
-      text("ORBIT / WEB BUILD v2.5", W / 2, 330);
-
       const hasSave = world.hasSave();
       if (hasSave) {
         this.drawButton(
@@ -4520,11 +4516,6 @@
         );
       }
 
-      fill(120, 140, 166, 175);
-      fontSize(9);
-      text("touch a side to fire the thruster", W / 2, 60);
-      text("approach a planet slowly to land", W / 2, 45);
-      text("returning to BASE saves your orbit", W / 2, 30);
     },
 
     touch(touch) {
