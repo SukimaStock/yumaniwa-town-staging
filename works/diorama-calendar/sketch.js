@@ -91,7 +91,14 @@
     },
     pendingMonth: null,
     reducedMotion: false,
+    analyticsParallax: { sensor: false, drag: false },
   };
+
+  function trackParallaxOnce(method) {
+    if (!state.analyticsParallax || state.analyticsParallax[method]) return;
+    state.analyticsParallax[method] = true;
+    SSE.analytics.track("Diorama Parallax Used", { method: method });
+  }
 
   function clamp(v, lo, hi) {
     return Math.max(lo, Math.min(hi, v));
@@ -438,6 +445,10 @@
     // tap beats image decoding, wait silently and start the same fade as soon
     // as the four target layers are ready rather than showing blank layers.
     loadTheme(targetTheme);
+    SSE.analytics.track("Diorama Month Change", {
+      direction: delta < 0 ? "previous" : "next",
+      month: targetMonth + 1,
+    });
     if (!themeReady(targetTheme)) {
       state.pendingMonth = { year: targetYear, month: targetMonth, theme: targetTheme };
       return true;
@@ -747,6 +758,13 @@
 
     let goalX = baseX + state.manual.x;
     let goalY = baseY + state.manual.y;
+
+    if (useSensor && Math.hypot(baseX, baseY) >= 0.08) {
+      trackParallaxOnce("sensor");
+    }
+    if (state.dragging && Math.hypot(state.manual.x, state.manual.y) >= 0.08) {
+      trackParallaxOnce("drag");
+    }
 
     if (state.reducedMotion) {
       goalX *= 0.22;
