@@ -506,6 +506,31 @@
     ]),
   });
 
+  // Original StoryManager land_skill_fast lines. In the source this
+  // fires only for a successful landing whose speed is above 90% of the
+  // allowed maximum.
+  const EVE_FAST_LANDING_LINES = Object.freeze({
+    1: Object.freeze([
+      "...FAST... LANDING.",
+    ]),
+    2: Object.freeze([
+      "Fast landing detected. Good control.",
+      "Warning: speed high... Landing OK.",
+    ]),
+    3: Object.freeze([
+      "コウソク チャクリク... カニン。コントロール リョウコウ。",
+      "ケイコク: スピード カジョウ... デモ... セイコウ。",
+    ]),
+    4: Object.freeze([
+      "いまの、はやかった! すごいね。",
+      "わっ!...びっくりした。でも、じょうず。",
+    ]),
+    5: Object.freeze([
+      "見事な高速着陸です、Pilot。",
+      "機体制御、完璧。速度ギリギリでしたよ。",
+    ]),
+  });
+
   // Echo text has two separate jobs. The recovered memory itself is fixed
   // above; only E.V.E.'s *present-day reaction* changes with BASE restoration.
   // Five emotional bands keep the dialogue sparse instead of writing 60 bespoke
@@ -929,6 +954,9 @@
         landingLastAt: {},
         collisionQueue: [],
         collisionLastAt: -Infinity,
+        fastLandingQueue: [],
+        fastLandingQueueLevel: 0,
+        fastLandingLastAt: -Infinity,
         // Persistent until the next HOME departure; consumed exactly once.
         restoreDepartureLevel: 0,
         // Volatile handoff from launch start to the flight transition.
@@ -1802,6 +1830,12 @@
         approachSpeed <= ORBIT_TUNE.landingMaxSpeed &&
         intentionalApproach
       ) {
+        if (
+          p.kind !== "neutral" &&
+          approachSpeed > ORBIT_TUNE.landingMaxSpeed * 0.9
+        ) {
+          this.sayEveFastLanding();
+        }
         this.startLanding(p);
         this.lastLandingDistance = Infinity;
         return;
@@ -1953,6 +1987,38 @@
 
     sayEveCollision() {
       const line = this.pickEveCollisionLine();
+      if (line) this.sayEve(line, 2.0);
+    }
+
+    pickEveFastLandingLine() {
+      if (!this.eve) return "";
+      if (this.simTime - Number(this.eve.fastLandingLastAt ?? -Infinity) < 4.0) return "";
+
+      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      const lines = EVE_FAST_LANDING_LINES[level] || EVE_FAST_LANDING_LINES[1];
+      if (!lines.length) return "";
+
+      if (
+        !Array.isArray(this.eve.fastLandingQueue) ||
+        this.eve.fastLandingQueue.length === 0 ||
+        this.eve.fastLandingQueueLevel !== level
+      ) {
+        this.eve.fastLandingQueue = Array.from({ length: lines.length }, (_, i) => i);
+        this.eve.fastLandingQueueLevel = level;
+        for (let i = this.eve.fastLandingQueue.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [this.eve.fastLandingQueue[i], this.eve.fastLandingQueue[j]] =
+            [this.eve.fastLandingQueue[j], this.eve.fastLandingQueue[i]];
+        }
+      }
+
+      const index = this.eve.fastLandingQueue.shift();
+      this.eve.fastLandingLastAt = this.simTime;
+      return lines[index] || "";
+    }
+
+    sayEveFastLanding() {
+      const line = this.pickEveFastLandingLine();
       if (line) this.sayEve(line, 2.0);
     }
 
