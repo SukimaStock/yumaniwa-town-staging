@@ -135,10 +135,10 @@
       5: Object.freeze({ fuelMax: 190, oreMax: 30, safeRadius: 15720 }),
     }),
     restoreCosts: Object.freeze({
-      1: Object.freeze({ ore: 20, data: 2 }),
-      2: Object.freeze({ ore: 25, data: 2 }),
-      3: Object.freeze({ ore: 30, data: 3 }),
-      4: Object.freeze({ ore: 30, data: 3 }),
+      1: Object.freeze({ ore: 20, echo: 2 }),
+      2: Object.freeze({ ore: 25, echo: 4 }),
+      3: Object.freeze({ ore: 30, echo: 7 }),
+      4: Object.freeze({ ore: 30, echo: 10 }),
     }),
   });
 
@@ -164,15 +164,11 @@
 
   const RESOURCE_TUNE = Object.freeze({
     fuelStart: 45,
-    dataStart: 0,
-    dataMax: 12,
     mineTickMin: 0.78,
     mineTickJitter: 0.28,
     mineGainMin: 2,
     mineGainMax: 3,
-    dataTickMin: 0.85,
-    dataTickJitter: 0.25,
-    dataGain: 1,
+    echoDecodeSec: 0.85,
     refuelTick: 0.72,
     refuelGainFractionMin: 0.08,
     refuelGainFractionMax: 0.12,
@@ -201,8 +197,9 @@
     homeFadeSec: 0.96,
   });
 
-  // Short tap at home advances the shared RESTORE level when the current
-  // expedition has brought back enough ORE and DATA. DATA comes one-per-SERA.
+  // Short tap at HOME advances RESTORE when enough physical ORE has returned
+  // and enough Echoes have been recovered. ORE is spent; Echoes are permanent
+  // memory milestones and are never consumed.
   const REPAIR_TUNE = Object.freeze({
     costs: PROGRESSION_TUNE.restoreCosts,
     // BASE has one gesture with two outcomes:
@@ -248,15 +245,14 @@
     5:Object.freeze({bodyR:78,body:[230,236,248,255],outline:[34,40,58,255],inner:{r:62.4,fill:[248,250,255,150],stroke:[90,110,165,210]},inner2:{r:45.24,fill:[255,255,255,70],stroke:[120,150,200,90]},glass:[210,225,255,230],gStroke:2.5}),
   });
 
-  // Phase 7: Echoes are discoveries, not another spendable resource. As in
-  // the Lua version, the first successful DATA harvest on a unique DATA planet
-  // reveals one Echo.
+  // Phase 7: Echoes are discoveries, not a spendable resource. A unique SERA
+  // carries one recoverable Echo; decoding it advances memory progress directly.
   const ECHO_TUNE = Object.freeze({
     total: 12,
     pulseSec: 1.6,
     memorySec: 4.2,
-    // DATA first lands as a small HUD pickup. E.V.E. then analyzes the Echo
-    // before the recovered memory is played back.
+    // E.V.E. analyzes the newly recovered Echo before the intact memory is
+    // played back.
     memoryRevealDelaySec: 0.78,
     analysisSec: 2.4,
   });
@@ -565,11 +561,11 @@
     rand(sx, sy, salt) { return hashText01(`${sx}:${sy}:${salt}`, ATLAS_TUNE.seed); }
 
     pickType(t) {
-      // Keep the old world-reading vocabulary simple: fuel, ore, data, quiet.
+      // Keep the world-reading vocabulary simple: fuel, ore, echo, quiet.
       // There is intentionally no "correct" SERA or VOX anymore.
       if (t < 0.20) return { name: "LUMA", kind: "refuel", color: [160, 205, 255] };
       if (t < 0.46) return { name: "VOX",  kind: "mine",   color: [255, 90, 70] };
-      if (t < 0.52) return { name: "SERA", kind: "data",   color: [240, 230, 120] };
+      if (t < 0.52) return { name: "SERA", kind: "echo",   color: [240, 230, 120] };
       return { name: "ASTRA", kind: "neutral", color: [135, 150, 175] };
     }
 
@@ -592,8 +588,8 @@
           resourceMax = Math.floor(ATLAS_TUNE.ambientFuelMin + resT * (ATLAS_TUNE.ambientFuelMax - ATLAS_TUNE.ambientFuelMin + 1));
         } else if (type.kind === "mine") {
           resourceMax = Math.floor(ATLAS_TUNE.ambientOreMin + resT * (ATLAS_TUNE.ambientOreMax - ATLAS_TUNE.ambientOreMin + 1));
-        } else if (type.kind === "data") {
-          // One SERA = one discovery. DATA and Echo stay paired.
+        } else if (type.kind === "echo") {
+          // One SERA = one recoverable memory signal.
           resourceMax = 1;
         }
         const planet = this.makePlanet(
@@ -790,8 +786,6 @@
         fuelMax: initialProfile.fuelMax,
         ore: 0,
         oreMax: initialProfile.oreMax,
-        data: RESOURCE_TUNE.dataStart,
-        dataMax: RESOURCE_TUNE.dataMax,
       };
       this.harvest = {
         timer: 0,
@@ -809,7 +803,7 @@
       base.atlasId = "F:BASE";
 
       const sera = STORY_SERA_TUNE.map((spec) => {
-        const planet = this.makePlanet("SERA", spec.x, spec.y, 410, 1100, 0.991, [240, 230, 120], "data", 1);
+        const planet = this.makePlanet("SERA", spec.x, spec.y, 410, 1100, 0.991, [240, 230, 120], "echo", 1);
         planet.atlasId = `S:${String(spec.id).padStart(2, "0")}`;
         planet.storyTier = spec.requiredLevel;
         planet.requiredLevel = spec.requiredLevel;
@@ -932,7 +926,6 @@
         resources: {
           fuel: this.resources.fuel,
           ore: this.resources.ore,
-          data: this.resources.data,
         },
         baseLevel: this.base.level,
         eve: {
@@ -975,8 +968,8 @@
     }
 
     saveGame(reason = "auto") {
-      // HOME remains the normal persistence point. v2.5 additionally commits decoded
-      // DATA/Echo after an emergency rescue; physical ORE still requires return.
+      // HOME remains the normal persistence point. Echo discovery survives an
+      // emergency rescue; physical ORE still requires a successful return.
       const atHome = this.mode === "landed" && this.landPlanet && this.landPlanet.kind === "base";
       if (!atHome) return false;
 
@@ -1019,8 +1012,8 @@
       this.eve.departureLineLevel = 0;
       this.resources.fuel = clamp(Number(rr.fuel ?? this.resources.fuelMax), 0, this.resources.fuelMax);
       this.resources.ore = clamp(Number(rr.ore ?? 0), 0, this.resources.oreMax);
-      this.resources.data = clamp(Number(rr.data ?? 0), 0, this.resources.dataMax);
-
+      // Legacy schema-3 saves may still contain resources.data. It is ignored:
+      // Echo discovery already carries the equivalent permanent progression.
       const ee = data.echoes || {};
       this.echoes.discovered = new Set(Array.isArray(ee.discovered) ? ee.discovered : []);
       this.echoes.found = clamp(Math.floor(Number(ee.found ?? this.echoes.discovered.size)), 0, this.echoes.total);
@@ -1640,9 +1633,7 @@
       const profile = this.restoreProfile(level);
       this.resources.fuelMax = profile.fuelMax;
       this.resources.oreMax = profile.oreMax;
-      this.resources.dataMax = RESOURCE_TUNE.dataMax;
       this.resources.ore = clamp(this.resources.ore, 0, this.resources.oreMax);
-      this.resources.data = clamp(this.resources.data, 0, this.resources.dataMax);
       if (refillFuel) this.resources.fuel = this.resources.fuelMax;
       else this.resources.fuel = clamp(this.resources.fuel, 0, this.resources.fuelMax);
     }
@@ -1811,14 +1802,14 @@
       this.echoStory.active = true;
       this.echoStory.index = index;
       this.echoStory.timer = ECHO_TUNE.memorySec;
-      // The recovered text is past data, not present-day E.V.E. speech.
+      // The recovered text is a past record, not present-day E.V.E. speech.
       // Clear the analysis line before playback so the two voices stay distinct.
       this.eve.timer = 0;
     }
 
     queueEchoMemory(index) {
-      // DATA itself is already committed. After the pickup fades, present-day
-      // E.V.E. analyzes the Echo; only then is the intact memory played back.
+      // After the recovery pulse, present-day E.V.E. analyzes the Echo; only
+      // then is the intact memory played back.
       this.echoStory.pendingIndex = index;
       this.echoStory.pendingTimer = ECHO_TUNE.memoryRevealDelaySec;
       this.echoStory.analyzing = false;
@@ -1831,7 +1822,7 @@
     }
 
     canDiscoverEcho(planet) {
-      if (!planet || planet.kind !== "data" || !this.echoes) return false;
+      if (!planet || planet.kind !== "echo" || !this.echoes) return false;
       if (this.echoes.found >= this.echoes.total) return false;
       const echoId = this.echoIdForPlanet(planet);
       return !!(echoId && !this.echoes.discovered.has(echoId));
@@ -1846,7 +1837,10 @@
       this.echoes.pulseTimer = ECHO_TUNE.pulseSec;
       this.queueEchoMemory(this.echoes.found);
       this.pushSystemLog("echoRecovered", { index: String(this.echoes.found).padStart(2, "0") });
-      if (this.harvest) this.harvest.loggedThisLanding = true;
+      if (this.harvest) {
+        this.harvest.loggedThisLanding = true;
+        this.spawnHarvestSparks("echo");
+      }
       return true;
     }
 
@@ -1997,7 +1991,7 @@
       let best = null;
       let bestD = Infinity;
       const consider = (planet) => {
-        if (!planet || planet.kind !== "data") return;
+        if (!planet || planet.kind !== "echo") return;
         // The faint signal is only a gentle way back toward meaningful progress.
         // It does not hide locked SERA from the universe; it simply avoids
         // deliberately navigating the player to something E.V.E. cannot decode yet.
@@ -2148,7 +2142,7 @@
       }
       this.resetAstraQuiet(true);
 
-      if (p.kind === "mine" || p.kind === "data" || p.kind === "refuel") {
+      if (p.kind === "mine" || p.kind === "echo" || p.kind === "refuel") {
         this.sayEveLanding(p.kind);
       }
 
@@ -2491,7 +2485,7 @@
 
         if (cost) {
           const oreOk = this.resources.ore >= cost.ore;
-          const dataOk = this.resources.data >= cost.data;
+          const echoOk = echoFound >= cost.echo;
           drawStatusRow(
             3,
             tx("home.labels.ore"),
@@ -2500,14 +2494,14 @@
           );
           drawStatusRow(
             4,
-            tx("home.labels.data"),
-            `${Math.floor(this.resources.data)}/${cost.data}`,
-            dataOk ? 0 : 145
+            tx("home.labels.echoSync"),
+            `${echoFound}/${cost.echo}`,
+            echoOk ? 0 : 145
           );
           drawStatusRow(5, tx("home.labels.status"), ready ? tx("home.values.restoreReady") : tx("home.values.waitingResources"));
         } else {
           drawStatusRow(3, tx("home.labels.ore"), `${Math.floor(this.resources.ore)}/${this.resources.oreMax}`);
-          drawStatusRow(4, tx("home.labels.data"), `${Math.floor(this.resources.data)}/${this.resources.dataMax}`);
+          drawStatusRow(4, tx("home.labels.echoSync"), `${echoFound}/${echoTotal}`);
           drawStatusRow(5, tx("home.labels.status"), tx("home.values.restoreComplete"));
         }
       }
@@ -2573,7 +2567,8 @@
         this.landPlanet &&
         this.landPlanet.kind === "base" &&
         this.resources.ore >= cost.ore &&
-        this.resources.data >= cost.data
+        this.echoes &&
+        this.echoes.found >= cost.echo
       );
     }
 
@@ -2611,12 +2606,10 @@
 
     completeBaseRepair(cost) {
       if (!cost || !this.landPlanet || this.landPlanet.kind !== "base") return false;
-      // Re-check the economy on completion so the ritual can never create
-      // progress from a stale state. Normally resources cannot change while
-      // the overlay is active, but keeping this guard makes the contract clear.
-      if (this.resources.ore < cost.ore || this.resources.data < cost.data) return false;
+      // Re-check the requirements on completion so the ritual can never create
+      // progress from a stale state. ORE is consumed; recovered Echoes remain.
+      if (this.resources.ore < cost.ore || !this.echoes || this.echoes.found < cost.echo) return false;
       this.resources.ore -= cost.ore;
-      this.resources.data -= cost.data;
       this.base.level = Math.min(5, this.base.level + 1);
       this.pushSystemLog("restoreLevel", { level: this.base.level });
       this.mode = "landed";
@@ -2702,17 +2695,17 @@
       if (planet.kind === "neutral") return true;
 
       if (planet.depleted || Number(planet.resourceCurrent || 0) <= 0) return false;
-      if ((planet.kind === "mine" || planet.kind === "data") && !this.canInteractWithPlanet(planet)) return false;
+      if ((planet.kind === "mine" || planet.kind === "echo") && !this.canInteractWithPlanet(planet)) return false;
 
       // LUMA is intentionally progression-open; it only becomes unavailable
       // after its local fuel reserve is exhausted.
-      return planet.kind === "refuel" || planet.kind === "mine" || planet.kind === "data";
+      return planet.kind === "refuel" || planet.kind === "mine" || planet.kind === "echo";
     }
 
     syncDiscoveredSeraState() {
       if (!this.echoes || !this.echoes.discovered) return;
       const sync = (planet) => {
-        if (!planet || planet.kind !== "data") return;
+        if (!planet || planet.kind !== "echo") return;
         const id = this.echoIdForPlanet(planet);
         if (id && this.echoes.discovered.has(id)) {
           planet.resourceCurrent = 0;
@@ -2740,22 +2733,20 @@
 
     captureDiscoveryProgress() {
       return {
-        data: Math.max(0, Math.floor(Number(this.resources && this.resources.data || 0))),
         found: Math.max(0, Math.floor(Number(this.echoes && this.echoes.found || 0))),
         discovered: this.echoes ? Array.from(this.echoes.discovered || []) : [],
       };
     }
 
     mergeDiscoveryProgress(snapshot) {
-      if (!snapshot || !this.echoes || !this.resources) return;
+      if (!snapshot || !this.echoes) return;
       const merged = new Set(this.echoes.discovered || []);
       for (const id of snapshot.discovered || []) merged.add(id);
       this.echoes.discovered = merged;
       this.echoes.found = clamp(Math.max(this.echoes.found || 0, snapshot.found || 0, merged.size), 0, this.echoes.total);
       this.echoes.carriedThisTrip = 0;
-      // DATA is knowledge, not physical cargo in v2.5. Once decoded it survives
-      // an emergency return, unlike unreturned ORE.
-      this.resources.data = clamp(Math.max(this.resources.data || 0, snapshot.data || 0), 0, this.resources.dataMax);
+      // Echo discovery is permanent knowledge and survives an emergency return,
+      // unlike physical ORE that was not brought back to HOME.
       this.syncDiscoveredSeraState();
       this.refreshActivePlanets(true);
     }
@@ -2772,7 +2763,6 @@
 
     resourceRoom(kind) {
       if (kind === "mine") return Math.max(0, this.resources.oreMax - this.resources.ore);
-      if (kind === "data") return Math.max(0, this.resources.dataMax - this.resources.data);
       if (kind === "refuel") return Math.max(0, this.resources.fuelMax - this.resources.fuel);
       return 0;
     }
@@ -2798,7 +2788,7 @@
         }
       }
 
-      if (kind === "mine" || kind === "refuel" || kind === "data") {
+      if (kind === "mine" || kind === "refuel") {
         this.spawnHarvestSparks(kind);
       }
     }
@@ -2807,8 +2797,8 @@
       if (!this.harvest) return;
       if (!Array.isArray(this.harvest.sparks)) this.harvest.sparks = [];
 
-      // Source-faithful resource FX. Original FXManager uses the same
-      // 10-particle motion for fuel / ore / data; only the color changes.
+      // Source-faithful resource FX. The same 10-particle motion is reused for
+      // fuel / ore / Echo recovery; only the color changes.
       // fxPos sits 20 units outward from the landed ship.
       const p = this.landPlanet;
       let outward = v(0, 1);
@@ -2847,7 +2837,7 @@
           continue;
         }
 
-        // Original FXManager gravity for fuel / ore / data particles.
+        // Original FXManager gravity is retained for the shared particles.
         s.vy -= 30 * dt;
         s.x += s.vx * dt;
         s.y += s.vy * dt;
@@ -2865,8 +2855,8 @@
 
         if (s.kind === "refuel") {
           fill(100, 220, 255, a);
-        } else if (s.kind === "data") {
-          fill(120, 255, 140, a);
+        } else if (s.kind === "echo") {
+          fill(166, 197, 218, a);
         } else {
           fill(255, 200, 120, a);
         }
@@ -2937,29 +2927,37 @@
       const p = this.landPlanet;
       if (!p || !p.kind) return;
 
-      // Defensive gate for migrated/edge states. Normal flight now prevents a
-      // landing on locked resource worlds, while still leaving those bodies
-      // visible and physically reachable in space.
-      if ((p.kind === "mine" || p.kind === "data") && !this.canInteractWithPlanet(p)) {
+      if ((p.kind === "mine" || p.kind === "echo") && !this.canInteractWithPlanet(p)) {
         this.harvest.timer = 0;
         return;
       }
 
-      // A SERA is a one-time discovery. Once decoded, returning after a rescue
-      // cannot farm another DATA unit from the same signal.
-      const echoPending = p.kind === "data" && this.canDiscoverEcho(p);
-      if (p.kind === "data" && !echoPending) {
-        p.resourceCurrent = 0;
-        p.depleted = true;
+      // SERA is a one-time memory signal, not cargo.
+      if (p.kind === "echo") {
+        const pending = this.canDiscoverEcho(p);
+        if (!pending) {
+          p.resourceCurrent = 0;
+          p.depleted = true;
+          this.harvest.timer = 0;
+          return;
+        }
+        if (p.depleted) return;
+
+        this.harvest.timer += dt;
+        if (this.harvest.timer < RESOURCE_TUNE.echoDecodeSec) return;
         this.harvest.timer = 0;
+
+        if (this.discoverEcho(p)) {
+          p.resourceCurrent = 0;
+          p.depleted = true;
+        }
         return;
       }
+
       if (p.depleted) return;
 
       const room = this.resourceRoom(p.kind);
-      // Echo analysis is knowledge rather than cargo; a full DATA bar does not
-      // block a new memory from being decoded.
-      if (room <= 0 && !echoPending) return;
+      if (room <= 0) return;
 
       this.harvest.timer += dt;
       const threshold = p.kind === "refuel" ? RESOURCE_TUNE.refuelTick : this.harvest.threshold;
@@ -2969,8 +2967,6 @@
       let requested = 0;
       if (p.kind === "mine") {
         requested = RESOURCE_TUNE.mineGainMin + Math.floor(Math.random() * (RESOURCE_TUNE.mineGainMax - RESOURCE_TUNE.mineGainMin + 1));
-      } else if (p.kind === "data") {
-        requested = RESOURCE_TUNE.dataGain;
       } else if (p.kind === "refuel") {
         const span = RESOURCE_TUNE.refuelGainFractionMax - RESOURCE_TUNE.refuelGainFractionMin;
         const fraction = RESOURCE_TUNE.refuelGainFractionMin + Math.random() * span;
@@ -2979,28 +2975,19 @@
 
       const available = Math.max(0, p.resourceCurrent || 0);
       let gained = Math.max(0, Math.min(requested, room, available));
-      if (p.kind === "mine" || p.kind === "data") {
-        gained = Math.max(0, Math.floor(gained + 1e-6));
-      }
+      if (p.kind === "mine") gained = Math.max(0, Math.floor(gained + 1e-6));
+
       if (gained > 0) {
         if (p.kind === "mine") this.resources.ore += gained;
-        else if (p.kind === "data") this.resources.data += gained;
         else if (p.kind === "refuel") this.resources.fuel += gained;
 
         p.resourceCurrent = Math.max(0, available - gained);
         if (p.resourceCurrent <= 0) p.depleted = true;
         this.recordHarvest(p.kind, gained);
       }
-      if (p.kind === "data" && echoPending) {
-        this.discoverEcho(p);
-        p.resourceCurrent = 0;
-        p.depleted = true;
-      }
 
       if (p.kind === "mine") {
         this.harvest.threshold = RESOURCE_TUNE.mineTickMin + Math.random() * RESOURCE_TUNE.mineTickJitter;
-      } else if (p.kind === "data") {
-        this.harvest.threshold = RESOURCE_TUNE.dataTickMin + Math.random() * RESOURCE_TUNE.dataTickJitter;
       }
     }
 
@@ -3802,12 +3789,6 @@
           fill(255, 110, 90, 225 * q);
           textAlign(LEFT);
           text(`+${this.harvest.lastAmount}`, W / 2 - 2, fy);
-        } else if (this.harvest.lastKind === "data") {
-          this.drawCargoIcon("data", W / 2 - 12, fy, 0.82, q);
-          noStroke();
-          fill(240, 230, 120, 225 * q);
-          textAlign(LEFT);
-          text(`+${this.harvest.lastAmount}`, W / 2 - 2, fy);
         } else {
           noStroke();
           fill(220, 238, 250, 210 * q);
@@ -3841,10 +3822,7 @@
       strokeWidth(w);
 
       if (kind === "ore") {
-        // ORE = three irregular angular shards. No circles, no fill.
-        // It should read as matter/mineral even when the label is unfamiliar.
         stroke(225, 112, 92, 215 * a);
-
         line(x - 5.2*s, y + 0.5*s, x - 3.6*s, y + 4.0*s);
         line(x - 3.6*s, y + 4.0*s, x - 0.8*s, y + 2.5*s);
         line(x - 0.8*s, y + 2.5*s, x - 1.9*s, y - 1.5*s);
@@ -3860,21 +3838,7 @@
         line(x + 3.6*s, y - 4.8*s, x + 0.7*s, y - 4.0*s);
         line(x + 0.7*s, y - 4.0*s, x + 0.6*s, y - 0.8*s);
 
-      } else if (kind === "data") {
-        // DATA = one precise crystal. Regular geometry contrasts with ORE.
-        stroke(224, 205, 112, 220 * a);
-        line(x, y + 5.0*s, x + 4.4*s, y);
-        line(x + 4.4*s, y, x, y - 5.0*s);
-        line(x, y - 5.0*s, x - 4.4*s, y);
-        line(x - 4.4*s, y, x, y + 5.0*s);
-
-        // Tiny internal data mark; still line-only and square.
-        line(x - 1.4*s, y, x + 1.4*s, y);
-        line(x, y - 1.4*s, x, y + 1.4*s);
-
       } else if (kind === "echo") {
-        // ECHO = old storage medium / memory backup. Deliberately reads as
-        // a tiny floppy rather than a modern rounded save-app icon.
         stroke(166, 197, 218, 220 * a);
         const l = x - 4.8*s;
         const r = x + 4.8*s;
@@ -3886,7 +3850,6 @@
         line(r, t, r, b);
         line(r, b, l, b);
 
-        // shutter / label cut
         line(x - 2.8*s, y + 2.9*s, x + 2.2*s, y + 2.9*s);
         line(x + 2.2*s, y + 2.9*s, x + 2.2*s, y + 0.7*s);
         line(x - 2.8*s, y - 1.4*s, x + 2.8*s, y - 1.4*s);
@@ -3982,20 +3945,17 @@
         fuelY + fuelH / 2 + 0.3
       );
 
-      // RESOURCE BALANCE
-      // Three shared instrument glyphs make ORE / DATA / ECHO readable as
-      // matter / information / stored memory before the labels are parsed.
+      // PROGRESS BALANCE
+      // ORE is physical repair matter; ECHO is permanent recovered memory.
       const iconX = P.x + 15;
       const labelX = P.x + 27;
       const valueX = P.x + P.w - 9;
       const firstResourceY = fuelY - 17;
-      const resourceRowH = 14;
+      const resourceRowH = 16;
       const oreY = firstResourceY;
-      const dataY = firstResourceY - resourceRowH;
-      const echoY = firstResourceY - resourceRowH * 2;
+      const echoY = firstResourceY - resourceRowH;
 
       this.drawCargoIcon("ore", iconX, oreY - 0.5, 0.74, 0.92);
-      this.drawCargoIcon("data", iconX, dataY - 0.5, 0.74, 0.92);
       this.drawCargoIcon("echo", iconX, echoY - 0.5, 0.74, 0.92);
 
       noStroke();
@@ -4003,13 +3963,11 @@
       fontSize(8.4);
       textAlign(LEFT);
       text(tx("home.labels.ore"), labelX, oreY);
-      text(tx("home.labels.data"), labelX, dataY);
       text(tx("hud.echoLabel"), labelX, echoY);
 
       fill(225, 235, 244, 215);
       textAlign(RIGHT);
       text(`${Math.floor(r.ore)}/${r.oreMax}`, valueX, oreY);
-      text(`${Math.floor(r.data)}/${r.dataMax}`, valueX, dataY);
       text(
         `${this.echoes ? this.echoes.found : 0}/${this.echoes ? this.echoes.total : ECHO_TUNE.total}`,
         valueX,
@@ -4066,7 +4024,7 @@
         if (!(mx > x && mx < x + size && my > y && my < y + size)) return;
 
         const pcol = p.color || [210, 220, 235];
-        const locked = (p.kind === "data" || p.kind === "mine") && !this.canInteractWithPlanet(p);
+        const locked = (p.kind === "echo" || p.kind === "mine") && !this.canInteractWithPlanet(p);
         if (locked) {
           noFill();
           stroke(pcol[0], pcol[1], pcol[2], 155);
@@ -4458,7 +4416,7 @@
         `planet ${p ? `${p.name}/${p.kind}` : "none"} / marker ${this.captureReady ? "ON" : "off"}`,
         `sector ${this.atlasSectorKey || "0,0"} / active planets ${this.planets.length}`,
         `signal ${this.signal && this.signal.targetId ? this.signal.targetId : "none"} / ${this.signal && Number.isFinite(this.signal.distance) ? Math.round(this.signal.distance) : "-"}`,
-        `res F${Math.floor(this.resources.fuel)} O${Math.floor(this.resources.ore)} D${Math.floor(this.resources.data)} / E${this.echoes.found}/${this.echoes.total} / restore L${this.base.level}`,
+        `res F${Math.floor(this.resources.fuel)} O${Math.floor(this.resources.ore)} / E${this.echoes.found}/${this.echoes.total} / restore L${this.base.level}`,
         `pos ${this.ship.pos.x.toFixed(0)}, ${this.ship.pos.y.toFixed(0)}`,
       ];
 
