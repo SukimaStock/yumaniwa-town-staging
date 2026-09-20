@@ -1,8 +1,8 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 5,
-    "note": "ORBIT Web Japanese runtime text. ORE + DATA are practical RESTORE resources; ECHO is a permanent memory archive discovered within DATA."
+    "version": 6,
+    "note": "ORBIT Web Japanese runtime text. ORE + DATA are practical RESTORE resources; ECHO is a permanent memory archive discovered by analyzing DATA."
   },
   "meta": {
     "documentTitle": "ORBIT — Silent Reboot / Web v2.7.7"
@@ -231,11 +231,11 @@
       ]
     },
     "echoAnalysis": {
-      "1": "...ECHO... DETECTED.\n...ANALYZING...",
-      "2": "Echo detected.\nAnalyzing memory...",
-      "3": "エコー カクニン。\nキオク ヲ カイセキ...",
-      "4": "エコー かくにん。\nきおくを かいせき します……",
-      "5": "エコーを確認。\n記憶の解析を開始します。"
+      "1": "...DATA... ANALYSIS...",
+      "2": "Analyzing recovered data...",
+      "3": "カイシュウ データ ヲ カイセキ...",
+      "4": "でーたを かいせき しています……",
+      "5": "回収データを解析しています。"
     },
     "echoReactions": {
       "1": [
@@ -429,5 +429,12 @@
       "response": "あなたの心は\nまた 動き出した。",
       "instruction": "中央を長押しする"
     }
+  },
+  "dataAnalysis": {
+    "title": "DATA ANALYSIS",
+    "analyzing": "E.V.E. ANALYZING...",
+    "complete": "ANALYSIS COMPLETE",
+    "echoDetected": "ECHO DETECTED",
+    "noEcho": "NO ECHO TRACE"
   }
 }
