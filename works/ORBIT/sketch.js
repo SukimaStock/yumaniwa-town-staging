@@ -572,7 +572,7 @@
       if (t < 0.20) return { name: "LUMA", kind: "refuel", color: [160, 205, 255] };
       if (t < 0.46) return { name: "VOX",  kind: "mine",   color: [255, 90, 70] };
       if (t < 0.52) return { name: "SERA", kind: "data",   color: [240, 230, 120] };
-      return { name: "ASTRA", kind: "neutral", color: [135, 150, 175] };
+      return { name: "ASTRA", kind: "neutral", color: [155, 150, 170] };
     }
 
     buildSector(sx, sy) {
