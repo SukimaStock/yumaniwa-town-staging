@@ -376,11 +376,13 @@ var workPlayerReturnDestinationId = null;
 // 直リンクで遊び終えた人にだけ、施設内の別作品を案内する。
 var isDirectWorkVisit = false;
 
-function trackYumaniwaEvent(name, props){
+function trackYumaniwaEvent(name, props, options){
  try{
+  var payload=props?{props:props}:{};
+  if(options&&options.interactive===false) payload.interactive=false;
   if(typeof window.plausible!=="function") return false;
-  window.plausible(name, props?{props:props}:undefined);
-  if(window.__YUMANIWA_ANALYTICS_DEBUG__) console.info("[Yumaniwa]",name,props||{});
+  window.plausible(name,payload);
+  if(window.__YUMANIWA_ANALYTICS_DEBUG__) console.info("[Yumaniwa]",name,props||{},options||{});
   return true;
  }catch(e){
   if(window.__YUMANIWA_ANALYTICS_DEBUG__) console.warn(e);
