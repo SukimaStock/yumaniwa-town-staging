@@ -3574,20 +3574,9 @@
       if (this.echoStory && this.echoStory.active) return;
       if (this.finale && this.finale.active) return;
 
-      const mapSize = Math.min(180, Math.max(126, W * 0.40));
-      const mapX = W - mapSize - 14;
-      const x = 14;
-      const y = 14;
-      const w = Math.max(132, mapX - x - 12);
-      const h = 62;
-
-      noStroke();
-      fill(7, 12, 20, 50);
-      rect(x, y, w, h);
-      noFill();
-      stroke(105, 165, 205, 54);
-      strokeWidth(0.8);
-      rect(x, y, w, h);
+      const L = this.cockpitHudLayout();
+      const P = L.status;
+      const dividerY = P.y + P.h - 85;
 
       const sourceLines = Array.isArray(this.systemLog) && this.systemLog.length
         ? this.systemLog
@@ -3596,21 +3585,23 @@
 
       font("monospace");
       textAlign(LEFT);
-      fontSize(9.3);
-      const lineH = 16;
-      const topY = y + h - 15;
+      fontSize(8.1);
+      const lineH = 14;
+      const topY = dividerY - 15;
       for (let i = 0; i < lines.length; i += 1) {
         const age = lines.length - 1 - i;
-        const a = age === 0 ? 155 : Math.max(70, 126 - age * 22);
+        const a = age === 0 ? 165 : Math.max(72, 132 - age * 24);
+        noStroke();
         fill(190, 218, 236, a);
-        text(String(lines[i]), x + 9, topY - i * lineH);
+        text(String(lines[i]), P.x + 9, topY - i * lineH);
       }
 
-      // Keep the old terminal life, but disconnect it from E.V.E.'s speech.
+      // One tiny idle cursor keeps the lower instrument alive without
+      // competing with E.V.E.'s dedicated dialogue window above it.
       if (Math.floor(performance.now() / 850) % 2 === 0) {
         noStroke();
-        fill(160, 205, 235, 92);
-        rect(x + 9, y + 8, 7, 1);
+        fill(160, 205, 235, 78);
+        rect(P.x + 9, P.y + 9, 7, 1);
       }
     }
 
@@ -3619,25 +3610,22 @@
       if (this.mode === "rescue") return;
       if (this.echoStory && this.echoStory.active) return;
       if (this.finale && this.finale.active) return;
-      if (!(this.eve.timer > 0) || !this.eve.text) return;
 
-      const mapSize = Math.min(180, Math.max(126, W * 0.40));
-      const mapX = W - mapSize - 14;
-      const x = 16;
-      const y = 86;
-      const w = Math.max(132, mapX - x - 14);
+      const L = this.cockpitHudLayout();
+      const P = L.eve;
+      const speaking = this.eve.timer > 0 && !!this.eve.text;
 
-      // E.V.E. is deliberately not another full UI window. A faint receiving
-      // plate and one hairline distinguish a living voice from SYSTEM telemetry.
-      //
-      // Wrap against the *actual rendered width*. The old implementation cut by
-      // character count, which made Japanese, Latin words and punctuation break
-      // at visibly wrong positions.
-      const bodyFontSize = 9.7;
+      // The frame is permanent. This is the crucial source-like hierarchy:
+      // E.V.E. has a place even while silent, so speech is not another fleeting
+      // notification competing with telemetry.
+      const bodyFontSize = 10.0;
       const bodyFont = (typeof SSE !== "undefined" && SSE.theme)
         ? SSE.theme.font("mono")
         : "monospace";
-      const textMaxWidth = Math.max(40, w - 16); // 8px padding on both sides
+      const labelCol = Math.min(82, Math.max(68, P.w * 0.24));
+      const bodyX = P.x + labelCol;
+      const textMaxWidth = Math.max(60, P.x + P.w - bodyX - 12);
+
       const measure = (value) => {
         const s = String(value || "");
         if (
@@ -3658,8 +3646,6 @@
         const raw = String(source || "").trim();
         if (!raw) return;
 
-        // Keep Latin words together where possible, while treating Japanese
-        // characters individually so wrapping can happen naturally between them.
         const tokens = raw.match(/[A-Za-z0-9][A-Za-z0-9._:+\-/?'’]*/g) || [];
         const mixed = [];
         let cursor = 0;
@@ -3690,9 +3676,6 @@
             continue;
           }
 
-          // Never begin a new line with Japanese closing punctuation. Move one
-          // preceding character with it when necessary so both typography and
-          // the measured width remain valid.
           const first = Array.from(token)[0] || "";
           if (noLineStart.has(first) && line) {
             const chars = Array.from(line.trimEnd());
@@ -3703,7 +3686,6 @@
             continue;
           }
 
-          // Opening punctuation should not be stranded at the end of a line.
           const lineChars = Array.from(line.trimEnd());
           const last = lineChars[lineChars.length - 1] || "";
           if (noLineEnd.has(last)) {
@@ -3715,8 +3697,6 @@
             flush();
           }
 
-          // A single long Latin token can still exceed the panel. Split only
-          // that exceptional token by measured glyph width.
           if (measure(line + token) > textMaxWidth && token.length > 1) {
             for (const ch of Array.from(token)) {
               const next = line + ch;
@@ -3730,61 +3710,66 @@
         flush();
       };
 
-      for (const raw of String(this.eve.text).split(/\n+/)) pushWrapped(raw);
+      if (speaking) {
+        for (const raw of String(this.eve.text).split(/\n+/)) pushWrapped(raw);
+      }
 
-      const lines = visual;
-      if (!lines.length) return;
+      let speechAlpha = 0;
+      let slideY = 0;
+      if (speaking) {
+        const dur = Math.max(0.1, this.eve.duration || this.eve.timer || 0.1);
+        const elapsed = Math.max(0, dur - this.eve.timer);
+        const enterSec = 0.4;
+        const exitSec = 0.5;
+        const enterT = clamp(elapsed / enterSec, 0, 1);
+        const enterEase = 1 - (1 - enterT) * (1 - enterT);
+        const exitT = clamp((exitSec - this.eve.timer) / exitSec, 0, 1);
+        const exitEase = exitT * exitT;
+        speechAlpha = Math.min(enterEase, 1 - exitEase);
+        const slidePhase = Math.max(1 - enterEase, exitEase);
+        slideY = -8 * slidePhase;
+      }
 
-      const dur = Math.max(0.1, this.eve.duration || this.eve.timer || 0.1);
-      const elapsed = Math.max(0, dur - this.eve.timer);
-
-      // v2.7.9: recover the original EveUI motion language. In Codea the
-      // voice window entered from +30px Y over 0.4s (quadOut), then left by
-      // returning toward +30px over 0.5s (quadIn). Codea's Y axis points up,
-      // so the equivalent Web motion is -30px: down into place, then back up.
-      const enterSec = 0.4;
-      const exitSec = 0.5;
-      const enterT = clamp(elapsed / enterSec, 0, 1);
-      const enterEase = 1 - (1 - enterT) * (1 - enterT); // quadOut
-      const exitT = clamp((exitSec - this.eve.timer) / exitSec, 0, 1);
-      const exitEase = exitT * exitT; // quadIn
-      const a = Math.min(enterEase, 1 - exitEase);
-      const slidePhase = Math.max(1 - enterEase, exitEase);
-      const slideY = -30 * slidePhase;
-      const yy = y + slideY;
-
-      // Original EveUI flickers only its frame while speaking: 1.0 +/- 0.15
-      // at roughly 15 rad/s. Keep that restraint here by applying it to the
-      // receive hairline, not to the message text itself.
-      const flicker = 1.0 + Math.sin((performance.now() / 1000) * 15) * 0.15;
-
-      const lineH = 15;
-      const h = 22 + lines.length * lineH;
+      const flicker = speaking
+        ? 1.0 + Math.sin((performance.now() / 1000) * 15) * 0.15
+        : 1.0;
 
       noStroke();
-      fill(5, 9, 15, 68 * a);
-      rect(x, yy, w, h);
-      // v2.7.10: keep the original speaking flicker, but let the receive
-      // indicator read as a complete communications window rather than a
-      // single left-edge signal line. The frame stays hairline-thin so it
-      // does not become a heavy card over the empty space.
+      fill(5, 9, 15, 54 + 24 * speechAlpha);
+      rect(P.x, P.y, P.w, P.h);
+
       noFill();
-      stroke(125, 190, 225, 125 * a * flicker);
+      stroke(
+        125, 190, 225,
+        (speaking ? 112 + 30 * speechAlpha : 55) * flicker
+      );
       strokeWidth(0.8);
-      rect(x, yy, w, h);
+      rect(P.x, P.y, P.w, P.h);
+
+      // A short divider makes the source-like label/message relationship
+      // explicit without splitting the frame into two heavy cards.
+      stroke(105, 165, 205, speaking ? 52 : 28);
+      strokeWidth(0.7);
+      line(P.x + labelCol - 8, P.y + 12, P.x + labelCol - 8, P.y + P.h - 12);
+
+      const firstY = P.y + P.h - 27;
 
       font(bodyFont);
       textAlign(LEFT);
-      fontSize(8.4);
       noStroke();
-      fill(145, 195, 225, 170 * a);
-      text(tx("hud.eveLabel"), x + 8, yy + h - 11);
+      fontSize(9.0);
+      fill(145, 195, 225, speaking ? 185 : 92);
+      text(tx("hud.eveLabel"), P.x + 12, firstY);
 
-      fontSize(9.7);
-      fill(224, 236, 244, 225 * a);
-      const firstY = yy + h - 27;
-      for (let i = 0; i < lines.length; i += 1) {
-        text(lines[i], x + 8, firstY - i * lineH);
+      if (!speaking || !visual.length) return;
+
+      fontSize(bodyFontSize);
+      fill(224, 236, 244, 232 * speechAlpha);
+      const lineH = 16;
+      for (let i = 0; i < visual.length; i += 1) {
+        const yy = firstY + slideY - i * lineH;
+        if (yy < P.y + 10) break;
+        text(visual[i], bodyX, yy);
       }
     }
 
@@ -3873,6 +3858,36 @@
       }
     }
 
+    cockpitHudLayout() {
+      // v2.7.22: move all persistent cockpit information to the lower edge.
+      // The upper field belongs to the universe; the lower field belongs to
+      // E.V.E. and the instruments. E.V.E. gets one full-width home above
+      // the paired STATUS / MiniMap instruments.
+      const margin = 14;
+      const gap = 10;
+      const mapSize = Math.min(180, Math.max(126, W * 0.40));
+      const map = {
+        x: W - margin - mapSize,
+        y: margin,
+        w: mapSize,
+        h: mapSize,
+      };
+      const status = {
+        x: margin,
+        y: margin,
+        w: Math.max(118, map.x - margin - gap),
+        h: mapSize,
+      };
+      const eveHeight = Math.min(84, Math.max(74, H * 0.09));
+      const eve = {
+        x: margin,
+        y: map.y + map.h + gap,
+        w: W - margin * 2,
+        h: eveHeight,
+      };
+      return { margin, gap, map, status, eve };
+    }
+
     drawResourceHUD() {
       const r = this.resources;
       if (!r) return;
@@ -3880,23 +3895,32 @@
       if (this.echoStory && this.echoStory.active) return;
       if (this.finale && this.finale.active) return;
 
-      const margin = 14;
+      const L = this.cockpitHudLayout();
+      const P = L.status;
 
-      // --------------------------------------------------------------
-      // LEFT TOP = survival. Source-like thin FUEL instrument.
-      // --------------------------------------------------------------
-      const fuelW = Math.min(160, Math.max(126, W * 0.42));
-      const fuelH = 14;
-      const fuelX = margin;
-      const fuelY = H - margin - fuelH - 6;
+      // One quiet STATUS instrument holds, from top to bottom:
+      // FUEL -> resource balance -> voyage/system log.
+      noStroke();
+      fill(7, 12, 20, 78);
+      rect(P.x, P.y, P.w, P.h);
+      noFill();
+      stroke(105, 165, 205, 66);
+      strokeWidth(0.8);
+      rect(P.x, P.y, P.w, P.h);
+
+      // FUEL
+      const fuelX = P.x + 8;
+      const fuelW = Math.max(60, P.w - 16);
+      const fuelH = 13;
+      const fuelY = P.y + P.h - 25;
       const fuelRate = clamp(r.fuel / Math.max(1, r.fuelMax), 0, 1);
 
       noStroke();
-      fill(8, 12, 20, 118);
+      fill(8, 12, 20, 138);
       rect(fuelX, fuelY, fuelW, fuelH);
       noFill();
-      stroke(160, 185, 205, 122);
-      strokeWidth(0.8);
+      stroke(160, 185, 205, 110);
+      strokeWidth(0.75);
       rect(fuelX, fuelY, fuelW, fuelH);
 
       const inner = 2;
@@ -3913,67 +3937,69 @@
 
       fill(225, 235, 244, 215);
       font("monospace");
-      fontSize(10.2);
+      fontSize(9.2);
       textAlign(CENTER);
       text(
         tx("hud.fuel", { current: Math.floor(r.fuel), max: r.fuelMax }),
         fuelX + fuelW / 2,
-        fuelY + fuelH / 2 + 0.5
+        fuelY + fuelH / 2 + 0.3
       );
 
-      // SAVED is transient and stays attached to the system instrument instead
-      // of claiming a permanent line in the middle of the screen.
+      // SAVED remains transient, now tucked into the instrument frame rather
+      // than occupying the otherwise-empty upper field.
       if (this.savePulse > 0) {
         const a = clamp(this.savePulse / SAVE_TUNE.pulseSec, 0, 1);
-        fill(150, 185, 205, 130 * a);
-        fontSize(9);
-        textAlign(LEFT);
-        text(tx("hud.saved"), fuelX, fuelY - 11);
+        fill(150, 185, 205, 125 * a);
+        fontSize(7.2);
+        textAlign(RIGHT);
+        text(tx("hud.saved"), P.x + P.w - 8, P.y + P.h - 6);
       }
 
-      // --------------------------------------------------------------
-      // RIGHT TOP = inventory. Two quiet lines only.
-      // RESTORE / ECHO are deliberately NOT persistent flight HUD.
-      // --------------------------------------------------------------
-      const rightX = W - margin;
-      const oreY = H - 23;
-      const dataY = H - 44;
-      const iconX = rightX - 52;
+      // RESOURCE BALANCE
+      const resourceX = P.x + 9;
+      const valueX = P.x + P.w - 9;
+      const firstResourceY = fuelY - 17;
+      const resourceRowH = 14;
 
-      this.drawCargoIcon("ore", iconX, oreY, 1.18, 1);
-      // The ORE glyph intentionally keeps its resource color, while the value
-      // stays in the common cockpit text color. This preserves icon recognition
-      // without making the inventory read like a bright game-score display.
       noStroke();
+      fill(205, 222, 235, 190);
+      fontSize(8.4);
+      textAlign(LEFT);
+      text(tx("home.labels.ore"), resourceX, firstResourceY);
+      text(tx("home.labels.data"), resourceX, firstResourceY - resourceRowH);
+      text("ECHO", resourceX, firstResourceY - resourceRowH * 2);
+
       fill(225, 235, 244, 215);
-      fontSize(10.2);
       textAlign(RIGHT);
-      text(`${Math.floor(r.ore)}/${r.oreMax}`, rightX, oreY);
+      text(`${Math.floor(r.ore)}/${r.oreMax}`, valueX, firstResourceY);
+      text(`${Math.floor(r.data)}/${r.dataMax}`, valueX, firstResourceY - resourceRowH);
+      text(
+        `${this.echoes ? this.echoes.found : 0}/${this.echoes ? this.echoes.total : ECHO_TUNE.total}`,
+        valueX,
+        firstResourceY - resourceRowH * 2
+      );
 
-      this.drawCargoIcon("data", iconX, dataY, 1.18, 1);
-      noStroke();
-      fill(225, 235, 244, 215);
-      text(`${Math.floor(r.data)}/${r.dataMax}`, rightX, dataY);
-
-      // Progression stays in the world rather than explanatory flight text.
-      // Locked resource worlds remain visible (and distinct on the MiniMap),
-      // but they simply do not present a landing opportunity yet.
+      // Hairline division only. SYSTEM LOG is drawn by drawSystemConsole()
+      // into the remaining lower portion of this same instrument.
+      const dividerY = P.y + P.h - 85;
+      stroke(105, 165, 205, 38);
+      strokeWidth(0.7);
+      line(P.x + 8, dividerY, P.x + P.w - 8, dividerY);
     }
 
     drawMiniMap() {
       // The original ORBIT MiniMap was intentionally plain: a dark square,
       // crosshair, local planets, HOME, and the ship fixed at center. Keep that
-      // restraint here. This is a cockpit instrument, not a waypoint system.
+      // restraint here. It now shares the lower instrument row with STATUS.
       if (!this.ship || !this.basePlanet) return;
       if (this.mode === "rescue") return;
       if (this.echoStory && this.echoStory.active) return;
       if (this.finale && this.finale.active && this.finale.timer >= 0) return;
 
-      const size = Math.min(180, Math.max(126, W * 0.40));
-      const x = W - size - 14;
-      // v2.6: source-style four-corner layout. The persistent bottom HUD strip
-      // is gone, so the map can return to the actual lower-right corner.
-      const y = 14;
+      const L = this.cockpitHudLayout();
+      const size = L.map.w;
+      const x = L.map.x;
+      const y = L.map.y;
       const cx = x + size / 2;
       const cy = y + size / 2;
       const sensorLevel = clamp(Math.floor(Number(this.base && this.base.level || 1)), 1, 5);
@@ -4018,8 +4044,6 @@
 
       for (const p of this.planets || []) plotPlanet(p);
 
-      // HOME is always evaluated directly, even when it is outside the active
-      // planet set. When in range it gets the original green B marker.
       const bdx = this.basePlanet.pos.x - this.ship.pos.x;
       const bdy = this.basePlanet.pos.y - this.ship.pos.y;
       const bx = cx + (bdx / R) * (size * 0.48);
@@ -4036,9 +4060,6 @@
         textAlign(CENTER);
         text("B", bx, by - 1 * scale);
       } else {
-        // A damaged sensor does not lie with text; it simply resolves HOME's
-        // bearing coarsely. Each RESTORE reduces the angular quantization until
-        // Lv5 points at the true bearing. The symbol itself stays tiny/plain.
         let ang = Math.atan2(bdy, bdx);
         const stepDeg = MINIMAP_RESTORE_TUNE.directionStepDeg[sensorLevel] || 0;
         if (stepDeg > 0) {
@@ -4050,9 +4071,9 @@
         const inset = 10 * scale;
         const halfW = size / 2 - inset;
         const halfH = size / 2 - inset;
-        const tx = Math.abs(ux) > 0.0001 ? halfW / Math.abs(ux) : Infinity;
-        const ty = Math.abs(uy) > 0.0001 ? halfH / Math.abs(uy) : Infinity;
-        const edgeT = Math.min(tx, ty);
+        const txEdge = Math.abs(ux) > 0.0001 ? halfW / Math.abs(ux) : Infinity;
+        const tyEdge = Math.abs(uy) > 0.0001 ? halfH / Math.abs(uy) : Infinity;
+        const edgeT = Math.min(txEdge, tyEdge);
         const ix = cx + ux * edgeT;
         const iy = cy + uy * edgeT;
 
@@ -4065,13 +4086,10 @@
         line(ix - ux * tick, iy - uy * tick, ix + ux * tick, iy + uy * tick);
       }
 
-      // Ship is always the unmoving center reference.
       noStroke();
       fill(255, 255, 255, 255);
       ellipse(cx, cy, 6 * scale, 6 * scale);
 
-      // The old Sensor upgrade pulse no longer has its own progression track.
-      // A RESTORE completion triggers this quiet acknowledgement instead.
       if (this.minimap && this.minimap.pulseTimer > 0) {
         const duration = 1.2;
         const progress = clamp(1 - this.minimap.pulseTimer / duration, 0, 1);
