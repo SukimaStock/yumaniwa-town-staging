@@ -789,6 +789,7 @@
         stage: "intro",
         completed: false,
         pulseFired: false,
+        speechStage: 0,
         farewellPending: false,
         farewellInFlight: false,
       };
@@ -1079,6 +1080,7 @@
       this.finale.farewellInFlight = !!ff.farewellInFlight;
       this.finale.active = false;
       this.finale.stage = "intro";
+      this.finale.speechStage = 0;
       this.finale.timer = this.finale.completed ? 3.2 : 0;
 
       const hasCreditsSeenField = Object.prototype.hasOwnProperty.call(ff, "creditsSeen");
@@ -2057,6 +2059,7 @@
       this.finale.stage = "intro";
       this.finale.timer = -Math.max(0, delay);
       this.finale.pulseFired = false;
+      this.finale.speechStage = 0;
       this.pressing = false;
       this.departHold = 0;
       return true;
@@ -2087,6 +2090,8 @@
         if (!this.finale || !this.finale.active) return;
         this.finale.stage = "outro";
         this.finale.timer = 0;
+        this.finale.speechStage = 5;
+        this.sayEve(tx("finale.outro"), 3.05);
         this.base.repairPulse = Math.max(this.base.repairPulse || 0, 2.2);
         if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
       });
@@ -2171,15 +2176,43 @@
           this.echoStory.pendingIndex = 0;
           this.echoStory.pendingTimer = 0;
           this.echoStory.pendingPlanet = null;
+
+          // Finale dialogue follows the same UI grammar as every other E.V.E.
+          // line. Only the meaning of her name remains a central reveal.
+          this.sayEve(tx("finale.connected"), 2.7);
+          this.finale.speechStage = 1;
         }
+
+        if (this.finale.speechStage < 2 && this.finale.timer >= 3.0) {
+          this.eve.timer = 0;
+          this.finale.speechStage = 2;
+        }
+
+        if (this.finale.speechStage < 3 && this.finale.timer >= 6.2) {
+          this.sayEve(
+            [
+              tx("finale.accident1"),
+              tx("finale.accident2"),
+              tx("finale.accident3"),
+            ].join("\n"),
+            4.25
+          );
+          this.finale.speechStage = 3;
+        }
+
         if (!this.finale.pulseFired && this.finale.timer >= 10.8) {
           this.finale.pulseFired = true;
           this.base.repairPulse = Math.max(this.base.repairPulse || 0, 2.2);
           if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
         }
-        // The reveal ends with "……返します。". The player then performs the
-        // approved REBIRTH hold ritual; its E.V.E. response carries the line
-        // "あなたの心は また 動き出した。" before control returns home.
+
+        if (this.finale.speechStage < 4 && this.finale.timer >= 10.8) {
+          this.sayEve(tx("finale.returnMemory"), 2.3);
+          this.finale.speechStage = 4;
+        }
+
+        // "……お返しします。" is E.V.E.'s final line before the approved
+        // REBIRTH ritual. The ritual then returns control to HOME.
         if (this.finale.timer >= 13.2) this.startRebirthRitual();
         return;
       }
@@ -3569,11 +3602,11 @@
       this.drawEchoMemory();
       this.drawSystemConsole();
       this.drawHomeTerminal();
-      // E.V.E. is a voice, not a cockpit log. Draw her after HOME so return
-      // lines remain audible/visible even while the terminal is connected.
-      if (!(this.finale && this.finale.active && this.finale.timer >= 0)) this.drawEveSpeech();
       this.drawCredits();
       this.drawFinaleOverlay();
+      // E.V.E. is a voice, not a cinematic caption. Draw her after the finale
+      // layer so the normal dialogue window remains the source of her words.
+      this.drawEveSpeech();
       this.drawRescueOverlay();
       if (DEBUG) this.drawDebug();
     }
@@ -3933,24 +3966,11 @@
       font("monospace");
       textAlign(CENTER);
 
-      if (this.finale.stage === "outro") {
-        const a = segment(0.15, 3.05, 0.55);
-        if (a > 0) {
-          fill(220, 233, 244, 235 * a);
-          fontSize(13);
-          text(tx("finale.outro"), W / 2, H / 2 + 4);
-        }
-        return;
-      }
+      // Spoken lines are rendered by drawEveSpeech(). The only cinematic text
+      // left here is the one-time reveal of what E.V.E. stands for.
+      if (this.finale.stage === "outro") return;
 
-      let a = segment(0.0, 2.7);
-      if (a > 0) {
-        fill(220, 233, 244, 235 * a);
-        fontSize(13);
-        text(tx("finale.connected"), W / 2, H / 2 + 6);
-      }
-
-      a = segment(3.0, 5.9);
+      const a = segment(3.0, 5.9);
       if (a > 0) {
         fill(170, 205, 235, 220 * a);
         fontSize(10);
@@ -3958,22 +3978,6 @@
         fill(232, 238, 245, 240 * a);
         fontSize(14);
         text(tx("finale.expansion"), W / 2, H / 2 - 12);
-      }
-
-      a = segment(6.2, 10.5);
-      if (a > 0) {
-        fill(220, 233, 244, 235 * a);
-        fontSize(11);
-        text(tx("finale.accident1"), W / 2, H / 2 + 34);
-        text(tx("finale.accident2"), W / 2, H / 2 + 4);
-        text(tx("finale.accident3"), W / 2, H / 2 - 26);
-      }
-
-      a = segment(10.8, 13.15);
-      if (a > 0) {
-        fill(225, 236, 245, 240 * a);
-        fontSize(13);
-        text(tx("finale.returnMemory"), W / 2, H / 2 + 4);
       }
     }
 
