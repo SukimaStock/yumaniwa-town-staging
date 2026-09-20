@@ -204,15 +204,22 @@
   // NEW ORBIT opens with the visual inverse of fuel-out: an old CRT wakes from
   // black after an unnamed accident. It shows damage, never explains the event.
   const PROLOGUE_TUNE = Object.freeze({
-    duration: 6.35,
-    rebootEnd: 0.82,
-    lineEnd: 1.22,
-    openEnd: 2.05,
-    statusStart: 2.12,
-    statusStep: 0.48,
-    statusHoldEnd: 4.72,
-    bootStart: 4.90,
-    bootEnd: 5.92,
+    // Give each image enough silence to register. The camera does not claim the
+    // pilot immediately; it begins wide, then finds the ship only near the end.
+    duration: 10.15,
+    rebootEnd: 1.25,
+    lineEnd: 1.95,
+    openEnd: 3.25,
+    statusStart: 3.45,
+    statusStep: 0.75,
+    statusHoldEnd: 7.10,
+    cameraStart: 6.30,
+    cameraEnd: 9.80,
+    cameraStartZoom: 0.68,
+    cameraOffsetX: -110,
+    cameraOffsetY: 145,
+    bootStart: 8.35,
+    bootEnd: 9.65,
   });
 
   // Short tap at home advances the shared RESTORE level when the current
@@ -5278,14 +5285,50 @@
       }
       this.prologueActive = startMode === "new";
       this.prologueTimer = 0;
+
+      if (this.prologueActive) {
+        // Start on a wider, slightly offset composition. The pod is present in
+        // the universe but is not yet the camera's subject.
+        world.camera.x = world.ship.pos.x + PROLOGUE_TUNE.cameraOffsetX;
+        world.camera.y = world.ship.pos.y + PROLOGUE_TUNE.cameraOffsetY;
+        world.cameraZoom = PROLOGUE_TUNE.cameraStartZoom;
+      }
+
       pendingStartMode = null;
+    },
+
+    updatePrologueCamera() {
+      if (!this.prologueActive) return;
+      const t = this.prologueTimer;
+      const start = PROLOGUE_TUNE.cameraStart;
+      const end = PROLOGUE_TUNE.cameraEnd;
+      const q0 = clamp((t - start) / Math.max(0.001, end - start), 0, 1);
+      // Smoothstep keeps the move almost imperceptible at both ends. It should
+      // feel like the camera notices the ship, not like a game camera snapping in.
+      const q = q0 * q0 * (3 - 2 * q0);
+
+      const startX = world.ship.pos.x + PROLOGUE_TUNE.cameraOffsetX;
+      const startY = world.ship.pos.y + PROLOGUE_TUNE.cameraOffsetY;
+      world.camera.x = startX + (world.ship.pos.x - startX) * q;
+      world.camera.y = startY + (world.ship.pos.y - startY) * q;
+      world.cameraZoom =
+        PROLOGUE_TUNE.cameraStartZoom +
+        (1.0 - PROLOGUE_TUNE.cameraStartZoom) * q;
     },
 
     update(dt) {
       if (this.prologueActive) {
         this.prologueTimer += Math.min(Math.max(Number(dt || 0), 0), 0.1);
+        this.updatePrologueCamera();
+
         if (this.prologueTimer >= PROLOGUE_TUNE.duration) {
           this.prologueTimer = PROLOGUE_TUNE.duration;
+          this.updatePrologueCamera();
+          // Hand gameplay the exact camera state fixedUpdate normally owns.
+          world.camera.x = world.ship.pos.x;
+          world.camera.y = world.ship.pos.y;
+          world.cameraZoom = 1.0;
+          world.zoomAnim = null;
           this.prologueActive = false;
         }
         return;
@@ -5362,7 +5405,7 @@
         const firstY = cy + 46;
         for (let i = 0; i < lines.length; i += 1) {
           const revealAt = PROLOGUE_TUNE.statusStart + i * PROLOGUE_TUNE.statusStep;
-          const lineA = clamp((t - revealAt) / 0.18, 0, 1) * a;
+          const lineA = clamp((t - revealAt) / 0.30, 0, 1) * a;
           if (lineA <= 0) continue;
 
           const isPilot = i === 3;
