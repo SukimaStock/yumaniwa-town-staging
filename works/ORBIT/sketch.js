@@ -4283,6 +4283,78 @@
     newButton: { x: 104, y: 86, w: 152, h: 44 },
     soloButton: { x: 104, y: 114, w: 152, h: 48 },
 
+    // The original title never felt like a static menu. Space kept drifting
+    // behind it, with only the occasional meteor interrupting the quiet.
+    starCam: { x: 0, y: 0 },
+    meteors: [],
+    meteorTimer: 5.5,
+
+    enter() {
+      this.starCam.x = 0;
+      this.starCam.y = 0;
+      this.meteors = [];
+      this.meteorTimer = 4.5 + Math.random() * 4.5;
+    },
+
+    spawnMeteor() {
+      const y = 300 + Math.random() * 260;
+      const speed = 185 + Math.random() * 75;
+      const dir = norm(v(-1, -0.28 - Math.random() * 0.16));
+      this.meteors.push({
+        x: W + 38,
+        y,
+        vx: dir.x * speed,
+        vy: dir.y * speed,
+        age: 0,
+        life: 2.0,
+        len: 24 + Math.random() * 18,
+      });
+    },
+
+    update(dt) {
+      const step = Math.min(Math.max(Number(dt || 0), 0), 0.1);
+
+      // A very slow diagonal camera drift makes the whole star field slide
+      // continuously without looking like a screensaver.
+      this.starCam.x += 7.0 * step;
+      this.starCam.y += 2.6 * step;
+
+      this.meteorTimer -= step;
+      if (this.meteorTimer <= 0) {
+        this.spawnMeteor();
+        this.meteorTimer = 6.5 + Math.random() * 7.5;
+      }
+
+      for (let i = this.meteors.length - 1; i >= 0; i -= 1) {
+        const m = this.meteors[i];
+        m.age += step;
+        m.x += m.vx * step;
+        m.y += m.vy * step;
+        if (m.age >= m.life || m.x < -90 || m.y < -80) this.meteors.splice(i, 1);
+      }
+    },
+
+    drawMeteors() {
+      if (!this.meteors.length) return;
+      noFill();
+      for (const m of this.meteors) {
+        const q = clamp(m.age / Math.max(0.001, m.life), 0, 1);
+        const fadeIn = clamp(q / 0.10, 0, 1);
+        const fadeOut = clamp((1 - q) / 0.28, 0, 1);
+        const a = 175 * Math.min(fadeIn, fadeOut);
+        const mag = Math.max(0.001, Math.hypot(m.vx, m.vy));
+        const nx = m.vx / mag;
+        const ny = m.vy / mag;
+
+        stroke(150, 185, 220, a * 0.24);
+        strokeWidth(3.2);
+        line(m.x - nx * m.len * 0.55, m.y - ny * m.len * 0.55, m.x, m.y);
+        stroke(228, 238, 248, a);
+        strokeWidth(1.0);
+        line(m.x - nx * m.len, m.y - ny * m.len, m.x, m.y);
+      }
+    },
+
     drawButton(rectData, label, strong = false) {
       noFill();
       stroke(strong ? 140 : 105, strong ? 190 : 155, strong ? 230 : 200, strong ? 190 : 145);
@@ -4300,7 +4372,8 @@
       const bg = SOURCE_LOCK.background;
       background(bg[0], bg[1], bg[2]);
 
-      world.starfield.draw({ x: 0, y: 0 });
+      world.starfield.draw(this.starCam);
+      this.drawMeteors();
 
       fill(226, 235, 247, 245);
       font("monospace");
