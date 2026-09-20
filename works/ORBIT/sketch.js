@@ -201,6 +201,20 @@
     homeFadeSec: 0.96,
   });
 
+  // NEW ORBIT opens with the visual inverse of fuel-out: an old CRT wakes from
+  // black after an unnamed accident. It shows damage, never explains the event.
+  const PROLOGUE_TUNE = Object.freeze({
+    duration: 6.35,
+    rebootEnd: 0.82,
+    lineEnd: 1.22,
+    openEnd: 2.05,
+    statusStart: 2.12,
+    statusStep: 0.48,
+    statusHoldEnd: 4.72,
+    bootStart: 4.90,
+    bootEnd: 5.92,
+  });
+
   // Short tap at home advances the shared RESTORE level when the current
   // expedition has brought back enough ORE and DATA. DATA comes one-per-SERA.
   const REPAIR_TUNE = Object.freeze({
@@ -5252,17 +5266,146 @@
 
   const driftScene = {
     opaque: true,
+    prologueActive: false,
+    prologueTimer: 0,
+
     enter() {
-      if (pendingStartMode === "continue") {
+      const startMode = pendingStartMode;
+      if (startMode === "continue") {
         if (!world.loadGame()) world.reset();
       } else {
         world.reset();
       }
+      this.prologueActive = startMode === "new";
+      this.prologueTimer = 0;
       pendingStartMode = null;
     },
-    update(dt) { world.update(dt); },
-    draw() { world.draw(); },
-    touch(touch) { return world.touch(touch); },
+
+    update(dt) {
+      if (this.prologueActive) {
+        this.prologueTimer += Math.min(Math.max(Number(dt || 0), 0), 0.1);
+        if (this.prologueTimer >= PROLOGUE_TUNE.duration) {
+          this.prologueTimer = PROLOGUE_TUNE.duration;
+          this.prologueActive = false;
+        }
+        return;
+      }
+      world.update(dt);
+    },
+
+    drawPrologue() {
+      if (!this.prologueActive) return;
+      const t = this.prologueTimer;
+      const cx = W / 2;
+      const cy = H / 2;
+
+      if (t < PROLOGUE_TUNE.rebootEnd) {
+        noStroke();
+        fill(0, 0, 0, 255);
+        rect(0, 0, W, H);
+
+        const q = clamp(t / Math.max(0.001, PROLOGUE_TUNE.rebootEnd), 0, 1);
+        const a = 210 * Math.sin(Math.PI * q);
+        fill(205, 225, 238, a);
+        font("monospace");
+        fontSize(10.5);
+        textAlign(CENTER);
+        text(tx("prologue.reboot"), cx, cy - 2);
+        return;
+      }
+
+      if (t < PROLOGUE_TUNE.openEnd) {
+        const openStart = PROLOGUE_TUNE.lineEnd;
+        const isLine = t < openStart;
+        const q0 = isLine
+          ? 0
+          : clamp((t - openStart) / Math.max(0.001, PROLOGUE_TUNE.openEnd - openStart), 0, 1);
+        const q = 1 - Math.pow(1 - q0, 2);
+        const halfOpen = (H * 0.5) * q;
+
+        noStroke();
+        fill(0, 0, 0, 255);
+        rect(0, cy + halfOpen, W, Math.max(0, H * 0.5 - halfOpen));
+        rect(0, 0, W, Math.max(0, H * 0.5 - halfOpen));
+
+        const lineAlpha = isLine ? 230 : 210 * (1 - q);
+        if (lineAlpha > 1) {
+          noStroke();
+          fill(225, 242, 250, lineAlpha);
+          rect(0, cy - 0.75, W, 1.5);
+          fill(145, 205, 235, lineAlpha * 0.22);
+          rect(0, cy - 3, W, 6);
+        }
+        return;
+      }
+
+      if (t < PROLOGUE_TUNE.statusHoldEnd) {
+        const fadeIn = clamp((t - PROLOGUE_TUNE.statusStart) / 0.25, 0, 1);
+        const fadeOut = clamp((PROLOGUE_TUNE.statusHoldEnd - t) / 0.40, 0, 1);
+        const a = Math.min(fadeIn, fadeOut);
+
+        noStroke();
+        fill(0, 0, 0, 118 * a);
+        rect(0, 0, W, H);
+
+        const lines = [
+          tx("prologue.navigation"),
+          tx("prologue.coreLink"),
+          tx("prologue.eve"),
+          tx("prologue.pilot"),
+        ];
+
+        font("monospace");
+        fontSize(10.2);
+        textAlign(LEFT);
+        const x = 62;
+        const firstY = cy + 46;
+        for (let i = 0; i < lines.length; i += 1) {
+          const revealAt = PROLOGUE_TUNE.statusStart + i * PROLOGUE_TUNE.statusStep;
+          const lineA = clamp((t - revealAt) / 0.18, 0, 1) * a;
+          if (lineA <= 0) continue;
+
+          const isPilot = i === 3;
+          if (isPilot) fill(220, 232, 240, 238 * lineA);
+          else fill(175, 205, 224, 220 * lineA);
+          text(lines[i], x, firstY - i * 27);
+        }
+
+        const scanY = (Math.floor(t * 37) % 9) * (H / 9);
+        fill(180, 220, 240, 10 * a);
+        rect(0, scanY, W, 1);
+        return;
+      }
+
+      if (t >= PROLOGUE_TUNE.bootStart && t < PROLOGUE_TUNE.bootEnd) {
+        const qIn = clamp((t - PROLOGUE_TUNE.bootStart) / 0.28, 0, 1);
+        const qOut = clamp((PROLOGUE_TUNE.bootEnd - t) / 0.42, 0, 1);
+        const a = Math.min(qIn, qOut);
+
+        noStroke();
+        fill(0, 0, 0, 72 * a);
+        rect(0, 0, W, H);
+
+        font("monospace");
+        textAlign(CENTER);
+        fontSize(10.5);
+        fill(200, 224, 238, 230 * a);
+        text(tx("system.boot"), cx, cy + 10);
+        fill(160, 205, 230, 210 * a);
+        fontSize(9.8);
+        text(tx("system.eveOnline"), cx, cy - 12);
+      }
+    },
+
+    draw() {
+      world.draw();
+      this.drawPrologue();
+    },
+
+    touch(touch) {
+      if (this.prologueActive) return true;
+      return world.touch(touch);
+    },
   };
 
   SSE.createApp({
