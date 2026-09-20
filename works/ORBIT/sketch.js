@@ -385,6 +385,7 @@
   const ECHO_REACTIONS = txValue("eve.echoReactions");
   const ECHO_RETURN_LINES = txValue("eve.echoReturn");
   const RESTORE_DEPARTURE_LINES = txValue("eve.restoreDeparture");
+  const CREDITS_LINES = txValue("credits.lines");
 
   const TUNE = {
     fixedHz: SOURCE_LOCK.fixedHz,
@@ -709,6 +710,11 @@
       };
       this.stationPulse = { timer: 0, duration: 0.7 };
       this.restoreRitualActive = false;
+      this.restoreReveal = {
+        timer: 0,
+        duration: 1.3,
+        reportLevel: 0,
+      };
 
       // v2.7: HOME is a system connection, not an instruction floating in
       // space. Landing at BASE automatically opens a source-inspired
@@ -785,6 +791,15 @@
         pulseFired: false,
         farewellPending: false,
         farewellInFlight: false,
+      };
+      this.credits = {
+        active: false,
+        pending: false,
+        pendingTimer: 0,
+        timer: 0,
+        duration: 24.0,
+        seen: false,
+        landingLock: 0,
       };
       this.rescue = {
         timer: 0,
@@ -964,6 +979,7 @@
           completed: !!this.finale.completed,
           farewellPending: !!this.finale.farewellPending,
           farewellInFlight: !!this.finale.farewellInFlight,
+          creditsSeen: !!(this.credits && this.credits.seen),
         },
         location: {
           mode: landed ? "landed" : "flight",
@@ -1064,6 +1080,12 @@
       this.finale.active = false;
       this.finale.stage = "intro";
       this.finale.timer = this.finale.completed ? 3.2 : 0;
+      this.credits.seen = !!ff.creditsSeen;
+      this.credits.active = false;
+      this.credits.pending = false;
+      this.credits.pendingTimer = 0;
+      this.credits.timer = 0;
+      this.credits.landingLock = 0;
 
       this.applyPlanetStates(data.planets || {});
 
@@ -1199,6 +1221,11 @@
       // The final memory return is the only deliberately non-interactive beat.
       // It lasts only a few seconds, then hands control straight back to ORBIT.
       if (this.finale && this.finale.active) return true;
+      if (this.restoreReveal && this.restoreReveal.timer > 0) {
+        this.pressing = false;
+        this.departHold = 0;
+        return true;
+      }
       if (this.mode === "landing" || this.mode === "rescue") return true;
 
       // Phase 17.1: takeoff keeps the same pointer session that began with the
@@ -1259,6 +1286,60 @@
         return true;
       }
       return true;
+    }
+
+    scheduleCredits() {
+      if (!this.credits || this.credits.seen || this.credits.active || this.credits.pending) return false;
+      this.credits.pending = true;
+      // E.V.E.'s farewell lasts 3.4s. Leave a small silent beat after it fades.
+      this.credits.pendingTimer = 4.15;
+      return true;
+    }
+
+    startCredits() {
+      if (!this.credits || this.credits.seen || this.credits.active) return false;
+      if (this.mode !== "flight") return false;
+      this.credits.pending = false;
+      this.credits.pendingTimer = 0;
+      this.credits.active = true;
+      this.credits.timer = 0;
+      this.credits.seen = true;
+      this.credits.landingLock = 0;
+      this.captureReady = false;
+      this.scanProgress = 0;
+      this.ringStayTimer = 0;
+      this.eve.timer = 0;
+      return true;
+    }
+
+    updateCredits(dt) {
+      if (!this.credits) return;
+
+      if (this.credits.landingLock > 0) {
+        this.credits.landingLock = Math.max(0, this.credits.landingLock - dt);
+      }
+
+      if (this.credits.pending) {
+        // If the player quickly settles somewhere before the roll begins, wait
+        // until they are back in open flight instead of starting over a landing.
+        if (this.mode === "flight") {
+          this.credits.pendingTimer = Math.max(0, this.credits.pendingTimer - dt);
+          if (this.credits.pendingTimer <= 0) this.startCredits();
+        }
+      }
+
+      if (!this.credits.active) return;
+      this.credits.timer += dt;
+      if (this.credits.timer >= this.credits.duration) {
+        this.credits.active = false;
+        this.credits.timer = this.credits.duration;
+        // Prevent a planet already under the ship from capturing on the exact
+        // frame the credits disappear.
+        this.credits.landingLock = 1.4;
+        this.captureReady = false;
+        this.scanProgress = 0;
+        this.ringStayTimer = 0;
+      }
     }
 
     update(frameDt) {
@@ -1367,6 +1448,27 @@
         }
       }
       if (this.eve && this.eve.timer > 0) this.eve.timer = Math.max(0, this.eve.timer - dt);
+
+      if (this.restoreReveal && this.restoreReveal.timer > 0) {
+        const before = this.restoreReveal.timer;
+        this.restoreReveal.timer = Math.max(0, before - dt);
+        if (before > 0 && this.restoreReveal.timer === 0) {
+          const reportLevel = Math.floor(Number(this.restoreReveal.reportLevel || 0));
+          this.restoreReveal.reportLevel = 0;
+          if (
+            reportLevel >= 2 &&
+            this.mode === "landed" &&
+            this.landPlanet &&
+            this.landPlanet.kind === "base" &&
+            !(this.finale && this.finale.active)
+          ) {
+            this.openHomeTerminal();
+            this.homeTerminal.restoreReportLevel = reportLevel;
+          }
+        }
+      }
+
+      this.updateCredits(dt);
       this.updateEveIdle(dt);
       if (this.relandLock > 0) this.relandLock = Math.max(0, this.relandLock - dt);
       if (this.feedback.timer > 0) {
@@ -1475,6 +1577,12 @@
       if (this.landPlanet && this.landPlanet.kind === "base") this.updateBaseRefuel(dt);
       else this.updateHarvest(dt);
 
+      if (this.restoreReveal && this.restoreReveal.timer > 0) {
+        this.pressing = false;
+        this.departHold = 0;
+        return;
+      }
+
       if (this.pressing) {
         this.departHold += dt;
         if (this.departHold >= ORBIT_TUNE.takeoffHoldSec) this.startTakeoff();
@@ -1503,6 +1611,7 @@
           this.finale.farewellInFlight = false;
           this.eve.departureLineLevel = 0;
           this.sayEve(tx("eve.farewell"), 3.4);
+          this.scheduleCredits();
         } else {
           const restoredLevel = Math.floor(Number(this.eve && this.eve.departureLineLevel || 0));
           const restoredLine = RESTORE_DEPARTURE_LINES[restoredLevel];
@@ -1583,6 +1692,14 @@
     }
 
     updateCapture(dt) {
+      if (this.credits && (this.credits.active || this.credits.landingLock > 0)) {
+        this.captureReady = false;
+        this.scanProgress = 0;
+        this.ringStayTimer = 0;
+        this.lastLandingDistance = Infinity;
+        return;
+      }
+
       const p = this.dominantPlanet;
       if (!p || this.relandLock > 0 || !this.canLandOnPlanet(p)) {
         this.captureReady = false;
@@ -1707,6 +1824,7 @@
       // Keep the intentionally silent beats silent.
       if (this.mode === "rescue") return;
       if (this.finale && this.finale.active) return;
+      if (this.credits && this.credits.active) return;
       if (this.homeTerminal && this.homeTerminal.visible) return;
       if (
         this.echoStory &&
@@ -1794,6 +1912,7 @@
     }
 
     sayEveCollision() {
+      if (this.credits && this.credits.active) return;
       const line = this.pickEveCollisionLine();
       if (line) this.sayEve(line, 2.0);
     }
@@ -2189,6 +2308,10 @@
     }
 
     updateFlightFuel(distanceMoved) {
+      // The end roll is still live flight, but it is deliberately consequence-
+      // free: steering/gravity remain, while fuel and rescue are suspended.
+      if (this.credits && this.credits.active) return;
+
       // Range is a distance budget. Speed changes real-world travel time only.
       let distance = Math.max(0, Number(distanceMoved || 0));
       let multiplier = 1.0;
@@ -2713,8 +2836,13 @@
       this.departHold = 0;
       this.repairInputLock = 0;
       this.applyRestoreCaps(this.base.level, true);
-      this.openHomeTerminal();
-      this.homeTerminal.restoreReportLevel = this.base.level;
+
+      // Let the repaired HOME exist on screen before the terminal explains it.
+      // The existing station/base pulses now have room to be seen.
+      this.closeHomeTerminal();
+      this.restoreReveal.timer = this.restoreReveal.duration;
+      this.restoreReveal.reportLevel = this.base.level;
+
       this.base.repairPulse = REPAIR_TUNE.pulseSec;
       if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
       if (this.minimap) this.minimap.pulseTimer = 1.2;
@@ -2729,7 +2857,9 @@
 
       // Echo 12 may already be home when the last practical RESTORE completes.
       // In that case the story reveal can begin after the ritual has closed.
-      if (this.shouldStartFinale()) this.startFinale(0.8);
+      if (this.shouldStartFinale()) {
+        this.startFinale((this.restoreReveal ? this.restoreReveal.duration : 1.3) + 0.15);
+      }
       return true;
     }
 
@@ -2844,6 +2974,7 @@
         found: Math.max(0, Math.floor(Number(this.echoes && this.echoes.found || 0))),
         discovered: this.echoes ? Array.from(this.echoes.discovered || []) : [],
         decoded: this.dataSignals ? Array.from(this.dataSignals.decoded || []) : [],
+        creditsSeen: !!(this.credits && this.credits.seen),
       };
     }
 
@@ -2859,6 +2990,7 @@
       for (const id of snapshot.decoded || []) decoded.add(id);
       for (const id of merged) decoded.add(id);
       this.dataSignals.decoded = decoded;
+      if (snapshot.creditsSeen && this.credits) this.credits.seen = true;
 
       // DATA is decoded knowledge, not physical ORE. Once recovered it survives
       // an emergency return; the decoded-SERA archive prevents re-reading it.
@@ -3432,6 +3564,7 @@
       // E.V.E. is a voice, not a cockpit log. Draw her after HOME so return
       // lines remain audible/visible even while the terminal is connected.
       if (!(this.finale && this.finale.active && this.finale.timer >= 0)) this.drawEveSpeech();
+      this.drawCredits();
       this.drawFinaleOverlay();
       this.drawRescueOverlay();
       if (DEBUG) this.drawDebug();
@@ -3453,6 +3586,7 @@
     }
 
     drawCaptureEffects() {
+      if (this.credits && (this.credits.active || this.credits.landingLock > 0)) return;
       if (this.mode !== "flight" || !this.dominantPlanet || this.relandLock > 0) return;
       const p = this.dominantPlanet;
       if (!this.canLandOnPlanet(p)) return;
@@ -3738,6 +3872,39 @@
       fill(130, 160, 190, a * 0.65);
       fontSize(8);
       text(tx("hud.memoryFragment"), W / 2, H / 2 - 51);
+    }
+
+    drawCredits() {
+      if (!this.credits || !this.credits.active) return;
+      if (!Array.isArray(CREDITS_LINES) || CREDITS_LINES.length === 0) return;
+
+      const progress = clamp(this.credits.timer / Math.max(0.001, this.credits.duration), 0, 1);
+      const gap = 28;
+      const span = Math.max(0, (CREDITS_LINES.length - 1) * gap);
+      const baseY = -32 + progress * (H + span + 96);
+      const x = W * 0.72;
+
+      font("monospace");
+      textAlign(CENTER);
+      for (let i = 0; i < CREDITS_LINES.length; i += 1) {
+        const lineText = String(CREDITS_LINES[i] ?? "");
+        if (!lineText) continue;
+        const y = baseY - i * gap;
+        if (y < -34 || y > H + 34) continue;
+
+        const edgeIn = clamp((y + 20) / 42, 0, 1);
+        const edgeOut = clamp((H + 20 - y) / 42, 0, 1);
+        const alpha = 220 * Math.min(edgeIn, edgeOut);
+        const title = i === 0;
+        const subtitle = i === 1;
+
+        fontSize(title ? 14.5 : (subtitle ? 9.2 : 9.8));
+        noStroke();
+        fill(0, 0, 0, alpha * 0.72);
+        text(lineText, x + 1, y - 1);
+        fill(title ? 235 : 210, title ? 242 : 226, title ? 250 : 240, alpha);
+        text(lineText, x, y);
+      }
     }
 
     drawFinaleOverlay() {
