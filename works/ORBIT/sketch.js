@@ -3374,7 +3374,7 @@
           const slit = Math.max(1, H * (1 - q));
           const lineA = 70 + 145 * q;
           fill(220, 238, 250, lineA);
-          rect(W * 0.12, H / 2 - Math.min(1.2, slit * 0.5), W * 0.76, Math.min(2.4, slit));
+          rect(0, H / 2 - Math.min(1.2, slit * 0.5), W, Math.min(2.4, slit));
           return;
         }
 
@@ -3385,9 +3385,8 @@
         if (t < lineEnd) {
           const q = clamp((t - collapse) / Math.max(0.001, RESCUE_CRT_TUNE.lineHoldSec), 0, 1);
           const a = 225 * (1 - q);
-          const lineW = W * (0.76 - 0.18 * q);
           fill(225, 242, 252, a);
-          rect((W - lineW) / 2, H / 2 - 0.7, lineW, 1.4);
+          rect(0, H / 2 - 0.7, W, 1.4);
         }
         return;
       }
