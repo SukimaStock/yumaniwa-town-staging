@@ -4279,9 +4279,9 @@
 
   const titleScene = {
     opaque: true,
-    continueButton: { x: 10, y: 234, w: 340, h: 66 },
-    newButton: { x: 10, y: 320, w: 340, h: 66 },
-    soloButton: { x: 10, y: 320, w: 340, h: 66 },
+    continueButton: { x: 104, y: 142, w: 152, h: 44 },
+    newButton: { x: 104, y: 86, w: 152, h: 44 },
+    soloButton: { x: 104, y: 114, w: 152, h: 48 },
     pressedButton: null,
 
     // Original Codea MenuScene values.
@@ -4438,26 +4438,7 @@
       rect(W - t, 0, t, H);
     },
 
-    readSaveMeta() {
-      try {
-        const raw = window.localStorage.getItem(SAVE_TUNE.key);
-        if (!raw) return null;
-        const data = JSON.parse(raw);
-        if (!data || data.schema !== SAVE_TUNE.schema) return null;
-        return data;
-      } catch (_) {
-        return null;
-      }
-    },
-
-    formatSavedAt(savedAt) {
-      const d = new Date(Number(savedAt || 0));
-      if (!Number.isFinite(d.getTime())) return "";
-      const pad = (n) => String(n).padStart(2, "0");
-      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-    },
-
-    drawButton(rectData, label, meta, pressed = false, primary = false) {
+    drawButton(rectData, label, pressed = false, primary = false) {
       const cx = rectData.x + rectData.w / 2;
       const cy = rectData.y + rectData.h / 2;
       const scalePressed = pressed ? 0.985 : 1.0;
@@ -4466,10 +4447,11 @@
       const x = cx - w / 2;
       const y = cy - h / 2;
 
-      // Original MenuScene: translucent navy face + restrained hairline.
+      // Original visual language, kept at the Web menu's original size:
+      // dark translucent face, near-square corners, fine cyan hairline.
       noStroke();
       fill(24, 32, 48, 180);
-      rect(x, y, w, h, 12);
+      rect(x, y, w, h, 3);
 
       stroke(255, 255, 255, 20);
       strokeWidth(1);
@@ -4483,23 +4465,14 @@
       );
       strokeWidth(1);
       noFill();
-      rect(x, y, w, h, 12);
+      rect(x, y, w, h, 3);
 
-      const uiFont = (typeof SSE !== "undefined" && SSE.theme)
-        ? SSE.theme.font("ui")
-        : "sans-serif";
-      font(uiFont);
+      noStroke();
+      fill(245, 248, 255, 235);
+      font("monospace");
+      fontSize(12);
       textAlign(CENTER);
-
-      fill(245, 248, 255, 255);
-      fontSize(18);
-      text(label, cx, cy + 12);
-
-      if (meta) {
-        fill(170, 180, 190, 150);
-        fontSize(13);
-        text(meta, cx, cy - 14);
-      }
+      text(label, cx, cy - 1);
     },
 
     draw() {
@@ -4508,55 +4481,50 @@
       this.drawMeteors();
       this.drawTitleVignette();
 
-      // Original title lockup: y=0.80, size=56, with a barely breathing glow.
-      const ty = H * 0.80;
-      const pulse = 0.94 + 0.06 * (0.5 + 0.5 * Math.sin(this.time * 0.35));
-      const monoFont = (typeof SSE !== "undefined" && SSE.theme)
-        ? SSE.theme.font("mono")
-        : "monospace";
-
-      font(monoFont);
-      fontSize(56);
+      // Keep the Web version's title layout. Only the background and buttons
+      // borrow from the original Codea menu.
+      fill(226, 235, 247, 245);
+      font("monospace");
+      fontSize(34);
       textAlign(CENTER);
+      text("O R B I T", W / 2, 402);
 
-      fill(90, 140, 255, 90 * 0.9 * pulse);
-      for (let i = 0; i < 5; i += 1) text("O R B I T", W / 2, ty);
+      fill(160, 184, 212, 210);
+      fontSize(13);
+      text("Silent Reboot", W / 2, 370);
 
-      fill(235, 245, 255, 255 * pulse);
-      text("O R B I T", W / 2, ty);
-
-      fill(170, 180, 190, 160 * 0.9);
-      fontSize(14);
-      text("Silent Reboot", W / 2, ty - 36);
+      fill(135, 156, 182, 190);
+      fontSize(10);
+      text("ORBIT / WEB BUILD v2.5", W / 2, 330);
 
       const hasSave = world.hasSave();
-      const save = hasSave ? this.readSaveMeta() : null;
-      const savedAt = save && save.savedAt ? this.formatSavedAt(save.savedAt) : "";
-
       if (hasSave) {
         this.drawButton(
-          this.newButton,
-          "New",
-          "Start a new journey.",
-          this.pressedButton === "new",
+          this.continueButton,
+          "CONTINUE",
+          this.pressedButton === "continue",
           true
         );
         this.drawButton(
-          this.continueButton,
-          "Continue",
-          savedAt ? `Last Saved: ${savedAt}` : "",
-          this.pressedButton === "continue",
+          this.newButton,
+          "NEW ORBIT",
+          this.pressedButton === "new",
           false
         );
       } else {
         this.drawButton(
           this.soloButton,
-          "New",
-          "Start a new journey.",
+          "NEW ORBIT",
           this.pressedButton === "new",
           true
         );
       }
+
+      fill(120, 140, 166, 175);
+      fontSize(9);
+      text("touch a side to fire the thruster", W / 2, 60);
+      text("approach a planet slowly to land", W / 2, 45);
+      text("returning to BASE saves your orbit", W / 2, 30);
     },
 
     touch(touch) {
