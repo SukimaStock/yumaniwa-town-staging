@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>ORBIT — Silent Reboot / Web v2.7.7</title>
+  <title></title>
   <style>
     html,
     body {
@@ -59,7 +59,8 @@
   <canvas id="gameCanvas"></canvas>
   <div id="ritualHost" aria-hidden="true"></div>
 
-  <script src="restore-ritual-inline.js?v=2.7.7"></script>
+  <!-- Locale data is loaded before any game module reads display copy. -->
+  <script src="orbit-text.js?v=2.7.21"></script>
 
   <!-- Low-level Codea-compatible canvas runtime -->
   <script src="codea-lite.js?v=2.7.7"></script>
@@ -67,11 +68,23 @@
   <!-- Reusable SukimaStock experience layer -->
   <script src="sukimastock-engine.js?v=2.7.7"></script>
 
-  <!-- App-specific scenes and rules -->
-  <script src="sketch.js?v=2.7.9"></script>
-
   <script>
-    CodeaLite.start("gameCanvas");
+    (async () => {
+      const loadScript = (src) => new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = () => reject(new Error("Failed to load " + src));
+        document.body.appendChild(script);
+      });
+
+      await OrbitText.load();
+      await loadScript("restore-ritual-inline.js?v=2.7.21");
+      await loadScript("sketch.js?v=2.7.21");
+      CodeaLite.start("gameCanvas");
+    })().catch((error) => {
+      console.error("ORBIT bootstrap failed", error);
+    });
   </script>
 </body>
 </html>

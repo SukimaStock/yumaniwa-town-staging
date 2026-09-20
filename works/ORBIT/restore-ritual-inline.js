@@ -1,4 +1,8 @@
 (() => {
+  const TX = window.OrbitText;
+  if(!TX || !TX.isReady()) throw new Error('ORBIT text must be loaded before restore ritual');
+  const tx = (key, vars) => TX.t(key, vars);
+
   const host = document.getElementById('ritualHost');
   if(!host) throw new Error('ritualHost missing');
 
@@ -8,7 +12,37 @@
   shadow.appendChild(style);
 
   const shell = document.createElement('div');
-  shell.innerHTML = "<canvas id=\"c\"></canvas>\n\n<div class=\"overlay\">\n  <div class=\"top\">\n    <div class=\"row\">\n      <div class=\"pill\">ORBIT / RESTORE</div>\n    </div>\n    <div class=\"seg\">\n      <button id=\"btnWake\" class=\"active\">WAKE</button>\n      <button id=\"btnLink\">LINK</button>\n      <button id=\"btnMemory\">MEMORY</button>\n      <button id=\"btnResonance\">RESONANCE</button>\n      <button id=\"btnRebirth\">REBIRTH</button>\n    </div>\n  </div>\n  <div class=\"bottom\">\n    <div class=\"progressHud\" id=\"progressHud\">\n      <div class=\"progressTrack\"><div class=\"progressFill\" id=\"progressFill\"></div></div>\n      <div class=\"progressText\" id=\"progressText\">0 / 28</div>\n    </div>\n  </div>\n</div>\n\n<div class=\"response\" id=\"response\">\n  <div class=\"responseCard\">\n    <div class=\"responseLabel\" id=\"responseLabel\">[ E.V.E. ]</div>\n    <div class=\"responseText\" id=\"responseText\"></div>\n    <div class=\"responseHint\">\u30bf\u30c3\u30d7\u3057\u3066\u623b\u308b</div>\n  </div>\n</div>";
+  shell.innerHTML = `<canvas id="c"></canvas>
+
+<div class="overlay">
+  <div class="top">
+    <div class="row">
+      <div class="pill">${tx("ritual.shellLabel")}</div>
+    </div>
+    <div class="seg">
+      <button id="btnWake" class="active">${tx("ritual.wake.name")}</button>
+      <button id="btnLink">${tx("ritual.link.name")}</button>
+      <button id="btnMemory">${tx("ritual.memory.name")}</button>
+      <button id="btnResonance">${tx("ritual.resonance.name")}</button>
+      <button id="btnRebirth">${tx("ritual.rebirth.name")}</button>
+    </div>
+  </div>
+  <div class="bottom">
+    <div class="progressHud" id="progressHud">
+      <div class="progressTrack"><div class="progressFill" id="progressFill"></div></div>
+      <div class="progressText" id="progressText">0 / 28</div>
+    </div>
+  </div>
+</div>
+
+<div class="response" id="response">
+  <div class="responseCard">
+    <div class="responseLabel" id="responseLabel">${tx("ritual.responseLabel")}</div>
+    <div class="responseText" id="responseText"></div>
+    <div class="responseHint">${tx("ritual.responseHint")}</div>
+  </div>
+</div>`;
+
   while(shell.firstChild) shadow.appendChild(shell.firstChild);
 
 
@@ -58,9 +92,9 @@
   let stars = [];
 
   const WAKE = {
-    name:'WAKE',
-    response:"System... responds to touch.",
-    instruction:'タップする',
+    name:tx("ritual.wake.name"),
+    response:tx("ritual.wake.response"),
+    instruction:tx("ritual.wake.instruction"),
     initExtra(s){
       s.currentTaps = 0;
       s.targetTaps = 28;
@@ -72,9 +106,9 @@
   };
 
   const LINK = {
-    name:'LINK',
-    response:"トキ モ キオク モ マワリダス",
-    instruction:'右回りになぞる',
+    name:tx("ritual.link.name"),
+    response:tx("ritual.link.response"),
+    instruction:tx("ritual.link.instruction"),
     initExtra(s){
       s.turnsNeeded = 10.0;
       s.totalTurns = 0;
@@ -96,9 +130,9 @@
   };
 
   const MEMORY = {
-    name:'MEMORY',
-    response:"……あなたのて、おぼえてます。",
-    instruction:'光をなぞる',
+    name:tx("ritual.memory.name"),
+    response:tx("ritual.memory.response"),
+    instruction:tx("ritual.memory.instruction"),
     initExtra(s){
       s.activePointer = null;
       s.lastPt = null;
@@ -129,9 +163,9 @@
   };
 
   const RESONANCE = {
-    name:'RESONANCE',
-    response:"線がつながる。\n思い出がつながる。",
-    instruction:'点を順につなぐ',
+    name:tx("ritual.resonance.name"),
+    response:tx("ritual.resonance.response"),
+    instruction:tx("ritual.resonance.instruction"),
     initExtra(s){
       s.activePointer = null;
       s.activeFrom = null;
@@ -162,9 +196,9 @@
   };
 
   const REBIRTH = {
-    name:'REBIRTH',
-    response:"あなたの心は\nまた 動き出した。",
-    instruction:'中央を長押しする',
+    name:tx("ritual.rebirth.name"),
+    response:tx("ritual.rebirth.response"),
+    instruction:tx("ritual.rebirth.instruction"),
     initExtra(s){
       s.activePointer = null;
       s.isCharging = false;
@@ -296,7 +330,7 @@
     def.initExtra(state);
     responseEl.classList.remove('show','ready');
     responseTextEl.textContent = '';
-    responseLabelEl.textContent = '[ E.V.E. ]';
+    responseLabelEl.textContent = tx("ritual.responseLabel");
     responseLabelEl.style.display = '';
     updateProgressHud();
   }
@@ -752,7 +786,7 @@
     }
 
     responseTextEl.textContent = getDef().response;
-    responseLabelEl.textContent = '[ E.V.E. ]';
+    responseLabelEl.textContent = tx("ritual.responseLabel");
     responseLabelEl.style.display = '';
     responseEl.classList.remove('show','ready');
   }

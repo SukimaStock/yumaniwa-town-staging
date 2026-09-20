@@ -6,6 +6,11 @@
 (function () {
   "use strict";
 
+  const TX = window.OrbitText;
+  if (!TX || !TX.isReady()) throw new Error("ORBIT text must be loaded before sketch.js");
+  const tx = (key, vars) => TX.t(key, vars);
+  const txValue = (key) => TX.get(key);
+
   // ------------------------------------------------------------
   // Preservation lock
   // ------------------------------------------------------------
@@ -302,20 +307,7 @@
   // The planet only decides whether an Echo is new; discovery order decides
   // which memory opens, so the story remains coherent no matter which way
   // the player drifts through the deterministic atlas.
-  const ECHO_MEMORIES = Object.freeze([
-    Object.freeze({ key: "VOICE", lines: ["……聞こえる？", "応答して。"] }),
-    Object.freeze({ key: "RETURN", lines: ["帰還を確認。", "……おかえり。"] }),
-    Object.freeze({ key: "ROUTINE", lines: ["また燃料をぎりぎりまで使った。", "次は、もう少し早く戻ってきて。"] }),
-    Object.freeze({ key: "SILENCE", lines: ["今日は、何も話さなかった。", "それでも通信は切らなかった。"] }),
-    Object.freeze({ key: "LAUGH", lines: ["QUERY: PENGUIN……？", "……そこで、あなたは笑った。"] }),
-    Object.freeze({ key: "DEPART", lines: ["じゃあ、行ってくる。", "航路を開きます。"] }),
-    Object.freeze({ key: "WAIT", lines: ["帰還予定時刻を過ぎています。", "……待機を継続します。"] }),
-    Object.freeze({ key: "WORRY", lines: ["警告を三度送信。", "四度目は……文章が作れなかった。"] }),
-    Object.freeze({ key: "NAME", lines: ["E.V.E.って、呼びにくいな。", "イヴでいい？"] }),
-    Object.freeze({ key: "PROMISE", lines: ["遠くまで行く。", "でも、ちゃんと戻るよ。"] }),
-    Object.freeze({ key: "KEEP", lines: ["これだけは、なくしたくない。", "……預かってくれる？"] }),
-    Object.freeze({ key: "ECHO", lines: ["E.V.E.、全部バックアップして。", "……了解。必ず、返します。"] }),
-  ]);
+  const ECHO_MEMORIES = txValue("echo.memories");
 
   // v2.5 OPEN UNIVERSE: the deterministic atlas once again contains real
   // resource worlds. Authored planets remain as guaranteed landmarks, but they
@@ -380,203 +372,17 @@
     Object.freeze({ id: 6, x: 11276,  y: -4104, relayTier: 5 }),
   ]);
 
-  // Language evolution remains one of ORBIT's narrative bones:
-  // broken tokens -> simple English -> katakana -> hiragana -> natural Japanese.
-  const EVE_PHASE_LINES = Object.freeze({
-    1: Object.freeze({
-      short: "...DOCKING... OK.",
-      normal: "...WELCOME... BACK...\n...SAFE... HERE...",
-      long: "...PILOT... RETURNED.\n...ANALYZING...",
-      lowFuel: "...FUEL... LOW...",
-      repair: "...RESOURCE... CONFIRMED.\n...REPAIR... START.",
-    }),
-    2: Object.freeze({
-      short: "Docking complete.\nAll systems stable.",
-      normal: "Welcome back.\nSystem check: OK. You are safe.",
-      long: "Welcome back, Pilot.\nLong range scan... complete.",
-      lowFuel: "Fuel low.\nReturn recommended.",
-      repair: "Time... and memory... are spinning.\nI... I can feel something... new.",
-    }),
-    3: Object.freeze({
-      short: "ドッキング シーケンス カンリョウ。",
-      normal: "オカエリナサイ。システム チェック OK。アンゼン。",
-      long: "キカン カクニン。\nコウシン データ ヲ カイセキ チュウ。",
-      lowFuel: "フューエル テイカ。キカン ヲ スイショウ。",
-      repair: "トキ...ト...キオク...ガ...マワッテイル...\nステーション、レベル 3。",
-    }),
-    4: Object.freeze({
-      short: "むり しなかった?\nふね の ちょうし は もんだい ない みたい。",
-      normal: "おかえり。だいじょうぶ。\nここは あんぜんだよ。",
-      long: "あ... おかえりなさい!\nちょっと しんぱい... しました。",
-      lowFuel: "えねるぎー が たりない。\nいったん もどろう。",
-      repair: "あなたの て... おぼえてます。\nすてーしょんしゅうふく、れべる 4。",
-    }),
-    5: Object.freeze({
-      short: "ドッキング完了。船体の損傷はありません。",
-      normal: "お帰りなさい。各系統正常。\nあなたは安全です。",
-      long: "お帰りなさい。\n少し...心配していました。",
-      lowFuel: "燃料残量が少ないです。帰投を推奨。",
-      repair: "線が、繋がりました。\nこれで...全ての修復が完了しました。",
-    }),
-  });
-
-  // Original StoryManager idle_chatter, restored as sparse ambient speech.
-  // These lines are deliberately separate from mission/progression feedback:
-  // E.V.E. sometimes speaks simply because she is there.
-  const EVE_IDLE_LINES = Object.freeze({
-    1: Object.freeze([
-      "... ... ...",
-      "... ... ...",
-      "...QUERY: ...PENGUIN...?",
-    ]),
-    2: Object.freeze([
-      "Query: Why... sky... dark?",
-      "Calculating... trajectory... optimal.",
-      "Error... 418. I am... a teapot.",
-    ]),
-    3: Object.freeze([
-      "スベテノ ... システム... グリーン。",
-      "...キコエル...",
-      "ワタシ ハ... ワタシ...?",
-    ]),
-    4: Object.freeze([
-      "きょう は いい てんき...? ううん、ずっと よる...。",
-      "あの ほし、きれい。",
-      "エラー 404: ジョーク ガ ミツカリマセン。",
-    ]),
-    5: Object.freeze([
-      "次のパッチ...いえ、何でもありません。",
-      "この宇宙は...静かですね。",
-      "冗談を検索します。...『宇宙飛行士の好きな飲み物は?』 ...『コウシー』 ...理解不能です。",
-    ]),
-  });
-
-  // Original StoryManager resource-landing lines. These fire when
-  // landing is completed on a resource planet, not when harvesting begins.
-  const EVE_LANDING_LINES = Object.freeze({
-    1: Object.freeze({
-      mine: Object.freeze(["...MINE... PLANET...", "...RESOURCE... DETECTED..."]),
-      data: Object.freeze(["...DATA... PLANET...", "...SIGNAL... DETECTED..."]),
-      refuel: Object.freeze(["...FUEL... PLANET...", "...SAFE... REFUEL..."]),
-    }),
-    2: Object.freeze({
-      mine: Object.freeze(["Mine planet. Resources likely.", "High density minerals detected."]),
-      data: Object.freeze(["Data signals strong. Be careful.", "Unstable readings from this planet."]),
-      refuel: Object.freeze(["Fuel source confirmed. Safe to land.", "Refueling planet. Stable."]),
-    }),
-    3: Object.freeze({
-      mine: Object.freeze(["コウブツ ワクセイ。シゲン カクホ カノウ。", "コウミツド ノ ミネラル ヲ ケンチ。"]),
-      data: Object.freeze(["データ シンゴウ キョウ。フアンテイ。キヲツケテ。", "コノ ワクセイ ノ データ... キョウミ フカイ。"]),
-      refuel: Object.freeze(["ネンリョウ ゲン カクニン。アンゼン ランド... OK。"]),
-    }),
-    4: Object.freeze({
-      mine: Object.freeze(["ここ、たくさん とれそう。", "きらきら した もの が いっぱい。"]),
-      data: Object.freeze(["ふしぎな かんじ が する...。", "なんだか... さむい ばしょ。"]),
-      refuel: Object.freeze(["ふう。あんぜん な ばしょ だね。", "ここで すこし、ゆっくり できる。"]),
-    }),
-    5: Object.freeze({
-      mine: Object.freeze(["この惑星は資源の宝庫ですね。", "高純度の鉱脈を感知しました。採掘を開始します。"]),
-      data: Object.freeze(["この惑星...古いデータが眠っている気がします。", "解析を開始。ノイズが...多いですね。"]),
-      refuel: Object.freeze(["安全な燃料惑星です。補給はスムーズでしょう。", "エネルギー反応、安定。補給します。"]),
-    }),
-  });
-
-  // Original StoryManager hard-collision lines. These are tied to
-  // hard repulsion only (radial impact speed > 150), not ordinary contact.
-  const EVE_COLLISION_LINES = Object.freeze({
-    1: Object.freeze([
-      "...WARNING... IMPACT.",
-      "...HULL... DAMAGE...",
-    ]),
-    2: Object.freeze([
-      "Impact! Check systems.",
-      "Hull integrity dropping.",
-    ]),
-    3: Object.freeze([
-      "ショウゲキ! センタイ チェック...",
-      "ガイカク オンド... ジョウショウ。",
-    ]),
-    4: Object.freeze([
-      "きゃっ!... いま、ぶつかった?",
-      "だいじょうぶ? いたい...",
-    ]),
-    5: Object.freeze([
-      "衝撃! Pilot、大丈夫ですか!",
-      "機体に被弾! シールドチェック...問題なし。",
-    ]),
-  });
-
-  // Echo text has two separate jobs. The recovered memory itself is fixed
-  // above; only E.V.E.'s *present-day reaction* changes with BASE restoration.
-  // Five emotional bands keep the dialogue sparse instead of writing 60 bespoke
-  // lines that merely restate each memory.
-  // Before playback, present-day E.V.E. explicitly receives and analyzes the
-  // recovered Echo. This bridges the language gap between E.V.E.'s damaged
-  // speech and the intact Japanese stored inside the memory fragment.
-  const ECHO_ANALYSIS_LINES = Object.freeze({
-    1: "...ECHO... DETECTED.\n...ANALYZING...",
-    2: "Echo detected.\nAnalyzing memory...",
-    3: "エコー カクニン。\nキオク ヲ カイセキ...",
-    4: "エコー かくにん。\nきおくを かいせき...",
-    5: "Echoを確認。\n記憶を解析します。",
-  });
-
-  const ECHO_REACTIONS = Object.freeze({
-    1: Object.freeze([
-      "...KNOWN...?",
-      "...WARM... DATA...?",
-      "...I... WAITED...?",
-      "...YOU... TRUST... ME...?",
-      "...ALL... CONNECT...",
-    ]),
-    2: Object.freeze([
-      "This data... feels familiar.",
-      "I think... this was ours.",
-      "I remember... waiting for you.",
-      "You trusted me... with something.",
-      "All Echoes... connect. But... I cannot read it yet.",
-    ]),
-    3: Object.freeze([
-      "コノ キオク... シッテイル...?",
-      "コレハ... ワタシタチ ノ キオク...?",
-      "ワタシ... アナタヲ マッテイタ。",
-      "アナタハ... ワタシニ ナニカヲ アズケタ。",
-      "エコー... ゼンブ ツナガッタ。\nデモ... マダ ヨメナイ。",
-    ]),
-    4: Object.freeze([
-      "この きおく、しってる きがする。",
-      "これ、わたしたちの きおくなのかな。",
-      "わたし、あなたが かえるのを まってた。",
-      "あなたは、たいせつなものを わたしに あずけた。",
-      "ぜんぶ つながった。\nでも、まだ うまく ことばに できない。",
-    ]),
-    5: Object.freeze([
-      "この記憶……知っています。",
-      "これは、私たちの記憶です。",
-      "私は、あなたが帰ってくるのを待っていた。",
-      "あなたは、大切なものを私に預けた。",
-      "全部、繋がりました。\n……でも、ここではまだ。",
-    ]),
-  });
-
-  const ECHO_RETURN_LINES = Object.freeze({
-    1: "...WELCOME... BACK...\n...ECHO... {a}/{b}...",
-    2: "Welcome back.\nEcho archive: {a}/{b}.",
-    3: "オカエリナサイ。\nエコー シュウトク {a}/{b}。",
-    4: "おかえり。\nのこされた こえ は {a}/{b} あつまったよ。",
-    5: "お帰りなさい。\n残響回収: {a}/{b}。",
-  });
-
-  // The first launch after each RESTORE is a narrative beat of its own:
-  // E.V.E. experiences the repaired ship/sensors in open space, using the
-  // newly restored language level rather than repeating the ritual response.
-  const RESTORE_DEPARTURE_LINES = Object.freeze({
-    2: "I can see... farther now.",
-    3: "ホシガ... マエヨリ トオク マデ ミエル。",
-    4: "そらが、まえより ひろく みえる。",
-    5: "……前より遠くまで、一緒に行けます。",
-  });
-
+  // Runtime dialogue now lives in text/<locale>.json. The Japanese file
+  // preserves the current five-stage language recovery exactly; other locales
+  // can author an equivalent recovery curve without changing game logic.
+  const EVE_PHASE_LINES = txValue("eve.phase");
+  const EVE_IDLE_LINES = txValue("eve.idle");
+  const EVE_LANDING_LINES = txValue("eve.landing");
+  const EVE_COLLISION_LINES = txValue("eve.collision");
+  const ECHO_ANALYSIS_LINES = txValue("eve.echoAnalysis");
+  const ECHO_REACTIONS = txValue("eve.echoReactions");
+  const ECHO_RETURN_LINES = txValue("eve.echoReturn");
+  const RESTORE_DEPARTURE_LINES = txValue("eve.restoreDeparture");
 
   const TUNE = {
     fixedHz: SOURCE_LOCK.fixedHz,
@@ -917,7 +723,7 @@
 
       // v2.7.8: SYSTEM status and E.V.E.'s actual voice are separate layers.
       // The console is a quiet instrument; E.V.E. appears only while speaking.
-      this.systemLog = ["SYSTEM BOOT", "E.V.E. ONLINE."];
+      this.systemLog = [{ key: "boot", vars: {} }, { key: "eveOnline", vars: {} }];
       this.eve = {
         text: "",
         timer: 0,
@@ -1198,7 +1004,7 @@
       this.reset();
 
       if (Array.isArray(data.systemLog) && data.systemLog.length) {
-        this.systemLog = data.systemLog.slice(-12).map((line) => String(line));
+        this.systemLog = data.systemLog.slice(-12).map((entry) => this.normalizeSystemLogEntry(entry));
       }
 
       const rr = data.resources || {};
@@ -1665,7 +1471,7 @@
         if (this.finale && this.finale.farewellInFlight) {
           this.finale.farewellInFlight = false;
           this.eve.departureLineLevel = 0;
-          this.sayEve("……いってらっしゃい。", 3.4);
+          this.sayEve(tx("eve.farewell"), 3.4);
         } else {
           const restoredLevel = Math.floor(Number(this.eve && this.eve.departureLineLevel || 0));
           const restoredLine = RESTORE_DEPARTURE_LINES[restoredLevel];
@@ -1705,7 +1511,7 @@
         }
       }
       this.mergeDiscoveryProgress(discovery);
-      this.pushSystemLog("EMERGENCY RETURN");
+      this.pushSystemLog("emergencyReturn");
       this.saveGame("rescue-discovery");
       this.eve.lowFuelNotified = false;
 
@@ -2039,7 +1845,7 @@
       this.echoes.carriedThisTrip += 1;
       this.echoes.pulseTimer = ECHO_TUNE.pulseSec;
       this.queueEchoMemory(this.echoes.found);
-      this.pushSystemLog(`ECHO ${String(this.echoes.found).padStart(2, "0")} RECOVERED`);
+      this.pushSystemLog("echoRecovered", { index: String(this.echoes.found).padStart(2, "0") });
       if (this.harvest) this.harvest.loggedThisLanding = true;
       return true;
     }
@@ -2347,7 +2153,7 @@
       }
 
       if (p.kind === "base") {
-        if (this.hasDepartedBase) this.pushSystemLog("RETURNED HOME");
+        if (this.hasDepartedBase) this.pushSystemLog("returnedHome");
         this.hasDepartedBase = false;
         this.baseRefuelTimer = 0;
         this.openHomeTerminal();
@@ -2545,24 +2351,30 @@
       const currRange = MINIMAP_RESTORE_TUNE.rangeMul[lv] || 1;
       const prevStep = MINIMAP_RESTORE_TUNE.directionStepDeg[lv - 1];
       const currStep = MINIMAP_RESTORE_TUNE.directionStepDeg[lv];
-      const deg = (value) => value > 0 ? `${value} DEG` : "PRECISE";
+      const deg = (value) => value > 0
+        ? tx("home.restoreReport.degrees", { value })
+        : tx("home.restoreReport.precise");
 
       const rows = [
-        "RESTORE COMPLETE",
-        `BASE CORE      : LEVEL ${lv}`,
-        `SHIP FRAME     : ${lv >= 5 ? "FULLY RESTORED" : "UPDATED"}`,
-        `E.V.E. LANGUAGE: ${lv >= 5 ? "COMPLETE" : "UPDATED"}`,
-        `FUEL CAPACITY  : ${prev.fuelMax} > ${curr.fuelMax}`,
+        tx("home.restoreReport.complete"),
+        tx("home.restoreReport.baseCore", { level: lv }),
+        tx("home.restoreReport.shipFrame", {
+          status: lv >= 5 ? tx("home.restoreReport.fullyRestored") : tx("home.restoreReport.updated")
+        }),
+        tx("home.restoreReport.eveLanguage", {
+          status: lv >= 5 ? tx("home.restoreReport.completeStatus") : tx("home.restoreReport.updated")
+        }),
+        tx("home.restoreReport.fuelCapacity", { prev: prev.fuelMax, curr: curr.fuelMax }),
       ];
 
       if (curr.oreMax !== prev.oreMax) {
-        rows.push(`ORE CAPACITY   : ${prev.oreMax} > ${curr.oreMax}`);
+        rows.push(tx("home.restoreReport.oreCapacity", { prev: prev.oreMax, curr: curr.oreMax }));
       }
 
       rows.push(
-        `NAV RANGE      : ${prevRange.toFixed(2)} > ${currRange.toFixed(2)}`,
-        `HOME FIX       : ${deg(prevStep)} > ${deg(currStep)}`,
-        `ACCESS BAND    : LEVEL ${lv} ONLINE`
+        tx("home.restoreReport.navRange", { prev: prevRange.toFixed(2), curr: currRange.toFixed(2) }),
+        tx("home.restoreReport.homeFix", { prev: deg(prevStep), curr: deg(currStep) }),
+        tx("home.restoreReport.accessBand", { level: lv })
       );
       return rows;
     }
@@ -2610,7 +2422,7 @@
       font("monospace");
       fontSize(10.5);
       textAlign(LEFT);
-      text("BASE OPERATIONS TERMINAL", L.x + 9, L.y + L.h - 14);
+      text(tx("home.terminalTitle"), L.x + 9, L.y + L.h - 14);
 
       this.drawWinBevel(
         L.close.x, L.close.y, L.close.w, L.close.h,
@@ -2670,36 +2482,36 @@
           text(String(value), valueX, y);
         };
 
-        drawStatusRow(0, "SYSTEM LINK", "ONLINE");
-        drawStatusRow(1, "RESTORE", `${level}/5`);
-        drawStatusRow(2, "ECHO ARCHIVE", `${echoFound}/${echoTotal}`);
+        drawStatusRow(0, tx("home.labels.systemLink"), tx("home.values.online"));
+        drawStatusRow(1, tx("home.labels.restore"), `${level}/5`);
+        drawStatusRow(2, tx("home.labels.echoArchive"), `${echoFound}/${echoTotal}`);
 
         if (cost) {
           const oreOk = this.resources.ore >= cost.ore;
           const dataOk = this.resources.data >= cost.data;
           drawStatusRow(
             3,
-            "ORE",
+            tx("home.labels.ore"),
             `${Math.floor(this.resources.ore)}/${cost.ore}`,
             oreOk ? 0 : 145
           );
           drawStatusRow(
             4,
-            "DATA",
+            tx("home.labels.data"),
             `${Math.floor(this.resources.data)}/${cost.data}`,
             dataOk ? 0 : 145
           );
-          drawStatusRow(5, "STATUS", ready ? "RESTORE READY" : "WAITING FOR RESOURCES");
+          drawStatusRow(5, tx("home.labels.status"), ready ? tx("home.values.restoreReady") : tx("home.values.waitingResources"));
         } else {
-          drawStatusRow(3, "ORE", `${Math.floor(this.resources.ore)}/${this.resources.oreMax}`);
-          drawStatusRow(4, "DATA", `${Math.floor(this.resources.data)}/${this.resources.dataMax}`);
-          drawStatusRow(5, "STATUS", "RESTORE COMPLETE");
+          drawStatusRow(3, tx("home.labels.ore"), `${Math.floor(this.resources.ore)}/${this.resources.oreMax}`);
+          drawStatusRow(4, tx("home.labels.data"), `${Math.floor(this.resources.data)}/${this.resources.dataMax}`);
+          drawStatusRow(5, tx("home.labels.status"), tx("home.values.restoreComplete"));
         }
       }
 
       const restoreLabel = reportLevel >= 2
-        ? "RESTORE COMPLETE"
-        : (cost ? (ready ? "RESTORE SYSTEM" : "RESTORE LOCKED") : "RESTORE COMPLETE");
+        ? tx("home.restoreButton.complete")
+        : (cost ? (ready ? tx("home.restoreButton.ready") : tx("home.restoreButton.locked")) : tx("home.restoreButton.complete"));
       this.drawHomeTerminalButton(
         L.restore,
         restoreLabel,
@@ -2713,8 +2525,8 @@
       textAlign(CENTER);
       // Two compact lines keep the launch instruction inside the terminal on
       // narrow phones instead of letting it run through the right frame.
-      text("X DISCONNECTS TERMINAL", L.x + L.w / 2, L.y + 20);
-      text("HOLD 1 SEC AFTER DISCONNECT TO LAUNCH", L.x + L.w / 2, L.y + 9);
+      text(tx("home.disconnect"), L.x + L.w / 2, L.y + 20);
+      text(tx("home.launchInstruction"), L.x + L.w / 2, L.y + 9);
 
       if (this.homeTerminal.mode === "confirm") {
         // Classic modal confirmation. It intentionally blocks all other HOME
@@ -2734,15 +2546,15 @@
         font("monospace");
         fontSize(9.5);
         textAlign(LEFT);
-        text("CONFIRM", D.x + 9, D.y + D.h - 14);
+        text(tx("home.confirmTitle"), D.x + 9, D.y + D.h - 14);
 
         fill(0, 0, 0, 255);
         fontSize(10);
         textAlign(CENTER);
-        text("START RESTORE SEQUENCE?", D.x + D.w / 2, D.y + 66);
+        text(tx("home.confirmQuestion"), D.x + D.w / 2, D.y + 66);
 
-        this.drawHomeTerminalButton(D.yes, "YES", true, this.homeTerminal.pressed === "yes");
-        this.drawHomeTerminalButton(D.no, "NO", true, this.homeTerminal.pressed === "no");
+        this.drawHomeTerminalButton(D.yes, tx("home.yes"), true, this.homeTerminal.pressed === "yes");
+        this.drawHomeTerminalButton(D.no, tx("home.no"), true, this.homeTerminal.pressed === "no");
       }
     }
 
@@ -2803,7 +2615,7 @@
       this.resources.ore -= cost.ore;
       this.resources.data -= cost.data;
       this.base.level = Math.min(5, this.base.level + 1);
-      this.pushSystemLog(`RESTORE LEVEL ${this.base.level}`);
+      this.pushSystemLog("restoreLevel", { level: this.base.level });
       this.mode = "landed";
       this.pressing = false;
       this.departHold = 0;
@@ -2975,10 +2787,10 @@
         !this.harvest.loggedThisLanding
       ) {
         if (kind === "mine") {
-          this.pushSystemLog("ORE RECOVERED");
+          this.pushSystemLog("oreRecovered");
           this.harvest.loggedThisLanding = true;
         } else if (kind === "refuel") {
-          this.pushSystemLog("FUEL RECOVERED");
+          this.pushSystemLog("fuelRecovered");
           this.harvest.loggedThisLanding = true;
         }
       }
@@ -3221,7 +3033,7 @@
 
         // Departure is still HOME, so it is the cleanest rollback checkpoint:
         // refuel/repairs performed while docked are locked in before launch.
-        this.pushSystemLog("DEPARTED HOME");
+        this.pushSystemLog("departedHome");
         this.saveGame("base-departure");
         this.tripStartTime = this.simTime;
         this.hasDepartedBase = true;
@@ -3632,7 +3444,11 @@
       font("monospace");
       fontSize(9);
       textAlign(CENTER);
-      text(`ECHO ${String(this.echoStory.index).padStart(2, "0")}/${this.echoes.total} — ${item.key}`, W / 2, H / 2 + 46);
+      text(tx("echo.header", {
+        index: String(this.echoStory.index).padStart(2, "0"),
+        total: this.echoes.total,
+        key: item.key
+      }), W / 2, H / 2 + 46);
 
       fill(230, 237, 244, a);
       fontSize(12);
@@ -3643,7 +3459,7 @@
       // modal story card or collectible inventory.
       fill(130, 160, 190, a * 0.65);
       fontSize(8);
-      text("MEMORY FRAGMENT", W / 2, H / 2 - 51);
+      text(tx("hud.memoryFragment"), W / 2, H / 2 - 51);
     }
 
     drawFinaleOverlay() {
@@ -3669,7 +3485,7 @@
         if (a > 0) {
           fill(220, 233, 244, 235 * a);
           fontSize(13);
-          text("……おかえり。", W / 2, H / 2 + 4);
+          text(tx("finale.outro"), W / 2, H / 2 + 4);
         }
         return;
       }
@@ -3678,42 +3494,76 @@
       if (a > 0) {
         fill(220, 233, 244, 235 * a);
         fontSize(13);
-        text("……全部、繋がりました。", W / 2, H / 2 + 6);
+        text(tx("finale.connected"), W / 2, H / 2 + 6);
       }
 
       a = segment(3.0, 5.9);
       if (a > 0) {
         fill(170, 205, 235, 220 * a);
         fontSize(10);
-        text("E.V.E.", W / 2, H / 2 + 18);
+        text(tx("finale.eveName"), W / 2, H / 2 + 18);
         fill(232, 238, 245, 240 * a);
         fontSize(14);
-        text("Echo of Vital Emotion.", W / 2, H / 2 - 12);
+        text(tx("finale.expansion"), W / 2, H / 2 - 12);
       }
 
       a = segment(6.2, 10.5);
       if (a > 0) {
         fill(220, 233, 244, 235 * a);
         fontSize(11);
-        text("あの事故のとき――", W / 2, H / 2 + 34);
-        text("あなたが失いかけた“あなた自身”を、", W / 2, H / 2 + 4);
-        text("私は預かっていました。", W / 2, H / 2 - 26);
+        text(tx("finale.accident1"), W / 2, H / 2 + 34);
+        text(tx("finale.accident2"), W / 2, H / 2 + 4);
+        text(tx("finale.accident3"), W / 2, H / 2 - 26);
       }
 
       a = segment(10.8, 13.15);
       if (a > 0) {
         fill(225, 236, 245, 240 * a);
         fontSize(13);
-        text("……返します。", W / 2, H / 2 + 4);
+        text(tx("finale.returnMemory"), W / 2, H / 2 + 4);
       }
     }
 
-    pushSystemLog(message) {
-      const line = String(message || "").trim();
-      if (!line) return;
+    normalizeSystemLogEntry(entry) {
+      if (entry && typeof entry === "object" && typeof entry.key === "string") {
+        return { key: entry.key, vars: entry.vars && typeof entry.vars === "object" ? { ...entry.vars } : {} };
+      }
+
+      const legacy = String(entry || "").trim();
+      if (!legacy) return { key: "boot", vars: {} };
+      const direct = {
+        "SYSTEM BOOT": "boot",
+        "E.V.E. ONLINE.": "eveOnline",
+        "EMERGENCY RETURN": "emergencyReturn",
+        "RETURNED HOME": "returnedHome",
+        "ORE RECOVERED": "oreRecovered",
+        "FUEL RECOVERED": "fuelRecovered",
+        "DEPARTED HOME": "departedHome",
+      };
+      if (direct[legacy]) return { key: direct[legacy], vars: {} };
+
+      let match = /^RESTORE LEVEL (\d+)$/.exec(legacy);
+      if (match) return { key: "restoreLevel", vars: { level: match[1] } };
+      match = /^ECHO (\d+) RECOVERED$/.exec(legacy);
+      if (match) return { key: "echoRecovered", vars: { index: match[1] } };
+
+      return { legacy, vars: {} };
+    }
+
+    systemLogText(entry) {
+      const normalized = this.normalizeSystemLogEntry(entry);
+      if (normalized.legacy) return normalized.legacy;
+      return tx(`system.${normalized.key}`, normalized.vars || {});
+    }
+
+    pushSystemLog(key, vars = {}) {
+      const entry = { key: String(key || ""), vars: vars && typeof vars === "object" ? { ...vars } : {} };
+      if (!entry.key) return;
       if (!Array.isArray(this.systemLog)) this.systemLog = [];
-      if (this.systemLog[this.systemLog.length - 1] === line) return;
-      this.systemLog.push(line);
+      const rendered = this.systemLogText(entry);
+      const last = this.systemLog.length ? this.systemLogText(this.systemLog[this.systemLog.length - 1]) : "";
+      if (last === rendered) return;
+      this.systemLog.push(entry);
       if (this.systemLog.length > 12) {
         this.systemLog.splice(0, this.systemLog.length - 12);
       }
@@ -3741,8 +3591,8 @@
 
       const sourceLines = Array.isArray(this.systemLog) && this.systemLog.length
         ? this.systemLog
-        : ["SYSTEM BOOT", "E.V.E. ONLINE."];
-      const lines = sourceLines.slice(-3);
+        : [{ key: "boot", vars: {} }, { key: "eveOnline", vars: {} }];
+      const lines = sourceLines.slice(-3).map((entry) => this.systemLogText(entry));
 
       font("monospace");
       textAlign(LEFT);
@@ -3928,7 +3778,7 @@
       fontSize(8.4);
       noStroke();
       fill(145, 195, 225, 170 * a);
-      text("E.V.E.", x + 8, yy + h - 11);
+      text(tx("hud.eveLabel"), x + 8, yy + h - 11);
 
       fontSize(9.7);
       fill(224, 236, 244, 225 * a);
@@ -3966,7 +3816,7 @@
           noStroke();
           fill(220, 238, 250, 210 * q);
           textAlign(CENTER);
-          text(`+${this.harvest.lastAmount} FUEL`, W / 2, fy);
+          text(tx("hud.fuelPickup", { amount: this.harvest.lastAmount }), W / 2, fy);
         }
       }
 
@@ -3982,7 +3832,7 @@
         font("monospace");
         fontSize(10.7);
         textAlign(CENTER);
-        text(`ECHO ${this.echoes.found}/${this.echoes.total}`, W / 2, H / 2 + 68);
+        text(tx("hud.echo", { found: this.echoes.found, total: this.echoes.total }), W / 2, H / 2 + 68);
       }
     }
 
@@ -4066,7 +3916,7 @@
       fontSize(10.2);
       textAlign(CENTER);
       text(
-        `FUEL ${Math.floor(r.fuel)}/${r.fuelMax}`,
+        tx("hud.fuel", { current: Math.floor(r.fuel), max: r.fuelMax }),
         fuelX + fuelW / 2,
         fuelY + fuelH / 2 + 0.5
       );
@@ -4078,7 +3928,7 @@
         fill(150, 185, 205, 130 * a);
         fontSize(9);
         textAlign(LEFT);
-        text("SAVED", fuelX, fuelY - 11);
+        text(tx("hud.saved"), fuelX, fuelY - 11);
       }
 
       // --------------------------------------------------------------
@@ -4772,30 +4622,30 @@
       font("monospace");
       fontSize(34);
       textAlign(CENTER);
-      text("O R B I T", W / 2, 402);
+      text(tx("title.title"), W / 2, 402);
 
       fill(160, 184, 212, 210);
       fontSize(13);
-      text("Silent Reboot", W / 2, 370);
+      text(tx("title.subtitle"), W / 2, 370);
 
       const hasSave = world.hasSave();
       if (hasSave) {
         this.drawButton(
           this.continueButton,
-          "CONTINUE",
+          tx("title.continue"),
           this.pressedButton === "continue",
           true
         );
         this.drawButton(
           this.newButton,
-          "NEW ORBIT",
+          tx("title.newOrbit"),
           this.pressedButton === "new",
           false
         );
       } else {
         this.drawButton(
           this.soloButton,
-          "NEW ORBIT",
+          tx("title.newOrbit"),
           this.pressedButton === "new",
           true
         );
