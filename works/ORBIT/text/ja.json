@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 29,
-    "note": "ORBIT Web Japanese runtime text. v2.9.9 fixes literal \\\\n sequences in the first-flight hint and all rescue-return dialogue so intended line breaks render correctly."
+    "version": 30,
+    "note": "ORBIT Web Japanese runtime text. v2.9.10 polishes RESTORE ritual line breaks for WAKE, MEMORY, and RESONANCE so each phrase lands naturally on mobile."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.9"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.10"
   },
   "title": {
     "title": "O R B I T",
@@ -451,7 +451,7 @@
     "responseHint": "タップして戻る",
     "wake": {
       "name": "WAKE",
-      "response": "...PULSE... RESPONDS... TO TOUCH...",
+      "response": "...PULSE... RESPONDS...\nTO TOUCH...",
       "instruction": "タップする"
     },
     "link": {
@@ -461,12 +461,12 @@
     },
     "memory": {
       "name": "MEMORY",
-      "response": "……あなたの おんど、おぼえています。",
+      "response": "……あなたの おんど、\nおぼえています。",
       "instruction": "光をなぞる"
     },
     "resonance": {
       "name": "RESONANCE",
-      "response": "途切れていた線が繋がる。\nあなたの輪郭が、少しずつ戻ってくる。",
+      "response": "途切れていた線が繋がる。\nあなたの輪郭が、\n少しずつ戻ってくる。",
       "instruction": "点を順につなぐ"
     },
     "rebirth": {
