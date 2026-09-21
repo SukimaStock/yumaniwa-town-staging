@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 36,
-    "note": "ORBIT Web Japanese runtime text. v2.9.16 quiets the title sky and localizes the Japanese title buttons to つづける / はじめる."
+    "version": 37,
+    "note": "ORBIT Web Japanese runtime text. v2.9.17 raises Phase A placeholder cue levels for mobile audibility and explicitly configures the audio master path while keeping tone mode active."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.16"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.17"
   },
   "title": {
     "title": "O R B I T",
