@@ -291,8 +291,12 @@
   // no manual save screen, no slot management. Meaningful progress writes one
   // browser-local snapshot and CONTINUE restores it.
   const SAVE_TUNE = Object.freeze({
+    // HOME snapshot: physical expedition state. Only HOME writes this key.
     key: "sukimastock.orbit.web.save.v3",
     schema: 3,
+    // MEMORY snapshot: decoded knowledge survives independently of the ship.
+    knowledgeKey: "sukimastock.orbit.web.knowledge.v1",
+    knowledgeSchema: 1,
     pulseSec: 1.1,
   });
 
@@ -866,6 +870,7 @@
         discovered: new Set(),
         found: 0,
         unlocked: false,
+        introSeen: false,
         postCreditsTimer: -1,
         introStage: 0,
         introTimer: 0,
@@ -988,7 +993,75 @@
     }
 
     clearSave() {
-      try { window.localStorage.removeItem(SAVE_TUNE.key); } catch (_) { /* ignore */ }
+      try {
+        window.localStorage.removeItem(SAVE_TUNE.key);
+        window.localStorage.removeItem(SAVE_TUNE.knowledgeKey);
+      } catch (_) { /* ignore */ }
+    }
+
+    buildKnowledgeData(reason = "knowledge") {
+      return {
+        schema: SAVE_TUNE.knowledgeSchema,
+        savedAt: Date.now(),
+        reason,
+        data: Math.max(0, Math.floor(Number(this.resources && this.resources.data || 0))),
+        echoes: {
+          found: Math.max(0, Math.floor(Number(this.echoes && this.echoes.found || 0))),
+          discovered: this.echoes ? Array.from(this.echoes.discovered || []) : [],
+        },
+        dataSignals: {
+          decoded: this.dataSignals ? Array.from(this.dataSignals.decoded || []) : [],
+        },
+        creditsSeen: !!(this.credits && this.credits.seen),
+        incident: {
+          discovered: this.incident ? Array.from(this.incident.discovered || []) : [],
+          found: this.incident ? this.incident.found : 0,
+          unlocked: !!(this.incident && this.incident.unlocked),
+          introSeen: !!(this.incident && this.incident.introSeen),
+          trueEndingCompleted: !!(this.incident && this.incident.trueEndingCompleted),
+        },
+      };
+    }
+
+    saveKnowledge(reason = "knowledge", showPulse = true) {
+      try {
+        window.localStorage.setItem(
+          SAVE_TUNE.knowledgeKey,
+          JSON.stringify(this.buildKnowledgeData(reason))
+        );
+        this.storageSaveFailed = false;
+        if (showPulse) this.savePulse = SAVE_TUNE.pulseSec;
+        return true;
+      } catch (_) {
+        this.storageSaveFailed = true;
+        return false;
+      }
+    }
+
+    loadKnowledgeProgress() {
+      let data = null;
+      try {
+        const raw = window.localStorage.getItem(SAVE_TUNE.knowledgeKey);
+        data = raw ? JSON.parse(raw) : null;
+      } catch (_) {
+        return false;
+      }
+      if (!data || data.schema !== SAVE_TUNE.knowledgeSchema) return false;
+
+      const ii = data.incident || {};
+      this.mergeDiscoveryProgress({
+        data: data.data,
+        found: data.echoes && data.echoes.found,
+        discovered: data.echoes && data.echoes.discovered,
+        decoded: data.dataSignals && data.dataSignals.decoded,
+        creditsSeen: !!data.creditsSeen,
+        incidentDiscovered: ii.discovered,
+        incidentFound: ii.found,
+        incidentUnlocked: !!ii.unlocked,
+        incidentIntroSeen: !!ii.introSeen,
+        trueEndingCompleted: !!ii.trueEndingCompleted,
+      });
+      return true;
     }
 
     planetId(planet) {
