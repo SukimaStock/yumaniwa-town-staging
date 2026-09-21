@@ -1638,6 +1638,7 @@
         ) {
           this.incident.postCreditsTimer = INCIDENT_TUNE.unlockDelayAfterCredits;
         }
+        this.saveKnowledge("credits-seen");
       }
     }
 
@@ -1695,6 +1696,7 @@
       if (this.incident.found >= this.incident.total) {
         this.incident.homeBeaconPulse = INCIDENT_TUNE.homeBeaconPulseSec;
       }
+      this.saveKnowledge("incident-log");
       return true;
     }
 
@@ -1793,6 +1795,7 @@
           this.incident.introStage = 1;
           this.incident.introTimer = INCIDENT_TUNE.introSignalLead;
           this.signal.timer = 0;
+          this.saveKnowledge("incident-unlocked");
         }
       }
 
@@ -1835,6 +1838,8 @@
         ) {
           this.sayEve(tx("incident.introSignal"), 4.2);
           this.incident.introStage = 3;
+          this.incident.introSeen = true;
+          this.saveKnowledge("incident-intro");
         }
       }
 
@@ -2664,6 +2669,7 @@
       this.echoes.pulseTimer = ECHO_TUNE.pulseSec;
       this.pushSystemLog("echoRecovered", { index: String(this.echoes.found).padStart(2, "0") });
       if (this.harvest) this.harvest.loggedThisLanding = true;
+      this.saveKnowledge("echo-recovered");
       return true;
     }
 
@@ -2762,6 +2768,9 @@
           this.echoStory.analysisResultTimer = found
             ? ECHO_TUNE.analysisResultSec
             : ECHO_TUNE.emptyResultSec;
+          // discoverEcho() already persists an Echo-bearing DATA packet.
+          // Empty/post-12 DATA still becomes permanent knowledge here.
+          if (!found) this.saveKnowledge("data-decoded");
         }
       }
 
@@ -3737,6 +3746,8 @@
         incidentDiscovered: this.incident ? Array.from(this.incident.discovered || []) : [],
         incidentFound: this.incident ? this.incident.found : 0,
         incidentUnlocked: !!(this.incident && this.incident.unlocked),
+        incidentIntroSeen: !!(this.incident && this.incident.introSeen),
+        trueEndingCompleted: !!(this.incident && this.incident.trueEndingCompleted),
       };
     }
 
@@ -3752,7 +3763,13 @@
       for (const id of snapshot.decoded || []) decoded.add(id);
       for (const id of merged) decoded.add(id);
       this.dataSignals.decoded = decoded;
-      if (snapshot.creditsSeen && this.credits) this.credits.seen = true;
+      if (snapshot.creditsSeen && this.credits) {
+        this.credits.seen = true;
+        if (this.finale) {
+          this.finale.farewellPending = false;
+          this.finale.farewellInFlight = false;
+        }
+      }
 
       if (this.incident) {
         const incidentMerged = new Set(this.incident.discovered || []);
@@ -3770,6 +3787,15 @@
           this.incident.total
         );
         if (snapshot.incidentUnlocked || this.incident.found > 0) this.incident.unlocked = true;
+        if (snapshot.incidentIntroSeen || this.incident.found > 0) {
+          this.incident.introSeen = true;
+          this.incident.introStage = 3;
+        } else if (this.incident.unlocked) {
+          this.incident.introSeen = false;
+          this.incident.introStage = 1;
+          this.incident.introTimer = 1.4;
+        }
+        if (snapshot.trueEndingCompleted) this.incident.trueEndingCompleted = true;
         if (this.incident.found >= this.incident.total) this.incident.completionStage = 3;
       }
 
