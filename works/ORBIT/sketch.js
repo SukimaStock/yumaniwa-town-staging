@@ -325,11 +325,11 @@
   // They existed from the start; only the fully restored post-credit sensor can
   // hear the records buried there.
   const INCIDENT_SITE_IDS = Object.freeze([
-    "P:1:0:1",    // ~3.7k
-    "P:-1:-4:1",  // ~5.6k
-    "P:-5:0:1",   // ~8.0k
-    "P:-3:5:1",   // ~11.4k
-    "P:5:-7:2",   // ~14.5k
+    "P:1:0:1",   // ~3.7k from HOME
+    "P:3:-1:2",  // ~5.6k
+    "P:3:2:1",   // ~7.9k
+    "P:5:2:1",   // ~10.8k
+    "P:8:0:2",   // ~14.5k
   ]);
 
   const INCIDENT_TUNE = Object.freeze({
