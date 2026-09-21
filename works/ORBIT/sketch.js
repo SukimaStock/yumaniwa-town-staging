@@ -987,7 +987,7 @@
       this.refreshActivePlanets(true);
     }
 
-    hasSave() {
+    hasPhysicalSave() {
       try {
         const raw = window.localStorage.getItem(SAVE_TUNE.key);
         if (!raw) return false;
@@ -996,6 +996,27 @@
       } catch (_) {
         return false;
       }
+    }
+
+    hasKnowledgeSave() {
+      try {
+        const raw = window.localStorage.getItem(SAVE_TUNE.knowledgeKey);
+        if (!raw) return false;
+        const data = JSON.parse(raw);
+        if (!data || data.schema !== SAVE_TUNE.knowledgeSchema) return false;
+        const echoFound = Math.max(0, Math.floor(Number(data.echoes && data.echoes.found || 0)));
+        const incidentFound = Math.max(0, Math.floor(Number(data.incident && data.incident.found || 0)));
+        const decoded = data.dataSignals && Array.isArray(data.dataSignals.decoded)
+          ? data.dataSignals.decoded.length
+          : 0;
+        return echoFound > 0 || incidentFound > 0 || decoded > 0 || !!data.creditsSeen;
+      } catch (_) {
+        return false;
+      }
+    }
+
+    hasSave() {
+      return this.hasPhysicalSave() || this.hasKnowledgeSave();
     }
 
     clearSave() {
@@ -1416,10 +1437,10 @@
       // has been rebuilt from the snapshot.
       if (checkpointCopy) this.homeCheckpoint = checkpointCopy;
 
-      // A snapshot can be taken immediately after the last missing half of the
-      // story is restored. CONTINUE should still lead into the finale, not skip it.
-      if (this.shouldStartFinale()) this.startFinale(0.7);
-      else if (this.shouldStartTrueEnding()) this.startTrueEnding(INCIDENT_TUNE.trueEndingDelay);
+      // Do not enter either ending inside raw snapshot restoration. MEMORY may
+      // still add an unread final Echo, and the secret ending requires a later
+      // voluntary landing rather than merely loading at HOME.
+      if (this.shouldStartFinale()) this.finale.resumePending = true;
       return true;
     }
 
@@ -1437,13 +1458,24 @@
       } catch (_) {
         return false;
       }
-      if (!data || data.schema !== SAVE_TUNE.schema) return false;
-      const restored = this.applySaveData(data, true);
-      if (!restored) return false;
+
+      if (data && data.schema === SAVE_TUNE.schema) {
+        const restored = this.applySaveData(data, true);
+        if (!restored) return false;
+      } else {
+        // Before the first HOME return there is intentionally no physical
+        // checkpoint. CONTINUE may still exist because MEMORY was acquired.
+        // Rebuild the untouched starting craft, then merge that knowledge.
+        this.reset();
+        this.eve.firstFlightHintPending = false;
+        this.eve.firstFlightHintTimer = 0;
+      }
 
       // HOME restores physical state; MEMORY restores knowledge acquired since
       // that checkpoint.
-      this.loadKnowledgeProgress();
+      const loadedKnowledge = this.loadKnowledgeProgress();
+      if (!data && !loadedKnowledge) return false;
+      this.reconcileRestoredKnowledge();
 
       if (
         this.incident &&
@@ -2270,7 +2302,7 @@
       // back to HOME, while decoded DATA/Echo knowledge survives the accident.
       const discovery = this.captureDiscoveryProgress();
       let restored = this.restoreHomeCheckpoint();
-      if (!restored) restored = this.loadGame();
+      if (!restored && this.hasPhysicalSave()) restored = this.loadGame();
       if (!restored) {
         this.reset();
         const p = this.basePlanet;
@@ -2289,6 +2321,7 @@
         }
       }
       this.mergeDiscoveryProgress(discovery);
+      this.reconcileRestoredKnowledge();
       this.pushSystemLog("emergencyReturn");
       this.saveGame("rescue-discovery");
       this.eve.lowFuelNotified = false;
