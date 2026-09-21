@@ -903,6 +903,7 @@
         farewellInFlight: false,
         homeTerminalDelay: 0,
         homeTerminalDelayDuration: 0.75,
+        resumePending: false,
       };
       this.credits = {
         active: false,
@@ -1714,14 +1715,19 @@
       return best;
     }
 
-    startIncidentLog(index) {
+    startIncidentLog(index, replay = false) {
       if (!this.incident) return false;
       const i = clamp(Math.floor(Number(index || 0)), 1, this.incident.total);
       const id = INCIDENT_SITE_IDS[i - 1];
-      if (!id || this.incident.discovered.has(id)) return false;
+      if (!id) return false;
+      if (!replay && this.incident.discovered.has(id)) return false;
+      if (replay && !this.incident.discovered.has(id)) return false;
 
-      this.incident.discovered.add(id);
-      this.incident.found = this.incident.discovered.size;
+      if (!replay) {
+        this.incident.discovered.add(id);
+        this.incident.found = this.incident.discovered.size;
+      }
+      this.incident.replayIndex = replay ? i : 0;
       this.incident.pendingLogIndex = 0;
       this.incident.pendingLogTimer = 0;
       this.incident.activeLogIndex = i;
@@ -1739,7 +1745,7 @@
       if (this.incident.found >= this.incident.total) {
         this.incident.homeBeaconPulse = INCIDENT_TUNE.homeBeaconPulseSec;
       }
-      this.saveKnowledge("incident-log");
+      if (!replay) this.saveKnowledge("incident-log");
       return true;
     }
 
@@ -1747,6 +1753,9 @@
       return !!(
         this.incident &&
         this.incident.found >= this.incident.total &&
+        this.incident.read &&
+        this.incident.read.size >= this.incident.total &&
+        this.incident.completionSeen &&
         !this.incident.trueEndingCompleted &&
         !this.incident.trueEndingActive &&
         this.finale &&
@@ -1776,18 +1785,8 @@
         this.incident.homeBeaconPulse = Math.max(0, this.incident.homeBeaconPulse - dt);
       }
 
-      // Emergency return can place a player with all five records directly at
-      // HOME without passing through onLanded(). Let E.V.E.'s rescue line finish,
-      // then continue into the same true ending instead of requiring re-launch.
-      if (
-        !this.incident.trueEndingActive &&
-        this.shouldStartTrueEnding() &&
-        (!this.rescue || this.rescue.postFadeTimer <= 0) &&
-        this.eve.timer <= 0
-      ) {
-        this.startTrueEnding(INCIDENT_TUNE.trueEndingDelay);
-      }
-
+      // Secret ending is intentionally NOT auto-started from a loaded/rescued
+      // HOME state. It is triggered only by an actual later landing in onLanded().
       if (this.incident.trueEndingActive) {
         this.incident.trueEndingTimer += dt;
         const t = this.incident.trueEndingTimer;
@@ -1896,9 +1895,15 @@
       if (this.incident.activeLogTimer > 0) {
         this.incident.activeLogTimer = Math.max(0, this.incident.activeLogTimer - dt);
         if (this.incident.activeLogTimer <= 0) {
+          const finishedIndex = this.incident.activeLogIndex;
+          const finishedId = INCIDENT_SITE_IDS[finishedIndex - 1];
+          if (finishedId) this.incident.read.add(finishedId);
           this.incident.activeLogIndex = 0;
+          this.incident.replayIndex = 0;
+          this.saveKnowledge("incident-read", false);
           if (
             this.incident.found >= this.incident.total &&
+            !this.incident.completionSeen &&
             this.incident.completionStage === 0
           ) {
             this.incident.completionStage = 1;
@@ -1929,7 +1934,9 @@
         ) {
           this.sayEve(tx("incident.returnHome"), 2.8);
           this.incident.completionStage = 3;
+          this.incident.completionSeen = true;
           this.incident.homeBeaconPulse = INCIDENT_TUNE.homeBeaconPulseSec;
+          this.saveKnowledge("incident-complete", false);
         }
       }
     }
