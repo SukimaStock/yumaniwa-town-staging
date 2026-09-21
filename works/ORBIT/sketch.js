@@ -473,6 +473,7 @@
   // This mirrors the stable path used after CoffeeFactory's iOS stutter fix:
   // decode once, then create a lightweight AudioBufferSourceNode per playback.
   const ORBIT_AUDIO_MODE = "ogg"; // "tone" | "ogg"
+  const ORBIT_AUDIO_GAIN = 3.0; // Global lift for ORBIT cues; preserves relative balance.
 
   const ORBIT_OGG_SOUNDS = Object.freeze({
     takeoff: Object.freeze({ file: "sounds/takeoff.ogg", volume: 0.14, cooldown: 120 }),
@@ -529,7 +530,7 @@
       );
     }
 
-    const volume = Math.max(0.0001, Math.min(1, Number(options.volume ?? 0.06)));
+    const volume = Math.max(0.0001, Math.min(1, Number(options.volume ?? 0.06) * ORBIT_AUDIO_GAIN));
     const attack = Math.min(0.015, duration * 0.28);
     gain.gain.setValueAtTime(0.0001, start);
     gain.gain.linearRampToValueAtTime(volume, start + attack);
@@ -688,7 +689,7 @@
 
     const start = ctx.currentTime + 0.002;
     const duration = Math.max(0.01, buffer.duration);
-    const volume = Math.max(0.0001, Math.min(1, Number(definition.volume ?? 0.12)));
+    const volume = Math.max(0.0001, Math.min(1, Number(definition.volume ?? 0.12) * ORBIT_AUDIO_GAIN));
     const attack = Math.min(0.008, duration * 0.08);
     const release = Math.min(0.018, duration * 0.12);
     const releaseAt = Math.max(start + attack, start + duration - release);
@@ -7136,7 +7137,7 @@
     analytics: { enabled: false },
     audio: {
       storageKey: "sukimastock.orbit.sound",
-      masterVolume: 0.9,
+      masterVolume: 1.0,
       poolSize: 1,
       sounds: {},
     },
