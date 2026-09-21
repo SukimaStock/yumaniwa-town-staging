@@ -467,10 +467,26 @@
   const CREDITS_LINES = txValue("credits.lines");
 
   // ------------------------------------------------------------
-  // Phase A audio: deliberately tiny procedural cues only.
-  // No BGM yet. These tones are placeholders for deciding which moments
-  // deserve sound before committing to final assets.
+  // Audio cue routing
   // ------------------------------------------------------------
+  // Phase A uses procedural tones. When the final OGG files are approved,
+  // put them in sounds/ with the filenames below and change this one value:
+  //   const ORBIT_AUDIO_MODE = "ogg";
+  // Every gameplay event keeps calling playOrbitCue(name), so no event code
+  // needs to change when the placeholders are replaced.
+  const ORBIT_AUDIO_MODE = "tone"; // "tone" | "ogg"
+
+  const ORBIT_OGG_SOUNDS = Object.freeze({
+    takeoff: Object.freeze({ file: "sounds/takeoff.ogg", volume: 0.14, cooldown: 120 }),
+    landing: Object.freeze({ file: "sounds/landing.ogg", volume: 0.14, cooldown: 120 }),
+    ore: Object.freeze({ file: "sounds/ore.ogg", volume: 0.10, cooldown: 100 }),
+    data: Object.freeze({ file: "sounds/data.ogg", volume: 0.11, cooldown: 120 }),
+    fuel: Object.freeze({ file: "sounds/fuel.ogg", volume: 0.10, cooldown: 140 }),
+    impact: Object.freeze({ file: "sounds/impact.ogg", volume: 0.16, cooldown: 350 }),
+    echo: Object.freeze({ file: "sounds/echo.ogg", volume: 0.14, cooldown: 300 }),
+    restore: Object.freeze({ file: "sounds/restore.ogg", volume: 0.15, cooldown: 500 }),
+  });
+
   const ORBIT_TONE = Object.freeze({
     takeoff: Object.freeze({ frequency: 145, endFrequency: 235, duration: 0.22, volume: 0.030, type: "triangle" }),
     landing: Object.freeze({ frequency: 190, endFrequency: 105, duration: 0.16, volume: 0.034, type: "triangle" }),
@@ -484,24 +500,36 @@
     return SSE.audio.tone(options);
   }
 
-  function playOrbitCue(name) {
+  function playOrbitToneCue(name) {
     if (name === "data") {
       orbitTone({ frequency: 470, endFrequency: 530, duration: 0.075, volume: 0.020, type: "triangle" });
       setTimeout(() => orbitTone({ frequency: 690, endFrequency: 760, duration: 0.085, volume: 0.018, type: "triangle" }), 85);
-      return;
+      return true;
     }
     if (name === "echo") {
       orbitTone({ frequency: 410, endFrequency: 520, duration: 0.20, volume: 0.022, type: "sine" });
       setTimeout(() => orbitTone({ frequency: 620, endFrequency: 780, duration: 0.28, volume: 0.020, type: "sine" }), 105);
-      return;
+      return true;
     }
     if (name === "restore") {
       orbitTone({ frequency: 185, endFrequency: 245, duration: 0.24, volume: 0.024, type: "sine" });
       setTimeout(() => orbitTone({ frequency: 310, endFrequency: 410, duration: 0.30, volume: 0.022, type: "sine" }), 120);
       setTimeout(() => orbitTone({ frequency: 505, endFrequency: 650, duration: 0.38, volume: 0.018, type: "sine" }), 250);
-      return;
+      return true;
     }
-    orbitTone(ORBIT_TONE[name]);
+    return orbitTone(ORBIT_TONE[name]);
+  }
+
+  function playOrbitCue(name) {
+    if (
+      ORBIT_AUDIO_MODE === "ogg" &&
+      typeof SSE !== "undefined" &&
+      SSE.audio &&
+      typeof SSE.audio.play === "function"
+    ) {
+      return SSE.audio.play(name);
+    }
+    return playOrbitToneCue(name);
   }
 
   const TUNE = {
@@ -6910,6 +6938,13 @@
     debug: true,
     pointerMode: "primary",
     analytics: { enabled: false },
+    audio: ORBIT_AUDIO_MODE === "ogg"
+      ? {
+          storageKey: "sukimastock.orbit.sound",
+          poolSize: 3,
+          sounds: ORBIT_OGG_SOUNDS,
+        }
+      : null,
     scenes: {
       title: titleScene,
       drift: driftScene,
