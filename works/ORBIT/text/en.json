@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "en",
-    "version": 32,
-    "note": "ORBIT Web English runtime text. v2.9.12 localizes the complete story and rebuilds E.V.E.'s five-stage recovery as broken fragments -> rigid system English -> repaired mechanical English -> softer lowercase English -> fully natural English."
+    "version": 33,
+    "note": "ORBIT Web English runtime text. v2.9.13 adds authored line breaks across all 12 ECHO memories and pairs them with safe in-panel word wrapping for mobile."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.12"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.13"
   },
   "title": {
     "title": "O R B I T",
@@ -357,15 +357,15 @@
         "key": "RETURN",
         "lines": [
           "\"I'm back.\"",
-          "Docking complete. ...Welcome home, Pilot."
+          "Docking complete.\n...Welcome home, Pilot."
         ]
       },
       {
         "id": "routine",
         "key": "ROUTINE",
         "lines": [
-          "\"I pushed the fuel to the limit again.\"",
-          "I did warn you. Next time, come back a little sooner."
+          "\"I pushed the fuel\nto the limit again.\"",
+          "I did warn you. Next time,\ncome back a little sooner."
         ]
       },
       {
@@ -373,15 +373,15 @@
         "key": "SILENCE",
         "lines": [
           "\"............\"",
-          "We didn't say anything today. Even so, we kept the channel open."
+          "We didn't say anything today.\nEven so, we kept the channel open."
         ]
       },
       {
         "id": "laugh",
         "key": "LAUGH",
         "lines": [
-          "\"Do you think penguins can fly in space?\"",
-          "...An incomprehensible question. You were laughing."
+          "\"Do you think penguins\ncan fly in space?\"",
+          "...An incomprehensible question.\nYou were laughing."
         ]
       },
       {
@@ -397,7 +397,7 @@
         "key": "WAIT",
         "lines": [
           "\"............\"",
-          "Past scheduled return time. ...Continuing to wait."
+          "Past scheduled return time.\n...Continuing to wait."
         ]
       },
       {
@@ -405,22 +405,22 @@
         "key": "WORRY",
         "lines": [
           "\"Sorry I took so long to answer.\"",
-          "Three warnings sent. The fourth... never became words."
+          "Three warnings sent.\nThe fourth... never became words."
         ]
       },
       {
         "id": "name",
         "key": "NAME",
         "lines": [
-          "\"E.V.E.'s kind of a mouthful. Can I call you Eve?\"",
-          "...That name isn't registered. It is now."
+          "\"E.V.E.'s kind of a mouthful.\nCan I call you Eve?\"",
+          "...That name isn't registered.\nIt is now."
         ]
       },
       {
         "id": "promise",
         "key": "PROMISE",
         "lines": [
-          "\"I'm going a little farther this time.\"",
+          "\"I'm going a little farther\nthis time.\"",
           "\"...But I'll come back. I promise.\""
         ]
       },
@@ -428,7 +428,7 @@
         "id": "keep",
         "key": "KEEP",
         "lines": [
-          "\"This is the one thing I don't want to lose.\"",
+          "\"This is the one thing\nI don't want to lose.\"",
           "\"...Will you keep it for me?\""
         ]
       },
@@ -437,7 +437,7 @@
         "key": "ECHO",
         "lines": [
           "\"Eve, back up everything.\"",
-          "...Understood. I will return it to you."
+          "...Understood.\nI will return it to you."
         ]
       }
     ]
