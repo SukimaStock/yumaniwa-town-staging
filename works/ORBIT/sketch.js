@@ -321,6 +321,18 @@
     meteorLifeMax: 1.35,
   });
 
+  // ORBIT is only about fifteen minutes long, so E.V.E.'s casual voice should
+  // have time to become familiar. ASTRA is the one place where doing nothing
+  // is itself a choice, so the silence there is a little more companionable.
+  const EVE_IDLE_TUNE = Object.freeze({
+    normalMin: 25,
+    normalMax: 50,
+    astraMin: 14,
+    astraMax: 28,
+    astraFirstMin: 7,
+    astraFirstMax: 14,
+  });
+
   // RESTORE also repairs the ship's damaged navigation sensor. Nothing is
   // announced in text: the instrument simply sees farther and points HOME
   // with less angular uncertainty as the station comes back online.
@@ -761,7 +773,9 @@
         timer: 0,
         duration: 0,
         lowFuelNotified: false,
-        idleTimer: 45 + Math.random() * 45,
+        idleTimer:
+          EVE_IDLE_TUNE.normalMin +
+          Math.random() * (EVE_IDLE_TUNE.normalMax - EVE_IDLE_TUNE.normalMin),
         idleLastIndex: -1,
         landingQueues: {},
         landingLastAt: {},
@@ -1435,6 +1449,17 @@
       if (!this.astra.active && this.astra.idleTimer >= ASTRA_TUNE.idleDelay) {
         this.astra.active = true;
         this.startZoom(ASTRA_TUNE.zoomOut, ASTRA_TUNE.zoomDuration);
+
+        // Once ASTRA opens out, don't make the player wait through a leftover
+        // long cruising timer before hearing E.V.E. The first line arrives
+        // sooner; later ASTRA lines use their own relaxed short interval.
+        if (this.eve && this.eve.idleTimer > 0) {
+          const firstAstraDelay =
+            EVE_IDLE_TUNE.astraFirstMin +
+            Math.random() *
+              (EVE_IDLE_TUNE.astraFirstMax - EVE_IDLE_TUNE.astraFirstMin);
+          this.eve.idleTimer = Math.min(this.eve.idleTimer, firstAstraDelay);
+        }
       }
 
       if (!this.astra.active) return;
@@ -1875,21 +1900,30 @@
           this.echoStory.analysisResultTimer > 0
         )
       ) return;
-      if (this.mode === "landed" && this.landPlanet && this.landPlanet.kind === "neutral") return;
-
-      // Match the original spirit: chatter while travelling, or while quietly
-      // sitting on an ordinary resource world. Do not interrupt another line.
+      // Chatter belongs both to travel and to quiet landings. ASTRA used to
+      // suppress idle speech entirely; now it deliberately brings E.V.E. a
+      // little closer while the player chooses to linger there.
       const eligible =
         this.mode === "flight" ||
         (this.mode === "landed" && this.landPlanet && this.landPlanet.kind !== "base");
       if (!eligible || this.eve.timer > 0) return;
+
+      const onAstra =
+        this.mode === "landed" &&
+        this.landPlanet &&
+        this.landPlanet.kind === "neutral" &&
+        this.astra &&
+        this.astra.active;
 
       this.eve.idleTimer -= dt;
       if (this.eve.idleTimer > 0) return;
 
       const line = this.pickEveIdleLine();
       if (line) this.sayEve(line, 4.0);
-      this.eve.idleTimer = 45 + Math.random() * 45;
+
+      const minDelay = onAstra ? EVE_IDLE_TUNE.astraMin : EVE_IDLE_TUNE.normalMin;
+      const maxDelay = onAstra ? EVE_IDLE_TUNE.astraMax : EVE_IDLE_TUNE.normalMax;
+      this.eve.idleTimer = minDelay + Math.random() * (maxDelay - minDelay);
     }
 
     eveLandingLines(kind) {
