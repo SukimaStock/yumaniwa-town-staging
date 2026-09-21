@@ -357,8 +357,8 @@
     trueTitleStart: 20.6,
     trueTitleEnd: 24.7,
     trueUnknownStart: 25.5,
-    trueUnknownEnd: 26.7,
-    trueReturnTitleAt: 28.0,
+    trueUnknownEnd: 29.1,
+    trueReturnTitleAt: 30.4,
   });
 
   // ORBIT is only about fifteen minutes long, so E.V.E.'s casual voice should
@@ -1856,7 +1856,8 @@
         ) {
           this.incident.returnToTitleTriggered = true;
           this.incident.trueEndingCompleted = true;
-          this.incident.trueEndingActive = false;
+          // Keep the ending overlay alive through the scene handoff. Clearing it
+          // here exposed one frame of the universe between black and TITLE.
           this.eve.timer = 0;
           this.saveGame("true-ending");
           SSE.app.replace("title", null, { duration: "scene" });
@@ -5062,18 +5063,14 @@
       }
 
       if (t >= INCIDENT_TUNE.trueUnknownStart && t < INCIDENT_TUNE.trueUnknownEnd) {
-        const q = clamp(
-          (t - INCIDENT_TUNE.trueUnknownStart) /
-            Math.max(0.001, INCIDENT_TUNE.trueUnknownEnd - INCIDENT_TUNE.trueUnknownStart),
-          0,
-          1
-        );
-        const pulse = Math.sin(Math.PI * q);
+        const inA = clamp((t - INCIDENT_TUNE.trueUnknownStart) / 0.45, 0, 1);
+        const outA = clamp((INCIDENT_TUNE.trueUnknownEnd - t) / 0.65, 0, 1);
+        const a = Math.min(inA, outA);
         font("monospace");
         fontSize(8.8);
         textAlign(CENTER);
         noStroke();
-        fill(176, 196, 220, 180 * pulse);
+        fill(176, 196, 220, 196 * a);
         text(tx("incident.unknownSignal"), W / 2, 48);
       }
     }
