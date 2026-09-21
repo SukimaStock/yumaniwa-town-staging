@@ -26,11 +26,12 @@
     tapMovePx: 10,
     monthFadeSeconds: 0.50,
     monthLayerStaggerSeconds: 0.060,
-    // Showcase: center -> left -> right -> center, then change month.
+    // Showcase: center -> left -> right -> center. The month changes while
+    // returning from the right edge so the seasonal transition stays in motion.
     showcaseToLeftSeconds: 0.70,
     showcaseAcrossSeconds: 1.20,
     showcaseToCenterSeconds: 0.65,
-    showcaseCenterHoldSeconds: 0.55,
+    showcaseMonthTriggerProgress: 0.32,
     showcaseTiltX: 0.90,
     showcaseTiltY: 0.035,
   };
@@ -770,9 +771,11 @@
     const toLeft = CONFIG.showcaseToLeftSeconds;
     const across = CONFIG.showcaseAcrossSeconds;
     const toCenter = CONFIG.showcaseToCenterSeconds;
-    const hold = CONFIG.showcaseCenterHoldSeconds;
     const motionEnd = toLeft + across + toCenter;
-    const duration = motionEnd + hold;
+    const duration = motionEnd;
+    const returnStart = toLeft + across;
+    const monthTriggerAt =
+      returnStart + toCenter * CONFIG.showcaseMonthTriggerProgress;
     const local = ((seconds % duration) + duration) % duration;
     const amplitude = CONFIG.showcaseTiltX;
 
@@ -793,9 +796,9 @@
       ? Math.sin((local / motionEnd) * Math.PI) * CONFIG.showcaseTiltY
       : 0;
 
-    const monthCycle = seconds < motionEnd
+    const monthCycle = seconds < monthTriggerAt
       ? 0
-      : Math.floor((seconds - motionEnd) / duration) + 1;
+      : Math.floor((seconds - monthTriggerAt) / duration) + 1;
 
     return { x, y, monthCycle };
   }
