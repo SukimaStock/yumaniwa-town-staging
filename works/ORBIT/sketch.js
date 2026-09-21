@@ -5395,6 +5395,15 @@
         strokeWidth(Math.max(0.7, 0.9 * scale));
         const tick = 5.5 * scale;
         line(ix - ux * tick, iy - uy * tick, ix + ux * tick, iy + uy * tick);
+
+        if (this.incident && this.incident.homeBeaconPulse > 0) {
+          const q = 1 - this.incident.homeBeaconPulse / INCIDENT_TUNE.homeBeaconPulseSec;
+          const pulse = 0.5 + 0.5 * Math.sin(q * Math.PI * 8);
+          noFill();
+          stroke(150, 255, 175, 175 * pulse);
+          strokeWidth(Math.max(0.7, 1.0 * scale));
+          ellipse(ix, iy, (9 + 7 * pulse) * scale, (9 + 7 * pulse) * scale);
+        }
       }
 
       noStroke();
