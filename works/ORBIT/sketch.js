@@ -876,6 +876,7 @@
         read: new Set(),
         completionSeen: false,
         completionReplayPending: false,
+        completionReadPending: false,
         postCreditsTimer: -1,
         introStage: 0,
         introTimer: 0,
@@ -1341,6 +1342,7 @@
           ? !!ii.completionSeen
           : this.incident.found >= this.incident.total;
       this.incident.completionReplayPending = false;
+      this.incident.completionReadPending = false;
       this.incident.trueEndingCompleted = !!ii.trueEndingCompleted;
       this.incident.postCreditsTimer = -1;
       this.incident.introStage = this.incident.unlocked
@@ -1585,7 +1587,8 @@
           this.incident.trueEndingActive ||
           this.incident.activeLogTimer > 0 ||
           this.incident.pendingLogTimer > 0 ||
-          (this.incident.completionStage > 0 && this.incident.completionStage < 3)
+          (this.incident.completionStage > 0 && this.incident.completionStage < 3) ||
+          this.incident.completionReadPending
         )
       ) return true;
       if (this.restoreReveal && this.restoreReveal.timer > 0) {
@@ -1969,10 +1972,18 @@
         ) {
           this.sayEve(tx("incident.returnHome"), 2.8);
           this.incident.completionStage = 3;
-          this.incident.completionSeen = true;
+          this.incident.completionReadPending = true;
           this.incident.homeBeaconPulse = INCIDENT_TUNE.homeBeaconPulseSec;
-          this.saveKnowledge("incident-complete", false);
         }
+      }
+
+      if (
+        this.incident.completionReadPending &&
+        this.eve.timer <= 0
+      ) {
+        this.incident.completionReadPending = false;
+        this.incident.completionSeen = true;
+        this.saveKnowledge("incident-complete", false);
       }
     }
 
