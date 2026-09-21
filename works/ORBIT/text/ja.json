@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 31,
-    "note": "ORBIT Web Japanese runtime text. v2.9.11 doubles Level 5 E.V.E. idle chatter from 8 to 16 lines, expanding the restored companionship without changing progression."
+    "version": 32,
+    "note": "ORBIT Web Japanese runtime text. v2.9.12 adds a persistent JA / EN title switch and a complete English localization while preserving the Japanese story and E.V.E. recovery curve."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.11"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.12"
   },
   "title": {
     "title": "O R B I T",
