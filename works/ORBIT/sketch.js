@@ -415,6 +415,7 @@
   // can author an equivalent recovery curve without changing game logic.
   const EVE_PHASE_LINES = txValue("eve.phase");
   const EVE_IDLE_LINES = txValue("eve.idle");
+  const EVE_ASTRA_IDLE_LINES = txValue("eve.astraIdle");
   const EVE_LANDING_LINES = txValue("eve.landing");
   const EVE_COLLISION_LINES = txValue("eve.collision");
   const ECHO_ANALYSIS_LINES = txValue("eve.echoAnalysis");
@@ -1865,13 +1866,21 @@
       return EVE_PHASE_LINES[level] || EVE_PHASE_LINES[1];
     }
 
-    eveIdleLines() {
+    eveIdleLines(includeAstra = false) {
       const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
-      return EVE_IDLE_LINES[level] || EVE_IDLE_LINES[1];
+      const baseLines = EVE_IDLE_LINES[level] || EVE_IDLE_LINES[1] || [];
+      if (!includeAstra) return baseLines;
+
+      // ASTRA adds a few place-specific thoughts to the normal pool instead of
+      // replacing it. Lingering there should reveal another side of E.V.E.,
+      // not make her repeat two special lines in a loop.
+      const astraLines =
+        (EVE_ASTRA_IDLE_LINES && (EVE_ASTRA_IDLE_LINES[level] || EVE_ASTRA_IDLE_LINES[1])) || [];
+      return [...baseLines, ...astraLines];
     }
 
-    pickEveIdleLine() {
-      const lines = this.eveIdleLines();
+    pickEveIdleLine(includeAstra = false) {
+      const lines = this.eveIdleLines(includeAstra);
       if (!lines.length) return "";
       if (lines.length === 1) return lines[0];
 
@@ -1918,7 +1927,7 @@
       this.eve.idleTimer -= dt;
       if (this.eve.idleTimer > 0) return;
 
-      const line = this.pickEveIdleLine();
+      const line = this.pickEveIdleLine(onAstra);
       if (line) this.sayEve(line, 4.0);
 
       const minDelay = onAstra ? EVE_IDLE_TUNE.astraMin : EVE_IDLE_TUNE.normalMin;
