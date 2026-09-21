@@ -26,14 +26,12 @@
     tapMovePx: 10,
     monthFadeSeconds: 0.50,
     monthLayerStaggerSeconds: 0.060,
-    // Showcase: center -> left -> right -> center. The month changes while
-    // returning from the right edge so the seasonal transition stays in motion.
-    showcaseToLeftSeconds: 0.70,
-    showcaseAcrossSeconds: 1.20,
-    showcaseToCenterSeconds: 0.65,
+    // Showcase: continuous side-to-side motion. A sine curve keeps the phone
+    // moving through center instead of easing to a stop between cycles.
+    showcasePeriodSeconds: 3.00,
     showcaseMonthTriggerProgress: 0.32,
     showcaseTiltX: 0.90,
-    showcaseTiltY: 0.035,
+    showcaseTiltY: 0.025,
   };
 
   const SHOWCASE_MODE = new URLSearchParams(window.location.search).get("showcase") === "1";
@@ -768,34 +766,22 @@
   }
 
   function showcaseSequenceAt(seconds) {
-    const toLeft = CONFIG.showcaseToLeftSeconds;
-    const across = CONFIG.showcaseAcrossSeconds;
-    const toCenter = CONFIG.showcaseToCenterSeconds;
-    const motionEnd = toLeft + across + toCenter;
-    const duration = motionEnd;
-    const returnStart = toLeft + across;
-    const monthTriggerAt =
-      returnStart + toCenter * CONFIG.showcaseMonthTriggerProgress;
+    const duration = CONFIG.showcasePeriodSeconds;
     const local = ((seconds % duration) + duration) % duration;
+    const phase = (local / duration) * Math.PI * 2;
     const amplitude = CONFIG.showcaseTiltX;
 
-    let x = 0;
-    if (local < toLeft) {
-      const p = smoothstep01(local / toLeft);
-      x = -amplitude * p;
-    } else if (local < toLeft + across) {
-      const p = smoothstep01((local - toLeft) / across);
-      x = -amplitude + amplitude * 2 * p;
-    } else if (local < motionEnd) {
-      const p = smoothstep01((local - toLeft - across) / toCenter);
-      x = amplitude * (1 - p);
-    }
+    // Start at center, move left, pass through center, move right, and pass
+    // through center again with continuous velocity.
+    const x = -Math.sin(phase) * amplitude;
 
-    // Vertical motion is intentionally tiny: left/right parallax should read first.
-    const y = local < motionEnd
-      ? Math.sin((local / motionEnd) * Math.PI) * CONFIG.showcaseTiltY
-      : 0;
+    // Keep vertical motion barely perceptible and continuous.
+    const y = Math.sin(phase * 2) * CONFIG.showcaseTiltY;
 
+    // Right edge is at 75% of the cycle. Trigger part-way through the return
+    // to center so the month crossfade happens while the phone is still moving.
+    const monthTriggerAt =
+      duration * (0.75 + 0.25 * CONFIG.showcaseMonthTriggerProgress);
     const monthCycle = seconds < monthTriggerAt
       ? 0
       : Math.floor((seconds - monthTriggerAt) / duration) + 1;
