@@ -26,7 +26,10 @@
     tapMovePx: 10,
     monthFadeSeconds: 0.50,
     monthLayerStaggerSeconds: 0.060,
+    showcaseMonthSeconds: 4.2,
   };
+
+  const SHOWCASE_MODE = new URLSearchParams(window.location.search).get("showcase") === "1";
 
   const THEME_CONFIG = window.DIORAMA_THEME_CONFIG || {};
   const THEMES = THEME_CONFIG.themes || {};
@@ -91,10 +94,12 @@
     },
     pendingMonth: null,
     reducedMotion: false,
+    showcaseMonthElapsed: 0,
     analyticsParallax: { sensor: false, drag: false },
   };
 
   function trackParallaxOnce(method) {
+    if (SHOWCASE_MODE) return;
     if (!state.analyticsParallax || state.analyticsParallax[method]) return;
     state.analyticsParallax[method] = true;
     SSE.analytics.track("Diorama Parallax Used", { method: method });
@@ -445,10 +450,12 @@
     // tap beats image decoding, wait silently and start the same fade as soon
     // as the four target layers are ready rather than showing blank layers.
     loadTheme(targetTheme);
-    SSE.analytics.track("Diorama Month Change", {
-      direction: delta < 0 ? "previous" : "next",
-      month: targetMonth + 1,
-    });
+    if (!SHOWCASE_MODE) {
+      SSE.analytics.track("Diorama Month Change", {
+        direction: delta < 0 ? "previous" : "next",
+        month: targetMonth + 1,
+      });
+    }
     if (!themeReady(targetTheme)) {
       state.pendingMonth = { year: targetYear, month: targetMonth, theme: targetTheme };
       return true;
@@ -752,6 +759,33 @@
   }
 
   function updateTilt(dt) {
+    if (SHOWCASE_MODE) {
+      const external = window.DIORAMA_SHOWCASE_INPUT;
+      const t = performance.now() / 1000;
+      const goalX = external && Number.isFinite(external.x)
+        ? external.x
+        : Math.sin(t * Math.PI * 2 / 8.0) * 0.62;
+      const goalY = external && Number.isFinite(external.y)
+        ? external.y
+        : Math.sin(t * Math.PI * 2 / 10.6 + 0.65) * 0.18;
+
+      state.tilt.x = lerpExp(
+        state.tilt.x,
+        clamp(goalX, -CONFIG.maxTilt, CONFIG.maxTilt),
+        CONFIG.smoothing,
+        dt
+      );
+      state.tilt.y = lerpExp(
+        state.tilt.y,
+        clamp(goalY, -CONFIG.maxTilt, CONFIG.maxTilt),
+        CONFIG.smoothing,
+        dt
+      );
+      state.manual.x = 0;
+      state.manual.y = 0;
+      return;
+    }
+
     const useSensor = state.sensorActive && !state.reducedMotion;
     const baseX = useSensor ? state.sensor.x : 0;
     const baseY = useSensor ? state.sensor.y : 0;
@@ -795,6 +829,20 @@
     }
   }
 
+  function updateShowcaseMonth(dt) {
+    if (!SHOWCASE_MODE) return;
+    state.showcaseMonthElapsed += Math.max(0, Number(dt) || 0);
+
+    if (
+      state.showcaseMonthElapsed >= CONFIG.showcaseMonthSeconds &&
+      !state.transition.active &&
+      !state.pendingMonth
+    ) {
+      state.showcaseMonthElapsed = 0;
+      cycleMonth(1);
+    }
+  }
+
   const calendarScene = {
     opaque: true,
 
@@ -802,16 +850,20 @@
       const now = new Date();
       setViewDate(now.getFullYear(), now.getMonth());
       loadAssets();
-      state.reducedMotion = Boolean(
-        window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      );
-      installSensor();
+      state.reducedMotion = SHOWCASE_MODE
+        ? false
+        : Boolean(
+            window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          );
+      state.showcaseMonthElapsed = 0;
+      if (!SHOWCASE_MODE) installSensor();
     },
 
     update(dt) {
       updateTilt(dt);
       updatePendingMonth();
       updateTransition(dt);
+      updateShowcaseMonth(dt);
     },
 
     draw() {
@@ -829,6 +881,8 @@
     },
 
     touch(touch) {
+      if (SHOWCASE_MODE) return true;
+
       // Keep the transition visually clean: new gestures start only after the
       // current crossfade has finished.
       if ((state.transition.active || state.pendingMonth) && touch.state === BEGAN) {
@@ -943,7 +997,7 @@
     },
 
     analytics: {
-      enabled: true,
+      enabled: !SHOWCASE_MODE,
     },
 
     scenes: {
