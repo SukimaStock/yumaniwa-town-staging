@@ -1,6 +1,6 @@
 # ORBIT sound replacement guide
 
-ORBIT currently uses procedural Web Audio tones for Phase A sound testing.
+ORBIT uses decoded Web Audio buffers for approved OGG cues. Procedural tones remain only as a fallback while a file is still decoding.
 
 ## Final OGG filenames
 
@@ -32,6 +32,8 @@ const ORBIT_AUDIO_MODE = "ogg";
 ```
 
 No event hook needs to be edited.
+
+OGG playback intentionally does **not** use HTMLAudioElement pools. Files are fetched and decoded once, then each cue plays through an AudioBufferSourceNode. This avoids the iPhone stutter/catch behavior previously seen in CoffeeFactory.
 
 ## Per-cue volume
 
