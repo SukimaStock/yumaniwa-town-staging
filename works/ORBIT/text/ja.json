@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 23,
-    "note": "ORBIT Web Japanese runtime text. v2.9.3 hardens story continuity: unread ECHO/INCIDENT text replays after interruption, MEMORY-only CONTINUE works before first HOME, the final Echo re-triggers the main finale after restore, and the secret ending requires a voluntary HOME return."
+    "version": 24,
+    "note": "ORBIT Web Japanese runtime text. v2.9.4 keeps the HOME terminal close button visually unchanged while widening its touch target for mobile."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.3"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.4"
   },
   "title": {
     "title": "O R B I T",
