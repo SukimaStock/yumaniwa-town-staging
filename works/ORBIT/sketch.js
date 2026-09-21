@@ -3408,6 +3408,14 @@
       const y = Math.max(centeredY, eveClearY);
       const titleH = 24;
       const close = { x: x + w - 24, y: y + h - 21, w: 17, h: 16 };
+      // Keep the tiny Windows-style close button visually unchanged, but give
+      // touch users a forgiving invisible target around it.
+      const closeHit = {
+        x: close.x - 7,
+        y: close.y - 6,
+        w: close.w + 14,
+        h: close.h + 12,
+      };
       const restore = { x: x + 26, y: y + 30, w: w - 52, h: 32 };
       const dialogW = Math.min(246, w - 34);
       const dialogH = 112;
@@ -3419,7 +3427,7 @@
       };
       dialog.yes = { x: dialog.x + 24, y: dialog.y + 18, w: 76, h: 28 };
       dialog.no = { x: dialog.x + dialog.w - 100, y: dialog.y + 18, w: 76, h: 28 };
-      return { x, y, w, h, titleH, close, restore, dialog };
+      return { x, y, w, h, titleH, close, closeHit, restore, dialog };
     }
 
     pointInRect(px, py, r) {
@@ -3436,7 +3444,7 @@
         return null;
       }
 
-      if (this.pointInRect(x, y, L.close)) return "close";
+      if (this.pointInRect(x, y, L.closeHit || L.close)) return "close";
       if (
         !(this.homeTerminal.restoreReportLevel >= 2) &&
         this.pointInRect(x, y, L.restore) &&
