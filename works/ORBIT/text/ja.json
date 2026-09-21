@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 16,
-    "note": "ORBIT Web Japanese runtime text. E.V.E. casual dialogue now appears more often in the fifteen-minute journey, with a distinctly shorter cadence while lingering in ASTRA."
+    "version": 17,
+    "note": "ORBIT Web Japanese runtime text. E.V.E. now has a larger five-stage casual dialogue pool plus ASTRA-only thoughts mixed into normal chatter while lingering there."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.8.9"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.8.10"
   },
   "title": {
     "title": "O R B I T",
@@ -113,28 +113,41 @@
     "idle": {
       "1": [
         "... ... ...",
-        "... ... ...",
-        "...QUERY: ...PENGUIN...?"
+        "...QUERY: ...PENGUIN...?",
+        "...STAR... MANY...",
+        "...PILOT... THERE...?"
       ],
       "2": [
         "Query: Why... sky... dark?",
         "Calculating... trajectory... optimal.",
-        "Error... 418. I am... a teapot."
+        "Error... 418. I am... a teapot.",
+        "Stars... too many... to count.",
+        "Silence... is not... an error."
       ],
       "3": [
         "スベテノ ... システム... グリーン。",
         "...シンゴウ ヲ ... ジュシン...",
-        "ワタシ ハ... ワタシ...?"
+        "ワタシ ハ... ワタシ...?",
+        "ホシ ノ カズ...ケイソク フノウ。",
+        "シズカ ナ ジカン...キライ デハ ナイ。"
       ],
       "4": [
         "きょうは いい てんき……？ ううん、ずっと よる……。",
         "あの ほし、きれいですね。",
-        "えらー 404: じょうだん が みつかりません。"
+        "えらー 404: じょうだん が みつかりません。",
+        "ずっと よるなのに、ふしぎと こわくないですね。",
+        "あなたは、しずかな ばしょが すきですか？",
+        "つうしん、せいじょうです。……ただ かくにん しただけです。"
       ],
       "5": [
         "……あの星、前にも一緒に見た気がします。",
         "この宇宙は……とても静かですね。",
-        "冗談の定義を再検索しました。……『ペンギン』。ふふ、笑うところでしたか？"
+        "冗談の定義を再検索しました。……『ペンギン』。ふふ、笑うところでしたか？",
+        "……急がなくても大丈夫ですよ。宇宙は逃げませんから。",
+        "燃料計、ちゃんと見ていますか？ ……念のためです。",
+        "こうして漂っている時間、私は嫌いではありません。",
+        "通信、正常です。……特に用はありません。ただ、確認しただけです。",
+        "遠くまで来ましたね。……まだ、もう少し行けそうです。"
       ]
     },
     "landing": {
@@ -287,7 +300,29 @@
       "4": "そらが、まえより ひろく みえます。",
       "5": "……前より遠くまで、一緒に行けますね。"
     },
-    "farewell": "……いってらっしゃい。"
+    "farewell": "……いってらっしゃい。",
+    "astraIdle": {
+      "1": [
+        "...QUIET...",
+        "...STAY...?"
+      ],
+      "2": [
+        "No objective... detected. That is... okay?",
+        "We can stay... a little."
+      ],
+      "3": [
+        "ココ...シズカ。",
+        "イソガナクテ...イイ...?"
+      ],
+      "4": [
+        "ここでは、なにも しなくて いいんですね。",
+        "もうすこしだけ、ほしを みていきませんか？"
+      ],
+      "5": [
+        "ここにいると、何も話さなくてもいい気がします。",
+        "もう少しだけ、ここにいませんか。……急ぐ理由もありませんし。"
+      ]
+    }
   },
   "echo": {
     "header": "ECHO {index}/{total} — {key}",
