@@ -132,7 +132,7 @@
       <div class="screen">
         <iframe
           id="showcaseFrame"
-          src="index.html?showcase=1"
+          src="index.html?showcase=1&showcaseVersion=2"
           title="Diorama Calendar"
           loading="eager"
         ></iframe>
@@ -149,13 +149,57 @@
       const frame = document.getElementById("showcaseFrame");
       const start = performance.now();
 
-      function tick(now) {
-        const t = (now - start) / 1000;
-        const x = Math.sin(t * Math.PI * 2 / 8.0) * 0.62;
-        const y = Math.sin(t * Math.PI * 2 / 10.6 + 0.65) * 0.18;
+      const MOTION = {
+        toLeft: 0.70,
+        across: 1.20,
+        toCenter: 0.65,
+        centerHold: 0.55,
+        tiltX: 0.90,
+        tiltY: 0.035,
+      };
+      const motionEnd = MOTION.toLeft + MOTION.across + MOTION.toCenter;
+      const cycleDuration = motionEnd + MOTION.centerHold;
 
-        const rotateY = x * 5.5;
-        const rotateX = -y * 6.5;
+      function smoothstep(t) {
+        const p = Math.max(0, Math.min(1, t));
+        return p * p * (3 - 2 * p);
+      }
+
+      function motionAt(seconds) {
+        const local = ((seconds % cycleDuration) + cycleDuration) % cycleDuration;
+        let x = 0;
+
+        if (local < MOTION.toLeft) {
+          x = -MOTION.tiltX * smoothstep(local / MOTION.toLeft);
+        } else if (local < MOTION.toLeft + MOTION.across) {
+          const p = smoothstep((local - MOTION.toLeft) / MOTION.across);
+          x = -MOTION.tiltX + MOTION.tiltX * 2 * p;
+        } else if (local < motionEnd) {
+          const p = smoothstep(
+            (local - MOTION.toLeft - MOTION.across) / MOTION.toCenter
+          );
+          x = MOTION.tiltX * (1 - p);
+        }
+
+        const y = local < motionEnd
+          ? Math.sin((local / motionEnd) * Math.PI) * MOTION.tiltY
+          : 0;
+
+        // Increment only after the phone has returned to dead center.
+        const monthCycle = seconds < motionEnd
+          ? 0
+          : Math.floor((seconds - motionEnd) / cycleDuration) + 1;
+
+        return { x, y, monthCycle };
+      }
+
+      function tick(now) {
+        const t = Math.max(0, (now - start) / 1000);
+        const motion = motionAt(t);
+
+        // Stronger than v1, but still within a believable handheld tilt.
+        const rotateY = motion.x * 5.6;
+        const rotateX = -motion.y * 4.0;
 
         phone.style.transform =
           "rotateX(" + rotateX.toFixed(3) + "deg) " +
@@ -163,11 +207,11 @@
 
         try {
           if (frame.contentWindow) {
-            frame.contentWindow.DIORAMA_SHOWCASE_INPUT = { x: x, y: y };
+            frame.contentWindow.DIORAMA_SHOWCASE_INPUT = motion;
           }
         } catch (_) {
           // Same-origin in production. If access is unavailable, the embedded
-          // app has its own fallback showcase motion.
+          // app mirrors this same sequence as its fallback showcase motion.
         }
 
         requestAnimationFrame(tick);
