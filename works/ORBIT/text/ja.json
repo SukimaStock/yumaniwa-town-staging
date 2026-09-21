@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 37,
-    "note": "ORBIT Web Japanese runtime text. v2.9.17 raises Phase A placeholder cue levels for mobile audibility and explicitly configures the audio master path while keeping tone mode active."
+    "version": 38,
+    "note": "ORBIT Web Japanese runtime text. v2.9.18 moves OGG cue playback from HTMLAudio pools to decoded Web Audio buffers and schedules multi-tone fallbacks on the AudioContext clock to remove mobile stutter/catch."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.17"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.18"
   },
   "title": {
     "title": "O R B I T",
