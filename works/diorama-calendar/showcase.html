@@ -132,7 +132,7 @@
       <div class="screen">
         <iframe
           id="showcaseFrame"
-          src="index.html?showcase=1&showcaseVersion=2"
+          src="index.html?showcase=1&showcaseVersion=3"
           title="Diorama Calendar"
           loading="eager"
         ></iframe>
@@ -153,12 +153,15 @@
         toLeft: 0.70,
         across: 1.20,
         toCenter: 0.65,
-        centerHold: 0.55,
+        monthTriggerProgress: 0.32,
         tiltX: 0.90,
         tiltY: 0.035,
       };
       const motionEnd = MOTION.toLeft + MOTION.across + MOTION.toCenter;
-      const cycleDuration = motionEnd + MOTION.centerHold;
+      const cycleDuration = motionEnd;
+      const returnStart = MOTION.toLeft + MOTION.across;
+      const monthTriggerAt =
+        returnStart + MOTION.toCenter * MOTION.monthTriggerProgress;
 
       function smoothstep(t) {
         const p = Math.max(0, Math.min(1, t));
@@ -185,10 +188,12 @@
           ? Math.sin((local / motionEnd) * Math.PI) * MOTION.tiltY
           : 0;
 
-        // Increment only after the phone has returned to dead center.
-        const monthCycle = seconds < motionEnd
+        // Begin the month crossfade while returning from the right edge.
+        // With the existing 0.5s layer fade, the transition is nearly complete
+        // as the phone reaches center, without introducing a stop.
+        const monthCycle = seconds < monthTriggerAt
           ? 0
-          : Math.floor((seconds - motionEnd) / cycleDuration) + 1;
+          : Math.floor((seconds - monthTriggerAt) / cycleDuration) + 1;
 
         return { x, y, monthCycle };
       }
