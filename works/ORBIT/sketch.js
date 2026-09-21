@@ -5007,26 +5007,25 @@
         y + h - 22
       );
 
-      const uiFont = (typeof SSE !== "undefined" && SSE.theme)
-        ? SSE.theme.font("ui")
-        : '"Hiragino Sans", "Noto Sans JP", sans-serif';
-
       let yy = y + h - 49;
       for (const raw of item.lines) {
         const lineText = String(raw || "");
         const spoken =
           lineText.startsWith("E.V.E.:") ||
           lineText.startsWith("PILOT:");
-        font(spoken ? uiFont : "monospace");
-        fontSize(spoken ? 10.7 : 9.1);
+
+        // Everything belongs to the same recovered system record. Dialogue gets
+        // warmer through scale, brightness and breathing room—not a new font.
+        font("monospace");
+        fontSize(spoken ? 10.2 : 9.1);
         fill(
-          spoken ? 242 : 196,
-          spoken ? 247 : 214,
-          spoken ? 250 : 230,
-          (spoken ? 248 : 220) * a
+          spoken ? 232 : 196,
+          spoken ? 239 : 214,
+          spoken ? 246 : 230,
+          (spoken ? 245 : 220) * a
         );
         text(lineText, W / 2, yy);
-        yy -= spoken ? 22 : 17;
+        yy -= spoken ? 21 : 17;
       }
     }
 
@@ -5155,13 +5154,9 @@
       };
 
       // Mirror the prologue's PILOT -> ? rhythm: first the name, then its
-      // recovered meaning. These are story words, not telemetry, so use the
-      // same readable UI family as E.V.E.'s dialogue and keep them clear of
-      // the centred landed craft.
-      const storyFont = (typeof SSE !== "undefined" && SSE.theme)
-        ? SSE.theme.font("ui")
-        : '"Hiragino Sans", "Noto Sans JP", sans-serif';
-      font(storyFont);
+      // recovered meaning. Keep one typographic world; importance comes from
+      // scale, brightness and timing rather than a sudden font-family change.
+      font("monospace");
 
       const nameA = heldFade(5.2, 5.7, 8.9, 10.2);
       if (nameA > 0) {
@@ -6673,24 +6668,19 @@
         }
 
         // PILOT is the first story beat, not just another diagnostic. Keep the
-        // three machine lines monospace, then quietly change typographic voice
-        // here so the player feels that this line matters.
+        // same system face, but let size and brightness create the emphasis.
         const pilotRevealAt = PROLOGUE_TUNE.statusStart + 3 * PROLOGUE_TUNE.statusStep;
         const pilotA = clamp((t - pilotRevealAt) / 0.10, 0, 1) * a;
         if (pilotA > 0) {
           const questionAt = pilotRevealAt + PROLOGUE_TUNE.pilotQuestionDelay;
-          const storyFont = (typeof SSE !== "undefined" && SSE.theme)
-            ? SSE.theme.font("ui")
-            : '"Hiragino Sans", "Noto Sans JP", sans-serif';
           const pilotText = tx(t >= questionAt ? "prologue.pilotUnknown" : "prologue.pilotBase");
-          font(storyFont);
-          fontSize(13.2);
-          noStroke();
-          fill(0, 0, 0, 112 * pilotA);
-          text(pilotText, x + 0.8, firstY - 3 * 27 - 0.8);
-          fill(240, 246, 250, 246 * pilotA);
-          text(pilotText, x, firstY - 3 * 27);
           font("monospace");
+          fontSize(11.8);
+          noStroke();
+          fill(0, 0, 0, 104 * pilotA);
+          text(pilotText, x + 0.7, firstY - 3 * 27 - 0.7);
+          fill(238, 244, 248, 248 * pilotA);
+          text(pilotText, x, firstY - 3 * 27);
           fontSize(10.2);
         }
 
@@ -6709,15 +6699,11 @@
         fill(0, 0, 0, 38 * a);
         rect(0, 0, W, H);
 
-        // The system has already rebooted. What matters here is that someone
-        // comes back online after the camera has finally found the pod. Treat
-        // this as E.V.E.'s first readable presence, not another diagnostic row.
-        const storyFont = (typeof SSE !== "undefined" && SSE.theme)
-          ? SSE.theme.font("ui")
-          : '"Hiragino Sans", "Noto Sans JP", sans-serif';
-        font(storyFont);
+        // The system has already rebooted. Keep the same system face and let
+        // placement, size and brightness carry E.V.E.'s first readable presence.
+        font("monospace");
         textAlign(CENTER);
-        fontSize(13.2);
+        fontSize(11.8);
         noStroke();
         fill(0, 0, 0, 110 * a);
         text(tx("system.eveOnline"), cx + 0.8, cy + 55.2);
