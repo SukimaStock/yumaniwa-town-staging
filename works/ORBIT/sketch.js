@@ -287,9 +287,9 @@
     emptyResultSec: 1.05,
   });
 
-  // Phase 9: returning home is also persistence. Save is intentionally quiet:
-  // no manual save screen, no slot management. Meaningful progress writes one
-  // browser-local snapshot and CONTINUE restores it.
+  // Phase 9+: persistence has two layers. HOME stores physical expedition
+  // state; MEMORY stores knowledge as soon as it is understood. CONTINUE
+  // rebuilds the latest HOME checkpoint, then merges newer MEMORY progress.
   const SAVE_TUNE = Object.freeze({
     // HOME snapshot: physical expedition state. Only HOME writes this key.
     key: "sukimastock.orbit.web.save.v3",
@@ -1638,7 +1638,7 @@
         ) {
           this.incident.postCreditsTimer = INCIDENT_TUNE.unlockDelayAfterCredits;
         }
-        this.saveKnowledge("credits-seen");
+        this.saveKnowledge("credits-seen", false);
       }
     }
 
@@ -1795,7 +1795,7 @@
           this.incident.introStage = 1;
           this.incident.introTimer = INCIDENT_TUNE.introSignalLead;
           this.signal.timer = 0;
-          this.saveKnowledge("incident-unlocked");
+          this.saveKnowledge("incident-unlocked", false);
         }
       }
 
@@ -1839,7 +1839,7 @@
           this.sayEve(tx("incident.introSignal"), 4.2);
           this.incident.introStage = 3;
           this.incident.introSeen = true;
-          this.saveKnowledge("incident-intro");
+          this.saveKnowledge("incident-intro", false);
         }
       }
 
