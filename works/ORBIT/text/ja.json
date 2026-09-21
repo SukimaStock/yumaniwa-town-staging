@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 17,
-    "note": "ORBIT Web Japanese runtime text. E.V.E. now has a larger five-stage casual dialogue pool plus ASTRA-only thoughts mixed into normal chatter while lingering there."
+    "version": 18,
+    "note": "ORBIT Web Japanese runtime text. Fuel-out rescue now has dedicated E.V.E. return dialogue that grows from system confirmation into gentle concern as RESTORE progresses."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.8.10"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.8.11"
   },
   "title": {
     "title": "O R B I T",
@@ -322,6 +322,13 @@
         "ここにいると、何も話さなくてもいい気がします。",
         "もう少しだけ、ここにいませんか。……急ぐ理由もありませんし。"
       ]
+    },
+    "rescueReturn": {
+      "1": "...PILOT... RETURNED...\\n...SAFE...",
+      "2": "Pilot... returned.\\nFuel... zero. Please... be careful.",
+      "3": "キカン ヲ カクニン。\\n……ムチャ ハ、シナイデ。",
+      "4": "……もどって きましたね。\\nつぎは、もうすこし はやく かえりましょう。",
+      "5": "……戻れてよかった。\\n次は、もう少し早く帰ってきてくださいね。"
     }
   },
   "echo": {
