@@ -875,6 +875,7 @@
         introSeen: false,
         read: new Set(),
         completionSeen: false,
+        completionReplayPending: false,
         postCreditsTimer: -1,
         introStage: 0,
         introTimer: 0,
@@ -1339,6 +1340,7 @@
         Object.prototype.hasOwnProperty.call(ii, "completionSeen")
           ? !!ii.completionSeen
           : this.incident.found >= this.incident.total;
+      this.incident.completionReplayPending = false;
       this.incident.trueEndingCompleted = !!ii.trueEndingCompleted;
       this.incident.postCreditsTimer = -1;
       this.incident.introStage = this.incident.unlocked
@@ -2322,7 +2324,6 @@
         }
       }
       this.mergeDiscoveryProgress(discovery);
-      this.reconcileRestoredKnowledge();
       this.pushSystemLog("emergencyReturn");
       this.saveGame("rescue-discovery");
       this.eve.lowFuelNotified = false;
@@ -2334,6 +2335,9 @@
       this.rescue.postFadeTimer = post;
       this.rescue.pendingReturnLine = true;
       this.eve.timer = 0;
+      // Queue unread knowledge now, but updateNarrative will not replay it until
+      // the CRT fade and rescue voice have both finished.
+      this.reconcileRestoredKnowledge();
     }
 
     applySteeringAssist(thrustDir, dt) {
@@ -2731,16 +2735,14 @@
     resumeUnreadKnowledge() {
       const echoIndex = this.firstUnreadEchoIndex();
       if (echoIndex > 0) {
-        this.closeHomeTerminal();
         this.echoStory.replayIndex = echoIndex;
-        this.startEchoMemory(echoIndex);
         return true;
       }
 
       const incidentIndex = this.firstUnreadIncidentIndex();
       if (incidentIndex > 0) {
-        this.closeHomeTerminal();
-        return this.startIncidentLog(incidentIndex, true);
+        this.incident.replayIndex = incidentIndex;
+        return true;
       }
 
       if (
@@ -2748,9 +2750,7 @@
         this.incident.found >= this.incident.total &&
         !this.incident.completionSeen
       ) {
-        this.closeHomeTerminal();
-        this.incident.completionStage = 1;
-        this.incident.completionTimer = 0.8;
+        this.incident.completionReplayPending = true;
         return true;
       }
       return false;
@@ -2878,6 +2878,41 @@
     }
 
     updateNarrative(dt) {
+      const replaySafe =
+        (!this.rescue || this.rescue.postFadeTimer <= 0) &&
+        (!this.credits || (!this.credits.pending && !this.credits.active)) &&
+        (!this.finale || !this.finale.active) &&
+        this.eve.timer <= 0;
+
+      if (replaySafe && this.echoStory && this.echoStory.replayIndex > 0 &&
+          !this.echoStory.active && !this.echoStory.analyzing &&
+          this.echoStory.pendingTimer <= 0 && this.echoStory.analysisResultTimer <= 0) {
+        const index = this.echoStory.replayIndex;
+        this.closeHomeTerminal();
+        this.startEchoMemory(index);
+      } else if (
+        replaySafe &&
+        this.incident &&
+        this.incident.replayIndex > 0 &&
+        this.incident.activeLogTimer <= 0 &&
+        this.incident.pendingLogTimer <= 0
+      ) {
+        const index = this.incident.replayIndex;
+        this.closeHomeTerminal();
+        this.startIncidentLog(index, true);
+      } else if (
+        replaySafe &&
+        this.incident &&
+        this.incident.completionReplayPending &&
+        this.incident.activeLogTimer <= 0 &&
+        this.incident.pendingLogTimer <= 0
+      ) {
+        this.closeHomeTerminal();
+        this.incident.completionReplayPending = false;
+        this.incident.completionStage = 1;
+        this.incident.completionTimer = 0.8;
+      }
+
       if (
         this.echoStory &&
         !this.echoStory.active &&
