@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 30,
-    "note": "ORBIT Web Japanese runtime text. v2.9.10 polishes RESTORE ritual line breaks for WAKE, MEMORY, and RESONANCE so each phrase lands naturally on mobile."
+    "version": 31,
+    "note": "ORBIT Web Japanese runtime text. v2.9.11 doubles Level 5 E.V.E. idle chatter from 8 to 16 lines, expanding the restored companionship without changing progression."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.10"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.11"
   },
   "title": {
     "title": "O R B I T",
@@ -148,7 +148,15 @@
         "燃料計、ちゃんと見ていますか？ ……念のためです。",
         "こうして漂っている時間、私は嫌いではありません。",
         "通信、正常です。……特に用はありません。ただ、確認しただけです。",
-        "遠くまで来ましたね。……まだ、もう少し行けそうです。"
+        "遠くまで来ましたね。……まだ、もう少し行けそうです。",
+        "次の星は、どんな場所でしょう。……少し楽しみです。",
+        "星を数えるのは諦めました。……終わりそうにないので。",
+        "あなたの操縦、少し癖がありますね。……前からでした。",
+        "何も起きない時間も、記録しておきます。……大事な気がするので。",
+        "今の、流れ星でしょうか。……願い事、間に合いましたか？",
+        "進路、問題ありません。……たまには目的地がなくてもいいですね。",
+        "あなたが黙っているときも、前ほど心配しなくなりました。",
+        "私は待つのが得意だと思っていました。……今は、一緒に行く方が好きです。"
       ]
     },
     "landing": {
