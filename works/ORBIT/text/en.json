@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "en",
-    "version": 33,
-    "note": "ORBIT Web English runtime text. v2.9.13 adds authored line breaks across all 12 ECHO memories and pairs them with safe in-panel word wrapping for mobile."
+    "version": 34,
+    "note": "ORBIT Web English runtime text. v2.9.14 adds Phase A procedural sound cues for takeoff, landing, ORE, DATA, FUEL, impact, ECHO recovery, and RESTORE completion. No BGM yet."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.13"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.14"
   },
   "title": {
     "title": "O R B I T",
