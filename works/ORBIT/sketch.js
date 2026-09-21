@@ -204,22 +204,25 @@
   // NEW ORBIT opens with the visual inverse of fuel-out: an old CRT wakes from
   // black after an unnamed accident. It shows damage, never explains the event.
   const PROLOGUE_TUNE = Object.freeze({
-    // Give each image enough silence to register. The camera does not claim the
-    // pilot immediately; it begins wide, then finds the ship only near the end.
-    duration: 10.15,
-    rebootEnd: 1.25,
-    lineEnd: 1.95,
-    openEnd: 3.25,
-    statusStart: 3.45,
+    // Director pass: silence is part of the scene. Let the universe exist before
+    // diagnostics arrive, let PILOT become a question, then let the camera find
+    // the pod only after the machine has stopped talking.
+    duration: 12.55,
+    rebootStart: 0.45,
+    rebootEnd: 1.35,
+    lineEnd: 2.10,
+    openEnd: 3.55,
+    statusStart: 4.25,
     statusStep: 0.75,
-    statusHoldEnd: 7.10,
-    cameraStart: 6.30,
-    cameraEnd: 9.80,
+    pilotQuestionDelay: 0.60,
+    statusHoldEnd: 8.20,
+    cameraStart: 8.20,
+    cameraEnd: 10.70,
     cameraStartZoom: 0.68,
     cameraOffsetX: -110,
     cameraOffsetY: 145,
-    bootStart: 8.35,
-    bootEnd: 9.65,
+    bootStart: 11.20,
+    bootEnd: 12.00,
   });
 
   // Short tap at home advances the shared RESTORE level when the current
@@ -5347,7 +5350,12 @@
         fill(0, 0, 0, 255);
         rect(0, 0, W, H);
 
-        const q = clamp(t / Math.max(0.001, PROLOGUE_TUNE.rebootEnd), 0, 1);
+        const q = clamp(
+          (t - PROLOGUE_TUNE.rebootStart) /
+            Math.max(0.001, PROLOGUE_TUNE.rebootEnd - PROLOGUE_TUNE.rebootStart),
+          0,
+          1
+        );
         const a = 210 * Math.sin(Math.PI * q);
         fill(205, 225, 238, a);
         font("monospace");
@@ -5383,8 +5391,8 @@
       }
 
       if (t < PROLOGUE_TUNE.statusHoldEnd) {
-        const fadeIn = clamp((t - PROLOGUE_TUNE.statusStart) / 0.25, 0, 1);
-        const fadeOut = clamp((PROLOGUE_TUNE.statusHoldEnd - t) / 0.40, 0, 1);
+        const fadeIn = clamp((t - PROLOGUE_TUNE.statusStart) / 0.10, 0, 1);
+        const fadeOut = clamp((PROLOGUE_TUNE.statusHoldEnd - t) / 0.30, 0, 1);
         const a = Math.min(fadeIn, fadeOut);
 
         noStroke();
@@ -5395,7 +5403,6 @@
           tx("prologue.navigation"),
           tx("prologue.coreLink"),
           tx("prologue.eve"),
-          tx("prologue.pilot"),
         ];
 
         font("monospace");
@@ -5403,15 +5410,28 @@
         textAlign(LEFT);
         const x = 62;
         const firstY = cy + 46;
+
+        // Machine diagnostics arrive cleanly and without cinematic softness.
         for (let i = 0; i < lines.length; i += 1) {
           const revealAt = PROLOGUE_TUNE.statusStart + i * PROLOGUE_TUNE.statusStep;
-          const lineA = clamp((t - revealAt) / 0.30, 0, 1) * a;
+          const lineA = clamp((t - revealAt) / 0.10, 0, 1) * a;
           if (lineA <= 0) continue;
-
-          const isPilot = i === 3;
-          if (isPilot) fill(220, 232, 240, 238 * lineA);
-          else fill(175, 205, 224, 220 * lineA);
+          fill(175, 205, 224, 220 * lineA);
           text(lines[i], x, firstY - i * 27);
+        }
+
+        // PILOT is the first story beat, not just another diagnostic. Show the
+        // label, hold it long enough to become a thought, then append the question.
+        const pilotRevealAt = PROLOGUE_TUNE.statusStart + 3 * PROLOGUE_TUNE.statusStep;
+        const pilotA = clamp((t - pilotRevealAt) / 0.10, 0, 1) * a;
+        if (pilotA > 0) {
+          const questionAt = pilotRevealAt + PROLOGUE_TUNE.pilotQuestionDelay;
+          fill(220, 232, 240, 238 * pilotA);
+          text(
+            tx(t >= questionAt ? "prologue.pilotUnknown" : "prologue.pilotBase"),
+            x,
+            firstY - 3 * 27
+          );
         }
 
         const scanY = (Math.floor(t * 37) % 9) * (H / 9);
@@ -5421,22 +5441,21 @@
       }
 
       if (t >= PROLOGUE_TUNE.bootStart && t < PROLOGUE_TUNE.bootEnd) {
-        const qIn = clamp((t - PROLOGUE_TUNE.bootStart) / 0.28, 0, 1);
-        const qOut = clamp((PROLOGUE_TUNE.bootEnd - t) / 0.42, 0, 1);
+        const qIn = clamp((t - PROLOGUE_TUNE.bootStart) / 0.12, 0, 1);
+        const qOut = clamp((PROLOGUE_TUNE.bootEnd - t) / 0.18, 0, 1);
         const a = Math.min(qIn, qOut);
 
         noStroke();
-        fill(0, 0, 0, 72 * a);
+        fill(0, 0, 0, 38 * a);
         rect(0, 0, W, H);
 
+        // The system has already rebooted. What matters here is that someone
+        // comes back online after the camera has finally found the pod.
         font("monospace");
         textAlign(CENTER);
-        fontSize(10.5);
-        fill(200, 224, 238, 230 * a);
-        text(tx("system.boot"), cx, cy + 10);
-        fill(160, 205, 230, 210 * a);
-        fontSize(9.8);
-        text(tx("system.eveOnline"), cx, cy - 12);
+        fontSize(10.2);
+        fill(180, 214, 234, 222 * a);
+        text(tx("system.eveOnline"), cx, cy);
       }
     },
 
