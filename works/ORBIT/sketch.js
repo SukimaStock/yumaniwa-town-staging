@@ -1582,7 +1582,8 @@
         (
           this.incident.trueEndingActive ||
           this.incident.activeLogTimer > 0 ||
-          this.incident.pendingLogTimer > 0
+          this.incident.pendingLogTimer > 0 ||
+          (this.incident.completionStage > 0 && this.incident.completionStage < 3)
         )
       ) return true;
       if (this.restoreReveal && this.restoreReveal.timer > 0) {
@@ -3277,12 +3278,13 @@
       }
 
       if (p.kind === "base") {
-        if (this.hasDepartedBase) this.pushSystemLog("returnedHome");
+        const returnedByPlayer = !!this.hasDepartedBase;
+        if (returnedByPlayer) this.pushSystemLog("returnedHome");
         this.hasDepartedBase = false;
         this.baseRefuelTimer = 0;
         const away = Math.max(0, this.simTime - this.tripStartTime);
 
-        if (this.shouldStartTrueEnding()) {
+        if (returnedByPlayer && this.shouldStartTrueEnding()) {
           this.echoes.carriedThisTrip = 0;
           this.closeHomeTerminal();
           this.saveGame("incident-return");
