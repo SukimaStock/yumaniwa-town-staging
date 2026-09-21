@@ -1506,6 +1506,242 @@
         this.captureReady = false;
         this.scanProgress = 0;
         this.ringStayTimer = 0;
+
+        // The secret epilogue is intentionally not a post-credit prompt. Give
+        // players a full half-minute in an apparently finished universe first.
+        if (
+          this.incident &&
+          !this.incident.unlocked &&
+          !this.incident.trueEndingCompleted
+        ) {
+          this.incident.postCreditsTimer = INCIDENT_TUNE.unlockDelayAfterCredits;
+        }
+      }
+    }
+
+    incidentSiteIndexForPlanet(planet) {
+      if (!planet || !this.incident) return -1;
+      return INCIDENT_SITE_IDS.indexOf(this.planetId(planet));
+    }
+
+    isUndiscoveredIncidentAstra(planet) {
+      const index = this.incidentSiteIndexForPlanet(planet);
+      if (index < 0 || !this.incident || !this.incident.unlocked) return false;
+      return !this.incident.discovered.has(INCIDENT_SITE_IDS[index]);
+    }
+
+    nearestUndiscoveredIncidentSite() {
+      if (!this.incident || !this.incident.unlocked) return null;
+      let best = null;
+      let bestD = Infinity;
+      for (let i = 0; i < INCIDENT_SITE_IDS.length; i += 1) {
+        const id = INCIDENT_SITE_IDS[i];
+        if (this.incident.discovered.has(id)) continue;
+        const planet = this.findPlanetById(id);
+        if (!planet || planet.kind !== "neutral") continue;
+        const d = len(sub(planet.pos, this.ship.pos));
+        if (d < bestD) {
+          best = { planet, id, index: i + 1, distance: d };
+          bestD = d;
+        }
+      }
+      return best;
+    }
+
+    startIncidentLog(index) {
+      if (!this.incident) return false;
+      const i = clamp(Math.floor(Number(index || 0)), 1, this.incident.total);
+      const id = INCIDENT_SITE_IDS[i - 1];
+      if (!id || this.incident.discovered.has(id)) return false;
+
+      this.incident.discovered.add(id);
+      this.incident.found = this.incident.discovered.size;
+      this.incident.pendingLogIndex = 0;
+      this.incident.pendingLogTimer = 0;
+      this.incident.activeLogIndex = i;
+
+      const item = Array.isArray(INCIDENT_LOGS) ? INCIDENT_LOGS[i - 1] : null;
+      const lineCount = item && Array.isArray(item.lines) ? item.lines.length : 4;
+      this.incident.activeLogTimer =
+        INCIDENT_TUNE.logBaseSec + lineCount * INCIDENT_TUNE.logPerLineSec;
+
+      this.eve.timer = 0;
+      this.signal.pulseTimer = 0;
+      this.signal.dir = null;
+      this.signal.targetId = null;
+
+      if (this.incident.found >= this.incident.total) {
+        this.incident.homeBeaconPulse = INCIDENT_TUNE.homeBeaconPulseSec;
+      }
+      return true;
+    }
+
+    shouldStartTrueEnding() {
+      return !!(
+        this.incident &&
+        this.incident.found >= this.incident.total &&
+        !this.incident.trueEndingCompleted &&
+        !this.incident.trueEndingActive &&
+        this.finale &&
+        this.finale.completed &&
+        this.landPlanet &&
+        this.landPlanet.kind === "base"
+      );
+    }
+
+    startTrueEnding(delay = 0) {
+      if (!this.shouldStartTrueEnding()) return false;
+      this.incident.trueEndingActive = true;
+      this.incident.trueEndingTimer = -Math.max(0, delay);
+      this.incident.trueEndingSpeechStage = 0;
+      this.incident.returnToTitleTriggered = false;
+      this.pressing = false;
+      this.departHold = 0;
+      this.eve.timer = 0;
+      this.closeHomeTerminal();
+      return true;
+    }
+
+    updateIncidentEpilogue(dt) {
+      if (!this.incident) return;
+
+      if (this.incident.homeBeaconPulse > 0) {
+        this.incident.homeBeaconPulse = Math.max(0, this.incident.homeBeaconPulse - dt);
+      }
+
+      if (this.incident.trueEndingActive) {
+        this.incident.trueEndingTimer += dt;
+        const t = this.incident.trueEndingTimer;
+
+        if (this.incident.trueEndingSpeechStage < 1 && t >= 1.0) {
+          this.sayEve(tx("incident.trueEnding.line1"), 3.0);
+          this.incident.trueEndingSpeechStage = 1;
+        }
+        if (this.incident.trueEndingSpeechStage < 2 && t >= 5.8) {
+          this.sayEve(tx("incident.trueEnding.line2"), 3.0);
+          this.incident.trueEndingSpeechStage = 2;
+        }
+        if (this.incident.trueEndingSpeechStage < 3 && t >= 10.6) {
+          this.sayEve(tx("incident.trueEnding.line3"), 3.0);
+          this.incident.trueEndingSpeechStage = 3;
+        }
+        if (this.incident.trueEndingSpeechStage < 4 && t >= 15.4) {
+          this.sayEve(tx("incident.trueEnding.line4"), 3.4);
+          this.incident.trueEndingSpeechStage = 4;
+        }
+
+        if (
+          t >= INCIDENT_TUNE.trueReturnTitleAt &&
+          !this.incident.returnToTitleTriggered
+        ) {
+          this.incident.returnToTitleTriggered = true;
+          this.incident.trueEndingCompleted = true;
+          this.incident.trueEndingActive = false;
+          this.eve.timer = 0;
+          this.saveGame("true-ending");
+          SSE.app.replace("title", null, { duration: "scene" });
+        }
+        return;
+      }
+
+      if (
+        this.incident.postCreditsTimer >= 0 &&
+        !this.incident.unlocked &&
+        !this.incident.trueEndingCompleted
+      ) {
+        this.incident.postCreditsTimer = Math.max(
+          0,
+          this.incident.postCreditsTimer - dt
+        );
+        if (this.incident.postCreditsTimer <= 0) {
+          this.incident.unlocked = true;
+          this.incident.postCreditsTimer = -1;
+          this.incident.introStage = 1;
+          this.incident.introTimer = INCIDENT_TUNE.introSignalLead;
+          this.signal.timer = 0;
+        }
+      }
+
+      // The first hint waits for a quiet flight moment. Landing or another line
+      // pauses the beat instead of turning this into a timed notification.
+      if (
+        this.incident.unlocked &&
+        this.incident.introStage > 0 &&
+        this.incident.introStage < 3 &&
+        this.mode === "flight" &&
+        !(this.credits && (this.credits.pending || this.credits.active)) &&
+        !(this.echoStory && (
+          this.echoStory.active ||
+          this.echoStory.analyzing ||
+          this.echoStory.pendingTimer > 0 ||
+          this.echoStory.analysisResultTimer > 0
+        ))
+      ) {
+        this.incident.introTimer = Math.max(0, this.incident.introTimer - dt);
+
+        if (
+          this.incident.introStage === 1 &&
+          this.incident.introTimer <= 0 &&
+          this.eve.timer <= 0
+        ) {
+          this.sayEve(tx("incident.introWait"), 2.0);
+          this.incident.introStage = 2;
+          this.incident.introTimer = INCIDENT_TUNE.introSecondLineDelay;
+        } else if (
+          this.incident.introStage === 2 &&
+          this.incident.introTimer <= 0 &&
+          this.eve.timer <= 0
+        ) {
+          this.sayEve(tx("incident.introSignal"), 4.2);
+          this.incident.introStage = 3;
+        }
+      }
+
+      if (this.incident.pendingLogTimer > 0) {
+        this.incident.pendingLogTimer = Math.max(0, this.incident.pendingLogTimer - dt);
+        if (this.incident.pendingLogTimer <= 0 && this.incident.pendingLogIndex > 0) {
+          this.startIncidentLog(this.incident.pendingLogIndex);
+        }
+      }
+
+      if (this.incident.activeLogTimer > 0) {
+        this.incident.activeLogTimer = Math.max(0, this.incident.activeLogTimer - dt);
+        if (this.incident.activeLogTimer <= 0) {
+          this.incident.activeLogIndex = 0;
+          if (
+            this.incident.found >= this.incident.total &&
+            this.incident.completionStage === 0
+          ) {
+            this.incident.completionStage = 1;
+            this.incident.completionTimer = INCIDENT_TUNE.completionLead;
+          }
+        }
+      }
+
+      if (
+        this.incident.completionStage === 1 ||
+        this.incident.completionStage === 2
+      ) {
+        this.incident.completionTimer = Math.max(0, this.incident.completionTimer - dt);
+
+        if (
+          this.incident.completionStage === 1 &&
+          this.incident.completionTimer <= 0 &&
+          this.eve.timer <= 0
+        ) {
+          this.sayEve(tx("incident.complete"), 3.2);
+          this.incident.completionStage = 2;
+          this.incident.completionTimer = INCIDENT_TUNE.completionSecondDelay;
+          this.incident.homeBeaconPulse = INCIDENT_TUNE.homeBeaconPulseSec;
+        } else if (
+          this.incident.completionStage === 2 &&
+          this.incident.completionTimer <= 0 &&
+          this.eve.timer <= 0
+        ) {
+          this.sayEve(tx("incident.returnHome"), 2.8);
+          this.incident.completionStage = 3;
+          this.incident.homeBeaconPulse = INCIDENT_TUNE.homeBeaconPulseSec;
+        }
       }
     }
 
@@ -1576,6 +1812,31 @@
       }
 
       if (!this.astra.active) return;
+
+      if (
+        this.incident &&
+        this.incident.unlocked &&
+        this.incident.introStage >= 3 &&
+        this.incident.found < this.incident.total &&
+        this.incident.pendingLogIndex <= 0 &&
+        this.incident.pendingLogTimer <= 0 &&
+        this.incident.activeLogIndex <= 0 &&
+        this.incident.activeLogTimer <= 0
+      ) {
+        const siteIndex = this.incidentSiteIndexForPlanet(this.landPlanet);
+        const siteId = siteIndex >= 0 ? INCIDENT_SITE_IDS[siteIndex] : null;
+        if (
+          siteIndex >= 0 &&
+          siteId &&
+          !this.incident.discovered.has(siteId) &&
+          this.astra.idleTimer >= INCIDENT_TUNE.deepScanDelay
+        ) {
+          this.incident.pendingLogIndex = siteIndex + 1;
+          this.incident.pendingLogTimer = INCIDENT_TUNE.siteRevealDelay;
+          this.sayEve(tx("incident.siteFound"), INCIDENT_TUNE.siteVoiceSec);
+        }
+      }
+
       this.astra.meteorTimer -= dt;
       if (this.astra.meteorTimer <= 0) {
         this.spawnAstraMeteor();
@@ -1649,6 +1910,7 @@
       }
 
       this.updateCredits(dt);
+      this.updateIncidentEpilogue(dt);
       this.updateEveIdle(dt);
       if (this.relandLock > 0) this.relandLock = Math.max(0, this.relandLock - dt);
       if (this.feedback.timer > 0) {
@@ -2021,6 +2283,16 @@
       if (this.mode === "rescue") return;
       if (this.finale && this.finale.active) return;
       if (this.credits && (this.credits.pending || this.credits.active)) return;
+      if (
+        this.incident &&
+        (
+          this.incident.trueEndingActive ||
+          this.incident.activeLogTimer > 0 ||
+          this.incident.pendingLogTimer > 0 ||
+          (this.incident.introStage > 0 && this.incident.introStage < 3) ||
+          (this.incident.completionStage > 0 && this.incident.completionStage < 3)
+        )
+      ) return;
       if (this.homeTerminal && this.homeTerminal.visible) return;
       if (
         this.echoStory &&
@@ -2045,6 +2317,8 @@
         this.landPlanet.kind === "neutral" &&
         this.astra &&
         this.astra.active;
+
+      if (onAstra && this.isUndiscoveredIncidentAstra(this.landPlanet)) return;
 
       // One early fragment gives a first-time player two anchors without
       // explaining the loop. If another event is speaking, the countdown simply
