@@ -843,6 +843,7 @@
         found: 0,
         total: ECHO_TUNE.total,
         discovered: new Set(),
+        read: new Set(),
         carriedThisTrip: 0,
         pulseTimer: 0,
       };
@@ -859,6 +860,7 @@
         analysisResult: null,
         analysisResultTimer: 0,
         analysisResultIndex: 0,
+        replayIndex: 0,
       };
       // DATA and ECHO are related but not identical. This archive remembers
       // every SERA packet already decoded, including post-12 packets with no Echo.
@@ -871,6 +873,8 @@
         found: 0,
         unlocked: false,
         introSeen: false,
+        read: new Set(),
+        completionSeen: false,
         postCreditsTimer: -1,
         introStage: 0,
         introTimer: 0,
@@ -886,6 +890,7 @@
         trueEndingSpeechStage: 0,
         trueEndingCompleted: false,
         returnToTitleTriggered: false,
+        replayIndex: 0,
       };
       this.finale = {
         active: false,
