@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 18,
-    "note": "ORBIT Web Japanese runtime text. Fuel-out rescue now has dedicated E.V.E. return dialogue that grows from system confirmation into gentle concern as RESTORE progresses."
+    "version": 19,
+    "note": "ORBIT Web Japanese runtime text. The opening now gives one fragmentary HOME/RESTORE anchor, and the finale names the recovered fragments as the pilot's memory before returning the player to themselves."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.8.11"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.8.12"
   },
   "title": {
     "title": "O R B I T",
@@ -329,7 +329,8 @@
       "3": "キカン ヲ カクニン。\\n……ムチャ ハ、シナイデ。",
       "4": "……もどって きましたね。\\nつぎは、もうすこし はやく かえりましょう。",
       "5": "……戻れてよかった。\\n次は、もう少し早く帰ってきてくださいね。"
-    }
+    },
+    "firstFlightHint": "...HOME... SIGNAL...\\n...RESTORE...?"
   },
   "echo": {
     "header": "ECHO {index}/{total} — {key}",
@@ -437,7 +438,7 @@
     "connected": "……すべて、繋がりました。",
     "eveName": "E.V.E.",
     "expansion": "Echo of Vital Emotion.",
-    "accident1": "「これだけは、なくしたくないんだ」――あの日、あなたが私に託したもの。",
+    "accident1": "「これだけは、なくしたくないんだ」――あの日、あなたが私に預けた記憶。",
     "accident2": "星の海に散らばったそれを、あなたはひとつずつ拾い集めてきました。",
     "accident3": "……修復していたのは、システムだけではなかったのですね。",
     "returnMemory": "あなたを、あなた自身に。",
