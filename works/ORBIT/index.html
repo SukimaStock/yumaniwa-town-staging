@@ -60,7 +60,7 @@
   <div id="ritualHost" aria-hidden="true"></div>
 
   <!-- Locale data is loaded before any game module reads display copy. -->
-  <script src="orbit-text.js?v=2.9.7"></script>
+  <script src="orbit-text.js?v=2.9.8"></script>
 
   <!-- Low-level Codea-compatible canvas runtime -->
   <script src="codea-lite.js?v=2.7.7"></script>
@@ -80,7 +80,7 @@
 
       await OrbitText.load();
       await loadScript("restore-ritual-inline.js?v=2.7.21");
-      await loadScript("sketch.js?v=2.9.7");
+      await loadScript("sketch.js?v=2.9.8");
       CodeaLite.start("gameCanvas");
     })().catch((error) => {
       console.error("ORBIT bootstrap failed", error);
