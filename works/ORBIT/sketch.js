@@ -4944,9 +4944,44 @@
       const fadeOut = clamp(this.echoStory.timer / 0.55, 0, 1);
       const a = 230 * Math.min(fadeIn, fadeOut);
 
+      // English memories can be considerably wider than Japanese ones.
+      // Respect authored line breaks first, then word-wrap long Latin lines as
+      // a safety net. Monospace makes a character-count limit predictable.
+      const wrapEchoText = (value, maxChars = 40) => {
+        const result = [];
+        for (const raw of String(value || "").split("\n")) {
+          if (raw.length <= maxChars || !raw.includes(" ")) {
+            result.push(raw);
+            continue;
+          }
+          const words = raw.split(/\s+/).filter(Boolean);
+          let line = "";
+          for (const word of words) {
+            const next = line ? line + " " + word : word;
+            if (line && next.length > maxChars) {
+              result.push(line);
+              line = word;
+            } else {
+              line = next;
+            }
+          }
+          if (line) result.push(line);
+        }
+        return result;
+      };
+
+      const bodyLines = [];
+      for (const line of item.lines || []) {
+        bodyLines.push(...wrapEchoText(line));
+      }
+      const safeLines = bodyLines.length ? bodyLines.slice(0, 5) : [""];
+      const extraLines = Math.max(0, safeLines.length - 2);
+      const panelH = 150 + extraLines * 20;
+      const panelY = H / 2 - panelH / 2 + 3;
+
       noStroke();
       fill(3, 7, 13, 150 * Math.min(fadeIn, fadeOut));
-      rect(24, H / 2 - 72, W - 48, 150, 10);
+      rect(24, panelY, W - 48, panelH, 10);
 
       fill(165, 205, 235, a);
       font("monospace");
@@ -4956,18 +4991,22 @@
         index: String(this.echoStory.index).padStart(2, "0"),
         total: this.echoes.total,
         key: item.key
-      }), W / 2, H / 2 + 46);
+      }), W / 2, panelY + panelH - 32);
 
       fill(230, 237, 244, a);
       fontSize(12);
-      text(item.lines[0], W / 2, H / 2 + 8);
-      text(item.lines[1], W / 2, H / 2 - 18);
+      const lineGap = 22;
+      const bodyCenterY = H / 2 - 5;
+      const firstY = bodyCenterY + ((safeLines.length - 1) * lineGap) / 2;
+      for (let i = 0; i < safeLines.length; i += 1) {
+        text(safeLines[i], W / 2, firstY - i * lineGap);
+      }
 
       // A tiny residual line keeps this feeling like recovered signal, not a
       // modal story card or collectible inventory.
       fill(130, 160, 190, a * 0.65);
       fontSize(8);
-      text(tx("hud.memoryFragment"), W / 2, H / 2 - 51);
+      text(tx("hud.memoryFragment"), W / 2, panelY + 21);
     }
 
     drawIncidentArchive() {
