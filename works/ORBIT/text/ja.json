@@ -1,17 +1,17 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 35,
-    "note": "ORBIT Web Japanese runtime text. v2.9.15 prepares all Phase A sound cues for drop-in OGG replacement through a single audio mode switch; placeholder Web Audio tones remain active for testing."
+    "version": 36,
+    "note": "ORBIT Web Japanese runtime text. v2.9.16 quiets the title sky and localizes the Japanese title buttons to つづける / はじめる."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.15"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.16"
   },
   "title": {
     "title": "O R B I T",
     "subtitle": "Silent Reboot",
-    "continue": "CONTINUE",
-    "newOrbit": "NEW ORBIT"
+    "continue": "つづける",
+    "newOrbit": "はじめる"
   },
   "hud": {
     "fuel": "FUEL {current}/{max}",
