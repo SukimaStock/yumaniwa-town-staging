@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 12,
-    "note": "ORBIT Web Japanese runtime text. Director-paced Silent Reboot prologue now hands control over through a cockpit/HUD boot cue, with ECHO memory archive and finale/ritual continuity included."
+    "version": 13,
+    "note": "ORBIT Web Japanese runtime text. Silent Reboot now hands control over through a softly powered cockpit fade with a delayed navigation fix, alongside ECHO memory archive and finale/ritual continuity."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.8.5"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.8.6"
   },
   "title": {
     "title": "O R B I T",
