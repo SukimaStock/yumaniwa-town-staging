@@ -1154,6 +1154,7 @@
           discovered: this.incident ? Array.from(this.incident.discovered || []) : [],
           found: this.incident ? this.incident.found : 0,
           unlocked: !!(this.incident && this.incident.unlocked),
+          introSeen: !!(this.incident && this.incident.introSeen),
           trueEndingCompleted: !!(this.incident && this.incident.trueEndingCompleted),
         },
         finale: {
@@ -1202,6 +1203,7 @@
 
       try {
         window.localStorage.setItem(SAVE_TUNE.key, JSON.stringify(data));
+        this.saveKnowledge(reason, false);
         this.storageSaveFailed = false;
         this.savePulse = SAVE_TUNE.pulseSec;
         return true;
@@ -1272,9 +1274,12 @@
         this.incident.total
       );
       this.incident.unlocked = !!ii.unlocked || this.incident.found > 0;
+      this.incident.introSeen = !!ii.introSeen || this.incident.found > 0;
       this.incident.trueEndingCompleted = !!ii.trueEndingCompleted;
       this.incident.postCreditsTimer = -1;
-      this.incident.introStage = this.incident.unlocked ? 3 : 0;
+      this.incident.introStage = this.incident.unlocked
+        ? (this.incident.introSeen ? 3 : 1)
+        : 0;
       this.incident.introTimer = 0;
       this.incident.pendingLogIndex = 0;
       this.incident.pendingLogTimer = 0;
@@ -1389,7 +1394,42 @@
         return false;
       }
       if (!data || data.schema !== SAVE_TUNE.schema) return false;
-      return this.applySaveData(data, true);
+      const restored = this.applySaveData(data, true);
+      if (!restored) return false;
+
+      // HOME restores physical state; MEMORY restores knowledge acquired since
+      // that checkpoint.
+      this.loadKnowledgeProgress();
+
+      if (
+        this.incident &&
+        this.incident.unlocked &&
+        !this.incident.introSeen &&
+        this.incident.found <= 0
+      ) {
+        this.incident.introStage = 1;
+        this.incident.introTimer = 1.4;
+      }
+
+      if (
+        this.finale &&
+        this.finale.completed &&
+        this.credits &&
+        this.credits.seen
+      ) {
+        this.finale.farewellPending = false;
+        this.finale.farewellInFlight = false;
+        this.credits.pending = false;
+        this.credits.active = false;
+        if (
+          this.incident &&
+          !this.incident.unlocked &&
+          !this.incident.trueEndingCompleted
+        ) {
+          this.incident.postCreditsTimer = INCIDENT_TUNE.unlockDelayAfterCredits;
+        }
+      }
+      return true;
     }
 
     makePlanet(name, x, y, range, gravity, drag, color, kind, resourceMax) {
