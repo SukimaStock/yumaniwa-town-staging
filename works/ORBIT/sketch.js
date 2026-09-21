@@ -6363,13 +6363,13 @@
 
     // Original Codea MenuScene values.
     starConfig: {
-      count: [70, 40, 22],
-      speed: [8, 16, 28],
-      size: [1.2, 1.6, 2.0],
+      count: [34, 18, 8],
+      speed: [4, 8, 13],
+      size: [1.0, 1.35, 1.7],
     },
     meteorConfig: {
-      max: 3,
-      spawnP60: 0.020,
+      max: 2,
+      spawnP60: 0.004,
       vel: 560,
       lifeMin: 0.75,
       lifeMax: 1.25,
@@ -6395,7 +6395,7 @@
             x: Math.random() * W,
             y: Math.random() * H,
             size: baseSize * (0.8 + Math.random() * 0.4),
-            alpha: 180 + Math.random() * 60,
+            alpha: 145 + Math.random() * 55,
           });
         }
         this.stars[layer] = out;
@@ -6468,7 +6468,7 @@
       for (let layer = 0; layer < 3; layer += 1) {
         for (const s of this.stars[layer]) {
           const alpha = s.alpha +
-            40 * Math.sin((this.time * 1.3) + ((s.x + s.y) * 0.01));
+            16 * Math.sin((this.time * 0.85) + ((s.x + s.y) * 0.01));
           fill(240, 250, 255, alpha);
           ellipse(s.x, s.y, s.size, s.size);
         }
