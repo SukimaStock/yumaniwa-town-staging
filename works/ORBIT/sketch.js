@@ -469,11 +469,9 @@
   // ------------------------------------------------------------
   // Audio cue routing
   // ------------------------------------------------------------
-  // Phase A uses procedural tones. When the final OGG files are approved,
-  // put them in sounds/ with the filenames below and change this one value:
-  //   const ORBIT_AUDIO_MODE = "ogg";
-  // Every gameplay event keeps calling playOrbitCue(name), so no event code
-  // needs to change when the placeholders are replaced.
+  // Final OGG cues use decoded Web Audio buffers, not HTMLAudioElement pools.
+  // This mirrors the stable path used after CoffeeFactory's iOS stutter fix:
+  // decode once, then create a lightweight AudioBufferSourceNode per playback.
   const ORBIT_AUDIO_MODE = "ogg"; // "tone" | "ogg"
 
   const ORBIT_OGG_SOUNDS = Object.freeze({
@@ -495,40 +493,177 @@
     impact: Object.freeze({ frequency: 115, endFrequency: 62, duration: 0.13, volume: 0.120, type: "sine" }),
   });
 
-  function orbitTone(options) {
-    if (!options || typeof SSE === "undefined" || !SSE.audio || typeof SSE.audio.tone !== "function") return false;
-    return SSE.audio.tone(options);
+  const ORBIT_AUDIO_BUFFERS = new Map();
+  const ORBIT_AUDIO_LOADING = new Map();
+  const ORBIT_AUDIO_LAST_PLAYED = new Map();
+  let orbitAudioPrimed = false;
+
+  function orbitAudioGraph() {
+    if (
+      typeof SSE === "undefined" ||
+      !SSE.audio ||
+      SSE.audio.enabled === false ||
+      typeof SSE.audio.ensureContext !== "function"
+    ) return null;
+    const ctx = SSE.audio.ensureContext();
+    if (!ctx || !SSE.audio.masterGain) return null;
+    return { ctx, masterGain: SSE.audio.masterGain };
+  }
+
+  function scheduleOrbitTone(options, delaySec = 0) {
+    if (!options) return false;
+    const graph = orbitAudioGraph();
+    if (!graph) return false;
+    const { ctx, masterGain } = graph;
+    const duration = Math.max(0.01, Number(options.duration) || 0.08);
+    const start = ctx.currentTime + Math.max(0, Number(delaySec) || 0);
+    const oscillator = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    oscillator.type = options.type || "triangle";
+    oscillator.frequency.setValueAtTime(Math.max(20, Number(options.frequency) || 440), start);
+    if (options.endFrequency !== undefined) {
+      oscillator.frequency.exponentialRampToValueAtTime(
+        Math.max(20, Number(options.endFrequency) || 440),
+        start + duration
+      );
+    }
+
+    const volume = Math.max(0.0001, Math.min(1, Number(options.volume ?? 0.06)));
+    const attack = Math.min(0.015, duration * 0.28);
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.linearRampToValueAtTime(volume, start + attack);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+    oscillator.connect(gain);
+    gain.connect(masterGain);
+    oscillator.start(start);
+    oscillator.stop(start + duration + 0.01);
+    return true;
   }
 
   function playOrbitToneCue(name) {
     if (name === "data") {
-      orbitTone({ frequency: 470, endFrequency: 530, duration: 0.075, volume: 0.065, type: "triangle" });
-      setTimeout(() => orbitTone({ frequency: 690, endFrequency: 760, duration: 0.085, volume: 0.055, type: "triangle" }), 85);
+      // Schedule on the AudioContext clock and overlap slightly. setTimeout()
+      // produced a small gap/jitter on mobile that could feel like a snag.
+      scheduleOrbitTone({ frequency: 470, endFrequency: 530, duration: 0.075, volume: 0.065, type: "triangle" }, 0);
+      scheduleOrbitTone({ frequency: 690, endFrequency: 760, duration: 0.085, volume: 0.055, type: "triangle" }, 0.055);
       return true;
     }
     if (name === "echo") {
-      orbitTone({ frequency: 410, endFrequency: 520, duration: 0.20, volume: 0.070, type: "sine" });
-      setTimeout(() => orbitTone({ frequency: 620, endFrequency: 780, duration: 0.28, volume: 0.060, type: "sine" }), 105);
+      scheduleOrbitTone({ frequency: 410, endFrequency: 520, duration: 0.20, volume: 0.070, type: "sine" }, 0);
+      scheduleOrbitTone({ frequency: 620, endFrequency: 780, duration: 0.28, volume: 0.060, type: "sine" }, 0.105);
       return true;
     }
     if (name === "restore") {
-      orbitTone({ frequency: 185, endFrequency: 245, duration: 0.24, volume: 0.075, type: "sine" });
-      setTimeout(() => orbitTone({ frequency: 310, endFrequency: 410, duration: 0.30, volume: 0.070, type: "sine" }), 120);
-      setTimeout(() => orbitTone({ frequency: 505, endFrequency: 650, duration: 0.38, volume: 0.055, type: "sine" }), 250);
+      scheduleOrbitTone({ frequency: 185, endFrequency: 245, duration: 0.24, volume: 0.075, type: "sine" }, 0);
+      scheduleOrbitTone({ frequency: 310, endFrequency: 410, duration: 0.30, volume: 0.070, type: "sine" }, 0.120);
+      scheduleOrbitTone({ frequency: 505, endFrequency: 650, duration: 0.38, volume: 0.055, type: "sine" }, 0.250);
       return true;
     }
-    return orbitTone(ORBIT_TONE[name]);
+    return scheduleOrbitTone(ORBIT_TONE[name], 0);
+  }
+
+  function decodeOrbitAudioData(ctx, arrayBuffer) {
+    return new Promise((resolve, reject) => {
+      let settled = false;
+      const done = (buffer) => {
+        if (settled) return;
+        settled = true;
+        resolve(buffer);
+      };
+      const fail = (error) => {
+        if (settled) return;
+        settled = true;
+        reject(error);
+      };
+      try {
+        const promise = ctx.decodeAudioData(arrayBuffer.slice(0), done, fail);
+        if (promise && typeof promise.then === "function") promise.then(done, fail);
+      } catch (error) {
+        fail(error);
+      }
+    });
+  }
+
+  function loadOrbitOgg(name) {
+    if (ORBIT_AUDIO_BUFFERS.has(name)) return Promise.resolve(ORBIT_AUDIO_BUFFERS.get(name));
+    if (ORBIT_AUDIO_LOADING.has(name)) return ORBIT_AUDIO_LOADING.get(name);
+    const definition = ORBIT_OGG_SOUNDS[name];
+    const graph = orbitAudioGraph();
+    if (!definition || !graph) return Promise.resolve(null);
+
+    const url = new URL(definition.file, document.baseURI);
+    const loading = fetch(url, { cache: "force-cache" })
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to load " + url.pathname + " (" + response.status + ")");
+        return response.arrayBuffer();
+      })
+      .then((bytes) => decodeOrbitAudioData(graph.ctx, bytes))
+      .then((buffer) => {
+        ORBIT_AUDIO_BUFFERS.set(name, buffer);
+        ORBIT_AUDIO_LOADING.delete(name);
+        return buffer;
+      })
+      .catch((error) => {
+        ORBIT_AUDIO_LOADING.delete(name);
+        console.warn("ORBIT audio decode failed:", name, error);
+        return null;
+      });
+
+    ORBIT_AUDIO_LOADING.set(name, loading);
+    return loading;
+  }
+
+  function primeOrbitAudio() {
+    if (ORBIT_AUDIO_MODE !== "ogg" || orbitAudioPrimed) return;
+    orbitAudioPrimed = true;
+    for (const name of Object.keys(ORBIT_OGG_SOUNDS)) loadOrbitOgg(name);
+  }
+
+  function playOrbitOggCue(name) {
+    const definition = ORBIT_OGG_SOUNDS[name];
+    const graph = orbitAudioGraph();
+    if (!definition || !graph) return false;
+
+    const nowMs = performance.now();
+    const previous = ORBIT_AUDIO_LAST_PLAYED.get(name) || -Infinity;
+    if (nowMs - previous < Number(definition.cooldown || 0)) return false;
+    ORBIT_AUDIO_LAST_PLAYED.set(name, nowMs);
+
+    const buffer = ORBIT_AUDIO_BUFFERS.get(name);
+    if (!buffer) {
+      // The first interaction starts decoding. If a cue beats the decoder,
+      // keep feedback alive with the procedural fallback instead of stalling.
+      loadOrbitOgg(name);
+      return playOrbitToneCue(name);
+    }
+
+    const { ctx, masterGain } = graph;
+    const source = ctx.createBufferSource();
+    const gain = ctx.createGain();
+    source.buffer = buffer;
+
+    const start = ctx.currentTime + 0.002;
+    const duration = Math.max(0.01, buffer.duration);
+    const volume = Math.max(0.0001, Math.min(1, Number(definition.volume ?? 0.12)));
+    const attack = Math.min(0.008, duration * 0.08);
+    const release = Math.min(0.018, duration * 0.12);
+    const releaseAt = Math.max(start + attack, start + duration - release);
+
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.linearRampToValueAtTime(volume, start + attack);
+    gain.gain.setValueAtTime(volume, releaseAt);
+    gain.gain.linearRampToValueAtTime(0.0001, start + duration);
+
+    source.connect(gain);
+    gain.connect(masterGain);
+    source.start(start);
+    return true;
   }
 
   function playOrbitCue(name) {
-    if (
-      ORBIT_AUDIO_MODE === "ogg" &&
-      typeof SSE !== "undefined" &&
-      SSE.audio &&
-      typeof SSE.audio.play === "function"
-    ) {
-      return SSE.audio.play(name);
-    }
+    if (ORBIT_AUDIO_MODE === "ogg") return playOrbitOggCue(name);
     return playOrbitToneCue(name);
   }
 
@@ -6603,6 +6738,7 @@
     },
 
     touch(touch) {
+      if (touch.state === BEGAN) primeOrbitAudio();
       const hasSave = world.hasSave();
       const newRect = hasSave ? this.newButton : this.soloButton;
 
@@ -6941,8 +7077,8 @@
     audio: {
       storageKey: "sukimastock.orbit.sound",
       masterVolume: 0.9,
-      poolSize: 3,
-      sounds: ORBIT_AUDIO_MODE === "ogg" ? ORBIT_OGG_SOUNDS : {},
+      poolSize: 1,
+      sounds: {},
     },
     scenes: {
       title: titleScene,
