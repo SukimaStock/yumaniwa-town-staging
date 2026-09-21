@@ -416,6 +416,7 @@
   const EVE_PHASE_LINES = txValue("eve.phase");
   const EVE_IDLE_LINES = txValue("eve.idle");
   const EVE_ASTRA_IDLE_LINES = txValue("eve.astraIdle");
+  const EVE_RESCUE_RETURN_LINES = txValue("eve.rescueReturn");
   const EVE_LANDING_LINES = txValue("eve.landing");
   const EVE_COLLISION_LINES = txValue("eve.collision");
   const ECHO_ANALYSIS_LINES = txValue("eve.echoAnalysis");
@@ -1510,7 +1511,9 @@
         this.rescue.postFadeTimer = Math.max(0, before - dt);
         if (before > 0 && this.rescue.postFadeTimer === 0 && this.rescue.pendingReturnLine) {
           this.rescue.pendingReturnLine = false;
-          this.sayEve(this.evePhaseLines().short, 2.8);
+          // Fuel-out is not an ordinary docking. Let E.V.E.'s first words after
+          // the CRT returns acknowledge that the pilot made it home safely.
+          this.sayEve(this.eveRescueReturnLine(), 3.8);
         }
       }
       if (this.eve && this.eve.timer > 0) this.eve.timer = Math.max(0, this.eve.timer - dt);
@@ -1864,6 +1867,14 @@
     evePhaseLines() {
       const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
       return EVE_PHASE_LINES[level] || EVE_PHASE_LINES[1];
+    }
+
+    eveRescueReturnLine() {
+      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      return (
+        (EVE_RESCUE_RETURN_LINES && (EVE_RESCUE_RETURN_LINES[level] || EVE_RESCUE_RETURN_LINES[1])) ||
+        this.evePhaseLines().short
+      );
     }
 
     eveIdleLines(includeAstra = false) {
