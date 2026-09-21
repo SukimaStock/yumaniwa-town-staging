@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 38,
-    "note": "ORBIT Web Japanese runtime text. v2.9.18 moves OGG cue playback from HTMLAudio pools to decoded Web Audio buffers and schedules multi-tone fallbacks on the AudioContext clock to remove mobile stutter/catch."
+    "version": 39,
+    "note": "ORBIT Web Japanese runtime text. v2.9.19 adds restrained Phase B system and story cues for boot, E.V.E. ONLINE, HOME terminal, DATA scan, rescue, weak signal, incident archive, and REBIRTH. Existing OGG cues remain unchanged."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.18"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.19"
   },
   "title": {
     "title": "O R B I T",
