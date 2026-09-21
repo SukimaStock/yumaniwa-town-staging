@@ -46,3 +46,21 @@ Keep the soundscape sparse. These cues are for tactile confirmation and story pu
 HOME auto-refuel is intentionally silent. Collision is throttled by the existing E.V.E. collision cadence.
 
 BGM is intentionally not part of Phase A and should be added separately after the cue pass is approved.
+
+
+## Phase B procedural cues
+
+These cues currently use Web Audio only. They intentionally do not request missing OGG files.
+
+Reserved future filenames:
+
+- `boot.ogg` — SYSTEM REBOOT low power-on bloom
+- `eve_online.ogg` — E.V.E. ONLINE two-note presence
+- `terminal.ogg` — HOME terminal open
+- `scan.ogg` — DATA ANALYSIS start
+- `rescue.ogg` — fuel-out / emergency return
+- `weak_signal.ogg` — post-credits ASTRA record signal
+- `archive.ogg` — INCIDENT LOG open
+- `rebirth.ogg` — REBIRTH completion
+
+When a Phase B file is approved, add its definition to `ORBIT_OGG_SOUNDS` using the same cue name. `playOrbitCue(name)` will automatically prefer the OGG definition and otherwise keep using the procedural fallback.
