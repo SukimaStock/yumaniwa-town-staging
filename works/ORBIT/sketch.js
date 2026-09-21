@@ -4204,6 +4204,10 @@
       if (showInterface) {
         let uiA = clamp(Number(interfaceAlpha || 0), 0, 1);
         let mapA = clamp(Number(miniMapAlpha || 0), 0, 1);
+        const quietTrueEnding = !!(
+          this.incident &&
+          this.incident.trueEndingActive
+        );
 
         if (
           this.finale &&
@@ -4219,30 +4223,36 @@
         }
 
         withCanvasContext((ctx) => {
-          ctx.globalAlpha = uiA;
-          this.drawPhaseFeedback();
-          this.drawHarvestFeedback();
-          this.drawResourceHUD();
+          if (!quietTrueEnding) {
+            ctx.globalAlpha = uiA;
+            this.drawPhaseFeedback();
+            this.drawHarvestFeedback();
+            this.drawResourceHUD();
 
-          // Let the navigation instrument wake a fraction later than the main
-          // cockpit. It feels like hardware acquiring a fix rather than a web UI
-          // block appearing all at once.
-          ctx.globalAlpha = mapA;
-          this.drawMiniMap();
+            // Let the navigation instrument wake a fraction later than the main
+            // cockpit. It feels like hardware acquiring a fix rather than a web UI
+            // block appearing all at once.
+            ctx.globalAlpha = mapA;
+            this.drawMiniMap();
+
+            ctx.globalAlpha = uiA;
+            this.drawFaintSignal();
+            this.drawDataAnalysis();
+            this.drawEchoMemory();
+            this.drawSystemConsole();
+            this.drawHomeTerminal();
+            this.drawCredits();
+            this.drawFinaleOverlay();
+          }
 
           ctx.globalAlpha = uiA;
-          this.drawFaintSignal();
-          this.drawDataAnalysis();
-          this.drawEchoMemory();
-          this.drawSystemConsole();
-          this.drawHomeTerminal();
-          this.drawCredits();
-          this.drawFinaleOverlay();
-          // E.V.E. is a voice, not a cinematic caption. Draw her after the finale
-          // layer so the normal dialogue window remains the source of her words.
+          this.drawIncidentArchive();
+          this.drawTrueEndingOverlay();
+          // E.V.E. remains the only interface allowed over the quiet true-ending
+          // HOME shot until the picture itself fades away.
           this.drawEveSpeech();
           this.drawRescueOverlay();
-          if (DEBUG) this.drawDebug();
+          if (DEBUG && !quietTrueEnding) this.drawDebug();
         });
       }
     }
@@ -4549,6 +4559,116 @@
       fill(130, 160, 190, a * 0.65);
       fontSize(8);
       text(tx("hud.memoryFragment"), W / 2, H / 2 - 51);
+    }
+
+    drawIncidentArchive() {
+      if (!this.incident || this.incident.activeLogIndex <= 0 || this.incident.activeLogTimer <= 0) return;
+      const item = Array.isArray(INCIDENT_LOGS)
+        ? INCIDENT_LOGS[this.incident.activeLogIndex - 1]
+        : null;
+      if (!item || !Array.isArray(item.lines)) return;
+
+      const totalDuration =
+        INCIDENT_TUNE.logBaseSec + item.lines.length * INCIDENT_TUNE.logPerLineSec;
+      const elapsed = totalDuration - this.incident.activeLogTimer;
+      const fadeIn = clamp(elapsed / 0.42, 0, 1);
+      const fadeOut = clamp(this.incident.activeLogTimer / 0.72, 0, 1);
+      const a = Math.min(fadeIn, fadeOut);
+
+      const h = Math.min(222, 88 + item.lines.length * 20);
+      const x = 22;
+      const y = H / 2 - h / 2 + 8;
+      const w = W - 44;
+
+      noStroke();
+      fill(2, 5, 11, 205 * a);
+      rect(x, y, w, h, 4);
+      stroke(150, 178, 218, 76 * a);
+      strokeWidth(0.8);
+      noFill();
+      rect(x, y, w, h, 4);
+
+      noStroke();
+      fill(170, 202, 232, 232 * a);
+      font("monospace");
+      fontSize(9.2);
+      textAlign(CENTER);
+      text(
+        tx("incident.header", { code: item.code || "??" }),
+        W / 2,
+        y + h - 22
+      );
+
+      const uiFont = (typeof SSE !== "undefined" && SSE.theme)
+        ? SSE.theme.font("ui")
+        : '"Hiragino Sans", "Noto Sans JP", sans-serif';
+
+      let yy = y + h - 49;
+      for (const raw of item.lines) {
+        const lineText = String(raw || "");
+        const spoken =
+          lineText.startsWith("E.V.E.:") ||
+          lineText.startsWith("PILOT:");
+        font(spoken ? uiFont : "monospace");
+        fontSize(spoken ? 10.7 : 9.1);
+        fill(
+          spoken ? 242 : 196,
+          spoken ? 247 : 214,
+          spoken ? 250 : 230,
+          (spoken ? 248 : 220) * a
+        );
+        text(lineText, W / 2, yy);
+        yy -= spoken ? 22 : 17;
+      }
+    }
+
+    drawTrueEndingOverlay() {
+      if (!this.incident || !this.incident.trueEndingActive) return;
+      const t = this.incident.trueEndingTimer;
+      if (t < INCIDENT_TUNE.trueFadeStart) return;
+
+      const fadeQ = clamp(
+        (t - INCIDENT_TUNE.trueFadeStart) /
+          Math.max(0.001, INCIDENT_TUNE.trueFadeEnd - INCIDENT_TUNE.trueFadeStart),
+        0,
+        1
+      );
+      const fade = fadeQ * fadeQ * (3 - 2 * fadeQ);
+
+      noStroke();
+      fill(0, 0, 0, 255 * fade);
+      rect(0, 0, W, H);
+
+      if (t >= INCIDENT_TUNE.trueTitleStart && t < INCIDENT_TUNE.trueTitleEnd) {
+        const inA = clamp((t - INCIDENT_TUNE.trueTitleStart) / 0.7, 0, 1);
+        const outA = clamp((INCIDENT_TUNE.trueTitleEnd - t) / 0.9, 0, 1);
+        const a = Math.min(inA, outA);
+        font("monospace");
+        textAlign(CENTER);
+        noStroke();
+        fill(232, 239, 248, 242 * a);
+        fontSize(27);
+        text(tx("title.title"), W / 2, H / 2 + 18);
+        fill(160, 184, 212, 220 * a);
+        fontSize(11);
+        text(tx("title.subtitle"), W / 2, H / 2 - 15);
+      }
+
+      if (t >= INCIDENT_TUNE.trueUnknownStart && t < INCIDENT_TUNE.trueUnknownEnd) {
+        const q = clamp(
+          (t - INCIDENT_TUNE.trueUnknownStart) /
+            Math.max(0.001, INCIDENT_TUNE.trueUnknownEnd - INCIDENT_TUNE.trueUnknownStart),
+          0,
+          1
+        );
+        const pulse = Math.sin(Math.PI * q);
+        font("monospace");
+        fontSize(8.8);
+        textAlign(CENTER);
+        noStroke();
+        fill(176, 196, 220, 180 * pulse);
+        text(tx("incident.unknownSignal"), W / 2, 48);
+      }
     }
 
     drawCredits() {
@@ -5235,6 +5355,16 @@
         noStroke();
         fill(120, 255, 120, 240);
         ellipse(bx, by, 8 * scale, 8 * scale);
+
+        if (this.incident && this.incident.homeBeaconPulse > 0) {
+          const q = 1 - this.incident.homeBeaconPulse / INCIDENT_TUNE.homeBeaconPulseSec;
+          const pulse = 0.5 + 0.5 * Math.sin(q * Math.PI * 8);
+          noFill();
+          stroke(150, 255, 175, 170 * pulse);
+          strokeWidth(Math.max(0.7, 1.0 * scale));
+          ellipse(bx, by, (12 + 8 * pulse) * scale, (12 + 8 * pulse) * scale);
+        }
+
         fill(0, 80, 0, 240);
         font("monospace");
         fontSize(Math.max(10, 12 * scale));
