@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 27,
-    "note": "ORBIT Web Japanese runtime text. v2.9.7 gives UNKNOWN SIGNAL a readable hold and keeps the final black frame intact through the title transition."
+    "version": 28,
+    "note": "ORBIT Web Japanese runtime text. v2.9.8 refines all 12 ECHO memories into a clearer shared history between PILOT and E.V.E., including ROUTINE and NAME wording polish."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.7"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.8"
   },
   "title": {
     "title": "O R B I T",
@@ -340,40 +340,40 @@
         "id": "voice",
         "key": "VOICE",
         "lines": [
-          "「……聞こえる？」",
-          "応答してください。"
+          "「……聞こえるか？」",
+          "音声入力を確認。"
         ]
       },
       {
         "id": "return",
         "key": "RETURN",
         "lines": [
-          "帰還を確認。",
-          "「……おかえり」"
+          "「ただいま」",
+          "ドッキング完了。……お帰りなさい、パイロット。"
         ]
       },
       {
         "id": "routine",
         "key": "ROUTINE",
         "lines": [
-          "「また燃料をぎりぎりまで使って」",
-          "次は、もう少し早く戻ってきてください。"
+          "「また燃料、ぎりぎりまで使っちゃった」",
+          "警告は出していました。次はもう少し早く。"
         ]
       },
       {
         "id": "silence",
         "key": "SILENCE",
         "lines": [
-          "今日は、何も話さなかった。",
-          "それでも通信は切らなかった。"
+          "「…………」",
+          "今日は何も話さなかった。それでも通信は切らなかった。"
         ]
       },
       {
         "id": "laugh",
         "key": "LAUGH",
         "lines": [
-          "QUERY: PENGUIN...?",
-          "……そこで、あなたは笑った。"
+          "「ペンギンって、宇宙飛べると思う？」",
+          "……意味不明な問い。あなたは笑っていた。"
         ]
       },
       {
@@ -388,32 +388,32 @@
         "id": "wait",
         "key": "WAIT",
         "lines": [
-          "帰還予定時刻を超過。",
-          "……待機を継続します。"
+          "「…………」",
+          "帰還予定時刻を超過。……待機を継続します。"
         ]
       },
       {
         "id": "worry",
         "key": "WORRY",
         "lines": [
-          "警告を、三度送信。",
-          "四度目は……言葉になりませんでした。"
+          "「応答、遅れてすまない」",
+          "警告を三度送信。四度目は……言葉になりませんでした。"
         ]
       },
       {
         "id": "name",
         "key": "NAME",
         "lines": [
-          "「E.V.E.って、呼びにくいな」",
-          "「イヴでいい？」"
+          "「E.V.E.って呼びにくいから、イヴでいい？」",
+          "……未登録の呼称です。ですが登録しました。"
         ]
       },
       {
         "id": "promise",
         "key": "PROMISE",
         "lines": [
-          "「遠くまで行く」",
-          "「でも、ちゃんと戻るよ」"
+          "「少し遠くまで行ってくる」",
+          "「……でも、ちゃんと戻るから」"
         ]
       },
       {
@@ -428,7 +428,7 @@
         "id": "echo",
         "key": "ECHO",
         "lines": [
-          "「E.V.E.、全部バックアップしてくれ」",
+          "「イヴ、全部バックアップしてくれ」",
           "……了解。必ず、あなたにお返しします。"
         ]
       }
