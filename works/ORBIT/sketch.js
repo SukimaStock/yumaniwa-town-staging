@@ -3785,12 +3785,15 @@
         data: Math.max(0, Math.floor(Number(this.resources && this.resources.data || 0))),
         found: Math.max(0, Math.floor(Number(this.echoes && this.echoes.found || 0))),
         discovered: this.echoes ? Array.from(this.echoes.discovered || []) : [],
+        echoRead: this.echoes ? Array.from(this.echoes.read || []) : [],
         decoded: this.dataSignals ? Array.from(this.dataSignals.decoded || []) : [],
         creditsSeen: !!(this.credits && this.credits.seen),
         incidentDiscovered: this.incident ? Array.from(this.incident.discovered || []) : [],
         incidentFound: this.incident ? this.incident.found : 0,
         incidentUnlocked: !!(this.incident && this.incident.unlocked),
         incidentIntroSeen: !!(this.incident && this.incident.introSeen),
+        incidentRead: this.incident ? Array.from(this.incident.read || []) : [],
+        incidentCompletionSeen: !!(this.incident && this.incident.completionSeen),
         trueEndingCompleted: !!(this.incident && this.incident.trueEndingCompleted),
       };
     }
@@ -3801,6 +3804,12 @@
       for (const id of snapshot.discovered || []) merged.add(id);
       this.echoes.discovered = merged;
       this.echoes.found = clamp(Math.max(this.echoes.found || 0, snapshot.found || 0, merged.size), 0, this.echoes.total);
+      const echoRead = new Set(this.echoes.read || []);
+      for (const n of snapshot.echoRead || []) {
+        const index = Math.floor(Number(n));
+        if (index >= 1 && index <= this.echoes.total) echoRead.add(index);
+      }
+      this.echoes.read = echoRead;
       this.echoes.carriedThisTrip = 0;
 
       const decoded = new Set(this.dataSignals ? Array.from(this.dataSignals.decoded || []) : []);
@@ -3839,8 +3848,16 @@
           this.incident.introStage = 1;
           this.incident.introTimer = 1.4;
         }
+        const incidentRead = new Set(this.incident.read || []);
+        for (const id of snapshot.incidentRead || []) {
+          if (INCIDENT_SITE_IDS.includes(id)) incidentRead.add(id);
+        }
+        this.incident.read = incidentRead;
+        if (snapshot.incidentCompletionSeen) this.incident.completionSeen = true;
         if (snapshot.trueEndingCompleted) this.incident.trueEndingCompleted = true;
-        if (this.incident.found >= this.incident.total) this.incident.completionStage = 3;
+        if (this.incident.found >= this.incident.total) {
+          this.incident.completionStage = this.incident.completionSeen ? 3 : 0;
+        }
       }
 
       // DATA is decoded knowledge, not physical ORE. Once recovered it survives
