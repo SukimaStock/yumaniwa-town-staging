@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 28,
-    "note": "ORBIT Web Japanese runtime text. v2.9.8 refines all 12 ECHO memories into a clearer shared history between PILOT and E.V.E., including ROUTINE and NAME wording polish."
+    "version": 29,
+    "note": "ORBIT Web Japanese runtime text. v2.9.9 fixes literal \\\\n sequences in the first-flight hint and all rescue-return dialogue so intended line breaks render correctly."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.8"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.9"
   },
   "title": {
     "title": "O R B I T",
@@ -325,13 +325,13 @@
       ]
     },
     "rescueReturn": {
-      "1": "...PILOT... RETURNED...\\n...SAFE...",
-      "2": "Pilot... returned.\\nFuel... zero. Please... be careful.",
-      "3": "キカン ヲ カクニン。\\n……ムチャ ハ、シナイデ。",
-      "4": "……もどって きましたね。\\nつぎは、もうすこし はやく かえりましょう。",
-      "5": "……戻れてよかった。\\n次は、もう少し早く帰ってきてくださいね。"
+      "1": "...PILOT... RETURNED...\n...SAFE...",
+      "2": "Pilot... returned.\nFuel... zero. Please... be careful.",
+      "3": "キカン ヲ カクニン。\n……ムチャ ハ、シナイデ。",
+      "4": "……もどって きましたね。\nつぎは、もうすこし はやく かえりましょう。",
+      "5": "……戻れてよかった。\n次は、もう少し早く帰ってきてくださいね。"
     },
-    "firstFlightHint": "...HOME... SIGNAL...\\n...RESTORE...?"
+    "firstFlightHint": "...HOME... SIGNAL...\n...RESTORE...?"
   },
   "echo": {
     "header": "ECHO {index}/{total} — {key}",
