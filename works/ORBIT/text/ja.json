@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 21,
-    "note": "ORBIT Web Japanese runtime text. v2.9.1 completes the hidden ASTRA incident epilogue and hardens post-credit/return edge cases."
+    "version": 22,
+    "note": "ORBIT Web Japanese runtime text. v2.9.2 splits persistence into HOME physical checkpoints and instant MEMORY knowledge saves for decoded DATA, ECHO, and INCIDENT progress."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.1"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.2"
   },
   "title": {
     "title": "O R B I T",
