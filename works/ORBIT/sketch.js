@@ -864,7 +864,6 @@
         analysisResultTimer: 0,
         analysisResultIndex: 0,
         replayIndex: 0,
-        proximityNotified: new Set(),
       };
       // DATA and ECHO are related but not identical. This archive remembers
       // every SERA packet already decoded, including post-12 packets with no Echo.
@@ -897,6 +896,7 @@
         trueEndingCompleted: false,
         returnToTitleTriggered: false,
         replayIndex: 0,
+        proximityNotified: new Set(),
       };
       this.finale = {
         active: false,
@@ -3188,17 +3188,17 @@
 
       this.signal.timer -= dt;
       if (this.signal.timer > 0) return;
-      this.signal.timer = SIGNAL_TUNE.interval;
 
       const hit = incidentMode
         ? this.nearestUndiscoveredIncidentSite()
         : this.nearestUndiscoveredSera();
 
-      const tooNear = hit && (
-        incidentMode
-          ? hit.distance <= 520
-          : hit.distance <= SIGNAL_TUNE.quietRadius
-      );
+      this.signal.timer =
+        incidentMode && hit && hit.distance <= INCIDENT_TUNE.proximityCueRadius
+          ? INCIDENT_TUNE.nearSignalInterval
+          : SIGNAL_TUNE.interval;
+
+      const tooNear = hit && !incidentMode && hit.distance <= SIGNAL_TUNE.quietRadius;
 
       if (!hit || tooNear) {
         this.signal.pulseTimer = 0;
@@ -3216,6 +3216,18 @@
       this.signal.distance = hit.distance;
       this.signal.kind = incidentMode ? "incident" : "echo";
       this.signal.pulseTimer = SIGNAL_TUNE.pulseSec;
+
+      if (
+        incidentMode &&
+        hit.distance <= INCIDENT_TUNE.proximityCueRadius &&
+        this.incident &&
+        this.incident.proximityNotified &&
+        !this.incident.proximityNotified.has(hit.id) &&
+        this.eve.timer <= 0
+      ) {
+        this.incident.proximityNotified.add(hit.id);
+        this.sayEve(tx("incident.signalNear"), 2.4);
+      }
     }
 
     drawFaintSignal() {
