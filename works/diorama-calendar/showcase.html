@@ -132,7 +132,7 @@
       <div class="screen">
         <iframe
           id="showcaseFrame"
-          src="index.html?showcase=1&showcaseVersion=3"
+          src="index.html?showcase=1&showcaseVersion=4"
           title="Diorama Calendar"
           loading="eager"
         ></iframe>
@@ -150,47 +150,24 @@
       const start = performance.now();
 
       const MOTION = {
-        toLeft: 0.70,
-        across: 1.20,
-        toCenter: 0.65,
+        period: 3.00,
         monthTriggerProgress: 0.32,
         tiltX: 0.90,
-        tiltY: 0.035,
+        tiltY: 0.025,
       };
-      const motionEnd = MOTION.toLeft + MOTION.across + MOTION.toCenter;
-      const cycleDuration = motionEnd;
-      const returnStart = MOTION.toLeft + MOTION.across;
+      const cycleDuration = MOTION.period;
       const monthTriggerAt =
-        returnStart + MOTION.toCenter * MOTION.monthTriggerProgress;
-
-      function smoothstep(t) {
-        const p = Math.max(0, Math.min(1, t));
-        return p * p * (3 - 2 * p);
-      }
+        cycleDuration * (0.75 + 0.25 * MOTION.monthTriggerProgress);
 
       function motionAt(seconds) {
         const local = ((seconds % cycleDuration) + cycleDuration) % cycleDuration;
-        let x = 0;
+        const phase = (local / cycleDuration) * Math.PI * 2;
 
-        if (local < MOTION.toLeft) {
-          x = -MOTION.tiltX * smoothstep(local / MOTION.toLeft);
-        } else if (local < MOTION.toLeft + MOTION.across) {
-          const p = smoothstep((local - MOTION.toLeft) / MOTION.across);
-          x = -MOTION.tiltX + MOTION.tiltX * 2 * p;
-        } else if (local < motionEnd) {
-          const p = smoothstep(
-            (local - MOTION.toLeft - MOTION.across) / MOTION.toCenter
-          );
-          x = MOTION.tiltX * (1 - p);
-        }
+        // Continuous motion through center: no easing pause between cycles.
+        const x = -Math.sin(phase) * MOTION.tiltX;
+        const y = Math.sin(phase * 2) * MOTION.tiltY;
 
-        const y = local < motionEnd
-          ? Math.sin((local / motionEnd) * Math.PI) * MOTION.tiltY
-          : 0;
-
-        // Begin the month crossfade while returning from the right edge.
-        // With the existing 0.5s layer fade, the transition is nearly complete
-        // as the phone reaches center, without introducing a stop.
+        // Change month while returning from the right edge toward center.
         const monthCycle = seconds < monthTriggerAt
           ? 0
           : Math.floor((seconds - monthTriggerAt) / cycleDuration) + 1;
