@@ -5455,7 +5455,7 @@
         textAlign(CENTER);
         fontSize(10.2);
         fill(180, 214, 234, 222 * a);
-        text(tx("system.eveOnline"), cx, cy);
+        text(tx("system.eveOnline"), cx, cy + 56);
       }
     },
 
