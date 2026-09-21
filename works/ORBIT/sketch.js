@@ -5753,6 +5753,64 @@
 
       for (const p of this.planets || []) plotPlanet(p);
 
+      // Post-credit incident guidance stays subtle: the map never becomes a
+      // quest tracker. Once the faint edge signal has acquired a target, the
+      // MiniMap merely narrows "that direction" into "this ASTRA".
+      if (
+        this.signal &&
+        this.signal.kind === "incident" &&
+        this.signal.targetId
+      ) {
+        const target = this.findPlanetById(this.signal.targetId);
+        if (target && this.isUndiscoveredIncidentAstra(target)) {
+          const tdx = target.pos.x - this.ship.pos.x;
+          const tdy = target.pos.y - this.ship.pos.y;
+          const td = Math.max(0.001, Math.hypot(tdx, tdy));
+          const tmx = cx + (tdx / R) * (size * 0.48);
+          const tmy = cy + (tdy / R) * (size * 0.48);
+          const inMap = tmx > x && tmx < x + size && tmy > y && tmy < y + size;
+          const pulse = 0.5 + 0.5 * Math.sin(this.simTime * 3.1);
+
+          if (inMap) {
+            noFill();
+            stroke(205, 190, 246, 70 + 75 * pulse);
+            strokeWidth(Math.max(0.7, 0.9 * scale));
+            ellipse(
+              tmx,
+              tmy,
+              (9 + 3.5 * pulse) * scale,
+              (9 + 3.5 * pulse) * scale
+            );
+            stroke(225, 216, 252, 42 + 46 * pulse);
+            strokeWidth(Math.max(0.55, 0.7 * scale));
+            ellipse(
+              tmx,
+              tmy,
+              (14 + 5 * pulse) * scale,
+              (14 + 5 * pulse) * scale
+            );
+          } else if (td <= INCIDENT_TUNE.miniMapEdgeRevealRadius) {
+            const ux = tdx / td;
+            const uy = tdy / td;
+            const inset = 7 * scale;
+            const halfW = size / 2 - inset;
+            const halfH = size / 2 - inset;
+            const txEdge = Math.abs(ux) > 0.0001 ? halfW / Math.abs(ux) : Infinity;
+            const tyEdge = Math.abs(uy) > 0.0001 ? halfH / Math.abs(uy) : Infinity;
+            const edgeT = Math.min(txEdge, tyEdge);
+            const ix = cx + ux * edgeT;
+            const iy = cy + uy * edgeT;
+            const px = -uy;
+            const py = ux;
+            const tick = (3.5 + 1.5 * pulse) * scale;
+
+            stroke(205, 190, 246, 70 + 65 * pulse);
+            strokeWidth(Math.max(0.7, 0.9 * scale));
+            line(ix - px * tick, iy - py * tick, ix + px * tick, iy + py * tick);
+          }
+        }
+      }
+
       const bdx = this.basePlanet.pos.x - this.ship.pos.x;
       const bdy = this.basePlanet.pos.y - this.ship.pos.y;
       const bx = cx + (bdx / R) * (size * 0.48);
