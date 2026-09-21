@@ -1170,6 +1170,7 @@
         echoes: {
           found: this.echoes.found,
           discovered: Array.from(this.echoes.discovered),
+          read: Array.from(this.echoes.read || []),
           carriedThisTrip: this.echoes.carriedThisTrip,
         },
         dataSignals: {
@@ -1180,6 +1181,8 @@
           found: this.incident ? this.incident.found : 0,
           unlocked: !!(this.incident && this.incident.unlocked),
           introSeen: !!(this.incident && this.incident.introSeen),
+          read: this.incident ? Array.from(this.incident.read || []) : [],
+          completionSeen: !!(this.incident && this.incident.completionSeen),
           trueEndingCompleted: !!(this.incident && this.incident.trueEndingCompleted),
         },
         finale: {
