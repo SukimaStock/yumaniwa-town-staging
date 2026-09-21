@@ -321,6 +321,39 @@
     meteorLifeMax: 1.35,
   });
 
+  // Five ordinary procedural ASTRA worlds quietly contain the epilogue.
+  // They existed from the start; only the fully restored post-credit sensor can
+  // hear the records buried there.
+  const INCIDENT_SITE_IDS = Object.freeze([
+    "P:1:0:1",    // ~3.7k
+    "P:-1:-4:1",  // ~5.6k
+    "P:-5:0:1",   // ~8.0k
+    "P:-3:5:1",   // ~11.4k
+    "P:5:-7:2",   // ~14.5k
+  ]);
+
+  const INCIDENT_TUNE = Object.freeze({
+    unlockDelayAfterCredits: 30.0,
+    introSignalLead: 2.4,
+    introSecondLineDelay: 2.8,
+    deepScanDelay: 7.4,
+    siteVoiceSec: 2.0,
+    siteRevealDelay: 2.25,
+    logBaseSec: 5.6,
+    logPerLineSec: 0.55,
+    completionLead: 2.0,
+    completionSecondDelay: 4.2,
+    homeBeaconPulseSec: 7.0,
+    trueEndingDelay: 0.8,
+    trueFadeStart: 19.2,
+    trueFadeEnd: 20.6,
+    trueTitleStart: 20.6,
+    trueTitleEnd: 24.7,
+    trueUnknownStart: 25.5,
+    trueUnknownEnd: 26.7,
+    trueReturnTitleAt: 28.0,
+  });
+
   // ORBIT is only about fifteen minutes long, so E.V.E.'s casual voice should
   // have time to become familiar. ASTRA is the one place where doing nothing
   // is itself a choice, so the silence there is a little more companionable.
@@ -418,6 +451,7 @@
   const EVE_ASTRA_IDLE_LINES = txValue("eve.astraIdle");
   const EVE_RESCUE_RETURN_LINES = txValue("eve.rescueReturn");
   const EVE_LANDING_LINES = txValue("eve.landing");
+  const INCIDENT_LOGS = txValue("incident.logs");
   const EVE_COLLISION_LINES = txValue("eve.collision");
   const ECHO_ANALYSIS_LINES = txValue("eve.echoAnalysis");
   const ECHO_REACTIONS = txValue("eve.echoReactions");
@@ -827,6 +861,27 @@
       this.dataSignals = {
         decoded: new Set(),
       };
+      this.incident = {
+        total: INCIDENT_SITE_IDS.length,
+        discovered: new Set(),
+        found: 0,
+        unlocked: false,
+        postCreditsTimer: -1,
+        introStage: 0,
+        introTimer: 0,
+        pendingLogIndex: 0,
+        pendingLogTimer: 0,
+        activeLogIndex: 0,
+        activeLogTimer: 0,
+        completionStage: 0,
+        completionTimer: 0,
+        homeBeaconPulse: 0,
+        trueEndingActive: false,
+        trueEndingTimer: 0,
+        trueEndingSpeechStage: 0,
+        trueEndingCompleted: false,
+        returnToTitleTriggered: false,
+      };
       this.finale = {
         active: false,
         timer: 0,
@@ -1022,6 +1077,12 @@
         dataSignals: {
           decoded: this.dataSignals ? Array.from(this.dataSignals.decoded || []) : [],
         },
+        incident: {
+          discovered: this.incident ? Array.from(this.incident.discovered || []) : [],
+          found: this.incident ? this.incident.found : 0,
+          unlocked: !!(this.incident && this.incident.unlocked),
+          trueEndingCompleted: !!(this.incident && this.incident.trueEndingCompleted),
+        },
         finale: {
           completed: !!this.finale.completed,
           farewellPending: !!this.finale.farewellPending,
@@ -1123,6 +1184,38 @@
       const savedDecoded = Array.isArray(ds.decoded) ? ds.decoded : Array.from(this.echoes.discovered);
       this.dataSignals.decoded = new Set(savedDecoded);
 
+      const ii = data.incident || {};
+      this.incident.discovered = new Set(
+        Array.isArray(ii.discovered)
+          ? ii.discovered.filter((id) => INCIDENT_SITE_IDS.includes(id))
+          : []
+      );
+      this.incident.found = clamp(
+        Math.max(
+          Math.floor(Number(ii.found || 0)),
+          this.incident.discovered.size
+        ),
+        0,
+        this.incident.total
+      );
+      this.incident.unlocked = !!ii.unlocked || this.incident.found > 0;
+      this.incident.trueEndingCompleted = !!ii.trueEndingCompleted;
+      this.incident.postCreditsTimer = -1;
+      this.incident.introStage = this.incident.unlocked ? 3 : 0;
+      this.incident.introTimer = 0;
+      this.incident.pendingLogIndex = 0;
+      this.incident.pendingLogTimer = 0;
+      this.incident.activeLogIndex = 0;
+      this.incident.activeLogTimer = 0;
+      this.incident.completionStage =
+        this.incident.found >= this.incident.total ? 3 : 0;
+      this.incident.completionTimer = 0;
+      this.incident.homeBeaconPulse = 0;
+      this.incident.trueEndingActive = false;
+      this.incident.trueEndingTimer = 0;
+      this.incident.trueEndingSpeechStage = 0;
+      this.incident.returnToTitleTriggered = false;
+
       const ff = data.finale || {};
       this.finale.completed = !!ff.completed;
       this.finale.farewellPending = !!ff.farewellPending;
@@ -1145,6 +1238,17 @@
       this.credits.pendingTimer = 0;
       this.credits.timer = 0;
       this.credits.landingLock = 0;
+
+      // A save made after the ordinary credits but before discovering the secret
+      // epilogue should still get the same 30 seconds of unprompted free drift.
+      if (
+        this.finale.completed &&
+        this.credits.seen &&
+        !this.incident.unlocked &&
+        !this.incident.trueEndingCompleted
+      ) {
+        this.incident.postCreditsTimer = INCIDENT_TUNE.unlockDelayAfterCredits;
+      }
 
       this.applyPlanetStates(data.planets || {});
 
@@ -3158,6 +3262,9 @@
         discovered: this.echoes ? Array.from(this.echoes.discovered || []) : [],
         decoded: this.dataSignals ? Array.from(this.dataSignals.decoded || []) : [],
         creditsSeen: !!(this.credits && this.credits.seen),
+        incidentDiscovered: this.incident ? Array.from(this.incident.discovered || []) : [],
+        incidentFound: this.incident ? this.incident.found : 0,
+        incidentUnlocked: !!(this.incident && this.incident.unlocked),
       };
     }
 
@@ -3174,6 +3281,25 @@
       for (const id of merged) decoded.add(id);
       this.dataSignals.decoded = decoded;
       if (snapshot.creditsSeen && this.credits) this.credits.seen = true;
+
+      if (this.incident) {
+        const incidentMerged = new Set(this.incident.discovered || []);
+        for (const id of snapshot.incidentDiscovered || []) {
+          if (INCIDENT_SITE_IDS.includes(id)) incidentMerged.add(id);
+        }
+        this.incident.discovered = incidentMerged;
+        this.incident.found = clamp(
+          Math.max(
+            this.incident.found || 0,
+            snapshot.incidentFound || 0,
+            incidentMerged.size
+          ),
+          0,
+          this.incident.total
+        );
+        if (snapshot.incidentUnlocked || this.incident.found > 0) this.incident.unlocked = true;
+        if (this.incident.found >= this.incident.total) this.incident.completionStage = 3;
+      }
 
       // DATA is decoded knowledge, not physical ORE. Once recovered it survives
       // an emergency return; the decoded-SERA archive prevents re-reading it.
