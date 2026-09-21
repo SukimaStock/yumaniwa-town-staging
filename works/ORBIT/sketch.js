@@ -775,6 +775,10 @@
         timer: 0,
         duration: 0,
         lowFuelNotified: false,
+        // NEW ORBIT gets one fragmentary orientation cue after the prologue.
+        // It names HOME / RESTORE without turning the opening into a tutorial.
+        firstFlightHintPending: true,
+        firstFlightHintTimer: 6.0,
         idleTimer:
           EVE_IDLE_TUNE.normalMin +
           Math.random() * (EVE_IDLE_TUNE.normalMax - EVE_IDLE_TUNE.normalMin),
@@ -1093,6 +1097,9 @@
         5
       );
       this.eve.departureLineLevel = 0;
+      // CONTINUE resumes an established voyage; never replay the opening hint.
+      this.eve.firstFlightHintPending = false;
+      this.eve.firstFlightHintTimer = 0;
       this.resources.fuel = clamp(Number(rr.fuel ?? this.resources.fuelMax), 0, this.resources.fuelMax);
       this.resources.ore = clamp(Number(rr.ore ?? 0), 0, this.resources.oreMax);
 
@@ -1934,6 +1941,24 @@
         this.landPlanet.kind === "neutral" &&
         this.astra &&
         this.astra.active;
+
+      // One early fragment gives a first-time player two anchors without
+      // explaining the loop. If another event is speaking, the countdown simply
+      // waits for a quiet flight moment.
+      if (this.eve.firstFlightHintPending) {
+        this.eve.firstFlightHintTimer = Math.max(
+          0,
+          Number(this.eve.firstFlightHintTimer || 0) - dt
+        );
+        if (this.eve.firstFlightHintTimer <= 0) {
+          this.eve.firstFlightHintPending = false;
+          this.sayEve(tx("eve.firstFlightHint"), 3.6);
+          this.eve.idleTimer =
+            EVE_IDLE_TUNE.normalMin +
+            Math.random() * (EVE_IDLE_TUNE.normalMax - EVE_IDLE_TUNE.normalMin);
+          return;
+        }
+      }
 
       this.eve.idleTimer -= dt;
       if (this.eve.idleTimer > 0) return;
