@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 15,
-    "note": "ORBIT Web Japanese runtime text. Key story text in the prologue/finale now shares E.V.E.'s readable UI typography while machine diagnostics remain monospace."
+    "version": 16,
+    "note": "ORBIT Web Japanese runtime text. E.V.E. casual dialogue now appears more often in the fifteen-minute journey, with a distinctly shorter cadence while lingering in ASTRA."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.8.8"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.8.9"
   },
   "title": {
     "title": "O R B I T",
