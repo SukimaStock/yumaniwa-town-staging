@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 13,
-    "note": "ORBIT Web Japanese runtime text. Silent Reboot now hands control over through a softly powered cockpit fade with a delayed navigation fix, alongside ECHO memory archive and finale/ritual continuity."
+    "version": 14,
+    "note": "ORBIT Web Japanese runtime text. The finale now uses a four-act, director-paced return structure with staged E.V.E. identity reveal, REBIRTH breathing room, and a quiet post-return cockpit wake."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.8.6"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.8.7"
   },
   "title": {
     "title": "O R B I T",
@@ -398,7 +398,8 @@
     "accident1": "「これだけは、なくしたくないんだ」――あの日、あなたが私に託したもの。",
     "accident2": "星の海に散らばったそれを、あなたはひとつずつ拾い集めてきました。",
     "accident3": "……修復していたのは、システムだけではなかったのですね。",
-    "returnMemory": "お返しします。\nあなたを、あなた自身に。"
+    "returnMemory": "あなたを、あなた自身に。",
+    "returnLead": "お返しします。"
   },
   "ritual": {
     "shellLabel": "ORBIT / RESTORE",
