@@ -1618,6 +1618,18 @@
         this.incident.homeBeaconPulse = Math.max(0, this.incident.homeBeaconPulse - dt);
       }
 
+      // Emergency return can place a player with all five records directly at
+      // HOME without passing through onLanded(). Let E.V.E.'s rescue line finish,
+      // then continue into the same true ending instead of requiring re-launch.
+      if (
+        !this.incident.trueEndingActive &&
+        this.shouldStartTrueEnding() &&
+        (!this.rescue || this.rescue.postFadeTimer <= 0) &&
+        this.eve.timer <= 0
+      ) {
+        this.startTrueEnding(INCIDENT_TUNE.trueEndingDelay);
+      }
+
       if (this.incident.trueEndingActive) {
         this.incident.trueEndingTimer += dt;
         const t = this.incident.trueEndingTimer;
@@ -1677,7 +1689,14 @@
         this.incident.unlocked &&
         this.incident.introStage > 0 &&
         this.incident.introStage < 3 &&
-        this.mode === "flight" &&
+        (
+          this.mode === "flight" ||
+          (
+            this.mode === "landed" &&
+            this.landPlanet &&
+            this.landPlanet.kind === "neutral"
+          )
+        ) &&
         !(this.credits && (this.credits.pending || this.credits.active)) &&
         !(this.echoStory && (
           this.echoStory.active ||
