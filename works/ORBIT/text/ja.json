@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 33,
-    "note": "ORBIT Web Japanese runtime text. v2.9.13 adds safe multi-line ECHO rendering for mobile; Japanese copy remains unchanged."
+    "version": 34,
+    "note": "ORBIT Web Japanese runtime text. v2.9.14 adds Phase A procedural sound cues for takeoff, landing, ORE, DATA, FUEL, impact, ECHO recovery, and RESTORE completion. No BGM yet."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.13"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.14"
   },
   "title": {
     "title": "O R B I T",
