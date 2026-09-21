@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 19,
-    "note": "ORBIT Web Japanese runtime text. The opening now gives one fragmentary HOME/RESTORE anchor, and the finale names the recovered fragments as the pilot's memory before returning the player to themselves."
+    "version": 20,
+    "note": "ORBIT Web Japanese runtime text. v2.9 adds the hidden post-credit INCIDENT ARCHIVE: five ASTRA records, a second return to HOME, and the quiet true ending."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.8.12"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.0"
   },
   "title": {
     "title": "O R B I T",
@@ -41,7 +41,8 @@
       "echoArchive": "ECHO ARCHIVE",
       "ore": "ORE",
       "data": "DATA",
-      "status": "STATUS"
+      "status": "STATUS",
+      "incidentArchive": "INCIDENT ARCHIVE"
     },
     "values": {
       "online": "ONLINE",
@@ -500,5 +501,75 @@
     "pilot": "PILOT ............. ?",
     "pilotBase": "PILOT .............",
     "pilotUnknown": "PILOT ............. ?"
+  },
+  "incident": {
+    "header": "INCIDENT LOG // {code}",
+    "introWait": "……待ってください。",
+    "introSignal": "ASTRAから、微弱な記録信号。\n……今まで、見えていませんでした。",
+    "siteFound": "……ここです。",
+    "complete": "……これで、残っていた記録はすべてです。",
+    "returnHome": "……帰りましょう。",
+    "unknownSignal": "UNKNOWN SIGNAL ........ DETECTED",
+    "logs": [
+      {
+        "code": "02",
+        "lines": [
+          "NAVIGATION OFFSET: +0.031",
+          "+0.084",
+          "+0.217",
+          "E.V.E.: 「……航路を外れています。」",
+          "PILOT: 「分かってる。もう少しだけ。」"
+        ]
+      },
+      {
+        "code": "04",
+        "lines": [
+          "UNKNOWN SIGNAL",
+          "SOURCE: NOT FOUND",
+          "DISTANCE: ---",
+          "E.V.E.: 「この信号……どこから？」"
+        ]
+      },
+      {
+        "code": "07",
+        "lines": [
+          "CORE LINK: UNSTABLE",
+          "RETURN WINDOW: 00:02:41",
+          "E.V.E.: 「戻りましょう。」",
+          "PILOT: 「……うん。帰ろう。」"
+        ]
+      },
+      {
+        "code": "09",
+        "lines": [
+          "MEMORY BACKUP REQUEST",
+          "TARGET: PILOT",
+          "ECHO OF VITAL EMOTION",
+          "PRIORITY: CRITICAL",
+          "PILOT: 「これだけは、なくしたくないんだ。」",
+          "E.V.E.: 「……了解。預かります。」"
+        ]
+      },
+      {
+        "code": "11",
+        "lines": [
+          "CORE LINK LOST",
+          "NAVIGATION LOST",
+          "DISTRIBUTED BACKUP: EXECUTING",
+          "NODE 01 ... SENT",
+          "NODE 02 ... SENT",
+          "NODE 03 ...",
+          "---",
+          "HOME SIGNAL: ACQUIRED",
+          "E.V.E.: 「……帰ります。」"
+        ]
+      }
+    ],
+    "trueEnding": {
+      "line1": "……あの日も、帰ろうとしていたんですね。",
+      "line2": "私も、あなたを帰そうとしていました。",
+      "line3": "……今度は、帰ってこられました。",
+      "line4": "……お帰りなさい、パイロット。"
+    }
   }
 }
