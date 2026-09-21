@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "en",
-    "version": 35,
-    "note": "ORBIT Web English runtime text. v2.9.15 prepares all Phase A sound cues for drop-in OGG replacement through a single audio mode switch; placeholder Web Audio tones remain active for testing."
+    "version": 36,
+    "note": "ORBIT Web English runtime text. v2.9.16 quiets the title sky while keeping English title controls unchanged."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.15"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.16"
   },
   "title": {
     "title": "O R B I T",
