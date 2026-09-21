@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 25,
-    "note": "ORBIT Web Japanese runtime text. v2.9.5 improves hidden INCIDENT navigation with closer signal cadence, an E.V.E. proximity cue, and subtle MiniMap reactions that narrow direction into the correct ASTRA."
+    "version": 26,
+    "note": "ORBIT Web Japanese runtime text. v2.9.6 unifies cinematic typography: PILOT, E.V.E. ONLINE, finale identity text, and INCIDENT dialogue now keep the same monospace family and use size/brightness/spacing for emphasis."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.5"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.6"
   },
   "title": {
     "title": "O R B I T",
