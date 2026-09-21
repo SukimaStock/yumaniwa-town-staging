@@ -816,6 +816,8 @@
         speechStage: 0,
         farewellPending: false,
         farewellInFlight: false,
+        homeTerminalDelay: 0,
+        homeTerminalDelayDuration: 0.75,
       };
       this.credits = {
         active: false,
@@ -1254,7 +1256,10 @@
     touch(touch) {
       // The final memory return is the only deliberately non-interactive beat.
       // It lasts only a few seconds, then hands control straight back to ORBIT.
-      if (this.finale && this.finale.active) return true;
+      if (
+        this.finale &&
+        (this.finale.active || this.finale.homeTerminalDelay > 0)
+      ) return true;
       if (this.restoreReveal && this.restoreReveal.timer > 0) {
         this.pressing = false;
         this.departHold = 0;
@@ -1325,8 +1330,9 @@
     scheduleCredits() {
       if (!this.credits || this.credits.seen || this.credits.active || this.credits.pending) return false;
       this.credits.pending = true;
-      // E.V.E.'s farewell lasts 3.4s. Leave a small silent beat after it fades.
-      this.credits.pendingTimer = 4.15;
+      // E.V.E.'s farewell lasts 3.4s. Let open space breathe for another
+      // 1.5 seconds before the first credit enters.
+      this.credits.pendingTimer = 4.90;
       return true;
     }
 
@@ -2084,8 +2090,10 @@
       this.finale.timer = -Math.max(0, delay);
       this.finale.pulseFired = false;
       this.finale.speechStage = 0;
+      this.finale.homeTerminalDelay = 0;
       this.pressing = false;
       this.departHold = 0;
+      this.closeHomeTerminal();
       return true;
     }
 
@@ -2115,7 +2123,7 @@
         this.finale.stage = "outro";
         this.finale.timer = 0;
         this.finale.speechStage = 7;
-        this.sayEve(tx("finale.outro"), 3.05);
+        this.eve.timer = 0;
         this.base.repairPulse = Math.max(this.base.repairPulse || 0, 2.2);
         if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
       });
@@ -2181,6 +2189,20 @@
         }
       }
 
+      if (
+        this.finale &&
+        !this.finale.active &&
+        this.finale.homeTerminalDelay > 0
+      ) {
+        this.finale.homeTerminalDelay = Math.max(
+          0,
+          this.finale.homeTerminalDelay - dt
+        );
+        if (this.finale.homeTerminalDelay <= 0) {
+          this.openHomeTerminal();
+        }
+      }
+
       if (!this.finale || !this.finale.active) return;
       if (this.finale.stage === "ritual") return;
 
@@ -2200,69 +2222,83 @@
           this.echoStory.pendingIndex = 0;
           this.echoStory.pendingTimer = 0;
           this.echoStory.pendingPlanet = null;
+        }
 
-          // Finale dialogue follows the same UI grammar as every other E.V.E.
-          // line. Only the meaning of her name remains a central reveal.
-          this.sayEve(tx("finale.connected"), 2.7);
+        // Act I — recognition. HOME gets one full second before E.V.E. speaks.
+        if (this.finale.speechStage < 1 && this.finale.timer >= 1.0) {
+          this.sayEve(tx("finale.connected"), 3.0);
           this.finale.speechStage = 1;
         }
 
-        if (this.finale.speechStage < 2 && this.finale.timer >= 3.0) {
-          this.eve.timer = 0;
-          this.finale.speechStage = 2;
-        }
-
-        if (this.finale.speechStage < 3 && this.finale.timer >= 6.2) {
-          this.sayEve(tx("finale.accident1"), 3.2);
+        // Act II — what was entrusted. Each line gets silence after it instead
+        // of handing meaning directly to the next line.
+        if (this.finale.speechStage < 3 && this.finale.timer >= 10.2) {
+          this.sayEve(tx("finale.accident1"), 3.6);
           this.finale.speechStage = 3;
         }
 
-        if (this.finale.speechStage < 4 && this.finale.timer >= 9.7) {
-          this.sayEve(tx("finale.accident2"), 4.0);
+        if (this.finale.speechStage < 4 && this.finale.timer >= 14.8) {
+          this.sayEve(tx("finale.accident2"), 4.2);
           this.finale.speechStage = 4;
         }
 
-        if (this.finale.speechStage < 5 && this.finale.timer >= 14.0) {
-          this.sayEve(tx("finale.accident3"), 3.3);
+        if (this.finale.speechStage < 5 && this.finale.timer >= 20.0) {
+          this.sayEve(tx("finale.accident3"), 3.7);
           this.finale.speechStage = 5;
         }
 
-        if (!this.finale.pulseFired && this.finale.timer >= 17.6) {
-          this.finale.pulseFired = true;
-          this.base.repairPulse = Math.max(this.base.repairPulse || 0, 2.2);
-          if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
-        }
-
-        if (this.finale.speechStage < 6 && this.finale.timer >= 17.6) {
-          this.sayEve(tx("finale.returnMemory"), 3.4);
+        // Act III — return. First promise the return, then reveal what is being
+        // returned. The BASE pulse belongs to the second line, not the setup.
+        if (this.finale.speechStage < 6 && this.finale.timer >= 25.0) {
+          this.sayEve(tx("finale.returnLead"), 1.6);
           this.finale.speechStage = 6;
         }
 
-        // The final return line completes before REBIRTH begins, leaving one
-        // short silent beat between recognition and the player's hold gesture.
-        if (this.finale.timer >= 21.4) this.startRebirthRitual();
+        if (this.finale.speechStage < 7 && this.finale.timer >= 26.6) {
+          this.sayEve(tx("finale.returnMemory"), 2.6);
+          this.finale.speechStage = 7;
+          if (!this.finale.pulseFired) {
+            this.finale.pulseFired = true;
+            this.base.repairPulse = Math.max(this.base.repairPulse || 0, 2.2);
+            if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
+          }
+        }
+
+        // Nothing speaks for the last 1.5 seconds. The player enters REBIRTH
+        // from HOME itself, not from a sentence that has barely finished.
+        if (this.finale.timer >= 30.7) this.startRebirthRitual();
         return;
       }
 
-      if (this.finale.stage === "outro" && this.finale.timer >= 3.2) {
-        this.finale.active = false;
-        this.finale.completed = true;
-        this.finale.farewellPending = true;
-        this.finale.timer = 3.2;
-
-        // Hand control back explicitly. The player should be able to hold and
-        // leave HOME immediately after "……おかえり。".
-        if (this.landPlanet && this.landPlanet.kind === "base") {
-          this.mode = "landed";
+      if (this.finale.stage === "outro") {
+        // REBIRTH returns to HOME before language returns.
+        if (this.finale.speechStage < 8 && this.finale.timer >= 0.8) {
+          this.sayEve(tx("finale.outro"), 3.2);
+          this.finale.speechStage = 8;
         }
-        this.restoreRitualActive = false;
-        this.pressing = false;
-        this.departHold = 0;
-        this.repairTapArmed = false;
-        this.repairInputLock = 0;
-        this.openHomeTerminal();
 
-        this.saveGame("finale");
+        if (this.finale.timer >= 5.8) {
+          this.finale.active = false;
+          this.finale.completed = true;
+          this.finale.farewellPending = true;
+          this.finale.timer = 5.8;
+
+          if (this.landPlanet && this.landPlanet.kind === "base") {
+            this.mode = "landed";
+          }
+          this.restoreRitualActive = false;
+          this.pressing = false;
+          this.departHold = 0;
+          this.repairTapArmed = false;
+          this.repairInputLock = 0;
+
+          // First let the cockpit instruments quietly return. HOME terminal
+          // reconnects a fraction later; until then input stays locked.
+          this.closeHomeTerminal();
+          this.finale.homeTerminalDelay = this.finale.homeTerminalDelayDuration;
+
+          this.saveGame("finale");
+        }
       }
     }
 
@@ -3621,8 +3657,21 @@
       popMatrix();
 
       if (showInterface) {
-        const uiA = clamp(Number(interfaceAlpha || 0), 0, 1);
-        const mapA = clamp(Number(miniMapAlpha || 0), 0, 1);
+        let uiA = clamp(Number(interfaceAlpha || 0), 0, 1);
+        let mapA = clamp(Number(miniMapAlpha || 0), 0, 1);
+
+        if (
+          this.finale &&
+          !this.finale.active &&
+          this.finale.homeTerminalDelay > 0
+        ) {
+          const total = Math.max(0.001, this.finale.homeTerminalDelayDuration || 0.75);
+          const elapsed = total - this.finale.homeTerminalDelay;
+          const hudQ = clamp(elapsed / 0.55, 0, 1);
+          const mapQ = clamp((elapsed - 0.08) / 0.47, 0, 1);
+          uiA *= hudQ * hudQ * (3 - 2 * hudQ);
+          mapA *= mapQ * mapQ * (3 - 2 * mapQ);
+        }
 
         withCanvasContext((ctx) => {
           ctx.globalAlpha = uiA;
@@ -4025,14 +4074,27 @@
       // left here is the one-time reveal of what E.V.E. stands for.
       if (this.finale.stage === "outro") return;
 
-      const a = segment(3.0, 5.9);
-      if (a > 0) {
-        fill(170, 205, 235, 220 * a);
+      const heldFade = (start, fadeInEnd, fadeOutStart, end) => {
+        if (t < start || t >= end) return 0;
+        if (t < fadeInEnd) return clamp((t - start) / Math.max(0.001, fadeInEnd - start), 0, 1);
+        if (t < fadeOutStart) return 1;
+        return clamp((end - t) / Math.max(0.001, end - fadeOutStart), 0, 1);
+      };
+
+      // Mirror the prologue's PILOT -> ? rhythm: first the name, then its
+      // recovered meaning. Keep both well above the centred landed craft.
+      const nameA = heldFade(5.2, 5.7, 8.9, 10.2);
+      if (nameA > 0) {
+        fill(170, 205, 235, 220 * nameA);
         fontSize(10);
-        text(tx("finale.eveName"), W / 2, H / 2 + 18);
-        fill(232, 238, 245, 240 * a);
+        text(tx("finale.eveName"), W / 2, H / 2 + 104);
+      }
+
+      const expansionA = heldFade(6.1, 6.6, 8.9, 10.2);
+      if (expansionA > 0) {
+        fill(232, 238, 245, 240 * expansionA);
         fontSize(14);
-        text(tx("finale.expansion"), W / 2, H / 2 - 12);
+        text(tx("finale.expansion"), W / 2, H / 2 + 76);
       }
     }
 
