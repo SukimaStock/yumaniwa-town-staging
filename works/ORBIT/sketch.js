@@ -1297,6 +1297,7 @@
       // A snapshot can be taken immediately after the last missing half of the
       // story is restored. CONTINUE should still lead into the finale, not skip it.
       if (this.shouldStartFinale()) this.startFinale(0.7);
+      else if (this.shouldStartTrueEnding()) this.startTrueEnding(INCIDENT_TUNE.trueEndingDelay);
       return true;
     }
 
@@ -1386,6 +1387,14 @@
       if (
         this.finale &&
         (this.finale.active || this.finale.homeTerminalDelay > 0)
+      ) return true;
+      if (
+        this.incident &&
+        (
+          this.incident.trueEndingActive ||
+          this.incident.activeLogTimer > 0 ||
+          this.incident.pendingLogTimer > 0
+        )
       ) return true;
       if (this.restoreReveal && this.restoreReveal.timer > 0) {
         this.pressing = false;
@@ -2801,11 +2810,23 @@
       if (!this.signal) return;
       if (this.signal.pulseTimer > 0) this.signal.pulseTimer = Math.max(0, this.signal.pulseTimer - dt);
 
-      // Do not compete with landing, memories, rescue, or the final return.
+      const incidentMode = !!(
+        this.incident &&
+        this.incident.unlocked &&
+        this.incident.found < this.incident.total &&
+        !this.incident.trueEndingCompleted
+      );
+
+      // Do not compete with landing, memories, rescue, or either ending.
       const quiet = this.mode !== "flight" ||
         (this.echoStory && this.echoStory.active) ||
         (this.finale && this.finale.active) ||
-        this.echoes.found >= this.echoes.total;
+        (this.incident && (
+          this.incident.trueEndingActive ||
+          this.incident.activeLogTimer > 0 ||
+          this.incident.pendingLogTimer > 0
+        )) ||
+        (!incidentMode && this.echoes.found >= this.echoes.total);
       if (quiet) {
         this.signal.timer = Math.max(this.signal.timer, 1.0);
         this.signal.pulseTimer = 0;
@@ -2816,12 +2837,22 @@
       if (this.signal.timer > 0) return;
       this.signal.timer = SIGNAL_TUNE.interval;
 
-      const hit = this.nearestUndiscoveredSera();
-      if (!hit || hit.distance <= SIGNAL_TUNE.quietRadius) {
+      const hit = incidentMode
+        ? this.nearestUndiscoveredIncidentSite()
+        : this.nearestUndiscoveredSera();
+
+      const tooNear = hit && (
+        incidentMode
+          ? hit.distance <= 520
+          : hit.distance <= SIGNAL_TUNE.quietRadius
+      );
+
+      if (!hit || tooNear) {
         this.signal.pulseTimer = 0;
         this.signal.dir = null;
         this.signal.targetId = null;
         this.signal.distance = hit ? hit.distance : Infinity;
+        this.signal.kind = null;
         return;
       }
 
@@ -2830,6 +2861,7 @@
       this.signal.dir = mul(raw, 1 / d);
       this.signal.targetId = hit.id;
       this.signal.distance = hit.distance;
+      this.signal.kind = incidentMode ? "incident" : "echo";
       this.signal.pulseTimer = SIGNAL_TUNE.pulseSec;
     }
 
@@ -2840,8 +2872,11 @@
       const elapsed = SIGNAL_TUNE.pulseSec - this.signal.pulseTimer;
       const q = clamp(elapsed / SIGNAL_TUNE.pulseSec, 0, 1);
       const envelope = Math.sin(Math.PI * q);
-      const flicker = 0.68 + 0.32 * Math.sin(this.simTime * 18.0);
-      const a = 105 * envelope * flicker;
+      const incidentSignal = this.signal.kind === "incident";
+      const flicker = incidentSignal
+        ? 0.48 + 0.52 * Math.abs(Math.sin(this.simTime * 31.0))
+        : 0.68 + 0.32 * Math.sin(this.simTime * 18.0);
+      const a = (incidentSignal ? 118 : 105) * envelope * flicker;
       if (a <= 1) return;
 
       const dir = this.signal.dir;
@@ -2857,15 +2892,29 @@
       const L = SIGNAL_TUNE.edgeLength * (0.82 + 0.18 * envelope);
 
       noFill();
-      stroke(155, 205, 238, a * 0.38);
+      const outerCol = incidentSignal ? [190, 178, 236] : [155, 205, 238];
+      const innerCol = incidentSignal ? [224, 214, 250] : [190, 225, 246];
+      stroke(outerCol[0], outerCol[1], outerCol[2], a * 0.38);
       strokeWidth(4.5);
       if (hitVertical) line(x, y - L * 0.52, x, y + L * 0.52);
       else line(x - L * 0.52, y, x + L * 0.52, y);
 
-      stroke(190, 225, 246, a);
+      stroke(innerCol[0], innerCol[1], innerCol[2], a);
       strokeWidth(1.1);
-      if (hitVertical) line(x, y - L * 0.5, x, y + L * 0.5);
-      else line(x - L * 0.5, y, x + L * 0.5, y);
+      if (incidentSignal) {
+        const gap = L * 0.10;
+        if (hitVertical) {
+          line(x, y - L * 0.50, x, y - gap);
+          line(x, y + gap, x, y + L * 0.50);
+        } else {
+          line(x - L * 0.50, y, x - gap, y);
+          line(x + gap, y, x + L * 0.50, y);
+        }
+      } else if (hitVertical) {
+        line(x, y - L * 0.5, x, y + L * 0.5);
+      } else {
+        line(x - L * 0.5, y, x + L * 0.5, y);
+      }
     }
 
     updateFlightFuel(distanceMoved) {
@@ -2929,8 +2978,17 @@
         if (this.hasDepartedBase) this.pushSystemLog("returnedHome");
         this.hasDepartedBase = false;
         this.baseRefuelTimer = 0;
-        this.openHomeTerminal();
         const away = Math.max(0, this.simTime - this.tripStartTime);
+
+        if (this.shouldStartTrueEnding()) {
+          this.echoes.carriedThisTrip = 0;
+          this.closeHomeTerminal();
+          this.saveGame("incident-return");
+          this.startTrueEnding(INCIDENT_TUNE.trueEndingDelay);
+          return;
+        }
+
+        this.openHomeTerminal();
         if (this.shouldStartFinale()) {
           this.echoes.carriedThisTrip = 0;
           // Touching HOME commits the expedition before the non-interactive
@@ -3281,7 +3339,15 @@
         } else {
           drawStatusRow(3, tx("home.labels.ore"), `${Math.floor(this.resources.ore)}/${this.resources.oreMax}`);
           drawStatusRow(4, tx("home.labels.data"), `${Math.floor(this.resources.data)}/${this.resources.dataMax}`);
-          drawStatusRow(5, tx("home.labels.status"), tx("home.values.restoreComplete"));
+          if (this.incident && this.incident.found > 0) {
+            drawStatusRow(
+              5,
+              tx("home.labels.incidentArchive"),
+              `${this.incident.found}/${this.incident.total}`
+            );
+          } else {
+            drawStatusRow(5, tx("home.labels.status"), tx("home.values.restoreComplete"));
+          }
         }
       }
 
