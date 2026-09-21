@@ -343,6 +343,9 @@
     deepScanDelay: 7.4,
     siteVoiceSec: 2.0,
     siteRevealDelay: 2.25,
+    proximityCueRadius: 1350,
+    nearSignalInterval: 3.2,
+    miniMapEdgeRevealRadius: 4300,
     logBaseSec: 5.6,
     logPerLineSec: 0.55,
     completionLead: 2.0,
@@ -861,6 +864,7 @@
         analysisResultTimer: 0,
         analysisResultIndex: 0,
         replayIndex: 0,
+        proximityNotified: new Set(),
       };
       // DATA and ECHO are related but not identical. This archive remembers
       // every SERA packet already decoded, including post-12 packets with no Echo.
