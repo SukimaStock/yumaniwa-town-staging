@@ -1270,6 +1270,11 @@
       const ee = data.echoes || {};
       this.echoes.discovered = new Set(Array.isArray(ee.discovered) ? ee.discovered : []);
       this.echoes.found = clamp(Math.floor(Number(ee.found ?? this.echoes.discovered.size)), 0, this.echoes.total);
+      this.echoes.read = new Set(
+        Array.isArray(ee.read)
+          ? ee.read.map((n) => Math.floor(Number(n))).filter((n) => n >= 1 && n <= this.echoes.total)
+          : Array.from({ length: this.echoes.found }, (_, i) => i + 1)
+      );
       this.echoes.carriedThisTrip = Math.max(0, Math.floor(Number(ee.carriedThisTrip || 0)));
 
       // v2.7.30 migration: one short-lived build omitted DATA from saves while
@@ -1303,6 +1308,15 @@
       );
       this.incident.unlocked = !!ii.unlocked || this.incident.found > 0;
       this.incident.introSeen = !!ii.introSeen || this.incident.found > 0;
+      this.incident.read = new Set(
+        Array.isArray(ii.read)
+          ? ii.read.filter((id) => INCIDENT_SITE_IDS.includes(id))
+          : Array.from(this.incident.discovered)
+      );
+      this.incident.completionSeen =
+        Object.prototype.hasOwnProperty.call(ii, "completionSeen")
+          ? !!ii.completionSeen
+          : this.incident.found >= this.incident.total;
       this.incident.trueEndingCompleted = !!ii.trueEndingCompleted;
       this.incident.postCreditsTimer = -1;
       this.incident.introStage = this.incident.unlocked
@@ -1321,6 +1335,7 @@
       this.incident.trueEndingTimer = 0;
       this.incident.trueEndingSpeechStage = 0;
       this.incident.returnToTitleTriggered = false;
+      this.incident.replayIndex = 0;
 
       const ff = data.finale || {};
       this.finale.completed = !!ff.completed;
@@ -2631,6 +2646,7 @@
       this.echoStory.analysisResult = null;
       this.echoStory.analysisResultTimer = 0;
       this.echoStory.analysisResultIndex = 0;
+      this.echoStory.replayIndex = 0;
 
       // The Windows-style DATA ANALYSIS window now represents E.V.E.'s actual
       // processing. Clear any landing line so speech and system work stay distinct.
