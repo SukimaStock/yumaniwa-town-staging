@@ -3594,7 +3594,7 @@
       while (this.trail.length > SOURCE_LOCK.trailMax) this.trail.shift();
     }
 
-    draw() {
+    draw(showInterface = true) {
       const bg = SOURCE_LOCK.background;
       background(bg[0], bg[1], bg[2]);
 
@@ -3620,22 +3620,24 @@
       this.drawHarvestSparks();
       popMatrix();
 
-      this.drawPhaseFeedback();
-      this.drawHarvestFeedback();
-      this.drawResourceHUD();
-      this.drawMiniMap();
-      this.drawFaintSignal();
-      this.drawDataAnalysis();
-      this.drawEchoMemory();
-      this.drawSystemConsole();
-      this.drawHomeTerminal();
-      this.drawCredits();
-      this.drawFinaleOverlay();
-      // E.V.E. is a voice, not a cinematic caption. Draw her after the finale
-      // layer so the normal dialogue window remains the source of her words.
-      this.drawEveSpeech();
-      this.drawRescueOverlay();
-      if (DEBUG) this.drawDebug();
+      if (showInterface) {
+        this.drawPhaseFeedback();
+        this.drawHarvestFeedback();
+        this.drawResourceHUD();
+        this.drawMiniMap();
+        this.drawFaintSignal();
+        this.drawDataAnalysis();
+        this.drawEchoMemory();
+        this.drawSystemConsole();
+        this.drawHomeTerminal();
+        this.drawCredits();
+        this.drawFinaleOverlay();
+        // E.V.E. is a voice, not a cinematic caption. Draw her after the finale
+        // layer so the normal dialogue window remains the source of her words.
+        this.drawEveSpeech();
+        this.drawRescueOverlay();
+        if (DEBUG) this.drawDebug();
+      }
     }
 
     drawDashedCircle(cx, cy, radius, phase, alpha, thickness = 1.5) {
@@ -5278,6 +5280,8 @@
     opaque: true,
     prologueActive: false,
     prologueTimer: 0,
+    handoffTimer: 0,
+    handoffDuration: 0.90,
 
     enter() {
       const startMode = pendingStartMode;
@@ -5288,6 +5292,7 @@
       }
       this.prologueActive = startMode === "new";
       this.prologueTimer = 0;
+      this.handoffTimer = 0;
 
       if (this.prologueActive) {
         // Start on a wider, slightly offset composition. The pod is present in
@@ -5333,10 +5338,17 @@
           world.cameraZoom = 1.0;
           world.zoomAnim = null;
           this.prologueActive = false;
+          this.handoffTimer = this.handoffDuration;
         }
         return;
       }
       world.update(dt);
+      if (this.handoffTimer > 0) {
+        this.handoffTimer = Math.max(
+          0,
+          this.handoffTimer - Math.min(Math.max(Number(dt || 0), 0), 0.1)
+        );
+      }
     },
 
     drawPrologue() {
@@ -5459,8 +5471,33 @@
       }
     },
 
+    drawHandoffCue() {
+      if (this.handoffTimer <= 0) return;
+
+      const q = 1 - clamp(this.handoffTimer / this.handoffDuration, 0, 1);
+      const ease = 1 - Math.pow(1 - q, 2);
+      const radius = 17 + 19 * ease;
+      const alpha = 150 * Math.pow(1 - q, 1.55);
+      const cx = W / 2;
+      const cy = H / 2;
+
+      noFill();
+      stroke(145, 210, 242, alpha);
+      strokeWidth(1.2);
+      ellipse(cx, cy, radius * 2, radius * 2);
+
+      // A softer echo makes the cue read as the craft becoming responsive,
+      // not as a tutorial marker or objective ring.
+      stroke(145, 210, 242, alpha * 0.28);
+      strokeWidth(3.2);
+      ellipse(cx, cy, radius * 2.18, radius * 2.18);
+    },
+
     draw() {
-      world.draw();
+      // During the prologue the universe is visible but the cockpit is not yet
+      // responsive. The interface appears only at the exact gameplay handoff.
+      world.draw(!this.prologueActive);
+      this.drawHandoffCue();
       this.drawPrologue();
     },
 
