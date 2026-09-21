@@ -3594,7 +3594,7 @@
       while (this.trail.length > SOURCE_LOCK.trailMax) this.trail.shift();
     }
 
-    draw(showInterface = true) {
+    draw(showInterface = true, interfaceAlpha = 1, miniMapAlpha = interfaceAlpha) {
       const bg = SOURCE_LOCK.background;
       background(bg[0], bg[1], bg[2]);
 
@@ -3621,22 +3621,35 @@
       popMatrix();
 
       if (showInterface) {
-        this.drawPhaseFeedback();
-        this.drawHarvestFeedback();
-        this.drawResourceHUD();
-        this.drawMiniMap();
-        this.drawFaintSignal();
-        this.drawDataAnalysis();
-        this.drawEchoMemory();
-        this.drawSystemConsole();
-        this.drawHomeTerminal();
-        this.drawCredits();
-        this.drawFinaleOverlay();
-        // E.V.E. is a voice, not a cinematic caption. Draw her after the finale
-        // layer so the normal dialogue window remains the source of her words.
-        this.drawEveSpeech();
-        this.drawRescueOverlay();
-        if (DEBUG) this.drawDebug();
+        const uiA = clamp(Number(interfaceAlpha || 0), 0, 1);
+        const mapA = clamp(Number(miniMapAlpha || 0), 0, 1);
+
+        withCanvasContext((ctx) => {
+          ctx.globalAlpha = uiA;
+          this.drawPhaseFeedback();
+          this.drawHarvestFeedback();
+          this.drawResourceHUD();
+
+          // Let the navigation instrument wake a fraction later than the main
+          // cockpit. It feels like hardware acquiring a fix rather than a web UI
+          // block appearing all at once.
+          ctx.globalAlpha = mapA;
+          this.drawMiniMap();
+
+          ctx.globalAlpha = uiA;
+          this.drawFaintSignal();
+          this.drawDataAnalysis();
+          this.drawEchoMemory();
+          this.drawSystemConsole();
+          this.drawHomeTerminal();
+          this.drawCredits();
+          this.drawFinaleOverlay();
+          // E.V.E. is a voice, not a cinematic caption. Draw her after the finale
+          // layer so the normal dialogue window remains the source of her words.
+          this.drawEveSpeech();
+          this.drawRescueOverlay();
+          if (DEBUG) this.drawDebug();
+        });
       }
     }
 
@@ -5282,6 +5295,8 @@
     prologueTimer: 0,
     handoffTimer: 0,
     handoffDuration: 0.90,
+    handoffHudFade: 0.55,
+    handoffMapDelay: 0.08,
 
     enter() {
       const startMode = pendingStartMode;
@@ -5474,7 +5489,8 @@
     drawHandoffCue() {
       if (this.handoffTimer <= 0) return;
 
-      const q = 1 - clamp(this.handoffTimer / this.handoffDuration, 0, 1);
+      const elapsed = this.handoffDuration - this.handoffTimer;
+      const q = clamp(elapsed / this.handoffDuration, 0, 1);
       const ease = 1 - Math.pow(1 - q, 2);
       const radius = 17 + 19 * ease;
       const alpha = 150 * Math.pow(1 - q, 1.55);
@@ -5491,12 +5507,42 @@
       stroke(145, 210, 242, alpha * 0.28);
       strokeWidth(3.2);
       ellipse(cx, cy, radius * 2.18, radius * 2.18);
+
+      // Very brief power-on bloom across the instrument row. This borrows the
+      // feeling of a CRT receiving current without replaying the opening's
+      // full line-to-screen animation.
+      if (elapsed < 0.18) {
+        const pq = clamp(elapsed / 0.18, 0, 1);
+        const pulse = Math.sin(Math.PI * pq);
+        noStroke();
+        fill(205, 232, 246, 13 * pulse);
+        rect(14, 14, W - 28, Math.min(180, Math.max(126, W * 0.40)));
+        stroke(220, 242, 252, 42 * pulse);
+        strokeWidth(0.8);
+        line(14, 14 + Math.min(180, Math.max(126, W * 0.40)) * 0.52, W - 14, 14 + Math.min(180, Math.max(126, W * 0.40)) * 0.52);
+      }
     },
 
     draw() {
       // During the prologue the universe is visible but the cockpit is not yet
-      // responsive. The interface appears only at the exact gameplay handoff.
-      world.draw(!this.prologueActive);
+      // responsive. At handoff it receives power: a short bloom, then a quiet
+      // fade to the normal instrument opacity. MiniMap acquires a beat later.
+      let hudAlpha = 1;
+      let miniMapAlpha = 1;
+      if (this.handoffTimer > 0) {
+        const elapsed = this.handoffDuration - this.handoffTimer;
+        const hudQ = clamp(elapsed / this.handoffHudFade, 0, 1);
+        const mapQ = clamp(
+          (elapsed - this.handoffMapDelay) /
+            Math.max(0.001, this.handoffHudFade - this.handoffMapDelay),
+          0,
+          1
+        );
+        hudAlpha = hudQ * hudQ * (3 - 2 * hudQ);
+        miniMapAlpha = mapQ * mapQ * (3 - 2 * mapQ);
+      }
+
+      world.draw(!this.prologueActive, hudAlpha, miniMapAlpha);
       this.drawHandoffCue();
       this.drawPrologue();
     },
