@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 32,
-    "note": "ORBIT Web Japanese runtime text. v2.9.12 adds a persistent JA / EN title switch and a complete English localization while preserving the Japanese story and E.V.E. recovery curve."
+    "version": 33,
+    "note": "ORBIT Web Japanese runtime text. v2.9.13 adds safe multi-line ECHO rendering for mobile; Japanese copy remains unchanged."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.12"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.13"
   },
   "title": {
     "title": "O R B I T",
