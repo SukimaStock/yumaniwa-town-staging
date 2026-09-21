@@ -488,11 +488,11 @@
   });
 
   const ORBIT_TONE = Object.freeze({
-    takeoff: Object.freeze({ frequency: 145, endFrequency: 235, duration: 0.22, volume: 0.030, type: "triangle" }),
-    landing: Object.freeze({ frequency: 190, endFrequency: 105, duration: 0.16, volume: 0.034, type: "triangle" }),
-    ore: Object.freeze({ frequency: 760, endFrequency: 510, duration: 0.075, volume: 0.022, type: "triangle" }),
-    fuel: Object.freeze({ frequency: 175, endFrequency: 330, duration: 0.16, volume: 0.020, type: "sine" }),
-    impact: Object.freeze({ frequency: 115, endFrequency: 62, duration: 0.13, volume: 0.050, type: "sine" }),
+    takeoff: Object.freeze({ frequency: 145, endFrequency: 235, duration: 0.22, volume: 0.090, type: "triangle" }),
+    landing: Object.freeze({ frequency: 190, endFrequency: 105, duration: 0.16, volume: 0.100, type: "triangle" }),
+    ore: Object.freeze({ frequency: 760, endFrequency: 510, duration: 0.075, volume: 0.070, type: "triangle" }),
+    fuel: Object.freeze({ frequency: 175, endFrequency: 330, duration: 0.16, volume: 0.065, type: "sine" }),
+    impact: Object.freeze({ frequency: 115, endFrequency: 62, duration: 0.13, volume: 0.120, type: "sine" }),
   });
 
   function orbitTone(options) {
@@ -502,19 +502,19 @@
 
   function playOrbitToneCue(name) {
     if (name === "data") {
-      orbitTone({ frequency: 470, endFrequency: 530, duration: 0.075, volume: 0.020, type: "triangle" });
-      setTimeout(() => orbitTone({ frequency: 690, endFrequency: 760, duration: 0.085, volume: 0.018, type: "triangle" }), 85);
+      orbitTone({ frequency: 470, endFrequency: 530, duration: 0.075, volume: 0.065, type: "triangle" });
+      setTimeout(() => orbitTone({ frequency: 690, endFrequency: 760, duration: 0.085, volume: 0.055, type: "triangle" }), 85);
       return true;
     }
     if (name === "echo") {
-      orbitTone({ frequency: 410, endFrequency: 520, duration: 0.20, volume: 0.022, type: "sine" });
-      setTimeout(() => orbitTone({ frequency: 620, endFrequency: 780, duration: 0.28, volume: 0.020, type: "sine" }), 105);
+      orbitTone({ frequency: 410, endFrequency: 520, duration: 0.20, volume: 0.070, type: "sine" });
+      setTimeout(() => orbitTone({ frequency: 620, endFrequency: 780, duration: 0.28, volume: 0.060, type: "sine" }), 105);
       return true;
     }
     if (name === "restore") {
-      orbitTone({ frequency: 185, endFrequency: 245, duration: 0.24, volume: 0.024, type: "sine" });
-      setTimeout(() => orbitTone({ frequency: 310, endFrequency: 410, duration: 0.30, volume: 0.022, type: "sine" }), 120);
-      setTimeout(() => orbitTone({ frequency: 505, endFrequency: 650, duration: 0.38, volume: 0.018, type: "sine" }), 250);
+      orbitTone({ frequency: 185, endFrequency: 245, duration: 0.24, volume: 0.075, type: "sine" });
+      setTimeout(() => orbitTone({ frequency: 310, endFrequency: 410, duration: 0.30, volume: 0.070, type: "sine" }), 120);
+      setTimeout(() => orbitTone({ frequency: 505, endFrequency: 650, duration: 0.38, volume: 0.055, type: "sine" }), 250);
       return true;
     }
     return orbitTone(ORBIT_TONE[name]);
@@ -6938,13 +6938,12 @@
     debug: true,
     pointerMode: "primary",
     analytics: { enabled: false },
-    audio: ORBIT_AUDIO_MODE === "ogg"
-      ? {
-          storageKey: "sukimastock.orbit.sound",
-          poolSize: 3,
-          sounds: ORBIT_OGG_SOUNDS,
-        }
-      : null,
+    audio: {
+      storageKey: "sukimastock.orbit.sound",
+      masterVolume: 0.9,
+      poolSize: 3,
+      sounds: ORBIT_AUDIO_MODE === "ogg" ? ORBIT_OGG_SOUNDS : {},
+    },
     scenes: {
       title: titleScene,
       drift: driftScene,
