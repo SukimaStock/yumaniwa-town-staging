@@ -543,6 +543,48 @@
   }
 
   function playOrbitToneCue(name) {
+    if (name === "boot") {
+      scheduleOrbitTone({ frequency: 62, endFrequency: 108, duration: 0.92, volume: 0.070, type: "sine" }, 0);
+      scheduleOrbitTone({ frequency: 124, endFrequency: 168, duration: 0.72, volume: 0.026, type: "triangle" }, 0.08);
+      return true;
+    }
+    if (name === "eve_online") {
+      scheduleOrbitTone({ frequency: 390, endFrequency: 470, duration: 0.13, volume: 0.034, type: "sine" }, 0);
+      scheduleOrbitTone({ frequency: 620, endFrequency: 760, duration: 0.20, volume: 0.030, type: "sine" }, 0.11);
+      return true;
+    }
+    if (name === "terminal") {
+      scheduleOrbitTone({ frequency: 285, endFrequency: 235, duration: 0.075, volume: 0.028, type: "triangle" }, 0);
+      scheduleOrbitTone({ frequency: 520, endFrequency: 465, duration: 0.055, volume: 0.018, type: "triangle" }, 0.045);
+      return true;
+    }
+    if (name === "scan") {
+      scheduleOrbitTone({ frequency: 330, endFrequency: 410, duration: 0.10, volume: 0.022, type: "sine" }, 0);
+      scheduleOrbitTone({ frequency: 455, endFrequency: 570, duration: 0.10, volume: 0.020, type: "sine" }, 0.13);
+      return true;
+    }
+    if (name === "rescue") {
+      scheduleOrbitTone({ frequency: 150, endFrequency: 58, duration: 0.68, volume: 0.068, type: "sine" }, 0);
+      scheduleOrbitTone({ frequency: 82, endFrequency: 48, duration: 0.52, volume: 0.028, type: "triangle" }, 0.12);
+      return true;
+    }
+    if (name === "weak_signal") {
+      scheduleOrbitTone({ frequency: 245, endFrequency: 232, duration: 0.075, volume: 0.024, type: "sine" }, 0);
+      scheduleOrbitTone({ frequency: 338, endFrequency: 322, duration: 0.060, volume: 0.018, type: "sine" }, 0.18);
+      scheduleOrbitTone({ frequency: 265, endFrequency: 252, duration: 0.050, volume: 0.014, type: "sine" }, 0.34);
+      return true;
+    }
+    if (name === "archive") {
+      scheduleOrbitTone({ frequency: 178, endFrequency: 225, duration: 0.16, volume: 0.028, type: "triangle" }, 0);
+      scheduleOrbitTone({ frequency: 610, endFrequency: 520, duration: 0.10, volume: 0.016, type: "sine" }, 0.11);
+      return true;
+    }
+    if (name === "rebirth") {
+      scheduleOrbitTone({ frequency: 92, endFrequency: 146, duration: 0.72, volume: 0.058, type: "sine" }, 0);
+      scheduleOrbitTone({ frequency: 330, endFrequency: 520, duration: 0.82, volume: 0.030, type: "sine" }, 0.10);
+      scheduleOrbitTone({ frequency: 610, endFrequency: 820, duration: 0.64, volume: 0.020, type: "sine" }, 0.24);
+      return true;
+    }
     if (name === "data") {
       // Schedule on the AudioContext clock and overlap slightly. setTimeout()
       // produced a small gap/jitter on mobile that could feel like a snag.
@@ -663,7 +705,7 @@
   }
 
   function playOrbitCue(name) {
-    if (ORBIT_AUDIO_MODE === "ogg") return playOrbitOggCue(name);
+    if (ORBIT_AUDIO_MODE === "ogg" && ORBIT_OGG_SOUNDS[name]) return playOrbitOggCue(name);
     return playOrbitToneCue(name);
   }
 
@@ -1980,6 +2022,7 @@
       this.incident.activeLogTimer =
         INCIDENT_TUNE.logBaseSec + lineCount * INCIDENT_TUNE.logPerLineSec;
 
+      playOrbitCue("archive");
       this.eve.timer = 0;
       this.signal.pulseTimer = 0;
       this.signal.dir = null;
@@ -2122,6 +2165,7 @@
           this.incident.introTimer <= 0 &&
           this.eve.timer <= 0
         ) {
+          playOrbitCue("weak_signal");
           this.sayEve(tx("incident.introSignal"), 4.2);
           this.incident.introStage = 3;
           this.incident.introSeen = true;
@@ -2912,6 +2956,7 @@
       this.echoStory.analysisResultTimer = 0;
       this.echoStory.analysisResultIndex = 0;
       this.echoStory.replayIndex = 0;
+      playOrbitCue("scan");
 
       // The Windows-style DATA ANALYSIS window now represents E.V.E.'s actual
       // processing. Clear any landing line so speech and system work stay distinct.
@@ -3084,6 +3129,7 @@
       const started = window.OrbitRitual.start("rebirth", () => {
         this.restoreRitualActive = false;
         if (!this.finale || !this.finale.active) return;
+        playOrbitCue("rebirth");
         this.finale.stage = "outro";
         this.finale.timer = 0;
         this.finale.speechStage = 7;
@@ -3587,6 +3633,7 @@
 
     openHomeTerminal() {
       if (!this.landPlanet || this.landPlanet.kind !== "base") return false;
+      const wasVisible = !!(this.homeTerminal && this.homeTerminal.visible);
       if (!this.homeTerminal) {
         this.homeTerminal = {
           visible: false,
@@ -3604,6 +3651,7 @@
       this.pressing = false;
       this.departHold = 0;
       this.repairTapArmed = false;
+      if (!wasVisible) playOrbitCue("terminal");
       return true;
     }
 
@@ -4075,6 +4123,7 @@
     startRescue() {
       if (this.mode === "rescue") return;
       this.mode = "rescue";
+      playOrbitCue("rescue");
       this.pressing = false;
       this.ship.vel = v(0, 0);
       this.rescue.timer = 0;
@@ -6800,6 +6849,7 @@
     opaque: true,
     prologueActive: false,
     prologueTimer: 0,
+    prologueEveOnlineSoundPlayed: false,
     handoffTimer: 0,
     handoffDuration: 0.90,
     handoffHudFade: 0.55,
@@ -6814,9 +6864,11 @@
       }
       this.prologueActive = startMode === "new";
       this.prologueTimer = 0;
+      this.prologueEveOnlineSoundPlayed = false;
       this.handoffTimer = 0;
 
       if (this.prologueActive) {
+        playOrbitCue("boot");
         // Start on a wider, slightly offset composition. The pod is present in
         // the universe but is not yet the camera's subject.
         world.camera.x = world.ship.pos.x + PROLOGUE_TUNE.cameraOffsetX;
@@ -6850,6 +6902,14 @@
       if (this.prologueActive) {
         this.prologueTimer += Math.min(Math.max(Number(dt || 0), 0), 0.1);
         this.updatePrologueCamera();
+
+        if (
+          !this.prologueEveOnlineSoundPlayed &&
+          this.prologueTimer >= PROLOGUE_TUNE.bootStart
+        ) {
+          this.prologueEveOnlineSoundPlayed = true;
+          playOrbitCue("eve_online");
+        }
 
         if (this.prologueTimer >= PROLOGUE_TUNE.duration) {
           this.prologueTimer = PROLOGUE_TUNE.duration;
