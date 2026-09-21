@@ -26,7 +26,13 @@
     tapMovePx: 10,
     monthFadeSeconds: 0.50,
     monthLayerStaggerSeconds: 0.060,
-    showcaseMonthSeconds: 4.2,
+    // Showcase: center -> left -> right -> center, then change month.
+    showcaseToLeftSeconds: 0.70,
+    showcaseAcrossSeconds: 1.20,
+    showcaseToCenterSeconds: 0.65,
+    showcaseCenterHoldSeconds: 0.55,
+    showcaseTiltX: 0.90,
+    showcaseTiltY: 0.035,
   };
 
   const SHOWCASE_MODE = new URLSearchParams(window.location.search).get("showcase") === "1";
@@ -94,7 +100,9 @@
     },
     pendingMonth: null,
     reducedMotion: false,
-    showcaseMonthElapsed: 0,
+    showcaseStartMs: 0,
+    showcaseLastMonthCycle: 0,
+    showcaseRequestedMonthCycle: 0,
     analyticsParallax: { sensor: false, drag: false },
   };
 
@@ -758,16 +766,47 @@
     popStyle();
   }
 
+  function showcaseSequenceAt(seconds) {
+    const toLeft = CONFIG.showcaseToLeftSeconds;
+    const across = CONFIG.showcaseAcrossSeconds;
+    const toCenter = CONFIG.showcaseToCenterSeconds;
+    const hold = CONFIG.showcaseCenterHoldSeconds;
+    const motionEnd = toLeft + across + toCenter;
+    const duration = motionEnd + hold;
+    const local = ((seconds % duration) + duration) % duration;
+    const amplitude = CONFIG.showcaseTiltX;
+
+    let x = 0;
+    if (local < toLeft) {
+      const p = smoothstep01(local / toLeft);
+      x = -amplitude * p;
+    } else if (local < toLeft + across) {
+      const p = smoothstep01((local - toLeft) / across);
+      x = -amplitude + amplitude * 2 * p;
+    } else if (local < motionEnd) {
+      const p = smoothstep01((local - toLeft - across) / toCenter);
+      x = amplitude * (1 - p);
+    }
+
+    // Vertical motion is intentionally tiny: left/right parallax should read first.
+    const y = local < motionEnd
+      ? Math.sin((local / motionEnd) * Math.PI) * CONFIG.showcaseTiltY
+      : 0;
+
+    const monthCycle = seconds < motionEnd
+      ? 0
+      : Math.floor((seconds - motionEnd) / duration) + 1;
+
+    return { x, y, monthCycle };
+  }
+
   function updateTilt(dt) {
     if (SHOWCASE_MODE) {
       const external = window.DIORAMA_SHOWCASE_INPUT;
-      const t = performance.now() / 1000;
-      const goalX = external && Number.isFinite(external.x)
-        ? external.x
-        : Math.sin(t * Math.PI * 2 / 8.0) * 0.62;
-      const goalY = external && Number.isFinite(external.y)
-        ? external.y
-        : Math.sin(t * Math.PI * 2 / 10.6 + 0.65) * 0.18;
+      const fallbackSeconds = Math.max(0, (performance.now() - state.showcaseStartMs) / 1000);
+      const fallback = showcaseSequenceAt(fallbackSeconds);
+      const goalX = external && Number.isFinite(external.x) ? external.x : fallback.x;
+      const goalY = external && Number.isFinite(external.y) ? external.y : fallback.y;
 
       state.tilt.x = lerpExp(
         state.tilt.x,
@@ -829,16 +868,27 @@
     }
   }
 
-  function updateShowcaseMonth(dt) {
+  function updateShowcaseMonth() {
     if (!SHOWCASE_MODE) return;
-    state.showcaseMonthElapsed += Math.max(0, Number(dt) || 0);
+
+    const external = window.DIORAMA_SHOWCASE_INPUT;
+    const fallbackSeconds = Math.max(0, (performance.now() - state.showcaseStartMs) / 1000);
+    const fallback = showcaseSequenceAt(fallbackSeconds);
+    const requested = external && Number.isFinite(external.monthCycle)
+      ? Math.max(0, Math.floor(external.monthCycle))
+      : fallback.monthCycle;
+
+    state.showcaseRequestedMonthCycle = Math.max(
+      state.showcaseRequestedMonthCycle,
+      requested
+    );
 
     if (
-      state.showcaseMonthElapsed >= CONFIG.showcaseMonthSeconds &&
+      state.showcaseRequestedMonthCycle > state.showcaseLastMonthCycle &&
       !state.transition.active &&
       !state.pendingMonth
     ) {
-      state.showcaseMonthElapsed = 0;
+      state.showcaseLastMonthCycle += 1;
       cycleMonth(1);
     }
   }
@@ -855,7 +905,9 @@
         : Boolean(
             window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
           );
-      state.showcaseMonthElapsed = 0;
+      state.showcaseStartMs = performance.now();
+      state.showcaseLastMonthCycle = 0;
+      state.showcaseRequestedMonthCycle = 0;
       if (!SHOWCASE_MODE) installSensor();
     },
 
@@ -863,7 +915,7 @@
       updateTilt(dt);
       updatePendingMonth();
       updateTransition(dt);
-      updateShowcaseMonth(dt);
+      updateShowcaseMonth();
     },
 
     draw() {
