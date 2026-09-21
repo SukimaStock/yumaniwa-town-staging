@@ -1013,6 +1013,7 @@
         echoes: {
           found: Math.max(0, Math.floor(Number(this.echoes && this.echoes.found || 0))),
           discovered: this.echoes ? Array.from(this.echoes.discovered || []) : [],
+          read: this.echoes ? Array.from(this.echoes.read || []) : [],
         },
         dataSignals: {
           decoded: this.dataSignals ? Array.from(this.dataSignals.decoded || []) : [],
@@ -1023,6 +1024,8 @@
           found: this.incident ? this.incident.found : 0,
           unlocked: !!(this.incident && this.incident.unlocked),
           introSeen: !!(this.incident && this.incident.introSeen),
+          read: this.incident ? Array.from(this.incident.read || []) : [],
+          completionSeen: !!(this.incident && this.incident.completionSeen),
           trueEndingCompleted: !!(this.incident && this.incident.trueEndingCompleted),
         },
       };
@@ -1053,17 +1056,34 @@
       }
       if (!data || data.schema !== SAVE_TUNE.knowledgeSchema) return false;
 
+      const ee = data.echoes || {};
       const ii = data.incident || {};
+      const echoRead = Array.isArray(ee.read)
+        ? ee.read
+        : Array.from(
+            { length: Math.max(0, Math.floor(Number(ee.found || 0))) },
+            (_, i) => i + 1
+          );
+      const incidentRead = Array.isArray(ii.read)
+        ? ii.read
+        : (Array.isArray(ii.discovered) ? ii.discovered : []);
+
       this.mergeDiscoveryProgress({
         data: data.data,
-        found: data.echoes && data.echoes.found,
-        discovered: data.echoes && data.echoes.discovered,
+        found: ee.found,
+        discovered: ee.discovered,
+        echoRead,
         decoded: data.dataSignals && data.dataSignals.decoded,
         creditsSeen: !!data.creditsSeen,
         incidentDiscovered: ii.discovered,
         incidentFound: ii.found,
         incidentUnlocked: !!ii.unlocked,
         incidentIntroSeen: !!ii.introSeen,
+        incidentRead,
+        incidentCompletionSeen:
+          Object.prototype.hasOwnProperty.call(ii, "completionSeen")
+            ? !!ii.completionSeen
+            : Math.floor(Number(ii.found || 0)) >= INCIDENT_SITE_IDS.length,
         trueEndingCompleted: !!ii.trueEndingCompleted,
       });
       return true;
