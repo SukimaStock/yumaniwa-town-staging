@@ -466,6 +466,44 @@
   const RESTORE_DEPARTURE_LINES = txValue("eve.restoreDeparture");
   const CREDITS_LINES = txValue("credits.lines");
 
+  // ------------------------------------------------------------
+  // Phase A audio: deliberately tiny procedural cues only.
+  // No BGM yet. These tones are placeholders for deciding which moments
+  // deserve sound before committing to final assets.
+  // ------------------------------------------------------------
+  const ORBIT_TONE = Object.freeze({
+    takeoff: Object.freeze({ frequency: 145, endFrequency: 235, duration: 0.22, volume: 0.030, type: "triangle" }),
+    landing: Object.freeze({ frequency: 190, endFrequency: 105, duration: 0.16, volume: 0.034, type: "triangle" }),
+    ore: Object.freeze({ frequency: 760, endFrequency: 510, duration: 0.075, volume: 0.022, type: "triangle" }),
+    fuel: Object.freeze({ frequency: 175, endFrequency: 330, duration: 0.16, volume: 0.020, type: "sine" }),
+    impact: Object.freeze({ frequency: 115, endFrequency: 62, duration: 0.13, volume: 0.050, type: "sine" }),
+  });
+
+  function orbitTone(options) {
+    if (!options || typeof SSE === "undefined" || !SSE.audio || typeof SSE.audio.tone !== "function") return false;
+    return SSE.audio.tone(options);
+  }
+
+  function playOrbitCue(name) {
+    if (name === "data") {
+      orbitTone({ frequency: 470, endFrequency: 530, duration: 0.075, volume: 0.020, type: "triangle" });
+      setTimeout(() => orbitTone({ frequency: 690, endFrequency: 760, duration: 0.085, volume: 0.018, type: "triangle" }), 85);
+      return;
+    }
+    if (name === "echo") {
+      orbitTone({ frequency: 410, endFrequency: 520, duration: 0.20, volume: 0.022, type: "sine" });
+      setTimeout(() => orbitTone({ frequency: 620, endFrequency: 780, duration: 0.28, volume: 0.020, type: "sine" }), 105);
+      return;
+    }
+    if (name === "restore") {
+      orbitTone({ frequency: 185, endFrequency: 245, duration: 0.24, volume: 0.024, type: "sine" });
+      setTimeout(() => orbitTone({ frequency: 310, endFrequency: 410, duration: 0.30, volume: 0.022, type: "sine" }), 120);
+      setTimeout(() => orbitTone({ frequency: 505, endFrequency: 650, duration: 0.38, volume: 0.018, type: "sine" }), 250);
+      return;
+    }
+    orbitTone(ORBIT_TONE[name]);
+  }
+
   const TUNE = {
     fixedHz: SOURCE_LOCK.fixedHz,
     maxSpeed: PHYSICS_PROFILE === "source" ? SOURCE_LOCK.maxSpeed : WEB_FEEL.maxSpeed,
@@ -2661,7 +2699,10 @@
     sayEveCollision() {
       if (this.credits && (this.credits.pending || this.credits.active)) return;
       const line = this.pickEveCollisionLine();
-      if (line) this.sayEve(line, 2.0);
+      if (line) {
+        playOrbitCue("impact");
+        this.sayEve(line, 2.0);
+      }
     }
 
     echoBand(index) {
@@ -2822,6 +2863,7 @@
       this.echoes.found = Math.min(this.echoes.total, this.echoes.found + 1);
       this.echoes.carriedThisTrip += 1;
       this.echoes.pulseTimer = ECHO_TUNE.pulseSec;
+      playOrbitCue("echo");
       this.pushSystemLog("echoRecovered", { index: String(this.echoes.found).padStart(2, "0") });
       if (this.harvest) this.harvest.loggedThisLanding = true;
       this.saveKnowledge("echo-recovered");
@@ -3330,6 +3372,7 @@
     onLanded() {
       const p = this.landPlanet;
       if (!p) return;
+      playOrbitCue("landing");
       if (p.kind === "neutral") {
         this.resetAstraQuiet(false);
         return;
@@ -3846,6 +3889,7 @@
       this.restoreReveal.reportLevel = this.base.level;
 
       this.base.repairPulse = REPAIR_TUNE.pulseSec;
+      playOrbitCue("restore");
       if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
       if (this.minimap) this.minimap.pulseTimer = 1.2;
       this.feedback = { kind: "repair", timer: 1.1 };
@@ -4079,6 +4123,10 @@
       this.harvest.lastKind = kind;
       this.harvest.lastAmount = Math.max(1, Math.round(amount));
       this.harvest.pulseTimer = 0.72;
+
+      if (kind === "mine") playOrbitCue("ore");
+      else if (kind === "data") playOrbitCue("data");
+      else if (kind === "refuel" && this.landPlanet && this.landPlanet.kind === "refuel") playOrbitCue("fuel");
 
       // SYSTEM records one quiet fact per resource stop, never every harvest tick.
       if (
@@ -4435,6 +4483,7 @@
         }
       }
       this.mode = "takeoff";
+      playOrbitCue("takeoff");
       // Keep the launch-hold pointer alive. fixedTakeoff ignores steering for
       // the brief launch impulse, then fixedFlight inherits the same held touch.
       this.departHold = 0;
