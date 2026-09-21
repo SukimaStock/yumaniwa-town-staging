@@ -2677,6 +2677,60 @@
       this.eve.timer = 0;
     }
 
+    firstUnreadEchoIndex() {
+      if (!this.echoes || !this.echoes.read) return 0;
+      for (let i = 1; i <= this.echoes.found; i += 1) {
+        if (!this.echoes.read.has(i)) return i;
+      }
+      return 0;
+    }
+
+    firstUnreadIncidentIndex() {
+      if (!this.incident || !this.incident.read) return 0;
+      for (let i = 0; i < INCIDENT_SITE_IDS.length; i += 1) {
+        const id = INCIDENT_SITE_IDS[i];
+        if (this.incident.discovered.has(id) && !this.incident.read.has(id)) return i + 1;
+      }
+      return 0;
+    }
+
+    resumeUnreadKnowledge() {
+      const echoIndex = this.firstUnreadEchoIndex();
+      if (echoIndex > 0) {
+        this.closeHomeTerminal();
+        this.echoStory.replayIndex = echoIndex;
+        this.startEchoMemory(echoIndex);
+        return true;
+      }
+
+      const incidentIndex = this.firstUnreadIncidentIndex();
+      if (incidentIndex > 0) {
+        this.closeHomeTerminal();
+        return this.startIncidentLog(incidentIndex, true);
+      }
+
+      if (
+        this.incident &&
+        this.incident.found >= this.incident.total &&
+        !this.incident.completionSeen
+      ) {
+        this.closeHomeTerminal();
+        this.incident.completionStage = 1;
+        this.incident.completionTimer = 0.8;
+        return true;
+      }
+      return false;
+    }
+
+    reconcileRestoredKnowledge() {
+      const replaying = this.resumeUnreadKnowledge();
+      if (this.shouldStartFinale()) {
+        this.finale.resumePending = true;
+        this.closeHomeTerminal();
+      }
+      return replaying;
+    }
+
     queueDataAnalysis(planet) {
       if (!planet || planet.kind !== "data") return false;
       if (
@@ -2843,8 +2897,31 @@
         if (this.echoStory.timer <= 0) {
           const index = this.echoStory.index;
           this.echoStory.active = false;
+          this.echoes.read.add(index);
+          this.echoStory.replayIndex = 0;
+          this.saveKnowledge("echo-read", false);
           this.sayEve(this.echoReaction(index), index === 12 ? 3.8 : 3.2);
+          if (this.shouldStartFinale()) this.finale.resumePending = true;
         }
+      }
+
+      if (
+        this.finale &&
+        this.finale.resumePending &&
+        !this.finale.active &&
+        this.shouldStartFinale() &&
+        (!this.rescue || this.rescue.postFadeTimer <= 0) &&
+        !(this.echoStory && (
+          this.echoStory.active ||
+          this.echoStory.analyzing ||
+          this.echoStory.pendingTimer > 0 ||
+          this.echoStory.analysisResultTimer > 0
+        )) &&
+        this.eve.timer <= 0
+      ) {
+        this.finale.resumePending = false;
+        this.closeHomeTerminal();
+        this.startFinale(0.7);
       }
 
       if (
