@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 26,
-    "note": "ORBIT Web Japanese runtime text. v2.9.6 unifies cinematic typography: PILOT, E.V.E. ONLINE, finale identity text, and INCIDENT dialogue now keep the same monospace family and use size/brightness/spacing for emphasis."
+    "version": 27,
+    "note": "ORBIT Web Japanese runtime text. v2.9.7 gives UNKNOWN SIGNAL a readable hold and keeps the final black frame intact through the title transition."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.6"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.7"
   },
   "title": {
     "title": "O R B I T",
