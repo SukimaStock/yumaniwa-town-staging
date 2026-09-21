@@ -6241,6 +6241,8 @@
     continueButton: { x: 16, y: 142, w: 328, h: 46 },
     newButton: { x: 16, y: 86, w: 328, h: 46 },
     soloButton: { x: 16, y: 114, w: 328, h: 50 },
+    languageJaButton: { x: 132, y: 34, w: 42, h: 28 },
+    languageEnButton: { x: 186, y: 34, w: 42, h: 28 },
     pressedButton: null,
 
     // Original Codea MenuScene values.
@@ -6460,6 +6462,28 @@
         );
       }
 
+      // Quiet title-only locale switch. Saves are shared between languages;
+      // switching simply reloads the text runtime before the game module boots.
+      const locale = (window.OrbitText && OrbitText.locale) || "ja";
+      const activeJa = locale === "ja";
+      const activeEn = locale === "en";
+      font("monospace");
+      fontSize(9.5);
+      textAlign(CENTER);
+
+      fill(170, 188, 210, 92);
+      text("/", W / 2, 48);
+
+      fill(228, 237, 248, activeJa ? 232 : 108);
+      text("JA", this.languageJaButton.x + this.languageJaButton.w / 2, 48);
+      fill(228, 237, 248, activeEn ? 232 : 108);
+      text("EN", this.languageEnButton.x + this.languageEnButton.w / 2, 48);
+
+      noStroke();
+      fill(190, 215, 244, 120);
+      if (activeJa) rect(this.languageJaButton.x + 10, 38, this.languageJaButton.w - 20, 1);
+      if (activeEn) rect(this.languageEnButton.x + 10, 38, this.languageEnButton.w - 20, 1);
+
     },
 
     touch(touch) {
@@ -6467,13 +6491,17 @@
       const newRect = hasSave ? this.newButton : this.soloButton;
 
       if (touch.state === BEGAN) {
-        if (SSE.ui.hit(touch, newRect)) this.pressedButton = "new";
+        if (SSE.ui.hit(touch, this.languageJaButton)) this.pressedButton = "lang-ja";
+        else if (SSE.ui.hit(touch, this.languageEnButton)) this.pressedButton = "lang-en";
+        else if (SSE.ui.hit(touch, newRect)) this.pressedButton = "new";
         else if (hasSave && SSE.ui.hit(touch, this.continueButton)) this.pressedButton = "continue";
         else this.pressedButton = null;
         return true;
       }
 
       if (touch.state === MOVING) {
+        if (this.pressedButton === "lang-ja" && !SSE.ui.hit(touch, this.languageJaButton)) this.pressedButton = null;
+        if (this.pressedButton === "lang-en" && !SSE.ui.hit(touch, this.languageEnButton)) this.pressedButton = null;
         if (this.pressedButton === "new" && !SSE.ui.hit(touch, newRect)) this.pressedButton = null;
         if (
           this.pressedButton === "continue" &&
@@ -6485,6 +6513,16 @@
       if (touch.state === ENDED) {
         const pressed = this.pressedButton;
         this.pressedButton = null;
+
+        if (pressed === "lang-ja" && SSE.ui.hit(touch, this.languageJaButton)) {
+          if (OrbitText.locale !== "ja") OrbitText.setLocale("ja");
+          return true;
+        }
+
+        if (pressed === "lang-en" && SSE.ui.hit(touch, this.languageEnButton)) {
+          if (OrbitText.locale !== "en") OrbitText.setLocale("en");
+          return true;
+        }
 
         if (pressed === "continue" && hasSave && SSE.ui.hit(touch, this.continueButton)) {
           pendingStartMode = "continue";
