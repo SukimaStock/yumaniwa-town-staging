@@ -474,7 +474,7 @@
   //   const ORBIT_AUDIO_MODE = "ogg";
   // Every gameplay event keeps calling playOrbitCue(name), so no event code
   // needs to change when the placeholders are replaced.
-  const ORBIT_AUDIO_MODE = "tone"; // "tone" | "ogg"
+  const ORBIT_AUDIO_MODE = "ogg"; // "tone" | "ogg"
 
   const ORBIT_OGG_SOUNDS = Object.freeze({
     takeoff: Object.freeze({ file: "sounds/takeoff.ogg", volume: 0.14, cooldown: 120 }),
