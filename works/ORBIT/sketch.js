@@ -4082,18 +4082,31 @@
       };
 
       // Mirror the prologue's PILOT -> ? rhythm: first the name, then its
-      // recovered meaning. Keep both well above the centred landed craft.
+      // recovered meaning. These are story words, not telemetry, so use the
+      // same readable UI family as E.V.E.'s dialogue and keep them clear of
+      // the centred landed craft.
+      const storyFont = (typeof SSE !== "undefined" && SSE.theme)
+        ? SSE.theme.font("ui")
+        : '"Hiragino Sans", "Noto Sans JP", sans-serif';
+      font(storyFont);
+
       const nameA = heldFade(5.2, 5.7, 8.9, 10.2);
       if (nameA > 0) {
-        fill(170, 205, 235, 220 * nameA);
-        fontSize(10);
+        fontSize(14.0);
+        noStroke();
+        fill(0, 0, 0, 118 * nameA);
+        text(tx("finale.eveName"), W / 2 + 0.9, H / 2 + 103.1);
+        fill(220, 235, 246, 242 * nameA);
         text(tx("finale.eveName"), W / 2, H / 2 + 104);
       }
 
       const expansionA = heldFade(6.1, 6.6, 8.9, 10.2);
       if (expansionA > 0) {
-        fill(232, 238, 245, 240 * expansionA);
-        fontSize(14);
+        fontSize(15.5);
+        noStroke();
+        fill(0, 0, 0, 126 * expansionA);
+        text(tx("finale.expansion"), W / 2 + 0.9, H / 2 + 75.1);
+        fill(248, 250, 252, 250 * expansionA);
         text(tx("finale.expansion"), W / 2, H / 2 + 76);
       }
     }
@@ -5509,18 +5522,26 @@
           text(lines[i], x, firstY - i * 27);
         }
 
-        // PILOT is the first story beat, not just another diagnostic. Show the
-        // label, hold it long enough to become a thought, then append the question.
+        // PILOT is the first story beat, not just another diagnostic. Keep the
+        // three machine lines monospace, then quietly change typographic voice
+        // here so the player feels that this line matters.
         const pilotRevealAt = PROLOGUE_TUNE.statusStart + 3 * PROLOGUE_TUNE.statusStep;
         const pilotA = clamp((t - pilotRevealAt) / 0.10, 0, 1) * a;
         if (pilotA > 0) {
           const questionAt = pilotRevealAt + PROLOGUE_TUNE.pilotQuestionDelay;
-          fill(220, 232, 240, 238 * pilotA);
-          text(
-            tx(t >= questionAt ? "prologue.pilotUnknown" : "prologue.pilotBase"),
-            x,
-            firstY - 3 * 27
-          );
+          const storyFont = (typeof SSE !== "undefined" && SSE.theme)
+            ? SSE.theme.font("ui")
+            : '"Hiragino Sans", "Noto Sans JP", sans-serif';
+          const pilotText = tx(t >= questionAt ? "prologue.pilotUnknown" : "prologue.pilotBase");
+          font(storyFont);
+          fontSize(13.2);
+          noStroke();
+          fill(0, 0, 0, 112 * pilotA);
+          text(pilotText, x + 0.8, firstY - 3 * 27 - 0.8);
+          fill(240, 246, 250, 246 * pilotA);
+          text(pilotText, x, firstY - 3 * 27);
+          font("monospace");
+          fontSize(10.2);
         }
 
         const scanY = (Math.floor(t * 37) % 9) * (H / 9);
@@ -5539,11 +5560,18 @@
         rect(0, 0, W, H);
 
         // The system has already rebooted. What matters here is that someone
-        // comes back online after the camera has finally found the pod.
-        font("monospace");
+        // comes back online after the camera has finally found the pod. Treat
+        // this as E.V.E.'s first readable presence, not another diagnostic row.
+        const storyFont = (typeof SSE !== "undefined" && SSE.theme)
+          ? SSE.theme.font("ui")
+          : '"Hiragino Sans", "Noto Sans JP", sans-serif';
+        font(storyFont);
         textAlign(CENTER);
-        fontSize(10.2);
-        fill(180, 214, 234, 222 * a);
+        fontSize(13.2);
+        noStroke();
+        fill(0, 0, 0, 110 * a);
+        text(tx("system.eveOnline"), cx + 0.8, cy + 55.2);
+        fill(232, 242, 248, 244 * a);
         text(tx("system.eveOnline"), cx, cy + 56);
       }
     },
