@@ -239,3 +239,101 @@ This confirms that replacing browser listeners with SSE.lifecycle did not change
 Direct `visibilitychange`, `pagehide`, and `pageshow` listeners are now absent from the work.
 
 The work-local blur and resize gesture-reset listeners remain.
+
+
+## Phase 2 real-device result
+
+Accepted.
+
+After routing CoffeeFactory through `SSE.lifecycle`, a Brew session was backgrounded for 18.1 seconds and resumed normally.
+
+Session health remained:
+
+```text
+ATTENTION
+[OK] No Engine-level problems detected in this session.
+
+FPS average: 60.0
+p95: 17ms
+max: 29ms
+paused/background time: 18.1s
+```
+
+The work remained in Brew after resume and the Engine recorded the hidden/resume pair once.
+
+## Phase 3 — Setup persistence migrated to Storage v2
+
+CoffeeFactory's setup choices now use:
+
+```js
+SSE.storage.define("setup", {
+  version: 1,
+  ...
+})
+```
+
+The stored payload contains:
+
+- cup preset
+- bean grams
+- roast
+
+Runtime-fixed values `grind: "Coarse"` and `recipeMode: "kasuya"` remain work semantics and are reconstructed after loading.
+
+### Existing-user migration
+
+The previous direct key:
+
+```text
+coffeefactory.v1.setup
+```
+
+is imported once when no Storage v2 setup record exists.
+
+The new canonical key is:
+
+```text
+sse:coffeefactory:data:setup
+```
+
+The old key is removed only when the new record is confirmed persistent.
+
+If localStorage persistence fails:
+
+- the current session continues with Storage v2 memory fallback
+- the old legacy key remains untouched for the next page load
+- DevTools can report the memory-only state
+
+### Validation
+
+Deterministic Storage tests passed:
+
+- legacy setup values preserved
+- new v2 namespace created
+- legacy key removed after successful persistent migration
+- legacy key retained after simulated persistent-write failure
+- memory fallback keeps the migrated value usable during the session
+- clean install uses the expected default setup
+
+## Phase 3 real-device check
+
+Change setup to a clearly non-default combination, for example:
+
+```text
+2 cups
+27g
+Light roast
+```
+
+Reload the page.
+
+The same choices should remain.
+
+Session Report should now include a Storage entry similar to:
+
+```text
+STORAGE
+- setup v1 | persistent=true | memory=true | memoryPreferred=false
+```
+
+The exact `memory` value may depend on whether the record has been read in the current session, but `persistent=true` and `memoryPreferred=false` are the important expected values.
