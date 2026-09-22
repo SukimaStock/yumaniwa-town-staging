@@ -519,7 +519,7 @@
   const ORBIT_AUDIO_GAIN = 3.0; // OGG lift; preserves relative balance.
   const ORBIT_TONE_GAIN = 8.0; // Procedural placeholder cues need substantially more presence, especially on mobile.
 
-  const ORBIT_SOUND_DEFAULTS = Object.freeze({
+  const ORBIT_OGG_SOUNDS = Object.freeze({
     takeoff: Object.freeze({ file: "sounds/takeoff.ogg", volume: 0.14, cooldown: 120 }),
     landing: Object.freeze({ file: "sounds/landing.ogg", volume: 0.14, cooldown: 120 }),
     ore: Object.freeze({ file: "sounds/ore.ogg", volume: 0.10, cooldown: 100 }),
@@ -529,38 +529,6 @@
     echo: Object.freeze({ file: "sounds/echo.ogg", volume: 0.14, cooldown: 300 }),
     restore: Object.freeze({ file: "sounds/restore.ogg", volume: 0.15, cooldown: 500 }),
   });
-
-  const ORBIT_SOUND_OVERRIDES =
-    typeof window !== "undefined" &&
-    window.ORBIT_SOUND_CONFIG &&
-    typeof window.ORBIT_SOUND_CONFIG === "object"
-      ? window.ORBIT_SOUND_CONFIG
-      : {};
-
-  function orbitSoundDefinition(name) {
-    const base = ORBIT_SOUND_DEFAULTS[name] || {};
-    const custom = ORBIT_SOUND_OVERRIDES[name];
-    if (custom === false || (custom && custom.enabled === false)) return null;
-    if (!custom && !base.file) return null;
-    const merged = { ...base, ...(custom || {}) };
-    if (!merged.file) return null;
-    return Object.freeze({
-      file: String(merged.file),
-      volume: Number.isFinite(Number(merged.volume)) ? Number(merged.volume) : 0.12,
-      cooldown: Number.isFinite(Number(merged.cooldown)) ? Number(merged.cooldown) : 0,
-    });
-  }
-
-  const ORBIT_OGG_SOUNDS = Object.freeze(
-    Array.from(new Set([
-      ...Object.keys(ORBIT_SOUND_DEFAULTS),
-      ...Object.keys(ORBIT_SOUND_OVERRIDES),
-    ])).reduce((out, name) => {
-      const definition = orbitSoundDefinition(name);
-      if (definition) out[name] = definition;
-      return out;
-    }, {})
-  );
 
   const ORBIT_TONE = Object.freeze({
     takeoff: Object.freeze({ frequency: 145, endFrequency: 235, duration: 0.22, volume: 0.090, type: "triangle" }),
@@ -3535,37 +3503,36 @@
 
         // Act I — recognition. HOME gets one full second before E.V.E. speaks.
         if (this.finale.speechStage < 1 && this.finale.timer >= 1.0) {
-          this.sayEve(tx("finale.connected"), 2.6);
+          this.sayEve(tx("finale.connected"), 3.0);
           this.finale.speechStage = 1;
         }
 
-        // The deleted name-expansion card no longer leaves an empty five-second
-        // hole. E.V.E. now explains only what play alone cannot fully establish:
-        // what the pilot entrusted to her, and why ECHOs exist.
-        if (this.finale.speechStage < 3 && this.finale.timer >= 4.6) {
+        // Act II — what was entrusted. Each line gets silence after it instead
+        // of handing meaning directly to the next line.
+        if (this.finale.speechStage < 3 && this.finale.timer >= 10.2) {
           this.sayEve(tx("finale.accident1"), 3.6);
           this.finale.speechStage = 3;
         }
 
-        if (this.finale.speechStage < 4 && this.finale.timer >= 8.8) {
-          this.sayEve(tx("finale.accident2"), 3.8);
+        if (this.finale.speechStage < 4 && this.finale.timer >= 14.8) {
+          this.sayEve(tx("finale.accident2"), 4.2);
           this.finale.speechStage = 4;
         }
 
-        if (this.finale.speechStage < 5 && this.finale.timer >= 13.2) {
-          this.sayEve(tx("finale.accident3"), 3.4);
+        if (this.finale.speechStage < 5 && this.finale.timer >= 20.0) {
+          this.sayEve(tx("finale.accident3"), 3.7);
           this.finale.speechStage = 5;
         }
 
-        // Act III — return. Name what is being restored first, then let E.V.E.
-        // complete it herself.
-        if (this.finale.speechStage < 6 && this.finale.timer >= 17.2) {
-          this.sayEve(tx("finale.returnMemory"), 2.2);
+        // Act III — return. First promise the return, then reveal what is being
+        // returned. The BASE pulse belongs to the second line, not the setup.
+        if (this.finale.speechStage < 6 && this.finale.timer >= 25.0) {
+          this.sayEve(tx("finale.returnLead"), 1.6);
           this.finale.speechStage = 6;
         }
 
-        if (this.finale.speechStage < 7 && this.finale.timer >= 19.8) {
-          this.sayEve(tx("finale.returnLead"), 1.8);
+        if (this.finale.speechStage < 7 && this.finale.timer >= 26.6) {
+          this.sayEve(tx("finale.returnMemory"), 2.6);
           this.finale.speechStage = 7;
           if (!this.finale.pulseFired) {
             this.finale.pulseFired = true;
@@ -3574,8 +3541,9 @@
           }
         }
 
-        // A short HOME beat remains before REBIRTH; punctuation, not dead air.
-        if (this.finale.timer >= 22.3) this.startRebirthRitual();
+        // Nothing speaks for the last 1.5 seconds. The player enters REBIRTH
+        // from HOME itself, not from a sentence that has barely finished.
+        if (this.finale.timer >= 30.7) this.startRebirthRitual();
         return;
       }
 
