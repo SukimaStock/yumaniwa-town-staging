@@ -251,3 +251,33 @@ v1 | persistent=true | memory=true | memoryPreferred=false
 A key that has never been written on that installation may legitimately show no stored version/persistence yet.
 
 No network, cache-age, refresh, city-search, visual, or audio behavior changed in Phase 2.
+
+
+## Phase 2 cache note
+
+The first real-device report after adding Storage v2 definitions still showed:
+
+```text
+STORAGE
+No defined Storage v2 keys.
+```
+
+Repository inspection confirmed that the seven schema definitions were present in the current `sketch.js`.
+
+The cause was an unversioned script reference:
+
+```html
+<script src="sketch.js"></script>
+```
+
+which allowed the browser/CDN to reuse an older cached copy.
+
+The page now loads:
+
+```html
+<script src="sketch.js?v=20260922-storage-v2"></script>
+```
+
+so the Storage v2 definitions are forced into the next real-device load.
+
+This did not change DotWeather behavior; it only guarantees that the migrated work script is the version actually executed.
