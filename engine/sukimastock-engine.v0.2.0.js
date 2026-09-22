@@ -1,4 +1,4 @@
-// SukimaStock Engine v0.2.0-baseline
+// SukimaStock Engine v0.2.0
 // A small creative-game framework built on top of Codea Lite for Web.
 //
 // Codea Lite handles the canvas runtime.
@@ -9,7 +9,7 @@
 (function (root) {
   "use strict";
 
-  const VERSION = "0.2.0-baseline";
+  const VERSION = "0.2.0";
 
   // ------------------------------------------------------------
   // Utilities
@@ -944,7 +944,7 @@
   };
 
   // ------------------------------------------------------------
-  // Audio
+  // Audio v2
   // ------------------------------------------------------------
 
   const audio = {
@@ -952,20 +952,46 @@
     unlocked: false,
     ctx: null,
     masterGain: null,
+    musicGain: null,
+    seGain: null,
+
     masterVolume: 0.7,
+    musicVolume: 1,
+    seVolume: 1,
     poolSize: 4,
+
     definitions: {},
     pools: {},
+    bufferDefinitions: {},
+    buffers: {},
+    loadingBuffers: {},
     lastPlayed: {},
+
+    musicDefinitions: {},
+    musicPlayers: {},
+    currentMusic: null,
+
     storageKey: "sse-sound",
+
+    definition(value) {
+      if (typeof value === "string") return { file: value };
+      return value && typeof value === "object" ? value : {};
+    },
 
     configure(options) {
       const source = options || {};
+
       this.masterVolume = clamp(Number(source.masterVolume ?? 0.7), 0, 1);
+      this.musicVolume = clamp(Number(source.musicVolume ?? 1), 0, 1);
+      this.seVolume = clamp(Number(source.seVolume ?? 1), 0, 1);
       this.poolSize = Math.max(1, Math.floor(Number(source.poolSize) || 4));
       this.storageKey = source.storageKey || ("sse:" + state.config.id + ":sound");
+
       this.definitions = source.sounds || {};
+      this.musicDefinitions = source.music || {};
       this.pools = {};
+      this.bufferDefinitions = {};
+      this.lastPlayed = {};
 
       try {
         this.enabled = root.localStorage?.getItem(this.storageKey) !== "false";
@@ -973,24 +999,45 @@
         this.enabled = true;
       }
 
-      if (typeof root.Audio !== "function") return;
-
       for (const [name, definitionValue] of Object.entries(this.definitions)) {
-        const definition = typeof definitionValue === "string"
-          ? { file: definitionValue }
-          : definitionValue;
+        const definition = this.definition(definitionValue);
+        if (!definition.file) continue;
 
-        if (!definition || !definition.file) continue;
+        if (definition.mode === "buffer" || definition.buffer === true) {
+          this.bufferDefinitions[name] = definition;
+          continue;
+        }
+
+        if (typeof root.Audio !== "function") continue;
         const pool = [];
 
-        for (let i = 0; i < this.poolSize; i += 1) {
+        const definitionPoolSize = Math.max(
+          1,
+          Math.floor(Number(definition.poolSize) || this.poolSize)
+        );
+
+        for (let i = 0; i < definitionPoolSize; i += 1) {
           const item = new root.Audio(definition.file);
-          item.preload = "auto";
+          item.preload = definition.preload || "auto";
           item.volume = clamp(Number(definition.volume ?? 0.25), 0, 1);
+          item.playsInline = true;
           pool.push(item);
         }
 
         this.pools[name] = pool;
+      }
+
+      if (typeof root.Audio === "function") {
+        for (const [name, definitionValue] of Object.entries(this.musicDefinitions)) {
+          const definition = this.definition(definitionValue);
+          if (!definition.file) continue;
+          this.createMusicPlayer(name, definition);
+        }
+      }
+
+      if (this.ctx) {
+        this.ensureBuses();
+        this.syncBusVolumes(0);
       }
     },
 
@@ -1000,9 +1047,7 @@
 
       if (!this.ctx) {
         this.ctx = new AudioContextClass();
-        this.masterGain = this.ctx.createGain();
-        this.masterGain.gain.value = this.masterVolume;
-        this.masterGain.connect(this.ctx.destination);
+        this.ensureBuses();
       }
 
       if (this.ctx.state === "suspended") {
@@ -1012,20 +1057,98 @@
       return this.ctx;
     },
 
+    ensureBuses() {
+      if (!this.ctx) return false;
+
+      if (!this.masterGain) {
+        this.masterGain = this.ctx.createGain();
+        this.masterGain.connect(this.ctx.destination);
+      }
+
+      if (!this.musicGain) {
+        this.musicGain = this.ctx.createGain();
+        this.musicGain.connect(this.masterGain);
+      }
+
+      if (!this.seGain) {
+        this.seGain = this.ctx.createGain();
+        this.seGain.connect(this.masterGain);
+      }
+
+      this.syncBusVolumes(0);
+
+      for (const player of Object.values(this.musicPlayers)) {
+        this.wireMusicPlayer(player);
+      }
+
+      return true;
+    },
+
+    rampGain(node, value, duration) {
+      if (!node || !node.gain || !this.ctx) return;
+      const target = clamp(Number(value) || 0, 0, 1);
+      const seconds = Math.max(0, Number(duration) || 0);
+      const now = this.ctx.currentTime;
+
+      try {
+        node.gain.cancelScheduledValues(now);
+        node.gain.setValueAtTime(node.gain.value, now);
+        if (seconds > 0) {
+          node.gain.linearRampToValueAtTime(target, now + seconds);
+        } else {
+          node.gain.setValueAtTime(target, now);
+        }
+      } catch (_error) {
+        node.gain.value = target;
+      }
+    },
+
+    syncBusVolumes(duration) {
+      const seconds = Math.max(0, Number(duration) || 0);
+      this.rampGain(this.masterGain, this.enabled ? this.masterVolume : 0, seconds);
+      this.rampGain(this.musicGain, this.musicVolume, seconds);
+      this.rampGain(this.seGain, this.seVolume, seconds);
+    },
+
+    setBusVolume(bus, value, options) {
+      const level = clamp(Number(value) || 0, 0, 1);
+      const fade = Math.max(0, Number(options?.fade ?? options?.duration ?? 0) || 0);
+
+      if (bus === "master") this.masterVolume = level;
+      else if (bus === "music") this.musicVolume = level;
+      else if (bus === "se" || bus === "sfx") this.seVolume = level;
+      else return false;
+
+      if (this.ctx) this.syncBusVolumes(fade);
+
+      if (!this.ctx && bus !== "se") {
+        for (const player of Object.values(this.musicPlayers)) {
+          this.applyFallbackMusicVolume(player);
+        }
+      }
+
+      return true;
+    },
+
     unlock() {
       if (this.unlocked) return;
       this.unlocked = true;
-      // Do not create a Web Audio context only to unlock an empty HTMLAudio pool.
-      // This keeps apps with custom/disabled audio from paying an unnecessary lifecycle cost.
-      if (Object.keys(this.pools).length === 0) return;
-      this.ensureContext();
 
+      const needsContext =
+        Object.keys(this.bufferDefinitions).length > 0 ||
+        Object.keys(this.musicDefinitions).length > 0;
+
+      if (needsContext) this.ensureContext();
+
+      // Legacy HTMLAudio pools still need a gesture unlock on iOS.
       for (const pool of Object.values(this.pools)) {
         const item = pool[0];
         if (!item) continue;
+
         try {
           item.muted = true;
           const promise = item.play();
+
           if (promise && promise.then) {
             promise.then(() => {
               item.pause();
@@ -1043,23 +1166,149 @@
       }
     },
 
-    play(name, options) {
-      if (!this.enabled) return false;
-      const pool = this.pools[name];
-      const definitionValue = this.definitions[name];
-      const definition = typeof definitionValue === "string"
-        ? { file: definitionValue }
-        : (definitionValue || {});
-      if (!pool || pool.length === 0) return false;
+    async loadBuffer(name) {
+      if (this.buffers[name]) return this.buffers[name];
+      if (this.loadingBuffers[name]) return this.loadingBuffers[name];
 
-      this.unlock();
+      const definition = this.bufferDefinitions[name];
+      if (!definition || !definition.file || typeof root.fetch !== "function") return null;
+
+      const ctx = this.ensureContext();
+      if (!ctx) return null;
+
+      const task = root.fetch(definition.file, { cache: definition.cache || "force-cache" })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("SSE audio fetch failed: " + name + " (" + response.status + ")");
+          }
+          return response.arrayBuffer();
+        })
+        .then((data) => ctx.decodeAudioData(data.slice(0)))
+        .then((buffer) => {
+          this.buffers[name] = buffer;
+          return buffer;
+        })
+        .catch((error) => {
+          debug.log("[SSE.audio] buffer load failed", name, error);
+          return null;
+        })
+        .finally(() => {
+          delete this.loadingBuffers[name];
+        });
+
+      this.loadingBuffers[name] = task;
+      return task;
+    },
+
+    preload(names) {
+      const requested = names === undefined || names === null
+        ? Object.keys(this.bufferDefinitions)
+        : (Array.isArray(names) ? names : [names]);
+
+      const tasks = [];
+
+      for (const name of requested) {
+        if (this.bufferDefinitions[name]) tasks.push(this.loadBuffer(name));
+        const player = this.musicPlayers[name];
+        if (player?.audio && typeof player.audio.load === "function") {
+          try { player.audio.load(); } catch (_error) {}
+        }
+      }
+
+      if (names === undefined || names === null) {
+        for (const player of Object.values(this.musicPlayers)) {
+          if (!player?.audio || typeof player.audio.load !== "function") continue;
+          try { player.audio.load(); } catch (_error) {}
+        }
+      }
+
+      return Promise.all(tasks);
+    },
+
+    cooldownAllows(name, definition, options) {
       const opts = options || {};
       const cooldown = Number(opts.cooldown ?? definition.cooldown ?? 80);
       const now = nowMs();
+
       if (!opts.force && this.lastPlayed[name] && now - this.lastPlayed[name] < cooldown) {
         return false;
       }
+
       this.lastPlayed[name] = now;
+      return true;
+    },
+
+    playBuffer(name, options) {
+      if (!this.enabled) return false;
+
+      const definition = this.bufferDefinitions[name];
+      if (!definition) return false;
+
+      const opts = options || {};
+      if (!this.cooldownAllows(name, definition, opts)) return false;
+
+      const ctx = this.ensureContext();
+      if (!ctx || !this.seGain) return false;
+      this.unlocked = true;
+
+      const buffer = this.buffers[name];
+      if (!buffer) {
+        this.loadBuffer(name);
+        return false;
+      }
+
+      try {
+        const source = ctx.createBufferSource();
+        const gain = ctx.createGain();
+
+        source.buffer = buffer;
+        source.playbackRate.value = clamp(
+          Number(opts.playbackRate ?? definition.playbackRate ?? 1),
+          0.25,
+          4
+        );
+
+        const volume = clamp(
+          Number(opts.volume ?? definition.volume ?? 0.25),
+          0,
+          1
+        );
+
+        gain.gain.value = volume;
+        source.connect(gain);
+        gain.connect(this.seGain);
+
+        source.start(0);
+        source.onended = () => {
+          try {
+            source.disconnect();
+            gain.disconnect();
+          } catch (_error) {}
+        };
+
+        return true;
+      } catch (_error) {
+        return false;
+      }
+    },
+
+    play(name, options) {
+      if (!this.enabled) return false;
+
+      const definitionValue = this.definitions[name];
+      const definition = this.definition(definitionValue);
+
+      if (definition.mode === "buffer" || definition.buffer === true) {
+        return this.playBuffer(name, options);
+      }
+
+      const pool = this.pools[name];
+      if (!pool || pool.length === 0) return false;
+
+      const opts = options || {};
+      if (!this.cooldownAllows(name, definition, opts)) return false;
+
+      this.unlock();
 
       let item = pool.find((candidate) => candidate.paused || candidate.ended);
       if (!item) item = pool[0];
@@ -1067,8 +1316,17 @@
       try {
         item.pause();
         item.currentTime = 0;
-        item.volume = clamp(Number(opts.volume ?? definition.volume ?? 0.25), 0, 1);
-        item.playbackRate = clamp(Number(opts.playbackRate ?? definition.playbackRate ?? 1), 0.25, 4);
+        item.volume = clamp(
+          Number(opts.volume ?? definition.volume ?? 0.25),
+          0,
+          1
+        );
+        item.playbackRate = clamp(
+          Number(opts.playbackRate ?? definition.playbackRate ?? 1),
+          0.25,
+          4
+        );
+
         const promise = item.play();
         if (promise && promise.catch) promise.catch(() => {});
         return true;
@@ -1077,10 +1335,207 @@
       }
     },
 
+    createMusicPlayer(name, definitionValue) {
+      if (this.musicPlayers[name]) return this.musicPlayers[name];
+      if (typeof root.Audio !== "function") return null;
+
+      const definition = this.definition(definitionValue || this.musicDefinitions[name]);
+      if (!definition.file) return null;
+
+      const element = new root.Audio(definition.file);
+      element.preload = definition.preload || "auto";
+      element.loop = definition.loop !== false;
+      element.playsInline = true;
+      element.volume = 1;
+
+      const player = {
+        name,
+        definition,
+        audio: element,
+        source: null,
+        gain: null,
+        level: clamp(Number(definition.volume ?? 1), 0, 1),
+        stopToken: 0,
+      };
+
+      this.musicPlayers[name] = player;
+      if (this.ctx) this.wireMusicPlayer(player);
+      else this.applyFallbackMusicVolume(player);
+
+      return player;
+    },
+
+    wireMusicPlayer(player) {
+      if (!player || !player.audio || !this.ctx || player.source) return !!player?.source;
+
+      try {
+        player.source = this.ctx.createMediaElementSource(player.audio);
+        player.gain = this.ctx.createGain();
+        player.gain.gain.value = player.level;
+        player.source.connect(player.gain);
+        player.gain.connect(this.musicGain || this.masterGain);
+        player.audio.volume = 1;
+        return true;
+      } catch (error) {
+        debug.log("[SSE.audio] music routing fallback", player.name, error);
+        player.source = null;
+        player.gain = null;
+        this.applyFallbackMusicVolume(player);
+        return false;
+      }
+    },
+
+    applyFallbackMusicVolume(player) {
+      if (!player?.audio || player.gain) return;
+      player.audio.volume = clamp(
+        player.level * this.musicVolume * this.masterVolume * (this.enabled ? 1 : 0),
+        0,
+        1
+      );
+    },
+
+    playMusic(name, options) {
+      if (!this.enabled) return false;
+
+      const definition = this.definition(this.musicDefinitions[name]);
+      if (!definition.file) return false;
+
+      const opts = options || {};
+      const player = this.createMusicPlayer(name, definition);
+      if (!player) return false;
+
+      this.unlock();
+      if (this.ctx) this.wireMusicPlayer(player);
+
+      const previous = this.currentMusic && this.currentMusic !== name
+        ? this.musicPlayers[this.currentMusic]
+        : null;
+
+      if (previous) {
+        this.stopMusic({
+          name: previous.name,
+          fade: Number(opts.crossfade ?? opts.fadeOut ?? 0),
+        });
+      }
+
+      player.stopToken += 1;
+      player.level = clamp(Number(opts.volume ?? definition.volume ?? 1), 0, 1);
+
+      if (opts.restart === true) {
+        try { player.audio.currentTime = 0; } catch (_error) {}
+      }
+
+      if (player.gain && this.ctx) {
+        const fade = Math.max(0, Number(opts.fade ?? opts.fadeIn ?? 0) || 0);
+        const now = this.ctx.currentTime;
+        try {
+          player.gain.gain.cancelScheduledValues(now);
+          if (fade > 0) {
+            player.gain.gain.setValueAtTime(0.0001, now);
+            player.gain.gain.linearRampToValueAtTime(player.level, now + fade);
+          } else {
+            player.gain.gain.setValueAtTime(player.level, now);
+          }
+        } catch (_error) {
+          player.gain.gain.value = player.level;
+        }
+      } else {
+        this.applyFallbackMusicVolume(player);
+      }
+
+      try {
+        const promise = player.audio.play();
+        if (promise && promise.catch) promise.catch(() => {});
+        this.currentMusic = name;
+        return true;
+      } catch (_error) {
+        return false;
+      }
+    },
+
+    setMusicLevel(value, options) {
+      const name = options?.name || this.currentMusic;
+      const player = name ? this.musicPlayers[name] : null;
+      if (!player) return false;
+
+      player.level = clamp(Number(value) || 0, 0, 1);
+      const fade = Math.max(0, Number(options?.fade ?? options?.duration ?? 0) || 0);
+
+      if (player.gain && this.ctx) {
+        this.rampGain(player.gain, player.level, fade);
+      } else {
+        this.applyFallbackMusicVolume(player);
+      }
+
+      return true;
+    },
+
+    stopMusic(options) {
+      const opts = options || {};
+      const name = opts.name || this.currentMusic;
+      const player = name ? this.musicPlayers[name] : null;
+      if (!player) return false;
+
+      const fade = Math.max(0, Number(opts.fade ?? 0) || 0);
+      const token = ++player.stopToken;
+
+      const stopNow = () => {
+        if (player.stopToken !== token) return;
+        try {
+          player.audio.pause();
+          if (opts.reset !== false) player.audio.currentTime = 0;
+        } catch (_error) {}
+
+        if (this.currentMusic === name) this.currentMusic = null;
+      };
+
+      if (fade > 0 && player.gain && this.ctx) {
+        this.rampGain(player.gain, 0, fade);
+        root.setTimeout(stopNow, Math.ceil(fade * 1000) + 20);
+      } else {
+        stopNow();
+      }
+
+      return true;
+    },
+
+    pauseMusic(name) {
+      const target = name || this.currentMusic;
+      const player = target ? this.musicPlayers[target] : null;
+      if (!player) return false;
+      try {
+        player.audio.pause();
+        return true;
+      } catch (_error) {
+        return false;
+      }
+    },
+
+    resumeMusic(name) {
+      if (!this.enabled) return false;
+      const target = name || this.currentMusic;
+      const player = target ? this.musicPlayers[target] : null;
+      if (!player) return false;
+
+      this.unlock();
+      if (this.ctx) this.wireMusicPlayer(player);
+      else this.applyFallbackMusicVolume(player);
+
+      try {
+        const promise = player.audio.play();
+        if (promise && promise.catch) promise.catch(() => {});
+        this.currentMusic = target;
+        return true;
+      } catch (_error) {
+        return false;
+      }
+    },
+
     tone(options) {
       if (!this.enabled) return false;
+
       const ctx = this.ensureContext();
-      if (!ctx || !this.masterGain) return false;
+      if (!ctx || !this.seGain) return false;
       this.unlocked = true;
 
       const opts = options || {};
@@ -1090,7 +1545,11 @@
       const gain = ctx.createGain();
 
       oscillator.type = opts.type || "triangle";
-      oscillator.frequency.setValueAtTime(Math.max(20, Number(opts.frequency) || 440), start);
+      oscillator.frequency.setValueAtTime(
+        Math.max(20, Number(opts.frequency) || 440),
+        start
+      );
+
       if (opts.endFrequency !== undefined) {
         oscillator.frequency.exponentialRampToValueAtTime(
           Math.max(20, Number(opts.endFrequency) || 440),
@@ -1100,11 +1559,14 @@
 
       const volume = clamp(Number(opts.volume ?? 0.06), 0.0001, 1);
       gain.gain.setValueAtTime(0.0001, start);
-      gain.gain.linearRampToValueAtTime(volume, start + Math.min(0.01, duration * 0.25));
+      gain.gain.linearRampToValueAtTime(
+        volume,
+        start + Math.min(0.01, duration * 0.25)
+      );
       gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
 
       oscillator.connect(gain);
-      gain.connect(this.masterGain);
+      gain.connect(this.seGain);
       oscillator.start(start);
       oscillator.stop(start + duration);
       return true;
@@ -1112,11 +1574,29 @@
 
     setEnabled(value) {
       this.enabled = !!value;
+
       try {
-        root.localStorage?.setItem(this.storageKey, this.enabled ? "true" : "false");
+        root.localStorage?.setItem(
+          this.storageKey,
+          this.enabled ? "true" : "false"
+        );
       } catch (_error) {
         // Ignore persistence errors.
       }
+
+      if (this.ctx) this.syncBusVolumes(0.08);
+
+      if (!this.enabled) {
+        for (const player of Object.values(this.musicPlayers)) {
+          try { player.audio.pause(); } catch (_error) {}
+        }
+      } else {
+        for (const player of Object.values(this.musicPlayers)) {
+          this.applyFallbackMusicVolume(player);
+        }
+      }
+
+      return this.enabled;
     },
   };
 
