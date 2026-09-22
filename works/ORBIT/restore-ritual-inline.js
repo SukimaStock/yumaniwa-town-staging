@@ -48,6 +48,7 @@
 
   const canvas = shadow.getElementById('c');
   const ctx = canvas.getContext('2d');
+  const overlayEl = shadow.querySelector('.overlay');
   const progressHud = shadow.getElementById('progressHud');
   const progressFill = shadow.getElementById('progressFill');
   const progressText = shadow.getElementById('progressText');
@@ -65,7 +66,10 @@
 
   const runtime = {
     active:false,
-    completion:null
+    completion:null,
+    introStart:0,
+    introDuration:0.55,
+    introActive:false
   };
 
   function finishEmbedded(){
@@ -76,6 +80,9 @@
 
     runtime.active = false;
     runtime.completion = null;
+    runtime.introStart = 0;
+    runtime.introActive = false;
+    if(overlayEl) overlayEl.style.opacity = '1';
     host.classList.remove('active');
     host.setAttribute('aria-hidden','true');
 
@@ -293,12 +300,15 @@
 
       runtime.active = true;
       runtime.completion = typeof onComplete === 'function' ? onComplete : null;
+      runtime.introStart = performance.now()/1000;
+      runtime.introActive = true;
+      if(overlayEl) overlayEl.style.opacity = '0';
 
       host.classList.add('active');
       host.setAttribute('aria-hidden','false');
 
       setRitual(next);
-      lastTs = performance.now()/1000;
+      lastTs = runtime.introStart;
       resize();
       return true;
     },
@@ -306,6 +316,9 @@
     close(){
       runtime.active = false;
       runtime.completion = null;
+      runtime.introStart = 0;
+      runtime.introActive = false;
+      if(overlayEl) overlayEl.style.opacity = '1';
       host.classList.remove('active');
       host.setAttribute('aria-hidden','true');
       reset();
@@ -529,6 +542,11 @@
     }
   }
 
+  function ritualIntroProgress(now = performance.now()/1000){
+    if(!runtime.introActive) return 1;
+    return clamp((now - runtime.introStart) / Math.max(0.001, runtime.introDuration), 0, 1);
+  }
+
   function handleCancel(e){
     e?.preventDefault?.();
     cancelActivePointer();
@@ -537,6 +555,7 @@
   function handleDown(e){
     e.preventDefault();
     const now = performance.now()/1000;
+    if(runtime.introActive && ritualIntroProgress(now) < 1) return;
 
     if(state.mode==='RESPONSE'){
       if(now >= state.responseUnlockAt && state.inputReleasedAfterSuccess){
@@ -608,6 +627,7 @@
 
   function handleMove(e){
     e.preventDefault();
+    if(runtime.introActive && ritualIntroProgress() < 1) return;
     if(state.mode!=='RUNNING' || e.pointerId!==state.activePointer) return;
 
     if(ritual==='memory'){
@@ -704,6 +724,7 @@
 
   function handleUp(e){
     e.preventDefault();
+    if(runtime.introActive && ritualIntroProgress() < 1) return;
     if(state.mode==='SUCCESS_WAIT' || state.mode==='RESPONSE'){
       state.inputReleasedAfterSuccess = true;
       return;
@@ -1357,6 +1378,49 @@
     ctx.fillRect(0,0,W,H);
   }
 
+  function drawCurrentRitual(now){
+    if(ritual==='wake') drawWake(now);
+    else if(ritual==='link') drawLink(now);
+    else if(ritual==='memory') drawMemory(now);
+    else if(ritual==='resonance') drawResonance(now);
+    else drawRebirth(now);
+  }
+
+  function drawRitualIntro(now, q){
+    // Stage 1: a single powered conductor appears before any interface.
+    const lineStages = q < 0.16 ? 0.18 : (q < 0.30 ? 0.48 : 0.82);
+    const lineW = Math.min(W*0.78, 420) * lineStages;
+    ctx.save();
+    ctx.strokeStyle = q < 0.30
+      ? 'rgba(135,205,240,0.66)'
+      : 'rgba(175,225,250,0.82)';
+    ctx.lineWidth = q < 0.30 ? 1.0 : 1.4;
+    ctx.beginPath();
+    ctx.moveTo(CX-lineW/2, CY);
+    ctx.lineTo(CX+lineW/2, CY);
+    ctx.stroke();
+
+    // Stage 2: the real ritual geometry joins the circuit in two hard steps.
+    // Mark it "started" only while drawing so instructional text stays dark
+    // until the final HUD wake-up.
+    if(q >= 0.34){
+      const savedStarted = state.started;
+      state.started = true;
+      ctx.globalAlpha = q < 0.58 ? 0.34 : 0.76;
+      drawCurrentRitual(now);
+      state.started = savedStarted;
+      ctx.globalAlpha = 1;
+    }
+
+    if(q >= 0.24){
+      const a = q < 0.58 ? 0.55 : 0.9;
+      ctx.fillStyle = 'rgba(205,240,255,' + a + ')';
+      ctx.beginPath(); ctx.arc(CX-lineW/2,CY,2.2,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(CX+lineW/2,CY,2.2,0,Math.PI*2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
   function render(ts){
     if(!runtime.active){
       requestAnimationFrame(render);
@@ -1368,15 +1432,26 @@
     const dt = Math.min(0.033, now-lastTs);
     lastTs = now;
 
+    const introQ = ritualIntroProgress(now);
+    if(runtime.introActive && introQ < 1){
+      // Freeze simulation and gestures while the deep system powers on.
+      drawBackground(now);
+      drawRitualIntro(now, introQ);
+      lastTs = now;
+      requestAnimationFrame(render);
+      return;
+    }
+
+    if(runtime.introActive){
+      runtime.introActive = false;
+      if(overlayEl) overlayEl.style.opacity = '1';
+      lastTs = now;
+    }
+
     update(dt, now);
 
     drawBackground(now);
-    if(ritual==='wake') drawWake(now);
-    else if(ritual==='link') drawLink(now);
-    else if(ritual==='memory') drawMemory(now);
-    else if(ritual==='resonance') drawResonance(now);
-    else drawRebirth(now);
-
+    drawCurrentRitual(now);
     drawFlash();
 
     requestAnimationFrame(render);
