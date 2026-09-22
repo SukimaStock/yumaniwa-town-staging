@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090c12">
+  <title>ORBIT Sound Lab</title>
+  <style>
+    :root{color-scheme:dark;--bg:#090c12;--panel:#111722;--panel2:#0d121b;--line:#263344;--text:#e6eef5;--muted:#8da0b2;--accent:#9ed8ef;--ok:#9ee8c2}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    button,select,input{font:inherit}
+    button,select{min-height:42px;border:1px solid var(--line);border-radius:10px;background:#151d29;color:var(--text)}
+    button{padding:0 13px}
+    button:active{transform:translateY(1px)}
+    main{max-width:920px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 14px calc(32px + env(safe-area-inset-bottom))}
+    header{margin-bottom:16px}
+    h1{font-size:22px;letter-spacing:.08em;margin:0 0 4px}
+    .sub,.muted{color:var(--muted)}
+    .toolbar{position:sticky;top:0;z-index:5;background:rgba(9,12,18,.95);backdrop-filter:blur(12px);padding:10px 0 12px;border-bottom:1px solid #18212e;margin-bottom:14px}
+    .toolbarRow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .pick{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:10px;background:#182333;color:var(--text);font-weight:650}
+    .pick input{display:none}
+    #fileStatus{margin-top:8px;color:var(--muted);font-size:12px}
+    .tabs{display:flex;gap:8px;margin:14px 0}
+    .tabs button.active{border-color:var(--accent);color:var(--accent)}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .card{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:13px}
+    .card h2{font-size:15px;letter-spacing:.08em;margin:0}
+    .head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+    .tag{font-size:10px;letter-spacing:.08em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 7px}
+    .current{font-size:12px;color:var(--muted);margin:4px 0 10px;overflow-wrap:anywhere}
+    .candidateName{font-size:13px;min-height:38px;padding:8px 10px;border-radius:9px;background:var(--panel2);border:1px solid #1e2a38;overflow-wrap:anywhere}
+    .row{display:flex;gap:7px;margin-top:8px}
+    .row>*{flex:1;min-width:0}
+    .cycle button{flex:0 0 44px;padding:0}
+    select{width:100%;padding:0 8px}
+    .volume{margin-top:12px}
+    .volumeTop{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+    input[type="range"]{width:100%;accent-color:var(--accent)}
+    .effective{font-variant-numeric:tabular-nums;color:var(--accent)}
+    .library{margin:12px 0 4px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);padding:10px;display:none}
+    .library.show{display:block}
+    .libraryItem{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid #18212e}
+    .libraryItem:last-child{border-bottom:0}
+    .libraryItem span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    dialog{width:min(92vw,720px);border:1px solid var(--line);border-radius:14px;background:#0e141e;color:var(--text);padding:14px}
+    dialog::backdrop{background:rgba(0,0,0,.7)}
+    textarea{width:100%;height:48vh;background:#080b10;color:#d9e7ef;border:1px solid var(--line);border-radius:10px;padding:10px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+    .ok{color:var(--ok)}
+    @media(max-width:680px){.grid{grid-template-columns:1fr}.toolbar{top:0}.card{padding:12px}}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>ORBIT SOUND LAB</h1>
+    <div class="sub">ローカルの候補音を、GitHubへ移動する前にORBIT基準の音量で比較する。</div>
+  </header>
+
+  <section class="toolbar">
+    <div class="toolbarRow">
+      <label class="pick">候補音をまとめて選ぶ<input id="fileInput" type="file" accept="audio/*,.ogg,.wav,.mp3,.m4a,.aac" multiple></label>
+      <button id="libraryBtn">候補一覧</button>
+      <button id="exportBtn">設定をコピー</button>
+      <button id="resetBtn">音量を初期値へ</button>
+    </div>
+    <div id="fileStatus">候補音はまだ読み込まれていません。</div>
+    <div id="library" class="library"></div>
+  </section>
+
+  <div class="tabs">
+    <button data-phase="A" class="active">OGG実装済み</button>
+    <button data-phase="B">未OGG / 次の候補</button>
+    <button data-phase="ALL">すべて</button>
+  </div>
+
+  <section id="grid" class="grid"></section>
+</main>
+
+<dialog id="exportDialog">
+  <h2>Sound Lab 設定</h2>
+  <p class="muted">候補ファイル名と音量をまとめた作業メモです。ファイル本体は移動しません。</p>
+  <textarea id="exportText" readonly></textarea>
+  <div class="row">
+    <button id="copyBtn">クリップボードへコピー</button>
+    <button id="closeBtn">閉じる</button>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  "use strict";
+
+  const AUDIO_GAIN = 3.0;
+  const slots = [
+    {name:"takeoff", phase:"A", file:"sounds/takeoff.ogg", volume:.14, cooldown:120},
+    {name:"landing", phase:"A", file:"sounds/landing.ogg", volume:.14, cooldown:120},
+    {name:"ore", phase:"A", file:"sounds/ore.ogg", volume:.10, cooldown:100},
+    {name:"data", phase:"A", file:"sounds/data.ogg", volume:.11, cooldown:120},
+    {name:"fuel", phase:"A", file:"sounds/fuel.ogg", volume:.28, cooldown:140},
+    {name:"impact", phase:"A", file:"sounds/impact.ogg", volume:.16, cooldown:350},
+    {name:"echo", phase:"A", file:"sounds/echo.ogg", volume:.14, cooldown:300},
+    {name:"restore", phase:"A", file:"sounds/restore.ogg", volume:.15, cooldown:500},
+    {name:"boot", phase:"B", file:null, volume:.12},
+    {name:"eve_online", phase:"B", file:null, volume:.12},
+    {name:"terminal", phase:"B", file:null, volume:.12},
+    {name:"scan", phase:"B", file:null, volume:.12},
+    {name:"rescue", phase:"B", file:null, volume:.12},
+    {name:"weak_signal", phase:"B", file:null, volume:.12},
+    {name:"archive", phase:"B", file:null, volume:.12},
+    {name:"rebirth", phase:"B", file:null, volume:.12},
+  ];
+
+  const state = {
+    ctx:null,
+    candidates:[],
+    decoded:new Map(),
+    currentDecoded:new Map(),
+    assignments:{},
+    volumes:{},
+    phase:"A",
+  };
+
+  try {
+    const saved = JSON.parse(localStorage.getItem("orbit.soundlab.settings") || "{}");
+    state.assignments = saved.assignments || {};
+    state.volumes = saved.volumes || {};
+  } catch (_) {}
+
+  const grid = document.getElementById("grid");
+  const fileInput = document.getElementById("fileInput");
+  const fileStatus = document.getElementById("fileStatus");
+  const library = document.getElementById("library");
+  const exportDialog = document.getElementById("exportDialog");
+  const exportText = document.getElementById("exportText");
+
+  function save(){
+    localStorage.setItem("orbit.soundlab.settings", JSON.stringify({
+      assignments:state.assignments,
+      volumes:state.volumes
+    }));
+  }
+
+  async function audioContext(){
+    if (!state.ctx) {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      state.ctx = new Ctx();
+    }
+    if (state.ctx.state !== "running") await state.ctx.resume();
+    return state.ctx;
+  }
+
+  async function decodeFile(file){
+    const key = file.name + ":" + file.size + ":" + file.lastModified;
+    if (state.decoded.has(key)) return state.decoded.get(key);
+    const ctx = await audioContext();
+    const bytes = await file.arrayBuffer();
+    const buffer = await ctx.decodeAudioData(bytes.slice(0));
+    state.decoded.set(key, buffer);
+    return buffer;
+  }
+
+  async function decodeCurrent(slot){
+    if (!slot.file) return null;
+    if (state.currentDecoded.has(slot.name)) return state.currentDecoded.get(slot.name);
+    const ctx = await audioContext();
+    const response = await fetch(slot.file + "?soundlab=" + Date.now(), {cache:"no-store"});
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    const buffer = await ctx.decodeAudioData((await response.arrayBuffer()).slice(0));
+    state.currentDecoded.set(slot.name, buffer);
+    return buffer;
+  }
+
+  async function playBuffer(buffer, volume){
+    const ctx = await audioContext();
+    const source = ctx.createBufferSource();
+    const gain = ctx.createGain();
+    source.buffer = buffer;
+    const start = ctx.currentTime + .002;
+    const duration = Math.max(.01, buffer.duration);
+    const level = Math.max(.0001, Math.min(1, Number(volume) * AUDIO_GAIN));
+    const attack = Math.min(.008, duration * .08);
+    const release = Math.min(.018, duration * .12);
+    const releaseAt = Math.max(start + attack, start + duration - release);
+    gain.gain.setValueAtTime(.0001, start);
+    gain.gain.linearRampToValueAtTime(level, start + attack);
+    gain.gain.setValueAtTime(level, releaseAt);
+    gain.gain.linearRampToValueAtTime(.0001, start + duration);
+    source.connect(gain);
+    gain.connect(ctx.destination);
+    source.start(start);
+  }
+
+  function getVolume(slot){
+    return Number(state.volumes[slot.name] ?? slot.volume);
+  }
+
+  function assignedIndex(slot){
+    const wanted = state.assignments[slot.name];
+    if (!wanted) return -1;
+    return state.candidates.findIndex(x => x.name === wanted);
+  }
+
+  function setAssignment(slot, idx){
+    if (idx < 0 || idx >= state.candidates.length) {
+      delete state.assignments[slot.name];
+    } else {
+      state.assignments[slot.name] = state.candidates[idx].name;
+    }
+    save();
+    render();
+  }
+
+  async function playCandidate(slot){
+    const idx = assignedIndex(slot);
+    if (idx < 0) return;
+    try {
+      fileStatus.textContent = "デコード中: " + state.candidates[idx].name;
+      const buffer = await decodeFile(state.candidates[idx]);
+      await playBuffer(buffer, getVolume(slot));
+      fileStatus.textContent = "再生: " + slot.name + " ← " + state.candidates[idx].name;
+    } catch (e) {
+      fileStatus.textContent = "候補音を再生できません: " + e.message;
+    }
+  }
+
+  async function playCurrent(slot){
+    if (!slot.file) {
+      fileStatus.textContent = slot.name + " は現在 procedural tone のため、Sound Labでは候補OGGのみ比較します。";
+      return;
+    }
+    try {
+      fileStatus.textContent = "現在音を読み込み中: " + slot.name;
+      const buffer = await decodeCurrent(slot);
+      await playBuffer(buffer, getVolume(slot));
+      fileStatus.textContent = "現在音を再生: " + slot.file;
+    } catch (e) {
+      fileStatus.textContent = "現在音を再生できません: " + e.message;
+    }
+  }
+
+  function renderLibrary(){
+    if (!state.candidates.length) {
+      library.innerHTML = '<div class="muted">候補音はまだありません。</div>';
+      return;
+    }
+    library.innerHTML = "";
+    state.candidates.forEach((file, i) => {
+      const item = document.createElement("div");
+      item.className = "libraryItem";
+      const name = document.createElement("span");
+      name.textContent = file.name;
+      const play = document.createElement("button");
+      play.textContent = "▶";
+      play.addEventListener("click", async () => {
+        try { await playBuffer(await decodeFile(file), .12); }
+        catch(e){ fileStatus.textContent = "再生できません: " + e.message; }
+      });
+      item.append(name, play);
+      library.appendChild(item);
+    });
+  }
+
+  function render(){
+    grid.innerHTML = "";
+    const visible = slots.filter(s => state.phase === "ALL" || s.phase === state.phase);
+    visible.forEach(slot => {
+      const card = document.createElement("article");
+      card.className = "card";
+      const idx = assignedIndex(slot);
+      const assigned = idx >= 0 ? state.candidates[idx].name : (state.assignments[slot.name] || "未選択");
+      const vol = getVolume(slot);
+      const effective = Math.min(1, vol * AUDIO_GAIN);
+
+      card.innerHTML =
+        '<div class="head"><h2>' + slot.name.toUpperCase() + '</h2><span class="tag">' +
+        (slot.phase === "A" ? "CURRENT OGG" : "PROCEDURAL") +
+        '</span></div>' +
+        '<div class="current">現在: ' + (slot.file || "procedural tone") + '</div>' +
+        '<div class="candidateName">' + assigned + '</div>';
+
+      const select = document.createElement("select");
+      select.innerHTML = '<option value="-1">候補を選択</option>' +
+        state.candidates.map((f,i) => '<option value="' + i + '"' + (i===idx?' selected':'') + '>' + f.name + '</option>').join("");
+      select.addEventListener("change", () => setAssignment(slot, Number(select.value)));
+
+      const cycle = document.createElement("div");
+      cycle.className = "row cycle";
+      const prev = document.createElement("button"); prev.textContent = "‹";
+      const play = document.createElement("button"); play.textContent = "候補 ▶";
+      const next = document.createElement("button"); next.textContent = "›";
+      prev.addEventListener("click", () => {
+        if (!state.candidates.length) return;
+        const n = idx < 0 ? state.candidates.length - 1 : (idx - 1 + state.candidates.length) % state.candidates.length;
+        setAssignment(slot, n);
+      });
+      next.addEventListener("click", () => {
+        if (!state.candidates.length) return;
+        const n = idx < 0 ? 0 : (idx + 1) % state.candidates.length;
+        setAssignment(slot, n);
+      });
+      play.addEventListener("click", () => playCandidate(slot));
+      cycle.append(prev, play, next);
+
+      const ab = document.createElement("div");
+      ab.className = "row";
+      const currentBtn = document.createElement("button");
+      currentBtn.textContent = slot.file ? "A 現在" : "A procedural";
+      currentBtn.addEventListener("click", () => playCurrent(slot));
+      const candidateBtn = document.createElement("button");
+      candidateBtn.textContent = "B 候補";
+      candidateBtn.addEventListener("click", () => playCandidate(slot));
+      ab.append(currentBtn, candidateBtn);
+
+      const volume = document.createElement("div");
+      volume.className = "volume";
+      const top = document.createElement("div");
+      top.className = "volumeTop";
+      top.innerHTML = '<span>volume <b>' + vol.toFixed(2) + '</b></span><span class="effective">実効 ' + effective.toFixed(2) + ' (×3)</span>';
+      const range = document.createElement("input");
+      range.type = "range"; range.min = "0.01"; range.max = "0.40"; range.step = "0.01"; range.value = String(vol);
+      range.addEventListener("input", () => {
+        state.volumes[slot.name] = Number(range.value);
+        save();
+        top.innerHTML = '<span>volume <b>' + Number(range.value).toFixed(2) + '</b></span><span class="effective">実効 ' + Math.min(1, Number(range.value)*AUDIO_GAIN).toFixed(2) + ' (×3)</span>';
+      });
+
+      volume.append(top, range);
+      card.append(select, cycle, ab, volume);
+      grid.appendChild(card);
+    });
+  }
+
+  fileInput.addEventListener("change", () => {
+    state.candidates = Array.from(fileInput.files || []);
+    fileStatus.innerHTML = '<span class="ok">' + state.candidates.length + '個の候補音を読み込みました。</span> 各スロットの ‹ › で連続比較できます。';
+    renderLibrary();
+    render();
+  });
+
+  document.getElementById("libraryBtn").addEventListener("click", () => {
+    library.classList.toggle("show");
+  });
+
+  document.querySelectorAll("[data-phase]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("[data-phase]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      state.phase = btn.dataset.phase;
+      render();
+    });
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    state.volumes = {};
+    save();
+    render();
+    fileStatus.textContent = "音量をORBIT現在値へ戻しました。";
+  });
+
+  function buildExport(){
+    const out = {
+      generatedAt:new Date().toISOString(),
+      orbitAudioGain:AUDIO_GAIN,
+      cues:{}
+    };
+    slots.forEach(slot => {
+      out.cues[slot.name] = {
+        targetFile: slot.name + ".ogg",
+        candidate: state.assignments[slot.name] || null,
+        volume: getVolume(slot),
+        currentFile: slot.file
+      };
+    });
+    return JSON.stringify(out, null, 2);
+  }
+
+  document.getElementById("exportBtn").addEventListener("click", async () => {
+    exportText.value = buildExport();
+    exportDialog.showModal();
+    try {
+      await navigator.clipboard.writeText(exportText.value);
+      fileStatus.textContent = "Sound Lab設定をクリップボードへコピーしました。";
+    } catch (_) {}
+  });
+  document.getElementById("copyBtn").addEventListener("click", async () => {
+    exportText.select();
+    try { await navigator.clipboard.writeText(exportText.value); }
+    catch (_) { document.execCommand("copy"); }
+  });
+  document.getElementById("closeBtn").addEventListener("click", () => exportDialog.close());
+
+  renderLibrary();
+  render();
+})();
+</script>
+</body>
+</html>
