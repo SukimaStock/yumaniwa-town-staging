@@ -408,3 +408,113 @@ Visual checks:
 - kettle icon visible
 - factory exterior illustration visible
 - no initial flash or missing-image regression
+
+
+## Phase 4 real-device result
+
+Accepted.
+
+Normal-browser validation showed:
+
+```text
+STORAGE
+setup v1 | persistent=true | memory=true | memoryPreferred=false
+
+ASSETS
+ready/loading/error/idle: 4/0/0/0
+```
+
+After closing and reopening the browser, Storage remained persistent.
+
+The second visual-asset load completed from browser cache in roughly 34ms for all four images, compared with roughly 200–320ms on the preceding load.
+
+## Phase 5 — SE migrated to Audio v2
+
+CoffeeFactory's work-local `seAudio` implementation has been removed.
+
+The following eight sound effects are now canonical Audio v2 buffer sounds:
+
+```text
+ui_select
+ui_step
+factory_start
+grinder_lever
+steam_soft
+brew_ready
+brew_change
+brew_finish
+```
+
+Each original per-sound `volume` and `cooldown` value is unchanged.
+
+Existing call-site behavior is preserved:
+
+- `brew_change` can still use playback-rate 0.94 / 1.06
+- `brew_finish` still supports `force:true`
+- hidden pages still suppress work-triggered SE
+- user gesture now unlocks `SSE.audio`
+- Engine lifecycle suspends/resumes the shared AudioContext
+
+### Volume preservation
+
+The old work-local SE graph used:
+
+```text
+SE master gain = 0.95
+```
+
+Therefore Engine Audio is temporarily configured as:
+
+```text
+masterVolume = 0.95
+seVolume = 1.0
+```
+
+This keeps SE output at the same effective level.
+
+CoffeeFactory's custom BGM is still outside Engine Audio, so this master-gain change does not alter BGM level in Phase 5.
+
+### Static Phase 5 audit
+
+Passed:
+
+- all 8 SE definitions present
+- all 8 use buffer mode
+- all original per-sound volumes preserved
+- all original cooldowns preserved
+- custom `seAudio` object removed
+- zero `seAudio.*` references remain
+- `playSE()` routes to `SSE.audio.play()`
+- setup preloads through `SSE.audio.preload()`
+- touch gesture unlocks through `SSE.audio.unlock()`
+- custom BGM code remains unchanged
+
+## Phase 5 real-device expectation
+
+After SE buffers finish loading:
+
+```text
+AUDIO
+Enabled: true
+Context: running or suspended depending on gesture/lifecycle state
+Buffers: 8/8
+```
+
+Before the first user gesture, a suspended AudioContext is normal.
+
+Check the actual sounds, not only the report:
+
+1. Setup selection sound
+2. bean +/- step sound
+3. factory start
+4. grinder lever
+5. steam
+6. brew ready
+7. pour/wait change cue
+8. finish cue
+9. sound toggle off/on
+10. background / resume during Brew
+
+The key comparison is whether SE loudness and timing feel unchanged from the pre-migration build.
+
+BGM remains intentionally untouched until this phase is accepted.
