@@ -93,70 +93,7 @@
   <!-- Canonical SukimaStock Engine v0.2; local v0.1.1 file remains only as rollback reference. -->
   <script src="../../engine/sukimastock-engine.v0.2.0.js"></script>
 
-  <!--
-    Keep the first load focused on the clock itself. Decorative machinery starts
-    only after the page load event, then fills in over a short interval.
-  -->
-  <script>
-    (() => {
-      const originalReadImage = window.readImage;
-      const CodeaImageClass = window.CodeaImage;
-      if (typeof originalReadImage !== "function" || typeof CodeaImageClass !== "function") return;
-
-      // Truly transparent 1x1 GIF. The previous placeholder was opaque, so
-      // deferred sprites briefly appeared as gray rectangles on Safari.
-      const transparentPixel =
-        "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
-
-      const deferredAssets = new Map([
-        ["assets/center_piece.png", 0],
-        ["assets/gear1.png", 0],
-        ["assets/gear2.png", 0],
-        ["assets/pendulum.png", 0],
-        ["assets/barometer_dial.png", 150],
-        ["assets/barometer_needle.png", 150],
-        ["assets/pipe_elbow.png", 300],
-        ["assets/pipe_straight.png", 300],
-        ["assets/valve.png", 300],
-        ["assets/gauge_dummy.png", 300]
-      ]);
-
-      function afterPageLoad(callback, delay) {
-        const run = () => window.setTimeout(callback, delay);
-        if (document.readyState === "complete") {
-          run();
-        } else {
-          window.addEventListener("load", run, { once: true });
-        }
-      }
-
-      window.readImage = function steamClockReadImage(src) {
-        const key = String(src);
-
-        // Legacy asset: the current scene never draws it, so do not request it.
-        if (key === "assets/spring.png") {
-          return new CodeaImageClass(transparentPixel);
-        }
-
-        const delay = deferredAssets.get(key);
-        if (delay === undefined) return originalReadImage(src);
-
-        const image = new CodeaImageClass(transparentPixel);
-        if (image.element && "fetchPriority" in image.element) {
-          image.element.fetchPriority = "low";
-        }
-
-        afterPageLoad(() => {
-          image.src = key;
-          image.loaded = false;
-          image.error = null;
-          image.element.src = key;
-        }, delay);
-
-        return image;
-      };
-    })();
-  </script>
+  <!-- Asset priority/deferred loading is handled by SSE.assets in sketch.js. -->
 
   <!-- Production nixie font. The sketch still asks for its legacy Avenir stack;
        translate only that request so the rest of the app remains unchanged. -->
