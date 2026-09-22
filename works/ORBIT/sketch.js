@@ -393,13 +393,13 @@
     completionSecondDelay: 4.2,
     homeBeaconPulseSec: 7.0,
     trueEndingDelay: 0.8,
-    trueFadeStart: 19.2,
-    trueFadeEnd: 20.6,
-    trueTitleStart: 20.6,
-    trueTitleEnd: 24.7,
-    trueUnknownStart: 25.5,
-    trueUnknownEnd: 29.1,
-    trueReturnTitleAt: 30.4,
+    trueFadeStart: 7.0,
+    trueFadeEnd: 8.4,
+    trueTitleStart: 8.4,
+    trueTitleEnd: 12.5,
+    trueUnknownStart: 13.3,
+    trueUnknownEnd: 16.9,
+    trueReturnTitleAt: 18.2,
   });
 
   // Casual speech should feel incidental, not like the author explaining the
@@ -2216,21 +2216,11 @@
         this.incident.trueEndingTimer += dt;
         const t = this.incident.trueEndingTimer;
 
-        if (this.incident.trueEndingSpeechStage < 1 && t >= 1.0) {
-          this.sayEve(tx("incident.trueEnding.line1"), 3.0);
-          this.incident.trueEndingSpeechStage = 1;
-        }
-
-        // The Incident Logs already showed what E.V.E. was doing that day.
-        // Do not explain it again here. Let HOME occupy the space where the
-        // answer-check line used to be.
-        if (this.incident.trueEndingSpeechStage < 2 && t >= 8.2) {
-          this.sayEve(tx("incident.trueEnding.line3"), 3.0);
-          this.incident.trueEndingSpeechStage = 2;
-        }
-        if (this.incident.trueEndingSpeechStage < 3 && t >= 14.0) {
+        // The Incident Logs already supplied the facts. On the final return,
+        // HOME itself carries the answer; E.V.E. only greets the pilot.
+        if (this.incident.trueEndingSpeechStage < 1 && t >= 2.0) {
           this.sayEve(tx("incident.trueEnding.line4"), 3.4);
-          this.incident.trueEndingSpeechStage = 3;
+          this.incident.trueEndingSpeechStage = 1;
         }
 
         if (
@@ -2339,26 +2329,15 @@
         }
       }
 
-      if (
-        this.incident.completionStage === 1 ||
-        this.incident.completionStage === 2
-      ) {
+      if (this.incident.completionStage === 1) {
         this.incident.completionTimer = Math.max(0, this.incident.completionTimer - dt);
 
         if (
-          this.incident.completionStage === 1 &&
           this.incident.completionTimer <= 0 &&
           this.eve.timer <= 0
         ) {
-          this.sayEve(tx("incident.complete"), 3.2);
-          this.incident.completionStage = 2;
-          this.incident.completionTimer = INCIDENT_TUNE.completionSecondDelay;
-          this.incident.homeBeaconPulse = INCIDENT_TUNE.homeBeaconPulseSec;
-        } else if (
-          this.incident.completionStage === 2 &&
-          this.incident.completionTimer <= 0 &&
-          this.eve.timer <= 0
-        ) {
+          // The archive itself already shows that the set is complete. E.V.E.
+          // only says what comes next.
           this.sayEve(tx("incident.returnHome"), 2.8);
           this.incident.completionStage = 3;
           this.incident.completionReadPending = true;
@@ -3116,10 +3095,10 @@
     }
 
     echoReaction(index) {
-      // Most ECHOs are allowed to end on the recovered memory itself. E.V.E.
-      // only reacts at a few structural thresholds; otherwise her commentary
-      // would explain the meaning the player has just had a chance to feel.
-      if (![1, 4, 7, 10, 12].includes(index)) return "";
+      // Let recovered memories speak for themselves. E.V.E. reacts only to
+      // the first recognition and the final completion; everything between
+      // belongs to the memory and the player's own interpretation.
+      if (![1, 12].includes(index)) return "";
       const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
       const band = this.echoBand(index);
       const rows = ECHO_REACTIONS[level] || ECHO_REACTIONS[1];
@@ -3339,7 +3318,7 @@
         playOrbitCue("rebirth");
         this.finale.stage = "outro";
         this.finale.timer = 0;
-        this.finale.speechStage = 7;
+        this.finale.speechStage = 4;
         this.eve.timer = 0;
         this.base.repairPulse = Math.max(this.base.repairPulse || 0, 2.2);
         if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
@@ -3504,38 +3483,26 @@
           this.echoStory.pendingPlanet = null;
         }
 
-        // Act I — recognition. HOME gets one full second before E.V.E. speaks.
+        // HOME gets one quiet second. Then E.V.E. states only the facts the
+        // player cannot know from play alone; interpretation is left untouched.
         if (this.finale.speechStage < 1 && this.finale.timer >= 1.0) {
-          this.sayEve(tx("finale.connected"), 3.0);
+          this.sayEve(tx("finale.accident1"), 4.0);
           this.finale.speechStage = 1;
         }
 
-        // The explanation now flows as one readable thought. There is no dead
-        // time left behind by the removed name-expansion reveal, but every line
-        // remains on screen long enough to finish reading.
-        if (this.finale.speechStage < 3 && this.finale.timer >= 4.2) {
-          this.sayEve(tx("finale.accident1"), 4.0);
+        if (this.finale.speechStage < 2 && this.finale.timer >= 5.3) {
+          this.sayEve(tx("finale.accident2"), 4.5);
+          this.finale.speechStage = 2;
+        }
+
+        if (this.finale.speechStage < 3 && this.finale.timer >= 10.1) {
+          this.sayEve(tx("finale.accident3"), 4.5);
           this.finale.speechStage = 3;
         }
 
-        if (this.finale.speechStage < 4 && this.finale.timer >= 8.7) {
-          this.sayEve(tx("finale.accident2"), 4.5);
-          this.finale.speechStage = 4;
-        }
-
-        if (this.finale.speechStage < 5 && this.finale.timer >= 13.7) {
-          this.sayEve(tx("finale.accident3"), 4.5);
-          this.finale.speechStage = 5;
-        }
-
-        if (this.finale.speechStage < 6 && this.finale.timer >= 18.7) {
-          this.sayEve(tx("finale.returnMemory"), 2.8);
-          this.finale.speechStage = 6;
-        }
-
-        if (this.finale.speechStage < 7 && this.finale.timer >= 21.9) {
+        if (this.finale.speechStage < 4 && this.finale.timer >= 14.9) {
           this.sayEve(tx("finale.returnLead"), 2.4);
-          this.finale.speechStage = 7;
+          this.finale.speechStage = 4;
           if (!this.finale.pulseFired) {
             this.finale.pulseFired = true;
             this.base.repairPulse = Math.max(this.base.repairPulse || 0, 2.2);
@@ -3543,17 +3510,17 @@
           }
         }
 
-        // A final short beat is punctuation only; REBIRTH begins as soon as the
-        // last line has had time to land.
-        if (this.finale.timer >= 25.2) this.startRebirthRitual();
+        // One short beat after the final factual line, then the player performs
+        // REBIRTH instead of hearing another explanation.
+        if (this.finale.timer >= 18.0) this.startRebirthRitual();
         return;
       }
 
       if (this.finale.stage === "outro") {
         // REBIRTH returns to HOME before language returns.
-        if (this.finale.speechStage < 8 && this.finale.timer >= 0.8) {
+        if (this.finale.speechStage < 5 && this.finale.timer >= 0.8) {
           this.sayEve(tx("finale.outro"), 3.2);
-          this.finale.speechStage = 8;
+          this.finale.speechStage = 5;
         }
 
         if (this.finale.timer >= 5.8) {
@@ -5985,11 +5952,8 @@
         text(safeLines[i], W / 2, firstY - i * lineGap);
       }
 
-      // A tiny residual line keeps this feeling like recovered signal, not a
-      // modal story card or collectible inventory.
-      fill(130, 160, 190, a * 0.65);
-      fontSize(8);
-      text(tx("hud.memoryFragment"), W / 2, panelY + 21);
+      // No category/footer label here. The recovered lines are allowed to
+      // stand on their own without telling the player what they mean.
     }
 
     drawIncidentArchive() {
