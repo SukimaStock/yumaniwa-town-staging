@@ -28,5 +28,6 @@
   "excludeNotes": [
     "Development notes, docs, examples, patcher.py, index.demo.html and restore-ritual.html are intentionally not distributed.",
     "The canonical Engine is copied into the package as sukimastock-engine.js during export."
-  ]
+  ],
+  "output": "ORBIT-itch.zip"
 }
