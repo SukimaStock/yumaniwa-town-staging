@@ -62,3 +62,23 @@ build shared capability in /engine
 → compare behavior
 → only then remove duplicated work-local code
 ```
+
+
+## Asset Loader smoke test
+
+Validated:
+
+1. Nested asset groups resolve correctly
+2. Duplicate asset names are removed while preserving order
+3. Image preload completes and records ready state
+4. Best-effort image fetch priority is applied
+5. JSON and text assets load through fetch
+6. Audio assets bridge to Audio v2 preload
+7. Idle-scheduled preload completes
+8. Group progress reports total/ready/loading/error/idle
+9. Asset report exposes status/type/file/error metadata
+10. Hard image release removes the Codea Lite cache entry
+11. Released images return to idle state
+12. A released image can be preloaded again successfully
+
+The release path deliberately checks whether another active asset record references the same file before dropping the shared Codea image/cache entry.
