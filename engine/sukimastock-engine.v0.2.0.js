@@ -3763,7 +3763,14 @@
       this.installed = true;
 
       root.addEventListener("pagehide", () => this.pause("pagehide"));
-      root.addEventListener("pageshow", () => this.resume("pagehide"));
+      root.addEventListener("pageshow", () => {
+        this.resume("pagehide");
+        // Safari/bfcache event ordering varies. If the page is already visible,
+        // clear a stale hidden reason even when visibilitychange has not fired yet.
+        if (typeof document !== "undefined" && !document.hidden) {
+          this.resume("hidden");
+        }
+      });
 
       root.addEventListener("blur", () => {
         input.cancelActiveAndDispatch();
