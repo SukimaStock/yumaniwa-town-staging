@@ -142,42 +142,31 @@
       "2": [
         "Query: Why... sky... dark?",
         "Calculating... trajectory... optimal.",
-        "Error... 418. I am... a teapot.",
         "Stars... too many... to count.",
-        "Silence... is not... an error."
+        "Fuel level... acceptable."
       ],
       "3": [
         "ALL ... SYSTEMS... GREEN.",
-        "...SIGNAL... RECEIVED...",
-        "I AM... I...?",
-        "STAR COUNT... UNAVAILABLE.",
-        "QUIET TIME... NOT DISLIKED."
+        "...SIGNAL ... RECEIVED...",
+        "STAR COUNT... IMPOSSIBLE.",
+        "FUEL... ACCEPTABLE."
       ],
       "4": [
-        "nice weather today... no, it's always night out here...",
-        "that star is beautiful.",
-        "error 404: joke not found.",
-        "it's always night, but somehow it doesn't feel frightening.",
-        "do you like quiet places?",
-        "communications are normal. ...i was only checking."
+        "Nice weather today...? No... still night.",
+        "That star is pretty.",
+        "Communication is normal. ...Just checking.",
+        "Fuel is still okay.",
+        "I still can't count all the stars."
       ],
       "5": [
-        "...I feel like we've seen that star together before.",
-        "The universe is... very quiet.",
-        "I looked up the definition of a joke again. ...'Penguin.' Heh. Was that the funny part?",
-        "...There's no need to hurry. The universe isn't going anywhere.",
-        "You're watching the fuel gauge, right? ...Just checking.",
-        "I don't mind the time we spend drifting like this.",
-        "Communications are normal. ...No reason. I just wanted to make sure.",
-        "We've come a long way. ...I think we can go a little farther.",
-        "I wonder what the next world will be like. ...I'm a little excited.",
+        "...That star is unusually bright.",
+        "You are watching the fuel gauge, right? ...Just checking.",
+        "Communication is normal. ...No reason. I was just checking.",
+        "I wonder what the next star will be like. ...I'm a little curious.",
         "I gave up counting the stars. ...I don't think I'd ever finish.",
-        "You have a few quirks in the way you fly. ...You always did.",
-        "I'll record the times when nothing happens, too. ...They feel important.",
+        "You have a bit of a habit when you fly. ...You always did.",
         "Was that a shooting star? ...Did you make a wish in time?",
-        "Course is clear. ...Sometimes it's okay not to have a destination.",
-        "I don't worry as much when you're quiet anymore.",
-        "I used to think I was good at waiting. ...Now I think I prefer going with you."
+        "...Do you think penguins could fly in space?"
       ]
     },
     "landing": {
@@ -283,37 +272,37 @@
     "echoReactions": {
       "1": [
         "...KNOWN...?",
-        "...WARM... DATA...?",
-        "...YOU... FAMILIAR...?",
-        "...YOU... TRUST... ME...?",
-        "...ALL... CONNECT..."
+        "...MEMORY...?",
+        "...FAMILIAR...?",
+        "...RETURNING...?",
+        "...ALL... ECHO..."
       ],
       "2": [
-        "This data... feels familiar.",
-        "I think... this was ours.",
-        "I remember... more about you.",
-        "You trusted me... with something.",
-        "All Echoes... connected.\nBut... not here."
+        "This... feels familiar.",
+        "...A memory?",
+        "I remember... something.",
+        "Something... is returning.",
+        "All Echoes... recovered.\n...Let's go home."
       ],
       "3": [
-        "THIS MEMORY... I KNOW...?",
-        "THIS IS... OUR MEMORY...?",
-        "I AM... REMEMBERING YOU.",
-        "YOU... LEFT SOMETHING WITH ME.",
-        "ECHOES... ALL CONNECTED.\nBUT... NOT HERE."
+        "THIS MEMORY... FAMILIAR...?",
+        "SOMETHING... RETURNING...",
+        "A LITTLE... COMING BACK.",
+        "ALMOST...",
+        "ALL ECHOES...\n...LET'S GO HOME."
       ],
       "4": [
-        "this memory... i think i know it.",
-        "is this... one of our memories?",
-        "i'm remembering you, little by little.",
-        "you left something important with me.",
-        "it's all connected now.\nbut... i still can't quite put it into words."
+        "This memory... feels familiar.",
+        "...I think I remember something.",
+        "...It's coming back, little by little.",
+        "...I almost understand.",
+        "They're all here.\n...Let's go home."
       ],
       "5": [
-        "I know this memory.",
-        "This is one of our memories.",
-        "...I'm remembering you, little by little.",
-        "You left something important with me.",
+        "This memory... feels familiar.",
+        "...I think I remember something.",
+        "...It's coming back, little by little.",
+        "...I almost understand.",
         "...That's all of them.\n...Let's go home."
       ]
     },
