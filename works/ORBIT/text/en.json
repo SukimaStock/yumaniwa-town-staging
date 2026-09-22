@@ -317,7 +317,7 @@
       "2": "I can see... farther now.",
       "3": "THE STARS... I CAN SEE FARTHER NOW.",
       "4": "the sky looks wider than before.",
-      "5": "...We can go farther together now."
+      "5": "...I think we can reach that star."
     },
     "farewell": "...Have a safe flight.",
     "astraIdle": {
@@ -459,22 +459,22 @@
     "responseHint": "Tap to return",
     "wake": {
       "name": "WAKE",
-      "response": "...PULSE... RESPONDS...\nTO TOUCH...",
+      "response": "...PULSE... STABLE...",
       "instruction": "Tap"
     },
     "link": {
       "name": "LINK",
-      "response": "HEARTBEAT AND MEMORY\nBEGIN TO TURN",
+      "response": "COMMUNICATION... CONNECTED.",
       "instruction": "Trace clockwise"
     },
     "memory": {
       "name": "MEMORY",
-      "response": "...I remember\nyour warmth.",
+      "response": "...I can hear you.\nMore clearly now.",
       "instruction": "Trace the light"
     },
     "resonance": {
       "name": "RESONANCE",
-      "response": "The broken lines connect.\nYour outline returns,\na little at a time.",
+      "response": "...The noise is gone.",
       "instruction": "Connect the points in order"
     },
     "rebirth": {
