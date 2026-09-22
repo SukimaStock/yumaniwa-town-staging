@@ -156,3 +156,98 @@ The useful next step is Storage v2 definitions for the current DotWeather keys s
 The old `activeCity` key should be treated as legacy compatibility data rather than promoted as a current schema.
 
 No Asset Loader migration is needed unless future DotWeather versions add external visual assets.
+
+
+## Phase 1 real-device result
+
+Accepted.
+
+Session Report:
+
+```text
+ATTENTION
+[OK] No Engine-level problems detected in this session.
+
+PERFORMANCE
+FPS average: 29.4
+FPS current: 30.3
+minimum FPS: 20.4
+frame p95: 41ms
+frame max: 49ms
+rendered/skipped/slow: 1049 / 1087 / 1
+draw average: 7.92ms
+```
+
+The approximately 1:1 rendered/skipped ratio is expected because DotWeather intentionally targets 30fps while the browser RAF runs around 60Hz.
+
+One slow frame out of 1049 rendered frames does not indicate a sustained problem.
+
+Audio context was active and Engine health remained clean.
+
+## Phase 2 — Storage v2 schemas
+
+Seven existing DotWeather storage keys are now registered with Storage v2:
+
+```text
+cityState
+activeCity
+temperatureUnit
+lowPower
+viewMode
+customCitiesV1
+weatherCacheV1
+```
+
+All remain schema version 1.
+
+No persistent data rewrite is required because local Engine v0.1.1 already stored values as:
+
+```json
+{ "version": 1, "value": ... }
+```
+
+which is directly compatible with Storage v2.
+
+### Validation added
+
+- `cityState`: versioned object with string city ids
+- `activeCity`: string
+- `temperatureUnit`: C or F
+- `lowPower`: boolean
+- `viewMode`: forecast or ambient
+- `customCitiesV1`: versioned city array
+- `weatherCacheV1`: versioned cache object with timestamp and forecast map
+
+### Compatibility smoke test
+
+Representative records written in the exact old v0.1.1 wrapper format were read through canonical v0.2.
+
+Validated:
+
+- all seven values preserved exactly
+- all remained persistent
+- all reported stored schema version 1
+- no migration rewrite occurred
+- invalid temperature unit was rejected
+- invalid view mode was rejected
+- rejected writes did not corrupt the existing saved value
+
+`activeCity` remains defined only for backward compatibility. `cityState` is the current authoritative city-selection structure.
+
+## Phase 2 real-device expectation
+
+Session Report should now list Storage v2 entries instead of:
+
+```text
+No defined Storage v2 keys.
+```
+
+Most existing-used keys should report:
+
+```text
+v1 | persistent=true | memory=true | memoryPreferred=false
+```
+
+A key that has never been written on that installation may legitimately show no stored version/persistence yet.
+
+No network, cache-age, refresh, city-search, visual, or audio behavior changed in Phase 2.
