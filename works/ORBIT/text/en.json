@@ -458,11 +458,11 @@
   "finale": {
     "outro": "...Welcome home.",
     "connected": "...Everything is connected now.",
-    "accident1": "\"This is the one thing I don't want to lose.\" — The memory you entrusted to me that day.",
-    "accident2": "Scattered across the sea of stars, you gathered it back one piece at a time.",
-    "accident3": "...It wasn't only the system you were restoring.",
+    "accident1": "That day, you entrusted me\nwith your memories and emotions.",
+    "accident2": "So they would not be lost,\nI left them among the stars as ECHOs.",
+    "accident3": "The ECHOs you gathered\nwere all pieces of yourself.",
     "returnMemory": "You—back to yourself.",
-    "returnLead": "I'm giving it back."
+    "returnLead": "...I'm giving it all back."
   },
   "ritual": {
     "shellLabel": "ORBIT / RESTORE",
@@ -563,7 +563,6 @@
         "lines": [
           "MEMORY BACKUP REQUEST",
           "TARGET: PILOT",
-          "ECHO OF VITAL EMOTION",
           "PRIORITY: CRITICAL",
           "PILOT: \"This is the one thing I don't want to lose.\"",
           "E.V.E.: \"...Understood. I'll keep it.\""
