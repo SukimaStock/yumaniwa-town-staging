@@ -337,3 +337,74 @@ STORAGE
 ```
 
 The exact `memory` value may depend on whether the record has been read in the current session, but `persistent=true` and `memoryPreferred=false` are the important expected values.
+
+
+## Phase 3 real-device result
+
+Accepted.
+
+Storage v2 is now visible in Session Report:
+
+```text
+STORAGE
+- setup v1 | persistent=true | memory=true | memoryPreferred=false
+```
+
+This confirms that setup persistence is durable and not using the in-memory fallback.
+
+## Phase 4 — visual assets migrated to SSE.assets
+
+CoffeeFactory had four direct image loads:
+
+- cup icon
+- bean icon
+- kettle icon
+- factory exterior line art
+
+All four are now registered in the canonical Asset Loader.
+
+Asset ids:
+
+```text
+icon.cup
+icon.beans
+icon.water
+factory.exterior
+```
+
+They are grouped as:
+
+```text
+visuals
+```
+
+and loaded at high priority during app setup.
+
+The work now uses `SSE.assets.peek()` to bind the Codea image object immediately while loading, preserving the existing first-render behavior.
+
+### Static audit
+
+Passed:
+
+- 4 registered visual assets
+- 4 assets in the `visuals` group
+- zero direct `loadImage()` calls remain
+- zero direct `readImage()` calls remain
+- sketch parses successfully
+
+### Phase 4 real-device expectation
+
+After initial loading settles:
+
+```text
+ASSETS
+ready/loading/error/idle: 4/0/0/0
+```
+
+Visual checks:
+
+- cup icon visible
+- bean icon visible
+- kettle icon visible
+- factory exterior illustration visible
+- no initial flash or missing-image regression
