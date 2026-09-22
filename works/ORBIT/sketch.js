@@ -210,6 +210,12 @@
     durationByLevel: Object.freeze([0, 1.60, 1.30, 1.00, 0.75, 0.45]),
   });
 
+  // The BASE terminal opens like an old desktop window restoring from a bar.
+  // Deliberately stepped, not eased: the tiny jumps are part of the machine feel.
+  const HOME_TERMINAL_OPEN_TUNE = Object.freeze({
+    duration: 0.32,
+  });
+
   // RESTORE keeps its deliberate confirmation for now, but YES no longer
   // jumps directly into the ritual. The terminal first establishes a short
   // physical link to BASE, turning a GUI confirmation into a machine action.
@@ -1121,6 +1127,9 @@
         mode: "browse",     // browse | confirm
         pressed: null,
         status: "OFFLINE",
+        opening: false,
+        openingTimer: 0,
+        openingDuration: HOME_TERMINAL_OPEN_TUNE.duration,
         // Shown only immediately after RESTORE. Closing the terminal consumes
         // the report; the next HOME return opens the ordinary operations view.
         restoreReportLevel: 0,
@@ -2499,6 +2508,7 @@
       }
       if (this.eve && this.eve.timer > 0) this.eve.timer = Math.max(0, this.eve.timer - dt);
       this.updateHomeTerminalBoot(dt);
+      this.updateHomeTerminalOpening(dt);
       this.updateHomeRestoreLink(dt);
 
       if (this.restoreReveal && this.restoreReveal.timer > 0) {
@@ -3930,6 +3940,9 @@
           mode: "browse",
           pressed: null,
           status: "OFFLINE",
+          opening: false,
+          openingTimer: 0,
+          openingDuration: HOME_TERMINAL_OPEN_TUNE.duration,
           restoreReportLevel: 0,
         };
       }
@@ -3941,6 +3954,9 @@
       this.homeTerminal.mode = "browse";
       this.homeTerminal.pressed = null;
       this.homeTerminal.status = "CONNECTED";
+      this.homeTerminal.opening = !wasVisible;
+      this.homeTerminal.openingTimer = 0;
+      this.homeTerminal.openingDuration = HOME_TERMINAL_OPEN_TUNE.duration;
       this.homeTerminal.restoreReportLevel = 0;
       this.pressing = false;
       this.departHold = 0;
@@ -3956,9 +3972,73 @@
       this.homeTerminal.mode = "browse";
       this.homeTerminal.pressed = null;
       this.homeTerminal.status = "DISCONNECTED";
+      this.homeTerminal.opening = false;
+      this.homeTerminal.openingTimer = 0;
       this.homeTerminal.restoreReportLevel = 0;
       this.pressing = false;
       this.departHold = 0;
+    }
+
+    updateHomeTerminalOpening(dt) {
+      const term = this.homeTerminal;
+      if (!term || !term.visible || !term.opening) return;
+      term.openingTimer = Math.min(
+        term.openingDuration,
+        term.openingTimer + Math.max(0, Number(dt || 0))
+      );
+      if (term.openingTimer >= term.openingDuration) {
+        term.opening = false;
+        term.openingTimer = term.openingDuration;
+      }
+    }
+
+    drawHomeTerminalOpening(L) {
+      const term = this.homeTerminal;
+      if (!term || !term.opening) return false;
+
+      const q = clamp(
+        term.openingTimer / Math.max(0.001, term.openingDuration || HOME_TERMINAL_OPEN_TUNE.duration),
+        0,
+        1
+      );
+      const stage = Math.min(3, Math.floor(q * 4));
+      const presets = [
+        { w: 0.38, h: 0.035 },
+        { w: 0.48, h: 0.22 },
+        { w: 0.76, h: 0.58 },
+        { w: 1.00, h: 1.00 },
+      ];
+      const P = presets[stage];
+      const w = Math.max(34, L.w * P.w);
+      const h = Math.max(7, L.h * P.h);
+      const x = L.x + (L.w - w) / 2;
+      const y = L.y + (L.h - h) / 2;
+
+      if (stage === 0) {
+        noStroke();
+        fill(0, 0, 128, 255);
+        rect(x, y, w, h);
+        stroke(232, 232, 232, 210);
+        strokeWidth(1);
+        line(x, y + h, x + w, y + h);
+        return true;
+      }
+
+      this.drawWinBevel(x, y, w, h, false);
+      const titleH = Math.min(L.titleH, Math.max(8, h * 0.18));
+      noStroke();
+      fill(0, 0, 128, 255);
+      rect(x + 3, y + h - titleH - 2, Math.max(1, w - 6), titleH);
+
+      // Text appears only once the window has nearly reached its final frame.
+      if (stage >= 2) {
+        fill(255, 255, 255, 235);
+        font("monospace");
+        fontSize(stage === 2 ? 8.0 : 10.0);
+        textAlign(LEFT);
+        text(tx("home.terminalTitle"), x + 8, y + h - Math.max(8, titleH * 0.58));
+      }
+      return true;
     }
 
     homeTerminalLayout() {
@@ -4138,6 +4218,12 @@
 
     handleHomeTerminalTouch(touch) {
       if (!this.homeTerminal || !this.homeTerminal.visible) return false;
+      if (this.homeTerminal.opening) {
+        this.homeTerminal.pressed = null;
+        this.pressing = false;
+        this.departHold = 0;
+        return true;
+      }
 
       // While connected to HOME, flight/takeoff input is completely isolated.
       this.pressing = false;
@@ -4284,6 +4370,7 @@
       if (this.finale && this.finale.active) return;
 
       const L = this.homeTerminalLayout();
+      if (this.drawHomeTerminalOpening(L)) return;
 
       // Source-inspired desktop window: flat grey body, dark-blue title bar,
       // hard 3D bevels. No blur, no rounded Web cards.
