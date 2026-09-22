@@ -281,3 +281,71 @@ The page now loads:
 so the Storage v2 definitions are forced into the next real-device load.
 
 This did not change DotWeather behavior; it only guarantees that the migrated work script is the version actually executed.
+
+
+## Phase 2 real-device result
+
+Accepted.
+
+Session Report confirmed Storage v2 registration and persistence:
+
+```text
+cityState       v1 | persistent=true
+activeCity      v1 | persistent=true
+weatherCacheV1  v1 | persistent=true
+```
+
+The following defined keys were not yet written on this installation and therefore correctly reported no stored version:
+
+```text
+temperatureUnit
+lowPower
+viewMode
+customCitiesV1
+```
+
+This is expected and does not indicate a migration failure.
+
+Performance remained healthy for the intentional 30fps target:
+
+```text
+average FPS 28.9
+p95 frame interval 46ms
+max frame interval 49ms
+slow frames 1 / 587 rendered
+ATTENTION OK
+```
+
+## Migration accepted
+
+DotWeather is now considered fully migrated to canonical SukimaStock Engine v0.2.
+
+Validated areas:
+
+```text
+canonical Engine reference
+30fps performance control
+legacy-compatible Storage v2 schemas
+Audio tone compatibility
+Lifecycle / input safety
+DevTools / Session Report
+staging-only weather-state Debug coexistence
+```
+
+Deliberately work-local:
+
+```text
+Open-Meteo forecast fetching
+Open-Meteo geocoding
+request timeout policy
+30-minute refresh policy
+12-hour cache-age policy
+forecast normalization
+demo fallback
+city catalog/custom-city logic
+weather-state visual Debug
+```
+
+No Asset Loader migration is needed because DotWeather currently has no external image assets.
+
+The work-local `sukimastock-engine.js` copy is removed after acceptance. Rollback remains available through Git history.
