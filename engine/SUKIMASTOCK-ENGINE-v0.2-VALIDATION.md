@@ -276,3 +276,27 @@ Validated:
 - the resolved ready image is the exact same object
 - `image()` still returns null until ready
 - after readiness, both APIs refer to the same image object
+
+
+## Audio baseline validation
+
+The opt-in SukimaStock audio baseline was added after CoffeeFactory real-device tuning exposed a repeated AI-assisted workflow problem: newly implemented audio was often attenuated too aggressively and then manually raised several times.
+
+Validated:
+
+1. `SSE.audio.baseline()` returns the `sukimastock` preset
+2. baseline buses are `master=1.0 / music=1.0 / se=1.0`
+3. BGM reference values are `0.075 / 0.135 / 0.225 / 0.270`
+4. SE reference values are `0.24 / 0.36 / 0.46 / 0.68 / 0.75`
+5. `SSE.audio.withBaseline(options)` merges work overrides without losing nested audio config
+6. returned baseline data is cloned; mutating one returned object does not alter the canonical preset
+7. legacy `audio.configure({})` defaults remain unchanged at `master=0.7 / music=1 / se=1`
+8. therefore existing works are unaffected unless they explicitly opt in
+
+The authoring rule is documented in:
+
+```text
+engine/SUKIMASTOCK-AUDIO-BASELINE.md
+```
+
+This baseline is intentionally a starting point, not an automatic remastering system.
