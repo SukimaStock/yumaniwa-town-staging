@@ -402,16 +402,14 @@
     trueReturnTitleAt: 30.4,
   });
 
-  // ORBIT is only about fifteen minutes long, so E.V.E.'s casual voice should
-  // have time to become familiar. ASTRA is the one place where doing nothing
-  // is itself a choice, so the silence there is a little more companionable.
+  // Casual speech should feel incidental, not like the author explaining the
+  // relationship through E.V.E. Give ordinary travel more air, and let the
+  // fully restored E.V.E. be especially comfortable with silence.
   const EVE_IDLE_TUNE = Object.freeze({
-    normalMin: 25,
-    normalMax: 50,
-    // Fully restored E.V.E. speaks less often. The language is complete, but
-    // companionship no longer needs constant verbal confirmation.
-    level5Min: 48,
-    level5Max: 82,
+    normalMin: 30,
+    normalMax: 55,
+    level5Min: 70,
+    level5Max: 110,
     astraFirstMin: 7,
     astraFirstMax: 14,
   });
@@ -3118,10 +3116,14 @@
     }
 
     echoReaction(index) {
+      // Most ECHOs are allowed to end on the recovered memory itself. E.V.E.
+      // only reacts at a few structural thresholds; otherwise her commentary
+      // would explain the meaning the player has just had a chance to feel.
+      if (![1, 4, 7, 10, 12].includes(index)) return "";
       const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
       const band = this.echoBand(index);
       const rows = ECHO_REACTIONS[level] || ECHO_REACTIONS[1];
-      return rows[band] || rows[0];
+      return rows[band] || rows[0] || "";
     }
 
     echoReturnLine() {
@@ -3441,7 +3443,8 @@
           this.echoes.read.add(index);
           this.echoStory.replayIndex = 0;
           this.saveKnowledge("echo-read", false);
-          this.sayEve(this.echoReaction(index), index === 12 ? 3.8 : 3.2);
+          const reaction = this.echoReaction(index);
+          if (reaction) this.sayEve(reaction, index === 12 ? 3.8 : 3.0);
           if (this.shouldStartFinale()) this.finale.resumePending = true;
         }
       }
