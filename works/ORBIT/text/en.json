@@ -75,7 +75,11 @@
       "precise": "PRECISE",
       "fullyRestored": "FULLY RESTORED",
       "updated": "UPDATED",
-      "completeStatus": "COMPLETE"
+      "completeStatus": "COMPLETE",
+      "baseSystemUpdated": "BASE SYSTEM     : UPDATED",
+      "systemsUpdated": "SYSTEMS         : UPDATED",
+      "navigationUpdated": "NAVIGATION      : UPDATED",
+      "systemStable": "SYSTEM STATUS   : STABLE"
     },
     "boot": {
       "baseTerminal": "BASE // TERMINAL",
@@ -430,8 +434,7 @@
         "id": "promise",
         "key": "PROMISE",
         "lines": [
-          "\"I'm going a little farther\nthis time.\"",
-          "\"...But I'll come back. I promise.\""
+          "\"I'm going a little farther\nthis time.\""
         ]
       },
       {
@@ -455,8 +458,6 @@
   "finale": {
     "outro": "...Welcome home.",
     "connected": "...Everything is connected now.",
-    "eveName": "E.V.E.",
-    "expansion": "Echo of Vital Emotion.",
     "accident1": "\"This is the one thing I don't want to lose.\" — The memory you entrusted to me that day.",
     "accident2": "Scattered across the sea of stars, you gathered it back one piece at a time.",
     "accident3": "...It wasn't only the system you were restoring.",
@@ -585,7 +586,6 @@
     ],
     "trueEnding": {
       "line1": "...That day, we were trying to go home too.",
-      "line2": "I was trying to bring you home.",
       "line3": "...This time, we made it back.",
       "line4": "...Welcome home, Pilot."
     },
