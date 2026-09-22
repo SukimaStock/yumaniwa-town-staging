@@ -206,8 +206,8 @@
   // progressively cleaner and faster, so returning home itself becomes a small
   // measure of how much of BASE has been recovered.
   const HOME_TERMINAL_BOOT_TUNE = Object.freeze({
-    leadAfterEveSec: 0.30,
-    durationByLevel: Object.freeze([0, 1.60, 1.30, 1.00, 0.75, 0.45]),
+    leadAfterEveSec: 0.20,
+    durationByLevel: Object.freeze([0, 1.20, 1.00, 0.80, 0.60, 0.35]),
   });
 
   // The BASE terminal opens like an old desktop window restoring from a bar.
