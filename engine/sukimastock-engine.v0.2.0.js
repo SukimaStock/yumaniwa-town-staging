@@ -220,6 +220,13 @@
       preventDefault: true,
       bindings: {},
     },
+    devtools: {
+      enabled: "auto",
+      queryParam: "dev",
+      panel: true,
+      refreshMs: 500,
+      maxEvents: 80,
+    },
     analytics: null,
     bridge: null,
     i18n: null,
@@ -427,6 +434,11 @@
       } catch (error) {
         this.memoryPreferred.add(key);
         this.lastError = error;
+        diagnostics.warn(
+          "storage-memory-fallback",
+          String(name) + " could not persist; latest state remains in memory.",
+          { message: String(error?.message || error) }
+        );
         return { ok: true, persistent: false, backend: "memory", error };
       }
     },
@@ -1138,6 +1150,11 @@
           record.status = "error";
           record.error = error;
           record.promise = null;
+          diagnostics.warn(
+            "asset-load-failed",
+            id + " failed to load.",
+            { file: definition.file || null, message: String(error?.message || error) }
+          );
           debug.log("[SSE.assets] load failed", id, error);
           if (options?.strict) throw error;
           return null;
@@ -2215,6 +2232,11 @@
           return buffer;
         })
         .catch((error) => {
+          diagnostics.warn(
+            "audio-buffer-load-failed",
+            name + " failed to decode/load.",
+            { file: definition.file || null, message: String(error?.message || error) }
+          );
           debug.log("[SSE.audio] buffer load failed", name, error);
           return null;
         })
@@ -3315,6 +3337,786 @@
   };
 
   // ------------------------------------------------------------
+  // Diagnostics + DevTools
+  // ------------------------------------------------------------
+
+  const diagnostics = {
+    events: [],
+    maxEvents: 80,
+    sequence: 0,
+
+    configure(options) {
+      const source = options || {};
+      this.maxEvents = Math.max(10, Math.floor(Number(source.maxEvents) || 80));
+      if (this.events.length > this.maxEvents) {
+        this.events.splice(0, this.events.length - this.maxEvents);
+      }
+      return this;
+    },
+
+    add(level, code, message, detail) {
+      const event = {
+        id: ++this.sequence,
+        at: Date.now(),
+        elapsedMs: performanceMonitor?.startedAtMs
+          ? Math.max(0, nowMs() - performanceMonitor.startedAtMs)
+          : 0,
+        level: String(level || "info"),
+        code: String(code || "event"),
+        message: String(message || ""),
+        detail: detail === undefined ? null : this.safeDetail(detail),
+      };
+
+      this.events.push(event);
+      if (this.events.length > this.maxEvents) {
+        this.events.splice(0, this.events.length - this.maxEvents);
+      }
+
+      return event;
+    },
+
+    safeDetail(value) {
+      if (value === null || value === undefined) return value;
+      if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
+        return value;
+      }
+
+      try {
+        return JSON.parse(JSON.stringify(value));
+      } catch (_error) {
+        return String(value);
+      }
+    },
+
+    info(code, message, detail) {
+      return this.add("info", code, message, detail);
+    },
+
+    warn(code, message, detail) {
+      return this.add("warn", code, message, detail);
+    },
+
+    error(code, message, detail) {
+      return this.add("error", code, message, detail);
+    },
+
+    recent(limit) {
+      const count = Math.max(0, Math.floor(Number(limit) || 10));
+      return this.events.slice(Math.max(0, this.events.length - count));
+    },
+
+    summary() {
+      const counts = { info: 0, warn: 0, error: 0 };
+      for (const event of this.events) {
+        if (Object.prototype.hasOwnProperty.call(counts, event.level)) {
+          counts[event.level] += 1;
+        }
+      }
+      return {
+        total: this.events.length,
+        ...counts,
+      };
+    },
+
+    clear() {
+      this.events = [];
+      return true;
+    },
+  };
+
+  const devtools = {
+    installed: false,
+    panelElement: null,
+    bodyElement: null,
+    timer: null,
+    tunings: new Map(),
+
+    config() {
+      return state.config.devtools || {};
+    },
+
+    queryEnabled(targetRoot) {
+      try {
+        const param = String(this.config().queryParam || "dev");
+        const value = new URLSearchParams(targetRoot.location?.search || "").get(param);
+        return value === "1" || value === "true" || value === "yes";
+      } catch (_error) {
+        return false;
+      }
+    },
+
+    enabled() {
+      const configured = this.config().enabled;
+      if (configured === true) return true;
+      if (configured === false) return false;
+      if (this.queryEnabled(root)) return true;
+
+      try {
+        if (root.top && root.top !== root && this.queryEnabled(root.top)) return true;
+      } catch (_error) {
+        // Cross-origin top window.
+      }
+
+      return false;
+    },
+
+    round(value, digits = 1) {
+      const number = Number(value);
+      if (!Number.isFinite(number)) return 0;
+      const scale = Math.pow(10, digits);
+      return Math.round(number * scale) / scale;
+    },
+
+    formatDuration(ms) {
+      const value = Math.max(0, Number(ms) || 0);
+      if (value < 1000) return Math.round(value) + "ms";
+      if (value < 60000) return (value / 1000).toFixed(1) + "s";
+      const minutes = Math.floor(value / 60000);
+      const seconds = Math.floor((value % 60000) / 1000);
+      return minutes + "m " + seconds + "s";
+    },
+
+    storageReport() {
+      const names = Array.from(storage.definitions.keys());
+      return names.map((name) => storage.info(name));
+    },
+
+    audioReport() {
+      const music = Object.entries(audio.musicPlayers).map(([name, player]) => ({
+        name,
+        paused: !!player?.audio?.paused,
+        level: Number(player?.level ?? 0),
+      }));
+
+      return {
+        enabled: !!audio.enabled,
+        unlocked: !!audio.unlocked,
+        contextState: audio.ctx?.state || "none",
+        masterVolume: audio.masterVolume,
+        musicVolume: audio.musicVolume,
+        seVolume: audio.seVolume,
+        currentMusic: audio.currentMusic,
+        music,
+        buffersLoaded: Object.keys(audio.buffers).length,
+        buffersConfigured: Object.keys(audio.bufferDefinitions).length,
+      };
+    },
+
+    assetReport() {
+      const items = assets.report();
+      const summary = {
+        total: items.length,
+        ready: 0,
+        loading: 0,
+        error: 0,
+        idle: 0,
+      };
+
+      for (const item of items) {
+        if (Object.prototype.hasOwnProperty.call(summary, item.status)) {
+          summary[item.status] += 1;
+        }
+      }
+
+      return { summary, items };
+    },
+
+    inputReport() {
+      const actionsDown = [];
+      for (const name of input.bindings.keys()) {
+        if (input.action(name)) actionsDown.push(name);
+      }
+
+      return {
+        pointerActive: state.activePointerId !== null,
+        pointerId: state.activePointerId,
+        keysDown: Array.from(input.keysDown),
+        actionsDown,
+      };
+    },
+
+    tuningReport() {
+      return Array.from(this.tunings.entries()).map(([name, entry]) => ({
+        name,
+        value: entry.value,
+        min: entry.min,
+        max: entry.max,
+        step: entry.step,
+      }));
+    },
+
+    health(report) {
+      const issues = [];
+
+      if (debug.message) {
+        issues.push({
+          level: "error",
+          code: "runtime-error",
+          text: "Runtime error captured: " + debug.message.split("\n")[0],
+        });
+      }
+
+      const failedAssets = report.assets.items.filter((item) => item.status === "error");
+      if (failedAssets.length > 0) {
+        issues.push({
+          level: "error",
+          code: "asset-error",
+          text: failedAssets.length + " asset(s) failed to load: " +
+            failedAssets.map((item) => item.name).join(", "),
+        });
+      }
+
+      const storageFallback = report.storage.filter((item) => item.memoryPreferred);
+      if (storageFallback.length > 0) {
+        issues.push({
+          level: "warn",
+          code: "storage-memory-fallback",
+          text: "Latest state is memory-only for: " +
+            storageFallback.map((item) => item.name).join(", "),
+        });
+      }
+
+      const storageErrors = report.storage.filter((item) => item.lastError);
+      if (storageErrors.length > 0) {
+        issues.push({
+          level: "warn",
+          code: "storage-error",
+          text: "Storage reported an error for: " +
+            storageErrors.map((item) => item.name).join(", "),
+        });
+      }
+
+      if (
+        report.audio.enabled &&
+        !report.lifecycle.paused &&
+        report.audio.contextState === "suspended" &&
+        (report.audio.currentMusic || report.audio.buffersConfigured > 0)
+      ) {
+        issues.push({
+          level: "warn",
+          code: "audio-suspended",
+          text: "AudioContext is suspended while the work is active.",
+        });
+      }
+
+      if (report.performance.frames.slow > 0) {
+        issues.push({
+          level: "warn",
+          code: "slow-frames",
+          text:
+            report.performance.frames.slow +
+            " slow frame(s) observed; p95 " +
+            this.round(report.performance.frame.p95Ms, 1) +
+            "ms.",
+        });
+      }
+
+      if (report.lifecycle.paused) {
+        issues.push({
+          level: "info",
+          code: "lifecycle-paused",
+          text: "Work is currently paused: " +
+            (report.lifecycle.reasons.join(", ") || "unknown reason"),
+        });
+      }
+
+      const diag = report.diagnostics.summary;
+      if (diag.error > 0) {
+        issues.push({
+          level: "error",
+          code: "diagnostic-errors",
+          text: diag.error + " diagnostic error event(s) recorded.",
+        });
+      } else if (diag.warn > 0) {
+        issues.push({
+          level: "warn",
+          code: "diagnostic-warnings",
+          text: diag.warn + " diagnostic warning event(s) recorded.",
+        });
+      }
+
+      if (issues.length === 0) {
+        issues.push({
+          level: "ok",
+          code: "healthy",
+          text: "No Engine-level problems detected in this session.",
+        });
+      }
+
+      return issues;
+    },
+
+    report() {
+      const perf = performanceMonitor.snapshot();
+      const assetState = this.assetReport();
+
+      const report = {
+        generatedAt: new Date().toISOString(),
+        app: {
+          id: String(state.config.id || "sukimastock-app"),
+          engine: "SukimaStock Engine",
+          engineVersion: VERSION,
+          scene: app.current(),
+          sceneStack: app.stack(),
+        },
+        environment: {
+          path: String(root.location?.pathname || ""),
+          search: String(root.location?.search || ""),
+          userAgent: String(root.navigator?.userAgent || ""),
+          platform: String(root.navigator?.platform || ""),
+          language: String(root.navigator?.language || ""),
+          viewport: {
+            screenWidth: viewport.screenWidth,
+            screenHeight: viewport.screenHeight,
+            logicalWidth: viewport.logicalWidth,
+            logicalHeight: viewport.logicalHeight,
+            scale: viewport.scale,
+          },
+        },
+        lifecycle: lifecycle.snapshot(),
+        performance: perf,
+        audio: this.audioReport(),
+        storage: this.storageReport(),
+        assets: assetState,
+        input: this.inputReport(),
+        tuning: this.tuningReport(),
+        diagnostics: {
+          summary: diagnostics.summary(),
+          recent: diagnostics.recent(20),
+        },
+      };
+
+      report.health = this.health(report);
+      return report;
+    },
+
+    reportText() {
+      const r = this.report();
+      const lines = [];
+      const push = (value = "") => lines.push(String(value));
+
+      push("SUKIMASTOCK SESSION REPORT");
+      push("App: " + r.app.id);
+      push("Engine: " + r.app.engineVersion);
+      push("Generated: " + r.generatedAt);
+      push("Scene: " + (r.app.scene || "none") + " [" + r.app.sceneStack.join(" > ") + "]");
+      push("");
+
+      push("ATTENTION");
+      for (const issue of r.health) {
+        push("- [" + issue.level.toUpperCase() + "] " + issue.text);
+      }
+      push("");
+
+      push("PERFORMANCE");
+      push(
+        "FPS current/avg/min: " +
+        this.round(r.performance.fps.current, 1) + " / " +
+        this.round(r.performance.fps.average, 1) + " / " +
+        this.round(r.performance.fps.minimum, 1)
+      );
+      push(
+        "Frame avg/p95/max: " +
+        this.round(r.performance.frame.averageMs, 1) + " / " +
+        this.round(r.performance.frame.p95Ms, 1) + " / " +
+        this.round(r.performance.frame.maxMs, 1) + " ms"
+      );
+      push(
+        "Update avg: " + this.round(r.performance.update.averageMs, 2) +
+        " ms | Draw avg: " + this.round(r.performance.draw.averageMs, 2) + " ms"
+      );
+      push(
+        "Frames rendered/skipped/slow: " +
+        r.performance.frames.rendered + " / " +
+        r.performance.frames.skipped + " / " +
+        r.performance.frames.slow
+      );
+      push(
+        "Session active/paused: " +
+        this.formatDuration(r.performance.session.activeMs) + " / " +
+        this.formatDuration(r.performance.session.pausedMs)
+      );
+      push("");
+
+      push("LIFECYCLE");
+      push(
+        r.lifecycle.paused
+          ? "Paused: " + (r.lifecycle.reasons.join(", ") || "unknown")
+          : "Active"
+      );
+      push("");
+
+      push("AUDIO");
+      push(
+        "Enabled: " + r.audio.enabled +
+        " | Unlocked: " + r.audio.unlocked +
+        " | Context: " + r.audio.contextState
+      );
+      push(
+        "Current music: " + (r.audio.currentMusic || "none") +
+        " | Buffers: " + r.audio.buffersLoaded + "/" + r.audio.buffersConfigured
+      );
+      push("");
+
+      push("STORAGE");
+      if (r.storage.length === 0) {
+        push("No defined Storage v2 keys.");
+      } else {
+        for (const item of r.storage) {
+          push(
+            "- " + item.name +
+            " v" + (item.storedVersion ?? "-") +
+            " | persistent=" + item.persistent +
+            " | memory=" + item.memory +
+            " | memoryPreferred=" + item.memoryPreferred +
+            (item.lastError ? " | ERROR=" + item.lastError : "")
+          );
+        }
+      }
+      push("");
+
+      push("ASSETS");
+      push(
+        "ready/loading/error/idle: " +
+        r.assets.summary.ready + "/" +
+        r.assets.summary.loading + "/" +
+        r.assets.summary.error + "/" +
+        r.assets.summary.idle
+      );
+      for (const item of r.assets.items.filter((entry) => entry.status === "error")) {
+        push("- ERROR " + item.name + ": " + (item.error || "unknown"));
+      }
+      push("");
+
+      push("INPUT");
+      push(
+        "Pointer active: " + r.input.pointerActive +
+        " | Keys down: " + (r.input.keysDown.join(", ") || "none") +
+        " | Actions: " + (r.input.actionsDown.join(", ") || "none")
+      );
+      push("");
+
+      push("DIAGNOSTICS");
+      const ds = r.diagnostics.summary;
+      push(
+        "Events info/warn/error: " +
+        ds.info + "/" + ds.warn + "/" + ds.error
+      );
+      for (const event of r.diagnostics.recent) {
+        push(
+          "- +" + Math.round(event.elapsedMs) + "ms [" +
+          event.level.toUpperCase() + "] " +
+          event.code + ": " + event.message
+        );
+      }
+
+      if (r.tuning.length > 0) {
+        push("");
+        push("TUNING");
+        for (const item of r.tuning) {
+          push("- " + item.name + " = " + item.value);
+        }
+      }
+
+      return lines.join("\n");
+    },
+
+    async copyReport() {
+      const text = this.reportText();
+
+      try {
+        if (root.navigator?.clipboard?.writeText) {
+          await root.navigator.clipboard.writeText(text);
+          diagnostics.info("report-copied", "Session report copied to clipboard.");
+          return { ok: true, method: "clipboard", text };
+        }
+      } catch (error) {
+        diagnostics.warn(
+          "clipboard-failed",
+          "Clipboard API failed; using fallback when available.",
+          { message: String(error?.message || error) }
+        );
+      }
+
+      if (typeof document !== "undefined" && document.body) {
+        try {
+          const area = document.createElement("textarea");
+          area.value = text;
+          area.setAttribute("readonly", "");
+          area.style.position = "fixed";
+          area.style.left = "-9999px";
+          document.body.appendChild(area);
+          area.select();
+          const copied = document.execCommand?.("copy") === true;
+          area.remove();
+          if (copied) {
+            diagnostics.info("report-copied", "Session report copied with fallback.");
+            return { ok: true, method: "execCommand", text };
+          }
+        } catch (_error) {
+          // Return text below.
+        }
+      }
+
+      return { ok: false, method: "text", text };
+    },
+
+    number(name, initialValue, options) {
+      const id = String(name || "");
+      if (!id) throw new TypeError("SSE.dev.number requires a non-empty name.");
+
+      const opts = options || {};
+      const existing = this.tunings.get(id);
+      if (existing) return existing.value;
+
+      const entry = {
+        value: Number(initialValue) || 0,
+        min: Number.isFinite(Number(opts.min)) ? Number(opts.min) : 0,
+        max: Number.isFinite(Number(opts.max)) ? Number(opts.max) : 1,
+        step: Number.isFinite(Number(opts.step)) && Number(opts.step) > 0
+          ? Number(opts.step)
+          : 0.01,
+        onChange: typeof opts.onChange === "function" ? opts.onChange : null,
+      };
+
+      this.tunings.set(id, entry);
+      this.renderPanel();
+      return entry.value;
+    },
+
+    get(name, fallback) {
+      const entry = this.tunings.get(String(name || ""));
+      return entry ? entry.value : fallback;
+    },
+
+    set(name, value) {
+      const id = String(name || "");
+      const entry = this.tunings.get(id);
+      if (!entry) return false;
+
+      const number = clamp(Number(value) || 0, entry.min, entry.max);
+      entry.value = number;
+
+      if (entry.onChange) {
+        try {
+          entry.onChange(number, id);
+        } catch (error) {
+          debug.capture(error, "devtools-tuning");
+        }
+      }
+
+      diagnostics.info("tuning-change", id + " = " + number);
+      this.renderPanel();
+      return true;
+    },
+
+    panelSummaryText() {
+      const r = this.report();
+      const issue = r.health.find((item) => item.level !== "ok");
+      return [
+        "FPS " + this.round(r.performance.fps.current, 1) +
+          "  AVG " + this.round(r.performance.fps.average, 1),
+        "P95 " + this.round(r.performance.frame.p95Ms, 1) +
+          "ms  SLOW " + r.performance.frames.slow,
+        "UPDATE " + this.round(r.performance.update.averageMs, 2) +
+          "ms  DRAW " + this.round(r.performance.draw.averageMs, 2) + "ms",
+        "ASSETS " + r.assets.summary.ready + "/" + r.assets.summary.total +
+          "  ERR " + r.assets.summary.error,
+        "AUDIO " + r.audio.contextState +
+          "  STORAGE " + (
+            r.storage.some((item) => item.memoryPreferred)
+              ? "MEMORY"
+              : "OK"
+          ),
+        issue
+          ? "[" + issue.level.toUpperCase() + "] " + issue.text
+          : "[OK] No Engine-level problems detected.",
+      ].join("\n");
+    },
+
+    renderPanel() {
+      if (!this.panelElement || !this.bodyElement) return;
+
+      const summary = this.bodyElement.querySelector("[data-sse-dev-summary]");
+      if (summary) summary.textContent = this.panelSummaryText();
+
+      const controls = this.bodyElement.querySelector("[data-sse-dev-controls]");
+      if (controls) {
+        controls.textContent = "";
+
+        for (const [name, entry] of this.tunings.entries()) {
+          const row = document.createElement("label");
+          row.style.display = "grid";
+          row.style.gridTemplateColumns = "1fr 78px 52px";
+          row.style.gap = "6px";
+          row.style.alignItems = "center";
+          row.style.marginTop = "6px";
+
+          const label = document.createElement("span");
+          label.textContent = name;
+
+          const slider = document.createElement("input");
+          slider.type = "range";
+          slider.min = String(entry.min);
+          slider.max = String(entry.max);
+          slider.step = String(entry.step);
+          slider.value = String(entry.value);
+
+          const value = document.createElement("span");
+          value.textContent = String(this.round(entry.value, 3));
+          value.style.textAlign = "right";
+
+          slider.addEventListener("input", () => {
+            this.set(name, Number(slider.value));
+            value.textContent = String(this.round(this.get(name), 3));
+          });
+
+          row.appendChild(label);
+          row.appendChild(slider);
+          row.appendChild(value);
+          controls.appendChild(row);
+        }
+      }
+    },
+
+    mountPanel() {
+      if (
+        !this.enabled() ||
+        this.config().panel === false ||
+        typeof document === "undefined" ||
+        !document.body ||
+        this.panelElement
+      ) {
+        return false;
+      }
+
+      const panel = document.createElement("section");
+      panel.id = "sse-devtools-panel";
+      panel.style.position = "fixed";
+      panel.style.top = "max(8px, env(safe-area-inset-top))";
+      panel.style.right = "8px";
+      panel.style.zIndex = "999998";
+      panel.style.width = "min(330px, calc(100vw - 16px))";
+      panel.style.maxHeight = "70vh";
+      panel.style.overflow = "auto";
+      panel.style.background = "rgba(8, 10, 14, 0.94)";
+      panel.style.color = "#e9edf5";
+      panel.style.border = "1px solid rgba(255,255,255,.18)";
+      panel.style.borderRadius = "10px";
+      panel.style.boxShadow = "0 8px 28px rgba(0,0,0,.35)";
+      panel.style.font = "11px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace";
+      panel.style.textAlign = "left";
+      panel.style.touchAction = "auto";
+      panel.style.userSelect = "text";
+      panel.style.webkitUserSelect = "text";
+
+      const head = document.createElement("div");
+      head.style.display = "flex";
+      head.style.alignItems = "center";
+      head.style.justifyContent = "space-between";
+      head.style.padding = "8px 10px";
+      head.style.borderBottom = "1px solid rgba(255,255,255,.12)";
+
+      const title = document.createElement("strong");
+      title.textContent = "SSE DEV";
+
+      const toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.textContent = "−";
+      toggle.style.font = "inherit";
+      toggle.style.color = "inherit";
+      toggle.style.background = "transparent";
+      toggle.style.border = "0";
+      toggle.style.padding = "2px 6px";
+
+      head.appendChild(title);
+      head.appendChild(toggle);
+
+      const body = document.createElement("div");
+      body.style.padding = "9px 10px 10px";
+
+      const summary = document.createElement("pre");
+      summary.dataset.sseDevSummary = "1";
+      summary.style.margin = "0";
+      summary.style.whiteSpace = "pre-wrap";
+      summary.style.font = "inherit";
+
+      const controls = document.createElement("div");
+      controls.dataset.sseDevControls = "1";
+
+      const actions = document.createElement("div");
+      actions.style.display = "flex";
+      actions.style.gap = "6px";
+      actions.style.marginTop = "9px";
+
+      const copy = document.createElement("button");
+      copy.type = "button";
+      copy.textContent = "COPY SESSION REPORT";
+      copy.style.flex = "1";
+      copy.style.font = "inherit";
+      copy.style.padding = "6px 8px";
+
+      const clear = document.createElement("button");
+      clear.type = "button";
+      clear.textContent = "CLEAR";
+      clear.style.font = "inherit";
+      clear.style.padding = "6px 8px";
+
+      copy.addEventListener("click", async () => {
+        const result = await this.copyReport();
+        copy.textContent = result.ok ? "COPIED" : "REPORT READY";
+        root.setTimeout?.(() => {
+          copy.textContent = "COPY SESSION REPORT";
+        }, 900);
+      });
+
+      clear.addEventListener("click", () => {
+        diagnostics.clear();
+        performanceMonitor.reset();
+        this.renderPanel();
+      });
+
+      toggle.addEventListener("click", () => {
+        const hidden = body.style.display === "none";
+        body.style.display = hidden ? "block" : "none";
+        toggle.textContent = hidden ? "−" : "+";
+      });
+
+      actions.appendChild(copy);
+      actions.appendChild(clear);
+      body.appendChild(summary);
+      body.appendChild(controls);
+      body.appendChild(actions);
+      panel.appendChild(head);
+      panel.appendChild(body);
+      document.body.appendChild(panel);
+
+      this.panelElement = panel;
+      this.bodyElement = body;
+      this.renderPanel();
+
+      const refreshMs = Math.max(200, Number(this.config().refreshMs) || 500);
+      if (typeof root.setInterval === "function") {
+        this.timer = root.setInterval(() => this.renderPanel(), refreshMs);
+      }
+
+      return true;
+    },
+
+    install() {
+      if (this.installed) return this.enabled();
+      this.installed = true;
+      diagnostics.configure(this.config());
+
+      if (!this.enabled()) return false;
+
+      diagnostics.info("devtools-enabled", "SSE DevTools enabled.");
+      this.mountPanel();
+      return true;
+    },
+  };
+
+  // ------------------------------------------------------------
   // Debug and runtime errors
   // ------------------------------------------------------------
 
@@ -3346,6 +4148,11 @@
     capture(error, where) {
       const raw = error && error.stack ? error.stack : String(error);
       this.message = "[" + where + "]\n" + raw;
+      diagnostics.error(
+        "runtime-error",
+        String(where || "unknown") + ": " + String(error?.message || error),
+        { stack: raw }
+      );
       try {
         root.console?.error?.(this.message);
       } catch (_error) {
@@ -3963,6 +4770,11 @@
         }
 
         const payload = this.snapshot();
+        diagnostics.info(
+          "lifecycle-pause",
+          "Work paused: " + (payload.reasons.join(", ") || id),
+          payload
+        );
         if (typeof this.config().onPause === "function") {
           try { this.config().onPause(payload, SSE); }
           catch (error) { debug.capture(error, "lifecycle-onPause"); }
@@ -3993,6 +4805,11 @@
         }
 
         const payload = this.snapshot();
+        diagnostics.info(
+          "lifecycle-resume",
+          "Work resumed after: " + id,
+          payload
+        );
         if (typeof this.config().onResume === "function") {
           try { this.config().onResume(payload, SSE); }
           catch (error) { debug.capture(error, "lifecycle-onResume"); }
@@ -4124,6 +4941,8 @@
     if (typeof state.config.setup === "function") {
       state.config.setup(SSE);
     }
+
+    devtools.install();
 
     if (state.config.initialScene) {
       app.start(state.config.initialScene, state.config.initialPayload);
@@ -4273,6 +5092,8 @@
     share,
     bridge,
     debug,
+    diagnostics,
+    dev: devtools,
     input,
     lifecycle,
     performance: performanceMonitor,
