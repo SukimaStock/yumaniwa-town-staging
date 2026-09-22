@@ -210,6 +210,14 @@
     durationByLevel: Object.freeze([0, 1.60, 1.30, 1.00, 0.75, 0.45]),
   });
 
+  // RESTORE keeps its deliberate confirmation for now, but YES no longer
+  // jumps directly into the ritual. The terminal first establishes a short
+  // physical link to BASE, turning a GUI confirmation into a machine action.
+  const HOME_RESTORE_LINK_TUNE = Object.freeze({
+    duration: 0.65,
+    connectAt: 0.56,
+  });
+
   // NEW ORBIT opens with the visual inverse of fuel-out: an old CRT wakes from
   // black after an unnamed accident. It shows damage, never explains the event.
   const PROLOGUE_TUNE = Object.freeze({
@@ -751,6 +759,31 @@
     return true;
   }
 
+  function playRestoreLinkCue() {
+    scheduleOrbitTone({
+      frequency: 78,
+      endFrequency: 132,
+      duration: 0.50,
+      volume: 0.052,
+      type: "sine",
+    }, 0);
+    scheduleOrbitTone({
+      frequency: 290,
+      endFrequency: 410,
+      duration: 0.10,
+      volume: 0.024,
+      type: "triangle",
+    }, 0.39);
+    scheduleOrbitTone({
+      frequency: 610,
+      endFrequency: 760,
+      duration: 0.075,
+      volume: 0.020,
+      type: "sine",
+    }, 0.52);
+    return true;
+  }
+
   const TUNE = {
     fixedHz: SOURCE_LOCK.fixedHz,
     maxSpeed: PHYSICS_PROFILE === "source" ? SOURCE_LOCK.maxSpeed : WEB_FEEL.maxSpeed,
@@ -1099,6 +1132,11 @@
         timer: 0,
         duration: 0,
         level: 1,
+      };
+      this.homeRestoreLink = {
+        active: false,
+        timer: 0,
+        duration: HOME_RESTORE_LINK_TUNE.duration,
       };
 
       // v2.7.8: SYSTEM status and E.V.E.'s actual voice are separate layers.
@@ -1910,6 +1948,11 @@
         this.departHold = 0;
         return true;
       }
+      if (this.homeRestoreLink && this.homeRestoreLink.active) {
+        this.pressing = false;
+        this.departHold = 0;
+        return true;
+      }
       if (this.mode === "landing" || this.mode === "rescue") return true;
 
       // Phase 17.1: takeoff keeps the same pointer session that began with the
@@ -2456,6 +2499,7 @@
       }
       if (this.eve && this.eve.timer > 0) this.eve.timer = Math.max(0, this.eve.timer - dt);
       this.updateHomeTerminalBoot(dt);
+      this.updateHomeRestoreLink(dt);
 
       if (this.restoreReveal && this.restoreReveal.timer > 0) {
         const before = this.restoreReveal.timer;
@@ -2596,6 +2640,11 @@
         this.homeTerminalBoot &&
         (this.homeTerminalBoot.pending || this.homeTerminalBoot.active)
       ) {
+        this.pressing = false;
+        this.departHold = 0;
+        return;
+      }
+      if (this.homeRestoreLink && this.homeRestoreLink.active) {
         this.pressing = false;
         this.departHold = 0;
         return;
@@ -3902,6 +3951,7 @@
 
     closeHomeTerminal() {
       if (!this.homeTerminal) return;
+      this.cancelHomeRestoreLink();
       this.homeTerminal.visible = false;
       this.homeTerminal.mode = "browse";
       this.homeTerminal.pressed = null;
@@ -3969,6 +4019,123 @@
       return null;
     }
 
+    startHomeRestoreLink() {
+      if (!this.homeRestoreLink || this.homeRestoreLink.active) return false;
+      if (!this.homeTerminal || !this.homeTerminal.visible) return false;
+      if (!this.canBaseRepair()) return false;
+
+      const bridge = window.OrbitRitual;
+      const ritual = RESTORE_RITUAL_BY_LEVEL[this.base.level];
+      if (!ritual || !bridge || typeof bridge.start !== "function") return false;
+      if (bridge.active || this.restoreRitualActive) return false;
+
+      this.homeRestoreLink.active = true;
+      this.homeRestoreLink.timer = 0;
+      this.homeRestoreLink.duration = HOME_RESTORE_LINK_TUNE.duration;
+      this.homeTerminal.mode = "browse";
+      this.homeTerminal.pressed = null;
+      this.pressing = false;
+      this.departHold = 0;
+      this.repairTapArmed = false;
+      if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
+      playRestoreLinkCue();
+      return true;
+    }
+
+    cancelHomeRestoreLink() {
+      if (!this.homeRestoreLink) return;
+      this.homeRestoreLink.active = false;
+      this.homeRestoreLink.timer = 0;
+    }
+
+    updateHomeRestoreLink(dt) {
+      const link = this.homeRestoreLink;
+      if (!link || !link.active) return;
+      if (
+        this.mode !== "landed" ||
+        !this.landPlanet ||
+        this.landPlanet.kind !== "base" ||
+        !this.homeTerminal ||
+        !this.homeTerminal.visible ||
+        (this.finale && this.finale.active)
+      ) {
+        this.cancelHomeRestoreLink();
+        return;
+      }
+
+      this.pressing = false;
+      this.departHold = 0;
+      link.timer = Math.min(link.duration, link.timer + dt);
+      if (link.timer < link.duration) return;
+
+      link.active = false;
+      link.timer = link.duration;
+      // Re-check all resources and bridge state at the actual handoff. Nothing
+      // is spent during the connection animation itself.
+      if (!this.tryBaseRepair()) {
+        link.timer = 0;
+      }
+    }
+
+    drawHomeRestoreLink() {
+      const link = this.homeRestoreLink;
+      if (!link || !link.active) return;
+      if (!this.homeTerminal || !this.homeTerminal.visible) return;
+
+      const L = this.homeTerminalLayout();
+      const q = clamp(link.timer / Math.max(0.001, link.duration), 0, 1);
+      const connected = q >= HOME_RESTORE_LINK_TUNE.connectAt;
+      const pulse = 0.86 + 0.14 * Math.sin(this.simTime * 34);
+
+      // Keep the old terminal visible underneath. The machine does not change
+      // screens; it is briefly taken over by the RESTORE connection itself.
+      noStroke();
+      fill(8, 10, 14, 118);
+      rect(L.x + 3, L.y + 3, L.w - 6, L.h - 6);
+
+      const boxW = Math.min(238, L.w - 46);
+      const boxH = 70;
+      const x = L.x + (L.w - boxW) / 2;
+      const y = L.y + (L.h - boxH) / 2 - 3;
+      fill(18, 20, 24, 236);
+      rect(x, y, boxW, boxH);
+      noFill();
+      stroke(126, 184, 212, 118 * pulse);
+      strokeWidth(0.8);
+      rect(x, y, boxW, boxH);
+
+      font("monospace");
+      textAlign(LEFT);
+      noStroke();
+      fill(162, 192, 212, 180);
+      fontSize(7.5);
+      text(tx("home.restoreLink.channel"), x + 11, y + boxH - 14);
+
+      fill(235, 244, 250, 245 * pulse);
+      fontSize(10.4);
+      text(
+        connected ? tx("home.restoreLink.connected") : tx("home.restoreLink.connecting"),
+        x + 11,
+        y + 35
+      );
+
+      const traceX = x + 11;
+      const traceY = y + 14;
+      const traceW = boxW - 22;
+      stroke(90, 132, 156, 90);
+      line(traceX, traceY, traceX + traceW, traceY);
+      stroke(150, 220, 246, connected ? 210 : 145);
+      strokeWidth(1.2);
+      line(traceX, traceY, traceX + traceW * clamp(q / 0.86, 0, 1), traceY);
+
+      // A final tiny lock point appears before the ritual takes the screen.
+      if (connected) {
+        noStroke();
+        fill(214, 241, 250, 220 * pulse);
+        ellipse(traceX + traceW, traceY, 3.5, 3.5);
+      }
+    }
+
     handleHomeTerminalTouch(touch) {
       if (!this.homeTerminal || !this.homeTerminal.visible) return false;
 
@@ -4008,7 +4175,7 @@
 
         if (pressed === "yes") {
           this.homeTerminal.mode = "browse";
-          this.tryBaseRepair();
+          this.startHomeRestoreLink();
           return true;
         }
         return true;
@@ -4272,6 +4439,8 @@
         this.drawHomeTerminalButton(D.yes, tx("home.yes"), true, this.homeTerminal.pressed === "yes");
         this.drawHomeTerminalButton(D.no, tx("home.no"), true, this.homeTerminal.pressed === "no");
       }
+
+      this.drawHomeRestoreLink();
     }
 
     nextBaseRepairCost() {
