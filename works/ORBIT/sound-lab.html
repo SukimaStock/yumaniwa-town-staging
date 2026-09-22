@@ -60,8 +60,11 @@
 
   <section class="toolbar">
     <div class="toolbarRow">
-      <label class="pick">候補音をまとめて選ぶ<input id="fileInput" type="file" accept="audio/*,.ogg,.wav,.mp3,.m4a,.aac" multiple></label>
+      <label class="pick">ファイルを選ぶ<input id="fileInput" type="file" accept="audio/*,.ogg,.wav,.mp3,.m4a,.aac" multiple></label>
+      <label class="pick">フォルダを選ぶ<input id="folderInput" type="file" webkitdirectory directory multiple></label>
+      <select id="folderFilter" aria-label="候補フォルダ"><option value="ALL">すべてのフォルダ</option></select>
       <button id="libraryBtn">候補一覧</button>
+      <button id="clearBtn">候補をクリア</button>
       <button id="exportBtn">設定をコピー</button>
       <button id="resetBtn">音量を初期値へ</button>
     </div>
@@ -120,6 +123,7 @@
     assignments:{},
     volumes:{},
     phase:"A",
+    folderFilter:"ALL",
   };
 
   try {
@@ -130,6 +134,8 @@
 
   const grid = document.getElementById("grid");
   const fileInput = document.getElementById("fileInput");
+  const folderInput = document.getElementById("folderInput");
+  const folderFilter = document.getElementById("folderFilter");
   const fileStatus = document.getElementById("fileStatus");
   const library = document.getElementById("library");
   const exportDialog = document.getElementById("exportDialog");
@@ -151,8 +157,27 @@
     return state.ctx;
   }
 
+  function filePath(file){ return file.webkitRelativePath || file.name; }
+
+  function fileKey(file){ return filePath(file) + ":" + file.size + ":" + file.lastModified; }
+
+  function fileDir(file){
+    const path = file.webkitRelativePath || "";
+    const i = path.lastIndexOf("/");
+    return i > 0 ? path.slice(0, i) : "(individual files)";
+  }
+
+  function isAudioFile(file){
+    return /^audio\\//i.test(file.type || "") || /\\.(ogg|wav|mp3|m4a|aac|flac)$/i.test(file.name || "");
+  }
+
+  function visibleCandidates(){
+    if (state.folderFilter === "ALL") return state.candidates;
+    return state.candidates.filter(file => fileDir(file) === state.folderFilter);
+  }
+
   async function decodeFile(file){
-    const key = file.name + ":" + file.size + ":" + file.lastModified;
+    const key = fileKey(file);
     if (state.decoded.has(key)) return state.decoded.get(key);
     const ctx = await audioContext();
     const bytes = await file.arrayBuffer();
@@ -199,14 +224,16 @@
   function assignedIndex(slot){
     const wanted = state.assignments[slot.name];
     if (!wanted) return -1;
-    return state.candidates.findIndex(x => x.name === wanted);
+    const list = visibleCandidates();
+    return list.findIndex(x => filePath(x) === wanted);
   }
 
   function setAssignment(slot, idx){
-    if (idx < 0 || idx >= state.candidates.length) {
+    const list = visibleCandidates();
+    if (idx < 0 || idx >= list.length) {
       delete state.assignments[slot.name];
     } else {
-      state.assignments[slot.name] = state.candidates[idx].name;
+      state.assignments[slot.name] = filePath(list[idx]);
     }
     save();
     render();
@@ -214,12 +241,13 @@
 
   async function playCandidate(slot){
     const idx = assignedIndex(slot);
-    if (idx < 0) return;
+    const list = visibleCandidates();
+    if (idx < 0 || !list[idx]) return;
     try {
-      fileStatus.textContent = "デコード中: " + state.candidates[idx].name;
-      const buffer = await decodeFile(state.candidates[idx]);
+      fileStatus.textContent = "デコード中: " + filePath(list[idx]);
+      const buffer = await decodeFile(list[idx]);
       await playBuffer(buffer, getVolume(slot));
-      fileStatus.textContent = "再生: " + slot.name + " ← " + state.candidates[idx].name;
+      fileStatus.textContent = "再生: " + slot.name + " ← " + filePath(list[idx]);
     } catch (e) {
       fileStatus.textContent = "候補音を再生できません: " + e.message;
     }
@@ -250,7 +278,7 @@
       const item = document.createElement("div");
       item.className = "libraryItem";
       const name = document.createElement("span");
-      name.textContent = file.name;
+      name.textContent = filePath(file);
       const play = document.createElement("button");
       play.textContent = "▶";
       play.addEventListener("click", async () => {
@@ -268,8 +296,9 @@
     visible.forEach(slot => {
       const card = document.createElement("article");
       card.className = "card";
+      const list = visibleCandidates();
       const idx = assignedIndex(slot);
-      const assigned = idx >= 0 ? state.candidates[idx].name : (state.assignments[slot.name] || "未選択");
+      const assigned = idx >= 0 && list[idx] ? filePath(list[idx]) : (state.assignments[slot.name] || "未選択");
       const vol = getVolume(slot);
       const effective = Math.min(1, vol * AUDIO_GAIN);
 
@@ -282,7 +311,7 @@
 
       const select = document.createElement("select");
       select.innerHTML = '<option value="-1">候補を選択</option>' +
-        state.candidates.map((f,i) => '<option value="' + i + '"' + (i===idx?' selected':'') + '>' + f.name + '</option>').join("");
+        list.map((f,i) => '<option value="' + i + '"' + (i===idx?' selected':'') + '>' + filePath(f) + '</option>').join("");
       select.addEventListener("change", () => setAssignment(slot, Number(select.value)));
 
       const cycle = document.createElement("div");
@@ -291,13 +320,13 @@
       const play = document.createElement("button"); play.textContent = "候補 ▶";
       const next = document.createElement("button"); next.textContent = "›";
       prev.addEventListener("click", () => {
-        if (!state.candidates.length) return;
-        const n = idx < 0 ? state.candidates.length - 1 : (idx - 1 + state.candidates.length) % state.candidates.length;
+        if (!list.length) return;
+        const n = idx < 0 ? list.length - 1 : (idx - 1 + list.length) % list.length;
         setAssignment(slot, n);
       });
       next.addEventListener("click", () => {
-        if (!state.candidates.length) return;
-        const n = idx < 0 ? 0 : (idx + 1) % state.candidates.length;
+        if (!list.length) return;
+        const n = idx < 0 ? 0 : (idx + 1) % list.length;
         setAssignment(slot, n);
       });
       play.addEventListener("click", () => playCandidate(slot));
@@ -332,11 +361,54 @@
     });
   }
 
-  fileInput.addEventListener("change", () => {
-    state.candidates = Array.from(fileInput.files || []);
-    fileStatus.innerHTML = '<span class="ok">' + state.candidates.length + '個の候補音を読み込みました。</span> 各スロットの ‹ › で連続比較できます。';
+  function refreshFolderFilter(){
+    const dirs = Array.from(new Set(state.candidates.map(fileDir))).sort((a,b) => a.localeCompare(b));
+    const current = state.folderFilter;
+    folderFilter.innerHTML = '<option value="ALL">すべてのフォルダ (' + state.candidates.length + ')</option>' +
+      dirs.map(dir => {
+        const count = state.candidates.filter(f => fileDir(f) === dir).length;
+        const safe = dir.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+        return '<option value="' + safe + '">' + dir + ' (' + count + ')</option>';
+      }).join("");
+    folderFilter.value = dirs.includes(current) ? current : "ALL";
+    state.folderFilter = folderFilter.value;
+  }
+
+  function addCandidates(files, sourceLabel){
+    const incoming = Array.from(files || []).filter(isAudioFile);
+    const merged = new Map(state.candidates.map(file => [fileKey(file), file]));
+    incoming.forEach(file => merged.set(fileKey(file), file));
+    state.candidates = Array.from(merged.values());
+    refreshFolderFilter();
+    fileStatus.innerHTML = '<span class="ok">' + incoming.length + '個の音声を' + sourceLabel + 'から追加しました。</span> 合計 ' + state.candidates.length + '個。';
     renderLibrary();
     render();
+  }
+
+  fileInput.addEventListener("change", () => {
+    addCandidates(fileInput.files, "ファイル");
+    fileInput.value = "";
+  });
+
+  folderInput.addEventListener("change", () => {
+    addCandidates(folderInput.files, "フォルダ");
+    folderInput.value = "";
+  });
+
+  folderFilter.addEventListener("change", () => {
+    state.folderFilter = folderFilter.value;
+    const count = visibleCandidates().length;
+    fileStatus.textContent = (state.folderFilter === "ALL" ? "すべてのフォルダ" : state.folderFilter) + " — " + count + "個の候補";
+    render();
+  });
+
+  document.getElementById("clearBtn").addEventListener("click", () => {
+    state.candidates = [];
+    state.folderFilter = "ALL";
+    refreshFolderFilter();
+    renderLibrary();
+    render();
+    fileStatus.textContent = "候補音をクリアしました。採用メモと音量設定は残しています。";
   });
 
   document.getElementById("libraryBtn").addEventListener("click", () => {
@@ -391,6 +463,7 @@
   });
   document.getElementById("closeBtn").addEventListener("click", () => exportDialog.close());
 
+  refreshFolderFilter();
   renderLibrary();
   render();
 })();
