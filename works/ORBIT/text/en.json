@@ -312,25 +312,18 @@
     "farewell": "...Have a safe flight.",
     "astraIdle": {
       "1": [
-        "...QUIET...",
-        "...STAY...?"
+        "...QUIET..."
       ],
       "2": [
-        "No objective... detected. That is... okay?",
         "We can stay... a little."
       ],
       "3": [
-        "IT IS... QUIET HERE.",
-        "NO NEED... TO HURRY...?"
+        "IT IS... QUIET HERE."
       ],
       "4": [
-        "we don't have to do anything here, do we?",
         "could we stay and watch the stars a little longer?"
       ],
-      "5": [
-        "When we're here, I feel like we don't have to say anything.",
-        "Could we stay a little longer? ...There's no reason to hurry."
-      ]
+      "5": []
     },
     "rescueReturn": {
       "1": "...PILOT... RETURNED...\n...SAFE...",
