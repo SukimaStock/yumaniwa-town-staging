@@ -373,9 +373,33 @@
     if (!theme) return null;
     if (state.images.themes[themeKey]) return state.images.themes[themeKey];
 
+    const startedAt = performance.now();
+    SSE.diagnostics.info(
+      "theme-load-start",
+      "Theme load started: " + themeKey,
+      {
+        theme: themeKey,
+        priority: options && options.priority ? options.priority : null,
+      }
+    );
+
     const task = SSE.assets.preload(themeGroupName(themeKey), options || {});
     const set = bindThemeAssetRefs(themeKey);
-    task.then(() => bindThemeAssetRefs(themeKey));
+
+    task.then((result) => {
+      bindThemeAssetRefs(themeKey);
+      SSE.diagnostics.info(
+        "theme-load-ready",
+        "Theme load finished: " + themeKey,
+        {
+          theme: themeKey,
+          durationMs: Math.max(0, performance.now() - startedAt),
+          ready: result && result.ready,
+          error: result && result.error,
+        }
+      );
+    });
+
     return set;
   }
 
@@ -399,8 +423,20 @@
 
   function releaseTheme(themeKey) {
     if (!THEMES[themeKey]) return;
-    SSE.assets.release(themeGroupName(themeKey), { hard: true });
+
+    const startedAt = performance.now();
+    const released = SSE.assets.release(themeGroupName(themeKey), { hard: true });
     delete state.images.themes[themeKey];
+
+    SSE.diagnostics.info(
+      "theme-release",
+      "Theme released: " + themeKey,
+      {
+        theme: themeKey,
+        assets: released,
+        durationMs: Math.max(0, performance.now() - startedAt),
+      }
+    );
   }
 
   function themeWindow(year, monthIndex) {
@@ -447,6 +483,22 @@
     const fromYear = state.viewYear;
     const fromMonth = state.viewMonth;
     const fromTheme = state.theme;
+    const toTheme = themeForMonth(targetMonth);
+
+    SSE.diagnostics.info(
+      "month-change",
+      "Month change: " +
+        (fromMonth + 1) + "/" + fromYear +
+        " → " + (targetMonth + 1) + "/" + targetYear,
+      {
+        fromYear,
+        fromMonth: fromMonth + 1,
+        fromTheme,
+        toYear: targetYear,
+        toMonth: targetMonth + 1,
+        toTheme,
+      }
+    );
 
     setViewDate(targetYear, targetMonth);
     syncThemeWindow(state.viewYear, state.viewMonth);
