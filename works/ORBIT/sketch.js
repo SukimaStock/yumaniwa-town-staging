@@ -260,6 +260,22 @@
     pulseSec: 1.8,
   });
 
+  // RESTORE completion is a reward scene, not a simultaneous UI flash.
+  // Recovery travels outward in a readable order:
+  // BASE -> SHIP -> NAVIGATION -> report terminal.
+  const RESTORE_REVEAL_TUNE = Object.freeze({
+    duration: 2.0,
+    stationSwitch: 0.30,
+    stationPulseStart: 0.10,
+    stationPulseEnd: 0.66,
+    linkStart: 0.50,
+    linkEnd: 0.90,
+    shipSwitch: 0.78,
+    shipPulseStart: 0.70,
+    shipPulseEnd: 1.18,
+    mapStart: 0.98,
+  });
+
   // Phase 13: RESTORE is no longer an instant tap. Each step uses the approved
   // source-derived ritual, while the final REBIRTH is part of the Echo 12 finale.
   const RESTORE_RITUAL_BY_LEVEL = Object.freeze({
@@ -1115,8 +1131,11 @@
       this.restoreRitualActive = false;
       this.restoreReveal = {
         timer: 0,
-        duration: 1.3,
+        duration: RESTORE_REVEAL_TUNE.duration,
         reportLevel: 0,
+        fromLevel: 1,
+        toLevel: 1,
+        mapTriggered: false,
       };
 
       // v2.7: HOME is a system connection, not an instruction floating in
@@ -2513,10 +2532,26 @@
 
       if (this.restoreReveal && this.restoreReveal.timer > 0) {
         const before = this.restoreReveal.timer;
+        const total = Math.max(0.001, this.restoreReveal.duration || RESTORE_REVEAL_TUNE.duration);
+        const elapsedBefore = total - before;
         this.restoreReveal.timer = Math.max(0, before - dt);
+        const elapsedAfter = total - this.restoreReveal.timer;
+
+        if (
+          !this.restoreReveal.mapTriggered &&
+          elapsedBefore < RESTORE_REVEAL_TUNE.mapStart &&
+          elapsedAfter >= RESTORE_REVEAL_TUNE.mapStart
+        ) {
+          this.restoreReveal.mapTriggered = true;
+          if (this.minimap) this.minimap.pulseTimer = 1.2;
+        }
+
         if (before > 0 && this.restoreReveal.timer === 0) {
           const reportLevel = Math.floor(Number(this.restoreReveal.reportLevel || 0));
           this.restoreReveal.reportLevel = 0;
+          this.restoreReveal.fromLevel = reportLevel;
+          this.restoreReveal.toLevel = reportLevel;
+          this.restoreReveal.mapTriggered = false;
           if (
             reportLevel >= 2 &&
             this.mode === "landed" &&
@@ -4578,6 +4613,112 @@
       return !!started;
     }
 
+    restoreRevealElapsed() {
+      if (!this.restoreReveal || this.restoreReveal.timer <= 0) return -1;
+      const total = Math.max(0.001, this.restoreReveal.duration || RESTORE_REVEAL_TUNE.duration);
+      return clamp(total - this.restoreReveal.timer, 0, total);
+    }
+
+    restoreRevealVisualLevel(kind) {
+      const elapsed = this.restoreRevealElapsed();
+      const current = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      if (elapsed < 0 || !this.restoreReveal) return current;
+      const from = clamp(Math.floor(Number(this.restoreReveal.fromLevel || current)), 1, 5);
+      const to = clamp(Math.floor(Number(this.restoreReveal.toLevel || current)), 1, 5);
+      const switchAt = kind === "ship"
+        ? RESTORE_REVEAL_TUNE.shipSwitch
+        : RESTORE_REVEAL_TUNE.stationSwitch;
+      return elapsed < switchAt ? from : to;
+    }
+
+    drawRestorePropagation() {
+      const elapsed = this.restoreRevealElapsed();
+      if (elapsed < 0 || !this.basePlanet || !this.ship) return;
+
+      const toLevel = clamp(
+        Math.floor(Number(this.restoreReveal && this.restoreReveal.toLevel || this.base.level || 1)),
+        1, 5
+      );
+      const P = STATION_PRESETS[toLevel] || STATION_PRESETS[1];
+      const station = this.homeStationCenter(this.basePlanet);
+      const ship = this.ship.pos;
+      const sc = STATION_SCALE;
+
+      // 1) BASE core wakes first, then the new outer structure catches the pulse.
+      if (
+        elapsed >= RESTORE_REVEAL_TUNE.stationPulseStart &&
+        elapsed <= RESTORE_REVEAL_TUNE.stationPulseEnd
+      ) {
+        const q = clamp(
+          (elapsed - RESTORE_REVEAL_TUNE.stationPulseStart) /
+          Math.max(0.001, RESTORE_REVEAL_TUNE.stationPulseEnd - RESTORE_REVEAL_TUNE.stationPulseStart),
+          0, 1
+        );
+        const e = 1 - Math.pow(1 - q, 2);
+        const r0 = Math.max(9, P.HubR * sc * 0.42);
+        const r1 = P.RingR1 * sc * 1.18;
+        const rr = r0 + (r1 - r0) * e;
+
+        noFill();
+        stroke(205, 238, 250, 205 * (1 - q));
+        strokeWidth(2.0);
+        ellipse(station.x, station.y, rr * 2, rr * 2);
+
+        if (q > 0.34) {
+          const q2 = clamp((q - 0.34) / 0.66, 0, 1);
+          stroke(125, 205, 240, 120 * (1 - q2));
+          strokeWidth(1.1);
+          ellipse(
+            station.x,
+            station.y,
+            (P.RingR1 * sc * (0.72 + 0.42 * q2)) * 2,
+            (P.RingR1 * sc * (0.72 + 0.42 * q2)) * 2
+          );
+        }
+      }
+
+      // 2) A single connection leaves BASE and reaches the docked ship.
+      if (elapsed >= RESTORE_REVEAL_TUNE.linkStart && elapsed <= RESTORE_REVEAL_TUNE.linkEnd) {
+        const q = clamp(
+          (elapsed - RESTORE_REVEAL_TUNE.linkStart) /
+          Math.max(0.001, RESTORE_REVEAL_TUNE.linkEnd - RESTORE_REVEAL_TUNE.linkStart),
+          0, 1
+        );
+        const ex = station.x + (ship.x - station.x) * q;
+        const ey = station.y + (ship.y - station.y) * q;
+        stroke(145, 215, 245, 165 * (1 - q * 0.35));
+        strokeWidth(1.15);
+        line(station.x, station.y, ex, ey);
+        noStroke();
+        fill(224, 246, 255, 215);
+        ellipse(ex, ey, 4.2, 4.2);
+      }
+
+      // 3) The pod accepts the new frame/sensor state after BASE has settled.
+      if (
+        elapsed >= RESTORE_REVEAL_TUNE.shipPulseStart &&
+        elapsed <= RESTORE_REVEAL_TUNE.shipPulseEnd
+      ) {
+        const q = clamp(
+          (elapsed - RESTORE_REVEAL_TUNE.shipPulseStart) /
+          Math.max(0.001, RESTORE_REVEAL_TUNE.shipPulseEnd - RESTORE_REVEAL_TUNE.shipPulseStart),
+          0, 1
+        );
+        const pulse = Math.sin(Math.PI * q);
+        const rr = 16 + 16 * q;
+        noFill();
+        stroke(214, 242, 255, 190 * pulse);
+        strokeWidth(1.4);
+        ellipse(ship.x, ship.y, rr * 2, rr * 2);
+        if (q > 0.28) {
+          const q2 = clamp((q - 0.28) / 0.72, 0, 1);
+          stroke(130, 205, 240, 100 * (1 - q2));
+          strokeWidth(0.9);
+          ellipse(ship.x, ship.y, (10 + 12 * q2) * 2, (10 + 12 * q2) * 2);
+        }
+      }
+    }
+
     completeBaseRepair(cost) {
       if (!cost || !this.landPlanet || this.landPlanet.kind !== "base") return false;
       // Re-check the economy on completion so the ritual can never create
@@ -4586,7 +4727,8 @@
       if (this.resources.ore < cost.ore || this.resources.data < cost.data) return false;
       this.resources.ore -= cost.ore;
       this.resources.data -= cost.data;
-      this.base.level = Math.min(5, this.base.level + 1);
+      const previousLevel = clamp(Math.floor(this.base.level || 1), 1, 5);
+      this.base.level = Math.min(5, previousLevel + 1);
       this.pushSystemLog("restoreLevel", { level: this.base.level });
       if (this.base.level >= 5 && this.eve) {
         this.eve.idleTimer =
@@ -4599,17 +4741,23 @@
       this.repairInputLock = 0;
       this.applyRestoreCaps(this.base.level, true);
 
-      // Let the repaired HOME exist on screen before the terminal explains it.
-      // The existing station/base pulses now have room to be seen.
+      // The repaired state is real immediately, but its visible confirmation is
+      // staged so the player can read what changed: BASE -> SHIP -> NAVIGATION.
       this.closeHomeTerminal();
+      this.restoreReveal.duration = RESTORE_REVEAL_TUNE.duration;
       this.restoreReveal.timer = this.restoreReveal.duration;
       this.restoreReveal.reportLevel = this.base.level;
+      this.restoreReveal.fromLevel = previousLevel;
+      this.restoreReveal.toLevel = this.base.level;
+      this.restoreReveal.mapTriggered = false;
 
-      this.base.repairPulse = REPAIR_TUNE.pulseSec;
+      // Legacy simultaneous pulses are deliberately not fired here. The reveal
+      // timeline owns the completion beat now.
+      this.base.repairPulse = 0;
+      if (this.stationPulse) this.stationPulse.timer = 0;
+      if (this.minimap) this.minimap.pulseTimer = 0;
+      this.feedback = { kind: null, timer: 0 };
       playOrbitCue("restore");
-      if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
-      if (this.minimap) this.minimap.pulseTimer = 1.2;
-      this.feedback = { kind: "repair", timer: 1.1 };
       // The ritual owns the immediate repair response. The *next departure*
       // owns a different beat: E.V.E. experiences the repaired body/sensors
       // once the ship is back in open space.
@@ -5374,6 +5522,7 @@
       this.drawTrail();
       this.drawTakeoffParticles();
       this.drawShip();
+      this.drawRestorePropagation();
       this.drawHarvestSparks();
       popMatrix();
 
@@ -6714,7 +6863,7 @@
     }
 
     drawHomeStation(planet, now) {
-      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      const level = this.restoreRevealVisualLevel("station");
       const P = STATION_PRESETS[level];
       if (!P) return;
       const sc = STATION_SCALE;
@@ -6923,7 +7072,7 @@
     drawShip() {
       const x = this.ship.pos.x;
       const y = this.ship.pos.y;
-      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      const level = this.restoreRevealVisualLevel("ship");
       const Q = SHIP_PRESETS[level] || SHIP_PRESETS[1];
       const s = 0.16;
       const visualScaleRatio = s / 0.20;
