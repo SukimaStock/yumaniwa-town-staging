@@ -18,7 +18,7 @@ The engine owns repeated Web/runtime friction. Each work keeps its own rules, co
 4. **Asset Loader** — complete in canonical Engine
 5. **Lifecycle + robust input** — complete in canonical Engine
 6. **Performance controls** — complete in canonical Engine
-7. DevTools + Session Report
+7. **DevTools + Session Report** — complete in canonical Engine
 
 Later candidates:
 
@@ -418,4 +418,52 @@ performance: {
 
 This keeps measurement optional without changing the work's timing policy.
 
-The next implementation step is DevTools + Session Report.
+## DevTools + Session Report
+
+DevTools completes the v0.2 foundation by turning Engine state into readable diagnostic text.
+
+Enable the panel with:
+
+```text
+?dev=1
+```
+
+The live panel shows performance, Asset, Audio, Storage and health status and can expose work-registered tuning sliders.
+
+The full handoff artifact is:
+
+```js
+SSE.dev.reportText()
+```
+
+or the panel's:
+
+```text
+COPY SESSION REPORT
+```
+
+The report includes an `ATTENTION` section that converts Engine-known failure or fallback states into sentences instead of requiring the author to infer them from code or console output.
+
+The implementation also adds `SSE.diagnostics`, a small event log shared by Engine systems and available to each work.
+
+Detailed usage is documented in:
+
+```text
+engine/SUKIMASTOCK-DEVTOOLS.md
+```
+
+## v0.2 foundation status
+
+The planned v0.2 foundation is now implemented in the canonical Engine:
+
+1. Baseline consolidation
+2. Audio v2
+3. Storage v2
+4. Asset Loader
+5. Lifecycle + robust input
+6. Performance controls
+7. DevTools + Session Report
+
+The next phase is **work-by-work migration and comparison**, not adding more Engine features.
+
+Each existing work should be migrated separately, validated against its current behavior, and only then have duplicated local infrastructure removed.
