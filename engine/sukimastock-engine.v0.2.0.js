@@ -825,6 +825,8 @@
         error: null,
         promise: null,
         loadedAt: 0,
+        loadStartedAtMs: 0,
+        loadDurationMs: 0,
       });
 
       return id;
@@ -1138,6 +1140,8 @@
       const definition = record.definition;
       record.status = "loading";
       record.error = null;
+      record.loadStartedAtMs = nowMs();
+      record.loadDurationMs = 0;
 
       let task;
       if (definition.type === "image") {
@@ -1160,7 +1164,21 @@
           record.status = "ready";
           record.error = null;
           record.loadedAt = Date.now();
+          record.loadDurationMs = Math.max(0, nowMs() - record.loadStartedAtMs);
           record.promise = null;
+
+          if (devtools.enabled()) {
+            diagnostics.info(
+              "asset-ready",
+              id + " ready in " + Math.round(record.loadDurationMs) + "ms",
+              {
+                name: id,
+                file: definition.file || null,
+                durationMs: record.loadDurationMs,
+              }
+            );
+          }
+
           return value;
         })
         .catch((error) => {
@@ -1328,6 +1346,8 @@
       record.error = null;
       record.promise = null;
       record.loadedAt = 0;
+      record.loadStartedAtMs = 0;
+      record.loadDurationMs = 0;
       return true;
     },
 
@@ -1364,6 +1384,7 @@
           file: record?.definition?.file || null,
           status: record?.status || "missing",
           loadedAt: record?.loadedAt || 0,
+          loadDurationMs: record?.loadDurationMs || 0,
           error: record?.error
             ? String(record.error.message || record.error)
             : null,
@@ -3730,7 +3751,7 @@
         tuning: this.tuningReport(),
         diagnostics: {
           summary: diagnostics.summary(),
-          recent: diagnostics.recent(20),
+          recent: diagnostics.recent(40),
         },
       };
 
