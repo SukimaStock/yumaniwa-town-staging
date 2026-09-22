@@ -17,10 +17,8 @@ import zipfile
 from pathlib import Path, PurePosixPath
 
 
-ENGINE_TAG_RE_TEMPLATE = (
-    r"<script\\b(?=[^>]*\\b{marker}\\b)[^>]*\\bsrc=(?P<quote>[\\"'])"
-    r"(?P<src>.*?)(?P=quote)[^>]*>\\s*</script>"
-)
+SCRIPT_TAG_RE_TEMPLATE = r"<script\b(?=[^>]*\b{marker}\b)[^>]*>"
+SRC_RE = re.compile(r"""\bsrc\s*=\s*(["'])(?P<src>.*?)\1""", re.IGNORECASE | re.DOTALL)
 
 
 class ExportError(RuntimeError):
@@ -54,30 +52,35 @@ def load_manifest(path: Path) -> dict:
     return data
 
 
-def rewrite_engine_reference(entry_path: Path, marker: str, target: str) -> None:
-    html = entry_path.read_text(encoding="utf-8")
+def marked_engine_tag(html: str, marker: str):
     pattern = re.compile(
-        ENGINE_TAG_RE_TEMPLATE.format(marker=re.escape(marker)),
+        SCRIPT_TAG_RE_TEMPLATE.format(marker=re.escape(marker)),
         re.IGNORECASE | re.DOTALL,
     )
     matches = list(pattern.finditer(html))
     if len(matches) != 1:
         raise ExportError(
-            f"Expected exactly one <script {marker} ...> in {entry_path.name}; "
-            f"found {len(matches)}."
+            f"Expected exactly one <script {marker} ...>; found {len(matches)}."
         )
-
     match = matches[0]
-    tag = match.group(0)
-    quote = match.group("quote")
-    rewritten_tag = re.sub(
-        r"\\bsrc=(?:[\\"']).*?(?:[\\"'])",
-        f"src={quote}{target}{quote}",
-        tag,
-        count=1,
-        flags=re.IGNORECASE | re.DOTALL,
+    src_match = SRC_RE.search(match.group(0))
+    if not src_match:
+        raise ExportError(f"Marked Engine script has no src attribute: {marker}")
+    return match, src_match
+
+
+def rewrite_engine_reference(entry_path: Path, marker: str, target: str) -> None:
+    html = entry_path.read_text(encoding="utf-8")
+    tag_match, src_match = marked_engine_tag(html, marker)
+    tag = tag_match.group(0)
+    quote = src_match.group(1)
+
+    rewritten_tag = (
+        tag[: src_match.start()]
+        + f"src={quote}{target}{quote}"
+        + tag[src_match.end() :]
     )
-    html = html[: match.start()] + rewritten_tag + html[match.end() :]
+    html = html[: tag_match.start()] + rewritten_tag + html[tag_match.end() :]
     entry_path.write_text(html, encoding="utf-8")
 
 
@@ -90,16 +93,10 @@ def validate_export_tree(root: Path, entry: Path, engine_target: Path, marker: s
         raise ExportError(f"Packaged Engine is missing: {engine_target.as_posix()}")
 
     html = entry_file.read_text(encoding="utf-8")
-    pattern = re.compile(
-        ENGINE_TAG_RE_TEMPLATE.format(marker=re.escape(marker)),
-        re.IGNORECASE | re.DOTALL,
-    )
-    matches = list(pattern.finditer(html))
-    if len(matches) != 1:
-        raise ExportError("Packaged entry lost its marked Engine script tag.")
-
-    src = matches[0].group("src").split("?", 1)[0]
+    _, src_match = marked_engine_tag(html, marker)
+    src = src_match.group("src").split("?", 1)[0]
     expected = engine_target.as_posix()
+
     if src != expected:
         raise ExportError(
             f"Packaged Engine src is {src!r}; expected {expected!r}."
@@ -122,35 +119,47 @@ def write_zip(source_dir: Path, destination: Path) -> None:
                 archive.write(path, path.relative_to(source_dir).as_posix())
 
 
-def build(manifest_path: Path, repo_root: Path, out_dir: Path, check_only: bool) -> Path | None:
+def build(manifest_path: Path, repo_root: Path, out_dir: Path, check_only: bool):
     manifest = load_manifest(manifest_path)
     work_dir = manifest_path.parent.resolve()
     repo_root = repo_root.resolve()
 
     entry = safe_relative(manifest.get("entry", "index.html"), "entry")
-    output_name = Path(str(manifest.get("output") or f"{manifest.get('id', 'work')}-standalone.zip")).name
+    output_name = Path(
+        str(manifest.get("output") or f"{manifest.get('id', 'work')}-standalone.zip")
+    ).name
     if not output_name.lower().endswith(".zip"):
         output_name += ".zip"
 
     engine = manifest["engine"]
     engine_source = safe_relative(engine.get("source"), "engine.source")
-    engine_target = safe_relative(engine.get("target", "sukimastock-engine.js"), "engine.target")
+    engine_target = safe_relative(
+        engine.get("target", "sukimastock-engine.js"),
+        "engine.target",
+    )
     marker = str(engine.get("htmlMarker") or "data-sse-engine").strip()
     if not marker:
         raise ExportError("engine.htmlMarker must not be empty.")
 
-    include_paths = [safe_relative(item, "include item") for item in manifest["include"]]
+    include_paths = [
+        safe_relative(item, "include item")
+        for item in manifest["include"]
+    ]
     if entry not in include_paths:
         raise ExportError("Manifest entry must also appear in include.")
 
     for rel in include_paths:
-        src = work_dir / rel
-        if not src.is_file():
+        source = work_dir / rel
+        if not source.is_file():
             raise ExportError(f"Required runtime file is missing: {rel.as_posix()}")
 
     canonical_engine = repo_root / engine_source
     if not canonical_engine.is_file():
         raise ExportError(f"Canonical Engine is missing: {engine_source.as_posix()}")
+
+    # Validate the development entry before building so a stale/missing marker
+    # cannot silently produce an unusable archive.
+    marked_engine_tag((work_dir / entry).read_text(encoding="utf-8"), marker)
 
     if check_only:
         return None
@@ -171,18 +180,26 @@ def build(manifest_path: Path, repo_root: Path, out_dir: Path, check_only: bool)
         packaged_engine.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(canonical_engine, packaged_engine)
 
-        rewrite_engine_reference(package_root / entry, marker, engine_target.as_posix())
+        rewrite_engine_reference(
+            package_root / entry,
+            marker,
+            engine_target.as_posix(),
+        )
         validate_export_tree(package_root, entry, engine_target, marker)
         write_zip(package_root, destination)
 
     return destination
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(argv=None) -> int:
     parser = argparse.ArgumentParser(
         description="Build a self-contained SukimaStock Web work ZIP."
     )
-    parser.add_argument("manifest", type=Path, help="Path to standalone-export.json")
+    parser.add_argument(
+        "manifest",
+        type=Path,
+        help="Path to standalone-export.json",
+    )
     parser.add_argument(
         "--repo-root",
         type=Path,
