@@ -13,7 +13,7 @@ The engine owns repeated Web/runtime friction. Each work keeps its own rules, co
 ## v0.2 implementation order
 
 1. **Baseline consolidation** — complete
-2. Audio v2
+2. **Audio v2** — complete in canonical Engine
 3. Storage v2
 4. Asset Loader
 5. Lifecycle + robust input
@@ -108,6 +108,18 @@ Do not let multiple work-local `sukimastock-engine.js` files silently become sep
 
 ## Current status
 
-The baseline is intentionally conservative. It does **not** yet absorb CoffeeFactory's custom BGM/SE layer, ORBIT's save model, Diorama Calendar's sensor system, or DotWeather's network layer.
+Audio v2 now provides the shared infrastructure needed to replace much of CoffeeFactory's and ORBIT's duplicated audio plumbing:
 
-Those are handled in the following implementation steps, beginning with Audio v2.
+- legacy HTMLAudio pool playback remains compatible
+- `mode: "buffer"` SE with fetch/decode/preload
+- master / music / SE buses
+- BGM definitions and playback
+- BGM fade / crossfade / level control
+- bus volume control
+- persistent global sound enable/disable
+
+The work-specific volume curves, cue timing, and musical decisions remain in each work.
+
+Existing works still keep their local Engine copies. Audio v2 will be validated during later work-by-work migration before those copies are removed.
+
+The next implementation step is Storage v2.
