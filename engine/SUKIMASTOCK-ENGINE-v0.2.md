@@ -16,7 +16,7 @@ The engine owns repeated Web/runtime friction. Each work keeps its own rules, co
 2. **Audio v2** — complete in canonical Engine
 3. **Storage v2** — complete in canonical Engine
 4. **Asset Loader** — complete in canonical Engine
-5. Lifecycle + robust input
+5. **Lifecycle + robust input** — complete in canonical Engine
 6. Performance controls
 7. DevTools + Session Report
 
@@ -252,4 +252,98 @@ items: {
 
 so one semantic group can describe everything a Scene needs.
 
-The next implementation step is Lifecycle + robust input.
+## Lifecycle + robust input
+
+The Engine now owns browser lifecycle transitions instead of asking every work to wire `visibilitychange`, `pagehide`, `pageshow`, `blur`, and `focus` separately.
+
+Default behavior:
+
+- `visibilitychange → hidden` pauses the Engine
+- `pagehide` pauses the Engine
+- `pageshow` resumes the pagehide reason and also clears a stale hidden reason when the document is already visible
+- `blur` always cancels active pointer/keyboard state but does not pause by default
+- `pauseOnBlur: true` is available for works that should fully pause on desktop focus loss
+- while paused, Scene update and Engine Motion stop while drawing remains available
+- the first resumed frame does not inherit a large hidden-time delta
+- Audio v2 pauses currently playing music and suspends Web Audio when possible, then resumes only the audio that had actually been playing
+
+Example:
+
+```js
+SSE.createApp({
+  id: "timer-work",
+  lifecycle: {
+    autoAudio: true,
+    pauseOnBlur: false,
+  },
+  // ...
+});
+
+SSE.lifecycle.onPause(({ reason }) => {
+  timer.setHidden(true);
+});
+
+SSE.lifecycle.onResume(() => {
+  timer.setHidden(false);
+});
+```
+
+The lifecycle API also supports manual reasons:
+
+```js
+SSE.lifecycle.pause("modal-external");
+SSE.lifecycle.resume("modal-external");
+```
+
+Pause reasons are stacked. The Engine resumes only when all active reasons have been cleared.
+
+### Pointer safety
+
+An active primary pointer is remembered by the Engine. On blur, pagehide, or lifecycle pause it is converted to a synthetic `CANCELLED` touch and sent through the normal Scene route before pointer state is cleared.
+
+This prevents stuck drag/thrust/movement state when the browser interrupts a gesture.
+
+### Keyboard input
+
+The Engine now provides normalized keyboard state and action bindings:
+
+```js
+SSE.createApp({
+  keyboard: {
+    bindings: {
+      left: ["ArrowLeft", "KeyA"],
+      right: ["ArrowRight", "KeyD"],
+      action: ["Space"],
+    },
+  },
+});
+
+if (SSE.input.action("left")) {
+  // held
+}
+
+if (SSE.input.actionPressed("action")) {
+  // first frame only
+}
+
+if (SSE.input.actionReleased("action")) {
+  // release frame only
+}
+```
+
+Available helpers include:
+
+- `bind(action, keys)`
+- `unbind(action)`
+- `isDown(key)`
+- `wasPressed(key)`
+- `wasReleased(key)`
+- `action(name)`
+- `actionPressed(name)`
+- `actionReleased(name)`
+
+Bound keys prevent browser default behavior by default. Keyboard state is cleared on blur/lifecycle interruption so a missing keyup event cannot leave an action stuck.
+
+This is the shared version of the browser-interruption fixes already proven in ORBIT and the lifecycle handling previously written directly inside CoffeeFactory.
+
+The next implementation step is Performance controls.
