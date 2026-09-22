@@ -255,3 +255,24 @@ A slow-frame warning now requires at least one of:
 - a severe single hitch exceeds `max(120ms, slowThreshold × 4)`
 
 The SteamClock sample now synthesizes a healthy status, while repeated slow frames, sustained p95 degradation, and a severe isolated hitch still produce warnings.
+
+
+## Asset Loader real-work refinement — loading image references
+
+SteamClock migration exposed a Codea-specific requirement: a work may need to retain the image object while it is still loading.
+
+Asset Loader now supports:
+
+```js
+SSE.assets.peek(name)
+```
+
+for loading/ready records while preserving `SSE.assets.image(name)` as ready-only.
+
+Validated:
+
+- `peek()` exposes the Codea image during loading
+- fetch priority is already applied to that object
+- the resolved ready image is the exact same object
+- `image()` still returns null until ready
+- after readiness, both APIs refer to the same image object
