@@ -317,7 +317,7 @@
       "2": "I can see... farther now.",
       "3": "ホシガ...マエヨリ トオク マデ ミエル。",
       "4": "そらが、まえより ひろく みえます。",
-      "5": "……前より遠くまで、一緒に行けますね。"
+      "5": "……あの星まで、行けそうですね。"
     },
     "farewell": "……いってらっしゃい。",
     "astraIdle": {
@@ -459,22 +459,22 @@
     "responseHint": "タップして戻る",
     "wake": {
       "name": "WAKE",
-      "response": "...PULSE... RESPONDS...\nTO TOUCH...",
+      "response": "...PULSE... STABLE...",
       "instruction": "タップする"
     },
     "link": {
       "name": "LINK",
-      "response": "コドウ ト キオク ガ マワリダス",
+      "response": "ツウシン...トオッタ。",
       "instruction": "右回りになぞる"
     },
     "memory": {
       "name": "MEMORY",
-      "response": "……あなたの おんど、\nおぼえています。",
+      "response": "……きこえます。\nまえより、はっきり。",
       "instruction": "光をなぞる"
     },
     "resonance": {
       "name": "RESONANCE",
-      "response": "途切れていた線が繋がる。\nあなたの輪郭が、\n少しずつ戻ってくる。",
+      "response": "……ノイズが、消えました。",
       "instruction": "点を順につなぐ"
     },
     "rebirth": {
