@@ -228,3 +228,30 @@ All seven planned foundation areas now have implementation-level smoke coverage:
 This is not yet equivalent to real-device validation of migrated works.
 
 The next validation phase is work-by-work migration on Staging.
+
+
+## Real-work calibration — SteamClock canary
+
+SteamClock produced the first real Session Report after migration to canonical Engine v0.2:
+
+- 294 rendered frames
+- average FPS: 59.9
+- minimum FPS: 34.5
+- average frame interval: 16.7ms
+- p95 frame interval: 17ms
+- maximum frame interval: 29ms
+- average update cost: 0.03ms
+- average draw cost: 1.13ms
+- one frame crossed the original slow-frame threshold
+
+The original health rule warned whenever `slowFrames > 0`. This made one isolated near-threshold frame appear as ATTENTION even though the sustained performance was healthy.
+
+Health synthesis was calibrated using this real-work result.
+
+A slow-frame warning now requires at least one of:
+
+- p95 frame interval exceeds the slow-frame threshold
+- at least 3 slow frames and at least 2% of measured update frames are slow
+- a severe single hitch exceeds `max(120ms, slowThreshold × 4)`
+
+The SteamClock sample now synthesizes a healthy status, while repeated slow frames, sustained p95 degradation, and a severe isolated hitch still produce warnings.
