@@ -104,7 +104,7 @@
     instruction:tx("ritual.wake.instruction"),
     initExtra(s){
       s.currentTaps = 0;
-      s.targetTaps = 28;
+      s.targetTaps = 12;
       s.ripples = [];
       s.sparks = [];
       s.tapPulse = 0;
@@ -117,7 +117,7 @@
     response:tx("ritual.link.response"),
     instruction:tx("ritual.link.instruction"),
     initExtra(s){
-      s.turnsNeeded = 10.0;
+      s.turnsNeeded = 3.0;
       s.totalTurns = 0;
       s.activePointer = null;
       s.prevAng = null;
@@ -147,7 +147,7 @@
       s.patches = [];
       s.revealScore = 0;
       s.exposure = 0;
-      s.revealTarget = 20.0;
+      s.revealTarget = 10.0;
       s.hints = [];
       s.mistSeed = Math.random()*10000;
       const hintRows = 14;
