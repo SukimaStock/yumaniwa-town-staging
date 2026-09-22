@@ -518,3 +518,144 @@ Check the actual sounds, not only the report:
 The key comparison is whether SE loudness and timing feel unchanged from the pre-migration build.
 
 BGM remains intentionally untouched until this phase is accepted.
+
+
+## Phase 5 real-device result
+
+Accepted.
+
+The user confirmed that migrated SE loudness and behavior remained correct.
+
+## Phase 6 — BGM transport migrated to Audio v2
+
+CoffeeFactory's BGM transport is now owned by canonical Audio v2.
+
+Removed from the work:
+
+- direct `new Audio()`
+- direct `AudioContext`
+- direct `createMediaElementSource()`
+- direct BGM GainNode ownership
+- direct BGM pause/resume transport
+
+Retained in the work:
+
+- Setup / Prep / Brew / Finish target levels
+- exponential scene-level interpolation
+- Finish drop / hold / rise state machine
+- finish-cue timing
+- hidden-state reset-to-zero behavior
+
+The work therefore still decides **how the music should feel**, while Engine Audio decides **how the browser should play it**.
+
+### BGM track
+
+Canonical Audio v2 music id:
+
+```text
+coffee
+```
+
+File:
+
+```text
+./assets/audio/CoffeeFactory.mp3
+```
+
+### Preserved scene targets
+
+```text
+Setup  0.065
+Prep   0.120
+Brew   0.200
+Finish 0.240
+```
+
+### Preserved Finish break
+
+```text
+drop  0.20s
+hold  0.50s
+rise  2.50s
+low   0.05
+```
+
+A deterministic controller test confirmed:
+
+```text
+Brew steady       0.200
+drop midpoint     0.125
+drop end          0.050
+hold end          0.050
+rise midpoint     0.145
+rise end          0.240
+finish cue count  1
+```
+
+### Bus rebalance to preserve effective loudness
+
+Before migration:
+
+```text
+BGM final gain = work scene level
+SE final gain  = per-sound level × 0.95
+```
+
+After migration:
+
+```text
+masterVolume = 1.00
+musicVolume  = 1.00
+seVolume     = 0.95
+```
+
+Therefore:
+
+```text
+BGM final gain = scene level × 1.00 × 1.00
+SE final gain  = per-sound level × 0.95 × 1.00
+```
+
+The effective pre-migration loudness is preserved.
+
+### Static Phase 6 audit
+
+Passed:
+
+- zero custom Audio transport/WebAudio construction remains in CoffeeFactory
+- BGM file is defined in Audio v2 music config
+- scene target values unchanged
+- Finish break values unchanged
+- SE effective bus gain unchanged
+- BGM controller still owns the feel curve
+- Audio v2 owns music transport and lifecycle
+
+## Phase 6 real-device check
+
+Please run through the whole experience once.
+
+Check by ear:
+
+1. Setup BGM starts at the familiar quiet level
+2. Prep rises to the familiar level
+3. Brew rises again without a jump
+4. Finish transition still drops the BGM briefly
+5. finish cue lands during the low/hold section
+6. BGM returns slowly to Finish level
+7. sound toggle stops both BGM and SE
+8. turning sound back on resumes cleanly
+9. leaving Safari during Brew and returning does not duplicate or restart the BGM
+10. BGM loop position should continue rather than restart on ordinary scene changes
+
+Expected Session Report after user interaction:
+
+```text
+AUDIO
+Enabled: true
+Unlocked: true
+Context: running
+Current music: coffee
+Buffers: 8/8
+```
+
+If this real-device comparison passes, CoffeeFactory can be considered fully migrated to canonical Engine v0.2 and its work-local Engine copy can be removed.
