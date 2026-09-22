@@ -76,6 +76,18 @@
       "fullyRestored": "FULLY RESTORED",
       "updated": "UPDATED",
       "completeStatus": "COMPLETE"
+    },
+    "boot": {
+      "baseTerminal": "BASE // TERMINAL",
+      "systemLinkSlow": "SYSTEM LINK ....",
+      "retry": "RETRY",
+      "systemConnectedSlow": "SYSTEM LINK .... CONNECTED",
+      "terminalOnlineSlow": "TERMINAL .... ONLINE",
+      "systemConnected": "SYSTEM LINK ... CONNECTED",
+      "terminalOnline": "TERMINAL ... ONLINE",
+      "systemConnectedFast": "SYSTEM LINK .. CONNECTED",
+      "online": "ONLINE",
+      "linkEstablished": "LINK ESTABLISHED"
     }
   },
   "eve": {
