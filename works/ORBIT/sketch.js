@@ -322,6 +322,7 @@
     // packet before revealing whether an Echo was present.
     memoryRevealDelaySec: 0.78,
     analysisSec: 2.4,
+    analysisSecByLevel: Object.freeze([0, 2.40, 2.10, 1.80, 1.50, 1.20]),
     analysisWindowOpenSec: 0.22,
     analysisResultSec: 0.72,
     emptyResultSec: 1.05,
@@ -1223,6 +1224,7 @@
         pendingPlanet: null,
         analyzing: false,
         analysisTimer: 0,
+        analysisDuration: ECHO_TUNE.analysisSec,
         analysisPlanet: null,
         analysisResult: null,
         analysisResultTimer: 0,
@@ -3139,6 +3141,11 @@
       return ECHO_ANALYSIS_LINES[level] || ECHO_ANALYSIS_LINES[1];
     }
 
+    echoAnalysisDuration() {
+      const level = clamp(Math.floor(Number(this.base && this.base.level || 1)), 1, 5);
+      return ECHO_TUNE.analysisSecByLevel[level] || ECHO_TUNE.analysisSec;
+    }
+
     startEchoAnalysis(index, planet) {
       this.echoStory.pendingIndex = 0;
       this.echoStory.pendingTimer = 0;
@@ -3146,7 +3153,8 @@
       this.echoStory.index = Math.max(0, Math.floor(Number(index || 0)));
       this.echoStory.analysisPlanet = planet || null;
       this.echoStory.analyzing = true;
-      this.echoStory.analysisTimer = ECHO_TUNE.analysisSec;
+      this.echoStory.analysisDuration = this.echoAnalysisDuration();
+      this.echoStory.analysisTimer = this.echoStory.analysisDuration;
       this.echoStory.analysisResult = null;
       this.echoStory.analysisResultTimer = 0;
       this.echoStory.analysisResultIndex = 0;
@@ -3164,6 +3172,7 @@
       this.echoStory.pendingPlanet = null;
       this.echoStory.analyzing = false;
       this.echoStory.analysisTimer = 0;
+      this.echoStory.analysisDuration = ECHO_TUNE.analysisSec;
       this.echoStory.analysisPlanet = null;
       this.echoStory.analysisResult = null;
       this.echoStory.analysisResultTimer = 0;
@@ -3244,6 +3253,7 @@
       this.echoStory.pendingTimer = ECHO_TUNE.memoryRevealDelaySec;
       this.echoStory.analyzing = false;
       this.echoStory.analysisTimer = 0;
+      this.echoStory.analysisDuration = ECHO_TUNE.analysisSec;
       return true;
     }
 
@@ -3481,6 +3491,7 @@
           this.echoStory.active = false;
           this.echoStory.analyzing = false;
           this.echoStory.analysisTimer = 0;
+          this.echoStory.analysisDuration = ECHO_TUNE.analysisSec;
           this.echoStory.analysisPlanet = null;
           this.echoStory.analysisResult = null;
           this.echoStory.analysisResultTimer = 0;
@@ -5794,7 +5805,11 @@
       // frame -> complete window. It should feel like opening a file, not
       // booting an entire terminal.
       if (showingAnalysis) {
-        const elapsed = ECHO_TUNE.analysisSec - this.echoStory.analysisTimer;
+        const analysisDuration = Math.max(
+          0.001,
+          Number(this.echoStory.analysisDuration || ECHO_TUNE.analysisSec)
+        );
+        const elapsed = analysisDuration - this.echoStory.analysisTimer;
         const openSec = Math.max(0.001, ECHO_TUNE.analysisWindowOpenSec || 0.22);
         if (elapsed < openSec) {
           const q = clamp(elapsed / openSec, 0, 1);
@@ -5871,7 +5886,11 @@
         const innerW = barW - 8;
         const innerH = barH - 8;
         const bw = (innerW - gap * (blocks - 1)) / blocks;
-        const progress = clamp(1 - this.echoStory.analysisTimer / Math.max(0.001, ECHO_TUNE.analysisSec), 0, 1);
+        const analysisDuration = Math.max(
+          0.001,
+          Number(this.echoStory.analysisDuration || ECHO_TUNE.analysisSec)
+        );
+        const progress = clamp(1 - this.echoStory.analysisTimer / analysisDuration, 0, 1);
         const lit = Math.floor(progress * blocks + 1e-6);
 
         noStroke();
