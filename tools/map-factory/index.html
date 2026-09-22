@@ -16,14 +16,35 @@
       <button id="newRecipeBtn" class="primary">＋ New asset</button>
     </header>
 
-    <section class="master-card">
-      <div>
-        <p class="eyebrow">MASTER RECIPE</p>
-        <h2>Alley Shop <span class="version">v1</span></h2>
-        <p class="muted">灯串横丁に置く、小さな独立店舗のための基準Recipe。</p>
+    <section class="master-section">
+      <div class="section-title">
+        <p class="eyebrow">MASTER RECIPES</p>
+        <h2>Alley Shop</h2>
       </div>
-      <div class="master-actions">
-        <button id="editMasterBtn" class="secondary">Masterを見る</button>
+
+      <div class="master-grid">
+        <article class="master-card recommended">
+          <div>
+            <div class="master-labels">
+              <span class="badge reference">CURRENT BEST</span>
+              <span class="badge">Double Variation</span>
+            </div>
+            <h3>Alley Shop / Double Variation <span class="version">v1</span></h3>
+            <p class="muted">同じ店を2軒並べ、1軒あたりの情報密度を自然に落とす現在の推奨方式。</p>
+          </div>
+          <button class="secondary" data-master-open="alley-shop-double">Masterを見る</button>
+        </article>
+
+        <article class="master-card">
+          <div>
+            <div class="master-labels">
+              <span class="badge">Single</span>
+            </div>
+            <h3>Alley Shop / Single <span class="version">v5</span></h3>
+            <p class="muted">単体生成用。縦長・低密度・レトロな灯串店舗の基準。</p>
+          </div>
+          <button class="secondary" data-master-open="alley-shop-single">Masterを見る</button>
+        </article>
       </div>
     </section>
 
@@ -51,6 +72,14 @@
         <button id="closeEditorBtn" class="icon-btn" aria-label="閉じる">×</button>
       </div>
 
+      <div id="referencePreview" class="reference-preview hidden">
+        <img id="referenceImage" alt="">
+        <div>
+          <p class="eyebrow">REFERENCE RESULT</p>
+          <p id="referenceCaption" class="muted"></p>
+        </div>
+      </div>
+
       <div class="form-grid">
         <label>名前
           <input id="nameInput" type="text" placeholder="クラフトコーラ屋">
@@ -64,40 +93,59 @@
           </select>
         </label>
 
+        <label>Generation mode
+          <select id="generationModeInput">
+            <option value="double_variation">Double variation</option>
+            <option value="single">Single shop</option>
+          </select>
+        </label>
+
+        <label>Pair strategy
+          <select id="pairStrategyInput">
+            <option value="same_shop_variations">Same shop variations</option>
+            <option value="none">None</option>
+          </select>
+        </label>
+
+        <div class="full recipe-summary">
+          <span class="eyebrow">BASE RECIPE</span>
+          <strong id="baseRecipeLabel">Alley Shop / Double Variation v1</strong>
+        </div>
+
         <label class="full">店の説明
           <textarea id="descriptionInput" rows="2" placeholder="灯串横丁にある小さなクラフトコーラ店"></textarea>
         </label>
 
         <label>Shop type
-          <input id="shopTypeInput" type="text" placeholder="craft cola shop">
+          <input id="shopTypeInput" type="text" placeholder="small craft-cola shop">
         </label>
         <label>Main color
-          <input id="mainColorInput" type="text" placeholder="deep brown and muted amber">
+          <input id="mainColorInput" type="text" placeholder="dark brown, charcoal, faded red, amber">
         </label>
         <label>Sign
-          <input id="signInput" type="text" placeholder="small handmade sign">
+          <input id="signInput" type="text" placeholder="simple hanging bottle sign">
         </label>
         <label>Lighting
-          <input id="lightingInput" type="text" placeholder="warm, dim, restrained">
+          <input id="lightingInput" type="text" placeholder="small warm lanterns">
         </label>
 
         <label class="full">Small props
-          <input id="propsInput" type="text" placeholder="cola bottles, spice jars, wooden crates">
+          <input id="propsInput" type="text" placeholder="at most 2 bottles and 1 simple jar per shop">
         </label>
 
         <label>Game width (tiles)
-          <input id="gameWidthInput" type="number" min="0.5" max="24" step="0.25" value="6">
+          <input id="gameWidthInput" type="number" min="0.5" max="24" step="0.25" value="4.5">
         </label>
         <label>Game height (tiles)
           <input id="gameHeightInput" type="number" min="0.5" max="24" step="0.25" value="6">
         </label>
 
         <label class="full">今回だけの追加指示
-          <textarea id="manualInput" rows="3" placeholder="Make the roof slightly lower."></textarea>
+          <textarea id="manualInput" rows="3" placeholder="今回だけ変えること"></textarea>
         </label>
 
         <label class="full">メモ
-          <textarea id="notesInput" rows="3" placeholder="生成後の気づき、次回直したい点"></textarea>
+          <textarea id="notesInput" rows="4" placeholder="生成結果、成功理由、次回直したい点"></textarea>
         </label>
       </div>
 
@@ -110,11 +158,11 @@
         <div class="prompt-head">
           <div>
             <p class="eyebrow">GENERATED PROMPT</p>
-            <strong>Alley Shop v1</strong>
+            <strong id="promptMasterLabel">Alley Shop / Double Variation v1</strong>
           </div>
           <button id="copyPromptBtn" class="secondary">Copy</button>
         </div>
-        <textarea id="promptOutput" rows="18" readonly></textarea>
+        <textarea id="promptOutput" rows="22" readonly></textarea>
       </div>
 
       <div class="export-row">
@@ -127,15 +175,16 @@
       <div class="panel-head">
         <div>
           <p class="eyebrow">MASTER RECIPE</p>
-          <h2>Alley Shop v1</h2>
+          <h2 id="masterPanelTitle">Alley Shop</h2>
         </div>
         <button id="closeMasterBtn" class="icon-btn" aria-label="閉じる">×</button>
       </div>
-      <p class="muted">固定ルール。各Assetでは変更せず、共通してズレた時だけMaster側を改訂します。</p>
-      <textarea id="masterPromptOutput" rows="28" readonly></textarea>
+      <p id="masterPanelDescription" class="muted"></p>
+      <textarea id="masterPromptOutput" rows="30" readonly></textarea>
     </section>
   </main>
 
+  <script src="./masters.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>
