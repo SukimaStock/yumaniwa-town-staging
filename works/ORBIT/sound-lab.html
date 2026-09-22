@@ -48,6 +48,9 @@
     dialog::backdrop{background:rgba(0,0,0,.7)}
     textarea{width:100%;height:48vh;background:#080b10;color:#d9e7ef;border:1px solid var(--line);border-radius:10px;padding:10px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
     .ok{color:var(--ok)}
+    .approved{border-color:#3b7f67!important;color:var(--ok)!important;background:#10231d!important}
+    .applyBtn{font-weight:700;border-color:#38647a;background:#142431}
+    .bundleSteps{color:var(--muted);font-size:13px;line-height:1.7}
     @media(max-width:680px){.grid{grid-template-columns:1fr}.toolbar{top:0}.card{padding:12px}}
   </style>
 </head>
@@ -65,6 +68,7 @@
       <label class="pick">個別ファイル追加<input id="fileInput" type="file" accept="audio/*,.ogg,.wav,.mp3,.m4a,.aac" multiple></label>
       <button id="libraryBtn">候補一覧</button>
       <button id="clearBtn">候補をクリア</button>
+      <button id="applyBtn" class="applyBtn">ORBITへ反映 (0)</button>
       <button id="exportBtn">設定をコピー</button>
       <button id="resetBtn">音量を初期値へ</button>
     </div>
@@ -80,6 +84,22 @@
 
   <section id="grid" class="grid"></section>
 </main>
+
+<dialog id="bundleDialog">
+  <h2>ORBITへ反映</h2>
+  <p id="bundleSummary"></p>
+  <div class="bundleSteps">
+    1. 下の「Working Copyへ共有」を押す<br>
+    2. Share Sheetで Working Copy を選ぶ<br>
+    3. <b>yumaniwa-town-staging</b> を選び、ZIPを既存リポジトリへ展開・上書き<br>
+    4. Working Copy側で Commit / Push
+  </div>
+  <div class="row">
+    <button id="shareBundleBtn" class="approved">Working Copyへ共有</button>
+    <button id="downloadBundleBtn">ZIPを保存</button>
+    <button id="closeBundleBtn">閉じる</button>
+  </div>
+</dialog>
 
 <dialog id="exportDialog">
   <h2>Sound Lab 設定</h2>
@@ -124,6 +144,8 @@
     volumes:{},
     phase:"A",
     folderFilter:"ALL",
+    approved:{},
+    preparedZip:null,
     audition:{running:false, slotName:null, index:-1, token:0, source:null},
   };
 
@@ -131,6 +153,7 @@
     const saved = JSON.parse(localStorage.getItem("orbit.soundlab.settings") || "{}");
     state.assignments = saved.assignments || {};
     state.volumes = saved.volumes || {};
+    state.approved = saved.approved || {};
   } catch (_) {}
 
   const grid = document.getElementById("grid");
@@ -141,11 +164,15 @@
   const library = document.getElementById("library");
   const exportDialog = document.getElementById("exportDialog");
   const exportText = document.getElementById("exportText");
+  const bundleDialog = document.getElementById("bundleDialog");
+  const bundleSummary = document.getElementById("bundleSummary");
+  const applyBtn = document.getElementById("applyBtn");
 
   function save(){
     localStorage.setItem("orbit.soundlab.settings", JSON.stringify({
       assignments:state.assignments,
-      volumes:state.volumes
+      volumes:state.volumes,
+      approved:state.approved
     }));
   }
 
@@ -189,6 +216,28 @@
   function visibleCandidates(){
     if (state.folderFilter === "ALL") return state.candidates;
     return state.candidates.filter(file => fileDir(file) === state.folderFilter);
+  }
+
+  function approvedCount(){
+    return Object.keys(state.approved).filter(name => state.approved[name]).length;
+  }
+
+  function refreshApplyButton(){
+    const count = approvedCount();
+    applyBtn.textContent = "ORBITへ反映 (" + count + ")";
+    applyBtn.classList.toggle("approved", count > 0);
+  }
+
+  function candidateByPath(path){
+    return state.candidates.find(file => filePath(file) === path) || null;
+  }
+
+  function markAssignmentChanged(slot, path){
+    if (state.approved[slot.name] && state.approved[slot.name] !== path) {
+      delete state.approved[slot.name];
+    }
+    state.preparedZip = null;
+    refreshApplyButton();
   }
 
   async function decodeFile(file){
@@ -296,6 +345,7 @@
 
       state.audition.index = i;
       state.assignments[slot.name] = filePath(list[i]);
+      markAssignmentChanged(slot, filePath(list[i]));
       save();
       render();
 
@@ -341,8 +391,11 @@
     const list = visibleCandidates();
     if (idx < 0 || idx >= list.length) {
       delete state.assignments[slot.name];
+      markAssignmentChanged(slot, null);
     } else {
-      state.assignments[slot.name] = filePath(list[idx]);
+      const path = filePath(list[idx]);
+      state.assignments[slot.name] = path;
+      markAssignmentChanged(slot, path);
     }
     save();
     render();
@@ -467,6 +520,31 @@
       candidateBtn.addEventListener("click", () => playCandidate(slot));
       ab.append(currentBtn, candidateBtn);
 
+      const approveRow = document.createElement("div");
+      approveRow.className = "row";
+      const approveBtn = document.createElement("button");
+      const selectedPath = idx >= 0 && list[idx] ? filePath(list[idx]) : null;
+      const approvedThis = !!selectedPath && state.approved[slot.name] === selectedPath;
+      approveBtn.textContent = approvedThis ? "採用済 ✓" : "この音を採用";
+      approveBtn.classList.toggle("approved", approvedThis);
+      approveBtn.disabled = !selectedPath;
+      approveBtn.addEventListener("click", () => {
+        stopAudition("連続試聴を停止しました。");
+        if (!selectedPath) return;
+        if (state.approved[slot.name] === selectedPath) {
+          delete state.approved[slot.name];
+          fileStatus.textContent = slot.name.toUpperCase() + " の採用を解除しました。";
+        } else {
+          state.approved[slot.name] = selectedPath;
+          fileStatus.textContent = slot.name.toUpperCase() + " に " + selectedPath + " を採用しました。";
+        }
+        state.preparedZip = null;
+        save();
+        refreshApplyButton();
+        render();
+      });
+      approveRow.append(approveBtn);
+
       const volume = document.createElement("div");
       volume.className = "volume";
       const top = document.createElement("div");
@@ -476,12 +554,13 @@
       range.type = "range"; range.min = "0.01"; range.max = "0.40"; range.step = "0.01"; range.value = String(vol);
       range.addEventListener("input", () => {
         state.volumes[slot.name] = Number(range.value);
+        state.preparedZip = null;
         save();
         top.innerHTML = '<span>volume <b>' + Number(range.value).toFixed(2) + '</b></span><span class="effective">実効 ' + Math.min(1, Number(range.value)*AUDIO_GAIN).toFixed(2) + ' (×3)</span>';
       });
 
       volume.append(top, range);
-      card.append(select, cycle, auditionRow, ab, volume);
+      card.append(select, cycle, auditionRow, ab, approveRow, volume);
       grid.appendChild(card);
     });
   }
@@ -550,6 +629,10 @@
     stopAudition("連続試聴を停止しました。");
     state.candidates = [];
     state.folderFilter = "ALL";
+    state.approved = {};
+    state.preparedZip = null;
+    save();
+    refreshApplyButton();
     refreshFolderFilter();
     renderLibrary();
     render();
@@ -578,6 +661,162 @@
     fileStatus.textContent = "音量をORBIT現在値へ戻しました。";
   });
 
+  function soundConfigText(){
+    const lines = [
+      "// Generated by ORBIT Sound Lab.",
+      "// Replace this file together with approved OGG cues.",
+      "window.ORBIT_SOUND_CONFIG = Object.freeze({"
+    ];
+    slots.forEach(slot => {
+      if (slot.phase === "B" && !state.approved[slot.name]) return;
+      const volume = getVolume(slot);
+      const cooldown = Number(slot.cooldown || 0);
+      lines.push(
+        "  " + JSON.stringify(slot.name) + ": Object.freeze({ file: " +
+        JSON.stringify("sounds/" + slot.name + ".ogg") +
+        ", volume: " + volume.toFixed(2) +
+        ", cooldown: " + cooldown + " }),"
+      );
+    });
+    lines.push("});", "");
+    return lines.join("\n");
+  }
+
+  function crc32Table(){
+    const table = new Uint32Array(256);
+    for (let n = 0; n < 256; n++) {
+      let c = n;
+      for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      table[n] = c >>> 0;
+    }
+    return table;
+  }
+
+  const CRC_TABLE = crc32Table();
+
+  function crc32(bytes){
+    let c = 0xFFFFFFFF;
+    for (let i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+    return (c ^ 0xFFFFFFFF) >>> 0;
+  }
+
+  function put16(view, offset, value){ view.setUint16(offset, value & 0xFFFF, true); }
+  function put32(view, offset, value){ view.setUint32(offset, value >>> 0, true); }
+
+  function dosDateTime(date = new Date()){
+    const year = Math.max(1980, date.getFullYear());
+    const time = (date.getHours() << 11) | (date.getMinutes() << 5) | Math.floor(date.getSeconds() / 2);
+    const day = ((year - 1980) << 9) | ((date.getMonth() + 1) << 5) | date.getDate();
+    return {time, day};
+  }
+
+  function concatBytes(parts){
+    const size = parts.reduce((n, p) => n + p.length, 0);
+    const out = new Uint8Array(size);
+    let offset = 0;
+    parts.forEach(p => { out.set(p, offset); offset += p.length; });
+    return out;
+  }
+
+  function makeStoredZip(entries){
+    const encoder = new TextEncoder();
+    const locals = [];
+    const centrals = [];
+    let localOffset = 0;
+    const stamp = dosDateTime();
+
+    entries.forEach(entry => {
+      const name = encoder.encode(entry.name);
+      const data = entry.data;
+      const crc = crc32(data);
+
+      const local = new Uint8Array(30 + name.length);
+      const lv = new DataView(local.buffer);
+      put32(lv, 0, 0x04034b50);
+      put16(lv, 4, 20);
+      put16(lv, 6, 0x0800);
+      put16(lv, 8, 0);
+      put16(lv, 10, stamp.time);
+      put16(lv, 12, stamp.day);
+      put32(lv, 14, crc);
+      put32(lv, 18, data.length);
+      put32(lv, 22, data.length);
+      put16(lv, 26, name.length);
+      put16(lv, 28, 0);
+      local.set(name, 30);
+      locals.push(local, data);
+
+      const central = new Uint8Array(46 + name.length);
+      const cv = new DataView(central.buffer);
+      put32(cv, 0, 0x02014b50);
+      put16(cv, 4, 20);
+      put16(cv, 6, 20);
+      put16(cv, 8, 0x0800);
+      put16(cv, 10, 0);
+      put16(cv, 12, stamp.time);
+      put16(cv, 14, stamp.day);
+      put32(cv, 16, crc);
+      put32(cv, 20, data.length);
+      put32(cv, 24, data.length);
+      put16(cv, 28, name.length);
+      put16(cv, 30, 0);
+      put16(cv, 32, 0);
+      put16(cv, 34, 0);
+      put16(cv, 36, 0);
+      put32(cv, 38, 0);
+      put32(cv, 42, localOffset);
+      central.set(name, 46);
+      centrals.push(central);
+
+      localOffset += local.length + data.length;
+    });
+
+    const centralBytes = concatBytes(centrals);
+    const end = new Uint8Array(22);
+    const ev = new DataView(end.buffer);
+    put32(ev, 0, 0x06054b50);
+    put16(ev, 4, 0);
+    put16(ev, 6, 0);
+    put16(ev, 8, entries.length);
+    put16(ev, 10, entries.length);
+    put32(ev, 12, centralBytes.length);
+    put32(ev, 16, localOffset);
+    put16(ev, 20, 0);
+
+    return new Blob([...locals, centralBytes, end], {type:"application/zip"});
+  }
+
+  async function prepareOrbitBundle(){
+    const approved = Object.entries(state.approved).filter(([, path]) => !!path);
+    if (!approved.length) throw new Error("採用済みの音がありません。");
+
+    const entries = [];
+    const missing = [];
+    for (const [name, path] of approved) {
+      const file = candidateByPath(path);
+      if (!file) {
+        missing.push(path);
+        continue;
+      }
+      entries.push({
+        name: "works/ORBIT/sounds/" + name + ".ogg",
+        data: new Uint8Array(await file.arrayBuffer())
+      });
+    }
+    if (missing.length) {
+      throw new Error("採用音の元ファイルが見つかりません。親フォルダを再読み込みしてください: " + missing.join(", "));
+    }
+
+    entries.push({
+      name:"works/ORBIT/orbit-sound-config.js",
+      data:new TextEncoder().encode(soundConfigText())
+    });
+
+    const blob = makeStoredZip(entries);
+    state.preparedZip = new File([blob], "ORBIT-sound-update.zip", {type:"application/zip"});
+    return {file:state.preparedZip, soundCount:approved.length, entryCount:entries.length};
+  }
+
   function buildExport(){
     const out = {
       generatedAt:new Date().toISOString(),
@@ -595,6 +834,51 @@
     return JSON.stringify(out, null, 2);
   }
 
+  applyBtn.addEventListener("click", async () => {
+    stopAudition("連続試聴を停止しました。");
+    try {
+      fileStatus.textContent = "ORBIT反映用ZIPを作成中…";
+      const prepared = await prepareOrbitBundle();
+      bundleSummary.innerHTML =
+        '<span class="ok">' + prepared.soundCount + '個の採用音を自動リネームして準備しました。</span><br>' +
+        '音量設定も orbit-sound-config.js に含まれています。';
+      bundleDialog.showModal();
+      fileStatus.textContent = "ORBIT反映用ZIPを準備しました。";
+    } catch (e) {
+      fileStatus.textContent = "反映準備できません: " + e.message;
+    }
+  });
+
+  document.getElementById("shareBundleBtn").addEventListener("click", async () => {
+    if (!state.preparedZip) return;
+    try {
+      if (!navigator.share || (navigator.canShare && !navigator.canShare({files:[state.preparedZip]}))) {
+        throw new Error("このブラウザではファイル共有に対応していません。ZIPを保存してください。");
+      }
+      await navigator.share({
+        files:[state.preparedZip],
+        title:"ORBIT sound update"
+      });
+    } catch (e) {
+      if (e && e.name === "AbortError") return;
+      fileStatus.textContent = "共有できません: " + e.message;
+    }
+  });
+
+  document.getElementById("downloadBundleBtn").addEventListener("click", () => {
+    if (!state.preparedZip) return;
+    const url = URL.createObjectURL(state.preparedZip);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = state.preparedZip.name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+  });
+
+  document.getElementById("closeBundleBtn").addEventListener("click", () => bundleDialog.close());
+
   document.getElementById("exportBtn").addEventListener("click", async () => {
     exportText.value = buildExport();
     exportDialog.showModal();
@@ -611,6 +895,7 @@
   document.getElementById("closeBtn").addEventListener("click", () => exportDialog.close());
 
   refreshFolderFilter();
+  refreshApplyButton();
   renderLibrary();
   render();
 })();
