@@ -2222,17 +2222,17 @@
           this.sayEve(tx("incident.trueEnding.line1"), 3.0);
           this.incident.trueEndingSpeechStage = 1;
         }
-        if (this.incident.trueEndingSpeechStage < 2 && t >= 5.8) {
-          this.sayEve(tx("incident.trueEnding.line2"), 3.0);
+
+        // The Incident Logs already showed what E.V.E. was doing that day.
+        // Do not explain it again here. Let HOME occupy the space where the
+        // answer-check line used to be.
+        if (this.incident.trueEndingSpeechStage < 2 && t >= 8.2) {
+          this.sayEve(tx("incident.trueEnding.line3"), 3.0);
           this.incident.trueEndingSpeechStage = 2;
         }
-        if (this.incident.trueEndingSpeechStage < 3 && t >= 10.6) {
-          this.sayEve(tx("incident.trueEnding.line3"), 3.0);
-          this.incident.trueEndingSpeechStage = 3;
-        }
-        if (this.incident.trueEndingSpeechStage < 4 && t >= 15.4) {
+        if (this.incident.trueEndingSpeechStage < 3 && t >= 14.0) {
           this.sayEve(tx("incident.trueEnding.line4"), 3.4);
-          this.incident.trueEndingSpeechStage = 4;
+          this.incident.trueEndingSpeechStage = 3;
         }
 
         if (
@@ -4355,36 +4355,34 @@
       const lv = clamp(Math.floor(Number(level || 0)), 2, 5);
       const prev = PROGRESSION_TUNE.levels[lv - 1] || PROGRESSION_TUNE.levels[1];
       const curr = PROGRESSION_TUNE.levels[lv] || PROGRESSION_TUNE.levels[1];
-      const prevRange = MINIMAP_RESTORE_TUNE.rangeMul[lv - 1] || 1;
-      const currRange = MINIMAP_RESTORE_TUNE.rangeMul[lv] || 1;
-      const prevStep = MINIMAP_RESTORE_TUNE.directionStepDeg[lv - 1];
-      const currStep = MINIMAP_RESTORE_TUNE.directionStepDeg[lv];
-      const deg = (value) => value > 0
-        ? tx("home.restoreReport.degrees", { value })
-        : tx("home.restoreReport.precise");
 
-      const rows = [
-        tx("home.restoreReport.complete"),
-        tx("home.restoreReport.baseCore", { level: lv }),
-        tx("home.restoreReport.shipFrame", {
-          status: lv >= 5 ? tx("home.restoreReport.fullyRestored") : tx("home.restoreReport.updated")
-        }),
-        tx("home.restoreReport.eveLanguage", {
-          status: lv >= 5 ? tx("home.restoreReport.completeStatus") : tx("home.restoreReport.updated")
-        }),
-        tx("home.restoreReport.fuelCapacity", { prev: prev.fuelMax, curr: curr.fuelMax }),
-      ];
-
-      if (curr.oreMax !== prev.oreMax) {
-        rows.push(tx("home.restoreReport.oreCapacity", { prev: prev.oreMax, curr: curr.oreMax }));
+      // By now the player has already watched BASE -> SHIP -> NAVIGATION change.
+      // Early RESTOREs still confirm the essentials; later ones trust that
+      // experience and increasingly get out of the way.
+      if (lv === 2) {
+        return [
+          tx("home.restoreReport.complete"),
+          tx("home.restoreReport.baseSystemUpdated"),
+          tx("home.restoreReport.fuelCapacity", { prev: prev.fuelMax, curr: curr.fuelMax }),
+          tx("home.restoreReport.navigationUpdated"),
+        ];
       }
-
-      rows.push(
-        tx("home.restoreReport.navRange", { prev: prevRange.toFixed(2), curr: currRange.toFixed(2) }),
-        tx("home.restoreReport.homeFix", { prev: deg(prevStep), curr: deg(currStep) }),
-        tx("home.restoreReport.accessBand", { level: lv })
-      );
-      return rows;
+      if (lv === 3) {
+        return [
+          tx("home.restoreReport.complete"),
+          tx("home.restoreReport.systemsUpdated"),
+          tx("home.restoreReport.navigationUpdated"),
+        ];
+      }
+      if (lv === 4) {
+        return [
+          tx("home.restoreReport.complete"),
+          tx("home.restoreReport.systemStable"),
+        ];
+      }
+      return [
+        tx("home.restoreReport.systemStable"),
+      ];
     }
 
     drawRestoreReport(sx, sy, sw, sh, level) {
@@ -6172,30 +6170,9 @@
         return clamp((end - t) / Math.max(0.001, end - fadeOutStart), 0, 1);
       };
 
-      // Mirror the prologue's PILOT -> ? rhythm: first the name, then its
-      // recovered meaning. Keep one typographic world; importance comes from
-      // scale, brightness and timing rather than a sudden font-family change.
-      font("monospace");
-
-      const nameA = heldFade(5.2, 5.7, 8.9, 10.2);
-      if (nameA > 0) {
-        fontSize(14.0);
-        noStroke();
-        fill(0, 0, 0, 118 * nameA);
-        text(tx("finale.eveName"), W / 2 + 0.9, H / 2 + 103.1);
-        fill(220, 235, 246, 242 * nameA);
-        text(tx("finale.eveName"), W / 2, H / 2 + 104);
-      }
-
-      const expansionA = heldFade(6.1, 6.6, 8.9, 10.2);
-      if (expansionA > 0) {
-        fontSize(15.5);
-        noStroke();
-        fill(0, 0, 0, 126 * expansionA);
-        text(tx("finale.expansion"), W / 2 + 0.9, H / 2 + 75.1);
-        fill(248, 250, 252, 250 * expansionA);
-        text(tx("finale.expansion"), W / 2, H / 2 + 76);
-      }
+      // The name expansion used to appear here as an explicit answer.
+      // The recovered memories and E.V.E.'s act of returning them now carry
+      // that meaning without a typographic reveal.
     }
 
     normalizeSystemLogEntry(entry) {
