@@ -169,7 +169,7 @@
   }
 
   function isAudioFile(file){
-    return /^audio\\//i.test(file.type || "") || /\\.(ogg|wav|mp3|m4a|aac|flac)$/i.test(file.name || "");
+    return /^audio\//i.test(file.type || "") || /\.(ogg|wav|mp3|m4a|aac|flac)$/i.test(file.name || "");
   }
 
   function visibleCandidates(){
@@ -487,12 +487,17 @@
 
   function addCandidates(files, sourceLabel){
     stopAudition("連続試聴を停止しました。");
-    const incoming = Array.from(files || []).filter(isAudioFile);
+    const selected = Array.from(files || []);
+    const incoming = selected.filter(isAudioFile);
     const merged = new Map(state.candidates.map(file => [fileKey(file), file]));
     incoming.forEach(file => merged.set(fileKey(file), file));
     state.candidates = Array.from(merged.values());
     refreshFolderFilter();
-    fileStatus.innerHTML = '<span class="ok">' + incoming.length + '個の音声を' + sourceLabel + 'から追加しました。</span> 合計 ' + state.candidates.length + '個。';
+    if (incoming.length) {
+      fileStatus.innerHTML = '<span class="ok">' + incoming.length + '個の音声を' + sourceLabel + 'から追加しました。</span> 選択 ' + selected.length + '項目 / 合計 ' + state.candidates.length + '音。';
+    } else {
+      fileStatus.textContent = sourceLabel + 'は選択されましたが、対応する音声ファイルが見つかりませんでした。選択項目: ' + selected.length;
+    }
     renderLibrary();
     render();
   }
