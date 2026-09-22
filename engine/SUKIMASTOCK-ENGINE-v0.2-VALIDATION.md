@@ -146,3 +146,85 @@ The Engine reported:
 - average update cost: 2ms
 - average draw cost: 4ms
 - paused time: 500ms
+
+
+## DevTools + Session Report smoke test
+
+Validated:
+
+1. `?dev=1` enables DevTools in automatic mode
+2. DevTools query parsing does not require `URLSearchParams`
+3. Structured Session Report includes app, environment, lifecycle, performance, audio, storage, assets, input, tuning and diagnostics
+4. Human-readable report includes an `ATTENTION` section
+5. Numeric tuning values can be registered, read and changed
+6. Tuning callbacks receive live values
+7. Clipboard copy returns the exact generated Session Report text
+8. Lifecycle pause/resume events appear in diagnostics
+9. Runtime errors captured by the Engine appear in diagnostics and ATTENTION
+10. Asset load failure appears in diagnostics and ATTENTION
+11. Storage memory fallback appears in diagnostics and ATTENTION
+12. Unexpected active AudioContext suspension appears in ATTENTION
+13. Slow-frame observation appears in ATTENTION
+14. Diagnostic warnings/errors are summarized
+15. A clean session synthesizes `[OK] No Engine-level problems detected`
+
+Combined fault-injection test intentionally produced:
+
+- a Storage write failure
+- an Asset 404
+- a suspended AudioContext while active
+- a slow frame
+- a captured runtime exception
+
+The generated health codes included:
+
+```text
+runtime-error
+asset-error
+storage-memory-fallback
+audio-suspended
+slow-frames
+diagnostic-errors
+```
+
+The generated human-readable report contained all major sections and the registered tuning value.
+
+## DevTools panel smoke test
+
+Validated with a minimal DOM implementation:
+
+1. Panel mounts only when DevTools is enabled
+2. Live summary renders performance / Asset / Audio / Storage information
+3. Registered numeric tuning appears as a range control
+4. Slider input updates the work live
+5. Slider movement does not rebuild its DOM control on every input event
+6. Final slider change is recorded as a diagnostic event
+7. Refresh interval updates the live summary
+8. Copy Session Report works from the same DevTools state
+
+## Diagnostic hardening found during testing
+
+Testing exposed two assumptions inside the diagnostic layer itself:
+
+1. `URLSearchParams` may not exist in lightweight or restricted runtimes.
+2. A `document` object may exist without the full browser DOM methods used by the visual error overlay.
+
+Both assumptions were removed.
+
+The diagnostic/reporting path therefore continues to function even when the visual overlay cannot be mounted.
+
+## v0.2 foundation validation status
+
+All seven planned foundation areas now have implementation-level smoke coverage:
+
+1. Baseline consolidation
+2. Audio v2
+3. Storage v2
+4. Asset Loader
+5. Lifecycle + robust input
+6. Performance controls
+7. DevTools + Session Report
+
+This is not yet equivalent to real-device validation of migrated works.
+
+The next validation phase is work-by-work migration on Staging.
