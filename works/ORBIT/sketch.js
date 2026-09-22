@@ -322,6 +322,7 @@
     // packet before revealing whether an Echo was present.
     memoryRevealDelaySec: 0.78,
     analysisSec: 2.4,
+    analysisWindowOpenSec: 0.22,
     analysisResultSec: 0.72,
     emptyResultSec: 1.05,
   });
@@ -5788,6 +5789,52 @@
       const h = 126;
       const x = (W - w) / 2;
       const y = H / 2 - h / 2 + 8;
+
+      // DATA uses the same old-OS language as HOME, but lighter: bar -> small
+      // frame -> complete window. It should feel like opening a file, not
+      // booting an entire terminal.
+      if (showingAnalysis) {
+        const elapsed = ECHO_TUNE.analysisSec - this.echoStory.analysisTimer;
+        const openSec = Math.max(0.001, ECHO_TUNE.analysisWindowOpenSec || 0.22);
+        if (elapsed < openSec) {
+          const q = clamp(elapsed / openSec, 0, 1);
+          const stage = Math.min(2, Math.floor(q * 3));
+          const presets = [
+            { w: 0.46, h: 0.055 },
+            { w: 0.62, h: 0.38 },
+            { w: 1.00, h: 1.00 },
+          ];
+          const P = presets[stage];
+          const ow = Math.max(34, w * P.w);
+          const oh = Math.max(7, h * P.h);
+          const ox = x + (w - ow) / 2;
+          const oy = y + (h - oh) / 2;
+
+          if (stage === 0) {
+            noStroke();
+            fill(0, 0, 128, 255);
+            rect(ox, oy, ow, oh);
+            stroke(232, 232, 232, 205);
+            strokeWidth(1);
+            line(ox, oy + oh, ox + ow, oy + oh);
+            return;
+          }
+
+          this.drawWinBevel(ox, oy, ow, oh, false);
+          const titleH = Math.min(21, Math.max(8, oh * 0.22));
+          noStroke();
+          fill(0, 0, 128, 255);
+          rect(ox + 3, oy + oh - titleH - 2, Math.max(1, ow - 6), titleH);
+          if (stage >= 2) {
+            fill(255, 255, 255, 240);
+            font("monospace");
+            fontSize(9.0);
+            textAlign(LEFT);
+            text(tx("dataAnalysis.title"), ox + 8, oy + oh - Math.max(8, titleH * 0.58));
+          }
+          return;
+        }
+      }
 
       this.drawWinBevel(x, y, w, h, false);
       noStroke();
