@@ -69,6 +69,9 @@
   }
 
   function nowMs() {
+    if (root.performance && typeof root.performance.now === "function") {
+      return root.performance.now();
+    }
     if (typeof performance !== "undefined" && performance.now) {
       return performance.now();
     }
@@ -190,6 +193,14 @@
     logicalWidth: 360,
     logicalHeight: 640,
     frameRate: null,
+    performance: {
+      enabled: true,
+      targetFps: null,
+      sampleWindow: 120,
+      slowFrameMs: null,
+      slowFrameFactor: 1.75,
+      maxDeltaSeconds: null,
+    },
     initialScene: null,
     initialPayload: null,
     pointerMode: "primary",
@@ -3375,6 +3386,260 @@
   };
 
   // ------------------------------------------------------------
+  // Performance monitor
+  // ------------------------------------------------------------
+
+  const performanceMonitor = {
+    configured: false,
+    options: {},
+    samples: [],
+    startedAtMs: 0,
+    pauseStartedAtMs: 0,
+    pausedMs: 0,
+    pauseCount: 0,
+    rafCalls: 0,
+    renderedFrames: 0,
+    updatedFrames: 0,
+    skippedFrames: 0,
+    pausedDraws: 0,
+    slowFrames: 0,
+    lastFrameMs: 0,
+    lastUpdateMs: 0,
+    lastDrawMs: 0,
+    lastWorkMs: 0,
+
+    configure(options) {
+      const source = options || {};
+      this.options = {
+        enabled: source.enabled !== false,
+        targetFps: source.targetFps,
+        sampleWindow: Math.max(10, Math.floor(Number(source.sampleWindow) || 120)),
+        slowFrameMs: source.slowFrameMs,
+        slowFrameFactor: Math.max(1, Number(source.slowFrameFactor) || 1.75),
+        maxDeltaSeconds: source.maxDeltaSeconds,
+      };
+      this.configured = true;
+      this.reset();
+      return this;
+    },
+
+    enabled() {
+      return this.options.enabled !== false;
+    },
+
+    targetFps() {
+      const configured = Number(this.options.targetFps);
+      if (Number.isFinite(configured) && configured > 0) return configured;
+
+      const legacy = Number(state.config.frameRate);
+      return Number.isFinite(legacy) && legacy > 0 ? legacy : 0;
+    },
+
+    targetFrameMs() {
+      const fps = this.targetFps();
+      return fps > 0 ? 1000 / fps : 1000 / 60;
+    },
+
+    slowFrameThresholdMs() {
+      const explicit = Number(this.options.slowFrameMs);
+      if (Number.isFinite(explicit) && explicit > 0) return explicit;
+      return this.targetFrameMs() * this.options.slowFrameFactor;
+    },
+
+    maxDeltaSeconds() {
+      const explicit = Number(this.options.maxDeltaSeconds);
+      if (Number.isFinite(explicit) && explicit > 0) return explicit;
+
+      const fps = this.targetFps();
+      if (fps > 0) return Math.max(0.05, (1 / fps) * 1.5);
+      return 0.05;
+    },
+
+    reset() {
+      this.samples = [];
+      this.startedAtMs = nowMs();
+      this.pauseStartedAtMs = 0;
+      this.pausedMs = 0;
+      this.pauseCount = 0;
+      this.rafCalls = 0;
+      this.renderedFrames = 0;
+      this.updatedFrames = 0;
+      this.skippedFrames = 0;
+      this.pausedDraws = 0;
+      this.slowFrames = 0;
+      this.lastFrameMs = 0;
+      this.lastUpdateMs = 0;
+      this.lastDrawMs = 0;
+      this.lastWorkMs = 0;
+      return this.snapshot();
+    },
+
+    noteRaf() {
+      if (!this.enabled()) return;
+      this.rafCalls += 1;
+    },
+
+    noteSkipped() {
+      if (!this.enabled()) return;
+      this.skippedFrames += 1;
+    },
+
+    onPause() {
+      if (!this.enabled() || this.pauseStartedAtMs > 0) return;
+      this.pauseStartedAtMs = nowMs();
+      this.pauseCount += 1;
+    },
+
+    onResume() {
+      if (!this.enabled() || this.pauseStartedAtMs <= 0) return;
+      this.pausedMs += Math.max(0, nowMs() - this.pauseStartedAtMs);
+      this.pauseStartedAtMs = 0;
+    },
+
+    pushSample(sample) {
+      this.samples.push(sample);
+      const limit = this.options.sampleWindow;
+      if (this.samples.length > limit) {
+        this.samples.splice(0, this.samples.length - limit);
+      }
+    },
+
+    recordFrame(sample) {
+      if (!this.enabled()) return;
+
+      this.renderedFrames += 1;
+
+      if (sample.paused) {
+        this.pausedDraws += 1;
+        return;
+      }
+
+      this.updatedFrames += sample.updated ? 1 : 0;
+      this.lastFrameMs = Math.max(0, Number(sample.frameMs) || 0);
+      this.lastUpdateMs = Math.max(0, Number(sample.updateMs) || 0);
+      this.lastDrawMs = Math.max(0, Number(sample.drawMs) || 0);
+      this.lastWorkMs = Math.max(0, Number(sample.workMs) || 0);
+
+      const measurableFrame = this.lastFrameMs > 0;
+      const slow =
+        measurableFrame &&
+        this.lastFrameMs > this.slowFrameThresholdMs();
+
+      if (slow) this.slowFrames += 1;
+
+      this.pushSample({
+        atMs: nowMs(),
+        frameMs: this.lastFrameMs,
+        updateMs: this.lastUpdateMs,
+        drawMs: this.lastDrawMs,
+        workMs: this.lastWorkMs,
+        slow,
+      });
+    },
+
+    average(values) {
+      if (!values.length) return 0;
+      return values.reduce((sum, value) => sum + value, 0) / values.length;
+    },
+
+    percentile(values, p) {
+      if (!values.length) return 0;
+      const sorted = values.slice().sort((a, b) => a - b);
+      const index = Math.min(
+        sorted.length - 1,
+        Math.max(0, Math.ceil((sorted.length - 1) * p))
+      );
+      return sorted[index];
+    },
+
+    snapshot() {
+      const now = nowMs();
+      const currentPause = this.pauseStartedAtMs > 0
+        ? Math.max(0, now - this.pauseStartedAtMs)
+        : 0;
+      const totalPausedMs = this.pausedMs + currentPause;
+      const elapsedMs = Math.max(0, now - this.startedAtMs);
+      const activeMs = Math.max(0, elapsedMs - totalPausedMs);
+
+      const frameValues = this.samples
+        .map((sample) => sample.frameMs)
+        .filter((value) => value > 0);
+      const updateValues = this.samples.map((sample) => sample.updateMs);
+      const drawValues = this.samples.map((sample) => sample.drawMs);
+      const workValues = this.samples.map((sample) => sample.workMs);
+
+      const averageFrameMs = this.average(frameValues);
+      const averageFps = averageFrameMs > 0 ? 1000 / averageFrameMs : 0;
+      const currentFps = this.lastFrameMs > 0 ? 1000 / this.lastFrameMs : 0;
+      const minFps = frameValues.length > 0
+        ? 1000 / Math.max(...frameValues)
+        : 0;
+
+      return {
+        enabled: this.enabled(),
+        targetFps: this.targetFps(),
+        targetFrameMs: this.targetFrameMs(),
+        slowFrameMs: this.slowFrameThresholdMs(),
+        sampleWindow: this.options.sampleWindow,
+        sampleCount: this.samples.length,
+
+        fps: {
+          current: currentFps,
+          average: averageFps,
+          minimum: minFps,
+        },
+
+        frame: {
+          currentMs: this.lastFrameMs,
+          averageMs: averageFrameMs,
+          p95Ms: this.percentile(frameValues, 0.95),
+          maxMs: frameValues.length > 0 ? Math.max(...frameValues) : 0,
+        },
+
+        update: {
+          currentMs: this.lastUpdateMs,
+          averageMs: this.average(updateValues),
+          maxMs: updateValues.length > 0 ? Math.max(...updateValues) : 0,
+        },
+
+        draw: {
+          currentMs: this.lastDrawMs,
+          averageMs: this.average(drawValues),
+          maxMs: drawValues.length > 0 ? Math.max(...drawValues) : 0,
+        },
+
+        work: {
+          currentMs: this.lastWorkMs,
+          averageMs: this.average(workValues),
+          maxMs: workValues.length > 0 ? Math.max(...workValues) : 0,
+        },
+
+        frames: {
+          rafCalls: this.rafCalls,
+          rendered: this.renderedFrames,
+          updated: this.updatedFrames,
+          skipped: this.skippedFrames,
+          pausedDraws: this.pausedDraws,
+          slow: this.slowFrames,
+        },
+
+        session: {
+          startedAtMs: this.startedAtMs,
+          elapsedMs,
+          activeMs,
+          pausedMs: totalPausedMs,
+          pauseCount: this.pauseCount,
+          paused: lifecycle.paused,
+        },
+      };
+    },
+
+    report() {
+      return this.snapshot();
+    },
+  };
+
+  // ------------------------------------------------------------
   // Input normalization + keyboard
   // ------------------------------------------------------------
 
@@ -3691,6 +3956,7 @@
 
       if (!wasPaused && this.paused) {
         state.lastDrawTimeMs = 0;
+        performanceMonitor.onPause();
 
         if (this.config().autoAudio !== false) {
           audio.pauseForLifecycle();
@@ -3720,6 +3986,8 @@
       state.lastDrawTimeMs = 0;
 
       if (wasPaused && !this.paused) {
+        performanceMonitor.onResume();
+
         if (this.config().autoAudio !== false) {
           audio.resumeFromLifecycle();
         }
@@ -3744,8 +4012,11 @@
       input.reset();
       state.lastDrawTimeMs = 0;
 
-      if (wasPaused && this.config().autoAudio !== false) {
-        audio.resumeFromLifecycle();
+      if (wasPaused) {
+        performanceMonitor.onResume();
+        if (this.config().autoAudio !== false) {
+          audio.resumeFromLifecycle();
+        }
       }
 
       this.notifyChange();
@@ -3841,6 +4112,7 @@
     else audio.configure({});
 
     assets.configure(state.config.assets || {});
+    performanceMonitor.configure(state.config.performance || {});
     input.configureKeyboard(state.config.keyboard || {});
     input.installKeyboard();
     lifecycle.install();
@@ -3860,22 +4132,37 @@
   }
 
   function drawEngine() {
-    const configuredFrameRate = Number(state.config.frameRate);
-    const frameRate = Number.isFinite(configuredFrameRate) && configuredFrameRate > 0
-      ? configuredFrameRate
-      : 0;
     const currentTimeMs = nowMs();
+    performanceMonitor.noteRaf();
+
+    const frameRate = performanceMonitor.targetFps();
 
     if (frameRate > 0 && state.lastDrawTimeMs > 0) {
       const minimumFrameMs = 1000 / frameRate;
-      if (currentTimeMs - state.lastDrawTimeMs < minimumFrameMs - 0.5) return;
+      if (currentTimeMs - state.lastDrawTimeMs < minimumFrameMs - 0.5) {
+        performanceMonitor.noteSkipped();
+        return;
+      }
     }
 
-    const frameDelta = state.lastDrawTimeMs > 0
-      ? Math.min(0.05, Math.max(0, (currentTimeMs - state.lastDrawTimeMs) / 1000))
+    const hasPreviousFrame = state.lastDrawTimeMs > 0;
+    const rawDeltaSeconds = hasPreviousFrame
+      ? Math.max(0, (currentTimeMs - state.lastDrawTimeMs) / 1000)
       : (Number(root.DeltaTime) || 1 / 60);
+    const frameDelta = Math.min(
+      performanceMonitor.maxDeltaSeconds(),
+      rawDeltaSeconds
+    );
+    const frameMs = hasPreviousFrame
+      ? Math.max(0, currentTimeMs - state.lastDrawTimeMs)
+      : 0;
+
     state.lastDrawTimeMs = currentTimeMs;
 
+    const workStartedAtMs = nowMs();
+    let updateMs = 0;
+    let drawMs = 0;
+    let updated = false;
     let viewportOpen = false;
 
     try {
@@ -3884,11 +4171,16 @@
       root.background(outer);
 
       if (!lifecycle.paused) {
+        const updateStartedAtMs = nowMs();
         app.update(frameDelta);
+        updateMs = Math.max(0, nowMs() - updateStartedAtMs);
+        updated = true;
       }
+
       viewport.begin();
       viewportOpen = true;
 
+      const drawStartedAtMs = nowMs();
       if (sceneStack.length === 0) {
         root.noStroke();
         root.fill(theme.color(state.config.sceneBackground || "night"));
@@ -3896,6 +4188,7 @@
       } else {
         app.draw();
       }
+      drawMs = Math.max(0, nowMs() - drawStartedAtMs);
 
       viewport.end();
       viewportOpen = false;
@@ -3907,12 +4200,32 @@
         bridge.ready();
       }
 
+      performanceMonitor.recordFrame({
+        frameMs,
+        updateMs,
+        drawMs,
+        workMs: Math.max(0, nowMs() - workStartedAtMs),
+        paused: lifecycle.paused,
+        updated,
+      });
+
       input.endFrame();
     } catch (error) {
+      performanceMonitor.recordFrame({
+        frameMs,
+        updateMs,
+        drawMs,
+        workMs: Math.max(0, nowMs() - workStartedAtMs),
+        paused: lifecycle.paused,
+        updated,
+      });
+
       input.endFrame();
+
       if (viewportOpen) {
         try { viewport.end(); } catch (_endError) {}
       }
+
       debug.capture(error, "draw");
     }
   }
@@ -3962,6 +4275,7 @@
     debug,
     input,
     lifecycle,
+    performance: performanceMonitor,
     utils: {
       clamp,
       lerp: lerpValue,
