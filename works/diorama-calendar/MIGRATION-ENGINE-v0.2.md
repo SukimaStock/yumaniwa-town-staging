@@ -259,3 +259,37 @@ theme.autumn.mid
 ```
 
 instead of remaining a visually missing but otherwise silent image.
+
+
+## Phase 2 real-device result
+
+Accepted.
+
+Final Session Report after repeated month changes:
+
+```text
+ATTENTION
+[OK] No Engine-level problems detected in this session.
+
+PERFORMANCE
+FPS average: 59.9
+p95: 20ms
+max: 29ms
+slow frames: 6 / 464
+draw average: 1.72ms
+
+ASSETS
+ready/loading/error/idle: 14/0/0/36
+```
+
+Theme image readiness ranged roughly from 188ms to 437ms in this run. These values are asynchronous wall-clock load/decode durations, not equivalent to main-thread blocking time.
+
+The earlier 96ms hitch did not reproduce. In the accepted run, sustained frame health remained good and slow frames were about 1.3% of rendered frames.
+
+No further optimization is justified from the current evidence. The current loading/release behavior is preserved to avoid changing the work's visual feel unnecessarily.
+
+Diorama Calendar is therefore considered migrated to canonical Engine v0.2.
+
+The work-local `sukimastock-engine.js` copy is removed after acceptance. Rollback remains available through Git history.
+
+Sensor permission/calibration and parallax mapping remain deliberately work-local.
