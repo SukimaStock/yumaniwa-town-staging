@@ -230,6 +230,7 @@
     prefix: "sse",
     definitions: new Map(),
     memory: new Map(),
+    memoryPreferred: new Set(),
     checkpoints: new Map(),
     lastError: null,
     lastBackend: "none",
@@ -353,6 +354,13 @@
       const key = this.key(name);
       this.lastError = null;
 
+      // A failed persistent write may leave an older localStorage record behind.
+      // While this page is alive, the newer in-memory record must win.
+      if (this.memoryPreferred.has(key) && this.memory.has(key)) {
+        this.lastBackend = "memory";
+        return this.clone(this.memory.get(key));
+      }
+
       try {
         const local = root.localStorage;
         if (local) {
@@ -386,12 +394,17 @@
 
       try {
         const local = root.localStorage;
-        if (!local) return { ok: true, persistent: false, backend: "memory" };
+        if (!local) {
+          this.memoryPreferred.add(key);
+          return { ok: true, persistent: false, backend: "memory" };
+        }
 
         local.setItem(key, JSON.stringify(record));
+        this.memoryPreferred.delete(key);
         this.lastBackend = "localStorage";
         return { ok: true, persistent: true, backend: "localStorage" };
       } catch (error) {
+        this.memoryPreferred.add(key);
         this.lastError = error;
         return { ok: true, persistent: false, backend: "memory", error };
       }
@@ -571,6 +584,7 @@
     remove(name) {
       const key = this.key(name);
       this.memory.delete(key);
+      this.memoryPreferred.delete(key);
       this.checkpoints.delete(key);
       this.lastError = null;
 
@@ -592,6 +606,10 @@
 
       for (const key of Array.from(this.memory.keys())) {
         if (key.startsWith(prefix)) this.memory.delete(key);
+      }
+
+      for (const key of Array.from(this.memoryPreferred.values())) {
+        if (key.startsWith(prefix)) this.memoryPreferred.delete(key);
       }
 
       for (const key of Array.from(this.checkpoints.keys())) {
@@ -629,9 +647,8 @@
       if (arguments.length >= 2) {
         snapshot = value;
       } else {
-        const marker = {};
-        snapshot = this.get(name, marker);
-        if (snapshot === marker) return false;
+        if (!this.has(name)) return false;
+        snapshot = this.get(name);
       }
 
       try {
@@ -687,6 +704,7 @@
         storedVersion,
         persistent,
         memory: !!(key && this.memory.has(key)),
+        memoryPreferred: !!(key && this.memoryPreferred.has(key)),
         checkpoint: !!(key && this.checkpoints.has(key)),
         backend: this.lastBackend,
         lastError: this.lastError ? String(this.lastError.message || this.lastError) : null,
