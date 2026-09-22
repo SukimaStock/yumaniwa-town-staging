@@ -371,8 +371,6 @@
     // companionship no longer needs constant verbal confirmation.
     level5Min: 48,
     level5Max: 82,
-    astraMin: 14,
-    astraMax: 28,
     astraFirstMin: 7,
     astraFirstMax: 14,
   });
@@ -2311,9 +2309,9 @@
         this.astra.active = true;
         this.startZoom(ASTRA_TUNE.zoomOut, ASTRA_TUNE.zoomDuration);
 
-        // Once ASTRA opens out, don't make the player wait through a leftover
-        // long cruising timer before hearing E.V.E. The first line arrives
-        // sooner; later ASTRA lines use their own relaxed short interval.
+        // Once ASTRA opens out, earlier RESTORE phases may offer one quiet
+        // place-specific thought. RESTORE 5 deliberately leaves the timer alone:
+        // the fully restored pair can simply share the view.
         const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
         if (
           level < 5 &&
@@ -2825,21 +2823,24 @@
           this.echoStory.analysisResultTimer > 0
         )
       ) return;
-      // Chatter belongs both to travel and to quiet landings. ASTRA used to
-      // suppress idle speech entirely; now it deliberately brings E.V.E. a
-      // little closer while the player chooses to linger there.
+      // Casual speech belongs to travel and ordinary resource landings. ASTRA
+      // is different: from touchdown onward it reserves a quiet beat, then may
+      // offer one place-specific thought in RESTORE 1-4. RESTORE 5 says nothing.
       const eligible =
         this.mode === "flight" ||
         (this.mode === "landed" && this.landPlanet && this.landPlanet.kind !== "base");
       if (!eligible || this.eve.timer > 0) return;
 
-      const onAstra =
+      const onAstraLanding =
         this.mode === "landed" &&
         this.landPlanet &&
         this.landPlanet.kind === "neutral" &&
-        this.astra &&
-        this.astra.active;
+        this.astra;
+      const onAstra = onAstraLanding && this.astra.active;
 
+      // Do not let ordinary cruising chatter leak into the short camera-opening
+      // beat immediately after touching down on ASTRA.
+      if (onAstraLanding && !onAstra) return;
       if (onAstra && this.isUndiscoveredIncidentAstra(this.landPlanet)) return;
 
       const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
@@ -2848,9 +2849,8 @@
       if (onAstra && (level >= 5 || this.astra.spokenThisVisit)) return;
 
       // One early fragment gives a first-time player two anchors without
-      // explaining the loop. If another event is speaking, the countdown simply
-      // waits for a quiet flight moment.
-      if (this.eve.firstFlightHintPending) {
+      // explaining the loop. It belongs to open flight, never to an ASTRA pause.
+      if (this.eve.firstFlightHintPending && this.mode === "flight") {
         this.eve.firstFlightHintTimer = Math.max(
           0,
           Number(this.eve.firstFlightHintTimer || 0) - dt
