@@ -167,3 +167,75 @@ Recommended sequence:
 5. BGM — only after the scene-volume and Finish-break curve can be reproduced exactly
 
 The BGM migration should be last because its feel has already been tuned through real brewing use.
+
+
+## Phase 1 real-device result
+
+Accepted.
+
+The Engine-only canary completed through Finish with no Engine-level warnings.
+
+Observed:
+
+```text
+FPS average: 59.9
+p95: 17ms
+max: 29ms
+update average: 0.27ms
+draw average: 0.91ms
+active session: 54.1s
+paused/background time: 16.7s
+```
+
+Three hidden/resume cycles were recorded by SSE.lifecycle, and CoffeeFactory still completed normally.
+
+## Phase 2 — lifecycle wiring
+
+CoffeeFactory no longer listens directly to:
+
+```text
+visibilitychange
+pagehide
+pageshow
+```
+
+These browser events are now normalized by the canonical Engine.
+
+The work subscribes to:
+
+```js
+SSE.lifecycle.onPause(() => lifecycle(true));
+SSE.lifecycle.onResume(() => lifecycle(false));
+```
+
+The existing CoffeeFactory `lifecycle(hidden)` function remains responsible for work semantics:
+
+- RecipeClock hidden-wall-time mode
+- Prep clock hidden-wall-time mode
+- custom BGM hidden state
+- custom SE hidden state
+- cue suppression after interruption
+
+The Engine remains responsible for runtime safety:
+
+- suspend Scene update while hidden
+- cancel active pointer
+- clear keyboard state
+- reset frame timing on resume
+
+### RecipeClock smoke validation
+
+A deterministic clock test verified:
+
+```text
+foreground +2.0s      -> 2.0s
+hidden +8.0s          -> 10.0s
+visible resume        -> 10.0s
+foreground +1.5s      -> 11.5s
+```
+
+This confirms that replacing browser listeners with SSE.lifecycle did not change CoffeeFactory's background-time semantics.
+
+Direct `visibilitychange`, `pagehide`, and `pageshow` listeners are now absent from the work.
+
+The work-local blur and resize gesture-reset listeners remain.
