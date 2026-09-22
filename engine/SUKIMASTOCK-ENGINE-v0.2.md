@@ -503,3 +503,31 @@ The planned v0.2 foundation is now implemented in the canonical Engine:
 The next phase is **work-by-work migration and comparison**, not adding more Engine features.
 
 Each existing work should be migrated separately, validated against its current behavior, and only then have duplicated local infrastructure removed.
+
+## New work starter
+
+General games and interactive Web works should start from:
+
+```text
+works/_starter/
+```
+
+The generated `SukimaStock-New-Work` artifact is self-contained for local rough development and includes a frozen canonical Engine snapshot.
+
+At the first meaningful playable loop, move the work to Staging and switch the marked Engine tag back to the canonical repository Engine with:
+
+```bash
+python3 engine/adopt-canonical-engine.py works/<work-id>
+```
+
+After the Staging canary is accepted, remove the rollback copy with:
+
+```bash
+python3 engine/adopt-canonical-engine.py works/<work-id> --remove-local
+```
+
+Full workflow:
+
+```text
+engine/SUKIMASTOCK-NEW-WORK.md
+```
