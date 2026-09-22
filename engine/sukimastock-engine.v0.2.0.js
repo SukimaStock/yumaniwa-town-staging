@@ -199,6 +199,7 @@
     theme: {},
     fonts: null,
     audio: null,
+    assets: null,
     analytics: null,
     bridge: null,
     i18n: null,
@@ -715,6 +716,604 @@
         backend: this.lastBackend,
         lastError: this.lastError ? String(this.lastError.message || this.lastError) : null,
       };
+    },
+  };
+
+  // ------------------------------------------------------------
+  // Asset Loader
+  // ------------------------------------------------------------
+
+  const assets = {
+    definitions: new Map(),
+    records: new Map(),
+    groups: new Map(),
+    transparentPixel:
+      "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==",
+
+    configure(options) {
+      const source = options || {};
+      const items = source.items || source.assets || {};
+      const groups = source.groups || {};
+
+      this.definitions.clear();
+      this.records.clear();
+      this.groups.clear();
+
+      for (const [name, definition] of Object.entries(items)) {
+        this.register(name, definition);
+      }
+
+      for (const [name, members] of Object.entries(groups)) {
+        this.group(name, members);
+      }
+
+      return this;
+    },
+
+    inferType(file) {
+      const source = String(file || "").split("?")[0].split("#")[0].toLowerCase();
+      if (/\.(png|jpe?g|gif|webp|avif|svg)$/.test(source)) return "image";
+      if (/\.json$/.test(source)) return "json";
+      if (/\.(txt|md|csv|html|css|js)$/.test(source)) return "text";
+      return "binary";
+    },
+
+    normalizeDefinition(definition) {
+      if (typeof definition === "string") {
+        return {
+          type: this.inferType(definition),
+          file: definition,
+        };
+      }
+
+      const source = definition && typeof definition === "object"
+        ? { ...definition }
+        : {};
+
+      if (!source.type) {
+        if (source.audio || source.audioName) source.type = "audio";
+        else source.type = this.inferType(source.file);
+      }
+
+      source.type = String(source.type || "binary").toLowerCase();
+      return source;
+    },
+
+    register(name, definition) {
+      const id = String(name || "");
+      if (!id) throw new TypeError("SSE.assets.register requires a non-empty name.");
+
+      const normalized = this.normalizeDefinition(definition);
+      this.definitions.set(id, normalized);
+      this.records.set(id, {
+        name: id,
+        definition: normalized,
+        status: "idle",
+        value: null,
+        error: null,
+        promise: null,
+        loadedAt: 0,
+      });
+
+      return id;
+    },
+
+    registerMany(items) {
+      for (const [name, definition] of Object.entries(items || {})) {
+        this.register(name, definition);
+      }
+      return this;
+    },
+
+    group(name, members) {
+      const id = String(name || "");
+      if (!id) throw new TypeError("SSE.assets.group requires a non-empty name.");
+
+      const list = Array.isArray(members) ? members.slice() : [members];
+      this.groups.set(id, list.filter((item) => item !== undefined && item !== null));
+      return id;
+    },
+
+    has(name) {
+      return this.definitions.has(String(name));
+    },
+
+    resolve(target, seenGroups) {
+      const seen = seenGroups || new Set();
+      const output = [];
+      const added = new Set();
+
+      const visit = (item) => {
+        if (Array.isArray(item)) {
+          for (const nested of item) visit(nested);
+          return;
+        }
+
+        const id = String(item || "");
+        if (!id) return;
+
+        if (this.groups.has(id)) {
+          if (seen.has(id)) return;
+          seen.add(id);
+          for (const nested of this.groups.get(id)) visit(nested);
+          seen.delete(id);
+          return;
+        }
+
+        if (!this.definitions.has(id)) {
+          throw new Error('Unknown asset or group: "' + id + '"');
+        }
+
+        if (!added.has(id)) {
+          added.add(id);
+          output.push(id);
+        }
+      };
+
+      visit(target);
+      return output;
+    },
+
+    record(name) {
+      return this.records.get(String(name)) || null;
+    },
+
+    status(name) {
+      const record = this.record(name);
+      return record ? record.status : "missing";
+    },
+
+    get(name, fallback) {
+      const record = this.record(name);
+      if (!record || record.status !== "ready") {
+        return arguments.length >= 2 ? fallback : null;
+      }
+      return record.value;
+    },
+
+    image(name) {
+      return this.get(name, null);
+    },
+
+    isReady(target) {
+      let names;
+      try {
+        names = this.resolve(target);
+      } catch (_error) {
+        return false;
+      }
+      return names.length > 0 && names.every((name) => this.status(name) === "ready");
+    },
+
+    progress(target) {
+      let names = [];
+      try {
+        names = this.resolve(target);
+      } catch (_error) {
+        return {
+          total: 0,
+          ready: 0,
+          loading: 0,
+          error: 0,
+          idle: 0,
+          ratio: 0,
+        };
+      }
+
+      const result = {
+        total: names.length,
+        ready: 0,
+        loading: 0,
+        error: 0,
+        idle: 0,
+        ratio: names.length === 0 ? 1 : 0,
+      };
+
+      for (const name of names) {
+        const status = this.status(name);
+        if (Object.prototype.hasOwnProperty.call(result, status)) {
+          result[status] += 1;
+        }
+      }
+
+      result.ratio = result.total > 0 ? result.ready / result.total : 1;
+      return result;
+    },
+
+    setFetchPriority(value, priority) {
+      const element = value && value.element ? value.element : value;
+      if (!element || !priority) return;
+      try {
+        if ("fetchPriority" in element) element.fetchPriority = priority;
+      } catch (_error) {
+        // Best effort only.
+      }
+    },
+
+    waitForImage(value, definition, options) {
+      if (!value) return Promise.reject(new Error("Image loader returned no value."));
+      if (value.loaded && !value.error) return Promise.resolve(value);
+      if (value.error) return Promise.reject(value.error);
+
+      const element = value.element || value;
+      const timeoutMs = Math.max(
+        250,
+        Number(options?.timeoutMs ?? definition.timeoutMs ?? 15000) || 15000
+      );
+
+      return new Promise((resolve, reject) => {
+        let settled = false;
+        let timeoutId = null;
+
+        const cleanup = () => {
+          if (timeoutId !== null && typeof root.clearTimeout === "function") {
+            root.clearTimeout(timeoutId);
+          }
+          if (element && typeof element.removeEventListener === "function") {
+            element.removeEventListener("load", onLoad);
+            element.removeEventListener("error", onError);
+          }
+        };
+
+        const finish = (ok, error) => {
+          if (settled) return;
+          settled = true;
+          cleanup();
+          if (ok) resolve(value);
+          else reject(error || new Error("Image failed to load: " + (definition.file || "")));
+        };
+
+        const onLoad = () => {
+          if (value && Object.prototype.hasOwnProperty.call(value, "loaded")) {
+            value.loaded = true;
+          }
+          finish(true);
+        };
+
+        const onError = () => {
+          finish(false, value.error || new Error("Image failed to load: " + (definition.file || "")));
+        };
+
+        if (element && typeof element.addEventListener === "function") {
+          element.addEventListener("load", onLoad, { once: true });
+          element.addEventListener("error", onError, { once: true });
+        }
+
+        if (
+          element &&
+          element.complete &&
+          Number(element.naturalWidth || element.width || value.width || 0) > 0
+        ) {
+          onLoad();
+          return;
+        }
+
+        if (typeof root.setTimeout === "function") {
+          timeoutId = root.setTimeout(() => {
+            finish(false, new Error("Image load timed out: " + (definition.file || "")));
+          }, timeoutMs);
+        }
+      });
+    },
+
+    loadImage(name, definition, options) {
+      const loader =
+        (typeof root.loadImage === "function" && root.loadImage) ||
+        (typeof root.readImage === "function" && root.readImage);
+
+      if (!loader) {
+        return Promise.reject(new Error("No Codea-style image loader is available."));
+      }
+
+      let value;
+      try {
+        value = loader(definition.file);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+
+      this.setFetchPriority(
+        value,
+        options?.priority || definition.priority || null
+      );
+
+      return this.waitForImage(value, definition, options);
+    },
+
+    loadFetch(definition, options) {
+      if (typeof root.fetch !== "function") {
+        return Promise.reject(new Error("Fetch API is unavailable."));
+      }
+
+      const controller = typeof root.AbortController === "function"
+        ? new root.AbortController()
+        : null;
+
+      const timeoutMs = Math.max(
+        0,
+        Number(options?.timeoutMs ?? definition.timeoutMs ?? 15000) || 0
+      );
+
+      let timeoutId = null;
+      if (controller && timeoutMs > 0 && typeof root.setTimeout === "function") {
+        timeoutId = root.setTimeout(() => controller.abort(), timeoutMs);
+      }
+
+      return root.fetch(definition.file, {
+        method: "GET",
+        cache: definition.cache || options?.cache || "force-cache",
+        signal: controller?.signal,
+      }).then((response) => {
+        if (!response || !response.ok) {
+          throw new Error(
+            "Asset fetch failed: " +
+            String(definition.file || "") +
+            " (" +
+            String(response?.status || "network") +
+            ")"
+          );
+        }
+
+        if (definition.type === "json") return response.json();
+        if (definition.type === "text") return response.text();
+        if (definition.type === "blob") return response.blob();
+        return response.arrayBuffer();
+      }).finally(() => {
+        if (timeoutId !== null && typeof root.clearTimeout === "function") {
+          root.clearTimeout(timeoutId);
+        }
+      });
+    },
+
+    loadAudio(definition) {
+      const audioName = String(definition.audioName || definition.audio || "");
+      if (!audioName) {
+        return Promise.reject(
+          new Error("Audio assets must reference an SSE.audio name.")
+        );
+      }
+
+      return Promise.resolve(audio.preload(audioName)).then(() => {
+        if (audio.buffers[audioName]) return audio.buffers[audioName];
+        if (audio.musicPlayers[audioName]) return audio.musicPlayers[audioName];
+        return true;
+      });
+    },
+
+    load(name, options) {
+      const id = String(name || "");
+      const record = this.record(id);
+      if (!record) return Promise.reject(new Error('Unknown asset: "' + id + '"'));
+
+      if (record.status === "ready") return Promise.resolve(record.value);
+      if (record.status === "loading" && record.promise) return record.promise;
+      if (record.status === "error" && !options?.retry) {
+        return Promise.resolve(null);
+      }
+
+      const definition = record.definition;
+      record.status = "loading";
+      record.error = null;
+
+      let task;
+      if (definition.type === "image") {
+        task = this.loadImage(id, definition, options);
+      } else if (definition.type === "audio") {
+        task = this.loadAudio(definition);
+      } else {
+        task = this.loadFetch(definition, options);
+      }
+
+      record.promise = Promise.resolve(task)
+        .then((value) => {
+          record.value = value;
+          record.status = "ready";
+          record.error = null;
+          record.loadedAt = Date.now();
+          record.promise = null;
+          return value;
+        })
+        .catch((error) => {
+          record.value = null;
+          record.status = "error";
+          record.error = error;
+          record.promise = null;
+          debug.log("[SSE.assets] load failed", id, error);
+          if (options?.strict) throw error;
+          return null;
+        });
+
+      return record.promise;
+    },
+
+    preload(target, options) {
+      let names;
+      try {
+        names = this.resolve(target);
+      } catch (error) {
+        if (options?.strict) return Promise.reject(error);
+        return Promise.resolve({
+          ok: false,
+          total: 0,
+          ready: 0,
+          error: 1,
+          results: [],
+          reason: String(error.message || error),
+        });
+      }
+
+      return Promise.all(
+        names.map((name) => this.load(name, options))
+      ).then((values) => {
+        const progress = this.progress(names);
+        return {
+          ok: progress.error === 0,
+          ...progress,
+          results: names.map((name, index) => ({
+            name,
+            status: this.status(name),
+            value: values[index],
+            error: this.record(name)?.error || null,
+          })),
+        };
+      });
+    },
+
+    schedule(target, options) {
+      const opts = options || {};
+      const when = opts.when || "idle";
+      const delay = Math.max(0, Number(opts.delay) || 0);
+
+      const run = () => new Promise((resolve) => {
+        const start = () => {
+          Promise.resolve(this.preload(target, opts)).then(resolve);
+        };
+
+        if (delay > 0 && typeof root.setTimeout === "function") {
+          root.setTimeout(start, delay);
+        } else {
+          start();
+        }
+      });
+
+      if (when === "load" && typeof document !== "undefined") {
+        if (document.readyState === "complete") return run();
+
+        return new Promise((resolve) => {
+          const onLoad = () => {
+            Promise.resolve(run()).then(resolve);
+          };
+          root.addEventListener("load", onLoad, { once: true });
+        });
+      }
+
+      if (when === "idle") {
+        return new Promise((resolve) => {
+          if (typeof root.requestIdleCallback === "function") {
+            root.requestIdleCallback(() => {
+              Promise.resolve(run()).then(resolve);
+            });
+          } else if (typeof root.setTimeout === "function") {
+            root.setTimeout(() => {
+              Promise.resolve(run()).then(resolve);
+            }, 0);
+          } else {
+            Promise.resolve(run()).then(resolve);
+          }
+        });
+      }
+
+      return run();
+    },
+
+    fileStillReferenced(file, exceptName) {
+      const source = String(file || "");
+      if (!source) return false;
+
+      for (const [name, record] of this.records.entries()) {
+        if (name === exceptName) continue;
+        if (record.status !== "ready" && record.status !== "loading") continue;
+        if (String(record.definition?.file || "") === source) return true;
+      }
+
+      return false;
+    },
+
+    releaseOne(name, options) {
+      const record = this.record(name);
+      if (!record) return false;
+
+      const definition = record.definition;
+      const value = record.value;
+
+      if (
+        definition.type === "image" &&
+        value &&
+        !this.fileStillReferenced(definition.file, name)
+      ) {
+        const cache = root.CodeaLite?.state?.imageCache;
+        const element = value.element || null;
+
+        if (element && options?.hard !== false) {
+          try {
+            element.onload = null;
+            element.onerror = null;
+            element.src = this.transparentPixel;
+          } catch (_error) {
+            // Best effort only.
+          }
+        }
+
+        if (cache && typeof cache.delete === "function") {
+          try {
+            cache.delete(String(definition.file));
+          } catch (_error) {
+            // Best effort only.
+          }
+        }
+
+        if (options?.hard !== false) {
+          try {
+            if (Object.prototype.hasOwnProperty.call(value, "element")) {
+              value.element = null;
+            }
+            if (Object.prototype.hasOwnProperty.call(value, "loaded")) {
+              value.loaded = false;
+            }
+            if (Object.prototype.hasOwnProperty.call(value, "width")) value.width = 0;
+            if (Object.prototype.hasOwnProperty.call(value, "height")) value.height = 0;
+          } catch (_error) {
+            // Best effort only.
+          }
+        }
+      }
+
+      record.status = "idle";
+      record.value = null;
+      record.error = null;
+      record.promise = null;
+      record.loadedAt = 0;
+      return true;
+    },
+
+    release(target, options) {
+      let names;
+      try {
+        names = this.resolve(target);
+      } catch (_error) {
+        return 0;
+      }
+
+      let count = 0;
+      for (const name of names) {
+        if (this.releaseOne(name, options)) count += 1;
+      }
+      return count;
+    },
+
+    report(target) {
+      let names;
+      try {
+        names = target === undefined || target === null
+          ? Array.from(this.definitions.keys())
+          : this.resolve(target);
+      } catch (_error) {
+        names = [];
+      }
+
+      return names.map((name) => {
+        const record = this.record(name);
+        return {
+          name,
+          type: record?.definition?.type || "missing",
+          file: record?.definition?.file || null,
+          status: record?.status || "missing",
+          loadedAt: record?.loadedAt || 0,
+          error: record?.error
+            ? String(record.error.message || record.error)
+            : null,
+        };
+      });
     },
   };
 
@@ -2828,6 +3427,8 @@
     if (state.config.audio) audio.configure(state.config.audio);
     else audio.configure({});
 
+    assets.configure(state.config.assets || {});
+
     if (state.config.analytics) analytics.configure(state.config.analytics);
     if (state.config.fonts) fonts.install(state.config.fonts);
     else fonts.reveal();
@@ -2944,6 +3545,7 @@
     storage,
     i18n,
     audio,
+    assets,
     ui,
     fonts,
     analytics,
