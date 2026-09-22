@@ -201,6 +201,15 @@
     homeFadeSec: 0.96,
   });
 
+  // HOME does not throw a desktop window onto the cockpit the instant the ship
+  // touches down. The station wakes its terminal first. RESTORE makes that boot
+  // progressively cleaner and faster, so returning home itself becomes a small
+  // measure of how much of BASE has been recovered.
+  const HOME_TERMINAL_BOOT_TUNE = Object.freeze({
+    leadAfterEveSec: 0.30,
+    durationByLevel: Object.freeze([0, 1.60, 1.30, 1.00, 0.75, 0.45]),
+  });
+
   // NEW ORBIT opens with the visual inverse of fuel-out: an old CRT wakes from
   // black after an unnamed accident. It shows damage, never explains the event.
   const PROLOGUE_TUNE = Object.freeze({
@@ -717,6 +726,31 @@
     return playOrbitToneCue(name);
   }
 
+  function playHomeTerminalBootCue(level, duration) {
+    const lv = clamp(Math.floor(Number(level || 1)), 1, 5);
+    const total = Math.max(0.20, Number(duration || 0.8));
+    const humDuration = Math.max(0.18, Math.min(0.82, total * (lv >= 4 ? 0.58 : 0.72)));
+    const startHz = 58 + lv * 7;
+    const endHz = 104 + lv * 16;
+    scheduleOrbitTone({
+      frequency: startHz,
+      endFrequency: endHz,
+      duration: humDuration,
+      volume: lv <= 2 ? 0.062 : 0.048,
+      type: "sine",
+    }, 0);
+    if (lv <= 2) {
+      scheduleOrbitTone({
+        frequency: 132,
+        endFrequency: 118,
+        duration: Math.min(0.16, total * 0.18),
+        volume: 0.020,
+        type: "triangle",
+      }, Math.min(total * 0.38, 0.52));
+    }
+    return true;
+  }
+
   const TUNE = {
     fixedHz: SOURCE_LOCK.fixedHz,
     maxSpeed: PHYSICS_PROFILE === "source" ? SOURCE_LOCK.maxSpeed : WEB_FEEL.maxSpeed,
@@ -1047,8 +1081,8 @@
       };
 
       // v2.7: HOME is a system connection, not an instruction floating in
-      // space. Landing at BASE automatically opens a source-inspired
-      // Windows-98-like operations terminal.
+      // space. The source-inspired Windows-98-like operations terminal is
+      // physically "woken" by BASE before it appears after a return.
       this.homeTerminal = {
         visible: false,
         mode: "browse",     // browse | confirm
@@ -1057,6 +1091,14 @@
         // Shown only immediately after RESTORE. Closing the terminal consumes
         // the report; the next HOME return opens the ordinary operations view.
         restoreReportLevel: 0,
+      };
+      this.homeTerminalBoot = {
+        pending: false,
+        active: false,
+        leadTimer: 0,
+        timer: 0,
+        duration: 0,
+        level: 1,
       };
 
       // v2.7.8: SYSTEM status and E.V.E.'s actual voice are separate layers.
@@ -1860,6 +1902,14 @@
         this.departHold = 0;
         return true;
       }
+      if (
+        this.homeTerminalBoot &&
+        (this.homeTerminalBoot.pending || this.homeTerminalBoot.active)
+      ) {
+        this.pressing = false;
+        this.departHold = 0;
+        return true;
+      }
       if (this.mode === "landing" || this.mode === "rescue") return true;
 
       // Phase 17.1: takeoff keeps the same pointer session that began with the
@@ -2405,6 +2455,7 @@
         }
       }
       if (this.eve && this.eve.timer > 0) this.eve.timer = Math.max(0, this.eve.timer - dt);
+      this.updateHomeTerminalBoot(dt);
 
       if (this.restoreReveal && this.restoreReveal.timer > 0) {
         const before = this.restoreReveal.timer;
@@ -2536,6 +2587,15 @@
       else this.updateHarvest(dt);
 
       if (this.restoreReveal && this.restoreReveal.timer > 0) {
+        this.pressing = false;
+        this.departHold = 0;
+        return;
+      }
+
+      if (
+        this.homeTerminalBoot &&
+        (this.homeTerminalBoot.pending || this.homeTerminalBoot.active)
+      ) {
         this.pressing = false;
         this.departHold = 0;
         return;
@@ -3647,29 +3707,170 @@
           return;
         }
 
-        this.openHomeTerminal();
         if (this.shouldStartFinale()) {
           this.echoes.carriedThisTrip = 0;
-          // Touching HOME commits the expedition before the non-interactive
-          // finale starts. Reloading during the sequence will replay it safely.
+          // The final return owns its own quiet HOME choreography. Do not place
+          // the ordinary terminal boot between landing and the finale.
           this.saveGame("base-return-final");
           this.startFinale(0.7);
-        } else if (this.echoes && this.echoes.carriedThisTrip > 0) {
-          // Returning with an Echo still matters, but the memory itself has
-          // already spoken. Home only acknowledges that something came back.
-          this.sayEve(this.formatEchoLine(this.echoReturnLine()), 3.5);
-          this.echoes.carriedThisTrip = 0;
         } else {
-          const lines = this.evePhaseLines();
-          if (away > RETURN_TUNE.baseReturnLongSec) this.sayEve(lines.long, 3.0);
-          else if (away > RETURN_TUNE.baseReturnNormalSec) this.sayEve(lines.normal, 3.0);
-          else this.sayEve(lines.short, 2.4);
+          if (this.echoes && this.echoes.carriedThisTrip > 0) {
+            // Returning with an Echo still matters, but the memory itself has
+            // already spoken. Home only acknowledges that something came back.
+            this.sayEve(this.formatEchoLine(this.echoReturnLine()), 3.5);
+            this.echoes.carriedThisTrip = 0;
+          } else {
+            const lines = this.evePhaseLines();
+            if (away > RETURN_TUNE.baseReturnLongSec) this.sayEve(lines.long, 3.0);
+            else if (away > RETURN_TUNE.baseReturnNormalSec) this.sayEve(lines.normal, 3.0);
+            else this.sayEve(lines.short, 2.4);
+          }
+          // E.V.E. gets the return beat first. BASE waits for her voice to clear,
+          // breathes for a fraction of a second, then wakes the terminal.
+          this.scheduleHomeTerminalBoot();
+          this.saveGame("base-return");
         }
-        // Home is the checkpoint. The finale path already committed above.
-        if (!this.finale.active) this.saveGame("base-return");
       }
     }
 
+
+    scheduleHomeTerminalBoot() {
+      if (!this.landPlanet || this.landPlanet.kind !== "base") return false;
+      if (!this.homeTerminalBoot) return this.openHomeTerminal();
+      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      this.closeHomeTerminal();
+      this.homeTerminalBoot.pending = true;
+      this.homeTerminalBoot.active = false;
+      this.homeTerminalBoot.leadTimer = HOME_TERMINAL_BOOT_TUNE.leadAfterEveSec;
+      this.homeTerminalBoot.timer = 0;
+      this.homeTerminalBoot.duration =
+        HOME_TERMINAL_BOOT_TUNE.durationByLevel[level] ||
+        HOME_TERMINAL_BOOT_TUNE.durationByLevel[1];
+      this.homeTerminalBoot.level = level;
+      this.pressing = false;
+      this.departHold = 0;
+      return true;
+    }
+
+    cancelHomeTerminalBoot() {
+      if (!this.homeTerminalBoot) return;
+      this.homeTerminalBoot.pending = false;
+      this.homeTerminalBoot.active = false;
+      this.homeTerminalBoot.leadTimer = 0;
+      this.homeTerminalBoot.timer = 0;
+    }
+
+    updateHomeTerminalBoot(dt) {
+      const boot = this.homeTerminalBoot;
+      if (!boot || (!boot.pending && !boot.active)) return;
+      if (
+        this.mode !== "landed" ||
+        !this.landPlanet ||
+        this.landPlanet.kind !== "base" ||
+        (this.finale && this.finale.active) ||
+        (this.incident && this.incident.trueEndingActive)
+      ) {
+        this.cancelHomeTerminalBoot();
+        return;
+      }
+
+      this.pressing = false;
+      this.departHold = 0;
+
+      if (boot.pending) {
+        // The return line owns the foreground first. Only once E.V.E. has gone
+        // quiet do we leave a tiny breath before BASE itself wakes.
+        if (this.eve && this.eve.timer > 0) return;
+        boot.leadTimer = Math.max(0, boot.leadTimer - dt);
+        if (boot.leadTimer > 0) return;
+
+        boot.pending = false;
+        boot.active = true;
+        boot.timer = 0;
+        if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
+        playHomeTerminalBootCue(boot.level, boot.duration);
+        return;
+      }
+
+      boot.timer = Math.min(boot.duration, boot.timer + dt);
+      if (boot.timer < boot.duration) return;
+
+      boot.active = false;
+      boot.timer = boot.duration;
+      this.openHomeTerminal();
+    }
+
+    homeTerminalBootText() {
+      const boot = this.homeTerminalBoot;
+      if (!boot || !boot.active) return "";
+      const lv = clamp(Math.floor(Number(boot.level || 1)), 1, 5);
+      const q = clamp(boot.timer / Math.max(0.001, boot.duration), 0, 1);
+
+      if (lv === 1) {
+        if (q < 0.30) return tx("home.boot.systemLinkSlow");
+        if (q < 0.48) return tx("home.boot.retry");
+        if (q < 0.76) return tx("home.boot.systemConnectedSlow");
+        return tx("home.boot.terminalOnlineSlow");
+      }
+      if (lv === 2) {
+        return q < 0.52
+          ? tx("home.boot.systemConnectedSlow")
+          : tx("home.boot.terminalOnlineSlow");
+      }
+      if (lv === 3) {
+        return q < 0.50
+          ? tx("home.boot.systemConnected")
+          : tx("home.boot.terminalOnline");
+      }
+      if (lv === 4) {
+        return q < 0.48
+          ? tx("home.boot.systemConnectedFast")
+          : tx("home.boot.online");
+      }
+      return tx("home.boot.linkEstablished");
+    }
+
+    drawHomeTerminalBoot() {
+      const boot = this.homeTerminalBoot;
+      if (!boot || !boot.active) return;
+      if (!this.landPlanet || this.landPlanet.kind !== "base") return;
+
+      const q = clamp(boot.timer / Math.max(0.001, boot.duration), 0, 1);
+      const fadeIn = clamp(q / 0.14, 0, 1);
+      const fadeOut = clamp((1 - q) / 0.16, 0, 1);
+      const alpha = Math.min(fadeIn, fadeOut);
+      const flicker = 0.88 + 0.12 * Math.sin(this.simTime * (boot.level <= 2 ? 38 : 24));
+      const w = 250;
+      const h = 38;
+      const x = (W - w) / 2;
+      const y = H / 2 + 82;
+
+      noStroke();
+      fill(4, 8, 14, 164 * alpha);
+      rect(x, y, w, h);
+      noFill();
+      stroke(116, 188, 224, 92 * alpha * flicker);
+      strokeWidth(0.8);
+      rect(x, y, w, h);
+
+      font("monospace");
+      textAlign(LEFT);
+      noStroke();
+      fill(132, 184, 215, 138 * alpha);
+      fontSize(7.6);
+      text(tx("home.boot.baseTerminal"), x + 10, y + h - 11);
+
+      fill(222, 239, 248, 235 * alpha * flicker);
+      fontSize(9.2);
+      text(this.homeTerminalBootText(), x + 10, y + 11);
+
+      // A tiny acquisition trace makes this read as BASE hardware waking rather
+      // than a detached notification card.
+      const traceW = (w - 20) * clamp(q * 1.15, 0, 1);
+      stroke(128, 205, 240, 118 * alpha);
+      strokeWidth(1);
+      line(x + 10, y + 4, x + 10 + traceW, y + 4);
+    }
 
     openHomeTerminal() {
       if (!this.landPlanet || this.landPlanet.kind !== "base") return false;
@@ -3682,6 +3883,10 @@
           status: "OFFLINE",
           restoreReportLevel: 0,
         };
+      }
+      if (this.homeTerminalBoot) {
+        this.homeTerminalBoot.pending = false;
+        this.homeTerminalBoot.active = false;
       }
       this.homeTerminal.visible = true;
       this.homeTerminal.mode = "browse";
@@ -4955,6 +5160,7 @@
             this.drawDataAnalysis();
             this.drawEchoMemory();
             this.drawSystemConsole();
+            this.drawHomeTerminalBoot();
             this.drawHomeTerminal();
             this.drawCredits();
             this.drawFinaleOverlay();
