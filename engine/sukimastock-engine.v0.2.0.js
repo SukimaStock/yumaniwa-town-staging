@@ -200,6 +200,15 @@
     fonts: null,
     audio: null,
     assets: null,
+    lifecycle: {
+      autoAudio: true,
+      pauseOnBlur: false,
+    },
+    keyboard: {
+      enabled: true,
+      preventDefault: true,
+      bindings: {},
+    },
     analytics: null,
     bridge: null,
     i18n: null,
@@ -1974,6 +1983,8 @@
     musicDefinitions: {},
     musicPlayers: {},
     currentMusic: null,
+    lifecyclePausedMusic: new Set(),
+    lifecycleContextWasRunning: false,
 
     storageKey: "sse-sound",
 
@@ -2533,6 +2544,66 @@
       } catch (_error) {
         return false;
       }
+    },
+
+    pauseForLifecycle() {
+      this.lifecyclePausedMusic.clear();
+      this.lifecycleContextWasRunning = !!(
+        this.ctx &&
+        this.ctx.state === "running"
+      );
+
+      for (const [name, player] of Object.entries(this.musicPlayers)) {
+        if (!player?.audio || player.audio.paused) continue;
+        this.lifecyclePausedMusic.add(name);
+        try { player.audio.pause(); } catch (_error) {}
+      }
+
+      if (
+        this.ctx &&
+        this.ctx.state === "running" &&
+        typeof this.ctx.suspend === "function"
+      ) {
+        try {
+          const promise = this.ctx.suspend();
+          if (promise?.catch) promise.catch(() => {});
+        } catch (_error) {}
+      }
+
+      return true;
+    },
+
+    resumeFromLifecycle() {
+      if (!this.enabled) {
+        this.lifecyclePausedMusic.clear();
+        return false;
+      }
+
+      if (
+        this.ctx &&
+        this.lifecycleContextWasRunning &&
+        this.ctx.state === "suspended" &&
+        typeof this.ctx.resume === "function"
+      ) {
+        try {
+          const promise = this.ctx.resume();
+          if (promise?.catch) promise.catch(() => {});
+        } catch (_error) {}
+      }
+
+      const names = Array.from(this.lifecyclePausedMusic);
+      this.lifecyclePausedMusic.clear();
+
+      for (const name of names) {
+        const player = this.musicPlayers[name];
+        if (!player?.audio) continue;
+        try {
+          const promise = player.audio.play();
+          if (promise?.catch) promise.catch(() => {});
+        } catch (_error) {}
+      }
+
+      return names.length > 0;
     },
 
     tone(options) {
@@ -3304,13 +3375,39 @@
   };
 
   // ------------------------------------------------------------
-  // Input normalization
+  // Input normalization + keyboard
   // ------------------------------------------------------------
 
   const input = {
-    reset() {
+    keyboardInstalled: false,
+    keysDown: new Set(),
+    keysPressed: new Set(),
+    keysReleased: new Set(),
+    bindings: new Map(),
+
+    configureKeyboard(options) {
+      const source = options || {};
+      this.bindings.clear();
+
+      for (const [action, keys] of Object.entries(source.bindings || {})) {
+        this.bind(action, keys);
+      }
+    },
+
+    resetPointer() {
       state.activePointerId = null;
       state.activePointerRaw = null;
+    },
+
+    resetKeyboard() {
+      this.keysDown.clear();
+      this.keysPressed.clear();
+      this.keysReleased.clear();
+    },
+
+    reset() {
+      this.resetPointer();
+      this.resetKeyboard();
     },
 
     remember(rawTouch) {
@@ -3329,7 +3426,7 @@
 
     cancelActive() {
       if (state.activePointerId === null || !state.activePointerRaw) {
-        this.reset();
+        this.resetPointer();
         return null;
       }
 
@@ -3342,8 +3439,21 @@
         prevX: last.x,
         prevY: last.y,
       };
-      this.reset();
+      this.resetPointer();
       return cancelled;
+    },
+
+    cancelActiveAndDispatch() {
+      const rawTouch = this.cancelActive();
+      if (!rawTouch) return false;
+
+      try {
+        app.touch(this.normalize(rawTouch));
+        return true;
+      } catch (error) {
+        debug.capture(error, "touch-cancel");
+        return false;
+      }
     },
 
     normalize(rawTouch) {
@@ -3351,7 +3461,7 @@
     },
 
     accept(rawTouch) {
-      if (!rawTouch) return false;
+      if (!rawTouch || lifecycle.paused) return false;
       if (state.config.pointerMode !== "primary") return true;
       const id = rawTouch.id ?? "mouse";
 
@@ -3372,7 +3482,303 @@
     finish(rawTouch) {
       if (!rawTouch) return;
       if (rawTouch.state === root.ENDED || rawTouch.state === root.CANCELLED) {
-        this.reset();
+        this.resetPointer();
+      }
+    },
+
+    normalizeKey(value) {
+      return String(value || "").trim();
+    },
+
+    eventKeys(event) {
+      const keys = [];
+      const code = this.normalizeKey(event?.code);
+      const key = this.normalizeKey(event?.key);
+      if (code) keys.push(code);
+      if (key && key !== code) keys.push(key);
+      return keys;
+    },
+
+    bind(action, keys) {
+      const id = String(action || "");
+      if (!id) throw new TypeError("SSE.input.bind requires a non-empty action.");
+
+      const list = Array.isArray(keys) ? keys : [keys];
+      const normalized = new Set(
+        list.map((key) => this.normalizeKey(key)).filter(Boolean)
+      );
+      this.bindings.set(id, normalized);
+      return id;
+    },
+
+    unbind(action) {
+      return this.bindings.delete(String(action || ""));
+    },
+
+    isBoundKey(key) {
+      const id = this.normalizeKey(key);
+      if (!id) return false;
+
+      for (const keys of this.bindings.values()) {
+        if (keys.has(id)) return true;
+      }
+      return false;
+    },
+
+    isDown(key) {
+      return this.keysDown.has(this.normalizeKey(key));
+    },
+
+    wasPressed(key) {
+      return this.keysPressed.has(this.normalizeKey(key));
+    },
+
+    wasReleased(key) {
+      return this.keysReleased.has(this.normalizeKey(key));
+    },
+
+    action(name) {
+      const keys = this.bindings.get(String(name || ""));
+      if (!keys) return false;
+      for (const key of keys) {
+        if (this.keysDown.has(key)) return true;
+      }
+      return false;
+    },
+
+    actionPressed(name) {
+      const keys = this.bindings.get(String(name || ""));
+      if (!keys) return false;
+      for (const key of keys) {
+        if (this.keysPressed.has(key)) return true;
+      }
+      return false;
+    },
+
+    actionReleased(name) {
+      const keys = this.bindings.get(String(name || ""));
+      if (!keys) return false;
+      for (const key of keys) {
+        if (this.keysReleased.has(key)) return true;
+      }
+      return false;
+    },
+
+    shouldPreventKey(event) {
+      if (state.config.keyboard?.preventDefault === false) return false;
+      return this.eventKeys(event).some((key) => this.isBoundKey(key));
+    },
+
+    handleKeyDown(event) {
+      if (state.config.keyboard?.enabled === false || lifecycle.paused) return;
+
+      const keys = this.eventKeys(event);
+      if (keys.length === 0) return;
+
+      if (this.shouldPreventKey(event) && typeof event.preventDefault === "function") {
+        event.preventDefault();
+      }
+
+      for (const key of keys) {
+        if (!this.keysDown.has(key)) this.keysPressed.add(key);
+        this.keysDown.add(key);
+      }
+    },
+
+    handleKeyUp(event) {
+      if (state.config.keyboard?.enabled === false) return;
+
+      const keys = this.eventKeys(event);
+      if (keys.length === 0) return;
+
+      if (this.shouldPreventKey(event) && typeof event.preventDefault === "function") {
+        event.preventDefault();
+      }
+
+      for (const key of keys) {
+        if (this.keysDown.has(key)) this.keysReleased.add(key);
+        this.keysDown.delete(key);
+      }
+    },
+
+    installKeyboard() {
+      if (
+        this.keyboardInstalled ||
+        state.config.keyboard?.enabled === false ||
+        typeof root.addEventListener !== "function"
+      ) {
+        return;
+      }
+
+      this.keyboardInstalled = true;
+      root.addEventListener("keydown", (event) => this.handleKeyDown(event));
+      root.addEventListener("keyup", (event) => this.handleKeyUp(event));
+    },
+
+    endFrame() {
+      this.keysPressed.clear();
+      this.keysReleased.clear();
+    },
+  };
+
+  // ------------------------------------------------------------
+  // Browser lifecycle
+  // ------------------------------------------------------------
+
+  const lifecycle = {
+    installed: false,
+    paused: false,
+    reasons: new Set(),
+    lastReason: null,
+    pauseListeners: new Set(),
+    resumeListeners: new Set(),
+    changeListeners: new Set(),
+
+    config() {
+      return state.config.lifecycle || {};
+    },
+
+    snapshot() {
+      return {
+        paused: this.paused,
+        hidden: typeof document !== "undefined" ? !!document.hidden : false,
+        reasons: Array.from(this.reasons),
+        reason: this.lastReason,
+      };
+    },
+
+    emit(listeners, payload) {
+      for (const listener of Array.from(listeners)) {
+        try {
+          listener(payload);
+        } catch (error) {
+          debug.capture(error, "lifecycle-listener");
+        }
+      }
+    },
+
+    notifyChange() {
+      this.emit(this.changeListeners, this.snapshot());
+    },
+
+    onPause(listener) {
+      if (typeof listener !== "function") return () => {};
+      this.pauseListeners.add(listener);
+      return () => this.pauseListeners.delete(listener);
+    },
+
+    onResume(listener) {
+      if (typeof listener !== "function") return () => {};
+      this.resumeListeners.add(listener);
+      return () => this.resumeListeners.delete(listener);
+    },
+
+    onChange(listener) {
+      if (typeof listener !== "function") return () => {};
+      this.changeListeners.add(listener);
+      return () => this.changeListeners.delete(listener);
+    },
+
+    pause(reason) {
+      const id = String(reason || "manual");
+      const wasPaused = this.paused;
+      this.reasons.add(id);
+      this.lastReason = id;
+      this.paused = this.reasons.size > 0;
+
+      input.cancelActiveAndDispatch();
+      input.resetKeyboard();
+
+      if (!wasPaused && this.paused) {
+        state.lastDrawTimeMs = 0;
+
+        if (this.config().autoAudio !== false) {
+          audio.pauseForLifecycle();
+        }
+
+        const payload = this.snapshot();
+        if (typeof this.config().onPause === "function") {
+          try { this.config().onPause(payload, SSE); }
+          catch (error) { debug.capture(error, "lifecycle-onPause"); }
+        }
+        this.emit(this.pauseListeners, payload);
+      }
+
+      this.notifyChange();
+      return this.paused;
+    },
+
+    resume(reason) {
+      const id = String(reason || "manual");
+      const wasPaused = this.paused;
+      this.reasons.delete(id);
+      this.lastReason = id;
+      this.paused = this.reasons.size > 0;
+
+      input.resetPointer();
+      input.resetKeyboard();
+      state.lastDrawTimeMs = 0;
+
+      if (wasPaused && !this.paused) {
+        if (this.config().autoAudio !== false) {
+          audio.resumeFromLifecycle();
+        }
+
+        const payload = this.snapshot();
+        if (typeof this.config().onResume === "function") {
+          try { this.config().onResume(payload, SSE); }
+          catch (error) { debug.capture(error, "lifecycle-onResume"); }
+        }
+        this.emit(this.resumeListeners, payload);
+      }
+
+      this.notifyChange();
+      return !this.paused;
+    },
+
+    clear() {
+      const wasPaused = this.paused;
+      this.reasons.clear();
+      this.lastReason = "clear";
+      this.paused = false;
+      input.reset();
+      state.lastDrawTimeMs = 0;
+
+      if (wasPaused && this.config().autoAudio !== false) {
+        audio.resumeFromLifecycle();
+      }
+
+      this.notifyChange();
+      return true;
+    },
+
+    handleVisibility() {
+      if (typeof document === "undefined") return;
+      if (document.hidden) this.pause("hidden");
+      else this.resume("hidden");
+    },
+
+    install() {
+      if (this.installed || typeof root.addEventListener !== "function") return;
+      this.installed = true;
+
+      root.addEventListener("pagehide", () => this.pause("pagehide"));
+      root.addEventListener("pageshow", () => this.resume("pagehide"));
+
+      root.addEventListener("blur", () => {
+        input.cancelActiveAndDispatch();
+        input.resetKeyboard();
+        if (this.config().pauseOnBlur === true) this.pause("blur");
+      });
+
+      root.addEventListener("focus", () => {
+        input.resetKeyboard();
+        if (this.config().pauseOnBlur === true) this.resume("blur");
+      });
+
+      if (typeof document !== "undefined" && typeof document.addEventListener === "function") {
+        document.addEventListener("visibilitychange", () => this.handleVisibility());
+        if (document.hidden) this.pause("hidden");
       }
     },
   };
@@ -3428,6 +3834,9 @@
     else audio.configure({});
 
     assets.configure(state.config.assets || {});
+    input.configureKeyboard(state.config.keyboard || {});
+    input.installKeyboard();
+    lifecycle.install();
 
     if (state.config.analytics) analytics.configure(state.config.analytics);
     if (state.config.fonts) fonts.install(state.config.fonts);
@@ -3441,19 +3850,6 @@
       app.start(state.config.initialScene, state.config.initialPayload);
     }
 
-    if (typeof root.addEventListener === "function") {
-      const cancelActiveInput = () => {
-        const rawTouch = input.cancelActive();
-        if (!rawTouch) return;
-        try {
-          app.touch(input.normalize(rawTouch));
-        } catch (error) {
-          debug.capture(error, "touch-cancel");
-        }
-      };
-      root.addEventListener("blur", cancelActiveInput);
-      root.addEventListener("pagehide", cancelActiveInput);
-    }
   }
 
   function drawEngine() {
@@ -3480,7 +3876,9 @@
       const outer = theme.color(state.config.outerBackground || "nightDeep");
       root.background(outer);
 
-      app.update(frameDelta);
+      if (!lifecycle.paused) {
+        app.update(frameDelta);
+      }
       viewport.begin();
       viewportOpen = true;
 
@@ -3501,7 +3899,10 @@
       } else if (state.config.bridge?.workId && fonts.revealed && !bridge.readySent) {
         bridge.ready();
       }
+
+      input.endFrame();
     } catch (error) {
+      input.endFrame();
       if (viewportOpen) {
         try { viewport.end(); } catch (_endError) {}
       }
@@ -3553,6 +3954,7 @@
     bridge,
     debug,
     input,
+    lifecycle,
     utils: {
       clamp,
       lerp: lerpValue,
