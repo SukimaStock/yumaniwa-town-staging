@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Yumaniwa Map Factory</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">YUMANIWA TOWN</p>
+        <h1>Map Factory</h1>
+      </div>
+      <button id="newRecipeBtn" class="primary">＋ New asset</button>
+    </header>
+
+    <section class="master-card">
+      <div>
+        <p class="eyebrow">MASTER RECIPE</p>
+        <h2>Alley Shop <span class="version">v1</span></h2>
+        <p class="muted">灯串横丁に置く、小さな独立店舗のための基準Recipe。</p>
+      </div>
+      <div class="master-actions">
+        <button id="editMasterBtn" class="secondary">Masterを見る</button>
+      </div>
+    </section>
+
+    <section class="library-head">
+      <div>
+        <p class="eyebrow">ASSET LIBRARY</p>
+        <h2>横丁の店</h2>
+      </div>
+      <div class="filters">
+        <button data-filter="all" class="filter active">All</button>
+        <button data-filter="draft" class="filter">Draft</button>
+        <button data-filter="good" class="filter">Good</button>
+        <button data-filter="reference" class="filter">Reference</button>
+      </div>
+    </section>
+
+    <section id="assetGrid" class="asset-grid"></section>
+
+    <section id="editorPanel" class="panel hidden" aria-hidden="true">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">RECIPE</p>
+          <h2 id="editorTitle">New asset</h2>
+        </div>
+        <button id="closeEditorBtn" class="icon-btn" aria-label="閉じる">×</button>
+      </div>
+
+      <div class="form-grid">
+        <label>名前
+          <input id="nameInput" type="text" placeholder="クラフトコーラ屋">
+        </label>
+        <label>Status
+          <select id="statusInput">
+            <option value="draft">Draft</option>
+            <option value="good">Good</option>
+            <option value="reference">Reference</option>
+            <option value="archived">Archived</option>
+          </select>
+        </label>
+
+        <label class="full">店の説明
+          <textarea id="descriptionInput" rows="2" placeholder="灯串横丁にある小さなクラフトコーラ店"></textarea>
+        </label>
+
+        <label>Shop type
+          <input id="shopTypeInput" type="text" placeholder="craft cola shop">
+        </label>
+        <label>Main color
+          <input id="mainColorInput" type="text" placeholder="deep brown and muted amber">
+        </label>
+        <label>Sign
+          <input id="signInput" type="text" placeholder="small handmade sign">
+        </label>
+        <label>Lighting
+          <input id="lightingInput" type="text" placeholder="warm, dim, restrained">
+        </label>
+
+        <label class="full">Small props
+          <input id="propsInput" type="text" placeholder="cola bottles, spice jars, wooden crates">
+        </label>
+
+        <label>Game width (tiles)
+          <input id="gameWidthInput" type="number" min="0.5" max="24" step="0.25" value="6">
+        </label>
+        <label>Game height (tiles)
+          <input id="gameHeightInput" type="number" min="0.5" max="24" step="0.25" value="6">
+        </label>
+
+        <label class="full">今回だけの追加指示
+          <textarea id="manualInput" rows="3" placeholder="Make the roof slightly lower."></textarea>
+        </label>
+
+        <label class="full">メモ
+          <textarea id="notesInput" rows="3" placeholder="生成後の気づき、次回直したい点"></textarea>
+        </label>
+      </div>
+
+      <div class="panel-actions">
+        <button id="buildPromptBtn" class="secondary">Promptを更新</button>
+        <button id="saveRecipeBtn" class="primary">Recipeを保存</button>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-head">
+          <div>
+            <p class="eyebrow">GENERATED PROMPT</p>
+            <strong>Alley Shop v1</strong>
+          </div>
+          <button id="copyPromptBtn" class="secondary">Copy</button>
+        </div>
+        <textarea id="promptOutput" rows="18" readonly></textarea>
+      </div>
+
+      <div class="export-row">
+        <button id="deriveBtn" class="secondary">このRecipeから派生</button>
+        <button id="exportBtn" class="secondary">JSONを書き出す</button>
+      </div>
+    </section>
+
+    <section id="masterPanel" class="panel hidden" aria-hidden="true">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">MASTER RECIPE</p>
+          <h2>Alley Shop v1</h2>
+        </div>
+        <button id="closeMasterBtn" class="icon-btn" aria-label="閉じる">×</button>
+      </div>
+      <p class="muted">固定ルール。各Assetでは変更せず、共通してズレた時だけMaster側を改訂します。</p>
+      <textarea id="masterPromptOutput" rows="28" readonly></textarea>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
