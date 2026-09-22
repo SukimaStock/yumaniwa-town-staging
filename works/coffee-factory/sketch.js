@@ -1514,75 +1514,33 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     lowLevel:0.05,
   });
   const BGM_FADE_TAU = 1.10;
+  const BGM_TRACK = "coffee";
   const bgm = {
-    audio:null,
-    ctx:null,
-    source:null,
-    gain:null,
     scene:"setup",
     level:0,
     unlocked:false,
     hidden:false,
     finishBreak:null,
-    init(){
-      if(this.audio || typeof root.Audio!=="function") return;
-      const audio=new root.Audio("./assets/audio/CoffeeFactory.mp3");
-      audio.preload="auto";
-      audio.loop=true;
-      // Keep the media element at unity gain. Scene volume is applied through Web Audio
-      // so iPhone/iOS does not depend on HTMLMediaElement.volume support.
-      audio.volume=1;
-      audio.playsInline=true;
-      this.audio=audio;
-      const AudioContextClass=root.AudioContext||root.webkitAudioContext;
-      if(!AudioContextClass) return;
-      try{
-        this.ctx=new AudioContextClass();
-        this.source=this.ctx.createMediaElementSource(audio);
-        this.gain=this.ctx.createGain();
-        this.gain.gain.value=0;
-        this.source.connect(this.gain);
-        this.gain.connect(this.ctx.destination);
-      }catch(_){
-        this.ctx=null;
-        this.source=null;
-        this.gain=null;
-      }
-    },
     applyLevel(value){
-      const level=clamp(value,0,1);
-      if(this.gain){
-        this.gain.gain.value=level;
-      }else if(this.audio){
-        // Desktop/legacy fallback when Web Audio is unavailable.
-        this.audio.volume=level;
-      }
-    },
-    resumeContext(){
-      if(!this.ctx || this.ctx.state!=="suspended") return;
-      try{
-        const promise=this.ctx.resume();
-        if(promise?.catch) promise.catch(()=>{});
-      }catch(_){}
+      this.level=clamp(value,0,1);
+      SSE.audio.setMusicLevel(this.level,{name:BGM_TRACK});
     },
     target(){
       if(!this.unlocked || this.hidden || !SSE.audio.enabled) return 0;
       return BGM_LEVELS[this.scene] ?? BGM_LEVELS.setup;
     },
     ensurePlaying(){
-      this.init();
-      if(!this.audio || !this.unlocked || this.hidden || !SSE.audio.enabled) return;
-      this.resumeContext();
-      if(!this.audio.paused) return;
-      try{
-        const promise=this.audio.play();
-        if(promise?.catch) promise.catch(()=>{});
-      }catch(_){}
+      if(!this.unlocked || this.hidden || !SSE.audio.enabled) return;
+      const player=SSE.audio.musicPlayers[BGM_TRACK];
+      if(!player?.audio || player.audio.paused){
+        SSE.audio.playMusic(BGM_TRACK,{volume:this.level,restart:false});
+      }else{
+        SSE.audio.setMusicLevel(this.level,{name:BGM_TRACK});
+      }
     },
     userGesture(){
       this.unlocked=true;
-      this.init();
-      this.resumeContext();
+      SSE.audio.unlock();
       this.ensurePlaying();
     },
     setScene(scene){
@@ -1602,28 +1560,24 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
         this.unlocked=true;
         this.level=0;
         this.applyLevel(0);
-        this.resumeContext();
         this.ensurePlaying();
         return;
       }
       this.level=0;
       this.applyLevel(0);
-      if(this.audio) this.audio.pause();
+      SSE.audio.pauseMusic(BGM_TRACK);
     },
     setHidden(value){
       this.hidden=!!value;
       if(this.hidden){
-        if(this.audio) this.audio.pause();
+        SSE.audio.pauseMusic(BGM_TRACK);
         this.level=0;
         this.applyLevel(0);
       }else{
-        this.resumeContext();
         this.ensurePlaying();
       }
     },
     update(dt){
-      this.init();
-      if(!this.audio) return;
       const step=Math.max(0,Number.isFinite(dt)?dt:0);
       const active=this.unlocked && !this.hidden && SSE.audio.enabled;
       if(this.finishBreak){
@@ -1639,7 +1593,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
         if(!active){
           this.level=0;
           this.applyLevel(0);
-          if(!this.audio.paused) this.audio.pause();
+          SSE.audio.pauseMusic(BGM_TRACK);
           if(b.elapsed>=breakEnd) this.finishBreak=null;
           return;
         }
@@ -1669,8 +1623,8 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
       this.applyLevel(this.level);
       if(target>0){
         this.ensurePlaying();
-      }else if(this.level<0.0015 && !this.audio.paused){
-        this.audio.pause();
+      }else if(this.level<0.0015){
+        SSE.audio.pauseMusic(BGM_TRACK);
       }
     },
   };
@@ -1792,7 +1746,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     if(state.languageTransition) return true;
     if (t.state === BEGAN) {
       bgm.userGesture();
-      SSE.audio.unlock();
       const langChoice=languageChoice(t);
       if(langChoice){
         state.gesture={id:"languageToggle",target:langChoice,x:t.x,y:t.y,pointer:t.id,cancelled:false};
@@ -2022,12 +1975,21 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     i18n:{defaultLanguage:"jp",storageKey:"coffeefactory.v1.language",text:TEXT},
     analytics:{enabled:true},
     audio:{
-      // Match the previous work-local SE master gain exactly.
-      // Custom BGM is still outside SSE.audio during this migration phase.
-      masterVolume:.95,
-      seVolume:1,
+      // Preserve pre-migration effective loudness:
+      // BGM level is the work's exact scene level; SE retains its old 0.95 master.
+      masterVolume:1,
+      musicVolume:1,
+      seVolume:.95,
       storageKey:"coffeefactory.v1.sound",
       sounds:SE_DEFINITIONS,
+      music:{
+        coffee:{
+          file:"./assets/audio/CoffeeFactory.mp3",
+          loop:true,
+          preload:"auto",
+          volume:0,
+        },
+      },
     },
     assets:{
       items:{
