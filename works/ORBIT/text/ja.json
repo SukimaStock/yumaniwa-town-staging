@@ -18,7 +18,7 @@
     "saved": "SAVED",
     "echo": "ECHO {found}/{total}",
     "fuelPickup": "+{amount} FUEL",
-    "memoryFragment": "MEMORY FRAGMENT",
+    "memoryFragment": "",
     "eveLabel": "E.V.E.",
     "echoLabel": "ECHO"
   },
@@ -103,25 +103,25 @@
     "phase": {
       "1": {
         "short": "...DOCKING... OK.",
-        "normal": "...WELCOME... BACK...\n...SAFE... HERE...",
+        "normal": "...WELCOME... BACK...",
         "long": "...PILOT... RETURNED.\n...ANALYZING...",
         "lowFuel": "...FUEL... LOW..."
       },
       "2": {
         "short": "Docking complete.\nAll systems stable.",
-        "normal": "Welcome back.\nSystem check: OK. You are safe.",
+        "normal": "Welcome back.\nSystem check: OK.",
         "long": "Welcome back, Pilot.\nLong range scan... complete.",
         "lowFuel": "Fuel low.\nReturn recommended."
       },
       "3": {
         "short": "ドッキング カンリョウ。\nキタイ ジョウキョウ: セイジョウ。",
-        "normal": "キカン ヲ カクニン。システム チェック OK。\nアンゼンケン デス。",
+        "normal": "キカン ヲ カクニン。\nシステム チェック OK。",
         "long": "キカン ヲ カクニン。\nスキャン データ ヲ カイセキ チュウ。",
         "lowFuel": "ネンリョウ ザンリョウ テイカ。\nキカン ヲ スイショウ。"
       },
       "4": {
         "short": "どっきんぐ かんりょう。\nふねの ちょうし、だいじょうぶ そうです。",
-        "normal": "おかえりなさい。きずは ありませんか？\nここなら、あんぜんです。",
+        "normal": "おかえりなさい。きずは ありませんか？",
         "long": "あ……おかえりなさい！\nすこし……おそかった ですね。",
         "lowFuel": "ねんりょうが すくないです。\nむりしないで、もどりましょう。"
       },
@@ -307,11 +307,11 @@
       ]
     },
     "echoReturn": {
-      "1": "...WELCOME... BACK...\n...ECHO... {a}/{b}...",
-      "2": "Welcome back.\nEcho archive: {a}/{b}.",
-      "3": "オカエリナサイ。\nエコー シュウトク {a}/{b}。",
-      "4": "おかえりなさい。\nエコーは {a}/{b} あつまりました。",
-      "5": "お帰りなさい。\nエコーは、{a}/{b}まで集まりました。"
+      "1": "...WELCOME... BACK...",
+      "2": "Welcome back.",
+      "3": "オカエリナサイ。",
+      "4": "おかえりなさい。",
+      "5": "お帰りなさい。"
     },
     "restoreDeparture": {
       "2": "I can see... farther now.",
@@ -345,7 +345,7 @@
     "firstFlightHint": "...HOME... SIGNAL...\n...RESTORE...?"
   },
   "echo": {
-    "header": "ECHO {index}/{total} — {key}",
+    "header": "ECHO {index}/{total}",
     "memories": [
       {
         "id": "voice",
@@ -513,7 +513,7 @@
   "incident": {
     "header": "INCIDENT LOG // {code}",
     "introWait": "……待ってください。",
-    "introSignal": "ASTRAから、微弱な記録信号。\n……今まで、見えていませんでした。",
+    "introSignal": "ASTRAから、微弱な記録信号。",
     "siteFound": "……ここです。",
     "complete": "……これで、残っていた記録はすべてです。",
     "returnHome": "……帰りましょう。",
@@ -573,8 +573,8 @@
       }
     ],
     "trueEnding": {
-      "line1": "……あの日も、帰ろうとしていたんですね。",
-      "line3": "……今度は、帰ってこられました。",
+      "line1": "",
+      "line3": "",
       "line4": "……お帰りなさい、パイロット。"
     },
     "signalNear": "……信号源、この近くです。"
