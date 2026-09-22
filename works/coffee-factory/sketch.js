@@ -1628,7 +1628,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
       }
     },
   };
-  const SE_DEFINITIONS = Object.freeze({
+  const SE_DEFAULTS = Object.freeze({
     ui_select:{file:"./assets/audio/ui_select.wav",mode:"buffer",volume:.34,cooldown:45},
     ui_step:{file:"./assets/audio/ui_step.wav",mode:"buffer",volume:.32,cooldown:35},
     factory_start:{file:"./assets/audio/factory_start.wav",mode:"buffer",volume:.42,cooldown:160},
@@ -1638,6 +1638,18 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     brew_change:{file:"./assets/audio/brew_change.wav",mode:"buffer",volume:.62,cooldown:100},
     brew_finish:{file:"./assets/audio/brew_finish.wav",mode:"buffer",volume:.68,cooldown:200},
   });
+  const SE_OVERRIDES =
+    root.COFFEEFACTORY_SOUND_CONFIG && typeof root.COFFEEFACTORY_SOUND_CONFIG==="object"
+      ? root.COFFEEFACTORY_SOUND_CONFIG
+      : {};
+  const SE_DEFINITIONS = Object.freeze(
+    Object.keys(SE_DEFAULTS).reduce((out,name)=>{
+      const base=SE_DEFAULTS[name];
+      const custom=SE_OVERRIDES[name]||{};
+      out[name]=Object.freeze({...base,...custom});
+      return out;
+    },{})
+  );
   function playSE(name,options=null) {
     if(document.hidden) return false;
     return SSE.audio.play(name,options||undefined);
