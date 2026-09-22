@@ -1,1 +1,0 @@
-Map Factory system notes.
