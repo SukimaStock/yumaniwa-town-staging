@@ -2027,6 +2027,38 @@
   // Audio v2
   // ------------------------------------------------------------
 
+  // Authoring baseline derived from CoffeeFactory real-device tuning.
+  // It is intentionally opt-in so existing works never become louder merely
+  // because the canonical Engine is updated.
+  const AUDIO_BASELINES = Object.freeze({
+    sukimastock: Object.freeze({
+      name: "sukimastock",
+      revision: "2026-09-22",
+      derivedFrom: "CoffeeFactory real-device tuning",
+      config: Object.freeze({
+        masterVolume: 1,
+        musicVolume: 1,
+        seVolume: 1,
+      }),
+      reference: Object.freeze({
+        // Roughly CoffeeFactory + 10–15%. These are starting points, not rules.
+        bgm: Object.freeze({
+          quiet: 0.075,
+          calm: 0.135,
+          active: 0.225,
+          finish: 0.270,
+        }),
+        se: Object.freeze({
+          soft: 0.24,
+          ui: 0.36,
+          action: 0.46,
+          cue: 0.68,
+          emphasis: 0.75,
+        }),
+      }),
+    }),
+  });
+
   const audio = {
     enabled: true,
     unlocked: false,
@@ -2054,6 +2086,18 @@
     lifecycleContextWasRunning: false,
 
     storageKey: "sse-sound",
+
+    baseline(name) {
+      const id = String(name || "sukimastock");
+      const preset = AUDIO_BASELINES[id];
+      return preset ? deepClone(preset) : null;
+    },
+
+    withBaseline(options, name) {
+      const preset = this.baseline(name || "sukimastock");
+      const base = preset?.config || {};
+      return deepMerge(base, options || {});
+    },
 
     definition(value) {
       if (typeof value === "string") return { file: value };
