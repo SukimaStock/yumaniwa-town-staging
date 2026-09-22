@@ -3507,32 +3507,31 @@
           this.finale.speechStage = 1;
         }
 
-        // Act II — what was entrusted. Each line gets silence after it instead
-        // of handing meaning directly to the next line.
-        if (this.finale.speechStage < 3 && this.finale.timer >= 10.2) {
-          this.sayEve(tx("finale.accident1"), 3.6);
+        // The explanation now flows as one readable thought. There is no dead
+        // time left behind by the removed name-expansion reveal, but every line
+        // remains on screen long enough to finish reading.
+        if (this.finale.speechStage < 3 && this.finale.timer >= 4.2) {
+          this.sayEve(tx("finale.accident1"), 4.0);
           this.finale.speechStage = 3;
         }
 
-        if (this.finale.speechStage < 4 && this.finale.timer >= 14.8) {
-          this.sayEve(tx("finale.accident2"), 4.2);
+        if (this.finale.speechStage < 4 && this.finale.timer >= 8.7) {
+          this.sayEve(tx("finale.accident2"), 4.5);
           this.finale.speechStage = 4;
         }
 
-        if (this.finale.speechStage < 5 && this.finale.timer >= 20.0) {
-          this.sayEve(tx("finale.accident3"), 3.7);
+        if (this.finale.speechStage < 5 && this.finale.timer >= 13.7) {
+          this.sayEve(tx("finale.accident3"), 4.5);
           this.finale.speechStage = 5;
         }
 
-        // Act III — return. First promise the return, then reveal what is being
-        // returned. The BASE pulse belongs to the second line, not the setup.
-        if (this.finale.speechStage < 6 && this.finale.timer >= 25.0) {
-          this.sayEve(tx("finale.returnLead"), 1.6);
+        if (this.finale.speechStage < 6 && this.finale.timer >= 18.7) {
+          this.sayEve(tx("finale.returnMemory"), 2.8);
           this.finale.speechStage = 6;
         }
 
-        if (this.finale.speechStage < 7 && this.finale.timer >= 26.6) {
-          this.sayEve(tx("finale.returnMemory"), 2.6);
+        if (this.finale.speechStage < 7 && this.finale.timer >= 21.9) {
+          this.sayEve(tx("finale.returnLead"), 2.4);
           this.finale.speechStage = 7;
           if (!this.finale.pulseFired) {
             this.finale.pulseFired = true;
@@ -3541,9 +3540,9 @@
           }
         }
 
-        // Nothing speaks for the last 1.5 seconds. The player enters REBIRTH
-        // from HOME itself, not from a sentence that has barely finished.
-        if (this.finale.timer >= 30.7) this.startRebirthRitual();
+        // A final short beat is punctuation only; REBIRTH begins as soon as the
+        // last line has had time to land.
+        if (this.finale.timer >= 25.2) this.startRebirthRitual();
         return;
       }
 
