@@ -75,7 +75,11 @@
       "precise": "PRECISE",
       "fullyRestored": "FULLY RESTORED",
       "updated": "UPDATED",
-      "completeStatus": "COMPLETE"
+      "completeStatus": "COMPLETE",
+      "baseSystemUpdated": "BASE SYSTEM     : UPDATED",
+      "systemsUpdated": "SYSTEMS         : UPDATED",
+      "navigationUpdated": "NAVIGATION      : UPDATED",
+      "systemStable": "SYSTEM STATUS   : STABLE"
     },
     "boot": {
       "baseTerminal": "BASE // TERMINAL",
@@ -430,8 +434,7 @@
         "id": "promise",
         "key": "PROMISE",
         "lines": [
-          "「少し遠くまで\n行ってくる」",
-          "「……でも、ちゃんと戻るから」"
+          "「少し遠くまで\n行ってくる」"
         ]
       },
       {
@@ -455,8 +458,6 @@
   "finale": {
     "outro": "……お帰りなさい。",
     "connected": "……すべて、繋がりました。",
-    "eveName": "E.V.E.",
-    "expansion": "Echo of Vital Emotion.",
     "accident1": "「これだけは、なくしたくないんだ」――あの日、あなたが私に預けた記憶。",
     "accident2": "星の海に散らばったそれを、あなたはひとつずつ拾い集めてきました。",
     "accident3": "……修復していたのは、システムだけではなかったのですね。",
@@ -585,7 +586,6 @@
     ],
     "trueEnding": {
       "line1": "……あの日も、帰ろうとしていたんですね。",
-      "line2": "私も、あなたを帰そうとしていました。",
       "line3": "……今度は、帰ってこられました。",
       "line4": "……お帰りなさい、パイロット。"
     },
