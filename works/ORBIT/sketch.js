@@ -6145,34 +6145,11 @@
       if (!this.finale || !this.finale.active || this.finale.timer < 0) return;
       if (this.finale.stage === "ritual") return;
 
-      const t = this.finale.timer;
-      const segment = (start, end, fade = 0.45) => {
-        if (t < start || t >= end) return 0;
-        return Math.min(1, (t - start) / fade, (end - t) / fade);
-      };
-
-      // HOME remains visible beneath the story. The final sync belongs to this
-      // place, not to a separate ending screen.
+      // HOME remains visible beneath the story. Spoken lines belong to E.V.E.;
+      // the finale no longer adds a separate typographic answer over them.
       noStroke();
       fill(2, 5, 10, 105);
       rect(0, 0, W, H);
-      font("monospace");
-      textAlign(CENTER);
-
-      // Spoken lines are rendered by drawEveSpeech(). The only cinematic text
-      // left here is the one-time reveal of what E.V.E. stands for.
-      if (this.finale.stage === "outro") return;
-
-      const heldFade = (start, fadeInEnd, fadeOutStart, end) => {
-        if (t < start || t >= end) return 0;
-        if (t < fadeInEnd) return clamp((t - start) / Math.max(0.001, fadeInEnd - start), 0, 1);
-        if (t < fadeOutStart) return 1;
-        return clamp((end - t) / Math.max(0.001, end - fadeOutStart), 0, 1);
-      };
-
-      // The name expansion used to appear here as an explicit answer.
-      // The recovered memories and E.V.E.'s act of returning them now carry
-      // that meaning without a typographic reveal.
     }
 
     normalizeSystemLogEntry(entry) {
