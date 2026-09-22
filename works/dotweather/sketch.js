@@ -4,6 +4,86 @@
 (function () {
   "use strict";
 
+  function defineStorageSchemas() {
+    SSE.storage.define("cityState", {
+      version: 1,
+      fallback: null,
+      validate(value) {
+        return value === null || !!(
+          value &&
+          typeof value === "object" &&
+          value.version === 1 &&
+          Array.isArray(value.ids) &&
+          value.ids.every((id) => typeof id === "string") &&
+          (value.activeId === undefined || typeof value.activeId === "string")
+        );
+      },
+    });
+
+    // Legacy compatibility key. Existing installs may still need this once
+    // before cityState becomes authoritative.
+    SSE.storage.define("activeCity", {
+      version: 1,
+      fallback: "",
+      validate(value) {
+        return typeof value === "string";
+      },
+    });
+
+    SSE.storage.define("temperatureUnit", {
+      version: 1,
+      fallback: "C",
+      validate(value) {
+        return value === "C" || value === "F";
+      },
+    });
+
+    SSE.storage.define("lowPower", {
+      version: 1,
+      fallback: false,
+      validate(value) {
+        return typeof value === "boolean";
+      },
+    });
+
+    SSE.storage.define("viewMode", {
+      version: 1,
+      fallback: "forecast",
+      validate(value) {
+        return value === "forecast" || value === "ambient";
+      },
+    });
+
+    SSE.storage.define("customCitiesV1", {
+      version: 1,
+      fallback: null,
+      validate(value) {
+        return value === null || !!(
+          value &&
+          typeof value === "object" &&
+          value.version === 1 &&
+          Array.isArray(value.cities)
+        );
+      },
+    });
+
+    SSE.storage.define("weatherCacheV1", {
+      version: 1,
+      fallback: null,
+      validate(value) {
+        return value === null || !!(
+          value &&
+          typeof value === "object" &&
+          value.version === 1 &&
+          Number.isFinite(Number(value.updatedAt)) &&
+          value.forecasts &&
+          typeof value.forecasts === "object" &&
+          !Array.isArray(value.forecasts)
+        );
+      },
+    });
+  }
+
   const weatherScene = {
     opaque: true,
     ui: null,
@@ -68,6 +148,10 @@
 
     analytics: {
       enabled: true,
+    },
+
+    setup() {
+      defineStorageSchemas();
     },
 
     scenes: {
