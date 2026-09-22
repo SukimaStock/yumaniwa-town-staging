@@ -4174,7 +4174,16 @@
         // No-op.
       }
 
-      if (!state.config.debug || typeof document === "undefined") return;
+      if (
+        !state.config.debug ||
+        typeof document === "undefined" ||
+        typeof document.getElementById !== "function" ||
+        typeof document.createElement !== "function" ||
+        !document.body
+      ) {
+        return;
+      }
+
       let box = document.getElementById("sse-runtime-error");
 
       if (!box) {
@@ -4202,7 +4211,12 @@
 
     clear() {
       this.message = null;
-      if (typeof document === "undefined") return;
+      if (
+        typeof document === "undefined" ||
+        typeof document.getElementById !== "function"
+      ) {
+        return;
+      }
       document.getElementById("sse-runtime-error")?.remove();
     },
   };
