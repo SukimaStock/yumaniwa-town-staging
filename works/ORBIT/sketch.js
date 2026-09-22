@@ -481,7 +481,7 @@
     landing: Object.freeze({ file: "sounds/landing.ogg", volume: 0.14, cooldown: 120 }),
     ore: Object.freeze({ file: "sounds/ore.ogg", volume: 0.10, cooldown: 100 }),
     data: Object.freeze({ file: "sounds/data.ogg", volume: 0.11, cooldown: 120 }),
-    fuel: Object.freeze({ file: "sounds/fuel.ogg", volume: 0.10, cooldown: 140 }),
+    fuel: Object.freeze({ file: "sounds/fuel.ogg", volume: 0.28, cooldown: 140 }),
     impact: Object.freeze({ file: "sounds/impact.ogg", volume: 0.16, cooldown: 350 }),
     echo: Object.freeze({ file: "sounds/echo.ogg", volume: 0.14, cooldown: 300 }),
     restore: Object.freeze({ file: "sounds/restore.ogg", volume: 0.15, cooldown: 500 }),
@@ -545,6 +545,10 @@
   }
 
   function playOrbitToneCue(name) {
+    if (name === "diagnostic") {
+      scheduleOrbitTone({ frequency: 760, endFrequency: 840, duration: 0.060, volume: 0.050, type: "sine" }, 0);
+      return true;
+    }
     if (name === "boot") {
       scheduleOrbitTone({ frequency: 62, endFrequency: 108, duration: 0.92, volume: 0.070, type: "sine" }, 0);
       scheduleOrbitTone({ frequency: 124, endFrequency: 168, duration: 0.72, volume: 0.026, type: "triangle" }, 0.08);
@@ -6852,6 +6856,7 @@
     prologueActive: false,
     prologueTimer: 0,
     prologueEveOnlineSoundPlayed: false,
+    prologueStatusBeepCount: 0,
     handoffTimer: 0,
     handoffDuration: 0.90,
     handoffHudFade: 0.55,
@@ -6867,6 +6872,7 @@
       this.prologueActive = startMode === "new";
       this.prologueTimer = 0;
       this.prologueEveOnlineSoundPlayed = false;
+      this.prologueStatusBeepCount = 0;
       this.handoffTimer = 0;
 
       if (this.prologueActive) {
@@ -6904,6 +6910,16 @@
       if (this.prologueActive) {
         this.prologueTimer += Math.min(Math.max(Number(dt || 0), 0), 0.1);
         this.updatePrologueCamera();
+
+        while (
+          this.prologueStatusBeepCount < 4 &&
+          this.prologueTimer >=
+            PROLOGUE_TUNE.statusStart +
+              this.prologueStatusBeepCount * PROLOGUE_TUNE.statusStep
+        ) {
+          playOrbitCue("diagnostic");
+          this.prologueStatusBeepCount += 1;
+        }
 
         if (
           !this.prologueEveOnlineSoundPlayed &&
