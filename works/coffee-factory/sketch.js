@@ -2036,9 +2036,19 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     setup() {
       syncDocumentLanguage();
       seAudio.preload();
-      document.addEventListener("visibilitychange",()=>lifecycle(document.hidden));
-      root.addEventListener("pagehide",()=>lifecycle(true));
-      root.addEventListener("pageshow",()=>lifecycle(document.hidden));
+
+      // Browser visibility/page-cache events are normalized by SSE.lifecycle.
+      // CoffeeFactory keeps only its work-specific hidden-time semantics here:
+      // RecipeClock advances by wall time while hidden, while animation update
+      // remains suspended by the Engine.
+      SSE.lifecycle.onPause(() => lifecycle(true));
+      SSE.lifecycle.onResume(() => lifecycle(false));
+
+      // If the page starts hidden, synchronize the work immediately because
+      // lifecycle listeners are registered after the Engine installs itself.
+      if (SSE.lifecycle.paused || document.hidden) lifecycle(true);
+
+      // Work-local gesture reset remains harmless and intentional.
       root.addEventListener("blur",resetGesture);
       root.addEventListener("resize",resetGesture);
     },
