@@ -88,6 +88,11 @@
       "systemConnectedFast": "SYSTEM LINK .. CONNECTED",
       "online": "ONLINE",
       "linkEstablished": "LINK ESTABLISHED"
+    },
+    "restoreLink": {
+      "channel": "BASE // RESTORE CHANNEL",
+      "connecting": "RESTORE LINK",
+      "connected": "CONNECTED"
     }
   },
   "eve": {
