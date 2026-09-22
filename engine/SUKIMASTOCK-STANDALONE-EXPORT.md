@@ -170,3 +170,15 @@ and
 
 a standalone ZIP depending on repository-relative paths
 ```
+
+## GitHub Actions integration
+
+ORBIT also validates the same export contract in GitHub Actions:
+
+```text
+.github/workflows/orbit-standalone-export.yml
+```
+
+Relevant pushes automatically build an `ORBIT-itch` artifact. The artifact itself is the itch-ready ZIP layout: `index.html` and the other runtime files are at the archive root.
+
+The first automated build completed successfully and produced a 16-file artifact. This validates that standalone packaging does not depend on a local desktop Python environment.
