@@ -223,11 +223,16 @@
   };
 
   // ------------------------------------------------------------
-  // App-scoped storage
+  // App-scoped storage v2
   // ------------------------------------------------------------
 
   const storage = {
     prefix: "sse",
+    definitions: new Map(),
+    memory: new Map(),
+    checkpoints: new Map(),
+    lastError: null,
+    lastBackend: "none",
 
     namespace() {
       const appId = String(state.config.id || "sukimastock-app");
@@ -241,75 +246,451 @@
       return this.namespace() + String(name);
     },
 
-    set(name, value) {
-      if (value === undefined) return this.remove(name);
+    clone(value) {
+      return deepClone(value);
+    },
+
+    normalizeDefinition(options) {
+      const source = options || {};
+      const version = Math.max(1, Math.floor(Number(source.version) || 1));
+
+      return {
+        version,
+        fallback: this.clone(source.fallback),
+        validate: typeof source.validate === "function" ? source.validate : null,
+        migrate: typeof source.migrate === "function" ? source.migrate : null,
+        migrations: isObject(source.migrations) ? source.migrations : null,
+      };
+    },
+
+    define(name, options) {
+      const id = String(name || "");
+      if (!id) throw new TypeError("SSE.storage.define requires a non-empty key.");
+
+      const definition = this.normalizeDefinition(options);
+      this.definitions.set(id, definition);
+
+      const store = this;
+      return Object.freeze({
+        name: id,
+        version: definition.version,
+        get(fallback) {
+          return arguments.length > 0
+            ? store.get(id, fallback)
+            : store.get(id);
+        },
+        set(value) {
+          return store.set(id, value);
+        },
+        has() {
+          return store.has(id);
+        },
+        remove() {
+          return store.remove(id);
+        },
+        checkpoint(value) {
+          return arguments.length > 0
+            ? store.checkpoint(id, value)
+            : store.checkpoint(id);
+        },
+        getCheckpoint(fallback) {
+          return arguments.length > 0
+            ? store.getCheckpoint(id, fallback)
+            : store.getCheckpoint(id);
+        },
+        clearCheckpoint() {
+          return store.clearCheckpoint(id);
+        },
+        info() {
+          return store.info(id);
+        },
+      });
+    },
+
+    definition(name) {
+      return this.definitions.get(String(name)) || null;
+    },
+
+    fallbackFor(name, fallback, hasExplicitFallback) {
+      if (hasExplicitFallback) return this.clone(fallback);
+      const definition = this.definition(name);
+      return definition ? this.clone(definition.fallback) : fallback;
+    },
+
+    makeRecord(name, value) {
+      const definition = this.definition(name);
+      return {
+        version: definition ? definition.version : 1,
+        value: this.clone(value),
+      };
+    },
+
+    decodeRecord(raw) {
+      const decoded = JSON.parse(raw);
+
+      if (
+        decoded &&
+        typeof decoded === "object" &&
+        Object.prototype.hasOwnProperty.call(decoded, "version") &&
+        Object.prototype.hasOwnProperty.call(decoded, "value")
+      ) {
+        return {
+          version: Math.max(0, Math.floor(Number(decoded.version) || 0)),
+          value: decoded.value,
+          wrapped: true,
+        };
+      }
+
+      // Pre-SSE or manually-written JSON is treated as schema version 0.
+      return {
+        version: 0,
+        value: decoded,
+        wrapped: false,
+      };
+    },
+
+    readRecord(name) {
+      const key = this.key(name);
+      this.lastError = null;
 
       try {
         const local = root.localStorage;
-        if (!local) return false;
-        const payload = JSON.stringify({ version: 1, value });
-        local.setItem(this.key(name), payload);
-        return true;
-      } catch (_error) {
+        if (local) {
+          const raw = local.getItem(key);
+          if (raw !== null && raw !== undefined) {
+            const record = this.decodeRecord(raw);
+            this.memory.set(key, this.clone(record));
+            this.lastBackend = "localStorage";
+            return record;
+          }
+        }
+      } catch (error) {
+        this.lastError = error;
+      }
+
+      if (this.memory.has(key)) {
+        this.lastBackend = "memory";
+        return this.clone(this.memory.get(key));
+      }
+
+      this.lastBackend = "none";
+      return null;
+    },
+
+    writeRecord(name, record) {
+      const key = this.key(name);
+      const safeRecord = this.clone(record);
+      this.memory.set(key, safeRecord);
+      this.lastError = null;
+      this.lastBackend = "memory";
+
+      try {
+        const local = root.localStorage;
+        if (!local) return { ok: true, persistent: false, backend: "memory" };
+
+        local.setItem(key, JSON.stringify(record));
+        this.lastBackend = "localStorage";
+        return { ok: true, persistent: true, backend: "localStorage" };
+      } catch (error) {
+        this.lastError = error;
+        return { ok: true, persistent: false, backend: "memory", error };
+      }
+    },
+
+    validateValue(definition, value) {
+      if (!definition || !definition.validate) return true;
+
+      try {
+        return definition.validate(value) !== false;
+      } catch (error) {
+        this.lastError = error;
+        return false;
+      }
+    },
+
+    migrateValue(name, record) {
+      const definition = this.definition(name);
+      if (!definition) {
+        return { ok: true, value: record.value, version: record.version, migrated: false };
+      }
+
+      const targetVersion = definition.version;
+      let currentVersion = Math.max(0, Math.floor(Number(record.version) || 0));
+      let value = this.clone(record.value);
+
+      if (currentVersion === targetVersion) {
+        return {
+          ok: this.validateValue(definition, value),
+          value,
+          version: currentVersion,
+          migrated: false,
+        };
+      }
+
+      // Never overwrite data written by a newer Engine/app version.
+      if (currentVersion > targetVersion) {
+        return {
+          ok: false,
+          futureVersion: true,
+          value: undefined,
+          version: currentVersion,
+          migrated: false,
+        };
+      }
+
+      try {
+        if (definition.migrations) {
+          while (currentVersion < targetVersion) {
+            const step =
+              definition.migrations[currentVersion] ||
+              definition.migrations[String(currentVersion)];
+
+            if (typeof step !== "function") {
+              return {
+                ok: false,
+                missingMigration: currentVersion,
+                value: undefined,
+                version: currentVersion,
+                migrated: false,
+              };
+            }
+
+            value = step(
+              this.clone(value),
+              currentVersion,
+              currentVersion + 1
+            );
+            currentVersion += 1;
+          }
+        } else if (definition.migrate) {
+          value = definition.migrate(
+            this.clone(value),
+            currentVersion,
+            targetVersion
+          );
+          currentVersion = targetVersion;
+        } else {
+          return {
+            ok: false,
+            missingMigration: currentVersion,
+            value: undefined,
+            version: currentVersion,
+            migrated: false,
+          };
+        }
+      } catch (error) {
+        this.lastError = error;
+        return {
+          ok: false,
+          migrationError: error,
+          value: undefined,
+          version: currentVersion,
+          migrated: false,
+        };
+      }
+
+      if (!this.validateValue(definition, value)) {
+        return {
+          ok: false,
+          validationFailed: true,
+          value: undefined,
+          version: currentVersion,
+          migrated: false,
+        };
+      }
+
+      const write = this.writeRecord(name, {
+        version: targetVersion,
+        value: this.clone(value),
+      });
+
+      return {
+        ok: true,
+        value,
+        version: targetVersion,
+        migrated: true,
+        persistent: !!write.persistent,
+      };
+    },
+
+    set(name, value) {
+      if (value === undefined) return this.remove(name);
+
+      const definition = this.definition(name);
+      if (definition && !this.validateValue(definition, value)) return false;
+
+      try {
+        const result = this.writeRecord(name, this.makeRecord(name, value));
+        // Legacy boolean API means "available for the current session".
+        // Use info() when the caller needs to know whether it was persisted.
+        return !!result.ok;
+      } catch (error) {
+        this.lastError = error;
         return false;
       }
     },
 
     get(name, fallback) {
-      try {
-        const local = root.localStorage;
-        if (!local) return fallback;
-        const raw = local.getItem(this.key(name));
-        if (raw === null || raw === undefined) return fallback;
+      const hasExplicitFallback = arguments.length >= 2;
+      const defaultValue = this.fallbackFor(
+        name,
+        fallback,
+        hasExplicitFallback
+      );
 
-        const decoded = JSON.parse(raw);
-        if (decoded && decoded.version === 1 && Object.prototype.hasOwnProperty.call(decoded, "value")) {
-          return decoded.value;
-        }
-        return decoded;
-      } catch (_error) {
-        return fallback;
+      let record;
+      try {
+        record = this.readRecord(name);
+      } catch (error) {
+        this.lastError = error;
+        return defaultValue;
       }
+
+      if (!record) return defaultValue;
+
+      const result = this.migrateValue(name, record);
+      if (!result.ok) return defaultValue;
+
+      return this.clone(result.value);
     },
 
     has(name) {
+      const key = this.key(name);
+      if (this.memory.has(key)) return true;
+
       try {
         const local = root.localStorage;
         if (!local) return false;
-        return local.getItem(this.key(name)) !== null;
-      } catch (_error) {
-        return false;
+        return local.getItem(key) !== null;
+      } catch (error) {
+        this.lastError = error;
+        return this.memory.has(key);
       }
     },
 
     remove(name) {
+      const key = this.key(name);
+      this.memory.delete(key);
+      this.checkpoints.delete(key);
+      this.lastError = null;
+
       try {
         const local = root.localStorage;
-        if (!local) return false;
-        local.removeItem(this.key(name));
+        if (local) local.removeItem(key);
+        this.lastBackend = local ? "localStorage" : "memory";
         return true;
-      } catch (_error) {
-        return false;
+      } catch (error) {
+        this.lastError = error;
+        this.lastBackend = "memory";
+        return true;
       }
     },
 
     clear() {
+      const prefix = this.namespace();
+      const localKeys = [];
+
+      for (const key of Array.from(this.memory.keys())) {
+        if (key.startsWith(prefix)) this.memory.delete(key);
+      }
+
+      for (const key of Array.from(this.checkpoints.keys())) {
+        if (key.startsWith(prefix)) this.checkpoints.delete(key);
+      }
+
+      this.lastError = null;
+
       try {
         const local = root.localStorage;
-        if (!local) return false;
-        const prefix = this.namespace();
-        const keys = [];
+        if (!local) {
+          this.lastBackend = "memory";
+          return true;
+        }
 
         for (let i = 0; i < local.length; i += 1) {
           const key = local.key(i);
-          if (key && key.startsWith(prefix)) keys.push(key);
+          if (key && key.startsWith(prefix)) localKeys.push(key);
         }
 
-        for (const key of keys) local.removeItem(key);
+        for (const key of localKeys) local.removeItem(key);
+        this.lastBackend = "localStorage";
         return true;
-      } catch (_error) {
+      } catch (error) {
+        this.lastError = error;
+        this.lastBackend = "memory";
+        return true;
+      }
+    },
+
+    checkpoint(name, value) {
+      const key = this.key(name);
+      let snapshot;
+
+      if (arguments.length >= 2) {
+        snapshot = value;
+      } else {
+        const marker = {};
+        snapshot = this.get(name, marker);
+        if (snapshot === marker) return false;
+      }
+
+      try {
+        this.checkpoints.set(key, this.clone(snapshot));
+        return true;
+      } catch (error) {
+        this.lastError = error;
         return false;
       }
+    },
+
+    getCheckpoint(name, fallback) {
+      const key = this.key(name);
+      if (!this.checkpoints.has(key)) {
+        return arguments.length >= 2 ? this.clone(fallback) : undefined;
+      }
+      return this.clone(this.checkpoints.get(key));
+    },
+
+    clearCheckpoint(name) {
+      return this.checkpoints.delete(this.key(name));
+    },
+
+    info(name) {
+      const id = String(name || "");
+      const key = id ? this.key(id) : null;
+      const definition = id ? this.definition(id) : null;
+      let persistent = false;
+      let storedVersion = null;
+
+      if (key) {
+        try {
+          const local = root.localStorage;
+          const raw = local ? local.getItem(key) : null;
+          persistent = raw !== null && raw !== undefined;
+          if (raw !== null && raw !== undefined) {
+            storedVersion = this.decodeRecord(raw).version;
+          }
+        } catch (error) {
+          this.lastError = error;
+        }
+
+        if (storedVersion === null && this.memory.has(key)) {
+          storedVersion = Number(this.memory.get(key)?.version ?? null);
+        }
+      }
+
+      return {
+        name: id || null,
+        key,
+        defined: !!definition,
+        version: definition ? definition.version : null,
+        storedVersion,
+        persistent,
+        memory: !!(key && this.memory.has(key)),
+        checkpoint: !!(key && this.checkpoints.has(key)),
+        backend: this.lastBackend,
+        lastError: this.lastError ? String(this.lastError.message || this.lastError) : null,
+      };
     },
   };
 
