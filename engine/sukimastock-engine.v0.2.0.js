@@ -907,6 +907,20 @@
       return this.get(name, null);
     },
 
+    peek(name, fallback) {
+      const record = this.record(name);
+      if (
+        !record ||
+        record.status === "idle" ||
+        record.status === "error" ||
+        record.value === null ||
+        record.value === undefined
+      ) {
+        return arguments.length >= 2 ? fallback : null;
+      }
+      return record.value;
+    },
+
     isReady(target) {
       let names;
       try {
@@ -1028,28 +1042,26 @@
       });
     },
 
-    loadImage(name, definition, options) {
+    startImage(definition, options) {
       const loader =
         (typeof root.loadImage === "function" && root.loadImage) ||
         (typeof root.readImage === "function" && root.readImage);
 
       if (!loader) {
-        return Promise.reject(new Error("No Codea-style image loader is available."));
+        throw new Error("No Codea-style image loader is available.");
       }
 
-      let value;
-      try {
-        value = loader(definition.file);
-      } catch (error) {
-        return Promise.reject(error);
-      }
+      const value = loader(definition.file);
 
       this.setFetchPriority(
         value,
         options?.priority || definition.priority || null
       );
 
-      return this.waitForImage(value, definition, options);
+      return {
+        value,
+        promise: this.waitForImage(value, definition, options),
+      };
     },
 
     loadFetch(definition, options) {
@@ -1129,7 +1141,13 @@
 
       let task;
       if (definition.type === "image") {
-        task = this.loadImage(id, definition, options);
+        try {
+          const started = this.startImage(definition, options);
+          record.value = started.value;
+          task = started.promise;
+        } catch (error) {
+          task = Promise.reject(error);
+        }
       } else if (definition.type === "audio") {
         task = this.loadAudio(definition);
       } else {
