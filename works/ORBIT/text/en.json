@@ -122,13 +122,13 @@
       "4": {
         "short": "docking complete.\nthe ship seems okay.",
         "normal": "welcome back. are you hurt?\nyou're safe here.",
-        "long": "ah... welcome back!\ni was... a little worried.",
+        "long": "ah... welcome back!\nyou were... a little late.",
         "lowFuel": "fuel is getting low.\nlet's not push it. we should go back."
       },
       "5": {
         "short": "Docking complete.\nAll systems are nominal.",
-        "normal": "Welcome back. All systems are nominal.\n...You're safe here.",
-        "long": "Welcome home, Pilot.\n...I was a little worried.",
+        "normal": "Welcome back. All systems are nominal.",
+        "long": "Welcome home, Pilot.\n...You were a little late.",
         "lowFuel": "Fuel is getting low.\nLet's not push it. We should head back."
       }
     },
@@ -340,7 +340,7 @@
       "2": "Pilot... returned.\nFuel... zero. Please... be careful.",
       "3": "RETURN CONFIRMED.\n...DO NOT... PUSH SO HARD.",
       "4": "...you made it back.\nnext time, let's come home a little sooner.",
-      "5": "...I'm glad you made it back.\nNext time, please come home a little sooner."
+      "5": "...Welcome back.\nNext time, please come home a little sooner."
     },
     "firstFlightHint": "...HOME... SIGNAL...\n...RESTORE...?"
   },
@@ -408,7 +408,7 @@
         "key": "WORRY",
         "lines": [
           "\"Sorry I took so long to answer.\"",
-          "Three warnings sent.\nThe fourth... never became words."
+          "Three warnings sent.\nThe fourth... was not sent."
         ]
       },
       {
@@ -479,7 +479,7 @@
     },
     "rebirth": {
       "name": "REBIRTH",
-      "response": "Your heart\nbegins to move again.",
+      "response": "...Response confirmed.",
       "instruction": "Press and hold the center"
     }
   },
