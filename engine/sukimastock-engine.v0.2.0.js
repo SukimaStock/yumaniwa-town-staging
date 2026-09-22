@@ -3904,11 +3904,12 @@
       return entry ? entry.value : fallback;
     },
 
-    set(name, value) {
+    set(name, value, options) {
       const id = String(name || "");
       const entry = this.tunings.get(id);
       if (!entry) return false;
 
+      const opts = options || {};
       const number = clamp(Number(value) || 0, entry.min, entry.max);
       entry.value = number;
 
@@ -3920,8 +3921,14 @@
         }
       }
 
-      diagnostics.info("tuning-change", id + " = " + number);
-      this.renderPanel();
+      if (opts.record !== false) {
+        diagnostics.info("tuning-change", id + " = " + number);
+      }
+
+      if (opts.render !== false) {
+        this.renderPanel();
+      }
+
       return true;
     },
 
@@ -3982,8 +3989,18 @@
           value.style.textAlign = "right";
 
           slider.addEventListener("input", () => {
-            this.set(name, Number(slider.value));
+            this.set(name, Number(slider.value), {
+              render: false,
+              record: false,
+            });
             value.textContent = String(this.round(this.get(name), 3));
+          });
+
+          slider.addEventListener("change", () => {
+            diagnostics.info(
+              "tuning-change",
+              name + " = " + this.get(name)
+            );
           });
 
           row.appendChild(label);
