@@ -82,3 +82,25 @@ Validated:
 12. A released image can be preloaded again successfully
 
 The release path deliberately checks whether another active asset record references the same file before dropping the shared Codea image/cache entry.
+
+
+## Lifecycle + robust input smoke test
+
+Validated:
+
+1. Keyboard action binding works for Code-based and key-based input
+2. Bound keys can prevent browser default behavior
+3. Pressed/released keyboard state lasts for one rendered Engine frame
+4. Held state remains until keyup
+5. Blur clears held keyboard state
+6. Blur dispatches a synthetic CANCELLED touch for an active pointer
+7. Blur does not pause by default
+8. `pauseOnBlur: true` pauses and focus resumes
+9. `visibilitychange → hidden` pauses the Engine
+10. Scene update does not advance while lifecycle-paused
+11. Visible state resumes Engine update
+12. Currently playing BGM pauses during lifecycle pause and resumes afterward
+13. `pagehide/pageshow` pause/resume works
+14. Stacked `hidden + pagehide` reasons are cleared safely on visible pageshow
+15. Pause/resume listeners fire only on actual paused-state transitions
+16. Resume resets Engine frame timing so hidden time is not applied as a large next-frame delta
