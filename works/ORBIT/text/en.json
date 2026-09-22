@@ -18,7 +18,7 @@
     "saved": "SAVED",
     "echo": "ECHO {found}/{total}",
     "fuelPickup": "+{amount} FUEL",
-    "memoryFragment": "MEMORY FRAGMENT",
+    "memoryFragment": "",
     "eveLabel": "E.V.E.",
     "echoLabel": "ECHO"
   },
@@ -103,25 +103,25 @@
     "phase": {
       "1": {
         "short": "...DOCKING... OK.",
-        "normal": "...WELCOME... BACK...\n...SAFE... HERE...",
+        "normal": "...WELCOME... BACK...",
         "long": "...PILOT... RETURNED.\n...ANALYZING...",
         "lowFuel": "...FUEL... LOW..."
       },
       "2": {
         "short": "Docking complete.\nAll systems stable.",
-        "normal": "Welcome back.\nSystem check: OK. You are safe.",
+        "normal": "Welcome back.\nSystem check: OK.",
         "long": "Welcome back, Pilot.\nLong range scan... complete.",
         "lowFuel": "Fuel low.\nReturn recommended."
       },
       "3": {
         "short": "DOCKING COMPLETE.\nSHIP STATUS: NORMAL.",
-        "normal": "RETURN CONFIRMED. SYSTEM CHECK: OK.\nYOU ARE WITHIN SAFE RANGE.",
+        "normal": "RETURN CONFIRMED.\nSYSTEM CHECK: OK.",
         "long": "RETURN CONFIRMED.\nSCAN DATA... ANALYSIS IN PROGRESS.",
         "lowFuel": "FUEL LEVEL LOW.\nRETURN RECOMMENDED."
       },
       "4": {
         "short": "docking complete.\nthe ship seems okay.",
-        "normal": "welcome back. are you hurt?\nyou're safe here.",
+        "normal": "welcome back. are you hurt?",
         "long": "ah... welcome back!\nyou were... a little late.",
         "lowFuel": "fuel is getting low.\nlet's not push it. we should go back."
       },
@@ -307,11 +307,11 @@
       ]
     },
     "echoReturn": {
-      "1": "...WELCOME... BACK...\n...ECHO... {a}/{b}...",
-      "2": "Welcome back.\nEcho archive: {a}/{b}.",
-      "3": "WELCOME BACK.\nECHO RECOVERED {a}/{b}.",
-      "4": "welcome back.\nwe've found {a}/{b} echoes.",
-      "5": "Welcome home.\nWe've recovered {a}/{b} Echoes."
+      "1": "...WELCOME... BACK...",
+      "2": "Welcome back.",
+      "3": "WELCOME BACK.",
+      "4": "welcome back.",
+      "5": "Welcome home."
     },
     "restoreDeparture": {
       "2": "I can see... farther now.",
@@ -345,7 +345,7 @@
     "firstFlightHint": "...HOME... SIGNAL...\n...RESTORE...?"
   },
   "echo": {
-    "header": "ECHO {index}/{total} — {key}",
+    "header": "ECHO {index}/{total}",
     "memories": [
       {
         "id": "voice",
@@ -513,7 +513,7 @@
   "incident": {
     "header": "INCIDENT LOG // {code}",
     "introWait": "...Wait.",
-    "introSignal": "A faint record signal from ASTRA.\n...It wasn't visible before.",
+    "introSignal": "A faint record signal from ASTRA.",
     "siteFound": "...Here.",
     "complete": "...That's all of the records that remained.",
     "returnHome": "...Let's go home.",
@@ -573,8 +573,8 @@
       }
     ],
     "trueEnding": {
-      "line1": "...That day, we were trying to go home too.",
-      "line3": "...This time, we made it back.",
+      "line1": "",
+      "line3": "",
       "line4": "...Welcome home, Pilot."
     },
     "signalNear": "...The source is close."
