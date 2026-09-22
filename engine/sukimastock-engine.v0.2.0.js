@@ -3438,8 +3438,23 @@
     queryEnabled(targetRoot) {
       try {
         const param = String(this.config().queryParam || "dev");
-        const value = new URLSearchParams(targetRoot.location?.search || "").get(param);
-        return value === "1" || value === "true" || value === "yes";
+        const search = String(targetRoot.location?.search || "").replace(/^\?/, "");
+        if (!search) return false;
+
+        for (const pair of search.split("&")) {
+          if (!pair) continue;
+          const parts = pair.split("=");
+          let key = parts.shift() || "";
+          let value = parts.join("=");
+
+          try { key = decodeURIComponent(key.replace(/\+/g, " ")); } catch (_error) {}
+          try { value = decodeURIComponent(value.replace(/\+/g, " ")); } catch (_error) {}
+
+          if (key !== param) continue;
+          return value === "1" || value === "true" || value === "yes";
+        }
+
+        return false;
       } catch (_error) {
         return false;
       }
