@@ -17,7 +17,7 @@ The engine owns repeated Web/runtime friction. Each work keeps its own rules, co
 3. **Storage v2** — complete in canonical Engine
 4. **Asset Loader** — complete in canonical Engine
 5. **Lifecycle + robust input** — complete in canonical Engine
-6. Performance controls
+6. **Performance controls** — complete in canonical Engine
 7. DevTools + Session Report
 
 Later candidates:
@@ -346,4 +346,76 @@ Bound keys prevent browser default behavior by default. Keyboard state is cleare
 
 This is the shared version of the browser-interruption fixes already proven in ORBIT and the lifecycle handling previously written directly inside CoffeeFactory.
 
-The next implementation step is Performance controls.
+## Performance controls
+
+Performance controls combine frame-rate targeting with lightweight runtime measurement.
+
+The existing `frameRate` option remains supported for compatibility. New works can use:
+
+```js
+SSE.createApp({
+  id: "quiet-clock",
+  performance: {
+    targetFps: 30,
+    sampleWindow: 120,
+    slowFrameFactor: 1.75,
+  },
+});
+```
+
+`performance.targetFps` takes precedence over the legacy `frameRate` value.
+
+The Engine records:
+
+- current / average / minimum FPS
+- current / average / p95 / maximum frame interval
+- update cost
+- draw cost
+- total Engine work cost
+- RAF calls
+- rendered frames
+- update frames
+- frames skipped by FPS throttling
+- slow frames
+- paused draws
+- total paused time
+- pause count
+- active session time
+
+Example:
+
+```js
+const report = SSE.performance.snapshot();
+
+console.log(report.fps.average);
+console.log(report.frame.p95Ms);
+console.log(report.frames.slow);
+console.log(report.session.pausedMs);
+```
+
+`SSE.performance.report()` currently returns the same structured snapshot and is intended as the handoff point for DevTools / Session Report.
+
+A slow frame is judged against the work's target frame interval. By default the threshold is:
+
+```text
+target frame time × 1.75
+```
+
+so a deliberate 30fps work is not treated as slow merely because it is not running at 60fps. A fixed threshold can be supplied with `slowFrameMs`.
+
+For low-FPS works, Engine delta clamping also expands with the target frame interval instead of permanently using the old 50ms cap. This prevents a deliberately low target FPS from making time-based motion run too slowly.
+
+Important: Performance controls do **not** automatically lower quality, reduce effects, or change a work's target FPS. The Engine measures and reports; the author keeps control over feel.
+
+Metrics can be disabled while frame-rate throttling remains active:
+
+```js
+performance: {
+  enabled: false,
+  targetFps: 30,
+}
+```
+
+This keeps measurement optional without changing the work's timing policy.
+
+The next implementation step is DevTools + Session Report.
