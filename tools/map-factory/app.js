@@ -2,94 +2,59 @@
   'use strict';
 
   const STORAGE_KEY = 'yumaniwa-map-factory-v01';
-
-  const MASTER = {
-    id: 'alley-shop-master',
-    type: 'alley_shop',
-    name: 'Alley Shop',
-    version: 1,
-    prompt: `YUMANIWA TOWN / TOMOGUSHI ALLEY SHOP
-
-PURPOSE
-A standalone small storefront asset placed inside Tomogushi Alley in Yumaniwa Town.
-
-CAMERA
-Front-facing with a subtle elevated game-map perspective.
-The storefront must read clearly when displayed at a small in-game scale.
-
-COMPOSITION
-One complete independent shop.
-Compact silhouette.
-Clear ground contact.
-Main entrance and shop identity should be understandable at a glance.
-Keep the shop visually self-contained so it can be placed as a transparent PNG on an existing map.
-
-WORLD FEEL
-A quiet small-town alley at night.
-Warm, lived-in, handmade rather than polished or luxurious.
-Slightly nostalgic, but not themed like a historical attraction.
-The shop should feel like it has been there for years.
-Avoid visual noise and exaggerated cuteness.
-
-LIGHTING
-Night setting.
-Warm and restrained shop lighting.
-Do not make the entire asset glow.
-Keep enough darker areas so it belongs in a calm alley.
-
-GAME ASSET REQUIREMENTS
-Transparent background.
-No surrounding street or pavement.
-No unrelated neighboring buildings.
-No people.
-No large scenery behind the shop.
-No long cast shadow extending outside the footprint.
-Keep the bottom edge easy to align to the map ground.
-Readable silhouette at small size.
-
-SHOP
-{{shopType}}
-
-DESCRIPTION
-{{description}}
-
-MAIN COLOR
-{{mainColor}}
-
-SIGN
-{{sign}}
-
-SHOP LIGHTING
-{{lighting}}
-
-SMALL PROPS
-{{props}}
-
-MANUAL ADJUSTMENT
-{{manualAdjustment}}`
-  };
+  const MASTERS = window.YUMANIWA_MAP_FACTORY_MASTERS || {};
+  const DEFAULT_MASTER_ID = window.YUMANIWA_MAP_FACTORY_DEFAULT_MASTER || 'alley-shop-double';
 
   const seedRecipes = [
+    {
+      id: 'craft-cola-double-reference',
+      name: 'クラフトコーラ屋（2軒並び・参照版）',
+      type: 'alley_shop',
+      status: 'reference',
+      generationMode: 'double_variation',
+      pairStrategy: 'same_shop_variations',
+      master: { id: 'alley-shop-double', version: 1 },
+      description: '灯串横丁のクラフトコーラ屋を2軒並びで生成し、1軒あたりの情報量を落としてレトロなドット絵感を強める。',
+      variables: {
+        shopType: 'small craft-cola shops',
+        mainColor: 'dark brown wooden facades, deep charcoal roofs, faded dark red noren, small beige accents, warm amber light',
+        sign: 'one simple hanging bottle sign per shop, using a very simple bottle-shaped emblem or abstract cola symbol',
+        lighting: 'one small warm lantern or entrance light per shop, restrained amber light',
+        props: 'at most 2 simple cola bottles and 1 simple spice jar per shop, no labels, no clutter'
+      },
+      output: { gameWidthTiles: 4.5, gameHeightTiles: 6 },
+      manualAdjustment: 'Preserve the noren and hanging signs as the main identity. Keep both shops compact, narrow, slightly vertical, low-color, and visually quiet.',
+      notes: '現在の最良結果。2軒並びにすることで1軒あたりの見かけサイズと情報量が下がり、Singleより灯串横丁の既存店に近いドット絵感が出た。2案を同時比較できるのも有効。今後の灯串店舗はDouble Variationを優先して試す。',
+      result: {
+        selectedImage: './references/craft-cola-double-reference.jpg',
+        caption: 'Double Variation v1 の基準例。2軒並びで密度を落とす方法が最も安定した。'
+      },
+      createdAt: '2026-09-22T20:08:00+02:00',
+      updatedAt: '2026-09-22T20:08:00+02:00',
+      parentId: null
+    },
     {
       id: 'craft-cola',
       name: 'クラフトコーラ屋',
       type: 'alley_shop',
-      status: 'draft',
-      master: { id: MASTER.id, version: MASTER.version },
+      status: 'good',
+      generationMode: 'single',
+      pairStrategy: 'none',
+      master: { id: 'alley-shop-single', version: 5 },
       description: '灯串横丁にある小さなクラフトコーラ店',
       variables: {
-        shopType: 'small craft cola shop',
-        mainColor: 'deep brown with muted amber accents',
-        sign: 'small handmade shop sign',
-        lighting: 'warm, dim, restrained light',
-        props: 'cola bottles, spice jars, a few wooden crates'
+        shopType: 'small craft-cola shop',
+        mainColor: 'dark brown wooden facade, deep charcoal roof, faded dark red noren, warm amber light',
+        sign: 'one simple hanging bottle sign',
+        lighting: 'one warm lantern or small entrance light',
+        props: 'at most 2 simple cola bottles and 1 simple spice jar'
       },
-      output: { gameWidthTiles: 6, gameHeightTiles: 6 },
-      manualAdjustment: '',
-      notes: '',
-      prompt: '',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      output: { gameWidthTiles: 4.5, gameHeightTiles: 6 },
+      manualAdjustment: 'Keep the storefront narrow and slightly vertical. Preserve the noren and hanging sign. Keep the detail level low.',
+      notes: 'Single v5で方向性は良好。ただしDouble Variationの方がドット絵感と比較性で良かったため、現在は補助Recipe。',
+      result: { selectedImage: '', caption: '' },
+      createdAt: '2026-09-22T19:00:00+02:00',
+      updatedAt: '2026-09-22T20:08:00+02:00',
       parentId: null
     }
   ];
@@ -102,6 +67,9 @@ MANUAL ADJUSTMENT
     editorTitle: $('editorTitle'),
     name: $('nameInput'),
     status: $('statusInput'),
+    generationMode: $('generationModeInput'),
+    pairStrategy: $('pairStrategyInput'),
+    baseRecipeLabel: $('baseRecipeLabel'),
     description: $('descriptionInput'),
     shopType: $('shopTypeInput'),
     mainColor: $('mainColorInput'),
@@ -113,19 +81,61 @@ MANUAL ADJUSTMENT
     manual: $('manualInput'),
     notes: $('notesInput'),
     prompt: $('promptOutput'),
-    masterPrompt: $('masterPromptOutput')
+    promptMasterLabel: $('promptMasterLabel'),
+    masterPrompt: $('masterPromptOutput'),
+    masterPanelTitle: $('masterPanelTitle'),
+    masterPanelDescription: $('masterPanelDescription'),
+    referencePreview: $('referencePreview'),
+    referenceImage: $('referenceImage'),
+    referenceCaption: $('referenceCaption')
   };
 
   let currentFilter = 'all';
   let editingId = null;
   let state = loadState();
 
+  function clone(value) {
+    return JSON.parse(JSON.stringify(value));
+  }
+
+  function normalizeRecipe(recipe) {
+    const r = clone(recipe);
+    r.generationMode = r.generationMode || ((r.master && r.master.id === 'alley-shop-double') ? 'double_variation' : 'single');
+    r.pairStrategy = r.pairStrategy || (r.generationMode === 'double_variation' ? 'same_shop_variations' : 'none');
+    r.variables = Object.assign({ shopType:'', mainColor:'', sign:'', lighting:'', props:'' }, r.variables || {});
+    r.output = Object.assign({ gameWidthTiles:4.5, gameHeightTiles:6 }, r.output || {});
+    r.result = Object.assign({ selectedImage:'', caption:'' }, r.result || {});
+    syncMaster(r);
+    return r;
+  }
+
+  function migrateState(candidate) {
+    const migrated = candidate && Array.isArray(candidate.recipes) ? candidate : { recipes: [] };
+    migrated.recipes = migrated.recipes.map(normalizeRecipe);
+
+    seedRecipes.forEach((seed) => {
+      const index = migrated.recipes.findIndex((r) => r.id === seed.id);
+      if (index === -1) {
+        migrated.recipes.unshift(clone(seed));
+      } else if (seed.id === 'craft-cola-double-reference') {
+        migrated.recipes[index] = clone(seed);
+      }
+    });
+
+    return migrated;
+  }
+
   function loadState() {
+    let stored = null;
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) return JSON.parse(raw);
+      if (raw) stored = JSON.parse(raw);
     } catch (_) {}
-    return { recipes: seedRecipes };
+    const migrated = migrateState(stored);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+    } catch (_) {}
+    return migrated;
   }
 
   function persist() {
@@ -138,7 +148,25 @@ MANUAL ADJUSTMENT
     })[c]);
   }
 
+  function masterIdForMode(mode) {
+    return mode === 'single' ? 'alley-shop-single' : 'alley-shop-double';
+  }
+
+  function syncMaster(recipe) {
+    const id = masterIdForMode(recipe.generationMode || 'double_variation');
+    const master = MASTERS[id] || MASTERS[DEFAULT_MASTER_ID];
+    recipe.master = { id: master.id, version: master.version };
+    recipe.pairStrategy = recipe.generationMode === 'double_variation' ? 'same_shop_variations' : 'none';
+    return master;
+  }
+
+  function getMaster(recipe) {
+    const id = recipe?.master?.id || masterIdForMode(recipe?.generationMode);
+    return MASTERS[id] || MASTERS[DEFAULT_MASTER_ID];
+  }
+
   function buildPrompt(recipe) {
+    const master = getMaster(recipe);
     const values = {
       shopType: recipe.variables.shopType || '(not specified)',
       description: recipe.description || '(not specified)',
@@ -148,24 +176,37 @@ MANUAL ADJUSTMENT
       props: recipe.variables.props || '(none)',
       manualAdjustment: recipe.manualAdjustment || 'None. Follow the master recipe.'
     };
-    return MASTER.prompt.replace(/{{(.*?)}}/g, (_, key) => values[key.trim()] ?? '');
+    return master.prompt.replace(/{{(.*?)}}/g, (_, key) => values[key.trim()] ?? '');
+  }
+
+  function masterLabel(master) {
+    return `${master.name} v${master.version}`;
   }
 
   function render() {
     const visible = state.recipes.filter((r) => currentFilter === 'all' ? r.status !== 'archived' : r.status === currentFilter);
-    els.grid.innerHTML = visible.length ? visible.map((r) => `
-      <article class="asset-card">
-        <button data-open="${escapeHtml(r.id)}">
-          <span class="badge">${escapeHtml(r.status)}</span>
-          <h3>${escapeHtml(r.name)}</h3>
-          <p class="muted">${escapeHtml(r.description)}</p>
-        </button>
-        <div class="asset-meta">
-          <small class="muted">Alley Shop v${r.master.version}</small>
-          <small class="muted">${Number(r.output.gameWidthTiles || 0)}×${Number(r.output.gameHeightTiles || 0)} tiles</small>
-        </div>
-      </article>
-    `).join('') : '<div class="empty">まだRecipeがありません。</div>';
+    els.grid.innerHTML = visible.length ? visible.map((r) => {
+      const master = getMaster(r);
+      const thumb = r.result?.selectedImage
+        ? `<img class="asset-thumb" src="${escapeHtml(r.result.selectedImage)}" alt="${escapeHtml(r.name)}">`
+        : '';
+      return `
+        <article class="asset-card">
+          <button class="card-button" data-open="${escapeHtml(r.id)}">
+            ${thumb}
+            <div class="asset-card-body">
+              <span class="badge ${r.status === 'reference' ? 'reference' : ''}">${escapeHtml(r.status)}</span>
+              <h3>${escapeHtml(r.name)}</h3>
+              <p class="muted">${escapeHtml(r.description)}</p>
+              <div class="asset-meta">
+                <small class="muted">${escapeHtml(masterLabel(master))}</small>
+                <small class="muted">${Number(r.output.gameWidthTiles || 0)}×${Number(r.output.gameHeightTiles || 0)} tiles</small>
+              </div>
+            </div>
+          </button>
+        </article>
+      `;
+    }).join('') : '<div class="empty">まだRecipeがありません。</div>';
 
     document.querySelectorAll('[data-open]').forEach((button) => {
       button.addEventListener('click', () => openRecipe(button.dataset.open));
@@ -173,22 +214,27 @@ MANUAL ADJUSTMENT
   }
 
   function blankRecipe() {
-    return {
+    const recipe = {
       id: '',
       name: '',
       type: 'alley_shop',
       status: 'draft',
-      master: { id: MASTER.id, version: MASTER.version },
+      generationMode: 'double_variation',
+      pairStrategy: 'same_shop_variations',
+      master: { id: DEFAULT_MASTER_ID, version: MASTERS[DEFAULT_MASTER_ID]?.version || 1 },
       description: '',
       variables: { shopType:'', mainColor:'', sign:'', lighting:'', props:'' },
-      output: { gameWidthTiles: 6, gameHeightTiles: 6 },
+      output: { gameWidthTiles: 4.5, gameHeightTiles: 6 },
       manualAdjustment: '',
       notes: '',
+      result: { selectedImage:'', caption:'' },
       prompt: '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       parentId: null
     };
+    syncMaster(recipe);
+    return recipe;
   }
 
   function slugify(value) {
@@ -200,27 +246,6 @@ MANUAL ADJUSTMENT
     return base || 'asset-' + Date.now();
   }
 
-  function collectForm() {
-    const original = editingId ? state.recipes.find((r) => r.id === editingId) : null;
-    const recipe = original ? JSON.parse(JSON.stringify(original)) : blankRecipe();
-    recipe.name = els.name.value.trim();
-    recipe.status = els.status.value;
-    recipe.description = els.description.value.trim();
-    recipe.variables.shopType = els.shopType.value.trim();
-    recipe.variables.mainColor = els.mainColor.value.trim();
-    recipe.variables.sign = els.sign.value.trim();
-    recipe.variables.lighting = els.lighting.value.trim();
-    recipe.variables.props = els.props.value.trim();
-    recipe.output.gameWidthTiles = Number(els.width.value) || 6;
-    recipe.output.gameHeightTiles = Number(els.height.value) || 6;
-    recipe.manualAdjustment = els.manual.value.trim();
-    recipe.notes = els.notes.value.trim();
-    recipe.updatedAt = new Date().toISOString();
-    recipe.prompt = buildPrompt(recipe);
-    if (!recipe.id) recipe.id = uniqueId(slugify(recipe.name));
-    return recipe;
-  }
-
   function uniqueId(base) {
     let id = base;
     let n = 2;
@@ -228,20 +253,69 @@ MANUAL ADJUSTMENT
     return id;
   }
 
+  function collectForm() {
+    const original = editingId ? state.recipes.find((r) => r.id === editingId) : null;
+    const recipe = original ? clone(original) : blankRecipe();
+
+    recipe.name = els.name.value.trim();
+    recipe.status = els.status.value;
+    recipe.generationMode = els.generationMode.value;
+    recipe.pairStrategy = recipe.generationMode === 'double_variation' ? 'same_shop_variations' : 'none';
+    syncMaster(recipe);
+    recipe.description = els.description.value.trim();
+    recipe.variables.shopType = els.shopType.value.trim();
+    recipe.variables.mainColor = els.mainColor.value.trim();
+    recipe.variables.sign = els.sign.value.trim();
+    recipe.variables.lighting = els.lighting.value.trim();
+    recipe.variables.props = els.props.value.trim();
+    recipe.output.gameWidthTiles = Number(els.width.value) || 4.5;
+    recipe.output.gameHeightTiles = Number(els.height.value) || 6;
+    recipe.manualAdjustment = els.manual.value.trim();
+    recipe.notes = els.notes.value.trim();
+    recipe.updatedAt = new Date().toISOString();
+    recipe.prompt = buildPrompt(recipe);
+
+    if (!recipe.id) recipe.id = uniqueId(slugify(recipe.name));
+    return recipe;
+  }
+
+  function updateModeUI(recipe) {
+    const master = syncMaster(recipe);
+    els.pairStrategy.value = recipe.pairStrategy;
+    els.pairStrategy.disabled = recipe.generationMode !== 'double_variation';
+    els.baseRecipeLabel.textContent = masterLabel(master);
+    els.promptMasterLabel.textContent = masterLabel(master);
+  }
+
   function fillForm(recipe) {
-    els.name.value = recipe.name || '';
-    els.status.value = recipe.status || 'draft';
-    els.description.value = recipe.description || '';
-    els.shopType.value = recipe.variables?.shopType || '';
-    els.mainColor.value = recipe.variables?.mainColor || '';
-    els.sign.value = recipe.variables?.sign || '';
-    els.lighting.value = recipe.variables?.lighting || '';
-    els.props.value = recipe.variables?.props || '';
-    els.width.value = recipe.output?.gameWidthTiles ?? 6;
-    els.height.value = recipe.output?.gameHeightTiles ?? 6;
-    els.manual.value = recipe.manualAdjustment || '';
-    els.notes.value = recipe.notes || '';
-    els.prompt.value = buildPrompt(recipe);
+    const r = normalizeRecipe(recipe);
+    els.name.value = r.name || '';
+    els.status.value = r.status || 'draft';
+    els.generationMode.value = r.generationMode || 'double_variation';
+    els.pairStrategy.value = r.pairStrategy || 'same_shop_variations';
+    els.description.value = r.description || '';
+    els.shopType.value = r.variables.shopType || '';
+    els.mainColor.value = r.variables.mainColor || '';
+    els.sign.value = r.variables.sign || '';
+    els.lighting.value = r.variables.lighting || '';
+    els.props.value = r.variables.props || '';
+    els.width.value = r.output.gameWidthTiles ?? 4.5;
+    els.height.value = r.output.gameHeightTiles ?? 6;
+    els.manual.value = r.manualAdjustment || '';
+    els.notes.value = r.notes || '';
+    els.prompt.value = buildPrompt(r);
+    updateModeUI(r);
+
+    if (r.result.selectedImage) {
+      els.referenceImage.src = r.result.selectedImage;
+      els.referenceImage.alt = r.name;
+      els.referenceCaption.textContent = r.result.caption || r.notes || '';
+      els.referencePreview.classList.remove('hidden');
+    } else {
+      els.referenceImage.removeAttribute('src');
+      els.referenceCaption.textContent = '';
+      els.referencePreview.classList.add('hidden');
+    }
   }
 
   function openEditor(recipe, title) {
@@ -289,15 +363,16 @@ MANUAL ADJUSTMENT
 
   function deriveRecipe() {
     const source = collectForm();
-    const copy = JSON.parse(JSON.stringify(source));
+    const copy = clone(source);
     copy.id = '';
-    copy.name = source.name ? source.name + ' 派生' : '';
+    copy.name = source.name ? source.name.replace(/（2軒並び・参照版）/g,'') + ' 派生' : '';
     copy.status = 'draft';
     copy.parentId = source.id || editingId || null;
     copy.createdAt = new Date().toISOString();
     copy.updatedAt = copy.createdAt;
     copy.notes = '';
     copy.manualAdjustment = '';
+    copy.result = { selectedImage:'', caption:'' };
     editingId = null;
     openEditor(copy, 'Derived asset');
   }
@@ -314,7 +389,8 @@ MANUAL ADJUSTMENT
   }
 
   async function copyPrompt() {
-    const prompt = buildPrompt(collectForm());
+    const recipe = collectForm();
+    const prompt = buildPrompt(recipe);
     els.prompt.value = prompt;
     try {
       await navigator.clipboard.writeText(prompt);
@@ -326,23 +402,36 @@ MANUAL ADJUSTMENT
     }
   }
 
+  function refreshPromptFromForm() {
+    const recipe = collectForm();
+    updateModeUI(recipe);
+    els.prompt.value = buildPrompt(recipe);
+  }
+
+  function openMaster(id) {
+    const master = MASTERS[id];
+    if (!master) return;
+    els.masterPanelTitle.textContent = masterLabel(master);
+    els.masterPanelDescription.textContent = master.description || '';
+    els.masterPrompt.value = master.prompt;
+    els.masterPanel.classList.remove('hidden');
+    els.masterPanel.setAttribute('aria-hidden','false');
+    els.editor.classList.add('hidden');
+    els.masterPanel.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
   $('newRecipeBtn').addEventListener('click', newRecipe);
   $('closeEditorBtn').addEventListener('click', closeEditor);
   $('saveRecipeBtn').addEventListener('click', saveRecipe);
   $('deriveBtn').addEventListener('click', deriveRecipe);
   $('exportBtn').addEventListener('click', exportRecipe);
   $('copyPromptBtn').addEventListener('click', copyPrompt);
-  $('buildPromptBtn').addEventListener('click', () => {
-    els.prompt.value = buildPrompt(collectForm());
+  $('buildPromptBtn').addEventListener('click', refreshPromptFromForm);
+
+  document.querySelectorAll('[data-master-open]').forEach((button) => {
+    button.addEventListener('click', () => openMaster(button.dataset.masterOpen));
   });
 
-  $('editMasterBtn').addEventListener('click', () => {
-    els.masterPrompt.value = MASTER.prompt;
-    els.masterPanel.classList.remove('hidden');
-    els.masterPanel.setAttribute('aria-hidden','false');
-    els.editor.classList.add('hidden');
-    els.masterPanel.scrollIntoView({ behavior:'smooth', block:'start' });
-  });
   $('closeMasterBtn').addEventListener('click', () => {
     els.masterPanel.classList.add('hidden');
     els.masterPanel.setAttribute('aria-hidden','true');
@@ -357,10 +446,10 @@ MANUAL ADJUSTMENT
     });
   });
 
+  els.generationMode.addEventListener('change', refreshPromptFromForm);
+
   ['descriptionInput','shopTypeInput','mainColorInput','signInput','lightingInput','propsInput','manualInput'].forEach((id) => {
-    $(id).addEventListener('input', () => {
-      els.prompt.value = buildPrompt(collectForm());
-    });
+    $(id).addEventListener('input', refreshPromptFromForm);
   });
 
   render();
