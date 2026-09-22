@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "replace-with-work-id",
+  "title": "REPLACE WITH WORK TITLE",
+  "entry": "index.html",
+  "output": "replace-with-work-id-itch.zip",
+  "engine": {
+    "source": "engine/sukimastock-engine.v0.2.0.js",
+    "target": "sukimastock-engine.js",
+    "htmlMarker": "data-sse-engine"
+  },
+  "include": [
+    "index.html",
+    "style.css",
+    "work-config.js",
+    "codea-lite.js",
+    "sketch.js"
+  ],
+  "excludeNotes": [
+    "Add every runtime asset/sound/text file actually used by the finished work.",
+    "Do not include development notes unless the player needs them."
+  ]
+}
