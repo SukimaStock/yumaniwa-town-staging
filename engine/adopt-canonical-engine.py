@@ -14,8 +14,8 @@ import sys
 from pathlib import Path
 
 
-SCRIPT_TAG_RE_TEMPLATE = r"<script\\b(?=[^>]*\\b{marker}\\b)[^>]*>"
-SRC_RE = re.compile(r"""\\bsrc\\s*=\\s*(["'])(?P<src>.*?)\\1""", re.IGNORECASE | re.DOTALL)
+SCRIPT_TAG_RE_TEMPLATE = r"<script\b(?=[^>]*\b{marker}\b)[^>]*>"
+SRC_RE = re.compile(r"""\bsrc\s*=\s*(["\'])(?P<src>.*?)\1""", re.IGNORECASE | re.DOTALL)
 
 
 class AdoptError(RuntimeError):
