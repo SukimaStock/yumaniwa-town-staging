@@ -367,6 +367,10 @@
   const EVE_IDLE_TUNE = Object.freeze({
     normalMin: 25,
     normalMax: 50,
+    // Fully restored E.V.E. speaks less often. The language is complete, but
+    // companionship no longer needs constant verbal confirmation.
+    level5Min: 48,
+    level5Max: 82,
     astraMin: 14,
     astraMax: 28,
     astraFirstMin: 7,
@@ -1088,6 +1092,10 @@
       this.astra = {
         idleTimer: 0,
         active: false,
+        // One quiet-world thought per landing at most. At RESTORE 5, ASTRA
+        // becomes fully silent: E.V.E. is present, but no longer needs to fill
+        // the shared stillness with words.
+        spokenThisVisit: false,
         meteorTimer: ASTRA_TUNE.meteorIntervalMin + Math.random() * (ASTRA_TUNE.meteorIntervalMax - ASTRA_TUNE.meteorIntervalMin),
         meteors: [],
       };
@@ -1531,6 +1539,11 @@
       const rr = data.resources || {};
       this.base.level = clamp(Math.floor(Number(data.baseLevel || 1)), 1, 5);
       this.applyRestoreCaps(this.base.level, false);
+      if (this.base.level >= 5 && this.eve) {
+        this.eve.idleTimer =
+          EVE_IDLE_TUNE.level5Min +
+          Math.random() * (EVE_IDLE_TUNE.level5Max - EVE_IDLE_TUNE.level5Min);
+      }
       const savedEve = data.eve || {};
       this.eve.restoreDepartureLevel = clamp(
         Math.floor(Number(savedEve.restoreDepartureLevel || 0)),
@@ -2261,6 +2274,7 @@
       const wasActive = !!this.astra.active;
       this.astra.idleTimer = 0;
       this.astra.active = false;
+      this.astra.spokenThisVisit = false;
       this.astra.meteorTimer = ASTRA_TUNE.meteorIntervalMin + Math.random() * (ASTRA_TUNE.meteorIntervalMax - ASTRA_TUNE.meteorIntervalMin);
       this.astra.meteors = [];
       if (restoreZoom && wasActive && this.mode !== "landing") this.startZoom(1.0, ASTRA_TUNE.returnZoomDuration);
@@ -2300,7 +2314,13 @@
         // Once ASTRA opens out, don't make the player wait through a leftover
         // long cruising timer before hearing E.V.E. The first line arrives
         // sooner; later ASTRA lines use their own relaxed short interval.
-        if (this.eve && this.eve.idleTimer > 0) {
+        const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+        if (
+          level < 5 &&
+          this.eve &&
+          this.eve.idleTimer > 0 &&
+          !this.astra.spokenThisVisit
+        ) {
           const firstAstraDelay =
             EVE_IDLE_TUNE.astraFirstMin +
             Math.random() *
@@ -2756,12 +2776,13 @@
       const baseLines = EVE_IDLE_LINES[level] || EVE_IDLE_LINES[1] || [];
       if (!includeAstra) return baseLines;
 
-      // ASTRA adds a few place-specific thoughts to the normal pool instead of
-      // replacing it. Lingering there should reveal another side of E.V.E.,
-      // not make her repeat two special lines in a loop.
-      const astraLines =
-        (EVE_ASTRA_IDLE_LINES && (EVE_ASTRA_IDLE_LINES[level] || EVE_ASTRA_IDLE_LINES[1])) || [];
-      return [...baseLines, ...astraLines];
+      // ASTRA has its own tiny vocabulary. Do not mix ordinary cruising chatter
+      // into the quiet-world pool: lingering here should create space, not a
+      // denser version of normal conversation.
+      return (
+        (EVE_ASTRA_IDLE_LINES && (EVE_ASTRA_IDLE_LINES[level] || EVE_ASTRA_IDLE_LINES[1])) ||
+        []
+      );
     }
 
     pickEveIdleLine(includeAstra = false) {
@@ -2821,6 +2842,11 @@
 
       if (onAstra && this.isUndiscoveredIncidentAstra(this.landPlanet)) return;
 
+      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      // By RESTORE 5, ASTRA is a genuinely shared silence. Earlier phases may
+      // offer one place-specific thought, but never more than one per landing.
+      if (onAstra && (level >= 5 || this.astra.spokenThisVisit)) return;
+
       // One early fragment gives a first-time player two anchors without
       // explaining the loop. If another event is speaking, the countdown simply
       // waits for a quiet flight moment.
@@ -2832,9 +2858,10 @@
         if (this.eve.firstFlightHintTimer <= 0) {
           this.eve.firstFlightHintPending = false;
           this.sayEve(tx("eve.firstFlightHint"), 3.6);
+          const minDelay = level >= 5 ? EVE_IDLE_TUNE.level5Min : EVE_IDLE_TUNE.normalMin;
+          const maxDelay = level >= 5 ? EVE_IDLE_TUNE.level5Max : EVE_IDLE_TUNE.normalMax;
           this.eve.idleTimer =
-            EVE_IDLE_TUNE.normalMin +
-            Math.random() * (EVE_IDLE_TUNE.normalMax - EVE_IDLE_TUNE.normalMin);
+            minDelay + Math.random() * (maxDelay - minDelay);
           return;
         }
       }
@@ -2843,10 +2870,17 @@
       if (this.eve.idleTimer > 0) return;
 
       const line = this.pickEveIdleLine(onAstra);
-      if (line) this.sayEve(line, 4.0);
+      if (line) {
+        this.sayEve(line, 4.0);
+        if (onAstra && this.astra) this.astra.spokenThisVisit = true;
+      }
 
-      const minDelay = onAstra ? EVE_IDLE_TUNE.astraMin : EVE_IDLE_TUNE.normalMin;
-      const maxDelay = onAstra ? EVE_IDLE_TUNE.astraMax : EVE_IDLE_TUNE.normalMax;
+      // After ASTRA has spoken once, return to the ordinary cruising cadence so
+      // leaving the planet does not immediately trigger another line.
+      const minDelay =
+        level >= 5 ? EVE_IDLE_TUNE.level5Min : EVE_IDLE_TUNE.normalMin;
+      const maxDelay =
+        level >= 5 ? EVE_IDLE_TUNE.level5Max : EVE_IDLE_TUNE.normalMax;
       this.eve.idleTimer = minDelay + Math.random() * (maxDelay - minDelay);
     }
 
@@ -4093,6 +4127,11 @@
       this.resources.data -= cost.data;
       this.base.level = Math.min(5, this.base.level + 1);
       this.pushSystemLog("restoreLevel", { level: this.base.level });
+      if (this.base.level >= 5 && this.eve) {
+        this.eve.idleTimer =
+          EVE_IDLE_TUNE.level5Min +
+          Math.random() * (EVE_IDLE_TUNE.level5Max - EVE_IDLE_TUNE.level5Min);
+      }
       this.mode = "landed";
       this.pressing = false;
       this.departHold = 0;
