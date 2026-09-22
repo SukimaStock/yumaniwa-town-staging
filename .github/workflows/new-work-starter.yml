@@ -1,0 +1,88 @@
+name: SukimaStock New Work Starter
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "works/_starter/**"
+      - "engine/sukimastock-engine.v0.2.0.js"
+      - "engine/export-standalone.py"
+      - "engine/adopt-canonical-engine.py"
+      - ".github/workflows/new-work-starter.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate starter export
+        run: |
+          python3 engine/export-standalone.py \
+            works/_starter/starter-export.json \
+            --check
+
+      - name: Build local-first starter
+        run: |
+          python3 engine/export-standalone.py \
+            works/_starter/starter-export.json
+
+          rm -rf dist/local-starter dist/staging-canary
+          mkdir -p dist/local-starter
+          unzip -q dist/SukimaStock-New-Work.zip -d dist/local-starter
+
+      - name: Inspect local starter
+        run: |
+          test -f dist/local-starter/index.html
+          test -f dist/local-starter/sukimastock-engine.js
+          test -f dist/local-starter/codea-lite.js
+          test -f dist/local-starter/work-config.js
+          test -f dist/local-starter/sketch.js
+          test -f dist/local-starter/README.md
+          test -f dist/local-starter/STAGING-HANDOFF.md
+          test -f dist/local-starter/standalone-export.example.json
+
+          test "$(find dist/local-starter -type f | wc -l)" -eq 11
+
+          grep -q 'data-sse-engine' dist/local-starter/index.html
+          grep -q 'src="sukimastock-engine.js"' dist/local-starter/index.html
+          grep -q 'devbuild=' dist/local-starter/index.html
+          grep -q 'SSE.audio.withBaseline' dist/local-starter/sketch.js
+
+          node --check dist/local-starter/codea-lite.js
+          node --check dist/local-starter/sukimastock-engine.js
+          node --check dist/local-starter/work-config.js
+          node --check dist/local-starter/sketch.js
+          python3 -m json.tool dist/local-starter/standalone-export.example.json >/dev/null
+
+      - name: Test local to Staging handoff
+        run: |
+          cp -a dist/local-starter dist/staging-canary
+
+          python3 engine/adopt-canonical-engine.py dist/staging-canary
+
+          grep -q 'data-sse-engine' dist/staging-canary/index.html
+          grep -q 'src="../../engine/sukimastock-engine.v0.2.0.js"' dist/staging-canary/index.html
+          test -f dist/staging-canary/sukimastock-engine.js
+
+          python3 engine/adopt-canonical-engine.py \
+            dist/staging-canary \
+            --remove-local
+
+          test ! -f dist/staging-canary/sukimastock-engine.js
+          grep -q 'src="../../engine/sukimastock-engine.v0.2.0.js"' dist/staging-canary/index.html
+
+      - name: Upload local-first starter
+        uses: actions/upload-artifact@v4
+        with:
+          name: SukimaStock-New-Work
+          path: dist/local-starter/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 30
