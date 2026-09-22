@@ -124,6 +124,7 @@
     volumes:{},
     phase:"A",
     folderFilter:"ALL",
+    audition:{running:false, slotName:null, index:-1, token:0, source:null},
   };
 
   try {
@@ -215,6 +216,99 @@
     source.connect(gain);
     gain.connect(ctx.destination);
     source.start(start);
+    return source;
+  }
+
+  function stopAudition(message){
+    const wasRunning = state.audition.running;
+    state.audition.token += 1;
+    state.audition.running = false;
+    state.audition.slotName = null;
+    state.audition.index = -1;
+    if (state.audition.source) {
+      try { state.audition.source.stop(); } catch (_) {}
+      state.audition.source = null;
+    }
+    if (wasRunning && message) fileStatus.textContent = message;
+    if (wasRunning) render();
+  }
+
+  function wait(ms, token){
+    return new Promise(resolve => {
+      setTimeout(() => resolve(state.audition.token === token), ms);
+    });
+  }
+
+  async function playBufferAndWait(buffer, volume, token){
+    if (state.audition.token !== token) return false;
+    const source = await playBuffer(buffer, volume);
+    state.audition.source = source;
+    return new Promise(resolve => {
+      let done = false;
+      const finish = (ok) => {
+        if (done) return;
+        done = true;
+        if (state.audition.source === source) state.audition.source = null;
+        resolve(ok);
+      };
+      source.onended = () => finish(state.audition.token === token);
+      if (state.audition.token !== token) {
+        try { source.stop(); } catch (_) {}
+        finish(false);
+      }
+    });
+  }
+
+  async function startAudition(slot){
+    const list = visibleCandidates();
+    if (!list.length) {
+      fileStatus.textContent = "このフォルダには試聴できる音声がありません。";
+      return;
+    }
+
+    stopAudition();
+    const token = state.audition.token + 1;
+    state.audition.token = token;
+    state.audition.running = true;
+    state.audition.slotName = slot.name;
+
+    let startIndex = assignedIndex(slot);
+    if (startIndex < 0) startIndex = 0;
+
+    render();
+
+    for (let i = startIndex; i < list.length; i++) {
+      if (state.audition.token !== token) return;
+
+      state.audition.index = i;
+      state.assignments[slot.name] = filePath(list[i]);
+      save();
+      render();
+
+      try {
+        fileStatus.textContent = "連続試聴 " + slot.name.toUpperCase() + "  " + (i + 1) + " / " + list.length + "  —  " + filePath(list[i]);
+        const buffer = await decodeFile(list[i]);
+        if (state.audition.token !== token) return;
+        const completed = await playBufferAndWait(buffer, getVolume(slot), token);
+        if (!completed || state.audition.token !== token) return;
+        const keepGoing = await wait(220, token);
+        if (!keepGoing) return;
+      } catch (e) {
+        if (state.audition.token !== token) return;
+        fileStatus.textContent = "試聴できない音をスキップ: " + filePath(list[i]);
+        const keepGoing = await wait(220, token);
+        if (!keepGoing) return;
+      }
+    }
+
+    if (state.audition.token === token) {
+      state.audition.running = false;
+      state.audition.slotName = null;
+      state.audition.index = -1;
+      state.audition.source = null;
+      fileStatus.textContent = "連続試聴が最後まで完了しました。最後の候補を選択状態で残しています。";
+      render();
+    }
   }
 
   function getVolume(slot){
@@ -229,6 +323,7 @@
   }
 
   function setAssignment(slot, idx){
+    stopAudition("連続試聴を停止しました。");
     const list = visibleCandidates();
     if (idx < 0 || idx >= list.length) {
       delete state.assignments[slot.name];
@@ -240,6 +335,7 @@
   }
 
   async function playCandidate(slot){
+    stopAudition("連続試聴を停止しました。");
     const idx = assignedIndex(slot);
     const list = visibleCandidates();
     if (idx < 0 || !list[idx]) return;
@@ -254,6 +350,7 @@
   }
 
   async function playCurrent(slot){
+    stopAudition("連続試聴を停止しました。");
     if (!slot.file) {
       fileStatus.textContent = slot.name + " は現在 procedural tone のため、Sound Labでは候補OGGのみ比較します。";
       return;
@@ -282,6 +379,7 @@
       const play = document.createElement("button");
       play.textContent = "▶";
       play.addEventListener("click", async () => {
+        stopAudition("連続試聴を停止しました。");
         try { await playBuffer(await decodeFile(file), .12); }
         catch(e){ fileStatus.textContent = "再生できません: " + e.message; }
       });
@@ -332,6 +430,19 @@
       play.addEventListener("click", () => playCandidate(slot));
       cycle.append(prev, play, next);
 
+      const auditionRow = document.createElement("div");
+      auditionRow.className = "row";
+      const auditionBtn = document.createElement("button");
+      const auditioningThis = state.audition.running && state.audition.slotName === slot.name;
+      auditionBtn.textContent = auditioningThis
+        ? "停止 ■  " + (state.audition.index + 1) + " / " + list.length
+        : "連続試聴 ▶";
+      auditionBtn.addEventListener("click", () => {
+        if (auditioningThis) stopAudition("連続試聴を停止しました。この候補を選択状態で残しています。");
+        else startAudition(slot);
+      });
+      auditionRow.append(auditionBtn);
+
       const ab = document.createElement("div");
       ab.className = "row";
       const currentBtn = document.createElement("button");
@@ -356,7 +467,7 @@
       });
 
       volume.append(top, range);
-      card.append(select, cycle, ab, volume);
+      card.append(select, cycle, auditionRow, ab, volume);
       grid.appendChild(card);
     });
   }
@@ -375,6 +486,7 @@
   }
 
   function addCandidates(files, sourceLabel){
+    stopAudition("連続試聴を停止しました。");
     const incoming = Array.from(files || []).filter(isAudioFile);
     const merged = new Map(state.candidates.map(file => [fileKey(file), file]));
     incoming.forEach(file => merged.set(fileKey(file), file));
@@ -396,6 +508,7 @@
   });
 
   folderFilter.addEventListener("change", () => {
+    stopAudition("フォルダを変更したため連続試聴を停止しました。");
     state.folderFilter = folderFilter.value;
     const count = visibleCandidates().length;
     fileStatus.textContent = (state.folderFilter === "ALL" ? "すべてのフォルダ" : state.folderFilter) + " — " + count + "個の候補";
@@ -403,6 +516,7 @@
   });
 
   document.getElementById("clearBtn").addEventListener("click", () => {
+    stopAudition("連続試聴を停止しました。");
     state.candidates = [];
     state.folderFilter = "ALL";
     refreshFolderFilter();
@@ -417,6 +531,7 @@
 
   document.querySelectorAll("[data-phase]").forEach(btn => {
     btn.addEventListener("click", () => {
+      stopAudition("表示を切り替えたため連続試聴を停止しました。");
       document.querySelectorAll("[data-phase]").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       state.phase = btn.dataset.phase;
@@ -425,6 +540,7 @@
   });
 
   document.getElementById("resetBtn").addEventListener("click", () => {
+    stopAudition("連続試聴を停止しました。");
     state.volumes = {};
     save();
     render();
