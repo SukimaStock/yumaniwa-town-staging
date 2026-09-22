@@ -15,7 +15,7 @@ The engine owns repeated Web/runtime friction. Each work keeps its own rules, co
 1. **Baseline consolidation** — complete
 2. **Audio v2** — complete in canonical Engine
 3. **Storage v2** — complete in canonical Engine
-4. Asset Loader
+4. **Asset Loader** — complete in canonical Engine
 5. Lifecycle + robust input
 6. Performance controls
 7. DevTools + Session Report
@@ -183,4 +183,73 @@ A checkpoint is deliberately not persistent. It is the Engine-level equivalent o
 
 Existing works still keep their current save implementations until work-by-work migration is verified.
 
-The next implementation step is Asset Loader.
+## Asset Loader
+
+Asset Loader centralizes **when** assets are loaded and released without deciding **what** a work should contain.
+
+It supports:
+
+- images through the Codea Lite image loader
+- JSON / text / binary fetches
+- audio references that bridge to Audio v2 preload
+- named asset groups
+- nested groups with duplicate removal
+- immediate preload
+- scheduled preload after page load or during browser idle time
+- best-effort fetch priority hints
+- loading progress
+- asset status/report data
+- explicit release and Codea Lite image-cache cleanup
+- reloading after release
+
+Example:
+
+```js
+SSE.createApp({
+  id: "small-diorama",
+  assets: {
+    items: {
+      frame: "assets/frame.png",
+      janBack: "assets/jan/back.webp",
+      janFront: "assets/jan/front.webp",
+      febBack: "assets/feb/back.webp",
+      febFront: "assets/feb/front.webp",
+    },
+    groups: {
+      common: ["frame"],
+      january: ["janBack", "janFront"],
+      february: ["febBack", "febFront"],
+    },
+  },
+  setup() {
+    SSE.assets.preload(["common", "january"], { priority: "high" });
+    SSE.assets.schedule("february", {
+      when: "idle",
+      priority: "low",
+    });
+  },
+});
+```
+
+A work can then keep a moving window of assets:
+
+```js
+await SSE.assets.preload(["previousMonth", "currentMonth", "nextMonth"]);
+SSE.assets.release("monthThatMovedOutOfRange", { hard: true });
+```
+
+For Codea images, hard release removes the corresponding entry from Codea Lite's image cache and drops the decoded image reference when it is no longer shared by another active asset record.
+
+This is the Engine-level version of the loading patterns already proven in Diorama Calendar and SteamClock: current/important visual material first, neighboring or decorative material later.
+
+Audio files themselves remain defined by Audio v2. Asset Loader can include an audio reference in a visual/data preload group:
+
+```js
+items: {
+  readyCue: { type: "audio", audio: "ready" },
+}
+```
+
+so one semantic group can describe everything a Scene needs.
+
+The next implementation step is Lifecycle + robust input.
