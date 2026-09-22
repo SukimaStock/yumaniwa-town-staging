@@ -192,3 +192,31 @@ ready/loading/error/idle: 16/0/0/0
 ```
 
 During the first few hundred milliseconds, some decorative groups may legitimately be `idle` or `loading`.
+
+
+## Real-device Phase 2 result
+
+Accepted.
+
+Session Report after Asset Loader migration:
+
+```text
+ATTENTION
+[OK] No Engine-level problems detected in this session.
+
+PERFORMANCE
+FPS average: 58.4
+p95: 17ms
+max: 59ms
+draw average: 1.48ms
+slow frames: 2 / 100
+
+ASSETS
+ready/loading/error/idle: 16/0/0/0
+```
+
+The two isolated slow frames did not represent sustained degradation and correctly did not trigger ATTENTION.
+
+SteamClock is therefore considered migrated to canonical Engine v0.2.
+
+The unreferenced local `sukimastock-engine.js` copy is removed after this acceptance. Rollback remains available through Git history rather than by keeping a second Engine source inside the work folder.
