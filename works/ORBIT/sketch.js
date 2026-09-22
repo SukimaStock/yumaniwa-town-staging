@@ -519,7 +519,7 @@
   const ORBIT_AUDIO_GAIN = 3.0; // OGG lift; preserves relative balance.
   const ORBIT_TONE_GAIN = 8.0; // Procedural placeholder cues need substantially more presence, especially on mobile.
 
-  const ORBIT_OGG_SOUNDS = Object.freeze({
+  const ORBIT_SOUND_DEFAULTS = Object.freeze({
     takeoff: Object.freeze({ file: "sounds/takeoff.ogg", volume: 0.14, cooldown: 120 }),
     landing: Object.freeze({ file: "sounds/landing.ogg", volume: 0.14, cooldown: 120 }),
     ore: Object.freeze({ file: "sounds/ore.ogg", volume: 0.10, cooldown: 100 }),
@@ -529,6 +529,38 @@
     echo: Object.freeze({ file: "sounds/echo.ogg", volume: 0.14, cooldown: 300 }),
     restore: Object.freeze({ file: "sounds/restore.ogg", volume: 0.15, cooldown: 500 }),
   });
+
+  const ORBIT_SOUND_OVERRIDES =
+    typeof window !== "undefined" &&
+    window.ORBIT_SOUND_CONFIG &&
+    typeof window.ORBIT_SOUND_CONFIG === "object"
+      ? window.ORBIT_SOUND_CONFIG
+      : {};
+
+  function orbitSoundDefinition(name) {
+    const base = ORBIT_SOUND_DEFAULTS[name] || {};
+    const custom = ORBIT_SOUND_OVERRIDES[name];
+    if (custom === false || (custom && custom.enabled === false)) return null;
+    if (!custom && !base.file) return null;
+    const merged = { ...base, ...(custom || {}) };
+    if (!merged.file) return null;
+    return Object.freeze({
+      file: String(merged.file),
+      volume: Number.isFinite(Number(merged.volume)) ? Number(merged.volume) : 0.12,
+      cooldown: Number.isFinite(Number(merged.cooldown)) ? Number(merged.cooldown) : 0,
+    });
+  }
+
+  const ORBIT_OGG_SOUNDS = Object.freeze(
+    Array.from(new Set([
+      ...Object.keys(ORBIT_SOUND_DEFAULTS),
+      ...Object.keys(ORBIT_SOUND_OVERRIDES),
+    ])).reduce((out, name) => {
+      const definition = orbitSoundDefinition(name);
+      if (definition) out[name] = definition;
+      return out;
+    }, {})
+  );
 
   const ORBIT_TONE = Object.freeze({
     takeoff: Object.freeze({ frequency: 145, endFrequency: 235, duration: 0.22, volume: 0.090, type: "triangle" }),
