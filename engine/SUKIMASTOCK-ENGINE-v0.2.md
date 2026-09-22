@@ -122,6 +122,42 @@ The work-specific volume curves, cue timing, and musical decisions remain in eac
 
 Existing works still keep their local Engine copies. Audio v2 will be validated during later work-by-work migration before those copies are removed.
 
+## Audio authoring baseline
+
+New audio work should use the opt-in SukimaStock baseline rather than inventing conservative gain values from scratch.
+
+```js
+audio: SSE.audio.withBaseline({
+  sounds: {
+    select: {
+      file: "./audio/select.wav",
+      mode: "buffer",
+      volume: SSE.audio.baseline().reference.se.ui,
+    },
+  },
+})
+```
+
+The baseline is derived from CoffeeFactory real-device tuning and intentionally starts on the audible side.
+
+Reference BGM starting points:
+
+```text
+quiet 0.075 | calm 0.135 | active 0.225 | finish 0.270
+```
+
+Reference SE starting points:
+
+```text
+soft 0.24 | ui 0.36 | action 0.46 | cue 0.68 | emphasis 0.75
+```
+
+Existing works are not changed automatically. Full rationale and AI implementation guidance:
+
+```text
+engine/SUKIMASTOCK-AUDIO-BASELINE.md
+```
+
 ## Storage v2
 
 Storage v2 keeps the old `SSE.storage.set/get/has/remove/clear` API compatible while adding a safer structured API.
