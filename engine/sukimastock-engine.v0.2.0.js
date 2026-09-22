@@ -3784,8 +3784,21 @@
         this.formatDuration(r.performance.session.activeMs) + " / " +
         this.formatDuration(r.performance.session.pausedMs)
       );
-      push("");
 
+      if (r.performance.frame.recentSlow.length > 0) {
+        push("Recent slow frames:");
+        for (const sample of r.performance.frame.recentSlow) {
+          push(
+            "- +" + Math.round(sample.elapsedMs) + "ms " +
+            this.round(sample.frameMs, 1) + "ms" +
+            " | update " + this.round(sample.updateMs, 2) + "ms" +
+            " | draw " + this.round(sample.drawMs, 2) + "ms" +
+            " | work " + this.round(sample.workMs, 2) + "ms"
+          );
+        }
+      }
+
+      push("");
       push("LIFECYCLE");
       push(
         r.lifecycle.paused
@@ -4453,6 +4466,16 @@
       const updateValues = this.samples.map((sample) => sample.updateMs);
       const drawValues = this.samples.map((sample) => sample.drawMs);
       const workValues = this.samples.map((sample) => sample.workMs);
+      const recentSlowFrames = this.samples
+        .filter((sample) => sample.slow)
+        .slice(-12)
+        .map((sample) => ({
+          elapsedMs: Math.max(0, sample.atMs - this.startedAtMs),
+          frameMs: sample.frameMs,
+          updateMs: sample.updateMs,
+          drawMs: sample.drawMs,
+          workMs: sample.workMs,
+        }));
 
       const averageFrameMs = this.average(frameValues);
       const averageFps = averageFrameMs > 0 ? 1000 / averageFrameMs : 0;
@@ -4480,6 +4503,7 @@
           averageMs: averageFrameMs,
           p95Ms: this.percentile(frameValues, 0.95),
           maxMs: frameValues.length > 0 ? Math.max(...frameValues) : 0,
+          recentSlow: recentSlowFrames,
         },
 
         update: {
