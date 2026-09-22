@@ -659,3 +659,38 @@ Buffers: 8/8
 ```
 
 If this real-device comparison passes, CoffeeFactory can be considered fully migrated to canonical Engine v0.2 and its work-local Engine copy can be removed.
+
+
+## Phase 6 real-device result
+
+Accepted.
+
+The user confirmed that the Audio v2 BGM migration preserved the intended CoffeeFactory listening experience, including scene loudness and Finish behavior.
+
+CoffeeFactory is therefore considered fully migrated to canonical SukimaStock Engine v0.2.
+
+Validated migration areas:
+
+```text
+canonical Engine reference
+Lifecycle
+Storage v2
+Asset Loader
+SE → Audio v2
+BGM transport → Audio v2
+DevTools / Session Report
+```
+
+Work-specific behavior deliberately retained:
+
+```text
+RecipeClock timing semantics
+Coffee brewing rules
+scene-specific BGM target levels
+Finish BGM break curve
+Kobito motion and presentation
+```
+
+The work-local `sukimastock-engine.js` copy is removed after acceptance. Rollback remains available through Git history.
+
+CoffeeFactory also serves as the real-device reference used to derive the opt-in SukimaStock Audio Baseline for future works.
