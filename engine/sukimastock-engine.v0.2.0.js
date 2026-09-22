@@ -3614,14 +3614,29 @@
         });
       }
 
-      if (report.performance.frames.slow > 0) {
+      const slowFrames = report.performance.frames.slow;
+      const measuredFrames = Math.max(1, report.performance.frames.updated);
+      const slowRatio = slowFrames / measuredFrames;
+      const slowThreshold = report.performance.slowFrameMs;
+      const sustainedSlow =
+        report.performance.frame.p95Ms > slowThreshold;
+      const repeatedSlow =
+        slowFrames >= 3 && slowRatio >= 0.02;
+      const severeHitch =
+        report.performance.frame.maxMs >= Math.max(120, slowThreshold * 4);
+
+      if (sustainedSlow || repeatedSlow || severeHitch) {
         issues.push({
           level: "warn",
           code: "slow-frames",
           text:
-            report.performance.frames.slow +
-            " slow frame(s) observed; p95 " +
+            slowFrames +
+            " slow frame(s) observed (" +
+            this.round(slowRatio * 100, 1) +
+            "%); p95 " +
             this.round(report.performance.frame.p95Ms, 1) +
+            "ms, max " +
+            this.round(report.performance.frame.maxMs, 1) +
             "ms.",
         });
       }
