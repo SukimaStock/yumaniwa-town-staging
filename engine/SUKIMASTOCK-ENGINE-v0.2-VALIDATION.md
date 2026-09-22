@@ -104,3 +104,45 @@ Validated:
 14. Stacked `hidden + pagehide` reasons are cleared safely on visible pageshow
 15. Pause/resume listeners fire only on actual paused-state transitions
 16. Resume resets Engine frame timing so hidden time is not applied as a large next-frame delta
+
+
+## Performance controls smoke test
+
+Validated with a deterministic mocked clock:
+
+1. `performance.targetFps` throttles rendered Engine frames
+2. Skipped RAF calls are counted separately from rendered frames
+3. Current / average / minimum FPS are derived from actual rendered-frame intervals
+4. Slow-frame detection respects target frame time
+5. p95 and maximum frame interval are reported
+6. Scene update cost is measured independently
+7. Scene draw cost is measured independently
+8. Total Engine work cost is measured
+9. Lifecycle pause duration is accumulated separately from active time
+10. Resume resets frame timing so hidden time does not become one huge frame
+11. Deliberately low target FPS expands the Engine delta cap appropriately
+12. `report()` returns the same structured data as `snapshot()`
+13. `reset()` clears session metrics
+14. Legacy `frameRate` remains supported
+15. `performance.targetFps` overrides legacy `frameRate`
+16. Performance metrics may be disabled while FPS throttling remains active
+
+Deterministic calibration case:
+
+- target: 30fps
+- one throttled RAF call
+- normal rendered intervals: about 33.4ms
+- one slow rendered interval: 80ms
+- mocked Scene update cost: 2ms
+- mocked Scene draw cost: 4ms
+- lifecycle pause: exactly 500ms
+
+The Engine reported:
+
+- one skipped frame
+- one slow frame
+- minimum FPS: 12.5
+- maximum/p95 interval: 80ms
+- average update cost: 2ms
+- average draw cost: 4ms
+- paused time: 500ms
