@@ -680,19 +680,25 @@
       let storedVersion = null;
 
       if (key) {
-        try {
-          const local = root.localStorage;
-          const raw = local ? local.getItem(key) : null;
-          persistent = raw !== null && raw !== undefined;
-          if (raw !== null && raw !== undefined) {
-            storedVersion = this.decodeRecord(raw).version;
-          }
-        } catch (error) {
-          this.lastError = error;
-        }
-
-        if (storedVersion === null && this.memory.has(key)) {
+        if (this.memoryPreferred.has(key) && this.memory.has(key)) {
+          // The current session owns a newer value than localStorage.
+          persistent = false;
           storedVersion = Number(this.memory.get(key)?.version ?? null);
+        } else {
+          try {
+            const local = root.localStorage;
+            const raw = local ? local.getItem(key) : null;
+            persistent = raw !== null && raw !== undefined;
+            if (raw !== null && raw !== undefined) {
+              storedVersion = this.decodeRecord(raw).version;
+            }
+          } catch (error) {
+            this.lastError = error;
+          }
+
+          if (storedVersion === null && this.memory.has(key)) {
+            storedVersion = Number(this.memory.get(key)?.version ?? null);
+          }
         }
       }
 
