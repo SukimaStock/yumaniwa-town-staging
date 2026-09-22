@@ -558,10 +558,27 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
   };
 
   const SETUP_ICONS = {
-    cup: typeof loadImage === "function" ? loadImage("./assets/coffee-cup-icon.png") : null,
-    beans: typeof loadImage === "function" ? loadImage("./assets/beans-icon.png") : null,
-    water: typeof loadImage === "function" ? loadImage("./assets/kettle-icon.png") : null,
+    cup: null,
+    beans: null,
+    water: null,
   };
+  let FACTORY_EXTERIOR = null;
+
+  function bindVisualAssetRefs(){
+    SETUP_ICONS.cup=SSE.assets.peek("icon.cup");
+    SETUP_ICONS.beans=SSE.assets.peek("icon.beans");
+    SETUP_ICONS.water=SSE.assets.peek("icon.water");
+    FACTORY_EXTERIOR=SSE.assets.peek("factory.exterior");
+  }
+
+  function loadVisualAssets(){
+    const task=SSE.assets.preload("visuals",{priority:"high"});
+    // Codea image objects are available immediately while their contents load.
+    bindVisualAssetRefs();
+    task.then(bindVisualAssetRefs);
+    return task;
+  }
+
   const factoryView = (() => {
     const KM = root.KobitoMotion;
     if (!KM) return null;
@@ -571,7 +588,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     const RULE = "#D7C7AD", WATER = "#A8C4D4", STEAM = "#D9D0C0";
     const W = 120;
     const scenes = Object.create(null);
-    const FACTORY_EXTERIOR = typeof loadImage === "function" ? loadImage("./assets/factory-exterior-line.png") : null;
+
 
     const rr = (ctx,x,y,w,h,r) => { ctx.beginPath(); ctx.roundRect(x,y,w,h,r); };
     const mapPoint = (worker,scale,p) => ({x:worker.x+(p.x-worker.x)*scale,y:worker.ground+(p.y-worker.ground)*scale});
@@ -2094,8 +2111,25 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
       storageKey:"coffeefactory.v1.sound",
       sounds:{},
     },
+    assets:{
+      items:{
+        "icon.cup":"./assets/coffee-cup-icon.png",
+        "icon.beans":"./assets/beans-icon.png",
+        "icon.water":"./assets/kettle-icon.png",
+        "factory.exterior":"./assets/factory-exterior-line.png",
+      },
+      groups:{
+        visuals:[
+          "icon.cup",
+          "icon.beans",
+          "icon.water",
+          "factory.exterior",
+        ],
+      },
+    },
     setup() {
       initSetupStorage();
+      loadVisualAssets();
       syncDocumentLanguage();
       seAudio.preload();
 
