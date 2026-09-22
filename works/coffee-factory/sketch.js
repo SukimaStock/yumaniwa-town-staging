@@ -468,23 +468,89 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
 
   const C = { paper: [242,233,218], ink: [58,45,36], gold: [193,160,102], goldText: [158,126,78], muted: [119,100,80], rule: [203,189,168], white: [249,244,235] };
   const UI_FONT_STACK = '"Zen Maru Gothic", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif';
-  const SETUP_STORAGE_KEY = "coffeefactory.v1.setup";
+  const LEGACY_SETUP_STORAGE_KEY = "coffeefactory.v1.setup";
   const DEFAULT_SETUP = Object.freeze({ cupPreset:1, beanGrams:15, roast:"Medium" });
-  function loadSetupSettings(){
-    const fallback={...DEFAULT_SETUP,grind:"Coarse",recipeMode:"kasuya"};
-    try{
-      const raw=root.localStorage?.getItem(SETUP_STORAGE_KEY);
-      if(!raw)return fallback;
-      const saved=JSON.parse(raw);
-      const cupPreset=saved?.cupPreset===2?2:1;
-      const beanGrams=Number.isInteger(saved?.beanGrams)&&saved.beanGrams>=5&&saved.beanGrams<=40?saved.beanGrams:(cupPreset===2?25:15);
-      const roast=ROAST[saved?.roast]?saved.roast:"Medium";
-      return {cupPreset,beanGrams,roast,grind:"Coarse",recipeMode:"kasuya"};
-    }catch(_){return fallback;}
+  const DEFAULT_SETUP_RUNTIME = Object.freeze({
+    ...DEFAULT_SETUP,
+    grind:"Coarse",
+    recipeMode:"kasuya",
+  });
+  let setupStore = null;
+
+  function sanitizeSetupSettings(saved){
+    const source=saved&&typeof saved==="object"?saved:{};
+    const cupPreset=source.cupPreset===2?2:1;
+    const beanGrams=Number.isInteger(source.beanGrams)&&source.beanGrams>=5&&source.beanGrams<=40
+      ? source.beanGrams
+      : (cupPreset===2?25:15);
+    const roast=ROAST[source.roast]?source.roast:"Medium";
+    return {cupPreset,beanGrams,roast,grind:"Coarse",recipeMode:"kasuya"};
   }
+
+  function setupStoragePayload(settings){
+    const normalized=sanitizeSetupSettings(settings);
+    return {
+      cupPreset:normalized.cupPreset,
+      beanGrams:normalized.beanGrams,
+      roast:normalized.roast,
+    };
+  }
+
+  function initSetupStorage(){
+    setupStore=SSE.storage.define("setup",{
+      version:1,
+      fallback:{...DEFAULT_SETUP},
+      validate(value){
+        return !!(
+          value &&
+          typeof value==="object" &&
+          (value.cupPreset===1||value.cupPreset===2) &&
+          Number.isInteger(value.beanGrams) &&
+          value.beanGrams>=5 &&
+          value.beanGrams<=40 &&
+          !!ROAST[value.roast]
+        );
+      },
+    });
+
+    if(!setupStore.has()){
+      try{
+        const raw=root.localStorage?.getItem(LEGACY_SETUP_STORAGE_KEY);
+        if(raw){
+          const legacy=setupStoragePayload(JSON.parse(raw));
+          setupStore.set(legacy);
+
+          const info=setupStore.info();
+          SSE.diagnostics.info(
+            "setup-storage-migrated",
+            "Coffee setup migrated to Storage v2.",
+            {
+              from:LEGACY_SETUP_STORAGE_KEY,
+              to:info.key,
+              persistent:info.persistent,
+            }
+          );
+
+          // Delete the old key only after the new Storage v2 record is confirmed
+          // persistent. If persistence failed, the legacy key remains as fallback
+          // for the next page load.
+          if(info.persistent) root.localStorage?.removeItem(LEGACY_SETUP_STORAGE_KEY);
+        }
+      }catch(error){
+        SSE.diagnostics.warn(
+          "setup-storage-migration-failed",
+          "Legacy Coffee setup could not be migrated.",
+          {message:String(error?.message||error)}
+        );
+      }
+    }
+
+    state.settings=sanitizeSetupSettings(setupStore.get());
+  }
+
   const state = {
     visualMode: "factory", // Factory is the main experience; Core/input remain visual-mode agnostic.
-    settings: loadSetupSettings(),
+    settings: {...DEFAULT_SETUP_RUNTIME},
     plan: null, clock: null, prepClock: null,
     sample: null, previousSample: null, lastSampleMono: 0, suppressCue: false,
     finishing: false, brewStarting: false, brewCountdown: 0, brewCountdownDelay: 0, brewUiFade: 1, brewReadySoundStep: 0,
@@ -1695,13 +1761,8 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     return playSE("brew_change",{playbackRate:1.06});
   }
   function saveSetupSettings(){
-    try{
-      root.localStorage?.setItem(SETUP_STORAGE_KEY,JSON.stringify({
-        cupPreset:state.settings.cupPreset,
-        beanGrams:state.settings.beanGrams,
-        roast:state.settings.roast,
-      }));
-    }catch(_){}
+    if(!setupStore) return false;
+    return setupStore.set(setupStoragePayload(state.settings));
   }
   function selectCupPreset(count){
     if(state.settings.cupPreset!==count){
@@ -2034,6 +2095,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
       sounds:{},
     },
     setup() {
+      initSetupStorage();
       syncDocumentLanguage();
       seAudio.preload();
 
