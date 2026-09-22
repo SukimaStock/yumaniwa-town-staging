@@ -14,7 +14,7 @@ The engine owns repeated Web/runtime friction. Each work keeps its own rules, co
 
 1. **Baseline consolidation** — complete
 2. **Audio v2** — complete in canonical Engine
-3. Storage v2
+3. **Storage v2** — complete in canonical Engine
 4. Asset Loader
 5. Lifecycle + robust input
 6. Performance controls
@@ -122,4 +122,65 @@ The work-specific volume curves, cue timing, and musical decisions remain in eac
 
 Existing works still keep their local Engine copies. Audio v2 will be validated during later work-by-work migration before those copies are removed.
 
-The next implementation step is Storage v2.
+## Storage v2
+
+Storage v2 keeps the old `SSE.storage.set/get/has/remove/clear` API compatible while adding a safer structured API.
+
+Example:
+
+```js
+const settings = SSE.storage.define("settings", {
+  version: 2,
+  fallback: {
+    cups: 1,
+    roast: "Medium",
+  },
+  migrations: {
+    1(value) {
+      return {
+        ...value,
+        roast: value.roast || "Medium",
+      };
+    },
+  },
+  validate(value) {
+    return value && (value.cups === 1 || value.cups === 2);
+  },
+});
+
+const current = settings.get();
+settings.set({ cups: 2, roast: "Light" });
+```
+
+Storage v2 provides:
+
+- app-scoped namespacing
+- schema version per stored key
+- step-by-step `migrations`
+- catch-all `migrate(value, fromVersion, toVersion)`
+- optional validation
+- protection against silently overwriting newer/future data
+- in-memory fallback when localStorage is missing, blocked, full, or throws
+- same-session preference for the newest memory value when an older persistent value remains
+- in-memory checkpoints for rollback-sensitive works
+- `info()` for persistence/debug status
+
+Checkpoint example:
+
+```js
+const save = SSE.storage.define("save", {
+  version: 3,
+  fallback: null,
+});
+
+save.set(currentHomeState);
+save.checkpoint(); // clones the current saved value in memory
+
+const latestHome = save.getCheckpoint(null);
+```
+
+A checkpoint is deliberately not persistent. It is the Engine-level equivalent of ORBIT's same-session HOME rollback safety: a failed persistent write must not force the current session back to an older state.
+
+Existing works still keep their current save implementations until work-by-work migration is verified.
+
+The next implementation step is Asset Loader.
