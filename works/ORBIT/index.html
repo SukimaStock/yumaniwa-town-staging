@@ -79,6 +79,7 @@
       });
 
       await OrbitText.load();
+      await loadScript("orbit-sound-config.js?t=" + Date.now());
       await loadScript("restore-ritual-inline.js?v=2.7.22");
       await loadScript("sketch.js?v=2.9.24");
       CodeaLite.start("gameCanvas");
