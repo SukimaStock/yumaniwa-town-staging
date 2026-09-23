@@ -456,7 +456,7 @@
   "ritual": {
     "shellLabel": "ORBIT / RESTORE",
     "responseLabel": "[ E.V.E. ]",
-    "responseHint": "タップして戻る",
+    "responseHint": "タップして続ける",
     "wake": {
       "name": "WAKE",
       "response": "...PULSE... STABLE...",
