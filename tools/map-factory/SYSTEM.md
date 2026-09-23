@@ -190,15 +190,18 @@ Draft PNG export には含まれない。
 
 Map Factory keeps the asset library in IndexedDB and composition state in localStorage. Browser storage is local to the current browser profile, so use **BACKUP / RESTORE** to keep a copy outside the browser.
 
-Backup JSON format:
-- `format: yumaniwa-map-factory-backup`
-- `version: 1`
-- `assets`: complete imported assets, including their image data URLs and source metadata
-- `state`: current selection, adjustments, SPECIAL placements, and all WORK SLOT compositions
+Backup ZIP v2 layout:
+- `manifest.json`: `schema: yumaniwa-map-factory-backup`, `version: 2`, creation time, asset count, artifact metadata
+- `data.json`: asset metadata with `file: assets/asset_0001.png` references, and the complete selection, adjustments, SPECIAL placements, and WORK SLOT state; no embedded images
+- `assets/`: individual binary PNG/JPEG/WebP files; the ZIP uses stored entries because image formats are already compressed
 
-On mobile browsers with file sharing, export opens the share sheet so the JSON can be saved to Files. A visible save link remains available if the share sheet or automatic download does not open. The file action starts during the original tap.
+Imported images and generated crops are stored as Blobs in IndexedDB. Existing data URLs are converted on startup or when importing an older backup. A failed migration leaves the old records readable. Preview image object URLs are revoked after removal or replacement.
 
-Restore validates the format, asset types, image data, dimensions, IDs, and composition state before changing stored data. After confirmation, assets are replaced in one IndexedDB transaction and the saved composition state is restored. A restore replaces the current library and work slots; export a current backup first if you may need them later.
+Export shows image progress, then provides a ZIP save link. Mobile browsers that support file sharing also show a separate share button; tap either after preparation to keep the file outside the browser. Export does not navigate to a Blob URL or open a preview.
+
+Restore accepts ZIP v2 and legacy JSON v1. It checks archive entries and checksums, schema/version, asset references, IDs, image types and decoded dimensions, and composition state before asking to replace the current library. Assets are replaced in one IndexedDB transaction. If the transaction fails, the previous localStorage state is restored. Export a current backup before replacing an existing library.
+
+This package layout can later support individual shop or material set exchange under a project-specific extension such as `.ymf`; current import only accepts full-library `.zip` and legacy `.json` backups.
 
 ## Multi-SPECIAL placement
 
