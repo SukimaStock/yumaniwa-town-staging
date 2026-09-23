@@ -395,13 +395,13 @@
     trueEndingDelay: 0.8,
     // The hidden ending is the reward for staying, searching, reading, and
     // returning. Give all four E.V.E. beats room to land before the fade.
-    trueFadeStart: 26.3,
-    trueFadeEnd: 27.9,
-    trueTitleStart: 28.0,
-    trueTitleEnd: 32.3,
-    trueUnknownStart: 33.2,
-    trueUnknownEnd: 36.8,
-    trueReturnTitleAt: 38.1,
+    trueFadeStart: 38.0,
+    trueFadeEnd: 39.8,
+    trueTitleStart: 40.0,
+    trueTitleEnd: 44.5,
+    trueUnknownStart: 45.5,
+    trueUnknownEnd: 49.2,
+    trueReturnTitleAt: 50.7,
   });
 
   // Casual speech should feel incidental, not like the author explaining the
@@ -2432,20 +2432,20 @@
 
         // The logs supplied the facts. Here E.V.E. supplies the relationship:
         // what each of them was trying to do, and what changed this time.
-        if (this.incident.trueEndingSpeechStage < 1 && t >= 1.2) {
-          this.sayEve(tx("incident.trueEnding.line1"), 3.4);
+        if (this.incident.trueEndingSpeechStage < 1 && t >= 1.5) {
+          this.sayEve(tx("incident.trueEnding.line1"), 4.0);
           this.incident.trueEndingSpeechStage = 1;
         }
-        if (this.incident.trueEndingSpeechStage < 2 && t >= 6.8) {
-          this.sayEve(tx("incident.trueEnding.line2"), 3.8);
+        if (this.incident.trueEndingSpeechStage < 2 && t >= 9.0) {
+          this.sayEve(tx("incident.trueEnding.line2"), 4.2);
           this.incident.trueEndingSpeechStage = 2;
         }
-        if (this.incident.trueEndingSpeechStage < 3 && t >= 13.2) {
-          this.sayEve(tx("incident.trueEnding.line3"), 3.6);
+        if (this.incident.trueEndingSpeechStage < 3 && t >= 18.0) {
+          this.sayEve(tx("incident.trueEnding.line3"), 4.0);
           this.incident.trueEndingSpeechStage = 3;
         }
-        if (this.incident.trueEndingSpeechStage < 4 && t >= 19.3) {
-          this.sayEve(tx("incident.trueEnding.line4"), 4.0);
+        if (this.incident.trueEndingSpeechStage < 4 && t >= 27.0) {
+          this.sayEve(tx("incident.trueEnding.line4"), 4.5);
           this.incident.trueEndingSpeechStage = 4;
         }
 
