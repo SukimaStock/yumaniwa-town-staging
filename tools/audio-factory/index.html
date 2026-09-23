@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>Sukima Audio Factory v0.1</title>
+<title>Sukima Audio Factory v0.2</title>
 <style>
 :root{
   --bg:#171717;
@@ -27,7 +27,7 @@ h1{font-size:18px;margin:0;letter-spacing:.08em}
 .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:14px}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
 .panel h2{font-size:11px;letter-spacing:.12em;color:var(--muted);margin:0 0 12px}
-.families{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.families{display:grid;grid-template-columns:repeat(auto-fit,minmax(74px,1fr));gap:8px}
 .family{padding:13px 6px;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;cursor:pointer}
 .family.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
 .bigplay{width:100%;margin-top:12px;padding:22px;border:0;border-radius:13px;background:var(--accent);color:#171717;font-weight:800;font-size:18px;cursor:pointer}
@@ -68,7 +68,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <div class="wrap">
   <header>
     <div>
-      <h1>SUKIMA AUDIO FACTORY <span style="color:var(--accent)">v0.1</span></h1>
+      <h1>SUKIMA AUDIO FACTORY <span style="color:var(--accent)">v0.2</span></h1>
       <div class="sub">small sounds / no external audio files</div>
     </div>
     <div class="status" id="status">tap PLAY to wake audio</div>
@@ -154,7 +154,14 @@ const FAMILY_DEFAULTS = {
   WOOD:  { height:36, weight:62, hardness:52, tail:25, roughness:28, space:3,  variation:10,seed:202 },
   METAL: { height:61, weight:34, hardness:82, tail:58, roughness:8,  space:18, variation:6, seed:303 },
   SOFT:  { height:42, weight:55, hardness:18, tail:44, roughness:12, space:12, variation:8, seed:404 },
-  SPACE: { height:29, weight:76, hardness:14, tail:76, roughness:18, space:66, variation:12,seed:505 },
+  SPACE:   { height:29, weight:76, hardness:14, tail:76, roughness:18, space:66, variation:12,seed:505 },
+  GLASS:   { height:69, weight:20, hardness:88, tail:62, roughness:2,  space:24, variation:5, seed:606 },
+  RUBBER:  { height:43, weight:54, hardness:30, tail:36, roughness:4,  space:5,  variation:9, seed:707 },
+  BELL:    { height:58, weight:28, hardness:74, tail:78, roughness:3,  space:32, variation:5, seed:808 },
+  DROP:    { height:66, weight:22, hardness:38, tail:35, roughness:3,  space:10, variation:7, seed:909 },
+  MACHINE: { height:40, weight:58, hardness:76, tail:24, roughness:24, space:8,  variation:8, seed:1010 },
+  DUST:    { height:48, weight:25, hardness:12, tail:48, roughness:82, space:18, variation:13,seed:1111 },
+  DEEP:    { height:9,  weight:94, hardness:10, tail:86, roughness:8,  space:45, variation:6, seed:1212 },
 };
 
 const CONTROL_META = [
@@ -408,11 +415,18 @@ function buildSound(ctx, destination, r, startTime, seedOffset=0){
   const osc = ctx.createOscillator();
   osc.type = chooseWave(d.family, d.hardness);
   let endRatio = 1 - d.weight*.42;
-  if(d.family === 'METAL') endRatio = .96;
+  if(d.family === 'METAL' || d.family === 'GLASS' || d.family === 'BELL') endRatio = .96;
   if(d.family === 'TINY') endRatio = 1.08;
-  if(d.family === 'SPACE') endRatio = .55;
+  if(d.family === 'SPACE' || d.family === 'DROP') endRatio = .55;
+  if(d.family === 'DEEP') endRatio = .72;
+  if(d.family === 'RUBBER') endRatio = 1.18;
   osc.frequency.setValueAtTime(d.freq, now);
-  osc.frequency.exponentialRampToValueAtTime(Math.max(28,d.freq*endRatio), end);
+  if(d.family === 'RUBBER'){
+    osc.frequency.exponentialRampToValueAtTime(Math.max(28,d.freq*.72), now + d.duration*.42);
+    osc.frequency.exponentialRampToValueAtTime(Math.max(28,d.freq*endRatio), end);
+  }else{
+    osc.frequency.exponentialRampToValueAtTime(Math.max(28,d.freq*endRatio), end);
+  }
   osc.connect(env);
   osc.start(now);
   osc.stop(end + .02);
@@ -428,17 +442,23 @@ function buildSound(ctx, destination, r, startTime, seedOffset=0){
   sub.start(now);
   sub.stop(end + .02);
 
-  if(d.family === 'METAL' || d.family === 'TINY'){
-    const ring = ctx.createOscillator();
-    const rg = ctx.createGain();
-    ring.type = 'sine';
-    const ratio = d.family === 'METAL' ? 2.01 : 1.51;
-    ring.frequency.value = d.freq * ratio;
-    rg.gain.setValueAtTime(d.family === 'METAL' ? .18 : .11, now);
-    rg.gain.exponentialRampToValueAtTime(.0001, end * .25 + now*.75);
-    ring.connect(rg).connect(filter);
-    ring.start(now);
-    ring.stop(end + .02);
+  if(['METAL','TINY','GLASS','BELL'].includes(d.family)){
+    const ratios =
+      d.family === 'BELL' ? [2.01, 2.99, 4.12] :
+      d.family === 'GLASS' ? [1.51, 2.43, 3.87] :
+      [d.family === 'METAL' ? 2.01 : 1.51];
+    ratios.forEach((ratio, i) => {
+      const ring = ctx.createOscillator();
+      const rg = ctx.createGain();
+      ring.type = 'sine';
+      ring.frequency.value = d.freq * ratio;
+      const baseGain = d.family === 'BELL' ? .12 : d.family === 'GLASS' ? .10 : d.family === 'METAL' ? .18 : .11;
+      rg.gain.setValueAtTime(baseGain / (1 + i*.45), now);
+      rg.gain.exponentialRampToValueAtTime(.0001, now + d.duration*(.38 + i*.16));
+      ring.connect(rg).connect(filter);
+      ring.start(now);
+      ring.stop(end + .04);
+    });
   }
 
   if(d.noise > .001){
@@ -457,13 +477,58 @@ function buildSound(ctx, destination, r, startTime, seedOffset=0){
     src.stop(now + burst + .01);
   }
 
-  if(d.family === 'SPACE'){
+  if(d.family === 'SPACE' || d.family === 'DEEP'){
     const lfo = ctx.createOscillator();
     const lfoGain = ctx.createGain();
-    lfo.frequency.value = .7;
-    lfoGain.gain.value = d.freq*.018;
+    lfo.frequency.value = d.family === 'DEEP' ? .32 : .7;
+    lfoGain.gain.value = d.freq * (d.family === 'DEEP' ? .012 : .018);
     lfo.connect(lfoGain).connect(osc.frequency);
     lfo.start(now); lfo.stop(end);
+  }
+
+  if(d.family === 'DROP'){
+    const plop = ctx.createOscillator();
+    const pg = ctx.createGain();
+    plop.type = 'sine';
+    plop.frequency.setValueAtTime(d.freq*1.65, now);
+    plop.frequency.exponentialRampToValueAtTime(Math.max(45,d.freq*.62), now + Math.min(.24,d.duration*.75));
+    pg.gain.setValueAtTime(.16, now);
+    pg.gain.exponentialRampToValueAtTime(.0001, now + Math.min(.28,d.duration));
+    plop.connect(pg).connect(filter);
+    plop.start(now); plop.stop(now + Math.min(.3,d.duration+.04));
+  }
+
+  if(d.family === 'MACHINE'){
+    for(let i=0;i<3;i++){
+      const click = ctx.createOscillator();
+      const cg = ctx.createGain();
+      click.type = i % 2 ? 'square' : 'triangle';
+      const t = now + i*.036;
+      click.frequency.value = d.freq * (1.1 + i*.18);
+      cg.gain.setValueAtTime(.07/(i+1), t);
+      cg.gain.exponentialRampToValueAtTime(.0001, t+.03);
+      click.connect(cg).connect(filter);
+      click.start(t); click.stop(t+.035);
+    }
+  }
+
+  if(d.family === 'DUST'){
+    const length = Math.max(64, Math.floor(ctx.sampleRate * Math.min(.55, d.duration)));
+    const b = ctx.createBuffer(1, length, ctx.sampleRate);
+    const a = b.getChannelData(0);
+    let last = 0;
+    for(let i=0;i<length;i++){
+      last = last*.78 + (d.rnd()*2-1)*.22;
+      a[i] = last;
+    }
+    const src = ctx.createBufferSource();
+    const g = ctx.createGain();
+    src.buffer = b;
+    g.gain.setValueAtTime(.18 + d.noise*.65, now);
+    g.gain.exponentialRampToValueAtTime(.0001, now + Math.min(.7,d.duration));
+    src.connect(g).connect(filter);
+    src.start(now);
+    src.stop(now + Math.min(.72,d.duration+.04));
   }
 
   return d.duration + d.wet*1.8 + .15;
@@ -471,9 +536,10 @@ function buildSound(ctx, destination, r, startTime, seedOffset=0){
 
 function chooseWave(family, hardness){
   if(family === 'WOOD') return hardness > .62 ? 'square' : 'triangle';
-  if(family === 'METAL') return 'sine';
-  if(family === 'SOFT') return 'sine';
-  if(family === 'SPACE') return 'sine';
+  if(['METAL','GLASS','BELL','SOFT','SPACE','DROP','DEEP'].includes(family)) return 'sine';
+  if(family === 'RUBBER') return 'triangle';
+  if(family === 'MACHINE') return hardness > .55 ? 'square' : 'triangle';
+  if(family === 'DUST') return 'sine';
   return hardness > .72 ? 'square' : 'triangle';
 }
 
@@ -540,7 +606,7 @@ function safeName(s){
 function exportJSON(){
   const data = {
     format:'sukima-audio-factory',
-    version:1,
+    version:2,
     exportedAt:new Date().toISOString(),
     current:clone(recipe),
     slots:{A:slotA,B:slotB},
