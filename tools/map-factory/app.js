@@ -2195,6 +2195,17 @@
     if (!backup || typeof backup !== 'object' || backup.format !== BACKUP_FORMAT || backup.version !== BACKUP_VERSION) throw new Error('このツールの対応バックアップ形式ではありません。');
     if (!Array.isArray(backup.assets) || backup.assets.length > 10000) throw new Error('バックアップの素材一覧が不正です。');
     if (backup.state !== null && (typeof backup.state !== 'object' || Array.isArray(backup.state))) throw new Error('バックアップの作業状態が不正です。');
+    if (backup.state) {
+      const state = backup.state;
+      if (state.selected !== undefined && (!state.selected || typeof state.selected !== 'object' || Array.isArray(state.selected))) throw new Error('選択中の構成が不正です。');
+      if (state.compositions !== undefined && (!Array.isArray(state.compositions) || state.compositions.length > 100)) throw new Error('WORK SLOT一覧が不正です。');
+      if (state.specials !== undefined && !Array.isArray(state.specials)) throw new Error('SPECIAL配置一覧が不正です。');
+      (state.compositions || []).forEach((slot) => {
+        if (!slot || typeof slot !== 'object' || Array.isArray(slot)) throw new Error('WORK SLOTの内容が不正です。');
+        if (slot.selected !== undefined && (!slot.selected || typeof slot.selected !== 'object' || Array.isArray(slot.selected))) throw new Error('WORK SLOTの選択内容が不正です。');
+        if (slot.specials !== undefined && !Array.isArray(slot.specials)) throw new Error('WORK SLOTのSPECIAL配置が不正です。');
+      });
+    }
     const ids = new Set();
     backup.assets.forEach((asset) => {
       if (!asset || typeof asset !== 'object' || typeof asset.id !== 'string' || !asset.id || ids.has(asset.id)) throw new Error('素材IDが空か重複しています。');
