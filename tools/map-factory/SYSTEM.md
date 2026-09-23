@@ -1,4 +1,4 @@
-# Yumaniwa Map Factory System v0.6
+# Yumaniwa Map Factory System v0.7
 
 Map Factory は「完成画像を生成する場所」ではない。
 
@@ -186,6 +186,55 @@ render 時に NOREN / SIGN / LANTERN / BOARD / SPECIAL の実描画矩形を hit
 selection border は canvas 自体には描かないため、
 Draft PNG export には含まれない。
 
+## Multi-SPECIAL placement
+
+SPECIAL は単一選択レイヤーではなく、複数の配置インスタンスとして扱う。
+
+通常レイヤー:
+- BASE: 1
+- NOREN: 1
+- SIGN: 1
+- LANTERN: 1
+- BOARD: 1
+
+SPECIAL:
+- 0個以上
+- 同じ asset を複数回配置可能
+- 各配置は独立した instanceId を持つ
+- 各配置ごとに Scale / X / Y を保持
+- 配列順を描画順として扱う
+- 先頭ほど後ろ、末尾ほど前
+
+SPECIAL棚の asset をタップすると ON/OFF ではなく新しい instance を追加する。
+同じ素材を何度でも追加できる。
+
+配置後の操作:
+- プレビュー上を直接タップして個体選択
+- Scale / X / Y 個別調整
+- 後ろへ
+- 前へ
+- 複製
+- 配置削除
+
+PLACED SPECIALS に現在の配置一覧を表示する。
+一覧順が z-order を表す。
+
+SPECIAL の X 調整範囲は通常パーツより広く取り、
+店先の左側から右側まで複数小物を散らせるようにする。
+
+棚 asset 自体の削除と配置 instance の削除は別操作:
+- 棚カードの × = asset 自体を削除し、全 WORK SLOT の参照 instance も除去
+- PLACED SPECIALS の 配置削除 = 選択中 instance だけ除去
+
+既存の v0.6 以前の selected.special は初回ロード時に1つの SPECIAL instance へ自動移行する。
+
+WORK SLOT は SPECIAL instance 配列と activeSpecialId も丸ごと保存する。
+
+Recipe JSON v0.7:
+- parts は NOREN / SIGN / LANTERN / BOARD
+- specials は instance 配列
+- specials の各要素に assetId / label / scale / x / y / z を保存する
+
 ## Composition
 
 BASE を共通 preview canvas に contain する。
@@ -228,7 +277,7 @@ Draft PNG:
 - 正規ドット化前
 - transparent canvas
 
-Recipe JSON v0.6:
+Recipe JSON v0.7:
 - selected BASE
 - selected NOREN / SIGN / LANTERN / BOARD / SPECIAL
 - source metadata
