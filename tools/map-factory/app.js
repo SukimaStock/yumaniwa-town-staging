@@ -6,7 +6,7 @@
   const STORE_NAME = 'assets';
   const STATE_KEY = 'yumaniwa-map-factory-v02-state';
   const BACKUP_FORMAT = 'yumaniwa-map-factory-backup';
-  const BACKUP_VERSION = 1;
+  const BACKUP_VERSION = 2;
 
   function artifactMeta(kind, createdAt, dependencies, nextStep) {
     return {
@@ -113,6 +113,7 @@
     backupFile: $('backupFileInput'),
     backupStatus: $('backupStatus'),
     backupDownload: $('backupDownloadLink'),
+    backupShare: $('backupShareBtn'),
     compositionSlotList: $('compositionSlotList'),
     partSelectionBox: $('partSelectionBox'),
     specialTools: $('specialTools'),
@@ -169,11 +170,14 @@
 
   const ctx = els.canvas.getContext('2d');
   const imageCache = new Map();
+  const assetObjectUrls = new Map();
+  const candidateObjectUrls = new Set();
 
   let db = null;
   let renderToken = 0;
   let previewHitRegions = [];
   let backupObjectUrl = null;
+  let backupFile = null;
 
   function blankSelected() {
     return {
@@ -461,6 +465,17 @@
     });
   }
 
+  function dbPutMany(assets) {
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(STORE_NAME, 'readwrite');
+      const store = transaction.objectStore(STORE_NAME);
+      assets.forEach((asset) => store.put(asset));
+      transaction.oncomplete = resolve;
+      transaction.onerror = () => reject(transaction.error);
+      transaction.onabort = () => reject(transaction.error || new Error('Asset transaction aborted'));
+    });
+  }
+
   function dbDelete(id) {
     return new Promise((resolve, reject) => {
       const request = db.transaction(STORE_NAME, 'readwrite').objectStore(STORE_NAME).delete(id);
@@ -507,6 +522,47 @@
 
   function assetById(id) {
     return state.assets.find((asset) => asset.id === id) || null;
+  }
+
+  function assetUrl(asset) {
+    if (!asset.blob) return asset.dataUrl; // Legacy data remains displayable if migration cannot be saved.
+    if (!assetObjectUrls.has(asset.id)) assetObjectUrls.set(asset.id, URL.createObjectURL(asset.blob));
+    return assetObjectUrls.get(asset.id);
+  }
+
+  function releaseAssetUrls(ids) {
+    for (const id of ids) {
+      const url = assetObjectUrls.get(id);
+      if (url) URL.revokeObjectURL(url);
+      assetObjectUrls.delete(id);
+    }
+    imageCache.clear();
+  }
+
+  function releaseCandidates() {
+    for (const url of candidateObjectUrls) URL.revokeObjectURL(url);
+    candidateObjectUrls.clear();
+  }
+
+  function candidateUrl(blob) {
+    const url = URL.createObjectURL(blob);
+    candidateObjectUrls.add(url);
+    return url;
+  }
+
+  function dataUrlToBlob(dataUrl) {
+    const match = /^data:(image\/(?:png|jpeg|webp));base64,([A-Za-z0-9+/]*={0,2})$/.exec(dataUrl);
+    if (!match) throw new Error('旧バックアップの画像形式が不正です。');
+    const raw = atob(match[2]);
+    const buffer = new Uint8Array(raw.length);
+    for (let i = 0; i < raw.length; i++) buffer[i] = raw.charCodeAt(i);
+    return new Blob([buffer], { type: match[1] });
+  }
+
+  function convertLegacyAsset(asset) {
+    if (asset.blob instanceof Blob) return asset;
+    const { dataUrl, ...metadata } = asset;
+    return { ...metadata, blob: dataUrlToBlob(dataUrl) };
   }
 
   function loadImage(src) {
@@ -859,7 +915,7 @@
 
     const image = document.createElement('img');
     image.className = 'asset-thumb';
-    image.src = asset.dataUrl;
+    image.src = assetUrl(asset);
     image.alt = '';
 
     const caption = document.createElement('span');
@@ -917,6 +973,7 @@
       if (!window.confirm(asset.label + ' を部品棚から削除しますか？')) return;
 
       await dbDelete(asset.id);
+      releaseAssetUrls([asset.id]);
       state.assets = state.assets.filter((item) => item.id !== asset.id);
 
       const removedIds = new Set([asset.id]);
@@ -1018,7 +1075,7 @@
       }
     });
 
-    imageCache.clear();
+    releaseAssetUrls(ids);
     saveState();
     renderAll();
 
@@ -1196,7 +1253,7 @@
     if (!baseAsset) return;
 
     try {
-      const baseImage = await loadImage(baseAsset.dataUrl);
+      const baseImage = await loadImage(assetUrl(baseAsset));
       if (token !== renderToken) return;
 
       const maxBaseW = 590;
@@ -1223,7 +1280,7 @@
         const asset = assetById(instance.assetId);
         if (!asset) continue;
 
-        const image = await loadImage(asset.dataUrl);
+        const image = await loadImage(assetUrl(asset));
         if (token !== renderToken) return;
 
         const rect = getSpecialRect(instance, image, baseBox);
@@ -1250,7 +1307,7 @@
         const asset = assetById(state.selected[type]);
         if (!asset) continue;
 
-        const image = await loadImage(asset.dataUrl);
+        const image = await loadImage(assetUrl(asset));
         if (token !== renderToken) return;
 
         const rect = getPartRect(type, image, baseBox);
@@ -1412,7 +1469,7 @@
     return canvas;
   }
 
-  function cropImage(image, x0, y0, x1, y1, removeBackground) {
+  async function cropImage(image, x0, y0, x1, y1, removeBackground) {
     const sx = Math.max(0, Math.floor(x0));
     const sy = Math.max(0, Math.floor(y0));
     const ex = Math.min(image.width, Math.ceil(x1));
@@ -1429,11 +1486,10 @@
 
     if (removeBackground) cleanupCrop(canvas);
 
-    return {
-      dataUrl: canvas.toDataURL('image/png'),
-      width,
-      height
-    };
+    const blob = await new Promise((resolve, reject) => canvas.toBlob(
+      (result) => result ? resolve(result) : reject(new Error('画像を保存できません。')), 'image/png'
+    ));
+    return { blob, width, height };
   }
 
   function extractVariant(image, startX, endX) {
@@ -1495,17 +1551,11 @@
 
   function fileToImage(file) {
     return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onerror = () => reject(reader.error);
-
-      reader.onload = () => {
-        const image = new Image();
-        image.onload = () => resolve(image);
-        image.onerror = reject;
-        image.src = reader.result;
-      };
-
-      reader.readAsDataURL(file);
+      const url = URL.createObjectURL(file);
+      const image = new Image();
+      image.onload = () => { URL.revokeObjectURL(url); resolve(image); };
+      image.onerror = () => { URL.revokeObjectURL(url); reject(new Error('画像を開けません。')); };
+      image.src = url;
     });
   }
 
@@ -1674,7 +1724,7 @@
     return Array.from(groups.values());
   }
 
-  function makeCandidateFromGroup(image, detection, group, fileName, presetId) {
+  async function makeCandidateFromGroup(image, detection, group, fileName, presetId) {
     if (!group.components.length) return null;
 
     let minX = Infinity;
@@ -1705,13 +1755,13 @@
     const fullX1 = maxX * detection.scaleX;
     const fullY1 = maxY * detection.scaleY;
 
-    const crop = cropImage(image, fullX0, fullY0, fullX1, fullY1, true);
+    const crop = await cropImage(image, fullX0, fullY0, fullX1, fullY1, true);
 
     return {
       type: group.type,
       slotIndex: group.slotIndex,
       label: LABELS[group.type] + ' ' + pad2(group.slotIndex + 1),
-      dataUrl: crop.dataUrl,
+      blob: crop.blob,
       width: crop.width,
       height: crop.height,
       sourceKind: 'kit-sheet',
@@ -1726,8 +1776,7 @@
   async function analyzePair(file) {
     const image = await fileToImage(file);
     const middle = Math.floor(image.width / 2);
-    const a = extractVariant(image, 0, middle);
-    const b = extractVariant(image, middle, image.width);
+    const [a, b] = await Promise.all([extractVariant(image, 0, middle), extractVariant(image, middle, image.width)]);
 
     state.detected = {
       kind: 'pair',
@@ -1737,8 +1786,8 @@
       variants: [a, b]
     };
 
-    els.detectedA.src = a.dataUrl;
-    els.detectedB.src = b.dataUrl;
+    els.detectedA.src = candidateUrl(a.blob);
+    els.detectedB.src = candidateUrl(b.blob);
     els.detectedAMeta.textContent = a.width + ' × ' + a.height + ' px';
     els.detectedBMeta.textContent = b.width + ' × ' + b.height + ' px';
     els.detectedPair.classList.remove('hidden');
@@ -1761,8 +1810,8 @@
 
     const detection = detectConnectedComponents(image);
     const groups = assignComponentsToKitSlots(detection, preset);
-    const candidates = groups
-      .map((group) => makeCandidateFromGroup(image, detection, group, file.name, presetId))
+    const candidates = (await Promise.all(groups
+      .map((group) => makeCandidateFromGroup(image, detection, group, file.name, presetId))))
       .filter(Boolean)
       .sort((a, b) => {
         const typeDiff = TYPES.indexOf(a.type) - TYPES.indexOf(b.type);
@@ -1790,6 +1839,7 @@
   }
 
   async function analyzeSource(file) {
+    releaseCandidates();
     state.detected = null;
     els.registerImport.disabled = true;
     els.detectedPair.classList.add('hidden');
@@ -1858,7 +1908,7 @@
         label.setAttribute('for', checkbox.id);
 
         const image = document.createElement('img');
-        image.src = candidate.dataUrl;
+        image.src = candidate.previewUrl || (candidate.previewUrl = candidateUrl(candidate.blob));
         image.alt = '';
 
         const info = document.createElement('div');
@@ -1937,7 +1987,7 @@
       type,
       variant: index === 0 ? 'A' : 'B',
       label: prefix + ' ' + pad2(pairNumber) + (index === 0 ? 'A' : 'B'),
-      dataUrl: variant.dataUrl,
+      blob: variant.blob,
       width: variant.width,
       height: variant.height,
       sourceKind: 'pair',
@@ -1948,7 +1998,7 @@
       createdAt
     }));
 
-    for (const asset of assets) await dbPut(asset);
+    await dbPutMany(assets);
 
     state.assets.push(...assets);
 
@@ -1965,6 +2015,7 @@
       assets[0].label + ' / ' + assets[1].label + ' を部品棚へ登録しました。';
 
     state.detected = null;
+    releaseCandidates();
     els.detectedPair.classList.add('hidden');
     els.sourceInput.value = '';
   }
@@ -1989,7 +2040,7 @@
         type: candidate.type,
         variant: null,
         label: LABELS[candidate.type] + ' ' + pad2(running[candidate.type]),
-        dataUrl: candidate.dataUrl,
+        blob: candidate.blob,
         width: candidate.width,
         height: candidate.height,
         sourceKind: 'kit-sheet',
@@ -2003,10 +2054,8 @@
       };
     });
 
-    for (const asset of assets) {
-      await dbPut(asset);
-      addedByType[asset.type].push(asset);
-    }
+    await dbPutMany(assets);
+    assets.forEach((asset) => addedByType[asset.type].push(asset));
 
     state.assets.push(...assets);
 
@@ -2025,6 +2074,7 @@
       assets.length + '個のKit素材を部品棚へ登録しました。棚からクリックして切り貼りできます。';
 
     state.detected = null;
+    releaseCandidates();
     els.kitPreview.classList.add('hidden');
     els.sourceInput.value = '';
   }
@@ -2052,6 +2102,7 @@
   }
 
   function syncImportMode() {
+    releaseCandidates();
     const isKit = els.importMode.value === 'kit';
 
     els.pairTypeField.classList.toggle('hidden', isKit);
@@ -2195,105 +2246,178 @@
     downloadBlob(blob, 'yumaniwa-shop-recipe.json');
   }
 
-  function exportFullBackup() {
-    try {
-      // Keep the file action in the original tap: iOS may block a download
-      // that begins after an IndexedDB callback has ended the user gesture.
-      saveState();
-      const exportedAt = new Date().toISOString();
-      const backup = {
-        format: BACKUP_FORMAT,
-        version: BACKUP_VERSION,
-        exportedAt,
-        artifact: artifactMeta('map-factory-backup', exportedAt, [], 'map-factory-restore'),
-        assets: state.assets,
-        state: JSON.parse(localStorage.getItem(STATE_KEY) || 'null')
-      };
-      const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-      const fileName = 'yumaniwa-map-factory-backup-' + stamp + '.json';
-      const file = new File([JSON.stringify(backup)], fileName, { type: 'application/json' });
+  function jsonBlob(value) {
+    return new Blob([JSON.stringify(value)], { type: 'application/json' });
+  }
 
-      if (backupObjectUrl) URL.revokeObjectURL(backupObjectUrl);
-      backupObjectUrl = URL.createObjectURL(file);
+  function imageExtension(blob) {
+    const extension = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp' }[blob.type];
+    if (!extension) throw new Error('対応していない画像形式です。');
+    return extension;
+  }
+
+  function clearPreparedBackup() {
+    if (backupObjectUrl) URL.revokeObjectURL(backupObjectUrl);
+    backupObjectUrl = null;
+    backupFile = null;
+    els.backupDownload.classList.add('hidden');
+    els.backupShare.classList.add('hidden');
+  }
+
+  async function exportFullBackup() {
+    els.exportBackup.disabled = true;
+    els.restoreBackup.disabled = true;
+    clearPreparedBackup();
+    try {
+      saveState();
+      const createdAt = new Date().toISOString();
+      const selectedAssets = [...state.assets];
+      const entries = [];
+      const records = selectedAssets.map((asset, index) => {
+        const blob = asset.blob instanceof Blob ? asset.blob : dataUrlToBlob(asset.dataUrl);
+        const file = 'assets/asset_' + String(index + 1).padStart(4, '0') + '.' + imageExtension(blob);
+        const { blob: ignoredBlob, dataUrl: ignoredDataUrl, ...metadata } = asset;
+        entries.push({ name: file, blob });
+        return { ...metadata, file };
+      });
+      const manifest = {
+        schema: BACKUP_FORMAT, version: BACKUP_VERSION, createdAt, assetCount: records.length,
+        artifact: artifactMeta('map-factory-backup', createdAt, [], 'map-factory-restore')
+      };
+      const data = { assets: records, state: JSON.parse(localStorage.getItem(STATE_KEY) || 'null') };
+      els.backupStatus.textContent = 'バックアップを作成中… 画像 0 / ' + records.length;
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      const zip = await window.MapFactoryZip.create([
+        { name: 'manifest.json', blob: jsonBlob(manifest) },
+        { name: 'data.json', blob: jsonBlob(data) }, ...entries
+      ], async (done) => {
+        if (done > 2) {
+          els.backupStatus.textContent = 'バックアップを作成中… 画像 ' + (done - 2) + ' / ' + records.length;
+          await new Promise((resolve) => requestAnimationFrame(resolve));
+        }
+      });
+      const stamp = createdAt.slice(0, 16).replace(/[-:T]/g, '');
+      const fileName = 'yumaniwa-map-factory-backup-' + stamp.slice(0, 8) + '-' + stamp.slice(8) + '.zip';
+      backupFile = new File([zip], fileName, { type: 'application/zip' });
+      backupObjectUrl = URL.createObjectURL(backupFile);
       els.backupDownload.href = backupObjectUrl;
       els.backupDownload.download = fileName;
       els.backupDownload.classList.remove('hidden');
-
-      if (typeof navigator.share === 'function' &&
-          typeof navigator.canShare === 'function' &&
-          navigator.canShare({ files: [file] })) {
-        navigator.share({ files: [file], title: 'Map Factory backup' })
-          .then(() => {
-            els.backupStatus.textContent = backup.assets.length + '個の素材を含むバックアップを共有しました。';
-          })
-          .catch((error) => {
-            if (error.name !== 'AbortError') console.error('Backup share failed', error);
-            els.backupStatus.textContent = '共有を閉じました。下のリンクからバックアップを保存できます。';
-          });
-      } else {
-        els.backupDownload.click();
-        els.backupStatus.textContent = backup.assets.length + '個の素材を含むバックアップを準備しました。保存画面が開かない場合は下のリンクをタップしてください。';
+      if (typeof navigator.share === 'function' && typeof navigator.canShare === 'function' && navigator.canShare({ files: [backupFile] })) {
+        els.backupShare.classList.remove('hidden');
       }
+      els.backupStatus.textContent = 'バックアップを作成しました ' + (zip.size / 1048576).toFixed(1) + ' MB。下の「ZIPを保存」をタップしてください。';
     } catch (error) {
       console.error('Backup export failed', error);
-      els.backupStatus.textContent = '書き出しに失敗しました。ブラウザーの保存容量を確認してください。';
+      els.backupStatus.textContent = error.message || 'バックアップの作成に失敗しました。';
+    } finally {
+      els.exportBackup.disabled = false;
+      els.restoreBackup.disabled = false;
     }
   }
 
-  function validateBackup(backup) {
-    if (!backup || typeof backup !== 'object' || backup.format !== BACKUP_FORMAT || backup.version !== BACKUP_VERSION) throw new Error('このツールの対応バックアップ形式ではありません。');
-    if (!Array.isArray(backup.assets) || backup.assets.length > 10000) throw new Error('バックアップの素材一覧が不正です。');
-    if (backup.state !== null && (typeof backup.state !== 'object' || Array.isArray(backup.state))) throw new Error('バックアップの作業状態が不正です。');
-    if (backup.state) {
-      const state = backup.state;
-      if (state.selected !== undefined && (!state.selected || typeof state.selected !== 'object' || Array.isArray(state.selected))) throw new Error('選択中の構成が不正です。');
-      if (state.compositions !== undefined && (!Array.isArray(state.compositions) || state.compositions.length > 100)) throw new Error('WORK SLOT一覧が不正です。');
-      if (state.specials !== undefined && !Array.isArray(state.specials)) throw new Error('SPECIAL配置一覧が不正です。');
-      (state.compositions || []).forEach((slot) => {
-        if (!slot || typeof slot !== 'object' || Array.isArray(slot)) throw new Error('WORK SLOTの内容が不正です。');
-        if (slot.selected !== undefined && (!slot.selected || typeof slot.selected !== 'object' || Array.isArray(slot.selected))) throw new Error('WORK SLOTの選択内容が不正です。');
-        if (slot.specials !== undefined && !Array.isArray(slot.specials)) throw new Error('WORK SLOTのSPECIAL配置が不正です。');
-      });
-    }
+  function validateBackupState(saved) {
+    if (saved !== null && (!saved || typeof saved !== 'object' || Array.isArray(saved))) throw new Error('バックアップの作業状態が不正です。');
+    if (!saved) return;
+    const verifySlot = (slot) => {
+      if (!slot || typeof slot !== 'object' || Array.isArray(slot)) throw new Error('WORK SLOTの内容が不正です。');
+      if (slot.selected !== undefined && (!slot.selected || typeof slot.selected !== 'object' || Array.isArray(slot.selected))) throw new Error('WORK SLOTの選択内容が不正です。');
+      if (slot.specials !== undefined && !Array.isArray(slot.specials)) throw new Error('WORK SLOTのSPECIAL配置が不正です。');
+    };
+    verifySlot(saved);
+    if (saved.compositions !== undefined && (!Array.isArray(saved.compositions) || saved.compositions.length > 100)) throw new Error('WORK SLOT一覧が不正です。');
+    (saved.compositions || []).forEach(verifySlot);
+  }
+
+  function validateAssetRecords(records) {
+    if (!Array.isArray(records) || records.length > 10000) throw new Error('バックアップの素材一覧が不正です。');
     const ids = new Set();
-    backup.assets.forEach((asset) => {
-      if (!asset || typeof asset !== 'object' || typeof asset.id !== 'string' || !asset.id || ids.has(asset.id)) throw new Error('素材IDが空か重複しています。');
-      if (!TYPES.includes(asset.type) || typeof asset.dataUrl !== 'string' || !asset.dataUrl.startsWith('data:image/')) throw new Error('素材の種類または画像データが不正です。');
-      if (!Number.isFinite(Number(asset.width)) || Number(asset.width) <= 0 || !Number.isFinite(Number(asset.height)) || Number(asset.height) <= 0) throw new Error('素材の画像サイズが不正です。');
+    for (const asset of records) {
+      if (!asset || typeof asset !== 'object' || Array.isArray(asset) || typeof asset.id !== 'string' || !asset.id || ids.has(asset.id)) throw new Error('素材IDが空か重複しています。');
+      if (!TYPES.includes(asset.type) || !Number.isFinite(asset.width) || asset.width <= 0 || !Number.isFinite(asset.height) || asset.height <= 0) throw new Error('素材の種類または画像サイズが不正です。');
       ids.add(asset.id);
-    });
-    return backup.assets;
+    }
+  }
+
+  async function verifyImage(blob, width, height) {
+    if (blob.size === 0 || blob.size > 256 * 1024 * 1024) throw new Error('画像データのサイズが不正です。');
+    const bytes = new Uint8Array(await blob.slice(0, 12).arrayBuffer());
+    const png = bytes[0] === 137 && bytes[1] === 80 && bytes[2] === 78 && bytes[3] === 71;
+    const jpg = bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255;
+    const webp = String.fromCharCode(...bytes.slice(0, 4)) === 'RIFF' && String.fromCharCode(...bytes.slice(8, 12)) === 'WEBP';
+    if (!({ 'image/png': png, 'image/jpeg': jpg, 'image/webp': webp })[blob.type]) throw new Error('画像ファイルの内容と拡張子が一致しません。');
+    const image = await fileToImage(blob);
+    if (image.width !== width || image.height !== height) throw new Error('画像の寸法がバックアップと一致しません。');
+  }
+
+  async function readBackup(file) {
+    if (/\.json$/i.test(file.name)) {
+      const backup = JSON.parse(await file.text());
+      if (!backup || backup.format !== BACKUP_FORMAT || backup.version !== 1) throw new Error('対応していない旧JSONバックアップです。');
+      validateBackupState(backup.state);
+      validateAssetRecords(backup.assets);
+      const assets = backup.assets.map((asset) => convertLegacyAsset(asset));
+      for (const asset of assets) await verifyImage(asset.blob, asset.width, asset.height);
+      return { state: backup.state, assets };
+    }
+    if (!/\.zip$/i.test(file.name)) throw new Error('ZIPまたは旧JSONバックアップを選んでください。');
+    const files = await window.MapFactoryZip.read(file);
+    if (!files.has('manifest.json') || !files.has('data.json')) throw new Error('manifest.jsonまたはdata.jsonがありません。');
+    const manifest = JSON.parse(await files.get('manifest.json').text());
+    if (!manifest || manifest.schema !== BACKUP_FORMAT || manifest.version !== BACKUP_VERSION || !Number.isInteger(manifest.assetCount)) throw new Error('対応していないZIPバックアップです。');
+    const data = JSON.parse(await files.get('data.json').text());
+    validateBackupState(data.state);
+    validateAssetRecords(data.assets);
+    if (manifest.assetCount !== data.assets.length || files.size !== data.assets.length + 2) throw new Error('ZIP内の素材数が一致しません。');
+    const used = new Set();
+    const assets = [];
+    for (const record of data.assets) {
+      const { file: path, ...metadata } = record;
+      if (typeof path !== 'string' || !/^assets\/asset_[0-9]+\.(png|jpg|webp)$/.test(path) || used.has(path) || !files.has(path) || 'dataUrl' in metadata || 'blob' in metadata) throw new Error('必要な画像ファイルがありません。');
+      used.add(path);
+      const type = { png: 'image/png', jpg: 'image/jpeg', webp: 'image/webp' }[path.split('.').pop()];
+      const blob = new Blob([files.get(path)], { type });
+      await verifyImage(blob, record.width, record.height);
+      assets.push({ ...metadata, blob });
+    }
+    return { state: data.state, assets };
   }
 
   async function restoreFullBackup(event) {
     const file = event.target.files && event.target.files[0];
     if (!file) return;
+    els.exportBackup.disabled = true;
+    els.restoreBackup.disabled = true;
+    els.backupStatus.textContent = 'バックアップを検証中…';
     try {
-      const backup = JSON.parse(await file.text());
-      const assets = validateBackup(backup);
-      if (!window.confirm('現在の部品棚と作業状態を置き換えて、' + assets.length + '個の素材を復元します。復元前に現在のバックアップを保存しましたか？')) {
+      const backup = await readBackup(file);
+      if (!window.confirm('現在の部品棚と作業状態を置き換えて、' + backup.assets.length + '個の素材を復元します。復元前に現在のバックアップを保存しましたか？')) {
         els.backupStatus.textContent = '復元をキャンセルしました。'; return;
       }
       const previousState = localStorage.getItem(STATE_KEY);
       try {
         if (backup.state === null) localStorage.removeItem(STATE_KEY);
         else localStorage.setItem(STATE_KEY, JSON.stringify(backup.state));
-        await dbReplaceAll(assets);
+        await dbReplaceAll(backup.assets);
       } catch (error) {
         if (previousState === null) localStorage.removeItem(STATE_KEY); else localStorage.setItem(STATE_KEY, previousState);
         throw error;
       }
-      state.assets = assets;
-      imageCache.clear();
+      releaseAssetUrls(state.assets.map((asset) => asset.id));
+      state.assets = backup.assets;
       loadSavedState();
       normalizeCompositionReferences();
       saveState();
       renderAll();
-      els.backupStatus.textContent = assets.length + '個の素材と作業状態を復元しました。';
+      els.backupStatus.textContent = backup.assets.length + '個の素材と作業状態を復元しました。';
     } catch (error) {
       console.error('Backup restore failed', error);
       els.backupStatus.textContent = error instanceof SyntaxError ? 'JSONを読み取れません。バックアップファイルを確認してください。' : (error.message || '復元に失敗しました。');
-    } finally { event.target.value = ''; }
+    } finally {
+      event.target.value = '';
+      els.exportBackup.disabled = false;
+      els.restoreBackup.disabled = false;
+    }
   }
 
   function normalizeCompositionReferences() {
@@ -2424,6 +2548,16 @@
     els.exportBackup.addEventListener('click', exportFullBackup);
     els.restoreBackup.addEventListener('click', () => els.backupFile.click());
     els.backupFile.addEventListener('change', restoreFullBackup);
+    els.backupShare.addEventListener('click', () => {
+      if (!backupFile) return;
+      navigator.share({ files: [backupFile], title: 'Map Factory backup' }).catch((error) => {
+        if (error.name !== 'AbortError') {
+          console.error('Backup share failed', error);
+          els.backupStatus.textContent = '共有できませんでした。「ZIPを保存」をお試しください。';
+        }
+      });
+    });
+    window.addEventListener('pagehide', clearPreparedBackup);
     els.exportJson.addEventListener('click', exportRecipeJson);
 
     els.togglePrompt.addEventListener('click', () => {
@@ -2450,6 +2584,18 @@
     try {
       db = await openDatabase();
       state.assets = await dbGetAll();
+      const legacy = state.assets.filter((asset) => !(asset.blob instanceof Blob) && typeof asset.dataUrl === 'string');
+      if (legacy.length) {
+        try {
+          const migrated = legacy.map(convertLegacyAsset);
+          await dbPutMany(migrated);
+          const byId = new Map(migrated.map((asset) => [asset.id, asset]));
+          state.assets = state.assets.map((asset) => byId.get(asset.id) || asset);
+        } catch (error) {
+          console.error('Legacy asset migration failed; old assets are still readable', error);
+          els.backupStatus.textContent = '一部の素材をBlob形式に移行できませんでした。バックアップは作成できます。';
+        }
+      }
       els.exportBackup.disabled = false;
       els.restoreBackup.disabled = false;
 
