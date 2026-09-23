@@ -6,16 +6,44 @@
   const STORE_NAME = 'assets';
   const STATE_KEY = 'yumaniwa-map-factory-v02-state';
 
+  const TYPES = ['base', 'noren', 'sign', 'lantern', 'board', 'special'];
+  const PART_TYPES = TYPES.filter((type) => type !== 'base');
+  const DRAW_ORDER = ['special', 'noren', 'sign', 'lantern', 'board'];
+
+  const SLOT = {
+    noren:   { x: 0.50, y: 0.42, maxW: 0.56, maxH: 0.30, anchor: 'top-center' },
+    sign:    { x: 0.84, y: 0.44, maxW: 0.18, maxH: 0.25, anchor: 'center' },
+    lantern: { x: 0.80, y: 0.58, maxW: 0.13, maxH: 0.19, anchor: 'center' },
+    board:   { x: 0.76, y: 0.88, maxW: 0.21, maxH: 0.24, anchor: 'bottom-center' },
+    special: { x: 0.23, y: 0.88, maxW: 0.29, maxH: 0.25, anchor: 'bottom-center' }
+  };
+
+  const LABELS = {
+    base: 'BASE',
+    noren: 'NOREN',
+    sign: 'SIGN',
+    lantern: 'LANTERN',
+    board: 'BOARD',
+    special: 'SPECIAL'
+  };
+
   const els = {
     canvas: $('previewCanvas'),
     empty: $('previewEmpty'),
-    baseShelf: $('baseShelf'),
-    norenShelf: $('norenShelf'),
+    shelves: {
+      base: $('baseShelf'),
+      noren: $('norenShelf'),
+      sign: $('signShelf'),
+      lantern: $('lanternShelf'),
+      board: $('boardShelf'),
+      special: $('specialShelf')
+    },
     assetCount: $('assetCount'),
     comboStrip: $('comboStrip'),
-    scale: $('norenScale'),
-    x: $('norenX'),
-    y: $('norenY'),
+    adjustType: $('adjustType'),
+    scale: $('partScale'),
+    x: $('partX'),
+    y: $('partY'),
     scaleValue: $('scaleValue'),
     xValue: $('xValue'),
     yValue: $('yValue'),
@@ -46,10 +74,22 @@
   let db = null;
   let renderToken = 0;
 
+  function blankSelected() {
+    return Object.fromEntries(TYPES.map((type) => [type, null]));
+  }
+
+  function blankAdjustments() {
+    return Object.fromEntries(PART_TYPES.map((type) => [
+      type,
+      { scale: 100, x: 0, y: 0 }
+    ]));
+  }
+
   const state = {
     assets: [],
-    selected: { base: null, noren: null },
-    adjustments: { scale: 100, x: 0, y: 0 },
+    selected: blankSelected(),
+    adjustments: blankAdjustments(),
+    adjustType: 'noren',
     detected: null
   };
 
@@ -57,14 +97,35 @@
     try {
       const saved = JSON.parse(localStorage.getItem(STATE_KEY) || '{}');
       if (saved.selected) state.selected = { ...state.selected, ...saved.selected };
-      if (saved.adjustments) state.adjustments = { ...state.adjustments, ...saved.adjustments };
+
+      if (saved.adjustments) {
+        if (typeof saved.adjustments.scale === 'number') {
+          state.adjustments.noren = {
+            scale: saved.adjustments.scale,
+            x: Number(saved.adjustments.x || 0),
+            y: Number(saved.adjustments.y || 0)
+          };
+        } else {
+          PART_TYPES.forEach((type) => {
+            if (saved.adjustments[type]) {
+              state.adjustments[type] = {
+                ...state.adjustments[type],
+                ...saved.adjustments[type]
+              };
+            }
+          });
+        }
+      }
+
+      if (PART_TYPES.includes(saved.adjustType)) state.adjustType = saved.adjustType;
     } catch (_) {}
   }
 
   function saveState() {
     localStorage.setItem(STATE_KEY, JSON.stringify({
       selected: state.selected,
-      adjustments: state.adjustments
+      adjustments: state.adjustments,
+      adjustType: state.adjustType
     }));
   }
 
@@ -130,16 +191,26 @@
     return promise;
   }
 
+  function currentAdjustment() {
+    return state.adjustments[state.adjustType];
+  }
+
   function syncControls() {
-    els.scale.value = String(state.adjustments.scale);
-    els.x.value = String(state.adjustments.x);
-    els.y.value = String(state.adjustments.y);
-    els.scaleValue.value = state.adjustments.scale + '%';
-    els.scaleValue.textContent = state.adjustments.scale + '%';
-    els.xValue.value = String(state.adjustments.x);
-    els.xValue.textContent = String(state.adjustments.x);
-    els.yValue.value = String(state.adjustments.y);
-    els.yValue.textContent = String(state.adjustments.y);
+    els.adjustType.value = state.adjustType;
+    const adjustment = currentAdjustment();
+    els.scale.value = String(adjustment.scale);
+    els.x.value = String(adjustment.x);
+    els.y.value = String(adjustment.y);
+    els.scaleValue.textContent = adjustment.scale + '%';
+    els.xValue.textContent = String(adjustment.x);
+    els.yValue.textContent = String(adjustment.y);
+  }
+
+  function setAdjustType(type) {
+    if (!PART_TYPES.includes(type)) return;
+    state.adjustType = type;
+    saveState();
+    syncControls();
   }
 
   function makeAssetCard(asset) {
@@ -156,12 +227,18 @@
         <span>${asset.width}×${asset.height}</span>
       </span>
     `;
+
     button.addEventListener('click', () => {
-      state.selected[asset.type] = asset.id;
+      const isActive = state.selected[asset.type] === asset.id;
+      if (asset.type !== 'base' && isActive) {
+        state.selected[asset.type] = null;
+      } else {
+        state.selected[asset.type] = asset.id;
+      }
+
+      if (asset.type !== 'base') setAdjustType(asset.type);
       saveState();
-      renderShelves();
-      renderCombos();
-      renderPreview();
+      renderAll();
     });
 
     const remove = document.createElement('button');
@@ -183,24 +260,24 @@
     return wrap;
   }
 
-  function renderShelf(type, element) {
+  function renderShelf(type) {
+    const element = els.shelves[type];
     const assets = byType(type);
     element.innerHTML = '';
+
     if (!assets.length) {
       const empty = document.createElement('div');
       empty.className = 'asset-empty';
-      empty.textContent = type === 'base'
-        ? 'BASEをまだ仕入れていません'
-        : 'NORENをまだ仕入れていません';
+      empty.textContent = LABELS[type] + 'をまだ仕入れていません';
       element.appendChild(empty);
       return;
     }
+
     assets.forEach((asset) => element.appendChild(makeAssetCard(asset)));
   }
 
   function renderShelves() {
-    renderShelf('base', els.baseShelf);
-    renderShelf('noren', els.norenShelf);
+    TYPES.forEach(renderShelf);
     els.assetCount.textContent = String(state.assets.length);
   }
 
@@ -214,11 +291,10 @@
     if (!norens.length) {
       bases.forEach((base, baseIndex) => {
         const chip = document.createElement('button');
-        chip.className = 'combo-chip' + (state.selected.base === base.id && !state.selected.noren ? ' active' : '');
-        chip.textContent = 'B' + (baseIndex + 1);
+        chip.className = 'combo-chip' + (state.selected.base === base.id ? ' active' : '');
+        chip.textContent = 'BASE ' + (baseIndex + 1);
         chip.addEventListener('click', () => {
           state.selected.base = base.id;
-          state.selected.noren = null;
           saveState();
           renderAll();
         });
@@ -244,14 +320,37 @@
     });
   }
 
+  function getPartRect(type, image, baseBox) {
+    const slot = SLOT[type];
+    const adjustment = state.adjustments[type];
+    const userScale = adjustment.scale / 100;
+
+    const targetW = baseBox.w * slot.maxW * userScale;
+    const targetH = baseBox.h * slot.maxH * userScale;
+    const scale = Math.min(targetW / image.width, targetH / image.height);
+    const w = image.width * scale;
+    const h = image.height * scale;
+
+    const offsetX = (adjustment.x / 100) * baseBox.w;
+    const offsetY = (adjustment.y / 100) * baseBox.h;
+    const anchorX = baseBox.x + baseBox.w * slot.x + offsetX;
+    const anchorY = baseBox.y + baseBox.h * slot.y + offsetY;
+
+    let x = anchorX - w / 2;
+    let y = anchorY - h / 2;
+
+    if (slot.anchor === 'top-center') y = anchorY;
+    if (slot.anchor === 'bottom-center') y = anchorY - h;
+
+    return { x, y, w, h };
+  }
+
   async function renderPreview() {
     const token = ++renderToken;
     ctx.clearRect(0, 0, els.canvas.width, els.canvas.height);
     ctx.imageSmoothingEnabled = false;
 
     const baseAsset = assetById(state.selected.base);
-    const norenAsset = assetById(state.selected.noren);
-
     els.empty.classList.toggle('hidden', Boolean(baseAsset));
     els.exportPng.disabled = !baseAsset;
     els.exportJson.disabled = !baseAsset;
@@ -265,31 +364,37 @@
       const maxBaseW = 590;
       const maxBaseH = 530;
       const baseScale = Math.min(maxBaseW / baseImage.width, maxBaseH / baseImage.height);
-      const baseW = baseImage.width * baseScale;
-      const baseH = baseImage.height * baseScale;
-      const baseX = (els.canvas.width - baseW) / 2;
-      const baseY = 635 - baseH;
+      const baseBox = {
+        w: baseImage.width * baseScale,
+        h: baseImage.height * baseScale
+      };
+      baseBox.x = (els.canvas.width - baseBox.w) / 2;
+      baseBox.y = 635 - baseBox.h;
 
-      ctx.drawImage(baseImage, Math.round(baseX), Math.round(baseY), Math.round(baseW), Math.round(baseH));
+      ctx.drawImage(
+        baseImage,
+        Math.round(baseBox.x),
+        Math.round(baseBox.y),
+        Math.round(baseBox.w),
+        Math.round(baseBox.h)
+      );
 
-      if (!norenAsset) return;
+      for (const type of DRAW_ORDER) {
+        const asset = assetById(state.selected[type]);
+        if (!asset) continue;
 
-      const norenImage = await loadImage(norenAsset.dataUrl);
-      if (token !== renderToken) return;
+        const image = await loadImage(asset.dataUrl);
+        if (token !== renderToken) return;
 
-      const userScale = state.adjustments.scale / 100;
-      const targetW = baseW * 0.56 * userScale;
-      const targetH = baseH * 0.30 * userScale;
-      const norenScale = Math.min(targetW / norenImage.width, targetH / norenImage.height);
-      const norenW = norenImage.width * norenScale;
-      const norenH = norenImage.height * norenScale;
-
-      const offsetX = (state.adjustments.x / 100) * baseW;
-      const offsetY = (state.adjustments.y / 100) * baseH;
-      const norenX = baseX + baseW * 0.5 - norenW * 0.5 + offsetX;
-      const norenY = baseY + baseH * 0.42 + offsetY;
-
-      ctx.drawImage(norenImage, Math.round(norenX), Math.round(norenY), Math.round(norenW), Math.round(norenH));
+        const rect = getPartRect(type, image, baseBox);
+        ctx.drawImage(
+          image,
+          Math.round(rect.x),
+          Math.round(rect.y),
+          Math.round(rect.w),
+          Math.round(rect.h)
+        );
+      }
     } catch (error) {
       console.error('Preview render failed', error);
     }
@@ -311,6 +416,7 @@
       [width - sample, height - sample]
     ];
     let r = 0, g = 0, b = 0, n = 0;
+
     points.forEach(([sx, sy]) => {
       for (let y = sy; y < sy + sample; y += 2) {
         for (let x = sx; x < sx + sample; x += 2) {
@@ -323,6 +429,7 @@
         }
       }
     });
+
     if (!n) return [255, 255, 255];
     return [r / n, g / n, b / n];
   }
@@ -364,6 +471,7 @@
         const foreground = hasTransparency
           ? data[i + 3] > 22
           : data[i + 3] > 22 && colorDistance(data, i, bg) > threshold;
+
         if (!foreground) continue;
         if (x < minX) minX = x;
         if (x > maxX) maxX = x;
@@ -373,7 +481,10 @@
     }
 
     if (maxX < minX || maxY < minY) {
-      minX = 0; minY = 0; maxX = width - 1; maxY = height - 1;
+      minX = 0;
+      minY = 0;
+      maxX = width - 1;
+      maxY = height - 1;
     }
 
     const pad = Math.max(4, Math.floor(Math.max(width, height) * 0.015));
@@ -393,6 +504,7 @@
     if (!hasTransparency) {
       const cropData = cropCtx.getImageData(0, 0, cropW, cropH);
       const pixels = cropData.data;
+
       for (let i = 0; i < pixels.length; i += 4) {
         const distance = colorDistance(pixels, i, bg);
         if (distance <= 18) {
@@ -461,10 +573,11 @@
 
   async function registerDetectedPair() {
     if (!state.detected) return;
+
     const type = els.importType.value;
     const existing = byType(type).length;
     const pairNumber = Math.floor(existing / 2) + 1;
-    const prefix = type.toUpperCase();
+    const prefix = LABELS[type];
     const timestamp = Date.now();
     const createdAt = new Date().toISOString();
 
@@ -489,6 +602,7 @@
       for (const asset of assets) await dbPut(asset);
       state.assets.push(...assets);
       state.selected[type] = assets[0].id;
+      if (type !== 'base') setAdjustType(type);
       saveState();
       renderAll();
       els.sourceStatus.textContent = assets[0].label + ' / ' + assets[1].label + ' を部品棚へ登録しました。';
@@ -502,19 +616,26 @@
   }
 
   function updateAdjustments() {
-    state.adjustments.scale = Number(els.scale.value);
-    state.adjustments.x = Number(els.x.value);
-    state.adjustments.y = Number(els.y.value);
+    const adjustment = currentAdjustment();
+    adjustment.scale = Number(els.scale.value);
+    adjustment.x = Number(els.x.value);
+    adjustment.y = Number(els.y.value);
     saveState();
     syncControls();
     renderPreview();
   }
 
-  function resetAdjustments() {
-    state.adjustments = { scale: 100, x: 0, y: 0 };
+  function resetCurrentAdjustment() {
+    state.adjustments[state.adjustType] = { scale: 100, x: 0, y: 0 };
     saveState();
     syncControls();
     renderPreview();
+  }
+
+  function resetAllAdjustments() {
+    state.adjustments = blankAdjustments();
+    saveState();
+    syncControls();
   }
 
   function downloadBlob(blob, fileName) {
@@ -537,27 +658,28 @@
 
   function exportRecipeJson() {
     const base = assetById(state.selected.base);
-    const noren = assetById(state.selected.noren);
     if (!base) return;
 
+    const parts = {};
+    PART_TYPES.forEach((type) => {
+      const asset = assetById(state.selected[type]);
+      parts[type] = asset ? {
+        id: asset.id,
+        label: asset.label,
+        sourceFile: asset.sourceFile
+      } : null;
+    });
+
     const recipe = {
-      version: 'yumaniwa-asset-0.2',
+      version: 'yumaniwa-asset-0.3',
       createdAt: new Date().toISOString(),
-      base: base ? {
+      base: {
         id: base.id,
         label: base.label,
         sourceFile: base.sourceFile
-      } : null,
-      parts: {
-        noren: noren ? {
-          id: noren.id,
-          label: noren.label,
-          sourceFile: noren.sourceFile
-        } : null
       },
-      adjustments: {
-        noren: { ...state.adjustments }
-      },
+      parts,
+      adjustments: JSON.parse(JSON.stringify(state.adjustments)),
       note: 'Draft composition before native pixel normalization.'
     };
 
@@ -604,15 +726,21 @@
 
     els.registerBoth.addEventListener('click', registerDetectedPair);
 
+    els.adjustType.addEventListener('change', () => {
+      state.adjustType = els.adjustType.value;
+      saveState();
+      syncControls();
+    });
+
     [els.scale, els.x, els.y].forEach((input) => {
       input.addEventListener('input', updateAdjustments);
     });
 
-    els.resetAdjust.addEventListener('click', resetAdjustments);
+    els.resetAdjust.addEventListener('click', resetCurrentAdjustment);
 
     els.clearComposition.addEventListener('click', () => {
-      state.selected = { base: null, noren: null };
-      resetAdjustments();
+      state.selected = blankSelected();
+      resetAllAdjustments();
       saveState();
       renderAll();
     });
@@ -642,8 +770,11 @@
       db = await openDatabase();
       state.assets = await dbGetAll();
 
-      if (state.selected.base && !assetById(state.selected.base)) state.selected.base = null;
-      if (state.selected.noren && !assetById(state.selected.noren)) state.selected.noren = null;
+      TYPES.forEach((type) => {
+        if (state.selected[type] && !assetById(state.selected[type])) {
+          state.selected[type] = null;
+        }
+      });
 
       saveState();
       renderAll();
