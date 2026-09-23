@@ -1,4 +1,4 @@
-# Yumaniwa Map Factory System v0.3
+# Yumaniwa Map Factory System v0.4
 
 Map Factory は「完成画像を生成する場所」ではない。
 
@@ -7,102 +7,149 @@ Map Factory は「完成画像を生成する場所」ではない。
 ## Responsibility split
 
 - AI generation: source material / 原型候補
-- Map Factory: intake / crop / compare / compose / draft export
+- Map Factory: intake / split / crop / compare / compose / draft export
 - Dot tool: native pixel normalization / palette cleanup / manual adjustment / final asset
 
 AI側に厳密な最終ピクセル寸法や1px単位の完成精度を要求しない。
-
 統一するのは「同じ町の素材に見えること」。
 最終規格化は Dot tool 側で行う。
 
 ## Asset layers
 
-1. BASE
-   - 店の器
-   - 中立
-   - 業種を決めすぎない
-
-2. NOREN
-   - 店の第一印象
-   - 業種差を出す
-
-3. SIGN
-   - 業種のヒント
-   - 小さな記号として使う
-
-4. LANTERN
-   - 夜の営業感
-   - 店種説明より人の気配を担当
-
-5. BOARD
-   - 店先の生活感
-   - 今日ここで商売している感じ
-
-6. SPECIAL
-   - その店だけの一手
-   - 一つの強い物体だけに絞る
+1. BASE — 店の器
+2. NOREN — 店の第一印象
+3. SIGN — 業種のヒント
+4. LANTERN — 夜の営業感
+5. BOARD — 店先の生活感
+6. SPECIAL — その店だけの一手
 
 全部を使う必要はない。
 余白も構成の一部として扱う。
 
-## Source generation rule
+## Import modes
 
-- 原則 TWO VARIATIONS
-- 同じ規格の中で意味のある2案を作る
-- 70% shared / 30% difference を目安にする
-- 完成品としての美しさより、比較しやすい原型を優先する
-- 背景は透明または除去しやすい単色
-- 余白を十分に取る
-- 2案を左右に配置する
+### Pair Import
 
-## Intake flow
+従来方式。
 
-1. Asset type を選択
-2. 左右2案の生成画像を読み込む
-3. Factory が中央で左右に分割
-4. 各半分について背景色 / alpha を判定
-5. foreground bounding box を検出
-6. 余白を少量残して自動 crop
-7. plain background は preview 用に簡易透過
-8. A / B を IndexedDB の部品棚へ登録
+- 左右2案の画像を読み込む
+- 中央で分割
+- foreground bbox を検出
+- preview 用に背景を簡易透過
+- 同じカテゴリの A / B として棚へ登録
 
-これは最終背景除去ではない。
-Dot tool へ渡す前の比較用処理。
+少数の追加補充用。
+
+### Identity Kit Sheet Import
+
+v0.4 の標準大量仕入れ方式。
+
+1店舗分の素材を1枚のシートとして生成し、
+その1枚から BASE / NOREN / SIGN / LANTERN / BOARD / SPECIAL をまとめて抽出する。
+
+Current preset:
+- Identity Kit Sheet v1
+- expected slots: 32
+  - BASE 2
+  - NOREN 6
+  - SIGN 6
+  - LANTERN 6
+  - BOARD 6
+  - SPECIAL 6
+
+## Kit detection
+
+完全汎用画像認識にはしない。
+
+標準シート内の各 asset の expected center を preset として保持する。
+
+解析時:
+
+1. 入力画像を最大 900px 程度まで縮小して detection canvas を作る
+2. alpha または四隅背景色との差から foreground mask を作る
+3. connected components を抽出する
+4. 各 component の center を計算する
+5. preset の expected slot center に最短距離で割り当てる
+6. 同じ slot に入った component を union する
+7. 元解像度へ bbox を戻す
+8. padding を足して crop
+9. preview 用に背景を簡易透過する
+
+この soft-slot 方式により、
+SPECIAL の「3本の瓶」のように複数 component で構成された1 asset も、
+同じ slot にまとめられる。
+
+preset から遠すぎる component は無視する。
+タイトル、ラベル、ノイズを asset に混ぜにくくするため。
+
+## Kit Import Preview
+
+解析後すぐ登録しない。
+
+カテゴリ別に:
+
+- thumbnail
+- detected / expected count
+- size
+- ON / OFF checkbox
+
+を表示する。
+
+操作:
+- すべて選択
+- 選択解除
+- 選択した asset を一括登録
+
+expected 数と detected 数が違う場合は warning 表示するが、
+Import 自体は止めない。
+
+## Asset metadata
+
+Kit Sheet 由来 asset は追加情報を保存する。
+
+- sourceKind: kit-sheet
+- sourcePreset
+- sourceFile
+- sourceSlotIndex
+- sourceWidth
+- sourceHeight
+
+Pair 由来は sourceKind: pair。
 
 ## Composition
 
 BASE を共通 preview canvas に contain する。
 
-各パーツには役割別の仮 slot がある:
+各パーツの仮 slot:
+
 - NOREN: facade center / upper entrance
 - SIGN: side / eave area
 - LANTERN: entrance side
 - BOARD: ground / entrance side
 - SPECIAL: ground / opposite side
 
-各パーツは:
+各パーツ:
 - aspect ratio 維持
 - nearest-neighbor preview
 - Scale / X / Y を個別保存
 
-PART ADJUST で触っているレイヤーだけを調整する。
-他レイヤーの位置は壊さない。
+部品棚の asset をクリックして ON / OFF。
+BASE は差し替え。
+他レイヤーは同じ asset を再クリックすると OFF。
 
-## Layer behavior
+Kit Import 後:
+- BASE が未選択なら最初の BASE を選ぶ
+- NOREN が未選択なら最初の NOREN を選ぶ
+- SIGN / LANTERN / BOARD / SPECIAL は自動では載せない
 
-部品棚のパーツを選ぶと composition に追加する。
-
-BASE 以外は、選択中の同じパーツをもう一度押すと OFF にできる。
-
-初期スロットは完成座標ではない。
-比較を始めやすくするための仮配置。
+最初から全部載せて情報過多にしないため。
 
 ## Quick comparison
 
-BASE 2案 + NOREN 2案については、
+BASE 2案 + NOREN 2案は、
 B1/N1, B1/N2, B2/N1, B2/N2 の4通りを quick chips で比較する。
 
-他パーツは部品棚で差し替えながら比較する。
+他パーツは棚から差し替える。
 
 ## Export
 
@@ -111,50 +158,38 @@ Draft PNG:
 - 正規ドット化前
 - transparent canvas
 
-Recipe JSON:
+Recipe JSON v0.4:
 - selected BASE
 - selected NOREN / SIGN / LANTERN / BOARD / SPECIAL
-- source file references
-- partごとの Scale / X / Y
-- system version
+- source metadata
+- part ごとの Scale / X / Y
 
 最終成果物ではない。
 
-## Prompt system
+## Source generation
 
-Master prompt は「完成店」ではなく「部品原型」を生成するために使う。
+通常の新店舗制作:
 
-Current Masters:
-- BASE / Source Asset Master v1
-- NOREN / Source Asset Master v1
-- SIGN / Source Asset Master v1
-- LANTERN / Source Asset Master v1
-- BOARD / Source Asset Master v1
-- SPECIAL / Source Asset Master v1
+1. 1店舗 = 1 Identity Kit Sheet
+2. 1枚の中で色・サイズ感・pixel density・detail density を揃える
+3. Map Factory で一括分解
+4. 棚で比較しながら compose
+5. 採用候補のみ Dot tool へ渡す
 
-Identity Add-on:
-- Neutral
-- Craft Cola
+不足カテゴリだけ Pair Import / Focus Sheet で追加補充する。
 
-BASE は常に neutral。
-Identity Add-on は shop identity layer に適用する。
+## Current validation target
 
-構造:
-MASTER + IDENTITY ADD-ON
+Craft Cola Identity Kit Sheet で確認する:
 
-## Validation
-
-まず Craft Cola 1店舗で以下を確認する。
-
-- BASE + NOREN が自然に成立
-- SIGN を追加しても情報過多にならない
-- LANTERN が業種説明ではなく夜感として機能
-- BOARD が生活感を足す
-- SPECIAL が店の記憶点になる
-- 6レイヤー全部を使わなくても成立する
-- source asset の寸法差が composition 時に問題にならない
-- Draft PNG と Recipe JSON を出せる
-- Dot tool に渡す前工程として制作が楽になったと感じる
+- 32 expected slots の大半を自動検出できる
+- 3本の瓶など複合 asset が1つにまとまる
+- 6カテゴリへ正しく振り分けられる
+- Import Preview で不要候補を外せる
+- 一括登録後すぐ compose できる
+- 従来の Pair Import も壊れていない
+- 既存 v0.3 の IndexedDB assets をそのまま利用できる
+- Dot tool に渡す前工程として制作が明確に速くなる
 
 ## Repository
 
