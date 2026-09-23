@@ -12,7 +12,7 @@
     return {
       schema: 'sukimastock-artifact/1',
       kind,
-      producer: { tool: 'map-factory', version: '0.7' },
+      producer: { tool: 'map-factory', version: '0.8' },
       createdAt,
       dependencies,
       nextStep
@@ -453,14 +453,6 @@
     return new Promise((resolve, reject) => {
       const request = db.transaction(STORE_NAME, 'readonly').objectStore(STORE_NAME).getAll();
       request.onsuccess = () => resolve(request.result || []);
-      request.onerror = () => reject(request.error);
-    });
-  }
-
-  function dbPut(asset) {
-    return new Promise((resolve, reject) => {
-      const request = db.transaction(STORE_NAME, 'readwrite').objectStore(STORE_NAME).put(asset);
-      request.onsuccess = () => resolve(asset);
       request.onerror = () => reject(request.error);
     });
   }
@@ -1810,10 +1802,12 @@
 
     const detection = detectConnectedComponents(image);
     const groups = assignComponentsToKitSlots(detection, preset);
-    const candidates = (await Promise.all(groups
-      .map((group) => makeCandidateFromGroup(image, detection, group, file.name, presetId))))
-      .filter(Boolean)
-      .sort((a, b) => {
+    const candidates = [];
+    for (const group of groups) {
+      const candidate = await makeCandidateFromGroup(image, detection, group, file.name, presetId);
+      if (candidate) candidates.push(candidate);
+    }
+    candidates.sort((a, b) => {
         const typeDiff = TYPES.indexOf(a.type) - TYPES.indexOf(b.type);
         if (typeDiff) return typeDiff;
         return a.slotIndex - b.slotIndex;
