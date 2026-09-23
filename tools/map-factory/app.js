@@ -130,6 +130,8 @@
 
     togglePrompt: $('togglePromptBtn'),
     promptPanel: $('promptPanel'),
+    promptMode: $('promptMode'),
+    promptTypeField: $('promptTypeField'),
     promptType: $('promptType'),
     identity: $('identitySelect'),
     promptOutput: $('promptOutput'),
@@ -1460,7 +1462,7 @@
     });
 
     const recipe = {
-      version: 'yumaniwa-asset-0.4',
+      version: 'yumaniwa-asset-0.5',
       createdAt: new Date().toISOString(),
       base: {
         id: base.id,
@@ -1478,11 +1480,49 @@
     downloadBlob(blob, 'yumaniwa-shop-recipe.json');
   }
 
+  function syncPromptMode() {
+    const mode = els.promptMode.value;
+    const isKit = mode === 'kit';
+
+    els.promptTypeField.classList.toggle('hidden', isKit);
+
+    if (isKit) {
+      els.identity.disabled = false;
+
+      if (els.identity.value === 'neutral') {
+        els.identity.value = 'craft-cola';
+      }
+    }
+
+    buildPrompt();
+  }
+
   function buildPrompt() {
+    const mode = els.promptMode.value;
+    let identityId = els.identity.value;
+
+    if (mode === 'kit') {
+      const master = window.YUMANIWA_KIT_MASTER || '';
+      const identities = window.YUMANIWA_KIT_IDENTITIES || {};
+
+      if (!identities[identityId]) {
+        identityId = 'craft-cola';
+        els.identity.value = identityId;
+      }
+
+      els.identity.disabled = false;
+
+      const identity = identities[identityId] || { text: '' };
+
+      els.promptOutput.value =
+        master + (identity.text ? '\n\n\n' + identity.text : '');
+
+      return;
+    }
+
     const masters = window.YUMANIWA_SOURCE_MASTERS || {};
     const identities = window.YUMANIWA_IDENTITIES || {};
     const type = els.promptType.value;
-    let identityId = els.identity.value;
 
     if (type === 'base') {
       identityId = 'neutral';
@@ -1556,6 +1596,7 @@
       if (opening) buildPrompt();
     });
 
+    els.promptMode.addEventListener('change', syncPromptMode);
     els.promptType.addEventListener('change', buildPrompt);
     els.identity.addEventListener('change', buildPrompt);
     els.copyPrompt.addEventListener('click', copyPrompt);
@@ -1565,7 +1606,7 @@
     loadSavedState();
     syncControls();
     bindEvents();
-    buildPrompt();
+    syncPromptMode();
     syncImportMode();
 
     try {
