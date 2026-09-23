@@ -1,545 +1,436 @@
 (() => {
   'use strict';
 
-  const COMMON_STYLE = `
-STYLE
+  const COMMON = `SOURCE-ASSET COMMON RULES
 
-True low-resolution 2D pixel art.
+These are source assets, not final production-ready pixel sprites.
+They will later be cropped, normalized, converted into clean native pixel art, manually adjusted, and combined in Map Factory.
 
-This must look like a small handcrafted retro game map sprite,
-not a detailed pixel illustration and not an illustration converted into pixel art.
+Prioritize:
+1. clear silhouette
+2. low visual density
+3. consistent Tomogushi Alley world feel
+4. useful differences between two variations
 
-Use clearly visible square pixels,
-chunky pixel clusters,
-hard edges,
-simple silhouettes,
-and deliberately low visual density.
+Do NOT prioritize exact final pixel dimensions.
 
-The image should feel as if it were originally designed at a small native pixel resolution
-and then enlarged with nearest-neighbor scaling.
+WORLD FEEL
+- quiet small-town alley at night
+- modest
+- handmade
+- slightly old
+- practical
+- calm
+- lived-in
 
-Do not imitate pixel art by adding many tiny high-resolution square details.
-The underlying design itself must be simple.
+VISUAL LANGUAGE
+- simple low-resolution retro game asset feeling
+- broad shapes
+- hard readable edges
+- restrained shading
+- limited muted colors
+- no realistic texture
+- no decorative noise
+- no glossy modern branding
 
+Create TWO isolated variations side by side.
+Keep both at roughly similar apparent scale.
+Leave generous empty space around each asset.
+Prefer a transparent or plain removable background.`;
 
-PIXEL DENSITY
+  const BASE = `YUMANIWA TOWN / TOMOGUSHI ALLEY
+BASE BUILDING / SOURCE ASSET MASTER v1
 
-Use deliberately coarse pixel art.
+Create TWO variations of a neutral small storefront base.
 
-Think in large logical pixel clusters.
+${COMMON}
 
-Use broad shapes rather than fine details.
+ROLE
 
-Avoid:
-- tiny texture pixels
-- small highlights everywhere
-- realistic material texture
-- fine wood grain
-- detailed roof weathering
-- detailed fabric folds
-- tiny reflections
-- dense interior objects
-- decorative noise
+This is not a finished shop.
+This is a reusable storefront shell.
+Separate parts will later be added: noren, signs, lanterns, boards, and shop-specific props.
 
-Large surfaces should contain calm areas with very little detail.
-
-The sprite should remain understandable even when viewed very small.
-
-
-PIXEL STRUCTURE
-
-Keep pixel scale visually consistent across the whole asset.
-
-Use:
-- clean horizontal lines
-- clean vertical lines
-- simple stair-step diagonals
-- chunky outlines
-- repeated simple shapes
-
-Avoid:
-- mixed pixel scales
-- anti-aliasing
-- smooth curves made from many tiny steps
-- sub-pixel-looking details
-- thin high-resolution lines
-
-Small objects should be simplified into recognizable pixel symbols rather than miniature illustrations.
-
-
-COLOR LIMIT
-
-Use a restrained retro palette.
-
-Aim for approximately 8 to 12 principal colors for the storefront,
-excluding transparency.
-
-For most materials use:
-- one base color
-- one shadow color
-- optionally one highlight color
-
-Avoid smooth color ramps and many near-identical shades.
-
-Preferred palette character:
-- dark brown
-- deep charcoal
-- muted gray-blue
-- faded dark red
-- dull beige
-- warm amber
-- very dark outline color
-
-Colors should feel muted and old-fashioned rather than vivid or polished.
-
-
-SHADING
-
-Very simple pixel shading.
-
-Use flat pixel clusters.
-No realistic light gradients.
-No soft glow spreading across surfaces.
-No complex ambient lighting.
-No cinematic lighting.
-
-Use shadow mainly to separate forms.
-
-Keep most of the storefront relatively flat and graphic.
-
-
-RETRO CHARACTER
-
-The sprite should feel like an asset from a restrained late-16-bit-era map game.
-
-Prioritize readability and graphic design over atmosphere and realism.
-
-Let some surfaces remain plain.
-Use simple repeated shapes.
-Do not polish every surface.
-
-The charm should come from simplification, limited colors, strong silhouettes, and iconic shop details.
-
-Do not make it look modern, premium, luxurious, cinematic, or highly rendered.
-
+The base itself must remain neutral.
+It must not clearly communicate a specific business type.
 
 VIEW
 
-Front-facing or almost front-facing storefront.
+Front-facing storefront.
+Almost no horizontal perspective.
+A very slight elevated game-map feeling is acceptable.
+Both variations must use the same camera and proportion family.
 
-A very slight elevated game-map perspective is acceptable,
-but keep the facade mostly straight and readable.
+STRUCTURE
 
-Avoid dramatic perspective and strong depth.
+One-story storefront feeling.
+Use:
+- dark tiled roof with broad simple silhouette
+- simple wooden posts
+- broad wall panels
+- one entrance
+- one main window area
+- simple lower wooden panels
+- restrained warm interior light
 
+Keep the upper area visually quiet.
+The visual focus should remain around the first floor.
 
-TOMOGUSHI ALLEY FEEL
+VARIATION RULE
 
-The shop belongs to a quiet small-town alley at night.
+Keep approximately 70% shared and 30% different.
 
-It should feel:
-- handmade
-- slightly worn
-- modest
-- lived-in
-- old-fashioned
-- calm
+Useful differences:
+- entrance on opposite sides
+- different window width
+- different lattice rhythm
+- slightly different beam placement
+- slightly different lower panel structure
 
-It should not feel:
-- elegant
-- expensive
-- luxurious
-- fashionable
-- polished
-- tourist-oriented
-- highly decorative
+Do NOT create two unrelated architectural styles.
 
+AVOID
 
-SHOP IDENTITY
+No signage.
+No noren.
+No lanterns.
+No products.
+No shop-specific objects.
+No people.
+No street.
+No scenery.
+No readable text.
 
-Communicate the shop type using only 2 or 3 strong visual symbols.
+FINAL GOAL
 
-Possible primary elements:
-- noren
-- hanging sign
-- lantern
-- one small display window
-- one symbolic object
+Two neutral building vessels that immediately belong to the same Yumaniwa Town asset family while still being structurally distinguishable.`;
 
-Use simple symbols rather than detailed readable typography.
+  const NOREN = `YUMANIWA TOWN / TOMOGUSHI ALLEY
+NOREN / SOURCE ASSET MASTER v1
 
+Create TWO variations of a small noren storefront overlay.
 
-DETAIL BUDGET
+${COMMON}
 
-Keep detail density low.
+ROLE
 
-Every detail must justify its existence.
+Create only the noren assembly.
+Do not draw a building or complete shop.
 
-If a detail does not help identify the shop, explain the structure, or improve readability, remove it.
+STRUCTURE
 
-Do not add decorative clutter simply to make the image richer.
+Possible forms:
+- two panels
+- three panels
+- four panels
 
+Use a simple horizontal hanging rod.
+Keep the cloth mostly straight.
+Minor asymmetry is welcome.
+No dramatic wind movement.
 
-WINDOW AND INTERIOR
+IDENTITY
 
-Interior visibility should be minimal.
+Use one large simple motif rather than many small details.
+Symbols must remain understandable when reduced.
+Avoid detailed typography and long readable words.
 
-Do not draw a detailed room.
-Do not draw furniture, reflections, labels, or many products.
+VARIATION RULE
 
-If a display window is present,
-show only a few simplified iconic objects.
+Keep the same color family and mood.
+Vary:
+- panel count
+- motif placement
+- cloth proportion
+- small structural differences
 
+AVOID
 
-LIGHTING
+No building.
+No wall.
+No people.
+No unrelated props.
+No realistic fabric folds.
+No ornate textile design.
 
-Night setting.
+FINAL GOAL
 
-Use one or two small warm light sources.
+Two quiet shop-identity layers that clearly belong to the same system but offer a meaningful visual choice.`;
 
-The entrance and shop identity should remain readable.
+  const SIGN = `YUMANIWA TOWN / TOMOGUSHI ALLEY
+SIGN / SOURCE ASSET MASTER v1
 
-Use warm amber light around:
-- a lantern
-- a small window
-- a sign light
+Create TWO variations of a small storefront sign asset.
 
-Do not illuminate the entire building.
-Do not use large soft halos.
-Do not create cinematic contrast.
+${COMMON}
 
+ROLE
 
-GAME ASSET REQUIREMENTS
+Create only a compact sign that gives one visual clue about the shop.
+It may be:
+- a hanging sign
+- a small projecting sign
+- a small wall plaque
 
-Designed specifically as a game map sprite.
+Keep it secondary to the building.
 
-Readable at small in-game scale.
-Clear silhouette.
-Clear ground contact.
-Transparent background.
-No environmental context.
-No street, pavement, sky, people, or neighboring scenery.
+FORM
 
+Use a simple physically plausible structure:
+- dark wood
+- painted wood
+- muted metal
+- simple bracket, rope, or hook if needed
 
-NEGATIVE
+IDENTITY
 
-Not a painting.
-Not concept art.
-Not semi-realistic.
-Not photorealistic.
-Not detailed pixel illustration.
-Not high-resolution pixel art.
-Not realistic pixel rendering.
-Not painterly.
-Not soft.
-Not blurry.
-Not anti-aliased.
-Not cinematic.
-Not luxurious.
-Not ornate.
-Not highly textured.
-Not a large Japanese traditional building.
-Not a two-story commercial building.
-Not a full environment scene.
-Not anime background art.
-Not 3D.
-Not isometric.
-Not a cozy detailed storefront illustration.
-Not dense with props.
-Not dense with colors.
-`;
+Prefer ONE strong symbol:
+- object silhouette
+- geometric mark
+- food or drink symbol
+- simple tool
+- abstract shop emblem
 
-  const single = {
-    id: 'alley-shop-single',
-    type: 'alley_shop',
-    name: 'Alley Shop / Single',
-    version: 5,
-    generationMode: 'single',
-    pairStrategy: 'none',
-    description: '単体生成用。縦長・低密度・レトロな灯串店舗の基準。',
-    prompt: `YUMANIWA TOWN / TOMOGUSHI ALLEY SHOP / MASTER PROMPT v5
+Do not explain the whole business.
+Do not use long readable text.
 
-Create a standalone small shop sprite for Tomogushi Alley in Yumaniwa Town.
+VARIATION RULE
 
-${COMMON_STYLE}
+Two variations from the same family.
+Good differences:
+- vertical vs square
+- hanging vs projecting
+- centered vs offset motif
+- slightly different frame construction
 
-PROPORTION
+AVOID
 
-Make the storefront compact, narrow, and slightly vertical.
+No building.
+No full storefront.
+No modern corporate branding.
+No detailed lettering.
+No ornate frame.
+No neon.
 
-Reduce horizontal spread.
+FINAL GOAL
 
-Prefer a modest narrow facade with a slightly taller silhouette.
+A tiny readable identity clue that can be attached to many storefront bases without overpowering them.`;
 
-The building should remain small, humble, and space-efficient.
+  const LANTERN = `YUMANIWA TOWN / TOMOGUSHI ALLEY
+LANTERN / SOURCE ASSET MASTER v1
 
+Create TWO variations of a small storefront lantern overlay.
 
-SCALE AND STRUCTURE
+${COMMON}
 
-One small modest alley shop.
+ROLE
 
-Compact.
-Slightly taller than wide.
-Narrow and vertically organized rather than broad and sprawling.
+The lantern primarily communicates:
+- the shop is open
+- warm human presence
+- nighttime alley atmosphere
 
-Use a relatively large simple roof shape,
-but keep the building footprint narrow and compact.
+It does NOT need to strongly identify the business type.
 
-The storefront beneath it should remain simple and slightly tall.
+FORM
 
+Possible forms:
+- small round lantern
+- short oval lantern
+- compact rectangular paper lantern
+- simple hanging lamp inspired by traditional storefront lighting
 
-ROOF
+Keep it modest and small.
 
-Use a dark simple tiled roof.
+LIGHT
 
-Represent roof tiles through a simple repeated pixel rhythm.
+Warm amber or muted orange.
+The lantern may look illuminated, but avoid a large glow halo.
 
-Do not individually render every tile.
-Do not add realistic weathering or texture noise.
+VARIATION RULE
 
+Good differences:
+- rounder vs slightly taller
+- simple mark vs blank
+- short tassel vs none
+- different hanging hardware
 
-FACADE
+AVOID
 
-Use a simple wooden facade.
+No building.
+No scene lighting.
+No giant lantern.
+No realistic paper texture.
+No elaborate calligraphy.
+No strong bloom.
 
-Wood should be represented by large flat panels.
+FINAL GOAL
 
-Do not render realistic grain.
-Use only a few structural beams.
-Keep windows and doors geometrically simple.
+A quiet night-presence layer, visually useful but never the centerpiece.`;
 
+  const BOARD = `YUMANIWA TOWN / TOMOGUSHI ALLEY
+STANDING BOARD / SOURCE ASSET MASTER v1
 
-OUTPUT GOAL
+Create TWO variations of a small standing storefront board.
 
-A modest, compact, retro, low-color pixel-art storefront
-that feels native to Tomogushi Alley.
+${COMMON}
 
-Prioritize:
-1. silhouette
-2. pixel readability
-3. limited palette
-4. low detail density
-5. shop identity
-6. narrow vertical fit
+ROLE
 
-over realism or visual richness.
+The board adds everyday shop activity near the entrance.
+It may suggest today's item, menu, recommendation, or opening information.
+Actual writing does not need to be readable.
 
+FORM
 
-SHOP TYPE
+Possible structures:
+- small A-frame board
+- single wooden standing board
+- narrow menu plaque
+- handmade sign leaning slightly
 
-{{shopType}}
+Keep complete ground-contact silhouette visible.
 
+CONTENT
 
-DESCRIPTION
+Use only a few large graphic marks:
+- one simple symbol
+- two or three block-like text marks
+- one tiny decorative icon
 
-{{description}}
+Treat text as graphic marks, not readable typography.
 
+VARIATION RULE
 
-MAIN COLOR
+Good differences:
+- A-frame vs single panel
+- taller vs wider
+- icon at top vs center
+- different simple wood construction
 
-{{mainColor}}
+AVOID
 
+No building.
+No street scene.
+No realistic chalk writing.
+No dense menu.
+No modern printed signage.
 
-SIGN
+FINAL GOAL
 
-{{sign}}
+A small secondary prop that makes the shop feel active and inhabited.`;
 
+  const SPECIAL = `YUMANIWA TOWN / TOMOGUSHI ALLEY
+SPECIAL PART / SOURCE ASSET MASTER v1
 
-LIGHTING
+Create TWO variations of ONE small shop-specific special prop.
 
-{{lighting}}
+${COMMON}
 
+ROLE
 
-SMALL PROPS
+This is the memorable shop-specific accent.
+It should provide one clue about what makes this shop different.
 
-{{props}}
+CORE RULE
 
+Create ONE visual idea per variation.
+Do not create a pile of unrelated props.
+Memorability should come from silhouette, not detail count.
 
-MANUAL ADJUSTMENT
+PLACEMENT
 
-{{manualAdjustment}}
+The prop should plausibly sit:
+- beside the entrance
+- below a window
+- against the wall
+- under an awning
 
-Exact final pixel-grid normalization is not required at generation time.
-Prioritize strong coarse pixel structure and simple shapes that can later be cleaned and aligned to a uniform pixel grid.
-`
+It must remain secondary to the building.
+
+IDENTITY
+
+Choose one clear object family appropriate to the shop identity.
+Examples:
+- beverage crates
+- stacked bottles
+- curry pot
+- coffee sack
+- repair toolbox
+- flower bucket
+- old delivery box
+
+VARIATION RULE
+
+Two interpretations of the SAME idea:
+- one crate vs two stacked crates
+- closed container vs slightly visible contents
+- neat vs mildly irregular arrangement
+
+Do not switch to an unrelated object category.
+
+AVOID
+
+No building.
+No full display scene.
+No people.
+No clutter.
+No many tiny objects.
+No realistic textures.
+
+FINAL GOAL
+
+One small memorable clue that helps distinguish the shop without making the storefront busier.`;
+
+  const IDENTITIES = {
+    neutral: {
+      name: 'Neutral',
+      text: ''
+    },
+    'craft-cola': {
+      name: 'Craft Cola',
+      text: `IDENTITY ADD-ON / CRAFT COLA
+
+This part belongs to a small neighborhood craft-cola shop.
+
+MOOD
+- handmade rather than branded
+- quiet and slightly nostalgic
+- small local maker, not a modern beverage company
+
+VISUAL MOTIFS
+Use only what suits the selected asset type:
+- simple cola bottle silhouette
+- carbonation bubbles
+- citrus-like geometric marks
+- subtle botanical shapes
+- bottle crates
+
+ACCENT COLORS
+- faded cola red
+- dark brown
+- warm cream
+
+AVOID
+- sake shop appearance
+- liquor store appearance
+- beer-bar appearance
+- izakaya appearance
+- modern soda branding
+- American diner aesthetics
+- large readable logos
+
+Keep the identity subtle. It should still look like a quiet neighborhood shop.`
+    }
   };
 
-  const doubleVariation = {
-    id: 'alley-shop-double',
-    type: 'alley_shop',
-    name: 'Alley Shop / Double Variation',
-    version: 1,
-    generationMode: 'double_variation',
-    pairStrategy: 'same_shop_variations',
-    description: '同じ店を2軒並べ、1軒あたりの情報密度を自然に落とす現在の推奨方式。',
-    prompt: `YUMANIWA TOWN / TOMOGUSHI ALLEY SHOP / MASTER PROMPT v6
-
-Create two standalone small shop sprites for Tomogushi Alley in Yumaniwa Town.
-
-${COMMON_STYLE}
-
-PROPORTION
-
-Each storefront should be compact, narrow, and slightly vertical.
-
-Because two shops are placed in one image,
-each individual shop should be smaller and simpler than a single-shop version.
-
-Reduce horizontal spread per shop.
-
-Prefer modest narrow facades with slightly taller silhouettes.
-
-
-SCALE AND STRUCTURE
-
-Create two small modest alley shops.
-
-Each one should be:
-- compact
-- slightly taller than wide
-- narrow and vertically organized
-- low and humble rather than impressive
-
-Use relatively large simple roof shapes,
-but keep each building footprint narrow and compact.
-
-
-MULTI-SHOP LAYOUT
-
-Place two independent storefronts side by side in one image.
-
-They should feel like neighboring shops in Tomogushi Alley.
-
-Do not merge them into one wide building.
-Do not create a full street scene.
-Do not add road, pavement, sky, or environmental scenery.
-
-Use a transparent background.
-
-Leave only a narrow gap between the two shops.
-
-Each shop must remain individually readable as its own storefront.
-
-
-SHOP VARIATION RULE
-
-Both shops are the same shop category.
-
-They should not be exact duplicates.
-
-They should feel like two slightly different storefront variations built from the same design language.
-
-Allow only small differences such as:
-- sign position
-- lantern position
-- window arrangement
-- small prop placement
-- noren shape
-- facade partitioning
-
-Keep the differences modest.
-
-
-DETAIL REDUCTION FOR DOUBLE VERSION
-
-Because two storefronts appear in the same image,
-simplify each shop more than the single-shop version.
-
-Use fewer colors, fewer decorative elements, fewer objects, and simpler silhouettes per shop.
-
-Do not compensate by adding extra small details.
-
-
-ROOF
-
-Use dark simple tiled roofs.
-
-Represent roof tiles through a simple repeated pixel rhythm.
-
-Do not individually render every tile.
-Do not add realistic weathering or texture noise.
-
-
-FACADE
-
-Use simple wooden facades.
-
-Wood should be represented by large flat panels.
-
-Do not render realistic grain.
-Use only a few structural beams.
-Keep windows and doors geometrically simple.
-
-
-OUTPUT GOAL
-
-Two modest, compact, retro, low-color pixel-art storefronts
-that feel native to Tomogushi Alley.
-
-Each shop should look simpler and slightly smaller than the equivalent single-shop version.
-
-The purpose is to push the result closer to a compact retro map-sprite scale
-while also making the two variations easy to compare.
-
-Prioritize:
-1. silhouette
-2. pixel readability
-3. limited palette
-4. low detail density
-5. shop identity
-6. compact narrow fit
-
-over realism or visual richness.
-
-
-SHOP TYPE
-
-Both shops are {{shopType}}.
-
-
-DESCRIPTION
-
-{{description}}
-
-
-MAIN COLOR
-
-{{mainColor}}
-
-
-SIGN
-
-{{sign}}
-
-
-LIGHTING
-
-{{lighting}}
-
-
-SMALL PROPS
-
-{{props}}
-
-Keep the props very few.
-Each object should be represented using only a few pixel clusters.
-
-
-MANUAL ADJUSTMENT
-
-{{manualAdjustment}}
-
-Create two close variations of the same shop idea.
-
-Exact final pixel-grid normalization is not required at generation time.
-Prioritize strong coarse pixel structure and simple shapes that can later be cleaned and aligned to a uniform pixel grid.
-`
+  window.YUMANIWA_SOURCE_MASTERS = {
+    base: BASE,
+    noren: NOREN,
+    sign: SIGN,
+    lantern: LANTERN,
+    board: BOARD,
+    special: SPECIAL
   };
-
-  window.YUMANIWA_MAP_FACTORY_MASTERS = {
-    [single.id]: single,
-    [doubleVariation.id]: doubleVariation
-  };
-
-  window.YUMANIWA_MAP_FACTORY_DEFAULT_MASTER = doubleVariation.id;
+  window.YUMANIWA_IDENTITIES = IDENTITIES;
 })();
