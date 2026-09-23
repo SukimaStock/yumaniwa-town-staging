@@ -814,8 +814,13 @@
     const wrap = document.createElement('div');
     wrap.className = 'asset-item';
 
+    const activeSpecial = getActiveSpecial();
+    const isActive = asset.type === 'special'
+      ? Boolean(activeSpecial && activeSpecial.assetId === asset.id)
+      : state.selected[asset.type] === asset.id;
+
     const button = document.createElement('button');
-    button.className = 'asset-select' + (state.selected[asset.type] === asset.id ? ' active' : '');
+    button.className = 'asset-select' + (isActive ? ' active' : '');
     button.type = 'button';
 
     const image = document.createElement('img');
@@ -830,15 +835,32 @@
     strong.textContent = asset.label;
 
     const size = document.createElement('span');
-    size.textContent = asset.width + '×' + asset.height;
+
+    if (asset.type === 'special') {
+      const count = state.specials.filter((instance) => instance.assetId === asset.id).length;
+
+      if (count > 0) {
+        size.className = 'asset-count';
+        size.textContent = '配置 ×' + count;
+      } else {
+        size.textContent = '＋ 追加';
+      }
+    } else {
+      size.textContent = asset.width + '×' + asset.height;
+    }
 
     caption.append(strong, size);
     button.append(image, caption);
 
     button.addEventListener('click', () => {
-      const isActive = state.selected[asset.type] === asset.id;
+      if (asset.type === 'special') {
+        addSpecialAsset(asset.id);
+        return;
+      }
 
-      if (asset.type !== 'base' && isActive) {
+      const active = state.selected[asset.type] === asset.id;
+
+      if (asset.type !== 'base' && active) {
         state.selected[asset.type] = null;
       } else {
         state.selected[asset.type] = asset.id;
