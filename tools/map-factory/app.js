@@ -1917,9 +1917,12 @@
     for (const asset of assets) await dbPut(asset);
 
     state.assets.push(...assets);
-    state.selected[type] = assets[0].id;
 
-    if (type !== 'base') setAdjustType(type);
+    if (type !== 'special') {
+      state.selected[type] = assets[0].id;
+
+      if (type !== 'base') setAdjustType(type);
+    }
 
     saveState();
     renderAll();
@@ -2043,6 +2046,8 @@
 
   function updateAdjustments() {
     const adjustment = currentAdjustment();
+    if (!adjustment) return;
+
     adjustment.scale = Number(els.scale.value);
     adjustment.x = Number(els.x.value);
     adjustment.y = Number(els.y.value);
@@ -2053,7 +2058,13 @@
   }
 
   function resetCurrentAdjustment() {
-    state.adjustments[state.adjustType] = { scale: 100, x: 0, y: 0 };
+    const adjustment = currentAdjustment();
+    if (!adjustment) return;
+
+    adjustment.scale = 100;
+    adjustment.x = 0;
+    adjustment.y = 0;
+
     saveState();
     syncControls();
     renderPreview();
@@ -2061,6 +2072,13 @@
 
   function resetAllAdjustments() {
     state.adjustments = blankAdjustments();
+
+    state.specials.forEach((instance) => {
+      instance.scale = 100;
+      instance.x = 0;
+      instance.y = 0;
+    });
+
     saveState();
     syncControls();
   }
@@ -2090,7 +2108,7 @@
 
     const parts = {};
 
-    PART_TYPES.forEach((type) => {
+    SINGLE_PART_TYPES.forEach((type) => {
       const asset = assetById(state.selected[type]);
 
       parts[type] = asset ? {
@@ -2102,8 +2120,25 @@
       } : null;
     });
 
+    const specials = state.specials.map((instance, index) => {
+      const asset = assetById(instance.assetId);
+
+      return {
+        instanceId: instance.instanceId,
+        assetId: instance.assetId,
+        label: asset ? asset.label : 'SPECIAL',
+        sourceFile: asset ? asset.sourceFile : null,
+        sourceKind: asset ? (asset.sourceKind || null) : null,
+        sourcePreset: asset ? (asset.sourcePreset || null) : null,
+        scale: Number(instance.scale),
+        x: Number(instance.x),
+        y: Number(instance.y),
+        z: index
+      };
+    });
+
     const recipe = {
-      version: 'yumaniwa-asset-0.6',
+      version: 'yumaniwa-asset-0.7',
       createdAt: new Date().toISOString(),
       base: {
         id: base.id,
@@ -2113,6 +2148,7 @@
         sourcePreset: base.sourcePreset || null
       },
       parts,
+      specials,
       adjustments: JSON.parse(JSON.stringify(state.adjustments)),
       note: 'Draft composition before native pixel normalization.'
     };
@@ -2210,9 +2246,7 @@
     els.clearKitSelection.addEventListener('click', () => setAllKitCandidates(false));
 
     els.adjustType.addEventListener('change', () => {
-      state.adjustType = els.adjustType.value;
-      saveState();
-      syncControls();
+      setAdjustType(els.adjustType.value);
     });
 
     [els.scale, els.x, els.y].forEach((input) => {
@@ -2221,9 +2255,17 @@
 
     els.resetAdjust.addEventListener('click', resetCurrentAdjustment);
 
+    els.specialBackward.addEventListener('click', () => moveActiveSpecial(-1));
+    els.specialForward.addEventListener('click', () => moveActiveSpecial(1));
+    els.specialDuplicate.addEventListener('click', duplicateActiveSpecial);
+    els.specialRemove.addEventListener('click', removeActiveSpecial);
+
     els.clearComposition.addEventListener('click', () => {
       state.selected = blankSelected();
-      resetAllAdjustments();
+      state.adjustments = blankAdjustments();
+      state.specials = [];
+      state.activeSpecialId = null;
+      state.adjustType = 'noren';
       saveState();
       renderAll();
     });
@@ -2264,6 +2306,15 @@
             slot.selected[type] = null;
           }
         });
+
+        slot.specials = cloneSpecials(slot.specials).filter(
+          (instance) => validAssetIds.has(instance.assetId)
+        );
+        slot.activeSpecialId = normalizeActiveSpecialId(slot.specials, slot.activeSpecialId);
+
+        if (slot.adjustType === 'special' && !slot.activeSpecialId) {
+          slot.adjustType = 'noren';
+        }
       });
 
       applyComposition(getActiveComposition());
