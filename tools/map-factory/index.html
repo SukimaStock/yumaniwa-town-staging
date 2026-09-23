@@ -3,191 +3,200 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>Yumaniwa Map Factory</title>
+  <meta name="theme-color" content="#171714">
+  <title>Yumaniwa Map Factory — Asset Composer</title>
   <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./system.css">
 </head>
 <body>
   <main class="app">
     <header class="topbar">
       <div>
-        <p class="eyebrow">YUMANIWA TOWN</p>
+        <p class="eyebrow">YUMANIWA TOWN / TOMOGUSHI ALLEY</p>
         <h1>Map Factory</h1>
+        <p class="lead">完成品を生成する場所ではなく、同じ町の素材原型を仕入れて組み合わせる場所。</p>
       </div>
-      <button id="newRecipeBtn" class="primary">＋ New asset</button>
+      <span class="version-badge">Asset Composer v0.2</span>
     </header>
 
-    <section class="master-section">
-      <div class="section-title">
-        <p class="eyebrow">MASTER RECIPES</p>
-        <h2>Alley Shop</h2>
+    <section class="workflow" aria-label="workflow">
+      <span class="active">01 SOURCE</span><i>→</i>
+      <span class="active">02 COMPOSE</span><i>→</i>
+      <span>03 DOT CLEANUP</span><i>→</i>
+      <span>04 FINAL</span>
+    </section>
+
+    <section class="composer-grid">
+      <article class="preview-card">
+        <div class="card-head">
+          <div>
+            <p class="eyebrow">COMPOSITION</p>
+            <h2>店の原型</h2>
+          </div>
+          <button id="clearCompositionBtn" class="ghost small">クリア</button>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="previewCanvas" width="720" height="720" aria-label="店のプレビュー"></canvas>
+          <div id="previewEmpty" class="canvas-empty">
+            <strong>BASEを選んでください</strong>
+            <span>まず下のImportからベース画像を登録します。</span>
+          </div>
+        </div>
+
+        <div id="comboStrip" class="combo-strip"></div>
+
+        <div class="adjustments">
+          <div class="adjust-head">
+            <div>
+              <p class="eyebrow">NOREN ADJUST</p>
+              <strong>仮配置だけ整える</strong>
+            </div>
+            <button id="resetAdjustBtn" class="ghost small">Reset</button>
+          </div>
+          <label>
+            <span>Scale <output id="scaleValue">100%</output></span>
+            <input id="norenScale" type="range" min="65" max="135" value="100" step="1">
+          </label>
+          <div class="mini-grid">
+            <label>
+              <span>X <output id="xValue">0</output></span>
+              <input id="norenX" type="range" min="-20" max="20" value="0" step="1">
+            </label>
+            <label>
+              <span>Y <output id="yValue">0</output></span>
+              <input id="norenY" type="range" min="-20" max="20" value="0" step="1">
+            </label>
+          </div>
+          <p class="hint">ここでは完成させません。正規ドット化前に「この組み合わせが良いか」を見るための補正です。</p>
+        </div>
+
+        <div class="export-actions">
+          <button id="exportPngBtn" class="secondary">Draft PNG</button>
+          <button id="exportJsonBtn" class="secondary">Recipe JSON</button>
+        </div>
+      </article>
+
+      <aside class="shelves">
+        <div class="shelf-head">
+          <div>
+            <p class="eyebrow">ASSET LIBRARY</p>
+            <h2>部品棚</h2>
+          </div>
+          <span id="assetCount" class="count">0</span>
+        </div>
+
+        <section class="shelf">
+          <div class="shelf-title">
+            <div>
+              <span class="layer-index">01</span>
+              <strong>BASE</strong>
+            </div>
+            <span class="muted">店の器</span>
+          </div>
+          <div id="baseShelf" class="asset-list"></div>
+        </section>
+
+        <section class="shelf">
+          <div class="shelf-title">
+            <div>
+              <span class="layer-index">02</span>
+              <strong>NOREN</strong>
+            </div>
+            <span class="muted">店の顔</span>
+          </div>
+          <div id="norenShelf" class="asset-list"></div>
+        </section>
+
+        <div class="next-layers">
+          <p class="eyebrow">LATER</p>
+          <span>SIGN</span>
+          <span>LANTERN</span>
+          <span>BOARD</span>
+          <span>SPECIAL</span>
+        </div>
+      </aside>
+    </section>
+
+    <section class="import-card">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">SOURCE INTAKE</p>
+          <h2>2案画像を仕入れる</h2>
+          <p class="muted">左右2案の生成画像をそのまま入れます。Factoryが左右に分け、余白を切り、プレビュー用に背景を透過します。</p>
+        </div>
       </div>
 
-      <div class="master-grid">
-        <article class="master-card recommended">
-          <div>
-            <div class="master-labels">
-              <span class="badge reference">CURRENT BEST</span>
-              <span class="badge">Double Variation</span>
-            </div>
-            <h3>Alley Shop / Double Variation <span class="version">v1</span></h3>
-            <p class="muted">同じ店を2軒並べ、1軒あたりの情報密度を自然に落とす現在の推奨方式。</p>
-          </div>
-          <button class="secondary" data-master-open="alley-shop-double">Masterを見る</button>
-        </article>
+      <div class="import-controls">
+        <label>
+          <span>Asset type</span>
+          <select id="importType">
+            <option value="base">BASE</option>
+            <option value="noren">NOREN</option>
+          </select>
+        </label>
 
-        <article class="master-card">
-          <div>
-            <div class="master-labels">
-              <span class="badge">Single</span>
-            </div>
-            <h3>Alley Shop / Single <span class="version">v5</span></h3>
-            <p class="muted">単体生成用。縦長・低密度・レトロな灯串店舗の基準。</p>
-          </div>
-          <button class="secondary" data-master-open="alley-shop-single">Masterを見る</button>
+        <label class="file-picker">
+          <input id="sourceFileInput" type="file" accept="image/png,image/jpeg,image/webp">
+          <span>画像を選ぶ</span>
+        </label>
+
+        <button id="registerBothBtn" class="primary" disabled>A / B を棚へ登録</button>
+      </div>
+
+      <div id="sourceStatus" class="source-status">まだ画像は読み込まれていません。</div>
+
+      <div id="detectedPair" class="detected-pair hidden">
+        <article>
+          <div class="variant-label">A</div>
+          <div class="detected-preview"><img id="detectedA" alt="自動切り出し A"></div>
+          <p id="detectedAMeta" class="meta"></p>
+        </article>
+        <article>
+          <div class="variant-label">B</div>
+          <div class="detected-preview"><img id="detectedB" alt="自動切り出し B"></div>
+          <p id="detectedBMeta" class="meta"></p>
         </article>
       </div>
     </section>
 
-    <section class="library-head">
-      <div>
-        <p class="eyebrow">ASSET LIBRARY</p>
-        <h2>横丁の店</h2>
-      </div>
-      <div class="filters">
-        <button data-filter="all" class="filter active">All</button>
-        <button data-filter="draft" class="filter">Draft</button>
-        <button data-filter="good" class="filter">Good</button>
-        <button data-filter="reference" class="filter">Reference</button>
-      </div>
-    </section>
-
-    <section id="assetGrid" class="asset-grid"></section>
-
-    <section id="editorPanel" class="panel hidden" aria-hidden="true">
-      <div class="panel-head">
+    <section class="supply-card">
+      <div class="section-head supply-head">
         <div>
-          <p class="eyebrow">RECIPE</p>
-          <h2 id="editorTitle">New asset</h2>
+          <p class="eyebrow">SOURCE PROMPT</p>
+          <h2>足りない部品だけ生成する</h2>
+          <p class="muted">店全体ではなく、次に必要な部品の原型だけを2案で仕入れます。</p>
         </div>
-        <button id="closeEditorBtn" class="icon-btn" aria-label="閉じる">×</button>
+        <button id="togglePromptBtn" class="ghost">Promptを開く</button>
       </div>
 
-      <div id="referencePreview" class="reference-preview hidden">
-        <img id="referenceImage" alt="">
-        <div>
-          <p class="eyebrow">REFERENCE RESULT</p>
-          <p id="referenceCaption" class="muted"></p>
-        </div>
-      </div>
-
-      <div class="form-grid">
-        <label>名前
-          <input id="nameInput" type="text" placeholder="クラフトコーラ屋">
-        </label>
-        <label>Status
-          <select id="statusInput">
-            <option value="draft">Draft</option>
-            <option value="good">Good</option>
-            <option value="reference">Reference</option>
-            <option value="archived">Archived</option>
-          </select>
-        </label>
-
-        <label>Generation mode
-          <select id="generationModeInput">
-            <option value="double_variation">Double variation</option>
-            <option value="single">Single shop</option>
-          </select>
-        </label>
-
-        <label>Pair strategy
-          <select id="pairStrategyInput">
-            <option value="same_shop_variations">Same shop variations</option>
-            <option value="none">None</option>
-          </select>
-        </label>
-
-        <div class="full recipe-summary">
-          <span class="eyebrow">BASE RECIPE</span>
-          <strong id="baseRecipeLabel">Alley Shop / Double Variation v1</strong>
-        </div>
-
-        <label class="full">店の説明
-          <textarea id="descriptionInput" rows="2" placeholder="灯串横丁にある小さなクラフトコーラ店"></textarea>
-        </label>
-
-        <label>Shop type
-          <input id="shopTypeInput" type="text" placeholder="small craft-cola shop">
-        </label>
-        <label>Main color
-          <input id="mainColorInput" type="text" placeholder="dark brown, charcoal, faded red, amber">
-        </label>
-        <label>Sign
-          <input id="signInput" type="text" placeholder="simple hanging bottle sign">
-        </label>
-        <label>Lighting
-          <input id="lightingInput" type="text" placeholder="small warm lanterns">
-        </label>
-
-        <label class="full">Small props
-          <input id="propsInput" type="text" placeholder="at most 2 bottles and 1 simple jar per shop">
-        </label>
-
-        <label>Game width (tiles)
-          <input id="gameWidthInput" type="number" min="0.5" max="24" step="0.25" value="4.5">
-        </label>
-        <label>Game height (tiles)
-          <input id="gameHeightInput" type="number" min="0.5" max="24" step="0.25" value="6">
-        </label>
-
-        <label class="full">今回だけの追加指示
-          <textarea id="manualInput" rows="3" placeholder="今回だけ変えること"></textarea>
-        </label>
-
-        <label class="full">メモ
-          <textarea id="notesInput" rows="4" placeholder="生成結果、成功理由、次回直したい点"></textarea>
-        </label>
-      </div>
-
-      <div class="panel-actions">
-        <button id="buildPromptBtn" class="secondary">Promptを更新</button>
-        <button id="saveRecipeBtn" class="primary">Recipeを保存</button>
-      </div>
-
-      <div class="prompt-box">
-        <div class="prompt-head">
-          <div>
-            <p class="eyebrow">GENERATED PROMPT</p>
-            <strong id="promptMasterLabel">Alley Shop / Double Variation v1</strong>
-          </div>
+      <div id="promptPanel" class="prompt-panel hidden">
+        <div class="prompt-controls">
+          <label>
+            <span>Asset type</span>
+            <select id="promptType">
+              <option value="base">BASE</option>
+              <option value="noren">NOREN</option>
+            </select>
+          </label>
+          <label>
+            <span>Identity</span>
+            <select id="identitySelect">
+              <option value="neutral">Neutral</option>
+              <option value="craft-cola">Craft Cola</option>
+            </select>
+          </label>
           <button id="copyPromptBtn" class="secondary">Copy</button>
         </div>
-        <textarea id="promptOutput" rows="22" readonly></textarea>
-      </div>
-
-      <div class="export-row">
-        <button id="deriveBtn" class="secondary">このRecipeから派生</button>
-        <button id="exportBtn" class="secondary">JSONを書き出す</button>
+        <textarea id="promptOutput" rows="24" readonly></textarea>
       </div>
     </section>
 
-    <section id="masterPanel" class="panel hidden" aria-hidden="true">
-      <div class="panel-head">
-        <div>
-          <p class="eyebrow">MASTER RECIPE</p>
-          <h2 id="masterPanelTitle">Alley Shop</h2>
-        </div>
-        <button id="closeMasterBtn" class="icon-btn" aria-label="閉じる">×</button>
-      </div>
-      <p id="masterPanelDescription" class="muted"></p>
-      <textarea id="masterPromptOutput" rows="30" readonly></textarea>
-    </section>
+    <footer>
+      <p>AI = source material / Map Factory = selection & composition / Dot tool = normalization & finish</p>
+    </footer>
   </main>
 
   <script src="./masters.js"></script>
-  <script src="./playbook.js"></script>
   <script src="./app.js"></script>
-  <script src="./system-ui.js"></script>
 </body>
 </html>
