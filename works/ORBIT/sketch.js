@@ -861,6 +861,163 @@
     return true;
   }
 
+  // Ambient is deliberately not BGM. It appears only during ordinary flight,
+  // then leaves a long stretch of silence before returning.
+  const ORBIT_AMBIENT_TUNE = Object.freeze({
+    minGapSec: 45,
+    maxGapSec: 110,
+    minPlaySec: 15,
+    maxPlaySec: 28,
+    fadeInSec: 2.5,
+    fadeOutSec: 3.0,
+  });
+
+  const ORBIT_AMBIENT_STATE = {
+    timer: 0,
+    active: false,
+    source: null,
+    gain: null,
+    token: 0,
+  };
+
+  function nextOrbitAmbientGap() {
+    const t = ORBIT_AMBIENT_TUNE;
+    return t.minGapSec + Math.random() * (t.maxGapSec - t.minGapSec);
+  }
+
+  function stopOrbitAmbient(fadeSec = 1.2, scheduleNext = true) {
+    const state = ORBIT_AMBIENT_STATE;
+    if (!state.active || !state.source) {
+      if (scheduleNext && state.timer <= 0) state.timer = nextOrbitAmbientGap();
+      state.active = false;
+      state.source = null;
+      state.gain = null;
+      return;
+    }
+
+    const graph = orbitAudioGraph();
+    const source = state.source;
+    const gain = state.gain;
+    const token = ++state.token;
+    state.active = false;
+    state.source = null;
+    state.gain = null;
+    if (scheduleNext) state.timer = nextOrbitAmbientGap();
+
+    if (!graph || !gain) {
+      try { source.stop(); } catch (_) {}
+      return;
+    }
+
+    const now = graph.ctx.currentTime;
+    const fade = Math.max(0.03, Number(fadeSec) || 0.03);
+    try {
+      gain.gain.cancelScheduledValues(now);
+      gain.gain.setValueAtTime(Math.max(0.0001, gain.gain.value || 0.0001), now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + fade);
+      source.stop(now + fade + 0.02);
+    } catch (_) {
+      try { source.stop(); } catch (_) {}
+    }
+    source.onended = () => {
+      if (ORBIT_AMBIENT_STATE.token !== token) return;
+    };
+  }
+
+  function resetOrbitAmbient() {
+    stopOrbitAmbient(0.05, false);
+    ORBIT_AMBIENT_STATE.timer = nextOrbitAmbientGap();
+  }
+
+  function orbitAmbientEligible(world) {
+    return !!(
+      world &&
+      world.mode === "flight" &&
+      ORBIT_OGG_SOUNDS.ambient_drone &&
+      typeof document !== "undefined" &&
+      !document.hidden &&
+      typeof SSE !== "undefined" &&
+      SSE.audio &&
+      SSE.audio.enabled !== false &&
+      !(world.eve && world.eve.timer > 0) &&
+      !world.restoreRitualActive &&
+      !(world.restoreReveal && world.restoreReveal.timer > 0) &&
+      !(world.homeRestoreLink && world.homeRestoreLink.active) &&
+      !(world.finale && world.finale.active) &&
+      !(world.incident && world.incident.trueEndingActive)
+    );
+  }
+
+  function startOrbitAmbient() {
+    const definition = ORBIT_OGG_SOUNDS.ambient_drone;
+    const graph = orbitAudioGraph();
+    if (!definition || !graph) return false;
+
+    const buffer = ORBIT_AUDIO_BUFFERS.get("ambient_drone");
+    if (!buffer) {
+      loadOrbitOgg("ambient_drone");
+      ORBIT_AMBIENT_STATE.timer = 3.0;
+      return false;
+    }
+
+    const t = ORBIT_AMBIENT_TUNE;
+    const wanted = t.minPlaySec + Math.random() * (t.maxPlaySec - t.minPlaySec);
+    const duration = Math.max(0.10, Math.min(buffer.duration, wanted));
+    const maxOffset = Math.max(0, buffer.duration - duration);
+    const offset = maxOffset > 0.25 ? Math.random() * maxOffset : 0;
+    const fadeIn = Math.min(t.fadeInSec, duration * 0.28);
+    const fadeOut = Math.min(t.fadeOutSec, duration * 0.32);
+    const releaseAt = Math.max(fadeIn, duration - fadeOut);
+    const level = Math.max(
+      0.0001,
+      Math.min(1, Number(definition.volume ?? 0.03) * ORBIT_AUDIO_GAIN)
+    );
+
+    const source = graph.ctx.createBufferSource();
+    const gain = graph.ctx.createGain();
+    source.buffer = buffer;
+
+    const start = graph.ctx.currentTime + 0.01;
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.linearRampToValueAtTime(level, start + fadeIn);
+    gain.gain.setValueAtTime(level, start + releaseAt);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+    source.connect(gain);
+    gain.connect(graph.masterGain);
+
+    const state = ORBIT_AMBIENT_STATE;
+    const token = ++state.token;
+    state.active = true;
+    state.source = source;
+    state.gain = gain;
+
+    source.onended = () => {
+      if (state.token !== token) return;
+      state.active = false;
+      state.source = null;
+      state.gain = null;
+      state.timer = nextOrbitAmbientGap();
+    };
+
+    source.start(start, offset, duration);
+    source.stop(start + duration + 0.02);
+    return true;
+  }
+
+  function updateOrbitAmbient(world, dt) {
+    const state = ORBIT_AMBIENT_STATE;
+    if (!orbitAmbientEligible(world)) {
+      if (state.active) stopOrbitAmbient(1.0, true);
+      return;
+    }
+    if (state.active) return;
+
+    state.timer -= Math.max(0, Number(dt) || 0);
+    if (state.timer > 0) return;
+    if (!startOrbitAmbient()) state.timer = Math.max(state.timer, 3.0);
+  }
+
   const TUNE = {
     fixedHz: SOURCE_LOCK.fixedHz,
     maxSpeed: PHYSICS_PROFILE === "source" ? SOURCE_LOCK.maxSpeed : WEB_FEEL.maxSpeed,
@@ -2603,6 +2760,7 @@
       this.updateCredits(dt);
       this.updateIncidentEpilogue(dt);
       this.updateEveIdle(dt);
+      updateOrbitAmbient(this, dt);
       if (this.relandLock > 0) this.relandLock = Math.max(0, this.relandLock - dt);
       if (this.feedback.timer > 0) {
         this.feedback.timer = Math.max(0, this.feedback.timer - dt);
@@ -7566,6 +7724,7 @@
       this.prologueEveOnlineSoundPlayed = false;
       this.prologueStatusBeepCount = 0;
       this.handoffTimer = 0;
+      resetOrbitAmbient();
 
       if (this.prologueActive) {
         playOrbitCue("boot");
