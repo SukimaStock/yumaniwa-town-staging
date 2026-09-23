@@ -368,3 +368,5 @@ footer{padding-top:26px;text-align:center;color:#5e594e;font-size:10px;letter-sp
 
 .backup-actions{display:flex;gap:8px;flex-wrap:wrap}
 .backup-status{margin:10px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
+
+.backup-download-link{display:inline-block;margin-top:8px;color:var(--accent);font-size:12px;text-decoration:underline;text-underline-offset:3px}
