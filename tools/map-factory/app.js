@@ -101,6 +101,7 @@
     restoreBackup: $('restoreBackupBtn'),
     backupFile: $('backupFileInput'),
     backupStatus: $('backupStatus'),
+    backupDownload: $('backupDownloadLink'),
     compositionSlotList: $('compositionSlotList'),
     partSelectionBox: $('partSelectionBox'),
     specialTools: $('specialTools'),
@@ -161,6 +162,7 @@
   let db = null;
   let renderToken = 0;
   let previewHitRegions = [];
+  let backupObjectUrl = null;
 
   function blankSelected() {
     return {
@@ -2178,13 +2180,43 @@
     downloadBlob(blob, 'yumaniwa-shop-recipe.json');
   }
 
-  async function exportFullBackup() {
+  function exportFullBackup() {
     try {
+      // Keep the file action in the original tap: iOS may block a download
+      // that begins after an IndexedDB callback has ended the user gesture.
       saveState();
-      const backup = { format: BACKUP_FORMAT, version: BACKUP_VERSION, exportedAt: new Date().toISOString(), assets: await dbGetAll(), state: JSON.parse(localStorage.getItem(STATE_KEY) || 'null') };
+      const backup = {
+        format: BACKUP_FORMAT,
+        version: BACKUP_VERSION,
+        exportedAt: new Date().toISOString(),
+        assets: state.assets,
+        state: JSON.parse(localStorage.getItem(STATE_KEY) || 'null')
+      };
       const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-      downloadBlob(new Blob([JSON.stringify(backup)], { type: 'application/json' }), 'yumaniwa-map-factory-backup-' + stamp + '.json');
-      els.backupStatus.textContent = backup.assets.length + '個の素材と作業状態を書き出しました。';
+      const fileName = 'yumaniwa-map-factory-backup-' + stamp + '.json';
+      const file = new File([JSON.stringify(backup)], fileName, { type: 'application/json' });
+
+      if (backupObjectUrl) URL.revokeObjectURL(backupObjectUrl);
+      backupObjectUrl = URL.createObjectURL(file);
+      els.backupDownload.href = backupObjectUrl;
+      els.backupDownload.download = fileName;
+      els.backupDownload.classList.remove('hidden');
+
+      if (typeof navigator.share === 'function' &&
+          typeof navigator.canShare === 'function' &&
+          navigator.canShare({ files: [file] })) {
+        navigator.share({ files: [file], title: 'Map Factory backup' })
+          .then(() => {
+            els.backupStatus.textContent = backup.assets.length + '個の素材を含むバックアップを共有しました。';
+          })
+          .catch((error) => {
+            if (error.name !== 'AbortError') console.error('Backup share failed', error);
+            els.backupStatus.textContent = '共有を閉じました。下のリンクからバックアップを保存できます。';
+          });
+      } else {
+        els.backupDownload.click();
+        els.backupStatus.textContent = backup.assets.length + '個の素材を含むバックアップを準備しました。保存画面が開かない場合は下のリンクをタップしてください。';
+      }
     } catch (error) {
       console.error('Backup export failed', error);
       els.backupStatus.textContent = '書き出しに失敗しました。ブラウザーの保存容量を確認してください。';
@@ -2401,6 +2433,8 @@
     try {
       db = await openDatabase();
       state.assets = await dbGetAll();
+      els.exportBackup.disabled = false;
+      els.restoreBackup.disabled = false;
 
       normalizeCompositionReferences();
       saveState();
