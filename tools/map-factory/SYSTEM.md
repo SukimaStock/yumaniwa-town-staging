@@ -1,4 +1,4 @@
-# Yumaniwa Map Factory System v0.2
+# Yumaniwa Map Factory System v0.3
 
 Map Factory は「完成画像を生成する場所」ではない。
 
@@ -21,20 +21,29 @@ AI側に厳密な最終ピクセル寸法や1px単位の完成精度を要求し
    - 店の器
    - 中立
    - 業種を決めすぎない
-   - 生成頻度は低い
 
 2. NOREN
    - 店の第一印象
    - 業種差を出す
-   - 生成頻度は高い
 
-Future:
 3. SIGN
-4. LANTERN
-5. BOARD
-6. SPECIAL
+   - 業種のヒント
+   - 小さな記号として使う
 
-v0.2 では BASE + NOREN だけを実装する。
+4. LANTERN
+   - 夜の営業感
+   - 店種説明より人の気配を担当
+
+5. BOARD
+   - 店先の生活感
+   - 今日ここで商売している感じ
+
+6. SPECIAL
+   - その店だけの一手
+   - 一つの強い物体だけに絞る
+
+全部を使う必要はない。
+余白も構成の一部として扱う。
 
 ## Source generation rule
 
@@ -46,9 +55,9 @@ v0.2 では BASE + NOREN だけを実装する。
 - 余白を十分に取る
 - 2案を左右に配置する
 
-## v0.2 intake flow
+## Intake flow
 
-1. Asset type を BASE または NOREN から選択
+1. Asset type を選択
 2. 左右2案の生成画像を読み込む
 3. Factory が中央で左右に分割
 4. 各半分について背景色 / alpha を判定
@@ -60,21 +69,40 @@ v0.2 では BASE + NOREN だけを実装する。
 これは最終背景除去ではない。
 Dot tool へ渡す前の比較用処理。
 
-## v0.2 composition
+## Composition
 
-BASE と NOREN をそれぞれ棚から選択する。
+BASE を共通 preview canvas に contain する。
 
-Factory は:
-- BASE を共通 preview canvas に contain
-- NOREN を BASE の仮 slot に配置
-- aspect ratio を維持
+各パーツには役割別の仮 slot がある:
+- NOREN: facade center / upper entrance
+- SIGN: side / eave area
+- LANTERN: entrance side
+- BOARD: ground / entrance side
+- SPECIAL: ground / opposite side
+
+各パーツは:
+- aspect ratio 維持
 - nearest-neighbor preview
-- NOREN の Scale / X / Y だけ軽く補正可能
+- Scale / X / Y を個別保存
 
-調整範囲は「完成処理」ではなく比較用。
+PART ADJUST で触っているレイヤーだけを調整する。
+他レイヤーの位置は壊さない。
 
-BASE 2案 + NOREN 2案が登録されている場合、
-B1/N1, B1/N2, B2/N1, B2/N2 の4通りを即座に比較できることを最初の成功条件とする。
+## Layer behavior
+
+部品棚のパーツを選ぶと composition に追加する。
+
+BASE 以外は、選択中の同じパーツをもう一度押すと OFF にできる。
+
+初期スロットは完成座標ではない。
+比較を始めやすくするための仮配置。
+
+## Quick comparison
+
+BASE 2案 + NOREN 2案については、
+B1/N1, B1/N2, B2/N1, B2/N2 の4通りを quick chips で比較する。
+
+他パーツは部品棚で差し替えながら比較する。
 
 ## Export
 
@@ -85,9 +113,9 @@ Draft PNG:
 
 Recipe JSON:
 - selected BASE
-- selected NOREN
+- selected NOREN / SIGN / LANTERN / BOARD / SPECIAL
 - source file references
-- NOREN Scale / X / Y
+- partごとの Scale / X / Y
 - system version
 
 最終成果物ではない。
@@ -99,30 +127,34 @@ Master prompt は「完成店」ではなく「部品原型」を生成するた
 Current Masters:
 - BASE / Source Asset Master v1
 - NOREN / Source Asset Master v1
+- SIGN / Source Asset Master v1
+- LANTERN / Source Asset Master v1
+- BOARD / Source Asset Master v1
+- SPECIAL / Source Asset Master v1
 
 Identity Add-on:
 - Neutral
 - Craft Cola
 
 BASE は常に neutral。
-Identity Add-on は NOREN など shop identity layer に適用する。
+Identity Add-on は shop identity layer に適用する。
 
-今後:
+構造:
 MASTER + IDENTITY ADD-ON
-の構造で SIGN / LANTERN / BOARD / SPECIAL に拡張する。
 
-## Validation target
+## Validation
 
-最初の実地テストは以下だけでよい。
+まず Craft Cola 1店舗で以下を確認する。
 
-- adopted BASE pair を登録できる
-- adopted NOREN pair を登録できる
-- 4 combination をワンタップで比較できる
+- BASE + NOREN が自然に成立
+- SIGN を追加しても情報過多にならない
+- LANTERN が業種説明ではなく夜感として機能
+- BOARD が生活感を足す
+- SPECIAL が店の記憶点になる
+- 6レイヤー全部を使わなくても成立する
 - source asset の寸法差が composition 時に問題にならない
 - Draft PNG と Recipe JSON を出せる
-- 「生成画像を完成させる」より制作が楽になったと感じる
-
-この検証を通るまでは機能を増やさない。
+- Dot tool に渡す前工程として制作が楽になったと感じる
 
 ## Repository
 
