@@ -78,8 +78,8 @@
 
   <div class="tabs">
     <button data-phase="A" class="active">実音あり 14</button>
-    <button data-phase="B">仮音 / 未選択 6</button>
-    <button data-phase="ALL">すべて 20</button>
+    <button data-phase="B">仮音 / 未選択 7</button>
+    <button data-phase="ALL">すべて 21</button>
   </div>
 
   <section id="grid" class="grid"></section>
@@ -138,6 +138,7 @@
     {name:"terminal_boot", phase:"B", file:null, volume:.12, cooldown:500},
     {name:"restore_link", phase:"B", file:null, volume:.12, cooldown:500},
     {name:"takeoff_power", phase:"B", file:null, volume:.12, cooldown:120},
+    {name:"ambient_drone", phase:"B", file:null, volume:.03, cooldown:0},
   ];
 
   const state = {
@@ -435,7 +436,9 @@
   async function playCurrent(slot){
     stopAudition("連続試聴を停止しました。");
     if (!slot.file) {
-      fileStatus.textContent = slot.name + " は現在 procedural tone のため、Sound Labでは候補OGGのみ比較します。";
+      fileStatus.textContent = slot.name === "ambient_drone"
+        ? "AMBIENT_DRONE は未設定です。候補音を選んで試聴してください。"
+        : slot.name + " は現在 procedural tone のため、Sound Labでは候補音のみ比較します。";
       return;
     }
     try {
@@ -487,7 +490,7 @@
         '<div class="head"><h2>' + slot.name.toUpperCase() + '</h2><span class="tag">' +
         (slot.phase === "A" ? "REAL AUDIO" : "PLACEHOLDER") +
         '</span></div>' +
-        '<div class="current">現在: ' + (slot.file || "procedural tone") + '</div>' +
+        '<div class="current">現在: ' + (slot.file || (slot.name === "ambient_drone" ? "未設定（採用後に飛行中ランダム再生）" : "procedural tone")) + '</div>' +
         '<div class="candidateName">' + assigned + '</div>';
 
       const select = document.createElement("select");
