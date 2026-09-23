@@ -15,7 +15,7 @@
         <h1>Map Factory</h1>
         <p class="lead">完成品を生成する場所ではなく、同じ町の素材原型を仕入れて組み合わせる場所。</p>
       </div>
-      <span class="version-badge">Asset Composer v0.5</span>
+      <span class="version-badge">Asset Composer v0.6</span>
     </header>
 
     <section class="workflow" aria-label="workflow">
@@ -35,7 +35,16 @@
           <button id="clearCompositionBtn" class="ghost small">クリア</button>
         </div>
 
+        <div class="composition-slots">
+          <div class="composition-slots-head">
+            <span>WORK SLOTS</span>
+            <span class="composition-slots-note">自動保存</span>
+          </div>
+          <div id="compositionSlotList" class="composition-slot-list"></div>
+        </div>
+
         <div class="canvas-wrap">
+          <div id="partSelectionBox" class="part-selection-box hidden"></div>
           <canvas id="previewCanvas" width="720" height="720" aria-label="店のプレビュー"></canvas>
           <div id="previewEmpty" class="canvas-empty">
             <strong>BASEを選んでください</strong>
@@ -79,7 +88,7 @@
               <input id="partY" type="range" min="-35" max="35" value="0" step="1">
             </label>
           </div>
-          <p class="hint">ここでは完成させません。正規ドット化前に「組み合わせとして成立するか」を見るための補正だけです。</p>
+          <p class="hint">ここでは完成させません。正規ドット化前に「組み合わせとして成立するか」を見るための補正だけです。プレビュー上のパーツを直接タップして選択できます。</p>
         </div>
 
         <div class="export-actions">
