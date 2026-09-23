@@ -1,4 +1,4 @@
-# Yumaniwa Map Factory System v0.4
+# Yumaniwa Map Factory System v0.8
 
 Map Factory は「完成画像を生成する場所」ではない。
 
@@ -148,6 +148,110 @@ Kit Sheet 由来 asset は追加情報を保存する。
 
 Pair 由来は sourceKind: pair。
 
+## Composition work slots
+
+Composition は1件だけではなく、複数の WORK SLOT として保存する。
+
+- 01 / 02 / 03 ... の横並びスロット
+- 各スロットは自動保存
+- ＋で現在の composition を複製して新しいスロットを作る
+- スロットをタップすると即切り替え
+- ×で不要なスロットを削除
+- 最低1スロットは必ず残す
+
+各スロットに保存するもの:
+- selected BASE
+- selected NOREN / SIGN / LANTERN / BOARD / SPECIAL
+- part ごとの Scale / X / Y
+- 現在の PART ADJUST 対象
+
+既存 v0.5 以前の単一 composition state は、初回読み込み時に WORK SLOT 01 へ自動移行する。
+
+Asset を個別削除または batch 一括削除した場合、
+その asset を参照している全 WORK SLOT から参照を解除する。
+
+## Direct preview selection
+
+部品棚まで戻らず、プレビュー上の表示パーツを直接タップして編集対象にできる。
+
+render 時に NOREN / SIGN / LANTERN / BOARD / SPECIAL の実描画矩形を hit region として記録する。
+
+タップ時:
+- canvas 座標へ変換
+- 前面に描画された part から逆順に hit test
+- hit した part type を PART ADJUST 対象にする
+
+選択中 part には DOM overlay の薄い selection border を表示する。
+
+selection border は canvas 自体には描かないため、
+Draft PNG export には含まれない。
+
+## Browser backup and restore
+
+Map Factory keeps the asset library in IndexedDB and composition state in localStorage. Browser storage is local to the current browser profile, so use **BACKUP / RESTORE** to keep a copy outside the browser.
+
+Backup ZIP v2 layout:
+- `manifest.json`: `schema: yumaniwa-map-factory-backup`, `version: 2`, creation time, asset count, artifact metadata
+- `data.json`: asset metadata with `file: assets/asset_0001.png` references, and the complete selection, adjustments, SPECIAL placements, and WORK SLOT state; no embedded images
+- `assets/`: individual binary PNG/JPEG/WebP files; the ZIP uses stored entries because image formats are already compressed
+
+Imported images and generated crops are stored as Blobs in IndexedDB. Existing data URLs are converted on startup or when importing an older backup. A failed migration leaves the old records readable. Preview image object URLs are revoked after removal or replacement.
+
+Export shows image progress, then provides a ZIP save link. Mobile browsers that support file sharing also show a separate share button; tap either after preparation to keep the file outside the browser. Export does not navigate to a Blob URL or open a preview.
+
+Restore accepts ZIP v2 and legacy JSON v1. It checks archive entries and checksums, schema/version, asset references, IDs, image types and decoded dimensions, and composition state before asking to replace the current library. Assets are replaced in one IndexedDB transaction. If the transaction fails, the previous localStorage state is restored. Export a current backup before replacing an existing library.
+
+This package layout can later support individual shop or material set exchange under a project-specific extension such as `.ymf`; current import only accepts full-library `.zip` and legacy `.json` backups.
+
+## Multi-SPECIAL placement
+
+SPECIAL は単一選択レイヤーではなく、複数の配置インスタンスとして扱う。
+
+通常レイヤー:
+- BASE: 1
+- NOREN: 1
+- SIGN: 1
+- LANTERN: 1
+- BOARD: 1
+
+SPECIAL:
+- 0個以上
+- 同じ asset を複数回配置可能
+- 各配置は独立した instanceId を持つ
+- 各配置ごとに Scale / X / Y を保持
+- 配列順を描画順として扱う
+- 先頭ほど後ろ、末尾ほど前
+
+SPECIAL棚の asset をタップすると ON/OFF ではなく新しい instance を追加する。
+同じ素材を何度でも追加できる。
+
+配置後の操作:
+- プレビュー上を直接タップして個体選択
+- Scale / X / Y 個別調整
+- 後ろへ
+- 前へ
+- 複製
+- 配置削除
+
+PLACED SPECIALS に現在の配置一覧を表示する。
+一覧順が z-order を表す。
+
+SPECIAL の X 調整範囲は通常パーツより広く取り、
+店先の左側から右側まで複数小物を散らせるようにする。
+
+棚 asset 自体の削除と配置 instance の削除は別操作:
+- 棚カードの × = asset 自体を削除し、全 WORK SLOT の参照 instance も除去
+- PLACED SPECIALS の 配置削除 = 選択中 instance だけ除去
+
+既存の v0.6 以前の selected.special は初回ロード時に1つの SPECIAL instance へ自動移行する。
+
+WORK SLOT は SPECIAL instance 配列と activeSpecialId も丸ごと保存する。
+
+Recipe JSON v0.7:
+- parts は NOREN / SIGN / LANTERN / BOARD
+- specials は instance 配列
+- specials の各要素に assetId / label / scale / x / y / z を保存する
+
 ## Composition
 
 BASE を共通 preview canvas に contain する。
@@ -190,13 +294,72 @@ Draft PNG:
 - 正規ドット化前
 - transparent canvas
 
-Recipe JSON v0.4:
+Recipe JSON v0.7:
 - selected BASE
 - selected NOREN / SIGN / LANTERN / BOARD / SPECIAL
 - source metadata
 - part ごとの Scale / X / Y
 
 最終成果物ではない。
+
+## Prompt production standard
+
+Identity Kit Sheet の生成プロンプト自体も Factory の正式規格として保持する。
+
+構造:
+
+- Identity Kit Sheet / Production Master v1
+- Shop Identity Add-on
+
+Master 側で固定するもの:
+- 32 assets
+- BASE 2 / NOREN 6 / SIGN 6 / LANTERN 6 / BOARD 6 / SPECIAL 6
+- 固定レイアウト
+- plain removable background
+- no poster / no presentation elements
+- same logical pixel density
+- same outline thickness
+- same rendering quality
+- same scale family
+- 70% shared / 30% meaningful variation
+- low visual density
+- Anti-Luxury rule
+- reusable neutral BASE
+- Map Factory automatic cutout compatibility
+
+Identity Add-on 側で変えるもの:
+- shop feel
+- motifs
+- accent colors
+- per-layer identity clues
+- six SPECIAL prop ideas
+- shop-specific avoid rules
+
+Current registered identities:
+- Craft Cola
+- Kissaten
+- Curry Shop
+- Yakitori Shop
+
+新しい店を追加するときは 32-slot Master を書き直さない。
+原則として Identity Add-on を1件追加するだけで同じ生産規格を再利用する。
+
+Factory の SOURCE PROMPT は2モード:
+
+### Identity Kit Sheet / 32 assets
+
+通常の新店舗用。
+Production Master v1 + selected Shop Identity Add-on を結合する。
+
+### Focus Part / 2 variations
+
+不足した棚だけ追加補充する。
+既存の BASE / NOREN / SIGN / LANTERN / BOARD / SPECIAL Master + selected identity add-on を結合する。
+
+BASE の Focus Part は常に neutral とする。
+
+この分離により、
+「店ごとに毎回プロンプト全体を作り直して品質がぶれる」ことを避ける。
 
 ## Source generation
 

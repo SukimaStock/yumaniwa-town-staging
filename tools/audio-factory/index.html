@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Sukima Audio Factory v0.3</title>
+<style>
+:root{
+  --bg:#171717;
+  --panel:#222;
+  --panel2:#2a2a2a;
+  --line:#3b3b3b;
+  --text:#f2efe8;
+  --muted:#a9a69f;
+  --accent:#f1c46b;
+  --danger:#d96f6f;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+body{min-height:100vh}
+button,input{font:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:18px 14px 50px}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px}
+h1{font-size:18px;margin:0;letter-spacing:.08em}
+.sub{font-size:11px;color:var(--muted);margin-top:5px}
+.status{font-size:11px;color:var(--muted);text-align:right}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:14px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.panel h2{font-size:11px;letter-spacing:.12em;color:var(--muted);margin:0 0 12px}
+.families{display:grid;grid-template-columns:repeat(auto-fit,minmax(74px,1fr));gap:8px}
+.family{padding:13px 6px;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;cursor:pointer}
+.family.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.bigplay{width:100%;margin-top:12px;padding:22px;border:0;border-radius:13px;background:var(--accent);color:#171717;font-weight:800;font-size:18px;cursor:pointer}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.actions button,.slot button,.savebar button,.saved button{
+  padding:11px 8px;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;cursor:pointer
+}
+.actions button:hover,.slot button:hover,.savebar button:hover,.saved button:hover{border-color:#666}
+.control{display:grid;grid-template-columns:72px 1fr 34px;align-items:center;gap:8px;margin:12px 0}
+.control label{font-size:12px}
+.control output{font-size:11px;color:var(--muted);text-align:right}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.slot{border:1px solid var(--line);background:var(--panel2);border-radius:12px;padding:10px}
+.slot-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.slot-name{font-weight:700}
+.slot small{color:var(--muted)}
+.slot .row{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.slot.empty{opacity:.58}
+.savebar{display:grid;grid-template-columns:1fr auto auto;gap:8px;margin-top:10px}
+.savebar input{min-width:0;background:#161616;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:11px}
+.saved{margin-top:10px;display:grid;gap:7px}
+.saved-item{display:grid;grid-template-columns:1fr auto auto;gap:7px;align-items:center;border-top:1px solid var(--line);padding-top:8px}
+.saved-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tiny{font-size:10px;color:var(--muted)}
+.labgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dna{margin-top:9px;padding:10px;border:1px dashed var(--line);border-radius:10px;background:#191919;word-break:break-all;line-height:1.55}
+.accentBtn{border-color:var(--accent)!important}
+.footer-note{margin-top:14px;font-size:10px;line-height:1.6;color:var(--muted)}
+.pulse{animation:pulse .18s ease-out}
+@keyframes pulse{0%{transform:scale(1)}45%{transform:scale(.985)}100%{transform:scale(1)}}
+@media(max-width:760px){
+  .grid{grid-template-columns:1fr}
+  .families{grid-template-columns:repeat(5,1fr)}
+  .family{font-size:11px;padding:11px 3px}
+  header{align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>SUKIMA AUDIO FACTORY <span style="color:var(--accent)">v0.3</span></h1>
+      <div class="sub">sound laboratory / breed small sonic creatures</div>
+    </div>
+    <div class="status" id="status">tap PLAY to wake audio</div>
+  </header>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>STARTING POINT</h2>
+      <div class="families" id="families"></div>
+
+      <button class="bigplay" id="playBtn">▶ PLAY</button>
+
+      <div class="actions">
+        <button id="mutateBtn">MUTATE</button>
+        <button id="undoBtn">UNDO</button>
+        <button id="resetBtn">RESET</button>
+      </div>
+
+      <div style="height:14px"></div>
+      <h2>SHAPE</h2>
+      <div id="controls"></div>
+
+      <div style="height:14px"></div>
+      <h2>DNA LAB</h2>
+      <div id="labControls"></div>
+      <div class="actions" style="grid-template-columns:1fr 1fr">
+        <button id="reseedBtn">NEW WAVE</button>
+        <button id="wildBtn">WILD MUTATE</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="panel">
+        <h2>KEEP / A-B</h2>
+        <div class="ab">
+          <div class="slot empty" id="slotA">
+            <div class="slot-head"><span class="slot-name">A</span><small>empty</small></div>
+            <div class="row">
+              <button data-keep="A">KEEP</button>
+              <button data-play-slot="A">PLAY</button>
+            </div>
+          </div>
+          <div class="slot empty" id="slotB">
+            <div class="slot-head"><span class="slot-name">B</span><small>empty</small></div>
+            <div class="row">
+              <button data-keep="B">KEEP</button>
+              <button data-play-slot="B">PLAY</button>
+            </div>
+          </div>
+        </div>
+        <div class="actions" style="grid-template-columns:1fr 1fr">
+          <button id="loadABtn">LOAD A</button>
+          <button id="loadBBtn">LOAD B</button>
+        </div>
+        <div class="actions" style="grid-template-columns:1fr">
+          <button id="breedBtn" class="accentBtn">A × B → BREED</button>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:14px">
+        <h2>SAVE PRESET</h2>
+        <div class="savebar">
+          <input id="presetName" placeholder="name e.g. soft_landing" maxlength="40">
+          <button id="saveBtn">SAVE</button>
+          <button id="wavBtn">WAV</button>
+        </div>
+        <div class="actions" style="grid-template-columns:1fr 1fr">
+          <button id="exportBtn">EXPORT JSON</button>
+          <button id="importBtn">IMPORT JSON</button>
+        </div>
+        <input id="importFile" type="file" accept=".json,application/json" hidden>
+        <div class="saved" id="savedList"></div>
+      </div>
+
+      <div class="panel" style="margin-top:14px">
+        <h2>CURRENT DNA</h2>
+        <div class="tiny" id="recipeText"></div>
+        <div class="dna tiny" id="dnaText"></div>
+        <div class="actions" style="grid-template-columns:1fr 1fr">
+          <button id="copyDnaBtn">COPY DNA</button>
+          <button id="playDnaBtn">PLAY DNA</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="footer-note">
+    Audio starts only after user interaction because browsers block autoplay.
+    Recipes are stored in localStorage. WAV rendering is generated locally in the browser.
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+
+const FAMILY_DEFAULTS = {
+  TINY:  { height:72, weight:18, hardness:62, tail:18, roughness:10, space:4,  variation:8, seed:101 },
+  WOOD:  { height:36, weight:62, hardness:52, tail:25, roughness:28, space:3,  variation:10,seed:202 },
+  METAL: { height:61, weight:34, hardness:82, tail:58, roughness:8,  space:18, variation:6, seed:303 },
+  SOFT:  { height:42, weight:55, hardness:18, tail:44, roughness:12, space:12, variation:8, seed:404 },
+  SPACE:   { height:29, weight:76, hardness:14, tail:76, roughness:18, space:66, variation:12,seed:505 },
+  GLASS:   { height:69, weight:20, hardness:88, tail:62, roughness:2,  space:24, variation:5, seed:606 },
+  RUBBER:  { height:43, weight:54, hardness:30, tail:36, roughness:4,  space:5,  variation:9, seed:707 },
+  BELL:    { height:58, weight:28, hardness:74, tail:78, roughness:3,  space:32, variation:5, seed:808 },
+  DROP:    { height:66, weight:22, hardness:38, tail:35, roughness:3,  space:10, variation:7, seed:909 },
+  MACHINE: { height:40, weight:58, hardness:76, tail:24, roughness:24, space:8,  variation:8, seed:1010 },
+  DUST:    { height:48, weight:25, hardness:12, tail:48, roughness:82, space:18, variation:13,seed:1111 },
+  DEEP:    { height:9,  weight:94, hardness:10, tail:86, roughness:8,  space:45, variation:6, seed:1212 },
+};
+
+const CONTROL_META = [
+  ['height','高さ'],
+  ['weight','重さ'],
+  ['hardness','硬さ'],
+  ['tail','余韻'],
+  ['roughness','ざらつき'],
+  ['space','空間'],
+  ['variation','揺らぎ'],
+];
+
+const LAB_META = [
+  ['harmonic','倍音'],
+  ['motion','動き'],
+  ['events','出来事'],
+  ['chaos','混沌'],
+];
+
+const $ = s => document.querySelector(s);
+const clone = obj => JSON.parse(JSON.stringify(obj));
+const clamp = (v,min=0,max=100) => Math.max(min,Math.min(max,v));
+
+let currentFamily = 'WOOD';
+let recipe = makeRecipe(currentFamily);
+let undoStack = [];
+let slotA = null;
+let slotB = null;
+let audioCtx = null;
+let playCounter = 0;
+
+function normalizeRecipe(input){
+  const r = clone(input);
+  const seed = (r.seed || 1) >>> 0;
+  if(r.waveSeed == null) r.waveSeed = (Math.imul(seed, 2654435761) >>> 0) || 1;
+  if(r.harmonic == null) r.harmonic = 46;
+  if(r.motion == null) r.motion = 50;
+  if(r.events == null) r.events = 18;
+  if(r.chaos == null) r.chaos = Math.max(4, Math.min(35, r.variation || 8));
+  if(!Array.isArray(r.lineage)) r.lineage = [];
+  return r;
+}
+
+function makeRecipe(family){
+  return normalizeRecipe({ family, ...clone(FAMILY_DEFAULTS[family]) });
+}
+
+function pushUndo(){
+  undoStack.push(clone(recipe));
+  if(undoStack.length > 30) undoStack.shift();
+}
+
+function setRecipe(next, addUndo=true){
+  if(addUndo) pushUndo();
+  recipe = normalizeRecipe(next);
+  currentFamily = recipe.family || currentFamily;
+  renderAll();
+}
+
+function initUI(){
+  const fam = $('#families');
+  Object.keys(FAMILY_DEFAULTS).forEach(name => {
+    const b = document.createElement('button');
+    b.className = 'family';
+    b.textContent = name;
+    b.dataset.family = name;
+    b.onclick = () => {
+      pushUndo();
+      currentFamily = name;
+      recipe = makeRecipe(name);
+      renderAll();
+      playCurrent();
+    };
+    fam.appendChild(b);
+  });
+
+  function addControls(root, meta){
+    meta.forEach(([key,label]) => {
+      const row = document.createElement('div');
+      row.className = 'control';
+      row.innerHTML = `<label for="${key}">${label}</label>
+        <input id="${key}" type="range" min="0" max="100" step="1">
+        <output id="${key}Out"></output>`;
+      root.appendChild(row);
+      const input = row.querySelector('input');
+      input.addEventListener('pointerdown', () => pushUndo(), {passive:true});
+      input.addEventListener('input', e => {
+        recipe[key] = +e.target.value;
+        renderRecipeText();
+        $(`#${key}Out`).textContent = recipe[key];
+      });
+    });
+  }
+  addControls($('#controls'), CONTROL_META);
+  addControls($('#labControls'), LAB_META);
+
+  $('#playBtn').onclick = playCurrent;
+  $('#mutateBtn').onclick = mutate;
+  $('#undoBtn').onclick = undo;
+  $('#resetBtn').onclick = () => setRecipe(makeRecipe(currentFamily));
+  $('#reseedBtn').onclick = reseedWave;
+  $('#wildBtn').onclick = wildMutate;
+  $('#breedBtn').onclick = breedSlots;
+  $('#copyDnaBtn').onclick = copyDNA;
+  $('#playDnaBtn').onclick = playCurrent;
+
+  document.querySelectorAll('[data-keep]').forEach(btn => btn.onclick = () => keepSlot(btn.dataset.keep));
+  document.querySelectorAll('[data-play-slot]').forEach(btn => btn.onclick = () => playSlot(btn.dataset.playSlot));
+  $('#loadABtn').onclick = () => slotA && setRecipe(slotA);
+  $('#loadBBtn').onclick = () => slotB && setRecipe(slotB);
+
+  $('#saveBtn').onclick = savePreset;
+  $('#exportBtn').onclick = exportJSON;
+  $('#importBtn').onclick = () => $('#importFile').click();
+  $('#importFile').onchange = importJSON;
+  $('#wavBtn').onclick = exportWav;
+
+  renderAll();
+  renderSaved();
+}
+
+function renderAll(){
+  document.querySelectorAll('.family').forEach(b => b.classList.toggle('active', b.dataset.family === currentFamily));
+  [...CONTROL_META, ...LAB_META].forEach(([key]) => {
+    $(`#${key}`).value = recipe[key];
+    $(`#${key}Out`).textContent = recipe[key];
+  });
+  renderSlots();
+  renderRecipeText();
+}
+
+function renderRecipeText(){
+  const r = recipe;
+  $('#recipeText').textContent =
+    `${r.family}  H:${r.height} W:${r.weight} K:${r.hardness} T:${r.tail} ` +
+    `R:${r.roughness} S:${r.space} V:${r.variation} / wave:${r.waveSeed}`;
+  $('#dnaText').textContent = dnaString(r);
+}
+
+function renderSlots(){
+  [['A',slotA],['B',slotB]].forEach(([name,data]) => {
+    const el = $(`#slot${name}`);
+    el.classList.toggle('empty', !data);
+    el.querySelector('small').textContent = data ? `${data.family} / seed ${data.seed}` : 'empty';
+  });
+}
+
+function mutate(){
+  pushUndo();
+  const amount = 3 + recipe.variation * .12 + recipe.chaos*.05;
+  CONTROL_META.filter(([k]) => k !== 'variation').forEach(([key]) => {
+    const bias = key === 'space' ? .72 : 1;
+    recipe[key] = Math.round(clamp(recipe[key] + randn() * amount * bias));
+  });
+  LAB_META.forEach(([key]) => {
+    const bias = key === 'chaos' ? .35 : .75;
+    recipe[key] = Math.round(clamp(recipe[key] + randn() * amount * bias));
+  });
+  recipe.seed = nextSeed(recipe.seed);
+  if(Math.random() < .28 + recipe.chaos/180) recipe.waveSeed = nextSeed(recipe.waveSeed);
+  renderAll();
+  playCurrent();
+}
+
+function nextSeed(seed){
+  return ((Math.imul((seed || 1) >>> 0, 1664525) + 1013904223) >>> 0) || 1;
+}
+
+function reseedWave(){
+  pushUndo();
+  recipe.waveSeed = nextSeed(recipe.waveSeed ^ nextSeed(recipe.seed));
+  renderAll();
+  playCurrent();
+}
+
+function wildMutate(){
+  pushUndo();
+  const keys = [...CONTROL_META.map(x=>x[0]), ...LAB_META.map(x=>x[0])];
+  keys.forEach(key => {
+    const center = recipe[key] ?? 50;
+    recipe[key] = Math.round(clamp(center + randn()*(18 + recipe.chaos*.22)));
+  });
+  recipe.seed = nextSeed(nextSeed(recipe.seed));
+  recipe.waveSeed = nextSeed(nextSeed(recipe.waveSeed ^ recipe.seed));
+  renderAll();
+  playCurrent();
+}
+
+function breedSlots(){
+  if(!slotA || !slotB){
+    $('#status').textContent = 'KEEP both A and B first';
+    return;
+  }
+  pushUndo();
+  const a = normalizeRecipe(slotA);
+  const b = normalizeRecipe(slotB);
+  const child = {};
+  const mix = .35 + Math.random()*.30;
+  [...CONTROL_META, ...LAB_META].forEach(([key]) => {
+    child[key] = Math.round(clamp(a[key]*mix + b[key]*(1-mix) + randn()*3.2));
+  });
+  child.family = Math.random() < .5 ? a.family : b.family;
+  child.seed = nextSeed((a.seed ^ b.seed ^ Date.now()) >>> 0);
+  child.waveSeed = nextSeed((a.waveSeed ^ Math.imul(b.waveSeed, 31)) >>> 0);
+  child.lineage = [dnaShort(a), dnaShort(b)];
+  recipe = normalizeRecipe(child);
+  currentFamily = recipe.family;
+  renderAll();
+  playCurrent();
+}
+
+function undo(){
+  if(!undoStack.length) return;
+  recipe = undoStack.pop();
+  currentFamily = recipe.family;
+  renderAll();
+  playCurrent();
+}
+
+function keepSlot(which){
+  if(which === 'A') slotA = clone(recipe);
+  else slotB = clone(recipe);
+  renderSlots();
+}
+
+function playSlot(which){
+  const r = which === 'A' ? slotA : slotB;
+  if(r) playRecipe(r);
+}
+
+async function ensureAudio(){
+  if(!audioCtx){
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) throw new Error('Web Audio API is not supported in this browser.');
+    audioCtx = new AC();
+  }
+  if(audioCtx.state === 'suspended') await audioCtx.resume();
+  $('#status').textContent = `audio: ${audioCtx.state}`;
+  return audioCtx;
+}
+
+async function playCurrent(){
+  try{
+    await ensureAudio();
+    playRecipe(recipe);
+    const b = $('#playBtn');
+    b.classList.remove('pulse'); void b.offsetWidth; b.classList.add('pulse');
+  }catch(err){
+    $('#status').textContent = err.message;
+  }
+}
+
+function mulberry32(a){
+  return function(){
+    let t = a += 0x6D2B79F5;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  }
+}
+function randn(){
+  return (Math.random()+Math.random()+Math.random()+Math.random()-2);
+}
+function jitter(v, amount, rnd){
+  return v * (1 + (rnd()*2-1)*amount);
+}
+
+function dnaShort(r){
+  return `${r.family}-${(r.waveSeed>>>0).toString(36).toUpperCase().slice(-6)}-${(r.seed>>>0).toString(36).toUpperCase().slice(-5)}`;
+}
+
+function dnaString(r){
+  const values = [...CONTROL_META, ...LAB_META].map(([k]) => String(Math.round(r[k] ?? 0)).padStart(2,'0')).join('.');
+  const parents = r.lineage && r.lineage.length ? ` < ${r.lineage.join(' × ')}` : '';
+  return `SAF3:${r.family}:${(r.waveSeed>>>0).toString(36).toUpperCase()}:${(r.seed>>>0).toString(36).toUpperCase()}:${values}${parents}`;
+}
+
+async function copyDNA(){
+  const dna = dnaString(recipe);
+  try{
+    await navigator.clipboard.writeText(dna);
+    $('#status').textContent = 'DNA copied';
+  }catch{
+    $('#status').textContent = dna;
+  }
+}
+
+function makePeriodicWave(ctx, r, offset=0){
+  const rnd = mulberry32(((r.waveSeed || 1) + offset*7919) >>> 0);
+  const count = 12;
+  const real = new Float32Array(count);
+  const imag = new Float32Array(count);
+  const brightness = (r.harmonic || 50)/100;
+  const decay = 2.15 - brightness*1.45;
+  for(let n=1;n<count;n++){
+    const base = 1 / Math.pow(n, decay);
+    const amp = base * (.48 + rnd()*.82);
+    const phase = rnd()*Math.PI*2;
+    real[n] = Math.cos(phase)*amp;
+    imag[n] = Math.sin(phase)*amp;
+  }
+  imag[1] += .78;
+  return ctx.createPeriodicWave(real, imag, {disableNormalization:false});
+}
+
+function derived(r, seedOffset=0){
+  const rnd = mulberry32((r.seed + seedOffset) >>> 0);
+  const varAmt = Math.min(.55, (r.variation + (r.chaos || 0)*.65) / 100);
+  const freq = 90 * Math.pow(2, r.height / 30);
+  const duration = 0.055 + Math.pow(r.tail/100,1.45) * 1.55;
+  const attack = 0.002 + (1-r.hardness/100) * 0.026;
+  const cutoff = 420 + r.hardness * 54 + r.height * 10;
+  const q = .25 + r.hardness / 24;
+  const noise = Math.pow(r.roughness/100,1.25) * .34;
+  const sub = .08 + r.weight/100 * .34;
+  const wet = Math.pow(r.space/100,1.35) * .44;
+  return {
+    rnd,
+    freq: jitter(freq, varAmt*.035, rnd),
+    duration: jitter(duration, varAmt*.05, rnd),
+    attack,
+    cutoff,
+    q,
+    noise: jitter(noise, varAmt*.08, rnd),
+    sub,
+    wet,
+    weight: r.weight/100,
+    hardness: r.hardness/100,
+    family:r.family
+  };
+}
+
+function buildSound(ctx, destination, r, startTime, seedOffset=0){
+  const d = derived(r, seedOffset);
+  const now = startTime;
+  const end = now + d.duration;
+  const master = ctx.createGain();
+  master.gain.value = .72;
+  master.connect(destination);
+
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.setValueAtTime(Math.min(d.cutoff, ctx.sampleRate*.42), now);
+  filter.Q.value = d.q;
+
+  const env = ctx.createGain();
+  const peak = .33 + d.hardness*.12;
+  env.gain.setValueAtTime(0.0001, now);
+  env.gain.exponentialRampToValueAtTime(peak, now + d.attack);
+  env.gain.exponentialRampToValueAtTime(0.0001, end);
+  env.connect(filter);
+
+  const dry = ctx.createGain();
+  dry.gain.value = 1;
+  filter.connect(dry).connect(master);
+
+  if(d.wet > .001){
+    const delay = ctx.createDelay(1.5);
+    const feedback = ctx.createGain();
+    const wetGain = ctx.createGain();
+    delay.delayTime.value = 0.07 + d.wet*.42;
+    feedback.gain.value = Math.min(.48, .08 + d.wet*.7);
+    wetGain.gain.value = d.wet;
+    filter.connect(delay);
+    delay.connect(feedback).connect(delay);
+    delay.connect(wetGain).connect(master);
+  }
+
+  const osc = ctx.createOscillator();
+  osc.setPeriodicWave(makePeriodicWave(ctx, r, seedOffset));
+  let endRatio = 1 - d.weight*.42;
+  if(d.family === 'METAL' || d.family === 'GLASS' || d.family === 'BELL') endRatio = .96;
+  if(d.family === 'TINY') endRatio = 1.08;
+  if(d.family === 'SPACE' || d.family === 'DROP') endRatio = .55;
+  if(d.family === 'DEEP') endRatio = .72;
+  if(d.family === 'RUBBER') endRatio = 1.18;
+  const motion = ((r.motion ?? 50)-50)/50;
+  endRatio *= Math.exp(motion*.58);
+  osc.frequency.setValueAtTime(d.freq, now);
+  if(d.family === 'RUBBER' || Math.abs(motion) > .58){
+    const bend = motion >= 0 ? .76 + motion*.18 : 1.18 + motion*.16;
+    osc.frequency.exponentialRampToValueAtTime(Math.max(28,d.freq*bend), now + d.duration*.38);
+    osc.frequency.exponentialRampToValueAtTime(Math.max(28,d.freq*endRatio), end);
+  }else{
+    osc.frequency.exponentialRampToValueAtTime(Math.max(28,d.freq*endRatio), end);
+  }
+  osc.connect(env);
+  osc.start(now);
+  osc.stop(end + .02);
+
+  const sub = ctx.createOscillator();
+  const subGain = ctx.createGain();
+  sub.type = 'sine';
+  sub.frequency.setValueAtTime(Math.max(35,d.freq*.5), now);
+  sub.frequency.exponentialRampToValueAtTime(Math.max(28,d.freq*.36), end);
+  subGain.gain.setValueAtTime(d.sub*.55, now);
+  subGain.gain.exponentialRampToValueAtTime(.0001, end);
+  sub.connect(subGain).connect(filter);
+  sub.start(now);
+  sub.stop(end + .02);
+
+  if(['METAL','TINY','GLASS','BELL'].includes(d.family)){
+    const ratios =
+      d.family === 'BELL' ? [2.01, 2.99, 4.12] :
+      d.family === 'GLASS' ? [1.51, 2.43, 3.87] :
+      [d.family === 'METAL' ? 2.01 : 1.51];
+    ratios.forEach((ratio, i) => {
+      const ring = ctx.createOscillator();
+      const rg = ctx.createGain();
+      ring.type = 'sine';
+      ring.frequency.value = d.freq * ratio;
+      const baseGain = d.family === 'BELL' ? .12 : d.family === 'GLASS' ? .10 : d.family === 'METAL' ? .18 : .11;
+      rg.gain.setValueAtTime(baseGain / (1 + i*.45), now);
+      rg.gain.exponentialRampToValueAtTime(.0001, now + d.duration*(.38 + i*.16));
+      ring.connect(rg).connect(filter);
+      ring.start(now);
+      ring.stop(end + .04);
+    });
+  }
+
+  if(d.noise > .001){
+    const length = Math.max(32, Math.floor(ctx.sampleRate * Math.min(.22, d.duration)));
+    const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
+    const arr = buffer.getChannelData(0);
+    for(let i=0;i<length;i++) arr[i] = d.rnd()*2-1;
+    const src = ctx.createBufferSource();
+    src.buffer = buffer;
+    const ng = ctx.createGain();
+    const burst = Math.min(d.duration, .018 + (1-d.hardness)*.12);
+    ng.gain.setValueAtTime(Math.max(.0001,d.noise), now);
+    ng.gain.exponentialRampToValueAtTime(.0001, now + burst);
+    src.connect(ng).connect(filter);
+    src.start(now);
+    src.stop(now + burst + .01);
+  }
+
+  if(d.family === 'SPACE' || d.family === 'DEEP'){
+    const lfo = ctx.createOscillator();
+    const lfoGain = ctx.createGain();
+    lfo.frequency.value = d.family === 'DEEP' ? .32 : .7;
+    lfoGain.gain.value = d.freq * (d.family === 'DEEP' ? .012 : .018);
+    lfo.connect(lfoGain).connect(osc.frequency);
+    lfo.start(now); lfo.stop(end);
+  }
+
+  if(d.family === 'DROP'){
+    const plop = ctx.createOscillator();
+    const pg = ctx.createGain();
+    plop.type = 'sine';
+    plop.frequency.setValueAtTime(d.freq*1.65, now);
+    plop.frequency.exponentialRampToValueAtTime(Math.max(45,d.freq*.62), now + Math.min(.24,d.duration*.75));
+    pg.gain.setValueAtTime(.16, now);
+    pg.gain.exponentialRampToValueAtTime(.0001, now + Math.min(.28,d.duration));
+    plop.connect(pg).connect(filter);
+    plop.start(now); plop.stop(now + Math.min(.3,d.duration+.04));
+  }
+
+  if(d.family === 'MACHINE'){
+    for(let i=0;i<3;i++){
+      const click = ctx.createOscillator();
+      const cg = ctx.createGain();
+      click.type = i % 2 ? 'square' : 'triangle';
+      const t = now + i*.036;
+      click.frequency.value = d.freq * (1.1 + i*.18);
+      cg.gain.setValueAtTime(.07/(i+1), t);
+      cg.gain.exponentialRampToValueAtTime(.0001, t+.03);
+      click.connect(cg).connect(filter);
+      click.start(t); click.stop(t+.035);
+    }
+  }
+
+  const eventCount = Math.max(0, Math.min(4, Math.floor((r.events || 0)/22)));
+  if(eventCount > 0){
+    const ernd = mulberry32(((r.waveSeed || 1) ^ (seedOffset*31337) ^ 0xA53A9) >>> 0);
+    for(let i=0;i<eventCount;i++){
+      const eo = ctx.createOscillator();
+      const eg = ctx.createGain();
+      eo.setPeriodicWave(makePeriodicWave(ctx, r, seedOffset + i + 17));
+      const offset = .018 + i*(.018 + (r.events/100)*.028) + ernd()*.018;
+      const t = now + offset;
+      const ef = d.freq * (.62 + ernd()*1.9);
+      eo.frequency.setValueAtTime(Math.max(34,ef), t);
+      eo.frequency.exponentialRampToValueAtTime(Math.max(30,ef*(.72+ernd()*.55)), t+.025+ernd()*.06);
+      eg.gain.setValueAtTime(.035 + (r.events/100)*.055, t);
+      eg.gain.exponentialRampToValueAtTime(.0001, t+.03+ernd()*.085);
+      eo.connect(eg).connect(filter);
+      eo.start(t);
+      eo.stop(t+.13);
+    }
+  }
+
+  if(d.family === 'DUST'){
+    const length = Math.max(64, Math.floor(ctx.sampleRate * Math.min(.55, d.duration)));
+    const b = ctx.createBuffer(1, length, ctx.sampleRate);
+    const a = b.getChannelData(0);
+    let last = 0;
+    for(let i=0;i<length;i++){
+      last = last*.78 + (d.rnd()*2-1)*.22;
+      a[i] = last;
+    }
+    const src = ctx.createBufferSource();
+    const g = ctx.createGain();
+    src.buffer = b;
+    g.gain.setValueAtTime(.18 + d.noise*.65, now);
+    g.gain.exponentialRampToValueAtTime(.0001, now + Math.min(.7,d.duration));
+    src.connect(g).connect(filter);
+    src.start(now);
+    src.stop(now + Math.min(.72,d.duration+.04));
+  }
+
+  return d.duration + d.wet*1.8 + .15;
+}
+
+function chooseWave(family, hardness){
+  if(family === 'WOOD') return hardness > .62 ? 'square' : 'triangle';
+  if(['METAL','GLASS','BELL','SOFT','SPACE','DROP','DEEP'].includes(family)) return 'sine';
+  if(family === 'RUBBER') return 'triangle';
+  if(family === 'MACHINE') return hardness > .55 ? 'square' : 'triangle';
+  if(family === 'DUST') return 'sine';
+  return hardness > .72 ? 'square' : 'triangle';
+}
+
+function playRecipe(r){
+  if(!audioCtx) return;
+  playCounter++;
+  buildSound(audioCtx, audioCtx.destination, r, audioCtx.currentTime + .01, playCounter);
+}
+
+function getSaved(){
+  try { return JSON.parse(localStorage.getItem('sukimaAudioFactory.presets') || '[]'); }
+  catch { return []; }
+}
+function putSaved(list){
+  localStorage.setItem('sukimaAudioFactory.presets', JSON.stringify(list));
+}
+
+function savePreset(){
+  const input = $('#presetName');
+  const name = (input.value || `${recipe.family.toLowerCase()}_${Date.now().toString().slice(-5)}`).trim();
+  const list = getSaved();
+  list.unshift({name, recipe:clone(recipe), savedAt:new Date().toISOString()});
+  putSaved(list.slice(0,80));
+  input.value = '';
+  renderSaved();
+}
+
+function renderSaved(){
+  const root = $('#savedList');
+  const list = getSaved();
+  if(!list.length){
+    root.innerHTML = '<div class="tiny">no saved presets yet</div>';
+    return;
+  }
+  root.innerHTML = '';
+  list.forEach((item,i) => {
+    const row = document.createElement('div');
+    row.className = 'saved-item';
+    row.innerHTML = `<div><div class="saved-name"></div><div class="tiny"></div></div>
+      <button>LOAD</button><button>×</button>`;
+    row.querySelector('.saved-name').textContent = item.name;
+    row.querySelector('.tiny').textContent = `${item.recipe.family} / seed ${item.recipe.seed}`;
+    row.children[1].onclick = () => setRecipe(item.recipe);
+    row.children[2].onclick = () => {
+      const next = getSaved(); next.splice(i,1); putSaved(next); renderSaved();
+    };
+    root.appendChild(row);
+  });
+}
+
+function downloadBlob(blob, filename){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+
+function safeName(s){
+  return (s || 'sukima_sound').trim().replace(/[^\w\-]+/g,'_').replace(/^_+|_+$/g,'') || 'sukima_sound';
+}
+
+function exportJSON(){
+  const exportedAt = new Date().toISOString();
+  const data = {
+    format:'sukima-audio-factory',
+    version:3,
+    exportedAt,
+    artifact:{
+      schema:'sukimastock-artifact/1',
+      kind:'audio-presets',
+      producer:{tool:'audio-factory',version:'0.3'},
+      createdAt:exportedAt,
+      dependencies:[],
+      nextStep:'audio-factory-import'
+    },
+    current:clone(recipe),
+    slots:{A:slotA,B:slotB},
+    presets:getSaved()
+  };
+  downloadBlob(new Blob([JSON.stringify(data,null,2)], {type:'application/json'}), 'sukima-audio-presets.json');
+}
+
+async function importJSON(e){
+  const f = e.target.files && e.target.files[0];
+  if(!f) return;
+  try{
+    const data = JSON.parse(await f.text());
+    if(data.current) setRecipe(normalizeRecipe(data.current));
+    if(data.slots){ slotA = data.slots.A || null; slotB = data.slots.B || null; }
+    if(Array.isArray(data.presets)) putSaved(data.presets);
+    renderAll(); renderSaved();
+    $('#status').textContent = 'JSON imported';
+  }catch(err){
+    $('#status').textContent = 'import failed';
+  }finally{
+    e.target.value = '';
+  }
+}
+
+async function exportWav(){
+  try{
+    const sampleRate = 44100;
+    const durationGuess = 3.8;
+    const offline = new OfflineAudioContext(1, Math.ceil(sampleRate*durationGuess), sampleRate);
+    const actual = buildSound(offline, offline.destination, recipe, 0.05, 0);
+    const rendered = await offline.startRendering();
+    const frames = Math.min(rendered.length, Math.ceil((actual+.15)*sampleRate));
+    const wav = encodeWav(rendered.getChannelData(0).slice(0,frames), sampleRate);
+    const name = safeName($('#presetName').value || `${recipe.family.toLowerCase()}_${recipe.seed}`);
+    downloadBlob(new Blob([wav], {type:'audio/wav'}), `${name}.wav`);
+    $('#status').textContent = 'WAV exported';
+  }catch(err){
+    console.error(err);
+    $('#status').textContent = 'WAV export failed';
+  }
+}
+
+function encodeWav(samples, sampleRate){
+  const buffer = new ArrayBuffer(44 + samples.length*2);
+  const view = new DataView(buffer);
+  const write = (offset, str) => { for(let i=0;i<str.length;i++) view.setUint8(offset+i,str.charCodeAt(i)); };
+  write(0,'RIFF'); view.setUint32(4,36+samples.length*2,true); write(8,'WAVE');
+  write(12,'fmt '); view.setUint32(16,16,true); view.setUint16(20,1,true); view.setUint16(22,1,true);
+  view.setUint32(24,sampleRate,true); view.setUint32(28,sampleRate*2,true); view.setUint16(32,2,true);
+  view.setUint16(34,16,true); write(36,'data'); view.setUint32(40,samples.length*2,true);
+  let o=44;
+  for(let i=0;i<samples.length;i++,o+=2){
+    const s = Math.max(-1,Math.min(1,samples[i]));
+    view.setInt16(o, s<0 ? s*0x8000 : s*0x7fff, true);
+  }
+  return buffer;
+}
+
+initUI();
+})();
+</script>
+</body>
+</html>

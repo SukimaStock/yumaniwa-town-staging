@@ -5,10 +5,24 @@
   const DB_NAME = 'yumaniwa-map-factory-v02';
   const STORE_NAME = 'assets';
   const STATE_KEY = 'yumaniwa-map-factory-v02-state';
+  const BACKUP_FORMAT = 'yumaniwa-map-factory-backup';
+  const BACKUP_VERSION = 2;
+
+  function artifactMeta(kind, createdAt, dependencies, nextStep) {
+    return {
+      schema: 'sukimastock-artifact/1',
+      kind,
+      producer: { tool: 'map-factory', version: '0.8' },
+      createdAt,
+      dependencies,
+      nextStep
+    };
+  }
 
   const TYPES = ['base', 'noren', 'sign', 'lantern', 'board', 'special'];
   const PART_TYPES = TYPES.filter((type) => type !== 'base');
-  const DRAW_ORDER = ['special', 'noren', 'sign', 'lantern', 'board'];
+  const SINGLE_PART_TYPES = ['noren', 'sign', 'lantern', 'board'];
+  const DRAW_ORDER = ['noren', 'sign', 'lantern', 'board'];
 
   const SLOT = {
     noren:   { x: 0.50, y: 0.42, maxW: 0.56, maxH: 0.30, anchor: 'top-center' },
@@ -94,6 +108,22 @@
     assetCount: $('assetCount'),
     batchCount: $('batchCount'),
     batchList: $('batchList'),
+    exportBackup: $('exportBackupBtn'),
+    restoreBackup: $('restoreBackupBtn'),
+    backupFile: $('backupFileInput'),
+    backupStatus: $('backupStatus'),
+    backupDownload: $('backupDownloadLink'),
+    backupShare: $('backupShareBtn'),
+    compositionSlotList: $('compositionSlotList'),
+    partSelectionBox: $('partSelectionBox'),
+    specialTools: $('specialTools'),
+    specialActiveLabel: $('specialActiveLabel'),
+    specialCount: $('specialCount'),
+    specialInstanceList: $('specialInstanceList'),
+    specialBackward: $('specialBackwardBtn'),
+    specialForward: $('specialForwardBtn'),
+    specialDuplicate: $('specialDuplicateBtn'),
+    specialRemove: $('specialRemoveBtn'),
     comboStrip: $('comboStrip'),
     adjustType: $('adjustType'),
     scale: $('partScale'),
@@ -130,6 +160,8 @@
 
     togglePrompt: $('togglePromptBtn'),
     promptPanel: $('promptPanel'),
+    promptMode: $('promptMode'),
+    promptTypeField: $('promptTypeField'),
     promptType: $('promptType'),
     identity: $('identitySelect'),
     promptOutput: $('promptOutput'),
@@ -138,16 +170,28 @@
 
   const ctx = els.canvas.getContext('2d');
   const imageCache = new Map();
+  const assetObjectUrls = new Map();
+  const candidateObjectUrls = new Set();
 
   let db = null;
   let renderToken = 0;
+  let previewHitRegions = [];
+  let backupObjectUrl = null;
+  let backupFile = null;
 
   function blankSelected() {
-    return Object.fromEntries(TYPES.map((type) => [type, null]));
+    return {
+      base: null,
+      noren: null,
+      sign: null,
+      lantern: null,
+      board: null,
+      special: null
+    };
   }
 
   function blankAdjustments() {
-    return Object.fromEntries(PART_TYPES.map((type) => [
+    return Object.fromEntries(SINGLE_PART_TYPES.map((type) => [
       type,
       { scale: 100, x: 0, y: 0 }
     ]));
@@ -157,7 +201,11 @@
     assets: [],
     selected: blankSelected(),
     adjustments: blankAdjustments(),
+    specials: [],
+    activeSpecialId: null,
     adjustType: 'noren',
+    compositions: [],
+    activeCompositionId: null,
     detected: null
   };
 
@@ -165,10 +213,157 @@
     return String(value).padStart(2, '0');
   }
 
+  function createSpecialId() {
+    return 'special_instance_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+  }
+
+  function cloneSelected(source) {
+    const result = { ...blankSelected(), ...(source || {}) };
+    result.special = null;
+    return result;
+  }
+
+  function cloneAdjustments(source) {
+    const result = blankAdjustments();
+
+    SINGLE_PART_TYPES.forEach((type) => {
+      if (!source || !source[type]) return;
+
+      result[type] = {
+        scale: Number(source[type].scale ?? 100),
+        x: Number(source[type].x ?? 0),
+        y: Number(source[type].y ?? 0)
+      };
+    });
+
+    return result;
+  }
+
+  function cloneSpecials(source) {
+    if (!Array.isArray(source)) return [];
+
+    return source
+      .filter((item) => item && item.assetId)
+      .map((item) => ({
+        instanceId: item.instanceId || createSpecialId(),
+        assetId: item.assetId,
+        scale: Number(item.scale ?? 100),
+        x: Number(item.x ?? 0),
+        y: Number(item.y ?? 0)
+      }));
+  }
+
+  function legacySpecialsFromSource(source) {
+    if (!source) return [];
+
+    if (Array.isArray(source.specials)) {
+      return cloneSpecials(source.specials);
+    }
+
+    const legacyAssetId = source.selected && typeof source.selected.special === 'string'
+      ? source.selected.special
+      : null;
+
+    if (!legacyAssetId) return [];
+
+    const legacyAdjustment =
+      source.adjustments && source.adjustments.special
+        ? source.adjustments.special
+        : { scale: 100, x: 0, y: 0 };
+
+    return [{
+      instanceId: createSpecialId(),
+      assetId: legacyAssetId,
+      scale: Number(legacyAdjustment.scale ?? 100),
+      x: Number(legacyAdjustment.x ?? 0),
+      y: Number(legacyAdjustment.y ?? 0)
+    }];
+  }
+
+  function getActiveSpecial() {
+    return state.specials.find((item) => item.instanceId === state.activeSpecialId) || null;
+  }
+
+  function normalizeActiveSpecialId(specials, preferredId) {
+    if (!specials.length) return null;
+    if (preferredId && specials.some((item) => item.instanceId === preferredId)) return preferredId;
+    return specials[specials.length - 1].instanceId;
+  }
+
+  function makeCompositionSlot(index, source) {
+    const selected = source ? cloneSelected(source.selected) : blankSelected();
+    const adjustments = source ? cloneAdjustments(source.adjustments) : blankAdjustments();
+    const specials = source ? legacySpecialsFromSource(source) : [];
+    const activeSpecialId = normalizeActiveSpecialId(specials, source && source.activeSpecialId);
+    const rawAdjustType = source && PART_TYPES.includes(source.adjustType)
+      ? source.adjustType
+      : 'noren';
+    const adjustType = rawAdjustType === 'special' && !activeSpecialId ? 'noren' : rawAdjustType;
+
+    return {
+      id: 'composition_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+      name: 'SHOP ' + pad2(index + 1),
+      selected,
+      adjustments,
+      specials,
+      activeSpecialId,
+      adjustType
+    };
+  }
+
+  function getActiveComposition() {
+    return state.compositions.find((slot) => slot.id === state.activeCompositionId) || null;
+  }
+
+  function snapshotCurrentComposition() {
+    const slot = getActiveComposition();
+    if (!slot) return;
+
+    slot.selected = cloneSelected(state.selected);
+    slot.adjustments = cloneAdjustments(state.adjustments);
+    slot.specials = cloneSpecials(state.specials);
+    slot.activeSpecialId = normalizeActiveSpecialId(slot.specials, state.activeSpecialId);
+    slot.adjustType = PART_TYPES.includes(state.adjustType) ? state.adjustType : 'noren';
+  }
+
+  function applyComposition(slot) {
+    if (!slot) return;
+
+    state.selected = cloneSelected(slot.selected);
+    state.adjustments = cloneAdjustments(slot.adjustments);
+    state.specials = cloneSpecials(slot.specials);
+    state.activeSpecialId = normalizeActiveSpecialId(state.specials, slot.activeSpecialId);
+    state.adjustType = PART_TYPES.includes(slot.adjustType) ? slot.adjustType : 'noren';
+
+    if (state.adjustType === 'special' && !state.activeSpecialId) {
+      state.adjustType = 'noren';
+    }
+  }
+
+  function persistState() {
+    localStorage.setItem(STATE_KEY, JSON.stringify({
+      selected: state.selected,
+      adjustments: state.adjustments,
+      specials: state.specials,
+      activeSpecialId: state.activeSpecialId,
+      adjustType: state.adjustType,
+      compositions: state.compositions,
+      activeCompositionId: state.activeCompositionId
+    }));
+  }
+
+  function saveState() {
+    snapshotCurrentComposition();
+    persistState();
+  }
+
   function loadSavedState() {
     try {
       const saved = JSON.parse(localStorage.getItem(STATE_KEY) || '{}');
-      if (saved.selected) state.selected = { ...state.selected, ...saved.selected };
+
+      if (saved.selected) {
+        state.selected = cloneSelected(saved.selected);
+      }
 
       if (saved.adjustments) {
         if (typeof saved.adjustments.scale === 'number') {
@@ -178,27 +373,64 @@
             y: Number(saved.adjustments.y || 0)
           };
         } else {
-          PART_TYPES.forEach((type) => {
-            if (saved.adjustments[type]) {
-              state.adjustments[type] = {
-                ...state.adjustments[type],
-                ...saved.adjustments[type]
-              };
-            }
-          });
+          state.adjustments = cloneAdjustments(saved.adjustments);
         }
       }
 
-      if (PART_TYPES.includes(saved.adjustType)) state.adjustType = saved.adjustType;
-    } catch (_) {}
-  }
+      state.specials = cloneSpecials(saved.specials);
+      if (!state.specials.length && saved.selected && typeof saved.selected.special === 'string') {
+        state.specials = legacySpecialsFromSource(saved);
+      }
+      state.activeSpecialId = normalizeActiveSpecialId(state.specials, saved.activeSpecialId);
 
-  function saveState() {
-    localStorage.setItem(STATE_KEY, JSON.stringify({
-      selected: state.selected,
-      adjustments: state.adjustments,
-      adjustType: state.adjustType
-    }));
+      if (PART_TYPES.includes(saved.adjustType)) {
+        state.adjustType = saved.adjustType;
+      }
+
+      if (Array.isArray(saved.compositions) && saved.compositions.length) {
+        state.compositions = saved.compositions.map((slot, index) => {
+          const specials = legacySpecialsFromSource(slot);
+          const activeSpecialId = normalizeActiveSpecialId(specials, slot.activeSpecialId);
+          let adjustType = PART_TYPES.includes(slot.adjustType) ? slot.adjustType : 'noren';
+
+          if (adjustType === 'special' && !activeSpecialId) adjustType = 'noren';
+
+          return {
+            id: slot.id || ('composition_legacy_' + index),
+            name: slot.name || ('SHOP ' + pad2(index + 1)),
+            selected: cloneSelected(slot.selected),
+            adjustments: cloneAdjustments(slot.adjustments),
+            specials,
+            activeSpecialId,
+            adjustType
+          };
+        });
+
+        state.activeCompositionId =
+          state.compositions.some((slot) => slot.id === saved.activeCompositionId)
+            ? saved.activeCompositionId
+            : state.compositions[0].id;
+
+        applyComposition(getActiveComposition());
+      } else {
+        const slot = makeCompositionSlot(0, {
+          selected: state.selected,
+          adjustments: state.adjustments,
+          specials: state.specials,
+          activeSpecialId: state.activeSpecialId,
+          adjustType: state.adjustType
+        });
+
+        state.compositions = [slot];
+        state.activeCompositionId = slot.id;
+        applyComposition(slot);
+      }
+    } catch (_) {
+      const slot = makeCompositionSlot(0);
+      state.compositions = [slot];
+      state.activeCompositionId = slot.id;
+      applyComposition(slot);
+    }
   }
 
   function openDatabase() {
@@ -225,11 +457,14 @@
     });
   }
 
-  function dbPut(asset) {
+  function dbPutMany(assets) {
     return new Promise((resolve, reject) => {
-      const request = db.transaction(STORE_NAME, 'readwrite').objectStore(STORE_NAME).put(asset);
-      request.onsuccess = () => resolve(asset);
-      request.onerror = () => reject(request.error);
+      const transaction = db.transaction(STORE_NAME, 'readwrite');
+      const store = transaction.objectStore(STORE_NAME);
+      assets.forEach((asset) => store.put(asset));
+      transaction.oncomplete = resolve;
+      transaction.onerror = () => reject(transaction.error);
+      transaction.onabort = () => reject(transaction.error || new Error('Asset transaction aborted'));
     });
   }
 
@@ -259,6 +494,18 @@
     });
   }
 
+  function dbReplaceAll(assets) {
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(STORE_NAME, 'readwrite');
+      const store = transaction.objectStore(STORE_NAME);
+      store.clear();
+      assets.forEach((asset) => store.put(asset));
+      transaction.oncomplete = () => resolve();
+      transaction.onerror = () => reject(transaction.error);
+      transaction.onabort = () => reject(transaction.error || new Error('Restore transaction aborted'));
+    });
+  }
+
   function byType(type) {
     return state.assets
       .filter((asset) => asset.type === type)
@@ -267,6 +514,47 @@
 
   function assetById(id) {
     return state.assets.find((asset) => asset.id === id) || null;
+  }
+
+  function assetUrl(asset) {
+    if (!asset.blob) return asset.dataUrl; // Legacy data remains displayable if migration cannot be saved.
+    if (!assetObjectUrls.has(asset.id)) assetObjectUrls.set(asset.id, URL.createObjectURL(asset.blob));
+    return assetObjectUrls.get(asset.id);
+  }
+
+  function releaseAssetUrls(ids) {
+    for (const id of ids) {
+      const url = assetObjectUrls.get(id);
+      if (url) URL.revokeObjectURL(url);
+      assetObjectUrls.delete(id);
+    }
+    imageCache.clear();
+  }
+
+  function releaseCandidates() {
+    for (const url of candidateObjectUrls) URL.revokeObjectURL(url);
+    candidateObjectUrls.clear();
+  }
+
+  function candidateUrl(blob) {
+    const url = URL.createObjectURL(blob);
+    candidateObjectUrls.add(url);
+    return url;
+  }
+
+  function dataUrlToBlob(dataUrl) {
+    const match = /^data:(image\/(?:png|jpeg|webp));base64,([A-Za-z0-9+/]*={0,2})$/.exec(dataUrl);
+    if (!match) throw new Error('旧バックアップの画像形式が不正です。');
+    const raw = atob(match[2]);
+    const buffer = new Uint8Array(raw.length);
+    for (let i = 0; i < raw.length; i++) buffer[i] = raw.charCodeAt(i);
+    return new Blob([buffer], { type: match[1] });
+  }
+
+  function convertLegacyAsset(asset) {
+    if (asset.blob instanceof Blob) return asset;
+    const { dataUrl, ...metadata } = asset;
+    return { ...metadata, blob: dataUrlToBlob(dataUrl) };
   }
 
   function loadImage(src) {
@@ -284,38 +572,342 @@
   }
 
   function currentAdjustment() {
-    return state.adjustments[state.adjustType];
+    if (state.adjustType === 'special') {
+      return getActiveSpecial();
+    }
+
+    return state.adjustments[state.adjustType] || null;
+  }
+
+  function renderSpecialTools() {
+    const hasSpecials = state.specials.length > 0;
+    els.specialTools.classList.toggle('hidden', !hasSpecials);
+    els.specialCount.textContent = String(state.specials.length);
+    els.specialInstanceList.innerHTML = '';
+
+    const active = getActiveSpecial();
+    const activeIndex = active
+      ? state.specials.findIndex((item) => item.instanceId === active.instanceId)
+      : -1;
+
+    state.specials.forEach((instance, index) => {
+      const asset = assetById(instance.assetId);
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className =
+        'special-instance-chip' +
+        (instance.instanceId === state.activeSpecialId ? ' active' : '');
+
+      const order = document.createElement('strong');
+      order.textContent = 'S' + (index + 1);
+
+      const label = document.createElement('span');
+      label.textContent = asset ? asset.label : 'SPECIAL';
+
+      chip.append(order, label);
+      chip.addEventListener('click', () => selectSpecialInstance(instance.instanceId));
+      els.specialInstanceList.appendChild(chip);
+    });
+
+    els.specialActiveLabel.textContent = active
+      ? ((assetById(active.assetId) && assetById(active.assetId).label) || 'SPECIAL')
+      : 'SPECIAL';
+
+    const disabled = !active;
+    els.specialBackward.disabled = disabled || activeIndex <= 0;
+    els.specialForward.disabled = disabled || activeIndex < 0 || activeIndex >= state.specials.length - 1;
+    els.specialDuplicate.disabled = disabled;
+    els.specialRemove.disabled = disabled;
   }
 
   function syncControls() {
     els.adjustType.value = state.adjustType;
+
     const adjustment = currentAdjustment();
-    els.scale.value = String(adjustment.scale);
-    els.x.value = String(adjustment.x);
-    els.y.value = String(adjustment.y);
-    els.scaleValue.textContent = adjustment.scale + '%';
-    els.xValue.textContent = String(adjustment.x);
-    els.yValue.textContent = String(adjustment.y);
+    const disabled = !adjustment;
+
+    els.scale.disabled = disabled;
+    els.x.disabled = disabled;
+    els.y.disabled = disabled;
+    els.resetAdjust.disabled = disabled;
+
+    els.x.min = state.adjustType === 'special' ? '-35' : '-35';
+    els.x.max = state.adjustType === 'special' ? '65' : '35';
+
+    const scale = adjustment ? Number(adjustment.scale ?? 100) : 100;
+    const x = adjustment ? Number(adjustment.x ?? 0) : 0;
+    const y = adjustment ? Number(adjustment.y ?? 0) : 0;
+
+    els.scale.value = String(scale);
+    els.x.value = String(x);
+    els.y.value = String(y);
+    els.scaleValue.textContent = scale + '%';
+    els.xValue.textContent = String(x);
+    els.yValue.textContent = String(y);
+
+    renderSpecialTools();
   }
 
-  function setAdjustType(type) {
+  function setAdjustType(type, instanceId) {
     if (!PART_TYPES.includes(type)) return;
+
+    if (type === 'special') {
+      state.activeSpecialId = normalizeActiveSpecialId(
+        state.specials,
+        instanceId || state.activeSpecialId
+      );
+    }
+
     state.adjustType = type;
     saveState();
     syncControls();
+  }
+
+  function specialDefaultOffset(index) {
+    const offsets = [0, 14, 28, 42, 56, -14, 7, 21, 35, 49];
+    return offsets[index % offsets.length];
+  }
+
+  function addSpecialAsset(assetId) {
+    const asset = assetById(assetId);
+    if (!asset || asset.type !== 'special') return;
+
+    const instance = {
+      instanceId: createSpecialId(),
+      assetId,
+      scale: 100,
+      x: specialDefaultOffset(state.specials.length),
+      y: 0
+    };
+
+    state.specials.push(instance);
+    state.activeSpecialId = instance.instanceId;
+    state.adjustType = 'special';
+    saveState();
+    renderAll();
+  }
+
+  function selectSpecialInstance(instanceId) {
+    if (!state.specials.some((item) => item.instanceId === instanceId)) return;
+
+    state.activeSpecialId = instanceId;
+    state.adjustType = 'special';
+    saveState();
+    syncControls();
+    updatePartSelectionBox();
+    renderShelves();
+  }
+
+  function moveActiveSpecial(direction) {
+    const active = getActiveSpecial();
+    if (!active) return;
+
+    const index = state.specials.findIndex((item) => item.instanceId === active.instanceId);
+    const nextIndex = index + direction;
+
+    if (nextIndex < 0 || nextIndex >= state.specials.length) return;
+
+    [state.specials[index], state.specials[nextIndex]] =
+      [state.specials[nextIndex], state.specials[index]];
+
+    saveState();
+    renderAll();
+  }
+
+  function duplicateActiveSpecial() {
+    const active = getActiveSpecial();
+    if (!active) return;
+
+    const copy = {
+      instanceId: createSpecialId(),
+      assetId: active.assetId,
+      scale: active.scale,
+      x: Math.max(-35, Math.min(65, Number(active.x) + 7)),
+      y: Number(active.y)
+    };
+
+    const index = state.specials.findIndex((item) => item.instanceId === active.instanceId);
+    state.specials.splice(index + 1, 0, copy);
+    state.activeSpecialId = copy.instanceId;
+    state.adjustType = 'special';
+
+    saveState();
+    renderAll();
+  }
+
+  function removeActiveSpecial() {
+    const active = getActiveSpecial();
+    if (!active) return;
+
+    const index = state.specials.findIndex((item) => item.instanceId === active.instanceId);
+    state.specials.splice(index, 1);
+
+    const next =
+      state.specials[Math.min(index, state.specials.length - 1)] ||
+      state.specials[state.specials.length - 1] ||
+      null;
+
+    state.activeSpecialId = next ? next.instanceId : null;
+
+    if (!next) {
+      state.adjustType = 'noren';
+    }
+
+    saveState();
+    renderAll();
+  }
+
+  function renderCompositionSlots() {
+    els.compositionSlotList.innerHTML = '';
+
+    state.compositions.forEach((slot, index) => {
+      const item = document.createElement('div');
+      item.className = 'composition-slot' + (slot.id === state.activeCompositionId ? ' active' : '');
+      item.setAttribute('role', 'button');
+      item.tabIndex = 0;
+      item.title = '作業台 ' + (index + 1) + ' に切り替え';
+
+      const label = document.createElement('span');
+      label.textContent = pad2(index + 1);
+
+      item.addEventListener('click', () => switchComposition(slot.id));
+      item.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          switchComposition(slot.id);
+        }
+      });
+
+      if (state.compositions.length > 1) {
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'slot-delete';
+        remove.textContent = '×';
+        remove.setAttribute('aria-label', '作業台 ' + (index + 1) + ' を削除');
+        remove.addEventListener('click', (event) => {
+          event.stopPropagation();
+          deleteCompositionSlot(slot.id);
+        });
+        item.append(label, remove);
+      } else {
+        item.append(label);
+      }
+
+      els.compositionSlotList.appendChild(item);
+    });
+
+    const add = document.createElement('button');
+    add.type = 'button';
+    add.className = 'composition-slot-add';
+    add.textContent = '+';
+    add.title = '現在の構成を複製して新しい作業台を追加';
+    add.addEventListener('click', addCompositionSlot);
+    els.compositionSlotList.appendChild(add);
+  }
+
+  function switchComposition(id) {
+    if (id === state.activeCompositionId) return;
+
+    snapshotCurrentComposition();
+
+    const next = state.compositions.find((slot) => slot.id === id);
+    if (!next) return;
+
+    state.activeCompositionId = id;
+    applyComposition(next);
+    persistState();
+    renderAll();
+  }
+
+  function addCompositionSlot() {
+    snapshotCurrentComposition();
+
+    const current = getActiveComposition();
+    const slot = makeCompositionSlot(state.compositions.length, current || {
+      selected: state.selected,
+      adjustments: state.adjustments,
+      specials: state.specials,
+      activeSpecialId: state.activeSpecialId,
+      adjustType: state.adjustType
+    });
+
+    state.compositions.push(slot);
+    state.activeCompositionId = slot.id;
+    applyComposition(slot);
+    persistState();
+    renderAll();
+  }
+
+  function deleteCompositionSlot(id) {
+    if (state.compositions.length <= 1) return;
+
+    const index = state.compositions.findIndex((slot) => slot.id === id);
+    if (index < 0) return;
+
+    if (!window.confirm('この作業台を削除しますか？')) return;
+
+    snapshotCurrentComposition();
+    const wasActive = state.activeCompositionId === id;
+    state.compositions.splice(index, 1);
+
+    if (wasActive) {
+      const next = state.compositions[Math.min(index, state.compositions.length - 1)];
+      state.activeCompositionId = next.id;
+      applyComposition(next);
+    }
+
+    state.compositions.forEach((slot, slotIndex) => {
+      slot.name = 'SHOP ' + pad2(slotIndex + 1);
+    });
+
+    persistState();
+    renderAll();
+  }
+
+  function removeAssetIdsFromCompositions(idSet) {
+    state.compositions.forEach((slot) => {
+      TYPES.forEach((type) => {
+        if (slot.selected[type] && idSet.has(slot.selected[type])) {
+          slot.selected[type] = null;
+        }
+      });
+
+      slot.specials = cloneSpecials(slot.specials).filter(
+        (instance) => !idSet.has(instance.assetId)
+      );
+      slot.activeSpecialId = normalizeActiveSpecialId(slot.specials, slot.activeSpecialId);
+
+      if (slot.adjustType === 'special' && !slot.activeSpecialId) {
+        slot.adjustType = 'noren';
+      }
+    });
+
+    state.specials = state.specials.filter(
+      (instance) => !idSet.has(instance.assetId)
+    );
+    state.activeSpecialId = normalizeActiveSpecialId(state.specials, state.activeSpecialId);
+
+    if (state.adjustType === 'special' && !state.activeSpecialId) {
+      state.adjustType = 'noren';
+    }
   }
 
   function makeAssetCard(asset) {
     const wrap = document.createElement('div');
     wrap.className = 'asset-item';
 
+    const activeSpecial = getActiveSpecial();
+    const isActive = asset.type === 'special'
+      ? Boolean(activeSpecial && activeSpecial.assetId === asset.id)
+      : state.selected[asset.type] === asset.id;
+
     const button = document.createElement('button');
-    button.className = 'asset-select' + (state.selected[asset.type] === asset.id ? ' active' : '');
+    button.className = 'asset-select' + (isActive ? ' active' : '');
     button.type = 'button';
 
     const image = document.createElement('img');
     image.className = 'asset-thumb';
-    image.src = asset.dataUrl;
+    image.src = assetUrl(asset);
     image.alt = '';
 
     const caption = document.createElement('span');
@@ -325,15 +917,32 @@
     strong.textContent = asset.label;
 
     const size = document.createElement('span');
-    size.textContent = asset.width + '×' + asset.height;
+
+    if (asset.type === 'special') {
+      const count = state.specials.filter((instance) => instance.assetId === asset.id).length;
+
+      if (count > 0) {
+        size.className = 'asset-count';
+        size.textContent = '配置 ×' + count;
+      } else {
+        size.textContent = '＋ 追加';
+      }
+    } else {
+      size.textContent = asset.width + '×' + asset.height;
+    }
 
     caption.append(strong, size);
     button.append(image, caption);
 
     button.addEventListener('click', () => {
-      const isActive = state.selected[asset.type] === asset.id;
+      if (asset.type === 'special') {
+        addSpecialAsset(asset.id);
+        return;
+      }
 
-      if (asset.type !== 'base' && isActive) {
+      const active = state.selected[asset.type] === asset.id;
+
+      if (asset.type !== 'base' && active) {
         state.selected[asset.type] = null;
       } else {
         state.selected[asset.type] = asset.id;
@@ -356,7 +965,11 @@
       if (!window.confirm(asset.label + ' を部品棚から削除しますか？')) return;
 
       await dbDelete(asset.id);
+      releaseAssetUrls([asset.id]);
       state.assets = state.assets.filter((item) => item.id !== asset.id);
+
+      const removedIds = new Set([asset.id]);
+      removeAssetIdsFromCompositions(removedIds);
 
       if (state.selected[asset.type] === asset.id) {
         state.selected[asset.type] = null;
@@ -446,6 +1059,7 @@
     await dbDeleteMany(ids);
 
     state.assets = state.assets.filter((asset) => !idSet.has(asset.id));
+    removeAssetIdsFromCompositions(idSet);
 
     TYPES.forEach((type) => {
       if (state.selected[type] && idSet.has(state.selected[type])) {
@@ -453,7 +1067,7 @@
       }
     });
 
-    imageCache.clear();
+    releaseAssetUrls(ids);
     saveState();
     renderAll();
 
@@ -591,8 +1205,34 @@
     return { x, y, w, h };
   }
 
+  function getSpecialRect(instance, image, baseBox) {
+    const slot = SLOT.special;
+    const userScale = Number(instance.scale ?? 100) / 100;
+
+    const targetW = baseBox.w * slot.maxW * userScale;
+    const targetH = baseBox.h * slot.maxH * userScale;
+    const scale = Math.min(targetW / image.width, targetH / image.height);
+    const w = image.width * scale;
+    const h = image.height * scale;
+
+    const offsetX = (Number(instance.x ?? 0) / 100) * baseBox.w;
+    const offsetY = (Number(instance.y ?? 0) / 100) * baseBox.h;
+    const anchorX = baseBox.x + baseBox.w * slot.x + offsetX;
+    const anchorY = baseBox.y + baseBox.h * slot.y + offsetY;
+
+    return {
+      x: anchorX - w / 2,
+      y: anchorY - h,
+      w,
+      h
+    };
+  }
+
   async function renderPreview() {
     const token = ++renderToken;
+    previewHitRegions = [];
+    els.partSelectionBox.classList.add('hidden');
+
     ctx.clearRect(0, 0, els.canvas.width, els.canvas.height);
     ctx.imageSmoothingEnabled = false;
 
@@ -605,7 +1245,7 @@
     if (!baseAsset) return;
 
     try {
-      const baseImage = await loadImage(baseAsset.dataUrl);
+      const baseImage = await loadImage(assetUrl(baseAsset));
       if (token !== renderToken) return;
 
       const maxBaseW = 590;
@@ -628,11 +1268,38 @@
         Math.round(baseBox.h)
       );
 
+      for (const instance of state.specials) {
+        const asset = assetById(instance.assetId);
+        if (!asset) continue;
+
+        const image = await loadImage(assetUrl(asset));
+        if (token !== renderToken) return;
+
+        const rect = getSpecialRect(instance, image, baseBox);
+
+        ctx.drawImage(
+          image,
+          Math.round(rect.x),
+          Math.round(rect.y),
+          Math.round(rect.w),
+          Math.round(rect.h)
+        );
+
+        previewHitRegions.push({
+          type: 'special',
+          instanceId: instance.instanceId,
+          x: rect.x,
+          y: rect.y,
+          w: rect.w,
+          h: rect.h
+        });
+      }
+
       for (const type of DRAW_ORDER) {
         const asset = assetById(state.selected[type]);
         if (!asset) continue;
 
-        const image = await loadImage(asset.dataUrl);
+        const image = await loadImage(assetUrl(asset));
         if (token !== renderToken) return;
 
         const rect = getPartRect(type, image, baseBox);
@@ -644,13 +1311,72 @@
           Math.round(rect.w),
           Math.round(rect.h)
         );
+
+        previewHitRegions.push({
+          type,
+          x: rect.x,
+          y: rect.y,
+          w: rect.w,
+          h: rect.h
+        });
       }
+
+      updatePartSelectionBox();
     } catch (error) {
       console.error('Preview render failed', error);
     }
   }
 
+  function updatePartSelectionBox() {
+    const region = state.adjustType === 'special'
+      ? previewHitRegions.find(
+          (item) =>
+            item.type === 'special' &&
+            item.instanceId === state.activeSpecialId
+        )
+      : previewHitRegions.find((item) => item.type === state.adjustType);
+
+    const hasTarget = state.adjustType === 'special'
+      ? Boolean(getActiveSpecial())
+      : Boolean(state.selected[state.adjustType]);
+
+    if (!region || !hasTarget) {
+      els.partSelectionBox.classList.add('hidden');
+      return;
+    }
+
+    els.partSelectionBox.style.left = (region.x / els.canvas.width * 100) + '%';
+    els.partSelectionBox.style.top = (region.y / els.canvas.height * 100) + '%';
+    els.partSelectionBox.style.width = (region.w / els.canvas.width * 100) + '%';
+    els.partSelectionBox.style.height = (region.h / els.canvas.height * 100) + '%';
+    els.partSelectionBox.classList.remove('hidden');
+  }
+
+  function handleCanvasPartSelection(event) {
+    if (!previewHitRegions.length) return;
+
+    const bounds = els.canvas.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) * (els.canvas.width / bounds.width);
+    const y = (event.clientY - bounds.top) * (els.canvas.height / bounds.height);
+
+    for (let index = previewHitRegions.length - 1; index >= 0; index--) {
+      const region = previewHitRegions[index];
+
+      if (
+        x >= region.x &&
+        x <= region.x + region.w &&
+        y >= region.y &&
+        y <= region.y + region.h
+      ) {
+        setAdjustType(region.type, region.instanceId || null);
+        updatePartSelectionBox();
+        return;
+      }
+    }
+  }
+
   function renderAll() {
+    renderCompositionSlots();
     renderShelves();
     renderBatches();
     renderCombos();
@@ -735,7 +1461,7 @@
     return canvas;
   }
 
-  function cropImage(image, x0, y0, x1, y1, removeBackground) {
+  async function cropImage(image, x0, y0, x1, y1, removeBackground) {
     const sx = Math.max(0, Math.floor(x0));
     const sy = Math.max(0, Math.floor(y0));
     const ex = Math.min(image.width, Math.ceil(x1));
@@ -752,11 +1478,10 @@
 
     if (removeBackground) cleanupCrop(canvas);
 
-    return {
-      dataUrl: canvas.toDataURL('image/png'),
-      width,
-      height
-    };
+    const blob = await new Promise((resolve, reject) => canvas.toBlob(
+      (result) => result ? resolve(result) : reject(new Error('画像を保存できません。')), 'image/png'
+    ));
+    return { blob, width, height };
   }
 
   function extractVariant(image, startX, endX) {
@@ -818,17 +1543,11 @@
 
   function fileToImage(file) {
     return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onerror = () => reject(reader.error);
-
-      reader.onload = () => {
-        const image = new Image();
-        image.onload = () => resolve(image);
-        image.onerror = reject;
-        image.src = reader.result;
-      };
-
-      reader.readAsDataURL(file);
+      const url = URL.createObjectURL(file);
+      const image = new Image();
+      image.onload = () => { URL.revokeObjectURL(url); resolve(image); };
+      image.onerror = () => { URL.revokeObjectURL(url); reject(new Error('画像を開けません。')); };
+      image.src = url;
     });
   }
 
@@ -997,7 +1716,7 @@
     return Array.from(groups.values());
   }
 
-  function makeCandidateFromGroup(image, detection, group, fileName, presetId) {
+  async function makeCandidateFromGroup(image, detection, group, fileName, presetId) {
     if (!group.components.length) return null;
 
     let minX = Infinity;
@@ -1028,13 +1747,13 @@
     const fullX1 = maxX * detection.scaleX;
     const fullY1 = maxY * detection.scaleY;
 
-    const crop = cropImage(image, fullX0, fullY0, fullX1, fullY1, true);
+    const crop = await cropImage(image, fullX0, fullY0, fullX1, fullY1, true);
 
     return {
       type: group.type,
       slotIndex: group.slotIndex,
       label: LABELS[group.type] + ' ' + pad2(group.slotIndex + 1),
-      dataUrl: crop.dataUrl,
+      blob: crop.blob,
       width: crop.width,
       height: crop.height,
       sourceKind: 'kit-sheet',
@@ -1049,8 +1768,7 @@
   async function analyzePair(file) {
     const image = await fileToImage(file);
     const middle = Math.floor(image.width / 2);
-    const a = extractVariant(image, 0, middle);
-    const b = extractVariant(image, middle, image.width);
+    const [a, b] = await Promise.all([extractVariant(image, 0, middle), extractVariant(image, middle, image.width)]);
 
     state.detected = {
       kind: 'pair',
@@ -1060,8 +1778,8 @@
       variants: [a, b]
     };
 
-    els.detectedA.src = a.dataUrl;
-    els.detectedB.src = b.dataUrl;
+    els.detectedA.src = candidateUrl(a.blob);
+    els.detectedB.src = candidateUrl(b.blob);
     els.detectedAMeta.textContent = a.width + ' × ' + a.height + ' px';
     els.detectedBMeta.textContent = b.width + ' × ' + b.height + ' px';
     els.detectedPair.classList.remove('hidden');
@@ -1084,10 +1802,12 @@
 
     const detection = detectConnectedComponents(image);
     const groups = assignComponentsToKitSlots(detection, preset);
-    const candidates = groups
-      .map((group) => makeCandidateFromGroup(image, detection, group, file.name, presetId))
-      .filter(Boolean)
-      .sort((a, b) => {
+    const candidates = [];
+    for (const group of groups) {
+      const candidate = await makeCandidateFromGroup(image, detection, group, file.name, presetId);
+      if (candidate) candidates.push(candidate);
+    }
+    candidates.sort((a, b) => {
         const typeDiff = TYPES.indexOf(a.type) - TYPES.indexOf(b.type);
         if (typeDiff) return typeDiff;
         return a.slotIndex - b.slotIndex;
@@ -1113,6 +1833,7 @@
   }
 
   async function analyzeSource(file) {
+    releaseCandidates();
     state.detected = null;
     els.registerImport.disabled = true;
     els.detectedPair.classList.add('hidden');
@@ -1181,7 +1902,7 @@
         label.setAttribute('for', checkbox.id);
 
         const image = document.createElement('img');
-        image.src = candidate.dataUrl;
+        image.src = candidate.previewUrl || (candidate.previewUrl = candidateUrl(candidate.blob));
         image.alt = '';
 
         const info = document.createElement('div');
@@ -1260,7 +1981,7 @@
       type,
       variant: index === 0 ? 'A' : 'B',
       label: prefix + ' ' + pad2(pairNumber) + (index === 0 ? 'A' : 'B'),
-      dataUrl: variant.dataUrl,
+      blob: variant.blob,
       width: variant.width,
       height: variant.height,
       sourceKind: 'pair',
@@ -1271,12 +1992,15 @@
       createdAt
     }));
 
-    for (const asset of assets) await dbPut(asset);
+    await dbPutMany(assets);
 
     state.assets.push(...assets);
-    state.selected[type] = assets[0].id;
 
-    if (type !== 'base') setAdjustType(type);
+    if (type !== 'special') {
+      state.selected[type] = assets[0].id;
+
+      if (type !== 'base') setAdjustType(type);
+    }
 
     saveState();
     renderAll();
@@ -1285,6 +2009,7 @@
       assets[0].label + ' / ' + assets[1].label + ' を部品棚へ登録しました。';
 
     state.detected = null;
+    releaseCandidates();
     els.detectedPair.classList.add('hidden');
     els.sourceInput.value = '';
   }
@@ -1309,7 +2034,7 @@
         type: candidate.type,
         variant: null,
         label: LABELS[candidate.type] + ' ' + pad2(running[candidate.type]),
-        dataUrl: candidate.dataUrl,
+        blob: candidate.blob,
         width: candidate.width,
         height: candidate.height,
         sourceKind: 'kit-sheet',
@@ -1323,10 +2048,8 @@
       };
     });
 
-    for (const asset of assets) {
-      await dbPut(asset);
-      addedByType[asset.type].push(asset);
-    }
+    await dbPutMany(assets);
+    assets.forEach((asset) => addedByType[asset.type].push(asset));
 
     state.assets.push(...assets);
 
@@ -1345,6 +2068,7 @@
       assets.length + '個のKit素材を部品棚へ登録しました。棚からクリックして切り貼りできます。';
 
     state.detected = null;
+    releaseCandidates();
     els.kitPreview.classList.add('hidden');
     els.sourceInput.value = '';
   }
@@ -1372,6 +2096,7 @@
   }
 
   function syncImportMode() {
+    releaseCandidates();
     const isKit = els.importMode.value === 'kit';
 
     els.pairTypeField.classList.toggle('hidden', isKit);
@@ -1400,6 +2125,8 @@
 
   function updateAdjustments() {
     const adjustment = currentAdjustment();
+    if (!adjustment) return;
+
     adjustment.scale = Number(els.scale.value);
     adjustment.x = Number(els.x.value);
     adjustment.y = Number(els.y.value);
@@ -1410,7 +2137,13 @@
   }
 
   function resetCurrentAdjustment() {
-    state.adjustments[state.adjustType] = { scale: 100, x: 0, y: 0 };
+    const adjustment = currentAdjustment();
+    if (!adjustment) return;
+
+    adjustment.scale = 100;
+    adjustment.x = 0;
+    adjustment.y = 0;
+
     saveState();
     syncControls();
     renderPreview();
@@ -1418,6 +2151,13 @@
 
   function resetAllAdjustments() {
     state.adjustments = blankAdjustments();
+
+    state.specials.forEach((instance) => {
+      instance.scale = 100;
+      instance.x = 0;
+      instance.y = 0;
+    });
+
     saveState();
     syncControls();
   }
@@ -1447,7 +2187,7 @@
 
     const parts = {};
 
-    PART_TYPES.forEach((type) => {
+    SINGLE_PART_TYPES.forEach((type) => {
       const asset = assetById(state.selected[type]);
 
       parts[type] = asset ? {
@@ -1459,9 +2199,30 @@
       } : null;
     });
 
+    const specials = state.specials.map((instance, index) => {
+      const asset = assetById(instance.assetId);
+
+      return {
+        instanceId: instance.instanceId,
+        assetId: instance.assetId,
+        label: asset ? asset.label : 'SPECIAL',
+        sourceFile: asset ? asset.sourceFile : null,
+        sourceKind: asset ? (asset.sourceKind || null) : null,
+        sourcePreset: asset ? (asset.sourcePreset || null) : null,
+        scale: Number(instance.scale),
+        x: Number(instance.x),
+        y: Number(instance.y),
+        z: index
+      };
+    });
+
+    const createdAt = new Date().toISOString();
+    const referencedIds = [base.id, ...Object.values(parts).filter(Boolean).map((part) => part.id), ...specials.map((item) => item.assetId)];
+    const dependencies = [...new Set(referencedIds)].map((id) => ({ kind: 'map-factory-asset', id }));
     const recipe = {
-      version: 'yumaniwa-asset-0.4',
-      createdAt: new Date().toISOString(),
+      version: 'yumaniwa-asset-0.7',
+      createdAt,
+      artifact: artifactMeta('map-composition', createdAt, dependencies, 'dot-cleanup'),
       base: {
         id: base.id,
         label: base.label,
@@ -1470,6 +2231,7 @@
         sourcePreset: base.sourcePreset || null
       },
       parts,
+      specials,
       adjustments: JSON.parse(JSON.stringify(state.adjustments)),
       note: 'Draft composition before native pixel normalization.'
     };
@@ -1478,11 +2240,262 @@
     downloadBlob(blob, 'yumaniwa-shop-recipe.json');
   }
 
+  function jsonBlob(value) {
+    return new Blob([JSON.stringify(value)], { type: 'application/json' });
+  }
+
+  function imageExtension(blob) {
+    const extension = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp' }[blob.type];
+    if (!extension) throw new Error('対応していない画像形式です。');
+    return extension;
+  }
+
+  function clearPreparedBackup() {
+    if (backupObjectUrl) URL.revokeObjectURL(backupObjectUrl);
+    backupObjectUrl = null;
+    backupFile = null;
+    els.backupDownload.classList.add('hidden');
+    els.backupShare.classList.add('hidden');
+  }
+
+  async function exportFullBackup() {
+    els.exportBackup.disabled = true;
+    els.restoreBackup.disabled = true;
+    clearPreparedBackup();
+    try {
+      saveState();
+      const createdAt = new Date().toISOString();
+      const selectedAssets = [...state.assets];
+      const entries = [];
+      const records = selectedAssets.map((asset, index) => {
+        const blob = asset.blob instanceof Blob ? asset.blob : dataUrlToBlob(asset.dataUrl);
+        const file = 'assets/asset_' + String(index + 1).padStart(4, '0') + '.' + imageExtension(blob);
+        const { blob: ignoredBlob, dataUrl: ignoredDataUrl, ...metadata } = asset;
+        entries.push({ name: file, blob });
+        return { ...metadata, file };
+      });
+      const manifest = {
+        schema: BACKUP_FORMAT, version: BACKUP_VERSION, createdAt, assetCount: records.length,
+        artifact: artifactMeta('map-factory-backup', createdAt, [], 'map-factory-restore')
+      };
+      const data = { assets: records, state: JSON.parse(localStorage.getItem(STATE_KEY) || 'null') };
+      els.backupStatus.textContent = 'バックアップを作成中… 画像 0 / ' + records.length;
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      const zip = await window.MapFactoryZip.create([
+        { name: 'manifest.json', blob: jsonBlob(manifest) },
+        { name: 'data.json', blob: jsonBlob(data) }, ...entries
+      ], async (done) => {
+        if (done > 2) {
+          els.backupStatus.textContent = 'バックアップを作成中… 画像 ' + (done - 2) + ' / ' + records.length;
+          await new Promise((resolve) => requestAnimationFrame(resolve));
+        }
+      });
+      const stamp = createdAt.slice(0, 16).replace(/[-:T]/g, '');
+      const fileName = 'yumaniwa-map-factory-backup-' + stamp.slice(0, 8) + '-' + stamp.slice(8) + '.zip';
+      backupFile = new File([zip], fileName, { type: 'application/zip' });
+      backupObjectUrl = URL.createObjectURL(backupFile);
+      els.backupDownload.href = backupObjectUrl;
+      els.backupDownload.download = fileName;
+      els.backupDownload.classList.remove('hidden');
+      if (typeof navigator.share === 'function' && typeof navigator.canShare === 'function' && navigator.canShare({ files: [backupFile] })) {
+        els.backupShare.classList.remove('hidden');
+      }
+      els.backupStatus.textContent = 'バックアップを作成しました ' + (zip.size / 1048576).toFixed(1) + ' MB。下の「ZIPを保存」をタップしてください。';
+    } catch (error) {
+      console.error('Backup export failed', error);
+      els.backupStatus.textContent = error.message || 'バックアップの作成に失敗しました。';
+    } finally {
+      els.exportBackup.disabled = false;
+      els.restoreBackup.disabled = false;
+    }
+  }
+
+  function validateBackupState(saved) {
+    if (saved !== null && (!saved || typeof saved !== 'object' || Array.isArray(saved))) throw new Error('バックアップの作業状態が不正です。');
+    if (!saved) return;
+    const verifySlot = (slot) => {
+      if (!slot || typeof slot !== 'object' || Array.isArray(slot)) throw new Error('WORK SLOTの内容が不正です。');
+      if (slot.selected !== undefined && (!slot.selected || typeof slot.selected !== 'object' || Array.isArray(slot.selected))) throw new Error('WORK SLOTの選択内容が不正です。');
+      if (slot.specials !== undefined && !Array.isArray(slot.specials)) throw new Error('WORK SLOTのSPECIAL配置が不正です。');
+    };
+    verifySlot(saved);
+    if (saved.compositions !== undefined && (!Array.isArray(saved.compositions) || saved.compositions.length > 100)) throw new Error('WORK SLOT一覧が不正です。');
+    (saved.compositions || []).forEach(verifySlot);
+  }
+
+  function validateAssetRecords(records) {
+    if (!Array.isArray(records) || records.length > 10000) throw new Error('バックアップの素材一覧が不正です。');
+    const ids = new Set();
+    for (const asset of records) {
+      if (!asset || typeof asset !== 'object' || Array.isArray(asset) || typeof asset.id !== 'string' || !asset.id || ids.has(asset.id)) throw new Error('素材IDが空か重複しています。');
+      if (!TYPES.includes(asset.type) || !Number.isFinite(asset.width) || asset.width <= 0 || !Number.isFinite(asset.height) || asset.height <= 0) throw new Error('素材の種類または画像サイズが不正です。');
+      ids.add(asset.id);
+    }
+  }
+
+  function validateStateReferences(saved, assets) {
+    if (!saved) return;
+    const types = new Map(assets.map((asset) => [asset.id, asset.type]));
+    const checkSlot = (slot) => {
+      for (const type of TYPES) {
+        const id = slot.selected && slot.selected[type];
+        if (id != null && types.get(id) !== type) throw new Error('選択中の素材がバックアップ内にありません。');
+      }
+      const ids = new Set();
+      for (const special of slot.specials || []) {
+        if (!special || types.get(special.assetId) !== 'special' ||
+            (special.instanceId && ids.has(special.instanceId))) throw new Error('SPECIAL配置の素材参照が不正です。');
+        if (special.instanceId) ids.add(special.instanceId);
+      }
+      if (slot.activeSpecialId && !ids.has(slot.activeSpecialId)) throw new Error('選択中のSPECIAL配置がありません。');
+    };
+    checkSlot(saved);
+    const slotIds = new Set();
+    for (const slot of saved.compositions || []) {
+      checkSlot(slot);
+      if (slot.id && slotIds.has(slot.id)) throw new Error('WORK SLOTのIDが重複しています。');
+      if (slot.id) slotIds.add(slot.id);
+    }
+    if (saved.activeCompositionId && (saved.compositions || []).length && !slotIds.has(saved.activeCompositionId)) throw new Error('選択中のWORK SLOTがありません。');
+  }
+
+  async function verifyImage(blob, width, height) {
+    if (blob.size === 0 || blob.size > 256 * 1024 * 1024) throw new Error('画像データのサイズが不正です。');
+    const bytes = new Uint8Array(await blob.slice(0, 12).arrayBuffer());
+    const png = bytes[0] === 137 && bytes[1] === 80 && bytes[2] === 78 && bytes[3] === 71;
+    const jpg = bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255;
+    const webp = String.fromCharCode(...bytes.slice(0, 4)) === 'RIFF' && String.fromCharCode(...bytes.slice(8, 12)) === 'WEBP';
+    if (!({ 'image/png': png, 'image/jpeg': jpg, 'image/webp': webp })[blob.type]) throw new Error('画像ファイルの内容と拡張子が一致しません。');
+    const image = await fileToImage(blob);
+    if (image.width !== width || image.height !== height) throw new Error('画像の寸法がバックアップと一致しません。');
+  }
+
+  async function readBackup(file) {
+    if (/\.json$/i.test(file.name)) {
+      const backup = JSON.parse(await file.text());
+      if (!backup || backup.format !== BACKUP_FORMAT || backup.version !== 1) throw new Error('対応していない旧JSONバックアップです。');
+      validateBackupState(backup.state);
+      validateAssetRecords(backup.assets);
+      const assets = backup.assets.map((asset) => convertLegacyAsset(asset));
+      for (const asset of assets) await verifyImage(asset.blob, asset.width, asset.height);
+      validateStateReferences(backup.state, assets);
+      return { state: backup.state, assets };
+    }
+    if (!/\.zip$/i.test(file.name)) throw new Error('ZIPまたは旧JSONバックアップを選んでください。');
+    const files = await window.MapFactoryZip.read(file);
+    if (!files.has('manifest.json') || !files.has('data.json')) throw new Error('manifest.jsonまたはdata.jsonがありません。');
+    const manifest = JSON.parse(await files.get('manifest.json').text());
+    if (!manifest || manifest.schema !== BACKUP_FORMAT || manifest.version !== BACKUP_VERSION || !Number.isInteger(manifest.assetCount)) throw new Error('対応していないZIPバックアップです。');
+    const data = JSON.parse(await files.get('data.json').text());
+    validateBackupState(data.state);
+    validateAssetRecords(data.assets);
+    if (manifest.assetCount !== data.assets.length || files.size !== data.assets.length + 2) throw new Error('ZIP内の素材数が一致しません。');
+    const used = new Set();
+    const assets = [];
+    for (const record of data.assets) {
+      const { file: path, ...metadata } = record;
+      if (typeof path !== 'string' || !/^assets\/asset_[0-9]+\.(png|jpg|webp)$/.test(path) || used.has(path) || !files.has(path) || 'dataUrl' in metadata || 'blob' in metadata) throw new Error('必要な画像ファイルがありません。');
+      used.add(path);
+      const type = { png: 'image/png', jpg: 'image/jpeg', webp: 'image/webp' }[path.split('.').pop()];
+      const blob = new Blob([files.get(path)], { type });
+      await verifyImage(blob, record.width, record.height);
+      assets.push({ ...metadata, blob });
+    }
+    validateStateReferences(data.state, assets);
+    return { state: data.state, assets };
+  }
+
+  async function restoreFullBackup(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+    els.exportBackup.disabled = true;
+    els.restoreBackup.disabled = true;
+    els.backupStatus.textContent = 'バックアップを検証中…';
+    try {
+      const backup = await readBackup(file);
+      if (!window.confirm('現在の部品棚と作業状態を置き換えて、' + backup.assets.length + '個の素材を復元します。復元前に現在のバックアップを保存しましたか？')) {
+        els.backupStatus.textContent = '復元をキャンセルしました。'; return;
+      }
+      const previousState = localStorage.getItem(STATE_KEY);
+      try {
+        if (backup.state === null) localStorage.removeItem(STATE_KEY);
+        else localStorage.setItem(STATE_KEY, JSON.stringify(backup.state));
+        await dbReplaceAll(backup.assets);
+      } catch (error) {
+        if (previousState === null) localStorage.removeItem(STATE_KEY); else localStorage.setItem(STATE_KEY, previousState);
+        throw error;
+      }
+      releaseAssetUrls(state.assets.map((asset) => asset.id));
+      state.assets = backup.assets;
+      loadSavedState();
+      normalizeCompositionReferences();
+      saveState();
+      renderAll();
+      els.backupStatus.textContent = backup.assets.length + '個の素材と作業状態を復元しました。';
+    } catch (error) {
+      console.error('Backup restore failed', error);
+      els.backupStatus.textContent = error instanceof SyntaxError ? 'JSONを読み取れません。バックアップファイルを確認してください。' : (error.message || '復元に失敗しました。');
+    } finally {
+      event.target.value = '';
+      els.exportBackup.disabled = false;
+      els.restoreBackup.disabled = false;
+    }
+  }
+
+  function normalizeCompositionReferences() {
+    const validAssetIds = new Set(state.assets.map((asset) => asset.id));
+    state.compositions.forEach((slot) => {
+      TYPES.forEach((type) => { if (slot.selected[type] && !validAssetIds.has(slot.selected[type])) slot.selected[type] = null; });
+      slot.specials = cloneSpecials(slot.specials).filter((instance) => validAssetIds.has(instance.assetId));
+      slot.activeSpecialId = normalizeActiveSpecialId(slot.specials, slot.activeSpecialId);
+      if (slot.adjustType === 'special' && !slot.activeSpecialId) slot.adjustType = 'noren';
+    });
+    applyComposition(getActiveComposition());
+  }
+
+  function syncPromptMode() {
+    const mode = els.promptMode.value;
+    const isKit = mode === 'kit';
+
+    els.promptTypeField.classList.toggle('hidden', isKit);
+
+    if (isKit) {
+      els.identity.disabled = false;
+
+      if (els.identity.value === 'neutral') {
+        els.identity.value = 'craft-cola';
+      }
+    }
+
+    buildPrompt();
+  }
+
   function buildPrompt() {
+    const mode = els.promptMode.value;
+    let identityId = els.identity.value;
+
+    if (mode === 'kit') {
+      const master = window.YUMANIWA_KIT_MASTER || '';
+      const identities = window.YUMANIWA_KIT_IDENTITIES || {};
+
+      if (!identities[identityId]) {
+        identityId = 'craft-cola';
+        els.identity.value = identityId;
+      }
+
+      els.identity.disabled = false;
+
+      const identity = identities[identityId] || { text: '' };
+
+      els.promptOutput.value =
+        master + (identity.text ? '\n\n\n' + identity.text : '');
+
+      return;
+    }
+
     const masters = window.YUMANIWA_SOURCE_MASTERS || {};
     const identities = window.YUMANIWA_IDENTITIES || {};
     const type = els.promptType.value;
-    let identityId = els.identity.value;
 
     if (type === 'base') {
       identityId = 'neutral';
@@ -1515,6 +2528,8 @@
   }
 
   function bindEvents() {
+    els.canvas.addEventListener('click', handleCanvasPartSelection);
+
     els.importMode.addEventListener('change', syncImportMode);
 
     els.sourceInput.addEventListener('change', () => {
@@ -1527,9 +2542,7 @@
     els.clearKitSelection.addEventListener('click', () => setAllKitCandidates(false));
 
     els.adjustType.addEventListener('change', () => {
-      state.adjustType = els.adjustType.value;
-      saveState();
-      syncControls();
+      setAdjustType(els.adjustType.value);
     });
 
     [els.scale, els.x, els.y].forEach((input) => {
@@ -1538,14 +2551,35 @@
 
     els.resetAdjust.addEventListener('click', resetCurrentAdjustment);
 
+    els.specialBackward.addEventListener('click', () => moveActiveSpecial(-1));
+    els.specialForward.addEventListener('click', () => moveActiveSpecial(1));
+    els.specialDuplicate.addEventListener('click', duplicateActiveSpecial);
+    els.specialRemove.addEventListener('click', removeActiveSpecial);
+
     els.clearComposition.addEventListener('click', () => {
       state.selected = blankSelected();
-      resetAllAdjustments();
+      state.adjustments = blankAdjustments();
+      state.specials = [];
+      state.activeSpecialId = null;
+      state.adjustType = 'noren';
       saveState();
       renderAll();
     });
 
     els.exportPng.addEventListener('click', exportDraftPng);
+    els.exportBackup.addEventListener('click', exportFullBackup);
+    els.restoreBackup.addEventListener('click', () => els.backupFile.click());
+    els.backupFile.addEventListener('change', restoreFullBackup);
+    els.backupShare.addEventListener('click', () => {
+      if (!backupFile) return;
+      navigator.share({ files: [backupFile], title: 'Map Factory backup' }).catch((error) => {
+        if (error.name !== 'AbortError') {
+          console.error('Backup share failed', error);
+          els.backupStatus.textContent = '共有できませんでした。「ZIPを保存」をお試しください。';
+        }
+      });
+    });
+    window.addEventListener('pagehide', clearPreparedBackup);
     els.exportJson.addEventListener('click', exportRecipeJson);
 
     els.togglePrompt.addEventListener('click', () => {
@@ -1556,6 +2590,7 @@
       if (opening) buildPrompt();
     });
 
+    els.promptMode.addEventListener('change', syncPromptMode);
     els.promptType.addEventListener('change', buildPrompt);
     els.identity.addEventListener('change', buildPrompt);
     els.copyPrompt.addEventListener('click', copyPrompt);
@@ -1565,19 +2600,28 @@
     loadSavedState();
     syncControls();
     bindEvents();
-    buildPrompt();
+    syncPromptMode();
     syncImportMode();
 
     try {
       db = await openDatabase();
       state.assets = await dbGetAll();
-
-      TYPES.forEach((type) => {
-        if (state.selected[type] && !assetById(state.selected[type])) {
-          state.selected[type] = null;
+      const legacy = state.assets.filter((asset) => !(asset.blob instanceof Blob) && typeof asset.dataUrl === 'string');
+      if (legacy.length) {
+        try {
+          const migrated = legacy.map(convertLegacyAsset);
+          await dbPutMany(migrated);
+          const byId = new Map(migrated.map((asset) => [asset.id, asset]));
+          state.assets = state.assets.map((asset) => byId.get(asset.id) || asset);
+        } catch (error) {
+          console.error('Legacy asset migration failed; old assets are still readable', error);
+          els.backupStatus.textContent = '一部の素材をBlob形式に移行できませんでした。バックアップは作成できます。';
         }
-      });
+      }
+      els.exportBackup.disabled = false;
+      els.restoreBackup.disabled = false;
 
+      normalizeCompositionReferences();
       saveState();
       renderAll();
     } catch (error) {
