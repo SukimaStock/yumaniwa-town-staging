@@ -183,6 +183,13 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 .prompt-controls{
   display:grid;grid-template-columns:180px 180px auto;gap:10px;align-items:end;margin-top:0;
 }
+.prompt-controls-wide{
+  grid-template-columns:190px 190px 190px auto;
+}
+.prompt-standard-note{
+  margin:11px 0 0;padding:9px 11px;border:1px solid #343127;border-radius:10px;
+  background:#191915;color:#817969;font-size:10px;line-height:1.55;
+}
 label{display:flex;flex-direction:column;gap:7px;font-size:11px;color:var(--muted)}
 select,textarea,input[type="text"]{
   width:100%;background:#141411;border:1px solid var(--line);color:var(--text);
@@ -273,7 +280,7 @@ footer{padding-top:26px;text-align:center;color:#5e594e;font-size:10px;letter-sp
   h1{font-size:31px}
   .workflow{gap:6px;font-size:9px}
   .preview-card,.shelves,.import-card,.supply-card{border-radius:15px}
-  .import-controls,.prompt-controls{grid-template-columns:1fr}
+  .import-controls,.prompt-controls,.prompt-controls-wide{grid-template-columns:1fr}
   .import-controls .file-picker,.import-controls .primary{grid-column:auto;width:100%}
   .detected-pair{grid-template-columns:1fr}
   .detected-preview{min-height:150px}
