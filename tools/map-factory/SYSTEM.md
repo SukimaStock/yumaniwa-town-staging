@@ -1,4 +1,4 @@
-# Yumaniwa Map Factory System v0.7
+# Yumaniwa Map Factory System v0.8
 
 Map Factory は「完成画像を生成する場所」ではない。
 
