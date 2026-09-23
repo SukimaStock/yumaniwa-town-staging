@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "id": "sukimastock-new-work-starter",
+  "title": "SukimaStock New Work Starter",
+  "entry": "index.html",
+  "output": "SukimaStock-New-Work.zip",
+  "engine": {
+    "source": "engine/sukimastock-engine.v0.2.0.js",
+    "target": "sukimastock-engine.js",
+    "htmlMarker": "data-sse-engine"
+  },
+  "include": [
+    "index.html",
+    "style.css",
+    "work-config.js",
+    "codea-lite.js",
+    "sketch.js",
+    "README.md",
+    "STAGING-HANDOFF.md",
+    "standalone-export.example.json",
+    "assets/.gitkeep",
+    "sounds/.gitkeep"
+  ]
+}

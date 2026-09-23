@@ -8,7 +8,7 @@
 
   const shadow = host.attachShadow({mode:'open'});
   const style = document.createElement('style');
-  style.textContent = "\n  :root{\n    --bg:#090c12;\n    --fg:#d9e6f4;\n    --dim:#90a4bb;\n    --accent:#9fcbff;\n    --accent2:#b9dcff;\n    --warm:#e7cb8b;\n    --fail:#d57878;\n    --panel:rgba(10,14,20,0.70);\n    --line:rgba(180,220,255,.18);\n  }\n  :host{\n    display:block;\n    width:100%;\n    height:100%;\n    overflow:hidden;\n    background:var(--bg);\n    color:var(--fg);\n    margin:0; height:100%; overflow:hidden; background:var(--bg); color:var(--fg);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;\n    touch-action:none;\n  }\n  :host,canvas,button{\n    -webkit-user-select:none;\n    user-select:none;\n    -webkit-touch-callout:none;\n    -webkit-user-drag:none;\n  }\n  canvas{\n    display:block; width:100vw; height:100vh;\n    touch-action:none;\n  }\n  .overlay{\n    position:fixed; inset:0; pointer-events:none;\n    display:flex; flex-direction:column; justify-content:space-between;\n    padding:14px 16px calc(18px + env(safe-area-inset-bottom)) 16px;\n    box-sizing:border-box;\n  }\n  .top{\n    display:flex;\n    flex-direction:column;\n    align-items:stretch;\n    gap:8px;\n  }\n  .bottom{\n    display:flex;\n    justify-content:center;\n    align-items:center;\n  }\n  .row{\n    display:flex;\n    align-items:center;\n    justify-content:flex-start;\n    gap:8px;\n  }\n  .pill{\n    padding:8px 12px;\n    border:1px solid rgba(190,220,255,.18);\n    background:rgba(9,14,22,.24);\n    backdrop-filter: blur(4px);\n    border-radius:999px;\n    color:#d5e2f0; font-size:12px; letter-spacing:.08em;\n  }\n\n  .progressHud{\n    width:min(84vw,420px);\n    padding:10px 13px 9px;\n    border:1px solid rgba(190,220,255,.18);\n    background:rgba(9,14,22,.34);\n    backdrop-filter:blur(4px);\n    border-radius:16px;\n  }\n  .progressTrack{\n    height:5px;\n    border-radius:999px;\n    background:rgba(110,145,185,.16);\n    overflow:hidden;\n  }\n  .progressFill{\n    height:100%;\n    width:0%;\n    border-radius:999px;\n    background:rgba(145,190,255,.70);\n    transition:width .08s linear;\n  }\n  .progressText{\n    margin-top:7px;\n    text-align:center;\n    color:rgba(215,230,245,.76);\n    font-size:12px;\n    letter-spacing:.10em;\n    font-variant-numeric:tabular-nums;\n  }\n  .seg{\n    pointer-events:auto;\n    display:grid;\n    grid-template-columns:repeat(3,minmax(0,1fr));\n    gap:5px;\n    width:100%;\n    padding:5px;\n    border:1px solid rgba(190,220,255,.16);\n    background:rgba(9,14,22,.24);\n    backdrop-filter: blur(4px);\n    border-radius:18px;\n  }\n  .seg button{\n    appearance:none;\n    border:0;\n    margin:0;\n    min-width:0;\n    border-radius:12px;\n    padding:8px 6px;\n    background:transparent;\n    color:#b8c8d8;\n    font-size:10px;\n    letter-spacing:.035em;\n    white-space:nowrap;\n  }\n  .seg button.active{\n    background:rgba(150,195,255,.16);\n    color:#e6f1ff;\n    box-shadow: inset 0 0 0 1px rgba(185,220,255,.16);\n  }\n  .response{\n    position:fixed; inset:0;\n    z-index:10;\n    display:flex; align-items:center; justify-content:center;\n    pointer-events:none;\n    opacity:0;\n    transition:opacity .28s ease;\n  }\n  .response.show{ opacity:1; }\n  .responseCard{\n    width:min(92vw, 640px);\n    padding:22px 18px 20px;\n    border-top:1px solid rgba(185,220,255,.16);\n    border-bottom:1px solid rgba(185,220,255,.16);\n    background:rgba(7,12,18,.66);\n    backdrop-filter: blur(7px);\n    text-align:center;\n  }\n  .responseLabel{\n    font-size:11px;\n    letter-spacing:.18em;\n    color:rgba(195,215,235,.62);\n    margin-bottom:11px;\n  }\n  .responseText{\n    font-size:clamp(19px,5.2vw,23px);\n    line-height:1.50;\n    letter-spacing:.045em;\n    color:#eef6ff;\n    text-shadow:0 0 18px rgba(155,190,255,.12);\n    white-space:pre-line;\n  }\n  .responseHint{\n    margin-top:15px;\n    font-size:11px;\n    color:rgba(200,215,232,.54);\n    letter-spacing:.06em;\n    opacity:0;\n    transition:opacity .25s ease;\n  }\n  .response.ready .responseHint{ opacity:1; }\n\n  @media (min-width:520px){\n    .top{\n      flex-direction:row;\n      align-items:center;\n      justify-content:space-between;\n    }\n    .seg{\n      width:auto;\n      grid-template-columns:repeat(5,minmax(72px,auto));\n      border-radius:999px;\n    }\n    .seg button{\n      border-radius:999px;\n      padding:8px 10px;\n      font-size:12px;\n      letter-spacing:.07em;\n    }\n  }\n  @media (max-width:420px){\n    .overlay{\n      padding-left:12px;\n      padding-right:12px;\n    }\n    .pill{\n      padding:7px 10px;\n      font-size:11px;\n    }\n    .bottom{\n      align-items:center;\n    }\n    .progressHud{\n      width:min(90vw,420px);\n    }\n  }\n\n  :host(.embedded) .seg{display:none;}\n  :host(.embedded) .top{justify-content:flex-start;}\n  :host(.embedded) .row{justify-content:flex-start;}\n";
+  style.textContent = "\n  :root{\n    --bg:#090c12;\n    --fg:#d9e6f4;\n    --dim:#90a4bb;\n    --accent:#9fcbff;\n    --accent2:#b9dcff;\n    --warm:#e7cb8b;\n    --fail:#d57878;\n    --panel:rgba(10,14,20,0.70);\n    --line:rgba(180,220,255,.18);\n  }\n  :host{\n    display:block;\n    width:100%;\n    height:100%;\n    overflow:hidden;\n    background:var(--bg);\n    color:var(--fg);\n    margin:0; height:100%; overflow:hidden; background:var(--bg); color:var(--fg);\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;\n    touch-action:none;\n  }\n  :host,canvas,button{\n    -webkit-user-select:none;\n    user-select:none;\n    -webkit-touch-callout:none;\n    -webkit-user-drag:none;\n  }\n  canvas{\n    display:block; width:100vw; height:100vh;\n    touch-action:none;\n  }\n  .overlay{\n    position:fixed; inset:0; pointer-events:none;\n    display:flex; flex-direction:column; justify-content:space-between;\n    padding:14px 16px calc(18px + env(safe-area-inset-bottom)) 16px;\n    box-sizing:border-box;\n  }\n  .top{\n    display:flex;\n    flex-direction:column;\n    align-items:stretch;\n    gap:8px;\n  }\n  .bottom{\n    display:flex;\n    justify-content:center;\n    align-items:center;\n  }\n  .row{\n    display:flex;\n    align-items:center;\n    justify-content:flex-start;\n    gap:8px;\n  }\n  .pill{\n    padding:8px 12px;\n    border:1px solid rgba(190,220,255,.18);\n    background:rgba(9,14,22,.24);\n    backdrop-filter: blur(4px);\n    border-radius:999px;\n    color:#d5e2f0; font-size:11px; letter-spacing:.08em;\n  }\n\n  .progressHud{\n    width:min(84vw,420px);\n    padding:10px 13px 9px;\n    border:1px solid rgba(190,220,255,.18);\n    background:rgba(9,14,22,.34);\n    backdrop-filter:blur(4px);\n    border-radius:16px;\n  }\n  .progressTrack{\n    height:5px;\n    border-radius:999px;\n    background:rgba(110,145,185,.16);\n    overflow:hidden;\n  }\n  .progressFill{\n    height:100%;\n    width:0%;\n    border-radius:999px;\n    background:rgba(145,190,255,.70);\n    transition:width .08s linear;\n  }\n  .progressText{\n    margin-top:7px;\n    text-align:center;\n    color:rgba(215,230,245,.76);\n    font-size:11px;\n    letter-spacing:.10em;\n    font-variant-numeric:tabular-nums;\n  }\n  .seg{\n    pointer-events:auto;\n    display:grid;\n    grid-template-columns:repeat(3,minmax(0,1fr));\n    gap:5px;\n    width:100%;\n    padding:5px;\n    border:1px solid rgba(190,220,255,.16);\n    background:rgba(9,14,22,.24);\n    backdrop-filter: blur(4px);\n    border-radius:18px;\n  }\n  .seg button{\n    appearance:none;\n    border:0;\n    margin:0;\n    min-width:0;\n    border-radius:12px;\n    padding:8px 6px;\n    background:transparent;\n    color:#b8c8d8;\n    font-size:10px;\n    letter-spacing:.035em;\n    white-space:nowrap;\n  }\n  .seg button.active{\n    background:rgba(150,195,255,.16);\n    color:#e6f1ff;\n    box-shadow: inset 0 0 0 1px rgba(185,220,255,.16);\n  }\n  .response{\n    position:fixed; inset:0;\n    z-index:10;\n    display:flex; align-items:center; justify-content:center;\n    pointer-events:none;\n    opacity:0;\n    transition:opacity .28s ease;\n  }\n  .response.show{ opacity:1; }\n  .responseCard{\n    position:relative;\n    width:min(92vw, 640px);\n    padding:22px 18px 20px;\n    border-top:1px solid rgba(185,220,255,.16);\n    border-bottom:1px solid rgba(185,220,255,.16);\n    background:rgba(7,12,18,.66);\n    backdrop-filter: blur(7px);\n    text-align:center;\n  }\n  .responseLabel{\n    font-size:10px;\n    letter-spacing:.18em;\n    color:rgba(195,215,235,.62);\n    margin-bottom:11px;\n  }\n  .responseText{\n    font-size:clamp(16px,4.2vw,19px);\n    line-height:1.50;\n    letter-spacing:.045em;\n    color:#eef6ff;\n    text-shadow:0 0 18px rgba(155,190,255,.12);\n    white-space:pre-line;\n  }\n  .responseHint{\n    position:absolute;\n    top:100%;\n    left:0;\n    width:100%;\n    margin-top:26px;\n    font-size:10px;\n    color:rgba(200,215,232,.50);\n    letter-spacing:.06em;\n    opacity:0;\n    transition:opacity .25s ease;\n  }\n  .response.ready .responseHint{ opacity:1; }\n\n  @media (min-width:520px){\n    .top{\n      flex-direction:row;\n      align-items:center;\n      justify-content:space-between;\n    }\n    .seg{\n      width:auto;\n      grid-template-columns:repeat(5,minmax(72px,auto));\n      border-radius:999px;\n    }\n    .seg button{\n      border-radius:999px;\n      padding:8px 10px;\n      font-size:12px;\n      letter-spacing:.07em;\n    }\n  }\n  @media (max-width:420px){\n    .overlay{\n      padding-left:12px;\n      padding-right:12px;\n    }\n    .pill{\n      padding:7px 10px;\n      font-size:11px;\n    }\n    .bottom{\n      align-items:center;\n    }\n    .progressHud{\n      width:min(90vw,420px);\n    }\n  }\n\n  :host(.embedded) .seg{display:none;}\n  :host(.embedded) .top{display:none;}\n";
   shadow.appendChild(style);
 
   const shell = document.createElement('div');
@@ -48,6 +48,7 @@
 
   const canvas = shadow.getElementById('c');
   const ctx = canvas.getContext('2d');
+  const overlayEl = shadow.querySelector('.overlay');
   const progressHud = shadow.getElementById('progressHud');
   const progressFill = shadow.getElementById('progressFill');
   const progressText = shadow.getElementById('progressText');
@@ -65,7 +66,10 @@
 
   const runtime = {
     active:false,
-    completion:null
+    completion:null,
+    introStart:0,
+    introDuration:0.55,
+    introActive:false
   };
 
   function finishEmbedded(){
@@ -76,6 +80,9 @@
 
     runtime.active = false;
     runtime.completion = null;
+    runtime.introStart = 0;
+    runtime.introActive = false;
+    if(overlayEl) overlayEl.style.opacity = '1';
     host.classList.remove('active');
     host.setAttribute('aria-hidden','true');
 
@@ -97,7 +104,7 @@
     instruction:tx("ritual.wake.instruction"),
     initExtra(s){
       s.currentTaps = 0;
-      s.targetTaps = 28;
+      s.targetTaps = 12;
       s.ripples = [];
       s.sparks = [];
       s.tapPulse = 0;
@@ -110,7 +117,7 @@
     response:tx("ritual.link.response"),
     instruction:tx("ritual.link.instruction"),
     initExtra(s){
-      s.turnsNeeded = 10.0;
+      s.turnsNeeded = 3.0;
       s.totalTurns = 0;
       s.activePointer = null;
       s.prevAng = null;
@@ -140,7 +147,7 @@
       s.patches = [];
       s.revealScore = 0;
       s.exposure = 0;
-      s.revealTarget = 20.0;
+      s.revealTarget = 10.0;
       s.hints = [];
       s.mistSeed = Math.random()*10000;
       const hintRows = 14;
@@ -293,12 +300,15 @@
 
       runtime.active = true;
       runtime.completion = typeof onComplete === 'function' ? onComplete : null;
+      runtime.introStart = performance.now()/1000;
+      runtime.introActive = true;
+      if(overlayEl) overlayEl.style.opacity = '0';
 
       host.classList.add('active');
       host.setAttribute('aria-hidden','false');
 
       setRitual(next);
-      lastTs = performance.now()/1000;
+      lastTs = runtime.introStart;
       resize();
       return true;
     },
@@ -306,6 +316,9 @@
     close(){
       runtime.active = false;
       runtime.completion = null;
+      runtime.introStart = 0;
+      runtime.introActive = false;
+      if(overlayEl) overlayEl.style.opacity = '1';
       host.classList.remove('active');
       host.setAttribute('aria-hidden','true');
       reset();
@@ -529,6 +542,11 @@
     }
   }
 
+  function ritualIntroProgress(now = performance.now()/1000){
+    if(!runtime.introActive) return 1;
+    return clamp((now - runtime.introStart) / Math.max(0.001, runtime.introDuration), 0, 1);
+  }
+
   function handleCancel(e){
     e?.preventDefault?.();
     cancelActivePointer();
@@ -537,6 +555,7 @@
   function handleDown(e){
     e.preventDefault();
     const now = performance.now()/1000;
+    if(runtime.introActive && ritualIntroProgress(now) < 1) return;
 
     if(state.mode==='RESPONSE'){
       if(now >= state.responseUnlockAt && state.inputReleasedAfterSuccess){
@@ -608,6 +627,7 @@
 
   function handleMove(e){
     e.preventDefault();
+    if(runtime.introActive && ritualIntroProgress() < 1) return;
     if(state.mode!=='RUNNING' || e.pointerId!==state.activePointer) return;
 
     if(ritual==='memory'){
@@ -704,6 +724,7 @@
 
   function handleUp(e){
     e.preventDefault();
+    if(runtime.introActive && ritualIntroProgress() < 1) return;
     if(state.mode==='SUCCESS_WAIT' || state.mode==='RESPONSE'){
       state.inputReleasedAfterSuccess = true;
       return;
@@ -1076,7 +1097,7 @@
 
     // HUD
     if(state.mode==='RUNNING' && !state.started){
-      drawText(WAKE.instruction, CX, CY-96, 15, 'rgba(200,210,220,0.68)');
+      drawText(WAKE.instruction, CX, CY-96, 13, 'rgba(200,210,220,0.68)');
     }
   }
 
@@ -1163,7 +1184,7 @@
 
     // HUD
     if(state.mode==='RUNNING' && !state.started){
-      drawText(LINK.instruction, CX, CY-96, 15, 'rgba(200,210,220,0.68)');
+      drawText(LINK.instruction, CX, CY-96, 13, 'rgba(200,210,220,0.68)');
     }
   }
 
@@ -1224,7 +1245,7 @@
     }
 
     if(state.mode==='RUNNING' && !state.started){
-      drawText(MEMORY.instruction, CX, CY - 110, 15, 'rgba(220,230,245,0.72)');
+      drawText(MEMORY.instruction, CX, CY - 110, 13, 'rgba(220,230,245,0.72)');
     }
   }
 
@@ -1295,7 +1316,7 @@
     ctx.restore();
 
     if(state.mode==='RUNNING' && !state.started){
-      drawText(RESONANCE.instruction, CX, CY-86, 15, 'rgba(210,225,245,0.70)');
+      drawText(RESONANCE.instruction, CX, CY-86, 13, 'rgba(210,225,245,0.70)');
     }
   }
 
@@ -1347,7 +1368,7 @@
     }
 
     if(state.mode==='RUNNING' && !state.started){
-      drawText(REBIRTH.instruction, CX, CY-86, 15, 'rgba(200,210,220,0.68)');
+      drawText(REBIRTH.instruction, CX, CY-86, 13, 'rgba(200,210,220,0.68)');
     }
   }
 
@@ -1355,6 +1376,49 @@
     if(state.flashA <= 0) return;
     ctx.fillStyle = `rgba(255,255,255,${state.flashA/255})`;
     ctx.fillRect(0,0,W,H);
+  }
+
+  function drawCurrentRitual(now){
+    if(ritual==='wake') drawWake(now);
+    else if(ritual==='link') drawLink(now);
+    else if(ritual==='memory') drawMemory(now);
+    else if(ritual==='resonance') drawResonance(now);
+    else drawRebirth(now);
+  }
+
+  function drawRitualIntro(now, q){
+    // Stage 1: a single powered conductor appears before any interface.
+    const lineStages = q < 0.16 ? 0.18 : (q < 0.30 ? 0.48 : 0.82);
+    const lineW = Math.min(W*0.78, 420) * lineStages;
+    ctx.save();
+    ctx.strokeStyle = q < 0.30
+      ? 'rgba(135,205,240,0.66)'
+      : 'rgba(175,225,250,0.82)';
+    ctx.lineWidth = q < 0.30 ? 1.0 : 1.4;
+    ctx.beginPath();
+    ctx.moveTo(CX-lineW/2, CY);
+    ctx.lineTo(CX+lineW/2, CY);
+    ctx.stroke();
+
+    // Stage 2: the real ritual geometry joins the circuit in two hard steps.
+    // Mark it "started" only while drawing so instructional text stays dark
+    // until the final HUD wake-up.
+    if(q >= 0.34){
+      const savedStarted = state.started;
+      state.started = true;
+      ctx.globalAlpha = q < 0.58 ? 0.34 : 0.76;
+      drawCurrentRitual(now);
+      state.started = savedStarted;
+      ctx.globalAlpha = 1;
+    }
+
+    if(q >= 0.24){
+      const a = q < 0.58 ? 0.55 : 0.9;
+      ctx.fillStyle = 'rgba(205,240,255,' + a + ')';
+      ctx.beginPath(); ctx.arc(CX-lineW/2,CY,2.2,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(CX+lineW/2,CY,2.2,0,Math.PI*2); ctx.fill();
+    }
+    ctx.restore();
   }
 
   function render(ts){
@@ -1368,15 +1432,26 @@
     const dt = Math.min(0.033, now-lastTs);
     lastTs = now;
 
+    const introQ = ritualIntroProgress(now);
+    if(runtime.introActive && introQ < 1){
+      // Freeze simulation and gestures while the deep system powers on.
+      drawBackground(now);
+      drawRitualIntro(now, introQ);
+      lastTs = now;
+      requestAnimationFrame(render);
+      return;
+    }
+
+    if(runtime.introActive){
+      runtime.introActive = false;
+      if(overlayEl) overlayEl.style.opacity = '1';
+      lastTs = now;
+    }
+
     update(dt, now);
 
     drawBackground(now);
-    if(ritual==='wake') drawWake(now);
-    else if(ritual==='link') drawLink(now);
-    else if(ritual==='memory') drawMemory(now);
-    else if(ritual==='resonance') drawResonance(now);
-    else drawRebirth(now);
-
+    drawCurrentRitual(now);
     drawFlash();
 
     requestAnimationFrame(render);

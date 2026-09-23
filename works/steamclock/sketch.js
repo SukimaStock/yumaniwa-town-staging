@@ -388,10 +388,10 @@
 
   function buildGears(W, H) {
     const gears = [
-      { type: "linked", img: images.gear2, x: W * 0.455, y: H * 0.77, size: 160, z: 11, speed: -23, angle: 10, parent: null },
-      { type: "linked", img: images.gear1, size: 110, z: 10, parent: 0, phase: 18, parentAngle: 210, parentDistanceFactor: 0.8 },
-      { type: "decorative", img: images.gear1, x: W * 0.73, y: H * 0.795, size: 100, speed: 25, angle: 20 },
-      { type: "decorative", img: images.gear2, x: W * 0.75, y: H * 0.42, size: 80, speed: 40, angle: 0 },
+      { type: "linked", imageKey: "gear2", x: W * 0.455, y: H * 0.77, size: 160, z: 11, speed: -23, angle: 10, parent: null },
+      { type: "linked", imageKey: "gear1", size: 110, z: 10, parent: 0, phase: 18, parentAngle: 210, parentDistanceFactor: 0.8 },
+      { type: "decorative", imageKey: "gear1", x: W * 0.73, y: H * 0.795, size: 100, speed: 25, angle: 20 },
+      { type: "decorative", imageKey: "gear2", x: W * 0.75, y: H * 0.42, size: 80, speed: 40, angle: 0 },
     ];
 
     const parent = gears[0];
@@ -423,7 +423,9 @@
         g.angle += g.speed * DeltaTime;
       }
     }
-    for (const g of gears) drawRotatedSprite(g.img, g.x, g.y, g.angle, g.size, g.size);
+    for (const g of gears) {
+      drawRotatedSprite(images[g.imageKey], g.x, g.y, g.angle, g.size, g.size);
+    }
   }
 
   function drawDummyElements(W, H) {
@@ -806,6 +808,45 @@
     },
   };
 
+  const ASSET_BINDINGS = {
+    background: "background",
+    dial: "dial",
+    centerPiece: "centerPiece",
+    hourHand: "hourHand",
+    minuteHand: "minuteHand",
+    secondHand: "secondHand",
+    nixieTube: "nixieTube",
+    gear1: "gear1",
+    gear2: "gear2",
+    pendulum: "pendulum",
+    barometerDial: "barometerDial",
+    barometerNeedle: "barometerNeedle",
+    pipeElbow: "pipeElbow",
+    pipeStraight: "pipeStraight",
+    valve: "valve",
+    gaugeDummy: "gaugeDummy",
+  };
+
+  function syncAssetRefs(names) {
+    for (const name of names) {
+      const image = SSE.assets.peek(name);
+      if (image) images[ASSET_BINDINGS[name]] = image;
+    }
+  }
+
+  function preloadBoundGroup(group, names, options) {
+    const task = SSE.assets.preload(group, options);
+    // Codea image references are available immediately while loading.
+    syncAssetRefs(names);
+    task.then(() => syncAssetRefs(names));
+    return task;
+  }
+
+  function scheduleBoundGroup(group, names, options) {
+    return SSE.assets.schedule(group, options)
+      .then(() => syncAssetRefs(names));
+  }
+
   SSE.createApp({
     id: "steamclock",
     logicalWidth: DESIGN_W,
@@ -815,6 +856,52 @@
     sceneBackground: [0, 0, 0],
     debug: DEBUG_ENABLED,
     analytics: { enabled: true },
+    assets: {
+      items: {
+        background: "assets/background.jpg",
+        dial: "assets/dial.png",
+        centerPiece: "assets/center_piece.png",
+        hourHand: "assets/hour_hand.png",
+        minuteHand: "assets/minute_hand.png",
+        secondHand: "assets/second_hand.png",
+        nixieTube: "assets/nixie_tube.png",
+        gear1: "assets/gear1.png",
+        gear2: "assets/gear2.png",
+        pendulum: "assets/pendulum.png",
+        barometerDial: "assets/barometer_dial.png",
+        barometerNeedle: "assets/barometer_needle.png",
+        pipeElbow: "assets/pipe_elbow.png",
+        pipeStraight: "assets/pipe_straight.png",
+        valve: "assets/valve.png",
+        gaugeDummy: "assets/gauge_dummy.png",
+      },
+      groups: {
+        critical: [
+          "background",
+          "dial",
+          "hourHand",
+          "minuteHand",
+          "secondHand",
+          "nixieTube",
+        ],
+        decorativeEarly: [
+          "centerPiece",
+          "gear1",
+          "gear2",
+          "pendulum",
+        ],
+        decorativeGauge: [
+          "barometerDial",
+          "barometerNeedle",
+        ],
+        decorativeLate: [
+          "pipeElbow",
+          "pipeStraight",
+          "valve",
+          "gaugeDummy",
+        ],
+      },
+    },
     setup() {
       spriteMode(CENTER);
       ellipseMode(CENTER);
@@ -822,23 +909,29 @@
       noStroke();
       initEffects(DESIGN_W, DESIGN_H);
       installDebugPanel();
-      images.background = readImage("assets/background.jpg");
-      images.dial = readImage("assets/dial.png");
-      images.centerPiece = readImage("assets/center_piece.png");
-      images.hourHand = readImage("assets/hour_hand.png");
-      images.minuteHand = readImage("assets/minute_hand.png");
-      images.secondHand = readImage("assets/second_hand.png");
-      images.nixieTube = readImage("assets/nixie_tube.png");
-      images.gear1 = readImage("assets/gear1.png");
-      images.gear2 = readImage("assets/gear2.png");
-      images.pendulum = readImage("assets/pendulum.png");
-      images.barometerDial = readImage("assets/barometer_dial.png");
-      images.barometerNeedle = readImage("assets/barometer_needle.png");
-      images.pipeElbow = readImage("assets/pipe_elbow.png");
-      images.pipeStraight = readImage("assets/pipe_straight.png");
-      images.valve = readImage("assets/valve.png");
-      images.gaugeDummy = readImage("assets/gauge_dummy.png");
-      images.spring = readImage("assets/spring.png");
+      preloadBoundGroup(
+        "critical",
+        ["background", "dial", "hourHand", "minuteHand", "secondHand", "nixieTube"],
+        { priority: "high" }
+      );
+
+      scheduleBoundGroup(
+        "decorativeEarly",
+        ["centerPiece", "gear1", "gear2", "pendulum"],
+        { when: "load", delay: 0, priority: "low" }
+      );
+
+      scheduleBoundGroup(
+        "decorativeGauge",
+        ["barometerDial", "barometerNeedle"],
+        { when: "load", delay: 150, priority: "low" }
+      );
+
+      scheduleBoundGroup(
+        "decorativeLate",
+        ["pipeElbow", "pipeStraight", "valve", "gaugeDummy"],
+        { when: "load", delay: 300, priority: "low" }
+      );
     },
     scenes: { clock: clockScene },
   });

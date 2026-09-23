@@ -1,6 +1,6 @@
 // SteamClock PWA service worker
 // Bump CACHE_VERSION when shipping a new release that should replace cached files.
-const CACHE_VERSION = "steamclock-staging-v10";
+const CACHE_VERSION = "steamclock-staging-v13";
 
 // Keep installation light. Decorative images are cached by the fetch handler
 // when they are requested after the first screen has appeared.
@@ -9,7 +9,7 @@ const PRECACHE_URLS = [
   "./index.html",
   "./manifest.webmanifest",
   "./codea-lite.js",
-  "./sukimastock-engine.js",
+  "../../engine/sukimastock-engine.v0.2.0.js",
   "./sketch.js",
 
   "./icons/apple-touch-icon.png",

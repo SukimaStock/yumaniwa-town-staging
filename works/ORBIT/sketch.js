@@ -201,6 +201,29 @@
     homeFadeSec: 0.96,
   });
 
+  // HOME does not throw a desktop window onto the cockpit the instant the ship
+  // touches down. The station wakes its terminal first. RESTORE makes that boot
+  // progressively cleaner and faster, so returning home itself becomes a small
+  // measure of how much of BASE has been recovered.
+  const HOME_TERMINAL_BOOT_TUNE = Object.freeze({
+    leadAfterEveSec: 0.20,
+    durationByLevel: Object.freeze([0, 1.20, 1.00, 0.80, 0.60, 0.35]),
+  });
+
+  // The BASE terminal opens like an old desktop window restoring from a bar.
+  // Deliberately stepped, not eased: the tiny jumps are part of the machine feel.
+  const HOME_TERMINAL_OPEN_TUNE = Object.freeze({
+    duration: 0.32,
+  });
+
+  // RESTORE keeps its deliberate confirmation for now, but YES no longer
+  // jumps directly into the ritual. The terminal first establishes a short
+  // physical link to BASE, turning a GUI confirmation into a machine action.
+  const HOME_RESTORE_LINK_TUNE = Object.freeze({
+    duration: 0.65,
+    connectAt: 0.56,
+  });
+
   // NEW ORBIT opens with the visual inverse of fuel-out: an old CRT wakes from
   // black after an unnamed accident. It shows damage, never explains the event.
   const PROLOGUE_TUNE = Object.freeze({
@@ -235,6 +258,22 @@
     // Keep a tiny margin so the launch transition always wins cleanly.
     tapMaxSec: ORBIT_TUNE.takeoffHoldSec - 0.08,
     pulseSec: 1.8,
+  });
+
+  // RESTORE completion is a reward scene, not a simultaneous UI flash.
+  // Recovery travels outward in a readable order:
+  // BASE -> SHIP -> NAVIGATION -> report terminal.
+  const RESTORE_REVEAL_TUNE = Object.freeze({
+    duration: 2.0,
+    stationSwitch: 0.30,
+    stationPulseStart: 0.10,
+    stationPulseEnd: 0.66,
+    linkStart: 0.50,
+    linkEnd: 0.90,
+    shipSwitch: 0.78,
+    shipPulseStart: 0.70,
+    shipPulseEnd: 1.18,
+    mapStart: 0.98,
   });
 
   // Phase 13: RESTORE is no longer an instant tap. Each step uses the approved
@@ -283,6 +322,8 @@
     // packet before revealing whether an Echo was present.
     memoryRevealDelaySec: 0.78,
     analysisSec: 2.4,
+    analysisSecByLevel: Object.freeze([0, 2.40, 2.10, 1.80, 1.50, 1.20]),
+    analysisWindowOpenSec: 0.22,
     analysisResultSec: 0.72,
     emptyResultSec: 1.05,
   });
@@ -352,23 +393,23 @@
     completionSecondDelay: 4.2,
     homeBeaconPulseSec: 7.0,
     trueEndingDelay: 0.8,
-    trueFadeStart: 19.2,
-    trueFadeEnd: 20.6,
-    trueTitleStart: 20.6,
-    trueTitleEnd: 24.7,
-    trueUnknownStart: 25.5,
-    trueUnknownEnd: 29.1,
-    trueReturnTitleAt: 30.4,
+    trueFadeStart: 7.0,
+    trueFadeEnd: 8.4,
+    trueTitleStart: 8.4,
+    trueTitleEnd: 12.5,
+    trueUnknownStart: 13.3,
+    trueUnknownEnd: 16.9,
+    trueReturnTitleAt: 18.2,
   });
 
-  // ORBIT is only about fifteen minutes long, so E.V.E.'s casual voice should
-  // have time to become familiar. ASTRA is the one place where doing nothing
-  // is itself a choice, so the silence there is a little more companionable.
+  // Casual speech should feel incidental, not like the author explaining the
+  // relationship through E.V.E. Give ordinary travel more air, and let the
+  // fully restored E.V.E. be especially comfortable with silence.
   const EVE_IDLE_TUNE = Object.freeze({
-    normalMin: 25,
-    normalMax: 50,
-    astraMin: 14,
-    astraMax: 28,
+    normalMin: 30,
+    normalMax: 55,
+    level5Min: 70,
+    level5Max: 110,
     astraFirstMin: 7,
     astraFirstMax: 14,
   });
@@ -473,14 +514,15 @@
   // This mirrors the stable path used after CoffeeFactory's iOS stutter fix:
   // decode once, then create a lightweight AudioBufferSourceNode per playback.
   const ORBIT_AUDIO_MODE = "ogg"; // "tone" | "ogg"
-  const ORBIT_AUDIO_GAIN = 3.0; // Global lift for ORBIT cues; preserves relative balance.
+  const ORBIT_AUDIO_GAIN = 3.0; // OGG lift; preserves relative balance.
+  const ORBIT_TONE_GAIN = 8.0; // Procedural placeholder cues need substantially more presence, especially on mobile.
 
   const ORBIT_OGG_SOUNDS = Object.freeze({
     takeoff: Object.freeze({ file: "sounds/takeoff.ogg", volume: 0.14, cooldown: 120 }),
     landing: Object.freeze({ file: "sounds/landing.ogg", volume: 0.14, cooldown: 120 }),
     ore: Object.freeze({ file: "sounds/ore.ogg", volume: 0.10, cooldown: 100 }),
     data: Object.freeze({ file: "sounds/data.ogg", volume: 0.11, cooldown: 120 }),
-    fuel: Object.freeze({ file: "sounds/fuel.ogg", volume: 0.10, cooldown: 140 }),
+    fuel: Object.freeze({ file: "sounds/fuel.ogg", volume: 0.28, cooldown: 140 }),
     impact: Object.freeze({ file: "sounds/impact.ogg", volume: 0.16, cooldown: 350 }),
     echo: Object.freeze({ file: "sounds/echo.ogg", volume: 0.14, cooldown: 300 }),
     restore: Object.freeze({ file: "sounds/restore.ogg", volume: 0.15, cooldown: 500 }),
@@ -530,7 +572,7 @@
       );
     }
 
-    const volume = Math.max(0.0001, Math.min(1, Number(options.volume ?? 0.06) * ORBIT_AUDIO_GAIN));
+    const volume = Math.max(0.0001, Math.min(1, Number(options.volume ?? 0.06) * ORBIT_TONE_GAIN));
     const attack = Math.min(0.015, duration * 0.28);
     gain.gain.setValueAtTime(0.0001, start);
     gain.gain.linearRampToValueAtTime(volume, start + attack);
@@ -544,6 +586,10 @@
   }
 
   function playOrbitToneCue(name) {
+    if (name === "diagnostic") {
+      scheduleOrbitTone({ frequency: 760, endFrequency: 840, duration: 0.060, volume: 0.050, type: "sine" }, 0);
+      return true;
+    }
     if (name === "boot") {
       scheduleOrbitTone({ frequency: 62, endFrequency: 108, duration: 0.92, volume: 0.070, type: "sine" }, 0);
       scheduleOrbitTone({ frequency: 124, endFrequency: 168, duration: 0.72, volume: 0.026, type: "triangle" }, 0.08);
@@ -708,6 +754,56 @@
   function playOrbitCue(name) {
     if (ORBIT_AUDIO_MODE === "ogg" && ORBIT_OGG_SOUNDS[name]) return playOrbitOggCue(name);
     return playOrbitToneCue(name);
+  }
+
+  function playHomeTerminalBootCue(level, duration) {
+    const lv = clamp(Math.floor(Number(level || 1)), 1, 5);
+    const total = Math.max(0.20, Number(duration || 0.8));
+    const humDuration = Math.max(0.18, Math.min(0.82, total * (lv >= 4 ? 0.58 : 0.72)));
+    const startHz = 58 + lv * 7;
+    const endHz = 104 + lv * 16;
+    scheduleOrbitTone({
+      frequency: startHz,
+      endFrequency: endHz,
+      duration: humDuration,
+      volume: lv <= 2 ? 0.062 : 0.048,
+      type: "sine",
+    }, 0);
+    if (lv <= 2) {
+      scheduleOrbitTone({
+        frequency: 132,
+        endFrequency: 118,
+        duration: Math.min(0.16, total * 0.18),
+        volume: 0.020,
+        type: "triangle",
+      }, Math.min(total * 0.38, 0.52));
+    }
+    return true;
+  }
+
+  function playRestoreLinkCue() {
+    scheduleOrbitTone({
+      frequency: 78,
+      endFrequency: 132,
+      duration: 0.50,
+      volume: 0.052,
+      type: "sine",
+    }, 0);
+    scheduleOrbitTone({
+      frequency: 290,
+      endFrequency: 410,
+      duration: 0.10,
+      volume: 0.024,
+      type: "triangle",
+    }, 0.39);
+    scheduleOrbitTone({
+      frequency: 610,
+      endFrequency: 760,
+      duration: 0.075,
+      volume: 0.020,
+      type: "sine",
+    }, 0.52);
+    return true;
   }
 
   const TUNE = {
@@ -1035,21 +1131,40 @@
       this.restoreRitualActive = false;
       this.restoreReveal = {
         timer: 0,
-        duration: 1.3,
+        duration: RESTORE_REVEAL_TUNE.duration,
         reportLevel: 0,
+        fromLevel: 1,
+        toLevel: 1,
+        mapTriggered: false,
       };
 
       // v2.7: HOME is a system connection, not an instruction floating in
-      // space. Landing at BASE automatically opens a source-inspired
-      // Windows-98-like operations terminal.
+      // space. The source-inspired Windows-98-like operations terminal is
+      // physically "woken" by BASE before it appears after a return.
       this.homeTerminal = {
         visible: false,
         mode: "browse",     // browse | confirm
         pressed: null,
         status: "OFFLINE",
+        opening: false,
+        openingTimer: 0,
+        openingDuration: HOME_TERMINAL_OPEN_TUNE.duration,
         // Shown only immediately after RESTORE. Closing the terminal consumes
         // the report; the next HOME return opens the ordinary operations view.
         restoreReportLevel: 0,
+      };
+      this.homeTerminalBoot = {
+        pending: false,
+        active: false,
+        leadTimer: 0,
+        timer: 0,
+        duration: 0,
+        level: 1,
+      };
+      this.homeRestoreLink = {
+        active: false,
+        timer: 0,
+        duration: HOME_RESTORE_LINK_TUNE.duration,
       };
 
       // v2.7.8: SYSTEM status and E.V.E.'s actual voice are separate layers.
@@ -1083,6 +1198,10 @@
       this.astra = {
         idleTimer: 0,
         active: false,
+        // One quiet-world thought per landing at most. At RESTORE 5, ASTRA
+        // becomes fully silent: E.V.E. is present, but no longer needs to fill
+        // the shared stillness with words.
+        spokenThisVisit: false,
         meteorTimer: ASTRA_TUNE.meteorIntervalMin + Math.random() * (ASTRA_TUNE.meteorIntervalMax - ASTRA_TUNE.meteorIntervalMin),
         meteors: [],
       };
@@ -1103,6 +1222,7 @@
         pendingPlanet: null,
         analyzing: false,
         analysisTimer: 0,
+        analysisDuration: ECHO_TUNE.analysisSec,
         analysisPlanet: null,
         analysisResult: null,
         analysisResultTimer: 0,
@@ -1526,6 +1646,11 @@
       const rr = data.resources || {};
       this.base.level = clamp(Math.floor(Number(data.baseLevel || 1)), 1, 5);
       this.applyRestoreCaps(this.base.level, false);
+      if (this.base.level >= 5 && this.eve) {
+        this.eve.idleTimer =
+          EVE_IDLE_TUNE.level5Min +
+          Math.random() * (EVE_IDLE_TUNE.level5Max - EVE_IDLE_TUNE.level5Min);
+      }
       const savedEve = data.eve || {};
       this.eve.restoreDepartureLevel = clamp(
         Math.floor(Number(savedEve.restoreDepartureLevel || 0)),
@@ -1844,6 +1969,19 @@
         this.departHold = 0;
         return true;
       }
+      if (
+        this.homeTerminalBoot &&
+        (this.homeTerminalBoot.pending || this.homeTerminalBoot.active)
+      ) {
+        this.pressing = false;
+        this.departHold = 0;
+        return true;
+      }
+      if (this.homeRestoreLink && this.homeRestoreLink.active) {
+        this.pressing = false;
+        this.departHold = 0;
+        return true;
+      }
       if (this.mode === "landing" || this.mode === "rescue") return true;
 
       // Phase 17.1: takeoff keeps the same pointer session that began with the
@@ -2078,21 +2216,11 @@
         this.incident.trueEndingTimer += dt;
         const t = this.incident.trueEndingTimer;
 
-        if (this.incident.trueEndingSpeechStage < 1 && t >= 1.0) {
-          this.sayEve(tx("incident.trueEnding.line1"), 3.0);
-          this.incident.trueEndingSpeechStage = 1;
-        }
-        if (this.incident.trueEndingSpeechStage < 2 && t >= 5.8) {
-          this.sayEve(tx("incident.trueEnding.line2"), 3.0);
-          this.incident.trueEndingSpeechStage = 2;
-        }
-        if (this.incident.trueEndingSpeechStage < 3 && t >= 10.6) {
-          this.sayEve(tx("incident.trueEnding.line3"), 3.0);
-          this.incident.trueEndingSpeechStage = 3;
-        }
-        if (this.incident.trueEndingSpeechStage < 4 && t >= 15.4) {
+        // The Incident Logs already supplied the facts. On the final return,
+        // HOME itself carries the answer; E.V.E. only greets the pilot.
+        if (this.incident.trueEndingSpeechStage < 1 && t >= 2.0) {
           this.sayEve(tx("incident.trueEnding.line4"), 3.4);
-          this.incident.trueEndingSpeechStage = 4;
+          this.incident.trueEndingSpeechStage = 1;
         }
 
         if (
@@ -2201,26 +2329,15 @@
         }
       }
 
-      if (
-        this.incident.completionStage === 1 ||
-        this.incident.completionStage === 2
-      ) {
+      if (this.incident.completionStage === 1) {
         this.incident.completionTimer = Math.max(0, this.incident.completionTimer - dt);
 
         if (
-          this.incident.completionStage === 1 &&
           this.incident.completionTimer <= 0 &&
           this.eve.timer <= 0
         ) {
-          this.sayEve(tx("incident.complete"), 3.2);
-          this.incident.completionStage = 2;
-          this.incident.completionTimer = INCIDENT_TUNE.completionSecondDelay;
-          this.incident.homeBeaconPulse = INCIDENT_TUNE.homeBeaconPulseSec;
-        } else if (
-          this.incident.completionStage === 2 &&
-          this.incident.completionTimer <= 0 &&
-          this.eve.timer <= 0
-        ) {
+          // The archive itself already shows that the set is complete. E.V.E.
+          // only says what comes next.
           this.sayEve(tx("incident.returnHome"), 2.8);
           this.incident.completionStage = 3;
           this.incident.completionReadPending = true;
@@ -2256,6 +2373,7 @@
       const wasActive = !!this.astra.active;
       this.astra.idleTimer = 0;
       this.astra.active = false;
+      this.astra.spokenThisVisit = false;
       this.astra.meteorTimer = ASTRA_TUNE.meteorIntervalMin + Math.random() * (ASTRA_TUNE.meteorIntervalMax - ASTRA_TUNE.meteorIntervalMin);
       this.astra.meteors = [];
       if (restoreZoom && wasActive && this.mode !== "landing") this.startZoom(1.0, ASTRA_TUNE.returnZoomDuration);
@@ -2292,10 +2410,16 @@
         this.astra.active = true;
         this.startZoom(ASTRA_TUNE.zoomOut, ASTRA_TUNE.zoomDuration);
 
-        // Once ASTRA opens out, don't make the player wait through a leftover
-        // long cruising timer before hearing E.V.E. The first line arrives
-        // sooner; later ASTRA lines use their own relaxed short interval.
-        if (this.eve && this.eve.idleTimer > 0) {
+        // Once ASTRA opens out, earlier RESTORE phases may offer one quiet
+        // place-specific thought. RESTORE 5 deliberately leaves the timer alone:
+        // the fully restored pair can simply share the view.
+        const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+        if (
+          level < 5 &&
+          this.eve &&
+          this.eve.idleTimer > 0 &&
+          !this.astra.spokenThisVisit
+        ) {
           const firstAstraDelay =
             EVE_IDLE_TUNE.astraFirstMin +
             Math.random() *
@@ -2382,13 +2506,32 @@
         }
       }
       if (this.eve && this.eve.timer > 0) this.eve.timer = Math.max(0, this.eve.timer - dt);
+      this.updateHomeTerminalBoot(dt);
+      this.updateHomeTerminalOpening(dt);
+      this.updateHomeRestoreLink(dt);
 
       if (this.restoreReveal && this.restoreReveal.timer > 0) {
         const before = this.restoreReveal.timer;
+        const total = Math.max(0.001, this.restoreReveal.duration || RESTORE_REVEAL_TUNE.duration);
+        const elapsedBefore = total - before;
         this.restoreReveal.timer = Math.max(0, before - dt);
+        const elapsedAfter = total - this.restoreReveal.timer;
+
+        if (
+          !this.restoreReveal.mapTriggered &&
+          elapsedBefore < RESTORE_REVEAL_TUNE.mapStart &&
+          elapsedAfter >= RESTORE_REVEAL_TUNE.mapStart
+        ) {
+          this.restoreReveal.mapTriggered = true;
+          if (this.minimap) this.minimap.pulseTimer = 1.2;
+        }
+
         if (before > 0 && this.restoreReveal.timer === 0) {
           const reportLevel = Math.floor(Number(this.restoreReveal.reportLevel || 0));
           this.restoreReveal.reportLevel = 0;
+          this.restoreReveal.fromLevel = reportLevel;
+          this.restoreReveal.toLevel = reportLevel;
+          this.restoreReveal.mapTriggered = false;
           if (
             reportLevel >= 2 &&
             this.mode === "landed" &&
@@ -2513,6 +2656,20 @@
       else this.updateHarvest(dt);
 
       if (this.restoreReveal && this.restoreReveal.timer > 0) {
+        this.pressing = false;
+        this.departHold = 0;
+        return;
+      }
+
+      if (
+        this.homeTerminalBoot &&
+        (this.homeTerminalBoot.pending || this.homeTerminalBoot.active)
+      ) {
+        this.pressing = false;
+        this.departHold = 0;
+        return;
+      }
+      if (this.homeRestoreLink && this.homeRestoreLink.active) {
         this.pressing = false;
         this.departHold = 0;
         return;
@@ -2751,12 +2908,13 @@
       const baseLines = EVE_IDLE_LINES[level] || EVE_IDLE_LINES[1] || [];
       if (!includeAstra) return baseLines;
 
-      // ASTRA adds a few place-specific thoughts to the normal pool instead of
-      // replacing it. Lingering there should reveal another side of E.V.E.,
-      // not make her repeat two special lines in a loop.
-      const astraLines =
-        (EVE_ASTRA_IDLE_LINES && (EVE_ASTRA_IDLE_LINES[level] || EVE_ASTRA_IDLE_LINES[1])) || [];
-      return [...baseLines, ...astraLines];
+      // ASTRA has its own tiny vocabulary. Do not mix ordinary cruising chatter
+      // into the quiet-world pool: lingering here should create space, not a
+      // denser version of normal conversation.
+      return (
+        (EVE_ASTRA_IDLE_LINES && (EVE_ASTRA_IDLE_LINES[level] || EVE_ASTRA_IDLE_LINES[1])) ||
+        []
+      );
     }
 
     pickEveIdleLine(includeAstra = false) {
@@ -2799,27 +2957,34 @@
           this.echoStory.analysisResultTimer > 0
         )
       ) return;
-      // Chatter belongs both to travel and to quiet landings. ASTRA used to
-      // suppress idle speech entirely; now it deliberately brings E.V.E. a
-      // little closer while the player chooses to linger there.
+      // Casual speech belongs to travel and ordinary resource landings. ASTRA
+      // is different: from touchdown onward it reserves a quiet beat, then may
+      // offer one place-specific thought in RESTORE 1-4. RESTORE 5 says nothing.
       const eligible =
         this.mode === "flight" ||
         (this.mode === "landed" && this.landPlanet && this.landPlanet.kind !== "base");
       if (!eligible || this.eve.timer > 0) return;
 
-      const onAstra =
+      const onAstraLanding =
         this.mode === "landed" &&
         this.landPlanet &&
         this.landPlanet.kind === "neutral" &&
-        this.astra &&
-        this.astra.active;
+        this.astra;
+      const onAstra = onAstraLanding && this.astra.active;
 
+      // Do not let ordinary cruising chatter leak into the short camera-opening
+      // beat immediately after touching down on ASTRA.
+      if (onAstraLanding && !onAstra) return;
       if (onAstra && this.isUndiscoveredIncidentAstra(this.landPlanet)) return;
 
+      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      // By RESTORE 5, ASTRA is a genuinely shared silence. Earlier phases may
+      // offer one place-specific thought, but never more than one per landing.
+      if (onAstra && (level >= 5 || this.astra.spokenThisVisit)) return;
+
       // One early fragment gives a first-time player two anchors without
-      // explaining the loop. If another event is speaking, the countdown simply
-      // waits for a quiet flight moment.
-      if (this.eve.firstFlightHintPending) {
+      // explaining the loop. It belongs to open flight, never to an ASTRA pause.
+      if (this.eve.firstFlightHintPending && this.mode === "flight") {
         this.eve.firstFlightHintTimer = Math.max(
           0,
           Number(this.eve.firstFlightHintTimer || 0) - dt
@@ -2827,9 +2992,10 @@
         if (this.eve.firstFlightHintTimer <= 0) {
           this.eve.firstFlightHintPending = false;
           this.sayEve(tx("eve.firstFlightHint"), 3.6);
+          const minDelay = level >= 5 ? EVE_IDLE_TUNE.level5Min : EVE_IDLE_TUNE.normalMin;
+          const maxDelay = level >= 5 ? EVE_IDLE_TUNE.level5Max : EVE_IDLE_TUNE.normalMax;
           this.eve.idleTimer =
-            EVE_IDLE_TUNE.normalMin +
-            Math.random() * (EVE_IDLE_TUNE.normalMax - EVE_IDLE_TUNE.normalMin);
+            minDelay + Math.random() * (maxDelay - minDelay);
           return;
         }
       }
@@ -2838,10 +3004,17 @@
       if (this.eve.idleTimer > 0) return;
 
       const line = this.pickEveIdleLine(onAstra);
-      if (line) this.sayEve(line, 4.0);
+      if (line) {
+        this.sayEve(line, 4.0);
+        if (onAstra && this.astra) this.astra.spokenThisVisit = true;
+      }
 
-      const minDelay = onAstra ? EVE_IDLE_TUNE.astraMin : EVE_IDLE_TUNE.normalMin;
-      const maxDelay = onAstra ? EVE_IDLE_TUNE.astraMax : EVE_IDLE_TUNE.normalMax;
+      // After ASTRA has spoken once, return to the ordinary cruising cadence so
+      // leaving the planet does not immediately trigger another line.
+      const minDelay =
+        level >= 5 ? EVE_IDLE_TUNE.level5Min : EVE_IDLE_TUNE.normalMin;
+      const maxDelay =
+        level >= 5 ? EVE_IDLE_TUNE.level5Max : EVE_IDLE_TUNE.normalMax;
       this.eve.idleTimer = minDelay + Math.random() * (maxDelay - minDelay);
     }
 
@@ -2922,10 +3095,14 @@
     }
 
     echoReaction(index) {
+      // Let recovered memories speak for themselves. E.V.E. reacts only to
+      // the first recognition and the final completion; everything between
+      // belongs to the memory and the player's own interpretation.
+      if (![1, 12].includes(index)) return "";
       const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
       const band = this.echoBand(index);
       const rows = ECHO_REACTIONS[level] || ECHO_REACTIONS[1];
-      return rows[band] || rows[0];
+      return rows[band] || rows[0] || "";
     }
 
     echoReturnLine() {
@@ -2945,6 +3122,11 @@
       return ECHO_ANALYSIS_LINES[level] || ECHO_ANALYSIS_LINES[1];
     }
 
+    echoAnalysisDuration() {
+      const level = clamp(Math.floor(Number(this.base && this.base.level || 1)), 1, 5);
+      return ECHO_TUNE.analysisSecByLevel[level] || ECHO_TUNE.analysisSec;
+    }
+
     startEchoAnalysis(index, planet) {
       this.echoStory.pendingIndex = 0;
       this.echoStory.pendingTimer = 0;
@@ -2952,7 +3134,8 @@
       this.echoStory.index = Math.max(0, Math.floor(Number(index || 0)));
       this.echoStory.analysisPlanet = planet || null;
       this.echoStory.analyzing = true;
-      this.echoStory.analysisTimer = ECHO_TUNE.analysisSec;
+      this.echoStory.analysisDuration = this.echoAnalysisDuration();
+      this.echoStory.analysisTimer = this.echoStory.analysisDuration;
       this.echoStory.analysisResult = null;
       this.echoStory.analysisResultTimer = 0;
       this.echoStory.analysisResultIndex = 0;
@@ -2970,6 +3153,7 @@
       this.echoStory.pendingPlanet = null;
       this.echoStory.analyzing = false;
       this.echoStory.analysisTimer = 0;
+      this.echoStory.analysisDuration = ECHO_TUNE.analysisSec;
       this.echoStory.analysisPlanet = null;
       this.echoStory.analysisResult = null;
       this.echoStory.analysisResultTimer = 0;
@@ -3050,6 +3234,7 @@
       this.echoStory.pendingTimer = ECHO_TUNE.memoryRevealDelaySec;
       this.echoStory.analyzing = false;
       this.echoStory.analysisTimer = 0;
+      this.echoStory.analysisDuration = ECHO_TUNE.analysisSec;
       return true;
     }
 
@@ -3133,7 +3318,7 @@
         playOrbitCue("rebirth");
         this.finale.stage = "outro";
         this.finale.timer = 0;
-        this.finale.speechStage = 7;
+        this.finale.speechStage = 4;
         this.eve.timer = 0;
         this.base.repairPulse = Math.max(this.base.repairPulse || 0, 2.2);
         if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
@@ -3237,7 +3422,8 @@
           this.echoes.read.add(index);
           this.echoStory.replayIndex = 0;
           this.saveKnowledge("echo-read", false);
-          this.sayEve(this.echoReaction(index), index === 12 ? 3.8 : 3.2);
+          const reaction = this.echoReaction(index);
+          if (reaction) this.sayEve(reaction, index === 12 ? 3.8 : 3.0);
           if (this.shouldStartFinale()) this.finale.resumePending = true;
         }
       }
@@ -3287,6 +3473,7 @@
           this.echoStory.active = false;
           this.echoStory.analyzing = false;
           this.echoStory.analysisTimer = 0;
+          this.echoStory.analysisDuration = ECHO_TUNE.analysisSec;
           this.echoStory.analysisPlanet = null;
           this.echoStory.analysisResult = null;
           this.echoStory.analysisResultTimer = 0;
@@ -3296,39 +3483,26 @@
           this.echoStory.pendingPlanet = null;
         }
 
-        // Act I — recognition. HOME gets one full second before E.V.E. speaks.
+        // HOME gets one quiet second. Then E.V.E. states only the facts the
+        // player cannot know from play alone; interpretation is left untouched.
         if (this.finale.speechStage < 1 && this.finale.timer >= 1.0) {
-          this.sayEve(tx("finale.connected"), 3.0);
+          this.sayEve(tx("finale.accident1"), 4.0);
           this.finale.speechStage = 1;
         }
 
-        // Act II — what was entrusted. Each line gets silence after it instead
-        // of handing meaning directly to the next line.
-        if (this.finale.speechStage < 3 && this.finale.timer >= 10.2) {
-          this.sayEve(tx("finale.accident1"), 3.6);
+        if (this.finale.speechStage < 2 && this.finale.timer >= 5.3) {
+          this.sayEve(tx("finale.accident2"), 4.5);
+          this.finale.speechStage = 2;
+        }
+
+        if (this.finale.speechStage < 3 && this.finale.timer >= 10.1) {
+          this.sayEve(tx("finale.accident3"), 4.5);
           this.finale.speechStage = 3;
         }
 
-        if (this.finale.speechStage < 4 && this.finale.timer >= 14.8) {
-          this.sayEve(tx("finale.accident2"), 4.2);
+        if (this.finale.speechStage < 4 && this.finale.timer >= 14.9) {
+          this.sayEve(tx("finale.returnLead"), 2.4);
           this.finale.speechStage = 4;
-        }
-
-        if (this.finale.speechStage < 5 && this.finale.timer >= 20.0) {
-          this.sayEve(tx("finale.accident3"), 3.7);
-          this.finale.speechStage = 5;
-        }
-
-        // Act III — return. First promise the return, then reveal what is being
-        // returned. The BASE pulse belongs to the second line, not the setup.
-        if (this.finale.speechStage < 6 && this.finale.timer >= 25.0) {
-          this.sayEve(tx("finale.returnLead"), 1.6);
-          this.finale.speechStage = 6;
-        }
-
-        if (this.finale.speechStage < 7 && this.finale.timer >= 26.6) {
-          this.sayEve(tx("finale.returnMemory"), 2.6);
-          this.finale.speechStage = 7;
           if (!this.finale.pulseFired) {
             this.finale.pulseFired = true;
             this.base.repairPulse = Math.max(this.base.repairPulse || 0, 2.2);
@@ -3336,17 +3510,17 @@
           }
         }
 
-        // Nothing speaks for the last 1.5 seconds. The player enters REBIRTH
-        // from HOME itself, not from a sentence that has barely finished.
-        if (this.finale.timer >= 30.7) this.startRebirthRitual();
+        // One short beat after the final factual line, then the player performs
+        // REBIRTH instead of hearing another explanation.
+        if (this.finale.timer >= 18.0) this.startRebirthRitual();
         return;
       }
 
       if (this.finale.stage === "outro") {
         // REBIRTH returns to HOME before language returns.
-        if (this.finale.speechStage < 8 && this.finale.timer >= 0.8) {
+        if (this.finale.speechStage < 5 && this.finale.timer >= 0.8) {
           this.sayEve(tx("finale.outro"), 3.2);
-          this.finale.speechStage = 8;
+          this.finale.speechStage = 5;
         }
 
         if (this.finale.timer >= 5.8) {
@@ -3608,29 +3782,170 @@
           return;
         }
 
-        this.openHomeTerminal();
         if (this.shouldStartFinale()) {
           this.echoes.carriedThisTrip = 0;
-          // Touching HOME commits the expedition before the non-interactive
-          // finale starts. Reloading during the sequence will replay it safely.
+          // The final return owns its own quiet HOME choreography. Do not place
+          // the ordinary terminal boot between landing and the finale.
           this.saveGame("base-return-final");
           this.startFinale(0.7);
-        } else if (this.echoes && this.echoes.carriedThisTrip > 0) {
-          // Returning with an Echo still matters, but the memory itself has
-          // already spoken. Home only acknowledges that something came back.
-          this.sayEve(this.formatEchoLine(this.echoReturnLine()), 3.5);
-          this.echoes.carriedThisTrip = 0;
         } else {
-          const lines = this.evePhaseLines();
-          if (away > RETURN_TUNE.baseReturnLongSec) this.sayEve(lines.long, 3.0);
-          else if (away > RETURN_TUNE.baseReturnNormalSec) this.sayEve(lines.normal, 3.0);
-          else this.sayEve(lines.short, 2.4);
+          if (this.echoes && this.echoes.carriedThisTrip > 0) {
+            // Returning with an Echo still matters, but the memory itself has
+            // already spoken. Home only acknowledges that something came back.
+            this.sayEve(this.formatEchoLine(this.echoReturnLine()), 3.5);
+            this.echoes.carriedThisTrip = 0;
+          } else {
+            const lines = this.evePhaseLines();
+            if (away > RETURN_TUNE.baseReturnLongSec) this.sayEve(lines.long, 3.0);
+            else if (away > RETURN_TUNE.baseReturnNormalSec) this.sayEve(lines.normal, 3.0);
+            else this.sayEve(lines.short, 2.4);
+          }
+          // E.V.E. gets the return beat first. BASE waits for her voice to clear,
+          // breathes for a fraction of a second, then wakes the terminal.
+          this.scheduleHomeTerminalBoot();
+          this.saveGame("base-return");
         }
-        // Home is the checkpoint. The finale path already committed above.
-        if (!this.finale.active) this.saveGame("base-return");
       }
     }
 
+
+    scheduleHomeTerminalBoot() {
+      if (!this.landPlanet || this.landPlanet.kind !== "base") return false;
+      if (!this.homeTerminalBoot) return this.openHomeTerminal();
+      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      this.closeHomeTerminal();
+      this.homeTerminalBoot.pending = true;
+      this.homeTerminalBoot.active = false;
+      this.homeTerminalBoot.leadTimer = HOME_TERMINAL_BOOT_TUNE.leadAfterEveSec;
+      this.homeTerminalBoot.timer = 0;
+      this.homeTerminalBoot.duration =
+        HOME_TERMINAL_BOOT_TUNE.durationByLevel[level] ||
+        HOME_TERMINAL_BOOT_TUNE.durationByLevel[1];
+      this.homeTerminalBoot.level = level;
+      this.pressing = false;
+      this.departHold = 0;
+      return true;
+    }
+
+    cancelHomeTerminalBoot() {
+      if (!this.homeTerminalBoot) return;
+      this.homeTerminalBoot.pending = false;
+      this.homeTerminalBoot.active = false;
+      this.homeTerminalBoot.leadTimer = 0;
+      this.homeTerminalBoot.timer = 0;
+    }
+
+    updateHomeTerminalBoot(dt) {
+      const boot = this.homeTerminalBoot;
+      if (!boot || (!boot.pending && !boot.active)) return;
+      if (
+        this.mode !== "landed" ||
+        !this.landPlanet ||
+        this.landPlanet.kind !== "base" ||
+        (this.finale && this.finale.active) ||
+        (this.incident && this.incident.trueEndingActive)
+      ) {
+        this.cancelHomeTerminalBoot();
+        return;
+      }
+
+      this.pressing = false;
+      this.departHold = 0;
+
+      if (boot.pending) {
+        // The return line owns the foreground first. Only once E.V.E. has gone
+        // quiet do we leave a tiny breath before BASE itself wakes.
+        if (this.eve && this.eve.timer > 0) return;
+        boot.leadTimer = Math.max(0, boot.leadTimer - dt);
+        if (boot.leadTimer > 0) return;
+
+        boot.pending = false;
+        boot.active = true;
+        boot.timer = 0;
+        if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
+        playHomeTerminalBootCue(boot.level, boot.duration);
+        return;
+      }
+
+      boot.timer = Math.min(boot.duration, boot.timer + dt);
+      if (boot.timer < boot.duration) return;
+
+      boot.active = false;
+      boot.timer = boot.duration;
+      this.openHomeTerminal();
+    }
+
+    homeTerminalBootText() {
+      const boot = this.homeTerminalBoot;
+      if (!boot || !boot.active) return "";
+      const lv = clamp(Math.floor(Number(boot.level || 1)), 1, 5);
+      const q = clamp(boot.timer / Math.max(0.001, boot.duration), 0, 1);
+
+      if (lv === 1) {
+        if (q < 0.30) return tx("home.boot.systemLinkSlow");
+        if (q < 0.48) return tx("home.boot.retry");
+        if (q < 0.76) return tx("home.boot.systemConnectedSlow");
+        return tx("home.boot.terminalOnlineSlow");
+      }
+      if (lv === 2) {
+        return q < 0.52
+          ? tx("home.boot.systemConnectedSlow")
+          : tx("home.boot.terminalOnlineSlow");
+      }
+      if (lv === 3) {
+        return q < 0.50
+          ? tx("home.boot.systemConnected")
+          : tx("home.boot.terminalOnline");
+      }
+      if (lv === 4) {
+        return q < 0.48
+          ? tx("home.boot.systemConnectedFast")
+          : tx("home.boot.online");
+      }
+      return tx("home.boot.linkEstablished");
+    }
+
+    drawHomeTerminalBoot() {
+      const boot = this.homeTerminalBoot;
+      if (!boot || !boot.active) return;
+      if (!this.landPlanet || this.landPlanet.kind !== "base") return;
+
+      const q = clamp(boot.timer / Math.max(0.001, boot.duration), 0, 1);
+      const fadeIn = clamp(q / 0.14, 0, 1);
+      const fadeOut = clamp((1 - q) / 0.16, 0, 1);
+      const alpha = Math.min(fadeIn, fadeOut);
+      const flicker = 0.88 + 0.12 * Math.sin(this.simTime * (boot.level <= 2 ? 38 : 24));
+      const w = 250;
+      const h = 38;
+      const x = (W - w) / 2;
+      const y = H / 2 + 82;
+
+      noStroke();
+      fill(4, 8, 14, 164 * alpha);
+      rect(x, y, w, h);
+      noFill();
+      stroke(116, 188, 224, 92 * alpha * flicker);
+      strokeWidth(0.8);
+      rect(x, y, w, h);
+
+      font("monospace");
+      textAlign(LEFT);
+      noStroke();
+      fill(132, 184, 215, 138 * alpha);
+      fontSize(7.6);
+      text(tx("home.boot.baseTerminal"), x + 10, y + h - 11);
+
+      fill(222, 239, 248, 235 * alpha * flicker);
+      fontSize(9.2);
+      text(this.homeTerminalBootText(), x + 10, y + 11);
+
+      // A tiny acquisition trace makes this read as BASE hardware waking rather
+      // than a detached notification card.
+      const traceW = (w - 20) * clamp(q * 1.15, 0, 1);
+      stroke(128, 205, 240, 118 * alpha);
+      strokeWidth(1);
+      line(x + 10, y + 4, x + 10 + traceW, y + 4);
+    }
 
     openHomeTerminal() {
       if (!this.landPlanet || this.landPlanet.kind !== "base") return false;
@@ -3641,13 +3956,23 @@
           mode: "browse",
           pressed: null,
           status: "OFFLINE",
+          opening: false,
+          openingTimer: 0,
+          openingDuration: HOME_TERMINAL_OPEN_TUNE.duration,
           restoreReportLevel: 0,
         };
+      }
+      if (this.homeTerminalBoot) {
+        this.homeTerminalBoot.pending = false;
+        this.homeTerminalBoot.active = false;
       }
       this.homeTerminal.visible = true;
       this.homeTerminal.mode = "browse";
       this.homeTerminal.pressed = null;
       this.homeTerminal.status = "CONNECTED";
+      this.homeTerminal.opening = !wasVisible;
+      this.homeTerminal.openingTimer = 0;
+      this.homeTerminal.openingDuration = HOME_TERMINAL_OPEN_TUNE.duration;
       this.homeTerminal.restoreReportLevel = 0;
       this.pressing = false;
       this.departHold = 0;
@@ -3658,13 +3983,78 @@
 
     closeHomeTerminal() {
       if (!this.homeTerminal) return;
+      this.cancelHomeRestoreLink();
       this.homeTerminal.visible = false;
       this.homeTerminal.mode = "browse";
       this.homeTerminal.pressed = null;
       this.homeTerminal.status = "DISCONNECTED";
+      this.homeTerminal.opening = false;
+      this.homeTerminal.openingTimer = 0;
       this.homeTerminal.restoreReportLevel = 0;
       this.pressing = false;
       this.departHold = 0;
+    }
+
+    updateHomeTerminalOpening(dt) {
+      const term = this.homeTerminal;
+      if (!term || !term.visible || !term.opening) return;
+      term.openingTimer = Math.min(
+        term.openingDuration,
+        term.openingTimer + Math.max(0, Number(dt || 0))
+      );
+      if (term.openingTimer >= term.openingDuration) {
+        term.opening = false;
+        term.openingTimer = term.openingDuration;
+      }
+    }
+
+    drawHomeTerminalOpening(L) {
+      const term = this.homeTerminal;
+      if (!term || !term.opening) return false;
+
+      const q = clamp(
+        term.openingTimer / Math.max(0.001, term.openingDuration || HOME_TERMINAL_OPEN_TUNE.duration),
+        0,
+        1
+      );
+      const stage = Math.min(3, Math.floor(q * 4));
+      const presets = [
+        { w: 0.38, h: 0.035 },
+        { w: 0.48, h: 0.22 },
+        { w: 0.76, h: 0.58 },
+        { w: 1.00, h: 1.00 },
+      ];
+      const P = presets[stage];
+      const w = Math.max(34, L.w * P.w);
+      const h = Math.max(7, L.h * P.h);
+      const x = L.x + (L.w - w) / 2;
+      const y = L.y + (L.h - h) / 2;
+
+      if (stage === 0) {
+        noStroke();
+        fill(0, 0, 128, 255);
+        rect(x, y, w, h);
+        stroke(232, 232, 232, 210);
+        strokeWidth(1);
+        line(x, y + h, x + w, y + h);
+        return true;
+      }
+
+      this.drawWinBevel(x, y, w, h, false);
+      const titleH = Math.min(L.titleH, Math.max(8, h * 0.18));
+      noStroke();
+      fill(0, 0, 128, 255);
+      rect(x + 3, y + h - titleH - 2, Math.max(1, w - 6), titleH);
+
+      // Text appears only once the window has nearly reached its final frame.
+      if (stage >= 2) {
+        fill(255, 255, 255, 235);
+        font("monospace");
+        fontSize(stage === 2 ? 8.0 : 10.0);
+        textAlign(LEFT);
+        text(tx("home.terminalTitle"), x + 8, y + h - Math.max(8, titleH * 0.58));
+      }
+      return true;
     }
 
     homeTerminalLayout() {
@@ -3725,8 +4115,131 @@
       return null;
     }
 
+    startHomeRestoreLink() {
+      if (!this.homeRestoreLink || this.homeRestoreLink.active) return false;
+      if (!this.homeTerminal || !this.homeTerminal.visible) return false;
+      if (!this.canBaseRepair()) return false;
+
+      const bridge = window.OrbitRitual;
+      const ritual = RESTORE_RITUAL_BY_LEVEL[this.base.level];
+      if (!ritual || !bridge || typeof bridge.start !== "function") return false;
+      if (bridge.active || this.restoreRitualActive) return false;
+
+      this.homeRestoreLink.active = true;
+      this.homeRestoreLink.timer = 0;
+      this.homeRestoreLink.duration = HOME_RESTORE_LINK_TUNE.duration;
+      this.homeTerminal.mode = "browse";
+      this.homeTerminal.pressed = null;
+      this.pressing = false;
+      this.departHold = 0;
+      this.repairTapArmed = false;
+      if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
+      playRestoreLinkCue();
+      return true;
+    }
+
+    cancelHomeRestoreLink() {
+      if (!this.homeRestoreLink) return;
+      this.homeRestoreLink.active = false;
+      this.homeRestoreLink.timer = 0;
+    }
+
+    updateHomeRestoreLink(dt) {
+      const link = this.homeRestoreLink;
+      if (!link || !link.active) return;
+      if (
+        this.mode !== "landed" ||
+        !this.landPlanet ||
+        this.landPlanet.kind !== "base" ||
+        !this.homeTerminal ||
+        !this.homeTerminal.visible ||
+        (this.finale && this.finale.active)
+      ) {
+        this.cancelHomeRestoreLink();
+        return;
+      }
+
+      this.pressing = false;
+      this.departHold = 0;
+      link.timer = Math.min(link.duration, link.timer + dt);
+      if (link.timer < link.duration) return;
+
+      link.active = false;
+      link.timer = link.duration;
+      // Re-check all resources and bridge state at the actual handoff. Nothing
+      // is spent during the connection animation itself.
+      if (!this.tryBaseRepair()) {
+        link.timer = 0;
+      }
+    }
+
+    drawHomeRestoreLink() {
+      const link = this.homeRestoreLink;
+      if (!link || !link.active) return;
+      if (!this.homeTerminal || !this.homeTerminal.visible) return;
+
+      const L = this.homeTerminalLayout();
+      const q = clamp(link.timer / Math.max(0.001, link.duration), 0, 1);
+      const connected = q >= HOME_RESTORE_LINK_TUNE.connectAt;
+      const pulse = 0.86 + 0.14 * Math.sin(this.simTime * 34);
+
+      // Keep the old terminal visible underneath. The machine does not change
+      // screens; it is briefly taken over by the RESTORE connection itself.
+      noStroke();
+      fill(8, 10, 14, 118);
+      rect(L.x + 3, L.y + 3, L.w - 6, L.h - 6);
+
+      const boxW = Math.min(238, L.w - 46);
+      const boxH = 70;
+      const x = L.x + (L.w - boxW) / 2;
+      const y = L.y + (L.h - boxH) / 2 - 3;
+      fill(18, 20, 24, 236);
+      rect(x, y, boxW, boxH);
+      noFill();
+      stroke(126, 184, 212, 118 * pulse);
+      strokeWidth(0.8);
+      rect(x, y, boxW, boxH);
+
+      font("monospace");
+      textAlign(LEFT);
+      noStroke();
+      fill(162, 192, 212, 180);
+      fontSize(7.5);
+      text(tx("home.restoreLink.channel"), x + 11, y + boxH - 14);
+
+      fill(235, 244, 250, 245 * pulse);
+      fontSize(10.4);
+      text(
+        connected ? tx("home.restoreLink.connected") : tx("home.restoreLink.connecting"),
+        x + 11,
+        y + 35
+      );
+
+      const traceX = x + 11;
+      const traceY = y + 14;
+      const traceW = boxW - 22;
+      stroke(90, 132, 156, 90);
+      line(traceX, traceY, traceX + traceW, traceY);
+      stroke(150, 220, 246, connected ? 210 : 145);
+      strokeWidth(1.2);
+      line(traceX, traceY, traceX + traceW * clamp(q / 0.86, 0, 1), traceY);
+
+      // A final tiny lock point appears before the ritual takes the screen.
+      if (connected) {
+        noStroke();
+        fill(214, 241, 250, 220 * pulse);
+        ellipse(traceX + traceW, traceY, 3.5, 3.5);
+      }
+    }
+
     handleHomeTerminalTouch(touch) {
       if (!this.homeTerminal || !this.homeTerminal.visible) return false;
+      if (this.homeTerminal.opening) {
+        this.homeTerminal.pressed = null;
+        this.pressing = false;
+        this.departHold = 0;
+        return true;
+      }
 
       // While connected to HOME, flight/takeoff input is completely isolated.
       this.pressing = false;
@@ -3764,7 +4277,7 @@
 
         if (pressed === "yes") {
           this.homeTerminal.mode = "browse";
-          this.tryBaseRepair();
+          this.startHomeRestoreLink();
           return true;
         }
         return true;
@@ -3811,36 +4324,34 @@
       const lv = clamp(Math.floor(Number(level || 0)), 2, 5);
       const prev = PROGRESSION_TUNE.levels[lv - 1] || PROGRESSION_TUNE.levels[1];
       const curr = PROGRESSION_TUNE.levels[lv] || PROGRESSION_TUNE.levels[1];
-      const prevRange = MINIMAP_RESTORE_TUNE.rangeMul[lv - 1] || 1;
-      const currRange = MINIMAP_RESTORE_TUNE.rangeMul[lv] || 1;
-      const prevStep = MINIMAP_RESTORE_TUNE.directionStepDeg[lv - 1];
-      const currStep = MINIMAP_RESTORE_TUNE.directionStepDeg[lv];
-      const deg = (value) => value > 0
-        ? tx("home.restoreReport.degrees", { value })
-        : tx("home.restoreReport.precise");
 
-      const rows = [
-        tx("home.restoreReport.complete"),
-        tx("home.restoreReport.baseCore", { level: lv }),
-        tx("home.restoreReport.shipFrame", {
-          status: lv >= 5 ? tx("home.restoreReport.fullyRestored") : tx("home.restoreReport.updated")
-        }),
-        tx("home.restoreReport.eveLanguage", {
-          status: lv >= 5 ? tx("home.restoreReport.completeStatus") : tx("home.restoreReport.updated")
-        }),
-        tx("home.restoreReport.fuelCapacity", { prev: prev.fuelMax, curr: curr.fuelMax }),
-      ];
-
-      if (curr.oreMax !== prev.oreMax) {
-        rows.push(tx("home.restoreReport.oreCapacity", { prev: prev.oreMax, curr: curr.oreMax }));
+      // By now the player has already watched BASE -> SHIP -> NAVIGATION change.
+      // Early RESTOREs still confirm the essentials; later ones trust that
+      // experience and increasingly get out of the way.
+      if (lv === 2) {
+        return [
+          tx("home.restoreReport.complete"),
+          tx("home.restoreReport.baseSystemUpdated"),
+          tx("home.restoreReport.fuelCapacity", { prev: prev.fuelMax, curr: curr.fuelMax }),
+          tx("home.restoreReport.navigationUpdated"),
+        ];
       }
-
-      rows.push(
-        tx("home.restoreReport.navRange", { prev: prevRange.toFixed(2), curr: currRange.toFixed(2) }),
-        tx("home.restoreReport.homeFix", { prev: deg(prevStep), curr: deg(currStep) }),
-        tx("home.restoreReport.accessBand", { level: lv })
-      );
-      return rows;
+      if (lv === 3) {
+        return [
+          tx("home.restoreReport.complete"),
+          tx("home.restoreReport.systemsUpdated"),
+          tx("home.restoreReport.navigationUpdated"),
+        ];
+      }
+      if (lv === 4) {
+        return [
+          tx("home.restoreReport.complete"),
+          tx("home.restoreReport.systemStable"),
+        ];
+      }
+      return [
+        tx("home.restoreReport.systemStable"),
+      ];
     }
 
     drawRestoreReport(sx, sy, sw, sh, level) {
@@ -3873,6 +4384,7 @@
       if (this.finale && this.finale.active) return;
 
       const L = this.homeTerminalLayout();
+      if (this.drawHomeTerminalOpening(L)) return;
 
       // Source-inspired desktop window: flat grey body, dark-blue title bar,
       // hard 3D bevels. No blur, no rounded Web cards.
@@ -4028,6 +4540,8 @@
         this.drawHomeTerminalButton(D.yes, tx("home.yes"), true, this.homeTerminal.pressed === "yes");
         this.drawHomeTerminalButton(D.no, tx("home.no"), true, this.homeTerminal.pressed === "no");
       }
+
+      this.drawHomeRestoreLink();
     }
 
     nextBaseRepairCost() {
@@ -4078,6 +4592,112 @@
       return !!started;
     }
 
+    restoreRevealElapsed() {
+      if (!this.restoreReveal || this.restoreReveal.timer <= 0) return -1;
+      const total = Math.max(0.001, this.restoreReveal.duration || RESTORE_REVEAL_TUNE.duration);
+      return clamp(total - this.restoreReveal.timer, 0, total);
+    }
+
+    restoreRevealVisualLevel(kind) {
+      const elapsed = this.restoreRevealElapsed();
+      const current = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      if (elapsed < 0 || !this.restoreReveal) return current;
+      const from = clamp(Math.floor(Number(this.restoreReveal.fromLevel || current)), 1, 5);
+      const to = clamp(Math.floor(Number(this.restoreReveal.toLevel || current)), 1, 5);
+      const switchAt = kind === "ship"
+        ? RESTORE_REVEAL_TUNE.shipSwitch
+        : RESTORE_REVEAL_TUNE.stationSwitch;
+      return elapsed < switchAt ? from : to;
+    }
+
+    drawRestorePropagation() {
+      const elapsed = this.restoreRevealElapsed();
+      if (elapsed < 0 || !this.basePlanet || !this.ship) return;
+
+      const toLevel = clamp(
+        Math.floor(Number(this.restoreReveal && this.restoreReveal.toLevel || this.base.level || 1)),
+        1, 5
+      );
+      const P = STATION_PRESETS[toLevel] || STATION_PRESETS[1];
+      const station = this.homeStationCenter(this.basePlanet);
+      const ship = this.ship.pos;
+      const sc = STATION_SCALE;
+
+      // 1) BASE core wakes first, then the new outer structure catches the pulse.
+      if (
+        elapsed >= RESTORE_REVEAL_TUNE.stationPulseStart &&
+        elapsed <= RESTORE_REVEAL_TUNE.stationPulseEnd
+      ) {
+        const q = clamp(
+          (elapsed - RESTORE_REVEAL_TUNE.stationPulseStart) /
+          Math.max(0.001, RESTORE_REVEAL_TUNE.stationPulseEnd - RESTORE_REVEAL_TUNE.stationPulseStart),
+          0, 1
+        );
+        const e = 1 - Math.pow(1 - q, 2);
+        const r0 = Math.max(9, P.HubR * sc * 0.42);
+        const r1 = P.RingR1 * sc * 1.18;
+        const rr = r0 + (r1 - r0) * e;
+
+        noFill();
+        stroke(205, 238, 250, 205 * (1 - q));
+        strokeWidth(2.0);
+        ellipse(station.x, station.y, rr * 2, rr * 2);
+
+        if (q > 0.34) {
+          const q2 = clamp((q - 0.34) / 0.66, 0, 1);
+          stroke(125, 205, 240, 120 * (1 - q2));
+          strokeWidth(1.1);
+          ellipse(
+            station.x,
+            station.y,
+            (P.RingR1 * sc * (0.72 + 0.42 * q2)) * 2,
+            (P.RingR1 * sc * (0.72 + 0.42 * q2)) * 2
+          );
+        }
+      }
+
+      // 2) A single connection leaves BASE and reaches the docked ship.
+      if (elapsed >= RESTORE_REVEAL_TUNE.linkStart && elapsed <= RESTORE_REVEAL_TUNE.linkEnd) {
+        const q = clamp(
+          (elapsed - RESTORE_REVEAL_TUNE.linkStart) /
+          Math.max(0.001, RESTORE_REVEAL_TUNE.linkEnd - RESTORE_REVEAL_TUNE.linkStart),
+          0, 1
+        );
+        const ex = station.x + (ship.x - station.x) * q;
+        const ey = station.y + (ship.y - station.y) * q;
+        stroke(145, 215, 245, 165 * (1 - q * 0.35));
+        strokeWidth(1.15);
+        line(station.x, station.y, ex, ey);
+        noStroke();
+        fill(224, 246, 255, 215);
+        ellipse(ex, ey, 4.2, 4.2);
+      }
+
+      // 3) The pod accepts the new frame/sensor state after BASE has settled.
+      if (
+        elapsed >= RESTORE_REVEAL_TUNE.shipPulseStart &&
+        elapsed <= RESTORE_REVEAL_TUNE.shipPulseEnd
+      ) {
+        const q = clamp(
+          (elapsed - RESTORE_REVEAL_TUNE.shipPulseStart) /
+          Math.max(0.001, RESTORE_REVEAL_TUNE.shipPulseEnd - RESTORE_REVEAL_TUNE.shipPulseStart),
+          0, 1
+        );
+        const pulse = Math.sin(Math.PI * q);
+        const rr = 16 + 16 * q;
+        noFill();
+        stroke(214, 242, 255, 190 * pulse);
+        strokeWidth(1.4);
+        ellipse(ship.x, ship.y, rr * 2, rr * 2);
+        if (q > 0.28) {
+          const q2 = clamp((q - 0.28) / 0.72, 0, 1);
+          stroke(130, 205, 240, 100 * (1 - q2));
+          strokeWidth(0.9);
+          ellipse(ship.x, ship.y, (10 + 12 * q2) * 2, (10 + 12 * q2) * 2);
+        }
+      }
+    }
+
     completeBaseRepair(cost) {
       if (!cost || !this.landPlanet || this.landPlanet.kind !== "base") return false;
       // Re-check the economy on completion so the ritual can never create
@@ -4086,25 +4706,37 @@
       if (this.resources.ore < cost.ore || this.resources.data < cost.data) return false;
       this.resources.ore -= cost.ore;
       this.resources.data -= cost.data;
-      this.base.level = Math.min(5, this.base.level + 1);
+      const previousLevel = clamp(Math.floor(this.base.level || 1), 1, 5);
+      this.base.level = Math.min(5, previousLevel + 1);
       this.pushSystemLog("restoreLevel", { level: this.base.level });
+      if (this.base.level >= 5 && this.eve) {
+        this.eve.idleTimer =
+          EVE_IDLE_TUNE.level5Min +
+          Math.random() * (EVE_IDLE_TUNE.level5Max - EVE_IDLE_TUNE.level5Min);
+      }
       this.mode = "landed";
       this.pressing = false;
       this.departHold = 0;
       this.repairInputLock = 0;
       this.applyRestoreCaps(this.base.level, true);
 
-      // Let the repaired HOME exist on screen before the terminal explains it.
-      // The existing station/base pulses now have room to be seen.
+      // The repaired state is real immediately, but its visible confirmation is
+      // staged so the player can read what changed: BASE -> SHIP -> NAVIGATION.
       this.closeHomeTerminal();
+      this.restoreReveal.duration = RESTORE_REVEAL_TUNE.duration;
       this.restoreReveal.timer = this.restoreReveal.duration;
       this.restoreReveal.reportLevel = this.base.level;
+      this.restoreReveal.fromLevel = previousLevel;
+      this.restoreReveal.toLevel = this.base.level;
+      this.restoreReveal.mapTriggered = false;
 
-      this.base.repairPulse = REPAIR_TUNE.pulseSec;
+      // Legacy simultaneous pulses are deliberately not fired here. The reveal
+      // timeline owns the completion beat now.
+      this.base.repairPulse = 0;
+      if (this.stationPulse) this.stationPulse.timer = 0;
+      if (this.minimap) this.minimap.pulseTimer = 0;
+      this.feedback = { kind: null, timer: 0 };
       playOrbitCue("restore");
-      if (this.stationPulse) this.stationPulse.timer = this.stationPulse.duration;
-      if (this.minimap) this.minimap.pulseTimer = 1.2;
-      this.feedback = { kind: "repair", timer: 1.1 };
       // The ritual owns the immediate repair response. The *next departure*
       // owns a different beat: E.V.E. experiences the repaired body/sensors
       // once the ship is back in open space.
@@ -4869,6 +5501,7 @@
       this.drawTrail();
       this.drawTakeoffParticles();
       this.drawShip();
+      this.drawRestorePropagation();
       this.drawHarvestSparks();
       popMatrix();
 
@@ -4911,6 +5544,7 @@
             this.drawDataAnalysis();
             this.drawEchoMemory();
             this.drawSystemConsole();
+            this.drawHomeTerminalBoot();
             this.drawHomeTerminal();
             this.drawCredits();
             this.drawFinaleOverlay();
@@ -5134,6 +5768,56 @@
       const x = (W - w) / 2;
       const y = H / 2 - h / 2 + 8;
 
+      // DATA uses the same old-OS language as HOME, but lighter: bar -> small
+      // frame -> complete window. It should feel like opening a file, not
+      // booting an entire terminal.
+      if (showingAnalysis) {
+        const analysisDuration = Math.max(
+          0.001,
+          Number(this.echoStory.analysisDuration || ECHO_TUNE.analysisSec)
+        );
+        const elapsed = analysisDuration - this.echoStory.analysisTimer;
+        const openSec = Math.max(0.001, ECHO_TUNE.analysisWindowOpenSec || 0.22);
+        if (elapsed < openSec) {
+          const q = clamp(elapsed / openSec, 0, 1);
+          const stage = Math.min(2, Math.floor(q * 3));
+          const presets = [
+            { w: 0.46, h: 0.055 },
+            { w: 0.62, h: 0.38 },
+            { w: 1.00, h: 1.00 },
+          ];
+          const P = presets[stage];
+          const ow = Math.max(34, w * P.w);
+          const oh = Math.max(7, h * P.h);
+          const ox = x + (w - ow) / 2;
+          const oy = y + (h - oh) / 2;
+
+          if (stage === 0) {
+            noStroke();
+            fill(0, 0, 128, 255);
+            rect(ox, oy, ow, oh);
+            stroke(232, 232, 232, 205);
+            strokeWidth(1);
+            line(ox, oy + oh, ox + ow, oy + oh);
+            return;
+          }
+
+          this.drawWinBevel(ox, oy, ow, oh, false);
+          const titleH = Math.min(21, Math.max(8, oh * 0.22));
+          noStroke();
+          fill(0, 0, 128, 255);
+          rect(ox + 3, oy + oh - titleH - 2, Math.max(1, ow - 6), titleH);
+          if (stage >= 2) {
+            fill(255, 255, 255, 240);
+            font("monospace");
+            fontSize(9.0);
+            textAlign(LEFT);
+            text(tx("dataAnalysis.title"), ox + 8, oy + oh - Math.max(8, titleH * 0.58));
+          }
+          return;
+        }
+      }
+
       this.drawWinBevel(x, y, w, h, false);
       noStroke();
       fill(0, 0, 128, 255);
@@ -5169,7 +5853,11 @@
         const innerW = barW - 8;
         const innerH = barH - 8;
         const bw = (innerW - gap * (blocks - 1)) / blocks;
-        const progress = clamp(1 - this.echoStory.analysisTimer / Math.max(0.001, ECHO_TUNE.analysisSec), 0, 1);
+        const analysisDuration = Math.max(
+          0.001,
+          Number(this.echoStory.analysisDuration || ECHO_TUNE.analysisSec)
+        );
+        const progress = clamp(1 - this.echoStory.analysisTimer / analysisDuration, 0, 1);
         const lit = Math.floor(progress * blocks + 1e-6);
 
         noStroke();
@@ -5264,11 +5952,8 @@
         text(safeLines[i], W / 2, firstY - i * lineGap);
       }
 
-      // A tiny residual line keeps this feeling like recovered signal, not a
-      // modal story card or collectible inventory.
-      fill(130, 160, 190, a * 0.65);
-      fontSize(8);
-      text(tx("hud.memoryFragment"), W / 2, panelY + 21);
+      // No category/footer label here. The recovered lines are allowed to
+      // stand on their own without telling the player what they mean.
     }
 
     drawIncidentArchive() {
@@ -5426,55 +6111,11 @@
       if (!this.finale || !this.finale.active || this.finale.timer < 0) return;
       if (this.finale.stage === "ritual") return;
 
-      const t = this.finale.timer;
-      const segment = (start, end, fade = 0.45) => {
-        if (t < start || t >= end) return 0;
-        return Math.min(1, (t - start) / fade, (end - t) / fade);
-      };
-
-      // HOME remains visible beneath the story. The final sync belongs to this
-      // place, not to a separate ending screen.
+      // HOME remains visible beneath the story. Spoken lines belong to E.V.E.;
+      // the finale no longer adds a separate typographic answer over them.
       noStroke();
       fill(2, 5, 10, 105);
       rect(0, 0, W, H);
-      font("monospace");
-      textAlign(CENTER);
-
-      // Spoken lines are rendered by drawEveSpeech(). The only cinematic text
-      // left here is the one-time reveal of what E.V.E. stands for.
-      if (this.finale.stage === "outro") return;
-
-      const heldFade = (start, fadeInEnd, fadeOutStart, end) => {
-        if (t < start || t >= end) return 0;
-        if (t < fadeInEnd) return clamp((t - start) / Math.max(0.001, fadeInEnd - start), 0, 1);
-        if (t < fadeOutStart) return 1;
-        return clamp((end - t) / Math.max(0.001, end - fadeOutStart), 0, 1);
-      };
-
-      // Mirror the prologue's PILOT -> ? rhythm: first the name, then its
-      // recovered meaning. Keep one typographic world; importance comes from
-      // scale, brightness and timing rather than a sudden font-family change.
-      font("monospace");
-
-      const nameA = heldFade(5.2, 5.7, 8.9, 10.2);
-      if (nameA > 0) {
-        fontSize(14.0);
-        noStroke();
-        fill(0, 0, 0, 118 * nameA);
-        text(tx("finale.eveName"), W / 2 + 0.9, H / 2 + 103.1);
-        fill(220, 235, 246, 242 * nameA);
-        text(tx("finale.eveName"), W / 2, H / 2 + 104);
-      }
-
-      const expansionA = heldFade(6.1, 6.6, 8.9, 10.2);
-      if (expansionA > 0) {
-        fontSize(15.5);
-        noStroke();
-        fill(0, 0, 0, 126 * expansionA);
-        text(tx("finale.expansion"), W / 2 + 0.9, H / 2 + 75.1);
-        fill(248, 250, 252, 250 * expansionA);
-        text(tx("finale.expansion"), W / 2, H / 2 + 76);
-      }
     }
 
     normalizeSystemLogEntry(entry) {
@@ -6208,7 +6849,7 @@
     }
 
     drawHomeStation(planet, now) {
-      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      const level = this.restoreRevealVisualLevel("station");
       const P = STATION_PRESETS[level];
       if (!P) return;
       const sc = STATION_SCALE;
@@ -6417,7 +7058,7 @@
     drawShip() {
       const x = this.ship.pos.x;
       const y = this.ship.pos.y;
-      const level = clamp(Math.floor((this.base && this.base.level) || 1), 1, 5);
+      const level = this.restoreRevealVisualLevel("ship");
       const Q = SHIP_PRESETS[level] || SHIP_PRESETS[1];
       const s = 0.16;
       const visualScaleRatio = s / 0.20;
@@ -6851,6 +7492,7 @@
     prologueActive: false,
     prologueTimer: 0,
     prologueEveOnlineSoundPlayed: false,
+    prologueStatusBeepCount: 0,
     handoffTimer: 0,
     handoffDuration: 0.90,
     handoffHudFade: 0.55,
@@ -6866,6 +7508,7 @@
       this.prologueActive = startMode === "new";
       this.prologueTimer = 0;
       this.prologueEveOnlineSoundPlayed = false;
+      this.prologueStatusBeepCount = 0;
       this.handoffTimer = 0;
 
       if (this.prologueActive) {
@@ -6903,6 +7546,16 @@
       if (this.prologueActive) {
         this.prologueTimer += Math.min(Math.max(Number(dt || 0), 0), 0.1);
         this.updatePrologueCamera();
+
+        while (
+          this.prologueStatusBeepCount < 4 &&
+          this.prologueTimer >=
+            PROLOGUE_TUNE.statusStart +
+              this.prologueStatusBeepCount * PROLOGUE_TUNE.statusStep
+        ) {
+          playOrbitCue("diagnostic");
+          this.prologueStatusBeepCount += 1;
+        }
 
         if (
           !this.prologueEveOnlineSoundPlayed &&

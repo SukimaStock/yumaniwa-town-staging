@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "id": "orbit",
+  "title": "ORBIT — Silent Reboot",
+  "entry": "index.html",
+  "engine": {
+    "source": "engine/sukimastock-engine.v0.2.0.js",
+    "target": "sukimastock-engine.js",
+    "htmlMarker": "data-sse-engine"
+  },
+  "include": [
+    "index.html",
+    "codea-lite.js",
+    "orbit-text.js",
+    "restore-ritual-inline.js",
+    "sketch.js",
+    "sounds/takeoff.ogg",
+    "sounds/landing.ogg",
+    "sounds/ore.ogg",
+    "sounds/data.ogg",
+    "sounds/fuel.ogg",
+    "sounds/impact.ogg",
+    "sounds/echo.ogg",
+    "sounds/restore.ogg",
+    "text/ja.json",
+    "text/en.json"
+  ],
+  "excludeNotes": [
+    "Development notes, docs, examples, patcher.py, index.demo.html and restore-ritual.html are intentionally not distributed.",
+    "The canonical Engine is copied into the package as sukimastock-engine.js during export."
+  ],
+  "output": "ORBIT-itch.zip"
+}

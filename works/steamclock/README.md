@@ -1,4 +1,6 @@
-# SukimaStock Starter v0.1.1
+# SteamClock / SukimaStock Starter lineage
+
+> Runtime note (2026-09-22): SteamClock now uses the canonical `../../engine/sukimastock-engine.v0.2.0.js`. The notes below are retained because this work also preserves the original Starter lineage.
 
 Koderで新しいSukimaStock作品を始めるための原本フォルダです。
 
@@ -19,7 +21,7 @@ Koderで新しいSukimaStock作品を始めるための原本フォルダです�
 index.html                  新作の起動ページ
 index.demo.html             Engine更新後の動作確認用Demo
 codea-lite.js               Codea風Canvasランタイム
-sukimastock-engine.js       SukimaStock Engine本体
+../../engine/sukimastock-engine.v0.2.0.js   現在の共通SukimaStock Engine
 sketch.js                   新作開始用Blankテンプレート
 examples/
   sketch.starter-demo.js    Engine機能確認用の動くStarter

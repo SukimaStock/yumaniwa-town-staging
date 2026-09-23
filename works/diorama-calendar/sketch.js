@@ -319,73 +319,124 @@
     });
   }
 
-  function themeAssetFiles(themeKey) {
-    const theme = THEMES[themeKey];
-    return theme && theme.assets ? Object.values(theme.assets) : [];
+  function themeAssetId(themeKey, layerKey) {
+    return "theme." + themeKey + "." + layerKey;
   }
 
-  function loadTheme(themeKey) {
+  function themeGroupName(themeKey) {
+    return "theme." + themeKey;
+  }
+
+  function buildAssetConfig() {
+    const items = {
+      matte: "assets/matte.png",
+      frame: "assets/frame.png",
+    };
+    const groups = {
+      common: ["matte", "frame"],
+    };
+
+    for (const [themeKey, theme] of Object.entries(THEMES)) {
+      const members = [];
+      for (const [layerKey, file] of Object.entries(theme.assets || {})) {
+        const id = themeAssetId(themeKey, layerKey);
+        items[id] = file;
+        members.push(id);
+      }
+      groups[themeGroupName(themeKey)] = members;
+    }
+
+    return { items, groups };
+  }
+
+  function bindCommonAssetRefs() {
+    state.images.common.matte = SSE.assets.peek("matte");
+    state.images.common.frame = SSE.assets.peek("frame");
+  }
+
+  function bindThemeAssetRefs(themeKey) {
+    const theme = THEMES[themeKey];
+    if (!theme) return null;
+
+    const set = state.images.themes[themeKey] || {};
+    for (const layerKey of Object.keys(theme.assets || {})) {
+      const image = SSE.assets.peek(themeAssetId(themeKey, layerKey));
+      if (image) set[layerKey] = image;
+    }
+
+    state.images.themes[themeKey] = set;
+    return set;
+  }
+
+  function loadTheme(themeKey, options) {
     const theme = THEMES[themeKey];
     if (!theme) return null;
     if (state.images.themes[themeKey]) return state.images.themes[themeKey];
 
-    const set = {};
-    for (const [key, file] of Object.entries(theme.assets || {})) {
-      set[key] = loadImage(file);
-    }
-    state.images.themes[themeKey] = set;
+    const startedAt = performance.now();
+    SSE.diagnostics.info(
+      "theme-load-start",
+      "Theme load started: " + themeKey,
+      {
+        theme: themeKey,
+        priority: options && options.priority ? options.priority : null,
+      }
+    );
+
+    const task = SSE.assets.preload(themeGroupName(themeKey), options || {});
+    const set = bindThemeAssetRefs(themeKey);
+
+    task.then((result) => {
+      bindThemeAssetRefs(themeKey);
+      SSE.diagnostics.info(
+        "theme-load-ready",
+        "Theme load finished: " + themeKey,
+        {
+          theme: themeKey,
+          durationMs: Math.max(0, performance.now() - startedAt),
+          ready: result && result.ready,
+          error: result && result.error,
+        }
+      );
+    });
+
     return set;
   }
 
   function themeReady(themeKey) {
     const theme = THEMES[themeKey];
-    const set = state.images.themes[themeKey];
-    if (!theme || !set) return false;
-    return Object.keys(theme.assets || {}).every((key) => {
-      const image = set[key];
-      return Boolean(image && image.loaded && !image.error);
-    });
+    if (!theme || !state.images.themes[themeKey]) return false;
+
+    return Object.keys(theme.assets || {}).every(
+      (layerKey) => SSE.assets.status(themeAssetId(themeKey, layerKey)) === "ready"
+    );
   }
 
   function themeFailed(themeKey) {
     const theme = THEMES[themeKey];
-    const set = state.images.themes[themeKey];
-    if (!theme || !set) return false;
-    return Object.keys(theme.assets || {}).some((key) => Boolean(set[key] && set[key].error));
+    if (!theme || !state.images.themes[themeKey]) return false;
+
+    return Object.keys(theme.assets || {}).some(
+      (layerKey) => SSE.assets.status(themeAssetId(themeKey, layerKey)) === "error"
+    );
   }
 
   function releaseTheme(themeKey) {
-    const theme = THEMES[themeKey];
-    if (!theme || !state.images.themes[themeKey]) return;
+    if (!THEMES[themeKey]) return;
 
-    // Codea Lite keeps loaded images in its own Map. Remove themes that are no
-    // longer adjacent so Safari can release their decoded pixel buffers.
-    const codeaState = window.CodeaLite && window.CodeaLite.state;
-    const cache = codeaState && codeaState.imageCache;
-
-    for (const file of themeAssetFiles(themeKey)) {
-      if (!cache || typeof cache.get !== "function") continue;
-      const image = cache.get(String(file));
-      if (image) {
-        const element = image.element;
-        if (element) {
-          element.onload = null;
-          element.onerror = null;
-          try {
-            element.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-          } catch (_) {
-            // Best effort only; deleting the JS references is still useful.
-          }
-        }
-        image.element = null;
-        image.loaded = false;
-        image.width = 0;
-        image.height = 0;
-        if (typeof cache.delete === "function") cache.delete(String(file));
-      }
-    }
-
+    const startedAt = performance.now();
+    const released = SSE.assets.release(themeGroupName(themeKey), { hard: true });
     delete state.images.themes[themeKey];
+
+    SSE.diagnostics.info(
+      "theme-release",
+      "Theme released: " + themeKey,
+      {
+        theme: themeKey,
+        assets: released,
+        durationMs: Math.max(0, performance.now() - startedAt),
+      }
+    );
   }
 
   function themeWindow(year, monthIndex) {
@@ -399,12 +450,15 @@
 
   function syncThemeWindow(year = state.viewYear, monthIndex = state.viewMonth) {
     const keep = themeWindow(year, monthIndex);
+    const currentTheme = themeForMonth(monthIndex);
+    const previousTheme = themeForMonth(new Date(year, monthIndex - 1, 1).getMonth());
+    const nextTheme = themeForMonth(new Date(year, monthIndex + 1, 1).getMonth());
 
-    // Initiate the three required themes in current-first order so first paint
-    // is not competing with the whole year. Neighbours are ready for the fade.
-    loadTheme(themeForMonth(monthIndex));
-    loadTheme(themeForMonth(new Date(year, monthIndex - 1, 1).getMonth()));
-    loadTheme(themeForMonth(new Date(year, monthIndex + 1, 1).getMonth()));
+    // Keep the original current-first order. The visible month receives high
+    // priority; neighbours begin immediately at low priority for the next fade.
+    loadTheme(currentTheme, { priority: "high" });
+    loadTheme(previousTheme, { priority: "low" });
+    loadTheme(nextTheme, { priority: "low" });
 
     for (const themeKey of Object.keys(state.images.themes)) {
       if (!keep.has(themeKey)) releaseTheme(themeKey);
@@ -412,8 +466,9 @@
   }
 
   function loadAssets() {
-    state.images.common.matte = loadImage("assets/matte.png");
-    state.images.common.frame = loadImage("assets/frame.png");
+    const commonTask = SSE.assets.preload("common", { priority: "high" });
+    bindCommonAssetRefs();
+    commonTask.then(bindCommonAssetRefs);
     syncThemeWindow(state.viewYear, state.viewMonth);
   }
 
@@ -428,6 +483,22 @@
     const fromYear = state.viewYear;
     const fromMonth = state.viewMonth;
     const fromTheme = state.theme;
+    const toTheme = themeForMonth(targetMonth);
+
+    SSE.diagnostics.info(
+      "month-change",
+      "Month change: " +
+        (fromMonth + 1) + "/" + fromYear +
+        " → " + (targetMonth + 1) + "/" + targetYear,
+      {
+        fromYear,
+        fromMonth: fromMonth + 1,
+        fromTheme,
+        toYear: targetYear,
+        toMonth: targetMonth + 1,
+        toTheme,
+      }
+    );
 
     setViewDate(targetYear, targetMonth);
     syncThemeWindow(state.viewYear, state.viewMonth);
@@ -1029,6 +1100,7 @@
     logicalHeight: LOGICAL_H,
     initialScene: "calendar",
     debug: false,
+    assets: buildAssetConfig(),
 
     theme: {
       colors: {

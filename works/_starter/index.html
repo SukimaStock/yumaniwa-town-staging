@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#0b1018">
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <title>SukimaStock New Work</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <canvas id="gameCanvas" aria-label="SukimaStock work"></canvas>
+
+  <script src="./codea-lite.js"></script>
+
+  <!--
+    Repository/Staging source uses the canonical Engine.
+    The standalone/local starter export rewrites this marked tag to:
+      ./sukimastock-engine.js
+  -->
+  <script data-sse-engine src="../../engine/sukimastock-engine.v0.2.0.js"></script>
+
+  <script>
+    (() => {
+      const isStaging = /\/yumaniwa-town-staging(?:\/|$)/.test(window.location.pathname);
+      const cacheBust = isStaging ? ("?devbuild=" + Date.now()) : "";
+
+      const loadScript = (src) => new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = () => reject(new Error("Failed to load " + src));
+        document.body.appendChild(script);
+      });
+
+      Promise.resolve()
+        .then(() => loadScript("./work-config.js" + cacheBust))
+        .then(() => loadScript("./sketch.js" + cacheBust))
+        .then(() => CodeaLite.start("gameCanvas"))
+        .catch((error) => {
+          console.error("SukimaStock work bootstrap failed", error);
+        });
+    })();
+  </script>
+</body>
+</html>

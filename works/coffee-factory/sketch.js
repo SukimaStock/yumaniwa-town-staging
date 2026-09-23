@@ -468,23 +468,89 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
 
   const C = { paper: [242,233,218], ink: [58,45,36], gold: [193,160,102], goldText: [158,126,78], muted: [119,100,80], rule: [203,189,168], white: [249,244,235] };
   const UI_FONT_STACK = '"Zen Maru Gothic", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif';
-  const SETUP_STORAGE_KEY = "coffeefactory.v1.setup";
+  const LEGACY_SETUP_STORAGE_KEY = "coffeefactory.v1.setup";
   const DEFAULT_SETUP = Object.freeze({ cupPreset:1, beanGrams:15, roast:"Medium" });
-  function loadSetupSettings(){
-    const fallback={...DEFAULT_SETUP,grind:"Coarse",recipeMode:"kasuya"};
-    try{
-      const raw=root.localStorage?.getItem(SETUP_STORAGE_KEY);
-      if(!raw)return fallback;
-      const saved=JSON.parse(raw);
-      const cupPreset=saved?.cupPreset===2?2:1;
-      const beanGrams=Number.isInteger(saved?.beanGrams)&&saved.beanGrams>=5&&saved.beanGrams<=40?saved.beanGrams:(cupPreset===2?25:15);
-      const roast=ROAST[saved?.roast]?saved.roast:"Medium";
-      return {cupPreset,beanGrams,roast,grind:"Coarse",recipeMode:"kasuya"};
-    }catch(_){return fallback;}
+  const DEFAULT_SETUP_RUNTIME = Object.freeze({
+    ...DEFAULT_SETUP,
+    grind:"Coarse",
+    recipeMode:"kasuya",
+  });
+  let setupStore = null;
+
+  function sanitizeSetupSettings(saved){
+    const source=saved&&typeof saved==="object"?saved:{};
+    const cupPreset=source.cupPreset===2?2:1;
+    const beanGrams=Number.isInteger(source.beanGrams)&&source.beanGrams>=5&&source.beanGrams<=40
+      ? source.beanGrams
+      : (cupPreset===2?25:15);
+    const roast=ROAST[source.roast]?source.roast:"Medium";
+    return {cupPreset,beanGrams,roast,grind:"Coarse",recipeMode:"kasuya"};
   }
+
+  function setupStoragePayload(settings){
+    const normalized=sanitizeSetupSettings(settings);
+    return {
+      cupPreset:normalized.cupPreset,
+      beanGrams:normalized.beanGrams,
+      roast:normalized.roast,
+    };
+  }
+
+  function initSetupStorage(){
+    setupStore=SSE.storage.define("setup",{
+      version:1,
+      fallback:{...DEFAULT_SETUP},
+      validate(value){
+        return !!(
+          value &&
+          typeof value==="object" &&
+          (value.cupPreset===1||value.cupPreset===2) &&
+          Number.isInteger(value.beanGrams) &&
+          value.beanGrams>=5 &&
+          value.beanGrams<=40 &&
+          !!ROAST[value.roast]
+        );
+      },
+    });
+
+    if(!setupStore.has()){
+      try{
+        const raw=root.localStorage?.getItem(LEGACY_SETUP_STORAGE_KEY);
+        if(raw){
+          const legacy=setupStoragePayload(JSON.parse(raw));
+          setupStore.set(legacy);
+
+          const info=setupStore.info();
+          SSE.diagnostics.info(
+            "setup-storage-migrated",
+            "Coffee setup migrated to Storage v2.",
+            {
+              from:LEGACY_SETUP_STORAGE_KEY,
+              to:info.key,
+              persistent:info.persistent,
+            }
+          );
+
+          // Delete the old key only after the new Storage v2 record is confirmed
+          // persistent. If persistence failed, the legacy key remains as fallback
+          // for the next page load.
+          if(info.persistent) root.localStorage?.removeItem(LEGACY_SETUP_STORAGE_KEY);
+        }
+      }catch(error){
+        SSE.diagnostics.warn(
+          "setup-storage-migration-failed",
+          "Legacy Coffee setup could not be migrated.",
+          {message:String(error?.message||error)}
+        );
+      }
+    }
+
+    state.settings=sanitizeSetupSettings(setupStore.get());
+  }
+
   const state = {
     visualMode: "factory", // Factory is the main experience; Core/input remain visual-mode agnostic.
-    settings: loadSetupSettings(),
+    settings: {...DEFAULT_SETUP_RUNTIME},
     plan: null, clock: null, prepClock: null,
     sample: null, previousSample: null, lastSampleMono: 0, suppressCue: false,
     finishing: false, brewStarting: false, brewCountdown: 0, brewCountdownDelay: 0, brewUiFade: 1, brewReadySoundStep: 0,
@@ -492,10 +558,27 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
   };
 
   const SETUP_ICONS = {
-    cup: typeof loadImage === "function" ? loadImage("./assets/coffee-cup-icon.png") : null,
-    beans: typeof loadImage === "function" ? loadImage("./assets/beans-icon.png") : null,
-    water: typeof loadImage === "function" ? loadImage("./assets/kettle-icon.png") : null,
+    cup: null,
+    beans: null,
+    water: null,
   };
+  let FACTORY_EXTERIOR = null;
+
+  function bindVisualAssetRefs(){
+    SETUP_ICONS.cup=SSE.assets.peek("icon.cup");
+    SETUP_ICONS.beans=SSE.assets.peek("icon.beans");
+    SETUP_ICONS.water=SSE.assets.peek("icon.water");
+    FACTORY_EXTERIOR=SSE.assets.peek("factory.exterior");
+  }
+
+  function loadVisualAssets(){
+    const task=SSE.assets.preload("visuals",{priority:"high"});
+    // Codea image objects are available immediately while their contents load.
+    bindVisualAssetRefs();
+    task.then(bindVisualAssetRefs);
+    return task;
+  }
+
   const factoryView = (() => {
     const KM = root.KobitoMotion;
     if (!KM) return null;
@@ -505,7 +588,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     const RULE = "#D7C7AD", WATER = "#A8C4D4", STEAM = "#D9D0C0";
     const W = 120;
     const scenes = Object.create(null);
-    const FACTORY_EXTERIOR = typeof loadImage === "function" ? loadImage("./assets/factory-exterior-line.png") : null;
+
 
     const rr = (ctx,x,y,w,h,r) => { ctx.beginPath(); ctx.roundRect(x,y,w,h,r); };
     const mapPoint = (worker,scale,p) => ({x:worker.x+(p.x-worker.x)*scale,y:worker.ground+(p.y-worker.ground)*scale});
@@ -1334,7 +1417,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     button("sound","",300,594,32,32,()=>{
       const next=!SSE.audio.enabled;
       SSE.audio.setEnabled(next);
-      seAudio.setEnabled(next);
       bgm.setEnabled(next);
       if(next) playSE("ui_select",{force:true});
     },{textOnly:true,size:1,tone:"muted"});
@@ -1432,75 +1514,33 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     lowLevel:0.05,
   });
   const BGM_FADE_TAU = 1.10;
+  const BGM_TRACK = "coffee";
   const bgm = {
-    audio:null,
-    ctx:null,
-    source:null,
-    gain:null,
     scene:"setup",
     level:0,
     unlocked:false,
     hidden:false,
     finishBreak:null,
-    init(){
-      if(this.audio || typeof root.Audio!=="function") return;
-      const audio=new root.Audio("./assets/audio/CoffeeFactory.mp3");
-      audio.preload="auto";
-      audio.loop=true;
-      // Keep the media element at unity gain. Scene volume is applied through Web Audio
-      // so iPhone/iOS does not depend on HTMLMediaElement.volume support.
-      audio.volume=1;
-      audio.playsInline=true;
-      this.audio=audio;
-      const AudioContextClass=root.AudioContext||root.webkitAudioContext;
-      if(!AudioContextClass) return;
-      try{
-        this.ctx=new AudioContextClass();
-        this.source=this.ctx.createMediaElementSource(audio);
-        this.gain=this.ctx.createGain();
-        this.gain.gain.value=0;
-        this.source.connect(this.gain);
-        this.gain.connect(this.ctx.destination);
-      }catch(_){
-        this.ctx=null;
-        this.source=null;
-        this.gain=null;
-      }
-    },
     applyLevel(value){
-      const level=clamp(value,0,1);
-      if(this.gain){
-        this.gain.gain.value=level;
-      }else if(this.audio){
-        // Desktop/legacy fallback when Web Audio is unavailable.
-        this.audio.volume=level;
-      }
-    },
-    resumeContext(){
-      if(!this.ctx || this.ctx.state!=="suspended") return;
-      try{
-        const promise=this.ctx.resume();
-        if(promise?.catch) promise.catch(()=>{});
-      }catch(_){}
+      this.level=clamp(value,0,1);
+      SSE.audio.setMusicLevel(this.level,{name:BGM_TRACK});
     },
     target(){
       if(!this.unlocked || this.hidden || !SSE.audio.enabled) return 0;
       return BGM_LEVELS[this.scene] ?? BGM_LEVELS.setup;
     },
     ensurePlaying(){
-      this.init();
-      if(!this.audio || !this.unlocked || this.hidden || !SSE.audio.enabled) return;
-      this.resumeContext();
-      if(!this.audio.paused) return;
-      try{
-        const promise=this.audio.play();
-        if(promise?.catch) promise.catch(()=>{});
-      }catch(_){}
+      if(!this.unlocked || this.hidden || !SSE.audio.enabled) return;
+      const player=SSE.audio.musicPlayers[BGM_TRACK];
+      if(!player?.audio || player.audio.paused){
+        SSE.audio.playMusic(BGM_TRACK,{volume:this.level,restart:false});
+      }else{
+        SSE.audio.setMusicLevel(this.level,{name:BGM_TRACK});
+      }
     },
     userGesture(){
       this.unlocked=true;
-      this.init();
-      this.resumeContext();
+      SSE.audio.unlock();
       this.ensurePlaying();
     },
     setScene(scene){
@@ -1520,28 +1560,24 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
         this.unlocked=true;
         this.level=0;
         this.applyLevel(0);
-        this.resumeContext();
         this.ensurePlaying();
         return;
       }
       this.level=0;
       this.applyLevel(0);
-      if(this.audio) this.audio.pause();
+      SSE.audio.pauseMusic(BGM_TRACK);
     },
     setHidden(value){
       this.hidden=!!value;
       if(this.hidden){
-        if(this.audio) this.audio.pause();
+        SSE.audio.pauseMusic(BGM_TRACK);
         this.level=0;
         this.applyLevel(0);
       }else{
-        this.resumeContext();
         this.ensurePlaying();
       }
     },
     update(dt){
-      this.init();
-      if(!this.audio) return;
       const step=Math.max(0,Number.isFinite(dt)?dt:0);
       const active=this.unlocked && !this.hidden && SSE.audio.enabled;
       if(this.finishBreak){
@@ -1557,7 +1593,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
         if(!active){
           this.level=0;
           this.applyLevel(0);
-          if(!this.audio.paused) this.audio.pause();
+          SSE.audio.pauseMusic(BGM_TRACK);
           if(b.elapsed>=breakEnd) this.finishBreak=null;
           return;
         }
@@ -1587,107 +1623,36 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
       this.applyLevel(this.level);
       if(target>0){
         this.ensurePlaying();
-      }else if(this.level<0.0015 && !this.audio.paused){
-        this.audio.pause();
+      }else if(this.level<0.0015){
+        SSE.audio.pauseMusic(BGM_TRACK);
       }
     },
   };
-  const SE_DEFINITIONS = Object.freeze({
-    ui_select:{file:"./assets/audio/ui_select.wav",volume:.34,cooldown:45},
-    ui_step:{file:"./assets/audio/ui_step.wav",volume:.32,cooldown:35},
-    factory_start:{file:"./assets/audio/factory_start.wav",volume:.42,cooldown:160},
-    grinder_lever:{file:"./assets/audio/grinder_lever.wav",volume:.38,cooldown:1100},
-    steam_soft:{file:"./assets/audio/steam_soft.wav",volume:.22,cooldown:2400},
-    brew_ready:{file:"./assets/audio/brew_ready.wav",volume:.48,cooldown:60},
-    brew_change:{file:"./assets/audio/brew_change.wav",volume:.62,cooldown:100},
-    brew_finish:{file:"./assets/audio/brew_finish.wav",volume:.68,cooldown:200},
+  const SE_DEFAULTS = Object.freeze({
+    ui_select:{file:"./assets/audio/ui_select.wav",mode:"buffer",volume:.34,cooldown:45},
+    ui_step:{file:"./assets/audio/ui_step.wav",mode:"buffer",volume:.32,cooldown:35},
+    factory_start:{file:"./assets/audio/factory_start.wav",mode:"buffer",volume:.42,cooldown:160},
+    grinder_lever:{file:"./assets/audio/grinder_lever.wav",mode:"buffer",volume:.38,cooldown:1100},
+    steam_soft:{file:"./assets/audio/steam_soft.wav",mode:"buffer",volume:.22,cooldown:2400},
+    brew_ready:{file:"./assets/audio/brew_ready.wav",mode:"buffer",volume:.48,cooldown:60},
+    brew_change:{file:"./assets/audio/brew_change.wav",mode:"buffer",volume:.62,cooldown:100},
+    brew_finish:{file:"./assets/audio/brew_finish.wav",mode:"buffer",volume:.68,cooldown:200},
   });
-  const seAudio = {
-    ctx:null, masterGain:null, buffers:Object.create(null), loading:Object.create(null),
-    lastPlayed:Object.create(null), unlocked:false, hidden:false, masterVolume:.95,
-    init(){
-      if(this.ctx) return this.ctx;
-      const AudioContextClass=root.AudioContext||root.webkitAudioContext;
-      if(!AudioContextClass) return null;
-      try{
-        this.ctx=new AudioContextClass();
-        this.masterGain=this.ctx.createGain();
-        this.masterGain.gain.value=SSE.audio.enabled?this.masterVolume:0;
-        this.masterGain.connect(this.ctx.destination);
-      }catch(_){
-        this.ctx=null;this.masterGain=null;return null;
-      }
-      return this.ctx;
-    },
-    preload(){
-      const ctx=this.init();
-      if(!ctx||typeof root.fetch!=="function") return;
-      for(const [name,definition] of Object.entries(SE_DEFINITIONS)) this.load(name,definition);
-    },
-    load(name,definition=SE_DEFINITIONS[name]){
-      if(!definition?.file||this.buffers[name]||this.loading[name]) return this.loading[name]||null;
-      const ctx=this.init();
-      if(!ctx||typeof root.fetch!=="function") return null;
-      const task=root.fetch(definition.file,{cache:"force-cache"})
-        .then(response=>{if(!response.ok) throw new Error("SE fetch failed: "+name);return response.arrayBuffer();})
-        .then(data=>ctx.decodeAudioData(data.slice(0)))
-        .then(buffer=>{this.buffers[name]=buffer;return buffer;})
-        .catch(()=>null)
-        .finally(()=>{delete this.loading[name];});
-      this.loading[name]=task;
-      return task;
-    },
-    unlock(){
-      const ctx=this.init();
-      if(!ctx) return;
-      this.unlocked=true;
-      if(ctx.state==="suspended") ctx.resume().catch(()=>{});
-      this.syncGain(true);
-    },
-    syncGain(immediate=false){
-      if(!this.ctx||!this.masterGain) return;
-      const value=(!this.hidden&&SSE.audio.enabled)?this.masterVolume:0;
-      const gain=this.masterGain.gain;
-      const now=this.ctx.currentTime;
-      gain.cancelScheduledValues(now);
-      if(immediate) gain.setValueAtTime(value,now);
-      else {
-        gain.setValueAtTime(gain.value,now);
-        gain.linearRampToValueAtTime(value,now+.08);
-      }
-    },
-    setEnabled(){this.syncGain(false);},
-    setHidden(value){this.hidden=!!value;this.syncGain(false);},
-    play(name,options=null){
-      if(this.hidden||!SSE.audio.enabled) return false;
-      const definition=SE_DEFINITIONS[name];
-      if(!definition) return false;
-      const ctx=this.init();
-      if(!ctx||!this.masterGain) return false;
-      if(!this.unlocked) this.unlock();
-      const opts=options||{};
-      const cooldown=Number(opts.cooldown??definition.cooldown??80);
-      const nowMs=performance.now();
-      if(!opts.force&&this.lastPlayed[name]&&nowMs-this.lastPlayed[name]<cooldown) return false;
-      const buffer=this.buffers[name];
-      if(!buffer){this.load(name,definition);return false;}
-      this.lastPlayed[name]=nowMs;
-      try{
-        const source=ctx.createBufferSource();
-        const gain=ctx.createGain();
-        source.buffer=buffer;
-        source.playbackRate.value=clamp(Number(opts.playbackRate??definition.playbackRate??1),.25,4);
-        gain.gain.value=clamp(Number(opts.volume??definition.volume??.25),0,1);
-        source.connect(gain);gain.connect(this.masterGain);
-        source.start(0);
-        source.onended=()=>{try{source.disconnect();gain.disconnect();}catch(_){}};
-        return true;
-      }catch(_){return false;}
-    },
-  };
+  const SE_OVERRIDES =
+    root.COFFEEFACTORY_SOUND_CONFIG && typeof root.COFFEEFACTORY_SOUND_CONFIG==="object"
+      ? root.COFFEEFACTORY_SOUND_CONFIG
+      : {};
+  const SE_DEFINITIONS = Object.freeze(
+    Object.keys(SE_DEFAULTS).reduce((out,name)=>{
+      const base=SE_DEFAULTS[name];
+      const custom=SE_OVERRIDES[name]||{};
+      out[name]=Object.freeze({...base,...custom});
+      return out;
+    },{})
+  );
   function playSE(name,options=null) {
     if(document.hidden) return false;
-    return seAudio.play(name,options||undefined);
+    return SSE.audio.play(name,options||undefined);
   }
   function cue(kind) {
     if(kind==="finish") return playSE("brew_finish",{force:true});
@@ -1695,13 +1660,8 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     return playSE("brew_change",{playbackRate:1.06});
   }
   function saveSetupSettings(){
-    try{
-      root.localStorage?.setItem(SETUP_STORAGE_KEY,JSON.stringify({
-        cupPreset:state.settings.cupPreset,
-        beanGrams:state.settings.beanGrams,
-        roast:state.settings.roast,
-      }));
-    }catch(_){}
+    if(!setupStore) return false;
+    return setupStore.set(setupStoragePayload(state.settings));
   }
   function selectCupPreset(count){
     if(state.settings.cupPreset!==count){
@@ -1798,7 +1758,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     if(state.languageTransition) return true;
     if (t.state === BEGAN) {
       bgm.userGesture();
-      seAudio.unlock();
       const langChoice=languageChoice(t);
       if(langChoice){
         state.gesture={id:"languageToggle",target:langChoice,x:t.x,y:t.y,pointer:t.id,cancelled:false};
@@ -2019,7 +1978,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     resetGesture();
     for(const c of [state.clock,state.prepClock]) if(c) c.setHidden(hidden);
     bgm.setHidden(hidden);
-    seAudio.setHidden(hidden);
     state.suppressCue=true;
   }
   SSE.createApp({
@@ -2029,16 +1987,56 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else host.Kobi
     i18n:{defaultLanguage:"jp",storageKey:"coffeefactory.v1.language",text:TEXT},
     analytics:{enabled:true},
     audio:{
-      masterVolume:.72,
+      // Preserve pre-migration effective loudness:
+      // BGM level is the work's exact scene level; SE retains its old 0.95 master.
+      masterVolume:1,
+      musicVolume:1,
+      seVolume:.95,
       storageKey:"coffeefactory.v1.sound",
-      sounds:{},
+      sounds:SE_DEFINITIONS,
+      music:{
+        coffee:{
+          file:"./assets/audio/CoffeeFactory.mp3",
+          loop:true,
+          preload:"auto",
+          volume:0,
+        },
+      },
+    },
+    assets:{
+      items:{
+        "icon.cup":"./assets/coffee-cup-icon.png",
+        "icon.beans":"./assets/beans-icon.png",
+        "icon.water":"./assets/kettle-icon.png",
+        "factory.exterior":"./assets/factory-exterior-line.png",
+      },
+      groups:{
+        visuals:[
+          "icon.cup",
+          "icon.beans",
+          "icon.water",
+          "factory.exterior",
+        ],
+      },
     },
     setup() {
+      initSetupStorage();
+      loadVisualAssets();
       syncDocumentLanguage();
-      seAudio.preload();
-      document.addEventListener("visibilitychange",()=>lifecycle(document.hidden));
-      root.addEventListener("pagehide",()=>lifecycle(true));
-      root.addEventListener("pageshow",()=>lifecycle(document.hidden));
+      SSE.audio.preload();
+
+      // Browser visibility/page-cache events are normalized by SSE.lifecycle.
+      // CoffeeFactory keeps only its work-specific hidden-time semantics here:
+      // RecipeClock advances by wall time while hidden, while animation update
+      // remains suspended by the Engine.
+      SSE.lifecycle.onPause(() => lifecycle(true));
+      SSE.lifecycle.onResume(() => lifecycle(false));
+
+      // If the page starts hidden, synchronize the work immediately because
+      // lifecycle listeners are registered after the Engine installs itself.
+      if (SSE.lifecycle.paused || document.hidden) lifecycle(true);
+
+      // Work-local gesture reset remains harmless and intentional.
       root.addEventListener("blur",resetGesture);
       root.addEventListener("resize",resetGesture);
     },

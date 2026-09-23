@@ -18,7 +18,7 @@
     "saved": "SAVED",
     "echo": "ECHO {found}/{total}",
     "fuelPickup": "+{amount} FUEL",
-    "memoryFragment": "MEMORY FRAGMENT",
+    "memoryFragment": "",
     "eveLabel": "E.V.E.",
     "echoLabel": "ECHO"
   },
@@ -75,39 +75,60 @@
       "precise": "PRECISE",
       "fullyRestored": "FULLY RESTORED",
       "updated": "UPDATED",
-      "completeStatus": "COMPLETE"
+      "completeStatus": "COMPLETE",
+      "baseSystemUpdated": "BASE SYSTEM     : UPDATED",
+      "systemsUpdated": "SYSTEMS         : UPDATED",
+      "navigationUpdated": "NAVIGATION      : UPDATED",
+      "systemStable": "SYSTEM STATUS   : STABLE"
+    },
+    "boot": {
+      "baseTerminal": "BASE // TERMINAL",
+      "systemLinkSlow": "SYSTEM LINK ....",
+      "retry": "RETRY",
+      "systemConnectedSlow": "SYSTEM LINK .... CONNECTED",
+      "terminalOnlineSlow": "TERMINAL .... ONLINE",
+      "systemConnected": "SYSTEM LINK ... CONNECTED",
+      "terminalOnline": "TERMINAL ... ONLINE",
+      "systemConnectedFast": "SYSTEM LINK .. CONNECTED",
+      "online": "ONLINE",
+      "linkEstablished": "LINK ESTABLISHED"
+    },
+    "restoreLink": {
+      "channel": "BASE // RESTORE CHANNEL",
+      "connecting": "RESTORE LINK",
+      "connected": "CONNECTED"
     }
   },
   "eve": {
     "phase": {
       "1": {
         "short": "...DOCKING... OK.",
-        "normal": "...WELCOME... BACK...\n...SAFE... HERE...",
+        "normal": "...WELCOME... BACK...",
         "long": "...PILOT... RETURNED.\n...ANALYZING...",
         "lowFuel": "...FUEL... LOW..."
       },
       "2": {
         "short": "Docking complete.\nAll systems stable.",
-        "normal": "Welcome back.\nSystem check: OK. You are safe.",
+        "normal": "Welcome back.\nSystem check: OK.",
         "long": "Welcome back, Pilot.\nLong range scan... complete.",
         "lowFuel": "Fuel low.\nReturn recommended."
       },
       "3": {
         "short": "ドッキング カンリョウ。\nキタイ ジョウキョウ: セイジョウ。",
-        "normal": "キカン ヲ カクニン。システム チェック OK。\nアンゼンケン デス。",
+        "normal": "キカン ヲ カクニン。\nシステム チェック OK。",
         "long": "キカン ヲ カクニン。\nスキャン データ ヲ カイセキ チュウ。",
         "lowFuel": "ネンリョウ ザンリョウ テイカ。\nキカン ヲ スイショウ。"
       },
       "4": {
         "short": "どっきんぐ かんりょう。\nふねの ちょうし、だいじょうぶ そうです。",
-        "normal": "おかえりなさい。きずは ありませんか？\nここなら、あんぜんです。",
-        "long": "あ……おかえりなさい！\nすこし……しんぱい していました。",
+        "normal": "おかえりなさい。きずは ありませんか？",
+        "long": "あ……おかえりなさい！\nすこし……おそかった ですね。",
         "lowFuel": "ねんりょうが すくないです。\nむりしないで、もどりましょう。"
       },
       "5": {
         "short": "ドッキング完了。\n機体各部、すべて正常です。",
-        "normal": "お帰りなさい。各系統、正常です。\n……ここなら安心です。",
-        "long": "お帰りなさい、パイロット。\n……少し、心配していました。",
+        "normal": "お帰りなさい。各系統、正常です。",
+        "long": "お帰りなさい、パイロット。\n……少し、遅かったですね。",
         "lowFuel": "燃料が少なくなっています。\n無理をせず、一度戻りましょう。"
       }
     },
@@ -121,42 +142,31 @@
       "2": [
         "Query: Why... sky... dark?",
         "Calculating... trajectory... optimal.",
-        "Error... 418. I am... a teapot.",
         "Stars... too many... to count.",
-        "Silence... is not... an error."
+        "Fuel level... acceptable."
       ],
       "3": [
         "スベテノ ... システム... グリーン。",
         "...シンゴウ ヲ ... ジュシン...",
-        "ワタシ ハ... ワタシ...?",
         "ホシ ノ カズ...ケイソク フノウ。",
-        "シズカ ナ ジカン...キライ デハ ナイ。"
+        "ネンリョウ...モンダイ ナシ。"
       ],
       "4": [
         "きょうは いい てんき……？ ううん、ずっと よる……。",
         "あの ほし、きれいですね。",
-        "えらー 404: じょうだん が みつかりません。",
-        "ずっと よるなのに、ふしぎと こわくないですね。",
-        "あなたは、しずかな ばしょが すきですか？",
-        "つうしん、せいじょうです。……ただ かくにん しただけです。"
+        "つうしん、せいじょうです。……ただ かくにん しただけです。",
+        "ねんりょう、まだ だいじょうぶです。",
+        "ほしの かず、まだ かぞえきれません。"
       ],
       "5": [
-        "……あの星、前にも一緒に見た気がします。",
-        "この宇宙は……とても静かですね。",
-        "冗談の定義を再検索しました。……『ペンギン』。ふふ、笑うところでしたか？",
-        "……急がなくても大丈夫ですよ。宇宙は逃げませんから。",
+        "……あの星、ずいぶん明るいですね。",
         "燃料計、ちゃんと見ていますか？ ……念のためです。",
-        "こうして漂っている時間、私は嫌いではありません。",
         "通信、正常です。……特に用はありません。ただ、確認しただけです。",
-        "遠くまで来ましたね。……まだ、もう少し行けそうです。",
         "次の星は、どんな場所でしょう。……少し楽しみです。",
         "星を数えるのは諦めました。……終わりそうにないので。",
         "あなたの操縦、少し癖がありますね。……前からでした。",
-        "何も起きない時間も、記録しておきます。……大事な気がするので。",
         "今の、流れ星でしょうか。……願い事、間に合いましたか？",
-        "進路、問題ありません。……たまには目的地がなくてもいいですね。",
-        "あなたが黙っているときも、前ほど心配しなくなりました。",
-        "私は待つのが得意だと思っていました。……今は、一緒に行く方が好きです。"
+        "……ペンギンって、宇宙を飛べると思いますか？"
       ]
     },
     "landing": {
@@ -262,87 +272,80 @@
     "echoReactions": {
       "1": [
         "...KNOWN...?",
-        "...WARM... DATA...?",
-        "...YOU... FAMILIAR...?",
-        "...YOU... TRUST... ME...?",
-        "...ALL... CONNECT..."
+        "...MEMORY...?",
+        "...FAMILIAR...?",
+        "...RETURNING...?",
+        "...ALL... ECHO..."
       ],
       "2": [
-        "This data... feels familiar.",
-        "I think... this was ours.",
-        "I remember... more about you.",
-        "You trusted me... with something.",
-        "All Echoes... connected.\nBut... not here."
+        "This... feels familiar.",
+        "...A memory?",
+        "I remember... something.",
+        "Something... is returning.",
+        "All Echoes... recovered.\n...Let's go home."
       ],
       "3": [
         "コノ キオク...シッテイル...?",
-        "コレハ...ワタシタチ ノ キオク...?",
-        "アナタ ノ コト...オモイダシテイル。",
-        "アナタハ...ワタシニ ナニカヲ アズケタ。",
-        "エコー...ゼンブ ツナガッタ。\nデモ...ココ デハ ナイ。"
+        "ナニカ...オモイダシソウ...",
+        "スコシ...モドッテキテイル。",
+        "モウスコシ...",
+        "エコー...ゼンブ。\n...カエリマショウ。"
       ],
       "4": [
         "この きおく……しっている きがします。",
-        "これ、わたしたちの きおく なのでしょうか。",
-        "あなたの こと、すこしずつ おもいだしています。",
-        "あなたは、たいせつな ものを わたしに あずけてくれた。",
-        "ぜんぶ、つながりました。\nでも……まだ うまく ことばに できません。"
+        "……なにか、おもいだせそうです。",
+        "……すこしずつ、もどってきています。",
+        "……もうすこしで、わかりそうです。",
+        "ぜんぶ、そろいました。\n……かえりましょう。"
       ],
       "5": [
-        "この記憶……知っています。",
-        "これは、私たちの記憶です。",
-        "……あなたのことを、少しずつ思い出しています。",
-        "あなたは、大切なものを私に預けてくれた。",
+        "この記憶……知っている気がします。",
+        "……何か、思い出せそうです。",
+        "……少しずつ、戻ってきています。",
+        "……もう少しで、分かりそうです。",
         "……これで、全部です。\n……帰りましょう。"
       ]
     },
     "echoReturn": {
-      "1": "...WELCOME... BACK...\n...ECHO... {a}/{b}...",
-      "2": "Welcome back.\nEcho archive: {a}/{b}.",
-      "3": "オカエリナサイ。\nエコー シュウトク {a}/{b}。",
-      "4": "おかえりなさい。\nエコーは {a}/{b} あつまりました。",
-      "5": "お帰りなさい。\nエコーは、{a}/{b}まで集まりました。"
+      "1": "...WELCOME... BACK...",
+      "2": "Welcome back.",
+      "3": "オカエリナサイ。",
+      "4": "おかえりなさい。",
+      "5": "お帰りなさい。"
     },
     "restoreDeparture": {
       "2": "I can see... farther now.",
       "3": "ホシガ...マエヨリ トオク マデ ミエル。",
       "4": "そらが、まえより ひろく みえます。",
-      "5": "……前より遠くまで、一緒に行けますね。"
+      "5": "……あの星まで、行けそうですね。"
     },
     "farewell": "……いってらっしゃい。",
     "astraIdle": {
       "1": [
-        "...QUIET...",
-        "...STAY...?"
+        "...QUIET..."
       ],
       "2": [
-        "No objective... detected. That is... okay?",
         "We can stay... a little."
       ],
       "3": [
-        "ココ...シズカ。",
-        "イソガナクテ...イイ...?"
+        "ココ...シズカ。"
       ],
       "4": [
-        "ここでは、なにも しなくて いいんですね。",
         "もうすこしだけ、ほしを みていきませんか？"
       ],
-      "5": [
-        "ここにいると、何も話さなくてもいい気がします。",
-        "もう少しだけ、ここにいませんか。……急ぐ理由もありませんし。"
-      ]
+      "5": []
     },
     "rescueReturn": {
       "1": "...PILOT... RETURNED...\n...SAFE...",
       "2": "Pilot... returned.\nFuel... zero. Please... be careful.",
       "3": "キカン ヲ カクニン。\n……ムチャ ハ、シナイデ。",
       "4": "……もどって きましたね。\nつぎは、もうすこし はやく かえりましょう。",
-      "5": "……戻れてよかった。\n次は、もう少し早く帰ってきてくださいね。"
+      "5": "……お帰りなさい。\n次は、もう少し早く帰ってきてくださいね。"
     },
     "firstFlightHint": "...HOME... SIGNAL...\n...RESTORE...?"
   },
   "echo": {
-    "header": "ECHO {index}/{total} — {key}",
+    "header": "ECHO {index}/{total}",
     "memories": [
       {
         "id": "voice",
@@ -357,15 +360,15 @@
         "key": "RETURN",
         "lines": [
           "「ただいま」",
-          "ドッキング完了。……お帰りなさい、パイロット。"
+          "ドッキング完了。\n……お帰りなさい、パイロット。"
         ]
       },
       {
         "id": "routine",
         "key": "ROUTINE",
         "lines": [
-          "「また燃料、ぎりぎりまで使っちゃった」",
-          "警告は出していました。次はもう少し早く。"
+          "「また燃料、\nぎりぎりまで使っちゃった」",
+          "警告は出していました。\n次はもう少し早く。"
         ]
       },
       {
@@ -373,15 +376,15 @@
         "key": "SILENCE",
         "lines": [
           "「…………」",
-          "今日は何も話さなかった。それでも通信は切らなかった。"
+          "今日は何も話さなかった。\nそれでも通信は切らなかった。"
         ]
       },
       {
         "id": "laugh",
         "key": "LAUGH",
         "lines": [
-          "「ペンギンって、宇宙飛べると思う？」",
-          "……意味不明な問い。あなたは笑っていた。"
+          "「ペンギンって、\n宇宙飛べると思う？」",
+          "……意味不明な問い。\nあなたは笑っていた。"
         ]
       },
       {
@@ -389,7 +392,7 @@
         "key": "DEPART",
         "lines": [
           "「じゃあ、行ってくる」",
-          "航路を開きます。どうかご無事で。"
+          "航路を開きます。\nどうかご無事で。"
         ]
       },
       {
@@ -397,7 +400,7 @@
         "key": "WAIT",
         "lines": [
           "「…………」",
-          "帰還予定時刻を超過。……待機を継続します。"
+          "帰還予定時刻を超過。\n……待機を継続します。"
         ]
       },
       {
@@ -405,30 +408,29 @@
         "key": "WORRY",
         "lines": [
           "「応答、遅れてすまない」",
-          "警告を三度送信。四度目は……言葉になりませんでした。"
+          "警告を三度送信。\n四度目は……送信しませんでした。"
         ]
       },
       {
         "id": "name",
         "key": "NAME",
         "lines": [
-          "「E.V.E.って呼びにくいから、イヴでいい？」",
-          "……未登録の呼称です。ですが登録しました。"
+          "「E.V.E.って呼びにくいから、\nイヴでいい？」",
+          "……未登録の呼称です。\nですが登録しました。"
         ]
       },
       {
         "id": "promise",
         "key": "PROMISE",
         "lines": [
-          "「少し遠くまで行ってくる」",
-          "「……でも、ちゃんと戻るから」"
+          "「少し遠くまで\n行ってくる」"
         ]
       },
       {
         "id": "keep",
         "key": "KEEP",
         "lines": [
-          "「これだけは、なくしたくないんだ」",
+          "「これだけは、\nなくしたくないんだ」",
           "「……預かってくれる？」"
         ]
       },
@@ -437,7 +439,7 @@
         "key": "ECHO",
         "lines": [
           "「イヴ、全部バックアップしてくれ」",
-          "……了解。必ず、あなたにお返しします。"
+          "……了解。\n必ず、あなたにお返しします。"
         ]
       }
     ]
@@ -445,41 +447,39 @@
   "finale": {
     "outro": "……お帰りなさい。",
     "connected": "……すべて、繋がりました。",
-    "eveName": "E.V.E.",
-    "expansion": "Echo of Vital Emotion.",
-    "accident1": "「これだけは、なくしたくないんだ」――あの日、あなたが私に預けた記憶。",
-    "accident2": "星の海に散らばったそれを、あなたはひとつずつ拾い集めてきました。",
-    "accident3": "……修復していたのは、システムだけではなかったのですね。",
+    "accident1": "あの日、あなたは\n記憶と感情を、私に預けました。",
+    "accident2": "失われないように、\n私はそれをECHOとして、星の海へ残しました。",
+    "accident3": "あなたが拾い集めてきたECHOは、\nどれも、あなた自身の欠片です。",
     "returnMemory": "あなたを、あなた自身に。",
-    "returnLead": "お返しします。"
+    "returnLead": "……お返しします。"
   },
   "ritual": {
     "shellLabel": "ORBIT / RESTORE",
     "responseLabel": "[ E.V.E. ]",
-    "responseHint": "タップして戻る",
+    "responseHint": "タップして続ける",
     "wake": {
       "name": "WAKE",
-      "response": "...PULSE... RESPONDS...\nTO TOUCH...",
+      "response": "...PULSE... STABLE...",
       "instruction": "タップする"
     },
     "link": {
       "name": "LINK",
-      "response": "コドウ ト キオク ガ マワリダス",
+      "response": "ツウシン...トオッタ。",
       "instruction": "右回りになぞる"
     },
     "memory": {
       "name": "MEMORY",
-      "response": "……あなたの おんど、\nおぼえています。",
+      "response": "……きこえます。\nまえより、はっきり。",
       "instruction": "光をなぞる"
     },
     "resonance": {
       "name": "RESONANCE",
-      "response": "途切れていた線が繋がる。\nあなたの輪郭が、\n少しずつ戻ってくる。",
+      "response": "……ノイズが、消えました。",
       "instruction": "点を順につなぐ"
     },
     "rebirth": {
       "name": "REBIRTH",
-      "response": "あなたの心は\nまた 動き出した。",
+      "response": "……応答、確認しました。",
       "instruction": "中央を長押しする"
     }
   },
@@ -513,7 +513,7 @@
   "incident": {
     "header": "INCIDENT LOG // {code}",
     "introWait": "……待ってください。",
-    "introSignal": "ASTRAから、微弱な記録信号。\n……今まで、見えていませんでした。",
+    "introSignal": "ASTRAから、微弱な記録信号。",
     "siteFound": "……ここです。",
     "complete": "……これで、残っていた記録はすべてです。",
     "returnHome": "……帰りましょう。",
@@ -552,7 +552,6 @@
         "lines": [
           "MEMORY BACKUP REQUEST",
           "TARGET: PILOT",
-          "ECHO OF VITAL EMOTION",
           "PRIORITY: CRITICAL",
           "PILOT: 「これだけは、なくしたくないんだ。」",
           "E.V.E.: 「……了解。預かります。」"
@@ -574,9 +573,8 @@
       }
     ],
     "trueEnding": {
-      "line1": "……あの日も、帰ろうとしていたんですね。",
-      "line2": "私も、あなたを帰そうとしていました。",
-      "line3": "……今度は、帰ってこられました。",
+      "line1": "",
+      "line3": "",
       "line4": "……お帰りなさい、パイロット。"
     },
     "signalNear": "……信号源、この近くです。"

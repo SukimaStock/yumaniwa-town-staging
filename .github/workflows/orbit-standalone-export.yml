@@ -1,0 +1,72 @@
+name: ORBIT Standalone Export
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "works/ORBIT/**"
+      - "engine/sukimastock-engine.v0.2.0.js"
+      - "engine/export-standalone.py"
+      - ".github/workflows/orbit-standalone-export.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate export manifest
+        run: |
+          python3 engine/export-standalone.py \
+            works/ORBIT/standalone-export.json \
+            --check
+
+      - name: Build standalone package
+        run: |
+          python3 engine/export-standalone.py \
+            works/ORBIT/standalone-export.json
+
+      - name: Inspect package
+        run: |
+          rm -rf dist/orbit-upload
+          mkdir -p dist/orbit-upload
+          unzip -q dist/ORBIT-itch.zip -d dist/orbit-upload
+
+          test -f dist/orbit-upload/index.html
+          test -f dist/orbit-upload/sukimastock-engine.js
+          test -f dist/orbit-upload/sketch.js
+          test -f dist/orbit-upload/text/ja.json
+          test -f dist/orbit-upload/text/en.json
+
+          test "$(find dist/orbit-upload -type f | wc -l)" -eq 16
+
+          grep -q 'data-sse-engine' dist/orbit-upload/index.html
+          grep -q 'src="sukimastock-engine.js"' dist/orbit-upload/index.html
+
+          if grep -qE '(\.\./)+engine/' dist/orbit-upload/index.html; then
+            echo "Packaged index still references repository Engine path."
+            exit 1
+          fi
+
+          python3 -m json.tool dist/orbit-upload/text/ja.json >/dev/null
+          python3 -m json.tool dist/orbit-upload/text/en.json >/dev/null
+
+          node --check dist/orbit-upload/codea-lite.js
+          node --check dist/orbit-upload/sukimastock-engine.js
+          node --check dist/orbit-upload/orbit-text.js
+          node --check dist/orbit-upload/restore-ritual-inline.js
+          node --check dist/orbit-upload/sketch.js
+
+      - name: Upload itch-ready package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ORBIT-itch
+          path: dist/orbit-upload/
+          if-no-files-found: error
+          retention-days: 14

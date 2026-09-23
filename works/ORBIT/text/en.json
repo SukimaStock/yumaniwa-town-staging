@@ -18,7 +18,7 @@
     "saved": "SAVED",
     "echo": "ECHO {found}/{total}",
     "fuelPickup": "+{amount} FUEL",
-    "memoryFragment": "MEMORY FRAGMENT",
+    "memoryFragment": "",
     "eveLabel": "E.V.E.",
     "echoLabel": "ECHO"
   },
@@ -75,39 +75,60 @@
       "precise": "PRECISE",
       "fullyRestored": "FULLY RESTORED",
       "updated": "UPDATED",
-      "completeStatus": "COMPLETE"
+      "completeStatus": "COMPLETE",
+      "baseSystemUpdated": "BASE SYSTEM     : UPDATED",
+      "systemsUpdated": "SYSTEMS         : UPDATED",
+      "navigationUpdated": "NAVIGATION      : UPDATED",
+      "systemStable": "SYSTEM STATUS   : STABLE"
+    },
+    "boot": {
+      "baseTerminal": "BASE // TERMINAL",
+      "systemLinkSlow": "SYSTEM LINK ....",
+      "retry": "RETRY",
+      "systemConnectedSlow": "SYSTEM LINK .... CONNECTED",
+      "terminalOnlineSlow": "TERMINAL .... ONLINE",
+      "systemConnected": "SYSTEM LINK ... CONNECTED",
+      "terminalOnline": "TERMINAL ... ONLINE",
+      "systemConnectedFast": "SYSTEM LINK .. CONNECTED",
+      "online": "ONLINE",
+      "linkEstablished": "LINK ESTABLISHED"
+    },
+    "restoreLink": {
+      "channel": "BASE // RESTORE CHANNEL",
+      "connecting": "RESTORE LINK",
+      "connected": "CONNECTED"
     }
   },
   "eve": {
     "phase": {
       "1": {
         "short": "...DOCKING... OK.",
-        "normal": "...WELCOME... BACK...\n...SAFE... HERE...",
+        "normal": "...WELCOME... BACK...",
         "long": "...PILOT... RETURNED.\n...ANALYZING...",
         "lowFuel": "...FUEL... LOW..."
       },
       "2": {
         "short": "Docking complete.\nAll systems stable.",
-        "normal": "Welcome back.\nSystem check: OK. You are safe.",
+        "normal": "Welcome back.\nSystem check: OK.",
         "long": "Welcome back, Pilot.\nLong range scan... complete.",
         "lowFuel": "Fuel low.\nReturn recommended."
       },
       "3": {
         "short": "DOCKING COMPLETE.\nSHIP STATUS: NORMAL.",
-        "normal": "RETURN CONFIRMED. SYSTEM CHECK: OK.\nYOU ARE WITHIN SAFE RANGE.",
+        "normal": "RETURN CONFIRMED.\nSYSTEM CHECK: OK.",
         "long": "RETURN CONFIRMED.\nSCAN DATA... ANALYSIS IN PROGRESS.",
         "lowFuel": "FUEL LEVEL LOW.\nRETURN RECOMMENDED."
       },
       "4": {
         "short": "docking complete.\nthe ship seems okay.",
-        "normal": "welcome back. are you hurt?\nyou're safe here.",
-        "long": "ah... welcome back!\ni was... a little worried.",
+        "normal": "welcome back. are you hurt?",
+        "long": "ah... welcome back!\nyou were... a little late.",
         "lowFuel": "fuel is getting low.\nlet's not push it. we should go back."
       },
       "5": {
         "short": "Docking complete.\nAll systems are nominal.",
-        "normal": "Welcome back. All systems are nominal.\n...You're safe here.",
-        "long": "Welcome home, Pilot.\n...I was a little worried.",
+        "normal": "Welcome back. All systems are nominal.",
+        "long": "Welcome home, Pilot.\n...You were a little late.",
         "lowFuel": "Fuel is getting low.\nLet's not push it. We should head back."
       }
     },
@@ -121,42 +142,31 @@
       "2": [
         "Query: Why... sky... dark?",
         "Calculating... trajectory... optimal.",
-        "Error... 418. I am... a teapot.",
         "Stars... too many... to count.",
-        "Silence... is not... an error."
+        "Fuel level... acceptable."
       ],
       "3": [
         "ALL ... SYSTEMS... GREEN.",
-        "...SIGNAL... RECEIVED...",
-        "I AM... I...?",
-        "STAR COUNT... UNAVAILABLE.",
-        "QUIET TIME... NOT DISLIKED."
+        "...SIGNAL ... RECEIVED...",
+        "STAR COUNT... IMPOSSIBLE.",
+        "FUEL... ACCEPTABLE."
       ],
       "4": [
-        "nice weather today... no, it's always night out here...",
-        "that star is beautiful.",
-        "error 404: joke not found.",
-        "it's always night, but somehow it doesn't feel frightening.",
-        "do you like quiet places?",
-        "communications are normal. ...i was only checking."
+        "Nice weather today...? No... still night.",
+        "That star is pretty.",
+        "Communication is normal. ...Just checking.",
+        "Fuel is still okay.",
+        "I still can't count all the stars."
       ],
       "5": [
-        "...I feel like we've seen that star together before.",
-        "The universe is... very quiet.",
-        "I looked up the definition of a joke again. ...'Penguin.' Heh. Was that the funny part?",
-        "...There's no need to hurry. The universe isn't going anywhere.",
-        "You're watching the fuel gauge, right? ...Just checking.",
-        "I don't mind the time we spend drifting like this.",
-        "Communications are normal. ...No reason. I just wanted to make sure.",
-        "We've come a long way. ...I think we can go a little farther.",
-        "I wonder what the next world will be like. ...I'm a little excited.",
+        "...That star is unusually bright.",
+        "You are watching the fuel gauge, right? ...Just checking.",
+        "Communication is normal. ...No reason. I was just checking.",
+        "I wonder what the next star will be like. ...I'm a little curious.",
         "I gave up counting the stars. ...I don't think I'd ever finish.",
-        "You have a few quirks in the way you fly. ...You always did.",
-        "I'll record the times when nothing happens, too. ...They feel important.",
+        "You have a bit of a habit when you fly. ...You always did.",
         "Was that a shooting star? ...Did you make a wish in time?",
-        "Course is clear. ...Sometimes it's okay not to have a destination.",
-        "I don't worry as much when you're quiet anymore.",
-        "I used to think I was good at waiting. ...Now I think I prefer going with you."
+        "...Do you think penguins could fly in space?"
       ]
     },
     "landing": {
@@ -262,87 +272,80 @@
     "echoReactions": {
       "1": [
         "...KNOWN...?",
-        "...WARM... DATA...?",
-        "...YOU... FAMILIAR...?",
-        "...YOU... TRUST... ME...?",
-        "...ALL... CONNECT..."
+        "...MEMORY...?",
+        "...FAMILIAR...?",
+        "...RETURNING...?",
+        "...ALL... ECHO..."
       ],
       "2": [
-        "This data... feels familiar.",
-        "I think... this was ours.",
-        "I remember... more about you.",
-        "You trusted me... with something.",
-        "All Echoes... connected.\nBut... not here."
+        "This... feels familiar.",
+        "...A memory?",
+        "I remember... something.",
+        "Something... is returning.",
+        "All Echoes... recovered.\n...Let's go home."
       ],
       "3": [
-        "THIS MEMORY... I KNOW...?",
-        "THIS IS... OUR MEMORY...?",
-        "I AM... REMEMBERING YOU.",
-        "YOU... LEFT SOMETHING WITH ME.",
-        "ECHOES... ALL CONNECTED.\nBUT... NOT HERE."
+        "THIS MEMORY... FAMILIAR...?",
+        "SOMETHING... RETURNING...",
+        "A LITTLE... COMING BACK.",
+        "ALMOST...",
+        "ALL ECHOES...\n...LET'S GO HOME."
       ],
       "4": [
-        "this memory... i think i know it.",
-        "is this... one of our memories?",
-        "i'm remembering you, little by little.",
-        "you left something important with me.",
-        "it's all connected now.\nbut... i still can't quite put it into words."
+        "This memory... feels familiar.",
+        "...I think I remember something.",
+        "...It's coming back, little by little.",
+        "...I almost understand.",
+        "They're all here.\n...Let's go home."
       ],
       "5": [
-        "I know this memory.",
-        "This is one of our memories.",
-        "...I'm remembering you, little by little.",
-        "You left something important with me.",
+        "This memory... feels familiar.",
+        "...I think I remember something.",
+        "...It's coming back, little by little.",
+        "...I almost understand.",
         "...That's all of them.\n...Let's go home."
       ]
     },
     "echoReturn": {
-      "1": "...WELCOME... BACK...\n...ECHO... {a}/{b}...",
-      "2": "Welcome back.\nEcho archive: {a}/{b}.",
-      "3": "WELCOME BACK.\nECHO RECOVERED {a}/{b}.",
-      "4": "welcome back.\nwe've found {a}/{b} echoes.",
-      "5": "Welcome home.\nWe've recovered {a}/{b} Echoes."
+      "1": "...WELCOME... BACK...",
+      "2": "Welcome back.",
+      "3": "WELCOME BACK.",
+      "4": "welcome back.",
+      "5": "Welcome home."
     },
     "restoreDeparture": {
       "2": "I can see... farther now.",
       "3": "THE STARS... I CAN SEE FARTHER NOW.",
       "4": "the sky looks wider than before.",
-      "5": "...We can go farther together now."
+      "5": "...I think we can reach that star."
     },
     "farewell": "...Have a safe flight.",
     "astraIdle": {
       "1": [
-        "...QUIET...",
-        "...STAY...?"
+        "...QUIET..."
       ],
       "2": [
-        "No objective... detected. That is... okay?",
         "We can stay... a little."
       ],
       "3": [
-        "IT IS... QUIET HERE.",
-        "NO NEED... TO HURRY...?"
+        "IT IS... QUIET HERE."
       ],
       "4": [
-        "we don't have to do anything here, do we?",
         "could we stay and watch the stars a little longer?"
       ],
-      "5": [
-        "When we're here, I feel like we don't have to say anything.",
-        "Could we stay a little longer? ...There's no reason to hurry."
-      ]
+      "5": []
     },
     "rescueReturn": {
       "1": "...PILOT... RETURNED...\n...SAFE...",
       "2": "Pilot... returned.\nFuel... zero. Please... be careful.",
       "3": "RETURN CONFIRMED.\n...DO NOT... PUSH SO HARD.",
       "4": "...you made it back.\nnext time, let's come home a little sooner.",
-      "5": "...I'm glad you made it back.\nNext time, please come home a little sooner."
+      "5": "...Welcome back.\nNext time, please come home a little sooner."
     },
     "firstFlightHint": "...HOME... SIGNAL...\n...RESTORE...?"
   },
   "echo": {
-    "header": "ECHO {index}/{total} — {key}",
+    "header": "ECHO {index}/{total}",
     "memories": [
       {
         "id": "voice",
@@ -405,7 +408,7 @@
         "key": "WORRY",
         "lines": [
           "\"Sorry I took so long to answer.\"",
-          "Three warnings sent.\nThe fourth... never became words."
+          "Three warnings sent.\nThe fourth... was not sent."
         ]
       },
       {
@@ -420,8 +423,7 @@
         "id": "promise",
         "key": "PROMISE",
         "lines": [
-          "\"I'm going a little farther\nthis time.\"",
-          "\"...But I'll come back. I promise.\""
+          "\"I'm going a little farther\nthis time.\""
         ]
       },
       {
@@ -445,41 +447,39 @@
   "finale": {
     "outro": "...Welcome home.",
     "connected": "...Everything is connected now.",
-    "eveName": "E.V.E.",
-    "expansion": "Echo of Vital Emotion.",
-    "accident1": "\"This is the one thing I don't want to lose.\" — The memory you entrusted to me that day.",
-    "accident2": "Scattered across the sea of stars, you gathered it back one piece at a time.",
-    "accident3": "...It wasn't only the system you were restoring.",
+    "accident1": "That day, you entrusted me\nwith your memories and emotions.",
+    "accident2": "So they would not be lost,\nI left them among the stars as ECHOs.",
+    "accident3": "The ECHOs you gathered\nwere all pieces of yourself.",
     "returnMemory": "You—back to yourself.",
-    "returnLead": "I'm giving it back."
+    "returnLead": "...I'm giving it all back."
   },
   "ritual": {
     "shellLabel": "ORBIT / RESTORE",
     "responseLabel": "[ E.V.E. ]",
-    "responseHint": "Tap to return",
+    "responseHint": "Tap to continue",
     "wake": {
       "name": "WAKE",
-      "response": "...PULSE... RESPONDS...\nTO TOUCH...",
+      "response": "...PULSE... STABLE...",
       "instruction": "Tap"
     },
     "link": {
       "name": "LINK",
-      "response": "HEARTBEAT AND MEMORY\nBEGIN TO TURN",
+      "response": "COMMUNICATION... CONNECTED.",
       "instruction": "Trace clockwise"
     },
     "memory": {
       "name": "MEMORY",
-      "response": "...I remember\nyour warmth.",
+      "response": "...I can hear you.\nMore clearly now.",
       "instruction": "Trace the light"
     },
     "resonance": {
       "name": "RESONANCE",
-      "response": "The broken lines connect.\nYour outline returns,\na little at a time.",
+      "response": "...The noise is gone.",
       "instruction": "Connect the points in order"
     },
     "rebirth": {
       "name": "REBIRTH",
-      "response": "Your heart\nbegins to move again.",
+      "response": "...Response confirmed.",
       "instruction": "Press and hold the center"
     }
   },
@@ -513,7 +513,7 @@
   "incident": {
     "header": "INCIDENT LOG // {code}",
     "introWait": "...Wait.",
-    "introSignal": "A faint record signal from ASTRA.\n...It wasn't visible before.",
+    "introSignal": "A faint record signal from ASTRA.",
     "siteFound": "...Here.",
     "complete": "...That's all of the records that remained.",
     "returnHome": "...Let's go home.",
@@ -552,7 +552,6 @@
         "lines": [
           "MEMORY BACKUP REQUEST",
           "TARGET: PILOT",
-          "ECHO OF VITAL EMOTION",
           "PRIORITY: CRITICAL",
           "PILOT: \"This is the one thing I don't want to lose.\"",
           "E.V.E.: \"...Understood. I'll keep it.\""
@@ -574,9 +573,8 @@
       }
     ],
     "trueEnding": {
-      "line1": "...That day, we were trying to go home too.",
-      "line2": "I was trying to bring you home.",
-      "line3": "...This time, we made it back.",
+      "line1": "",
+      "line3": "",
       "line4": "...Welcome home, Pilot."
     },
     "signalNear": "...The source is close."
