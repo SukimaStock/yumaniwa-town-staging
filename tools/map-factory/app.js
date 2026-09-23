@@ -94,6 +94,8 @@
     assetCount: $('assetCount'),
     batchCount: $('batchCount'),
     batchList: $('batchList'),
+    compositionSlotList: $('compositionSlotList'),
+    partSelectionBox: $('partSelectionBox'),
     comboStrip: $('comboStrip'),
     adjustType: $('adjustType'),
     scale: $('partScale'),
@@ -143,6 +145,7 @@
 
   let db = null;
   let renderToken = 0;
+  let previewHitRegions = [];
 
   function blankSelected() {
     return Object.fromEntries(TYPES.map((type) => [type, null]));
@@ -160,6 +163,8 @@
     selected: blankSelected(),
     adjustments: blankAdjustments(),
     adjustType: 'noren',
+    compositions: [],
+    activeCompositionId: null,
     detected: null
   };
 
@@ -167,10 +172,85 @@
     return String(value).padStart(2, '0');
   }
 
+  function cloneSelected(source) {
+    return { ...blankSelected(), ...(source || {}) };
+  }
+
+  function cloneAdjustments(source) {
+    const result = blankAdjustments();
+
+    PART_TYPES.forEach((type) => {
+      if (!source || !source[type]) return;
+
+      result[type] = {
+        scale: Number(source[type].scale ?? 100),
+        x: Number(source[type].x ?? 0),
+        y: Number(source[type].y ?? 0)
+      };
+    });
+
+    return result;
+  }
+
+  function makeCompositionSlot(index, source) {
+    const selected = source ? cloneSelected(source.selected) : blankSelected();
+    const adjustments = source ? cloneAdjustments(source.adjustments) : blankAdjustments();
+    const adjustType = source && PART_TYPES.includes(source.adjustType)
+      ? source.adjustType
+      : 'noren';
+
+    return {
+      id: 'composition_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+      name: 'SHOP ' + pad2(index + 1),
+      selected,
+      adjustments,
+      adjustType
+    };
+  }
+
+  function getActiveComposition() {
+    return state.compositions.find((slot) => slot.id === state.activeCompositionId) || null;
+  }
+
+  function snapshotCurrentComposition() {
+    const slot = getActiveComposition();
+    if (!slot) return;
+
+    slot.selected = cloneSelected(state.selected);
+    slot.adjustments = cloneAdjustments(state.adjustments);
+    slot.adjustType = PART_TYPES.includes(state.adjustType) ? state.adjustType : 'noren';
+  }
+
+  function applyComposition(slot) {
+    if (!slot) return;
+
+    state.selected = cloneSelected(slot.selected);
+    state.adjustments = cloneAdjustments(slot.adjustments);
+    state.adjustType = PART_TYPES.includes(slot.adjustType) ? slot.adjustType : 'noren';
+  }
+
+  function persistState() {
+    localStorage.setItem(STATE_KEY, JSON.stringify({
+      selected: state.selected,
+      adjustments: state.adjustments,
+      adjustType: state.adjustType,
+      compositions: state.compositions,
+      activeCompositionId: state.activeCompositionId
+    }));
+  }
+
+  function saveState() {
+    snapshotCurrentComposition();
+    persistState();
+  }
+
   function loadSavedState() {
     try {
       const saved = JSON.parse(localStorage.getItem(STATE_KEY) || '{}');
-      if (saved.selected) state.selected = { ...state.selected, ...saved.selected };
+
+      if (saved.selected) {
+        state.selected = cloneSelected(saved.selected);
+      }
 
       if (saved.adjustments) {
         if (typeof saved.adjustments.scale === 'number') {
@@ -180,27 +260,45 @@
             y: Number(saved.adjustments.y || 0)
           };
         } else {
-          PART_TYPES.forEach((type) => {
-            if (saved.adjustments[type]) {
-              state.adjustments[type] = {
-                ...state.adjustments[type],
-                ...saved.adjustments[type]
-              };
-            }
-          });
+          state.adjustments = cloneAdjustments(saved.adjustments);
         }
       }
 
-      if (PART_TYPES.includes(saved.adjustType)) state.adjustType = saved.adjustType;
-    } catch (_) {}
-  }
+      if (PART_TYPES.includes(saved.adjustType)) {
+        state.adjustType = saved.adjustType;
+      }
 
-  function saveState() {
-    localStorage.setItem(STATE_KEY, JSON.stringify({
-      selected: state.selected,
-      adjustments: state.adjustments,
-      adjustType: state.adjustType
-    }));
+      if (Array.isArray(saved.compositions) && saved.compositions.length) {
+        state.compositions = saved.compositions.map((slot, index) => ({
+          id: slot.id || ('composition_legacy_' + index),
+          name: slot.name || ('SHOP ' + pad2(index + 1)),
+          selected: cloneSelected(slot.selected),
+          adjustments: cloneAdjustments(slot.adjustments),
+          adjustType: PART_TYPES.includes(slot.adjustType) ? slot.adjustType : 'noren'
+        }));
+
+        state.activeCompositionId =
+          state.compositions.some((slot) => slot.id === saved.activeCompositionId)
+            ? saved.activeCompositionId
+            : state.compositions[0].id;
+
+        applyComposition(getActiveComposition());
+      } else {
+        const slot = makeCompositionSlot(0, {
+          selected: state.selected,
+          adjustments: state.adjustments,
+          adjustType: state.adjustType
+        });
+
+        state.compositions = [slot];
+        state.activeCompositionId = slot.id;
+      }
+    } catch (_) {
+      const slot = makeCompositionSlot(0);
+      state.compositions = [slot];
+      state.activeCompositionId = slot.id;
+      applyComposition(slot);
+    }
   }
 
   function openDatabase() {
@@ -307,6 +405,121 @@
     syncControls();
   }
 
+  function renderCompositionSlots() {
+    els.compositionSlotList.innerHTML = '';
+
+    state.compositions.forEach((slot, index) => {
+      const item = document.createElement('div');
+      item.className = 'composition-slot' + (slot.id === state.activeCompositionId ? ' active' : '');
+      item.setAttribute('role', 'button');
+      item.tabIndex = 0;
+      item.title = '作業台 ' + (index + 1) + ' に切り替え';
+
+      const label = document.createElement('span');
+      label.textContent = pad2(index + 1);
+
+      item.addEventListener('click', () => switchComposition(slot.id));
+      item.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          switchComposition(slot.id);
+        }
+      });
+
+      if (state.compositions.length > 1) {
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'slot-delete';
+        remove.textContent = '×';
+        remove.setAttribute('aria-label', '作業台 ' + (index + 1) + ' を削除');
+        remove.addEventListener('click', (event) => {
+          event.stopPropagation();
+          deleteCompositionSlot(slot.id);
+        });
+        item.append(label, remove);
+      } else {
+        item.append(label);
+      }
+
+      els.compositionSlotList.appendChild(item);
+    });
+
+    const add = document.createElement('button');
+    add.type = 'button';
+    add.className = 'composition-slot-add';
+    add.textContent = '+';
+    add.title = '現在の構成を複製して新しい作業台を追加';
+    add.addEventListener('click', addCompositionSlot);
+    els.compositionSlotList.appendChild(add);
+  }
+
+  function switchComposition(id) {
+    if (id === state.activeCompositionId) return;
+
+    snapshotCurrentComposition();
+
+    const next = state.compositions.find((slot) => slot.id === id);
+    if (!next) return;
+
+    state.activeCompositionId = id;
+    applyComposition(next);
+    persistState();
+    renderAll();
+  }
+
+  function addCompositionSlot() {
+    snapshotCurrentComposition();
+
+    const current = getActiveComposition();
+    const slot = makeCompositionSlot(state.compositions.length, current || {
+      selected: state.selected,
+      adjustments: state.adjustments,
+      adjustType: state.adjustType
+    });
+
+    state.compositions.push(slot);
+    state.activeCompositionId = slot.id;
+    applyComposition(slot);
+    persistState();
+    renderAll();
+  }
+
+  function deleteCompositionSlot(id) {
+    if (state.compositions.length <= 1) return;
+
+    const index = state.compositions.findIndex((slot) => slot.id === id);
+    if (index < 0) return;
+
+    if (!window.confirm('この作業台を削除しますか？')) return;
+
+    snapshotCurrentComposition();
+    const wasActive = state.activeCompositionId === id;
+    state.compositions.splice(index, 1);
+
+    if (wasActive) {
+      const next = state.compositions[Math.min(index, state.compositions.length - 1)];
+      state.activeCompositionId = next.id;
+      applyComposition(next);
+    }
+
+    state.compositions.forEach((slot, slotIndex) => {
+      slot.name = 'SHOP ' + pad2(slotIndex + 1);
+    });
+
+    persistState();
+    renderAll();
+  }
+
+  function removeAssetIdsFromCompositions(idSet) {
+    state.compositions.forEach((slot) => {
+      TYPES.forEach((type) => {
+        if (slot.selected[type] && idSet.has(slot.selected[type])) {
+          slot.selected[type] = null;
+        }
+      });
+    });
+  }
+
   function makeAssetCard(asset) {
     const wrap = document.createElement('div');
     wrap.className = 'asset-item';
@@ -359,6 +572,9 @@
 
       await dbDelete(asset.id);
       state.assets = state.assets.filter((item) => item.id !== asset.id);
+
+      const removedIds = new Set([asset.id]);
+      removeAssetIdsFromCompositions(removedIds);
 
       if (state.selected[asset.type] === asset.id) {
         state.selected[asset.type] = null;
@@ -448,6 +664,7 @@
     await dbDeleteMany(ids);
 
     state.assets = state.assets.filter((asset) => !idSet.has(asset.id));
+    removeAssetIdsFromCompositions(idSet);
 
     TYPES.forEach((type) => {
       if (state.selected[type] && idSet.has(state.selected[type])) {
@@ -595,6 +812,9 @@
 
   async function renderPreview() {
     const token = ++renderToken;
+    previewHitRegions = [];
+    els.partSelectionBox.classList.add('hidden');
+
     ctx.clearRect(0, 0, els.canvas.width, els.canvas.height);
     ctx.imageSmoothingEnabled = false;
 
@@ -646,13 +866,62 @@
           Math.round(rect.w),
           Math.round(rect.h)
         );
+
+        previewHitRegions.push({
+          type,
+          x: rect.x,
+          y: rect.y,
+          w: rect.w,
+          h: rect.h
+        });
       }
+
+      updatePartSelectionBox();
     } catch (error) {
       console.error('Preview render failed', error);
     }
   }
 
+  function updatePartSelectionBox() {
+    const region = previewHitRegions.find((item) => item.type === state.adjustType);
+
+    if (!region || !state.selected[state.adjustType]) {
+      els.partSelectionBox.classList.add('hidden');
+      return;
+    }
+
+    els.partSelectionBox.style.left = (region.x / els.canvas.width * 100) + '%';
+    els.partSelectionBox.style.top = (region.y / els.canvas.height * 100) + '%';
+    els.partSelectionBox.style.width = (region.w / els.canvas.width * 100) + '%';
+    els.partSelectionBox.style.height = (region.h / els.canvas.height * 100) + '%';
+    els.partSelectionBox.classList.remove('hidden');
+  }
+
+  function handleCanvasPartSelection(event) {
+    if (!previewHitRegions.length) return;
+
+    const bounds = els.canvas.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) * (els.canvas.width / bounds.width);
+    const y = (event.clientY - bounds.top) * (els.canvas.height / bounds.height);
+
+    for (let index = previewHitRegions.length - 1; index >= 0; index--) {
+      const region = previewHitRegions[index];
+
+      if (
+        x >= region.x &&
+        x <= region.x + region.w &&
+        y >= region.y &&
+        y <= region.y + region.h
+      ) {
+        setAdjustType(region.type);
+        updatePartSelectionBox();
+        return;
+      }
+    }
+  }
+
   function renderAll() {
+    renderCompositionSlots();
     renderShelves();
     renderBatches();
     renderCombos();
@@ -1462,7 +1731,7 @@
     });
 
     const recipe = {
-      version: 'yumaniwa-asset-0.5',
+      version: 'yumaniwa-asset-0.6',
       createdAt: new Date().toISOString(),
       base: {
         id: base.id,
@@ -1555,6 +1824,8 @@
   }
 
   function bindEvents() {
+    els.canvas.addEventListener('click', handleCanvasPartSelection);
+
     els.importMode.addEventListener('change', syncImportMode);
 
     els.sourceInput.addEventListener('change', () => {
@@ -1613,12 +1884,17 @@
       db = await openDatabase();
       state.assets = await dbGetAll();
 
-      TYPES.forEach((type) => {
-        if (state.selected[type] && !assetById(state.selected[type])) {
-          state.selected[type] = null;
-        }
+      const validAssetIds = new Set(state.assets.map((asset) => asset.id));
+
+      state.compositions.forEach((slot) => {
+        TYPES.forEach((type) => {
+          if (slot.selected[type] && !validAssetIds.has(slot.selected[type])) {
+            slot.selected[type] = null;
+          }
+        });
       });
 
+      applyComposition(getActiveComposition());
       saveState();
       renderAll();
     } catch (error) {
