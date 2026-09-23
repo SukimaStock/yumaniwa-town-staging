@@ -12,7 +12,7 @@
     return {
       schema: 'sukimastock-artifact/1',
       kind,
-      producer: { tool: 'map-factory', version: '0.8' },
+      producer: { tool: 'map-factory', version: '0.9' },
       createdAt,
       dependencies,
       nextStep
@@ -953,6 +953,27 @@
       renderAll();
     });
 
+    const exportAsset = document.createElement('button');
+    exportAsset.className = 'export-asset';
+    exportAsset.type = 'button';
+    exportAsset.textContent = 'PNG';
+    exportAsset.title = 'Dot Cleaner用に素材をPNG保存';
+    exportAsset.setAttribute('aria-label', 'Dot Cleaner用に ' + asset.label + ' をPNG保存');
+    exportAsset.addEventListener('click', async (event) => {
+      event.stopPropagation();
+      exportAsset.disabled = true;
+      exportAsset.textContent = '…';
+      try {
+        await exportAssetPng(asset);
+        exportAsset.textContent = '保存';
+      } catch (error) {
+        console.error('Asset PNG export failed', error);
+        exportAsset.textContent = '失敗';
+      } finally {
+        setTimeout(() => { exportAsset.textContent = 'PNG'; exportAsset.disabled = false; }, 1800);
+      }
+    });
+
     const remove = document.createElement('button');
     remove.className = 'delete-asset';
     remove.type = 'button';
@@ -979,7 +1000,7 @@
       renderAll();
     });
 
-    wrap.append(button, remove);
+    wrap.append(button, exportAsset, remove);
     return wrap;
   }
 
@@ -2171,6 +2192,22 @@
     anchor.click();
     anchor.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  async function exportAssetPng(asset) {
+    let blob = asset.blob instanceof Blob ? asset.blob : dataUrlToBlob(asset.dataUrl);
+    if (blob.type !== 'image/png') {
+      const image = await loadImage(assetUrl({ ...asset, blob }));
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      canvas.getContext('2d').drawImage(image, 0, 0);
+      blob = await new Promise((resolve, reject) => canvas.toBlob(
+        (result) => result ? resolve(result) : reject(new Error('PNGを作成できません。')), 'image/png'
+      ));
+    }
+    const label = String(asset.label || asset.type).replace(/[\\/:*?"<>|]+/g, '-').trim() || asset.type;
+    downloadBlob(blob, label + '-' + asset.id + '.png');
   }
 
   function exportDraftPng() {
