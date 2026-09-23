@@ -15,7 +15,7 @@
         <h1>Map Factory</h1>
         <p class="lead">完成品を生成する場所ではなく、同じ町の素材原型を仕入れて組み合わせる場所。</p>
       </div>
-      <span class="version-badge">Asset Composer v0.2</span>
+      <span class="version-badge">Asset Composer v0.3</span>
     </header>
 
     <section class="workflow" aria-label="workflow">
@@ -48,26 +48,38 @@
         <div class="adjustments">
           <div class="adjust-head">
             <div>
-              <p class="eyebrow">NOREN ADJUST</p>
-              <strong>仮配置だけ整える</strong>
+              <p class="eyebrow">PART ADJUST</p>
+              <strong>選んだ部品だけ仮配置を整える</strong>
             </div>
             <button id="resetAdjustBtn" class="ghost small">Reset</button>
           </div>
+
+          <label class="adjust-part">
+            <span>Part</span>
+            <select id="adjustType">
+              <option value="noren">NOREN</option>
+              <option value="sign">SIGN</option>
+              <option value="lantern">LANTERN</option>
+              <option value="board">BOARD</option>
+              <option value="special">SPECIAL</option>
+            </select>
+          </label>
+
           <label>
             <span>Scale <output id="scaleValue">100%</output></span>
-            <input id="norenScale" type="range" min="65" max="135" value="100" step="1">
+            <input id="partScale" type="range" min="55" max="150" value="100" step="1">
           </label>
           <div class="mini-grid">
             <label>
               <span>X <output id="xValue">0</output></span>
-              <input id="norenX" type="range" min="-20" max="20" value="0" step="1">
+              <input id="partX" type="range" min="-35" max="35" value="0" step="1">
             </label>
             <label>
               <span>Y <output id="yValue">0</output></span>
-              <input id="norenY" type="range" min="-20" max="20" value="0" step="1">
+              <input id="partY" type="range" min="-35" max="35" value="0" step="1">
             </label>
           </div>
-          <p class="hint">ここでは完成させません。正規ドット化前に「この組み合わせが良いか」を見るための補正です。</p>
+          <p class="hint">ここでは完成させません。正規ドット化前に「組み合わせとして成立するか」を見るための補正だけです。</p>
         </div>
 
         <div class="export-actions">
@@ -86,34 +98,29 @@
         </div>
 
         <section class="shelf">
-          <div class="shelf-title">
-            <div>
-              <span class="layer-index">01</span>
-              <strong>BASE</strong>
-            </div>
-            <span class="muted">店の器</span>
-          </div>
+          <div class="shelf-title"><div><span class="layer-index">01</span><strong>BASE</strong></div><span class="muted">店の器</span></div>
           <div id="baseShelf" class="asset-list"></div>
         </section>
-
         <section class="shelf">
-          <div class="shelf-title">
-            <div>
-              <span class="layer-index">02</span>
-              <strong>NOREN</strong>
-            </div>
-            <span class="muted">店の顔</span>
-          </div>
+          <div class="shelf-title"><div><span class="layer-index">02</span><strong>NOREN</strong></div><span class="muted">店の顔</span></div>
           <div id="norenShelf" class="asset-list"></div>
         </section>
-
-        <div class="next-layers">
-          <p class="eyebrow">LATER</p>
-          <span>SIGN</span>
-          <span>LANTERN</span>
-          <span>BOARD</span>
-          <span>SPECIAL</span>
-        </div>
+        <section class="shelf">
+          <div class="shelf-title"><div><span class="layer-index">03</span><strong>SIGN</strong></div><span class="muted">業種のヒント</span></div>
+          <div id="signShelf" class="asset-list"></div>
+        </section>
+        <section class="shelf">
+          <div class="shelf-title"><div><span class="layer-index">04</span><strong>LANTERN</strong></div><span class="muted">夜の営業感</span></div>
+          <div id="lanternShelf" class="asset-list"></div>
+        </section>
+        <section class="shelf">
+          <div class="shelf-title"><div><span class="layer-index">05</span><strong>BOARD</strong></div><span class="muted">店先の生活感</span></div>
+          <div id="boardShelf" class="asset-list"></div>
+        </section>
+        <section class="shelf">
+          <div class="shelf-title"><div><span class="layer-index">06</span><strong>SPECIAL</strong></div><span class="muted">その店だけの一手</span></div>
+          <div id="specialShelf" class="asset-list"></div>
+        </section>
       </aside>
     </section>
 
@@ -132,6 +139,10 @@
           <select id="importType">
             <option value="base">BASE</option>
             <option value="noren">NOREN</option>
+            <option value="sign">SIGN</option>
+            <option value="lantern">LANTERN</option>
+            <option value="board">BOARD</option>
+            <option value="special">SPECIAL</option>
           </select>
         </label>
 
@@ -176,6 +187,10 @@
             <select id="promptType">
               <option value="base">BASE</option>
               <option value="noren">NOREN</option>
+              <option value="sign">SIGN</option>
+              <option value="lantern">LANTERN</option>
+              <option value="board">BOARD</option>
+              <option value="special">SPECIAL</option>
             </select>
           </label>
           <label>
