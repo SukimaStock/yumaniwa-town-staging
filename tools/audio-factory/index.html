@@ -764,10 +764,19 @@ function safeName(s){
 }
 
 function exportJSON(){
+  const exportedAt = new Date().toISOString();
   const data = {
     format:'sukima-audio-factory',
     version:3,
-    exportedAt:new Date().toISOString(),
+    exportedAt,
+    artifact:{
+      schema:'sukimastock-artifact/1',
+      kind:'audio-presets',
+      producer:{tool:'audio-factory',version:'0.3'},
+      createdAt:exportedAt,
+      dependencies:[],
+      nextStep:'audio-factory-import'
+    },
     current:clone(recipe),
     slots:{A:slotA,B:slotB},
     presets:getSaved()
