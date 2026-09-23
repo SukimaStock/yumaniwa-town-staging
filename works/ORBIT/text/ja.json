@@ -1,11 +1,11 @@
 {
   "_meta": {
     "locale": "ja",
-    "version": 39,
-    "note": "ORBIT Web Japanese runtime text. v2.9.19 adds restrained Phase B system and story cues for boot, E.V.E. ONLINE, HOME terminal, DATA scan, rescue, weak signal, incident archive, and REBIRTH. Existing OGG cues remain unchanged."
+    "version": 40,
+    "note": "ORBIT Web Japanese runtime text. v2.9.20 slows the final E.V.E. explanation, restores the four-beat true ending, and gates INCIDENT signals until E.V.E. finishes the ASTRA introduction. Existing OGG cues remain unchanged."
   },
   "meta": {
-    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.19"
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.20"
   },
   "title": {
     "title": "O R B I T",
@@ -573,8 +573,9 @@
       }
     ],
     "trueEnding": {
-      "line1": "",
-      "line3": "",
+      "line1": "……あの日も、帰ろうとしていたんですね。",
+      "line2": "私も、あなたを帰そうとしていました。",
+      "line3": "……今度は、帰ってこられました。",
       "line4": "……お帰りなさい、パイロット。"
     },
     "signalNear": "……信号源、この近くです。"
