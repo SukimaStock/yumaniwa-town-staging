@@ -35,7 +35,7 @@ Map Factory、Audio Factory、Nudge が書き出す制作物に、来歴と次�
 | Audio Factory のプリセットJSON | `audio-presets` | `[]` | `audio-factory-import` |
 | Nudge の修正仕様JSON | `revision-brief` | `[]`。参照元作品があっても、現行ツールは識別子を持たない | `ai-revision` |
 
-Map Factory素材庫のZIP v2は `manifest.json` に共通 `artifact` を置き、`data.json` の画像参照を `assets/` に解決する。旧JSON v1は引き続き読み込める。Map Factory のRecipeは画像を含まない。依存する素材IDは同じMap Factory素材庫の中でだけ解決できる。別のブラウザーへ作業を移すときは、先に素材庫バックアップを復元する。完成PNGは別ファイルであり、Recipeの依存素材には数えない。
+Map Factory素材庫のZIP v2は `manifest.json` に共通 `artifact` を置き、`data.json` の画像参照を `assets/` に解決する。個別素材PNGには素材IDを含むファイル名を付け、Recipeの `map-factory-asset` 参照と対応させる。Dot CleanerはこのPNGを読み込み、正規ドット化へ進む。旧JSON v1は引き続き読み込める。Map Factory のRecipeは画像を含まない。依存する素材IDは同じMap Factory素材庫の中でだけ解決できる。別のブラウザーへ作業を移すときは、先に素材庫バックアップを復元する。完成PNGは別ファイルであり、Recipeの依存素材には数えない。
 
 ## 互換性と版の扱い
 
