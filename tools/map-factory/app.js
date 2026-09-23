@@ -552,6 +552,9 @@
     els.y.disabled = disabled;
     els.resetAdjust.disabled = disabled;
 
+    els.x.min = state.adjustType === 'special' ? '-35' : '-35';
+    els.x.max = state.adjustType === 'special' ? '65' : '35';
+
     const scale = adjustment ? Number(adjustment.scale ?? 100) : 100;
     const x = adjustment ? Number(adjustment.x ?? 0) : 0;
     const y = adjustment ? Number(adjustment.y ?? 0) : 0;
@@ -582,7 +585,7 @@
   }
 
   function specialDefaultOffset(index) {
-    const offsets = [0, 12, -12, 24, -24, 6, -6, 18, -18];
+    const offsets = [0, 14, 28, 42, 56, -14, 7, 21, 35, 49];
     return offsets[index % offsets.length];
   }
 
@@ -640,7 +643,7 @@
       instanceId: createSpecialId(),
       assetId: active.assetId,
       scale: active.scale,
-      x: Math.max(-35, Math.min(35, Number(active.x) + 7)),
+      x: Math.max(-35, Math.min(65, Number(active.x) + 7)),
       y: Number(active.y)
     };
 
