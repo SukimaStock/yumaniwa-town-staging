@@ -517,7 +517,7 @@
   const ORBIT_AUDIO_GAIN = 3.0; // OGG lift; preserves relative balance.
   const ORBIT_TONE_GAIN = 8.0; // Procedural placeholder cues need substantially more presence, especially on mobile.
 
-  const ORBIT_OGG_SOUNDS = Object.freeze({
+  const ORBIT_SOUND_DEFAULTS = Object.freeze({
     takeoff: Object.freeze({ file: "sounds/takeoff.ogg", volume: 0.14, cooldown: 120 }),
     landing: Object.freeze({ file: "sounds/landing.ogg", volume: 0.14, cooldown: 120 }),
     ore: Object.freeze({ file: "sounds/ore.ogg", volume: 0.10, cooldown: 100 }),
@@ -526,7 +526,44 @@
     impact: Object.freeze({ file: "sounds/impact.ogg", volume: 0.16, cooldown: 350 }),
     echo: Object.freeze({ file: "sounds/echo.ogg", volume: 0.14, cooldown: 300 }),
     restore: Object.freeze({ file: "sounds/restore.ogg", volume: 0.15, cooldown: 500 }),
+    boot: Object.freeze({ file: "sounds/boot.ogg", volume: 0.12, cooldown: 400 }),
+    eve_online: Object.freeze({ file: "sounds/eve_online.ogg", volume: 0.12, cooldown: 180 }),
+    terminal_open: Object.freeze({ file: "sounds/terminal.ogg", volume: 0.12, cooldown: 160 }),
+    scan: Object.freeze({ file: "sounds/scan.ogg", volume: 0.12, cooldown: 250 }),
+    rescue: Object.freeze({ file: "sounds/rescue.ogg", volume: 0.12, cooldown: 900 }),
+    rebirth: Object.freeze({ file: "sounds/rebirth.ogg", volume: 0.12, cooldown: 900 }),
   });
+
+  const ORBIT_SOUND_OVERRIDES =
+    typeof window !== "undefined" &&
+    window.ORBIT_SOUND_CONFIG &&
+    typeof window.ORBIT_SOUND_CONFIG === "object"
+      ? window.ORBIT_SOUND_CONFIG
+      : {};
+
+  function orbitSoundDefinition(name) {
+    const base = ORBIT_SOUND_DEFAULTS[name] || {};
+    const custom = ORBIT_SOUND_OVERRIDES[name];
+    if (custom === false || (custom && custom.enabled === false)) return null;
+    const merged = { ...base, ...(custom || {}) };
+    if (!merged.file) return null;
+    return Object.freeze({
+      file: String(merged.file),
+      volume: Number.isFinite(Number(merged.volume)) ? Number(merged.volume) : 0.12,
+      cooldown: Number.isFinite(Number(merged.cooldown)) ? Number(merged.cooldown) : 0,
+    });
+  }
+
+  const ORBIT_OGG_SOUNDS = Object.freeze(
+    Array.from(new Set([
+      ...Object.keys(ORBIT_SOUND_DEFAULTS),
+      ...Object.keys(ORBIT_SOUND_OVERRIDES),
+    ])).reduce((out, name) => {
+      const definition = orbitSoundDefinition(name);
+      if (definition) out[name] = definition;
+      return out;
+    }, {})
+  );
 
   const ORBIT_TONE = Object.freeze({
     takeoff: Object.freeze({ frequency: 145, endFrequency: 235, duration: 0.22, volume: 0.090, type: "triangle" }),
@@ -600,9 +637,25 @@
       scheduleOrbitTone({ frequency: 620, endFrequency: 760, duration: 0.20, volume: 0.030, type: "sine" }, 0.11);
       return true;
     }
-    if (name === "terminal") {
+    if (name === "terminal" || name === "terminal_open") {
       scheduleOrbitTone({ frequency: 285, endFrequency: 235, duration: 0.075, volume: 0.028, type: "triangle" }, 0);
       scheduleOrbitTone({ frequency: 520, endFrequency: 465, duration: 0.055, volume: 0.018, type: "triangle" }, 0.045);
+      return true;
+    }
+    if (name === "terminal_boot") {
+      scheduleOrbitTone({ frequency: 72, endFrequency: 142, duration: 0.58, volume: 0.052, type: "sine" }, 0);
+      scheduleOrbitTone({ frequency: 138, endFrequency: 122, duration: 0.15, volume: 0.018, type: "triangle" }, 0.34);
+      return true;
+    }
+    if (name === "restore_link") {
+      scheduleOrbitTone({ frequency: 78, endFrequency: 132, duration: 0.50, volume: 0.052, type: "sine" }, 0);
+      scheduleOrbitTone({ frequency: 290, endFrequency: 410, duration: 0.10, volume: 0.024, type: "triangle" }, 0.39);
+      scheduleOrbitTone({ frequency: 610, endFrequency: 760, duration: 0.075, volume: 0.020, type: "sine" }, 0.52);
+      return true;
+    }
+    if (name === "takeoff_power") {
+      scheduleOrbitTone({ frequency: 74, endFrequency: 162, duration: 0.46, volume: 0.050, type: "sine" }, 0);
+      scheduleOrbitTone({ frequency: 148, endFrequency: 228, duration: 0.34, volume: 0.022, type: "triangle" }, 0.04);
       return true;
     }
     if (name === "scan") {
@@ -757,6 +810,7 @@
   }
 
   function playHomeTerminalBootCue(level, duration) {
+    if (ORBIT_OGG_SOUNDS.terminal_boot) return playOrbitCue("terminal_boot");
     const lv = clamp(Math.floor(Number(level || 1)), 1, 5);
     const total = Math.max(0.20, Number(duration || 0.8));
     const humDuration = Math.max(0.18, Math.min(0.82, total * (lv >= 4 ? 0.58 : 0.72)));
@@ -782,6 +836,7 @@
   }
 
   function playRestoreLinkCue() {
+    if (ORBIT_OGG_SOUNDS.restore_link) return playOrbitCue("restore_link");
     scheduleOrbitTone({
       frequency: 78,
       endFrequency: 132,
@@ -3977,7 +4032,7 @@
       this.pressing = false;
       this.departHold = 0;
       this.repairTapArmed = false;
-      if (!wasVisible) playOrbitCue("terminal");
+      if (!wasVisible) playOrbitCue("terminal_open");
       return true;
     }
 
@@ -5329,6 +5384,7 @@
       }
       this.mode = "takeoff";
       playOrbitCue("takeoff");
+      playOrbitCue("takeoff_power");
       // Keep the launch-hold pointer alive. fixedTakeoff ignores steering for
       // the brief launch impulse, then fixedFlight inherits the same held touch.
       this.departHold = 0;
