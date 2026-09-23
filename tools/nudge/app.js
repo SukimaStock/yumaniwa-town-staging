@@ -313,6 +313,14 @@ function buildJp(s){
 function exportSpec(s){
   return {
     schema:'sukimastock-nudge/0.2',
+    artifact:{
+      schema:'sukimastock-artifact/1',
+      kind:'revision-brief',
+      producer:{tool:'nudge',version:'0.2'},
+      createdAt:new Date().toISOString(),
+      dependencies:[],
+      nextStep:'ai-revision'
+    },
     source:s.source,
     medium:s.resolvedMedium,
     operations:s.operations,
