@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>SukimaStock Nudge v0.1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="wrap">
+<header class="top">
+  <div><h1>SUKIMASTOCK NUDGE <span>v0.1</span></h1><p>感覚語 → 制作パラメータ → AI修正指示</p></div>
+  <div id="status" class="status">local / no API</div>
+</header>
+<section class="grid">
+<div class="col">
+  <div class="panel">
+    <h2>01 / SAY IT NATURALLY</h2>
+    <textarea id="source">看板をもう少し小さく。上の主張も少し弱くしたい。建物自体は気に入ってるので変えない。静かな感じも残す。</textarea>
+    <div class="mediums" id="mediums"></div>
+    <div class="samples" id="samples"></div>
+    <button id="analyzeBtn" class="primary">NUDGEを解析</button>
+  </div>
+  <div class="panel">
+    <h2>02 / INTERPRETATION</h2>
+    <div class="summary">
+      <div class="kv"><small>TARGET</small><div id="targets" class="tags"></div></div>
+      <div class="kv"><small>SCOPE</small><div id="scope">—</div></div>
+      <div class="kv"><small>LOCK</small><div id="locks" class="tags"></div></div>
+      <div class="kv"><small>AVOID</small><div id="avoids" class="tags"></div></div>
+    </div>
+    <div class="target-add"><input id="targetInput" placeholder="対象を追加 例: のれん / 効果音 / 上部"><button id="addTargetBtn">ADD</button></div>
+  </div>
+  <div class="panel">
+    <h2>03 / NUDGE AXES</h2>
+    <div id="axes"></div>
+    <p id="translationNote" class="note"></p>
+  </div>
+</div>
+<div class="col">
+  <div class="panel">
+    <h2>04 / AI REVISION BRIEF</h2>
+    <pre id="promptOut" class="output"></pre>
+    <div class="actions"><button id="copyPromptBtn">COPY PROMPT</button><button id="copyJpBtn">COPY JP SPEC</button></div>
+    <div class="actions"><button id="confirmBtn" class="confirm">✓ この解釈で合ってる</button><button id="saveBtn">SAVE</button></div>
+  </div>
+  <div class="panel">
+    <h2>STRUCTURED SPEC</h2>
+    <pre id="jsonOut" class="output json"></pre>
+    <button id="copyJsonBtn" class="wide">COPY JSON</button>
+  </div>
+  <div class="panel"><h2>HISTORY / LEARNING LOG</h2><div id="history" class="history"></div></div>
+  <div class="panel"><h2>MATCHED LANGUAGE</h2><div id="matched" class="tags"></div><pre id="intentOut" class="intent"></pre></div>
+</div>
+</section>
+<footer>v0.1はルールベース。外部AI APIは呼ばず、まず「SukimaStock語の解釈」を見える化する。採用した解釈はlocalStorageに保存し、後の辞書調整に使う。</footer>
+</main>
+<script src="dictionary.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
