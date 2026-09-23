@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#171714">
   <title>Yumaniwa Map Factory — Asset Composer</title>
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css?v=0.7.1">
 </head>
 <body>
   <main class="app">
@@ -162,11 +162,12 @@
           <div class="batch-manager-head"><div><p class="eyebrow">BACKUP / RESTORE</p><strong>部品棚と作業状態を保存</strong></div></div>
           <p class="batch-help">取り込んだ素材画像、部品棚、選択中の構成、全WORK SLOTをひとつのJSONに保存します。復元すると現在の内容を置き換えます。</p>
           <div class="backup-actions">
-            <button id="exportBackupBtn" class="ghost small" type="button">バックアップを書き出す</button>
-            <button id="restoreBackupBtn" class="ghost small" type="button">バックアップを復元</button>
+            <button id="exportBackupBtn" class="ghost small" type="button" disabled>バックアップを書き出す</button>
+            <button id="restoreBackupBtn" class="ghost small" type="button" disabled>バックアップを復元</button>
             <input id="backupFileInput" type="file" accept=".json,application/json" hidden>
           </div>
           <p id="backupStatus" class="backup-status" aria-live="polite">バックアップはこのブラウザーの外にも保存してください。</p>
+          <a id="backupDownloadLink" class="backup-download-link hidden" href="#">バックアップJSONを保存</a>
         </section>
       </aside>
     </section>
@@ -299,6 +300,6 @@
   </main>
 
   <script src="./masters.js"></script>
-  <script src="./app.js"></script>
+  <script src="./app.js?v=0.7.1"></script>
 </body>
 </html>
