@@ -8,7 +8,8 @@
 
   const TYPES = ['base', 'noren', 'sign', 'lantern', 'board', 'special'];
   const PART_TYPES = TYPES.filter((type) => type !== 'base');
-  const DRAW_ORDER = ['special', 'noren', 'sign', 'lantern', 'board'];
+  const SINGLE_PART_TYPES = ['noren', 'sign', 'lantern', 'board'];
+  const DRAW_ORDER = ['noren', 'sign', 'lantern', 'board'];
 
   const SLOT = {
     noren:   { x: 0.50, y: 0.42, maxW: 0.56, maxH: 0.30, anchor: 'top-center' },
@@ -96,6 +97,14 @@
     batchList: $('batchList'),
     compositionSlotList: $('compositionSlotList'),
     partSelectionBox: $('partSelectionBox'),
+    specialTools: $('specialTools'),
+    specialActiveLabel: $('specialActiveLabel'),
+    specialCount: $('specialCount'),
+    specialInstanceList: $('specialInstanceList'),
+    specialBackward: $('specialBackwardBtn'),
+    specialForward: $('specialForwardBtn'),
+    specialDuplicate: $('specialDuplicateBtn'),
+    specialRemove: $('specialRemoveBtn'),
     comboStrip: $('comboStrip'),
     adjustType: $('adjustType'),
     scale: $('partScale'),
@@ -148,11 +157,18 @@
   let previewHitRegions = [];
 
   function blankSelected() {
-    return Object.fromEntries(TYPES.map((type) => [type, null]));
+    return {
+      base: null,
+      noren: null,
+      sign: null,
+      lantern: null,
+      board: null,
+      special: null
+    };
   }
 
   function blankAdjustments() {
-    return Object.fromEntries(PART_TYPES.map((type) => [
+    return Object.fromEntries(SINGLE_PART_TYPES.map((type) => [
       type,
       { scale: 100, x: 0, y: 0 }
     ]));
@@ -162,6 +178,8 @@
     assets: [],
     selected: blankSelected(),
     adjustments: blankAdjustments(),
+    specials: [],
+    activeSpecialId: null,
     adjustType: 'noren',
     compositions: [],
     activeCompositionId: null,
@@ -172,14 +190,20 @@
     return String(value).padStart(2, '0');
   }
 
+  function createSpecialId() {
+    return 'special_instance_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+  }
+
   function cloneSelected(source) {
-    return { ...blankSelected(), ...(source || {}) };
+    const result = { ...blankSelected(), ...(source || {}) };
+    result.special = null;
+    return result;
   }
 
   function cloneAdjustments(source) {
     const result = blankAdjustments();
 
-    PART_TYPES.forEach((type) => {
+    SINGLE_PART_TYPES.forEach((type) => {
       if (!source || !source[type]) return;
 
       result[type] = {
@@ -192,18 +216,74 @@
     return result;
   }
 
+  function cloneSpecials(source) {
+    if (!Array.isArray(source)) return [];
+
+    return source
+      .filter((item) => item && item.assetId)
+      .map((item) => ({
+        instanceId: item.instanceId || createSpecialId(),
+        assetId: item.assetId,
+        scale: Number(item.scale ?? 100),
+        x: Number(item.x ?? 0),
+        y: Number(item.y ?? 0)
+      }));
+  }
+
+  function legacySpecialsFromSource(source) {
+    if (!source) return [];
+
+    if (Array.isArray(source.specials)) {
+      return cloneSpecials(source.specials);
+    }
+
+    const legacyAssetId = source.selected && typeof source.selected.special === 'string'
+      ? source.selected.special
+      : null;
+
+    if (!legacyAssetId) return [];
+
+    const legacyAdjustment =
+      source.adjustments && source.adjustments.special
+        ? source.adjustments.special
+        : { scale: 100, x: 0, y: 0 };
+
+    return [{
+      instanceId: createSpecialId(),
+      assetId: legacyAssetId,
+      scale: Number(legacyAdjustment.scale ?? 100),
+      x: Number(legacyAdjustment.x ?? 0),
+      y: Number(legacyAdjustment.y ?? 0)
+    }];
+  }
+
+  function getActiveSpecial() {
+    return state.specials.find((item) => item.instanceId === state.activeSpecialId) || null;
+  }
+
+  function normalizeActiveSpecialId(specials, preferredId) {
+    if (!specials.length) return null;
+    if (preferredId && specials.some((item) => item.instanceId === preferredId)) return preferredId;
+    return specials[specials.length - 1].instanceId;
+  }
+
   function makeCompositionSlot(index, source) {
     const selected = source ? cloneSelected(source.selected) : blankSelected();
     const adjustments = source ? cloneAdjustments(source.adjustments) : blankAdjustments();
-    const adjustType = source && PART_TYPES.includes(source.adjustType)
+    const specials = source ? legacySpecialsFromSource(source) : [];
+    const activeSpecialId = normalizeActiveSpecialId(specials, source && source.activeSpecialId);
+    const rawAdjustType = source && PART_TYPES.includes(source.adjustType)
       ? source.adjustType
       : 'noren';
+    const adjustType = rawAdjustType === 'special' && !activeSpecialId ? 'noren' : rawAdjustType;
 
     return {
       id: 'composition_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
       name: 'SHOP ' + pad2(index + 1),
       selected,
       adjustments,
+      specials,
+      activeSpecialId,
       adjustType
     };
   }
@@ -218,6 +298,8 @@
 
     slot.selected = cloneSelected(state.selected);
     slot.adjustments = cloneAdjustments(state.adjustments);
+    slot.specials = cloneSpecials(state.specials);
+    slot.activeSpecialId = normalizeActiveSpecialId(slot.specials, state.activeSpecialId);
     slot.adjustType = PART_TYPES.includes(state.adjustType) ? state.adjustType : 'noren';
   }
 
@@ -226,13 +308,21 @@
 
     state.selected = cloneSelected(slot.selected);
     state.adjustments = cloneAdjustments(slot.adjustments);
+    state.specials = cloneSpecials(slot.specials);
+    state.activeSpecialId = normalizeActiveSpecialId(state.specials, slot.activeSpecialId);
     state.adjustType = PART_TYPES.includes(slot.adjustType) ? slot.adjustType : 'noren';
+
+    if (state.adjustType === 'special' && !state.activeSpecialId) {
+      state.adjustType = 'noren';
+    }
   }
 
   function persistState() {
     localStorage.setItem(STATE_KEY, JSON.stringify({
       selected: state.selected,
       adjustments: state.adjustments,
+      specials: state.specials,
+      activeSpecialId: state.activeSpecialId,
       adjustType: state.adjustType,
       compositions: state.compositions,
       activeCompositionId: state.activeCompositionId
@@ -264,18 +354,34 @@
         }
       }
 
+      state.specials = cloneSpecials(saved.specials);
+      if (!state.specials.length && saved.selected && typeof saved.selected.special === 'string') {
+        state.specials = legacySpecialsFromSource(saved);
+      }
+      state.activeSpecialId = normalizeActiveSpecialId(state.specials, saved.activeSpecialId);
+
       if (PART_TYPES.includes(saved.adjustType)) {
         state.adjustType = saved.adjustType;
       }
 
       if (Array.isArray(saved.compositions) && saved.compositions.length) {
-        state.compositions = saved.compositions.map((slot, index) => ({
-          id: slot.id || ('composition_legacy_' + index),
-          name: slot.name || ('SHOP ' + pad2(index + 1)),
-          selected: cloneSelected(slot.selected),
-          adjustments: cloneAdjustments(slot.adjustments),
-          adjustType: PART_TYPES.includes(slot.adjustType) ? slot.adjustType : 'noren'
-        }));
+        state.compositions = saved.compositions.map((slot, index) => {
+          const specials = legacySpecialsFromSource(slot);
+          const activeSpecialId = normalizeActiveSpecialId(specials, slot.activeSpecialId);
+          let adjustType = PART_TYPES.includes(slot.adjustType) ? slot.adjustType : 'noren';
+
+          if (adjustType === 'special' && !activeSpecialId) adjustType = 'noren';
+
+          return {
+            id: slot.id || ('composition_legacy_' + index),
+            name: slot.name || ('SHOP ' + pad2(index + 1)),
+            selected: cloneSelected(slot.selected),
+            adjustments: cloneAdjustments(slot.adjustments),
+            specials,
+            activeSpecialId,
+            adjustType
+          };
+        });
 
         state.activeCompositionId =
           state.compositions.some((slot) => slot.id === saved.activeCompositionId)
@@ -287,11 +393,14 @@
         const slot = makeCompositionSlot(0, {
           selected: state.selected,
           adjustments: state.adjustments,
+          specials: state.specials,
+          activeSpecialId: state.activeSpecialId,
           adjustType: state.adjustType
         });
 
         state.compositions = [slot];
         state.activeCompositionId = slot.id;
+        applyComposition(slot);
       }
     } catch (_) {
       const slot = makeCompositionSlot(0);
