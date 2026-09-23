@@ -1129,6 +1129,10 @@
 
     els.sourceStatus.textContent =
       assets[0].label + ' / ' + assets[1].label + ' を部品棚へ登録しました。';
+
+    state.detected = null;
+    els.detectedPair.classList.add('hidden');
+    els.sourceInput.value = '';
   }
 
   async function registerDetectedKit() {
@@ -1183,6 +1187,10 @@
 
     els.sourceStatus.textContent =
       assets.length + '個のKit素材を部品棚へ登録しました。棚からクリックして切り貼りできます。';
+
+    state.detected = null;
+    els.kitPreview.classList.add('hidden');
+    els.sourceInput.value = '';
   }
 
   async function registerCurrentImport() {
