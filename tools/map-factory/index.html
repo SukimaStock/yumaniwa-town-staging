@@ -160,14 +160,15 @@
         </section>
         <section class="batch-manager backup-manager">
           <div class="batch-manager-head"><div><p class="eyebrow">BACKUP / RESTORE</p><strong>部品棚と作業状態を保存</strong></div></div>
-          <p class="batch-help">取り込んだ素材画像、部品棚、選択中の構成、全WORK SLOTをひとつのJSONに保存します。復元すると現在の内容を置き換えます。</p>
+          <p class="batch-help">素材画像、部品棚、選択中の構成、全WORK SLOTを画像入りZIPに保存します。旧JSONバックアップも復元できます。復元すると現在の内容を置き換えます。</p>
           <div class="backup-actions">
             <button id="exportBackupBtn" class="ghost small" type="button" disabled>バックアップを書き出す</button>
             <button id="restoreBackupBtn" class="ghost small" type="button" disabled>バックアップを復元</button>
-            <input id="backupFileInput" type="file" accept=".json,application/json" hidden>
+            <input id="backupFileInput" type="file" accept=".zip,.json,application/zip,application/json" hidden>
           </div>
           <p id="backupStatus" class="backup-status" aria-live="polite">バックアップはこのブラウザーの外にも保存してください。</p>
-          <a id="backupDownloadLink" class="backup-download-link hidden" href="#">バックアップJSONを保存</a>
+          <a id="backupDownloadLink" class="backup-download-link hidden" href="#">ZIPを保存</a>
+          <button id="backupShareBtn" class="ghost small hidden" type="button">共有して保存</button>
         </section>
       </aside>
     </section>
@@ -300,6 +301,7 @@
   </main>
 
   <script src="./masters.js"></script>
-  <script src="./app.js?v=0.7.2"></script>
+  <script src="./zip.js?v=0.8"></script>
+  <script src="./app.js?v=0.8"></script>
 </body>
 </html>
