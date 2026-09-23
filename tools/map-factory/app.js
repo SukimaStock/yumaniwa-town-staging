@@ -2333,6 +2333,32 @@
     }
   }
 
+  function validateStateReferences(saved, assets) {
+    if (!saved) return;
+    const types = new Map(assets.map((asset) => [asset.id, asset.type]));
+    const checkSlot = (slot) => {
+      for (const type of TYPES) {
+        const id = slot.selected && slot.selected[type];
+        if (id != null && types.get(id) !== type) throw new Error('選択中の素材がバックアップ内にありません。');
+      }
+      const ids = new Set();
+      for (const special of slot.specials || []) {
+        if (!special || types.get(special.assetId) !== 'special' ||
+            (special.instanceId && ids.has(special.instanceId))) throw new Error('SPECIAL配置の素材参照が不正です。');
+        if (special.instanceId) ids.add(special.instanceId);
+      }
+      if (slot.activeSpecialId && !ids.has(slot.activeSpecialId)) throw new Error('選択中のSPECIAL配置がありません。');
+    };
+    checkSlot(saved);
+    const slotIds = new Set();
+    for (const slot of saved.compositions || []) {
+      checkSlot(slot);
+      if (slot.id && slotIds.has(slot.id)) throw new Error('WORK SLOTのIDが重複しています。');
+      if (slot.id) slotIds.add(slot.id);
+    }
+    if (saved.activeCompositionId && (saved.compositions || []).length && !slotIds.has(saved.activeCompositionId)) throw new Error('選択中のWORK SLOTがありません。');
+  }
+
   async function verifyImage(blob, width, height) {
     if (blob.size === 0 || blob.size > 256 * 1024 * 1024) throw new Error('画像データのサイズが不正です。');
     const bytes = new Uint8Array(await blob.slice(0, 12).arrayBuffer());
@@ -2352,6 +2378,7 @@
       validateAssetRecords(backup.assets);
       const assets = backup.assets.map((asset) => convertLegacyAsset(asset));
       for (const asset of assets) await verifyImage(asset.blob, asset.width, asset.height);
+      validateStateReferences(backup.state, assets);
       return { state: backup.state, assets };
     }
     if (!/\.zip$/i.test(file.name)) throw new Error('ZIPまたは旧JSONバックアップを選んでください。');
@@ -2374,6 +2401,7 @@
       await verifyImage(blob, record.width, record.height);
       assets.push({ ...metadata, blob });
     }
+    validateStateReferences(data.state, assets);
     return { state: data.state, assets };
   }
 
