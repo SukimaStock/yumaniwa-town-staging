@@ -89,6 +89,22 @@
             </label>
           </div>
           <p class="hint">ここでは完成させません。正規ドット化前に「組み合わせとして成立するか」を見るための補正だけです。プレビュー上のパーツを直接タップして選択できます。</p>
+          <div id="specialTools" class="special-tools hidden">
+            <div class="special-tools-head">
+              <div>
+                <p class="eyebrow">PLACED SPECIALS</p>
+                <strong id="specialActiveLabel">SPECIAL</strong>
+              </div>
+              <span id="specialCount" class="count">0</span>
+            </div>
+            <div id="specialInstanceList" class="special-instance-list"></div>
+            <div class="special-actions">
+              <button id="specialBackwardBtn" type="button" class="ghost small">後ろへ</button>
+              <button id="specialForwardBtn" type="button" class="ghost small">前へ</button>
+              <button id="specialDuplicateBtn" type="button" class="ghost small">複製</button>
+              <button id="specialRemoveBtn" type="button" class="ghost small">配置削除</button>
+            </div>
+          </div>
         </div>
 
         <div class="export-actions">
