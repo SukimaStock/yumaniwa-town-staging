@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Sukima Audio Factory v0.1</title>
+<style>
+:root{
+  --bg:#171717;
+  --panel:#222;
+  --panel2:#2a2a2a;
+  --line:#3b3b3b;
+  --text:#f2efe8;
+  --muted:#a9a69f;
+  --accent:#f1c46b;
+  --danger:#d96f6f;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+body{min-height:100vh}
+button,input{font:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:18px 14px 50px}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px}
+h1{font-size:18px;margin:0;letter-spacing:.08em}
+.sub{font-size:11px;color:var(--muted);margin-top:5px}
+.status{font-size:11px;color:var(--muted);text-align:right}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:14px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.panel h2{font-size:11px;letter-spacing:.12em;color:var(--muted);margin:0 0 12px}
+.families{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.family{padding:13px 6px;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;cursor:pointer}
+.family.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.bigplay{width:100%;margin-top:12px;padding:22px;border:0;border-radius:13px;background:var(--accent);color:#171717;font-weight:800;font-size:18px;cursor:pointer}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.actions button,.slot button,.savebar button,.saved button{
+  padding:11px 8px;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;cursor:pointer
+}
+.actions button:hover,.slot button:hover,.savebar button:hover,.saved button:hover{border-color:#666}
+.control{display:grid;grid-template-columns:72px 1fr 34px;align-items:center;gap:8px;margin:12px 0}
+.control label{font-size:12px}
+.control output{font-size:11px;color:var(--muted);text-align:right}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.slot{border:1px solid var(--line);background:var(--panel2);border-radius:12px;padding:10px}
+.slot-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.slot-name{font-weight:700}
+.slot small{color:var(--muted)}
+.slot .row{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.slot.empty{opacity:.58}
+.savebar{display:grid;grid-template-columns:1fr auto auto;gap:8px;margin-top:10px}
+.savebar input{min-width:0;background:#161616;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:11px}
+.saved{margin-top:10px;display:grid;gap:7px}
+.saved-item{display:grid;grid-template-columns:1fr auto auto;gap:7px;align-items:center;border-top:1px solid var(--line);padding-top:8px}
+.saved-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tiny{font-size:10px;color:var(--muted)}
+.footer-note{margin-top:14px;font-size:10px;line-height:1.6;color:var(--muted)}
+.pulse{animation:pulse .18s ease-out}
+@keyframes pulse{0%{transform:scale(1)}45%{transform:scale(.985)}100%{transform:scale(1)}}
+@media(max-width:760px){
+  .grid{grid-template-columns:1fr}
+  .families{grid-template-columns:repeat(5,1fr)}
+  .family{font-size:11px;padding:11px 3px}
+  header{align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>SUKIMA AUDIO FACTORY <span style="color:var(--accent)">v0.1</span></h1>
+      <div class="sub">small sounds / no external audio files</div>
+    </div>
+    <div class="status" id="status">tap PLAY to wake audio</div>
+  </header>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>STARTING POINT</h2>
+      <div class="families" id="families"></div>
+
+      <button class="bigplay" id="playBtn">▶ PLAY</button>
+
+      <div class="actions">
+        <button id="mutateBtn">MUTATE</button>
+        <button id="undoBtn">UNDO</button>
+        <button id="resetBtn">RESET</button>
+      </div>
+
+      <div style="height:14px"></div>
+      <h2>SHAPE</h2>
+      <div id="controls"></div>
+    </section>
+
+    <section>
+      <div class="panel">
+        <h2>KEEP / A-B</h2>
+        <div class="ab">
+          <div class="slot empty" id="slotA">
+            <div class="slot-head"><span class="slot-name">A</span><small>empty</small></div>
+            <div class="row">
+              <button data-keep="A">KEEP</button>
+              <button data-play-slot="A">PLAY</button>
+            </div>
+          </div>
+          <div class="slot empty" id="slotB">
+            <div class="slot-head"><span class="slot-name">B</span><small>empty</small></div>
+            <div class="row">
+              <button data-keep="B">KEEP</button>
+              <button data-play-slot="B">PLAY</button>
+            </div>
+          </div>
+        </div>
+        <div class="actions" style="grid-template-columns:1fr 1fr">
+          <button id="loadABtn">LOAD A</button>
+          <button id="loadBBtn">LOAD B</button>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:14px">
+        <h2>SAVE PRESET</h2>
+        <div class="savebar">
+          <input id="presetName" placeholder="name e.g. soft_landing" maxlength="40">
+          <button id="saveBtn">SAVE</button>
+          <button id="wavBtn">WAV</button>
+        </div>
+        <div class="actions" style="grid-template-columns:1fr 1fr">
+          <button id="exportBtn">EXPORT JSON</button>
+          <button id="importBtn">IMPORT JSON</button>
+        </div>
+        <input id="importFile" type="file" accept=".json,application/json" hidden>
+        <div class="saved" id="savedList"></div>
+      </div>
+
+      <div class="panel" style="margin-top:14px">
+        <h2>CURRENT RECIPE</h2>
+        <div class="tiny" id="recipeText"></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="footer-note">
+    Audio starts only after user interaction because browsers block autoplay.
+    Recipes are stored in localStorage. WAV rendering is generated locally in the browser.
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+
+const FAMILY_DEFAULTS = {
+  TINY:  { height:72, weight:18, hardness:62, tail:18, roughness:10, space:4,  variation:8, seed:101 },
+  WOOD:  { height:36, weight:62, hardness:52, tail:25, roughness:28, space:3,  variation:10,seed:202 },
+  METAL: { height:61, weight:34, hardness:82, tail:58, roughness:8,  space:18, variation:6, seed:303 },
+  SOFT:  { height:42, weight:55, hardness:18, tail:44, roughness:12, space:12, variation:8, seed:404 },
+  SPACE: { height:29, weight:76, hardness:14, tail:76, roughness:18, space:66, variation:12,seed:505 },
+};
+
+const CONTROL_META = [
+  ['height','高さ'],
+  ['weight','重さ'],
+  ['hardness','硬さ'],
+  ['tail','余韻'],
+  ['roughness','ざらつき'],
+  ['space','空間'],
+  ['variation','揺らぎ'],
+];
+
+let currentFamily = 'WOOD';
+let recipe = makeRecipe(currentFamily);
+let undoStack = [];
+let slotA = null;
+let slotB = null;
+let audioCtx = null;
+let playCounter = 0;
+
+const $ = s => document.querySelector(s);
+const clone = obj => JSON.parse(JSON.stringify(obj));
+const clamp = (v,min=0,max=100) => Math.max(min,Math.min(max,v));
+
+function makeRecipe(family){
+  return { family, ...clone(FAMILY_DEFAULTS[family]) };
+}
+
+function pushUndo(){
+  undoStack.push(clone(recipe));
+  if(undoStack.length > 30) undoStack.shift();
+}
+
+function setRecipe(next, addUndo=true){
+  if(addUndo) pushUndo();
+  recipe = clone(next);
+  currentFamily = recipe.family || currentFamily;
+  renderAll();
+}
+
+function initUI(){
+  const fam = $('#families');
+  Object.keys(FAMILY_DEFAULTS).forEach(name => {
+    const b = document.createElement('button');
+    b.className = 'family';
+    b.textContent = name;
+    b.dataset.family = name;
+    b.onclick = () => {
+      pushUndo();
+      currentFamily = name;
+      recipe = makeRecipe(name);
+      renderAll();
+      playCurrent();
+    };
+    fam.appendChild(b);
+  });
+
+  const controls = $('#controls');
+  CONTROL_META.forEach(([key,label]) => {
+    const row = document.createElement('div');
+    row.className = 'control';
+    row.innerHTML = `<label for="${key}">${label}</label>
+      <input id="${key}" type="range" min="0" max="100" step="1">
+      <output id="${key}Out"></output>`;
+    controls.appendChild(row);
+    const input = row.querySelector('input');
+    input.addEventListener('pointerdown', () => pushUndo(), {passive:true});
+    input.addEventListener('input', e => {
+      recipe[key] = +e.target.value;
+      renderRecipeText();
+      $(`#${key}Out`).textContent = recipe[key];
+    });
+  });
+
+  $('#playBtn').onclick = playCurrent;
+  $('#mutateBtn').onclick = mutate;
+  $('#undoBtn').onclick = undo;
+  $('#resetBtn').onclick = () => setRecipe(makeRecipe(currentFamily));
+
+  document.querySelectorAll('[data-keep]').forEach(btn => btn.onclick = () => keepSlot(btn.dataset.keep));
+  document.querySelectorAll('[data-play-slot]').forEach(btn => btn.onclick = () => playSlot(btn.dataset.playSlot));
+  $('#loadABtn').onclick = () => slotA && setRecipe(slotA);
+  $('#loadBBtn').onclick = () => slotB && setRecipe(slotB);
+
+  $('#saveBtn').onclick = savePreset;
+  $('#exportBtn').onclick = exportJSON;
+  $('#importBtn').onclick = () => $('#importFile').click();
+  $('#importFile').onchange = importJSON;
+  $('#wavBtn').onclick = exportWav;
+
+  renderAll();
+  renderSaved();
+}
+
+function renderAll(){
+  document.querySelectorAll('.family').forEach(b => b.classList.toggle('active', b.dataset.family === currentFamily));
+  CONTROL_META.forEach(([key]) => {
+    $(`#${key}`).value = recipe[key];
+    $(`#${key}Out`).textContent = recipe[key];
+  });
+  renderSlots();
+  renderRecipeText();
+}
+
+function renderRecipeText(){
+  const r = recipe;
+  $('#recipeText').textContent =
+    `${r.family}  H:${r.height} W:${r.weight} K:${r.hardness} T:${r.tail} ` +
+    `R:${r.roughness} S:${r.space} V:${r.variation} seed:${r.seed}`;
+}
+
+function renderSlots(){
+  [['A',slotA],['B',slotB]].forEach(([name,data]) => {
+    const el = $(`#slot${name}`);
+    el.classList.toggle('empty', !data);
+    el.querySelector('small').textContent = data ? `${data.family} / seed ${data.seed}` : 'empty';
+  });
+}
+
+function mutate(){
+  pushUndo();
+  const amount = 4 + recipe.variation * .14;
+  CONTROL_META.filter(([k]) => k !== 'variation').forEach(([key]) => {
+    const bias = key === 'space' ? .75 : 1;
+    recipe[key] = Math.round(clamp(recipe[key] + randn() * amount * bias));
+  });
+  recipe.seed = ((recipe.seed * 1664525 + 1013904223) >>> 0) || 1;
+  renderAll();
+  playCurrent();
+}
+
+function undo(){
+  if(!undoStack.length) return;
+  recipe = undoStack.pop();
+  currentFamily = recipe.family;
+  renderAll();
+  playCurrent();
+}
+
+function keepSlot(which){
+  if(which === 'A') slotA = clone(recipe);
+  else slotB = clone(recipe);
+  renderSlots();
+}
+
+function playSlot(which){
+  const r = which === 'A' ? slotA : slotB;
+  if(r) playRecipe(r);
+}
+
+async function ensureAudio(){
+  if(!audioCtx){
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) throw new Error('Web Audio API is not supported in this browser.');
+    audioCtx = new AC();
+  }
+  if(audioCtx.state === 'suspended') await audioCtx.resume();
+  $('#status').textContent = `audio: ${audioCtx.state}`;
+  return audioCtx;
+}
+
+async function playCurrent(){
+  try{
+    await ensureAudio();
+    playRecipe(recipe);
+    const b = $('#playBtn');
+    b.classList.remove('pulse'); void b.offsetWidth; b.classList.add('pulse');
+  }catch(err){
+    $('#status').textContent = err.message;
+  }
+}
+
+function mulberry32(a){
+  return function(){
+    let t = a += 0x6D2B79F5;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  }
+}
+function randn(){
+  return (Math.random()+Math.random()+Math.random()+Math.random()-2);
+}
+function jitter(v, amount, rnd){
+  return v * (1 + (rnd()*2-1)*amount);
+}
+
+function derived(r, seedOffset=0){
+  const rnd = mulberry32((r.seed + seedOffset) >>> 0);
+  const varAmt = r.variation / 100;
+  const freq = 90 * Math.pow(2, r.height / 30);
+  const duration = 0.055 + Math.pow(r.tail/100,1.45) * 1.55;
+  const attack = 0.002 + (1-r.hardness/100) * 0.026;
+  const cutoff = 420 + r.hardness * 54 + r.height * 10;
+  const q = .25 + r.hardness / 24;
+  const noise = Math.pow(r.roughness/100,1.25) * .34;
+  const sub = .08 + r.weight/100 * .34;
+  const wet = Math.pow(r.space/100,1.35) * .44;
+  return {
+    rnd,
+    freq: jitter(freq, varAmt*.035, rnd),
+    duration: jitter(duration, varAmt*.05, rnd),
+    attack,
+    cutoff,
+    q,
+    noise: jitter(noise, varAmt*.08, rnd),
+    sub,
+    wet,
+    weight: r.weight/100,
+    hardness: r.hardness/100,
+    family:r.family
+  };
+}
+
+function buildSound(ctx, destination, r, startTime, seedOffset=0){
+  const d = derived(r, seedOffset);
+  const now = startTime;
+  const end = now + d.duration;
+  const master = ctx.createGain();
+  master.gain.value = .72;
+  master.connect(destination);
+
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.setValueAtTime(Math.min(d.cutoff, ctx.sampleRate*.42), now);
+  filter.Q.value = d.q;
+
+  const env = ctx.createGain();
+  const peak = .33 + d.hardness*.12;
+  env.gain.setValueAtTime(0.0001, now);
+  env.gain.exponentialRampToValueAtTime(peak, now + d.attack);
+  env.gain.exponentialRampToValueAtTime(0.0001, end);
+  env.connect(filter);
+
+  const dry = ctx.createGain();
+  dry.gain.value = 1;
+  filter.connect(dry).connect(master);
+
+  if(d.wet > .001){
+    const delay = ctx.createDelay(1.5);
+    const feedback = ctx.createGain();
+    const wetGain = ctx.createGain();
+    delay.delayTime.value = 0.07 + d.wet*.42;
+    feedback.gain.value = Math.min(.48, .08 + d.wet*.7);
+    wetGain.gain.value = d.wet;
+    filter.connect(delay);
+    delay.connect(feedback).connect(delay);
+    delay.connect(wetGain).connect(master);
+  }
+
+  const osc = ctx.createOscillator();
+  osc.type = chooseWave(d.family, d.hardness);
+  let endRatio = 1 - d.weight*.42;
+  if(d.family === 'METAL') endRatio = .96;
+  if(d.family === 'TINY') endRatio = 1.08;
+  if(d.family === 'SPACE') endRatio = .55;
+  osc.frequency.setValueAtTime(d.freq, now);
+  osc.frequency.exponentialRampToValueAtTime(Math.max(28,d.freq*endRatio), end);
+  osc.connect(env);
+  osc.start(now);
+  osc.stop(end + .02);
+
+  const sub = ctx.createOscillator();
+  const subGain = ctx.createGain();
+  sub.type = 'sine';
+  sub.frequency.setValueAtTime(Math.max(35,d.freq*.5), now);
+  sub.frequency.exponentialRampToValueAtTime(Math.max(28,d.freq*.36), end);
+  subGain.gain.setValueAtTime(d.sub*.55, now);
+  subGain.gain.exponentialRampToValueAtTime(.0001, end);
+  sub.connect(subGain).connect(filter);
+  sub.start(now);
+  sub.stop(end + .02);
+
+  if(d.family === 'METAL' || d.family === 'TINY'){
+    const ring = ctx.createOscillator();
+    const rg = ctx.createGain();
+    ring.type = 'sine';
+    const ratio = d.family === 'METAL' ? 2.01 : 1.51;
+    ring.frequency.value = d.freq * ratio;
+    rg.gain.setValueAtTime(d.family === 'METAL' ? .18 : .11, now);
+    rg.gain.exponentialRampToValueAtTime(.0001, end * .25 + now*.75);
+    ring.connect(rg).connect(filter);
+    ring.start(now);
+    ring.stop(end + .02);
+  }
+
+  if(d.noise > .001){
+    const length = Math.max(32, Math.floor(ctx.sampleRate * Math.min(.22, d.duration)));
+    const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
+    const arr = buffer.getChannelData(0);
+    for(let i=0;i<length;i++) arr[i] = d.rnd()*2-1;
+    const src = ctx.createBufferSource();
+    src.buffer = buffer;
+    const ng = ctx.createGain();
+    const burst = Math.min(d.duration, .018 + (1-d.hardness)*.12);
+    ng.gain.setValueAtTime(Math.max(.0001,d.noise), now);
+    ng.gain.exponentialRampToValueAtTime(.0001, now + burst);
+    src.connect(ng).connect(filter);
+    src.start(now);
+    src.stop(now + burst + .01);
+  }
+
+  if(d.family === 'SPACE'){
+    const lfo = ctx.createOscillator();
+    const lfoGain = ctx.createGain();
+    lfo.frequency.value = .7;
+    lfoGain.gain.value = d.freq*.018;
+    lfo.connect(lfoGain).connect(osc.frequency);
+    lfo.start(now); lfo.stop(end);
+  }
+
+  return d.duration + d.wet*1.8 + .15;
+}
+
+function chooseWave(family, hardness){
+  if(family === 'WOOD') return hardness > .62 ? 'square' : 'triangle';
+  if(family === 'METAL') return 'sine';
+  if(family === 'SOFT') return 'sine';
+  if(family === 'SPACE') return 'sine';
+  return hardness > .72 ? 'square' : 'triangle';
+}
+
+function playRecipe(r){
+  if(!audioCtx) return;
+  playCounter++;
+  buildSound(audioCtx, audioCtx.destination, r, audioCtx.currentTime + .01, playCounter);
+}
+
+function getSaved(){
+  try { return JSON.parse(localStorage.getItem('sukimaAudioFactory.presets') || '[]'); }
+  catch { return []; }
+}
+function putSaved(list){
+  localStorage.setItem('sukimaAudioFactory.presets', JSON.stringify(list));
+}
+
+function savePreset(){
+  const input = $('#presetName');
+  const name = (input.value || `${recipe.family.toLowerCase()}_${Date.now().toString().slice(-5)}`).trim();
+  const list = getSaved();
+  list.unshift({name, recipe:clone(recipe), savedAt:new Date().toISOString()});
+  putSaved(list.slice(0,80));
+  input.value = '';
+  renderSaved();
+}
+
+function renderSaved(){
+  const root = $('#savedList');
+  const list = getSaved();
+  if(!list.length){
+    root.innerHTML = '<div class="tiny">no saved presets yet</div>';
+    return;
+  }
+  root.innerHTML = '';
+  list.forEach((item,i) => {
+    const row = document.createElement('div');
+    row.className = 'saved-item';
+    row.innerHTML = `<div><div class="saved-name"></div><div class="tiny"></div></div>
+      <button>LOAD</button><button>×</button>`;
+    row.querySelector('.saved-name').textContent = item.name;
+    row.querySelector('.tiny').textContent = `${item.recipe.family} / seed ${item.recipe.seed}`;
+    row.children[1].onclick = () => setRecipe(item.recipe);
+    row.children[2].onclick = () => {
+      const next = getSaved(); next.splice(i,1); putSaved(next); renderSaved();
+    };
+    root.appendChild(row);
+  });
+}
+
+function downloadBlob(blob, filename){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+
+function safeName(s){
+  return (s || 'sukima_sound').trim().replace(/[^\w\-]+/g,'_').replace(/^_+|_+$/g,'') || 'sukima_sound';
+}
+
+function exportJSON(){
+  const data = {
+    format:'sukima-audio-factory',
+    version:1,
+    exportedAt:new Date().toISOString(),
+    current:clone(recipe),
+    slots:{A:slotA,B:slotB},
+    presets:getSaved()
+  };
+  downloadBlob(new Blob([JSON.stringify(data,null,2)], {type:'application/json'}), 'sukima-audio-presets.json');
+}
+
+async function importJSON(e){
+  const f = e.target.files && e.target.files[0];
+  if(!f) return;
+  try{
+    const data = JSON.parse(await f.text());
+    if(data.current) setRecipe(data.current);
+    if(data.slots){ slotA = data.slots.A || null; slotB = data.slots.B || null; }
+    if(Array.isArray(data.presets)) putSaved(data.presets);
+    renderAll(); renderSaved();
+    $('#status').textContent = 'JSON imported';
+  }catch(err){
+    $('#status').textContent = 'import failed';
+  }finally{
+    e.target.value = '';
+  }
+}
+
+async function exportWav(){
+  try{
+    const sampleRate = 44100;
+    const durationGuess = 3.8;
+    const offline = new OfflineAudioContext(1, Math.ceil(sampleRate*durationGuess), sampleRate);
+    const actual = buildSound(offline, offline.destination, recipe, 0.05, 0);
+    const rendered = await offline.startRendering();
+    const frames = Math.min(rendered.length, Math.ceil((actual+.15)*sampleRate));
+    const wav = encodeWav(rendered.getChannelData(0).slice(0,frames), sampleRate);
+    const name = safeName($('#presetName').value || `${recipe.family.toLowerCase()}_${recipe.seed}`);
+    downloadBlob(new Blob([wav], {type:'audio/wav'}), `${name}.wav`);
+    $('#status').textContent = 'WAV exported';
+  }catch(err){
+    console.error(err);
+    $('#status').textContent = 'WAV export failed';
+  }
+}
+
+function encodeWav(samples, sampleRate){
+  const buffer = new ArrayBuffer(44 + samples.length*2);
+  const view = new DataView(buffer);
+  const write = (offset, str) => { for(let i=0;i<str.length;i++) view.setUint8(offset+i,str.charCodeAt(i)); };
+  write(0,'RIFF'); view.setUint32(4,36+samples.length*2,true); write(8,'WAVE');
+  write(12,'fmt '); view.setUint32(16,16,true); view.setUint16(20,1,true); view.setUint16(22,1,true);
+  view.setUint32(24,sampleRate,true); view.setUint32(28,sampleRate*2,true); view.setUint16(32,2,true);
+  view.setUint16(34,16,true); write(36,'data'); view.setUint32(40,samples.length*2,true);
+  let o=44;
+  for(let i=0;i<samples.length;i++,o+=2){
+    const s = Math.max(-1,Math.min(1,samples[i]));
+    view.setInt16(o, s<0 ? s*0x8000 : s*0x7fff, true);
+  }
+  return buffer;
+}
+
+initUI();
+})();
+</script>
+</body>
+</html>
