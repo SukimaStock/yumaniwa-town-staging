@@ -1,4 +1,4 @@
-# Yumaniwa Map Factory System v0.8
+# Yumaniwa Map Factory System v0.9
 
 Map Factory は「完成画像を生成する場所」ではない。
 
@@ -202,6 +202,10 @@ Export shows image progress, then provides a ZIP save link. Mobile browsers that
 Restore accepts ZIP v2 and legacy JSON v1. It checks archive entries and checksums, schema/version, asset references, IDs, image types and decoded dimensions, and composition state before asking to replace the current library. Assets are replaced in one IndexedDB transaction. If the transaction fails, the previous localStorage state is restored. Export a current backup before replacing an existing library.
 
 This package layout can later support individual shop or material set exchange under a project-specific extension such as `.ymf`; current import only accepts full-library `.zip` and legacy `.json` backups.
+
+## Map Factory → Dot Cleaner
+
+各素材カードの `PNG` ボタンは、そのカードにある元素材を個別PNGとして保存する。合成プレビューではなく、透過と元のピクセル寸法を保った画像をDot Cleanerへ読み込ませる。JPG/WebP素材は同じ寸法のPNGへ変換してから保存する。ファイル名には素材ラベルとIDを付け、Recipe JSON内の `map-factory-asset` 参照と照合できるようにする。
 
 ## Multi-SPECIAL placement
 
