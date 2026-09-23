@@ -8,6 +8,17 @@
   const BACKUP_FORMAT = 'yumaniwa-map-factory-backup';
   const BACKUP_VERSION = 1;
 
+  function artifactMeta(kind, createdAt, dependencies, nextStep) {
+    return {
+      schema: 'sukimastock-artifact/1',
+      kind,
+      producer: { tool: 'map-factory', version: '0.7' },
+      createdAt,
+      dependencies,
+      nextStep
+    };
+  }
+
   const TYPES = ['base', 'noren', 'sign', 'lantern', 'board', 'special'];
   const PART_TYPES = TYPES.filter((type) => type !== 'base');
   const SINGLE_PART_TYPES = ['noren', 'sign', 'lantern', 'board'];
@@ -2160,9 +2171,13 @@
       };
     });
 
+    const createdAt = new Date().toISOString();
+    const referencedIds = [base.id, ...Object.values(parts).filter(Boolean).map((part) => part.id), ...specials.map((item) => item.assetId)];
+    const dependencies = [...new Set(referencedIds)].map((id) => ({ kind: 'map-factory-asset', id }));
     const recipe = {
       version: 'yumaniwa-asset-0.7',
-      createdAt: new Date().toISOString(),
+      createdAt,
+      artifact: artifactMeta('map-composition', createdAt, dependencies, 'dot-cleanup'),
       base: {
         id: base.id,
         label: base.label,
@@ -2185,10 +2200,12 @@
       // Keep the file action in the original tap: iOS may block a download
       // that begins after an IndexedDB callback has ended the user gesture.
       saveState();
+      const exportedAt = new Date().toISOString();
       const backup = {
         format: BACKUP_FORMAT,
         version: BACKUP_VERSION,
-        exportedAt: new Date().toISOString(),
+        exportedAt,
+        artifact: artifactMeta('map-factory-backup', exportedAt, [], 'map-factory-restore'),
         assets: state.assets,
         state: JSON.parse(localStorage.getItem(STATE_KEY) || 'null')
       };
