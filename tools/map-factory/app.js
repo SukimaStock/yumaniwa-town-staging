@@ -5,6 +5,8 @@
   const DB_NAME = 'yumaniwa-map-factory-v02';
   const STORE_NAME = 'assets';
   const STATE_KEY = 'yumaniwa-map-factory-v02-state';
+  const BACKUP_FORMAT = 'yumaniwa-map-factory-backup';
+  const BACKUP_VERSION = 1;
 
   const TYPES = ['base', 'noren', 'sign', 'lantern', 'board', 'special'];
   const PART_TYPES = TYPES.filter((type) => type !== 'base');
@@ -95,6 +97,10 @@
     assetCount: $('assetCount'),
     batchCount: $('batchCount'),
     batchList: $('batchList'),
+    exportBackup: $('exportBackupBtn'),
+    restoreBackup: $('restoreBackupBtn'),
+    backupFile: $('backupFileInput'),
+    backupStatus: $('backupStatus'),
     compositionSlotList: $('compositionSlotList'),
     partSelectionBox: $('partSelectionBox'),
     specialTools: $('specialTools'),
@@ -465,6 +471,18 @@
       transaction.oncomplete = () => resolve();
       transaction.onerror = () => reject(transaction.error);
       transaction.onabort = () => reject(transaction.error || new Error('Batch delete aborted'));
+    });
+  }
+
+  function dbReplaceAll(assets) {
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(STORE_NAME, 'readwrite');
+      const store = transaction.objectStore(STORE_NAME);
+      store.clear();
+      assets.forEach((asset) => store.put(asset));
+      transaction.oncomplete = () => resolve();
+      transaction.onerror = () => reject(transaction.error);
+      transaction.onabort = () => reject(transaction.error || new Error('Restore transaction aborted'));
     });
   }
 
@@ -2160,6 +2178,86 @@
     downloadBlob(blob, 'yumaniwa-shop-recipe.json');
   }
 
+  async function exportFullBackup() {
+    try {
+      saveState();
+      const backup = { format: BACKUP_FORMAT, version: BACKUP_VERSION, exportedAt: new Date().toISOString(), assets: await dbGetAll(), state: JSON.parse(localStorage.getItem(STATE_KEY) || 'null') };
+      const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+      downloadBlob(new Blob([JSON.stringify(backup)], { type: 'application/json' }), 'yumaniwa-map-factory-backup-' + stamp + '.json');
+      els.backupStatus.textContent = backup.assets.length + '個の素材と作業状態を書き出しました。';
+    } catch (error) {
+      console.error('Backup export failed', error);
+      els.backupStatus.textContent = '書き出しに失敗しました。ブラウザーの保存容量を確認してください。';
+    }
+  }
+
+  function validateBackup(backup) {
+    if (!backup || typeof backup !== 'object' || backup.format !== BACKUP_FORMAT || backup.version !== BACKUP_VERSION) throw new Error('このツールの対応バックアップ形式ではありません。');
+    if (!Array.isArray(backup.assets) || backup.assets.length > 10000) throw new Error('バックアップの素材一覧が不正です。');
+    if (backup.state !== null && (typeof backup.state !== 'object' || Array.isArray(backup.state))) throw new Error('バックアップの作業状態が不正です。');
+    if (backup.state) {
+      const state = backup.state;
+      if (state.selected !== undefined && (!state.selected || typeof state.selected !== 'object' || Array.isArray(state.selected))) throw new Error('選択中の構成が不正です。');
+      if (state.compositions !== undefined && (!Array.isArray(state.compositions) || state.compositions.length > 100)) throw new Error('WORK SLOT一覧が不正です。');
+      if (state.specials !== undefined && !Array.isArray(state.specials)) throw new Error('SPECIAL配置一覧が不正です。');
+      (state.compositions || []).forEach((slot) => {
+        if (!slot || typeof slot !== 'object' || Array.isArray(slot)) throw new Error('WORK SLOTの内容が不正です。');
+        if (slot.selected !== undefined && (!slot.selected || typeof slot.selected !== 'object' || Array.isArray(slot.selected))) throw new Error('WORK SLOTの選択内容が不正です。');
+        if (slot.specials !== undefined && !Array.isArray(slot.specials)) throw new Error('WORK SLOTのSPECIAL配置が不正です。');
+      });
+    }
+    const ids = new Set();
+    backup.assets.forEach((asset) => {
+      if (!asset || typeof asset !== 'object' || typeof asset.id !== 'string' || !asset.id || ids.has(asset.id)) throw new Error('素材IDが空か重複しています。');
+      if (!TYPES.includes(asset.type) || typeof asset.dataUrl !== 'string' || !asset.dataUrl.startsWith('data:image/')) throw new Error('素材の種類または画像データが不正です。');
+      if (!Number.isFinite(Number(asset.width)) || Number(asset.width) <= 0 || !Number.isFinite(Number(asset.height)) || Number(asset.height) <= 0) throw new Error('素材の画像サイズが不正です。');
+      ids.add(asset.id);
+    });
+    return backup.assets;
+  }
+
+  async function restoreFullBackup(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+    try {
+      const backup = JSON.parse(await file.text());
+      const assets = validateBackup(backup);
+      if (!window.confirm('現在の部品棚と作業状態を置き換えて、' + assets.length + '個の素材を復元します。復元前に現在のバックアップを保存しましたか？')) {
+        els.backupStatus.textContent = '復元をキャンセルしました。'; return;
+      }
+      const previousState = localStorage.getItem(STATE_KEY);
+      try {
+        if (backup.state === null) localStorage.removeItem(STATE_KEY);
+        else localStorage.setItem(STATE_KEY, JSON.stringify(backup.state));
+        await dbReplaceAll(assets);
+      } catch (error) {
+        if (previousState === null) localStorage.removeItem(STATE_KEY); else localStorage.setItem(STATE_KEY, previousState);
+        throw error;
+      }
+      state.assets = assets;
+      imageCache.clear();
+      loadSavedState();
+      normalizeCompositionReferences();
+      saveState();
+      renderAll();
+      els.backupStatus.textContent = assets.length + '個の素材と作業状態を復元しました。';
+    } catch (error) {
+      console.error('Backup restore failed', error);
+      els.backupStatus.textContent = error instanceof SyntaxError ? 'JSONを読み取れません。バックアップファイルを確認してください。' : (error.message || '復元に失敗しました。');
+    } finally { event.target.value = ''; }
+  }
+
+  function normalizeCompositionReferences() {
+    const validAssetIds = new Set(state.assets.map((asset) => asset.id));
+    state.compositions.forEach((slot) => {
+      TYPES.forEach((type) => { if (slot.selected[type] && !validAssetIds.has(slot.selected[type])) slot.selected[type] = null; });
+      slot.specials = cloneSpecials(slot.specials).filter((instance) => validAssetIds.has(instance.assetId));
+      slot.activeSpecialId = normalizeActiveSpecialId(slot.specials, slot.activeSpecialId);
+      if (slot.adjustType === 'special' && !slot.activeSpecialId) slot.adjustType = 'noren';
+    });
+    applyComposition(getActiveComposition());
+  }
+
   function syncPromptMode() {
     const mode = els.promptMode.value;
     const isKit = mode === 'kit';
@@ -2274,6 +2372,9 @@
     });
 
     els.exportPng.addEventListener('click', exportDraftPng);
+    els.exportBackup.addEventListener('click', exportFullBackup);
+    els.restoreBackup.addEventListener('click', () => els.backupFile.click());
+    els.backupFile.addEventListener('change', restoreFullBackup);
     els.exportJson.addEventListener('click', exportRecipeJson);
 
     els.togglePrompt.addEventListener('click', () => {
@@ -2301,26 +2402,7 @@
       db = await openDatabase();
       state.assets = await dbGetAll();
 
-      const validAssetIds = new Set(state.assets.map((asset) => asset.id));
-
-      state.compositions.forEach((slot) => {
-        TYPES.forEach((type) => {
-          if (slot.selected[type] && !validAssetIds.has(slot.selected[type])) {
-            slot.selected[type] = null;
-          }
-        });
-
-        slot.specials = cloneSpecials(slot.specials).filter(
-          (instance) => validAssetIds.has(instance.assetId)
-        );
-        slot.activeSpecialId = normalizeActiveSpecialId(slot.specials, slot.activeSpecialId);
-
-        if (slot.adjustType === 'special' && !slot.activeSpecialId) {
-          slot.adjustType = 'noren';
-        }
-      });
-
-      applyComposition(getActiveComposition());
+      normalizeCompositionReferences();
       saveState();
       renderAll();
     } catch (error) {

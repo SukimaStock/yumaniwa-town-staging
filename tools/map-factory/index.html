@@ -158,6 +158,16 @@
           <p class="batch-help">同じ画像から取り込んだ素材をまとめて削除できます。個別パーツは各カードの × で削除できます。</p>
           <div id="batchList" class="batch-list"></div>
         </section>
+        <section class="batch-manager backup-manager">
+          <div class="batch-manager-head"><div><p class="eyebrow">BACKUP / RESTORE</p><strong>部品棚と作業状態を保存</strong></div></div>
+          <p class="batch-help">取り込んだ素材画像、部品棚、選択中の構成、全WORK SLOTをひとつのJSONに保存します。復元すると現在の内容を置き換えます。</p>
+          <div class="backup-actions">
+            <button id="exportBackupBtn" class="ghost small" type="button">バックアップを書き出す</button>
+            <button id="restoreBackupBtn" class="ghost small" type="button">バックアップを復元</button>
+            <input id="backupFileInput" type="file" accept=".json,application/json" hidden>
+          </div>
+          <p id="backupStatus" class="backup-status" aria-live="polite">バックアップはこのブラウザーの外にも保存してください。</p>
+        </section>
       </aside>
     </section>
 

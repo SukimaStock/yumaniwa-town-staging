@@ -186,6 +186,18 @@ render 時に NOREN / SIGN / LANTERN / BOARD / SPECIAL の実描画矩形を hit
 selection border は canvas 自体には描かないため、
 Draft PNG export には含まれない。
 
+## Browser backup and restore
+
+Map Factory keeps the asset library in IndexedDB and composition state in localStorage. Browser storage is local to the current browser profile, so use **BACKUP / RESTORE** to keep a copy outside the browser.
+
+Backup JSON format:
+- `format: yumaniwa-map-factory-backup`
+- `version: 1`
+- `assets`: complete imported assets, including their image data URLs and source metadata
+- `state`: current selection, adjustments, SPECIAL placements, and all WORK SLOT compositions
+
+Restore validates the format, asset types, image data, dimensions, IDs, and composition state before changing stored data. After confirmation, assets are replaced in one IndexedDB transaction and the saved composition state is restored. A restore replaces the current library and work slots; export a current backup first if you may need them later.
+
 ## Multi-SPECIAL placement
 
 SPECIAL は単一選択レイヤーではなく、複数の配置インスタンスとして扱う。

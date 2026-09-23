@@ -365,3 +365,6 @@ footer{padding-top:26px;text-align:center;color:#5e594e;font-size:10px;letter-sp
   .kit-preview-actions{width:100%}
   .kit-preview-actions button{flex:1}
 }
+
+.backup-actions{display:flex;gap:8px;flex-wrap:wrap}
+.backup-status{margin:10px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
