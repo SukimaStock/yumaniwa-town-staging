@@ -393,13 +393,15 @@
     completionSecondDelay: 4.2,
     homeBeaconPulseSec: 7.0,
     trueEndingDelay: 0.8,
-    trueFadeStart: 7.0,
-    trueFadeEnd: 8.4,
-    trueTitleStart: 8.4,
-    trueTitleEnd: 12.5,
-    trueUnknownStart: 13.3,
-    trueUnknownEnd: 16.9,
-    trueReturnTitleAt: 18.2,
+    // The hidden ending is the reward for staying, searching, reading, and
+    // returning. Give all four E.V.E. beats room to land before the fade.
+    trueFadeStart: 38.0,
+    trueFadeEnd: 39.8,
+    trueTitleStart: 40.0,
+    trueTitleEnd: 44.5,
+    trueUnknownStart: 45.5,
+    trueUnknownEnd: 49.2,
+    trueReturnTitleAt: 50.7,
   });
 
   // Casual speech should feel incidental, not like the author explaining the
@@ -2428,11 +2430,23 @@
         this.incident.trueEndingTimer += dt;
         const t = this.incident.trueEndingTimer;
 
-        // The Incident Logs already supplied the facts. On the final return,
-        // HOME itself carries the answer; E.V.E. only greets the pilot.
-        if (this.incident.trueEndingSpeechStage < 1 && t >= 2.0) {
-          this.sayEve(tx("incident.trueEnding.line4"), 3.4);
+        // The logs supplied the facts. Here E.V.E. supplies the relationship:
+        // what each of them was trying to do, and what changed this time.
+        if (this.incident.trueEndingSpeechStage < 1 && t >= 1.5) {
+          this.sayEve(tx("incident.trueEnding.line1"), 4.0);
           this.incident.trueEndingSpeechStage = 1;
+        }
+        if (this.incident.trueEndingSpeechStage < 2 && t >= 9.0) {
+          this.sayEve(tx("incident.trueEnding.line2"), 4.2);
+          this.incident.trueEndingSpeechStage = 2;
+        }
+        if (this.incident.trueEndingSpeechStage < 3 && t >= 18.0) {
+          this.sayEve(tx("incident.trueEnding.line3"), 4.0);
+          this.incident.trueEndingSpeechStage = 3;
+        }
+        if (this.incident.trueEndingSpeechStage < 4 && t >= 27.0) {
+          this.sayEve(tx("incident.trueEnding.line4"), 4.5);
+          this.incident.trueEndingSpeechStage = 4;
         }
 
         if (
@@ -2645,7 +2659,9 @@
       if (
         this.incident &&
         this.incident.unlocked &&
+        this.incident.introSeen &&
         this.incident.introStage >= 3 &&
+        this.eve.timer <= 0 &&
         this.incident.found < this.incident.total &&
         this.incident.pendingLogIndex <= 0 &&
         this.incident.pendingLogTimer <= 0 &&
@@ -3696,26 +3712,33 @@
           this.echoStory.pendingPlanet = null;
         }
 
-        // HOME gets one quiet second. Then E.V.E. states only the facts the
-        // player cannot know from play alone; interpretation is left untouched.
-        if (this.finale.speechStage < 1 && this.finale.timer >= 1.0) {
-          this.sayEve(tx("finale.accident1"), 4.0);
+        // These are the lines where the meaning of the journey becomes explicit.
+        // Slow the cadence so each thought is understood before the next arrives.
+        if (this.finale.speechStage < 1 && this.finale.timer >= 1.2) {
+          this.sayEve(tx("finale.accident1"), 4.2);
           this.finale.speechStage = 1;
         }
 
-        if (this.finale.speechStage < 2 && this.finale.timer >= 5.3) {
-          this.sayEve(tx("finale.accident2"), 4.5);
+        if (this.finale.speechStage < 2 && this.finale.timer >= 8.0) {
+          this.sayEve(tx("finale.accident2"), 4.6);
           this.finale.speechStage = 2;
         }
 
-        if (this.finale.speechStage < 3 && this.finale.timer >= 10.1) {
-          this.sayEve(tx("finale.accident3"), 4.5);
+        if (this.finale.speechStage < 3 && this.finale.timer >= 16.0) {
+          this.sayEve(tx("finale.accident3"), 4.2);
           this.finale.speechStage = 3;
         }
 
-        if (this.finale.speechStage < 4 && this.finale.timer >= 14.9) {
-          this.sayEve(tx("finale.returnLead"), 2.4);
+        // First promise the return. Then leave a full breath before naming what
+        // is actually being returned: the pilot to themself.
+        if (this.finale.speechStage < 4 && this.finale.timer >= 24.0) {
+          this.sayEve(tx("finale.returnLead"), 2.8);
           this.finale.speechStage = 4;
+        }
+
+        if (this.finale.speechStage < 5 && this.finale.timer >= 30.0) {
+          this.sayEve(tx("finale.returnMemory"), 3.8);
+          this.finale.speechStage = 5;
           if (!this.finale.pulseFired) {
             this.finale.pulseFired = true;
             this.base.repairPulse = Math.max(this.base.repairPulse || 0, 2.2);
@@ -3723,9 +3746,8 @@
           }
         }
 
-        // One short beat after the final factual line, then the player performs
-        // REBIRTH instead of hearing another explanation.
-        if (this.finale.timer >= 18.0) this.startRebirthRitual();
+        // HOME holds the answer in silence before REBIRTH begins.
+        if (this.finale.timer >= 36.8) this.startRebirthRitual();
         return;
       }
 
@@ -3806,6 +3828,9 @@
       const incidentMode = !!(
         this.incident &&
         this.incident.unlocked &&
+        this.incident.introSeen &&
+        this.incident.introStage >= 3 &&
+        this.eve.timer <= 0 &&
         this.incident.found < this.incident.total &&
         !this.incident.trueEndingCompleted
       );
