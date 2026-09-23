@@ -15,7 +15,7 @@
         <h1>Map Factory</h1>
         <p class="lead">完成品を生成する場所ではなく、同じ町の素材原型を仕入れて組み合わせる場所。</p>
       </div>
-      <span class="version-badge">Asset Composer v0.4.1</span>
+      <span class="version-badge">Asset Composer v0.5</span>
     </header>
 
     <section class="workflow" aria-label="workflow">
@@ -215,15 +215,22 @@
       <div class="section-head supply-head">
         <div>
           <p class="eyebrow">SOURCE PROMPT</p>
-          <h2>足りない部品だけ生成する</h2>
-          <p class="muted">追加補充するときは、必要なレイヤーだけ2案で生成できます。</p>
+          <h2>同じ規格で次の店を仕入れる</h2>
+          <p class="muted">標準は32パーツのIdentity Kit Sheet。足りない棚だけFocus Partで追加補充します。</p>
         </div>
         <button id="togglePromptBtn" class="ghost">Promptを開く</button>
       </div>
 
       <div id="promptPanel" class="prompt-panel hidden">
-        <div class="prompt-controls">
+        <div class="prompt-controls prompt-controls-wide">
           <label>
+            <span>Prompt mode</span>
+            <select id="promptMode">
+              <option value="kit">Identity Kit Sheet / 32 assets</option>
+              <option value="focus">Focus Part / 2 variations</option>
+            </select>
+          </label>
+          <label id="promptTypeField" class="hidden">
             <span>Asset type</span>
             <select id="promptType">
               <option value="base">BASE</option>
@@ -235,14 +242,18 @@
             </select>
           </label>
           <label>
-            <span>Identity</span>
+            <span>Shop identity</span>
             <select id="identitySelect">
-              <option value="neutral">Neutral</option>
               <option value="craft-cola">Craft Cola</option>
+              <option value="kissaten">Kissaten</option>
+              <option value="curry">Curry Shop</option>
+              <option value="yakitori">Yakitori Shop</option>
+              <option value="neutral">Neutral / Focus only</option>
             </select>
           </label>
           <button id="copyPromptBtn" class="secondary">Copy</button>
         </div>
+        <p class="prompt-standard-note">Identity Kit Sheet Master v1：32スロット、同一ピクセル密度、Anti-Luxury、切り出し前提を固定。</p>
         <textarea id="promptOutput" rows="24" readonly></textarea>
       </div>
     </section>
