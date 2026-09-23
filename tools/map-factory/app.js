@@ -1122,6 +1122,29 @@
     return { x, y, w, h };
   }
 
+  function getSpecialRect(instance, image, baseBox) {
+    const slot = SLOT.special;
+    const userScale = Number(instance.scale ?? 100) / 100;
+
+    const targetW = baseBox.w * slot.maxW * userScale;
+    const targetH = baseBox.h * slot.maxH * userScale;
+    const scale = Math.min(targetW / image.width, targetH / image.height);
+    const w = image.width * scale;
+    const h = image.height * scale;
+
+    const offsetX = (Number(instance.x ?? 0) / 100) * baseBox.w;
+    const offsetY = (Number(instance.y ?? 0) / 100) * baseBox.h;
+    const anchorX = baseBox.x + baseBox.w * slot.x + offsetX;
+    const anchorY = baseBox.y + baseBox.h * slot.y + offsetY;
+
+    return {
+      x: anchorX - w / 2,
+      y: anchorY - h,
+      w,
+      h
+    };
+  }
+
   async function renderPreview() {
     const token = ++renderToken;
     previewHitRegions = [];
@@ -1162,6 +1185,33 @@
         Math.round(baseBox.h)
       );
 
+      for (const instance of state.specials) {
+        const asset = assetById(instance.assetId);
+        if (!asset) continue;
+
+        const image = await loadImage(asset.dataUrl);
+        if (token !== renderToken) return;
+
+        const rect = getSpecialRect(instance, image, baseBox);
+
+        ctx.drawImage(
+          image,
+          Math.round(rect.x),
+          Math.round(rect.y),
+          Math.round(rect.w),
+          Math.round(rect.h)
+        );
+
+        previewHitRegions.push({
+          type: 'special',
+          instanceId: instance.instanceId,
+          x: rect.x,
+          y: rect.y,
+          w: rect.w,
+          h: rect.h
+        });
+      }
+
       for (const type of DRAW_ORDER) {
         const asset = assetById(state.selected[type]);
         if (!asset) continue;
@@ -1195,9 +1245,19 @@
   }
 
   function updatePartSelectionBox() {
-    const region = previewHitRegions.find((item) => item.type === state.adjustType);
+    const region = state.adjustType === 'special'
+      ? previewHitRegions.find(
+          (item) =>
+            item.type === 'special' &&
+            item.instanceId === state.activeSpecialId
+        )
+      : previewHitRegions.find((item) => item.type === state.adjustType);
 
-    if (!region || !state.selected[state.adjustType]) {
+    const hasTarget = state.adjustType === 'special'
+      ? Boolean(getActiveSpecial())
+      : Boolean(state.selected[state.adjustType]);
+
+    if (!region || !hasTarget) {
       els.partSelectionBox.classList.add('hidden');
       return;
     }
@@ -1225,7 +1285,7 @@
         y >= region.y &&
         y <= region.y + region.h
       ) {
-        setAdjustType(region.type);
+        setAdjustType(region.type, region.instanceId || null);
         updatePartSelectionBox();
         return;
       }
