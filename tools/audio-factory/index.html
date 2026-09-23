@@ -200,6 +200,10 @@ const LAB_META = [
   ['chaos','混沌'],
 ];
 
+const $ = s => document.querySelector(s);
+const clone = obj => JSON.parse(JSON.stringify(obj));
+const clamp = (v,min=0,max=100) => Math.max(min,Math.min(max,v));
+
 let currentFamily = 'WOOD';
 let recipe = makeRecipe(currentFamily);
 let undoStack = [];
@@ -207,10 +211,6 @@ let slotA = null;
 let slotB = null;
 let audioCtx = null;
 let playCounter = 0;
-
-const $ = s => document.querySelector(s);
-const clone = obj => JSON.parse(JSON.stringify(obj));
-const clamp = (v,min=0,max=100) => Math.max(min,Math.min(max,v));
 
 function normalizeRecipe(input){
   const r = clone(input);
