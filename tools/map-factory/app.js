@@ -92,6 +92,8 @@
       special: $('specialShelf')
     },
     assetCount: $('assetCount'),
+    batchCount: $('batchCount'),
+    batchList: $('batchList'),
     comboStrip: $('comboStrip'),
     adjustType: $('adjustType'),
     scale: $('partScale'),
@@ -239,6 +241,24 @@
     });
   }
 
+  function dbDeleteMany(ids) {
+    return new Promise((resolve, reject) => {
+      if (!ids.length) {
+        resolve();
+        return;
+      }
+
+      const transaction = db.transaction(STORE_NAME, 'readwrite');
+      const store = transaction.objectStore(STORE_NAME);
+
+      ids.forEach((id) => store.delete(id));
+
+      transaction.oncomplete = () => resolve();
+      transaction.onerror = () => reject(transaction.error);
+      transaction.onabort = () => reject(transaction.error || new Error('Batch delete aborted'));
+    });
+  }
+
   function byType(type) {
     return state.assets
       .filter((asset) => asset.type === type)
@@ -371,6 +391,137 @@
     els.assetCount.textContent = String(state.assets.length);
   }
 
+  function getAssetBatchKey(asset) {
+    if (asset.sourceBatchId) return asset.sourceBatchId;
+
+    const sourceFile = asset.sourceFile || 'unknown-source';
+    const createdAt = asset.createdAt || asset.id;
+    const sourceKind = asset.sourceKind || 'legacy';
+
+    return [sourceKind, sourceFile, createdAt].join('::');
+  }
+
+  function getImportBatches() {
+    const grouped = new Map();
+
+    state.assets.forEach((asset) => {
+      const key = getAssetBatchKey(asset);
+
+      if (!grouped.has(key)) {
+        grouped.set(key, {
+          key,
+          sourceFile: asset.sourceFile || 'Unknown source',
+          sourceKind: asset.sourceKind || 'legacy',
+          sourcePreset: asset.sourcePreset || null,
+          createdAt: asset.createdAt || '',
+          assets: []
+        });
+      }
+
+      grouped.get(key).assets.push(asset);
+    });
+
+    return Array.from(grouped.values()).sort((a, b) =>
+      (b.createdAt || '').localeCompare(a.createdAt || '')
+    );
+  }
+
+  function formatBatchKind(batch) {
+    if (batch.sourceKind === 'kit-sheet') return 'KIT';
+    if (batch.sourceKind === 'pair') return 'PAIR';
+    return 'IMPORT';
+  }
+
+  async function deleteImportBatch(batch) {
+    const count = batch.assets.length;
+    const message =
+      '「' + batch.sourceFile + '」から読み込んだ ' + count +
+      ' 個のパーツをまとめて削除しますか？\n\nこの操作は元に戻せません。';
+
+    if (!window.confirm(message)) return;
+
+    const ids = batch.assets.map((asset) => asset.id);
+    const idSet = new Set(ids);
+
+    await dbDeleteMany(ids);
+
+    state.assets = state.assets.filter((asset) => !idSet.has(asset.id));
+
+    TYPES.forEach((type) => {
+      if (state.selected[type] && idSet.has(state.selected[type])) {
+        state.selected[type] = null;
+      }
+    });
+
+    imageCache.clear();
+    saveState();
+    renderAll();
+
+    els.sourceStatus.textContent =
+      batch.sourceFile + ' から読み込んだ ' + count + ' 個のパーツを削除しました。';
+  }
+
+  function renderBatches() {
+    const batches = getImportBatches();
+    els.batchCount.textContent = String(batches.length);
+    els.batchList.innerHTML = '';
+
+    if (!batches.length) {
+      const empty = document.createElement('div');
+      empty.className = 'batch-empty';
+      empty.textContent = '読み込んだ素材はまだありません';
+      els.batchList.appendChild(empty);
+      return;
+    }
+
+    batches.forEach((batch) => {
+      const item = document.createElement('div');
+      item.className = 'batch-item';
+
+      const main = document.createElement('div');
+      main.className = 'batch-item-main';
+
+      const info = document.createElement('div');
+      info.style.minWidth = '0';
+
+      const file = document.createElement('div');
+      file.className = 'batch-file';
+      file.textContent = batch.sourceFile;
+
+      const meta = document.createElement('div');
+      meta.className = 'batch-meta';
+      meta.textContent =
+        formatBatchKind(batch) + ' · ' + batch.assets.length + ' parts' +
+        (batch.sourcePreset ? ' · ' + batch.sourcePreset : '');
+
+      info.append(file, meta);
+
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'batch-delete';
+      remove.textContent = '一括削除';
+      remove.addEventListener('click', () => deleteImportBatch(batch));
+
+      main.append(info, remove);
+
+      const types = document.createElement('div');
+      types.className = 'batch-types';
+
+      TYPES.forEach((type) => {
+        const count = batch.assets.filter((asset) => asset.type === type).length;
+        if (!count) return;
+
+        const chip = document.createElement('span');
+        chip.className = 'batch-type-chip';
+        chip.textContent = LABELS[type] + ' ×' + count;
+        types.appendChild(chip);
+      });
+
+      item.append(main, types);
+      els.batchList.appendChild(item);
+    });
+  }
+
   function renderCombos() {
     const bases = byType('base').slice(0, 2);
     const norens = byType('noren').slice(0, 2);
@@ -501,6 +652,7 @@
 
   function renderAll() {
     renderShelves();
+    renderBatches();
     renderCombos();
     syncControls();
     renderPreview();
@@ -1101,6 +1253,7 @@
     const prefix = LABELS[type];
     const timestamp = Date.now();
     const createdAt = new Date().toISOString();
+    const sourceBatchId = 'pair_' + timestamp;
 
     const assets = state.detected.variants.map((variant, index) => ({
       id: type + '_' + timestamp + '_' + (index === 0 ? 'a' : 'b'),
@@ -1111,6 +1264,7 @@
       width: variant.width,
       height: variant.height,
       sourceKind: 'pair',
+      sourceBatchId,
       sourceFile: state.detected.fileName,
       sourceWidth: state.detected.sourceWidth,
       sourceHeight: state.detected.sourceHeight,
@@ -1143,6 +1297,7 @@
 
     const timestamp = Date.now();
     const createdAt = new Date().toISOString();
+    const sourceBatchId = 'kit_' + timestamp;
     const running = Object.fromEntries(TYPES.map((type) => [type, byType(type).length]));
     const addedByType = Object.fromEntries(TYPES.map((type) => [type, []]));
 
@@ -1158,6 +1313,7 @@
         width: candidate.width,
         height: candidate.height,
         sourceKind: 'kit-sheet',
+        sourceBatchId,
         sourcePreset: candidate.sourcePreset,
         sourceFile: candidate.sourceFile,
         sourceSlotIndex: candidate.slotIndex,
