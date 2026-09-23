@@ -191,6 +191,23 @@ Craft Cola Identity Kit Sheet で確認する:
 - 既存 v0.3 の IndexedDB assets をそのまま利用できる
 - Dot tool に渡す前工程として制作が明確に速くなる
 
+## Validation result / 2026-09-23
+
+Craft Cola Identity Kit Sheet（1536×1024）で preset を検証。
+
+- connected components: 34
+- final expected slots: 32
+- detected assets: 32 / 32
+- BASE: 2 / 2
+- NOREN: 6 / 6
+- SIGN: 6 / 6
+- LANTERN: 6 / 6
+- BOARD: 6 / 6
+- SPECIAL: 6 / 6
+- SPECIAL の3本瓶は3 componentから1 assetへ正しく統合
+
+現行 preset はこの実シートを基準サンプルとして扱う。
+
 ## Repository
 
 Map Factory の変更はまず yumaniwa-town-staging で検証する。
