@@ -196,6 +196,8 @@ Backup JSON format:
 - `assets`: complete imported assets, including their image data URLs and source metadata
 - `state`: current selection, adjustments, SPECIAL placements, and all WORK SLOT compositions
 
+On mobile browsers with file sharing, export opens the share sheet so the JSON can be saved to Files. A visible save link remains available if the share sheet or automatic download does not open. The file action starts during the original tap.
+
 Restore validates the format, asset types, image data, dimensions, IDs, and composition state before changing stored data. After confirmation, assets are replaced in one IndexedDB transaction and the saved composition state is restored. A restore replaces the current library and work slots; export a current backup first if you may need them later.
 
 ## Multi-SPECIAL placement
