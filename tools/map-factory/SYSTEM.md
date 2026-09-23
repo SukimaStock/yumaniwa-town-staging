@@ -1,4 +1,4 @@
-# Yumaniwa Map Factory System v0.5
+# Yumaniwa Map Factory System v0.6
 
 Map Factory は「完成画像を生成する場所」ではない。
 
@@ -148,6 +148,44 @@ Kit Sheet 由来 asset は追加情報を保存する。
 
 Pair 由来は sourceKind: pair。
 
+## Composition work slots
+
+Composition は1件だけではなく、複数の WORK SLOT として保存する。
+
+- 01 / 02 / 03 ... の横並びスロット
+- 各スロットは自動保存
+- ＋で現在の composition を複製して新しいスロットを作る
+- スロットをタップすると即切り替え
+- ×で不要なスロットを削除
+- 最低1スロットは必ず残す
+
+各スロットに保存するもの:
+- selected BASE
+- selected NOREN / SIGN / LANTERN / BOARD / SPECIAL
+- part ごとの Scale / X / Y
+- 現在の PART ADJUST 対象
+
+既存 v0.5 以前の単一 composition state は、初回読み込み時に WORK SLOT 01 へ自動移行する。
+
+Asset を個別削除または batch 一括削除した場合、
+その asset を参照している全 WORK SLOT から参照を解除する。
+
+## Direct preview selection
+
+部品棚まで戻らず、プレビュー上の表示パーツを直接タップして編集対象にできる。
+
+render 時に NOREN / SIGN / LANTERN / BOARD / SPECIAL の実描画矩形を hit region として記録する。
+
+タップ時:
+- canvas 座標へ変換
+- 前面に描画された part から逆順に hit test
+- hit した part type を PART ADJUST 対象にする
+
+選択中 part には DOM overlay の薄い selection border を表示する。
+
+selection border は canvas 自体には描かないため、
+Draft PNG export には含まれない。
+
 ## Composition
 
 BASE を共通 preview canvas に contain する。
@@ -190,7 +228,7 @@ Draft PNG:
 - 正規ドット化前
 - transparent canvas
 
-Recipe JSON v0.4:
+Recipe JSON v0.6:
 - selected BASE
 - selected NOREN / SIGN / LANTERN / BOARD / SPECIAL
 - source metadata
