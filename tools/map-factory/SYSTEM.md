@@ -103,6 +103,38 @@ preset から遠すぎる component は無視する。
 expected 数と detected 数が違う場合は warning 表示するが、
 Import 自体は止めない。
 
+## Batch cleanup
+
+Asset Library の下部に IMPORT BATCHES を表示する。
+
+同じ読み込み画像から作られた asset を1 batchとして扱う。
+
+新規 import:
+- Pair Import: sourceBatchId = pair_<timestamp>
+- Kit Sheet: sourceBatchId = kit_<timestamp>
+
+既存 asset:
+- sourceBatchId がない場合は sourceKind + sourceFile + createdAt から batch を復元する
+
+各 batch には:
+- source file name
+- KIT / PAIR
+- part count
+- category別 count
+
+を表示する。
+
+「一括削除」で、その画像から読み込んだ asset をすべて IndexedDB から削除する。
+
+削除対象に現在選択中の BASE / NOREN / SIGN / LANTERN / BOARD / SPECIAL が含まれる場合は、その選択も解除する。
+
+個別 asset の × 削除は従来どおり残す。
+
+用途:
+- 間違った画像を読み込んだ場合
+- 不要になった Identity Kit を丸ごと整理する場合
+- 個別削除と一括削除を使い分ける場合
+
 ## Asset metadata
 
 Kit Sheet 由来 asset は追加情報を保存する。
