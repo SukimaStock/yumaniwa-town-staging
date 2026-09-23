@@ -1,4 +1,4 @@
-# Yumaniwa Map Factory System v0.4
+# Yumaniwa Map Factory System v0.5
 
 Map Factory は「完成画像を生成する場所」ではない。
 
@@ -197,6 +197,65 @@ Recipe JSON v0.4:
 - part ごとの Scale / X / Y
 
 最終成果物ではない。
+
+## Prompt production standard
+
+Identity Kit Sheet の生成プロンプト自体も Factory の正式規格として保持する。
+
+構造:
+
+- Identity Kit Sheet / Production Master v1
+- Shop Identity Add-on
+
+Master 側で固定するもの:
+- 32 assets
+- BASE 2 / NOREN 6 / SIGN 6 / LANTERN 6 / BOARD 6 / SPECIAL 6
+- 固定レイアウト
+- plain removable background
+- no poster / no presentation elements
+- same logical pixel density
+- same outline thickness
+- same rendering quality
+- same scale family
+- 70% shared / 30% meaningful variation
+- low visual density
+- Anti-Luxury rule
+- reusable neutral BASE
+- Map Factory automatic cutout compatibility
+
+Identity Add-on 側で変えるもの:
+- shop feel
+- motifs
+- accent colors
+- per-layer identity clues
+- six SPECIAL prop ideas
+- shop-specific avoid rules
+
+Current registered identities:
+- Craft Cola
+- Kissaten
+- Curry Shop
+- Yakitori Shop
+
+新しい店を追加するときは 32-slot Master を書き直さない。
+原則として Identity Add-on を1件追加するだけで同じ生産規格を再利用する。
+
+Factory の SOURCE PROMPT は2モード:
+
+### Identity Kit Sheet / 32 assets
+
+通常の新店舗用。
+Production Master v1 + selected Shop Identity Add-on を結合する。
+
+### Focus Part / 2 variations
+
+不足した棚だけ追加補充する。
+既存の BASE / NOREN / SIGN / LANTERN / BOARD / SPECIAL Master + selected identity add-on を結合する。
+
+BASE の Focus Part は常に neutral とする。
+
+この分離により、
+「店ごとに毎回プロンプト全体を作り直して品質がぶれる」ことを避ける。
 
 ## Source generation
 
