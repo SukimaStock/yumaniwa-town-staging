@@ -493,25 +493,186 @@
   }
 
   function currentAdjustment() {
-    return state.adjustments[state.adjustType];
+    if (state.adjustType === 'special') {
+      return getActiveSpecial();
+    }
+
+    return state.adjustments[state.adjustType] || null;
+  }
+
+  function renderSpecialTools() {
+    const hasSpecials = state.specials.length > 0;
+    els.specialTools.classList.toggle('hidden', !hasSpecials);
+    els.specialCount.textContent = String(state.specials.length);
+    els.specialInstanceList.innerHTML = '';
+
+    const active = getActiveSpecial();
+    const activeIndex = active
+      ? state.specials.findIndex((item) => item.instanceId === active.instanceId)
+      : -1;
+
+    state.specials.forEach((instance, index) => {
+      const asset = assetById(instance.assetId);
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className =
+        'special-instance-chip' +
+        (instance.instanceId === state.activeSpecialId ? ' active' : '');
+
+      const order = document.createElement('strong');
+      order.textContent = 'S' + (index + 1);
+
+      const label = document.createElement('span');
+      label.textContent = asset ? asset.label : 'SPECIAL';
+
+      chip.append(order, label);
+      chip.addEventListener('click', () => selectSpecialInstance(instance.instanceId));
+      els.specialInstanceList.appendChild(chip);
+    });
+
+    els.specialActiveLabel.textContent = active
+      ? ((assetById(active.assetId) && assetById(active.assetId).label) || 'SPECIAL')
+      : 'SPECIAL';
+
+    const disabled = !active;
+    els.specialBackward.disabled = disabled || activeIndex <= 0;
+    els.specialForward.disabled = disabled || activeIndex < 0 || activeIndex >= state.specials.length - 1;
+    els.specialDuplicate.disabled = disabled;
+    els.specialRemove.disabled = disabled;
   }
 
   function syncControls() {
     els.adjustType.value = state.adjustType;
+
     const adjustment = currentAdjustment();
-    els.scale.value = String(adjustment.scale);
-    els.x.value = String(adjustment.x);
-    els.y.value = String(adjustment.y);
-    els.scaleValue.textContent = adjustment.scale + '%';
-    els.xValue.textContent = String(adjustment.x);
-    els.yValue.textContent = String(adjustment.y);
+    const disabled = !adjustment;
+
+    els.scale.disabled = disabled;
+    els.x.disabled = disabled;
+    els.y.disabled = disabled;
+    els.resetAdjust.disabled = disabled;
+
+    const scale = adjustment ? Number(adjustment.scale ?? 100) : 100;
+    const x = adjustment ? Number(adjustment.x ?? 0) : 0;
+    const y = adjustment ? Number(adjustment.y ?? 0) : 0;
+
+    els.scale.value = String(scale);
+    els.x.value = String(x);
+    els.y.value = String(y);
+    els.scaleValue.textContent = scale + '%';
+    els.xValue.textContent = String(x);
+    els.yValue.textContent = String(y);
+
+    renderSpecialTools();
   }
 
-  function setAdjustType(type) {
+  function setAdjustType(type, instanceId) {
     if (!PART_TYPES.includes(type)) return;
+
+    if (type === 'special') {
+      state.activeSpecialId = normalizeActiveSpecialId(
+        state.specials,
+        instanceId || state.activeSpecialId
+      );
+    }
+
     state.adjustType = type;
     saveState();
     syncControls();
+  }
+
+  function specialDefaultOffset(index) {
+    const offsets = [0, 12, -12, 24, -24, 6, -6, 18, -18];
+    return offsets[index % offsets.length];
+  }
+
+  function addSpecialAsset(assetId) {
+    const asset = assetById(assetId);
+    if (!asset || asset.type !== 'special') return;
+
+    const instance = {
+      instanceId: createSpecialId(),
+      assetId,
+      scale: 100,
+      x: specialDefaultOffset(state.specials.length),
+      y: 0
+    };
+
+    state.specials.push(instance);
+    state.activeSpecialId = instance.instanceId;
+    state.adjustType = 'special';
+    saveState();
+    renderAll();
+  }
+
+  function selectSpecialInstance(instanceId) {
+    if (!state.specials.some((item) => item.instanceId === instanceId)) return;
+
+    state.activeSpecialId = instanceId;
+    state.adjustType = 'special';
+    saveState();
+    syncControls();
+    updatePartSelectionBox();
+    renderShelves();
+  }
+
+  function moveActiveSpecial(direction) {
+    const active = getActiveSpecial();
+    if (!active) return;
+
+    const index = state.specials.findIndex((item) => item.instanceId === active.instanceId);
+    const nextIndex = index + direction;
+
+    if (nextIndex < 0 || nextIndex >= state.specials.length) return;
+
+    [state.specials[index], state.specials[nextIndex]] =
+      [state.specials[nextIndex], state.specials[index]];
+
+    saveState();
+    renderAll();
+  }
+
+  function duplicateActiveSpecial() {
+    const active = getActiveSpecial();
+    if (!active) return;
+
+    const copy = {
+      instanceId: createSpecialId(),
+      assetId: active.assetId,
+      scale: active.scale,
+      x: Math.max(-35, Math.min(35, Number(active.x) + 7)),
+      y: Number(active.y)
+    };
+
+    const index = state.specials.findIndex((item) => item.instanceId === active.instanceId);
+    state.specials.splice(index + 1, 0, copy);
+    state.activeSpecialId = copy.instanceId;
+    state.adjustType = 'special';
+
+    saveState();
+    renderAll();
+  }
+
+  function removeActiveSpecial() {
+    const active = getActiveSpecial();
+    if (!active) return;
+
+    const index = state.specials.findIndex((item) => item.instanceId === active.instanceId);
+    state.specials.splice(index, 1);
+
+    const next =
+      state.specials[Math.min(index, state.specials.length - 1)] ||
+      state.specials[state.specials.length - 1] ||
+      null;
+
+    state.activeSpecialId = next ? next.instanceId : null;
+
+    if (!next) {
+      state.adjustType = 'noren';
+    }
+
+    saveState();
+    renderAll();
   }
 
   function renderCompositionSlots() {
@@ -583,6 +744,8 @@
     const slot = makeCompositionSlot(state.compositions.length, current || {
       selected: state.selected,
       adjustments: state.adjustments,
+      specials: state.specials,
+      activeSpecialId: state.activeSpecialId,
       adjustType: state.adjustType
     });
 
@@ -626,7 +789,25 @@
           slot.selected[type] = null;
         }
       });
+
+      slot.specials = cloneSpecials(slot.specials).filter(
+        (instance) => !idSet.has(instance.assetId)
+      );
+      slot.activeSpecialId = normalizeActiveSpecialId(slot.specials, slot.activeSpecialId);
+
+      if (slot.adjustType === 'special' && !slot.activeSpecialId) {
+        slot.adjustType = 'noren';
+      }
     });
+
+    state.specials = state.specials.filter(
+      (instance) => !idSet.has(instance.assetId)
+    );
+    state.activeSpecialId = normalizeActiveSpecialId(state.specials, state.activeSpecialId);
+
+    if (state.adjustType === 'special' && !state.activeSpecialId) {
+      state.adjustType = 'noren';
+    }
   }
 
   function makeAssetCard(asset) {
