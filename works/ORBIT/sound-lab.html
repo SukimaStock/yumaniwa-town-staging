@@ -77,8 +77,8 @@
   </section>
 
   <div class="tabs">
-    <button data-phase="A" class="active">実音あり 14</button>
-    <button data-phase="B">仮音 / 未選択 7</button>
+    <button data-phase="A" class="active">実音あり 15</button>
+    <button data-phase="B">仮音 / 未選択 6</button>
     <button data-phase="ALL">すべて 21</button>
   </div>
 
@@ -116,6 +116,8 @@
   "use strict";
 
   const AUDIO_GAIN = 3.0;
+  const AMBIENT_GAIN_CAP = 1.35;
+  const SOUNDLAB_STATE_VERSION = 2;
   const slots = [
     {name:"takeoff", phase:"A", file:"sounds/takeoff.ogg", volume:.14, cooldown:120},
     {name:"landing", phase:"A", file:"sounds/landing.ogg", volume:.14, cooldown:120},
@@ -131,6 +133,7 @@
     {name:"scan", phase:"A", file:"sounds/scan.ogg", volume:.12, cooldown:250},
     {name:"rescue", phase:"A", file:"sounds/rescue.ogg", volume:.12, cooldown:900},
     {name:"rebirth", phase:"A", file:"sounds/rebirth.ogg", volume:.12, cooldown:900},
+    {name:"ambient_drone", phase:"A", file:"sounds/ambient_drone.wav", volume:.45, cooldown:0},
 
     {name:"diagnostic", phase:"B", file:null, volume:.10, cooldown:80},
     {name:"weak_signal", phase:"B", file:null, volume:.10, cooldown:500},
@@ -138,7 +141,6 @@
     {name:"terminal_boot", phase:"B", file:null, volume:.12, cooldown:500},
     {name:"restore_link", phase:"B", file:null, volume:.12, cooldown:500},
     {name:"takeoff_power", phase:"B", file:null, volume:.12, cooldown:120},
-    {name:"ambient_drone", phase:"B", file:null, volume:.03, cooldown:0},
   ];
 
   const state = {
@@ -160,6 +162,13 @@
     state.assignments = saved.assignments || {};
     state.volumes = saved.volumes || {};
     state.approved = saved.approved || {};
+
+    // v2: ambient_drone became an adopted runtime sound with dedicated headroom.
+    // Keep all other user choices, but move the old ambient working value to
+    // the current accepted 0.45 once.
+    if (Number(saved.stateVersion || 0) < SOUNDLAB_STATE_VERSION) {
+      state.volumes.ambient_drone = 0.45;
+    }
 
     // Migrate the old semantic name used before terminal boot/open were split.
     if (state.assignments.terminal && !state.assignments.terminal_open) {
@@ -187,6 +196,7 @@
 
   function save(){
     localStorage.setItem("orbit.soundlab.settings", JSON.stringify({
+      stateVersion:SOUNDLAB_STATE_VERSION,
       assignments:state.assignments,
       volumes:state.volumes,
       approved:state.approved
@@ -278,14 +288,18 @@
     return buffer;
   }
 
-  async function playBuffer(buffer, volume){
+  function gainCapFor(slot){
+    return slot && slot.name === "ambient_drone" ? AMBIENT_GAIN_CAP : 1;
+  }
+
+  async function playBuffer(buffer, volume, gainCap = 1){
     const ctx = await audioContext();
     const source = ctx.createBufferSource();
     const gain = ctx.createGain();
     source.buffer = buffer;
     const start = ctx.currentTime + .002;
     const duration = Math.max(.01, buffer.duration);
-    const level = Math.max(.0001, Math.min(1, Number(volume) * AUDIO_GAIN));
+    const level = Math.max(.0001, Math.min(gainCap, Number(volume) * AUDIO_GAIN));
     const attack = Math.min(.008, duration * .08);
     const release = Math.min(.018, duration * .12);
     const releaseAt = Math.max(start + attack, start + duration - release);
@@ -319,9 +333,9 @@
     });
   }
 
-  async function playBufferAndWait(buffer, volume, token){
+  async function playBufferAndWait(buffer, volume, token, gainCap = 1){
     if (state.audition.token !== token) return false;
-    const source = await playBuffer(buffer, volume);
+    const source = await playBuffer(buffer, volume, gainCap);
     state.audition.source = source;
     return new Promise(resolve => {
       let done = false;
@@ -370,7 +384,7 @@
         fileStatus.textContent = "連続試聴 " + slot.name.toUpperCase() + "  " + (i + 1) + " / " + list.length + "  —  " + filePath(list[i]);
         const buffer = await decodeFile(list[i]);
         if (state.audition.token !== token) return;
-        const completed = await playBufferAndWait(buffer, getVolume(slot), token);
+        const completed = await playBufferAndWait(buffer, getVolume(slot), token, gainCapFor(slot));
         if (!completed || state.audition.token !== token) return;
         const keepGoing = await wait(220, token);
         if (!keepGoing) return;
@@ -426,7 +440,7 @@
     try {
       fileStatus.textContent = "デコード中: " + filePath(list[idx]);
       const buffer = await decodeFile(list[idx]);
-      await playBuffer(buffer, getVolume(slot));
+      await playBuffer(buffer, getVolume(slot), gainCapFor(slot));
       fileStatus.textContent = "再生: " + slot.name + " ← " + filePath(list[idx]);
     } catch (e) {
       fileStatus.textContent = "候補音を再生できません: " + e.message;
@@ -444,7 +458,7 @@
     try {
       fileStatus.textContent = "現在音を読み込み中: " + slot.name;
       const buffer = await decodeCurrent(slot);
-      await playBuffer(buffer, getVolume(slot));
+      await playBuffer(buffer, getVolume(slot), gainCapFor(slot));
       fileStatus.textContent = "現在音を再生: " + slot.file;
     } catch (e) {
       fileStatus.textContent = "現在音を再生できません: " + e.message;
@@ -484,13 +498,14 @@
       const idx = assignedIndex(slot);
       const assigned = idx >= 0 && list[idx] ? filePath(list[idx]) : (state.assignments[slot.name] || "未選択");
       const vol = getVolume(slot);
-      const effective = Math.min(1, vol * AUDIO_GAIN);
+      const gainCap = gainCapFor(slot);
+      const effective = Math.min(gainCap, vol * AUDIO_GAIN);
 
       card.innerHTML =
         '<div class="head"><h2>' + slot.name.toUpperCase() + '</h2><span class="tag">' +
         (slot.phase === "A" ? "REAL AUDIO" : "PLACEHOLDER") +
         '</span></div>' +
-        '<div class="current">現在: ' + (slot.file || (slot.name === "ambient_drone" ? "未設定（採用後に飛行中ランダム再生）" : "procedural tone")) + '</div>' +
+        '<div class="current">現在: ' + (slot.file || "procedural tone") + '</div>' +
         '<div class="candidateName">' + assigned + '</div>';
 
       const select = document.createElement("select");
@@ -570,12 +585,12 @@
       top.className = "volumeTop";
       top.innerHTML = '<span>volume <b>' + vol.toFixed(2) + '</b></span><span class="effective">実効 ' + effective.toFixed(2) + ' (×3)</span>';
       const range = document.createElement("input");
-      range.type = "range"; range.min = "0.01"; range.max = "0.40"; range.step = "0.01"; range.value = String(vol);
+      range.type = "range"; range.min = "0.01"; range.max = slot.name === "ambient_drone" ? "0.60" : "0.40"; range.step = "0.01"; range.value = String(vol);
       range.addEventListener("input", () => {
         state.volumes[slot.name] = Number(range.value);
         state.preparedZip = null;
         save();
-        top.innerHTML = '<span>volume <b>' + Number(range.value).toFixed(2) + '</b></span><span class="effective">実効 ' + Math.min(1, Number(range.value)*AUDIO_GAIN).toFixed(2) + ' (×3)</span>';
+        top.innerHTML = '<span>volume <b>' + Number(range.value).toFixed(2) + '</b></span><span class="effective">実効 ' + Math.min(gainCapFor(slot), Number(range.value)*AUDIO_GAIN).toFixed(2) + ' (×3)</span>';
       });
 
       volume.append(top, range);
@@ -849,6 +864,8 @@
     const out = {
       generatedAt:new Date().toISOString(),
       orbitAudioGain:AUDIO_GAIN,
+      ambientGainCap:AMBIENT_GAIN_CAP,
+      soundLabStateVersion:SOUNDLAB_STATE_VERSION,
       cues:{}
     };
     slots.forEach(slot => {
