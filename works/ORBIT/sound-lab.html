@@ -168,11 +168,11 @@
     // v2: ambient_drone became an adopted runtime sound with dedicated headroom.
     // Keep all other user choices, but move the old ambient working value to
     // the current accepted 0.45 once.
-    if (Number(saved.stateVersion || 0) < SOUNDLAB_STATE_VERSION) {
+    if (Number(saved.stateVersion || 0) < 3) {
       state.volumes.ambient_drone = 0.45;
-      // ambient_drone is now already adopted in Staging. Keep any candidate
-      // assignment for A/B comparison, but require a fresh explicit approval
-      // before a future candidate can overwrite the current WAV.
+      // ambient_drone became an adopted runtime sound in v3. Keep any
+      // candidate assignment for A/B comparison, but require one fresh
+      // explicit pending selection before a future candidate can overwrite it.
       delete state.approved.ambient_drone;
     }
 
