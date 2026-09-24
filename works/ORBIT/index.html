@@ -23,6 +23,14 @@
       -webkit-touch-callout: none;
     }
 
+    body *,
+    #ritualHost {
+      -webkit-user-select: none !important;
+      user-select: none !important;
+      -webkit-touch-callout: none !important;
+      -webkit-user-drag: none !important;
+    }
+
     #gameCanvas {
       position: fixed;
       inset: 0;
@@ -63,7 +71,7 @@
   <script src="orbit-text.js?v=2.9.19"></script>
 
   <!-- Low-level Codea-compatible canvas runtime -->
-  <script src="codea-lite.js?v=2.7.7"></script>
+  <script src="codea-lite.js?v=2.7.8"></script>
 
   <!-- Canonical SukimaStock Engine v0.2; local copy remains temporarily for itch/export rollback. -->
   <script data-sse-engine src="../../engine/sukimastock-engine.v0.2.0.js?v=20260922-orbit-canary"></script>
@@ -80,8 +88,8 @@
 
       await OrbitText.load();
       await loadScript("orbit-sound-config.js?t=" + Date.now());
-      await loadScript("restore-ritual-inline.js?v=2.7.26");
-      await loadScript("sketch.js?v=2.9.28");
+      await loadScript("restore-ritual-inline.js?v=2.7.27");
+      await loadScript("sketch.js?v=2.9.29");
       CodeaLite.start("gameCanvas");
     })().catch((error) => {
       console.error("ORBIT bootstrap failed", error);
