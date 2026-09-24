@@ -117,7 +117,7 @@
 
   const AUDIO_GAIN = 3.0;
   const AMBIENT_GAIN_CAP = 1.35;
-  const SOUNDLAB_STATE_VERSION = 2;
+  const SOUNDLAB_STATE_VERSION = 3;
   const slots = [
     {name:"takeoff", phase:"A", file:"sounds/takeoff.ogg", volume:.14, cooldown:120},
     {name:"landing", phase:"A", file:"sounds/landing.ogg", volume:.14, cooldown:120},
@@ -168,6 +168,10 @@
     // the current accepted 0.45 once.
     if (Number(saved.stateVersion || 0) < SOUNDLAB_STATE_VERSION) {
       state.volumes.ambient_drone = 0.45;
+      // ambient_drone is now already adopted in Staging. Keep any candidate
+      // assignment for A/B comparison, but require a fresh explicit approval
+      // before a future candidate can overwrite the current WAV.
+      delete state.approved.ambient_drone;
     }
 
     // Migrate the old semantic name used before terminal boot/open were split.
