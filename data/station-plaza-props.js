@@ -142,6 +142,19 @@
         var resolvedSrc = resolvePropSrc(prop);
         var entry = getPropImage(resolvedSrc);
 
+        // WORLD OBJECT の新規画像がまだ配信されていない / 読み込みに失敗した場合は、
+        // インスタンスが保持している旧 src を安全なフォールバックとして描画する。
+        // 新規アセットの GitHub Pages 反映待ちでも町から物体を消さない。
+        if (
+            prop.objectId &&
+            prop.src &&
+            resolvedSrc !== prop.src &&
+            entry &&
+            entry.error
+        ) {
+            entry = getPropImage(prop.src);
+        }
+
         if (!entry || !entry.loaded || !entry.image) {
             return;
         }
