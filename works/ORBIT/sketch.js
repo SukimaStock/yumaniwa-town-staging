@@ -970,9 +970,11 @@
     const fadeIn = Math.min(t.fadeInSec, duration * 0.28);
     const fadeOut = Math.min(t.fadeOutSec, duration * 0.32);
     const releaseAt = Math.max(fadeIn, duration - fadeOut);
+    // Ambient uses a very quiet source recording, so give only this layer
+    // a little extra headroom. One-shot SFX keep their normal 1.0 ceiling.
     const level = Math.max(
       0.0001,
-      Math.min(1, Number(definition.volume ?? 0.03) * ORBIT_AUDIO_GAIN)
+      Math.min(1.35, Number(definition.volume ?? 0.03) * ORBIT_AUDIO_GAIN)
     );
 
     const source = graph.ctx.createBufferSource();
