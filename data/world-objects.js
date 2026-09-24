@@ -32,6 +32,37 @@
                 pixelSafe: false,
                 status: 'final'
             }
+        },
+        street_lamp_01: {
+            id: 'street_lamp_01',
+            category: 'light',
+            type: 'street_lamp',
+            src: 'assets/maps/objects/lights/street_lamp_01.png?rev=20260924-lamp32x56',
+            finalization: {
+                target: 'PROP_T',
+                logicalCanvasPx: [32, 56],
+                fileCanvasPx: [96, 168],
+                exportScale: 3,
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    sourcePhysicalPx: [256, 256]
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
         }
     };
 

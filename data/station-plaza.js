@@ -164,29 +164,31 @@ var stationPlazaProps = [
     },
     {
         "id": "station_lamp_left",
+        "objectId": "street_lamp_01",
         "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
-        "x": 7.895833333333334,
-        "y": 3.633333333333333,
-        "w": 2.875,
-        "h": 2.875,
+        "x": 8.333333333333334,
+        "y": 3.008333333333333,
+        "w": 2.0,
+        "h": 3.5,
         "footY": 6.508333333333333,
         "enabled": true,
         "catalogKey": "streetLamp",
-        "collision": { "enabled": true, "x": 0.434, "y": 0.92, "w": 0.132, "h": 0.22 },
-        "interaction": { "enabled": false, "triggerId": "", "x": 0.35, "y": 0.6, "w": 0.3, "h": 0.4 }
+        "collision": { "enabled": true, "x": 0.405125, "y": 0.9342857142857142, "w": 0.18975, "h": 0.1807142857142857 },
+        "interaction": { "enabled": false, "triggerId": "", "x": 0.284375, "y": 0.6714285714285714, "w": 0.43125, "h": 0.3285714285714286 }
     },
     {
         "id": "station_lamp_right",
+        "objectId": "street_lamp_01",
         "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
-        "x": 13.145833333333334,
-        "y": 3.6875,
-        "w": 2.875,
-        "h": 2.875,
+        "x": 13.583333333333334,
+        "y": 3.0625,
+        "w": 2.0,
+        "h": 3.5,
         "footY": 6.5625,
         "enabled": true,
         "catalogKey": "streetLamp",
-        "collision": { "enabled": true, "x": 0.434, "y": 0.92, "w": 0.132, "h": 0.22 },
-        "interaction": { "enabled": false, "triggerId": "", "x": 0.35, "y": 0.6, "w": 0.3, "h": 0.4 }
+        "collision": { "enabled": true, "x": 0.405125, "y": 0.9342857142857142, "w": 0.18975, "h": 0.1807142857142857 },
+        "interaction": { "enabled": false, "triggerId": "", "x": 0.284375, "y": 0.6714285714285714, "w": 0.43125, "h": 0.3285714285714286 }
     },
     {
         "id": "station_planter_left",
