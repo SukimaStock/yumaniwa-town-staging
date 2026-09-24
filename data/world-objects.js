@@ -6,19 +6,31 @@
             id: 'bench_wood_01',
             category: 'furniture',
             type: 'bench',
-            src: 'assets/maps/props/station-plaza/station-bench.png?rev=20260822-clean',
+            src: 'assets/maps/objects/furniture/bench_wood_01.png?rev=20260924-bench56',
             finalization: {
-                target: 'PROP_M',
-                logicalCanvasPx: [32, 32],
-                fileCanvasPx: [96, 96],
+                target: 'PROP_L',
+                logicalCanvasPx: [56, 56],
+                fileCanvasPx: [168, 168],
                 exportScale: 3,
                 grid: {
-                    block: 8,
+                    block: 1,
                     offsetX: 0,
                     offsetY: 0
                 },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    sourcePhysicalPx: [768, 768]
+                },
                 pixelSafe: false,
-                status: 'calibrating'
+                status: 'final'
             }
         }
     };
