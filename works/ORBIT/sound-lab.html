@@ -51,6 +51,7 @@
     .approved{border-color:#3b7f67!important;color:var(--ok)!important;background:#10231d!important}
     .applyBtn{font-weight:700;border-color:#38647a;background:#142431}
     .bundleSteps{color:var(--muted);font-size:13px;line-height:1.7}
+    .bundleList{margin:10px 0 12px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);font:11px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
     @media(max-width:680px){.grid{grid-template-columns:1fr}.toolbar{top:0}.card{padding:12px}}
   </style>
 </head>
@@ -88,6 +89,7 @@
 <dialog id="bundleDialog">
   <h2>ORBITへ反映</h2>
   <p id="bundleSummary"></p>
+  <div id="bundleList" class="bundleList"></div>
   <div class="bundleSteps">
     1. 下の「Working Copyへ共有」を押す<br>
     2. Share Sheetで Working Copy を選ぶ<br>
@@ -117,7 +119,7 @@
 
   const AUDIO_GAIN = 3.0;
   const AMBIENT_GAIN_CAP = 1.35;
-  const SOUNDLAB_STATE_VERSION = 3;
+  const SOUNDLAB_STATE_VERSION = 4;
   const slots = [
     {name:"takeoff", phase:"A", file:"sounds/takeoff.ogg", volume:.14, cooldown:120},
     {name:"landing", phase:"A", file:"sounds/landing.ogg", volume:.14, cooldown:120},
@@ -196,6 +198,7 @@
   const exportText = document.getElementById("exportText");
   const bundleDialog = document.getElementById("bundleDialog");
   const bundleSummary = document.getElementById("bundleSummary");
+  const bundleList = document.getElementById("bundleList");
   const applyBtn = document.getElementById("applyBtn");
 
   function save(){
@@ -249,14 +252,25 @@
     return state.candidates.filter(file => fileDir(file) === state.folderFilter);
   }
 
+  function approvedEntries(){
+    return Object.entries(state.approved).filter(([, path]) => !!path);
+  }
+
   function approvedCount(){
-    return Object.keys(state.approved).filter(name => state.approved[name]).length;
+    return approvedEntries().length;
+  }
+
+  function approvedReadyCount(){
+    return approvedEntries().filter(([, path]) => !!candidateByPath(path)).length;
   }
 
   function refreshApplyButton(){
-    const count = approvedCount();
-    applyBtn.textContent = "ORBITへ反映 (" + count + ")";
-    applyBtn.classList.toggle("approved", count > 0);
+    const total = approvedCount();
+    const ready = approvedReadyCount();
+    applyBtn.textContent = total > 0
+      ? "ORBITへ反映 (" + ready + " / " + total + ")"
+      : "ORBITへ反映 (0)";
+    applyBtn.classList.toggle("approved", total > 0 && ready === total);
   }
 
   function candidateByPath(path){
@@ -563,7 +577,7 @@
       const approveBtn = document.createElement("button");
       const selectedPath = idx >= 0 && list[idx] ? filePath(list[idx]) : null;
       const approvedThis = !!selectedPath && state.approved[slot.name] === selectedPath;
-      approveBtn.textContent = approvedThis ? "採用済 ✓" : "この音を採用";
+      approveBtn.textContent = approvedThis ? "反映待ち ✓" : "この音を反映待ちへ";
       approveBtn.classList.toggle("approved", approvedThis);
       approveBtn.disabled = !selectedPath;
       approveBtn.addEventListener("click", () => {
@@ -571,10 +585,10 @@
         if (!selectedPath) return;
         if (state.approved[slot.name] === selectedPath) {
           delete state.approved[slot.name];
-          fileStatus.textContent = slot.name.toUpperCase() + " の採用を解除しました。";
+          fileStatus.textContent = slot.name.toUpperCase() + " の反映待ちを解除しました。";
         } else {
           state.approved[slot.name] = selectedPath;
-          fileStatus.textContent = slot.name.toUpperCase() + " に " + selectedPath + " を採用しました。";
+          fileStatus.textContent = slot.name.toUpperCase() + " を反映待ちにしました: " + selectedPath;
         }
         state.preparedZip = null;
         save();
@@ -667,14 +681,13 @@
     stopAudition("連続試聴を停止しました。");
     state.candidates = [];
     state.folderFilter = "ALL";
-    state.approved = {};
     state.preparedZip = null;
     save();
     refreshApplyButton();
     refreshFolderFilter();
     renderLibrary();
     render();
-    fileStatus.textContent = "候補音をクリアしました。採用メモと音量設定は残しています。";
+    fileStatus.textContent = "候補音だけクリアしました。反映待ちと音量設定は保持しています。ZIP作成前に元フォルダを再読み込みしてください。";
   });
 
   document.getElementById("libraryBtn").addEventListener("click", () => {
@@ -833,35 +846,108 @@
   }
 
   async function prepareOrbitBundle(){
-    const approved = Object.entries(state.approved).filter(([, path]) => !!path);
-    if (!approved.length) throw new Error("採用済みの音がありません。");
+    const approved = approvedEntries();
+    if (!approved.length) throw new Error("反映待ちの音がありません。");
 
-    const entries = [];
+    const knownSlots = new Map(slots.map(slot => [slot.name, slot]));
     const missing = [];
-    for (const [name, path] of approved) {
-      const file = candidateByPath(path);
+    const plan = [];
+
+    for (const [name, sourcePath] of approved) {
+      const slot = knownSlots.get(name);
+      if (!slot) throw new Error("不明な反映待ちスロットがあります: " + name);
+
+      const file = candidateByPath(sourcePath);
       if (!file) {
-        missing.push(path);
+        missing.push(name + " ← " + sourcePath);
         continue;
       }
-      const ext=fileExtension(path);
-      entries.push({
-        name: "works/ORBIT/sounds/" + name + ext,
-        data: new Uint8Array(await file.arrayBuffer())
+
+      const ext = fileExtension(sourcePath);
+      const targetPath = "works/ORBIT/sounds/" + name + ext;
+      plan.push({
+        name,
+        sourcePath,
+        targetPath,
+        volume:getVolume(slot),
+        cooldown:Number(slot.cooldown || 0),
+        file
       });
     }
+
     if (missing.length) {
-      throw new Error("採用音の元ファイルが見つかりません。親フォルダを再読み込みしてください: " + missing.join(", "));
+      throw new Error(
+        "反映待ち " + approved.length + "件のうち " + missing.length +
+        "件の元ファイルがありません。ZIPは作成しません。親フォルダを再読み込みしてください: " +
+        missing.join(" / ")
+      );
     }
 
-    entries.push({
-      name:"works/ORBIT/orbit-sound-config.js",
-      data:new TextEncoder().encode(soundConfigText())
-    });
+    const targets = new Set();
+    for (const item of plan) {
+      if (targets.has(item.targetPath)) {
+        throw new Error("ZIP内の保存先が重複しています: " + item.targetPath);
+      }
+      targets.add(item.targetPath);
+    }
+
+    const audioEntries = [];
+    for (const item of plan) {
+      const bytes = new Uint8Array(await item.file.arrayBuffer());
+      if (!bytes.length) throw new Error("空の音声ファイルは反映できません: " + item.sourcePath);
+      audioEntries.push({name:item.targetPath, data:bytes});
+    }
+
+    // Hard guarantee: every item marked pending must have exactly one audio
+    // entry in the ZIP. If not, abort instead of producing a partial package.
+    if (audioEntries.length !== approved.length) {
+      throw new Error(
+        "反映待ち件数とZIP音声件数が一致しません (" +
+        approved.length + " / " + audioEntries.length + ")。ZIPは作成しません。"
+      );
+    }
+    for (const item of plan) {
+      if (!audioEntries.some(entry => entry.name === item.targetPath)) {
+        throw new Error("ZIPに入らない反映待ち音を検出しました: " + item.name);
+      }
+    }
+
+    const manifest = {
+      schema:"orbit-sound-update/1",
+      generatedAt:new Date().toISOString(),
+      expectedSoundCount:approved.length,
+      actualSoundCount:audioEntries.length,
+      verified:true,
+      sounds:plan.map(item => ({
+        cue:item.name,
+        source:item.sourcePath,
+        target:item.targetPath,
+        volume:item.volume,
+        cooldown:item.cooldown
+      }))
+    };
+
+    const entries = [
+      ...audioEntries,
+      {
+        name:"works/ORBIT/orbit-sound-config.js",
+        data:new TextEncoder().encode(soundConfigText())
+      },
+      {
+        name:"works/ORBIT/sound-update-manifest.json",
+        data:new TextEncoder().encode(JSON.stringify(manifest, null, 2))
+      }
+    ];
 
     const blob = makeStoredZip(entries);
     state.preparedZip = new File([blob], "ORBIT-sound-update.zip", {type:"application/zip"});
-    return {file:state.preparedZip, soundCount:approved.length, entryCount:entries.length};
+    return {
+      file:state.preparedZip,
+      soundCount:approved.length,
+      entryCount:entries.length,
+      manifest,
+      targets:plan.map(item => item.targetPath)
+    };
   }
 
   function buildExport(){
@@ -889,10 +975,12 @@
       fileStatus.textContent = "ORBIT反映用ZIPを作成中…";
       const prepared = await prepareOrbitBundle();
       bundleSummary.innerHTML =
-        '<span class="ok">' + prepared.soundCount + '個の採用音を自動リネームして準備しました。</span><br>' +
-        '音量設定も orbit-sound-config.js に含まれています。';
+        '<span class="ok">検証OK: 反映待ち ' + prepared.soundCount +
+        '件すべてをZIPへ格納しました。</span><br>' +
+        'orbit-sound-config.js と検証用 manifest も含まれます。';
+      bundleList.textContent = prepared.targets.join("\n");
       bundleDialog.showModal();
-      fileStatus.textContent = "ORBIT反映用ZIPを準備しました。";
+      fileStatus.textContent = "ORBIT反映用ZIPを検証して準備しました。";
     } catch (e) {
       fileStatus.textContent = "反映準備できません: " + e.message;
     }
