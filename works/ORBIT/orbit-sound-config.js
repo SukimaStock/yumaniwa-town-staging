@@ -15,4 +15,5 @@ window.ORBIT_SOUND_CONFIG = Object.freeze({
   scan: Object.freeze({ file: "sounds/scan.ogg", volume: 0.12, cooldown: 250 }),
   rescue: Object.freeze({ file: "sounds/rescue.ogg", volume: 0.12, cooldown: 900 }),
   rebirth: Object.freeze({ file: "sounds/rebirth.ogg", volume: 0.12, cooldown: 900 }),
+  ambient_drone: Object.freeze({ file: "sounds/ambient_drone.wav", volume: 0.45, cooldown: 0 }),
 });
