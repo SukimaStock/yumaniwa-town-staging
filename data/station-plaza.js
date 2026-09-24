@@ -110,16 +110,17 @@ var areaZones = [
 var stationPlazaProps = [
     {
         "id": "station_notice_board",
+        "objectId": "notice_board_01",
         "src": "assets/maps/props/station-plaza/station-notice-board.png?rev=20260822-clean",
-        "x": 1.3957145361604741,
-        "y": 2.765492525451033,
-        "w": 6.25,
-        "h": 6.25,
+        "x": 1.5207145361604741,
+        "y": 3.015492525451034,
+        "w": 6.0,
+        "h": 6.0,
         "footY": 9.015492525451034,
         "enabled": true,
         "catalogKey": "noticeBoard",
-        "collision": { "enabled": true, "x": 0.06, "y": 0.842909090909091, "w": 0.88, "h": 0.144 },
-        "interaction": { "enabled": true, "triggerId": "shinpo_board_trigger", "x": 0.05, "y": 0.64, "w": 0.95, "h": 0.36 }
+        "collision": { "enabled": true, "x": 0.041666666666666664, "y": 0.8363636363636365, "w": 0.9166666666666666, "h": 0.15 },
+        "interaction": { "enabled": true, "triggerId": "shinpo_board_trigger", "x": 0.03125, "y": 0.625, "w": 0.9895833333333334, "h": 0.375 }
     },
     {
         "id": "station_tourist_map",

@@ -125,6 +125,37 @@
                 pixelSafe: false,
                 status: 'final'
             }
+        },
+        notice_board_01: {
+            id: 'notice_board_01',
+            category: 'sign',
+            type: 'notice_board',
+            src: 'assets/maps/objects/signs/notice_board_01.png?rev=20260924-noticeboard96',
+            finalization: {
+                target: 'FACILITY_M',
+                logicalCanvasPx: [96, 96],
+                fileCanvasPx: [288, 288],
+                exportScale: 3,
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    sourcePhysicalPx: [1024, 1024]
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
         }
     };
 
