@@ -6,7 +6,7 @@
             id: 'bench_wood_01',
             category: 'furniture',
             type: 'bench',
-            src: 'assets/maps/objects/furniture/bench_wood_01.png?rev=20260924-wo01',
+            src: 'assets/maps/props/station-plaza/station-bench.png?rev=20260822-clean',
             finalization: {
                 target: 'PROP_M',
                 logicalCanvasPx: [32, 32],
@@ -17,7 +17,8 @@
                     offsetX: 0,
                     offsetY: 0
                 },
-                pixelSafe: false
+                pixelSafe: false,
+                status: 'calibrating'
             }
         }
     };
