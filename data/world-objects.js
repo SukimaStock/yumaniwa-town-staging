@@ -63,6 +63,37 @@
                 pixelSafe: false,
                 status: 'final'
             }
+        },
+        planter_01: {
+            id: 'planter_01',
+            category: 'greenery',
+            type: 'planter',
+            src: 'assets/maps/objects/greenery/planter_01.png?rev=20260924-planter32',
+            finalization: {
+                target: 'PROP_M',
+                logicalCanvasPx: [32, 32],
+                fileCanvasPx: [96, 96],
+                exportScale: 3,
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    sourcePhysicalPx: [576, 480]
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
         }
     };
 

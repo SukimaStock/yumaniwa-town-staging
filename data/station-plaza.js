@@ -192,29 +192,31 @@ var stationPlazaProps = [
     },
     {
         "id": "station_planter_left",
+        "objectId": "planter_01",
         "src": "assets/maps/props/station-plaza/station-planter.png?rev=20260822-clean",
         "x": 5.5625,
-        "y": 13.1875,
+        "y": 12.9375,
         "w": 2,
-        "h": 1.75,
+        "h": 2,
         "footY": 14.9375,
         "enabled": true,
         "catalogKey": "planter",
-        "collision": { "enabled": true, "x": 0.302, "y": 0.622, "w": 0.396, "h": 0.378 },
-        "interaction": { "enabled": false, "triggerId": "", "x": 0.225, "y": 0.64, "w": 0.55, "h": 0.36 }
+        "collision": { "enabled": true, "x": 0.302, "y": 0.66925, "w": 0.396, "h": 0.33075 },
+        "interaction": { "enabled": false, "triggerId": "", "x": 0.225, "y": 0.685, "w": 0.55, "h": 0.315 }
     },
     {
         "id": "station_planter_right",
+        "objectId": "planter_01",
         "src": "assets/maps/props/station-plaza/station-planter.png?rev=20260822-clean",
         "x": 16.274115826090167,
-        "y": 13.22586571998007,
+        "y": 12.97586571998007,
         "w": 2,
-        "h": 1.75,
+        "h": 2,
         "footY": 14.97586571998007,
         "enabled": true,
         "catalogKey": "planter",
-        "collision": { "enabled": true, "x": 0.302, "y": 0.622, "w": 0.396, "h": 0.378 },
-        "interaction": { "enabled": false, "triggerId": "", "x": 0.225, "y": 0.64, "w": 0.55, "h": 0.36 }
+        "collision": { "enabled": true, "x": 0.302, "y": 0.66925, "w": 0.396, "h": 0.33075 },
+        "interaction": { "enabled": false, "triggerId": "", "x": 0.225, "y": 0.685, "w": 0.55, "h": 0.315 }
     },
     {
         "id": "station_direction_sign_candidate",
