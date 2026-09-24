@@ -1134,14 +1134,22 @@
       cues:{}
     };
     slots.forEach(slot => {
+      const pendingSource = state.approved[slot.name] || null;
+      const pendingTarget = pendingSource
+        ? "sounds/" + slot.name + fileExtension(pendingSource)
+        : null;
       out.cues[slot.name] = {
-        targetFile: slot.name + fileExtension(state.approved[slot.name] || slot.file),
-        candidate: state.assignments[slot.name] || null,
-        volume: getVolume(slot),
-        currentVolume: slot.file ? currentVolume(slot) : null,
-        currentEffective: slot.file ? Math.min(gainCapFor(slot), currentVolume(slot) * AUDIO_GAIN) : null,
+        currentMode: slot.file ? "file" : "procedural",
         currentFile: slot.file,
-        currentMode: slot.file ? "file" : "procedural"
+        currentVolume: slot.file ? currentVolume(slot) : null,
+        currentEffective: slot.file
+          ? Math.min(gainCapFor(slot), currentVolume(slot) * AUDIO_GAIN)
+          : null,
+        candidate: state.assignments[slot.name] || null,
+        pending: !!pendingSource,
+        pendingSource,
+        pendingTarget,
+        pendingVolume: pendingSource ? getVolume(slot) : null
       };
     });
     return JSON.stringify(out, null, 2);
