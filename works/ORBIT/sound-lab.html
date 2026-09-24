@@ -48,6 +48,11 @@
     dialog::backdrop{background:rgba(0,0,0,.7)}
     textarea{width:100%;height:48vh;background:#080b10;color:#d9e7ef;border:1px solid var(--line);border-radius:10px;padding:10px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
     .ok{color:var(--ok)}
+    .warn{color:#f0c879}
+    .duplicateSummary{display:none;margin-top:7px;padding:8px 10px;border:1px solid #6c5730;border-radius:9px;background:#211b10;color:#f0c879;font-size:12px;line-height:1.5}
+    .duplicateSummary.show{display:block}
+    .duplicateWarning{margin:8px 0 2px;padding:7px 9px;border:1px solid #6c5730;border-radius:8px;background:#211b10;color:#f0c879;font-size:11px;line-height:1.45}
+    .card.hasDuplicate{border-color:#6c5730}
     .approved{border-color:#3b7f67!important;color:var(--ok)!important;background:#10231d!important}
     .applyBtn{font-weight:700;border-color:#38647a;background:#142431}
     .bundleSteps{color:var(--muted);font-size:13px;line-height:1.7}
@@ -61,6 +66,7 @@
     <h1>ORBIT SOUND LAB</h1>
     <div class="sub">A 現在はゲーム実装そのもの。B 候補は反映後の音として比較する。</div>
     <div id="runtimeStatus" class="sub">ゲーム内の現在音設定を読み込み中…</div>
+    <div id="duplicateSummary" class="duplicateSummary"></div>
   </header>
 
   <section class="toolbar">
@@ -121,7 +127,7 @@
   const AUDIO_GAIN = 3.0;
   const TONE_GAIN = 8.0;
   const AMBIENT_GAIN_CAP = 1.35;
-  const SOUNDLAB_STATE_VERSION = 6;
+  const SOUNDLAB_STATE_VERSION = 7;
   const HOME_TERMINAL_BOOT_DURATION = Object.freeze([0, 1.20, 1.00, 0.80, 0.60, 0.35]);
 
   async function loadRuntimeSoundConfig(){
@@ -199,6 +205,11 @@
   const state = {
     ctx:null,
     runtimeAuditOk:false,
+    runtimeHashes:new Map(),
+    pendingHashes:new Map(),
+    duplicateGroups:[],
+    duplicateByCue:new Map(),
+    duplicateAuditToken:0,
     candidates:[],
     decoded:new Map(),
     currentDecoded:new Map(),
@@ -253,19 +264,37 @@
   const bundleList = document.getElementById("bundleList");
   const applyBtn = document.getElementById("applyBtn");
   const runtimeStatus = document.getElementById("runtimeStatus");
+  const duplicateSummary = document.getElementById("duplicateSummary");
   const phaseAButton = document.getElementById("phaseAButton");
   const phaseBButton = document.getElementById("phaseBButton");
   const phaseAllButton = document.getElementById("phaseAllButton");
 
+  async function sha256Bytes(bytes){
+    if (!window.crypto || !window.crypto.subtle) return null;
+    const digest = await window.crypto.subtle.digest("SHA-256", bytes);
+    return Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  async function hashFileObject(file){
+    return sha256Bytes(await file.arrayBuffer());
+  }
+
+  async function fetchRuntimeHash(slot){
+    if (!slot.file) return null;
+    const response = await fetch(slot.file + "?soundlab-hash=" + Date.now(), {cache:"no-store"});
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    return sha256Bytes(await response.arrayBuffer());
+  }
+
   async function verifyRuntimeFiles(){
     const realSlots = slots.filter(slot => !!slot.file);
     const failures = [];
+    state.runtimeHashes.clear();
 
     await Promise.all(realSlots.map(async slot => {
       try {
-        const url = slot.file + "?soundlab-audit=" + Date.now();
-        const response = await fetch(url, {method:"HEAD", cache:"no-store"});
-        if (!response.ok) failures.push(slot.name + " → " + slot.file + " (HTTP " + response.status + ")");
+        const hash = await fetchRuntimeHash(slot);
+        if (hash) state.runtimeHashes.set(slot.name, hash);
       } catch (error) {
         failures.push(slot.name + " → " + slot.file + " (" + error.message + ")");
       }
@@ -273,6 +302,73 @@
 
     state.runtimeAuditOk = failures.length === 0;
     return failures;
+  }
+
+  function rebuildDuplicateGroups(){
+    const effective = [];
+    slots.forEach(slot => {
+      const pendingHash = state.pendingHashes.get(slot.name) || null;
+      const currentHash = state.runtimeHashes.get(slot.name) || null;
+      const hash = pendingHash || currentHash;
+      if (!hash) return;
+      effective.push({
+        cue:slot.name,
+        hash,
+        source:pendingHash ? "pending" : "current"
+      });
+    });
+
+    const byHash = new Map();
+    effective.forEach(item => {
+      if (!byHash.has(item.hash)) byHash.set(item.hash, []);
+      byHash.get(item.hash).push(item);
+    });
+
+    state.duplicateGroups = Array.from(byHash.values())
+      .filter(group => group.length >= 2)
+      .map(group => group.sort((a,b) => a.cue.localeCompare(b.cue)));
+
+    state.duplicateByCue = new Map();
+    state.duplicateGroups.forEach(group => {
+      group.forEach(item => {
+        state.duplicateByCue.set(item.cue, group.filter(other => other.cue !== item.cue));
+      });
+    });
+  }
+
+  function renderDuplicateSummary(){
+    if (!state.duplicateGroups.length) {
+      duplicateSummary.classList.remove("show");
+      duplicateSummary.textContent = "";
+      return;
+    }
+    const lines = state.duplicateGroups.map(group =>
+      "⚠ 同じ音を複数Cueで使用: " + group.map(item =>
+        item.cue.toUpperCase() + (item.source === "pending" ? "［反映待ち］" : "［現在］")
+      ).join(" / ")
+    );
+    duplicateSummary.textContent = lines.join("\n");
+    duplicateSummary.classList.add("show");
+  }
+
+  async function refreshPendingHashes(){
+    const token = ++state.duplicateAuditToken;
+    const next = new Map();
+
+    await Promise.all(approvedEntries().map(async ([name, path]) => {
+      const file = candidateByPath(path);
+      if (!file) return;
+      try {
+        const hash = await hashFileObject(file);
+        if (hash) next.set(name, hash);
+      } catch (_) {}
+    }));
+
+    if (token !== state.duplicateAuditToken) return;
+    state.pendingHashes = next;
+    rebuildDuplicateGroups();
+    renderDuplicateSummary();
+    render();
   }
 
   async function refreshRuntimeSummary(){
@@ -289,6 +385,8 @@
     } else {
       runtimeStatus.textContent = "ゲーム内現在値と検証済み同期: 実音 " + real + " / Procedural " + procedural + " / 全 " + slots.length;
     }
+    rebuildDuplicateGroups();
+    renderDuplicateSummary();
     refreshApplyButton();
   }
 
@@ -677,6 +775,9 @@
       const effective = Math.min(gainCap, vol * AUDIO_GAIN);
       const currentEffective = slot.file ? Math.min(gainCap, currentVol * AUDIO_GAIN) : null;
 
+      const duplicates = state.duplicateByCue.get(slot.name) || [];
+      if (duplicates.length) card.classList.add("hasDuplicate");
+
       card.innerHTML =
         '<div class="head"><h2>' + slot.name.toUpperCase() + '</h2><span class="tag">' +
         (slot.phase === "A" ? "REAL AUDIO" : "PLACEHOLDER") +
@@ -686,7 +787,12 @@
           ? slot.file + ' / volume ' + currentVol.toFixed(2) + ' / 実効 ' + currentEffective.toFixed(2)
           : 'procedural Web Audio') +
         '</div>' +
-        '<div class="candidateName">B 候補: ' + assigned + '</div>';
+        '<div class="candidateName">B 候補: ' + assigned + '</div>' +
+        (duplicates.length
+          ? '<div class="duplicateWarning">⚠ 同じ音を使用: ' +
+            duplicates.map(item => item.cue.toUpperCase() + (item.source === "pending" ? "［反映待ち］" : "［現在］")).join(" / ") +
+            '</div>'
+          : '');
 
       const select = document.createElement("select");
       select.innerHTML = '<option value="-1">候補を選択</option>' +
@@ -768,6 +874,7 @@
         save();
         refreshApplyButton();
         render();
+        refreshPendingHashes();
       });
       approveRow.append(approveBtn);
 
@@ -859,6 +966,7 @@
     save();
     refreshApplyButton();
     refreshFolderFilter();
+    refreshPendingHashes();
     renderLibrary();
     render();
     fileStatus.textContent = "候補音だけクリアしました。反映待ちと音量設定は保持しています。ZIP作成前に元フォルダを再読み込みしてください。";
@@ -1087,12 +1195,18 @@
       }
     }
 
+    const duplicateWarnings = state.duplicateGroups.map(group => ({
+      cues:group.map(item => item.cue),
+      sources:group.map(item => item.source)
+    }));
+
     const manifest = {
       schema:"orbit-sound-update/1",
       generatedAt:new Date().toISOString(),
       expectedSoundCount:approved.length,
       actualSoundCount:audioEntries.length,
       verified:true,
+      duplicateWarnings,
       sounds:plan.map(item => ({
         cue:item.name,
         source:item.sourcePath,
@@ -1160,10 +1274,14 @@
     try {
       fileStatus.textContent = "ORBIT反映用ZIPを作成中…";
       const prepared = await prepareOrbitBundle();
+      const duplicateNote = prepared.manifest.duplicateWarnings.length
+        ? '<br><span class="warn">⚠ 同一音の複数Cue使用があります。意図的か確認してください（反映は可能です）。</span>'
+        : '';
       bundleSummary.innerHTML =
         '<span class="ok">検証OK: 反映待ち ' + prepared.soundCount +
         '件すべてをZIPへ格納しました。</span><br>' +
-        'orbit-sound-config.js と検証用 manifest も含まれます。';
+        'orbit-sound-config.js と検証用 manifest も含まれます。' +
+        duplicateNote;
       bundleList.textContent = prepared.targets.join("\n");
       bundleDialog.showModal();
       fileStatus.textContent = "ORBIT反映用ZIPを検証して準備しました。";
@@ -1218,6 +1336,7 @@
   document.getElementById("closeBtn").addEventListener("click", () => exportDialog.close());
 
   await refreshRuntimeSummary();
+  await refreshPendingHashes();
   refreshFolderFilter();
   refreshApplyButton();
   renderLibrary();
