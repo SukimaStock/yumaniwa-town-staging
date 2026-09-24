@@ -37,7 +37,7 @@
             id: 'street_lamp_01',
             category: 'light',
             type: 'street_lamp',
-            src: 'assets/maps/objects/lights/street_lamp_01.png?rev=20260924-lamp32x56',
+            src: 'assets/maps/objects/lights/street_lamp_01.png?rev=20260924-lamp32x56fix1',
             finalization: {
                 target: 'PROP_T',
                 logicalCanvasPx: [32, 56],
