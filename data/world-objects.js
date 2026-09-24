@@ -68,7 +68,7 @@
             id: 'planter_01',
             category: 'greenery',
             type: 'planter',
-            src: 'assets/maps/objects/greenery/planter_01.png?rev=20260924-planter32',
+            src: 'assets/maps/objects/greenery/planter_01.png?rev=20260924-planter32fix1',
             finalization: {
                 target: 'PROP_M',
                 logicalCanvasPx: [32, 32],
