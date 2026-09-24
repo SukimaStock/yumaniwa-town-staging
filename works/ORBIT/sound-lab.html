@@ -121,7 +121,8 @@
   const AUDIO_GAIN = 3.0;
   const TONE_GAIN = 8.0;
   const AMBIENT_GAIN_CAP = 1.35;
-  const SOUNDLAB_STATE_VERSION = 5;
+  const SOUNDLAB_STATE_VERSION = 6;
+  const HOME_TERMINAL_BOOT_DURATION = Object.freeze([0, 1.20, 1.00, 0.80, 0.60, 0.35]);
 
   async function loadRuntimeSoundConfig(){
     const response = await fetch("orbit-sound-config.js?t=" + Date.now(), {cache:"no-store"});
@@ -197,6 +198,7 @@
 
   const state = {
     ctx:null,
+    runtimeAuditOk:false,
     candidates:[],
     decoded:new Map(),
     currentDecoded:new Map(),
@@ -255,13 +257,39 @@
   const phaseBButton = document.getElementById("phaseBButton");
   const phaseAllButton = document.getElementById("phaseAllButton");
 
-  function refreshRuntimeSummary(){
+  async function verifyRuntimeFiles(){
+    const realSlots = slots.filter(slot => !!slot.file);
+    const failures = [];
+
+    await Promise.all(realSlots.map(async slot => {
+      try {
+        const url = slot.file + "?soundlab-audit=" + Date.now();
+        const response = await fetch(url, {method:"HEAD", cache:"no-store"});
+        if (!response.ok) failures.push(slot.name + " → " + slot.file + " (HTTP " + response.status + ")");
+      } catch (error) {
+        failures.push(slot.name + " → " + slot.file + " (" + error.message + ")");
+      }
+    }));
+
+    state.runtimeAuditOk = failures.length === 0;
+    return failures;
+  }
+
+  async function refreshRuntimeSummary(){
     const real = slots.filter(slot => !!slot.file).length;
     const procedural = slots.length - real;
-    runtimeStatus.textContent = "ゲーム内現在値と同期済み: 実音 " + real + " / Procedural " + procedural + " / 全 " + slots.length;
     phaseAButton.textContent = "実音あり " + real;
     phaseBButton.textContent = "Procedural / 未選択 " + procedural;
     phaseAllButton.textContent = "すべて " + slots.length;
+
+    runtimeStatus.textContent = "ゲーム内現在ファイルを検証中…";
+    const failures = await verifyRuntimeFiles();
+    if (failures.length) {
+      runtimeStatus.textContent = "同期NG: " + failures.join(" / ");
+    } else {
+      runtimeStatus.textContent = "ゲーム内現在値と検証済み同期: 実音 " + real + " / Procedural " + procedural + " / 全 " + slots.length;
+    }
+    refreshApplyButton();
   }
 
   function save(){
@@ -333,7 +361,9 @@
     applyBtn.textContent = total > 0
       ? "ORBITへ反映 (" + ready + " / " + total + ")"
       : "ORBITへ反映 (0)";
-    applyBtn.classList.toggle("approved", total > 0 && ready === total);
+    const canApply = state.runtimeAuditOk && total > 0 && ready === total;
+    applyBtn.classList.toggle("approved", canApply);
+    applyBtn.disabled = !state.runtimeAuditOk;
   }
 
   function candidateByPath(path){
@@ -556,19 +586,48 @@
     oscillator.stop(start + duration + .01);
   }
 
-  async function playProceduralCurrent(slot){
+  async function playProceduralCurrent(slot, options = {}){
+    const ctx = await audioContext();
+
+    if (slot.name === "terminal_boot") {
+      const lv = Math.max(1, Math.min(5, Math.floor(Number(options.level || 3))));
+      const total = HOME_TERMINAL_BOOT_DURATION[lv];
+      const humDuration = Math.max(.18, Math.min(.82, total * (lv >= 4 ? .58 : .72)));
+      scheduleCurrentTone(ctx, {
+        frequency:58 + lv * 7,
+        endFrequency:104 + lv * 16,
+        duration:humDuration,
+        volume:lv <= 2 ? .062 : .048,
+        type:"sine",
+        delay:0
+      });
+      if (lv <= 2) {
+        scheduleCurrentTone(ctx, {
+          frequency:132,
+          endFrequency:118,
+          duration:Math.min(.16, total * .18),
+          volume:.020,
+          type:"triangle",
+          delay:Math.min(total * .38, .52)
+        });
+      }
+      return;
+    }
+
     const tones = PROCEDURAL_CURRENT[slot.name];
     if (!tones) throw new Error(slot.name + " のprocedural定義がSound Labにありません");
-    const ctx = await audioContext();
     tones.forEach(tone => scheduleCurrentTone(ctx, tone));
   }
 
-  async function playCurrent(slot){
+  async function playCurrent(slot, options = {}){
     stopAudition("連続試聴を停止しました。");
     try {
       if (!slot.file) {
-        await playProceduralCurrent(slot);
-        fileStatus.textContent = "ゲーム内現在音を再生: " + slot.name + " (procedural Web Audio)";
+        await playProceduralCurrent(slot, options);
+        fileStatus.textContent = "ゲーム内現在音を再生: " + slot.name +
+          " (procedural Web Audio" +
+          (slot.name === "terminal_boot" ? " / Lv" + String(options.level || 3) : "") +
+          ")";
         return;
       }
       fileStatus.textContent = "ゲーム内現在音を読み込み中: " + slot.name;
@@ -669,7 +728,19 @@
       ab.className = "row";
       const currentBtn = document.createElement("button");
       currentBtn.textContent = slot.file ? "A ゲーム内現在" : "A ゲーム内現在 (procedural)";
-      currentBtn.addEventListener("click", () => playCurrent(slot));
+      let terminalBootLevel = 3;
+      if (!slot.file && slot.name === "terminal_boot") {
+        const levelSelect = document.createElement("select");
+        levelSelect.innerHTML = [1,2,3,4,5].map(level =>
+          '<option value="' + level + '"' + (level === 3 ? ' selected' : '') + '>A 現在 Lv' + level + '</option>'
+        ).join("");
+        levelSelect.addEventListener("change", () => {
+          terminalBootLevel = Number(levelSelect.value);
+        });
+        ab.append(levelSelect);
+      }
+
+      currentBtn.addEventListener("click", () => playCurrent(slot, {level:terminalBootLevel}));
       const candidateBtn = document.createElement("button");
       candidateBtn.textContent = "B 候補";
       candidateBtn.addEventListener("click", () => playCandidate(slot));
@@ -949,6 +1020,7 @@
   }
 
   async function prepareOrbitBundle(){
+    if (!state.runtimeAuditOk) throw new Error("ゲーム内現在ファイルの検証が通っていないためZIPを作成できません。");
     const approved = approvedEntries();
     if (!approved.length) throw new Error("反映待ちの音がありません。");
 
@@ -1137,7 +1209,7 @@
   });
   document.getElementById("closeBtn").addEventListener("click", () => exportDialog.close());
 
-  refreshRuntimeSummary();
+  await refreshRuntimeSummary();
   refreshFolderFilter();
   refreshApplyButton();
   renderLibrary();
