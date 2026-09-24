@@ -130,12 +130,12 @@
             id: 'notice_board_01',
             category: 'sign',
             type: 'notice_board',
-            src: 'assets/maps/objects/signs/notice_board_01.png?rev=20260925-noticeboard96fix1',
+            src: 'assets/maps/objects/signs/notice_board_01.png?rev=20260925-noticeboard96logical1',
             finalization: {
                 target: 'FACILITY_M',
                 logicalCanvasPx: [96, 96],
-                fileCanvasPx: [288, 288],
-                exportScale: 3,
+                fileCanvasPx: [96, 96],
+                exportScale: 1,
                 grid: {
                     block: 1,
                     offsetX: 0,
