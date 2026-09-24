@@ -995,6 +995,7 @@
 
   async function prepareCoffeeFactoryBundle(){
     if (!state.runtimeAuditOk) throw new Error("ゲーム内現在ファイルの検証が通っていないためZIPを作成できません。");
+    await refreshPendingHashes();
     const approved = approvedEntries();
     if (!approved.length) throw new Error("反映待ちの音がありません。");
 
