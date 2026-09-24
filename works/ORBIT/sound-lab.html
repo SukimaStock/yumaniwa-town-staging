@@ -469,11 +469,14 @@
   }
 
   function markAssignmentChanged(slot, path){
+    let pendingChanged = false;
     if (state.approved[slot.name] && state.approved[slot.name] !== path) {
       delete state.approved[slot.name];
+      pendingChanged = true;
     }
     state.preparedZip = null;
     refreshApplyButton();
+    if (pendingChanged) refreshPendingHashes();
   }
 
   async function decodeFile(file){
@@ -932,6 +935,7 @@
     }
     renderLibrary();
     render();
+    refreshPendingHashes();
   }
 
   fileInput.addEventListener("change", () => {
