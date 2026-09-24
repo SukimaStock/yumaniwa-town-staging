@@ -11,6 +11,25 @@
         return JSON.parse(JSON.stringify(data || []));
     }
 
+    function resolvePropSrc(prop) {
+        if (!prop) return '';
+
+        var objectId = prop.objectId;
+        var library = window.YUMANIWA_WORLD_OBJECTS;
+
+        if (objectId && library) {
+            var objectDef = typeof library.get === 'function'
+                ? library.get(objectId)
+                : (library.objects && library.objects[objectId]);
+
+            if (objectDef && objectDef.src) {
+                return objectDef.src;
+            }
+        }
+
+        return prop.src || '';
+    }
+
     function openStationTile16x8(rects) {
         var result = [];
 
@@ -103,7 +122,7 @@
 
     function preloadStationProps() {
         for (var i = 0; i < stationPlazaProps.length; i++) {
-            getPropImage(stationPlazaProps[i].src);
+            getPropImage(resolvePropSrc(stationPlazaProps[i]));
         }
     }
 
@@ -120,7 +139,8 @@
     function drawTownProp(prop) {
         if (!prop || prop.enabled === false) return;
 
-        var entry = getPropImage(prop.src);
+        var resolvedSrc = resolvePropSrc(prop);
+        var entry = getPropImage(resolvedSrc);
 
         if (!entry || !entry.loaded || !entry.image) {
             return;
@@ -285,6 +305,7 @@
     window.YUMANIWA_STATION_PLAZA_PROPS = {
         version: PROP_REV,
         props: stationPlazaProps,
-        imageCache: propImageCache
+        imageCache: propImageCache,
+        resolvePropSrc: resolvePropSrc
     };
 })();

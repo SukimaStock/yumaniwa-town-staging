@@ -136,6 +136,7 @@ var stationPlazaProps = [
     },
     {
         "id": "station_bench_left",
+        "objectId": "bench_wood_01",
         "src": "assets/maps/props/station-plaza/station-bench.png?rev=20260822-clean",
         "x": 17.817129629629626,
         "y": 13.299222406268077,
@@ -149,6 +150,7 @@ var stationPlazaProps = [
     },
     {
         "id": "station_bench_right",
+        "objectId": "bench_wood_01",
         "src": "assets/maps/props/station-plaza/station-bench.png?rev=20260822-clean",
         "x": 16.896881747218067,
         "y": 5.558154201067677,
