@@ -94,6 +94,37 @@
                 pixelSafe: false,
                 status: 'final'
             }
+        },
+        tourist_map_01: {
+            id: 'tourist_map_01',
+            category: 'sign',
+            type: 'tourist_map',
+            src: 'assets/maps/objects/signs/tourist_map_01.png?rev=20260924-touristmap64',
+            finalization: {
+                target: 'FACILITY_S',
+                logicalCanvasPx: [64, 64],
+                fileCanvasPx: [192, 192],
+                exportScale: 3,
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    sourcePhysicalPx: [256, 256]
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
         }
     };
 

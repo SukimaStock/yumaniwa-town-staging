@@ -123,16 +123,17 @@ var stationPlazaProps = [
     },
     {
         "id": "station_tourist_map",
+        "objectId": "tourist_map_01",
         "src": "assets/maps/props/station-plaza/station-tourist-map.png?rev=20260712-square",
-        "x": 12.699074074074076,
-        "y": 7.375,
-        "w": 3.75,
-        "h": 3.75,
+        "x": 12.574074074074076,
+        "y": 7.125,
+        "w": 4.0,
+        "h": 4.0,
         "footY": 11.125,
         "enabled": true,
         "catalogKey": "touristMap",
-        "collision": { "enabled": true, "x": 0.23555555555555555, "y": 0.9, "w": 0.5288888888888889, "h": 0.12 },
-        "interaction": { "enabled": false, "triggerId": "", "x": 0.47111111111111115, "y": 0.9, "w": 0.5288888888888889, "h": 0.1 }
+        "collision": { "enabled": true, "x": 0.2520833333333332, "y": 0.90625, "w": 0.4958333333333333, "h": 0.1125 },
+        "interaction": { "enabled": false, "triggerId": "", "x": 0.4729166666666669, "y": 0.90625, "w": 0.4958333333333333, "h": 0.09375 }
     },
     {
         "id": "station_bench_left",
