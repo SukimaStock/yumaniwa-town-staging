@@ -827,11 +827,11 @@ function exportCode(){
     `  const sukimaAudioArtifact = ${artifactCode};`,
     `  const sukimaAudioRecipe = ${recipeCode};`,
     '',
-    '  ' + mulberry32.toString().replace(/\\n/g, '\\n  '),
-    '  ' + jitter.toString().replace(/\\n/g, '\\n  '),
-    '  ' + makePeriodicWave.toString().replace(/\\n/g, '\\n  '),
-    '  ' + derived.toString().replace(/\\n/g, '\\n  '),
-    '  ' + buildSound.toString().replace(/\\n/g, '\\n  '),
+    '  ' + mulberry32.toString().replace(/\n/g, '\n  '),
+    '  ' + jitter.toString().replace(/\n/g, '\n  '),
+    '  ' + makePeriodicWave.toString().replace(/\n/g, '\n  '),
+    '  ' + derived.toString().replace(/\n/g, '\n  '),
+    '  ' + buildSound.toString().replace(/\n/g, '\n  '),
     '',
     '  async function playSukimaAudio(context, soundRecipe = sukimaAudioRecipe){',
     "    if(!context || typeof context.createOscillator !== 'function') throw new Error('Pass a Web Audio AudioContext.');",
@@ -847,7 +847,7 @@ function exportCode(){
     '// Usage (call from a user gesture):',
     '// const audioContext = new (window.AudioContext || window.webkitAudioContext)();',
     '// await playSukimaAudio(audioContext);'
-  ].join('\\n');
+  ].join('\n');
   downloadBlob(new Blob([code], {type:'text/javascript;charset=utf-8'}), `${name}.js`);
   $('#status').textContent = 'JS code exported';
 }
