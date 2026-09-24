@@ -921,6 +921,15 @@ function withClip(
     canvas.addEventListener("contextmenu", prevent, { passive: false });
     canvas.addEventListener("selectstart", prevent, { passive: false });
     canvas.addEventListener("dragstart", prevent, { passive: false });
+    canvas.addEventListener("dblclick", prevent, { passive: false });
+
+    document.addEventListener("contextmenu", prevent, { passive: false });
+    document.addEventListener("selectstart", prevent, { passive: false });
+    document.addEventListener("dragstart", prevent, { passive: false });
+    document.addEventListener("dblclick", prevent, { passive: false });
+    document.addEventListener("gesturestart", prevent, { passive: false });
+    document.addEventListener("gesturechange", prevent, { passive: false });
+    document.addEventListener("gestureend", prevent, { passive: false });
   }
 
   function frame(now) {
