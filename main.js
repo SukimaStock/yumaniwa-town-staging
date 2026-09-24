@@ -162,8 +162,125 @@ function updateCurrentGameViewSizeFromScreen() {
     currentGameViewH = nextH;
 }
 
-// 現在のモバイル表示に近い見え方を維持するため、カメラ倍率は固定。
+// 現在の見え方の基準倍率。
+// Pixel Snap 有効時は、最終的な物理画面上のドット境界を安定させるため、
+// この値の近傍だけ微調整することがある。
 var GAME_CAMERA_ZOOM = 2.5;
+
+// Yumaniwa Pixel Snap v0.1
+// Cleaner の「1 logical px = 1 world px」を、Town Engine の最終表示まで守る。
+// 1) 可能なら 1 world px が整数個の物理画面pixelになるよう zoom を微調整。
+// 2) camera origin を最終物理pixel gridへsnapし、歩行中のドット揺れを抑える。
+// 比較用: URL に ?pixelSnap=0 を付けると無効化できる。
+var YUMANIWA_PIXEL_SNAP_ENABLED = true;
+var YUMANIWA_PIXEL_SNAP_MAX_ZOOM_CORRECTION = 0.08;
+
+try {
+    var yumaniwaPixelSnapParam = new URLSearchParams(window.location.search).get('pixelSnap');
+    if (
+        yumaniwaPixelSnapParam === '0' ||
+        yumaniwaPixelSnapParam === 'off' ||
+        yumaniwaPixelSnapParam === 'false'
+    ) {
+        YUMANIWA_PIXEL_SNAP_ENABLED = false;
+    }
+} catch (e) {
+    // URLSearchParams が使えない環境でも通常描画は継続する。
+}
+
+function getTownPixelSnapSettings(baseZoom) {
+    var settings = {
+        enabled: false,
+        integerScaleApplied: false,
+        baseZoom: baseZoom,
+        zoom: baseZoom,
+        dpr: 1,
+        displayPhysicalWidth: 0,
+        physicalPixelsPerCanvasPx: 1,
+        physicalPixelsPerWorld: baseZoom,
+        zoomCorrection: 0
+    };
+
+    if (
+        !YUMANIWA_PIXEL_SNAP_ENABLED ||
+        !canvas ||
+        !canvas.width ||
+        !isFinite(baseZoom) ||
+        baseZoom <= 0
+    ) {
+        return settings;
+    }
+
+    var rect = canvas.getBoundingClientRect();
+
+    if (!rect || !rect.width) {
+        return settings;
+    }
+
+    var dpr = window.devicePixelRatio || 1;
+    if (!isFinite(dpr) || dpr <= 0) dpr = 1;
+
+    // CSS px -> physical px の最終表示倍率。
+    // width*dpr は実画面pixel数に寄せて整数化し、ブラウザの小数CSS幅で値が揺れにくくする。
+    var displayPhysicalWidth = Math.max(1, Math.round(rect.width * dpr));
+    var physicalPixelsPerCanvasPx = displayPhysicalWidth / canvas.width;
+    var rawPhysicalPixelsPerWorld = baseZoom * physicalPixelsPerCanvasPx;
+
+    settings.enabled = true;
+    settings.dpr = dpr;
+    settings.displayPhysicalWidth = displayPhysicalWidth;
+    settings.physicalPixelsPerCanvasPx = physicalPixelsPerCanvasPx;
+    settings.physicalPixelsPerWorld = rawPhysicalPixelsPerWorld;
+
+    if (!isFinite(rawPhysicalPixelsPerWorld) || rawPhysicalPixelsPerWorld <= 0) {
+        return settings;
+    }
+
+    // 現在の見た目から大きく変えない範囲だけ、整数 physical px / world px に寄せる。
+    var targetPhysicalPixelsPerWorld = Math.max(1, Math.round(rawPhysicalPixelsPerWorld));
+    var snappedZoom = targetPhysicalPixelsPerWorld / physicalPixelsPerCanvasPx;
+    var zoomCorrection = Math.abs((snappedZoom / baseZoom) - 1);
+
+    settings.zoomCorrection = zoomCorrection;
+
+    if (
+        isFinite(snappedZoom) &&
+        snappedZoom > 0 &&
+        zoomCorrection <= YUMANIWA_PIXEL_SNAP_MAX_ZOOM_CORRECTION
+    ) {
+        settings.zoom = snappedZoom;
+        settings.physicalPixelsPerWorld = targetPhysicalPixelsPerWorld;
+        settings.integerScaleApplied = true;
+    }
+
+    return settings;
+}
+
+function snapTownCameraCoordToPhysicalPixel(value, physicalPixelsPerWorld, minValue, maxValue) {
+    if (
+        !YUMANIWA_PIXEL_SNAP_ENABLED ||
+        !isFinite(value) ||
+        !isFinite(physicalPixelsPerWorld) ||
+        physicalPixelsPerWorld <= 0
+    ) {
+        return value;
+    }
+
+    var snapped = Math.round(value * physicalPixelsPerWorld) / physicalPixelsPerWorld;
+
+    if (isFinite(minValue) && snapped < minValue) {
+        snapped = Math.ceil(minValue * physicalPixelsPerWorld) / physicalPixelsPerWorld;
+    }
+
+    if (isFinite(maxValue) && snapped > maxValue) {
+        snapped = Math.floor(maxValue * physicalPixelsPerWorld) / physicalPixelsPerWorld;
+    }
+
+    if (isFinite(minValue) && snapped < minValue) snapped = minValue;
+    if (isFinite(maxValue) && snapped > maxValue) snapped = maxValue;
+
+    return snapped;
+}
 
 //
 // PCではゲーム画面が大きくなりすぎないように最大表示倍率を制限する。
@@ -2864,7 +2981,8 @@ function updateTapMove() {
 // 3. カメラ計算
 // ==========================================
 function getCamera() {
-    var zoom = GAME_CAMERA_ZOOM;
+    var pixelSnap = getTownPixelSnapSettings(GAME_CAMERA_ZOOM);
+    var zoom = pixelSnap.zoom;
     var viewW = GAME_VIEW_W / zoom;
     var viewH = getCurrentGameViewH() / zoom;
     var mapPixelW = MAP_WIDTH * TILE_SIZE;
@@ -2887,6 +3005,54 @@ function getCamera() {
         if (cameraY > mapPixelH - viewH) cameraY = mapPixelH - viewH;
     }
 
+    // 最終物理pixel上で camera origin を整数位置へ固定する。
+    // これにより、歩行・斜め移動時に同じWORLD OBJECTの1px線が
+    // 2px/3pxなどへフレームごとに揺れる現象を抑える。
+    if (pixelSnap.enabled) {
+        if (viewW > mapPixelW) {
+            cameraX = snapTownCameraCoordToPhysicalPixel(
+                cameraX,
+                pixelSnap.physicalPixelsPerWorld
+            );
+        } else {
+            cameraX = snapTownCameraCoordToPhysicalPixel(
+                cameraX,
+                pixelSnap.physicalPixelsPerWorld,
+                0,
+                mapPixelW - viewW
+            );
+        }
+
+        if (viewH > mapPixelH) {
+            cameraY = snapTownCameraCoordToPhysicalPixel(
+                cameraY,
+                pixelSnap.physicalPixelsPerWorld
+            );
+        } else {
+            cameraY = snapTownCameraCoordToPhysicalPixel(
+                cameraY,
+                pixelSnap.physicalPixelsPerWorld,
+                0,
+                mapPixelH - viewH
+            );
+        }
+    }
+
+    // 開発時に Console から現在の最終pixel倍率を確認できる。
+    window.YUMANIWA_PIXEL_SNAP_STATE = {
+        enabled: pixelSnap.enabled,
+        integerScaleApplied: pixelSnap.integerScaleApplied,
+        baseZoom: pixelSnap.baseZoom,
+        zoom: zoom,
+        dpr: pixelSnap.dpr,
+        displayPhysicalWidth: pixelSnap.displayPhysicalWidth,
+        physicalPixelsPerCanvasPx: pixelSnap.physicalPixelsPerCanvasPx,
+        physicalPixelsPerWorld: pixelSnap.physicalPixelsPerWorld,
+        zoomCorrection: pixelSnap.zoomCorrection,
+        cameraX: cameraX,
+        cameraY: cameraY
+    };
+
     return {
         zoom: zoom,
         viewW: viewW,
@@ -2894,7 +3060,8 @@ function getCamera() {
         cameraX: cameraX,
         cameraY: cameraY,
         mapPixelW: mapPixelW,
-        mapPixelH: mapPixelH
+        mapPixelH: mapPixelH,
+        pixelSnap: pixelSnap
     };
 }
 
