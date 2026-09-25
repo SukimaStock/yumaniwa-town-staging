@@ -276,17 +276,18 @@ var stationPlazaProps = [
     },
     {
         "id": "station_update_history_signboard",
+        "objectId": "standing_sign_01",
         "src": "assets/maps/props/common/standing-signboard.png?v=20260822-clean",
-        "x": 6.974537037037036,
-        "y": 14.38894147341852,
-        "w": 2.25,
-        "h": 1.875,
+        "x": 7.099537037037036,
+        "y": 12.76394147341852,
+        "w": 2,
+        "h": 3.5,
         "footY": 16.26394147341852,
         "enabled": true,
         "catalogKey": "standingSignboard",
-        "collision": { "enabled": true, "x": 0.18, "y": 0.72, "w": 0.64, "h": 0.28 },
-        "interaction": { "enabled": false, "triggerId": "", "x": 0.05, "y": 0.2, "w": 0.9, "h": 0.8 },
-        "tap": { "enabled": true, "x": 0.05, "y": 0.12, "w": 0.9, "h": 0.88 }
+        "collision": { "enabled": true, "x": 0.14, "y": 0.85, "w": 0.72, "h": 0.15 },
+        "interaction": { "enabled": false, "triggerId": "", "x": -0.00625, "y": 0.5714285714285714, "w": 1.0125, "h": 0.42857142857142855 },
+        "tap": { "enabled": true, "x": -0.00625, "y": 0.5285714285714285, "w": 1.0125, "h": 0.4714285714285714 }
     },
     {
         "id": "station_feedback_box_placeholder",

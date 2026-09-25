@@ -199,6 +199,49 @@
                 pixelSafe: false,
                 status: 'final'
             }
+        },
+        standing_sign_01: {
+            id: 'standing_sign_01',
+            category: 'sign',
+            type: 'standing_sign',
+            src: 'assets/maps/objects/signs/standing_sign_01.png?rev=20260925-standing32x56',
+            finalization: {
+                target: 'PROP_T',
+                logicalCanvasPx: [32, 56],
+                townAssetFilePx: [32, 56],
+                townAssetPixelRatio: 1,
+                sourceDeliveryFilePx: [96, 168],
+                sourceDeliveryPixelRatio: 3,
+                sourceDeliveryVerified: true,
+                importNormalization: {
+                    applied: true,
+                    type: 'LOSSLESS_INTEGER_DEVICE_SCALE_COLLAPSE',
+                    fromPixelRatio: 3,
+                    toPixelRatio: 1
+                },
+                exportContract: 'yumaniwa-logical-canvas-physical-file/0.1',
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    townUsesLogicalCanvas: true,
+                    physicalFileMayUseDeviceScale: true,
+                    sourcePhysicalPx: [576, 480]
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
         }
     };
 
