@@ -178,7 +178,7 @@ Town draw 96x96 world px (1:1)
 
 これはdevice-scaleのlossless collapseとは別物であり、非可逆の見た目正規化として明示的に記録する。
 
-v0.2では移行中の既存アセットに限り、source PNGから**一度だけ96x96 logical canvasを生成するruntime canonicalization bridge**を許可する。描画レイヤーが受け取るcanonical representationは96x96で、Townへの最終描画は必ず1:1とする。
+v0.2では移行中の既存アセットに限り、source PNGから**一度だけ96x96 logical canvasを生成するruntime canonicalization bridge**を許可する。灯串横丁では焼き鳥屋・路地裏マサラのpersistent canonical化が完了したため、このbridgeは撤去済み。描画レイヤーは保存済み96x96 canonicalをそのまま1:1描画する。
 
 Cleaner v0.1.13以降で同じcontent boundsをlogical gridへ明示ラスタライズし、persistent canonical PNGへ置換した後は、そのアセットのruntime bridgeを外す。v0.1.14では `EXPLICIT_LOGICAL_NEAREST` とphysical integer-scale PASSの両方を満たす出力を `pixelSafe: true` と記録する。
 
@@ -321,7 +321,7 @@ logical sizeは正しいが、repo内ファイルが旧3x physicalのままの�
 
 移行する場合は本Standardのlossless normalization条件を満たすことを確認し、一つずつ行う。
 
-焼き鳥屋 `yakitori_shop_01` で、Map Factory → Cleaner → WORLD OBJECT → Town の店舗パイプラインを初めて実地検証した。続いて `craft_cola_shop_01`、`kissaten_shop_01`、`curry_shop_01` も96x96 canonicalとして灯串横丁へ配置した。v0.2では4店舗を正式に `SHOP_S 96x96` とし、Cleaner v0.1.12はMETAの `target.profile` を優先する。旧Cleanerで記録された `FACILITY_M` は96x96寸法が同じだった時代の履歴としてのみ残す。焼き鳥屋は `contentBounds {x:7,y:14,w:82,h:82}`、路地裏マサラは `{x:6,y:12,w:84,h:84}` を採用し、旧Town縮小表示の見た目をlogical canvas内へ移した。焼き鳥屋はCleaner v0.1.13出力の288x288 physical PNGについて全96x96論理セルの3x3ブロック一致を確認し、lossless 3→1 collapseした96x96 persistent canonicalへ置換済み。runtime canonicalizationは焼き鳥屋では不要となり、路地裏マサラのみ移行中。純喫茶とクラフトコーラはfull 96x96 envelopeのまま。4店舗は横一列の配置・collision・trigger・作品起動までStagingで実地確認済み。live placementは `data/town-maps.js` を正本とし、runtime fixで店舗位置を二重管理しない。
+焼き鳥屋 `yakitori_shop_01` で、Map Factory → Cleaner → WORLD OBJECT → Town の店舗パイプラインを初めて実地検証した。続いて `craft_cola_shop_01`、`kissaten_shop_01`、`curry_shop_01` も96x96 canonicalとして灯串横丁へ配置した。v0.2では4店舗を正式に `SHOP_S 96x96` とし、Cleaner v0.1.12はMETAの `target.profile` を優先する。旧Cleanerで記録された `FACILITY_M` は96x96寸法が同じだった時代の履歴としてのみ残す。焼き鳥屋は `contentBounds {x:7,y:14,w:82,h:82}`、路地裏マサラは `{x:6,y:12,w:84,h:84}` を採用し、旧Town縮小表示の見た目をlogical canvas内へ移した。焼き鳥屋と路地裏マサラは、Cleaner出力の288x288 physical PNGについて全96x96論理セルの3x3ブロック一致を確認し、lossless 3→1 collapseした96x96 persistent canonicalへ置換済み。両店舗ともruntime canonicalizationは不要となり、灯串横丁の4店舗はすべてTown側で96x96 logical canvasを1:1描画する。純喫茶とクラフトコーラはfull 96x96 envelopeのまま。4店舗は横一列の配置・collision・trigger・作品起動までStagingで実地確認済み。live placementは `data/town-maps.js` を正本とし、runtime fixで店舗位置を二重管理しない。
 
 ## 13. Display Layer
 
