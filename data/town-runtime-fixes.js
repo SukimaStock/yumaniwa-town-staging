@@ -151,14 +151,14 @@
         return item.x === 6 && item.y === 3 && item.w === 12 && item.h === 3 && item.label === '工事中';
       });
 
-      upsertProp(onsen, {
-        id: 'no_entry_sign',
-        src: 'assets/maps/props/common/no-entry-sign.png',
-        x: 9.6875, y: 1.6875, w: 4.5, h: 4.5, footY: 6.1875, enabled: true,
-        collision: { enabled: false, x: 0, y: 0, w: 0.001, h: 0.001 },
-        interaction: { enabled: false, triggerId: '', x: 0, y: 0, w: 0.001, h: 0.001 },
-        catalogKey: 'bench'
-      });
+      // The canonical no-entry barrier now lives in data/town-maps.js as
+      // onsen_no_entry_barrier. Remove the old runtime-only barricade so it
+      // cannot overlap or replace the WORLD OBJECT.
+      if (Array.isArray(onsen.props)) {
+        onsen.props = onsen.props.filter(function (item) {
+          return !item || item.id !== 'no_entry_sign';
+        });
+      }
     }
   }
 
