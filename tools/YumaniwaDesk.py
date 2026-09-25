@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.4
+Yumaniwa Desk v0.10.5
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,12 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.5:
+- 駅前の更新履歴看板 / おたより箱の配置・trigger差分を data/station-plaza.js に一本化
+- town-update-sign.js / town-feedback-box.js をTown Editor差分の反映先から除外
+- おばけNPCだけは専用 town-ghost-npc.js を正本として維持
+- 古い専用JS向け差分はfail-closedで拒否
 
 v0.10.4:
 - Town Editor差分の正本を現在の構造へ合わせ、data/town-runtime-fixes.js を反映先から除外
@@ -1337,8 +1343,6 @@ EDITOR_DIFF_FORMAT = "yumaniwa-editor-diff-v1"
 EDITOR_DIFF_ALLOWED_SOURCES = {
     "data/station-plaza.js",
     "data/town-maps.js",
-    "town-update-sign.js",
-    "town-feedback-box.js",
     "town-ghost-npc.js",
 }
 
@@ -2023,11 +2027,6 @@ def _patch_diff_file(source, current_text, scene_id, prop_changes, trigger_chang
             else:
                 result = _replace_scene_array_object(result, scene_id, "props", object_id, after)
 
-        elif source in ("town-update-sign.js", "town-feedback-box.js"):
-            if op != "update":
-                raise ValueError(source + " のパーツは update 以外を安全に反映できません。")
-            result = _replace_var_object(result, "prop", after)
-
         elif source == "town-ghost-npc.js":
             if op != "update":
                 raise ValueError("おばけNPCは update 以外を安全に反映できません。")
@@ -2059,9 +2058,9 @@ def _patch_diff_file(source, current_text, scene_id, prop_changes, trigger_chang
             else:
                 result = _replace_scene_array_object(result, scene_id, "triggers", object_id, after)
 
-        elif source in ("town-update-sign.js", "town-feedback-box.js", "town-ghost-npc.js"):
+        elif source == "town-ghost-npc.js":
             if op != "update":
-                raise ValueError(source + " のトリガーは update 以外を安全に反映できません。")
+                raise ValueError("おばけNPCのトリガーは update 以外を安全に反映できません。")
             result = _replace_var_object(result, "trigger", after)
         else:
             raise ValueError("triggers の未対応反映先です: " + source)
