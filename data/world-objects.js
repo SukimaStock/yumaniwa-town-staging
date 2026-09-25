@@ -242,6 +242,49 @@
                 pixelSafe: false,
                 status: 'final'
             }
+        },
+        station_building_01: {
+            id: 'station_building_01',
+            category: 'facility',
+            type: 'station_building',
+            src: 'assets/maps/objects/facilities/station_building_01.png?rev=20260925-station128',
+            finalization: {
+                target: 'FACILITY_L',
+                logicalCanvasPx: [128, 128],
+                townAssetFilePx: [128, 128],
+                townAssetPixelRatio: 1,
+                sourceDeliveryFilePx: [384, 384],
+                sourceDeliveryPixelRatio: 3,
+                sourceDeliveryVerified: true,
+                importNormalization: {
+                    applied: true,
+                    type: 'LOSSLESS_INTEGER_DEVICE_SCALE_COLLAPSE',
+                    fromPixelRatio: 3,
+                    toPixelRatio: 1
+                },
+                exportContract: 'yumaniwa-logical-canvas-physical-file/0.1',
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    townUsesLogicalCanvas: true,
+                    physicalFileMayUseDeviceScale: true,
+                    sourcePhysicalPx: [1152, 1152]
+                },
+                pixelSafe: true,
+                status: 'final'
+            }
         }
     };
 

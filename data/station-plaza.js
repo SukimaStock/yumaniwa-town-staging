@@ -235,6 +235,7 @@ var stationPlazaProps = [
     },
     {
         "id": "station_stationBuilding_10",
+        "objectId": "station_building_01",
         "src": "assets/maps/props/station-plaza/station-building.png?rev=20260822-clean",
         "x": 1.75,
         "y": 16,

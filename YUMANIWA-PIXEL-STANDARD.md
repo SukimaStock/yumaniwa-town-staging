@@ -209,6 +209,7 @@ relative値は新しいw/hに合わせて再計算してよい。
 | bench_wood_01 | furniture / bench | PROP_L | 56x56 |
 | tourist_map_01 | sign / tourist_map | FACILITY_S | 64x64 |
 | notice_board_01 | sign / notice_board | FACILITY_M | 96x96 |
+| station_building_01 | facility / station_building | FACILITY_L | 128x128 |
 
 これは「物体タイプ→絶対サイズ」の表ではない。
 
@@ -218,9 +219,9 @@ relative値は新しいw/hに合わせて再計算してよい。
 
 駅前広場の有効PROPは13インスタンス。
 
-WORLD OBJECT化済み: **12 / 13**
+WORLD OBJECT化済み: **13 / 13**
 
-WORLD OBJECT種類: **7**
+WORLD OBJECT種類: **8**
 
 内訳:
 
@@ -231,16 +232,15 @@ WORLD OBJECT種類: **7**
 - notice board x1
 - post box x1
 - standing sign x1
+- station building x1
 
-有効・未WORLD OBJECT化:
-
-- `station_stationBuilding_10` — station building
+有効・未WORLD OBJECT化: **なし**
 
 無効・未対応:
 
 - `station_direction_sign_candidate`
 
-駅舎は小物群とは別クラスの検証対象とする。
+駅舎で `FACILITY_L 128x128` も実地検証済みとなり、小物から大型施設まで同じ logical pixel rule で扱えることを確認した。
 
 ## 12. Current Migration State
 
@@ -251,6 +251,7 @@ Town canonical 1x化済み:
 - notice_board_01
 - post_box_01
 - standing_sign_01
+- station_building_01
 
 logical sizeは正しいが、repo内ファイルが旧3x physicalのままのもの:
 
