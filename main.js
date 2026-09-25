@@ -4427,6 +4427,24 @@ var TOWN_PART_CATALOG = [
         collision: { enabled: true, x: 0.06, y: 0.78, w: 0.88, h: 0.22 }
     },
     {
+        key: 'worldObjectFacility',
+        label: '施設 WORLD OBJECT',
+        file: '',
+        w: 1,
+        h: 1,
+        addable: false,
+        collision: { enabled: false, x: 0, y: 0, w: 0.001, h: 0.001 }
+    },
+    {
+        key: 'worldObjectExhibit',
+        label: '展示 WORLD OBJECT',
+        file: '',
+        w: 1,
+        h: 1,
+        addable: false,
+        collision: { enabled: false, x: 0, y: 0, w: 0.001, h: 0.001 }
+    },
+    {
         // Existing WORLD OBJECT shops are selectable/movable, but are not added
         // from the legacy station-plaza asset picker.
         key: 'worldObjectShop',
