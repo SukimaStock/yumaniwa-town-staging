@@ -176,7 +176,7 @@
       mapWidth: 24,
       mapHeight: 24,
       backgroundStyle: 'street',
-      backgroundImagePath: 'assets/maps/grounds/recreation-road.png?rev=20260826-1',
+      backgroundImagePath: 'assets/maps/grounds/recreation-road.jpg?rev=20260826-1',
       spawnPoints: {
         default: { x: 12, y: 3, dir: 'down' },
         fromPlaza: { x: 12, y: 3, dir: 'down' },

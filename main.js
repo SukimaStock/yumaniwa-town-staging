@@ -6137,7 +6137,7 @@ function buildStationPlazaExportCode(info, collisionData, exportedParts) {
                 activeTownSceneDef &&
                 activeTownSceneDef.backgroundImagePath
             ) ||
-            "assets/maps/grounds/station-plaza-ground.png"
+            "assets/maps/grounds/station-plaza-ground.jpg"
         ) + ";",
 
         "var TILE_SIZE = " +

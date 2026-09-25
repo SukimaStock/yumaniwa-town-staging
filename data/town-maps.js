@@ -12,7 +12,7 @@
       mapWidth: 24,
       mapHeight: 24,
       backgroundStyle: 'plaza',
-      backgroundImagePath: 'assets/maps/grounds/station-plaza-ground.png',
+      backgroundImagePath: 'assets/maps/grounds/station-plaza-ground.jpg',
       spawnPoints: {
         default: { x: 12, y: 15, dir: 'up' },
         fromAlley: { x: 3, y: 12, dir: 'right' },
@@ -91,7 +91,7 @@
         "mapWidth": 24,
         "mapHeight": 24,
         "backgroundStyle": "alley",
-        "backgroundImagePath": "assets/maps/grounds/tomogushi-alley-ground.png",
+        "backgroundImagePath": "assets/maps/grounds/tomogushi-alley-ground.jpg",
         "spawnPoints": {
             "default": {
                 "x": 20,
@@ -435,7 +435,7 @@
       mapWidth: 24,
       mapHeight: 24,
       backgroundStyle: 'street',
-      backgroundImagePath: 'assets/maps/grounds/yumado-street-ground.png',
+      backgroundImagePath: 'assets/maps/grounds/yumado-street-ground.jpg',
       spawnPoints: {
         default: { x: 3, y: 12, dir: 'right' },
         fromPlaza: { x: 3, y: 12, dir: 'right' }
@@ -516,7 +516,7 @@
       mapWidth: 24,
       mapHeight: 24,
       backgroundStyle: 'leisure',
-      backgroundImagePath: 'assets/maps/grounds/leisure-center-ground.png',
+      backgroundImagePath: 'assets/maps/grounds/leisure-center-ground.jpg',
       spawnPoints: {
         default: { x: 12, y: 3, dir: 'down' },
         fromPlaza: { x: 12, y: 3, dir: 'down' }
@@ -709,7 +709,7 @@
       mapWidth: 24,
       mapHeight: 24,
       backgroundStyle: 'onsen',
-      backgroundImagePath: 'assets/maps/grounds/onsen-slope-ground.png',
+      backgroundImagePath: 'assets/maps/grounds/onsen-slope-ground.jpg',
       spawnPoints: {
         default: { x: 12, y: 20, dir: 'up' },
         fromPlaza: { x: 12, y: 20, dir: 'up' }

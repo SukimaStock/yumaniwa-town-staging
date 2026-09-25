@@ -3,7 +3,7 @@
 // 開発モードの差分を反映した正本です。
 // ==========================================
 
-var BG_IMAGE_PATH = "assets/maps/grounds/station-plaza-ground.png";
+var BG_IMAGE_PATH = "assets/maps/grounds/station-plaza-ground.jpg";
 var TILE_SIZE = 16;
 var MAP_WIDTH = 24;
 var MAP_HEIGHT = 24;
