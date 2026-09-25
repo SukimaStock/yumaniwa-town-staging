@@ -599,7 +599,7 @@
         {
           id: 'leisure_pickup',
           objectId: 'leisure_pickup_shelf_01',
-          src: 'assets/maps/props/leisure-center/leisure-pickup-shelf.png?v=20260925-2',
+          src: 'assets/maps/props/leisure-center/leisure-pickup-shelf.png?v=20260925-3',
           x: 17.0, y: 0.0, w: 6.0, h: 6.0, footY: 6.0,
           enabled: true,
           catalogKey: 'worldObjectFacility',
@@ -655,7 +655,7 @@
           id: 'leisure_catalog_terminal',
           objectId: 'leisure_catalog_terminal_01',
           src: 'assets/maps/props/leisure-center/leisure-catalog-terminal.png?v=20260925-1',
-          x: 10.25, y: 14.5, w: 3.5, h: 3.5, footY: 18.0,
+          x: 10.5625, y: 15.125, w: 2.875, h: 2.875, footY: 18.0,
           enabled: true,
           catalogKey: 'worldObjectFacility',
           collision: { enabled: true, x: 0.12, y: 0.74, w: 0.76, h: 0.22 },
