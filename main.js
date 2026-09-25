@@ -652,6 +652,12 @@ function getTownSceneDefinition(sceneId) {
 }
 
 var townSceneBackgroundCache = {};
+var townDeferredBackgroundQueue = [];
+var townDeferredBackgroundScheduled = false;
+var townDeferredBackgroundRunning = false;
+
+// 初回到着が完了したことを、背景/PROPの遅延preloadへ共有する。
+window.YUMANIWA_ARRIVAL_READY = false;
 
 function flushTownSceneBackgroundCallbacks(entry) {
     if (!entry || !entry.callbacks) return;
@@ -666,7 +672,7 @@ function flushTownSceneBackgroundCallbacks(entry) {
     }
 }
 
-function preloadTownSceneBackgroundAsset(path, callback) {
+function preloadTownSceneBackgroundAsset(path, callback, options) {
     if (!path) {
         if (typeof callback === "function") {
             window.setTimeout(function() {
@@ -693,13 +699,25 @@ function preloadTownSceneBackgroundAsset(path, callback) {
     }
 
     var image = new Image();
+    var opts = options || {};
+    var priority = opts.priority || "auto";
+
+    try {
+        image.decoding = "async";
+        if (priority && priority !== "auto") {
+            image.fetchPriority = priority;
+        }
+    } catch (error) {
+        // 未対応ブラウザでは通常のImage読込へフォールバックする。
+    }
 
     entry = {
         path: path,
         image: image,
         loaded: false,
         error: false,
-        callbacks: []
+        callbacks: [],
+        priority: priority
     };
 
     if (typeof callback === "function") {
@@ -728,24 +746,147 @@ function preloadTownSceneBackgroundAsset(path, callback) {
     return entry;
 }
 
-function preloadTownSceneBackgrounds() {
-    if (!window.TOWN_SCENE_MAPS) return;
+function collectDeferredTownSceneBackgrounds(currentPath) {
+    var queue = [];
+    var seen = {};
 
-    var backgroundCount = 0;
-    for (var countSceneId in window.TOWN_SCENE_MAPS) {
-        if (!Object.prototype.hasOwnProperty.call(window.TOWN_SCENE_MAPS, countSceneId)) continue;
-        var countDef = window.TOWN_SCENE_MAPS[countSceneId];
-        if (countDef && countDef.backgroundImagePath) backgroundCount += 1;
-    }
-    townLoadTraceMark('background_preload_all_start', { count: backgroundCount }, true);
+    if (!window.TOWN_SCENE_MAPS) return queue;
 
     for (var sceneId in window.TOWN_SCENE_MAPS) {
         if (!Object.prototype.hasOwnProperty.call(window.TOWN_SCENE_MAPS, sceneId)) continue;
 
         var def = window.TOWN_SCENE_MAPS[sceneId];
-        if (def && def.backgroundImagePath) {
-            preloadTownSceneBackgroundAsset(def.backgroundImagePath);
+        var path = def && def.backgroundImagePath ? def.backgroundImagePath : "";
+
+        if (!path || path === currentPath || seen[path]) continue;
+        seen[path] = true;
+        queue.push(path);
+    }
+
+    return queue;
+}
+
+// 起動時は「今いる場所」の背景だけを最優先で開始する。
+// 他シーン背景は初回到着後、1枚ずつ低優先度で読む。
+function preloadTownSceneBackgrounds() {
+    if (!window.TOWN_SCENE_MAPS) return;
+
+    var currentDef = getTownSceneDefinition(currentScene);
+    var currentPath = currentDef && currentDef.backgroundImagePath
+        ? currentDef.backgroundImagePath
+        : "";
+
+    townDeferredBackgroundQueue = collectDeferredTownSceneBackgrounds(currentPath);
+
+    townLoadTraceMark('background_preload_current_start', {
+        scene: currentScene || '',
+        path: currentPath || ''
+    }, true);
+
+    townLoadTraceMark('background_deferred_queued', {
+        count: townDeferredBackgroundQueue.length
+    }, true);
+
+    if (currentPath) {
+        preloadTownSceneBackgroundAsset(currentPath, null, { priority: "high" });
+    }
+}
+
+function scheduleTownBackgroundIdle(callback, delayMs) {
+    window.setTimeout(function() {
+        if (typeof window.requestIdleCallback === "function") {
+            window.requestIdleCallback(function() {
+                callback();
+            }, { timeout: 2200 });
+        } else {
+            callback();
         }
+    }, Math.max(0, Number(delayMs) || 0));
+}
+
+function scheduleDeferredTownSceneBackgrounds() {
+    if (townDeferredBackgroundScheduled) return;
+    townDeferredBackgroundScheduled = true;
+
+    if (!townDeferredBackgroundQueue.length) {
+        var currentDef = getTownSceneDefinition(currentScene);
+        var currentPath = currentDef && currentDef.backgroundImagePath
+            ? currentDef.backgroundImagePath
+            : "";
+        townDeferredBackgroundQueue = collectDeferredTownSceneBackgrounds(currentPath);
+    }
+
+    var total = townDeferredBackgroundQueue.length;
+    var completed = 0;
+
+    townLoadTraceMark('background_deferred_start', {
+        count: total
+    }, true);
+
+    function finishAll() {
+        townDeferredBackgroundRunning = false;
+        townLoadTraceMark('background_deferred_ready', {
+            count: completed
+        }, true);
+    }
+
+    function loadNext() {
+        if (townDeferredBackgroundRunning) return;
+
+        if (!townDeferredBackgroundQueue.length) {
+            finishAll();
+            return;
+        }
+
+        var path = townDeferredBackgroundQueue.shift();
+        var existing = townSceneBackgroundCache[path];
+
+        if (existing && (existing.loaded || existing.error)) {
+            completed += 1;
+            scheduleTownBackgroundIdle(loadNext, 160);
+            return;
+        }
+
+        townDeferredBackgroundRunning = true;
+        townLoadTraceMark('background_deferred_item_start', {
+            path: path,
+            index: completed + 1,
+            total: total
+        });
+
+        preloadTownSceneBackgroundAsset(path, function(entry) {
+            completed += 1;
+            townDeferredBackgroundRunning = false;
+
+            townLoadTraceMark('background_deferred_item_done', {
+                path: path,
+                status: entry && entry.error ? 'error' : 'loaded',
+                completed: completed,
+                total: total
+            });
+
+            scheduleTownBackgroundIdle(loadNext, 160);
+        }, { priority: "low" });
+    }
+
+    // 現在地が描画された直後の操作・レイアウトを邪魔しないよう、少し間を置く。
+    scheduleTownBackgroundIdle(loadNext, 700);
+}
+
+function announceTownArrivalReady() {
+    if (window.YUMANIWA_ARRIVAL_READY) return;
+
+    window.YUMANIWA_ARRIVAL_READY = true;
+    townLoadTraceMark('arrival_ready', null, true);
+
+    scheduleDeferredTownSceneBackgrounds();
+
+    try {
+        window.dispatchEvent(new Event('yumaniwa:arrival-ready'));
+    } catch (error) {
+        var event = document.createEvent('Event');
+        event.initEvent('yumaniwa:arrival-ready', false, false);
+        window.dispatchEvent(event);
     }
 }
 
@@ -1487,6 +1628,7 @@ function finishTownArrivalLoading() {
         backgroundError: !!bgError
     }, true);
     hideTownLoading();
+    announceTownArrivalReady();
 }
 
 function playTownRpgFadeTransition(callback, waitForReady) {
