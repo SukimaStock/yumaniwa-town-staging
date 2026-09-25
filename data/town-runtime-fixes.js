@@ -111,40 +111,6 @@
       scene.props.push(prop);
     }
 
-    var street = maps.yumado_street_map;
-    if (street) {
-      removeDecor(street, function (item) {
-        return item.x === 11 && item.y === 10 && item.w === 2 && item.h === 2 && item.label === '札';
-      });
-
-      upsertProp(street, {
-          "id": "standing_signboard",
-          "src": "assets/maps/props/common/standing-signboard.png",
-          "x": 11,
-          "y": 10,
-          "w": 2.25,
-          "h": 1.875,
-          "footY": 11.875,
-          "enabled": true,
-          "collision": {
-              "enabled": false,
-              "x": 0,
-              "y": 0,
-              "w": 0.001,
-              "h": 0.001
-          },
-          "interaction": {
-              "enabled": false,
-              "triggerId": "",
-              "x": 0,
-              "y": 0,
-              "w": 0.001,
-              "h": 0.001
-          },
-          "catalogKey": "bench"
-      });
-    }
-
     var onsen = maps.onsen_slope_map;
     if (onsen) {
       removeDecor(onsen, function (item) {
