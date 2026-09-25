@@ -10,6 +10,8 @@
 
 詳細な昇格ルールは `RELEASE-WORKFLOW.md` も参照する。
 
+画像アセット・WORLD OBJECTのピクセル基準は `YUMANIWA-PIXEL-STANDARD.md` を正本とする。
+
 ## 基本フロー
 
 ### 1. 作業前
