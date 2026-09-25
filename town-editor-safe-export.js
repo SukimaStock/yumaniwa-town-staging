@@ -27,8 +27,6 @@
     function getPartSource(sceneId, part) {
         var id = String((part && part.id) || '');
 
-        if (id === 'station_update_history_signboard') return 'town-update-sign.js';
-        if (id === 'station_feedback_box_placeholder') return 'town-feedback-box.js';
         if (id === 'station_ghost_npc') return 'town-ghost-npc.js';
 
         // Town placement is canonical in station-plaza.js / town-maps.js.
@@ -39,8 +37,6 @@
     function getTriggerSource(sceneId, trigger) {
         var id = String((trigger && trigger.id) || '');
 
-        if (id === 'town_update_history_sign') return 'town-update-sign.js';
-        if (id === 'town_feedback_box_trigger') return 'town-feedback-box.js';
         if (id === 'station_ghost_npc_trigger') return 'town-ghost-npc.js';
 
         return getSceneSource(sceneId);
