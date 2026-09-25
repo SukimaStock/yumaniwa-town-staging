@@ -1,6 +1,8 @@
-# Yumaniwa Pixel Standard v0.2
+# Yumaniwa Pixel Standard v0.2.1
 
 制定: 2026-09-25
+
+v0.2.1更新: CONTENT_BOUNDSのaspect-safe化、Leisure Center / Onsen検証、WORLD OBJECT正本分離を反映。
 
 湯間庭町の画像アセットを、生成元・端末・保存倍率に左右されず、同じ「町のピクセル密度」で扱うための基準。
 
@@ -41,6 +43,21 @@ logical canvas内で、その物体が占める**意図した描画エンベロ�
 これは必ずしも透明画素を除いたtight alpha bboxではない。屋根・軒・床・看板などを含め、町で成立させたい見た目の大きさを表すレイアウト領域である。
 
 同じ `SHOP_S 96x96` でも、店舗ごとの見た目サイズはcontent boundsで変えてよい。Town側の`w/h`を縮めて帳尻を合わせない。
+
+**v0.2.1 rule:** `CONTENT_BOUNDS` は「強制変形先の矩形」ではなく**配置可能なエンベロープ**として扱う。
+
+Cleanerは透明部分を除いたvisible alpha bodyを検出し、元の縦横比を保ったままcontentBounds内へ最大FITする。横方向は中央寄せ、縦方向は`groundAnchorY`へ可能な限り寄せる。
+
+したがって、64x64のsourceを54x28のboundsへ**54x28に直接変形してはならない**。
+
+実際に比率維持で配置された範囲は監査用に:
+
+```text
+contentFitMode
+contentFitBounds
+```
+
+として記録する。
 
 ### Ground Anchor
 
@@ -101,6 +118,8 @@ WORLD OBJECTでは以下を必須とする。
 - `contentBounds`（必要な場合）
 - `groundAnchorY`
 - `contentMode`
+- `contentFitMode`（CONTENT_BOUNDS時）
+- `contentFitBounds`（CONTENT_BOUNDS時の実配置範囲）
 
 をMETAに記録する。
 
@@ -131,7 +150,7 @@ PROP_M 32x32 に変更すると、町で自然な実寸になった。
 
 ## 5. TARGET Presets
 
-Cleaner v0.1.12時点:
+Cleaner CANONICAL v0.2.1時点:
 
 | Target | Logical Canvas | 用途 |
 |---|---:|---|
@@ -159,30 +178,61 @@ Presetは固定的な物体分類ではない。実際のTown scaleを優先す�
 
 新しいWORLD METAを貼り付けたときのみ、TARGET LOCKをリセットしてよい。
 
-## 7. Content Layout / Legacy Render Bake
+## 7. Content Modes
 
-Townで見た目を合わせるために、logical 96x96画像を82pxや84pxへ縮小表示する運用は禁止する。
+WORLD OBJECTのcontent layoutは、目的を混同しないため次の3モードを区別する。
 
-代わりに、承認済みの見た目サイズをlogical canvas内へ移す。
+### DIRECT_CANONICAL
+
+logical canvasそのものが完成形。
+
+```text
+64x64 logical canvas
+    ↓
+64x64 canonical layout
+```
+
+追加のcontentBounds変形を行わない。元のキャンバス内にすでに正しい余白と実体比率がある場合はこちらを使う。
+
+### CONTENT_BOUNDS
+
+logical canvas内に配置エンベロープを指定する。
+
+Cleaner CANONICAL v0.2.1以降は:
+
+1. sourceのvisible alpha bodyを検出
+2. aspect ratioを維持
+3. contentBounds内へcontain
+4. 横中央へ配置
+5. groundAnchorYへ可能な限り寄せる
+6. logical nearestで確定
+
+とする。
+
+`contentBounds` 自体は「意図した配置エンベロープ」、`contentFitBounds` は「実際に本体が収まった範囲」である。
+
+### LEGACY_RENDER_BAKE
+
+Townで過去に承認された縮小表示をcanonicalization段階へ一度だけ移すための移行モード。
 
 ```text
 96x96 source canonical
     ↓ LEGACY_RENDER_BAKE
 96x96 logical canvas
-  └─ contentBounds 82x82 / 84x84
+  └─ approved smaller visual envelope
     ↓
 Town draw 96x96 world px (1:1)
 ```
 
-`LEGACY_RENDER_BAKE` は、すでにTown上で承認された旧表示倍率をcanonicalization段階へ移すための移行モードである。
+`LEGACY_RENDER_BAKE` はdevice-scaleのlossless collapseとは別物であり、非可逆の見た目正規化として明示的に記録する。
 
-これはdevice-scaleのlossless collapseとは別物であり、非可逆の見た目正規化として明示的に記録する。
+移行中の既存アセットに限りruntime canonicalization bridgeを許可したが、persistent canonical PNGへ置換後はbridgeを撤去する。
 
-v0.2では移行中の既存アセットに限り、source PNGから**一度だけ96x96 logical canvasを生成するruntime canonicalization bridge**を許可する。灯串横丁では焼き鳥屋・路地裏マサラのpersistent canonical化が完了したため、このbridgeは撤去済み。描画レイヤーは保存済み96x96 canonicalをそのまま1:1描画する。
+焼き鳥屋・路地裏マサラではこの移行を完了済みで、現在は保存済み96x96 canonicalをTownがそのまま1:1描画する。
 
-Cleaner v0.1.13以降で同じcontent boundsをlogical gridへ明示ラスタライズし、persistent canonical PNGへ置換した後は、そのアセットのruntime bridgeを外す。v0.1.14ではpixelSafe判定が一時的な`info`を参照していたため、検証済みでもMETA末尾がfalseになる場合があった。v0.1.15で最終`metadata.pixelStandard`を正本として判定し、`EXPLICIT_LOGICAL_NEAREST` とphysical integer-scale PASSの両方を満たす出力を `pixelSafe: true` と記録する。
+Cleaner v0.2系ではWORLD OBJECTの最終ラスタライズを `EXPLICIT_LOGICAL_NEAREST` に統一する。`pixelSafe: true` は、logical nearest確定に加えてphysical PNGのinteger uniform scale検証もPASSした場合のみ記録する。
 
-## 7. Physical Delivery → Town Canonical Normalization
+## 8. Physical Delivery → Town Canonical Normalization
 
 physical PNGをlogical 1xへ正規化してよい条件:
 
@@ -202,7 +252,7 @@ LOSSLESS_INTEGER_DEVICE_SCALE_COLLAPSE
 
 条件を満たさない場合、**推測で縮小しない**。原因を確認する。
 
-## 8. WORLD OBJECT Identity and Placement
+## 9. WORLD OBJECT Identity and Placement
 
 Asset identity と placement は分離する。
 
@@ -227,11 +277,18 @@ PLACEMENT
 
 `placementSnapshot` は受け渡し・監査用であり、live placementの正本ではない。
 
-**live placementの正本は現在の `data/station-plaza.js`。**
+live placementの正本はsceneごとに分ける。
+
+- 駅前広場: `data/station-plaza.js`
+- その他のTown scene: `data/town-maps.js`
+
+`data/world-objects.js` はasset identity / canonical src / finalization metadataの正本であり、配置座標の正本にはしない。
+
+runtime fixへ同じ配置や同じasset差し替えを二重登録しない。
 
 反映前には必ずmainの最新値を取得する。
 
-## 9. Placement Preservation Rule
+## 10. Placement Preservation Rule
 
 アセットのlogical sizeを変更するときは、見た目だけでなく既存ゲームロジックを保つ。
 
@@ -245,7 +302,7 @@ PLACEMENT
 
 relative値は新しいw/hに合わせて再計算してよい。
 
-## 10. Validated References
+## 11. Validated References
 
 2026-09-25 時点の実地検証済みReference:
 
@@ -263,12 +320,22 @@ relative値は新しいw/hに合わせて再計算してよい。
 | craft_cola_shop_01 | shop / craft_cola_shop | SHOP_S | 96x96 |
 | kissaten_shop_01 | shop / kissaten_shop | SHOP_S | 96x96 |
 | curry_shop_01 | shop / curry_shop | SHOP_S | 96x96 |
+| leisure_counter_01 | facility / information_counter | FACILITY_M | 96x96 |
+| leisure_pickup_shelf_01 | facility / pickup_shelf | FACILITY_M | 96x96 |
+| leisure_exhibit_steamclock_01 | exhibit / steamclock_exhibit | PROP_L | 56x56 |
+| leisure_exhibit_dotweather_01 | exhibit / dotweather_exhibit | PROP_L | 56x56 |
+| leisure_exhibit_coffeefactory_01 | exhibit / coffee_factory_exhibit | FACILITY_S | 64x64 |
+| leisure_exhibit_diorama_calendar_01 | exhibit / diorama_calendar_exhibit | PROP_L | 56x56 |
+| leisure_catalog_terminal_01 | facility / catalog_terminal | PROP_L | 56x56 |
+| onsen_no_entry_barrier_01 | sign / road_closure_barrier | FACILITY_S | 64x64 |
+
+温泉バリアはlogical 64x64に対しphysical deliveryが192x192の3xファイルである。physical file sizeをTown scaleとして解釈しないことを再確認したReferenceでもある。
 
 これは「物体タイプ→絶対サイズ」の表ではない。
 
 **Town scaleを判断するReference集**として使う。
 
-## 11. Station Plaza Status
+## 12. Station Plaza Status
 
 駅前広場の有効PROPは13インスタンス。
 
@@ -295,9 +362,33 @@ WORLD OBJECT種類: **8**
 
 駅舎で `FACILITY_L 128x128` も実地検証済みとなり、小物から大型施設まで同じ logical pixel rule で扱えることを確認した。
 
-## 12. Current Migration State
+### Leisure Center / Onsen validation
+
+湯窓レジャーセンターでは家具3系統と作品展示4種を同じWORLD OBJECT規約で配置し、asset identityとlive placementを分離した。
+
+温泉坂では `onsen_no_entry_barrier_01` をWORLD OBJECT化し、横長物体の検証から `CONTENT_BOUNDS` の非等方スケール問題を発見した。Cleaner CANONICAL v0.2.1でaspect-preserving fitへ修正した。
+
+この検証により:
+
+- 正方形logical canvas内の横長物体
+- 1x physical canonical
+- 3x physical delivery
+- DIRECT_CANONICAL
+- CONTENT_BOUNDS
+- WORLD OBJECT src resolution
+
+を同じStandard上で扱えることを確認した。
+
+## 13. Current Migration State
 
 現在は旧方式と新方式が混在している。
+
+WORLD OBJECT registryへ正式登録済み:
+
+- 駅前広場の現行WORLD OBJECT
+- 灯串横丁4店舗
+- 湯窓レジャーセンター7種
+- onsen_no_entry_barrier_01
 
 Town canonical 1x化済み:
 
@@ -321,9 +412,9 @@ logical sizeは正しいが、repo内ファイルが旧3x physicalのままの�
 
 移行する場合は本Standardのlossless normalization条件を満たすことを確認し、一つずつ行う。
 
-焼き鳥屋 `yakitori_shop_01` で、Map Factory → Cleaner → WORLD OBJECT → Town の店舗パイプラインを初めて実地検証した。続いて `craft_cola_shop_01`、`kissaten_shop_01`、`curry_shop_01` も96x96 canonicalとして灯串横丁へ配置した。v0.2では4店舗を正式に `SHOP_S 96x96` とし、Cleaner v0.1.12はMETAの `target.profile` を優先する。旧Cleanerで記録された `FACILITY_M` は96x96寸法が同じだった時代の履歴としてのみ残す。焼き鳥屋は `contentBounds {x:7,y:14,w:82,h:82}`、路地裏マサラは `{x:6,y:12,w:84,h:84}` を採用し、旧Town縮小表示の見た目をlogical canvas内へ移した。焼き鳥屋と路地裏マサラは、Cleaner出力の288x288 physical PNGについて全96x96論理セルの3x3ブロック一致を確認し、lossless 3→1 collapseした96x96 persistent canonicalへ置換済み。両店舗ともruntime canonicalizationは不要となり、灯串横丁の4店舗はすべてTown側で96x96 logical canvasを1:1描画する。純喫茶とクラフトコーラはfull 96x96 envelopeのまま。4店舗は横一列の配置・collision・trigger・作品起動までStagingで実地確認済み。live placementは `data/town-maps.js` を正本とし、runtime fixで店舗位置を二重管理しない。
+焼き鳥屋 `yakitori_shop_01` で、Map Factory → Cleaner → WORLD OBJECT → Town の店舗パイプラインを初めて実地検証した。続いて `craft_cola_shop_01`、`kissaten_shop_01`、`curry_shop_01` も96x96 canonicalとして灯串横丁へ配置した。v0.2では4店舗を正式に `SHOP_S 96x96` とし、Cleaner CANONICAL v0.2.1はMETAの `target.profile` を優先する。旧Cleanerで記録された `FACILITY_M` は96x96寸法が同じだった時代の履歴としてのみ残す。焼き鳥屋は `contentBounds {x:7,y:14,w:82,h:82}`、路地裏マサラは `{x:6,y:12,w:84,h:84}` を採用し、旧Town縮小表示の見た目をlogical canvas内へ移した。焼き鳥屋と路地裏マサラは、Cleaner出力の288x288 physical PNGについて全96x96論理セルの3x3ブロック一致を確認し、lossless 3→1 collapseした96x96 persistent canonicalへ置換済み。両店舗ともruntime canonicalizationは不要となり、灯串横丁の4店舗はすべてTown側で96x96 logical canvasを1:1描画する。純喫茶とクラフトコーラはfull 96x96 envelopeのまま。4店舗は横一列の配置・collision・trigger・作品起動までStagingで実地確認済み。live placementは `data/town-maps.js` を正本とし、runtime fixで店舗位置を二重管理しない。
 
-## 13. Display Layer
+## 14. Display Layer
 
 `imageSmoothingEnabled = false` と pixelated表示を維持する。
 
@@ -331,7 +422,7 @@ Pixel Snapはカメラ/CSS/端末物理ピクセル間の揺れを減らすた�
 
 表示スナップとアセット正規化は別問題として扱う。
 
-## 14. Character Assets
+## 15. Character Assets
 
 Character Pipelineはv0.1のWORLD OBJECT検証から分離する。
 
@@ -347,7 +438,7 @@ Character Pipelineはv0.1のWORLD OBJECT検証から分離する。
 
 を含むCharacter Pipelineとして別途確立する。
 
-## 15. Acceptance Checklist
+## 16. Acceptance Checklist
 
 新しいWORLD OBJECTをTownへ入れる前に確認する。
 
@@ -360,14 +451,18 @@ Character Pipelineはv0.1のWORLD OBJECT検証から分離する。
 - [ ] 必要ならlossless normalizationした
 - [ ] Town canonical representation size = logical size
 - [ ] contentBounds / groundAnchorY が必要ならMETAに明示されている
+- [ ] CONTENT_BOUNDS時にsourceのaspect ratioが維持されている
+- [ ] contentFitBoundsが意図した位置・サイズになっている
 - [ ] Townへの最終描画で 1 logical canonical px = 1 world px
-- [ ] mainの現在placementを取得した
+- [ ] sceneの正本（station-plaza.js / town-maps.js）から現在placementを取得した
+- [ ] objectIdがworld-objects.jsに正式登録されている
+- [ ] runtime fixに同じasset/placementの二重定義がない
 - [ ] footYを意図なく変えていない
 - [ ] collision / interaction / tapのabsolute geometryを保った
 - [ ] Stagingで実寸を目視確認した
 - [ ] 「大きい/小さい」をコード側のw/hだけで帳尻合わせしていない
 
-## 16. Anti-Patterns
+## 17. Anti-Patterns
 
 禁止または避ける:
 
@@ -377,12 +472,14 @@ Character Pipelineはv0.1のWORLD OBJECT検証から分離する。
 - Cleanerで選んだTARGETを自動推薦が後から上書きする
 - Town側だけ縮小してlogical standardのズレを隠す
 - contentBoundsをtight alpha bboxと誤解する
+- contentBoundsのw/hへsource全体を非等方スケールする
 - LEGACY_RENDER_BAKEとLOSSLESS_INTEGER_DEVICE_SCALE_COLLAPSEを同一視する
 - placementSnapshotをlive placementの正本として上書きする
+- world-objects.jsとruntime fixで同じasset差し替えを二重管理する
 - 非整数・非uniformな画像を無検証で縮小する
 - 問題を後段の手作業補正で隠す
 
-## 17. Principle
+## 18. Principle
 
 このStandardの目的は、全画像を同じファイルサイズにすることではない。
 
