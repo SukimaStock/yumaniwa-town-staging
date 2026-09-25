@@ -180,7 +180,7 @@ Town draw 96x96 world px (1:1)
 
 v0.2では移行中の既存アセットに限り、source PNGから**一度だけ96x96 logical canvasを生成するruntime canonicalization bridge**を許可する。灯串横丁では焼き鳥屋・路地裏マサラのpersistent canonical化が完了したため、このbridgeは撤去済み。描画レイヤーは保存済み96x96 canonicalをそのまま1:1描画する。
 
-Cleaner v0.1.13以降で同じcontent boundsをlogical gridへ明示ラスタライズし、persistent canonical PNGへ置換した後は、そのアセットのruntime bridgeを外す。v0.1.14では `EXPLICIT_LOGICAL_NEAREST` とphysical integer-scale PASSの両方を満たす出力を `pixelSafe: true` と記録する。
+Cleaner v0.1.13以降で同じcontent boundsをlogical gridへ明示ラスタライズし、persistent canonical PNGへ置換した後は、そのアセットのruntime bridgeを外す。v0.1.14ではpixelSafe判定が一時的な`info`を参照していたため、検証済みでもMETA末尾がfalseになる場合があった。v0.1.15で最終`metadata.pixelStandard`を正本として判定し、`EXPLICIT_LOGICAL_NEAREST` とphysical integer-scale PASSの両方を満たす出力を `pixelSafe: true` と記録する。
 
 ## 7. Physical Delivery → Town Canonical Normalization
 
