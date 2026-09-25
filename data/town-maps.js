@@ -325,10 +325,10 @@
                 "objectId": "craft_cola_shop_01",
                 "src": "assets/maps/objects/shops/craft_cola_shop_01.png?rev=20260925-alleyshops96",
                 "x": 10.375,
-                "y": 2.4375,
+                "y": 2.375,
                 "w": 6,
                 "h": 6,
-                "footY": 8.4375,
+                "footY": 8.375,
                 "enabled": true,
                 "collision": {
                     "enabled": true,
