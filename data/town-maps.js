@@ -239,24 +239,39 @@
                 "workId": "midnight-cola",
                 "text": "夜の研究所から、柑橘とスパイスの香りがする。",
                 "area": {
-                    "x": 2,
-                    "y": 4,
-                    "w": 5,
-                    "h": 4
+                    "x": 3,
+                    "y": 5,
+                    "w": 6,
+                    "h": 3
                 },
                 "tapPadding": 1
             },
             {
-                "id": "game_list_stall",
-                "label": "ゲーム案内所",
-                "actionLabel": "見る",
-                "type": "menu",
-                "target": "tomogushi_game_board",
-                "text": "灯串横丁で今夜遊べるゲームをまとめて案内しています。",
+                "id": "junkissa_dive_booth",
+                "label": "純喫茶ダイヴ",
+                "actionLabel": "遊ぶ",
+                "type": "work",
+                "workId": "junkissa-dive",
+                "text": "深夜の純喫茶から、甘いコーヒーの香りが漂っている。",
+                "area": {
+                    "x": 3,
+                    "y": 17,
+                    "w": 6,
+                    "h": 3
+                },
+                "tapPadding": 1
+            },
+            {
+                "id": "rojiura_masala_booth",
+                "label": "路地裏マサラ",
+                "actionLabel": "遊ぶ",
+                "type": "work",
+                "workId": "rojiura-masala",
+                "text": "路地裏のカレー屋から、スパイスの香りが漂っている。",
                 "area": {
                     "x": 12,
-                    "y": 16,
-                    "w": 5,
+                    "y": 17,
+                    "w": 7,
                     "h": 3
                 },
                 "tapPadding": 1
@@ -294,9 +309,37 @@
         ],
         "props": [
             {
+                "id": "craft_cola_shop",
+                "objectId": "craft_cola_shop_01",
+                "src": "assets/maps/objects/shops/craft_cola_shop_01.png?rev=20260925-alleyshops96",
+                "x": 3.983217304249944,
+                "y": 2.0627802690582993,
+                "w": 6,
+                "h": 6,
+                "footY": 8.0627802690583,
+                "enabled": true,
+                "collision": {
+                    "enabled": true,
+                    "x": 0.11458333333333333,
+                    "y": 0.78125,
+                    "w": 0.7708333333333334,
+                    "h": 0.1875
+                },
+                "interaction": {
+                    "enabled": true,
+                    "triggerId": "midnight_cola_booth",
+                    "x": 0.10416666666666667,
+                    "y": 0.6666666666666666,
+                    "w": 0.7916666666666666,
+                    "h": 0.3333333333333333
+                },
+                "catalogKey": "bench"
+            },
+,
+            {
                 "id": "yakitori_yumado_shop",
                 "objectId": "yakitori_shop_01",
-                "src": "assets/maps/props/tomogushi-alley/yakitori-yumado.png?rev=20260716-1",
+                "src": "assets/maps/objects/shops/yakitori_shop_01.png?rev=20260925-yakitori96-r2",
                 "x": 12.983217304249944,
                 "y": 2.0627802690582993,
                 "w": 6,
@@ -320,29 +363,59 @@
                 },
                 "catalogKey": "bench"
             },
+,
             {
-                "id": "common_temporary_storefront",
-                "src": "assets/maps/props/tomogushi-alley/common-temporary-storefront.png?v=20260813-1",
-                "x": 12.875,
-                "y": 13.75,
-                "w": 3.5625,
-                "h": 5,
-                "footY": 18.75,
+                "id": "junkissa_dive_shop",
+                "objectId": "kissaten_shop_01",
+                "src": "assets/maps/objects/shops/kissaten_shop_01.png?rev=20260925-alleyshops96",
+                "x": 3.983217304249944,
+                "y": 14.0627802690583,
+                "w": 6,
+                "h": 6,
+                "footY": 20.0627802690583,
                 "enabled": true,
                 "collision": {
                     "enabled": true,
-                    "x": 0.18,
-                    "y": 0.8,
-                    "w": 0.64,
-                    "h": 0.18
+                    "x": 0.11458333333333333,
+                    "y": 0.78125,
+                    "w": 0.7708333333333334,
+                    "h": 0.1875
                 },
                 "interaction": {
                     "enabled": true,
-                    "triggerId": "game_list_stall",
-                    "x": 0.06,
-                    "y": 0.58,
-                    "w": 0.88,
-                    "h": 0.4
+                    "triggerId": "junkissa_dive_booth",
+                    "x": 0.10416666666666667,
+                    "y": 0.6666666666666666,
+                    "w": 0.7916666666666666,
+                    "h": 0.3333333333333333
+                },
+                "catalogKey": "bench"
+            },
+,
+            {
+                "id": "rojiura_masala_shop",
+                "objectId": "curry_shop_01",
+                "src": "assets/maps/objects/shops/curry_shop_01.png?rev=20260925-alleyshops96",
+                "x": 12.983217304249944,
+                "y": 14.0627802690583,
+                "w": 6,
+                "h": 6,
+                "footY": 20.0627802690583,
+                "enabled": true,
+                "collision": {
+                    "enabled": true,
+                    "x": 0.11458333333333333,
+                    "y": 0.78125,
+                    "w": 0.7708333333333334,
+                    "h": 0.1875
+                },
+                "interaction": {
+                    "enabled": true,
+                    "triggerId": "rojiura_masala_booth",
+                    "x": 0.10416666666666667,
+                    "y": 0.6666666666666666,
+                    "w": 0.7916666666666666,
+                    "h": 0.3333333333333333
                 },
                 "catalogKey": "bench"
             }

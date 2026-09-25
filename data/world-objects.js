@@ -286,6 +286,135 @@
                 status: 'final'
             }
         },
+        craft_cola_shop_01: {
+            id: 'craft_cola_shop_01',
+            category: 'shop',
+            type: 'craft_cola_shop',
+            src: 'assets/maps/objects/shops/craft_cola_shop_01.png?rev=20260925-alleyshops96',
+            finalization: {
+                target: 'FACILITY_M',
+                logicalCanvasPx: [96, 96],
+                townAssetFilePx: [96, 96],
+                townAssetPixelRatio: 1,
+                sourceDeliveryFilePx: [288, 288],
+                sourceDeliveryPixelRatio: 3,
+                sourceDeliveryVerified: true,
+                importNormalization: {
+                    applied: true,
+                    type: 'LOSSLESS_INTEGER_DEVICE_SCALE_COLLAPSE',
+                    fromPixelRatio: 3,
+                    toPixelRatio: 1
+                },
+                exportContract: 'yumaniwa-logical-canvas-physical-file/0.1',
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    townUsesLogicalCanvas: true,
+                    physicalFileMayUseDeviceScale: true,
+                    sourcePhysicalPx: [720, 720]
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
+        },
+        kissaten_shop_01: {
+            id: 'kissaten_shop_01',
+            category: 'shop',
+            type: 'kissaten_shop',
+            src: 'assets/maps/objects/shops/kissaten_shop_01.png?rev=20260925-alleyshops96',
+            finalization: {
+                target: 'FACILITY_M',
+                logicalCanvasPx: [96, 96],
+                townAssetFilePx: [96, 96],
+                townAssetPixelRatio: 1,
+                sourceDeliveryFilePx: [288, 288],
+                sourceDeliveryPixelRatio: 3,
+                sourceDeliveryVerified: true,
+                importNormalization: {
+                    applied: true,
+                    type: 'LOSSLESS_INTEGER_DEVICE_SCALE_COLLAPSE',
+                    fromPixelRatio: 3,
+                    toPixelRatio: 1
+                },
+                exportContract: 'yumaniwa-logical-canvas-physical-file/0.1',
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    townUsesLogicalCanvas: true,
+                    physicalFileMayUseDeviceScale: true,
+                    sourcePhysicalPx: [720, 720]
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
+        },
+        curry_shop_01: {
+            id: 'curry_shop_01',
+            category: 'shop',
+            type: 'curry_shop',
+            src: 'assets/maps/objects/shops/curry_shop_01.png?rev=20260925-alleyshops96',
+            finalization: {
+                target: 'FACILITY_M',
+                logicalCanvasPx: [96, 96],
+                townAssetFilePx: [96, 96],
+                townAssetPixelRatio: 1,
+                sourceDeliveryFilePx: [288, 288],
+                sourceDeliveryPixelRatio: 3,
+                sourceDeliveryVerified: true,
+                importNormalization: {
+                    applied: true,
+                    type: 'LOSSLESS_INTEGER_DEVICE_SCALE_COLLAPSE',
+                    fromPixelRatio: 3,
+                    toPixelRatio: 1
+                },
+                exportContract: 'yumaniwa-logical-canvas-physical-file/0.1',
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    townUsesLogicalCanvas: true,
+                    physicalFileMayUseDeviceScale: true,
+                    sourcePhysicalPx: [720, 720]
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
+        },
         station_building_01: {
             id: 'station_building_01',
             category: 'facility',
