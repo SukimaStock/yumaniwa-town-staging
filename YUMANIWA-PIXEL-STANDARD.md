@@ -272,7 +272,7 @@ logical sizeは正しいが、repo内ファイルが旧3x physicalのままの�
 
 移行する場合は本Standardのlossless normalization条件を満たすことを確認し、一つずつ行う。
 
-焼き鳥屋 `yakitori_shop_01` で、Map Factory → Cleaner → WORLD OBJECT → Town の店舗パイプラインを初めて実地検証した。続いて `craft_cola_shop_01`、`kissaten_shop_01`、`curry_shop_01` も96x96 canonicalとして灯串横丁へ配置した。Cleaner上の実target名は `FACILITY_M` だが、Town scaleとしてはSHOP_S級96x96として扱う。3店舗の最終的な見た目はStagingで目視確認して確定する。
+焼き鳥屋 `yakitori_shop_01` で、Map Factory → Cleaner → WORLD OBJECT → Town の店舗パイプラインを初めて実地検証した。続いて `craft_cola_shop_01`、`kissaten_shop_01`、`curry_shop_01` も96x96 canonicalとして灯串横丁へ配置した。Cleaner上の実target名は `FACILITY_M` だが、Town scaleとしてはSHOP_S級96x96として扱う。4店舗は横一列の配置・collision・trigger・作品起動までStagingで実地確認済み。live placementは `data/town-maps.js` を正本とし、runtime fixで店舗位置を二重管理しない。
 
 ## 13. Display Layer
 

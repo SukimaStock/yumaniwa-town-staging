@@ -4425,6 +4425,17 @@ var TOWN_PART_CATALOG = [
         w: 8.6,
         h: 8.5,
         collision: { enabled: true, x: 0.06, y: 0.78, w: 0.88, h: 0.22 }
+    },
+    {
+        // Existing WORLD OBJECT shops are selectable/movable, but are not added
+        // from the legacy station-plaza asset picker.
+        key: 'worldObjectShop',
+        label: '店舗 WORLD OBJECT',
+        file: '',
+        w: 1,
+        h: 1,
+        addable: false,
+        collision: { enabled: false, x: 0, y: 0, w: 0.001, h: 0.001 }
     }
 ];
 
@@ -4488,6 +4499,12 @@ function getPartCatalogEntry(key) {
 function inferTownPartCatalogKey(part) {
     var src = String((part && part.src) || '');
     var id = String((part && part.id) || '').toLowerCase();
+    var objectId = String((part && part.objectId) || '').toLowerCase();
+
+    // Shop WORLD OBJECTs own their source/collision/interaction metadata.
+    // Do not misclassify them as a station bench just because they are not
+    // part of the legacy station-plaza asset catalog.
+    if (objectId.indexOf('_shop_') !== -1 || id.slice(-5) === '_shop') return 'worldObjectShop';
 
     if (src.indexOf('station-notice-board') !== -1 || id.indexOf('notice') !== -1) return 'noticeBoard';
     if (src.indexOf('station-tourist-map') !== -1 || id.indexOf('tourist') !== -1) return 'touristMap';
@@ -4996,6 +5013,7 @@ function ensurePartEditorFields() {
 
     var catalogOptions = '';
     for (var i = 0; i < TOWN_PART_CATALOG.length; i++) {
+        if (TOWN_PART_CATALOG[i].addable === false) continue;
         catalogOptions +=
             '<option value="' + TOWN_PART_CATALOG[i].key + '">' +
             TOWN_PART_CATALOG[i].label +

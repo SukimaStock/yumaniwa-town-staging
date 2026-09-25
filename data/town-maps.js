@@ -344,8 +344,7 @@
                     "y": 0.6666666666666666,
                     "w": 0.7916666666666666,
                     "h": 0.3333333333333333
-                },
-                "catalogKey": "bench"
+                }
             },
             {
                 "id": "yakitori_yumado_shop",
@@ -371,8 +370,7 @@
                     "y": 0.6666666666666666,
                     "w": 0.7916666666666666,
                     "h": 0.3333333333333333
-                },
-                "catalogKey": "bench"
+                }
             },
             {
                 "id": "junkissa_dive_shop",
@@ -398,8 +396,7 @@
                     "y": 0.6666666666666666,
                     "w": 0.7916666666666666,
                     "h": 0.3333333333333333
-                },
-                "catalogKey": "bench"
+                }
             },
             {
                 "id": "rojiura_masala_shop",
@@ -425,92 +422,10 @@
                     "y": 0.6666666666666666,
                     "w": 0.7916666666666666,
                     "h": 0.3333333333333333
-                },
-                "catalogKey": "bench"
+                }
             }
         ],
-        "decor": [
-            {
-                "x": 2,
-                "y": 4,
-                "w": 5,
-                "h": 4,
-                "fill": "#7d5a42",
-                "stroke": "#2d241b",
-                "label": "コーラ",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 21,
-                "y": 10,
-                "w": 3,
-                "h": 5,
-                "fill": "#a9b8c5",
-                "stroke": "#2d241b",
-                "label": "広場",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 2,
-                "y": 15,
-                "w": 1,
-                "h": 2,
-                "fill": "#6a4d36",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 3,
-                "y": 3,
-                "w": 1,
-                "h": 1,
-                "fill": "#cf9a4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 6,
-                "y": 3,
-                "w": 1,
-                "h": 1,
-                "fill": "#cf9a4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 17,
-                "y": 3,
-                "w": 1,
-                "h": 1,
-                "fill": "#cf9a4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 8,
-                "y": 16,
-                "w": 1,
-                "h": 1,
-                "fill": "#8c6b4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 11,
-                "y": 16,
-                "w": 1,
-                "h": 1,
-                "fill": "#8c6b4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            }
-        ]
+        "decor": []
     },
 
     yumado_street_map: {
