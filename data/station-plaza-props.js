@@ -6,6 +6,8 @@
     var stationPreloadSources = {};
     var stationPreloadPending = 0;
     var stationPreloadTotal = 0;
+    var deferredTownPropQueue = [];
+    var deferredTownPropScheduled = false;
 
     function loadTraceMark(name, meta, once) {
         var trace = window.YUMANIWA_LOAD_TRACE;
@@ -141,11 +143,22 @@
         }
     }
 
-    function getPropImage(src) {
+    function getPropImage(src, options) {
         if (!src) return null;
         if (propImageCache[src]) return propImageCache[src];
 
         var image = new Image();
+        var opts = options || {};
+
+        try {
+            image.decoding = 'async';
+            if (opts.priority && opts.priority !== 'auto') {
+                image.fetchPriority = opts.priority;
+            }
+        } catch (error) {
+            // Unsupported browsers use normal Image loading.
+        }
+
         var entry = {
             image: image,
             loaded: false,
@@ -212,6 +225,84 @@
             if (entry && entry.loaded) settleStationPreloadSource(src, 'cached');
             if (entry && entry.error) settleStationPreloadSource(src, 'error');
         }
+    }
+
+    function collectDeferredTownPropSources() {
+        var queue = [];
+        var seen = {};
+        var maps = window.TOWN_SCENE_MAPS;
+
+        if (!maps) return queue;
+
+        for (var sceneId in maps) {
+            if (!Object.prototype.hasOwnProperty.call(maps, sceneId)) continue;
+
+            var def = maps[sceneId];
+            var props = def && Array.isArray(def.props) ? def.props : [];
+
+            for (var i = 0; i < props.length; i++) {
+                var prop = props[i];
+
+                if (!prop || prop.enabled === false) continue;
+
+                var src = resolvePropSrc(prop);
+
+                if (!src || seen[src] || propImageCache[src]) continue;
+
+                seen[src] = true;
+                queue.push(src);
+            }
+        }
+
+        return queue;
+    }
+
+    function scheduleDeferredTownPropIdle(callback, delayMs) {
+        window.setTimeout(function() {
+            if (typeof window.requestIdleCallback === 'function') {
+                window.requestIdleCallback(function() {
+                    callback();
+                }, { timeout: 2200 });
+            } else {
+                callback();
+            }
+        }, Math.max(0, Number(delayMs) || 0));
+    }
+
+    function scheduleDeferredTownProps() {
+        if (deferredTownPropScheduled) return;
+        deferredTownPropScheduled = true;
+
+        deferredTownPropQueue = collectDeferredTownPropSources();
+
+        loadTraceMark('town_props_deferred_start', {
+            count: deferredTownPropQueue.length
+        }, true);
+
+        function loadNext() {
+            if (!deferredTownPropQueue.length) {
+                loadTraceMark('town_props_deferred_ready', null, true);
+                return;
+            }
+
+            var src = deferredTownPropQueue.shift();
+
+            if (!src || propImageCache[src]) {
+                scheduleDeferredTownPropIdle(loadNext, 100);
+                return;
+            }
+
+            getPropImage(src, { priority: 'low' });
+
+            loadTraceMark('town_prop_deferred_requested', {
+                src: src,
+                remaining: deferredTownPropQueue.length
+            });
+
+            scheduleDeferredTownPropIdle(loadNext, 140);
+        }
+
+        scheduleDeferredTownPropIdle(loadNext, 500);
     }
 
     function getActiveProps() {
@@ -419,6 +510,12 @@
     installStationPlazaData();
     preloadStationProps();
     installDrawOverride();
+
+    window.addEventListener('yumaniwa:arrival-ready', scheduleDeferredTownProps);
+
+    if (window.YUMANIWA_ARRIVAL_READY) {
+        scheduleDeferredTownProps();
+    }
 
     window.YUMANIWA_STATION_PLAZA_PROPS = {
         version: PROP_REV,
