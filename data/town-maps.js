@@ -295,27 +295,28 @@
         "props": [
             {
                 "id": "yakitori_yumado_shop",
+                "objectId": "yakitori_shop_01",
                 "src": "assets/maps/props/tomogushi-alley/yakitori-yumado.png?rev=20260716-1",
-                "x": 12.858217304249944,
-                "y": 1.8127802690582993,
-                "w": 6.25,
-                "h": 6.25,
+                "x": 12.983217304249944,
+                "y": 2.0627802690582993,
+                "w": 6,
+                "h": 6,
                 "footY": 8.0627802690583,
                 "enabled": true,
                 "collision": {
                     "enabled": true,
-                    "x": 0.13,
-                    "y": 0.79,
-                    "w": 0.74,
-                    "h": 0.18
+                    "x": 0.11458333333333333,
+                    "y": 0.78125,
+                    "w": 0.7708333333333334,
+                    "h": 0.1875
                 },
                 "interaction": {
                     "enabled": true,
                     "triggerId": "yakitori_wars_booth",
-                    "x": 0.12,
-                    "y": 0.68,
-                    "w": 0.76,
-                    "h": 0.32
+                    "x": 0.10416666666666667,
+                    "y": 0.6666666666666666,
+                    "w": 0.7916666666666666,
+                    "h": 0.3333333333333333
                 },
                 "catalogKey": "bench"
             },
