@@ -3,6 +3,7 @@
 
     var PROP_REV = '20260711-1';
     var propImageCache = {};
+    var propCanonicalCache = {};
     var stationPreloadSources = {};
     var stationPreloadPending = 0;
     var stationPreloadTotal = 0;
@@ -54,23 +55,85 @@
         return JSON.parse(JSON.stringify(data || []));
     }
 
+    function resolveWorldObjectDef(prop) {
+        if (!prop || !prop.objectId) return null;
+
+        var library = window.YUMANIWA_WORLD_OBJECTS;
+        if (!library) return null;
+
+        return typeof library.get === 'function'
+            ? library.get(prop.objectId)
+            : (library.objects && library.objects[prop.objectId]) || null;
+    }
+
     function resolvePropSrc(prop) {
         if (!prop) return '';
 
-        var objectId = prop.objectId;
-        var library = window.YUMANIWA_WORLD_OBJECTS;
+        var objectDef = resolveWorldObjectDef(prop);
 
-        if (objectId && library) {
-            var objectDef = typeof library.get === 'function'
-                ? library.get(objectId)
-                : (library.objects && library.objects[objectId]);
-
-            if (objectDef && objectDef.src) {
-                return objectDef.src;
-            }
+        if (objectDef && objectDef.src) {
+            return objectDef.src;
         }
 
         return prop.src || '';
+    }
+
+    function getCanonicalPropImage(prop, entry) {
+        if (!entry || !entry.loaded || !entry.image) return null;
+
+        var objectDef = resolveWorldObjectDef(prop);
+        var finalization = objectDef && objectDef.finalization;
+        var pixelStandard = finalization && finalization.pixelStandard;
+        var bounds = pixelStandard && pixelStandard.contentBounds;
+
+        if (
+            !pixelStandard ||
+            pixelStandard.runtimeCanonicalization !== true ||
+            pixelStandard.contentMode !== 'LEGACY_RENDER_BAKE' ||
+            !bounds
+        ) {
+            return entry.image;
+        }
+
+        var logical = finalization.logicalCanvasPx || [96, 96];
+        var logicalW = Math.max(1, Math.round(Number(logical[0]) || 96));
+        var logicalH = Math.max(1, Math.round(Number(logical[1]) || 96));
+        var bx = Math.round(Number(bounds.x) || 0);
+        var by = Math.round(Number(bounds.y) || 0);
+        var bw = Math.max(1, Math.round(Number(bounds.w) || logicalW));
+        var bh = Math.max(1, Math.round(Number(bounds.h) || logicalH));
+
+        var key = [
+            objectDef.id || prop.objectId,
+            entry.image.currentSrc || entry.image.src || '',
+            logicalW, logicalH, bx, by, bw, bh
+        ].join('|');
+
+        if (propCanonicalCache[key]) {
+            return propCanonicalCache[key];
+        }
+
+        var canvas = document.createElement('canvas');
+        canvas.width = logicalW;
+        canvas.height = logicalH;
+
+        var canonicalCtx = canvas.getContext('2d');
+        canonicalCtx.clearRect(0, 0, logicalW, logicalH);
+        canonicalCtx.imageSmoothingEnabled = false;
+        canonicalCtx.drawImage(
+            entry.image,
+            0,
+            0,
+            entry.image.naturalWidth || entry.image.width,
+            entry.image.naturalHeight || entry.image.height,
+            bx,
+            by,
+            bw,
+            bh
+        );
+
+        propCanonicalCache[key] = canvas;
+        return canvas;
     }
 
     function openStationTile16x8(rects) {
@@ -255,7 +318,8 @@
 
         window.ctx.save();
         window.ctx.imageSmoothingEnabled = false;
-        window.ctx.drawImage(entry.image, dx, dy, dw, dh);
+        var renderImage = getCanonicalPropImage(prop, entry) || entry.image;
+        window.ctx.drawImage(renderImage, dx, dy, dw, dh);
         window.ctx.restore();
         return true;
     }

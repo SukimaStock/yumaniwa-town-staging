@@ -1,4 +1,4 @@
-# Yumaniwa Pixel Standard v0.1
+# Yumaniwa Pixel Standard v0.2
 
 制定: 2026-09-25
 
@@ -30,6 +30,29 @@ Town logical size      : 32x32 world px
 Cleaner上で編集・確定する町基準のキャンバス。
 
 `logicalCanvasPx` がWORLD OBJECTの実寸の正本。
+
+
+### Content Bounds
+
+logical canvas内で、その物体が占める**意図した描画エンベロープ**。
+
+`contentBounds = { x, y, w, h }` は左上原点・0-basedで記録する。
+
+これは必ずしも透明画素を除いたtight alpha bboxではない。屋根・軒・床・看板などを含め、町で成立させたい見た目の大きさを表すレイアウト領域である。
+
+同じ `SHOP_S 96x96` でも、店舗ごとの見た目サイズはcontent boundsで変えてよい。Town側の`w/h`を縮めて帳尻を合わせない。
+
+### Ground Anchor
+
+`groundAnchorY` はlogical canvas上の床基準となる最終ピクセル行（0-based）。
+
+96x96のSHOP_Sで最下段を床基準とする場合:
+
+```text
+groundAnchorY = 95
+```
+
+店舗の屋根高や透明余白が違っても、床基準とlogical canvasを分離して管理する。
 
 ### Physical File
 
@@ -75,6 +98,9 @@ WORLD OBJECTでは以下を必須とする。
 - `physicalFileVerified`
 - `physicalFileStatus`
 - `exportContract`
+- `contentBounds`（必要な場合）
+- `groundAnchorY`
+- `contentMode`
 
 をMETAに記録する。
 
@@ -105,7 +131,7 @@ PROP_M 32x32 に変更すると、町で自然な実寸になった。
 
 ## 5. TARGET Presets
 
-Cleaner v0.1.11時点:
+Cleaner v0.1.12時点:
 
 | Target | Logical Canvas | 用途 |
 |---|---:|---|
@@ -132,6 +158,29 @@ Presetは固定的な物体分類ではない。実際のTown scaleを優先す�
 画像再読み込みや再解析によって自動推薦へ勝手に戻してはならない。
 
 新しいWORLD METAを貼り付けたときのみ、TARGET LOCKをリセットしてよい。
+
+## 7. Content Layout / Legacy Render Bake
+
+Townで見た目を合わせるために、logical 96x96画像を82pxや84pxへ縮小表示する運用は禁止する。
+
+代わりに、承認済みの見た目サイズをlogical canvas内へ移す。
+
+```text
+96x96 source canonical
+    ↓ LEGACY_RENDER_BAKE
+96x96 logical canvas
+  └─ contentBounds 82x82 / 84x84
+    ↓
+Town draw 96x96 world px (1:1)
+```
+
+`LEGACY_RENDER_BAKE` は、すでにTown上で承認された旧表示倍率をcanonicalization段階へ移すための移行モードである。
+
+これはdevice-scaleのlossless collapseとは別物であり、非可逆の見た目正規化として明示的に記録する。
+
+v0.2では移行中の既存アセットに限り、source PNGから**一度だけ96x96 logical canvasを生成するruntime canonicalization bridge**を許可する。描画レイヤーが受け取るcanonical representationは96x96で、Townへの最終描画は必ず1:1とする。
+
+Cleaner v0.1.12で同じcontent boundsを焼き込んだpersistent canonical PNGへ置換した後は、runtime bridgeを外す。
 
 ## 7. Physical Delivery → Town Canonical Normalization
 
@@ -210,10 +259,10 @@ relative値は新しいw/hに合わせて再計算してよい。
 | tourist_map_01 | sign / tourist_map | FACILITY_S | 64x64 |
 | notice_board_01 | sign / notice_board | FACILITY_M | 96x96 |
 | station_building_01 | facility / station_building | FACILITY_L | 128x128 |
-| yakitori_shop_01 | shop / yakitori_shop | FACILITY_M (SHOP_S級) | 96x96 |
-| craft_cola_shop_01 | shop / craft_cola_shop | FACILITY_M (SHOP_S級) | 96x96 |
-| kissaten_shop_01 | shop / kissaten_shop | FACILITY_M (SHOP_S級) | 96x96 |
-| curry_shop_01 | shop / curry_shop | FACILITY_M (SHOP_S級) | 96x96 |
+| yakitori_shop_01 | shop / yakitori_shop | SHOP_S | 96x96 |
+| craft_cola_shop_01 | shop / craft_cola_shop | SHOP_S | 96x96 |
+| kissaten_shop_01 | shop / kissaten_shop | SHOP_S | 96x96 |
+| curry_shop_01 | shop / curry_shop | SHOP_S | 96x96 |
 
 これは「物体タイプ→絶対サイズ」の表ではない。
 
@@ -272,7 +321,7 @@ logical sizeは正しいが、repo内ファイルが旧3x physicalのままの�
 
 移行する場合は本Standardのlossless normalization条件を満たすことを確認し、一つずつ行う。
 
-焼き鳥屋 `yakitori_shop_01` で、Map Factory → Cleaner → WORLD OBJECT → Town の店舗パイプラインを初めて実地検証した。続いて `craft_cola_shop_01`、`kissaten_shop_01`、`curry_shop_01` も96x96 canonicalとして灯串横丁へ配置した。Cleaner上の実target名は `FACILITY_M` だが、Town scaleとしてはSHOP_S級96x96として扱う。4店舗は横一列の配置・collision・trigger・作品起動までStagingで実地確認済み。live placementは `data/town-maps.js` を正本とし、runtime fixで店舗位置を二重管理しない。
+焼き鳥屋 `yakitori_shop_01` で、Map Factory → Cleaner → WORLD OBJECT → Town の店舗パイプラインを初めて実地検証した。続いて `craft_cola_shop_01`、`kissaten_shop_01`、`curry_shop_01` も96x96 canonicalとして灯串横丁へ配置した。v0.2では4店舗を正式に `SHOP_S 96x96` とし、Cleaner v0.1.12はMETAの `target.profile` を優先する。旧Cleanerで記録された `FACILITY_M` は96x96寸法が同じだった時代の履歴としてのみ残す。焼き鳥屋は `contentBounds {x:7,y:14,w:82,h:82}`、路地裏マサラは `{x:6,y:12,w:84,h:84}` を採用し、旧Town縮小表示の見た目をlogical canvas内へ移した。純喫茶とクラフトコーラはfull 96x96 envelopeのまま。4店舗は横一列の配置・collision・trigger・作品起動までStagingで実地確認済み。live placementは `data/town-maps.js` を正本とし、runtime fixで店舗位置を二重管理しない。
 
 ## 13. Display Layer
 
@@ -309,8 +358,9 @@ Character Pipelineはv0.1のWORLD OBJECT検証から分離する。
 - [ ] physical file sizeを検査した
 - [ ] integer uniform device scaleか確認した
 - [ ] 必要ならlossless normalizationした
-- [ ] Town canonical size = logical size
-- [ ] 1 logical px = 1 world px
+- [ ] Town canonical representation size = logical size
+- [ ] contentBounds / groundAnchorY が必要ならMETAに明示されている
+- [ ] Townへの最終描画で 1 logical canonical px = 1 world px
 - [ ] mainの現在placementを取得した
 - [ ] footYを意図なく変えていない
 - [ ] collision / interaction / tapのabsolute geometryを保った
@@ -326,6 +376,8 @@ Character Pipelineはv0.1のWORLD OBJECT検証から分離する。
 - source画像の縦横比だけでTARGETを決める
 - Cleanerで選んだTARGETを自動推薦が後から上書きする
 - Town側だけ縮小してlogical standardのズレを隠す
+- contentBoundsをtight alpha bboxと誤解する
+- LEGACY_RENDER_BAKEとLOSSLESS_INTEGER_DEVICE_SCALE_COLLAPSEを同一視する
 - placementSnapshotをlive placementの正本として上書きする
 - 非整数・非uniformな画像を無検証で縮小する
 - 問題を後段の手作業補正で隠す

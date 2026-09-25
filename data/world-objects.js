@@ -247,9 +247,10 @@
             id: 'yakitori_shop_01',
             category: 'shop',
             type: 'yakitori_shop',
-            src: 'assets/maps/objects/shops/yakitori_shop_01.png?rev=20260925-yakitori96-r2',
+            src: 'assets/maps/objects/shops/yakitori_shop_01.png?rev=20260925-pixelstd02',
             finalization: {
-                target: 'FACILITY_M',
+                target: 'SHOP_S',
+                sourceCleanerTarget: 'FACILITY_M',
                 logicalCanvasPx: [96, 96],
                 townAssetFilePx: [96, 96],
                 townAssetPixelRatio: 1,
@@ -274,7 +275,11 @@
                     exactFinal: true
                 },
                 pixelStandard: {
-                    version: 'yumaniwa-pixel/0.1',
+                    version: 'yumaniwa-pixel/0.2',
+                    contentBounds: { x: 7, y: 14, w: 82, h: 82 },
+                    groundAnchorY: 95,
+                    contentMode: 'LEGACY_RENDER_BAKE',
+                    runtimeCanonicalization: true,
                     worldPxPerLogicalPx: 1,
                     editingSpace: 'TOWN_LOGICAL_PIXELS',
                     previewMatchesTown: true,
@@ -290,9 +295,10 @@
             id: 'craft_cola_shop_01',
             category: 'shop',
             type: 'craft_cola_shop',
-            src: 'assets/maps/objects/shops/craft_cola_shop_01.png?rev=20260925-alleyshops96',
+            src: 'assets/maps/objects/shops/craft_cola_shop_01.png?rev=20260925-pixelstd02',
             finalization: {
-                target: 'FACILITY_M',
+                target: 'SHOP_S',
+                sourceCleanerTarget: 'FACILITY_M',
                 logicalCanvasPx: [96, 96],
                 townAssetFilePx: [96, 96],
                 townAssetPixelRatio: 1,
@@ -317,7 +323,11 @@
                     exactFinal: true
                 },
                 pixelStandard: {
-                    version: 'yumaniwa-pixel/0.1',
+                    version: 'yumaniwa-pixel/0.2',
+                    contentBounds: { x: 0, y: 0, w: 96, h: 96 },
+                    groundAnchorY: 95,
+                    contentMode: 'DIRECT_CANONICAL',
+                    runtimeCanonicalization: false,
                     worldPxPerLogicalPx: 1,
                     editingSpace: 'TOWN_LOGICAL_PIXELS',
                     previewMatchesTown: true,
@@ -333,9 +343,10 @@
             id: 'kissaten_shop_01',
             category: 'shop',
             type: 'kissaten_shop',
-            src: 'assets/maps/objects/shops/kissaten_shop_01.png?rev=20260925-alleyshops96',
+            src: 'assets/maps/objects/shops/kissaten_shop_01.png?rev=20260925-pixelstd02',
             finalization: {
-                target: 'FACILITY_M',
+                target: 'SHOP_S',
+                sourceCleanerTarget: 'FACILITY_M',
                 logicalCanvasPx: [96, 96],
                 townAssetFilePx: [96, 96],
                 townAssetPixelRatio: 1,
@@ -360,7 +371,11 @@
                     exactFinal: true
                 },
                 pixelStandard: {
-                    version: 'yumaniwa-pixel/0.1',
+                    version: 'yumaniwa-pixel/0.2',
+                    contentBounds: { x: 0, y: 0, w: 96, h: 96 },
+                    groundAnchorY: 95,
+                    contentMode: 'DIRECT_CANONICAL',
+                    runtimeCanonicalization: false,
                     worldPxPerLogicalPx: 1,
                     editingSpace: 'TOWN_LOGICAL_PIXELS',
                     previewMatchesTown: true,
@@ -376,9 +391,10 @@
             id: 'curry_shop_01',
             category: 'shop',
             type: 'curry_shop',
-            src: 'assets/maps/objects/shops/curry_shop_01.png?rev=20260925-alleyshops96',
+            src: 'assets/maps/objects/shops/curry_shop_01.png?rev=20260925-pixelstd02',
             finalization: {
-                target: 'FACILITY_M',
+                target: 'SHOP_S',
+                sourceCleanerTarget: 'FACILITY_M',
                 logicalCanvasPx: [96, 96],
                 townAssetFilePx: [96, 96],
                 townAssetPixelRatio: 1,
@@ -403,7 +419,11 @@
                     exactFinal: true
                 },
                 pixelStandard: {
-                    version: 'yumaniwa-pixel/0.1',
+                    version: 'yumaniwa-pixel/0.2',
+                    contentBounds: { x: 6, y: 12, w: 84, h: 84 },
+                    groundAnchorY: 95,
+                    contentMode: 'LEGACY_RENDER_BAKE',
+                    runtimeCanonicalization: true,
                     worldPxPerLogicalPx: 1,
                     editingSpace: 'TOWN_LOGICAL_PIXELS',
                     previewMatchesTown: true,
