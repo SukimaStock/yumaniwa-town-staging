@@ -599,7 +599,7 @@
         {
           id: 'leisure_pickup',
           objectId: 'leisure_pickup_shelf_01',
-          src: 'assets/maps/props/leisure-center/leisure-pickup-shelf.png?v=20260925-1',
+          src: 'assets/maps/props/leisure-center/leisure-pickup-shelf.png?v=20260925-2',
           x: 17.0, y: 0.0, w: 6.0, h: 6.0, footY: 6.0,
           enabled: true,
           catalogKey: 'worldObjectFacility',
@@ -643,7 +643,7 @@
         {
           id: 'leisure_exhibit_diorama_calendar',
           objectId: 'leisure_exhibit_diorama_calendar_01',
-          src: 'assets/maps/props/leisure-center/leisure-exhibit-diorama-calendar.png?v=20260925-1',
+          src: 'assets/maps/props/leisure-center/leisure-exhibit-diorama-calendar.png?v=20260925-2',
           x: 18.0, y: 14.25, w: 3.5, h: 3.5, footY: 17.75,
           enabled: true,
           catalogKey: 'worldObjectExhibit',
