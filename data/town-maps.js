@@ -18,13 +18,14 @@
         fromAlley: { x: 3, y: 12, dir: 'right' },
         fromStreet: { x: 20, y: 12, dir: 'left' },
         fromOnsen: { x: 12, y: 3, dir: 'down' },
-        fromLeisure: { x: 12, y: 20, dir: 'up' }
+        fromLeisure: { x: 12, y: 20, dir: 'up' },
+        fromRecreation: { x: 12, y: 20, dir: 'up' }
       },
       edgeWarps: [
         { side: 'left', min: 9, max: 14, target: 'tomogushi_alley_map', targetSpawn: 'fromPlaza' },
         { side: 'right', min: 9, max: 14, target: 'yumado_street_map', targetSpawn: 'fromPlaza' },
         { side: 'up', min: 9, max: 14, target: 'onsen_slope_map', targetSpawn: 'fromPlaza' },
-        { side: 'down', min: 9, max: 14, target: 'leisure_center_map', targetSpawn: 'fromPlaza' }
+        { side: 'down', min: 9, max: 14, target: 'recreation_road_map', targetSpawn: 'fromPlaza' }
       ],
       passableRects: [
         rect(10, 0, 4, 9), rect(7, 7, 3, 9), rect(14, 7, 2, 9), rect(0, 9, 7, 5),
@@ -43,7 +44,7 @@
       triggers: [
         {
           id: 'station_notice', label: '駅の案内', actionLabel: '読む', type: 'inspect',
-          text: '湯間庭駅前広場。左に灯串横丁、右に湯窓通り、上に温泉方面、下にレジャーセンターがあります。',
+          text: '湯間庭駅前広場。左に灯串横丁、右に湯窓通り、上に温泉方面、下に湯間庭レクリエーションロードがあり、その先が湯窓レジャーセンターです。',
           area: rect(9, 18, 5, 5), tapPadding: 1
         },
         {
@@ -509,6 +510,61 @@
       ]
     },
 
+    recreation_road_map: {
+      id: 'recreation_road_map',
+      title: '湯間庭レクリエーションロード',
+      subtitle: '湯窓レジャーセンター前',
+      mapWidth: 24,
+      mapHeight: 24,
+      backgroundStyle: 'street',
+      backgroundImagePath: 'assets/maps/grounds/recreation-road.jpg?rev=20260826-1',
+      spawnPoints: {
+        default: { x: 12, y: 3, dir: 'down' },
+        fromPlaza: { x: 12, y: 3, dir: 'down' },
+        fromLeisure: { x: 12, y: 20, dir: 'up' }
+      },
+      edgeWarps: [
+        { side: 'up', min: 10, max: 14, target: 'station_plaza', targetSpawn: 'fromRecreation' },
+        { side: 'down', min: 10, max: 15, target: 'leisure_center_map', targetSpawn: 'fromRecreation' }
+      ],
+      passableRects: [
+        { x: 10, y: 0, w: 5, h: 8 },
+        { x: 10, y: 8, w: 6, h: 1 },
+        { x: 9, y: 9, w: 7, h: 2 },
+        { x: 9, y: 11, w: 15, h: 2 },
+        { x: 9, y: 13, w: 8, h: 3 },
+        { x: 10, y: 16, w: 6, h: 8 }
+      ],
+      blockedRects: [
+        { x: 0, y: 0, w: 10, h: 9 },
+        { x: 15, y: 0, w: 9, h: 8 },
+        { x: 16, y: 8, w: 8, h: 3 },
+        { x: 0, y: 9, w: 9, h: 7 },
+        { x: 17, y: 13, w: 7, h: 3 },
+        { x: 0, y: 16, w: 10, h: 8 },
+        { x: 16, y: 16, w: 8, h: 8 }
+      ],
+      blockedPoints: [],
+      areaZones: [
+        {
+          id: 'recreation_road',
+          title: '湯間庭レクリエーションロード',
+          titleLines: ['湯間庭', 'レクリエーションロード'],
+          subtitle: '駅前と湯窓レジャーセンターを結ぶ道',
+          area: { x: 0, y: 0, w: 24, h: 24 }
+        }
+      ],
+      triggers: [],
+      groundRects: [
+        { x: 0, y: 0, w: 24, h: 24, color: '#cbbb9c' },
+        { x: 10, y: 0, w: 5, h: 24, color: '#aaa79c' },
+        { x: 9, y: 9, w: 8, h: 7, color: '#aaa79c' },
+        { x: 16, y: 11, w: 8, h: 2, color: '#aaa79c' }
+      ],
+      props: [],
+      decor: []
+    },
+
     leisure_center_map: {
       id: 'leisure_center_map',
       title: 'レジャーセンター',
@@ -519,10 +575,11 @@
       backgroundImagePath: 'assets/maps/grounds/leisure-center-ground.jpg',
       spawnPoints: {
         default: { x: 12, y: 3, dir: 'down' },
-        fromPlaza: { x: 12, y: 3, dir: 'down' }
+        fromPlaza: { x: 12, y: 3, dir: 'down' },
+        fromRecreation: { x: 12, y: 3, dir: 'down' }
       },
       edgeWarps: [
-        { side: 'up', min: 9, max: 14, target: 'station_plaza', targetSpawn: 'fromLeisure' }
+        { side: 'up', min: 9, max: 14, target: 'recreation_road_map', targetSpawn: 'fromLeisure' }
       ],
       passableRects: [
         { x: 9, y: 0, w: 6, h: 1 },
