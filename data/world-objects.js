@@ -156,6 +156,37 @@
                 pixelSafe: false,
                 status: 'final'
             }
+        },
+        post_box_01: {
+            id: 'post_box_01',
+            category: 'street_furniture',
+            type: 'post_box',
+            src: 'assets/maps/objects/street_furniture/post_box_01.png?rev=20260925-postbox32logical1',
+            finalization: {
+                target: 'PROP_M',
+                logicalCanvasPx: [32, 32],
+                fileCanvasPx: [32, 32],
+                exportScale: 1,
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    sourcePhysicalPx: [1536, 1536]
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
         }
     };
 
