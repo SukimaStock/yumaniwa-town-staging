@@ -464,10 +464,46 @@
         { x: 5, y: 6, w: 19, h: 12, color: '#ead9b4' },
         { x: 6, y: 15, w: 15, h: 4, color: '#e4d1aa' }
       ],
+      props: [
+        {
+          id: 'yumado_street_info_sign',
+          objectId: 'standing_sign_01',
+          src: 'assets/maps/props/common/standing-signboard.png?v=20260822-clean',
+          x: 11,
+          y: 10,
+          w: 2,
+          h: 2,
+          footY: 12,
+          enabled: true,
+          catalogKey: 'standingSignboard',
+          collision: {
+            enabled: false,
+            x: 0.14,
+            y: 0.7375,
+            w: 0.72,
+            h: 0.2625
+          },
+          interaction: {
+            enabled: true,
+            triggerId: 'street_info',
+            x: -0.00625,
+            y: 0.25,
+            w: 1.0125,
+            h: 0.75
+          },
+          tap: {
+            enabled: true,
+            x: -0.00625,
+            y: 0.175,
+            w: 1.0125,
+            h: 0.825
+          }
+        }
+      ],
       decor: [
         deco(6, 4, 5, 4, '#6d776b', '#2d241b', '店'), deco(13, 4, 5, 4, '#8b7658', '#2d241b', '店'),
         deco(19, 4, 4, 4, '#7b6650', '#2d241b', '空き'), deco(7, 16, 3, 2, '#7c6a57', '#2d241b', '看板'),
-        deco(15, 16, 4, 2, '#7c6a57', '#2d241b', 'ベンチ'), deco(11, 10, 2, 2, '#8c846d', '#2d241b', '札'),
+        deco(15, 16, 4, 2, '#7c6a57', '#2d241b', 'ベンチ'),
         deco(0, 10, 3, 5, '#a9b8c5', '#2d241b', '広場'), deco(21, 15, 1, 1, '#6f8468', '#2d241b', ''),
         deco(12, 16, 1, 1, '#6f8468', '#2d241b', ''), deco(14, 9, 1, 1, '#8b6f4b', '#2d241b', '')
       ]
