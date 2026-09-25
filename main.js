@@ -6064,6 +6064,12 @@ function getTownSceneExportInfo(sceneId) {
             mode: "scene-definition"
         },
 
+        recreation_road_map: {
+            title: "湯間庭レクリエーションロード",
+            fileName: "data/town-maps.js",
+            mode: "scene-definition"
+        },
+
         yumado_street_map: {
             title: "湯窓通り",
             fileName: "data/town-maps.js",

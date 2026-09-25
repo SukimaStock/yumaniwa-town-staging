@@ -16,10 +16,10 @@
     addCatalogEntry({
         key: 'standingSignboard',
         label: '立て看板（共通）',
-        file: '../common/standing-signboard.png',
-        w: 2.4,
-        h: 3.2,
-        collision: { enabled: true, x: 0.18, y: 0.72, w: 0.64, h: 0.28 }
+        file: '../../objects/signs/standing_sign_01.png',
+        w: 2,
+        h: 2,
+        collision: { enabled: true, x: 0.14, y: 0.7375, w: 0.72, h: 0.2625 }
     });
 
     if (typeof createTownPartFromCatalog === 'function') {
@@ -28,6 +28,9 @@
             var part = baseCreateTownPartFromCatalog(key, worldX, worldY);
             if (part && key === 'standingSignboard') {
                 part.id = makeUniquePartId('town_standing_signboard');
+                part.objectId = 'standing_sign_01';
+                part.src = 'assets/maps/objects/signs/standing_sign_01.png?rev=20260925-standing32x32';
+                part.catalogKey = 'standingSignboard';
                 part.interaction = {
                     enabled: false,
                     triggerId: '',

@@ -278,7 +278,7 @@ var stationPlazaProps = [
     {
         "id": "station_update_history_signboard",
         "objectId": "standing_sign_01",
-        "src": "assets/maps/props/common/standing-signboard.png?v=20260822-clean",
+        "src": "assets/maps/objects/signs/standing_sign_01.png?rev=20260925-standing32x32",
         "x": 7.099537037037036,
         "y": 14.26394147341852,
         "w": 2,

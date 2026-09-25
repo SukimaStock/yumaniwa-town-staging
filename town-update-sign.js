@@ -228,7 +228,8 @@
 
     var prop = {
         id: PROP_ID,
-        src: 'assets/maps/props/common/standing-signboard.png?v=20260822-clean',
+        objectId: 'standing_sign_01',
+        src: 'assets/maps/objects/signs/standing_sign_01.png?rev=20260925-standing32x32',
         x: 14.6875,
         y: 14.5,
         w: 2.25,
