@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.3
+Yumaniwa Desk v0.10.4
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,12 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.4:
+- Town Editor差分の正本を現在の構造へ合わせ、data/town-runtime-fixes.js を反映先から除外
+- 町パーツの配置正本は station_plaza → data/station-plaza.js、それ以外 → data/town-maps.js に統一
+- 旧 no_entry_sign / standing_signboard / yakitori_yumado_shop / common_temporary_storefront のruntime直接書換え互換を撤去
+- 古い差分が runtime-fixes.js をsourceに指定した場合はfail-closedで拒否
 
 v0.10.3:
 - Files / Pythonista 経由で __file__ から Working Copy を辿れない場合、保存済みの旧 project_root を「探索ヒント」としてのみ利用
@@ -1323,10 +1329,14 @@ def _validate_scene_export(root, current_text, scene_id, scene_data):
 
 
 EDITOR_DIFF_FORMAT = "yumaniwa-editor-diff-v1"
+
+# Town placement canonical sources:
+# - station_plaza -> data/station-plaza.js
+# - other town scenes -> data/town-maps.js
+# Runtime compatibility code is intentionally not a diff destination.
 EDITOR_DIFF_ALLOWED_SOURCES = {
     "data/station-plaza.js",
     "data/town-maps.js",
-    "data/town-runtime-fixes.js",
     "town-update-sign.js",
     "town-feedback-box.js",
     "town-ghost-npc.js",
@@ -2023,18 +2033,6 @@ def _patch_diff_file(source, current_text, scene_id, prop_changes, trigger_chang
                 raise ValueError("おばけNPCは update 以外を安全に反映できません。")
             result = _patch_ghost_prop(result, before, after)
 
-        elif source == "data/town-runtime-fixes.js":
-            if op != "update":
-                raise ValueError("runtime-fixes.js のパーツは update 以外を安全に反映できません。")
-            if object_id in ("yakitori_yumado_shop", "common_temporary_storefront"):
-                unsupported = _changed_top_keys(before, after) - {"x", "y", "w", "h", "footY"}
-                if unsupported:
-                    raise ValueError(object_id + " で位置・大きさ以外の変更は安全に反映できません: " + ", ".join(sorted(unsupported)))
-                result = _replace_prop_assignment_block(result, object_id, after)
-            elif object_id in ("no_entry_sign", "standing_signboard"):
-                result = _replace_literal_id_object(result, object_id, after)
-            else:
-                raise ValueError("runtime-fixes.js の未対応パーツです: " + object_id)
         else:
             raise ValueError("props の未対応反映先です: " + source)
 
