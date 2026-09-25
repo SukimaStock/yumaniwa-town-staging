@@ -447,6 +447,262 @@
                 status: 'final'
             }
         },
+        leisure_counter_01: {
+            id: 'leisure_counter_01',
+            category: 'facility',
+            type: 'information_counter',
+            src: 'assets/maps/props/leisure-center/leisure-counter.png?v=20260925-1',
+            finalization: {
+                target: 'FACILITY_M',
+                logicalCanvasPx: [96, 96],
+                townAssetFilePx: [96, 96],
+                townAssetPixelRatio: 1,
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    townUsesLogicalCanvas: true,
+                    physicalFileMayUseDeviceScale: false
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
+        },
+        leisure_pickup_shelf_01: {
+            id: 'leisure_pickup_shelf_01',
+            category: 'facility',
+            type: 'pickup_shelf',
+            src: 'assets/maps/props/leisure-center/leisure-pickup-shelf.png?v=20260925-6',
+            finalization: {
+                target: 'FACILITY_M',
+                logicalCanvasPx: [96, 96],
+                townAssetFilePx: [96, 96],
+                townAssetPixelRatio: 1,
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    townUsesLogicalCanvas: true,
+                    physicalFileMayUseDeviceScale: false
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
+        },
+        leisure_exhibit_steamclock_01: {
+            id: 'leisure_exhibit_steamclock_01',
+            category: 'exhibit',
+            type: 'steamclock_exhibit',
+            src: 'assets/maps/props/leisure-center/leisure-exhibit-steamclock.png?v=20260925-1',
+            finalization: {
+                target: 'PROP_L',
+                logicalCanvasPx: [56, 56],
+                townAssetFilePx: [56, 56],
+                townAssetPixelRatio: 1,
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    townUsesLogicalCanvas: true,
+                    physicalFileMayUseDeviceScale: false
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
+        },
+        leisure_exhibit_dotweather_01: {
+            id: 'leisure_exhibit_dotweather_01',
+            category: 'exhibit',
+            type: 'dotweather_exhibit',
+            src: 'assets/maps/props/leisure-center/leisure-exhibit-dotweather.png?v=20260925-1',
+            finalization: {
+                target: 'PROP_L',
+                logicalCanvasPx: [56, 56],
+                townAssetFilePx: [56, 56],
+                townAssetPixelRatio: 1,
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    townUsesLogicalCanvas: true,
+                    physicalFileMayUseDeviceScale: false
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
+        },
+        leisure_exhibit_coffeefactory_01: {
+            id: 'leisure_exhibit_coffeefactory_01',
+            category: 'exhibit',
+            type: 'coffee_factory_exhibit',
+            src: 'assets/maps/props/leisure-center/leisure-exhibit-coffeefactory.png?v=20260925-1',
+            finalization: {
+                target: 'FACILITY_S',
+                logicalCanvasPx: [64, 64],
+                townAssetFilePx: [64, 64],
+                townAssetPixelRatio: 1,
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    townUsesLogicalCanvas: true,
+                    physicalFileMayUseDeviceScale: false
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
+        },
+        leisure_exhibit_diorama_calendar_01: {
+            id: 'leisure_exhibit_diorama_calendar_01',
+            category: 'exhibit',
+            type: 'diorama_calendar_exhibit',
+            src: 'assets/maps/props/leisure-center/leisure-exhibit-diorama-calendar.png?v=20260925-2',
+            finalization: {
+                target: 'PROP_L',
+                logicalCanvasPx: [56, 56],
+                townAssetFilePx: [56, 56],
+                townAssetPixelRatio: 1,
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    townUsesLogicalCanvas: true,
+                    physicalFileMayUseDeviceScale: false
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
+        },
+        leisure_catalog_terminal_01: {
+            id: 'leisure_catalog_terminal_01',
+            category: 'facility',
+            type: 'catalog_terminal',
+            src: 'assets/maps/props/leisure-center/leisure-catalog-terminal.png?v=20260925-1',
+            finalization: {
+                target: 'PROP_L',
+                logicalCanvasPx: [56, 56],
+                townAssetFilePx: [56, 56],
+                townAssetPixelRatio: 1,
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    townUsesLogicalCanvas: true,
+                    physicalFileMayUseDeviceScale: false
+                },
+                pixelSafe: false,
+                status: 'final'
+            }
+        },
+        onsen_no_entry_barrier_01: {
+            id: 'onsen_no_entry_barrier_01',
+            category: 'sign',
+            type: 'road_closure_barrier',
+            src: 'assets/maps/objects/signs/no-entry-sign.png?v=20260925-1',
+            finalization: {
+                target: 'FACILITY_S',
+                logicalCanvasPx: [64, 64],
+                townAssetFilePx: [192, 192],
+                townAssetPixelRatio: 3,
+                grid: {
+                    block: 1,
+                    offsetX: 0,
+                    offsetY: 0
+                },
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: true
+                },
+                pixelStandard: {
+                    version: 'yumaniwa-pixel/0.1',
+                    worldPxPerLogicalPx: 1,
+                    editingSpace: 'TOWN_LOGICAL_PIXELS',
+                    previewMatchesTown: true,
+                    townUsesLogicalCanvas: true,
+                    physicalFileMayUseDeviceScale: true
+                },
+                pixelSafe: true,
+                status: 'final'
+            }
+        },
         station_building_01: {
             id: 'station_building_01',
             category: 'facility',
