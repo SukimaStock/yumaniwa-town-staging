@@ -33,9 +33,12 @@ Map Factory、Audio Factory、Nudge が書き出す制作物に、来歴と次�
 | Map Factory の素材庫バックアップ | `map-factory-backup` | `[]`。ZIP内の `assets/` に画像ファイルを同梱する | `map-factory-restore` |
 | Map Factory の店舗Recipe JSON | `map-composition` | 使用した素材の `map-factory-asset` ID | `dot-cleanup` |
 | Audio Factory のプリセットJSON | `audio-presets` | `[]` | `audio-factory-import` |
+| Audio Factory の再生コードJS | `audio-code` | `[]`。RecipeとWeb Audio生成関数をJS内に含む | `manual-audio-integration` |
 | Nudge の修正仕様JSON | `revision-brief` | `[]`。参照元作品があっても、現行ツールは識別子を持たない | `ai-revision` |
 
-Map Factory素材庫のZIP v2は `manifest.json` に共通 `artifact` を置き、`data.json` の画像参照を `assets/` に解決する。旧JSON v1は引き続き読み込める。Map Factory のRecipeは画像を含まない。依存する素材IDは同じMap Factory素材庫の中でだけ解決できる。別のブラウザーへ作業を移すときは、先に素材庫バックアップを復元する。完成PNGは別ファイルであり、Recipeの依存素材には数えない。
+Audio Factory の再生コードJSは、現在のRecipeと再生に必要なWeb Audio生成関数を含む単体JavaScriptファイルとして書き出す。`window.playSukimaAudio(audioContext)` から再生できる。これはアプリへの自動組み込みではなく、手動利用向けのコード出力である。
+
+Map Factory素材庫のZIP v2は `manifest.json` に共通 `artifact` を置き、`data.json` の画像参照を `assets/` に解決する。個別素材PNGには素材IDを含むファイル名を付け、Recipeの `map-factory-asset` 参照と対応させる。Dot CleanerはこのPNGを読み込み、正規ドット化へ進む。旧JSON v1は引き続き読み込める。Map Factory のRecipeは画像を含まない。依存する素材IDは同じMap Factory素材庫の中でだけ解決できる。別のブラウザーへ作業を移すときは、先に素材庫バックアップを復元する。完成PNGは別ファイルであり、Recipeの依存素材には数えない。
 
 ## 互換性と版の扱い
 

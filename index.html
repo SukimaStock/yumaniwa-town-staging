@@ -130,20 +130,426 @@
 <button id="btn-copy-export" type="button">コピーする</button>
 </div>
 </div>
-<script src="./data/station-plaza.js?rev=20260918-1"></script>
+<script>
+(function () {
+    'use strict';
+
+    if (window.YUMANIWA_LOAD_TRACE) return;
+
+    var params;
+    try {
+        params = new URLSearchParams(window.location.search || '');
+    } catch (error) {
+        params = { get: function () { return null; } };
+    }
+
+    var path = window.location.pathname || '';
+    var enabled =
+        path === '/yumaniwa-town-staging' ||
+        path.indexOf('/yumaniwa-town-staging/') === 0 ||
+        params.get('dev') === '1' ||
+        params.get('loadTrace') === '1';
+
+    var perf = window.performance;
+    var marks = [];
+    var markNames = {};
+    var images = {};
+    var startedAt = perf && typeof perf.now === 'function' ? perf.now() : Date.now();
+
+    function now() {
+        return perf && typeof perf.now === 'function'
+            ? perf.now()
+            : Date.now() - startedAt;
+    }
+
+    function round(value) {
+        return Math.round(Number(value || 0) * 10) / 10;
+    }
+
+    function safeMeta(meta) {
+        var result = {};
+        if (!meta || typeof meta !== 'object') return result;
+        for (var key in meta) {
+            if (!Object.prototype.hasOwnProperty.call(meta, key)) continue;
+            var value = meta[key];
+            if (
+                typeof value === 'string' ||
+                typeof value === 'number' ||
+                typeof value === 'boolean' ||
+                value === null
+            ) {
+                result[key] = value;
+            }
+        }
+        return result;
+    }
+
+    function shortUrl(url) {
+        var value = String(url || '');
+        try {
+            var parsed = new URL(value, window.location.href);
+            if (parsed.origin === window.location.origin) {
+                return parsed.pathname + parsed.search;
+            }
+        } catch (error) {}
+        return value;
+    }
+
+    function bytes(value) {
+        var n = Number(value || 0);
+        if (!n) return '0 B';
+        if (n < 1024) return Math.round(n) + ' B';
+        if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KiB';
+        return (n / (1024 * 1024)).toFixed(2) + ' MiB';
+    }
+
+    var api = {
+        version: '0.1',
+        enabled: enabled,
+
+        mark: function (name, meta) {
+            if (!enabled) return null;
+            var item = {
+                name: String(name || 'mark'),
+                t: now(),
+                meta: safeMeta(meta)
+            };
+            marks.push(item);
+            return item;
+        },
+
+        markOnce: function (name, meta) {
+            if (!enabled) return null;
+            var key = String(name || 'mark');
+            if (markNames[key]) return markNames[key];
+            var item = api.mark(key, meta);
+            markNames[key] = item;
+            return item;
+        },
+
+        imageStart: function (kind, src) {
+            if (!enabled || !src) return null;
+            var key = String(kind || 'image') + '|' + String(src);
+            var item = images[key];
+            if (!item) {
+                item = images[key] = {
+                    key: key,
+                    kind: String(kind || 'image'),
+                    src: String(src),
+                    start: now(),
+                    end: null,
+                    duration: null,
+                    status: 'loading',
+                    attempts: 1
+                };
+            } else {
+                item.attempts += 1;
+                if (item.end !== null) {
+                    item.start = now();
+                    item.end = null;
+                    item.duration = null;
+                    item.status = 'loading';
+                }
+            }
+            return item;
+        },
+
+        imageDone: function (kind, src, status) {
+            if (!enabled || !src) return null;
+            var key = String(kind || 'image') + '|' + String(src);
+            var item = images[key];
+            if (!item) item = api.imageStart(kind, src);
+            if (!item) return null;
+            item.end = now();
+            item.duration = item.end - item.start;
+            item.status = String(status || 'loaded');
+            return item;
+        },
+
+        getData: function () {
+            var navigation = {};
+            if (perf && typeof perf.getEntriesByType === 'function') {
+                var navEntries = perf.getEntriesByType('navigation');
+                var nav = navEntries && navEntries[0];
+                if (nav) {
+                    navigation = {
+                        responseStart: round(nav.responseStart),
+                        responseEnd: round(nav.responseEnd),
+                        domInteractive: round(nav.domInteractive),
+                        domContentLoaded: round(nav.domContentLoadedEventEnd),
+                        loadEventStart: round(nav.loadEventStart),
+                        loadEventEnd: round(nav.loadEventEnd)
+                    };
+                }
+            }
+
+            var resources = [];
+            if (perf && typeof perf.getEntriesByType === 'function') {
+                var entries = perf.getEntriesByType('resource') || [];
+                for (var i = 0; i < entries.length; i++) {
+                    var entry = entries[i];
+                    resources.push({
+                        name: shortUrl(entry.name),
+                        initiatorType: entry.initiatorType || '',
+                        startTime: round(entry.startTime),
+                        duration: round(entry.duration),
+                        transferSize: Number(entry.transferSize || 0),
+                        encodedBodySize: Number(entry.encodedBodySize || 0),
+                        decodedBodySize: Number(entry.decodedBodySize || 0)
+                    });
+                }
+            }
+
+            var imageList = [];
+            for (var imageKey in images) {
+                if (!Object.prototype.hasOwnProperty.call(images, imageKey)) continue;
+                var source = images[imageKey];
+                imageList.push({
+                    kind: source.kind,
+                    src: shortUrl(source.src),
+                    start: round(source.start),
+                    end: source.end === null ? null : round(source.end),
+                    duration: source.duration === null ? null : round(source.duration),
+                    status: source.status,
+                    attempts: source.attempts
+                });
+            }
+
+            return {
+                version: api.version,
+                href: window.location.href,
+                capturedAt: new Date().toISOString(),
+                navigation: navigation,
+                marks: marks.map(function (item) {
+                    return {
+                        name: item.name,
+                        t: round(item.t),
+                        meta: item.meta
+                    };
+                }),
+                images: imageList,
+                resources: resources
+            };
+        },
+
+        formatReport: function () {
+            var data = api.getData();
+            var lines = [];
+            lines.push('YUMANIWA LOAD TRACE v' + api.version);
+            lines.push(data.href);
+            lines.push('');
+
+            lines.push('[Navigation]');
+            var nav = data.navigation;
+            if (Object.keys(nav).length) {
+                lines.push('responseStart     ' + nav.responseStart + ' ms');
+                lines.push('responseEnd       ' + nav.responseEnd + ' ms');
+                lines.push('domInteractive    ' + nav.domInteractive + ' ms');
+                lines.push('DOMContentLoaded  ' + nav.domContentLoaded + ' ms');
+                lines.push('window load       ' + (nav.loadEventEnd || nav.loadEventStart) + ' ms');
+            } else {
+                lines.push('(navigation timing unavailable)');
+            }
+
+            lines.push('');
+            lines.push('[Town milestones]');
+            var preferred = [
+                'trace_bootstrap',
+                'station_props_preload_start',
+                'station_props_ready',
+                'window_load',
+                'town_onload_start',
+                'background_preload_current_start',
+                'background_deferred_queued',
+                'current_background_ready',
+                'arrival_loading_hidden',
+                'arrival_ready',
+                'background_deferred_start',
+                'background_deferred_ready',
+                'other_props_deferred_queued',
+                'other_props_deferred_start',
+                'other_props_deferred_ready',
+                'first_town_draw',
+                'first_town_draw_with_props',
+                'town_onload_end'
+            ];
+            var printed = {};
+            for (var p = 0; p < preferred.length; p++) {
+                for (var m = 0; m < data.marks.length; m++) {
+                    var mark = data.marks[m];
+                    if (mark.name !== preferred[p]) continue;
+                    printed[m] = true;
+                    var metaText = Object.keys(mark.meta || {}).length
+                        ? ' ' + JSON.stringify(mark.meta)
+                        : '';
+                    lines.push(mark.name + '  ' + mark.t + ' ms' + metaText);
+                }
+            }
+            for (var extra = 0; extra < data.marks.length; extra++) {
+                if (printed[extra]) continue;
+                var extraMark = data.marks[extra];
+                var extraMeta = Object.keys(extraMark.meta || {}).length
+                    ? ' ' + JSON.stringify(extraMark.meta)
+                    : '';
+                lines.push(extraMark.name + '  ' + extraMark.t + ' ms' + extraMeta);
+            }
+
+            var imageList = data.images.slice().sort(function (a, b) {
+                return Number(b.duration || -1) - Number(a.duration || -1);
+            });
+            lines.push('');
+            lines.push('[Tracked images: slowest first]');
+            for (var im = 0; im < Math.min(20, imageList.length); im++) {
+                var image = imageList[im];
+                lines.push(
+                    (image.duration === null ? 'pending' : image.duration + ' ms') +
+                    '  ' + image.status +
+                    '  ' + image.kind +
+                    '  ' + image.src
+                );
+            }
+
+            var resourceList = data.resources.slice().sort(function (a, b) {
+                return b.duration - a.duration;
+            });
+            var totalTransfer = 0;
+            var totalEncoded = 0;
+            for (var r = 0; r < data.resources.length; r++) {
+                totalTransfer += data.resources[r].transferSize || 0;
+                totalEncoded += data.resources[r].encodedBodySize || 0;
+            }
+
+            lines.push('');
+            lines.push('[Resources]');
+            lines.push(
+                data.resources.length + ' requests / transfer ' +
+                bytes(totalTransfer) + ' / encoded ' + bytes(totalEncoded)
+            );
+            lines.push('slowest:');
+            for (var rs = 0; rs < Math.min(20, resourceList.length); rs++) {
+                var resource = resourceList[rs];
+                var cacheHint =
+                    resource.transferSize === 0 && resource.decodedBodySize > 0
+                        ? ' cache'
+                        : '';
+                lines.push(
+                    resource.duration + ' ms  ' +
+                    bytes(resource.transferSize) + cacheHint + '  ' +
+                    resource.initiatorType + '  ' +
+                    resource.name
+                );
+            }
+
+            lines.push('');
+            lines.push('[Raw JSON]');
+            lines.push(JSON.stringify(data, null, 2));
+            return lines.join('\n');
+        }
+    };
+
+    function installUi() {
+        if (!enabled || document.getElementById('btn-load-trace')) return;
+
+        var header = document.querySelector('#editor-panel .editor-header');
+        if (!header) return;
+
+        var button = document.createElement('button');
+        button.id = 'btn-load-trace';
+        button.type = 'button';
+        button.textContent = 'LOAD';
+        button.title = '起動時間を確認';
+        button.style.marginLeft = 'auto';
+        button.style.marginRight = '6px';
+        header.insertBefore(button, header.lastElementChild);
+
+        var panel = document.createElement('div');
+        panel.id = 'load-trace-panel';
+        panel.style.cssText =
+            'display:none;position:fixed;z-index:30000;left:10px;right:10px;top:10px;bottom:10px;' +
+            'background:#171717;color:#f4f1e8;border:1px solid #777;border-radius:10px;padding:10px;' +
+            'box-sizing:border-box;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;';
+
+        var actions = document.createElement('div');
+        actions.style.cssText = 'display:flex;gap:8px;margin-bottom:8px;';
+
+        function makeButton(label) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.textContent = label;
+            return b;
+        }
+
+        var refresh = makeButton('更新');
+        var copy = makeButton('コピー');
+        var close = makeButton('閉じる');
+        actions.appendChild(refresh);
+        actions.appendChild(copy);
+        actions.appendChild(close);
+
+        var pre = document.createElement('pre');
+        pre.id = 'load-trace-output';
+        pre.style.cssText =
+            'white-space:pre-wrap;overflow:auto;height:calc(100% - 42px);margin:0;' +
+            'background:#0d0d0d;padding:10px;border-radius:6px;-webkit-overflow-scrolling:touch;';
+
+        function render() {
+            pre.textContent = api.formatReport();
+        }
+
+        refresh.addEventListener('click', render);
+        copy.addEventListener('click', function () {
+            var text = api.formatReport();
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function () {
+                    copy.textContent = 'コピー済み';
+                    window.setTimeout(function () { copy.textContent = 'コピー'; }, 900);
+                });
+            }
+        });
+        close.addEventListener('click', function () {
+            panel.style.display = 'none';
+        });
+        button.addEventListener('click', function () {
+            render();
+            panel.style.display = 'block';
+        });
+
+        panel.appendChild(actions);
+        panel.appendChild(pre);
+        document.body.appendChild(panel);
+    }
+
+    window.YUMANIWA_LOAD_TRACE = api;
+
+    if (enabled) {
+        api.markOnce('trace_bootstrap');
+
+        document.addEventListener('DOMContentLoaded', function () {
+            api.markOnce('dom_content_loaded');
+        });
+
+        window.addEventListener('load', function () {
+            api.markOnce('window_load');
+            window.setTimeout(installUi, 0);
+        });
+    }
+})();
+</script>
+<script src="./data/world-objects.js?rev=20260925-curry-persistent96"></script>
+<script src="./data/station-plaza.js?rev=20260925-station128"></script>
 <script>document.write('<script src="./data/notes.js?rev=' + Date.now() + '"><\/script>');</script>
 <script src="./data/works.js?v=20260918-2"></script>
 <script src="./data/updates.js?v=20260918-1"></script>
 <script src="./data/places.js?v=20260813-1"></script>
-<script src="./data/town-maps.js?rev=20260822-2"></script>
-<script src="./main.js?rev=20260920-analytics2"></script>
+<script src="./data/town-maps.js?rev=20260925-pixelstd02"></script>
+<script src="./main.js?rev=20260925-alley-cleanup01"></script>
 <script src="./developer-access.js?v=20260821-1"></script>
 <script src="./town-editor-upgrade.js?v=20260814-1"></script>
-<script src="./data/station-plaza-props.js?rev=20260711-1"></script>
+<script src="./data/station-plaza-props.js?rev=20260925-curry-persistent96"></script>
 <script src="./town-update-sign.js?v=20260823-1"></script>
 <script src="./town-feedback-box.js?v=20260823-1"></script>
-<script src="./data/town-runtime-fixes.js?v=20260826-1"></script>
-<script src="./town-prop-preload.js?v=20260822-1"></script>
+<script src="./data/town-runtime-fixes.js?v=20260925-alley-cleanup01"></script>
+<script src="./town-prop-preload.js?v=20260925-yakitori96-r2"></script>
 <script src="./town-arrival-refresh.js?v=20260813-1"></script>
 <script src="./station-guide-refresh.js?v=20260813-2"></script>
 <script src="./station-guide-hotfix.js?v=20260813-1"></script>

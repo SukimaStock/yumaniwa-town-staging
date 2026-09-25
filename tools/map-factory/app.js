@@ -12,7 +12,7 @@
     return {
       schema: 'sukimastock-artifact/1',
       kind,
-      producer: { tool: 'map-factory', version: '0.8' },
+      producer: { tool: 'map-factory', version: '0.9' },
       createdAt,
       dependencies,
       nextStep
@@ -89,6 +89,36 @@
           { x: 0.557, y: 0.890 },
           { x: 0.742, y: 0.890 },
           { x: 0.920, y: 0.840 }
+        ]
+      }
+    },
+
+    // Generic source sheets for Yumaniwa props / exhibits.
+    // These intentionally register every detected object as SPECIAL so that
+    // Map Factory can be used as a neutral cutout station before Cleaner.
+    'object-grid-2x2': {
+      name: 'Object Sheet 2×2',
+      candidateLabel: 'OBJECT',
+      maxDistance: 0.25,
+      slots: {
+        special: [
+          { x: 0.25, y: 0.25 },
+          { x: 0.75, y: 0.25 },
+          { x: 0.25, y: 0.75 },
+          { x: 0.75, y: 0.75 }
+        ]
+      }
+    },
+
+    'object-row-3': {
+      name: 'Object Row 3',
+      candidateLabel: 'OBJECT',
+      maxDistance: 0.24,
+      slots: {
+        special: [
+          { x: 1 / 6, y: 0.50 },
+          { x: 0.50, y: 0.50 },
+          { x: 5 / 6, y: 0.50 }
         ]
       }
     }
@@ -953,6 +983,27 @@
       renderAll();
     });
 
+    const exportAsset = document.createElement('button');
+    exportAsset.className = 'export-asset';
+    exportAsset.type = 'button';
+    exportAsset.textContent = 'PNG';
+    exportAsset.title = 'Dot Cleaner用に素材をPNG保存';
+    exportAsset.setAttribute('aria-label', 'Dot Cleaner用に ' + asset.label + ' をPNG保存');
+    exportAsset.addEventListener('click', async (event) => {
+      event.stopPropagation();
+      exportAsset.disabled = true;
+      exportAsset.textContent = '…';
+      try {
+        await exportAssetPng(asset);
+        exportAsset.textContent = '保存';
+      } catch (error) {
+        console.error('Asset PNG export failed', error);
+        exportAsset.textContent = '失敗';
+      } finally {
+        setTimeout(() => { exportAsset.textContent = 'PNG'; exportAsset.disabled = false; }, 1800);
+      }
+    });
+
     const remove = document.createElement('button');
     remove.className = 'delete-asset';
     remove.type = 'button';
@@ -979,7 +1030,7 @@
       renderAll();
     });
 
-    wrap.append(button, remove);
+    wrap.append(button, exportAsset, remove);
     return wrap;
   }
 
@@ -1752,7 +1803,7 @@
     return {
       type: group.type,
       slotIndex: group.slotIndex,
-      label: LABELS[group.type] + ' ' + pad2(group.slotIndex + 1),
+      label: ((KIT_PRESETS[presetId] && KIT_PRESETS[presetId].candidateLabel) || LABELS[group.type]) + ' ' + pad2(group.slotIndex + 1),
       blob: crop.blob,
       width: crop.width,
       height: crop.height,
@@ -2106,8 +2157,9 @@
 
     state.detected = null;
     els.sourceInput.value = '';
+    const preset = KIT_PRESETS[els.kitPreset.value];
     els.sourceStatus.textContent = isKit
-      ? 'Identity Kit Sheet v1 を選んでください。1枚から6カテゴリをまとめて仕入れます。'
+      ? ((preset ? preset.name : 'Sheet') + ' の画像を選んでください。')
       : '左右2案の画像を選んでください。';
 
     updateRegisterButton();
@@ -2171,6 +2223,22 @@
     anchor.click();
     anchor.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  async function exportAssetPng(asset) {
+    let blob = asset.blob instanceof Blob ? asset.blob : dataUrlToBlob(asset.dataUrl);
+    if (blob.type !== 'image/png') {
+      const image = await loadImage(assetUrl({ ...asset, blob }));
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      canvas.getContext('2d').drawImage(image, 0, 0);
+      blob = await new Promise((resolve, reject) => canvas.toBlob(
+        (result) => result ? resolve(result) : reject(new Error('PNGを作成できません。')), 'image/png'
+      ));
+    }
+    const label = String(asset.label || asset.type).replace(/[\\/:*?"<>|]+/g, '-').trim() || asset.type;
+    downloadBlob(blob, label + '-' + asset.id + '.png');
   }
 
   function exportDraftPng() {
@@ -2531,6 +2599,21 @@
     els.canvas.addEventListener('click', handleCanvasPartSelection);
 
     els.importMode.addEventListener('change', syncImportMode);
+
+    els.kitPreset.addEventListener('change', () => {
+      const file = els.sourceInput.files && els.sourceInput.files[0];
+
+      if (els.importMode.value === 'kit' && file) {
+        analyzeSource(file);
+        return;
+      }
+
+      if (els.importMode.value === 'kit') {
+        const preset = KIT_PRESETS[els.kitPreset.value];
+        els.sourceStatus.textContent =
+          (preset ? preset.name : 'Sheet') + ' の画像を選んでください。';
+      }
+    });
 
     els.sourceInput.addEventListener('change', () => {
       const file = els.sourceInput.files && els.sourceInput.files[0];

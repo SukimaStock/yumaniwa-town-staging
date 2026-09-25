@@ -880,6 +880,7 @@
     source: null,
     gain: null,
     token: 0,
+    resumeAfterVisibility: false,
   };
 
   function nextOrbitAmbientGap() {
@@ -970,9 +971,11 @@
     const fadeIn = Math.min(t.fadeInSec, duration * 0.28);
     const fadeOut = Math.min(t.fadeOutSec, duration * 0.32);
     const releaseAt = Math.max(fadeIn, duration - fadeOut);
+    // Ambient uses a very quiet source recording, so give only this layer
+    // a little extra headroom. One-shot SFX keep their normal 1.0 ceiling.
     const level = Math.max(
       0.0001,
-      Math.min(1, Number(definition.volume ?? 0.03) * ORBIT_AUDIO_GAIN)
+      Math.min(1.35, Number(definition.volume ?? 0.03) * ORBIT_AUDIO_GAIN)
     );
 
     const source = graph.ctx.createBufferSource();
@@ -1018,6 +1021,36 @@
     state.timer -= Math.max(0, Number(dt) || 0);
     if (state.timer > 0) return;
     if (!startOrbitAmbient()) state.timer = Math.max(state.timer, 3.0);
+  }
+
+  function restoreOrbitAmbientAfterVisibility() {
+    if (typeof document === "undefined" || document.hidden) return;
+
+    const graph = orbitAudioGraph();
+    if (graph && graph.ctx && graph.ctx.state === "suspended" && typeof graph.ctx.resume === "function") {
+      graph.ctx.resume().catch(() => {});
+    }
+
+    if (ORBIT_AMBIENT_STATE.resumeAfterVisibility) {
+      ORBIT_AMBIENT_STATE.resumeAfterVisibility = false;
+      ORBIT_AMBIENT_STATE.timer = 1.2;
+    }
+  }
+
+  if (typeof document !== "undefined" && typeof document.addEventListener === "function") {
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        if (ORBIT_AMBIENT_STATE.active) {
+          ORBIT_AMBIENT_STATE.resumeAfterVisibility = true;
+          stopOrbitAmbient(0.08, false);
+        }
+        return;
+      }
+      restoreOrbitAmbientAfterVisibility();
+    });
+  }
+  if (typeof window !== "undefined" && typeof window.addEventListener === "function") {
+    window.addEventListener("pageshow", restoreOrbitAmbientAfterVisibility);
   }
 
   const TUNE = {

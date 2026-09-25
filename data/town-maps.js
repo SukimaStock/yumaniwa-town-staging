@@ -118,19 +118,25 @@
                 "x": 4,
                 "y": 4,
                 "w": 15,
-                "h": 12
-            },
-            {
-                "x": 19,
-                "y": 8,
-                "w": 5,
-                "h": 7
+                "h": 3
             },
             {
                 "x": 0,
-                "y": 10,
-                "w": 4,
-                "h": 4
+                "y": 8,
+                "w": 24,
+                "h": 6
+            },
+            {
+                "x": 4,
+                "y": 14,
+                "w": 20,
+                "h": 1
+            },
+            {
+                "x": 4,
+                "y": 15,
+                "w": 15,
+                "h": 1
             },
             {
                 "x": 4,
@@ -162,13 +168,19 @@
                 "x": 0,
                 "y": 4,
                 "w": 4,
-                "h": 6
+                "h": 4
             },
             {
                 "x": 19,
                 "y": 4,
                 "w": 5,
                 "h": 4
+            },
+            {
+                "x": 4,
+                "y": 7,
+                "w": 15,
+                "h": 1
             },
             {
                 "x": 0,
@@ -224,9 +236,9 @@
                 "workId": "yakitori-wars",
                 "text": "炭火の向こうから、焼き鳥の香りが漂っている。",
                 "area": {
-                    "x": 12,
+                    "x": 16,
                     "y": 5,
-                    "w": 7,
+                    "w": 5,
                     "h": 3
                 },
                 "tapPadding": 1
@@ -239,24 +251,39 @@
                 "workId": "midnight-cola",
                 "text": "夜の研究所から、柑橘とスパイスの香りがする。",
                 "area": {
-                    "x": 2,
-                    "y": 4,
+                    "x": 11,
+                    "y": 5,
                     "w": 5,
-                    "h": 4
+                    "h": 3
                 },
                 "tapPadding": 1
             },
             {
-                "id": "game_list_stall",
-                "label": "ゲーム案内所",
-                "actionLabel": "見る",
-                "type": "menu",
-                "target": "tomogushi_game_board",
-                "text": "灯串横丁で今夜遊べるゲームをまとめて案内しています。",
+                "id": "junkissa_dive_booth",
+                "label": "純喫茶ダイヴ",
+                "actionLabel": "遊ぶ",
+                "type": "work",
+                "workId": "junkissa-dive",
+                "text": "深夜の純喫茶から、甘いコーヒーの香りが漂っている。",
                 "area": {
-                    "x": 12,
-                    "y": 16,
+                    "x": 6,
+                    "y": 5,
                     "w": 5,
+                    "h": 3
+                },
+                "tapPadding": 1
+            },
+            {
+                "id": "rojiura_masala_booth",
+                "label": "路地裏マサラ",
+                "actionLabel": "遊ぶ",
+                "type": "work",
+                "workId": "rojiura-masala",
+                "text": "路地裏のカレー屋から、スパイスの香りが漂っている。",
+                "area": {
+                    "x": 0,
+                    "y": 5,
+                    "w": 6,
                     "h": 3
                 },
                 "tapPadding": 1
@@ -294,140 +321,111 @@
         ],
         "props": [
             {
-                "id": "yakitori_yumado_shop",
-                "src": "assets/maps/props/tomogushi-alley/yakitori-yumado.png?rev=20260716-1",
-                "x": 12.858217304249944,
-                "y": 1.8127802690582993,
-                "w": 6.25,
-                "h": 6.25,
-                "footY": 8.0627802690583,
+                "id": "craft_cola_shop",
+                "objectId": "craft_cola_shop_01",
+                "src": "assets/maps/objects/shops/craft_cola_shop_01.png?rev=20260925-alleyshops96",
+                "x": 10.375,
+                "y": 2.375,
+                "w": 6,
+                "h": 6,
+                "footY": 8.375,
                 "enabled": true,
                 "collision": {
                     "enabled": true,
-                    "x": 0.13,
-                    "y": 0.79,
-                    "w": 0.74,
-                    "h": 0.18
+                    "x": 0.11458333333333333,
+                    "y": 0.78125,
+                    "w": 0.7708333333333334,
+                    "h": 0.1875
+                },
+                "interaction": {
+                    "enabled": true,
+                    "triggerId": "midnight_cola_booth",
+                    "x": 0.10416666666666667,
+                    "y": 0.6666666666666666,
+                    "w": 0.7916666666666666,
+                    "h": 0.3333333333333333
+                }
+            },
+            {
+                "id": "yakitori_yumado_shop",
+                "objectId": "yakitori_shop_01",
+                "src": "assets/maps/objects/shops/yakitori_shop_01.png?rev=20260925-yakitori96-r2",
+                "x": 15.375,
+                "y": 2.3125,
+                "w": 6,
+                "h": 6,
+                "footY": 8.3125,
+                "enabled": true,
+                "collision": {
+                    "enabled": true,
+                    "x": 0.17078993055555555,
+                    "y": 0.8131510416666667,
+                    "w": 0.658420138888889,
+                    "h": 0.16015625
                 },
                 "interaction": {
                     "enabled": true,
                     "triggerId": "yakitori_wars_booth",
-                    "x": 0.12,
-                    "y": 0.68,
-                    "w": 0.76,
-                    "h": 0.32
-                },
-                "catalogKey": "bench"
+                    "x": 0.1618923611111111,
+                    "y": 0.7152777777777777,
+                    "w": 0.6762152777777777,
+                    "h": 0.2847222222222222
+                }
             },
             {
-                "id": "common_temporary_storefront",
-                "src": "assets/maps/props/tomogushi-alley/common-temporary-storefront.png?v=20260813-1",
-                "x": 12.875,
-                "y": 13.75,
-                "w": 3.5625,
-                "h": 5,
-                "footY": 18.75,
+                "id": "junkissa_dive_shop",
+                "objectId": "kissaten_shop_01",
+                "src": "assets/maps/objects/shops/kissaten_shop_01.png?rev=20260925-alleyshops96",
+                "x": 5.125,
+                "y": 2.375,
+                "w": 6,
+                "h": 6,
+                "footY": 8.375,
                 "enabled": true,
                 "collision": {
                     "enabled": true,
-                    "x": 0.18,
-                    "y": 0.8,
-                    "w": 0.64,
-                    "h": 0.18
+                    "x": 0.11458333333333333,
+                    "y": 0.78125,
+                    "w": 0.7708333333333334,
+                    "h": 0.1875
                 },
                 "interaction": {
                     "enabled": true,
-                    "triggerId": "game_list_stall",
-                    "x": 0.06,
-                    "y": 0.58,
-                    "w": 0.88,
-                    "h": 0.4
+                    "triggerId": "junkissa_dive_booth",
+                    "x": 0.10416666666666667,
+                    "y": 0.6666666666666666,
+                    "w": 0.7916666666666666,
+                    "h": 0.3333333333333333
+                }
+            },
+            {
+                "id": "rojiura_masala_shop",
+                "objectId": "curry_shop_01",
+                "src": "assets/maps/objects/shops/curry_shop_01.png?rev=20260925-alleyshops96",
+                "x": -0.0625,
+                "y": 2.3476543495998135,
+                "w": 6,
+                "h": 6,
+                "footY": 8.347654349599814,
+                "enabled": true,
+                "collision": {
+                    "enabled": true,
+                    "x": 0.16276041666666666,
+                    "y": 0.80859375,
+                    "w": 0.6744791666666667,
+                    "h": 0.1640625
                 },
-                "catalogKey": "bench"
+                "interaction": {
+                    "enabled": true,
+                    "triggerId": "rojiura_masala_booth",
+                    "x": 0.15364583333333334,
+                    "y": 0.7083333333333333,
+                    "w": 0.6927083333333333,
+                    "h": 0.2916666666666667
+                }
             }
         ],
-        "decor": [
-            {
-                "x": 2,
-                "y": 4,
-                "w": 5,
-                "h": 4,
-                "fill": "#7d5a42",
-                "stroke": "#2d241b",
-                "label": "コーラ",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 21,
-                "y": 10,
-                "w": 3,
-                "h": 5,
-                "fill": "#a9b8c5",
-                "stroke": "#2d241b",
-                "label": "広場",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 2,
-                "y": 15,
-                "w": 1,
-                "h": 2,
-                "fill": "#6a4d36",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 3,
-                "y": 3,
-                "w": 1,
-                "h": 1,
-                "fill": "#cf9a4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 6,
-                "y": 3,
-                "w": 1,
-                "h": 1,
-                "fill": "#cf9a4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 17,
-                "y": 3,
-                "w": 1,
-                "h": 1,
-                "fill": "#cf9a4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 8,
-                "y": 16,
-                "w": 1,
-                "h": 1,
-                "fill": "#8c6b4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            },
-            {
-                "x": 11,
-                "y": 16,
-                "w": 1,
-                "h": 1,
-                "fill": "#8c6b4c",
-                "stroke": "#2d241b",
-                "label": "",
-                "labelColor": "#ffffff"
-            }
-        ]
+        "decor": []
     },
 
     yumado_street_map: {
@@ -492,18 +490,16 @@
       ],
       passableRects: [
         { x: 9, y: 0, w: 6, h: 1 },
-        { x: 10, y: 1, w: 5, h: 15 },
+        { x: 10, y: 1, w: 5, h: 21 },
         { x: 1, y: 2, w: 9, h: 20 },
         { x: 15, y: 2, w: 8, h: 20 },
-        { x: 14, y: 16, w: 1, h: 6 },
-        { x: 10, y: 18, w: 4, h: 6 }
+        { x: 10, y: 22, w: 4, h: 2 }
       ],
       blockedRects: [
         { x: 0, y: 0, w: 9, h: 2 },
         { x: 15, y: 0, w: 9, h: 2 },
         { x: 0, y: 2, w: 1, h: 22 },
         { x: 23, y: 2, w: 1, h: 22 },
-        { x: 10, y: 16, w: 4, h: 2 },
         { x: 1, y: 22, w: 9, h: 2 },
         { x: 14, y: 22, w: 9, h: 2 }
       ],
@@ -513,30 +509,72 @@
       ],
       triggers: [
         {
-          id: 'leisure_catalog', label: '展示ガイド', actionLabel: '見る',
-          area: { x: 10, y: 13, w: 4, h: 6 },
-          type: 'menu', target: 'leisure_catalog',
-          text: '展示ガイド。触れるらくがきや展示を、選択肢からまとめて見られます。'
+          id: 'leisure_counter',
+          label: '案内カウンター',
+          actionLabel: '調べる',
+          type: 'inspect',
+          area: { x: 1, y: 2, w: 6, h: 4 },
+          tapPadding: 1,
+          text: '案内カウンター。展示は左右に続いている。'
         },
         {
-          id: 'Panf', label: 'パンフレット', actionLabel: '調べる',
-          area: { x: 15, y: 3, w: 2, h: 1 }, type: 'inspect', target: '',
-          text: '「ご自由にお持ちください」と書かれている'
+          id: 'leisure_pickup',
+          label: 'おすすめ棚',
+          actionLabel: '調べる',
+          type: 'inspect',
+          area: { x: 17, y: 2, w: 6, h: 4 },
+          tapPadding: 1,
+          text: 'おすすめ棚。ときどき中身が入れ替わる。'
         },
         {
-          id: 'Uketsuke', label: '受付端末', actionLabel: '調べる',
-          area: { x: 8, y: 3, w: 2, h: 1 }, type: 'inspect', target: '',
-          text: '「湯窓レジャーセンターへようこそ」と音声が流れている'
+          id: 'leisure_work_steamclock',
+          label: 'SteamClock',
+          actionLabel: '触る',
+          type: 'work',
+          workId: 'steamclock',
+          area: { x: 2, y: 6, w: 4, h: 4 },
+          tapPadding: 1,
+          text: '時計の展示。'
         },
         {
-          id: 'Poster', label: '掲示板', actionLabel: '調べる',
-          area: { x: 3, y: 3, w: 2, h: 1 }, type: 'inspect', target: '',
-          text: '催し物のポスターが貼られているようだ'
+          id: 'leisure_work_dotweather',
+          label: 'DotWeather',
+          actionLabel: '触る',
+          type: 'work',
+          workId: 'dotweather',
+          area: { x: 18, y: 7, w: 4, h: 5 },
+          tapPadding: 1,
+          text: '空模様の展示。'
         },
         {
-          id: 'Annai', label: '案内板', actionLabel: '調べる',
-          area: { x: 7, y: 16, w: 1, h: 1 }, type: 'inspect', target: '',
-          text: '展示ガイドはこちら→'
+          id: 'leisure_work_coffee_factory',
+          label: 'CoffeeFactory',
+          actionLabel: '触る',
+          type: 'work',
+          workId: 'coffee-factory',
+          area: { x: 2, y: 12, w: 5, h: 5 },
+          tapPadding: 1,
+          text: 'コーヒーの展示。'
+        },
+        {
+          id: 'leisure_work_diorama_calendar',
+          label: 'Diorama Calendar',
+          actionLabel: '触る',
+          type: 'work',
+          workId: 'diorama-calendar',
+          area: { x: 18, y: 14, w: 4, h: 4 },
+          tapPadding: 1,
+          text: '季節の展示。'
+        },
+        {
+          id: 'leisure_catalog',
+          label: '展示ガイド',
+          actionLabel: '見る',
+          type: 'menu',
+          target: 'leisure_catalog',
+          area: { x: 10, y: 14, w: 4, h: 4 },
+          tapPadding: 1,
+          text: '展示ガイド。'
         }
       ],
       groundRects: [
@@ -548,60 +586,84 @@
       ],
       props: [
         {
+          id: 'leisure_counter',
+          objectId: 'leisure_counter_01',
+          src: 'assets/maps/props/leisure-center/leisure-counter.png?v=20260925-1',
+          x: 1.0, y: 0.0, w: 6.0, h: 6.0, footY: 6.0,
+          enabled: true,
+          catalogKey: 'worldObjectFacility',
+          collision: { enabled: true, x: 0.05, y: 0.82, w: 0.90, h: 0.15 },
+          interaction: { enabled: true, triggerId: 'leisure_counter', x: 0.03, y: 0.30, w: 0.94, h: 0.68 },
+          tap: { enabled: true, x: 0.03, y: 0.30, w: 0.94, h: 0.68 }
+        },
+        {
+          id: 'leisure_pickup',
+          objectId: 'leisure_pickup_shelf_01',
+          src: 'assets/maps/props/leisure-center/leisure-pickup-shelf.png?v=20260925-3',
+          x: 17.0, y: 0.0, w: 6.0, h: 6.0, footY: 6.0,
+          enabled: true,
+          catalogKey: 'worldObjectFacility',
+          collision: { enabled: true, x: 0.12, y: 0.82, w: 0.76, h: 0.14 },
+          interaction: { enabled: true, triggerId: 'leisure_pickup', x: 0.08, y: 0.30, w: 0.84, h: 0.68 },
+          tap: { enabled: true, x: 0.08, y: 0.30, w: 0.84, h: 0.68 }
+        },
+        {
+          id: 'leisure_exhibit_steamclock',
+          objectId: 'leisure_exhibit_steamclock_01',
+          src: 'assets/maps/props/leisure-center/leisure-exhibit-steamclock.png?v=20260925-1',
+          x: 2.25, y: 6.25, w: 3.5, h: 3.5, footY: 9.75,
+          enabled: true,
+          catalogKey: 'worldObjectExhibit',
+          collision: { enabled: true, x: 0.08, y: 0.82, w: 0.84, h: 0.16 },
+          interaction: { enabled: true, triggerId: 'leisure_work_steamclock', x: 0.04, y: 0.05, w: 0.92, h: 0.92 },
+          tap: { enabled: true, x: 0.04, y: 0.05, w: 0.92, h: 0.92 }
+        },
+        {
+          id: 'leisure_exhibit_dotweather',
+          objectId: 'leisure_exhibit_dotweather_01',
+          src: 'assets/maps/props/leisure-center/leisure-exhibit-dotweather.png?v=20260925-1',
+          x: 18.25, y: 7.75, w: 3.5, h: 3.5, footY: 11.25,
+          enabled: true,
+          catalogKey: 'worldObjectExhibit',
+          collision: { enabled: true, x: 0.08, y: 0.82, w: 0.84, h: 0.16 },
+          interaction: { enabled: true, triggerId: 'leisure_work_dotweather', x: 0.04, y: 0.05, w: 0.92, h: 0.92 },
+          tap: { enabled: true, x: 0.04, y: 0.05, w: 0.92, h: 0.92 }
+        },
+        {
+          id: 'leisure_exhibit_coffee_factory',
+          objectId: 'leisure_exhibit_coffeefactory_01',
+          src: 'assets/maps/props/leisure-center/leisure-exhibit-coffeefactory.png?v=20260925-1',
+          x: 2.0, y: 12.75, w: 4.0, h: 4.0, footY: 16.75,
+          enabled: true,
+          catalogKey: 'worldObjectExhibit',
+          collision: { enabled: true, x: 0.05, y: 0.80, w: 0.90, h: 0.17 },
+          interaction: { enabled: true, triggerId: 'leisure_work_coffee_factory', x: 0.03, y: 0.05, w: 0.94, h: 0.92 },
+          tap: { enabled: true, x: 0.03, y: 0.05, w: 0.94, h: 0.92 }
+        },
+        {
+          id: 'leisure_exhibit_diorama_calendar',
+          objectId: 'leisure_exhibit_diorama_calendar_01',
+          src: 'assets/maps/props/leisure-center/leisure-exhibit-diorama-calendar.png?v=20260925-2',
+          x: 18.0, y: 14.25, w: 3.5, h: 3.5, footY: 17.75,
+          enabled: true,
+          catalogKey: 'worldObjectExhibit',
+          collision: { enabled: true, x: 0.08, y: 0.82, w: 0.84, h: 0.16 },
+          interaction: { enabled: true, triggerId: 'leisure_work_diorama_calendar', x: 0.04, y: 0.05, w: 0.92, h: 0.92 },
+          tap: { enabled: true, x: 0.04, y: 0.05, w: 0.92, h: 0.92 }
+        },
+        {
           id: 'leisure_catalog_terminal',
-          src: 'assets/maps/props/leisure-center/leisure-catalog-terminal.png?v=20260813-1',
-          x: 7.403000608979685, y: 1.4213751868460398, w: 2.4, h: 2.4, footY: 3.8213751868460397,
+          objectId: 'leisure_catalog_terminal_01',
+          src: 'assets/maps/props/leisure-center/leisure-catalog-terminal.png?v=20260925-1',
+          x: 10.5625, y: 15.125, w: 2.875, h: 2.875, footY: 18.0,
           enabled: true,
-          collision: { enabled: true, x: 0.06, y: 0.08, w: 0.88, h: 0.9 },
-          interaction: { enabled: true, triggerId: 'leisure_catalog', x: 0.04, y: 0.48, w: 0.92, h: 0.5 },
-          catalogKey: 'bench'
-        },
-        {
-          id: 'station_leisureDirectionSign_2',
-          src: 'assets/maps/props/leisure-center/leisure-direction-sign.png?rev=editor',
-          x: 5.769653435199023, y: 13.294593921275531, w: 3.5, h: 3.5, footY: 16.79459392127553,
-          enabled: true,
-          catalogKey: 'leisureDirectionSign',
-          collision: { enabled: true, x: 0.35, y: 0.82, w: 0.3, h: 0.16 },
-          interaction: { enabled: false, triggerId: '', x: 0, y: 0.6, w: 1, h: 0.4 }
-        },
-        {
-          id: 'station_leisurePamphletRack_3',
-          src: 'assets/maps/props/leisure-center/leisure-pamphlet-rack.png?rev=editor',
-          x: 14.299726420491243, y: 0, w: 3.75, h: 3.75, footY: 3.75,
-          enabled: true,
-          catalogKey: 'leisurePamphletRack',
-          collision: { enabled: true, x: 0.15, y: 0.84, w: 0.7, h: 0.14 },
-          interaction: { enabled: false, triggerId: '', x: 0, y: 0.6, w: 1, h: 0.4 }
-        },
-        {
-          id: 'station_leisureBulletinBoard_4',
-          src: 'assets/maps/props/leisure-center/leisure-bulletin-board.png?rev=editor',
-          x: 2.375, y: 0.5625, w: 3.25, h: 3.25, footY: 3.8125,
-          enabled: true,
-          catalogKey: 'leisureBulletinBoard',
-          collision: { enabled: true, x: 0.08, y: 0.82, w: 0.84, h: 0.14 },
-          interaction: { enabled: false, triggerId: '', x: 0, y: 0.6, w: 1, h: 0.4 }
-        },
-        {
-          id: 'station_leisureGuideTerminal_5',
-          src: 'assets/maps/props/leisure-center/leisure-guide-terminal.png?rev=editor',
-          x: 10.71010721733193, y: 14.87746013951171, w: 3, h: 3, footY: 17.87746013951171,
-          enabled: true,
-          catalogKey: 'leisureGuideTerminal',
-          collision: { enabled: true, x: 0.05, y: 0.76, w: 0.9, h: 0.18 },
-          interaction: { enabled: false, triggerId: '', x: 0, y: 0.6, w: 1, h: 0.4 }
+          catalogKey: 'worldObjectFacility',
+          collision: { enabled: true, x: 0.12, y: 0.74, w: 0.76, h: 0.22 },
+          interaction: { enabled: true, triggerId: 'leisure_catalog', x: 0.04, y: 0.04, w: 0.92, h: 0.92 },
+          tap: { enabled: true, x: 0.04, y: 0.04, w: 0.92, h: 0.92 }
         }
       ],
-      decor: [
-        { x: 10, y: 0, w: 4, h: 3, fill: '#a9b8c5', stroke: '#222', label: '広場', labelColor: '#ffffff' },
-        { x: 4, y: 8, w: 1, h: 1, fill: '#6d846d', stroke: '#222', label: '', labelColor: '#ffffff' },
-        { x: 19, y: 8, w: 1, h: 1, fill: '#6d846d', stroke: '#222', label: '', labelColor: '#ffffff' },
-        { x: 8, y: 18, w: 1, h: 1, fill: '#8a806f', stroke: '#222', label: '', labelColor: '#ffffff' },
-        { x: 15, y: 18, w: 1, h: 1, fill: '#8a806f', stroke: '#222', label: '', labelColor: '#ffffff' },
-        { x: 11, y: 18, w: 1, h: 1, fill: '#8a806f', stroke: '#222', label: '', labelColor: '#ffffff' },
-        { x: 13, y: 18, w: 1, h: 1, fill: '#8a806f', stroke: '#222', label: '', labelColor: '#ffffff' }
-      ]
+      decor: []
     },
 
     onsen_slope_map: {

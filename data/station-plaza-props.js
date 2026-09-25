@@ -3,12 +3,78 @@
 
     var PROP_REV = '20260711-1';
     var propImageCache = {};
+    var stationPreloadSources = {};
+    var stationPreloadPending = 0;
+    var stationPreloadTotal = 0;
+
+    function loadTraceMark(name, meta, once) {
+        var trace = window.YUMANIWA_LOAD_TRACE;
+        if (!trace || !trace.enabled) return;
+        if (once && typeof trace.markOnce === 'function') {
+            trace.markOnce(name, meta);
+            return;
+        }
+        if (typeof trace.mark === 'function') trace.mark(name, meta);
+    }
+
+    function loadTraceImageStart(kind, src) {
+        var trace = window.YUMANIWA_LOAD_TRACE;
+        if (trace && trace.enabled && typeof trace.imageStart === 'function') {
+            trace.imageStart(kind, src);
+        }
+    }
+
+    function loadTraceImageDone(kind, src, status) {
+        var trace = window.YUMANIWA_LOAD_TRACE;
+        if (trace && trace.enabled && typeof trace.imageDone === 'function') {
+            trace.imageDone(kind, src, status);
+        }
+    }
+
+    function settleStationPreloadSource(src, status) {
+        var state = stationPreloadSources[src];
+        if (!state || state.done) return;
+
+        state.done = true;
+        state.status = status;
+        stationPreloadPending = Math.max(0, stationPreloadPending - 1);
+
+        if (stationPreloadPending === 0) {
+            loadTraceMark('station_props_ready', {
+                count: stationPreloadTotal
+            }, true);
+        }
+    }
+
     var stationPlazaProps = Array.isArray(window.stationPlazaProps)
         ? window.stationPlazaProps
         : [];
 
     function cloneData(data) {
         return JSON.parse(JSON.stringify(data || []));
+    }
+
+    function resolveWorldObjectDef(prop) {
+        if (!prop || !prop.objectId) return null;
+
+        var library = window.YUMANIWA_WORLD_OBJECTS;
+        if (!library) return null;
+
+        return typeof library.get === 'function'
+            ? library.get(prop.objectId)
+            : (library.objects && library.objects[prop.objectId]) || null;
+    }
+
+    function resolvePropSrc(prop) {
+        if (!prop) return '';
+
+        var objectDef = resolveWorldObjectDef(prop);
+
+        if (objectDef && objectDef.src) {
+            return objectDef.src;
+        }
+
+        return prop.src || '';
     }
 
     function openStationTile16x8(rects) {
@@ -97,13 +163,54 @@
         };
 
         propImageCache[src] = entry;
+        loadTraceImageStart('station_prop', src);
+
+        var baseOnload = image.onload;
+        var baseOnerror = image.onerror;
+
+        image.onload = function() {
+            baseOnload();
+            loadTraceImageDone('station_prop', src, 'loaded');
+            settleStationPreloadSource(src, 'loaded');
+        };
+
+        image.onerror = function() {
+            baseOnerror();
+            loadTraceImageDone('station_prop', src, 'error');
+            settleStationPreloadSource(src, 'error');
+        };
+
         image.src = src;
         return entry;
     }
 
     function preloadStationProps() {
+        stationPreloadSources = {};
+        stationPreloadPending = 0;
+        stationPreloadTotal = 0;
+
         for (var i = 0; i < stationPlazaProps.length; i++) {
-            getPropImage(stationPlazaProps[i].src);
+            var source = resolvePropSrc(stationPlazaProps[i]);
+            if (!source || stationPreloadSources[source]) continue;
+            stationPreloadSources[source] = { done: false, status: 'pending' };
+            stationPreloadPending += 1;
+            stationPreloadTotal += 1;
+        }
+
+        loadTraceMark('station_props_preload_start', {
+            count: stationPreloadTotal
+        }, true);
+
+        if (stationPreloadPending === 0) {
+            loadTraceMark('station_props_ready', { count: 0 }, true);
+            return;
+        }
+
+        for (var p = 0; p < stationPlazaProps.length; p++) {
+            var src = resolvePropSrc(stationPlazaProps[p]);
+            var entry = getPropImage(src);
+            if (entry && entry.loaded) settleStationPreloadSource(src, 'cached');
+            if (entry && entry.error) settleStationPreloadSource(src, 'error');
         }
     }
 
@@ -120,10 +227,28 @@
     function drawTownProp(prop) {
         if (!prop || prop.enabled === false) return;
 
-        var entry = getPropImage(prop.src);
+        var resolvedSrc = resolvePropSrc(prop);
+        var entry = getPropImage(resolvedSrc);
+
+        // WORLD OBJECT の新規画像がまだ配信されていない / 読み込みに失敗した場合は、
+        // インスタンスが保持している旧 src を安全なフォールバックとして描画する。
+        // 新規アセットの GitHub Pages 反映待ちでも町から物体を消さない。
+        if (
+            prop.objectId &&
+            prop.src &&
+            resolvedSrc !== prop.src &&
+            entry &&
+            entry.error
+        ) {
+            loadTraceMark('prop_fallback_requested', {
+                id: prop.id || '',
+                src: prop.src
+            });
+            entry = getPropImage(prop.src);
+        }
 
         if (!entry || !entry.loaded || !entry.image) {
-            return;
+            return false;
         }
 
         var tileSize = window.TILE_SIZE || 16;
@@ -136,12 +261,14 @@
         window.ctx.imageSmoothingEnabled = false;
         window.ctx.drawImage(entry.image, dx, dy, dw, dh);
         window.ctx.restore();
+        return true;
     }
 
     function drawTownActorsAndProps() {
         var props = getActiveProps();
         var tileSize = window.TILE_SIZE || 16;
         var drawItems = [];
+        var drawnPropCount = 0;
 
         for (var i = 0; i < props.length; i++) {
             var prop = props[i];
@@ -180,10 +307,21 @@
             var item = drawItems[d];
 
             if (item.kind === 'prop') {
-                drawTownProp(item.prop);
+                if (drawTownProp(item.prop)) drawnPropCount += 1;
             } else {
                 window.drawPlayerSprite(window.player.x, window.player.y);
             }
+        }
+
+        loadTraceMark('first_town_draw', {
+            propCount: props.length,
+            drawnPropCount: drawnPropCount
+        }, true);
+
+        if (drawnPropCount > 0) {
+            loadTraceMark('first_town_draw_with_props', {
+                drawnPropCount: drawnPropCount
+            }, true);
         }
     }
 
@@ -285,6 +423,7 @@
     window.YUMANIWA_STATION_PLAZA_PROPS = {
         version: PROP_REV,
         props: stationPlazaProps,
-        imageCache: propImageCache
+        imageCache: propImageCache,
+        resolvePropSrc: resolvePropSrc
     };
 })();

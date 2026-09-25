@@ -1,5 +1,6 @@
 // Canonical ORBIT sound configuration.
-// Sound Lab can replace this file together with approved audio files.
+// This file is the runtime source of truth for ORBIT Sound Lab and the game.
+// Cues omitted here intentionally fall back to procedural Web Audio.
 window.ORBIT_SOUND_CONFIG = Object.freeze({
   takeoff: Object.freeze({ file: "sounds/takeoff.ogg", volume: 0.14, cooldown: 120 }),
   landing: Object.freeze({ file: "sounds/landing.ogg", volume: 0.14, cooldown: 120 }),
@@ -11,8 +12,15 @@ window.ORBIT_SOUND_CONFIG = Object.freeze({
   restore: Object.freeze({ file: "sounds/restore.ogg", volume: 0.15, cooldown: 500 }),
   boot: Object.freeze({ file: "sounds/boot.ogg", volume: 0.12, cooldown: 400 }),
   eve_online: Object.freeze({ file: "sounds/eve_online.ogg", volume: 0.12, cooldown: 180 }),
-  terminal_open: Object.freeze({ file: "sounds/terminal.ogg", volume: 0.12, cooldown: 160 }),
-  scan: Object.freeze({ file: "sounds/scan.ogg", volume: 0.12, cooldown: 250 }),
+  terminal_open: Object.freeze({ file: "sounds/terminal_open.ogg", volume: 0.12, cooldown: 160 }),
+  scan: Object.freeze({ file: "sounds/scan.wav", volume: 0.12, cooldown: 250 }),
   rescue: Object.freeze({ file: "sounds/rescue.ogg", volume: 0.12, cooldown: 900 }),
-  rebirth: Object.freeze({ file: "sounds/rebirth.ogg", volume: 0.12, cooldown: 900 }),
+  rebirth: Object.freeze({ file: "sounds/rebirth.wav", volume: 0.12, cooldown: 900 }),
+  diagnostic: Object.freeze({ file: "sounds/diagnostic.wav", volume: 0.10, cooldown: 80 }),
+  restore_link: Object.freeze({ file: "sounds/restore_link.ogg", volume: 0.12, cooldown: 500 }),
+  takeoff_power: Object.freeze({ file: "sounds/takeoff_power.ogg", volume: 0.12, cooldown: 120 }),
+  ambient_drone: Object.freeze({ file: "sounds/ambient_drone.wav", volume: 0.45, cooldown: 0 }),
 });
+
+// Intentionally procedural until a correct file is explicitly re-approved:
+// weak_signal, archive, terminal_boot

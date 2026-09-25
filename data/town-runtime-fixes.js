@@ -162,42 +162,6 @@
     }
   }
 
-  // 灯串横丁は staging で確定した既存パーツの位置・サイズを実行時に適用する。
-  // trigger.area は既存の広い範囲をそのまま使う。
-  function applyAlleyPropScale() {
-    var maps = window.TOWN_SCENE_MAPS;
-    var alley = maps && maps.tomogushi_alley_map;
-    if (!alley || !Array.isArray(alley.props)) return;
-
-    if (Array.isArray(alley.blockedRects)) {
-      alley.blockedRects = alley.blockedRects.filter(function (item) {
-        return !(item && item.x === 13 && item.y === 16 && item.w === 3 && item.h === 2);
-      });
-    }
-
-    for (var i = 0; i < alley.props.length; i++) {
-      var prop = alley.props[i];
-      if (!prop) continue;
-
-      if (prop.id === 'yakitori_yumado_shop') {
-        prop.x = 14.421723043422098;
-        prop.y = 3.218423019431988;
-        prop.w = 5;
-        prop.h = 5;
-        prop.footY = 8.218423019431988;
-        continue;
-      }
-
-      if (prop.id === 'common_temporary_storefront') {
-        prop.x = 12.9375;
-        prop.y = 14.625;
-        prop.w = 3.125;
-        prop.h = 4.375;
-        prop.footY = 19;
-      }
-    }
-  }
-
   // 駅前広場と湯窓レジャーセンターの間に、
   // 湯間庭レクリエーションロードを正式な移動エリアとして追加する。
   // 右側の枝道は将来拡張用。今は画面端まで歩けるだけにしておく。
@@ -367,7 +331,6 @@
 
   registerLeisureCenterEditorAssets();
   applyCommonSignAssets();
-  applyAlleyPropScale();
   applyRecreationRoad();
   applyCameraZoom();
   preserveExplicitTriggerAreas();

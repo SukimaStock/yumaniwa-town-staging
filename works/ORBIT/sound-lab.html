@@ -48,9 +48,15 @@
     dialog::backdrop{background:rgba(0,0,0,.7)}
     textarea{width:100%;height:48vh;background:#080b10;color:#d9e7ef;border:1px solid var(--line);border-radius:10px;padding:10px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
     .ok{color:var(--ok)}
+    .warn{color:#f0c879}
+    .duplicateSummary{display:none;margin-top:7px;padding:8px 10px;border:1px solid #6c5730;border-radius:9px;background:#211b10;color:#f0c879;font-size:12px;line-height:1.5}
+    .duplicateSummary.show{display:block}
+    .duplicateWarning{margin:8px 0 2px;padding:7px 9px;border:1px solid #6c5730;border-radius:8px;background:#211b10;color:#f0c879;font-size:11px;line-height:1.45}
+    .card.hasDuplicate{border-color:#6c5730}
     .approved{border-color:#3b7f67!important;color:var(--ok)!important;background:#10231d!important}
     .applyBtn{font-weight:700;border-color:#38647a;background:#142431}
     .bundleSteps{color:var(--muted);font-size:13px;line-height:1.7}
+    .bundleList{margin:10px 0 12px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);font:11px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
     @media(max-width:680px){.grid{grid-template-columns:1fr}.toolbar{top:0}.card{padding:12px}}
   </style>
 </head>
@@ -58,7 +64,9 @@
 <main>
   <header>
     <h1>ORBIT SOUND LAB</h1>
-    <div class="sub">ローカルの候補音を、GitHubへ移動する前にORBIT基準の音量で比較する。</div>
+    <div class="sub">A 現在はゲーム実装そのもの。B 候補は反映後の音として比較する。</div>
+    <div id="runtimeStatus" class="sub">ゲーム内の現在音設定を読み込み中…</div>
+    <div id="duplicateSummary" class="duplicateSummary"></div>
   </header>
 
   <section class="toolbar">
@@ -77,9 +85,9 @@
   </section>
 
   <div class="tabs">
-    <button data-phase="A" class="active">実音あり 14</button>
-    <button data-phase="B">仮音 / 未選択 7</button>
-    <button data-phase="ALL">すべて 21</button>
+    <button id="phaseAButton" data-phase="A" class="active">実音あり</button>
+    <button id="phaseBButton" data-phase="B">Procedural / 未選択</button>
+    <button id="phaseAllButton" data-phase="ALL">すべて</button>
   </div>
 
   <section id="grid" class="grid"></section>
@@ -88,6 +96,7 @@
 <dialog id="bundleDialog">
   <h2>ORBITへ反映</h2>
   <p id="bundleSummary"></p>
+  <div id="bundleList" class="bundleList"></div>
   <div class="bundleSteps">
     1. 下の「Working Copyへ共有」を押す<br>
     2. Share Sheetで Working Copy を選ぶ<br>
@@ -112,37 +121,95 @@
 </dialog>
 
 <script>
-(() => {
+(async () => {
   "use strict";
 
   const AUDIO_GAIN = 3.0;
-  const slots = [
-    {name:"takeoff", phase:"A", file:"sounds/takeoff.ogg", volume:.14, cooldown:120},
-    {name:"landing", phase:"A", file:"sounds/landing.ogg", volume:.14, cooldown:120},
-    {name:"ore", phase:"A", file:"sounds/ore.ogg", volume:.10, cooldown:100},
-    {name:"data", phase:"A", file:"sounds/data.ogg", volume:.11, cooldown:120},
-    {name:"fuel", phase:"A", file:"sounds/fuel.ogg", volume:.28, cooldown:140},
-    {name:"impact", phase:"A", file:"sounds/impact.ogg", volume:.16, cooldown:350},
-    {name:"echo", phase:"A", file:"sounds/echo.ogg", volume:.14, cooldown:300},
-    {name:"restore", phase:"A", file:"sounds/restore.ogg", volume:.15, cooldown:500},
-    {name:"boot", phase:"A", file:"sounds/boot.ogg", volume:.12, cooldown:400},
-    {name:"eve_online", phase:"A", file:"sounds/eve_online.ogg", volume:.12, cooldown:180},
-    {name:"terminal_open", phase:"A", file:"sounds/terminal.ogg", volume:.12, cooldown:160},
-    {name:"scan", phase:"A", file:"sounds/scan.ogg", volume:.12, cooldown:250},
-    {name:"rescue", phase:"A", file:"sounds/rescue.ogg", volume:.12, cooldown:900},
-    {name:"rebirth", phase:"A", file:"sounds/rebirth.ogg", volume:.12, cooldown:900},
+  const TONE_GAIN = 8.0;
+  const AMBIENT_GAIN_CAP = 1.35;
+  const SOUNDLAB_STATE_VERSION = 7;
+  const HOME_TERMINAL_BOOT_DURATION = Object.freeze([0, 1.20, 1.00, 0.80, 0.60, 0.35]);
 
-    {name:"diagnostic", phase:"B", file:null, volume:.10, cooldown:80},
-    {name:"weak_signal", phase:"B", file:null, volume:.10, cooldown:500},
-    {name:"archive", phase:"B", file:null, volume:.10, cooldown:400},
-    {name:"terminal_boot", phase:"B", file:null, volume:.12, cooldown:500},
-    {name:"restore_link", phase:"B", file:null, volume:.12, cooldown:500},
-    {name:"takeoff_power", phase:"B", file:null, volume:.12, cooldown:120},
-    {name:"ambient_drone", phase:"B", file:null, volume:.03, cooldown:0},
+  async function loadRuntimeSoundConfig(){
+    const response = await fetch("orbit-sound-config.js?t=" + Date.now(), {cache:"no-store"});
+    if (!response.ok) throw new Error("orbit-sound-config.js を読み込めません (HTTP " + response.status + ")");
+    const source = await response.text();
+    const sandbox = {};
+    const read = new Function("window", source + "\nreturn window.ORBIT_SOUND_CONFIG;");
+    const config = read(sandbox);
+    if (!config || typeof config !== "object") throw new Error("ORBIT_SOUND_CONFIG が不正です");
+    return config;
+  }
+
+  let RUNTIME_SOUND_CONFIG;
+  try {
+    RUNTIME_SOUND_CONFIG = await loadRuntimeSoundConfig();
+  } catch (error) {
+    document.getElementById("fileStatus").textContent = "Sound Labを開始できません: " + error.message;
+    document.getElementById("runtimeStatus").textContent = "現在音との同期に失敗";
+    throw error;
+  }
+
+  const SLOT_SPECS = [
+    {name:"takeoff", volume:.14, cooldown:120},
+    {name:"landing", volume:.14, cooldown:120},
+    {name:"ore", volume:.10, cooldown:100},
+    {name:"data", volume:.11, cooldown:120},
+    {name:"fuel", volume:.28, cooldown:140},
+    {name:"impact", volume:.16, cooldown:350},
+    {name:"echo", volume:.14, cooldown:300},
+    {name:"restore", volume:.15, cooldown:500},
+    {name:"boot", volume:.12, cooldown:400},
+    {name:"eve_online", volume:.12, cooldown:180},
+    {name:"terminal_open", volume:.12, cooldown:160},
+    {name:"scan", volume:.12, cooldown:250},
+    {name:"rescue", volume:.12, cooldown:900},
+    {name:"rebirth", volume:.12, cooldown:900},
+    {name:"diagnostic", volume:.10, cooldown:80},
+    {name:"weak_signal", volume:.10, cooldown:500},
+    {name:"archive", volume:.10, cooldown:400},
+    {name:"terminal_boot", volume:.12, cooldown:500},
+    {name:"restore_link", volume:.12, cooldown:500},
+    {name:"takeoff_power", volume:.12, cooldown:120},
+    {name:"ambient_drone", volume:.45, cooldown:0},
   ];
+
+  const slots = SLOT_SPECS.map(spec => {
+    const current = RUNTIME_SOUND_CONFIG[spec.name];
+    const file = current && current.file ? String(current.file) : null;
+    return {
+      ...spec,
+      phase:file ? "A" : "B",
+      file,
+      volume:Number.isFinite(Number(current?.volume)) ? Number(current.volume) : spec.volume,
+      cooldown:Number.isFinite(Number(current?.cooldown)) ? Number(current.cooldown) : spec.cooldown,
+    };
+  });
+
+  const PROCEDURAL_CURRENT = Object.freeze({
+    weak_signal: Object.freeze([
+      {frequency:245,endFrequency:232,duration:.075,volume:.024,type:"sine",delay:0},
+      {frequency:338,endFrequency:322,duration:.060,volume:.018,type:"sine",delay:.18},
+      {frequency:265,endFrequency:252,duration:.050,volume:.014,type:"sine",delay:.34},
+    ]),
+    archive: Object.freeze([
+      {frequency:178,endFrequency:225,duration:.16,volume:.028,type:"triangle",delay:0},
+      {frequency:610,endFrequency:520,duration:.10,volume:.016,type:"sine",delay:.11},
+    ]),
+    terminal_boot: Object.freeze([
+      {frequency:72,endFrequency:142,duration:.58,volume:.052,type:"sine",delay:0},
+      {frequency:138,endFrequency:122,duration:.15,volume:.018,type:"triangle",delay:.34},
+    ]),
+  });
 
   const state = {
     ctx:null,
+    runtimeAuditOk:false,
+    runtimeHashes:new Map(),
+    pendingHashes:new Map(),
+    duplicateGroups:[],
+    duplicateByCue:new Map(),
+    duplicateAuditToken:0,
     candidates:[],
     decoded:new Map(),
     currentDecoded:new Map(),
@@ -160,6 +227,17 @@
     state.assignments = saved.assignments || {};
     state.volumes = saved.volumes || {};
     state.approved = saved.approved || {};
+
+    // v2: ambient_drone became an adopted runtime sound with dedicated headroom.
+    // Keep all other user choices, but move the old ambient working value to
+    // the current accepted 0.45 once.
+    if (Number(saved.stateVersion || 0) < 3) {
+      state.volumes.ambient_drone = 0.45;
+      // ambient_drone became an adopted runtime sound in v3. Keep any
+      // candidate assignment for A/B comparison, but require one fresh
+      // explicit pending selection before a future candidate can overwrite it.
+      delete state.approved.ambient_drone;
+    }
 
     // Migrate the old semantic name used before terminal boot/open were split.
     if (state.assignments.terminal && !state.assignments.terminal_open) {
@@ -183,10 +261,138 @@
   const exportText = document.getElementById("exportText");
   const bundleDialog = document.getElementById("bundleDialog");
   const bundleSummary = document.getElementById("bundleSummary");
+  const bundleList = document.getElementById("bundleList");
   const applyBtn = document.getElementById("applyBtn");
+  const runtimeStatus = document.getElementById("runtimeStatus");
+  const duplicateSummary = document.getElementById("duplicateSummary");
+  const phaseAButton = document.getElementById("phaseAButton");
+  const phaseBButton = document.getElementById("phaseBButton");
+  const phaseAllButton = document.getElementById("phaseAllButton");
+
+  async function sha256Bytes(bytes){
+    if (!window.crypto || !window.crypto.subtle) return null;
+    const digest = await window.crypto.subtle.digest("SHA-256", bytes);
+    return Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  async function hashFileObject(file){
+    return sha256Bytes(await file.arrayBuffer());
+  }
+
+  async function fetchRuntimeHash(slot){
+    if (!slot.file) return null;
+    const response = await fetch(slot.file + "?soundlab-hash=" + Date.now(), {cache:"no-store"});
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    return sha256Bytes(await response.arrayBuffer());
+  }
+
+  async function verifyRuntimeFiles(){
+    const realSlots = slots.filter(slot => !!slot.file);
+    const failures = [];
+    state.runtimeHashes.clear();
+
+    await Promise.all(realSlots.map(async slot => {
+      try {
+        const hash = await fetchRuntimeHash(slot);
+        if (hash) state.runtimeHashes.set(slot.name, hash);
+      } catch (error) {
+        failures.push(slot.name + " → " + slot.file + " (" + error.message + ")");
+      }
+    }));
+
+    state.runtimeAuditOk = failures.length === 0;
+    return failures;
+  }
+
+  function rebuildDuplicateGroups(){
+    const effective = [];
+    slots.forEach(slot => {
+      const pendingHash = state.pendingHashes.get(slot.name) || null;
+      const currentHash = state.runtimeHashes.get(slot.name) || null;
+      const hash = pendingHash || currentHash;
+      if (!hash) return;
+      effective.push({
+        cue:slot.name,
+        hash,
+        source:pendingHash ? "pending" : "current"
+      });
+    });
+
+    const byHash = new Map();
+    effective.forEach(item => {
+      if (!byHash.has(item.hash)) byHash.set(item.hash, []);
+      byHash.get(item.hash).push(item);
+    });
+
+    state.duplicateGroups = Array.from(byHash.values())
+      .filter(group => group.length >= 2)
+      .map(group => group.sort((a,b) => a.cue.localeCompare(b.cue)));
+
+    state.duplicateByCue = new Map();
+    state.duplicateGroups.forEach(group => {
+      group.forEach(item => {
+        state.duplicateByCue.set(item.cue, group.filter(other => other.cue !== item.cue));
+      });
+    });
+  }
+
+  function renderDuplicateSummary(){
+    if (!state.duplicateGroups.length) {
+      duplicateSummary.classList.remove("show");
+      duplicateSummary.textContent = "";
+      return;
+    }
+    const lines = state.duplicateGroups.map(group =>
+      "⚠ 同じ音を複数Cueで使用: " + group.map(item =>
+        item.cue.toUpperCase() + (item.source === "pending" ? "［反映待ち］" : "［現在］")
+      ).join(" / ")
+    );
+    duplicateSummary.textContent = lines.join("\n");
+    duplicateSummary.classList.add("show");
+  }
+
+  async function refreshPendingHashes(){
+    const token = ++state.duplicateAuditToken;
+    const next = new Map();
+
+    await Promise.all(approvedEntries().map(async ([name, path]) => {
+      const file = candidateByPath(path);
+      if (!file) return;
+      try {
+        const hash = await hashFileObject(file);
+        if (hash) next.set(name, hash);
+      } catch (_) {}
+    }));
+
+    if (token !== state.duplicateAuditToken) return;
+    state.pendingHashes = next;
+    rebuildDuplicateGroups();
+    renderDuplicateSummary();
+    render();
+  }
+
+  async function refreshRuntimeSummary(){
+    const real = slots.filter(slot => !!slot.file).length;
+    const procedural = slots.length - real;
+    phaseAButton.textContent = "実音あり " + real;
+    phaseBButton.textContent = "Procedural / 未選択 " + procedural;
+    phaseAllButton.textContent = "すべて " + slots.length;
+
+    runtimeStatus.textContent = "ゲーム内現在ファイルを検証中…";
+    const failures = await verifyRuntimeFiles();
+    if (failures.length) {
+      runtimeStatus.textContent = "同期NG: " + failures.join(" / ");
+    } else {
+      runtimeStatus.textContent = "ゲーム内現在値と検証済み同期: 実音 " + real + " / Procedural " + procedural + " / 全 " + slots.length;
+    }
+    rebuildDuplicateGroups();
+    renderDuplicateSummary();
+    refreshApplyButton();
+  }
 
   function save(){
     localStorage.setItem("orbit.soundlab.settings", JSON.stringify({
+      stateVersion:SOUNDLAB_STATE_VERSION,
       assignments:state.assignments,
       volumes:state.volumes,
       approved:state.approved
@@ -235,14 +441,27 @@
     return state.candidates.filter(file => fileDir(file) === state.folderFilter);
   }
 
+  function approvedEntries(){
+    return Object.entries(state.approved).filter(([, path]) => !!path);
+  }
+
   function approvedCount(){
-    return Object.keys(state.approved).filter(name => state.approved[name]).length;
+    return approvedEntries().length;
+  }
+
+  function approvedReadyCount(){
+    return approvedEntries().filter(([, path]) => !!candidateByPath(path)).length;
   }
 
   function refreshApplyButton(){
-    const count = approvedCount();
-    applyBtn.textContent = "ORBITへ反映 (" + count + ")";
-    applyBtn.classList.toggle("approved", count > 0);
+    const total = approvedCount();
+    const ready = approvedReadyCount();
+    applyBtn.textContent = total > 0
+      ? "ORBITへ反映 (" + ready + " / " + total + ")"
+      : "ORBITへ反映 (0)";
+    const canApply = state.runtimeAuditOk && total > 0 && ready === total;
+    applyBtn.classList.toggle("approved", canApply);
+    applyBtn.disabled = !state.runtimeAuditOk;
   }
 
   function candidateByPath(path){
@@ -250,11 +469,14 @@
   }
 
   function markAssignmentChanged(slot, path){
+    let pendingChanged = false;
     if (state.approved[slot.name] && state.approved[slot.name] !== path) {
       delete state.approved[slot.name];
+      pendingChanged = true;
     }
     state.preparedZip = null;
     refreshApplyButton();
+    if (pendingChanged) refreshPendingHashes();
   }
 
   async function decodeFile(file){
@@ -278,14 +500,18 @@
     return buffer;
   }
 
-  async function playBuffer(buffer, volume){
+  function gainCapFor(slot){
+    return slot && slot.name === "ambient_drone" ? AMBIENT_GAIN_CAP : 1;
+  }
+
+  async function playBuffer(buffer, volume, gainCap = 1){
     const ctx = await audioContext();
     const source = ctx.createBufferSource();
     const gain = ctx.createGain();
     source.buffer = buffer;
     const start = ctx.currentTime + .002;
     const duration = Math.max(.01, buffer.duration);
-    const level = Math.max(.0001, Math.min(1, Number(volume) * AUDIO_GAIN));
+    const level = Math.max(.0001, Math.min(gainCap, Number(volume) * AUDIO_GAIN));
     const attack = Math.min(.008, duration * .08);
     const release = Math.min(.018, duration * .12);
     const releaseAt = Math.max(start + attack, start + duration - release);
@@ -319,9 +545,9 @@
     });
   }
 
-  async function playBufferAndWait(buffer, volume, token){
+  async function playBufferAndWait(buffer, volume, token, gainCap = 1){
     if (state.audition.token !== token) return false;
-    const source = await playBuffer(buffer, volume);
+    const source = await playBuffer(buffer, volume, gainCap);
     state.audition.source = source;
     return new Promise(resolve => {
       let done = false;
@@ -370,7 +596,7 @@
         fileStatus.textContent = "連続試聴 " + slot.name.toUpperCase() + "  " + (i + 1) + " / " + list.length + "  —  " + filePath(list[i]);
         const buffer = await decodeFile(list[i]);
         if (state.audition.token !== token) return;
-        const completed = await playBufferAndWait(buffer, getVolume(slot), token);
+        const completed = await playBufferAndWait(buffer, getVolume(slot), token, gainCapFor(slot));
         if (!completed || state.audition.token !== token) return;
         const keepGoing = await wait(220, token);
         if (!keepGoing) return;
@@ -392,8 +618,12 @@
     }
   }
 
+  function currentVolume(slot){
+    return Number(slot.volume);
+  }
+
   function getVolume(slot){
-    return Number(state.volumes[slot.name] ?? slot.volume);
+    return Number(state.volumes[slot.name] ?? currentVolume(slot));
   }
 
   function assignedIndex(slot){
@@ -426,26 +656,85 @@
     try {
       fileStatus.textContent = "デコード中: " + filePath(list[idx]);
       const buffer = await decodeFile(list[idx]);
-      await playBuffer(buffer, getVolume(slot));
+      await playBuffer(buffer, getVolume(slot), gainCapFor(slot));
       fileStatus.textContent = "再生: " + slot.name + " ← " + filePath(list[idx]);
     } catch (e) {
       fileStatus.textContent = "候補音を再生できません: " + e.message;
     }
   }
 
-  async function playCurrent(slot){
-    stopAudition("連続試聴を停止しました。");
-    if (!slot.file) {
-      fileStatus.textContent = slot.name === "ambient_drone"
-        ? "AMBIENT_DRONE は未設定です。候補音を選んで試聴してください。"
-        : slot.name + " は現在 procedural tone のため、Sound Labでは候補音のみ比較します。";
+  function scheduleCurrentTone(ctx, tone){
+    const duration = Math.max(.01, Number(tone.duration) || .08);
+    const start = ctx.currentTime + Math.max(0, Number(tone.delay) || 0);
+    const oscillator = ctx.createOscillator();
+    const gain = ctx.createGain();
+    oscillator.type = tone.type || "triangle";
+    oscillator.frequency.setValueAtTime(Math.max(20, Number(tone.frequency) || 440), start);
+    if (tone.endFrequency !== undefined) {
+      oscillator.frequency.exponentialRampToValueAtTime(
+        Math.max(20, Number(tone.endFrequency) || 440),
+        start + duration
+      );
+    }
+    const level = Math.max(.0001, Math.min(1, Number(tone.volume ?? .06) * TONE_GAIN));
+    const attack = Math.min(.015, duration * .28);
+    gain.gain.setValueAtTime(.0001, start);
+    gain.gain.linearRampToValueAtTime(level, start + attack);
+    gain.gain.exponentialRampToValueAtTime(.0001, start + duration);
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+    oscillator.start(start);
+    oscillator.stop(start + duration + .01);
+  }
+
+  async function playProceduralCurrent(slot, options = {}){
+    const ctx = await audioContext();
+
+    if (slot.name === "terminal_boot") {
+      const lv = Math.max(1, Math.min(5, Math.floor(Number(options.level || 3))));
+      const total = HOME_TERMINAL_BOOT_DURATION[lv];
+      const humDuration = Math.max(.18, Math.min(.82, total * (lv >= 4 ? .58 : .72)));
+      scheduleCurrentTone(ctx, {
+        frequency:58 + lv * 7,
+        endFrequency:104 + lv * 16,
+        duration:humDuration,
+        volume:lv <= 2 ? .062 : .048,
+        type:"sine",
+        delay:0
+      });
+      if (lv <= 2) {
+        scheduleCurrentTone(ctx, {
+          frequency:132,
+          endFrequency:118,
+          duration:Math.min(.16, total * .18),
+          volume:.020,
+          type:"triangle",
+          delay:Math.min(total * .38, .52)
+        });
+      }
       return;
     }
+
+    const tones = PROCEDURAL_CURRENT[slot.name];
+    if (!tones) throw new Error(slot.name + " のprocedural定義がSound Labにありません");
+    tones.forEach(tone => scheduleCurrentTone(ctx, tone));
+  }
+
+  async function playCurrent(slot, options = {}){
+    stopAudition("連続試聴を停止しました。");
     try {
-      fileStatus.textContent = "現在音を読み込み中: " + slot.name;
+      if (!slot.file) {
+        await playProceduralCurrent(slot, options);
+        fileStatus.textContent = "ゲーム内現在音を再生: " + slot.name +
+          " (procedural Web Audio" +
+          (slot.name === "terminal_boot" ? " / Lv" + String(options.level || 3) : "") +
+          ")";
+        return;
+      }
+      fileStatus.textContent = "ゲーム内現在音を読み込み中: " + slot.name;
       const buffer = await decodeCurrent(slot);
-      await playBuffer(buffer, getVolume(slot));
-      fileStatus.textContent = "現在音を再生: " + slot.file;
+      await playBuffer(buffer, currentVolume(slot), gainCapFor(slot));
+      fileStatus.textContent = "ゲーム内現在音を再生: " + slot.file + " / volume " + currentVolume(slot).toFixed(2);
     } catch (e) {
       fileStatus.textContent = "現在音を再生できません: " + e.message;
     }
@@ -484,14 +773,29 @@
       const idx = assignedIndex(slot);
       const assigned = idx >= 0 && list[idx] ? filePath(list[idx]) : (state.assignments[slot.name] || "未選択");
       const vol = getVolume(slot);
-      const effective = Math.min(1, vol * AUDIO_GAIN);
+      const currentVol = currentVolume(slot);
+      const gainCap = gainCapFor(slot);
+      const effective = Math.min(gainCap, vol * AUDIO_GAIN);
+      const currentEffective = slot.file ? Math.min(gainCap, currentVol * AUDIO_GAIN) : null;
+
+      const duplicates = state.duplicateByCue.get(slot.name) || [];
+      if (duplicates.length) card.classList.add("hasDuplicate");
 
       card.innerHTML =
         '<div class="head"><h2>' + slot.name.toUpperCase() + '</h2><span class="tag">' +
         (slot.phase === "A" ? "REAL AUDIO" : "PLACEHOLDER") +
         '</span></div>' +
-        '<div class="current">現在: ' + (slot.file || (slot.name === "ambient_drone" ? "未設定（採用後に飛行中ランダム再生）" : "procedural tone")) + '</div>' +
-        '<div class="candidateName">' + assigned + '</div>';
+        '<div class="current">ゲーム内現在: ' +
+        (slot.file
+          ? slot.file + ' / volume ' + currentVol.toFixed(2) + ' / 実効 ' + currentEffective.toFixed(2)
+          : 'procedural Web Audio') +
+        '</div>' +
+        '<div class="candidateName">B 候補: ' + assigned + '</div>' +
+        (duplicates.length
+          ? '<div class="duplicateWarning">⚠ 同じ音を使用: ' +
+            duplicates.map(item => item.cue.toUpperCase() + (item.source === "pending" ? "［反映待ち］" : "［現在］")).join(" / ") +
+            '</div>'
+          : '');
 
       const select = document.createElement("select");
       select.innerHTML = '<option value="-1">候補を選択</option>' +
@@ -532,8 +836,20 @@
       const ab = document.createElement("div");
       ab.className = "row";
       const currentBtn = document.createElement("button");
-      currentBtn.textContent = slot.file ? "A 現在" : "A procedural";
-      currentBtn.addEventListener("click", () => playCurrent(slot));
+      currentBtn.textContent = slot.file ? "A ゲーム内現在" : "A ゲーム内現在 (procedural)";
+      let terminalBootLevel = 3;
+      if (!slot.file && slot.name === "terminal_boot") {
+        const levelSelect = document.createElement("select");
+        levelSelect.innerHTML = [1,2,3,4,5].map(level =>
+          '<option value="' + level + '"' + (level === 3 ? ' selected' : '') + '>A 現在 Lv' + level + '</option>'
+        ).join("");
+        levelSelect.addEventListener("change", () => {
+          terminalBootLevel = Number(levelSelect.value);
+        });
+        ab.append(levelSelect);
+      }
+
+      currentBtn.addEventListener("click", () => playCurrent(slot, {level:terminalBootLevel}));
       const candidateBtn = document.createElement("button");
       candidateBtn.textContent = "B 候補";
       candidateBtn.addEventListener("click", () => playCandidate(slot));
@@ -544,7 +860,7 @@
       const approveBtn = document.createElement("button");
       const selectedPath = idx >= 0 && list[idx] ? filePath(list[idx]) : null;
       const approvedThis = !!selectedPath && state.approved[slot.name] === selectedPath;
-      approveBtn.textContent = approvedThis ? "採用済 ✓" : "この音を採用";
+      approveBtn.textContent = approvedThis ? "反映待ち ✓" : "この音を反映待ちへ";
       approveBtn.classList.toggle("approved", approvedThis);
       approveBtn.disabled = !selectedPath;
       approveBtn.addEventListener("click", () => {
@@ -552,15 +868,16 @@
         if (!selectedPath) return;
         if (state.approved[slot.name] === selectedPath) {
           delete state.approved[slot.name];
-          fileStatus.textContent = slot.name.toUpperCase() + " の採用を解除しました。";
+          fileStatus.textContent = slot.name.toUpperCase() + " の反映待ちを解除しました。";
         } else {
           state.approved[slot.name] = selectedPath;
-          fileStatus.textContent = slot.name.toUpperCase() + " に " + selectedPath + " を採用しました。";
+          fileStatus.textContent = slot.name.toUpperCase() + " を反映待ちにしました: " + selectedPath;
         }
         state.preparedZip = null;
         save();
         refreshApplyButton();
         render();
+        refreshPendingHashes();
       });
       approveRow.append(approveBtn);
 
@@ -568,14 +885,14 @@
       volume.className = "volume";
       const top = document.createElement("div");
       top.className = "volumeTop";
-      top.innerHTML = '<span>volume <b>' + vol.toFixed(2) + '</b></span><span class="effective">実効 ' + effective.toFixed(2) + ' (×3)</span>';
+      top.innerHTML = '<span>B 反映後 volume <b>' + vol.toFixed(2) + '</b></span><span class="effective">実効 ' + effective.toFixed(2) + ' (×3)</span>';
       const range = document.createElement("input");
-      range.type = "range"; range.min = "0.01"; range.max = "0.40"; range.step = "0.01"; range.value = String(vol);
+      range.type = "range"; range.min = "0.01"; range.max = slot.name === "ambient_drone" ? "0.60" : "0.40"; range.step = "0.01"; range.value = String(vol);
       range.addEventListener("input", () => {
         state.volumes[slot.name] = Number(range.value);
         state.preparedZip = null;
         save();
-        top.innerHTML = '<span>volume <b>' + Number(range.value).toFixed(2) + '</b></span><span class="effective">実効 ' + Math.min(1, Number(range.value)*AUDIO_GAIN).toFixed(2) + ' (×3)</span>';
+        top.innerHTML = '<span>B 反映後 volume <b>' + Number(range.value).toFixed(2) + '</b></span><span class="effective">実効 ' + Math.min(gainCapFor(slot), Number(range.value)*AUDIO_GAIN).toFixed(2) + ' (×3)</span>';
       });
 
       volume.append(top, range);
@@ -618,6 +935,7 @@
     }
     renderLibrary();
     render();
+    refreshPendingHashes();
   }
 
   fileInput.addEventListener("change", () => {
@@ -648,14 +966,14 @@
     stopAudition("連続試聴を停止しました。");
     state.candidates = [];
     state.folderFilter = "ALL";
-    state.approved = {};
     state.preparedZip = null;
     save();
     refreshApplyButton();
     refreshFolderFilter();
+    refreshPendingHashes();
     renderLibrary();
     render();
-    fileStatus.textContent = "候補音をクリアしました。採用メモと音量設定は残しています。";
+    fileStatus.textContent = "候補音だけクリアしました。反映待ちと音量設定は保持しています。ZIP作成前に元フォルダを再読み込みしてください。";
   });
 
   document.getElementById("libraryBtn").addEventListener("click", () => {
@@ -692,11 +1010,11 @@
       "window.ORBIT_SOUND_CONFIG = Object.freeze({"
     ];
     slots.forEach(slot => {
-      if (slot.phase === "B" && !state.approved[slot.name]) return;
       const approvedPath=state.approved[slot.name] || null;
+      if (!slot.file && !approvedPath) return;
       const ext=approvedPath ? fileExtension(approvedPath) : fileExtension(slot.file);
       const file=approvedPath ? "sounds/" + slot.name + ext : slot.file;
-      const volume = getVolume(slot);
+      const volume = approvedPath ? getVolume(slot) : currentVolume(slot);
       const cooldown = Number(slot.cooldown || 0);
       lines.push(
         "  " + JSON.stringify(slot.name) + ": Object.freeze({ file: " +
@@ -814,49 +1132,142 @@
   }
 
   async function prepareOrbitBundle(){
-    const approved = Object.entries(state.approved).filter(([, path]) => !!path);
-    if (!approved.length) throw new Error("採用済みの音がありません。");
+    if (!state.runtimeAuditOk) throw new Error("ゲーム内現在ファイルの検証が通っていないためZIPを作成できません。");
+    const approved = approvedEntries();
+    if (!approved.length) throw new Error("反映待ちの音がありません。");
 
-    const entries = [];
+    const knownSlots = new Map(slots.map(slot => [slot.name, slot]));
     const missing = [];
-    for (const [name, path] of approved) {
-      const file = candidateByPath(path);
+    const plan = [];
+
+    for (const [name, sourcePath] of approved) {
+      const slot = knownSlots.get(name);
+      if (!slot) throw new Error("不明な反映待ちスロットがあります: " + name);
+
+      const file = candidateByPath(sourcePath);
       if (!file) {
-        missing.push(path);
+        missing.push(name + " ← " + sourcePath);
         continue;
       }
-      const ext=fileExtension(path);
-      entries.push({
-        name: "works/ORBIT/sounds/" + name + ext,
-        data: new Uint8Array(await file.arrayBuffer())
+
+      const ext = fileExtension(sourcePath);
+      const targetPath = "works/ORBIT/sounds/" + name + ext;
+      plan.push({
+        name,
+        sourcePath,
+        targetPath,
+        volume:getVolume(slot),
+        cooldown:Number(slot.cooldown || 0),
+        file
       });
     }
+
     if (missing.length) {
-      throw new Error("採用音の元ファイルが見つかりません。親フォルダを再読み込みしてください: " + missing.join(", "));
+      throw new Error(
+        "反映待ち " + approved.length + "件のうち " + missing.length +
+        "件の元ファイルがありません。ZIPは作成しません。親フォルダを再読み込みしてください: " +
+        missing.join(" / ")
+      );
     }
 
-    entries.push({
-      name:"works/ORBIT/orbit-sound-config.js",
-      data:new TextEncoder().encode(soundConfigText())
-    });
+    const targets = new Set();
+    for (const item of plan) {
+      if (targets.has(item.targetPath)) {
+        throw new Error("ZIP内の保存先が重複しています: " + item.targetPath);
+      }
+      targets.add(item.targetPath);
+    }
+
+    const audioEntries = [];
+    for (const item of plan) {
+      const bytes = new Uint8Array(await item.file.arrayBuffer());
+      if (!bytes.length) throw new Error("空の音声ファイルは反映できません: " + item.sourcePath);
+      audioEntries.push({name:item.targetPath, data:bytes});
+    }
+
+    // Hard guarantee: every item marked pending must have exactly one audio
+    // entry in the ZIP. If not, abort instead of producing a partial package.
+    if (audioEntries.length !== approved.length) {
+      throw new Error(
+        "反映待ち件数とZIP音声件数が一致しません (" +
+        approved.length + " / " + audioEntries.length + ")。ZIPは作成しません。"
+      );
+    }
+    for (const item of plan) {
+      if (!audioEntries.some(entry => entry.name === item.targetPath)) {
+        throw new Error("ZIPに入らない反映待ち音を検出しました: " + item.name);
+      }
+    }
+
+    const duplicateWarnings = state.duplicateGroups.map(group => ({
+      cues:group.map(item => item.cue),
+      sources:group.map(item => item.source)
+    }));
+
+    const manifest = {
+      schema:"orbit-sound-update/1",
+      generatedAt:new Date().toISOString(),
+      expectedSoundCount:approved.length,
+      actualSoundCount:audioEntries.length,
+      verified:true,
+      duplicateWarnings,
+      sounds:plan.map(item => ({
+        cue:item.name,
+        source:item.sourcePath,
+        target:item.targetPath,
+        volume:item.volume,
+        cooldown:item.cooldown
+      }))
+    };
+
+    const entries = [
+      ...audioEntries,
+      {
+        name:"works/ORBIT/orbit-sound-config.js",
+        data:new TextEncoder().encode(soundConfigText())
+      },
+      {
+        name:"works/ORBIT/sound-update-manifest.json",
+        data:new TextEncoder().encode(JSON.stringify(manifest, null, 2))
+      }
+    ];
 
     const blob = makeStoredZip(entries);
     state.preparedZip = new File([blob], "ORBIT-sound-update.zip", {type:"application/zip"});
-    return {file:state.preparedZip, soundCount:approved.length, entryCount:entries.length};
+    return {
+      file:state.preparedZip,
+      soundCount:approved.length,
+      entryCount:entries.length,
+      manifest,
+      targets:plan.map(item => item.targetPath)
+    };
   }
 
   function buildExport(){
     const out = {
       generatedAt:new Date().toISOString(),
       orbitAudioGain:AUDIO_GAIN,
+      ambientGainCap:AMBIENT_GAIN_CAP,
+      soundLabStateVersion:SOUNDLAB_STATE_VERSION,
       cues:{}
     };
     slots.forEach(slot => {
+      const pendingSource = state.approved[slot.name] || null;
+      const pendingTarget = pendingSource
+        ? "sounds/" + slot.name + fileExtension(pendingSource)
+        : null;
       out.cues[slot.name] = {
-        targetFile: slot.name + fileExtension(state.approved[slot.name] || slot.file),
+        currentMode: slot.file ? "file" : "procedural",
+        currentFile: slot.file,
+        currentVolume: slot.file ? currentVolume(slot) : null,
+        currentEffective: slot.file
+          ? Math.min(gainCapFor(slot), currentVolume(slot) * AUDIO_GAIN)
+          : null,
         candidate: state.assignments[slot.name] || null,
-        volume: getVolume(slot),
-        currentFile: slot.file
+        pending: !!pendingSource,
+        pendingSource,
+        pendingTarget,
+        pendingVolume: pendingSource ? getVolume(slot) : null
       };
     });
     return JSON.stringify(out, null, 2);
@@ -867,11 +1278,17 @@
     try {
       fileStatus.textContent = "ORBIT反映用ZIPを作成中…";
       const prepared = await prepareOrbitBundle();
+      const duplicateNote = prepared.manifest.duplicateWarnings.length
+        ? '<br><span class="warn">⚠ 同一音の複数Cue使用があります。意図的か確認してください（反映は可能です）。</span>'
+        : '';
       bundleSummary.innerHTML =
-        '<span class="ok">' + prepared.soundCount + '個の採用音を自動リネームして準備しました。</span><br>' +
-        '音量設定も orbit-sound-config.js に含まれています。';
+        '<span class="ok">検証OK: 反映待ち ' + prepared.soundCount +
+        '件すべてをZIPへ格納しました。</span><br>' +
+        'orbit-sound-config.js と検証用 manifest も含まれます。' +
+        duplicateNote;
+      bundleList.textContent = prepared.targets.join("\n");
       bundleDialog.showModal();
-      fileStatus.textContent = "ORBIT反映用ZIPを準備しました。";
+      fileStatus.textContent = "ORBIT反映用ZIPを検証して準備しました。";
     } catch (e) {
       fileStatus.textContent = "反映準備できません: " + e.message;
     }
@@ -922,11 +1339,15 @@
   });
   document.getElementById("closeBtn").addEventListener("click", () => exportDialog.close());
 
+  await refreshRuntimeSummary();
+  await refreshPendingHashes();
   refreshFolderFilter();
   refreshApplyButton();
   renderLibrary();
   render();
-})();
+})().catch(error => {
+  console.error("ORBIT Sound Lab init failed", error);
+});
 </script>
 </body>
 </html>

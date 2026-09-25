@@ -12,6 +12,30 @@ var bgImage = new Image();
 var bgLoaded = false;
 var bgError = false;
 
+function townLoadTraceMark(name, meta, once) {
+    var trace = window.YUMANIWA_LOAD_TRACE;
+    if (!trace || !trace.enabled) return;
+    if (once && typeof trace.markOnce === 'function') {
+        trace.markOnce(name, meta);
+        return;
+    }
+    if (typeof trace.mark === 'function') trace.mark(name, meta);
+}
+
+function townLoadTraceImageStart(kind, src) {
+    var trace = window.YUMANIWA_LOAD_TRACE;
+    if (trace && trace.enabled && typeof trace.imageStart === 'function') {
+        trace.imageStart(kind, src);
+    }
+}
+
+function townLoadTraceImageDone(kind, src, status) {
+    var trace = window.YUMANIWA_LOAD_TRACE;
+    if (trace && trace.enabled && typeof trace.imageDone === 'function') {
+        trace.imageDone(kind, src, status);
+    }
+}
+
 // スプライト番号: 1=下, 2=左, 3=上, 4=右
 // 当たり判定は従来どおり player の 16×16 のまま使う。
 var PLAYER_SPRITE_PATHS = {
@@ -162,8 +186,125 @@ function updateCurrentGameViewSizeFromScreen() {
     currentGameViewH = nextH;
 }
 
-// 現在のモバイル表示に近い見え方を維持するため、カメラ倍率は固定。
+// 現在の見え方の基準倍率。
+// Pixel Snap 有効時は、最終的な物理画面上のドット境界を安定させるため、
+// この値の近傍だけ微調整することがある。
 var GAME_CAMERA_ZOOM = 2.5;
+
+// Yumaniwa Pixel Snap v0.1
+// Cleaner の「1 logical px = 1 world px」を、Town Engine の最終表示まで守る。
+// 1) 可能なら 1 world px が整数個の物理画面pixelになるよう zoom を微調整。
+// 2) camera origin を最終物理pixel gridへsnapし、歩行中のドット揺れを抑える。
+// 比較用: URL に ?pixelSnap=0 を付けると無効化できる。
+var YUMANIWA_PIXEL_SNAP_ENABLED = true;
+var YUMANIWA_PIXEL_SNAP_MAX_ZOOM_CORRECTION = 0.08;
+
+try {
+    var yumaniwaPixelSnapParam = new URLSearchParams(window.location.search).get('pixelSnap');
+    if (
+        yumaniwaPixelSnapParam === '0' ||
+        yumaniwaPixelSnapParam === 'off' ||
+        yumaniwaPixelSnapParam === 'false'
+    ) {
+        YUMANIWA_PIXEL_SNAP_ENABLED = false;
+    }
+} catch (e) {
+    // URLSearchParams が使えない環境でも通常描画は継続する。
+}
+
+function getTownPixelSnapSettings(baseZoom) {
+    var settings = {
+        enabled: false,
+        integerScaleApplied: false,
+        baseZoom: baseZoom,
+        zoom: baseZoom,
+        dpr: 1,
+        displayPhysicalWidth: 0,
+        physicalPixelsPerCanvasPx: 1,
+        physicalPixelsPerWorld: baseZoom,
+        zoomCorrection: 0
+    };
+
+    if (
+        !YUMANIWA_PIXEL_SNAP_ENABLED ||
+        !canvas ||
+        !canvas.width ||
+        !isFinite(baseZoom) ||
+        baseZoom <= 0
+    ) {
+        return settings;
+    }
+
+    var rect = canvas.getBoundingClientRect();
+
+    if (!rect || !rect.width) {
+        return settings;
+    }
+
+    var dpr = window.devicePixelRatio || 1;
+    if (!isFinite(dpr) || dpr <= 0) dpr = 1;
+
+    // CSS px -> physical px の最終表示倍率。
+    // width*dpr は実画面pixel数に寄せて整数化し、ブラウザの小数CSS幅で値が揺れにくくする。
+    var displayPhysicalWidth = Math.max(1, Math.round(rect.width * dpr));
+    var physicalPixelsPerCanvasPx = displayPhysicalWidth / canvas.width;
+    var rawPhysicalPixelsPerWorld = baseZoom * physicalPixelsPerCanvasPx;
+
+    settings.enabled = true;
+    settings.dpr = dpr;
+    settings.displayPhysicalWidth = displayPhysicalWidth;
+    settings.physicalPixelsPerCanvasPx = physicalPixelsPerCanvasPx;
+    settings.physicalPixelsPerWorld = rawPhysicalPixelsPerWorld;
+
+    if (!isFinite(rawPhysicalPixelsPerWorld) || rawPhysicalPixelsPerWorld <= 0) {
+        return settings;
+    }
+
+    // 現在の見た目から大きく変えない範囲だけ、整数 physical px / world px に寄せる。
+    var targetPhysicalPixelsPerWorld = Math.max(1, Math.round(rawPhysicalPixelsPerWorld));
+    var snappedZoom = targetPhysicalPixelsPerWorld / physicalPixelsPerCanvasPx;
+    var zoomCorrection = Math.abs((snappedZoom / baseZoom) - 1);
+
+    settings.zoomCorrection = zoomCorrection;
+
+    if (
+        isFinite(snappedZoom) &&
+        snappedZoom > 0 &&
+        zoomCorrection <= YUMANIWA_PIXEL_SNAP_MAX_ZOOM_CORRECTION
+    ) {
+        settings.zoom = snappedZoom;
+        settings.physicalPixelsPerWorld = targetPhysicalPixelsPerWorld;
+        settings.integerScaleApplied = true;
+    }
+
+    return settings;
+}
+
+function snapTownCameraCoordToPhysicalPixel(value, physicalPixelsPerWorld, minValue, maxValue) {
+    if (
+        !YUMANIWA_PIXEL_SNAP_ENABLED ||
+        !isFinite(value) ||
+        !isFinite(physicalPixelsPerWorld) ||
+        physicalPixelsPerWorld <= 0
+    ) {
+        return value;
+    }
+
+    var snapped = Math.round(value * physicalPixelsPerWorld) / physicalPixelsPerWorld;
+
+    if (isFinite(minValue) && snapped < minValue) {
+        snapped = Math.ceil(minValue * physicalPixelsPerWorld) / physicalPixelsPerWorld;
+    }
+
+    if (isFinite(maxValue) && snapped > maxValue) {
+        snapped = Math.floor(maxValue * physicalPixelsPerWorld) / physicalPixelsPerWorld;
+    }
+
+    if (isFinite(minValue) && snapped < minValue) snapped = minValue;
+    if (isFinite(maxValue) && snapped > maxValue) snapped = maxValue;
+
+    return snapped;
+}
 
 //
 // PCではゲーム画面が大きくなりすぎないように最大表示倍率を制限する。
@@ -511,6 +652,12 @@ function getTownSceneDefinition(sceneId) {
 }
 
 var townSceneBackgroundCache = {};
+var townDeferredBackgroundQueue = [];
+var townDeferredBackgroundScheduled = false;
+var townDeferredBackgroundRunning = false;
+
+// 初回到着が完了したことを、背景/PROPの遅延preloadへ共有する。
+window.YUMANIWA_ARRIVAL_READY = false;
 
 function flushTownSceneBackgroundCallbacks(entry) {
     if (!entry || !entry.callbacks) return;
@@ -525,7 +672,7 @@ function flushTownSceneBackgroundCallbacks(entry) {
     }
 }
 
-function preloadTownSceneBackgroundAsset(path, callback) {
+function preloadTownSceneBackgroundAsset(path, callback, options) {
     if (!path) {
         if (typeof callback === "function") {
             window.setTimeout(function() {
@@ -552,13 +699,25 @@ function preloadTownSceneBackgroundAsset(path, callback) {
     }
 
     var image = new Image();
+    var opts = options || {};
+    var priority = opts.priority || "auto";
+
+    try {
+        image.decoding = "async";
+        if (priority && priority !== "auto") {
+            image.fetchPriority = priority;
+        }
+    } catch (error) {
+        // 未対応ブラウザでは通常のImage読込へフォールバックする。
+    }
 
     entry = {
         path: path,
         image: image,
         loaded: false,
         error: false,
-        callbacks: []
+        callbacks: [],
+        priority: priority
     };
 
     if (typeof callback === "function") {
@@ -566,16 +725,19 @@ function preloadTownSceneBackgroundAsset(path, callback) {
     }
 
     townSceneBackgroundCache[path] = entry;
+    townLoadTraceImageStart('background', path);
 
     image.onload = function() {
         entry.loaded = true;
         entry.error = false;
+        townLoadTraceImageDone('background', path, 'loaded');
         flushTownSceneBackgroundCallbacks(entry);
     };
 
     image.onerror = function() {
         entry.loaded = false;
         entry.error = true;
+        townLoadTraceImageDone('background', path, 'error');
         flushTownSceneBackgroundCallbacks(entry);
     };
 
@@ -584,16 +746,147 @@ function preloadTownSceneBackgroundAsset(path, callback) {
     return entry;
 }
 
-function preloadTownSceneBackgrounds() {
-    if (!window.TOWN_SCENE_MAPS) return;
+function collectDeferredTownSceneBackgrounds(currentPath) {
+    var queue = [];
+    var seen = {};
+
+    if (!window.TOWN_SCENE_MAPS) return queue;
 
     for (var sceneId in window.TOWN_SCENE_MAPS) {
         if (!Object.prototype.hasOwnProperty.call(window.TOWN_SCENE_MAPS, sceneId)) continue;
 
         var def = window.TOWN_SCENE_MAPS[sceneId];
-        if (def && def.backgroundImagePath) {
-            preloadTownSceneBackgroundAsset(def.backgroundImagePath);
+        var path = def && def.backgroundImagePath ? def.backgroundImagePath : "";
+
+        if (!path || path === currentPath || seen[path]) continue;
+        seen[path] = true;
+        queue.push(path);
+    }
+
+    return queue;
+}
+
+// 起動時は「今いる場所」の背景だけを最優先で開始する。
+// 他シーン背景は初回到着後、1枚ずつ低優先度で読む。
+function preloadTownSceneBackgrounds() {
+    if (!window.TOWN_SCENE_MAPS) return;
+
+    var currentDef = getTownSceneDefinition(currentScene);
+    var currentPath = currentDef && currentDef.backgroundImagePath
+        ? currentDef.backgroundImagePath
+        : "";
+
+    townDeferredBackgroundQueue = collectDeferredTownSceneBackgrounds(currentPath);
+
+    townLoadTraceMark('background_preload_current_start', {
+        scene: currentScene || '',
+        path: currentPath || ''
+    }, true);
+
+    townLoadTraceMark('background_deferred_queued', {
+        count: townDeferredBackgroundQueue.length
+    }, true);
+
+    if (currentPath) {
+        preloadTownSceneBackgroundAsset(currentPath, null, { priority: "high" });
+    }
+}
+
+function scheduleTownBackgroundIdle(callback, delayMs) {
+    window.setTimeout(function() {
+        if (typeof window.requestIdleCallback === "function") {
+            window.requestIdleCallback(function() {
+                callback();
+            }, { timeout: 2200 });
+        } else {
+            callback();
         }
+    }, Math.max(0, Number(delayMs) || 0));
+}
+
+function scheduleDeferredTownSceneBackgrounds() {
+    if (townDeferredBackgroundScheduled) return;
+    townDeferredBackgroundScheduled = true;
+
+    if (!townDeferredBackgroundQueue.length) {
+        var currentDef = getTownSceneDefinition(currentScene);
+        var currentPath = currentDef && currentDef.backgroundImagePath
+            ? currentDef.backgroundImagePath
+            : "";
+        townDeferredBackgroundQueue = collectDeferredTownSceneBackgrounds(currentPath);
+    }
+
+    var total = townDeferredBackgroundQueue.length;
+    var completed = 0;
+
+    townLoadTraceMark('background_deferred_start', {
+        count: total
+    }, true);
+
+    function finishAll() {
+        townDeferredBackgroundRunning = false;
+        townLoadTraceMark('background_deferred_ready', {
+            count: completed
+        }, true);
+    }
+
+    function loadNext() {
+        if (townDeferredBackgroundRunning) return;
+
+        if (!townDeferredBackgroundQueue.length) {
+            finishAll();
+            return;
+        }
+
+        var path = townDeferredBackgroundQueue.shift();
+        var existing = townSceneBackgroundCache[path];
+
+        if (existing && (existing.loaded || existing.error)) {
+            completed += 1;
+            scheduleTownBackgroundIdle(loadNext, 160);
+            return;
+        }
+
+        townDeferredBackgroundRunning = true;
+        townLoadTraceMark('background_deferred_item_start', {
+            path: path,
+            index: completed + 1,
+            total: total
+        });
+
+        preloadTownSceneBackgroundAsset(path, function(entry) {
+            completed += 1;
+            townDeferredBackgroundRunning = false;
+
+            townLoadTraceMark('background_deferred_item_done', {
+                path: path,
+                status: entry && entry.error ? 'error' : 'loaded',
+                completed: completed,
+                total: total
+            });
+
+            scheduleTownBackgroundIdle(loadNext, 160);
+        }, { priority: "low" });
+    }
+
+    // 現在地が描画された直後の操作・レイアウトを邪魔しないよう、少し間を置く。
+    scheduleTownBackgroundIdle(loadNext, 700);
+}
+
+function announceTownArrivalReady() {
+    if (window.YUMANIWA_ARRIVAL_READY) return;
+
+    window.YUMANIWA_ARRIVAL_READY = true;
+    townLoadTraceMark('arrival_ready', null, true);
+
+    scheduleDeferredTownSceneBackgrounds();
+
+    try {
+        window.dispatchEvent(new Event('yumaniwa:arrival-ready'));
+    } catch (error) {
+        var event = document.createEvent('Event');
+        event.initEvent('yumaniwa:arrival-ready', false, false);
+        window.dispatchEvent(event);
     }
 }
 
@@ -658,6 +951,10 @@ function loadTownSceneBackground(def) {
 
         bgLoaded = !!doneEntry.loaded;
         bgError = !!doneEntry.error;
+        townLoadTraceMark('current_background_ready', {
+            path: bgPath,
+            status: doneEntry.error ? 'error' : 'loaded'
+        }, true);
 
         if (doneEntry.image) {
             bgImage = doneEntry.image;
@@ -673,6 +970,10 @@ function loadTownSceneBackground(def) {
     if (entry && entry.loaded) {
         bgLoaded = true;
         bgError = false;
+        townLoadTraceMark('current_background_ready', {
+            path: bgPath,
+            status: 'cached'
+        }, true);
         finishTownArrivalLoading();
         return;
     }
@@ -680,6 +981,10 @@ function loadTownSceneBackground(def) {
     if (entry && entry.error) {
         bgLoaded = false;
         bgError = true;
+        townLoadTraceMark('current_background_ready', {
+            path: bgPath,
+            status: 'error'
+        }, true);
         finishTownArrivalLoading();
     }
 }
@@ -1313,11 +1618,17 @@ function hideTownLoading() {
 }
 
 function showTownArrivalLoading() {
+    townLoadTraceMark('arrival_loading_shown', null, true);
     showTownLoading("湯間庭町に到着しています…");
 }
 
 function finishTownArrivalLoading() {
+    townLoadTraceMark('arrival_loading_hidden', {
+        backgroundLoaded: !!bgLoaded,
+        backgroundError: !!bgError
+    }, true);
     hideTownLoading();
+    announceTownArrivalReady();
 }
 
 function playTownRpgFadeTransition(callback, waitForReady) {
@@ -2107,6 +2418,7 @@ function setupTouchSelectionGuards() {
 
 
 window.onload = function() {
+    townLoadTraceMark('town_onload_start', null, true);
     showTownArrivalLoading();
 
     canvas = document.getElementById('game-canvas');
@@ -2162,6 +2474,8 @@ window.onload = function() {
         updateCurrentArea();
         updateInteractionHint();
     }, 500);
+
+    townLoadTraceMark('town_onload_end', null, true);
 };
 
 function resizeCanvas() {
@@ -2864,7 +3178,8 @@ function updateTapMove() {
 // 3. カメラ計算
 // ==========================================
 function getCamera() {
-    var zoom = GAME_CAMERA_ZOOM;
+    var pixelSnap = getTownPixelSnapSettings(GAME_CAMERA_ZOOM);
+    var zoom = pixelSnap.zoom;
     var viewW = GAME_VIEW_W / zoom;
     var viewH = getCurrentGameViewH() / zoom;
     var mapPixelW = MAP_WIDTH * TILE_SIZE;
@@ -2887,6 +3202,54 @@ function getCamera() {
         if (cameraY > mapPixelH - viewH) cameraY = mapPixelH - viewH;
     }
 
+    // 最終物理pixel上で camera origin を整数位置へ固定する。
+    // これにより、歩行・斜め移動時に同じWORLD OBJECTの1px線が
+    // 2px/3pxなどへフレームごとに揺れる現象を抑える。
+    if (pixelSnap.enabled) {
+        if (viewW > mapPixelW) {
+            cameraX = snapTownCameraCoordToPhysicalPixel(
+                cameraX,
+                pixelSnap.physicalPixelsPerWorld
+            );
+        } else {
+            cameraX = snapTownCameraCoordToPhysicalPixel(
+                cameraX,
+                pixelSnap.physicalPixelsPerWorld,
+                0,
+                mapPixelW - viewW
+            );
+        }
+
+        if (viewH > mapPixelH) {
+            cameraY = snapTownCameraCoordToPhysicalPixel(
+                cameraY,
+                pixelSnap.physicalPixelsPerWorld
+            );
+        } else {
+            cameraY = snapTownCameraCoordToPhysicalPixel(
+                cameraY,
+                pixelSnap.physicalPixelsPerWorld,
+                0,
+                mapPixelH - viewH
+            );
+        }
+    }
+
+    // 開発時に Console から現在の最終pixel倍率を確認できる。
+    window.YUMANIWA_PIXEL_SNAP_STATE = {
+        enabled: pixelSnap.enabled,
+        integerScaleApplied: pixelSnap.integerScaleApplied,
+        baseZoom: pixelSnap.baseZoom,
+        zoom: zoom,
+        dpr: pixelSnap.dpr,
+        displayPhysicalWidth: pixelSnap.displayPhysicalWidth,
+        physicalPixelsPerCanvasPx: pixelSnap.physicalPixelsPerCanvasPx,
+        physicalPixelsPerWorld: pixelSnap.physicalPixelsPerWorld,
+        zoomCorrection: pixelSnap.zoomCorrection,
+        cameraX: cameraX,
+        cameraY: cameraY
+    };
+
     return {
         zoom: zoom,
         viewW: viewW,
@@ -2894,7 +3257,8 @@ function getCamera() {
         cameraX: cameraX,
         cameraY: cameraY,
         mapPixelW: mapPixelW,
-        mapPixelH: mapPixelH
+        mapPixelH: mapPixelH,
+        pixelSnap: pixelSnap
     };
 }
 
@@ -4061,6 +4425,35 @@ var TOWN_PART_CATALOG = [
         w: 8.6,
         h: 8.5,
         collision: { enabled: true, x: 0.06, y: 0.78, w: 0.88, h: 0.22 }
+    },
+    {
+        key: 'worldObjectFacility',
+        label: '施設 WORLD OBJECT',
+        file: '',
+        w: 1,
+        h: 1,
+        addable: false,
+        collision: { enabled: false, x: 0, y: 0, w: 0.001, h: 0.001 }
+    },
+    {
+        key: 'worldObjectExhibit',
+        label: '展示 WORLD OBJECT',
+        file: '',
+        w: 1,
+        h: 1,
+        addable: false,
+        collision: { enabled: false, x: 0, y: 0, w: 0.001, h: 0.001 }
+    },
+    {
+        // Existing WORLD OBJECT shops are selectable/movable, but are not added
+        // from the legacy station-plaza asset picker.
+        key: 'worldObjectShop',
+        label: '店舗 WORLD OBJECT',
+        file: '',
+        w: 1,
+        h: 1,
+        addable: false,
+        collision: { enabled: false, x: 0, y: 0, w: 0.001, h: 0.001 }
     }
 ];
 
@@ -4124,6 +4517,12 @@ function getPartCatalogEntry(key) {
 function inferTownPartCatalogKey(part) {
     var src = String((part && part.src) || '');
     var id = String((part && part.id) || '').toLowerCase();
+    var objectId = String((part && part.objectId) || '').toLowerCase();
+
+    // Shop WORLD OBJECTs own their source/collision/interaction metadata.
+    // Do not misclassify them as a station bench just because they are not
+    // part of the legacy station-plaza asset catalog.
+    if (objectId.indexOf('_shop_') !== -1 || id.slice(-5) === '_shop') return 'worldObjectShop';
 
     if (src.indexOf('station-notice-board') !== -1 || id.indexOf('notice') !== -1) return 'noticeBoard';
     if (src.indexOf('station-tourist-map') !== -1 || id.indexOf('tourist') !== -1) return 'touristMap';
@@ -4632,6 +5031,7 @@ function ensurePartEditorFields() {
 
     var catalogOptions = '';
     for (var i = 0; i < TOWN_PART_CATALOG.length; i++) {
+        if (TOWN_PART_CATALOG[i].addable === false) continue;
         catalogOptions +=
             '<option value="' + TOWN_PART_CATALOG[i].key + '">' +
             TOWN_PART_CATALOG[i].label +
