@@ -163,7 +163,7 @@
   }
 
   // 灯串横丁は staging で確定した既存パーツの位置・サイズを実行時に適用する。
-  // trigger.area は既存の広い範囲をそのまま使う。
+  // 店舗を横一列に並べたため、trigger.area は data/town-maps.js 側で各店舗前へ再配置する。
   function applyAlleyPropScale() {
     var maps = window.TOWN_SCENE_MAPS;
     var alley = maps && maps.tomogushi_alley_map;
@@ -180,11 +180,11 @@
       if (!prop) continue;
 
       if (prop.id === 'yakitori_yumado_shop') {
-        prop.x = 14.421723043422098;
-        prop.y = 3.218423019431988;
-        prop.w = 5;
-        prop.h = 5;
-        prop.footY = 8.218423019431988;
+        prop.x = 15.8125;
+        prop.y = 3.1875;
+        prop.w = 5.125;
+        prop.h = 5.125;
+        prop.footY = 8.3125;
         continue;
       }
 

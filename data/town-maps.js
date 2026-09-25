@@ -118,19 +118,25 @@
                 "x": 4,
                 "y": 4,
                 "w": 15,
-                "h": 12
-            },
-            {
-                "x": 19,
-                "y": 8,
-                "w": 5,
-                "h": 7
+                "h": 3
             },
             {
                 "x": 0,
-                "y": 10,
-                "w": 4,
-                "h": 4
+                "y": 8,
+                "w": 24,
+                "h": 6
+            },
+            {
+                "x": 4,
+                "y": 14,
+                "w": 20,
+                "h": 1
+            },
+            {
+                "x": 4,
+                "y": 15,
+                "w": 15,
+                "h": 1
             },
             {
                 "x": 4,
@@ -162,13 +168,19 @@
                 "x": 0,
                 "y": 4,
                 "w": 4,
-                "h": 6
+                "h": 4
             },
             {
                 "x": 19,
                 "y": 4,
                 "w": 5,
                 "h": 4
+            },
+            {
+                "x": 4,
+                "y": 7,
+                "w": 15,
+                "h": 1
             },
             {
                 "x": 0,
@@ -224,9 +236,9 @@
                 "workId": "yakitori-wars",
                 "text": "炭火の向こうから、焼き鳥の香りが漂っている。",
                 "area": {
-                    "x": 12,
+                    "x": 16,
                     "y": 5,
-                    "w": 7,
+                    "w": 5,
                     "h": 3
                 },
                 "tapPadding": 1
@@ -239,9 +251,9 @@
                 "workId": "midnight-cola",
                 "text": "夜の研究所から、柑橘とスパイスの香りがする。",
                 "area": {
-                    "x": 3,
+                    "x": 11,
                     "y": 5,
-                    "w": 6,
+                    "w": 5,
                     "h": 3
                 },
                 "tapPadding": 1
@@ -254,9 +266,9 @@
                 "workId": "junkissa-dive",
                 "text": "深夜の純喫茶から、甘いコーヒーの香りが漂っている。",
                 "area": {
-                    "x": 3,
-                    "y": 17,
-                    "w": 6,
+                    "x": 6,
+                    "y": 5,
+                    "w": 5,
                     "h": 3
                 },
                 "tapPadding": 1
@@ -269,9 +281,9 @@
                 "workId": "rojiura-masala",
                 "text": "路地裏のカレー屋から、スパイスの香りが漂っている。",
                 "area": {
-                    "x": 12,
-                    "y": 17,
-                    "w": 7,
+                    "x": 0,
+                    "y": 5,
+                    "w": 6,
                     "h": 3
                 },
                 "tapPadding": 1
@@ -312,11 +324,11 @@
                 "id": "craft_cola_shop",
                 "objectId": "craft_cola_shop_01",
                 "src": "assets/maps/objects/shops/craft_cola_shop_01.png?rev=20260925-alleyshops96",
-                "x": 3.983217304249944,
-                "y": 2.0627802690582993,
+                "x": 10.375,
+                "y": 2.4375,
                 "w": 6,
                 "h": 6,
-                "footY": 8.0627802690583,
+                "footY": 8.4375,
                 "enabled": true,
                 "collision": {
                     "enabled": true,
@@ -339,11 +351,11 @@
                 "id": "yakitori_yumado_shop",
                 "objectId": "yakitori_shop_01",
                 "src": "assets/maps/objects/shops/yakitori_shop_01.png?rev=20260925-yakitori96-r2",
-                "x": 12.983217304249944,
-                "y": 2.0627802690582993,
-                "w": 6,
-                "h": 6,
-                "footY": 8.0627802690583,
+                "x": 15.8125,
+                "y": 3.1875,
+                "w": 5.125,
+                "h": 5.125,
+                "footY": 8.3125,
                 "enabled": true,
                 "collision": {
                     "enabled": true,
@@ -366,11 +378,11 @@
                 "id": "junkissa_dive_shop",
                 "objectId": "kissaten_shop_01",
                 "src": "assets/maps/objects/shops/kissaten_shop_01.png?rev=20260925-alleyshops96",
-                "x": 3.983217304249944,
-                "y": 14.0627802690583,
+                "x": 5.125,
+                "y": 2.375,
                 "w": 6,
                 "h": 6,
-                "footY": 20.0627802690583,
+                "footY": 8.375,
                 "enabled": true,
                 "collision": {
                     "enabled": true,
@@ -393,11 +405,11 @@
                 "id": "rojiura_masala_shop",
                 "objectId": "curry_shop_01",
                 "src": "assets/maps/objects/shops/curry_shop_01.png?rev=20260925-alleyshops96",
-                "x": 12.983217304249944,
-                "y": 14.0627802690583,
-                "w": 6,
-                "h": 6,
-                "footY": 20.0627802690583,
+                "x": 0.3125,
+                "y": 3.0976543495998135,
+                "w": 5.25,
+                "h": 5.25,
+                "footY": 8.347654349599814,
                 "enabled": true,
                 "collision": {
                     "enabled": true,
