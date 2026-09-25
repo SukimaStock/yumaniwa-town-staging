@@ -247,10 +247,10 @@
             id: 'yakitori_shop_01',
             category: 'shop',
             type: 'yakitori_shop',
-            src: 'assets/maps/objects/shops/yakitori_shop_01.png?rev=20260925-pixelstd02',
+            src: 'assets/maps/objects/shops/yakitori_shop_01.png?rev=20260925-yakitori-persistent96',
             finalization: {
                 target: 'SHOP_S',
-                sourceCleanerTarget: 'FACILITY_M',
+                sourceCleanerTarget: 'SHOP_S',
                 logicalCanvasPx: [96, 96],
                 townAssetFilePx: [96, 96],
                 townAssetPixelRatio: 1,
@@ -279,7 +279,13 @@
                     contentBounds: { x: 7, y: 14, w: 82, h: 82 },
                     groundAnchorY: 95,
                     contentMode: 'LEGACY_RENDER_BAKE',
-                    runtimeCanonicalization: true,
+                    runtimeCanonicalization: false,
+                    persistentCanonical: true,
+                    logicalRasterized: true,
+                    logicalRasterMethod: 'EXPLICIT_LOGICAL_NEAREST',
+                    logicalGridVerified: true,
+                    pixelSafe: true,
+                    pixelSafeMethod: 'EXPLICIT_LOGICAL_NEAREST_PLUS_PHYSICAL_INTEGER_SCALE_PASS',
                     worldPxPerLogicalPx: 1,
                     editingSpace: 'TOWN_LOGICAL_PIXELS',
                     previewMatchesTown: true,
@@ -287,7 +293,7 @@
                     physicalFileMayUseDeviceScale: true,
                     sourcePhysicalPx: [720, 720]
                 },
-                pixelSafe: false,
+                pixelSafe: true,
                 status: 'final'
             }
         },
