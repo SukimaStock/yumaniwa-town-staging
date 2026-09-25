@@ -743,8 +743,44 @@
         { x: 7, y: 16, w: 10, h: 8, color: '#ede1be' },
         { x: 8, y: 8, w: 8, h: 8, color: '#d4c5ab' }
       ],
+      props: [
+        {
+          id: 'onsen_no_entry_barrier',
+          objectId: 'onsen_no_entry_barrier_01',
+          src: 'assets/maps/objects/signs/no-entry-sign.png?v=20260925-1',
+          x: 10,
+          y: 2,
+          w: 4,
+          h: 4,
+          footY: 6,
+          enabled: true,
+          catalogKey: 'worldObjectFacility',
+          collision: {
+            enabled: false,
+            x: 0.08,
+            y: 0.72,
+            w: 0.84,
+            h: 0.22
+          },
+          interaction: {
+            enabled: true,
+            triggerId: 'onsen_notice',
+            x: 0.02,
+            y: 0.38,
+            w: 0.96,
+            h: 0.60
+          },
+          tap: {
+            enabled: true,
+            x: 0.02,
+            y: 0.32,
+            w: 0.96,
+            h: 0.66
+          }
+        }
+      ],
       decor: [
-        deco(6, 3, 12, 3, '#8f8472', '#2d241b', '工事中'), deco(8, 6, 8, 1, '#7f7566', '#2d241b', ''),
+        deco(8, 6, 8, 1, '#7f7566', '#2d241b', ''),
         deco(4, 10, 3, 3, '#768470', '#2d241b', ''), deco(17, 10, 3, 3, '#768470', '#2d241b', ''),
         deco(10, 21, 4, 3, '#a9b8c5', '#2d241b', '広場'), deco(7, 14, 1, 1, '#88745e', '#2d241b', ''),
         deco(16, 14, 1, 1, '#88745e', '#2d241b', ''), deco(9, 7, 1, 1, '#b89275', '#2d241b', ''),
