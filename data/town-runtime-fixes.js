@@ -84,53 +84,6 @@
     window.getTownPartTriggerArea = patched;
   }
 
-  // 共通看板アセットは、既存の当たり判定・triggerとは分離して見た目だけ差し替える。
-  // 完成PNGを同じパスへ置けば、町側の判定を触らず更新できる。
-  function applyCommonSignAssets() {
-    var maps = window.TOWN_SCENE_MAPS;
-    if (!maps) return;
-
-    function removeDecor(scene, matcher) {
-      if (!scene || !Array.isArray(scene.decor)) return;
-      scene.decor = scene.decor.filter(function (item) {
-        return !matcher(item || {});
-      });
-    }
-
-    function upsertProp(scene, prop) {
-      if (!scene) return;
-      if (!Array.isArray(scene.props)) scene.props = [];
-
-      for (var i = 0; i < scene.props.length; i++) {
-        if (scene.props[i] && scene.props[i].id === prop.id) {
-          scene.props[i] = prop;
-          return;
-        }
-      }
-
-      scene.props.push(prop);
-    }
-
-    var onsen = maps.onsen_slope_map;
-    if (onsen) {
-      removeDecor(onsen, function (item) {
-        return item.x === 6 && item.y === 3 && item.w === 12 && item.h === 3 && item.label === '工事中';
-      });
-
-      // The canonical no-entry barrier now lives in data/town-maps.js as
-      // onsen_no_entry_barrier. Remove the old runtime-only barricade so it
-      // cannot overlap or replace the WORLD OBJECT.
-      if (Array.isArray(onsen.props)) {
-        onsen.props = onsen.props.filter(function (item) {
-          return !item || item.id !== 'no_entry_sign';
-        });
-      }
-    }
-  }
-
-  // 駅前広場と湯窓レジャーセンターの間に、
-  // 湯間庭レクリエーションロードを正式な移動エリアとして追加する。
-  // 右側の枝道は将来拡張用。今は画面端まで歩けるだけにしておく。
 
   function registerLeisureCenterEditorAssets() {
     var catalog = window.TOWN_PART_CATALOG;
@@ -177,7 +130,6 @@
   }
 
   registerLeisureCenterEditorAssets();
-  applyCommonSignAssets();
   applyCameraZoom();
   preserveExplicitTriggerAreas();
 
