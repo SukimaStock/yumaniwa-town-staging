@@ -105,7 +105,7 @@ PROP_M 32x32 に変更すると、町で自然な実寸になった。
 
 ## 5. TARGET Presets
 
-Cleaner v0.1.10時点:
+Cleaner v0.1.11時点:
 
 | Target | Logical Canvas | 用途 |
 |---|---:|---|
@@ -117,10 +117,11 @@ Cleaner v0.1.10時点:
 | PROP_L | 56x56 | 大型小物 |
 | FACILITY_S | 64x64 | 小型施設・情報物 |
 | FACILITY_M | 96x96 | 中型施設・情報物 |
+| FACILITY_L | 128x128 | 大型施設・建物 |
 | SHOP_S | 96x96 | 小型店舗候補 |
 | SHOP_L | 128x128 | 大型店舗候補 |
 
-Presetは固定的な物体分類ではない。実際のTown scaleを優先する。
+Presetは固定的な物体分類ではない。実際のTown scaleを優先する。\n\n`FACILITY_L` は駅舎の検証開始に合わせて追加した128x128の大型施設クラス。既存の `SHOP_L` と寸法は同じだが、TARGET名を物体の役割と矛盾させないため分離する。
 
 ## 6. Manual TARGET Lock
 
