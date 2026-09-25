@@ -91,6 +91,36 @@
           { x: 0.920, y: 0.840 }
         ]
       }
+    },
+
+    // Generic source sheets for Yumaniwa props / exhibits.
+    // These intentionally register every detected object as SPECIAL so that
+    // Map Factory can be used as a neutral cutout station before Cleaner.
+    'object-grid-2x2': {
+      name: 'Object Sheet 2×2',
+      candidateLabel: 'OBJECT',
+      maxDistance: 0.25,
+      slots: {
+        special: [
+          { x: 0.25, y: 0.25 },
+          { x: 0.75, y: 0.25 },
+          { x: 0.25, y: 0.75 },
+          { x: 0.75, y: 0.75 }
+        ]
+      }
+    },
+
+    'object-row-3': {
+      name: 'Object Row 3',
+      candidateLabel: 'OBJECT',
+      maxDistance: 0.24,
+      slots: {
+        special: [
+          { x: 1 / 6, y: 0.50 },
+          { x: 0.50, y: 0.50 },
+          { x: 5 / 6, y: 0.50 }
+        ]
+      }
     }
   };
 
@@ -1773,7 +1803,7 @@
     return {
       type: group.type,
       slotIndex: group.slotIndex,
-      label: LABELS[group.type] + ' ' + pad2(group.slotIndex + 1),
+      label: ((KIT_PRESETS[presetId] && KIT_PRESETS[presetId].candidateLabel) || LABELS[group.type]) + ' ' + pad2(group.slotIndex + 1),
       blob: crop.blob,
       width: crop.width,
       height: crop.height,
@@ -2127,8 +2157,9 @@
 
     state.detected = null;
     els.sourceInput.value = '';
+    const preset = KIT_PRESETS[els.kitPreset.value];
     els.sourceStatus.textContent = isKit
-      ? 'Identity Kit Sheet v1 を選んでください。1枚から6カテゴリをまとめて仕入れます。'
+      ? ((preset ? preset.name : 'Sheet') + ' の画像を選んでください。')
       : '左右2案の画像を選んでください。';
 
     updateRegisterButton();
@@ -2568,6 +2599,21 @@
     els.canvas.addEventListener('click', handleCanvasPartSelection);
 
     els.importMode.addEventListener('change', syncImportMode);
+
+    els.kitPreset.addEventListener('change', () => {
+      const file = els.sourceInput.files && els.sourceInput.files[0];
+
+      if (els.importMode.value === 'kit' && file) {
+        analyzeSource(file);
+        return;
+      }
+
+      if (els.importMode.value === 'kit') {
+        const preset = KIT_PRESETS[els.kitPreset.value];
+        els.sourceStatus.textContent =
+          (preset ? preset.name : 'Sheet') + ' の画像を選んでください。';
+      }
+    });
 
     els.sourceInput.addEventListener('change', () => {
       const file = els.sourceInput.files && els.sourceInput.files[0];
