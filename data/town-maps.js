@@ -599,7 +599,7 @@
         {
           id: 'leisure_pickup',
           objectId: 'leisure_pickup_shelf_01',
-          src: 'assets/maps/props/leisure-center/leisure-pickup-shelf.png?v=20260925-3',
+          src: 'assets/maps/props/leisure-center/leisure-pickup-shelf.png?v=20260925-5',
           x: 17.0, y: 0.0, w: 6.0, h: 6.0, footY: 6.0,
           enabled: true,
           catalogKey: 'worldObjectFacility',
