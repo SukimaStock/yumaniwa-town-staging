@@ -31,15 +31,8 @@
         if (id === 'station_feedback_box_placeholder') return 'town-feedback-box.js';
         if (id === 'station_ghost_npc') return 'town-ghost-npc.js';
 
-        if (
-            id === 'yakitori_yumado_shop' ||
-            id === 'common_temporary_storefront' ||
-            id === 'no_entry_sign' ||
-            (sceneId === 'yumado_street_map' && id === 'standing_signboard')
-        ) {
-            return 'data/town-runtime-fixes.js';
-        }
-
+        // Town placement is canonical in station-plaza.js / town-maps.js.
+        // runtime-fixes.js must never be an editor-diff destination.
         return getSceneSource(sceneId);
     }
 
