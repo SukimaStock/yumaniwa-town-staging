@@ -12,6 +12,30 @@ var bgImage = new Image();
 var bgLoaded = false;
 var bgError = false;
 
+function townLoadTraceMark(name, meta, once) {
+    var trace = window.YUMANIWA_LOAD_TRACE;
+    if (!trace || !trace.enabled) return;
+    if (once && typeof trace.markOnce === 'function') {
+        trace.markOnce(name, meta);
+        return;
+    }
+    if (typeof trace.mark === 'function') trace.mark(name, meta);
+}
+
+function townLoadTraceImageStart(kind, src) {
+    var trace = window.YUMANIWA_LOAD_TRACE;
+    if (trace && trace.enabled && typeof trace.imageStart === 'function') {
+        trace.imageStart(kind, src);
+    }
+}
+
+function townLoadTraceImageDone(kind, src, status) {
+    var trace = window.YUMANIWA_LOAD_TRACE;
+    if (trace && trace.enabled && typeof trace.imageDone === 'function') {
+        trace.imageDone(kind, src, status);
+    }
+}
+
 // スプライト番号: 1=下, 2=左, 3=上, 4=右
 // 当たり判定は従来どおり player の 16×16 のまま使う。
 var PLAYER_SPRITE_PATHS = {
@@ -683,16 +707,19 @@ function preloadTownSceneBackgroundAsset(path, callback) {
     }
 
     townSceneBackgroundCache[path] = entry;
+    townLoadTraceImageStart('background', path);
 
     image.onload = function() {
         entry.loaded = true;
         entry.error = false;
+        townLoadTraceImageDone('background', path, 'loaded');
         flushTownSceneBackgroundCallbacks(entry);
     };
 
     image.onerror = function() {
         entry.loaded = false;
         entry.error = true;
+        townLoadTraceImageDone('background', path, 'error');
         flushTownSceneBackgroundCallbacks(entry);
     };
 
@@ -703,6 +730,14 @@ function preloadTownSceneBackgroundAsset(path, callback) {
 
 function preloadTownSceneBackgrounds() {
     if (!window.TOWN_SCENE_MAPS) return;
+
+    var backgroundCount = 0;
+    for (var countSceneId in window.TOWN_SCENE_MAPS) {
+        if (!Object.prototype.hasOwnProperty.call(window.TOWN_SCENE_MAPS, countSceneId)) continue;
+        var countDef = window.TOWN_SCENE_MAPS[countSceneId];
+        if (countDef && countDef.backgroundImagePath) backgroundCount += 1;
+    }
+    townLoadTraceMark('background_preload_all_start', { count: backgroundCount }, true);
 
     for (var sceneId in window.TOWN_SCENE_MAPS) {
         if (!Object.prototype.hasOwnProperty.call(window.TOWN_SCENE_MAPS, sceneId)) continue;
@@ -775,6 +810,10 @@ function loadTownSceneBackground(def) {
 
         bgLoaded = !!doneEntry.loaded;
         bgError = !!doneEntry.error;
+        townLoadTraceMark('current_background_ready', {
+            path: bgPath,
+            status: doneEntry.error ? 'error' : 'loaded'
+        }, true);
 
         if (doneEntry.image) {
             bgImage = doneEntry.image;
@@ -790,6 +829,10 @@ function loadTownSceneBackground(def) {
     if (entry && entry.loaded) {
         bgLoaded = true;
         bgError = false;
+        townLoadTraceMark('current_background_ready', {
+            path: bgPath,
+            status: 'cached'
+        }, true);
         finishTownArrivalLoading();
         return;
     }
@@ -797,6 +840,10 @@ function loadTownSceneBackground(def) {
     if (entry && entry.error) {
         bgLoaded = false;
         bgError = true;
+        townLoadTraceMark('current_background_ready', {
+            path: bgPath,
+            status: 'error'
+        }, true);
         finishTownArrivalLoading();
     }
 }
@@ -1430,10 +1477,15 @@ function hideTownLoading() {
 }
 
 function showTownArrivalLoading() {
+    townLoadTraceMark('arrival_loading_shown', null, true);
     showTownLoading("湯間庭町に到着しています…");
 }
 
 function finishTownArrivalLoading() {
+    townLoadTraceMark('arrival_loading_hidden', {
+        backgroundLoaded: !!bgLoaded,
+        backgroundError: !!bgError
+    }, true);
     hideTownLoading();
 }
 
@@ -2224,6 +2276,7 @@ function setupTouchSelectionGuards() {
 
 
 window.onload = function() {
+    townLoadTraceMark('town_onload_start', null, true);
     showTownArrivalLoading();
 
     canvas = document.getElementById('game-canvas');
@@ -2279,6 +2332,8 @@ window.onload = function() {
         updateCurrentArea();
         updateInteractionHint();
     }, 500);
+
+    townLoadTraceMark('town_onload_end', null, true);
 };
 
 function resizeCanvas() {
