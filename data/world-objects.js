@@ -161,12 +161,22 @@
             id: 'post_box_01',
             category: 'street_furniture',
             type: 'post_box',
-            src: 'assets/maps/objects/street_furniture/post_box_01.png?rev=20260925-postbox32logical1',
+            src: 'assets/maps/objects/street_furniture/post_box_01.png?rev=20260925-postbox-contract02',
             finalization: {
                 target: 'PROP_M',
                 logicalCanvasPx: [32, 32],
-                fileCanvasPx: [32, 32],
-                exportScale: 1,
+                townAssetFilePx: [32, 32],
+                townAssetPixelRatio: 1,
+                sourceDeliveryFilePx: [96, 96],
+                sourceDeliveryPixelRatio: 3,
+                sourceDeliveryVerified: true,
+                importNormalization: {
+                    applied: true,
+                    type: 'LOSSLESS_INTEGER_DEVICE_SCALE_COLLAPSE',
+                    fromPixelRatio: 3,
+                    toPixelRatio: 1
+                },
+                exportContract: 'yumaniwa-logical-canvas-physical-file/0.1',
                 grid: {
                     block: 1,
                     offsetX: 0,
@@ -182,6 +192,8 @@
                     worldPxPerLogicalPx: 1,
                     editingSpace: 'TOWN_LOGICAL_PIXELS',
                     previewMatchesTown: true,
+                    townUsesLogicalCanvas: true,
+                    physicalFileMayUseDeviceScale: true,
                     sourcePhysicalPx: [1536, 1536]
                 },
                 pixelSafe: false,
