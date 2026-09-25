@@ -210,6 +210,7 @@ relative値は新しいw/hに合わせて再計算してよい。
 | tourist_map_01 | sign / tourist_map | FACILITY_S | 64x64 |
 | notice_board_01 | sign / notice_board | FACILITY_M | 96x96 |
 | station_building_01 | facility / station_building | FACILITY_L | 128x128 |
+| yakitori_shop_01 | shop / yakitori_shop | FACILITY_M (SHOP_S級) | 96x96 |
 
 これは「物体タイプ→絶対サイズ」の表ではない。
 
@@ -252,6 +253,7 @@ Town canonical 1x化済み:
 - post_box_01
 - standing_sign_01
 - station_building_01
+- yakitori_shop_01
 
 logical sizeは正しいが、repo内ファイルが旧3x physicalのままのもの:
 
@@ -263,6 +265,8 @@ logical sizeは正しいが、repo内ファイルが旧3x physicalのままの�
 これらは表示上は成立しているため、急いで書き換えない。
 
 移行する場合は本Standardのlossless normalization条件を満たすことを確認し、一つずつ行う。
+
+焼き鳥屋 `yakitori_shop_01` で、Map Factory → Cleaner → WORLD OBJECT → Town の店舗パイプラインを初めて実地検証した。Cleaner上の実target名は `FACILITY_M` だが、Town scaleとしてはSHOP_S級96x96として扱う。
 
 ## 13. Display Layer
 

@@ -58,10 +58,23 @@
 
       for (var i = 0; i < props.length; i++) {
         var prop = props[i];
-        if (!prop || prop.enabled === false || !prop.src || seen[prop.src]) continue;
+        if (!prop || prop.enabled === false) continue;
 
-        seen[prop.src] = true;
-        result.push(prop.src);
+        var src = prop.src || '';
+        var library = window.YUMANIWA_WORLD_OBJECTS;
+
+        if (
+          prop.objectId &&
+          library &&
+          typeof library.resolveSrc === 'function'
+        ) {
+          src = library.resolveSrc(prop.objectId, src);
+        }
+
+        if (!src || seen[src]) continue;
+
+        seen[src] = true;
+        result.push(src);
       }
     }
 

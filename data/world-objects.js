@@ -247,7 +247,7 @@
             id: 'yakitori_shop_01',
             category: 'shop',
             type: 'yakitori_shop',
-            src: 'assets/maps/objects/shops/yakitori_shop_01.png?rev=20260925-yakitori96',
+            src: 'assets/maps/objects/shops/yakitori_shop_01.png?rev=20260925-yakitori96-r2',
             finalization: {
                 target: 'FACILITY_M',
                 logicalCanvasPx: [96, 96],
