@@ -279,15 +279,15 @@ var stationPlazaProps = [
         "objectId": "standing_sign_01",
         "src": "assets/maps/props/common/standing-signboard.png?v=20260822-clean",
         "x": 7.099537037037036,
-        "y": 12.76394147341852,
+        "y": 14.26394147341852,
         "w": 2,
-        "h": 3.5,
+        "h": 2,
         "footY": 16.26394147341852,
         "enabled": true,
         "catalogKey": "standingSignboard",
-        "collision": { "enabled": true, "x": 0.14, "y": 0.85, "w": 0.72, "h": 0.15 },
-        "interaction": { "enabled": false, "triggerId": "", "x": -0.00625, "y": 0.5714285714285714, "w": 1.0125, "h": 0.42857142857142855 },
-        "tap": { "enabled": true, "x": -0.00625, "y": 0.5285714285714285, "w": 1.0125, "h": 0.4714285714285714 }
+        "collision": { "enabled": true, "x": 0.14, "y": 0.7375, "w": 0.72, "h": 0.2625 },
+        "interaction": { "enabled": false, "triggerId": "", "x": -0.00625, "y": 0.25, "w": 1.0125, "h": 0.75 },
+        "tap": { "enabled": true, "x": -0.00625, "y": 0.175, "w": 1.0125, "h": 0.825 }
     },
     {
         "id": "station_feedback_box_placeholder",

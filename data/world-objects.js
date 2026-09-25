@@ -204,13 +204,13 @@
             id: 'standing_sign_01',
             category: 'sign',
             type: 'standing_sign',
-            src: 'assets/maps/objects/signs/standing_sign_01.png?rev=20260925-standing32x56',
+            src: 'assets/maps/objects/signs/standing_sign_01.png?rev=20260925-standing32x32',
             finalization: {
-                target: 'PROP_T',
-                logicalCanvasPx: [32, 56],
-                townAssetFilePx: [32, 56],
+                target: 'PROP_M',
+                logicalCanvasPx: [32, 32],
+                townAssetFilePx: [32, 32],
                 townAssetPixelRatio: 1,
-                sourceDeliveryFilePx: [96, 168],
+                sourceDeliveryFilePx: [96, 96],
                 sourceDeliveryPixelRatio: 3,
                 sourceDeliveryVerified: true,
                 importNormalization: {
