@@ -335,7 +335,6 @@
                 },
                 "catalogKey": "bench"
             },
-,
             {
                 "id": "yakitori_yumado_shop",
                 "objectId": "yakitori_shop_01",
@@ -363,7 +362,6 @@
                 },
                 "catalogKey": "bench"
             },
-,
             {
                 "id": "junkissa_dive_shop",
                 "objectId": "kissaten_shop_01",
@@ -391,7 +389,6 @@
                 },
                 "catalogKey": "bench"
             },
-,
             {
                 "id": "rojiura_masala_shop",
                 "objectId": "curry_shop_01",
