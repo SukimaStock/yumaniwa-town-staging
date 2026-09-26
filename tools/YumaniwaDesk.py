@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.25
+Yumaniwa Desk v0.10.26
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,10 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.26:
+- town-feedback-box.js のwindow.open wrapperと後付けdestination定義を廃止
+- feedback destinationをdata/town-maps.jsへ移し、external analyticsをmain.jsの汎用hookへ統合
 
 v0.10.25:
 - town-return-flow.js のgetWorkPlayerReturnLabel wrapperをmain.jsへ正式統合
@@ -2742,6 +2746,7 @@ def validate_project(root):
         "town-editor-spatial-20260823.js",
         "data/town-runtime-fixes.js",
         "town-return-flow.js",
+        "town-feedback-box.js",
     ]
     retired_patch_present = [
         rel for rel in retired_patch_files
@@ -2884,6 +2889,21 @@ def validate_project(root):
         )
     else:
         report["ok"].append("work player return label: canonical main.js")
+
+    if "window.DESTINATIONS.town_feedback_box" not in town_maps_text:
+        report["errors"].append(
+            "feedback destinationがdata/town-maps.jsの正本にありません。"
+        )
+    elif "function openDestinationExternalItem(destId, item)" not in main_source_text:
+        report["errors"].append(
+            "main.js のdestination external正本hookを確認できません。"
+        )
+    elif "analyticsEvent" not in town_maps_text:
+        report["errors"].append(
+            "feedback external analytics metadataを確認できません。"
+        )
+    else:
+        report["ok"].append("feedback destination: canonical data + external analytics hook")
 
     if "function getEditorCollisionData()" not in main_source_text:
         report["errors"].append(

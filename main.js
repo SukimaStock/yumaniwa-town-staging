@@ -8793,6 +8793,30 @@ window.launchWork = function(work) {
     );
 };
 
+function openDestinationExternalItem(destId, item) {
+    if (!item) return;
+
+    if (!item.url || item.url === "") {
+        showDestinationMessage(
+            item.label,
+            item.emptyText || "まだ準備中です。"
+        );
+        return;
+    }
+
+    if (item.analyticsEvent && typeof trackYumaniwaEvent === 'function') {
+        trackYumaniwaEvent(
+            item.analyticsEvent,
+            item.analyticsProps || {
+                destination_id: destId,
+                item_label: item.label || ""
+            }
+        );
+    }
+
+    window.open(item.url, '_blank');
+}
+
 window.handleDestinationMenuItem = function(destId, index) {
     var dest = DESTINATIONS[destId];
     if (!dest) return;
@@ -8812,11 +8836,7 @@ window.handleDestinationMenuItem = function(destId, index) {
     }
 
     if (item.kind === 'external') {
-        if (item.url && item.url !== "") {
-            window.open(item.url, '_blank');
-        } else {
-            showDestinationMessage(item.label, item.emptyText || "まだ準備中です。");
-        }
+        openDestinationExternalItem(destId, item);
         return;
     }
 
@@ -8843,14 +8863,7 @@ window.handleDestinationItem = function(destId, index) {
     }
 
     if (item.kind === 'external') {
-        if (item.url && item.url !== "") {
-            window.open(item.url, '_blank');
-        } else {
-            showDestinationMessage(
-                item.label,
-                item.emptyText || "まだ準備中です。"
-            );
-        }
+        openDestinationExternalItem(destId, item);
         return;
     }
 

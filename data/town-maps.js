@@ -799,4 +799,36 @@
       ]
     };
   }
+
+  if (!window.DESTINATIONS.town_feedback_box) {
+    window.DESTINATIONS.town_feedback_box = {
+      id: 'town_feedback_box',
+      title: '町へのおたより',
+      subtitle: 'Feedback Box',
+      description: '駅前に置かれた、小さなご意見箱。町や作品へのおたよりを入れられます。',
+      flavor: '赤い箱の正面に、白い〒マークが小さく描かれている。',
+      menuTitle: 'どうしますか?',
+      returnScene: 'station_plaza',
+      returnLabel: '駅前広場',
+      items: [
+        {
+          label: 'おたよりを送る',
+          kind: 'external',
+          url: 'https://docs.google.com/forms/d/e/1FAIpQLSeGM7r27mkUrUPnqAio7bW7mZpF4O1Mf5x_74xZgRwl_LEUtQ/viewform',
+          analyticsEvent: 'Feedback Open',
+          analyticsProps: {
+            place: 'station_plaza',
+            source: 'town',
+            kind: 'google_form'
+          }
+        },
+        {
+          label: 'この箱について',
+          kind: 'message',
+          text: '町の感想やご要望、不具合の報告などを入れられます。\n\n「おたよりを送る」を選ぶと、外の入力フォームが開きます。'
+        },
+        { label: '駅前へ戻る', kind: 'back' }
+      ]
+    };
+  }
 })();
