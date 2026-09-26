@@ -1,7 +1,8 @@
 // ==========================================
 // 湯間庭町 / ご意見箱
 // 駅前の赤いポストから Google フォームへ案内する。
-// 位置・調べる範囲はマップ正本側の編集値を優先する。
+// prop / trigger の存在・配置は data/station-plaza.js だけを正本とする。
+// この補助scriptは destination / external action だけを提供する。
 // ==========================================
 (function () {
     'use strict';
@@ -14,27 +15,6 @@
     var PROP_ID = 'station_feedback_box_placeholder';
     var DESTINATION_ID = 'town_feedback_box';
     var FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeGM7r27mkUrUPnqAio7bW7mZpF4O1Mf5x_74xZgRwl_LEUtQ/viewform';
-
-    // runtime の既定値を補いつつ、すでにマップ側にある編集済み値を優先する。
-    function mergeById(items, defaults) {
-        if (!Array.isArray(items) || !defaults || !defaults.id) return;
-        for (var i = 0; i < items.length; i++) {
-            if (items[i] && items[i].id === defaults.id) {
-                var existing = items[i];
-                var merged = {};
-                var key;
-                for (key in defaults) {
-                    if (Object.prototype.hasOwnProperty.call(defaults, key)) merged[key] = defaults[key];
-                }
-                for (key in existing) {
-                    if (Object.prototype.hasOwnProperty.call(existing, key)) merged[key] = existing[key];
-                }
-                items[i] = merged;
-                return;
-            }
-        }
-        items.push(defaults);
-    }
 
     if (window.DESTINATIONS) {
         window.DESTINATIONS[DESTINATION_ID] = {
@@ -58,45 +38,9 @@
         };
     }
 
-    var trigger = {
-        id: TRIGGER_ID,
-        label: '町へのおたより',
-        actionLabel: '見る',
-        type: 'menu',
-        target: DESTINATION_ID,
-        text: '町へのおたよりを入れられるようです。',
-        area: { x: 14, y: 5, w: 3, h: 3 },
-        tapPadding: 1
-    };
-
-    var prop = {
-        id: PROP_ID,
-        src: 'assets/maps/props/common/town-feedback-postbox.png?v=20260822-clean',
-        x: 14.424488826145527,
-        y: 4.364474339810663,
-        w: 3.125,
-        h: 3.125,
-        footY: 7.489474339810663,
-        enabled: true,
-        catalogKey: 'standingSignboard',
-        collision: { enabled: true, x: 0.3, y: 0.82, w: 0.4, h: 0.14 },
-        interaction: { enabled: true, triggerId: TRIGGER_ID, x: 0.1, y: 0.08, w: 0.8, h: 0.84 },
-        tap: { enabled: true, x: 0.08, y: 0.06, w: 0.84, h: 0.88 }
-    };
-
-    station.triggers = Array.isArray(station.triggers) ? station.triggers : [];
-    station.props = Array.isArray(station.props) ? station.props : [];
-    mergeById(station.triggers, trigger);
-    mergeById(station.props, prop);
-    if (Array.isArray(window.triggers)) mergeById(window.triggers, trigger);
-    if (Array.isArray(window.stationPlazaProps)) mergeById(window.stationPlazaProps, prop);
-
-    if (window.activeTownSceneDef && window.currentScene === 'station_plaza') {
-        window.activeTownSceneDef.triggers = Array.isArray(window.activeTownSceneDef.triggers) ? window.activeTownSceneDef.triggers : [];
-        window.activeTownSceneDef.props = Array.isArray(window.activeTownSceneDef.props) ? window.activeTownSceneDef.props : [];
-        mergeById(window.activeTownSceneDef.triggers, trigger);
-        mergeById(window.activeTownSceneDef.props, prop);
-    }
+    // Placement is intentionally not created or repaired here.
+    // If the canonical prop/trigger is removed from station-plaza.js,
+    // it must remain removed after reload.
 
     if (!window.__YUMANIWA_FEEDBACK_OPEN_WRAPPED__ && typeof window.open === 'function') {
         var baseWindowOpen = window.open;

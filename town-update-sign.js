@@ -1,7 +1,8 @@
 // ==========================================
 // 湯間庭町 / 更新履歴の立て看板
 // 既存の TOWN_UPDATES を駅前の小さな看板から読めるようにする。
-// 位置・調べる範囲はマップ正本側の編集値を優先する。
+// prop / trigger の存在・配置は data/station-plaza.js だけを正本とする。
+// この補助scriptは destination / menu behavior だけを提供する。
 // ==========================================
 (function () {
     'use strict';
@@ -14,26 +15,6 @@
     var PROP_ID = 'station_update_history_signboard';
     var DESTINATION_ID = 'town_update_history';
     var PAGE_SIZE = 5;
-
-    function mergeById(items, defaults) {
-        if (!Array.isArray(items) || !defaults || !defaults.id) return;
-        for (var i = 0; i < items.length; i++) {
-            if (items[i] && items[i].id === defaults.id) {
-                var existing = items[i];
-                var merged = {};
-                var key;
-                for (key in defaults) {
-                    if (Object.prototype.hasOwnProperty.call(defaults, key)) merged[key] = defaults[key];
-                }
-                for (key in existing) {
-                    if (Object.prototype.hasOwnProperty.call(existing, key)) merged[key] = existing[key];
-                }
-                items[i] = merged;
-                return;
-            }
-        }
-        items.push(defaults);
-    }
 
     function formatDate(date) {
         return String(date || '').replace(/-/g, '.');
@@ -215,43 +196,7 @@
 
     ensurePaginationStyle();
 
-    var trigger = {
-        id: TRIGGER_ID,
-        label: '町の更新記録',
-        actionLabel: '読む',
-        type: 'menu',
-        target: DESTINATION_ID,
-        text: '町の更新記録が、新しい順に並んでいます。',
-        area: { x: 14, y: 14, w: 3, h: 3 },
-        tapPadding: 1
-    };
-
-    var prop = {
-        id: PROP_ID,
-        objectId: 'standing_sign_01',
-        src: 'assets/maps/objects/signs/standing_sign_01.png?rev=20260925-standing32x32',
-        x: 14.6875,
-        y: 14.5,
-        w: 2.25,
-        h: 1.875,
-        footY: 16.375,
-        enabled: true,
-        catalogKey: 'standingSignboard',
-        collision: { enabled: true, x: 0.18, y: 0.72, w: 0.64, h: 0.28 },
-        interaction: { enabled: true, triggerId: TRIGGER_ID, x: 0.05, y: 0.20, w: 0.90, h: 0.80 },
-        tap: { enabled: true, x: 0.05, y: 0.12, w: 0.90, h: 0.88 }
-    };
-
-    station.triggers = Array.isArray(station.triggers) ? station.triggers : [];
-    station.props = Array.isArray(station.props) ? station.props : [];
-    mergeById(station.triggers, trigger);
-    mergeById(station.props, prop);
-    if (Array.isArray(window.triggers)) mergeById(window.triggers, trigger);
-    if (Array.isArray(window.stationPlazaProps)) mergeById(window.stationPlazaProps, prop);
-    if (window.activeTownSceneDef && window.currentScene === 'station_plaza') {
-        window.activeTownSceneDef.triggers = Array.isArray(window.activeTownSceneDef.triggers) ? window.activeTownSceneDef.triggers : [];
-        window.activeTownSceneDef.props = Array.isArray(window.activeTownSceneDef.props) ? window.activeTownSceneDef.props : [];
-        mergeById(window.activeTownSceneDef.triggers, trigger);
-        mergeById(window.activeTownSceneDef.props, prop);
-    }
+    // Placement is intentionally not created or repaired here.
+    // If the canonical prop/trigger is removed from station-plaza.js,
+    // it must remain removed after reload.
 })();
