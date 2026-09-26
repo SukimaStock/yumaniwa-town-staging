@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    var PROP_REV = '20260711-1';
+    var PROP_REV = '20260926-2';
     var propImageCache = {};
     var stationPreloadSources = {};
     var stationPreloadPending = 0;
@@ -77,45 +77,6 @@
         return prop.src || '';
     }
 
-    function openStationTile16x8(rects) {
-        var result = [];
-
-        for (var i = 0; i < rects.length; i++) {
-            var item = rects[i];
-
-            if (item && item.x === 16 && item.y === 7 && item.w === 8 && item.h === 2) {
-                result.push({ x: 16, y: 7, w: 8, h: 1 });
-                result.push({ x: 17, y: 8, w: 7, h: 1 });
-                continue;
-            }
-
-            result.push(item);
-        }
-
-        return result;
-    }
-
-    function isReplacedStationPlaceholder(item) {
-        if (!item) return false;
-
-        var key = [item.x, item.y, item.w, item.h].join(':');
-        var replaced = {
-            '1:7:4:2': true,
-            '1:6:4:1': true,
-            '1:10:1:1': true,
-            '4:10:1:1': true,
-            '7:8:2:1': true,
-            '15:13:2:1': true,
-            '11:9:2:2': true,
-            '6:10:1:1': true,
-            '18:10:1:1': true,
-            '6:15:1:1': true,
-            '17:15:1:1': true
-        };
-
-        return !!replaced[key];
-    }
-
     function installStationPlazaData() {
         var maps = window.TOWN_SCENE_MAPS;
         var def = maps && maps.station_plaza;
@@ -126,19 +87,11 @@
         def.mapWidth = Number(window.MAP_WIDTH) || def.mapWidth || 24;
         def.mapHeight = Number(window.MAP_HEIGHT) || def.mapHeight || 24;
         def.passableRects = cloneData(window.passableRects);
-        def.blockedRects = openStationTile16x8(cloneData(window.blockedRects));
+        def.blockedRects = cloneData(window.blockedRects);
         def.blockedPoints = cloneData(window.blockedPoints);
         def.triggers = cloneData(window.triggers);
         def.areaZones = cloneData(window.areaZones);
         def.props = stationPlazaProps;
-
-        // パーツ自身が collision を持つため、旧版で追加していた
-        // ベンチ・街灯の固定座標判定はここでは追加しない。
-        if (def.decor && def.decor.length) {
-            def.decor = def.decor.filter(function(item) {
-                return !isReplacedStationPlaceholder(item);
-            });
-        }
     }
 
     function getPropRetryDelay(entry) {
