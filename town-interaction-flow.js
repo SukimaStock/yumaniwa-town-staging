@@ -51,20 +51,21 @@
     }
 
     function getTapTargetSpec(part) {
-        if (!part) return null;
+        if (!part || !Object.prototype.hasOwnProperty.call(part, "tap")) return null;
 
-        // 将来、開発モード側が part.tap を書き出せるようになった場合はそちらを優先する。
-        if (part.tap && part.tap.enabled !== false) {
-            return part.tap;
+        // Dedicated direct-tap geometry is owned by the placement itself.
+        // tap:false or { enabled:false } is an explicit opt-out and must
+        // never fall through to another registry or trigger-area fallback.
+        if (
+            part.tap === false ||
+            !part.tap ||
+            typeof part.tap !== "object" ||
+            part.tap.enabled === false
+        ) {
+            return null;
         }
 
-        var sceneTargets = window.TOWN_TAP_TARGETS && window.TOWN_TAP_TARGETS[currentScene];
-        if (!sceneTargets || !part.id) return null;
-
-        var spec = sceneTargets[part.id];
-        if (!spec || spec.enabled === false) return null;
-
-        return spec;
+        return part.tap;
     }
 
     function getTapManagedTriggerIds() {

@@ -120,7 +120,8 @@ var stationPlazaProps = [
         "enabled": true,
         "catalogKey": "noticeBoard",
         "collision": { "enabled": true, "x": 0.041666666666666664, "y": 0.8363636363636365, "w": 0.9166666666666666, "h": 0.15 },
-        "interaction": { "enabled": true, "triggerId": "shinpo_board_trigger", "x": 0.03125, "y": 0.625, "w": 0.9895833333333334, "h": 0.375 }
+        "interaction": { "enabled": true, "triggerId": "shinpo_board_trigger", "x": 0.03125, "y": 0.625, "w": 0.9895833333333334, "h": 0.375 },
+        "tap": { "enabled": true, "x": 0.18, "y": 0.68, "w": 0.64, "h": 0.18 }
     },
     {
         "id": "station_tourist_map",
