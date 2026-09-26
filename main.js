@@ -631,7 +631,7 @@ function getWorkPlayerFrameTitle(work) {
     return (work && work.title) || "湯間庭町";
 }
 
-var STATION_GUIDE_MAP_IMAGE = "assets/station-guide-map.png?rev=20260710-final";
+var STATION_GUIDE_MAP_IMAGE = "assets/station-guide-map-20260813.png?v=20260813-1";
 var isStationGuideMapOpen = false;
 var stationGuideMapStylesReady = false;
 var stationGuideMapEventsReady = false;
@@ -640,6 +640,7 @@ var stationGuideMapImageReady = false;
 var stationGuideMapImageError = false;
 var stationGuideMapRevealTimer = null;
 
+var TOWN_ARRIVAL_TEXT = "まもなく、湯間庭町です。";
 var townArrivalLoadingStartedAt = 0;
 var townArrivalLoadingMinMs = 720;
 var townArrivalLoadingHideTimer = null;
@@ -1705,53 +1706,65 @@ function tryTownEdgeWarp(requestedSide) {
 var STATION_GUIDE_MAP_HOTSPOTS = [
     {
         id: "shinpo",
-        label: "湯間庭新報",
+        label: "掲示板",
+        subLabel: "読みもの",
         kind: "place",
         target: "shinpo_board",
-        rect: { left: 22.8, top: 20.6, width: 16.0, height: 11.2 }
+        rect: { left: 24.0, top: 18.0, width: 16.0, height: 20.0 },
+        badge: { left: 27.0, top: 31.0 }
     },
     {
         id: "tomogushi",
         label: "灯串横丁",
+        subLabel: "ゲーム",
         kind: "place",
         target: "tomogushi_alley_map",
-        rect: { left: 0.0, top: 0.0, width: 24.0, height: 70.0 }
+        rect: { left: 3.0, top: 38.0, width: 28.0, height: 34.0 },
+        badge: { left: 14.0, top: 57.0 }
     },
     {
         id: "yumado",
-        label: "湯窓通り",
+        label: "大通り",
+        subLabel: "通り",
         kind: "place",
         target: "yumado_street_map",
-        rect: { left: 63.0, top: 0.0, width: 37.0, height: 56.0 }
+        rect: { left: 62.0, top: 18.0, width: 32.0, height: 38.0 },
+        badge: { left: 82.0, top: 42.0 }
     },
     {
         id: "leisure_center",
-        label: "湯窓レジャーセンター",
+        label: "レジャーセンター",
+        subLabel: "展示",
         kind: "place",
         target: "leisure_center_map",
-        rect: { left: 74.5, top: 52.5, width: 25.5, height: 36.0 }
+        rect: { left: 63.0, top: 56.0, width: 28.0, height: 32.0 },
+        badge: { left: 78.0, top: 76.0 }
     },
     {
         id: "station",
         label: "湯間庭駅",
         kind: "message",
         text: "湯間庭駅。\n\nのんびりしたローカル線の小さな駅だ。\nここから、湯気と看板の町歩きが始まる。",
-        rect: { left: 38.0, top: 58.0, width: 27.0, height: 31.0 }
+        rect: { left: 30.0, top: 74.0, width: 31.0, height: 26.0 }
     },
     {
         id: "current",
         label: "現在地",
         kind: "close",
-        rect: { left: 42.0, top: 39.0, width: 16.5, height: 15.0 }
+        rect: { left: 42.0, top: 43.0, width: 16.0, height: 17.0 },
+        badge: { left: 50.0, top: 55.5 },
+        current: true
     },
     {
         id: "onsen",
-        label: "湯けむり坂 工事中",
+        label: "温泉方面",
+        subLabel: "町の奥へ",
         kind: "place",
         target: "onsen_slope_map",
-        rect: { left: 38.0, top: 0.0, width: 24.0, height: 29.0 }
+        rect: { left: 40.0, top: 0.0, width: 21.0, height: 25.0 },
+        badge: { left: 50.0, top: 11.0 }
     }
-];
+]
 
 function setupStationGuideMapEvents() {
     if (stationGuideMapEventsReady) return;
@@ -2016,10 +2029,10 @@ function ensureTownLoadingStyles() {
         "padding:24px 18px 20px;text-align:center;" +
         "}" +
         ".town-loading-mark{" +
-        "width:38px;height:38px;margin:0 auto 13px;border-radius:50%;" +
-        "background:radial-gradient(circle at 50% 45%, #fff0c8 0 20%, #b89153 21% 48%, rgba(255,240,200,.12) 49% 100%);" +
-        "box-shadow:0 0 22px rgba(255,224,160,.28);" +
-        "animation:townLoadingLamp 1.45s ease-in-out infinite;" +
+        "width:9px;height:9px;margin:0 auto 18px;border-radius:50%;" +
+        "background:#ffe9ad;" +
+        "box-shadow:0 0 0 5px rgba(207,158,84,.08),0 0 16px rgba(255,218,143,.34);" +
+        "animation:townArrivalLight 2.4s ease-in-out infinite;" +
         "}" +
         ".town-loading-label{" +
         "font-weight:850;font-size:18px;letter-spacing:.06em;line-height:1.6;" +
@@ -2031,12 +2044,12 @@ function ensureTownLoadingStyles() {
         ".town-loading-dots span:nth-child(3){animation-delay:.36s;}" +
         "#work-player.is-loading #work-player-frame{opacity:0;}" +
         "#work-player-frame{transition:opacity 360ms ease;}" +
-        "@keyframes townLoadingLamp{0%,100%{opacity:.72;transform:scale(.96);}50%{opacity:1;transform:scale(1.04);}}" +
+        "@keyframes townArrivalLight{0%,100%{opacity:.58;transform:scale(.92);}50%{opacity:1;transform:scale(1.08);}}" +
         "@keyframes townLoadingDots{0%,100%{opacity:.28;}50%{opacity:1;}}" +
         "@media (max-width:720px){" +
         ".town-loading-card{width:min(86vw,320px);padding:22px 16px 18px;}" +
         ".town-loading-label{font-size:16px;}" +
-        ".town-loading-mark{width:34px;height:34px;}" +
+        ".town-loading-mark{width:9px;height:9px;}" +
         "}";
 
     document.head.appendChild(style);
@@ -2055,7 +2068,7 @@ function getOrCreateTownLoadingLayer() {
     layer.innerHTML =
         '<div class="town-loading-card" role="status" aria-live="polite">' +
         '<div class="town-loading-mark" aria-hidden="true"></div>' +
-        '<div id="town-loading-label" class="town-loading-label">湯間庭町に到着しています…</div>' +
+        '<div id="town-loading-label" class="town-loading-label">' + TOWN_ARRIVAL_TEXT + '</div>' +
         '<div class="town-loading-dots" aria-hidden="true"><span>・</span><span>・</span><span>・</span></div>' +
         '</div>';
 
@@ -2068,7 +2081,7 @@ function showTownLoading(label) {
     var labelEl = document.getElementById("town-loading-label");
 
     if (labelEl) {
-        labelEl.textContent = label || "湯間庭町に到着しています…";
+        labelEl.textContent = label || TOWN_ARRIVAL_TEXT;
     }
 
     if (townArrivalLoadingHideTimer) {
@@ -2102,7 +2115,7 @@ function hideTownLoading() {
 
 function showTownArrivalLoading() {
     townLoadTraceMark('arrival_loading_shown', null, true);
-    showTownLoading("湯間庭町に到着しています…");
+    showTownLoading(TOWN_ARRIVAL_TEXT);
 }
 
 function finishTownArrivalLoading() {
@@ -2271,6 +2284,48 @@ function getWorkOpeningLabel(work) {
 
 
 
+function appendStationGuideMapLabels(layer) {
+    if (!layer) return;
+
+    var root = layer.querySelector(".station-guide-map-labels");
+    if (!root) return;
+
+    root.innerHTML = "";
+
+    for (var i = 0; i < STATION_GUIDE_MAP_HOTSPOTS.length; i++) {
+        var spot = STATION_GUIDE_MAP_HOTSPOTS[i];
+        if (!spot || !spot.badge) continue;
+
+        if (spot.current) {
+            var marker = document.createElement("div");
+            marker.className = "station-guide-current-marker";
+            marker.style.left = spot.badge.left + "%";
+            marker.style.top = spot.badge.top + "%";
+            root.appendChild(marker);
+            continue;
+        }
+
+        var badge = document.createElement("div");
+        badge.className = "station-guide-map-label";
+        badge.style.left = spot.badge.left + "%";
+        badge.style.top = spot.badge.top + "%";
+
+        var mainLabel = document.createElement("span");
+        mainLabel.className = "station-guide-map-label-main";
+        mainLabel.textContent = spot.label || "";
+        badge.appendChild(mainLabel);
+
+        if (spot.subLabel) {
+            var subLabel = document.createElement("span");
+            subLabel.className = "station-guide-map-label-sub";
+            subLabel.textContent = spot.subLabel;
+            badge.appendChild(subLabel);
+        }
+
+        root.appendChild(badge);
+    }
+}
+
 function getOrCreateStationGuideMapLayer() {
     var existing = document.getElementById("station-guide-map-layer");
     if (existing) return existing;
@@ -2285,11 +2340,14 @@ function getOrCreateStationGuideMapLayer() {
     layer.innerHTML =
         '<div class="station-guide-map-backdrop" aria-hidden="true"></div>' +
         '<div class="station-guide-map-window" role="dialog" aria-modal="true" aria-label="駅前案内図">' +
+        '<div class="station-guide-map-toolbar">' +
+        '<div class="station-guide-map-hint">行き先をタップ</div>' +
+        '<button class="station-guide-map-close" type="button" aria-label="地図を閉じる">閉じる</button>' +
+        '</div>' +
         '<div class="station-guide-map-image-wrap">' +
         '<img class="station-guide-map-image" src="' + STATION_GUIDE_MAP_IMAGE + '" alt="湯間庭町 駅前案内図">' +
         '<div class="station-guide-map-hotspots" aria-label="行き先"></div>' +
-        '<button class="station-guide-map-close" type="button" aria-label="地図を閉じる">閉じる</button>' +
-        '<div class="station-guide-map-hint">行き先をタップ</div>' +
+        '<div class="station-guide-map-labels" aria-hidden="true"></div>' +
         '</div>' +
         '</div>';
 
@@ -2343,6 +2401,7 @@ function getOrCreateStationGuideMapLayer() {
         }
     }
 
+    appendStationGuideMapLabels(layer);
     return layer;
 }
 
@@ -2692,7 +2751,9 @@ function confirmStationGuideMapMove() {
     }
 
     if (spot.kind === "place" && spot.target) {
-        if (!DESTINATIONS[spot.target]) {
+        var targetIsTownScene = isTownScene(spot.target);
+
+        if (!targetIsTownScene && !DESTINATIONS[spot.target]) {
             closeStationGuideMap();
             showMessage("この場所は、まだ地図に描かれているだけのようです。");
             return;
@@ -2701,10 +2762,15 @@ function confirmStationGuideMapMove() {
         playStationGuideMapDarkTransition(function() {
             closeStationGuideMap();
 
+            if (targetIsTownScene) {
+                changeTownScene(spot.target);
+                return;
+            }
+
             changeScene(spot.target);
 
-            // 地図から来た時は、施設説明よりも行き先一覧をすぐ見せる。
-            // 湯間庭新報だけは既存仕様の新聞ラックをそのまま開く。
+            // 専用画面へ移る場合だけ、施設説明より行き先一覧を先に見せる。
+            // 湯間庭新報は既存仕様の新聞ラックをそのまま開く。
             if (spot.target !== "shinpo_board") {
                 destinationViewMode = "menu";
                 renderDestination();

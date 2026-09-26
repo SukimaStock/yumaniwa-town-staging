@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.18
+Yumaniwa Desk v0.10.19
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,12 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.19:
+- station guide refresh / hotfix を main.js + style.css へ統合し、後付けwrapperを廃止
+- town arrival refresh を main.js へ統合し、表示文言・灯り演出の正本を一本化
+- 案内図からtown sceneへ移動する処理を isTownScene ベースの共通経路へ統一
+- 旧patchファイルやindex読込が再導入された場合、安全確認でエラー
 
 v0.10.18:
 - WORLD OBJECT定義を逆引きし、scene / Editor catalog / dynamic propから未参照の定義を検出
@@ -2695,6 +2701,24 @@ def validate_project(root):
             "repository identity は確認済みですが、HEAD / origin/main はWorking Copyで手動確認してください。"
         )
 
+    retired_patch_files = [
+        "town-arrival-refresh.js",
+        "station-guide-refresh.js",
+        "station-guide-hotfix.js",
+    ]
+    retired_patch_present = [
+        rel for rel in retired_patch_files
+        if os.path.exists(os.path.join(root, rel))
+    ]
+
+    if retired_patch_present:
+        report["errors"].append(
+            "廃止済みruntime patchファイルがあります: "
+            + ", ".join(retired_patch_present)
+        )
+    else:
+        report["ok"].append("runtime patch files: retired")
+
     station_source_text = safe_read(os.path.join(root, "data/station-plaza.js"))
     town_maps_text = safe_read(os.path.join(root, "data/town-maps.js"))
     main_source_text = safe_read(os.path.join(root, "main.js"))
@@ -2902,6 +2926,18 @@ def validate_project(root):
         report["ok"].append("town-maps: station scene builder参照のみ")
 
     index_text = safe_read(os.path.join(root, "index.html"))
+    retired_patch_tags = [
+        rel for rel in retired_patch_files
+        if rel in index_text
+    ]
+    if retired_patch_tags:
+        report["errors"].append(
+            "index.html が廃止済みruntime patchを読み込んでいます: "
+            + ", ".join(retired_patch_tags)
+        )
+    else:
+        report["ok"].append("runtime patch script tags: none")
+
     if 'noindex,nofollow' not in index_text.replace(" ", "").lower():
         report["errors"].append("staging の index.html に noindex,nofollow がありません。")
     else:
