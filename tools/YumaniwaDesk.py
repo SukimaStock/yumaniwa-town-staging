@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.10
+Yumaniwa Desk v0.10.11
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,13 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.11:
+- staging判定をフォルダ名だけでなく data/repository-identity.json の固定identityで検証
+- Pythonistaから.gitが見える場合は origin が SukimaStock/yumaniwa-town-staging、branch が main であることも必須化
+- HEAD と origin/main の参照を読める場合は同期一致を自動確認し、不一致なら安全ロックを解除しない
+- .git がFile Providerから非公開の場合は repository identity を必須の代替証明とし、従来の手動同期確認を維持
+- 同期確認時のHEADを記録し、確認後にHEADが変わった場合も安全ロックを自動で閉じる
 
 v0.10.10:
 - Town Editor取り込みを yumaniwa-editor-diff-v1 専用に統一
@@ -225,6 +232,10 @@ OPERATION_STATE_KEY = "operation_state_by_project"
 EXPECTED_PROJECT_DIR_NAME = "yumaniwa-town-staging"
 PRODUCTION_PROJECT_DIR_NAME = "yumaniwa-town"
 WORKING_COPY_REPO_NAME = EXPECTED_PROJECT_DIR_NAME
+EXPECTED_GITHUB_REPOSITORY = "SukimaStock/yumaniwa-town-staging"
+EXPECTED_GIT_BRANCH = "main"
+REPOSITORY_IDENTITY_PATH = "data/repository-identity.json"
+REPOSITORY_IDENTITY_SCHEMA = "yumaniwa-repository-identity/1"
 
 # 同期確認は「このDeskを起動している間」だけ有効にする。
 # settings.json には前回確認時刻を残すが、アプリを起動し直したら必ず再確認する。
@@ -378,24 +389,226 @@ def project_repo_name(root):
         return ""
 
 
-def project_is_staging(root):
-    return project_looks_valid(root) and project_repo_name(root) == EXPECTED_PROJECT_DIR_NAME
+def _read_optional_text(path):
+    try:
+        if not os.path.isfile(path):
+            return ""
+        return safe_read(path).strip()
+    except (OSError, PermissionError, UnicodeError):
+        return ""
 
 
-def require_staging_project(root):
+def _normalize_github_repository(remote_url):
+    value = str(remote_url or "").strip().replace("\\", "/")
+    if not value:
+        return ""
+    match = re.search(
+        r"github\\.com[:/]([^/]+)/([^/]+?)(?:\\.git)?/?$",
+        value,
+        re.IGNORECASE,
+    )
+    if not match:
+        return ""
+    return (match.group(1) + "/" + match.group(2)).strip("/").lower()
+
+
+def _git_dir_for_project(root):
+    dotgit = os.path.join(root, ".git")
+    try:
+        if os.path.isdir(dotgit):
+            return dotgit, True, ""
+        if not os.path.isfile(dotgit):
+            return "", False, ""
+        pointer = _read_optional_text(dotgit)
+        match = re.match(r"gitdir:\\s*(.+)$", pointer, re.IGNORECASE)
+        if not match:
+            return "", True, ".git の参照先を読めません。"
+        target = match.group(1).strip()
+        if not os.path.isabs(target):
+            target = os.path.normpath(os.path.join(root, target))
+        if not os.path.isdir(target):
+            return "", True, ".git の参照先が見つかりません。"
+        return target, True, ""
+    except (OSError, PermissionError) as exc:
+        return "", True, ".git を読めません: " + str(exc)
+
+
+def _origin_url_from_git_config(config_text):
+    section = ""
+    for raw_line in (config_text or "").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith(("#", ";")):
+            continue
+        if line.startswith("[") and line.endswith("]"):
+            section = line.lower()
+            continue
+        if section == '[remote "origin"]' and "=" in line:
+            key, value = line.split("=", 1)
+            if key.strip().lower() == "url":
+                return value.strip()
+    return ""
+
+
+def _read_git_ref(git_dir, ref_name):
+    if not git_dir or not ref_name:
+        return ""
+    ref_path = os.path.join(git_dir, *ref_name.split("/"))
+    value = _read_optional_text(ref_path)
+    if re.fullmatch(r"[0-9a-fA-F]{40,64}", value or ""):
+        return value.lower()
+
+    packed = _read_optional_text(os.path.join(git_dir, "packed-refs"))
+    for raw_line in packed.splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith(("#", "^")):
+            continue
+        parts = line.split()
+        if len(parts) == 2 and parts[1] == ref_name:
+            if re.fullmatch(r"[0-9a-fA-F]{40,64}", parts[0]):
+                return parts[0].lower()
+    return ""
+
+
+def git_repository_info(root):
+    info = {
+        "metadata_visible": False,
+        "valid_identity": None,
+        "remote_url": "",
+        "repository": "",
+        "branch": "",
+        "head_commit": "",
+        "origin_commit": "",
+        "sync_state": "unknown",
+        "error": "",
+    }
+
+    git_dir, present, error = _git_dir_for_project(root)
+    if not present:
+        return info
+
+    info["metadata_visible"] = True
+    if error or not git_dir:
+        info["valid_identity"] = False
+        info["error"] = error or ".git を確認できません。"
+        return info
+
+    config_text = _read_optional_text(os.path.join(git_dir, "config"))
+    origin_url = _origin_url_from_git_config(config_text)
+    repository = _normalize_github_repository(origin_url)
+    head_text = _read_optional_text(os.path.join(git_dir, "HEAD"))
+    branch = ""
+    head_commit = ""
+
+    if head_text.startswith("ref:"):
+        ref_name = head_text.split(":", 1)[1].strip()
+        prefix = "refs/heads/"
+        if ref_name.startswith(prefix):
+            branch = ref_name[len(prefix):]
+        head_commit = _read_git_ref(git_dir, ref_name)
+    elif re.fullmatch(r"[0-9a-fA-F]{40,64}", head_text or ""):
+        head_commit = head_text.lower()
+
+    origin_ref = "refs/remotes/origin/" + EXPECTED_GIT_BRANCH
+    origin_commit = _read_git_ref(git_dir, origin_ref)
+
+    info.update({
+        "remote_url": origin_url,
+        "repository": repository,
+        "branch": branch,
+        "head_commit": head_commit,
+        "origin_commit": origin_commit,
+    })
+
+    expected_repo = EXPECTED_GITHUB_REPOSITORY.lower()
+    if repository != expected_repo:
+        info["valid_identity"] = False
+        info["error"] = (
+            "Git origin が想定stagingと一致しません: "
+            + (origin_url or "origin URL 不明")
+        )
+        return info
+
+    if branch != EXPECTED_GIT_BRANCH:
+        info["valid_identity"] = False
+        info["error"] = (
+            "Git branch が "
+            + EXPECTED_GIT_BRANCH
+            + " ではありません: "
+            + (branch or "detached / 不明")
+        )
+        return info
+
+    info["valid_identity"] = True
+    if head_commit and origin_commit:
+        info["sync_state"] = "match" if head_commit == origin_commit else "mismatch"
+    return info
+
+
+def repository_identity_info(root):
+    info = {
+        "valid": False,
+        "reason": "",
+        "marker_valid": False,
+        "git": git_repository_info(root),
+    }
+
     if not project_looks_valid(root):
-        raise RuntimeError("staging プロジェクトを確認できません。")
+        info["reason"] = "staging プロジェクトを確認できません。"
+        return info
+
     name = project_repo_name(root)
     if name != EXPECTED_PROJECT_DIR_NAME:
         if name == PRODUCTION_PROJECT_DIR_NAME:
-            raise RuntimeError(
-                "YumaniwaDesk は staging 専用です。本番 yumaniwa-town への書き込みは拒否しました。"
+            info["reason"] = (
+                "YumaniwaDesk は staging 専用です。"
+                "本番 yumaniwa-town への書き込みは拒否しました。"
             )
-        raise RuntimeError(
-            "YumaniwaDesk は {0} だけを編集します。現在のフォルダ: {1}".format(
-                EXPECTED_PROJECT_DIR_NAME, name or "不明"
+        else:
+            info["reason"] = (
+                "YumaniwaDesk は "
+                + EXPECTED_PROJECT_DIR_NAME
+                + " だけを編集します。現在のフォルダ: "
+                + (name or "不明")
             )
+        return info
+
+    marker_path = os.path.join(root, REPOSITORY_IDENTITY_PATH)
+    marker = load_json(marker_path, None)
+    if not isinstance(marker, dict):
+        info["reason"] = (
+            REPOSITORY_IDENTITY_PATH
+            + " を読めないため、staging identity を確認できません。"
         )
+        return info
+
+    marker_valid = (
+        marker.get("schema") == REPOSITORY_IDENTITY_SCHEMA
+        and marker.get("repository") == EXPECTED_GITHUB_REPOSITORY
+        and marker.get("environment") == "staging"
+        and marker.get("branch") == EXPECTED_GIT_BRANCH
+    )
+    if not marker_valid:
+        info["reason"] = "repository identity の内容が想定stagingと一致しません。"
+        return info
+    info["marker_valid"] = True
+
+    git_info = info["git"]
+    if git_info.get("metadata_visible") and not git_info.get("valid_identity"):
+        info["reason"] = git_info.get("error") or "Git identity を確認できません。"
+        return info
+
+    info["valid"] = True
+    return info
+
+
+def project_is_staging(root):
+    return bool(repository_identity_info(root).get("valid"))
+
+
+def require_staging_project(root):
+    info = repository_identity_info(root)
+    if not info.get("valid"):
+        raise RuntimeError(info.get("reason") or "staging identity を確認できません。")
     return True
 
 
@@ -567,7 +780,9 @@ def save_operation_state(root, state):
 
 def safe_session_info(root):
     # 未接続中は settings の project state すら読まず、完全にロック状態を返す。
-    if not project_is_staging(root):
+    identity = repository_identity_info(root)
+    git_info = identity.get("git") or {}
+    if not identity.get("valid"):
         return {
             "valid": False,
             "confirmed_at": None,
@@ -575,6 +790,8 @@ def safe_session_info(root):
             "pending_push": False,
             "last_change_label": "",
             "last_change_files": [],
+            "git": git_info,
+            "identity_reason": identity.get("reason") or "",
         }
 
     state = operation_state(root)
@@ -590,8 +807,21 @@ def safe_session_info(root):
                 and RUNTIME_SYNC_PROJECT_KEY == root_key
                 and age_minutes <= SAFE_SESSION_MAX_MINUTES
             )
+
+            # .git を読める場合は、確認後のbranch/remote逸脱や
+            # HEAD変更・origin/main不一致も自動的に安全ロックへ戻す。
+            if git_info.get("metadata_visible"):
+                if not git_info.get("valid_identity"):
+                    valid = False
+                if git_info.get("sync_state") == "mismatch":
+                    valid = False
+                confirmed_head = str(state.get("sync_head_commit") or "")
+                current_head = str(git_info.get("head_commit") or "")
+                if confirmed_head and current_head and confirmed_head != current_head:
+                    valid = False
         except Exception:
-            pass
+            valid = False
+
     return {
         "valid": valid,
         "confirmed_at": confirmed,
@@ -599,17 +829,31 @@ def safe_session_info(root):
         "pending_push": bool(state.get("pending_push")),
         "last_change_label": str(state.get("last_change_label") or ""),
         "last_change_files": list(state.get("last_change_files") or []),
+        "git": git_info,
+        "identity_reason": "",
     }
 
 
 def confirm_safe_session(root):
     global RUNTIME_SYNC_CONFIRMED, RUNTIME_SYNC_PROJECT_KEY
     require_staging_project(root)
+
+    git_info = git_repository_info(root)
+    if git_info.get("metadata_visible"):
+        if not git_info.get("valid_identity"):
+            raise RuntimeError(git_info.get("error") or "Git identity を確認できません。")
+        if git_info.get("sync_state") == "mismatch":
+            raise RuntimeError(
+                "HEAD と origin/main が一致していません。"
+                "Working Copy で Pull / Push 状態を確認してから再実行してください。"
+            )
+
     state = operation_state(root)
     now = datetime.datetime.now().isoformat(timespec="seconds")
     state["sync_confirmed_at"] = now
     state["pending_push"] = False
     state["last_sync_confirmed_at"] = now
+    state["sync_head_commit"] = str(git_info.get("head_commit") or "")
     save_operation_state(root, state)
     RUNTIME_SYNC_CONFIRMED = True
     RUNTIME_SYNC_PROJECT_KEY = project_storage_key(root)
@@ -621,6 +865,12 @@ def require_safe_write_session(root):
     info = safe_session_info(root)
     if info.get("valid"):
         return True
+    git_info = info.get("git") or {}
+    if git_info.get("sync_state") == "mismatch":
+        raise RuntimeError(
+            "安全ロック中です。HEAD と origin/main が一致していません。"
+            "Working Copy で同期してから再確認してください。"
+        )
     raise RuntimeError(
         "安全ロック中です。書き込む前に[案内]で staging の Working Copyを開き、"
         "Pull後に HEAD / main / origin/main が一致し、未コミット変更がないことを確認してから"
@@ -2179,11 +2429,31 @@ def validate_project(root):
         report["errors"].append("湯間庭町のプロジェクトとして認識できません。index.html / data / works を確認してください。")
         return report
 
-    if not project_is_staging(root):
-        report["errors"].append(
-            "YumaniwaDesk は staging 専用です。フォルダ名を {0} にしてください。".format(EXPECTED_PROJECT_DIR_NAME)
-        )
+    identity = repository_identity_info(root)
+    if not identity.get("valid"):
+        report["errors"].append(identity.get("reason") or "staging identity を確認できません。")
         return report
+
+    report["ok"].append("repository identity: staging を確認")
+    git_info = identity.get("git") or {}
+    if git_info.get("metadata_visible"):
+        report["ok"].append(
+            "Git: origin={0} / branch={1}".format(
+                git_info.get("repository") or "不明",
+                git_info.get("branch") or "不明",
+            )
+        )
+        if git_info.get("sync_state") == "mismatch":
+            report["errors"].append("Git: HEAD と origin/main が一致していません。")
+        elif git_info.get("sync_state") == "match":
+            report["ok"].append("Git: HEAD = origin/main")
+        else:
+            report["warnings"].append("Git: HEAD / origin/main のcommit参照を両方は読めません。同期状態はWorking Copyで確認してください。")
+    else:
+        report["warnings"].append(
+            "Pythonista から .git metadata を参照できません。"
+            "repository identity は確認済みですが、HEAD / origin/main はWorking Copyで手動確認してください。"
+        )
 
     index_text = safe_read(os.path.join(root, "index.html"))
     if 'noindex,nofollow' not in index_text.replace(" ", "").lower():
@@ -3191,6 +3461,18 @@ class YumaniwaDesk(ui.View):
 2. Pullを行う
 3. HEAD / main / origin/main が一致し、未コミット変更がないことを確認
 4. 下の『Pull・同期状態を確認済み』を押す""", lines=0, color=COLORS["text"], size=14, gap=12)
+        git_info = info.get("git") or {}
+        if project_is_staging(self.project_root):
+            if git_info.get("metadata_visible"):
+                b.label(
+                    "staging identity: repository marker + Git origin/main を確認済み。",
+                    lines=0, color=COLORS["green"], size=13, gap=6
+                )
+            else:
+                b.label(
+                    "staging identity: repository marker を確認済み。.git はFile Providerから非公開のためGit状態はWorking Copyで確認します。",
+                    lines=0, color=COLORS["accent"], size=13, gap=6
+                )
         if info.get("pending_push"):
             files = "、".join(info.get("last_change_files") or [])
             b.label("""前回の変更がWorking Copyに残っている可能性があります。Push済みかも確認してください。
@@ -3214,10 +3496,14 @@ class YumaniwaDesk(ui.View):
         return False
 
     def require_project(self):
-        if project_is_staging(self.project_root):
+        identity = repository_identity_info(self.project_root)
+        if identity.get("valid"):
             return True
         if project_looks_valid(self.project_root):
-            alert("本番への接続を拒否しました", "YumaniwaDesk は staging 専用です。本番 yumaniwa-town は編集できません。")
+            alert(
+                "staging identity を確認できません",
+                identity.get("reason") or "このリポジトリへの接続を拒否しました。"
+            )
         else:
             alert("staging が未接続です", "［案内］の『Working Copyのstagingを再検出』を押してください。保存済みの接続情報も staging と再検証してから利用します。")
         self.show_tab(0)
@@ -3234,9 +3520,25 @@ class YumaniwaDesk(ui.View):
             alert("staging が未接続です", "先に[案内]で Working Copy の yumaniwa-town-staging を再検出してください。")
             ui.delay(lambda: self.show_tab(0), 0.01)
             return
+        git_info = git_repository_info(self.project_root)
+        if git_info.get("metadata_visible"):
+            if git_info.get("sync_state") == "match":
+                git_note = "Git remote / main / HEAD=origin/main はDeskで確認済みです。"
+            elif git_info.get("sync_state") == "mismatch":
+                alert(
+                    "同期できていません",
+                    "HEAD と origin/main が一致していません。Working CopyでPull / Push状態を確認してください。"
+                )
+                return
+            else:
+                git_note = "Git remote / main はDeskで確認済みです。HEADとorigin/mainの一致はWorking Copyで確認してください。"
+        else:
+            git_note = "repository identity は確認済みです。.git はPythonistaから見えないため、Git状態はWorking Copyで確認してください。"
+
         message = (
-            "Working CopyでPullを行い、次の2点を確認しましたか?\n\n"
-            "・HEAD / main / origin/main が同じコミット\n"
+            git_note
+            + "\n\nWorking CopyでPullを行い、次を確認しましたか?\n\n"
+            "・必要な場合は HEAD / main / origin/main が同じコミット\n"
             "・コミット前の変更ファイルが残っていない\n\n"
             "確認できている場合だけ同期済みにします。"
         )

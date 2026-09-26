@@ -1,0 +1,6 @@
+{
+  "schema": "yumaniwa-repository-identity/1",
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "environment": "staging",
+  "branch": "main"
+}
