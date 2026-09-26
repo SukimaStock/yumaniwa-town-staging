@@ -1158,6 +1158,19 @@ def _known_scene_ids(current_text):
     return result
 
 
+EDITOR_DIFF_FORMAT = "yumaniwa-editor-diff-v1"
+
+# Town placement canonical sources:
+# - station_plaza -> data/station-plaza.js
+# - other town scenes -> data/town-maps.js
+# Runtime compatibility code is intentionally not a diff destination.
+EDITOR_DIFF_ALLOWED_SOURCES = {
+    "data/station-plaza.js",
+    "data/town-maps.js",
+    "town-ghost-npc.js",
+}
+
+
 def _extract_editor_diff_manifest(text):
     """コメント付きの開発モード出力から diff-v1 のJSON本体だけを安全に読む。"""
     source = text or ""
