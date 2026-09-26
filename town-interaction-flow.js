@@ -77,11 +77,20 @@
 
         for (var i = 0; i < parts.length; i++) {
             var part = parts[i];
-            if (!part || part.enabled === false || !getTapTargetSpec(part)) continue;
+            if (
+                !part ||
+                part.enabled === false ||
+                !Object.prototype.hasOwnProperty.call(part, "tap")
+            ) {
+                continue;
+            }
 
             var interaction = part.interaction;
             if (!interaction || interaction.enabled === false || !interaction.triggerId) continue;
 
+            // Any explicit tap policy owns direct tapping for this trigger.
+            // A rectangle enables the dedicated target; tap:false (or
+            // enabled:false) keeps the trigger out of the broad area fallback.
             managed[String(interaction.triggerId)] = true;
         }
 
@@ -388,7 +397,8 @@
     };
 
     // 優先順位は「専用tap → 従来trigger → 出口 → 地面」。
-    // 専用tapを持つ物は、直接タップ時には広いinteraction / trigger.areaを使わない。
+    // tapを明示した物はdirect-tap policyを自身で所有する。
+    // 専用矩形を持つ場合はその範囲だけ、tap:falseなら直接タップ自体を無効にする。
     window.startTapMoveToNearbyTrigger = function(tileX, tileY) {
         var tapPartTrigger = getTapPartTriggerAtTile(tileX, tileY);
 
