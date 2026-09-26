@@ -222,7 +222,7 @@
 
     var prop = {
         id: 'station_ghost_npc',
-        src: 'assets/maps/props/station-plaza/station-ghost-npc.png?v=20260817-1',
+        objectId: 'station_ghost_npc_01',
         x: 19.54375,
         y: 7.6375,
         w: 2.3125,

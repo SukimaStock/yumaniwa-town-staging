@@ -259,6 +259,22 @@
                 status: 'registered'
             }
         },
+        station_ghost_npc_01: {
+            id: 'station_ghost_npc_01',
+            category: 'npc',
+            type: 'ghost_npc',
+            src: 'assets/maps/props/station-plaza/station-ghost-npc.png?rev=asset-d28a6ed3',
+            finalization: {
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: false
+                },
+                pixelSafe: false,
+                normalizationPending: true,
+                status: 'registered'
+            }
+        },
         yakitori_shop_01: {
             id: 'yakitori_shop_01',
             category: 'shop',

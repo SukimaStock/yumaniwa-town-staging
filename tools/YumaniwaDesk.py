@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.17
+Yumaniwa Desk v0.10.18
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,12 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.18:
+- WORLD OBJECT定義を逆引きし、scene / Editor catalog / dynamic propから未参照の定義を検出
+- 管理対象PROP画像を逆引きし、WORLD OBJECTから未参照の孤児画像を検出
+- station ghost NPCをWORLD OBJECT化し、dynamic propもobjectId-only契約へ統一
+- 旧station PROP画像7件を孤児として削除
 
 v0.10.17:
 - town propの画像正本を data/world-objects.js に一本化し、placement.src fallbackを廃止
@@ -2693,6 +2699,8 @@ def validate_project(root):
     town_maps_text = safe_read(os.path.join(root, "data/town-maps.js"))
     main_source_text = safe_read(os.path.join(root, "main.js"))
     world_objects_text = safe_read(os.path.join(root, "data/world-objects.js"))
+    editor_upgrade_text = safe_read(os.path.join(root, "town-editor-upgrade.js"))
+    ghost_source_text = safe_read(os.path.join(root, "town-ghost-npc.js"))
 
     if "PLAYER_START" in station_source_text or "PLAYER_START" in main_source_text:
         report["errors"].append(
@@ -2793,6 +2801,87 @@ def validate_project(root):
         report["ok"].append(
             "WORLD OBJECT assets: {0} refs / missing 0".format(len(world_srcs))
         )
+
+    world_object_ids = re.findall(
+        r"(?m)^\s{8}([A-Za-z0-9_]+)\s*:\s*\{",
+        world_objects_text,
+    )
+    world_usage_text = "\n".join([
+        station_source_text,
+        town_maps_text,
+        main_source_text,
+        editor_upgrade_text,
+        ghost_source_text,
+    ])
+    orphan_world_objects = []
+
+    for object_id in world_object_ids:
+        quoted = re.compile(
+            r"[\"']" + re.escape(object_id) + r"[\"']"
+        )
+        if quoted.search(world_usage_text) is None:
+            orphan_world_objects.append(object_id)
+
+    if orphan_world_objects:
+        report["errors"].append(
+            "未参照のWORLD OBJECT定義があります: "
+            + ", ".join(sorted(orphan_world_objects))
+        )
+    else:
+        report["ok"].append(
+            "WORLD OBJECT definitions: {0} refs / orphan 0".format(
+                len(world_object_ids)
+            )
+        )
+
+    canonical_world_assets = set()
+    for source in world_srcs:
+        clean = source.split("?", 1)[0].split("#", 1)[0].lstrip("./")
+        if clean and not re.match(r"^https?://", clean, re.IGNORECASE):
+            canonical_world_assets.add(clean.replace(os.sep, "/"))
+
+    managed_asset_roots = [
+        "assets/maps/objects",
+        "assets/maps/props/station-plaza",
+        "assets/maps/props/leisure-center",
+        "assets/maps/props/common",
+    ]
+    managed_extensions = (".png", ".jpg", ".jpeg", ".webp")
+    orphan_managed_assets = []
+
+    for managed_rel in managed_asset_roots:
+        managed_abs = os.path.join(root, managed_rel)
+        if not os.path.isdir(managed_abs):
+            continue
+        for folder, _dirs, filenames in os.walk(managed_abs):
+            for filename in filenames:
+                if not filename.lower().endswith(managed_extensions):
+                    continue
+                absolute = os.path.join(folder, filename)
+                relative = os.path.relpath(absolute, root).replace(os.sep, "/")
+                if relative not in canonical_world_assets:
+                    orphan_managed_assets.append(relative)
+
+    if orphan_managed_assets:
+        report["errors"].append(
+            "WORLD OBJECTから未参照の管理対象画像があります: "
+            + ", ".join(sorted(orphan_managed_assets))
+        )
+    else:
+        report["ok"].append(
+            "managed WORLD OBJECT assets: orphan 0"
+        )
+
+    if re.search(r"(?m)^\s*src\s*:", ghost_source_text):
+        report["errors"].append(
+            "town-ghost-npc.js にplacement.srcが残っています。"
+        )
+    elif "objectId: 'station_ghost_npc_01'" not in ghost_source_text:
+        report["errors"].append(
+            "town-ghost-npc.js のWORLD OBJECT参照を確認できません。"
+        )
+    else:
+        report["ok"].append("ghost NPC prop: WORLD OBJECT-owned")
 
     if "window.YUMANIWA_BUILD_STATION_PLAZA_SCENE" not in station_source_text:
         report["errors"].append(
