@@ -1,4 +1,4 @@
-# Yumaniwa Map Factory System v0.9
+# Yumaniwa Map Factory System v0.10
 
 Map Factory は「完成画像を生成する場所」ではない。
 
@@ -56,6 +56,24 @@ Current preset:
   - LANTERN 6
   - BOARD 6
   - SPECIAL 6
+
+### Auto Object Sheet / Fine Split
+
+v0.10 で追加した、任意配置の小物シート向けモード。
+
+- predefined slot を使わない
+- foreground の connected components を高解像度で検出する
+- 小さい component も残す
+- 斜め接続も同一 component として扱う
+- 数pxだけ離れた断片は同一 object として近接結合する
+- 行ごとに上→下、左→右へ並べる
+- すべて OBJECT / SPECIAL として棚へ登録する
+
+街灯、鞄、植木鉢、工具など、1枚に多数の小物を並べた source sheet を
+「決め打ち slot に寄せず、見えている object 単位で切り出す」ために使う。
+
+Fine Split preset は detection canvas の上限を 1600px に上げ、
+従来 preset より小さい foreground も候補として保持する。
 
 ## Kit detection
 
