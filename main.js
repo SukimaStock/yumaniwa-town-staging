@@ -4812,6 +4812,13 @@ function setupEditorEvents() {
     ensureTriggerEditorExtraFields();
     ensurePartEditorFields();
 
+    if (
+        window.YUMANIWA_SPATIAL_EDITOR &&
+        typeof window.YUMANIWA_SPATIAL_EDITOR.ensure === 'function'
+    ) {
+        window.YUMANIWA_SPATIAL_EDITOR.ensure();
+    }
+
     document.getElementById('btn-close-editor').addEventListener('click', function() {
         document.getElementById('editor-panel').style.display = 'none';
         document.getElementById('btn-debug-toggle').style.display = DEV_MODE_ENABLED ? 'block' : 'none';
@@ -4844,6 +4851,13 @@ function setupEditorEvents() {
         } else {
             editingPartIndex = -1;
             updateEditorStatus(editTarget + " を編集します");
+        }
+
+        if (
+            window.YUMANIWA_SPATIAL_EDITOR &&
+            typeof window.YUMANIWA_SPATIAL_EDITOR.onTargetChanged === 'function'
+        ) {
+            window.YUMANIWA_SPATIAL_EDITOR.onTargetChanged(editTarget);
         }
     });
 
@@ -4885,13 +4899,17 @@ function setupEditorEvents() {
                 window.TOWN_SCENE_MAPS[currentScene].areaZones =
                     JSON.parse(JSON.stringify(areaZones));
             }
-            if (typeof window.YUMANIWA_REFRESH_AREA_ZONE_EDITOR === 'function') {
-                window.YUMANIWA_REFRESH_AREA_ZONE_EDITOR();
-            }
         }
         markEditorDirty();
         updateEditorStatus("直前の編集を取り消しました");
         editStep = 0; currentHoverTile = null;
+
+        if (
+            window.YUMANIWA_SPATIAL_EDITOR &&
+            typeof window.YUMANIWA_SPATIAL_EDITOR.onUndo === 'function'
+        ) {
+            window.YUMANIWA_SPATIAL_EDITOR.onUndo(last.type);
+        }
     });
 
     document.getElementById('btn-editor-export').addEventListener('click', function() {
@@ -5355,6 +5373,21 @@ function getTownPartCollisionRectPixels(part) {
 function getTownPartInteractionRectPixels(part) {
     if (!part || !part.interaction || part.interaction.enabled === false) return null;
     if (!part.interaction.triggerId) return null;
+
+    // trigger.area is the persisted owner of an independently edited inspect
+    // range. part.triggerArea is its editor/runtime bridge.
+    if (part.triggerArea) {
+        var area = normalizeTownPartTriggerArea(part.triggerArea);
+        if (area) {
+            return {
+                x: area.x * TILE_SIZE,
+                y: area.y * TILE_SIZE,
+                w: area.w * TILE_SIZE,
+                h: area.h * TILE_SIZE
+            };
+        }
+    }
+
     return getPartRelativeRectPixels(part, part.interaction);
 }
 
@@ -5425,6 +5458,32 @@ function captureTownPartTriggerTemplates(def) {
         var trigger = source[i];
         if (trigger && trigger.id) {
             townPartTriggerTemplates[trigger.id] = cloneTrigger(trigger);
+        }
+    }
+
+    // Seed the runtime/editor bridge from the canonical trigger template.
+    // triggerArea is intentionally removed by the diff exporter and is never
+    // persisted on the prop itself.
+    var parts = getActiveTownParts();
+    for (var p = 0; p < parts.length; p++) {
+        var part = parts[p];
+        var interaction = part && part.interaction;
+        var triggerId = interaction && interaction.triggerId
+            ? String(interaction.triggerId)
+            : '';
+        var template = triggerId ? townPartTriggerTemplates[triggerId] : null;
+
+        if (
+            part &&
+            interaction &&
+            interaction.enabled !== false &&
+            triggerId &&
+            template &&
+            template.area
+        ) {
+            part.triggerArea = normalizeTownPartTriggerArea(template.area);
+        } else if (part && part.triggerArea) {
+            delete part.triggerArea;
         }
     }
 }
@@ -6744,6 +6803,13 @@ function selectExistingTriggerForEdit(index) {
         " / 内容変更後に「選択中トリガーを更新」、または終点タップで範囲変更"
     );
 
+    if (
+        window.YUMANIWA_SPATIAL_EDITOR &&
+        typeof window.YUMANIWA_SPATIAL_EDITOR.onTriggerSelectionChanged === 'function'
+    ) {
+        window.YUMANIWA_SPATIAL_EDITOR.onTriggerSelectionChanged();
+    }
+
     return true;
 }
 
@@ -6772,6 +6838,13 @@ function updateSelectedTriggerFromForm() {
     editStep = 0;
     currentHoverTile = null;
     editingTriggerIndex = -1;
+
+    if (
+        window.YUMANIWA_SPATIAL_EDITOR &&
+        typeof window.YUMANIWA_SPATIAL_EDITOR.onTriggerSelectionChanged === 'function'
+    ) {
+        window.YUMANIWA_SPATIAL_EDITOR.onTriggerSelectionChanged();
+    }
 
     updateEditorStatus("既存トリガーの内容を更新しました");
 }
@@ -6827,6 +6900,13 @@ function deleteSelectedTrigger() {
     currentHoverTile = null;
     editingTriggerIndex = -1;
 
+    if (
+        window.YUMANIWA_SPATIAL_EDITOR &&
+        typeof window.YUMANIWA_SPATIAL_EDITOR.onTriggerSelectionChanged === 'function'
+    ) {
+        window.YUMANIWA_SPATIAL_EDITOR.onTriggerSelectionChanged();
+    }
+
     updateEditorStatus("トリガーを削除しました。Undoで元に戻せます");
 }
 
@@ -6835,8 +6915,104 @@ function deleteSelectedTrigger() {
 function updateEditorStatus(msg) { document.getElementById('editor-status').innerText = msg; }
 function copyGrid() { return cloneCollisionGrid(baseCollisionGrid.length ? baseCollisionGrid : collisionGrid); }
 
+function collisionGridToRects(targetValue, sourceGrid) {
+    var grid = sourceGrid;
+    var rects = [];
+    var visited = [];
+
+    for (var y = 0; y < MAP_HEIGHT; y++) {
+        var row = [];
+        for (var x = 0; x < MAP_WIDTH; x++) row.push(false);
+        visited.push(row);
+    }
+
+    for (var gy = 0; gy < MAP_HEIGHT; gy++) {
+        for (var gx = 0; gx < MAP_WIDTH; gx++) {
+            if (!grid[gy] || grid[gy][gx] !== targetValue || visited[gy][gx]) continue;
+
+            var w = 0;
+            while (
+                gx + w < MAP_WIDTH &&
+                grid[gy][gx + w] === targetValue &&
+                !visited[gy][gx + w]
+            ) {
+                w++;
+            }
+
+            var h = 1;
+            var canExpand = true;
+
+            while (gy + h < MAP_HEIGHT && canExpand) {
+                for (var i = 0; i < w; i++) {
+                    if (
+                        !grid[gy + h] ||
+                        grid[gy + h][gx + i] !== targetValue ||
+                        visited[gy + h][gx + i]
+                    ) {
+                        canExpand = false;
+                        break;
+                    }
+                }
+                if (canExpand) h++;
+            }
+
+            for (var dy = 0; dy < h; dy++) {
+                for (var dx = 0; dx < w; dx++) {
+                    visited[gy + dy][gx + dx] = true;
+                }
+            }
+
+            rects.push({ x: gx, y: gy, w: w, h: h });
+        }
+    }
+
+    return rects;
+}
+
+function getEditorCollisionData() {
+    // Fixed terrain only. Town-part collision remains owned by prop.collision.
+    var grid = baseCollisionGrid.length ? baseCollisionGrid : collisionGrid;
+
+    if (!grid || grid.length !== MAP_HEIGHT) {
+        throw new Error("Editor collision grid is not initialized");
+    }
+
+    var passable = collisionGridToRects(1, grid);
+    var blockedAll = collisionGridToRects(2, grid);
+    var blockedRectsResult = [];
+    var blockedPointsResult = [];
+
+    for (var i = 0; i < blockedAll.length; i++) {
+        var rect = blockedAll[i];
+
+        if (rect.w === 1 && rect.h === 1) {
+            blockedPointsResult.push({ x: rect.x, y: rect.y });
+        } else {
+            blockedRectsResult.push(rect);
+        }
+    }
+
+    return {
+        passableRects: passable,
+        blockedRects: blockedRectsResult,
+        blockedPoints: blockedPointsResult
+    };
+}
+
 function handleEditorTap(tx, ty) {
     if (editTarget === 'props') {
+        return;
+    }
+
+    if (editTarget === 'areaZones') {
+        if (
+            window.YUMANIWA_SPATIAL_EDITOR &&
+            typeof window.YUMANIWA_SPATIAL_EDITOR.handleAreaZoneTap === 'function'
+        ) {
+            window.YUMANIWA_SPATIAL_EDITOR.handleAreaZoneTap(tx, ty);
+        } else {
+            updateEditorStatus("エリア編集モジュールを読み込めません");
+        }
         return;
     }
 
@@ -6927,6 +7103,13 @@ function handleEditorTap(tx, ty) {
             editStep = 0;
             currentHoverTile = null;
             editingTriggerIndex = -1;
+
+            if (
+                window.YUMANIWA_SPATIAL_EDITOR &&
+                typeof window.YUMANIWA_SPATIAL_EDITOR.onTriggerSelectionChanged === 'function'
+            ) {
+                window.YUMANIWA_SPATIAL_EDITOR.onTriggerSelectionChanged();
+            }
             return;
         }
 

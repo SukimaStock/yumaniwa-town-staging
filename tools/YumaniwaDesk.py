@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.20
+Yumaniwa Desk v0.10.21
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,13 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.21:
+- town-editor-spatial-20260823.js を正式な town-editor-spatial.js へ移行
+- spatial editorのruntime関数上書き / load後setTimeout / 旧collision同期wrapperを廃止
+- areaZones / trigger範囲編集を YUMANIWA_SPATIAL_EDITOR の明示hookへ統一
+- collision差分exportを getEditorCollisionData() へ復旧し、削除済みfull-export API依存を解消
+- spatial moduleとcollision serializerの再退行を安全確認で検出
 
 v0.10.20:
 - town-staging-20260823.js を廃止し、staging専用runtime wrapperを撤去
@@ -1311,6 +1318,7 @@ DESK_CACHE_BUST_SOURCES = {
     "data/station-plaza.js": "./data/station-plaza.js",
     "data/town-maps.js": "./data/town-maps.js",
     "town-ghost-npc.js": "./town-ghost-npc.js",
+    "town-editor-spatial.js": "./town-editor-spatial.js",
     "data/works.js": "./data/works.js",
     "data/updates.js": "./data/updates.js",
 }
@@ -2712,6 +2720,7 @@ def validate_project(root):
         "station-guide-refresh.js",
         "station-guide-hotfix.js",
         "town-staging-20260823.js",
+        "town-editor-spatial-20260823.js",
     ]
     retired_patch_present = [
         rel for rel in retired_patch_files
@@ -2729,6 +2738,8 @@ def validate_project(root):
     station_source_text = safe_read(os.path.join(root, "data/station-plaza.js"))
     town_maps_text = safe_read(os.path.join(root, "data/town-maps.js"))
     main_source_text = safe_read(os.path.join(root, "main.js"))
+    spatial_editor_text = safe_read(os.path.join(root, "town-editor-spatial.js"))
+    safe_export_text = safe_read(os.path.join(root, "town-editor-safe-export.js"))
     world_objects_text = safe_read(os.path.join(root, "data/world-objects.js"))
     editor_upgrade_text = safe_read(os.path.join(root, "town-editor-upgrade.js"))
     ghost_source_text = safe_read(os.path.join(root, "town-ghost-npc.js"))
@@ -2784,6 +2795,47 @@ def validate_project(root):
         )
     else:
         report["ok"].append("town staging runtime patch: retired")
+
+    spatial_retired_tokens = [
+        "buildExportCollisionData",
+        "syncCollisionToScene",
+        "baseGetTownPartTriggerArea",
+        "baseGetTownPartInteractionRectPixels",
+        "window.handleEditorTap =",
+        "window.ensurePartEditorFields =",
+        "window.addEventListener('load'",
+    ]
+    spatial_regressions = [
+        token for token in spatial_retired_tokens
+        if token in spatial_editor_text
+    ]
+
+    if spatial_regressions:
+        report["errors"].append(
+            "town-editor-spatial.js に廃止済みwrapper/互換処理があります: "
+            + ", ".join(spatial_regressions)
+        )
+    elif "window.YUMANIWA_SPATIAL_EDITOR" not in spatial_editor_text:
+        report["errors"].append(
+            "town-editor-spatial.js の正式editor hookを確認できません。"
+        )
+    else:
+        report["ok"].append("spatial editor: explicit hook module")
+
+    if "function getEditorCollisionData()" not in main_source_text:
+        report["errors"].append(
+            "main.js のeditor collision serializerを確認できません。"
+        )
+    elif "buildExportCollisionData" in safe_export_text:
+        report["errors"].append(
+            "town-editor-safe-export.js が削除済みcollision APIを参照しています。"
+        )
+    elif "getEditorCollisionData" not in safe_export_text:
+        report["errors"].append(
+            "town-editor-safe-export.js のcollision serializer参照を確認できません。"
+        )
+    else:
+        report["ok"].append("editor collision diff: canonical serializer")
 
     scene_schema_fallback_tokens = [
         "Number(def.mapWidth) || 24",

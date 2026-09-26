@@ -140,8 +140,10 @@
     }
 
     function getCurrentCollisionData() {
-        if (typeof window.buildExportCollisionData !== 'function') return null;
-        return clone(window.buildExportCollisionData());
+        if (typeof window.getEditorCollisionData !== 'function') {
+            throw new Error('Editor collision serializer is unavailable');
+        }
+        return clone(window.getEditorCollisionData());
     }
 
     function getCurrentParts() {

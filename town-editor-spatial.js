@@ -1,10 +1,7 @@
 // ==========================================
-// 湯間庭町 / 開発モード 空間編集補助 2026-08-23
-// - パーツ削除を上部に表示
-// - 調べる場所を矢印で移動・サイズ変更
-// - パーツ連動の調べる場所もマップ上で独立移動可能
-// - 調べる場所削除後の復活を防止
-// - 通行可能/不可エリアを scene 正本へ同期し、復活を防止
+// 湯間庭町 / Spatial Editor
+// areaZones と trigger 範囲編集の正式モジュール。
+// main.js の明示的hookから呼ばれ、runtime関数を上書きしない。
 // ==========================================
 (function () {
     'use strict';
@@ -425,16 +422,19 @@
         refreshAreaZoneEditor();
     }
 
-    window.YUMANIWA_REFRESH_AREA_ZONE_EDITOR = function() {
-        editingAreaZoneIndex = -1;
-        setAreaZoneFormValues(null);
-        syncAreaZonesToScene();
-        refreshAreaZoneEditor();
-    };
-
     function clampArea(area) {
-        var mapW = Number(window.MAP_WIDTH) || 24;
-        var mapH = Number(window.MAP_HEIGHT) || 24;
+        var mapW = Number(window.MAP_WIDTH);
+        var mapH = Number(window.MAP_HEIGHT);
+
+        if (
+            !isFinite(mapW) ||
+            !isFinite(mapH) ||
+            mapW <= 0 ||
+            mapH <= 0
+        ) {
+            throw new Error('Spatial editor requires validated map dimensions');
+        }
+
         var source = area || {};
         var w = Math.max(1, Math.min(mapW, Math.round(Number(source.w) || 1)));
         var h = Math.max(1, Math.min(mapH, Math.round(Number(source.h) || 1)));
@@ -472,76 +472,6 @@
         }
     }
 
-    function syncCollisionToScene() {
-        if (typeof window.buildExportCollisionData !== 'function') return;
-        var data = window.buildExportCollisionData();
-        if (!data) return;
-
-        var passable = clone(data.passableRects || []);
-        var blockedRects = clone(data.blockedRects || []);
-        var blockedPoints = clone(data.blockedPoints || []);
-        var sceneId = window.currentScene;
-        var def = window.activeTownSceneDef;
-
-        window.passableRects = clone(passable);
-        window.blockedRects = clone(blockedRects);
-        window.blockedPoints = clone(blockedPoints);
-
-        if (def) {
-            def.passableRects = clone(passable);
-            def.blockedRects = clone(blockedRects);
-            def.blockedPoints = clone(blockedPoints);
-        }
-
-        if (window.TOWN_SCENE_MAPS && sceneId && window.TOWN_SCENE_MAPS[sceneId]) {
-            window.TOWN_SCENE_MAPS[sceneId].passableRects = clone(passable);
-            window.TOWN_SCENE_MAPS[sceneId].blockedRects = clone(blockedRects);
-            window.TOWN_SCENE_MAPS[sceneId].blockedPoints = clone(blockedPoints);
-        }
-    }
-
-    // --------------------------------------------------
-    // パーツ連動トリガーの絶対座標化
-    // --------------------------------------------------
-    // main.js is the sole owner of trigger-area precedence.
-    // Keep this reference only for initial seeding of part.triggerArea.
-    var baseGetTownPartTriggerArea = typeof window.getTownPartTriggerArea === 'function'
-        ? window.getTownPartTriggerArea
-        : null;
-    var baseGetTownPartInteractionRectPixels = typeof window.getTownPartInteractionRectPixels === 'function'
-        ? window.getTownPartInteractionRectPixels
-        : null;
-
-    function seedAbsoluteTriggerAreas() {
-        if (!baseGetTownPartTriggerArea) return;
-        var parts = currentParts();
-        for (var i = 0; i < parts.length; i++) {
-            var part = parts[i];
-            if (!part || !part.interaction || part.interaction.enabled === false || !part.interaction.triggerId) continue;
-            if (part.triggerArea) {
-                part.triggerArea = clampArea(part.triggerArea);
-                continue;
-            }
-            var derived = baseGetTownPartTriggerArea(part);
-            if (derived) part.triggerArea = clampArea(derived);
-        }
-    }
-
-    if (baseGetTownPartInteractionRectPixels) {
-        window.getTownPartInteractionRectPixels = function (part) {
-            if (part && part.triggerArea && part.interaction && part.interaction.enabled !== false && part.interaction.triggerId) {
-                var tile = Number(window.TILE_SIZE) || 16;
-                var a = clampArea(part.triggerArea);
-                return {
-                    x: a.x * tile,
-                    y: a.y * tile,
-                    w: a.w * tile,
-                    h: a.h * tile
-                };
-            }
-            return baseGetTownPartInteractionRectPixels.apply(this, arguments);
-        };
-    }
 
     function setLinkedTriggerArea(triggerId, area) {
         var linked = linkedPartsForTrigger(triggerId);
@@ -674,52 +604,6 @@
         }
     }
 
-    function deleteSelectedTriggerStrong() {
-        var list = Array.isArray(window.triggers) ? window.triggers : [];
-        var index = Number(window.editingTriggerIndex);
-        if (!(index >= 0 && index < list.length)) {
-            if (typeof window.updateEditorStatus === 'function') window.updateEditorStatus('削除する調べる場所を先に選択してください');
-            return;
-        }
-
-        var trigger = list[index];
-        var id = trigger ? String(trigger.id || '') : '';
-
-        if (id === 'station_ghost_npc_trigger') {
-            if (typeof window.updateEditorStatus === 'function') {
-                window.updateEditorStatus('おばけNPCの会話トリガーは専用機能のため削除できません');
-            }
-            return;
-        }
-
-        var name = trigger ? (trigger.label || trigger.id || '調べる場所') : '調べる場所';
-        if (!window.confirm('「' + name + '」を削除しますか？')) return;
-
-        var linked = linkedPartsForTrigger(id);
-        recordTriggerHistory(linked);
-        for (var i = 0; i < linked.length; i++) {
-            linked[i].interaction.enabled = false;
-            linked[i].interaction.triggerId = '';
-            delete linked[i].triggerArea;
-        }
-
-        var next = [];
-        for (var t = 0; t < list.length; t++) {
-            if (!list[t] || String(list[t].id || '') !== id) next.push(list[t]);
-        }
-        window.triggers = next;
-        window.editingTriggerIndex = -1;
-        window.editStep = 0;
-        window.currentHoverTile = null;
-
-        if (window.townPartManagedTriggerIds) delete window.townPartManagedTriggerIds[id];
-        if (window.townPartTriggerTemplates) delete window.townPartTriggerTemplates[id];
-        if (typeof window.refreshTownPartDerivedData === 'function') window.refreshTownPartDerivedData();
-        syncTriggersToScene();
-        updateTriggerMoveUi();
-        if (typeof window.updateEditorStatus === 'function') window.updateEditorStatus('調べる場所を削除しました');
-    }
-
     function ensureTriggerMoveControls() {
         var form = document.getElementById('trigger-form');
         if (!form || document.getElementById('trigger-quick-move')) return;
@@ -767,136 +651,41 @@
         updateTriggerMoveUi();
     }
 
-    function ensureTopPartDelete() {
-        var form = document.getElementById('part-form');
-        if (!form || document.getElementById('btn-part-delete-top')) return;
-        var selectButton = document.getElementById('btn-part-mode-select');
-        var row = selectButton && selectButton.parentElement;
-        if (!row) return;
-
-        var button = document.createElement('button');
-        button.id = 'btn-part-delete-top';
-        button.type = 'button';
-        button.textContent = '削除';
-        button.className = 'part-editor-danger';
-        button.disabled = true;
-        button.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (typeof window.deleteSelectedPart === 'function') window.deleteSelectedPart();
-        });
-        row.appendChild(button);
+    function resetAreaZoneSelection() {
+        editingAreaZoneIndex = -1;
+        setAreaZoneFormValues(null);
+        refreshAreaZoneEditor();
     }
 
-    function updateTopPartDelete() {
-        var button = document.getElementById('btn-part-delete-top');
-        if (!button) return;
-        var selected = typeof window.getSelectedTownPart === 'function' ? window.getSelectedTownPart() : null;
-        var protectedGhost = selected && String(selected.id || '') === 'station_ghost_npc';
-        button.disabled = !selected || protectedGhost;
-    }
-
-    function enhanceEditor() {
-        var targetSelect = document.getElementById('edit-target');
-        if (targetSelect) {
-            var triggerOption = targetSelect.querySelector('option[value="triggers"]');
-            if (triggerOption) triggerOption.textContent = '調べる場所（単独）';
-        }
+    function ensureSpatialEditor() {
         ensureTriggerMoveControls();
-        ensureTopPartDelete();
         ensureAreaZoneEditor();
-        updateTopPartDelete();
         updateTriggerMoveUi();
         refreshAreaZoneEditor();
-        seedAbsoluteTriggerAreas();
     }
 
-    // 既存関数を安全に拡張する。
-    window.deleteSelectedTrigger = deleteSelectedTriggerStrong;
-    window.YUMANIWA_MOVE_SELECTED_TRIGGER = moveSelectedTrigger;
-
-    if (typeof window.ensureTriggerEditorExtraFields === 'function') {
-        var baseEnsureTriggerEditorExtraFields = window.ensureTriggerEditorExtraFields;
-        window.ensureTriggerEditorExtraFields = function () {
-            var result = baseEnsureTriggerEditorExtraFields.apply(this, arguments);
-            ensureTriggerMoveControls();
-            return result;
-        };
+    function onTargetChanged() {
+        resetAreaZoneSelection();
+        ensureSpatialEditor();
     }
 
-    if (typeof window.selectExistingTriggerForEdit === 'function') {
-        var baseSelectExistingTriggerForEdit = window.selectExistingTriggerForEdit;
-        window.selectExistingTriggerForEdit = function () {
-            var result = baseSelectExistingTriggerForEdit.apply(this, arguments);
-            ensureTriggerMoveControls();
-            updateTriggerMoveUi();
-            return result;
-        };
+    function onUndo() {
+        syncTriggersToScene();
+        syncAreaZonesToScene();
+        refreshAreaZoneEditor();
+        updateTriggerMoveUi();
     }
 
-    if (typeof window.ensurePartEditorFields === 'function') {
-        var baseEnsurePartEditorFields = window.ensurePartEditorFields;
-        window.ensurePartEditorFields = function () {
-            var result = baseEnsurePartEditorFields.apply(this, arguments);
-            ensureTopPartDelete();
-            updateTopPartDelete();
-            return result;
-        };
+    function onTriggerSelectionChanged() {
+        ensureTriggerMoveControls();
+        updateTriggerMoveUi();
     }
 
-    if (typeof window.updatePartEditorSelectionUi === 'function') {
-        var baseUpdatePartEditorSelectionUi = window.updatePartEditorSelectionUi;
-        window.updatePartEditorSelectionUi = function () {
-            var result = baseUpdatePartEditorSelectionUi.apply(this, arguments);
-            ensureTopPartDelete();
-            updateTopPartDelete();
-            return result;
-        };
-    }
-
-    if (typeof window.handleEditorTap === 'function') {
-        var baseHandleEditorTap = window.handleEditorTap;
-        window.handleEditorTap = function (tx, ty) {
-            var targetBefore = window.editTarget;
-
-            if (targetBefore === 'areaZones') {
-                handleAreaZoneTap(tx, ty);
-                return;
-            }
-
-            var result = baseHandleEditorTap.apply(this, arguments);
-            if (targetBefore === 'passableRects' || targetBefore === 'blockedRects' || targetBefore === 'blockedPoints') {
-                syncCollisionToScene();
-            }
-            return result;
-        };
-    }
-
-    window.addEventListener('load', function () {
-        enhanceEditor();
-        window.setTimeout(enhanceEditor, 100);
-
-        var targetSelect = document.getElementById('edit-target');
-        if (targetSelect && targetSelect.dataset.areaZoneReady !== 'true') {
-            targetSelect.dataset.areaZoneReady = 'true';
-            targetSelect.addEventListener('change', function () {
-                editingAreaZoneIndex = -1;
-                setAreaZoneFormValues(null);
-                refreshAreaZoneEditor();
-            });
-        }
-
-        var undo = document.getElementById('btn-editor-undo');
-        if (undo && undo.dataset.collisionSyncReady !== 'true') {
-            undo.dataset.collisionSyncReady = 'true';
-            undo.addEventListener('click', function () {
-                window.setTimeout(function () {
-                    syncCollisionToScene();
-                    syncTriggersToScene();
-                    syncAreaZonesToScene();
-                    refreshAreaZoneEditor();
-                }, 0);
-            });
-        }
-    });
+    window.YUMANIWA_SPATIAL_EDITOR = {
+        ensure: ensureSpatialEditor,
+        onTargetChanged: onTargetChanged,
+        onUndo: onUndo,
+        onTriggerSelectionChanged: onTriggerSelectionChanged,
+        handleAreaZoneTap: handleAreaZoneTap
+    };
 })();
