@@ -65,7 +65,7 @@ v0.10 で追加した、任意配置の小物シート向けモード。
 - foreground の connected components を高解像度で検出する
 - 小さい component も残す
 - 斜め接続も同一 component として扱う
-- 数pxだけ離れた断片は同一 object として近接結合する
+- detected component は原則1 objectとして独立させ、隣接する小物を勝手にまとめない
 - 行ごとに上→下、左→右へ並べる
 - すべて OBJECT / SPECIAL として棚へ登録する
 
