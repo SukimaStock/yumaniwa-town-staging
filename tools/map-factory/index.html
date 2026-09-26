@@ -15,7 +15,7 @@
         <h1>Map Factory</h1>
         <p class="lead">完成品を生成する場所ではなく、同じ町の素材原型を仕入れて組み合わせる場所。</p>
       </div>
-      <span class="version-badge">Asset Composer v0.9</span>
+      <span class="version-badge">Asset Composer v0.10</span>
     </header>
 
     <section class="workflow" aria-label="workflow">
@@ -178,7 +178,7 @@
         <div>
           <p class="eyebrow">SOURCE INTAKE</p>
           <h2>素材を仕入れる</h2>
-          <p class="muted">Pair Import、Identity Kit Sheet、2×2や横3のObject Sheetを分解して棚へ入れられます。</p>
+          <p class="muted">Pair Import、Identity Kit Sheet、任意配置のObject Sheetを細かく自動分割して棚へ入れられます。</p>
         </div>
       </div>
 
@@ -206,6 +206,7 @@
         <label id="kitPresetField">
           <span>Sheet preset</span>
           <select id="kitPreset">
+            <option value="object-auto-fine">Auto Object Sheet / fine split</option>
             <option value="identity-kit-v1">Identity Kit Sheet v1 / 32 slots</option>
             <option value="object-grid-2x2">Object Sheet 2×2 / 4 objects</option>
             <option value="object-row-3">Object Row 3 / 3 objects</option>
@@ -304,6 +305,6 @@
 
   <script src="./masters.js"></script>
   <script src="./zip.js?v=0.8"></script>
-  <script src="./app.js?v=0.9"></script>
+  <script src="./app.js?v=0.10"></script>
 </body>
 </html>
