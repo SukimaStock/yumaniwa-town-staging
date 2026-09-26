@@ -69,26 +69,14 @@ var PLAYER_WALK_STEP_PX = 24;
 
 var currentScene = 'station_plaza';
 
-function getInitialTownSpawn(sceneId) {
-    var maps = window.TOWN_SCENE_MAPS;
-    var def = maps && maps[sceneId];
-    var spawns = def && def.spawnPoints;
-    var spawn = spawns && spawns.default;
-
-    // Scene data is the canonical owner. Zero is only a fail-closed bootstrap
-    // coordinate until applyTownSceneDefinition() runs.
-    return spawn || { x: 0, y: 0, dir: 'down' };
-}
-
-var initialTownSpawn = getInitialTownSpawn(currentScene);
-
+// Player coordinates are inert until a validated canonical scene is applied.
 var player = {
-    x: Number(initialTownSpawn.x || 0) * TILE_SIZE,
-    y: Number(initialTownSpawn.y || 0) * TILE_SIZE,
+    x: 0,
+    y: 0,
     w: 16,
     h: 16,
     speed: 2,
-    dir: initialTownSpawn.dir || 'down',
+    dir: 'down',
     isMoving: false,
     walkDistance: 0,
     walkFrame: 0,
@@ -662,6 +650,415 @@ function cloneTownData(data) {
     return JSON.parse(JSON.stringify(data || []));
 }
 
+var TOWN_SCENE_REQUIRED_ARRAY_FIELDS = [
+    'edgeWarps',
+    'passableRects',
+    'blockedRects',
+    'blockedPoints',
+    'areaZones',
+    'triggers',
+    'props',
+    'groundRects',
+    'decor'
+];
+
+var TOWN_SCENE_VALID_DIRECTIONS = {
+    up: true,
+    down: true,
+    left: true,
+    right: true
+};
+
+var TOWN_SCENE_VALID_WARP_SIDES = {
+    up: true,
+    down: true,
+    left: true,
+    right: true
+};
+
+var lastTownSceneValidationErrors = [];
+
+function isFiniteTownNumber(value) {
+    return typeof value === 'number' && isFinite(value);
+}
+
+function validateTownRect(rect, path, errors, mapWidth, mapHeight, requireBounds) {
+    if (!rect || typeof rect !== 'object') {
+        errors.push(path + ' must be an object');
+        return;
+    }
+
+    var keys = ['x', 'y', 'w', 'h'];
+    for (var i = 0; i < keys.length; i++) {
+        if (!isFiniteTownNumber(rect[keys[i]])) {
+            errors.push(path + '.' + keys[i] + ' must be a finite number');
+        }
+    }
+
+    if (isFiniteTownNumber(rect.w) && rect.w <= 0) {
+        errors.push(path + '.w must be > 0');
+    }
+    if (isFiniteTownNumber(rect.h) && rect.h <= 0) {
+        errors.push(path + '.h must be > 0');
+    }
+
+    if (
+        requireBounds &&
+        isFiniteTownNumber(rect.x) &&
+        isFiniteTownNumber(rect.y) &&
+        isFiniteTownNumber(rect.w) &&
+        isFiniteTownNumber(rect.h)
+    ) {
+        if (
+            rect.x < 0 ||
+            rect.y < 0 ||
+            rect.x + rect.w > mapWidth ||
+            rect.y + rect.h > mapHeight
+        ) {
+            errors.push(path + ' must stay inside the map bounds');
+        }
+    }
+}
+
+function validateTownSpawnPoint(spawn, path, errors, mapWidth, mapHeight) {
+    if (!spawn || typeof spawn !== 'object') {
+        errors.push(path + ' must be an object');
+        return;
+    }
+
+    if (!isFiniteTownNumber(spawn.x) || !isFiniteTownNumber(spawn.y)) {
+        errors.push(path + ' must have finite x/y');
+        return;
+    }
+
+    if (
+        spawn.x < 0 ||
+        spawn.y < 0 ||
+        spawn.x >= mapWidth ||
+        spawn.y >= mapHeight
+    ) {
+        errors.push(path + ' must stay inside the map bounds');
+    }
+
+    if (!TOWN_SCENE_VALID_DIRECTIONS[String(spawn.dir || '')]) {
+        errors.push(path + '.dir must be up/down/left/right');
+    }
+}
+
+function validateTownSceneDefinition(sceneId, def, registry) {
+    var errors = [];
+    var id = String(sceneId || '');
+
+    if (!def || typeof def !== 'object') {
+        return { ok: false, errors: [id + ': scene definition is missing'] };
+    }
+
+    if (String(def.id || '') !== id) {
+        errors.push(id + '.id must exactly match the registry key');
+    }
+
+    if (!String(def.title || '').trim()) {
+        errors.push(id + '.title is required');
+    }
+
+    if (
+        !isFiniteTownNumber(def.mapWidth) ||
+        def.mapWidth <= 0 ||
+        Math.floor(def.mapWidth) !== def.mapWidth
+    ) {
+        errors.push(id + '.mapWidth must be a positive integer');
+    }
+
+    if (
+        !isFiniteTownNumber(def.mapHeight) ||
+        def.mapHeight <= 0 ||
+        Math.floor(def.mapHeight) !== def.mapHeight
+    ) {
+        errors.push(id + '.mapHeight must be a positive integer');
+    }
+
+    var mapWidth = isFiniteTownNumber(def.mapWidth) ? def.mapWidth : 0;
+    var mapHeight = isFiniteTownNumber(def.mapHeight) ? def.mapHeight : 0;
+
+    if (!String(def.backgroundStyle || '').trim()) {
+        errors.push(id + '.backgroundStyle is required');
+    }
+
+    if (!String(def.backgroundImagePath || '').trim()) {
+        errors.push(id + '.backgroundImagePath is required');
+    }
+
+    for (var f = 0; f < TOWN_SCENE_REQUIRED_ARRAY_FIELDS.length; f++) {
+        var field = TOWN_SCENE_REQUIRED_ARRAY_FIELDS[f];
+        if (!Array.isArray(def[field])) {
+            errors.push(id + '.' + field + ' must be an array');
+        }
+    }
+
+    if (!def.spawnPoints || typeof def.spawnPoints !== 'object' || Array.isArray(def.spawnPoints)) {
+        errors.push(id + '.spawnPoints must be an object');
+    } else {
+        if (!Object.prototype.hasOwnProperty.call(def.spawnPoints, 'default')) {
+            errors.push(id + '.spawnPoints.default is required');
+        }
+
+        for (var spawnKey in def.spawnPoints) {
+            if (!Object.prototype.hasOwnProperty.call(def.spawnPoints, spawnKey)) continue;
+            validateTownSpawnPoint(
+                def.spawnPoints[spawnKey],
+                id + '.spawnPoints.' + spawnKey,
+                errors,
+                mapWidth,
+                mapHeight
+            );
+        }
+    }
+
+    var rectGroups = ['passableRects', 'blockedRects', 'groundRects'];
+    for (var g = 0; g < rectGroups.length; g++) {
+        var rectField = rectGroups[g];
+        var rects = Array.isArray(def[rectField]) ? def[rectField] : [];
+        for (var r = 0; r < rects.length; r++) {
+            validateTownRect(
+                rects[r],
+                id + '.' + rectField + '[' + r + ']',
+                errors,
+                mapWidth,
+                mapHeight,
+                true
+            );
+        }
+    }
+
+    var points = Array.isArray(def.blockedPoints) ? def.blockedPoints : [];
+    for (var p = 0; p < points.length; p++) {
+        var point = points[p];
+        if (
+            !point ||
+            !isFiniteTownNumber(point.x) ||
+            !isFiniteTownNumber(point.y)
+        ) {
+            errors.push(id + '.blockedPoints[' + p + '] must have finite x/y');
+            continue;
+        }
+        if (
+            point.x < 0 ||
+            point.y < 0 ||
+            point.x >= mapWidth ||
+            point.y >= mapHeight
+        ) {
+            errors.push(id + '.blockedPoints[' + p + '] must stay inside the map bounds');
+        }
+    }
+
+    var zoneIds = {};
+    var zones = Array.isArray(def.areaZones) ? def.areaZones : [];
+    for (var z = 0; z < zones.length; z++) {
+        var zone = zones[z];
+        var zonePath = id + '.areaZones[' + z + ']';
+        var zoneId = zone && String(zone.id || '').trim();
+
+        if (!zoneId) {
+            errors.push(zonePath + '.id is required');
+        } else if (zoneIds[zoneId]) {
+            errors.push(zonePath + '.id must be unique');
+        } else {
+            zoneIds[zoneId] = true;
+        }
+
+        validateTownRect(
+            zone && zone.area,
+            zonePath + '.area',
+            errors,
+            mapWidth,
+            mapHeight,
+            true
+        );
+    }
+
+    var triggerIds = {};
+    var sceneTriggers = Array.isArray(def.triggers) ? def.triggers : [];
+    for (var t = 0; t < sceneTriggers.length; t++) {
+        var trigger = sceneTriggers[t];
+        var triggerPath = id + '.triggers[' + t + ']';
+        var triggerId = trigger && String(trigger.id || '').trim();
+
+        if (!triggerId) {
+            errors.push(triggerPath + '.id is required');
+        } else if (triggerIds[triggerId]) {
+            errors.push(triggerPath + '.id must be unique');
+        } else {
+            triggerIds[triggerId] = true;
+        }
+
+        if (trigger && trigger.area != null) {
+            validateTownRect(
+                trigger.area,
+                triggerPath + '.area',
+                errors,
+                mapWidth,
+                mapHeight,
+                true
+            );
+        }
+    }
+
+    var propIds = {};
+    var sceneProps = Array.isArray(def.props) ? def.props : [];
+    for (var q = 0; q < sceneProps.length; q++) {
+        var prop = sceneProps[q];
+        var propPath = id + '.props[' + q + ']';
+        var propId = prop && String(prop.id || '').trim();
+
+        if (!propId) {
+            errors.push(propPath + '.id is required');
+        } else if (propIds[propId]) {
+            errors.push(propPath + '.id must be unique');
+        } else {
+            propIds[propId] = true;
+        }
+
+        if (
+            !prop ||
+            !isFiniteTownNumber(prop.x) ||
+            !isFiniteTownNumber(prop.y) ||
+            !isFiniteTownNumber(prop.w) ||
+            !isFiniteTownNumber(prop.h) ||
+            prop.w <= 0 ||
+            prop.h <= 0
+        ) {
+            errors.push(propPath + ' must have finite x/y and positive w/h');
+        }
+
+        if (
+            prop &&
+            !String(prop.objectId || '').trim() &&
+            !String(prop.src || '').trim()
+        ) {
+            errors.push(propPath + ' must have objectId or src');
+        }
+    }
+
+    var warps = Array.isArray(def.edgeWarps) ? def.edgeWarps : [];
+    for (var w = 0; w < warps.length; w++) {
+        var warp = warps[w];
+        var warpPath = id + '.edgeWarps[' + w + ']';
+
+        if (!warp || typeof warp !== 'object') {
+            errors.push(warpPath + ' must be an object');
+            continue;
+        }
+
+        if (!TOWN_SCENE_VALID_WARP_SIDES[String(warp.side || '')]) {
+            errors.push(warpPath + '.side must be up/down/left/right');
+        }
+
+        if (
+            !isFiniteTownNumber(warp.min) ||
+            !isFiniteTownNumber(warp.max) ||
+            warp.max < warp.min
+        ) {
+            errors.push(warpPath + ' must have finite min/max with max >= min');
+        }
+
+        var targetId = String(warp.target || '').trim();
+        if (!targetId) {
+            errors.push(warpPath + '.target is required');
+            continue;
+        }
+
+        if (registry && !registry[targetId]) {
+            errors.push(warpPath + '.target does not exist: ' + targetId);
+            continue;
+        }
+
+        var targetSpawn = String(warp.targetSpawn || '').trim();
+        if (targetSpawn && registry && registry[targetId]) {
+            var targetSpawns = registry[targetId].spawnPoints;
+            if (!targetSpawns || !targetSpawns[targetSpawn]) {
+                errors.push(
+                    warpPath + '.targetSpawn does not exist on ' +
+                    targetId + ': ' + targetSpawn
+                );
+            }
+        }
+    }
+
+    return {
+        ok: errors.length === 0,
+        errors: errors
+    };
+}
+
+function validateTownSceneRegistry() {
+    var registry = window.TOWN_SCENE_MAPS;
+    var errors = [];
+
+    if (!registry || typeof registry !== 'object') {
+        return {
+            ok: false,
+            errors: ['TOWN_SCENE_MAPS registry is missing']
+        };
+    }
+
+    var count = 0;
+    for (var sceneId in registry) {
+        if (!Object.prototype.hasOwnProperty.call(registry, sceneId)) continue;
+        count++;
+
+        var result = validateTownSceneDefinition(
+            sceneId,
+            registry[sceneId],
+            registry
+        );
+
+        if (!result.ok) {
+            errors = errors.concat(result.errors);
+        }
+    }
+
+    if (!count) {
+        errors.push('TOWN_SCENE_MAPS registry is empty');
+    }
+
+    lastTownSceneValidationErrors = errors.slice();
+
+    return {
+        ok: errors.length === 0,
+        errors: errors
+    };
+}
+
+function validateTownSceneRequest(sceneId, spawnKey) {
+    var registryResult = validateTownSceneRegistry();
+    if (!registryResult.ok) return registryResult;
+
+    var def = getTownSceneDefinition(sceneId);
+    if (!def) {
+        return {
+            ok: false,
+            errors: [String(sceneId || 'unknown') + ': scene definition is missing']
+        };
+    }
+
+    var key = String(spawnKey || 'default');
+    if (!def.spawnPoints[key]) {
+        return {
+            ok: false,
+            errors: [
+                String(sceneId) + '.spawnPoints.' + key + ' does not exist'
+            ]
+        };
+    }
+
+    return {
+        ok: true,
+        errors: [],
+        def: def,
+        spawnKey: key
+    };
+}
+
 function isTownScene(sceneId) {
     return !!(window.TOWN_SCENE_MAPS && window.TOWN_SCENE_MAPS[sceneId]);
 }
@@ -985,16 +1382,11 @@ function waitForTownSceneBackground(sceneId, done) {
 
 
 function loadTownSceneBackground(def) {
-    activeTownSceneDef = def || null;
+    activeTownSceneDef = def;
     bgLoaded = false;
     bgError = false;
 
-    var bgPath = def && def.backgroundImagePath ? def.backgroundImagePath : "";
-
-    if (!bgPath) {
-        finishTownArrivalLoading();
-        return;
-    }
+    var bgPath = def.backgroundImagePath;
 
     var entry = preloadTownSceneBackgroundAsset(bgPath, function(doneEntry) {
         var currentPath = activeTownSceneDef && activeTownSceneDef.backgroundImagePath
@@ -1049,14 +1441,11 @@ function loadTownSceneBackground(def) {
 
 
 function placePlayerAtTownSpawn(def, spawnKey) {
-    if (!def) return;
-
-    var spawns = def.spawnPoints || {};
-    var spawn = spawns[spawnKey] || spawns.default || { x: 12, y: 12, dir: 'down' };
+    var spawn = def.spawnPoints[spawnKey];
 
     player.x = spawn.x * TILE_SIZE;
     player.y = spawn.y * TILE_SIZE;
-    player.dir = spawn.dir || 'down';
+    player.dir = spawn.dir;
     player.isMoving = false;
     player.walkDistance = 0;
     player.walkFrame = 0;
@@ -1064,12 +1453,18 @@ function placePlayerAtTownSpawn(def, spawnKey) {
 }
 
 function applyTownSceneDefinition(sceneId, spawnKey) {
-    var def = getTownSceneDefinition(sceneId);
-    if (!def) return false;
+    var validation = validateTownSceneRequest(sceneId, spawnKey);
+    if (!validation.ok) {
+        lastTownSceneValidationErrors = validation.errors.slice();
+        return false;
+    }
+
+    var def = validation.def;
+    var resolvedSpawnKey = validation.spawnKey;
 
     activeTownSceneDef = def;
-    MAP_WIDTH = Number(def.mapWidth) || 24;
-    MAP_HEIGHT = Number(def.mapHeight) || 24;
+    MAP_WIDTH = def.mapWidth;
+    MAP_HEIGHT = def.mapHeight;
     passableRects = cloneTownData(def.passableRects);
     blockedRects = cloneTownData(def.blockedRects);
     blockedPoints = cloneTownData(def.blockedPoints);
@@ -1100,7 +1495,7 @@ function applyTownSceneDefinition(sceneId, spawnKey) {
     initGrid();
     carveTownEdgeWarpTiles(def);
     loadTownSceneBackground(def);
-    placePlayerAtTownSpawn(def, spawnKey || 'default');
+    placePlayerAtTownSpawn(def, resolvedSpawnKey);
     updateUI();
     updateInteractionHint();
     setTimeout(function() { updateCurrentArea(); }, 10);
@@ -1701,38 +2096,48 @@ function finishTownArrivalLoading() {
     announceTownArrivalReady();
 }
 
-function failTownSceneBoot(sceneId) {
+function normalizeTownSceneErrors(errors) {
+    return Array.isArray(errors) ? errors.filter(Boolean) : [];
+}
+
+function failTownSceneBoot(sceneId, errors) {
     var id = String(sceneId || "unknown");
+    var details = normalizeTownSceneErrors(errors);
 
     townLoadTraceMark('town_scene_boot_failed', {
         scene: id,
-        reason: 'missing_scene_definition'
+        reason: 'invalid_scene_registry',
+        errors: details
     }, true);
 
     if (window.console && typeof window.console.error === 'function') {
         window.console.error(
-            '[Yumaniwa] Missing canonical town scene definition:',
-            id
+            '[Yumaniwa] Canonical town scene validation failed:',
+            id,
+            details
         );
     }
 
     // Do not hide the arrival layer or announce ready.
-    // A missing canonical scene must never fall back to bootstrap globals.
+    // Invalid canonical scene data must never be repaired by runtime defaults.
     showTownLoading("町のデータを読み込めませんでした");
 }
 
-function reportTownSceneTransitionFailure(sceneId) {
+function reportTownSceneTransitionFailure(sceneId, errors) {
     var id = String(sceneId || "unknown");
+    var details = normalizeTownSceneErrors(errors);
 
     townLoadTraceMark('town_scene_transition_failed', {
         scene: id,
-        reason: 'missing_scene_definition'
+        reason: 'invalid_scene_registry',
+        errors: details
     });
 
     if (window.console && typeof window.console.error === 'function') {
         window.console.error(
-            '[Yumaniwa] Refused transition to missing town scene:',
-            id
+            '[Yumaniwa] Refused transition to invalid town scene:',
+            id,
+            details
         );
     }
 
@@ -1801,8 +2206,9 @@ function playTownRpgFadeTransition(callback, waitForReady) {
 
 
 function changeSceneWithTownFade(sceneId, spawnKey) {
-    if (!getTownSceneDefinition(sceneId)) {
-        reportTownSceneTransitionFailure(sceneId);
+    var validation = validateTownSceneRequest(sceneId, spawnKey);
+    if (!validation.ok) {
+        reportTownSceneTransitionFailure(sceneId, validation.errors);
         return false;
     }
 
@@ -2555,8 +2961,14 @@ window.onload = function() {
 
     resizeCanvas();
 
+    var registryValidation = validateTownSceneRegistry();
+    if (!registryValidation.ok) {
+        failTownSceneBoot(currentScene, registryValidation.errors);
+        return;
+    }
+
     if (!applyTownSceneDefinition(currentScene, 'default')) {
-        failTownSceneBoot(currentScene);
+        failTownSceneBoot(currentScene, lastTownSceneValidationErrors);
         return;
     }
 
@@ -7019,9 +7431,9 @@ function prepareSceneUiForChange() {
 }
 
 function changeTownScene(sceneId, spawnKey) {
-    var def = getTownSceneDefinition(sceneId);
-    if (!def) {
-        reportTownSceneTransitionFailure(sceneId);
+    var validation = validateTownSceneRequest(sceneId, spawnKey);
+    if (!validation.ok) {
+        reportTownSceneTransitionFailure(sceneId, validation.errors);
         return false;
     }
 
@@ -7031,7 +7443,10 @@ function changeTownScene(sceneId, spawnKey) {
     closeDestinationScene();
 
     if (!applyTownSceneDefinition(sceneId, spawnKey || 'default')) {
-        reportTownSceneTransitionFailure(sceneId);
+        reportTownSceneTransitionFailure(
+            sceneId,
+            lastTownSceneValidationErrors
+        );
         return false;
     }
 

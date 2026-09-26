@@ -311,8 +311,8 @@ window.YUMANIWA_BUILD_STATION_PLAZA_SCENE = function() {
         id: "station_plaza",
         title: "駅前広場",
         subtitle: "町の中心",
-        mapWidth: Number(MAP_WIDTH) || 24,
-        mapHeight: Number(MAP_HEIGHT) || 24,
+        mapWidth: MAP_WIDTH,
+        mapHeight: MAP_HEIGHT,
         backgroundStyle: "plaza",
         backgroundImagePath: BG_IMAGE_PATH,
         spawnPoints: {

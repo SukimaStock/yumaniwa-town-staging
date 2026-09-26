@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.15
+Yumaniwa Desk v0.10.16
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,13 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.16:
+- 全town sceneに共通schema検証を導入し、未訪問sceneも起動時に一括検査
+- mapWidth / mapHeight / spawnPoints.default / collision・trigger等の必須配列をruntime補完せずfail-closed
+- edgeWarpsのtarget scene / targetSpawn参照切れを起動時に検出
+- 初期playerのscene前fallbackを廃止し、validated scene適用だけが実座標を設定
+- scene schema fallbackの再導入を安全確認で検出
 
 v0.10.15:
 - 起動時の BG_IMAGE_PATH / collision globals fallbackを廃止し、canonical scene欠落時はfail-closed
@@ -2712,6 +2719,29 @@ def validate_project(root):
         )
     else:
         report["ok"].append("town boot: canonical scene required")
+
+    scene_schema_fallback_tokens = [
+        "Number(def.mapWidth) || 24",
+        "Number(def.mapHeight) || 24",
+        "spawns.default || { x: 12, y: 12",
+        "function getInitialTownSpawn(sceneId)",
+    ]
+    restored_scene_fallbacks = [
+        token for token in scene_schema_fallback_tokens
+        if token in main_source_text
+    ]
+
+    if restored_scene_fallbacks:
+        report["errors"].append(
+            "main.js にscene schema fallbackが再導入されています: "
+            + ", ".join(restored_scene_fallbacks)
+        )
+    elif "function validateTownSceneRegistry()" not in main_source_text:
+        report["errors"].append(
+            "main.js のtown scene schema validatorを確認できません。"
+        )
+    else:
+        report["ok"].append("town scene schema: fail-closed")
 
     if "window.YUMANIWA_BUILD_STATION_PLAZA_SCENE" not in station_source_text:
         report["errors"].append(
