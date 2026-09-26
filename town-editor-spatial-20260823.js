@@ -43,6 +43,9 @@
         if (window.TOWN_SCENE_MAPS && sceneId && window.TOWN_SCENE_MAPS[sceneId]) {
             window.TOWN_SCENE_MAPS[sceneId].areaZones = clone(source);
         }
+
+        // The zone contract changed; do not keep a stale runtime area identity.
+        window.currentAreaId = null;
     }
 
     function recordAreaZoneHistory() {
@@ -67,6 +70,18 @@
         var n = 2;
         while (used[stem + '_' + n]) n++;
         return stem + '_' + n;
+    }
+
+    function isAreaZoneIdAvailable(id, exceptIndex) {
+        var value = String(id || '').trim();
+        if (!value) return false;
+
+        var list = areaZoneList();
+        for (var i = 0; i < list.length; i++) {
+            if (i === exceptIndex || !list[i]) continue;
+            if (String(list[i].id || '') === value) return false;
+        }
+        return true;
     }
 
     function getAreaZoneIndexAtTile(tx, ty) {
@@ -234,15 +249,26 @@
         return true;
     }
 
-    function areaZoneFormValues(area, existing) {
+    function areaZoneFormValues(area, existing, existingIndex) {
         var idInput = document.getElementById('area-zone-id');
         var titleInput = document.getElementById('area-zone-title');
         var subtitleInput = document.getElementById('area-zone-subtitle');
         var current = existing || {};
         var requestedId = String((idInput && idInput.value) || current.id || '').trim();
 
+        if (!requestedId) {
+            requestedId = uniqueAreaZoneId('area');
+        }
+
+        if (!isAreaZoneIdAvailable(requestedId, Number(existingIndex))) {
+            if (typeof window.updateEditorStatus === 'function') {
+                window.updateEditorStatus('エリアID「' + requestedId + '」は既に使われています');
+            }
+            return null;
+        }
+
         return {
-            id: requestedId || uniqueAreaZoneId('area'),
+            id: requestedId,
             title: String((titleInput && titleInput.value) || current.title || '新しいエリア'),
             subtitle: String((subtitleInput && subtitleInput.value) || current.subtitle || ''),
             area: clampArea(area || current.area || {})
@@ -265,11 +291,16 @@
     function updateSelectedAreaZoneFromForm() {
         var list = areaZoneList();
         if (!(editingAreaZoneIndex >= 0 && editingAreaZoneIndex < list.length)) return;
-        recordAreaZoneHistory();
-        applyAreaZoneValues(
-            editingAreaZoneIndex,
-            areaZoneFormValues(list[editingAreaZoneIndex].area, list[editingAreaZoneIndex])
+
+        var values = areaZoneFormValues(
+            list[editingAreaZoneIndex].area,
+            list[editingAreaZoneIndex],
+            editingAreaZoneIndex
         );
+        if (!values) return;
+
+        recordAreaZoneHistory();
+        applyAreaZoneValues(editingAreaZoneIndex, values);
         refreshAreaZoneEditor();
         if (typeof window.updateEditorStatus === 'function') {
             window.updateEditorStatus('エリア名・サブタイトルを更新しました');
@@ -361,20 +392,26 @@
         var h = Math.max(Number(window.editStartY) || 0, ty) - minY + 1;
         var area = clampArea({ x: minX, y: minY, w: w, h: h });
 
-        recordAreaZoneHistory();
+        var values;
 
         if (editingAreaZoneIndex >= 0 && editingAreaZoneIndex < list.length) {
-            applyAreaZoneValues(
-                editingAreaZoneIndex,
-                areaZoneFormValues(area, list[editingAreaZoneIndex])
+            values = areaZoneFormValues(
+                area,
+                list[editingAreaZoneIndex],
+                editingAreaZoneIndex
             );
+            if (!values) return;
+
+            recordAreaZoneHistory();
+            applyAreaZoneValues(editingAreaZoneIndex, values);
             if (typeof window.updateEditorStatus === 'function') {
                 window.updateEditorStatus('既存エリアの範囲を更新しました');
             }
         } else {
-            var values = areaZoneFormValues(area, null);
-            if (!values.id) values.id = uniqueAreaZoneId('area');
-            if (!values.title) values.title = '新しいエリア';
+            values = areaZoneFormValues(area, null, -1);
+            if (!values) return;
+
+            recordAreaZoneHistory();
             list.push(values);
             syncAreaZonesToScene();
             editingAreaZoneIndex = list.length - 1;
