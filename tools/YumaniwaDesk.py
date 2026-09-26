@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.6
+Yumaniwa Desk v0.10.7
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,12 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.7:
+- propsのbefore照合をEditorと同じ永続化形へ正規化し、runtime補完値だけで競合しないよう修正
+- prop.triggerArea はruntime/editor bridgeとして照合・保存対象から除外
+- 灯串横丁WORLD OBJECT shopへ実行時補完されていた catalogKey=worldObjectShop も保存対象から除外
+- src / objectId / collision / interaction / 座標等のbefore照合は従来どおり厳密に維持
 
 v0.10.6:
 - Town Editorの複数ファイル反映で、書込途中・再読込・検証・transaction完了のどこで例外が起きても全対象をバックアップからrollback
@@ -1860,6 +1866,31 @@ def _read_array_object_value(text, open_index, close_index, object_id):
     return _parse_safe_js_literal(text[start:end])
 
 
+def _normalize_diff_prop_for_persistence(value):
+    """Editor runtimeでだけ補完されるprop項目を正本照合・保存から除外する。"""
+    if not isinstance(value, dict):
+        return value
+
+    result = dict(value)
+
+    # triggerArea is mirrored from linked trigger.area for editor/runtime use.
+    # The trigger object remains the persisted owner.
+    result.pop("triggerArea", None)
+
+    object_id = str(result.get("objectId") or "").lower()
+    object_name = str(result.get("id") or "").lower()
+    if (
+        result.get("catalogKey") == "worldObjectShop"
+        and (
+            "_shop_" in object_id
+            or object_name.endswith("_shop")
+        )
+    ):
+        result.pop("catalogKey", None)
+
+    return result
+
+
 def _read_current_diff_object(source, text, scene_id, kind, object_id):
     if kind not in ("props", "triggers"):
         raise ValueError("正本照合の種類が不正です: " + kind)
@@ -1888,6 +1919,11 @@ def _assert_diff_before_matches(source, text, scene_id, kind, change):
     current = _read_current_diff_object(source, text, scene_id, kind, object_id)
     if current is None:
         return
+
+    if kind == "props":
+        current = _normalize_diff_prop_for_persistence(current)
+        before = _normalize_diff_prop_for_persistence(before)
+
     if current != before:
         raise ValueError(
             "正本が開発モード開始時の内容と一致しません: {0} {1}。"
@@ -2011,8 +2047,8 @@ def _patch_diff_file(source, current_text, scene_id, prop_changes, trigger_chang
     for change in prop_changes:
         op = str(change.get("op") or "")
         object_id = str(change.get("id") or "")
-        after = change.get("after")
-        before = change.get("before")
+        after = _normalize_diff_prop_for_persistence(change.get("after"))
+        before = _normalize_diff_prop_for_persistence(change.get("before"))
 
         _assert_diff_before_matches(source, result, scene_id, "props", change)
 
