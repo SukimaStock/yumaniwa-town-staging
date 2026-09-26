@@ -105,7 +105,7 @@
       detection: {
         maxDimension: 1600,
         minAreaRatio: 0.000003,
-        minAreaFloor: 3,
+        minAreaFloor: 12,
         alphaThreshold: 18,
         colorThreshold: 32,
         connectDiagonals: true
@@ -1787,79 +1787,16 @@
     };
   }
 
-  function componentAxisGap(a0, a1, b0, b1) {
-    if (a1 < b0) return b0 - a1;
-    if (b1 < a0) return a0 - b1;
-    return 0;
-  }
-
   function buildAutoObjectGroups(detection, preset) {
-    const components = detection.components;
-    if (!components.length) return [];
-
-    const mergeGap = Math.max(
-      2,
-      Math.round(Math.max(detection.width, detection.height) * (preset.mergeGapRatio || 0.006))
-    );
-    const parent = components.map((_, index) => index);
-
-    function find(index) {
-      let root = index;
-      while (parent[root] !== root) root = parent[root];
-      while (parent[index] !== index) {
-        const next = parent[index];
-        parent[index] = root;
-        index = next;
-      }
-      return root;
-    }
-
-    function union(a, b) {
-      const rootA = find(a);
-      const rootB = find(b);
-      if (rootA !== rootB) parent[rootB] = rootA;
-    }
-
-    for (let i = 0; i < components.length; i++) {
-      const a = components[i];
-      for (let j = i + 1; j < components.length; j++) {
-        const b = components[j];
-        const gapX = componentAxisGap(a.minX, a.maxX, b.minX, b.maxX);
-        const gapY = componentAxisGap(a.minY, a.maxY, b.minY, b.maxY);
-        if (gapX <= mergeGap && gapY <= mergeGap) union(i, j);
-      }
-    }
-
-    const clustered = new Map();
-    components.forEach((component, index) => {
-      const root = find(index);
-      if (!clustered.has(root)) clustered.set(root, []);
-      clustered.get(root).push(component);
-    });
-
-    const objects = Array.from(clustered.values()).map((groupComponents) => {
-      let minX = detection.width;
-      let minY = detection.height;
-      let maxX = -1;
-      let maxY = -1;
-
-      groupComponents.forEach((component) => {
-        minX = Math.min(minX, component.minX);
-        minY = Math.min(minY, component.minY);
-        maxX = Math.max(maxX, component.maxX);
-        maxY = Math.max(maxY, component.maxY);
-      });
-
-      return {
-        components: groupComponents,
-        minX,
-        minY,
-        maxX,
-        maxY,
-        cx: (minX + maxX) / 2,
-        cy: (minY + maxY) / 2
-      };
-    });
+    const objects = detection.components.map((component) => ({
+      components: [component],
+      minX: component.minX,
+      minY: component.minY,
+      maxX: component.maxX,
+      maxY: component.maxY,
+      cx: (component.minX + component.maxX) / 2,
+      cy: (component.minY + component.maxY) / 2
+    }));
 
     objects.sort((a, b) => a.cy - b.cy || a.cx - b.cx);
 
