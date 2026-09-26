@@ -18,6 +18,34 @@
         return JSON.stringify(a) === JSON.stringify(b);
     }
 
+    function normalizePartForPersistence(part) {
+        var result = clone(part);
+        if (!result || typeof result !== 'object') return result;
+
+        // triggerArea is an editor/runtime bridge. The persisted owner of
+        // this information is the linked trigger.area, not the prop.
+        delete result.triggerArea;
+
+        // Existing alley WORLD OBJECT shops historically received this
+        // catalogKey only from ensureTownPartMetadata(). Keep the diff
+        // shaped like the canonical source instead of persisting inference.
+        var objectId = String(result.objectId || '').toLowerCase();
+        var id = String(result.id || '').toLowerCase();
+        if (
+            result.catalogKey === 'worldObjectShop' &&
+            (
+                objectId.indexOf('_shop_') !== -1 ||
+                id.slice(-5) === '_shop'
+            )
+        ) {
+            delete result.catalogKey;
+        }
+
+        return result;
+    }
+
+    window.YUMANIWA_NORMALIZE_PART_FOR_PERSISTENCE = normalizePartForPersistence;
+
     function getSceneSource(sceneId) {
         return sceneId === 'station_plaza'
             ? 'data/station-plaza.js'
@@ -118,7 +146,15 @@
 
     function getCurrentParts() {
         if (typeof window.getActiveTownParts !== 'function') return [];
-        return clone(window.getActiveTownParts());
+
+        var parts = window.getActiveTownParts();
+        var result = [];
+
+        for (var i = 0; i < parts.length; i++) {
+            result.push(normalizePartForPersistence(parts[i]));
+        }
+
+        return result;
     }
 
     function getCurrentTriggers() {

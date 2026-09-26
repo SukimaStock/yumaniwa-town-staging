@@ -4584,9 +4584,11 @@ function getDefaultTownPartInteraction(part, catalogKey) {
 function ensureTownPartMetadata(part) {
     if (!part) return part;
 
+    // catalogKey may be inferred for runtime/editor behavior, but inference
+    // must not mutate the persisted placement object. Existing canonical
+    // catalogKey values are preserved; missing ones remain missing.
     var catalogKey = part.catalogKey || inferTownPartCatalogKey(part);
     var catalog = getPartCatalogEntry(catalogKey);
-    part.catalogKey = catalogKey;
 
     if (!part.collision || typeof part.collision !== 'object') {
         part.collision = cloneRelativePartRect(catalog.collision);
