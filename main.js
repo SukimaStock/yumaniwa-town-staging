@@ -5837,7 +5837,7 @@ function ensurePartEditorFields() {
         '</div>' +
         '<div class="part-editor-section">調べる範囲</div>' +
         '<div class="part-editor-row">' +
-        '<label><input id="part-trigger-enabled" type="checkbox"> パーツと一緒に移動</label>' +
+        '<label><input id="part-trigger-enabled" type="checkbox"> 調べる範囲を使う</label>' +
         '</div>' +
         '<div class="part-editor-row">' +
         '<label class="part-editor-grow">トリガーID <input id="part-trigger-id" type="text" style="width:100%;box-sizing:border-box"></label>' +
@@ -5846,7 +5846,7 @@ function ensurePartEditorFields() {
         '<button id="btn-part-smaller" type="button">縮小</button>' +
         '<button id="btn-part-larger" type="button">拡大</button>' +
         '<button id="btn-part-duplicate" type="button">複製</button>' +
-        '<button id="btn-part-delete" class="part-editor-danger" type="button">削除</button>' +
+        '<button id="btn-part-delete" class="part-editor-danger" type="button" style="flex:1 1 100%">選択中パーツを削除</button>' +
         '</div>' +
         '<div class="part-editor-note">ドラッグ・数値変更・拡大縮小に、当たり判定と調べる範囲が追従します。赤が当たり判定、黄が調べる範囲です。</div>';
 

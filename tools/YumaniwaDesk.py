@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.19
+Yumaniwa Desk v0.10.20
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,12 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.20:
+- town-staging-20260823.js を廃止し、staging専用runtime wrapperを撤去
+- 古い駅前座標patch / 非正本interaction px editor / 死んだcollision wrapperを削除
+- 調べる範囲・単独trigger・削除ボタンの有用なUI文言だけ正本へ統合
+- town-staging-20260823.js の再導入やindex読込を安全確認で検出
 
 v0.10.19:
 - station guide refresh / hotfix を main.js + style.css へ統合し、後付けwrapperを廃止
@@ -2705,6 +2711,7 @@ def validate_project(root):
         "town-arrival-refresh.js",
         "station-guide-refresh.js",
         "station-guide-hotfix.js",
+        "town-staging-20260823.js",
     ]
     retired_patch_present = [
         rel for rel in retired_patch_files
@@ -2758,6 +2765,25 @@ def validate_project(root):
         )
     else:
         report["ok"].append("town boot: canonical scene required")
+
+    retired_staging_tokens = [
+        "YUMANIWA_STAGING_20260823",
+        "applyStationPlazaPatch",
+        "persistEditorCollisionToScene",
+        "part-interaction-rect-editor",
+    ]
+    restored_staging_tokens = [
+        token for token in retired_staging_tokens
+        if token in main_source_text
+    ]
+
+    if restored_staging_tokens:
+        report["errors"].append(
+            "main.js に廃止済みstaging patch処理が再導入されています: "
+            + ", ".join(restored_staging_tokens)
+        )
+    else:
+        report["ok"].append("town staging runtime patch: retired")
 
     scene_schema_fallback_tokens = [
         "Number(def.mapWidth) || 24",
