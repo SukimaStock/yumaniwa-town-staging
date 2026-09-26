@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.9
+Yumaniwa Desk v0.10.10
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,12 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.10:
+- Town Editor取り込みを yumaniwa-editor-diff-v1 専用に統一
+- 旧「駅前完全版 / 町マップ1シーン完全版」取り込みを廃止し、全体置換経路をfail-closed化
+- 旧完全版専用の解析・置換・検証コードと、apply側の1ファイル互換分岐を削除
+- 旧形式を貼り付けた場合は、現在の「変更差分をコピー」を使うよう明示して拒否
 
 v0.10.9:
 - おばけNPC専用sourceも var prop / var trigger を安全に読み取り、通常差分と同じbefore照合を実施
@@ -979,80 +985,6 @@ def _normalize_editor_export(text):
     return text + ("\n" if text else "")
 
 
-def _extract_scene_export(text):
-    """
-    開発モードが生成する
-      scene_id: { ... },
-    形式から scene_id と JSON オブジェクトを取り出す。
-    JSON.stringify 由来なのでオブジェクト本体は json.loads で検証できる。
-    """
-    match = re.search(r"(?m)^\s*([A-Za-z0-9_]+)\s*:\s*(\{)", text)
-    if not match:
-        raise ValueError("町マップのシーン定義を見つけられません。")
-    scene_id = match.group(1)
-    open_index = match.start(2)
-    close_index = find_matching(text, open_index, "{", "}")
-    if close_index < 0:
-        raise ValueError("町マップのシーン定義の括弧が閉じていません。")
-    object_text = text[open_index:close_index + 1]
-    try:
-        data = json.loads(object_text)
-    except Exception as exc:
-        raise ValueError("町マップの書き出しJSONを読めません: " + str(exc))
-    if not isinstance(data, dict):
-        raise ValueError("町マップの書き出し内容がオブジェクトではありません。")
-    if str(data.get("id", "")) != scene_id:
-        raise ValueError("シーンIDと書き出しデータ内の id が一致しません。")
-    return scene_id, data
-
-
-def _replace_scene_in_town_maps(current_text, scene_id, scene_data):
-    root_match = re.search(r"window\.TOWN_SCENE_MAPS\s*=\s*\{", current_text)
-    if not root_match:
-        raise ValueError("data/town-maps.js の TOWN_SCENE_MAPS を見つけられません。")
-    root_open = current_text.find("{", root_match.start())
-    root_close = find_matching(current_text, root_open, "{", "}")
-    if root_close < 0:
-        raise ValueError("data/town-maps.js の TOWN_SCENE_MAPS が閉じていません。")
-
-    body_start = root_open + 1
-    body = current_text[body_start:root_close]
-    pattern = re.compile(r"(?m)^([ \t]*)" + re.escape(scene_id) + r"\s*:\s*(\{)")
-    matches = list(pattern.finditer(body))
-    if len(matches) != 1:
-        if not matches:
-            raise ValueError("data/town-maps.js にシーンがありません: " + scene_id)
-        raise ValueError("data/town-maps.js に同じシーンIDが複数あります: " + scene_id)
-
-    match = matches[0]
-    indent = match.group(1)
-    abs_property_start = body_start + match.start()
-    abs_open = body_start + match.start(2)
-    abs_close = find_matching(current_text, abs_open, "{", "}")
-    if abs_close < 0 or abs_close > root_close:
-        raise ValueError("置換対象シーンの括弧を正しく読めません。")
-
-    abs_end = abs_close + 1
-    while abs_end < root_close and current_text[abs_end] in " \t":
-        abs_end += 1
-    if abs_end < root_close and current_text[abs_end] == ",":
-        abs_end += 1
-
-    json_text = json.dumps(scene_data, ensure_ascii=False, indent=4)
-    json_lines = json_text.splitlines()
-    replacement = indent + scene_id + ": " + json_lines[0]
-    if len(json_lines) > 1:
-        replacement += "\n" + "\n".join(indent + line for line in json_lines[1:])
-    replacement += ","
-
-    result = current_text[:abs_property_start] + replacement + current_text[abs_end:]
-    ok, message = basic_js_balance(result)
-    if not ok:
-        raise ValueError("town-maps.js へ反映すると構文が崩れます: " + message)
-    return result
-
-
-
 def _extract_scene_block(current_text, scene_id):
     root_match = re.search(r"window\.TOWN_SCENE_MAPS\s*=\s*\{", current_text)
     if not root_match:
@@ -1211,42 +1143,6 @@ def _count_rect_items(array_body):
     return rect_calls + objects
 
 
-def _scene_change_summary(current_text, scene_id, scene_data):
-    old_block = _extract_scene_block(current_text, scene_id)
-    old_props = _array_object_ids(_extract_named_array(old_block, "props"))
-    old_triggers = _array_object_ids(_extract_named_array(old_block, "triggers"))
-    new_props = [str(p.get("id") or "") for p in (scene_data.get("props") or []) if isinstance(p, dict)]
-    new_triggers = [str(t.get("id") or "") for t in (scene_data.get("triggers") or []) if isinstance(t, dict)]
-
-    old_prop_set, new_prop_set = set(old_props), set(new_props)
-    old_trigger_set, new_trigger_set = set(old_triggers), set(new_triggers)
-
-    old_passable = _count_rect_items(_extract_named_array(old_block, "passableRects"))
-    old_blocked = _count_rect_items(_extract_named_array(old_block, "blockedRects"))
-    new_passable = len(scene_data.get("passableRects") or [])
-    new_blocked = len(scene_data.get("blockedRects") or [])
-
-    lines = [
-        "パーツ: {0} → {1}".format(len(old_props), len(new_props)),
-        "トリガー: {0} → {1}".format(len(old_triggers), len(new_triggers)),
-        "通行領域: {0} → {1}".format(old_passable, new_passable),
-        "通行不可領域: {0} → {1}".format(old_blocked, new_blocked),
-    ]
-    added_props = sorted(new_prop_set - old_prop_set)
-    removed_props = sorted(old_prop_set - new_prop_set)
-    added_triggers = sorted(new_trigger_set - old_trigger_set)
-    removed_triggers = sorted(old_trigger_set - new_trigger_set)
-    if added_props:
-        lines.append("追加パーツ: " + ", ".join(added_props))
-    if removed_props:
-        lines.append("削除パーツ: " + ", ".join(removed_props))
-    if added_triggers:
-        lines.append("追加トリガー: " + ", ".join(added_triggers))
-    if removed_triggers:
-        lines.append("削除トリガー: " + ", ".join(removed_triggers))
-    return "\n".join(lines)
-
-
 def _known_scene_ids(current_text):
     result = {"station_plaza"}
     root_match = re.search(r"window\.TOWN_SCENE_MAPS\s*=\s*\{", current_text or "")
@@ -1260,112 +1156,6 @@ def _known_scene_ids(current_text):
     for m in re.finditer(r'(?m)^[ \t]*(?:\"([^"]+)\"|([A-Za-z_][A-Za-z0-9_]*))\s*:\s*\{', body):
         result.add(m.group(1) or m.group(2))
     return result
-
-
-def _validate_scene_export(root, current_text, scene_id, scene_data):
-    errors = []
-    warnings = []
-
-    if not isinstance(scene_data, dict) or scene_data.get("id") != scene_id:
-        errors.append("シーンIDが一致していません。")
-
-    try:
-        map_w = float(scene_data.get("mapWidth"))
-        map_h = float(scene_data.get("mapHeight"))
-        if not (1 <= map_w <= 128 and 1 <= map_h <= 128):
-            errors.append("マップサイズが想定範囲外です。")
-    except Exception:
-        errors.append("mapWidth / mapHeight を数値として読めません。")
-        map_w = map_h = 24
-
-    triggers = scene_data.get("triggers") or []
-    props = scene_data.get("props") or []
-    if not isinstance(triggers, list) or not isinstance(props, list):
-        errors.append("triggers / props が配列ではありません。")
-        return errors, warnings
-
-    trigger_ids = [str(t.get("id") or "") for t in triggers if isinstance(t, dict)]
-    prop_ids = [str(p.get("id") or "") for p in props if isinstance(p, dict)]
-    if any(not x for x in trigger_ids):
-        errors.append("IDのないトリガーがあります。")
-    if any(not x for x in prop_ids):
-        errors.append("IDのないパーツがあります。")
-    if len(trigger_ids) != len(set(trigger_ids)):
-        errors.append("トリガーIDが重複しています。")
-    if len(prop_ids) != len(set(prop_ids)):
-        errors.append("パーツIDが重複しています。")
-
-    trigger_set = set(trigger_ids)
-    for prop in props:
-        if not isinstance(prop, dict):
-            errors.append("パーツデータにオブジェクト以外が含まれています。")
-            continue
-        for key in ("x", "y", "w", "h"):
-            try:
-                value = float(prop.get(key))
-                if not math.isfinite(value):
-                    raise ValueError()
-                limit = max(map_w, map_h) * 3
-                if abs(value) > limit:
-                    errors.append("{0} の {1} が異常に大きい値です。".format(prop.get("id", "part"), key))
-            except Exception:
-                errors.append("{0} の {1} を数値として読めません。".format(prop.get("id", "part"), key))
-        src = str(prop.get("src") or "")
-        if src and not src.startswith(("http://", "https://")):
-            rel = src.split("?", 1)[0].split("#", 1)[0].lstrip("./")
-            if rel and not os.path.exists(os.path.join(root, rel)):
-                errors.append("画像ファイルが見つかりません: " + rel)
-        interaction = prop.get("interaction") or {}
-        if isinstance(interaction, dict) and interaction.get("enabled"):
-            trigger_id = str(interaction.get("triggerId") or "")
-            if trigger_id and trigger_id not in trigger_set:
-                errors.append("{0} の interaction が存在しないtriggerIdを参照しています: {1}".format(prop.get("id", "part"), trigger_id))
-
-    work_ids = set()
-    try:
-        for work in load_data_records(root, "works"):
-            if work.get("id"):
-                work_ids.add(str(work.get("id")))
-    except Exception:
-        pass
-
-    known_scenes = _known_scene_ids(current_text)
-    for trigger in triggers:
-        if not isinstance(trigger, dict):
-            continue
-        if trigger.get("type") == "work":
-            work_id = str(trigger.get("workId") or "")
-            if work_id and work_ids and work_id not in work_ids:
-                errors.append("作品トリガーが存在しないworkIdを参照しています: " + work_id)
-
-    for warp in scene_data.get("edgeWarps") or []:
-        if isinstance(warp, dict):
-            target = str(warp.get("target") or "")
-            if target and target not in known_scenes:
-                errors.append("edgeWarpが存在しないシーンを参照しています: " + target)
-
-    old_block = _extract_scene_block(current_text, scene_id)
-    old_keys = _top_level_object_keys(old_block)
-    new_keys = set(scene_data.keys())
-    lost = sorted(old_keys - new_keys)
-    if lost:
-        errors.append("この書き出しを反映すると既存フィールドが消えます: " + ", ".join(lost))
-
-    return errors, warnings
-
-
-
-EDITOR_DIFF_FORMAT = "yumaniwa-editor-diff-v1"
-
-# Town placement canonical sources:
-# - station_plaza -> data/station-plaza.js
-# - other town scenes -> data/town-maps.js
-# Runtime compatibility code is intentionally not a diff destination.
-EDITOR_DIFF_ALLOWED_SOURCES = {
-    "data/station-plaza.js",
-    "data/town-maps.js",
-    "town-ghost-npc.js",
-}
 
 
 def _extract_editor_diff_manifest(text):
@@ -2360,80 +2150,38 @@ def plan_town_editor_import(root, clipboard_text):
     if not text:
         raise ValueError("クリップボードが空です。開発モードの[変更を書き出す]→[変更差分をコピー]を先に行ってください。")
 
-    # v0.9.2: 新しい差分形式を最優先で読む。
+    # Town Editor imports are diff-v1 only.
+    # Full-file replacement was an old compatibility path and is intentionally
+    # rejected so stale exports cannot overwrite a newer canonical file.
     manifest = _extract_editor_diff_manifest(text)
     if manifest is not None:
         return _plan_editor_diff_import(root, manifest)
 
-    # 旧形式も互換のため残す。
-    looks_like_station_export = (
-        "data/station-plaza.js" in text
-        and "var stationPlazaProps" in text
-        and "var MAP_WIDTH" in text
+    looks_like_legacy_full_export = (
+        (
+            "data/station-plaza.js" in text
+            and "var stationPlazaProps" in text
+            and "var MAP_WIDTH" in text
+        )
+        or (
+            "data/town-maps.js" in text
+            and re.search(r"(?m)^\s*[A-Za-z0-9_]+\s*:\s*\{", text) is not None
+        )
     )
-    looks_like_scene_export = (
-        "data/town-maps.js" in text
-        and re.search(r"(?m)^\s*[A-Za-z0-9_]+\s*:\s*\{", text) is not None
-    )
-    if not looks_like_station_export and not looks_like_scene_export:
+
+    if looks_like_legacy_full_export:
         raise ValueError(
-            "湯間庭町の開発モード書き出しとして認識できません。"
-            " [変更を書き出す]→[変更差分をコピー]をもう一度行ってください。"
+            "旧形式の完全版取り込みは廃止しました。"
+            " 正本ファイル全体の置換は行いません。"
+            " 開発モードで[変更を書き出す]→[変更差分をコピー]を実行し、"
+            " yumaniwa-editor-diff-v1 の差分を取り込んでください。"
         )
 
-    if looks_like_station_export:
-        target_rel = "data/station-plaza.js"
-        target_abs = os.path.join(root, target_rel)
-        if not os.path.isfile(target_abs):
-            raise FileNotFoundError(target_rel + " がありません。")
-        ok, message = basic_js_balance(text)
-        if not ok:
-            raise ValueError("駅前広場の書き出しコードを反映できません: " + message)
-        current = safe_read(target_abs)
-        return {
-            "kind": "station-data",
-            "scene_id": "station_plaza",
-            "title": "駅前広場",
-            "target_rel": target_rel,
-            "target_rels": [target_rel],
-            "current_hash": _sha256_text(current),
-            "new_hash": _sha256_text(text),
-            "new_text": text,
-            "changed": current.replace("\r\n", "\n") != text,
-            "summary": "駅前広場の完全版を data/station-plaza.js へ反映",
-            "change_summary": "旧形式です。駅前広場の専用データファイル全体を置換します。",
-            "warnings": ["旧形式の完全版取り込みです。可能なら新しい変更差分形式を使ってください。"],
-        }
+    raise ValueError(
+        "yumaniwa-editor-diff-v1 の変更差分として認識できません。"
+        " 開発モードで[変更を書き出す]→[変更差分をコピー]をもう一度行ってください。"
+    )
 
-    if looks_like_scene_export:
-        scene_id, scene_data = _extract_scene_export(text)
-        target_rel = "data/town-maps.js"
-        target_abs = os.path.join(root, target_rel)
-        if not os.path.isfile(target_abs):
-            raise FileNotFoundError(target_rel + " がありません。")
-        current = safe_read(target_abs)
-        errors, warnings = _validate_scene_export(root, current, scene_id, scene_data)
-        if errors:
-            raise ValueError("安全確認に失敗しました:\n・" + "\n・".join(errors))
-        new_text = _replace_scene_in_town_maps(current, scene_id, scene_data)
-        title = str(scene_data.get("title") or scene_id)
-        warnings = list(warnings) + ["旧形式のシーン完全版取り込みです。可能なら新しい変更差分形式を使ってください。"]
-        return {
-            "kind": "scene-definition",
-            "scene_id": scene_id,
-            "title": title,
-            "target_rel": target_rel,
-            "target_rels": [target_rel],
-            "current_hash": _sha256_text(current),
-            "new_hash": _sha256_text(new_text),
-            "new_text": new_text,
-            "changed": current != new_text,
-            "summary": title + " (" + scene_id + ") を data/town-maps.js 内で置換",
-            "change_summary": _scene_change_summary(current, scene_id, scene_data),
-            "warnings": warnings,
-        }
-
-    raise ValueError("対応する書き出し形式ではありません。")
 
 # -----------------------------------------------------------------------------
 # 更新・バックアップ・検証
@@ -4284,17 +4032,14 @@ class YumaniwaDesk(ui.View):
             alert("差分はありません", "現在のWorking Copyと同じ内容です。")
             return
 
-        # 新しい差分形式は複数ファイル、旧形式は1ファイル。ここで同じ形へ揃える。
         file_plans = plan.get("file_plans")
         if not isinstance(file_plans, list):
-            target_rel = plan.get("target_rel", "")
-            file_plans = [{
-                "target_rel": target_rel,
-                "current_hash": plan.get("current_hash"),
-                "new_hash": plan.get("new_hash"),
-                "new_text": plan.get("new_text", ""),
-                "changed": plan.get("changed"),
-            }]
+            alert(
+                "反映できません",
+                "取り込み計画の形式が不正です。変更差分をもう一度読み取ってください。"
+            )
+            self.pending_town_import = None
+            return
         file_plans = [item for item in file_plans if item.get("changed")]
         target_rels = [item.get("target_rel", "") for item in file_plans if item.get("target_rel")]
         if not target_rels:
