@@ -5943,12 +5943,35 @@ function setTriggerFormValues(trigger) {
     var targetInput = document.getElementById("trigger-target");
     var textInput = document.getElementById("trigger-text");
 
-    if (idInput) idInput.value = trigger.id || "";
-    if (labelInput) labelInput.value = trigger.label || "";
-    if (actionInput) actionInput.value = trigger.actionLabel || "";
-    if (typeInput) typeInput.value = trigger.type || "inspect";
-    if (targetInput) targetInput.value = trigger.target || "";
-    if (textInput) textInput.value = trigger.text || "";
+    var dedicatedGhost = isDedicatedGhostTrigger(trigger);
+
+    if (idInput) {
+        idInput.value = trigger.id || "";
+        idInput.disabled = dedicatedGhost;
+    }
+    if (labelInput) {
+        labelInput.value = trigger.label || "";
+        labelInput.disabled = dedicatedGhost;
+    }
+    if (actionInput) {
+        actionInput.value = trigger.actionLabel || "";
+        actionInput.disabled = dedicatedGhost;
+    }
+    if (typeInput) {
+        typeInput.value = trigger.type || "inspect";
+        typeInput.disabled = dedicatedGhost;
+    }
+    if (targetInput) {
+        targetInput.value = trigger.target || "";
+        targetInput.disabled = dedicatedGhost;
+    }
+    if (textInput) {
+        textInput.value = trigger.text || "";
+        textInput.disabled = dedicatedGhost;
+    }
+
+    var updateButton = document.getElementById("btn-update-trigger");
+    if (updateButton) updateButton.disabled = dedicatedGhost;
 }
 
 function syncEditedTriggerToLinkedPartState(previousId, trigger) {
@@ -5994,13 +6017,17 @@ function applyTriggerValues(index, values) {
     var previousId = String(current.id || '');
     var next = cloneTrigger(current);
 
-    next.id = values.id || "trigger";
-    next.label = values.label || "トリガー";
-    next.actionLabel = values.actionLabel || "調べる";
-    next.area = values.area || current.area;
-    next.type = values.type || "inspect";
-    next.target = values.target || "";
-    next.text = values.text || "";
+    if (isDedicatedGhostTrigger(current)) {
+        next.area = values.area || current.area;
+    } else {
+        next.id = values.id || "trigger";
+        next.label = values.label || "トリガー";
+        next.actionLabel = values.actionLabel || "調べる";
+        next.area = values.area || current.area;
+        next.type = values.type || "inspect";
+        next.target = values.target || "";
+        next.text = values.text || "";
+    }
 
     triggers[index] = next;
     syncEditedTriggerToLinkedPartState(previousId, next);
