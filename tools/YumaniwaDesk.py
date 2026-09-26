@@ -1284,38 +1284,70 @@ def _cache_revision_for_text(text):
     return "auto-" + _cache_fingerprint(text)
 
 
-def _replace_script_cache_revision(index_text, script_src, revision):
-    pattern = re.compile(
-        r'(<script\\s+src=["\\\']'
-        + re.escape(script_src)
-        + r')(?:\\?[^"\\\']*)?(["\\\']\\s*></script>)'
-    )
-    matches = list(pattern.finditer(index_text or ""))
-    if len(matches) != 1:
+def _find_script_src_tail(index_text, script_src):
+    source = str(index_text or "")
+    candidates = []
+
+    for quote in ('"', "'"):
+        prefix = "<script src=" + quote + script_src
+        start = 0
+        while True:
+            position = source.find(prefix, start)
+            if position < 0:
+                break
+
+            tail_start = position + len(prefix)
+            tail_end = source.find(quote, tail_start)
+            if tail_end < 0:
+                raise ValueError(
+                    "index.html のscript src引用符が閉じていません: " + script_src
+                )
+
+            tag_end = source.find(">", tail_end + 1)
+            if tag_end < 0 or source[tail_end + 1:tag_end].strip():
+                raise ValueError(
+                    "index.html のscript参照形式を安全に解釈できません: " + script_src
+                )
+
+            candidates.append({
+                "tail_start": tail_start,
+                "tail_end": tail_end,
+                "tail": source[tail_start:tail_end],
+            })
+            start = tail_end + 1
+
+    if len(candidates) != 1:
         raise ValueError(
-            "index.html のscript参照が1件ではありません: "
-            + script_src
+            "index.html のscript参照が1件ではありません: " + script_src
         )
-    return pattern.sub(
-        lambda match: match.group(1) + "?rev=" + revision + match.group(2),
-        index_text,
-        count=1,
+
+    return candidates[0]
+
+
+def _replace_script_cache_revision(index_text, script_src, revision):
+    match = _find_script_src_tail(index_text, script_src)
+    return (
+        index_text[:match["tail_start"]]
+        + "?rev="
+        + revision
+        + index_text[match["tail_end"]:]
     )
 
 
 def _script_cache_revision(index_text, script_src):
-    pattern = re.compile(
-        r'<script\\s+src=["\\\']'
-        + re.escape(script_src)
-        + r'\\?([^"\\\']*)["\\\']\\s*></script>'
-    )
-    matches = list(pattern.finditer(index_text or ""))
-    if len(matches) != 1:
+    try:
+        match = _find_script_src_tail(index_text, script_src)
+    except ValueError:
         return None
-    query = matches[0].group(1)
-    for item in query.split("&"):
+
+    tail = match.get("tail") or ""
+    if not tail.startswith("?"):
+        return ""
+
+    for item in tail[1:].split("&"):
         if item.startswith("rev="):
             return item.split("=", 1)[1]
+
     return ""
 
 
