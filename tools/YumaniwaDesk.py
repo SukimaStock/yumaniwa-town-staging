@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.16
+Yumaniwa Desk v0.10.17
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,12 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.17:
+- town propの画像正本を data/world-objects.js に一本化し、placement.src fallbackを廃止
+- station-plaza.js / town-maps.js のprop src重複を禁止
+- WORLD OBJECT srcが実ファイルとして存在するか安全確認で検証
+- Editor新規配置をobjectId-onlyへ変更し、旧src経路の再導入を検出
 
 v0.10.16:
 - 全town sceneに共通schema検証を導入し、未訪問sceneも起動時に一括検査
@@ -2686,6 +2692,7 @@ def validate_project(root):
     station_source_text = safe_read(os.path.join(root, "data/station-plaza.js"))
     town_maps_text = safe_read(os.path.join(root, "data/town-maps.js"))
     main_source_text = safe_read(os.path.join(root, "main.js"))
+    world_objects_text = safe_read(os.path.join(root, "data/world-objects.js"))
 
     if "PLAYER_START" in station_source_text or "PLAYER_START" in main_source_text:
         report["errors"].append(
@@ -2742,6 +2749,50 @@ def validate_project(root):
         )
     else:
         report["ok"].append("town scene schema: fail-closed")
+
+    placement_src_pattern = re.compile(r"(?m)^\s*[\"']?src[\"']?\s*:")
+    placement_src_files = []
+    if placement_src_pattern.search(station_source_text):
+        placement_src_files.append("data/station-plaza.js")
+    if placement_src_pattern.search(town_maps_text):
+        placement_src_files.append("data/town-maps.js")
+
+    if placement_src_files:
+        report["errors"].append(
+            "prop placement に src の二重管理があります: "
+            + ", ".join(placement_src_files)
+        )
+    else:
+        report["ok"].append("town prop source owner: data/world-objects.js")
+
+    if "fallbackSrc" in world_objects_text:
+        report["errors"].append(
+            "data/world-objects.js に旧src fallbackが再導入されています。"
+        )
+
+    world_srcs = re.findall(
+        r"(?m)^\s*src\s*:\s*[\"']([^\"']+)[\"']",
+        world_objects_text,
+    )
+    missing_world_assets = []
+
+    for source in world_srcs:
+        clean = source.split("?", 1)[0].split("#", 1)[0].lstrip("./")
+        if not clean or re.match(r"^https?://", clean, re.IGNORECASE):
+            continue
+        asset_path = os.path.join(root, clean)
+        if not os.path.isfile(asset_path):
+            missing_world_assets.append(clean)
+
+    if missing_world_assets:
+        report["errors"].append(
+            "WORLD OBJECT の参照先ファイルがありません: "
+            + ", ".join(sorted(set(missing_world_assets)))
+        )
+    else:
+        report["ok"].append(
+            "WORLD OBJECT assets: {0} refs / missing 0".format(len(world_srcs))
+        )
 
     if "window.YUMANIWA_BUILD_STATION_PLAZA_SCENE" not in station_source_text:
         report["errors"].append(

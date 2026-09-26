@@ -832,14 +832,9 @@
         return objects[objectId] || null;
     }
 
-    function resolveSrc(objectId, fallbackSrc) {
+    function resolveSrc(objectId) {
         var objectDef = get(objectId);
-
-        if (objectDef && objectDef.src) {
-            return objectDef.src;
-        }
-
-        return fallbackSrc || '';
+        return objectDef && objectDef.src ? objectDef.src : '';
     }
 
     window.YUMANIWA_WORLD_OBJECTS = {

@@ -106,7 +106,6 @@ var stationPlazaProps = [
     {
         "id": "station_notice_board",
         "objectId": "notice_board_01",
-        "src": "assets/maps/props/station-plaza/station-notice-board.png?rev=20260822-clean",
         "x": 1.5625,
         "y": 3.625,
         "w": 5.25,
@@ -121,7 +120,6 @@ var stationPlazaProps = [
     {
         "id": "station_tourist_map",
         "objectId": "tourist_map_01",
-        "src": "assets/maps/props/station-plaza/station-tourist-map.png?rev=20260712-square",
         "x": 12.574074074074076,
         "y": 7.125,
         "w": 4.0,
@@ -135,7 +133,6 @@ var stationPlazaProps = [
     {
         "id": "station_bench_left",
         "objectId": "bench_wood_01",
-        "src": "assets/maps/props/station-plaza/station-bench.png?rev=20260822-clean",
         "x": 18,
         "y": 12,
         "w": 3,
@@ -149,7 +146,6 @@ var stationPlazaProps = [
     {
         "id": "station_bench_right",
         "objectId": "bench_wood_01",
-        "src": "assets/maps/props/station-plaza/station-bench.png?rev=20260822-clean",
         "x": 16.9375,
         "y": 5.9375,
         "w": 3,
@@ -163,7 +159,6 @@ var stationPlazaProps = [
     {
         "id": "station_lamp_left",
         "objectId": "street_lamp_01",
-        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
         "x": 8.333333333333334,
         "y": 3.008333333333333,
         "w": 2.0,
@@ -177,7 +172,6 @@ var stationPlazaProps = [
     {
         "id": "station_lamp_right",
         "objectId": "street_lamp_01",
-        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
         "x": 13.583333333333334,
         "y": 3.0625,
         "w": 2.0,
@@ -191,7 +185,6 @@ var stationPlazaProps = [
     {
         "id": "station_planter_left",
         "objectId": "planter_01",
-        "src": "assets/maps/props/station-plaza/station-planter.png?rev=20260822-clean",
         "x": 5.5625,
         "y": 12.9375,
         "w": 2,
@@ -205,7 +198,6 @@ var stationPlazaProps = [
     {
         "id": "station_planter_right",
         "objectId": "planter_01",
-        "src": "assets/maps/props/station-plaza/station-planter.png?rev=20260822-clean",
         "x": 16.274115826090167,
         "y": 12.97586571998007,
         "w": 2,
@@ -219,7 +211,6 @@ var stationPlazaProps = [
     {
         "id": "station_direction_sign_candidate",
         "objectId": "station_direction_sign_01",
-        "src": "assets/maps/props/station-plaza/station-direction-sign.png?rev=20260712-square",
         "x": 13.7,
         "y": 6.6,
         "w": 2.4,
@@ -233,7 +224,6 @@ var stationPlazaProps = [
     {
         "id": "station_stationBuilding_10",
         "objectId": "station_building_01",
-        "src": "assets/maps/props/station-plaza/station-building.png?rev=20260822-clean",
         "x": 1.75,
         "y": 16,
         "w": 8,
@@ -247,7 +237,6 @@ var stationPlazaProps = [
     {
         "id": "station_streetLamp_11",
         "objectId": "street_lamp_01",
-        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
         "x": 0,
         "y": 5.29749303254982,
         "w": 2.0,
@@ -261,7 +250,6 @@ var stationPlazaProps = [
     {
         "id": "station_streetLamp_12",
         "objectId": "street_lamp_01",
-        "src": "assets/maps/props/station-plaza/station-street-lamp.png?rev=20260712-square",
         "x": 21.5,
         "y": 5.242885313140873,
         "w": 2.0,
@@ -275,7 +263,6 @@ var stationPlazaProps = [
     {
         "id": "station_update_history_signboard",
         "objectId": "standing_sign_01",
-        "src": "assets/maps/objects/signs/standing_sign_01.png?rev=20260925-standing32x32",
         "x": 7.099537037037036,
         "y": 14.26394147341852,
         "w": 2,
@@ -290,7 +277,6 @@ var stationPlazaProps = [
     {
         "id": "station_feedback_box_placeholder",
         "objectId": "post_box_01",
-        "src": "assets/maps/props/common/town-feedback-postbox.png?v=20260822-clean",
         "x": 9.922174011330714,
         "y": 1.125,
         "w": 2,

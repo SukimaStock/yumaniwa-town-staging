@@ -251,7 +251,6 @@
             {
                 "id": "craft_cola_shop",
                 "objectId": "craft_cola_shop_01",
-                "src": "assets/maps/objects/shops/craft_cola_shop_01.png?rev=20260925-alleyshops96",
                 "x": 10.375,
                 "y": 2.375,
                 "w": 6,
@@ -277,7 +276,6 @@
             {
                 "id": "yakitori_yumado_shop",
                 "objectId": "yakitori_shop_01",
-                "src": "assets/maps/objects/shops/yakitori_shop_01.png?rev=20260925-yakitori96-r2",
                 "x": 15.375,
                 "y": 2.3125,
                 "w": 6,
@@ -303,7 +301,6 @@
             {
                 "id": "junkissa_dive_shop",
                 "objectId": "kissaten_shop_01",
-                "src": "assets/maps/objects/shops/kissaten_shop_01.png?rev=20260925-alleyshops96",
                 "x": 5.125,
                 "y": 2.375,
                 "w": 6,
@@ -329,7 +326,6 @@
             {
                 "id": "rojiura_masala_shop",
                 "objectId": "curry_shop_01",
-                "src": "assets/maps/objects/shops/curry_shop_01.png?rev=20260925-alleyshops96",
                 "x": -0.0625,
                 "y": 2.3476543495998135,
                 "w": 6,
@@ -396,7 +392,6 @@
         {
           id: 'yumado_street_info_sign',
           objectId: 'standing_sign_01',
-          src: 'assets/maps/objects/signs/standing_sign_01.png?rev=20260925-standing32x32',
           x: 11,
           y: 10,
           w: 2,
@@ -608,7 +603,6 @@
         {
           id: 'leisure_counter',
           objectId: 'leisure_counter_01',
-          src: 'assets/maps/props/leisure-center/leisure-counter.png?v=20260925-1',
           x: 1.0, y: 0.0, w: 6.0, h: 6.0, footY: 6.0,
           enabled: true,
           catalogKey: 'worldObjectFacility',
@@ -619,7 +613,6 @@
         {
           id: 'leisure_pickup',
           objectId: 'leisure_pickup_shelf_01',
-          src: 'assets/maps/props/leisure-center/leisure-pickup-shelf.png?v=20260925-6',
           x: 17.375, y: 0, w: 5.25, h: 5.25, footY: 5.25,
           enabled: true,
           catalogKey: 'worldObjectFacility',
@@ -630,7 +623,6 @@
         {
           id: 'leisure_exhibit_steamclock',
           objectId: 'leisure_exhibit_steamclock_01',
-          src: 'assets/maps/props/leisure-center/leisure-exhibit-steamclock.png?v=20260925-1',
           x: 2.25, y: 6.25, w: 3.5, h: 3.5, footY: 9.75,
           enabled: true,
           catalogKey: 'worldObjectExhibit',
@@ -641,7 +633,6 @@
         {
           id: 'leisure_exhibit_dotweather',
           objectId: 'leisure_exhibit_dotweather_01',
-          src: 'assets/maps/props/leisure-center/leisure-exhibit-dotweather.png?v=20260925-1',
           x: 18.25, y: 7.75, w: 3.5, h: 3.5, footY: 11.25,
           enabled: true,
           catalogKey: 'worldObjectExhibit',
@@ -652,7 +643,6 @@
         {
           id: 'leisure_exhibit_coffee_factory',
           objectId: 'leisure_exhibit_coffeefactory_01',
-          src: 'assets/maps/props/leisure-center/leisure-exhibit-coffeefactory.png?v=20260925-1',
           x: 2.0, y: 12.75, w: 4.0, h: 4.0, footY: 16.75,
           enabled: true,
           catalogKey: 'worldObjectExhibit',
@@ -663,7 +653,6 @@
         {
           id: 'leisure_exhibit_diorama_calendar',
           objectId: 'leisure_exhibit_diorama_calendar_01',
-          src: 'assets/maps/props/leisure-center/leisure-exhibit-diorama-calendar.png?v=20260925-2',
           x: 18.0, y: 14.25, w: 3.5, h: 3.5, footY: 17.75,
           enabled: true,
           catalogKey: 'worldObjectExhibit',
@@ -674,7 +663,6 @@
         {
           id: 'leisure_catalog_terminal',
           objectId: 'leisure_catalog_terminal_01',
-          src: 'assets/maps/props/leisure-center/leisure-catalog-terminal.png?v=20260925-1',
           x: 10.5625, y: 15.125, w: 2.875, h: 2.875, footY: 18.0,
           enabled: true,
           catalogKey: 'worldObjectFacility',
@@ -731,7 +719,6 @@
         {
           id: 'onsen_no_entry_barrier',
           objectId: 'onsen_no_entry_barrier_01',
-          src: 'assets/maps/objects/signs/no-entry-sign.png?v=20260925-1',
           x: 10,
           y: 2,
           w: 4,

@@ -62,15 +62,10 @@
     }
 
     function resolvePropSrc(prop) {
-        if (!prop) return '';
+        if (!prop || !prop.objectId) return '';
 
         var objectDef = resolveWorldObjectDef(prop);
-
-        if (objectDef && objectDef.src) {
-            return objectDef.src;
-        }
-
-        return prop.src || '';
+        return objectDef && objectDef.src ? objectDef.src : '';
     }
 
     function getPropRetryDelay(entry) {
@@ -194,7 +189,10 @@
         stationPreloadTotal = 0;
 
         for (var i = 0; i < stationPlazaProps.length; i++) {
-            var source = resolvePropSrc(stationPlazaProps[i]);
+            var stationProp = stationPlazaProps[i];
+            if (!stationProp || stationProp.enabled === false) continue;
+
+            var source = resolvePropSrc(stationProp);
             if (!source || stationPreloadSources[source]) continue;
             stationPreloadSources[source] = { done: false, status: 'pending' };
             stationPreloadPending += 1;
@@ -211,7 +209,12 @@
         }
 
         for (var p = 0; p < stationPlazaProps.length; p++) {
-            var src = resolvePropSrc(stationPlazaProps[p]);
+            var preloadProp = stationPlazaProps[p];
+            if (!preloadProp || preloadProp.enabled === false) continue;
+
+            var src = resolvePropSrc(preloadProp);
+            if (!src || !stationPreloadSources[src]) continue;
+
             var entry = getPropImage(src);
             if (entry && entry.loaded) settleStationPreloadSource(src, 'cached');
             if (entry && entry.error) settleStationPreloadSource(src, 'error');
@@ -310,23 +313,6 @@
         var entry = getPropImage(resolvedSrc, {
             retryOnError: true
         });
-
-        // WORLD OBJECT の新規画像がまだ配信されていない / 読み込みに失敗した場合は、
-        // インスタンスが保持している旧 src を安全なフォールバックとして描画する。
-        // 新規アセットの GitHub Pages 反映待ちでも町から物体を消さない。
-        if (
-            prop.objectId &&
-            prop.src &&
-            resolvedSrc !== prop.src &&
-            entry &&
-            (entry.error || (!entry.loaded && entry.retryCount > 0))
-        ) {
-            loadTraceMark('prop_fallback_requested', {
-                id: prop.id || '',
-                src: prop.src
-            });
-            entry = getPropImage(prop.src);
-        }
 
         if (!entry || !entry.loaded || !entry.image) {
             return false;

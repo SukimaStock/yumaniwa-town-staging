@@ -47,10 +47,9 @@
         var prop = props[i];
         if (!prop || prop.enabled === false) continue;
 
-        var src = api && typeof api.resolvePropSrc === 'function'
-          ? api.resolvePropSrc(prop)
-          : (prop.src || '');
+        if (!api || typeof api.resolvePropSrc !== 'function') continue;
 
+        var src = api.resolvePropSrc(prop);
         if (!src || seen[src]) continue;
         seen[src] = true;
         result.push(src);

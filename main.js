@@ -930,12 +930,30 @@ function validateTownSceneDefinition(sceneId, def, registry) {
             errors.push(propPath + ' must have finite x/y and positive w/h');
         }
 
+        var objectId = prop && String(prop.objectId || '').trim();
+        if (!objectId) {
+            errors.push(propPath + '.objectId is required');
+        } else {
+            var worldLibrary = window.YUMANIWA_WORLD_OBJECTS;
+            var objectDef = worldLibrary && typeof worldLibrary.get === 'function'
+                ? worldLibrary.get(objectId)
+                : null;
+
+            if (!objectDef) {
+                errors.push(propPath + '.objectId does not exist: ' + objectId);
+            } else if (!String(objectDef.src || '').trim()) {
+                errors.push(propPath + '.objectId has no canonical src: ' + objectId);
+            }
+        }
+
         if (
             prop &&
-            !String(prop.objectId || '').trim() &&
-            !String(prop.src || '').trim()
+            Object.prototype.hasOwnProperty.call(prop, 'src')
         ) {
-            errors.push(propPath + ' must have objectId or src');
+            errors.push(
+                propPath +
+                '.src must not be stored on placements; WORLD OBJECT owns image source'
+            );
         }
     }
 
@@ -5029,8 +5047,6 @@ var TOWN_PART_CATALOG = [
     }
 ];
 
-var TOWN_PART_ASSET_BASE = 'assets/maps/props/station-plaza/';
-
 function getActiveTownParts() {
     if (!activeTownSceneDef) return [];
 
@@ -5146,24 +5162,25 @@ function getPartCatalogEntry(key) {
 }
 
 function inferTownPartCatalogKey(part) {
-    var src = String((part && part.src) || '');
     var id = String((part && part.id) || '').toLowerCase();
     var objectId = String((part && part.objectId) || '').toLowerCase();
 
-    // Shop WORLD OBJECTs own their source/collision/interaction metadata.
-    // Do not misclassify them as a station bench just because they are not
-    // part of the legacy station-plaza asset catalog.
-    if (objectId.indexOf('_shop_') !== -1 || id.slice(-5) === '_shop') return 'worldObjectShop';
+    if (objectId === 'notice_board_01') return 'noticeBoard';
+    if (objectId === 'tourist_map_01') return 'touristMap';
+    if (objectId === 'bench_wood_01') return 'bench';
+    if (objectId === 'street_lamp_01') return 'streetLamp';
+    if (objectId === 'planter_01') return 'planter';
+    if (objectId === 'station_direction_sign_01') return 'directionSign';
+    if (objectId === 'station_building_01') return 'stationBuilding';
 
-    if (src.indexOf('station-notice-board') !== -1 || id.indexOf('notice') !== -1) return 'noticeBoard';
-    if (src.indexOf('station-tourist-map') !== -1 || id.indexOf('tourist') !== -1) return 'touristMap';
-    if (src.indexOf('station-bench') !== -1 || id.indexOf('bench') !== -1) return 'bench';
-    if (src.indexOf('station-street-lamp') !== -1 || id.indexOf('lamp') !== -1) return 'streetLamp';
-    if (src.indexOf('station-planter') !== -1 || id.indexOf('planter') !== -1) return 'planter';
-    if (src.indexOf('station-direction-sign') !== -1 || id.indexOf('direction') !== -1) return 'directionSign';
-    if (src.indexOf('station-building') !== -1 || id.indexOf('station_building') !== -1 || id.indexOf('stationbuilding') !== -1) return 'stationBuilding';
+    if (objectId.indexOf('_shop_') !== -1 || id.slice(-5) === '_shop') {
+        return 'worldObjectShop';
+    }
+    if (objectId.indexOf('leisure_exhibit_') === 0) {
+        return 'worldObjectExhibit';
+    }
 
-    return 'bench';
+    return objectId ? 'worldObjectFacility' : 'bench';
 }
 
 function cloneRelativePartRect(rect) {
@@ -5605,32 +5622,18 @@ function makeUniquePartId(base) {
     return id;
 }
 
-function resolveTownPartCatalogSrc(catalog) {
-    if (!catalog) return '';
-
-    var objectId = String(catalog.objectId || '');
-    if (
-        objectId &&
-        window.YUMANIWA_WORLD_OBJECTS &&
-        typeof window.YUMANIWA_WORLD_OBJECTS.resolveSrc === 'function'
-    ) {
-        var worldSrc = window.YUMANIWA_WORLD_OBJECTS.resolveSrc(objectId, '');
-        if (worldSrc) return worldSrc;
-    }
-
-    if (catalog.file) {
-        return TOWN_PART_ASSET_BASE + catalog.file + '?rev=editor';
-    }
-
-    return '';
-}
-
 function createTownPartFromCatalog(key, worldX, worldY) {
     var catalog = getPartCatalogEntry(key);
     var objectId = String(catalog.objectId || '');
+
+    if (!objectId) {
+        updateEditorStatus("WORLD OBJECT未登録のパーツは追加できません");
+        return null;
+    }
+
     var part = {
         id: makeUniquePartId(catalog.idStem || ('station_' + catalog.key)),
-        src: resolveTownPartCatalogSrc(catalog),
+        objectId: objectId,
         x: (worldX / TILE_SIZE) - catalog.w / 2,
         y: (worldY / TILE_SIZE) - catalog.h,
         w: catalog.w,
@@ -5640,10 +5643,6 @@ function createTownPartFromCatalog(key, worldX, worldY) {
         collision: cloneRelativePartRect(catalog.collision),
         interaction: getDefaultTownPartInteraction(null, catalog.key)
     };
-
-    if (objectId) {
-        part.objectId = objectId;
-    }
 
     clampPartToMap(part);
     ensureTownPartMetadata(part);
@@ -6229,11 +6228,12 @@ function handlePartEditorPointerDown(e) {
     if (partEditorMode === 'add') {
         var select = document.getElementById('part-asset-select');
         var key = select ? select.value : TOWN_PART_CATALOG[0].key;
+        var added = createTownPartFromCatalog(key, world.x, world.y);
+        if (!added) return;
 
         pushTownPartHistory();
 
         var parts = getActiveTownParts();
-        var added = createTownPartFromCatalog(key, world.x, world.y);
         parts.push(added);
         editingPartIndex = parts.length - 1;
         refreshTownPartDerivedData();
