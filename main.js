@@ -8,7 +8,7 @@
 // 2. 状態管理・初期化
 // ==========================================
 var canvas, ctx;
-var bgImage = new Image();
+var bgImage = null;
 var bgLoaded = false;
 var bgError = false;
 
@@ -578,11 +578,13 @@ function restoreTownWindowReturnPoint(fallbackSceneId) {
     townWindowReturnPoint = null;
 
     if (!point || !isTownScene(point.sceneId)) {
-        changeScene(fallbackSceneId || "station_plaza");
+        changeTownScene(fallbackSceneId || "station_plaza");
         return;
     }
 
-    changeScene(point.sceneId);
+    if (!changeTownScene(point.sceneId)) {
+        return;
+    }
 
     player.x = point.x;
     player.y = point.y;
@@ -1136,7 +1138,7 @@ function drawTownSceneBackground(cam) {
         // 読み込み失敗時だけ、下の仮描画へフォールバックする。
     }
 
-    if (bgLoaded) {
+    if (bgLoaded && bgImage) {
         ctx.drawImage(bgImage, 0, 0, cam.mapPixelW, cam.mapPixelH);
         return;
     }
@@ -1699,6 +1701,46 @@ function finishTownArrivalLoading() {
     announceTownArrivalReady();
 }
 
+function failTownSceneBoot(sceneId) {
+    var id = String(sceneId || "unknown");
+
+    townLoadTraceMark('town_scene_boot_failed', {
+        scene: id,
+        reason: 'missing_scene_definition'
+    }, true);
+
+    if (window.console && typeof window.console.error === 'function') {
+        window.console.error(
+            '[Yumaniwa] Missing canonical town scene definition:',
+            id
+        );
+    }
+
+    // Do not hide the arrival layer or announce ready.
+    // A missing canonical scene must never fall back to bootstrap globals.
+    showTownLoading("町のデータを読み込めませんでした");
+}
+
+function reportTownSceneTransitionFailure(sceneId) {
+    var id = String(sceneId || "unknown");
+
+    townLoadTraceMark('town_scene_transition_failed', {
+        scene: id,
+        reason: 'missing_scene_definition'
+    });
+
+    if (window.console && typeof window.console.error === 'function') {
+        window.console.error(
+            '[Yumaniwa] Refused transition to missing town scene:',
+            id
+        );
+    }
+
+    if (typeof showMessage === 'function') {
+        showMessage("この道は、いま町のデータにつながっていないようです。");
+    }
+}
+
 function playTownRpgFadeTransition(callback, waitForReady) {
     var oldFade = document.getElementById("town-rpg-fade-transition");
     if (oldFade && oldFade.parentNode) {
@@ -1759,14 +1801,21 @@ function playTownRpgFadeTransition(callback, waitForReady) {
 
 
 function changeSceneWithTownFade(sceneId, spawnKey) {
+    if (!getTownSceneDefinition(sceneId)) {
+        reportTownSceneTransitionFailure(sceneId);
+        return false;
+    }
+
     playTownRpgFadeTransition(
         function() {
-            changeScene(sceneId, spawnKey);
+            changeTownScene(sceneId, spawnKey);
         },
         function(reveal) {
             waitForTownSceneBackground(sceneId, reveal);
         }
     );
+
+    return true;
 }
 
 
@@ -2284,13 +2333,16 @@ function openTownPlaceFromRoute(placeId) {
     if (!placeId) return false;
 
     if (placeId === "station_plaza") {
-        changeScene("station_plaza");
-        return true;
+        return changeTownScene("station_plaza");
     }
 
     if (!DESTINATIONS[placeId] && !isTownScene(placeId)) return false;
 
-    changeScene(placeId);
+    if (isTownScene(placeId)) {
+        if (!changeTownScene(placeId)) return false;
+    } else {
+        changeScene(placeId);
+    }
 
     if (!isTownScene(placeId) && placeId !== "shinpo_board") {
         destinationViewMode = "menu";
@@ -2493,7 +2545,6 @@ window.onload = function() {
     ctx = canvas.getContext('2d');
     applyDeveloperModeVisibility();
     setupTouchSelectionGuards();
-    preloadTownSceneBackgrounds();
     if (typeof refreshTownContent === 'function') refreshTownContent();
     window.addEventListener('resize', resizeCanvas);
 
@@ -2504,24 +2555,12 @@ window.onload = function() {
 
     resizeCanvas();
 
-    bgImage.onload = function() {
-        bgLoaded = true;
-        finishTownArrivalLoading();
-    };
-    bgImage.onerror = function() {
-        bgError = true;
-        finishTownArrivalLoading();
-    };
-
     if (!applyTownSceneDefinition(currentScene, 'default')) {
-        initGrid();
-        if (typeof BG_IMAGE_PATH !== 'undefined' && BG_IMAGE_PATH) {
-            bgImage.src = BG_IMAGE_PATH;
-        } else {
-            finishTownArrivalLoading();
-        }
+        failTownSceneBoot(currentScene);
+        return;
     }
 
+    preloadTownSceneBackgrounds();
     loadPlayerSprites();
 
     setupEvents();
@@ -6963,37 +7002,63 @@ window.backToDestinationReturnScene = function(destId) {
 };
 
 
-// ★ RPG共通メニューの生成と遷移
-window.changeScene = function(sceneId, spawnKey) {
-    // 町内から、お店・看板などの専用画面へ移る直前に位置を保存
-    if (isTownScene(currentScene) && !isTownScene(sceneId)) {
-        rememberTownWindowReturnPoint();
-    }
-
-    currentScene = sceneId;
-
+function prepareSceneUiForChange() {
     var sceneContainer = document.getElementById('scene-container');
-    document.getElementById('area-title').classList.remove('visible');
-    document.getElementById('interaction-hint').classList.remove('visible');
+    var areaTitle = document.getElementById('area-title');
+    var interactionHint = document.getElementById('interaction-hint');
+
+    if (areaTitle) areaTitle.classList.remove('visible');
+    if (interactionHint) interactionHint.classList.remove('visible');
 
     var btnAction = document.getElementById('btn-action');
     if (btnAction) {
         btnAction.innerText = "調べる";
     }
 
-    if (isTownScene(sceneId)) {
-        resetDestinationState();
-        closeDestinationScene();
-        applyTownSceneDefinition(sceneId, spawnKey || 'default');
-        clearDpadInput();
-        updateControlVisibility();
-        return;
+    return sceneContainer;
+}
+
+function changeTownScene(sceneId, spawnKey) {
+    var def = getTownSceneDefinition(sceneId);
+    if (!def) {
+        reportTownSceneTransitionFailure(sceneId);
+        return false;
     }
+
+    prepareSceneUiForChange();
+    currentScene = sceneId;
+    resetDestinationState();
+    closeDestinationScene();
+
+    if (!applyTownSceneDefinition(sceneId, spawnKey || 'default')) {
+        reportTownSceneTransitionFailure(sceneId);
+        return false;
+    }
+
+    clearDpadInput();
+    updateControlVisibility();
+    return true;
+}
+
+// ★ RPG共通メニューの生成と遷移
+window.changeScene = function(sceneId, spawnKey) {
+    if (isTownScene(sceneId)) {
+        return changeTownScene(sceneId, spawnKey);
+    }
+
+    // 町内から、お店・看板などの専用画面へ移る直前に位置を保存
+    if (isTownScene(currentScene)) {
+        rememberTownWindowReturnPoint();
+    }
+
+    prepareSceneUiForChange();
+    currentScene = sceneId;
 
     updateUI();
     openDestination(sceneId);
     clearDpadInput();
     updateControlVisibility();
+    return true;
 };
 
 

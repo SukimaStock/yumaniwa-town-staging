@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.14
+Yumaniwa Desk v0.10.15
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,12 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.15:
+- 起動時の BG_IMAGE_PATH / collision globals fallbackを廃止し、canonical scene欠落時はfail-closed
+- 町内ワープは遷移前にscene定義を必須確認し、欠落時に現在sceneを壊さない
+- 旧bootstrap background Image経路を削除し、背景読込はtown scene cacheへ一本化
+- 旧起動fallbackの再導入を安全確認で検出
 
 v0.10.14:
 - PLAYER_START の二重管理を廃止し、初期player位置も station scene の spawnPoints.default を正本化
@@ -2690,6 +2696,22 @@ def validate_project(root):
         )
     else:
         report["ok"].append("Town Editor export: diff-v1 only")
+
+    legacy_boot_fallback = (
+        "if (!applyTownSceneDefinition(currentScene, 'default'))" in main_source_text
+        and "BG_IMAGE_PATH" in main_source_text
+        and "bgImage.src = BG_IMAGE_PATH" in main_source_text
+    )
+    if legacy_boot_fallback:
+        report["errors"].append(
+            "main.js に旧bootstrap scene fallbackが再導入されています。"
+        )
+    elif "failTownSceneBoot(currentScene)" not in main_source_text:
+        report["errors"].append(
+            "main.js のcanonical scene起動失敗処理を確認できません。"
+        )
+    else:
+        report["ok"].append("town boot: canonical scene required")
 
     if "window.YUMANIWA_BUILD_STATION_PLAZA_SCENE" not in station_source_text:
         report["errors"].append(
