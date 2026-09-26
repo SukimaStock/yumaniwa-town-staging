@@ -6420,27 +6420,6 @@ function handleEditorTap(tx, ty) {
 }
 
 
-function gridToRects(targetValue, sourceGrid) {
-    var grid = sourceGrid || collisionGrid;
-    var rects = []; var visited = [];
-    for (var y = 0; y < MAP_HEIGHT; y++) { var row = []; for (var x = 0; x < MAP_WIDTH; x++) row.push(false); visited.push(row); }
-    for (var y = 0; y < MAP_HEIGHT; y++) {
-        for (var x = 0; x < MAP_WIDTH; x++) {
-            if (grid[y][x] === targetValue && !visited[y][x]) {
-                var w = 0; while (x + w < MAP_WIDTH && grid[y][x + w] === targetValue && !visited[y][x + w]) w++;
-                var h = 1; var canExpand = true;
-                while (y + h < MAP_HEIGHT && canExpand) {
-                    for (var i = 0; i < w; i++) if (grid[y + h][x + i] !== targetValue || visited[y + h][x + i]) { canExpand = false; break; }
-                    if (canExpand) h++;
-                }
-                for (var dy = 0; dy < h; dy++) for (var dx = 0; dx < w; dx++) visited[y + dy][x + dx] = true;
-                rects.push({ x: x, y: y, w: w, h: h });
-            }
-        }
-    }
-    return rects;
-}
-
 // Full-file Town Editor export was retired.
  // town-editor-safe-export.js / town-editor-comment-export.js own diff-v1 export.
  
