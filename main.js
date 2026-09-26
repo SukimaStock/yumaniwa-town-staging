@@ -5266,6 +5266,14 @@ function ensurePartEditorFields() {
     updatePartEditorSelectionUi();
 }
 
+function isDedicatedGhostTownPart(part) {
+    return !!part && String(part.id || '') === 'station_ghost_npc';
+}
+
+function isDedicatedGhostTrigger(trigger) {
+    return !!trigger && String(trigger.id || '') === 'station_ghost_npc_trigger';
+}
+
 function getSelectedTownPart() {
     var parts = getActiveTownParts();
 
@@ -5310,27 +5318,33 @@ function updatePartEditorSelectionUi() {
     }
 
     var disabled = !part;
+    var ghostLocked = isDedicatedGhostTownPart(part);
     var inputs = [
         xInput, yInput, wInput, hInput,
-        collisionEnabled, collisionX, collisionY, collisionW, collisionH,
-        triggerEnabled, triggerId
+        collisionEnabled, collisionX, collisionY, collisionW, collisionH
     ];
 
     for (var i = 0; i < inputs.length; i++) {
         if (inputs[i]) inputs[i].disabled = disabled;
     }
 
+    if (triggerEnabled) triggerEnabled.disabled = disabled || ghostLocked;
+    if (triggerId) triggerId.disabled = disabled || ghostLocked;
+
     var actionIds = [
         'btn-part-smaller',
-        'btn-part-larger',
-        'btn-part-duplicate',
-        'btn-part-delete'
+        'btn-part-larger'
     ];
 
     for (var a = 0; a < actionIds.length; a++) {
         var action = document.getElementById(actionIds[a]);
         if (action) action.disabled = disabled;
     }
+
+    var duplicateButton = document.getElementById('btn-part-duplicate');
+    var deleteButton = document.getElementById('btn-part-delete');
+    if (duplicateButton) duplicateButton.disabled = disabled || ghostLocked;
+    if (deleteButton) deleteButton.disabled = disabled || ghostLocked;
 
     if (!part) {
         if (xInput) xInput.value = '';
@@ -5538,6 +5552,11 @@ function duplicateSelectedPart() {
         return;
     }
 
+    if (isDedicatedGhostTownPart(part)) {
+        updateEditorStatus("おばけNPCは専用機能のため複製できません");
+        return;
+    }
+
     pushTownPartHistory();
 
     var copy = cloneTownPart(part);
@@ -5563,6 +5582,11 @@ function deleteSelectedPart() {
     var part = getSelectedTownPart();
     if (!part) {
         updateEditorStatus("削除するパーツを選択してください");
+        return;
+    }
+
+    if (isDedicatedGhostTownPart(part)) {
+        updateEditorStatus("おばけNPCは専用機能のため削除できません");
         return;
     }
 
@@ -6047,6 +6071,12 @@ function deleteSelectedTrigger() {
     }
 
     var current = triggers[editingTriggerIndex];
+
+    if (isDedicatedGhostTrigger(current)) {
+        updateEditorStatus("おばけNPCの会話トリガーは専用機能のため削除できません");
+        return;
+    }
+
     var triggerName = current
         ? (current.label || current.id || "トリガー")
         : "トリガー";

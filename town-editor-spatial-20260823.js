@@ -157,6 +157,14 @@
         var buttons = box.querySelectorAll('button');
         for (var i = 0; i < buttons.length; i++) buttons[i].disabled = !valid;
 
+        var selectedTrigger = valid ? window.triggers[window.editingTriggerIndex] : null;
+        var deleteButton = document.getElementById('btn-delete-trigger');
+        if (deleteButton) {
+            deleteButton.disabled =
+                !valid ||
+                (selectedTrigger && String(selectedTrigger.id || '') === 'station_ghost_npc_trigger');
+        }
+
         var label = document.getElementById('trigger-quick-area-label');
         if (!label) return;
         if (!valid) {
@@ -263,6 +271,14 @@
 
         var trigger = list[index];
         var id = trigger ? String(trigger.id || '') : '';
+
+        if (id === 'station_ghost_npc_trigger') {
+            if (typeof window.updateEditorStatus === 'function') {
+                window.updateEditorStatus('おばけNPCの会話トリガーは専用機能のため削除できません');
+            }
+            return;
+        }
+
         var name = trigger ? (trigger.label || trigger.id || '調べる場所') : '調べる場所';
         if (!window.confirm('「' + name + '」を削除しますか？')) return;
 
@@ -363,7 +379,8 @@
         var button = document.getElementById('btn-part-delete-top');
         if (!button) return;
         var selected = typeof window.getSelectedTownPart === 'function' ? window.getSelectedTownPart() : null;
-        button.disabled = !selected;
+        var protectedGhost = selected && String(selected.id || '') === 'station_ghost_npc';
+        button.disabled = !selected || protectedGhost;
     }
 
     function enhanceEditor() {

@@ -189,9 +189,10 @@
         var workInput = document.getElementById('part-action-work');
         var placeInput = document.getElementById('part-action-place');
         var disabled = !part;
+        var dedicatedGhost = part && String(part.id || '') === 'station_ghost_npc';
         var inputs = [kindInput, labelInput, buttonInput, textInput, workInput, placeInput];
         for (var i = 0; i < inputs.length; i++) {
-            if (inputs[i]) inputs[i].disabled = disabled;
+            if (inputs[i]) inputs[i].disabled = disabled || dedicatedGhost;
         }
 
         if (kindInput) kindInput.value = kind;
@@ -214,6 +215,13 @@
         if (typeof getSelectedTownPart !== 'function') return;
         var part = getSelectedTownPart();
         if (!part) return;
+        if (String(part.id || '') === 'station_ghost_npc') {
+            if (typeof updateEditorStatus === 'function') {
+                updateEditorStatus('おばけNPCの役割は専用機能のため変更できません');
+            }
+            updateTownPartActionUi();
+            return;
+        }
         if (typeof ensureTownPartMetadata === 'function') ensureTownPartMetadata(part);
 
         var kind = String((document.getElementById('part-action-kind') || {}).value || 'none');

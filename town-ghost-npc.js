@@ -209,18 +209,9 @@
         items.push(item);
     }
 
-    // 右側ベンチの横。元の40px表示から37pxへ縮小し、足元と中心位置は維持する。
-    var ORIGINAL_PROP_SIZE = 2.5;
-    var propW = 37 / 16;
-    var propH = 37 / 16;
-    var originalBaseX = 19.45;
-    var originalBaseY = 7.45;
-    var baseFootY = originalBaseY + ORIGINAL_PROP_SIZE;
-    var baseX = originalBaseX + (ORIGINAL_PROP_SIZE - propW) / 2;
-    var baseY = baseFootY - propH;
-
+    // 右側ベンチの横。配置値はEditor/Deskが直接読めるliteralを正本とする。
     var trigger = {
-        id: TRIGGER_ID,
+        id: 'station_ghost_npc_trigger',
         label: '？？？',
         actionLabel: '話す',
         type: 'inspect',
@@ -230,13 +221,13 @@
     };
 
     var prop = {
-        id: PROP_ID,
+        id: 'station_ghost_npc',
         src: 'assets/maps/props/station-plaza/station-ghost-npc.png?v=20260817-1',
-        x: baseX,
-        y: baseY,
-        w: propW,
-        h: propH,
-        footY: baseFootY,
+        x: 19.54375,
+        y: 7.6375,
+        w: 2.3125,
+        h: 2.3125,
+        footY: 9.95,
         enabled: true,
         collision: {
             enabled: false,
@@ -247,7 +238,7 @@
         },
         interaction: {
             enabled: true,
-            triggerId: TRIGGER_ID,
+            triggerId: 'station_ghost_npc_trigger',
             x: 0.12,
             y: 0.12,
             w: 0.76,
@@ -293,29 +284,22 @@
         };
     }
 
-    // ほんの少しだけ上下に浮かせる。
-    // prop の座標はタイル単位なので、約1.25pxぶんだけ揺らす。
+    // 浮遊は配置座標を書き換えず、描画時のオフセットだけで表現する。
+    // これによりEditorの y / footY とdiff baselineは常にcanonical値のまま。
     var FLOAT_AMPLITUDE_TILES = 1.25 / 16;
     var FLOAT_PERIOD_MS = 2600;
     var startTime = (window.performance && performance.now) ? performance.now() : Date.now();
 
-    function animateGhost(now) {
-        var currentTime = typeof now === 'number' ? now : Date.now();
-        var offset = 0;
+    window.YUMANIWA_TOWN_PROP_RENDER_OFFSETS =
+        window.YUMANIWA_TOWN_PROP_RENDER_OFFSETS || {};
 
-        // 開発中は位置を書き出しやすいよう、基準位置で止める。
-        if (!window.isEditMode && !window.debugMode) {
-            var phase = ((currentTime - startTime) % FLOAT_PERIOD_MS) / FLOAT_PERIOD_MS;
-            offset = Math.sin(phase * Math.PI * 2) * FLOAT_AMPLITUDE_TILES;
-        }
+    window.YUMANIWA_TOWN_PROP_RENDER_OFFSETS[PROP_ID] = function () {
+        if (window.isEditMode || window.debugMode) return 0;
 
-        prop.y = baseY + offset;
-        prop.footY = baseFootY + offset;
-
-        window.requestAnimationFrame(animateGhost);
-    }
-
-    if (typeof window.requestAnimationFrame === 'function') {
-        window.requestAnimationFrame(animateGhost);
-    }
+        var currentTime = (window.performance && performance.now)
+            ? performance.now()
+            : Date.now();
+        var phase = ((currentTime - startTime) % FLOAT_PERIOD_MS) / FLOAT_PERIOD_MS;
+        return Math.sin(phase * Math.PI * 2) * FLOAT_AMPLITUDE_TILES;
+    };
 })();

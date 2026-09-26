@@ -315,6 +315,22 @@
         return def.props;
     }
 
+    function getTownPropRenderOffsetY(prop) {
+        if (!prop || !prop.id) return 0;
+
+        var registry = window.YUMANIWA_TOWN_PROP_RENDER_OFFSETS || {};
+        var source = registry[prop.id];
+        var value = 0;
+
+        try {
+            value = typeof source === 'function' ? Number(source(prop)) : Number(source);
+        } catch (error) {
+            value = 0;
+        }
+
+        return isFinite(value) ? value : 0;
+    }
+
     function drawTownProp(prop) {
         if (!prop || prop.enabled === false) return;
 
@@ -343,8 +359,9 @@
         }
 
         var tileSize = window.TILE_SIZE || 16;
+        var renderOffsetY = getTownPropRenderOffsetY(prop);
         var dx = Math.round(prop.x * tileSize);
-        var dy = Math.round(prop.y * tileSize);
+        var dy = Math.round((prop.y + renderOffsetY) * tileSize);
         var dw = Math.round(prop.w * tileSize);
         var dh = Math.round(prop.h * tileSize);
 
@@ -371,10 +388,11 @@
             var footY = typeof prop.footY === 'number'
                 ? prop.footY
                 : prop.y + prop.h;
+            var renderOffsetY = getTownPropRenderOffsetY(prop);
 
             drawItems.push({
                 kind: 'prop',
-                footY: footY * tileSize,
+                footY: (footY + renderOffsetY) * tileSize,
                 order: i,
                 prop: prop
             });
