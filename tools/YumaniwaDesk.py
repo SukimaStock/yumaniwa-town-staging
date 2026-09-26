@@ -2843,7 +2843,7 @@ def validate_project(root):
         report["errors"].append(
             "edgeWarp carveがauthored baseCollisionGridを書き換えています。"
         )
-    elif "applyTownPartCollisionToGrid(collisionGrid);\\n    carveTownEdgeWarpTiles(activeTownSceneDef);" not in main_source_text:
+    elif "applyTownPartCollisionToGrid(collisionGrid);\n    carveTownEdgeWarpTiles(activeTownSceneDef);" not in main_source_text:
         report["errors"].append(
             "runtime collision rebuildでedgeWarp carveを確認できません。"
         )
