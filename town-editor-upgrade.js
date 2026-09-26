@@ -78,9 +78,6 @@
     function getTriggerForPart(part) {
         if (!part || !part.interaction || !part.interaction.triggerId) return null;
         var id = String(part.interaction.triggerId);
-        if (typeof townPartTriggerTemplates !== 'undefined' && townPartTriggerTemplates[id]) {
-            return townPartTriggerTemplates[id];
-        }
         if (typeof triggers !== 'undefined' && Array.isArray(triggers)) {
             for (var i = 0; i < triggers.length; i++) {
                 if (triggers[i] && triggers[i].id === id) return triggers[i];
@@ -245,7 +242,6 @@
             updateTownPartActionUi();
             return;
         }
-        if (typeof ensureTownPartMetadata === 'function') ensureTownPartMetadata(part);
 
         var kind = String((document.getElementById('part-action-kind') || {}).value || 'none');
         var label = String((document.getElementById('part-action-label') || {}).value || '').trim();
@@ -256,8 +252,10 @@
 
         if (typeof pushTownPartHistory === 'function') pushTownPartHistory();
 
+        if (!part.interaction) part.interaction = getDefaultTownPartInteraction(part);
         if (kind === 'none') {
             part.interaction.enabled = false;
+            removeUnlinkedTownPartTrigger(part.interaction.triggerId);
             if (typeof refreshTownPartDerivedData === 'function') refreshTownPartDerivedData();
             updateTownPartActionVisibility(kind);
             if (typeof updatePartEditorSelectionUi === 'function') updatePartEditorSelectionUi();
@@ -302,9 +300,8 @@
             template.text = text || ((label || 'この先') + 'へ向かいます。');
         }
 
-        if (typeof townPartTriggerTemplates !== 'undefined') {
-            townPartTriggerTemplates[triggerId] = template;
-        }
+        if (!template.area) template.area = getTownPartTriggerArea(part);
+        putTownPartTrigger(template);
 
         var triggerIdInput = document.getElementById('part-trigger-id');
         var triggerEnabledInput = document.getElementById('part-trigger-enabled');
@@ -333,20 +330,4 @@
         };
     }
 
-    if (typeof duplicateSelectedPart === 'function') {
-        var baseDuplicateSelectedPart = duplicateSelectedPart;
-        duplicateSelectedPart = function () {
-            var source = typeof getSelectedTownPart === 'function' ? getSelectedTownPart() : null;
-            var sourceTrigger = getTriggerForPart(source);
-            var sourceCopy = sourceTrigger && typeof cloneTrigger === 'function' ? cloneTrigger(sourceTrigger) : null;
-            baseDuplicateSelectedPart();
-            var copy = typeof getSelectedTownPart === 'function' ? getSelectedTownPart() : null;
-            if (copy && sourceCopy && copy.interaction && copy.interaction.triggerId) {
-                sourceCopy.id = copy.interaction.triggerId;
-                townPartTriggerTemplates[sourceCopy.id] = sourceCopy;
-                if (typeof refreshTownPartDerivedData === 'function') refreshTownPartDerivedData();
-                updateTownPartActionUi();
-            }
-        };
-    }
 })();

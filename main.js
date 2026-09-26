@@ -104,7 +104,9 @@ var editingTriggerIndex = -1;
 // editorHasUnsavedChanges = 現在のページ上に、正本へ未反映の変更がある。
 // editorHasUncopiedChanges = その未反映変更のうち、最新状態をまだコピーしていない。
 // コピーは正本反映ではないため、前者はコピー成功では解除しない。
-var editorHasUnsavedChanges = false;
+Object.defineProperty(window, 'editorHasUnsavedChanges', {
+    get: function () { return window.YUMANIWA_EDITOR_SESSION.isDirty(); }
+});
 var editorHasUncopiedChanges = false;
 var editorPanelCollapsed = false;
 
@@ -117,8 +119,6 @@ var partEditorRatioLock = true;
 // パーツ由来の当たり判定と、マップ固定の当たり判定を分離する。
 // baseCollisionGrid は固定地形だけ、collisionGrid はパーツ分を重ねた実際の判定。
 var baseCollisionGrid = [];
-var townPartTriggerTemplates = {};
-var townPartManagedTriggerIds = {};
 
 var collisionGrid = [];
 var currentAreaId = null;
@@ -1349,23 +1349,26 @@ function applyTownSceneDefinition(sceneId, spawnKey) {
         return false;
     }
 
-    var def = validation.def;
+    if (!canLeaveTownEditorSession(sceneId)) return false;
+    var session = window.YUMANIWA_EDITOR_SESSION.current();
+    if (session && session.sceneId !== sceneId) {
+        closeTownEditor();
+        window.YUMANIWA_EDITOR_SESSION.end();
+        resetTownEditorTransientState();
+        session = null;
+    }
+    window.YUMANIWA_EDITOR_SESSION.freeze(validation.def);
+    var def = session ? session.draft : cloneTownData(validation.def);
     var resolvedSpawnKey = validation.spawnKey;
 
     activeTownSceneDef = def;
     MAP_WIDTH = def.mapWidth;
     MAP_HEIGHT = def.mapHeight;
-    passableRects = cloneTownData(def.passableRects);
-    blockedRects = cloneTownData(def.blockedRects);
-    blockedPoints = cloneTownData(def.blockedPoints);
-    triggers = cloneTownData(def.triggers);
-    areaZones = cloneTownData(def.areaZones);
-
-    // Scene-level collision is canonical in the scene definition.
-    // Town-part collision is layered separately when the collision grid is rebuilt.
-    captureTownPartTriggerTemplates(def);
-    ensureAllTownPartMetadata();
-    syncTownPartTriggers();
+    passableRects = session ? [] : def.passableRects;
+    blockedRects = session ? [] : def.blockedRects;
+    blockedPoints = session ? [] : def.blockedPoints;
+    triggers = def.triggers;
+    areaZones = def.areaZones;
 
     var propApi = window.YUMANIWA_STATION_PLAZA_PROPS;
     if (propApi && typeof propApi.preloadSceneProps === 'function') {
@@ -2104,6 +2107,7 @@ function playTownRpgFadeTransition(callback, waitForReady) {
 
 
 function changeSceneWithTownFade(sceneId, spawnKey) {
+    if (!canLeaveTownEditorSession(sceneId)) return false;
     var validation = validateTownSceneRequest(sceneId, spawnKey);
     if (!validation.ok) {
         reportTownSceneTransitionFailure(sceneId, validation.errors);
@@ -2918,6 +2922,8 @@ window.onload = function() {
         return;
     }
 
+    window.YUMANIWA_EDITOR_SESSION.freeze(window.TOWN_SCENE_MAPS);
+
     if (!applyTownSceneDefinition(currentScene, 'default')) {
         failTownSceneBoot(currentScene, lastTownSceneValidationErrors);
         return;
@@ -3070,43 +3076,10 @@ function cloneCollisionGrid(source) {
 }
 
 function initGrid() {
-    baseCollisionGrid = [];
-
-    for (var y = 0; y < MAP_HEIGHT; y++) {
-        var row = [];
-        for (var x = 0; x < MAP_WIDTH; x++) row.push(0);
-        baseCollisionGrid.push(row);
-    }
-
-    for (var i = 0; i < passableRects.length; i++) {
-        var r = passableRects[i];
-        for (var cy = r.y; cy < r.y + r.h; cy++) {
-            for (var cx = r.x; cx < r.x + r.w; cx++) {
-                if (cx >= 0 && cx < MAP_WIDTH && cy >= 0 && cy < MAP_HEIGHT) {
-                    baseCollisionGrid[cy][cx] = 1;
-                }
-            }
-        }
-    }
-
-    for (var j = 0; j < blockedRects.length; j++) {
-        var blocked = blockedRects[j];
-        for (var by = blocked.y; by < blocked.y + blocked.h; by++) {
-            for (var bx = blocked.x; bx < blocked.x + blocked.w; bx++) {
-                if (bx >= 0 && bx < MAP_WIDTH && by >= 0 && by < MAP_HEIGHT) {
-                    baseCollisionGrid[by][bx] = 2;
-                }
-            }
-        }
-    }
-
-    for (var p = 0; p < blockedPoints.length; p++) {
-        var point = blockedPoints[p];
-        if (point.x >= 0 && point.x < MAP_WIDTH && point.y >= 0 && point.y < MAP_HEIGHT) {
-            baseCollisionGrid[point.y][point.x] = 2;
-        }
-    }
-
+    var session = window.YUMANIWA_EDITOR_SESSION.current();
+    baseCollisionGrid = session && activeTownSceneDef === session.draft
+        ? session.draft.fixedCollisionGrid
+        : window.YUMANIWA_EDITOR_SESSION.gridFromScene(activeTownSceneDef);
     rebuildCollisionGridFromBase();
 }
 
@@ -4504,12 +4477,81 @@ function handleActionTrigger() {
 }
 
 
+function resetTownEditorTransientState() {
+    editHistory.length = 0;
+    editingPartIndex = -1;
+    editingTriggerIndex = -1;
+    editStep = 0;
+    currentHoverTile = null;
+    partDragState = null;
+    editorHasUncopiedChanges = false;
+    if (window.YUMANIWA_SPATIAL_EDITOR) window.YUMANIWA_SPATIAL_EDITOR.onTargetChanged();
+}
+
+function bindTownEditorDraft() {
+    var session = window.YUMANIWA_EDITOR_SESSION.current();
+    activeTownSceneDef = session.draft;
+    triggers = session.draft.triggers;
+    areaZones = session.draft.areaZones;
+    baseCollisionGrid = session.draft.fixedCollisionGrid;
+    // Rectangles are export representations, never a second editable owner.
+    passableRects = []; blockedRects = []; blockedPoints = [];
+    refreshTownPartDerivedData();
+    currentAreaId = null;
+}
+
+function closeTownEditor() {
+    cancelTapMove();
+    pendingWarp = null;
+    document.getElementById('editor-panel').style.display = 'none';
+    document.getElementById('btn-debug-toggle').style.display = DEV_MODE_ENABLED ? 'block' : 'none';
+    isEditMode = false; debugMode = false;
+    document.getElementById('debug-info').style.display = 'none';
+    editStep = 0; currentHoverTile = null;
+    editingPartIndex = -1;
+    partDragState = null;
+    refreshTownPartDerivedData();
+    updatePartEditorSelectionUi();
+    updateInteractionHint();
+    updateControlVisibility();
+}
+
+function openTownEditorSession() {
+    var existing = window.YUMANIWA_EDITOR_SESSION.current();
+    window.YUMANIWA_EDITOR_SESSION.open(currentScene);
+    if (!existing) resetTownEditorTransientState();
+    cancelTapMove();
+    pendingWarp = null;
+    bindTownEditorDraft();
+}
+
+function discardTownEditorChanges() {
+    if (!window.YUMANIWA_EDITOR_SESSION.current()) return;
+    window.YUMANIWA_EDITOR_SESSION.discard();
+    resetTownEditorTransientState();
+    cancelTapMove();
+    pendingWarp = null;
+    bindTownEditorDraft();
+    updatePartEditorSelectionUi();
+    updateEditorStatus('変更を破棄し、正本基準に戻しました');
+}
+
+function canLeaveTownEditorSession(sceneId) {
+    if (window.YUMANIWA_EDITOR_SESSION.canLeave(sceneId)) return true;
+    cancelTapMove();
+    pendingWarp = null;
+    updateEditorStatus('未反映の変更があります。別の町へ移動する前に変更を破棄してください');
+    window.alert('この町に未反映の編集があります。Editorで変更を書き出し、必要ならDeskへ反映して再読込してください。移動するには「変更を破棄」を選んでください。');
+    return false;
+}
+
 function toggleDebugMode() {
     if (!DEV_MODE_ENABLED) return;
 
     var panel = document.getElementById('editor-panel');
     var btn = document.getElementById('btn-debug-toggle');
     if (panel.style.display === 'none') {
+        openTownEditorSession();
         panel.style.display = 'flex'; btn.style.display = 'none';
         setEditorPanelCollapsed(false);
         debugMode = true; isEditMode = true;
@@ -4621,6 +4663,13 @@ function ensureEditorSafetyUI() {
         setEditorPanelCollapsed(!editorPanelCollapsed);
     });
 
+    var discard = document.createElement('button');
+    discard.id = 'btn-editor-discard';
+    discard.textContent = '変更を破棄';
+    discard.addEventListener('click', function () {
+        if (window.confirm('この町の未反映の編集を破棄しますか？')) discardTownEditorChanges();
+    });
+    header.appendChild(discard);
     updateEditorSaveStateUI();
     setEditorPanelCollapsed(false);
 }
@@ -4681,7 +4730,6 @@ function updateEditorSaveStateUI() {
 }
 
 function markEditorDirty() {
-    editorHasUnsavedChanges = true;
     editorHasUncopiedChanges = true;
     updateEditorSaveStateUI();
 }
@@ -4723,19 +4771,7 @@ function setupEditorEvents() {
         window.YUMANIWA_SPATIAL_EDITOR.ensure();
     }
 
-    document.getElementById('btn-close-editor').addEventListener('click', function() {
-        document.getElementById('editor-panel').style.display = 'none';
-        document.getElementById('btn-debug-toggle').style.display = DEV_MODE_ENABLED ? 'block' : 'none';
-        isEditMode = false; debugMode = false;
-        document.getElementById('debug-info').style.display = 'none';
-        editStep = 0; currentHoverTile = null;
-        editingPartIndex = -1;
-        partDragState = null;
-        refreshTownPartDerivedData();
-        updatePartEditorSelectionUi();
-        updateInteractionHint();
-        updateControlVisibility();
-    });
+    document.getElementById('btn-close-editor').addEventListener('click', closeTownEditor);
 
     document.getElementById('edit-target').addEventListener('change', function(e) {
         editTarget = e.target.value;
@@ -4769,7 +4805,7 @@ function setupEditorEvents() {
         if (editHistory.length === 0) { updateEditorStatus("Undoする履歴がありません"); return; }
         var last = editHistory.pop();
         if (last.type === 'grid') {
-            baseCollisionGrid = cloneCollisionGrid(last.prev || []);
+            baseCollisionGrid.splice(0, baseCollisionGrid.length, ...cloneCollisionGrid(last.prev || []));
             rebuildCollisionGridFromBase();
         }
         else if (last.type === 'townState') {
@@ -4791,18 +4827,7 @@ function setupEditorEvents() {
             updatePartEditorSelectionUi();
         }
         else if (last.type === 'areaZones') {
-            areaZones = JSON.parse(JSON.stringify(last.prev || []));
-            if (activeTownSceneDef) {
-                activeTownSceneDef.areaZones = JSON.parse(JSON.stringify(areaZones));
-            }
-            if (
-                window.TOWN_SCENE_MAPS &&
-                currentScene &&
-                window.TOWN_SCENE_MAPS[currentScene]
-            ) {
-                window.TOWN_SCENE_MAPS[currentScene].areaZones =
-                    JSON.parse(JSON.stringify(areaZones));
-            }
+            areaZones.splice(0, areaZones.length, ...cloneTownData(last.prev || []));
         }
         markEditorDirty();
         updateEditorStatus("直前の編集を取り消しました");
@@ -5038,9 +5063,7 @@ var TOWN_PART_CATALOG = [
 function getActiveTownParts() {
     if (!activeTownSceneDef) return [];
 
-    if (!Array.isArray(activeTownSceneDef.props)) {
-        activeTownSceneDef.props = [];
-    }
+    if (!Array.isArray(activeTownSceneDef.props)) throw new Error('Active scene props are missing');
 
     return activeTownSceneDef.props;
 }
@@ -5071,62 +5094,15 @@ function restoreTownParts(prev) {
     refreshTownPartDerivedData();
 }
 
-function cloneTownPartTriggerTemplates() {
-    var copied = {};
-
-    for (var id in townPartTriggerTemplates) {
-        if (!Object.prototype.hasOwnProperty.call(townPartTriggerTemplates, id)) continue;
-        copied[id] = cloneTrigger(townPartTriggerTemplates[id]);
-    }
-
-    return copied;
-}
-
-function cloneTownPartManagedTriggerIds() {
-    var copied = {};
-
-    for (var id in townPartManagedTriggerIds) {
-        if (!Object.prototype.hasOwnProperty.call(townPartManagedTriggerIds, id)) continue;
-        copied[id] = !!townPartManagedTriggerIds[id];
-    }
-
-    return copied;
-}
-
 function captureTownEditorLinkedState() {
-    return {
-        parts: cloneTownParts(),
-        triggers: cloneTriggers(),
-        triggerTemplates: cloneTownPartTriggerTemplates(),
-        managedTriggerIds: cloneTownPartManagedTriggerIds()
-    };
+    return { parts: cloneTownParts(), triggers: cloneTriggers() };
 }
 
 function restoreTownEditorLinkedState(snapshot) {
     var state = snapshot || {};
     var parts = getActiveTownParts();
-
-    townPartTriggerTemplates = {};
-    var templates = state.triggerTemplates || {};
-    for (var id in templates) {
-        if (!Object.prototype.hasOwnProperty.call(templates, id)) continue;
-        townPartTriggerTemplates[id] = cloneTrigger(templates[id]);
-    }
-
-    townPartManagedTriggerIds = {};
-    var managed = state.managedTriggerIds || {};
-    for (var managedId in managed) {
-        if (!Object.prototype.hasOwnProperty.call(managed, managedId)) continue;
-        townPartManagedTriggerIds[managedId] = !!managed[managedId];
-    }
-
-    parts.length = 0;
-    var previousParts = Array.isArray(state.parts) ? state.parts : [];
-    for (var i = 0; i < previousParts.length; i++) {
-        parts.push(cloneTownPart(previousParts[i]));
-    }
-
-    restoreTriggers(Array.isArray(state.triggers) ? state.triggers : []);
+    parts.splice(0, parts.length, ...cloneTownData(state.parts || []));
+    restoreTriggers(state.triggers || []);
     refreshTownPartDerivedData();
 }
 
@@ -5217,44 +5193,15 @@ function getDefaultTownPartInteraction(part, catalogKey) {
     };
 }
 
-function ensureTownPartMetadata(part) {
+function getTownPartMetadataView(part) {
     if (!part) return part;
-
-    // catalogKey may be inferred for runtime/editor behavior, but inference
-    // must not mutate the persisted placement object. Existing canonical
-    // catalogKey values are preserved; missing ones remain missing.
-    var catalogKey = part.catalogKey || inferTownPartCatalogKey(part);
-    var catalog = getPartCatalogEntry(catalogKey);
-
-    if (!part.collision || typeof part.collision !== 'object') {
-        part.collision = cloneRelativePartRect(catalog.collision);
-    } else {
-        part.collision = cloneRelativePartRect(part.collision);
-    }
-
-    if (!part.interaction || typeof part.interaction !== 'object') {
-        part.interaction = getDefaultTownPartInteraction(part, catalogKey);
-    } else {
-        part.interaction = {
-            enabled: part.interaction.enabled !== false,
-            triggerId: String(part.interaction.triggerId || ''),
-            x: Number(part.interaction.x) || 0,
-            y: Number(part.interaction.y) || 0,
-            w: Math.max(0.001, Number(part.interaction.w) || 0.001),
-            h: Math.max(0.001, Number(part.interaction.h) || 0.001)
-        };
-    }
-
-    ensureTownPartFootY(part);
-    return part;
-}
-
-function ensureAllTownPartMetadata() {
-    var parts = getActiveTownParts();
-
-    for (var i = 0; i < parts.length; i++) {
-        ensureTownPartMetadata(parts[i]);
-    }
+    // Derived view only: metadata defaults must not flow back into a draft.
+    var view = cloneTownPart(part);
+    var key = part.catalogKey || inferTownPartCatalogKey(part);
+    if (!view.collision) view.collision = cloneRelativePartRect(getPartCatalogEntry(key).collision);
+    if (!view.interaction) view.interaction = getDefaultTownPartInteraction(part, key);
+    if (!isFinite(Number(view.footY))) view.footY = getTownPartBottomY(part);
+    return view;
 }
 
 function getPartRelativeRectPixels(part, spec) {
@@ -5275,23 +5222,12 @@ function getTownPartCollisionRectPixels(part) {
 }
 
 function getTownPartInteractionRectPixels(part) {
-    if (!part || !part.interaction || part.interaction.enabled === false) return null;
-    if (!part.interaction.triggerId) return null;
-
-    // trigger.area is the persisted owner of an independently edited inspect
-    // range. part.triggerArea is its editor/runtime bridge.
-    if (part.triggerArea) {
-        var area = normalizeTownPartTriggerArea(part.triggerArea);
-        if (area) {
-            return {
-                x: area.x * TILE_SIZE,
-                y: area.y * TILE_SIZE,
-                w: area.w * TILE_SIZE,
-                h: area.h * TILE_SIZE
-            };
-        }
+    if (!part || !part.interaction || part.interaction.enabled === false || !part.interaction.triggerId) return null;
+    var trigger = findTownPartTrigger(part.interaction.triggerId);
+    if (trigger && trigger.area) {
+        var area = trigger.area;
+        return { x: area.x * TILE_SIZE, y: area.y * TILE_SIZE, w: area.w * TILE_SIZE, h: area.h * TILE_SIZE };
     }
-
     return getPartRelativeRectPixels(part, part.interaction);
 }
 
@@ -5339,7 +5275,7 @@ function applyTownPartCollisionToGrid(targetGrid) {
     var parts = getActiveTownParts();
 
     for (var i = 0; i < parts.length; i++) {
-        var part = ensureTownPartMetadata(parts[i]);
+        var part = getTownPartMetadataView(parts[i]);
         if (!part || part.enabled === false || !part.collision || part.collision.enabled === false) continue;
 
         var tiles = getTilesCoveredByPixelRect(getTownPartCollisionRectPixels(part));
@@ -5353,43 +5289,23 @@ function applyTownPartCollisionToGrid(targetGrid) {
     }
 }
 
-function captureTownPartTriggerTemplates(def) {
-    townPartTriggerTemplates = {};
-    townPartManagedTriggerIds = {};
+function findTownPartTrigger(id) {
+    for (var i = 0; i < triggers.length; i++) if (triggers[i] && triggers[i].id === id) return triggers[i];
+    return null;
+}
 
-    var source = (def && def.triggers) || [];
-    for (var i = 0; i < source.length; i++) {
-        var trigger = source[i];
-        if (trigger && trigger.id) {
-            townPartTriggerTemplates[trigger.id] = cloneTrigger(trigger);
-        }
-    }
+function putTownPartTrigger(trigger) {
+    var index = triggers.findIndex(function (item) { return item.id === trigger.id; });
+    if (index < 0) triggers.push(trigger);
+    else triggers[index] = trigger;
+}
 
-    // Seed the runtime/editor bridge from the canonical trigger template.
-    // triggerArea is intentionally removed by the diff exporter and is never
-    // persisted on the prop itself.
-    var parts = getActiveTownParts();
-    for (var p = 0; p < parts.length; p++) {
-        var part = parts[p];
-        var interaction = part && part.interaction;
-        var triggerId = interaction && interaction.triggerId
-            ? String(interaction.triggerId)
-            : '';
-        var template = triggerId ? townPartTriggerTemplates[triggerId] : null;
-
-        if (
-            part &&
-            interaction &&
-            interaction.enabled !== false &&
-            triggerId &&
-            template &&
-            template.area
-        ) {
-            part.triggerArea = normalizeTownPartTriggerArea(template.area);
-        } else if (part && part.triggerArea) {
-            delete part.triggerArea;
-        }
-    }
+function removeUnlinkedTownPartTrigger(id) {
+    if (!id || getActiveTownParts().some(function (part) {
+        return part.interaction && part.interaction.enabled !== false && part.interaction.triggerId === id;
+    })) return;
+    var index = triggers.findIndex(function (item) { return item.id === id; });
+    if (index >= 0) triggers.splice(index, 1);
 }
 
 function makeUniqueTownPartTriggerId(base) {
@@ -5398,7 +5314,6 @@ function makeUniqueTownPartTriggerId(base) {
     var suffix = 2;
 
     function exists(id) {
-        if (townPartTriggerTemplates[id]) return true;
         for (var i = 0; i < triggers.length; i++) {
             if (triggers[i] && triggers[i].id === id) return true;
         }
@@ -5430,25 +5345,9 @@ function normalizeTownPartTriggerArea(area) {
 }
 
 function getTownPartTriggerArea(part) {
-    // Stable ownership order:
-    // 1) part.triggerArea = current editor/live value
-    // 2) canonical trigger template area = persisted initial value
-    // 3) interaction rect = fallback only
-    if (part && part.triggerArea) {
-        return normalizeTownPartTriggerArea(part.triggerArea);
-    }
-
-    var interaction = part && part.interaction;
-    var triggerId = interaction && interaction.triggerId
-        ? String(interaction.triggerId)
-        : '';
-    var template = triggerId && townPartTriggerTemplates
-        ? townPartTriggerTemplates[triggerId]
-        : null;
-
-    if (template && template.area) {
-        return normalizeTownPartTriggerArea(template.area);
-    }
+    var link = part && part.interaction;
+    var trigger = link && link.triggerId ? findTownPartTrigger(link.triggerId) : null;
+    if (trigger && trigger.area) return cloneTownData(trigger.area);
 
     var rect = getTownPartInteractionRectPixels(part);
     if (!rect) return null;
@@ -5466,68 +5365,9 @@ function getTownPartTriggerArea(part) {
     });
 }
 
-function syncTownPartTriggers() {
-    var parts = getActiveTownParts();
-    var desired = {};
-
-    for (var i = 0; i < parts.length; i++) {
-        var part = ensureTownPartMetadata(parts[i]);
-        var interaction = part && part.interaction;
-        if (!part || part.enabled === false || !interaction || interaction.enabled === false || !interaction.triggerId) continue;
-
-        var triggerId = String(interaction.triggerId);
-        var area = getTownPartTriggerArea(part);
-        if (!area) continue;
-
-        desired[triggerId] = {
-            part: part,
-            area: area
-        };
-        townPartManagedTriggerIds[triggerId] = true;
-    }
-
-    // 管理対象なのに対応パーツがなくなったトリガーは、透明な操作範囲を残さない。
-    triggers = triggers.filter(function(trigger) {
-        return !trigger || !townPartManagedTriggerIds[trigger.id] || !!desired[trigger.id];
-    });
-
-    for (var triggerId in desired) {
-        if (!Object.prototype.hasOwnProperty.call(desired, triggerId)) continue;
-
-        var index = -1;
-        for (var t = 0; t < triggers.length; t++) {
-            if (triggers[t] && triggers[t].id === triggerId) {
-                index = t;
-                break;
-            }
-        }
-
-        var template = townPartTriggerTemplates[triggerId]
-            ? cloneTrigger(townPartTriggerTemplates[triggerId])
-            : {
-                id: triggerId,
-                label: desired[triggerId].part.id || 'パーツ',
-                actionLabel: '調べる',
-                type: 'inspect',
-                text: '町に置かれたパーツです。',
-                tapPadding: 1
-            };
-
-        template.area = desired[triggerId].area;
-
-        if (index >= 0) {
-            triggers[index] = template;
-        } else {
-            triggers.push(template);
-        }
-    }
-}
-
 function refreshTownPartDerivedData() {
     var parts = getActiveTownParts();
-    ensureAllTownPartMetadata();
     syncTownPartPublicReference(parts);
-    syncTownPartTriggers();
     rebuildCollisionGridFromBase();
 }
 
@@ -5674,7 +5514,6 @@ function createTownPartFromCatalog(key, worldX, worldY) {
     };
 
     clampPartToMap(part);
-    ensureTownPartMetadata(part);
     return part;
 }
 
@@ -5931,7 +5770,7 @@ function updatePartEditorSelectionUi() {
     var triggerEnabled = document.getElementById('part-trigger-enabled');
     var triggerId = document.getElementById('part-trigger-id');
 
-    if (part) ensureTownPartMetadata(part);
+    if (part) part = getTownPartMetadataView(part);
 
     if (label) {
         label.textContent = part ? (part.id || '名称なし') : 'なし';
@@ -6005,7 +5844,6 @@ function applyPartCollisionInputs() {
     var part = getSelectedTownPart();
     if (!part) return;
 
-    ensureTownPartMetadata(part);
 
     var rect = getPartRectPixels(part);
     var enabled = document.getElementById('part-collision-enabled');
@@ -6026,13 +5864,13 @@ function applyPartCollisionInputs() {
 
     pushTownPartHistory();
 
-    part.collision = {
+    part.collision = Object.assign({}, part.collision, {
         enabled: !!(enabled && enabled.checked),
         x: xPx / rect.w,
         y: yPx / rect.h,
         w: Math.max(1, wPx) / rect.w,
         h: Math.max(1, hPx) / rect.h
-    };
+    });
 
     refreshTownPartDerivedData();
     updatePartEditorSelectionUi();
@@ -6043,7 +5881,6 @@ function applyPartInteractionInputs() {
     var part = getSelectedTownPart();
     if (!part) return;
 
-    ensureTownPartMetadata(part);
 
     var enabled = document.getElementById('part-trigger-enabled');
     var idInput = document.getElementById('part-trigger-id');
@@ -6051,8 +5888,15 @@ function applyPartInteractionInputs() {
 
     pushTownPartHistory();
 
+    var oldId = part.interaction && part.interaction.triggerId;
+    if (!part.interaction) part.interaction = getDefaultTownPartInteraction(part);
     part.interaction.enabled = !!(enabled && enabled.checked && nextId);
     part.interaction.triggerId = nextId;
+    if (part.interaction.enabled && !findTownPartTrigger(nextId)) {
+        putTownPartTrigger({ id: nextId, label: part.id, actionLabel: '調べる', type: 'inspect',
+            text: '町に置かれたパーツです。', area: getTownPartTriggerArea(part), tapPadding: 1 });
+    }
+    removeUnlinkedTownPartTrigger(oldId);
 
     refreshTownPartDerivedData();
     updatePartEditorSelectionUi();
@@ -6212,7 +6056,13 @@ function duplicateSelectedPart() {
     copy.y += 8 / TILE_SIZE;
 
     if (copy.interaction && copy.interaction.enabled && copy.interaction.triggerId) {
+        var originalTrigger = findTownPartTrigger(copy.interaction.triggerId);
         copy.interaction.triggerId = makeUniqueTownPartTriggerId(copy.id + '_trigger');
+        if (originalTrigger) {
+            var copiedTrigger = cloneTrigger(originalTrigger);
+            copiedTrigger.id = copy.interaction.triggerId;
+            putTownPartTrigger(copiedTrigger);
+        }
     }
 
     clampPartToMap(copy, copyFootOffset);
@@ -6244,6 +6094,7 @@ function deleteSelectedPart() {
 
     var parts = getActiveTownParts();
     parts.splice(editingPartIndex, 1);
+    removeUnlinkedTownPartTrigger(part.interaction && part.interaction.triggerId);
     editingPartIndex = -1;
     refreshTownPartDerivedData();
     updatePartEditorSelectionUi();
@@ -6509,24 +6360,7 @@ function drawTownPartEditorOverlay() {
     ctx.restore();
 }
 
-function cloneTrigger(trigger) {
-    var copied = {};
-    for (var key in trigger) {
-        if (!Object.prototype.hasOwnProperty.call(trigger, key)) continue;
-
-        if (key === "area" && trigger.area) {
-            copied.area = {
-                x: trigger.area.x,
-                y: trigger.area.y,
-                w: trigger.area.w,
-                h: trigger.area.h
-            };
-        } else {
-            copied[key] = trigger[key];
-        }
-    }
-    return copied;
-}
+function cloneTrigger(trigger) { return cloneTownData(trigger); }
 
 function cloneTriggers() {
     var copied = [];
@@ -6537,10 +6371,7 @@ function cloneTriggers() {
 }
 
 function restoreTriggers(prev) {
-    triggers = [];
-    for (var i = 0; i < prev.length; i++) {
-        triggers.push(cloneTrigger(prev[i]));
-    }
+    triggers.splice(0, triggers.length, ...cloneTownData(prev));
 }
 
 function getTriggerIndexAtTile(tx, ty) {
@@ -6625,38 +6456,9 @@ function setTriggerFormValues(trigger) {
 
 function syncEditedTriggerToLinkedPartState(previousId, trigger) {
     if (!trigger || !trigger.id) return;
-
-    var oldId = String(previousId || trigger.id);
-    var newId = String(trigger.id);
-    var parts = getActiveTownParts();
-    var linked = false;
-
-    for (var i = 0; i < parts.length; i++) {
-        var part = parts[i];
-        var interaction = part && part.interaction;
-        if (!interaction || String(interaction.triggerId || '') !== oldId) continue;
-
-        linked = true;
-        interaction.triggerId = newId;
-
-        if (trigger.area) {
-            part.triggerArea = normalizeTownPartTriggerArea(trigger.area);
-        }
-    }
-
-    if (
-        linked ||
-        Object.prototype.hasOwnProperty.call(townPartTriggerTemplates, oldId) ||
-        Object.prototype.hasOwnProperty.call(townPartTriggerTemplates, newId)
-    ) {
-        if (oldId !== newId) {
-            delete townPartTriggerTemplates[oldId];
-            delete townPartManagedTriggerIds[oldId];
-        }
-
-        townPartTriggerTemplates[newId] = cloneTrigger(trigger);
-        if (linked) townPartManagedTriggerIds[newId] = true;
-    }
+    getActiveTownParts().forEach(function (part) {
+        if (part.interaction && part.interaction.triggerId === previousId) part.interaction.triggerId = trigger.id;
+    });
 }
 
 function applyTriggerValues(index, values) {
@@ -6667,12 +6469,12 @@ function applyTriggerValues(index, values) {
     var next = cloneTrigger(current);
 
     if (isDedicatedGhostTrigger(current)) {
-        next.area = values.area || current.area;
+        next.area = Object.assign({}, current.area, values.area);
     } else {
         next.id = values.id || "trigger";
         next.label = values.label || "トリガー";
         next.actionLabel = values.actionLabel || "調べる";
-        next.area = values.area || current.area;
+        next.area = Object.assign({}, current.area, values.area);
         next.type = values.type || "inspect";
         next.target = values.target || "";
         next.text = values.text || "";
@@ -6782,8 +6584,6 @@ function deleteSelectedTrigger() {
     triggers.splice(editingTriggerIndex, 1);
 
     if (deletedTriggerId) {
-        delete townPartTriggerTemplates[deletedTriggerId];
-        delete townPartManagedTriggerIds[deletedTriggerId];
 
         var parts = getActiveTownParts();
         for (var i = 0; i < parts.length; i++) {
@@ -6795,7 +6595,6 @@ function deleteSelectedTrigger() {
             ) {
                 part.interaction.enabled = false;
                 part.interaction.triggerId = '';
-                delete part.triggerArea;
             }
         }
     }
@@ -6816,7 +6615,7 @@ function deleteSelectedTrigger() {
 
 
 
-function updateEditorStatus(msg) { document.getElementById('editor-status').innerText = msg; }
+function updateEditorStatus(msg) { document.getElementById('editor-status').innerText = msg; updateEditorSaveStateUI(); }
 function getEditorBaseCollisionGrid() {
     if (!Array.isArray(baseCollisionGrid) || baseCollisionGrid.length !== MAP_HEIGHT) {
         throw new Error("Editor base collision grid is not initialized");
@@ -6835,6 +6634,8 @@ function copyGrid() { return cloneCollisionGrid(getEditorBaseCollisionGrid()); }
 
 function collisionGridToRects(targetValue, sourceGrid) {
     var grid = sourceGrid;
+    var MAP_HEIGHT = grid.length;
+    var MAP_WIDTH = grid[0] ? grid[0].length : 0;
     var rects = [];
     var visited = [];
 
@@ -6887,9 +6688,9 @@ function collisionGridToRects(targetValue, sourceGrid) {
     return rects;
 }
 
-function getEditorCollisionData() {
+function getEditorCollisionData(sourceGrid) {
     // Fixed terrain only. Town-part collision remains owned by prop.collision.
-    var grid = getEditorBaseCollisionGrid();
+    var grid = sourceGrid || getEditorBaseCollisionGrid();
 
     var passable = collisionGridToRects(1, grid);
     var blockedAll = collisionGridToRects(2, grid);
@@ -7035,7 +6836,7 @@ function handleEditorTap(tx, ty) {
 
 
 // Full-file Town Editor export was retired.
- // town-editor-safe-export.js / town-editor-comment-export.js own diff-v1 export.
+ // town-editor-safe-export.js owns the single session diff-v1 export.
  
 // ==========================================
 // 6. メインループと更新・判定
@@ -7594,6 +7395,7 @@ function prepareSceneUiForChange() {
 }
 
 function changeTownScene(sceneId, spawnKey) {
+    if (!canLeaveTownEditorSession(sceneId)) return false;
     var validation = validateTownSceneRequest(sceneId, spawnKey);
     if (!validation.ok) {
         reportTownSceneTransitionFailure(sceneId, validation.errors);

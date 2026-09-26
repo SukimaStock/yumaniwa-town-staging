@@ -26,22 +26,8 @@
         return clone(areaZoneList());
     }
 
-    function syncAreaZonesToScene() {
-        var source = cloneAreaZones();
-        var sceneId = window.currentScene;
-        var def = window.activeTownSceneDef;
-
-        window.areaZones = clone(source);
-
-        if (def) {
-            def.areaZones = clone(source);
-        }
-
-        if (window.TOWN_SCENE_MAPS && sceneId && window.TOWN_SCENE_MAPS[sceneId]) {
-            window.TOWN_SCENE_MAPS[sceneId].areaZones = clone(source);
-        }
-
-        // The zone contract changed; do not keep a stale runtime area identity.
+    function areaZonesChanged() {
+        // window.areaZones already is the session draft array.
         window.currentAreaId = null;
     }
 
@@ -275,13 +261,13 @@
     function applyAreaZoneValues(index, values) {
         var list = areaZoneList();
         if (!(index >= 0 && index < list.length) || !values) return false;
-        list[index] = {
+        list[index] = Object.assign({}, list[index], {
             id: String(values.id || uniqueAreaZoneId('area')),
             title: String(values.title || ''),
             subtitle: String(values.subtitle || ''),
-            area: clampArea(values.area || {})
-        };
-        syncAreaZonesToScene();
+            area: Object.assign({}, list[index].area, clampArea(values.area || {}))
+        });
+        areaZonesChanged();
         return true;
     }
 
@@ -309,13 +295,13 @@
         if (!(editingAreaZoneIndex >= 0 && editingAreaZoneIndex < list.length)) return;
         var zone = list[editingAreaZoneIndex];
         recordAreaZoneHistory();
-        zone.area = clampArea({
+        zone.area = Object.assign({}, zone.area, clampArea({
             x: Number(zone.area.x || 0) + dx,
             y: Number(zone.area.y || 0) + dy,
             w: Number(zone.area.w || 1),
             h: Number(zone.area.h || 1)
-        });
-        syncAreaZonesToScene();
+        }));
+        areaZonesChanged();
         selectAreaZone(editingAreaZoneIndex);
         if (typeof window.updateEditorStatus === 'function') {
             window.updateEditorStatus('エリア範囲を1マス移動しました');
@@ -327,13 +313,13 @@
         if (!(editingAreaZoneIndex >= 0 && editingAreaZoneIndex < list.length)) return;
         var zone = list[editingAreaZoneIndex];
         recordAreaZoneHistory();
-        zone.area = clampArea({
+        zone.area = Object.assign({}, zone.area, clampArea({
             x: Number(zone.area.x || 0),
             y: Number(zone.area.y || 0),
             w: Number(zone.area.w || 1) + delta,
             h: Number(zone.area.h || 1) + delta
-        });
-        syncAreaZonesToScene();
+        }));
+        areaZonesChanged();
         selectAreaZone(editingAreaZoneIndex);
         if (typeof window.updateEditorStatus === 'function') {
             window.updateEditorStatus(delta > 0 ? 'エリア範囲を広げました' : 'エリア範囲を狭めました');
@@ -352,7 +338,7 @@
         editingAreaZoneIndex = -1;
         window.editStep = 0;
         window.currentHoverTile = null;
-        syncAreaZonesToScene();
+        areaZonesChanged();
         setAreaZoneFormValues(null);
         refreshAreaZoneEditor();
         if (typeof window.updateEditorStatus === 'function') {
@@ -410,7 +396,7 @@
 
             recordAreaZoneHistory();
             list.push(values);
-            syncAreaZonesToScene();
+            areaZonesChanged();
             editingAreaZoneIndex = list.length - 1;
             if (typeof window.updateEditorStatus === 'function') {
                 window.updateEditorStatus('新規エリアを追加しました');
@@ -460,35 +446,6 @@
             if (String(part.interaction.triggerId || '') === String(id || '')) result.push(part);
         }
         return result;
-    }
-
-    function syncTriggersToScene() {
-        var source = Array.isArray(window.triggers) ? clone(window.triggers) : [];
-        var sceneId = window.currentScene;
-        var def = window.activeTownSceneDef;
-        if (def) def.triggers = clone(source);
-        if (window.TOWN_SCENE_MAPS && sceneId && window.TOWN_SCENE_MAPS[sceneId]) {
-            window.TOWN_SCENE_MAPS[sceneId].triggers = clone(source);
-        }
-    }
-
-
-    function setLinkedTriggerArea(triggerId, area) {
-        var linked = linkedPartsForTrigger(triggerId);
-        var nextArea = clampArea(area);
-
-        for (var i = 0; i < linked.length; i++) {
-            linked[i].triggerArea = clone(nextArea);
-        }
-
-        if (
-            window.townPartTriggerTemplates &&
-            window.townPartTriggerTemplates[triggerId]
-        ) {
-            window.townPartTriggerTemplates[triggerId].area = clone(nextArea);
-        }
-
-        return linked.length;
     }
 
     function updateTriggerMoveUi() {
@@ -562,14 +519,12 @@
             w: Number(trigger.area.w || 1),
             h: Number(trigger.area.h || 1)
         });
-        trigger.area = clone(nextArea);
-        setLinkedTriggerArea(id, nextArea);
+        trigger.area = Object.assign({}, trigger.area, nextArea);
 
         if (linked.length && typeof window.refreshTownPartDerivedData === 'function') {
             window.refreshTownPartDerivedData();
             window.editingTriggerIndex = findTriggerIndexById(id);
         }
-        syncTriggersToScene();
         refreshTriggerForm();
         if (typeof window.updateEditorStatus === 'function') window.updateEditorStatus('調べる場所を1マス移動しました');
     }
@@ -590,14 +545,12 @@
             w: Number(trigger.area.w || 1) + delta,
             h: Number(trigger.area.h || 1) + delta
         });
-        trigger.area = clone(nextArea);
-        setLinkedTriggerArea(id, nextArea);
+        trigger.area = Object.assign({}, trigger.area, nextArea);
 
         if (linked.length && typeof window.refreshTownPartDerivedData === 'function') {
             window.refreshTownPartDerivedData();
             window.editingTriggerIndex = findTriggerIndexById(id);
         }
-        syncTriggersToScene();
         refreshTriggerForm();
         if (typeof window.updateEditorStatus === 'function') {
             window.updateEditorStatus(delta > 0 ? '調べる場所を広げました' : '調べる場所を狭めました');
@@ -670,8 +623,7 @@
     }
 
     function onUndo() {
-        syncTriggersToScene();
-        syncAreaZonesToScene();
+        areaZonesChanged();
         refreshAreaZoneEditor();
         updateTriggerMoveUi();
     }

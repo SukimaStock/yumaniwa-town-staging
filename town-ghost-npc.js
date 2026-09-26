@@ -258,27 +258,15 @@
     upsertById(station.triggers, trigger);
     upsertById(station.props, prop);
 
-    // 初回表示中の駅前にも即時反映する。
-    if (Array.isArray(window.triggers)) upsertById(window.triggers, trigger);
-    if (Array.isArray(window.stationPlazaProps)) upsertById(window.stationPlazaProps, prop);
-
-    if (window.activeTownSceneDef && window.currentScene === 'station_plaza') {
-        window.activeTownSceneDef.triggers = Array.isArray(window.activeTownSceneDef.triggers)
-            ? window.activeTownSceneDef.triggers
-            : [];
-        window.activeTownSceneDef.props = Array.isArray(window.activeTownSceneDef.props)
-            ? window.activeTownSceneDef.props
-            : [];
-        upsertById(window.activeTownSceneDef.triggers, trigger);
-        upsertById(window.activeTownSceneDef.props, prop);
-    }
-
     // inspect の既存処理は変えず、このNPCだけ話しかける直前に会話を決める。
     var baseActivateTownTrigger = window.activateTownTrigger;
     if (typeof baseActivateTownTrigger === 'function') {
         window.activateTownTrigger = function (targetTrigger) {
             if (targetTrigger && targetTrigger.id === TRIGGER_ID) {
-                targetTrigger.text = chooseGhostLine();
+                // A conversation is a transient activation payload, not scene data.
+                var args = Array.prototype.slice.call(arguments);
+                args[0] = Object.assign({}, targetTrigger, { text: chooseGhostLine() });
+                return baseActivateTownTrigger.apply(this, args);
             }
             return baseActivateTownTrigger.apply(this, arguments);
         };

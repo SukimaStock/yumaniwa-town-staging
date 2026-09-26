@@ -34,11 +34,7 @@
             }
         }
 
-        var templates = window.townPartTriggerTemplates;
-        return !!(
-            templates &&
-            Object.prototype.hasOwnProperty.call(templates, needle)
-        );
+        return false;
     }
 
     function makeAutoTriggerId() {

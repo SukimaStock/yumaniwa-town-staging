@@ -47,7 +47,8 @@ validation前後に変更がないことも確認する。
 - objectId台帳: `data/world-objects.js`
 
 Deskは既存の安全なliteral parserで読む。source中の関数は実行しない。
-ghostのruntime upsert方式は変更しない。Deskはghost literalも候補sceneに含める。
+ghost literalは既存scriptで検証前に初期登録する。Deskは同じliteralを候補sceneに含める。
+Phase 2以降、会話文はactivation payloadで扱い、scene/draftを書き換えない。
 重複するghost所有元を新設した場合は、Deskは重複IDとして拒否する。
 
 propのbefore比較では既存の永続化projectionを維持する
@@ -72,5 +73,6 @@ Desk候補計画、before、source、hash、identity、非書込みを検証す�
 roundtripは一時ディレクトリにのみ書込み、実runtimeで読み直す。
 ブラウザ描画・Pythonista UI操作のE2Eテストではない。
 
-Editor session/baseline/draft/Undo、interaction状態、comment-export、
-triggerAreaの永続化schema移行はPhase 1の対象外。
+Phase 1はvalidation境界を扱う。Phase 2のsession/baseline/draft/export所有関係は
+[EDITOR-SESSION.md](EDITOR-SESSION.md)を参照。Undo形式、interaction状態、
+triggerAreaの永続化schema移行は後続Phaseの対象。

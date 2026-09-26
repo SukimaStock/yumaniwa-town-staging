@@ -2981,6 +2981,7 @@ def validate_project(root):
     station_props_text = safe_read(os.path.join(root, "data/station-plaza-props.js"))
     spatial_editor_text = safe_read(os.path.join(root, "town-editor-spatial.js"))
     safe_export_text = safe_read(os.path.join(root, "town-editor-safe-export.js"))
+    editor_session_text = safe_read(os.path.join(root, "town-editor-session.js"))
     world_objects_text = safe_read(os.path.join(root, "data/world-objects.js"))
     editor_upgrade_text = safe_read(os.path.join(root, "town-editor-upgrade.js"))
     ghost_source_text = safe_read(os.path.join(root, "town-ghost-npc.js"))
@@ -3011,7 +3012,7 @@ def validate_project(root):
         report["errors"].append(
             "main.js に旧bootstrap scene fallbackが再導入されています。"
         )
-    elif "failTownSceneBoot(currentScene)" not in main_source_text:
+    elif not re.search(r"\bfailTownSceneBoot\(\s*currentScene\s*[,)]", main_source_text):
         report["errors"].append(
             "main.js のcanonical scene起動失敗処理を確認できません。"
         )
@@ -3119,7 +3120,7 @@ def validate_project(root):
     else:
         report["ok"].append("feedback destination: canonical data + external analytics hook")
 
-    if "function getEditorCollisionData()" not in main_source_text:
+    if not re.search(r"\bfunction\s+getEditorCollisionData\s*\(\s*(?:sourceGrid\s*)?\)", main_source_text):
         report["errors"].append(
             "main.js のeditor collision serializerを確認できません。"
         )
@@ -3139,13 +3140,13 @@ def validate_project(root):
         report["errors"].append(
             "runtime collision rebuildでedgeWarp carveを確認できません。"
         )
-    elif "buildExportCollisionData" in safe_export_text:
+    elif "buildExportCollisionData" in safe_export_text + editor_session_text:
         report["errors"].append(
             "town-editor-safe-export.js が削除済みcollision APIを参照しています。"
         )
-    elif "getEditorCollisionData" not in safe_export_text:
+    elif "sessionApi.snapshot()" not in safe_export_text or "getEditorCollisionData(session.draft.fixedCollisionGrid)" not in editor_session_text:
         report["errors"].append(
-            "town-editor-safe-export.js のcollision serializer参照を確認できません。"
+            "Editor sessionからのcollision serializer参照を確認できません。"
         )
     else:
         report["ok"].append("editor collision diff: canonical authored base serializer")
