@@ -12,7 +12,7 @@
     return {
       schema: 'sukimastock-artifact/1',
       kind,
-      producer: { tool: 'map-factory', version: '0.9' },
+      producer: { tool: 'map-factory', version: '0.10' },
       createdAt,
       dependencies,
       nextStep
@@ -94,8 +94,27 @@
     },
 
     // Generic source sheets for Yumaniwa props / exhibits.
-    // These intentionally register every detected object as SPECIAL so that
-    // Map Factory can be used as a neutral cutout station before Cleaner.
+    // Auto Fine keeps small isolated objects separate and registers them as
+    // SPECIAL so Map Factory can work as a neutral cutout station before Cleaner.
+    'object-auto-fine': {
+      name: 'Auto Object Sheet / Fine Split',
+      candidateLabel: 'OBJECT',
+      autoDetect: true,
+      mergeGapRatio: 0.006,
+      rowToleranceRatio: 0.035,
+      detection: {
+        maxDimension: 1600,
+        minAreaRatio: 0.000003,
+        minAreaFloor: 3,
+        alphaThreshold: 18,
+        colorThreshold: 32,
+        connectDiagonals: true
+      },
+      slots: {
+        special: []
+      }
+    },
+
     'object-grid-2x2': {
       name: 'Object Sheet 2×2',
       candidateLabel: 'OBJECT',
@@ -1619,8 +1638,8 @@
     return list;
   }
 
-  function detectConnectedComponents(image) {
-    const maxDimension = 900;
+  function detectConnectedComponents(image, options = {}) {
+    const maxDimension = options.maxDimension || 900;
     const scale = Math.min(1, maxDimension / Math.max(image.width, image.height));
     const width = Math.max(1, Math.round(image.width * scale));
     const height = Math.max(1, Math.round(image.height * scale));
@@ -1630,6 +1649,7 @@
     canvas.height = height;
 
     const detectCtx = canvas.getContext('2d', { willReadFrequently: true });
+    detectCtx.imageSmoothingEnabled = false;
     detectCtx.drawImage(image, 0, 0, width, height);
 
     const imageData = detectCtx.getImageData(0, 0, width, height);
@@ -1638,20 +1658,24 @@
     const hasTransparency = canvasHasTransparency(data, width, height);
     const total = width * height;
     const mask = new Uint8Array(total);
-    const threshold = 32;
+    const threshold = Number.isFinite(options.colorThreshold) ? options.colorThreshold : 32;
+    const alphaThreshold = Number.isFinite(options.alphaThreshold) ? options.alphaThreshold : 26;
 
     for (let p = 0; p < total; p++) {
       const i = p * 4;
       const foreground = hasTransparency
-        ? data[i + 3] > 26
-        : data[i + 3] > 26 && colorDistance(data, i, bg) > threshold;
+        ? data[i + 3] > alphaThreshold
+        : data[i + 3] > alphaThreshold && colorDistance(data, i, bg) > threshold;
 
       mask[p] = foreground ? 1 : 0;
     }
 
     const stack = new Int32Array(total);
     const components = [];
-    const minArea = Math.max(8, Math.floor(total * 0.000015));
+    const minAreaRatio = Number.isFinite(options.minAreaRatio) ? options.minAreaRatio : 0.000015;
+    const minAreaFloor = Number.isFinite(options.minAreaFloor) ? options.minAreaFloor : 8;
+    const minArea = Math.max(minAreaFloor, Math.floor(total * minAreaRatio));
+    const connectDiagonals = options.connectDiagonals === true;
 
     for (let p = 0; p < total; p++) {
       if (!mask[p]) continue;
@@ -1708,6 +1732,37 @@
             stack[top++] = next;
           }
         }
+
+        if (connectDiagonals) {
+          if (x > 0 && y > 0) {
+            const next = current - width - 1;
+            if (mask[next]) {
+              mask[next] = 0;
+              stack[top++] = next;
+            }
+          }
+          if (x + 1 < width && y > 0) {
+            const next = current - width + 1;
+            if (mask[next]) {
+              mask[next] = 0;
+              stack[top++] = next;
+            }
+          }
+          if (x > 0 && y + 1 < height) {
+            const next = current + width - 1;
+            if (mask[next]) {
+              mask[next] = 0;
+              stack[top++] = next;
+            }
+          }
+          if (x + 1 < width && y + 1 < height) {
+            const next = current + width + 1;
+            if (mask[next]) {
+              mask[next] = 0;
+              stack[top++] = next;
+            }
+          }
+        }
       }
 
       if (area < minArea) continue;
@@ -1730,6 +1785,123 @@
       scaleY: image.height / height,
       components
     };
+  }
+
+  function componentAxisGap(a0, a1, b0, b1) {
+    if (a1 < b0) return b0 - a1;
+    if (b1 < a0) return a0 - b1;
+    return 0;
+  }
+
+  function buildAutoObjectGroups(detection, preset) {
+    const components = detection.components;
+    if (!components.length) return [];
+
+    const mergeGap = Math.max(
+      2,
+      Math.round(Math.max(detection.width, detection.height) * (preset.mergeGapRatio || 0.006))
+    );
+    const parent = components.map((_, index) => index);
+
+    function find(index) {
+      let root = index;
+      while (parent[root] !== root) root = parent[root];
+      while (parent[index] !== index) {
+        const next = parent[index];
+        parent[index] = root;
+        index = next;
+      }
+      return root;
+    }
+
+    function union(a, b) {
+      const rootA = find(a);
+      const rootB = find(b);
+      if (rootA !== rootB) parent[rootB] = rootA;
+    }
+
+    for (let i = 0; i < components.length; i++) {
+      const a = components[i];
+      for (let j = i + 1; j < components.length; j++) {
+        const b = components[j];
+        const gapX = componentAxisGap(a.minX, a.maxX, b.minX, b.maxX);
+        const gapY = componentAxisGap(a.minY, a.maxY, b.minY, b.maxY);
+        if (gapX <= mergeGap && gapY <= mergeGap) union(i, j);
+      }
+    }
+
+    const clustered = new Map();
+    components.forEach((component, index) => {
+      const root = find(index);
+      if (!clustered.has(root)) clustered.set(root, []);
+      clustered.get(root).push(component);
+    });
+
+    const objects = Array.from(clustered.values()).map((groupComponents) => {
+      let minX = detection.width;
+      let minY = detection.height;
+      let maxX = -1;
+      let maxY = -1;
+
+      groupComponents.forEach((component) => {
+        minX = Math.min(minX, component.minX);
+        minY = Math.min(minY, component.minY);
+        maxX = Math.max(maxX, component.maxX);
+        maxY = Math.max(maxY, component.maxY);
+      });
+
+      return {
+        components: groupComponents,
+        minX,
+        minY,
+        maxX,
+        maxY,
+        cx: (minX + maxX) / 2,
+        cy: (minY + maxY) / 2
+      };
+    });
+
+    objects.sort((a, b) => a.cy - b.cy || a.cx - b.cx);
+
+    const rowTolerance = Math.max(
+      8,
+      Math.round(detection.height * (preset.rowToleranceRatio || 0.035))
+    );
+    const rows = [];
+
+    objects.forEach((object) => {
+      let bestRow = null;
+      let bestDistance = Infinity;
+
+      rows.forEach((row) => {
+        const distance = Math.abs(object.cy - row.cy);
+        if (distance <= rowTolerance && distance < bestDistance) {
+          bestDistance = distance;
+          bestRow = row;
+        }
+      });
+
+      if (!bestRow) {
+        bestRow = { cy: object.cy, objects: [] };
+        rows.push(bestRow);
+      }
+
+      bestRow.objects.push(object);
+      bestRow.cy = bestRow.objects.reduce((sum, item) => sum + item.cy, 0) / bestRow.objects.length;
+    });
+
+    rows.sort((a, b) => a.cy - b.cy);
+    const ordered = [];
+    rows.forEach((row) => {
+      row.objects.sort((a, b) => a.minX - b.minX);
+      ordered.push(...row.objects);
+    });
+
+    return ordered.map((object, slotIndex) => ({
+      type: 'special',
+      slotIndex,
+      components: object.components
+    }));
   }
 
   function assignComponentsToKitSlots(detection, preset) {
@@ -1851,18 +2023,20 @@
 
     els.sourceStatus.textContent = 'Kit Sheetを解析しています…';
 
-    const detection = detectConnectedComponents(image);
-    const groups = assignComponentsToKitSlots(detection, preset);
+    const detection = detectConnectedComponents(image, preset.detection || {});
+    const groups = preset.autoDetect
+      ? buildAutoObjectGroups(detection, preset)
+      : assignComponentsToKitSlots(detection, preset);
     const candidates = [];
     for (const group of groups) {
       const candidate = await makeCandidateFromGroup(image, detection, group, file.name, presetId);
       if (candidate) candidates.push(candidate);
     }
     candidates.sort((a, b) => {
-        const typeDiff = TYPES.indexOf(a.type) - TYPES.indexOf(b.type);
-        if (typeDiff) return typeDiff;
-        return a.slotIndex - b.slotIndex;
-      });
+      const typeDiff = TYPES.indexOf(a.type) - TYPES.indexOf(b.type);
+      if (typeDiff) return typeDiff;
+      return a.slotIndex - b.slotIndex;
+    });
 
     state.detected = {
       kind: 'kit',
@@ -1875,10 +2049,16 @@
 
     renderKitPreview();
 
-    const expected = buildKitSlotList(preset).length;
-    els.sourceStatus.textContent =
-      file.name + ' / ' + image.width + '×' + image.height +
-      ' → ' + candidates.length + ' / ' + expected + ' assets を検出しました。';
+    if (preset.autoDetect) {
+      els.sourceStatus.textContent =
+        file.name + ' / ' + image.width + '×' + image.height +
+        ' → ' + candidates.length + ' objects を細分割で自動検出しました。';
+    } else {
+      const expected = buildKitSlotList(preset).length;
+      els.sourceStatus.textContent =
+        file.name + ' / ' + image.width + '×' + image.height +
+        ' → ' + candidates.length + ' / ' + expected + ' assets を検出しました。';
+    }
 
     updateRegisterButton();
   }
@@ -1920,7 +2100,8 @@
 
     TYPES.forEach((type) => {
       const candidates = state.detected.candidates.filter((candidate) => candidate.type === type);
-      const expected = getExpectedCount(type, preset);
+      const expected = preset.autoDetect ? candidates.length : getExpectedCount(type, preset);
+      if (!candidates.length && expected === 0) return;
 
       const section = document.createElement('section');
       section.className = 'kit-group';
@@ -1929,11 +2110,13 @@
       head.className = 'kit-group-head';
 
       const title = document.createElement('strong');
-      title.textContent = LABELS[type];
+      title.textContent = preset.autoDetect && type === 'special' ? 'OBJECTS' : LABELS[type];
 
       const count = document.createElement('span');
-      count.className = 'kit-count ' + (candidates.length === expected ? 'ok' : 'warn');
-      count.textContent = candidates.length + ' / ' + expected;
+      count.className = 'kit-count ' + (preset.autoDetect || candidates.length === expected ? 'ok' : 'warn');
+      count.textContent = preset.autoDetect
+        ? candidates.length + ' detected'
+        : candidates.length + ' / ' + expected;
 
       head.append(title, count);
 
