@@ -4770,7 +4770,43 @@ function makeUniqueTownPartTriggerId(base) {
     return candidate;
 }
 
+function normalizeTownPartTriggerArea(area) {
+    if (!area) return null;
+
+    var x = Math.max(0, Math.floor(Number(area.x) || 0));
+    var y = Math.max(0, Math.floor(Number(area.y) || 0));
+    var w = Math.max(1, Math.floor(Number(area.w) || 1));
+    var h = Math.max(1, Math.floor(Number(area.h) || 1));
+
+    if (x >= MAP_WIDTH || y >= MAP_HEIGHT) return null;
+
+    w = Math.max(1, Math.min(w, MAP_WIDTH - x));
+    h = Math.max(1, Math.min(h, MAP_HEIGHT - y));
+
+    return { x: x, y: y, w: w, h: h };
+}
+
 function getTownPartTriggerArea(part) {
+    // Stable ownership order:
+    // 1) part.triggerArea = current editor/live value
+    // 2) canonical trigger template area = persisted initial value
+    // 3) interaction rect = fallback only
+    if (part && part.triggerArea) {
+        return normalizeTownPartTriggerArea(part.triggerArea);
+    }
+
+    var interaction = part && part.interaction;
+    var triggerId = interaction && interaction.triggerId
+        ? String(interaction.triggerId)
+        : '';
+    var template = triggerId && townPartTriggerTemplates
+        ? townPartTriggerTemplates[triggerId]
+        : null;
+
+    if (template && template.area) {
+        return normalizeTownPartTriggerArea(template.area);
+    }
+
     var rect = getTownPartInteractionRectPixels(part);
     if (!rect) return null;
 
@@ -4779,12 +4815,12 @@ function getTownPartTriggerArea(part) {
     var right = Math.min(MAP_WIDTH, Math.ceil((rect.x + rect.w) / TILE_SIZE - 0.0001));
     var bottom = Math.min(MAP_HEIGHT, Math.ceil((rect.y + rect.h) / TILE_SIZE - 0.0001));
 
-    return {
+    return normalizeTownPartTriggerArea({
         x: x,
         y: y,
         w: Math.max(1, right - x),
         h: Math.max(1, bottom - y)
-    };
+    });
 }
 
 function syncTownPartTriggers() {

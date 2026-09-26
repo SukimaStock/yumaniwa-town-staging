@@ -90,6 +90,8 @@
     // --------------------------------------------------
     // パーツ連動トリガーの絶対座標化
     // --------------------------------------------------
+    // main.js is the sole owner of trigger-area precedence.
+    // Keep this reference only for initial seeding of part.triggerArea.
     var baseGetTownPartTriggerArea = typeof window.getTownPartTriggerArea === 'function'
         ? window.getTownPartTriggerArea
         : null;
@@ -110,13 +112,6 @@
             var derived = baseGetTownPartTriggerArea(part);
             if (derived) part.triggerArea = clampArea(derived);
         }
-    }
-
-    if (baseGetTownPartTriggerArea) {
-        window.getTownPartTriggerArea = function (part) {
-            if (part && part.triggerArea) return clampArea(part.triggerArea);
-            return baseGetTownPartTriggerArea.apply(this, arguments);
-        };
     }
 
     if (baseGetTownPartInteractionRectPixels) {
