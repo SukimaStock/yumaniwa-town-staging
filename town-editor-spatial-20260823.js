@@ -133,7 +133,18 @@
     function setLinkedTriggerArea(triggerId, area) {
         var linked = linkedPartsForTrigger(triggerId);
         var nextArea = clampArea(area);
-        for (var i = 0; i < linked.length; i++) linked[i].triggerArea = clone(nextArea);
+
+        for (var i = 0; i < linked.length; i++) {
+            linked[i].triggerArea = clone(nextArea);
+        }
+
+        if (
+            window.townPartTriggerTemplates &&
+            window.townPartTriggerTemplates[triggerId]
+        ) {
+            window.townPartTriggerTemplates[triggerId].area = clone(nextArea);
+        }
+
         return linked.length;
     }
 
@@ -167,6 +178,10 @@
     }
 
     function recordTriggerHistory(linked) {
+        if (typeof window.pushTownTriggerHistory === 'function') {
+            window.pushTownTriggerHistory();
+            return;
+        }
         if (linked && linked.length && typeof window.pushTownPartHistory === 'function') {
             window.pushTownPartHistory();
             return;
@@ -269,6 +284,7 @@
         window.currentHoverTile = null;
 
         if (window.townPartManagedTriggerIds) delete window.townPartManagedTriggerIds[id];
+        if (window.townPartTriggerTemplates) delete window.townPartTriggerTemplates[id];
         if (typeof window.refreshTownPartDerivedData === 'function') window.refreshTownPartDerivedData();
         syncTriggersToScene();
         updateTriggerMoveUi();
