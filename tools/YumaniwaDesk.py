@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.8
+Yumaniwa Desk v0.10.9
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,11 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.9:
+- おばけNPC専用sourceも var prop / var trigger を安全に読み取り、通常差分と同じbefore照合を実施
+- おばけNPC propは位置・サイズ・footY・collisionだけ更新可、triggerはareaだけ更新可に契約を明確化
+- 古い/改変済みbeforeを持つおばけNPC差分はfail-closedで拒否
 
 v0.10.8:
 - collision.before照合を矩形配列の完全一致からセル意味一致へ変更
@@ -1871,6 +1876,17 @@ def _read_array_object_value(text, open_index, close_index, object_id):
     return _parse_safe_js_literal(text[start:end])
 
 
+def _read_var_object_value(text, var_name):
+    m = re.search(r"\bvar\s+" + re.escape(var_name) + r"\s*=\s*(\{)", text)
+    if not m:
+        raise ValueError("正本にオブジェクトがありません: " + var_name)
+    open_index = m.start(1)
+    close_index = find_matching(text, open_index, "{", "}")
+    if close_index < 0:
+        raise ValueError("正本のオブジェクト終端を読めません: " + var_name)
+    return _parse_safe_js_literal(text[open_index:close_index + 1])
+
+
 def _normalize_diff_prop_for_persistence(value):
     """Editor runtimeでだけ補完されるprop項目を正本照合・保存から除外する。"""
     if not isinstance(value, dict):
@@ -1910,8 +1926,18 @@ def _read_current_diff_object(source, text, scene_id, kind, object_id):
         arr_open, arr_close = _find_named_array_span(text, kind, scene_open, scene_close)
         return _read_array_object_value(text, arr_open, arr_close, object_id)
 
-    # 専用スクリプトや runtime-fixes は式を含むものがあるため、
-    # 既存の専用パッチ検証 + ファイルSHA検証に任せる。
+    if source == "town-ghost-npc.js":
+        var_name = "prop" if kind == "props" else "trigger"
+        current = _read_var_object_value(text, var_name)
+        if str(current.get("id") or "") != object_id:
+            raise ValueError(
+                "おばけNPC正本のIDが差分と一致しません: "
+                + kind + " " + object_id
+            )
+        return current
+
+    # その他の専用スクリプトは対応する安全なreaderを持たない限り
+    # before照合を省略しない設計にする。
     return None
 
 
@@ -2042,16 +2068,25 @@ def _changed_top_keys(before, after):
 
 
 def _patch_ghost_prop(text, before, after):
-    allowed = {"x", "y", "w", "h", "footY"}
+    allowed = {"x", "y", "w", "h", "footY", "collision"}
     unsupported = _changed_top_keys(before, after) - allowed
     if unsupported:
-        raise ValueError("おばけNPCで位置・大きさ以外の変更はDeskから安全に反映できません: " + ", ".join(sorted(unsupported)))
-    text = _replace_simple_var_number(text, "propW", after.get("w"))
-    text = _replace_simple_var_number(text, "propH", after.get("h"))
-    text = _replace_simple_var_number(text, "baseFootY", after.get("footY"))
-    text = _replace_simple_var_number(text, "baseX", after.get("x"))
-    text = _replace_simple_var_number(text, "baseY", after.get("y"))
-    return text
+        raise ValueError(
+            "おばけNPCでEditorから変更できない項目が含まれています: "
+            + ", ".join(sorted(unsupported))
+        )
+    return _replace_var_object(text, "prop", after)
+
+
+def _patch_ghost_trigger(text, before, after):
+    allowed = {"area"}
+    unsupported = _changed_top_keys(before, after) - allowed
+    if unsupported:
+        raise ValueError(
+            "おばけNPCの会話トリガーは範囲以外を変更できません: "
+            + ", ".join(sorted(unsupported))
+        )
+    return _replace_var_object(text, "trigger", after)
 
 
 def _validate_diff_change_identity(change, kind):
@@ -2172,7 +2207,8 @@ def _patch_diff_file(source, current_text, scene_id, prop_changes, trigger_chang
         elif source == "town-ghost-npc.js":
             if op != "update":
                 raise ValueError("おばけNPCのトリガーは update 以外を安全に反映できません。")
-            result = _replace_var_object(result, "trigger", after)
+            before = change.get("before")
+            result = _patch_ghost_trigger(result, before, after)
         else:
             raise ValueError("triggers の未対応反映先です: " + source)
 
