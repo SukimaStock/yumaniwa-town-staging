@@ -779,21 +779,11 @@ function validateTownSceneDefinition(sceneId, def, registry) {
         errors.push(id + '.title is required');
     }
 
-    if (
-        !isFiniteTownNumber(def.mapWidth) ||
-        def.mapWidth <= 0 ||
-        Math.floor(def.mapWidth) !== def.mapWidth
-    ) {
-        errors.push(id + '.mapWidth must be a positive integer');
-    }
-
-    if (
-        !isFiniteTownNumber(def.mapHeight) ||
-        def.mapHeight <= 0 ||
-        Math.floor(def.mapHeight) !== def.mapHeight
-    ) {
-        errors.push(id + '.mapHeight must be a positive integer');
-    }
+    // Persisted-data validation is shared with Desk; runtime checks below
+    // retain ownership of presentation, spawn and scene routing.
+    errors = errors.concat(window.YUMANIWA_SCENE_VALIDATION.validateSceneData(
+        def, window.YUMANIWA_WORLD_OBJECTS && window.YUMANIWA_WORLD_OBJECTS.objects
+    ).errors);
 
     var mapWidth = isFiniteTownNumber(def.mapWidth) ? def.mapWidth : 0;
     var mapHeight = isFiniteTownNumber(def.mapHeight) ? def.mapHeight : 0;
@@ -808,6 +798,7 @@ function validateTownSceneDefinition(sceneId, def, registry) {
 
     for (var f = 0; f < TOWN_SCENE_REQUIRED_ARRAY_FIELDS.length; f++) {
         var field = TOWN_SCENE_REQUIRED_ARRAY_FIELDS[f];
+        if (['props', 'triggers', 'passableRects', 'blockedRects', 'blockedPoints', 'areaZones'].indexOf(field) !== -1) continue;
         if (!Array.isArray(def[field])) {
             errors.push(id + '.' + field + ' must be an array');
         }
@@ -832,147 +823,10 @@ function validateTownSceneDefinition(sceneId, def, registry) {
         }
     }
 
-    var rectGroups = ['passableRects', 'blockedRects', 'groundRects'];
-    for (var g = 0; g < rectGroups.length; g++) {
-        var rectField = rectGroups[g];
-        var rects = Array.isArray(def[rectField]) ? def[rectField] : [];
-        for (var r = 0; r < rects.length; r++) {
-            validateTownRect(
-                rects[r],
-                id + '.' + rectField + '[' + r + ']',
-                errors,
-                mapWidth,
-                mapHeight,
-                true
-            );
-        }
-    }
-
-    var points = Array.isArray(def.blockedPoints) ? def.blockedPoints : [];
-    for (var p = 0; p < points.length; p++) {
-        var point = points[p];
-        if (
-            !point ||
-            !isFiniteTownNumber(point.x) ||
-            !isFiniteTownNumber(point.y)
-        ) {
-            errors.push(id + '.blockedPoints[' + p + '] must have finite x/y');
-            continue;
-        }
-        if (
-            point.x < 0 ||
-            point.y < 0 ||
-            point.x >= mapWidth ||
-            point.y >= mapHeight
-        ) {
-            errors.push(id + '.blockedPoints[' + p + '] must stay inside the map bounds');
-        }
-    }
-
-    var zoneIds = {};
-    var zones = Array.isArray(def.areaZones) ? def.areaZones : [];
-    for (var z = 0; z < zones.length; z++) {
-        var zone = zones[z];
-        var zonePath = id + '.areaZones[' + z + ']';
-        var zoneId = zone && String(zone.id || '').trim();
-
-        if (!zoneId) {
-            errors.push(zonePath + '.id is required');
-        } else if (zoneIds[zoneId]) {
-            errors.push(zonePath + '.id must be unique');
-        } else {
-            zoneIds[zoneId] = true;
-        }
-
-        validateTownRect(
-            zone && zone.area,
-            zonePath + '.area',
-            errors,
-            mapWidth,
-            mapHeight,
-            true
-        );
-    }
-
-    var triggerIds = {};
-    var sceneTriggers = Array.isArray(def.triggers) ? def.triggers : [];
-    for (var t = 0; t < sceneTriggers.length; t++) {
-        var trigger = sceneTriggers[t];
-        var triggerPath = id + '.triggers[' + t + ']';
-        var triggerId = trigger && String(trigger.id || '').trim();
-
-        if (!triggerId) {
-            errors.push(triggerPath + '.id is required');
-        } else if (triggerIds[triggerId]) {
-            errors.push(triggerPath + '.id must be unique');
-        } else {
-            triggerIds[triggerId] = true;
-        }
-
-        if (trigger && trigger.area != null) {
-            validateTownRect(
-                trigger.area,
-                triggerPath + '.area',
-                errors,
-                mapWidth,
-                mapHeight,
-                true
-            );
-        }
-    }
-
-    var propIds = {};
-    var sceneProps = Array.isArray(def.props) ? def.props : [];
-    for (var q = 0; q < sceneProps.length; q++) {
-        var prop = sceneProps[q];
-        var propPath = id + '.props[' + q + ']';
-        var propId = prop && String(prop.id || '').trim();
-
-        if (!propId) {
-            errors.push(propPath + '.id is required');
-        } else if (propIds[propId]) {
-            errors.push(propPath + '.id must be unique');
-        } else {
-            propIds[propId] = true;
-        }
-
-        if (
-            !prop ||
-            !isFiniteTownNumber(prop.x) ||
-            !isFiniteTownNumber(prop.y) ||
-            !isFiniteTownNumber(prop.w) ||
-            !isFiniteTownNumber(prop.h) ||
-            prop.w <= 0 ||
-            prop.h <= 0
-        ) {
-            errors.push(propPath + ' must have finite x/y and positive w/h');
-        }
-
-        var objectId = prop && String(prop.objectId || '').trim();
-        if (!objectId) {
-            errors.push(propPath + '.objectId is required');
-        } else {
-            var worldLibrary = window.YUMANIWA_WORLD_OBJECTS;
-            var objectDef = worldLibrary && typeof worldLibrary.get === 'function'
-                ? worldLibrary.get(objectId)
-                : null;
-
-            if (!objectDef) {
-                errors.push(propPath + '.objectId does not exist: ' + objectId);
-            } else if (!String(objectDef.src || '').trim()) {
-                errors.push(propPath + '.objectId has no canonical src: ' + objectId);
-            }
-        }
-
-        if (
-            prop &&
-            Object.prototype.hasOwnProperty.call(prop, 'src')
-        ) {
-            errors.push(
-                propPath +
-                '.src must not be stored on placements; WORLD OBJECT owns image source'
-            );
-        }
+    var grounds = Array.isArray(def.groundRects) ? def.groundRects : [];
+    for (var g = 0; g < grounds.length; g++) {
+        validateTownRect(grounds[g], id + '.groundRects[' + g + ']', errors,
+            mapWidth, mapHeight, true);
     }
 
     var warps = Array.isArray(def.edgeWarps) ? def.edgeWarps : [];

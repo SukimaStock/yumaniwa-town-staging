@@ -2098,6 +2098,21 @@ def _read_current_diff_object(source, text, scene_id, kind, object_id):
     return None
 
 
+def _same_persisted_value(left, right):
+    """JSON numbers may be int/float; booleans must never compare equal to them."""
+    if type(left) in (int, float) and type(right) in (int, float):
+        return left == right
+    if type(left) is not type(right):
+        return False
+    if isinstance(left, dict):
+        return left.keys() == right.keys() and all(
+            _same_persisted_value(left[key], right[key]) for key in left)
+    if isinstance(left, list):
+        return len(left) == len(right) and all(
+            _same_persisted_value(a, b) for a, b in zip(left, right))
+    return left == right
+
+
 def _assert_diff_before_matches(source, text, scene_id, kind, change):
     op = str(change.get("op") or "")
     if op not in ("update", "delete"):
@@ -2112,7 +2127,7 @@ def _assert_diff_before_matches(source, text, scene_id, kind, change):
         current = _normalize_diff_prop_for_persistence(current)
         before = _normalize_diff_prop_for_persistence(before)
 
-    if current != before:
+    if not _same_persisted_value(current, before):
         raise ValueError(
             "正本が開発モード開始時の内容と一致しません: {0} {1}。"
             "古い差分を上書きせず、Working Copyを同期して開発モードからもう一度書き出してください。".format(
@@ -2133,10 +2148,12 @@ def _read_current_array_value(source, text, scene_id, key):
 
 
 def _collision_int(value, label):
+    if type(value) not in (int, float):
+        raise ValueError("collision の " + label + " が数値ではありません。")
     try:
         number = float(value)
-    except Exception:
-        raise ValueError("collision の " + label + " が数値ではありません。")
+    except (ValueError, OverflowError):
+        raise ValueError("collision の " + label + " が有限数ではありません。")
     if not math.isfinite(number) or int(number) != number:
         raise ValueError("collision の " + label + " は整数である必要があります。")
     return int(number)
@@ -2165,10 +2182,10 @@ def _collision_cell_state(data):
                 for cx in range(x, x + w):
                     cells[(cx, cy)] = state
 
-    apply_rects(data.get("passableRects") or [], 1, "passableRects")
-    apply_rects(data.get("blockedRects") or [], 2, "blockedRects")
+    apply_rects(data.get("passableRects"), 1, "passableRects")
+    apply_rects(data.get("blockedRects"), 2, "blockedRects")
 
-    points = data.get("blockedPoints") or []
+    points = data.get("blockedPoints")
     if not isinstance(points, list):
         raise ValueError("collision.blockedPoints が配列ではありません。")
     for index, point in enumerate(points):
@@ -2187,7 +2204,7 @@ def _assert_collection_before_matches(source, text, scene_id, change, keys=None)
     before = change.get("before")
     if keys is None:
         current = _read_current_array_value(source, text, scene_id, "areaZones")
-        if current is not None and current != before:
+        if current is not None and not _same_persisted_value(current, before):
             raise ValueError("areaZones の正本が開発モード開始時の内容と一致しません。もう一度書き出してください。")
         return
 
@@ -2213,7 +2230,7 @@ def _assert_collection_before_matches(source, text, scene_id, change, keys=None)
         if key not in before:
             continue
         current = _read_current_array_value(source, text, scene_id, key)
-        if current is not None and current != before.get(key):
+        if current is not None and not _same_persisted_value(current, before.get(key)):
             raise ValueError("{0} の正本が開発モード開始時の内容と一致しません。もう一度書き出してください。".format(key))
 
 
@@ -2273,23 +2290,8 @@ def _validate_diff_change_identity(change, kind):
 
 
 def _validate_diff_part(root, change):
-    op, object_id = _validate_diff_change_identity(change, "props")
-    if op == "delete":
-        return
-
-    after = change.get("after")
-    for key in ("x", "y", "w", "h"):
-        try:
-            value = float(after.get(key))
-            if not math.isfinite(value) or abs(value) > 256:
-                raise ValueError()
-        except Exception:
-            raise ValueError(object_id + " の " + key + " が異常です。")
-    src = str(after.get("src") or "")
-    if src and not src.startswith(("http://", "https://")):
-        rel = src.split("?", 1)[0].split("#", 1)[0].lstrip("./")
-        if rel and not os.path.exists(os.path.join(root, rel)):
-            raise ValueError("画像ファイルが見つかりません: " + rel)
+    # Geometry/references are checked on the complete candidate, not one op.
+    return _validate_diff_change_identity(change, "props")
 
 
 def _validate_diff_trigger(change):
@@ -2374,17 +2376,20 @@ def _patch_diff_file(source, current_text, scene_id, prop_changes, trigger_chang
             source, result, scene_id, collision_change,
             ("passableRects", "blockedRects", "blockedPoints")
         )
-        after_collision = collision_change.get("after") or {}
+        after_collision = collision_change.get("after")
         if not isinstance(after_collision, dict):
             raise ValueError("collision.after がオブジェクトではありません。")
+        for key in ("passableRects", "blockedRects", "blockedPoints"):
+            if key in after_collision and not isinstance(after_collision[key], list):
+                raise ValueError("collision.after." + key + " が配列ではありません。")
         if source == "data/station-plaza.js":
             for key in ("passableRects", "blockedRects", "blockedPoints"):
                 if key in after_collision:
-                    result = _replace_var_array_value(result, key, after_collision.get(key) or [])
+                    result = _replace_var_array_value(result, key, after_collision[key])
         elif source == "data/town-maps.js":
             for key in ("passableRects", "blockedRects", "blockedPoints"):
                 if key in after_collision:
-                    result = _replace_scene_array_value(result, scene_id, key, after_collision.get(key) or [])
+                    result = _replace_scene_array_value(result, scene_id, key, after_collision[key])
         else:
             raise ValueError("collision の反映先が不正です: " + source)
 
@@ -2405,6 +2410,191 @@ def _patch_diff_file(source, current_text, scene_id, prop_changes, trigger_chang
         raise ValueError(source + " へ差分を反映すると構文が崩れます: " + message)
     return result
 
+def validate_scene_data(scene, objects):
+    """Pure persisted-data contract; see town-scene-validation.js and shared fixtures."""
+    errors = []
+
+    def error(path, code):
+        errors.append(path + ":" + code)
+
+    def number(value):
+        try:
+            return type(value) in (int, float) and math.isfinite(value)
+        except OverflowError:
+            return False
+
+    def integer(value):
+        return number(value) and int(value) == value
+
+    def identifier(value):
+        return isinstance(value, str) and bool(value) and value.strip() == value
+
+    if not isinstance(scene, dict):
+        return {"ok": False, "errors": ["scene:object"]}
+    width, height = scene.get("mapWidth"), scene.get("mapHeight")
+    if not integer(width) or width <= 0:
+        error("mapWidth", "positive_integer")
+    if not integer(height) or height <= 0:
+        error("mapHeight", "positive_integer")
+    if errors:
+        return {"ok": False, "errors": errors}
+
+    def items(key):
+        if not isinstance(scene.get(key), list):
+            error(key, "array")
+            return []
+        return scene[key]
+
+    def rect(value, path, bounds=False, cells=False):
+        if not isinstance(value, dict):
+            error(path, "rectangle")
+            return
+        valid = True
+        for key in ("x", "y", "w", "h"):
+            if not (integer(value.get(key)) if cells else number(value.get(key))):
+                error(path + "." + key, "integer" if cells else "number")
+                valid = False
+        if not valid:
+            return
+        if value["w"] <= 0 or value["h"] <= 0:
+            error(path, "positive_size")
+        if bounds and (value["x"] < 0 or value["y"] < 0 or
+                       value["x"] + value["w"] > width or value["y"] + value["h"] > height):
+            error(path, "bounds")
+
+    def ids(values, name):
+        seen = set()
+        for i, value in enumerate(values):
+            path = name + "[" + str(i) + "]"
+            if not isinstance(value, dict):
+                error(path, "object")
+                continue
+            if not identifier(value.get("id")):
+                error(path + ".id", "identifier")
+                continue
+            if value["id"] in seen:
+                error(path + ".id", "duplicate")
+            seen.add(value["id"])
+        return seen
+
+    for key in ("passableRects", "blockedRects"):
+        for i, value in enumerate(items(key)):
+            rect(value, key + "[" + str(i) + "]", True, True)
+    for i, point in enumerate(items("blockedPoints")):
+        path = "blockedPoints[" + str(i) + "]"
+        if not isinstance(point, dict) or not integer(point.get("x")) or not integer(point.get("y")):
+            error(path, "integer_point")
+            continue
+        if point["x"] < 0 or point["y"] < 0 or point["x"] >= width or point["y"] >= height:
+            error(path, "bounds")
+    for key in ("areaZones", "triggers"):
+        values = items(key)
+        seen = ids(values, key)
+        if key == "triggers":
+            trigger_ids = seen
+        for i, value in enumerate(values):
+            rect(value.get("area") if isinstance(value, dict) else None,
+                 key + "[" + str(i) + "].area", True)
+    props = items("props")
+    ids(props, "props")
+    for i, prop in enumerate(props):
+        path = "props[" + str(i) + "]"
+        if not isinstance(prop, dict):
+            continue
+        rect(prop, path)
+        if "footY" in prop and not number(prop["footY"]):
+            error(path + ".footY", "number")
+        if "src" in prop:
+            error(path + ".src", "forbidden")
+        object_id = prop.get("objectId")
+        if not identifier(object_id):
+            error(path + ".objectId", "identifier")
+        else:
+            obj = objects.get(object_id) if isinstance(objects, dict) else None
+            if not isinstance(obj, dict) or not isinstance(obj.get("src"), str) or not obj["src"].strip():
+                error(path + ".objectId", "world_object")
+        for key in ("collision", "interaction", "tap"):
+            if key not in prop:
+                continue
+            value = prop[key]
+            if key == "tap" and value is False:
+                continue
+            if not (key == "tap" and isinstance(value, dict) and value.get("enabled") is False
+                    and not any(k in value for k in ("x", "y", "w", "h"))):
+                rect(value, path + "." + key)
+            if isinstance(value, dict) and "enabled" in value and type(value["enabled"]) is not bool:
+                error(path + "." + key + ".enabled", "boolean")
+        if "enabled" in prop and type(prop["enabled"]) is not bool:
+            error(path + ".enabled", "boolean")
+        interaction = prop.get("interaction")
+        if isinstance(interaction, dict):
+            trigger_id = interaction.get("triggerId")
+            if "triggerId" in interaction and trigger_id != "" and not identifier(trigger_id):
+                error(path + ".interaction.triggerId", "identifier")
+            if interaction.get("enabled") is not False and not identifier(trigger_id):
+                error(path + ".interaction.triggerId", "required")
+            if interaction.get("enabled") is not False and identifier(trigger_id) and trigger_id not in trigger_ids:
+                error(path + ".interaction.triggerId", "missing_trigger")
+    return {"ok": not errors, "errors": errors}
+
+
+def _read_scene_contract(root, scene_id, source_texts):
+    """Read authored fields, not runtime-normalized values; never execute JavaScript."""
+    source = "data/station-plaza.js" if scene_id == "station_plaza" else "data/town-maps.js"
+    text = source_texts[source]
+    if scene_id == "station_plaza":
+        scope = text
+        dim_pattern = r"\bvar\s+{key}\s*=\s*([^;]+);"
+    else:
+        start, end = _find_scene_span(text, scene_id)
+        scope = text[start:end + 1]
+        dim_pattern = r'["\']?{key}["\']?\s*:\s*([^,\n}}]+)'
+    scene = {"id": scene_id}
+    for field, var_name in (("mapWidth", "MAP_WIDTH"), ("mapHeight", "MAP_HEIGHT")):
+        key = var_name if scene_id == "station_plaza" else field
+        match = re.search(dim_pattern.format(key=key), scope)
+        if not match:
+            raise ValueError("scene寸法を読めません: " + scene_id + "." + field)
+        scene[field] = _parse_safe_js_literal(match.group(1).strip())
+    for field in ("props", "triggers", "passableRects", "blockedRects", "blockedPoints", "areaZones"):
+        if scene_id == "station_plaza":
+            name = "stationPlazaProps" if field == "props" else field
+            start, end = _find_var_array_span(text, name)
+        else:
+            scene_start, scene_end = _find_scene_span(text, scene_id)
+            start, end = _find_named_array_span(text, field, scene_start, scene_end)
+        scene[field] = _parse_safe_js_literal(text[start:end + 1])
+    if scene_id == "station_plaza":
+        # Ghost stays in its existing source. Reject duplicate authored owners,
+        # rather than reproducing runtime upsert's silent replacement.
+        ghost = source_texts["town-ghost-npc.js"]
+        scene["props"].append(_read_var_object_value(ghost, "prop"))
+        scene["triggers"].append(_read_var_object_value(ghost, "trigger"))
+    return scene
+
+
+def _assert_editor_diff_source(scene_id, source, kind, object_id=None):
+    ghost_id = {"props": "station_ghost_npc", "triggers": "station_ghost_npc_trigger"}.get(kind)
+    expected = "data/station-plaza.js" if scene_id == "station_plaza" else "data/town-maps.js"
+    if object_id in ("station_ghost_npc", "station_ghost_npc_trigger"):
+        if scene_id != "station_plaza" or object_id != ghost_id:
+            raise ValueError("ghost差分のscene/kindが一致しません。")
+        expected = "town-ghost-npc.js"
+    if source != expected:
+        raise ValueError("manifest.sceneとsourceが一致しません: " + scene_id + " / " + source)
+
+
+def _assert_editor_plan_current(root, plan):
+    # Validation also read unmodified files (WORLD OBJECTs, ghost, scene metadata).
+    # Check them again after confirmation, immediately before starting writes.
+    expected = dict(plan.get("validation_inputs") or {})
+    for item in plan.get("file_plans") or []:
+        expected[item["target_rel"]] = item["current_hash"]
+    for rel, digest in expected.items():
+        if _sha256_text(safe_read(os.path.join(root, rel))) != digest:
+            raise ValueError("検証後に正本が更新されています: " + rel)
+
+
 def _plan_editor_diff_import(root, manifest):
     scene_id = str(manifest.get("scene") or "")
     title = str(manifest.get("title") or scene_id or "町")
@@ -2421,6 +2611,15 @@ def _plan_editor_diff_import(root, manifest):
     if not isinstance(props, list) or not isinstance(triggers, list):
         raise ValueError("props / triggers の差分形式が不正です。")
 
+    # Freeze all inputs used for candidate validation and before checks.
+    source_texts = {
+        rel: safe_read(os.path.join(root, rel))
+        for rel in ("data/station-plaza.js", "data/town-maps.js",
+                    "town-ghost-npc.js", "data/world-objects.js")
+    }
+    validation_inputs = {rel: _sha256_text(text) for rel, text in source_texts.items()}
+    # Also verifies that the requested scene exists before routing any changes.
+    _read_scene_contract(root, scene_id, source_texts)
     grouped = {}
     detail_lines = []
 
@@ -2434,6 +2633,7 @@ def _plan_editor_diff_import(root, manifest):
         _validate_diff_part(root, change)
         op = str(change.get("op") or "")
         source = _normalize_diff_source(change.get("source"))
+        _assert_editor_diff_source(scene_id, source, "props", change.get("id"))
         bucket(source)["props"].append(change)
         detail_lines.append(
             "・{0}: パーツ{1} {2}".format(source, op_labels.get(op, op), change.get("id"))
@@ -2442,6 +2642,7 @@ def _plan_editor_diff_import(root, manifest):
     for change in triggers:
         op, _ = _validate_diff_trigger(change)
         source = _normalize_diff_source(change.get("source"))
+        _assert_editor_diff_source(scene_id, source, "triggers", change.get("id"))
         bucket(source)["triggers"].append(change)
         detail_lines.append(
             "・{0}: トリガー{1} {2}".format(source, op_labels.get(op, op), change.get("id"))
@@ -2451,6 +2652,7 @@ def _plan_editor_diff_import(root, manifest):
         if not isinstance(collision, dict):
             raise ValueError("collision 差分の形式が不正です。")
         source = _normalize_diff_source(collision.get("source"))
+        _assert_editor_diff_source(scene_id, source, "collision")
         bucket(source)["collision"] = collision
         detail_lines.append("・{0}: 当たり判定".format(source))
 
@@ -2458,6 +2660,7 @@ def _plan_editor_diff_import(root, manifest):
         if not isinstance(area_zones, dict):
             raise ValueError("areaZones 差分の形式が不正です。")
         source = _normalize_diff_source(area_zones.get("source"))
+        _assert_editor_diff_source(scene_id, source, "areaZones")
         bucket(source)["areaZones"] = area_zones
         detail_lines.append("・{0}: エリア表示".format(source))
 
@@ -2466,7 +2669,7 @@ def _plan_editor_diff_import(root, manifest):
         target_abs = os.path.join(root, source)
         if not os.path.isfile(target_abs):
             raise FileNotFoundError(source + " がありません。")
-        current = safe_read(target_abs)
+        current = source_texts[source]
         new_text = _patch_diff_file(
             source,
             current,
@@ -2483,6 +2686,15 @@ def _plan_editor_diff_import(root, manifest):
             "new_text": new_text,
             "changed": current != new_text,
         })
+
+    candidate_texts = dict(source_texts)
+    for item in file_plans:
+        candidate_texts[item["target_rel"]] = item["new_text"]
+    candidate = _read_scene_contract(root, scene_id, candidate_texts)
+    world_objects = _read_var_object_value(candidate_texts["data/world-objects.js"], "objects")
+    validation = validate_scene_data(candidate, world_objects)
+    if not validation["ok"]:
+        raise ValueError("候補sceneのvalidationに失敗: " + "; ".join(validation["errors"]))
 
     cache_plan = _plan_editor_cache_bust(root, file_plans)
     if cache_plan is not None:
@@ -2504,6 +2716,7 @@ def _plan_editor_diff_import(root, manifest):
     target_rels = [p["target_rel"] for p in changed_files]
     return {
         "kind": "editor-diff-v1",
+        "validation_inputs": validation_inputs,
         "scene_id": scene_id,
         "title": title,
         "target_rel": "、".join(target_rels) if target_rels else "(変更なし)",
@@ -2519,6 +2732,7 @@ def _plan_editor_diff_import(root, manifest):
 def plan_town_editor_import(root, clipboard_text):
     if not project_looks_valid(root):
         raise ValueError("湯間庭町プロジェクトへ接続されていません。")
+    require_staging_project(root)
     text = _normalize_editor_export(clipboard_text)
     if not text:
         raise ValueError("クリップボードが空です。開発モードの[変更を書き出す]→[変更差分をコピー]を先に行ってください。")
@@ -4935,6 +5149,8 @@ class YumaniwaDesk(ui.View):
 
         tx = None
         try:
+            require_staging_project(self.project_root)
+            _assert_editor_plan_current(self.project_root, plan)
             tx = create_transaction(
                 self.project_root,
                 "import-town-" + str(plan.get("scene_id") or "scene"),
