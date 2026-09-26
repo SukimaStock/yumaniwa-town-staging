@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.7
+Yumaniwa Desk v0.10.8
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,11 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.8:
+- collision.before照合を矩形配列の完全一致からセル意味一致へ変更
+- passableRects / blockedRects / blockedPoints をruntimeと同じ優先順でセル展開し、矩形分割や配列順だけの差は許容
+- 通行可能/不可の意味が1セルでも違う場合は従来どおり拒否
 
 v0.10.7:
 - propsのbefore照合をEditorと同じ永続化形へ正規化し、runtime補完値だけで競合しないよう修正
@@ -1944,6 +1949,55 @@ def _read_current_array_value(source, text, scene_id, key):
     return _parse_safe_js_literal(text[open_index:close_index + 1])
 
 
+def _collision_int(value, label):
+    try:
+        number = float(value)
+    except Exception:
+        raise ValueError("collision の " + label + " が数値ではありません。")
+    if not math.isfinite(number) or int(number) != number:
+        raise ValueError("collision の " + label + " は整数である必要があります。")
+    return int(number)
+
+
+def _collision_cell_state(data):
+    """collision配列をruntimeと同じ優先順でセル状態へ正規化する。"""
+    if not isinstance(data, dict):
+        raise ValueError("collision.before がオブジェクトではありません。")
+
+    cells = {}
+
+    def apply_rects(items, state, label):
+        if not isinstance(items, list):
+            raise ValueError("collision." + label + " が配列ではありません。")
+        for index, rect in enumerate(items):
+            if not isinstance(rect, dict):
+                raise ValueError("collision." + label + " の要素がオブジェクトではありません。")
+            x = _collision_int(rect.get("x"), label + "[" + str(index) + "].x")
+            y = _collision_int(rect.get("y"), label + "[" + str(index) + "].y")
+            w = _collision_int(rect.get("w"), label + "[" + str(index) + "].w")
+            h = _collision_int(rect.get("h"), label + "[" + str(index) + "].h")
+            if w < 1 or h < 1:
+                raise ValueError("collision." + label + " の w/h は1以上である必要があります。")
+            for cy in range(y, y + h):
+                for cx in range(x, x + w):
+                    cells[(cx, cy)] = state
+
+    apply_rects(data.get("passableRects") or [], 1, "passableRects")
+    apply_rects(data.get("blockedRects") or [], 2, "blockedRects")
+
+    points = data.get("blockedPoints") or []
+    if not isinstance(points, list):
+        raise ValueError("collision.blockedPoints が配列ではありません。")
+    for index, point in enumerate(points):
+        if not isinstance(point, dict):
+            raise ValueError("collision.blockedPoints の要素がオブジェクトではありません。")
+        x = _collision_int(point.get("x"), "blockedPoints[" + str(index) + "].x")
+        y = _collision_int(point.get("y"), "blockedPoints[" + str(index) + "].y")
+        cells[(x, y)] = 2
+
+    return cells
+
+
 def _assert_collection_before_matches(source, text, scene_id, change, keys=None):
     if not change:
         return
@@ -1956,6 +2010,22 @@ def _assert_collection_before_matches(source, text, scene_id, change, keys=None)
 
     if not isinstance(before, dict):
         raise ValueError("collision.before がオブジェクトではありません。")
+
+    if tuple(keys) == ("passableRects", "blockedRects", "blockedPoints"):
+        current_collision = {}
+        for key in keys:
+            current = _read_current_array_value(source, text, scene_id, key)
+            if current is None:
+                current = []
+            current_collision[key] = current
+
+        if _collision_cell_state(current_collision) != _collision_cell_state(before):
+            raise ValueError(
+                "collision の正本が開発モード開始時の内容と意味上で一致しません。"
+                "矩形分割ではなく通行セルを比較しています。もう一度書き出してください。"
+            )
+        return
+
     for key in keys:
         if key not in before:
             continue
