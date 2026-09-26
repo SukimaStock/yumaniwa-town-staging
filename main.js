@@ -676,6 +676,22 @@ function flushTownSceneBackgroundCallbacks(entry) {
     }
 }
 
+function getTownBackgroundRetryDelay(entry) {
+    var retryCount = Math.max(0, Number(entry && entry.retryCount) || 0);
+    return Math.min(30000, 2000 * Math.pow(2, Math.max(0, retryCount - 1)));
+}
+
+function shouldRetryTownBackground(entry, options) {
+    if (!entry || !entry.error) return false;
+
+    var opts = options || {};
+    if (!opts.retryOnError) return false;
+    if (opts.forceRetry) return true;
+
+    var errorAt = Math.max(0, Number(entry.errorAt) || 0);
+    return Date.now() - errorAt >= getTownBackgroundRetryDelay(entry);
+}
+
 function preloadTownSceneBackgroundAsset(path, callback, options) {
     if (!path) {
         if (typeof callback === "function") {
@@ -686,7 +702,14 @@ function preloadTownSceneBackgroundAsset(path, callback, options) {
         return null;
     }
 
+    var opts = options || {};
     var entry = townSceneBackgroundCache[path];
+    var retryCount = 0;
+
+    if (entry && shouldRetryTownBackground(entry, opts)) {
+        retryCount = Math.max(0, Number(entry.retryCount) || 0) + 1;
+        entry = null;
+    }
 
     if (entry) {
         if (typeof callback === "function") {
@@ -703,7 +726,6 @@ function preloadTownSceneBackgroundAsset(path, callback, options) {
     }
 
     var image = new Image();
-    var opts = options || {};
     var priority = opts.priority || "auto";
 
     try {
@@ -720,6 +742,8 @@ function preloadTownSceneBackgroundAsset(path, callback, options) {
         image: image,
         loaded: false,
         error: false,
+        errorAt: 0,
+        retryCount: retryCount,
         callbacks: [],
         priority: priority
     };
@@ -734,6 +758,7 @@ function preloadTownSceneBackgroundAsset(path, callback, options) {
     image.onload = function() {
         entry.loaded = true;
         entry.error = false;
+        entry.errorAt = 0;
         townLoadTraceImageDone('background', path, 'loaded');
         flushTownSceneBackgroundCallbacks(entry);
     };
@@ -741,6 +766,7 @@ function preloadTownSceneBackgroundAsset(path, callback, options) {
     image.onerror = function() {
         entry.loaded = false;
         entry.error = true;
+        entry.errorAt = Date.now();
         townLoadTraceImageDone('background', path, 'error');
         flushTownSceneBackgroundCallbacks(entry);
     };
@@ -845,7 +871,7 @@ function scheduleDeferredTownSceneBackgrounds() {
         var path = townDeferredBackgroundQueue.shift();
         var existing = townSceneBackgroundCache[path];
 
-        if (existing && (existing.loaded || existing.error)) {
+        if (existing && existing.loaded) {
             completed += 1;
             scheduleTownBackgroundIdle(loadNext, 160);
             return;
@@ -870,7 +896,11 @@ function scheduleDeferredTownSceneBackgrounds() {
             });
 
             scheduleTownBackgroundIdle(loadNext, 160);
-        }, { priority: "low" });
+        }, {
+            priority: "low",
+            retryOnError: true,
+            forceRetry: true
+        });
     }
 
     // 現在地が描画された直後の操作・レイアウトを邪魔しないよう、少し間を置く。
@@ -920,6 +950,10 @@ function waitForTownSceneBackground(sceneId, done) {
 
     var entry = preloadTownSceneBackgroundAsset(path, function() {
         finish();
+    }, {
+        priority: "high",
+        retryOnError: true,
+        forceRetry: true
     });
 
     if (!entry || entry.loaded || entry.error) {
@@ -965,6 +999,10 @@ function loadTownSceneBackground(def) {
         }
 
         finishTownArrivalLoading();
+    }, {
+        priority: "high",
+        retryOnError: true,
+        forceRetry: true
     });
 
     if (entry && entry.image) {
@@ -1029,6 +1067,15 @@ function applyTownSceneDefinition(sceneId, spawnKey) {
     ensureAllTownPartMetadata();
     syncTownPartTriggers();
 
+    var propApi = window.YUMANIWA_STATION_PLAZA_PROPS;
+    if (propApi && typeof propApi.preloadSceneProps === 'function') {
+        propApi.preloadSceneProps(def, {
+            priority: 'high',
+            retryOnError: true,
+            forceRetry: true
+        });
+    }
+
     currentAreaId = null;
     tapFocusedTrigger = null;
     pendingWarp = null;
@@ -1054,7 +1101,11 @@ function drawTownSceneBackground(cam) {
     var def = activeTownSceneDef;
 
     if (def && def.backgroundImagePath) {
-        var entry = preloadTownSceneBackgroundAsset(def.backgroundImagePath);
+        var entry = preloadTownSceneBackgroundAsset(
+            def.backgroundImagePath,
+            null,
+            { retryOnError: true }
+        );
 
         if (entry && entry.loaded && entry.image) {
             ctx.drawImage(entry.image, 0, 0, cam.mapPixelW, cam.mapPixelH);

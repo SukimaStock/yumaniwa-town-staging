@@ -6,8 +6,6 @@
     var stationPreloadSources = {};
     var stationPreloadPending = 0;
     var stationPreloadTotal = 0;
-    var deferredTownPropQueue = [];
-    var deferredTownPropScheduled = false;
 
     function loadTraceMark(name, meta, once) {
         var trace = window.YUMANIWA_LOAD_TRACE;
@@ -143,17 +141,77 @@
         }
     }
 
-    function getPropImage(src, options) {
-        if (!src) return null;
-        if (propImageCache[src]) return propImageCache[src];
+    function getPropRetryDelay(entry) {
+        var retryCount = Math.max(0, Number(entry && entry.retryCount) || 0);
+        return Math.min(30000, 2000 * Math.pow(2, Math.max(0, retryCount - 1)));
+    }
+
+    function shouldRetryPropEntry(entry, options) {
+        if (!entry || !entry.error) return false;
+
+        var opts = options || {};
+        if (!opts.retryOnError) return false;
+        if (opts.forceRetry) return true;
+
+        var errorAt = Math.max(0, Number(entry.errorAt) || 0);
+        return Date.now() - errorAt >= getPropRetryDelay(entry);
+    }
+
+    function flushPropImageCallbacks(entry, status) {
+        if (!entry || !entry.callbacks || !entry.callbacks.length) return;
+
+        var callbacks = entry.callbacks.slice();
+        entry.callbacks.length = 0;
+
+        for (var i = 0; i < callbacks.length; i++) {
+            if (typeof callbacks[i] !== 'function') continue;
+            callbacks[i](entry, status);
+        }
+    }
+
+    function getPropImage(src, options, callback) {
+        if (!src) {
+            if (typeof callback === 'function') {
+                window.setTimeout(function() {
+                    callback(null, 'skipped');
+                }, 0);
+            }
+            return null;
+        }
+
+        var opts = options || {};
+        var existing = propImageCache[src];
+        var retryCount = 0;
+
+        if (existing && shouldRetryPropEntry(existing, opts)) {
+            retryCount = Math.max(0, Number(existing.retryCount) || 0) + 1;
+            existing = null;
+        }
+
+        if (existing) {
+            if (typeof callback === 'function') {
+                if (existing.loaded || existing.error) {
+                    window.setTimeout(function() {
+                        callback(
+                            existing,
+                            existing.loaded ? 'cached' : 'error'
+                        );
+                    }, 0);
+                } else {
+                    existing.callbacks = existing.callbacks || [];
+                    existing.callbacks.push(callback);
+                }
+            }
+            return existing;
+        }
 
         var image = new Image();
-        var opts = options || {};
+        var priority = opts.priority || 'auto';
 
         try {
             image.decoding = 'async';
-            if (opts.priority && opts.priority !== 'auto') {
-                image.fetchPriority = opts.priority;
+            if (priority && priority !== 'auto') {
+                image.fetchPriority = priority;
             }
         } catch (error) {
             // Unsupported browsers use normal Image loading.
@@ -162,35 +220,36 @@
         var entry = {
             image: image,
             loaded: false,
-            error: false
+            error: false,
+            errorAt: 0,
+            retryCount: retryCount,
+            callbacks: [],
+            priority: priority
         };
+
+        if (typeof callback === 'function') {
+            entry.callbacks.push(callback);
+        }
+
+        propImageCache[src] = entry;
+        loadTraceImageStart('town_prop', src);
 
         image.onload = function() {
             entry.loaded = true;
             entry.error = false;
+            entry.errorAt = 0;
+            loadTraceImageDone('town_prop', src, 'loaded');
+            settleStationPreloadSource(src, 'loaded');
+            flushPropImageCallbacks(entry, 'loaded');
         };
 
         image.onerror = function() {
             entry.loaded = false;
             entry.error = true;
-        };
-
-        propImageCache[src] = entry;
-        loadTraceImageStart('station_prop', src);
-
-        var baseOnload = image.onload;
-        var baseOnerror = image.onerror;
-
-        image.onload = function() {
-            baseOnload();
-            loadTraceImageDone('station_prop', src, 'loaded');
-            settleStationPreloadSource(src, 'loaded');
-        };
-
-        image.onerror = function() {
-            baseOnerror();
-            loadTraceImageDone('station_prop', src, 'error');
+            entry.errorAt = Date.now();
+            loadTraceImageDone('town_prop', src, 'error');
             settleStationPreloadSource(src, 'error');
+            flushPropImageCallbacks(entry, 'error');
         };
 
         image.src = src;
@@ -227,82 +286,63 @@
         }
     }
 
-    function collectDeferredTownPropSources() {
-        var queue = [];
+    function preloadSceneProps(def, options, callback) {
+        var scene = def || null;
+        var list = scene && Array.isArray(scene.props) ? scene.props : [];
+        var sources = [];
         var seen = {};
-        var maps = window.TOWN_SCENE_MAPS;
+        var opts = options || {};
 
-        if (!maps) return queue;
+        for (var i = 0; i < list.length; i++) {
+            var prop = list[i];
+            if (!prop || prop.enabled === false) continue;
 
-        for (var sceneId in maps) {
-            if (!Object.prototype.hasOwnProperty.call(maps, sceneId)) continue;
+            var src = resolvePropSrc(prop);
+            if (!src || seen[src]) continue;
+            seen[src] = true;
+            sources.push(src);
+        }
 
-            var def = maps[sceneId];
-            var props = def && Array.isArray(def.props) ? def.props : [];
+        if (!sources.length) {
+            if (typeof callback === 'function') {
+                window.setTimeout(function() {
+                    callback({ total: 0, loaded: 0, errors: 0 });
+                }, 0);
+            }
+            return;
+        }
 
-            for (var i = 0; i < props.length; i++) {
-                var prop = props[i];
+        var remaining = sources.length;
+        var loaded = 0;
+        var errors = 0;
 
-                if (!prop || prop.enabled === false) continue;
+        function settle(entry, status) {
+            if (status === 'loaded' || status === 'cached') loaded += 1;
+            else if (status === 'error') errors += 1;
 
-                var src = resolvePropSrc(prop);
+            remaining -= 1;
+            if (remaining > 0) return;
 
-                if (!src || seen[src] || propImageCache[src]) continue;
-
-                seen[src] = true;
-                queue.push(src);
+            if (typeof callback === 'function') {
+                callback({
+                    total: sources.length,
+                    loaded: loaded,
+                    errors: errors
+                });
             }
         }
 
-        return queue;
-    }
-
-    function scheduleDeferredTownPropIdle(callback, delayMs) {
-        window.setTimeout(function() {
-            if (typeof window.requestIdleCallback === 'function') {
-                window.requestIdleCallback(function() {
-                    callback();
-                }, { timeout: 2200 });
-            } else {
-                callback();
-            }
-        }, Math.max(0, Number(delayMs) || 0));
-    }
-
-    function scheduleDeferredTownProps() {
-        if (deferredTownPropScheduled) return;
-        deferredTownPropScheduled = true;
-
-        deferredTownPropQueue = collectDeferredTownPropSources();
-
-        loadTraceMark('town_props_deferred_start', {
-            count: deferredTownPropQueue.length
-        }, true);
-
-        function loadNext() {
-            if (!deferredTownPropQueue.length) {
-                loadTraceMark('town_props_deferred_ready', null, true);
-                return;
-            }
-
-            var src = deferredTownPropQueue.shift();
-
-            if (!src || propImageCache[src]) {
-                scheduleDeferredTownPropIdle(loadNext, 100);
-                return;
-            }
-
-            getPropImage(src, { priority: 'low' });
-
-            loadTraceMark('town_prop_deferred_requested', {
-                src: src,
-                remaining: deferredTownPropQueue.length
-            });
-
-            scheduleDeferredTownPropIdle(loadNext, 140);
+        for (var s = 0; s < sources.length; s++) {
+            getPropImage(
+                sources[s],
+                {
+                    priority: opts.priority || 'auto',
+                    retryOnError: opts.retryOnError !== false,
+                    forceRetry: !!opts.forceRetry
+                },
+                settle
+            );
         }
-
-        scheduleDeferredTownPropIdle(loadNext, 500);
     }
 
     function getActiveProps() {
@@ -335,7 +375,9 @@
         if (!prop || prop.enabled === false) return;
 
         var resolvedSrc = resolvePropSrc(prop);
-        var entry = getPropImage(resolvedSrc);
+        var entry = getPropImage(resolvedSrc, {
+            retryOnError: true
+        });
 
         // WORLD OBJECT の新規画像がまだ配信されていない / 読み込みに失敗した場合は、
         // インスタンスが保持している旧 src を安全なフォールバックとして描画する。
@@ -345,7 +387,7 @@
             prop.src &&
             resolvedSrc !== prop.src &&
             entry &&
-            entry.error
+            (entry.error || (!entry.loaded && entry.retryCount > 0))
         ) {
             loadTraceMark('prop_fallback_requested', {
                 id: prop.id || '',
@@ -529,16 +571,12 @@
     preloadStationProps();
     installDrawOverride();
 
-    window.addEventListener('yumaniwa:arrival-ready', scheduleDeferredTownProps);
-
-    if (window.YUMANIWA_ARRIVAL_READY) {
-        scheduleDeferredTownProps();
-    }
-
     window.YUMANIWA_STATION_PLAZA_PROPS = {
         version: PROP_REV,
         props: stationPlazaProps,
         imageCache: propImageCache,
-        resolvePropSrc: resolvePropSrc
+        resolvePropSrc: resolvePropSrc,
+        preloadPropImage: getPropImage,
+        preloadSceneProps: preloadSceneProps
     };
 })();

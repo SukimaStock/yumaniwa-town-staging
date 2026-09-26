@@ -9,6 +9,7 @@
   var queue = [];
   var total = 0;
   var completed = 0;
+  var errors = 0;
 
   function traceMark(name, meta, once) {
     var trace = window.YUMANIWA_LOAD_TRACE;
@@ -24,23 +25,8 @@
     }
   }
 
-  function traceImageStart(src) {
-    var trace = window.YUMANIWA_LOAD_TRACE;
-    if (trace && trace.enabled && typeof trace.imageStart === 'function') {
-      trace.imageStart('deferred_prop', src);
-    }
-  }
-
-  function traceImageDone(src, status) {
-    var trace = window.YUMANIWA_LOAD_TRACE;
-    if (trace && trace.enabled && typeof trace.imageDone === 'function') {
-      trace.imageDone('deferred_prop', src, status);
-    }
-  }
-
-  function getSharedPropCache() {
-    var api = window.YUMANIWA_STATION_PLAZA_PROPS;
-    return api && api.imageCache ? api.imageCache : null;
+  function getPropApi() {
+    return window.YUMANIWA_STATION_PLAZA_PROPS || null;
   }
 
   function collectOtherTownSceneProps() {
@@ -48,6 +34,7 @@
     var currentScene = window.currentScene || 'station_plaza';
     var seen = {};
     var result = [];
+    var api = getPropApi();
 
     for (var sceneId in maps) {
       if (!Object.prototype.hasOwnProperty.call(maps, sceneId)) continue;
@@ -60,19 +47,11 @@
         var prop = props[i];
         if (!prop || prop.enabled === false) continue;
 
-        var src = prop.src || '';
-        var library = window.YUMANIWA_WORLD_OBJECTS;
-
-        if (
-          prop.objectId &&
-          library &&
-          typeof library.resolveSrc === 'function'
-        ) {
-          src = library.resolveSrc(prop.objectId, src);
-        }
+        var src = api && typeof api.resolvePropSrc === 'function'
+          ? api.resolvePropSrc(prop)
+          : (prop.src || '');
 
         if (!src || seen[src]) continue;
-
         seen[src] = true;
         result.push(src);
       }
@@ -94,65 +73,50 @@
   }
 
   function preloadPropImage(src, done) {
-    var cache = getSharedPropCache();
+    var api = getPropApi();
 
-    if (!cache || !src) {
+    if (!api || typeof api.preloadPropImage !== 'function' || !src) {
       done('skipped');
       return;
     }
 
-    if (cache[src]) {
-      done(cache[src].error ? 'error' : (cache[src].loaded ? 'cached' : 'existing'));
-      return;
-    }
+    // The shared loader owns Image creation, cache state and retry behavior.
+    // Existing loading entries wait for their actual onload/onerror instead
+    // of being counted as ready immediately.
+    api.preloadPropImage(
+      src,
+      {
+        priority: 'low',
+        retryOnError: true,
+        forceRetry: true
+      },
+      function (entry, status) {
+        done(status || (entry && entry.error ? 'error' : 'loaded'));
+      }
+    );
+  }
 
-    var image = new Image();
-    var entry = {
-      image: image,
-      loaded: false,
-      error: false
-    };
-
-    image.onload = function () {
-      entry.loaded = true;
-      entry.error = false;
-      traceImageDone(src, 'loaded');
-      done('loaded');
-    };
-
-    image.onerror = function () {
-      entry.loaded = false;
-      entry.error = true;
-      traceImageDone(src, 'error');
-      done('error');
-    };
-
-    try {
-      image.decoding = 'async';
-      image.fetchPriority = 'low';
-    } catch (error) {
-      // 古いブラウザでは未対応でも問題ない。
-    }
-
-    cache[src] = entry;
-    traceImageStart(src);
-    image.src = src;
+  function finishAll() {
+    running = false;
+    traceMark('town_props_deferred_ready', {
+      total: total,
+      completed: completed,
+      errors: errors
+    }, true);
   }
 
   function runNext() {
     if (running) return;
 
     if (!queue.length) {
-      traceMark('other_props_deferred_ready', {
-        count: completed
-      }, true);
+      finishAll();
       return;
     }
 
     var src = queue.shift();
     running = true;
 
-    traceMark('other_props_deferred_item_start', {
+    traceMark('town_prop_deferred_item_start', {
       src: src,
       index: completed + 1,
       total: total
@@ -160,13 +124,15 @@
 
     preloadPropImage(src, function (status) {
       completed += 1;
+      if (status === 'error') errors += 1;
       running = false;
 
-      traceMark('other_props_deferred_item_done', {
+      traceMark('town_prop_deferred_item_done', {
         src: src,
         status: status,
         completed: completed,
-        total: total
+        total: total,
+        errors: errors
       });
 
       scheduleIdle(runNext, BETWEEN_DELAY_MS);
@@ -180,17 +146,14 @@
     queue = collectOtherTownSceneProps();
     total = queue.length;
     completed = 0;
+    errors = 0;
 
-    traceMark('other_props_deferred_queued', {
-      count: total
-    }, true);
-
-    traceMark('other_props_deferred_start', {
+    traceMark('town_props_deferred_start', {
       count: total
     }, true);
 
     if (!queue.length) {
-      traceMark('other_props_deferred_ready', { count: 0 }, true);
+      finishAll();
       return;
     }
 
@@ -200,6 +163,10 @@
   if (window.YUMANIWA_ARRIVAL_READY) {
     scheduleTownPropPreload();
   } else {
-    window.addEventListener('yumaniwa:arrival-ready', scheduleTownPropPreload, { once: true });
+    window.addEventListener(
+      'yumaniwa:arrival-ready',
+      scheduleTownPropPreload,
+      { once: true }
+    );
   }
 })();
