@@ -99,7 +99,11 @@ var editHistory = [];
 var editingTriggerIndex = -1;
 
 // 開発モード / 保存状態・アコーディオン
+// editorHasUnsavedChanges = 現在のページ上に、正本へ未反映の変更がある。
+// editorHasUncopiedChanges = その未反映変更のうち、最新状態をまだコピーしていない。
+// コピーは正本反映ではないため、前者はコピー成功では解除しない。
 var editorHasUnsavedChanges = false;
+var editorHasUncopiedChanges = false;
 var editorPanelCollapsed = false;
 
 // 開発モード / マップパーツ編集
@@ -4152,26 +4156,38 @@ function updateEditorSaveStateUI() {
     var status = document.getElementById("editor-save-state");
     if (!status) return;
 
-    if (editorHasUnsavedChanges) {
-        status.innerText = "● 未保存";
-        status.style.background = "rgba(165, 64, 48, .92)";
-        status.style.color = "#fff7ed";
-        status.title = "まだ完全版コードをコピーしていない変更があります";
-    } else {
-        status.innerText = "✓ コピー済み";
+    if (!editorHasUnsavedChanges) {
+        status.innerText = "✓ 正本基準";
         status.style.background = "rgba(51, 111, 73, .92)";
         status.style.color = "#f3fff6";
-        status.title = "現在の編集内容は完全版コードとしてコピー済みです";
+        status.title = "このページでは、正本読込後の未反映変更はありません";
+        return;
     }
+
+    if (editorHasUncopiedChanges) {
+        status.innerText = "● 未コピー";
+        status.style.background = "rgba(165, 64, 48, .92)";
+        status.style.color = "#fff7ed";
+        status.title = "正本へ未反映の変更があり、最新差分もまだコピーしていません";
+        return;
+    }
+
+    status.innerText = "◐ コピー済み / 未反映";
+    status.style.background = "rgba(151, 112, 42, .94)";
+    status.style.color = "#fff9e8";
+    status.title = "差分はコピー済みですが、正本へ反映されたとは判定していません。Desk反映後はページを再読込してください";
 }
 
 function markEditorDirty() {
     editorHasUnsavedChanges = true;
+    editorHasUncopiedChanges = true;
     updateEditorSaveStateUI();
 }
 
 function markEditorExportCopied() {
-    editorHasUnsavedChanges = false;
+    // Clipboard copy is not a persistence event.
+    // Keep the canonical baseline and unapplied-change flag untouched.
+    editorHasUncopiedChanges = false;
     updateEditorSaveStateUI();
 }
 
@@ -4180,6 +4196,9 @@ function setupEditorUnsavedGuard() {
     window.__yumaniwaEditorUnsavedGuardReady = true;
 
     window.addEventListener("beforeunload", function(e) {
+        // Copying a diff does not prove that YumaniwaDesk applied it.
+        // Keep warning while this page contains changes relative to its
+        // canonical baseline. Reload after Desk application to clear it.
         if (!editorHasUnsavedChanges) return;
 
         e.preventDefault();

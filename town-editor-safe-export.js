@@ -270,7 +270,7 @@
             title: window.activeTownSceneDef && window.activeTownSceneDef.title
                 ? window.activeTownSceneDef.title
                 : sceneId,
-            note: '開発モードを開いてから変更した内容だけです。before/afterを確認し、sourceに示した正本へ反映してください。',
+            note: '正本を読み込んだ時点からの累積変更です。差分をコピーしてもbaselineは進みません。before/afterを確認し、sourceに示した正本へ反映してください。',
             changes: {
                 props: partChanges,
                 triggers: triggerChanges,
@@ -351,19 +351,6 @@
 
             if (window.isEditMode) {
                 scheduleBaselineCapture(!window.editorHasUnsavedChanges || !editorBaseline);
-            }
-
-            return result;
-        };
-    }
-
-    var baseMarkEditorExportCopied = window.markEditorExportCopied;
-    if (typeof baseMarkEditorExportCopied === 'function') {
-        window.markEditorExportCopied = function () {
-            var result = baseMarkEditorExportCopied.apply(this, arguments);
-
-            if (window.isEditMode) {
-                captureBaselineNow();
             }
 
             return result;

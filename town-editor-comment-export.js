@@ -221,7 +221,7 @@
             triggerChanges
         );
 
-        manifest.note = '開発モードを開いてから変更した内容だけです。パーツに割り当てた表示名・ボタン・コメント等もtriggersへ含まれます。before/afterを確認し、sourceに示した正本へ反映してください。';
+        manifest.note = '正本を読み込んだ時点からの累積変更です。差分コピーではbaselineを更新しません。パーツに割り当てた表示名・ボタン・コメント等もtriggersへ含まれます。before/afterを確認し、sourceに示した正本へ反映してください。';
         return manifest;
     }
 
@@ -295,15 +295,6 @@
     if (typeof baseToggleDebugMode === 'function') {
         window.toggleDebugMode = function () {
             var result = baseToggleDebugMode.apply(this, arguments);
-            if (window.isEditMode) captureTriggerBaseline();
-            return result;
-        };
-    }
-
-    var baseMarkEditorExportCopied = window.markEditorExportCopied;
-    if (typeof baseMarkEditorExportCopied === 'function') {
-        window.markEditorExportCopied = function () {
-            var result = baseMarkEditorExportCopied.apply(this, arguments);
             if (window.isEditMode) captureTriggerBaseline();
             return result;
         };
