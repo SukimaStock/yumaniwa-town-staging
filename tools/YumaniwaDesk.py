@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.21
+Yumaniwa Desk v0.10.22
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,11 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.22:
+- baseCollisionGrid を正本由来の固定collision専用にし、edgeWarp carveをruntime collisionGridだけへ分離
+- collision editor serializerのcomposite grid fallbackを廃止してfail-closed化
+- edgeWarp / collision serializerの再退行を安全確認で検出
 
 v0.10.21:
 - town-editor-spatial-20260823.js を正式な town-editor-spatial.js へ移行
@@ -2826,6 +2831,22 @@ def validate_project(root):
         report["errors"].append(
             "main.js のeditor collision serializerを確認できません。"
         )
+    elif "function getEditorBaseCollisionGrid()" not in main_source_text:
+        report["errors"].append(
+            "main.js のeditor base collision guardを確認できません。"
+        )
+    elif "baseCollisionGrid.length ? baseCollisionGrid : collisionGrid" in main_source_text:
+        report["errors"].append(
+            "editor collision serializerにcomposite grid fallbackが再導入されています。"
+        )
+    elif "if (baseCollisionGrid[y])" in main_source_text:
+        report["errors"].append(
+            "edgeWarp carveがauthored baseCollisionGridを書き換えています。"
+        )
+    elif "applyTownPartCollisionToGrid(collisionGrid);\\n    carveTownEdgeWarpTiles(activeTownSceneDef);" not in main_source_text:
+        report["errors"].append(
+            "runtime collision rebuildでedgeWarp carveを確認できません。"
+        )
     elif "buildExportCollisionData" in safe_export_text:
         report["errors"].append(
             "town-editor-safe-export.js が削除済みcollision APIを参照しています。"
@@ -2835,7 +2856,7 @@ def validate_project(root):
             "town-editor-safe-export.js のcollision serializer参照を確認できません。"
         )
     else:
-        report["ok"].append("editor collision diff: canonical serializer")
+        report["ok"].append("editor collision diff: canonical authored base serializer")
 
     scene_schema_fallback_tokens = [
         "Number(def.mapWidth) || 24",

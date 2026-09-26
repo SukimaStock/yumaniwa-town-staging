@@ -1512,7 +1512,6 @@ function applyTownSceneDefinition(sceneId, spawnKey) {
     partDragState = null;
     cancelTapMove();
     initGrid();
-    carveTownEdgeWarpTiles(def);
     loadTownSceneBackground(def);
     placePlayerAtTownSpawn(def, resolvedSpawnKey);
     updateUI();
@@ -1665,9 +1664,6 @@ function carveTownEdgeWarpTiles(def) {
 
                 if (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT) {
                     collisionGrid[y][x] = 1;
-                    if (baseCollisionGrid[y]) {
-                        baseCollisionGrid[y][x] = 1;
-                    }
                 }
             }
         }
@@ -3245,6 +3241,7 @@ function initGrid() {
 function rebuildCollisionGridFromBase() {
     collisionGrid = cloneCollisionGrid(baseCollisionGrid);
     applyTownPartCollisionToGrid(collisionGrid);
+    carveTownEdgeWarpTiles(activeTownSceneDef);
 }
 
 function getPlayerTile() {
@@ -6913,7 +6910,21 @@ function deleteSelectedTrigger() {
 
 
 function updateEditorStatus(msg) { document.getElementById('editor-status').innerText = msg; }
-function copyGrid() { return cloneCollisionGrid(baseCollisionGrid.length ? baseCollisionGrid : collisionGrid); }
+function getEditorBaseCollisionGrid() {
+    if (!Array.isArray(baseCollisionGrid) || baseCollisionGrid.length !== MAP_HEIGHT) {
+        throw new Error("Editor base collision grid is not initialized");
+    }
+
+    for (var y = 0; y < MAP_HEIGHT; y++) {
+        if (!Array.isArray(baseCollisionGrid[y]) || baseCollisionGrid[y].length !== MAP_WIDTH) {
+            throw new Error("Editor base collision grid has an invalid row");
+        }
+    }
+
+    return baseCollisionGrid;
+}
+
+function copyGrid() { return cloneCollisionGrid(getEditorBaseCollisionGrid()); }
 
 function collisionGridToRects(targetValue, sourceGrid) {
     var grid = sourceGrid;
@@ -6971,11 +6982,7 @@ function collisionGridToRects(targetValue, sourceGrid) {
 
 function getEditorCollisionData() {
     // Fixed terrain only. Town-part collision remains owned by prop.collision.
-    var grid = baseCollisionGrid.length ? baseCollisionGrid : collisionGrid;
-
-    if (!grid || grid.length !== MAP_HEIGHT) {
-        throw new Error("Editor collision grid is not initialized");
-    }
+    var grid = getEditorBaseCollisionGrid();
 
     var passable = collisionGridToRects(1, grid);
     var blockedAll = collisionGridToRects(2, grid);
