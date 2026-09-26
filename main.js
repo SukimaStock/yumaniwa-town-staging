@@ -616,6 +616,15 @@ function getWorkPlayerSource(work) {
 }
 
 function getWorkPlayerReturnLabel(work) {
+    if (
+        workPlayerReturnDestinationId &&
+        DESTINATIONS &&
+        DESTINATIONS[workPlayerReturnDestinationId] &&
+        DESTINATIONS[workPlayerReturnDestinationId].title
+    ) {
+        return DESTINATIONS[workPlayerReturnDestinationId].title;
+    }
+
     if (work && work.returnLabel) {
         return work.returnLabel;
     }

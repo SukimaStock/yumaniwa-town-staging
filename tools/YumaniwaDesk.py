@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.24
+Yumaniwa Desk v0.10.25
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,10 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.25:
+- town-return-flow.js のgetWorkPlayerReturnLabel wrapperをmain.jsへ正式統合
+- 作品プレイヤー戻り先ラベルの後付けruntime overrideを廃止
 
 v0.10.24:
 - data/town-runtime-fixes.js のphone camera zoom / 開発ボタンbindをmain.jsへ正式統合
@@ -2737,6 +2741,7 @@ def validate_project(root):
         "town-staging-20260823.js",
         "town-editor-spatial-20260823.js",
         "data/town-runtime-fixes.js",
+        "town-return-flow.js",
     ]
     retired_patch_present = [
         rel for rel in retired_patch_files
@@ -2872,6 +2877,13 @@ def validate_project(root):
         )
     else:
         report["ok"].append("town runtime ui: canonical main.js initialization")
+
+    if "DESTINATIONS[workPlayerReturnDestinationId].title" not in main_source_text:
+        report["errors"].append(
+            "main.js の作品プレイヤー戻り先label正本を確認できません。"
+        )
+    else:
+        report["ok"].append("work player return label: canonical main.js")
 
     if "function getEditorCollisionData()" not in main_source_text:
         report["errors"].append(
