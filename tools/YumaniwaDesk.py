@@ -2748,6 +2748,7 @@ def validate_project(root):
     station_source_text = safe_read(os.path.join(root, "data/station-plaza.js"))
     town_maps_text = safe_read(os.path.join(root, "data/town-maps.js"))
     main_source_text = safe_read(os.path.join(root, "main.js"))
+    station_props_text = safe_read(os.path.join(root, "data/station-plaza-props.js"))
     spatial_editor_text = safe_read(os.path.join(root, "town-editor-spatial.js"))
     safe_export_text = safe_read(os.path.join(root, "town-editor-safe-export.js"))
     world_objects_text = safe_read(os.path.join(root, "data/world-objects.js"))
