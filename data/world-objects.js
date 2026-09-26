@@ -671,6 +671,70 @@
                 status: 'final'
             }
         },
+        leisure_direction_sign_01: {
+            id: 'leisure_direction_sign_01',
+            category: 'sign',
+            type: 'direction_sign',
+            src: 'assets/maps/props/leisure-center/leisure-direction-sign.png?rev=asset-03542011',
+            finalization: {
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: false
+                },
+                pixelSafe: false,
+                normalizationPending: true,
+                status: 'registered'
+            }
+        },
+        leisure_pamphlet_rack_01: {
+            id: 'leisure_pamphlet_rack_01',
+            category: 'facility',
+            type: 'pamphlet_rack',
+            src: 'assets/maps/props/leisure-center/leisure-pamphlet-rack.png?rev=asset-b7863407',
+            finalization: {
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: false
+                },
+                pixelSafe: false,
+                normalizationPending: true,
+                status: 'registered'
+            }
+        },
+        leisure_bulletin_board_01: {
+            id: 'leisure_bulletin_board_01',
+            category: 'sign',
+            type: 'bulletin_board',
+            src: 'assets/maps/props/leisure-center/leisure-bulletin-board.png?rev=asset-bcec8713',
+            finalization: {
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: false
+                },
+                pixelSafe: false,
+                normalizationPending: true,
+                status: 'registered'
+            }
+        },
+        leisure_guide_terminal_01: {
+            id: 'leisure_guide_terminal_01',
+            category: 'facility',
+            type: 'guide_terminal',
+            src: 'assets/maps/props/leisure-center/leisure-guide-terminal.png?rev=asset-e2a2c8ac',
+            finalization: {
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: false
+                },
+                pixelSafe: false,
+                normalizationPending: true,
+                status: 'registered'
+            }
+        },
         onsen_no_entry_barrier_01: {
             id: 'onsen_no_entry_barrier_01',
             category: 'sign',

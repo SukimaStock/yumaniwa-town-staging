@@ -24,13 +24,15 @@
         collision: { enabled: true, x: 0.14, y: 0.7375, w: 0.72, h: 0.2625 }
     });
 
-    // These four assets have not been migrated to WORLD OBJECT yet.
-    // Keep them addable, but make the legacy status explicit in the editor UI.
+    // Leisure Center utility props are WORLD OBJECT-owned.
+    // Raster normalization is tracked in data/world-objects.js and does not
+    // require a second legacy asset path in the editor catalog.
     addCatalogEntry({
         key: 'leisureDirectionSign',
         label: '簡易案内サイン（レジャーセンター）',
-        file: '../leisure-center/leisure-direction-sign.png',
-        legacy: true,
+        objectId: 'leisure_direction_sign_01',
+        idStem: 'leisure_direction_sign',
+        file: '',
         w: 3.5, h: 3.5,
         collision: { enabled: true, x: 0.35, y: 0.82, w: 0.30, h: 0.16 }
     });
@@ -38,8 +40,9 @@
     addCatalogEntry({
         key: 'leisurePamphletRack',
         label: 'パンフレットラック（レジャーセンター）',
-        file: '../leisure-center/leisure-pamphlet-rack.png',
-        legacy: true,
+        objectId: 'leisure_pamphlet_rack_01',
+        idStem: 'leisure_pamphlet_rack',
+        file: '',
         w: 3.75, h: 3.75,
         collision: { enabled: true, x: 0.15, y: 0.84, w: 0.70, h: 0.14 }
     });
@@ -47,8 +50,9 @@
     addCatalogEntry({
         key: 'leisureBulletinBoard',
         label: '掲示スタンド（レジャーセンター）',
-        file: '../leisure-center/leisure-bulletin-board.png',
-        legacy: true,
+        objectId: 'leisure_bulletin_board_01',
+        idStem: 'leisure_bulletin_board',
+        file: '',
         w: 3.25, h: 3.25,
         collision: { enabled: true, x: 0.08, y: 0.82, w: 0.84, h: 0.14 }
     });
@@ -56,8 +60,9 @@
     addCatalogEntry({
         key: 'leisureGuideTerminal',
         label: '展示ガイド端末（レジャーセンター）',
-        file: '../leisure-center/leisure-guide-terminal.png',
-        legacy: true,
+        objectId: 'leisure_guide_terminal_01',
+        idStem: 'leisure_guide_terminal',
+        file: '',
         w: 3.0, h: 3.0,
         collision: { enabled: true, x: 0.05, y: 0.76, w: 0.90, h: 0.18 }
     });
