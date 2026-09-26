@@ -4236,6 +4236,13 @@ function setupEditorEvents() {
             baseCollisionGrid = cloneCollisionGrid(last.prev || []);
             rebuildCollisionGridFromBase();
         }
+        else if (last.type === 'townState') {
+            restoreTownEditorLinkedState(last.prev || {});
+            editingTriggerIndex = -1;
+            editingPartIndex = -1;
+            partDragState = null;
+            updatePartEditorSelectionUi();
+        }
         else if (last.type === 'triggers') {
             if (last.prev) restoreTriggers(last.prev);
             else triggers.pop();
@@ -4492,6 +4499,65 @@ function restoreTownParts(prev) {
         parts.push(cloneTownPart(prev[i]));
     }
 
+    refreshTownPartDerivedData();
+}
+
+function cloneTownPartTriggerTemplates() {
+    var copied = {};
+
+    for (var id in townPartTriggerTemplates) {
+        if (!Object.prototype.hasOwnProperty.call(townPartTriggerTemplates, id)) continue;
+        copied[id] = cloneTrigger(townPartTriggerTemplates[id]);
+    }
+
+    return copied;
+}
+
+function cloneTownPartManagedTriggerIds() {
+    var copied = {};
+
+    for (var id in townPartManagedTriggerIds) {
+        if (!Object.prototype.hasOwnProperty.call(townPartManagedTriggerIds, id)) continue;
+        copied[id] = !!townPartManagedTriggerIds[id];
+    }
+
+    return copied;
+}
+
+function captureTownEditorLinkedState() {
+    return {
+        parts: cloneTownParts(),
+        triggers: cloneTriggers(),
+        triggerTemplates: cloneTownPartTriggerTemplates(),
+        managedTriggerIds: cloneTownPartManagedTriggerIds()
+    };
+}
+
+function restoreTownEditorLinkedState(snapshot) {
+    var state = snapshot || {};
+    var parts = getActiveTownParts();
+
+    townPartTriggerTemplates = {};
+    var templates = state.triggerTemplates || {};
+    for (var id in templates) {
+        if (!Object.prototype.hasOwnProperty.call(templates, id)) continue;
+        townPartTriggerTemplates[id] = cloneTrigger(templates[id]);
+    }
+
+    townPartManagedTriggerIds = {};
+    var managed = state.managedTriggerIds || {};
+    for (var managedId in managed) {
+        if (!Object.prototype.hasOwnProperty.call(managed, managedId)) continue;
+        townPartManagedTriggerIds[managedId] = !!managed[managedId];
+    }
+
+    parts.length = 0;
+    var previousParts = Array.isArray(state.parts) ? state.parts : [];
+    for (var i = 0; i < previousParts.length; i++) {
+        parts.push(cloneTownPart(previousParts[i]));
+    }
+
+    restoreTriggers(Array.isArray(state.triggers) ? state.triggers : []);
     refreshTownPartDerivedData();
 }
 
@@ -5360,8 +5426,16 @@ function applyPartInteractionInputs() {
 function pushTownPartHistory() {
     markEditorDirty();
     editHistory.push({
-        type: 'props',
-        prev: cloneTownParts()
+        type: 'townState',
+        prev: captureTownEditorLinkedState()
+    });
+}
+
+function pushTownTriggerHistory() {
+    markEditorDirty();
+    editHistory.push({
+        type: 'townState',
+        prev: captureTownEditorLinkedState()
     });
 }
 
@@ -5853,18 +5927,59 @@ function setTriggerFormValues(trigger) {
     if (textInput) textInput.value = trigger.text || "";
 }
 
+function syncEditedTriggerToLinkedPartState(previousId, trigger) {
+    if (!trigger || !trigger.id) return;
+
+    var oldId = String(previousId || trigger.id);
+    var newId = String(trigger.id);
+    var parts = getActiveTownParts();
+    var linked = false;
+
+    for (var i = 0; i < parts.length; i++) {
+        var part = parts[i];
+        var interaction = part && part.interaction;
+        if (!interaction || String(interaction.triggerId || '') !== oldId) continue;
+
+        linked = true;
+        interaction.triggerId = newId;
+
+        if (trigger.area) {
+            part.triggerArea = normalizeTownPartTriggerArea(trigger.area);
+        }
+    }
+
+    if (
+        linked ||
+        Object.prototype.hasOwnProperty.call(townPartTriggerTemplates, oldId) ||
+        Object.prototype.hasOwnProperty.call(townPartTriggerTemplates, newId)
+    ) {
+        if (oldId !== newId) {
+            delete townPartTriggerTemplates[oldId];
+            delete townPartManagedTriggerIds[oldId];
+        }
+
+        townPartTriggerTemplates[newId] = cloneTrigger(trigger);
+        if (linked) townPartManagedTriggerIds[newId] = true;
+    }
+}
+
 function applyTriggerValues(index, values) {
     if (index < 0 || index >= triggers.length || !values) return false;
 
-    triggers[index] = {
-        id: values.id || "trigger",
-        label: values.label || "トリガー",
-        actionLabel: values.actionLabel || "調べる",
-        area: values.area || triggers[index].area,
-        type: values.type || "inspect",
-        target: values.target || "",
-        text: values.text || ""
-    };
+    var current = triggers[index] || {};
+    var previousId = String(current.id || '');
+    var next = cloneTrigger(current);
+
+    next.id = values.id || "trigger";
+    next.label = values.label || "トリガー";
+    next.actionLabel = values.actionLabel || "調べる";
+    next.area = values.area || current.area;
+    next.type = values.type || "inspect";
+    next.target = values.target || "";
+    next.text = values.text || "";
+
+    triggers[index] = next;
+    syncEditedTriggerToLinkedPartState(previousId, next);
 
     return true;
 }
@@ -5908,8 +6023,7 @@ function updateSelectedTriggerFromForm() {
         return;
     }
 
-    markEditorDirty();
-    editHistory.push({ type: "triggers", prev: cloneTriggers() });
+    pushTownTriggerHistory();
 
     applyTriggerValues(editingTriggerIndex, getTriggerFormValues({
         x: current.area.x,
@@ -5942,9 +6056,29 @@ function deleteSelectedTrigger() {
         return;
     }
 
-    markEditorDirty();
-    editHistory.push({ type: "triggers", prev: cloneTriggers() });
+    pushTownTriggerHistory();
+
+    var deletedTriggerId = String((current && current.id) || '');
     triggers.splice(editingTriggerIndex, 1);
+
+    if (deletedTriggerId) {
+        delete townPartTriggerTemplates[deletedTriggerId];
+        delete townPartManagedTriggerIds[deletedTriggerId];
+
+        var parts = getActiveTownParts();
+        for (var i = 0; i < parts.length; i++) {
+            var part = parts[i];
+            if (
+                part &&
+                part.interaction &&
+                String(part.interaction.triggerId || '') === deletedTriggerId
+            ) {
+                part.interaction.enabled = false;
+                part.interaction.triggerId = '';
+                delete part.triggerArea;
+            }
+        }
+    }
 
     editStep = 0;
     currentHoverTile = null;
@@ -6028,8 +6162,7 @@ function handleEditorTap(tx, ty) {
 
         if (editTarget === 'triggers') {
             ensureTriggerEditorExtraFields();
-            markEditorDirty();
-    editHistory.push({ type: 'triggers', prev: cloneTriggers() });
+            pushTownTriggerHistory();
 
             if (editingTriggerIndex >= 0 && editingTriggerIndex < triggers.length) {
                 applyTriggerValues(editingTriggerIndex, getTriggerFormValues(newRect));

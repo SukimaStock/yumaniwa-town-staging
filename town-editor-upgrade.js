@@ -241,14 +241,26 @@
         part.interaction.enabled = true;
         part.interaction.triggerId = triggerId;
 
-        var template = {
-            id: triggerId,
-            label: label || (part.id || '立て看板'),
-            actionLabel: actionLabel || defaultButtonLabel(kind),
-            type: 'inspect',
-            text: text || '小さな案内が置かれている。',
-            tapPadding: 1
-        };
+        var existingTrigger = getTriggerForPart(part);
+        var template = existingTrigger && typeof cloneTrigger === 'function'
+            ? cloneTrigger(existingTrigger)
+            : {};
+
+        template.id = triggerId;
+        template.label = label || (part.id || '立て看板');
+        template.actionLabel = actionLabel || defaultButtonLabel(kind);
+        template.type = 'inspect';
+        template.text = text || '小さな案内が置かれている。';
+
+        if (template.tapPadding == null) {
+            template.tapPadding = 1;
+        }
+
+        // Known mutually-exclusive action fields follow the selected role.
+        // Unknown fields are intentionally preserved.
+        delete template.workId;
+        delete template.target;
+
         if (kind === 'work') {
             template.type = 'work';
             template.workId = workId;
