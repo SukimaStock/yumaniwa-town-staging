@@ -403,7 +403,7 @@ def _normalize_github_repository(remote_url):
     if not value:
         return ""
     match = re.search(
-        r"github\\.com[:/]([^/]+)/([^/]+?)(?:\\.git)?/?$",
+        r"github\.com[:/]([^/]+)/([^/]+?)(?:\.git)?/?$",
         value,
         re.IGNORECASE,
     )
@@ -413,14 +413,18 @@ def _normalize_github_repository(remote_url):
 
 
 def _git_dir_for_project(root):
-    dotgit = os.path.join(root, ".git")
+    value = str(root or "").strip()
+    if not value or not os.path.isabs(value):
+        return "", False, ""
+
+    dotgit = os.path.join(value, ".git")
     try:
         if os.path.isdir(dotgit):
             return dotgit, True, ""
         if not os.path.isfile(dotgit):
             return "", False, ""
         pointer = _read_optional_text(dotgit)
-        match = re.match(r"gitdir:\\s*(.+)$", pointer, re.IGNORECASE)
+        match = re.match(r"gitdir:\s*(.+)$", pointer, re.IGNORECASE)
         if not match:
             return "", True, ".git の参照先を読めません。"
         target = match.group(1).strip()
