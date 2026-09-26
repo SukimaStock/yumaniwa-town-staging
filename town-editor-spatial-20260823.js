@@ -19,6 +19,382 @@
         return def && Array.isArray(def.props) ? def.props : [];
     }
 
+    var editingAreaZoneIndex = -1;
+
+    function areaZoneList() {
+        return Array.isArray(window.areaZones) ? window.areaZones : [];
+    }
+
+    function cloneAreaZones() {
+        return clone(areaZoneList());
+    }
+
+    function syncAreaZonesToScene() {
+        var source = cloneAreaZones();
+        var sceneId = window.currentScene;
+        var def = window.activeTownSceneDef;
+
+        window.areaZones = clone(source);
+
+        if (def) {
+            def.areaZones = clone(source);
+        }
+
+        if (window.TOWN_SCENE_MAPS && sceneId && window.TOWN_SCENE_MAPS[sceneId]) {
+            window.TOWN_SCENE_MAPS[sceneId].areaZones = clone(source);
+        }
+    }
+
+    function recordAreaZoneHistory() {
+        if (typeof window.markEditorDirty === 'function') window.markEditorDirty();
+        if (Array.isArray(window.editHistory)) {
+            window.editHistory.push({
+                type: 'areaZones',
+                prev: cloneAreaZones()
+            });
+        }
+    }
+
+    function uniqueAreaZoneId(base) {
+        var stem = String(base || 'area').trim().replace(/[^a-zA-Z0-9_-]+/g, '_') || 'area';
+        var used = {};
+        var list = areaZoneList();
+        for (var i = 0; i < list.length; i++) {
+            if (list[i] && list[i].id) used[String(list[i].id)] = true;
+        }
+        if (!used[stem]) return stem;
+
+        var n = 2;
+        while (used[stem + '_' + n]) n++;
+        return stem + '_' + n;
+    }
+
+    function getAreaZoneIndexAtTile(tx, ty) {
+        var list = areaZoneList();
+        for (var i = list.length - 1; i >= 0; i--) {
+            var zone = list[i];
+            var area = zone && zone.area;
+            if (!area) continue;
+            if (
+                tx >= area.x &&
+                tx < area.x + area.w &&
+                ty >= area.y &&
+                ty < area.y + area.h
+            ) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    function setAreaZoneFormValues(zone) {
+        var idInput = document.getElementById('area-zone-id');
+        var titleInput = document.getElementById('area-zone-title');
+        var subtitleInput = document.getElementById('area-zone-subtitle');
+        if (!zone) {
+            if (idInput) idInput.value = '';
+            if (titleInput) titleInput.value = '';
+            if (subtitleInput) subtitleInput.value = '';
+            return;
+        }
+        if (idInput) idInput.value = String(zone.id || '');
+        if (titleInput) titleInput.value = String(zone.title || '');
+        if (subtitleInput) subtitleInput.value = String(zone.subtitle || '');
+    }
+
+    function refreshAreaZoneEditor() {
+        var form = document.getElementById('area-zone-form');
+        if (form) {
+            form.style.display = window.editTarget === 'areaZones' ? 'block' : 'none';
+        }
+
+        var list = areaZoneList();
+        var valid = editingAreaZoneIndex >= 0 && editingAreaZoneIndex < list.length;
+        var label = document.getElementById('area-zone-selection');
+        var updateButton = document.getElementById('btn-update-area-zone');
+        var deleteButton = document.getElementById('btn-delete-area-zone');
+        var moveButtons = form ? form.querySelectorAll('[data-area-zone-move],[data-area-zone-resize]') : [];
+
+        if (label) {
+            if (!valid) {
+                label.textContent = '選択中: なし';
+            } else {
+                var zone = list[editingAreaZoneIndex];
+                var a = zone.area || {};
+                label.textContent =
+                    '選択中: ' + (zone.title || zone.id || 'area') +
+                    ' / x=' + a.x + ' y=' + a.y + ' / ' + a.w + '×' + a.h;
+            }
+        }
+
+        if (updateButton) updateButton.disabled = !valid;
+        if (deleteButton) deleteButton.disabled = !valid;
+        for (var i = 0; i < moveButtons.length; i++) {
+            moveButtons[i].disabled = !valid;
+        }
+
+        if (valid) setAreaZoneFormValues(list[editingAreaZoneIndex]);
+    }
+
+    function ensureAreaZoneEditor() {
+        var content = document.querySelector('#editor-panel .editor-content');
+        if (!content) return;
+
+        var targetSelect = document.getElementById('edit-target');
+        if (targetSelect && !targetSelect.querySelector('option[value="areaZones"]')) {
+            var option = document.createElement('option');
+            option.value = 'areaZones';
+            option.textContent = 'エリア名・表示範囲';
+            targetSelect.appendChild(option);
+        }
+
+        if (document.getElementById('area-zone-form')) {
+            refreshAreaZoneEditor();
+            return;
+        }
+
+        var form = document.createElement('div');
+        form.id = 'area-zone-form';
+        form.style.display = 'none';
+        form.innerHTML =
+            '<div class="part-editor-section">エリア表示</div>' +
+            '<div id="area-zone-selection" class="part-editor-row">選択中: なし</div>' +
+            '<div class="part-editor-row"><label class="part-editor-grow">ID <input id="area-zone-id" type="text" style="width:100%"></label></div>' +
+            '<div class="part-editor-row"><label class="part-editor-grow">表示名 <input id="area-zone-title" type="text" style="width:100%"></label></div>' +
+            '<div class="part-editor-row"><label class="part-editor-grow">サブタイトル <input id="area-zone-subtitle" type="text" style="width:100%"></label></div>' +
+            '<div class="part-editor-row">' +
+                '<button type="button" data-area-zone-move="left">←</button>' +
+                '<button type="button" data-area-zone-move="up">↑</button>' +
+                '<button type="button" data-area-zone-move="down">↓</button>' +
+                '<button type="button" data-area-zone-move="right">→</button>' +
+            '</div>' +
+            '<div class="part-editor-row">' +
+                '<button type="button" data-area-zone-resize="-1">狭める</button>' +
+                '<button type="button" data-area-zone-resize="1">広げる</button>' +
+            '</div>' +
+            '<div class="part-editor-row">' +
+                '<button id="btn-update-area-zone" type="button">選択中エリアを更新</button>' +
+                '<button id="btn-delete-area-zone" type="button" class="part-editor-danger">削除</button>' +
+            '</div>' +
+            '<div class="part-editor-note">既存範囲をタップで選択。空いている場所は始点→終点の2回タップで新規作成します。</div>';
+
+        var status = document.getElementById('editor-status');
+        content.insertBefore(form, status || null);
+
+        form.querySelectorAll('[data-area-zone-move]').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var dir = button.getAttribute('data-area-zone-move');
+                if (dir === 'left') moveSelectedAreaZone(-1, 0);
+                if (dir === 'right') moveSelectedAreaZone(1, 0);
+                if (dir === 'up') moveSelectedAreaZone(0, -1);
+                if (dir === 'down') moveSelectedAreaZone(0, 1);
+            });
+        });
+
+        form.querySelectorAll('[data-area-zone-resize]').forEach(function(button) {
+            button.addEventListener('click', function() {
+                resizeSelectedAreaZone(Number(button.getAttribute('data-area-zone-resize')) || 0);
+            });
+        });
+
+        document.getElementById('btn-update-area-zone').addEventListener('click', updateSelectedAreaZoneFromForm);
+        document.getElementById('btn-delete-area-zone').addEventListener('click', deleteSelectedAreaZone);
+        refreshAreaZoneEditor();
+    }
+
+    function selectAreaZone(index) {
+        var list = areaZoneList();
+        if (!(index >= 0 && index < list.length)) {
+            editingAreaZoneIndex = -1;
+            setAreaZoneFormValues(null);
+            refreshAreaZoneEditor();
+            return false;
+        }
+
+        editingAreaZoneIndex = index;
+        var zone = list[index];
+        var a = clampArea(zone.area || {});
+
+        window.editStep = 1;
+        window.editStartX = a.x;
+        window.editStartY = a.y;
+        window.currentHoverTile = {
+            x: a.x + a.w - 1,
+            y: a.y + a.h - 1
+        };
+
+        setAreaZoneFormValues(zone);
+        refreshAreaZoneEditor();
+        if (typeof window.updateEditorStatus === 'function') {
+            window.updateEditorStatus(
+                '既存エリアを選択中: ' + (zone.title || zone.id || 'area') +
+                ' / 終点タップで範囲変更できます'
+            );
+        }
+        return true;
+    }
+
+    function areaZoneFormValues(area, existing) {
+        var idInput = document.getElementById('area-zone-id');
+        var titleInput = document.getElementById('area-zone-title');
+        var subtitleInput = document.getElementById('area-zone-subtitle');
+        var current = existing || {};
+        var requestedId = String((idInput && idInput.value) || current.id || '').trim();
+
+        return {
+            id: requestedId || uniqueAreaZoneId('area'),
+            title: String((titleInput && titleInput.value) || current.title || '新しいエリア'),
+            subtitle: String((subtitleInput && subtitleInput.value) || current.subtitle || ''),
+            area: clampArea(area || current.area || {})
+        };
+    }
+
+    function applyAreaZoneValues(index, values) {
+        var list = areaZoneList();
+        if (!(index >= 0 && index < list.length) || !values) return false;
+        list[index] = {
+            id: String(values.id || uniqueAreaZoneId('area')),
+            title: String(values.title || ''),
+            subtitle: String(values.subtitle || ''),
+            area: clampArea(values.area || {})
+        };
+        syncAreaZonesToScene();
+        return true;
+    }
+
+    function updateSelectedAreaZoneFromForm() {
+        var list = areaZoneList();
+        if (!(editingAreaZoneIndex >= 0 && editingAreaZoneIndex < list.length)) return;
+        recordAreaZoneHistory();
+        applyAreaZoneValues(
+            editingAreaZoneIndex,
+            areaZoneFormValues(list[editingAreaZoneIndex].area, list[editingAreaZoneIndex])
+        );
+        refreshAreaZoneEditor();
+        if (typeof window.updateEditorStatus === 'function') {
+            window.updateEditorStatus('エリア名・サブタイトルを更新しました');
+        }
+    }
+
+    function moveSelectedAreaZone(dx, dy) {
+        var list = areaZoneList();
+        if (!(editingAreaZoneIndex >= 0 && editingAreaZoneIndex < list.length)) return;
+        var zone = list[editingAreaZoneIndex];
+        recordAreaZoneHistory();
+        zone.area = clampArea({
+            x: Number(zone.area.x || 0) + dx,
+            y: Number(zone.area.y || 0) + dy,
+            w: Number(zone.area.w || 1),
+            h: Number(zone.area.h || 1)
+        });
+        syncAreaZonesToScene();
+        selectAreaZone(editingAreaZoneIndex);
+        if (typeof window.updateEditorStatus === 'function') {
+            window.updateEditorStatus('エリア範囲を1マス移動しました');
+        }
+    }
+
+    function resizeSelectedAreaZone(delta) {
+        var list = areaZoneList();
+        if (!(editingAreaZoneIndex >= 0 && editingAreaZoneIndex < list.length)) return;
+        var zone = list[editingAreaZoneIndex];
+        recordAreaZoneHistory();
+        zone.area = clampArea({
+            x: Number(zone.area.x || 0),
+            y: Number(zone.area.y || 0),
+            w: Number(zone.area.w || 1) + delta,
+            h: Number(zone.area.h || 1) + delta
+        });
+        syncAreaZonesToScene();
+        selectAreaZone(editingAreaZoneIndex);
+        if (typeof window.updateEditorStatus === 'function') {
+            window.updateEditorStatus(delta > 0 ? 'エリア範囲を広げました' : 'エリア範囲を狭めました');
+        }
+    }
+
+    function deleteSelectedAreaZone() {
+        var list = areaZoneList();
+        if (!(editingAreaZoneIndex >= 0 && editingAreaZoneIndex < list.length)) return;
+        var zone = list[editingAreaZoneIndex];
+        var name = zone.title || zone.id || 'エリア';
+        if (!window.confirm('「' + name + '」を削除しますか？')) return;
+
+        recordAreaZoneHistory();
+        list.splice(editingAreaZoneIndex, 1);
+        editingAreaZoneIndex = -1;
+        window.editStep = 0;
+        window.currentHoverTile = null;
+        syncAreaZonesToScene();
+        setAreaZoneFormValues(null);
+        refreshAreaZoneEditor();
+        if (typeof window.updateEditorStatus === 'function') {
+            window.updateEditorStatus('エリアを削除しました。Undoで元に戻せます');
+        }
+    }
+
+    function handleAreaZoneTap(tx, ty) {
+        var list = areaZoneList();
+
+        if (window.editStep === 0) {
+            var hit = getAreaZoneIndexAtTile(tx, ty);
+            if (hit >= 0) {
+                selectAreaZone(hit);
+                return;
+            }
+
+            editingAreaZoneIndex = -1;
+            window.editStartX = tx;
+            window.editStartY = ty;
+            window.editStep = 1;
+            window.currentHoverTile = { x: tx, y: ty };
+            setAreaZoneFormValues(null);
+            refreshAreaZoneEditor();
+            if (typeof window.updateEditorStatus === 'function') {
+                window.updateEditorStatus('新規エリア範囲の終点をタップしてください');
+            }
+            return;
+        }
+
+        var minX = Math.min(Number(window.editStartX) || 0, tx);
+        var minY = Math.min(Number(window.editStartY) || 0, ty);
+        var w = Math.max(Number(window.editStartX) || 0, tx) - minX + 1;
+        var h = Math.max(Number(window.editStartY) || 0, ty) - minY + 1;
+        var area = clampArea({ x: minX, y: minY, w: w, h: h });
+
+        recordAreaZoneHistory();
+
+        if (editingAreaZoneIndex >= 0 && editingAreaZoneIndex < list.length) {
+            applyAreaZoneValues(
+                editingAreaZoneIndex,
+                areaZoneFormValues(area, list[editingAreaZoneIndex])
+            );
+            if (typeof window.updateEditorStatus === 'function') {
+                window.updateEditorStatus('既存エリアの範囲を更新しました');
+            }
+        } else {
+            var values = areaZoneFormValues(area, null);
+            if (!values.id) values.id = uniqueAreaZoneId('area');
+            if (!values.title) values.title = '新しいエリア';
+            list.push(values);
+            syncAreaZonesToScene();
+            editingAreaZoneIndex = list.length - 1;
+            if (typeof window.updateEditorStatus === 'function') {
+                window.updateEditorStatus('新規エリアを追加しました');
+            }
+        }
+
+        window.editStep = 0;
+        window.currentHoverTile = null;
+        refreshAreaZoneEditor();
+    }
+
+    window.YUMANIWA_REFRESH_AREA_ZONE_EDITOR = function() {
+        editingAreaZoneIndex = -1;
+        setAreaZoneFormValues(null);
+        syncAreaZonesToScene();
+        refreshAreaZoneEditor();
+    };
+
     function clampArea(area) {
         var mapW = Number(window.MAP_WIDTH) || 24;
         var mapH = Number(window.MAP_HEIGHT) || 24;
@@ -391,8 +767,10 @@
         }
         ensureTriggerMoveControls();
         ensureTopPartDelete();
+        ensureAreaZoneEditor();
         updateTopPartDelete();
         updateTriggerMoveUi();
+        refreshAreaZoneEditor();
         seedAbsoluteTriggerAreas();
     }
 
@@ -441,8 +819,14 @@
 
     if (typeof window.handleEditorTap === 'function') {
         var baseHandleEditorTap = window.handleEditorTap;
-        window.handleEditorTap = function () {
+        window.handleEditorTap = function (tx, ty) {
             var targetBefore = window.editTarget;
+
+            if (targetBefore === 'areaZones') {
+                handleAreaZoneTap(tx, ty);
+                return;
+            }
+
             var result = baseHandleEditorTap.apply(this, arguments);
             if (targetBefore === 'passableRects' || targetBefore === 'blockedRects' || targetBefore === 'blockedPoints') {
                 syncCollisionToScene();
@@ -455,6 +839,16 @@
         enhanceEditor();
         window.setTimeout(enhanceEditor, 100);
 
+        var targetSelect = document.getElementById('edit-target');
+        if (targetSelect && targetSelect.dataset.areaZoneReady !== 'true') {
+            targetSelect.dataset.areaZoneReady = 'true';
+            targetSelect.addEventListener('change', function () {
+                editingAreaZoneIndex = -1;
+                setAreaZoneFormValues(null);
+                refreshAreaZoneEditor();
+            });
+        }
+
         var undo = document.getElementById('btn-editor-undo');
         if (undo && undo.dataset.collisionSyncReady !== 'true') {
             undo.dataset.collisionSyncReady = 'true';
@@ -462,6 +856,8 @@
                 window.setTimeout(function () {
                     syncCollisionToScene();
                     syncTriggersToScene();
+                    syncAreaZonesToScene();
+                    refreshAreaZoneEditor();
                 }, 0);
             });
         }

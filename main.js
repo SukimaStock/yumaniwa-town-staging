@@ -4323,6 +4323,23 @@ function setupEditorEvents() {
             partDragState = null;
             updatePartEditorSelectionUi();
         }
+        else if (last.type === 'areaZones') {
+            areaZones = JSON.parse(JSON.stringify(last.prev || []));
+            if (activeTownSceneDef) {
+                activeTownSceneDef.areaZones = JSON.parse(JSON.stringify(areaZones));
+            }
+            if (
+                window.TOWN_SCENE_MAPS &&
+                currentScene &&
+                window.TOWN_SCENE_MAPS[currentScene]
+            ) {
+                window.TOWN_SCENE_MAPS[currentScene].areaZones =
+                    JSON.parse(JSON.stringify(areaZones));
+            }
+            if (typeof window.YUMANIWA_REFRESH_AREA_ZONE_EDITOR === 'function') {
+                window.YUMANIWA_REFRESH_AREA_ZONE_EDITOR();
+            }
+        }
         markEditorDirty();
         updateEditorStatus("直前の編集を取り消しました");
         editStep = 0; currentHoverTile = null;
