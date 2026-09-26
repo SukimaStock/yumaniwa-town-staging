@@ -50,10 +50,6 @@
         ? window.stationPlazaProps
         : [];
 
-    function cloneData(data) {
-        return JSON.parse(JSON.stringify(data || []));
-    }
-
     function resolveWorldObjectDef(prop) {
         if (!prop || !prop.objectId) return null;
 
