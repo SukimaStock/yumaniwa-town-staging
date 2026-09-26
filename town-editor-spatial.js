@@ -6,10 +6,6 @@
 (function () {
     'use strict';
 
-    function clone(value) {
-        return JSON.parse(JSON.stringify(value));
-    }
-
     function currentParts() {
         if (typeof window.getActiveTownParts === 'function') return window.getActiveTownParts();
         var def = window.activeTownSceneDef;
@@ -22,23 +18,9 @@
         return Array.isArray(window.areaZones) ? window.areaZones : [];
     }
 
-    function cloneAreaZones() {
-        return clone(areaZoneList());
-    }
-
     function areaZonesChanged() {
         // window.areaZones already is the session draft array.
         window.currentAreaId = null;
-    }
-
-    function recordAreaZoneHistory() {
-        if (typeof window.markEditorDirty === 'function') window.markEditorDirty();
-        if (Array.isArray(window.editHistory)) {
-            window.editHistory.push({
-                type: 'areaZones',
-                prev: cloneAreaZones()
-            });
-        }
     }
 
     function uniqueAreaZoneId(base) {
@@ -282,7 +264,7 @@
         );
         if (!values) return;
 
-        recordAreaZoneHistory();
+        window.recordTownEditorHistory();
         applyAreaZoneValues(editingAreaZoneIndex, values);
         refreshAreaZoneEditor();
         if (typeof window.updateEditorStatus === 'function') {
@@ -294,7 +276,7 @@
         var list = areaZoneList();
         if (!(editingAreaZoneIndex >= 0 && editingAreaZoneIndex < list.length)) return;
         var zone = list[editingAreaZoneIndex];
-        recordAreaZoneHistory();
+        window.recordTownEditorHistory();
         zone.area = Object.assign({}, zone.area, clampArea({
             x: Number(zone.area.x || 0) + dx,
             y: Number(zone.area.y || 0) + dy,
@@ -312,7 +294,7 @@
         var list = areaZoneList();
         if (!(editingAreaZoneIndex >= 0 && editingAreaZoneIndex < list.length)) return;
         var zone = list[editingAreaZoneIndex];
-        recordAreaZoneHistory();
+        window.recordTownEditorHistory();
         zone.area = Object.assign({}, zone.area, clampArea({
             x: Number(zone.area.x || 0),
             y: Number(zone.area.y || 0),
@@ -333,7 +315,7 @@
         var name = zone.title || zone.id || 'エリア';
         if (!window.confirm('「' + name + '」を削除しますか？')) return;
 
-        recordAreaZoneHistory();
+        window.recordTownEditorHistory();
         list.splice(editingAreaZoneIndex, 1);
         editingAreaZoneIndex = -1;
         window.editStep = 0;
@@ -385,7 +367,7 @@
             );
             if (!values) return;
 
-            recordAreaZoneHistory();
+            window.recordTownEditorHistory();
             applyAreaZoneValues(editingAreaZoneIndex, values);
             if (typeof window.updateEditorStatus === 'function') {
                 window.updateEditorStatus('既存エリアの範囲を更新しました');
@@ -394,7 +376,7 @@
             values = areaZoneFormValues(area, null, -1);
             if (!values) return;
 
-            recordAreaZoneHistory();
+            window.recordTownEditorHistory();
             list.push(values);
             areaZonesChanged();
             editingAreaZoneIndex = list.length - 1;
@@ -485,21 +467,6 @@
         updateTriggerMoveUi();
     }
 
-    function recordTriggerHistory(linked) {
-        if (typeof window.pushTownTriggerHistory === 'function') {
-            window.pushTownTriggerHistory();
-            return;
-        }
-        if (linked && linked.length && typeof window.pushTownPartHistory === 'function') {
-            window.pushTownPartHistory();
-            return;
-        }
-        if (typeof window.markEditorDirty === 'function') window.markEditorDirty();
-        if (Array.isArray(window.editHistory) && typeof window.cloneTriggers === 'function') {
-            window.editHistory.push({ type: 'triggers', prev: window.cloneTriggers() });
-        }
-    }
-
     function moveSelectedTrigger(dx, dy) {
         var list = Array.isArray(window.triggers) ? window.triggers : [];
         var index = Number(window.editingTriggerIndex);
@@ -511,7 +478,7 @@
         if (!trigger || !trigger.area) return;
         var id = String(trigger.id || '');
         var linked = linkedPartsForTrigger(id);
-        recordTriggerHistory(linked);
+        window.recordTownEditorHistory();
 
         var nextArea = clampArea({
             x: Number(trigger.area.x || 0) + dx,
@@ -537,7 +504,7 @@
         if (!trigger || !trigger.area) return;
         var id = String(trigger.id || '');
         var linked = linkedPartsForTrigger(id);
-        recordTriggerHistory(linked);
+        window.recordTownEditorHistory();
 
         var nextArea = clampArea({
             x: trigger.area.x,
@@ -624,7 +591,7 @@
 
     function onUndo() {
         areaZonesChanged();
-        refreshAreaZoneEditor();
+        resetAreaZoneSelection();
         updateTriggerMoveUi();
     }
 

@@ -97,7 +97,6 @@ var editStep = 0;
 var editStartX = 0;
 var editStartY = 0;
 var currentHoverTile = null;
-var editHistory = [];
 var editingTriggerIndex = -1;
 
 // 開発モード / 保存状態・アコーディオン
@@ -1350,6 +1349,7 @@ function applyTownSceneDefinition(sceneId, spawnKey) {
     }
 
     if (!canLeaveTownEditorSession(sceneId)) return false;
+    finishPartEditorDrag();
     var session = window.YUMANIWA_EDITOR_SESSION.current();
     if (session && session.sceneId !== sceneId) {
         closeTownEditor();
@@ -4478,7 +4478,6 @@ function handleActionTrigger() {
 
 
 function resetTownEditorTransientState() {
-    editHistory.length = 0;
     editingPartIndex = -1;
     editingTriggerIndex = -1;
     editStep = 0;
@@ -4501,6 +4500,7 @@ function bindTownEditorDraft() {
 }
 
 function closeTownEditor() {
+    finishPartEditorDrag();
     cancelTapMove();
     pendingWarp = null;
     document.getElementById('editor-panel').style.display = 'none';
@@ -4774,6 +4774,7 @@ function setupEditorEvents() {
     document.getElementById('btn-close-editor').addEventListener('click', closeTownEditor);
 
     document.getElementById('edit-target').addEventListener('change', function(e) {
+        finishPartEditorDrag();
         editTarget = e.target.value;
         editStep = 0;
         currentHoverTile = null;
@@ -4802,43 +4803,21 @@ function setupEditorEvents() {
     });
 
     document.getElementById('btn-editor-undo').addEventListener('click', function() {
-        if (editHistory.length === 0) { updateEditorStatus("Undoする履歴がありません"); return; }
-        var last = editHistory.pop();
-        if (last.type === 'grid') {
-            baseCollisionGrid.splice(0, baseCollisionGrid.length, ...cloneCollisionGrid(last.prev || []));
-            rebuildCollisionGridFromBase();
+        finishPartEditorDrag();
+        if (!window.YUMANIWA_EDITOR_SESSION.undo()) {
+            updateEditorStatus("Undoする履歴がありません"); return;
         }
-        else if (last.type === 'townState') {
-            restoreTownEditorLinkedState(last.prev || {});
-            editingTriggerIndex = -1;
-            editingPartIndex = -1;
-            partDragState = null;
-            updatePartEditorSelectionUi();
-        }
-        else if (last.type === 'triggers') {
-            if (last.prev) restoreTriggers(last.prev);
-            else triggers.pop();
-            editingTriggerIndex = -1;
-        }
-        else if (last.type === 'props') {
-            restoreTownParts(last.prev || []);
-            editingPartIndex = -1;
-            partDragState = null;
-            updatePartEditorSelectionUi();
-        }
-        else if (last.type === 'areaZones') {
-            areaZones.splice(0, areaZones.length, ...cloneTownData(last.prev || []));
-        }
+        // Restore only the session draft; these globals are its derived views.
+        partDragState = null;
+        editingTriggerIndex = -1;
+        editingPartIndex = -1;
+        editStep = 0; currentHoverTile = null;
+        bindTownEditorDraft();
+        updatePartEditorSelectionUi();
+        if (window.YUMANIWA_SPATIAL_EDITOR) window.YUMANIWA_SPATIAL_EDITOR.onUndo();
+        updateInteractionHint();
         markEditorDirty();
         updateEditorStatus("直前の編集を取り消しました");
-        editStep = 0; currentHoverTile = null;
-
-        if (
-            window.YUMANIWA_SPATIAL_EDITOR &&
-            typeof window.YUMANIWA_SPATIAL_EDITOR.onUndo === 'function'
-        ) {
-            window.YUMANIWA_SPATIAL_EDITOR.onUndo(last.type);
-        }
     });
 
     document.getElementById('btn-editor-export').addEventListener('click', function() {
@@ -5070,40 +5049,6 @@ function getActiveTownParts() {
 
 function cloneTownPart(part) {
     return JSON.parse(JSON.stringify(part || {}));
-}
-
-function cloneTownParts() {
-    var parts = getActiveTownParts();
-    var copied = [];
-
-    for (var i = 0; i < parts.length; i++) {
-        copied.push(cloneTownPart(parts[i]));
-    }
-
-    return copied;
-}
-
-function restoreTownParts(prev) {
-    var parts = getActiveTownParts();
-    parts.length = 0;
-
-    for (var i = 0; i < prev.length; i++) {
-        parts.push(cloneTownPart(prev[i]));
-    }
-
-    refreshTownPartDerivedData();
-}
-
-function captureTownEditorLinkedState() {
-    return { parts: cloneTownParts(), triggers: cloneTriggers() };
-}
-
-function restoreTownEditorLinkedState(snapshot) {
-    var state = snapshot || {};
-    var parts = getActiveTownParts();
-    parts.splice(0, parts.length, ...cloneTownData(state.parts || []));
-    restoreTriggers(state.triggers || []);
-    refreshTownPartDerivedData();
 }
 
 function syncTownPartPublicReference(parts) {
@@ -5575,7 +5520,10 @@ function ensurePartEditorFields() {
         targetSelect.appendChild(option);
     }
 
-    if (document.getElementById('part-form')) return;
+    if (document.getElementById('part-form')) {
+        if (window.YUMANIWA_EDITOR_ACTION_UI) window.YUMANIWA_EDITOR_ACTION_UI.ensureFields();
+        return;
+    }
 
     var editorContent = document.querySelector('#editor-panel .editor-content');
     if (!editorContent) return;
@@ -5720,6 +5668,7 @@ function ensurePartEditorFields() {
     document.getElementById('part-trigger-enabled').addEventListener('change', applyPartInteractionInputs);
     document.getElementById('part-trigger-id').addEventListener('change', applyPartInteractionInputs);
 
+    if (window.YUMANIWA_EDITOR_ACTION_UI) window.YUMANIWA_EDITOR_ACTION_UI.ensureFields();
     setPartEditorMode('select');
     updatePartEditorSelectionUi();
 }
@@ -5743,6 +5692,7 @@ function getSelectedTownPart() {
 }
 
 function selectTownPart(index) {
+    finishPartEditorDrag();
     var parts = getActiveTownParts();
 
     if (index < 0 || index >= parts.length) {
@@ -5755,6 +5705,7 @@ function selectTownPart(index) {
 }
 
 function updatePartEditorSelectionUi() {
+    if (window.YUMANIWA_EDITOR_ACTION_UI) window.YUMANIWA_EDITOR_ACTION_UI.updateSelection();
     var part = getSelectedTownPart();
     var label = document.getElementById('part-selected-label');
     var xInput = document.getElementById('part-x-input');
@@ -5862,7 +5813,7 @@ function applyPartCollisionInputs() {
         return;
     }
 
-    pushTownPartHistory();
+    recordTownEditorHistory();
 
     part.collision = Object.assign({}, part.collision, {
         enabled: !!(enabled && enabled.checked),
@@ -5886,7 +5837,7 @@ function applyPartInteractionInputs() {
     var idInput = document.getElementById('part-trigger-id');
     var nextId = String((idInput && idInput.value) || '').trim();
 
-    pushTownPartHistory();
+    recordTownEditorHistory();
 
     var oldId = part.interaction && part.interaction.triggerId;
     if (!part.interaction) part.interaction = getDefaultTownPartInteraction(part);
@@ -5903,20 +5854,10 @@ function applyPartInteractionInputs() {
     updateEditorStatus('調べる範囲の連動を更新しました');
 }
 
-function pushTownPartHistory() {
+function recordTownEditorHistory(before) {
+    if (!before) finishPartEditorDrag();
+    window.YUMANIWA_EDITOR_SESSION.recordHistory(before);
     markEditorDirty();
-    editHistory.push({
-        type: 'townState',
-        prev: captureTownEditorLinkedState()
-    });
-}
-
-function pushTownTriggerHistory() {
-    markEditorDirty();
-    editHistory.push({
-        type: 'townState',
-        prev: captureTownEditorLinkedState()
-    });
 }
 
 function applyPartFootYInput() {
@@ -5931,7 +5872,7 @@ function applyPartFootYInput() {
         return;
     }
 
-    pushTownPartHistory();
+    recordTownEditorHistory();
     part.footY = footYPx / TILE_SIZE;
 
     refreshTownPartDerivedData();
@@ -5958,7 +5899,7 @@ function applyPartNumberInputs(changedKey) {
         return;
     }
 
-    pushTownPartHistory();
+    recordTownEditorHistory();
 
     var footOffset = getTownPartFootOffset(part);
     var oldWPx = Math.max(1, part.w * TILE_SIZE);
@@ -5992,7 +5933,7 @@ function nudgeSelectedPart(dxPx, dyPx) {
         return;
     }
 
-    pushTownPartHistory();
+    recordTownEditorHistory();
     var footOffset = getTownPartFootOffset(part);
     part.x += dxPx / TILE_SIZE;
     part.y += dyPx / TILE_SIZE;
@@ -6016,7 +5957,7 @@ function resizeSelectedPart(deltaPx) {
         ? Math.max(1, Math.round(oldHPx * (newWPx / oldWPx)))
         : Math.max(1, oldHPx + deltaPx);
 
-    pushTownPartHistory();
+    recordTownEditorHistory();
 
     var footOffset = getTownPartFootOffset(part);
 
@@ -6047,7 +5988,7 @@ function duplicateSelectedPart() {
         return;
     }
 
-    pushTownPartHistory();
+    recordTownEditorHistory();
 
     var copy = cloneTownPart(part);
     var copyFootOffset = getTownPartFootOffset(copy);
@@ -6090,7 +6031,7 @@ function deleteSelectedPart() {
     var confirmed = window.confirm("「" + (part.id || "選択中のパーツ") + "」を削除しますか？");
     if (!confirmed) return;
 
-    pushTownPartHistory();
+    recordTownEditorHistory();
 
     var parts = getActiveTownParts();
     parts.splice(editingPartIndex, 1);
@@ -6111,7 +6052,7 @@ function handlePartEditorPointerDown(e) {
         var added = createTownPartFromCatalog(key, world.x, world.y);
         if (!added) return;
 
-        pushTownPartHistory();
+        recordTownEditorHistory();
 
         var parts = getActiveTownParts();
         parts.push(added);
@@ -6141,7 +6082,7 @@ function handlePartEditorPointerDown(e) {
         offsetX: world.x - rect.x,
         offsetY: world.y - rect.y,
         footOffset: getTownPartFootOffset(part),
-        prev: cloneTownParts(),
+        prev: window.YUMANIWA_EDITOR_SESSION.captureHistory(),
         moved: false
     };
 
@@ -6203,11 +6144,7 @@ function finishPartEditorDrag(e) {
     partDragState = null;
 
     if (moved) {
-        markEditorDirty();
-    editHistory.push({
-            type: 'props',
-            prev: prev
-        });
+        recordTownEditorHistory(prev);
         updateEditorStatus("パーツを移動しました");
     }
 
@@ -6361,18 +6298,6 @@ function drawTownPartEditorOverlay() {
 }
 
 function cloneTrigger(trigger) { return cloneTownData(trigger); }
-
-function cloneTriggers() {
-    var copied = [];
-    for (var i = 0; i < triggers.length; i++) {
-        copied.push(cloneTrigger(triggers[i]));
-    }
-    return copied;
-}
-
-function restoreTriggers(prev) {
-    triggers.splice(0, triggers.length, ...cloneTownData(prev));
-}
 
 function getTriggerIndexAtTile(tx, ty) {
     for (var i = triggers.length - 1; i >= 0; i--) {
@@ -6532,7 +6457,7 @@ function updateSelectedTriggerFromForm() {
         return;
     }
 
-    pushTownTriggerHistory();
+    recordTownEditorHistory();
 
     applyTriggerValues(editingTriggerIndex, getTriggerFormValues({
         x: current.area.x,
@@ -6578,7 +6503,7 @@ function deleteSelectedTrigger() {
         return;
     }
 
-    pushTownTriggerHistory();
+    recordTownEditorHistory();
 
     var deletedTriggerId = String((current && current.id) || '');
     triggers.splice(editingTriggerIndex, 1);
@@ -6630,7 +6555,6 @@ function getEditorBaseCollisionGrid() {
     return baseCollisionGrid;
 }
 
-function copyGrid() { return cloneCollisionGrid(getEditorBaseCollisionGrid()); }
 
 function collisionGridToRects(targetValue, sourceGrid) {
     var grid = sourceGrid;
@@ -6732,8 +6656,7 @@ function handleEditorTap(tx, ty) {
     }
 
     if (editTarget === 'blockedPoints') {
-        markEditorDirty();
-    editHistory.push({ type: 'grid', prev: copyGrid() });
+        recordTownEditorHistory();
         if (baseCollisionGrid[ty]) baseCollisionGrid[ty][tx] = 2;
         rebuildCollisionGridFromBase();
         updateEditorStatus("Point追加: (" + tx + ", " + ty + ")");
@@ -6775,8 +6698,7 @@ function handleEditorTap(tx, ty) {
         var newRect = { x: minX, y: minY, w: w, h: h };
 
         if (editTarget === 'passableRects' || editTarget === 'blockedRects') {
-            markEditorDirty();
-    editHistory.push({ type: 'grid', prev: copyGrid() });
+            recordTownEditorHistory();
             var val = (editTarget === 'passableRects') ? 1 : 2;
 
             for (var cy = minY; cy < minY + h; cy++) {
@@ -6796,7 +6718,7 @@ function handleEditorTap(tx, ty) {
 
         if (editTarget === 'triggers') {
             ensureTriggerEditorExtraFields();
-            pushTownTriggerHistory();
+            recordTownEditorHistory();
 
             if (editingTriggerIndex >= 0 && editingTriggerIndex < triggers.length) {
                 applyTriggerValues(editingTriggerIndex, getTriggerFormValues(newRect));

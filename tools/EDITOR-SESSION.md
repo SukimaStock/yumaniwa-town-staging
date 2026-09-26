@@ -1,4 +1,4 @@
-# Editor状態所有（Phase 2）
+# Editor状態所有（Phase 2 / 3）
 
 保存済みscene → 不変baseline → draft → runtime/view。
 実装は `town-editor-session.js` とmainの明示的lifecycle呼出し。
@@ -9,7 +9,7 @@
 - canonical: ファイル読込後、Phase 1検証に成功した `TOWN_SCENE_MAPS`。
   初回起動の検証後にdeep freezeする。通常runtimeはdeep cloneしたsceneで動作する。
   ghost literalの既存scriptによる初期登録は検証前に行い、配置元は移動しない。
-- session: 同時に一つ。`sceneId`、`baseline`、`draft`を所有する。
+- session: 同時に一つ。`sceneId`、`baseline`、`draft`、`history`を所有する。
 - baseline: canonicalから同期deep clone。内容と参照をfreezeし、session中は更新しない。
 - draft: baselineと独立したdeep clone。props / triggers / areaZonesとfixedCollisionGridを所有。
   fixed collisionの編集可能なrectanglesは持たない。出力時のみ生成する。
@@ -48,18 +48,42 @@ fixed collisionが無変更なら元の矩形表現も保持する。
 将来、固定矩形に未知のannotationが追加された場合、grid変更後のexportは明示的な変換規則が
 できるまで拒否する。矩形分割・結合でannotationを黙って消さないため。
 
-## Undo境界と未実施
+## Undo（Phase 3）
 
-既存のgrid / townState / triggers / props / areaZonesという履歴形式は残す。
-復元先をdraftの配列/gridへ固定し、配列参照を維持して復元する。
-townStateのtrigger template/managed IDコピーは不要になったため除去。
-新session・discard・scene離脱で旧履歴を終了し、別sceneへ適用させない。
-履歴形式・gesture単位・redo等の統合はPhase 3。interaction予約やwrapperの整理はPhase 4。
+`session.history` のentryは `{generation, state}` 一形式。
+stateは操作直前のprops / triggers / areaZones / fixedCollisionGridをdeep cloneしてfreezeする。
+未知のnested metadataを保持し、baseline・player・UI選択・合成collision・矩形表現は含めない。
+mainの `recordTownEditorHistory()` が唯一の操作記録入口。複製・削除・役割変更等の
+複合操作も一回だけ呼び、propとtriggerを同じ時点へ戻す。
+ドラッグは開始前にcaptureし、moveでは記録せず、完了時に一回だけ記録する。
+close、選択切替、他操作、Undoによるgesture中断も完了処理を通す。
+
+復元はsession APIの `undo()` 一つ。draftの4 fieldをsnapshotのdeep cloneに置換し、
+mainが既存viewをdraftへ再bind、合成collision再計算、選択解除、UI/hint更新を行う。
+canonicalへの同期やbaselineの再取得はない。
+新sessionはhistory空。close/reopen/export/copyでは同じ履歴を保持する。
+discard/endで破棄し、generation検査で旧sessionやdiscard前のsnapshotを拒否する。
+履歴が残っていても意味比較でcleanになり得る。dirty判定は履歴を読まない。
+型別復元、global editHistory、spatialの履歴fallback chainは削除した。redoは追加しない。
+
+## Editor UI hook
+
+mainのensurePartEditorFields / updatePartEditorSelectionUiから既知moduleの
+`YUMANIWA_EDITOR_ACTION_UI.ensureFields()` / `updateSelection()` を直接呼ぶ。
+field構築はDOMの存在確認で一度だけ。main関数の捕捉・再代入や動的hook登録は使わない。
+
+## 残る境界
+
+interaction予約やmovement/action wrapper、ghostのactivateTownTrigger wrapperはPhase 4。
+今回それらの実装、destination、ghost配置、trigger.area schemaは変更していない。
+全draft snapshot方式のため履歴の使用メモリは操作数とgrid面積に比例する。
+履歴の上限やredo追加は今回行わない。
 
 ## 検証
 
 ```sh
 node tests/test-editor-session.cjs
+node tests/test-editor-history.cjs
 python3 tests/test_editor_session_desk.py
 python3 tests/test_scene_validation.py
 ```

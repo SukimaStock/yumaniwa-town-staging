@@ -39,6 +39,9 @@ canonical.station_plaza.props[0].collision.future={keep:true};
 canonical.station_plaza.triggers[1].future={nested:[{keep:true}]};
 canonical.station_plaza.areaZones[0].future={keep:[1,2]};
 canonical.station_plaza.areaZones[0].area.future={keep:true};
+// Leave room to exercise real area movement/addition without map-edge clamping.
+canonical.station_plaza.areaZones[0].area.w -= 1;
+canonical.station_plaza.areaZones[0].area.h -= 1;
 assert(c.validateTownSceneRegistry().ok);
 api.freeze(canonical);
 const original=JSON.stringify(canonical);
@@ -93,7 +96,7 @@ check('dirty scene transition rejected without losing session',()=>{
     assert.equal(api.current(),s);assert.equal(JSON.stringify(s),content);assert.equal(c.currentScene,'station_plaza');
 });
 check('discard resets draft and old undo; subsequent ghost conversation exports nothing',()=>{
-    c.discardTownEditorChanges();empty();assert.equal(c.editHistory.length,0);
+    c.discardTownEditorChanges();empty();assert.equal((api.current() ? api.current().history.length : 0),0);
     assert.equal(api.current().baseline,baseline);
     c.activateTownTrigger(c.triggers.find(t=>t.id==='station_ghost_npc_trigger'));empty();
 });
@@ -178,7 +181,7 @@ check('invalid grid is dirty and cannot export',()=>{
 });
 check('a clean scene transition ends old session and clears its history',()=>{
     assert.equal(c.changeTownScene('tomogushi_alley_map','default'),true);
-    assert.equal(api.current(),null);assert.equal(c.editHistory.length,0);
+    assert.equal(api.current(),null);assert.equal((api.current() ? api.current().history.length : 0),0);
     assert.equal(c.isEditMode,false);assert.equal(el('editor-panel').style.display,'none');
     c.openTownEditorSession();assert.equal(api.current().sceneId,'tomogushi_alley_map');
     assert.notEqual(api.current().baseline,baseline);empty();
@@ -212,3 +215,5 @@ if (process.argv.includes('--desk-export')) {
     s.draft.areaZones[0].title='Phase 2 zone';
     console.log(JSON.stringify({manifest:c.YUMANIWA_EDITOR_BUILD_DIFF(),after:api.snapshot()}));
 }
+
+module.exports = {c, api, clone, el, click, document, canonical, original};

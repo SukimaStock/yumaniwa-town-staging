@@ -250,7 +250,7 @@
         var workId = String((document.getElementById('part-action-work') || {}).value || '').trim();
         var placeId = String((document.getElementById('part-action-place') || {}).value || '').trim();
 
-        if (typeof pushTownPartHistory === 'function') pushTownPartHistory();
+        recordTownEditorHistory();
 
         if (!part.interaction) part.interaction = getDefaultTownPartInteraction(part);
         if (kind === 'none') {
@@ -314,20 +314,9 @@
         if (typeof updateEditorStatus === 'function') updateEditorStatus('パーツの役割を更新しました');
     }
 
-    if (typeof ensurePartEditorFields === 'function') {
-        var baseEnsurePartEditorFields = ensurePartEditorFields;
-        ensurePartEditorFields = function () {
-            baseEnsurePartEditorFields();
-            ensureTownPartActionFields();
-        };
-    }
-
-    if (typeof updatePartEditorSelectionUi === 'function') {
-        var baseUpdatePartEditorSelectionUi = updatePartEditorSelectionUi;
-        updatePartEditorSelectionUi = function () {
-            baseUpdatePartEditorSelectionUi();
-            updateTownPartActionUi();
-        };
-    }
+    window.YUMANIWA_EDITOR_ACTION_UI = {
+        ensureFields: ensureTownPartActionFields,
+        updateSelection: updateTownPartActionUi
+    };
 
 })();

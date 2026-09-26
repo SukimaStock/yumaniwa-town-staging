@@ -2,6 +2,8 @@
 (function (root) {
     'use strict';
     var session = null;
+    var generation = 0;
+    var historyFields = ['props', 'triggers', 'areaZones', 'fixedCollisionGrid'];
     function clone(value) { return JSON.parse(JSON.stringify(value)); }
     function freeze(value) {
         if (value && typeof value === 'object' && !Object.isFrozen(value)) {
@@ -50,7 +52,8 @@
         var check = root.validateTownSceneDefinition(sceneId, canonical, root.TOWN_SCENE_MAPS);
         if (!check.ok) throw new Error(check.errors.join('; '));
         freeze(canonical);
-        session = { sceneId: sceneId, baseline: freeze(clone(canonical)), draft: makeDraft(canonical) };
+        session = { sceneId: sceneId, baseline: freeze(clone(canonical)), draft: makeDraft(canonical), history: [] };
+        generation++;
         // The baseline reference, as well as its contents, is immutable.
         Object.defineProperty(session, 'baseline', { writable: false, configurable: false });
         return session;
@@ -89,13 +92,40 @@
     }
     function isDirty() { return !!session && !same(comparable(makeDraft(session.baseline)), comparable(session.draft)); }
     function discard() {
-        if (session) session.draft = makeDraft(session.baseline);
+        if (session) {
+            session.draft = makeDraft(session.baseline);
+            session.history.length = 0;
+            generation++; // Invalidate an unfinished gesture captured before discard.
+        }
         return session;
+    }
+    // History contains authored draft data only, never baseline or runtime views.
+    function captureHistory() {
+        if (!session) throw new Error('No Editor session');
+        var state = {};
+        historyFields.forEach(function (key) { state[key] = clone(session.draft[key]); });
+        return freeze({ generation: generation, state: state });
+    }
+    function recordHistory(before) {
+        if (!session) throw new Error('No Editor session');
+        var entry = before || captureHistory();
+        if (entry.generation !== generation) throw new Error('Stale Editor history snapshot');
+        session.history.push(entry);
+    }
+    function undo() {
+        if (!session || !session.history.length) return false;
+        var entry = session.history[session.history.length - 1];
+        if (entry.generation !== generation) throw new Error('Stale Editor history snapshot');
+        var restored = clone(entry.state);
+        historyFields.forEach(function (key) { session.draft[key] = restored[key]; });
+        session.history.pop();
+        return true;
     }
     root.YUMANIWA_EDITOR_SESSION = {
         current: function () { return session; }, open: open, discard: discard,
-        end: function () { if (isDirty()) throw new Error('Discard changes before ending Editor session'); session = null; },
+        end: function () { if (isDirty()) throw new Error('Discard changes before ending Editor session'); if (session) session.history.length = 0; session = null; },
         canLeave: function (sceneId) { return !session || session.sceneId === sceneId || !isDirty(); },
+        captureHistory: captureHistory, recordHistory: recordHistory, undo: undo,
         snapshot: snapshot, isDirty: isDirty, clone: clone, same: same, freeze: freeze, gridFromScene: gridFromScene
     };
 })(window);
