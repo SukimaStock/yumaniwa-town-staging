@@ -8828,22 +8828,28 @@ function draw() {
         ctx.fill();
     }
 
+    if (isTownScene(currentScene)) {
+        var propApi = window.YUMANIWA_STATION_PLAZA_PROPS;
+        var px = player.x;
+        var py = player.y;
+
+        if (propApi && typeof propApi.drawTownActorsAndProps === 'function') {
+            propApi.drawTownActorsAndProps();
+        } else {
+            drawPlayerSprite(px, py);
+        }
+    }
+
     if (debugMode || isEditMode) {
         drawTownDevOverlay(cam);
     }
 
-    if (isTownScene(currentScene)) {
-        var px = player.x;
-        var py = player.y;
-
-        drawPlayerSprite(px, py);
-
-        if (debugMode || isEditMode) {
-            var hitbox = getPlayerHitbox(px, py);
-            ctx.strokeStyle = '#00ff66';
-            ctx.lineWidth = 1;
-            ctx.strokeRect(hitbox.x, hitbox.y, hitbox.w, hitbox.h);
-        }
+    if (isTownScene(currentScene) && (debugMode || isEditMode)) {
+        var hitbox = getPlayerHitbox(player.x, player.y);
+        ctx.strokeStyle = '#00ff66';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(hitbox.x, hitbox.y, hitbox.w, hitbox.h);
     }
+
     ctx.restore();
 }

@@ -394,99 +394,7 @@
         }
     }
 
-    function installDrawOverride() {
-        var fallbackDraw = window.draw;
-
-        window.draw = function() {
-            if (
-                !window.ctx ||
-                !window.canvas ||
-                typeof window.getCamera !== 'function' ||
-                typeof window.drawTownSceneBackground !== 'function'
-            ) {
-                if (typeof fallbackDraw === 'function') {
-                    fallbackDraw();
-                }
-                return;
-            }
-
-            window.ctx.clearRect(
-                0,
-                0,
-                window.canvas.width,
-                window.canvas.height
-            );
-
-            var cam = window.getCamera();
-
-            window.ctx.save();
-            window.ctx.scale(cam.zoom, cam.zoom);
-            window.ctx.translate(-cam.cameraX, -cam.cameraY);
-
-            window.drawTownSceneBackground(cam);
-
-            if (
-                window.tapMarkerTimer > 0 &&
-                window.tapMarkerPos &&
-                !window.isEditMode &&
-                !window.debugMode
-            ) {
-                window.ctx.beginPath();
-                window.ctx.arc(
-                    window.tapMarkerPos.x * window.TILE_SIZE + window.TILE_SIZE / 2,
-                    window.tapMarkerPos.y * window.TILE_SIZE + window.TILE_SIZE / 2,
-                    4,
-                    0,
-                    Math.PI * 2
-                );
-                window.ctx.fillStyle =
-                    'rgba(255, 255, 255, ' +
-                    window.tapMarkerTimer / 60 +
-                    ')';
-                window.ctx.fill();
-            }
-
-            if (
-                typeof window.isTownScene === 'function' &&
-                window.isTownScene(window.currentScene)
-            ) {
-                drawTownActorsAndProps();
-            }
-
-            if (
-                (window.debugMode || window.isEditMode) &&
-                typeof window.drawTownDevOverlay === 'function'
-            ) {
-                window.drawTownDevOverlay(cam);
-            }
-
-            if (
-                typeof window.isTownScene === 'function' &&
-                window.isTownScene(window.currentScene) &&
-                (window.debugMode || window.isEditMode) &&
-                typeof window.getPlayerHitbox === 'function'
-            ) {
-                var hitbox = window.getPlayerHitbox(
-                    window.player.x,
-                    window.player.y
-                );
-
-                window.ctx.strokeStyle = '#00ff66';
-                window.ctx.lineWidth = 1;
-                window.ctx.strokeRect(
-                    hitbox.x,
-                    hitbox.y,
-                    hitbox.w,
-                    hitbox.h
-                );
-            }
-
-            window.ctx.restore();
-        };
-    }
-
     preloadStationProps();
-    installDrawOverride();
 
     window.YUMANIWA_STATION_PLAZA_PROPS = {
         version: PROP_REV,
@@ -494,6 +402,7 @@
         imageCache: propImageCache,
         resolvePropSrc: resolvePropSrc,
         preloadPropImage: getPropImage,
-        preloadSceneProps: preloadSceneProps
+        preloadSceneProps: preloadSceneProps,
+        drawTownActorsAndProps: drawTownActorsAndProps
     };
 })();

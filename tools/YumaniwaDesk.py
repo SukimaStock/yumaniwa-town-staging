@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.22
+Yumaniwa Desk v0.10.23
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,11 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.23:
+- station-plaza-props.js の window.draw 全体上書きを廃止し、main.js から明示renderer hookを呼ぶ構造へ移行
+- WORLD OBJECT移行前の孤児 data/town-common-facilities.js を削除
+- town renderer overrideの再退行を安全確認で検出
 
 v0.10.22:
 - baseCollisionGrid を正本由来の固定collision専用にし、edgeWarp carveをruntime collisionGridだけへ分離
@@ -2826,6 +2831,21 @@ def validate_project(root):
         )
     else:
         report["ok"].append("spatial editor: explicit hook module")
+
+    if "window.draw = function" in station_props_text or "installDrawOverride" in station_props_text:
+        report["errors"].append(
+            "station-plaza-props.js がmain draw loopを後付け上書きしています。"
+        )
+    elif "drawTownActorsAndProps: drawTownActorsAndProps" not in station_props_text:
+        report["errors"].append(
+            "station-plaza-props.js の明示renderer hookを確認できません。"
+        )
+    elif "propApi.drawTownActorsAndProps()" not in main_source_text:
+        report["errors"].append(
+            "main.js からtown prop renderer hookが呼ばれていません。"
+        )
+    else:
+        report["ok"].append("town prop renderer: explicit main.js hook")
 
     if "function getEditorCollisionData()" not in main_source_text:
         report["errors"].append(
