@@ -18,9 +18,9 @@ main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
 
 v0.10.12:
-- Town Editorの正本更新時に対応scriptのcache fingerprintを index.html へ同一transactionで自動反映
+- Town Editor正本とDesk管理の works / updates 更新時に対応scriptのcache fingerprintを index.html へ同一transactionで自動反映
 - cache keyを手書き日付ではなく正本内容から決まる auto-XXXXXXXX 形式へ統一
-- data/station-plaza.js / data/town-maps.js / town-ghost-npc.js と index.html の対応を安全確認で検証
+- station / town-maps / ghost / works / updates と index.html の対応を安全確認で検証
 - index.html更新もバックアップ・rollback対象へ含め、正本だけ更新された半端な状態を防止
 - HTMLはJS構文検証対象から除外し、JS正本だけ従来どおりbasic_js_balanceを実行
 
@@ -1259,10 +1259,12 @@ EDITOR_DIFF_ALLOWED_SOURCES = {
 }
 
 
-EDITOR_CACHE_BUST_SOURCES = {
+DESK_CACHE_BUST_SOURCES = {
     "data/station-plaza.js": "./data/station-plaza.js",
     "data/town-maps.js": "./data/town-maps.js",
     "town-ghost-npc.js": "./town-ghost-npc.js",
+    "data/works.js": "./data/works.js",
+    "data/updates.js": "./data/updates.js",
 }
 
 
@@ -1351,10 +1353,72 @@ def _script_cache_revision(index_text, script_src):
     return ""
 
 
+def cache_transaction_paths(rel_paths):
+    result = []
+    for rel in (rel_paths or []):
+        value = str(rel or "").strip()
+        if value and value not in result:
+            result.append(value)
+
+    if any(rel in DESK_CACHE_BUST_SOURCES for rel in result):
+        if "index.html" not in result:
+            result.append("index.html")
+
+    return result
+
+
+def refresh_cache_revisions(root, rel_paths):
+    targets = [
+        str(rel or "").strip()
+        for rel in (rel_paths or [])
+        if str(rel or "").strip() in DESK_CACHE_BUST_SOURCES
+    ]
+    if not targets:
+        return False
+
+    index_abs = os.path.join(root, "index.html")
+    if not os.path.isfile(index_abs):
+        raise FileNotFoundError("index.html がありません。")
+
+    current = safe_read(index_abs)
+    updated = current
+
+    for rel in targets:
+        source_abs = os.path.join(root, rel)
+        if not os.path.isfile(source_abs):
+            raise FileNotFoundError(rel + " がありません。")
+        revision = _cache_revision_for_text(safe_read(source_abs))
+        updated = _replace_script_cache_revision(
+            updated,
+            DESK_CACHE_BUST_SOURCES[rel],
+            revision,
+        )
+
+    if updated != current:
+        atomic_write(index_abs, updated)
+
+    # 書き込み直後にも正本とcache keyの一致を確認する。
+    verified_index = safe_read(index_abs)
+    for rel in targets:
+        expected = _cache_revision_for_text(
+            safe_read(os.path.join(root, rel))
+        )
+        actual = _script_cache_revision(
+            verified_index,
+            DESK_CACHE_BUST_SOURCES[rel],
+        )
+        if actual != expected:
+            raise ValueError(
+                rel + " のcache fingerprint更新を確認できません。"
+            )
+
+    return updated != current
+
+
 def _plan_editor_cache_bust(root, file_plans):
     changed_sources = [
         item for item in (file_plans or [])
-        if item.get("changed") and item.get("target_rel") in EDITOR_CACHE_BUST_SOURCES
+        if item.get("changed") and item.get("target_rel") in DESK_CACHE_BUST_SOURCES
     ]
     if not changed_sources:
         return None
@@ -1369,7 +1433,7 @@ def _plan_editor_cache_bust(root, file_plans):
 
     for item in changed_sources:
         source = item.get("target_rel")
-        script_src = EDITOR_CACHE_BUST_SOURCES[source]
+        script_src = DESK_CACHE_BUST_SOURCES[source]
         revision = _cache_revision_for_text(item.get("new_text", ""))
         updated = _replace_script_cache_revision(updated, script_src, revision)
 
@@ -2601,7 +2665,7 @@ def validate_project(root):
     else:
         report["ok"].append("staging: noindex,nofollow を確認")
 
-    for source_rel, script_src in EDITOR_CACHE_BUST_SOURCES.items():
+    for source_rel, script_src in DESK_CACHE_BUST_SOURCES.items():
         source_abs = os.path.join(root, source_rel)
         if not os.path.isfile(source_abs):
             report["errors"].append(source_rel + " がありません。")
@@ -4025,7 +4089,11 @@ class YumaniwaDesk(ui.View):
         tx = None
         created = False
         try:
-            tx = create_transaction(self.project_root, "add-work", [rel])
+            tx = create_transaction(
+                self.project_root,
+                "add-work",
+                cache_transaction_paths([rel])
+            )
             if make_folder:
                 self.create_work_from_template(work_id, title)
                 tx["created_paths"].append(created_rel)
@@ -4035,13 +4103,18 @@ class YumaniwaDesk(ui.View):
                 if not safe_entry or not os.path.isfile(os.path.join(self.project_root, safe_entry)):
                     raise ValueError("雛形作成後も entry の index.html を確認できません。")
             insert_after_marker(os.path.join(self.project_root, rel), marker, work_entry(work))
+            refresh_cache_revisions(self.project_root, [rel])
             finish_transaction(self.project_root, tx)
         except Exception as exc:
+            rollback_failures = restore_transaction_files(self.project_root, tx)
             if created:
                 target = os.path.join(self.project_root, created_rel)
                 if os.path.isdir(target):
                     shutil.rmtree(target, ignore_errors=True)
-            alert("登録できませんでした", str(exc))
+            message = str(exc)
+            if rollback_failures:
+                message += "\n\nrollback失敗:\n・" + "\n・".join(rollback_failures)
+            alert("登録できませんでした", message)
             return
 
         hud("新しい作品を置きました", "success")
@@ -4094,7 +4167,11 @@ class YumaniwaDesk(ui.View):
         tx = None
         try:
             rel, var_name, _marker = REQUIRED_DATA["works"]
-            tx = create_transaction(self.project_root, "edit-work", [rel])
+            tx = create_transaction(
+                self.project_root,
+                "edit-work",
+                cache_transaction_paths([rel])
+            )
             replace_object_by_id(
                 os.path.join(self.project_root, rel),
                 var_name,
@@ -4112,17 +4189,14 @@ class YumaniwaDesk(ui.View):
             if work.get("launch") == "itch_embed" and saved.get("embedUrl") != work.get("embedUrl"):
                 raise ValueError("保存後の embedUrl が一致しません。")
 
+            refresh_cache_revisions(self.project_root, [rel])
             finish_transaction(self.project_root, tx)
         except Exception as exc:
-            # 保存後検証で異常を見つけた場合は、その場で works.js を元へ戻す。
-            if tx:
-                backup_abs = backup_abs_from_transaction(self.project_root, tx)
-                for rel_path in tx.get("files", []):
-                    source = os.path.join(backup_abs, rel_path)
-                    target = os.path.join(self.project_root, rel_path)
-                    if os.path.isfile(source):
-                        shutil.copy2(source, target)
-            alert("更新できませんでした", str(exc))
+            rollback_failures = restore_transaction_files(self.project_root, tx)
+            message = str(exc)
+            if rollback_failures:
+                message += "\n\nrollback失敗:\n・" + "\n・".join(rollback_failures)
+            alert("更新できませんでした", message)
             return False
 
         hud("作品の台帳を更新しました", "success")
@@ -4194,13 +4268,28 @@ class YumaniwaDesk(ui.View):
         summary = "updates.js の既存履歴を置き換えます。\n\n{0}\n{1}".format(title, body)
         if not confirm("過去の更新履歴を更新", summary, "置き換える"):
             return False
+        tx = None
         try:
             rel, var_name, _marker = REQUIRED_DATA["updates"]
-            tx = create_transaction(self.project_root, "edit-update", [rel])
-            replace_object_by_index(os.path.join(self.project_root, rel), var_name, update.get("_record_index", -1), update_entry(update))
+            tx = create_transaction(
+                self.project_root,
+                "edit-update",
+                cache_transaction_paths([rel])
+            )
+            replace_object_by_index(
+                os.path.join(self.project_root, rel),
+                var_name,
+                update.get("_record_index", -1),
+                update_entry(update)
+            )
+            refresh_cache_revisions(self.project_root, [rel])
             finish_transaction(self.project_root, tx)
         except Exception as exc:
-            alert("更新できませんでした", str(exc))
+            rollback_failures = restore_transaction_files(self.project_root, tx)
+            message = str(exc)
+            if rollback_failures:
+                message += "\n\nrollback失敗:\n・" + "\n・".join(rollback_failures)
+            alert("更新できませんでした", message)
             return False
         hud("過去の更新履歴を更新しました", "success")
         return True
@@ -4266,13 +4355,27 @@ class YumaniwaDesk(ui.View):
         if not confirm("更新履歴を追加", summary):
             return
 
+        tx = None
         try:
             rel, _var, marker = REQUIRED_DATA["updates"]
-            tx = create_transaction(self.project_root, "add-update", [rel])
-            insert_after_marker(os.path.join(self.project_root, rel), marker, update_entry(update))
+            tx = create_transaction(
+                self.project_root,
+                "add-update",
+                cache_transaction_paths([rel])
+            )
+            insert_after_marker(
+                os.path.join(self.project_root, rel),
+                marker,
+                update_entry(update)
+            )
+            refresh_cache_revisions(self.project_root, [rel])
             finish_transaction(self.project_root, tx)
         except Exception as exc:
-            alert("追加できませんでした", str(exc))
+            rollback_failures = restore_transaction_files(self.project_root, tx)
+            message = str(exc)
+            if rollback_failures:
+                message += "\n\nrollback失敗:\n・" + "\n・".join(rollback_failures)
+            alert("追加できませんでした", message)
             return
 
         hud("町の記録を書きました", "success")
