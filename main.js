@@ -4751,7 +4751,7 @@ function ensureTownPartMetadata(part) {
         };
     }
 
-    updatePartFootY(part);
+    ensureTownPartFootY(part);
     return part;
 }
 
@@ -5035,7 +5035,7 @@ function getPartIndexAtWorldPoint(worldX, worldY) {
         ) {
             candidates.push({
                 index: i,
-                footY: (typeof part.footY === 'number' ? part.footY : Number(part.y || 0) + Number(part.h || 0)) * TILE_SIZE
+                footY: getTownPartFootY(part) * TILE_SIZE
             });
         }
     }
@@ -5050,18 +5050,49 @@ function getPartIndexAtWorldPoint(worldX, worldY) {
     return candidates[candidates.length - 1].index;
 }
 
-function clampPartToMap(part) {
+function getTownPartBottomY(part) {
+    if (!part) return 0;
+    return Number(part.y || 0) + Number(part.h || 0);
+}
+
+function getTownPartFootY(part) {
+    if (!part) return 0;
+
+    var value = Number(part.footY);
+    return isFinite(value) ? value : getTownPartBottomY(part);
+}
+
+function getTownPartFootOffset(part) {
+    if (!part) return 0;
+    return getTownPartFootY(part) - getTownPartBottomY(part);
+}
+
+function ensureTownPartFootY(part) {
+    if (!part) return;
+    var value = Number(part.footY);
+    if (!isFinite(value)) {
+        part.footY = getTownPartBottomY(part);
+    }
+}
+
+function syncTownPartFootY(part, footOffset) {
+    if (!part) return;
+    var offset = Number(footOffset);
+    part.footY = getTownPartBottomY(part) + (isFinite(offset) ? offset : 0);
+}
+
+function clampPartToMap(part, footOffset) {
     var maxX = Math.max(0, MAP_WIDTH - Number(part.w || 0));
     var maxY = Math.max(0, MAP_HEIGHT - Number(part.h || 0));
 
     part.x = Math.max(0, Math.min(maxX, Number(part.x || 0)));
     part.y = Math.max(0, Math.min(maxY, Number(part.y || 0)));
-    updatePartFootY(part);
-}
 
-function updatePartFootY(part) {
-    if (!part) return;
-    part.footY = Number(part.y || 0) + Number(part.h || 0);
+    if (arguments.length >= 2) {
+        syncTownPartFootY(part, footOffset);
+    } else {
+        ensureTownPartFootY(part);
+    }
 }
 
 function makeUniquePartId(base) {
@@ -5115,7 +5146,6 @@ function createTownPartFromCatalog(key, worldX, worldY) {
         y: (worldY / TILE_SIZE) - catalog.h,
         w: catalog.w,
         h: catalog.h,
-        footY: 0,
         enabled: true,
         catalogKey: catalog.key,
         collision: cloneRelativePartRect(catalog.collision),
@@ -5228,6 +5258,7 @@ function ensurePartEditorFields() {
         '<div class="part-editor-row">' +
         '<label>幅 <input id="part-w-input" class="part-editor-number" type="number" min="1" step="1"></label>' +
         '<label>高さ <input id="part-h-input" class="part-editor-number" type="number" min="1" step="1"></label>' +
+        '<label>足元Y <input id="part-foot-y-input" class="part-editor-number" type="number" step="1"></label>' +
         '</div>' +
         '<div class="part-editor-row">' +
         '<label><input id="part-ratio-lock" type="checkbox" checked> 縦横比固定</label>' +
@@ -5317,6 +5348,8 @@ function ensurePartEditorFields() {
         applyPartNumberInputs('h');
     });
 
+    document.getElementById('part-foot-y-input').addEventListener('change', applyPartFootYInput);
+
     var collisionInputIds = [
         'part-collision-enabled',
         'part-collision-x',
@@ -5372,6 +5405,7 @@ function updatePartEditorSelectionUi() {
     var yInput = document.getElementById('part-y-input');
     var wInput = document.getElementById('part-w-input');
     var hInput = document.getElementById('part-h-input');
+    var footYInput = document.getElementById('part-foot-y-input');
     var collisionEnabled = document.getElementById('part-collision-enabled');
     var collisionX = document.getElementById('part-collision-x');
     var collisionY = document.getElementById('part-collision-y');
@@ -5389,7 +5423,7 @@ function updatePartEditorSelectionUi() {
     var disabled = !part;
     var ghostLocked = isDedicatedGhostTownPart(part);
     var inputs = [
-        xInput, yInput, wInput, hInput,
+        xInput, yInput, wInput, hInput, footYInput,
         collisionEnabled, collisionX, collisionY, collisionW, collisionH
     ];
 
@@ -5420,6 +5454,7 @@ function updatePartEditorSelectionUi() {
         if (yInput) yInput.value = '';
         if (wInput) wInput.value = '';
         if (hInput) hInput.value = '';
+        if (footYInput) footYInput.value = '';
         if (collisionEnabled) collisionEnabled.checked = false;
         if (collisionX) collisionX.value = '';
         if (collisionY) collisionY.value = '';
@@ -5437,6 +5472,7 @@ function updatePartEditorSelectionUi() {
     if (yInput) yInput.value = Math.round(rect.y);
     if (wInput) wInput.value = Math.round(rect.w);
     if (hInput) hInput.value = Math.round(rect.h);
+    if (footYInput) footYInput.value = Math.round(getTownPartFootY(part) * TILE_SIZE);
 
     if (collisionEnabled) collisionEnabled.checked = collision.enabled !== false;
     if (collisionX) collisionX.value = Math.round(Number(collision.x || 0) * rect.w);
@@ -5522,6 +5558,26 @@ function pushTownTriggerHistory() {
     });
 }
 
+function applyPartFootYInput() {
+    var part = getSelectedTownPart();
+    if (!part) return;
+
+    var input = document.getElementById('part-foot-y-input');
+    var footYPx = Number(input && input.value);
+
+    if (!isFinite(footYPx)) {
+        updatePartEditorSelectionUi();
+        return;
+    }
+
+    pushTownPartHistory();
+    part.footY = footYPx / TILE_SIZE;
+
+    refreshTownPartDerivedData();
+    updatePartEditorSelectionUi();
+    updateEditorStatus("足元位置を更新しました");
+}
+
 function applyPartNumberInputs(changedKey) {
     var part = getSelectedTownPart();
     if (!part) return;
@@ -5543,6 +5599,7 @@ function applyPartNumberInputs(changedKey) {
 
     pushTownPartHistory();
 
+    var footOffset = getTownPartFootOffset(part);
     var oldWPx = Math.max(1, part.w * TILE_SIZE);
     var oldHPx = Math.max(1, part.h * TILE_SIZE);
     var ratio = oldWPx / oldHPx;
@@ -5561,7 +5618,7 @@ function applyPartNumberInputs(changedKey) {
         part.h = Math.max(1, hPx) / TILE_SIZE;
     }
 
-    clampPartToMap(part);
+    clampPartToMap(part, footOffset);
     refreshTownPartDerivedData();
     updatePartEditorSelectionUi();
     updateEditorStatus("パーツの数値を更新しました");
@@ -5575,9 +5632,10 @@ function nudgeSelectedPart(dxPx, dyPx) {
     }
 
     pushTownPartHistory();
+    var footOffset = getTownPartFootOffset(part);
     part.x += dxPx / TILE_SIZE;
     part.y += dyPx / TILE_SIZE;
-    clampPartToMap(part);
+    clampPartToMap(part, footOffset);
     refreshTownPartDerivedData();
     updatePartEditorSelectionUi();
     updateEditorStatus("1px移動しました");
@@ -5599,16 +5657,18 @@ function resizeSelectedPart(deltaPx) {
 
     pushTownPartHistory();
 
-    // 足元中央をなるべく維持して拡大縮小する。
+    var footOffset = getTownPartFootOffset(part);
+
+    // 画像下端を維持しつつ、カスタム足元位置の下端オフセットも保つ。
     var centerXPx = (part.x + part.w / 2) * TILE_SIZE;
-    var footYPx = (part.y + part.h) * TILE_SIZE;
+    var bottomYPx = getTownPartBottomY(part) * TILE_SIZE;
 
     part.w = newWPx / TILE_SIZE;
     part.h = newHPx / TILE_SIZE;
     part.x = centerXPx / TILE_SIZE - part.w / 2;
-    part.y = footYPx / TILE_SIZE - part.h;
+    part.y = bottomYPx / TILE_SIZE - part.h;
 
-    clampPartToMap(part);
+    clampPartToMap(part, footOffset);
     refreshTownPartDerivedData();
     updatePartEditorSelectionUi();
     updateEditorStatus(deltaPx > 0 ? "パーツを拡大しました" : "パーツを縮小しました");
@@ -5629,6 +5689,7 @@ function duplicateSelectedPart() {
     pushTownPartHistory();
 
     var copy = cloneTownPart(part);
+    var copyFootOffset = getTownPartFootOffset(copy);
     copy.id = makeUniquePartId((part.id || 'part') + '_copy');
     copy.x += 8 / TILE_SIZE;
     copy.y += 8 / TILE_SIZE;
@@ -5637,7 +5698,7 @@ function duplicateSelectedPart() {
         copy.interaction.triggerId = makeUniqueTownPartTriggerId(copy.id + '_trigger');
     }
 
-    clampPartToMap(copy);
+    clampPartToMap(copy, copyFootOffset);
 
     var parts = getActiveTownParts();
     parts.push(copy);
@@ -5710,6 +5771,7 @@ function handlePartEditorPointerDown(e) {
         pointerId: e.pointerId,
         offsetX: world.x - rect.x,
         offsetY: world.y - rect.y,
+        footOffset: getTownPartFootOffset(part),
         prev: cloneTownParts(),
         moved: false
     };
@@ -5749,7 +5811,7 @@ function handlePartEditorPointerMove(e) {
 
     part.x = nextX;
     part.y = nextY;
-    clampPartToMap(part);
+    clampPartToMap(part, partDragState.footOffset);
     refreshTownPartDerivedData();
     updatePartEditorSelectionUi();
 }
@@ -5877,7 +5939,7 @@ function drawTownPartEditorOverlay() {
         );
 
         if (selected) {
-            var footY = (typeof part.footY === 'number' ? part.footY : part.y + part.h) * TILE_SIZE;
+            var footY = getTownPartFootY(part) * TILE_SIZE;
             var footX = (part.x + part.w / 2) * TILE_SIZE;
 
             ctx.fillStyle = '#00ffff';
