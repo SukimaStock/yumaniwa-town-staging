@@ -7,11 +7,6 @@ var BG_IMAGE_PATH = "assets/maps/grounds/station-plaza-ground.jpg";
 var TILE_SIZE = 16;
 var MAP_WIDTH = 24;
 var MAP_HEIGHT = 24;
-var PLAYER_START = {
-    "x": 16,
-    "y": 6
-};
-
 var passableRects = [
     { "x": 9, "y": 0, "w": 6, "h": 1 },
     { "x": 10, "y": 1, "w": 4, "h": 9 },

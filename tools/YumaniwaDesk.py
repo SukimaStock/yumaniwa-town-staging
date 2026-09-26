@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.13
+Yumaniwa Desk v0.10.14
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,11 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.14:
+- PLAYER_START の二重管理を廃止し、初期player位置も station scene の spawnPoints.default を正本化
+- main.js の旧「完全版書き出し」実装を削除し、Web Editor書き出しを diff-v1 専用へ統一
+- PLAYER_START / 旧full-file exporter の再導入を安全確認で検出
 
 v0.10.13:
 - station_plaza scene定義の正本を data/station-plaza.js に一本化
@@ -2667,6 +2672,24 @@ def validate_project(root):
 
     station_source_text = safe_read(os.path.join(root, "data/station-plaza.js"))
     town_maps_text = safe_read(os.path.join(root, "data/town-maps.js"))
+    main_source_text = safe_read(os.path.join(root, "main.js"))
+
+    if "PLAYER_START" in station_source_text or "PLAYER_START" in main_source_text:
+        report["errors"].append(
+            "旧 PLAYER_START が再導入されています。spawnPoints.default を正本にしてください。"
+        )
+    else:
+        report["ok"].append("player start owner: scene spawnPoints.default")
+
+    if (
+        "function buildStationPlazaExportCode(" in main_source_text
+        or "function buildFullStationPlazaExportCode()" in main_source_text
+    ):
+        report["errors"].append(
+            "main.js に旧完全版Town Editor export実装が残っています。"
+        )
+    else:
+        report["ok"].append("Town Editor export: diff-v1 only")
 
     if "window.YUMANIWA_BUILD_STATION_PLAZA_SCENE" not in station_source_text:
         report["errors"].append(

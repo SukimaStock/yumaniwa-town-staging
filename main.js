@@ -67,19 +67,33 @@ var PLAYER_SPRITE_DRAW = { height: 32 };
 var PLAYER_WALK_STEP_PX = 24;
 
 
+var currentScene = 'station_plaza';
+
+function getInitialTownSpawn(sceneId) {
+    var maps = window.TOWN_SCENE_MAPS;
+    var def = maps && maps[sceneId];
+    var spawns = def && def.spawnPoints;
+    var spawn = spawns && spawns.default;
+
+    // Scene data is the canonical owner. Zero is only a fail-closed bootstrap
+    // coordinate until applyTownSceneDefinition() runs.
+    return spawn || { x: 0, y: 0, dir: 'down' };
+}
+
+var initialTownSpawn = getInitialTownSpawn(currentScene);
+
 var player = {
-    x: PLAYER_START.x * TILE_SIZE,
-    y: PLAYER_START.y * TILE_SIZE,
+    x: Number(initialTownSpawn.x || 0) * TILE_SIZE,
+    y: Number(initialTownSpawn.y || 0) * TILE_SIZE,
     w: 16,
     h: 16,
     speed: 2,
-    dir: 'down',
+    dir: initialTownSpawn.dir || 'down',
     isMoving: false,
     walkDistance: 0,
     walkFrame: 0,
     walkWasMoving: false
 };
-var currentScene = 'station_plaza';
 var isMessageOpen = false;
 var pendingWarp = null;
 
@@ -4345,7 +4359,13 @@ function setupEditorEvents() {
         editStep = 0; currentHoverTile = null;
     });
 
-    document.getElementById('btn-editor-export').addEventListener('click', showExportModal);
+    document.getElementById('btn-editor-export').addEventListener('click', function() {
+        if (typeof window.showExportModal === 'function') {
+            window.showExportModal();
+            return;
+        }
+        updateEditorStatus("変更差分の書き出しモジュールを読み込めません");
+    });
     document.getElementById('btn-close-export').addEventListener('click', function() { document.getElementById('export-modal').style.display = 'none'; });
     var btnCopy = document.getElementById('btn-copy-export');
     btnCopy.addEventListener('click', function() {
@@ -4356,14 +4376,14 @@ function setupEditorEvents() {
             markEditorExportCopied();
             btnCopy.innerText = "コピー完了!";
             setTimeout(function() {
-                btnCopy.innerText = "完全版コードをコピー";
+                btnCopy.innerText = "変更差分をコピー";
             }, 2000);
         }
 
         function failed() {
             btnCopy.innerText = "コピー失敗";
             setTimeout(function() {
-                btnCopy.innerText = "完全版コードをコピー";
+                btnCopy.innerText = "変更差分をコピー";
             }, 2000);
         }
 
@@ -6421,319 +6441,9 @@ function gridToRects(targetValue, sourceGrid) {
     return rects;
 }
 
-function getTownSceneExportInfo(sceneId) {
-    var table = {
-        station_plaza: {
-            title: "駅前広場",
-            fileName: "data/station-plaza.js",
-            mode: "station-data"
-        },
-
-        tomogushi_alley_map: {
-            title: "灯串横丁",
-            fileName: "data/town-maps.js",
-            mode: "scene-definition"
-        },
-
-        leisure_center_map: {
-            title: "湯窓レジャーセンター",
-            fileName: "data/town-maps.js",
-            mode: "scene-definition"
-        },
-
-        recreation_road_map: {
-            title: "湯間庭レクリエーションロード",
-            fileName: "data/town-maps.js",
-            mode: "scene-definition"
-        },
-
-        yumado_street_map: {
-            title: "湯窓通り",
-            fileName: "data/town-maps.js",
-            mode: "scene-definition"
-        },
-
-        onsen_slope_map: {
-            title: "温泉坂",
-            fileName: "data/town-maps.js",
-            mode: "scene-definition"
-        }
-    };
-
-    return table[sceneId] || {
-        title: (
-            activeTownSceneDef &&
-            activeTownSceneDef.title
-        ) || sceneId || "町マップ",
-
-        fileName: "data/town-maps.js",
-        mode: "scene-definition"
-    };
-}
-
-
-function buildExportCollisionData() {
-    // 固定地形だけを書き出す。
-    // パーツ由来の判定は prop.collision に保持する。
-    var exportGrid = baseCollisionGrid.length
-        ? baseCollisionGrid
-        : collisionGrid;
-
-    var passable = gridToRects(1, exportGrid);
-    var blockedAll = gridToRects(2, exportGrid);
-
-    var blockedRectsResult = [];
-    var blockedPointsResult = [];
-
-    for (var i = 0; i < blockedAll.length; i++) {
-        var rect = blockedAll[i];
-
-        if (rect.w === 1 && rect.h === 1) {
-            blockedPointsResult.push({
-                x: rect.x,
-                y: rect.y
-            });
-        } else {
-            blockedRectsResult.push(rect);
-        }
-    }
-
-    return {
-        passableRects: passable,
-        blockedRects: blockedRectsResult,
-        blockedPoints: blockedPointsResult
-    };
-}
-
-
-function buildStationPlazaExportCode(info, collisionData, exportedParts) {
-    var lines = [
-        "// ==========================================",
-        "// 湯間庭町 / " + info.title + " 編集データ",
-        "// 開発モードの「書き出す」で生成した完全版です。",
-        "// この内容で " + info.fileName + " を丸ごと置き換えてください。",
-        "// ==========================================",
-        "",
-
-        "var BG_IMAGE_PATH = " + JSON.stringify(
-            (
-                activeTownSceneDef &&
-                activeTownSceneDef.backgroundImagePath
-            ) ||
-            "assets/maps/grounds/station-plaza-ground.jpg"
-        ) + ";",
-
-        "var TILE_SIZE = " +
-            JSON.stringify(Number(TILE_SIZE) || 16) +
-            ";",
-
-        "var MAP_WIDTH = " +
-            JSON.stringify(Number(MAP_WIDTH) || 24) +
-            ";",
-
-        "var MAP_HEIGHT = " +
-            JSON.stringify(Number(MAP_HEIGHT) || 24) +
-            ";",
-
-        "var PLAYER_START = " + JSON.stringify({
-            x: Math.round(
-                (player && player.x ? player.x : 0) /
-                (Number(TILE_SIZE) || 16)
-            ),
-
-            y: Math.round(
-                (player && player.y ? player.y : 0) /
-                (Number(TILE_SIZE) || 16)
-            )
-        }, null, 4) + ";",
-
-        "",
-
-        "var passableRects = " +
-            JSON.stringify(
-                collisionData.passableRects,
-                null,
-                4
-            ) +
-            ";",
-
-        "",
-
-        "var blockedRects = " +
-            JSON.stringify(
-                collisionData.blockedRects,
-                null,
-                4
-            ) +
-            ";",
-
-        "",
-
-        "var blockedPoints = " +
-            JSON.stringify(
-                collisionData.blockedPoints,
-                null,
-                4
-            ) +
-            ";",
-
-        "",
-
-        "var triggers = " +
-            JSON.stringify(triggers, null, 4) +
-            ";",
-
-        "",
-
-        "var areaZones = " +
-            JSON.stringify(areaZones, null, 4) +
-            ";",
-
-        "",
-
-        "// マップパーツ。collision と interaction は画像内の相対比率（0〜1）です。",
-
-        "var stationPlazaProps = " +
-            JSON.stringify(exportedParts, null, 4) +
-            ";",
-
-        ""
-    ];
-
-    return lines.join("\n");
-}
-
-
-function buildTownSceneDefinitionExportCode(
-    info,
-    collisionData,
-    exportedParts
-) {
-    var def = activeTownSceneDef || {};
-    var sceneId = currentScene;
-
-    var exportedDefinition = {
-        id: sceneId,
-        title: def.title || info.title,
-        subtitle: def.subtitle || "",
-
-        mapWidth: Number(MAP_WIDTH) || def.mapWidth || 24,
-        mapHeight: Number(MAP_HEIGHT) || def.mapHeight || 24,
-
-        backgroundStyle: def.backgroundStyle || "",
-        backgroundImagePath: def.backgroundImagePath || "",
-
-        spawnPoints: JSON.parse(JSON.stringify(
-            def.spawnPoints || {
-                default: {
-                    x: Math.round(player.x / TILE_SIZE),
-                    y: Math.round(player.y / TILE_SIZE),
-                    dir: player.dir || "down"
-                }
-            }
-        )),
-
-        edgeWarps: JSON.parse(JSON.stringify(
-            def.edgeWarps || []
-        )),
-
-        passableRects: collisionData.passableRects,
-        blockedRects: collisionData.blockedRects,
-        blockedPoints: collisionData.blockedPoints,
-
-        areaZones: JSON.parse(JSON.stringify(
-            areaZones || []
-        )),
-
-        triggers: JSON.parse(JSON.stringify(
-            triggers || []
-        )),
-
-        groundRects: JSON.parse(JSON.stringify(
-            def.groundRects || []
-        )),
-
-        props: exportedParts,
-
-        decor: JSON.parse(JSON.stringify(
-            def.decor || []
-        ))
-    };
-
-    var json = JSON.stringify(
-        exportedDefinition,
-        null,
-        4
-    );
-
-    // JSONをJavaScriptのオブジェクト定義として貼りやすくする。
-    var lines = [
-        "// ==========================================",
-        "// 湯間庭町 / " + info.title + " 編集データ",
-        "// 開発モードの「書き出す」で生成しました。",
-        "// " + info.fileName + " 内の",
-        "// " + sceneId + ": { ... } を以下で置き換えてください。",
-        "// ==========================================",
-        "",
-        sceneId + ": " + json + ",",
-        ""
-    ];
-
-    return lines.join("\n");
-}
-
-
-function buildFullStationPlazaExportCode() {
-    var info = getTownSceneExportInfo(currentScene);
-    var collisionData = buildExportCollisionData();
-    var exportedParts = cloneTownParts();
-
-    if (info.mode === "station-data") {
-        return buildStationPlazaExportCode(
-            info,
-            collisionData,
-            exportedParts
-        );
-    }
-
-    return buildTownSceneDefinitionExportCode(
-        info,
-        collisionData,
-        exportedParts
-    );
-}
-
-
-function showExportModal() {
-    var textarea = document.getElementById("export-textarea");
-    if (!textarea) return;
-
-    var info = getTownSceneExportInfo(currentScene);
-
-    textarea.value = buildFullStationPlazaExportCode();
-
-    var modal = document.getElementById("export-modal");
-    if (modal) {
-        modal.style.display = "flex";
-    }
-
-    var copyButton = document.getElementById("btn-copy-export");
-
-    if (copyButton) {
-        copyButton.innerText =
-            info.title + "のコードをコピー";
-    }
-
-    updateEditorStatus(
-        editorHasUnsavedChanges
-            ? info.title +
-              "を書き出しています。コピーすると「コピー済み」になります"
-            : info.title +
-              "の現在の内容はコピー済みです"
-    );
-}
-
-
+// Full-file Town Editor export was retired.
+ // town-editor-safe-export.js / town-editor-comment-export.js own diff-v1 export.
+ 
 // ==========================================
 // 6. メインループと更新・判定
 // ==========================================
