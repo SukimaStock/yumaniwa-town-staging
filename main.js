@@ -1060,9 +1060,8 @@ function applyTownSceneDefinition(sceneId, spawnKey) {
     triggers = cloneTownData(def.triggers);
     areaZones = cloneTownData(def.areaZones);
 
-    // 旧 station-plaza-props.js が足した固定座標の判定は除外し、
-    // ここからはパーツ自身の collision 定義で追従させる。
-    removeLegacyTownPartCollisionEntries();
+    // Scene-level collision is canonical in the scene definition.
+    // Town-part collision is layered separately when the collision grid is rebuilt.
     captureTownPartTriggerTemplates(def);
     ensureAllTownPartMetadata();
     syncTownPartTriggers();
@@ -4843,42 +4842,6 @@ function applyTownPartCollisionToGrid(targetGrid) {
             }
         }
     }
-}
-
-function rectMatchesTownPartLegacy(rect, target) {
-    return !!rect && rect.x === target.x && rect.y === target.y && rect.w === target.w && rect.h === target.h;
-}
-
-function pointMatchesTownPartLegacy(point, target) {
-    return !!point && point.x === target.x && point.y === target.y;
-}
-
-function removeLegacyTownPartCollisionEntries() {
-    if (currentScene !== 'station_plaza') return;
-
-    var legacyRects = [
-        { x: 7, y: 8, w: 2, h: 1 },
-        { x: 15, y: 13, w: 2, h: 1 },
-        { x: 11, y: 9, w: 2, h: 1 }
-    ];
-    var legacyPoints = [
-        { x: 6, y: 10 },
-        { x: 18, y: 10 }
-    ];
-
-    blockedRects = blockedRects.filter(function(rect) {
-        for (var i = 0; i < legacyRects.length; i++) {
-            if (rectMatchesTownPartLegacy(rect, legacyRects[i])) return false;
-        }
-        return true;
-    });
-
-    blockedPoints = blockedPoints.filter(function(point) {
-        for (var i = 0; i < legacyPoints.length; i++) {
-            if (pointMatchesTownPartLegacy(point, legacyPoints[i])) return false;
-        }
-        return true;
-    });
 }
 
 function captureTownPartTriggerTemplates(def) {
