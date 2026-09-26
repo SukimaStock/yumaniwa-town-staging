@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.11
+Yumaniwa Desk v0.10.12
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,13 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.12:
+- Town Editorの正本更新時に対応scriptのcache fingerprintを index.html へ同一transactionで自動反映
+- cache keyを手書き日付ではなく正本内容から決まる auto-XXXXXXXX 形式へ統一
+- data/station-plaza.js / data/town-maps.js / town-ghost-npc.js と index.html の対応を安全確認で検証
+- index.html更新もバックアップ・rollback対象へ含め、正本だけ更新された半端な状態を防止
+- HTMLはJS構文検証対象から除外し、JS正本だけ従来どおりbasic_js_balanceを実行
 
 v0.10.11:
 - staging判定をフォルダ名だけでなく data/repository-identity.json の固定identityで検証
@@ -1252,6 +1259,97 @@ EDITOR_DIFF_ALLOWED_SOURCES = {
 }
 
 
+EDITOR_CACHE_BUST_SOURCES = {
+    "data/station-plaza.js": "./data/station-plaza.js",
+    "data/town-maps.js": "./data/town-maps.js",
+    "town-ghost-npc.js": "./town-ghost-npc.js",
+}
+
+
+def _cache_fingerprint(text):
+    """
+    JavaScript String.charCodeAt と同じUTF-16 code unit列に対するFNV-1a。
+    暗号用途ではなく、正本内容とscript cache keyを1対1で結ぶための短いfingerprint。
+    """
+    raw = str(text or "").encode("utf-16le", "surrogatepass")
+    value = 0x811C9DC5
+    for i in range(0, len(raw), 2):
+        code_unit = raw[i] | (raw[i + 1] << 8)
+        value ^= code_unit
+        value = (value * 0x01000193) & 0xFFFFFFFF
+    return "{0:08x}".format(value)
+
+
+def _cache_revision_for_text(text):
+    return "auto-" + _cache_fingerprint(text)
+
+
+def _replace_script_cache_revision(index_text, script_src, revision):
+    pattern = re.compile(
+        r'(<script\\s+src=["\\\']'
+        + re.escape(script_src)
+        + r')(?:\\?[^"\\\']*)?(["\\\']\\s*></script>)'
+    )
+    matches = list(pattern.finditer(index_text or ""))
+    if len(matches) != 1:
+        raise ValueError(
+            "index.html のscript参照が1件ではありません: "
+            + script_src
+        )
+    return pattern.sub(
+        lambda match: match.group(1) + "?rev=" + revision + match.group(2),
+        index_text,
+        count=1,
+    )
+
+
+def _script_cache_revision(index_text, script_src):
+    pattern = re.compile(
+        r'<script\\s+src=["\\\']'
+        + re.escape(script_src)
+        + r'\\?([^"\\\']*)["\\\']\\s*></script>'
+    )
+    matches = list(pattern.finditer(index_text or ""))
+    if len(matches) != 1:
+        return None
+    query = matches[0].group(1)
+    for item in query.split("&"):
+        if item.startswith("rev="):
+            return item.split("=", 1)[1]
+    return ""
+
+
+def _plan_editor_cache_bust(root, file_plans):
+    changed_sources = [
+        item for item in (file_plans or [])
+        if item.get("changed") and item.get("target_rel") in EDITOR_CACHE_BUST_SOURCES
+    ]
+    if not changed_sources:
+        return None
+
+    index_rel = "index.html"
+    index_abs = os.path.join(root, index_rel)
+    if not os.path.isfile(index_abs):
+        raise FileNotFoundError("index.html がありません。")
+
+    current = safe_read(index_abs)
+    updated = current
+
+    for item in changed_sources:
+        source = item.get("target_rel")
+        script_src = EDITOR_CACHE_BUST_SOURCES[source]
+        revision = _cache_revision_for_text(item.get("new_text", ""))
+        updated = _replace_script_cache_revision(updated, script_src, revision)
+
+    return {
+        "target_rel": index_rel,
+        "current_hash": _sha256_text(current),
+        "new_hash": _sha256_text(updated),
+        "new_text": updated,
+        "changed": current != updated,
+    }
+
+
 def _extract_editor_diff_manifest(text):
     """コメント付きの開発モード出力から diff-v1 のJSON本体だけを安全に読む。"""
     source = text or ""
@@ -2211,6 +2309,12 @@ def _plan_editor_diff_import(root, manifest):
             "changed": current != new_text,
         })
 
+    cache_plan = _plan_editor_cache_bust(root, file_plans)
+    if cache_plan is not None:
+        file_plans.append(cache_plan)
+        if cache_plan.get("changed"):
+            detail_lines.append("・index.html: script cache fingerprint")
+
     changed_files = [p for p in file_plans if p.get("changed")]
     change_count = len(props) + len(triggers) + (1 if collision else 0) + (1 if area_zones else 0)
     if change_count == 0:
@@ -2464,6 +2568,32 @@ def validate_project(root):
         report["errors"].append("staging の index.html に noindex,nofollow がありません。")
     else:
         report["ok"].append("staging: noindex,nofollow を確認")
+
+    for source_rel, script_src in EDITOR_CACHE_BUST_SOURCES.items():
+        source_abs = os.path.join(root, source_rel)
+        if not os.path.isfile(source_abs):
+            report["errors"].append(source_rel + " がありません。")
+            continue
+
+        expected_revision = _cache_revision_for_text(safe_read(source_abs))
+        actual_revision = _script_cache_revision(index_text, script_src)
+
+        if actual_revision is None:
+            report["errors"].append(
+                "index.html のscript参照を特定できません: " + script_src
+            )
+        elif actual_revision != expected_revision:
+            report["errors"].append(
+                "{0} のcache fingerprintが正本と一致しません: actual={1} / expected={2}".format(
+                    source_rel,
+                    actual_revision or "(なし)",
+                    expected_revision,
+                )
+            )
+        else:
+            report["ok"].append(
+                source_rel + ": cache fingerprint 一致"
+            )
 
     for key, (rel, var_name, marker) in REQUIRED_DATA.items():
         path = os.path.join(root, rel)
@@ -4232,11 +4362,12 @@ class YumaniwaDesk(ui.View):
                 target_rel = item.get("target_rel", "")
                 target_abs = os.path.join(self.project_root, target_rel)
                 written = safe_read(target_abs)
-                ok, syntax_message = basic_js_balance(written)
-                if not ok:
-                    raise ValueError(
-                        target_rel + " の構文確認に失敗: " + syntax_message
-                    )
+                if target_rel.lower().endswith(".js"):
+                    ok, syntax_message = basic_js_balance(written)
+                    if not ok:
+                        raise ValueError(
+                            target_rel + " の構文確認に失敗: " + syntax_message
+                        )
                 if _sha256_text(written) != item.get("new_hash"):
                     raise ValueError(
                         target_rel + " に書き込んだ内容が予定内容と一致しません"
