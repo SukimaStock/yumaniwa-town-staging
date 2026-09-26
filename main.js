@@ -4380,47 +4380,53 @@ var TOWN_PART_CATALOG = [
     {
         key: 'noticeBoard',
         label: '横長掲示板',
-        file: 'station-notice-board.png',
-        w: 5.5,
-        h: 3.6,
-        collision: { enabled: true, x: 0.06, y: 0.76, w: 0.88, h: 0.22 }
+        objectId: 'notice_board_01',
+        file: '',
+        w: 5.25,
+        h: 5.25,
+        collision: { enabled: true, x: 0.041666666666666664, y: 0.8363636363636365, w: 0.9166666666666666, h: 0.15 }
     },
     {
         key: 'touristMap',
         label: '観光案内図',
-        file: 'station-tourist-map.png',
-        w: 3.4,
-        h: 3.6,
-        collision: { enabled: true, x: 0.22, y: 0.90, w: 0.56, h: 0.12 }
+        objectId: 'tourist_map_01',
+        file: '',
+        w: 4,
+        h: 4,
+        collision: { enabled: true, x: 0.2520833333333332, y: 0.90625, w: 0.4958333333333333, h: 0.1125 }
     },
     {
         key: 'bench',
         label: '木製ベンチ',
-        file: 'station-bench.png',
-        w: 3.0,
-        h: 2.0,
-        collision: { enabled: true, x: 0.14, y: 0.72, w: 0.72, h: 0.30 }
+        objectId: 'bench_wood_01',
+        file: '',
+        w: 3,
+        h: 3,
+        collision: { enabled: true, x: 0.14, y: 0.8133333333333334, w: 0.72, h: 0.2 }
     },
     {
         key: 'streetLamp',
         label: 'レトロな街灯',
-        file: 'station-street-lamp.png',
-        w: 1.02,
-        h: 3.4,
-        collision: { enabled: true, x: 0.28, y: 0.92, w: 0.44, h: 0.22 }
+        objectId: 'street_lamp_01',
+        file: '',
+        w: 2,
+        h: 3.5,
+        collision: { enabled: true, x: 0.405125, y: 0.9342857142857142, w: 0.18975, h: 0.1807142857142857 }
     },
     {
         key: 'planter',
         label: '植木鉢',
-        file: 'station-planter.png',
-        w: 1.1,
-        h: 1.8,
-        collision: { enabled: true, x: 0.14, y: 0.58, w: 0.72, h: 0.42 }
+        objectId: 'planter_01',
+        file: '',
+        w: 2,
+        h: 2,
+        collision: { enabled: true, x: 0.302, y: 0.66925, w: 0.396, h: 0.33075 }
     },
     {
         key: 'directionSign',
         label: '方向案内札',
         file: 'station-direction-sign.png',
+        legacy: true,
         w: 1.4,
         h: 2.4,
         collision: { enabled: true, x: 0.34, y: 0.84, w: 0.32, h: 0.20 }
@@ -4428,10 +4434,11 @@ var TOWN_PART_CATALOG = [
     {
         key: 'stationBuilding',
         label: '湯間庭駅舎',
-        file: 'station-building.png',
-        w: 8.6,
-        h: 8.5,
-        collision: { enabled: true, x: 0.06, y: 0.78, w: 0.88, h: 0.22 }
+        objectId: 'station_building_01',
+        file: '',
+        w: 8,
+        h: 8,
+        collision: { enabled: false, x: 0.06086956521739131, y: 0.7825292397660817, w: 0.8869565217391304, h: 0.21747076023391812 }
     },
     {
         key: 'worldObjectFacility',
@@ -5045,11 +5052,32 @@ function makeUniquePartId(base) {
     return id;
 }
 
+function resolveTownPartCatalogSrc(catalog) {
+    if (!catalog) return '';
+
+    var objectId = String(catalog.objectId || '');
+    if (
+        objectId &&
+        window.YUMANIWA_WORLD_OBJECTS &&
+        typeof window.YUMANIWA_WORLD_OBJECTS.resolveSrc === 'function'
+    ) {
+        var worldSrc = window.YUMANIWA_WORLD_OBJECTS.resolveSrc(objectId, '');
+        if (worldSrc) return worldSrc;
+    }
+
+    if (catalog.file) {
+        return TOWN_PART_ASSET_BASE + catalog.file + '?rev=editor';
+    }
+
+    return '';
+}
+
 function createTownPartFromCatalog(key, worldX, worldY) {
     var catalog = getPartCatalogEntry(key);
+    var objectId = String(catalog.objectId || '');
     var part = {
-        id: makeUniquePartId('station_' + catalog.key),
-        src: TOWN_PART_ASSET_BASE + catalog.file + '?rev=editor',
+        id: makeUniquePartId(catalog.idStem || ('station_' + catalog.key)),
+        src: resolveTownPartCatalogSrc(catalog),
         x: (worldX / TILE_SIZE) - catalog.w / 2,
         y: (worldY / TILE_SIZE) - catalog.h,
         w: catalog.w,
@@ -5060,6 +5088,10 @@ function createTownPartFromCatalog(key, worldX, worldY) {
         collision: cloneRelativePartRect(catalog.collision),
         interaction: getDefaultTownPartInteraction(null, catalog.key)
     };
+
+    if (objectId) {
+        part.objectId = objectId;
+    }
 
     clampPartToMap(part);
     ensureTownPartMetadata(part);
@@ -5136,9 +5168,13 @@ function ensurePartEditorFields() {
     var catalogOptions = '';
     for (var i = 0; i < TOWN_PART_CATALOG.length; i++) {
         if (TOWN_PART_CATALOG[i].addable === false) continue;
+        var catalogLabel = TOWN_PART_CATALOG[i].label;
+        if (TOWN_PART_CATALOG[i].legacy === true) {
+            catalogLabel += '（LEGACY）';
+        }
         catalogOptions +=
             '<option value="' + TOWN_PART_CATALOG[i].key + '">' +
-            TOWN_PART_CATALOG[i].label +
+            catalogLabel +
             '</option>';
     }
 

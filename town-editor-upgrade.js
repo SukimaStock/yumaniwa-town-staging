@@ -16,33 +16,51 @@
     addCatalogEntry({
         key: 'standingSignboard',
         label: '立て看板（共通）',
-        file: '../../objects/signs/standing_sign_01.png',
+        objectId: 'standing_sign_01',
+        idStem: 'town_standing_signboard',
+        file: '',
         w: 2,
         h: 2,
         collision: { enabled: true, x: 0.14, y: 0.7375, w: 0.72, h: 0.2625 }
     });
 
-    if (typeof createTownPartFromCatalog === 'function') {
-        var baseCreateTownPartFromCatalog = createTownPartFromCatalog;
-        createTownPartFromCatalog = function (key, worldX, worldY) {
-            var part = baseCreateTownPartFromCatalog(key, worldX, worldY);
-            if (part && key === 'standingSignboard') {
-                part.id = makeUniquePartId('town_standing_signboard');
-                part.objectId = 'standing_sign_01';
-                part.src = 'assets/maps/objects/signs/standing_sign_01.png?rev=20260925-standing32x32';
-                part.catalogKey = 'standingSignboard';
-                part.interaction = {
-                    enabled: false,
-                    triggerId: '',
-                    x: 0.05,
-                    y: 0.20,
-                    w: 0.90,
-                    h: 0.80
-                };
-            }
-            return part;
-        };
-    }
+    // These four assets have not been migrated to WORLD OBJECT yet.
+    // Keep them addable, but make the legacy status explicit in the editor UI.
+    addCatalogEntry({
+        key: 'leisureDirectionSign',
+        label: '簡易案内サイン（レジャーセンター）',
+        file: '../leisure-center/leisure-direction-sign.png',
+        legacy: true,
+        w: 3.5, h: 3.5,
+        collision: { enabled: true, x: 0.35, y: 0.82, w: 0.30, h: 0.16 }
+    });
+
+    addCatalogEntry({
+        key: 'leisurePamphletRack',
+        label: 'パンフレットラック（レジャーセンター）',
+        file: '../leisure-center/leisure-pamphlet-rack.png',
+        legacy: true,
+        w: 3.75, h: 3.75,
+        collision: { enabled: true, x: 0.15, y: 0.84, w: 0.70, h: 0.14 }
+    });
+
+    addCatalogEntry({
+        key: 'leisureBulletinBoard',
+        label: '掲示スタンド（レジャーセンター）',
+        file: '../leisure-center/leisure-bulletin-board.png',
+        legacy: true,
+        w: 3.25, h: 3.25,
+        collision: { enabled: true, x: 0.08, y: 0.82, w: 0.84, h: 0.14 }
+    });
+
+    addCatalogEntry({
+        key: 'leisureGuideTerminal',
+        label: '展示ガイド端末（レジャーセンター）',
+        file: '../leisure-center/leisure-guide-terminal.png',
+        legacy: true,
+        w: 3.0, h: 3.0,
+        collision: { enabled: true, x: 0.05, y: 0.76, w: 0.90, h: 0.18 }
+    });
 
     function escapeEditorHtml(value) {
         return String(value == null ? '' : value)
