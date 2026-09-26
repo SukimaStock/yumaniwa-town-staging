@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.23
+Yumaniwa Desk v0.10.24
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,11 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.24:
+- data/town-runtime-fixes.js のphone camera zoom / 開発ボタンbindをmain.jsへ正式統合
+- load/resize後付けruntime patchファイルを廃止
+- camera zoom / developer button初期化の再退行を安全確認で検出
 
 v0.10.23:
 - station-plaza-props.js の window.draw 全体上書きを廃止し、main.js から明示renderer hookを呼ぶ構造へ移行
@@ -2731,6 +2736,7 @@ def validate_project(root):
         "station-guide-hotfix.js",
         "town-staging-20260823.js",
         "town-editor-spatial-20260823.js",
+        "data/town-runtime-fixes.js",
     ]
     retired_patch_present = [
         rel for rel in retired_patch_files
@@ -2847,6 +2853,25 @@ def validate_project(root):
         )
     else:
         report["ok"].append("town prop renderer: explicit main.js hook")
+
+    if "function updateTownCameraZoomForViewport()" not in main_source_text:
+        report["errors"].append(
+            "main.js のviewport camera zoom正本を確認できません。"
+        )
+    elif "updateTownCameraZoomForViewport();" not in main_source_text:
+        report["errors"].append(
+            "resizeCanvasからviewport camera zoomが更新されていません。"
+        )
+    elif "function setupDeveloperToggleButton()" not in main_source_text:
+        report["errors"].append(
+            "main.js の開発ボタン初期化を確認できません。"
+        )
+    elif "setupDeveloperToggleButton();" not in main_source_text:
+        report["errors"].append(
+            "Editor初期化から開発ボタンbindが呼ばれていません。"
+        )
+    else:
+        report["ok"].append("town runtime ui: canonical main.js initialization")
 
     if "function getEditorCollisionData()" not in main_source_text:
         report["errors"].append(

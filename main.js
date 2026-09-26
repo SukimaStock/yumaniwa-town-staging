@@ -195,7 +195,15 @@ function updateCurrentGameViewSizeFromScreen() {
 // 現在の見え方の基準倍率。
 // Pixel Snap 有効時は、最終的な物理画面上のドット境界を安定させるため、
 // この値の近傍だけ微調整することがある。
-var GAME_CAMERA_ZOOM = 2.5;
+var TOWN_DEFAULT_CAMERA_ZOOM = 2.5;
+var TOWN_PHONE_CAMERA_ZOOM = 2.25;
+var GAME_CAMERA_ZOOM = TOWN_DEFAULT_CAMERA_ZOOM;
+
+function updateTownCameraZoomForViewport() {
+    GAME_CAMERA_ZOOM = isTownMobileFluidViewport()
+        ? TOWN_PHONE_CAMERA_ZOOM
+        : TOWN_DEFAULT_CAMERA_ZOOM;
+}
 
 // Yumaniwa Pixel Snap v0.1
 // Cleaner の「1 logical px = 1 world px」を、Town Engine の最終表示まで守る。
@@ -3079,6 +3087,7 @@ window.onload = function() {
 
 function resizeCanvas() {
     applyTownPageFrameStyle();
+    updateTownCameraZoomForViewport();
 
     updateCurrentGameViewSizeFromScreen();
 
@@ -4653,6 +4662,40 @@ function toggleDebugMode() {
     }
 }
 
+function setupDeveloperToggleButton() {
+    var button = document.getElementById('btn-debug-toggle');
+    if (!button || button.dataset.yumaniwaDevBound === '1') return;
+
+    button.dataset.yumaniwaDevBound = '1';
+    button.style.touchAction = 'manipulation';
+
+    var lastActivation = 0;
+
+    function activate(e) {
+        var now = Date.now();
+
+        if (now - lastActivation < 800) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            return;
+        }
+
+        lastActivation = now;
+
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        toggleDebugMode();
+    }
+
+    button.addEventListener('touchstart', activate, { passive: false });
+    button.addEventListener('click', activate);
+}
+
 
 // ==========================================
 // 5. エディタ機能
@@ -4804,6 +4847,7 @@ function setupEditorUnsavedGuard() {
 }
 
 function setupEditorEvents() {
+    setupDeveloperToggleButton();
     ensureEditorSafetyUI();
     setupEditorUnsavedGuard();
     ensureTriggerEditorExtraFields();
