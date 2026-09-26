@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.12
+Yumaniwa Desk v0.10.13
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,12 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.13:
+- station_plaza scene定義の正本を data/station-plaza.js に一本化
+- data/town-maps.js に station_plaza: { ... } が再導入されていないことを安全確認で検証
+- station-plaza.js のscene builder契約を安全確認し、欠落時はエラー
+- runtimeでstation正本を後上書きする構造を廃止した前提を検証
 
 v0.10.12:
 - Town Editor正本とDesk管理の works / updates 更新時に対応scriptのcache fingerprintを index.html へ同一transactionで自動反映
@@ -2658,6 +2664,27 @@ def validate_project(root):
             "Pythonista から .git metadata を参照できません。"
             "repository identity は確認済みですが、HEAD / origin/main はWorking Copyで手動確認してください。"
         )
+
+    station_source_text = safe_read(os.path.join(root, "data/station-plaza.js"))
+    town_maps_text = safe_read(os.path.join(root, "data/town-maps.js"))
+
+    if "window.YUMANIWA_BUILD_STATION_PLAZA_SCENE" not in station_source_text:
+        report["errors"].append(
+            "data/station-plaza.js に station scene builder がありません。"
+        )
+    else:
+        report["ok"].append("station scene owner: data/station-plaza.js")
+
+    if re.search(r"station_plaza\s*:\s*\{", town_maps_text):
+        report["errors"].append(
+            "data/town-maps.js に station_plaza の重複定義があります。"
+        )
+    elif "station_plaza: buildStationPlazaScene()" not in town_maps_text:
+        report["errors"].append(
+            "data/town-maps.js が station scene builder を参照していません。"
+        )
+    else:
+        report["ok"].append("town-maps: station scene builder参照のみ")
 
     index_text = safe_read(os.path.join(root, "index.html"))
     if 'noindex,nofollow' not in index_text.replace(" ", "").lower():

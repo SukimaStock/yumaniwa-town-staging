@@ -308,3 +308,52 @@ var stationPlazaProps = [
         "tap": { "enabled": true, "x": 0.08, "y": 0.06, "w": 0.84, "h": 0.88 }
     }
 ];
+
+// station_plaza scene ownership lives in this dedicated canonical file.
+// town-maps.js consumes this builder and must not keep a second station_plaza body.
+window.YUMANIWA_BUILD_STATION_PLAZA_SCENE = function() {
+    return {
+        id: "station_plaza",
+        title: "駅前広場",
+        subtitle: "町の中心",
+        mapWidth: Number(MAP_WIDTH) || 24,
+        mapHeight: Number(MAP_HEIGHT) || 24,
+        backgroundStyle: "plaza",
+        backgroundImagePath: BG_IMAGE_PATH,
+        spawnPoints: {
+            default: { x: 12, y: 15, dir: "up" },
+            fromAlley: { x: 3, y: 12, dir: "right" },
+            fromStreet: { x: 20, y: 12, dir: "left" },
+            fromOnsen: { x: 12, y: 3, dir: "down" },
+            fromLeisure: { x: 12, y: 20, dir: "up" },
+            fromRecreation: { x: 12, y: 20, dir: "up" }
+        },
+        edgeWarps: [
+            { side: "left", min: 9, max: 14, target: "tomogushi_alley_map", targetSpawn: "fromPlaza" },
+            { side: "right", min: 9, max: 14, target: "yumado_street_map", targetSpawn: "fromPlaza" },
+            { side: "up", min: 9, max: 14, target: "onsen_slope_map", targetSpawn: "fromPlaza" },
+            { side: "down", min: 9, max: 14, target: "recreation_road_map", targetSpawn: "fromPlaza" }
+        ],
+        passableRects: passableRects,
+        blockedRects: blockedRects,
+        blockedPoints: blockedPoints,
+        areaZones: areaZones,
+        triggers: triggers,
+        props: stationPlazaProps,
+        groundRects: [
+            { x: 0, y: 0, w: 24, h: 24, color: "#d9ccb3" },
+            { x: 0, y: 10, w: 24, h: 5, color: "#f0e4c2" },
+            { x: 10, y: 0, w: 4, h: 24, color: "#f0e4c2" },
+            { x: 6, y: 6, w: 12, h: 12, color: "#eadbb5" },
+            { x: 8, y: 15, w: 8, h: 6, color: "#e6d2a8" }
+        ],
+        decor: [
+            { x: 19, y: 6, w: 4, h: 7, fill: "#72806a", stroke: "#2d241b", label: "通り", labelColor: "#ffffff" },
+            { x: 8, y: 0, w: 8, h: 3, fill: "#8a7d6a", stroke: "#2d241b", label: "温泉", labelColor: "#ffffff" },
+            { x: 7, y: 17, w: 4, h: 4, fill: "#8c7b64", stroke: "#2d241b", label: "駅", labelColor: "#ffffff" },
+            { x: 13, y: 17, w: 4, h: 4, fill: "#8c7b64", stroke: "#2d241b", label: "駅", labelColor: "#ffffff" },
+            { x: 8, y: 21, w: 8, h: 3, fill: "#6d746b", stroke: "#2d241b", label: "レジャー", labelColor: "#ffffff" }
+        ]
+    };
+};
+

@@ -77,23 +77,6 @@
         return prop.src || '';
     }
 
-    function installStationPlazaData() {
-        var maps = window.TOWN_SCENE_MAPS;
-        var def = maps && maps.station_plaza;
-
-        if (!def) return;
-
-        // 開発モードの書き出し結果を、実際に使う町マップ定義へ反映する。
-        def.mapWidth = Number(window.MAP_WIDTH) || def.mapWidth || 24;
-        def.mapHeight = Number(window.MAP_HEIGHT) || def.mapHeight || 24;
-        def.passableRects = cloneData(window.passableRects);
-        def.blockedRects = cloneData(window.blockedRects);
-        def.blockedPoints = cloneData(window.blockedPoints);
-        def.triggers = cloneData(window.triggers);
-        def.areaZones = cloneData(window.areaZones);
-        def.props = stationPlazaProps;
-    }
-
     function getPropRetryDelay(entry) {
         var retryCount = Math.max(0, Number(entry && entry.retryCount) || 0);
         return Math.min(30000, 2000 * Math.pow(2, Math.max(0, retryCount - 1)));
@@ -520,7 +503,6 @@
         };
     }
 
-    installStationPlazaData();
     preloadStationProps();
     installDrawOverride();
 

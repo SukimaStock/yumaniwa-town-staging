@@ -4,77 +4,13 @@
     return { x: x, y: y, w: w, h: h, fill: fill, stroke: stroke, label: label || '', labelColor: labelColor || '#ffffff' };
   }
 
+  var buildStationPlazaScene = window.YUMANIWA_BUILD_STATION_PLAZA_SCENE;
+  if (typeof buildStationPlazaScene !== 'function') {
+    throw new Error('station-plaza.js must load before town-maps.js');
+  }
+
   window.TOWN_SCENE_MAPS = {
-    station_plaza: {
-      id: 'station_plaza',
-      title: '駅前広場',
-      subtitle: '町の中心',
-      mapWidth: 24,
-      mapHeight: 24,
-      backgroundStyle: 'plaza',
-      backgroundImagePath: 'assets/maps/grounds/station-plaza-ground.jpg',
-      spawnPoints: {
-        default: { x: 12, y: 15, dir: 'up' },
-        fromAlley: { x: 3, y: 12, dir: 'right' },
-        fromStreet: { x: 20, y: 12, dir: 'left' },
-        fromOnsen: { x: 12, y: 3, dir: 'down' },
-        fromLeisure: { x: 12, y: 20, dir: 'up' },
-        fromRecreation: { x: 12, y: 20, dir: 'up' }
-      },
-      edgeWarps: [
-        { side: 'left', min: 9, max: 14, target: 'tomogushi_alley_map', targetSpawn: 'fromPlaza' },
-        { side: 'right', min: 9, max: 14, target: 'yumado_street_map', targetSpawn: 'fromPlaza' },
-        { side: 'up', min: 9, max: 14, target: 'onsen_slope_map', targetSpawn: 'fromPlaza' },
-        { side: 'down', min: 9, max: 14, target: 'recreation_road_map', targetSpawn: 'fromPlaza' }
-      ],
-      passableRects: [
-        rect(10, 0, 4, 9), rect(7, 7, 3, 9), rect(14, 7, 2, 9), rect(0, 9, 7, 5),
-        rect(10, 9, 1, 15), rect(13, 9, 1, 15), rect(16, 9, 8, 5), rect(11, 10, 2, 14),
-        rect(9, 23, 1, 1), rect(14, 23, 1, 1)
-      ],
-      blockedRects: [
-        rect(0, 0, 10, 7), rect(14, 0, 10, 7), rect(0, 7, 7, 2), rect(16, 7, 8, 2),
-        rect(11, 9, 2, 1), rect(0, 14, 7, 10), rect(16, 14, 8, 10), rect(7, 16, 3, 7),
-        rect(14, 16, 2, 7), rect(7, 23, 2, 1)
-      ],
-      blockedPoints: [{ x: 15, y: 23 }],
-      areaZones: [
-        { id: 'station_plaza', title: '駅前広場', subtitle: '駅と広場がひとつになった中心地', area: rect(0, 0, 24, 24) }
-      ],
-      triggers: [
-        {
-          id: 'station_notice', label: '駅の案内', actionLabel: '読む', type: 'inspect',
-          text: '湯間庭駅前広場。左に灯串横丁、右に湯窓通り、上に温泉方面、下に湯間庭レクリエーションロードがあり、その先が湯窓レジャーセンターです。',
-          area: rect(9, 18, 5, 5), tapPadding: 1
-        },
-        {
-          id: 'tourist_map', label: '観光案内板', actionLabel: '調べる', type: 'inspect',
-          text: '駅前広場の観光案内板。町の中心なので、ここから各マップへ散歩していけます。',
-          area: rect(11, 9, 2, 1), tapPadding: 1
-        },
-        {
-          id: 'shinpo_board_trigger', label: '掲示板を読む', actionLabel: '読む', type: 'menu', target: 'shinpo_board',
-          text: '広場の横長掲示板。noteの記事やお知らせを並べていく場所です。',
-          area: rect(1, 7, 6, 2), tapPadding: 1
-        }
-      ],
-      groundRects: [
-        { x: 0, y: 0, w: 24, h: 24, color: '#d9ccb3' },
-        { x: 0, y: 10, w: 24, h: 5, color: '#f0e4c2' },
-        { x: 10, y: 0, w: 4, h: 24, color: '#f0e4c2' },
-        { x: 6, y: 6, w: 12, h: 12, color: '#eadbb5' },
-        { x: 8, y: 15, w: 8, h: 6, color: '#e6d2a8' }
-      ],
-      // Fallback-only structural decor. Visual props live in stationPlazaProps,
-      // so their old rectangle placeholders are not kept here.
-      decor: [
-        deco(19, 6, 4, 7, '#72806a', '#2d241b', '通り'),
-        deco(8, 0, 8, 3, '#8a7d6a', '#2d241b', '温泉'),
-        deco(7, 17, 4, 4, '#8c7b64', '#2d241b', '駅'),
-        deco(13, 17, 4, 4, '#8c7b64', '#2d241b', '駅'),
-        deco(8, 21, 8, 3, '#6d746b', '#2d241b', 'レジャー')
-      ]
-    },
+    station_plaza: buildStationPlazaScene(),
 
     tomogushi_alley_map: {
         "id": "tomogushi_alley_map",
