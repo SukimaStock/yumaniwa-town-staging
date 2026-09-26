@@ -100,7 +100,6 @@
       name: 'Auto Object Sheet / Fine Split',
       candidateLabel: 'OBJECT',
       autoDetect: true,
-      mergeGapRatio: 0.006,
       rowToleranceRatio: 0.035,
       detection: {
         maxDimension: 1600,
