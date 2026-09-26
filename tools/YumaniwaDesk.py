@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.5
+Yumaniwa Desk v0.10.6
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,11 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.6:
+- Town Editorの複数ファイル反映で、書込途中・再読込・検証・transaction完了のどこで例外が起きても全対象をバックアップからrollback
+- rollback失敗時は対象ファイル名を含めて明示し、部分反映を黙って残さない
+- 反映後検証失敗も同じrollback経路へ統合
 
 v0.10.5:
 - 駅前の更新履歴看板 / おたより箱の配置・trigger差分を data/station-plaza.js に一本化
@@ -2369,6 +2374,34 @@ def last_transaction(root):
     return load_json(last_transaction_path(root), None)
 
 
+def restore_transaction_files(root, tx):
+    """transaction開始後の失敗時に、対象ファイルをバックアップ世代へ戻す。"""
+    if not tx:
+        return []
+
+    backup_abs = backup_abs_from_transaction(root, tx)
+    failures = []
+
+    for rel in tx.get("files", []):
+        source = os.path.join(backup_abs, rel)
+        target = os.path.join(root, rel)
+
+        try:
+            if not os.path.isfile(source):
+                raise FileNotFoundError("バックアップがありません")
+            folder = os.path.dirname(target)
+            if folder and not os.path.isdir(folder):
+                os.makedirs(folder)
+            try:
+                shutil.copy2(source, target)
+            except Exception:
+                shutil.copyfile(source, target)
+        except Exception as exc:
+            failures.append(rel + ": " + str(exc))
+
+    return failures
+
+
 def undo_last_transaction(root):
     require_safe_write_session(root)
     tx = last_transaction(root)
@@ -4147,38 +4180,57 @@ class YumaniwaDesk(ui.View):
         if not confirm("開発モードの編集を反映", message, "反映する"):
             return
 
+        tx = None
         try:
-            tx = create_transaction(self.project_root, "import-town-" + str(plan.get("scene_id") or "scene"), target_rels)
+            tx = create_transaction(
+                self.project_root,
+                "import-town-" + str(plan.get("scene_id") or "scene"),
+                target_rels
+            )
+
             for item in file_plans:
                 target_rel = item.get("target_rel", "")
                 target_abs = os.path.join(self.project_root, target_rel)
                 atomic_write(target_abs, item.get("new_text", ""))
 
-            # 全ファイルを再読込し、1つでも不一致なら全体をバックアップから戻す。
-            failure = None
+            # 全ファイルを再読込し、1つでも不一致なら例外に統一する。
+            # rollback自体は下のexceptで必ず一括実行する。
             for item in file_plans:
                 target_rel = item.get("target_rel", "")
                 target_abs = os.path.join(self.project_root, target_rel)
                 written = safe_read(target_abs)
                 ok, syntax_message = basic_js_balance(written)
                 if not ok:
-                    failure = target_rel + " の構文確認に失敗: " + syntax_message
-                    break
+                    raise ValueError(
+                        target_rel + " の構文確認に失敗: " + syntax_message
+                    )
                 if _sha256_text(written) != item.get("new_hash"):
-                    failure = target_rel + " に書き込んだ内容が予定内容と一致しません"
-                    break
-
-            if failure:
-                backup_abs = backup_abs_from_transaction(self.project_root, tx)
-                for rel in target_rels:
-                    backup_file = os.path.join(backup_abs, rel)
-                    target_abs = os.path.join(self.project_root, rel)
-                    shutil.copyfile(backup_file, target_abs)
-                raise ValueError("反映後の安全確認に失敗したため全ファイルを元へ戻しました: " + failure)
+                    raise ValueError(
+                        target_rel + " に書き込んだ内容が予定内容と一致しません"
+                    )
 
             finish_transaction(self.project_root, tx)
         except Exception as exc:
-            alert("町へ反映できませんでした", str(exc))
+            rollback_failures = restore_transaction_files(
+                self.project_root,
+                tx
+            )
+
+            if rollback_failures:
+                message = (
+                    str(exc)
+                    + "\n\nさらにrollbackに失敗しました。Working Copyで必ず確認してください:\n・"
+                    + "\n・".join(rollback_failures)
+                )
+            elif tx:
+                message = (
+                    str(exc)
+                    + "\n\n反映開始後に失敗したため、対象ファイルはすべて変更前へ戻しました。"
+                )
+            else:
+                message = str(exc)
+
+            alert("町へ反映できませんでした", message)
             return
 
         self.pending_town_import = None
