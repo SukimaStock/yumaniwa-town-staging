@@ -223,6 +223,7 @@ var stationPlazaProps = [
     },
     {
         "id": "station_direction_sign_candidate",
+        "objectId": "station_direction_sign_01",
         "src": "assets/maps/props/station-plaza/station-direction-sign.png?rev=20260712-square",
         "x": 13.7,
         "y": 6.6,

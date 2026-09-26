@@ -4511,8 +4511,9 @@ var TOWN_PART_CATALOG = [
     {
         key: 'directionSign',
         label: '方向案内札',
-        file: 'station-direction-sign.png',
-        legacy: true,
+        objectId: 'station_direction_sign_01',
+        idStem: 'station_direction_sign',
+        file: '',
         w: 1.4,
         h: 2.4,
         collision: { enabled: true, x: 0.34, y: 0.84, w: 0.32, h: 0.20 }

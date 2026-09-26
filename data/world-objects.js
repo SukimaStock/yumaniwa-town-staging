@@ -243,6 +243,22 @@
                 status: 'final'
             }
         },
+        station_direction_sign_01: {
+            id: 'station_direction_sign_01',
+            category: 'sign',
+            type: 'direction_sign',
+            src: 'assets/maps/props/station-plaza/station-direction-sign.png?rev=asset-29b83965',
+            finalization: {
+                townCanvas: {
+                    enabled: true,
+                    editable: true,
+                    exactFinal: false
+                },
+                pixelSafe: false,
+                normalizationPending: true,
+                status: 'registered'
+            }
+        },
         yakitori_shop_01: {
             id: 'yakitori_shop_01',
             category: 'shop',
