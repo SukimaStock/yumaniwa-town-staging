@@ -78,11 +78,14 @@ function buildPage(id, work, meta, locale, env) {
   const robots=env==='production' ? 'index,follow,max-image-preview:large' : 'noindex,nofollow';
   const theme=THEMES[id]||DEFAULT_THEME;
   const h1=heading(work,data,locale);
+  const schemaName=ja
+    ? data.shareTitle.replace(/｜湯間庭町\s*$/,'')
+    : data.shareTitle.replace(/\s*\|\s*Yumaniwa Town\s*$/,'');
 
   const schema={
     '@context':'https://schema.org',
     '@type':meta.schemaType,
-    name:h1,
+    name:schemaName,
     url:canonical,
     image,
     description:data.metaDescription,
