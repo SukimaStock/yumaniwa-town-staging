@@ -527,7 +527,7 @@
     fuel: Object.freeze({ file: "sounds/fuel.ogg", volume: 0.28, cooldown: 140 }),
     impact: Object.freeze({ file: "sounds/impact.ogg", volume: 0.16, cooldown: 350 }),
     restore: Object.freeze({ file: "sounds/restore.ogg", volume: 0.15, cooldown: 500 }),
-    eve_online: Object.freeze({ file: "sounds/eve_online.ogg", volume: 0.12, cooldown: 180 }),
+    eve_online: Object.freeze({ file: "sounds/eve_online.wav", volume: 0.12, cooldown: 180 }),
     scan: Object.freeze({ file: "sounds/scan.ogg", volume: 0.12, cooldown: 250 }),
     rescue: Object.freeze({ file: "sounds/rescue.ogg", volume: 0.12, cooldown: 900 }),
     rebirth: Object.freeze({ file: "sounds/rebirth.ogg", volume: 0.12, cooldown: 900 }),
