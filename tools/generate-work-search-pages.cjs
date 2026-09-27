@@ -70,8 +70,15 @@ function buildPage(id, work, meta, locale, env) {
   const canonical=ja ? PROD_BASE+'/w/'+id+'/' : PROD_BASE+'/en/w/'+id+'/';
   const jaUrl=PROD_BASE+'/w/'+id+'/';
   const enUrl=PROD_BASE+'/en/w/'+id+'/';
-  const image=PROD_BASE+'/assets/works/'+id+'/ogp.jpg?v=1';
-  const relImage=prefix+'/assets/works/'+id+'/ogp.jpg?v=1';
+  const ogp=meta.ogp || {};
+  const ogpFile=ogp.file || 'ogp.jpg';
+  const ogpMime=ogp.mime || 'image/jpeg';
+  const ogpWidth=Number(ogp.width || 1200);
+  const ogpHeight=Number(ogp.height || 630);
+  const ogpVersion=ogp.version === undefined ? 1 : ogp.version;
+  const versionSuffix=ogpVersion === null || ogpVersion === '' ? '' : '?v='+encodeURIComponent(String(ogpVersion));
+  const image=PROD_BASE+'/assets/works/'+id+'/'+ogpFile+versionSuffix;
+  const relImage=prefix+'/assets/works/'+id+'/'+ogpFile+versionSuffix;
   const play=prefix+'/?work='+id;
   const town=prefix+'/';
   const langLink=ja ? '../../en/w/'+id+'/' : '../../../w/'+id+'/';
@@ -128,9 +135,9 @@ function buildPage(id, work, meta, locale, env) {
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${image}">
   <meta property="og:image:secure_url" content="${image}">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="${ogpMime}">
+  <meta property="og:image:width" content="${ogpWidth}">
+  <meta property="og:image:height" content="${ogpHeight}">
   <meta property="og:image:alt" content="${esc(data.imageAlt)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${esc(data.shareTitle)}">
