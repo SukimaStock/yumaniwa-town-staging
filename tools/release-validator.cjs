@@ -5,6 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const { validateSceneData } = require('../town-scene-validation.js');
+const { buildPage: buildSearchPage, buildSitemap: buildSearchSitemap } = require('./generate-work-search-pages.cjs');
 const BASE = 'https://sukimastock.github.io/yumaniwa-town/';
 const ID = /^[a-z0-9][a-z0-9-]*$/;
 const text = s => String(s || '').replace(/<[^>]*>/g, '').replace(/&(?:nbsp|#160);/g, ' ').trim();
@@ -38,6 +39,25 @@ function readWorks(root) {
     const c = context(); run(fs.readFileSync(path.join(root, 'data/works.js'), 'utf8'), c, 'data/works.js');
     if (!Array.isArray(c.WORKS)) throw new Error('data/works.js must define WORKS[]');
     return JSON.parse(JSON.stringify(c.WORKS));
+}
+function readWorkSearchMeta(root) {
+    const file = path.join(root, 'data/work-search-meta.js');
+    if (!fs.existsSync(file)) throw new Error('missing data/work-search-meta.js');
+    const c = context();
+    run(fs.readFileSync(file, 'utf8'), c, 'data/work-search-meta.js');
+    if (c.WORK_SEARCH_META_SCHEMA !== 1) throw new Error('WORK_SEARCH_META_SCHEMA must equal 1');
+    if (!c.WORK_SEARCH_META || typeof c.WORK_SEARCH_META !== 'object' || Array.isArray(c.WORK_SEARCH_META)) throw new Error('data/work-search-meta.js must define WORK_SEARCH_META{}');
+    return JSON.parse(JSON.stringify(c.WORK_SEARCH_META));
+}
+function searchOgp(id, meta) {
+    const ogp = meta && meta.ogp || {};
+    const file = ogp.file || 'ogp.jpg';
+    const mime = ogp.mime || 'image/jpeg';
+    const width = Number(ogp.width || 1200);
+    const height = Number(ogp.height || 630);
+    const version = ogp.version === undefined ? 1 : ogp.version;
+    const suffix = version === null || version === '' ? '' : '?v=' + encodeURIComponent(String(version));
+    return { file, mime, width, height, url: BASE + 'assets/works/' + id + '/' + file + suffix };
 }
 function readTownReleaseSignals(root) {
     const c = context();
@@ -133,7 +153,7 @@ function validate(options) {
         releaseComplete: false, readiness: 'UNVERIFIED',
         summary: Object.fromEntries(['PASS','FAIL','WARNING','HQ_REQUIRED','EXTERNAL_CHECK_REQUIRED'].map(s => [s, results.filter(r => r.status === s).length])) });
     if (!['staging','production'].includes(options.env)) { add('FAIL','*','input.environment','specify --env staging|production'); return done(); }
-    let works, townSignals = { updates: [], ghostWorks: {} }, published = options.published;
+    let works, searchMeta = {}, townSignals = { updates: [], ghostWorks: {} }, published = options.published;
     try {
         works = readWorks(root);
         if (options.productionRoot) {
@@ -143,6 +163,8 @@ function validate(options) {
             add('WARNING','*','release.set-source','--production-root is an explicitly selected production snapshot; verify its SHA/provenance in the release record');
         }
     } catch (e) { add('FAIL','*','input.read',e.message); return done(); }
+    try { searchMeta = readWorkSearchMeta(root); }
+    catch (e) { add('FAIL','*','search.metadata-source',e.message); }
     try { townSignals = readTownReleaseSignals(root); }
     catch (e) { add('FAIL','*','town.release-signals',e.message); }
     if (published && (!Array.isArray(published) || published.some(id => !ID.test(id)) || new Set(published).size !== published.length)) { add('FAIL','*','release.set','published IDs must be valid and unique'); return done(); }
@@ -171,11 +193,19 @@ function validate(options) {
         if (!published) add('WARNING','*','sitemap.membership','unpublished membership UNVERIFIED: provide explicit publication set');
         else for (const url of sitemap) {
             try {
-                const u = new URL(url); const m = u.pathname.match(/\/w\/([^/]+)\/?$/);
-                if (m) check(published.includes(m[1]) && url === BASE + 'w/' + m[1] + '/', m[1], 'sitemap.membership','sitemap work URL must be canonical and in explicit publication set: ' + url);
-                else if (url !== BASE) add('HQ_REQUIRED','*','sitemap.nonwork','non-work URL outside current root/w policy: ' + url);
+                const u = new URL(url);
+                const basePath = new URL(BASE).pathname;
+                const rel = u.pathname.startsWith(basePath) ? u.pathname.slice(basePath.length) : '';
+                let m = rel.match(/^w\/([^/]+)\/?$/);
+                let locale = 'ja';
+                if (!m) { m = rel.match(/^en\/w\/([^/]+)\/?$/); locale = 'en'; }
+                if (m) {
+                    const expected = locale === 'ja' ? BASE + 'w/' + m[1] + '/' : BASE + 'en/w/' + m[1] + '/';
+                    check(published.includes(m[1]) && url === expected, m[1], 'sitemap.membership','sitemap work URL must be canonical and in explicit publication set: ' + url);
+                } else if (url !== BASE) add('HQ_REQUIRED','*','sitemap.nonwork','non-work URL outside current root/w and en/w policy: ' + url);
             } catch { add('FAIL','*','sitemap.url','invalid URL: ' + url); }
         }
+        if (published) check(fs.readFileSync(sm,'utf8') === buildSearchSitemap(published),'*','sitemap.generated','sitemap.xml must exactly match Search/Share generator output for the explicit publication set');
     }
     const reachable = reachablePages(root);
     let scenes, objects, sceneError;
@@ -188,7 +218,7 @@ function validate(options) {
     for (const id of ids) {
         const matches = works.filter(w => w.id === id);
         if (matches.length !== 1) { add('FAIL',id,'metadata.identity','expected exactly one WORKS entry'); continue; }
-        const w = matches[0], canonical = BASE + 'w/' + id + '/';
+        const w = matches[0], canonical = BASE + 'w/' + id + '/', enCanonical = BASE + 'en/w/' + id + '/';
         if (options.env === 'production' && published && !published.includes(id)) add('FAIL',id,'release.selected','selected ID is not authorized in publication set');
         for (const key of ['title','description','venue','kind','status','launch','frameMode']) check(typeof w[key] === 'string' && !!w[key].trim(),id,'metadata.' + key,'nonempty ' + key + ' required');
         check(w.status === 'open',id,'metadata.status-open','release target must be open');
@@ -210,6 +240,110 @@ function validate(options) {
                 check(/^https:\/\/[a-z0-9-]+\.itch\.io\/[^?#/]+(?:[/?#]|$)/i.test(w.url || ''),id,'launch.url','normal itch project URL required');
             } else if (w.launch === 'external') { const u = new URL(w.url); check(u.protocol === 'https:' && !u.username && !u.password,id,'launch.url','external URL must use HTTPS'); }
         } catch(e) { add('FAIL',id,'launch.path',e.message); }
+        const meta = searchMeta[id];
+        check(!!meta && typeof meta === 'object',id,'search.metadata-source','Search/Share metadata required for selected work');
+        if (meta && typeof meta === 'object') {
+            if (!['VideoGame','SoftwareApplication','CreativeWork'].includes(meta.schemaType || '')) add('HQ_REQUIRED',id,'search.schema-type','unknown schemaType: '+String(meta.schemaType || ''));
+            check(Array.isArray(meta.alternateNames) && meta.alternateNames.every(v => typeof v === 'string' && !!v.trim()),id,'search.metadata-source','alternateNames must be a string array');
+
+            const ogpContract = searchOgp(id, meta);
+            for (const locale of ['ja','en']) {
+                const data = meta[locale];
+                check(!!data && typeof data === 'object',id,'search.locale-'+locale,'metadata locale required: '+locale);
+                if (!data || typeof data !== 'object') continue;
+                for (const key of ['pageTitle','metaDescription','body','shareTitle','shareDescription','imageAlt']) {
+                    check(typeof data[key] === 'string' && !!data[key].trim(),id,'search.metadata-source',locale+'.'+key+' must be nonempty');
+                }
+                for (const key of ['genres','terms']) {
+                    check(Array.isArray(data[key]) && data[key].length > 0 && data[key].every(v => typeof v === 'string' && !!v.trim()),id,'search.metadata-source',locale+'.'+key+' must be a nonempty string array');
+                }
+
+                const localeFile = locale === 'ja'
+                    ? path.join(root,'w',id,'index.html')
+                    : path.join(root,'en','w',id,'index.html');
+                const localeCanonical = locale === 'ja' ? canonical : enCanonical;
+                if (!fs.existsSync(localeFile)) {
+                    add('FAIL',id,'search.locale-'+locale,'missing '+path.relative(root,localeFile));
+                    continue;
+                }
+
+                const actualSource = fs.readFileSync(localeFile,'utf8');
+                const expectedSource = buildSearchPage(id,w,meta,locale,options.env);
+                check(actualSource === expectedSource,id,'search.generated-'+locale,'generated '+locale+' page must exactly match metadata + generator');
+
+                const localized = html(actualSource);
+                const htmlTags = localized.tags('html');
+                check(htmlTags.length === 1 && htmlTags[0].lang === locale,id,'search.locale-'+locale,'html lang must equal '+locale);
+
+                const localizedTitle = localized.elements('title');
+                check(localizedTitle.length === 1 && text(localizedTitle[0]) === data.pageTitle,id,'search.localized-metadata',locale+' title must match metadata source');
+                check(localized.meta('description').length === 1 && localized.meta('description')[0] === data.metaDescription,id,'search.localized-metadata',locale+' description must match metadata source');
+                check(localized.meta('og:title').length === 1 && localized.meta('og:title')[0] === data.shareTitle,id,'search.localized-metadata',locale+' og:title must match metadata source');
+                check(localized.meta('og:description').length === 1 && localized.meta('og:description')[0] === data.shareDescription,id,'search.localized-metadata',locale+' og:description must match metadata source');
+                check(localized.meta('twitter:title').length === 1 && localized.meta('twitter:title')[0] === data.shareTitle,id,'search.localized-metadata',locale+' twitter:title must match metadata source');
+                check(localized.meta('twitter:description').length === 1 && localized.meta('twitter:description')[0] === data.shareDescription,id,'search.localized-metadata',locale+' twitter:description must match metadata source');
+                check(localized.meta('og:image:alt').length === 1 && localized.meta('og:image:alt')[0] === data.imageAlt,id,'search.localized-metadata',locale+' og:image:alt must match metadata source');
+                check(localized.meta('twitter:image:alt').length === 1 && localized.meta('twitter:image:alt')[0] === data.imageAlt,id,'search.localized-metadata',locale+' twitter:image:alt must match metadata source');
+                check(localized.meta('og:image').length === 1 && localized.meta('og:image')[0] === ogpContract.url,id,'search.localized-metadata',locale+' OGP image must match metadata OGP contract');
+                check(localized.meta('twitter:image').length === 1 && localized.meta('twitter:image')[0] === ogpContract.url,id,'search.localized-metadata',locale+' X image must match metadata OGP contract');
+                check(localized.meta('og:image:type').length === 1 && localized.meta('og:image:type')[0] === ogpContract.mime,id,'search.localized-metadata',locale+' OGP MIME must match metadata OGP contract');
+                check(Number(localized.meta('og:image:width')[0]) === ogpContract.width && Number(localized.meta('og:image:height')[0]) === ogpContract.height,id,'search.localized-metadata',locale+' OGP dimensions must match metadata OGP contract');
+                check(localized.meta('keywords').length === 0,id,'search.meta-keywords','do not emit meta keywords; terms live in Search metadata / structured data');
+
+                const canons = localized.tags('link').filter(a => (a.rel || '').toLowerCase() === 'canonical');
+                check(canons.length === 1 && canons[0].href === localeCanonical,id,'search.locale-canonical',locale+' canonical must equal '+localeCanonical);
+                check(localized.meta('og:url').length === 1 && localized.meta('og:url')[0] === localeCanonical,id,'search.locale-og-url',locale+' og:url must equal canonical');
+
+                const alternates = localized.tags('link').filter(a => (a.rel || '').toLowerCase() === 'alternate' && a.hreflang);
+                const byLang = Object.fromEntries(alternates.map(a => [a.hreflang,a.href]));
+                check(alternates.length === 3 && byLang.ja === canonical && byLang.en === enCanonical,id,'search.hreflang-reciprocal',locale+' page must declare reciprocal ja/en hreflang URLs');
+                check(byLang['x-default'] === canonical,id,'search.x-default',locale+' x-default must point to Japanese canonical');
+
+                const robotsLocalized = localized.meta('robots').join(',').toLowerCase().split(/[\s,]+/);
+                if (options.env === 'production') check(robotsLocalized.includes('index') && robotsLocalized.includes('follow') && !robotsLocalized.some(x=>['noindex','nofollow','none'].includes(x)),id,'search.localized-robots',locale+' production page requires index,follow');
+                else check(robotsLocalized.includes('noindex') || robotsLocalized.includes('none'),id,'search.localized-robots',locale+' staging page requires noindex');
+
+                const scripts = localized.scripts.filter(s => (s.attrs.type || '').toLowerCase() === 'application/ld+json');
+                let structured = null;
+                if (scripts.length === 1) {
+                    try { structured = JSON.parse(scripts[0].code); } catch {}
+                }
+                const expectedName = locale === 'ja'
+                    ? data.shareTitle.replace(/｜湯間庭町\s*$/,'')
+                    : data.shareTitle.replace(/\s*\|\s*Yumaniwa Town\s*$/,'');
+                const structuredOk = !!structured
+                    && structured['@context'] === 'https://schema.org'
+                    && structured['@type'] === meta.schemaType
+                    && structured.name === expectedName
+                    && structured.url === localeCanonical
+                    && structured.image === ogpContract.url
+                    && structured.description === data.metaDescription
+                    && structured.inLanguage === locale
+                    && JSON.stringify(structured.genre) === JSON.stringify(data.genres)
+                    && JSON.stringify(structured.keywords) === JSON.stringify(data.terms);
+                check(scripts.length === 1 && structuredOk,id,'search.structured-data',locale+' JSON-LD must match Search metadata, canonical and OGP');
+                if (structured && meta.schemaType === 'VideoGame') check(structured.gamePlatform === 'Web Browser',id,'search.structured-data',locale+' VideoGame must declare Web Browser platform');
+                if (structured && meta.schemaType === 'SoftwareApplication') check(structured.operatingSystem === 'Web Browser',id,'search.structured-data',locale+' SoftwareApplication must declare Web Browser OS');
+
+                const linksLocalized = localized.tags('a').map(a => { try { return new URL(a.href,localeCanonical).href; } catch { return ''; } });
+                check(linksLocalized.includes(BASE+'?work='+id),id,'search.localized-links',locale+' page requires static town launch link');
+                check(linksLocalized.includes(BASE),id,'search.localized-links',locale+' page requires static town root link');
+                check(linksLocalized.includes(locale === 'ja' ? enCanonical : canonical),id,'search.localized-links',locale+' page requires static language-switch link');
+
+                try {
+                    const ordinary = redirectProbe(localized,'');
+                    check(!ordinary.length,id,'search.localized-redirect',locale+' ordinary visit must not redirect');
+                    const compatibility = redirectProbe(localized,'?open=1');
+                    check(compatibility.length === 1 && compatibility.every(value => {
+                        const u = new URL(value,localeCanonical);
+                        return u.origin + u.pathname === BASE && u.searchParams.getAll('work').length === 1 && u.searchParams.get('work') === id;
+                    }),id,'search.localized-open-shortcut',locale+' open=1 must target this work in town shell');
+                } catch(e) { add('HQ_REQUIRED',id,'search.localized-script-review',locale+' redirect behavior UNVERIFIED: '+e.message); }
+
+                check(reachable.has(localeCanonical),id,'search.localized-discovery','static followable path from root required for '+localeCanonical);
+            }
+        }
+
         const pageFile = path.join(root,'w',id,'index.html');
         if (!fs.existsSync(pageFile)) add('FAIL',id,'search.page','missing w/'+id+'/index.html');
         else {
@@ -257,7 +391,10 @@ function validate(options) {
             } catch(e) { add('FAIL',id,'ogp.url',e.message); }
             check(reachable.has(canonical),id,'search.discovery','static followable link path from root to '+canonical+' required');
         }
-        if (options.env === 'production' || fs.existsSync(sm)) check(sitemap.includes(canonical),id,'sitemap.inclusion','canonical URL must be in sitemap: '+canonical);
+        if (options.env === 'production' || fs.existsSync(sm)) {
+            check(sitemap.includes(canonical),id,'sitemap.inclusion','Japanese canonical URL must be in sitemap: '+canonical);
+            check(sitemap.includes(enCanonical),id,'sitemap.inclusion-en','English canonical URL must be in sitemap: '+enCanonical);
+        }
         try {
             const links = []; const c = context({ location:{search:'?work='+id}, document:{createElement:()=>({}),head:{appendChild:l=>links.push(l)}} });
             run(fs.readFileSync(path.join(root,'work-install-meta.js'),'utf8'),c,'work-install-meta.js');
@@ -330,4 +467,4 @@ if (require.main === module) {
         else { const r=validate(o); if (o.json) console.log(JSON.stringify(r,null,2)); else { for (const x of r.results) console.log(`${x.status} [${x.work}] ${x.check}: ${x.message}`); console.log('\n'+JSON.stringify(r.summary)+'\nRelease Complete: UNVERIFIED (never certified by this tool)'); } process.exitCode=r.exitCode; }
     } catch(e) { console.error('FAIL validator: '+e.message); process.exitCode=2; }
 }
-module.exports = { validate, readWorks, readTownReleaseSignals, html, imageInfo, redirectProbe, parseArgs };
+module.exports = { validate, readWorks, readWorkSearchMeta, readTownReleaseSignals, html, imageInfo, redirectProbe, parseArgs };
