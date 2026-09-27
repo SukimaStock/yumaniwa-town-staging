@@ -147,7 +147,7 @@ var WORK_SEARCH_META = {
                 "curry delivery game",
                 "delivery game",
                 "browser game",
-                "Japanese indie game",
+                "curry game",
                 "nighttime game"
             ]
         }
@@ -404,7 +404,7 @@ var WORK_SEARCH_META = {
                 "interactive rain",
                 "rainy window",
                 "web toy",
-                "relaxing web experience",
+                "interactive web experience",
                 "interactive art"
             ]
         }
