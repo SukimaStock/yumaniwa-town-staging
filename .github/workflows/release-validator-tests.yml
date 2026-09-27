@@ -1,0 +1,52 @@
+name: Release Validator Tests
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "data/works.js"
+      - "data/updates.js"
+      - "data/ghost-dialogue.js"
+      - "w/**"
+      - "assets/works/**"
+      - "work-install-meta.js"
+      - "sitemap.xml"
+      - "tools/release-validator.cjs"
+      - "tests/test-release-validator.cjs"
+      - "tests/fixtures/release/**"
+      - "RELEASE-WORKFLOW.md"
+      - "OPERATIONS.md"
+      - ".github/workflows/release-validator-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run release validator regression tests
+        run: node --test tests/test-release-validator.cjs
+
+      - name: Validate all open staging works
+        shell: bash
+        run: |
+          IDS="$(node - <<'NODE'
+          const { readWorks } = require('./tools/release-validator.cjs');
+          process.stdout.write(
+            readWorks('.')
+              .filter((work) => work && work.status === 'open')
+              .map((work) => work.id)
+              .join(',')
+          );
+          NODE
+          )"
+
+          test -n "$IDS"
+          echo "Validating staging open works: $IDS"
+          node tools/release-validator.cjs --env staging --ids "$IDS"
