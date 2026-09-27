@@ -33,20 +33,58 @@ jobs:
       - name: Run release validator regression tests
         run: node --test tests/test-release-validator.cjs
 
-      - name: Validate all open staging works
-        shell: bash
+      - name: Validate town awareness for all open staging works
         run: |
-          IDS="$(node - <<'NODE'
-          const { readWorks } = require('./tools/release-validator.cjs');
-          process.stdout.write(
-            readWorks('.')
-              .filter((work) => work && work.status === 'open')
-              .map((work) => work.id)
-              .join(',')
+          node - <<'NODE'
+          const {
+            readWorks,
+            readTownReleaseSignals,
+          } = require('./tools/release-validator.cjs');
+
+          const works = readWorks('.').filter(
+            (work) => work && work.status === 'open'
+          );
+          const signals = readTownReleaseSignals('.');
+          const failures = [];
+
+          for (const work of works) {
+            const update = signals.updates.find(
+              (entry) =>
+                entry &&
+                Array.isArray(entry.workIds) &&
+                entry.workIds.includes(work.id) &&
+                typeof entry.date === 'string' &&
+                entry.date.trim() &&
+                typeof entry.title === 'string' &&
+                entry.title.trim() &&
+                typeof entry.body === 'string' &&
+                entry.body.trim()
+            );
+            if (!update) {
+              failures.push(
+                work.id + ': missing data/updates.js workIds-linked release record'
+              );
+            }
+
+            const lines = signals.ghostWorks[work.id];
+            if (
+              !Array.isArray(lines) ||
+              !lines.some(
+                (line) => typeof line === 'string' && line.trim()
+              )
+            ) {
+              failures.push(
+                work.id + ': missing data/ghost-dialogue.js works[id] dialogue'
+              );
+            }
+          }
+
+          if (failures.length) {
+            console.error(failures.join('\n'));
+            process.exit(1);
+          }
+
+          console.log(
+            'Town awareness OK: ' + works.map((work) => work.id).join(', ')
           );
           NODE
-          )"
-
-          test -n "$IDS"
-          echo "Validating staging open works: $IDS"
-          node tools/release-validator.cjs --env staging --ids "$IDS"
