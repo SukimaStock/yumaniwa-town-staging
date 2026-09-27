@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "works/ORBIT/**"
+      - "works/orbit/**"
       - "engine/sukimastock-engine.v0.2.0.js"
       - "engine/export-standalone.py"
       - ".github/workflows/orbit-standalone-export.yml"
@@ -24,13 +24,13 @@ jobs:
       - name: Validate export manifest
         run: |
           python3 engine/export-standalone.py \
-            works/ORBIT/standalone-export.json \
+            works/orbit/standalone-export.json \
             --check
 
       - name: Build standalone package
         run: |
           python3 engine/export-standalone.py \
-            works/ORBIT/standalone-export.json
+            works/orbit/standalone-export.json
 
       - name: Inspect package
         run: |

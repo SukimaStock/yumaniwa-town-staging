@@ -26,6 +26,31 @@ var WORKS = [
     // [WORKS:ADD_NEWEST_HERE]
 
     {
+        id: "orbit",
+        title: "ORBIT — Silent Reboot",
+        venue: "leisure_center",
+        kind: "game",
+        status: "open",
+
+        launch: "embedded",
+        entry: "./works/orbit/index.html",
+
+        frameTitle: "ORBIT",
+        returnLabel: "湯窓レジャーセンター",
+        frameMode: "standard",
+
+        playerLayout: "responsive",
+
+        menuTitle: "ORBIT",
+        menuCategory: "探索ゲーム",
+        menuDescription: "帰る場所を手がかりに、静かな宇宙を漂い続ける探索ゲーム。",
+
+        description: "帰る場所を手がかりに、静かな宇宙を漂い続ける探索ゲーム。",
+        emptyText: "ORBITを読み込んでいます。"
+    },
+
+
+    {
         id: "diorama-calendar",
         title: "Diorama Calendar",
         venue: "leisure_center",

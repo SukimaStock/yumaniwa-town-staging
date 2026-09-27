@@ -1,0 +1,18 @@
+{
+  "name": "ORBIT — Silent Reboot",
+  "short_name": "ORBIT",
+  "id": "../../?work=orbit",
+  "start_url": "../../?work=orbit",
+  "scope": "../../",
+  "display": "standalone",
+  "background_color": "#080a10",
+  "theme_color": "#080a10",
+  "icons": [
+    {
+      "src": "../../assets/works/orbit/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
