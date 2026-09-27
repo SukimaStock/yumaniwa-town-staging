@@ -1,7 +1,10 @@
 # 湯間庭町 — AI作業の入口
 
 日常の追加・編集は staging (`SukimaStock/yumaniwa-town-staging`) で行う。
-作品identityの正本は `data/works.js`。手順は [OPERATIONS.md](OPERATIONS.md)、
+作品identityの正本は `data/works.js`。
+Search / Share v2 の日英文面・検索語彙・schemaTypeの正本は `data/work-search-meta.js`。
+Phase 4.2 のgenerator導入までは、現行の `w/<id>/` HTMLを配信物として扱う。
+手順は [OPERATIONS.md](OPERATIONS.md)、
 Release完成判定の唯一の正本は [RELEASE-WORKFLOW.md](RELEASE-WORKFLOW.md)。
 配置の契約は `tools/SCENE-DATA-CONTRACT.md` と `YUMANIWA-PIXEL-STANDARD.md` を参照する。
 
