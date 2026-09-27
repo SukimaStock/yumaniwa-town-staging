@@ -43,7 +43,7 @@ canonical.station_plaza.areaZones[0].area.h -= 1;
 assert(c.validateTownSceneRegistry().ok);
 api.freeze(canonical);
 const original=JSON.stringify(canonical);
-const runtimeFunctions={showMessage:c.showMessage,updateInteractionHint:c.updateInteractionHint};
+const runtimeFunctions={showMessage:c.showMessage,updateInteractionHint:c.updateInteractionHint,updateControlVisibility:c.updateControlVisibility};
 function talkToGhost(){
     const t=c.triggers.find(t=>t.id==='station_ghost_npc_trigger');
     const previous={x:c.player.x,y:c.player.y,edit:c.isEditMode};

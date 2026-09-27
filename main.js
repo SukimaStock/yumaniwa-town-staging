@@ -1222,47 +1222,25 @@ function announceTownArrivalReady() {
     }
 }
 
+// The transition owns the timeout. This subscription only reports readiness;
+// disposal makes an already queued image callback inert without cancelling the cache load.
 function waitForTownSceneBackground(sceneId, done) {
     var finished = false;
-
     function finish() {
         if (finished) return;
         finished = true;
-
-        if (timeoutId) {
-            window.clearTimeout(timeoutId);
-        }
-
-        if (typeof done === "function") {
-            done();
-        }
+        done();
     }
-
     var def = getTownSceneDefinition(sceneId);
-    var path = def && def.backgroundImagePath ? def.backgroundImagePath : "";
-
-    if (!path) {
-        finish();
-        return;
+    var path = def && def.backgroundImagePath;
+    if (!path) finish();
+    else {
+        var entry = preloadTownSceneBackgroundAsset(path, finish, {
+            priority: "high", retryOnError: true, forceRetry: true
+        });
+        if (!entry || entry.loaded || entry.error) finish();
     }
-
-    var entry = preloadTownSceneBackgroundAsset(path, function() {
-        finish();
-    }, {
-        priority: "high",
-        retryOnError: true,
-        forceRetry: true
-    });
-
-    if (!entry || entry.loaded || entry.error) {
-        finish();
-        return;
-    }
-
-    // 通信やキャッシュの都合で読み込みが詰まった場合でも、暗転したまま固まらないようにする。
-    var timeoutId = window.setTimeout(function() {
-        finish();
-    }, 2200);
+    return function() { finished = true; };
 }
 
 
@@ -1337,7 +1315,8 @@ function placePlayerAtTownSpawn(def, spawnKey) {
     player.walkWasMoving = false;
 }
 
-function applyTownSceneDefinition(sceneId, spawnKey) {
+function applyTownSceneDefinition(sceneId, spawnKey, transitionToken) {
+    if (!window.YUMANIWA_TOWN_TRANSITION.acceptSceneChange(transitionToken)) return false;
     window.YUMANIWA_TOWN_INTERACTION.cancel();
     pendingWarp = null;
     var validation = validateTownSceneRequest(sceneId, spawnKey);
@@ -2043,66 +2022,125 @@ function reportTownSceneTransitionFailure(sceneId, errors) {
     }
 }
 
-function playTownRpgFadeTransition(callback, waitForReady) {
-    var oldFade = document.getElementById("town-rpg-fade-transition");
-    if (oldFade && oldFade.parentNode) {
-        oldFade.parentNode.removeChild(oldFade);
+// One lifecycle for town and guide fades. Movement remains owned by interaction.
+window.YUMANIWA_TOWN_TRANSITION = (function() {
+    var generation = 0;
+    var active = null;
+
+    function current(token) { return !!active && active.generation === token; }
+    function cancel() {
+        var previous = active;
+        active = null;
+        generation += 1;
+        if (previous) {
+            previous.timers.forEach(function(id) { window.clearTimeout(id); });
+            previous.frames.forEach(function(id) { window.cancelAnimationFrame(id); });
+            if (previous.stopWaiting) previous.stopWaiting();
+            if (previous.fadeElement.parentNode) previous.fadeElement.remove();
+        }
+        updateControlVisibility();
     }
-
-    var fadeOutMs = 400;
-    var holdMs = 70;
-    var fadeInMs = 460;
-
-    var fade = document.createElement("div");
-    fade.id = "town-rpg-fade-transition";
-    fade.style.position = "fixed";
-    fade.style.left = "0";
-    fade.style.top = "0";
-    fade.style.right = "0";
-    fade.style.bottom = "0";
-    fade.style.zIndex = "12000";
-    fade.style.background = "#050403";
-    fade.style.opacity = "0";
-    fade.style.pointerEvents = "auto";
-    fade.style.transition = "opacity " + fadeOutMs + "ms cubic-bezier(.22,.8,.28,1)";
-    fade.style.willChange = "opacity";
-
-    document.body.appendChild(fade);
-
-    window.requestAnimationFrame(function() {
-        window.requestAnimationFrame(function() {
-            fade.style.opacity = "1";
-        });
-    });
-
-    function startFadeIn() {
-        window.setTimeout(function() {
-            fade.style.transition = "opacity " + fadeInMs + "ms cubic-bezier(.22,.8,.28,1)";
-            fade.style.opacity = "0";
-
-            window.setTimeout(function() {
-                if (fade && fade.parentNode) {
-                    fade.parentNode.removeChild(fade);
-                }
-            }, fadeInMs + 80);
-        }, holdMs);
-    }
-
-    window.setTimeout(function() {
-        if (typeof callback === "function") {
+    function schedule(state, callback, delay) {
+        var id = window.setTimeout(function() {
+            if (!current(state.generation)) return;
+            state.timers = state.timers.filter(function(item) { return item !== id; });
             callback();
-        }
+        }, delay);
+        state.timers.push(id);
+        return id;
+    }
+    function frame(state, callback) {
+        var id = window.requestAnimationFrame(function() {
+            if (!current(state.generation)) return;
+            state.frames = state.frames.filter(function(item) { return item !== id; });
+            callback();
+        });
+        state.frames.push(id);
+    }
+    function request(commit, timing, waitForReady) {
+        if (active) return false;
+        var fade = document.createElement("div");
+        var state = active = {
+            generation: ++generation, phase: "fadeOut", fadeElement: fade,
+            timers: [], frames: [], stopWaiting: null
+        };
+        window.YUMANIWA_TOWN_INTERACTION.cancel();
+        clearDpadInput();
+        player.isMoving = false;
+        updateControlVisibility();
+        fade.id = "town-rpg-fade-transition";
+        Object.assign(fade.style, {
+            position: "fixed", left: "0", top: "0", right: "0", bottom: "0",
+            zIndex: "12000", background: "#050403", opacity: "0",
+            pointerEvents: "auto", willChange: "opacity",
+            transition: "opacity " + timing.out + "ms cubic-bezier(.22,.8,.28,1)"
+        });
+        document.body.appendChild(fade);
+        frame(state, function() { frame(state, function() { fade.style.opacity = "1"; }); });
 
-        if (typeof waitForReady === "function") {
-            waitForReady(startFadeIn);
-        } else {
-            startFadeIn();
+        function reveal() {
+            if (!current(state.generation) || state.phase !== "waiting") return;
+            state.phase = "hold";
+            if (state.stopWaiting) state.stopWaiting();
+            schedule(state, function() {
+                state.phase = "fadeIn";
+                fade.style.transition = "opacity " + timing.in + "ms cubic-bezier(.22,.8,.28,1)";
+                fade.style.opacity = "0";
+                schedule(state, cancel, timing.in + 80);
+            }, 70);
         }
-    }, fadeOutMs + 40);
+        schedule(state, function() {
+            state.phase = "commit";
+            try {
+                if (commit(state.generation) === false) {
+                    if (current(state.generation)) cancel();
+                    return;
+                }
+                if (!current(state.generation)) return;
+                state.phase = "waiting";
+                if (waitForReady) {
+                    var timeout = schedule(state, reveal, 2200);
+                    state.stopWaiting = waitForReady(function() {
+                        if (!current(state.generation)) return;
+                        window.clearTimeout(timeout);
+                        reveal();
+                    });
+                    // Readiness may be synchronous or may itself cause cancellation.
+                    if ((!current(state.generation) || state.phase !== "waiting") && state.stopWaiting) {
+                        state.stopWaiting();
+                    }
+                } else reveal();
+            } catch (error) {
+                if (current(state.generation)) cancel();
+                throw error;
+            }
+        }, timing.out + 40);
+        return true;
+    }
+    return {
+        request: request, cancel: cancel,
+        isActive: function() { return active !== null; },
+        // Omitted token means a direct change, which takes precedence even if rejected later.
+        acceptSceneChange: function(token) {
+            if (token === undefined) { cancel(); return true; }
+            return current(token) && active.phase === "commit";
+        }
+    };
+})();
+
+function canControlTownPlayer() {
+    return isTownScene(currentScene) && !isEditMode && !isMessageOpen &&
+        !isWorkPlayerOpen && !isStationGuideMapOpen &&
+        !window.YUMANIWA_TOWN_TRANSITION.isActive();
+}
+
+function playTownRpgFadeTransition(callback, waitForReady) {
+    return window.YUMANIWA_TOWN_TRANSITION.request(callback, {out:400, in:460}, waitForReady);
 }
 
 
 function changeSceneWithTownFade(sceneId, spawnKey) {
+    if (window.YUMANIWA_TOWN_TRANSITION.isActive()) return false;
     window.YUMANIWA_TOWN_INTERACTION.cancel();
     pendingWarp = null;
     if (!canLeaveTownEditorSession(sceneId)) return false;
@@ -2112,16 +2150,14 @@ function changeSceneWithTownFade(sceneId, spawnKey) {
         return false;
     }
 
-    playTownRpgFadeTransition(
-        function() {
-            changeTownScene(sceneId, spawnKey);
+    return playTownRpgFadeTransition(
+        function(token) {
+            return changeTownScene(sceneId, spawnKey, token);
         },
         function(reveal) {
-            waitForTownSceneBackground(sceneId, reveal);
+            return waitForTownSceneBackground(sceneId, reveal);
         }
     );
-
-    return true;
 }
 
 
@@ -2548,61 +2584,13 @@ function hideStationGuideMapConfirm() {
 }
 
 function playStationGuideMapDarkTransition(callback) {
-    var oldFade = document.getElementById("town-rpg-fade-transition");
-    if (oldFade && oldFade.parentNode) {
-        oldFade.parentNode.removeChild(oldFade);
-    }
-
-    var fadeOutMs = 380;
-    var holdMs = 70;
-    var fadeInMs = 430;
-
-    var fade = document.createElement("div");
-    fade.id = "town-rpg-fade-transition";
-    fade.style.position = "fixed";
-    fade.style.left = "0";
-    fade.style.top = "0";
-    fade.style.right = "0";
-    fade.style.bottom = "0";
-    fade.style.zIndex = "12000";
-    fade.style.background = "#050403";
-    fade.style.opacity = "0";
-    fade.style.pointerEvents = "auto";
-    fade.style.transition = "opacity " + fadeOutMs + "ms cubic-bezier(.22,.8,.28,1)";
-    fade.style.willChange = "opacity";
-
-    document.body.appendChild(fade);
-
-    // 1. まず、RPGの場面転換のようにゆっくり暗くする。
-    window.requestAnimationFrame(function() {
-        window.requestAnimationFrame(function() {
-            fade.style.opacity = "1";
-        });
-    });
-
-    window.setTimeout(function() {
-        // 2. 真っ黒になってから、地図を閉じて移動先へ切り替える。
-        if (typeof callback === "function") {
-            callback();
-        }
-
-        // 3. 少しだけ黒を保持してから、ゆっくり明るく戻す。
-        window.setTimeout(function() {
-            fade.style.transition = "opacity " + fadeInMs + "ms cubic-bezier(.22,.8,.28,1)";
-            fade.style.opacity = "0";
-
-            window.setTimeout(function() {
-                if (fade && fade.parentNode) {
-                    fade.parentNode.removeChild(fade);
-                }
-            }, fadeInMs + 80);
-        }, holdMs);
-    }, fadeOutMs + 40);
+    return window.YUMANIWA_TOWN_TRANSITION.request(callback, {out:380, in:430});
 }
 
 
 
 function confirmStationGuideMapMove() {
+    if (window.YUMANIWA_TOWN_TRANSITION.isActive()) return false;
     var spot = window.pendingStationGuideMapSpot;
     if (!spot) return;
 
@@ -2626,15 +2614,14 @@ function confirmStationGuideMapMove() {
             return;
         }
 
-        playStationGuideMapDarkTransition(function() {
+        playStationGuideMapDarkTransition(function(token) {
             closeStationGuideMap();
 
             if (targetIsTownScene) {
-                changeTownScene(spot.target);
-                return;
+                return changeTownScene(spot.target, undefined, token);
             }
 
-            changeScene(spot.target);
+            if (!changeScene(spot.target, undefined, token)) return false;
 
             // 専用画面へ移る場合だけ、施設説明より行き先一覧を先に見せる。
             // 湯間庭新報は既存仕様の新聞ラックをそのまま開く。
@@ -2819,14 +2806,7 @@ function updateControlVisibility() {
     var controls = document.getElementById("mobile-controls");
     if (!controls) return;
 
-    if (
-        isMessageOpen ||
-        isEditMode ||
-        debugMode ||
-        isWorkPlayerOpen ||
-        isStationGuideMapOpen ||
-        !isTownScene(currentScene)
-    ) {
+    if (!canControlTownPlayer() || debugMode) {
         controls.classList.add("disabled");
     } else {
         controls.classList.remove("disabled");
@@ -6557,7 +6537,7 @@ function handleEditorTap(tx, ty) {
 function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
 
 function update() {
-    if (isMessageOpen || !isTownScene(currentScene) || isEditMode) {
+    if (!canControlTownPlayer()) {
         player.isMoving = false;
         updatePlayerWalkAnimation(0);
         return;
@@ -7074,7 +7054,8 @@ function prepareSceneUiForChange() {
     return sceneContainer;
 }
 
-function changeTownScene(sceneId, spawnKey) {
+function changeTownScene(sceneId, spawnKey, transitionToken) {
+    if (!window.YUMANIWA_TOWN_TRANSITION.acceptSceneChange(transitionToken)) return false;
     window.YUMANIWA_TOWN_INTERACTION.cancel();
     pendingWarp = null;
     if (!canLeaveTownEditorSession(sceneId)) return false;
@@ -7089,7 +7070,7 @@ function changeTownScene(sceneId, spawnKey) {
     resetDestinationState();
     closeDestinationScene();
 
-    if (!applyTownSceneDefinition(sceneId, spawnKey || 'default')) {
+    if (!applyTownSceneDefinition(sceneId, spawnKey || 'default', transitionToken)) {
         reportTownSceneTransitionFailure(
             sceneId,
             lastTownSceneValidationErrors
@@ -7103,11 +7084,12 @@ function changeTownScene(sceneId, spawnKey) {
 }
 
 // ★ RPG共通メニューの生成と遷移
-window.changeScene = function(sceneId, spawnKey) {
+window.changeScene = function(sceneId, spawnKey, transitionToken) {
+    if (!window.YUMANIWA_TOWN_TRANSITION.acceptSceneChange(transitionToken)) return false;
     window.YUMANIWA_TOWN_INTERACTION.cancel();
     pendingWarp = null;
     if (isTownScene(sceneId)) {
-        return changeTownScene(sceneId, spawnKey);
+        return changeTownScene(sceneId, spawnKey, transitionToken);
     }
 
     // 町内から、お店・看板などの専用画面へ移る直前に位置を保存

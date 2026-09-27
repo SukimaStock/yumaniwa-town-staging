@@ -6,8 +6,7 @@
 
     function cancel() { request = null; }
     function canInteract() {
-        return isTownScene(currentScene) && !isEditMode && !isMessageOpen &&
-            !isWorkPlayerOpen && !isStationGuideMapOpen;
+        return canControlTownPlayer();
     }
     function begin(path, tile, arrival) {
         request = { sceneId: currentScene, path: path, pathIndex: 0, arrival: arrival };

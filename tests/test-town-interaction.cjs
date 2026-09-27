@@ -11,7 +11,7 @@ c.YumaniwaMemory.onTriggerActivated=t=>{accepted.push(t.id);memoryHook(t);};
 c.showMessage=text=>{messages.push(text);return runtimeFunctions.showMessage(text);};
 c.updateInteractionHint=runtimeFunctions.updateInteractionHint;
 c.renderDestination=()=>{};
-c.playTownRpgFadeTransition=fn=>{transitions.push('fade');fn();};
+c.playTownRpgFadeTransition=fn=>{transitions.push('fade');return fn();};
 c.addEventListener=(name,fn)=>(inputs[name]||=[]).push(fn);
 c.canvas=el('game-canvas');c.setupEvents();c.setupMessageLayerEvents();
 const fireKey=key=>(inputs.keydown||[]).forEach(fn=>fn({key,target:document.body,preventDefault(){},stopPropagation(){}}));
