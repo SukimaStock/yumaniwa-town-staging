@@ -14,12 +14,10 @@ const c={console,Date,Math,JSON,URLSearchParams,document,Image:function(){},
     navigator:{clipboard:{writeText:async text=>{copied=text;}}},isSecureContext:true,
     innerWidth:800,innerHeight:600,devicePixelRatio:1,scrollX:0,scrollY:0,
     confirm:()=>true,alert:text=>alerts.push(text),HTMLInputElement:Element,HTMLTextAreaElement:Element,HTMLSelectElement:Element};
-// Legacy movement uses this implicit global; declare it for strict-mode instrumentation.
-c.tapMoveRequestedWarpSide=null;
 c.window=c;vm.createContext(c);
 for(const file of ['data/world-objects.js','data/station-plaza.js','data/works.js','data/notes.js','data/places.js',
     'data/town-maps.js','town-scene-validation.js','town-editor-session.js','main.js','developer-access.js',
-    'town-editor-upgrade.js','town-interaction-flow.js','data/ghost-dialogue.js','town-ghost-npc.js',
+    'town-editor-upgrade.js','town-interaction-flow.js','town-memory.js','data/ghost-dialogue.js','town-ghost-npc.js',
     'town-editor-spatial.js','town-editor-safe-export.js']) {
     // Strict mode makes any attempted write into deep-frozen canonical data fail.
     vm.runInContext('"use strict";\n'+fs.readFileSync(path.join(root,file),'utf8'),c,{filename:file});
@@ -45,6 +43,14 @@ canonical.station_plaza.areaZones[0].area.h -= 1;
 assert(c.validateTownSceneRegistry().ok);
 api.freeze(canonical);
 const original=JSON.stringify(canonical);
+const runtimeFunctions={showMessage:c.showMessage,updateInteractionHint:c.updateInteractionHint};
+function talkToGhost(){
+    const t=c.triggers.find(t=>t.id==='station_ghost_npc_trigger');
+    const previous={x:c.player.x,y:c.player.y,edit:c.isEditMode};
+    c.player.x=t.area.x*c.TILE_SIZE; c.player.y=t.area.y*c.TILE_SIZE; c.isEditMode=false;
+    assert(c.YUMANIWA_TOWN_INTERACTION.activateTrigger(t.id));
+    c.player.x=previous.x;c.player.y=previous.y;c.isEditMode=previous.edit;
+}
 // Rendering/network are outside this state test; lifecycle and editor handlers remain real.
 c.loadTownSceneBackground=def=>{c.activeTownSceneDef=def;};
 c.updateInteractionHint=()=>{};c.updateControlVisibility=()=>{};c.showMessage=text=>{message=text;};
@@ -52,7 +58,7 @@ c.applyTownSceneDefinition('station_plaza','default');
 c.setupEditorEvents();
 check('runtime ghost conversation cannot mutate canonical',()=>{
     const trigger=c.triggers.find(t=>t.id==='station_ghost_npc_trigger');
-    c.activateTownTrigger(trigger);assert.notEqual(message,'……');assert.equal(trigger.text,'……');
+    talkToGhost();assert.notEqual(message,'……');assert.equal(trigger.text,'……');
     assert.equal(JSON.stringify(canonical),original);
 });
 check('first open snapshots canonical synchronously, four globals view one draft',()=>{
@@ -98,7 +104,7 @@ check('dirty scene transition rejected without losing session',()=>{
 check('discard resets draft and old undo; subsequent ghost conversation exports nothing',()=>{
     c.discardTownEditorChanges();empty();assert.equal((api.current() ? api.current().history.length : 0),0);
     assert.equal(api.current().baseline,baseline);
-    c.activateTownTrigger(c.triggers.find(t=>t.id==='station_ghost_npc_trigger'));empty();
+    talkToGhost();empty();
 });
 check('fixed collision edit and Undo stay in the one grid',()=>{
     c.editTarget='blockedPoints';const before=c.baseCollisionGrid[10][10];assert.notEqual(before,2);
@@ -216,4 +222,4 @@ if (process.argv.includes('--desk-export')) {
     console.log(JSON.stringify({manifest:c.YUMANIWA_EDITOR_BUILD_DIFF(),after:api.snapshot()}));
 }
 
-module.exports = {c, api, clone, el, click, document, canonical, original};
+module.exports = {c, api, clone, el, click, document, canonical, original, runtimeFunctions};

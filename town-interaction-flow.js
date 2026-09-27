@@ -1,17 +1,119 @@
-(function() {
-    // 湯間庭町の共通操作ルール。
-    // RPGらしい歩行や発見の手触りは残しつつ、対象を「使う」操作は1回にまとめる。
-
-    var tapAutoActionTrigger = null;
-    var tapAutoWarpSide = null;
+// One owner for tap movement and accepted trigger activation. No global replacement.
+(function () {
+    'use strict';
+    var request = null;
     var EDGE_WARP_TAP_DEPTH = 2;
 
-    // main.js の既存移動処理はそのまま使い、到着後の自動実行と
-    // 「直接タップ」と「近づいて調べる」の判定分離だけをこの層で足す。
-    var baseStartTapMoveTo = window.startTapMoveTo;
-    var baseStartTapMoveToTrigger = window.startTapMoveToTrigger;
-    var baseUpdateTapMove = window.updateTapMove;
-    var baseCancelTapMove = window.cancelTapMove;
+    function cancel() { request = null; }
+    function canInteract() {
+        return isTownScene(currentScene) && !isEditMode && !isMessageOpen &&
+            !isWorkPlayerOpen && !isStationGuideMapOpen;
+    }
+    function begin(path, tile, arrival) {
+        request = { sceneId: currentScene, path: path, pathIndex: 0, arrival: arrival };
+        tapMarkerPos = { x: tile.x, y: tile.y };
+        tapMarkerTimer = 60;
+        completeIfArrived();
+        updateInteractionHint();
+        return true;
+    }
+    function requestGroundMove(x, y) {
+        cancel();
+        if (!canInteract() || !isWalkableTile(x, y)) return false;
+        var start = getPlayerTile();
+        var path = findPath(start.x, start.y, x, y);
+        return path ? begin(path, {x:x, y:y}, {type:'none'}) : false;
+    }
+    function requestTrigger(id) {
+        cancel();
+        if (!canInteract()) return false;
+        var trigger = getTownTriggerById(id);
+        if (!trigger || trigger.enabled === false) return false;
+        var approach = isPlayerNearTrigger(trigger) ? {tile:getPlayerTile(), path:[]} : findApproachTileForTrigger(trigger);
+        return approach ? begin(approach.path, approach.tile, {type:'trigger', triggerId:id}) : false;
+    }
+    function requestEdgeWarp(candidate) {
+        cancel();
+        if (!canInteract() || !candidate || !candidate.tile || !candidate.side) return false;
+        var start = getPlayerTile(), tile = candidate.tile;
+        if (!isWalkableTile(tile.x, tile.y)) return false;
+        var path = findPath(start.x, start.y, tile.x, tile.y);
+        return path ? begin(path, tile, {type:'edgeWarp', side:candidate.side}) : false;
+    }
+    function requestTap(x, y) {
+        cancel();
+        if (!canInteract()) return false;
+        var trigger = getTapPartTriggerAtTile(x, y) ||
+            getDirectTapTriggerCandidate(x, y, getTapManagedTriggerIds());
+        // A selected but unreachable trigger must not fall through to another action.
+        if (trigger) return requestTrigger(trigger.id);
+        var edge = getEdgeWarpTapCandidate(x, y);
+        return edge ? requestEdgeWarp(edge) : requestGroundMove(x, y);
+    }
+    function completeIfArrived() {
+        if (!request || request.pathIndex < request.path.length) return false;
+        var done = request;
+        cancel(); // Consume before activation/scene change can re-enter.
+        if (done.sceneId !== currentScene || !canInteract()) return false;
+        if (done.arrival.type === 'trigger') return activateTrigger(done.arrival.triggerId);
+        if (done.arrival.type === 'edgeWarp') return tryTownEdgeWarp(done.arrival.side);
+        return true;
+    }
+    function update() {
+        if (!request) return false;
+        if (request.sceneId !== currentScene || !canInteract()) { cancel(); return false; }
+        var target = request.path[request.pathIndex];
+        if (!target) { completeIfArrived(); return false; }
+        if (!isWalkableTile(target.x, target.y)) { cancel(); return false; }
+        var hitbox = getPlayerHitbox(player.x, player.y);
+        var dx = target.x * TILE_SIZE + TILE_SIZE / 2 - (hitbox.x + hitbox.w / 2);
+        var dy = target.y * TILE_SIZE + TILE_SIZE / 2 - (hitbox.y + hitbox.h / 2);
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < player.speed) {
+            player.x += dx; player.y += dy;
+            request.pathIndex++;
+            completeIfArrived();
+            return true;
+        }
+        var moveX = dx / dist * player.speed, moveY = dy / dist * player.speed;
+        player.dir = Math.abs(moveX) > Math.abs(moveY) ?
+            (moveX > 0 ? 'right' : 'left') : (moveY > 0 ? 'down' : 'up');
+        var oldX = player.x, oldY = player.y;
+        if (!checkCollision(player.x + moveX, player.y)) player.x += moveX;
+        if (!checkCollision(player.x, player.y + moveY)) player.y += moveY;
+        if (player.x === oldX && player.y === oldY) cancel();
+        return true;
+    }
+    function activateTrigger(id) {
+        cancel();
+        if (!canInteract()) return false;
+        var trigger = getTownTriggerById(id);
+        if (!trigger || trigger.enabled === false || !isPlayerNearTrigger(trigger)) return false;
+        var sceneId = currentScene;
+        faceTrigger(trigger);
+        var payload = trigger;
+        if (trigger.id === 'station_ghost_npc_trigger' && window.YUMANIWA_GHOST_NPC) {
+            payload = window.YUMANIWA_GHOST_NPC.prepareActivation(trigger);
+        }
+        var accepted = dispatchTrigger(payload);
+        if (accepted) {
+            if (window.YumaniwaMemory) window.YumaniwaMemory.onTriggerActivated(trigger);
+            if (window.YUMANIWA_TRIGGER_ANALYTICS) window.YUMANIWA_TRIGGER_ANALYTICS.onTriggerActivated(trigger, sceneId);
+        }
+        return accepted;
+    }
+    function handleAction() {
+        cancel();
+        if (isEditMode) return false;
+        if (isMessageOpen) {
+            var target = pendingWarp;
+            closeMessage(); // Clearing confirmation is separate from cancelling movement.
+            return target ? changeSceneWithTownFade(target) : true;
+        }
+        if (!canInteract()) return false;
+        var trigger = getNearbyTrigger();
+        return trigger ? activateTrigger(trigger.id) : false;
+    }
 
     function openTownMenuDirectly(trigger) {
         if (!trigger || !trigger.target) {
@@ -26,7 +128,7 @@
             return false;
         }
 
-        changeScene(target);
+        if (!changeScene(target)) return false;
 
         // 通常の施設メニューは intro を挟まず、選択肢を直接見せる。
         // 湯間庭新報は openDestination() が note_rack を直接開く既存仕様をそのまま使う。
@@ -151,7 +253,7 @@
             }
 
             var trigger = getTownTriggerById(String(interaction.triggerId));
-            if (!trigger) continue;
+            if (!trigger || trigger.enabled === false) continue;
 
             // tap矩形が重なった場合は、描画上手前になりやすい footY が大きい方を優先する。
             var footY = (typeof part.footY === "number") ? part.footY : y + h;
@@ -178,7 +280,7 @@
 
         for (var i = 0; i < triggers.length; i++) {
             var t = triggers[i];
-            if (!t || !t.area) continue;
+            if (!t || !t.area || t.enabled === false) continue;
             if (skippedIds && skippedIds[t.id]) continue;
 
             // 専用tapを持たない従来triggerだけは、これまでのtapPadding仕様を維持する。
@@ -279,7 +381,7 @@
         return best;
     }
 
-    window.activateTownTrigger = function(trigger) {
+    function dispatchTrigger(trigger) {
         if (!trigger) return false;
 
         if (trigger.id === "tourist_map") {
@@ -308,8 +410,8 @@
             return openTownMenuDirectly(trigger);
         }
 
-        // warp は今回の変更対象外。
-        // 従来どおり、説明を読んだあとにもう一度操作して移動する。
+        // Confirmation outlives movement: keep it separate from the request.
+        // 説明を読んだあとにもう一度操作して移動する。
         if (trigger.type === "warp") {
             var actionName = trigger.actionLabel || "調べる";
             showMessage(
@@ -323,136 +425,13 @@
         }
 
         return false;
-    };
-
-    function finishTapAutoActionIfReady() {
-        var trigger = tapAutoActionTrigger;
-        if (!trigger) return false;
-
-        if (tapMoveTargetTile || tapMoveTargetTrigger) {
-            return false;
-        }
-
-        // 通常は到着時に tapFocusedTrigger が設定される。
-        // すでに対象の近くをタップした場合も、その場で使えるようにする。
-        if (tapFocusedTrigger !== trigger && !isPlayerNearTrigger(trigger)) {
-            return false;
-        }
-
-        // 実行先の処理内で cancelTapMove() が呼ばれても二重実行しないよう、先に予約を消す。
-        tapAutoActionTrigger = null;
-        if (tapFocusedTrigger === trigger) {
-            tapFocusedTrigger = null;
-        }
-
-        window.activateTownTrigger(trigger);
-        return true;
     }
 
-    function finishTapAutoWarpIfReady() {
-        var side = tapAutoWarpSide;
-        if (!side) return false;
-
-        if (tapMoveTargetTile || tapMoveTargetTrigger) {
-            return false;
-        }
-
-        // tryTownEdgeWarp() 内で cancelTapMove() が呼ばれるので、先に予約だけ外す。
-        tapAutoWarpSide = null;
-        return tryTownEdgeWarp(side);
-    }
-
-    function startTapMoveToEdgeWarp(candidate) {
-        if (!candidate || !candidate.side || !candidate.tile) return false;
-
-        tapAutoActionTrigger = null;
-        tapAutoWarpSide = candidate.side;
-
-        // wrapper版 startTapMoveTo() は出口予約を消すため、ここだけ既存本体を直接使う。
-        var started = baseStartTapMoveTo(candidate.tile.x, candidate.tile.y);
-        if (!started) {
-            tapAutoWarpSide = null;
-            return false;
-        }
-
-        // すでに出口タイルにいる場合も、そのタップでそのまま移動する。
-        finishTapAutoWarpIfReady();
-        return true;
-    }
-
-    // 対象をタップした時だけ「到着後に使う」を予約する。
-    window.startTapMoveToTrigger = function(trigger) {
-        tapAutoWarpSide = null;
-        tapAutoActionTrigger = trigger || null;
-
-        var started = baseStartTapMoveToTrigger(trigger);
-        if (!started) {
-            tapAutoActionTrigger = null;
-            return false;
-        }
-
-        // すでに十分近い場合は歩行を挟まず、そのタップでそのまま使う。
-        finishTapAutoActionIfReady();
-        return true;
-    };
-
-    // 優先順位は「専用tap → 従来trigger → 出口 → 地面」。
-    // tapを明示した物はdirect-tap policyを自身で所有する。
-    // 専用矩形を持つ場合はその範囲だけ、tap:falseなら直接タップ自体を無効にする。
-    window.startTapMoveToNearbyTrigger = function(tileX, tileY) {
-        var tapPartTrigger = getTapPartTriggerAtTile(tileX, tileY);
-
-        if (tapPartTrigger) {
-            return window.startTapMoveToTrigger(tapPartTrigger);
-        }
-
-        var tapManagedTriggerIds = getTapManagedTriggerIds();
-        var directTrigger = getDirectTapTriggerCandidate(tileX, tileY, tapManagedTriggerIds);
-
-        if (directTrigger) {
-            return window.startTapMoveToTrigger(directTrigger);
-        }
-
-        var edgeCandidate = getEdgeWarpTapCandidate(tileX, tileY);
-        if (edgeCandidate) {
-            return startTapMoveToEdgeWarp(edgeCandidate);
-        }
-
-        return false;
-    };
-
-    // 歩き切ったフレームで、そのまま対象を使う／隣エリアへ抜ける。
-    window.updateTapMove = function() {
-        var moved = baseUpdateTapMove();
-
-        if (!finishTapAutoActionIfReady()) {
-            finishTapAutoWarpIfReady();
-        }
-
-        return moved;
-    };
-
-    // 地面をタップしたら「そこへ歩く」だけに戻す。
-    // 自動実行中に別の地面を選んだ場合も、前の予約はここでキャンセルされる。
-    window.startTapMoveTo = function(tileX, tileY) {
-        tapAutoActionTrigger = null;
-        tapAutoWarpSide = null;
-        return baseStartTapMoveTo(tileX, tileY);
-    };
-
-    // 十字キー・シーン遷移・メッセージ表示など、既存の cancelTapMove() を使う操作は
-    // すべて自動実行予約も一緒に解除する。
-    window.cancelTapMove = function() {
-        tapAutoActionTrigger = null;
-        tapAutoWarpSide = null;
-        return baseCancelTapMove.apply(this, arguments);
-    };
-
-    // 十字キー・操作ボタン側も、すべて同じ「使う」処理へ集約する。
-    window.handleAction = function() {
-        var trigger = getNearbyTrigger();
-        if (!trigger) return;
-
-        window.activateTownTrigger(trigger);
+    window.YUMANIWA_TOWN_INTERACTION = {
+        requestGroundMove: requestGroundMove, requestTrigger: requestTrigger,
+        requestEdgeWarp: requestEdgeWarp, requestTap: requestTap,
+        update: update, cancel: cancel, activateTrigger: activateTrigger, handleAction: handleAction,
+        isMoving: function () { return !!request && request.pathIndex < request.path.length; },
+        getRequest: function () { return request ? JSON.parse(JSON.stringify(request)) : null; }
     };
 })();

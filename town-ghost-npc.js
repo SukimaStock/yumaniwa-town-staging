@@ -258,19 +258,12 @@
     upsertById(station.triggers, trigger);
     upsertById(station.props, prop);
 
-    // inspect の既存処理は変えず、このNPCだけ話しかける直前に会話を決める。
-    var baseActivateTownTrigger = window.activateTownTrigger;
-    if (typeof baseActivateTownTrigger === 'function') {
-        window.activateTownTrigger = function (targetTrigger) {
-            if (targetTrigger && targetTrigger.id === TRIGGER_ID) {
-                // A conversation is a transient activation payload, not scene data.
-                var args = Array.prototype.slice.call(arguments);
-                args[0] = Object.assign({}, targetTrigger, { text: chooseGhostLine() });
-                return baseActivateTownTrigger.apply(this, args);
-            }
-            return baseActivateTownTrigger.apply(this, arguments);
-        };
-    }
+    window.YUMANIWA_GHOST_NPC = {
+        prepareActivation: function (targetTrigger) {
+            // Transient dialogue only; never write into canonical or draft.
+            return Object.assign({}, targetTrigger, { text: chooseGhostLine() });
+        }
+    };
 
     // 浮遊は配置座標を書き換えず、描画時のオフセットだけで表現する。
     // これによりEditorの y / footY とdiff baselineは常にcanonical値のまま。

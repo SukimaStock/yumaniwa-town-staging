@@ -123,8 +123,6 @@ var collisionGrid = [];
 var currentAreaId = null;
 var areaTitleTimer = null;
 
-var tapMovePath = [];
-var tapMoveTargetTile = null;
 var tapMarkerTimer = 0;
 var tapMarkerPos = null;
 
@@ -505,8 +503,6 @@ function getPointerTile(e) {
 }
 
 
-var tapMoveTargetTrigger = null;
-var tapFocusedTrigger = null;
 
 
 // ★ 新規追加: RPGメニュー用状態変数
@@ -589,7 +585,7 @@ function restoreTownWindowReturnPoint(fallbackSceneId) {
     player.walkFrame = 0;
     player.walkWasMoving = false;
 
-    cancelTapMove();
+    window.YUMANIWA_TOWN_INTERACTION.cancel();
     updateInteractionHint();
     updateCurrentArea();
 }
@@ -1342,6 +1338,8 @@ function placePlayerAtTownSpawn(def, spawnKey) {
 }
 
 function applyTownSceneDefinition(sceneId, spawnKey) {
+    window.YUMANIWA_TOWN_INTERACTION.cancel();
+    pendingWarp = null;
     var validation = validateTownSceneRequest(sceneId, spawnKey);
     if (!validation.ok) {
         lastTownSceneValidationErrors = validation.errors.slice();
@@ -1380,11 +1378,10 @@ function applyTownSceneDefinition(sceneId, spawnKey) {
     }
 
     currentAreaId = null;
-    tapFocusedTrigger = null;
     pendingWarp = null;
     editingPartIndex = -1;
     partDragState = null;
-    cancelTapMove();
+    window.YUMANIWA_TOWN_INTERACTION.cancel();
     initGrid();
     loadTownSceneBackground(def);
     placePlayerAtTownSpawn(def, resolvedSpawnKey);
@@ -1563,9 +1560,8 @@ function tryTownEdgeWarp(requestedSide) {
 
         if (hit) {
             clearDpadInput();
-            cancelTapMove();
-            changeSceneWithTownFade(warp.target, warp.targetSpawn || 'default');
-            return true;
+            window.YUMANIWA_TOWN_INTERACTION.cancel();
+            return changeSceneWithTownFade(warp.target, warp.targetSpawn || 'default');
         }
     }
 
@@ -2107,6 +2103,8 @@ function playTownRpgFadeTransition(callback, waitForReady) {
 
 
 function changeSceneWithTownFade(sceneId, spawnKey) {
+    window.YUMANIWA_TOWN_INTERACTION.cancel();
+    pendingWarp = null;
     if (!canLeaveTownEditorSession(sceneId)) return false;
     var validation = validateTownSceneRequest(sceneId, spawnKey);
     if (!validation.ok) {
@@ -2279,9 +2277,7 @@ function getOrCreateStationGuideMapLayer() {
 function openStationGuideMap() {
     setupStationGuideMapEvents();
 
-    if (typeof cancelTapMove === "function") {
-        cancelTapMove();
-    }
+    window.YUMANIWA_TOWN_INTERACTION.cancel();
 
     var layer = getOrCreateStationGuideMapLayer();
     if (!layer) return;
@@ -3325,54 +3321,6 @@ function findPath(startX, startY, goalX, goalY) {
     return null;
 }
 
-function startTapMoveTo(tileX, tileY) {
-    tapMoveTargetTrigger = null;
-    tapFocusedTrigger = null;
-
-    if (!isWalkableTile(tileX, tileY)) return false;
-
-    var startTile = getPlayerTile();
-    var path = findPath(startTile.x, startTile.y, tileX, tileY);
-
-    if (path) {
-        if (path.length > 0) {
-            tapMovePath = path;
-            tapMoveTargetTile = path[0];
-        } else {
-            tapMovePath = [];
-            tapMoveTargetTile = null;
-        }
-
-        tapMarkerPos = { x: tileX, y: tileY };
-        tapMarkerTimer = 60;
-        updateInteractionHint();
-        return true;
-    }
-
-    return false;
-}
-
-
-function cancelTapMove() {
-    tapMovePath = [];
-    tapMoveTargetTile = null;
-    tapMoveTargetTrigger = null;
-    tapFocusedTrigger = null;
-    tapMoveRequestedWarpSide = null;
-}
-
-
-function cancelTapMoveForAction() {
-    // ヒントや調べるボタンを押す時用。
-    // 到着後に覚えている対象 tapFocusedTrigger は消さない。
-    tapMovePath = [];
-    tapMoveTargetTile = null;
-    tapMoveTargetTrigger = null;
-    tapMoveRequestedWarpSide = null;
-}
-
-
-
 function isTileInsideRectWithPadding(tileX, tileY, rect, padding) {
     if (!rect) return false;
 
@@ -3402,35 +3350,6 @@ function getTileDistanceToTriggerCenter(tileX, tileY, trigger) {
     return Math.sqrt(dx * dx + dy * dy);
 }
 
-function getTapTriggerCandidate(tileX, tileY) {
-    var best = null;
-    var bestScore = Infinity;
-
-    for (var i = 0; i < triggers.length; i++) {
-        var t = triggers[i];
-        if (!t || !t.area) continue;
-
-        // 建物や札は、正確に1マスを押さなくても反応してほしいので少し広めに見る。
-        var padding = (typeof t.tapPadding === "number") ? t.tapPadding : 2;
-
-        if (!isTileInsideRectWithPadding(tileX, tileY, t.area, padding)) continue;
-
-        var score = getTileDistanceToTriggerCenter(tileX, tileY, t);
-
-        // 本来のトリガー範囲を直接押している場合は優先する。
-        if (isTileInsideRectWithPadding(tileX, tileY, t.area, 0)) {
-            score -= 4;
-        }
-
-        if (score < bestScore) {
-            bestScore = score;
-            best = t;
-        }
-    }
-
-    return best;
-}
-
 function findApproachTileForTrigger(trigger) {
     if (!trigger || !trigger.area) return null;
 
@@ -3447,7 +3366,7 @@ function findApproachTileForTrigger(trigger) {
 
         for (var y = minY; y <= maxY; y++) {
             for (var x = minX; x <= maxX; x++) {
-                if (!isWalkableTile(x, y)) continue;
+                if (!isWalkableTile(x, y) || !isTileInsideRectWithPadding(x, y, trigger.area, 2)) continue;
 
                 var path = findPath(startTile.x, startTile.y, x, y);
                 if (!path) continue;
@@ -3532,91 +3451,6 @@ function isPlayerNearTrigger(trigger) {
 
     var tile = getPlayerTile();
     return isTileInsideRectWithPadding(tile.x, tile.y, trigger.area, 2);
-}
-
-function startTapMoveToTrigger(trigger) {
-    if (!trigger) return false;
-
-    var approach = findApproachTileForTrigger(trigger);
-    if (!approach) return false;
-
-    tapFocusedTrigger = null;
-    tapMoveTargetTrigger = trigger;
-    tapMarkerPos = { x: approach.tile.x, y: approach.tile.y };
-    tapMarkerTimer = 60;
-
-    if (approach.path.length === 0) {
-        faceTrigger(trigger);
-        tapMoveTargetTrigger = null;
-        tapFocusedTrigger = trigger;
-        updateInteractionHint();
-        updateCurrentArea();
-        return true;
-    }
-
-    tapMovePath = approach.path;
-    tapMoveTargetTile = approach.path[0];
-    updateInteractionHint();
-    return true;
-}
-
-function startTapMoveToNearbyTrigger(tileX, tileY) {
-    var trigger = getTapTriggerCandidate(tileX, tileY);
-    if (!trigger) return false;
-
-    return startTapMoveToTrigger(trigger);
-}
-
-
-
-function updateTapMove() {
-    if (!tapMoveTargetTile) return false;
-
-    var targetPixelX = tapMoveTargetTile.x * TILE_SIZE + TILE_SIZE / 2;
-    var targetPixelY = tapMoveTargetTile.y * TILE_SIZE + TILE_SIZE / 2;
-
-    var hitbox = getPlayerHitbox(player.x, player.y);
-    var cx = hitbox.x + hitbox.w / 2;
-    var cy = hitbox.y + hitbox.h / 2;
-
-    var dx = targetPixelX - cx;
-    var dy = targetPixelY - cy;
-    var dist = Math.sqrt(dx * dx + dy * dy);
-
-    if (dist < player.speed) {
-        player.x += dx;
-        player.y += dy;
-        tapMovePath.shift();
-        if (tapMovePath.length > 0) {
-            tapMoveTargetTile = tapMovePath[0];
-        } else {
-            tapMoveTargetTile = null;
-
-            if (tapMoveTargetTrigger) {
-                faceTrigger(tapMoveTargetTrigger);
-                tapFocusedTrigger = tapMoveTargetTrigger;
-                tapMoveTargetTrigger = null;
-            }
-
-            updateInteractionHint();
-            updateCurrentArea();
-        }
-        return true;
-    }
-
-    var moveX = (dx / dist) * player.speed;
-    var moveY = (dy / dist) * player.speed;
-
-    if (Math.abs(moveX) > Math.abs(moveY)) {
-        player.dir = moveX > 0 ? "right" : "left";
-    } else {
-        player.dir = moveY > 0 ? "down" : "up";
-    }
-
-    if (!checkCollision(player.x + moveX, player.y)) player.x += moveX;
-    if (!checkCollision(player.x, player.y + moveY)) player.y += moveY;
-    
-    return true;
 }
 
 // ==========================================
@@ -3915,11 +3749,8 @@ function setupInteractionHintButton() {
         }
         lastActionTime = now;
 
-        if (typeof cancelTapMoveForAction === "function") {
-            cancelTapMoveForAction();
-        }
 
-        handleActionTrigger();
+        window.YUMANIWA_TOWN_INTERACTION.handleAction();
     }
 
     function beginPress(e) {
@@ -4044,6 +3875,9 @@ function setupEvents() {
         }
 
         keys[e.key] = true;
+        if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','W','a','A','s','S','d','D'].indexOf(e.key) !== -1) {
+            window.YUMANIWA_TOWN_INTERACTION.cancel();
+        }
 
         if (
             DEV_MODE_ENABLED &&
@@ -4076,7 +3910,7 @@ function setupEvents() {
             e.key === 'Enter' ||
             e.key === ' '
         ) {
-            handleActionTrigger();
+            window.YUMANIWA_TOWN_INTERACTION.handleAction();
         }
     });
 
@@ -4122,7 +3956,7 @@ function setupEvents() {
                 return;
             }
 
-            cancelTapMove();
+            window.YUMANIWA_TOWN_INTERACTION.cancel();
             dpad[dir] = true;
             el.classList.add("pressed");
 
@@ -4207,13 +4041,8 @@ function setupEvents() {
 
             lastActionButtonTime = now;
 
-            // 移動途中で押した場合は移動だけ止め、
-            // 到着済みの対象情報は残して調べられるようにする。
-            if (typeof cancelTapMoveForAction === "function") {
-                cancelTapMoveForAction();
-            }
 
-            handleActionTrigger();
+            window.YUMANIWA_TOWN_INTERACTION.handleAction();
         }
 
         actionButton.addEventListener(
@@ -4366,16 +4195,7 @@ function setupEvents() {
                 return;
             }
 
-            if (
-                startTapMoveToNearbyTrigger(
-                    tileX,
-                    tileY
-                )
-            ) {
-                return;
-            }
-
-            startTapMoveTo(tileX, tileY);
+            window.YUMANIWA_TOWN_INTERACTION.requestTap(tileX, tileY);
         }
     );
 
@@ -4435,15 +4255,7 @@ function setupMessageLayerEvents() {
         e.preventDefault();
         e.stopPropagation();
 
-        if (pendingWarp) {
-            var target = pendingWarp;
-            pendingWarp = null;
-            closeMessage();
-            changeSceneWithTownFade(target);
-            return;
-        }
-
-        closeMessage();
+        window.YUMANIWA_TOWN_INTERACTION.handleAction();
     }
 
     if (msgWin) {
@@ -4452,27 +4264,6 @@ function setupMessageLayerEvents() {
 
     if (backdrop) {
         backdrop.addEventListener('pointerdown', handleMessageTap);
-    }
-}
-
-
-function handleActionTrigger() {
-    if (isEditMode) return;
-
-    if (isMessageOpen) {
-        if (pendingWarp) {
-            var target = pendingWarp;
-            pendingWarp = null;
-            closeMessage();
-            changeSceneWithTownFade(target);
-            return;
-        }
-        closeMessage();
-        return;
-    }
-
-    if (isTownScene(currentScene)) {
-        handleAction();
     }
 }
 
@@ -4501,7 +4292,7 @@ function bindTownEditorDraft() {
 
 function closeTownEditor() {
     finishPartEditorDrag();
-    cancelTapMove();
+    window.YUMANIWA_TOWN_INTERACTION.cancel();
     pendingWarp = null;
     document.getElementById('editor-panel').style.display = 'none';
     document.getElementById('btn-debug-toggle').style.display = DEV_MODE_ENABLED ? 'block' : 'none';
@@ -4520,7 +4311,7 @@ function openTownEditorSession() {
     var existing = window.YUMANIWA_EDITOR_SESSION.current();
     window.YUMANIWA_EDITOR_SESSION.open(currentScene);
     if (!existing) resetTownEditorTransientState();
-    cancelTapMove();
+    window.YUMANIWA_TOWN_INTERACTION.cancel();
     pendingWarp = null;
     bindTownEditorDraft();
 }
@@ -4529,7 +4320,7 @@ function discardTownEditorChanges() {
     if (!window.YUMANIWA_EDITOR_SESSION.current()) return;
     window.YUMANIWA_EDITOR_SESSION.discard();
     resetTownEditorTransientState();
-    cancelTapMove();
+    window.YUMANIWA_TOWN_INTERACTION.cancel();
     pendingWarp = null;
     bindTownEditorDraft();
     updatePartEditorSelectionUi();
@@ -4538,7 +4329,7 @@ function discardTownEditorChanges() {
 
 function canLeaveTownEditorSession(sceneId) {
     if (window.YUMANIWA_EDITOR_SESSION.canLeave(sceneId)) return true;
-    cancelTapMove();
+    window.YUMANIWA_TOWN_INTERACTION.cancel();
     pendingWarp = null;
     updateEditorStatus('未反映の変更があります。別の町へ移動する前に変更を破棄してください');
     window.alert('この町に未反映の編集があります。Editorで変更を書き出し、必要ならDeskへ反映して再読込してください。移動するには「変更を破棄」を選んでください。');
@@ -6785,7 +6576,7 @@ function update() {
         var beforeManualX = player.x;
         var beforeManualY = player.y;
 
-        cancelTapMove();
+        window.YUMANIWA_TOWN_INTERACTION.cancel();
         
         if (dx !== 0 && dy !== 0) {
             dx *= 0.7071;
@@ -6827,10 +6618,17 @@ function update() {
         if (warpSide && tryTownEdgeWarp(warpSide)) return;
     } else {
         // 経路の最初・最後の短い一歩も含め、タップ移動中は歩行アニメを維持する。
-        var tapPathWasActive = !!tapMoveTargetTile;
+        var tapPathWasActive = window.YUMANIWA_TOWN_INTERACTION.isMoving();
+        var tapSceneId = currentScene;
         var beforeTapX = player.x;
         var beforeTapY = player.y;
-        var moved = updateTapMove();
+        var moved = window.YUMANIWA_TOWN_INTERACTION.update();
+        // Arrival may open an overlay or apply another scene/spawn.
+        if (tapSceneId !== currentScene || isMessageOpen || isWorkPlayerOpen || isStationGuideMapOpen) {
+            player.isMoving = false;
+            updatePlayerWalkAnimation(0);
+            return;
+        }
 
         var tapMovedX = player.x - beforeTapX;
         var tapMovedY = player.y - beforeTapY;
@@ -6846,13 +6644,12 @@ function update() {
         player.isMoving =
             movedThisFrame ||
             tapPathWasActive ||
-            !!tapMoveTargetTile;
+            window.YUMANIWA_TOWN_INTERACTION.isMoving();
 
         if (moved) {
             updateUI();
             updateInteractionHint();
             updateCurrentArea();
-            if (tryTownEdgeWarp()) return;
         }
     }
 
@@ -6884,14 +6681,6 @@ function checkCollision(x, y) {
 function isColliding(r1, r2) { return r1.x < r2.x + r2.w && r1.x + r1.w > r2.x && r1.y < r2.y + r2.h && r1.y + r1.h > r2.y; }
 
 function getNearbyTrigger() {
-    if (tapFocusedTrigger) {
-        if (isPlayerNearTrigger(tapFocusedTrigger)) {
-            return tapFocusedTrigger;
-        }
-
-        tapFocusedTrigger = null;
-    }
-
     var checkX = player.x;
     var checkY = player.y;
     var checkSize = TILE_SIZE;
@@ -6906,6 +6695,7 @@ function getNearbyTrigger() {
 
     for (var i = 0; i < triggers.length; i++) {
         var t = triggers[i];
+        if (!t || !t.area || t.enabled === false) continue;
         var tr = {
             x: t.area.x * TILE_SIZE,
             y: t.area.y * TILE_SIZE,
@@ -7176,38 +6966,6 @@ function showAreaTitle(zone) {
     }, 2200);
 }
 
-function handleAction() {
-    var t = getNearbyTrigger();
-    if (t) {
-        if (t.id === "tourist_map") {
-            openStationGuideMap();
-            return;
-        }
-
-        if (t.type === "work") {
-            var work = t.workId ? getWorkById(t.workId) : null;
-
-            if (work) {
-                launchWork(work);
-            } else {
-                showMessage(t.text || "この作品は、まだ準備中です。");
-            }
-
-            return;
-        }
-
-        if (t.type === "inspect") {
-            showMessage(t.text);
-        } else if (t.type === "warp" || t.type === "menu") {
-            var actionName = t.actionLabel || "調べる";
-            showMessage(t.text + "<br><span style='font-size:14px; color:#aaa;'>(もう一度「" + actionName + "」で開く)</span>");
-            pendingWarp = t.target;
-        }
-    }
-}
-
-
-
 // ==========================================
 // 7. UI・シーン・RPGメニュー管理
 // ==========================================
@@ -7227,9 +6985,8 @@ function formatText(text) {
 }
 
 function showMessage(text) {
-    if (typeof cancelTapMove === "function") {
-        cancelTapMove();
-    }
+    pendingWarp = null;
+    window.YUMANIWA_TOWN_INTERACTION.cancel();
     var msg = formatText(text);
     var msgWin = document.getElementById('message-window');
     var backdrop = document.getElementById('message-backdrop');
@@ -7248,6 +7005,7 @@ function showMessage(text) {
 
 
 function closeMessage() { 
+    pendingWarp = null;
     var msgWin = document.getElementById('message-window');
     var backdrop = document.getElementById('message-backdrop');
 
@@ -7317,6 +7075,8 @@ function prepareSceneUiForChange() {
 }
 
 function changeTownScene(sceneId, spawnKey) {
+    window.YUMANIWA_TOWN_INTERACTION.cancel();
+    pendingWarp = null;
     if (!canLeaveTownEditorSession(sceneId)) return false;
     var validation = validateTownSceneRequest(sceneId, spawnKey);
     if (!validation.ok) {
@@ -7344,6 +7104,8 @@ function changeTownScene(sceneId, spawnKey) {
 
 // ★ RPG共通メニューの生成と遷移
 window.changeScene = function(sceneId, spawnKey) {
+    window.YUMANIWA_TOWN_INTERACTION.cancel();
+    pendingWarp = null;
     if (isTownScene(sceneId)) {
         return changeTownScene(sceneId, spawnKey);
     }
@@ -8053,9 +7815,7 @@ window.openNoteReader = function(article) {
 
     if (!playerLayer || !frame || !title) return;
 
-    if (typeof cancelTapMove === "function") {
-        cancelTapMove();
-    }
+    window.YUMANIWA_TOWN_INTERACTION.cancel();
 
     currentWorkId = null;
     currentFrameSourceUrl = article.url || "";
@@ -8186,9 +7946,7 @@ window.openWorkPlayer = function(work) {
 
     if (!playerLayer || !frame || !title) return;
 
-    if (typeof cancelTapMove === "function") {
-        cancelTapMove();
-    }
+    window.YUMANIWA_TOWN_INTERACTION.cancel();
 
     // 施設メニューから別作品を選んだ時点で、
     // 前の作品についての案内表示は終了する。

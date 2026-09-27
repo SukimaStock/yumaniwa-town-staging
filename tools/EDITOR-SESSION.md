@@ -74,8 +74,9 @@ field構築はDOMの存在確認で一度だけ。main関数の捕捉・再代�
 
 ## 残る境界
 
-interaction予約やmovement/action wrapper、ghostのactivateTownTrigger wrapperはPhase 4。
-今回それらの実装、destination、ghost配置、trigger.area schemaは変更していない。
+Phase 4のinteractionは `INTERACTION-CONTROLLER.md` を参照。
+interaction requestはEditor session/historyに含めず、Editor open/close時にcancelする。
+destination、ghost配置、trigger.area schemaは変更していない。
 全draft snapshot方式のため履歴の使用メモリは操作数とgrid面積に比例する。
 履歴の上限やredo追加は今回行わない。
 

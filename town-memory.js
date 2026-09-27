@@ -272,6 +272,10 @@
         isNpcEventConsumed: isNpcEventConsumed,
         markWorkMention: markWorkMention,
         getRecentWorkCandidates: getRecentWorkCandidates,
+        onTriggerActivated: function (trigger) {
+            if (trigger.id === 'town_feedback_box_trigger') recordFlag('feedbackBoxSeen', true);
+            if (trigger.id === 'town_update_history_sign') recordFlag('updateHistorySeen', true);
+        },
         relationshipStage: relationshipStage
     };
 
@@ -288,18 +292,4 @@
         window.__YUMANIWA_MEMORY_WORK_WRAPPED__ = true;
     }
 
-    // 町の小物を実際に調べた事実だけ記録する。
-    if (!window.__YUMANIWA_MEMORY_TRIGGER_WRAPPED__ && typeof window.activateTownTrigger === 'function') {
-        var baseActivateTownTrigger = window.activateTownTrigger;
-        window.activateTownTrigger = function (trigger) {
-            if (trigger && trigger.id === 'town_feedback_box_trigger') {
-                recordFlag('feedbackBoxSeen', true);
-            }
-            if (trigger && trigger.id === 'town_update_history_sign') {
-                recordFlag('updateHistorySeen', true);
-            }
-            return baseActivateTownTrigger.apply(this, arguments);
-        };
-        window.__YUMANIWA_MEMORY_TRIGGER_WRAPPED__ = true;
-    }
 })();

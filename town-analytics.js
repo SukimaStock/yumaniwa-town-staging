@@ -159,36 +159,17 @@
         window.openStationGuideMap = wrappedOpenStationGuideMap;
     }
 
-    function wrapTownTriggerActivation() {
-        var baseActivate = window.activateTownTrigger;
-        if (typeof baseActivate !== "function" || baseActivate.__yumaniwaAnalyticsWrapped) return;
-
-        var venueTargets = {
-            tomogushi_game_board: "tomogushi_alley",
-            leisure_catalog: "leisure_center"
-        };
-
-        function wrappedActivateTownTrigger(trigger) {
-            if (
-                trigger &&
-                trigger.type === "menu" &&
-                trigger.target &&
-                venueTargets[trigger.target]
-            ) {
-                track("Venue Open", {
-                    venue: venueTargets[trigger.target],
-                    guide: String(trigger.target),
-                    from_work: previousWorkId || "none",
-                    scene: String(window.currentScene || "unknown")
+    window.YUMANIWA_TRIGGER_ANALYTICS = {
+        onTriggerActivated: function (trigger, sceneId) {
+            var venueTargets = { tomogushi_game_board: 'tomogushi_alley', leisure_catalog: 'leisure_center' };
+            if (trigger.type === 'menu' && venueTargets[trigger.target]) {
+                track('Venue Open', {
+                    venue: venueTargets[trigger.target], guide: String(trigger.target),
+                    from_work: previousWorkId || 'none', scene: sceneId
                 });
             }
-
-            return baseActivate.apply(this, arguments);
         }
-
-        wrappedActivateTownTrigger.__yumaniwaAnalyticsWrapped = true;
-        window.activateTownTrigger = wrappedActivateTownTrigger;
-    }
+    };
 
     function wrapDestinationMenuSelection() {
         var baseHandle = window.handleDestinationMenuItem;
@@ -281,7 +262,6 @@
 
     loadPlausible();
     wrapStationGuideMap();
-    wrapTownTriggerActivation();
     wrapDestinationMenuSelection();
     wrapWorkClose();
     wrapNativeShare();
