@@ -8,7 +8,7 @@ window.ORBIT_SOUND_CONFIG = Object.freeze({
   data: Object.freeze({ file: "sounds/data.ogg", volume: 0.11, cooldown: 120 }),
   fuel: Object.freeze({ file: "sounds/fuel.ogg", volume: 0.28, cooldown: 140 }),
   impact: Object.freeze({ file: "sounds/impact.ogg", volume: 0.16, cooldown: 350 }),
-  echo: Object.freeze({ file: "sounds/echo.ogg", volume: 0.14, cooldown: 300 }),
+  echo: Object.freeze({ file: "sounds/echo.ogg", volume: 0.075, cooldown: 300 }),
   restore: Object.freeze({ file: "sounds/restore.ogg", volume: 0.15, cooldown: 500 }),
   boot: Object.freeze({ file: "sounds/boot.ogg", volume: 0.12, cooldown: 400 }),
   eve_online: Object.freeze({ file: "sounds/eve_online.ogg", volume: 0.12, cooldown: 180 }),
