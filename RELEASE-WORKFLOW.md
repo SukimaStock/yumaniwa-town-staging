@@ -44,3 +44,155 @@ staging と本番の双方に独自変更がある場合、どちらか一方で
 ---
 
 **基本原則: staging を次の本番状態の正本として保つ。**
+
+## 新作公開Policy v1（Phase 2・完成判定の正本）
+
+既存の安全な差分移送手順を維持する。以下の全工程を満たして初めて新作公開を閉じる。
+AIの判断権限は `AGENTS.md`、具体的なDesk/Editor操作は `OPERATIONS.md` を参照する。
+
+### 五つのReady
+
+| Ready | 完成条件と必要な証拠 |
+| --- | --- |
+| Town Ready | 意図した町内導線→正しい作品→主操作→町へ戻る→町操作の再開。physicalはobject/prop/trigger/workId、collision/tapと実際の接近・到達性を確認。端末・経路・確認SHAを記録 |
+| Search Ready | productionの `/w/<id>/` は通常紹介ページでindex,follow。title、meta description、h1、紹介本文、自己canonical、同一og:url、OGP image/alt、起動リンク、町リンク、sitemap収録、静的発見経路がある。JSなしで最低限理解できる。実配信も確認 |
+| Share Ready | 標準share URLは `/w/<id>/`。OGP/X card、日本語一文、必要な操作説明・英語一文・画像/動画を採用し、選択した外部公開工程へ渡せる。SNS全件投稿は必須にしない |
+| Observe Ready | 既存契約のWork Open/Close/Shareと必要なcore actionをID単位で判別。外部Goalと本番送信の証拠を確認。未確認はUNVERIFIED |
+| Release Ready | production base SHA、staging確認SHA、production候補SHA、今回公開する作品、公開しないstaging差分、必要依存、環境差分、validation、rollbackが明確 |
+
+Googleにindex済みであることや検索順位は条件ではない。発見・理解・index可能な条件を整える。
+Work Openは**起動選択／起動試行**であり、ロード成功やプレイ完了ではない。
+Closeは共通playerの退出のみ。externalタブの終了はN/A。Shareはnative共有成功のみで、
+全コピー・画像保存を測らない。作品に不要なcore action/Shareは理由付きN/Aにできる。
+Scene Visitや新session ID等の計測体系を追加しない。Plausible設定はrepositoryから推測しない。
+
+### URL契約
+
+| URL | 正式な役割 |
+| --- | --- |
+| `/w/<id>/` | 検索・共有ページ。production自己canonical、index可能、通常redirectなし、JSなしの本文とリンク。標準share URL |
+| `/?work=<id>` | 町shellの実行入口。作品固有OGPを期待しない |
+| `/w/<id>/?open=1` | 既存互換の直接起動shortcut。町shellへredirect可。通常share URLにしない |
+| `/works/<id>/` | embedded実体・単体検証/standalone。検索代表でない。既存index/noindexは全面変更しない |
+| 通常itch URL | 作品紹介/配布用 |
+| itch embed-upload URL | 町内iframe専用。告知URLにしない |
+
+stagingのwページはnoindexを維持する。production候補のnoindexはFAIL。
+実行ページまで一律noindex禁止にしない。OGPは現在1200×630が推奨値。
+別寸法は即FAILではなくカード確認WARNING。参照・MIME・宣言寸法と実体の不一致はFAIL。
+同じ画像URLの転記を検査する。別OGP/X画像や別asset配置規約が必要なら契約をレビューする。
+
+### Release状態
+
+- `DRAFT`: 対象・素材・判断を準備中。
+- `VALIDATION_BLOCKED`: FAILまたはHQ_REQUIREDがある。
+- `STATIC_CHECKS_PASSED`: 機械検証に阻害なし。外部/実機未確認があればUNVERIFIEDのまま。
+- `RELEASE_READY`: 五つのReadyの配信前条件と候補・復旧手順を確認済み。
+- `DEPLOYED_AWAITING_VERIFICATION`: production配信後の確認待ち。
+- `DEPLOYED_AWAITING_ANNOUNCEMENT`: 本番確認済みだが、選択した告知または引渡しが未完。
+- `RELEASE_COMPLETE`: production配信済み、同SHAのPages成功、本番確認、五つのReady、
+  選択した外部公開**または引渡し**が完了。
+
+作者への引渡しを選択した場合は引渡し完了でよい。投稿まで選択した場合は下書きの引渡しを
+投稿完了にしない。SNS自体を選ばない場合はその理由を記録する。
+ValidatorはRelease Completeを認定しない。CI成功・merge成功・Pages成功はそれぞれ別の証拠。
+
+### Release記録（PR本文等に一箇所だけ記録）
+
+- work IDs、productionに公開する**全対象集合**、今回検査する対象ID。
+- production base SHA、staging確認SHA、production候補SHA。
+- 今回公開しないstaging差分、必要な共通依存、環境差分（robots/dev/cache）。
+- menu-only/physicalとOwner承認の参照、必要なHQ決定。
+- validation command/結果、Standard/Conditional結果、外部確認証拠またはUNVERIFIED。
+- rollback対象/手順、配信後確認担当、選択チャネル/引渡しと状態。
+
+作品identityはworks.js。Release記録は実施証跡であり第二の作品台帳にしない。
+stagingのopenを公開許可としない。CoffeeFactory等を無断で含めない。
+候補を作る際はbaseから必要な依存ごとに選別し、本番用環境設定を確認する。
+確認後に候補が変わったら影響部分を再検証する。失敗時は告知を止め、force pushを使わず
+既存のrevert commit手順で戻す。緊急本番修正はstagingへ戻す。
+
+### 毎回Standard / 変更時だけConditional
+
+毎回: 新作の町内導線・直リンク・mobile/PC主操作・戻る・町操作・再入場・通常再訪。
+同launch/frameの既存作品1件と対象施設の出入り1経路。Search/Share/Observeの静的検査、
+production候補の差分/環境検証、配信後の実URL・画像・sitemap・event到達確認。
+非対応端末は明記して告知と一致させる。全作品の通し遊びを毎回要求しない。
+
+| 条件 | 追加する確認 |
+| --- | --- |
+| physical配置変更 | 既存scene validator、object画像、trigger参照、接近、collision/tap、隣接通路。Editor/Desk契約を変更時は既存テスト |
+| scene出入口/遷移変更 | 対象遷移の往復・入力保持・連打・戻り先、既存interaction/transitionテスト |
+| 共通player/frame/Engine変更 | 影響profileごとの代表作、関係する音/保存/共有/fullscreen |
+| SW/PWA/cache変更 | scope/cache更新・通常再訪・ホーム画面・他作品cacheを消さない。offline提供時だけoffline |
+| tilt/audio/save/share/API使用 | 当該機能の許可拒否・代替・Safari復帰・再読込・共有取消等 |
+| itch build変更 | 配布ZIPそのもの、upload番号、サイズ、主操作、手動retry |
+| 特定SNS内ブラウザを対象 | その環境の起動・戻る・必要な共有 |
+
+### Release Validator（読み取り専用）
+
+Nodeの既存テスト環境で実行する。新package導入・generator・ネットワーク通信・書込みはない。
+検査対象は**信頼するrepository snapshot**のみ。JSのVM実行は安全隔離ではない。
+
+```sh
+# staging: noindexが正常。sitemap未配置はWARNING。公開完成とは判定しない。
+node tools/release-validator.cjs --env staging --ids diorama-calendar,rojiura-masala,steamclock
+
+# 意図したphysical配置の欠落も検出（既存triggerは指定なしでも検査）
+node tools/release-validator.cjs --env staging --ids dotweather --physical dotweather
+
+# 準備済みproduction候補を読む。対象全件を明示した例。公開やコピーは行わない。
+node tools/release-validator.cjs --root /path/to/production-candidate --env production \
+  --ids diorama-calendar,rojiura-masala,steamclock \
+  --published diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window
+
+# 本番公開全件: 検証済みのproduction checkoutを集合の入力元に指定
+node tools/release-validator.cjs --root /path/to/production-candidate --env production \
+  --production-root /path/to/verified-production-snapshot --all-production
+
+# machine-readable結果は標準出力（必要な場合だけ利用者が保存）
+node tools/release-validator.cjs --env staging --ids dotweather --json
+node --test tests/test-release-validator.cjs
+```
+
+`--published`は全公開集合、`--ids`は今回検査する部分集合。両者を混同しない。
+`--production-root`は利用者が明示した本番snapshotのworks open集合を読むだけで、
+環境を自動判定しない。SHA/由来をRelease記録へ。新作を追加する候補では、現行本番集合に
+新作がまだないので`--published`に承認済み全集合を指定する。
+production候補に集合外のopen作品がある場合もFAIL。stagingでは集合外openを禁止しない。
+
+| 出力 | 意味 / exit |
+| --- | --- |
+| PASS | その機械的項目のみ合格。実機や外部設定の合格ではない |
+| FAIL | 明確な欠落・不一致。exit 1 |
+| WARNING | 推奨値との差、stagingのsitemap未配置等。単独ではexit 0 |
+| HQ_REQUIRED | 未知の方式や静的に扱えない契約。exit 1で止める |
+| EXTERNAL_CHECK_REQUIRED | 外部/実機のUNVERIFIED。単独ではexit 0だがRelease Complete不可 |
+
+CLIの不正入力/実行不能はexit 2。JSONにもsummary/exitCodeと`releaseComplete:false`を出す。
+外部GoalだけでCIを赤くしないが、五つのReady確認から除外もしない。
+
+検査範囲: works必須metadata/identity、launch実体、w本文/meta/リンク/robots/redirect、
+OGP画像実体/MIME/寸法/ID、sitemap収録/集合/重複、Manifest/id/start_url/scope/icon、
+physical参照（既存scene validator再利用）、既存trackerからのevent名生成。
+`description`は公開Standardで必須。phoneの幅高さは正数、responsiveでは未指定可。
+
+静的発見はrootから通常のa[href]をたどる。JS/canvas生成menuを代用にしない。
+redirectは既存inline scriptを通常queryとopen=1で実行し、load/timerとmeta refreshを検査する。
+外部script・未対応DOM依存・inline handler・実行不能はHQ_REQUIRED。一般の全JavaScript経路を
+形式的に証明するものではなく、端末条件分岐やHTTP redirect/headersは実配信確認に残す。
+HTML/XMLは現行静的形式を対象とする。外部画像やJPEG/PNG以外は自動PASSにせずレビューへ。
+lastmodの実質的変更日との一致は履歴レビューで確認し、今日の日付を生成しない。
+
+### 未決HQ（Phase 2では解決しない）
+
+1. staging新WORLD OBJECT基盤と旧production基盤を越える昇格方法。新基盤の部分コピー禁止。
+2. `/works/`のindex/noindex・canonicalを統一する範囲。今回のw契約採用はこの全面変更を含まない。
+3. 将来generatorのためのSEO/Share追加metadataの最小設計。第二台帳・大規模schemaは未導入。
+4. landing計測/UTM引渡し等、既存analytics契約を超える変更。
+
+Phase 2確認時の基準: production `cc387496dbadbd5ddd1f937e15100c4c9bd82b83`、
+staging `ccae0a7d4ca3e69117db636a265468df5a1cdf54`。
+Phase 1のstaging固定SHAからの19コミットはORBIT本体/専用export関連6ファイルのみ。
+登録・w・OGP・analytics・scene・Manualの結論は不変。
+今回、既知SEO/sitemap/OGPの実データは直さない。まず赤を出せることが成果。

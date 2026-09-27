@@ -198,3 +198,34 @@ production 固有の次の条件を守る。
 - `Fix: sync production correction back to staging`
 
 `update` のように内容が分からない名前は、できるだけ避ける。
+
+## 新作登録からRelease検査へ（Phase 2）
+
+完成判定・URL役割・検査commandは `RELEASE-WORKFLOW.md` を正本とする。
+この節は具体的な作業の接続だけを扱う。
+
+1. Pull・clean・staging identityを確認する。対象ID、launch、venue、公開対象と除外を記録する。
+2. embeddedは `works/<id>/` と依存を配置する。Engine利用作品は
+   `engine/SUKIMASTOCK-NEW-WORK.md` の既存handoff/exportを使う。
+   itchは最終upload番号と通常紹介URLを別に記録する。externalはHTTPS URL。
+3. Deskで `data/works.js` へ登録する。完成済みfolderがある場合は「雛形から作る」をOFF。
+   title/menuTitle/frameTitleは用途の違いを保つ。launch・frameModeを明示し、phoneは幅高さを指定。
+4. **menu-only:** 既存施設の一覧はworksから生成される。画像・Editor・collisionを追加する必要はない。
+   **physical:** Owner承認済み配置にobject→prop→trigger→workIdを接続する。
+   新画像が必要な時だけFactory→Cleaner→WORLD OBJECT台帳へ。
+   駅前は `data/station-plaza.js`、他sceneは `data/town-maps.js` が配置の正本。
+   Editor diffをDeskのsource/before/hash/scene検証経由で適用する。
+5. install metadata・wページ・共有素材を準備する。作品の公開状態とは別工程なので
+   「作品を登録しました」を「公開完了」に言い換えない。
+6. Deskのcache fingerprint更新を含めて差分を見る。手編集でも参照scriptのcache更新を確認。
+   prop preloadはscene/objectを参照する。作品内部assetのpreloadは作品側で確認する。
+7. `node tools/release-validator.cjs --env staging --ids <id>` を実行する。
+   physicalなら `--physical <id>`。FAIL/HQを記録し、外部確認待ちを残す。
+8. 新作の町内導線・直リンク・mobile/PC主操作・戻る・再入場、通常再訪を確認。
+   同じlaunch/frameの既存作品1件、対象施設の出入り1経路を最小回帰とする。
+   追加のConditionalはRelease Manualで選ぶ。
+9. Status・差分・Commit/Pushを確認。production候補の作成・公開は許可された別工程として
+   `RELEASE-WORKFLOW.md` へ渡す。
+
+Phase 2時点の既知の赤は意図した検出結果。Diorama Calendar／路地裏マサラのページや
+SteamClockのsitemapを、Validator実装と一緒に変更しない。
