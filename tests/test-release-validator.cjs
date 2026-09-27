@@ -49,6 +49,11 @@ function regenerateSearch(c,env='production') {
 function has(r,status,check) { assert.ok(r.results.some(x=>x.status===status && x.check===check),status+' '+check+'\n'+JSON.stringify(r.results.filter(x=>x.status!=='PASS'))); }
 function clean(r) { assert.equal(r.exitCode,0,JSON.stringify(r.results.filter(x=>['FAIL','HQ_REQUIRED'].includes(x.status)))); }
 function digest(root) { const entries=[]; function walk(dir) { for (const e of fs.readdirSync(dir,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name))) { const p=path.join(dir,e.name); if(e.isDirectory())walk(p);else entries.push([path.relative(root,p),crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex')]); } } walk(root); return entries; }
+test('HTML parser preserves apostrophes inside double-quoted attributes',()=>{
+    const parsed=html('<meta name="description" content="tonight\'s bottle">');
+    assert.equal(parsed.meta('description')[0],"tonight's bottle");
+});
+
 test('DotWeather production normal page passes static gates; external checks remain and input is unchanged',t=>{
     const c=candidate(t), before=digest(c.root), r=validate(c.options);
     clean(r); assert.equal(r.releaseComplete,false); assert.equal(r.readiness,'UNVERIFIED');
