@@ -1,53 +1,68 @@
 // ==========================================
 // 湯間庭町 / 更新履歴データ
 // 新しい更新は、この配列の先頭に追加します。
+// 作品追加の記録には workIds: ["<work-id>"] を必ず付け、Release Validatorから追跡できるようにします。
 // ==========================================
 
 var TOWN_UPDATES = [
     // [UPDATES:ADD_NEWEST_HERE]
     {
+        date: "2026-09-27",
+        title: "レジャーセンターに『ORBIT』を設置",
+        body: "帰る場所を手がかりに、静かな宇宙を漂い続ける探索ゲームです。",
+        tags: ["leisure-center", "game", "open"],
+        workIds: ["orbit"]
+    },
+    {
         date: "2026-09-18",
         title: "レジャーセンターに『Diorama Calendar』を設置",
         body: "季節の小さな景色を、傾けて眺めるカレンダーです。",
-        tags: ["leisure-center", "app", "open"]
+        tags: ["leisure-center", "app", "open"],
+        workIds: ["diorama-calendar"]
     },
     {
         date: "2026-09-18",
         title: "レジャーセンターに『CoffeeFactory』を設置",
         body: "こびと達と一緒に、一杯を淹れるコーヒー抽出タイマーです。",
-        tags: ["leisure-center", "app", "open"]
+        tags: ["leisure-center", "app", "open"],
+        workIds: ["coffee-factory"]
     },
     {
         date: "2026-09-14",
         title: "灯串横丁に『路地裏マサラ』が開店",
         body: "夜の路地を走って、冷める前にカレーを届ける店が開きました。",
-        tags: ["tomogushi-alley", "game", "open"]
+        tags: ["tomogushi-alley", "game", "open"],
+        workIds: ["rojiura-masala"]
     },
     {
         date: "2026-09-12",
         title: "レジャーセンターに『SteamClock』を設置",
         body: "歯車と蒸気が静かに動き続ける、スチームパンクの時計です。",
-        tags: ["leisure-center", "app", "open"]
+        tags: ["leisure-center", "app", "open"],
+        workIds: ["steamclock"]
     },
 
     {
         date: "2026-08-17",
         title: "DotWeatherをアップデートしました。",
         body: "風や雲が、実際の風向きや強さに合わせて変化するようになりました。\n雨の降り方も調整し、月は月齢に合わせて形が変わります。\n\nそして、世界のどこかでは虹が出るようになりました！🌈\n雨が止みそうな午後の街…そんな気配がします。",
-        tags: []
+        tags: [],
+        workIds: ["dotweather"]
     },
 
     {
         date: "2026-08-10",
         title: "灯串横丁に『純喫茶ダイヴ』が開店",
         body: "深夜だけ開く小さな純喫茶が、今夜から営業しています。",
-        tags: ["tomogushi-alley", "game", "open"]
+        tags: ["tomogushi-alley", "game", "open"],
+        workIds: ["junkissa-dive"]
     },
     {
         date: "2026-08-06",
         title: "レジャーセンターに『DotWeather』を設置",
         body: "世界の空を、静かなドットで眺められるようになりました。",
-        tags: ["leisure-center", "app", "open"]
+        tags: ["leisure-center", "app", "open"],
+        workIds: ["dotweather"]
     },
     {
         date: "2026-07-06",
@@ -59,13 +74,15 @@ var TOWN_UPDATES = [
         date: "2026-07-06",
         title: "灯串横丁に二つの店が開店",
         body: "クラフトコーラ研究所と、やきとり屋　ゆまどが今夜から営業しています。",
-        tags: ["tomogushi-alley", "open"]
+        tags: ["tomogushi-alley", "open"],
+        workIds: ["midnight-cola", "yakitori-wars"]
     },
     {
         date: "2026-07-05",
         title: "レジャーセンターに『雨の日の窓』を設置",
         body: "窓の雨粒を、指でなぞれるようになりました。",
-        tags: ["leisure-center", "rakugaki", "open"]
+        tags: ["leisure-center", "rakugaki", "open"],
+        workIds: ["rainy-window"]
     },
     {
         date: "2026-06-16",

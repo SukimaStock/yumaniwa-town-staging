@@ -54,7 +54,7 @@ AIの判断権限は `AGENTS.md`、具体的なDesk/Editor操作は `OPERATIONS.
 
 | Ready | 完成条件と必要な証拠 |
 | --- | --- |
-| Town Ready | 意図した町内導線→正しい作品→主操作→町へ戻る→町操作の再開。physicalはobject/prop/trigger/workId、collision/tapと実際の接近・到達性を確認。端末・経路・確認SHAを記録 |
+| Town Ready | 意図した町内導線→正しい作品→主操作→町へ戻る→町操作の再開。新作は駅前看板の更新履歴 `data/updates.js`（`workIds`で作品IDを紐付け）と、おばけ会話 `data/ghost-dialogue.js` の `works[id]` まで揃える。physicalはobject/prop/trigger/workId、collision/tapと実際の接近・到達性を確認。端末・経路・確認SHAを記録 |
 | Search Ready | productionの `/w/<id>/` は通常紹介ページでindex,follow。title、meta description、h1、紹介本文、自己canonical、同一og:url、OGP image/alt、起動リンク、町リンク、sitemap収録、静的発見経路がある。JSなしで最低限理解できる。実配信も確認 |
 | Share Ready | 標準share URLは `/w/<id>/`。OGP/X card、日本語一文、必要な操作説明・英語一文・画像/動画を採用し、選択した外部公開工程へ渡せる。SNS全件投稿は必須にしない |
 | Observe Ready | 既存契約のWork Open/Close/Shareと必要なcore actionをID単位で判別。外部Goalと本番送信の証拠を確認。未確認はUNVERIFIED |
@@ -112,9 +112,19 @@ stagingのopenを公開許可としない。CoffeeFactory等を無断で含め�
 確認後に候補が変わったら影響部分を再検証する。失敗時は告知を止め、force pushを使わず
 既存のrevert commit手順で戻す。緊急本番修正はstagingへ戻す。
 
+### 新作の町内告知契約
+
+新しい作品を `status: "open"` として公開する場合、町がその作品を知っている状態までTown Readyに含める。
+
+- `data/updates.js` の先頭側に公開記録を追加し、`workIds: ["<id>"]` で作品IDを明示する。
+- `data/ghost-dialogue.js` の `works["<id>"]` に、短い作品会話を1件以上追加する。
+- menu-only / physical の違いに関係なく両方必要。看板propやおばけNPC本体を毎回作り直す必要はない。
+- Release Validatorは選択した新作IDについて両契約を静的検査し、欠落をFAILにする。
+- 文面は作品説明の転載ではなく、看板は更新記録、おばけは町の住人の一言として書く。最終文面はOwner Decision。
+
 ### 毎回Standard / 変更時だけConditional
 
-毎回: 新作の町内導線・直リンク・mobile/PC主操作・戻る・町操作・再入場・通常再訪。
+毎回: 新作の町内導線・直リンク・駅前看板の更新履歴・おばけの作品会話・mobile/PC主操作・戻る・町操作・再入場・通常再訪。
 同launch/frameの既存作品1件と対象施設の出入り1経路。Search/Share/Observeの静的検査、
 production候補の差分/環境検証、配信後の実URL・画像・sitemap・event到達確認。
 非対応端末は明記して告知と一致させる。全作品の通し遊びを毎回要求しない。
@@ -172,7 +182,7 @@ production候補に集合外のopen作品がある場合もFAIL。stagingでは�
 CLIの不正入力/実行不能はexit 2。JSONにもsummary/exitCodeと`releaseComplete:false`を出す。
 外部GoalだけでCIを赤くしないが、五つのReady確認から除外もしない。
 
-検査範囲: works必須metadata/identity、launch実体、w本文/meta/リンク/robots/redirect、
+検査範囲: works必須metadata/identity、町内告知（updates.js workIds / ghost-dialogue.js works[id]）、launch実体、w本文/meta/リンク/robots/redirect、
 OGP画像実体/MIME/寸法/ID、sitemap収録/集合/重複、Manifest/id/start_url/scope/icon、
 physical参照（既存scene validator再利用）、既存trackerからのevent名生成。
 `description`は公開Standardで必須。phoneの幅高さは正数、responsiveでは未指定可。

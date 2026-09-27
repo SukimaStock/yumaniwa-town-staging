@@ -66,7 +66,7 @@ YumaniwaDesk で更新した内容を本番へ反映するときは、**staging 
 1. staging の最新差分を確認する。
 2. production 側に staging へ戻していない有効な修正がないか確認する。
 3. staging 専用の `noindex`、debug、開発UI、実験ファイルが本番へ混ざらないことを確認する。
-4. 作品追加時は entry、直リンク、Manifest、必要アセット、更新履歴、町内会話などを確認する。
+4. 作品追加時は entry、直リンク、Manifest、必要アセットに加え、`data/updates.js` の `workIds` 付き更新履歴と `data/ghost-dialogue.js` の `works[id]` 会話を必ず確認する。
 5. 必要なら staging 側を先に修正して統合状態を作る。
 6. production 用 branch に必要な差分だけを反映する。
 7. PR を作成する。
@@ -103,7 +103,7 @@ ChatGPT が GitHub 上の staging を修正した後に YumaniwaDesk を使う�
 - staging の `noindex,nofollow` を production へ持ち込まない
 - production の `main.js` は `DEV_MODE_ENABLED = false` を維持
 - production の開発UIは通常アクセスで表示されない
-- 作品追加時は町内導線・直リンク・Manifest・必要アセット・更新履歴を確認
+- 作品追加時は町内導線・直リンク・Manifest・必要アセット・`data/updates.js` の `workIds` 付き更新履歴・`data/ghost-dialogue.js` の `works[id]` 会話を確認
 - 既存公開URLを壊していない
 
 ## staging と production がずれた場合

@@ -16,6 +16,8 @@ function candidate(t,id='dotweather') {
     t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
     const work = {...readWorks(REPO).find(w=>w.id===id), launch:'embedded',entry:'./works/'+id+'/index.html'};
     put(root,'data/works.js','window.WORKS = '+JSON.stringify([work])+';');
+    put(root,'data/updates.js','var TOWN_UPDATES = '+JSON.stringify([{date:'2026-01-01',title:'Release '+id,body:'Published '+id,workIds:[id]}])+';');
+    put(root,'data/ghost-dialogue.js','window.GHOST_DIALOGUE = '+JSON.stringify({works:{[id]:['最近の作品の話。']}})+';');
     put(root,'works/'+id+'/index.html','<!doctype html><title>Test runtime</title>');
     for (const f of ['work-install-meta.js','town-analytics.js']) put(root,f,fs.readFileSync(path.join(REPO,f)));
     put(root,'data/world-objects.js','window.YUMANIWA_WORLD_OBJECTS = {objects:{}};');
@@ -70,6 +72,11 @@ test('unknown launch and frame modes require HQ; missing entry and player sizes 
     let r=validate(c.options); has(r,'HQ_REQUIRED','contract.launch'); has(r,'HQ_REQUIRED','contract.frameMode'); has(r,'FAIL','metadata.playerWidth');has(r,'FAIL','metadata.playerHeight');
     metadata(c,w=>{w[0].launch='embedded';w[0].entry='./works/dotweather/missing.html';});has(validate(c.options),'FAIL','launch.file');
 });
+test('town update history and ghost dialogue are release gates',t=>{
+    const a=candidate(t); put(a.root,'data/updates.js','var TOWN_UPDATES = [];'); has(validate(a.options),'FAIL','town.update-history');
+    const b=candidate(t); put(b.root,'data/ghost-dialogue.js','window.GHOST_DIALOGUE = { works: {} };'); has(validate(b.options),'FAIL','town.ghost-dialogue');
+});
+
 test('duplicate identity and absent description fail',t=>{
     const c=candidate(t); metadata(c,w=>w.push({...w[0]})); has(validate(c.options),'FAIL','metadata.unique');
     metadata(c,w=>{w.pop();delete w[0].description;});has(validate(c.options),'FAIL','metadata.description');

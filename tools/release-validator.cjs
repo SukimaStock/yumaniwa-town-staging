@@ -39,6 +39,18 @@ function readWorks(root) {
     if (!Array.isArray(c.WORKS)) throw new Error('data/works.js must define WORKS[]');
     return JSON.parse(JSON.stringify(c.WORKS));
 }
+function readTownReleaseSignals(root) {
+    const c = context();
+    const updatesFile = path.join(root, 'data/updates.js');
+    const ghostFile = path.join(root, 'data/ghost-dialogue.js');
+    if (!fs.existsSync(updatesFile)) throw new Error('missing data/updates.js');
+    if (!fs.existsSync(ghostFile)) throw new Error('missing data/ghost-dialogue.js');
+    run(fs.readFileSync(updatesFile, 'utf8'), c, 'data/updates.js');
+    run(fs.readFileSync(ghostFile, 'utf8'), c, 'data/ghost-dialogue.js');
+    if (!Array.isArray(c.TOWN_UPDATES)) throw new Error('data/updates.js must define TOWN_UPDATES[]');
+    if (!c.GHOST_DIALOGUE || typeof c.GHOST_DIALOGUE !== 'object' || !c.GHOST_DIALOGUE.works || typeof c.GHOST_DIALOGUE.works !== 'object') throw new Error('data/ghost-dialogue.js must define GHOST_DIALOGUE.works');
+    return JSON.parse(JSON.stringify({ updates: c.TOWN_UPDATES, ghostWorks: c.GHOST_DIALOGUE.works }));
+}
 function local(root, url, base = BASE) {
     const u = new URL(url, base);
     if (u.origin !== new URL(BASE).origin || !u.pathname.startsWith(new URL(BASE).pathname)) throw new Error('not a local production URL: ' + url);
@@ -121,7 +133,7 @@ function validate(options) {
         releaseComplete: false, readiness: 'UNVERIFIED',
         summary: Object.fromEntries(['PASS','FAIL','WARNING','HQ_REQUIRED','EXTERNAL_CHECK_REQUIRED'].map(s => [s, results.filter(r => r.status === s).length])) });
     if (!['staging','production'].includes(options.env)) { add('FAIL','*','input.environment','specify --env staging|production'); return done(); }
-    let works, published = options.published;
+    let works, townSignals = { updates: [], ghostWorks: {} }, published = options.published;
     try {
         works = readWorks(root);
         if (options.productionRoot) {
@@ -131,6 +143,8 @@ function validate(options) {
             add('WARNING','*','release.set-source','--production-root is an explicitly selected production snapshot; verify its SHA/provenance in the release record');
         }
     } catch (e) { add('FAIL','*','input.read',e.message); return done(); }
+    try { townSignals = readTownReleaseSignals(root); }
+    catch (e) { add('FAIL','*','town.release-signals',e.message); }
     if (published && (!Array.isArray(published) || published.some(id => !ID.test(id)) || new Set(published).size !== published.length)) { add('FAIL','*','release.set','published IDs must be valid and unique'); return done(); }
     if (options.env === 'production' && !published) add('FAIL','*','release.set','production requires explicit full --published set or --production-root; staging open is NOT the publication set');
     const ids = options.allProduction ? published : options.ids;
@@ -178,6 +192,10 @@ function validate(options) {
         if (options.env === 'production' && published && !published.includes(id)) add('FAIL',id,'release.selected','selected ID is not authorized in publication set');
         for (const key of ['title','description','venue','kind','status','launch','frameMode']) check(typeof w[key] === 'string' && !!w[key].trim(),id,'metadata.' + key,'nonempty ' + key + ' required');
         check(w.status === 'open',id,'metadata.status-open','release target must be open');
+        const updateRecord = (townSignals.updates || []).find(entry => entry && Array.isArray(entry.workIds) && entry.workIds.includes(id) && typeof entry.date === 'string' && !!entry.date.trim() && typeof entry.title === 'string' && !!entry.title.trim() && typeof entry.body === 'string' && !!entry.body.trim());
+        check(!!updateRecord,id,'town.update-history','new/open work requires a nonempty TOWN_UPDATES record linked by workIds: '+id);
+        const ghostLines = townSignals.ghostWorks && townSignals.ghostWorks[id];
+        check(Array.isArray(ghostLines) && ghostLines.some(line => typeof line === 'string' && !!line.trim()),id,'town.ghost-dialogue','new/open work requires at least one nonempty GHOST_DIALOGUE.works['+id+'] line');
         for (const [key, values] of Object.entries({ venue:['leisure_center','tomogushi_alley'], kind:['work','game'], launch:['embedded','itch_embed','external'], frameMode:['standard','soft','phone-cola','phone-yakitori'] })) if (w[key] && !values.includes(w[key])) add('HQ_REQUIRED',id,'contract.'+key,'unknown '+key+': '+w[key]);
         if (w.playerLayout && !['phone','responsive'].includes(w.playerLayout)) add('HQ_REQUIRED',id,'contract.playerLayout','unknown layout: '+w.playerLayout);
         for (const key of ['playerWidth','playerHeight']) if (w.playerLayout === 'phone' || w[key] !== undefined) check(typeof w[key] === 'number' && Number.isFinite(w[key]) && w[key] > 0,id,'metadata.'+key,'positive numeric '+key+' required for phone');
@@ -312,4 +330,4 @@ if (require.main === module) {
         else { const r=validate(o); if (o.json) console.log(JSON.stringify(r,null,2)); else { for (const x of r.results) console.log(`${x.status} [${x.work}] ${x.check}: ${x.message}`); console.log('\n'+JSON.stringify(r.summary)+'\nRelease Complete: UNVERIFIED (never certified by this tool)'); } process.exitCode=r.exitCode; }
     } catch(e) { console.error('FAIL validator: '+e.message); process.exitCode=2; }
 }
-module.exports = { validate, readWorks, html, imageInfo, redirectProbe, parseArgs };
+module.exports = { validate, readWorks, readTownReleaseSignals, html, imageInfo, redirectProbe, parseArgs };
