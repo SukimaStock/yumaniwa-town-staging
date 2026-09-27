@@ -19,7 +19,7 @@ window.ORBIT_SOUND_CONFIG = Object.freeze({
   diagnostic: Object.freeze({ file: "sounds/diagnostic.wav", volume: 0.10, cooldown: 80 }),
   restore_link: Object.freeze({ file: "sounds/restore_link.ogg", volume: 0.12, cooldown: 500 }),
   takeoff_power: Object.freeze({ file: "sounds/takeoff_power.ogg", volume: 0.12, cooldown: 120 }),
-  ambient_drone: Object.freeze({ file: "sounds/ambient_drone.wav", volume: 0.45, cooldown: 0 }),
+  ambient_drone: Object.freeze({ file: "sounds/ambient_drone.wav", volume: 0.38, cooldown: 0 }),
 });
 
 // Intentionally procedural until a correct file is explicitly re-approved:
