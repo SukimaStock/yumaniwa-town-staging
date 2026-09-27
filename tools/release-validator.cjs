@@ -22,7 +22,7 @@ function html(source) {
     const scripts = [...clean.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)]
         .map(m => ({ attrs: attrs(m[1]), code: m[2] }));
     const markup = clean.replace(/<(script|style|template)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, '');
-    const tags = name => [...markup.matchAll(new RegExp('<' + name + '\\b((?:[^>"\']|"[^"\']*"|\'[^\']*\')*)>', 'gi'))].map(m => attrs(m[1]));
+    const tags = name => [...markup.matchAll(new RegExp('<' + name + '\\b((?:[^>"\']|"[^"]*"|\'[^\']*\')*)>', 'gi'))].map(m => attrs(m[1]));
     const metas = tags('meta');
     return { markup, scripts, tags, metas,
         meta: key => metas.filter(a => (a.name || a.property || '').toLowerCase() === key).map(a => a.content || ''),
