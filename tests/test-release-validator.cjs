@@ -6,7 +6,8 @@ const os = require('node:os');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const {spawnSync} = require('node:child_process');
-const {validate, readWorks, html, redirectProbe, imageInfo} = require('../tools/release-validator.cjs');
+const {validate, readWorks, readWorkSearchMeta, html, redirectProbe, imageInfo} = require('../tools/release-validator.cjs');
+const {buildPage, buildSitemap} = require('../tools/generate-work-search-pages.cjs');
 const REPO = path.resolve(__dirname, '..');
 const FIX = path.join(__dirname,'fixtures/release');
 const BASE = 'https://sukimastock.github.io/yumaniwa-town/';
@@ -16,6 +17,7 @@ function candidate(t,id='dotweather') {
     t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
     const work = {...readWorks(REPO).find(w=>w.id===id), launch:'embedded',entry:'./works/'+id+'/index.html'};
     put(root,'data/works.js','window.WORKS = '+JSON.stringify([work])+';');
+    put(root,'data/work-search-meta.js',fs.readFileSync(path.join(REPO,'data/work-search-meta.js')));
     put(root,'data/updates.js','var TOWN_UPDATES = '+JSON.stringify([{date:'2026-01-01',title:'Release '+id,body:'Published '+id,workIds:[id]}])+';');
     put(root,'data/ghost-dialogue.js','window.GHOST_DIALOGUE = '+JSON.stringify({works:{[id]:['最近の作品の話。']}})+';');
     put(root,'works/'+id+'/index.html','<!doctype html><title>Test runtime</title>');
@@ -23,33 +25,46 @@ function candidate(t,id='dotweather') {
     put(root,'data/world-objects.js','window.YUMANIWA_WORLD_OBJECTS = {objects:{}};');
     put(root,'data/station-plaza.js','');
     put(root,'data/town-maps.js','window.TOWN_SCENE_MAPS = {};');
-    put(root,'w/'+id+'/index.html',fs.readFileSync(path.join(FIX,id+'.html')));
     put(root,'w/'+id+'/manifest.webmanifest',fs.readFileSync(path.join(REPO,'w',id,'manifest.webmanifest')));
     const assets = path.join(REPO,'assets/works',id);
     if (fs.existsSync(assets)) fs.cpSync(assets,path.join(root,'assets/works',id),{recursive:true});
     put(root,'index.html','<a href="./w/'+id+'/">Work</a>');
-    put(root,'sitemap.xml','<?xml version="1.0"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>'+BASE+'w/'+id+'/</loc><lastmod>2026-01-01</lastmod></url></urlset>');
-    return {root,id,options:{root,env:'production',ids:[id],published:[id]}};
+    const c={root,id,options:{root,env:'production',ids:[id],published:[id]}};
+    regenerateSearch(c,'production');
+    return c;
 }
 function mutate(c,f,fn) { put(c.root,f,fn(fs.readFileSync(path.join(c.root,f),'utf8'))); }
 function page(c,fn) { mutate(c,'w/'+c.id+'/index.html',fn); }
+function enPage(c,fn) { mutate(c,'en/w/'+c.id+'/index.html',fn); }
 function metadata(c,fn) { const w=readWorks(c.root); fn(w); put(c.root,'data/works.js','window.WORKS = '+JSON.stringify(w)); }
+function writeSearchMeta(root,meta) { put(root,'data/work-search-meta.js','var WORK_SEARCH_META_SCHEMA = 1;\nvar WORK_SEARCH_META = '+JSON.stringify(meta,null,2)+';\n'); }
+function searchMetadata(c,fn) { const meta=readWorkSearchMeta(c.root); fn(meta); writeSearchMeta(c.root,meta); }
+function regenerateSearch(c,env='production') {
+    const work=readWorks(c.root).find(w=>w.id===c.id);
+    const meta=readWorkSearchMeta(c.root)[c.id];
+    put(c.root,'w/'+c.id+'/index.html',buildPage(c.id,work,meta,'ja',env));
+    put(c.root,'en/w/'+c.id+'/index.html',buildPage(c.id,work,meta,'en',env));
+    put(c.root,'sitemap.xml',buildSitemap(c.options.published || [c.id]));
+}
 function has(r,status,check) { assert.ok(r.results.some(x=>x.status===status && x.check===check),status+' '+check+'\n'+JSON.stringify(r.results.filter(x=>x.status!=='PASS'))); }
 function clean(r) { assert.equal(r.exitCode,0,JSON.stringify(r.results.filter(x=>['FAIL','HQ_REQUIRED'].includes(x.status)))); }
 function digest(root) { const entries=[]; function walk(dir) { for (const e of fs.readdirSync(dir,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name))) { const p=path.join(dir,e.name); if(e.isDirectory())walk(p);else entries.push([path.relative(root,p),crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex')]); } } walk(root); return entries; }
 test('DotWeather production normal page passes static gates; external checks remain and input is unchanged',t=>{
     const c=candidate(t), before=digest(c.root), r=validate(c.options);
     clean(r); assert.equal(r.releaseComplete,false); assert.equal(r.readiness,'UNVERIFIED');
-    has(r,'PASS','search.redirect'); has(r,'PASS','search.open-shortcut'); has(r,'PASS','analytics.name'); has(r,'EXTERNAL_CHECK_REQUIRED','analytics.goal');
+    has(r,'PASS','search.redirect'); has(r,'PASS','search.open-shortcut'); has(r,'PASS','search.generated-ja'); has(r,'PASS','search.generated-en'); has(r,'PASS','search.hreflang-reciprocal'); has(r,'PASS','search.structured-data'); has(r,'PASS','analytics.name'); has(r,'EXTERNAL_CHECK_REQUIRED','analytics.goal');
     assert.deepEqual(digest(c.root),before);
 });
 test('staging noindex is correct, production noindex fails, public staging page fails',t=>{
-    const c=candidate(t); page(c,s=>s.replace('index,follow,max-image-preview:large','noindex,nofollow'));
+    const c=candidate(t); regenerateSearch(c,'staging');
     clean(validate({...c.options,env:'staging'})); has(validate(c.options),'FAIL','search.robots');
-    page(c,s=>s.replace('noindex,nofollow','index,follow')); has(validate({...c.options,env:'staging'}),'FAIL','search.robots');
+    page(c,s=>s.replace('noindex,nofollow','index,follow'));
+    enPage(c,s=>s.replace('noindex,nofollow','index,follow'));
+    has(validate({...c.options,env:'staging'}),'FAIL','search.robots');
+    has(validate({...c.options,env:'staging'}),'FAIL','search.localized-robots');
 });
 for (const id of ['diorama-calendar','rojiura-masala']) test('unchanged production fixture detects '+id+' noindex and ordinary redirect',t=>{
-    const c=candidate(t,id), r=validate(c.options);
+    const c=candidate(t,id); put(c.root,'w/'+id+'/index.html',fs.readFileSync(path.join(FIX,id+'.html'))); const r=validate(c.options);
     has(r,'FAIL','search.robots'); has(r,'FAIL','search.redirect'); has(r,'FAIL','search.h1'); has(r,'FAIL','search.body');
     if(id==='diorama-calendar') { has(r,'FAIL','search.og:image'); has(r,'PASS','install.iconless'); }
 });
@@ -61,7 +76,7 @@ test('production set is explicit, CoffeeFactory is never implicitly authorized',
     const c=candidate(t); has(validate({...c.options,published:undefined}),'FAIL','release.set');
     metadata(c,w=>w.push({...w[0],id:'coffee-factory'}));
     has(validate(c.options),'FAIL','release.unapproved-open');
-    page(c,s=>s.replace('index,follow,max-image-preview:large','noindex'));
+    regenerateSearch(c,'staging');
     clean(validate({...c.options,env:'staging',published:undefined}));
     const all=validate({...c.options,env:'staging',ids:undefined,allProduction:true});
     assert.ok(!all.results.some(x=>x.work==='coffee-factory'));
@@ -122,6 +137,24 @@ test('redirect forms, meta refresh and uncertain scripts cannot silently pass',t
     const c=candidate(t);page(c,s=>s.replace('</head>','<meta http-equiv="refresh" content="0;url=../../"></head>'));has(validate(c.options),'FAIL','search.meta-refresh');
     page(c,s=>s.replace('</head>','<script src="unknown.js"></script></head>'));has(validate(c.options),'HQ_REQUIRED','search.script-review');
 });
+test('Search v2 requires metadata source and English page',t=>{
+    const a=candidate(t); fs.unlinkSync(path.join(a.root,'data/work-search-meta.js')); has(validate(a.options),'FAIL','search.metadata-source');
+    const b=candidate(t); fs.unlinkSync(path.join(b.root,'en/w/'+b.id+'/index.html')); has(validate(b.options),'FAIL','search.locale-en');
+});
+test('Search v2 detects generated-page drift, hreflang drift and structured-data drift',t=>{
+    const a=candidate(t); page(a,s=>s.replace('<h1>DotWeather</h1>','<h1>DotWeather!</h1>')); has(validate(a.options),'FAIL','search.generated-ja');
+    const b=candidate(t); page(b,s=>s.replace(BASE+'en/w/'+b.id+'/',BASE+'en/w/wrong/')); has(validate(b.options),'FAIL','search.hreflang-reciprocal');
+    const c=candidate(t); enPage(c,s=>s.replace('"@type": "SoftwareApplication"','"@type": "CreativeWork"')); has(validate(c.options),'FAIL','search.structured-data');
+});
+test('Search v2 sitemap requires Japanese and English generated URLs',t=>{
+    const c=candidate(t); mutate(c,'sitemap.xml',s=>s.replace('  <url><loc>'+BASE+'en/w/'+c.id+'/</loc></url>\n',''));
+    const r=validate(c.options); has(r,'FAIL','sitemap.inclusion-en'); has(r,'FAIL','sitemap.generated');
+});
+test('Search v2 does not emit meta keywords',t=>{
+    const c=candidate(t); page(c,s=>s.replace('</head>','<meta name="keywords" content="weather"></head>'));
+    has(validate(c.options),'FAIL','search.meta-keywords');
+});
+
 test('CLI exit 0 does not certify release; failure exit 1 and invalid CLI exit 2',t=>{
     const c=candidate(t), script=path.join(REPO,'tools/release-validator.cjs');
     const args=[script,'--root',c.root,'--env','production','--ids',c.id,'--published',c.id];
@@ -130,13 +163,14 @@ test('CLI exit 0 does not certify release; failure exit 1 and invalid CLI exit 2
     assert.equal(spawnSync(process.execPath,[script,'--unknown'],{encoding:'utf8'}).status,2);
 });
 
-test('nonstandard OGP size is a warning, not a blanket prohibition',t=>{
+test('nonstandard OGP size is a warning when declared in Search metadata',t=>{
     const c=candidate(t);
     const info=imageInfo(fs.readFileSync(path.join(c.root,'assets/works/dotweather/icon.png')));
-    page(c,s=>s.replaceAll('ogp.jpg?v=1','icon.png').replace('image/jpeg','image/png').replace('content="1200"','content="'+info.width+'"').replace('content="630"','content="'+info.height+'"'));
+    searchMetadata(c,meta=>{ meta.dotweather.ogp={file:'icon.png',mime:'image/png',width:info.width,height:info.height,version:null}; });
+    regenerateSearch(c,'production');
     const r=validate(c.options);clean(r);has(r,'WARNING','ogp.recommended-size');
 });
 test('invalid calendar lastmod is rejected without generating a replacement',t=>{
-    const c=candidate(t);mutate(c,'sitemap.xml',s=>s.replace('2026-01-01','2026-02-30'));
+    const c=candidate(t);mutate(c,'sitemap.xml',s=>s.replace('</loc></url>','</loc><lastmod>2026-02-30</lastmod></url>'));
     has(validate(c.options),'FAIL','sitemap.lastmod');
 });
