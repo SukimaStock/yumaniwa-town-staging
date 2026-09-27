@@ -872,8 +872,8 @@
     initialMaxGapSec: 4,
     minGapSec: 45,
     maxGapSec: 110,
-    minPlaySec: 15,
-    maxPlaySec: 28,
+    minPlaySec: 20,
+    maxPlaySec: 32,
     fadeInSec: 2.5,
     fadeOutSec: 3.0,
   });
@@ -948,7 +948,8 @@
       typeof SSE !== "undefined" &&
       SSE.audio &&
       SSE.audio.enabled !== false &&
-      !(world.eve && world.eve.timer > 0) &&
+      // Ordinary E.V.E. text no longer cancels the ambient layer. Otherwise
+      // efficient play repeatedly cuts the first drone after only a few seconds.
       !world.restoreRitualActive &&
       !(world.restoreReveal && world.restoreReveal.timer > 0) &&
       !(world.homeRestoreLink && world.homeRestoreLink.active) &&
