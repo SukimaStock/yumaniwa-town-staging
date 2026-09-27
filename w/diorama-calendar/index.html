@@ -20,22 +20,32 @@
   <meta name="twitter:description" content="季節の小さな景色を、傾けて眺めるカレンダー。">
 
   <title>Diorama Calendar｜湯間庭町</title>
+  <style>
+    :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;background:#0a0a0a;color:#f4efe5;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}.card{width:min(680px,100%);padding:24px}img{display:block;width:100%;height:auto;border-radius:16px}h1{margin:22px 0 8px;font-size:clamp(28px,7vw,42px);line-height:1.2}p{margin:0;color:#c9c1b4;font-size:16px;line-height:1.8}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}a{display:inline-block;padding:13px 18px;border-radius:999px;text-decoration:none;font-weight:700}.play{background:#f0b35d;color:#25170b}.town{border:1px solid #5a554c;color:#eee7dc}.note{margin-top:18px;font-size:13px;color:#8f887e}
+  </style>
   <script>
     (function () {
       var params = new URLSearchParams(window.location.search);
+      if (params.get("open") !== "1") return;
+      params.delete("open");
       params.delete("work");
-
       var target = "../../?work=diorama-calendar";
       var preserved = params.toString();
-
       if (preserved) target += "&" + preserved;
       if (window.location.hash) target += window.location.hash;
-
       window.location.replace(target);
     })();
   </script>
 </head>
 <body>
-  <p><a href="../../?work=diorama-calendar">湯間庭町でDiorama Calendarを開く</a></p>
+  <main class="card">
+    <h1>Diorama Calendar</h1>
+    <p>12か月の小さな景色を、端末の傾きや指の動きで立体的に眺めるカレンダー。</p>
+    <div class="actions">
+      <a class="play" href="../../?work=diorama-calendar">湯間庭町で開く</a>
+      <a class="town" href="../../">湯間庭町へ</a>
+    </div>
+    <p class="note">湯間庭町にある作品のひとつです。</p>
+  </main>
 </body>
 </html>

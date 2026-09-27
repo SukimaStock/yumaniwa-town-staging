@@ -271,6 +271,7 @@ var WORKS = [
         menuTitle: "Yakitori Wars",
         menuCategory: "対戦ゲーム",
         menuDescription: "焼き加減と取りどきを読み合う、二人対戦ゲーム。",
+        description: "焼き加減と取りどきを読み合う、二人対戦ゲーム。",
 
         emptyText: "やきとり屋 ゆまどは、今夜の炭火を整えています。"
     },

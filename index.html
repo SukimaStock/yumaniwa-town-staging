@@ -32,8 +32,25 @@
 <script src="./work-install-meta.js?v=20260918-1"></script>
 <link href="./style.css?rev=20260926-guide-arrival-canonical01" rel="stylesheet"/>
 <link href="./layout-fix.css?v=20260813-1" rel="stylesheet"/>
+<style>
+.work-search-links { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.work-search-links:focus-within { position: fixed; top: 8px; left: 8px; right: 8px; width: auto; height: auto; max-height: 40vh; padding: 12px; overflow: auto; clip-path: none; white-space: normal; z-index: 100000; background: #0a0a0a; color: #f4efe5; }
+.work-search-links a { color: inherit; margin-right: 1em; }
+</style>
 </head>
 <body>
+<!-- Static work links: available to assistive technology and keyboard focus. -->
+<nav class="work-search-links" aria-label="作品紹介">
+  <a href="./w/diorama-calendar/">Diorama Calendar</a>
+  <a href="./w/rojiura-masala/">路地裏マサラ</a>
+  <a href="./w/steamclock/">SteamClock</a>
+  <a href="./w/dotweather/">DotWeather</a>
+  <a href="./w/junkissa-dive/">純喫茶ダイヴ</a>
+  <a href="./w/midnight-cola/">真夜中コーラ</a>
+  <a href="./w/yakitori-wars/">Yakitori Wars</a>
+  <a href="./w/rainy-window/">雨の日の窓</a>
+</nav>
+
 <div id="game-container">
 
 
@@ -538,7 +555,7 @@
 <script src="./data/world-objects.js?rev=20260926-orphan-audit01"></script>
 <script src="./data/station-plaza.js?rev=auto-b28d6018"></script>
 <script>document.write('<script src="./data/notes.js?rev=' + Date.now() + '"><\/script>');</script>
-<script src="./data/works.js?rev=auto-e45dd5bd"></script>
+<script src="./data/works.js?rev=auto-013c206a"></script>
 <script src="./data/updates.js?rev=auto-abfe5ff1"></script>
 <script src="./data/places.js?v=20260813-1"></script>
 <script src="./data/town-maps.js?rev=auto-3932f9b5"></script>
