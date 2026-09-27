@@ -55,7 +55,7 @@ AIの判断権限は `AGENTS.md`、具体的なDesk/Editor操作は `OPERATIONS.
 | Ready | 完成条件と必要な証拠 |
 | --- | --- |
 | Town Ready | 意図した町内導線→正しい作品→主操作→町へ戻る→町操作の再開。新作は駅前看板の更新履歴 `data/updates.js`（`workIds`で作品IDを紐付け）と、おばけ会話 `data/ghost-dialogue.js` の `works[id]` まで揃える。physicalはobject/prop/trigger/workId、collision/tapと実際の接近・到達性を確認。端末・経路・確認SHAを記録 |
-| Search Ready | productionの `/w/<id>/` は通常紹介ページでindex,follow。title、meta description、h1、紹介本文、自己canonical、同一og:url、OGP image/alt、起動リンク、町リンク、sitemap収録、静的発見経路がある。JSなしで最低限理解できる。実配信も確認 |
+| Search Ready | productionの日本語 `/w/<id>/` と英語 `/en/w/<id>/` が揃い、双方index,follow。日英のtitle、meta description、本文、自己canonical、同一og:url、OGP image/alt、起動リンク、町リンク、相互hreflang（ja/en/x-default）、JSON-LD、sitemap収録、静的発見経路がある。JSなしで最低限理解でき、generator正本との一致と実配信を確認 |
 | Share Ready | 標準share URLは `/w/<id>/`。OGP/X card、日本語一文、必要な操作説明・英語一文・画像/動画を採用し、選択した外部公開工程へ渡せる。SNS全件投稿は必須にしない |
 | Observe Ready | 既存契約のWork Open/Close/Shareと必要なcore actionをID単位で判別。外部Goalと本番送信の証拠を確認。未確認はUNVERIFIED |
 | Release Ready | production base SHA、staging確認SHA、production候補SHA、今回公開する作品、公開しないstaging差分、必要依存、環境差分、validation、rollbackが明確 |
@@ -70,7 +70,8 @@ Scene Visitや新session ID等の計測体系を追加しない。Plausible設�
 
 | URL | 正式な役割 |
 | --- | --- |
-| `/w/<id>/` | 検索・共有ページ。production自己canonical、index可能、通常redirectなし、JSなしの本文とリンク。標準share URL |
+| `/w/<id>/` | 日本語の検索・共有ページ。production自己canonical、index可能、通常redirectなし、JSなしの本文とリンク。日本語の標準share URL |
+| `/en/w/<id>/` | 英語の検索・共有ページ。自己canonical、英語本文・OGP文面・JSON-LDを持ち、日本語ページとhreflangで相互接続 |
 | `/?work=<id>` | 町shellの実行入口。作品固有OGPを期待しない |
 | `/w/<id>/?open=1` | 既存互換の直接起動shortcut。町shellへredirect可。通常share URLにしない |
 | `/works/<id>/` | embedded実体・単体検証/standalone。検索代表でない。既存index/noindexは全面変更しない |
@@ -81,6 +82,24 @@ stagingのwページはnoindexを維持する。production候補のnoindexはFAI
 実行ページまで一律noindex禁止にしない。OGPは現在1200×630が推奨値。
 別寸法は即FAILではなくカード確認WARNING。参照・MIME・宣言寸法と実体の不一致はFAIL。
 同じ画像URLの転記を検査する。別OGP/X画像や別asset配置規約が必要なら契約をレビューする。
+
+### Search / Share v2 生成契約
+
+Search / Share面は町runtimeから分離して管理する。
+
+- `data/works.js`: 作品identity・町内runtime・launchの正本。
+- `data/work-search-meta.js`: 日英文面、share文面、genre、検索語彙、schemaTypeの正本。
+- `tools/generate-work-search-pages.cjs`: 日英Searchページとsitemapのgenerator。
+- `w/<id>/index.html`、`en/w/<id>/index.html`、`sitemap.xml`: 生成物。直接編集しない。
+- generatorはstagingのopen集合を自動採用しない。毎回 `--published` でproductionに公開してよい全作品集合を明示する。
+- metadataがstagingに存在しても、それだけでproduction公開対象にはならない。
+- staging生成は `noindex,nofollow`、production候補生成は `index,follow,max-image-preview:large`。
+- 日本語と英語はそれぞれ自己canonicalを持ち、両ページに `hreflang="ja"`、`hreflang="en"`、日本語を指す `x-default` を置く。
+- OGP画像は既定 `ogp.jpg` / JPEG / 1200×630。別形式・別寸法を正式採用する場合はSearch metadataの `ogp` overrideへ明示し、1200×630以外は従来どおりカード確認WARNINGとする。
+- `terms` は生成・監査・JSON-LD用の語彙台帳であり、`meta keywords` は生成しない。
+- JSON-LDは作品意味の機械可読化に使い、存在しないrating/review等を追加しない。
+
+Release Validatorは選択作品について、metadata正本、日英生成一致、自己canonical、OGP文面、相互hreflang、x-default、JSON-LD、robots、静的言語切替、日英sitemap収録を検査する。明示されたpublication setがある場合、sitemap自体もgenerator出力との完全一致を要求する。
 
 ### Release状態
 
@@ -182,7 +201,7 @@ production候補に集合外のopen作品がある場合もFAIL。stagingでは�
 CLIの不正入力/実行不能はexit 2。JSONにもsummary/exitCodeと`releaseComplete:false`を出す。
 外部GoalだけでCIを赤くしないが、五つのReady確認から除外もしない。
 
-検査範囲: works必須metadata/identity、町内告知（updates.js workIds / ghost-dialogue.js works[id]）、launch実体、w本文/meta/リンク/robots/redirect、
+検査範囲: works必須metadata/identity、町内告知（updates.js workIds / ghost-dialogue.js works[id]）、launch実体、Search metadata正本、日英w本文/meta/リンク/robots/redirect、hreflang、JSON-LD、生成一致、
 OGP画像実体/MIME/寸法/ID、sitemap収録/集合/重複、Manifest/id/start_url/scope/icon、
 physical参照（既存scene validator再利用）、既存trackerからのevent名生成。
 `description`は公開Standardで必須。phoneの幅高さは正数、responsiveでは未指定可。

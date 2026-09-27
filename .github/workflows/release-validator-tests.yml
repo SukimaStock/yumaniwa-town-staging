@@ -43,6 +43,13 @@ jobs:
           --published orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window
           --check
 
+      - name: Validate current published Search / Share release set
+        run: >
+          node tools/release-validator.cjs
+          --env staging
+          --ids orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window
+          --published orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window
+
       - name: Validate town awareness for all open staging works
         run: |
           node - <<'NODE'
