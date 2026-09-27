@@ -92,6 +92,35 @@ ChatGPT が GitHub 上の staging を修正した後に YumaniwaDesk を使う�
 5. 「同期確認済み」
 6. 次の編集を開始
 
+## Search / Share v2 の生成
+
+Search / Share v2 では、町内runtimeと検索・共有面の正本を分ける。
+
+- `data/works.js`: 町内runtime / identity / launch の正本
+- `data/work-search-meta.js`: 日英文面・検索語彙・schemaType の正本
+- `tools/generate-work-search-pages.cjs`: 日英Searchページとsitemapのgenerator
+- `w/<id>/index.html`、`en/w/<id>/index.html`、`sitemap.xml`: 生成物。直接編集しない
+
+generatorは staging の `status: open` 集合を自動採用しない。必ず、今回productionへ公開してよい**全作品集合**を `--published` に明示する。
+
+staging生成例:
+
+```sh
+node tools/generate-work-search-pages.cjs \
+  --env staging \
+  --published orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window \
+  --write
+
+node tools/generate-work-search-pages.cjs \
+  --env staging \
+  --published orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window \
+  --check
+```
+
+productionではmainへ直接生成しない。production candidate branchで `--env production` と明示した全公開集合を使い、生成後に `--check` を通す。
+
+metadataが存在するだけでは公開対象にならない。たとえばCoffeeFactoryのSearch metadataがstagingにあっても、Owner承認・必要素材・Release対象集合に入るまではproductionへ含めない。
+
 ## 本番反映前の確認
 
 少なくとも以下を確認する。
@@ -215,8 +244,7 @@ production 固有の次の条件を守る。
    新画像が必要な時だけFactory→Cleaner→WORLD OBJECT台帳へ。
    駅前は `data/station-plaza.js`、他sceneは `data/town-maps.js` が配置の正本。
    Editor diffをDeskのsource/before/hash/scene検証経由で適用する。
-5. install metadata・wページ・共有素材を準備する。作品の公開状態とは別工程なので
-   「作品を登録しました」を「公開完了」に言い換えない。
+5. install metadata・共有素材と `data/work-search-meta.js` の日英metadataを準備し、明示した公開集合でSearch / Share generatorを実行する。`w/`・`en/w/`・sitemapは生成物として扱う。作品の公開状態とは別工程なので「作品を登録しました」を「公開完了」に言い換えない。
 6. Deskのcache fingerprint更新を含めて差分を見る。手編集でも参照scriptのcache更新を確認。
    prop preloadはscene/objectを参照する。作品内部assetのpreloadは作品側で確認する。
 7. `node tools/release-validator.cjs --env staging --ids <id>` を実行する。
