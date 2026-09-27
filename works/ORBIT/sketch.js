@@ -866,6 +866,10 @@
   // Ambient is deliberately not BGM. It appears only during ordinary flight,
   // then leaves a long stretch of silence before returning.
   const ORBIT_AMBIENT_TUNE = Object.freeze({
+    // Let a new voyage establish the sound of open space before the player can
+    // efficiently chain landings / E.V.E. dialogue and keep the ambient timer paused.
+    initialMinGapSec: 2,
+    initialMaxGapSec: 4,
     minGapSec: 45,
     maxGapSec: 110,
     minPlaySec: 15,
@@ -883,9 +887,11 @@
     resumeAfterVisibility: false,
   };
 
-  function nextOrbitAmbientGap() {
+  function nextOrbitAmbientGap(initial = false) {
     const t = ORBIT_AMBIENT_TUNE;
-    return t.minGapSec + Math.random() * (t.maxGapSec - t.minGapSec);
+    const min = initial ? t.initialMinGapSec : t.minGapSec;
+    const max = initial ? t.initialMaxGapSec : t.maxGapSec;
+    return min + Math.random() * (max - min);
   }
 
   function stopOrbitAmbient(fadeSec = 1.2, scheduleNext = true) {
@@ -929,7 +935,7 @@
 
   function resetOrbitAmbient() {
     stopOrbitAmbient(0.05, false);
-    ORBIT_AMBIENT_STATE.timer = nextOrbitAmbientGap();
+    ORBIT_AMBIENT_STATE.timer = nextOrbitAmbientGap(true);
   }
 
   function orbitAmbientEligible(world) {
