@@ -9,9 +9,7 @@ window.ORBIT_SOUND_CONFIG = Object.freeze({
   fuel: Object.freeze({ file: "sounds/fuel.ogg", volume: 0.28, cooldown: 140 }),
   impact: Object.freeze({ file: "sounds/impact.ogg", volume: 0.16, cooldown: 350 }),
   restore: Object.freeze({ file: "sounds/restore.ogg", volume: 0.15, cooldown: 500 }),
-  boot: Object.freeze({ file: "sounds/boot.ogg", volume: 0.12, cooldown: 400 }),
   eve_online: Object.freeze({ file: "sounds/eve_online.ogg", volume: 0.12, cooldown: 180 }),
-  terminal_open: Object.freeze({ file: "sounds/terminal_open.ogg", volume: 0.12, cooldown: 160 }),
   scan: Object.freeze({ file: "sounds/scan.wav", volume: 0.12, cooldown: 250 }),
   rescue: Object.freeze({ file: "sounds/rescue.ogg", volume: 0.12, cooldown: 900 }),
   rebirth: Object.freeze({ file: "sounds/rebirth.wav", volume: 0.12, cooldown: 900 }),
@@ -22,4 +20,4 @@ window.ORBIT_SOUND_CONFIG = Object.freeze({
 });
 
 // Intentionally procedural until a correct file is explicitly re-approved:
-// weak_signal, archive, echo, terminal_boot
+// weak_signal, archive, echo, boot, terminal_open, terminal_boot
