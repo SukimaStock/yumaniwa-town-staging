@@ -41,10 +41,11 @@ jobs:
           test -f dist/orbit-upload/index.html
           test -f dist/orbit-upload/sukimastock-engine.js
           test -f dist/orbit-upload/sketch.js
+          test -f dist/orbit-upload/orbit-sound-config.js
           test -f dist/orbit-upload/text/ja.json
           test -f dist/orbit-upload/text/en.json
 
-          test "$(find dist/orbit-upload -type f | wc -l)" -eq 16
+          test "$(find dist/orbit-upload -type f | wc -l)" -eq 24
 
           grep -q 'data-sse-engine' dist/orbit-upload/index.html
           grep -q 'src="sukimastock-engine.js"' dist/orbit-upload/index.html
@@ -60,6 +61,7 @@ jobs:
           node --check dist/orbit-upload/codea-lite.js
           node --check dist/orbit-upload/sukimastock-engine.js
           node --check dist/orbit-upload/orbit-text.js
+          node --check dist/orbit-upload/orbit-sound-config.js
           node --check dist/orbit-upload/restore-ritual-inline.js
           node --check dist/orbit-upload/sketch.js
 
