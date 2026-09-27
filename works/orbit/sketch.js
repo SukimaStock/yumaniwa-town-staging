@@ -331,12 +331,27 @@
   // Phase 9+: persistence has two layers. HOME stores physical expedition
   // state; MEMORY stores knowledge as soon as it is understood. CONTINUE
   // rebuilds the latest HOME checkpoint, then merges newer MEMORY progress.
+  //
+  // GitHub Pages serves staging and production from the same origin, so raw
+  // localStorage keys would otherwise collide across the two repository paths.
+  // Keep production/itch on the established keys and isolate only staging.
+  const ORBIT_IS_STAGING = (() => {
+    const path = String(window.location && window.location.pathname || "");
+    return (
+      path === "/yumaniwa-town-staging" ||
+      path.indexOf("/yumaniwa-town-staging/") === 0
+    );
+  })();
+  const ORBIT_SAVE_NAMESPACE = ORBIT_IS_STAGING
+    ? "sukimastock.orbit.web.staging"
+    : "sukimastock.orbit.web";
+
   const SAVE_TUNE = Object.freeze({
     // HOME snapshot: physical expedition state. Only HOME writes this key.
-    key: "sukimastock.orbit.web.save.v3",
+    key: ORBIT_SAVE_NAMESPACE + ".save.v3",
     schema: 3,
     // MEMORY snapshot: decoded knowledge survives independently of the ship.
-    knowledgeKey: "sukimastock.orbit.web.knowledge.v1",
+    knowledgeKey: ORBIT_SAVE_NAMESPACE + ".knowledge.v1",
     knowledgeSchema: 1,
     pulseSec: 1.1,
   });
