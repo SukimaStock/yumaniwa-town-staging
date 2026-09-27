@@ -101,6 +101,22 @@ Search / Share面は町runtimeから分離して管理する。
 
 Release Validatorは選択作品について、metadata正本、日英生成一致、自己canonical、OGP文面、相互hreflang、x-default、JSON-LD、robots、静的言語切替、日英sitemap収録を検査する。明示されたpublication setがある場合、sitemap自体もgenerator出力との完全一致を要求する。
 
+### Search / Share v2 編集監査
+
+generatorとValidatorが通っていても、検索・共有文面は機械的な正しさだけで完成としない。production昇格前に、公開対象の日本語・英語metadataを作品内容との一致で見直す。
+
+- 検索流入のために、作品にない性質・評価語・ジャンルを足さない。
+- `cozy`、`relaxing`、`simulation` など評価や期待値を強く含む語は、作品内容として明確に採用している場合だけ使う。
+- 制作者属性や国籍より、作品そのものを説明する具体語を優先する。
+- 固有作品名はSEO都合で勝手に英訳・改名しない。必要な別名は `alternateNames` としてOwner承認の上で追加する。
+- Search本文はShare文面より具体的にしてよいが、機能・ルール・体験を説明しすぎて作品の余白を壊さない。
+- 英語は直訳より自然さを優先するが、日本語正本にない設定・意味・約束を追加しない。
+- `terms` は作品内容に直接支えられる語だけを残す。検索ボリュームを根拠に作品を別ジャンルへ寄せない。
+- title / descriptionの長さは機械的な文字数上限ではなく、検索結果で意味が途中で切れても作品名と核が残る順序を優先する。
+- OGP画像は日英共通でよい。画像内へSEO文言を詰め込まず、日英差分はtitle / description / altで持つ。
+
+Phase 4.4では、公開済み9作品をこの基準で監査し、過剰だった英語検索語を保守的に修正した。今後の新作もproduction候補作成前に同じ編集監査を行う。
+
 ### Release状態
 
 - `DRAFT`: 対象・素材・判断を準備中。
