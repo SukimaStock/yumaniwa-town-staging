@@ -5,13 +5,16 @@ on:
   push:
     paths:
       - "data/works.js"
+      - "data/work-search-meta.js"
       - "data/updates.js"
       - "data/ghost-dialogue.js"
       - "w/**"
+      - "en/w/**"
       - "assets/works/**"
       - "work-install-meta.js"
       - "sitemap.xml"
       - "tools/release-validator.cjs"
+      - "tools/generate-work-search-pages.cjs"
       - "tests/test-release-validator.cjs"
       - "tests/fixtures/release/**"
       - "RELEASE-WORKFLOW.md"
@@ -32,6 +35,13 @@ jobs:
 
       - name: Run release validator regression tests
         run: node --test tests/test-release-validator.cjs
+
+      - name: Verify generated Search / Share v2 pages
+        run: >
+          node tools/generate-work-search-pages.cjs
+          --env staging
+          --published orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window
+          --check
 
       - name: Validate town awareness for all open staging works
         run: |
