@@ -4009,6 +4009,20 @@
 
     updateBaseRefuel(dt) {
       if (!this.landPlanet || this.landPlanet.kind !== "base") return;
+
+      // Ending choreography owns HOME completely. Do not let the ordinary BASE
+      // refuel loop change FUEL, spawn harvest feedback, or play the fuel cue
+      // underneath finale / credits / true-ending beats.
+      const endingFuelLock = !!(
+        (this.finale && (this.finale.active || this.finale.resumePending)) ||
+        (this.credits && (this.credits.pending || this.credits.active)) ||
+        (this.incident && this.incident.trueEndingActive)
+      );
+      if (endingFuelLock) {
+        this.baseRefuelTimer = 0;
+        return;
+      }
+
       if (this.resources.fuel >= this.resources.fuelMax) {
         this.baseRefuelTimer = 0;
         this.eve.lowFuelNotified = false;
@@ -5246,7 +5260,7 @@
 
       if (kind === "mine") playOrbitCue("ore");
       else if (kind === "data") playOrbitCue("data");
-      else if (kind === "refuel" && this.landPlanet && this.landPlanet.kind === "refuel") playOrbitCue("fuel");
+      else if (kind === "refuel") playOrbitCue("fuel");
 
       // SYSTEM records one quiet fact per resource stop, never every harvest tick.
       if (
