@@ -240,6 +240,29 @@ test('CLI verifies exact locked Plan and rejects stale Record',t=>{
   assert.match(r.stdout,/verification\.sha/);
 });
 
+test('CLI preserves executable-bit risk floor during Verification',t=>{
+  const {root,base}=tempRepo(t);
+  fs.chmodSync(path.join(root,'README.md'),0o755);
+  git(root,['add','README.md']);
+  git(root,['commit','-qm','make readme executable']);
+  const verified=git(root,['rev-parse','HEAD']);
+
+  const p=plan({baseSha:base});
+  const lock=createLock(p);
+  const rec=record(p,lock.planDigest,verified);
+  const lockPath=path.join(os.tmpdir(),'yumaniwa-lock-exec-'+process.pid+'-'+Date.now()+'.json');
+  const recordPath=path.join(os.tmpdir(),'yumaniwa-record-exec-'+process.pid+'-'+Date.now()+'.json');
+  t.after(()=>{fs.rmSync(lockPath,{force:true});fs.rmSync(recordPath,{force:true});});
+  fs.writeFileSync(lockPath,JSON.stringify(lock));
+  fs.writeFileSync(recordPath,JSON.stringify(rec));
+
+  const tool=path.join(__dirname,'..','tools','change-verification-check.cjs');
+  const r=spawnSync(process.execPath,[tool,'--root',root,'--lock',lockPath,'--record',recordPath,'--head','HEAD'],{encoding:'utf8'});
+  assert.equal(r.status,1,r.stdout+r.stderr);
+  assert.match(r.stdout,/unknown-code/);
+  assert.match(r.stdout,/Verification: UNVERIFIED/);
+});
+
 test('CLI rejects mutable Plan substitute and invalid Record',t=>{
   const {root,base}=tempRepo(t);
   const p=plan({baseSha:base});
