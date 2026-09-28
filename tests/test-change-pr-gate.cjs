@@ -59,3 +59,15 @@ test('trusted verification preserves failing gate evidence before failing the jo
   assert.ok(failIndex > uploadIndex);
   assert.ok(verificationSource.includes('One or more trusted gates failed: scope=$SCOPE_EXIT risk=$RISK_EXIT impact=$IMPACT_EXIT'));
 });
+
+
+test('trusted verification reads Plan Lock from an immutable regular Git blob',()=>{
+  assert.ok(verificationSource.includes('LOCK_ENTRY="$(git ls-tree "$LOCK_COMMIT" -- "$LOCK_FILE")"'));
+  assert.ok(verificationSource.includes('[ "$LOCK_MODE" = "100644" ]'));
+  assert.ok(verificationSource.includes('[ "$LOCK_TYPE" = "blob" ]'));
+  assert.ok(verificationSource.includes('git cat-file blob "$LOCK_OID" > "$IMMUTABLE_LOCK"'));
+  assert.ok(verificationSource.includes('node "$GITHUB_WORKSPACE/trusted/tools/change-plan-lock.cjs" verify \\'));
+  assert.ok(verificationSource.includes('--lock "$IMMUTABLE_LOCK"'));
+  assert.equal(verificationSource.includes('--lock "$GITHUB_WORKSPACE/candidate/$LOCK_FILE"'),false);
+  assert.ok(verificationSource.includes('blob:process.env.LOCK_BLOB'));
+});
