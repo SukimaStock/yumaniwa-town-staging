@@ -41,6 +41,6 @@ test('trusted verification evidence workflow is base-owned and does not declare 
   assert.ok(verificationSource.includes('$GITHUB_WORKSPACE/trusted/tools/change-scope-guard.cjs'));
   assert.ok(verificationSource.includes('$GITHUB_WORKSPACE/trusted/tools/change-risk-check.cjs'));
   assert.ok(verificationSource.includes('$GITHUB_WORKSPACE/trusted/tools/change-impact-check.cjs'));
-  assert.ok(verificationSource.includes('"verificationState": "UNVERIFIED"'));
+  assert.ok(verificationSource.includes("verificationState:'UNVERIFIED'"));
   assert.ok(verificationSource.includes('trusted-mechanical-evidence'));
 });
