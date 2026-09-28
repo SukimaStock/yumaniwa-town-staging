@@ -4,6 +4,7 @@
 作品identityの正本は `data/works.js`。
 Search / Share v2 の日英文面・検索語彙・schemaTypeの正本は `data/work-search-meta.js`。
 `w/<id>/` と `en/w/<id>/` と `sitemap.xml` は `tools/generate-work-search-pages.cjs` から生成する。生成物を直接編集しない。
+変更種別と作業の重さは [CHANGE-OPERATIONS.md](CHANGE-OPERATIONS.md) で分類する。
 手順は [OPERATIONS.md](OPERATIONS.md)、
 Release完成判定の唯一の正本は [RELEASE-WORKFLOW.md](RELEASE-WORKFLOW.md)。
 配置の契約は `tools/SCENE-DATA-CONTRACT.md` と `YUMANIWA-PIXEL-STANDARD.md` を参照する。
