@@ -71,3 +71,10 @@ test('trusted verification reads Plan Lock from an immutable regular Git blob',(
   assert.equal(verificationSource.includes('--lock "$GITHUB_WORKSPACE/candidate/$LOCK_FILE"'),false);
   assert.ok(verificationSource.includes('blob:process.env.LOCK_BLOB'));
 });
+
+
+test('trusted verification requires every branch commit to descend from the Plan Lock',()=>{
+  assert.ok(verificationSource.includes('git rev-list "$EVENT_BASE_SHA..HEAD"'));
+  assert.ok(verificationSource.includes('git merge-base --is-ancestor "$LOCK_COMMIT" "$commit"'));
+  assert.ok(verificationSource.includes('is not descended from the Plan Lock commit'));
+});
