@@ -130,6 +130,17 @@ test('known domain data remains eligible for lightweight domain flow',()=>{
   assert.ok(!d.requirements.some(x=>x.id==='risk.high-risk-review'));
 });
 
+test('python and script paths cannot fall through as INFO-only',()=>{
+  assert.equal(classifyRiskPath('engine/build.py').id,'unknown-code');
+  assert.equal(classifyRiskPath('tools/YumaniwaDesk.py').id,'unknown-code');
+  assert.equal(classifyRiskPath('works/orbit/patcher.py').id,'work-runtime');
+  assert.equal(classifyRiskPath('scripts/release').id,'unknown-code');
+
+  const d=deriveRequiredImpacts(['engine/build.py']);
+  assert.deepEqual(d.uncoveredPaths,[]);
+  assert.ok(d.requirements.some(x=>x.id==='risk.high-risk-review'&&x.core));
+});
+
 test('work runtime and assets get bounded fallback profiles',()=>{
   assert.equal(classifyRiskPath('works/orbit/index.html').id,'work-runtime');
   assert.equal(classifyRiskPath('assets/maps/objects/shop.png').id,'asset');
