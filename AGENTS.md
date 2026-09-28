@@ -37,7 +37,7 @@ runtime patch／compatibility例外、既存ID/URL/保存keyの変更はHQ対象
 ## 作業上の必須ルール
 
 - 作業開始時に対象HEAD・差分・既存契約を読む。並行変更を上書きしない。
-- repository変更では実装前にChange PlanをREADYにし、実装後は `tools/change-scope-guard.cjs` または同等のbase→head diff照合でscopeを確認する。Plan外path・forbidden pathが出たら完了扱いにせず停止する。
+- repository変更では実装前にChange PlanをREADYにし、実装後は `tools/change-scope-guard.cjs` または同等のbase→head diff照合でscopeを確認する。続けて `tools/change-impact-check.cjs` または同等のImpact Rules照合を行い、登録済み影響を `impactChecks` または理由付き `impactExclusions` で扱う。Plan外path・forbidden path・未処理Impactが出たら完了扱いにせず停止する。
 - 通常の作品追加で共通runtimeやscene方式を変更しない。既存URL・世界観を保持する。
 - 未確認をPASSとしない。外部Goal・実機・本番配信は証拠がなければUNVERIFIED。
 - Validator exit 0やCI成功をRelease Completeと言わない。
