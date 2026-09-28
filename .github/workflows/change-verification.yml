@@ -112,22 +112,91 @@ jobs:
           NODE
 
       - name: Collect trusted Scope evidence
+        id: scope
         shell: bash
         run: |
-          set -euo pipefail
-          node "$GITHUB_WORKSPACE/trusted/tools/change-scope-guard.cjs"             --root "$GITHUB_WORKSPACE/candidate"             --plan "$RUNNER_TEMP/yumaniwa-plan.json"             --head HEAD --json > "$RUNNER_TEMP/scope.json"
+          set -u -o pipefail
+          set +e
+          node "$GITHUB_WORKSPACE/trusted/tools/change-scope-guard.cjs" \
+            --root "$GITHUB_WORKSPACE/candidate" \
+            --plan "$RUNNER_TEMP/yumaniwa-plan.json" \
+            --head HEAD --json > "$RUNNER_TEMP/scope.json" 2> "$RUNNER_TEMP/scope.stderr"
+          STATUS=$?
+          set -e
+          if [ ! -s "$RUNNER_TEMP/scope.json" ]; then
+            node - "$STATUS" "$RUNNER_TEMP/scope.stderr" "$RUNNER_TEMP/scope.json" <<'NODE'
+          const fs=require('fs');
+          const [status,stderrPath,outPath]=process.argv.slice(2);
+          const stderr=fs.existsSync(stderrPath)?fs.readFileSync(stderrPath,'utf8').trim():'';
+          fs.writeFileSync(outPath,JSON.stringify({
+            schema:'yumaniwa-gate-error/0.1',
+            gate:'scope',
+            exitCode:Number(status),
+            error:stderr || 'scope gate produced no JSON report'
+          },null,2)+'\n');
+          NODE
+          fi
+          cat "$RUNNER_TEMP/scope.json"
+          if [ -s "$RUNNER_TEMP/scope.stderr" ]; then cat "$RUNNER_TEMP/scope.stderr" >&2; fi
+          echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
 
       - name: Collect trusted Risk evidence
+        id: risk
         shell: bash
         run: |
-          set -euo pipefail
-          node "$GITHUB_WORKSPACE/trusted/tools/change-risk-check.cjs"             --root "$GITHUB_WORKSPACE/candidate"             --plan "$RUNNER_TEMP/yumaniwa-plan.json"             --head HEAD --json > "$RUNNER_TEMP/risk.json"
+          set -u -o pipefail
+          set +e
+          node "$GITHUB_WORKSPACE/trusted/tools/change-risk-check.cjs" \
+            --root "$GITHUB_WORKSPACE/candidate" \
+            --plan "$RUNNER_TEMP/yumaniwa-plan.json" \
+            --head HEAD --json > "$RUNNER_TEMP/risk.json" 2> "$RUNNER_TEMP/risk.stderr"
+          STATUS=$?
+          set -e
+          if [ ! -s "$RUNNER_TEMP/risk.json" ]; then
+            node - "$STATUS" "$RUNNER_TEMP/risk.stderr" "$RUNNER_TEMP/risk.json" <<'NODE'
+          const fs=require('fs');
+          const [status,stderrPath,outPath]=process.argv.slice(2);
+          const stderr=fs.existsSync(stderrPath)?fs.readFileSync(stderrPath,'utf8').trim():'';
+          fs.writeFileSync(outPath,JSON.stringify({
+            schema:'yumaniwa-gate-error/0.1',
+            gate:'risk',
+            exitCode:Number(status),
+            error:stderr || 'risk gate produced no JSON report'
+          },null,2)+'\n');
+          NODE
+          fi
+          cat "$RUNNER_TEMP/risk.json"
+          if [ -s "$RUNNER_TEMP/risk.stderr" ]; then cat "$RUNNER_TEMP/risk.stderr" >&2; fi
+          echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
 
       - name: Collect trusted Impact evidence
+        id: impact
         shell: bash
         run: |
-          set -euo pipefail
-          node "$GITHUB_WORKSPACE/trusted/tools/change-impact-check.cjs"             --root "$GITHUB_WORKSPACE/candidate"             --plan "$RUNNER_TEMP/yumaniwa-plan.json"             --head HEAD --json > "$RUNNER_TEMP/impact.json"
+          set -u -o pipefail
+          set +e
+          node "$GITHUB_WORKSPACE/trusted/tools/change-impact-check.cjs" \
+            --root "$GITHUB_WORKSPACE/candidate" \
+            --plan "$RUNNER_TEMP/yumaniwa-plan.json" \
+            --head HEAD --json > "$RUNNER_TEMP/impact.json" 2> "$RUNNER_TEMP/impact.stderr"
+          STATUS=$?
+          set -e
+          if [ ! -s "$RUNNER_TEMP/impact.json" ]; then
+            node - "$STATUS" "$RUNNER_TEMP/impact.stderr" "$RUNNER_TEMP/impact.json" <<'NODE'
+          const fs=require('fs');
+          const [status,stderrPath,outPath]=process.argv.slice(2);
+          const stderr=fs.existsSync(stderrPath)?fs.readFileSync(stderrPath,'utf8').trim():'';
+          fs.writeFileSync(outPath,JSON.stringify({
+            schema:'yumaniwa-gate-error/0.1',
+            gate:'impact',
+            exitCode:Number(status),
+            error:stderr || 'impact gate produced no JSON report'
+          },null,2)+'\n');
+          NODE
+          fi
+          cat "$RUNNER_TEMP/impact.json"
+          if [ -s "$RUNNER_TEMP/impact.stderr" ]; then cat "$RUNNER_TEMP/impact.stderr" >&2; fi
+          echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
 
       - name: Build exact-SHA trusted evidence envelope
         shell: bash
@@ -142,6 +211,9 @@ jobs:
           ACTOR: ${{ github.actor }}
           LOCK_FILE: ${{ steps.plan.outputs.lock_file }}
           LOCK_COMMIT: ${{ steps.plan.outputs.lock_commit }}
+          SCOPE_EXIT: ${{ steps.scope.outputs.exit_code }}
+          RISK_EXIT: ${{ steps.risk.outputs.exit_code }}
+          IMPACT_EXIT: ${{ steps.impact.outputs.exit_code }}
         run: |
           set -euo pipefail
           node - "$RUNNER_TEMP/scope.json" "$RUNNER_TEMP/risk.json" "$RUNNER_TEMP/impact.json" "$RUNNER_TEMP/trusted-evidence.json" <<'NODE'
@@ -164,6 +236,11 @@ jobs:
               workflowRef:process.env.WORKFLOW_REF,
               workflowSha:process.env.WORKFLOW_SHA
             },
+            gateExitCodes:{
+              scope:Number(process.env.SCOPE_EXIT),
+              risk:Number(process.env.RISK_EXIT),
+              impact:Number(process.env.IMPACT_EXIT)
+            },
             checks:{scope,risk,impact},
             verificationState:'UNVERIFIED',
             limitation:'C3-1 trusted mechanical evidence only; static evidence provenance and authenticated human attestation are not implemented yet.'
@@ -179,8 +256,17 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-      - name: Summary
+      - name: Fail after preserving trusted evidence
         shell: bash
+        env:
+          SCOPE_EXIT: ${{ steps.scope.outputs.exit_code }}
+          RISK_EXIT: ${{ steps.risk.outputs.exit_code }}
+          IMPACT_EXIT: ${{ steps.impact.outputs.exit_code }}
         run: |
+          set -euo pipefail
           echo "Trusted mechanical evidence collected for ${{ github.event.pull_request.head.sha }}."
           echo "C3-1 does not declare final VERIFIED."
+          if [ "$SCOPE_EXIT" != "0" ] || [ "$RISK_EXIT" != "0" ] || [ "$IMPACT_EXIT" != "0" ]; then
+            echo "One or more trusted gates failed: scope=$SCOPE_EXIT risk=$RISK_EXIT impact=$IMPACT_EXIT"
+            exit 1
+          fi
