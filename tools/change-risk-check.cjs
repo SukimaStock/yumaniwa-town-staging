@@ -94,11 +94,25 @@ function isExecutableAtRef(root, ref, filePath) {
   return output.split(/\r?\n/).some(line=>line.startsWith('100755 '));
 }
 
-function collectExecutablePaths(root, baseSha, headSha, changedPaths) {
+function isExecutableInWorktree(root, filePath) {
+  try {
+    const stat=fs.statSync(path.resolve(root,filePath));
+    return stat.isFile() && (stat.mode & 0o111) !== 0;
+  } catch {
+    return false;
+  }
+}
+
+function collectExecutablePaths(root, baseSha, headSha, changedPaths, options = {}) {
   const executable=[];
+  const includeWorktree=options.includeWorktree === true;
   for (const filePath of [...new Set(changedPaths || [])]) {
     if (!filePath) continue;
-    if (isExecutableAtRef(root,baseSha,filePath) || isExecutableAtRef(root,headSha,filePath)) {
+    if (
+      isExecutableAtRef(root,baseSha,filePath) ||
+      isExecutableAtRef(root,headSha,filePath) ||
+      (includeWorktree && isExecutableInWorktree(root,filePath))
+    ) {
       executable.push(filePath);
     }
   }
@@ -168,7 +182,13 @@ function runCli(argv=process.argv.slice(2)){
     const plan=readPlan(options.plan);
     const repoCheck=verifyRepositoryIdentity(options.root,plan.repository);
     const diff=collectChangedPaths(options.root,plan.baseSha,options.head);
-    const executablePaths=collectExecutablePaths(options.root,plan.baseSha,diff.headSha,diff.paths);
+    const executablePaths=collectExecutablePaths(
+      options.root,
+      plan.baseSha,
+      diff.headSha,
+      diff.paths,
+      {includeWorktree:diff.target==='worktree'}
+    );
     const evaluated=evaluateRiskPlan(plan,diff.paths,{executablePaths});
     const results=[
       {
@@ -219,6 +239,7 @@ module.exports={
   getRepositoryIdentity,
   verifyRepositoryIdentity,
   isExecutableAtRef,
+  isExecutableInWorktree,
   collectExecutablePaths,
   runCli,
 };
