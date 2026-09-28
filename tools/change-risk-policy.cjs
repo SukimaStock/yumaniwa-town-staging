@@ -155,8 +155,8 @@ function classifyRiskPath(value, options = {}) {
   if (KNOWN_DOMAIN_DATA.has(p)) return null;
 
   if (p.startsWith('assets/')) {
-    if (isExecutableLike(p)) return PROFILES.unknownCode;
-    return PROFILES.asset;
+    if (isKnownLowRiskContentPath(p)) return PROFILES.asset;
+    return PROFILES.unknownCode;
   }
 
   if (isExecutableLike(p)) return PROFILES.unknownCode;
