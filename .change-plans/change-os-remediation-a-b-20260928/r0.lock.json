@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "dac0f968dc660156616e671c60f9a171630e0a900bcda31c5b6d5c6d388e1e75",
+  "bootstrap": true,
+  "note": "Bootstrap lock created before remediation implementation. Future locks are generated/verified by tools/change-plan-lock.cjs.",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "change-os-remediation-a-b-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Remediate adversarial audit Phase A+B: immutable Plan identity and risk gate",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "d3f44d8feaa8a6c1cf59596d12e6682aec41c7ad",
+    "canonicalSources": [
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "CHANGE-OPERATIONS.md",
+      "tools/change-scope-guard.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-verification-check.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/change-os-remediation-a-b-20260928/**",
+      "tools/change-plan-lock.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-verification-check.cjs",
+      "tests/test-change-plan-lock.cjs",
+      "tests/test-change-risk-check.cjs",
+      "tests/test-change-scope-guard.cjs",
+      "tests/test-change-impact-check.cjs",
+      "tests/test-change-verification-check.cjs",
+      ".github/workflows/change-operations-tests.yml",
+      ".github/workflows/change-pr-gate.yml",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "CHANGE-OPERATIONS.md",
+      "AGENTS.md",
+      "OPERATIONS.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Bind verification to an immutable Plan digest and revision identity",
+      "Require repository identity, READY state, authority and Full-plan design fields",
+      "Classify high-risk runtime/config/OS paths so they cannot be treated as Lite CONTENT",
+      "Prevent exclusion of core impacts and prevent all-impact exclusion from self-verifying",
+      "Add PR gate workflow and adversarial regression coverage without changing town runtime or production"
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "Use the adversarial audit F01/F02/F03/F05/F06/F13 as the remediation scope",
+      "Keep Lite staging changes lightweight; harden high-risk and promotion paths first",
+      "Do not add a permanent plan database or automate Owner taste decisions"
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.1",
+      "Adversarial Audit 2026-09-28"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "adversarial-remediation-tests",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "No town/runtime UI or asset behavior changes; verification is mechanical and will be followed by independent adversarial re-audit.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the remediation branch/PR; production is untouched.",
+    "outOfScope": [
+      "Mechanical evidence provenance implementation beyond minimal trusted gate",
+      "Git path NUL/index hardening F04/F09/F12",
+      "Semantic diff templates and stale-write protection F10/F11",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Repository required-check/ruleset enforcement cannot be assumed until GitHub repository settings are confirmed."
+    ],
+    "problem": "The v0.1 Change OS can be bypassed or self-rewritten: a Plan can be replaced after implementation, high-risk paths can be under-classified, unknown runtime paths can pass with no impact, and all impacts can be excluded.",
+    "currentContract": "Change Plan, Scope Guard, Impact Check and Verification Record exist, but their use is soft-enforced and Plan/evidence trust boundaries are incomplete.",
+    "whyExistingIsInsufficient": "The adversarial audit reproduced post-hoc base/check rewrites, CONTENT/Lite misclassification of shared runtime, unknown runtime with zero required impacts, and all-impact exclusion reaching VERIFIED.",
+    "design": "Introduce v0.2 Plan identity/digest/revision validation and a risk policy derived from changed paths. Require Full/HQ for shared/runtime/OS risk, keep domain-specific Lite/Standard paths lightweight, and add a PR gate suitable for required-check enforcement.",
+    "alternativesRejected": [
+      "Make every change Full",
+      "Store every Plan forever in a database",
+      "Use free-form evidence strings as the only trust mechanism"
+    ],
+    "migration": "Existing v0.1 historical records remain readable as legacy but cannot satisfy the new trusted high-risk gate.",
+    "compatibility": "Town runtime and production release behavior remain unchanged. The remediation affects Change OS tooling and documentation only.",
+    "boundaryCases": [
+      "main.js claimed as CONTENT/Lite",
+      "new root JS/HTML/CSS with no explicit Impact Rule",
+      "Full Plan with missing HQ/design fields or empty checks",
+      "all required impacts excluded",
+      "Plan content changed after lock/digest",
+      "repository identity mismatch"
+    ],
+    "testPlan": [
+      "Preserve existing 31 regression tests",
+      "Add adversarial tests for false class, unknown high-risk path, all exclusions, plan digest mismatch and repository mismatch",
+      "Run Change Operations CI on the remediation branch"
+    ],
+    "promotionRisk": "No production promotion in this phase. Staging merge remains subject to review; required-check repository settings are separately verified."
+  }
+}
