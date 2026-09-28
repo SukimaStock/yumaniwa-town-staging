@@ -6,6 +6,7 @@ Search / Share v2 の日英文面・検索語彙・schemaTypeの正本は `data/
 `w/<id>/` と `en/w/<id>/` と `sitemap.xml` は `tools/generate-work-search-pages.cjs` から生成する。生成物を直接編集しない。
 変更種別と作業の重さは [CHANGE-OPERATIONS.md](CHANGE-OPERATIONS.md) で分類する。
 repository変更前の実行範囲は [CHANGE-PLAN.md](CHANGE-PLAN.md) で固定する。
+実装後の確認証拠は [CHANGE-VERIFICATION.md](CHANGE-VERIFICATION.md) でexact SHAへ固定する。
 手順は [OPERATIONS.md](OPERATIONS.md)、
 Release完成判定の唯一の正本は [RELEASE-WORKFLOW.md](RELEASE-WORKFLOW.md)。
 配置の契約は `tools/SCENE-DATA-CONTRACT.md` と `YUMANIWA-PIXEL-STANDARD.md` を参照する。
@@ -38,6 +39,7 @@ runtime patch／compatibility例外、既存ID/URL/保存keyの変更はHQ対象
 
 - 作業開始時に対象HEAD・差分・既存契約を読む。並行変更を上書きしない。
 - repository変更では実装前にChange PlanをREADYにし、実装後は `tools/change-scope-guard.cjs` または同等のbase→head diff照合でscopeを確認する。続けて `tools/change-impact-check.cjs` または同等のImpact Rules照合を行い、登録済み影響を `impactChecks` または理由付き `impactExclusions` で扱う。Plan外path・forbidden path・未処理Impactが出たら完了扱いにせず停止する。
+- stagingをVERIFIEDと呼ぶ前に、`CHANGE-VERIFICATION.md` に従い確認対象commit SHAを固定し、Planのstatic / impact / manual checkを記録する。AIが観測していない実機確認をPASSにしない。
 - 通常の作品追加で共通runtimeやscene方式を変更しない。既存URL・世界観を保持する。
 - 未確認をPASSとしない。外部Goal・実機・本番配信は証拠がなければUNVERIFIED。
 - Validator exit 0やCI成功をRelease Completeと言わない。
