@@ -1,0 +1,107 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5915783c1a6b48e2720c1501a35c3da906b100ab619f0579b1d4812ec67621e1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-impact-human-report-escape-followup-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C follow-up: escape literal paths in Impact human-readable reports",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "8fa229f6b5198b59e73568c3a36911a5a65f7a92",
+    "canonicalSources": [
+      "tools/change-impact-check.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c-impact-human-report-escape-followup-20260928/**",
+      "tools/change-impact-check.cjs",
+      "tests/test-change-impact-check.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**",
+      ".github/workflows/**"
+    ],
+    "expectedChanges": [
+      "Escape control characters and ambiguous literal characters only when rendering human-readable Impact result paths.",
+      "Keep machine-readable Impact report path values and path identity unchanged.",
+      "Add regression coverage proving newline, carriage return, tab, ESC, backslash and quote cannot inject or split Impact human-readable status lines."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This change addresses the post-merge canary finding that Impact human-readable output still renders literal Git paths unsafely.",
+      "Reuse the same display-only escaping semantics already established for Scope human-readable output.",
+      "Do not alter Impact evaluation, JSON evidence, Risk behavior, trusted workflows, branch protection, Record v0.3, Phase D/E, or production."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "Phase C post-merge canary finding: Impact human report path injection"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Change OS report rendering only; behavior is covered by deterministic regression tests, trusted PR checks, Codex review, and a fresh post-merge canary.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging-only Impact report escaping PR; production remains untouched.",
+    "outOfScope": [
+      "Risk human output changes",
+      "Verification Record v0.3",
+      "Authenticated human attestation",
+      "Trusted static-check registry",
+      "Phase D broader Git/index hardening",
+      "Phase E semantic scope and concurrency controls",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "A fresh post-merge canary must re-run unusual-path and rerun-provenance checks before C3-1 closure."
+    ],
+    "problem": "The post-merge canary proved Scope human output escapes unusual paths correctly but Impact formatHuman still concatenates item.paths with join(', '), allowing newline and control characters in filenames to split or spoof operator-visible log lines.",
+    "currentContract": "Impact machine results preserve literal valid UTF-8 paths correctly, but formatHuman renders item.paths without display escaping.",
+    "whyExistingIsInsufficient": "A newline-containing filename produced a physically split Impact log line during the live canary even though the underlying mechanical evidence was correct.",
+    "design": "Apply a display-only escape function in change-impact-check.cjs with the same semantics as Scope: escape backslash, quote, common controls, C0/C1 controls and Unicode line separators immediately before human rendering, leaving evaluation and JSON path values untouched.",
+    "alternativesRejected": [
+      "Normalize or reject unusual valid UTF-8 filenames; path identity must remain literal.",
+      "Escape paths before Impact evaluation; this would alter machine identity.",
+      "Ignore Impact human output because JSON is correct; operators consume logs and can be misled by injected lines."
+    ],
+    "migration": "None.",
+    "compatibility": "Ordinary paths render unchanged. Machine-readable results and policy matching remain unchanged.",
+    "boundaryCases": [
+      "A newline-containing Impact path renders literal backslash-n on one physical line.",
+      "Carriage return, tab and ESC render as printable escapes.",
+      "Literal backslash and quote remain distinguishable from escape syntax.",
+      "Unicode content remains readable while U+2028/U+2029 are escaped.",
+      "Impact report result path arrays remain literal and unchanged."
+    ],
+    "testPlan": [
+      "Add formatter regression with newline, CR, tab, ESC, backslash, quote and Unicode line separator in item.paths.",
+      "Assert one physical result line and unchanged literal paths in the report object.",
+      "Run Change Operations Tests, Change PR Gate and Change Verification Evidence on the exact PR head.",
+      "Request Codex adversarial review focused on Impact display escaping.",
+      "After merge, repeat the full post-merge canary from a fresh branch and verify rerun provenance."
+    ],
+    "promotionRisk": "Staging Change OS only. Incorrect display escaping could hide or misrepresent evidence, so trusted checks and a fresh canary are required."
+  }
+}
