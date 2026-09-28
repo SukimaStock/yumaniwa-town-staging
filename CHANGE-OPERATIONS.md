@@ -46,6 +46,10 @@ CHANGE PLAN
     ↓
 BUILD IN STAGING
     ↓
+SCOPE GUARD
+    ↓
+IMPACT CHECK
+    ↓
 STATIC VALIDATION
     ↓
 MANUAL VERIFICATION
@@ -66,6 +70,7 @@ POST-DEPLOY VERIFICATION
 | 1. Decide | Owner/HQ判断が必要な部分だけ先に確定 | 未決判断をコードで埋めていない |
 | 1.5 Plan | `CHANGE-PLAN.md` に従いscope・正本・検査を実装前に固定 | PlanがREADYでallowed / forbidden / verificationが明確 |
 | 2. Build | stagingの正本へ最小変更を入れる | 二重管理・runtime patchを増やしていない |
+| 2.5 Guard | Scope GuardとImpact Checkで、余計な変更と確認漏れを照合 | Plan外path・forbidden・未処理Impactがない |
 | 3. Validate | 契約・syntax・既存test・validatorで静的確認 | FAIL/HQ_REQUIREDを残さない、未確認はUNVERIFIED |
 | 4. Verify | stagingで実際の見た目・操作・往復を確認 | 変更クラスに必要な手動確認が完了 |
 | 5. Promote | productionへ必要差分だけ昇格 | branch → PR → Safety Checks → merge |
