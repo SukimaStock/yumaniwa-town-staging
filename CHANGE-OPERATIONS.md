@@ -1,4 +1,4 @@
-# Yumaniwa Town Change Operations v0.2
+# Yumaniwa Town Change Operations v0.3
 
 制定: 2026-09-28
 
@@ -54,11 +54,11 @@ RISK GATE
     ↓
 IMPACT CHECK
     ↓
-STATIC VALIDATION
+MECHANICAL EVIDENCE
     ↓
-MANUAL VERIFICATION
+HUMAN ATTESTATION
     ↓
-VERIFICATION RECORD
+VERIFICATION
     ↓
 PROMOTION
     ↓
@@ -78,9 +78,9 @@ POST-DEPLOY VERIFICATION
 | 1.7 Lock | high-risk / PR / promotionではPlanをdigest固定 | 実装より前のPlan Lockが存在し、base / digestを後付け変更していない |
 | 2. Build | stagingの正本へ最小変更を入れる | 二重管理・runtime patchを増やしていない |
 | 2.5 Guard | Scope / Risk / Impactで、余計な変更・過少分類・確認漏れを照合 | Plan外path・risk floor違反・未処理Impactがない |
-| 3. Validate | 契約・syntax・既存test・validatorで静的確認 | FAIL/HQ_REQUIREDを残さない、未確認はUNVERIFIED |
-| 4. Verify | stagingで実際の見た目・操作・往復を確認 | 変更クラスに必要な手動確認が完了 |
-| 4.5 Record | `CHANGE-VERIFICATION.md` に従いexact SHAへ確認結果を固定 | locked Plan / repository / Scope / Risk / Impact再評価＋必要evidenceが揃う |
+| 3. Mechanical | trusted base runnerがsyntax・test・validator等を実測 | target SHA/tree・exit・provenanceが固定され、必要staticChecksがPASS |
+| 4. Human | stagingで見た目・操作・音などを人間が確認 | manualChecks全件がobservedSha付きattestationになる |
+| 4.5 Verify | `CHANGE-VERIFICATION.md` に従い同じSHAへ統合 | locked Plan / repository / Scope / Risk / Impact / Mechanical / Humanが成立 |
 | 5. Promote | productionへ必要差分だけ昇格 | branch → PR → Safety Checks → merge |
 | 6. Verify Production | 本番配信と実URL/実操作を確認 | 対象SHAのPages成功＋本番確認 |
 
@@ -92,7 +92,7 @@ repositoryを変更する作業では、Class / Authority確定後、実装前�
 
 high-risk path、Change OS自身、staging PR、production昇格の根拠にする変更では、実装前にPlan Lockを作る。`tools/change-risk-policy.cjs` が示す下限より軽いClass / Plan / Authorityへ自己申告で落とさない。locked baseShaを変更後HEADへ差し替えてdiffを消すことを禁止する。
 
-stagingをVERIFIEDと呼ぶ前に [CHANGE-VERIFICATION.md](CHANGE-VERIFICATION.md) のRecordで、確認対象SHAとPlan上のcheck結果を固定する。CI成功だけでOwner実機確認を代用しない。
+stagingをVERIFIEDと呼ぶ前に [CHANGE-VERIFICATION.md](CHANGE-VERIFICATION.md) に従い、機械で取れる証拠はtrusted runnerへ取得させ、人間にしか見えない項目だけSHA付きattestationへする。自由記述の「testした」「Owner checked」をPASS証拠にしない。
 
 ---
 
