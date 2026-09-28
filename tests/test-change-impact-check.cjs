@@ -180,23 +180,21 @@ test('CLI exits 1 for missing impacts and 2 for invalid plan',t=>{
 
 test('Impact human report escapes control characters without changing machine paths',()=>{
   const literalPath='docs/line\nFAKE PASS\rname\t\u001b[2J\\quote".md';
+  const evaluated=impact.evaluateImpact(normalized(),[literalPath]);
+  const info=evaluated.results.find(item=>item.check==='impact.no-rule');
+
+  assert.equal(evaluated.exitCode,0);
+  assert.deepEqual(evaluated.changedPaths,[literalPath]);
+  assert.deepEqual(evaluated.uncoveredPaths,[literalPath]);
+  assert.deepEqual(info.paths,[literalPath]);
+
   const report={
+    ...evaluated,
     change:'impact report escape test',
     baseSha:'a'.repeat(40),
     target:'HEAD',
     headSha:'b'.repeat(40),
-    changedPaths:[literalPath],
-    coveredPaths:[],
-    results:[{
-      status:'INFO',
-      check:'impact.no-rule',
-      impact:null,
-      paths:[literalPath],
-      detail:'no registered rule'
-    }],
-    impactOk:true
   };
-
   const human=impact.formatHuman(report);
   const resultLines=human.split('\n').filter(line=>/^PASS |^FAIL |^INFO |^WARNING |^N\/A /.test(line));
   assert.equal(resultLines.length,1,human);
@@ -204,27 +202,28 @@ test('Impact human report escapes control characters without changing machine pa
   assert.equal(resultLines[0].includes('\r'),false);
   assert.equal(resultLines[0].includes('\t'),false);
   assert.equal(resultLines[0].includes('\u001b'),false);
-  assert.equal(report.results[0].paths[0],literalPath);
+
+  assert.deepEqual(evaluated.changedPaths,[literalPath]);
+  assert.deepEqual(evaluated.uncoveredPaths,[literalPath]);
+  assert.deepEqual(info.paths,[literalPath]);
 });
 
 test('Impact human report escapes Unicode line separators but preserves ordinary Unicode',()=>{
-  const report={
+  const literalPath='docs/日本語\u2028name.md';
+  const evaluated=impact.evaluateImpact(normalized(),[literalPath]);
+  const info=evaluated.results.find(item=>item.check==='impact.no-rule');
+  assert.deepEqual(evaluated.changedPaths,[literalPath]);
+  assert.deepEqual(evaluated.uncoveredPaths,[literalPath]);
+  assert.deepEqual(info.paths,[literalPath]);
+
+  const human=impact.formatHuman({
+    ...evaluated,
     change:'impact unicode report escape test',
     baseSha:'a'.repeat(40),
     target:'HEAD',
     headSha:'b'.repeat(40),
-    changedPaths:['docs/日本語\u2028name.md'],
-    coveredPaths:[],
-    results:[{
-      status:'INFO',
-      check:'impact.no-rule',
-      impact:null,
-      paths:['docs/日本語\u2028name.md'],
-      detail:'no registered rule'
-    }],
-    impactOk:true
-  };
-  const human=impact.formatHuman(report);
+  });
   assert.match(human,/docs\/日本語\\u2028name\.md/);
   assert.equal(human.includes('\u2028'),false);
+  assert.deepEqual(info.paths,[literalPath]);
 });
