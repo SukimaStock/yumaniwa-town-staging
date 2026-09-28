@@ -5,10 +5,15 @@ on:
   push:
     paths:
       - "tools/change-scope-guard.cjs"
+      - "tools/change-plan-lock.cjs"
+      - "tools/change-risk-policy.cjs"
+      - "tools/change-risk-check.cjs"
       - "tools/change-impact-rules.cjs"
       - "tools/change-impact-check.cjs"
       - "tools/change-verification-check.cjs"
       - "tests/test-change-scope-guard.cjs"
+      - "tests/test-change-plan-lock.cjs"
+      - "tests/test-change-risk-check.cjs"
       - "tests/test-change-impact-check.cjs"
       - "tests/test-change-verification-check.cjs"
       - "CHANGE-PLAN.md"
@@ -20,10 +25,15 @@ on:
   pull_request:
     paths:
       - "tools/change-scope-guard.cjs"
+      - "tools/change-plan-lock.cjs"
+      - "tools/change-risk-policy.cjs"
+      - "tools/change-risk-check.cjs"
       - "tools/change-impact-rules.cjs"
       - "tools/change-impact-check.cjs"
       - "tools/change-verification-check.cjs"
       - "tests/test-change-scope-guard.cjs"
+      - "tests/test-change-plan-lock.cjs"
+      - "tests/test-change-risk-check.cjs"
       - "tests/test-change-impact-check.cjs"
       - "tests/test-change-verification-check.cjs"
       - "CHANGE-PLAN.md"
@@ -48,6 +58,9 @@ jobs:
       - name: Check Change Operations syntax
         run: |
           node --check tools/change-scope-guard.cjs
+          node --check tools/change-plan-lock.cjs
+          node --check tools/change-risk-policy.cjs
+          node --check tools/change-risk-check.cjs
           node --check tools/change-impact-rules.cjs
           node --check tools/change-impact-check.cjs
           node --check tools/change-verification-check.cjs
@@ -56,5 +69,7 @@ jobs:
         run: >
           node --test
           tests/test-change-scope-guard.cjs
+          tests/test-change-plan-lock.cjs
+          tests/test-change-risk-check.cjs
           tests/test-change-impact-check.cjs
           tests/test-change-verification-check.cjs
