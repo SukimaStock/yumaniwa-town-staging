@@ -1,0 +1,186 @@
+name: Change Verification Evidence
+
+# Phase C3-1 trust boundary:
+# pull_request_target loads this workflow from the PR base branch.
+# Candidate repository content is inspected as data only. This workflow emits
+# trusted mechanical evidence but MUST NOT claim final VERIFIED until later
+# Phase C work adds trusted static evidence and authenticated human attestation.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+
+jobs:
+  trusted-mechanical-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+
+    steps:
+      - name: Require same-repository PR
+        shell: bash
+        env:
+          BASE_REPO: ${{ github.repository }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+        run: |
+          set -euo pipefail
+          if [ "$HEAD_REPO" != "$BASE_REPO" ]; then
+            echo "Trusted verification does not inspect candidate content from forks."
+            exit 1
+          fi
+
+      - name: Checkout trusted base
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+          path: trusted
+          persist-credentials: false
+
+      - name: Checkout candidate as data
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          path: candidate
+          persist-credentials: false
+
+      - name: Resolve immutable Plan Lock
+        id: plan
+        shell: bash
+        working-directory: candidate
+        env:
+          EVENT_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          if ! git cat-file -e "$EVENT_BASE_SHA^{commit}" 2>/dev/null; then
+            git fetch --no-tags origin "$EVENT_BASE_SHA"
+          fi
+
+          mapfile -t LOCKS < <(
+            git diff --name-only "$EVENT_BASE_SHA" HEAD -- .change-plans |
+            grep -E '^\.change-plans/[a-z0-9][a-z0-9-]{2,80}/r[0-9]+\.lock\.json$' || true
+          )
+          if [ "${#LOCKS[@]}" -ne 1 ]; then
+            echo "Expected exactly one changed Plan Lock; found ${#LOCKS[@]}."
+            exit 1
+          fi
+
+          LOCK_FILE="${LOCKS[0]}"
+          if [[ ! "$LOCK_FILE" =~ /r0\.lock\.json$ ]]; then
+            echo "C3-1 trusted evidence requires a fresh revision-0 Plan Lock."
+            exit 1
+          fi
+
+          LOCK_COMMIT="$(git log --reverse --format=%H --diff-filter=A "$EVENT_BASE_SHA..HEAD" -- "$LOCK_FILE" | head -n 1)"
+          [ -n "$LOCK_COMMIT" ] || { echo "Could not find Plan Lock add commit."; exit 1; }
+          LOCK_PARENT="$(git rev-parse "$LOCK_COMMIT^")"
+          [ "$LOCK_PARENT" = "$EVENT_BASE_SHA" ] || { echo "Plan Lock was not the first branch commit."; exit 1; }
+
+          while IFS= read -r changed; do
+            [ -z "$changed" ] && continue
+            [ "$changed" = "$LOCK_FILE" ] || { echo "Plan Lock commit contains unexpected path: $changed"; exit 1; }
+          done < <(git diff-tree --no-commit-id --name-only -r "$LOCK_COMMIT")
+
+          git diff --quiet "$LOCK_COMMIT" HEAD -- "$LOCK_FILE" || { echo "Plan Lock changed after registration."; exit 1; }
+
+          LOCK_BASE="$(node - "$LOCK_FILE" <<'NODE'
+          const fs=require('fs');
+          const lockPath=process.argv[2];
+          const lock=JSON.parse(fs.readFileSync(lockPath,'utf8'));
+          if(!lock || !lock.plan || typeof lock.plan.baseSha!=='string') process.exit(2);
+          process.stdout.write(lock.plan.baseSha);
+          NODE
+          )"
+          [ "$LOCK_BASE" = "$EVENT_BASE_SHA" ] || { echo "Plan baseSha does not equal current PR base."; exit 1; }
+
+          echo "lock_file=$LOCK_FILE" >> "$GITHUB_OUTPUT"
+          echo "lock_commit=$LOCK_COMMIT" >> "$GITHUB_OUTPUT"
+
+      - name: Verify Plan Lock with trusted base
+        shell: bash
+        env:
+          LOCK_FILE: ${{ steps.plan.outputs.lock_file }}
+        run: |
+          set -euo pipefail
+          node "$GITHUB_WORKSPACE/trusted/tools/change-plan-lock.cjs" verify             --lock "$GITHUB_WORKSPACE/candidate/$LOCK_FILE"
+          node - "$GITHUB_WORKSPACE/candidate/$LOCK_FILE" "$RUNNER_TEMP/yumaniwa-plan.json" <<'NODE'
+          const fs=require('fs');
+          const lock=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          fs.writeFileSync(process.argv[3],JSON.stringify(lock.plan,null,2)+'\n');
+          NODE
+
+      - name: Collect trusted Scope evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          node "$GITHUB_WORKSPACE/trusted/tools/change-scope-guard.cjs"             --root "$GITHUB_WORKSPACE/candidate"             --plan "$RUNNER_TEMP/yumaniwa-plan.json"             --head HEAD --json > "$RUNNER_TEMP/scope.json"
+
+      - name: Collect trusted Risk evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          node "$GITHUB_WORKSPACE/trusted/tools/change-risk-check.cjs"             --root "$GITHUB_WORKSPACE/candidate"             --plan "$RUNNER_TEMP/yumaniwa-plan.json"             --head HEAD --json > "$RUNNER_TEMP/risk.json"
+
+      - name: Collect trusted Impact evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          node "$GITHUB_WORKSPACE/trusted/tools/change-impact-check.cjs"             --root "$GITHUB_WORKSPACE/candidate"             --plan "$RUNNER_TEMP/yumaniwa-plan.json"             --head HEAD --json > "$RUNNER_TEMP/impact.json"
+
+      - name: Build exact-SHA trusted evidence envelope
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+          WORKFLOW_REF: ${{ github.workflow_ref }}
+          WORKFLOW_SHA: ${{ github.workflow_sha }}
+          ACTOR: ${{ github.actor }}
+          LOCK_FILE: ${{ steps.plan.outputs.lock_file }}
+          LOCK_COMMIT: ${{ steps.plan.outputs.lock_commit }}
+        run: |
+          set -euo pipefail
+          node - "$RUNNER_TEMP/scope.json" "$RUNNER_TEMP/risk.json" "$RUNNER_TEMP/impact.json" "$RUNNER_TEMP/trusted-evidence.json" <<'NODE'
+          const fs=require('fs');
+          const [scopePath,riskPath,impactPath,outPath]=process.argv.slice(2);
+          const scope=JSON.parse(fs.readFileSync(scopePath,'utf8'));
+          const risk=JSON.parse(fs.readFileSync(riskPath,'utf8'));
+          const impact=JSON.parse(fs.readFileSync(impactPath,'utf8'));
+          const evidence={
+            schema:'yumaniwa-trusted-mechanical-evidence/0.1',
+            trustBoundary:'pull_request_target:base-owned',
+            repository:process.env.REPOSITORY,
+            baseSha:process.env.BASE_SHA,
+            targetSha:process.env.HEAD_SHA,
+            planLock:{path:process.env.LOCK_FILE,commit:process.env.LOCK_COMMIT},
+            producer:{
+              actor:process.env.ACTOR,
+              runId:process.env.RUN_ID,
+              runAttempt:process.env.RUN_ATTEMPT,
+              workflowRef:process.env.WORKFLOW_REF,
+              workflowSha:process.env.WORKFLOW_SHA
+            },
+            checks:{scope,risk,impact},
+            verificationState:'UNVERIFIED',
+            limitation:'C3-1 trusted mechanical evidence only; static evidence provenance and authenticated human attestation are not implemented yet.'
+          };
+          fs.writeFileSync(outPath,JSON.stringify(evidence,null,2)+'\n');
+          NODE
+
+      - name: Upload trusted mechanical evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: trusted-mechanical-evidence
+          path: ${{ runner.temp }}/trusted-evidence.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Summary
+        shell: bash
+        run: |
+          echo "Trusted mechanical evidence collected for ${{ github.event.pull_request.head.sha }}."
+          echo "C3-1 does not declare final VERIFIED."
