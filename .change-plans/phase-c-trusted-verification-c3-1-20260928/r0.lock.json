@@ -1,0 +1,113 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "92822452dd48fa3a97da36683a0f5c05e2cf8d5cb85bd97b745f654e091fad9f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-trusted-verification-c3-1-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C3-1: add base-owned verification evidence workflow and align executable-bit risk/impact re-evaluation",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "0c743211b0039b6239f105de874e3ccf8978cb12",
+    "canonicalSources": [
+      ".github/workflows/change-verification.yml",
+      "tools/change-verification-check.cjs",
+      "tools/change-impact-check.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c-trusted-verification-c3-1-20260928/**",
+      ".github/workflows/change-verification.yml",
+      "tools/change-verification-check.cjs",
+      "tools/change-impact-check.cjs",
+      "tests/test-change-verification-check.cjs",
+      "tests/test-change-impact-check.cjs",
+      "tests/test-change-pr-gate.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Add a pull_request_target verification evidence workflow that uses trusted base tools and treats candidate content only as data.",
+      "Bind trusted mechanical evidence to exact base/head SHA and GitHub workflow run metadata without declaring full VERIFIED yet.",
+      "Pass Git executable-mode information into verification Risk and Impact re-evaluation so README or other low-risk-looking paths cannot downgrade executable changes.",
+      "Add regression coverage for the trusted workflow boundary and executable-bit verification behavior."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "C3-1 does not introduce Verification Record v0.3 or human attestation; it only establishes trusted runner evidence and executable-bit parity.",
+      "The new verification workflow must not self-certify while candidate-only; the existing base-owned Change PR Gate reviews this Change OS modification before merge.",
+      "Candidate code is not executed by the C3-1 verification evidence workflow; trusted base tools inspect the candidate checkout as data."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "Phase C C1 audit findings",
+      "Phase C C2 trusted evidence contract"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "C3-1 changes Change OS tooling/workflows only; correctness is exercised by regression tests, the existing trusted PR gate, and a post-merge canary.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the C3-1 PR from staging; the existing Change PR Gate remains the trusted admission gate and production is untouched.",
+    "outOfScope": [
+      "Verification Record v0.3 schema",
+      "Authenticated human attestation workflow",
+      "Trusted static-check registry and candidate test execution",
+      "Phase D Git NUL/path/index hardening",
+      "Phase E semantic scope and concurrency controls",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "The new verification evidence workflow requires a post-merge canary because pull_request_target uses the base branch workflow.",
+      "C3-1 evidence is trusted mechanical gate evidence only and must not yet be called final VERIFIED."
+    ],
+    "problem": "C1 found that Verification has no base-owned trusted runner and that executable Git mode is considered by the PR Risk Gate but omitted from Verification Risk/Impact re-evaluation.",
+    "currentContract": "Plan Lock, repository identity and exact verified SHA are checked, but Verification evidence can be produced locally/candidate-side and evaluateVerification calls Risk/Impact without executablePaths.",
+    "whyExistingIsInsufficient": "A candidate can produce a structurally valid local verification result, and a 100755 change to a low-risk-looking path can be high-risk in the PR gate but lower-risk during Verification.",
+    "design": "Introduce a pull_request_target workflow loaded from the trusted base that verifies the locked Plan, checks candidate exact SHA as data, runs trusted Scope/Risk/Impact tools, and emits structured run-bound evidence. In parallel, thread collectExecutablePaths through Verification and Impact evaluation so all gates use the same executable-path information.",
+    "alternativesRejected": [
+      "Let the candidate branch define or execute the verification workflow that certifies itself.",
+      "Treat free-form Verification Record strings as trusted mechanical evidence.",
+      "Bundle Record v0.3, human attestation, and trusted static-check execution into C3-1."
+    ],
+    "migration": "No town/runtime data migration. Existing v0.2 records remain legacy/local evidence; C3-1 adds trusted mechanical evidence without changing their schema.",
+    "compatibility": "Existing Change PR Gate and v0.2 verification CLI remain available. The verification evaluator gains executable-path options while preserving existing callers through default empty options.",
+    "boundaryCases": [
+      "README.md changes from 100644 to 100755 and must receive unknown-code risk/impact treatment during Verification.",
+      "The new workflow exists only on the candidate branch and therefore cannot run as trusted pull_request_target code until after merge.",
+      "A candidate edits a workflow or Change OS tool; trusted evidence must still execute code from the PR base, not the candidate copy.",
+      "A PR metadata edit reruns the trusted evidence workflow against the same exact candidate SHA."
+    ],
+    "testPlan": [
+      "Add Verification regression for executable README mode escalation.",
+      "Add Impact regression proving executable low-risk content derives high-risk impacts.",
+      "Assert the new workflow uses pull_request_target, trusted/candidate separate checkouts, persist-credentials false, and trusted tool paths.",
+      "Run Change Operations regression suite and node syntax through existing CI.",
+      "After merge, open a non-merge canary PR and confirm the new trusted evidence workflow emits exact-SHA evidence."
+    ],
+    "promotionRisk": "No production promotion. C3-1 changes staging Change OS only; a faulty workflow could affect future verification claims, so existing trusted PR gate review and post-merge canary are required."
+  }
+}

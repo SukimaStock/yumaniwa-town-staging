@@ -15,6 +15,9 @@ const {
   collectRiskRequirements,
   riskImpactDefinitions,
 } = require('./change-risk-policy.cjs');
+const {
+  collectExecutablePaths,
+} = require('./change-risk-check.cjs');
 
 function readJsonPlan(planPath) {
   if (!planPath) throw new Error('--plan is required');
@@ -117,8 +120,9 @@ function addRequirement(requirements, impact, filePath, sourceType, sourceId, co
   current.core = Boolean(current.core || core);
 }
 
-function deriveRequiredImpacts(changedPaths) {
+function deriveRequiredImpacts(changedPaths, options = {}) {
   const requirements = new Map();
+  const executablePaths = new Set(options.executablePaths || []);
   const coveredPaths = new Set();
   const uniquePaths = [...new Set(changedPaths || [])].sort();
 
@@ -133,7 +137,9 @@ function deriveRequiredImpacts(changedPaths) {
       }
     }
 
-    const riskItems = collectRiskRequirements([filePath]);
+    const riskItems = collectRiskRequirements([filePath], {
+      executablePaths: executablePaths.has(filePath) ? [filePath] : [],
+    });
     for (const item of riskItems) {
       covered = true;
       const risk = item.profile;
@@ -172,8 +178,8 @@ function deriveRequiredImpacts(changedPaths) {
   };
 }
 
-function evaluateImpact(plan, changedPaths) {
-  const derived = deriveRequiredImpacts(changedPaths);
+function evaluateImpact(plan, changedPaths, options = {}) {
+  const derived = deriveRequiredImpacts(changedPaths, options);
   const checks = new Set(plan.impactChecks || []);
   const exclusions = new Map((plan.impactExclusions || []).map(item => [item.id, item.reason]));
   const results = [];
@@ -356,7 +362,14 @@ function runCli(argv = process.argv.slice(2)) {
     }
     const plan = normalized.plan;
     const diff = collectChangedPaths(options.root, plan.baseSha, options.head);
-    const evaluated = evaluateImpact(plan, diff.paths);
+    const executablePaths = collectExecutablePaths(
+      options.root,
+      plan.baseSha,
+      diff.headSha,
+      diff.paths,
+      { includeWorktree: diff.target === 'worktree' }
+    );
+    const evaluated = evaluateImpact(plan, diff.paths, { executablePaths });
     const report = {
       schema: 'yumaniwa-impact-check-report/0.2',
       change: plan.change,
@@ -366,6 +379,7 @@ function runCli(argv = process.argv.slice(2)) {
       target: diff.target,
       headSha: diff.headSha,
       changedPaths: evaluated.changedPaths,
+      executablePaths,
       coveredPaths: evaluated.coveredPaths,
       uncoveredPaths: evaluated.uncoveredPaths,
       requiredImpacts: evaluated.requiredImpacts,

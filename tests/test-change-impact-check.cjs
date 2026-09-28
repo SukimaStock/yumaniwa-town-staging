@@ -123,6 +123,14 @@ test('invalid exclusion reason and checked/excluded conflict are rejected',()=>{
   assert.match(r.errors.join('\n'),/both checked and excluded/);
 });
 
+test('executable low-risk content derives unknown-code impacts',()=>{
+  const d=impact.deriveRequiredImpacts(['README.md'],{executablePaths:['README.md']});
+  const ids=d.requirements.map(x=>x.id);
+  assert.ok(ids.includes('risk.high-risk-review'));
+  assert.ok(ids.includes('runtime.regression'));
+  assert.deepEqual(d.coveredPaths,['README.md']);
+});
+
 test('unmapped files are informational and do not fail',()=>{
   const plan=normalized();
   const r=impact.evaluateImpact(plan,['README.md']);
