@@ -1,0 +1,90 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1f8f422b7ce48fca3658c9ca3080c03cb63d0fa0dca3e48f8a1dad2fb601cdff",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-git-path-identity-m2-v2-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C3-1 follow-up: preserve literal Git path identity through Scope, Risk, and Impact",
+    "planLevel": "full",
+    "classes": ["SYSTEM"],
+    "authority": ["HQ Review"],
+    "environment": "staging",
+    "baseSha": "da9796249d0e0e8d72fa6469ebc465dbc7f1e8a8",
+    "canonicalSources": ["tools/change-scope-guard.cjs","tools/change-risk-policy.cjs"],
+    "allowedPaths": [
+      ".change-plans/phase-c-git-path-identity-m2-v2-20260928/**",
+      "tools/change-scope-guard.cjs",
+      "tests/test-change-scope-guard.cjs",
+      "tools/change-risk-policy.cjs",
+      "tests/test-change-risk-check.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": ["main.js","data/**","works/**","assets/**",".github/workflows/**"],
+    "expectedChanges": [
+      "Read Git changed paths and untracked paths with NUL-delimited output so Git-quoted names remain exact.",
+      "Do not trim or rewrite Git-derived changed path identities during Scope evaluation.",
+      "Preserve the same literal Git path identity through Risk/Impact classification and executable-path matching.",
+      "Add real Git regressions for leading-space, Unicode, tab, newline, backslash, quote, and downstream backslash-alias cases."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This replacement supersedes closed PR #30 because current trusted gates require exactly one fresh r0 Plan Lock and do not admit mid-PR revisions.",
+      "Plan-declared path patterns may retain existing convenience normalization, but Git-derived changed paths and executablePaths must remain literal identities through Scope, Risk, and Impact.",
+      "This change addresses original M2 plus the Codex P1 downstream backslash-alias finding only.",
+      "Do not address Codex P1 newline-recursive-glob, P2 invalid-UTF-8, P2 human-report escaping, M1, H2, L1, Record v0.3, Phase D/E, or production here."
+    ],
+    "rulesApplied": ["CHANGE-OPERATIONS v0.2","CHANGE-VERIFICATION v0.2","Phase C3-1 post-merge adversarial audit M2","Codex review of superseded PR #30"],
+    "staticChecks": ["change-operations-regression","node-syntax"],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Change OS path parsing/classification only; correctness is covered by real Git fixtures, regression tests, trusted PR gate, and later canary.",
+    "impactChecks": ["os.previous-gate","os.regression","os.provenance"],
+    "impactExclusions": [],
+    "rollback": "Revert the replacement remediation PR from staging; production remains untouched.",
+    "outOfScope": [
+      "Codex P1 recursive glob newline handling",
+      "Codex P2 invalid UTF-8 pathname bytes",
+      "Codex P2 escaping literal filenames in human-readable reports",
+      "M1 old Change PR Gate Plan Lock parity",
+      "H2 staging branch protection and required checks",
+      "L1 github.triggering_actor provenance",
+      "Verification Record v0.3",
+      "Human attestation",
+      "Trusted static-check registry",
+      "Phase D broader Git/index hardening beyond these exact path-identity defects",
+      "Phase E semantic scope and concurrency controls",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": ["Post-fix canary coverage for unusual Git path names remains required before C3-1 is formally closed."],
+    "problem": "Git-derived changed paths were previously line/tab parsed and normalized, and after initial M2 remediation downstream Risk/Impact classification still rewrote literal backslashes, allowing distinct repository paths to alias.",
+    "currentContract": "staging/main still uses non-NUL changed-path parsing and shared path normalization; the superseded PR proved a partial fix but was closed when downstream normalization required files outside its immutable r0 scope.",
+    "whyExistingIsInsufficient": "Leading-space or quoted names can lose identity in Scope, and a literal root filename such as data\\works.js can be rewritten downstream to data/works.js and inherit a known-domain exemption.",
+    "design": "Use NUL-delimited Git output for changed/untracked paths, keep Git-derived path strings literal in Scope, and make Risk/Impact classification operate on those same literal strings without separator or prefix rewriting.",
+    "alternativesRejected": [
+      "Decode Git C-style quoted line output manually; NUL-delimited output avoids quoting entirely.",
+      "Continue normalizing Git-derived paths in downstream policy; this preserves unsafe aliasing.",
+      "Extend superseded PR #30 with r1; trusted gates intentionally reject Plan revisions inside the same PR."
+    ],
+    "migration": "None.",
+    "compatibility": "Ordinary repository paths retain their existing classification. Plan-pattern normalization remains separate from Git path identity.",
+    "boundaryCases": [
+      "Leading-space path must not match the same path without leading space.",
+      "Unicode, tab, newline, backslash and quote filenames must survive changed-path collection literally.",
+      "Rename and untracked worktree paths must preserve literal names.",
+      "Literal root filename data\\works.js must remain distinct from data/works.js and receive unknown-code risk/impact treatment."
+    ],
+    "testPlan": [
+      "Create temporary real Git repositories containing unusual filenames and assert collectChangedPaths returns exact literal identities.",
+      "Assert Scope does not trim or rewrite leading-space/backslash paths.",
+      "Assert classifyRiskPath and collectRiskRequirements do not alias data\\works.js onto known domain data.",
+      "Assert deriveRequiredImpacts requires risk.high-risk-review and runtime.regression for the literal backslash JavaScript path.",
+      "Run Change Operations regression suite and trusted Change PR Gate."
+    ],
+    "promotionRisk": "Staging Change OS only. Incorrect path handling could over-allow or falsely reject changes, so trusted gate review and post-fix canary are required."
+  }
+}
