@@ -1,0 +1,168 @@
+name: Change PR Gate
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  plan-risk-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          path: candidate
+
+      - name: Checkout trusted base
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+          path: trusted
+
+      - name: Verify locked Plan precedes implementation
+        id: plan
+        shell: bash
+        working-directory: candidate
+        env:
+          EVENT_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+
+          MERGE_BASE="$(git merge-base "$EVENT_BASE_SHA" HEAD)"
+          echo "merge_base=$MERGE_BASE" >> "$GITHUB_OUTPUT"
+
+          mapfile -t LOCKS < <(
+            git diff --name-only "$MERGE_BASE" HEAD -- .change-plans |
+            grep -E '^\.change-plans/.+/r[0-9]+\.lock\.json$' || true
+          )
+
+          if [ "${#LOCKS[@]}" -ne 1 ]; then
+            echo "Expected exactly one changed Plan Lock in this PR; found ${#LOCKS[@]}."
+            printf '%s\n' "${LOCKS[@]}"
+            exit 1
+          fi
+
+          LOCK_FILE="${LOCKS[0]}"
+          if [[ ! "$LOCK_FILE" =~ /r0\.lock\.json$ ]]; then
+            echo "Change PR Gate v0.2 currently requires a fresh revision-0 Plan Lock."
+            echo "If scope must change, restart the high-risk branch from a new base rather than rewriting the Plan."
+            exit 1
+          fi
+
+          LOCK_COMMIT="$(git log --reverse --format=%H --diff-filter=A "$MERGE_BASE..HEAD" -- "$LOCK_FILE" | head -n 1)"
+          if [ -z "$LOCK_COMMIT" ]; then
+            echo "Could not find the commit that added $LOCK_FILE."
+            exit 1
+          fi
+
+          LOCK_PARENT="$(git rev-parse "$LOCK_COMMIT^")"
+          if [ "$LOCK_PARENT" != "$MERGE_BASE" ]; then
+            echo "Plan Lock was not the first branch commit."
+            echo "merge-base: $MERGE_BASE"
+            echo "lock parent: $LOCK_PARENT"
+            exit 1
+          fi
+
+          while IFS= read -r changed; do
+            [ -z "$changed" ] && continue
+            case "$changed" in
+              .change-plans/*) ;;
+              *)
+                echo "The Plan Lock commit also changed implementation path: $changed"
+                exit 1
+                ;;
+            esac
+          done < <(git diff-tree --no-commit-id --name-only -r "$LOCK_COMMIT")
+
+          if ! git diff --quiet "$LOCK_COMMIT" HEAD -- "$LOCK_FILE"; then
+            echo "Plan Lock was modified after registration: $LOCK_FILE"
+            exit 1
+          fi
+
+          LOCK_BASE="$(node -e "const x=require('./$LOCK_FILE'); console.log(x.plan.baseSha)")"
+          if [ "$LOCK_BASE" != "$MERGE_BASE" ]; then
+            echo "Locked Plan baseSha does not equal PR merge-base."
+            echo "locked: $LOCK_BASE"
+            echo "merge-base: $MERGE_BASE"
+            exit 1
+          fi
+
+          echo "lock_file=$LOCK_FILE" >> "$GITHUB_OUTPUT"
+          echo "lock_commit=$LOCK_COMMIT" >> "$GITHUB_OUTPUT"
+
+      - name: Select trusted gate implementation
+        id: trusted
+        shell: bash
+        env:
+          BOOTSTRAP_BASE: d3f44d8feaa8a6c1cf59596d12e6682aec41c7ad
+          MERGE_BASE: ${{ steps.plan.outputs.merge_base }}
+        run: |
+          set -euo pipefail
+          if [ -f trusted/tools/change-plan-lock.cjs ] && [ -f trusted/tools/change-risk-check.cjs ]; then
+            echo "root=$GITHUB_WORKSPACE/trusted" >> "$GITHUB_OUTPUT"
+            echo "mode=trusted-base" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ "$MERGE_BASE" = "$BOOTSTRAP_BASE" ]; then
+            echo "BOOTSTRAP: v0.2 gate did not exist on the base commit; candidate tools are used only for this one remediation PR."
+            echo "root=$GITHUB_WORKSPACE/candidate" >> "$GITHUB_OUTPUT"
+            echo "mode=bootstrap" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Trusted base does not contain the Change v0.2 gate."
+          exit 1
+
+      - name: Extract locked Plan
+        shell: bash
+        env:
+          LOCK_FILE: ${{ steps.plan.outputs.lock_file }}
+          GATE_ROOT: ${{ steps.trusted.outputs.root }}
+        run: |
+          set -euo pipefail
+          node "$GATE_ROOT/tools/change-plan-lock.cjs" verify             --lock "$GITHUB_WORKSPACE/candidate/$LOCK_FILE"
+
+          node - "$GITHUB_WORKSPACE/candidate/$LOCK_FILE" "$RUNNER_TEMP/yumaniwa-plan.json" <<'NODE'
+          const fs=require('fs');
+          const input=process.argv[2];
+          const output=process.argv[3];
+          const lock=JSON.parse(fs.readFileSync(input,'utf8'));
+          fs.writeFileSync(output,JSON.stringify(lock.plan,null,2)+'\n');
+          NODE
+
+      - name: Scope Gate
+        shell: bash
+        env:
+          GATE_ROOT: ${{ steps.trusted.outputs.root }}
+        run: |
+          node "$GATE_ROOT/tools/change-scope-guard.cjs"             --root "$GITHUB_WORKSPACE/candidate"             --plan "$RUNNER_TEMP/yumaniwa-plan.json"             --head HEAD
+
+      - name: Risk Gate
+        shell: bash
+        env:
+          GATE_ROOT: ${{ steps.trusted.outputs.root }}
+        run: |
+          node "$GATE_ROOT/tools/change-risk-check.cjs"             --root "$GITHUB_WORKSPACE/candidate"             --plan "$RUNNER_TEMP/yumaniwa-plan.json"             --head HEAD
+
+      - name: Impact Gate
+        shell: bash
+        env:
+          GATE_ROOT: ${{ steps.trusted.outputs.root }}
+        run: |
+          node "$GATE_ROOT/tools/change-impact-check.cjs"             --root "$GITHUB_WORKSPACE/candidate"             --plan "$RUNNER_TEMP/yumaniwa-plan.json"             --head HEAD
+
+      - name: Gate summary
+        shell: bash
+        run: |
+          echo "Plan Lock: ${{ steps.plan.outputs.lock_file }}"
+          echo "Plan commit: ${{ steps.plan.outputs.lock_commit }}"
+          echo "Gate implementation: ${{ steps.trusted.outputs.mode }}"
+          echo "Plan / Scope / Risk / Impact gates passed."
