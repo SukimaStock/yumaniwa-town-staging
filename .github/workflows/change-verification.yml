@@ -85,7 +85,16 @@ jobs:
 
           git diff --quiet "$LOCK_COMMIT" HEAD -- "$LOCK_FILE" || { echo "Plan Lock changed after registration."; exit 1; }
 
-          LOCK_BASE="$(node - "$LOCK_FILE" <<'NODE'
+          LOCK_ENTRY="$(git ls-tree "$LOCK_COMMIT" -- "$LOCK_FILE")"
+          [ -n "$LOCK_ENTRY" ] || { echo "Plan Lock tree entry is missing."; exit 1; }
+          read -r LOCK_MODE LOCK_TYPE LOCK_OID LOCK_TREE_PATH <<< "$LOCK_ENTRY"
+          [ "$LOCK_MODE" = "100644" ] || { echo "Plan Lock must be a non-executable regular Git file; found mode $LOCK_MODE."; exit 1; }
+          [ "$LOCK_TYPE" = "blob" ] || { echo "Plan Lock must be stored as a Git blob; found type $LOCK_TYPE."; exit 1; }
+
+          IMMUTABLE_LOCK="$RUNNER_TEMP/yumaniwa-plan-lock.json"
+          git cat-file blob "$LOCK_OID" > "$IMMUTABLE_LOCK"
+
+          LOCK_BASE="$(node - "$IMMUTABLE_LOCK" <<'NODE'
           const fs=require('fs');
           const lockPath=process.argv[2];
           const lock=JSON.parse(fs.readFileSync(lockPath,'utf8'));
@@ -97,15 +106,16 @@ jobs:
 
           echo "lock_file=$LOCK_FILE" >> "$GITHUB_OUTPUT"
           echo "lock_commit=$LOCK_COMMIT" >> "$GITHUB_OUTPUT"
+          echo "lock_blob=$LOCK_OID" >> "$GITHUB_OUTPUT"
 
       - name: Verify Plan Lock with trusted base
         shell: bash
-        env:
-          LOCK_FILE: ${{ steps.plan.outputs.lock_file }}
         run: |
           set -euo pipefail
-          node "$GITHUB_WORKSPACE/trusted/tools/change-plan-lock.cjs" verify             --lock "$GITHUB_WORKSPACE/candidate/$LOCK_FILE"
-          node - "$GITHUB_WORKSPACE/candidate/$LOCK_FILE" "$RUNNER_TEMP/yumaniwa-plan.json" <<'NODE'
+          IMMUTABLE_LOCK="$RUNNER_TEMP/yumaniwa-plan-lock.json"
+          node "$GITHUB_WORKSPACE/trusted/tools/change-plan-lock.cjs" verify \
+            --lock "$IMMUTABLE_LOCK"
+          node - "$IMMUTABLE_LOCK" "$RUNNER_TEMP/yumaniwa-plan.json" <<'NODE'
           const fs=require('fs');
           const lock=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
           fs.writeFileSync(process.argv[3],JSON.stringify(lock.plan,null,2)+'\n');
@@ -211,6 +221,7 @@ jobs:
           ACTOR: ${{ github.actor }}
           LOCK_FILE: ${{ steps.plan.outputs.lock_file }}
           LOCK_COMMIT: ${{ steps.plan.outputs.lock_commit }}
+          LOCK_BLOB: ${{ steps.plan.outputs.lock_blob }}
           SCOPE_EXIT: ${{ steps.scope.outputs.exit_code }}
           RISK_EXIT: ${{ steps.risk.outputs.exit_code }}
           IMPACT_EXIT: ${{ steps.impact.outputs.exit_code }}
@@ -228,7 +239,7 @@ jobs:
             repository:process.env.REPOSITORY,
             baseSha:process.env.BASE_SHA,
             targetSha:process.env.HEAD_SHA,
-            planLock:{path:process.env.LOCK_FILE,commit:process.env.LOCK_COMMIT},
+            planLock:{path:process.env.LOCK_FILE,commit:process.env.LOCK_COMMIT,blob:process.env.LOCK_BLOB},
             producer:{
               actor:process.env.ACTOR,
               runId:process.env.RUN_ID,
