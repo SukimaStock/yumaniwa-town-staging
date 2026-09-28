@@ -78,3 +78,21 @@ test('trusted verification requires every branch commit to descend from the Plan
   assert.ok(verificationSource.includes('git merge-base --is-ancestor "$LOCK_COMMIT" "$commit"'));
   assert.ok(verificationSource.includes('is not descended from the Plan Lock commit'));
 });
+
+
+test('trusted PR gate requires every branch commit to descend from the Plan Lock',()=>{
+  assert.ok(source.includes('git rev-list "$EVENT_BASE_SHA..HEAD"'));
+  assert.ok(source.includes('git merge-base --is-ancestor "$LOCK_COMMIT" "$commit"'));
+  assert.ok(source.includes('is not descended from the Plan Lock commit'));
+});
+
+test('trusted PR gate reads and verifies Plan Lock from immutable regular Git blob',()=>{
+  assert.ok(source.includes('LOCK_ENTRY="$(git ls-tree "$LOCK_COMMIT" -- "$LOCK_FILE")"'));
+  assert.ok(source.includes('[ "$LOCK_MODE" = "100644" ]'));
+  assert.ok(source.includes('[ "$LOCK_TYPE" = "blob" ]'));
+  assert.ok(source.includes('git cat-file blob "$LOCK_OID" > "$IMMUTABLE_LOCK"'));
+  assert.ok(source.includes('--lock "$IMMUTABLE_LOCK"'));
+  assert.ok(source.includes('node - "$IMMUTABLE_LOCK" "$RUNNER_TEMP/yumaniwa-plan.json"'));
+  assert.equal(source.includes('--lock "$GITHUB_WORKSPACE/candidate/$LOCK_FILE"'),false);
+  assert.ok(source.includes('echo "lock_blob=$LOCK_OID" >> "$GITHUB_OUTPUT"'));
+});
