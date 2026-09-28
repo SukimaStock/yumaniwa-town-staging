@@ -7,9 +7,12 @@ on:
       - "tools/change-scope-guard.cjs"
       - "tools/change-impact-rules.cjs"
       - "tools/change-impact-check.cjs"
+      - "tools/change-verification-check.cjs"
       - "tests/test-change-scope-guard.cjs"
       - "tests/test-change-impact-check.cjs"
+      - "tests/test-change-verification-check.cjs"
       - "CHANGE-PLAN.md"
+      - "CHANGE-VERIFICATION.md"
       - "CHANGE-OPERATIONS.md"
       - "AGENTS.md"
       - "OPERATIONS.md"
@@ -19,9 +22,12 @@ on:
       - "tools/change-scope-guard.cjs"
       - "tools/change-impact-rules.cjs"
       - "tools/change-impact-check.cjs"
+      - "tools/change-verification-check.cjs"
       - "tests/test-change-scope-guard.cjs"
       - "tests/test-change-impact-check.cjs"
+      - "tests/test-change-verification-check.cjs"
       - "CHANGE-PLAN.md"
+      - "CHANGE-VERIFICATION.md"
       - "CHANGE-OPERATIONS.md"
       - "AGENTS.md"
       - "OPERATIONS.md"
@@ -44,9 +50,11 @@ jobs:
           node --check tools/change-scope-guard.cjs
           node --check tools/change-impact-rules.cjs
           node --check tools/change-impact-check.cjs
+          node --check tools/change-verification-check.cjs
 
       - name: Run Change Operations regression tests
         run: >
           node --test
           tests/test-change-scope-guard.cjs
           tests/test-change-impact-check.cjs
+          tests/test-change-verification-check.cjs
