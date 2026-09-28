@@ -98,7 +98,8 @@ Plan状態とRelease状態は別物である。
 ### Verification
 - `staticChecks`
 - `manualChecks`
-- `impactChecks`
+- `impactChecks`: 実施・確認する登録済みImpact ID
+- `impactExclusions`: 今回N/AとするImpact IDと理由
 - `rollback`
 
 ### Boundaries
@@ -479,7 +480,14 @@ data/town-maps.js
   → transition adjacency
 ```
 
-Phase 1では手動記載。Phase 3で代表sourceのImpact Rulesを正式化する。
+`tools/change-impact-rules.cjs` をImpact Rulesの正本とする。
+
+登録済みsourceが変更された場合、導出されたImpact IDは次のどちらかで必ず扱う。
+
+- `impactChecks`: 今回確認する
+- `impactExclusions`: 今回N/Aとする理由を明示する
+
+「変更していないからたぶん関係ない」で無言に落とさない。除外は可能だが、理由を残す。
 
 ---
 
@@ -533,6 +541,15 @@ JSONファイルの常設は必須にしない。stdinまたはrepository外の�
   ],
   "staticChecks": ["scene contract"],
   "manualChecks": ["walk past shop", "approach entrance", "interaction"],
+  "impactChecks": [
+    "scene.rendering",
+    "scene.collision",
+    "scene.interaction",
+    "scene.editor-desk",
+    "scene.validation",
+    "scene.transition-adjacency"
+  ],
+  "impactExclusions": [],
   "promotion": "none"
 }
 ```
@@ -599,7 +616,90 @@ Validator、test、manual verification、Owner/HQ判断の代わりにはなら�
 
 ---
 
-## 15. Anti-Patterns
+## 15. Impact Check v0.1
+
+`tools/change-impact-rules.cjs` は、代表的な正本pathから「確認を忘れてはいけない影響」を導くRule台帳である。
+`tools/change-impact-check.cjs` は、Scope Guardと同じbaseSha→diffを読み、変更pathに対応するImpact IDがPlanで扱われているか確認する。
+
+v0.1の主なRule対象:
+
+- `data/works.js`
+- `data/town-maps.js`
+- `data/station-plaza.js`
+- `data/world-objects.js`
+- `data/work-search-meta.js`
+- `tools/generate-work-search-pages.cjs`
+- `data/ghost-dialogue.js`
+- `data/updates.js`
+- `town-interaction-flow.js`
+- `main.js`
+- `town-analytics.js`
+
+基本:
+
+```sh
+node tools/change-impact-check.cjs \
+  --plan /tmp/yumaniwa-change-plan.json
+
+node tools/change-impact-check.cjs \
+  --plan /tmp/yumaniwa-change-plan.json \
+  --head HEAD
+
+node tools/change-impact-check.cjs \
+  --plan /tmp/yumaniwa-change-plan.json \
+  --head HEAD \
+  --json
+```
+
+登録済みImpactは、Plan内で次のどちらかにする。
+
+```json
+{
+  "impactChecks": [
+    "works.venue-menu",
+    "works.direct-route"
+  ],
+  "impactExclusions": [
+    {
+      "id": "works.analytics-id",
+      "reason": "work id is unchanged; description-only edit"
+    }
+  ]
+}
+```
+
+判定:
+
+- `impactChecks` にある → `PASS impact.declared`
+- `impactExclusions` に理由付きである → `N/A impact.excluded`
+- どちらにもない → `FAIL impact.missing`
+- v0.1 Rule未登録path → `INFO impact.no-rule`
+
+Rule未登録pathを自動FAILにはしない。Impact Rulesは高信頼な正本から段階的に増やす。
+一方、登録済みRuleに対しては「今回は関係ない」と無言で落とせない。
+
+exit code:
+
+- `0`: 登録済みImpactをすべて確認または理由付きN/Aとして扱った
+- `1`: 未処理のImpactがある
+- `2`: Plan / CLI / Git入力が不正、または実行不能
+
+Impact Check PASSは**必要な影響をPlan上で忘れていないこと**だけを意味する。
+各checkを実際に完了した証拠、manual verification、外部設定、Owner/HQ判断は別途必要。
+
+Scope GuardとImpact Checkの役割は逆向きである。
+
+```text
+Scope Guard
+  余計な変更をしていないか
+        ↕
+Impact Check
+  必要な確認を落としていないか
+```
+
+---
+
+## 16. Anti-Patterns
 
 禁止:
 
@@ -616,7 +716,7 @@ Validator、test、manual verification、Owner/HQ判断の代わりにはなら�
 
 ---
 
-## 16. Operating Principle
+## 17. Operating Principle
 
 ```text
 CHANGE OPERATIONS
