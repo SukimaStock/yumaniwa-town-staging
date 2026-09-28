@@ -137,7 +137,8 @@ function classifyRiskPath(value, options = {}) {
   if (!p) return null;
   const executable = options.executable === true;
 
-  if (isChangeOsPath(p) || p.startsWith('.change-plans/')) return PROFILES.os;
+  if (p.startsWith('.change-plans/')) return null;
+  if (isChangeOsPath(p)) return PROFILES.os;
   if (SHARED_RUNTIME.has(p)) return PROFILES.sharedRuntime;
   if (isSharedSurfacePath(p)) return PROFILES.sharedSurface;
 
