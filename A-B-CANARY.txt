@@ -1,0 +1,2 @@
+Yumaniwa Town Change OS A+B closure canary.
+This file is intentionally low-risk CONTENT and this PR must not be merged.
