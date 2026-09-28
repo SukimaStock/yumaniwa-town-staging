@@ -78,6 +78,14 @@ jobs:
           LOCK_PARENT="$(git rev-parse "$LOCK_COMMIT^")"
           [ "$LOCK_PARENT" = "$EVENT_BASE_SHA" ] || { echo "Plan Lock was not the first branch commit."; exit 1; }
 
+          while IFS= read -r commit; do
+            [ -z "$commit" ] && continue
+            git merge-base --is-ancestor "$LOCK_COMMIT" "$commit" || {
+              echo "Commit $commit is not descended from the Plan Lock commit $LOCK_COMMIT."
+              exit 1
+            }
+          done < <(git rev-list "$EVENT_BASE_SHA..HEAD")
+
           while IFS= read -r changed; do
             [ -z "$changed" ] && continue
             [ "$changed" = "$LOCK_FILE" ] || { echo "Plan Lock commit contains unexpected path: $changed"; exit 1; }
