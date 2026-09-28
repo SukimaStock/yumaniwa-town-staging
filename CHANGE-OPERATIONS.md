@@ -54,6 +54,8 @@ STATIC VALIDATION
     ↓
 MANUAL VERIFICATION
     ↓
+VERIFICATION RECORD
+    ↓
 PROMOTION
     ↓
 POST-DEPLOY VERIFICATION
@@ -73,6 +75,7 @@ POST-DEPLOY VERIFICATION
 | 2.5 Guard | Scope GuardとImpact Checkで、余計な変更と確認漏れを照合 | Plan外path・forbidden・未処理Impactがない |
 | 3. Validate | 契約・syntax・既存test・validatorで静的確認 | FAIL/HQ_REQUIREDを残さない、未確認はUNVERIFIED |
 | 4. Verify | stagingで実際の見た目・操作・往復を確認 | 変更クラスに必要な手動確認が完了 |
+| 4.5 Record | `CHANGE-VERIFICATION.md` に従いexact SHAへ確認結果を固定 | Scope / Impact再評価＋Planのstatic / impact / manual evidenceが揃う |
 | 5. Promote | productionへ必要差分だけ昇格 | branch → PR → Safety Checks → merge |
 | 6. Verify Production | 本番配信と実URL/実操作を確認 | 対象SHAのPages成功＋本番確認 |
 
@@ -80,6 +83,8 @@ stagingだけを目的とする変更は Phase 4 で閉じてよい。
 production反映を依頼された場合だけ Phase 5–6へ進む。
 
 repositoryを変更する作業では、Class / Authority確定後、実装前に [CHANGE-PLAN.md](CHANGE-PLAN.md) のLite / Standard / Fullいずれかで実行範囲を固定する。実装中にPlan外の変更が必要になった場合は先に止めてPlanを再評価し、実装後に都合よくscopeを広げない。
+
+stagingをVERIFIEDと呼ぶ前に [CHANGE-VERIFICATION.md](CHANGE-VERIFICATION.md) のRecordで、確認対象SHAとPlan上のcheck結果を固定する。CI成功だけでOwner実機確認を代用しない。
 
 ---
 
