@@ -1,0 +1,127 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "43c3cfe8f03e3ae183f51ff67c20854c55a82134cf9ceab081a4fabe77d7ef36",
+  "note": "Phase C Plan Lock created before implementation.",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "change-os-remediation-c-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Remediate adversarial audit Phase C: trusted mechanical evidence and checker provenance",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "d64293020460341ecb268226fff1681543de2264",
+    "canonicalSources": [
+      "CHANGE-VERIFICATION.md",
+      "tools/change-verification-check.cjs",
+      "tools/change-risk-policy.cjs",
+      ".github/workflows/change-pr-gate.yml"
+    ],
+    "allowedPaths": [
+      ".change-plans/change-os-remediation-c-20260928/**",
+      "tools/change-provenance.cjs",
+      "tools/change-static-checks.cjs",
+      "tools/change-evidence-runner.cjs",
+      "tools/change-verification-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tests/test-change-provenance.cjs",
+      "tests/test-change-evidence-runner.cjs",
+      "tests/test-change-verification-check.cjs",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-operations-tests.yml",
+      "CHANGE-VERIFICATION.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "AGENTS.md",
+      "OPERATIONS.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Replace free-form static PASS evidence with runner-measured mechanical evidence",
+      "Separate human attestation from mechanical evidence and bind each attestation to the observed SHA",
+      "Record trusted OS source SHA, clean snapshot, checker/rule digests, target commit/tree, command IDs and exit codes",
+      "Require verification to run from the trusted base OS version and reject candidate/self-modified checker provenance",
+      "Extend the base-owned PR gate to run trusted mechanical evidence when the trusted base supports it"
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "Mechanical evidence is machine-generated; human observation remains attestation rather than pretending to be machine proof",
+      "The trusted OS version for a change is the locked Plan baseSha",
+      "OS updates are checked by the previous trusted gate and become the trusted runner only for subsequent changes",
+      "Do not add signatures, video proof, or a permanent evidence database"
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "Adversarial Audit F07/F08 2026-09-28"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax",
+      "trusted-evidence-regression"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "No town/runtime UI or asset behavior changes; this is Change OS infrastructure and will receive post-merge canary verification.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the Phase C staging PR. Production is untouched.",
+    "outOfScope": [
+      "Glob/index/NUL path hardening F04/F09/F12",
+      "Stale same-path write protection and semantic diff templates F10/F11",
+      "Cryptographic proof of human observation",
+      "Production promotion",
+      "GitHub repository ruleset administration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "GitHub-level required-check enforcement remains a repository settings concern outside this code change."
+    ],
+    "problem": "v0.2 still accepts arbitrary text as static/manual evidence, and local verification can run from a dirty or self-modified checker/rule checkout.",
+    "currentContract": "Plan identity, repository, Scope, Risk and Impact are gated, but Verification Record pass evidence is free-form and checker/rule provenance is not bound to the trusted base OS snapshot.",
+    "whyExistingIsInsufficient": "The adversarial audit reproduced VERIFIED with tests that never ran and with dirty local Rule files that weakened validation without appearing in the target diff.",
+    "design": "Introduce a trusted mechanical evidence runner and provenance utility executed from the locked base OS checkout. Static check IDs resolve through a trusted registry, runner output captures target SHA/tree, command IDs, exit codes, output digests and CI references, and Verification v0.3 accepts mechanical reports plus SHA-bound human attestations instead of free-form static PASS strings.",
+    "alternativesRejected": [
+      "Keep free-form evidence strings and rely on convention",
+      "Require video or cryptographic signatures for every manual check",
+      "Run verification using the candidate branch checker/rules",
+      "Store all evidence in a permanent central database"
+    ],
+    "migration": "v0.1/v0.2 records remain historical. Trusted v0.3 VERIFIED requires a mechanical evidence report and v0.3 human attestation shape. Existing Plan v0.2 remains the locked plan format for this phase.",
+    "compatibility": "Town runtime and production behavior do not change. The Change OS tooling and verification contract become stricter.",
+    "boundaryCases": [
+      "static evidence says PASS but no runner execution exists",
+      "runner target SHA differs from verifiedSha",
+      "runner uses a checker/rule checkout whose HEAD differs from baseSha",
+      "trusted checkout contains dirty tracked or untracked files",
+      "manual attestation points to a different SHA",
+      "manual attestation is recorded by AI but performedBy/attestationRef are absent",
+      "unknown static check ID is requested"
+    ],
+    "testPlan": [
+      "Preserve existing Change Operations regression suite",
+      "Add tests for clean/digest provenance and dirty trusted checkout rejection",
+      "Add tests for measured command exit/output evidence and unknown static check rejection",
+      "Add tests proving arbitrary static evidence strings no longer satisfy Verification",
+      "Add tests for SHA-bound human attestation and provenance mismatch"
+    ],
+    "promotionRisk": "Staging-only Change OS update. Final trusted-runner behavior must be canary-tested from the next PR after merge because the current base does not yet contain Phase C runner code."
+  }
+}
