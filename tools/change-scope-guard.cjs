@@ -68,7 +68,8 @@ function globToRegExp(pattern) {
 }
 
 function matches(pattern, filePath) {
-  return globToRegExp(pattern).test(normalizePath(filePath));
+  if (typeof filePath !== 'string') return false;
+  return globToRegExp(pattern).test(filePath);
 }
 
 function requireStringArray(plan, key, errors, options = {}) {
@@ -303,7 +304,7 @@ function evaluateScope(plan, changedPaths, acknowledgedConditional = []) {
   }
 
   const results = [];
-  const uniquePaths = [...new Set(changedPaths.map(normalizePath).filter(Boolean))].sort();
+  const uniquePaths = [...new Set((changedPaths || []).filter(filePath => typeof filePath === 'string' && filePath.length > 0))].sort();
   for (const filePath of uniquePaths) {
     const forbidden = plan.forbiddenPaths.find(pattern => matches(pattern, filePath));
     if (forbidden) {
@@ -347,16 +348,19 @@ function git(root, args) {
 }
 
 function parseNameStatus(source) {
+  const fields = source.split('\0');
   const paths = [];
-  for (const line of source.split(/\r?\n/)) {
-    if (!line) continue;
-    const parts = line.split('\t');
-    const status = parts.shift() || '';
+  for (let index = 0; index < fields.length;) {
+    const status = fields[index++];
+    if (!status) continue;
     if (/^[RC]/.test(status)) {
-      if (parts[0]) paths.push(parts[0]);
-      if (parts[1]) paths.push(parts[1]);
-    } else if (parts[0]) {
-      paths.push(parts[0]);
+      const before = fields[index++];
+      const after = fields[index++];
+      if (typeof before === 'string' && before.length > 0) paths.push(before);
+      if (typeof after === 'string' && after.length > 0) paths.push(after);
+    } else {
+      const filePath = fields[index++];
+      if (typeof filePath === 'string' && filePath.length > 0) paths.push(filePath);
     }
   }
   return paths;
@@ -374,14 +378,14 @@ function collectChangedPaths(root, baseSha, headRef) {
     return {
       target: headRef,
       headSha: git(repoRoot, ['rev-parse', headRef]).trim(),
-      paths: parseNameStatus(git(repoRoot, ['diff', '--name-status', '--find-renames', baseSha, headRef, '--'])),
+      paths: parseNameStatus(git(repoRoot, ['diff', '--name-status', '-z', '--find-renames', baseSha, headRef, '--'])),
     };
   }
 
   const ancestor = spawnSync('git', ['-C', repoRoot, 'merge-base', '--is-ancestor', baseSha, currentHead], { encoding: 'utf8' });
   if (ancestor.status !== 0) throw new Error('baseSha is not an ancestor of current HEAD');
-  const paths = parseNameStatus(git(repoRoot, ['diff', '--name-status', '--find-renames', baseSha, '--']));
-  const untracked = git(repoRoot, ['ls-files', '--others', '--exclude-standard']).split(/\r?\n/).filter(Boolean);
+  const paths = parseNameStatus(git(repoRoot, ['diff', '--name-status', '-z', '--find-renames', baseSha, '--']));
+  const untracked = git(repoRoot, ['ls-files', '-z', '--others', '--exclude-standard']).split('\0').filter(filePath => filePath.length > 0);
   return { target: 'worktree', headSha: currentHead, paths: [...paths, ...untracked] };
 }
 
