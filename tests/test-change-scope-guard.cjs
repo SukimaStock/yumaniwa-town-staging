@@ -359,3 +359,35 @@ test('valid UTF-8 replacement character pathname remains supported',t=>{
   const r=guard.collectChangedPaths(root,base,'HEAD');
   assert.ok(r.paths.includes(filePath));
 });
+
+
+test('human-readable Scope report escapes control characters without changing path identity',()=>{
+  const literalPath='docs/line\nFAKE PASS\rname\t\u001b[2J\\quote".md';
+  const plan=okPlan({allowedPaths:['docs/**']});
+  const evaluated=guard.evaluateScope(plan,[literalPath]);
+  assert.equal(evaluated.results[0].path,literalPath);
+
+  const human=guard.formatHuman({
+    change:'report escape test',
+    baseSha:'a'.repeat(40),
+    target:'HEAD',
+    headSha:'b'.repeat(40),
+    changedPaths:evaluated.changedPaths,
+    results:evaluated.results,
+    scopeOk:evaluated.scopeOk,
+  });
+
+  const resultLines=human.split('\n').filter(line=>/^PASS |^FAIL |^SCOPE_REVIEW_REQUIRED /.test(line));
+  assert.equal(resultLines.length,1,human);
+  assert.match(resultLines[0],/docs\/line\\nFAKE PASS\\rname\\t\\u001b\[2J\\\\quote\\"\.md/);
+  assert.equal(resultLines[0].includes('\r'),false);
+  assert.equal(resultLines[0].includes('\t'),false);
+  assert.equal(resultLines[0].includes('\u001b'),false);
+});
+
+test('human text escaping preserves ordinary Unicode while disambiguating controls and escapes',()=>{
+  assert.equal(
+    guard.escapeHumanText('docs/日本語/"q"\\x\n\r\t\u007f\u2028.md'),
+    'docs/日本語/\\"q\\"\\\\x\\n\\r\\t\\u007f\\u2028.md'
+  );
+});
