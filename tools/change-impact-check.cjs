@@ -6,6 +6,7 @@ const {
   validatePlan,
   collectChangedPaths,
   matches,
+  escapeHumanText,
 } = require('./change-scope-guard.cjs');
 const {
   IMPACT_RULES,
@@ -339,7 +340,7 @@ function formatHuman(report) {
   lines.push('');
   for (const item of report.results) {
     const impact = item.impact ? ' ' + item.impact : '';
-    const files = item.paths && item.paths.length ? ' [' + item.paths.join(', ') + ']' : '';
+    const files = item.paths && item.paths.length ? ' [' + item.paths.map(escapeHumanText).join(', ') + ']' : '';
     lines.push(item.status + ' ' + item.check + impact + files + ' — ' + item.detail);
   }
   lines.push('');
@@ -402,5 +403,6 @@ module.exports = {
   normalizeImpactPlan,
   deriveRequiredImpacts,
   evaluateImpact,
+  formatHuman,
   runCli,
 };
