@@ -21,3 +21,8 @@ test('candidate-controlled lock path is parsed as JSON data, not required as cod
   assert.ok(source.includes("const lockPath = process.argv[2];"));
   assert.ok(source.includes("JSON.parse(fs.readFileSync(lockPath, 'utf8'))"));
 });
+
+test('Plan Lock first commit permits only the selected lock file',()=>{
+  assert.ok(source.includes('if [ "$changed" != "$LOCK_FILE" ]; then'));
+  assert.equal(source.includes('.change-plans/*) ;;'),false);
+});
