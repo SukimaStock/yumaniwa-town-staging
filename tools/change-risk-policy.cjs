@@ -106,6 +106,10 @@ function isSharedSurfacePath(p) {
   return false;
 }
 
+function isPlanLockPath(p) {
+  return /^\.change-plans\/[a-z0-9][a-z0-9-]{2,80}\/r[0-9]+\.lock\.json$/.test(p);
+}
+
 function isExecutableLike(p) {
   if (/\.(?:js|cjs|mjs|jsx|ts|tsx|py|sh|bash|zsh|fish|ps1|rb|pl|php|lua|go|rs|java|kt|kts|swift|c|cc|cpp|cxx|h|hh|hpp|hxx|cs|fs|fsx|scala|clj|cljs|cljc|ex|exs|erl|hrl|dart|r|html|css|webmanifest)$/i.test(p)) {
     return true;
@@ -137,7 +141,7 @@ function classifyRiskPath(value, options = {}) {
   if (!p) return null;
   const executable = options.executable === true;
 
-  if (p.startsWith('.change-plans/')) return null;
+  if (isPlanLockPath(p) && !executable) return null;
   if (isChangeOsPath(p)) return PROFILES.os;
   if (SHARED_RUNTIME.has(p)) return PROFILES.sharedRuntime;
   if (isSharedSurfacePath(p)) return PROFILES.sharedSurface;
