@@ -16,6 +16,7 @@ const {
 const {
   evaluateRiskPlan,
   verifyRepositoryIdentity,
+  collectExecutablePaths,
 } = require('./change-risk-check.cjs');
 
 const RECORD_SCHEMA = 'yumaniwa-verification-record/0.2';
@@ -179,7 +180,7 @@ function evaluateEvidence(requiredIds, entries, kind) {
   return results;
 }
 
-function evaluateVerification(plan, record, diff, repositoryCheck) {
+function evaluateVerification(plan, record, diff, repositoryCheck, options = {}) {
   const results = [];
 
   results.push(repositoryCheck.ok
@@ -207,7 +208,7 @@ function evaluateVerification(plan, record, diff, repositoryCheck) {
     results.push({status:'FAIL',check:'gate.scope-error',kind:'scope',id:'',detail:error.message});
   }
 
-  const risk = evaluateRiskPlan(plan,diff.paths);
+  const risk = evaluateRiskPlan(plan,diff.paths,{executablePaths:options.executablePaths || []});
   for (const item of risk.results) {
     results.push({
       status:item.status,
@@ -218,7 +219,7 @@ function evaluateVerification(plan, record, diff, repositoryCheck) {
     });
   }
 
-  const impact = evaluateImpact(plan,diff.paths);
+  const impact = evaluateImpact(plan,diff.paths,{executablePaths:options.executablePaths || []});
   for (const item of impact.results) {
     results.push({
       status:item.status === 'FAIL' ? 'FAIL' : item.status,
@@ -315,7 +316,14 @@ function runCli(argv=process.argv.slice(2)) {
 
     const repositoryCheck=verifyRepositoryIdentity(options.root,plan.repository);
     const diff=collectChangedPaths(options.root,plan.baseSha,options.head || 'HEAD');
-    const evaluated=evaluateVerification(plan,record,diff,repositoryCheck);
+    const executablePaths=collectExecutablePaths(
+      options.root,
+      plan.baseSha,
+      diff.headSha,
+      diff.paths,
+      {includeWorktree:diff.target==='worktree'}
+    );
+    const evaluated=evaluateVerification(plan,record,diff,repositoryCheck,{executablePaths});
 
     const report={
       schema:'yumaniwa-change-verification-report/0.2',
@@ -331,6 +339,7 @@ function runCli(argv=process.argv.slice(2)) {
       target:diff.target,
       headSha:diff.headSha,
       changedPaths:[...new Set(diff.paths)].sort(),
+      executablePaths,
       recordedAt:record.recordedAt,
       recordedBy:record.recordedBy,
       results:evaluated.results,
