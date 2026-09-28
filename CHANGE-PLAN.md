@@ -12,7 +12,7 @@
 - 必要な正本・検査・手動確認の抜けを減らす
 - 軽い変更に重い儀式を要求しない
 
-変更分類・Authorityは `CHANGE-OPERATIONS.md`、AI権限は `AGENTS.md`、日常運用は `OPERATIONS.md`、新作Releaseは `RELEASE-WORKFLOW.md` を正本とする。
+変更分類・Authorityは `CHANGE-OPERATIONS.md`、AI権限は `AGENTS.md`、日常運用は `OPERATIONS.md`、新作Releaseは `RELEASE-WORKFLOW.md`、実装後の確認記録は `CHANGE-VERIFICATION.md` を正本とする。
 
 Change Planはそれらの代わりではなく、**一回の変更を安全に実行するための作業契約**である。
 
@@ -494,6 +494,7 @@ data/town-maps.js
 ## 12. Manual Verification Contract
 
 手動確認は事前に観点を決め、実施時に確認SHAを記録する。
+`staticChecks` / `impactChecks` / `manualChecks` の文字列は、後段の `CHANGE-VERIFICATION.md` でVerification Recordのcheck IDとして使うため、同じ意味のcheckを実装後に別名へ書き換えない。
 
 ```text
 Manual checks:
@@ -733,3 +734,5 @@ SCOPE / IMPACT / VALIDATION
 作者は「何を変えたいか」「何を守りたいか」「最終的に良いか」を保持する。
 
 OSは、**変更範囲・正本・依存・検査・昇格を忘れない役**を引き受ける。
+
+実装後に「どのSHAで何を確認したか」を固定する工程は `CHANGE-VERIFICATION.md` へ渡す。
