@@ -108,7 +108,19 @@ jobs:
             exit 1
           fi
 
-          LOCK_BASE="$(node -e "const x=require('./$LOCK_FILE'); console.log(x.plan.baseSha)")"
+          if [ -L "$LOCK_FILE" ] || [ ! -f "$LOCK_FILE" ]; then
+            echo "Plan Lock must be a regular JSON file, not a symlink: $LOCK_FILE"
+            exit 1
+          fi
+
+          LOCK_BASE="$(node - "$LOCK_FILE" <<'NODE'
+          const fs=require('fs');
+          const file=process.argv[2];
+          const x=JSON.parse(fs.readFileSync(file,'utf8'));
+          if(!x || !x.plan || typeof x.plan.baseSha!=='string') process.exit(2);
+          process.stdout.write(x.plan.baseSha);
+          NODE
+          )"
           if [ "$LOCK_BASE" != "$EVENT_BASE_SHA" ]; then
             echo "Locked Plan baseSha does not equal current PR base."
             echo "locked: $LOCK_BASE"
