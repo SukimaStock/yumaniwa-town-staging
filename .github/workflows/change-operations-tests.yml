@@ -22,6 +22,8 @@ on:
       - "AGENTS.md"
       - "OPERATIONS.md"
       - ".github/workflows/change-operations-tests.yml"
+      - ".github/workflows/change-pr-gate.yml"
+      - ".change-plans/**"
   pull_request:
     paths:
       - "tools/change-scope-guard.cjs"
@@ -42,6 +44,8 @@ on:
       - "AGENTS.md"
       - "OPERATIONS.md"
       - ".github/workflows/change-operations-tests.yml"
+      - ".github/workflows/change-pr-gate.yml"
+      - ".change-plans/**"
 
 permissions:
   contents: read
