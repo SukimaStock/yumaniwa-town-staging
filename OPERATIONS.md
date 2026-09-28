@@ -9,6 +9,7 @@
 - 緊急で本番を直接修正した場合も、同じ修正を必ず staging へ戻す
 
 変更依頼を受けたら、実装前に `CHANGE-OPERATIONS.md` で CONTENT / PLACEMENT / ASSET / WORK / SYSTEM / WORLD に分類し、必要なAuthorityと検査を決める。
+repositoryを変更する場合は続けて `CHANGE-PLAN.md` の Lite / Standard / Full Planで、base SHA・正本・allowed/conditional/forbidden path・検査・手動確認を固定してから実装する。
 詳細な昇格ルールは `RELEASE-WORKFLOW.md` も参照する。
 
 画像アセット・WORLD OBJECTのピクセル基準は `YUMANIWA-PIXEL-STANDARD.md` を正本とする。

@@ -1,0 +1,578 @@
+# Yumaniwa Change Plan Contract v0.1
+
+制定: 2026-09-28
+
+この文書は、`CHANGE-OPERATIONS.md` で分類した変更を、**実装前にどの範囲・正本・検査で実行するか固定するための契約**である。
+
+目的は計画書を増やすことではない。
+
+- 実装前に「何を触る予定か」を明示する
+- 実装中に都合よくscopeを広げない
+- 実装後に「予定と実diff」を比較できる
+- 必要な正本・検査・手動確認の抜けを減らす
+- 軽い変更に重い儀式を要求しない
+
+変更分類・Authorityは `CHANGE-OPERATIONS.md`、AI権限は `AGENTS.md`、日常運用は `OPERATIONS.md`、新作Releaseは `RELEASE-WORKFLOW.md` を正本とする。
+
+Change Planはそれらの代わりではなく、**一回の変更を安全に実行するための作業契約**である。
+
+---
+
+## 1. Plan Level
+
+repositoryを変更する作業では、実装前にChange Planを作る。
+
+| Plan | 主な対象 | 目的 |
+| --- | --- | --- |
+| Lite | CONTENT、単純PLACEMENT | scopeと正本を短く固定 |
+| Standard | ASSET、通常WORK、複合変更 | 複数source・検査・手動確認を整理 |
+| Full | SYSTEM、WORLD、Retirement、migration、契約変更 | 設計判断・影響・rollbackまで固定 |
+
+既存契約内の軽微な文面修正や座標調整にFull Planを要求しない。
+SYSTEM / WORLDをLite Planで済ませない。
+複数Classの場合は最も重いClassに必要なPlan levelを使い、各ClassのsubflowはPlan内に残す。
+
+---
+
+## 2. Lifecycle
+
+```text
+REQUEST
+  ↓
+CLASSIFY
+  ↓
+AUTHORITY
+  ↓
+DRAFT PLAN
+  ↓
+OWNER / HQ DECISION（必要な場合）
+  ↓
+PLAN READY
+  ↓
+IMPLEMENT
+  ↓
+COMPARE PLAN vs DIFF
+  ↓
+VALIDATE / VERIFY
+  ↓
+CLOSE or PROMOTE
+```
+
+状態:
+
+- `DRAFT`: 未決判断がある。実装へ進まない
+- `READY`: scope・正本・必要判断が確定
+- `IN_PROGRESS`: READY Planに従いstaging変更中
+- `SCOPE_REVIEW_REQUIRED`: 想定外scopeが必要。実装を止める
+- `VALIDATION`: 静的検査・手動確認中
+- `VERIFIED`: staging確認まで完了
+- `CLOSED`: stagingだけの作業として完了
+- `PROMOTION_READY`: production昇格に必要な証拠が揃った
+
+Plan状態とRelease状態は別物である。
+
+---
+
+## 3. Common Fields
+
+### Identity
+- `change`: 何を変えるか
+- `planLevel`: lite / standard / full
+- `classes`: CONTENT / PLACEMENT / ASSET / WORK / SYSTEM / WORLD
+- `authority`: Standard / Rule / Skill / HQ Review / Owner Decision
+- `environment`: staging only / staging then production
+- `baseSha`: 実装開始時のstaging HEAD
+
+### Scope
+- `canonicalSources`: 今回の正本
+- `allowedPaths`: 変更してよいpath
+- `conditionalPaths`: 条件成立時だけ変更してよいpath
+- `forbiddenPaths`: 特に触ってはいけないpath
+- `expectedChanges`: 意味として何を変えるか
+
+### Decisions
+- `ownerDecisions`
+- `hqDecisions`
+- `rulesApplied`
+
+### Verification
+- `staticChecks`
+- `manualChecks`
+- `impactChecks`
+- `rollback`
+
+### Boundaries
+- `outOfScope`
+- `promotion`
+- `unverified`
+
+---
+
+## 4. Path Rules
+
+### allowedPaths
+Plan作成時点で必要と分かっているpath。可能な限りfile単位で書き、repository全体を許可しない。
+
+### conditionalPaths
+条件によって必要になるpath。条件もPlan作成時に書く。
+
+例:
+
+```text
+index.html
+  condition: data scriptのcache fingerprint更新が必要な場合のみ
+```
+
+「必要なら何でも」の逃げ道にしない。
+
+### forbiddenPaths
+allowed外は原則out-of-scopeだが、特に触りたくなった時点で設計ずれを疑うpathを明示する。
+
+### Generated Files
+生成物と正本を区別する。
+
+```text
+canonical source
+  data/work-search-meta.js
+
+generated
+  w/<id>/index.html
+  en/w/<id>/index.html
+  sitemap.xml
+```
+
+生成物だけを直接編集するPlanを書かない。
+
+---
+
+## 5. Lite Plan
+
+対象: CONTENT、既存schema内の単純PLACEMENT、単一正本の小変更。
+
+必須:
+
+```text
+Change:
+Plan:
+Class:
+Authority:
+Environment:
+Base SHA:
+
+Canonical source:
+Allowed paths:
+Do not touch:
+
+Expected change:
+Static check:
+Manual check:
+
+Promotion:
+```
+
+例:
+
+```text
+Change:
+  curry shopを右へ2 world px移動
+
+Plan:
+  lite
+
+Class:
+  PLACEMENT
+
+Authority:
+  Owner Decision: 移動量
+  Standard: 反映
+
+Environment:
+  staging only
+
+Base SHA:
+  <sha>
+
+Canonical source:
+  data/town-maps.js
+
+Allowed paths:
+  data/town-maps.js
+
+Conditional paths:
+  index.html
+    only if source cache fingerprint must change
+
+Do not touch:
+  data/world-objects.js
+  assets/maps/objects/shops/**
+  main.js
+  production
+
+Expected change:
+  curry shop placement xのみ変更
+  collision / interaction / tapのabsolute位置を確認
+
+Static check:
+  Scene Contract
+
+Manual check:
+  店前の歩行
+  接近
+  interaction
+  adjacent passage
+
+Promotion:
+  none
+```
+
+---
+
+## 6. Standard Plan
+
+対象: ASSET、通常WORK、WORK + ASSET + PLACEMENT、複数正本へまたがる既存契約内の変更。
+
+Lite fieldsに加えて:
+
+- 複数の `canonicalSources`
+- `rulesApplied`
+- `impactChecks`
+- `dependencies`
+- `rollback`
+- 具体的な `manualChecks`
+- production昇格時は公開対象 / 除外対象
+
+例:
+
+```text
+Change:
+  new_shop_01を灯串横丁へ配置
+
+Plan:
+  standard
+
+Classes:
+  ASSET
+  PLACEMENT
+
+Authority:
+  Owner Decision: 採用画像 / 見た目の大きさ / 配置
+  Rule: existing SHOP_S profile
+  Standard: registry / placement反映
+
+Canonical sources:
+  YUMANIWA-PIXEL-STANDARD.md
+  data/world-objects.js
+  data/town-maps.js
+
+Allowed paths:
+  assets/maps/objects/shops/new_shop_01.png
+  data/world-objects.js
+  data/town-maps.js
+
+Conditional paths:
+  index.html
+    only if cache fingerprint update is required
+
+Do not touch:
+  main.js
+  town transition code
+  existing shop asset files
+
+Expected changes:
+  canonical 1x asset追加
+  WORLD OBJECT identity追加
+  existing sceneへのplacement追加
+
+Rules applied:
+  1 logical asset pixel = 1 Yumaniwa world pixel
+  existing SHOP_S profile
+
+Impact:
+  collision
+  interaction
+  adjacent shops
+  passage width
+  draw ordering
+
+Static checks:
+  Pixel Standard verification
+  Scene Contract
+
+Manual checks:
+  scale
+  foot
+  draw order
+  approach
+  collision
+  interaction
+  mobile
+
+Rollback:
+  asset / registry / placementを同じ変更単位でrevert
+```
+
+---
+
+## 7. Full Plan
+
+対象: SYSTEM、WORLD、Retirement、migration、source-of-truth変更、compatibility変更、cross-cutting contract変更。
+
+Standard fieldsに加えて:
+
+- `problem`
+- `currentContract`
+- `whyExistingIsInsufficient`
+- `design`
+- `alternativesRejected`
+- `migration`
+- `compatibility`
+- `boundaryCases`
+- `testPlan`
+- `promotionRisk`
+
+Full PlanはHQ Review完了まで `READY` にしない。
+
+例:
+
+```text
+Change:
+  leisure centerの作品一覧をpagination対応する
+
+Plan:
+  full
+
+Class:
+  SYSTEM
+
+Authority:
+  HQ Review
+  Owner Decision: 表示体験
+
+Problem:
+  作品増加で一画面の一覧が長くなる
+
+Current contract:
+  WORKSが作品の正本
+  venue一覧はWORKSから動的生成
+
+Must preserve:
+  WORKSを第二一覧へ複製しない
+  新作追加時のmanual menu更新を増やさない
+
+Design:
+  visible worksへ表示層だけpaginationを適用
+
+Boundary cases:
+  0
+  1
+  pageSize
+  pageSize + 1
+  final page
+  open work → return
+  mobile touch
+
+Do not touch:
+  work identity schema
+  Search metadata
+  individual work runtime
+
+Test:
+  pagination regression
+  representative venue
+  mobile manual test
+
+Rollback:
+  pagination renderer/stateの変更をrevert
+```
+
+---
+
+## 8. Plan Change Rule
+
+実装中にallowedPaths外の変更が必要になったら、**先にコードを変えてからPlanを直してはいけない。**
+
+```text
+unexpected need
+    ↓
+STOP
+    ↓
+SCOPE_REVIEW_REQUIRED
+    ↓
+why needed?
+    ↓
+same contract?
+    ├─ yes → Planを明示更新 → READY
+    └─ no  → HQ Review
+    ↓
+resume
+```
+
+Plan revisionでは最低限:
+
+```text
+Reason:
+Added scope:
+Removed scope:
+Authority impact:
+Validation impact:
+```
+
+Owner/HQ判断の意味が変わるscope拡張は再承認なしに進めない。
+
+---
+
+## 9. Base SHA Rule
+
+`baseSha` は実装前のstaging HEAD。
+
+Plan後にmainが進んだら:
+
+1. 新HEAD取得
+2. Plan対象sourceへの並行変更確認
+3. 影響なしならbaseSha更新＋理由記録
+4. 影響ありならbefore / contractを再確認
+5. 古いbase前提で上書きしない
+
+Phase 2のScope GuardはこのbaseShaと実diffを比較する。
+
+---
+
+## 10. Diff Contract
+
+実装後はPlanと実diffを比較する。
+
+- changed pathはallowed / conditionalか
+- conditional pathは条件が成立しているか
+- forbidden pathが変わっていないか
+- expectedChangesとdiffの意味が一致するか
+- 正本を迂回するruntime patchが増えていないか
+- generated fileだけを直接直していないか
+- unrelated cleanupを混ぜていないか
+
+無関係なcleanupは別Change Planへ分ける。
+
+---
+
+## 11. Impact Contract
+
+Planには変更fileだけでなく確認すべき影響先を持つ。
+
+例:
+
+```text
+data/works.js
+  → venue menu
+  → direct route
+  → Search / Share
+  → analytics ID
+  → town awareness
+  → Release Validator
+```
+
+```text
+data/town-maps.js
+  → rendering
+  → collision
+  → interaction
+  → Editor / Desk
+  → scene validation
+  → transition adjacency
+```
+
+Phase 1では手動記載。Phase 3で代表sourceのImpact Rulesを正式化する。
+
+---
+
+## 12. Manual Verification Contract
+
+手動確認は事前に観点を決め、実施時に確認SHAを記録する。
+
+```text
+Manual checks:
+  - iPhone
+  - scene opens
+  - intended position
+  - walk
+  - collision
+  - interaction
+  - return
+```
+
+確認後にコードが変わったら、影響範囲に応じて再確認する。
+
+---
+
+## 13. Machine-Readable Shape
+
+Phase 2のScope Guardは次の意味構造を入力とする。
+現時点ではJSONファイルの常設を必須にしない。
+
+```json
+{
+  "schema": "yumaniwa-change-plan/0.1",
+  "change": "curry shopを右へ2 world px移動",
+  "planLevel": "lite",
+  "classes": ["PLACEMENT"],
+  "environment": "staging",
+  "baseSha": "<sha>",
+  "canonicalSources": ["data/town-maps.js"],
+  "allowedPaths": ["data/town-maps.js"],
+  "conditionalPaths": [
+    {
+      "path": "index.html",
+      "condition": "cache fingerprint update is required"
+    }
+  ],
+  "forbiddenPaths": [
+    "main.js",
+    "data/world-objects.js",
+    "assets/maps/objects/shops/**"
+  ],
+  "expectedChanges": [
+    "curry shop placement x changes by +2 world px"
+  ],
+  "staticChecks": ["scene contract"],
+  "manualChecks": ["walk past shop", "approach entrance", "interaction"],
+  "promotion": "none"
+}
+```
+
+Phase 2ではこのshapeを最小入力としてScope Guardを実装する。
+巨大なchange databaseは作らない。
+
+---
+
+## 14. Anti-Patterns
+
+禁止:
+
+- 実装後にPlanを初めて書く
+- allowedPathsへrepository全体を入れる
+- conditionalPathsを無制限の逃げ道にする
+- generated fileを正本として扱う
+- Owner Decisionを技術判断として埋める
+- HQ_REQUIREDをPlan文言だけでStandard化する
+- unrelated cleanupを混ぜる
+- production反映をstaging依頼から推測する
+- Scope Guardを通すためPlanを無言で広げる
+- manual verificationをCI PASSで代用する
+
+---
+
+## 15. Operating Principle
+
+```text
+CHANGE OPERATIONS
+  What kind of change is this?
+          ↓
+CHANGE PLAN
+  What exactly may this change touch?
+          ↓
+IMPLEMENTATION
+          ↓
+SCOPE / IMPACT / VALIDATION
+```
+
+作者は「何を変えたいか」「何を守りたいか」「最終的に良いか」を保持する。
+
+OSは、**変更範囲・正本・依存・検査・昇格を忘れない役**を引き受ける。

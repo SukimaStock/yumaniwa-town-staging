@@ -39,6 +39,11 @@ AUTHORITY
     ├─ HQ Review
     └─ Owner Decision
     ↓
+CHANGE PLAN
+    ├─ Lite
+    ├─ Standard
+    └─ Full
+    ↓
 BUILD IN STAGING
     ↓
 STATIC VALIDATION
@@ -59,6 +64,7 @@ POST-DEPLOY VERIFICATION
 | --- | --- | --- |
 | 0. Classify | 変更種別、影響範囲、正本、必要権限を決める | Class / Authority / 対象sourceが明確 |
 | 1. Decide | Owner/HQ判断が必要な部分だけ先に確定 | 未決判断をコードで埋めていない |
+| 1.5 Plan | `CHANGE-PLAN.md` に従いscope・正本・検査を実装前に固定 | PlanがREADYでallowed / forbidden / verificationが明確 |
 | 2. Build | stagingの正本へ最小変更を入れる | 二重管理・runtime patchを増やしていない |
 | 3. Validate | 契約・syntax・既存test・validatorで静的確認 | FAIL/HQ_REQUIREDを残さない、未確認はUNVERIFIED |
 | 4. Verify | stagingで実際の見た目・操作・往復を確認 | 変更クラスに必要な手動確認が完了 |
@@ -67,6 +73,8 @@ POST-DEPLOY VERIFICATION
 
 stagingだけを目的とする変更は Phase 4 で閉じてよい。
 production反映を依頼された場合だけ Phase 5–6へ進む。
+
+repositoryを変更する作業では、Class / Authority確定後、実装前に [CHANGE-PLAN.md](CHANGE-PLAN.md) のLite / Standard / Fullいずれかで実行範囲を固定する。実装中にPlan外の変更が必要になった場合は先に止めてPlanを再評価し、実装後に都合よくscopeを広げない。
 
 ---
 
