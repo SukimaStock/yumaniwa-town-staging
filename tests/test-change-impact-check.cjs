@@ -176,3 +176,55 @@ test('CLI exits 1 for missing impacts and 2 for invalid plan',t=>{
   r=spawnSync(process.execPath,[tool,'--root',root,'--plan',p],{encoding:'utf8'});
   assert.equal(r.status,2,r.stdout+r.stderr);
 });
+
+
+test('Impact human report escapes control characters without changing machine paths',()=>{
+  const literalPath='docs/line\nFAKE PASS\rname\t\u001b[2J\\quote".md';
+  const report={
+    change:'impact report escape test',
+    baseSha:'a'.repeat(40),
+    target:'HEAD',
+    headSha:'b'.repeat(40),
+    changedPaths:[literalPath],
+    coveredPaths:[],
+    results:[{
+      status:'INFO',
+      check:'impact.no-rule',
+      impact:null,
+      paths:[literalPath],
+      detail:'no registered rule'
+    }],
+    impactOk:true
+  };
+
+  const human=impact.formatHuman(report);
+  const resultLines=human.split('\n').filter(line=>/^PASS |^FAIL |^INFO |^WARNING |^N\/A /.test(line));
+  assert.equal(resultLines.length,1,human);
+  assert.match(resultLines[0],/docs\/line\\nFAKE PASS\\rname\\t\\u001b\[2J\\\\quote\\"\.md/);
+  assert.equal(resultLines[0].includes('\r'),false);
+  assert.equal(resultLines[0].includes('\t'),false);
+  assert.equal(resultLines[0].includes('\u001b'),false);
+  assert.equal(report.results[0].paths[0],literalPath);
+});
+
+test('Impact human report escapes Unicode line separators but preserves ordinary Unicode',()=>{
+  const report={
+    change:'impact unicode report escape test',
+    baseSha:'a'.repeat(40),
+    target:'HEAD',
+    headSha:'b'.repeat(40),
+    changedPaths:['docs/日本語\u2028name.md'],
+    coveredPaths:[],
+    results:[{
+      status:'INFO',
+      check:'impact.no-rule',
+      impact:null,
+      paths:['docs/日本語\u2028name.md'],
+      detail:'no registered rule'
+    }],
+    impactOk:true
+  };
+  const human=impact.formatHuman(report);
+  assert.match(human,/docs\/日本語\\u2028name\.md/);
+  assert.equal(human.includes('\u2028'),false);
+});
