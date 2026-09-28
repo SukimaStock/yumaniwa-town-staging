@@ -1,195 +1,141 @@
-# Yumaniwa Change Verification Contract v0.2
+# Yumaniwa Change Verification Contract v0.3
 
 制定: 2026-09-28
 
 この文書は、Change Planに従って実装した変更について、
-**どの固定Planを使い、どのrepository / commit SHAで、何を確認したか**を記録する契約である。
+**どのtrusted Change OSで、どのrepository / commit / treeを、何によって確認したか**
+を固定する契約である。
 
-目的は「確認しました」という文字列を増やすことではない。
+v0.3の原則は一つ。
 
-- 実装前に固定したPlanとVerificationを結び付ける
-- Planのbase/check listを後から差し替えて失敗を消せないようにする
-- repository取り違えを止める
-- Scope / Risk / Impactを同じtargetへ再評価する
-- staticとmanualを混同しない
-- 確認後にHEADが進んだら古いRecordを最新確認として使わない
+> **機械で取得できる証拠は、機械に取得させる。  
+> 人間にしか観測できない事実は、人間のattestationとして残す。**
+
+「testを実行した」「Ownerが見た」という自由記述だけでVERIFIEDへ進めない。
 
 変更分類は `CHANGE-OPERATIONS.md`、
 Plan契約は `CHANGE-PLAN.md` を正本とする。
 
 ---
 
-## 1. Trusted Input
-
-v0.2のVerificationは**mutableなPlan JSONを直接受け取らない**。
-
-入力はPlan Lockである。
+## 1. Trusted Verification Model
 
 ```text
-Plan READY
-   ↓
-Plan Lock
+LOCKED PLAN
    ├─ changeId
-   ├─ revision
    ├─ repository
    ├─ baseSha
    └─ planDigest
-   ↓
-implementation
-   ↓
-Verification Record
-   └─ same planDigestを参照
+        ↓
+trusted Change OS
+  clean checkout @ baseSha
+        ↓
+candidate target SHA / tree
+        ↓
+MECHANICAL EVIDENCE
+  command ID / argv
+  exit code
+  output digest
+  checker/rule digest
+  CI run reference
+        +
+HUMAN ATTESTATION
+  performedBy
+  observedSha
+  device
+  attestationRef
+        ↓
+VERIFICATION
 ```
 
-`tools/change-plan-lock.cjs verify` がdigestを再計算する。
-Lock後にPlan本文を書き換えた場合はINVALID。
+Verification checker自身も、locked Planの `baseSha` に一致する
+**cleanなtrusted OS checkout** から実行する。
 
-v0.1のPlan / Recordは履歴として読めても、
-v0.2のtrusted high-risk verificationを満たしたことにはしない。
+candidate branch内の変更済みchecker / Ruleを、
+そのcandidate自身を認定するtrusted gateとして使わない。
 
 ---
 
-## 2. Verification Record
+## 2. Mechanical Evidence
 
-v0.2 Recordは少なくとも次を持つ。
+static checkはVerification Recordへ自由記述でPASSを書かない。
+
+Planの `staticChecks` には、
+trusted baseの `tools/change-static-checks.cjs` に登録されたcheck IDを書く。
+
+例:
 
 ```json
 {
-  "schema": "yumaniwa-verification-record/0.2",
-  "changeId": "example-change",
-  "planDigest": "<sha256>",
-  "planRevision": 0,
-  "repository": "SukimaStock/yumaniwa-town-staging",
-  "change": "変更内容",
-  "environment": "staging",
-  "baseSha": "<locked base sha>",
-  "verifiedSha": "<verified commit sha>",
-  "recordedAt": "2026-09-28T12:34:56Z",
-  "recordedBy": "Owner / ChatGPT / CI",
-
-  "conditionalAcknowledgements": [],
-
   "staticChecks": [
-    {
-      "id": "syntax",
-      "status": "pass",
-      "evidence": "実施結果への参照"
-    }
-  ],
-
-  "impactChecks": [
-    {
-      "id": "scene.collision",
-      "status": "pass",
-      "evidence": "確認内容"
-    }
-  ],
-
-  "manualChecks": [
-    {
-      "id": "iPhone walk",
-      "status": "pass",
-      "evidence": "OwnerがverifiedShaを確認"
-    }
+    "node-syntax",
+    "change-operations-regression"
   ]
 }
 ```
 
-RecordはPlan Lockの次と完全一致する必要がある。
+`tools/change-evidence-runner.cjs` が実際にcheckを実行し、次を採取する。
 
-- `changeId`
-- `planDigest`
-- `planRevision`
-- `repository`
-- `change`
-- `baseSha`
+- locked `baseSha`
+- target `verifiedSha`
+- target tree SHA
+- trusted OS HEAD / tree SHA
+- checker / Rule file digest
+- provenance bundle digest
+- command ID / argv
+- exit code
+- signal / execution error
+- stdout / stderr digest
+- 実行時間
+- GitHub Actions run / job / workflow / log reference（CI時）
 
----
+PASSは実測したexit codeから導出する。
+「node --testを実行した」という文字列は証拠にならない。
 
-## 3. Verification Gate
-
-`tools/change-verification-check.cjs` は同じtargetについて次を再評価する。
-
-1. Plan Lock digest / revision
-2. repository identity
-3. verified SHA
-4. Scope Guard
-5. Risk Gate
-6. Impact Check
-7. Planのstatic check evidence
-8. Planのimpact check evidence
-9. Planのmanual check evidence
-
-```sh
-node tools/change-verification-check.cjs \
-  --lock /tmp/yumaniwa-change-plan.lock.json \
-  --record /tmp/yumaniwa-verification.json \
-  --root . \
-  --head HEAD
-```
-
-Plan revisionを使う場合は必要に応じて `--previous-lock` も渡す。
-
-exit code:
-
-- `0`: VERIFIED
-- `1`: UNVERIFIED / gate STOP
-- `2`: Plan Lock / Record / Git入力が不正
+unknown static check IDはFAIL。
+必要な新checkはChange OS側で先に設計・登録する。
 
 ---
 
-## 4. VERIFIED の意味
+## 3. Trusted OS Provenance
 
-VERIFIEDには次が必要。
+`tools/change-provenance.cjs` はtrusted Change OS checkoutについて、
 
-- locked PlanとRecordが一致
-- target repositoryがPlanと一致
-- RecordのverifiedShaがtargetと一致
-- Scope PASS
-- Risk PASS
-- Impact PASS
-- Planで必須にしたcheckが欠けていない
-- fail / unverifiedが残っていない
+- HEAD SHA
+- tree SHA
+- clean / dirty
+- tracked / untracked dirty entry
+- checker / Rule各fileのSHA-256
+- bundle digest
 
-ただし、**staging VERIFIED = production Release Complete ではない。**
+を取得する。
 
-productionは別途、
+次はtrusted verificationとして拒否する。
+
+- OS HEADがlocked `baseSha` と違う
+- tracked変更が残っている
+- untracked fileが残っている
+- provenance対象のchecker / Ruleが欠けている
+
+つまり、
 
 ```text
-staging verified SHA
-   ↓
-production candidate
-   ↓
-PR / Production Safety Checks
-   ↓
-merge / Pages
-   ↓
-production verification
+target diffはcommit固定
+でもRuleだけローカルで弱めた
 ```
 
-を通す。
+という状態をVERIFIEDへ使えない。
+
+OS自身を更新する変更は、
+**更新前のtrusted OSで検査し、merge後の次の変更から新OSをtrusted版として使う。**
 
 ---
 
-## 5. Mechanical Evidence と Human Attestation
+## 4. Human Attestation
 
-ここは境界を明確にする。
+人間の観測が必要なものだけattestationにする。
 
-### Mechanical
-
-本来runnerが取得できるもの:
-
-- syntax
-- test exit code
-- validator
-- generator check
-- Git diff
-- Scope / Risk / Impact
-- CI run / target SHA
-
-### Human
-
-人間の観測が必要なもの:
+例:
 
 - iPhone / PC実機
 - 見た目
@@ -199,30 +145,94 @@ production verification
 - collision
 - tap
 - 戻る / 再入場
-- 作品・町の味
+- 町や作品の「これで良い」というOwner判断
 
-AIは観測していないmanual checkをPASSにしない。
+Record例:
 
-### v0.2 A+B時点の制限
+```json
+{
+  "humanAttestations": [
+    {
+      "id": "iPhone walk",
+      "status": "pass",
+      "performedBy": "Owner",
+      "recordedBy": "ChatGPT",
+      "observedSha": "<verified sha>",
+      "device": "iPhone",
+      "attestationRef": "chat:owner-confirmation",
+      "attestedAt": "2026-09-28T06:20:00Z"
+    }
+  ]
+}
+```
 
-現行Recordの `evidence` はまだ文字列であり、
-**static evidenceの実在性をrunnerが完全に採取・照合する仕組みはRemediation Phase Cの対象**である。
+意味:
 
-したがってA+B完了時点では、
+- `performedBy`: 実際に見た人
+- `recordedBy`: 記録へ転記した主体
+- `observedSha`: 実際に観測したSHA
+- `device`: 観測環境
+- `attestationRef`: 会話・issue・check記録など参照先
+- `attestedAt`: 観測時刻
 
-- Plan identity / repository / Risk / Scope / Impactは機械gate
-- static evidence provenanceは次Phase
-- human manualはattestationとして扱う
+AIがOwnerの発言を転記することはできる。
+ただし `performedBy: "ChatGPT"` と偽ってOwner確認を代行しない。
 
-と明示する。
-
-A+Bだけで「すべての証拠がtrustedになった」と言わない。
+manualの真実性を暗号学的に証明することまでは求めない。
+**証言は証言として、誰のどのSHAへの発言かを固定する。**
 
 ---
 
-## 6. Exact SHA Rule
+## 5. Verification Record v0.3
 
-manual verificationは `verifiedSha` に対して行う。
+Recordはhuman attestationとidentityを持つ。
+mechanical evidenceそのものはrunnerが生成するため、
+Recordへ手書きしない。
+
+```json
+{
+  "schema": "yumaniwa-verification-record/0.3",
+  "changeId": "example-change",
+  "planDigest": "<sha256>",
+  "planRevision": 0,
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "change": "変更内容",
+  "environment": "staging",
+  "baseSha": "<locked base sha>",
+  "verifiedSha": "<verified candidate sha>",
+  "recordedAt": "2026-09-28T06:30:00Z",
+  "recordedBy": "ChatGPT",
+  "conditionalAcknowledgements": [],
+  "humanAttestations": []
+}
+```
+
+Recordはlocked Planと次が一致する必要がある。
+
+- `changeId`
+- `planDigest`
+- `planRevision`
+- `repository`
+- `change`
+- `baseSha`
+
+v0.3 Recordへ次を入れてはいけない。
+
+- free-form `staticChecks`
+- free-form `impactChecks`
+- free-form `manualChecks`
+
+v0.1 / v0.2 Recordは過去の記録として残せるが、
+trusted v0.3 VERIFIEDの根拠にはならない。
+
+---
+
+## 6. Exact SHA / Time Rule
+
+Recordの `verifiedSha`、
+mechanical evidenceのtarget SHA、
+human attestationの `observedSha`
+は同じ対象を指す。
 
 ```text
 Owner checks abc123
@@ -230,86 +240,151 @@ Owner checks abc123
 new commit def456
 ```
 
-abc123のRecordは過去の証拠として残せるが、
-def456を確認済みとは扱わない。
+abc123のattestationをdef456へ流用しない。
 
-新HEADへ進んだ場合は必要なcheckを再評価する。
+`recordedAt` / `attestedAt` は有効な時刻で、
+大きく未来の時刻を受け付けない。
 
 ---
 
-## 7. Conditional Path
+## 7. Verification Command
 
-conditional pathを実際に使った場合は、Recordへ理由を残す。
+trusted base checkout側のcheckerを使う。
 
-```json
-{
-  "conditionalAcknowledgements": [
-    {
-      "path": "index.html",
-      "reason": "approved cache fingerprint change"
-    }
-  ]
-}
+```sh
+node <trusted-base>/tools/change-verification-check.cjs \
+  --lock <candidate-plan-lock.json> \
+  --record <verification-record.json> \
+  --root <candidate-checkout> \
+  --head HEAD \
+  --mechanical-output <mechanical-evidence.json>
 ```
 
-ただしacknowledgementは意味証明ではない。
-「cache-onlyのはずなのにscriptを追加した」等のsemantic scope検査はRemediation Phase Eの対象。
+checkerは内部でmechanical evidenceを再生成する。
+
+つまり、外から渡された
+
+```json
+{"status":"pass"}
+```
+
+のような「完成済みmechanical report」を信用してVERIFIEDにしない。
 
 ---
 
-## 8. High-Risk Changes
+## 8. Verification State
 
-high-risk pathは `tools/change-risk-policy.cjs` の下限を満たす必要がある。
+出力を分離する。
 
-例:
+```text
+Mechanical: VERIFIED / UNVERIFIED
+Human:      VERIFIED / UNVERIFIED
+Verification: VERIFIED / UNVERIFIED
+```
 
-- Change OS / workflow / shared runtime / root HTML-CSS / SW / manifest
-  → SYSTEM / Full / HQ Review
-- work runtime
-  → WORK / Standard以上
-- canonical asset
-  → ASSET / Standard以上
-- 未登録 executable/shared path
-  → high-risk review
+### Mechanical VERIFIED
 
-core ImpactはN/Aにできない。
-profileが要求するImpactを全件除外してVERIFIEDへ進むこともできない。
+少なくとも:
+
+- Plan Lock valid
+- repository identity一致
+- exact target SHA
+- Scope PASS
+- Risk PASS
+- Impact PASS
+- trusted OS provenance PASS
+- PlanのstaticChecksをrunnerが実測PASS
+
+### Human VERIFIED
+
+- PlanのmanualChecks全件にattestationがある
+- `observedSha == verifiedSha`
+- fail / unverifiedがない
+
+manualChecksが空で、正当なexemptionがPlanにある場合は
+Human側に未確認項目はない。
+
+### Overall VERIFIED
+
+MechanicalとHumanの両方が成立した時だけ。
+
+ただし、
+
+**staging VERIFIED = production Release Complete ではない。**
 
 ---
 
-## 9. Anti-Patterns
+## 9. PR Gate
+
+base-owned `.github/workflows/change-pr-gate.yml` は、
+Phase Cがtrusted baseへ入った次のPRからmechanical evidenceを自動採取する。
+
+workflowは `pull_request_target` でbase側定義を使い、
+
+- trusted base checkout
+- candidate checkout
+- fixed Plan Lock
+- Scope / Risk / Impact
+- Mechanical Evidence Runner
+
+を接続する。
+
+mechanical reportはGitHub Actions artifactとして一定期間残す。
+
+Change OS更新PRでは、
+そのPR自身の新runnerをtrusted runnerとして使わない。
+merge後のcanaryで新runnerがbase-ownedとして実際に動くことを確認する。
+
+---
+
+## 10. Security Boundary
+
+trusted regressionがcandidate側Change OS toolを実行する場合、
+child processへGitHub tokenや任意secret環境変数を引き継がない。
+
+ただしPhase Cの目的は、
+悪意ある第三者コードを安全にsandbox実行する汎用基盤を作ることではない。
+
+- PRはsame-repositoryに限定
+- workflow定義とrunnerはtrusted base所有
+- checkout credentialはpersistしない
+- child environmentは最小化
+- candidateをtrusted gate実装として採用しない
+
+という境界で運用する。
+
+---
+
+## 11. Anti-Patterns
 
 禁止:
 
-- Verification時に別Planを作って差し替える
-- 実装後HEADを新baseShaとして同じchangeIdへ使う
-- failed checkをPlanから削除してRecordを作り直す
-- repository名だけstagingと書いて別repositoryを認定する
-- core ImpactをN/Aへ逃がす
-- CI成功だけでOwner実機確認をPASSにする
-- 古いSHAのRecordを最新HEADへ流用する
-- free-form evidenceを「機械取得済み」と言い換える
+- `status: pass, evidence: "testした"` をstatic証拠にする
+- CIの存在を確認せず「CI PASS」と記録する
+- candidate branchの変更済みRuleでcandidate自身を認定する
+- dirtyなchecker checkoutからVERIFIEDを出す
+- old SHAのmanual確認をnew SHAへ付け替える
+- AI転記を人間本人の観測と混同する
+- unknown static checkを文字列だけ追加して済ませる
+- mechanical report JSONを手書きしてcheckerへ渡す
 - staging VERIFIEDをRelease Completeと呼ぶ
 
 ---
 
-## 10. Operating Principle
+## 12. Operating Principle
 
 ```text
-LOCKED PLAN
-    ↓
-IMPLEMENT
-    ↓
-SCOPE + RISK + IMPACT
-    ↓
-MECHANICAL CHECKS
-    +
-HUMAN ATTESTATION
-    ↓
-EXACT-SHA RECORD
+PLANを固定する
+      ↓
+trusted OSを固定する
+      ↓
+機械に取れる証拠は機械が取る
+      ↓
+人間にしか見えないものだけ人間が証言する
+      ↓
+同じSHAへ結び付ける
 ```
 
-OSは確認を代行したふりをしない。
+v0.3の目的は、確認を重くすることではない。
 
-**固定した計画、機械が確認した事実、人間が観測した事実を混ぜないこと**が、
-Verificationの役割である。
+**「確認したこと」と「確認したと書いただけ」を分けること**である。
