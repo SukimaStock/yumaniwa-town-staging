@@ -6,7 +6,7 @@ name: Change PR Gate
 # gate code always comes from the trusted base checkout.
 on:
   pull_request_target:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, edited]
 
 permissions:
   contents: read
@@ -62,7 +62,7 @@ jobs:
 
           mapfile -t LOCKS < <(
             git diff --name-only "$EVENT_BASE_SHA" HEAD -- .change-plans |
-            grep -E '^\.change-plans/.+/r[0-9]+\.lock\.json$' || true
+            grep -E '^\.change-plans/[a-z0-9][a-z0-9-]{2,80}/r[0-9]+\.lock\.json$' || true
           )
 
           if [ "${#LOCKS[@]}" -ne 1 ]; then
@@ -94,13 +94,11 @@ jobs:
 
           while IFS= read -r changed; do
             [ -z "$changed" ] && continue
-            case "$changed" in
-              .change-plans/*) ;;
-              *)
-                echo "The Plan Lock commit also changed implementation path: $changed"
-                exit 1
-                ;;
-            esac
+            if [ "$changed" != "$LOCK_FILE" ]; then
+              echo "The Plan Lock commit must contain only the selected lock file."
+              echo "unexpected path: $changed"
+              exit 1
+            fi
           done < <(git diff-tree --no-commit-id --name-only -r "$LOCK_COMMIT")
 
           if ! git diff --quiet "$LOCK_COMMIT" HEAD -- "$LOCK_FILE"; then
@@ -108,7 +106,24 @@ jobs:
             exit 1
           fi
 
-          LOCK_BASE="$(node -e "const x=require('./$LOCK_FILE'); console.log(x.plan.baseSha)")"
+          LOCK_BASE="$(
+            node - "$LOCK_FILE" <<'NODE'
+          const fs = require('fs');
+          const lockPath = process.argv[2];
+          let lock;
+          try {
+            lock = JSON.parse(fs.readFileSync(lockPath, 'utf8'));
+          } catch (error) {
+            console.error('Plan Lock JSON parse failed: ' + error.message);
+            process.exit(1);
+          }
+          if (!lock || !lock.plan || typeof lock.plan.baseSha !== 'string') {
+            console.error('Plan Lock does not contain plan.baseSha');
+            process.exit(1);
+          }
+          process.stdout.write(lock.plan.baseSha);
+          NODE
+          )"
           if [ "$LOCK_BASE" != "$EVENT_BASE_SHA" ]; then
             echo "Locked Plan baseSha does not equal current PR base."
             echo "locked: $LOCK_BASE"

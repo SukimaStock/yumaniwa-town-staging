@@ -18,9 +18,9 @@ function normalizeAuthority(value) {
   return [];
 }
 
-function evaluateRiskPlan(plan, changedPaths) {
+function evaluateRiskPlan(plan, changedPaths, options = {}) {
   const results = [];
-  const profiles = collectRiskRequirements(changedPaths);
+  const profiles = collectRiskRequirements(changedPaths, options);
   const classes = new Set(Array.isArray(plan.classes) ? plan.classes : []);
   const authority = new Set(normalizeAuthority(plan.authority));
   const impactChecks = new Set(Array.isArray(plan.impactChecks) ? plan.impactChecks : []);
@@ -88,6 +88,37 @@ function runGit(root, args) {
   return r.stdout.trim();
 }
 
+function isExecutableAtRef(root, ref, filePath) {
+  const output=runGit(root,['ls-tree',ref,'--',filePath]);
+  if (!output) return false;
+  return output.split(/\r?\n/).some(line=>line.startsWith('100755 '));
+}
+
+function isExecutableInWorktree(root, filePath) {
+  try {
+    const stat=fs.statSync(path.resolve(root,filePath));
+    return stat.isFile() && (stat.mode & 0o111) !== 0;
+  } catch {
+    return false;
+  }
+}
+
+function collectExecutablePaths(root, baseSha, headSha, changedPaths, options = {}) {
+  const executable=[];
+  const includeWorktree=options.includeWorktree === true;
+  for (const filePath of [...new Set(changedPaths || [])]) {
+    if (!filePath) continue;
+    if (
+      isExecutableAtRef(root,baseSha,filePath) ||
+      isExecutableAtRef(root,headSha,filePath) ||
+      (includeWorktree && isExecutableInWorktree(root,filePath))
+    ) {
+      executable.push(filePath);
+    }
+  }
+  return executable.sort();
+}
+
 function parseGitHubRepo(remote) {
   const s=String(remote || '').trim();
   const m=s.match(/github\.com[/:]([^/]+)\/([^/]+?)(?:\.git)?$/i);
@@ -151,7 +182,14 @@ function runCli(argv=process.argv.slice(2)){
     const plan=readPlan(options.plan);
     const repoCheck=verifyRepositoryIdentity(options.root,plan.repository);
     const diff=collectChangedPaths(options.root,plan.baseSha,options.head);
-    const evaluated=evaluateRiskPlan(plan,diff.paths);
+    const executablePaths=collectExecutablePaths(
+      options.root,
+      plan.baseSha,
+      diff.headSha,
+      diff.paths,
+      {includeWorktree:diff.target==='worktree'}
+    );
+    const evaluated=evaluateRiskPlan(plan,diff.paths,{executablePaths});
     const results=[
       {
         status:repoCheck.ok?'PASS':'FAIL',
@@ -172,6 +210,7 @@ function runCli(argv=process.argv.slice(2)){
       target:diff.target,
       headSha:diff.headSha,
       changedPaths:[...new Set(diff.paths)].sort(),
+      executablePaths,
       profiles:evaluated.profiles,
       results,
       riskOk,
@@ -199,5 +238,8 @@ module.exports={
   parseGitHubRepo,
   getRepositoryIdentity,
   verifyRepositoryIdentity,
+  isExecutableAtRef,
+  isExecutableInWorktree,
+  collectExecutablePaths,
   runCli,
 };

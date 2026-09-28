@@ -14,6 +14,7 @@ on:
       - "tests/test-change-scope-guard.cjs"
       - "tests/test-change-plan-lock.cjs"
       - "tests/test-change-risk-check.cjs"
+      - "tests/test-change-pr-gate.cjs"
       - "tests/test-change-impact-check.cjs"
       - "tests/test-change-verification-check.cjs"
       - "CHANGE-PLAN.md"
@@ -36,6 +37,7 @@ on:
       - "tests/test-change-scope-guard.cjs"
       - "tests/test-change-plan-lock.cjs"
       - "tests/test-change-risk-check.cjs"
+      - "tests/test-change-pr-gate.cjs"
       - "tests/test-change-impact-check.cjs"
       - "tests/test-change-verification-check.cjs"
       - "CHANGE-PLAN.md"
@@ -68,6 +70,7 @@ jobs:
           node --check tools/change-impact-rules.cjs
           node --check tools/change-impact-check.cjs
           node --check tools/change-verification-check.cjs
+          node --check tests/test-change-pr-gate.cjs
 
       - name: Run Change Operations regression tests
         run: >
@@ -75,5 +78,6 @@ jobs:
           tests/test-change-scope-guard.cjs
           tests/test-change-plan-lock.cjs
           tests/test-change-risk-check.cjs
+          tests/test-change-pr-gate.cjs
           tests/test-change-impact-check.cjs
           tests/test-change-verification-check.cjs

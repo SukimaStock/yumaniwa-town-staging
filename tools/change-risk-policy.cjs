@@ -91,6 +91,7 @@ function isChangeOsPath(p) {
     p.startsWith('tools/change-') ||
     p.startsWith('tests/test-change-') ||
     p.startsWith('.github/workflows/') ||
+    p.startsWith('.github/actions/') ||
     /^CHANGE-(PLAN|VERIFICATION|OPERATIONS)\.md$/.test(p) ||
     p === 'AGENTS.md' ||
     p === 'OPERATIONS.md' ||
@@ -105,39 +106,73 @@ function isSharedSurfacePath(p) {
   return false;
 }
 
+function isPlanLockPath(p) {
+  return /^\.change-plans\/[a-z0-9][a-z0-9-]{2,80}\/r[0-9]+\.lock\.json$/.test(p);
+}
+
 function isExecutableLike(p) {
-  if (/\.(?:js|cjs|mjs|jsx|ts|tsx|py|sh|bash|zsh|fish|ps1|rb|pl|php|lua|html|css|webmanifest)$/i.test(p)) {
+  if (/\.(?:js|cjs|mjs|jsx|ts|tsx|py|sh|bash|zsh|fish|ps1|rb|pl|php|lua|go|rs|java|kt|kts|swift|c|cc|cpp|cxx|h|hh|hpp|hxx|cs|fs|fsx|scala|clj|cljs|cljc|ex|exs|erl|hrl|dart|r|html|css|webmanifest)$/i.test(p)) {
     return true;
   }
-  if (/^(?:Makefile|Dockerfile)$/i.test(p)) return true;
+  if (/(?:^|\/)(?:Makefile|Dockerfile)$/i.test(p)) return true;
   if (/^(?:bin|scripts|\.github\/scripts)\//.test(p)) return true;
   if (/^tools\/[^/.]+$/.test(p)) return true;
   return false;
 }
 
-function classifyRiskPath(value) {
-  const p = normalizeRiskPath(value);
-  if (!p) return null;
+const LOW_RISK_CONTENT_EXTENSIONS = new Set([
+  '.md', '.txt', '.rst', '.adoc', '.csv', '.tsv',
+  '.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif', '.ico',
+  '.wav', '.mp3', '.ogg', '.m4a', '.mp4', '.webm',
+  '.woff', '.woff2', '.ttf', '.otf',
+]);
 
-  if (isChangeOsPath(p)) return PROFILES.os;
-  if (KNOWN_DOMAIN_DATA.has(p)) return null;
-  if (SHARED_RUNTIME.has(p)) return PROFILES.sharedRuntime;
-  if (isSharedSurfacePath(p)) return PROFILES.sharedSurface;
-  if (p.startsWith('works/')) {
-    if (isExecutableLike(p)) return PROFILES.workRuntime;
-    return null;
-  }
-  if (p.startsWith('assets/')) return PROFILES.asset;
-
-  if (isExecutableLike(p)) return PROFILES.unknownCode;
-  return null;
+function isKnownLowRiskContentPath(p) {
+  const lower = p.toLowerCase();
+  const base = lower.split('/').pop() || '';
+  if (['license', 'notice', 'copying', 'robots.txt', 'sitemap.xml'].includes(base)) return true;
+  const dot = base.lastIndexOf('.');
+  const ext = dot >= 0 ? base.slice(dot) : '';
+  return LOW_RISK_CONTENT_EXTENSIONS.has(ext);
 }
 
-function collectRiskRequirements(paths) {
+function classifyRiskPath(value, options = {}) {
+  const p = normalizeRiskPath(value);
+  if (!p) return null;
+  const executable = options.executable === true;
+
+  if (isPlanLockPath(p) && !executable) return null;
+  if (isChangeOsPath(p)) return PROFILES.os;
+  if (SHARED_RUNTIME.has(p)) return PROFILES.sharedRuntime;
+  if (isSharedSurfacePath(p)) return PROFILES.sharedSurface;
+
+  if (p.startsWith('works/')) {
+    if (executable || isExecutableLike(p) || !isKnownLowRiskContentPath(p)) return PROFILES.workRuntime;
+    return null;
+  }
+
+  if (executable) return PROFILES.unknownCode;
+  if (KNOWN_DOMAIN_DATA.has(p)) return null;
+
+  if (p.startsWith('assets/')) {
+    if (isKnownLowRiskContentPath(p)) return PROFILES.asset;
+    return PROFILES.unknownCode;
+  }
+
+  if (isExecutableLike(p)) return PROFILES.unknownCode;
+  if (isKnownLowRiskContentPath(p)) return null;
+
+  // Unknown formats are high-risk by default. This avoids a permanent
+  // extension allowlist race when new executable/source/config formats appear.
+  return PROFILES.unknownCode;
+}
+
+function collectRiskRequirements(paths, options = {}) {
   const byProfile = new Map();
+  const executablePaths = new Set((options.executablePaths || []).map(normalizeRiskPath));
   for (const raw of [...new Set(paths || [])]) {
     const p = normalizeRiskPath(raw);
-    const risk = classifyRiskPath(p);
+    const risk = classifyRiskPath(p, { executable: executablePaths.has(p) });
     if (!risk) continue;
     if (!byProfile.has(risk.id)) {
       byProfile.set(risk.id, { profile: risk, paths: [] });
