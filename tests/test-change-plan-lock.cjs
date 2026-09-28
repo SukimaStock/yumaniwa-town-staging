@@ -82,6 +82,25 @@ test('revision must keep base and link previous digest',()=>{
   assert.match(checked.errors.join('\n'),/keep baseSha/);
 });
 
+test('revision 2 verifies against a valid revision 1 lock',()=>{
+  const r0=createLock(plan());
+  const r1=createLock(plan({
+    revision:1,
+    previousPlanDigest:r0.planDigest,
+    revisionReason:'first scoped revision',
+    allowedPaths:['README.md','docs/a.md']
+  }));
+  const r2=createLock(plan({
+    revision:2,
+    previousPlanDigest:r1.planDigest,
+    revisionReason:'second scoped revision',
+    allowedPaths:['README.md','docs/a.md','docs/b.md']
+  }));
+
+  const checked=verifyLock(r2,r1);
+  assert.equal(checked.ok,true,checked.errors.join('\n'));
+});
+
 test('revision cannot silently drop previous digest',()=>{
   const first=createLock(plan());
   assert.throws(()=>createLock(plan({
