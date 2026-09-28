@@ -297,3 +297,15 @@ test('executable mode lookup treats Git pathspec-magic filenames as literal path
   assert.ok(impacts.requirements.some(item=>item.id==='risk.high-risk-review'));
   assert.ok(impacts.requirements.some(item=>item.id==='runtime.regression'));
 });
+
+
+test('literal backslash Git path does not alias known domain data in Risk or Impact',()=>{
+  const literal='data\\works.js';
+  const profile=classifyRiskPath(literal);
+  assert.equal(profile.id,'unknown-code');
+
+  const impacts=deriveRequiredImpacts([literal]);
+  assert.deepEqual(impacts.uncoveredPaths,[]);
+  assert.ok(impacts.requirements.some(x=>x.id==='risk.high-risk-review'&&x.core));
+  assert.ok(impacts.requirements.some(x=>x.id==='runtime.regression'));
+});
