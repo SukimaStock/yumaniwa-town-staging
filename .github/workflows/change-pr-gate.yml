@@ -94,13 +94,11 @@ jobs:
 
           while IFS= read -r changed; do
             [ -z "$changed" ] && continue
-            case "$changed" in
-              .change-plans/*) ;;
-              *)
-                echo "The Plan Lock commit also changed implementation path: $changed"
-                exit 1
-                ;;
-            esac
+            if [ "$changed" != "$LOCK_FILE" ]; then
+              echo "The Plan Lock commit must contain only the selected lock file."
+              echo "unexpected path: $changed"
+              exit 1
+            fi
           done < <(git diff-tree --no-commit-id --name-only -r "$LOCK_COMMIT")
 
           if ! git diff --quiet "$LOCK_COMMIT" HEAD -- "$LOCK_FILE"; then
