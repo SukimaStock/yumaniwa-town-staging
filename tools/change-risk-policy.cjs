@@ -106,7 +106,13 @@ function isSharedSurfacePath(p) {
 }
 
 function isExecutableLike(p) {
-  return /\.(?:js|cjs|mjs|html|css|webmanifest)$/i.test(p);
+  if (/\.(?:js|cjs|mjs|jsx|ts|tsx|py|sh|bash|zsh|fish|ps1|rb|pl|php|lua|html|css|webmanifest)$/i.test(p)) {
+    return true;
+  }
+  if (/^(?:Makefile|Dockerfile)$/i.test(p)) return true;
+  if (/^(?:bin|scripts|\.github\/scripts)\//.test(p)) return true;
+  if (/^tools\/[^/.]+$/.test(p)) return true;
+  return false;
 }
 
 function classifyRiskPath(value) {
