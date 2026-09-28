@@ -287,3 +287,23 @@ test('worktree untracked collection preserves unusual Git filenames with NUL par
   const r=guard.collectChangedPaths(root,base,null);
   for(const name of names) assert.ok(r.paths.includes(name),'missing literal path '+JSON.stringify(name));
 });
+
+
+test('recursive globs match newline-containing Git paths',()=>{
+  assert.equal(guard.matches('data/**','data/line\nname.js'),true);
+  assert.equal(guard.matches('assets/**/a.png','assets/line\nsegment/a.png'),true);
+  assert.equal(guard.matches('assets/*.png','assets/line\nname.png'),true);
+});
+
+test('newline-containing path cannot bypass recursive forbidden scope',()=>{
+  const plan=okPlan({
+    canonicalSources:['data/line\nname.js'],
+    allowedPaths:['data/*.js'],
+    forbiddenPaths:['data/**'],
+  });
+  const r=guard.evaluateScope(plan,['data/line\nname.js']);
+  assert.equal(r.exitCode,1);
+  assert.equal(r.results[0].status,'FAIL');
+  assert.equal(r.results[0].check,'scope.forbidden');
+  assert.equal(r.results[0].pattern,'data/**');
+});
