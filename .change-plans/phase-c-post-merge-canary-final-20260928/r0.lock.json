@@ -1,0 +1,106 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3d803a8ccfc544b1c738e6b1995d552dd6f8be8372f3ae384f3abfe38b38d6e4",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-post-merge-canary-final-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C final post-merge adversarial canary: unusual paths, trusted evidence, ruleset, and rerun provenance",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "4c95e8be963a85d7aa3be4908ec17a05edb7473c",
+    "canonicalSources": [
+      ".change-canary/normal.txt"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c-post-merge-canary-final-20260928/**",
+      ".change-canary/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**",
+      ".github/workflows/**"
+    ],
+    "expectedChanges": [
+      "Create only disposable canary files under .change-canary with unusual but valid UTF-8 Git path identities.",
+      "Exercise the merged base-owned Change PR Gate and Change Verification Evidence workflows on the exact canary head.",
+      "Inspect Scope and Impact human-readable escaping, exact-SHA trusted evidence, protected-main required checks, and rerun provenance."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This PR is disposable evidence-only canary work and must be closed unmerged after inspection.",
+      "Use valid UTF-8 unusual filenames including newline, backslash, quote, and pathspec-like characters; do not introduce production content.",
+      "The canary must not modify workflows or trusted tools.",
+      "Production must remain untouched."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "Phase C3-1 final post-merge canary"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Disposable canary; verification is performed by trusted workflows, logs, artifact inspection, and rerun provenance rather than product behavior.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Close the canary PR unmerged; no staging/main or production content change is intended.",
+    "outOfScope": [
+      "Production changes",
+      "Verification Record v0.3",
+      "Authenticated human attestation",
+      "Trusted static-check registry",
+      "Phase D beyond already-remediated path identity cases",
+      "Phase E semantic scope and concurrency controls"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "This canary does not itself declare final VERIFIED; it validates the trusted mechanical evidence path."
+    ],
+    "problem": "After the final Impact human-report escaping follow-up, Phase C3-1 needs a clean post-merge canary proving the complete hardened base-owned path works together, including rerun provenance.",
+    "currentContract": "staging/main contains hardened Plan Lock handling in both trusted workflows, literal Git path identity fixes, Scope and Impact human report escaping, active required-check ruleset, and actor plus triggeringActor provenance.",
+    "whyExistingIsInsufficient": "The previous post-merge canary discovered and therefore invalidated itself on an Impact human-log injection defect. A fresh canary from the corrected main is required.",
+    "design": "Open a disposable lock-first PR from current staging/main with unusual valid UTF-8 filenames only under .change-canary. Confirm required checks block early merge, inspect both human logs and exact evidence artifact, rerun the trusted verification job, inspect runAttempt and triggeringActor, then close the PR unmerged.",
+    "alternativesRejected": [
+      "Reuse the previous canary branch; its base predates the Impact fix and would not be a clean post-merge proof.",
+      "Merge the canary; unnecessary residue would remain in staging/main.",
+      "Rely only on unit tests; they do not exercise post-merge pull_request_target or rerun behavior."
+    ],
+    "migration": "None.",
+    "compatibility": "Disposable staging-only canary; no production behavior or canonical content is changed.",
+    "boundaryCases": [
+      "Newline path remains literal mechanically and renders as backslash-n in both Scope and Impact human logs.",
+      "Backslash, quote, and pathspec-like names remain distinct literal identities.",
+      "Evidence targetSha equals the exact PR head and workflowSha equals the corrected post-merge base workflow commit.",
+      "Protected-main required checks reject merge before completion.",
+      "A rerun increments runAttempt and evidence records actor plus triggeringActor for that attempt."
+    ],
+    "testPlan": [
+      "Open disposable PR and confirm early merge is rejected by required checks.",
+      "Confirm Change Operations Tests, Change PR Gate, and Change Verification Evidence pass on exact head.",
+      "Inspect Scope and Impact logs for escaped unusual paths without physical line injection.",
+      "Inspect trusted-mechanical-evidence JSON for exact SHA, Plan Lock, producer, gate codes, checks, and UNVERIFIED state.",
+      "Rerun the trusted verification job and inspect runAttempt plus actor and triggeringActor in the new attempt evidence.",
+      "Close the canary PR unmerged and confirm production main unchanged."
+    ],
+    "promotionRisk": "Disposable staging canary only. Risk is limited to workflow noise and branch residue; no merge or production promotion is intended."
+  }
+}
