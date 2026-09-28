@@ -91,6 +91,7 @@ function isChangeOsPath(p) {
     p.startsWith('tools/change-') ||
     p.startsWith('tests/test-change-') ||
     p.startsWith('.github/workflows/') ||
+    p.startsWith('.github/actions/') ||
     /^CHANGE-(PLAN|VERIFICATION|OPERATIONS)\.md$/.test(p) ||
     p === 'AGENTS.md' ||
     p === 'OPERATIONS.md' ||
@@ -106,38 +107,40 @@ function isSharedSurfacePath(p) {
 }
 
 function isExecutableLike(p) {
-  if (/\.(?:js|cjs|mjs|jsx|ts|tsx|py|sh|bash|zsh|fish|ps1|rb|pl|php|lua|html|css|webmanifest)$/i.test(p)) {
+  if (/\.(?:js|cjs|mjs|jsx|ts|tsx|py|sh|bash|zsh|fish|ps1|rb|pl|php|lua|go|rs|java|kt|kts|swift|c|cc|cpp|cxx|h|hh|hpp|hxx|cs|fs|fsx|scala|clj|cljs|cljc|ex|exs|erl|hrl|dart|r|html|css|webmanifest)$/i.test(p)) {
     return true;
   }
-  if (/^(?:Makefile|Dockerfile)$/i.test(p)) return true;
+  if (/(?:^|\/)(?:Makefile|Dockerfile)$/i.test(p)) return true;
   if (/^(?:bin|scripts|\.github\/scripts)\//.test(p)) return true;
   if (/^tools\/[^/.]+$/.test(p)) return true;
   return false;
 }
 
-function classifyRiskPath(value) {
+function classifyRiskPath(value, options = {}) {
   const p = normalizeRiskPath(value);
   if (!p) return null;
+  const executable = options.executable === true;
 
   if (isChangeOsPath(p)) return PROFILES.os;
   if (KNOWN_DOMAIN_DATA.has(p)) return null;
   if (SHARED_RUNTIME.has(p)) return PROFILES.sharedRuntime;
   if (isSharedSurfacePath(p)) return PROFILES.sharedSurface;
   if (p.startsWith('works/')) {
-    if (isExecutableLike(p)) return PROFILES.workRuntime;
+    if (isExecutableLike(p) || executable) return PROFILES.workRuntime;
     return null;
   }
   if (p.startsWith('assets/')) return PROFILES.asset;
 
-  if (isExecutableLike(p)) return PROFILES.unknownCode;
+  if (isExecutableLike(p) || executable) return PROFILES.unknownCode;
   return null;
 }
 
-function collectRiskRequirements(paths) {
+function collectRiskRequirements(paths, options = {}) {
   const byProfile = new Map();
+  const executablePaths = new Set((options.executablePaths || []).map(normalizeRiskPath));
   for (const raw of [...new Set(paths || [])]) {
     const p = normalizeRiskPath(raw);
-    const risk = classifyRiskPath(p);
+    const risk = classifyRiskPath(p, { executable: executablePaths.has(p) });
     if (!risk) continue;
     if (!byProfile.has(risk.id)) {
       byProfile.set(risk.id, { profile: risk, paths: [] });
