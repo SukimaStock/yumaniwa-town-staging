@@ -94,6 +94,39 @@ ChatGPT が GitHub 上の staging を修正した後に YumaniwaDesk を使う�
 5. 「同期確認済み」
 6. 次の編集を開始
 
+## Change Scope Guard
+
+Change Planをmachine-readable JSONへした作業では、実装後に `tools/change-scope-guard.cjs` でbase SHAからのdiffを照合する。
+
+```sh
+# 未Commitを含む現在worktree
+node tools/change-scope-guard.cjs \
+  --plan /tmp/yumaniwa-change-plan.json
+
+# Commit済みの変更
+node tools/change-scope-guard.cjs \
+  --plan /tmp/yumaniwa-change-plan.json \
+  --head HEAD
+```
+
+Plan JSONはrepository外へ置くか `--plan -` でstdinから渡す。repository内の一時Planは、それ自体が変更pathとして検出される。
+
+判定は forbidden → conditional → allowed の順。Plan外pathはFAIL。
+conditional pathを実際に変更した場合は、条件成立を確認したうえでPlanに宣言したpatternを明示する。
+
+```sh
+node tools/change-scope-guard.cjs \
+  --plan /tmp/yumaniwa-change-plan.json \
+  --conditional-ok index.html
+```
+
+`--conditional-ok` は条件を自動証明しない。条件成立を明示確認した記録である。
+Scope Guardのexit 0はpath scopeだけのPASSで、test・Validator・manual verificationの代わりではない。
+
+GitHub上の変更をChatGPTが行い、同じ実行環境でScope Guardを直接起動できない場合も、
+Change Planのbase SHAから実際のchanged pathsを比較し、forbidden / conditional / allowedの同じ規則で照合する。
+Scope照合が未実施なら変更完了扱いにしない。
+
 ## Search / Share v2 の生成
 
 Search / Share v2 では、町内runtimeと検索・共有面の正本を分ける。
