@@ -1,0 +1,109 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7dd72b692bdbd362091d6a3bf030aa15800d771c0c609732b2e53a918d1e4863",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-invalid-utf8-path-p2-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C follow-up: fail closed on invalid UTF-8 Git pathname bytes",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "19916574b3dfa23a5cf99ec4c33acba4ef6e9732",
+    "canonicalSources": [
+      "tools/change-scope-guard.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c-invalid-utf8-path-p2-20260928/**",
+      "tools/change-scope-guard.cjs",
+      "tests/test-change-scope-guard.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**",
+      ".github/workflows/**"
+    ],
+    "expectedChanges": [
+      "Read Git pathname-bearing output as raw bytes and decode it with fatal UTF-8 semantics.",
+      "Fail closed before Scope/Risk/Impact evaluation when Git pathname bytes are not valid UTF-8.",
+      "Add real Git regressions for committed and untracked non-UTF-8 filenames."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This change addresses only the Codex P2 invalid UTF-8 pathname-byte finding from superseded PR #30.",
+      "Valid UTF-8 Git path identity must remain literal exactly as established by the prior M2 fixes.",
+      "Invalid UTF-8 pathname bytes must not be replacement-decoded to U+FFFD; the gate must fail closed instead.",
+      "Do not address human-readable report escaping, M1, H2, L1, Record v0.3, broader Phase D/E, or production here."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "Codex P2 invalid UTF-8 pathname finding"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Change OS Git pathname decoding only; behavior is covered by real Git regression fixtures, trusted PR gate, and later canary.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging-only remediation PR; production remains untouched.",
+    "outOfScope": [
+      "Human-readable report escaping",
+      "M1 old Change PR Gate Plan Lock parity",
+      "H2 staging branch protection and required checks",
+      "L1 github.triggering_actor provenance",
+      "Verification Record v0.3",
+      "Human attestation",
+      "Trusted static-check registry",
+      "Phase D broader Git/index hardening beyond this exact decoding defect",
+      "Phase E semantic scope and concurrency controls",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Post-fix unusual-path canary coverage remains required before C3-1 is formally closed."
+    ],
+    "problem": "Git permits pathname bytes that are not valid UTF-8 on POSIX, while Node string decoding with encoding utf8 replaces invalid byte sequences with U+FFFD and can collapse distinct repository identities.",
+    "currentContract": "collectChangedPaths uses NUL-delimited Git output but receives it through a helper configured with encoding utf8, so invalid pathname bytes are replacement-decoded before parsing.",
+    "whyExistingIsInsufficient": "A raw byte filename such as docs/0xFF.md can decode to the same JavaScript string as a real UTF-8 docs/�.md path, allowing deduplication or policy matching against the wrong repository identity.",
+    "design": "For Git commands whose stdout contains pathnames, capture stdout as Buffer, decode with TextDecoder utf-8 fatal mode, and throw a dedicated fail-closed error on invalid UTF-8 before parsing. Keep non-path Git helpers unchanged.",
+    "alternativesRejected": [
+      "Silently replacement-decode invalid bytes; that preserves the identity collision.",
+      "Represent all Git paths as arbitrary byte arrays throughout every policy layer; unnecessary for the current UTF-8 project contract and substantially broadens Phase D.",
+      "Globally ban unusual valid UTF-8 filenames; prior fixes intentionally preserve valid literal Git identities."
+    ],
+    "migration": "None.",
+    "compatibility": "All valid UTF-8 Git pathname output keeps the same literal string semantics. Only invalid UTF-8 pathnames now stop verification.",
+    "boundaryCases": [
+      "A committed filename containing raw 0xFF must cause collectChangedPaths to fail closed.",
+      "An untracked filename containing raw 0xFF must cause worktree collection to fail closed.",
+      "A valid UTF-8 filename containing U+FFFD remains a valid distinct pathname and must not itself be rejected.",
+      "Existing Unicode, tab, newline, backslash and quote filenames remain supported."
+    ],
+    "testPlan": [
+      "Create a temporary real Git repository with a filename containing raw invalid UTF-8 byte 0xFF and commit it; assert collectChangedPaths throws the fail-closed error.",
+      "Create an untracked raw-byte invalid UTF-8 filename and assert worktree collection throws the same error.",
+      "Keep existing valid UTF-8 unusual-path regression tests green.",
+      "Run Change Operations regression suite, trusted Change PR Gate, and Change Verification Evidence."
+    ],
+    "promotionRisk": "Staging Change OS only. Incorrect decoding behavior could over-allow or falsely reject changes, so trusted gate review and canary are required."
+  }
+}
