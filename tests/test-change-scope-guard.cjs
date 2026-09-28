@@ -233,3 +233,57 @@ test('v0.2 Plan requires READY state and repository identity field',()=>{
   assert.match(result.errors.join('\n'),/repository/);
 });
 
+
+
+test('Scope preserves Git path identity instead of trimming or rewriting it',()=>{
+  const plan=okPlan({allowedPaths:['docs/alias.md','docs/back/slash.md']});
+  let r=guard.evaluateScope(plan,[' docs/alias.md']);
+  assert.equal(r.exitCode,1);
+  assert.equal(r.results[0].check,'scope.out-of-scope');
+  assert.equal(r.results[0].path,' docs/alias.md');
+
+  r=guard.evaluateScope(plan,['docs/back\\slash.md']);
+  assert.equal(r.exitCode,1);
+  assert.equal(r.results[0].check,'scope.out-of-scope');
+  assert.equal(r.results[0].path,'docs/back\\slash.md');
+});
+
+test('collectChangedPaths preserves unusual committed Git filenames with NUL parsing',t=>{
+  const {root,base}=tempRepo(t);
+  const names=[
+    ' docs/alias.md',
+    'docs/日本語.md',
+    'docs/tab\tname.md',
+    'docs/line\nname.md',
+    'docs/back\\slash.md',
+    'docs/"quote".md',
+  ];
+  for(const name of names){
+    const absolute=path.join(root,...name.split('/'));
+    fs.mkdirSync(path.dirname(absolute),{recursive:true});
+    fs.writeFileSync(absolute,'x\n');
+  }
+  git(root,['add','--all']);
+  git(root,['commit','-qm','unusual paths']);
+
+  const r=guard.collectChangedPaths(root,base,'HEAD');
+  assert.deepEqual([...r.paths].sort(),[...names].sort());
+});
+
+test('worktree untracked collection preserves unusual Git filenames with NUL parsing',t=>{
+  const {root,base}=tempRepo(t);
+  const names=[
+    ' untracked.txt',
+    'docs/untracked\tname.txt',
+    'docs/untracked\nname.txt',
+    'docs/untracked\\name.txt',
+  ];
+  for(const name of names){
+    const absolute=path.join(root,...name.split('/'));
+    fs.mkdirSync(path.dirname(absolute),{recursive:true});
+    fs.writeFileSync(absolute,'x\n');
+  }
+
+  const r=guard.collectChangedPaths(root,base,null);
+  for(const name of names) assert.ok(r.paths.includes(name),'missing literal path '+JSON.stringify(name));
+});
