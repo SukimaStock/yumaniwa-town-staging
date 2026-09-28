@@ -189,9 +189,12 @@ core Impactは `impactExclusions` へ逃がせない。
 日常の軽いCONTENT / PLACEMENTを一律FullやPRにしない。
 ただし**PRを使う変更はPlan Lockを必須**とする。
 
-現行の `Change PR Gate v0.2` は安全側に寄せ、high-risk PRでscope変更が必要になった場合は
-locked r0を上書きせず、いったん止めて新しいbaseからbranch/Planを作り直す。
-revision chainはPlan Lock toolが表現できるが、PR gateでの複数revision自動適用はまだ行わない。
+現行の `Change PR Gate v0.2` は `pull_request_target` でPR base側のworkflow定義とgate実装を使う。
+candidate branchのworkflowやgate toolを実行して自己認証しない。
+
+high-risk PRでscope変更が必要になった場合はlocked r0を上書きせず、
+いったん止めて現在のbaseからbranch/Planを作り直す。
+Plan Lock tool自体はr2以降のrevision chainも検証できるが、PR gate v0.2は意図的にfresh r0一つへ制限する。
 
 ---
 
