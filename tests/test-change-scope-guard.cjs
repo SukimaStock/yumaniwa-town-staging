@@ -307,3 +307,55 @@ test('newline-containing path cannot bypass recursive forbidden scope',()=>{
   assert.equal(r.results[0].check,'scope.forbidden');
   assert.equal(r.results[0].pattern,'data/**');
 });
+
+
+test('collectChangedPaths fails closed on committed invalid UTF-8 pathname bytes',t=>{
+  if(process.platform==='win32') return t.skip('raw non-UTF-8 pathname fixture requires POSIX');
+  const {root,base}=tempRepo(t);
+  const dir=path.join(root,'docs');
+  fs.mkdirSync(dir,{recursive:true});
+  const rawPath=Buffer.concat([
+    Buffer.from(dir+path.sep),
+    Buffer.from([0xff]),
+    Buffer.from('.md')
+  ]);
+  fs.writeFileSync(rawPath,'x\n');
+  git(root,['add','--all']);
+  git(root,['commit','-qm','invalid utf8 path']);
+
+  assert.throws(
+    ()=>guard.collectChangedPaths(root,base,'HEAD'),
+    error=>error && error.code==='INVALID_GIT_PATH_UTF8' && /invalid UTF-8/.test(error.message)
+  );
+});
+
+test('worktree collection fails closed on untracked invalid UTF-8 pathname bytes',t=>{
+  if(process.platform==='win32') return t.skip('raw non-UTF-8 pathname fixture requires POSIX');
+  const {root,base}=tempRepo(t);
+  const dir=path.join(root,'docs');
+  fs.mkdirSync(dir,{recursive:true});
+  const rawPath=Buffer.concat([
+    Buffer.from(dir+path.sep),
+    Buffer.from([0xff]),
+    Buffer.from('.txt')
+  ]);
+  fs.writeFileSync(rawPath,'x\n');
+
+  assert.throws(
+    ()=>guard.collectChangedPaths(root,base,null),
+    error=>error && error.code==='INVALID_GIT_PATH_UTF8' && /invalid UTF-8/.test(error.message)
+  );
+});
+
+test('valid UTF-8 replacement character pathname remains supported',t=>{
+  const {root,base}=tempRepo(t);
+  const filePath='docs/�.md';
+  const absolute=path.join(root,...filePath.split('/'));
+  fs.mkdirSync(path.dirname(absolute),{recursive:true});
+  fs.writeFileSync(absolute,'x\n');
+  git(root,['add','--all']);
+  git(root,['commit','-qm','valid replacement character path']);
+
+  const r=guard.collectChangedPaths(root,base,'HEAD');
+  assert.ok(r.paths.includes(filePath));
+});
