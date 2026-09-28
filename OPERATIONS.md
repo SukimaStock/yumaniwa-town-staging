@@ -127,6 +127,32 @@ GitHub上の変更をChatGPTが行い、同じ実行環境でScope Guardを直�
 Change Planのbase SHAから実際のchanged pathsを比較し、forbidden / conditional / allowedの同じ規則で照合する。
 Scope照合が未実施なら変更完了扱いにしない。
 
+## Change Impact Check
+
+Scope Guardの後、`tools/change-impact-check.cjs` で、変更pathから導かれる確認項目がChange Planに入っているか確認する。
+
+```sh
+# 未Commitを含む現在worktree
+node tools/change-impact-check.cjs \
+  --plan /tmp/yumaniwa-change-plan.json
+
+# Commit済みの変更
+node tools/change-impact-check.cjs \
+  --plan /tmp/yumaniwa-change-plan.json \
+  --head HEAD
+```
+
+Impact Rulesの正本は `tools/change-impact-rules.cjs`。
+登録済みImpactは、Planで `impactChecks` に含めるか、`impactExclusions` に理由付きでN/Aを明示する。
+
+`impactExclusions` は作業を省略するための無言の逃げ道ではない。たとえば「work idは変更していないためanalytics idはN/A」のように、なぜ今回不要かを書く。
+
+v0.1でRule未登録のpathはINFO扱いで、Impact Check単独ではFAILにしない。Ruleは高信頼な正本から段階的に増やす。
+
+Impact Checkのexit 0は、必要な影響をPlan上で忘れていないことだけを意味する。各確認の実施証拠、Validator、manual verification、Owner/HQ判断の代わりではない。
+
+GitHub上でChatGPTが変更する場合も、base SHAからchanged pathsを取り、同じImpact Rulesで required impact → checked / reasoned N/A を照合する。
+
 ## Search / Share v2 の生成
 
 Search / Share v2 では、町内runtimeと検索・共有面の正本を分ける。
