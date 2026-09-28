@@ -153,6 +153,29 @@ Impact Checkのexit 0は、必要な影響をPlan上で忘れていないこと�
 
 GitHub上でChatGPTが変更する場合も、base SHAからchanged pathsを取り、同じImpact Rulesで required impact → checked / reasoned N/A を照合する。
 
+## Change Verification Record
+
+Scope Guard / Impact Check / static test / manual checkが終わったら、`CHANGE-VERIFICATION.md` に従い確認対象commit SHAを固定する。
+
+Verification Recordはrepositoryへ常設しなくてよい。staging-only Lite変更は作業報告、Standard / Full変更はPR本文・監査記録・作業報告などへ残す。
+
+machine-readable Recordがある場合:
+
+```sh
+node tools/change-verification-check.cjs \
+  --plan /tmp/yumaniwa-change-plan.json \
+  --record /tmp/yumaniwa-verification.json \
+  --head HEAD
+```
+
+checkerはrecordに書かれたScope/Impact PASSを信用するのではなく、Planのbase SHAからverified SHAまでを再計算する。そのうえでPlanの `staticChecks` / `impactChecks` / `manualChecks` のevidenceが揃っているか確認する。
+
+manual checkは実際に確認した主体だけがPASSにする。ChatGPTがiPhone画面や音を観測していない場合、Owner確認前にPASSとして記録しない。
+
+確認後にHEADが進んだ場合、古いRecordを新HEADへ流用しない。新しいSHAに対して必要なcheckを再評価する。
+
+`Verification: VERIFIED` はstaging SHAの確認完了を意味するだけで、production反映許可やRelease Completeを意味しない。
+
 ## Search / Share v2 の生成
 
 Search / Share v2 では、町内runtimeと検索・共有面の正本を分ける。
