@@ -39,9 +39,9 @@ runtime patch／compatibility例外、既存ID/URL/保存keyの変更はHQ対象
 
 - 作業開始時に対象HEAD・差分・既存契約を読む。並行変更を上書きしない。
 - repository変更では実装前にChange PlanをREADYにする。high-risk / PR / promotionではPlan Lockを実装前に固定し、実装後は Scope Guard → Risk Gate → Impact Check の順で照合する。Plan外path・risk floor違反・core Impact除外・未処理Impactが出たら完了扱いにせず停止する。
-- stagingをVERIFIEDと呼ぶ前に、`CHANGE-VERIFICATION.md` に従い確認対象commit SHAを固定し、Planのstatic / impact / manual checkを記録する。AIが観測していない実機確認をPASSにしない。
+- stagingをVERIFIEDと呼ぶ前に、`CHANGE-VERIFICATION.md` に従いtrusted base runnerでmechanical evidenceを実測する。static PASSを自由記述で作らない。人間確認は `performedBy / recordedBy / observedSha / device / attestationRef` を分け、AIが観測していない実機確認をPASSにしない。
 - Change OS自身、shared runtime、root HTML/CSS、Service Worker、manifest、未登録executable pathは `tools/change-risk-policy.cjs` の下限を優先する。依頼文が「軽く直して」でもCONTENT/Liteへ落とさない。
-- Change OS自身の更新はstaging mainへ直接積まず、原則branch + locked Plan + PRで検査する。検査toolを変更するPRが自分の変更版だけで自己認証しないよう、trusted base gateを使う。
+- Change OS自身の更新はstaging mainへ直接積まず、原則branch + locked Plan + PRで検査する。検査toolを変更するPRが自分の変更版だけで自己認証しないよう、trusted base gateを使う。checker / Ruleの実行元はcleanなlocked base SHAへ固定し、digestを証拠へ残す。
 - 通常の作品追加で共通runtimeやscene方式を変更しない。既存URL・世界観を保持する。
 - 未確認をPASSとしない。外部Goal・実機・本番配信は証拠がなければUNVERIFIED。
 - Validator exit 0やCI成功をRelease Completeと言わない。
