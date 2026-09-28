@@ -96,3 +96,24 @@ test('trusted PR gate reads and verifies Plan Lock from immutable regular Git bl
   assert.equal(source.includes('--lock "$GITHUB_WORKSPACE/candidate/$LOCK_FILE"'),false);
   assert.ok(source.includes('echo "lock_blob=$LOCK_OID" >> "$GITHUB_OUTPUT"'));
 });
+
+
+test('trusted verification records rerun initiator alongside original actor',()=>{
+  assert.ok(verificationSource.includes('BASE_SHA: ${{ github.event.pull_request.base.sha }}'));
+  assert.ok(verificationSource.includes('HEAD_SHA: ${{ github.event.pull_request.head.sha }}'));
+  assert.ok(verificationSource.includes('RUN_ID: ${{ github.run_id }}'));
+  assert.ok(verificationSource.includes('RUN_ATTEMPT: ${{ github.run_attempt }}'));
+  assert.ok(verificationSource.includes('WORKFLOW_REF: ${{ github.workflow_ref }}'));
+  assert.ok(verificationSource.includes('WORKFLOW_SHA: ${{ github.workflow_sha }}'));
+  assert.ok(verificationSource.includes('ACTOR: ${{ github.actor }}'));
+  assert.ok(verificationSource.includes('TRIGGERING_ACTOR: ${{ github.triggering_actor }}'));
+
+  assert.ok(verificationSource.includes('baseSha:process.env.BASE_SHA'));
+  assert.ok(verificationSource.includes('targetSha:process.env.HEAD_SHA'));
+  assert.ok(verificationSource.includes('actor:process.env.ACTOR'));
+  assert.ok(verificationSource.includes('triggeringActor:process.env.TRIGGERING_ACTOR'));
+  assert.ok(verificationSource.includes('runId:process.env.RUN_ID'));
+  assert.ok(verificationSource.includes('runAttempt:process.env.RUN_ATTEMPT'));
+  assert.ok(verificationSource.includes('workflowRef:process.env.WORKFLOW_REF'));
+  assert.ok(verificationSource.includes('workflowSha:process.env.WORKFLOW_SHA'));
+});

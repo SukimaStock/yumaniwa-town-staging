@@ -1,0 +1,105 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1cb88364a162e36521692bc7f7b9bd87fe6d0787ab8ed237bb4dc2ebdead574b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-rerun-actor-provenance-l1-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C follow-up: record rerun initiator in trusted verification evidence",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "85c6cd034d985aa18170a22dbc43b86b8e2107de",
+    "canonicalSources": [
+      ".github/workflows/change-verification.yml"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c-rerun-actor-provenance-l1-20260928/**",
+      ".github/workflows/change-verification.yml",
+      "tests/test-change-pr-gate.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**",
+      ".github/workflows/change-pr-gate.yml"
+    ],
+    "expectedChanges": [
+      "Record github.triggering_actor alongside github.actor in the trusted mechanical evidence producer metadata.",
+      "Preserve the existing exact-SHA, runId, runAttempt, workflowRef and workflowSha provenance fields.",
+      "Add a workflow contract regression test that prevents rerun-initiator provenance from being dropped."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This change addresses only Work audit L1: rerun initiator provenance is absent from the trusted evidence envelope.",
+      "Keep producer.actor for the original workflow actor and add producer.triggeringActor for the actor that initiated the current run or rerun.",
+      "Do not change the evidence schema identifier, final verification state, trusted execution model, branch protection, Record v0.3, Phase D/E, or production."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "Work post-merge audit L1"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Trusted evidence provenance metadata change only; behavior is covered by workflow source regression, trusted PR checks, Codex review, and later rerun canary.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging-only provenance PR; production remains untouched.",
+    "outOfScope": [
+      "Verification Record v0.3",
+      "Authenticated human attestation",
+      "Trusted static-check registry",
+      "Phase D broader Git/index hardening",
+      "Phase E semantic scope and concurrency controls",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Post-merge rerun canary remains required before C3-1 is formally closed."
+    ],
+    "problem": "Trusted mechanical evidence records github.actor but not github.triggering_actor, so a rerun can be attributed only to the original run actor rather than the person or app that initiated the rerun.",
+    "currentContract": "The evidence producer contains actor, runId, runAttempt, workflowRef and workflowSha. GitHub exposes a separate triggering_actor value for the initiator of the current run or rerun, but the workflow does not persist it.",
+    "whyExistingIsInsufficient": "For rerun auditability, runAttempt alone shows that a rerun occurred but not who initiated it. That weakens provenance when the rerun initiator differs from the original actor.",
+    "design": "Pass github.triggering_actor into the base-owned evidence-building step and persist it as producer.triggeringActor next to producer.actor. Keep all existing producer fields and the evidence schema identifier unchanged.",
+    "alternativesRejected": [
+      "Replace actor with triggeringActor; both identities are useful and have different semantics on reruns.",
+      "Infer rerun initiator later from GitHub UI or API; the evidence envelope should carry the provenance needed to interpret the captured run.",
+      "Expand this change into authenticated human attestation; that belongs to the later Phase C work."
+    ],
+    "migration": "None.",
+    "compatibility": "Existing evidence consumers that ignore unknown producer fields remain compatible; existing producer.actor semantics are unchanged.",
+    "boundaryCases": [
+      "A normal first run may have actor and triggeringActor equal.",
+      "A rerun initiated by another authorized actor can have triggeringActor differ from actor and both must be retained.",
+      "runAttempt continues to identify the attempt associated with triggeringActor.",
+      "The evidence remains UNVERIFIED and exact-SHA-bound."
+    ],
+    "testPlan": [
+      "Assert change-verification.yml maps github.triggering_actor into an environment variable for the evidence step.",
+      "Assert the evidence producer contains triggeringActor sourced from that environment variable.",
+      "Run Change Operations Tests, Change PR Gate and Change Verification Evidence on the exact PR head.",
+      "Request Codex adversarial review focused on L1 provenance.",
+      "After merge, exercise a rerun canary and inspect evidence provenance before formal C3-1 closure."
+    ],
+    "promotionRisk": "Staging Change OS workflow only. Missing or misbound rerun identity would weaken audit evidence, so trusted checks and later rerun canary are required."
+  }
+}

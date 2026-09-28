@@ -227,6 +227,7 @@ jobs:
           WORKFLOW_REF: ${{ github.workflow_ref }}
           WORKFLOW_SHA: ${{ github.workflow_sha }}
           ACTOR: ${{ github.actor }}
+          TRIGGERING_ACTOR: ${{ github.triggering_actor }}
           LOCK_FILE: ${{ steps.plan.outputs.lock_file }}
           LOCK_COMMIT: ${{ steps.plan.outputs.lock_commit }}
           LOCK_BLOB: ${{ steps.plan.outputs.lock_blob }}
@@ -250,6 +251,7 @@ jobs:
             planLock:{path:process.env.LOCK_FILE,commit:process.env.LOCK_COMMIT,blob:process.env.LOCK_BLOB},
             producer:{
               actor:process.env.ACTOR,
+              triggeringActor:process.env.TRIGGERING_ACTOR,
               runId:process.env.RUN_ID,
               runAttempt:process.env.RUN_ATTEMPT,
               workflowRef:process.env.WORKFLOW_REF,
