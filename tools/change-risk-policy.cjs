@@ -29,7 +29,7 @@ const SHARED_RUNTIME = new Set([
 
 function normalizeRiskPath(value) {
   if (typeof value !== 'string') return '';
-  return value.replace(/\\/g, '/').replace(/^\.\//, '');
+  return value;
 }
 
 function profile(id, options = {}) {
