@@ -254,3 +254,46 @@ test('repository mismatch is detected from origin',t=>{
   assert.equal(r.ok,false);
   assert.equal(r.actual,'example/other');
 });
+
+
+test('executable mode lookup treats Git pathspec-magic filenames as literal paths',()=>{
+  const root=fs.mkdtempSync(path.join(os.tmpdir(),'yumaniwa-risk-pathspec-'));
+  git(root,['init']);
+  git(root,['config','user.email','test@example.com']);
+  git(root,['config','user.name','Test User']);
+  git(root,['commit','--allow-empty','-m','base']);
+  const base=git(root,['rev-parse','HEAD']);
+
+  const specialPaths=[
+    ':(literal)docs/payload.md',
+    ':docs/short.md',
+  ];
+  for (const filePath of specialPaths) {
+    const absolute=path.join(root,...filePath.split('/'));
+    fs.mkdirSync(path.dirname(absolute),{recursive:true});
+    fs.writeFileSync(absolute,'#!/bin/sh\\necho pathspec-bypass\\n');
+    fs.chmodSync(absolute,0o755);
+  }
+  git(root,['add','--all']);
+  git(root,['commit','-m','add executable special paths']);
+  const head=git(root,['rev-parse','HEAD']);
+
+  const executablePaths=collectExecutablePaths(root,base,head,specialPaths);
+  assert.deepEqual(executablePaths,[...specialPaths].sort());
+
+  const risk=evaluateRiskPlan(
+    liteContent({
+      canonicalSources:specialPaths,
+      allowedPaths:specialPaths,
+    }),
+    specialPaths,
+    {executablePaths}
+  );
+  assert.equal(risk.riskOk,false);
+  assert.ok(risk.profiles.some(item=>item.id==='unknown-code'&&item.paths.includes(':(literal)docs/payload.md')));
+  assert.ok(risk.profiles.some(item=>item.id==='unknown-code'&&item.paths.includes(':docs/short.md')));
+
+  const impacts=deriveRequiredImpacts(specialPaths,{executablePaths});
+  assert.ok(impacts.requirements.some(item=>item.id==='risk.high-risk-review'));
+  assert.ok(impacts.requirements.some(item=>item.id==='runtime.regression'));
+});

@@ -88,10 +88,25 @@ function runGit(root, args) {
   return r.stdout.trim();
 }
 
+function collectExecutablePathSetAtRef(root, ref) {
+  const r=spawnSync('git',['-C',root,'ls-tree','-r','-z',ref],{encoding:'utf8'});
+  if (r.error) throw r.error;
+  if (r.status !== 0) throw new Error((r.stderr || r.stdout || 'git failed').trim());
+
+  const executable=new Set();
+  for (const record of r.stdout.split('\0')) {
+    if (!record) continue;
+    const tab=record.indexOf('\t');
+    if (tab < 0) continue;
+    const meta=record.slice(0,tab).trim().split(/\s+/);
+    const filePath=record.slice(tab+1);
+    if (meta[0] === '100755') executable.add(filePath);
+  }
+  return executable;
+}
+
 function isExecutableAtRef(root, ref, filePath) {
-  const output=runGit(root,['ls-tree',ref,'--',filePath]);
-  if (!output) return false;
-  return output.split(/\r?\n/).some(line=>line.startsWith('100755 '));
+  return collectExecutablePathSetAtRef(root,ref).has(filePath);
 }
 
 function isExecutableInWorktree(root, filePath) {
@@ -106,11 +121,14 @@ function isExecutableInWorktree(root, filePath) {
 function collectExecutablePaths(root, baseSha, headSha, changedPaths, options = {}) {
   const executable=[];
   const includeWorktree=options.includeWorktree === true;
+  const baseExecutable=collectExecutablePathSetAtRef(root,baseSha);
+  const headExecutable=collectExecutablePathSetAtRef(root,headSha);
+
   for (const filePath of [...new Set(changedPaths || [])]) {
     if (!filePath) continue;
     if (
-      isExecutableAtRef(root,baseSha,filePath) ||
-      isExecutableAtRef(root,headSha,filePath) ||
+      baseExecutable.has(filePath) ||
+      headExecutable.has(filePath) ||
       (includeWorktree && isExecutableInWorktree(root,filePath))
     ) {
       executable.push(filePath);
@@ -238,6 +256,7 @@ module.exports={
   parseGitHubRepo,
   getRepositoryIdentity,
   verifyRepositoryIdentity,
+  collectExecutablePathSetAtRef,
   isExecutableAtRef,
   isExecutableInWorktree,
   collectExecutablePaths,
