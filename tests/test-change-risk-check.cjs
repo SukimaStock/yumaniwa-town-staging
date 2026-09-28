@@ -155,6 +155,7 @@ test('unknown source formats default to high-risk while known content stays ligh
   assert.equal(classifyRiskPath('.github/actions/gate/action.yml').id,'os');
   assert.equal(classifyRiskPath('notes/readme.md'),null);
   assert.equal(classifyRiskPath('README.md'),null);
+  assert.equal(classifyRiskPath('.change-plans/example-change/r0.lock.json'),null);
   assert.equal(classifyRiskPath('README.md',{executable:true}).id,'unknown-code');
   assert.equal(classifyRiskPath('assets/run.sh').id,'unknown-code');
   assert.equal(classifyRiskPath('works/demo/App.vue').id,'work-runtime');
