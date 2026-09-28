@@ -1,0 +1,109 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "43debd4c65bac60a56c5465806eb0c0fd645744ea08268c86d08a98bdab8df47",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-pr-gate-lock-parity-m1-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C follow-up: align Change PR Gate Plan Lock hardening with trusted verification",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "9c2a8e720bd943a9158f8ca36ccd419f42489eec",
+    "canonicalSources": [
+      ".github/workflows/change-pr-gate.yml"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c-pr-gate-lock-parity-m1-20260928/**",
+      ".github/workflows/change-pr-gate.yml",
+      "tests/test-change-pr-gate.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**",
+      ".github/workflows/change-verification.yml"
+    ],
+    "expectedChanges": [
+      "Require every PR branch commit to descend from the registered Plan Lock commit.",
+      "Require the Plan Lock tree entry to be mode 100644 and Git type blob.",
+      "Read and verify the Plan Lock from the immutable registered blob rather than the mutable candidate working-tree path.",
+      "Add regression assertions that Change PR Gate carries the same Plan Lock ancestry and immutable-blob protections as trusted verification."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This change addresses only Work audit M1: old Change PR Gate Plan Lock handling must match the C3-1 trusted verification hardening.",
+      "The current fresh-r0-only contract remains unchanged.",
+      "Candidate code remains data-only; trusted gate tools continue to execute from the PR base checkout.",
+      "Do not modify change-verification.yml, H2 branch protection, L1 triggering_actor provenance, Record v0.3, broader Phase D/E, or production."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "Work post-merge audit M1"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Trusted workflow contract change is covered by workflow source regression assertions, Change PR Gate itself, Change Verification Evidence, and Codex review.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging-only workflow parity PR; production remains untouched.",
+    "outOfScope": [
+      "H2 staging branch protection and required checks",
+      "L1 github.triggering_actor provenance",
+      "Verification Record v0.3",
+      "Human attestation",
+      "Trusted static-check registry",
+      "Phase D broader Git/index hardening",
+      "Phase E semantic scope and concurrency controls",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Post-merge adversarial canary coverage remains required before C3-1 is formally closed."
+    ],
+    "problem": "The legacy Change PR Gate still verifies Plan Lock content from the candidate working-tree path and lacks the newer ancestry and immutable regular-blob checks implemented in Change Verification Evidence.",
+    "currentContract": "Both workflows require a fresh r0 lock as the first branch commit, but only Change Verification additionally requires every branch commit to descend from that lock commit, checks mode 100644/blob, snapshots the registered blob with git cat-file, and verifies/extracts from that immutable snapshot.",
+    "whyExistingIsInsufficient": "Two base-owned trusted workflows enforce different Plan Lock trust boundaries. A branch shape or lock representation rejected by trusted verification may still reach the older PR gate's later checks, and the old gate reads candidate filesystem content rather than the registered immutable blob.",
+    "design": "Port the C3-1 Plan Lock ancestry, regular-blob, immutable blob snapshot, and immutable verification/extraction contract into change-pr-gate.yml while preserving its existing trusted-base Scope/Risk/Impact execution. Add workflow contract regression assertions to prevent future divergence.",
+    "alternativesRejected": [
+      "Delete the old Change PR Gate and rely only on Change Verification Evidence; merge protection currently treats them as separate workflows and this would broaden H2/settings work.",
+      "Share a candidate-controlled script between workflows; the trusted boundary requires base-owned workflow/tool behavior.",
+      "Leave duplicated logic divergent; that preserves the audit finding."
+    ],
+    "migration": "None.",
+    "compatibility": "Valid current branches with a lock-first 100644 JSON blob continue to pass. Nonlinear pre-lock commits, symlink/executable/non-blob locks, or mutable candidate substitutions fail closed consistently in both workflows.",
+    "boundaryCases": [
+      "Every commit in base..HEAD must descend from LOCK_COMMIT.",
+      "Plan Lock mode 100755, symlink 120000, tree or gitlink must fail before Plan parsing.",
+      "The trusted verifier and Plan extraction must read RUNNER_TEMP immutable blob content, never candidate/$LOCK_FILE.",
+      "The lock commit remains lock-only and immutable after registration.",
+      "Existing valid fresh-r0 branches continue through Scope/Risk/Impact."
+    ],
+    "testPlan": [
+      "Extend tests/test-change-pr-gate.cjs to assert ancestry check, 100644/blob check, git cat-file immutable snapshot, immutable verify/extract, and absence of candidate lock verification.",
+      "Run Change Operations Tests, Change PR Gate, and Change Verification Evidence on the exact PR head.",
+      "Request Codex adversarial review focused on M1 parity.",
+      "Confirm staging merge commit and production main unchanged."
+    ],
+    "promotionRisk": "Staging Change OS workflow only. A mistake could incorrectly admit or reject future PRs, so both trusted workflows and adversarial review must pass before merge."
+  }
+}
