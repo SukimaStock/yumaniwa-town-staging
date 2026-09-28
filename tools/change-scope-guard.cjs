@@ -3,6 +3,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
+const { TextDecoder } = require('node:util');
 
 const SCHEMA = 'yumaniwa-change-plan/0.2';
 const LEGACY_SCHEMA = 'yumaniwa-change-plan/0.1';
@@ -347,6 +348,25 @@ function git(root, args) {
   return result.stdout;
 }
 
+function gitPathOutput(root, args) {
+  const result = spawnSync('git', ['-C', root, ...args]);
+  if (result.error) throw result.error;
+  if (result.status !== 0) {
+    const stderr = Buffer.isBuffer(result.stderr) ? result.stderr.toString('utf8') : String(result.stderr || '');
+    const stdout = Buffer.isBuffer(result.stdout) ? result.stdout.toString('utf8') : String(result.stdout || '');
+    const error = new Error((stderr || stdout || 'git failed').trim());
+    error.status = result.status;
+    throw error;
+  }
+  try {
+    return new TextDecoder('utf-8', { fatal: true }).decode(result.stdout);
+  } catch {
+    const error = new Error('Git pathname output contains invalid UTF-8; refusing to evaluate path identity');
+    error.code = 'INVALID_GIT_PATH_UTF8';
+    throw error;
+  }
+}
+
 function parseNameStatus(source) {
   const fields = source.split('\0');
   const paths = [];
@@ -378,14 +398,14 @@ function collectChangedPaths(root, baseSha, headRef) {
     return {
       target: headRef,
       headSha: git(repoRoot, ['rev-parse', headRef]).trim(),
-      paths: parseNameStatus(git(repoRoot, ['diff', '--name-status', '-z', '--find-renames', baseSha, headRef, '--'])),
+      paths: parseNameStatus(gitPathOutput(repoRoot, ['diff', '--name-status', '-z', '--find-renames', baseSha, headRef, '--'])),
     };
   }
 
   const ancestor = spawnSync('git', ['-C', repoRoot, 'merge-base', '--is-ancestor', baseSha, currentHead], { encoding: 'utf8' });
   if (ancestor.status !== 0) throw new Error('baseSha is not an ancestor of current HEAD');
-  const paths = parseNameStatus(git(repoRoot, ['diff', '--name-status', '-z', '--find-renames', baseSha, '--']));
-  const untracked = git(repoRoot, ['ls-files', '-z', '--others', '--exclude-standard']).split('\0').filter(filePath => filePath.length > 0);
+  const paths = parseNameStatus(gitPathOutput(repoRoot, ['diff', '--name-status', '-z', '--find-renames', baseSha, '--']));
+  const untracked = gitPathOutput(repoRoot, ['ls-files', '-z', '--others', '--exclude-standard']).split('\0').filter(filePath => filePath.length > 0);
   return { target: 'worktree', headSha: currentHead, paths: [...paths, ...untracked] };
 }
 
