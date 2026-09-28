@@ -1,0 +1,50 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3c5e02c890b3ed441117b2031609a7f4f32ebac65cbb87088fb0370888f5c690",
+  "note": "Non-merge canary for post-A+B Change PR Gate verification.",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "change-os-ab-canary-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Verify closed Phase A+B gate after follow-up merge",
+    "planLevel": "lite",
+    "classes": [
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "0c743211b0039b6239f105de874e3ccf8978cb12",
+    "canonicalSources": [
+      "CHANGE-PLAN.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/change-os-ab-canary-20260928/**",
+      "A-B-CANARY.txt"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Register a canary Plan Lock first",
+      "Add one low-risk text file to verify Lite/CONTENT remains supported"
+    ],
+    "staticChecks": [
+      "change-pr-gate-canary"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "No town runtime or user-facing behavior changes; canary will be closed without merge.",
+    "impactChecks": [],
+    "impactExclusions": [],
+    "promotion": "none"
+  }
+}
