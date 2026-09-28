@@ -1,0 +1,40 @@
+name: Change Operations Tests
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "tools/change-scope-guard.cjs"
+      - "tests/test-change-scope-guard.cjs"
+      - "CHANGE-PLAN.md"
+      - "CHANGE-OPERATIONS.md"
+      - "AGENTS.md"
+      - "OPERATIONS.md"
+      - ".github/workflows/change-operations-tests.yml"
+  pull_request:
+    paths:
+      - "tools/change-scope-guard.cjs"
+      - "tests/test-change-scope-guard.cjs"
+      - "CHANGE-PLAN.md"
+      - "CHANGE-OPERATIONS.md"
+      - "AGENTS.md"
+      - "OPERATIONS.md"
+      - ".github/workflows/change-operations-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  scope-guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check Scope Guard syntax
+        run: node --check tools/change-scope-guard.cjs
+
+      - name: Run Scope Guard regression tests
+        run: node --test tests/test-change-scope-guard.cjs
