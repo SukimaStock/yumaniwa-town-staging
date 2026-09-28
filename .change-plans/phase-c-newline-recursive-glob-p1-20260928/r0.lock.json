@@ -1,0 +1,105 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8a58160ad31733d063376c71f76e5ceeca350fd2ba4a0dc64b07c54e7f88d70f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-newline-recursive-glob-p1-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C follow-up: make recursive scope globs newline-safe",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "2a29dbf8ed8e140ba68e5d7fdf87aae12fd332dd",
+    "canonicalSources": [
+      "tools/change-scope-guard.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c-newline-recursive-glob-p1-20260928/**",
+      "tools/change-scope-guard.cjs",
+      "tests/test-change-scope-guard.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**",
+      ".github/workflows/**"
+    ],
+    "expectedChanges": [
+      "Compile recursive ** scope globs with a newline-safe expression.",
+      "Preserve single-star segment behavior while ensuring forbidden recursive patterns cannot be bypassed by newline-containing filenames.",
+      "Add regression coverage for newline-containing paths against forbidden recursive globs."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This change addresses only the Codex P1 recursive-glob/newline finding from superseded PR #30.",
+      "Do not change Git path collection, Risk/Impact identity, invalid UTF-8 handling, human-readable report escaping, M1, H2, L1, Record v0.3, Phase D/E, or production."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "Codex P1 recursive glob newline finding"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Change OS glob compilation only; behavior is covered by regression tests, trusted PR gate, and later canary.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging-only remediation PR; production remains untouched.",
+    "outOfScope": [
+      "Invalid UTF-8 pathname byte handling",
+      "Human-readable report escaping",
+      "M1 old Change PR Gate Plan Lock parity",
+      "H2 staging branch protection and required checks",
+      "L1 github.triggering_actor provenance",
+      "Verification Record v0.3",
+      "Human attestation",
+      "Trusted static-check registry",
+      "Phase D broader Git/index hardening",
+      "Phase E semantic scope and concurrency controls",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Post-fix unusual-path canary coverage remains required before C3-1 is formally closed."
+    ],
+    "problem": "Recursive ** patterns compile to dot-star, and JavaScript dot does not match newline, so a valid newline-containing Git filename can evade a forbidden recursive pattern.",
+    "currentContract": "globToRegExp uses .* for ** and (?:.*/)? for **/, while single-star uses [^/]*.",
+    "whyExistingIsInsufficient": "A path such as data/line\\nname.js can fail forbiddenPaths data/** while still matching an allowed single-segment JavaScript glob, allowing Scope to PASS incorrectly.",
+    "design": "Compile ** with a newline-safe class such as [\\s\\S]* and compile **/ with an equivalent newline-safe recursive segment expression, preserving all other glob semantics.",
+    "alternativesRejected": [
+      "Reject all newline-containing filenames globally; that belongs to a broader pathname policy and is outside this focused fix.",
+      "Special-case forbiddenPaths only; glob semantics should be consistent for all recursive patterns."
+    ],
+    "migration": "None.",
+    "compatibility": "Existing paths without newline retain the same glob results. Single-star remains confined to one path segment.",
+    "boundaryCases": [
+      "data/** must match data/line\\nname.js.",
+      "assets/**/a.png must match recursive paths even when an intermediate filename segment contains newline.",
+      "assets/*.png must remain limited to a single slash-delimited segment."
+    ],
+    "testPlan": [
+      "Assert direct glob matching for ** spans newline.",
+      "Assert evaluateScope applies forbidden data/** before allowed data/*.js for a newline-containing JavaScript filename.",
+      "Run Change Operations regression suite and trusted Change PR Gate."
+    ],
+    "promotionRisk": "Staging Change OS only. Incorrect glob semantics could over-allow or over-block planned changes, so trusted gate review and canary are required."
+  }
+}
