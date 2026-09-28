@@ -50,9 +50,9 @@ function globToRegExp(pattern) {
         i += 1;
         if (source[i + 1] === '/') {
           i += 1;
-          out += '(?:.*/)?';
+          out += '(?:[\\s\\S]*/)?';
         } else {
-          out += '.*';
+          out += '[\\s\\S]*';
         }
       } else {
         out += '[^/]*';
