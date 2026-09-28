@@ -2,6 +2,20 @@
 
 const PLAN_LEVEL_RANK = Object.freeze({ lite: 0, standard: 1, full: 2 });
 
+const KNOWN_DOMAIN_DATA = new Set([
+  'data/ghost-dialogue.js',
+  'data/notes.js',
+  'data/places.js',
+  'data/station-plaza-props.js',
+  'data/station-plaza.js',
+  'data/town-maps.js',
+  'data/town-seeds.js',
+  'data/updates.js',
+  'data/work-search-meta.js',
+  'data/works.js',
+  'data/world-objects.js',
+]);
+
 const SHARED_RUNTIME = new Set([
   'main.js',
   'town-memory.js',
@@ -100,6 +114,7 @@ function classifyRiskPath(value) {
   if (!p) return null;
 
   if (isChangeOsPath(p)) return PROFILES.os;
+  if (KNOWN_DOMAIN_DATA.has(p)) return null;
   if (SHARED_RUNTIME.has(p)) return PROFILES.sharedRuntime;
   if (isSharedSurfacePath(p)) return PROFILES.sharedSurface;
   if (p.startsWith('works/')) {
@@ -149,6 +164,7 @@ function riskImpactDefinitions() {
 
 module.exports = {
   PLAN_LEVEL_RANK,
+  KNOWN_DOMAIN_DATA,
   PROFILES,
   normalizeRiskPath,
   classifyRiskPath,
