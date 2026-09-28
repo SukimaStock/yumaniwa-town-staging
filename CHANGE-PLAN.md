@@ -80,7 +80,7 @@ Plan状態とRelease状態は別物である。
 - `planLevel`: lite / standard / full
 - `classes`: CONTENT / PLACEMENT / ASSET / WORK / SYSTEM / WORLD
 - `authority`: Standard / Rule / Skill / HQ Review / Owner Decision
-- `environment`: staging only / staging then production
+- `environment`: 人間向けには staging only / staging then production。machine-readable値は `staging` / `staging-production`
 - `baseSha`: 実装開始時のstaging HEAD
 
 ### Scope
@@ -504,8 +504,8 @@ Manual checks:
 
 ## 13. Machine-Readable Shape
 
-Phase 2のScope Guardは次の意味構造を入力とする。
-現時点ではJSONファイルの常設を必須にしない。
+`tools/change-scope-guard.cjs` は次の意味構造を入力とする。
+JSONファイルの常設は必須にしない。stdinまたはrepository外の一時JSONを使ってよい。
 
 ```json
 {
@@ -537,12 +537,69 @@ Phase 2のScope Guardは次の意味構造を入力とする。
 }
 ```
 
-Phase 2ではこのshapeを最小入力としてScope Guardを実装する。
+`tools/change-scope-guard.cjs` はこのshapeを最小入力として使う。
 巨大なchange databaseは作らない。
 
 ---
 
-## 14. Anti-Patterns
+## 14. Scope Guard v0.1
+
+Scope Guardは、Change Planのpath契約と実際のGit diffを比較する読み取り専用ツールである。
+意味上の正しさ、`expectedChanges` の達成、manual checkの完了までは自動認定しない。
+
+基本:
+
+```sh
+# worktreeを検査。tracked変更に加えてuntracked fileも対象になる
+node tools/change-scope-guard.cjs --plan /tmp/yumaniwa-change-plan.json
+
+# commit済みの変更をbaseShaからHEADまで検査
+node tools/change-scope-guard.cjs --plan /tmp/yumaniwa-change-plan.json --head HEAD
+
+# JSON出力
+node tools/change-scope-guard.cjs --plan /tmp/yumaniwa-change-plan.json --head HEAD --json
+```
+
+Planをrepository内へ一時保存すると、そのPlan自体も変更pathとして検出される。
+原則としてrepository外の一時ファイルか `--plan -` のstdinを使う。
+
+判定順序:
+
+1. `forbiddenPaths` に一致 → `FAIL`
+2. `conditionalPaths` に一致 → 明示確認なしでは `SCOPE_REVIEW_REQUIRED`
+3. `allowedPaths` に一致 → `PASS`
+4. どれにも一致しない → `FAIL scope.out-of-scope`
+
+`forbiddenPaths` は常に優先する。
+`**` やroot起点の `**/*.js` などrepository全体を広く許可するpatternはPlan自体を不正として拒否する。
+
+conditional pathを実際に変更した場合、その条件が成立したことを人間または実行主体が確認したうえで、Planに書いたpatternを明示する。
+
+```sh
+node tools/change-scope-guard.cjs \
+  --plan /tmp/yumaniwa-change-plan.json \
+  --conditional-ok index.html
+```
+
+`--conditional-ok` は条件そのものを機械的に証明する機能ではない。
+**条件成立を明示的に認めたという記録**であり、無言のscope拡張を防ぐためのもの。
+
+exit code:
+
+- `0`: path scope PASS
+- `1`: `FAIL` または `SCOPE_REVIEW_REQUIRED`
+- `2`: Plan / CLI / Git入力が不正、または実行不能
+
+`--head`を省略するとbaseShaと現在worktreeを比較する。
+`--head`を指定するとbaseShaから指定commit/refまでを比較する。
+baseShaが対象HEADのancestorでない場合は比較を拒否する。
+
+Scope Guard PASSは**変更pathがPlan内だったことだけ**を意味する。
+Validator、test、manual verification、Owner/HQ判断の代わりにはならない。
+
+---
+
+## 15. Anti-Patterns
 
 禁止:
 
@@ -559,7 +616,7 @@ Phase 2ではこのshapeを最小入力としてScope Guardを実装する。
 
 ---
 
-## 15. Operating Principle
+## 16. Operating Principle
 
 ```text
 CHANGE OPERATIONS
