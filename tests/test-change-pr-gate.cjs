@@ -44,3 +44,18 @@ test('trusted verification evidence workflow is base-owned and does not declare 
   assert.ok(verificationSource.includes("verificationState:'UNVERIFIED'"));
   assert.ok(verificationSource.includes('trusted-mechanical-evidence'));
 });
+
+
+test('trusted verification preserves failing gate evidence before failing the job',()=>{
+  assert.ok(verificationSource.includes('id: scope'));
+  assert.ok(verificationSource.includes('id: risk'));
+  assert.ok(verificationSource.includes('id: impact'));
+  assert.ok(verificationSource.includes('echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"'));
+  assert.ok(verificationSource.includes("schema:'yumaniwa-gate-error/0.1'"));
+  assert.ok(verificationSource.includes('gateExitCodes:{'));
+  const uploadIndex=verificationSource.indexOf('- name: Upload trusted mechanical evidence');
+  const failIndex=verificationSource.indexOf('- name: Fail after preserving trusted evidence');
+  assert.ok(uploadIndex >= 0);
+  assert.ok(failIndex > uploadIndex);
+  assert.ok(verificationSource.includes('One or more trusted gates failed: scope=$SCOPE_EXIT risk=$RISK_EXIT impact=$IMPACT_EXIT'));
+});
