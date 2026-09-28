@@ -46,27 +46,7 @@ function createLock(rawPlan, metadata = {}) {
   };
 }
 
-function verifyRevision(previousLock, currentLock) {
-  const errors = [];
-  if (!previousLock) {
-    if (currentLock.plan.revision !== 0) errors.push('first lock must use revision 0');
-    return errors;
-  }
-  const previous = verifyLock(previousLock);
-  if (!previous.ok) errors.push('previous lock invalid: ' + previous.errors.join('; '));
-
-  const a = previousLock.plan;
-  const b = currentLock.plan;
-  if (b.changeId !== a.changeId) errors.push('revision must keep changeId');
-  if (b.repository !== a.repository) errors.push('revision must keep repository');
-  if (b.baseSha !== a.baseSha) errors.push('revision must keep baseSha');
-  if (b.revision !== a.revision + 1) errors.push('revision must increment by exactly 1');
-  if (b.previousPlanDigest !== previousLock.planDigest) errors.push('previousPlanDigest must reference previous lock digest');
-  if (typeof b.revisionReason !== 'string' || !b.revisionReason.trim()) errors.push('revision requires revisionReason');
-  return errors;
-}
-
-function verifyLock(lock, previousLock = null) {
+function verifyLockEnvelope(lock) {
   const errors = [];
   if (!lock || typeof lock !== 'object' || Array.isArray(lock)) {
     return { ok: false, errors: ['lock must be an object'] };
@@ -90,18 +70,52 @@ function verifyLock(lock, previousLock = null) {
     }
   }
 
+  return {
+    ok: errors.length === 0,
+    errors,
+    plan: normalizedPlan,
+    planDigest: lock.planDigest,
+  };
+}
+
+function verifyRevision(previousLock, currentLock) {
+  const errors = [];
+  if (!previousLock) {
+    if (currentLock.plan.revision !== 0) errors.push('first lock must use revision 0');
+    return errors;
+  }
+
+  const previous = verifyLockEnvelope(previousLock);
+  if (!previous.ok) {
+    errors.push('previous lock invalid: ' + previous.errors.join('; '));
+    return errors;
+  }
+
+  const a = previous.plan;
+  const b = currentLock.plan;
+  if (b.changeId !== a.changeId) errors.push('revision must keep changeId');
+  if (b.repository !== a.repository) errors.push('revision must keep repository');
+  if (b.baseSha !== a.baseSha) errors.push('revision must keep baseSha');
+  if (b.revision !== a.revision + 1) errors.push('revision must increment by exactly 1');
+  if (b.previousPlanDigest !== previousLock.planDigest) errors.push('previousPlanDigest must reference previous lock digest');
+  if (typeof b.revisionReason !== 'string' || !b.revisionReason.trim()) errors.push('revision requires revisionReason');
+  return errors;
+}
+
+function verifyLock(lock, previousLock = null) {
+  const checked = verifyLockEnvelope(lock);
+  const errors = [...checked.errors];
   if (!errors.length && previousLock !== null) {
     errors.push(...verifyRevision(previousLock, lock));
   }
   if (!errors.length && previousLock === null && lock.plan.revision !== 0) {
     errors.push('revision > 0 requires previous lock for verification');
   }
-
   return {
     ok: errors.length === 0,
     errors,
-    plan: normalizedPlan,
-    planDigest: lock.planDigest,
+    plan: checked.plan,
+    planDigest: checked.planDigest,
   };
 }
 
@@ -186,6 +200,7 @@ module.exports = {
   normalizePlanForDigest,
   computePlanDigest,
   createLock,
+  verifyLockEnvelope,
   verifyRevision,
   verifyLock,
   runCli,
