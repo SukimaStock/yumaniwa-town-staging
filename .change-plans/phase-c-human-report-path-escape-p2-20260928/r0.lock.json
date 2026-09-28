@@ -1,0 +1,109 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "163eecdabd847a58df1befc9b2c63ba6aaee7ff4b44be89bbcc9b35d5c35764d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-human-report-path-escape-p2-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C follow-up: escape literal Git paths in human-readable Scope reports",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "9607d451717df6f3895726e548a196a8a4492583",
+    "canonicalSources": [
+      "tools/change-scope-guard.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c-human-report-path-escape-p2-20260928/**",
+      "tools/change-scope-guard.cjs",
+      "tests/test-change-scope-guard.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**",
+      ".github/workflows/**"
+    ],
+    "expectedChanges": [
+      "Escape control characters and ambiguous literal characters only when rendering human-readable Scope result paths.",
+      "Keep machine-readable report path values and Scope/Risk/Impact path identity unchanged.",
+      "Add regression coverage proving newline, carriage return, tab, ESC, backslash and quote cannot inject or split human-readable status lines."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This change addresses only the Codex P2 human-readable report injection finding from superseded PR #30.",
+      "Path identity used by Scope/Risk/Impact and JSON output must remain literal and unchanged.",
+      "Human-readable path rendering must remain one physical line per result even when a Git filename contains control characters.",
+      "Do not address M1, H2, L1, Record v0.3, broader Phase D/E, or production here."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "Codex P2 human-readable path report finding"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Change OS report rendering only; behavior is covered by deterministic regression tests, trusted PR gate, and later canary.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging-only remediation PR; production remains untouched.",
+    "outOfScope": [
+      "M1 old Change PR Gate Plan Lock parity",
+      "H2 staging branch protection and required checks",
+      "L1 github.triggering_actor provenance",
+      "Verification Record v0.3",
+      "Human attestation",
+      "Trusted static-check registry",
+      "Phase D broader Git/index hardening",
+      "Phase E semantic scope and concurrency controls",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Post-fix unusual-path canary coverage remains required before C3-1 is formally closed."
+    ],
+    "problem": "Human-readable Scope output concatenates literal Git paths directly into status lines, so control characters in filenames can split lines, move the cursor, or visually fabricate and obscure report content.",
+    "currentContract": "formatHuman appends item.path directly to each result line while machine-readable JSON preserves the same literal path value.",
+    "whyExistingIsInsufficient": "A filename containing newline, carriage return, tab or terminal control characters can make the human report display extra lines or altered status text even though the underlying result object is correct.",
+    "design": "Add a display-only escaping function used by formatHuman for result paths. Encode control characters and ambiguous escape characters into printable backslash notation while leaving ordinary characters unchanged. Do not normalize, trim, rewrite, or otherwise alter path identity in evaluation or JSON output.",
+    "alternativesRejected": [
+      "Normalize or reject valid unusual UTF-8 filenames; prior path-identity fixes intentionally preserve them.",
+      "Escape paths before evaluation; that would change machine identity and could reintroduce aliasing.",
+      "Rely only on JSON output; operators still consume the human report and it must not be injectable."
+    ],
+    "migration": "None.",
+    "compatibility": "Ordinary human-readable paths remain visually unchanged. Machine-readable reports and policy matching remain byte-for-string identical for valid UTF-8 path identity.",
+    "boundaryCases": [
+      "A path containing newline must render with literal backslash-n and no additional physical report line.",
+      "Carriage return, tab and ESC must be printable escaped text.",
+      "A literal backslash must be distinguishable from an escape sequence.",
+      "Quotes and Unicode remain unambiguous without changing the underlying path value.",
+      "JSON report path values remain literal and unchanged."
+    ],
+    "testPlan": [
+      "Unit-test the human formatter with newline, carriage return, tab, ESC, backslash and quote in result paths.",
+      "Assert the rendered result occupies one physical line and cannot create a fake PASS/FAIL line.",
+      "Assert evaluateScope still returns the exact literal path.",
+      "Run Change Operations regression suite, trusted Change PR Gate, Change Verification Evidence, and Codex adversarial review."
+    ],
+    "promotionRisk": "Staging Change OS only. Incorrect report escaping could hide evidence or change operator interpretation, so trusted gate review and later canary are required."
+  }
+}
