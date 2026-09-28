@@ -11,11 +11,16 @@ on:
       - "tools/change-impact-rules.cjs"
       - "tools/change-impact-check.cjs"
       - "tools/change-verification-check.cjs"
+      - "tools/change-provenance.cjs"
+      - "tools/change-static-checks.cjs"
+      - "tools/change-evidence-runner.cjs"
       - "tests/test-change-scope-guard.cjs"
       - "tests/test-change-plan-lock.cjs"
       - "tests/test-change-risk-check.cjs"
       - "tests/test-change-impact-check.cjs"
       - "tests/test-change-verification-check.cjs"
+      - "tests/test-change-provenance.cjs"
+      - "tests/test-change-evidence-runner.cjs"
       - "CHANGE-PLAN.md"
       - "CHANGE-VERIFICATION.md"
       - "CHANGE-OPERATIONS.md"
@@ -33,11 +38,16 @@ on:
       - "tools/change-impact-rules.cjs"
       - "tools/change-impact-check.cjs"
       - "tools/change-verification-check.cjs"
+      - "tools/change-provenance.cjs"
+      - "tools/change-static-checks.cjs"
+      - "tools/change-evidence-runner.cjs"
       - "tests/test-change-scope-guard.cjs"
       - "tests/test-change-plan-lock.cjs"
       - "tests/test-change-risk-check.cjs"
       - "tests/test-change-impact-check.cjs"
       - "tests/test-change-verification-check.cjs"
+      - "tests/test-change-provenance.cjs"
+      - "tests/test-change-evidence-runner.cjs"
       - "CHANGE-PLAN.md"
       - "CHANGE-VERIFICATION.md"
       - "CHANGE-OPERATIONS.md"
@@ -68,6 +78,9 @@ jobs:
           node --check tools/change-impact-rules.cjs
           node --check tools/change-impact-check.cjs
           node --check tools/change-verification-check.cjs
+          node --check tools/change-provenance.cjs
+          node --check tools/change-static-checks.cjs
+          node --check tools/change-evidence-runner.cjs
 
       - name: Run Change Operations regression tests
         run: >
@@ -77,3 +90,5 @@ jobs:
           tests/test-change-risk-check.cjs
           tests/test-change-impact-check.cjs
           tests/test-change-verification-check.cjs
+          tests/test-change-provenance.cjs
+          tests/test-change-evidence-runner.cjs
