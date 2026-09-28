@@ -104,11 +104,15 @@ Plan状態とRelease状態は別物である。
 - `rulesApplied`
 
 ### Verification
-- `staticChecks`
-- `manualChecks`
+- `staticChecks`: trusted verificationでは `tools/change-static-checks.cjs` に登録された機械check ID
+- `manualChecks`: 人間が観測する項目のID。実施後はSHA付きattestationにする
 - `impactChecks`: 実施・確認する登録済みImpact ID
 - `impactExclusions`: 今回N/AとするImpact IDと理由
 - `rollback`
+
+`staticChecks` は「実行したことにする文字列」ではない。
+v0.3 trusted verificationではrunnerがIDを解決し、実測したexit codeからPASS/FAILを作る。
+未登録IDを必要とする場合は、その変更の途中で自由文を追加せずChange OS側へ先に登録する。
 
 ### Boundaries
 - `outOfScope`
@@ -266,7 +270,7 @@ Expected change:
   collision / interaction / tapのabsolute位置を確認
 
 Static check:
-  Scene Contract
+  node-syntax
 
 Manual check:
   店前の歩行
@@ -538,10 +542,19 @@ data/town-maps.js
 
 ---
 
-## 13. Manual Verification Contract
+## 13. Verification Check Contract
 
-手動確認は事前に観点を決め、実施時に確認SHAを記録する。
-`staticChecks` / `impactChecks` / `manualChecks` の文字列は、後段の `CHANGE-VERIFICATION.md` でVerification Recordのcheck IDとして使うため、同じ意味のcheckを実装後に別名へ書き換えない。
+`staticChecks` と `manualChecks` は実装前にIDを固定する。
+
+- `staticChecks`: trusted registryの機械check ID
+- `manualChecks`: 人間が観測するcheck ID
+- `impactChecks`: Impact Rule上、今回扱う影響ID
+
+static結果はRecordへ手書きしない。
+`tools/change-evidence-runner.cjs` がtarget SHA / tree、command、exit code、output digest、OS provenanceを採取する。
+
+manual確認は事前に観点を決め、実施時に `observedSha` をattestationへ残す。
+同じ意味のcheckを実装後に別名へ書き換えない。
 
 ```text
 Manual checks:
@@ -594,7 +607,7 @@ JSONファイルの常設は必須にしない。stdinまたはrepository外の�
   "expectedChanges": [
     "curry shop placement x changes by +2 world px"
   ],
-  "staticChecks": ["scene contract"],
+  "staticChecks": ["node-syntax"],
   "manualChecks": ["walk past shop", "approach entrance", "interaction"],
   "impactChecks": [
     "scene.rendering",
@@ -770,6 +783,8 @@ Impact Check
 - 実装後HEADへbaseShaを書き換えてdiffを消す
 - shared runtimeをCONTENT/Liteと自己申告してrisk floorを回避する
 - core ImpactをN/Aへ逃がす
+- staticChecksへ未登録の自由文を追加し、実行証拠の代わりにする
+- candidate側の変更済みchecker / Ruleをcandidate自身のtrusted認定に使う
 - manual verificationをCI PASSで代用する
 
 ---
