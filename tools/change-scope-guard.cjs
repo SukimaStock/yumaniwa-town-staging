@@ -452,6 +452,52 @@ function readPlan(planPath) {
   return checked.plan;
 }
 
+function escapeHumanText(value) {
+  let out = '';
+  for (const ch of String(value)) {
+    if (ch === '\\') {
+      out += '\\\\';
+      continue;
+    }
+    if (ch === '"') {
+      out += '\\"';
+      continue;
+    }
+    if (ch === '\n') {
+      out += '\\n';
+      continue;
+    }
+    if (ch === '\r') {
+      out += '\\r';
+      continue;
+    }
+    if (ch === '\t') {
+      out += '\\t';
+      continue;
+    }
+    if (ch === '\b') {
+      out += '\\b';
+      continue;
+    }
+    if (ch === '\f') {
+      out += '\\f';
+      continue;
+    }
+    const codePoint = ch.codePointAt(0);
+    if (
+      codePoint <= 0x1f ||
+      (codePoint >= 0x7f && codePoint <= 0x9f) ||
+      codePoint === 0x2028 ||
+      codePoint === 0x2029
+    ) {
+      out += '\\u' + codePoint.toString(16).padStart(4, '0');
+      continue;
+    }
+    out += ch;
+  }
+  return out;
+}
+
 function formatHuman(report) {
   const lines = [];
   lines.push('YUMANIWA SCOPE GUARD v0.2');
@@ -461,7 +507,7 @@ function formatHuman(report) {
   lines.push('Changed paths: ' + report.changedPaths.length);
   lines.push('');
   for (const item of report.results) {
-    const suffix = item.path ? ' ' + item.path : '';
+    const suffix = item.path ? ' ' + escapeHumanText(item.path) : '';
     const pattern = item.pattern ? ' [' + item.pattern + ']' : '';
     lines.push(item.status + ' ' + item.check + suffix + pattern + ' — ' + item.detail);
   }
@@ -515,5 +561,7 @@ module.exports = {
   evaluateScope,
   parseNameStatus,
   collectChangedPaths,
+  escapeHumanText,
+  formatHuman,
   runCli,
 };
