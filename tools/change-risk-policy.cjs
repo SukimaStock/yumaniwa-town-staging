@@ -116,23 +116,50 @@ function isExecutableLike(p) {
   return false;
 }
 
+const LOW_RISK_CONTENT_EXTENSIONS = new Set([
+  '.md', '.txt', '.rst', '.adoc', '.csv', '.tsv',
+  '.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif', '.ico',
+  '.wav', '.mp3', '.ogg', '.m4a', '.mp4', '.webm',
+  '.woff', '.woff2', '.ttf', '.otf',
+]);
+
+function isKnownLowRiskContentPath(p) {
+  const lower = p.toLowerCase();
+  const base = lower.split('/').pop() || '';
+  if (['license', 'notice', 'copying', 'robots.txt', 'sitemap.xml'].includes(base)) return true;
+  const dot = base.lastIndexOf('.');
+  const ext = dot >= 0 ? base.slice(dot) : '';
+  return LOW_RISK_CONTENT_EXTENSIONS.has(ext);
+}
+
 function classifyRiskPath(value, options = {}) {
   const p = normalizeRiskPath(value);
   if (!p) return null;
   const executable = options.executable === true;
 
-  if (isChangeOsPath(p)) return PROFILES.os;
-  if (KNOWN_DOMAIN_DATA.has(p)) return null;
+  if (isChangeOsPath(p) || p.startsWith('.change-plans/')) return PROFILES.os;
   if (SHARED_RUNTIME.has(p)) return PROFILES.sharedRuntime;
   if (isSharedSurfacePath(p)) return PROFILES.sharedSurface;
+
   if (p.startsWith('works/')) {
-    if (isExecutableLike(p) || executable) return PROFILES.workRuntime;
+    if (executable || isExecutableLike(p) || !isKnownLowRiskContentPath(p)) return PROFILES.workRuntime;
     return null;
   }
-  if (p.startsWith('assets/')) return PROFILES.asset;
 
-  if (isExecutableLike(p) || executable) return PROFILES.unknownCode;
-  return null;
+  if (executable) return PROFILES.unknownCode;
+  if (KNOWN_DOMAIN_DATA.has(p)) return null;
+
+  if (p.startsWith('assets/')) {
+    if (isExecutableLike(p)) return PROFILES.unknownCode;
+    return PROFILES.asset;
+  }
+
+  if (isExecutableLike(p)) return PROFILES.unknownCode;
+  if (isKnownLowRiskContentPath(p)) return null;
+
+  // Unknown formats are high-risk by default. This avoids a permanent
+  // extension allowlist race when new executable/source/config formats appear.
+  return PROFILES.unknownCode;
 }
 
 function collectRiskRequirements(paths, options = {}) {
