@@ -96,3 +96,11 @@ test('trusted PR gate reads and verifies Plan Lock from immutable regular Git bl
   assert.equal(source.includes('--lock "$GITHUB_WORKSPACE/candidate/$LOCK_FILE"'),false);
   assert.ok(source.includes('echo "lock_blob=$LOCK_OID" >> "$GITHUB_OUTPUT"'));
 });
+
+
+test('trusted verification records rerun initiator alongside original actor',()=>{
+  assert.ok(verificationSource.includes('TRIGGERING_ACTOR: ${{ github.triggering_actor }}'));
+  assert.ok(verificationSource.includes('actor:process.env.ACTOR'));
+  assert.ok(verificationSource.includes('triggeringActor:process.env.TRIGGERING_ACTOR'));
+  assert.ok(verificationSource.includes('runAttempt:process.env.RUN_ATTEMPT'));
+});
