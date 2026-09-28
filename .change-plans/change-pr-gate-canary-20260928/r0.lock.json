@@ -1,0 +1,60 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f3e09725b4d9ce73c0088c85921cd1baa6b17b42e8ac3a2d2eea2d526da03523",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "change-pr-gate-canary-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Post-merge canary for Change PR Gate A+B remediation",
+    "planLevel": "lite",
+    "classes": [
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "0c743211b0039b6239f105de874e3ccf8978cb12",
+    "canonicalSources": [
+      "canary/change-pr-gate-canary.txt"
+    ],
+    "allowedPaths": [
+      ".change-plans/change-pr-gate-canary-20260928/r0.lock.json",
+      "canary/change-pr-gate-canary.txt"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [],
+    "expectedChanges": [
+      "Add one inert text canary so the trusted Change PR Gate can be exercised without changing town runtime, data, works, assets, or production."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "Post-merge A+B canary"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "The canary is an inert text file; validation is the trusted PR gate itself.",
+    "impactChecks": [],
+    "impactExclusions": [],
+    "outOfScope": [
+      "Town runtime changes",
+      "Data changes",
+      "Work changes",
+      "Asset changes",
+      "Production changes",
+      "Phase C/D/E"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "This canary is not a production or release verification."
+    ]
+  }
+}
