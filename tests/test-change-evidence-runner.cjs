@@ -12,7 +12,10 @@ const {
   runNodeSyntax,
   runTrustedRegression,
   runStaticCheck,
+  buildMechanicalEvidence,
 } = require('../tools/change-evidence-runner.cjs');
+const { TRUSTED_OS_FILES } = require('../tools/change-provenance.cjs');
+const { createLock } = require('../tools/change-plan-lock.cjs');
 
 function git(cwd,args){
   const r=spawnSync('git',['-C',cwd,...args],{encoding:'utf8'});
@@ -103,3 +106,88 @@ test('unknown static check ID fails instead of accepting free-form evidence',()=
   assert.equal(result.status,'fail');
   assert.match(result.detail,/not registered/);
 });
+
+test('buildMechanicalEvidence binds clean trusted base to exact candidate SHA and measured exit',t=>{
+  const sourceRoot=path.resolve(__dirname,'..');
+  const trusted=tempRepo(t,'yumaniwa-trusted-integration-');
+  fs.mkdirSync(path.join(trusted,'tools'),{recursive:true});
+  for(const relative of TRUSTED_OS_FILES){
+    const src=path.join(sourceRoot,relative);
+    const dst=path.join(trusted,relative);
+    fs.mkdirSync(path.dirname(dst),{recursive:true});
+    fs.copyFileSync(src,dst);
+  }
+  fs.writeFileSync(path.join(trusted,'x.js'),'const x = 1;\n');
+  git(trusted,['add','.']);
+  git(trusted,['commit','-qm','trusted base']);
+  const base=git(trusted,['rev-parse','HEAD']);
+
+  const target=path.join(os.tmpdir(),'yumaniwa-target-integration-'+process.pid+'-'+Date.now());
+  t.after(()=>fs.rmSync(target,{recursive:true,force:true}));
+  let clone=spawnSync('git',['clone','-q',trusted,target],{encoding:'utf8'});
+  assert.equal(clone.status,0,clone.stderr||clone.stdout);
+  git(target,['config','user.email','test@example.com']);
+  git(target,['config','user.name','Test']);
+  git(target,['remote','set-url','origin','https://github.com/example/test.git']);
+  fs.writeFileSync(path.join(target,'x.js'),'const x = 2;\n');
+  git(target,['add','x.js']);
+  git(target,['commit','-qm','candidate']);
+  const candidate=git(target,['rev-parse','HEAD']);
+
+  const p={
+    schema:'yumaniwa-change-plan/0.2',
+    changeId:'evidence-integration',
+    revision:0,
+    previousPlanDigest:null,
+    revisionReason:null,
+    status:'READY',
+    repository:'example/test',
+    change:'evidence integration',
+    planLevel:'lite',
+    classes:['CONTENT'],
+    authority:['Standard'],
+    environment:'staging',
+    baseSha:base,
+    canonicalSources:['x.js'],
+    allowedPaths:['x.js'],
+    conditionalPaths:[],
+    forbiddenPaths:[],
+    expectedChanges:['update x.js'],
+    staticChecks:['node-syntax'],
+    manualChecks:[],
+    manualCheckExemptionReason:'fixture has no human-visible behavior',
+    impactChecks:[],
+    impactExclusions:[],
+    promotion:'none'
+  };
+  const lock=createLock(p);
+  const lockPath=path.join(os.tmpdir(),'yumaniwa-evidence-lock-'+process.pid+'-'+Date.now()+'.json');
+  t.after(()=>fs.rmSync(lockPath,{force:true}));
+  fs.writeFileSync(lockPath,JSON.stringify(lock));
+
+  const report=buildMechanicalEvidence({
+    trustedRoot:trusted,
+    root:target,
+    lock:lockPath,
+    head:'HEAD'
+  });
+  assert.equal(report.mechanicalState,'PASS');
+  assert.equal(report.runner.osSourceSha,base);
+  assert.equal(report.runner.clean,true);
+  assert.equal(report.verifiedSha,candidate);
+  assert.match(report.verifiedTreeSha,/^[0-9a-f]{40}$/);
+  assert.match(report.runner.provenanceDigest,/^[0-9a-f]{64}$/);
+  const syntax=report.checks.find(x=>x.id==='node-syntax');
+  assert.equal(syntax.status,'pass');
+  assert.equal(syntax.executions.length,1);
+  assert.equal(syntax.executions[0].exitCode,0);
+
+  fs.writeFileSync(path.join(trusted,'untracked.txt'),'dirty\n');
+  assert.throws(()=>buildMechanicalEvidence({
+    trustedRoot:trusted,
+    root:target,
+    lock:lockPath,
+    head:'HEAD'
+  }),/untrusted Change OS snapshot/);
+});
+
