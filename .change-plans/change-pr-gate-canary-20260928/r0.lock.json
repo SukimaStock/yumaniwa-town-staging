@@ -1,0 +1,48 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "15f65c892ae084bbafde87c9bc017dfa01df0983d709cd009090cef9a6616626",
+  "note": "Canary Plan Lock used only to verify the base-owned Change PR Gate. This PR must not be merged.",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "change-pr-gate-canary-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Verify base-owned Change PR Gate after v0.2 merge",
+    "planLevel": "lite",
+    "classes": [
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "d64293020460341ecb268226fff1681543de2264",
+    "canonicalSources": [
+      "CHANGE-PLAN.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/change-pr-gate-canary-20260928/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Add canary Plan Lock only to verify base-owned Change PR Gate"
+    ],
+    "staticChecks": [
+      "change-pr-gate-canary"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "No town runtime or user-facing behavior changes; canary is not merged.",
+    "impactChecks": [],
+    "impactExclusions": [],
+    "promotion": "none"
+  }
+}
