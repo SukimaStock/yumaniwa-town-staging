@@ -196,6 +196,30 @@ test('Git executable mode forces an extensionless changed file into the risk flo
   assert.ok(r.results.some(x=>x.profile==='unknown-code'&&x.check==='risk.plan-level'&&x.status==='FAIL'));
 });
 
+test('worktree executable mode is detected before commit',t=>{
+  const root=fs.mkdtempSync(path.join(os.tmpdir(),'yumaniwa-risk-worktree-exec-'));
+  t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+  git(root,['init','-q']);
+  git(root,['config','user.email','test@example.com']);
+  git(root,['config','user.name','Risk Test']);
+  fs.writeFileSync(path.join(root,'README.md'),'base\n');
+  git(root,['add','README.md']);
+  git(root,['commit','-qm','base']);
+  const base=git(root,['rev-parse','HEAD']);
+
+  fs.writeFileSync(path.join(root,'scratch'),'#!/bin/sh\necho worktree\n');
+  fs.chmodSync(path.join(root,'scratch'),0o755);
+
+  const executablePaths=collectExecutablePaths(
+    root,
+    base,
+    base,
+    ['scratch'],
+    {includeWorktree:true}
+  );
+  assert.deepEqual(executablePaths,['scratch']);
+});
+
 test('core impacts cannot be excluded and all-risk exclusion cannot pass',()=>{
   const p=fullSystem({
     impactChecks:[],
