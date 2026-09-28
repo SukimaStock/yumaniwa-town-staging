@@ -11,6 +11,10 @@ const {
   IMPACT_RULES,
   allImpactDefinitions,
 } = require('./change-impact-rules.cjs');
+const {
+  collectRiskRequirements,
+  riskImpactDefinitions,
+} = require('./change-risk-policy.cjs');
 
 function readJsonPlan(planPath) {
   if (!planPath) throw new Error('--plan is required');
@@ -44,8 +48,8 @@ function stringArray(value, key, errors) {
   return out;
 }
 
-function normalizeImpactPlan(raw) {
-  const core = validatePlan(raw);
+function normalizeImpactPlan(raw, options = {}) {
+  const core = validatePlan(raw, options);
   if (!core.ok) return { ok: false, errors: core.errors };
 
   const errors = [];
@@ -84,6 +88,7 @@ function normalizeImpactPlan(raw) {
   if (errors.length) return { ok: false, errors };
   return {
     ok: true,
+    legacy: core.legacy,
     plan: {
       ...core.plan,
       impactChecks,
@@ -92,42 +97,78 @@ function normalizeImpactPlan(raw) {
   };
 }
 
+function addRequirement(requirements, impact, filePath, sourceType, sourceId, core = false) {
+  if (!requirements.has(impact.id)) {
+    requirements.set(impact.id, {
+      id: impact.id,
+      description: impact.description || '',
+      descriptions: new Set(),
+      rules: new Set(),
+      profiles: new Set(),
+      paths: new Set(),
+      core: Boolean(core),
+    });
+  }
+  const current = requirements.get(impact.id);
+  if (impact.description) current.descriptions.add(impact.description);
+  if (sourceType === 'rule') current.rules.add(sourceId);
+  if (sourceType === 'profile') current.profiles.add(sourceId);
+  current.paths.add(filePath);
+  current.core = Boolean(current.core || core);
+}
+
 function deriveRequiredImpacts(changedPaths) {
   const requirements = new Map();
   const coveredPaths = new Set();
+  const uniquePaths = [...new Set(changedPaths || [])].sort();
 
-  for (const filePath of [...new Set(changedPaths)].sort()) {
+  for (const filePath of uniquePaths) {
+    let covered = false;
+
     for (const rule of IMPACT_RULES) {
       if (!rule.paths.some(pattern => matches(pattern, filePath))) continue;
-      coveredPaths.add(filePath);
+      covered = true;
       for (const impact of rule.impacts) {
-        if (!requirements.has(impact.id)) {
-          requirements.set(impact.id, {
-            id: impact.id,
-            description: impact.description,
-            rules: new Set(),
-            paths: new Set(),
-          });
-        }
-        const current = requirements.get(impact.id);
-        current.rules.add(rule.id);
-        current.paths.add(filePath);
+        addRequirement(requirements, impact, filePath, 'rule', rule.id, false);
       }
     }
+
+    const riskItems = collectRiskRequirements([filePath]);
+    for (const item of riskItems) {
+      covered = true;
+      const risk = item.profile;
+      for (const impactId of risk.requiredImpacts) {
+        addRequirement(
+          requirements,
+          {
+            id: impactId,
+            description: 'Required by high-risk profile ' + risk.id,
+          },
+          filePath,
+          'profile',
+          risk.id,
+          risk.coreImpacts.includes(impactId)
+        );
+      }
+    }
+
+    if (covered) coveredPaths.add(filePath);
   }
 
   return {
     requirements: [...requirements.values()]
       .map(item => ({
-        ...item,
+        id: item.id,
+        description: item.description,
+        descriptions: [...item.descriptions].sort(),
         rules: [...item.rules].sort(),
+        profiles: [...item.profiles].sort(),
         paths: [...item.paths].sort(),
+        core: item.core,
       }))
       .sort((a, b) => a.id.localeCompare(b.id)),
     coveredPaths: [...coveredPaths].sort(),
-    uncoveredPaths: [...new Set(changedPaths)]
-      .filter(filePath => !coveredPaths.has(filePath))
-      .sort(),
+    uncoveredPaths: uniquePaths.filter(filePath => !coveredPaths.has(filePath)),
   };
 }
 
@@ -138,14 +179,28 @@ function evaluateImpact(plan, changedPaths) {
   const results = [];
 
   for (const required of derived.requirements) {
-    if (checks.has(required.id)) {
+    if (required.core && exclusions.has(required.id)) {
+      results.push({
+        status: 'FAIL',
+        check: 'impact.core-exclusion',
+        impact: required.id,
+        description: required.description,
+        descriptions: required.descriptions,
+        paths: required.paths,
+        rules: required.rules,
+        profiles: required.profiles,
+        detail: 'core impact cannot be excluded',
+      });
+    } else if (checks.has(required.id)) {
       results.push({
         status: 'PASS',
         check: 'impact.declared',
         impact: required.id,
         description: required.description,
+        descriptions: required.descriptions,
         paths: required.paths,
         rules: required.rules,
+        profiles: required.profiles,
         detail: 'impact is declared in impactChecks',
       });
     } else if (exclusions.has(required.id)) {
@@ -154,8 +209,10 @@ function evaluateImpact(plan, changedPaths) {
         check: 'impact.excluded',
         impact: required.id,
         description: required.description,
+        descriptions: required.descriptions,
         paths: required.paths,
         rules: required.rules,
+        profiles: required.profiles,
         detail: exclusions.get(required.id),
       });
     } else {
@@ -164,14 +221,17 @@ function evaluateImpact(plan, changedPaths) {
         check: 'impact.missing',
         impact: required.id,
         description: required.description,
+        descriptions: required.descriptions,
         paths: required.paths,
         rules: required.rules,
+        profiles: required.profiles,
         detail: 'declare this impact in impactChecks or exclude it with a reason',
       });
     }
   }
 
-  const known = new Set(allImpactDefinitions().map(item => item.id));
+  const definitions = allImpactDefinitions();
+  const known = new Set(definitions.map(item => item.id));
   for (const id of checks) {
     if (!known.has(id)) {
       results.push({
@@ -181,6 +241,7 @@ function evaluateImpact(plan, changedPaths) {
         description: null,
         paths: [],
         rules: [],
+        profiles: [],
         detail: 'custom or unknown impact id; it does not satisfy any registered rule',
       });
     }
@@ -194,6 +255,7 @@ function evaluateImpact(plan, changedPaths) {
         description: null,
         paths: [],
         rules: [],
+        profiles: [],
         detail: reason,
       });
     }
@@ -207,13 +269,14 @@ function evaluateImpact(plan, changedPaths) {
       description: null,
       paths: [filePath],
       rules: [],
-      detail: 'no v0.1 Impact Rule is registered for this path',
+      profiles: [],
+      detail: 'no v0.2 explicit or high-risk Impact Rule is registered for this path',
     });
   }
 
   const exitCode = results.some(item => item.status === 'FAIL') ? 1 : 0;
   return {
-    changedPaths: [...new Set(changedPaths)].sort(),
+    changedPaths: [...new Set(changedPaths || [])].sort(),
     coveredPaths: derived.coveredPaths,
     uncoveredPaths: derived.uncoveredPaths,
     requiredImpacts: derived.requirements,
@@ -253,15 +316,15 @@ function usage() {
     'Usage:',
     '  node tools/change-impact-check.cjs --plan <plan.json|-> [--root <repo>] [--head <ref>] [--json]',
     '',
-    'Derives required impact acknowledgements from changed paths.',
-    'Each registered impact must be present in impactChecks or impactExclusions with a reason.',
-    'Paths without a v0.1 rule are reported as INFO and do not fail the check.',
+    'Derives required impact acknowledgements from explicit rules and high-risk path fallback.',
+    'Core impacts cannot be excluded.',
+    'Paths with neither explicit nor high-risk rules remain INFO.',
   ].join('\n');
 }
 
 function formatHuman(report) {
   const lines = [];
-  lines.push('YUMANIWA IMPACT CHECK v0.1');
+  lines.push('YUMANIWA IMPACT CHECK v0.2');
   lines.push('Change: ' + report.change);
   lines.push('Base:   ' + report.baseSha);
   lines.push('Target: ' + report.target + ' (' + report.headSha + ')');
@@ -295,7 +358,7 @@ function runCli(argv = process.argv.slice(2)) {
     const diff = collectChangedPaths(options.root, plan.baseSha, options.head);
     const evaluated = evaluateImpact(plan, diff.paths);
     const report = {
-      schema: 'yumaniwa-impact-check-report/0.1',
+      schema: 'yumaniwa-impact-check-report/0.2',
       change: plan.change,
       planLevel: plan.planLevel,
       classes: plan.classes,

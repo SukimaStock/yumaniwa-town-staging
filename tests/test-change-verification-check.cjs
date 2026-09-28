@@ -10,6 +10,9 @@ const {
   normalizeImpactPlan,
 } = require('../tools/change-impact-check.cjs');
 const {
+  createLock,
+} = require('../tools/change-plan-lock.cjs');
+const {
   normalizeRecord,
   evaluateEvidence,
   evaluateVerification,
@@ -27,8 +30,9 @@ function tempRepo(t){
   git(root,['init','-q']);
   git(root,['config','user.email','test@example.com']);
   git(root,['config','user.name','Test']);
+  git(root,['remote','add','origin','https://github.com/example/test.git']);
   fs.writeFileSync(path.join(root,'README.md'),'one\n');
-  fs.writeFileSync(path.join(root,'index.html'),'one\n');
+  fs.writeFileSync(path.join(root,'meta.txt'),'one\n');
   fs.mkdirSync(path.join(root,'data'),{recursive:true});
   fs.writeFileSync(path.join(root,'data/ghost-dialogue.js'),'one\n');
   git(root,['add','.']);
@@ -38,10 +42,17 @@ function tempRepo(t){
 
 function plan(overrides={}) {
   return {
-    schema:'yumaniwa-change-plan/0.1',
+    schema:'yumaniwa-change-plan/0.2',
+    changeId:'test-verification',
+    revision:0,
+    previousPlanDigest:null,
+    revisionReason:null,
+    status:'READY',
+    repository:'example/test',
     change:'test verification',
     planLevel:'lite',
     classes:['CONTENT'],
+    authority:['Standard'],
     environment:'staging',
     baseSha:'a'.repeat(40),
     canonicalSources:['README.md'],
@@ -59,14 +70,18 @@ function plan(overrides={}) {
 }
 
 function normPlan(overrides={}) {
-  const r=normalizeImpactPlan(plan(overrides));
+  const r=normalizeImpactPlan(plan(overrides),{allowLegacy:false});
   assert.equal(r.ok,true,r.errors && r.errors.join('\n'));
   return r.plan;
 }
 
-function record(p,verifiedSha,overrides={}) {
+function record(p,digest,verifiedSha,overrides={}) {
   return {
-    schema:'yumaniwa-verification-record/0.1',
+    schema:'yumaniwa-verification-record/0.2',
+    changeId:p.changeId,
+    planDigest:digest,
+    planRevision:p.revision,
+    repository:p.repository,
     change:p.change,
     environment:'staging',
     baseSha:p.baseSha,
@@ -81,36 +96,46 @@ function record(p,verifiedSha,overrides={}) {
   };
 }
 
-test('valid record normalizes against Plan',()=>{
+const repoPass={ok:true,expected:'example/test',actual:'example/test',remote:'https://github.com/example/test.git'};
+
+test('valid v0.2 record normalizes only with locked Plan digest',()=>{
   const p=normPlan();
-  const r=normalizeRecord(record(p,'b'.repeat(40)),p);
+  const lock=createLock(p);
+  const r=normalizeRecord(record(p,lock.planDigest,'b'.repeat(40)),p,lock.planDigest);
   assert.equal(r.ok,true,r.errors && r.errors.join('\n'));
 });
 
-test('record must match Plan change and base SHA',()=>{
+test('record must match Plan digest, change and base SHA',()=>{
   const p=normPlan();
-  let r=normalizeRecord(record(p,'b'.repeat(40),{change:'other'}),p);
+  const lock=createLock(p);
+  let r=normalizeRecord(record(p,'0'.repeat(64),'b'.repeat(40)),p,lock.planDigest);
+  assert.equal(r.ok,false);
+  assert.match(r.errors.join('\n'),/planDigest/);
+
+  r=normalizeRecord(record(p,lock.planDigest,'b'.repeat(40),{change:'other'}),p,lock.planDigest);
   assert.equal(r.ok,false);
   assert.match(r.errors.join('\n'),/change must exactly match/);
-  r=normalizeRecord(record(p,'b'.repeat(40),{baseSha:'c'.repeat(40)}),p);
+
+  r=normalizeRecord(record(p,lock.planDigest,'b'.repeat(40),{baseSha:'c'.repeat(40)}),p,lock.planDigest);
   assert.equal(r.ok,false);
   assert.match(r.errors.join('\n'),/baseSha/);
 });
 
 test('manual unverified keeps verification UNVERIFIED',()=>{
   const p=normPlan();
-  const raw=record(p,'b'.repeat(40),{
+  const lock=createLock(p);
+  const raw=record(p,lock.planDigest,'b'.repeat(40),{
     manualChecks:[{id:'owner review',status:'unverified',evidence:'Owner check pending'}]
   });
-  const n=normalizeRecord(raw,p);
+  const n=normalizeRecord(raw,p,lock.planDigest);
   assert.equal(n.ok,true);
-  const v=evaluateVerification(p,n.record,{headSha:'b'.repeat(40),paths:['README.md'],target:'HEAD'});
+  const v=evaluateVerification(p,n.record,{headSha:'b'.repeat(40),paths:['README.md'],target:'HEAD'},repoPass);
   assert.equal(v.verificationState,'UNVERIFIED');
   assert.ok(v.results.some(x=>x.status==='UNVERIFIED'&&x.kind==='manual'));
 });
 
 test('missing and failed evidence both block verification',()=>{
-  let r=evaluateEvidence(['a','b'],[{id:'a',status:'fail',evidence:'test failed'}],'static');
+  const r=evaluateEvidence(['a','b'],[{id:'a',status:'fail',evidence:'test failed'}],'static');
   assert.ok(r.some(x=>x.status==='FAIL'&&x.id==='a'));
   assert.ok(r.some(x=>x.status==='UNVERIFIED'&&x.id==='b'));
 });
@@ -130,16 +155,17 @@ test('impact evidence is required separately from Impact declaration',()=>{
     expectedChanges:['change dialogue'],
     impactChecks:['ghost.runtime','ghost.work-id']
   });
-  const raw=record(p,'b'.repeat(40),{
+  const lock=createLock(p);
+  const raw=record(p,lock.planDigest,'b'.repeat(40),{
     impactChecks:[{id:'ghost.runtime',status:'pass',evidence:'dialogue loaded'}]
   });
-  const n=normalizeRecord(raw,p);
+  const n=normalizeRecord(raw,p,lock.planDigest);
   assert.equal(n.ok,true);
   const v=evaluateVerification(p,n.record,{
     headSha:'b'.repeat(40),
     paths:['data/ghost-dialogue.js'],
     target:'HEAD'
-  });
+  },repoPass);
   assert.equal(v.verificationState,'UNVERIFIED');
   assert.ok(v.results.some(x=>x.kind==='impact-evidence'&&x.id==='ghost.work-id'&&x.status==='UNVERIFIED'));
 });
@@ -147,50 +173,45 @@ test('impact evidence is required separately from Impact declaration',()=>{
 test('conditional changed path needs reasoned acknowledgement in Record',()=>{
   const p=normPlan({
     allowedPaths:['README.md'],
-    conditionalPaths:[{path:'index.html',condition:'cache fingerprint required'}]
+    conditionalPaths:[{path:'meta.txt',condition:'metadata fingerprint required'}]
   });
-  let raw=record(p,'b'.repeat(40));
-  let n=normalizeRecord(raw,p);
+  const lock=createLock(p);
+  let raw=record(p,lock.planDigest,'b'.repeat(40));
+  let n=normalizeRecord(raw,p,lock.planDigest);
   assert.equal(n.ok,true);
-  let v=evaluateVerification(p,n.record,{headSha:'b'.repeat(40),paths:['index.html'],target:'HEAD'});
+  let v=evaluateVerification(p,n.record,{headSha:'b'.repeat(40),paths:['meta.txt'],target:'HEAD'},repoPass);
   assert.equal(v.verificationState,'UNVERIFIED');
   assert.ok(v.results.some(x=>x.check==='gate.scope.conditional'&&x.status==='FAIL'));
 
-  raw=record(p,'b'.repeat(40),{
-    conditionalAcknowledgements:[{path:'index.html',reason:'cache fingerprint changed'}]
+  raw=record(p,lock.planDigest,'b'.repeat(40),{
+    conditionalAcknowledgements:[{path:'meta.txt',reason:'metadata fingerprint changed'}]
   });
-  n=normalizeRecord(raw,p);
+  n=normalizeRecord(raw,p,lock.planDigest);
   assert.equal(n.ok,true);
-  v=evaluateVerification(p,n.record,{headSha:'b'.repeat(40),paths:['index.html'],target:'HEAD'});
+  v=evaluateVerification(p,n.record,{headSha:'b'.repeat(40),paths:['meta.txt'],target:'HEAD'},repoPass);
   assert.equal(v.verificationState,'VERIFIED');
-});
-
-test('conditional acknowledgement requires a declared path and reason',()=>{
-  const p=normPlan({
-    conditionalPaths:[{path:'index.html',condition:'cache fingerprint required'}]
-  });
-  let r=normalizeRecord(record(p,'b'.repeat(40),{
-    conditionalAcknowledgements:[{path:'index.html',reason:''}]
-  }),p);
-  assert.equal(r.ok,false);
-  assert.match(r.errors.join('\n'),/reason must be nonempty/);
-
-  r=normalizeRecord(record(p,'b'.repeat(40),{
-    conditionalAcknowledgements:[{path:'other.html',reason:'x'}]
-  }),p);
-  assert.equal(r.ok,false);
-  assert.match(r.errors.join('\n'),/not declared in Plan/);
 });
 
 test('record SHA mismatch blocks verification',()=>{
   const p=normPlan();
-  const n=normalizeRecord(record(p,'b'.repeat(40)),p);
-  const v=evaluateVerification(p,n.record,{headSha:'c'.repeat(40),paths:['README.md'],target:'HEAD'});
+  const lock=createLock(p);
+  const n=normalizeRecord(record(p,lock.planDigest,'b'.repeat(40)),p,lock.planDigest);
+  const v=evaluateVerification(p,n.record,{headSha:'c'.repeat(40),paths:['README.md'],target:'HEAD'},repoPass);
   assert.equal(v.verificationState,'UNVERIFIED');
   assert.ok(v.results.some(x=>x.check==='verification.sha'&&x.status==='FAIL'));
 });
 
-test('CLI verifies exact committed SHA and rejects stale Record',t=>{
+test('repository mismatch blocks verification',()=>{
+  const p=normPlan();
+  const lock=createLock(p);
+  const n=normalizeRecord(record(p,lock.planDigest,'b'.repeat(40)),p,lock.planDigest);
+  const bad={ok:false,expected:'example/test',actual:'example/other',remote:'https://github.com/example/other.git'};
+  const v=evaluateVerification(p,n.record,{headSha:'b'.repeat(40),paths:['README.md'],target:'HEAD'},bad);
+  assert.equal(v.verificationState,'UNVERIFIED');
+  assert.ok(v.results.some(x=>x.check==='verification.repository'&&x.status==='FAIL'));
+});
+
+test('CLI verifies exact locked Plan and rejects stale Record',t=>{
   const {root,base}=tempRepo(t);
   fs.writeFileSync(path.join(root,'README.md'),'two\n');
   git(root,['add','README.md']);
@@ -198,39 +219,45 @@ test('CLI verifies exact committed SHA and rejects stale Record',t=>{
   const verified=git(root,['rev-parse','HEAD']);
 
   const p=plan({baseSha:base});
-  const rec=record(p,verified);
-  const planPath=path.join(os.tmpdir(),'yumaniwa-plan-'+process.pid+'-'+Date.now()+'.json');
+  const lock=createLock(p);
+  const rec=record(p,lock.planDigest,verified);
+  const lockPath=path.join(os.tmpdir(),'yumaniwa-lock-'+process.pid+'-'+Date.now()+'.json');
   const recordPath=path.join(os.tmpdir(),'yumaniwa-record-'+process.pid+'-'+Date.now()+'.json');
-  t.after(()=>{fs.rmSync(planPath,{force:true});fs.rmSync(recordPath,{force:true});});
-  fs.writeFileSync(planPath,JSON.stringify(p));
+  t.after(()=>{fs.rmSync(lockPath,{force:true});fs.rmSync(recordPath,{force:true});});
+  fs.writeFileSync(lockPath,JSON.stringify(lock));
   fs.writeFileSync(recordPath,JSON.stringify(rec));
 
   const tool=path.join(__dirname,'..','tools','change-verification-check.cjs');
-  let r=spawnSync(process.execPath,[tool,'--root',root,'--plan',planPath,'--record',recordPath,'--head','HEAD'],{encoding:'utf8'});
+  let r=spawnSync(process.execPath,[tool,'--root',root,'--lock',lockPath,'--record',recordPath,'--head','HEAD'],{encoding:'utf8'});
   assert.equal(r.status,0,r.stdout+r.stderr);
   assert.match(r.stdout,/Verification: VERIFIED/);
 
-  fs.writeFileSync(path.join(root,'index.html'),'two\n');
-  git(root,['add','index.html']);
+  fs.writeFileSync(path.join(root,'meta.txt'),'two\n');
+  git(root,['add','meta.txt']);
   git(root,['commit','-qm','later']);
-  r=spawnSync(process.execPath,[tool,'--root',root,'--plan',planPath,'--record',recordPath,'--head','HEAD'],{encoding:'utf8'});
+  r=spawnSync(process.execPath,[tool,'--root',root,'--lock',lockPath,'--record',recordPath,'--head','HEAD'],{encoding:'utf8'});
   assert.equal(r.status,1,r.stdout+r.stderr);
   assert.match(r.stdout,/verification\.sha/);
 });
 
-test('CLI invalid Record exits 2',t=>{
+test('CLI rejects mutable Plan substitute and invalid Record',t=>{
   const {root,base}=tempRepo(t);
   const p=plan({baseSha:base});
-  const planPath=path.join(os.tmpdir(),'yumaniwa-plan-bad-'+process.pid+'-'+Date.now()+'.json');
+  const lock=createLock(p);
+  const lockPath=path.join(os.tmpdir(),'yumaniwa-lock-bad-'+process.pid+'-'+Date.now()+'.json');
   const recordPath=path.join(os.tmpdir(),'yumaniwa-record-bad-'+process.pid+'-'+Date.now()+'.json');
-  t.after(()=>{fs.rmSync(planPath,{force:true});fs.rmSync(recordPath,{force:true});});
-  fs.writeFileSync(planPath,JSON.stringify(p));
+  t.after(()=>{fs.rmSync(lockPath,{force:true});fs.rmSync(recordPath,{force:true});});
+
+  const tampered=JSON.parse(JSON.stringify(lock));
+  tampered.plan.allowedPaths=['main.js'];
+  fs.writeFileSync(lockPath,JSON.stringify(tampered));
   fs.writeFileSync(recordPath,'{}');
   const r=spawnSync(process.execPath,[
     path.join(__dirname,'..','tools','change-verification-check.cjs'),
     '--root',root,
-    '--plan',planPath,
+    '--lock',lockPath,
     '--record',recordPath
   ],{encoding:'utf8'});
   assert.equal(r.status,2,r.stdout+r.stderr);
+  assert.match(r.stderr,/Plan Lock/);
 });

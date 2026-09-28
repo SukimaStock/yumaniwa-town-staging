@@ -1,4 +1,4 @@
-# Yumaniwa Town Change Operations v0.1
+# Yumaniwa Town Change Operations v0.2
 
 制定: 2026-09-28
 
@@ -44,9 +44,13 @@ CHANGE PLAN
     ├─ Standard
     └─ Full
     ↓
+PLAN LOCK（high-risk / PR / promotion）
+    ↓
 BUILD IN STAGING
     ↓
 SCOPE GUARD
+    ↓
+RISK GATE
     ↓
 IMPACT CHECK
     ↓
@@ -70,19 +74,23 @@ POST-DEPLOY VERIFICATION
 | --- | --- | --- |
 | 0. Classify | 変更種別、影響範囲、正本、必要権限を決める | Class / Authority / 対象sourceが明確 |
 | 1. Decide | Owner/HQ判断が必要な部分だけ先に確定 | 未決判断をコードで埋めていない |
-| 1.5 Plan | `CHANGE-PLAN.md` に従いscope・正本・検査を実装前に固定 | PlanがREADYでallowed / forbidden / verificationが明確 |
+| 1.5 Plan | `CHANGE-PLAN.md` に従いscope・正本・検査を実装前に固定 | PlanがREADYでrepository / base / authority / checksが明確 |
+| 1.7 Lock | high-risk / PR / promotionではPlanをdigest固定 | 実装より前のPlan Lockが存在し、base / digestを後付け変更していない |
 | 2. Build | stagingの正本へ最小変更を入れる | 二重管理・runtime patchを増やしていない |
-| 2.5 Guard | Scope GuardとImpact Checkで、余計な変更と確認漏れを照合 | Plan外path・forbidden・未処理Impactがない |
+| 2.5 Guard | Scope / Risk / Impactで、余計な変更・過少分類・確認漏れを照合 | Plan外path・risk floor違反・未処理Impactがない |
 | 3. Validate | 契約・syntax・既存test・validatorで静的確認 | FAIL/HQ_REQUIREDを残さない、未確認はUNVERIFIED |
 | 4. Verify | stagingで実際の見た目・操作・往復を確認 | 変更クラスに必要な手動確認が完了 |
-| 4.5 Record | `CHANGE-VERIFICATION.md` に従いexact SHAへ確認結果を固定 | Scope / Impact再評価＋Planのstatic / impact / manual evidenceが揃う |
+| 4.5 Record | `CHANGE-VERIFICATION.md` に従いexact SHAへ確認結果を固定 | locked Plan / repository / Scope / Risk / Impact再評価＋必要evidenceが揃う |
 | 5. Promote | productionへ必要差分だけ昇格 | branch → PR → Safety Checks → merge |
 | 6. Verify Production | 本番配信と実URL/実操作を確認 | 対象SHAのPages成功＋本番確認 |
 
-stagingだけを目的とする変更は Phase 4 で閉じてよい。
+stagingだけを目的とする変更でも、VERIFIEDと呼ぶ場合は Phase 4.5 まで行う。
+単なる作業途中・試作ならVERIFIEDと呼ばずPhase 4以前で止めてよい。
 production反映を依頼された場合だけ Phase 5–6へ進む。
 
 repositoryを変更する作業では、Class / Authority確定後、実装前に [CHANGE-PLAN.md](CHANGE-PLAN.md) のLite / Standard / Fullいずれかで実行範囲を固定する。実装中にPlan外の変更が必要になった場合は先に止めてPlanを再評価し、実装後に都合よくscopeを広げない。
+
+high-risk path、Change OS自身、staging PR、production昇格の根拠にする変更では、実装前にPlan Lockを作る。`tools/change-risk-policy.cjs` が示す下限より軽いClass / Plan / Authorityへ自己申告で落とさない。locked baseShaを変更後HEADへ差し替えてdiffを消すことを禁止する。
 
 stagingをVERIFIEDと呼ぶ前に [CHANGE-VERIFICATION.md](CHANGE-VERIFICATION.md) のRecordで、確認対象SHAとPlan上のcheck結果を固定する。CI成功だけでOwner実機確認を代用しない。
 
@@ -464,7 +472,35 @@ Validatorは「必要な作品会話が存在する」ことは確認してよ�
 
 ---
 
-## 6. Validation by Class
+## 6. High-Risk Gate
+
+path-level classificationの下限は `tools/change-risk-policy.cjs` を正本とする。
+
+代表例:
+
+- Change OS / workflow / shared runtime / root HTML-CSS / Service Worker / manifest
+  → SYSTEM / Full / HQ Review
+- work固有runtime
+  → WORK / Standard以上
+- canonical asset
+  → ASSET / Standard以上
+- 新規・未登録の実行可能path
+  → high-risk review
+
+high-risk profileが要求するcore ImpactはN/Aへ除外できない。
+profileのImpactを全部除外して確認なしで閉じることもできない。
+
+日常CONTENT / PLACEMENTを一律Fullへ上げない。
+危険なpathを軽い依頼文で触ろうとした場合だけ、実path側のrisk floorを優先する。
+
+staging PRでは `.github/workflows/change-pr-gate.yml` がPlan Lockの順序・固定性とScope / Risk / Impactを検査する。
+ただしworkflowが存在するだけではmerge強制にならない。
+repository側でrequired check / merge protectionが設定されていることを確認できるまでは、
+**hard enforcement済みとは呼ばない。**
+
+---
+
+## 7. Validation by Class
 
 ### CONTENT
 - syntax
@@ -512,7 +548,7 @@ CIやValidatorがPASSでも、手動確認が必要なClassではPhase 4を省�
 
 ---
 
-## 7. Promotion Rules
+## 8. Promotion Rules
 
 productionへ反映する場合はClassを問わず既存ルールを使う。
 
@@ -544,7 +580,7 @@ production manual verification
 
 ---
 
-## 8. Minimal Change Record
+## 9. Minimal Change Record
 
 大きな台帳は新設しない。
 PR本文、作業報告、監査記録など一箇所へ、必要な場合だけ次を記録する。
@@ -570,7 +606,7 @@ SYSTEM/WORLD/Retirementでは省略しない。
 
 ---
 
-## 9. Escalation Rules
+## 10. Escalation Rules
 
 次の場合、現在のClassが軽く見えてもHQへ上げる。
 
@@ -588,7 +624,7 @@ SYSTEM/WORLD/Retirementでは省略しない。
 
 ---
 
-## 10. Operating Principle
+## 11. Operating Principle
 
 湯間庭町のOSは、作者の判断を置き換えるためではない。
 

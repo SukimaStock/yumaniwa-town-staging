@@ -1,4 +1,4 @@
-# Yumaniwa Change Plan Contract v0.1
+# Yumaniwa Change Plan Contract v0.2
 
 制定: 2026-09-28
 
@@ -49,6 +49,8 @@ OWNER / HQ DECISION（必要な場合）
   ↓
 PLAN READY
   ↓
+PLAN LOCK（高リスク / PR / promotion）
+  ↓
 IMPLEMENT
   ↓
 COMPARE PLAN vs DIFF
@@ -76,12 +78,18 @@ Plan状態とRelease状態は別物である。
 ## 3. Common Fields
 
 ### Identity
+- `changeId`: 変更を識別するlowercase slug
+- `revision`: 0から始まるPlan revision
+- `previousPlanDigest`: revision > 0 の場合だけ直前lock digest
+- `revisionReason`: revision > 0 の理由
+- `status`: 実装開始時は必ず `READY`
+- `repository`: `owner/name`。staging/productionの取り違え防止に使う
 - `change`: 何を変えるか
 - `planLevel`: lite / standard / full
 - `classes`: CONTENT / PLACEMENT / ASSET / WORK / SYSTEM / WORLD
-- `authority`: Standard / Rule / Skill / HQ Review / Owner Decision
-- `environment`: 人間向けには staging only / staging then production。machine-readable値は `staging` / `staging-production`
-- `baseSha`: 実装開始時のstaging HEAD
+- `authority`: Standard / Rule / Skill / HQ Review / Owner Decision の配列
+- `environment`: `staging` / `staging-production`
+- `baseSha`: **実装開始前に固定したstaging HEAD。revisionで書き換えない**
 
 ### Scope
 - `canonicalSources`: 今回の正本
@@ -146,7 +154,51 @@ generated
 
 ---
 
-## 5. Lite Plan
+## 5. Plan Lock / Risk Floor
+
+v0.2では、**高リスク変更、staging PR、production昇格の根拠に使う変更**は、
+実装前Planを `tools/change-plan-lock.cjs` でdigest化して固定する。
+
+```sh
+node tools/change-plan-lock.cjs create \
+  --plan /tmp/yumaniwa-change-plan.json \
+  > /tmp/yumaniwa-change-plan.lock.json
+
+node tools/change-plan-lock.cjs verify \
+  --lock /tmp/yumaniwa-change-plan.lock.json
+```
+
+RecordはPlan本文ではなく `planDigest` / `changeId` / `revision` / `repository` を参照する。
+locked Planを後から書き換えるとdigest mismatchで失効する。
+
+高リスクpathの下限は `tools/change-risk-policy.cjs` の正本に従う。
+代表例:
+
+- Change OS / workflow / 共通runtime / root HTML-CSS / Service Worker / manifest
+  → SYSTEM / Full / HQ Review
+- work固有runtime
+  → WORK / Standard以上
+- canonical asset
+  → ASSET / Standard以上
+- 新規・未登録の実行可能JS/HTML/CSS
+  → INFOで閉じずhigh-risk review
+
+core Impactは `impactExclusions` へ逃がせない。
+また、1 profileが要求するImpactを全部N/AにしてVERIFIEDへ進めない。
+
+日常の軽いCONTENT / PLACEMENTを一律FullやPRにしない。
+ただし**PRを使う変更はPlan Lockを必須**とする。
+
+現行の `Change PR Gate v0.2` は `pull_request_target` でPR base側のworkflow定義とgate実装を使う。
+candidate branchのworkflowやgate toolを実行して自己認証しない。
+
+high-risk PRでscope変更が必要になった場合はlocked r0を上書きせず、
+いったん止めて現在のbaseからbranch/Planを作り直す。
+Plan Lock tool自体はr2以降のrevision chainも検証できるが、PR gate v0.2は意図的にfresh r0一つへ制限する。
+
+---
+
+## 6. Lite Plan
 
 対象: CONTENT、既存schema内の単純PLACEMENT、単一正本の小変更。
 
@@ -228,7 +280,7 @@ Promotion:
 
 ---
 
-## 6. Standard Plan
+## 7. Standard Plan
 
 対象: ASSET、通常WORK、WORK + ASSET + PLACEMENT、複数正本へまたがる既存契約内の変更。
 
@@ -314,7 +366,7 @@ Rollback:
 
 ---
 
-## 7. Full Plan
+## 8. Full Plan
 
 対象: SYSTEM、WORLD、Retirement、migration、source-of-truth変更、compatibility変更、cross-cutting contract変更。
 
@@ -388,7 +440,7 @@ Rollback:
 
 ---
 
-## 8. Plan Change Rule
+## 9. Plan Change Rule
 
 実装中にallowedPaths外の変更が必要になったら、**先にコードを変えてからPlanを直してはいけない。**
 
@@ -408,37 +460,32 @@ same contract?
 resume
 ```
 
-Plan revisionでは最低限:
-
-```text
-Reason:
-Added scope:
-Removed scope:
-Authority impact:
-Validation impact:
-```
+Plan revisionでは最低限、`revision`、`previousPlanDigest`、`revisionReason` を持つ。
+**`baseSha`、`changeId`、`repository` はrevisionで変更しない。**
 
 Owner/HQ判断の意味が変わるscope拡張は再承認なしに進めない。
+High-risk PRではv0.2 gateがr0一つを要求するため、scopeを広げる必要が出たら
+そのPRで後付けPlanへ合わせず、新しいbaseからPlanを作り直す。
 
 ---
 
-## 9. Base SHA Rule
+## 10. Base SHA Rule
 
-`baseSha` は実装前のstaging HEAD。
+`baseSha` は実装前のstaging HEADであり、**同じchangeIdのまま後から更新しない。**
 
 Plan後にmainが進んだら:
 
-1. 新HEAD取得
-2. Plan対象sourceへの並行変更確認
-3. 影響なしならbaseSha更新＋理由記録
-4. 影響ありならbefore / contractを再確認
-5. 古いbase前提で上書きしない
+1. 新HEADと対象source差分を確認する
+2. 同一path変更があれば実装を止める
+3. 高リスク変更は新しいbaseからbranch / Planを作り直す
+4. Lite作業でも古いsource全文で上書きしない
+5. 「変更後HEADを新baseにしたからdiffなし」という洗い替えを禁止する
 
-Phase 2のScope GuardはこのbaseShaと実diffを比較する。
+Scope Guardは固定baseShaから実diffを比較する。
 
 ---
 
-## 10. Diff Contract
+## 11. Diff Contract
 
 実装後はPlanと実diffを比較する。
 
@@ -454,7 +501,7 @@ Phase 2のScope GuardはこのbaseShaと実diffを比較する。
 
 ---
 
-## 11. Impact Contract
+## 12. Impact Contract
 
 Planには変更fileだけでなく確認すべき影響先を持つ。
 
@@ -491,7 +538,7 @@ data/town-maps.js
 
 ---
 
-## 12. Manual Verification Contract
+## 13. Manual Verification Contract
 
 手動確認は事前に観点を決め、実施時に確認SHAを記録する。
 `staticChecks` / `impactChecks` / `manualChecks` の文字列は、後段の `CHANGE-VERIFICATION.md` でVerification Recordのcheck IDとして使うため、同じ意味のcheckを実装後に別名へ書き換えない。
@@ -511,17 +558,24 @@ Manual checks:
 
 ---
 
-## 13. Machine-Readable Shape
+## 14. Machine-Readable Shape
 
 `tools/change-scope-guard.cjs` は次の意味構造を入力とする。
 JSONファイルの常設は必須にしない。stdinまたはrepository外の一時JSONを使ってよい。
 
 ```json
 {
-  "schema": "yumaniwa-change-plan/0.1",
+  "schema": "yumaniwa-change-plan/0.2",
+  "changeId": "curry-shop-move-20260928",
+  "revision": 0,
+  "previousPlanDigest": null,
+  "revisionReason": null,
+  "status": "READY",
+  "repository": "SukimaStock/yumaniwa-town-staging",
   "change": "curry shopを右へ2 world px移動",
   "planLevel": "lite",
   "classes": ["PLACEMENT"],
+  "authority": ["Owner Decision", "Standard"],
   "environment": "staging",
   "baseSha": "<sha>",
   "canonicalSources": ["data/town-maps.js"],
@@ -555,12 +609,12 @@ JSONファイルの常設は必須にしない。stdinまたはrepository外の�
 }
 ```
 
-`tools/change-scope-guard.cjs` はこのshapeを最小入力として使う。
+`tools/change-scope-guard.cjs` はこのshapeを最小入力として使う。trusted high-risk gateではv0.2のみを認定し、v0.1はhistorical/legacy入力として扱う。
 巨大なchange databaseは作らない。
 
 ---
 
-## 14. Scope Guard v0.1
+## 15. Scope Guard v0.2
 
 Scope Guardは、Change Planのpath契約と実際のGit diffを比較する読み取り専用ツールである。
 意味上の正しさ、`expectedChanges` の達成、manual checkの完了までは自動認定しない。
@@ -617,7 +671,7 @@ Validator、test、manual verification、Owner/HQ判断の代わりにはなら�
 
 ---
 
-## 15. Impact Check v0.1
+## 16. Impact Check v0.2
 
 `tools/change-impact-rules.cjs` は、代表的な正本pathから「確認を忘れてはいけない影響」を導くRule台帳である。
 `tools/change-impact-check.cjs` は、Scope Guardと同じbaseSha→diffを読み、変更pathに対応するImpact IDがPlanで扱われているか確認する。
@@ -674,9 +728,9 @@ node tools/change-impact-check.cjs \
 - `impactChecks` にある → `PASS impact.declared`
 - `impactExclusions` に理由付きである → `N/A impact.excluded`
 - どちらにもない → `FAIL impact.missing`
-- v0.1 Rule未登録path → `INFO impact.no-rule`
+- v0.2でexplicit Rule未登録かつhigh-risk fallbackにも該当しないpath → `INFO impact.no-rule`
 
-Rule未登録pathを自動FAILにはしない。Impact Rulesは高信頼な正本から段階的に増やす。
+README等の低リスク未登録pathはINFOを維持する。一方、runtime / HTML / CSS / SW / manifest / workflow / asset / Change OSはhigh-risk fallbackで確認を要求する。
 一方、登録済みRuleに対しては「今回は関係ない」と無言で落とせない。
 
 exit code:
@@ -700,7 +754,7 @@ Impact Check
 
 ---
 
-## 16. Anti-Patterns
+## 17. Anti-Patterns
 
 禁止:
 
@@ -713,11 +767,14 @@ Impact Check
 - unrelated cleanupを混ぜる
 - production反映をstaging依頼から推測する
 - Scope Guardを通すためPlanを無言で広げる
+- 実装後HEADへbaseShaを書き換えてdiffを消す
+- shared runtimeをCONTENT/Liteと自己申告してrisk floorを回避する
+- core ImpactをN/Aへ逃がす
 - manual verificationをCI PASSで代用する
 
 ---
 
-## 17. Operating Principle
+## 18. Operating Principle
 
 ```text
 CHANGE OPERATIONS

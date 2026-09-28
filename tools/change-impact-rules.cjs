@@ -1,6 +1,8 @@
 'use strict';
 
-const IMPACT_RULES_SCHEMA = 'yumaniwa-impact-rules/0.1';
+const { riskImpactDefinitions } = require('./change-risk-policy.cjs');
+
+const IMPACT_RULES_SCHEMA = 'yumaniwa-impact-rules/0.2';
 
 const IMPACT_RULES = [
   {
@@ -110,10 +112,25 @@ function allImpactDefinitions() {
   for (const rule of IMPACT_RULES) {
     for (const impact of rule.impacts) {
       if (!map.has(impact.id)) {
-        map.set(impact.id, { ...impact, rules: [rule.id] });
+        map.set(impact.id, { ...impact, rules: [rule.id], profiles: [], core: false });
       } else {
         map.get(impact.id).rules.push(rule.id);
       }
+    }
+  }
+  for (const impact of riskImpactDefinitions()) {
+    if (!map.has(impact.id)) {
+      map.set(impact.id, {
+        id: impact.id,
+        description: impact.description,
+        rules: [],
+        profiles: [...impact.profiles],
+        core: Boolean(impact.core),
+      });
+    } else {
+      const current = map.get(impact.id);
+      current.profiles = [...new Set([...(current.profiles || []), ...impact.profiles])];
+      current.core = Boolean(current.core || impact.core);
     }
   }
   return [...map.values()];

@@ -144,3 +144,92 @@ test('CLI invalid plan exits 2',t=>{
   const r=spawnSync(process.execPath,[path.join(__dirname,'..','tools','change-scope-guard.cjs'),'--root',root,'--plan',p],{encoding:'utf8'});
   assert.equal(r.status,2,r.stdout+r.stderr);
 });
+
+test('v0.2 Full Plan requires READY identity, HQ decision and design fields',()=>{
+  const base={
+    schema:'yumaniwa-change-plan/0.2',
+    changeId:'full-contract-test',
+    revision:0,
+    previousPlanDigest:null,
+    revisionReason:null,
+    status:'READY',
+    repository:'example/test',
+    change:'full contract',
+    planLevel:'full',
+    classes:['SYSTEM'],
+    authority:['HQ Review'],
+    environment:'staging',
+    baseSha:'a'.repeat(40),
+    canonicalSources:['main.js'],
+    allowedPaths:['main.js'],
+    conditionalPaths:[],
+    forbiddenPaths:[],
+    expectedChanges:['bounded shared change'],
+    staticChecks:['node-syntax'],
+    manualChecks:[],
+    manualCheckExemptionReason:'no UI in fixture',
+    impactChecks:['runtime.shared'],
+    impactExclusions:[],
+    hqDecisions:['preserve shared source of truth'],
+    alternativesRejected:['runtime patch'],
+    boundaryCases:['existing scene'],
+    testPlan:['regression'],
+    problem:'shared runtime needs a change',
+    currentContract:'main.js is shared',
+    whyExistingIsInsufficient:'fixture reason',
+    design:'bounded change',
+    migration:'none',
+    compatibility:'preserve behavior',
+    rollback:'revert',
+    promotionRisk:'staging only',
+    promotion:'none'
+  };
+  let result=guard.validatePlan(base,{allowLegacy:false});
+  assert.equal(result.ok,true,result.errors&&result.errors.join('\n'));
+
+  result=guard.validatePlan({...base,hqDecisions:[]},{allowLegacy:false});
+  assert.equal(result.ok,false);
+  assert.match(result.errors.join('\n'),/hqDecisions/);
+
+  result=guard.validatePlan({...base,design:''},{allowLegacy:false});
+  assert.equal(result.ok,false);
+  assert.match(result.errors.join('\n'),/design/);
+
+  result=guard.validatePlan({...base,staticChecks:[]},{allowLegacy:false});
+  assert.equal(result.ok,false);
+  assert.match(result.errors.join('\n'),/staticChecks/);
+});
+
+test('v0.2 Plan requires READY state and repository identity field',()=>{
+  const p={
+    schema:'yumaniwa-change-plan/0.2',
+    changeId:'ready-test',
+    revision:0,
+    previousPlanDigest:null,
+    revisionReason:null,
+    status:'DRAFT',
+    repository:'example/test',
+    change:'ready test',
+    planLevel:'lite',
+    classes:['CONTENT'],
+    authority:['Standard'],
+    environment:'staging',
+    baseSha:'a'.repeat(40),
+    canonicalSources:['README.md'],
+    allowedPaths:['README.md'],
+    conditionalPaths:[],
+    forbiddenPaths:[],
+    expectedChanges:['wording'],
+    staticChecks:['syntax'],
+    manualChecks:['review'],
+    promotion:'none'
+  };
+  let result=guard.validatePlan(p,{allowLegacy:false});
+  assert.equal(result.ok,false);
+  assert.match(result.errors.join('\n'),/status must equal READY/);
+
+  result=guard.validatePlan({...p,status:'READY',repository:''},{allowLegacy:false});
+  assert.equal(result.ok,false);
+  assert.match(result.errors.join('\n'),/repository/);
+});
+

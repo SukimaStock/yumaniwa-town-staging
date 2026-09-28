@@ -9,7 +9,7 @@
 - 緊急で本番を直接修正した場合も、同じ修正を必ず staging へ戻す
 
 変更依頼を受けたら、実装前に `CHANGE-OPERATIONS.md` で CONTENT / PLACEMENT / ASSET / WORK / SYSTEM / WORLD に分類し、必要なAuthorityと検査を決める。
-repositoryを変更する場合は続けて `CHANGE-PLAN.md` の Lite / Standard / Full Planで、base SHA・正本・allowed/conditional/forbidden path・検査・手動確認を固定してから実装する。
+repositoryを変更する場合は続けて `CHANGE-PLAN.md` の Lite / Standard / Full Planで、repository・base SHA・正本・allowed/conditional/forbidden path・検査・手動確認を実装前に固定する。high-risk / PR / promotionではPlan Lockを先に作る。
 詳細な昇格ルールは `RELEASE-WORKFLOW.md` も参照する。
 
 画像アセット・WORLD OBJECTのピクセル基準は `YUMANIWA-PIXEL-STANDARD.md` を正本とする。
@@ -94,25 +94,65 @@ ChatGPT が GitHub 上の staging を修正した後に YumaniwaDesk を使う�
 5. 「同期確認済み」
 6. 次の編集を開始
 
-## Change Scope Guard
+## Change Plan Lock / Risk Gate
 
-Change Planをmachine-readable JSONへした作業では、実装後に `tools/change-scope-guard.cjs` でbase SHAからのdiffを照合する。
+日常の軽いCONTENT / PLACEMENTを一律PR化しない。
+
+ただし次はhigh-risk routeを使う。
+
+- Change OS / workflow
+- shared runtime
+- root HTML/CSS
+- Service Worker / manifest
+- 未登録の実行可能path
+- production昇格の根拠にする変更
+- staging PRとして扱う変更
+
+high-riskでは実装前Planをv0.2でREADYにし、Plan Lockへ固定する。
 
 ```sh
-# 未Commitを含む現在worktree
-node tools/change-scope-guard.cjs \
-  --plan /tmp/yumaniwa-change-plan.json
+node tools/change-plan-lock.cjs create \
+  --plan /tmp/yumaniwa-change-plan.json \
+  > /tmp/yumaniwa-change-plan.lock.json
 
-# Commit済みの変更
+node tools/change-plan-lock.cjs verify \
+  --lock /tmp/yumaniwa-change-plan.lock.json
+```
+
+Planには `repository: "SukimaStock/yumaniwa-town-staging"` と実装前 `baseSha` を持たせる。
+同じchangeIdのまま、実装後HEADへbaseShaを書き換えない。
+
+high-risk pathの最小Class / Plan / Authority / Impactは `tools/change-risk-policy.cjs` を正本とする。
+
+```sh
+node tools/change-risk-check.cjs \
+  --plan /tmp/yumaniwa-change-plan.json \
+  --root . \
+  --head HEAD
+```
+
+Risk Gateは依頼文ではなく実際の変更pathから下限を導く。
+たとえば `main.js` を「CONTENT / Lite」と書いてもSYSTEM / Full / HQ Reviewが必要になる。
+
+core ImpactはN/Aにできない。
+profileが要求するImpactを全件除外して閉じることもできない。
+
+## Change Scope Guard
+
+Scope Guardは固定baseShaから、実際に変更したpathがPlan内かを確認する。
+
+```sh
 node tools/change-scope-guard.cjs \
   --plan /tmp/yumaniwa-change-plan.json \
   --head HEAD
 ```
 
-Plan JSONはrepository外へ置くか `--plan -` でstdinから渡す。repository内の一時Planは、それ自体が変更pathとして検出される。
+判定は forbidden → conditional → allowed の順。
+Plan外pathはFAIL。
 
-判定は forbidden → conditional → allowed の順。Plan外pathはFAIL。
-conditional pathを実際に変更した場合は、条件成立を確認したうえでPlanに宣言したpatternを明示する。
+worktree検査もできるが、staging VERIFIED / PR gateの根拠はcommit SHAを使う。
+
+conditional pathは条件成立を確認した場合だけacknowledgeする。
 
 ```sh
 node tools/change-scope-guard.cjs \
@@ -120,61 +160,82 @@ node tools/change-scope-guard.cjs \
   --conditional-ok index.html
 ```
 
-`--conditional-ok` は条件を自動証明しない。条件成立を明示確認した記録である。
-Scope Guardのexit 0はpath scopeだけのPASSで、test・Validator・manual verificationの代わりではない。
-
-GitHub上の変更をChatGPTが行い、同じ実行環境でScope Guardを直接起動できない場合も、
-Change Planのbase SHAから実際のchanged pathsを比較し、forbidden / conditional / allowedの同じ規則で照合する。
-Scope照合が未実施なら変更完了扱いにしない。
+conditional acknowledgementは意味上の正しさを自動証明しない。
+cache-only変更のsemantic validationは別gateの責務。
 
 ## Change Impact Check
 
-Scope Guardの後、`tools/change-impact-check.cjs` で、変更pathから導かれる確認項目がChange Planに入っているか確認する。
+Scope / Riskの後、変更pathから必要なImpactがPlanへ入っているか確認する。
 
 ```sh
-# 未Commitを含む現在worktree
-node tools/change-impact-check.cjs \
-  --plan /tmp/yumaniwa-change-plan.json
-
-# Commit済みの変更
 node tools/change-impact-check.cjs \
   --plan /tmp/yumaniwa-change-plan.json \
   --head HEAD
 ```
 
-Impact Rulesの正本は `tools/change-impact-rules.cjs`。
-登録済みImpactは、Planで `impactChecks` に含めるか、`impactExclusions` に理由付きでN/Aを明示する。
+v0.2ではexplicit Impact Rulesに加え、high-risk fallbackを持つ。
 
-`impactExclusions` は作業を省略するための無言の逃げ道ではない。たとえば「work idは変更していないためanalytics idはN/A」のように、なぜ今回不要かを書く。
+- known domain source → 既存の具体的Impact
+- runtime / HTML / CSS / SW / manifest / workflow / asset / Change OS → high-risk Impact
+- README等の低リスク未登録path → INFO
 
-v0.1でRule未登録のpathはINFO扱いで、Impact Check単独ではFAILにしない。Ruleは高信頼な正本から段階的に増やす。
+Impactは `impactChecks` へ入れるか、除外可能なものだけ理由付き `impactExclusions` とする。
+core Impactは除外できない。
 
-Impact Checkのexit 0は、必要な影響をPlan上で忘れていないことだけを意味する。各確認の実施証拠、Validator、manual verification、Owner/HQ判断の代わりではない。
+## Change PR Gate
 
-GitHub上でChatGPTが変更する場合も、base SHAからchanged pathsを取り、同じImpact Rulesで required impact → checked / reasoned N/A を照合する。
+high-risk staging変更はbranch + Plan Lock + PRで扱う。
+
+`.github/workflows/change-pr-gate.yml` は次を検査する。
+
+1. Plan Lockが実装より前に存在する
+2. locked Planが後から変更されていない
+3. locked baseShaが現在のPR base SHAと一致する
+4. Scope Gate
+5. Risk Gate
+6. Impact Gate
+
+workflowは `pull_request_target` で**PR base側の定義を実行**する。
+candidate branchのworkflow定義を実行しないため、PR自身がgateをno-opへ書き換えて同じcheck名を偽装する経路を閉じる。
+gateのJavaScriptもtrusted base checkoutから実行し、candidate checkoutはGit diff / Plan /対象fileのデータとしてだけ読む。
+
+v0.2導入PRはbase側にこのtrusted workflow自体がまだ存在しないため、bootstrap例外として
+既存CI・固定Plan・PR reviewによる確認を行う。merge後の将来PRではこの例外を使わない。
+
+**重要:** workflowが成功しても、repository設定でrequired checkになっていなければGitHub上のmerge強制にはならない。
+required check / merge protectionを確認できるまでは「hard enforcement済み」と報告しない。
 
 ## Change Verification Record
 
-Scope Guard / Impact Check / static test / manual checkが終わったら、`CHANGE-VERIFICATION.md` に従い確認対象commit SHAを固定する。
-
-Verification Recordはrepositoryへ常設しなくてよい。staging-only Lite変更は作業報告、Standard / Full変更はPR本文・監査記録・作業報告などへ残す。
-
-machine-readable Recordがある場合:
+Verification RecordはmutableなPlanではなくPlan Lock digestを参照する。
 
 ```sh
 node tools/change-verification-check.cjs \
-  --plan /tmp/yumaniwa-change-plan.json \
+  --lock /tmp/yumaniwa-change-plan.lock.json \
   --record /tmp/yumaniwa-verification.json \
+  --root . \
   --head HEAD
 ```
 
-checkerはrecordに書かれたScope/Impact PASSを信用するのではなく、Planのbase SHAからverified SHAまでを再計算する。そのうえでPlanの `staticChecks` / `impactChecks` / `manualChecks` のevidenceが揃っているか確認する。
+Recordは次をlocked Planと一致させる。
 
-manual checkは実際に確認した主体だけがPASSにする。ChatGPTがiPhone画面や音を観測していない場合、Owner確認前にPASSとして記録しない。
+- changeId
+- planDigest
+- planRevision
+- repository
+- change
+- baseSha
+- verifiedSha
 
-確認後にHEADが進んだ場合、古いRecordを新HEADへ流用しない。新しいSHAに対して必要なcheckを再評価する。
+checkerはScope / Risk / Impactを同じtargetへ再計算する。
 
-`Verification: VERIFIED` はstaging SHAの確認完了を意味するだけで、production反映許可やRelease Completeを意味しない。
+manual checkは実際に確認した主体だけがPASSにする。
+ChatGPTがiPhone画面や音を観測していない場合はOwner確認待ち。
+
+A+B時点ではstatic evidenceの実測provenanceはまだPhase Cの対象。
+文字列evidenceを「trusted runnerが実行済み」と言い換えない。
+
+`Verification: VERIFIED` はstaging SHAの確認完了であり、production公開許可やRelease Completeではない。
 
 ## Search / Share v2 の生成
 
