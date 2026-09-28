@@ -190,13 +190,17 @@ high-risk staging変更はbranch + Plan Lock + PRで扱う。
 
 1. Plan Lockが実装より前に存在する
 2. locked Planが後から変更されていない
-3. locked baseShaがPRのmerge-baseと一致する
+3. locked baseShaが現在のPR base SHAと一致する
 4. Scope Gate
 5. Risk Gate
 6. Impact Gate
 
-Change OS更新では、原則としてPR base側のtrusted gateを使う。
-v0.2導入PRだけはbaseにv0.2 gateが存在しないため、指定bootstrap baseに限ってcandidate toolsを使う。
+workflowは `pull_request_target` で**PR base側の定義を実行**する。
+candidate branchのworkflow定義を実行しないため、PR自身がgateをno-opへ書き換えて同じcheck名を偽装する経路を閉じる。
+gateのJavaScriptもtrusted base checkoutから実行し、candidate checkoutはGit diff / Plan /対象fileのデータとしてだけ読む。
+
+v0.2導入PRはbase側にこのtrusted workflow自体がまだ存在しないため、bootstrap例外として
+既存CI・固定Plan・PR reviewによる確認を行う。merge後の将来PRではこの例外を使わない。
 
 **重要:** workflowが成功しても、repository設定でrequired checkになっていなければGitHub上のmerge強制にはならない。
 required check / merge protectionを確認できるまでは「hard enforcement済み」と報告しない。
