@@ -13,6 +13,7 @@ const {
   evaluateRiskPlan,
   parseGitHubRepo,
   verifyRepositoryIdentity,
+  collectExecutablePaths,
 } = require('../tools/change-risk-check.cjs');
 const {
   deriveRequiredImpacts,
@@ -144,6 +145,42 @@ test('python and script paths cannot fall through as INFO-only',()=>{
 test('work runtime and assets get bounded fallback profiles',()=>{
   assert.equal(classifyRiskPath('works/orbit/index.html').id,'work-runtime');
   assert.equal(classifyRiskPath('assets/maps/objects/shop.png').id,'asset');
+});
+
+test('additional executable source and action paths cannot fall through as INFO-only',()=>{
+  assert.equal(classifyRiskPath('src/main.go').id,'unknown-code');
+  assert.equal(classifyRiskPath('docker/Dockerfile').id,'unknown-code');
+  assert.equal(classifyRiskPath('.github/actions/gate/action.yml').id,'os');
+  assert.equal(classifyRiskPath('README.md'),null);
+  assert.equal(classifyRiskPath('README.md',{executable:true}).id,'unknown-code');
+});
+
+test('Git executable mode forces an extensionless changed file into the risk floor',t=>{
+  const root=fs.mkdtempSync(path.join(os.tmpdir(),'yumaniwa-risk-exec-'));
+  t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+  git(root,['init','-q']);
+  git(root,['config','user.email','test@example.com']);
+  git(root,['config','user.name','Risk Test']);
+  fs.writeFileSync(path.join(root,'README.md'),'base\n');
+  git(root,['add','README.md']);
+  git(root,['commit','-qm','base']);
+  const base=git(root,['rev-parse','HEAD']);
+
+  fs.writeFileSync(path.join(root,'run'),'#!/bin/sh\necho ok\n');
+  fs.chmodSync(path.join(root,'run'),0o755);
+  git(root,['add','run']);
+  git(root,['commit','-qm','add executable']);
+  const head=git(root,['rev-parse','HEAD']);
+
+  const executablePaths=collectExecutablePaths(root,base,head,['run']);
+  assert.deepEqual(executablePaths,['run']);
+
+  const r=evaluateRiskPlan(liteContent({
+    canonicalSources:['run'],
+    allowedPaths:['run']
+  }),['run'],{executablePaths});
+  assert.equal(r.riskOk,false);
+  assert.ok(r.results.some(x=>x.profile==='unknown-code'&&x.check==='risk.plan-level'&&x.status==='FAIL'));
 });
 
 test('core impacts cannot be excluded and all-risk exclusion cannot pass',()=>{
