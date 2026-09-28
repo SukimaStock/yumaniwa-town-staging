@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3f82022a403797481d723b80f287739b1c31d3e2040f48b9454f9cee47f78865",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "change-os-remediation-a-b-followup-20260928",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Close remaining adversarial audit findings in Change OS Phase A+B",
+    "planLevel": "full",
+    "classes": ["SYSTEM"],
+    "authority": ["HQ Review"],
+    "environment": "staging",
+    "baseSha": "d64293020460341ecb268226fff1681543de2264",
+    "canonicalSources": [
+      ".github/workflows/change-pr-gate.yml",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tests/test-change-risk-check.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/change-os-remediation-a-b-followup-20260928/**",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-operations-tests.yml",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tests/test-change-risk-check.cjs",
+      "tests/test-change-pr-gate.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": ["main.js", "data/**", "works/**", "assets/**"],
+    "expectedChanges": [
+      "Parse candidate Plan Lock as data without evaluating candidate-controlled path text",
+      "Re-run Change PR Gate when pull request base or metadata is edited",
+      "Apply unknown-code risk floor to executable-mode files and broaden unregistered executable source classification",
+      "Add regression coverage for the three post-review findings without changing town runtime or production"
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "Keep this change limited to the two P1 findings and one P2 finding from the post-remediation review",
+      "Do not begin Phase C trusted evidence, Phase D Git hardening, or Phase E semantic scope/concurrency work",
+      "Preserve lightweight handling for known low-risk content while ensuring arbitrary executable-mode files cannot fall through as INFO only"
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "PR #22 post-remediation Codex review 2026-09-28"
+    ],
+    "staticChecks": ["change-operations-regression", "node-syntax"],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "No town/runtime UI or asset behavior changes; verification is mechanical and PR-gate behavior will be exercised by CI/canary.",
+    "impactChecks": ["os.previous-gate", "os.regression", "os.provenance"],
+    "impactExclusions": [],
+    "rollback": "Revert the follow-up branch/PR; production remains untouched.",
+    "outOfScope": [
+      "Phase C static evidence provenance and trusted execution",
+      "Phase D NUL/path/index Git hardening",
+      "Phase E semantic diff templates and stale-write/concurrency protection",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Repository required-check/ruleset enforcement remains separate from this follow-up."
+    ],
+    "problem": "Three post-remediation findings remain: candidate-controlled lock path text can reach JavaScript evaluation in the privileged gate, base edits do not retrigger the gate, and executable classification can miss arbitrary executable-mode or additional source paths.",
+    "currentContract": "Change PR Gate runs from the trusted base and Risk Gate derives a floor from changed paths, but these three edge cases still allow bypass or stale approval.",
+    "whyExistingIsInsufficient": "The latest review reproduced a code-execution path through lock filename interpolation, a stale check after PR base changes, and INFO-only handling for executable paths outside the fixed extension/name allowlist.",
+    "design": "Keep pull_request_target orchestration base-owned, parse lock JSON only as data through argv/file reads, subscribe the gate to edited events, and augment risk derivation with Git executable-mode detection plus broader source/config classification while leaving Phase C/D/E untouched.",
+    "alternativesRejected": [
+      "Move back to pull_request candidate-owned workflow execution",
+      "Treat every unknown documentation or content path as high-risk",
+      "Bundle trusted evidence provenance or NUL-path hardening into this follow-up"
+    ],
+    "migration": "No runtime data migration. Existing v0.2 Plan Locks and normal low-risk paths remain compatible.",
+    "compatibility": "Town runtime and production behavior are unchanged; existing Change OS plans continue to validate.",
+    "boundaryCases": [
+      "Plan Lock path containing quote/comma-like candidate text",
+      "PR base branch edited after a passing gate",
+      "new extensionless file with Git executable bit",
+      "new Go source, nested Dockerfile, or .github action definition",
+      "ordinary README/docs content remains outside high-risk fallback unless executable"
+    ],
+    "testPlan": [
+      "Add workflow regression assertions for edited trigger and non-evaluating lock parse",
+      "Add risk tests for executable-mode paths and broadened executable source/config paths",
+      "Run all Change Operations tests and node syntax checks",
+      "Open a staging PR so the trusted base gate evaluates the locked plan and implementation"
+    ],
+    "promotionRisk": "No production promotion. Only Change OS staging tooling/workflows are modified."
+  }
+}
