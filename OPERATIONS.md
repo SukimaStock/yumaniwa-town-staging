@@ -194,46 +194,114 @@ high-risk staging変更はbranch + Plan Lock + PRで扱う。
 4. Scope Gate
 5. Risk Gate
 6. Impact Gate
+7. trusted Mechanical Evidence
 
 workflowは `pull_request_target` で**PR base側の定義を実行**する。
 candidate branchのworkflow定義を実行しないため、PR自身がgateをno-opへ書き換えて同じcheck名を偽装する経路を閉じる。
-gateのJavaScriptもtrusted base checkoutから実行し、candidate checkoutはGit diff / Plan /対象fileのデータとしてだけ読む。
+gateのJavaScriptもtrusted base checkoutから実行する。
+Phase C以降は `tools/change-evidence-runner.cjs` もtrusted baseから起動し、
+target SHA/tree、command exit、output digest、checker/rule provenanceを自動採取する。
 
-v0.2導入PRはbase側にこのtrusted workflow自体がまだ存在しないため、bootstrap例外として
-既存CI・固定Plan・PR reviewによる確認を行う。merge後の将来PRではこの例外を使わない。
+candidate側Change OS toolの回帰確認を行う場合も、trusted base側のtest定義を使う。
+child processにはGitHub tokenや任意secret環境変数を引き継がない。
+
+Change OSの新しいrunnerを追加するPRでは、その新runnerをそのPR自身のtrusted認定には使わない。
+merge後、次のcanary PRでbase-owned runnerとして実際に動くことを確認する。
 
 **重要:** workflowが成功しても、repository設定でrequired checkになっていなければGitHub上のmerge強制にはならない。
 required check / merge protectionを確認できるまでは「hard enforcement済み」と報告しない。
 
-## Change Verification Record
+## Trusted Mechanical Evidence
 
-Verification RecordはmutableなPlanではなくPlan Lock digestを参照する。
+Planの `staticChecks` は `tools/change-static-checks.cjs` に登録されたIDを使う。
+
+PR gateではbase側のrunnerが自動実行する。
+手動で確認する場合も、**locked base SHAのclean checkout側**から実行する。
 
 ```sh
-node tools/change-verification-check.cjs \
-  --lock /tmp/yumaniwa-change-plan.lock.json \
-  --record /tmp/yumaniwa-verification.json \
-  --root . \
-  --head HEAD
+YUMANIWA_TARGET_SHA=<candidate sha> \
+node <trusted-base>/tools/change-evidence-runner.cjs \
+  --trusted-root <trusted-base> \
+  --root <candidate-checkout> \
+  --lock <candidate-plan-lock.json> \
+  --head HEAD \
+  --output /tmp/yumaniwa-mechanical-evidence.json
 ```
 
-Recordは次をlocked Planと一致させる。
+runnerは少なくとも次を保存する。
 
-- changeId
-- planDigest
-- planRevision
-- repository
-- change
-- baseSha
-- verifiedSha
+- candidate commit / tree
+- trusted OS commit / tree
+- checker / Rule digest
+- provenance bundle digest
+- command / argv
+- exit code
+- stdout / stderr digest
+- GitHub Actions run参照（CI時）
 
-checkerはScope / Risk / Impactを同じtargetへ再計算する。
+`status: pass` を人が書き込んで代用しない。
 
-manual checkは実際に確認した主体だけがPASSにする。
-ChatGPTがiPhone画面や音を観測していない場合はOwner確認待ち。
+## Change Verification Record v0.3
 
-A+B時点ではstatic evidenceの実測provenanceはまだPhase Cの対象。
-文字列evidenceを「trusted runnerが実行済み」と言い換えない。
+Recordはmechanical PASSを手書きせず、**human attestationだけを記録**する。
+
+```json
+{
+  "schema": "yumaniwa-verification-record/0.3",
+  "changeId": "<change id>",
+  "planDigest": "<plan digest>",
+  "planRevision": 0,
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "change": "<change>",
+  "environment": "staging",
+  "baseSha": "<locked base sha>",
+  "verifiedSha": "<candidate sha>",
+  "recordedAt": "<time>",
+  "recordedBy": "ChatGPT",
+  "conditionalAcknowledgements": [],
+  "humanAttestations": [
+    {
+      "id": "iPhone walk",
+      "status": "pass",
+      "performedBy": "Owner",
+      "recordedBy": "ChatGPT",
+      "observedSha": "<candidate sha>",
+      "device": "iPhone",
+      "attestationRef": "chat:owner-confirmation",
+      "attestedAt": "<time>"
+    }
+  ]
+}
+```
+
+verification checkerはtrusted base checkout側から実行する。
+
+```sh
+node <trusted-base>/tools/change-verification-check.cjs \
+  --lock <candidate-plan-lock.json> \
+  --record <verification-record.json> \
+  --root <candidate-checkout> \
+  --head HEAD \
+  --mechanical-output /tmp/yumaniwa-mechanical-evidence.json
+```
+
+checkerはmechanical evidenceをその場で再生成し、
+Scope / Risk / Impactも同じtargetへ再計算する。
+
+出力は分ける。
+
+```text
+Mechanical: VERIFIED / UNVERIFIED
+Human:      VERIFIED / UNVERIFIED
+Verification: VERIFIED / UNVERIFIED
+```
+
+AIがOwner確認を転記する場合は `recordedBy: ChatGPT` とし、
+実際に見た人を `performedBy` に残す。
+`observedSha` がverifiedShaと違うattestationを流用しない。
+
+v0.1 / v0.2のfree-form evidence Recordは履歴として残せるが、
+v0.3 trusted VERIFIEDには使わない。
 
 `Verification: VERIFIED` はstaging SHAの確認完了であり、production公開許可やRelease Completeではない。
 
