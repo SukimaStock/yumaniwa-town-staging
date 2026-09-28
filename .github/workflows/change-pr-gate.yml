@@ -92,6 +92,14 @@ jobs:
             exit 1
           fi
 
+          while IFS= read -r commit; do
+            [ -z "$commit" ] && continue
+            git merge-base --is-ancestor "$LOCK_COMMIT" "$commit" || {
+              echo "Commit $commit is not descended from the Plan Lock commit $LOCK_COMMIT."
+              exit 1
+            }
+          done < <(git rev-list "$EVENT_BASE_SHA..HEAD")
+
           while IFS= read -r changed; do
             [ -z "$changed" ] && continue
             if [ "$changed" != "$LOCK_FILE" ]; then
@@ -106,8 +114,17 @@ jobs:
             exit 1
           fi
 
+          LOCK_ENTRY="$(git ls-tree "$LOCK_COMMIT" -- "$LOCK_FILE")"
+          [ -n "$LOCK_ENTRY" ] || { echo "Plan Lock tree entry is missing."; exit 1; }
+          read -r LOCK_MODE LOCK_TYPE LOCK_OID LOCK_TREE_PATH <<< "$LOCK_ENTRY"
+          [ "$LOCK_MODE" = "100644" ] || { echo "Plan Lock must be a non-executable regular Git file; found mode $LOCK_MODE."; exit 1; }
+          [ "$LOCK_TYPE" = "blob" ] || { echo "Plan Lock must be stored as a Git blob; found type $LOCK_TYPE."; exit 1; }
+
+          IMMUTABLE_LOCK="$RUNNER_TEMP/yumaniwa-plan-lock.json"
+          git cat-file blob "$LOCK_OID" > "$IMMUTABLE_LOCK"
+
           LOCK_BASE="$(
-            node - "$LOCK_FILE" <<'NODE'
+            node - "$IMMUTABLE_LOCK" <<'NODE'
           const fs = require('fs');
           const lockPath = process.argv[2];
           let lock;
@@ -133,6 +150,7 @@ jobs:
 
           echo "lock_file=$LOCK_FILE" >> "$GITHUB_OUTPUT"
           echo "lock_commit=$LOCK_COMMIT" >> "$GITHUB_OUTPUT"
+          echo "lock_blob=$LOCK_OID" >> "$GITHUB_OUTPUT"
 
       - name: Require trusted gate implementation on base
         shell: bash
@@ -146,15 +164,14 @@ jobs:
 
       - name: Extract and verify locked Plan with trusted base
         shell: bash
-        env:
-          LOCK_FILE: ${{ steps.plan.outputs.lock_file }}
         run: |
           set -euo pipefail
+          IMMUTABLE_LOCK="$RUNNER_TEMP/yumaniwa-plan-lock.json"
 
           node "$GITHUB_WORKSPACE/trusted/tools/change-plan-lock.cjs" verify \
-            --lock "$GITHUB_WORKSPACE/candidate/$LOCK_FILE"
+            --lock "$IMMUTABLE_LOCK"
 
-          node - "$GITHUB_WORKSPACE/candidate/$LOCK_FILE" "$RUNNER_TEMP/yumaniwa-plan.json" <<'NODE'
+          node - "$IMMUTABLE_LOCK" "$RUNNER_TEMP/yumaniwa-plan.json" <<'NODE'
           const fs=require('fs');
           const input=process.argv[2];
           const output=process.argv[3];
@@ -191,5 +208,6 @@ jobs:
         run: |
           echo "Plan Lock: ${{ steps.plan.outputs.lock_file }}"
           echo "Plan commit: ${{ steps.plan.outputs.lock_commit }}"
+          echo "Plan blob: ${{ steps.plan.outputs.lock_blob }}"
           echo "Gate implementation: trusted PR base"
           echo "Plan / Scope / Risk / Impact gates passed."
