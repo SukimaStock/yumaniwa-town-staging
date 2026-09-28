@@ -147,12 +147,18 @@ test('work runtime and assets get bounded fallback profiles',()=>{
   assert.equal(classifyRiskPath('assets/maps/objects/shop.png').id,'asset');
 });
 
-test('additional executable source and action paths cannot fall through as INFO-only',()=>{
+test('unknown source formats default to high-risk while known content stays lightweight',()=>{
   assert.equal(classifyRiskPath('src/main.go').id,'unknown-code');
+  assert.equal(classifyRiskPath('src/App.vue').id,'unknown-code');
+  assert.equal(classifyRiskPath('src/App.svelte').id,'unknown-code');
   assert.equal(classifyRiskPath('docker/Dockerfile').id,'unknown-code');
   assert.equal(classifyRiskPath('.github/actions/gate/action.yml').id,'os');
+  assert.equal(classifyRiskPath('notes/readme.md'),null);
   assert.equal(classifyRiskPath('README.md'),null);
   assert.equal(classifyRiskPath('README.md',{executable:true}).id,'unknown-code');
+  assert.equal(classifyRiskPath('assets/run.sh').id,'unknown-code');
+  assert.equal(classifyRiskPath('works/demo/App.vue').id,'work-runtime');
+  assert.equal(classifyRiskPath('future.unknown-source').id,'unknown-code');
 });
 
 test('Git executable mode forces an extensionless changed file into the risk floor',t=>{
