@@ -49,7 +49,7 @@ test('lock digest is deterministic and verifies',()=>{
 
 test('tampering locked Plan invalidates digest',()=>{
   const lock=createLock(plan());
-  lock.plan.allowedPaths=['main.js'];
+  lock.plan.change='tampered but still structurally valid';
   const checked=verifyLock(lock);
   assert.equal(checked.ok,false);
   assert.match(checked.errors.join('\n'),/planDigest mismatch/);
