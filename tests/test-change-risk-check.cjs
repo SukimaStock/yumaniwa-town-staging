@@ -161,6 +161,9 @@ test('unknown source formats default to high-risk while known content stays ligh
   assert.equal(classifyRiskPath('.change-plans/example-change/extra.json').id,'unknown-code');
   assert.equal(classifyRiskPath('README.md',{executable:true}).id,'unknown-code');
   assert.equal(classifyRiskPath('assets/run.sh').id,'unknown-code');
+  assert.equal(classifyRiskPath('assets/plugin.wasm').id,'unknown-code');
+  assert.equal(classifyRiskPath('assets/image.png').id,'asset');
+  assert.equal(classifyRiskPath('assets/font.woff2').id,'asset');
   assert.equal(classifyRiskPath('works/demo/App.vue').id,'work-runtime');
   assert.equal(classifyRiskPath('future.unknown-source').id,'unknown-code');
 });
