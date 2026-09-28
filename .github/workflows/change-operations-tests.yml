@@ -5,7 +5,10 @@ on:
   push:
     paths:
       - "tools/change-scope-guard.cjs"
+      - "tools/change-impact-rules.cjs"
+      - "tools/change-impact-check.cjs"
       - "tests/test-change-scope-guard.cjs"
+      - "tests/test-change-impact-check.cjs"
       - "CHANGE-PLAN.md"
       - "CHANGE-OPERATIONS.md"
       - "AGENTS.md"
@@ -14,7 +17,10 @@ on:
   pull_request:
     paths:
       - "tools/change-scope-guard.cjs"
+      - "tools/change-impact-rules.cjs"
+      - "tools/change-impact-check.cjs"
       - "tests/test-change-scope-guard.cjs"
+      - "tests/test-change-impact-check.cjs"
       - "CHANGE-PLAN.md"
       - "CHANGE-OPERATIONS.md"
       - "AGENTS.md"
@@ -33,8 +39,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Check Scope Guard syntax
-        run: node --check tools/change-scope-guard.cjs
+      - name: Check Change Operations syntax
+        run: |
+          node --check tools/change-scope-guard.cjs
+          node --check tools/change-impact-rules.cjs
+          node --check tools/change-impact-check.cjs
 
-      - name: Run Scope Guard regression tests
-        run: node --test tests/test-change-scope-guard.cjs
+      - name: Run Change Operations regression tests
+        run: >
+          node --test
+          tests/test-change-scope-guard.cjs
+          tests/test-change-impact-check.cjs
