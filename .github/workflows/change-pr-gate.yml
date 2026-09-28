@@ -171,10 +171,37 @@ jobs:
             --plan "$RUNNER_TEMP/yumaniwa-plan.json" \
             --head HEAD
 
+      - name: Trusted mechanical evidence
+        shell: bash
+        env:
+          LOCK_FILE: ${{ steps.plan.outputs.lock_file }}
+          YUMANIWA_TARGET_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          test -f "$GITHUB_WORKSPACE/trusted/tools/change-evidence-runner.cjs"
+          test -f "$GITHUB_WORKSPACE/trusted/tools/change-provenance.cjs"
+          test -f "$GITHUB_WORKSPACE/trusted/tools/change-static-checks.cjs"
+
+          node "$GITHUB_WORKSPACE/trusted/tools/change-evidence-runner.cjs" \
+            --trusted-root "$GITHUB_WORKSPACE/trusted" \
+            --root "$GITHUB_WORKSPACE/candidate" \
+            --lock "$GITHUB_WORKSPACE/candidate/$LOCK_FILE" \
+            --head HEAD \
+            --output "$RUNNER_TEMP/yumaniwa-mechanical-evidence.json"
+
+      - name: Upload mechanical evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yumaniwa-mechanical-evidence-pr-${{ github.event.pull_request.number }}-run-${{ github.run_id }}
+          path: ${{ runner.temp }}/yumaniwa-mechanical-evidence.json
+          if-no-files-found: ignore
+          retention-days: 30
+
       - name: Gate summary
         shell: bash
         run: |
           echo "Plan Lock: ${{ steps.plan.outputs.lock_file }}"
           echo "Plan commit: ${{ steps.plan.outputs.lock_commit }}"
           echo "Gate implementation: trusted PR base"
-          echo "Plan / Scope / Risk / Impact gates passed."
+          echo "Plan / Scope / Risk / Impact / Mechanical Evidence gates passed."
