@@ -38,7 +38,7 @@ function fixture() {
     '          set -euo pipefail',
     '          node trusted/tool.cjs',
     '',
-  ].join('\\n');
+  ].join('\n');
 }
 
 test('current Change OS workflows parse under the trusted subset', () => {
@@ -64,7 +64,7 @@ test('ordinary YAML comments and mapping key order do not change semantics', () 
     '  pull_request_target:',
     '    types: [opened, edited]',
     '',
-  ].join('\\n');
+  ].join('\n');
   const b = [
     '# harmless comment',
     'on:',
@@ -75,7 +75,7 @@ test('ordinary YAML comments and mapping key order do not change semantics', () 
     '  contents: read',
     'name: Example # trailing comment',
     '',
-  ].join('\\n');
+  ].join('\n');
   assert.equal(workflowSemanticDigest(a), workflowSemanticDigest(b));
 });
 
@@ -91,10 +91,10 @@ test('moving an active checkout ref into a YAML comment cannot preserve digest',
 test('moving a required value into an unrelated live scalar changes digest', () => {
   const good = fixture();
   const bad = good
-    .replace('          ref: ${{ github.event.pull_request.base.sha }}\\n', '')
+    .replace('          ref: ${{ github.event.pull_request.base.sha }}\n', '')
     .replace(
       '      - name: Verify',
-      '      - name: Verify\\n        env:\\n          DECOY: ${{ github.event.pull_request.base.sha }}'
+      '      - name: Verify\n        env:\n          DECOY: ${{ github.event.pull_request.base.sha }}'
     );
   assert.notEqual(workflowSemanticDigest(good), workflowSemanticDigest(bad));
 });
@@ -118,7 +118,7 @@ test('adding an extra candidate-execution step changes semantic digest', () => {
       '        run: |',
       '          node candidate/evil.js',
       '      - name: Verify',
-    ].join('\\n')
+    ].join('\n')
   );
   assert.notEqual(workflowSemanticDigest(good), workflowSemanticDigest(bad));
 });
@@ -135,14 +135,14 @@ test('changing trusted checkout ref to candidate SHA changes semantic digest', (
 test('literal run block is semantic content, including shell comments', () => {
   const parsed = parseWorkflowYaml(fixture());
   const run = parsed.jobs.gate.steps[1].run;
-  assert.equal(run, 'set -euo pipefail\\nnode trusted/tool.cjs\\n');
+  assert.equal(run, 'set -euo pipefail\nnode trusted/tool.cjs\n');
 
   const commented = fixture().replace(
     '          node trusted/tool.cjs',
     '          # node trusted/tool.cjs'
   );
   const parsedCommented = parseWorkflowYaml(commented);
-  assert.equal(parsedCommented.jobs.gate.steps[1].run, 'set -euo pipefail\\n# node trusted/tool.cjs\\n');
+  assert.equal(parsedCommented.jobs.gate.steps[1].run, 'set -euo pipefail\n# node trusted/tool.cjs\n');
 });
 
 test('duplicate mapping keys fail closed', () => {
@@ -152,24 +152,24 @@ test('duplicate mapping keys fail closed', () => {
     'on:',
     '  pull_request_target:',
     '    types: [opened]',
-  ].join('\\n');
+  ].join('\n');
   assert.throws(() => parseWorkflowYaml(source), /duplicate mapping key/);
 });
 
 test('anchors aliases tags flow maps and folded blocks fail closed', () => {
   for (const source of [
-    'name: &n Gate\\non:\\n  pull_request_target:\\n    types: [opened]\\n',
-    'name: *n\\non:\\n  pull_request_target:\\n    types: [opened]\\n',
-    'name: !str Gate\\non:\\n  pull_request_target:\\n    types: [opened]\\n',
-    'name: Gate\\nenv: {A: B}\\n',
-    'name: Gate\\ndescription: >\\n  folded\\n',
+    'name: &n Gate\non:\n  pull_request_target:\n    types: [opened]\n',
+    'name: *n\non:\n  pull_request_target:\n    types: [opened]\n',
+    'name: !str Gate\non:\n  pull_request_target:\n    types: [opened]\n',
+    'name: Gate\nenv: {A: B}\n',
+    'name: Gate\ndescription: >\n  folded\n',
   ]) {
     assert.throws(() => parseWorkflowYaml(source));
   }
 });
 
 test('tabs in indentation fail closed', () => {
-  assert.throws(() => parseWorkflowYaml('name: Gate\\n\\tpull_request_target: true\\n'), /tabs in indentation/);
+  assert.throws(() => parseWorkflowYaml('name: Gate\n\tpull_request_target: true\n'), /tabs in indentation/);
 });
 
 test('semantic verifier reports exact digest equality only', () => {
