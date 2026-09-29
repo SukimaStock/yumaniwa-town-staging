@@ -1,7 +1,7 @@
 {
   "schema": "yumaniwa-trusted-static-check-registry/0.1",
-  "version": "2026-09-29.4",
-  "transitionPolicy": "steady",
+  "version": "2026-09-29.canary-self-auth",
+  "transitionPolicy": "pending:.github/workflows/change-verification.yml:f467678810d6169c37c8eea0304d9032f312b8ec:69e268d1a89b5e6b69ee2b4466d6ad0ee5806098",
   "checks": {
     "change-operations-regression": {
       "definitionVersion": "2",
@@ -17,7 +17,7 @@
         },
         {
           "path": ".github/workflows/change-verification.yml",
-          "expectedBlob": "f467678810d6169c37c8eea0304d9032f312b8ec",
+          "expectedBlob": "69e268d1a89b5e6b69ee2b4466d6ad0ee5806098",
           "mode": "100644",
           "type": "blob"
         },
