@@ -1,0 +1,43 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "31949a96b24e4c9ae12391bfaf2d46e4a61472822dc62c97f6b7a2d3a5ecbcc3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c3-2-failure-canary-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C3-2 unknown static check failure canary",
+    "planLevel": "lite",
+    "classes": [
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "57d1b22e843a881d5ca7497f746b2fafc2aff74d",
+    "canonicalSources": [
+      "C3-2-CANARY.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c3-2-failure-canary-20260929/**",
+      "C3-2-CANARY.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [],
+    "expectedChanges": [
+      "Create an unmerged canary file so the trusted static executor evaluates an intentionally unknown static check ID."
+    ],
+    "staticChecks": [
+      "BAD\nFAKE PASS ‮BIDI"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Automated failure-path canary only; no human attestation is being created.",
+    "impactChecks": [],
+    "impactExclusions": [],
+    "promotion": "none"
+  }
+}
