@@ -65,15 +65,49 @@ function steadyRegistry() {
   return registry;
 }
 
+function repositoryBlob(filePath, root=ROOT) {
+  const body=fs.readFileSync(path.join(root,...filePath.split('/')));
+  return gitBlobSha1(body);
+}
+
+function validateInstalledRegistryState(registry, resolveBlob=(filePath)=>repositoryBlob(filePath)) {
+  const definition=registry.checks['change-operations-regression'];
+  const policy=parseTransitionPolicy(registry.transitionPolicy);
+  const contracts=new Map(definition.contracts.map(contract=>[contract.path,contract]));
+
+  if(policy.state==='steady') {
+    for(const contract of definition.contracts) {
+      assert.equal(resolveBlob(contract.path),contract.expectedBlob,contract.path+' steady blob mismatch');
+    }
+    return policy;
+  }
+
+  assert.equal(policy.state,'pending');
+  const target=contracts.get(policy.path);
+  assert.ok(target,'pending transition path must exist in contracts');
+  assert.equal(target.expectedBlob,policy.toBlob,'pending target expectedBlob must equal toBlob');
+  assert.notEqual(policy.fromBlob,policy.toBlob,'pending transition blobs must differ');
+
+  for(const contract of definition.contracts) {
+    const actual=resolveBlob(contract.path);
+    if(contract.path===policy.path) {
+      assert.equal(actual,policy.fromBlob,'pending authorization target must remain at fromBlob');
+    } else {
+      assert.equal(actual,contract.expectedBlob,contract.path+' unrelated contract blob mismatch');
+    }
+  }
+  return policy;
+}
+
 function copyContractedFiles(root) {
   const registry=readRegistry();
+  validateInstalledRegistryState(registry);
   const definition=registry.checks['change-operations-regression'];
   for(const contract of definition.contracts) {
     const source=fs.readFileSync(path.join(ROOT,...contract.path.split('/')));
     const target=path.join(root,...contract.path.split('/'));
     fs.mkdirSync(path.dirname(target),{recursive:true});
     fs.writeFileSync(target,source,{mode:0o644});
-    assert.equal(gitBlobSha1(source),contract.expectedBlob,contract.path+' registry blob must match repository file');
   }
 }
 
@@ -181,18 +215,23 @@ test('registry is data-only and contains only allowlisted initial IDs',()=>{
   }
 });
 
-test('exact-blob registry contracts match the installed pending executor and repository',()=>{
+test('installed exact-blob registry is consistent with steady or authorization-pending repository state',()=>{
   const registry=readRegistry();
   const definition=registry.checks['change-operations-regression'];
+  const policy=validateInstalledRegistryState(registry);
   for(const contract of definition.contracts) {
-    const body=fs.readFileSync(path.join(ROOT,...contract.path.split('/')));
-    assert.equal(gitBlobSha1(body),contract.expectedBlob,contract.path);
     assert.equal(contract.mode,'100644');
     assert.equal(contract.type,'blob');
   }
+
   const executorContract=definition.contracts.find(contract=>contract.path==='tools/change-static-check.cjs');
   assert.ok(executorContract);
-  assert.equal(gitBlobSha1(fs.readFileSync(EXECUTOR_PATH)),executorContract.expectedBlob);
+  if(policy.state==='steady' || policy.path!=='tools/change-static-check.cjs') {
+    assert.equal(gitBlobSha1(fs.readFileSync(EXECUTOR_PATH)),executorContract.expectedBlob);
+  } else {
+    assert.equal(repositoryBlob(policy.path),policy.fromBlob);
+    assert.equal(executorContract.expectedBlob,policy.toBlob);
+  }
 });
 
 test('unknown command-like static ID fails explicitly without dispatch',t=>{
@@ -208,16 +247,30 @@ test('unknown command-like static ID fails explicitly without dispatch',t=>{
   assert.equal(report.results[0].definition,null);
 });
 
-test('exact-blob Change OS contract passes when all contracted candidate blobs match',t=>{
+test('exact-blob runtime result reflects installed steady or authorization-pending registry state',t=>{
+  const registry=readRegistry();
+  const policy=validateInstalledRegistryState(registry);
   const {root,baseSha}=initRepo({contracts:true});
   t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
   write(root,'README.md','changed\n');
   const targetSha=commitAll(root);
   const report=execute(root,baseSha,targetSha,plan(baseSha,['change-operations-regression']));
-  assert.equal(report.staticOk,true);
-  assert.equal(report.results[0].status,'PASS');
-  assert.equal(report.results[0].reason,'EXACT_BLOB_CONTRACT_MATCH');
-  assert.ok(report.results[0].files.every(file=>file.status==='PASS'));
+
+  if(policy.state==='steady') {
+    assert.equal(report.staticOk,true);
+    assert.equal(report.results[0].status,'PASS');
+    assert.equal(report.results[0].reason,'EXACT_BLOB_CONTRACT_MATCH');
+    assert.ok(report.results[0].files.every(file=>file.status==='PASS'));
+  } else {
+    assert.equal(report.staticOk,false);
+    assert.equal(report.results[0].status,'FAIL');
+    assert.equal(report.results[0].reason,'EXACT_BLOB_CONTRACT_MISMATCH');
+    const target=report.results[0].files.find(file=>file.path===policy.path);
+    assert.ok(target);
+    assert.equal(target.status,'FAIL');
+    assert.equal(target.actualBlob,policy.fromBlob);
+    assert.equal(target.expectedBlob,policy.toBlob);
+  }
 });
 
 test('any contracted byte change fails even when expected text remains in comments',t=>{
@@ -256,6 +309,39 @@ test('candidate registry cannot self-authorize a contracted file in the same PR'
   const file=report.results[0].files.find(item=>item.path===p);
   assert.equal(file.status,'FAIL');
   assert.notEqual(file.actualBlob,file.expectedBlob);
+});
+
+test('candidate repository consistency helper accepts only valid authorization pending state',()=>{
+  const registry=steadyRegistry();
+  const definition=registry.checks['change-operations-regression'];
+  const target=definition.contracts[0];
+  const current=new Map(definition.contracts.map(contract=>[contract.path,contract.expectedBlob]));
+  const from=target.expectedBlob;
+  const to='2'.repeat(40);
+  target.expectedBlob=to;
+  registry.transitionPolicy='pending:'+target.path+':'+from+':'+to;
+
+  assert.equal(validateInstalledRegistryState(registry,path=>current.get(path)).state,'pending');
+
+  current.set(target.path,'3'.repeat(40));
+  assert.throws(
+    ()=>validateInstalledRegistryState(registry,path=>current.get(path)),
+    /must remain at fromBlob/
+  );
+
+  current.set(target.path,from);
+  const unrelated=definition.contracts[1];
+  current.set(unrelated.path,'4'.repeat(40));
+  assert.throws(
+    ()=>validateInstalledRegistryState(registry,path=>current.get(path)),
+    /unrelated contract blob mismatch/
+  );
+});
+
+test('candidate repository consistency helper rejects malformed pending metadata',()=>{
+  const registry=steadyRegistry();
+  registry.transitionPolicy='pending:not-valid';
+  assert.throws(()=>validateInstalledRegistryState(registry),/invalid/);
 });
 
 test('transition policy parser is closed and one-path only',()=>{

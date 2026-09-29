@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "09fcc2f697ad62b7855a3e6ae0afbf8e986c7fb72d5d87de90807dfe4a3f163d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "candidate-regression-pending-compatibility-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Make candidate Change Operations regression tests compatible with valid exact-blob pending authorization state.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "41058a9a40d63c4d8d1ae1b05f3131baa587ae6d",
+    "canonicalSources": [
+      "tests/test-change-static-check.cjs",
+      "tools/change-static-check-registry.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/candidate-regression-pending-compatibility-20260929/**",
+      "tests/test-change-static-check.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/**",
+      "tools/change-static-check-registry.json",
+      "tools/change-static-check.cjs",
+      "tools/change-verification-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Teach candidate regression fixtures to interpret the current registry transitionPolicy.",
+      "In steady state, continue requiring every contracted repository blob to equal expectedBlob.",
+      "In pending state, allow only the transition target repository blob to equal fromBlob while registry expectedBlob equals toBlob; all unrelated contracts must still equal expectedBlob.",
+      "Keep the copied contracted test repository faithful to the actual candidate repository bytes rather than synthesizing future toBlob content.",
+      "Update the repository/registry consistency test to accept exactly the same steady or pending state machine already enforced by the trusted executor.",
+      "Add regression cases proving malformed pending metadata, wrong target blob, and unrelated mismatch remain failures."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "Do not change the trusted executor, registry, workflow, or exact-blob authorization model.",
+      "Candidate regression tests may understand pending state, but they must not create any new authorization rule beyond the already trusted steady/pending model.",
+      "The pending exception is one path only and allows the repository file to remain at fromBlob during authorization."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "C3-2 exact-blob transition contract",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Regression-fixture compatibility repair only; authenticated human attestation remains the later C3-3 target.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging-only test repair if pending candidate regression can accept any state rejected by the trusted executor.",
+    "outOfScope": [
+      "Changing registry transitionPolicy",
+      "Changing any contracted blob",
+      "Changing trusted executor behavior",
+      "C3-3 human attestation implementation",
+      "Verification Record v0.3",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "After this repair merges, the previously prepared C3-3 verifier preauthorization must be recreated from the new staging main with a fresh r0."
+    ],
+    "problem": "A valid registry-only pending authorization is accepted by the base-owned trusted executor but candidate Change Operations Tests still assert every registry expectedBlob equals the current repository file, causing normal CI to fail.",
+    "currentContract": "The trusted C3-2 transition model allows steady->pending authorization with one target path where repository file remains at fromBlob and registry expectedBlob is already toBlob. Candidate test fixtures still assume only steady state.",
+    "whyExistingIsInsufficient": "The fixture-level unconditional equality makes every legitimate authorization PR red, contradicting the documented tests->PR->CI->merge workflow even though trusted enforcement is correct.",
+    "design": "Add a small test-only parser for transitionPolicy and a repository-contract assertion helper. In steady, all actual blobs equal expectedBlob. In pending, metadata must be canonical, target expectedBlob must equal toBlob, actual target blob must equal fromBlob for authorization-stage candidate tests, and every unrelated actual blob must equal expectedBlob. copyContractedFiles copies actual repository bytes without asserting future equality, while the dedicated consistency assertion validates the state machine.",
+    "alternativesRejected": [
+      "Change the trusted executor to accommodate the tests; the trusted runtime is already correct.",
+      "Disable candidate regression tests during authorization PRs; that would hide unrelated regressions.",
+      "Copy synthetic future content into test fixtures; that would stop testing the actual candidate repository state.",
+      "Remove repository-vs-registry consistency checks; stale registry drift would become invisible."
+    ],
+    "migration": "No registry or evidence changes. The currently red C3-3 preauthorization branch remains unmerged and will be superseded after this package merges.",
+    "compatibility": "Steady-state behavior remains identical. Only valid one-path pending authorization is newly accepted by candidate regression fixtures.",
+    "boundaryCases": [
+      "steady requires all actual blobs to equal expectedBlob.",
+      "pending target path must exist in contracts.",
+      "pending target expectedBlob must equal toBlob.",
+      "pending authorization-stage actual target must equal fromBlob.",
+      "unrelated actual blobs must equal their expectedBlob.",
+      "malformed transitionPolicy fails.",
+      "wrong target actual blob fails.",
+      "unrelated mismatch fails."
+    ],
+    "testPlan": [
+      "Run all Change Operations Tests in steady main state.",
+      "Add synthetic pending fixture where target actual equals fromBlob and confirm tests pass.",
+      "Confirm pending wrong target actual fails.",
+      "Confirm unrelated mismatch fails.",
+      "Open PR and require Change PR Gate plus Change Verification Evidence to pass.",
+      "Request exact-head Codex adversarial review and stop on new High/Medium finding.",
+      "Merge to staging only and reconfirm production unchanged.",
+      "Recreate the C3-3 verifier preauthorization from the new main and verify its candidate Change Operations Tests are green."
+    ],
+    "promotionRisk": "None. Staging-only regression-fixture repair."
+  }
+}
