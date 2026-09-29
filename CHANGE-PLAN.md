@@ -223,13 +223,42 @@ substringや独自YAML parserをsecurity boundaryにしない。
 1 byteでも変わればblob SHAが変わるため、コメント・dead string・hidden command・parser差異でPASSを維持できない。
 
 trusted registry自体の変更はcurrent PRでは使われず、必ずPR base側registryを使う。
-そのためcontracted fileを変更する場合は、
-
-1. registry-only authorization packageをmerge
-2. 新しいbaseからfresh Planで、事前承認されたblobへfileを変更
-
-の二段階にする。
 candidate registry変更とcontracted file変更を同一PRで自己承認できない。
+
+exact-blob contractの通常状態は `transitionPolicy: "steady"` とし、
+全contractの `expectedBlob` が現在repositoryのblobと一致する。
+
+contracted fileを変更する場合だけ、一時的に次のcanonical pending形式を使う。
+
+```text
+pending:<path>:<fromBlob>:<toBlob>
+```
+
+制約:
+
+- pendingは同時に1 pathだけ
+- `fromBlob` / `toBlob` は異なるfull Git blob SHA-1
+- 対象contractの `expectedBlob` は `toBlob`
+- unrelated contractは現在blobと完全一致
+- repository上の対象fileはtransition中、`fromBlob` または `toBlob` のどちらかだけ
+- malformed / multi-path / wildcard transitionは許可しない
+
+二段階手順:
+
+1. **Authorization PR**
+   - registryだけを変更
+   - `expectedBlob = toBlob`
+   - `transitionPolicy = pending:path:fromBlob:toBlob`
+   - file本体はまだ `fromBlob`
+   - current PRのtrusted runnerは旧base registryを見るため通常どおりPASSできる
+2. **Transition PR**
+   - 新しいbaseからfresh Plan
+   - file本体を事前承認済み `toBlob` へ変更
+   - candidate registryは `transitionPolicy = steady` へ戻す
+   - trusted runnerはbase側pending registryの `expectedBlob = toBlob` でfileを検査する
+
+これによりauthorization PR自身の通常回帰testをgreenに保ちつつ、
+same-PR self-authorizationは禁止したままにできる。
 
 初期ID:
 
