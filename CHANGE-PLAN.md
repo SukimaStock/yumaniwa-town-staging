@@ -207,6 +207,28 @@ Risk Policyが要求するstatic checkにはchanged pathに対する**applicabil
 `node-syntax` は `.js/.cjs/.mjs` のchanged pathがある場合だけ適用する。
 N/AはPASSではなく、「このdiffには実行対象が存在しない」というRisk Policy由来の判定である。
 
+C3-2以降、high-risk PRの `staticChecks` は
+`tools/change-static-check-registry.json` に登録されたtrusted IDでなければならない。
+Planはcheck IDだけを持ち、command / script / shell / executor指定を持たない。
+
+責務は分ける。
+
+- `tools/change-risk-policy.cjs`: そのcheckが今回のchanged pathへ**必要・適用可能か**
+- `tools/change-static-check-registry.json`: そのIDを**どのbase-owned executor定義で検査するか**
+- `tools/change-static-check.cjs`: exact candidate SHAのGit blobをデータとして検査し、trusted evidenceを生成
+
+workflow YAMLへcheck→command対応を複製しない。
+unknown IDはPASS/SKIPせずFAIL。
+trusted applicabilityがN/Aなら結果もN/Aであり、実行済みPASSとは記録しない。
+
+初期registry:
+
+- `change-operations-regression`: security-critical Change OS fileの固定structural contractをGit blob textとして照合
+- `node-syntax`: applicableな `.js/.cjs/.mjs` Git blobをsafe temporary fileへ書き、`node --check` でparseのみ実施
+
+candidate側のmodule / test / workflow / Plan指定commandはtrusted runnerで実行しない。
+`release-validator` のようにcandidate code実行を含み得るcheckは、安全なdata-only trusted definitionができるまでregistryへ追加しない。
+
 ---
 
 ## 6. Lite Plan
