@@ -1,0 +1,103 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "091f4b440e18080ad8e60ce37e088bab5aa75615a29f13259ce47cb0717d39c0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-closure-canary-evidence-trust-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C closure canary\nFAKE PASS ‮BIDI",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "a95dce0ead589b9178274163beff7314023d8241",
+    "canonicalSources": [
+      ".change-canary/evidence-trust.txt"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c-closure-canary-evidence-trust-20260929/**",
+      ".change-canary/evidence-trust.txt"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**",
+      ".github/workflows/**"
+    ],
+    "expectedChanges": [
+      "Create one disposable canary file under .change-canary.",
+      "Exercise post-merge trusted workflows with Plan text containing newline and bidi formatting control characters.",
+      "Verify run-attempt-specific trusted evidence artifact names across a rerun."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This PR is a disposable closure canary and must be closed unmerged.",
+      "Machine Plan values remain literal; human logs must render control and bidi characters as visible escapes.",
+      "Production must remain untouched."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "C3-1 closure canary"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Disposable trust-boundary canary; validation is by trusted workflows, logs, artifact inspection, and rerun provenance.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Close this canary PR unmerged; no staging/main or production content change is intended.",
+    "outOfScope": [
+      "Verification Record v0.3",
+      "Authenticated human attestation",
+      "Trusted static-check registry",
+      "Phase D broader Git/index hardening",
+      "Phase E semantic scope and concurrency controls",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "This canary validates trusted mechanical evidence only and does not declare final VERIFIED."
+    ],
+    "problem": "The final C3-1 closure audit requires live proof that Plan-controlled human text is safely escaped, trusted external Actions execute from pinned commits, and rerun evidence artifacts are unambiguous by attempt.",
+    "currentContract": "staging/main now escapes candidate Plan text at Scope and Impact human-rendering boundaries, pins trusted external Actions to full commit SHAs, and names evidence artifacts with run ID plus run attempt.",
+    "whyExistingIsInsufficient": "Source tests and pre-merge checks do not prove the newly merged base-owned workflow source executes correctly or that rerun artifact names separate attempts in live Actions.",
+    "design": "Open a disposable lock-first PR with one canary file and Plan text containing newline plus U+202E. Inspect trusted human logs and attempt-1 evidence, rerun the verification job, verify a distinct attempt-2 artifact name and provenance, then close unmerged.",
+    "alternativesRejected": [
+      "Reuse an older canary branch; it predates the final trust-hardening merge.",
+      "Merge the canary; unnecessary residue would remain in staging/main.",
+      "Rely only on unit tests; they cannot prove post-merge base-owned Actions and rerun artifact identity."
+    ],
+    "migration": "None.",
+    "compatibility": "Disposable staging-only canary; no canonical product behavior changes.",
+    "boundaryCases": [
+      "Plan change text containing newline renders as literal backslash-n in Scope and Impact logs.",
+      "U+202E renders as literal backslash-u202e rather than reordering visible text.",
+      "Attempt 1 and attempt 2 produce different artifact names containing the same run ID and their respective attempts.",
+      "Evidence remains exact-SHA-bound and UNVERIFIED."
+    ],
+    "testPlan": [
+      "Open the disposable PR and wait for Change Operations Tests, Change PR Gate, and Change Verification Evidence.",
+      "Inspect Scope and Impact human logs for escaped newline and bidi control text.",
+      "Inspect attempt-1 evidence and artifact name.",
+      "Rerun the trusted verification job and inspect attempt-2 evidence and distinct artifact name.",
+      "Close unmerged and confirm staging/main plus production/main are unchanged."
+    ],
+    "promotionRisk": "Disposable staging canary only; no merge or production promotion is intended."
+  }
+}
