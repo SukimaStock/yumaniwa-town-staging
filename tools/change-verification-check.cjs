@@ -26,7 +26,6 @@ const CHECK_STATUSES = new Set(['pass', 'fail', 'unverified']);
 
 const HUMAN_ATTESTATION_SCHEMA = 'yumaniwa-trusted-human-attestation/0.1';
 const HUMAN_ATTESTATION_PREFIX = '/yumaniwa-attest-manual ';
-const HUMAN_ATTESTATION_ASSOCIATIONS = new Set(['OWNER', 'MEMBER', 'COLLABORATOR']);
 
 function sha256Hex(value) {
   return crypto.createHash('sha256').update(value).digest('hex');
@@ -98,6 +97,8 @@ function evaluateHumanAttestation(event, plan, planDigest, pr, options = {}) {
   const commentUser = event && event.comment && event.comment.user && typeof event.comment.user === 'object'
     ? event.comment.user : {};
   const sender = event && event.sender && typeof event.sender === 'object' ? event.sender : {};
+  const repositoryOwner = event && event.repository && event.repository.owner &&
+    typeof event.repository.owner === 'object' ? event.repository.owner : {};
   if (commentUser.type !== 'User' || sender.type !== 'User') errors.push('ATTESTER_MUST_BE_HUMAN_USER');
   if (!isNonemptyString(commentUser.login) || !isNonemptyString(sender.login) || commentUser.login !== sender.login) {
     errors.push('ATTESTER_LOGIN_MISMATCH');
@@ -105,8 +106,13 @@ function evaluateHumanAttestation(event, plan, planDigest, pr, options = {}) {
   if (!Number.isInteger(commentUser.id) || !Number.isInteger(sender.id) || commentUser.id !== sender.id) {
     errors.push('ATTESTER_ID_MISMATCH');
   }
+  if (repositoryOwner.type !== 'User' || !isNonemptyString(repositoryOwner.login) || !Number.isInteger(repositoryOwner.id)) {
+    errors.push('REPOSITORY_OWNER_IDENTITY_INVALID');
+  } else {
+    if (commentUser.login !== repositoryOwner.login) errors.push('ATTESTER_NOT_REPOSITORY_OWNER_LOGIN');
+    if (commentUser.id !== repositoryOwner.id) errors.push('ATTESTER_NOT_REPOSITORY_OWNER_ID');
+  }
   const association = event && event.comment && event.comment.author_association;
-  if (!HUMAN_ATTESTATION_ASSOCIATIONS.has(association)) errors.push('ATTESTER_NOT_REPOSITORY_ASSOCIATED');
 
   let payload = null;
   if (!body.startsWith(HUMAN_ATTESTATION_PREFIX)) {
@@ -199,6 +205,8 @@ function evaluateHumanAttestation(event, plan, planDigest, pr, options = {}) {
       id:Number.isInteger(commentUser.id) ? commentUser.id : null,
       type:commentUser.type || null,
       authorAssociation:association || null,
+      repositoryOwnerLogin:isNonemptyString(repositoryOwner.login) ? repositoryOwner.login : null,
+      repositoryOwnerId:Number.isInteger(repositoryOwner.id) ? repositoryOwner.id : null,
     },
     comment:{
       id:event && event.comment && Number.isInteger(event.comment.id) ? event.comment.id : null,
