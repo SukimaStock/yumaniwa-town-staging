@@ -49,6 +49,20 @@ function readWorkSearchMeta(root) {
     if (!c.WORK_SEARCH_META || typeof c.WORK_SEARCH_META !== 'object' || Array.isArray(c.WORK_SEARCH_META)) throw new Error('data/work-search-meta.js must define WORK_SEARCH_META{}');
     return JSON.parse(JSON.stringify(c.WORK_SEARCH_META));
 }
+function readWorkGuideMeta(root) {
+    const file = path.join(root, 'data/work-guide-meta.js');
+    if (!fs.existsSync(file)) throw new Error('missing data/work-guide-meta.js');
+    const c = context();
+    run(fs.readFileSync(file, 'utf8'), c, 'data/work-guide-meta.js');
+    if (!Array.isArray(c.WORK_GUIDE_MOODS)) throw new Error('data/work-guide-meta.js must define WORK_GUIDE_MOODS[]');
+    if (!Array.isArray(c.WORK_GUIDE_FEATURED)) throw new Error('data/work-guide-meta.js must define WORK_GUIDE_FEATURED[]');
+    if (!c.WORK_GUIDE_META || typeof c.WORK_GUIDE_META !== 'object' || Array.isArray(c.WORK_GUIDE_META)) throw new Error('data/work-guide-meta.js must define WORK_GUIDE_META{}');
+    return JSON.parse(JSON.stringify({
+        moods: c.WORK_GUIDE_MOODS,
+        featured: c.WORK_GUIDE_FEATURED,
+        meta: c.WORK_GUIDE_META
+    }));
+}
 function searchOgp(id, meta) {
     const ogp = meta && meta.ogp || {};
     const file = ogp.file || 'ogp.jpg';
@@ -153,7 +167,7 @@ function validate(options) {
         releaseComplete: false, readiness: 'UNVERIFIED',
         summary: Object.fromEntries(['PASS','FAIL','WARNING','HQ_REQUIRED','EXTERNAL_CHECK_REQUIRED'].map(s => [s, results.filter(r => r.status === s).length])) });
     if (!['staging','production'].includes(options.env)) { add('FAIL','*','input.environment','specify --env staging|production'); return done(); }
-    let works, searchMeta = {}, townSignals = { updates: [], ghostWorks: {} }, published = options.published;
+    let works, searchMeta = {}, guideData = { moods: [], featured: [], meta: {} }, guideReadOk = true, townSignals = { updates: [], ghostWorks: {} }, published = options.published;
     try {
         works = readWorks(root);
         if (options.productionRoot) {
@@ -165,6 +179,8 @@ function validate(options) {
     } catch (e) { add('FAIL','*','input.read',e.message); return done(); }
     try { searchMeta = readWorkSearchMeta(root); }
     catch (e) { add('FAIL','*','search.metadata-source',e.message); }
+    try { guideData = readWorkGuideMeta(root); }
+    catch (e) { guideReadOk = false; add('FAIL','*','guide.metadata-source',e.message); }
     try { townSignals = readTownReleaseSignals(root); }
     catch (e) { add('FAIL','*','town.release-signals',e.message); }
     if (published && (!Array.isArray(published) || published.some(id => !ID.test(id)) || new Set(published).size !== published.length)) { add('FAIL','*','release.set','published IDs must be valid and unique'); return done(); }
@@ -176,6 +192,49 @@ function validate(options) {
     for (const w of works) if (!w || typeof w !== 'object' || !ID.test(w.id || '')) add('FAIL','*','metadata.id','WORKS contains an invalid identity');
     const counts = new Map(); for (const w of works) if (w?.id) counts.set(w.id, (counts.get(w.id) || 0) + 1);
     for (const [id, n] of counts) if (n !== 1) add('FAIL',id,'metadata.unique','duplicate WORKS id');
+    if (guideReadOk) {
+        const moodIds = [];
+        let moodDefinitionsOk = guideData.moods.length > 0;
+        for (const mood of guideData.moods) {
+            const valid = !!mood && typeof mood === 'object' && ID.test(mood.id || '') && typeof mood.label === 'string' && !!mood.label.trim();
+            if (!valid) moodDefinitionsOk = false;
+            if (valid) moodIds.push(mood.id);
+        }
+        if (new Set(moodIds).size !== moodIds.length) moodDefinitionsOk = false;
+        check(moodDefinitionsOk,'*','guide.mood-definitions','WORK_GUIDE_MOODS requires unique valid ids and nonempty labels');
+
+        const knownMoodIds = new Set(moodIds);
+        for (const w of works.filter(w => w && w.status === 'open' && ID.test(w.id || ''))) {
+            const meta = guideData.meta[w.id];
+            const isObject = !!meta && typeof meta === 'object' && !Array.isArray(meta);
+            check(isObject,w.id,'guide.metadata','every open work requires WORK_GUIDE_META['+w.id+'] so the terminal can include it');
+            if (!isObject) continue;
+            check(typeof meta.duration === 'string' && !!meta.duration.trim(),w.id,'guide.duration','Guide Ready requires a nonempty duration');
+            check(typeof meta.guideLine === 'string' && !!meta.guideLine.trim(),w.id,'guide.guide-line','Guide Ready requires a nonempty guideLine');
+            const moods = Array.isArray(meta.moods) ? meta.moods : [];
+            const moodsValid = moods.length > 0 &&
+                moods.every(id => typeof id === 'string' && knownMoodIds.has(id)) &&
+                new Set(moods).size === moods.length;
+            check(moodsValid,w.id,'guide.moods','Guide Ready requires one or more unique moods declared in WORK_GUIDE_MOODS');
+        }
+
+        const featured = guideData.featured;
+        const featuredShapeOk = featured.length > 0 &&
+            featured.every(id => typeof id === 'string' && ID.test(id)) &&
+            new Set(featured).size === featured.length;
+        check(featuredShapeOk,'*','guide.featured','WORK_GUIDE_FEATURED requires unique valid work ids');
+        if (featuredShapeOk) {
+            for (const id of featured) {
+                const work = works.find(w => w && w.id === id);
+                const hasMeta = guideData.meta[id] && typeof guideData.meta[id] === 'object' && !Array.isArray(guideData.meta[id]);
+                check(!!work && work.status === 'open' && !!hasMeta,id,'guide.featured','featured work must exist, be open, and have guide metadata');
+            }
+        }
+
+        for (const id of Object.keys(guideData.meta)) {
+            if (!works.some(w => w && w.id === id)) add('WARNING',id,'guide.orphan','guide metadata has no matching WORKS identity');
+        }
+    }
     if (published) for (const id of published) check(works.some(w => w.id === id && w.status === 'open'), id, 'release.member', 'publication set member must exist and be open in the candidate');
     if (options.env === 'production' && published) for (const w of works.filter(w => w.status === 'open')) if (!published.includes(w.id)) add('FAIL',w.id,'release.unapproved-open','candidate contains an open work outside the explicit publication set');
     let sitemap = [];
@@ -222,6 +281,14 @@ function validate(options) {
         if (options.env === 'production' && published && !published.includes(id)) add('FAIL',id,'release.selected','selected ID is not authorized in publication set');
         for (const key of ['title','description','venue','kind','status','launch','frameMode']) check(typeof w[key] === 'string' && !!w[key].trim(),id,'metadata.' + key,'nonempty ' + key + ' required');
         check(w.status === 'open',id,'metadata.status-open','release target must be open');
+        if (guideReadOk) {
+            const guideOgp = path.join(root,'assets','works',id,'ogp.jpg');
+            const guideIcon = path.join(root,'assets','works',id,'icon.png');
+            const hasGuideImage =
+                (fs.existsSync(guideOgp) && fs.statSync(guideOgp).isFile()) ||
+                (fs.existsSync(guideIcon) && fs.statSync(guideIcon).isFile());
+            check(hasGuideImage,id,'guide.image','selected release work requires canonical assets/works/'+id+'/ogp.jpg or icon.png');
+        }
         const updateRecord = (townSignals.updates || []).find(entry => entry && Array.isArray(entry.workIds) && entry.workIds.includes(id) && typeof entry.date === 'string' && !!entry.date.trim() && typeof entry.title === 'string' && !!entry.title.trim() && typeof entry.body === 'string' && !!entry.body.trim());
         check(!!updateRecord,id,'town.update-history','new/open work requires a nonempty TOWN_UPDATES record linked by workIds: '+id);
         const ghostLines = townSignals.ghostWorks && townSignals.ghostWorks[id];
@@ -446,7 +513,7 @@ function validate(options) {
         add('EXTERNAL_CHECK_REQUIRED',id,'share.handoff','UNVERIFIED adopted Japanese copy, controls, required English/media and external handoff');
     }
     add('EXTERNAL_CHECK_REQUIRED','*','release.record','UNVERIFIED base/staging/candidate SHA, exclusions, dependencies, environment differences, validation and rollback; validator success is NOT Release Complete');
-    add('EXTERNAL_CHECK_REQUIRED','*','release.live','UNVERIFIED Pages SHA success, live headers/card/links, five Ready confirmations and selected announcement/handoff');
+    add('EXTERNAL_CHECK_REQUIRED','*','release.live','UNVERIFIED Pages SHA success, live headers/card/links, six Ready confirmations and selected announcement/handoff');
     return done();
 }
 function parseArgs(argv) {
@@ -467,4 +534,4 @@ if (require.main === module) {
         else { const r=validate(o); if (o.json) console.log(JSON.stringify(r,null,2)); else { for (const x of r.results) console.log(`${x.status} [${x.work}] ${x.check}: ${x.message}`); console.log('\n'+JSON.stringify(r.summary)+'\nRelease Complete: UNVERIFIED (never certified by this tool)'); } process.exitCode=r.exitCode; }
     } catch(e) { console.error('FAIL validator: '+e.message); process.exitCode=2; }
 }
-module.exports = { validate, readWorks, readWorkSearchMeta, readTownReleaseSignals, html, imageInfo, redirectProbe, parseArgs };
+module.exports = { validate, readWorks, readWorkSearchMeta, readWorkGuideMeta, readTownReleaseSignals, html, imageInfo, redirectProbe, parseArgs };
