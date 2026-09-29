@@ -207,6 +207,38 @@ Risk Policyが要求するstatic checkにはchanged pathに対する**applicabil
 `node-syntax` は `.js/.cjs/.mjs` のchanged pathがある場合だけ適用する。
 N/AはPASSではなく、「このdiffには実行対象が存在しない」というRisk Policy由来の判定である。
 
+C3-2以降、high-risk PRの `staticChecks` は
+`tools/change-static-check-registry.json` のbase-owned trusted IDとして解釈する。
+PlanはIDだけを持ち、command / script / shell / executor / expected blobを指定しない。
+
+責務:
+
+- `tools/change-risk-policy.cjs`: changed pathに対するcheck applicability
+- `tools/change-static-check-registry.json`: check ID → fixed executor kind / definition version / trusted contract
+- `tools/change-static-check.cjs`: exact candidate SHAのGit objectをデータとして検査
+
+`change-operations-regression` はsecurity-critical Change OS fileを
+**事前承認済みexact Git blob SHA / mode / type** と比較する。
+substringや独自YAML parserをsecurity boundaryにしない。
+1 byteでも変わればblob SHAが変わるため、コメント・dead string・hidden command・parser差異でPASSを維持できない。
+
+trusted registry自体の変更はcurrent PRでは使われず、必ずPR base側registryを使う。
+そのためcontracted fileを変更する場合は、
+
+1. registry-only authorization packageをmerge
+2. 新しいbaseからfresh Planで、事前承認されたblobへfileを変更
+
+の二段階にする。
+candidate registry変更とcontracted file変更を同一PRで自己承認できない。
+
+初期ID:
+
+- `change-operations-regression`: exact Git blob contract
+- `node-syntax`: applicableなcandidate `.js/.cjs/.mjs` blobをsafe temp fileへ書き、base-owned `node --check` でparseのみ実施
+
+unknown IDはFAIL、trusted非該当はN/AでありPASSではない。
+candidate module / test / workflow / Plan commandはtrusted runnerで実行しない。
+
 ---
 
 ## 6. Lite Plan
