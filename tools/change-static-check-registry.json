@@ -17,7 +17,7 @@
         },
         {
           "path": ".github/workflows/change-verification.yml",
-          "expectedBlob": "8dae84889a9f4b8c575d8bf22471f6af10acc043",
+          "expectedBlob": "f467678810d6169c37c8eea0304d9032f312b8ec",
           "mode": "100644",
           "type": "blob"
         },
