@@ -15,6 +15,9 @@ const {
   STATIC_CHECK_REQUIREMENTS,
   staticCheckApplicablePaths,
 } = require('./change-risk-policy.cjs');
+const {
+  evaluateChangeOsContract,
+} = require('./change-os-contract.cjs');
 
 const REPORT_SCHEMA = 'yumaniwa-trusted-static-check-report/0.1';
 const REGISTRY_PATH = path.join(__dirname, 'change-static-check-registry.json');
@@ -79,7 +82,7 @@ function readRegistry() {
     throw new Error('trusted static registry checks must be an object');
   }
 
-  const allowedExecutors = new Set(['text-contract', 'node-syntax']);
+  const allowedExecutors = new Set(['change-os-contract', 'node-syntax']);
   for (const [id, definition] of Object.entries(parsed.checks)) {
     if (!CHECK_ID_RE.test(id)) throw new Error('trusted static registry contains invalid check id');
     if (!definition || typeof definition !== 'object' || Array.isArray(definition)) {
@@ -166,38 +169,17 @@ function readTextBlob(root, tree, filePath) {
   }
 }
 
-function runTextContract(definition, context) {
-  const files = [];
-  let failed = false;
-  for (const requirement of definition.requirements) {
-    const loaded = readTextBlob(context.root, context.tree, requirement.path);
-    if (!loaded.ok) {
-      failed = true;
-      files.push({
-        path: requirement.path,
-        status: 'FAIL',
-        reason: loaded.reason,
-        mode: loaded.mode || null,
-        type: loaded.type || null,
-      });
-      continue;
-    }
-    const missing = requirement.contains.filter(literal => !loaded.text.includes(literal));
-    if (missing.length) failed = true;
-    files.push({
-      path: requirement.path,
-      blob: loaded.entry.oid,
-      status: missing.length ? 'FAIL' : 'PASS',
-      requiredLiteralCount: requirement.contains.length,
-      missingLiteralCount: missing.length,
-      missingLiteralSha256: missing.map(literal => sha256(Buffer.from(literal, 'utf8'))),
-    });
-  }
+function runChangeOsContract(definition, context) {
+  const outcome = evaluateChangeOsContract({
+    root: context.root,
+    baseSha: context.baseSha,
+    targetSha: context.targetSha,
+  });
   return {
-    status: failed ? 'FAIL' : 'PASS',
-    exitCode: failed ? 1 : 0,
-    reason: failed ? 'STATIC_CONTRACT_MISMATCH' : 'STATIC_CONTRACT_MATCH',
-    files,
+    status: outcome.ok ? 'PASS' : 'FAIL',
+    exitCode: outcome.ok ? 0 : 1,
+    reason: outcome.ok ? 'CHANGE_OS_CONTRACT_MATCH' : 'CHANGE_OS_CONTRACT_MISMATCH',
+    files: outcome.files,
   };
 }
 
@@ -266,7 +248,7 @@ function runNodeSyntax(definition, context, applicablePaths) {
 }
 
 const EXECUTORS = Object.freeze({
-  'text-contract': (definition, context, applicablePaths) => runTextContract(definition, context, applicablePaths),
+  'change-os-contract': runChangeOsContract,
   'node-syntax': runNodeSyntax,
 });
 
@@ -526,7 +508,7 @@ module.exports = {
   readRegistry,
   collectTreeEntries,
   readTextBlob,
-  runTextContract,
+  runChangeOsContract,
   runNodeSyntax,
   executeStaticChecks,
   formatHuman,
