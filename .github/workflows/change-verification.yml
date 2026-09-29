@@ -225,6 +225,58 @@ jobs:
           if [ -s "$RUNNER_TEMP/impact.stderr" ]; then cat "$RUNNER_TEMP/impact.stderr" >&2; fi
           echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
 
+      - name: Resolve trusted static registry
+        id: static_registry
+        shell: bash
+        working-directory: trusted
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          test -f tools/change-static-check-registry.cjs
+          test -f tools/change-static-check.cjs
+          REGISTRY_ENTRY="$(git ls-tree "$BASE_SHA" -- tools/change-static-check-registry.cjs)"
+          [ -n "$REGISTRY_ENTRY" ] || { echo "Trusted static registry is missing from PR base."; exit 1; }
+          read -r REGISTRY_MODE REGISTRY_TYPE REGISTRY_BLOB REGISTRY_PATH <<< "$REGISTRY_ENTRY"
+          [ "$REGISTRY_MODE" = "100644" ] || { echo "Trusted static registry must be a regular non-executable Git file."; exit 1; }
+          [ "$REGISTRY_TYPE" = "blob" ] || { echo "Trusted static registry must be stored as a Git blob."; exit 1; }
+          echo "registry_blob=$REGISTRY_BLOB" >> "$GITHUB_OUTPUT"
+
+      - name: Collect trusted Static evidence
+        id: static
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          REGISTRY_BLOB: ${{ steps.static_registry.outputs.registry_blob }}
+        run: |
+          set -u -o pipefail
+          set +e
+          node "$GITHUB_WORKSPACE/trusted/tools/change-static-check.cjs" \
+            --root "$GITHUB_WORKSPACE/candidate" \
+            --plan "$RUNNER_TEMP/yumaniwa-plan.json" \
+            --base "$BASE_SHA" \
+            --head "$HEAD_SHA" \
+            --registry-blob "$REGISTRY_BLOB" \
+            --json > "$RUNNER_TEMP/static.json" 2> "$RUNNER_TEMP/static.stderr"
+          STATUS=$?
+          set -e
+          if [ ! -s "$RUNNER_TEMP/static.json" ]; then
+            node - "$STATUS" "$RUNNER_TEMP/static.stderr" "$RUNNER_TEMP/static.json" <<'NODE'
+          const fs=require('fs');
+          const [status,stderrPath,outPath]=process.argv.slice(2);
+          const stderr=fs.existsSync(stderrPath)?fs.readFileSync(stderrPath,'utf8').trim():'';
+          fs.writeFileSync(outPath,JSON.stringify({
+            schema:'yumaniwa-gate-error/0.1',
+            gate:'static',
+            exitCode:Number(status),
+            error:stderr || 'trusted static executor produced no JSON report'
+          },null,2)+'\n');
+          NODE
+          fi
+          echo "Trusted Static JSON evidence captured."
+          echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
+
       - name: Build exact-SHA trusted evidence envelope
         shell: bash
         env:
@@ -273,7 +325,7 @@ jobs:
             },
             checks:{scope,risk,impact},
             verificationState:'UNVERIFIED',
-            limitation:'C3-1 trusted mechanical evidence only; static evidence provenance and authenticated human attestation are not implemented yet.'
+            limitation:'C3-1 trusted mechanical evidence; C3-2 trusted static evidence is emitted separately. Authenticated human attestation and final VERIFIED are not implemented yet.'
           };
           fs.writeFileSync(outPath,JSON.stringify(evidence,null,2)+'\n');
           NODE
@@ -286,17 +338,72 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+      - name: Build exact-SHA trusted static evidence envelope
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+          WORKFLOW_REF: ${{ github.workflow_ref }}
+          WORKFLOW_SHA: ${{ github.workflow_sha }}
+          ACTOR: ${{ github.actor }}
+          TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          LOCK_FILE: ${{ steps.plan.outputs.lock_file }}
+          LOCK_COMMIT: ${{ steps.plan.outputs.lock_commit }}
+          LOCK_BLOB: ${{ steps.plan.outputs.lock_blob }}
+          STATIC_EXIT: ${{ steps.static.outputs.exit_code }}
+        run: |
+          set -euo pipefail
+          node - "$RUNNER_TEMP/static.json" "$RUNNER_TEMP/trusted-static-evidence.json" <<'NODE'
+          const fs=require('fs');
+          const [staticPath,outPath]=process.argv.slice(2);
+          const staticChecks=JSON.parse(fs.readFileSync(staticPath,'utf8'));
+          const evidence={
+            schema:'yumaniwa-trusted-static-evidence/0.1',
+            trustBoundary:'pull_request_target:base-owned',
+            repository:process.env.REPOSITORY,
+            baseSha:process.env.BASE_SHA,
+            targetSha:process.env.HEAD_SHA,
+            planLock:{path:process.env.LOCK_FILE,commit:process.env.LOCK_COMMIT,blob:process.env.LOCK_BLOB},
+            producer:{
+              actor:process.env.ACTOR,
+              triggeringActor:process.env.TRIGGERING_ACTOR,
+              runId:process.env.RUN_ID,
+              runAttempt:process.env.RUN_ATTEMPT,
+              workflowRef:process.env.WORKFLOW_REF,
+              workflowSha:process.env.WORKFLOW_SHA
+            },
+            staticExitCode:Number(process.env.STATIC_EXIT),
+            registry:staticChecks.registry || null,
+            checks:staticChecks,
+            verificationState:'UNVERIFIED',
+            limitation:'C3-2 trusted static evidence only; authenticated human attestation and final VERIFIED are intentionally not implemented.'
+          };
+          fs.writeFileSync(outPath,JSON.stringify(evidence,null,2)+'\n');
+          NODE
+
+      - name: Upload trusted static evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: trusted-static-evidence-${{ github.run_id }}-attempt-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/trusted-static-evidence.json
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Fail after preserving trusted evidence
         shell: bash
         env:
           SCOPE_EXIT: ${{ steps.scope.outputs.exit_code }}
           RISK_EXIT: ${{ steps.risk.outputs.exit_code }}
           IMPACT_EXIT: ${{ steps.impact.outputs.exit_code }}
+          STATIC_EXIT: ${{ steps.static.outputs.exit_code }}
         run: |
           set -euo pipefail
-          echo "Trusted mechanical evidence collected for ${{ github.event.pull_request.head.sha }}."
-          echo "C3-1 does not declare final VERIFIED."
-          if [ "$SCOPE_EXIT" != "0" ] || [ "$RISK_EXIT" != "0" ] || [ "$IMPACT_EXIT" != "0" ]; then
-            echo "One or more trusted gates failed: scope=$SCOPE_EXIT risk=$RISK_EXIT impact=$IMPACT_EXIT"
+          echo "Trusted mechanical and static evidence collected for ${{ github.event.pull_request.head.sha }}."
+          echo "C3-2 does not declare final VERIFIED."
+          if [ "$SCOPE_EXIT" != "0" ] || [ "$RISK_EXIT" != "0" ] || [ "$IMPACT_EXIT" != "0" ] || [ "$STATIC_EXIT" != "0" ]; then
+            echo "One or more trusted gates failed: scope=$SCOPE_EXIT risk=$RISK_EXIT impact=$IMPACT_EXIT static=$STATIC_EXIT"
             exit 1
           fi
