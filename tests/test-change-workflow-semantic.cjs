@@ -145,6 +145,40 @@ test('literal run block is semantic content, including shell comments', () => {
   assert.equal(parsedCommented.jobs.gate.steps[1].run, 'set -euo pipefail\n# node trusted/tool.cjs\n');
 });
 
+test('literal block clip chomping ignores trailing blank lines but keeps internal blank lines', () => {
+  const a = [
+    'name: Gate',
+    'run: |',
+    '  one',
+    '  ',
+    '  two',
+    '',
+  ].join('\n');
+  const b = [
+    'name: Gate',
+    'run: |',
+    '  one',
+    '  ',
+    '  two',
+    '',
+    '',
+    '',
+  ].join('\n');
+  assert.equal(parseWorkflowYaml(a).run, 'one\n\ntwo\n');
+  assert.equal(workflowSemanticDigest(a), workflowSemanticDigest(b));
+});
+
+test('literal block strip chomping removes the final newline', () => {
+  const source = [
+    'name: Gate',
+    'run: |-',
+    '  one',
+    '  two',
+    '',
+  ].join('\n');
+  assert.equal(parseWorkflowYaml(source).run, 'one\ntwo');
+});
+
 test('duplicate mapping keys fail closed', () => {
   const source = [
     'name: A',
