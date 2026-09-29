@@ -247,8 +247,28 @@ base-owned `tools/change-static-check.cjs` は、
 
 `change-operations-regression` はsecurity-critical Change OS fileを
 registryの事前承認exact blobへ照合する。
-candidate側registryはcurrent PRでは無効なので、contract変更は
-「registry authorization merge → fresh PRでfile変更」の二段階にする。
+candidate側registryはcurrent PRでは無効なので、same-PR self-authorizationはできない。
+
+通常時の `transitionPolicy` は `steady`。
+contracted fileを変更するときだけ、
+
+```text
+pending:<path>:<fromBlob>:<toBlob>
+```
+
+を使う。
+
+運用順:
+
+1. registry-only authorization PRで対象contractの `expectedBlob` を `toBlob` へ変更し、
+   `transitionPolicy` をpendingへする。file本体は `fromBlob` のまま。
+2. そのPRをmerge後、新しいbaseからfresh Planを作る。
+3. contracted fileをexact `toBlob` へ変更し、candidate registryの
+   `transitionPolicy` を `steady` へ戻す。
+4. trusted runnerはPR base側registryを見るため、事前承認されていない別blobはFAILする。
+
+pendingは1 path限定。unrelated contractは常にexact一致を維持する。
+authorization PRとfile変更PRを同じPRへまとめない。
 
 `node-syntax` はcandidate codeを実行せずparseだけ行う。
 candidate module / test / workflow / Plan commandはtrusted runnerで実行しない。
