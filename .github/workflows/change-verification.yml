@@ -367,6 +367,7 @@ jobs:
           retention-days: 30
 
       - name: Build exact-SHA trusted static evidence envelope
+        id: static_envelope
         shell: bash
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -387,17 +388,17 @@ jobs:
           STATIC_EXIT: ${{ steps.static.outputs.exit_code }}
         run: |
           set -euo pipefail
-          node - "$RUNNER_TEMP/static.json" "$RUNNER_TEMP/trusted-static-evidence.json" <<'NODE'
+          node - "$RUNNER_TEMP/static.json" "$RUNNER_TEMP/trusted-static-evidence.json" "$RUNNER_TEMP/static-envelope-exit.txt" <<'NODE'
           const fs=require('fs');
-          const [staticPath,outPath]=process.argv.slice(2);
+          const [staticPath,outPath,statusPath]=process.argv.slice(2);
           const staticChecks=JSON.parse(fs.readFileSync(staticPath,'utf8'));
+          const validationErrors=[];
 
           if(staticChecks.schema==='yumaniwa-trusted-static-check-report/0.1') {
             if(staticChecks.repository!==process.env.REPOSITORY ||
                staticChecks.baseSha!==process.env.BASE_SHA ||
                staticChecks.targetSha!==process.env.HEAD_SHA) {
-              console.error('Trusted Static report identity mismatch.');
-              process.exit(2);
+              validationErrors.push('REPORT_IDENTITY_MISMATCH');
             }
             if(!staticChecks.sourceProvenance ||
                !staticChecks.sourceProvenance.registry ||
@@ -406,9 +407,10 @@ jobs:
                staticChecks.sourceProvenance.riskPolicy.blob!==process.env.RISK_POLICY_BLOB ||
                !staticChecks.sourceProvenance.executor ||
                staticChecks.sourceProvenance.executor.blob!==process.env.EXECUTOR_BLOB) {
-              console.error('Trusted Static definition provenance mismatch.');
-              process.exit(2);
+              validationErrors.push('TRUSTED_SOURCE_PROVENANCE_MISMATCH');
             }
+          } else if(staticChecks.schema!=='yumaniwa-gate-error/0.1') {
+            validationErrors.push('UNEXPECTED_STATIC_REPORT_SCHEMA');
           }
 
           const evidence={
@@ -436,13 +438,23 @@ jobs:
               riskPolicy:{path:'tools/change-risk-policy.cjs',blob:process.env.RISK_POLICY_BLOB},
               executor:{path:'tools/change-static-check.cjs',blob:process.env.EXECUTOR_BLOB}
             },
+            envelopeValidation:{
+              status:validationErrors.length?'FAIL':'PASS',
+              errors:validationErrors
+            },
             staticExitCode:Number(process.env.STATIC_EXIT),
             checks:staticChecks,
             verificationState:'UNVERIFIED',
             limitation:'C3-2 trusted static evidence only; authenticated human attestation and final VERIFIED are intentionally not implemented.'
           };
           fs.writeFileSync(outPath,JSON.stringify(evidence,null,2)+'\n');
+          fs.writeFileSync(statusPath,validationErrors.length?'1\n':'0\n');
           NODE
+          ENVELOPE_EXIT="$(cat "$RUNNER_TEMP/static-envelope-exit.txt")"
+          echo "exit_code=$ENVELOPE_EXIT" >> "$GITHUB_OUTPUT"
+          if [ "$ENVELOPE_EXIT" != "0" ]; then
+            echo "Trusted Static envelope validation failed; evidence preserved for inspection."
+          fi
 
       - name: Upload trusted static evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -459,11 +471,12 @@ jobs:
           RISK_EXIT: ${{ steps.risk.outputs.exit_code }}
           IMPACT_EXIT: ${{ steps.impact.outputs.exit_code }}
           STATIC_EXIT: ${{ steps.static.outputs.exit_code }}
+          STATIC_ENVELOPE_EXIT: ${{ steps.static_envelope.outputs.exit_code }}
         run: |
           set -euo pipefail
           echo "Trusted mechanical and static evidence collected for ${{ github.event.pull_request.head.sha }}."
           echo "C3-2 does not declare final VERIFIED."
-          if [ "$SCOPE_EXIT" != "0" ] || [ "$RISK_EXIT" != "0" ] || [ "$IMPACT_EXIT" != "0" ] || [ "$STATIC_EXIT" != "0" ]; then
-            echo "One or more trusted gates failed: scope=$SCOPE_EXIT risk=$RISK_EXIT impact=$IMPACT_EXIT static=$STATIC_EXIT"
+          if [ "$SCOPE_EXIT" != "0" ] || [ "$RISK_EXIT" != "0" ] || [ "$IMPACT_EXIT" != "0" ] || [ "$STATIC_EXIT" != "0" ] || [ "$STATIC_ENVELOPE_EXIT" != "0" ]; then
+            echo "One or more trusted gates failed: scope=$SCOPE_EXIT risk=$RISK_EXIT impact=$IMPACT_EXIT static=$STATIC_EXIT staticEnvelope=$STATIC_ENVELOPE_EXIT"
             exit 1
           fi
