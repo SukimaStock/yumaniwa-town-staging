@@ -309,3 +309,10 @@ test('literal backslash Git path does not alias known domain data in Risk or Imp
   assert.ok(impacts.requirements.some(x=>x.id==='risk.high-risk-review'&&x.core));
   assert.ok(impacts.requirements.some(x=>x.id==='runtime.regression'));
 });
+
+
+test('Risk human output routes details through escapeHumanText',()=>{
+  const source=fs.readFileSync(path.join(__dirname,'..','tools','change-risk-check.cjs'),'utf8');
+  assert.ok(source.includes("escapeHumanText(item.detail)"));
+  assert.ok(source.includes("escapeHumanText(error.message)"));
+});
