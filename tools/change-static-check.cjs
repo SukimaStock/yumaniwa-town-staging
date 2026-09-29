@@ -389,6 +389,8 @@ function executeStaticChecks(options) {
         version: definition.definitionVersion,
         executor: definition.executor,
         candidateExecution: false,
+        applicabilitySource: definition.applicabilitySource,
+        applicabilitySourceBlob: riskPolicyBlob,
       },
       files: outcome.files || [],
       diagnosticSha256: outcome.diagnosticSha256 || null,
