@@ -6,6 +6,7 @@ const { spawnSync } = require('node:child_process');
 const {
   PLAN_LEVEL_RANK,
   collectRiskRequirements,
+  staticCheckApplicablePaths,
 } = require('./change-risk-policy.cjs');
 const {
   validatePlan,
@@ -62,10 +63,40 @@ function evaluateRiskPlan(plan, changedPaths, options = {}) {
       }
     }
 
-    for (const staticId of risk.requiredStaticChecks) {
+    for (const requirement of risk.requiredStaticChecks) {
+      const staticId = requirement.id;
+      const applicablePaths = staticCheckApplicablePaths(requirement, paths);
+      if (applicablePaths.length === 0) {
+        results.push({
+          status:'N/A',
+          check:'risk.static-check-not-applicable',
+          profile:risk.id,
+          paths,
+          staticCheck:staticId,
+          applicablePaths:[],
+          detail:'required static check ' + staticId + ' is not applicable to changed paths',
+        });
+        continue;
+      }
       results.push(staticChecks.has(staticId)
-        ? {status:'PASS',check:'risk.static-check',profile:risk.id,paths,detail:'required static check ' + staticId + ' declared'}
-        : {status:'FAIL',check:'risk.static-check',profile:risk.id,paths,detail:'missing required static check ' + staticId});
+        ? {
+            status:'PASS',
+            check:'risk.static-check',
+            profile:risk.id,
+            paths:applicablePaths,
+            staticCheck:staticId,
+            applicablePaths,
+            detail:'required static check ' + staticId + ' declared',
+          }
+        : {
+            status:'FAIL',
+            check:'risk.static-check',
+            profile:risk.id,
+            paths:applicablePaths,
+            staticCheck:staticId,
+            applicablePaths,
+            detail:'missing required static check ' + staticId,
+          });
     }
 
     if (risk.requiredImpacts.length && risk.requiredImpacts.every(id => exclusions.has(id))) {

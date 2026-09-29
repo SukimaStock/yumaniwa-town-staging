@@ -359,3 +359,103 @@ test('Risk CLI escapes candidate-controlled invalid Plan diagnostics',t=>{
   assert.equal(r.stderr.includes('BAD\nFAKE PASS'),false);
   assert.equal(r.stderr.includes('\u202e'),false);
 });
+
+
+function osPlan(overrides={}) {
+  return fullSystem({
+    canonicalSources:['.github/workflows/change-verification.yml'],
+    allowedPaths:['.github/workflows/change-verification.yml'],
+    expectedChanges:['change Change OS contract'],
+    staticChecks:['change-operations-regression'],
+    impactChecks:['os.previous-gate','os.regression','os.provenance'],
+    problem:'Change OS contract needs a bounded change',
+    currentContract:'Change OS paths use the os risk profile',
+    whyExistingIsInsufficient:'test fixture exercises static check applicability',
+    design:'derive static check applicability from changed paths',
+    hqDecisions:['Preserve applicable static requirements'],
+    alternativesRejected:['treat non-executed check as PASS'],
+    boundaryCases:['workflow-only and JavaScript Change OS paths'],
+    testPlan:['run risk regression tests'],
+    ...overrides,
+  });
+}
+
+test('workflow-only Change OS marks node-syntax N/A and does not require declaration',()=>{
+  const filePath='.github/workflows/change-verification.yml';
+  const r=evaluateRiskPlan(osPlan(),[filePath]);
+  assert.equal(r.riskOk,true,r.results.filter(x=>x.status==='FAIL').map(x=>x.detail).join('\n'));
+  const syntax=r.results.find(x=>x.staticCheck==='node-syntax');
+  assert.ok(syntax);
+  assert.equal(syntax.status,'N/A');
+  assert.equal(syntax.check,'risk.static-check-not-applicable');
+  assert.deepEqual(syntax.applicablePaths,[]);
+  const regression=r.results.find(x=>x.staticCheck==='change-operations-regression');
+  assert.ok(regression);
+  assert.equal(regression.status,'PASS');
+});
+
+test('markdown-only Change OS also marks node-syntax N/A',()=>{
+  const filePath='CHANGE-PLAN.md';
+  const r=evaluateRiskPlan(osPlan({
+    canonicalSources:[filePath],
+    allowedPaths:[filePath],
+  }),[filePath]);
+  assert.equal(r.riskOk,true,r.results.filter(x=>x.status==='FAIL').map(x=>x.detail).join('\n'));
+  const syntax=r.results.find(x=>x.staticCheck==='node-syntax');
+  assert.ok(syntax);
+  assert.equal(syntax.status,'N/A');
+});
+
+test('JavaScript Change OS still requires node-syntax',()=>{
+  const filePath='tools/change-risk-check.cjs';
+  const r=evaluateRiskPlan(osPlan({
+    canonicalSources:[filePath],
+    allowedPaths:[filePath],
+  }),[filePath]);
+  assert.equal(r.riskOk,false);
+  const syntax=r.results.find(x=>x.staticCheck==='node-syntax');
+  assert.ok(syntax);
+  assert.equal(syntax.status,'FAIL');
+  assert.equal(syntax.check,'risk.static-check');
+  assert.deepEqual(syntax.applicablePaths,[filePath]);
+});
+
+test('JavaScript Change OS passes when node-syntax is declared',()=>{
+  const filePath='tests/test-change-risk-check.cjs';
+  const r=evaluateRiskPlan(osPlan({
+    canonicalSources:[filePath],
+    allowedPaths:[filePath],
+    staticChecks:['change-operations-regression','node-syntax'],
+  }),[filePath]);
+  assert.equal(r.riskOk,true,r.results.filter(x=>x.status==='FAIL').map(x=>x.detail).join('\n'));
+  const syntax=r.results.find(x=>x.staticCheck==='node-syntax');
+  assert.ok(syntax);
+  assert.equal(syntax.status,'PASS');
+});
+
+test('mixed workflow and JavaScript Change OS requires node-syntax for applicable path only',()=>{
+  const workflow='.github/workflows/change-verification.yml';
+  const javascript='tools/change-risk-check.cjs';
+  const r=evaluateRiskPlan(osPlan({
+    canonicalSources:[workflow,javascript],
+    allowedPaths:[workflow,javascript],
+  }),[workflow,javascript]);
+  assert.equal(r.riskOk,false);
+  const syntax=r.results.find(x=>x.staticCheck==='node-syntax');
+  assert.ok(syntax);
+  assert.equal(syntax.status,'FAIL');
+  assert.deepEqual(syntax.applicablePaths,[javascript]);
+  assert.deepEqual(syntax.paths,[javascript]);
+});
+
+test('declaring non-applicable node-syntax does not turn N/A into PASS',()=>{
+  const filePath='.github/workflows/change-verification.yml';
+  const r=evaluateRiskPlan(osPlan({
+    staticChecks:['change-operations-regression','node-syntax'],
+  }),[filePath]);
+  assert.equal(r.riskOk,true);
+  const syntax=r.results.find(x=>x.staticCheck==='node-syntax');
+  assert.ok(syntax);
+  assert.equal(syntax.status,'N/A');
+  assert.equal(r.results.some(x=>x.staticCheck==='node-syntax'&&x.status==='PASS'),false);
+});
