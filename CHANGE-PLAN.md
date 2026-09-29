@@ -538,10 +538,23 @@ data/town-maps.js
 
 ---
 
-## 13. Manual Verification Contract
+## 13. Static / Manual Verification Contract
+
+`staticChecks` / `impactChecks` / `manualChecks` の文字列は、後段の `CHANGE-VERIFICATION.md` でcheck IDとして使うため、同じ意味のcheckを実装後に別名へ書き換えない。
+
+C3-2以降、**high-risk staging PRの `staticChecks` は `tools/change-static-check-registry.cjs` のtrusted IDとして解釈する。**
+Planにcommand lineを書かない。candidate側のscript/test/workflow pathもtrusted commandとして扱わない。
+unregistered IDはPASS/SKIPにせずtrusted static evidenceをFAILさせる。
+
+初期trusted ID:
+
+- `change-operations-regression`: candidate Git blobをtextとして読み、Change OS trust-boundaryの固定契約を照合する。candidate codeは実行しない。
+- `node-syntax`: base→exact candidate SHAで変更された `.js/.cjs/.mjs` Git blobを `node --check -` へstdinで渡し、構文解析だけを行う。top-level codeは実行しない。
+
+`release-validator` 等、candidate repositoryのJavaScript実行を必要とするcheckは、trusted data-only adapterができるまでregistryへ追加しない。
+Lite/ローカル作業で使う説明的なstatic check名は残せるが、registry未登録なら**trusted static evidenceとは呼ばない**。
 
 手動確認は事前に観点を決め、実施時に確認SHAを記録する。
-`staticChecks` / `impactChecks` / `manualChecks` の文字列は、後段の `CHANGE-VERIFICATION.md` でVerification Recordのcheck IDとして使うため、同じ意味のcheckを実装後に別名へ書き換えない。
 
 ```text
 Manual checks:
