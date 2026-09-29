@@ -13,6 +13,9 @@ const {
   createLock,
 } = require('../tools/change-plan-lock.cjs');
 const {
+  HUMAN_ATTESTATION_PREFIX,
+  gitBlobSha1,
+  evaluateHumanAttestation,
   normalizeRecord,
   evaluateEvidence,
   evaluateVerification,
@@ -283,4 +286,203 @@ test('CLI rejects mutable Plan substitute and invalid Record',t=>{
   ],{encoding:'utf8'});
   assert.equal(r.status,2,r.stdout+r.stderr);
   assert.match(r.stderr,/Plan Lock/);
+});
+
+
+function attestationFixture(overrides={}) {
+  const baseSha='a'.repeat(40);
+  const headSha='b'.repeat(40);
+  const p=normPlan({baseSha,manualChecks:['owner review','visual smoke']});
+  const lock=createLock(p);
+  const payload={
+    sha:headSha,
+    checks:['owner review','visual smoke'],
+    note:'checked exact candidate',
+    ...(overrides.payload||{}),
+  };
+  const event={
+    action:'created',
+    issue:{number:42,pull_request:{url:'https://api.github.com/repos/example/test/pulls/42'}},
+    repository:{full_name:'example/test',default_branch:'main'},
+    comment:{
+      id:987,
+      body:HUMAN_ATTESTATION_PREFIX+JSON.stringify(payload),
+      created_at:'2026-09-29T08:10:00Z',
+      html_url:'https://github.com/example/test/pull/42#issuecomment-987',
+      author_association:'OWNER',
+      user:{login:'alice',id:123,type:'User'},
+    },
+    sender:{login:'alice',id:123,type:'User'},
+    ...(overrides.event||{}),
+  };
+  if(overrides.comment) event.comment={...event.comment,...overrides.comment};
+  if(overrides.commentUser) event.comment.user={...event.comment.user,...overrides.commentUser};
+  if(overrides.sender) event.sender={...event.sender,...overrides.sender};
+  if(overrides.repository) event.repository={...event.repository,...overrides.repository};
+
+  const pr={
+    number:42,
+    repository:'example/test',
+    baseRepo:'example/test',
+    headRepo:'example/test',
+    baseRef:'main',
+    baseSha,
+    headSha,
+    ...(overrides.pr||{}),
+  };
+
+  const toolPath=path.join(__dirname,'..','tools','change-verification-check.cjs');
+  const toolBlob=gitBlobSha1(fs.readFileSync(toolPath));
+  return {p,lock,event,pr,toolBlob,toolPath};
+}
+
+function evaluateAttestationFixture(overrides={}) {
+  const f=attestationFixture(overrides);
+  const report=evaluateHumanAttestation(
+    f.event,
+    f.p,
+    f.lock.planDigest,
+    f.pr,
+    {repository:'example/test',toolBlob:overrides.toolBlob||f.toolBlob}
+  );
+  return {...f,report};
+}
+
+test('authenticated human attestation binds exact GitHub identity PR head Plan and complete manual checks',()=>{
+  const {report,toolBlob}=evaluateAttestationFixture();
+  assert.equal(report.validation.status,'PASS');
+  assert.equal(report.attestationState,'ATTESTED');
+  assert.equal(report.attestation.complete,true);
+  assert.equal(report.verificationState,'UNVERIFIED');
+  assert.equal(report.targetSha,'b'.repeat(40));
+  assert.equal(report.attester.login,'alice');
+  assert.equal(report.attester.id,123);
+  assert.equal(report.attester.authorAssociation,'OWNER');
+  assert.deepEqual(report.attestation.checks,['owner review','visual smoke']);
+  assert.match(report.comment.bodySha256,/^[0-9a-f]{64}$/);
+  assert.match(report.attestation.noteSha256,/^[0-9a-f]{64}$/);
+  assert.equal(report.trustedSources.verifier.blob,toolBlob);
+  assert.equal(Object.hasOwn(report.comment,'body'),false);
+  assert.equal(Object.hasOwn(report.attestation,'note'),false);
+});
+
+test('human attestation rejects bot and GitHub identity mismatch',()=>{
+  let report=evaluateAttestationFixture({commentUser:{type:'Bot'},sender:{type:'Bot'}}).report;
+  assert.equal(report.validation.status,'FAIL');
+  assert.ok(report.validation.errors.includes('ATTESTER_MUST_BE_HUMAN_USER'));
+
+  report=evaluateAttestationFixture({sender:{login:'mallory'}}).report;
+  assert.equal(report.validation.status,'FAIL');
+  assert.ok(report.validation.errors.includes('ATTESTER_LOGIN_MISMATCH'));
+
+  report=evaluateAttestationFixture({sender:{id:999}}).report;
+  assert.equal(report.validation.status,'FAIL');
+  assert.ok(report.validation.errors.includes('ATTESTER_ID_MISMATCH'));
+});
+
+test('human attestation rejects unaffiliated author fork PR and non-default base',()=>{
+  let report=evaluateAttestationFixture({comment:{author_association:'NONE'}}).report;
+  assert.ok(report.validation.errors.includes('ATTESTER_NOT_REPOSITORY_ASSOCIATED'));
+
+  report=evaluateAttestationFixture({pr:{headRepo:'example/fork'}}).report;
+  assert.ok(report.validation.errors.includes('PR_MUST_BE_SAME_REPOSITORY'));
+
+  report=evaluateAttestationFixture({pr:{baseRef:'feature'}}).report;
+  assert.ok(report.validation.errors.includes('PR_BASE_NOT_DEFAULT_BRANCH'));
+});
+
+test('human attestation rejects stale head SHA missing extra and duplicate manual checks',()=>{
+  let report=evaluateAttestationFixture({payload:{sha:'c'.repeat(40)}}).report;
+  assert.ok(report.validation.errors.includes('ATTESTATION_SHA_STALE'));
+
+  report=evaluateAttestationFixture({payload:{checks:['owner review']}}).report;
+  assert.ok(report.validation.errors.includes('ATTESTATION_MISSING_CHECK'));
+
+  report=evaluateAttestationFixture({payload:{checks:['owner review','visual smoke','surprise']}}).report;
+  assert.ok(report.validation.errors.includes('ATTESTATION_UNPLANNED_CHECK'));
+
+  report=evaluateAttestationFixture({payload:{checks:['owner review','owner review']}}).report;
+  assert.ok(report.validation.errors.includes('ATTESTATION_CHECKS_INVALID'));
+});
+
+test('human attestation rejects malformed payload unknown fields and Plan without manual checks',()=>{
+  let f=attestationFixture();
+  f.event.comment.body=HUMAN_ATTESTATION_PREFIX+'{not-json';
+  let report=evaluateHumanAttestation(f.event,f.p,f.lock.planDigest,f.pr,{repository:'example/test',toolBlob:f.toolBlob});
+  assert.ok(report.validation.errors.includes('ATTESTATION_JSON_INVALID'));
+
+  report=evaluateAttestationFixture({payload:{unexpected:true}}).report;
+  assert.ok(report.validation.errors.includes('ATTESTATION_FIELDS_INVALID'));
+
+  f=attestationFixture();
+  const noManual=normPlan({baseSha:f.p.baseSha,manualChecks:[],manualCheckExemptionReason:'none required'});
+  const noManualLock=createLock(noManual);
+  report=evaluateHumanAttestation(f.event,noManual,noManualLock.planDigest,f.pr,{repository:'example/test',toolBlob:f.toolBlob});
+  assert.ok(report.validation.errors.includes('PLAN_HAS_NO_MANUAL_CHECKS'));
+});
+
+test('human attestation rejects tampered trusted verifier source blob',()=>{
+  const {report}=evaluateAttestationFixture({toolBlob:'d'.repeat(40)});
+  assert.ok(report.validation.errors.includes('TRUSTED_TOOL_BLOB_MISMATCH'));
+  assert.equal(report.attestationState,'REJECTED');
+});
+
+test('attest CLI emits machine evidence and keeps final verification UNVERIFIED',t=>{
+  const f=attestationFixture();
+  const lockPath=path.join(os.tmpdir(),'yumaniwa-attest-lock-'+process.pid+'-'+Date.now()+'.json');
+  const eventPath=path.join(os.tmpdir(),'yumaniwa-attest-event-'+process.pid+'-'+Date.now()+'.json');
+  const prPath=path.join(os.tmpdir(),'yumaniwa-attest-pr-'+process.pid+'-'+Date.now()+'.json');
+  t.after(()=>{
+    fs.rmSync(lockPath,{force:true});
+    fs.rmSync(eventPath,{force:true});
+    fs.rmSync(prPath,{force:true});
+  });
+  fs.writeFileSync(lockPath,JSON.stringify(f.lock));
+  fs.writeFileSync(eventPath,JSON.stringify(f.event));
+  fs.writeFileSync(prPath,JSON.stringify(f.pr));
+
+  const r=spawnSync(process.execPath,[
+    f.toolPath,'attest',
+    '--lock',lockPath,
+    '--event',eventPath,
+    '--pr',prPath,
+    '--repository','example/test',
+    '--tool-blob',f.toolBlob,
+    '--json'
+  ],{encoding:'utf8'});
+  assert.equal(r.status,0,r.stdout+r.stderr);
+  const report=JSON.parse(r.stdout);
+  assert.equal(report.attestationState,'ATTESTED');
+  assert.equal(report.validation.status,'PASS');
+  assert.equal(report.verificationState,'UNVERIFIED');
+});
+
+test('attest CLI rejects stale exact head without echoing raw comment body to stderr',t=>{
+  const f=attestationFixture({payload:{sha:'c'.repeat(40),note:'FAKE PASS \\u202eBIDI'}});
+  const lockPath=path.join(os.tmpdir(),'yumaniwa-attest-lock-stale-'+process.pid+'-'+Date.now()+'.json');
+  const eventPath=path.join(os.tmpdir(),'yumaniwa-attest-event-stale-'+process.pid+'-'+Date.now()+'.json');
+  const prPath=path.join(os.tmpdir(),'yumaniwa-attest-pr-stale-'+process.pid+'-'+Date.now()+'.json');
+  t.after(()=>{
+    fs.rmSync(lockPath,{force:true});
+    fs.rmSync(eventPath,{force:true});
+    fs.rmSync(prPath,{force:true});
+  });
+  fs.writeFileSync(lockPath,JSON.stringify(f.lock));
+  fs.writeFileSync(eventPath,JSON.stringify(f.event));
+  fs.writeFileSync(prPath,JSON.stringify(f.pr));
+
+  const r=spawnSync(process.execPath,[
+    f.toolPath,'attest',
+    '--lock',lockPath,
+    '--event',eventPath,
+    '--pr',prPath,
+    '--repository','example/test',
+    '--tool-blob',f.toolBlob,
+    '--json'
+  ],{encoding:'utf8'});
+  assert.equal(r.status,1,r.stdout+r.stderr);
+  const report=JSON.parse(r.stdout);
+  assert.ok(report.validation.errors.includes('ATTESTATION_SHA_STALE'));
+  assert.equal(r.stderr.includes('FAKE PASS'),false);
+  assert.equal(r.stderr.includes('\u202e'),false);
 });
