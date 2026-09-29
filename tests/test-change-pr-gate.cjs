@@ -135,3 +135,24 @@ test('trusted evidence artifact name is unique per run attempt',()=>{
     'name: trusted-mechanical-evidence-${{ github.run_id }}-attempt-${{ github.run_attempt }}'
   ));
 });
+
+
+test('trusted verification does not print raw machine evidence JSON to operator logs',()=>{
+  for (const file of ['scope.json','risk.json','impact.json']) {
+    assert.equal(
+      verificationSource.includes('cat "$RUNNER_TEMP/' + file + '"'),
+      false,
+      file + ' must not be printed raw'
+    );
+    assert.ok(
+      verificationSource.includes('> "$RUNNER_TEMP/' + file + '"'),
+      file + ' must still be written'
+    );
+  }
+  assert.ok(verificationSource.includes(
+    'node - "$RUNNER_TEMP/scope.json" "$RUNNER_TEMP/risk.json" "$RUNNER_TEMP/impact.json" "$RUNNER_TEMP/trusted-evidence.json"'
+  ));
+  assert.ok(verificationSource.includes('Trusted Scope JSON evidence captured.'));
+  assert.ok(verificationSource.includes('Trusted Risk JSON evidence captured.'));
+  assert.ok(verificationSource.includes('Trusted Impact JSON evidence captured.'));
+});

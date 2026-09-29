@@ -154,7 +154,7 @@ jobs:
           },null,2)+'\n');
           NODE
           fi
-          cat "$RUNNER_TEMP/scope.json"
+          echo "Trusted Scope JSON evidence captured."
           if [ -s "$RUNNER_TEMP/scope.stderr" ]; then cat "$RUNNER_TEMP/scope.stderr" >&2; fi
           echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
 
@@ -183,7 +183,7 @@ jobs:
           },null,2)+'\n');
           NODE
           fi
-          cat "$RUNNER_TEMP/risk.json"
+          echo "Trusted Risk JSON evidence captured."
           if [ -s "$RUNNER_TEMP/risk.stderr" ]; then cat "$RUNNER_TEMP/risk.stderr" >&2; fi
           echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
 
@@ -212,7 +212,7 @@ jobs:
           },null,2)+'\n');
           NODE
           fi
-          cat "$RUNNER_TEMP/impact.json"
+          echo "Trusted Impact JSON evidence captured."
           if [ -s "$RUNNER_TEMP/impact.stderr" ]; then cat "$RUNNER_TEMP/impact.stderr" >&2; fi
           echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
 
