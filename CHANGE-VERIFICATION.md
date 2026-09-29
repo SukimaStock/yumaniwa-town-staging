@@ -227,8 +227,20 @@ trusted static evidenceはexact candidate SHAに対して、少なくとも次�
 
 `change-operations-regression` はsecurity-critical fileを
 base-owned registryに事前登録されたexact Git blobへ照合する。
-候補branch側registryはcurrent PRの判定には使わないため、
+候補branch側registryはcurrent PRのexecutor dispatchには使わないため、
 registry変更とcontracted file変更を同一PRで自己承認できない。
+
+candidate registryがbaseと異なる場合は、base-owned executorがcandidate registryをinert JSONとして読み、
+`registryTransition` evidenceを生成する。
+許可されるtransitionは閉じている。
+
+- unchanged registry
+- steady → one-path pending authorization（target fileはfromBlobのまま）
+- pending → steady cleanup（target fileは事前承認toBlob）
+
+contract path追加・削除、unrelated contract drift、check/executor定義変更、
+same-PR authorization + target file変更、pendingのretargetはFAIL。
+`registryTransition` がFAILなら `staticOk=false` とする。
 
 `node-syntax` はcandidate sourceを実行せず、safe temp fileへの `node --check` だけを行う。
 unknown IDは明示FAIL、非該当はN/AでありPASSではない。
