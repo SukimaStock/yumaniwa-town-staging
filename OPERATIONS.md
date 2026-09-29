@@ -232,8 +232,30 @@ checkerはScope / Risk / Impactを同じtargetへ再計算する。
 manual checkは実際に確認した主体だけがPASSにする。
 ChatGPTがiPhone画面や音を観測していない場合はOwner確認待ち。
 
-A+B時点ではstatic evidenceの実測provenanceはまだPhase Cの対象。
-文字列evidenceを「trusted runnerが実行済み」と言い換えない。
+C3-2以降、high-risk PRの `staticChecks` は
+`tools/change-static-check-registry.json` のtrusted IDとして扱う。
+
+base-owned `tools/change-static-check.cjs` が、
+
+1. immutable Planのbase SHA
+2. eventのexact candidate SHA
+3. base-owned registry blob
+4. base-owned Risk Policy blob
+
+を固定したうえでcandidate Git blobを検査する。
+candidate Planはcommand / script / shell / executorを指定できない。
+candidate branchのmodule / test / workflowもtrusted runnerでは実行しない。
+
+初期IDは `change-operations-regression` と `node-syntax`。
+unknown IDはFAILする。applicable pathがない場合はN/AでありPASSではない。
+
+Static Evidenceはrun ID + run attempt単位のartifactへ保存する。
+既存ruleset-required `trusted-mechanical-evidence` jobの最終判定にstatic exitも含めるため、
+Static Evidenceだけ成功してrequired enforcementから外れる構造にしない。
+
+C3-2でも `verificationState` は `UNVERIFIED` のまま。
+Authenticated Human AttestationとVerification Record v0.3への最終統合は後続C3-3以降であり、
+文字列evidenceをtrusted human/static evidenceへ読み替えない。
 
 `Verification: VERIFIED` はstaging SHAの確認完了であり、production公開許可やRelease Completeではない。
 
