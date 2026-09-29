@@ -1,0 +1,75 @@
+{
+  "schema": "yumaniwa-change-os-contract/0.1",
+  "version": "2026-09-29.c3-2-bootstrap",
+  "policy": "frozen-preapproved-git-blobs",
+  "protectedFiles": {
+    ".github/workflows/change-pr-gate.yml": {
+      "presence": "required",
+      "allowedBlobs": [
+        "edbf5e1edb6e33e07e081ab708eb05ad782e7e75"
+      ]
+    },
+    ".github/workflows/change-verification.yml": {
+      "presence": "required",
+      "allowedBlobs": [
+        "dd0384c2788ac06e268ef8fef48ef32b61b4389a",
+        "aa8ac68cc44e404f0de40f71ef01180e3383c168"
+      ]
+    },
+    "tools/change-plan-lock.cjs": {
+      "presence": "required",
+      "allowedBlobs": [
+        "12093c6b62ca8f6faff38c153617e7b445a696d8"
+      ]
+    },
+    "tools/change-scope-guard.cjs": {
+      "presence": "required",
+      "allowedBlobs": [
+        "b502d5afc610b30792a37c17ac203c1694220006"
+      ]
+    },
+    "tools/change-risk-policy.cjs": {
+      "presence": "required",
+      "allowedBlobs": [
+        "3bcb649231ba926da52cdd7e20ddf4317bf11527",
+        "0590f3ab70f91d9a1ae441bf1b204ceee37b844b"
+      ]
+    },
+    "tools/change-risk-check.cjs": {
+      "presence": "required",
+      "allowedBlobs": [
+        "6d71c6e4981a901964ce1365e083c37df69288cd"
+      ]
+    },
+    "tools/change-impact-rules.cjs": {
+      "presence": "required",
+      "allowedBlobs": [
+        "def522d59db1c048efdce25237e3abeac0084aa5"
+      ]
+    },
+    "tools/change-impact-check.cjs": {
+      "presence": "required",
+      "allowedBlobs": [
+        "b18d4f99961a0781656cce861913df9075e7647f"
+      ]
+    },
+    "tools/change-verification-check.cjs": {
+      "presence": "required",
+      "allowedBlobs": [
+        "e207027a3a59a0261f4b303fe8b9fcb86a8d2b30"
+      ]
+    },
+    "tools/change-static-check.cjs": {
+      "presence": "sticky-optional",
+      "allowedBlobs": [
+        "cdfdc5371ab20454fcb707d5009f76763fb4367b"
+      ]
+    },
+    "tools/change-static-check-registry.json": {
+      "presence": "sticky-optional",
+      "allowedBlobs": [
+        "79dc97208dd33af4f4dbcc9a415acc22e6f66a30"
+      ]
+    }
+  }
+}
