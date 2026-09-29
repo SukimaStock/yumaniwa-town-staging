@@ -398,7 +398,7 @@ test('Scope human report escapes candidate-controlled Plan text without changing
   const condition='needs review\nFAKE FAIL\rnow';
   const plan=okPlan({
     change,
-    allowedPaths:['docs/**'],
+    allowedPaths:['other/**'],
     conditionalPaths:[{path:'docs/**',condition}],
   });
   const evaluated=guard.evaluateScope(plan,['docs/file.md']);
