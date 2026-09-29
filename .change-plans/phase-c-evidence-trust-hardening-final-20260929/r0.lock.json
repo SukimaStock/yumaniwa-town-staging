@@ -1,0 +1,117 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "dc67db6ffe658e3a26427f767468ce5badd002252a02d06834e93a2026263e1c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-evidence-trust-hardening-final-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C follow-up: harden trusted human logs, action provenance, and rerun artifact identity",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "4c95e8be963a85d7aa3be4908ec17a05edb7473c",
+    "canonicalSources": [
+      ".github/workflows/change-verification.yml",
+      ".github/workflows/change-pr-gate.yml",
+      "tools/change-scope-guard.cjs",
+      "tools/change-impact-check.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c-evidence-trust-hardening-final-20260929/**",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      "tools/change-scope-guard.cjs",
+      "tools/change-impact-check.cjs",
+      "tests/test-change-scope-guard.cjs",
+      "tests/test-change-impact-check.cjs",
+      "tests/test-change-pr-gate.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Escape candidate-controlled Plan text in trusted human-readable Scope and Impact output without changing machine-readable evidence.",
+      "Pin actions/checkout and actions/upload-artifact in trusted workflows to full commit SHAs resolved from their current v4 tags.",
+      "Give each trusted mechanical evidence artifact a run-attempt-specific name to prevent rerun ambiguity.",
+      "Add regression coverage for all three trust-hardening changes."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This package addresses only the two Medium and one Low findings from the C3-1 post-remediation closure audit.",
+      "Human-log escaping is display-only; Plan semantics, path identity, JSON evidence, exit codes, and verificationState remain unchanged.",
+      "Pin official Actions to the current full commit behind their v4 tags: actions/checkout 11d5960a326750d5838078e36cf38b85af677262 and actions/upload-artifact ea165f8d65b6e75b540449e92b4886f43607fa02.",
+      "Artifact naming must include github.run_id and github.run_attempt while the evidence envelope continues to carry both fields.",
+      "Production remains untouched."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "C3-1 post-remediation closure audit findings"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Change OS trust-boundary hardening only; behavior is covered by deterministic regression tests, trusted PR workflows, Codex review, and post-merge canary.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging-only trust-hardening PR; production remains untouched.",
+    "outOfScope": [
+      "Verification Record v0.3",
+      "Authenticated human attestation",
+      "Trusted static-check registry",
+      "Phase D broader Git/index hardening",
+      "Phase E semantic scope and concurrency controls",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "A minimal post-merge canary is required before the C3-1 closure audit is repeated."
+    ],
+    "problem": "The C3-1 closure audit found that trusted human logs still render some candidate-controlled Plan strings literally, trusted workflows reference movable v4 Action tags, and rerun artifacts reuse the same artifact name across attempts.",
+    "currentContract": "Path values are escaped in Scope and Impact human output and exact run provenance is embedded in JSON evidence, but Plan text can still inject control characters into trusted logs, external Action implementations are not commit-pinned, and artifact discovery by run ID plus name is ambiguous after reruns.",
+    "whyExistingIsInsufficient": "These gaps do not alter mechanical gate exit codes, but they weaken operator-visible evidence integrity and reproducibility: trusted logs can be visually spoofed, the same workflowSha can resolve different external Action code over time, and a consumer can select the wrong rerun artifact by name.",
+    "design": "Reuse escapeHumanText at the final human-rendering boundary for all candidate-controlled Scope and Impact strings; replace trusted-workflow Action tags with exact full commit SHAs; and include run ID plus run attempt in the uploaded artifact name. Preserve all machine evidence fields and trusted execution boundaries.",
+    "alternativesRejected": [
+      "Reject all control characters in Plan prose; display escaping is sufficient and preserves legitimate Plan content.",
+      "Keep @v4 because the Actions are official; movable refs still weaken exact execution provenance.",
+      "Rely only on JSON runAttempt while leaving duplicate artifact names; consumers can still select an older same-name artifact before inspecting its contents."
+    ],
+    "migration": "None.",
+    "compatibility": "Plan semantics and JSON evidence remain unchanged. Human logs show escaped control characters, and artifact consumers must use or discover the new attempt-specific artifact name.",
+    "boundaryCases": [
+      "Plan change text containing newline or ESC cannot create additional physical Scope or Impact log lines.",
+      "Conditional Scope condition and pattern strings render escaped without changing matching semantics.",
+      "Impact exclusion reasons and unknown impact IDs render escaped without changing evaluation semantics.",
+      "Trusted workflows contain no actions/checkout@v4 or actions/upload-artifact@v4 movable references.",
+      "Attempt 1 and attempt 2 of the same run produce distinct artifact names while preserving the same runId and differing runAttempt inside evidence."
+    ],
+    "testPlan": [
+      "Add Scope formatter regressions for candidate-controlled change, pattern, and conditional detail text with control characters.",
+      "Add Impact formatter regressions for candidate-controlled change, impact ID, and exclusion reason text with control characters while asserting machine values remain literal.",
+      "Assert trusted workflows use the resolved full Action SHAs and contain no movable v4 references.",
+      "Assert artifact name includes github.run_id and github.run_attempt.",
+      "Run Change Operations Tests, Change PR Gate and Change Verification Evidence on the exact PR head and request Codex adversarial review.",
+      "After merge, open a disposable canary, inspect escaped human logs and exact evidence, rerun verification, confirm distinct artifact names and attempt provenance, then close unmerged."
+    ],
+    "promotionRisk": "Staging Change OS only. Incorrect changes could weaken evidence readability or trusted workflow reproducibility, so required checks, adversarial review, and a post-merge canary are mandatory."
+  }
+}
