@@ -381,7 +381,10 @@ test('trusted registry transition rejects check-definition and executor-kind dri
     const candidate=structuredClone(base);
     candidate.version=base.version+'-executor';
     candidate.checks['change-operations-regression'].executor='node-syntax';
-    assert.throws(()=>readRegistryText(JSON.stringify(candidate,null,2)+'\n'),/executor kind/);
+    assert.throws(
+      ()=>readRegistryText(JSON.stringify(candidate,null,2)+'\n'),
+      /missing or unknown fields|executor kind/
+    );
   }
 });
 
