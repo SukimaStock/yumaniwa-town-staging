@@ -22,6 +22,7 @@ const {
 const REPORT_SCHEMA = 'yumaniwa-trusted-static-check-report/0.1';
 const REGISTRY_PATH = path.join(__dirname, 'change-static-check-registry.json');
 const RISK_POLICY_PATH = path.join(__dirname, 'change-risk-policy.cjs');
+const CHANGE_OS_CONTRACT_PATH = path.join(__dirname, 'change-os-contract.json');
 const REGISTRY_SCHEMA = 'yumaniwa-trusted-static-check-registry/0.1';
 const MAX_GIT_OUTPUT = 64 * 1024 * 1024;
 const UTF8 = new TextDecoder('utf-8', { fatal: true });
@@ -180,6 +181,12 @@ function runChangeOsContract(definition, context) {
     exitCode: outcome.ok ? 0 : 1,
     reason: outcome.ok ? 'CHANGE_OS_CONTRACT_MATCH' : 'CHANGE_OS_CONTRACT_MISMATCH',
     files: outcome.files,
+    contract: {
+      version: outcome.contractVersion,
+      policy: outcome.contractPolicy,
+      sourcePath: 'tools/change-os-contract.json',
+      sourceBlob: gitBlobSha1(fs.readFileSync(CHANGE_OS_CONTRACT_PATH)),
+    },
   };
 }
 
@@ -375,6 +382,7 @@ function executeStaticChecks(options) {
         applicabilitySourceBlob: riskPolicyBlob,
       },
       files: outcome.files || [],
+      contract: outcome.contract || null,
       diagnosticSha256: outcome.diagnosticSha256 || null,
     });
   }
