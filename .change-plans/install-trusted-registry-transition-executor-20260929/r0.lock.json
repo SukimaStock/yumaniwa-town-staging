@@ -1,0 +1,125 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e152ffed91a3fde2f5c4e02d3788529c64509eab4897f0a99606432a8d4f612c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "install-trusted-registry-transition-executor-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Install the exact preauthorized trusted registry-transition executor while leaving the pending registry unchanged.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "da7a0c018dafbf869d2526cde491735538814921",
+    "canonicalSources": [
+      "tools/change-static-check.cjs",
+      "tests/test-change-static-check.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/install-trusted-registry-transition-executor-20260929/**",
+      "tools/change-static-check.cjs",
+      "tests/test-change-static-check.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/change-static-check-registry.json",
+      ".github/workflows/**",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-verification-check.cjs",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Replace tools/change-static-check.cjs with exact Git blob f61a844f9aaa24ed3dcd9e3e79671d6c8bbb44ef preauthorized by the PR-base pending registry.",
+      "Leave tools/change-static-check-registry.json byte-for-byte unchanged in pending state.",
+      "Add base-owned candidate-registry transition validation and independent registryTransition evidence to the trusted static report.",
+      "Make invalid candidate registry transitions force staticOk false regardless of requested Plan staticChecks.",
+      "Update regression tests for the new executor, restoring normal exact-blob baseline coverage now that the executor file itself matches the pending toBlob.",
+      "Do not clean transitionPolicy back to steady in this PR."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "The installed executor content must exactly equal the prebuilt authorized blob f61a844f9aaa24ed3dcd9e3e79671d6c8bbb44ef.",
+      "The registry remains unchanged pending so the old base executor is the only authority for this transition PR.",
+      "Cleanup to steady is a later fresh registry-only package evaluated by the newly installed base-owned executor."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "C3-2 exact-blob trusted static evidence",
+      "One-time executor transition authorization at staging da7a0c018dafbf869d2526cde491735538814921",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Exact preauthorized executor transition verified by candidate regressions, base-owned gates, and exact-head review.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the executor transition merge back to the pending authorization state if the installed blob differs or post-merge trusted transition canaries fail.",
+    "outOfScope": [
+      "Changing the registry pending metadata",
+      "Cleaning transitionPolicy to steady",
+      "Changing any workflow",
+      "C3-3",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Registry cleanup and post-merge adversarial canaries are still required before C3-2 closure."
+    ],
+    "problem": "The future registry-transition validator is preauthorized in the base registry but not yet installed as trusted code.",
+    "currentContract": "The PR-base registry is pending for tools/change-static-check.cjs from blob 60101a1dbda6ea287709843db79bebfc82a28cdb to blob f61a844f9aaa24ed3dcd9e3e79671d6c8bbb44ef.",
+    "whyExistingIsInsufficient": "Until the exact preauthorized executor blob is installed, candidate registry edits are not validated by base-owned code.",
+    "design": "Install exactly the prebuilt executor blob and leave the pending base registry unchanged. The current PR is accepted by the old base executor because its exact-blob contract already expects the new executor blob. After merge, subsequent PRs execute the new base-owned candidate-registry transition validator.",
+    "alternativesRejected": [
+      "Change executor and registry cleanup in one PR; the current base executor cannot validate candidate cleanup metadata.",
+      "Regenerate or edit the executor after preauthorization; any byte change would invalidate the exact blob contract.",
+      "Use candidate tests as the trusted transition authority; the new executor moves this responsibility into base-owned code."
+    ],
+    "migration": "After this PR merges, create a fresh registry-only cleanup PR from the new main. The new base executor must validate pending-to-steady cleanup before merge.",
+    "compatibility": "Static check IDs, workflow invocation, artifact schema, exact-blob contracts, node-syntax, and required status names remain compatible. registryTransition is additive report evidence.",
+    "boundaryCases": [
+      "Registry file must remain unchanged pending in this PR.",
+      "Executor blob must equal the exact preauthorized toBlob.",
+      "Candidate-registry deletion/addition and unauthorized transitions are covered by new regression tests.",
+      "The new executor must still pass node-syntax non-execution and existing log/provenance tests."
+    ],
+    "testPlan": [
+      "Verify candidate executor Git blob equals f61a844f9aaa24ed3dcd9e3e79671d6c8bbb44ef.",
+      "Run all Change Operations Tests.",
+      "Require Change PR Gate and Change Verification Evidence to pass using the old PR-base executor and pending registry.",
+      "Request Codex review on the exact head.",
+      "Merge to staging only if all checks and review pass.",
+      "Immediately open a fresh registry-only pending-to-steady cleanup PR evaluated by the new executor."
+    ],
+    "promotionRisk": "None. Staging-only trusted executor transition."
+  }
+}
