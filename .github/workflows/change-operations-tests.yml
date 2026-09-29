@@ -11,12 +11,15 @@ on:
       - "tools/change-impact-rules.cjs"
       - "tools/change-impact-check.cjs"
       - "tools/change-verification-check.cjs"
+      - "tools/change-os-contract.cjs"
+      - "tools/change-os-contract.json"
       - "tests/test-change-scope-guard.cjs"
       - "tests/test-change-plan-lock.cjs"
       - "tests/test-change-risk-check.cjs"
       - "tests/test-change-pr-gate.cjs"
       - "tests/test-change-impact-check.cjs"
       - "tests/test-change-verification-check.cjs"
+      - "tests/test-change-os-contract.cjs"
       - "CHANGE-PLAN.md"
       - "CHANGE-VERIFICATION.md"
       - "CHANGE-OPERATIONS.md"
@@ -34,12 +37,15 @@ on:
       - "tools/change-impact-rules.cjs"
       - "tools/change-impact-check.cjs"
       - "tools/change-verification-check.cjs"
+      - "tools/change-os-contract.cjs"
+      - "tools/change-os-contract.json"
       - "tests/test-change-scope-guard.cjs"
       - "tests/test-change-plan-lock.cjs"
       - "tests/test-change-risk-check.cjs"
       - "tests/test-change-pr-gate.cjs"
       - "tests/test-change-impact-check.cjs"
       - "tests/test-change-verification-check.cjs"
+      - "tests/test-change-os-contract.cjs"
       - "CHANGE-PLAN.md"
       - "CHANGE-VERIFICATION.md"
       - "CHANGE-OPERATIONS.md"
@@ -70,7 +76,9 @@ jobs:
           node --check tools/change-impact-rules.cjs
           node --check tools/change-impact-check.cjs
           node --check tools/change-verification-check.cjs
+          node --check tools/change-os-contract.cjs
           node --check tests/test-change-pr-gate.cjs
+          node --check tests/test-change-os-contract.cjs
 
       - name: Run Change Operations regression tests
         run: >
@@ -81,3 +89,4 @@ jobs:
           tests/test-change-pr-gate.cjs
           tests/test-change-impact-check.cjs
           tests/test-change-verification-check.cjs
+          tests/test-change-os-contract.cjs
