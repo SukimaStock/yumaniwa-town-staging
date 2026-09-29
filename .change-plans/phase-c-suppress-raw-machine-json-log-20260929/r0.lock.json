@@ -1,0 +1,105 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "13a0b520fff1ca3e88f01ae9d32c2b6ae4d3733f0710d6d15d870f1e3bf8a70c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-suppress-raw-machine-json-log-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C follow-up: keep raw machine JSON evidence out of trusted operator logs",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "a95dce0ead589b9178274163beff7314023d8241",
+    "canonicalSources": [
+      ".github/workflows/change-verification.yml"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c-suppress-raw-machine-json-log-20260929/**",
+      ".github/workflows/change-verification.yml",
+      "tests/test-change-pr-gate.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**",
+      ".github/workflows/change-pr-gate.yml"
+    ],
+    "expectedChanges": [
+      "Stop printing raw Scope, Risk, and Impact JSON evidence to the trusted verification job log.",
+      "Continue writing the exact machine JSON files and consuming them when building the trusted evidence envelope.",
+      "Add regression coverage that prevents raw machine evidence files from being cat to operator-visible logs."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This change addresses only the closure-canary finding that literal machine JSON is safe as evidence but unsafe when echoed into operator-visible trusted logs.",
+      "Do not sanitize or mutate the machine JSON files themselves; preserve exact literal values for evidence integrity.",
+      "Do not change gate exit codes, evidence schema, artifact naming, pinned Actions, verificationState, branch protection, later Phase C work, or production."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "C3-1 closure canary raw JSON log finding"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Trusted workflow logging-only change; behavior is covered by workflow contract regression, trusted PR checks, Codex review, and a fresh post-merge canary.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging-only workflow logging change; production remains untouched.",
+    "outOfScope": [
+      "Verification Record v0.3",
+      "Authenticated human attestation",
+      "Trusted static-check registry",
+      "Phase D broader Git/index hardening",
+      "Phase E semantic scope and concurrency controls",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "A fresh post-merge canary must confirm operator logs no longer expose raw literal machine JSON and rerun artifacts remain attempt-specific."
+    ],
+    "problem": "The closure canary proved the human formatters escape newline and bidi controls correctly, but Change Verification Evidence later cats the raw Scope, Risk, and Impact JSON files into the trusted job log. Because machine evidence intentionally preserves literal candidate-controlled Unicode controls, the log display can still be visually spoofed through that separate raw JSON path.",
+    "currentContract": "Scope, Risk, and Impact commands write JSON to RUNNER_TEMP files, fallback JSON is synthesized if needed, and the workflow then cats each JSON file before using those same files to build trusted-evidence.json.",
+    "whyExistingIsInsufficient": "Literal preservation is correct for machine evidence but not for operator-visible logs. Printing the raw evidence files bypasses the display-only escaping boundary and reintroduces bidi/control rendering risk.",
+    "design": "Keep the exact JSON files private to the workflow filesystem and evidence-envelope builder. Remove the raw cat steps and replace them, if needed, only with fixed trusted messages that reveal no candidate-controlled content. Preserve all file paths, exit-code capture, fallback generation, envelope construction, artifact upload, and failure behavior.",
+    "alternativesRejected": [
+      "Escape or rewrite the JSON evidence files; that would corrupt the literal machine evidence contract.",
+      "Parse and sanitize JSON before re-printing it; unnecessary duplicate presentation logic would create another formatter to maintain.",
+      "Ignore the issue because the artifact is correct; trusted job logs are operator-visible evidence and must not be spoofable."
+    ],
+    "migration": "None.",
+    "compatibility": "Evidence JSON contents, schema, artifact structure, gate exits, and consumers remain unchanged. Only raw JSON log output is removed.",
+    "boundaryCases": [
+      "Plan text containing newline or bidi controls remains literal inside JSON evidence but does not appear raw in trusted verification logs.",
+      "Gate-error fallback JSON remains available to the envelope builder without being printed raw.",
+      "Successful Scope, Risk, and Impact results continue to feed trusted-evidence.json unchanged.",
+      "Attempt-specific artifact names and exact provenance remain unchanged."
+    ],
+    "testPlan": [
+      "Assert change-verification.yml no longer cats scope.json, risk.json, or impact.json.",
+      "Assert the workflow still writes each JSON file and feeds all three into the trusted evidence builder.",
+      "Run Change Operations Tests, Change PR Gate, and Change Verification Evidence on the exact PR head.",
+      "Request Codex adversarial review focused on raw machine JSON log suppression.",
+      "After merge, repeat the closure canary with newline plus bidi Plan text, inspect trusted verification logs, rerun verification, verify attempt-specific artifacts and provenance, then close the canary unmerged."
+    ],
+    "promotionRisk": "Staging Change OS workflow only. A mistake could hide useful diagnostics or break evidence construction, so required checks, adversarial review, and a fresh canary are mandatory."
+  }
+}
