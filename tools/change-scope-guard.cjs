@@ -501,15 +501,15 @@ function escapeHumanText(value) {
 function formatHuman(report) {
   const lines = [];
   lines.push('YUMANIWA SCOPE GUARD v0.2');
-  lines.push('Change: ' + report.change);
+  lines.push('Change: ' + escapeHumanText(report.change));
   lines.push('Base:   ' + report.baseSha);
   lines.push('Target: ' + report.target + ' (' + report.headSha + ')');
   lines.push('Changed paths: ' + report.changedPaths.length);
   lines.push('');
   for (const item of report.results) {
     const suffix = item.path ? ' ' + escapeHumanText(item.path) : '';
-    const pattern = item.pattern ? ' [' + item.pattern + ']' : '';
-    lines.push(item.status + ' ' + item.check + suffix + pattern + ' — ' + item.detail);
+    const pattern = item.pattern ? ' [' + escapeHumanText(item.pattern) + ']' : '';
+    lines.push(item.status + ' ' + item.check + suffix + pattern + ' — ' + escapeHumanText(item.detail));
   }
   lines.push('');
   lines.push('Scope: ' + (report.scopeOk ? 'PASS' : 'STOP'));
