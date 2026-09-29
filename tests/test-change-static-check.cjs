@@ -11,7 +11,10 @@ const {
   gitBlobSha1,
   requireExactKeys,
   parseRegistryText,
+  readRegistryText,
   readRegistry,
+  parseTransitionPolicy,
+  validateCandidateRegistryTransition,
   executeStaticChecks,
   formatHuman,
 } = require('../tools/change-static-check.cjs');
@@ -38,6 +41,30 @@ function write(root, filePath, content) {
   fs.writeFileSync(target,content);
 }
 
+function copyTrustedRegistry(root) {
+  write(root,'tools/change-static-check-registry.json',fs.readFileSync(REGISTRY_PATH,'utf8'));
+}
+
+function fakeTree(registry, overrides={}) {
+  const definition=registry.checks['change-operations-regression'];
+  const tree=new Map();
+  for(const contract of definition.contracts) {
+    tree.set(contract.path,{
+      mode:contract.mode,
+      type:contract.type,
+      oid:contract.expectedBlob,
+    });
+  }
+  for(const [filePath,entry] of Object.entries(overrides)) tree.set(filePath,entry);
+  return tree;
+}
+
+function steadyRegistry() {
+  const registry=JSON.parse(fs.readFileSync(REGISTRY_PATH,'utf8'));
+  registry.transitionPolicy='steady';
+  return registry;
+}
+
 function copyContractedFiles(root) {
   const registry=readRegistry();
   const definition=registry.checks['change-operations-regression'];
@@ -56,6 +83,7 @@ function initRepo(options={}) {
   git(root,['config','user.name','Static Test']);
   git(root,['config','user.email','static@example.invalid']);
   write(root,'README.md','base\n');
+  copyTrustedRegistry(root);
   if(options.contracts) copyContractedFiles(root);
   if(options.files) for(const [p,c] of Object.entries(options.files)) write(root,p,c);
   git(root,['add','-A']);
@@ -227,6 +255,197 @@ test('candidate registry cannot self-authorize a contracted file in the same PR'
   const file=report.results[0].files.find(item=>item.path===p);
   assert.equal(file.status,'FAIL');
   assert.notEqual(file.actualBlob,file.expectedBlob);
+});
+
+test('transition policy parser is closed and one-path only',()=>{
+  assert.deepEqual(parseTransitionPolicy('steady'),{state:'steady'});
+  assert.throws(()=>parseTransitionPolicy('pending:a:b:c'),/invalid/);
+  assert.throws(()=>parseTransitionPolicy('pending:a.js:'+ '1'.repeat(40)+':'+ '1'.repeat(40)),/must differ/);
+  assert.deepEqual(
+    parseTransitionPolicy('pending:tools/change-static-check.cjs:'+ '1'.repeat(40)+':'+ '2'.repeat(40)),
+    {
+      state:'pending',
+      path:'tools/change-static-check.cjs',
+      fromBlob:'1'.repeat(40),
+      toBlob:'2'.repeat(40),
+    }
+  );
+});
+
+test('trusted registry transition accepts one steady-to-pending authorization only',()=>{
+  const base=steadyRegistry();
+  const candidate=structuredClone(base);
+  candidate.version=base.version+'-next';
+  const path='tools/change-static-check.cjs';
+  const baseTarget=base.checks['change-operations-regression'].contracts.find(c=>c.path===path);
+  const candidateTarget=candidate.checks['change-operations-regression'].contracts.find(c=>c.path===path);
+  const to='2'.repeat(40);
+  candidateTarget.expectedBlob=to;
+  candidate.transitionPolicy='pending:'+path+':'+baseTarget.expectedBlob+':'+to;
+
+  const result=validateCandidateRegistryTransition(base,candidate,fakeTree(base));
+  assert.equal(result.status,'PASS');
+  assert.equal(result.reason,'REGISTRY_AUTHORIZATION_VALID');
+  assert.equal(result.path,path);
+});
+
+test('steady-to-pending rejects same-PR target-file transition',()=>{
+  const base=steadyRegistry();
+  const candidate=structuredClone(base);
+  candidate.version=base.version+'-next';
+  const path='tools/change-static-check.cjs';
+  const baseTarget=base.checks['change-operations-regression'].contracts.find(c=>c.path===path);
+  const candidateTarget=candidate.checks['change-operations-regression'].contracts.find(c=>c.path===path);
+  const to='2'.repeat(40);
+  candidateTarget.expectedBlob=to;
+  candidate.transitionPolicy='pending:'+path+':'+baseTarget.expectedBlob+':'+to;
+  const tree=fakeTree(base,{
+    [path]:{mode:baseTarget.mode,type:baseTarget.type,oid:to},
+  });
+  assert.throws(
+    ()=>validateCandidateRegistryTransition(base,candidate,tree),
+    /must leave target file at fromBlob/
+  );
+});
+
+test('trusted registry transition rejects contract deletion addition and unrelated drift',()=>{
+  const base=steadyRegistry();
+  const path='tools/change-static-check.cjs';
+  const target=base.checks['change-operations-regression'].contracts.find(c=>c.path===path);
+  const to='2'.repeat(40);
+
+  {
+    const candidate=structuredClone(base);
+    candidate.version=base.version+'-delete';
+    candidate.checks['change-operations-regression'].contracts=
+      candidate.checks['change-operations-regression'].contracts.filter(c=>c.path!=='.github/workflows/change-pr-gate.yml');
+    const c=candidate.checks['change-operations-regression'].contracts.find(x=>x.path===path);
+    c.expectedBlob=to;
+    candidate.transitionPolicy='pending:'+path+':'+target.expectedBlob+':'+to;
+    assert.throws(()=>validateCandidateRegistryTransition(base,candidate,fakeTree(base)),/contract path set/);
+  }
+
+  {
+    const candidate=structuredClone(base);
+    candidate.version=base.version+'-add';
+    candidate.checks['change-operations-regression'].contracts.push({
+      path:'tools/extra-contract.cjs',expectedBlob:'3'.repeat(40),mode:'100644',type:'blob'
+    });
+    const c=candidate.checks['change-operations-regression'].contracts.find(x=>x.path===path);
+    c.expectedBlob=to;
+    candidate.transitionPolicy='pending:'+path+':'+target.expectedBlob+':'+to;
+    assert.throws(()=>validateCandidateRegistryTransition(base,candidate,fakeTree(base)),/contract path set/);
+  }
+
+  {
+    const candidate=structuredClone(base);
+    candidate.version=base.version+'-drift';
+    const c=candidate.checks['change-operations-regression'].contracts.find(x=>x.path===path);
+    c.expectedBlob=to;
+    const other=candidate.checks['change-operations-regression'].contracts.find(x=>x.path!==path);
+    other.expectedBlob='4'.repeat(40);
+    candidate.transitionPolicy='pending:'+path+':'+target.expectedBlob+':'+to;
+    assert.throws(()=>validateCandidateRegistryTransition(base,candidate,fakeTree(base)),/unrelated contract/);
+  }
+});
+
+test('trusted registry transition rejects check-definition and executor-kind drift',()=>{
+  const base=steadyRegistry();
+  const path='tools/change-static-check.cjs';
+  const target=base.checks['change-operations-regression'].contracts.find(c=>c.path===path);
+  const to='2'.repeat(40);
+
+  {
+    const candidate=structuredClone(base);
+    candidate.version=base.version+'-node';
+    candidate.checks['node-syntax'].definitionVersion='999';
+    const c=candidate.checks['change-operations-regression'].contracts.find(x=>x.path===path);
+    c.expectedBlob=to;
+    candidate.transitionPolicy='pending:'+path+':'+target.expectedBlob+':'+to;
+    assert.throws(()=>validateCandidateRegistryTransition(base,candidate,fakeTree(base)),/node-syntax definition/);
+  }
+
+  {
+    const candidate=structuredClone(base);
+    candidate.version=base.version+'-executor';
+    candidate.checks['change-operations-regression'].executor='node-syntax';
+    assert.throws(()=>readRegistryText(JSON.stringify(candidate,null,2)+'\n'),/executor kind/);
+  }
+});
+
+test('pending base permits unchanged registry while exact target file moves to toBlob',()=>{
+  const base=steadyRegistry();
+  base.version=base.version+'-pending';
+  const path='tools/change-static-check.cjs';
+  const target=base.checks['change-operations-regression'].contracts.find(c=>c.path===path);
+  const from=target.expectedBlob;
+  const to='2'.repeat(40);
+  target.expectedBlob=to;
+  base.transitionPolicy='pending:'+path+':'+from+':'+to;
+
+  assert.doesNotThrow(()=>readRegistryText(JSON.stringify(base,null,2)+'\n'));
+  const tree=fakeTree(base,{[path]:{mode:target.mode,type:target.type,oid:to}});
+  assert.equal(tree.get(path).oid,to);
+});
+
+test('pending-to-steady cleanup requires preauthorized target file and no definition drift',()=>{
+  const base=steadyRegistry();
+  base.version=base.version+'-pending';
+  const path='tools/change-static-check.cjs';
+  const target=base.checks['change-operations-regression'].contracts.find(c=>c.path===path);
+  const from=target.expectedBlob;
+  const to='2'.repeat(40);
+  target.expectedBlob=to;
+  base.transitionPolicy='pending:'+path+':'+from+':'+to;
+
+  const candidate=structuredClone(base);
+  candidate.version=base.version+'-steady';
+  candidate.transitionPolicy='steady';
+  const goodTree=fakeTree(base,{[path]:{mode:target.mode,type:target.type,oid:to}});
+  const result=validateCandidateRegistryTransition(base,candidate,goodTree);
+  assert.equal(result.reason,'REGISTRY_CLEANUP_VALID');
+
+  const badTree=fakeTree(base,{[path]:{mode:target.mode,type:target.type,oid:from}});
+  assert.throws(()=>validateCandidateRegistryTransition(base,candidate,badTree),/requires target file/);
+
+  const drift=structuredClone(candidate);
+  drift.checks['node-syntax'].definitionVersion='999';
+  assert.throws(()=>validateCandidateRegistryTransition(base,drift,goodTree),/node-syntax definition/);
+});
+
+test('pending registry cannot be retargeted directly to another pending transition',()=>{
+  const base=steadyRegistry();
+  base.version=base.version+'-pending';
+  const path='tools/change-static-check.cjs';
+  const target=base.checks['change-operations-regression'].contracts.find(c=>c.path===path);
+  const from=target.expectedBlob;
+  const to='2'.repeat(40);
+  target.expectedBlob=to;
+  base.transitionPolicy='pending:'+path+':'+from+':'+to;
+
+  const candidate=structuredClone(base);
+  candidate.version=base.version+'-retarget';
+  candidate.transitionPolicy='pending:'+path+':'+from+':'+to;
+  assert.throws(
+    ()=>validateCandidateRegistryTransition(base,candidate,fakeTree(base)),
+    /not authorized by base state/
+  );
+});
+
+test('invalid candidate registry transition blocks staticOk independently of requested check results',t=>{
+  const {root,baseSha}=initRepo();
+  t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+  const candidate=JSON.parse(fs.readFileSync(REGISTRY_PATH,'utf8'));
+  candidate.version=candidate.version+'-candidate';
+  candidate.checks['change-operations-regression'].contracts.pop();
+  write(root,'tools/change-static-check-registry.json',JSON.stringify(candidate,null,2)+'\n');
+  write(root,'README.md','changed\n');
+  const targetSha=commitAll(root);
+  const report=execute(root,baseSha,targetSha,plan(baseSha,['node-syntax']));
+  assert.equal(report.results[0].status,'N/A');
+  assert.equal(report.registryTransition.status,'FAIL');
+  assert.equal(report.registryTransition.reason,'CANDIDATE_REGISTRY_TRANSITION_INVALID');
+  assert.equal(report.staticOk,false);
 });
 
 test('node-syntax parses top-level candidate code without executing it',t=>{
