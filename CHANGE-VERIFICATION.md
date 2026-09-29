@@ -218,6 +218,24 @@ AIは観測していないmanual checkをPASSにしない。
 
 A+Bだけで「すべての証拠がtrustedになった」と言わない。
 
+### C3-2 bootstrap: trusted Change OS blob contract
+
+C3-2の設計監査で、candidate sourceのsubstring存在確認だけでは
+comment / dead stringへ同じ文字列を残してtrusted PASSを偽装できることが判明した。
+
+そのためC3-2本体より先に、
+`tools/change-os-contract.json` と `tools/change-os-contract.cjs` をbase-owned trust boundaryとして置く。
+
+このcontractはsecurity-criticalなChange OS workflow/toolを
+**literal Git path + mode/type + exact blob ID**で検査する。
+YAML/JavaScriptの意味をcandidate sourceから推測せず、candidate codeも実行しない。
+
+bootstrap後はcontract/verifier自身をcandidate側から変更できない。
+両fileはtrusted base blobとの完全一致を要求する。
+
+C3-2で必要な次版についてだけ、bootstrap時点でexact blobを先に許可する。
+同じPRでcandidateが自分のblobを許可listへ追加することはできない。
+
 ---
 
 ## 6. Exact SHA Rule
