@@ -7,6 +7,7 @@ const os = require('node:os');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const {
+  EXECUTOR_KIND_BY_ID,
   gitBlobSha1,
   parseRegistryText,
   readRegistry,
@@ -116,6 +117,17 @@ test('registry parser requires canonical JSON and rejects duplicate-key represen
   assert.doesNotThrow(()=>parseRegistryText(canonical));
   assert.throws(()=>parseRegistryText(canonical.replace(/\n  "version":/, '\n  "version": "shadow",\n  "version":')),/canonical pretty JSON/);
   assert.throws(()=>parseRegistryText(canonical.trim()),/canonical pretty JSON/);
+});
+
+test('executor dispatch kind is base-owned and cannot be changed by registry data',()=>{
+  assert.deepEqual(EXECUTOR_KIND_BY_ID,{
+    'change-operations-regression':'exact-blobs',
+    'node-syntax':'node-syntax',
+  });
+  const registry=readRegistry();
+  for(const [id,definition] of Object.entries(registry.checks)) {
+    assert.equal(definition.executor,EXECUTOR_KIND_BY_ID[id]);
+  }
 });
 
 test('registry is data-only and contains only allowlisted initial IDs',()=>{
