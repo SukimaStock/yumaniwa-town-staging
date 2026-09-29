@@ -1,0 +1,68 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6c45bc4fb977052a184312a12faba605c872d7571f8a05595df50cffa1382e9b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c3-2-static-failure-canary-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "C3-2 failure-path canary for unknown candidate-controlled static check ID.",
+    "planLevel": "lite",
+    "classes": [
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "57d1b22e843a881d5ca7497f746b2fafc2aff74d",
+    "canonicalSources": [
+      "c3-2-static-failure-canary.txt"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c3-2-static-failure-canary-20260929/**",
+      "c3-2-static-failure-canary.txt"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/**",
+      "tools/**",
+      "tests/**",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Add one inert text canary file.",
+      "Declare an unknown command-like static check ID containing newline and bidi text and confirm the trusted static executor fails without executing it or leaking raw operator-log controls."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "CHANGE-PLAN v0.2",
+      "C3-2 post-merge adversarial canary"
+    ],
+    "staticChecks": [
+      "BAD\nFAKE PASS ‮BIDI"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Automated failure-path canary; no human attestation is being tested.",
+    "impactChecks": [],
+    "impactExclusions": [],
+    "rollback": "Close the canary PR unmerged and delete the branch later if desired.",
+    "outOfScope": [
+      "Any merge",
+      "production changes",
+      "C3-3",
+      "VERIFIED promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "This is an intentionally failing C3-2 canary and must never be merged."
+    ]
+  }
+}
