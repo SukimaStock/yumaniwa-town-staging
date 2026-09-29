@@ -1,0 +1,81 @@
+{
+  "schema": "yumaniwa-trusted-static-check-registry/0.1",
+  "version": "2026-09-29.2",
+  "transitionPolicy": "candidate registry is inert for its own PR; contracted-file changes require prior merged registry authorization",
+  "checks": {
+    "change-operations-regression": {
+      "definitionVersion": "2",
+      "executor": "exact-blobs",
+      "candidateExecution": false,
+      "applicabilitySource": "tools/change-risk-policy.cjs",
+      "contracts": [
+        {
+          "path": ".github/workflows/change-pr-gate.yml",
+          "expectedBlob": "edbf5e1edb6e33e07e081ab708eb05ad782e7e75",
+          "mode": "100644",
+          "type": "blob"
+        },
+        {
+          "path": ".github/workflows/change-verification.yml",
+          "expectedBlob": "f467678810d6169c37c8eea0304d9032f312b8ec",
+          "mode": "100644",
+          "type": "blob"
+        },
+        {
+          "path": "tools/change-plan-lock.cjs",
+          "expectedBlob": "12093c6b62ca8f6faff38c153617e7b445a696d8",
+          "mode": "100644",
+          "type": "blob"
+        },
+        {
+          "path": "tools/change-scope-guard.cjs",
+          "expectedBlob": "b502d5afc610b30792a37c17ac203c1694220006",
+          "mode": "100644",
+          "type": "blob"
+        },
+        {
+          "path": "tools/change-risk-policy.cjs",
+          "expectedBlob": "0590f3ab70f91d9a1ae441bf1b204ceee37b844b",
+          "mode": "100644",
+          "type": "blob"
+        },
+        {
+          "path": "tools/change-risk-check.cjs",
+          "expectedBlob": "6d71c6e4981a901964ce1365e083c37df69288cd",
+          "mode": "100644",
+          "type": "blob"
+        },
+        {
+          "path": "tools/change-impact-rules.cjs",
+          "expectedBlob": "def522d59db1c048efdce25237e3abeac0084aa5",
+          "mode": "100644",
+          "type": "blob"
+        },
+        {
+          "path": "tools/change-impact-check.cjs",
+          "expectedBlob": "b18d4f99961a0781656cce861913df9075e7647f",
+          "mode": "100644",
+          "type": "blob"
+        },
+        {
+          "path": "tools/change-verification-check.cjs",
+          "expectedBlob": "e207027a3a59a0261f4b303fe8b9fcb86a8d2b30",
+          "mode": "100644",
+          "type": "blob"
+        },
+        {
+          "path": "tools/change-static-check.cjs",
+          "expectedBlob": "60101a1dbda6ea287709843db79bebfc82a28cdb",
+          "mode": "100644",
+          "type": "blob"
+        }
+      ]
+    },
+    "node-syntax": {
+      "definitionVersion": "1",
+      "executor": "node-syntax",
+      "candidateExecution": false,
+      "applicabilitySource": "tools/change-risk-policy.cjs"
+    }
+  }
+}

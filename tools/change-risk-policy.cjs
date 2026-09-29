@@ -43,6 +43,13 @@ function staticCheckRequirement(id, options = {}) {
   });
 }
 
+const STATIC_CHECK_REQUIREMENTS = Object.freeze({
+  'change-operations-regression': staticCheckRequirement('change-operations-regression'),
+  'node-syntax': staticCheckRequirement('node-syntax', {
+    applicability: { kind: 'extensions', extensions: ['.js', '.cjs', '.mjs'] },
+  }),
+});
+
 function profile(id, options = {}) {
   return Object.freeze({
     id,
@@ -61,10 +68,8 @@ const PROFILES = Object.freeze({
     requiredImpacts: ['os.previous-gate', 'os.regression', 'os.provenance'],
     coreImpacts: ['os.regression', 'os.provenance'],
     requiredStaticChecks: [
-      staticCheckRequirement('change-operations-regression'),
-      staticCheckRequirement('node-syntax', {
-        applicability: { kind: 'extensions', extensions: ['.js', '.cjs', '.mjs'] },
-      }),
+      STATIC_CHECK_REQUIREMENTS['change-operations-regression'],
+      STATIC_CHECK_REQUIREMENTS['node-syntax'],
     ],
     reason: 'Change OS and workflow files can weaken the gate that evaluates later changes.',
   }),
@@ -72,9 +77,7 @@ const PROFILES = Object.freeze({
     requiredImpacts: ['runtime.shared', 'runtime.regression', 'runtime.rollback'],
     coreImpacts: ['runtime.shared', 'runtime.regression'],
     requiredStaticChecks: [
-      staticCheckRequirement('node-syntax', {
-        applicability: { kind: 'extensions', extensions: ['.js', '.cjs', '.mjs'] },
-      }),
+      STATIC_CHECK_REQUIREMENTS['node-syntax'],
     ],
     reason: 'Shared runtime affects multiple scenes or works.',
   }),
@@ -246,6 +249,7 @@ function riskImpactDefinitions() {
 module.exports = {
   PLAN_LEVEL_RANK,
   KNOWN_DOMAIN_DATA,
+  STATIC_CHECK_REQUIREMENTS,
   PROFILES,
   normalizeRiskPath,
   staticCheckRequirement,
