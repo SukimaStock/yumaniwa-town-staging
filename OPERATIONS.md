@@ -460,3 +460,39 @@ production 固有の次の条件を守る。
 
 Phase 2時点の既知の赤は意図した検出結果。Diorama Calendar／路地裏マサラのページや
 SteamClockのsitemapを、Validator実装と一緒に変更しない。
+
+---
+
+## Change Execution OS — 現在の終了点（2026-09-29）
+
+Change Execution OSの大規模整理は、現在のtrust boundaryでいったん終了する。
+
+日常運用で使うもの:
+
+- Plan Lock
+- Scope / Risk / Impact
+- Trusted Static Evidence
+- exact-blob contract
+- required checks / ruleset
+- staging-first / production分離
+
+Human Attestationはrepository-owner-only verifierの**基盤まで**導入済み。
+live comment workflowは有効化していないため、通常運用で追加操作は不要。
+
+当面やらないもの:
+
+- human attestationのlive化
+- App投稿か人間直接投稿かの追加判定
+- attester delegation
+- Verification Record v0.3
+- automatic VERIFIED
+- Phase D / Phase E
+
+これらを「残タスク」として日常的に追わない。
+必要性が発生したときだけ、新しいChangeとして再評価する。
+
+次の通常の町変更では、OSをさらに作るのではなく、
+**今のOSを使って普通に制作する**。
+その中で具体的な事故や過剰な摩擦が見つかった場合のみ、
+その1 findingを1 work packageとして修正する。
+
