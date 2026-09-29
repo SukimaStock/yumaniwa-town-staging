@@ -1,0 +1,118 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4c2f5ec6d4be490b996e56d958ef16a2ba69a2eb7065af43f7e36873a4d3bec1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "change": "Implement Yumaniwa Guide Terminal v1",
+    "changeId": "work-guide-terminal-v1-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "planLevel": "full",
+    "environment": "staging",
+    "baseSha": "b2276e0b31e193481a221fec59be457b1cbeb295",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "canonicalSources": [
+      "data/works.js",
+      "data/places.js",
+      "data/work-guide-meta.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/work-guide-terminal-v1-20260929/r0.lock.json",
+      "data/work-guide-meta.js",
+      "work-guide-terminal.js",
+      "work-guide-terminal.css",
+      "index.html",
+      "main.js",
+      "data/places.js",
+      "tests/test-work-guide.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/works.js",
+      "data/town-maps.js",
+      "data/world-objects.js",
+      "town-interaction-flow.js"
+    ],
+    "expectedChanges": [
+      "Add a town-wide guide metadata layer for duration, moods, guide copy, and manually curated featured works without duplicating WORKS identity or launch data.",
+      "Replace the leisure_catalog generic venue menu with a dedicated image-first guide terminal home and reusable carousel for featured, mood, and all-work browsing.",
+      "Include open works from both leisure_center and tomogushi_alley when guide metadata exists.",
+      "Resolve guide images from assets/works/<workId>/ogp.jpg with icon and text fallback, without adding duplicate image paths to metadata.",
+      "Preserve carousel mode and index when a work launched from the guide is closed and return to the same guide state.",
+      "Keep existing direct venue launches and return behavior unchanged outside the guide terminal."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "guide-home-entry",
+      "guide-featured-carousel",
+      "guide-mood-carousel",
+      "guide-all-carousel",
+      "guide-launch-return-state",
+      "guide-existing-venue-launch-regression",
+      "guide-mobile-desktop-layout",
+      "guide-missing-image-fallback"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "surface.shared",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "promotion": "Staging PR and merge only. Production promotion is out of scope.",
+    "hqDecisions": [
+      "The guide becomes a town-wide discovery surface rather than a leisure-center-only catalog.",
+      "The home screen exposes three choices only: recommended, browse by mood, and browse all.",
+      "Work browsing uses one image-first carousel pattern with previous/next controls and a visible position indicator.",
+      "The initial moods are short, play, quiet, and two-player; works may appear in multiple moods.",
+      "Featured works are manually curated and are not derived from publish date or popularity.",
+      "A work launched from the guide returns to the same guide browse state; works launched elsewhere keep existing return behavior.",
+      "v1 does not add swipe gestures, ranking, personalization, search, favorites, or algorithmic recommendations."
+    ],
+    "alternativesRejected": [
+      "Keep separate leisure-center and Tomogushi Alley catalogs as the primary discovery model.",
+      "Use WORKS array order as the guide ranking.",
+      "Duplicate title, venue, launch URL, or image paths inside guide metadata.",
+      "Build multiple browse UIs for recommended, moods, and all works.",
+      "Add swipe-only or gesture-dependent navigation in v1."
+    ],
+    "boundaryCases": [
+      "Zero eligible works shows a simple unavailable message and a back action.",
+      "One eligible work keeps the carousel usable without requiring hidden knowledge of gestures.",
+      "Previous from the first item and next from the last item wrap around.",
+      "A mood with one matching work remains valid.",
+      "Open WORKS entries without guide metadata do not appear partially configured.",
+      "Guide metadata for non-open or missing WORKS entries never makes those works launchable.",
+      "Missing ogp.jpg falls back to icon.png, then to a text-only visual placeholder.",
+      "Closing a guide-launched work restores browse mode, filter, and current index.",
+      "Launching a work from its physical venue still returns to that venue as before."
+    ],
+    "testPlan": [
+      "Run node syntax checks for all changed JavaScript and CommonJS files.",
+      "Run tests/test-work-guide.cjs for eligibility, mood filtering, featured filtering, wraparound navigation, image fallback contract, and state restoration hooks.",
+      "Run existing town interaction and transition regression tests because main.js return flow is shared runtime.",
+      "Use Scope, Risk, and Impact gates against the locked base SHA.",
+      "Manually verify the guide home, all three browse paths, launch/close/re-entry, missing-image fallback, and mobile/desktop layout on staging."
+    ],
+    "problem": "The current exhibition guide is a venue-scoped WORKS list whose ordering follows manual newest-first insertion, so it behaves like a catalog/update surface rather than helping visitors choose something to play.",
+    "currentContract": "WORKS owns work identity, venue, visibility and launch. leisure_catalog is a destination rendered through the generic destination menu, and work-player return state remembers the destination but not a guide-specific browse state.",
+    "whyExistingIsInsufficient": "The generic menu cannot express a town-wide image-first curated browse flow, mood entry points, or restoration of a carousel position after closing a work without either overloading WORKS or adding guide-specific behavior.",
+    "design": "Add a separate guide metadata source and a dedicated guide terminal renderer/state module. main.js only delegates leisure_catalog rendering and preserves/restores the guide return view. Existing WORKS launch behavior remains authoritative.",
+    "migration": "No data migration. Existing WORKS and physical venue triggers remain unchanged. leisure_catalog begins using the new guide renderer when scripts load.",
+    "compatibility": "Direct work routes, physical venue work launches, Tomogushi Alley menus, leisure-center physical exhibits, and non-guide destination menus retain their existing paths and semantics.",
+    "rollback": "Revert the implementation commit(s) after the immutable Plan Lock commit. This restores the generic leisure_catalog menu and prior work-player return behavior without changing WORKS data.",
+    "promotionRisk": "Production is not part of this change. A later promotion must carry only the reviewed staging diff and re-run production safety checks."
+  }
+}
