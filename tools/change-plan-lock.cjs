@@ -3,7 +3,7 @@
 const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
-const { validatePlan, SCHEMA } = require('./change-scope-guard.cjs');
+const { validatePlan, SCHEMA, escapeHumanText } = require('./change-scope-guard.cjs');
 
 const LOCK_SCHEMA = 'yumaniwa-change-plan-lock/0.2';
 
@@ -177,7 +177,8 @@ function runCli(argv = process.argv.slice(2)) {
       const previous = options.previous ? readJson(options.previous, 'previous lock') : null;
       const checked = verifyLock(lock, previous);
       if (!checked.ok) {
-        process.stderr.write('Plan Lock INVALID\n- ' + checked.errors.join('\n- ') + '\n');
+        process.stderr.write('Plan Lock INVALID\n');
+        for (const item of checked.errors) process.stderr.write('- ' + escapeHumanText(item) + '\n');
         return 1;
       }
       process.stdout.write('Plan Lock PASS ' + checked.planDigest + '\n');
@@ -185,7 +186,7 @@ function runCli(argv = process.argv.slice(2)) {
     }
     throw new Error('unknown command: ' + options.command);
   } catch (error) {
-    process.stderr.write('Plan Lock error: ' + error.message + '\n');
+    process.stderr.write('Plan Lock error: ' + escapeHumanText(error.message) + '\n');
     process.stderr.write(usage() + '\n');
     return 2;
   }
