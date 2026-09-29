@@ -203,20 +203,50 @@ production verification
 
 AIは観測していないmanual checkをPASSにしない。
 
-### v0.2 A+B時点の制限
+### C3-2時点のtrust boundary
 
-現行Recordの `evidence` はまだ文字列であり、
-**static evidenceの実在性をrunnerが完全に採取・照合する仕組みはRemediation Phase Cの対象**である。
+C3-1でPlan identity / repository / Scope / Risk / Impactをbase-owned mechanical evidenceへ移した。
+C3-2ではさらにPlanの `staticChecks` をbase-owned Trusted Static Check Registry / Executorへ接続する。
 
-したがってA+B完了時点では、
+trusted static evidenceはexact candidate SHAに対して、少なくとも次を記録する。
 
-- Plan identity / repository / Risk / Scope / Impactは機械gate
-- static evidence provenanceは次Phase
-- human manualはattestationとして扱う
+- repository
+- base SHA / target SHA
+- Plan Lock path / commit / blob
+- actor / triggering actor
+- run ID / run attempt
+- workflow ref / workflow SHA
+- registry schema / version / base-owned blob SHA
+- applicability source（Risk Policy）のbase-owned blob SHA
+- check ID
+- definition version / fixed executor kind
+- applicability
+- PASS / FAIL / N/A
+- exit code
+- check固有のmachine evidence
 
-と明示する。
+trusted executorはcandidate Planのcommandを実行しない。
+candidate branchのmodule / test / workflowも実行せず、candidate contentはGit blobとして読む。
+`node-syntax` もtop-level codeを実行せずparseだけ行う。
+unknown IDは明示FAIL、非該当はN/AでありPASSではない。
 
-A+Bだけで「すべての証拠がtrustedになった」と言わない。
+Static Evidence artifactは
+`trusted-static-evidence-<run id>-attempt-<attempt>`
+としてMechanical Evidenceとは別に残す。
+ただしstatic failureは既存ruleset-requiredの
+`trusted-mechanical-evidence` job自体をFAILさせるため、別の未保護status名へ逃がさない。
+
+現行Verification Recordの `evidence` は引き続き文字列であり、
+C3-2 artifactをRecord v0.3へ最終統合することやAuthenticated Human Attestationはまだ行わない。
+
+したがってC3-2完了時点でも、
+
+- trusted mechanical evidence: あり
+- trusted static evidence: あり
+- authenticated human attestation: なし
+- final `VERIFIED`: **成立させない**
+
+とする。
 
 ---
 
