@@ -247,8 +247,22 @@ base-owned `tools/change-static-check.cjs` は、
 
 `change-operations-regression` はsecurity-critical Change OS fileを
 registryの事前承認exact blobへ照合する。
-candidate側registryはcurrent PRでは無効なので、contract変更は
-「registry authorization merge → fresh PRでfile変更」の二段階にする。
+
+candidate registryはcurrent PRのexecutor dispatchには使わないが、
+変更されたcandidate registry自体はbase-owned executorがinert dataとして検査する。
+`registryTransition` FAILはstatic全体をFAILさせる。
+
+通常のcontract変更:
+
+1. steady baseからregistry-only authorization PRを作る。
+   candidateは `pending:<path>:<fromBlob>:<toBlob>` とし、対象fileはfromBlobのまま。
+2. merge後のpending baseからfresh PRを作る。
+   対象fileをexact toBlobへ変更し、candidate registryをsteadyへ戻す。
+3. base-owned executorがpending→steady cleanupまで検証する。
+
+contract pathの追加/削除、unrelated drift、same-PR自己承認、pending retargetは許可しない。
+C3-2導入時の3段bootstrap（preauthorization → executor install → cleanup）は一度限りで、
+通常の将来変更では上記2 PRを使う。
 
 `node-syntax` はcandidate codeを実行せずparseだけ行う。
 candidate module / test / workflow / Plan commandはtrusted runnerで実行しない。

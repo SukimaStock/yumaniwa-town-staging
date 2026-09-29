@@ -222,14 +222,32 @@ PlanはIDだけを持ち、command / script / shell / executor / expected blob�
 substringや独自YAML parserをsecurity boundaryにしない。
 1 byteでも変わればblob SHAが変わるため、コメント・dead string・hidden command・parser差異でPASSを維持できない。
 
-trusted registry自体の変更はcurrent PRでは使われず、必ずPR base側registryを使う。
-そのためcontracted fileを変更する場合は、
+trusted registryの**dispatch定義**はcurrent PRでは使われず、必ずPR base側registryを使う。
+一方candidate registryが変更された場合は、base-owned executorがcandidate Git blobをinert JSONとしてparseし、
+base registryからcandidate registryへのtransition自体をtrusted checkする。
+この `registryTransition` がFAILなら、Plan内static checkがすべてPASS/N/Aでも `staticOk=false` になる。
 
-1. registry-only authorization packageをmerge
-2. 新しいbaseからfresh Planで、事前承認されたblobへfileを変更
+通常状態は `transitionPolicy: "steady"`。
+contracted fileを変更するときは二段階にする。
 
-の二段階にする。
-candidate registry変更とcontracted file変更を同一PRで自己承認できない。
+1. **Authorization PR**
+   - baseはsteady
+   - candidate registryだけを `pending:<path>:<fromBlob>:<toBlob>` へ変更
+   - 対象contractのexpectedBlobだけをtoBlobへ変更
+   - 対象file本体はfromBlobのまま
+   - base-owned executorがcontract path集合、unrelated定義不変、one-path変更、target file=fromBlobを検証
+2. **Transition PR**
+   - pendingをbaseにfresh Plan
+   - 対象fileをexact toBlobへ変更
+   - candidate registryをsteadyへ戻す
+   - base-owned executorがtarget file=toBlobとpending→steady cleanupを検証
+
+candidate registryはcurrent PRのexecutor dispatchには使われないため、
+registry変更とcontracted file変更を同一PRで自己承認できない。
+
+C3-2導入時のみ、transition validator自身を入れるため
+registry preauthorization → executor install → steady cleanup の3段bootstrapを実施した。
+これは通常運用では繰り返さない。
 
 初期ID:
 

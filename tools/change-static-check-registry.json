@@ -1,7 +1,7 @@
 {
   "schema": "yumaniwa-trusted-static-check-registry/0.1",
-  "version": "2026-09-29.3-bootstrap",
-  "transitionPolicy": "pending:tools/change-static-check.cjs:60101a1dbda6ea287709843db79bebfc82a28cdb:f61a844f9aaa24ed3dcd9e3e79671d6c8bbb44ef",
+  "version": "2026-09-29.4",
+  "transitionPolicy": "steady",
   "checks": {
     "change-operations-regression": {
       "definitionVersion": "2",
