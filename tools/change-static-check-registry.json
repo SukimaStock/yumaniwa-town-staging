@@ -3,52 +3,12 @@
   "version": "2026-09-29.1",
   "checks": {
     "change-operations-regression": {
-      "definitionVersion": "1",
-      "executor": "text-contract",
+      "definitionVersion": "2",
+      "executor": "change-os-contract",
       "candidateExecution": false,
       "applicabilitySource": "tools/change-risk-policy.cjs",
-      "description": "Validate security-critical Change OS structural invariants by reading exact candidate Git blobs as inert UTF-8 text.",
-      "requirements": [
-        {
-          "path": ".github/workflows/change-pr-gate.yml",
-          "contains": [
-            "pull_request_target:",
-            "types: [opened, synchronize, reopened, edited]",
-            "ref: ${{ github.event.pull_request.base.sha }}",
-            "ref: ${{ github.event.pull_request.head.sha }}",
-            "persist-credentials: false",
-            "$GITHUB_WORKSPACE/trusted/tools/change-plan-lock.cjs",
-            "$GITHUB_WORKSPACE/trusted/tools/change-scope-guard.cjs",
-            "$GITHUB_WORKSPACE/trusted/tools/change-risk-check.cjs",
-            "$GITHUB_WORKSPACE/trusted/tools/change-impact-check.cjs"
-          ]
-        },
-        {
-          "path": ".github/workflows/change-verification.yml",
-          "contains": [
-            "pull_request_target:",
-            "types: [opened, synchronize, reopened, edited]",
-            "ref: ${{ github.event.pull_request.base.sha }}",
-            "ref: ${{ github.event.pull_request.head.sha }}",
-            "persist-credentials: false",
-            "$GITHUB_WORKSPACE/trusted/tools/change-scope-guard.cjs",
-            "$GITHUB_WORKSPACE/trusted/tools/change-risk-check.cjs",
-            "$GITHUB_WORKSPACE/trusted/tools/change-impact-check.cjs",
-            "$GITHUB_WORKSPACE/trusted/tools/change-static-check.cjs",
-            "trusted-static-evidence-${{ github.run_id }}-attempt-${{ github.run_attempt }}",
-            "verificationState:'UNVERIFIED'"
-          ]
-        },
-        {
-          "path": "tools/change-risk-policy.cjs",
-          "contains": [
-            "STATIC_CHECK_REQUIREMENTS",
-            "'change-operations-regression'",
-            "'node-syntax'",
-            "applicability: { kind: 'extensions', extensions: ['.js', '.cjs', '.mjs'] }"
-          ]
-        }
-      ]
+      "contractSource": "tools/change-os-contract.json",
+      "description": "Validate exact candidate Git blobs for security-critical Change OS trust-boundary files against the immutable base-owned Change OS contract allowlist."
     },
     "node-syntax": {
       "definitionVersion": "1",
