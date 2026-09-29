@@ -480,3 +480,5 @@ jobs:
             echo "One or more trusted gates failed: scope=$SCOPE_EXIT risk=$RISK_EXIT impact=$IMPACT_EXIT static=$STATIC_EXIT staticEnvelope=$STATIC_ENVELOPE_EXIT"
             exit 1
           fi
+
+# C3-2 self-authorization canary: candidate changed contracted workflow.
