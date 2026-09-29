@@ -1,0 +1,144 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0ccd83be6693a5adf296ce6e252c08949fd4c96621f43e91595fe32fe30c3059",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "trusted-change-os-contract-bootstrap-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Bootstrap immutable trusted Change OS blob contract before retrying Phase C3-2.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "d748cd143f95ab790814f47d67aefa0953548132",
+    "canonicalSources": [
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      "tools/change-plan-lock.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/trusted-change-os-contract-bootstrap-20260929/**",
+      "tools/change-os-contract.json",
+      "tools/change-os-contract.cjs",
+      "tests/test-change-os-contract.cjs",
+      ".github/workflows/change-operations-tests.yml",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      "tools/change-plan-lock.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-verification-check.cjs",
+      "tools/change-static-check.cjs",
+      "tools/change-static-check-registry.json",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Add a base-owned immutable Change OS contract that validates exact Git blob identities rather than source substrings.",
+      "Protect the trusted PR/verification workflows and trusted Change OS gate tools against comment, dead-text, or semantic substitution.",
+      "Pre-authorize only the exact current trusted blobs plus the exact next C3-2 workflow/Risk Policy/static registry/static executor blobs already designed for the retry.",
+      "Make the Change OS contract verifier and contract file self-frozen after bootstrap: candidate changes to either must fail by exact base blob comparison.",
+      "Allow the C3-2 static registry/executor files to be initially absent at the bootstrap base, but once present at a later trusted base they become sticky and cannot be deleted or altered outside the pre-authorized blob.",
+      "Add adversarial tests proving comments/dead text cannot replace protected blobs, unapproved changes fail, symlink/non-regular entries fail, and self-modification fails.",
+      "Wire the new tests into Change Operations Tests and document the bootstrap/freeze rule."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "C3-2 must not rely on substring/static text presence for Change OS security invariants.",
+      "Before authenticated human attestation exists, security-critical Change OS self-modification is frozen to an explicit base-owned Git blob allowlist.",
+      "The only pre-authorized next variants are the already-designed C3-2 trusted verification workflow, Risk Policy, registry, and executor blobs.",
+      "The bootstrap contract itself cannot authorize its own later mutation; candidate contract/verifier must remain byte-identical to the trusted base.",
+      "This package fixes only the High finding and does not implement Trusted Static Evidence itself."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "C3-1 base-owned trusted mechanical evidence",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Change OS bootstrap is validated by base-owned C3-1 gates, exact-blob adversarial regression tests, and PR review. Human attestation is explicitly out of scope.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging-only bootstrap package if the contract blocks the intended exact C3-2 retry or fails to reject an unapproved protected blob.",
+    "outOfScope": [
+      "Trusted Static Evidence execution",
+      "Authenticated Human Attestation",
+      "Verification Record v0.3",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes",
+      "General-purpose YAML or JavaScript semantic parsing"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "C3-2 remains incomplete until a fresh package uses this contract and passes post-merge failure/success canaries."
+    ],
+    "problem": "The proposed C3-2 change-operations-regression used substring presence over candidate source. A candidate could remove a real security setting and leave the same text in comments or dead strings, producing false trusted PASS.",
+    "currentContract": "C3-1 trusted workflows evaluate Plan/Scope/Risk/Impact from the base, but there is not yet a base-owned immutable contract for the candidate versions of security-critical Change OS workflow/tool files.",
+    "whyExistingIsInsufficient": "Text-presence checks cannot distinguish executable/structural security semantics from comments or dead text and therefore remain candidate-spoofable.",
+    "design": "Introduce tools/change-os-contract.json plus base-owned tools/change-os-contract.cjs. The verifier reads exact base and target Git trees, requires regular non-executable blobs at literal protected paths, and accepts only pre-authorized target blob IDs. Existing critical files allow their current blob plus only the exact C3-2 next blob where needed. Future C3-2 static files use sticky-optional presence: absent is allowed only while absent at the trusted base; after first appearance they cannot be deleted. The verifier and contract file themselves are self-frozen by requiring target blob equality with the trusted base blob. No candidate code is executed and no YAML/JS source semantics are inferred.",
+    "alternativesRejected": [
+      "Strip comments and keep substring matching; dead branches and alternate semantics remain spoofable.",
+      "Implement a partial YAML/shell/JavaScript parser; a security boundary should not depend on an incomplete language parser.",
+      "Execute candidate Change OS tests in the trusted runner; this violates the no candidate-controlled code execution boundary.",
+      "Allow the candidate to append its own approved blob IDs in the same PR; that is self-authorization.",
+      "Freeze all workflows/tools without pre-authorizing C3-2; that would make the intended next phase impossible without another trust mechanism."
+    ],
+    "migration": "Bootstrap is one staging-only package. After merge, retry C3-2 from the new staging main using only the pre-authorized next blobs. The previous unsafe PR #51 stays closed and is never merged.",
+    "compatibility": "Current C3-1 workflows/tools are explicitly allowed. C3-2's already-designed next verification workflow and Risk Policy are explicitly allowed, and corrected C3-2 static registry/executor blobs are pre-authorized. Other protected mutations fail closed.",
+    "boundaryCases": [
+      "Replacing a required workflow setting with the same text in a comment changes the blob and fails.",
+      "Moving required text into a dead string changes the blob and fails.",
+      "Changing whitespace or comments in a protected file also changes the blob and fails; this is intentional during the freeze window.",
+      "Deleting a required protected file fails.",
+      "Replacing a protected file with a symlink or executable-mode blob fails.",
+      "Adding initial C3-2 static registry/executor files is allowed only at their exact pre-authorized blob IDs.",
+      "After those files exist at the trusted base, deletion fails because sticky-optional presence becomes required.",
+      "Changing tools/change-os-contract.cjs or tools/change-os-contract.json after bootstrap fails even if candidate content tries to add its own blob to an allowlist.",
+      "Literal Git path identity is used; pathspec-like names cannot alias a protected path."
+    ],
+    "testPlan": [
+      "Run Change Operations Tests including new contract unit/adversarial tests.",
+      "Require existing base-owned Change PR Gate and Change Verification Evidence to pass.",
+      "Request Codex adversarial review on the exact bootstrap head.",
+      "Merge staging only if no High/Medium finding remains.",
+      "Reconfirm production main is unchanged.",
+      "Start a fresh C3-2 r0 from the bootstrap merge commit; do not reopen or reuse PR #51.",
+      "In the fresh C3-2 package, replace substring text-contract with the base-owned change-os-contract executor and confirm all candidate protected blobs match the pre-authorized values."
+    ],
+    "promotionRisk": "None; this is staging Change OS trust-boundary bootstrap only."
+  }
+}
