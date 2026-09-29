@@ -207,6 +207,23 @@ Risk Policyが要求するstatic checkにはchanged pathに対する**applicabil
 `node-syntax` は `.js/.cjs/.mjs` のchanged pathがある場合だけ適用する。
 N/AはPASSではなく、「このdiffには実行対象が存在しない」というRisk Policy由来の判定である。
 
+security-critical workflowをtrusted static evidenceで検査するとき、
+単なる文字列包含をsemantic contractの代わりに使わない。
+コメント、無関係scalar、shell commentへ同じ文字列を残すだけでPASSを偽装できるためである。
+
+`tools/change-workflow-semantic.cjs` は、Change OS workflowで必要な限定YAML subsetだけを
+fail-closedでparseし、mapping keyを正規化しつつsequence順序とliteral run blockを保持した
+semantic SHA-256 digestを生成する。
+
+- YAML commentやmapping key順序だけの差 → semantic digest不変
+- active node削除、checkout ref変更、step追加、run command変更 → semantic digest変更
+- duplicate key / anchor / alias / tag / flow map / folded block / unsupported構文 → parse FAIL
+
+security-critical workflowを将来変更する場合は一つのPRで
+「workflow変更 + その変更を正しいとするtrusted expected digest追加」を自己承認させない。
+先にexpected semantic contractをbase-owned正本へ追加するauthorization packageをmergeし、
+その後のfresh packageでworkflow変更を行う二段階を基本とする。
+
 ---
 
 ## 6. Lite Plan
