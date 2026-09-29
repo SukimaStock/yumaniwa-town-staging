@@ -1,0 +1,126 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ce60609232d5c18fa776ff33d0f4a042d0504470830704712795e871dc97230e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c3-3-preauthorize-human-verifier-v2-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C3-3 prerequisite: preauthorize the authenticated human attestation verifier blob.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "9a9407ebfbfa6e5b5df3c70590d4c45cb54c6a25",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      "tools/change-verification-check.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c3-3-preauthorize-human-verifier-v2-20260929/**",
+      "tools/change-static-check-registry.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/**",
+      "tools/change-verification-check.cjs",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Change only the trusted static registry to preauthorize the exact future Git blob for tools/change-verification-check.cjs.",
+      "Move transitionPolicy from steady to one-path pending for tools/change-verification-check.cjs while leaving the contracted verifier file itself unchanged.",
+      "Do not install or execute the future human attestation verifier in this authorization PR."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "C3-3 human attestation parsing will be implemented inside the already-contracted change-verification-check.cjs rather than in an uncontracted trusted executable.",
+      "The future verifier accepts a GitHub-authenticated issue-comment attestation only when it covers exactly all locked Plan manualChecks for the exact current PR head SHA.",
+      "The attestation artifact records GitHub user identity, association, comment identity/body hash, exact PR/base/head, Plan digest, and verifier blob while keeping final verificationState UNVERIFIED.",
+      "This PR is registry-only preauthorization; candidate registry cannot authorize its own current PR."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "C3-2 exact-blob two-stage authorization",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Registry-only authorization package; authenticated human attestation is the later C3-3 target, not a prerequisite for this bootstrap step.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Close or revert this staging-only registry authorization if the future verifier blob changes before installation.",
+    "outOfScope": [
+      "Installing tools/change-verification-check.cjs",
+      "Changing change-verification.yml",
+      "Generating human attestation artifacts",
+      "Verification Record v0.3 final integration",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "The preauthorized verifier is not trusted until a later fresh PR installs exactly blob 7f54001a813dd89fa65018b780a18c25a7141b0b and returns registry transitionPolicy to steady."
+    ],
+    "problem": "C3-3 needs a base-owned authenticated human attestation verifier, but tools/change-verification-check.cjs is protected by the C3-2 exact-blob contract and requires prior merged authorization.",
+    "currentContract": "staging/main is steady and expects tools/change-verification-check.cjs blob e207027a3a59a0261f4b303fe8b9fcb86a8d2b30.",
+    "whyExistingIsInsufficient": "The current verifier treats recordedBy and manualChecks PASS as candidate-authored strings and has no GitHub-authenticated human attestation mode.",
+    "design": "Preauthorize future verifier blob 7f54001a813dd89fa65018b780a18c25a7141b0b using the existing steady-to-pending registry transition. The future verifier validates a created PR issue comment from a human repository-associated GitHub User, binds it to same-repository default-branch PR metadata, exact current head SHA, immutable Plan Lock digest/base SHA, and the exact complete Plan manualChecks set, records comment/user provenance and hashes without duplicating raw note/body, and always leaves verificationState UNVERIFIED.",
+    "alternativesRejected": [
+      "Modify verifier and registry in one PR; same-PR self-authorization is forbidden.",
+      "Add a new uncontracted trusted executable; security-critical code must remain inside the exact-blob contract set.",
+      "Trust candidate Verification Record recordedBy/manual PASS strings; they are self-declared.",
+      "Allow partial or extra manual check attestations in C3-3; one comment must cover exactly the locked manualChecks set.",
+      "Promote final VERIFIED from this evidence; final record integration is explicitly later."
+    ],
+    "migration": "No existing Verification Record or evidence is rewritten. This PR only creates a temporary pending registry state for one contracted path.",
+    "compatibility": "No workflow, verifier runtime, required status name, Plan schema, or production behavior changes in this package.",
+    "boundaryCases": [
+      "Bot or non-User comment author is rejected.",
+      "Comment user and event sender login/id mismatch is rejected.",
+      "Author association outside OWNER/MEMBER/COLLABORATOR is rejected.",
+      "Fork PR or non-default-base PR is rejected.",
+      "Stale payload SHA is rejected.",
+      "Missing, duplicate, extra, or partial manual check IDs are rejected.",
+      "Plan with no manualChecks is rejected for attestation.",
+      "Malformed payload or unknown payload field is rejected.",
+      "Raw comment/note text is not copied into operator logs or attestation artifact; hashes and byte counts are retained.",
+      "Verifier source blob must match the base-owned expected blob."
+    ],
+    "testPlan": [
+      "Require candidate Change Operations Tests to stay green during registry-only pending authorization.",
+      "Require Change PR Gate and Change Verification Evidence to pass.",
+      "Inspect trusted Static Evidence for REGISTRY_AUTHORIZATION_VALID.",
+      "Request exact-head Codex adversarial review and stop on new High/Medium finding.",
+      "Merge to staging only, then create a fresh verifier-install PR from the pending base.",
+      "Reconfirm production main unchanged."
+    ],
+    "promotionRisk": "None. Staging-only Change OS registry authorization."
+  }
+}
