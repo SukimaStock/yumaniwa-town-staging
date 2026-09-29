@@ -1,0 +1,125 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "65de8df9a7491e1cfa5292c76d0b4fd9ea0421c513bd6f64f8515f3082dcaf56",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "static-check-applicability-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Make required static checks path-applicable so non-applicable checks are explicit N/A instead of fake PASS or permanent failure.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "6dab38f5af1d0851745fa7ba573ac65253ec3cc1",
+    "canonicalSources": [
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "CHANGE-PLAN.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/static-check-applicability-20260929/**",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tests/test-change-risk-check.cjs",
+      "CHANGE-PLAN.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/**",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-verification-check.cjs",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Represent required static checks in the Risk Policy with explicit path applicability metadata.",
+      "Treat a required static check as N/A when none of the changed paths for that risk profile match its applicability, rather than requiring a declaration or treating the check as PASS.",
+      "Keep node-syntax required for Change OS changes that include .js, .cjs, or .mjs files.",
+      "Keep change-operations-regression required for every Change OS change.",
+      "Add regression tests for workflow/docs-only Change OS changes, JavaScript Change OS changes, and missing applicable node-syntax declarations.",
+      "Document that static-check applicability is derived from the trusted Risk Policy before execution evidence is evaluated."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "Non-applicable static checks must be represented as N/A, never PASS.",
+      "Applicability belongs to the trusted Risk Policy that derives required checks from changed paths.",
+      "This package fixes only the applicability contract needed by C3-2 and does not add the trusted static registry/executor."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Change OS contract repair verified by trusted CI, regression tests, and PR review; authenticated human attestation is out of scope.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging Change OS package if static-check applicability weakens an applicable requirement or breaks trusted gates.",
+    "outOfScope": [
+      "Trusted Static Check Registry",
+      "Trusted Static Check Executor",
+      "Static Evidence artifact",
+      "Authenticated Human Attestation",
+      "Verification Record v0.3",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "C3-2 remains incomplete until the separate trusted registry/executor package is implemented after this prerequisite is merged."
+    ],
+    "problem": "The current Change OS risk profile requires node-syntax for every Change OS path, including workflow and documentation-only changes where there is no JavaScript to check. C3-2 cannot truthfully mark a non-executed syntax check PASS, while treating no applicable JavaScript as failure would make valid non-JavaScript Change OS changes unmergeable.",
+    "currentContract": "tools/change-risk-policy.cjs stores unconditional requiredStaticChecks arrays per profile, and tools/change-risk-check.cjs requires every listed ID to appear in Plan.staticChecks.",
+    "whyExistingIsInsufficient": "Static check names were previously declarative only, so applicability was not observable. Trusted execution makes the missing applicability contract blocking.",
+    "design": "Extend each risk profile's required static-check entries with trusted path applicability metadata. The Risk Check derives applicable paths per check. If none match, it emits N/A risk.static-check-not-applicable and does not require the Plan to declare that check. If any match, the existing declaration requirement remains mandatory. change-operations-regression uses always applicability; node-syntax uses JavaScript extensions .js/.cjs/.mjs.",
+    "alternativesRejected": [
+      "Treat no applicable JavaScript as node-syntax PASS; that would label an unexecuted check PASS.",
+      "Keep node-syntax unconditionally required and fail workflow/docs-only Change OS changes; that would create a permanent false blocker.",
+      "Move applicability into the future C3-2 executor only; Risk Gate would still require a non-applicable check before execution.",
+      "Remove node-syntax from the Change OS risk profile entirely; JavaScript Change OS changes would lose an existing safety requirement."
+    ],
+    "migration": "No Plan Lock or historical record is rewritten. Future Risk Gate evaluations use applicability metadata; historical evidence remains historical.",
+    "compatibility": "Applicable JavaScript Change OS changes continue to require node-syntax exactly as before. Non-JavaScript Change OS changes now expose node-syntax as N/A. Other profiles retain current behavior except where the same explicit applicability metadata is intentionally defined.",
+    "boundaryCases": [
+      "Workflow-only Change OS diff requires change-operations-regression and reports node-syntax N/A.",
+      "Markdown-only Change OS diff requires change-operations-regression and reports node-syntax N/A.",
+      "JavaScript Change OS diff requires both change-operations-regression and node-syntax.",
+      "Mixed workflow plus JavaScript Change OS diff requires node-syntax because at least one changed path is applicable.",
+      "Omitting node-syntax from an applicable JavaScript Change OS Plan remains FAIL.",
+      "Declaring node-syntax when it is not applicable does not convert N/A into PASS or satisfy some other requirement."
+    ],
+    "testPlan": [
+      "Run Change Operations regression tests.",
+      "Verify Risk Check reports explicit N/A for non-JavaScript Change OS node-syntax applicability.",
+      "Verify Risk Check still fails when JavaScript Change OS changes omit node-syntax.",
+      "Verify mixed Change OS changes require node-syntax.",
+      "Open PR and require existing base-owned Change PR Gate and Change Verification Evidence to pass.",
+      "Review diff for any weakening of applicable static-check requirements.",
+      "Merge to staging only, then reconfirm production/main is unchanged before restarting C3-2 from the new staging main."
+    ],
+    "promotionRisk": "None; staging Change OS contract repair only."
+  }
+}
