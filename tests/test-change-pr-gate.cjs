@@ -41,8 +41,10 @@ test('trusted verification evidence workflow is base-owned and does not declare 
   assert.ok(verificationSource.includes('$GITHUB_WORKSPACE/trusted/tools/change-scope-guard.cjs'));
   assert.ok(verificationSource.includes('$GITHUB_WORKSPACE/trusted/tools/change-risk-check.cjs'));
   assert.ok(verificationSource.includes('$GITHUB_WORKSPACE/trusted/tools/change-impact-check.cjs'));
+  assert.ok(verificationSource.includes('$GITHUB_WORKSPACE/trusted/tools/change-static-check.cjs'));
   assert.ok(verificationSource.includes("verificationState:'UNVERIFIED'"));
   assert.ok(verificationSource.includes('trusted-mechanical-evidence'));
+  assert.ok(verificationSource.includes('trusted-static-evidence'));
 });
 
 
@@ -50,6 +52,7 @@ test('trusted verification preserves failing gate evidence before failing the jo
   assert.ok(verificationSource.includes('id: scope'));
   assert.ok(verificationSource.includes('id: risk'));
   assert.ok(verificationSource.includes('id: impact'));
+  assert.ok(verificationSource.includes('id: static'));
   assert.ok(verificationSource.includes('echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"'));
   assert.ok(verificationSource.includes("schema:'yumaniwa-gate-error/0.1'"));
   assert.ok(verificationSource.includes('gateExitCodes:{'));
@@ -57,7 +60,7 @@ test('trusted verification preserves failing gate evidence before failing the jo
   const failIndex=verificationSource.indexOf('- name: Fail after preserving trusted evidence');
   assert.ok(uploadIndex >= 0);
   assert.ok(failIndex > uploadIndex);
-  assert.ok(verificationSource.includes('One or more trusted gates failed: scope=$SCOPE_EXIT risk=$RISK_EXIT impact=$IMPACT_EXIT'));
+  assert.ok(verificationSource.includes('One or more trusted gates failed: scope=$SCOPE_EXIT risk=$RISK_EXIT impact=$IMPACT_EXIT static=$STATIC_EXIT static-envelope=$STATIC_ENVELOPE_EXIT'));
 });
 
 
@@ -130,15 +133,18 @@ test('trusted workflows pin external Actions to full commit SHAs',()=>{
   assert.equal(verificationSource.includes('actions/upload-artifact@v4'),false);
 });
 
-test('trusted evidence artifact name is unique per run attempt',()=>{
+test('trusted evidence artifact names are unique per run attempt',()=>{
   assert.ok(verificationSource.includes(
     'name: trusted-mechanical-evidence-${{ github.run_id }}-attempt-${{ github.run_attempt }}'
+  ));
+  assert.ok(verificationSource.includes(
+    'name: trusted-static-evidence-${{ github.run_id }}-attempt-${{ github.run_attempt }}'
   ));
 });
 
 
 test('trusted verification does not print raw machine evidence JSON to operator logs',()=>{
-  for (const file of ['scope.json','risk.json','impact.json']) {
+  for (const file of ['scope.json','risk.json','impact.json','static.json']) {
     assert.equal(
       verificationSource.includes('cat "$RUNNER_TEMP/' + file + '"'),
       false,
@@ -167,4 +173,73 @@ test('trusted workflows omit raw candidate values on failure paths',()=>{
   assert.ok(source.includes('Locked Plan baseSha differs from current PR base; candidate value omitted from trusted log.'));
   assert.ok(source.includes("console.error('Plan Lock JSON parse failed.');"));
   assert.ok(verificationSource.includes("console.error('Plan Lock JSON parse failed.');"));
+});
+
+
+test('trusted static definition files are resolved as regular blobs from exact PR base',()=>{
+  assert.ok(verificationSource.includes('working-directory: trusted'));
+  assert.ok(verificationSource.includes('git ls-tree "$BASE_SHA" -- "$path"'));
+  assert.ok(verificationSource.includes('resolve_blob tools/change-static-check-registry.cjs'));
+  assert.ok(verificationSource.includes('resolve_blob tools/change-static-check.cjs'));
+  assert.ok(verificationSource.includes('resolve_blob tools/change-risk-policy.cjs'));
+  assert.ok(verificationSource.includes('[ "$mode" = "100644" ]'));
+  assert.ok(verificationSource.includes('[ "$type" = "blob" ]'));
+  assert.ok(verificationSource.includes('echo "registry_blob=$registry_blob" >> "$GITHUB_OUTPUT"'));
+  assert.ok(verificationSource.includes('echo "executor_blob=$executor_blob" >> "$GITHUB_OUTPUT"'));
+  assert.ok(verificationSource.includes('echo "risk_policy_blob=$risk_blob" >> "$GITHUB_OUTPUT"'));
+});
+
+test('trusted static executor is base-owned and exact-SHA bound',()=>{
+  assert.ok(verificationSource.includes('$GITHUB_WORKSPACE/trusted/tools/change-static-check.cjs'));
+  assert.ok(verificationSource.includes('--root "$GITHUB_WORKSPACE/candidate"'));
+  assert.ok(verificationSource.includes('--base "$BASE_SHA"'));
+  assert.ok(verificationSource.includes('--head "$HEAD_SHA"'));
+  assert.ok(verificationSource.includes('--repository "$REPOSITORY"'));
+  assert.ok(verificationSource.includes('--registry-blob "$REGISTRY_BLOB"'));
+  assert.ok(verificationSource.includes('--executor-blob "$EXECUTOR_BLOB"'));
+  assert.ok(verificationSource.includes('--risk-policy-blob "$RISK_POLICY_BLOB"'));
+  assert.equal(verificationSource.includes('$GITHUB_WORKSPACE/candidate/tools/change-static-check.cjs'),false);
+});
+
+test('trusted static failure evidence is preserved without raw stderr logging',()=>{
+  assert.ok(verificationSource.includes("schema:'yumaniwa-gate-error/0.1'"));
+  assert.ok(verificationSource.includes("gate:'static'"));
+  assert.ok(verificationSource.includes('diagnosticBytes:stderr.length'));
+  assert.ok(verificationSource.includes("crypto.createHash('sha256').update(stderr).digest('hex')"));
+  assert.equal(verificationSource.includes('cat "$RUNNER_TEMP/static.stderr"'),false);
+  assert.equal(verificationSource.includes('cat "$RUNNER_TEMP/static.json"'),false);
+  assert.ok(verificationSource.includes('Trusted Static stderr captured; raw content omitted from operator log.'));
+});
+
+test('trusted static evidence records definition and producer provenance while remaining UNVERIFIED',()=>{
+  assert.ok(verificationSource.includes("schema:'yumaniwa-trusted-static-evidence/0.1'"));
+  assert.ok(verificationSource.includes("registry:{path:'tools/change-static-check-registry.cjs',blob:process.env.REGISTRY_BLOB}"));
+  assert.ok(verificationSource.includes("executor:{path:'tools/change-static-check.cjs',blob:process.env.EXECUTOR_BLOB}"));
+  assert.ok(verificationSource.includes("applicability:{path:'tools/change-risk-policy.cjs',blob:process.env.RISK_POLICY_BLOB}"));
+  assert.ok(verificationSource.includes('actor:process.env.ACTOR'));
+  assert.ok(verificationSource.includes('triggeringActor:process.env.TRIGGERING_ACTOR'));
+  assert.ok(verificationSource.includes('runId:process.env.RUN_ID'));
+  assert.ok(verificationSource.includes('runAttempt:process.env.RUN_ATTEMPT'));
+  assert.ok(verificationSource.includes('workflowRef:process.env.WORKFLOW_REF'));
+  assert.ok(verificationSource.includes('workflowSha:process.env.WORKFLOW_SHA'));
+  assert.ok(verificationSource.includes("verificationState:'UNVERIFIED'"));
+});
+
+test('trusted static envelope validates exact identity and definition blob provenance before final gate success',()=>{
+  assert.ok(verificationSource.includes("staticChecks.schema==='yumaniwa-trusted-static-check-report/0.1'"));
+  assert.ok(verificationSource.includes('staticChecks.repository===process.env.REPOSITORY'));
+  assert.ok(verificationSource.includes('staticChecks.baseSha===process.env.BASE_SHA'));
+  assert.ok(verificationSource.includes('staticChecks.targetSha===process.env.HEAD_SHA'));
+  assert.ok(verificationSource.includes('staticChecks.registry.sourceBlob===process.env.REGISTRY_BLOB'));
+  assert.ok(verificationSource.includes('staticChecks.executor.sourceBlob===process.env.EXECUTOR_BLOB'));
+  assert.ok(verificationSource.includes('staticChecks.applicabilitySource.sourceBlob===process.env.RISK_POLICY_BLOB'));
+  assert.ok(verificationSource.includes('echo "validation_exit=$VALIDATION_EXIT" >> "$GITHUB_OUTPUT"'));
+  assert.ok(verificationSource.includes('STATIC_ENVELOPE_EXIT: ${{ steps.static_envelope.outputs.validation_exit }}'));
+});
+
+test('static artifact is uploaded before the final blocking decision',()=>{
+  const staticUpload=verificationSource.indexOf('- name: Upload trusted static evidence');
+  const finalFail=verificationSource.indexOf('- name: Fail after preserving trusted evidence');
+  assert.ok(staticUpload >= 0);
+  assert.ok(finalFail > staticUpload);
 });
