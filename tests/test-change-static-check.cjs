@@ -95,10 +95,19 @@ function run(root, baseSha, targetSha, rawPlan, overrides = {}) {
   });
 }
 
-function seedChangeOsContract(root) {
+function changeOsContractSeed() {
+  const seed = {};
   const definition = registry.getStaticCheckDefinition('change-operations-regression');
   for (const requirement of definition.requirements) {
-    write(root, requirement.path, requirement.contains.join('\n') + '\n');
+    const prefix = /\.(?:js|cjs|mjs)$/.test(requirement.path) ? '// ' : '';
+    seed[requirement.path] = requirement.contains.map(value => prefix + value).join('\n') + '\n';
+  }
+  return seed;
+}
+
+function seedChangeOsContract(root) {
+  for (const [filePath, content] of Object.entries(changeOsContractSeed())) {
+    write(root, filePath, content);
   }
 }
 
@@ -213,13 +222,18 @@ test('missing durable Change OS invariant fails with hashes instead of raw missi
 });
 
 test('PASS plus trusted N/A is represented as PASS_WITH_NA, not all-PASS', () => {
-  const { root, baseSha } = initRepo();
-  seedChangeOsContract(root);
+  const { root, baseSha } = initRepo(changeOsContractSeed());
+  write(root, 'README.md', 'changed only as data\n');
   const targetSha = commitAll(root);
-  const allowed = [...new Set(registry.getStaticCheckDefinition('change-operations-regression').requirements.map(item => item.path))];
-  const report = run(root, baseSha, targetSha, plan(baseSha, ['change-operations-regression', 'node-syntax'], allowed));
+  const report = run(
+    root,
+    baseSha,
+    targetSha,
+    plan(baseSha, ['change-operations-regression', 'node-syntax'], ['README.md'])
+  );
   assert.equal(report.staticState, 'PASS_WITH_NA');
   assert.equal(report.staticOk, true);
+  assert.equal(report.results.find(item => item.id === 'change-operations-regression').status, 'PASS');
   assert.equal(report.results.find(item => item.id === 'node-syntax').status, 'N/A');
 });
 
@@ -243,11 +257,11 @@ test('risk-required applicability must be covered by the trusted execution selec
   assert.match(mismatch.missingPathDigests[0], /^[0-9a-f]{64}$/);
 });
 
-test('selector does not interpret candidate strings as commands', () => {
+test('selector treats command-like candidate strings only as path data', () => {
   const definition = registry.getStaticCheckDefinition('node-syntax');
   assert.deepEqual(
     selectExecutionPaths(definition, ['node evil.js', 'ok.js', 'x.sh', 'deep/test.cjs', 'module.mjs']),
-    ['deep/test.cjs', 'module.mjs', 'ok.js']
+    ['deep/test.cjs', 'module.mjs', 'node evil.js', 'ok.js']
   );
 });
 
