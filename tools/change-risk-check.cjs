@@ -10,6 +10,7 @@ const {
 const {
   validatePlan,
   collectChangedPaths,
+  escapeHumanText,
 } = require('./change-scope-guard.cjs');
 
 function normalizeAuthority(value) {
@@ -237,12 +238,12 @@ function runCli(argv=process.argv.slice(2)){
     if(options.json) process.stdout.write(JSON.stringify(report,null,2)+'\n');
     else{
       process.stdout.write('YUMANIWA RISK CHECK v0.2\n');
-      for(const item of results) process.stdout.write(item.status+' '+item.check+' '+item.detail+'\n');
+      for(const item of results) process.stdout.write(item.status+' '+item.check+' '+escapeHumanText(item.detail)+'\n');
       process.stdout.write('\nRisk: '+(riskOk?'PASS':'STOP')+'\n');
     }
     return report.exitCode;
   }catch(error){
-    process.stderr.write('Risk Check error: '+error.message+'\n');
+    process.stderr.write('Risk Check error: '+escapeHumanText(error.message)+'\n');
     if(options && !options.help) process.stderr.write(usage()+'\n');
     return 2;
   }

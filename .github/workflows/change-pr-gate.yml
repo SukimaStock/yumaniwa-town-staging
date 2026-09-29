@@ -104,7 +104,7 @@ jobs:
             [ -z "$changed" ] && continue
             if [ "$changed" != "$LOCK_FILE" ]; then
               echo "The Plan Lock commit must contain only the selected lock file."
-              echo "unexpected path: $changed"
+              echo "Plan Lock commit contains an unexpected path; value omitted from trusted log."
               exit 1
             fi
           done < <(git diff-tree --no-commit-id --name-only -r "$LOCK_COMMIT")
@@ -131,7 +131,7 @@ jobs:
           try {
             lock = JSON.parse(fs.readFileSync(lockPath, 'utf8'));
           } catch (error) {
-            console.error('Plan Lock JSON parse failed: ' + error.message);
+            console.error('Plan Lock JSON parse failed.');
             process.exit(1);
           }
           if (!lock || !lock.plan || typeof lock.plan.baseSha !== 'string') {
@@ -143,8 +143,7 @@ jobs:
           )"
           if [ "$LOCK_BASE" != "$EVENT_BASE_SHA" ]; then
             echo "Locked Plan baseSha does not equal current PR base."
-            echo "locked: $LOCK_BASE"
-            echo "base: $EVENT_BASE_SHA"
+            echo "Locked Plan baseSha differs from current PR base; candidate value omitted from trusted log."
             exit 1
           fi
 

@@ -93,6 +93,35 @@ function liteContent(overrides={}) {
   };
 }
 
+
+function maliciousV02Plan(baseSha){
+  return {
+    schema:'yumaniwa-change-plan/0.2',
+    changeId:'failure-diagnostic-test',
+    revision:0,
+    previousPlanDigest:null,
+    revisionReason:null,
+    status:'READY',
+    repository:'example/test',
+    change:'failure diagnostic',
+    planLevel:'lite',
+    classes:['CONTENT'],
+    authority:['Standard','BAD\nFAKE PASS \u202eBIDI'],
+    environment:'staging',
+    baseSha,
+    canonicalSources:['README.md'],
+    allowedPaths:['README.md'],
+    conditionalPaths:[],
+    forbiddenPaths:[],
+    expectedChanges:['test diagnostics'],
+    staticChecks:['syntax'],
+    manualChecks:['review'],
+    impactChecks:[],
+    impactExclusions:[],
+    promotion:'none'
+  };
+}
+
 function git(cwd,args){
   const r=spawnSync('git',['-C',cwd,...args],{encoding:'utf8'});
   assert.equal(r.status,0,r.stderr||r.stdout);
@@ -308,4 +337,25 @@ test('literal backslash Git path does not alias known domain data in Risk or Imp
   assert.deepEqual(impacts.uncoveredPaths,[]);
   assert.ok(impacts.requirements.some(x=>x.id==='risk.high-risk-review'&&x.core));
   assert.ok(impacts.requirements.some(x=>x.id==='runtime.regression'));
+});
+
+
+test('Risk human output routes details through escapeHumanText',()=>{
+  const source=fs.readFileSync(path.join(__dirname,'..','tools','change-risk-check.cjs'),'utf8');
+  assert.ok(source.includes("escapeHumanText(item.detail)"));
+  assert.ok(source.includes("escapeHumanText(error.message)"));
+});
+
+
+test('Risk CLI escapes candidate-controlled invalid Plan diagnostics',t=>{
+  const root=fs.mkdtempSync(path.join(os.tmpdir(),'yumaniwa-risk-failure-'));
+  t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+  const p=path.join(root,'bad-plan.json');
+  fs.writeFileSync(p,JSON.stringify(maliciousV02Plan('a'.repeat(40))));
+  const tool=path.join(__dirname,'..','tools','change-risk-check.cjs');
+  const r=spawnSync(process.execPath,[tool,'--root',root,'--plan',p],{encoding:'utf8'});
+  assert.equal(r.status,2,r.stdout+r.stderr);
+  assert.ok(r.stderr.includes('BAD\\nFAKE PASS \\u202eBIDI'),r.stderr);
+  assert.equal(r.stderr.includes('BAD\nFAKE PASS'),false);
+  assert.equal(r.stderr.includes('\u202e'),false);
 });

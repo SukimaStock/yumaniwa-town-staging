@@ -156,3 +156,15 @@ test('trusted verification does not print raw machine evidence JSON to operator 
   assert.ok(verificationSource.includes('Trusted Risk JSON evidence captured.'));
   assert.ok(verificationSource.includes('Trusted Impact JSON evidence captured.'));
 });
+
+
+test('trusted workflows omit raw candidate values on failure paths',()=>{
+  for (const workflow of [source,verificationSource]) {
+    assert.equal(workflow.includes('unexpected path: $changed'),false);
+    assert.ok(workflow.includes('value omitted from trusted log'));
+  }
+  assert.equal(source.includes('echo "locked: $LOCK_BASE"'),false);
+  assert.ok(source.includes('Locked Plan baseSha differs from current PR base; candidate value omitted from trusted log.'));
+  assert.ok(source.includes("console.error('Plan Lock JSON parse failed.');"));
+  assert.ok(verificationSource.includes("console.error('Plan Lock JSON parse failed.');"));
+});
