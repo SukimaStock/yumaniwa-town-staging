@@ -32,6 +32,17 @@ function normalizeRiskPath(value) {
   return value;
 }
 
+function staticCheckRequirement(id, options = {}) {
+  const applicability = options.applicability || { kind: 'always' };
+  return Object.freeze({
+    id,
+    applicability: Object.freeze({
+      kind: applicability.kind || 'always',
+      extensions: Object.freeze([...(applicability.extensions || [])]),
+    }),
+  });
+}
+
 function profile(id, options = {}) {
   return Object.freeze({
     id,
@@ -49,13 +60,22 @@ const PROFILES = Object.freeze({
   os: profile('os', {
     requiredImpacts: ['os.previous-gate', 'os.regression', 'os.provenance'],
     coreImpacts: ['os.regression', 'os.provenance'],
-    requiredStaticChecks: ['change-operations-regression', 'node-syntax'],
+    requiredStaticChecks: [
+      staticCheckRequirement('change-operations-regression'),
+      staticCheckRequirement('node-syntax', {
+        applicability: { kind: 'extensions', extensions: ['.js', '.cjs', '.mjs'] },
+      }),
+    ],
     reason: 'Change OS and workflow files can weaken the gate that evaluates later changes.',
   }),
   sharedRuntime: profile('shared-runtime', {
     requiredImpacts: ['runtime.shared', 'runtime.regression', 'runtime.rollback'],
     coreImpacts: ['runtime.shared', 'runtime.regression'],
-    requiredStaticChecks: ['node-syntax'],
+    requiredStaticChecks: [
+      staticCheckRequirement('node-syntax', {
+        applicability: { kind: 'extensions', extensions: ['.js', '.cjs', '.mjs'] },
+      }),
+    ],
     reason: 'Shared runtime affects multiple scenes or works.',
   }),
   sharedSurface: profile('shared-surface', {
@@ -182,6 +202,26 @@ function collectRiskRequirements(paths, options = {}) {
   return [...byProfile.values()].sort((a, b) => a.profile.id.localeCompare(b.profile.id));
 }
 
+function staticCheckApplicablePaths(requirement, paths) {
+  if (!requirement || typeof requirement.id !== 'string' || !requirement.id) {
+    throw new Error('invalid static check requirement');
+  }
+  const applicability = requirement.applicability || { kind: 'always', extensions: [] };
+  const uniquePaths = [...new Set((paths || []).map(normalizeRiskPath).filter(Boolean))].sort();
+
+  if (applicability.kind === 'always') return uniquePaths;
+
+  if (applicability.kind === 'extensions') {
+    const extensions = new Set((applicability.extensions || []).map(value => String(value).toLowerCase()));
+    return uniquePaths.filter(filePath => {
+      const lower = filePath.toLowerCase();
+      return [...extensions].some(extension => lower.endsWith(extension));
+    });
+  }
+
+  throw new Error('unknown static check applicability kind: ' + applicability.kind);
+}
+
 function riskImpactDefinitions() {
   const map = new Map();
   for (const risk of Object.values(PROFILES)) {
@@ -208,6 +248,8 @@ module.exports = {
   KNOWN_DOMAIN_DATA,
   PROFILES,
   normalizeRiskPath,
+  staticCheckRequirement,
+  staticCheckApplicablePaths,
   classifyRiskPath,
   collectRiskRequirements,
   riskImpactDefinitions,
