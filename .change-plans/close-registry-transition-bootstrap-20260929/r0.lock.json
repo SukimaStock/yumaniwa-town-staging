@@ -1,0 +1,130 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a524462b3604ab058b7ea445d52f3b1da228d65e5e38fe9306535178d4dbc0c2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "close-registry-transition-bootstrap-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Return the trusted static registry from the bootstrap pending state to steady under the newly installed base-owned registry-transition validator.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "bffc18a6553955a55af6c3e9bb305986c9b4c7cc",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/close-registry-transition-bootstrap-20260929/**",
+      "tools/change-static-check-registry.json",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/**",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-verification-check.cjs",
+      "tests/**",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Change registry version from the bootstrap pending version to the next steady version.",
+      "Change transitionPolicy from the executor pending transition to steady.",
+      "Leave the complete contract set, every expectedBlob, every executor/check definition, and every contracted file unchanged.",
+      "Document that candidate registry transitions are now validated as inert data by the base-owned trusted static executor and independently participate in staticOk.",
+      "Document the normal future two-PR exact-blob change sequence: steady-to-pending registry authorization, then a fresh preauthorized file change plus pending-to-steady candidate registry cleanup validated by the base executor.",
+      "Document that the one-time three-step executor bootstrap is complete and is not the normal future path."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "The cleanup PR must be accepted only because the PR-base pending registry already authorizes the installed executor blob and the new base executor validates pending-to-steady candidate registry cleanup.",
+      "No contract expectedBlob may change in cleanup.",
+      "No tests or trusted runtime code change in cleanup."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "C3-2 exact-blob trusted static evidence",
+      "Base-owned candidate registry transition enforcement at staging bffc18a6553955a55af6c3e9bb305986c9b4c7cc",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Registry-only cleanup validated by the new base-owned executor, trusted gates, and exact-head review.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this registry-only cleanup to the pending state if the new trusted executor does not record REGISTRY_CLEANUP_VALID on the exact candidate SHA.",
+    "outOfScope": [
+      "Changing any contract expectedBlob",
+      "Changing the trusted executor",
+      "Changing any workflow",
+      "Authenticated Human Attestation",
+      "Verification Record v0.3 final integration",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "C3-2 closure still requires post-merge adversarial canaries for trusted candidate-registry transition enforcement and final production/staging invariants."
+    ],
+    "problem": "The one-time executor bootstrap left the trusted registry intentionally pending. The repository must return to steady under the newly installed base-owned transition validator.",
+    "currentContract": "The PR-base registry is pending from old executor blob 60101a1dbda6ea287709843db79bebfc82a28cdb to installed executor blob f61a844f9aaa24ed3dcd9e3e79671d6c8bbb44ef, and the target file now equals the toBlob.",
+    "whyExistingIsInsufficient": "Leaving the registry pending would keep an unnecessary transition window open and would not prove the new executor can validate candidate registry cleanup.",
+    "design": "Change only registry version and transitionPolicy to steady, with all check definitions and contracts unchanged. The new base-owned executor parses the candidate registry as inert canonical JSON, validates pending-to-steady against the PR-base registry and target tree, emits registryTransition=REGISTRY_CLEANUP_VALID, and includes that result in staticOk. Update docs to make this trusted transition contract explicit.",
+    "alternativesRejected": [
+      "Leave the registry pending indefinitely; this creates avoidable operational ambiguity.",
+      "Change expectedBlob again during cleanup; the installed executor already equals the preauthorized toBlob.",
+      "Rely only on candidate tests; the new base-owned executor is now available and must be the authority."
+    ],
+    "migration": "After cleanup merges, future contracted-file changes use the normal two-PR steady-to-pending authorization and fresh preauthorized file transition with candidate cleanup to steady, both evaluated by base-owned transition validation.",
+    "compatibility": "Static check IDs, evidence schema, exact-blob contract set, required status names, node-syntax behavior, and production remain unchanged.",
+    "boundaryCases": [
+      "Candidate registry contract set must exactly equal the base set.",
+      "Every expectedBlob must be unchanged.",
+      "Target executor file must already equal the pending toBlob.",
+      "Only version and transitionPolicy may differ from the base registry.",
+      "Trusted evidence must report registry transition cleanup PASS while verificationState remains UNVERIFIED."
+    ],
+    "testPlan": [
+      "Run Change Operations Tests.",
+      "Require Change PR Gate and Change Verification Evidence to pass under the new PR-base executor.",
+      "Inspect trusted Static Evidence and confirm registryTransition reason REGISTRY_CLEANUP_VALID, exact base/target SHA, and new executor provenance.",
+      "Request Codex review on the exact head.",
+      "Merge to staging only if all checks/evidence/review pass.",
+      "Run post-merge adversarial canaries against candidate registry deletion/addition/self-authorization attempts.",
+      "Reconfirm production main unchanged."
+    ],
+    "promotionRisk": "None. Staging-only C3-2 bootstrap cleanup."
+  }
+}
