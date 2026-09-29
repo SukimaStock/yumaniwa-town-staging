@@ -7,6 +7,8 @@ const os = require('node:os');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const {
+  STATIC_CHECK_REQUIREMENTS,
+  PROFILES,
   classifyRiskPath,
 } = require('../tools/change-risk-policy.cjs');
 const {
@@ -458,4 +460,11 @@ test('declaring non-applicable node-syntax does not turn N/A into PASS',()=>{
   assert.ok(syntax);
   assert.equal(syntax.status,'N/A');
   assert.equal(r.results.some(x=>x.staticCheck==='node-syntax'&&x.status==='PASS'),false);
+});
+
+
+test('static applicability objects are canonical and shared by risk profiles',()=>{
+  assert.equal(PROFILES.os.requiredStaticChecks[0],STATIC_CHECK_REQUIREMENTS['change-operations-regression']);
+  assert.equal(PROFILES.os.requiredStaticChecks[1],STATIC_CHECK_REQUIREMENTS['node-syntax']);
+  assert.equal(PROFILES.sharedRuntime.requiredStaticChecks[0],STATIC_CHECK_REQUIREMENTS['node-syntax']);
 });
