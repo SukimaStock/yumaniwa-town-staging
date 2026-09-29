@@ -1,0 +1,138 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a21f3f71f5663365c7d599088d7899a2866c7a6ff7b905c4bff1d29f09327bdf",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "trusted-registry-transition-enforcement-prebuild-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Prebuild and regression-test the future base-owned trusted registry transition enforcement executor.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "57d1b22e843a881d5ca7497f746b2fafc2aff74d",
+    "canonicalSources": [
+      "tools/change-static-check.cjs",
+      "tests/test-change-static-check.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/trusted-registry-transition-enforcement-prebuild-20260929/**",
+      "tools/change-static-check.cjs",
+      "tests/test-change-static-check.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/**",
+      "tools/change-static-check-registry.json",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-verification-check.cjs",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Add base-owned validation of candidate registry transitions before static success can be returned.",
+      "Require the candidate registry contract path set to exactly equal the base-owned contract path set.",
+      "Allow only steady-to-pending authorization of one existing contract where base expectedBlob equals fromBlob, candidate expectedBlob equals toBlob, all unrelated contracts and definitions are unchanged, and the candidate contracted file still equals fromBlob.",
+      "Allow a pending base registry to remain unchanged while the preauthorized contracted file transitions to toBlob.",
+      "Allow pending-to-steady cleanup only after the contracted file equals toBlob and without other registry definition changes.",
+      "Reject contract deletion/addition, executor-kind changes, check-set changes, unrelated expectedBlob drift, malformed transition metadata, same-PR target-file change during authorization, and retargeting of an existing pending transition.",
+      "Expose trusted registry-transition evidence without logging raw candidate registry JSON.",
+      "Add adversarial tests for the transition state machine.",
+      "Do not open or merge this prebuild branch; use the tested executor Git blob only after a separate base-owned registry authorization package."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This branch is prebuild-only and must not be merged before its executor blob is preauthorized by a separate registry-only package.",
+      "Trusted runtime authorization continues to come only from the PR-base registry.",
+      "Candidate registry data may be parsed and validated as inert data but never used for executor dispatch in the same PR."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "C3-2 exact-blob trusted static evidence",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Prebuild-only branch; candidate regression tests are used to prove the future executor before exact-blob authorization.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Discard the prebuild branch. Do not merge it directly.",
+    "outOfScope": [
+      "Merging this branch",
+      "Changing the trusted registry",
+      "Changing any workflow",
+      "C3-3",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "This prebuild is not trusted until its exact executor blob is authorized in the base registry and transitioned through a fresh PR."
+    ],
+    "problem": "Candidate-owned regression tests cannot protect the registry contract set. The base-owned executor must validate candidate registry transitions as data.",
+    "currentContract": "The trusted executor loads the PR-base registry for dispatch and exact-blob checks but does not validate candidate registry edits before they can become the next trusted base.",
+    "whyExistingIsInsufficient": "A registry-only PR can remove a contract while old base-owned exact-blob checks still pass because no contracted file changed.",
+    "design": "Parse the candidate registry as canonical inert JSON using base-owned validation, compare it to the loaded base registry, and produce an independent registryTransition result. Unchanged candidate registry is accepted. A steady base may authorize exactly one existing contract by changing only its expectedBlob from fromBlob to toBlob and setting canonical pending metadata while the candidate target file remains fromBlob. A pending base may be used unchanged while the file moves to toBlob, then a later registry-only cleanup may return to steady only when the file is already toBlob. staticOk must be false for any invalid registry transition regardless of Plan staticChecks.",
+    "alternativesRejected": [
+      "Rely on candidate tests or hardcoded candidate constants; the candidate can modify both.",
+      "Allow arbitrary authorized blob arrays; this widens the trust window unnecessarily.",
+      "Self-contract the registry file; this creates an update deadlock.",
+      "Use candidate registry definitions for current-PR dispatch; this breaks the base-owned trust boundary."
+    ],
+    "migration": "After prebuild tests pass, compute the future executor Git blob. A separate registry-only authorization PR will preauthorize that blob. A fresh executor-only transition PR will then install this exact file while leaving the pending registry unchanged. A cleanup PR under the new executor will return the registry to steady.",
+    "compatibility": "Existing static check IDs, evidence schema, required status names, node-syntax behavior, and exact contracted-file enforcement remain in place. The new registryTransition evidence is additive and invalid transitions only tighten staticOk.",
+    "boundaryCases": [
+      "Candidate registry unchanged is accepted.",
+      "steady to pending may change exactly one existing contract expectedBlob and transition metadata only.",
+      "Authorization PR must leave the contracted target file at fromBlob.",
+      "Contract add/remove is rejected.",
+      "Any unrelated contract object change is rejected.",
+      "node-syntax definition change is rejected.",
+      "pending base with unchanged candidate registry can accompany exact file transition to toBlob.",
+      "pending to steady is accepted only when the target file already equals toBlob and all contract definitions remain unchanged.",
+      "pending retargeting or pending to a different pending transition is rejected.",
+      "Invalid transition makes staticOk false even if requested static checks otherwise pass."
+    ],
+    "testPlan": [
+      "Run Change Operations Tests on this prebuild branch.",
+      "Verify unchanged candidate registry passes.",
+      "Verify valid steady-to-pending authorization passes while target file remains fromBlob.",
+      "Verify same-PR target file change during authorization fails.",
+      "Verify deleted/added contracts fail.",
+      "Verify unrelated contract or check-definition changes fail.",
+      "Verify pending unchanged plus exact toBlob file transition passes.",
+      "Verify valid pending-to-steady cleanup passes only after target file equals toBlob.",
+      "Verify malformed or retargeted pending transitions fail.",
+      "Use the resulting exact executor blob only in a later fresh authorization/transition sequence."
+    ],
+    "promotionRisk": "None. Prebuild branch only."
+  }
+}
