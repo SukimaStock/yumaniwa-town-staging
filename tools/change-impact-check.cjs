@@ -391,7 +391,7 @@ function runCli(argv = process.argv.slice(2)) {
     process.stdout.write((options.json ? JSON.stringify(report, null, 2) : formatHuman(report)) + '\n');
     return evaluated.exitCode;
   } catch (error) {
-    process.stderr.write('Impact Check error: ' + error.message + '\n');
+    process.stderr.write('Impact Check error: ' + escapeHumanText(error.message) + '\n');
     if (options && options.help !== true) process.stderr.write(usage() + '\n');
     return 2;
   }
