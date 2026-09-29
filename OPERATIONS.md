@@ -282,7 +282,14 @@ manual check attestationのmachine evidenceを生成する。
 verifier単体導入時点ではlive `issue_comment` workflowは存在しない。
 したがってcommentを書くだけでattestationが成立するわけではない。
 
-live workflow導入前に、attesterとして許可するGitHub authorization policyを別途監査・固定する。
+初期C3-3のattester policyはrepository owner本人だけとする。
+
+- trusted GitHub eventの `repository.owner` が `type=User`
+- owner login / numeric user IDがcomment userとsenderの両方に一致
+- `author_association` はprovenanceのみ
+- collaborator / organization member / delegated reviewerは自動的にOwner扱いしない
+- organization-owned repository / delegationが必要になった場合は別のChange OS変更として扱う
+
 Human Attestation artifactを生成できるようになっても、Verification Record v0.3への最終統合までは
 `verificationState=UNVERIFIED` を維持する。
 

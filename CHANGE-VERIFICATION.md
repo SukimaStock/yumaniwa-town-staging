@@ -274,7 +274,10 @@ attestationが保持するtrusted identity:
 - repository / PR number
 - base SHA / target SHA
 - Plan changeId / revision / digest / manualChecks
-- GitHub user login / immutable numeric user ID / author association
+- GitHub comment user login / immutable numeric user ID
+- GitHub event sender login / immutable numeric user ID
+- repository owner login / immutable numeric user ID
+- author association（provenanceのみ。authorizationには使わない）
 - comment ID / createdAt / URL
 - comment body SHA-256 / byte count
 - optional note SHA-256 / byte count
@@ -293,8 +296,15 @@ bot identity / GitHub sender mismatch / verifier blob mismatchはREJECTする。
 - Verification Record v0.3統合: 未実装
 - final `VERIFIED`: **成立させない**
 
-attesterをどのGitHub authorization levelまで許可するかは、
-live workflow導入前に別途trust-policyとして確定する。
+初期C3-3 policyでは、human attesterを**repository owner本人だけ**に限定する。
+
+- repository ownerはGitHub eventの `repository.owner` をtrusted sourceとする
+- ownerは `type=User` でなければならない
+- owner login / immutable numeric user ID がcomment userとsenderの両方へ一致することを要求する
+- `author_association` は証拠として残すが、Owner権限の代わりにはしない
+- delegated attester / organization-owned repositoryは未対応。必要なら別のChange OS契約として追加する
+
+live workflow導入時もこのowner-only verifier contractを変更せず使う。
 
 ---
 
