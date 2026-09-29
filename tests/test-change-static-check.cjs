@@ -38,6 +38,52 @@ function write(root, filePath, content) {
   fs.writeFileSync(target,content);
 }
 
+function parseTransitionPolicy(value) {
+  if (value === 'steady') return { state:'steady' };
+  if (typeof value !== 'string') throw new Error('transitionPolicy must be steady or canonical pending metadata');
+  const match=/^pending:([^:]+):([0-9a-f]{40}):([0-9a-f]{40})$/.exec(value);
+  if (!match) throw new Error('transitionPolicy must be steady or canonical pending metadata');
+  const [,filePath,fromBlob,toBlob]=match;
+  if (fromBlob===toBlob) throw new Error('pending transition fromBlob and toBlob must differ');
+  return { state:'pending', path:filePath, fromBlob, toBlob };
+}
+
+function repositoryBlob(filePath, root=ROOT) {
+  const body=fs.readFileSync(path.join(root,...filePath.split('/')));
+  return gitBlobSha1(body);
+}
+
+function validateRegistryTransition(registry, resolveBlob=(filePath)=>repositoryBlob(filePath)) {
+  const definition=registry.checks['change-operations-regression'];
+  const transition=parseTransitionPolicy(registry.transitionPolicy);
+  const contracts=new Map(definition.contracts.map(contract=>[contract.path,contract]));
+
+  if (transition.state==='steady') {
+    for (const contract of definition.contracts) {
+      assert.equal(resolveBlob(contract.path),contract.expectedBlob,contract.path+' must match steady expectedBlob');
+    }
+    return transition;
+  }
+
+  const target=contracts.get(transition.path);
+  assert.ok(target,'pending transition path must exist in exact-blob contracts');
+  assert.equal(target.expectedBlob,transition.toBlob,'pending contract expectedBlob must equal toBlob');
+  assert.notEqual(transition.fromBlob,transition.toBlob,'pending fromBlob and toBlob must differ');
+
+  for (const contract of definition.contracts) {
+    const actual=resolveBlob(contract.path);
+    if (contract.path===transition.path) {
+      assert.ok(
+        actual===transition.fromBlob || actual===transition.toBlob,
+        'pending repository blob must equal fromBlob or toBlob'
+      );
+    } else {
+      assert.equal(actual,contract.expectedBlob,contract.path+' unrelated contract must remain exact');
+    }
+  }
+  return transition;
+}
+
 function copyContractedFiles(root) {
   const registry=readRegistry();
   const definition=registry.checks['change-operations-regression'];
@@ -46,7 +92,6 @@ function copyContractedFiles(root) {
     const target=path.join(root,...contract.path.split('/'));
     fs.mkdirSync(path.dirname(target),{recursive:true});
     fs.writeFileSync(target,source,{mode:0o644});
-    assert.equal(gitBlobSha1(source),contract.expectedBlob,contract.path+' registry blob must match repository file');
   }
 }
 
@@ -153,16 +198,80 @@ test('registry is data-only and contains only allowlisted initial IDs',()=>{
   }
 });
 
-test('exact-blob registry contracts match the repository files they authorize',()=>{
+test('exact-blob registry transition state is internally consistent with repository files',()=>{
   const registry=readRegistry();
   const definition=registry.checks['change-operations-regression'];
   assert.equal(definition.executor,'exact-blobs');
   assert.ok(definition.contracts.length >= 8);
   for(const contract of definition.contracts) {
-    const body=fs.readFileSync(path.join(ROOT,...contract.path.split('/')));
-    assert.equal(gitBlobSha1(body),contract.expectedBlob,contract.path);
     assert.equal(contract.mode,'100644');
     assert.equal(contract.type,'blob');
+  }
+  validateRegistryTransition(registry);
+});
+
+test('transition policy accepts only steady or one canonical pending path',()=>{
+  assert.deepEqual(parseTransitionPolicy('steady'),{state:'steady'});
+  assert.throws(()=>parseTransitionPolicy('candidate registry is inert'),/canonical pending metadata/);
+  assert.throws(()=>parseTransitionPolicy('pending:a.js:notasha:'+ 'b'.repeat(40)),/canonical pending metadata/);
+  assert.throws(()=>parseTransitionPolicy('pending:a.js:'+ 'a'.repeat(40)+':'+ 'a'.repeat(40)),/must differ/);
+  assert.deepEqual(
+    parseTransitionPolicy('pending:tools/example.cjs:'+ 'a'.repeat(40)+':'+ 'b'.repeat(40)),
+    {state:'pending',path:'tools/example.cjs',fromBlob:'a'.repeat(40),toBlob:'b'.repeat(40)}
+  );
+});
+
+test('pending transition allows exactly the from/to state for one contracted path',()=>{
+  const registry=JSON.parse(fs.readFileSync(REGISTRY_PATH,'utf8'));
+  const definition=registry.checks['change-operations-regression'];
+  const target=definition.contracts[0];
+  const current=new Map(definition.contracts.map(contract=>[contract.path,contract.expectedBlob]));
+  const from='1'.repeat(40);
+  const to='2'.repeat(40);
+  target.expectedBlob=to;
+  registry.transitionPolicy='pending:'+target.path+':'+from+':'+to;
+
+  current.set(target.path,from);
+  assert.equal(validateRegistryTransition(registry,p=>current.get(p)).state,'pending');
+
+  current.set(target.path,to);
+  assert.equal(validateRegistryTransition(registry,p=>current.get(p)).state,'pending');
+
+  current.set(target.path,'3'.repeat(40));
+  assert.throws(()=>validateRegistryTransition(registry,p=>current.get(p)),/fromBlob or toBlob/);
+});
+
+test('pending transition rejects wrong path wrong expected blob and unrelated drift',()=>{
+  const base=JSON.parse(fs.readFileSync(REGISTRY_PATH,'utf8'));
+  const definition=base.checks['change-operations-regression'];
+  const target=definition.contracts[0];
+  const other=definition.contracts[1];
+  const from='1'.repeat(40);
+  const to='2'.repeat(40);
+
+  {
+    const registry=structuredClone(base);
+    registry.transitionPolicy='pending:not/contracted.cjs:'+from+':'+to;
+    assert.throws(()=>validateRegistryTransition(registry,p=>repositoryBlob(p)),/path must exist/);
+  }
+
+  {
+    const registry=structuredClone(base);
+    registry.transitionPolicy='pending:'+target.path+':'+from+':'+to;
+    const current=new Map(definition.contracts.map(contract=>[contract.path,contract.expectedBlob]));
+    current.set(target.path,from);
+    assert.throws(()=>validateRegistryTransition(registry,p=>current.get(p)),/expectedBlob must equal toBlob/);
+  }
+
+  {
+    const registry=structuredClone(base);
+    const pendingTarget=registry.checks['change-operations-regression'].contracts[0];
+    pendingTarget.expectedBlob=to;
+    registry.transitionPolicy='pending:'+pendingTarget.path+':'+from+':'+to;
+    const current=new Map(registry.checks['change-operations-regression'].contracts.map(contract=>[contract.path,contract.expectedBlob]));
+    current.set(pendingTarget.path,from);
+    current.set(other.path,'4'.repeat(40));
+    assert.throws(()=>validateRegistryTransition(registry,p=>current.get(p)),/unrelated contract must remain exact/);
   }
 });
 
@@ -179,16 +288,28 @@ test('unknown command-like static ID fails explicitly without dispatch',t=>{
   assert.equal(report.results[0].definition,null);
 });
 
-test('exact-blob Change OS contract passes when all contracted candidate blobs match',t=>{
+test('exact-blob runtime reflects steady or pending transition lock state',t=>{
+  const registry=readRegistry();
+  const transition=validateRegistryTransition(registry);
   const {root,baseSha}=initRepo({contracts:true});
   t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
   write(root,'README.md','changed\n');
   const targetSha=commitAll(root);
   const report=execute(root,baseSha,targetSha,plan(baseSha,['change-operations-regression']));
-  assert.equal(report.staticOk,true);
-  assert.equal(report.results[0].status,'PASS');
-  assert.equal(report.results[0].reason,'EXACT_BLOB_CONTRACT_MATCH');
-  assert.ok(report.results[0].files.every(file=>file.status==='PASS'));
+
+  if (transition.state==='steady' || repositoryBlob(transition.path)===transition.toBlob) {
+    assert.equal(report.staticOk,true);
+    assert.equal(report.results[0].status,'PASS');
+    assert.equal(report.results[0].reason,'EXACT_BLOB_CONTRACT_MATCH');
+    assert.ok(report.results[0].files.every(file=>file.status==='PASS'));
+  } else {
+    assert.equal(repositoryBlob(transition.path),transition.fromBlob);
+    assert.equal(report.staticOk,false);
+    const targetResult=report.results[0].files.find(file=>file.path===transition.path);
+    assert.equal(targetResult.status,'FAIL');
+    assert.equal(targetResult.expectedBlob,transition.toBlob);
+    assert.equal(targetResult.actualBlob,transition.fromBlob);
+  }
 });
 
 test('any contracted byte change fails even when expected text remains in comments',t=>{
