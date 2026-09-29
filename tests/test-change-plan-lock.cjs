@@ -2,6 +2,10 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+const { spawnSync } = require('node:child_process');
 const {
   createLock,
   verifyLock,
@@ -108,4 +112,20 @@ test('revision cannot silently drop previous digest',()=>{
     previousPlanDigest:null,
     revisionReason:'change'
   })),/previousPlanDigest/);
+});
+
+
+test('Plan Lock CLI escapes candidate-controlled invalid diagnostics',()=>{
+  const bad=plan({authority:['Standard','BAD\nFAKE PASS \u202eBIDI']});
+  const lock={schema:'yumaniwa-change-plan-lock/0.2',planDigest:'0'.repeat(64),plan:bad};
+  const p=path.join(os.tmpdir(),'yumaniwa-bad-lock-'+process.pid+'-'+Date.now()+'.json');
+  fs.writeFileSync(p,JSON.stringify(lock));
+  try{
+    const tool=path.join(__dirname,'..','tools','change-plan-lock.cjs');
+    const r=spawnSync(process.execPath,[tool,'verify','--lock',p],{encoding:'utf8'});
+    assert.equal(r.status,1,r.stdout+r.stderr);
+    assert.ok(r.stderr.includes('BAD\\nFAKE PASS \\u202eBIDI'),r.stderr);
+    assert.equal(r.stderr.includes('BAD\nFAKE PASS'),false);
+    assert.equal(r.stderr.includes('\u202e'),false);
+  } finally { fs.rmSync(p,{force:true}); }
 });
