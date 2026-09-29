@@ -303,7 +303,11 @@ function attestationFixture(overrides={}) {
   const event={
     action:'created',
     issue:{number:42,pull_request:{url:'https://api.github.com/repos/example/test/pulls/42'}},
-    repository:{full_name:'example/test',default_branch:'main'},
+    repository:{
+      full_name:'example/test',
+      default_branch:'main',
+      owner:{login:'alice',id:123,type:'User'},
+    },
     comment:{
       id:987,
       body:HUMAN_ATTESTATION_PREFIX+JSON.stringify(payload),
@@ -358,6 +362,8 @@ test('authenticated human attestation binds exact GitHub identity PR head Plan a
   assert.equal(report.attester.login,'alice');
   assert.equal(report.attester.id,123);
   assert.equal(report.attester.authorAssociation,'OWNER');
+  assert.equal(report.attester.repositoryOwnerLogin,'alice');
+  assert.equal(report.attester.repositoryOwnerId,123);
   assert.deepEqual(report.attestation.checks,['owner review','visual smoke']);
   assert.match(report.comment.bodySha256,/^[0-9a-f]{64}$/);
   assert.match(report.attestation.noteSha256,/^[0-9a-f]{64}$/);
@@ -380,11 +386,40 @@ test('human attestation rejects bot and GitHub identity mismatch',()=>{
   assert.ok(report.validation.errors.includes('ATTESTER_ID_MISMATCH'));
 });
 
-test('human attestation rejects unaffiliated author fork PR and non-default base',()=>{
+test('human attestation author_association is provenance only while repository owner identity is authoritative',()=>{
   let report=evaluateAttestationFixture({comment:{author_association:'NONE'}}).report;
-  assert.ok(report.validation.errors.includes('ATTESTER_NOT_REPOSITORY_ASSOCIATED'));
+  assert.equal(report.validation.status,'PASS');
+  assert.equal(report.attester.authorAssociation,'NONE');
+  assert.equal(report.attester.repositoryOwnerLogin,'alice');
+  assert.equal(report.attester.repositoryOwnerId,123);
 
-  report=evaluateAttestationFixture({pr:{headRepo:'example/fork'}}).report;
+  report=evaluateAttestationFixture({
+    repository:{owner:{login:'owner',id:123,type:'User'}},
+    comment:{author_association:'OWNER'},
+  }).report;
+  assert.ok(report.validation.errors.includes('ATTESTER_NOT_REPOSITORY_OWNER_LOGIN'));
+
+  report=evaluateAttestationFixture({
+    repository:{owner:{login:'alice',id:999,type:'User'}},
+    comment:{author_association:'OWNER'},
+  }).report;
+  assert.ok(report.validation.errors.includes('ATTESTER_NOT_REPOSITORY_OWNER_ID'));
+});
+
+test('human attestation rejects malformed or organization repository owner identity',()=>{
+  let report=evaluateAttestationFixture({
+    repository:{owner:{login:'example-org',id:123,type:'Organization'}},
+  }).report;
+  assert.ok(report.validation.errors.includes('REPOSITORY_OWNER_IDENTITY_INVALID'));
+
+  report=evaluateAttestationFixture({
+    repository:{owner:{login:'',id:123,type:'User'}},
+  }).report;
+  assert.ok(report.validation.errors.includes('REPOSITORY_OWNER_IDENTITY_INVALID'));
+});
+
+test('human attestation still rejects fork PR and non-default base',()=>{
+  let report=evaluateAttestationFixture({pr:{headRepo:'example/fork'}}).report;
   assert.ok(report.validation.errors.includes('PR_MUST_BE_SAME_REPOSITORY'));
 
   report=evaluateAttestationFixture({pr:{baseRef:'feature'}}).report;
