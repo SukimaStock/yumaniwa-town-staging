@@ -1,0 +1,131 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "df62268793cc233a137874c9165685d7967926fec220565d5520e29c88bdca0d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c3-3-install-human-verifier-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C3-3: install the preauthorized authenticated human attestation verifier and close its exact-blob transition.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "7adbc3c9a2cddeea55519a67b2da9b7a005130f7",
+    "canonicalSources": [
+      "tools/change-verification-check.cjs",
+      "tools/change-static-check-registry.json",
+      "tests/test-change-verification-check.cjs",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c3-3-install-human-verifier-20260929/**",
+      "tools/change-verification-check.cjs",
+      "tools/change-static-check-registry.json",
+      "tests/test-change-verification-check.cjs",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/**",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Install tools/change-verification-check.cjs as the exact preauthorized Git blob 7f54001a813dd89fa65018b780a18c25a7141b0b.",
+      "Return the candidate trusted static registry transitionPolicy from the base pending verifier transition to steady without changing any contract definition or expectedBlob.",
+      "Add unit/adversarial tests for the new standalone human attestation evaluator and attest CLI.",
+      "Verify human attestation binds a created GitHub PR comment to trusted repository/PR metadata, immutable Plan Lock digest/base SHA, exact current PR head SHA, complete locked manualChecks set, GitHub user identity, author association, comment identity, and verifier source blob.",
+      "Verify bot/non-User, identity mismatch, stale SHA, fork PR, non-default-base PR, missing/extra/duplicate checks, no-manual-check Plan, malformed payload, unknown fields, and verifier-blob mismatch are rejected.",
+      "Document that C3-3 verifier installation does not yet create a live workflow, final Verification Record integration, or VERIFIED."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "Install only the already preauthorized verifier bytes; do not alter verifier behavior during this PR.",
+      "The human attestation evaluator remains dormant until a later base-owned workflow is separately preauthorized and installed.",
+      "The current accepted GitHub author-association set is subject to a dedicated authorization-policy audit before any live workflow is installed.",
+      "Authenticated human attestation remains a separate evidence artifact and does not promote final VERIFIED."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "C3-2 exact-blob pending-to-steady cleanup",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Verifier installation and unit/adversarial tests only; the live authenticated human attestation workflow is not installed yet.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the staging-only verifier install if the exact preauthorized blob or standalone tests fail; do not modify production.",
+    "outOfScope": [
+      "Changing verifier bytes from the preauthorized blob",
+      "Installing or changing issue_comment workflow handling",
+      "Generating live human attestation artifacts",
+      "Final attester authorization-policy decision",
+      "Verification Record v0.3 final integration",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "The verifier is installed but remains dormant until a later trusted workflow is installed.",
+      "Final verifier authorization policy and live attestation canaries remain outstanding."
+    ],
+    "problem": "The C3-3 verifier blob has been safely preauthorized in the base registry but is not yet installed; the registry remains pending until exact installation and cleanup occur.",
+    "currentContract": "Base registry pending transition authorizes tools/change-verification-check.cjs from e207027a3a59a0261f4b303fe8b9fcb86a8d2b30 to 7f54001a813dd89fa65018b780a18c25a7141b0b and requires cleanup only when the candidate file equals the exact toBlob.",
+    "whyExistingIsInsufficient": "Without exact installation and transition cleanup, the new human attestation verifier cannot become a stable contracted base-owned source for later workflow integration.",
+    "design": "Install the exact preauthorized verifier blob and change only registry transitionPolicy/version metadata needed to return to steady while preserving all contract definitions. Add tests around the new dormant attestation evaluator, but do not edit the preauthorized tool bytes. The trusted C3-2 executor on the pending base must report REGISTRY_CLEANUP_VALID and exact target blob match.",
+    "alternativesRejected": [
+      "Edit the verifier during installation; that would violate the preauthorized blob contract.",
+      "Install the live workflow in the same PR; workflow behavior and human authorization policy need separate review and preauthorization.",
+      "Leave registry pending after verifier installation; steady state should be restored before authorizing another contracted file."
+    ],
+    "migration": "After merge, staging returns to steady with the new verifier as the contracted expected blob. The earlier unmerged preauthorization-v1 branch is superseded.",
+    "compatibility": "Existing Verification Record v0.2 CLI behavior remains available. The new attest subcommand is additive and dormant without a workflow caller.",
+    "boundaryCases": [
+      "Candidate verifier blob must equal exactly 7f54001a813dd89fa65018b780a18c25a7141b0b.",
+      "Candidate registry contract definitions must equal the pending base definitions; only transitionPolicy/version cleanup metadata may change.",
+      "Tests may exercise exported evaluator but cannot change trusted tool bytes.",
+      "No live GitHub comment can produce attestation evidence yet because no workflow route exists."
+    ],
+    "testPlan": [
+      "Install exact preauthorized verifier blob and set candidate registry steady.",
+      "Run all Change Operations Tests plus new human attestation unit/adversarial tests.",
+      "Require Change PR Gate and Change Verification Evidence to pass.",
+      "Inspect trusted Static Evidence for REGISTRY_CLEANUP_VALID and exact verifier toBlob.",
+      "Request exact-head Codex adversarial review and stop on new High/Medium finding.",
+      "Merge to staging only.",
+      "Reconfirm registry steady, verifier contracted blob exact, and production unchanged.",
+      "Then audit attester authorization policy before preauthorizing any live workflow."
+    ],
+    "promotionRisk": "None. Staging-only Change OS verifier installation."
+  }
+}
