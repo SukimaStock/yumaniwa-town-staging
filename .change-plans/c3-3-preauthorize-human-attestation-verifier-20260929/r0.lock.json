@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e56dc241259ed9a1cf41a61dfa55fa580c96ff9066a29b49771ef9cecff42119",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "c3-3-preauthorize-human-attestation-verifier-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Preauthorize the tested C3-3 human attestation verifier blob in the trusted exact-blob registry.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "41058a9a40d63c4d8d1ae1b05f3131baa587ae6d",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      "tools/change-verification-check.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/c3-3-preauthorize-human-attestation-verifier-20260929/**",
+      "tools/change-static-check-registry.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/**",
+      "tools/change-verification-check.cjs",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "tests/**",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Change only registry version, transitionPolicy, and the existing tools/change-verification-check.cjs expectedBlob.",
+      "Set transitionPolicy to pending:tools/change-verification-check.cjs:e207027a3a59a0261f4b303fe8b9fcb86a8d2b30:52aefe4f6803a6b9ff3b8d432d92ca7bb7fbfde5.",
+      "Leave the actual contracted verifier file at the fromBlob in this authorization PR.",
+      "Leave every other contract path, expectedBlob, check definition, and workflow unchanged."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "The toBlob is exactly the verifier blob that passed the full Change Operations regression suite on the unmerged C3-3 simulation branch.",
+      "This PR only authorizes the future blob; the verifier implementation must move in a later fresh PR."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "C3-2 base-owned registry transition enforcement",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Registry-only preauthorization validated by base-owned transition enforcement.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this registry-only authorization to steady if the later transition is abandoned.",
+    "outOfScope": [
+      "Changing tools/change-verification-check.cjs",
+      "Changing any workflow",
+      "Verification Record v0.3 integration",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Authenticated human attestation is not available until the preauthorized verifier blob is installed and the trusted workflow route is added."
+    ],
+    "problem": "The C3-3 verifier implementation is tested but cannot become trusted until its exact blob is authorized by the current steady base registry.",
+    "currentContract": "The registry is steady and protects tools/change-verification-check.cjs at blob e207027a3a59a0261f4b303fe8b9fcb86a8d2b30.",
+    "whyExistingIsInsufficient": "Changing a contracted verifier without prior base-owned authorization would correctly fail the exact-blob trusted static gate.",
+    "design": "Use the standard steady-to-pending one-path authorization transition. Only the verifier expectedBlob changes to the tested future blob while the verifier file remains unchanged.",
+    "alternativesRejected": [
+      "Combine authorization and verifier change in one PR; same-PR self-authorization is forbidden.",
+      "Temporarily remove the verifier contract; contract deletion is forbidden."
+    ],
+    "migration": "After merge, create a fresh PR from the pending base that installs exact blob 52aefe4f6803a6b9ff3b8d432d92ca7bb7fbfde5 and returns candidate registry transitionPolicy to steady.",
+    "compatibility": "No runtime application behavior or workflow behavior changes in this authorization PR.",
+    "boundaryCases": [
+      "Target verifier file must remain at fromBlob.",
+      "Candidate registry contract path set must remain identical.",
+      "Only one contract expectedBlob may change.",
+      "Pending fromBlob/toBlob must match the base and tested future blob exactly."
+    ],
+    "testPlan": [
+      "Run Change Operations Tests.",
+      "Require Change PR Gate and Change Verification Evidence to pass with REGISTRY_AUTHORIZATION_VALID.",
+      "Inspect trusted Static Evidence for exact base/target/source provenance.",
+      "Request Codex exact-head review.",
+      "Merge to staging only if no High/Medium finding is present."
+    ],
+    "promotionRisk": "None. Staging-only Change OS registry authorization."
+  }
+}
