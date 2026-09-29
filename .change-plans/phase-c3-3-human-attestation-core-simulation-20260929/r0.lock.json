@@ -1,0 +1,112 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b56daf593cd210dcacfd997d9c199d633a6ebe96717499493d176b08c4e3a841",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c3-3-human-attestation-core-simulation-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Simulate the future C3-3 verifier blob under a local-equivalent pending registry so the full candidate regression suite can exercise the exact-blob state.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "41058a9a40d63c4d8d1ae1b05f3131baa587ae6d",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      "tools/change-verification-check.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c3-3-human-attestation-core-simulation-20260929/**",
+      "tools/change-static-check-registry.json",
+      "tools/change-verification-check.cjs",
+      "tests/test-change-verification-check.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/**",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Set only the simulated candidate registry version, transitionPolicy, and change-verification-check.cjs expectedBlob to the tested future verifier blob.",
+      "Install the exact future verifier blob and its adversarial tests on this unmerged simulation branch.",
+      "Use the full Change Operations Tests to validate the future steady repository contents even though this branch is never authoritative.",
+      "Do not open or merge this simulation branch."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This branch is test scaffolding only and deliberately combines pending metadata with its toBlob; it is never a valid merge candidate.",
+      "The exact verifier blob tested here is the only blob eligible for subsequent base-owned preauthorization."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "C3-2 exact-blob contract",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Unmerged simulation of a trusted tool transition.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Discard this branch; it must never merge.",
+    "outOfScope": [
+      "Any PR merge",
+      "Changing trusted workflows",
+      "Verification Record v0.3 integration",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "This branch is explicitly not a trusted transition and exists only to run candidate regression tests against the future exact blobs."
+    ],
+    "problem": "A contracted tool prebuild cannot make the full candidate regression suite green while the steady registry still points at the old blob.",
+    "currentContract": "The steady main registry correctly rejects an unpreauthorized contracted tool byte change.",
+    "whyExistingIsInsufficient": "Targeted attestation tests can pass on an unpreauthorized prebuild, but full candidate regression also asserts exact registry/file identity.",
+    "design": "Create an unmerged simulation branch whose candidate registry names the exact future verifier blob and whose tool bytes equal that blob. This is intentionally not a valid trusted PR transition; it only exercises the candidate regression suite. The later real process still uses registry-only preauthorization followed by a fresh pending-to-steady transition PR.",
+    "alternativesRejected": [
+      "Weaken exact-blob regression tests for prebuild branches; that would weaken a real defense.",
+      "Merge the simulation branch; same-PR authorization remains forbidden."
+    ],
+    "migration": "none",
+    "compatibility": "No main or production change.",
+    "boundaryCases": [
+      "Only the verifier contract expectedBlob may differ in the simulation registry.",
+      "All other contracts and check definitions remain byte-for-byte equivalent to main."
+    ],
+    "testPlan": [
+      "Run full Change Operations Tests and node syntax on the simulation branch.",
+      "Confirm the attestation adversarial tests pass.",
+      "Confirm the exact future verifier content SHA equals the simulated registry expectedBlob.",
+      "Discard the branch after using its tested blob for real preauthorization."
+    ],
+    "promotionRisk": "None. Never merged."
+  }
+}
