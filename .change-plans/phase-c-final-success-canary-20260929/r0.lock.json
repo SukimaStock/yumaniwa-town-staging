@@ -1,0 +1,94 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9db47f92616cf85322fefba1f09deb8f553c2fbb847b6ec6676411f85de1e73f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-final-success-canary-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C final success canary\nDISPLAY TEST ‮BIDI",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "6dab38f5af1d0851745fa7ba573ac65253ec3cc1",
+    "canonicalSources": [
+      ".change-canary/final-success.txt"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c-final-success-canary-20260929/**",
+      ".change-canary/final-success.txt"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**",
+      ".github/workflows/**"
+    ],
+    "expectedChanges": [
+      "Create one disposable canary marker and exercise the merged trusted success path."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This PR is a disposable success canary and must be closed unmerged.",
+      "Production must remain untouched."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "C3-1 final success canary"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Disposable Change OS canary; trusted workflows and log inspection provide the required evidence.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Close this PR unmerged.",
+    "outOfScope": [
+      "Production changes",
+      "Verification Record v0.3",
+      "Authenticated human attestation",
+      "Trusted static-check registry",
+      "Phase D/E"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "This canary validates trusted mechanical execution only and does not declare final VERIFIED."
+    ],
+    "problem": "Exercise the final merged base-owned trusted workflows on a valid Plan after failure-path diagnostics hardening.",
+    "currentContract": "Current staging/main contains all C3-1 remediations and diagnostics hardening.",
+    "whyExistingIsInsufficient": "Pre-merge pull_request_target checks used the prior base-owned workflow, while the invalid-Plan post-merge canary exercised only the failure path.",
+    "design": "Open a lock-first disposable valid PR, add one canary marker, require all trusted workflows to pass, inspect safe human logs and evidence, then close unmerged.",
+    "alternativesRejected": [
+      "Rely only on pre-merge tests; they do not execute the newly merged base-owned workflow success path."
+    ],
+    "migration": "None.",
+    "compatibility": "Disposable staging-only canary.",
+    "boundaryCases": [
+      "Newline and U+202E in Plan change text render escaped in human logs.",
+      "Machine evidence retains literal Plan value.",
+      "All gate exit codes are zero."
+    ],
+    "testPlan": [
+      "Confirm Change Operations Tests, Change PR Gate, and Change Verification Evidence pass.",
+      "Inspect trusted logs and evidence.",
+      "Close unmerged and confirm staging/main and production/main remain unchanged."
+    ],
+    "promotionRisk": "None; canary must not be merged."
+  }
+}
