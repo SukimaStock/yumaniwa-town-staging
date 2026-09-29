@@ -401,3 +401,53 @@ OSは確認を代行したふりをしない。
 
 **固定した計画、機械が確認した事実、人間が観測した事実を混ぜないこと**が、
 Verificationの役割である。
+
+---
+
+## 11. Current Closure Boundary（2026-09-29）
+
+Change Execution OSの現在の工事フェーズは、ここでいったん終了する。
+
+現在stagingで成立しているtrust boundary:
+
+- immutable Plan Lock
+- exact base / target SHA
+- base-owned Scope / Risk / Impact
+- Trusted Static Evidence
+- candidate codeを実行しないstatic check
+- exact-blob Change OS contract
+- same-PR self-authorization resistance
+- active rulesetによるrequired check enforcement
+- repository-owner-only Human Attestation verifier **foundation**
+
+Human Attestation verifierはbase-owned sourceとして導入済みだが、
+live `issue_comment` workflowからは呼ばれていない。
+したがって現時点で「人間確認が自動認証される」とは扱わない。
+
+次の項目は**未完成ではなく、現時点では意図的に保留**する。
+
+- live `issue_comment` Human Attestation workflow
+- `performed_via_github_app` を使ったAI / App投稿除外
+- delegated attester
+- organization-owned repository support
+- Verification Record v0.3
+- mechanical / static / human evidenceの最終統合
+- automatic `VERIFIED` promotion
+- Phase D
+- Phase E
+
+このため `verificationState=UNVERIFIED` は現在の正しい状態であり、
+それ自体を直ちに解消すべき欠陥とは扱わない。
+
+今後の通常変更では、既存のPlan / Scope / Risk / Impact / Static / Rulesetをそのまま使う。
+Change Execution OSの工事を再開するのは、通常の湯間庭町制作で
+
+- AIが未確認事項を確認済みとして進めた
+- 現在のtrust boundaryでは防げない実事故が出た
+- 手続きが制作を明確に阻害した
+- 新しい具体的な権限要件が生まれた
+
+など、**現実の問題が観測されたとき**とする。
+
+認証システムとしての完全性だけを理由に、OSを拡張しない。
+
