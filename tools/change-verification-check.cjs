@@ -1,5 +1,6 @@
 'use strict';
 
+const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
 const {
@@ -22,6 +23,14 @@ const {
 const RECORD_SCHEMA = 'yumaniwa-verification-record/0.2';
 const LEGACY_RECORD_SCHEMA = 'yumaniwa-verification-record/0.1';
 const CHECK_STATUSES = new Set(['pass', 'fail', 'unverified']);
+const HUMAN_ATTESTATION_REQUEST_SCHEMA = 'yumaniwa-human-attestation-request/0.1';
+const HUMAN_ATTESTATION_SCHEMA = 'yumaniwa-authenticated-human-attestation/0.1';
+const HUMAN_ATTESTATION_PREFIX = '/yumaniwa-attest-v0.1\n';
+const HUMAN_ATTESTATION_STATUSES = new Set(['pass', 'fail']);
+const HUMAN_ATTESTATION_PERMISSIONS = new Set(['write', 'maintain', 'admin']);
+const HUMAN_ATTESTATION_UNSAFE = /[\u0000-\u001f\u007f-\u009f\u202a-\u202e\u2066-\u2069]/u;
+const HUMAN_EVIDENCE_MAX_LENGTH = 1000;
+const HUMAN_CHECK_ID_MAX_LENGTH = 200;
 
 function readJson(sourcePath, label) {
   if (!sourcePath) throw new Error('--' + label + ' is required');
@@ -33,6 +42,202 @@ function readJson(sourcePath, label) {
   } catch (error) {
     throw new Error(label + ' JSON parse failed: ' + error.message);
   }
+}
+
+function sha256(value) {
+  return crypto.createHash('sha256').update(value).digest('hex');
+}
+
+function exactKeys(object, keys) {
+  if (!object || typeof object !== 'object' || Array.isArray(object)) return false;
+  const actual = Object.keys(object).sort();
+  const expected = [...keys].sort();
+  return actual.length === expected.length && actual.every((key,index)=>key===expected[index]);
+}
+
+function safeHumanText(value, maxLength) {
+  return typeof value === 'string' &&
+    value.length > 0 &&
+    value.length <= maxLength &&
+    value === value.trim() &&
+    !HUMAN_ATTESTATION_UNSAFE.test(value);
+}
+
+function normalizeHumanAttestationRequest(raw, plan, targetSha) {
+  const errors=[];
+  if (!exactKeys(raw,['schema','targetSha','checks'])) {
+    errors.push('REQUEST_FIELDS_INVALID');
+    return {ok:false,errors,request:null};
+  }
+  if (raw.schema!==HUMAN_ATTESTATION_REQUEST_SCHEMA) errors.push('REQUEST_SCHEMA_INVALID');
+  if (typeof raw.targetSha!=='string' || !/^[0-9a-f]{40}$/.test(raw.targetSha)) {
+    errors.push('TARGET_SHA_INVALID');
+  } else if (raw.targetSha!==targetSha) {
+    errors.push('TARGET_SHA_STALE');
+  }
+  if (!Array.isArray(raw.checks) || raw.checks.length===0 || raw.checks.length>50) {
+    errors.push('CHECKS_INVALID');
+  }
+
+  const allowed=new Set(plan.manualChecks || []);
+  const seen=new Set();
+  const checks=[];
+  if (Array.isArray(raw.checks)) {
+    for (const entry of raw.checks) {
+      if (!exactKeys(entry,['id','status','evidence'])) {
+        errors.push('CHECK_FIELDS_INVALID');
+        continue;
+      }
+      if (!safeHumanText(entry.id,HUMAN_CHECK_ID_MAX_LENGTH)) {
+        errors.push('CHECK_ID_INVALID');
+        continue;
+      }
+      if (seen.has(entry.id)) {
+        errors.push('CHECK_ID_DUPLICATE');
+        continue;
+      }
+      seen.add(entry.id);
+      if (!allowed.has(entry.id)) errors.push('CHECK_ID_UNPLANNED');
+      if (!HUMAN_ATTESTATION_STATUSES.has(entry.status)) errors.push('CHECK_STATUS_INVALID');
+      if (!safeHumanText(entry.evidence,HUMAN_EVIDENCE_MAX_LENGTH)) errors.push('CHECK_EVIDENCE_INVALID');
+      checks.push({id:entry.id,status:entry.status,evidence:entry.evidence});
+    }
+  }
+
+  const request={
+    schema:HUMAN_ATTESTATION_REQUEST_SCHEMA,
+    targetSha:typeof raw.targetSha==='string' ? raw.targetSha : '',
+    checks,
+  };
+  return {ok:errors.length===0,errors:[...new Set(errors)],request};
+}
+
+function parseHumanAttestationComment(body, plan, targetSha) {
+  const bodyHash=sha256(Buffer.from(typeof body==='string' ? body : '', 'utf8'));
+  if (typeof body!=='string' || body.includes('\r') || !body.startsWith(HUMAN_ATTESTATION_PREFIX)) {
+    return {ok:false,errors:['COMMENT_FORMAT_INVALID'],request:null,bodySha256:bodyHash};
+  }
+  const jsonText=body.slice(HUMAN_ATTESTATION_PREFIX.length);
+  if (!jsonText || jsonText.includes('\n')) {
+    return {ok:false,errors:['COMMENT_FORMAT_INVALID'],request:null,bodySha256:bodyHash};
+  }
+
+  let raw;
+  try {
+    raw=JSON.parse(jsonText);
+  } catch {
+    return {ok:false,errors:['COMMENT_JSON_INVALID'],request:null,bodySha256:bodyHash};
+  }
+
+  const normalized=normalizeHumanAttestationRequest(raw,plan,targetSha);
+  if (!normalized.ok) return {...normalized,bodySha256:bodyHash};
+
+  const canonical=JSON.stringify(normalized.request);
+  if (jsonText!==canonical) {
+    return {ok:false,errors:['COMMENT_JSON_NONCANONICAL'],request:null,bodySha256:bodyHash};
+  }
+  return {...normalized,bodySha256:bodyHash};
+}
+
+function createAuthenticatedHumanAttestation(rawLock, body, context) {
+  const errors=[];
+  const lockCheck=verifyLock(rawLock,null);
+  if (!lockCheck.ok) {
+    return {
+      schema:HUMAN_ATTESTATION_SCHEMA,
+      authenticationState:'REJECTED',
+      checkState:'REJECTED',
+      errors:['PLAN_LOCK_INVALID'],
+    };
+  }
+  const normalizedPlan=normalizeImpactPlan(lockCheck.plan,{allowLegacy:false});
+  if (!normalizedPlan.ok) {
+    return {
+      schema:HUMAN_ATTESTATION_SCHEMA,
+      authenticationState:'REJECTED',
+      checkState:'REJECTED',
+      errors:['PLAN_INVALID'],
+    };
+  }
+  const plan=normalizedPlan.plan;
+
+  if (!context || typeof context!=='object' || Array.isArray(context)) {
+    return {
+      schema:HUMAN_ATTESTATION_SCHEMA,
+      authenticationState:'REJECTED',
+      checkState:'REJECTED',
+      errors:['CONTEXT_INVALID'],
+    };
+  }
+
+  const repository=typeof context.repository==='string' ? context.repository : '';
+  const baseSha=typeof context.baseSha==='string' ? context.baseSha.toLowerCase() : '';
+  const targetSha=typeof context.targetSha==='string' ? context.targetSha.toLowerCase() : '';
+  const login=typeof context.commentUserLogin==='string' ? context.commentUserLogin : '';
+  const actor=typeof context.actor==='string' ? context.actor : '';
+  const triggeringActor=typeof context.triggeringActor==='string' ? context.triggeringActor : '';
+  const permission=typeof context.repositoryPermission==='string' ? context.repositoryPermission : '';
+  const userType=typeof context.commentUserType==='string' ? context.commentUserType : '';
+  const authorAssociation=typeof context.authorAssociation==='string' ? context.authorAssociation : '';
+
+  if (repository!==plan.repository) errors.push('REPOSITORY_MISMATCH');
+  if (!/^[0-9a-f]{40}$/.test(baseSha) || baseSha!==plan.baseSha) errors.push('BASE_SHA_MISMATCH');
+  if (!/^[0-9a-f]{40}$/.test(targetSha)) errors.push('TARGET_SHA_INVALID');
+  if (!Number.isInteger(context.prNumber) || context.prNumber<1) errors.push('PR_NUMBER_INVALID');
+  if (!Number.isInteger(context.commentId) || context.commentId<1) errors.push('COMMENT_ID_INVALID');
+  if (typeof context.commentCreatedAt!=='string' || !Number.isFinite(Date.parse(context.commentCreatedAt))) {
+    errors.push('COMMENT_CREATED_AT_INVALID');
+  }
+  if (typeof context.commentUpdatedAt!=='string' || !Number.isFinite(Date.parse(context.commentUpdatedAt))) {
+    errors.push('COMMENT_UPDATED_AT_INVALID');
+  }
+  if (context.commentCreatedAt!==context.commentUpdatedAt) errors.push('COMMENT_ALREADY_EDITED');
+  if (!safeHumanText(login,100) || !safeHumanText(actor,100)) errors.push('ACTOR_INVALID');
+  if (login!==actor) errors.push('ACTOR_COMMENTER_MISMATCH');
+  if (userType!=='User') errors.push('COMMENTER_NOT_HUMAN_USER');
+  if (!HUMAN_ATTESTATION_PERMISSIONS.has(permission)) errors.push('REPOSITORY_PERMISSION_INSUFFICIENT');
+
+  const parsed=parseHumanAttestationComment(body,plan,targetSha);
+  errors.push(...parsed.errors);
+
+  const authenticationState=errors.length===0 ? 'AUTHENTICATED' : 'REJECTED';
+  const checks=authenticationState==='AUTHENTICATED' ? parsed.request.checks : [];
+  const checkState=authenticationState==='AUTHENTICATED'
+    ? (checks.some(check=>check.status==='fail') ? 'FAIL' : 'PASS')
+    : 'REJECTED';
+
+  return {
+    schema:HUMAN_ATTESTATION_SCHEMA,
+    authenticationState,
+    checkState,
+    repository:plan.repository,
+    changeId:plan.changeId,
+    planDigest:lockCheck.planDigest,
+    planRevision:plan.revision,
+    baseSha:plan.baseSha,
+    targetSha:/^[0-9a-f]{40}$/.test(targetSha) ? targetSha : null,
+    checks,
+    attester:{
+      login:safeHumanText(login,100) ? login : null,
+      id:Number.isInteger(context.commentUserId) ? context.commentUserId : null,
+      type:userType || null,
+      authorAssociation:authorAssociation || null,
+      repositoryPermission:permission || null,
+    },
+    comment:{
+      id:Number.isInteger(context.commentId) ? context.commentId : null,
+      createdAt:typeof context.commentCreatedAt==='string' ? context.commentCreatedAt : null,
+      updatedAt:typeof context.commentUpdatedAt==='string' ? context.commentUpdatedAt : null,
+      bodySha256:parsed.bodySha256,
+    },
+    eventActor:{
+      actor:safeHumanText(actor,100) ? actor : null,
+      triggeringActor:safeHumanText(triggeringActor,100) ? triggeringActor : null,
+    },
+    errors:[...new Set(errors)],
+    verificationState:'UNVERIFIED',
+    limitation:'C3-3 authenticated human attestation only; final evidence integration and VERIFIED are not implemented.',
+  };
 }
 
 function normalizeCheckEntries(value, key, errors) {
@@ -361,6 +566,12 @@ if(require.main===module) process.exitCode=runCli();
 module.exports={
   RECORD_SCHEMA,
   LEGACY_RECORD_SCHEMA,
+  HUMAN_ATTESTATION_REQUEST_SCHEMA,
+  HUMAN_ATTESTATION_SCHEMA,
+  HUMAN_ATTESTATION_PREFIX,
+  normalizeHumanAttestationRequest,
+  parseHumanAttestationComment,
+  createAuthenticatedHumanAttestation,
   normalizeRecord,
   evaluateEvidence,
   evaluateVerification,
