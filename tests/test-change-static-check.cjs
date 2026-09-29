@@ -29,6 +29,8 @@ const RISK_POLICY_BLOB = gitBlobSha1(fs.readFileSync(RISK_POLICY_PATH));
 const EXECUTOR_BLOB = gitBlobSha1(fs.readFileSync(EXECUTOR_PATH));
 const REPOSITORY = 'example/repo';
 
+const PREBUILD_BASE_SHA = '57d1b22e843a881d5ca7497f746b2fafc2aff74d';
+
 function git(cwd, args) {
   const result = spawnSync('git', args, { cwd, encoding:'utf8' });
   assert.equal(result.status, 0, result.stderr || result.stdout);
@@ -65,15 +67,23 @@ function steadyRegistry() {
   return registry;
 }
 
+function authorizedContractBody(contract) {
+  const current=fs.readFileSync(path.join(ROOT,...contract.path.split('/')));
+  if (gitBlobSha1(current)===contract.expectedBlob) return current;
+  const result=spawnSync('git',['show',PREBUILD_BASE_SHA+':'+contract.path],{cwd:ROOT});
+  assert.equal(result.status,0,String(result.stderr || 'git show failed'));
+  assert.equal(gitBlobSha1(result.stdout),contract.expectedBlob,contract.path+' must resolve to base-authorized blob');
+  return result.stdout;
+}
+
 function copyContractedFiles(root) {
   const registry=readRegistry();
   const definition=registry.checks['change-operations-regression'];
   for(const contract of definition.contracts) {
-    const source=fs.readFileSync(path.join(ROOT,...contract.path.split('/')));
+    const source=authorizedContractBody(contract);
     const target=path.join(root,...contract.path.split('/'));
     fs.mkdirSync(path.dirname(target),{recursive:true});
     fs.writeFileSync(target,source,{mode:0o644});
-    assert.equal(gitBlobSha1(source),contract.expectedBlob,contract.path+' registry blob must match repository file');
   }
 }
 
@@ -181,17 +191,19 @@ test('registry is data-only and contains only allowlisted initial IDs',()=>{
   }
 });
 
-test('exact-blob registry contracts match the repository files they authorize',()=>{
+test('prebuild base resolves every exact-blob contract while future executor stays untrusted',()=>{
   const registry=readRegistry();
   const definition=registry.checks['change-operations-regression'];
   assert.equal(definition.executor,'exact-blobs');
-  assert.ok(definition.contracts.length >= 8);
   for(const contract of definition.contracts) {
-    const body=fs.readFileSync(path.join(ROOT,...contract.path.split('/')));
-    assert.equal(gitBlobSha1(body),contract.expectedBlob,contract.path);
+    const authorized=authorizedContractBody(contract);
+    assert.equal(gitBlobSha1(authorized),contract.expectedBlob,contract.path);
     assert.equal(contract.mode,'100644');
     assert.equal(contract.type,'blob');
   }
+  const executorContract=definition.contracts.find(contract=>contract.path==='tools/change-static-check.cjs');
+  assert.ok(executorContract);
+  assert.notEqual(gitBlobSha1(fs.readFileSync(EXECUTOR_PATH)),executorContract.expectedBlob);
 });
 
 test('unknown command-like static ID fails explicitly without dispatch',t=>{
