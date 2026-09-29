@@ -105,7 +105,8 @@ test('production set is explicit, CoffeeFactory is never implicitly authorized',
     regenerateSearch(c,'staging');
     clean(validate({...c.options,env:'staging',published:undefined}));
     const all=validate({...c.options,env:'staging',ids:undefined,allProduction:true});
-    assert.ok(!all.results.some(x=>x.work==='coffee-factory'));
+    assert.ok(all.results.some(x=>x.work==='coffee-factory' && x.check==='guide.metadata' && x.status==='PASS'));
+    assert.ok(!all.results.some(x=>x.work==='coffee-factory' && x.check==='guide.image'));
     has(validate({...c.options,published:undefined,ids:undefined,allProduction:true}),'FAIL','input.ids');
 });
 test('unknown launch and frame modes require HQ; missing entry and player sizes fail',t=>{
