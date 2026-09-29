@@ -81,12 +81,28 @@ function parseRegistryText(source) {
   return parsed;
 }
 
+function requireExactKeys(object, allowed, label) {
+  const actual = Object.keys(object).sort();
+  const expected = [...allowed].sort();
+  if (actual.length !== expected.length || actual.some((key,index)=>key!==expected[index])) {
+    throw new Error(label + ' contains missing or unknown fields');
+  }
+}
+
 function readRegistry() {
   const parsed = parseRegistryText(fs.readFileSync(REGISTRY_PATH, 'utf8'));
   if (!parsed || parsed.schema !== REGISTRY_SCHEMA) throw new Error('trusted static registry schema mismatch');
+  requireExactKeys(parsed, ['schema','version','transitionPolicy','checks'], 'trusted static registry');
   if (typeof parsed.version !== 'string' || !parsed.version.trim()) throw new Error('trusted static registry version is required');
+  if (typeof parsed.transitionPolicy !== 'string' || !parsed.transitionPolicy.trim()) throw new Error('trusted static registry transitionPolicy is required');
   if (!parsed.checks || typeof parsed.checks !== 'object' || Array.isArray(parsed.checks)) {
     throw new Error('trusted static registry checks must be an object');
+  }
+
+  const registeredIds = Object.keys(parsed.checks).sort();
+  const implementedIds = Object.keys(EXECUTOR_KIND_BY_ID).sort();
+  if (registeredIds.length !== implementedIds.length || registeredIds.some((id,index)=>id!==implementedIds[index])) {
+    throw new Error('trusted static registry check set must equal base-owned implemented check set');
   }
 
   for (const [id, definition] of Object.entries(parsed.checks)) {
@@ -94,6 +110,10 @@ function readRegistry() {
     if (!definition || typeof definition !== 'object' || Array.isArray(definition)) {
       throw new Error('trusted static registry definition must be an object');
     }
+    const expectedDefinitionKeys = definition.executor === 'exact-blobs'
+      ? ['definitionVersion','executor','candidateExecution','applicabilitySource','contracts']
+      : ['definitionVersion','executor','candidateExecution','applicabilitySource'];
+    requireExactKeys(definition, expectedDefinitionKeys, 'trusted static registry definition ' + id);
     if (typeof definition.definitionVersion !== 'string' || !definition.definitionVersion.trim()) {
       throw new Error('trusted static registry definitionVersion is required');
     }
@@ -119,6 +139,7 @@ function readRegistry() {
         if (!contract || typeof contract !== 'object' || Array.isArray(contract)) {
           throw new Error('exact-blobs contract must be an object');
         }
+        requireExactKeys(contract, ['path','expectedBlob','mode','type'], 'exact-blobs contract');
         if (typeof contract.path !== 'string' || !CONTRACT_PATH_RE.test(contract.path) ||
             contract.path.startsWith('/') || contract.path.split('/').includes('..')) {
           throw new Error('exact-blobs contract path is invalid');
@@ -495,6 +516,7 @@ module.exports={
   REGISTRY_SCHEMA,
   EXECUTOR_KIND_BY_ID,
   gitBlobSha1,
+  requireExactKeys,
   parseRegistryText,
   readRegistry,
   collectTreeEntries,
