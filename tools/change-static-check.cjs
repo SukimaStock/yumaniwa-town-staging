@@ -64,13 +64,21 @@ function decodeUtf8(buffer, label) {
   }
 }
 
-function readRegistry() {
+function parseRegistryText(source) {
   let parsed;
   try {
-    parsed = JSON.parse(fs.readFileSync(REGISTRY_PATH, 'utf8'));
+    parsed = JSON.parse(source);
   } catch {
     throw new Error('trusted static registry JSON parse failed');
   }
+  if (source !== JSON.stringify(parsed, null, 2) + '\n') {
+    throw new Error('trusted static registry must be canonical pretty JSON with no duplicate/hidden representation');
+  }
+  return parsed;
+}
+
+function readRegistry() {
+  const parsed = parseRegistryText(fs.readFileSync(REGISTRY_PATH, 'utf8'));
   if (!parsed || parsed.schema !== REGISTRY_SCHEMA) throw new Error('trusted static registry schema mismatch');
   if (typeof parsed.version !== 'string' || !parsed.version.trim()) throw new Error('trusted static registry version is required');
   if (!parsed.checks || typeof parsed.checks !== 'object' || Array.isArray(parsed.checks)) {
@@ -480,6 +488,7 @@ module.exports={
   REPORT_SCHEMA,
   REGISTRY_SCHEMA,
   gitBlobSha1,
+  parseRegistryText,
   readRegistry,
   collectTreeEntries,
   runExactBlobs,
