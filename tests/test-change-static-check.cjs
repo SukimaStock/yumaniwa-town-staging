@@ -8,6 +8,7 @@ const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const {
   gitBlobSha1,
+  parseRegistryText,
   readRegistry,
   executeStaticChecks,
   formatHuman,
@@ -109,6 +110,13 @@ function execute(root,baseSha,targetSha,rawPlan,overrides={}) {
     ...overrides,
   });
 }
+
+test('registry parser requires canonical JSON and rejects duplicate-key representations',()=>{
+  const canonical=fs.readFileSync(REGISTRY_PATH,'utf8');
+  assert.doesNotThrow(()=>parseRegistryText(canonical));
+  assert.throws(()=>parseRegistryText(canonical.replace(/\n  "version":/, '\n  "version": "shadow",\n  "version":')),/canonical pretty JSON/);
+  assert.throws(()=>parseRegistryText(canonical.trim()),/canonical pretty JSON/);
+});
 
 test('registry is data-only and contains only allowlisted initial IDs',()=>{
   const registry=readRegistry();
