@@ -239,6 +239,7 @@ function parseLiteralBlock(lines, index, parentIndent, style, lineNumber) {
     i += 1;
   }
   if (blockIndent === null) return { value: '', next: i };
+  while (body.length && body[body.length - 1] === '') body.pop();
   const joined = body.join('\n');
   return { value: style === '|' ? joined + '\n' : joined, next: i };
 }
