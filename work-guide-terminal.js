@@ -482,6 +482,9 @@
 
             bindImages(container);
 
+            if (container.dataset.workGuideBound === "true") return;
+            container.dataset.workGuideBound = "true";
+
             container.addEventListener("click", function (event) {
                 var target = event.target && event.target.closest
                     ? event.target.closest("[data-guide-action]")
