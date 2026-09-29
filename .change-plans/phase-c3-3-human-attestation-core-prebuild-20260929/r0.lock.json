@@ -1,0 +1,132 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ff213a0c7747978230b0385f8fcc8dabe8815b780a1925061b75594b267c8505",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c3-3-human-attestation-core-prebuild-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Prebuild the C3-3 authenticated human attestation parser and validator for later exact-blob authorization.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "41058a9a40d63c4d8d1ae1b05f3131baa587ae6d",
+    "canonicalSources": [
+      "tools/change-verification-check.cjs",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c3-3-human-attestation-core-prebuild-20260929/**",
+      "tools/change-verification-check.cjs",
+      "tests/test-change-verification-check.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/**",
+      "tools/change-static-check.cjs",
+      "tools/change-static-check-registry.json",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Add strict parsing for /yumaniwa-attest-v0.1 PR comment requests using canonical JSON.",
+      "Bind accepted requests to the immutable Plan Lock manualChecks and exact target SHA.",
+      "Require GitHub-authenticated User identity and repository write, maintain, or admin permission.",
+      "Reject stale SHA, unknown or duplicate manual check IDs, bot identity, actor mismatch, insufficient permission, noncanonical JSON, control characters, bidi formatting controls, and oversized evidence.",
+      "Produce sanitized authenticated or rejected attestation objects with Plan digest, base/target SHA, comment ID/body hash, attester identity/permission, and manual check outcomes.",
+      "Do not integrate attestation into Verification Record v0.3 or final VERIFIED in this package.",
+      "Add adversarial unit tests without modifying the trusted workflow yet."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "The human explicitly binds intent to the exact candidate targetSha in the PR comment.",
+      "The immutable Plan Lock supplies planDigest and the allowed manual check IDs; the commenter does not self-declare the Plan authority.",
+      "A valid attester must be a GitHub User whose repository permission is write, maintain, or admin.",
+      "Only created PR comments are intended for the later trusted workflow; corrections use a new comment rather than editing an attestation.",
+      "Authenticated human evidence is a separate artifact in C3-3 and does not itself establish final VERIFIED."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "C3-2 exact-blob trusted static evidence",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "This package builds the trusted attestation validator itself; no external manual behavior is being attested.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Discard this unmerged prebuild branch if the attestation parser or identity contract has a High/Medium finding.",
+    "outOfScope": [
+      "Changing change-verification.yml",
+      "Emitting a GitHub Actions human-attestation artifact",
+      "Verification Record v0.3 final integration",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "This is a prebuild branch only. The validator is not trusted until its exact blob is preauthorized and merged through the contracted-file transition protocol."
+    ],
+    "problem": "Current Verification Record v0.2 accepts recordedBy and manualChecks PASS as candidate-provided strings, so there is no authenticated proof of which human attested a manual check for an exact candidate SHA.",
+    "currentContract": "C3-2 provides trusted mechanical and static artifacts while manual checks remain unauthenticated Record fields. change-verification-check.cjs is itself protected by the exact-blob contract.",
+    "whyExistingIsInsufficient": "A candidate can write recordedBy Owner and manual status pass without any GitHub-authenticated human action. Evidence text alone cannot establish human identity, repository authority, or exact-SHA intent.",
+    "design": "Add pure validation functions to the existing contracted verification checker. A PR comment must use an exact command prefix followed by one line of canonical JSON containing targetSha and one or more manual check attestations. The validator verifies the Plan Lock, exact target SHA, planned check IDs, safe evidence text, commenter identity, actor equality, GitHub User type, and repository permission. It returns sanitized evidence and hashes the raw comment body. The later base-owned issue_comment workflow will provide GitHub event/API context and wrap this result with run/workflow provenance.",
+    "alternativesRejected": [
+      "Trust recordedBy or manualChecks in candidate Verification Record; they are self-declared.",
+      "Use workflow_dispatch inputs; users can choose a candidate branch workflow and weaken the authority boundary.",
+      "Use only author_association; explicit repository permission is a stronger current authorization check.",
+      "Create a new uncontracted attestation tool; future changes to that tool would escape the exact-blob Change OS contract.",
+      "Integrate directly into final VERIFIED now; C3-3 must remain separate from Verification Record v0.3 integration."
+    ],
+    "migration": "No existing Verification Record is rewritten. After this prebuild is tested, its exact tool blob is authorized through the existing steady-to-pending registry transition and then installed in a fresh PR.",
+    "compatibility": "Existing v0.2 Record CLI behavior remains unchanged. New functions are additive and unused by workflow until the later C3-3 workflow transition.",
+    "boundaryCases": [
+      "Stale targetSha is rejected even when the comment is otherwise valid.",
+      "Unknown or duplicate manual check IDs are rejected.",
+      "Bot or non-User identity is rejected.",
+      "Comment actor and commenter login mismatch is rejected.",
+      "read/triage permission is rejected; write/maintain/admin is accepted.",
+      "Evidence is single-line trimmed Unicode but rejects C0/C1 controls, DEL, bidi formatting controls, and excessive length.",
+      "Noncanonical JSON including duplicate keys, extra whitespace, reordered schema keys, or trailing text is rejected.",
+      "A human-attested fail is valid authenticated evidence; authentication success does not mean the manual check passed.",
+      "No manual check attestation can elevate final verificationState in C3-3."
+    ],
+    "testPlan": [
+      "Run node syntax check on the modified verifier.",
+      "Add valid PASS and valid FAIL attestation tests.",
+      "Add stale SHA, unknown/duplicate ID, bot, actor mismatch, insufficient permission, malformed/noncanonical JSON, control/bidi injection, and oversize evidence tests.",
+      "Verify accepted evidence records Plan digest, target SHA, comment identity/body hash, and permission.",
+      "Verify rejected reports expose only stable error codes and do not echo raw malicious comment text.",
+      "Run the full Change Operations Tests on the prebuild branch.",
+      "Do not open a merge PR from this prebuild; use its exact tested blob only for subsequent registry preauthorization."
+    ],
+    "promotionRisk": "None. Unmerged staging prebuild only."
+  }
+}
