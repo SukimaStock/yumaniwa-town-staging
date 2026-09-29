@@ -1,0 +1,137 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3f424e1de9d8f49202388319a07499816213f38079ade8c5fa720ed6d61d7b26",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "trusted-workflow-semantic-contract-v3-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Replace spoofable workflow substring evidence with a strict semantic workflow contract primitive.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "d748cd143f95ab790814f47d67aefa0953548132",
+    "canonicalSources": [
+      "tools/change-workflow-semantic.cjs",
+      "CHANGE-PLAN.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/trusted-workflow-semantic-contract-v3-20260929/**",
+      "tools/change-workflow-semantic.cjs",
+      "tests/test-change-workflow-semantic.cjs",
+      ".github/workflows/change-operations-tests.yml",
+      "CHANGE-PLAN.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-verification-check.cjs",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Add a base-owned strict YAML-subset parser for GitHub workflow files that parses mappings, sequences, inline scalar arrays, quoted/plain scalars, and literal block scalars while rejecting unsupported YAML features.",
+      "Canonicalize parsed workflow structure with sorted mapping keys and ordered arrays, then compute a semantic SHA-256 digest that ignores ordinary YAML comments and mapping-key order but changes when executable workflow structure or run-block content changes.",
+      "Reject duplicate keys, unsupported anchors/tags/aliases/flow maps, tabs in indentation, malformed indentation, and malformed sequence/mapping forms rather than guessing.",
+      "Provide a verifier API and CLI that compares an actual semantic digest to a trusted expected digest without echoing raw candidate workflow content.",
+      "Add adversarial regressions proving comments, unrelated dead strings, added steps, removed commands, changed checkout refs, and run-block shell comments cannot preserve the trusted semantic digest.",
+      "Wire only the new parser tests into Change Operations Tests; do not modify the security-critical Change PR Gate or Change Verification workflows.",
+      "Document the two-stage authorization rule for future security-critical workflow changes."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "Security-critical workflow evidence must be based on parsed workflow structure rather than substring presence.",
+      "The parser accepts only the repository's required YAML subset and fails closed on unsupported YAML features.",
+      "Security-critical workflow changes require two stages: first authorize the future semantic digest in trusted base, then change the workflow in a later fresh package.",
+      "This package introduces only the semantic contract primitive and its test wiring; it does not implement C3-2 registry/executor."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "C3-1 trusted base-owned gate boundary",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Change OS parser/verifier primitive covered by regression/adversarial tests and PR review; authenticated human attestation is out of scope.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging-only semantic contract primitive if parser acceptance or canonicalization is ambiguous or unsafe.",
+    "outOfScope": [
+      "Trusted Static Check Registry",
+      "Trusted Static Check Executor",
+      "Static Evidence artifact",
+      "Changes to change-pr-gate.yml",
+      "Changes to change-verification.yml",
+      "Authenticated Human Attestation",
+      "Verification Record v0.3",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "C3-2 remains incomplete until this prerequisite is merged and a fresh C3-2 package uses the semantic workflow contract."
+    ],
+    "problem": "The aborted C3-2 PR #51 used substring presence to validate candidate workflows. A candidate could remove a real safety setting while preserving the expected text in a YAML comment, unrelated scalar, or shell comment and still obtain false trusted PASS evidence.",
+    "currentContract": "C3-1 protects execution ownership but has no trusted static workflow semantic verifier. PR #51 was closed unmerged after the spoofability finding.",
+    "whyExistingIsInsufficient": "Text inclusion cannot distinguish active YAML nodes and executable run commands from comments, dead strings, or unrelated mappings.",
+    "design": "Implement a fail-closed parser for the exact YAML subset used by Change OS workflows. Parse candidate workflow bytes as inert data, reject unsupported syntax, canonicalize the semantic object deterministically, and compare a SHA-256 digest against a base-owned expected digest. Literal run-block text remains semantic content, so replacing a command with a shell comment changes the digest. Future workflow changes use a two-stage authorization pattern so the expected semantic contract exists on the trusted base before the workflow-changing PR.",
+    "alternativesRejected": [
+      "Strip comments and retain substring checks; unrelated live scalar values can still spoof presence and shell comments are executable-block content.",
+      "Use regexes for YAML paths; quoting, nesting, duplicates, and block scalars make regex semantic claims brittle.",
+      "Execute candidate workflow or candidate tests; this violates the trust boundary.",
+      "Add an unpinned third-party YAML package to the trusted runtime; this adds a mutable dependency to the security boundary.",
+      "Approximate arbitrary YAML; unsupported or ambiguous syntax must fail closed."
+    ],
+    "migration": "No historical Plan Lock or evidence is rewritten. PR #51 remains closed and unmerged. After this package merges, C3-2 restarts from the new staging main with a fresh r0 and uses base-owned semantic workflow digests.",
+    "compatibility": "The security-critical workflows and existing required status names are unchanged. Only the ordinary Change Operations Tests workflow is extended to exercise the new parser. The semantic verifier is additive and not authoritative until a later C3-2 trusted registry invokes it.",
+    "boundaryCases": [
+      "Required text moved to a YAML comment cannot preserve the semantic digest after the active node is removed.",
+      "Required text moved to an unrelated live scalar changes the semantic object and digest.",
+      "Required run command replaced by a shell comment changes the literal run block and digest.",
+      "Adding an extra step changes ordered step structure and digest.",
+      "Changing checkout ref from base SHA to candidate SHA changes the digest.",
+      "Mapping key reordering and ordinary YAML comments do not change semantic digest.",
+      "Duplicate mapping keys are rejected.",
+      "YAML anchors, aliases, tags, flow maps, folded block scalars, tabs in indentation, and malformed indentation are rejected closed."
+    ],
+    "testPlan": [
+      "Run parser/verifier tests against both current security-critical Change OS workflow files.",
+      "Verify comments and supported mapping-key order changes are semantically stable.",
+      "Verify active-node removal plus comment/dead-string replacement changes digest.",
+      "Verify run-command-to-shell-comment substitution changes digest.",
+      "Verify added unsafe step and changed checkout ref change digest.",
+      "Run all existing Change Operations Tests.",
+      "Open PR and require existing base-owned Change PR Gate and Change Verification Evidence to pass.",
+      "Request Codex adversarial review on the exact head and stop on any new High/Medium finding.",
+      "Merge to staging only and reconfirm production/main is unchanged before restarting C3-2."
+    ],
+    "promotionRisk": "None. This is staging-only Change OS infrastructure and does not alter production or runtime application behavior."
+  }
+}
