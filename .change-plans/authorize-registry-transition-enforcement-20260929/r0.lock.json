@@ -1,0 +1,125 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8b278a874350cc8524e652842d460084dd6902782ba43fac293ca65630b86933",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "authorize-registry-transition-enforcement-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Bootstrap-authorize the tested future trusted static executor blob without changing any contracted file.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "57d1b22e843a881d5ca7497f746b2fafc2aff74d",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      "tests/test-change-static-check.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/authorize-registry-transition-enforcement-20260929/**",
+      "tools/change-static-check-registry.json",
+      "tests/test-change-static-check.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/**",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-verification-check.cjs",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Change only the registry contract for tools/change-static-check.cjs from the current blob to the prebuilt future executor blob f61a844f9aaa24ed3dcd9e3e79671d6c8bbb44ef.",
+      "Set transitionPolicy to pending:tools/change-static-check.cjs:60101a1dbda6ea287709843db79bebfc82a28cdb:f61a844f9aaa24ed3dcd9e3e79671d6c8bbb44ef.",
+      "Preserve the exact ten-path contract set and every unrelated contract object unchanged.",
+      "Update candidate regression tests only enough to represent the pending authorization state while keeping exact contract-path equality and one-path transition assertions.",
+      "Do not change tools/change-static-check.cjs or any other contracted file in this authorization PR.",
+      "Treat this as a one-time bootstrap authorization reviewed against the exact diff; after the future executor is installed, candidate registry transitions will be validated by base-owned code."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This authorization PR must not contain the future executor file itself.",
+      "Only the executor contract expectedBlob may change.",
+      "The preauthorized toBlob is the exact blob produced by the green prebuild branch.",
+      "The trusted base runner remains the old executor for this PR; exact-head review is required because base-owned candidate-registry transition validation is not installed yet."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "C3-2 exact-blob trusted static evidence",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "One-time bootstrap authorization verified by exact diff, candidate regressions, trusted base gates, and Codex review.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the registry-only authorization merge before transitioning the executor if any exact-head review or CI anomaly appears.",
+    "outOfScope": [
+      "Changing tools/change-static-check.cjs",
+      "Changing any other contracted security-critical file",
+      "C3-3",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "The future executor remains untrusted until a fresh executor-only PR changes tools/change-static-check.cjs to the exact preauthorized blob."
+    ],
+    "problem": "The base-owned executor needs trusted candidate-registry transition validation, but its future blob must be preauthorized before the contracted executor file can change.",
+    "currentContract": "The current base registry expects executor blob 60101a1dbda6ea287709843db79bebfc82a28cdb and the future tested executor blob is f61a844f9aaa24ed3dcd9e3e79671d6c8bbb44ef.",
+    "whyExistingIsInsufficient": "Directly changing the contracted executor would fail the current exact-blob gate. A registry-only authorization must land first.",
+    "design": "Change only the base registry metadata and executor expectedBlob to a one-path pending authorization. Candidate tests become pending-aware so ordinary CI stays green, but they are not treated as the trust root. The old base-owned trusted runner verifies that no contracted file changed in this PR. Exact-head review verifies the candidate registry retains the complete contract set and changes only the executor expectedBlob plus transition metadata.",
+    "alternativesRejected": [
+      "Merge the future executor directly; current exact-blob enforcement correctly blocks it.",
+      "Trust candidate tests as the permanent registry transition authority; Codex identified this as a P1 bypass.",
+      "Disable exact-blob enforcement during bootstrap; this would widen the trust boundary."
+    ],
+    "migration": "After this authorization merges, create a fresh executor-only PR from the pending base. Keep the registry unchanged pending in that PR. Once the future executor merges, use its base-owned registry-transition validation to clean pending back to steady.",
+    "compatibility": "No runtime application behavior changes. Current trusted executor/workflows remain unchanged in this authorization PR. The pending registry intentionally blocks unrelated Change OS transitions until the executor transition completes.",
+    "boundaryCases": [
+      "Contract path set must remain exactly the existing ten paths.",
+      "Only tools/change-static-check.cjs expectedBlob may change.",
+      "The executor file itself must remain the old fromBlob in this PR.",
+      "No node-syntax definition or unrelated contract metadata may change.",
+      "Candidate tests must recognize fromBlob as the current repository state during pending authorization."
+    ],
+    "testPlan": [
+      "Run Change Operations Tests and Release Validator Tests.",
+      "Require Change PR Gate and Change Verification Evidence to pass under the old base-owned executor.",
+      "Inspect the exact registry diff and verify one expectedBlob change only.",
+      "Request Codex adversarial review on the exact head and stop on any High/Medium finding.",
+      "Merge to staging only if all checks and review pass.",
+      "Immediately create the fresh executor-only transition PR."
+    ],
+    "promotionRisk": "None. Staging-only one-time bootstrap authorization."
+  }
+}
