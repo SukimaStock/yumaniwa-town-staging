@@ -1,0 +1,124 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2ea560965fa71ee0a67a6bd74fd7db615500c39c684ba79eca644aba208af29e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c3-3-preauthorize-owner-only-verifier-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C3-3 hardening: preauthorize repository-owner-only human attestation verifier.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "7dc142041fd85f18dc799785ffceec044ef5b41d",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      "tools/change-verification-check.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c3-3-preauthorize-owner-only-verifier-20260929/**",
+      "tools/change-static-check-registry.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/**",
+      "tools/change-verification-check.cjs",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Change only the trusted static registry to preauthorize the exact future Git blob c3d748b5a2329e428c38c327883613c98b19bf61 for tools/change-verification-check.cjs.",
+      "Move transitionPolicy from steady to one-path pending for tools/change-verification-check.cjs while leaving the installed verifier file unchanged at blob 7f54001a813dd89fa65018b780a18c25a7141b0b.",
+      "Do not install or execute the owner-only verifier in this authorization PR."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "Initial live C3-3 manual attestation authority is repository-owner-only; write/admin collaborators are not implicitly equivalent to Owner/HQ authority.",
+      "The repository owner identity is taken from the trusted GitHub event repository.owner login and numeric user ID and must match both comment.user and sender.",
+      "author_association is retained as provenance only and is not an authorization source.",
+      "Delegated human attesters, organization-owned repositories, and role-based manual checks require a later explicit contract change."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "C3-2 exact-blob two-stage authorization",
+      "C3-3 dormant human attestation verifier",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Registry-only preauthorization package; no live human attestation workflow is being enabled here.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Close or revert this staging-only registry authorization if the future owner-only verifier blob changes before installation.",
+    "outOfScope": [
+      "Installing tools/change-verification-check.cjs",
+      "Changing issue_comment workflow handling",
+      "Generating live human attestation artifacts",
+      "Delegated attester policy",
+      "Organization-owned repository support",
+      "Verification Record v0.3 final integration",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "The owner-only verifier is not trusted until a later fresh PR installs exactly blob c3d748b5a2329e428c38c327883613c98b19bf61 and returns the registry to steady."
+    ],
+    "problem": "The installed dormant verifier authorizes OWNER/MEMBER/COLLABORATOR by author_association, but GitHub author_association expresses relationship rather than the Yumaniwa Owner/HQ authority model; repository write/admin permissions also do not by themselves prove Owner authority.",
+    "currentContract": "The staging repository is user-owned by SukimaStock (GitHub user ID 262211877), and the installed verifier is exact blob 7f54001a813dd89fa65018b780a18c25a7141b0b in steady registry state.",
+    "whyExistingIsInsufficient": "A MEMBER or COLLABORATOR could satisfy the dormant verifier despite not being the repository owner or the human who holds Yumaniwa Owner Decision authority. Live workflow installation must not proceed with that ambiguity.",
+    "design": "Preauthorize a hardened verifier that removes author_association as an authorization gate and instead requires event.repository.owner to be a GitHub User whose login and immutable numeric ID exactly match comment.user and event.sender. author_association remains evidence only. The initial policy is intentionally owner-only and can be broadened later through an explicit Change OS contract change.",
+    "alternativesRejected": [
+      "Allow admin/write collaborators; repository permission is operational access, not necessarily Yumaniwa Owner/HQ authority.",
+      "Keep OWNER/MEMBER/COLLABORATOR author_association as authorization; it is too broad for Owner-only manual attestation.",
+      "Add a mutable username allowlist in candidate data; authorization must remain base-owned and identity-stable.",
+      "Install workflow first and compensate in workflow logic; the verifier itself must enforce the attester identity contract."
+    ],
+    "migration": "No live attestation exists yet. This PR only preauthorizes the owner-only verifier blob; the current dormant verifier remains installed until the next fresh install PR.",
+    "compatibility": "Existing Verification Record v0.2 behavior and C3-2 trusted evidence are unchanged. Only the future attest-mode identity policy changes.",
+    "boundaryCases": [
+      "Repository owner must be a GitHub User with nonempty login and numeric ID.",
+      "comment.user and sender must remain human User identities and match each other by login and numeric ID.",
+      "comment.user login and ID must both match repository.owner login and ID.",
+      "author_association value cannot override owner identity mismatch.",
+      "Repository owner identity missing, malformed, or Organization type is rejected by this initial policy.",
+      "Candidate registry remains inert for its own PR."
+    ],
+    "testPlan": [
+      "Require candidate Change Operations Tests to pass during registry-only pending authorization.",
+      "Require Change PR Gate and Change Verification Evidence to pass.",
+      "Inspect trusted Static Evidence for REGISTRY_AUTHORIZATION_VALID.",
+      "Request exact-head Codex adversarial review and stop on any new High/Medium finding.",
+      "Merge to staging only, then install exactly the preauthorized owner-only verifier from the pending base.",
+      "Reconfirm production main unchanged."
+    ],
+    "promotionRisk": "None. Staging-only Change OS attester-identity hardening preauthorization."
+  }
+}
