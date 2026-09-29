@@ -1,0 +1,109 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8c2b7a79b3d520db8f1ddd99c70447da128c2ef3edf86437b41683b2ad80dc3a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "change": "Add Guide Ready release gate",
+    "changeId": "guide-ready-release-gate-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "planLevel": "full",
+    "environment": "staging",
+    "baseSha": "3552d4fb5904d1cd5b66182679d24790bc35382b",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "canonicalSources": [
+      "data/works.js",
+      "data/work-guide-meta.js",
+      "tools/release-validator.cjs",
+      "RELEASE-WORKFLOW.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/guide-ready-release-gate-20260929/r0.lock.json",
+      "tools/release-validator.cjs",
+      "tests/test-release-validator.cjs",
+      "RELEASE-WORKFLOW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/works.js",
+      "data/work-guide-meta.js",
+      "work-guide-terminal.js",
+      "work-guide-terminal.css",
+      "main.js",
+      "town-interaction-flow.js",
+      ".github/workflows/release-validator-tests.yml"
+    ],
+    "expectedChanges": [
+      "Add Guide Ready as a formal sixth release readiness condition.",
+      "Require every open WORKS entry in the checked repository snapshot to have valid guide metadata so it automatically appears in the guide terminal all-work and mood flows.",
+      "Require selected release targets to have a canonical assets/works/<id>/ogp.jpg or icon.png guide image before release validation can pass.",
+      "Keep WORK_GUIDE_FEATURED manually curated; new works are not automatically featured.",
+      "Expose guide metadata reading through the Release Validator test API and add regression coverage for missing or invalid guide configuration."
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "current-open-staging-guide-metadata",
+      "selected-work-guide-image",
+      "featured-remains-manual",
+      "existing-published-release-set-regression"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "Staging validator/documentation change only. Production repository is out of scope.",
+    "hqDecisions": [
+      "Guide Ready is a sixth Ready rather than being folded invisibly into Town Ready.",
+      "Open staging works must have guide metadata immediately; this prevents a new open work from silently disappearing from the terminal.",
+      "Canonical guide image is a selected-release gate, not an all-open staging gate, so an unpublished staging work can exist temporarily with runtime text fallback.",
+      "Featured placement remains an explicit human curation decision and is not required for Guide Ready."
+    ],
+    "alternativesRejected": [
+      "Automatically insert every new work into WORK_GUIDE_FEATURED.",
+      "Duplicate guide metadata into WORKS.",
+      "Require canonical guide images for every open staging work immediately, which would retroactively block the currently unpublished CoffeeFactory staging state.",
+      "Rely on manual release checklists without a static validator gate."
+    ],
+    "boundaryCases": [
+      "An open work with no WORK_GUIDE_META entry fails even when it is not in the selected --ids list.",
+      "A guide entry with empty duration, empty guideLine, no moods, duplicate moods, or unknown mood id fails.",
+      "A featured id must be valid, unique, open, and guide-configured, but a new work need not be featured.",
+      "A selected work with neither canonical ogp.jpg nor icon.png fails Guide Ready.",
+      "An unselected open staging work with valid metadata but no canonical image may remain in staging and use runtime text fallback.",
+      "Existing nine published staging validation targets continue to pass because they already have canonical guide images."
+    ],
+    "testPlan": [
+      "Run node --check on tools/release-validator.cjs and tests/test-release-validator.cjs.",
+      "Run node --test tests/test-release-validator.cjs.",
+      "Run the current staging Release Validator command for the published nine-work set.",
+      "Verify all ten current open staging works satisfy guide metadata, including CoffeeFactory.",
+      "Verify missing metadata and missing selected image fixtures fail with guide-specific check codes.",
+      "Run Scope, Risk, and Impact gates from the immutable Plan Lock.",
+      "Run the Change Operations regression static check required for RELEASE-WORKFLOW.md."
+    ],
+    "problem": "The new guide terminal only displays open works that also have WORK_GUIDE_META, but the release process does not yet enforce that metadata. A new work can therefore be opened successfully while remaining absent from the guide terminal.",
+    "currentContract": "WORKS controls open status and the guide runtime filters open works by the presence of guide metadata. Release Validator currently enforces town awareness, search/share, launch, assets, and other release contracts but does not read data/work-guide-meta.js.",
+    "whyExistingIsInsufficient": "The terminal behavior is correct at runtime, but there is no static release gate connecting status=open to guide metadata and guide image readiness. This leaves an easy operational omission.",
+    "design": "Teach Release Validator to read and validate WORK_GUIDE_MOODS, WORK_GUIDE_FEATURED, and WORK_GUIDE_META. Validate metadata for every open work in the snapshot, validate featured references, and require a canonical guide image for selected release targets. Document Guide Ready as the sixth Ready.",
+    "migration": "No runtime or work data migration. Current open staging metadata already covers all ten open works. The existing published nine works already have canonical OGP/icon assets.",
+    "compatibility": "The guide terminal runtime and recommendation behavior do not change. Existing production publication-set rules, Search/Share generation, Town Ready, Observe Ready, and Release Ready semantics remain intact except that documentation now names six Ready conditions.",
+    "rollback": "Revert the validator/test/documentation implementation commits after the immutable Plan Lock commit. No runtime or work data rollback is required.",
+    "promotionRisk": "Production repository remains untouched. A later promotion of this validator contract must preserve the same data files and publication-set semantics."
+  }
+}
