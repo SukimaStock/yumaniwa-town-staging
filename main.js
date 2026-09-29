@@ -2626,7 +2626,7 @@ function confirmStationGuideMapMove() {
             // 専用画面へ移る場合だけ、施設説明より行き先一覧を先に見せる。
             // 湯間庭新報は既存仕様の新聞ラックをそのまま開く。
             if (spot.target !== "shinpo_board") {
-                destinationViewMode = "menu";
+                destinationViewMode = getDestinationListViewMode(spot.target);
                 renderDestination();
             }
         });
@@ -2689,7 +2689,7 @@ function openTownPlaceFromRoute(placeId) {
     }
 
     if (!isTownScene(placeId) && placeId !== "shinpo_board") {
-        destinationViewMode = "menu";
+        destinationViewMode = getDestinationListViewMode(placeId);
         renderDestination();
     }
 
@@ -2713,7 +2713,7 @@ function openTownWorkFromRoute(workId) {
         changeScene(destinationId);
 
         if (!isTownScene(destinationId)) {
-            destinationViewMode = "menu";
+            destinationViewMode = getDestinationListViewMode(destinationId);
             renderDestination();
         }
     }
@@ -3618,6 +3618,16 @@ function handleRpgMenuKeyboard(e) {
     if (!isDestinationSceneOpen() || isEditMode || debugMode) return false;
 
     var key = e.key;
+
+    if (
+        currentDestinationId === "leisure_catalog" &&
+        destinationViewMode === "work_guide" &&
+        window.YUMANIWA_WORK_GUIDE &&
+        typeof window.YUMANIWA_WORK_GUIDE.handleKeyboard === "function" &&
+        window.YUMANIWA_WORK_GUIDE.handleKeyboard(e)
+    ) {
+        return true;
+    }
 
     // 湯間庭新報も、開いた直前の場所へ戻す
     if (destinationViewMode === 'note_rack') {
@@ -7011,6 +7021,20 @@ function resetDestinationState() {
     currentDestinationMessageTitle = "";
 }
 
+function getDestinationListViewMode(destId) {
+    if (destId === "shinpo_board") return "note_rack";
+
+    return destId === "leisure_catalog"
+        ? "work_guide"
+        : "menu";
+}
+
+function getDestinationInitialViewMode(destId) {
+    if (destId === "shinpo_board") return "note_rack";
+    if (destId === "leisure_catalog") return "work_guide";
+    return "intro";
+}
+
 function getDestinationReturnSceneId(destOrId) {
     var dest = (typeof destOrId === "string") ? DESTINATIONS[destOrId] : destOrId;
 
@@ -7112,9 +7136,17 @@ window.changeScene = function(sceneId, spawnKey, transitionToken) {
 window.openDestination = function(destId) {
     currentDestinationId = destId;
 
-    // 湯間庭新報は、タイトル一覧を一度挟まずに
-    // 記事カードが並ぶ「新聞ラック」を直接開く。
-    destinationViewMode = (destId === "shinpo_board") ? "note_rack" : "intro";
+    if (
+        destId === "leisure_catalog" &&
+        window.YUMANIWA_WORK_GUIDE &&
+        typeof window.YUMANIWA_WORK_GUIDE.enter === "function"
+    ) {
+        window.YUMANIWA_WORK_GUIDE.enter();
+    }
+
+    // 新報は新聞ラック、展示ガイドは専用端末を直接開く。
+    // どちらも不要な「つづける」画面を挟まない。
+    destinationViewMode = getDestinationInitialViewMode(destId);
     currentDestinationMessage = "";
     currentDestinationMessageTitle = "";
     renderDestination();
@@ -7133,12 +7165,26 @@ window.renderDestination = function() {
         html = renderDestinationMessage(dest, currentDestinationMessageTitle, currentDestinationMessage);
     } else if (destinationViewMode === "note_rack") {
         html = renderNoteCardRack(dest);
+    } else if (
+        destinationViewMode === "work_guide" &&
+        window.YUMANIWA_WORK_GUIDE &&
+        typeof window.YUMANIWA_WORK_GUIDE.render === "function"
+    ) {
+        html = window.YUMANIWA_WORK_GUIDE.render(dest);
     }
 
     var sceneContainer = document.getElementById('scene-container');
     sceneContainer.classList.toggle('newspaper-rack', destinationViewMode === "note_rack");
     sceneContainer.innerHTML = html;
     sceneContainer.style.display = 'block';
+
+    if (
+        destinationViewMode === "work_guide" &&
+        window.YUMANIWA_WORK_GUIDE &&
+        typeof window.YUMANIWA_WORK_GUIDE.bind === "function"
+    ) {
+        window.YUMANIWA_WORK_GUIDE.bind(sceneContainer, dest);
+    }
 
     if (destinationViewMode !== "note_rack") {
         resetRpgMenuCursor();
@@ -8058,7 +8104,7 @@ window.closeWorkPlayer = function() {
         DESTINATIONS[workPlayerReturnDestinationId]
     ) {
         currentDestinationId = workPlayerReturnDestinationId;
-        destinationViewMode = "menu";
+        destinationViewMode = getDestinationListViewMode(workPlayerReturnDestinationId);
         currentDestinationMessage = "";
         currentDestinationMessageTitle = "";
         renderDestination();

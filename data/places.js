@@ -60,10 +60,10 @@ var DESTINATIONS = {
     leisure_catalog: {
         id: "leisure_catalog",
         title: "展示ガイド",
-        subtitle: "Yumado Leisure Center",
-        description: "館内で遊べる作品をまとめた、小さな展示ガイド。",
-        flavor: "古い案内板に、いま動いている筐体の名前が並んでいる。",
-        menuTitle: "どの展示を見ますか?",
+        subtitle: "Yumaniwa Town",
+        description: "町で遊べるものを案内する、小さなガイド端末。",
+        flavor: "古い画面に、町のあちこちで遊べるものが一つずつ映し出される。",
+        menuTitle: "何を探しますか?",
         returnScene: "leisure_center_map",
         returnLabel: "湯窓レジャーセンター",
         items: []
