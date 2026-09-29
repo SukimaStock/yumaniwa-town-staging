@@ -272,8 +272,19 @@ Static Evidenceはrun ID + run attempt単位のartifactへ保存し、
 static exitを既存ruleset-required `trusted-mechanical-evidence` jobの最終判定に含める。
 
 C3-2でも `verificationState` は `UNVERIFIED`。
-Authenticated Human AttestationとVerification Record v0.3最終統合は後続であり、
 文字列evidenceをtrusted human/static evidenceへ読み替えない。
+
+C3-3ではまず、base-owned `tools/change-verification-check.cjs attest` を
+standalone verifierとして導入する。
+これはGitHub event / trusted PR metadata / immutable Plan Lock / verifier blobを入力として、
+manual check attestationのmachine evidenceを生成する。
+
+verifier単体導入時点ではlive `issue_comment` workflowは存在しない。
+したがってcommentを書くだけでattestationが成立するわけではない。
+
+live workflow導入前に、attesterとして許可するGitHub authorization policyを別途監査・固定する。
+Human Attestation artifactを生成できるようになっても、Verification Record v0.3への最終統合までは
+`verificationState=UNVERIFIED` を維持する。
 
 `Verification: VERIFIED` はstaging SHAの確認完了であり、production公開許可やRelease Completeではない。
 

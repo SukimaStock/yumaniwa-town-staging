@@ -261,6 +261,41 @@ C3-2完了時点:
 - authenticated human attestation: なし
 - final `VERIFIED`: **成立させない**
 
+### C3-3 verifier install時点
+
+`tools/change-verification-check.cjs` には、GitHub認証済みPR commentを
+immutable Plan Lock / exact PR head SHA / locked `manualChecks` へ束ねる
+standalone `attest` modeを追加する。
+
+このmodeはEvidence生成用のverifierであり、現時点ではlive workflowから呼ばない。
+
+attestationが保持するtrusted identity:
+
+- repository / PR number
+- base SHA / target SHA
+- Plan changeId / revision / digest / manualChecks
+- GitHub user login / immutable numeric user ID / author association
+- comment ID / createdAt / URL
+- comment body SHA-256 / byte count
+- optional note SHA-256 / byte count
+- base-owned verifier Git blob
+
+raw comment body / raw noteはattestation artifactへ複製しない。
+
+1 commentはPlanの `manualChecks` 全件をexact setとしてattestする。
+partial / extra / duplicate / stale SHA / fork PR / non-default-base PR /
+bot identity / GitHub sender mismatch / verifier blob mismatchはREJECTする。
+
+ただしC3-3 verifier installだけでは、
+
+- issue_comment workflow: 未導入
+- live Human Attestation artifact: 未生成
+- Verification Record v0.3統合: 未実装
+- final `VERIFIED`: **成立させない**
+
+attesterをどのGitHub authorization levelまで許可するかは、
+live workflow導入前に別途trust-policyとして確定する。
+
 ---
 
 ## 6. Exact SHA Rule
