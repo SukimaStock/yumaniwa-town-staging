@@ -1,0 +1,91 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0000000000000000000000000000000000000000000000000000000000000000",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-failure-canary-invalid-plan-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C invalid Plan failure canary",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review",
+      "BAD\nFAKE PASS ‮BIDI"
+    ],
+    "environment": "staging",
+    "baseSha": "6dab38f5af1d0851745fa7ba573ac65253ec3cc1",
+    "canonicalSources": [
+      ".change-plans/phase-c-failure-canary-invalid-plan-20260929/r0.lock.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c-failure-canary-invalid-plan-20260929/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**",
+      ".github/workflows/**"
+    ],
+    "expectedChanges": [
+      "Intentionally fail trusted Plan validation to verify failure diagnostics are escaped."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This is a disposable invalid-Plan canary and must never be merged.",
+      "Production must remain untouched."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "C3-1 failure-path canary"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Intentional failure canary; no product behavior is being validated.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Close this PR unmerged.",
+    "outOfScope": [
+      "Production changes",
+      "Phase D/E",
+      "Verification Record v0.3"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "This Plan is deliberately invalid because authority contains a malicious diagnostic string."
+    ],
+    "problem": "Verify that candidate-controlled validation errors cannot inject trusted log lines.",
+    "currentContract": "Failure diagnostics are escaped at CLI display boundaries.",
+    "whyExistingIsInsufficient": "Unit tests do not prove the merged base-owned workflows render an invalid Plan safely.",
+    "design": "Use an intentionally invalid authority value containing newline and U+202E, then inspect trusted workflow failure logs.",
+    "alternativesRejected": [
+      "Use a valid Plan; it would not exercise failure diagnostics."
+    ],
+    "migration": "None.",
+    "compatibility": "Disposable failure canary only.",
+    "boundaryCases": [
+      "Newline cannot create a new physical trusted-log status line.",
+      "U+202E cannot reorder operator-visible diagnostic text."
+    ],
+    "testPlan": [
+      "Open PR and require Change PR Gate and Change Verification Evidence to fail at trusted Plan Lock verification.",
+      "Inspect logs for escaped diagnostic text.",
+      "Confirm merge is blocked and close unmerged."
+    ],
+    "promotionRisk": "None; the canary must not be merged."
+  }
+}
