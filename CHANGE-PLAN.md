@@ -549,10 +549,44 @@ data/town-maps.js
 
 ---
 
-## 13. Manual Verification Contract
+## 13. Static / Manual Verification Contract
+
+`staticChecks` / `impactChecks` / `manualChecks` の文字列は、後段の `CHANGE-VERIFICATION.md` でcheck IDとして使うため、同じ意味のcheckを実装後に別名へ書き換えない。
+
+C3-2以降、high-risk staging PRの `staticChecks` は
+`tools/change-static-check-registry.cjs` のtrusted IDとして扱う。
+
+Planへcommand lineを書かない。
+candidate側のscript / test / workflow / tool pathを「trusted command」として実行しない。
+trusted runnerは、
+
+```text
+check ID
+  -> base-owned registry definition
+  -> base-owned fixed executor kind
+  -> exact candidate Git blob data
+```
+
+の順だけで実行する。
+
+初期trusted IDは次の2つに限定する。
+
+- `change-operations-regression`
+  - Change OSのdurable trust-boundary invariantをexact candidate Git blobのtextとして照合する
+  - candidate test suiteやcandidate toolは実行しない
+- `node-syntax`
+  - changed `.js/.cjs/.mjs` blobをtrusted Node parserへstdinで渡して構文解析だけ行う
+  - `.mjs`はmodule、`.js/.cjs`はcommonjsの固定mode
+  - top-level codeは実行しない
+
+unknown IDはPASS/SKIPにせずFAILする。
+適用対象がないcheckはPASSと呼ばず、trusted `N/A` としてEvidenceへ残す。
+Risk Policy側のrequired applicabilityがexecutor selectorで覆われない場合もfail closedとする。
+
+`release-validator` 等、candidate repository codeの実行が必要なcheckは、
+trusted data-only設計ができるまでregistryへ追加しない。
 
 手動確認は事前に観点を決め、実施時に確認SHAを記録する。
-`staticChecks` / `impactChecks` / `manualChecks` の文字列は、後段の `CHANGE-VERIFICATION.md` でVerification Recordのcheck IDとして使うため、同じ意味のcheckを実装後に別名へ書き換えない。
 
 ```text
 Manual checks:
