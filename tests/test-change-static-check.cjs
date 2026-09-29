@@ -130,6 +130,15 @@ test('executor dispatch kind is base-owned and cannot be changed by registry dat
   }
 });
 
+test('registry rejects hidden fields and missing implemented checks',()=>{
+  const canonical=JSON.parse(fs.readFileSync(REGISTRY_PATH,'utf8'));
+  const hidden=structuredClone(canonical);
+  hidden.checks['node-syntax'].hidden='ignored';
+  assert.throws(()=>parseRegistryText(JSON.stringify(hidden,null,2)+'\n') && readRegistry(),/./);
+
+  assert.deepEqual(Object.keys(canonical.checks).sort(),Object.keys(EXECUTOR_KIND_BY_ID).sort());
+});
+
 test('registry is data-only and contains only allowlisted initial IDs',()=>{
   const registry=readRegistry();
   assert.equal(registry.schema,'yumaniwa-trusted-static-check-registry/0.1');
