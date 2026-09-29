@@ -171,6 +171,19 @@ test('node-syntax failure stores only hashed diagnostics, not candidate source t
   assert.equal(JSON.stringify(report).includes('FAKE PASS'), false);
 });
 
+test('node-syntax rejects invalid UTF-8 source bytes', () => {
+  const { root, baseSha } = initRepo();
+  const target = path.join(root, 'invalid.js');
+  fs.writeFileSync(target, Buffer.from([0x63,0x6f,0x6e,0x73,0x74,0x20,0x78,0x3d,0x31,0x3b,0x0a,0xff]));
+  const targetSha = commitAll(root);
+  const report = run(root, baseSha, targetSha, plan(baseSha, ['node-syntax'], ['invalid.js']));
+  assert.equal(report.staticState, 'FAIL');
+  const file = report.results[0].files[0];
+  assert.equal(file.status, 'FAIL');
+  assert.equal(file.reason, 'INVALID_UTF8_SOURCE');
+  assert.match(file.diagnosticSha256, /^[0-9a-f]{64}$/);
+});
+
 test('deleted node source is explicit N/A, never PASS', () => {
   const { root, baseSha } = initRepo({ 'gone.js': 'const gone = true;\n' });
   fs.unlinkSync(path.join(root, 'gone.js'));
