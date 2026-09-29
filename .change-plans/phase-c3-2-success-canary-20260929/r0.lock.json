@@ -1,0 +1,91 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "45a0008ac4777ddccbcf40aa7637c7a04133ec35d0d3d8da0b8cce2eb45097bb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c3-2-success-canary-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C3-2 trusted static success canary",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "57d1b22e843a881d5ca7497f746b2fafc2aff74d",
+    "canonicalSources": [
+      "tests/test-change-c3-2-success-canary.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c3-2-success-canary-20260929/**",
+      "tests/test-change-c3-2-success-canary.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [],
+    "expectedChanges": [
+      "Add an unmerged syntax-valid Change OS JavaScript canary whose top-level code throws if executed.",
+      "Confirm change-operations-regression exact-blob contract passes and node-syntax passes without executing candidate top-level code."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This is an unmerged post-merge canary only.",
+      "Trusted node-syntax must parse candidate code without executing it."
+    ],
+    "rulesApplied": [
+      "C3-2 exact-blob trusted static contract",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Automated success-path canary only; no human attestation is being created.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Close the canary PR unmerged.",
+    "outOfScope": [
+      "Any production change",
+      "C3-3",
+      "VERIFIED"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Success means trusted static PASS only; verificationState must remain UNVERIFIED."
+    ],
+    "problem": "C3-2 must prove that its fixed node-syntax executor checks syntax without executing candidate top-level code.",
+    "currentContract": "The trusted executor reads exact candidate Git blobs, writes safe temporary files, and invokes base-owned Node with --check.",
+    "whyExistingIsInsufficient": "Unit tests are not enough; the live post-merge pull_request_target route must produce trusted success evidence on an exact candidate SHA.",
+    "design": "Add a syntax-valid CommonJS canary containing a top-level throw. If candidate code were executed the trusted job would fail; parse-only node --check must pass.",
+    "alternativesRejected": [
+      "Use harmless code that would not reveal execution",
+      "Merge the canary"
+    ],
+    "migration": "None; close unmerged after evidence collection.",
+    "compatibility": "No merged repository state changes.",
+    "boundaryCases": [
+      "Top-level throw remains syntax-valid",
+      "Exact-blob Change OS contracts remain unchanged",
+      "verificationState remains UNVERIFIED"
+    ],
+    "testPlan": [
+      "Require Change Operations Tests PASS",
+      "Require Change PR Gate PASS",
+      "Require Change Verification Evidence PASS",
+      "Inspect Static Evidence for both check results and exact provenance",
+      "Confirm verificationState UNVERIFIED",
+      "Close unmerged"
+    ],
+    "promotionRisk": "None; unmerged staging canary only."
+  }
+}
