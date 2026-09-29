@@ -41,8 +41,10 @@ test('trusted verification evidence workflow is base-owned and does not declare 
   assert.ok(verificationSource.includes('$GITHUB_WORKSPACE/trusted/tools/change-scope-guard.cjs'));
   assert.ok(verificationSource.includes('$GITHUB_WORKSPACE/trusted/tools/change-risk-check.cjs'));
   assert.ok(verificationSource.includes('$GITHUB_WORKSPACE/trusted/tools/change-impact-check.cjs'));
+  assert.ok(verificationSource.includes('$GITHUB_WORKSPACE/trusted/tools/change-static-check.cjs'));
   assert.ok(verificationSource.includes("verificationState:'UNVERIFIED'"));
   assert.ok(verificationSource.includes('trusted-mechanical-evidence'));
+  assert.ok(verificationSource.includes('trusted-static-evidence'));
 });
 
 
@@ -50,6 +52,7 @@ test('trusted verification preserves failing gate evidence before failing the jo
   assert.ok(verificationSource.includes('id: scope'));
   assert.ok(verificationSource.includes('id: risk'));
   assert.ok(verificationSource.includes('id: impact'));
+  assert.ok(verificationSource.includes('id: static'));
   assert.ok(verificationSource.includes('echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"'));
   assert.ok(verificationSource.includes("schema:'yumaniwa-gate-error/0.1'"));
   assert.ok(verificationSource.includes('gateExitCodes:{'));
@@ -57,7 +60,7 @@ test('trusted verification preserves failing gate evidence before failing the jo
   const failIndex=verificationSource.indexOf('- name: Fail after preserving trusted evidence');
   assert.ok(uploadIndex >= 0);
   assert.ok(failIndex > uploadIndex);
-  assert.ok(verificationSource.includes('One or more trusted gates failed: scope=$SCOPE_EXIT risk=$RISK_EXIT impact=$IMPACT_EXIT'));
+  assert.ok(verificationSource.includes('One or more trusted gates failed: scope=$SCOPE_EXIT risk=$RISK_EXIT impact=$IMPACT_EXIT static=$STATIC_EXIT'));
 });
 
 
@@ -130,15 +133,18 @@ test('trusted workflows pin external Actions to full commit SHAs',()=>{
   assert.equal(verificationSource.includes('actions/upload-artifact@v4'),false);
 });
 
-test('trusted evidence artifact name is unique per run attempt',()=>{
+test('trusted evidence artifact names are unique per run attempt',()=>{
   assert.ok(verificationSource.includes(
     'name: trusted-mechanical-evidence-${{ github.run_id }}-attempt-${{ github.run_attempt }}'
+  ));
+  assert.ok(verificationSource.includes(
+    'name: trusted-static-evidence-${{ github.run_id }}-attempt-${{ github.run_attempt }}'
   ));
 });
 
 
 test('trusted verification does not print raw machine evidence JSON to operator logs',()=>{
-  for (const file of ['scope.json','risk.json','impact.json']) {
+  for (const file of ['scope.json','risk.json','impact.json','static.json']) {
     assert.equal(
       verificationSource.includes('cat "$RUNNER_TEMP/' + file + '"'),
       false,
@@ -167,4 +173,33 @@ test('trusted workflows omit raw candidate values on failure paths',()=>{
   assert.ok(source.includes('Locked Plan baseSha differs from current PR base; candidate value omitted from trusted log.'));
   assert.ok(source.includes("console.error('Plan Lock JSON parse failed.');"));
   assert.ok(verificationSource.includes("console.error('Plan Lock JSON parse failed.');"));
+});
+
+
+test('trusted static executor is base-owned, exact-SHA bound, and registry-driven',()=>{
+  assert.ok(verificationSource.includes('working-directory: trusted'));
+  assert.ok(verificationSource.includes('git ls-tree "$BASE_SHA" -- tools/change-static-check-registry.cjs'));
+  assert.ok(verificationSource.includes('$GITHUB_WORKSPACE/trusted/tools/change-static-check.cjs'));
+  assert.ok(verificationSource.includes('--root "$GITHUB_WORKSPACE/candidate"'));
+  assert.ok(verificationSource.includes('--base "$BASE_SHA"'));
+  assert.ok(verificationSource.includes('--head "$HEAD_SHA"'));
+  assert.ok(verificationSource.includes('--registry-blob "$REGISTRY_BLOB"'));
+  assert.equal(verificationSource.includes('$GITHUB_WORKSPACE/candidate/tools/change-static-check.cjs'),false);
+});
+
+test('trusted static evidence preserves provenance and remains UNVERIFIED',()=>{
+  assert.ok(verificationSource.includes("schema:'yumaniwa-trusted-static-evidence/0.1'"));
+  assert.ok(verificationSource.includes('staticExitCode:Number(process.env.STATIC_EXIT)'));
+  assert.ok(verificationSource.includes('registry:staticChecks.registry || null'));
+  assert.ok(verificationSource.includes("verificationState:'UNVERIFIED'"));
+  const uploadIndex=verificationSource.indexOf('- name: Upload trusted static evidence');
+  const failIndex=verificationSource.indexOf('- name: Fail after preserving trusted evidence');
+  assert.ok(uploadIndex >= 0);
+  assert.ok(failIndex > uploadIndex);
+});
+
+test('trusted static machine JSON is not printed to operator logs',()=>{
+  assert.equal(verificationSource.includes('cat "$RUNNER_TEMP/static.json"'),false);
+  assert.equal(verificationSource.includes('cat "$RUNNER_TEMP/static.stderr"'),false);
+  assert.ok(verificationSource.includes('Trusted Static JSON evidence captured.'));
 });
