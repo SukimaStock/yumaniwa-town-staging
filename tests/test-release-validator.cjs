@@ -6,7 +6,7 @@ const os = require('node:os');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const {spawnSync} = require('node:child_process');
-const {validate, readWorks, readWorkSearchMeta, html, redirectProbe, imageInfo} = require('../tools/release-validator.cjs');
+const {validate, readWorks, readWorkSearchMeta, readWorkGuideMeta, html, redirectProbe, imageInfo} = require('../tools/release-validator.cjs');
 const {buildPage, buildSitemap} = require('../tools/generate-work-search-pages.cjs');
 const REPO = path.resolve(__dirname, '..');
 const FIX = path.join(__dirname,'fixtures/release');
@@ -18,6 +18,16 @@ function candidate(t,id='dotweather') {
     const work = {...readWorks(REPO).find(w=>w.id===id), launch:'embedded',entry:'./works/'+id+'/index.html'};
     put(root,'data/works.js','window.WORKS = '+JSON.stringify([work])+';');
     put(root,'data/work-search-meta.js',fs.readFileSync(path.join(REPO,'data/work-search-meta.js')));
+    const sourceGuide = readWorkGuideMeta(REPO);
+    const guideEntry = sourceGuide.meta[id];
+    if (!guideEntry) throw new Error('missing repository guide metadata for fixture work: '+id);
+    put(
+        root,
+        'data/work-guide-meta.js',
+        'var WORK_GUIDE_MOODS = '+JSON.stringify(sourceGuide.moods)+';\n' +
+        'var WORK_GUIDE_FEATURED = '+JSON.stringify([id])+';\n' +
+        'var WORK_GUIDE_META = '+JSON.stringify({[id]: guideEntry})+';\n'
+    );
     put(root,'data/updates.js','var TOWN_UPDATES = '+JSON.stringify([{date:'2026-01-01',title:'Release '+id,body:'Published '+id,workIds:[id]}])+';');
     put(root,'data/ghost-dialogue.js','window.GHOST_DIALOGUE = '+JSON.stringify({works:{[id]:['最近の作品の話。']}})+';');
     put(root,'works/'+id+'/index.html','<!doctype html><title>Test runtime</title>');
@@ -39,6 +49,16 @@ function enPage(c,fn) { mutate(c,'en/w/'+c.id+'/index.html',fn); }
 function metadata(c,fn) { const w=readWorks(c.root); fn(w); put(c.root,'data/works.js','window.WORKS = '+JSON.stringify(w)); }
 function writeSearchMeta(root,meta) { put(root,'data/work-search-meta.js','var WORK_SEARCH_META_SCHEMA = 1;\nvar WORK_SEARCH_META = '+JSON.stringify(meta,null,2)+';\n'); }
 function searchMetadata(c,fn) { const meta=readWorkSearchMeta(c.root); fn(meta); writeSearchMeta(c.root,meta); }
+function writeGuideMeta(root,guide) {
+    put(
+        root,
+        'data/work-guide-meta.js',
+        'var WORK_GUIDE_MOODS = '+JSON.stringify(guide.moods,null,2)+';\n' +
+        'var WORK_GUIDE_FEATURED = '+JSON.stringify(guide.featured,null,2)+';\n' +
+        'var WORK_GUIDE_META = '+JSON.stringify(guide.meta,null,2)+';\n'
+    );
+}
+function guideMetadata(c,fn) { const guide=readWorkGuideMeta(c.root); fn(guide); writeGuideMeta(c.root,guide); }
 function regenerateSearch(c,env='production') {
     const work=readWorks(c.root).find(w=>w.id===c.id);
     const meta=readWorkSearchMeta(c.root)[c.id];
@@ -81,6 +101,7 @@ test('production set is explicit, CoffeeFactory is never implicitly authorized',
     const c=candidate(t); has(validate({...c.options,published:undefined}),'FAIL','release.set');
     metadata(c,w=>w.push({...w[0],id:'coffee-factory'}));
     has(validate(c.options),'FAIL','release.unapproved-open');
+    guideMetadata(c,guide=>{ guide.meta['coffee-factory']={duration:'3〜5分',moods:['short'],guideLine:'小さな工場を眺めながら、一杯を淹れる。'}; });
     regenerateSearch(c,'staging');
     clean(validate({...c.options,env:'staging',published:undefined}));
     const all=validate({...c.options,env:'staging',ids:undefined,allProduction:true});
@@ -95,6 +116,38 @@ test('unknown launch and frame modes require HQ; missing entry and player sizes 
 test('town update history and ghost dialogue are release gates',t=>{
     const a=candidate(t); put(a.root,'data/updates.js','var TOWN_UPDATES = [];'); has(validate(a.options),'FAIL','town.update-history');
     const b=candidate(t); put(b.root,'data/ghost-dialogue.js','window.GHOST_DIALOGUE = { works: {} };'); has(validate(b.options),'FAIL','town.ghost-dialogue');
+});
+
+test('Guide Ready requires metadata for every open work, even outside selected ids',t=>{
+    const c=candidate(t);
+    metadata(c,w=>w.push({...w[0],id:'coffee-factory'}));
+    const r=validate({...c.options,env:'staging',published:undefined});
+    has(r,'FAIL','guide.metadata');
+});
+
+test('Guide Ready validates duration, guide line, moods, and featured references',t=>{
+    const a=candidate(t);
+    guideMetadata(a,guide=>{ guide.meta[a.id].duration=''; });
+    has(validate(a.options),'FAIL','guide.duration');
+
+    const b=candidate(t);
+    guideMetadata(b,guide=>{ guide.meta[b.id].guideLine=''; });
+    has(validate(b.options),'FAIL','guide.guide-line');
+
+    const c=candidate(t);
+    guideMetadata(c,guide=>{ guide.meta[c.id].moods=['missing-mood']; });
+    has(validate(c.options),'FAIL','guide.moods');
+
+    const d=candidate(t);
+    guideMetadata(d,guide=>{ guide.featured=['missing-work']; });
+    has(validate(d.options),'FAIL','guide.featured');
+});
+
+test('selected release work requires canonical guide image',t=>{
+    const c=candidate(t);
+    fs.rmSync(path.join(c.root,'assets','works',c.id,'ogp.jpg'),{force:true});
+    fs.rmSync(path.join(c.root,'assets','works',c.id,'icon.png'),{force:true});
+    has(validate(c.options),'FAIL','guide.image');
 });
 
 test('duplicate identity and absent description fail',t=>{
