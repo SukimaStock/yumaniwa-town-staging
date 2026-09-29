@@ -89,8 +89,7 @@ function requireExactKeys(object, allowed, label) {
   }
 }
 
-function readRegistry() {
-  const parsed = parseRegistryText(fs.readFileSync(REGISTRY_PATH, 'utf8'));
+function validateRegistryObject(parsed) {
   if (!parsed || parsed.schema !== REGISTRY_SCHEMA) throw new Error('trusted static registry schema mismatch');
   requireExactKeys(parsed, ['schema','version','transitionPolicy','checks'], 'trusted static registry');
   if (typeof parsed.version !== 'string' || !parsed.version.trim()) throw new Error('trusted static registry version is required');
@@ -155,6 +154,179 @@ function readRegistry() {
     }
   }
   return parsed;
+}
+
+function readRegistryText(source) {
+  return validateRegistryObject(parseRegistryText(source));
+}
+
+function readRegistry() {
+  return readRegistryText(fs.readFileSync(REGISTRY_PATH, 'utf8'));
+}
+
+function sortDeep(value) {
+  if (Array.isArray(value)) return value.map(sortDeep);
+  if (!value || typeof value !== 'object') return value;
+  const out = {};
+  for (const key of Object.keys(value).sort()) out[key]=sortDeep(value[key]);
+  return out;
+}
+
+function stableStringify(value) {
+  return JSON.stringify(sortDeep(value));
+}
+
+function jsonEqual(a,b) {
+  return stableStringify(a)===stableStringify(b);
+}
+
+const LEGACY_TRANSITION_POLICY =
+  'candidate registry is inert for its own PR; contracted-file changes require prior merged registry authorization';
+
+function parseTransitionPolicy(value, options={}) {
+  if (value==='steady') return {state:'steady'};
+  if (options.allowLegacy && value===LEGACY_TRANSITION_POLICY) return {state:'legacy'};
+  if (typeof value!=='string') throw new Error('registry transition policy is invalid');
+  const match=/^pending:([^:]+):([0-9a-f]{40}):([0-9a-f]{40})$/.exec(value);
+  if (!match) throw new Error('registry transition policy is invalid');
+  const [,filePath,fromBlob,toBlob]=match;
+  if (!CONTRACT_PATH_RE.test(filePath) || filePath.startsWith('/') || filePath.split('/').includes('..')) {
+    throw new Error('registry transition path is invalid');
+  }
+  if (fromBlob===toBlob) throw new Error('registry transition blobs must differ');
+  return {state:'pending',path:filePath,fromBlob,toBlob};
+}
+
+function contractMap(definition) {
+  return new Map(definition.contracts.map(contract=>[contract.path,contract]));
+}
+
+function withoutContracts(definition) {
+  const clone={...definition};
+  delete clone.contracts;
+  return clone;
+}
+
+function validateCandidateRegistryTransition(baseRegistry,candidateRegistry,tree) {
+  const basePolicy=parseTransitionPolicy(baseRegistry.transitionPolicy,{allowLegacy:true});
+  const candidatePolicy=parseTransitionPolicy(candidateRegistry.transitionPolicy);
+  const baseDefinition=baseRegistry.checks['change-operations-regression'];
+  const candidateDefinition=candidateRegistry.checks['change-operations-regression'];
+
+  if (baseRegistry.schema!==candidateRegistry.schema) throw new Error('registry schema cannot change in a transition');
+  if (baseRegistry.version===candidateRegistry.version) throw new Error('registry transition must change version');
+  if (!jsonEqual(baseRegistry.checks['node-syntax'],candidateRegistry.checks['node-syntax'])) {
+    throw new Error('node-syntax definition cannot change in a blob transition');
+  }
+  if (!jsonEqual(withoutContracts(baseDefinition),withoutContracts(candidateDefinition))) {
+    throw new Error('change-operations definition metadata cannot change in a blob transition');
+  }
+
+  const baseContracts=contractMap(baseDefinition);
+  const candidateContracts=contractMap(candidateDefinition);
+  const basePaths=[...baseContracts.keys()].sort();
+  const candidatePaths=[...candidateContracts.keys()].sort();
+  if (!jsonEqual(basePaths,candidatePaths)) throw new Error('contract path set must equal base-owned contract path set');
+
+  if (basePolicy.state==='legacy') {
+    throw new Error('legacy base registry does not authorize candidate registry transitions');
+  }
+
+  if (basePolicy.state==='steady' && candidatePolicy.state==='pending') {
+    const baseTarget=baseContracts.get(candidatePolicy.path);
+    const candidateTarget=candidateContracts.get(candidatePolicy.path);
+    if (!baseTarget || !candidateTarget) throw new Error('pending transition path must be an existing base contract');
+    if (baseTarget.expectedBlob!==candidatePolicy.fromBlob) throw new Error('pending fromBlob must equal base expectedBlob');
+    if (candidateTarget.expectedBlob!==candidatePolicy.toBlob) throw new Error('pending toBlob must equal candidate expectedBlob');
+
+    let changedContracts=0;
+    for (const filePath of basePaths) {
+      const before=baseContracts.get(filePath);
+      const after=candidateContracts.get(filePath);
+      if (!jsonEqual(before,after)) {
+        changedContracts+=1;
+        if (filePath!==candidatePolicy.path) throw new Error('unrelated contract changed during authorization');
+        const expected={...before,expectedBlob:candidatePolicy.toBlob};
+        if (!jsonEqual(after,expected)) throw new Error('authorization may change only target expectedBlob');
+      }
+    }
+    if (changedContracts!==1) throw new Error('authorization must change exactly one contract');
+
+    const targetEntry=tree.get(candidatePolicy.path);
+    if (!targetEntry || targetEntry.type!=='blob' || targetEntry.mode!==baseTarget.mode) {
+      throw new Error('authorization target file identity is invalid');
+    }
+    if (targetEntry.oid!==candidatePolicy.fromBlob) {
+      throw new Error('authorization PR must leave target file at fromBlob');
+    }
+    return {
+      status:'PASS',
+      reason:'REGISTRY_AUTHORIZATION_VALID',
+      baseState:'steady',
+      candidateState:'pending',
+      path:candidatePolicy.path,
+      fromBlob:candidatePolicy.fromBlob,
+      toBlob:candidatePolicy.toBlob,
+    };
+  }
+
+  if (basePolicy.state==='pending' && candidatePolicy.state==='steady') {
+    if (!jsonEqual(baseDefinition,candidateDefinition)) {
+      throw new Error('cleanup cannot change contract definitions');
+    }
+    const target=baseContracts.get(basePolicy.path);
+    if (!target || target.expectedBlob!==basePolicy.toBlob) throw new Error('base pending contract is inconsistent');
+    const targetEntry=tree.get(basePolicy.path);
+    if (!targetEntry || targetEntry.type!=='blob' || targetEntry.mode!==target.mode ||
+        targetEntry.oid!==basePolicy.toBlob) {
+      throw new Error('cleanup requires target file at preauthorized toBlob');
+    }
+    return {
+      status:'PASS',
+      reason:'REGISTRY_CLEANUP_VALID',
+      baseState:'pending',
+      candidateState:'steady',
+      path:basePolicy.path,
+      fromBlob:basePolicy.fromBlob,
+      toBlob:basePolicy.toBlob,
+    };
+  }
+
+  throw new Error('candidate registry transition is not authorized by base state');
+}
+
+function inspectCandidateRegistryTransition(root,tree,baseRegistry,baseRegistryBlob) {
+  const entry=tree.get('tools/change-static-check-registry.json');
+  if (!entry) return {status:'FAIL',reason:'CANDIDATE_REGISTRY_MISSING',candidateBlob:null};
+  if (entry.type!=='blob' || entry.mode!=='100644') {
+    return {status:'FAIL',reason:'CANDIDATE_REGISTRY_IDENTITY_INVALID',candidateBlob:entry.oid || null};
+  }
+  if (entry.oid===baseRegistryBlob) {
+    return {
+      status:'PASS',
+      reason:'CANDIDATE_REGISTRY_UNCHANGED',
+      candidateBlob:entry.oid,
+      baseState:parseTransitionPolicy(baseRegistry.transitionPolicy,{allowLegacy:true}).state,
+      candidateState:parseTransitionPolicy(baseRegistry.transitionPolicy,{allowLegacy:true}).state,
+      path:null,
+      fromBlob:null,
+      toBlob:null,
+    };
+  }
+
+  try {
+    const source=decodeUtf8(readBlob(root,entry),'candidate registry');
+    const candidateRegistry=readRegistryText(source);
+    const result=validateCandidateRegistryTransition(baseRegistry,candidateRegistry,tree);
+    return {...result,candidateBlob:entry.oid};
+  } catch (error) {
+    return {
+      status:'FAIL',
+      reason:'CANDIDATE_REGISTRY_TRANSITION_INVALID',
+      candidateBlob:entry.oid,
+      diagnosticSha256:sha256(Buffer.from(String(error && error.message || error),'utf8')),
+    };
+  }
 }
 
 function collectTreeEntries(root, targetSha) {
@@ -322,6 +494,7 @@ function executeStaticChecks(options) {
 
   const registry = readRegistry();
   const tree = collectTreeEntries(root, targetSha);
+  const registryTransition=inspectCandidateRegistryTransition(root,tree,registry,registryBlob);
   const context = { root, baseSha, targetSha, tree, changedPaths:diff.paths };
   const results = [];
 
@@ -413,7 +586,9 @@ function executeStaticChecks(options) {
 
   const requestedChecks=[...(plan.staticChecks || [])];
   const complete=results.length===requestedChecks.length;
-  const staticOk=complete && results.every(result=>result.status==='PASS' || result.status==='N/A');
+  const staticOk=complete &&
+    registryTransition.status==='PASS' &&
+    results.every(result=>result.status==='PASS' || result.status==='N/A');
 
   return {
     schema:REPORT_SCHEMA,
@@ -426,6 +601,7 @@ function executeStaticChecks(options) {
       riskPolicy:{path:'tools/change-risk-policy.cjs',blob:riskPolicyBlob},
       executor:{path:'tools/change-static-check.cjs',blob:executorBlob},
     },
+    registryTransition,
     requestedChecks,
     results,
     complete,
@@ -480,6 +656,10 @@ function formatHuman(report) {
     'Registry: ' + escapeHumanText(report.sourceProvenance.registry.version),
     '',
   ];
+  lines.push(
+    report.registryTransition.status + ' registry-transition — ' +
+    escapeHumanText(report.registryTransition.reason)
+  );
   for (const item of report.results) lines.push(item.status + ' ' + escapeHumanText(item.id) + ' — ' + escapeHumanText(item.reason));
   lines.push('', 'Trusted static: ' + (report.staticOk ? 'PASS' : 'STOP'));
   return lines.join('\n');
@@ -518,7 +698,12 @@ module.exports={
   gitBlobSha1,
   requireExactKeys,
   parseRegistryText,
+  validateRegistryObject,
+  readRegistryText,
   readRegistry,
+  parseTransitionPolicy,
+  validateCandidateRegistryTransition,
+  inspectCandidateRegistryTransition,
   collectTreeEntries,
   runExactBlobs,
   runNodeSyntax,
