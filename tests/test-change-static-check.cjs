@@ -26,6 +26,19 @@ const RISK_POLICY_BLOB = gitBlobSha1(fs.readFileSync(RISK_POLICY_PATH));
 const EXECUTOR_BLOB = gitBlobSha1(fs.readFileSync(EXECUTOR_PATH));
 const REPOSITORY = 'example/repo';
 
+const TRUSTED_CONTRACT_PATHS = Object.freeze([
+  '.github/workflows/change-pr-gate.yml',
+  '.github/workflows/change-verification.yml',
+  'tools/change-impact-check.cjs',
+  'tools/change-impact-rules.cjs',
+  'tools/change-plan-lock.cjs',
+  'tools/change-risk-check.cjs',
+  'tools/change-risk-policy.cjs',
+  'tools/change-scope-guard.cjs',
+  'tools/change-static-check.cjs',
+  'tools/change-verification-check.cjs',
+].sort());
+
 function git(cwd, args) {
   const result = spawnSync('git', args, { cwd, encoding:'utf8' });
   assert.equal(result.status, 0, result.stderr || result.stdout);
@@ -198,16 +211,52 @@ test('registry is data-only and contains only allowlisted initial IDs',()=>{
   }
 });
 
-test('exact-blob registry transition state is internally consistent with repository files',()=>{
+test('exact-blob registry keeps the complete trusted contract path set',()=>{
   const registry=readRegistry();
   const definition=registry.checks['change-operations-regression'];
   assert.equal(definition.executor,'exact-blobs');
-  assert.ok(definition.contracts.length >= 8);
+  assert.deepEqual(
+    definition.contracts.map(contract=>contract.path).sort(),
+    TRUSTED_CONTRACT_PATHS
+  );
   for(const contract of definition.contracts) {
     assert.equal(contract.mode,'100644');
     assert.equal(contract.type,'blob');
   }
   validateRegistryTransition(registry);
+});
+
+test('pending authorization cannot delete or add a contracted path',()=>{
+  const base=JSON.parse(fs.readFileSync(REGISTRY_PATH,'utf8'));
+  const definition=base.checks['change-operations-regression'];
+  const target=definition.contracts[0];
+  const from=target.expectedBlob;
+  const to='2'.repeat(40);
+
+  {
+    const registry=structuredClone(base);
+    registry.checks['change-operations-regression'].contracts=
+      registry.checks['change-operations-regression'].contracts.slice(1);
+    registry.transitionPolicy='pending:'+target.path+':'+from+':'+to;
+    assert.notDeepEqual(
+      registry.checks['change-operations-regression'].contracts.map(contract=>contract.path).sort(),
+      TRUSTED_CONTRACT_PATHS
+    );
+  }
+
+  {
+    const registry=structuredClone(base);
+    registry.checks['change-operations-regression'].contracts.push({
+      path:'tools/extra-contract.cjs',
+      expectedBlob:'3'.repeat(40),
+      mode:'100644',
+      type:'blob',
+    });
+    assert.notDeepEqual(
+      registry.checks['change-operations-regression'].contracts.map(contract=>contract.path).sort(),
+      TRUSTED_CONTRACT_PATHS
+    );
+  }
 });
 
 test('transition policy accepts only steady or one canonical pending path',()=>{
