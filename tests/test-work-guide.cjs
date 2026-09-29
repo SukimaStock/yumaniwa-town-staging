@@ -143,3 +143,16 @@ test('shared runtime delegates leisure_catalog to work_guide and restores it aft
         /YUMANIWA_WORK_GUIDE\.handleKeyboard/
     );
 });
+
+
+test('physical guide terminal does not get forced back to generic menu mode', () => {
+    const interactionSource = fs.readFileSync(
+        path.join(__dirname, '..', 'town-interaction-flow.js'),
+        'utf8'
+    );
+
+    assert.match(
+        interactionSource,
+        /target !== "shinpo_board"\s*&&\s*target !== "leisure_catalog"/
+    );
+});
