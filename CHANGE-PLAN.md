@@ -196,6 +196,17 @@ high-risk PRでscope変更が必要になった場合はlocked r0を上書きせ
 いったん止めて現在のbaseからbranch/Planを作り直す。
 Plan Lock tool自体はr2以降のrevision chainも検証できるが、PR gate v0.2は意図的にfresh r0一つへ制限する。
 
+Risk Policyが要求するstatic checkにはchanged pathに対する**applicability**を持たせる。
+適用対象が1件もないcheckを「実行済みPASS」とは扱わない。
+
+- applicable pathあり + Planにcheckあり → required declaration PASS
+- applicable pathあり + Planにcheckなし → FAIL
+- applicable pathなし → `N/A risk.static-check-not-applicable`
+
+現行では `change-operations-regression` はChange OS pathに常時適用し、
+`node-syntax` は `.js/.cjs/.mjs` のchanged pathがある場合だけ適用する。
+N/AはPASSではなく、「このdiffには実行対象が存在しない」というRisk Policy由来の判定である。
+
 ---
 
 ## 6. Lite Plan
