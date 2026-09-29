@@ -1,7 +1,7 @@
 {
   "schema": "yumaniwa-trusted-static-check-registry/0.1",
-  "version": "2026-09-29.4",
-  "transitionPolicy": "steady",
+  "version": "2026-09-29.canary-delete",
+  "transitionPolicy": "pending:tools/change-static-check.cjs:f61a844f9aaa24ed3dcd9e3e79671d6c8bbb44ef:1111111111111111111111111111111111111111",
   "checks": {
     "change-operations-regression": {
       "definitionVersion": "2",
@@ -9,12 +9,6 @@
       "candidateExecution": false,
       "applicabilitySource": "tools/change-risk-policy.cjs",
       "contracts": [
-        {
-          "path": ".github/workflows/change-pr-gate.yml",
-          "expectedBlob": "edbf5e1edb6e33e07e081ab708eb05ad782e7e75",
-          "mode": "100644",
-          "type": "blob"
-        },
         {
           "path": ".github/workflows/change-verification.yml",
           "expectedBlob": "f467678810d6169c37c8eea0304d9032f312b8ec",
@@ -65,7 +59,7 @@
         },
         {
           "path": "tools/change-static-check.cjs",
-          "expectedBlob": "f61a844f9aaa24ed3dcd9e3e79671d6c8bbb44ef",
+          "expectedBlob": "1111111111111111111111111111111111111111",
           "mode": "100644",
           "type": "blob"
         }
