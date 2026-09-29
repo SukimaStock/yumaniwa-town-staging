@@ -394,8 +394,8 @@ test('human text escaping preserves ordinary Unicode while disambiguating contro
 
 
 test('Scope human report escapes candidate-controlled Plan text without changing evaluation values',()=>{
-  const change='scope change\nFAKE PASS\t\u001b[2J';
-  const condition='needs review\nFAKE FAIL\rnow';
+  const change='scope change\nFAKE PASS\t\u001b[2J\u202eBIDI';
+  const condition='needs review\nFAKE FAIL\rnow\u2066ISOLATE';
   const plan=okPlan({
     change,
     allowedPaths:['other/**'],
@@ -416,10 +416,10 @@ test('Scope human report escapes candidate-controlled Plan text without changing
     scopeOk:evaluated.scopeOk,
   });
 
-  assert.match(human,/Change: scope change\\nFAKE PASS\\t\\u001b\[2J/);
+  assert.match(human,/Change: scope change\\nFAKE PASS\\t\\u001b\[2J\\u202eBIDI/);
   const resultLines=human.split('\n').filter(line=>/^PASS |^FAIL |^SCOPE_REVIEW_REQUIRED /.test(line));
   assert.equal(resultLines.length,1,human);
-  assert.match(resultLines[0],/\[docs\/\*\*\] — needs review\\nFAKE FAIL\\rnow/);
+  assert.match(resultLines[0],/\[docs\/\*\*\] — needs review\\nFAKE FAIL\\rnow\\u2066ISOLATE/);
   assert.equal(plan.change,change);
   assert.equal(evaluated.results[0].detail,condition);
 });
