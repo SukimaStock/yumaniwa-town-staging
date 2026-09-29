@@ -60,7 +60,7 @@ test('trusted verification preserves failing gate evidence before failing the jo
   const failIndex=verificationSource.indexOf('- name: Fail after preserving trusted evidence');
   assert.ok(uploadIndex >= 0);
   assert.ok(failIndex > uploadIndex);
-  assert.ok(verificationSource.includes('One or more trusted gates failed: scope=$SCOPE_EXIT risk=$RISK_EXIT impact=$IMPACT_EXIT static=$STATIC_EXIT'));
+  assert.ok(verificationSource.includes('One or more trusted gates failed: scope=$SCOPE_EXIT risk=$RISK_EXIT impact=$IMPACT_EXIT static=$STATIC_EXIT staticEnvelope=$STATIC_ENVELOPE_EXIT'));
 });
 
 
@@ -200,6 +200,8 @@ test('trusted static executor is base-owned and bound to exact repository/base/h
 test('trusted static evidence keeps source provenance and remains UNVERIFIED',()=>{
   assert.ok(verificationSource.includes("schema:'yumaniwa-trusted-static-evidence/0.1'"));
   assert.ok(verificationSource.includes('staticExitCode:Number(process.env.STATIC_EXIT)'));
+  assert.ok(verificationSource.includes('id: static_envelope'));
+  assert.ok(verificationSource.includes('envelopeValidation:{'));
   assert.ok(verificationSource.includes("path:'tools/change-static-check-registry.json'"));
   assert.ok(verificationSource.includes("path:'tools/change-risk-policy.cjs'"));
   assert.ok(verificationSource.includes("path:'tools/change-static-check.cjs'"));
@@ -211,6 +213,7 @@ test('trusted static evidence keeps source provenance and remains UNVERIFIED',()
   const failIndex=verificationSource.indexOf('- name: Fail after preserving trusted evidence');
   assert.ok(uploadIndex >= 0);
   assert.ok(failIndex > uploadIndex);
+  assert.ok(verificationSource.includes('STATIC_ENVELOPE_EXIT: ${{ steps.static_envelope.outputs.exit_code }}'));
 });
 
 test('trusted static raw machine evidence and stderr stay out of operator logs',()=>{
@@ -229,4 +232,7 @@ test('trusted static envelope rechecks exact report identity and all trusted sou
   assert.ok(verificationSource.includes('staticChecks.sourceProvenance.registry.blob!==process.env.REGISTRY_BLOB'));
   assert.ok(verificationSource.includes('staticChecks.sourceProvenance.riskPolicy.blob!==process.env.RISK_POLICY_BLOB'));
   assert.ok(verificationSource.includes('staticChecks.sourceProvenance.executor.blob!==process.env.EXECUTOR_BLOB'));
+  assert.ok(verificationSource.includes("validationErrors.push('REPORT_IDENTITY_MISMATCH')"));
+  assert.ok(verificationSource.includes("validationErrors.push('TRUSTED_SOURCE_PROVENANCE_MISMATCH')"));
+  assert.ok(verificationSource.includes('Trusted Static envelope validation failed; evidence preserved for inspection.'));
 });
