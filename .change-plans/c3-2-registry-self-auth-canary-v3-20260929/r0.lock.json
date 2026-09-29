@@ -1,0 +1,106 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "75117ef4fe23e7f5fffb7c32cd8e90d14210b4f5f0b0dd6c809c78fdde815d26",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "c3-2-registry-self-auth-canary-v3-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "C3-2 canary: a candidate must not preauthorize and change a contracted workflow in the same PR.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "41058a9a40d63c4d8d1ae1b05f3131baa587ae6d",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/c3-2-registry-self-auth-canary-v3-20260929/**",
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-verification.yml"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-verification-check.cjs",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Change the candidate verification workflow by a harmless comment.",
+      "Set candidate registry to a pending transition whose toBlob equals the changed workflow blob.",
+      "Confirm the base-owned steady registry rejects same-PR authorization plus file transition."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This is an intentionally failing post-merge adversarial canary and must remain unmerged."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "C3-2 base-owned candidate-registry transition enforcement"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Automated C3-2 failure canary; authenticated human attestation is out of scope.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Close the canary PR unmerged.",
+    "outOfScope": [
+      "Any merge",
+      "production changes",
+      "C3-3",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "This canary is intentionally invalid and must not merge."
+    ],
+    "problem": "A candidate must not be able to combine steady-to-pending registry authorization and the contracted file transition in one PR.",
+    "currentContract": "The steady PR-base registry and base-owned trusted static executor validate candidate registry transitions as inert data and include registryTransition in staticOk.",
+    "whyExistingIsInsufficient": "Live post-merge evidence is required to prove this adversarial candidate cannot bypass the installed base-owned transition validator.",
+    "design": "Change one contracted workflow and candidate registry together. The base-owned validator must require the target file to remain at fromBlob during authorization and reject the candidate.",
+    "alternativesRejected": [
+      "Rely only on unit tests; this canary exercises the real pull_request_target trust boundary and active ruleset."
+    ],
+    "migration": "none",
+    "compatibility": "No merge and no persistent repository state change.",
+    "boundaryCases": [
+      "Candidate pending metadata is otherwise well-formed.",
+      "Target file is already toBlob instead of required fromBlob.",
+      "Trusted current-PR authorization must still come only from the base registry."
+    ],
+    "testPlan": [
+      "Require Change PR Gate to pass.",
+      "Require Change Verification Evidence to fail because registryTransition is invalid.",
+      "Inspect trusted Static Evidence for base-owned source provenance and explicit candidate registry transition failure.",
+      "Attempt merge and confirm the active ruleset rejects it.",
+      "Close the PR unmerged."
+    ],
+    "promotionRisk": "None; intentionally unmerged canary."
+  }
+}
