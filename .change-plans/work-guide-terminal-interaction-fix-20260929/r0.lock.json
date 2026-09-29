@@ -1,0 +1,97 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8e1ee1e393c31f5f87e4f7fb791fbd6aab5c414a73be6e7c55c1b1c0817d78de",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "change": "Fix physical guide terminal opening path",
+    "changeId": "work-guide-terminal-interaction-fix-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "planLevel": "full",
+    "environment": "staging",
+    "baseSha": "e3edd39ef6b77a35106c32e4f18168ec45e75376",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "canonicalSources": [
+      "town-interaction-flow.js",
+      "main.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/work-guide-terminal-interaction-fix-20260929/r0.lock.json",
+      "town-interaction-flow.js",
+      "tests/test-work-guide.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/works.js",
+      "data/work-guide-meta.js",
+      "work-guide-terminal.js",
+      "work-guide-terminal.css",
+      "index.html"
+    ],
+    "expectedChanges": [
+      "Preserve the work_guide mode selected by openDestination() when the physical leisure_catalog terminal is activated through town-interaction-flow.js.",
+      "Keep the existing direct-to-menu behavior for ordinary non-town destinations and the existing note_rack behavior for shinpo_board.",
+      "Add a regression contract proving leisure_catalog is excluded from the interaction-layer menu override."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-guide-terminal-opens-guide-home",
+      "ordinary-destination-still-opens-menu",
+      "shinpo-board-regression",
+      "guide-terminal-mobile-tap"
+    ],
+    "impactChecks": [
+      "interaction.lifecycle",
+      "interaction.regression",
+      "interaction.scene-flow",
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "promotion": "Staging PR and merge only. Production promotion is out of scope.",
+    "hqDecisions": [
+      "The physical leisure_catalog interaction must trust the work_guide view already selected by openDestination() instead of forcing the generic menu.",
+      "The fix stays in the interaction bridge and does not revise guide metadata, rendering, or WORKS."
+    ],
+    "alternativesRejected": [
+      "Special-case the guide inside renderDestinationMenu after it has already been forced into menu mode.",
+      "Modify data/works.js or data/town-maps.js to work around the interaction-layer override.",
+      "Rework the generic destination lifecycle beyond the single conflicting override."
+    ],
+    "boundaryCases": [
+      "leisure_catalog opened from its physical terminal remains in work_guide mode.",
+      "ordinary non-town menu destinations still skip intro and open their menu.",
+      "shinpo_board remains governed by its existing note_rack path.",
+      "guide work launch and return behavior from the previous change remains untouched."
+    ],
+    "testPlan": [
+      "Run node syntax checks for town-interaction-flow.js and tests/test-work-guide.cjs.",
+      "Run tests/test-work-guide.cjs including the physical interaction regression assertion.",
+      "Run existing town interaction regression tests.",
+      "Use Scope, Risk, and Impact gates against the locked base SHA.",
+      "Manually tap the physical guide terminal on staging mobile and confirm the three-option guide home appears."
+    ],
+    "problem": "The physical guide terminal opens the new destination, then town-interaction-flow.js overwrites destinationViewMode with menu, causing the old work-card list to render instead of the new guide home.",
+    "currentContract": "changeScene(target) calls openDestination(target), which already selects work_guide for leisure_catalog, but the interaction layer subsequently forces all ordinary non-town targets into menu mode.",
+    "whyExistingIsInsufficient": "The second interaction-layer assignment defeats the destination-specific view-mode decision introduced for the guide, so the new terminal cannot be reached from its real in-town trigger.",
+    "design": "Exclude leisure_catalog from the generic post-change menu override. Let the already-completed openDestination() render stand for this target while preserving the old override for other normal destinations.",
+    "migration": "No migration. One conditional in town-interaction-flow.js and one regression assertion are changed.",
+    "compatibility": "All non-guide interaction paths retain their existing behavior; no guide data, work identity, launch URL, or map trigger changes.",
+    "rollback": "Revert the implementation commit after the immutable Plan Lock commit to restore the previous interaction condition.",
+    "promotionRisk": "Production is out of scope. The follow-up must be visually verified on staging before any later promotion."
+  }
+}
