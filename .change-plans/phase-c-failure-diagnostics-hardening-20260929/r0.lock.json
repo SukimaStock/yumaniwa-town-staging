@@ -1,0 +1,121 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "fe5903c1e36192b0ca7919b5fbf74c9c6f5297ce88e209b5b7aed1b9420e685b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c-failure-diagnostics-hardening-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C follow-up: harden failure-path diagnostics in trusted Change OS workflows",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "024dd1a27639c5e8117d476bfb278a7df5260118",
+    "canonicalSources": [
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      "tools/change-scope-guard.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-plan-lock.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c-failure-diagnostics-hardening-20260929/**",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      "tools/change-scope-guard.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-plan-lock.cjs",
+      "tests/test-change-scope-guard.cjs",
+      "tests/test-change-risk-check.cjs",
+      "tests/test-change-impact-check.cjs",
+      "tests/test-change-plan-lock.cjs",
+      "tests/test-change-pr-gate.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Escape candidate-controlled content in Plan Lock, Scope, Risk, and Impact CLI failure diagnostics while preserving raw machine values internally.",
+      "Escape Risk human-detail rendering through the shared human-text boundary.",
+      "Remove raw candidate path and Plan base values from trusted workflow shell diagnostics and make inline Plan Lock parse failures fixed-text.",
+      "Add regressions for invalid-Plan diagnostics and workflow failure-path logging."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This package addresses only the final C3-1 closure-audit finding: candidate-controlled text can still reach trusted operator logs through failure-path diagnostics.",
+      "Reuse the shared escapeHumanText display boundary; do not mutate Plan values, validation errors, machine JSON evidence, gate decisions, exit codes, schemas, or artifact contents.",
+      "PR Gate and Change Verification must apply the same failure-path display contract.",
+      "Production remains untouched."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "C3-1 final closure audit failure-path finding"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Change OS diagnostics hardening only; covered by deterministic CLI/workflow regressions, trusted PR checks, Codex review, and invalid-Plan post-merge canary.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging-only diagnostics hardening PR; production remains untouched.",
+    "outOfScope": [
+      "Verification Record v0.3",
+      "Authenticated human attestation",
+      "Trusted static-check registry",
+      "Phase D broader Git/index hardening",
+      "Phase E semantic scope and concurrency controls",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "An invalid-Plan failure canary and a final clean closure audit remain required before C3-1 is formally closed."
+    ],
+    "problem": "Trusted success-path human formatters are escaped, but invalid Plan and other failure diagnostics can still include candidate-controlled strings. PR Gate prints CLI stderr directly, Change Verification reprints captured stderr, and both workflows contain shell diagnostics that can echo arbitrary changed paths or unvalidated Plan base values.",
+    "currentContract": "Scope and Impact human reports use escapeHumanText, machine JSON remains literal, raw JSON is suppressed from Verification logs, but CLI catch/Plan Lock errors and several workflow shell failure messages still expose raw candidate-controlled content.",
+    "whyExistingIsInsufficient": "A malicious invalid Plan or unusual failure-path filename can inject newline or bidi controls into operator-visible trusted logs even though mechanical gate decisions remain correct.",
+    "design": "Use escapeHumanText only when emitting CLI stderr or human Risk details; keep internal errors and machine reports literal. Replace workflow shell diagnostics that include arbitrary candidate values with fixed messages, and make inline Plan Lock JSON parse diagnostics fixed-text. Preserve all gate and evidence semantics.",
+    "alternativesRejected": [
+      "Reject all control characters in Plan content; display escaping preserves legitimate content and keeps machine evidence exact.",
+      "Sanitize validation data at source; that would alter machine semantics instead of only display semantics.",
+      "Suppress all failure diagnostics; fixed or escaped diagnostics retain useful operational signal without exposing raw candidate text."
+    ],
+    "migration": "None.",
+    "compatibility": "Exit codes, validation rules, JSON reports, Plan Lock digest semantics, evidence schemas, artifact naming, and required checks remain unchanged. Only operator-visible diagnostics are escaped or fixed.",
+    "boundaryCases": [
+      "Invalid authority/class/path values containing newline and bidi controls render as visible escape sequences on one physical line.",
+      "Plan Lock INVALID output preserves one bullet per validation error without raw embedded controls.",
+      "Risk human details remain readable and cannot introduce extra physical status lines.",
+      "Unexpected lock-commit paths and unvalidated locked baseSha values are not echoed raw by either trusted workflow.",
+      "Machine gate-error evidence may retain literal stderr semantics while operator logs receive only escaped stderr."
+    ],
+    "testPlan": [
+      "Add CLI regressions for Plan Lock, Scope, Risk, and Impact invalid Plan diagnostics with newline plus bidi controls.",
+      "Assert Risk human details use escapeHumanText.",
+      "Assert both trusted workflows do not echo raw unexpected paths or locked Plan base values and inline Plan Lock parse errors are fixed-text.",
+      "Run Change Operations Tests, Change PR Gate, and Change Verification Evidence on the exact PR head and request Codex adversarial review.",
+      "After merge, run an invalid-Plan failure canary with malicious diagnostic text, inspect both trusted workflow logs, then run a valid final canary if needed and repeat closure audit."
+    ],
+    "promotionRisk": "Staging Change OS only. A mistake could hide diagnostics or alter gate behavior, so exact-head required checks, adversarial review, and a post-merge invalid-Plan canary are mandatory."
+  }
+}
