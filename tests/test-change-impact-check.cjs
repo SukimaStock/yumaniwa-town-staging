@@ -230,8 +230,8 @@ test('Impact human report escapes Unicode line separators but preserves ordinary
 
 
 test('Impact human report escapes candidate-controlled Plan text without changing evaluation values',()=>{
-  const change='impact change\nFAKE PASS\t\u001b[2J';
-  const reason='excluded reason\nFAKE FAIL\rnow';
+  const change='impact change\nFAKE PASS\t\u001b[2J\u202eBIDI';
+  const reason='excluded reason\nFAKE FAIL\rnow\u2066ISOLATE';
   const derived=impact.deriveRequiredImpacts(['data/ghost-dialogue.js']);
   const [first,...rest]=derived.requirements;
   const plan=normalized({
@@ -247,7 +247,7 @@ test('Impact human report escapes candidate-controlled Plan text without changin
   const excluded=evaluated.results.find(item=>item.check==='impact.excluded');
   assert.equal(excluded.detail,reason);
 
-  const unknownId='custom\nFAKE PASS\timpact';
+  const unknownId='custom\nFAKE PASS\timpact\u202eBIDI';
   const withUnknown=impact.evaluateImpact(
     {...plan,impactChecks:[...plan.impactChecks,unknownId]},
     ['data/ghost-dialogue.js']
@@ -263,9 +263,9 @@ test('Impact human report escapes candidate-controlled Plan text without changin
     headSha:'b'.repeat(40),
   });
 
-  assert.match(human,/Change: impact change\\nFAKE PASS\\t\\u001b\[2J/);
-  assert.ok(human.includes('custom\\nFAKE PASS\\timpact'));
-  assert.ok(human.includes('excluded reason\\nFAKE FAIL\\rnow'));
+  assert.match(human,/Change: impact change\\nFAKE PASS\\t\\u001b\[2J\\u202eBIDI/);
+  assert.ok(human.includes('custom\\nFAKE PASS\\timpact\\u202eBIDI'));
+  assert.ok(human.includes('excluded reason\\nFAKE FAIL\\rnow\\u2066ISOLATE'));
   assert.equal(human.includes('custom\nFAKE PASS'),false);
   assert.equal(human.includes('excluded reason\nFAKE FAIL'),false);
   assert.equal(plan.change,change);
