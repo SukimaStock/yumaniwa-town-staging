@@ -293,9 +293,25 @@ function runNodeSyntax(definition, context, executionPaths) {
     }
 
     const source = readBlob(context.root, entry);
+    let sourceText;
+    try {
+      sourceText = decodeUtf8(source, 'candidate JavaScript blob');
+    } catch (error) {
+      failed = true;
+      files.push({
+        path: filePath,
+        blob: entry.oid,
+        status: 'FAIL',
+        exitCode: 1,
+        reason: 'INVALID_UTF8_SOURCE',
+        diagnosticSha256: sha256(Buffer.from(String(error && error.message || error), 'utf8')),
+      });
+      continue;
+    }
+
     const syntaxMode = syntaxModeForPath(filePath);
     const proc = runProcess(process.execPath, ['--check', '--input-type=' + syntaxMode, '-'], {
-      input: source,
+      input: sourceText,
       encoding: 'utf8',
     });
     const exitCode = Number.isInteger(proc.status) ? proc.status : 2;
