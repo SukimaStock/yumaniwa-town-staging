@@ -65,7 +65,7 @@
         },
         {
           "path": "tools/change-static-check.cjs",
-          "expectedBlob": "3f5c870d17e8988d99b91609c2f3920fc8574552",
+          "expectedBlob": "954e9735e36972caa49de4a0891f37b9557e7a7f",
           "mode": "100644",
           "type": "blob"
         }
