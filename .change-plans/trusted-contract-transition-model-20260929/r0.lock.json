@@ -1,0 +1,138 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6658b91180b6675ef3b4bc9324e473788142a85885f8250551904d417e8f90a2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "trusted-contract-transition-model-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Make exact-blob contract preauthorization operationally valid without weakening same-PR self-authorization resistance.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "57d1b22e843a881d5ca7497f746b2fafc2aff74d",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      "tests/test-change-static-check.cjs",
+      "CHANGE-PLAN.md",
+      "OPERATIONS.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/trusted-contract-transition-model-20260929/**",
+      "tools/change-static-check-registry.json",
+      "tests/test-change-static-check.cjs",
+      "CHANGE-PLAN.md",
+      "OPERATIONS.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/**",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-verification-check.cjs",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Replace the free-form registry transitionPolicy text with the explicit steady state.",
+      "Define a closed regression-test contract for steady and one pending exact-blob transition.",
+      "In steady state require every contracted expectedBlob to equal the current repository blob.",
+      "In pending state allow exactly one contracted path whose registry expectedBlob equals the preauthorized toBlob while the repository path may still equal fromBlob or already equal toBlob.",
+      "Require pending transition metadata to bind path, fromBlob, and toBlob and require every unrelated contracted path to remain exact.",
+      "Document the two-PR transition sequence: registry-only preauthorization to pending, then fresh contracted-file PR to the preauthorized blob while returning metadata to steady.",
+      "Preserve the trusted runtime rule that only the PR-base registry can authorize the current PR; transitionPolicy remains operational metadata and does not select commands or override exact-blob enforcement."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "Do not change the trusted executor for this finding; the security boundary remains exact PR-base expectedBlob matching.",
+      "The pending transition window may authorize exactly one contracted path at a time.",
+      "A pending transition records one fromBlob and one toBlob; no wildcard or open-ended authorized set is allowed.",
+      "The second PR may set transitionPolicy back to steady because its exact file blob was already authorized by the merged base registry."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "C3-2 exact-blob trusted static evidence",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Operational contract/test repair only; authenticated human attestation is out of scope.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging-only transition-model package if the pending-state regression contract can authorize more than one path or weaken exact-blob enforcement.",
+    "outOfScope": [
+      "Changing any contracted security-critical workflow/tool blob",
+      "Changing the trusted static executor",
+      "Authenticated Human Attestation",
+      "Verification Record v0.3 final integration",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "C3-2 final closure requires a post-merge transition-model canary proving a registry-only pending state can be merged green and a later exact preauthorized file change can pass while a non-preauthorized blob still fails."
+    ],
+    "problem": "The C3-2 docs require registry-only preauthorization before a contracted file changes, but the current regression test requires every registry expectedBlob to equal the current repository file immediately. Therefore the authorization PR is intentionally red even though the trusted two-stage model is sound.",
+    "currentContract": "Trusted runtime uses the exact PR-base registry and compares contracted candidate paths to base-owned expectedBlob values. Candidate registry edits cannot authorize the same PR. Regression tests additionally require every candidate registry expectedBlob to equal the current candidate repository file.",
+    "whyExistingIsInsufficient": "The unconditional test equality prevents the documented first-stage registry-only authorization from completing with green Change Operations Tests, making the maintenance procedure internally inconsistent.",
+    "design": "Keep runtime enforcement unchanged. Give transitionPolicy a small operational state machine encoded as either the literal string steady or a canonical pending:<path>:<fromBlob>:<toBlob> form. Regression tests validate that steady means all expectedBlob values match repository blobs. Pending means exactly one named contracted path may have expectedBlob=toBlob while the repository file is either fromBlob (authorization PR/main transition window) or toBlob (transition PR before metadata returns to steady); all other contracts must still match. The actual trusted executor continues to ignore transitionPolicy for authorization and uses only base-owned expectedBlob values, so same-PR self-authorization remains impossible.",
+    "alternativesRejected": [
+      "Change runtime contracts to an arbitrary authorizedBlobs array; this expands the trusted executor and permits multiple historical versions without need.",
+      "Accept red candidate regression tests during registry authorization; this makes the normal Change OS workflow contradictory and hides real regressions among expected failures.",
+      "Remove the repository-vs-registry regression check entirely; this would allow stale or accidental registry drift.",
+      "Allow multiple simultaneous pending paths; this enlarges the transition window and complicates review without current need."
+    ],
+    "migration": "The current registry transitionPolicy becomes steady. No contracted expectedBlob changes in this package. Future transitions use a registry-only pending authorization PR followed by a fresh contracted-file PR that changes to the preauthorized toBlob and returns transitionPolicy to steady.",
+    "compatibility": "Trusted executor behavior, registry schema keys, required status names, existing exact expectedBlob values, and C3-2 evidence format remain unchanged. Only operational metadata interpretation in regression tests/docs changes.",
+    "boundaryCases": [
+      "steady with any expectedBlob mismatch fails regression.",
+      "pending path must exist exactly once in the exact-blobs contracts.",
+      "pending fromBlob and toBlob must be distinct full Git blob SHA-1 values.",
+      "pending contract expectedBlob must equal toBlob.",
+      "pending repository blob may equal fromBlob or toBlob only.",
+      "all unrelated contracts must match their expectedBlob exactly.",
+      "malformed transitionPolicy fails regression rather than falling back to steady.",
+      "same-PR candidate registry still cannot authorize a different contracted blob because trusted runtime uses the base registry."
+    ],
+    "testPlan": [
+      "Update registry transitionPolicy to steady.",
+      "Add steady-state regression coverage for exact contract equality.",
+      "Add pending-state tests for authorization-stage fromBlob, transition-stage toBlob, malformed metadata, unrelated mismatch, wrong path, wrong expectedBlob, and more than one effective mismatch.",
+      "Run all Change Operations Tests.",
+      "Open PR and require Change PR Gate and Change Verification Evidence to pass.",
+      "Request exact-head Codex adversarial review and stop on new High/Medium finding.",
+      "Merge to staging only.",
+      "Post-merge canary A: registry-only pending authorization to an inert future contracted-file blob; all tests and trusted checks must pass.",
+      "Post-merge canary B: from that pending base, change the contracted file to the exact preauthorized blob and return transitionPolicy to steady; trusted checks must pass.",
+      "Post-merge canary C: from a pending base, attempt a different non-preauthorized blob; trusted static must fail and ruleset must reject merge.",
+      "Keep all canary PRs unmerged except the temporary authorization state only if needed to prove the full transition, and restore staging to steady before closure.",
+      "Reconfirm production main unchanged."
+    ],
+    "promotionRisk": "None. Staging-only Change OS transition contract repair."
+  }
+}
