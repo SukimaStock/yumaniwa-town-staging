@@ -1,7 +1,7 @@
 {
   "schema": "yumaniwa-trusted-static-check-registry/0.1",
-  "version": "2026-09-29.4",
-  "transitionPolicy": "steady",
+  "version": "2026-09-29.canary-add",
+  "transitionPolicy": "pending:tools/change-static-check.cjs:f61a844f9aaa24ed3dcd9e3e79671d6c8bbb44ef:2222222222222222222222222222222222222222",
   "checks": {
     "change-operations-regression": {
       "definitionVersion": "2",
@@ -65,7 +65,13 @@
         },
         {
           "path": "tools/change-static-check.cjs",
-          "expectedBlob": "f61a844f9aaa24ed3dcd9e3e79671d6c8bbb44ef",
+          "expectedBlob": "2222222222222222222222222222222222222222",
+          "mode": "100644",
+          "type": "blob"
+        },
+        {
+          "path": "tools/canary-extra-contract.cjs",
+          "expectedBlob": "3333333333333333333333333333333333333333",
           "mode": "100644",
           "type": "blob"
         }
