@@ -9,6 +9,7 @@ const { spawnSync } = require('node:child_process');
 const {
   EXECUTOR_KIND_BY_ID,
   gitBlobSha1,
+  requireExactKeys,
   parseRegistryText,
   readRegistry,
   executeStaticChecks,
@@ -130,12 +131,13 @@ test('executor dispatch kind is base-owned and cannot be changed by registry dat
   }
 });
 
-test('registry rejects hidden fields and missing implemented checks',()=>{
+test('closed registry schema rejects hidden fields and requires the implemented check set',()=>{
   const canonical=JSON.parse(fs.readFileSync(REGISTRY_PATH,'utf8'));
-  const hidden=structuredClone(canonical);
-  hidden.checks['node-syntax'].hidden='ignored';
-  assert.throws(()=>parseRegistryText(JSON.stringify(hidden,null,2)+'\n') && readRegistry(),/./);
-
+  const hidden={...canonical.checks['node-syntax'],hidden:'ignored'};
+  assert.throws(
+    ()=>requireExactKeys(hidden,['definitionVersion','executor','candidateExecution','applicabilitySource'],'node-syntax definition'),
+    /missing or unknown fields/
+  );
   assert.deepEqual(Object.keys(canonical.checks).sort(),Object.keys(EXECUTOR_KIND_BY_ID).sort());
 });
 
