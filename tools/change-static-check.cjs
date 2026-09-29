@@ -25,6 +25,10 @@ const MAX_GIT_OUTPUT = 64 * 1024 * 1024;
 const UTF8 = new TextDecoder('utf-8', { fatal: true });
 const CHECK_ID_RE = /^[a-z0-9][a-z0-9-]{2,80}$/;
 const CONTRACT_PATH_RE = /^(?:[A-Za-z0-9_.-]+\/)*[A-Za-z0-9_.-]+$/;
+const EXECUTOR_KIND_BY_ID = Object.freeze({
+  'change-operations-regression': 'exact-blobs',
+  'node-syntax': 'node-syntax',
+});
 
 function sha256(value) {
   return crypto.createHash('sha256').update(value).digest('hex');
@@ -85,7 +89,6 @@ function readRegistry() {
     throw new Error('trusted static registry checks must be an object');
   }
 
-  const allowedExecutors = new Set(['exact-blobs', 'node-syntax']);
   for (const [id, definition] of Object.entries(parsed.checks)) {
     if (!CHECK_ID_RE.test(id)) throw new Error('trusted static registry contains invalid check id');
     if (!definition || typeof definition !== 'object' || Array.isArray(definition)) {
@@ -94,7 +97,10 @@ function readRegistry() {
     if (typeof definition.definitionVersion !== 'string' || !definition.definitionVersion.trim()) {
       throw new Error('trusted static registry definitionVersion is required');
     }
-    if (!allowedExecutors.has(definition.executor)) throw new Error('trusted static registry executor kind is not allowlisted');
+    if (!Object.hasOwn(EXECUTOR_KIND_BY_ID, id)) throw new Error('trusted static registry contains unimplemented check id');
+    if (definition.executor !== EXECUTOR_KIND_BY_ID[id]) {
+      throw new Error('trusted static registry executor kind does not match base-owned check dispatch');
+    }
     if (definition.candidateExecution !== false) throw new Error('trusted static registry must declare candidateExecution=false');
     if (definition.applicabilitySource !== 'tools/change-risk-policy.cjs') {
       throw new Error('trusted static registry applicabilitySource mismatch');
@@ -487,6 +493,7 @@ if (require.main===module) process.exitCode=runCli();
 module.exports={
   REPORT_SCHEMA,
   REGISTRY_SCHEMA,
+  EXECUTOR_KIND_BY_ID,
   gitBlobSha1,
   parseRegistryText,
   readRegistry,
