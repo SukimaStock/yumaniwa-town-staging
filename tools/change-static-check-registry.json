@@ -1,7 +1,7 @@
 {
   "schema": "yumaniwa-trusted-static-check-registry/0.1",
   "version": "2026-09-29.2",
-  "transitionPolicy": "candidate registry is inert for its own PR; contracted-file changes require prior merged registry authorization",
+  "transitionPolicy": "steady",
   "checks": {
     "change-operations-regression": {
       "definitionVersion": "2",
