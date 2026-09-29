@@ -88,7 +88,7 @@ jobs:
 
           while IFS= read -r changed; do
             [ -z "$changed" ] && continue
-            [ "$changed" = "$LOCK_FILE" ] || { echo "Plan Lock commit contains unexpected path: $changed"; exit 1; }
+            [ "$changed" = "$LOCK_FILE" ] || { echo "Plan Lock commit contains an unexpected path; value omitted from trusted log."; exit 1; }
           done < <(git diff-tree --no-commit-id --name-only -r "$LOCK_COMMIT")
 
           git diff --quiet "$LOCK_COMMIT" HEAD -- "$LOCK_FILE" || { echo "Plan Lock changed after registration."; exit 1; }
@@ -105,8 +105,17 @@ jobs:
           LOCK_BASE="$(node - "$IMMUTABLE_LOCK" <<'NODE'
           const fs=require('fs');
           const lockPath=process.argv[2];
-          const lock=JSON.parse(fs.readFileSync(lockPath,'utf8'));
-          if(!lock || !lock.plan || typeof lock.plan.baseSha!=='string') process.exit(2);
+          let lock;
+          try {
+            lock=JSON.parse(fs.readFileSync(lockPath,'utf8'));
+          } catch {
+            console.error('Plan Lock JSON parse failed.');
+            process.exit(2);
+          }
+          if(!lock || !lock.plan || typeof lock.plan.baseSha!=='string') {
+            console.error('Plan Lock does not contain plan.baseSha.');
+            process.exit(2);
+          }
           process.stdout.write(lock.plan.baseSha);
           NODE
           )"
