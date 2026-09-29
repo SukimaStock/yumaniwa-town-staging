@@ -13,6 +13,10 @@ const {
   createLock,
 } = require('../tools/change-plan-lock.cjs');
 const {
+  HUMAN_ATTESTATION_REQUEST_SCHEMA,
+  HUMAN_ATTESTATION_PREFIX,
+  parseHumanAttestationComment,
+  createAuthenticatedHumanAttestation,
   normalizeRecord,
   evaluateEvidence,
   evaluateVerification,
@@ -283,4 +287,239 @@ test('CLI rejects mutable Plan substitute and invalid Record',t=>{
   ],{encoding:'utf8'});
   assert.equal(r.status,2,r.stdout+r.stderr);
   assert.match(r.stderr,/Plan Lock/);
+});
+
+
+function attestationBody(targetSha,checks=[{id:'owner review',status:'pass',evidence:'Reviewed exact target on iPhone Safari'}]) {
+  return HUMAN_ATTESTATION_PREFIX + JSON.stringify({
+    schema:HUMAN_ATTESTATION_REQUEST_SCHEMA,
+    targetSha,
+    checks,
+  });
+}
+
+function attestationContext(overrides={}) {
+  return {
+    repository:'example/test',
+    baseSha:'a'.repeat(40),
+    targetSha:'b'.repeat(40),
+    prNumber:123,
+    commentId:456,
+    commentCreatedAt:'2026-09-29T06:00:00Z',
+    commentUpdatedAt:'2026-09-29T06:00:00Z',
+    commentUserLogin:'human-owner',
+    commentUserId:789,
+    commentUserType:'User',
+    authorAssociation:'OWNER',
+    repositoryPermission:'admin',
+    actor:'human-owner',
+    triggeringActor:'human-owner',
+    ...overrides,
+  };
+}
+
+test('authenticated human attestation binds exact Plan digest target SHA identity and permission',()=>{
+  const p=normPlan();
+  const lock=createLock(p);
+  const result=createAuthenticatedHumanAttestation(
+    lock,
+    attestationBody('b'.repeat(40)),
+    attestationContext()
+  );
+  assert.equal(result.authenticationState,'AUTHENTICATED');
+  assert.equal(result.checkState,'PASS');
+  assert.equal(result.planDigest,lock.planDigest);
+  assert.equal(result.baseSha,'a'.repeat(40));
+  assert.equal(result.targetSha,'b'.repeat(40));
+  assert.deepEqual(result.checks,[{
+    id:'owner review',
+    status:'pass',
+    evidence:'Reviewed exact target on iPhone Safari',
+  }]);
+  assert.equal(result.attester.login,'human-owner');
+  assert.equal(result.attester.id,789);
+  assert.equal(result.attester.type,'User');
+  assert.equal(result.attester.repositoryPermission,'admin');
+  assert.equal(result.comment.id,456);
+  assert.match(result.comment.bodySha256,/^[0-9a-f]{64}$/);
+  assert.equal(result.verificationState,'UNVERIFIED');
+});
+
+test('authenticated human FAIL is valid identity evidence without becoming PASS',()=>{
+  const p=normPlan();
+  const lock=createLock(p);
+  const result=createAuthenticatedHumanAttestation(
+    lock,
+    attestationBody('b'.repeat(40),[{id:'owner review',status:'fail',evidence:'Tap target did not respond'}]),
+    attestationContext({repositoryPermission:'write'})
+  );
+  assert.equal(result.authenticationState,'AUTHENTICATED');
+  assert.equal(result.checkState,'FAIL');
+  assert.equal(result.checks[0].status,'fail');
+  assert.equal(result.verificationState,'UNVERIFIED');
+});
+
+test('stale target SHA and unknown or duplicate manual check IDs are rejected',()=>{
+  const p=normPlan();
+  const lock=createLock(p);
+
+  let result=createAuthenticatedHumanAttestation(
+    lock,
+    attestationBody('c'.repeat(40)),
+    attestationContext()
+  );
+  assert.equal(result.authenticationState,'REJECTED');
+  assert.ok(result.errors.includes('TARGET_SHA_STALE'));
+  assert.deepEqual(result.checks,[]);
+
+  result=createAuthenticatedHumanAttestation(
+    lock,
+    attestationBody('b'.repeat(40),[{id:'not planned',status:'pass',evidence:'Looks fine'}]),
+    attestationContext()
+  );
+  assert.equal(result.authenticationState,'REJECTED');
+  assert.ok(result.errors.includes('CHECK_ID_UNPLANNED'));
+
+  result=createAuthenticatedHumanAttestation(
+    lock,
+    attestationBody('b'.repeat(40),[
+      {id:'owner review',status:'pass',evidence:'First'},
+      {id:'owner review',status:'pass',evidence:'Second'},
+    ]),
+    attestationContext()
+  );
+  assert.equal(result.authenticationState,'REJECTED');
+  assert.ok(result.errors.includes('CHECK_ID_DUPLICATE'));
+});
+
+test('human attestation rejects bot actor mismatch and insufficient repository permission',()=>{
+  const p=normPlan();
+  const lock=createLock(p);
+  const body=attestationBody('b'.repeat(40));
+
+  let result=createAuthenticatedHumanAttestation(
+    lock,body,attestationContext({commentUserType:'Bot'})
+  );
+  assert.equal(result.authenticationState,'REJECTED');
+  assert.ok(result.errors.includes('COMMENTER_NOT_HUMAN_USER'));
+
+  result=createAuthenticatedHumanAttestation(
+    lock,body,attestationContext({actor:'different-user'})
+  );
+  assert.equal(result.authenticationState,'REJECTED');
+  assert.ok(result.errors.includes('ACTOR_COMMENTER_MISMATCH'));
+
+  for(const permission of ['read','triage','']) {
+    result=createAuthenticatedHumanAttestation(
+      lock,body,attestationContext({repositoryPermission:permission})
+    );
+    assert.equal(result.authenticationState,'REJECTED');
+    assert.ok(result.errors.includes('REPOSITORY_PERMISSION_INSUFFICIENT'));
+  }
+
+  for(const permission of ['write','maintain','admin']) {
+    result=createAuthenticatedHumanAttestation(
+      lock,body,attestationContext({repositoryPermission:permission})
+    );
+    assert.equal(result.authenticationState,'AUTHENTICATED');
+  }
+});
+
+test('attestation comment JSON is strict canonical one-line data',()=>{
+  const p=normPlan();
+  const target='b'.repeat(40);
+  const canonical=attestationBody(target);
+  assert.equal(parseHumanAttestationComment(canonical,p,target).ok,true);
+
+  const raw=JSON.parse(canonical.slice(HUMAN_ATTESTATION_PREFIX.length));
+  const pretty=HUMAN_ATTESTATION_PREFIX+JSON.stringify(raw,null,2);
+  let parsed=parseHumanAttestationComment(pretty,p,target);
+  assert.equal(parsed.ok,false);
+  assert.ok(parsed.errors.includes('COMMENT_FORMAT_INVALID'));
+
+  const reordered=HUMAN_ATTESTATION_PREFIX+JSON.stringify({
+    targetSha:target,
+    schema:HUMAN_ATTESTATION_REQUEST_SCHEMA,
+    checks:raw.checks,
+  });
+  parsed=parseHumanAttestationComment(reordered,p,target);
+  assert.equal(parsed.ok,false);
+  assert.ok(parsed.errors.includes('COMMENT_JSON_NONCANONICAL'));
+
+  const duplicate=HUMAN_ATTESTATION_PREFIX+
+    '{"schema":"'+HUMAN_ATTESTATION_REQUEST_SCHEMA+'","targetSha":"'+target+'","targetSha":"'+target+'","checks":[{"id":"owner review","status":"pass","evidence":"ok"}]}';
+  parsed=parseHumanAttestationComment(duplicate,p,target);
+  assert.equal(parsed.ok,false);
+  assert.ok(parsed.errors.includes('COMMENT_JSON_NONCANONICAL'));
+});
+
+test('attestation rejects control bidi multiline and oversized evidence without echoing raw payload',()=>{
+  const p=normPlan();
+  const lock=createLock(p);
+  const badEvidence=[
+    'BAD\\nFAKE PASS',
+    'BAD\u202eBIDI',
+    'x'.repeat(1001),
+  ];
+
+  for(const evidence of badEvidence) {
+    const body=attestationBody('b'.repeat(40),[{id:'owner review',status:'pass',evidence}]);
+    const result=createAuthenticatedHumanAttestation(lock,body,attestationContext());
+    assert.equal(result.authenticationState,'REJECTED');
+    assert.ok(result.errors.includes('CHECK_EVIDENCE_INVALID'));
+    const serialized=JSON.stringify(result);
+    assert.equal(serialized.includes('FAKE PASS'),false);
+    assert.equal(serialized.includes('\u202e'),false);
+    assert.equal(serialized.includes('x'.repeat(100)),false);
+    assert.deepEqual(result.checks,[]);
+  }
+});
+
+test('edited comment and repository/base identity mismatch are rejected',()=>{
+  const p=normPlan();
+  const lock=createLock(p);
+  const body=attestationBody('b'.repeat(40));
+
+  let result=createAuthenticatedHumanAttestation(
+    lock,body,attestationContext({commentUpdatedAt:'2026-09-29T06:01:00Z'})
+  );
+  assert.equal(result.authenticationState,'REJECTED');
+  assert.ok(result.errors.includes('COMMENT_ALREADY_EDITED'));
+
+  result=createAuthenticatedHumanAttestation(
+    lock,body,attestationContext({repository:'example/other'})
+  );
+  assert.equal(result.authenticationState,'REJECTED');
+  assert.ok(result.errors.includes('REPOSITORY_MISMATCH'));
+
+  result=createAuthenticatedHumanAttestation(
+    lock,body,attestationContext({baseSha:'c'.repeat(40)})
+  );
+  assert.equal(result.authenticationState,'REJECTED');
+  assert.ok(result.errors.includes('BASE_SHA_MISMATCH'));
+});
+
+test('attestation core does not change legacy Verification Record integration',()=>{
+  const p=normPlan();
+  const lock=createLock(p);
+  const result=createAuthenticatedHumanAttestation(
+    lock,
+    attestationBody('b'.repeat(40)),
+    attestationContext()
+  );
+  assert.equal(result.authenticationState,'AUTHENTICATED');
+  assert.equal(result.verificationState,'UNVERIFIED');
+
+  const raw=record(p,lock.planDigest,'b'.repeat(40),{
+    manualChecks:[{id:'owner review',status:'unverified',evidence:'Trusted artifact exists but v0.3 integration is not implemented'}]
+  });
+  const normalized=normalizeRecord(raw,p,lock.planDigest);
+  assert.equal(normalized.ok,true);
+  const verification=evaluateVerification(
+    p,
+    normalized.record,
+    {headSha:'b'.repeat(40),paths:['README.md'],target:'HEAD'},
+    repoPass
+  );
+  assert.equal(verification.verificationState,'UNVERIFIED');
 });
