@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2a406b3e11cc0b25ccd20c1c3484db77ebd1c11470a792c207a69bbd61f8f115",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c3-3-preauthorize-human-verifier-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C3-3 prerequisite: preauthorize the authenticated human attestation verifier blob.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "41058a9a40d63c4d8d1ae1b05f3131baa587ae6d",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      "tools/change-verification-check.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c3-3-preauthorize-human-verifier-20260929/**",
+      "tools/change-static-check-registry.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/**",
+      "tools/change-verification-check.cjs",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Change only the trusted static registry to preauthorize the exact future Git blob for tools/change-verification-check.cjs.",
+      "Move transitionPolicy from steady to one-path pending for tools/change-verification-check.cjs while leaving the contracted file itself unchanged.",
+      "Do not install or execute the future verifier in this authorization PR."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "C3-3 human attestation parsing will be implemented inside the already-contracted change-verification-check.cjs rather than adding an uncontracted trusted tool.",
+      "The future verifier accepts GitHub-authenticated issue-comment attestations only as evidence artifacts; it does not create final VERIFIED or alter Verification Record v0.3.",
+      "The current PR is registry-only preauthorization; trusted execution continues to use the PR-base registry and current verifier."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "C3-2 exact-blob two-stage authorization",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Registry-only authorization package; authenticated human attestation is the later C3-3 target, not a prerequisite for this bootstrap step.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Close or revert this staging-only registry authorization if the future verifier blob changes before installation.",
+    "outOfScope": [
+      "Installing tools/change-verification-check.cjs",
+      "Changing change-verification.yml",
+      "Generating human attestation artifacts",
+      "Verification Record v0.3 final integration",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "The preauthorized verifier is not trusted until a later fresh PR changes the contracted file to the exact preauthorized blob and returns registry transitionPolicy to steady."
+    ],
+    "problem": "C3-3 needs authenticated human attestation logic, but change-verification-check.cjs is protected by the C3-2 exact-blob contract and cannot be changed safely without prior base-owned authorization.",
+    "currentContract": "staging/main is steady and the base-owned registry expects tools/change-verification-check.cjs blob e207027a3a59a0261f4b303fe8b9fcb86a8d2b30.",
+    "whyExistingIsInsufficient": "The current verifier accepts candidate-authored recordedBy/manualChecks strings and has no trusted GitHub event attestation parser. Installing such parser in the same PR that authorizes its blob would violate the exact-blob transition model.",
+    "design": "Use the C3-2 steady-to-pending authorization path. Registry expectedBlob for tools/change-verification-check.cjs becomes the already-materialized future blob 114c0b2374361fc85fc487ed9bb6382564cc9fd8 while the repository file remains at the current fromBlob. A later fresh PR installs exactly that blob and returns the registry to steady.",
+    "alternativesRejected": [
+      "Modify the verifier and registry in one PR; base-owned exact-blob enforcement intentionally forbids same-PR self-authorization.",
+      "Add a new uncontracted trusted attestation tool; that would create a security-critical executable outside the exact-blob contract set.",
+      "Skip preauthorization because the change is additive; C3-2 explicitly requires contracted security-critical file changes to use the transition protocol."
+    ],
+    "migration": "No existing Verification Record or evidence is rewritten. This PR only creates a temporary pending registry state for one contracted path.",
+    "compatibility": "No workflow, verifier runtime, required status name, Plan schema, or production behavior changes in this package.",
+    "boundaryCases": [
+      "The target file must remain at fromBlob throughout the authorization PR.",
+      "Only tools/change-verification-check.cjs may differ between fromBlob and toBlob in transition metadata.",
+      "The future toBlob is fixed before Plan Lock and must not be recomputed from candidate code during trusted execution.",
+      "Candidate registry changes remain inert for the current PR because the trusted runner uses the PR-base registry."
+    ],
+    "testPlan": [
+      "Run Change Operations Tests.",
+      "Require Change PR Gate and Change Verification Evidence to pass under the current steady base.",
+      "Inspect trusted Static Evidence and confirm REGISTRY_AUTHORIZATION_VALID.",
+      "Request exact-head Codex adversarial review and stop on any new High/Medium finding.",
+      "Merge to staging only, then start a fresh verifier-install PR from the resulting pending base.",
+      "Reconfirm production main unchanged."
+    ],
+    "promotionRisk": "None. Staging-only Change OS registry authorization."
+  }
+}
