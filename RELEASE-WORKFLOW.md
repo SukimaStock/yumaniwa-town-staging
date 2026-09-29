@@ -50,11 +50,12 @@ staging と本番の双方に独自変更がある場合、どちらか一方で
 既存の安全な差分移送手順を維持する。以下の全工程を満たして初めて新作公開を閉じる。
 AIの判断権限は `AGENTS.md`、具体的なDesk/Editor操作は `OPERATIONS.md` を参照する。
 
-### 五つのReady
+### 六つのReady
 
 | Ready | 完成条件と必要な証拠 |
 | --- | --- |
 | Town Ready | 意図した町内導線→正しい作品→主操作→町へ戻る→町操作の再開。新作は駅前看板の更新履歴 `data/updates.js`（`workIds`で作品IDを紐付け）と、おばけ会話 `data/ghost-dialogue.js` の `works[id]` まで揃える。physicalはobject/prop/trigger/workId、collision/tapと実際の接近・到達性を確認。端末・経路・確認SHAを記録 |
+| Guide Ready | `status: "open"` の作品は `data/work-guide-meta.js` に所要時間・1件以上の有効な気分・ガイド用の一言を持ち、展示ガイドの「すべて見る」と該当する気分から自動で発見できる。production公開候補として選択した作品は `assets/works/<id>/ogp.jpg` または `icon.png` も必要。おすすめ枠は自動追加せずOwnerが明示的に選ぶ |
 | Search Ready | productionの日本語 `/w/<id>/` と英語 `/en/w/<id>/` が揃い、双方index,follow。日英のtitle、meta description、本文、自己canonical、同一og:url、OGP image/alt、起動リンク、町リンク、相互hreflang（ja/en/x-default）、JSON-LD、sitemap収録、静的発見経路がある。JSなしで最低限理解でき、generator正本との一致と実配信を確認 |
 | Share Ready | 標準share URLは `/w/<id>/`。OGP/X card、日本語一文、必要な操作説明・英語一文・画像/動画を採用し、選択した外部公開工程へ渡せる。SNS全件投稿は必須にしない |
 | Observe Ready | 既存契約のWork Open/Close/Shareと必要なcore actionをID単位で判別。外部Goalと本番送信の証拠を確認。未確認はUNVERIFIED |
@@ -122,10 +123,10 @@ Phase 4.4では、公開済み9作品をこの基準で監査し、過剰だっ�
 - `DRAFT`: 対象・素材・判断を準備中。
 - `VALIDATION_BLOCKED`: FAILまたはHQ_REQUIREDがある。
 - `STATIC_CHECKS_PASSED`: 機械検証に阻害なし。外部/実機未確認があればUNVERIFIEDのまま。
-- `RELEASE_READY`: 五つのReadyの配信前条件と候補・復旧手順を確認済み。
+- `RELEASE_READY`: 六つのReadyの配信前条件と候補・復旧手順を確認済み。
 - `DEPLOYED_AWAITING_VERIFICATION`: production配信後の確認待ち。
 - `DEPLOYED_AWAITING_ANNOUNCEMENT`: 本番確認済みだが、選択した告知または引渡しが未完。
-- `RELEASE_COMPLETE`: production配信済み、同SHAのPages成功、本番確認、五つのReady、
+- `RELEASE_COMPLETE`: production配信済み、同SHAのPages成功、本番確認、六つのReady、
   選択した外部公開**または引渡し**が完了。
 
 作者への引渡しを選択した場合は引渡し完了でよい。投稿まで選択した場合は下書きの引渡しを
@@ -146,6 +147,19 @@ stagingのopenを公開許可としない。CoffeeFactory等を無断で含め�
 候補を作る際はbaseから必要な依存ごとに選別し、本番用環境設定を確認する。
 確認後に候補が変わったら影響部分を再検証する。失敗時は告知を止め、force pushを使わず
 既存のrevert commit手順で戻す。緊急本番修正はstagingへ戻す。
+
+### 新作の展示ガイド契約
+
+新しい作品を `status: "open"` にするときは、展示ガイドから発見できる状態までGuide Readyに含める。
+
+- `data/work-guide-meta.js` の `WORK_GUIDE_META["<id>"]` に、非空の `duration`、非空の `guideLine`、1件以上の `moods` を追加する。
+- `moods` は `WORK_GUIDE_MOODS` で定義済みのIDだけを使い、同じIDを重複させない。
+- これを満たした `status: "open"` の作品は、展示ガイドの「すべて見る」と対応する「気分から探す」へ自動反映される。
+- `WORK_GUIDE_FEATURED` は店主のおすすめ棚として手動管理する。新作だから自動追加しない。
+- production公開候補としてRelease Validatorの対象にする作品は、canonicalな `assets/works/<id>/ogp.jpg` または `assets/works/<id>/icon.png` のどちらかを持つ。
+- staging runtimeには画像欠落時の文字フォールバックがあるが、それをproductionのGuide Ready完成条件にはしない。
+- Release Validatorはrepository snapshot内の**全open作品**についてguide metadataを検査するため、新作をopenにしてmetadataを入れ忘れると、既存公開作品だけを検査する通常CIでもFAILになる。
+- おすすめ内容・ガイド文面・気分分類の最終判断はOwner Decision。Validatorは妥当な形と参照整合だけを検査する。
 
 ### 新作の町内告知契約
 
@@ -215,9 +229,9 @@ production候補に集合外のopen作品がある場合もFAIL。stagingでは�
 | EXTERNAL_CHECK_REQUIRED | 外部/実機のUNVERIFIED。単独ではexit 0だがRelease Complete不可 |
 
 CLIの不正入力/実行不能はexit 2。JSONにもsummary/exitCodeと`releaseComplete:false`を出す。
-外部GoalだけでCIを赤くしないが、五つのReady確認から除外もしない。
+外部GoalだけでCIを赤くしないが、六つのReady確認から除外もしない。
 
-検査範囲: works必須metadata/identity、町内告知（updates.js workIds / ghost-dialogue.js works[id]）、launch実体、Search metadata正本、日英w本文/meta/リンク/robots/redirect、hreflang、JSON-LD、生成一致、
+検査範囲: works必須metadata/identity、展示ガイド（全open作品のduration / guideLine / moods、featured参照、選択作品のcanonical OGP/icon）、町内告知（updates.js workIds / ghost-dialogue.js works[id]）、launch実体、Search metadata正本、日英w本文/meta/リンク/robots/redirect、hreflang、JSON-LD、生成一致、
 OGP画像実体/MIME/寸法/ID、sitemap収録/集合/重複、Manifest/id/start_url/scope/icon、
 physical参照（既存scene validator再利用）、既存trackerからのevent名生成。
 `description`は公開Standardで必須。phoneの幅高さは正数、responsiveでは未指定可。
