@@ -457,7 +457,7 @@ test('attestation rejects control bidi multiline and oversized evidence without 
   const p=normPlan();
   const lock=createLock(p);
   const badEvidence=[
-    'BAD\\nFAKE PASS',
+    'BAD\nFAKE PASS',
     'BAD\u202eBIDI',
     'x'.repeat(1001),
   ];
