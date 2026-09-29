@@ -1,0 +1,142 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ce3234d8b53b223759e2d1e93f2c21b314984e018f2da2ad16dff29cb8040ef7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c3-2-trusted-static-evidence-v3-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C3-2 Trusted Static Evidence after the static-check applicability prerequisite.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "d748cd143f95ab790814f47d67aefa0953548132",
+    "canonicalSources": [
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      ".github/workflows/change-verification.yml"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c3-2-trusted-static-evidence-v3-20260929/**",
+      "tools/change-static-check-registry.cjs",
+      "tools/change-static-check.cjs",
+      "tests/test-change-static-check.cjs",
+      "tests/test-change-pr-gate.cjs",
+      ".github/workflows/change-verification.yml",
+      ".github/workflows/change-operations-tests.yml",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/change-pr-gate.yml",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-verification-check.cjs",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Add a base-owned Trusted Static Check Registry with the initial trusted IDs change-operations-regression and node-syntax.",
+      "Add a base-owned Trusted Static Check Executor that binds the immutable Plan to the exact base and candidate SHAs and treats candidate Git blobs as data.",
+      "Execute every declared registered static check or record a trusted explicit N/A; unknown IDs fail and cannot be skipped.",
+      "Parse changed JavaScript blobs without executing candidate modules, scripts, workflows, or tests.",
+      "Add a separate trusted static evidence artifact with exact-SHA, actor, rerun, workflow, registry, executor, definition, result, and exit-code provenance.",
+      "Integrate static evidence into the existing base-owned Change Verification Evidence job while keeping verificationState UNVERIFIED.",
+      "Add regression and adversarial tests plus C3-2 operator documentation."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "C3-2 adds trusted static evidence only; authenticated human attestation and final VERIFIED integration remain out of scope.",
+      "The trusted runner must never execute commands, scripts, workflow definitions, or tests supplied by the candidate branch.",
+      "Static check requiredness/applicability remains owned by the trusted Risk Policy; execution definitions are owned by the Trusted Static Check Registry.",
+      "The initial registry is intentionally limited to change-operations-regression and node-syntax."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "CHANGE-VERIFICATION v0.2",
+      "C3-1 base-owned trusted mechanical evidence boundary",
+      "Static-check applicability prerequisite merged at d748cd143f95ab790814f47d67aefa0953548132",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "C3-2 is a Change OS trust-boundary implementation verified by CI, adversarial review, and post-merge canaries; authenticated human attestation is reserved for C3-3.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the C3-2 staging merge as one Change OS package; do not modify production.",
+    "outOfScope": [
+      "Authenticated Human Attestation",
+      "Verification Record v0.3 final integration",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E",
+      "production promotion",
+      "Executing candidate-controlled application code, test code, scripts, or workflow definitions",
+      "Registering release-validator before a trusted data-only execution design exists"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Final VERIFIED remains unavailable because authenticated human attestation and final evidence integration are not implemented in C3-2."
+    ],
+    "problem": "Plan staticChecks are currently declarations only. C3-1 proves trusted mechanical gates but does not prove that each declared static check was executed by a base-owned runner against the exact candidate SHA.",
+    "currentContract": "C3-1 provides base-owned pull_request_target evidence for Plan Lock, Scope, Risk, and Impact. The merged applicability prerequisite makes Risk Policy distinguish applicable required static checks from explicit N/A without treating non-execution as PASS.",
+    "whyExistingIsInsufficient": "Candidate branches can still list static check names or free-form evidence without a trusted executor proving what ran, against which exact SHA, under which trusted definition.",
+    "design": "Introduce one base-owned registry of inert static-check definitions and one base-owned executor. The workflow resolves the registry, executor, and risk-policy blobs from the exact PR base, extracts the immutable locked Plan, and invokes only the trusted executor. The executor validates exact base/target SHA binding, reads candidate files by Git blob identity, dispatches only fixed trusted executor kinds, records explicit N/A where a declared check has no execution target, rejects unknown IDs, and emits machine evidence without raw candidate diagnostics in operator logs. The workflow stores static evidence separately and leaves final verificationState UNVERIFIED.",
+    "alternativesRejected": [
+      "Execute command strings from Plan.staticChecks; this creates direct candidate-controlled command execution.",
+      "Execute candidate tests or candidate tools from fixed paths; the code at those paths is still candidate-controlled.",
+      "Duplicate check-to-command mappings in the workflow; the registry must be the execution-definition source of truth.",
+      "Treat free-form Verification Record strings or ordinary candidate CI success as trusted static evidence.",
+      "Register release-validator now; its current implementation executes repository JavaScript and needs a separate trusted data-only design."
+    ],
+    "migration": "Historical Plan Locks and evidence are not rewritten. After C3-2 merge, trusted PR verification interprets Plan.staticChecks through the base-owned registry; unregistered IDs fail explicitly.",
+    "compatibility": "The existing required check/job remains base-owned and the C3-1 mechanical artifact remains available. C3-2 adds a separate static artifact and static failure becomes blocking in the same verification job. Final VERIFIED behavior is unchanged.",
+    "boundaryCases": [
+      "A command-like unknown ID such as node evil.js is rejected without execution.",
+      "Every declared static check receives exactly one PASS, FAIL, or trusted N/A result; no ID disappears silently.",
+      "node-syntax parses nested .js/.cjs/.mjs candidate Git blobs without executing top-level code.",
+      "Node parse mode is fixed by trusted extension handling, including module mode for .mjs and commonjs mode for .cjs.",
+      "Deleted or otherwise absent candidate syntax targets are not reported PASS.",
+      "Symlink or non-regular candidate blobs are rejected for syntax checking.",
+      "Exact target SHA mismatch or stale locked base fails before static execution.",
+      "Candidate-controlled paths and diagnostics may exist in machine evidence but are never dumped raw to operator-visible logs.",
+      "Registry and executor implementation blobs are recorded from the exact trusted base.",
+      "Rerun evidence is unique by run ID and run attempt and retains workflow SHA plus actor and triggering-actor provenance."
+    ],
+    "testPlan": [
+      "Run Change Operations Tests including new registry/executor adversarial tests.",
+      "Require existing base-owned Change PR Gate and C3-1 Change Verification Evidence to pass pre-merge; recognize that the new C3-2 executor itself is a bootstrap change and cannot self-certify before merge.",
+      "Request adversarial Codex review of the exact PR head for candidate execution, registry/workflow duplication, SHA binding, N/A semantics, evidence completeness, and log injection.",
+      "After merge, open an unknown-ID failure canary and confirm trusted static evidence records the failed ID, artifact is preserved, and the Ruleset blocks merge.",
+      "After merge, open a valid node-syntax success canary containing top-level code that would fail if executed and confirm syntax passes by parsing only, exact target provenance is recorded, all required checks pass, and verificationState remains UNVERIFIED.",
+      "Close both canaries unmerged and reconfirm production/main is unchanged."
+    ],
+    "promotionRisk": "None. C3-2 is staging Change OS infrastructure only and must not touch production."
+  }
+}
