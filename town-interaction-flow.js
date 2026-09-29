@@ -130,8 +130,12 @@
         if (!changeScene(target)) return false;
 
         // 通常の施設メニューは intro を挟まず、選択肢を直接見せる。
-        // 湯間庭新報は openDestination() が note_rack を直接開く既存仕様をそのまま使う。
-        if (!isTownScene(target) && target !== "shinpo_board") {
+        // 湯間庭新報と展示ガイドは openDestination() が選んだ専用viewをそのまま使う。
+        if (
+            !isTownScene(target) &&
+            target !== "shinpo_board" &&
+            target !== "leisure_catalog"
+        ) {
             destinationViewMode = "menu";
             renderDestination();
         }
