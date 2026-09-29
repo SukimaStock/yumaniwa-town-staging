@@ -117,3 +117,21 @@ test('trusted verification records rerun initiator alongside original actor',()=
   assert.ok(verificationSource.includes('workflowRef:process.env.WORKFLOW_REF'));
   assert.ok(verificationSource.includes('workflowSha:process.env.WORKFLOW_SHA'));
 });
+
+
+test('trusted workflows pin external Actions to full commit SHAs',()=>{
+  const checkout='actions/checkout@11d5960a326750d5838078e36cf38b85af677262';
+  const upload='actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02';
+  assert.ok(source.includes(checkout));
+  assert.ok(verificationSource.includes(checkout));
+  assert.ok(verificationSource.includes(upload));
+  assert.equal(source.includes('actions/checkout@v4'),false);
+  assert.equal(verificationSource.includes('actions/checkout@v4'),false);
+  assert.equal(verificationSource.includes('actions/upload-artifact@v4'),false);
+});
+
+test('trusted evidence artifact name is unique per run attempt',()=>{
+  assert.ok(verificationSource.includes(
+    'name: trusted-mechanical-evidence-${{ github.run_id }}-attempt-${{ github.run_attempt }}'
+  ));
+});
