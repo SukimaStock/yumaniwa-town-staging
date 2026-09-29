@@ -205,6 +205,30 @@ v0.2導入PRはbase側にこのtrusted workflow自体がまだ存在しないた
 **重要:** workflowが成功しても、repository設定でrequired checkになっていなければGitHub上のmerge強制にはならない。
 required check / merge protectionを確認できるまでは「hard enforcement済み」と報告しない。
 
+## Trusted Change OS Blob Contract
+
+C3-2 bootstrap以降、security-critical Change OS fileのcandidate版は
+`tools/change-os-contract.cjs` がbase-owned
+`tools/change-os-contract.json` に固定されたGit blob IDへ照合する。
+
+判定対象はsource textのsubstringではなく、
+
+- literal Git path
+- mode = `100644`
+- type = `blob`
+- exact blob ID
+
+である。
+
+contract/verifier自身はcandidate側の変更を許可しない。
+target blobがtrusted base blobと異なればFAILする。
+
+`sticky-optional` fileはtrusted baseにまだ存在しない間だけabsenceを許す。
+一度trusted baseへ現れた後は削除も変更もできない。
+
+このfreezeはC3-2のtrust boundaryを成立させるための暫定強化であり、
+candidate自身によるallowlist更新は認めない。
+
 ## Change Verification Record
 
 Verification RecordはmutableなPlanではなくPlan Lock digestを参照する。
