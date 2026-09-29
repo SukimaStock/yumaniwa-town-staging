@@ -11,12 +11,15 @@ on:
       - "tools/change-impact-rules.cjs"
       - "tools/change-impact-check.cjs"
       - "tools/change-verification-check.cjs"
+      - "tools/change-static-check.cjs"
+      - "tools/change-static-check-registry.json"
       - "tests/test-change-scope-guard.cjs"
       - "tests/test-change-plan-lock.cjs"
       - "tests/test-change-risk-check.cjs"
       - "tests/test-change-pr-gate.cjs"
       - "tests/test-change-impact-check.cjs"
       - "tests/test-change-verification-check.cjs"
+      - "tests/test-change-static-check.cjs"
       - "CHANGE-PLAN.md"
       - "CHANGE-VERIFICATION.md"
       - "CHANGE-OPERATIONS.md"
@@ -24,6 +27,7 @@ on:
       - "OPERATIONS.md"
       - ".github/workflows/change-operations-tests.yml"
       - ".github/workflows/change-pr-gate.yml"
+      - ".github/workflows/change-verification.yml"
       - ".change-plans/**"
   pull_request:
     paths:
@@ -34,12 +38,15 @@ on:
       - "tools/change-impact-rules.cjs"
       - "tools/change-impact-check.cjs"
       - "tools/change-verification-check.cjs"
+      - "tools/change-static-check.cjs"
+      - "tools/change-static-check-registry.json"
       - "tests/test-change-scope-guard.cjs"
       - "tests/test-change-plan-lock.cjs"
       - "tests/test-change-risk-check.cjs"
       - "tests/test-change-pr-gate.cjs"
       - "tests/test-change-impact-check.cjs"
       - "tests/test-change-verification-check.cjs"
+      - "tests/test-change-static-check.cjs"
       - "CHANGE-PLAN.md"
       - "CHANGE-VERIFICATION.md"
       - "CHANGE-OPERATIONS.md"
@@ -47,6 +54,7 @@ on:
       - "OPERATIONS.md"
       - ".github/workflows/change-operations-tests.yml"
       - ".github/workflows/change-pr-gate.yml"
+      - ".github/workflows/change-verification.yml"
       - ".change-plans/**"
 
 permissions:
@@ -70,7 +78,9 @@ jobs:
           node --check tools/change-impact-rules.cjs
           node --check tools/change-impact-check.cjs
           node --check tools/change-verification-check.cjs
+          node --check tools/change-static-check.cjs
           node --check tests/test-change-pr-gate.cjs
+          node --check tests/test-change-static-check.cjs
 
       - name: Run Change Operations regression tests
         run: >
@@ -81,3 +91,4 @@ jobs:
           tests/test-change-pr-gate.cjs
           tests/test-change-impact-check.cjs
           tests/test-change-verification-check.cjs
+          tests/test-change-static-check.cjs
