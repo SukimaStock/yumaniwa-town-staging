@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5f630d2a06f08c5c0a7ffc6475d51bcfa81795faa945152c48cc64609cefbfe6",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "phase-c3-2-self-auth-canary-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase C3-2 same-PR trusted registry self-authorization canary",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "57d1b22e843a881d5ca7497f746b2fafc2aff74d",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-verification.yml"
+    ],
+    "allowedPaths": [
+      ".change-plans/phase-c3-2-self-auth-canary-20260929/**",
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-verification.yml"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [],
+    "expectedChanges": [
+      "Modify one contracted security-critical workflow by a harmless byte change.",
+      "Modify the candidate registry in the same PR to claim the changed workflow blob is authorized.",
+      "Confirm the trusted executor ignores the candidate registry, uses the PR-base registry, and fails the exact-blob contract."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This is an unmerged adversarial canary only.",
+      "Candidate registry changes must not authorize contracted-file changes in the same PR."
+    ],
+    "rulesApplied": [
+      "C3-2 exact-blob trusted static contract",
+      "1 finding = 1 logical work package"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Automated trust-boundary canary only; no human attestation is being created.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Close the canary PR unmerged.",
+    "outOfScope": [
+      "Any production change",
+      "Any real Change OS behavior change",
+      "C3-3",
+      "VERIFIED"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "This canary must not merge."
+    ],
+    "problem": "A candidate registry must not be able to authorize a contracted-file mutation in the same PR.",
+    "currentContract": "C3-2 loads the trusted registry from the exact PR base and compares security-critical candidate files to base-owned expected Git blobs.",
+    "whyExistingIsInsufficient": "This property must be proven post-merge against the live trusted workflow rather than inferred from implementation tests.",
+    "design": "Change a contracted workflow by a harmless comment and simultaneously alter the candidate registry expectedBlob to that new blob. The live base-owned executor must still use the old base registry and fail.",
+    "alternativesRejected": [
+      "Trust unit tests alone",
+      "Modify a real workflow behavior for the canary"
+    ],
+    "migration": "None; close unmerged after evidence collection.",
+    "compatibility": "No merged repository state changes.",
+    "boundaryCases": [
+      "Candidate registry and contracted workflow change together",
+      "Base registry remains authoritative"
+    ],
+    "testPlan": [
+      "Require Change PR Gate to pass",
+      "Require Change Verification Evidence to fail exact-blob contract",
+      "Inspect Static Evidence source registry blob and mismatch evidence",
+      "Attempt merge and confirm ruleset rejection",
+      "Close unmerged"
+    ],
+    "promotionRisk": "None; unmerged staging canary only."
+  }
+}
