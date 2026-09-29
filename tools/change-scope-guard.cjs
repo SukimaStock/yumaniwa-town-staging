@@ -487,8 +487,12 @@ function escapeHumanText(value) {
     if (
       codePoint <= 0x1f ||
       (codePoint >= 0x7f && codePoint <= 0x9f) ||
+      codePoint === 0x061c ||
+      (codePoint >= 0x200e && codePoint <= 0x200f) ||
+      (codePoint >= 0x202a && codePoint <= 0x202e) ||
       codePoint === 0x2028 ||
-      codePoint === 0x2029
+      codePoint === 0x2029 ||
+      (codePoint >= 0x2066 && codePoint <= 0x2069)
     ) {
       out += '\\u' + codePoint.toString(16).padStart(4, '0');
       continue;
@@ -501,15 +505,15 @@ function escapeHumanText(value) {
 function formatHuman(report) {
   const lines = [];
   lines.push('YUMANIWA SCOPE GUARD v0.2');
-  lines.push('Change: ' + report.change);
+  lines.push('Change: ' + escapeHumanText(report.change));
   lines.push('Base:   ' + report.baseSha);
   lines.push('Target: ' + report.target + ' (' + report.headSha + ')');
   lines.push('Changed paths: ' + report.changedPaths.length);
   lines.push('');
   for (const item of report.results) {
     const suffix = item.path ? ' ' + escapeHumanText(item.path) : '';
-    const pattern = item.pattern ? ' [' + item.pattern + ']' : '';
-    lines.push(item.status + ' ' + item.check + suffix + pattern + ' — ' + item.detail);
+    const pattern = item.pattern ? ' [' + escapeHumanText(item.pattern) + ']' : '';
+    lines.push(item.status + ' ' + item.check + suffix + pattern + ' — ' + escapeHumanText(item.detail));
   }
   lines.push('');
   lines.push('Scope: ' + (report.scopeOk ? 'PASS' : 'STOP'));

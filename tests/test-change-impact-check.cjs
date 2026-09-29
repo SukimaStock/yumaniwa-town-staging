@@ -227,3 +227,48 @@ test('Impact human report escapes Unicode line separators but preserves ordinary
   assert.equal(human.includes('\u2028'),false);
   assert.deepEqual(info.paths,[literalPath]);
 });
+
+
+test('Impact human report escapes candidate-controlled Plan text without changing evaluation values',()=>{
+  const change='impact change\nFAKE PASS\t\u001b[2J\u202eBIDI';
+  const reason='excluded reason\nFAKE FAIL\rnow\u2066ISOLATE';
+  const derived=impact.deriveRequiredImpacts(['data/ghost-dialogue.js']);
+  const [first,...rest]=derived.requirements;
+  const plan=normalized({
+    change,
+    planLevel:'lite',
+    classes:['CONTENT'],
+    canonicalSources:['data/ghost-dialogue.js'],
+    allowedPaths:['data/ghost-dialogue.js'],
+    impactChecks:rest.map(item=>item.id),
+    impactExclusions:[{id:first.id,reason}],
+  });
+  const evaluated=impact.evaluateImpact(plan,['data/ghost-dialogue.js']);
+  const excluded=evaluated.results.find(item=>item.check==='impact.excluded');
+  assert.equal(excluded.detail,reason);
+
+  const unknownId='custom\nFAKE PASS\timpact\u202eBIDI';
+  const withUnknown=impact.evaluateImpact(
+    {...plan,impactChecks:[...plan.impactChecks,unknownId]},
+    ['data/ghost-dialogue.js']
+  );
+  const warning=withUnknown.results.find(item=>item.check==='impact.unknown-declaration');
+  assert.equal(warning.impact,unknownId);
+
+  const human=impact.formatHuman({
+    ...withUnknown,
+    change:plan.change,
+    baseSha:'a'.repeat(40),
+    target:'HEAD',
+    headSha:'b'.repeat(40),
+  });
+
+  assert.match(human,/Change: impact change\\nFAKE PASS\\t\\u001b\[2J\\u202eBIDI/);
+  assert.ok(human.includes('custom\\nFAKE PASS\\timpact\\u202eBIDI'));
+  assert.ok(human.includes('excluded reason\\nFAKE FAIL\\rnow\\u2066ISOLATE'));
+  assert.equal(human.includes('custom\nFAKE PASS'),false);
+  assert.equal(human.includes('excluded reason\nFAKE FAIL'),false);
+  assert.equal(plan.change,change);
+  assert.equal(excluded.detail,reason);
+  assert.equal(warning.impact,unknownId);
+});

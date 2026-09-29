@@ -391,3 +391,35 @@ test('human text escaping preserves ordinary Unicode while disambiguating contro
     'docs/日本語/\\"q\\"\\\\x\\n\\r\\t\\u007f\\u2028.md'
   );
 });
+
+
+test('Scope human report escapes candidate-controlled Plan text without changing evaluation values',()=>{
+  const change='scope change\nFAKE PASS\t\u001b[2J\u202eBIDI';
+  const condition='needs review\nFAKE FAIL\rnow\u2066ISOLATE';
+  const plan=okPlan({
+    change,
+    allowedPaths:['other/**'],
+    conditionalPaths:[{path:'docs/**',condition}],
+  });
+  const evaluated=guard.evaluateScope(plan,['docs/file.md']);
+  assert.equal(evaluated.results[0].status,'SCOPE_REVIEW_REQUIRED');
+  assert.equal(evaluated.results[0].pattern,'docs/**');
+  assert.equal(evaluated.results[0].detail,condition);
+
+  const human=guard.formatHuman({
+    change:plan.change,
+    baseSha:'a'.repeat(40),
+    target:'HEAD',
+    headSha:'b'.repeat(40),
+    changedPaths:evaluated.changedPaths,
+    results:evaluated.results,
+    scopeOk:evaluated.scopeOk,
+  });
+
+  assert.match(human,/Change: scope change\\nFAKE PASS\\t\\u001b\[2J\\u202eBIDI/);
+  const resultLines=human.split('\n').filter(line=>/^PASS |^FAIL |^SCOPE_REVIEW_REQUIRED /.test(line));
+  assert.equal(resultLines.length,1,human);
+  assert.match(resultLines[0],/\[docs\/\*\*\] — needs review\\nFAKE FAIL\\rnow\\u2066ISOLATE/);
+  assert.equal(plan.change,change);
+  assert.equal(evaluated.results[0].detail,condition);
+});

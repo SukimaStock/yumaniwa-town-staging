@@ -332,16 +332,16 @@ function usage() {
 function formatHuman(report) {
   const lines = [];
   lines.push('YUMANIWA IMPACT CHECK v0.2');
-  lines.push('Change: ' + report.change);
+  lines.push('Change: ' + escapeHumanText(report.change));
   lines.push('Base:   ' + report.baseSha);
   lines.push('Target: ' + report.target + ' (' + report.headSha + ')');
   lines.push('Changed paths: ' + report.changedPaths.length);
   lines.push('Rule-covered paths: ' + report.coveredPaths.length);
   lines.push('');
   for (const item of report.results) {
-    const impact = item.impact ? ' ' + item.impact : '';
+    const impact = item.impact ? ' ' + escapeHumanText(item.impact) : '';
     const files = item.paths && item.paths.length ? ' [' + item.paths.map(escapeHumanText).join(', ') + ']' : '';
-    lines.push(item.status + ' ' + item.check + impact + files + ' — ' + item.detail);
+    lines.push(item.status + ' ' + item.check + impact + files + ' — ' + escapeHumanText(item.detail));
   }
   lines.push('');
   lines.push('Impact: ' + (report.impactOk ? 'PASS' : 'STOP'));
