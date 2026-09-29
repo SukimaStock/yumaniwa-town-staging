@@ -1,7 +1,7 @@
 {
   "schema": "yumaniwa-trusted-static-check-registry/0.1",
-  "version": "2026-09-29.4",
-  "transitionPolicy": "steady",
+  "version": "2026-09-29.c3-3-core-sim",
+  "transitionPolicy": "pending:tools/change-verification-check.cjs:e207027a3a59a0261f4b303fe8b9fcb86a8d2b30:52aefe4f6803a6b9ff3b8d432d92ca7bb7fbfde5",
   "checks": {
     "change-operations-regression": {
       "definitionVersion": "2",
@@ -59,7 +59,7 @@
         },
         {
           "path": "tools/change-verification-check.cjs",
-          "expectedBlob": "e207027a3a59a0261f4b303fe8b9fcb86a8d2b30",
+          "expectedBlob": "52aefe4f6803a6b9ff3b8d432d92ca7bb7fbfde5",
           "mode": "100644",
           "type": "blob"
         },
