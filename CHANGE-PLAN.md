@@ -207,6 +207,21 @@ Risk Policyが要求するstatic checkにはchanged pathに対する**applicabil
 `node-syntax` は `.js/.cjs/.mjs` のchanged pathがある場合だけ適用する。
 N/AはPASSではなく、「このdiffには実行対象が存在しない」というRisk Policy由来の判定である。
 
+security-critical workflowのtrusted static contractは、単なる文字列包含で判定しない。
+コメント・dead string・unrelated scalarで必要文字列を残してもPASSできないよう、
+base-owned verifierがworkflow YAMLを**構造としてparse → canonicalize → semantic SHA-256**する。
+
+trusted parserは意図的にGitHub workflowで必要なYAML subsetだけを受理し、
+duplicate key / anchor / alias / tag / flow map / folded block / tab indentation等の
+未対応構文は推測せずfail closedする。
+
+将来、security-critical workflowのsemantic contract自体を変える場合は二段階にする。
+
+1. 先行packageで、新しいsemantic contractをtrusted baseへ承認・mergeする
+2. その後のfresh Planでworkflow本体を変更し、base-owned expected digestと一致させる
+
+同じPRのcandidate側でworkflowと期待digestを同時に書き換えて自己承認しない。
+
 ---
 
 ## 6. Lite Plan
