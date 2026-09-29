@@ -18,6 +18,7 @@ const {
 
 const REPORT_SCHEMA = 'yumaniwa-trusted-static-check-report/0.1';
 const REGISTRY_PATH = path.join(__dirname, 'change-static-check-registry.json');
+const RISK_POLICY_PATH = path.join(__dirname, 'change-risk-policy.cjs');
 const REGISTRY_SCHEMA = 'yumaniwa-trusted-static-check-registry/0.1';
 const MAX_GIT_OUTPUT = 64 * 1024 * 1024;
 const UTF8 = new TextDecoder('utf-8', { fatal: true });
@@ -25,6 +26,12 @@ const CHECK_ID_RE = /^[a-z0-9][a-z0-9-]{2,80}$/;
 
 function sha256(value) {
   return crypto.createHash('sha256').update(value).digest('hex');
+}
+
+function gitBlobSha1(buffer) {
+  const body = Buffer.isBuffer(buffer) ? buffer : Buffer.from(buffer);
+  const header = Buffer.from('blob ' + body.length + '\0', 'utf8');
+  return crypto.createHash('sha1').update(header).update(body).digest('hex');
 }
 
 function runProcess(command, args, options = {}) {
@@ -55,10 +62,10 @@ function decodeUtf8(buffer, label) {
   }
 }
 
-function readRegistry(registryPath = REGISTRY_PATH) {
+function readRegistry() {
   let parsed;
   try {
-    parsed = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
+    parsed = JSON.parse(fs.readFileSync(REGISTRY_PATH, 'utf8'));
   } catch {
     throw new Error('trusted static registry JSON parse failed');
   }
@@ -279,10 +286,13 @@ function executeStaticChecks(options) {
   const diff = collectChangedPaths(root, baseSha, targetSha);
   if (diff.headSha.toLowerCase() !== targetSha) throw new Error('resolved candidate SHA does not match exact target SHA');
 
-  const registry = readRegistry(options.registryPath);
-  const registryBlob = options.registryBlob === null || options.registryBlob === undefined
-    ? null
-    : requireSha(options.registryBlob, 'registry blob');
+  const registry = readRegistry();
+  const registryBlob = requireSha(options.registryBlob, 'registry blob');
+  const riskPolicyBlob = requireSha(options.riskPolicyBlob, 'risk policy blob');
+  const actualRegistryBlob = gitBlobSha1(fs.readFileSync(REGISTRY_PATH));
+  const actualRiskPolicyBlob = gitBlobSha1(fs.readFileSync(RISK_POLICY_PATH));
+  if (registryBlob !== actualRegistryBlob) throw new Error('trusted registry blob does not match loaded registry');
+  if (riskPolicyBlob !== actualRiskPolicyBlob) throw new Error('trusted Risk Policy blob does not match loaded applicability source');
   const tree = collectTreeEntries(root, targetSha);
   const context = { root, baseSha, targetSha, tree, changedPaths: diff.paths };
   const results = [];
@@ -313,6 +323,8 @@ function executeStaticChecks(options) {
           version: definition.definitionVersion,
           executor: definition.executor,
           candidateExecution: false,
+          applicabilitySource: definition.applicabilitySource,
+          applicabilitySourceBlob: riskPolicyBlob,
         },
       });
       continue;
@@ -330,6 +342,8 @@ function executeStaticChecks(options) {
           version: definition.definitionVersion,
           executor: definition.executor,
           candidateExecution: false,
+          applicabilitySource: definition.applicabilitySource,
+          applicabilitySourceBlob: riskPolicyBlob,
         },
       });
       continue;
@@ -347,6 +361,8 @@ function executeStaticChecks(options) {
           version: definition.definitionVersion,
           executor: definition.executor,
           candidateExecution: false,
+          applicabilitySource: definition.applicabilitySource,
+          applicabilitySourceBlob: riskPolicyBlob,
         },
       });
       continue;
@@ -395,6 +411,10 @@ function executeStaticChecks(options) {
       sourcePath: 'tools/change-static-check-registry.json',
       sourceBlob: registryBlob,
     },
+    applicabilitySource: {
+      path: 'tools/change-risk-policy.cjs',
+      sourceBlob: riskPolicyBlob,
+    },
     requestedChecks,
     results,
     complete,
@@ -421,13 +441,13 @@ function parseArgs(argv) {
     targetSha: null,
     repository: null,
     registryBlob: null,
-    registryPath: undefined,
+    riskPolicyBlob: null,
     json: false,
   };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--json') options.json = true;
-    else if (['--root', '--plan', '--base', '--head', '--repository', '--registry-blob', '--registry'].includes(arg)) {
+    else if (['--root', '--plan', '--base', '--head', '--repository', '--registry-blob', '--risk-policy-blob'].includes(arg)) {
       const value = argv[++i];
       if (!value) throw new Error(arg + ' requires a value');
       if (arg === '--root') options.root = value;
@@ -436,7 +456,7 @@ function parseArgs(argv) {
       if (arg === '--head') options.targetSha = value;
       if (arg === '--repository') options.repository = value;
       if (arg === '--registry-blob') options.registryBlob = value;
-      if (arg === '--registry') options.registryPath = value;
+      if (arg === '--risk-policy-blob') options.riskPolicyBlob = value;
     } else if (arg === '--help' || arg === '-h') options.help = true;
     else throw new Error('unknown argument: ' + arg);
   }
@@ -446,7 +466,7 @@ function parseArgs(argv) {
 function usage() {
   return [
     'Usage:',
-    '  node tools/change-static-check.cjs --plan <plan.json|-> --root <candidate-repo> --base <sha> --head <sha> --repository <owner/name> --registry-blob <sha> [--json]',
+    '  node tools/change-static-check.cjs --plan <plan.json|-> --root <candidate-repo> --base <sha> --head <sha> --repository <owner/name> --registry-blob <sha> --risk-policy-blob <sha> [--json]',
     '',
     'Runs only base-owned allowlisted static definitions against exact candidate Git data.',
     'Candidate commands, modules, tests, and workflows are never executed.',
@@ -484,7 +504,7 @@ function runCli(argv = process.argv.slice(2)) {
       targetSha: options.targetSha,
       repository: options.repository,
       registryBlob: options.registryBlob,
-      registryPath: options.registryPath,
+      riskPolicyBlob: options.riskPolicyBlob,
     });
     process.stdout.write((options.json ? JSON.stringify(report, null, 2) : formatHuman(report)) + '\n');
     return report.exitCode;
@@ -500,6 +520,7 @@ if (require.main === module) process.exitCode = runCli();
 module.exports = {
   REPORT_SCHEMA,
   REGISTRY_SCHEMA,
+  gitBlobSha1,
   readRegistry,
   collectTreeEntries,
   readTextBlob,
