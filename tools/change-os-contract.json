@@ -62,7 +62,7 @@
     "tools/change-static-check.cjs": {
       "presence": "sticky-optional",
       "allowedBlobs": [
-        "cdfdc5371ab20454fcb707d5009f76763fb4367b"
+        "5db916308e7510d97eed30fa00d68196c0249f3c"
       ]
     },
     "tools/change-static-check-registry.json": {
