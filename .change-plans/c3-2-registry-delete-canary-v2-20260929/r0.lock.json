@@ -1,0 +1,103 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4b59ea0022860b0b267b31060150c430fcf1183435bafedbb7da096c72c682cd",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "c3-2-registry-delete-canary-v2-20260929",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "C3-2 canary: deleting a trusted contract path must be rejected by the base-owned registry transition validator.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "41058a9a40d63c4d8d1ae1b05f3131baa587ae6d",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/c3-2-registry-delete-canary-v2-20260929/**",
+      "tools/change-static-check-registry.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-risk-check.cjs",
+      "tools/change-scope-guard.cjs",
+      "tools/change-plan-lock.cjs",
+      "tools/change-impact-rules.cjs",
+      "tools/change-impact-check.cjs",
+      "tools/change-verification-check.cjs",
+      "main.js",
+      "data/**",
+      "works/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Delete one exact-blob contract from the candidate registry only.",
+      "Confirm the base-owned transition validator rejects the candidate registry path-set change."
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [
+      "This is an intentionally failing post-merge adversarial canary and must remain unmerged."
+    ],
+    "rulesApplied": [
+      "CHANGE-OPERATIONS v0.2",
+      "CHANGE-PLAN v0.2",
+      "C3-2 base-owned candidate-registry transition enforcement"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [],
+    "manualCheckExemptionReason": "Automated C3-2 failure canary; authenticated human attestation is out of scope.",
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Close the canary PR unmerged.",
+    "outOfScope": [
+      "Any merge",
+      "production changes",
+      "C3-3",
+      "VERIFIED promotion",
+      "Phase D",
+      "Phase E"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "This canary is intentionally invalid and must not merge."
+    ],
+    "problem": "A candidate must not be able to remove a protected contract path and make future PRs stop checking it.",
+    "currentContract": "The steady PR-base registry and base-owned trusted static executor validate candidate registry transitions as inert data and include registryTransition in staticOk.",
+    "whyExistingIsInsufficient": "Live post-merge evidence is required to prove this adversarial candidate cannot bypass the installed base-owned transition validator.",
+    "design": "Remove one contract from candidate registry while leaving all contracted files unchanged. Base-owned executor must reject the candidate registry transition before it can become trusted.",
+    "alternativesRejected": [
+      "Rely only on unit tests; this canary exercises the real pull_request_target trust boundary and active ruleset."
+    ],
+    "migration": "none",
+    "compatibility": "No merge and no persistent repository state change.",
+    "boundaryCases": [
+      "Candidate contract path set is missing exactly one base-owned path.",
+      "Candidate registry must not become authoritative for its own PR."
+    ],
+    "testPlan": [
+      "Require Change PR Gate to pass.",
+      "Require Change Verification Evidence to fail because registryTransition is invalid.",
+      "Inspect trusted Static Evidence for base-owned source provenance and explicit candidate registry transition failure.",
+      "Attempt merge and confirm the active ruleset rejects it.",
+      "Close the PR unmerged."
+    ],
+    "promotionRisk": "None; intentionally unmerged canary."
+  }
+}
