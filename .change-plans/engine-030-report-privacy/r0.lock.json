@@ -1,0 +1,104 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "24a0e1f6633eec042eb8cfd15a8a0fce28e947039d1ab4a3468e9e1576c0ca06",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "engine-030-report-privacy",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Strip URL query and fragment data at Session Report output boundary only",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "08876795651f9ec28d926e4d16887f95fac533b3",
+    "canonicalSources": [
+      "engine/sukimastock-engine.v0.3.0.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/engine-030-report-privacy/r0.lock.json",
+      "engine/sukimastock-engine.v0.3.0.js",
+      "tests/test-engine-diagnostics.cjs",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3-PRIVACY-VALIDATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "engine/sukimastock-engine.v0.2.0.js",
+      "engine/codea-lite.v1.0.0.js",
+      "work-ready.js",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Sanitize detached Session Report representations; strip URL query and fragments in strings including error reasons.",
+      "Replace environment.search with non-secret query/fragment presence metadata.",
+      "Add sentinel privacy regression tests, internal-state preservation checks and minimal privacy documentation."
+    ],
+    "hqDecisions": [
+      "User approved output-boundary-only design, staging implementation and Draft PR; no merge."
+    ],
+    "ownerDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "report-privacy-browser-smoke"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert privacy implementation and documentation commit; preserve prior Phase 1/2/3 changes and locked plan.",
+    "outOfScope": [
+      "Runtime behavior changes outside Report output",
+      "Engine runtime CI connection",
+      "Duplicate AudioContext resume requests",
+      "Works, starter, canary, Codea, Engine 0.2",
+      "Production",
+      "Merge",
+      "New diagnostics features"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Report UI and exported output in a real browser"
+    ],
+    "problem": "Session Report exposes raw page query, asset URL and URL-bearing error reasons.",
+    "currentContract": "SSE.dev.report/reportText/copyReport expose diagnostic representations; internal runtime URLs must remain original.",
+    "whyExistingIsInsufficient": "Truncation does not remove secret query/fragment values.",
+    "design": "Small shared recursive copy sanitizer inside devtools output boundary; strip query and fragment from URL-bearing text, replace raw environment query with presence metadata, preserve useful pathname/status/type. Never mutate runtime objects.",
+    "alternativesRejected": [
+      "Sanitize runtime definitions/events",
+      "Parameter-name secret denylist",
+      "General DLP/credential detection framework"
+    ],
+    "migration": "None.",
+    "compatibility": "Only exported Report URL/query representation changes; internal Asset/Audio/Input/Boot/Storage and all existing works unchanged.",
+    "boundaryCases": [
+      "Absolute, protocol-relative, root-relative and relative URLs",
+      "Query-only and fragment-only references",
+      "URLs embedded in fetch/load reasons and diagnostic event strings/details",
+      "Fragment without query, multiple parameters with arbitrary names",
+      "Detached nested arrays/objects and preserved internal source values"
+    ],
+    "testPlan": [
+      "Sentinel assertions on JSON/text/copy output and internal state preservation",
+      "Diagnostics, Input/Boot 27, Audio/Asset 50, Starter 5, Canary 3",
+      "Syntax and base-owned Scope/Risk/Impact/trusted checks"
+    ],
+    "promotionRisk": "Draft only; browser verification remains UNVERIFIED."
+  }
+}
