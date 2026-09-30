@@ -1,0 +1,112 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9a73e4114afaebced930be36468cc2da52f938ac93f4652167c64cd25255439a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "engine-browser-canary",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add a staging-only human browser canary using unchanged canonical Engine and Codea",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "f9ab5af0da867eccf7525fb343710acfee7ed468",
+    "canonicalSources": [
+      "engine/sukimastock-engine.v0.3.0.js",
+      "engine/codea-lite.v1.0.0.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/engine-browser-canary/r0.lock.json",
+      "works/engine-canary/index.html",
+      "works/engine-canary/style.css",
+      "works/engine-canary/app.js",
+      "tests/test_engine_canary.py"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "works/_starter/**",
+      "works/yakitori-wars/**",
+      "works/midnight-cola/**",
+      "works/junkissa-dive/**",
+      "works/rojiura-masala/**",
+      "works/orbit/**",
+      "data/**",
+      "main.js",
+      "work-ready.js",
+      "sitemap.xml",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Direct-URL noindex canary with Japanese instructions and large tap/drag canvas.",
+      "Read existing API/DOM state to display versions, focus, input, lifecycle, context and resource states.",
+      "Explicit gesture tone, small local WAV data URI buffer/media loads and intentional missing URL; human-only Heard confirmation.",
+      "Small static/wiring tests; no Engine or existing work changes."
+    ],
+    "hqDecisions": [
+      "User explicitly approved a staging-only canary, dedicated branch and Draft PR; no merge."
+    ],
+    "ownerDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-safari-input-audio-orientation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert canary files and its small tests; no data migration or registration.",
+    "outOfScope": [
+      "Engine changes",
+      "existing works and starter changes",
+      "town registration",
+      "Phase 3",
+      "production",
+      "merge"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual browser/device behavior and audible output"
+    ],
+    "problem": "A directly accessible page is needed for human browser/device verification.",
+    "currentContract": "Canonical Codea uses a full-window canvas; Engine exposes input, lifecycle and audio/assets APIs.",
+    "whyExistingIsInsufficient": "The underscore starter path is a template, not the public human test page.",
+    "design": "A full-window native canvas with a scrollable DOM control panel; unchanged canonical runtime URLs. Public viewport configuration follows window dimensions; no engine wrappers or extra RAF loop.",
+    "alternativesRejected": [
+      "Copy runtimes",
+      "Edit starter",
+      "Patch Engine",
+      "Automatic audible PASS"
+    ],
+    "migration": "None",
+    "compatibility": "Read and invoke existing public APIs only. Analytics disabled, no bridge workId, no works/sitemap registration.",
+    "boundaryCases": [
+      "Pointer release/cancel, repeat keydown, hidden and page restore, orientation",
+      "Audio readiness vs audible output, intentional 404, explicit retry"
+    ],
+    "testPlan": [
+      "Small Python HTML structure and canonical-reference/JS syntax checks",
+      "Canary event handlers through a minimal Node DOM/API harness if useful",
+      "Protected-path and canonical-blob identity checks",
+      "Scope/Risk/Impact/trusted CI; browser UNVERIFIED if unavailable"
+    ],
+    "promotionRisk": "Draft only; planned Pages URL is unavailable until separately authorized merge."
+  }
+}
