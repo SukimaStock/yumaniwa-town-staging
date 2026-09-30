@@ -1,0 +1,100 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2ea0067ca088f7e7d7efac61269600bbb1a1e69895b1c1f4848d50dd83752696",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "rojiura-masala-local-20260930",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Copy completed Rojiura Masala ZIP unchanged and use existing embedded launch",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "8f97ab13e5ca4a917fe8eab718af0f354d402ed6",
+    "canonicalSources": [
+      "data/works.js",
+      "User supplied rojiura-masala-itch-upload(2).zip"
+    ],
+    "allowedPaths": [
+      ".change-plans/rojiura-masala-local-20260930/r0.lock.json",
+      "data/works.js",
+      "index.html",
+      "works/rojiura-masala/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "sw.js",
+      "data/work-search-meta.js"
+    ],
+    "expectedChanges": [
+      "Copy ZIP contents byte-for-byte excluding __MACOSX and ._*",
+      "Change only rojiura-masala launch and entry; preserve itch URLs",
+      "Update only works.js cache key in root index.html"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-launch-unverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "works.venue-menu",
+      "works.direct-route",
+      "works.search-share",
+      "works.analytics-id",
+      "works.town-awareness",
+      "works.release-validator",
+      "surface.shared",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes exact ZIP copy, embedded entry and cache key update, staging PR only"
+    ],
+    "rulesApplied": [
+      "Existing embedded launch and phone-cola frame"
+    ],
+    "rollback": "Revert import commit",
+    "promotion": "PR only; no merge or production changes",
+    "unverified": [
+      "Browser gameplay and physical device checks not claimed"
+    ],
+    "hqDecisions": [
+      "Root HTML change restricted to user-authorized works.js cache key; no runtime design change"
+    ],
+    "problem": "Game currently launches via external itch embed",
+    "currentContract": "Existing embedded launch supports a local entry",
+    "whyExistingIsInsufficient": "External embed is not repository-local hosting",
+    "design": "Unchanged ZIP copied to work directory; existing embedded launch selected",
+    "migration": "Replace launch metadata only; retain itch URLs",
+    "compatibility": "Game bytes and frameMode preserved",
+    "promotionRisk": "Staging branch only; production excluded",
+    "alternativesRejected": [
+      "Per-file API upload",
+      "Game reimplementation"
+    ],
+    "boundaryCases": [
+      "macOS metadata excluded",
+      "Relative paths preserved"
+    ],
+    "testPlan": [
+      "ZIP byte equality",
+      "Existing release and guide tests",
+      "Release validator",
+      "Scope Risk Impact checks"
+    ]
+  }
+}
