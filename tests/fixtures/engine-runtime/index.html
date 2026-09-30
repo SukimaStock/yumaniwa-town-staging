@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Engine Input / Boot fixture</title>
+<style>body{margin:0} canvas{display:block;touch-action:none} aside{position:fixed;top:10px;left:10px;background:white;padding:8px;display:grid;gap:8px} [contenteditable]{border:1px solid gray;min-height:24px}</style>
+<canvas id="canvas"></canvas>
+<aside>
+  <input id="input" aria-label="input">
+  <textarea id="textarea" aria-label="textarea"></textarea>
+  <select id="select" aria-label="select"><option>One</option><option>Two</option></select>
+  <div id="editable" contenteditable="true"><span id="child">Edit here</span></div>
+</aside>
+<script src="../../../engine/codea-lite.v1.0.0.js"></script>
+<script src="../../../engine/sukimastock-engine.v0.3.0.js"></script>
+<script>
+  window.probe = { setups: 0, presses: 0, touches: [], prevented: [], gestures: 0 };
+  SSE.createApp({
+    id: 'input-boot-fixture', logicalWidth: 360, logicalHeight: 640,
+    debug: false, devtools: { enabled: false },
+    keyboard: { bindings: { fire: ['Space', 'ArrowRight'] } },
+    setup() { probe.setups++; }, initialScene: 'main',
+    scenes: { main: {
+      update() { if (SSE.input.actionPressed('fire')) probe.presses++; },
+      draw() { background(20, 25, 35); },
+      touch(t) { probe.touches.push(t.state); }
+    } }
+  });
+  const unlock = SSE.audio.unlock.bind(SSE.audio);
+  SSE.audio.unlock = () => { probe.gestures++; unlock(); };
+  window.addEventListener('keydown', e => probe.prevented.push(e.defaultPrevented));
+  CodeaLite.start('canvas');
+</script>
+</html>
