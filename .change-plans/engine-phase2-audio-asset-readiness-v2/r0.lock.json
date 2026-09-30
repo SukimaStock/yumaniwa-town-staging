@@ -1,0 +1,109 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "bff0b26c5584233a5658a519d75e7cc33ac8faec63c223a390a677d875a00f80",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "engine-phase2-audio-asset-readiness-v2",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Implement approved Engine 0.3 Phase 2 Audio/Asset resource readiness only",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "b4f588e8e105edc00c97b99e7768830456610551",
+    "canonicalSources": [
+      "engine/sukimastock-engine.v0.3.0.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/engine-phase2-audio-asset-readiness-v2/r0.lock.json",
+      "engine/sukimastock-engine.v0.3.0.js",
+      "tests/test-engine-audio-assets.cjs",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3-PHASE2-VALIDATION.md",
+      "tests/test-engine-input-boot.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "engine/sukimastock-engine.v0.2.0.js",
+      "engine/codea-lite.v1.0.0.js",
+      "work-ready.js",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Track resource readiness and reasons separately from output availability.",
+      "Make Asset ready depend on actual buffer/media readiness, preserve status vocabulary and explicit retry.",
+      "Check existing direct tone API capabilities without inventing undefined-name fallback.",
+      "Add failure-injection regression tests and minimal readiness/validation documentation.",
+      "Narrow the historical Phase 1 byte-identity assertion to retain all non-Audio/Asset sections unchanged; preserve 26 Input/Boot behavioral tests."
+    ],
+    "hqDecisions": [
+      "User supplied approved Phase 2 design and authorized implementation, dedicated branch and Draft PR only.",
+      "Owner explicitly authorized a fresh branch and Plan Lock after the local abandoned attempt omitted the Phase 1 historical byte-identity test path. Preserve all Input/Boot checks and narrow only the obsolete Audio/Asset identity assertion."
+    ],
+    "ownerDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-audio-smoke",
+      "iphone-audio-lifecycle"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert Phase 2 implementation/document/test commits together; preserve Phase 1 locks and pinned legacy runtimes.",
+    "outOfScope": [
+      "Phase 3 Diagnostics",
+      "existing works migration",
+      "production",
+      "starter changes",
+      "new audio subsystem"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Browser autoplay/codecs/audible playback and iPhone remain UNVERIFIED unless directly observed."
+    ],
+    "problem": "Asset preload completion currently reports success even when audio is absent or load/decode fails.",
+    "currentContract": "Buffer loads resolve null on failure; HTMLAudio creation/load initiation is not media readiness; tone(options) is a direct procedural API, not a named sound registry.",
+    "whyExistingIsInsufficient": "Promise settlement and player existence cannot establish readiness.",
+    "design": "Implement the supplied resource/output separation with explicit internal states, media canplay readiness and bounded timeout/cleanup; retain existing Audio and Asset APIs.",
+    "alternativesRejected": [
+      "Audio rewrite",
+      "canplaythrough required",
+      "automatic unlimited retry",
+      "new named tone format"
+    ],
+    "migration": "None; canonical 0.3 only.",
+    "compatibility": "Preserve buses, volume, fade, baseline, play/music APIs, Scene/Storage/bridge and public Asset status names.",
+    "boundaryCases": [
+      "undefined names including prototype properties",
+      "404/network/decode failure and empty decode results",
+      "pending and media errors/timeouts/retry",
+      "mute/zero volume/suspended context/autoplay rejection",
+      "unsupported browser APIs"
+    ],
+    "testPlan": [
+      "Node Audio/Asset tests with injected failures and pending tasks",
+      "Existing 27 Input/Boot tests",
+      "Starter workflow and packaging tests",
+      "Scope, Risk, Impact and base-owned trusted static checks"
+    ],
+    "promotionRisk": "No production writes; stop at Draft PR."
+  }
+}
