@@ -1,16 +1,16 @@
-# SukimaStock Engine 0.3.0 — Phase 1 Input / Boot
+# SukimaStock Engine 0.3.0 — Phase 1a Input / Boot
 
-Implementation candidate, not a claim that the entire 0.3.0 plan is released.
+Canonical runtime implementation complete; starter adoption deferred to Phase 1b. Browser verification remains UNVERIFIED. This is not a claim that the entire 0.3.0 plan is released.
 Baseline: staging `f99978bb6699967798556d2cc30675ab3d34a73f`.
 
 ## Canonical files
 
 - `engine/sukimastock-engine.v0.3.0.js`: new Engine source. v0.2.0 is immutable.
 - `engine/codea-lite.v1.0.0.js`: Codea source, based on the previous starter.
-- `works/_starter/codea-lite.js`: exact generated/distribution snapshot of that source; never independently edit it.
+- `works/_starter/` remains byte-identical to the base. It has not adopted the new Engine or canonical Codea snapshot.
 - Existing work-local Codea/Engine files are legacy pinned runtimes, not canonical sources.
 
-Load Codea, Engine, configuration, sketch/createApp, then start the canvas. The starter and its standalone manifest demonstrate this order. No exporter schema or production entry changes are needed.
+Load Codea, Engine, configuration, sketch/createApp, then start the canvas. The isolated browser fixture demonstrates the new runtime combination. The existing starter and distribution paths remain on their base versions in Phase 1a.
 
 ## Ownership
 
@@ -47,3 +47,18 @@ Valid trusted pointerdown and bound non-repeat keydown may invoke existing audio
 Scene, Storage, Asset Loader, Audio subsystem, host bridge and Session Report contracts are retained. No Phase 2 readiness fix, Phase 3 diagnostic expansion, existing-work migration or town retry change is included.
 
 See `SUKIMASTOCK-ENGINE-v0.3-VALIDATION.md` for executed checks and UNVERIFIED browser/device coverage.
+
+## Phase 1b — Starter Adoption (deferred)
+
+After PR #90 merges, use a new Plan Lock and separate PR for all of:
+
+1. Switch `works/_starter/index.html` to Engine 0.3.0.
+2. Place the canonical Codea snapshot in the starter and validate equality; restore the minimal keyboard sample and update the README.
+3. Update `works/_starter/starter-export.json` to 0.3.0.
+4. Update `works/_starter/standalone-export.example.json`.
+5. Update `.github/workflows/new-work-starter.yml` for 0.3.0.
+6. Define the version policy in `engine/adopt-canonical-engine.py`.
+7. Verify the generated New Work Starter ZIP actually contains Engine 0.3.0 and the intended Codea runtime.
+8. Verify local → staging handoff preserves 0.3.0.
+
+The existing immutable Phase 1 lock is retained without widening its paths. Its original starter-adoption expectations are explicitly deferred by the owner's scope-reduction instruction; they are not claimed complete. Phase 1a makes no starter adoption or distribution compatibility claim.

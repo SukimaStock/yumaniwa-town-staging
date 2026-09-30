@@ -4,17 +4,6 @@ This is the general starter for games and interactive Web works that use SukimaS
 
 Do not confuse it with `works/_template`, which is the separate Rakugaki Engine template.
 
-## Runtime contract (Phase 1)
-
-- Engine: `engine/sukimastock-engine.v0.3.0.js` (Input/Boot candidate; Phase 2/3 are not implemented).
-- Codea source: `engine/codea-lite.v1.0.0.js`.
-- This folder's `codea-lite.js` is a byte-identical distribution snapshot, not an independent runtime.
-  After changing the canonical file, sync with `cp engine/codea-lite.v1.0.0.js works/_starter/codea-lite.js` from the repository root. The regression test checks equality.
-- Load order: Codea → Engine → work-config → sketch (`SSE.createApp`) → `CodeaLite.start("gameCanvas")`.
-- The canvas receives focus on an actual pointerdown only. Space pulses the demo after focus; editable controls remain usable.
-- Call start once. Repeated start on the same canvas is a no-op; game restart belongs in the sketch/scene, not in start.
-- Existing work runtimes remain pinned; do not copy this update into them automatically.
-
 ## Recommended start
 
 For the rough local phase, use the generated self-contained starter ZIP rather than copying this repository folder manually.

@@ -17,7 +17,6 @@
     opaque: true,
 
     update(dt) {
-      if (SSE.input.actionPressed("pulse")) state.pulse = 1;
       state.pulse = Math.max(0, state.pulse - dt * 2.8);
     },
 
@@ -36,7 +35,7 @@
 
       fill(155, 169, 177, 185);
       textSize(11);
-      text("TOUCH OR SPACE TO START MAKING", WORK.logicalWidth * 0.5, WORK.logicalHeight * 0.26);
+      text("TOUCH TO START MAKING", WORK.logicalWidth * 0.5, WORK.logicalHeight * 0.26);
     },
 
     touch(touch) {
@@ -69,7 +68,6 @@
     initialScene: "main",
     debug: false,
     pointerMode: "primary",
-    keyboard: { bindings: { pulse: ["Space"] } },
 
     // New works begin from the SukimaStock real-device audio baseline.
     // Lower only the sounds that are actually too loud.

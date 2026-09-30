@@ -54,7 +54,6 @@ function harness({ setup, failRAF = false, contextMissing = false, tabIndex } = 
   const key = (type, extra = {}) => w.emit(type, { code: 'Space', key: ' ', target: canvas, ...extra });
   return { w, doc, canvas, other, trace, raf, timers, run, start, spyAudio, pointer, key, touches, get setups() { return setups; }, get unlocks() { return unlocks; }, get resumes() { return resumes; } };
 }
-test('starter Codea is an exact canonical snapshot', () => assert.equal(fs.readFileSync(path.join(root, 'works/_starter/codea-lite.js'), 'utf8'), codea));
 test('single, duplicate and reentrant start keep one setup, RAF and listener set', () => {
   const h = harness({ setup(w) { w.CodeaLite.start('canvas'); } }); h.start();
   const counts = [h.w.count(), h.canvas.count(), h.doc.count(), h.w.adds, h.canvas.adds];

@@ -55,13 +55,6 @@ async function main() {
     assert.equal(await page.evaluate(() => probe.setups), 1);
     assert.deepEqual(errors, []);
     console.log('PASS Chromium: DOM focus, editable controls, repeat, editable keyup, real pointer capture/up, duplicate start.');
-    await page.goto(base + '/works/_starter/');
-    await page.waitForFunction(() => window.SSE?.runtime.state.setupDone && CodeaLite.state.started);
-    assert.equal(await page.evaluate(() => SSE.VERSION), '0.3.0');
-    assert.equal(await page.evaluate(() => CodeaLite.VERSION), '1.0.0');
-    await page.mouse.click(400, 350); await page.keyboard.press('Space');
-    assert.deepEqual(errors, []);
-    console.log('PASS Chromium: starter boots new runtimes, pointer and Space run without page errors.');
     // Isolated Engine-only compatibility smoke; no ORBIT files are rewritten.
     await page.route('**/engine/sukimastock-engine.v0.2.0.js*', route => route.fulfill({ path: path.join(root, 'engine/sukimastock-engine.v0.3.0.js'), contentType: 'text/javascript' }));
     await page.goto(base + '/works/orbit/');
