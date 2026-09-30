@@ -44,7 +44,7 @@ Valid trusted pointerdown and bound non-repeat keydown may invoke existing audio
 
 ## Boundaries
 
-Scene, Storage, host bridge and Session Report contracts are retained. Phase 2 changes only Audio/Asset resource readiness as described below. No Phase 3 diagnostic expansion, existing-work migration or town retry change is included.
+Scene, Storage, host bridge and Session Report contracts are retained. Phase 2 changes only Audio/Asset resource readiness as described below. Phase 3 report additions are documented separately below. No existing-work migration or town retry change is included.
 
 See `SUKIMASTOCK-ENGINE-v0.3-VALIDATION.md` for executed checks and UNVERIFIED browser/device coverage.
 
@@ -104,3 +104,55 @@ The unchanged non-Audio/Asset contracts remain protected by the Phase 1 regressi
 suite. Browser autoplay, actual playback, codecs and iPhone lifecycle are
 UNVERIFIED: Node mocks are not browser or hardware evidence. See
 `SUKIMASTOCK-ENGINE-v0.3-PHASE2-VALIDATION.md`.
+
+## Phase 3 — observation-aware Session Report
+
+`SSE.dev.report()`, `reportText()`, copy and panel APIs are retained. The additive
+`report().observation` section is a read-only snapshot of existing Engine/Codea
+state. It covers runtime identity/boot, canvas sizes/DPR/scale/offsets, focus,
+keyboard/pointer, lifecycle, Audio readiness/output, Asset counts and managed
+Storage metadata. `SSE.dev.observationSnapshot()` returns that same section.
+Reading it never loads resources, resumes audio, resizes, installs listeners,
+probes persistence or scans work-owned objects/DOM/listeners.
+
+Healthy wording is scoped: **No issues detected in Engine-managed runtime.**
+Outside Engine remains unobserved. Zero bindings/pointers, an unfocused canvas,
+optional idle assets, unknown external systems and a suspended context alone
+are not warnings. Resource failures/Asset errors and observed memory fallback
+are warnings; explicit failed boot/runtime errors remain errors. Ready resources
+and suspended/inaudible output can coexist. Audibility is always `unknown`.
+
+Configured but unattempted Audio resources count as `idle` without creating
+resource records. Kind counts are disjoint: `music`, buffer effects, media effects.
+Failure samples are capped at five, with 180-character names/reasons. Raw pointer
+count is `unknown` without Codea state. Its private capture registry and pageshow
+history are not exposed, so capture count/history remain `unknown`, not zero.
+`lastKnownState` is the existing active-pointer state; after release it is unknown.
+Keyboard eligibility reports local focus/config/pause conditions, not proof of
+actual input delivery (including nested iframe/shadow focus).
+
+Storage reporting reads cached metadata only: namespace/app id, registration
+count, schema/migration configuration, last backend and memory fallback. It does
+not read localStorage, save values, fallbacks or checkpoints. Availability is the
+last observed backend result, not a fresh persistence guarantee; mixed persistent
+and memory-only keys are possible. Before observation it is `unknown`. Existing
+`report().storage` metadata fields remain, but `persistent` is `unknown` when a
+per-key answer would require probing; `storedVersion` may be null until cached.
+The Storage runtime and `SSE.storage.info()` API are unchanged. New snapshots do
+not collect gameplay state or personal data. Existing caller-supplied diagnostic
+messages/configuration labels remain caller-owned: do not put secrets in them.
+
+Optional config declarations accept booleans only:
+
+```js
+diagnostics: { external: { audio: true, storage: true } }
+```
+
+Keys are `audio`, `storage`, `runtime`, `listeners`, `save`, `buffers`. Missing or
+non-boolean values become `unknown`. A true/false declaration is a work-provided
+claim, **never** auto-detection, observed coverage, or a whole-work PASS. All
+external entries retain `observed: false` and `status: "unknown"`.
+
+Phase 1/2 canary checks on iPhone Safari were reported successful by the owner.
+That does not verify Phase 3 Report UI/output: see the separate Phase 3 validation
+record. Physical keyboard, strict BFCache and nested iframe focus remain unverified.

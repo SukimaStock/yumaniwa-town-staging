@@ -1,0 +1,107 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5ea864d3bb7c5aafa8985dd42072b4d9ba7f2aab2a86c6a90ec28b31cd871070",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "engine-phase3-diagnostics",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Make existing Engine Session Report read-only and observation-aware",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "97a51acfd3ec4f7dde5f7e1c9bf4ca948ffc807b",
+    "canonicalSources": [
+      "engine/sukimastock-engine.v0.3.0.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/engine-phase3-diagnostics/r0.lock.json",
+      "engine/sukimastock-engine.v0.3.0.js",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3-PHASE3-VALIDATION.md",
+      "tests/test-engine-diagnostics.cjs",
+      "tests/test-engine-input-boot.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "engine/sukimastock-engine.v0.2.0.js",
+      "engine/codea-lite.v1.0.0.js",
+      "work-ready.js",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Extend existing Session Report with read-only managed/unknown snapshot; retain existing API and report fields.",
+      "Report observed runtime/canvas/input/lifecycle/audio/assets/storage metadata, never saved values.",
+      "Optional boolean external declarations are claims, never detection or proof of coverage.",
+      "Remove suspended-only warning; scope healthy wording to Engine-managed observations.",
+      "Add diagnostics tests and minimal documentation; narrow historical byte-identity assertion only around devtools report code."
+    ],
+    "hqDecisions": [
+      "User provided approved Phase 3 specification and authorized staging branch, implementation, tests and Draft PR; no merge."
+    ],
+    "ownerDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "phase3-report-browser-smoke"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert Phase 2 implementation/document/test commits together; preserve Phase 1 locks and pinned legacy runtimes.",
+    "outOfScope": [
+      "Codea and runtime behavior changes",
+      "Existing works/starter/canary edits",
+      "Audio features",
+      "Production",
+      "Merge"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Phase 3 Report UI/output in a real browser",
+      "Physical keyboard, strict BFCache and nested iframe focus"
+    ],
+    "problem": "Report can be mistaken for a whole-work guarantee despite unobserved custom subsystems.",
+    "currentContract": "Existing SSE.devtools.report/reportText and panel; canonical Codea state; managed Engine stores.",
+    "whyExistingIsInsufficient": "Readiness/output and observed/unobserved areas are not explicit; storage info probes persistence during reporting.",
+    "design": "One read-only observation snapshot within existing devtools report. Unknown for inaccessible state; small capped metadata samples; no instrumentation.",
+    "alternativesRejected": [
+      "Global instrumentation",
+      "Codea changes to expose private capture state",
+      "New diagnostics framework",
+      "Storage probing or gameplay data collection"
+    ],
+    "migration": "None; canonical 0.3 only.",
+    "compatibility": "Add observation section; retain existing fields/APIs. Storage report metadata is based on already observed memory/backend and explicitly unknown when unavailable. All gameplay/Input/Boot/Audio/Asset logic unchanged.",
+    "boundaryCases": [
+      "Absent Codea/canvas/document",
+      "Unfocused and no bindings/input are normal",
+      "Ready resources with suspended output",
+      "Storage never accessed, persistent last operation, mixed memory fallback",
+      "Missing declarations and explicit external claims"
+    ],
+    "testPlan": [
+      "Phase 3 VM regression suite including state immutability and forbidden side effects",
+      "Input/Boot 27, Audio/Asset 50, Starter 5, Canary 3",
+      "Scope/Risk/Impact/trusted static checks"
+    ],
+    "promotionRisk": "Draft only. Phase 1/2 iPhone Safari canary was user-confirmed; Phase 3 remains browser UNVERIFIED."
+  }
+}

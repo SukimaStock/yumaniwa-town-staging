@@ -137,15 +137,16 @@ test('valid pointer/key gestures resume audio; synthetic, unbound keys and cance
   h.pointer('pointerdown', 2); h.key('keydown'); assert.equal(h.unlocks, 2); assert.equal(h.resumes, 2);
   h.w.emit('blur'); assert.equal(h.unlocks, 2);
 });
-test('Subsystems outside Phase 2 Audio/Asset remain byte-identical to v0.2', () => {
+test('Subsystems outside Phase 2 Audio/Asset and Phase 3 reports remain byte-identical to v0.2', () => {
   const old = fs.readFileSync(path.join(root, 'engine/sukimastock-engine.v0.2.0.js'), 'utf8');
   for (const [a, b] of [
     ['  const storage =', '    loadAudio(definition) {'],
     ['    load(name, options) {', '  const audio ='],
-    ['  const ui =', '  const input ='],
+    ['  const ui =', '  const devtools ='],
+    ['  const debug =', '  const input ='],
   ]) {
-    // Phase 2 changes Audio and assets.loadAudio only. Keep the rest of Asset
-    // Loader, Storage, i18n, baselines, Scene, bridge and Diagnostics protected.
+    // Phase 2 changes Audio/assets.loadAudio; Phase 3 changes devtools reports. Keep the rest of Asset
+    // Loader, Storage, i18n, baselines, Scene, bridge, diagnostic event recording and performance protected.
     // Input/Boot listener registration in debug is intentionally changed.
     const normalize = s => s.slice(s.indexOf(a), s.indexOf(b)).replaceAll('listen(root, "error",', 'root.addEventListener("error",').replaceAll('listen(root, "unhandledrejection",', 'root.addEventListener("unhandledrejection",');
     assert.equal(normalize(engine), normalize(old));
