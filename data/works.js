@@ -108,7 +108,8 @@ var WORKS = [
         kind: "game",
         status: "open",
 
-        launch: "itch_embed",
+        launch: "embedded",
+        entry: "./works/rojiura-masala/index.html",
         embedUrl: "https://itch.io/embed-upload/19233639?color=743f39",
 
         // 町内表示で問題が出た際に確認できる通常ページURL。
