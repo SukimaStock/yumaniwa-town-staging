@@ -1,0 +1,94 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f7d39d62f9e48c514f9016f45491c16110645380d0262402b222236c6098e564",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "yakitori-cache-v2-20260930",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Refresh existing works.js cache fingerprint after observed stale itch launch",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "a2ed9e9c9655d7391ed715f49a1370fe8afcc8e5",
+    "canonicalSources": [
+      "data/works.js",
+      "index.html",
+      "tools/YumaniwaDesk.py"
+    ],
+    "allowedPaths": [
+      ".change-plans/yakitori-cache-v2-20260930/r0.lock.json",
+      "index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/works.js",
+      "works/**",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "Only replace works.js rev with existing Desk FNV-1a fingerprint; preserve all markup/runtime"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "venue-menu-launch",
+      "title-click-play",
+      "network-audio-images-console",
+      "return-reentry",
+      "frame-mode-regression"
+    ],
+    "impactChecks": [
+      "surface.shared",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User authorizes staging-only local hosting and minimal broken-reference fixes"
+    ],
+    "rulesApplied": [
+      "Existing embedded launch and phone-yakitori frame"
+    ],
+    "rollback": "Revert the single fingerprint implementation commit",
+    "promotion": "Merge staging PR after checks, verify staging; no production writes",
+    "unverified": [
+      "Physical iPhone and audible audio require owner observation"
+    ],
+    "hqDecisions": [
+      "Existing cache contract suffices; no new contract. Scope is one content-derived rev token. Required to deliver the user-authorized local launch to returning visitors."
+    ],
+    "problem": "Live browser still opens stale itch iframe after deployment and reload",
+    "currentContract": "Desk cache revisions are FNV-1a UTF-16 fingerprints",
+    "whyExistingIsInsufficient": "Implementation omitted updating existing script rev",
+    "design": "Change only works.js rev to current canonical fingerprint",
+    "alternativesRejected": [
+      "Shared player change",
+      "Cache policy change"
+    ],
+    "migration": "None",
+    "compatibility": "Same script URL path; only cache revision changes",
+    "boundaryCases": [
+      "Returning visitor with old cached works.js",
+      "New visitor",
+      "Other works unchanged"
+    ],
+    "testPlan": [
+      "Exact one-token diff",
+      "Scope Risk Impact",
+      "Release validator and guide regression",
+      "Live menu launch play return"
+    ],
+    "promotionRisk": "Staging only"
+  }
+}
