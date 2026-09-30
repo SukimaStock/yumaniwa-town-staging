@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#221914" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>純喫茶ダイブ / Junkissa Dive</title>
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-sYe-y0PqpZapFe6FJVlK2.js"></script>
+  <script>
+    window.plausible = window.plausible || function () {
+      (window.plausible.q = window.plausible.q || []).push(arguments);
+    };
+    window.plausible.init = window.plausible.init || function (options) {
+      window.plausible.o = options || {};
+    };
+    window.plausible.init();
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="gameCanvas" aria-label="Junkissa Dive game canvas"></canvas>
+  <script>
+    // Mobile browser stability guards. The game itself handles all pointer input.
+    document.addEventListener("gesturestart", function (e) { e.preventDefault(); }, { passive: false });
+    document.addEventListener("dblclick", function (e) { e.preventDefault(); }, { passive: false });
+    document.addEventListener("contextmenu", function (e) { e.preventDefault(); }, { passive: false });
+  </script>
+  <script src="codea-lite.js"></script>
+  <script src="sketch.js"></script>
+  <script>
+    window.addEventListener("load", function () {
+      CodeaLite.start("gameCanvas");
+    });
+  </script>
+</body>
+</html>
