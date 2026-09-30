@@ -474,18 +474,21 @@
     return extras;
   }
 
-  function paintEgg(ctx, ox, oy, px) {
+  function paintEgg(ctx, ox, oy, px, rowOffset = 0, colOffset = 0) {
     // Compact fried egg: white plus one yolk. Kept deliberately coarse.
-    const white = [
+    // Endless-result bonuses can place up to three, but the offsets keep every
+    // egg inside the curry opening so the bowl still reads as the main subject.
+    const shift = (points) => points.map(([row, col]) => [row + rowOffset, col + colOffset]);
+    const white = shift([
       [6, 15], [6, 16],
       [7, 14], [7, 15], [7, 16], [7, 17],
       [8, 14], [8, 15], [8, 16], [8, 17],
       [9, 15], [9, 16],
-    ];
-    const yolk = [
+    ]);
+    const yolk = shift([
       [7, 15], [7, 16],
       [8, 15], [8, 16],
-    ];
+    ]);
     paintPoints(ctx, white, "#f2e7cb", ox, oy, px);
     paintPoints(ctx, yolk, "#e29a2d", ox, oy, px);
   }
@@ -538,6 +541,7 @@
       scale = 1,
       mirror = false,
       egg = false,
+      eggCount = null,
       roastedChili = 0,
       freshChili = null,
     } = options;
@@ -604,8 +608,16 @@
 
     paintRoastedChili(ctx, x, y, px, roastedChili);
 
-    if (egg) {
-      paintEgg(ctx, x, y, px);
+    const eggs = Math.max(0, Math.min(3, Math.floor(
+      eggCount == null ? (egg ? 1 : 0) : Number(eggCount) || 0
+    )));
+    const eggOffsets = [
+      [0, 0],
+      [2, 4],
+      [3, -4],
+    ];
+    for (let i = 0; i < eggs; i += 1) {
+      paintEgg(ctx, x, y, px, eggOffsets[i][0], eggOffsets[i][1]);
     }
 
     paintFreshChili(ctx, x, y, px, freshChili);

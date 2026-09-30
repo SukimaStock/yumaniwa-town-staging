@@ -1,0 +1,72 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "cf874ce1573602ae79c39665780a9a482fdc19ba71d64005f9ba8db92169c004",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "rojiura-update105-20260930",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Update Rojiura Masala to the authorized Update105 ZIP, restoring PC keyboard focus",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "707e190203a129f8486a3b8599c9b0a9af6a94a4",
+    "canonicalSources": [
+      "rojiura-masala-update105-pc-keyboard-focus-itch-upload.zip"
+    ],
+    "allowedPaths": [
+      ".change-plans/rojiura-update105-20260930/r0.lock.json",
+      "works/rojiura-masala/debug-tools.js",
+      "works/rojiura-masala/sketch.js",
+      "works/rojiura-masala/makanai-icon.js",
+      "works/rojiura-masala/analytics-config.js",
+      "works/rojiura-masala/codea-lite.js",
+      "works/rojiura-masala/index.html",
+      "works/rojiura-masala/balance-config.js",
+      "works/rojiura-masala/analytics-runtime.js"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "data/works.js",
+      "sw.js",
+      "work-ready.js"
+    ],
+    "expectedChanges": [
+      "Replace the eight differing work-local files byte-for-byte from Update105; preserve all 42 archive files and asset paths"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "desktop-keyboard-focus-and-movement",
+      "touch-and-return"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User authorized Update105 staging update after confirming outdated source ZIP"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Existing embedded launch and work-local update; no shared runtime change"
+    ],
+    "rollback": "Revert implementation commit",
+    "promotion": "Merge staging PR after required checks; production excluded",
+    "unverified": [
+      "Physical-device confirmation remains unverified unless observed"
+    ]
+  }
+}

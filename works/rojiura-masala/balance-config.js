@@ -18,9 +18,10 @@
 
     night: Object.freeze({
       gaugeMax: 3,
-      // Hidden real-time length of one shift. The current accepted batch is
-      // always allowed to finish after this point; only new pickups stop.
-      shiftDurationSeconds: 420,
+      // The run is endless while the three-light night gauge survives.
+      // This duration now controls only the town's gradual late-night fade;
+      // reaching it never closes the shop or ends the run.
+      ambientFadeSeconds: 420,
     }),
 
     reheat: Object.freeze({

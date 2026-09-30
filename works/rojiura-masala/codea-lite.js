@@ -776,11 +776,28 @@ function withClip(
   function installInput() {
     const canvas = C.canvas;
 
+    // Desktop / embedded players (itch.io, Yumaniwa) may live inside one or
+    // more iframes. pointerdown is intentionally prevented below so the
+    // canvas behaves like a native play surface, but that can also suppress
+    // the browser's normal focus transfer. Make the canvas keyboard-focusable
+    // and focus it explicitly before cancelling the pointer default action.
+    if (!canvas.hasAttribute("tabindex")) canvas.tabIndex = 0;
+
+    const focusCanvas = () => {
+      try { window.focus(); } catch (_) {}
+      try {
+        canvas.focus({ preventScroll: true });
+      } catch (_) {
+        try { canvas.focus(); } catch (__) {}
+      }
+    };
+
     const prevent = (e) => {
       e.preventDefault();
     };
 
     canvas.addEventListener("pointerdown", (e) => {
+      focusCanvas();
       canvas.setPointerCapture?.(e.pointerId);
       prevent(e);
       emitTouch(e, BEGAN);
