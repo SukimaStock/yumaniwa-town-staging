@@ -1131,10 +1131,11 @@
         );
       }
 
-      return Promise.resolve(audio.preload(audioName)).then(() => {
-        if (audio.buffers[audioName]) return audio.buffers[audioName];
-        if (audio.musicPlayers[audioName]) return audio.musicPlayers[audioName];
-        return true;
+      return audio.loadResource(audioName).then((resource) => {
+        if (resource.status !== "ready" || !resource.value) {
+          throw new Error(resource.reason || ("Audio resource unavailable: " + audioName));
+        }
+        return resource.value;
       });
     },
 
@@ -2089,6 +2090,9 @@
     bufferDefinitions: {},
     buffers: {},
     loadingBuffers: {},
+    resources: new Map(),
+    mediaTimeoutMs: 15000,
+    toneResource: { status: "idle", reason: null, value: null },
     lastPlayed: {},
 
     musicDefinitions: {},
@@ -2125,6 +2129,19 @@
       this.poolSize = Math.max(1, Math.floor(Number(source.poolSize) || 4));
       this.storageKey = source.storageKey || ("sse:" + state.config.id + ":sound");
 
+      // Invalidate pending attempts before replacing definitions. Old callbacks cannot
+      // populate the new configuration's buffers or readiness records.
+      for (const resource of this.resources.values()) resource.cancel?.();
+      this.resources.clear();
+      this.buffers = {};
+      this.loadingBuffers = {};
+      for (const player of Object.values(this.musicPlayers)) {
+        try { player.audio.pause(); player.source?.disconnect(); player.gain?.disconnect(); } catch (_error) {}
+      }
+      this.musicPlayers = {};
+      this.currentMusic = null;
+      this.toneResource = { status: "idle", reason: null, value: null };
+      this.mediaTimeoutMs = Math.max(1, Number(source.mediaTimeoutMs) || 15000);
       this.definitions = source.sounds || {};
       this.musicDefinitions = source.music || {};
       this.pools = {};
@@ -2189,7 +2206,8 @@
       }
 
       if (this.ctx.state === "suspended") {
-        this.ctx.resume().catch(() => {});
+        // Output policy is independent of whether source data can be prepared.
+        try { this.ctx.resume()?.catch?.(() => {}); } catch (_error) {}
       }
 
       return this.ctx;
@@ -2269,7 +2287,12 @@
     },
 
     unlock() {
-      if (this.unlocked) return;
+      if (this.unlocked) {
+        if (this.ctx?.state === "suspended") {
+          try { this.ctx.resume()?.catch?.(() => {}); } catch (_error) {}
+        }
+        return;
+      }
       this.unlocked = true;
 
       const needsContext =
@@ -2304,68 +2327,194 @@
       }
     },
 
-    async loadBuffer(name) {
-      if (this.buffers[name]) return this.buffers[name];
-      if (this.loadingBuffers[name]) return this.loadingBuffers[name];
-
-      const definition = this.bufferDefinitions[name];
-      if (!definition || !definition.file || typeof root.fetch !== "function") return null;
-
-      const ctx = this.ensureContext();
-      if (!ctx) return null;
-
-      const task = root.fetch(definition.file, { cache: definition.cache || "force-cache" })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("SSE audio fetch failed: " + name + " (" + response.status + ")");
-          }
-          return response.arrayBuffer();
-        })
-        .then((data) => ctx.decodeAudioData(data.slice(0)))
-        .then((buffer) => {
-          this.buffers[name] = buffer;
-          return buffer;
-        })
-        .catch((error) => {
-          diagnostics.warn(
-            "audio-buffer-load-failed",
-            name + " failed to decode/load.",
-            { file: definition.file || null, message: String(error?.message || error) }
-          );
-          debug.log("[SSE.audio] buffer load failed", name, error);
-          return null;
-        })
-        .finally(() => {
-          delete this.loadingBuffers[name];
+    resource(name) {
+      const id = String(name);
+      if (!this.resources.has(id)) {
+        const sound = Object.prototype.hasOwnProperty.call(this.definitions, id);
+        const music = Object.prototype.hasOwnProperty.call(this.musicDefinitions, id);
+        const definition = this.definition(sound ? this.definitions[id] : this.musicDefinitions[id]);
+        const kind = sound
+          ? ((definition.mode === "buffer" || definition.buffer === true) ? "buffer" : "media")
+          : "music";
+        this.resources.set(id, {
+          name: id, kind, definition,
+          status: sound || music ? "idle" : "unavailable",
+          reason: sound || music ? null : ("Undefined audio name: " + id),
+          value: null, promise: null, cancel: null,
         });
+      }
+      return this.resources.get(id);
+    },
 
-      this.loadingBuffers[name] = task;
-      return task;
+    resourceState(name) {
+      const { status, reason, kind } = this.resource(name);
+      return { status, reason, kind };
+    },
+
+    prepareTone() {
+      // tone(options) is the existing explicit procedural definition. There is
+      // no named-tone registry and unknown audio names never fall back to tone.
+      let ctx;
+      try { ctx = this.ensureContext(); } catch (_error) {}
+      const available = !!(ctx && this.seGain && typeof ctx.createOscillator === "function" &&
+        typeof ctx.createGain === "function" && ctx.state !== "closed");
+      this.toneResource = {
+        status: available ? "ready" : "unavailable",
+        reason: available ? null : "Web Audio tone API unavailable",
+        value: available ? ctx : null,
+      };
+      return this.toneResource;
+    },
+
+    waitForMedia(element, cleanups) {
+      return new Promise((resolve, reject) => {
+        let done = false;
+        let timer = null;
+        const finish = (error) => {
+          if (done) return;
+          done = true;
+          element.removeEventListener("canplay", ready);
+          element.removeEventListener("error", failed);
+          if (timer !== null) root.clearTimeout(timer);
+          cleanups.delete(cancel);
+          if (error) reject(error); else resolve(element);
+        };
+        const ready = () => {
+          // HAVE_FUTURE_DATA: metadata alone does not establish playability.
+          if (element.readyState >= 3 && !element.error) finish();
+        };
+        const failed = () => finish(new Error("Audio media error: " + (element.error?.code || "unknown")));
+        const cancel = () => finish(new Error("Audio media attempt cancelled"));
+        cleanups.add(cancel);
+        element.addEventListener("canplay", ready);
+        element.addEventListener("error", failed);
+        timer = root.setTimeout(() => finish(new Error("Audio media readiness timeout")), this.mediaTimeoutMs);
+        try {
+          if (element.error) failed();
+          else if (element.readyState >= 3) ready();
+          else element.load();
+        } catch (error) { finish(error); }
+      });
+    },
+
+    loadResource(name) {
+      const resource = this.resource(name);
+      if (resource.status === "ready") return Promise.resolve(resource);
+      if (resource.promise) return resource.promise;
+      if (resource.status === "unavailable" && resource.reason?.startsWith("Undefined audio name:")) {
+        return Promise.resolve(resource);
+      }
+      const retry = resource.status === "failed" || resource.status === "unavailable";
+      resource.status = "loading";
+      resource.reason = null;
+      resource.value = null;
+      const cleanups = new Set();
+      let cancelled = false;
+      resource.cancel = () => { cancelled = true; for (const cleanup of [...cleanups]) cleanup(); };
+      const unavailable = (reason) => {
+        const error = new Error(reason);
+        error.audioUnavailable = true;
+        throw error;
+      };
+      resource.promise = Promise.resolve().then(async () => {
+        const { definition, kind, name: id } = resource;
+        if (cancelled) throw new Error("Audio attempt cancelled");
+        if (!definition.file) return unavailable("Audio definition has no file: " + id);
+        if (kind === "buffer") {
+          if (typeof root.fetch !== "function") return unavailable("Audio fetch API unavailable");
+          let ctx;
+          try { ctx = this.ensureContext(); } catch (_error) {}
+          if (!ctx || ctx.state === "closed" || typeof ctx.decodeAudioData !== "function") return unavailable("Audio decode API unavailable");
+          const response = await root.fetch(definition.file, { cache: definition.cache || "force-cache" });
+          if (!response.ok) throw new Error("SSE audio fetch failed: " + id + " (" + response.status + ")");
+          const data = await response.arrayBuffer();
+          const buffer = await ctx.decodeAudioData(data.slice(0));
+          // Reject empty or non-AudioBuffer-shaped decode results, even on resolve.
+          if (!buffer || (typeof root.AudioBuffer === "function" && !(buffer instanceof root.AudioBuffer)) ||
+              typeof buffer.getChannelData !== "function" || !(buffer.length > 0) ||
+              !(buffer.numberOfChannels > 0) || !(buffer.sampleRate > 0)) {
+            throw new Error("Audio decode returned no usable AudioBuffer: " + id);
+          }
+          if (cancelled || this.resources.get(id) !== resource) throw new Error("Audio attempt cancelled");
+          this.buffers[id] = buffer;
+          return buffer;
+        }
+        if (typeof root.Audio !== "function" || typeof root.setTimeout !== "function" ||
+            typeof root.clearTimeout !== "function") return unavailable("HTMLAudio readiness API unavailable");
+        let elements;
+        if (kind === "music") {
+          if (retry) {
+            const old = this.musicPlayers[id];
+            try { old?.audio.pause(); old?.source?.disconnect(); old?.gain?.disconnect(); } catch (_error) {}
+            delete this.musicPlayers[id];
+          }
+          elements = [this.createMusicPlayer(id, definition)?.audio];
+        } else {
+          if (retry || !this.pools[id]) {
+            for (const old of this.pools[id] || []) { try { old.pause(); } catch (_error) {} }
+            const size = Math.max(1, Math.floor(Number(definition.poolSize) || this.poolSize));
+            this.pools[id] = Array.from({ length: size }, () => {
+              const element = new root.Audio(definition.file);
+              element.preload = definition.preload || "auto";
+              element.volume = clamp(Number(definition.volume ?? 0.25), 0, 1);
+              element.playsInline = true;
+              return element;
+            });
+          }
+          elements = this.pools[id];
+        }
+        for (const element of elements) {
+          if (!element || typeof element.load !== "function" ||
+              typeof element.addEventListener !== "function" || typeof element.removeEventListener !== "function") {
+            return unavailable("HTMLAudio event API unavailable");
+          }
+        }
+        await Promise.all(elements.map((element) => this.waitForMedia(element, cleanups)));
+        if (cancelled) throw new Error("Audio attempt cancelled");
+        return kind === "music" ? this.musicPlayers[id] : elements;
+      }).then((value) => {
+        if (cancelled || this.resources.get(resource.name) !== resource) throw new Error("Audio attempt cancelled");
+        resource.value = value;
+        resource.status = "ready";
+        return resource;
+      }).catch((error) => {
+        resource.status = error.audioUnavailable ? "unavailable" : "failed";
+        resource.reason = String(error?.message || error);
+        resource.value = null;
+        diagnostics.warn("audio-resource-load-failed", resource.name + " resource unavailable.", { message: resource.reason });
+        return resource;
+      }).finally(() => {
+        for (const cleanup of [...cleanups]) cleanup();
+        resource.promise = null;
+        resource.cancel = null;
+        if (resource.kind === "buffer" && this.resources.get(resource.name) === resource) {
+          delete this.loadingBuffers[resource.name];
+        }
+      });
+      if (resource.kind === "buffer") {
+        this.loadingBuffers[resource.name] = resource.promise.then((result) =>
+          result.status === "ready" ? result.value : null
+        );
+      }
+      return resource.promise;
+    },
+
+    async loadBuffer(name) {
+      const resource = this.resource(name);
+      if (resource.kind !== "buffer") return null;
+      const result = await this.loadResource(name);
+      return result.status === "ready" ? result.value : null;
     },
 
     preload(names) {
       const requested = names === undefined || names === null
-        ? Object.keys(this.bufferDefinitions)
+        ? [...new Set([...Object.keys(this.definitions), ...Object.keys(this.musicDefinitions)])]
         : (Array.isArray(names) ? names : [names]);
-
-      const tasks = [];
-
-      for (const name of requested) {
-        if (this.bufferDefinitions[name]) tasks.push(this.loadBuffer(name));
-        const player = this.musicPlayers[name];
-        if (player?.audio && typeof player.audio.load === "function") {
-          try { player.audio.load(); } catch (_error) {}
-        }
-      }
-
-      if (names === undefined || names === null) {
-        for (const player of Object.values(this.musicPlayers)) {
-          if (!player?.audio || typeof player.audio.load !== "function") continue;
-          try { player.audio.load(); } catch (_error) {}
-        }
-      }
-
-      return Promise.all(tasks);
+      // Keep the resolving array contract; null entries are failures, not success.
+      // resourceState(name) preserves each final state and reason.
+      return Promise.all(requested.map((name) => this.loadResource(name).then((resource) =>
+        resource.status === "ready" ? resource.value : null
+      )));
     },
 
     cooldownAllows(name, definition, options) {
@@ -2735,10 +2884,10 @@
     },
 
     tone(options) {
-      if (!this.enabled) return false;
+      const prepared = this.prepareTone();
+      if (prepared.status !== "ready" || !this.enabled) return false;
 
-      const ctx = this.ensureContext();
-      if (!ctx || !this.seGain) return false;
+      const ctx = prepared.value;
       this.unlocked = true;
 
       const opts = options || {};
