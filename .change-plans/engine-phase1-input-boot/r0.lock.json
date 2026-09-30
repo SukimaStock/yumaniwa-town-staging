@@ -1,0 +1,112 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b87155ad80cdcb201af20c2f88abc266d07bfae9e968e7eadd2df4020ea59cac",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "engine-phase1-input-boot",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Implement approved Engine 0.3 Phase 1 Input/Boot only",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "f99978bb6699967798556d2cc30675ab3d34a73f",
+    "canonicalSources": [
+      "engine/sukimastock-engine.v0.2.0.js",
+      "works/_starter/codea-lite.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/engine-phase1-input-boot/r0.lock.json",
+      "engine/sukimastock-engine.v0.3.0.js",
+      "engine/codea-lite.v1.0.0.js",
+      "works/_starter/codea-lite.js",
+      "works/_starter/index.html",
+      "works/_starter/sketch.js",
+      "works/_starter/README.md",
+      "works/_starter/standalone-export.example.json",
+      "tests/test-engine-input-boot.cjs",
+      "tests/test-engine-input-boot-browser.cjs",
+      "tests/fixtures/engine-runtime/index.html",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3-VALIDATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/sukimastock-engine.v0.2.0.js",
+      "works/yakitori-wars/**",
+      "works/midnight-cola/**",
+      "works/junkissa-dive/**",
+      "works/rojiura-masala/**",
+      "works/orbit/**",
+      "work-ready.js"
+    ],
+    "expectedChanges": [
+      "Add version-pinned canonical runtimes with once-only boot and Input lifecycle ownership.",
+      "Editable exclusion, repeat protection, gesture entry, interruption and raw cleanup.",
+      "Synchronize starter snapshot and add focused automated/browser tests and docs."
+    ],
+    "hqDecisions": [
+      "User approved the existing implementation design and explicitly authorized Phase 0 HEAD check plus Phase 1 implementation only."
+    ],
+    "ownerDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone Safari, real keyboard, BFCache, nested iframe and physical pointer interruption remain UNVERIFIED unless observed."
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "risk.high-risk-review",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert Phase 1 commits and starter references; leave v0.2 and existing works unchanged.",
+    "outOfScope": [
+      "Phase 2 Audio/Asset readiness",
+      "Phase 3 Diagnostics",
+      "existing works migration",
+      "production",
+      "town retry"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical device verification"
+    ],
+    "problem": "Browser input/boot handling is duplicated and can retain input or register duplicate loops.",
+    "currentContract": "v0.2 owns logical input and lifecycle; starter Codea owns raw input and RAF.",
+    "whyExistingIsInsufficient": "Editable fields are intercepted and repeated start duplicates listeners/RAF; raw cleanup is disconnected.",
+    "design": "Execute previously approved ownership and Boot/Input contracts without redesign. Engine owns lifecycle and keyboard; Codea owns raw pointer, focus and one RAF.",
+    "alternativesRejected": [
+      "Mutate v0.2 or migrate existing works.",
+      "Introduce mount/unmount or a new audio subsystem."
+    ],
+    "migration": "Starter only; five existing work entries and local runtimes stay unchanged.",
+    "compatibility": "Preserve Scene, Storage, Audio, Asset and bridge APIs; intentional editable/repeat/boot behavior fixes in the new version only.",
+    "boundaryCases": [
+      "Reentrant and different-canvas start; setup failure; duplicate script load.",
+      "Editable keyup clears held without action; residual repeat after blur; cancel exactly once."
+    ],
+    "testPlan": [
+      "Node mock regression for Boot/Input and runtime snapshot parity.",
+      "Browser focus/capture/starter checks where available; do not claim manual hardware verification.",
+      "Scope, Risk, Impact gates; v0.2 and existing works unchanged diff."
+    ],
+    "promotionRisk": "No production promotion. PR targets staging only."
+  }
+}
