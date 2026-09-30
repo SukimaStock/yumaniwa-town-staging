@@ -190,6 +190,84 @@ class DeskRepositorySession(unittest.TestCase):
         self.assertTrue(self.call('restore_transaction_files', tx))
         self.assertEqual(self.snapshot(), before)
 
+    def make_undo_transaction(self):
+        self.call('confirm_safe_session', 'edit/town')
+        self.put('data/notes.js', 'before')
+        tx = self.call('create_transaction', 'revision-test', ['data/notes.js'])
+        self.put('data/notes.js', 'after')
+        self.put('works/new-work/index.html', 'created by transaction')
+        tx['created_paths'] = ['works/new-work']
+        self.call('finish_transaction', tx)
+        return tx
+
+    def assert_stale_undo_is_read_only(self, tx, message='revision'):
+        before = self.snapshot()
+        history = {str(p.relative_to(self.base / 'desk')): p.read_bytes()
+                   for p in (self.base / 'desk').rglob('*') if p.is_file()}
+        with self.assertRaisesRegex(ValueError, message):
+            self.call('undo_last_transaction')
+        self.assertTrue(self.call('restore_transaction_files', tx))
+        self.assertEqual(self.snapshot(), before)
+        self.assertEqual({str(p.relative_to(self.base / 'desk')): p.read_bytes()
+                          for p in (self.base / 'desk').rglob('*') if p.is_file()}, history)
+        self.assertTrue((self.root / 'works/new-work/index.html').is_file())
+
+    def test_same_valid_session_undo_restores_files_and_removes_created_paths(self):
+        tx = self.make_undo_transaction()
+        self.assertEqual(tx['revision'], 'git:' + 'a' * 40)
+        self.assertTrue(self.call('safe_session_info')['valid'])
+        self.call('undo_last_transaction')
+        self.assertEqual((self.root / 'data/notes.js').read_text(), 'before')
+        self.assertFalse((self.root / 'works/new-work').exists())
+
+    def test_recreated_same_name_branch_does_not_own_old_transaction(self):
+        tx = self.make_undo_transaction()
+        (self.git / 'refs/heads/edit/town').unlink()
+        (self.git / 'refs/remotes/origin/edit/town').unlink()
+        self.select('edit/town', 'b' * 40)
+        self.put('data/notes.js', 'new history content')
+        self.put('works/new-work/index.html', 'belongs to new history')
+        self.call('confirm_safe_session', 'edit/town')
+        self.assertTrue(self.call('safe_session_info')['valid'])
+        self.assert_stale_undo_is_read_only(tx)
+
+    def test_different_branch_same_revision_cannot_modify_or_delete(self):
+        tx = self.make_undo_transaction()
+        self.select('edit/other', 'a' * 40)
+        self.call('confirm_safe_session', 'edit/other')
+        self.assert_stale_undo_is_read_only(tx, 'branch')
+
+    def test_same_revision_reconfirmation_preserves_undo_but_commit_ends_session(self):
+        tx = self.make_undo_transaction()
+        self.call('confirm_safe_session', 'edit/town')
+        self.assertEqual(self.call('transaction_owner_error', tx), '')
+        self.select('edit/town', 'b' * 40)  # Working Copy commit/push changes HEAD.
+        before = self.snapshot()
+        with self.assertRaises(RuntimeError):
+            self.call('undo_last_transaction')
+        self.assertEqual(self.snapshot(), before)
+        self.call('confirm_safe_session', 'edit/town')
+        self.assert_stale_undo_is_read_only(tx)
+
+    def test_hidden_git_undo_is_bound_to_one_explicit_confirmation(self):
+        self.git.rename(self.base / 'hidden-git')
+        tx = self.make_undo_transaction()
+        self.assertTrue(tx['revision'].startswith('manual:'))
+        self.assertEqual(self.call('transaction_owner_error', tx), '')
+        self.assertEqual(self.call('restore_transaction_files', tx), [])
+        self.call('confirm_safe_session', 'edit/town')
+        self.assert_stale_undo_is_read_only(tx)
+
+    def test_revisionless_or_wrong_repository_transaction_is_rejected(self):
+        tx = self.make_undo_transaction()
+        revision = tx.pop('revision')
+        self.call('finish_transaction', tx)
+        self.assert_stale_undo_is_read_only(tx)
+        tx['revision'] = revision
+        tx['project_root'] = str(self.base / 'other-repository')
+        self.call('finish_transaction', tx)
+        self.assert_stale_undo_is_read_only(tx, 'repository')
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -955,6 +955,7 @@ def safe_session_info(root):
         "git": git_info,
         "identity_reason": "",
         "branch": git_info.get("branch") if git_info.get("metadata_visible") else state.get("sync_branch", ""),
+        "revision": ("git:" + git_info["head_commit"]) if git_info.get("metadata_visible") else state.get("sync_manual_revision", ""),
     }
 
 
@@ -977,6 +978,8 @@ def confirm_safe_session(root, branch, expected_head=None):
     state["sync_head_commit"] = str(git_info.get("head_commit") or "")
     state["sync_branch"] = branch
     state["sync_git_visible"] = bool(git_info.get("metadata_visible"))
+    # Git非公開では履歴を検証できないので、再確認を越えてUndoを持ち越さない。
+    state["sync_manual_revision"] = "manual:" + os.urandom(16).hex() if not git_info.get("metadata_visible") else ""
     save_operation_state(root, state)
     RUNTIME_SYNC_CONFIRMED = True
     RUNTIME_SYNC_PROJECT_KEY = project_storage_key(root)
@@ -2827,6 +2830,7 @@ def backup_dir_for(root, label):
 
 def create_transaction(root, label, target_rel_paths):
     require_safe_write_session(root)
+    session = safe_session_info(root)
     destination = backup_dir_for(root, label)
     os.makedirs(destination)
     files = []
@@ -2848,7 +2852,8 @@ def create_transaction(root, label, target_rel_paths):
         "created_at": datetime.datetime.now().isoformat(timespec="seconds"),
         "label": label,
         "project_root": os.path.abspath(root),
-        "branch": safe_session_info(root).get("branch"),
+        "branch": session.get("branch"),
+        "revision": session.get("revision"),
         "backup_dir": destination,
         "files": files,
         "created_paths": [],
@@ -2881,12 +2886,26 @@ def last_transaction(root):
     return load_json(last_transaction_path(root), None)
 
 
+def transaction_owner_error(root, tx):
+    session = safe_session_info(root)
+    if session.get("identity_reason") or tx.get("project_root") != os.path.abspath(root):
+        return "更新時のrepository identityと一致しません。復元を停止しました。"
+    if not tx.get("branch") or tx.get("branch") != session.get("branch"):
+        return "更新時のbranchと一致しません。branch不明の旧履歴も自動Undoできません。"
+    # Desk保存はHEADを進めない。commit等でHEADが変わると既存sessionも失効する。
+    # 再確認した別revisionへ旧Undoを持ち越さず、Git非公開時も空値同士を一致させない。
+    if not tx.get("revision") or tx.get("revision") != session.get("revision"):
+        return "更新時のrevisionと一致しません。commit・branch再作成・Git非公開時の再確認後は旧Undoを適用できません。Working Copyで履歴を確認してください。"
+    return ""
+
+
 def restore_transaction_files(root, tx):
     """transaction開始後の失敗時に、対象ファイルをバックアップ世代へ戻す。"""
     if not tx:
         return []
-    if not tx.get("branch") or tx.get("branch") != safe_session_info(root).get("branch"):
-        return ["更新時のbranchと一致しないため復元を停止しました。Working Copyでbranchを確認してください。"]
+    owner_error = transaction_owner_error(root, tx)
+    if owner_error:
+        return [owner_error]
 
     backup_abs = backup_abs_from_transaction(root, tx)
     failures = []
@@ -2916,8 +2935,9 @@ def undo_last_transaction(root):
     tx = last_transaction(root)
     if not tx:
         raise ValueError("戻せる更新がありません。")
-    if not tx.get("branch") or tx.get("branch") != safe_session_info(root).get("branch"):
-        raise ValueError("更新時のbranchと一致しません。branch不明の旧履歴も自動Undoできません。")
+    owner_error = transaction_owner_error(root, tx)
+    if owner_error:
+        raise ValueError(owner_error)
     if tx.get("undone"):
         raise ValueError("直前の更新はすでに戻されています。")
 
