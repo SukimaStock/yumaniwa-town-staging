@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "bc9db064f17a7d1c78ff65eb49b475c1292c046b0c7e9102d71ebcc825e871c3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "desk-guide-verification-cleanup-20260930",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Cleanup F01 F03 F04 F05 without expanding Change OS",
+    "planLevel": "full",
+    "environment": "staging",
+    "baseSha": "75aad4a796b54e2a2e0997c32bf15a73eccb508c",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "canonicalSources": [
+      "tools/YumaniwaDesk.py",
+      "OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "tools/change-risk-policy.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/desk-guide-verification-cleanup-20260930/r0.lock.json",
+      "tools/YumaniwaDesk.py",
+      "tests/test_desk_repository.py",
+      ".github/workflows/change-operations-tests.yml",
+      ".github/workflows/release-validator-tests.yml",
+      "tests/test-work-guide.cjs",
+      "OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "AGENTS.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/change-risk-policy.cjs",
+      "tools/change-verification-check.cjs",
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      "data/works.js",
+      "data/work-guide-meta.js",
+      "main.js"
+    ],
+    "expectedChanges": [
+      "Allow explicitly selected non-main staging branches with same-name origin ref; preserve repository identity, clean/sync confirmation, runtime expiry and write-time revalidation. Never perform Git writes from Desk.",
+      "Bind sync confirmation to branch, HEAD and Git visibility; require explicit manual branch confirmation when File Provider hides Git metadata.",
+      "Run existing guide and release tests from the same existing workflow on guide changes; normalize cross-realm expected IDs without weakening assertions.",
+      "Document PR-based Working Copy flow and canonical UNVERIFIED boundary; describe legacy v0.2 checker as record consistency only."
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "pythonista-working-copy-selected-branch-ui",
+      "file-provider-hidden-git-manual-branch-confirmation"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "No production writes. Create staging PR, inspect checks, stop without merge.",
+    "hqDecisions": [
+      "User explicitly authorizes only F01/F03/F04/F05 and keeping PR protection unchanged.",
+      "Keep conservative unknown-code classification for executable guide metadata; no policy transition or new class.",
+      "Keep contracted checker unchanged; clarify historical output meaning in canonical documentation."
+    ],
+    "alternativesRejected": [
+      "Relax main ruleset",
+      "Implement branch creation or checkout inside Desk",
+      "Accept unknown visible Git refs as synchronized",
+      "Add new workflow or verification subsystem",
+      "Merge prerequisite authorization PRs for optional contracted-file changes"
+    ],
+    "boundaryCases": [
+      "main, detached or malformed HEAD cannot open write session",
+      "wrong remote or marker cannot connect",
+      "working branch requires matching origin same-name ref",
+      "same-SHA branch switch invalidates session",
+      "HEAD or Git visibility changes invalidate session",
+      "hidden Git requires owner-supplied non-main branch; no claim of automatic branch verification",
+      "expired or restarted session stays locked"
+    ],
+    "testPlan": [
+      "Existing Change OS seven regression suites",
+      "Release Validator and guide tests",
+      "Existing Desk scene validation and editor roundtrip tests",
+      "Minimal Desk identity/session regression suite",
+      "Current nine-work release and generator checks",
+      "Scope Risk Impact and trusted exact-blob static checks",
+      "Self-review no Git mutation from Desk, no new workflow, no production change"
+    ],
+    "problem": "Desk main-only editing conflicts with protected main; guide-only updates omit existing CI and guide test has cross-realm false failure; old verification language can be misread.",
+    "currentContract": "Protected staging main requires PR and immutable first-commit Plan Lock. Desk validates staging identity and confirms a time-limited editing session. Guide Ready already lives in Release Validator. Final VERIFIED is deferred.",
+    "whyExistingIsInsufficient": "Desk pins active branch to main and sync to origin/main; Guide source and test are absent from CI paths; older doc text promotes record validation to VERIFIED.",
+    "design": "Reuse identity marker as default-branch identity, validate selected branch separately, compare HEAD to origin of that branch, bind session and show branch. Extend existing CI paths and commands. Clarify current state without altering trusted checker contracts.",
+    "migration": "No repository marker/schema or runtime content migration. Old Desk sessions must reconfirm selected branch.",
+    "compatibility": "Retain production rejection, marker validation, manual File Provider workflow with explicit branch declaration and immutable Change OS contracts.",
+    "rollback": "Revert implementation commit on staging through normal PR; no settings or production rollback needed.",
+    "promotionRisk": "No production promotion or settings change authorized."
+  }
+}
