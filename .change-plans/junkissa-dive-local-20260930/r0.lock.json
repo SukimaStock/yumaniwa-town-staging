@@ -1,0 +1,110 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c82457ebce82bf2a966b7f7414771b1e7b61a4474648337332ff1778d44c692b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "junkissa-dive-local-20260930",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Host supplied Junkissa Dive Web ZIP locally in staging",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "c74d6fbdd95eeca60a2cb2bec683dc9ad629446b",
+    "canonicalSources": [
+      "User supplied junkissa_dive.zip",
+      "data/works.js",
+      "tools/YumaniwaDesk.py"
+    ],
+    "allowedPaths": [
+      ".change-plans/junkissa-dive-local-20260930/r0.lock.json",
+      "works/junkissa-dive/**",
+      "data/works.js",
+      "index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "tools/**",
+      "data/work-search-meta.js",
+      "works/yakitori-wars/**"
+    ],
+    "expectedChanges": [
+      "Copy 34 supplied runtime/support files preserving relative paths; omit patcher.py development tool and macOS metadata",
+      "Change only junkissa-dive launch to embedded and add local entry; preserve phone-cola and all metadata/itch URLs",
+      "Update only works.js cache revision using existing Desk fingerprint",
+      "Remove only eight nonexistent audio file mappings so existing synthetic fallback plays without failing network requests; no sound synthesis changes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "venue-launch",
+      "title-and-basic-play",
+      "local-iframe-source",
+      "resources-and-console",
+      "return-reentry"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "works.venue-menu",
+      "works.direct-route",
+      "works.search-share",
+      "works.analytics-id",
+      "works.town-awareness",
+      "works.release-validator",
+      "surface.shared",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User supplied next ZIP and authorizes same staging-only collection workflow"
+    ],
+    "rulesApplied": [
+      "Existing embedded launch and phone-cola frame",
+      "User authorizes minimum corrections to broken ZIP references"
+    ],
+    "rollback": "Revert this work implementation as a unit",
+    "promotion": "Staging PR merge and deploy only; production forbidden",
+    "unverified": [
+      "Physical iPhone and audible playback require owner observation"
+    ],
+    "hqDecisions": [
+      "Reuse existing embedded player and existing Desk cache revision algorithm; no shared runtime or cache-policy redesign"
+    ],
+    "problem": "Completed game currently launches via itch embed",
+    "currentContract": "Existing embedded entries and phone-cola frame; existing content-derived cache rev",
+    "whyExistingIsInsufficient": "Entry points at itch; local runtime folder absent",
+    "design": "Copy supplied runtime unchanged and switch registry entry with corresponding cache revision",
+    "alternativesRejected": [
+      "Shared player change",
+      "Cache policy change"
+    ],
+    "migration": "None",
+    "compatibility": "Same script URL path; only cache revision changes",
+    "boundaryCases": [
+      "Relative sound and image paths",
+      "Old works.js cache",
+      "Local launch and return",
+      "Other work metadata unchanged"
+    ],
+    "testPlan": [
+      "ZIP comparison except eight removed missing-file mappings; complete sound dependency inventory",
+      "Syntax Scope Risk Impact",
+      "Release validator and guide tests",
+      "Live launch title basic play return reentry, local resource HTTP responses"
+    ],
+    "promotionRisk": "Staging only"
+  }
+}
