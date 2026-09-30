@@ -16,18 +16,25 @@ repositoryを変更する場合は続けて `CHANGE-PLAN.md` の Lite / Standard
 
 ## 基本フロー
 
-### 1. 作業前
+### 1. 作業前（Working Copyで作業branchを選ぶ）
 
-1. Working Copy で `yumaniwa-town-staging` を開く。
-2. Status を確認し、未コミット変更がないことを確認する。
-3. Pull する。
-4. `HEAD / main / origin/main` が同じコミットを指すことを確認する。
-5. YumaniwaDesk を staging フォルダから起動する。
-6. Desk 上部に **STAGING** と表示されていることを確認する。
-7. YumaniwaDesk の「同期確認済み」を押してから編集を始める。
+1. `yumaniwa-town-staging` の main をPullし、未コミット変更がないことを確認する。
+2. 今回のChange Planを決める。AIに準備を任せる場合も、編集開始前に行う。
+3. 最新mainから作業branchを作り、最初のcommitに今回のPlan Lockだけを登録する。
+   既に準備済みなら、そのbranchをWorking Copyで選択する。軽い変更でもPRにはLockが必要だが、Planを一律Fullにしない。
+4. 作業branchを同名の `origin/<作業branch>` へPush・同期する。
+5. そのbranchの `tools/YumaniwaDesk.py` を起動する。Deskの「編集branch」を確認する。
+6. Working CopyでHEADと同名origin branchの一致、cleanなStatusを確認し、「同期確認済み」を押す。
 
-YumaniwaDesk が staging を検出できない場合は編集を開始しない。
-production `yumaniwa-town` を検出した場合、Desk は接続・書き込みを拒否する。
+Deskはbranch作成・checkout・Pull・Commit・Pushを行わない。Git操作はWorking CopyまたはAI側、町の編集はDeskの責務とする。
+`.git` が見える場合はstagingのorigin・有効なbranch/HEADを検証し、main上の編集、detached HEAD、同名remote ref欠落、同期不一致を拒否する。
+`data/repository-identity.json` の `branch: main` はrepositoryの既定branchを示す固定値で、作業branchごとに変更しない。
+
+File Providerが `.git` を公開しない場合は、既存repository identity検査に加え、Working Copyで確認した作業branch名を毎回入力する。
+これは**手動申告**でありGit状態の自動検証ではない。外部でbranchを切り替える前にDeskを終了し、切替後に再起動・再確認する。
+Gitが見える環境でもbranch/HEADの変更後は再確認が必要。同期確認中にGitが見えなくなっても自動で手動方式へ切り替えない。
+
+productionの検出・identity不一致では、従来どおり接続・書き込みを拒否する。
 
 ### 2. YumaniwaDesk で編集
 
@@ -42,26 +49,26 @@ production `yumaniwa-town` を検出した場合、Desk は接続・書き込み
 - `data/town-maps.js`
 
 保存前後に Desk の安全確認を通し、意図しないファイルを変更しない。
+Undoは更新時と同じ作業branchでのみ行う。別branchの履歴やbranch情報のない旧履歴は自動Undoしない。
 
-### 3. Working Copy で確認・Push
+### 3. Working Copyで確認 → 作業branchをPush → PR
 
-YumaniwaDesk で更新した後は、必ず Working Copy で確認する。
+1. Desk保存後、選択中の作業branchでStatusと全差分を確認する。
+2. Plan外の変更があればCommitせず止める。
+3. 作業branchへCommit → Pushし、staging/main宛てのPRを作る。
+4. Scope / Risk / Impactと関連テストを確認し、`plan-risk-gate` と `trusted-mechanical-evidence` の成功を確認する。
+5. 許可されたmergeを行った後、Working Copyでmainへ戻してPullする。次の編集は新しい作業branch・Plan Lockから始める。
 
-1. Status を開く。
-2. 変更ファイルを確認する。
-3. 各差分を目視する。
-4. 意図していないファイルが1つでもあれば Commit しない。
-5. 内容が分かる Commit メッセージを付ける。
-6. Commit → Push する。
-7. `HEAD / main / origin/main` が再び一致したことを確認する。
+mainが進んでPlanのbaseが古くなった場合は `CHANGE-PLAN.md` の既存手順で、現在のmainからbranch/Lockを作り直す。
+古いLockのbaseを書き換えたり、required checksを迂回したりしない。
 
 ## 推奨: Push 後の確認と本番反映を ChatGPT に依頼する
 
-YumaniwaDesk で更新した内容を本番へ反映するときは、**staging へ Push した後に ChatGPT へ確認・反映を依頼する**のを推奨する。
+YumaniwaDesk で更新した内容を本番へ反映するときは、**作業branchのPRをstaging/mainへmergeした後に ChatGPTへ確認・反映を依頼する**のを推奨する。
 
 例:
 
-> staging を更新して Push しました。差分を確認して、問題なければ本番反映してください。
+> staging のPRをmergeしました。差分を確認して、問題なければ本番反映してください。
 
 この依頼を受けたら、次の順で確認する。
 
@@ -87,16 +94,16 @@ ChatGPT が GitHub 上の staging を修正した後に YumaniwaDesk を使う�
 
 推奨順序:
 
-1. ChatGPT が staging を更新
-2. Working Copy で Pull
-3. Status が clean であることを確認
-4. YumaniwaDesk を起動
+1. ChatGPTが変更したbranchを確認する
+2. Working Copyでその作業branchを選択してPullする
+3. Statusがclean、HEADが同名origin branchと一致することを確認する
+4. YumaniwaDeskを起動し、表示された編集branchを確認する
 5. 「同期確認済み」
-6. 次の編集を開始
+6. 次の編集を開始する。mainへmerge済みなら新しい作業branch/Lockを準備する
 
 ## Change Plan Lock / Risk Gate
 
-日常の軽いCONTENT / PLACEMENTを一律PR化しない。
+現在のstaging/mainは全変更をPRで取り込む。軽いCONTENT / PLACEMENTのPlanまで一律Fullにはしない。
 
 ただし次はhigh-risk routeを使う。
 
@@ -150,7 +157,7 @@ node tools/change-scope-guard.cjs \
 判定は forbidden → conditional → allowed の順。
 Plan外pathはFAIL。
 
-worktree検査もできるが、staging VERIFIED / PR gateの根拠はcommit SHAを使う。
+worktree検査もできるが、確認記録 / PR gateの根拠はcommit SHAを使う。final VERIFIEDは現在保留。
 
 conditional pathは条件成立を確認した場合だけacknowledgeする。
 
@@ -216,6 +223,8 @@ node tools/change-verification-check.cjs \
   --root . \
   --head HEAD
 ```
+
+このv0.2 checkerはRecordのschema / 内部整合を確認する。exit 0や旧出力 `VERIFIED` はtrusted evidence統合・実機確認の認証を意味しない。現在の正式なstateは `CHANGE-VERIFICATION.md` 冒頭に従い `UNVERIFIED` のまま。
 
 Recordは次をlocked Planと一致させる。
 
@@ -293,7 +302,7 @@ verifier単体導入時点ではlive `issue_comment` workflowは存在しない�
 Human Attestation artifactを生成できるようになっても、Verification Record v0.3への最終統合までは
 `verificationState=UNVERIFIED` を維持する。
 
-`Verification: VERIFIED` はstaging SHAの確認完了であり、production公開許可やRelease Completeではない。
+旧checkerの `Verification: VERIFIED` を現在のstaging確認完了として報告しない。production公開許可やRelease Completeでもない。
 
 ## Search / Share v2 の生成
 
@@ -495,4 +504,3 @@ live comment workflowは有効化していないため、通常運用で追加�
 **今のOSを使って普通に制作する**。
 その中で具体的な事故や過剰な摩擦が見つかった場合のみ、
 その1 findingを1 work packageとして修正する。
-

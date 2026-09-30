@@ -2,6 +2,18 @@
 
 制定: 2026-09-28
 
+## 現在のcanonical state（通常運用で最優先）
+
+現在の正式な `verificationState` は **`UNVERIFIED`**。末尾のCurrent Closure Boundaryとこの節を、過去のVERIFIED表現より優先する。
+
+- required checksはPlan / Scope / Risk / Impact / Trusted Static Evidenceを検査する。
+- `tools/change-verification-check.cjs` の旧v0.2 Record checkerは **record / schema / internal consistency check**。exit 0はPlan Lock・対象SHA・申告されたcheck結果の内部整合を確認したことだけを意味する。
+- 互換のため残る旧出力 `verificationState: VERIFIED` / `Verification: VERIFIED` は、このchecker内の旧ラベル。trusted evidenceの最終統合、実機確認の認証、現在のfinal VERIFIEDへ読み替えない。
+- manual / 外部確認は、実際に観測できた内容と未確認事項を分けて報告する。Recordに `pass` と書かれているだけで、その観測の真実性を証明したことにはならない。
+- Verification Record v0.3、live Human Attestation、automatic / final VERIFIED、Phase D / Phase Eは **intentionally deferred**。今回のcleanupで実装・有効化しない。
+
+下記v0.2のschema・CLIは記録整合確認のために維持する。checker本体やexact-blob contractは変更しない。
+
 この文書は、Change Planに従って実装した変更について、
 **どの固定Planを使い、どのrepository / commit SHAで、何を確認したか**を記録する契約である。
 
@@ -106,7 +118,7 @@ RecordはPlan Lockの次と完全一致する必要がある。
 
 ---
 
-## 3. Verification Gate
+## 3. v0.2 Record整合確認
 
 `tools/change-verification-check.cjs` は同じtargetについて次を再評価する。
 
@@ -132,15 +144,15 @@ Plan revisionを使う場合は必要に応じて `--previous-lock` も渡す。
 
 exit code:
 
-- `0`: VERIFIED
+- `0`: Recordのschema / 内部整合に阻害なし（旧出力名はVERIFIED。現在のfinal VERIFIEDではない）
 - `1`: UNVERIFIED / gate STOP
 - `2`: Plan Lock / Record / Git入力が不正
 
 ---
 
-## 4. VERIFIED の意味
+## 4. 旧v0.2 checkerの成功条件
 
-VERIFIEDには次が必要。
+旧checkerは次の内部整合を確認する。確認行為そのものを認証する条件ではない。
 
 - locked PlanとRecordが一致
 - target repositoryがPlanと一致
@@ -151,7 +163,7 @@ VERIFIEDには次が必要。
 - Planで必須にしたcheckが欠けていない
 - fail / unverifiedが残っていない
 
-ただし、**staging VERIFIED = production Release Complete ではない。**
+これらが揃っても現在の正式なstateは `UNVERIFIED` のまま。**Record整合確認成功はtrusted verification完了でもproduction Release Completeでもない。**
 
 productionは別途、
 

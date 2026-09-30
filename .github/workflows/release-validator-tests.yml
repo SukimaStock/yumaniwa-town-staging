@@ -6,6 +6,12 @@ on:
     paths:
       - "data/works.js"
       - "data/work-search-meta.js"
+      - "data/work-guide-meta.js"
+      - "work-guide-terminal.js"
+      - "work-guide-terminal.css"
+      - "town-interaction-flow.js"
+      - "main.js"
+      - "tests/test-work-guide.cjs"
       - "data/updates.js"
       - "data/ghost-dialogue.js"
       - "w/**"
@@ -33,8 +39,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run release validator regression tests
-        run: node --test tests/test-release-validator.cjs
+      - name: Run release validator and guide regression tests
+        run: node --test tests/test-release-validator.cjs tests/test-work-guide.cjs
 
       - name: Verify generated Search / Share v2 pages
         run: >

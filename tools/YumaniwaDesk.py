@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Yumaniwa Desk v0.10.26
+Yumaniwa Desk v0.10.27
 Pythonista 用:湯間庭町の「中身」だけを安全に更新する小さな管理室。
 
 Working Copy 運用の想定配置:
@@ -16,6 +16,11 @@ Working Copy 運用の想定配置:
 Webの開発モードで書き出した駅前広場 / 町マップの編集データも安全に取り込めます。
 main.js / engine / 作品の sketch.js は直接編集しません。
 設定・バックアップ・Undo情報はリポジトリ外の Pythonista Documents に保存します。
+
+v0.10.27:
+- Working Copyで選択したstaging作業branchを検証し、branch / HEADごとに同期確認を固定
+- main上の編集を拒否し、branch切替・同期不一致・Git可視性の変化で安全ロック
+- Git操作は行わず、作業branch → PR → mainの手順を案内
 
 v0.10.26:
 - town-feedback-box.js のwindow.open wrapperと後付けdestination定義を廃止
@@ -318,7 +323,7 @@ EXPECTED_PROJECT_DIR_NAME = "yumaniwa-town-staging"
 PRODUCTION_PROJECT_DIR_NAME = "yumaniwa-town"
 WORKING_COPY_REPO_NAME = EXPECTED_PROJECT_DIR_NAME
 EXPECTED_GITHUB_REPOSITORY = "SukimaStock/yumaniwa-town-staging"
-EXPECTED_GIT_BRANCH = "main"
+DEFAULT_GIT_BRANCH = "main"  # identity markerの既定branch。編集先branchではない。
 REPOSITORY_IDENTITY_PATH = "data/repository-identity.json"
 REPOSITORY_IDENTITY_SCHEMA = "yumaniwa-repository-identity/1"
 
@@ -558,6 +563,36 @@ def _read_git_ref(git_dir, ref_name):
     return ""
 
 
+def work_branch_error(branch):
+    # Git操作はせず、読み取った/申告されたbranch名だけを検証する。
+    if (not isinstance(branch, str) or not branch or branch == "@"
+            or branch.startswith(("-", "/")) or branch.endswith(("/", "."))
+            or ".." in branch or "@{" in branch or "//" in branch
+            or re.search(r"[\x00-\x20\x7f~^:?*\[\\]", branch)
+            or any(part.startswith(".") or part.endswith(".lock") for part in branch.split("/"))):
+        return "作業branchを確認できません。detached HEAD / 不明なbranchでは編集できません。"
+    if branch == DEFAULT_GIT_BRANCH:
+        return "mainでは編集できません。Working Copyで準備済みの作業branchを選択してください。"
+    return ""
+
+
+def git_sync_error(info, branch):
+    error = work_branch_error(branch)
+    if error:
+        return error
+    if not info.get("metadata_visible"):
+        return ""  # File Provider環境では明示的な手動確認を使う。
+    if not info.get("valid_identity"):
+        return info.get("error") or "Git identityを確認できません。"
+    if info.get("branch") != branch:
+        return "確認時と現在のbranchが違います。Working Copyの選択を確認し、再確認してください。"
+    if not info.get("head_commit") or not info.get("origin_commit"):
+        return "HEAD / origin/{0}を読めません。同名の作業branchをPush・Fetchしてから再確認してください。".format(branch)
+    if info.get("sync_state") != "match":
+        return "HEADとorigin/{0}が一致しません。Working CopyでPull / Push状態を確認してください。".format(branch)
+    return ""
+
+
 def git_repository_info(root):
     info = {
         "metadata_visible": False,
@@ -593,12 +628,14 @@ def git_repository_info(root):
         prefix = "refs/heads/"
         if ref_name.startswith(prefix):
             branch = ref_name[len(prefix):]
-        head_commit = _read_git_ref(git_dir, ref_name)
+        if branch == DEFAULT_GIT_BRANCH or (branch and not work_branch_error(branch)):
+            head_commit = _read_git_ref(git_dir, ref_name)
     elif re.fullmatch(r"[0-9a-fA-F]{40,64}", head_text or ""):
         head_commit = head_text.lower()
 
-    origin_ref = "refs/remotes/origin/" + EXPECTED_GIT_BRANCH
-    origin_commit = _read_git_ref(git_dir, origin_ref)
+    origin_commit = ""
+    if branch == DEFAULT_GIT_BRANCH or (branch and not work_branch_error(branch)):
+        origin_commit = _read_git_ref(git_dir, "refs/remotes/origin/" + branch)
 
     info.update({
         "remote_url": origin_url,
@@ -617,14 +654,13 @@ def git_repository_info(root):
         )
         return info
 
-    if branch != EXPECTED_GIT_BRANCH:
+    if branch != DEFAULT_GIT_BRANCH and work_branch_error(branch):
         info["valid_identity"] = False
-        info["error"] = (
-            "Git branch が "
-            + EXPECTED_GIT_BRANCH
-            + " ではありません: "
-            + (branch or "detached / 不明")
-        )
+        info["error"] = work_branch_error(branch)
+        return info
+    if not head_commit:
+        info["valid_identity"] = False
+        info["error"] = "選択branchのHEAD commitを読めません。Working Copyで状態を確認してください。"
         return info
 
     info["valid_identity"] = True
@@ -674,7 +710,7 @@ def repository_identity_info(root):
         marker.get("schema") == REPOSITORY_IDENTITY_SCHEMA
         and marker.get("repository") == EXPECTED_GITHUB_REPOSITORY
         and marker.get("environment") == "staging"
-        and marker.get("branch") == EXPECTED_GIT_BRANCH
+        and marker.get("branch") == DEFAULT_GIT_BRANCH
     )
     if not marker_valid:
         info["reason"] = "repository identity の内容が想定stagingと一致しません。"
@@ -897,16 +933,14 @@ def safe_session_info(root):
                 and age_minutes <= SAFE_SESSION_MAX_MINUTES
             )
 
-            # .git を読める場合は、確認後のbranch/remote逸脱や
-            # HEAD変更・origin/main不一致も自動的に安全ロックへ戻す。
+            # 同じSHAのbranch切替も失効。Gitが見えなくなった場合も手動へ自動降格しない。
+            branch = str(state.get("sync_branch") or "")
+            if git_sync_error(git_info, branch):
+                valid = False
+            if state.get("sync_git_visible") != bool(git_info.get("metadata_visible")):
+                valid = False
             if git_info.get("metadata_visible"):
-                if not git_info.get("valid_identity"):
-                    valid = False
-                if git_info.get("sync_state") == "mismatch":
-                    valid = False
-                confirmed_head = str(state.get("sync_head_commit") or "")
-                current_head = str(git_info.get("head_commit") or "")
-                if confirmed_head and current_head and confirmed_head != current_head:
+                if state.get("sync_head_commit") != git_info.get("head_commit"):
                     valid = False
         except Exception:
             valid = False
@@ -920,22 +954,20 @@ def safe_session_info(root):
         "last_change_files": list(state.get("last_change_files") or []),
         "git": git_info,
         "identity_reason": "",
+        "branch": git_info.get("branch") if git_info.get("metadata_visible") else state.get("sync_branch", ""),
     }
 
 
-def confirm_safe_session(root):
+def confirm_safe_session(root, branch, expected_head=None):
     global RUNTIME_SYNC_CONFIRMED, RUNTIME_SYNC_PROJECT_KEY
     require_staging_project(root)
 
     git_info = git_repository_info(root)
-    if git_info.get("metadata_visible"):
-        if not git_info.get("valid_identity"):
-            raise RuntimeError(git_info.get("error") or "Git identity を確認できません。")
-        if git_info.get("sync_state") == "mismatch":
-            raise RuntimeError(
-                "HEAD と origin/main が一致していません。"
-                "Working Copy で Pull / Push 状態を確認してから再実行してください。"
-            )
+    error = git_sync_error(git_info, branch)
+    if error:
+        raise RuntimeError(error)
+    if expected_head is not None and expected_head != git_info.get("head_commit"):
+        raise RuntimeError("確認中にHEADが変わりました。Working Copyを確認してやり直してください。")
 
     state = operation_state(root)
     now = datetime.datetime.now().isoformat(timespec="seconds")
@@ -943,6 +975,8 @@ def confirm_safe_session(root):
     state["pending_push"] = False
     state["last_sync_confirmed_at"] = now
     state["sync_head_commit"] = str(git_info.get("head_commit") or "")
+    state["sync_branch"] = branch
+    state["sync_git_visible"] = bool(git_info.get("metadata_visible"))
     save_operation_state(root, state)
     RUNTIME_SYNC_CONFIRMED = True
     RUNTIME_SYNC_PROJECT_KEY = project_storage_key(root)
@@ -955,16 +989,11 @@ def require_safe_write_session(root):
     if info.get("valid"):
         return True
     git_info = info.get("git") or {}
-    if git_info.get("sync_state") == "mismatch":
-        raise RuntimeError(
-            "安全ロック中です。HEAD と origin/main が一致していません。"
-            "Working Copy で同期してから再確認してください。"
-        )
-    raise RuntimeError(
-        "安全ロック中です。書き込む前に[案内]で staging の Working Copyを開き、"
-        "Pull後に HEAD / main / origin/main が一致し、未コミット変更がないことを確認してから"
-        "「同期確認済み」を押してください。"
-    )
+    error = git_sync_error(git_info, info.get("branch") or git_info.get("branch") or "")
+    raise RuntimeError(error or (
+        "安全ロック中です。Working Copyで選択中の作業branch・同名origin branch・未コミット差分を確認し、"
+        "『同期確認済み』を押してください。branch / HEAD変更後は再確認が必要です。"
+    ))
 
 
 def mark_pending_push(root, label, files):
@@ -2819,6 +2848,7 @@ def create_transaction(root, label, target_rel_paths):
         "created_at": datetime.datetime.now().isoformat(timespec="seconds"),
         "label": label,
         "project_root": os.path.abspath(root),
+        "branch": safe_session_info(root).get("branch"),
         "backup_dir": destination,
         "files": files,
         "created_paths": [],
@@ -2855,6 +2885,8 @@ def restore_transaction_files(root, tx):
     """transaction開始後の失敗時に、対象ファイルをバックアップ世代へ戻す。"""
     if not tx:
         return []
+    if not tx.get("branch") or tx.get("branch") != safe_session_info(root).get("branch"):
+        return ["更新時のbranchと一致しないため復元を停止しました。Working Copyでbranchを確認してください。"]
 
     backup_abs = backup_abs_from_transaction(root, tx)
     failures = []
@@ -2884,6 +2916,8 @@ def undo_last_transaction(root):
     tx = last_transaction(root)
     if not tx:
         raise ValueError("戻せる更新がありません。")
+    if not tx.get("branch") or tx.get("branch") != safe_session_info(root).get("branch"):
+        raise ValueError("更新時のbranchと一致しません。branch不明の旧履歴も自動Undoできません。")
     if tx.get("undone"):
         raise ValueError("直前の更新はすでに戻されています。")
 
@@ -2940,16 +2974,15 @@ def validate_project(root):
                 git_info.get("branch") or "不明",
             )
         )
-        if git_info.get("sync_state") == "mismatch":
-            report["errors"].append("Git: HEAD と origin/main が一致していません。")
-        elif git_info.get("sync_state") == "match":
-            report["ok"].append("Git: HEAD = origin/main")
+        error = git_sync_error(git_info, git_info.get("branch"))
+        if error:
+            report["errors"].append(error)
         else:
-            report["warnings"].append("Git: HEAD / origin/main のcommit参照を両方は読めません。同期状態はWorking Copyで確認してください。")
+            report["ok"].append("Git: HEAD = origin/" + git_info["branch"])
     else:
         report["warnings"].append(
-            "Pythonista から .git metadata を参照できません。"
-            "repository identity は確認済みですが、HEAD / origin/main はWorking Copyで手動確認してください。"
+            "Pythonistaから.gitを参照できません。repository identityは確認済みですが、"
+            "作業branch名・同期・StatusはWorking Copyで手動確認してください。"
         )
 
     retired_patch_files = [
@@ -4321,6 +4354,11 @@ class YumaniwaDesk(ui.View):
         page.background_color = COLORS["bg"]
         self.scroll.add_subview(page)
         builder = PageBuilder(page, width)
+        session = safe_session_info(self.project_root)
+        git_info = session.get("git") or {}
+        branch = git_info.get("branch") or session.get("branch") or "未確認"
+        source = "Git" if git_info.get("metadata_visible") else "手動申告・Git非公開"
+        builder.label("編集branch: {0} ({1})".format(branch, source), lines=0, color=COLORS["accent"], size=13, gap=8)
 
         if index in self.EDIT_TAB_INDEXES and not self.edit_session_ready():
             self.build_edit_lock(builder, index)
@@ -4351,6 +4389,7 @@ class YumaniwaDesk(ui.View):
 
         if not project_is_staging(self.project_root):
             b.section("先にstagingを接続")
+            b.label(repository_identity_info(self.project_root).get("reason") or "", lines=0, color=COLORS["red"], size=14, gap=8)
             b.label("［案内］で『Working Copyのstagingを再検出』を押してください。staging と検証できる実パスが見つかるまで編集は開始できません。", lines=0, color=COLORS["red"], size=14, gap=12)
             b.button("案内へ戻る", "panel_alt", lambda sender: self.show_tab(0))
             return
@@ -4358,14 +4397,14 @@ class YumaniwaDesk(ui.View):
         info = safe_session_info(self.project_root)
         b.section("作業前の確認")
         b.label("""1. Working CopyでStatusを開く
-2. Pullを行う
-3. HEAD / main / origin/main が一致し、未コミット変更がないことを確認
+2. 準備済みの作業branchを選び、同名origin branchと同期する
+3. mainではないこと・Plan Lock済み・未コミット変更がないことを確認
 4. 下の『Pull・同期状態を確認済み』を押す""", lines=0, color=COLORS["text"], size=14, gap=12)
         git_info = info.get("git") or {}
         if project_is_staging(self.project_root):
             if git_info.get("metadata_visible"):
                 b.label(
-                    "staging identity: repository marker + Git origin/main を確認済み。",
+                    "staging identity: repository marker + Git origin / 選択branchを確認済み。",
                     lines=0, color=COLORS["green"], size=13, gap=6
                 )
             else:
@@ -4416,43 +4455,45 @@ class YumaniwaDesk(ui.View):
             alert("Working Copyを開けません", str(exc))
 
     def confirm_working_copy_sync(self, sender):
-        if not project_is_staging(self.project_root):
-            alert("staging が未接続です", "先に[案内]で Working Copy の yumaniwa-town-staging を再検出してください。")
-            ui.delay(lambda: self.show_tab(0), 0.01)
+        if not self.require_project():
             return
         git_info = git_repository_info(self.project_root)
-        if git_info.get("metadata_visible"):
-            if git_info.get("sync_state") == "match":
-                git_note = "Git remote / main / HEAD=origin/main はDeskで確認済みです。"
-            elif git_info.get("sync_state") == "mismatch":
-                alert(
-                    "同期できていません",
-                    "HEAD と origin/main が一致していません。Working CopyでPull / Push状態を確認してください。"
-                )
+        branch = git_info.get("branch") or ""
+        if not git_info.get("metadata_visible"):
+            try:
+                branch = console.input_alert(
+                    "作業branchの確認",
+                    "Working Copyで選択中のbranch名を入力してください。main / detachedでは編集できません。\n"
+                    "Git非公開のため、branch切替後はDeskを再起動して再確認してください。",
+                    "", "次へ"
+                ).strip()
+            except KeyboardInterrupt:
                 return
-            else:
-                git_note = "Git remote / main はDeskで確認済みです。HEADとorigin/mainの一致はWorking Copyで確認してください。"
-        else:
-            git_note = "repository identity は確認済みです。.git はPythonistaから見えないため、Git状態はWorking Copyで確認してください。"
-
+        error = git_sync_error(git_info, branch)
+        if error:
+            alert("同期を確認できません", error)
+            return
+        expected_head = git_info.get("head_commit") if git_info.get("metadata_visible") else None
+        git_note = ("HEAD = origin/" + branch + " をDeskで確認済みです。") if expected_head else (
+            "Gitは非公開です。branch・同期状態はWorking Copyでの手動確認です。"
+        )
         message = (
-            git_note
-            + "\n\nWorking CopyでPullを行い、次を確認しましたか?\n\n"
-            "・必要な場合は HEAD / main / origin/main が同じコミット\n"
-            "・コミット前の変更ファイルが残っていない\n\n"
-            "確認できている場合だけ同期済みにします。"
+            "編集branch: " + branch + "\n" + git_note
+            + "\n\nWorking Copyで次を確認しましたか？\n"
+            "・選択branchが上記と同じで、同名origin branchと同期済み\n"
+            "・実装前のPlan Lockを登録済み\n"
+            "・未コミットの変更がない\n\n"
+            "保存後はこの作業branchへCommit / Pushし、PRでmainへ反映します。"
         )
         if not confirm("同期確認", message, "確認済み"):
             return
-
         try:
-            confirm_safe_session(self.project_root)
-            info = safe_session_info(self.project_root)
-            if not info.get("valid"):
-                raise RuntimeError(
-                    "同期確認の保存後も安全ロックが解除されませんでした。"
-                    "staging の接続状態を再確認してください。"
-                )
+            # ダイアログ表示中のbranch / HEAD変更も拒否する。
+            if bool(git_repository_info(self.project_root).get("metadata_visible")) != bool(git_info.get("metadata_visible")):
+                raise RuntimeError("確認中にGitの可視性が変わりました。やり直してください。")
+            confirm_safe_session(self.project_root, branch, expected_head)
+            if not safe_session_info(self.project_root).get("valid"):
+                raise RuntimeError("同期確認後も安全ロック中です。stagingの接続状態を確認してください。")
         except Exception as exc:
             alert("同期確認に失敗しました", str(exc))
             return
@@ -4468,7 +4509,7 @@ class YumaniwaDesk(ui.View):
     # 案内
     # -----------------------------------------------------------------
     def build_home(self, b):
-        b.title("湯間庭町 管理室 · STAGING", "Deskはstagingだけを直接編集します。本番への反映はbranch → PR → safety checks → mergeで行います。")
+        b.title("湯間庭町 管理室 · STAGING", "Deskはstagingの作業branchを編集します。mainへの反映はPRとrequired checksを通します。")
         info = safe_session_info(self.project_root)
         b.section("作業前の安全確認")
         if info.get("valid"):
@@ -4491,7 +4532,7 @@ class YumaniwaDesk(ui.View):
         b.button("Working Copyのstagingを再検出", "blue", self.detect_project_from_script)
         b.button("このリポジトリを確認する", "panel_alt", self.check_current_project)
         b.section("Working Copy 運用")
-        b.label("Desk は検証済みの yumaniwa-town-staging 実パスだけへ接続します。保存すると Working Copy に変更として現れます。\n\n保存後は Working Copy で差分を確認 → Commit → Push。GPTがGitHub側を更新した後は、Deskを使う前に Working Copy で Pull します。", lines=0, color=COLORS["text"], size=15, gap=14)
+        b.label("Desk は検証済みの yumaniwa-town-staging 実パスだけへ接続します。保存すると Working Copy に変更として現れます。\n\n保存後は Working Copy で差分を確認 → 作業branchへCommit → Push → PR → required checks → merge。GPTがGitHub側を更新した後は、Deskを使う前に Working Copy で Pull します。", lines=0, color=COLORS["text"], size=15, gap=14)
         b.section("本番への反映")
         b.label("YumaniwaDesk から production は編集しません。staging で検証後、必要な差分だけを production 用 branch へ移し、PR → safety checks → merge で昇格します。緊急で本番修正した場合も、修正内容は必ず staging へ戻します。", lines=0, color=COLORS["accent"], size=14, gap=14)
         b.section("安全な使い方")

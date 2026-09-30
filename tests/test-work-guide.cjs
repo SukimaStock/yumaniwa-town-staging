@@ -27,7 +27,7 @@ test('guide metadata covers the current open town works across both venues', () 
 
     assert.deepEqual(
         eligible.map((work) => work.id).sort(),
-        openWorks.map((work) => work.id).sort()
+        Array.from(openWorks, (work) => work.id).sort()
     );
 
     assert.ok(eligible.some((work) => work.venue === 'leisure_center'));
