@@ -1,0 +1,94 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4edee935c40222007954f2d993af064cba6e45b1128dbbe5d00f7cc924532f6c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "work-retry-launch-20260930",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Select retry source by launch, preserving existing itch-only retry UI",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "707e190203a129f8486a3b8599c9b0a9af6a94a4",
+    "canonicalSources": [
+      "work-ready.js",
+      "main.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/work-retry-launch-20260930/r0.lock.json",
+      "work-ready.js",
+      "tests/test-work-ready.cjs",
+      "index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/works.js",
+      "works/**"
+    ],
+    "expectedChanges": [
+      "Launch-aware source selection only",
+      "Existing retry visibility and timing unchanged",
+      "Regression tests and work-ready.js script cache revision only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-device-unverified"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "surface.shared"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User authorizes shared retry source correction and regression tests on staging only"
+    ],
+    "rulesApplied": [
+      "Explicit launch chooses its own source; absent launch defaults to external when url exists, otherwise embedded"
+    ],
+    "rollback": "Revert implementation commit",
+    "promotion": "PR only; no merge or production changes",
+    "unverified": [
+      "Physical browser/device behavior not manually certified"
+    ],
+    "hqDecisions": [
+      "Match existing main.js launch semantics without retry UI redesign"
+    ],
+    "problem": "Retained embedUrl overrides local entry on retry",
+    "currentContract": "main.js dispatches by launch; retry UI only targets itch embeds",
+    "whyExistingIsInsufficient": "Retry ignores launch",
+    "design": "Resolve launch as main.js does, then select entry/embedUrl/url without cross-launch fallback",
+    "migration": "No data migration",
+    "compatibility": "Existing itch retry timing and guards unchanged",
+    "promotionRisk": "Staging branch only; production excluded",
+    "alternativesRejected": [
+      "Delete retained itch URLs",
+      "Redesign retry UI"
+    ],
+    "boundaryCases": [
+      "Missing source",
+      "Absent launch",
+      "Unknown launch",
+      "Close or change work during retry"
+    ],
+    "testPlan": [
+      "DOM event retry tests",
+      "Existing node tests",
+      "Release validator",
+      "Scope Risk Impact"
+    ]
+  }
+}
