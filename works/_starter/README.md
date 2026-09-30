@@ -4,6 +4,29 @@ This is the general starter for games and interactive Web works that use SukimaS
 
 Do not confuse it with `works/_template`, which is the separate Rakugaki Engine template.
 
+## Runtime pins
+
+This starter uses **SukimaStock Engine 0.3.0** and **Codea Lite 1.0.0**.
+Load Codea → Engine → work-config → sketch/createApp → one CodeaLite.start.
+Space pulses the circle; pointer input positions it. Engine excludes editable controls
+from game keyboard handling. The sample adds no independent DOM input listeners.
+
+Repository HTML uses ../../engine/sukimastock-engine.v0.3.0.js; exported HTML
+uses the bundled sukimastock-engine.js. The export manifest selects the frozen source.
+codea-lite.js is a distribution snapshot, never an independent implementation. Sync with:
+
+    cp engine/codea-lite.v1.0.0.js works/_starter/codea-lite.js
+
+CI checks byte equality in both the starter and generated ZIP. From the repository root,
+handoff a new work explicitly:
+
+    python3 engine/adopt-canonical-engine.py works/my-new-game
+
+The default is 0.3.0. Keep the rollback copy until the canary is accepted, then repeat
+with --remove-local. No works are discovered or migrated automatically. For an older
+pinned work, explicitly pass --engine engine/sukimastock-engine.v0.2.0.js; do not use
+the new-work default as a bulk migration command.
+
 ## Recommended start
 
 For the rough local phase, use the generated self-contained starter ZIP rather than copying this repository folder manually.
@@ -35,7 +58,7 @@ window.SUKIMASTOCK_WORK = Object.freeze({
 
 Then change `sketch.js` freely.
 
-The initial touch demo is disposable. It exists only to prove that rendering, touch and audible audio are working.
+The initial pointer / Space demo is disposable. It exists only to prove that rendering, touch and audible audio are working.
 
 ## Production phases
 

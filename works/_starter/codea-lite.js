@@ -5,6 +5,33 @@
 (function () {
   "use strict";
 
+  const VERSION = "1.0.0";
+  if (window.CodeaLite) {
+    if (window.CodeaLite.VERSION === VERSION) return;
+    throw new Error("Codea Lite runtime version conflict; reload the document.");
+  }
+  const listeners = [];
+  const captures = new Set();
+  let rafId = null;
+  let orientationTimer = null;
+  let addedTabIndex = false;
+
+  function listen(target, type, handler, options) {
+    target.addEventListener(type, handler, options);
+    listeners.push({ target, type, handler, options });
+  }
+
+  // Adapter hook: silent cleanup only. Engine owns logical cancellation.
+  function clearPointers() {
+    C.pointers.clear();
+    for (const id of Array.from(captures)) releaseCapture(id);
+  }
+
+  function releaseCapture(id) {
+    captures.delete(id);
+    try { C.canvas?.releasePointerCapture?.(id); } catch (_error) {}
+  }
+
   const C = {
     canvas: null,
     ctx: null,
@@ -12,6 +39,7 @@
     width: 0,
     height: 0,
     started: false,
+    bootStatus: "idle",
     startTime: 0,
     lastTime: 0,
     deltaTime: 0,
@@ -913,12 +941,13 @@ function withClip(
   }
 
   function emitTouch(e, state) {
-    if (typeof window.touched !== "function") return;
+    if (state !== BEGAN && !C.pointers.has(e.pointerId)) return;
 
     const pos = pointerPos(e);
     const prev = C.pointers.get(e.pointerId) || pos;
 
     const t = {
+      originalEvent: e,
       id: e.pointerId,
       x: pos.x,
       y: pos.y,
@@ -935,41 +964,60 @@ function withClip(
       C.pointers.delete(e.pointerId);
     }
 
-    window.touched(t);
+    if (typeof window.touched === "function") window.touched(t);
   }
 
   function installInput() {
     const canvas = C.canvas;
-
-    const prevent = (e) => {
+    if (!canvas.hasAttribute("tabindex")) {
+      canvas.setAttribute("tabindex", "0");
+      addedTabIndex = true;
+    }
+    listen(canvas, "pointerdown", (e) => {
+      if (window.SSE?.input?.isEditable(e)) return;
+      if (e.isTrusted === true) {
+        try { canvas.focus({ preventScroll: true }); }
+        catch (error) {
+          if (error?.name === "TypeError") {
+            try { canvas.focus(); } catch (_error) {}
+          }
+        }
+      }
       e.preventDefault();
-    };
-
-    canvas.addEventListener("pointerdown", (e) => {
-      canvas.setPointerCapture?.(e.pointerId);
-      prevent(e);
+      try {
+        if (canvas.setPointerCapture) {
+          canvas.setPointerCapture(e.pointerId);
+          captures.add(e.pointerId);
+        }
+      } catch (_error) {}
       emitTouch(e, BEGAN);
     }, { passive: false });
-
-    canvas.addEventListener("pointermove", (e) => {
-      prevent(e);
+    listen(canvas, "pointermove", (e) => {
+      if (!C.pointers.has(e.pointerId)) return;
+      e.preventDefault();
       emitTouch(e, MOVING);
     }, { passive: false });
-
-    canvas.addEventListener("pointerup", (e) => {
-      prevent(e);
-      emitTouch(e, ENDED);
-    }, { passive: false });
-
-    canvas.addEventListener("pointercancel", (e) => {
-      prevent(e);
+    for (const [type, state] of [["pointerup", ENDED], ["pointercancel", CANCELLED]]) {
+      listen(canvas, type, (e) => {
+        e.preventDefault();
+        try { emitTouch(e, state); }
+        finally { releaseCapture(e.pointerId); }
+      }, { passive: false });
+    }
+    listen(canvas, "lostpointercapture", (e) => {
+      captures.delete(e.pointerId);
       emitTouch(e, CANCELLED);
-    }, { passive: false });
+    });
+    // Suppress scrolling only on the game surface, never on editing controls.
+    listen(canvas, "touchmove", (e) => e.preventDefault(), { passive: false });
+  }
 
-    document.addEventListener("touchmove", prevent, { passive: false });
+  function scheduleFrame() {
+    if (C.started && rafId === null) rafId = requestAnimationFrame(frame);
   }
 
   function frame(now) {
+    rafId = null;
     if (!C.started) {
         return;
     }
@@ -1016,31 +1064,56 @@ function withClip(
         );
     }
 
-    requestAnimationFrame(
-        frame
-    );
+    scheduleFrame();
 }
 
 
   function start(canvasId) {
-    C.canvas = document.getElementById(canvasId);
-    C.ctx = C.canvas.getContext("2d");
-
-    resize();
-    installInput();
-
-    window.addEventListener("resize", resize);
-    window.addEventListener("orientationchange", () => setTimeout(resize, 100));
-
-    C.startTime = performance.now() / 1000;
-    C.lastTime = 0;
-    C.started = true;
-
-    if (typeof window.setup === "function") {
-      window.setup();
+    const canvas = document.getElementById(canvasId);
+    if (C.bootStatus === "starting" || C.bootStatus === "running") {
+      if (canvas === C.canvas) return;
+      throw new Error("Codea Lite already owns a different canvas.");
     }
-
-    requestAnimationFrame(frame);
+    if (C.bootStatus === "failed") throw new Error("Codea Lite boot failed; reload before retrying.");
+    C.bootStatus = "starting";
+    let rollbackSetup;
+    try {
+      if (!canvas) throw new Error("Codea Lite canvas not found: " + canvasId);
+      C.canvas = canvas;
+      C.ctx = canvas.getContext("2d");
+      if (!C.ctx) throw new Error("Codea Lite requires a 2D canvas context.");
+      resize();
+      installInput();
+      listen(window, "resize", resize);
+      listen(window, "orientationchange", () => {
+        if (orientationTimer !== null) clearTimeout(orientationTimer);
+        orientationTimer = setTimeout(() => { orientationTimer = null; resize(); }, 100);
+      });
+      C.startTime = performance.now() / 1000;
+      C.lastTime = 0;
+      if (typeof window.setup === "function") rollbackSetup = window.setup();
+      C.started = true;
+      scheduleFrame();
+      C.bootStatus = "running";
+    } catch (error) {
+      C.started = false;
+      C.bootStatus = "failed";
+      for (const { target, type, handler, options } of listeners.splice(0)) {
+        target.removeEventListener(type, handler, options);
+      }
+      clearPointers();
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      if (orientationTimer !== null) clearTimeout(orientationTimer);
+      rafId = orientationTimer = null;
+      if (typeof rollbackSetup === "function") rollbackSetup();
+      if (addedTabIndex) canvas?.removeAttribute("tabindex");
+      addedTabIndex = false;
+      C.canvas = C.ctx = null;
+      C.width = C.height = C.startTime = C.lastTime = C.deltaTime = C.elapsedTime = 0;
+      C.tweens.clear();
+      C.styleStack.length = 0;
+      throw error;
+    }
   }
 
 Object.assign(window, {
@@ -1067,7 +1140,7 @@ Object.assign(window, {
   });
 
   Object.assign(window, {
-    CodeaLite: { start, state: C },
+    CodeaLite: { VERSION, start, state: C, clearPointers },
     BEGAN,
     MOVING,
     ENDED,

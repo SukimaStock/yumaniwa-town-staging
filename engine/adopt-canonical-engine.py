@@ -52,8 +52,8 @@ def main(argv=None) -> int:
     )
     parser.add_argument(
         "--engine",
-        default="engine/sukimastock-engine.v0.2.0.js",
-        help="Canonical Engine path relative to repository root.",
+        default="engine/sukimastock-engine.v0.3.0.js",
+        help="Canonical Engine path relative to repository root (default: 0.3.0 for new works; use --engine for older pins).",
     )
     parser.add_argument(
         "--marker",
