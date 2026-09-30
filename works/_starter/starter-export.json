@@ -5,7 +5,7 @@
   "entry": "index.html",
   "output": "SukimaStock-New-Work.zip",
   "engine": {
-    "source": "engine/sukimastock-engine.v0.2.0.js",
+    "source": "engine/sukimastock-engine.v0.3.0.js",
     "target": "sukimastock-engine.js",
     "htmlMarker": "data-sse-engine"
   },

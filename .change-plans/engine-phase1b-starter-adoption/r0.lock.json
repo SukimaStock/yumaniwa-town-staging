@@ -1,0 +1,119 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "16422db3b174a29fb4f83a649bac1c4fa34b823991656ee83f6ebdd963aae3d1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "engine-phase1b-starter-adoption",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Adopt canonical runtimes in new-work starter and distribution only",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "307e65b29fb15bf91e47a08a3eedea697da9e7b6",
+    "canonicalSources": [
+      "engine/sukimastock-engine.v0.3.0.js",
+      "engine/codea-lite.v1.0.0.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/engine-phase1b-starter-adoption/r0.lock.json",
+      "works/_starter/index.html",
+      "works/_starter/codea-lite.js",
+      "works/_starter/sketch.js",
+      "works/_starter/README.md",
+      "works/_starter/starter-export.json",
+      "works/_starter/standalone-export.example.json",
+      ".github/workflows/new-work-starter.yml",
+      "engine/adopt-canonical-engine.py",
+      "tests/test_starter_adoption.py",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3-PHASE1b-VALIDATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/sukimastock-engine.v0.2.0.js",
+      "works/yakitori-wars/**",
+      "works/midnight-cola/**",
+      "works/junkissa-dive/**",
+      "works/rojiura-masala/**",
+      "works/orbit/**",
+      "work-ready.js",
+      "engine/sukimastock-engine.v0.3.0.js",
+      "engine/codea-lite.v1.0.0.js",
+      "engine/export-standalone.py",
+      ".change-plans/engine-phase1-input-boot/**"
+    ],
+    "expectedChanges": [
+      "Adopt .3 Engine and byte-identical Codea snapshot in starter, manifests and minimal sample.",
+      "Default explicit-work adoption to .3; preserve --engine.",
+      "Validate actual exported ZIP and local-to-staging handoff in tests and CI."
+    ],
+    "hqDecisions": [
+      "User explicitly authorized Phase 1b starter adoption and distribution workflow changes only."
+    ],
+    "ownerDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "change-operations-regression"
+    ],
+    "manualChecks": [
+      "iPhone Safari, real keyboard, BFCache, nested iframe and physical pointer interruption remain UNVERIFIED unless observed."
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "risk.high-risk-review",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert Phase 1b adoption commit; canonical runtimes and existing work pins remain unchanged.",
+    "outOfScope": [
+      "Phase 2 Audio/Asset readiness",
+      "Phase 3 Diagnostics",
+      "existing works migration",
+      "production",
+      "town retry"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical device verification"
+    ],
+    "problem": "Starter distribution and adoption still select .2 despite canonical .3 availability.",
+    "currentContract": "Phase 1a runtimes exist but starter and export/handoff remain on .2.",
+    "whyExistingIsInsufficient": "Changing only starter HTML would produce mismatched ZIP and handoff runtime versions.",
+    "design": "Pin starter and manifests to .3; snapshot canonical Codea; inspect actual ZIP bytes and adoption references with existing exporter.",
+    "alternativesRejected": [
+      "Hardcode version into generic exporter.",
+      "Migrate existing works or change runtime semantics."
+    ],
+    "migration": "Only new-work starter distribution; adoption still requires explicit work directory.",
+    "compatibility": "Generic exporter and --engine override retained; existing works and .2 pinned source untouched.",
+    "boundaryCases": [
+      "ZIP uses local Engine; staging uses canonical .3 with rollback retained or removed.",
+      "Explicit .2 override remains usable; no target means no adoption."
+    ],
+    "testPlan": [
+      "Python unittest builds and extracts actual ZIP; checks byte equality, refs, examples and both adoption modes.",
+      "Existing 27 runtime tests, syntax, Scope/Risk/Impact and trusted static gates.",
+      "Browser remains UNVERIFIED unless actual browser execution succeeds."
+    ],
+    "promotionRisk": "No production promotion. PR targets staging only."
+  }
+}
