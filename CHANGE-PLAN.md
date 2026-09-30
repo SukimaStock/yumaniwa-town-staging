@@ -67,7 +67,7 @@ CLOSE or PROMOTE
 - `IN_PROGRESS`: READY Planに従いstaging変更中
 - `SCOPE_REVIEW_REQUIRED`: 想定外scopeが必要。実装を止める
 - `VALIDATION`: 静的検査・手動確認中
-- `VERIFIED`: staging確認まで完了
+- `VERIFIED`: 将来の確認完了状態。現在は意図的に保留（`CHANGE-VERIFICATION.md` 冒頭を優先）
 - `CLOSED`: stagingだけの作業として完了
 - `PROMOTION_READY`: production昇格に必要な証拠が揃った
 
@@ -186,8 +186,8 @@ locked Planを後から書き換えるとdigest mismatchで失効する。
 core Impactは `impactExclusions` へ逃がせない。
 また、1 profileが要求するImpactを全部N/AにしてVERIFIEDへ進めない。
 
-日常の軽いCONTENT / PLACEMENTを一律FullやPRにしない。
-ただし**PRを使う変更はPlan Lockを必須**とする。
+日常の軽いCONTENT / PLACEMENTを一律Fullにしない。
+現在のstaging/mainは全変更にPRを要求し、**PRには実装前Plan Lockを必須**とする。Working Copy / Deskの手順は `OPERATIONS.md` を参照する。
 
 現行の `Change PR Gate v0.2` は `pull_request_target` でPR base側のworkflow定義とgate実装を使う。
 candidate branchのworkflowやgate toolを実行して自己認証しない。

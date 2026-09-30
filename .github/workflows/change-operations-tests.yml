@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   push:
     paths:
+      - "tools/YumaniwaDesk.py"
+      - "tests/test_desk_repository.py"
+      - "tests/test_scene_validation.py"
+      - "tests/test_editor_session_desk.py"
       - "tools/change-scope-guard.cjs"
       - "tools/change-plan-lock.cjs"
       - "tools/change-risk-policy.cjs"
@@ -31,6 +35,10 @@ on:
       - ".change-plans/**"
   pull_request:
     paths:
+      - "tools/YumaniwaDesk.py"
+      - "tests/test_desk_repository.py"
+      - "tests/test_scene_validation.py"
+      - "tests/test_editor_session_desk.py"
       - "tools/change-scope-guard.cjs"
       - "tools/change-plan-lock.cjs"
       - "tools/change-risk-policy.cjs"
@@ -93,3 +101,6 @@ jobs:
           tests/test-change-impact-check.cjs
           tests/test-change-verification-check.cjs
           tests/test-change-static-check.cjs
+
+      - name: Run Desk repository and existing scene/session regressions
+        run: python3 -B -m unittest discover -s tests -p 'test_*.py'
