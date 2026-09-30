@@ -33,30 +33,31 @@
       user-select: none;
       -webkit-touch-callout: none;
       -webkit-user-drag: none;
+      outline: none;
     }
   </style>
 </head>
 <body>
-  <canvas id="gameCanvas"></canvas>
+  <canvas id="gameCanvas" tabindex="0" aria-label="路地裏マサラ ゲーム画面"></canvas>
 
   <!-- Low-level Codea-compatible canvas runtime -->
-  <script src="codea-lite.js?v=101"></script>
+  <script src="codea-lite.js?v=105"></script>
 
   <!-- Reusable SukimaStock experience layer -->
-  <script src="sukimastock-engine.js?v=101"></script>
-  <script src="analytics-config.js?v=101"></script>
-  <script src="analytics-runtime.js?v=101"></script>
-  <script src="sound-config.js?v=101"></script>
-  <script src="sound-runtime.js?v=101"></script>
+  <script src="sukimastock-engine.js?v=105"></script>
+  <script src="analytics-config.js?v=105"></script>
+  <script src="analytics-runtime.js?v=105"></script>
+  <script src="sound-config.js?v=105"></script>
+  <script src="sound-runtime.js?v=105"></script>
 
   <!-- App-specific scenes and rules -->
-  <script src="makanai-icon.js?v=101"></script>
-  <script src="naan-icon.js?v=101"></script>
-  <script src="cat-sprite.js?v=101"></script>
+  <script src="makanai-icon.js?v=105"></script>
+  <script src="naan-icon.js?v=105"></script>
+  <script src="cat-sprite.js?v=105"></script>
 
-  <script src="balance-config.js?v=101"></script>
-  <script src="sketch.js?v=101w3"></script>
-  <script src="debug-tools.js?v=101"></script>
+  <script src="balance-config.js?v=105"></script>
+  <script src="sketch.js?v=105"></script>
+  <script src="debug-tools.js?v=105"></script>
 
   <script>
     CodeaLite.start("gameCanvas");

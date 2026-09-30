@@ -1,36 +1,112 @@
 // ROJIURA MASALA — local playtest export tools
-// Normal play keeps telemetry in localStorage. This UI is visible only with
-// ?debug=1 (or #debug) and never sends playtest records over the network.
+// Detailed playtest records stay in browser storage and are never sent over
+// the network. Debug can be enabled with ?debug=1 / #debug or by tapping the
+// title logo seven times. The enabled state is persisted when storage allows.
 (function (root) {
   "use strict";
 
+  const DEBUG_KEY = "rojiura-debug-enabled-v1";
+  const DEBUG_SESSION_KEY = "rojiura-debug-session";
+  const STORAGE_PROBE_KEY = "rojiura-storage-probe-v1";
   const query = new URLSearchParams(root.location ? root.location.search : "");
   const urlEnabled = query.get("debug") === "1" || (root.location && root.location.hash === "#debug");
-  let sessionEnabled = false;
-  try { sessionEnabled = root.sessionStorage && root.sessionStorage.getItem("rojiura-debug-session") === "1"; } catch (_error) {}
 
-  if (!urlEnabled && !sessionEnabled && typeof document !== "undefined") {
-    // Mobile fallback for hosted iframes where the outer page does not forward
-    // query strings: tap the top-left corner seven times within four seconds.
+  function readFlag() {
+    try { return root.localStorage && root.localStorage.getItem(DEBUG_KEY) === "1"; } catch (_error) { return false; }
+  }
+
+  function writeFlag(enabled) {
+    try {
+      if (!root.localStorage) return false;
+      if (enabled) root.localStorage.setItem(DEBUG_KEY, "1");
+      else root.localStorage.removeItem(DEBUG_KEY);
+      return true;
+    } catch (_error) { return false; }
+  }
+
+  function readSessionFlag() {
+    try { return root.sessionStorage && root.sessionStorage.getItem(DEBUG_SESSION_KEY) === "1"; } catch (_error) { return false; }
+  }
+
+  function writeSessionFlag(enabled) {
+    try {
+      if (!root.sessionStorage) return false;
+      if (enabled) root.sessionStorage.setItem(DEBUG_SESSION_KEY, "1");
+      else root.sessionStorage.removeItem(DEBUG_SESSION_KEY);
+      return true;
+    } catch (_error) { return false; }
+  }
+
+  function storageProbe() {
+    try {
+      if (!root.localStorage) return { available: false, retained: false };
+      const previous = root.localStorage.getItem(STORAGE_PROBE_KEY);
+      const token = `${Date.now()}:${Math.random().toString(36).slice(2)}`;
+      root.localStorage.setItem(STORAGE_PROBE_KEY, token);
+      return { available: root.localStorage.getItem(STORAGE_PROBE_KEY) === token, retained: !!previous };
+    } catch (_error) {
+      return { available: false, retained: false };
+    }
+  }
+
+  const persistentEnabled = readFlag();
+  const sessionEnabled = readSessionFlag();
+  if (urlEnabled) {
+    writeFlag(true);
+    writeSessionFlag(true);
+  }
+
+  function titleLogoHit(event) {
+    const canvas = document.getElementById("gameCanvas");
+    const viewport = root.SSE && root.SSE.viewport;
+    if (!canvas || !viewport || typeof viewport.toLogical !== "function") return false;
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return false;
+    if (typeof viewport.update === "function") viewport.update(false);
+    const raw = {
+      x: event.clientX - rect.left,
+      y: rect.height - (event.clientY - rect.top),
+    };
+    if (typeof viewport.containsScreen === "function" && !viewport.containsScreen(raw.x, raw.y)) return false;
+    const logical = viewport.toLogical(raw);
+    // The title itself sits around y=535 in the 360×640 logical canvas.
+    // Keep the secret hit region on the logo, not the whole title band.
+    return logical.x >= 28 && logical.x <= 332 && logical.y >= 500 && logical.y <= 565;
+  }
+
+  if (!urlEnabled && !persistentEnabled && !sessionEnabled && typeof document !== "undefined") {
     let taps = [];
     root.addEventListener("pointerup", (event) => {
-      if (event.clientX > 72 || event.clientY > 72) { taps = []; return; }
+      if (!titleLogoHit(event)) { taps = []; return; }
+      // Capture these logo taps before CodeaLite sees them, otherwise the first
+      // tap would leave the title screen and the seven-tap shortcut could never finish.
+      event.preventDefault();
+      event.stopPropagation();
       const now = Date.now();
       taps = taps.filter((time) => now - time < 4000);
       taps.push(now);
       if (taps.length < 7) return;
-      try { root.sessionStorage.setItem("rojiura-debug-session", "1"); } catch (_error) {}
+      writeFlag(true);
+      writeSessionFlag(true);
       root.location.reload();
-    }, { passive: true });
+    }, { passive: false, capture: true });
     return;
   }
 
-  if ((!urlEnabled && !sessionEnabled) || typeof document === "undefined") return;
+  if ((!urlEnabled && !persistentEnabled && !sessionEnabled) || typeof document === "undefined") return;
 
   const api = root.ROJIURA_PLAYTEST;
   if (!api || typeof api.getRuns !== "function") return;
 
-  const MILESTONES = [30, 60, 90, 100, 120, 150];
+  const probe = storageProbe();
+  const isIOS = /iPad|iPhone|iPod/.test(root.navigator && root.navigator.userAgent || "")
+    || ((root.navigator && root.navigator.platform) === "MacIntel" && (root.navigator && root.navigator.maxTouchPoints) > 1);
+  let isEmbedded = false;
+  try { isEmbedded = root.self !== root.top; } catch (_error) { isEmbedded = true; }
+  const storageWarning = isIOS && isEmbedded
+    ? "iOS埋込: ブラウザ終了前にCSV保存推奨"
+    : "";
+  const MILESTONES = [30, 60, 90, 100, 120, 150, 200, 250, 300];
   const columns = [
     "recordedAt", "build", "nightSeed", "deliveries", "sales", "seconds",
     "averageFps", "lowFps10", "frameDropRate", "devicePixelRatio", "renderDpr", "frameRateCap",
@@ -38,11 +114,12 @@
     "masalaRushCount", "masalaSoftStreakMax", "pepperCollected", "pepperSpent", "pepperHeld",
     "bikeHits", "backdoorUses", "reheatCount", "bestCombo",
     "deliveryOrderMistakes", "deliveryOrderPenaltyTotal", "deliveryOrderMistakeRate",
-    "nightGauge", "endReason", "shiftDurationSeconds", "closingTimeReached",
-    "closingTimeReachedAtDeliveries", "closingFinalBatchSize", "closingFinalBatchRemaining", "finishElapsedSeconds",
-    "makanaiBase", "makanaiPrefix", "makanaiTopping",
+    "nightGauge", "endReason", "ambientFadeSeconds", "finishElapsedSeconds",
+    "makanaiBase", "makanaiPrefix", "makanaiTopping", "makanaiEggCount", "makanaiLarge", "makanaiLargeChance",
     "makanaiPepperSpent", "makanaiPepperLeft", "makanaiPepperRoastedLevel", "makanaiPepperFreshStyle",
-    "makanaiMetrics", "makanaiScores", "rushRule", "coolingPerSecond", "masalaRushTriggers", "bulkOrderHistory",
+    "makanaiMetrics", "makanaiWeights", "makanaiUnlockedRecipes", "makanaiRecipeRoll",
+    "makanaiSpecialEligible", "makanaiSpecialChance", "makanaiSpecialRoll", "makanaiBiryaniStage",
+    "rushRule", "coolingPerSecond", "masalaRushTriggers", "bulkOrderHistory",
     ...MILESTONES.flatMap((n) => [
       `m${n}_nightGauge`, `m${n}_rush`, `m${n}_hotRatio`, `m${n}_masala`, `m${n}_required`,
       `m${n}_bulkCount`, `m${n}_orderMode`, `m${n}_orderMistakes`,
@@ -113,34 +190,47 @@
 
   const style = document.createElement("style");
   style.textContent = `
-    #rojiuraDebugPanel{position:fixed;left:max(8px,env(safe-area-inset-left));bottom:max(8px,env(safe-area-inset-bottom));z-index:2147483647;display:flex;align-items:center;gap:5px;padding:6px;background:rgba(15,10,5,.92);border:1px solid #765640;color:#f2dfb6;font:11px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;touch-action:manipulation;-webkit-user-select:none;user-select:none}
-    #rojiuraDebugPanel button{appearance:none;border:1px solid #765640;background:#32221a;color:#f2dfb6;font:inherit;padding:7px 8px;min-height:30px;touch-action:manipulation}
+    #rojiuraDebugPanel{position:fixed;left:max(8px,env(safe-area-inset-left));bottom:max(8px,env(safe-area-inset-bottom));z-index:2147483647;display:grid;grid-template-columns:repeat(4,max-content);align-items:center;gap:5px;padding:7px;background:rgba(15,10,5,.94);border:1px solid #765640;color:#f2dfb6;font:11px/1.25 ui-monospace,SFMono-Regular,Menlo,monospace;touch-action:manipulation;-webkit-user-select:none;user-select:none;max-width:calc(100vw - 16px);box-sizing:border-box}
+    #rojiuraDebugPanel button{appearance:none;border:1px solid #765640;background:#32221a;color:#f2dfb6;font:inherit;padding:7px 8px;min-height:32px;touch-action:manipulation}
     #rojiuraDebugPanel button:active{transform:translateY(1px)}
-    #rojiuraDebugPanel .meta{min-width:72px;padding:0 3px}
-    #rojiuraDebugPanel .meta b{display:block;font-size:12px;color:#efd8ab}
+    #rojiuraDebugPanel .meta{grid-column:1/-1;display:flex;gap:9px;align-items:center;min-width:0;white-space:normal}
+    #rojiuraDebugPanel .meta b{font-size:12px;color:#efd8ab;flex:none}
+    #rojiuraDebugPanel .storage{color:#c7b38e}
+    #rojiuraDebugPanel .warning{grid-column:1/-1;color:#e8c27a;white-space:normal}
+    @media(max-width:430px){#rojiuraDebugPanel{grid-template-columns:repeat(2,minmax(0,1fr));width:calc(100vw - 16px)}#rojiuraDebugPanel button{width:100%}}
   `;
   document.head.appendChild(style);
 
   const panel = document.createElement("div");
   panel.id = "rojiuraDebugPanel";
   panel.innerHTML = `
-    <div class="meta"><b>DEBUG</b><span id="rojiuraDebugCount">0 night</span></div>
+    <div class="meta"><b>DEBUG</b><span id="rojiuraDebugCount">保存済み 0夜</span><span class="storage" id="rojiuraDebugStorage"></span></div>
+    <div class="warning" id="rojiuraDebugWarning" hidden></div>
     <button type="button" data-action="csv">CSV保存</button>
     <button type="button" data-action="copy">コピー</button>
-    <button type="button" data-action="clear">消去</button>
-    <button type="button" data-action="close">閉じる</button>
+    <button type="button" data-action="clear">履歴消去</button>
+    <button type="button" data-action="close">DEBUG OFF</button>
   `;
   document.body.appendChild(panel);
 
   function refresh() {
     const runs = api.getRuns();
-    const el = panel.querySelector("#rojiuraDebugCount");
-    if (!runs.length) {
-      el.textContent = "0 night";
-      return;
+    const countEl = panel.querySelector("#rojiuraDebugCount");
+    const storageEl = panel.querySelector("#rojiuraDebugStorage");
+    const warningEl = panel.querySelector("#rojiuraDebugWarning");
+    if (!runs.length) countEl.textContent = "保存済み 0夜";
+    else {
+      const last = runs[runs.length - 1] || {};
+      countEl.textContent = `保存済み ${runs.length}夜 / 最終 ${last.deliveries ?? "-"}件 / ${last.makanaiBase || "-"}`;
     }
-    const last = runs[runs.length - 1] || {};
-    el.textContent = `${runs.length} night / ${last.deliveries ?? "-"}件 / ${last.makanaiBase || "-"}`;
+    storageEl.textContent = !probe.available ? "保存: 利用不可" : (probe.retained ? "保存: 再読込OK" : "保存: 初回確認");
+    if (storageWarning) {
+      warningEl.hidden = false;
+      warningEl.textContent = storageWarning;
+    } else {
+      warningEl.hidden = true;
+      warningEl.textContent = "";
+    }
   }
 
   panel.addEventListener("pointerdown", (event) => event.stopPropagation());
@@ -162,12 +252,13 @@
         refresh();
       }
     } else if (action === "close") {
-      try { root.sessionStorage.removeItem("rojiura-debug-session"); } catch (_error) {}
+      writeFlag(false);
+      writeSessionFlag(false);
       panel.remove();
     }
   });
 
   root.ROJIURA_PLAYTEST_EXPORT = Object.freeze({ csvText, downloadCsv, copyCsv, refresh });
   refresh();
-  root.setInterval(refresh, 2500);
+  root.setInterval(() => { if (document.body.contains(panel)) refresh(); }, 2500);
 })(window);

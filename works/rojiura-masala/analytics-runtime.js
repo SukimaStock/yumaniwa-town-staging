@@ -17,8 +17,9 @@
     if (config.enabled === false || !config.domain || !config.endpoint) return false;
     try {
       const params = new URLSearchParams(root.location ? root.location.search : "");
+      const persistentDebug = root.localStorage && root.localStorage.getItem("rojiura-debug-enabled-v1") === "1";
       const sessionDebug = root.sessionStorage && root.sessionStorage.getItem("rojiura-debug-session") === "1";
-      if (params.get("debug") === "1" || (root.location && root.location.hash === "#debug") || sessionDebug) return false;
+      if (params.get("debug") === "1" || (root.location && root.location.hash === "#debug") || persistentDebug || sessionDebug) return false;
     } catch (_error) {}
     if (!config.captureOnLocalhost && isPrivateHost(root.location && root.location.hostname)) return false;
     return typeof root.fetch === "function";
@@ -68,8 +69,6 @@
   root.RojiuraAnalytics = Object.freeze({ config, provider, track: provider, pageview, canSend });
 
   if (config.standalonePageview !== false) {
-    let embedded = false;
-    try { embedded = root.self !== root.top; } catch (_error) { embedded = true; }
-    if (!embedded) pageview();
+    pageview();
   }
 })(window);

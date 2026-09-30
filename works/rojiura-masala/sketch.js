@@ -10,7 +10,7 @@
 (function () {
   "use strict";
 
-  const ROJIURA_BUILD = "update101-webfix3";
+  const ROJIURA_BUILD = "update105";
   if (typeof window !== "undefined") window.ROJIURA_BUILD = ROJIURA_BUILD;
 
   const BALANCE = typeof window !== "undefined" ? window.ROJIURA_BALANCE : null;
@@ -57,35 +57,16 @@
   }
 
 
-  function analyticsDeliveryBand(deliveries = model.deliveries) {
-    const d = Math.max(0, Number(deliveries) || 0);
-    if (d < 30) return "0-29";
-    if (d < 60) return "30-59";
-    if (d < 90) return "60-89";
-    if (d < 120) return "90-119";
-    if (d < 150) return "120-149";
-    return "150+";
-  }
-
-  function analyticsHotBand(ratio) {
-    const p = Math.max(0, Math.min(100, (Number(ratio) || 0) * 100));
-    if (p < 25) return "0-24";
-    if (p < 40) return "25-39";
-    if (p < 55) return "40-54";
-    if (p < 70) return "55-69";
-    return "70+";
-  }
-
-  function analyticsBikeBand(hits) {
-    const n = Math.max(0, Number(hits) || 0);
-    if (n === 0) return "0";
-    if (n <= 2) return "1-2";
-    if (n <= 5) return "3-5";
-    return "6+";
-  }
+  const ANALYTICS_ALLOWED_EVENTS = new Set([
+    "Masala Game Start",
+    "Masala Night End",
+    "Masala Result Save",
+    "Masala Result Share",
+    "Masala Language",
+  ]);
 
   function trackGameAnalytics(name, props = null) {
-    if (distributionTestActive) return false;
+    if (distributionTestActive || !ANALYTICS_ALLOWED_EVENTS.has(name)) return false;
     if (!SSE || !SSE.analytics) return false;
     return SSE.analytics.track(name, { language: SSE.i18n.language, ...(props || {}) });
   }
@@ -179,9 +160,10 @@
   // completed before the courier returns for makanai, so zero heat creates a
   // clear consequence without turning an individual delivery into a failure.
   const NIGHT_GAUGE_MAX = BALANCE.night.gaugeMax;
-  // One shift has a real closing time, but the clock is deliberately hidden.
-  // The town itself is the player's clock: windows sleep as this approaches 7:00.
-  const SHIFT_DURATION_SECONDS = Math.max(60, Number(BALANCE.night.shiftDurationSeconds) || 420);
+  // The run no longer has a closing clock. This timer only drives the town's
+  // late-night visual fade; after the fade completes, gameplay continues until
+  // the three-light night gauge is exhausted.
+  const AMBIENT_FADE_SECONDS = Math.max(60, Number(BALANCE.night.ambientFadeSeconds) || 420);
   const NIGHT_GAUGE_FX_DURATION = 0.72;
   const RESULT_MIN_TAP_TIME = 1.35;
   const RESULT_ACTION_Y = 10;
@@ -199,7 +181,7 @@
   // small sample of real sessions before building an automated simulator.
   const PLAYTEST_STORAGE_KEY = "rojiura-playtest-runs-v2";
   const PLAYTEST_MAX_RUNS = 200;
-  const PLAYTEST_MILESTONES = [30, 60, 90, 100, 120, 150];
+  const PLAYTEST_MILESTONES = [30, 60, 90, 100, 120, 150, 200, 250, 300];
 
   // Late-shift order surges. Normal service stays at three dishes; after the
   // 60-delivery mark, occasional pickups arrive overloaded and the phone has
@@ -719,8 +701,8 @@
     combo: 0,
     bestCombo: 0,
 
-    // Night character stats. Every accepted dish is still delivered. The three-light
-    // gauge is an early-end condition; the separate hidden clock closes a good shift.
+    // Night character stats. Every accepted batch is still delivered. The three-light
+    // gauge is the sole gameplay end condition; elapsed time only changes the town.
     hotDeliveries: 0,
     warmDeliveries: 0,
     coolDeliveries: 0,
@@ -733,14 +715,10 @@
     nightClosing: false,
     nightEndReason: null,
 
-    // Hidden seven-minute shift clock. It advances only while normal gameplay
-    // is actually live; briefing/order-rule messages and app background time
-    // do not consume the night.
+    // Elapsed live play time. It drives the late-night town fade and telemetry,
+    // but never closes the shop. Briefing/order-rule messages and app background
+    // time do not advance it.
     shiftElapsed: 0,
-    closingTimeReached: false,
-    closingTimeReachedAtDeliveries: null,
-    closingFinalBatchSize: null,
-    closingFinalBatchRemaining: null,
     currentBatchAcceptedSize: NORMAL_BATCH_SIZE,
 
     // Local playtest-only fields. They are not exposed in the normal HUD.
@@ -863,11 +841,6 @@
       sender: { jp: "テンチョウ", en: "BOSS" },
       line1: { jp: "キョウモ オツカレ！", en: "GOOD WORK TONIGHT!" },
       line2: { jp: "オナカ スイタダロ？ タベナ！", en: "HUNGRY? EAT UP!" },
-    },
-    closing: {
-      sender: { jp: "テンチョウ", en: "BOSS" },
-      line1: { jp: "ソロソロ オシマイ！", en: "THAT'S IT FOR TONIGHT!" },
-      line2: { jp: "キョウモ オツカレ！", en: "GOOD WORK!" },
     },
     result: {
       title: { jp: "コンヤノ マカナイ", en: "TONIGHT'S MAKANAI" },
@@ -1066,7 +1039,7 @@
   ];
 
   function shiftCurveValue(curve, elapsed = model.shiftElapsed || 0) {
-    const t = clamp(elapsed, 0, SHIFT_DURATION_SECONDS);
+    const t = clamp(elapsed, 0, AMBIENT_FADE_SECONDS);
     if (!curve.length) return 0;
     if (t <= curve[0][0]) return curve[0][1];
     for (let i = 1; i < curve.length; i += 1) {
@@ -1637,10 +1610,6 @@
     model.nightClosing = false;
     model.nightEndReason = null;
     model.shiftElapsed = 0;
-    model.closingTimeReached = false;
-    model.closingTimeReachedAtDeliveries = null;
-    model.closingFinalBatchSize = null;
-    model.closingFinalBatchRemaining = null;
     model.currentBatchAcceptedSize = NORMAL_BATCH_SIZE;
     model.playtestElapsed = 0;
     model.playtestMilestones = {};
@@ -1902,12 +1871,6 @@
     model.bulkOrderHistory.push(bulk);
     model.currentBulkOrder = bulk;
 
-    trackGameAnalytics("Masala Order Rush", {
-      orderRush: String(eventIndex + 1),
-      size: String(size),
-      deliveryBand: analyticsDeliveryBand(model.deliveries),
-    });
-
     return { size, bulk };
   }
 
@@ -1986,10 +1949,6 @@
     model.deliveryOrderUnlockAt = model.deliveries;
     model.deliveryOrderIntro.pending = false;
 
-    trackGameAnalytics("Masala Delivery Order", {
-      unlockAt: String(model.deliveries),
-      deliveryBand: analyticsDeliveryBand(model.deliveries),
-    });
     return true;
   }
 
@@ -2322,6 +2281,60 @@
   const keyboardHeldCodes = new Set();
   const keyboardPressOrder = [];
 
+  // PC primary action: Enter / Space advances the same core game flow that a
+  // tap/click advances on touch devices. Scene callbacks capture the registered
+  // scene instance, so their local age/export state stays authoritative even
+  // though SSE deep-merges the scene definitions during app setup.
+  let keyboardPrimaryScene = null;
+  let keyboardPrimaryAction = null;
+  let keyboardPrimaryBusy = false;
+  // Unlike touch input, the desktop listener lives outside the registered
+  // scene object. Track the real opening gate explicitly; reading playScene.opening
+  // here would read the pre-registration template rather than SSE's cloned scene.
+  let keyboardPlayOpening = false;
+
+  function keyboardConfirmCode(event) {
+    const code = String(event && event.code || "");
+    if (code === "Enter" || code === "NumpadEnter" || code === "Space") return code;
+
+    const key = String(event && event.key || "");
+    if (key === "Enter") return Number(event && event.location || 0) === 3 ? "NumpadEnter" : "Enter";
+    if (key === " " || key === "Spacebar" || key === "Space") return "Space";
+    return null;
+  }
+
+  function setKeyboardPrimaryAction(sceneName, action) {
+    keyboardPrimaryScene = sceneName || null;
+    keyboardPrimaryAction = typeof action === "function" ? action : null;
+    keyboardPrimaryBusy = false;
+  }
+
+  function clearKeyboardPrimaryAction(sceneName = null) {
+    if (sceneName && keyboardPrimaryScene !== sceneName) return;
+    keyboardPrimaryScene = null;
+    keyboardPrimaryAction = null;
+    keyboardPrimaryBusy = false;
+  }
+
+  function markKeyboardPrimaryBusy(sceneName = null) {
+    if (sceneName && keyboardPrimaryScene !== sceneName) return;
+    keyboardPrimaryBusy = true;
+  }
+
+  function triggerKeyboardPrimaryAction() {
+    const sceneName = SSE.app.current();
+    if (keyboardPrimaryBusy || !keyboardPrimaryAction || keyboardPrimaryScene !== sceneName) return false;
+    const handled = keyboardPrimaryAction() === true;
+    if (handled) keyboardPrimaryBusy = true;
+    return handled;
+  }
+
+  function unlockAudioFromKeyboard() {
+    if (SSE && SSE.audio && typeof SSE.audio.unlock === "function") {
+      SSE.audio.unlock();
+    }
+  }
+
   function gameplayControlActive() {
     return model.touchActive || model.keyboardActive;
   }
@@ -2407,17 +2420,31 @@
 
   function keyboardGameplayAvailable() {
     return SSE.app.current() === "play"
-      && !playScene.opening
+      && !keyboardPlayOpening
       && !(model.deliveryOrderIntro && model.deliveryOrderIntro.active)
       && !model.nightOver;
   }
 
   function onGameplayKeyDown(event) {
+    if (keyboardTargetIsEditable(event.target)) return;
+
+    const confirmCode = keyboardConfirmCode(event);
+    if (confirmCode) {
+      // Space must never scroll the host page while the game canvas has focus.
+      event.preventDefault();
+      unlockAudioFromKeyboard();
+      // Holding the key must not skip consecutive dialogue scenes.
+      if (!event.repeat) triggerKeyboardPrimaryAction();
+      return;
+    }
+
     const code = keyboardCode(event);
-    if (!code || keyboardTargetIsEditable(event.target)) return;
-    if (!keyboardGameplayAvailable()) return;
+    if (!code || !keyboardGameplayAvailable()) return;
 
     event.preventDefault();
+    // A movement key is also a valid user gesture on desktop. This keeps audio
+    // recoverable even if a browser suspended its AudioContext after focus loss.
+    unlockAudioFromKeyboard();
 
     if (!keyboardHeldCodes.has(code)) {
       keyboardHeldCodes.add(code);
@@ -2950,13 +2977,6 @@
     model.masalaRushCount += 1;
     model.masalaBurstTimer = MASALA_BURST_DURATION;
     playGameSound("rush_start");
-    if (!model.attractMode) {
-      trackGameAnalytics("Masala Rush", {
-        deliveryBand: analyticsDeliveryBand(model.deliveries),
-        rushCount: model.masalaRushCount,
-      });
-    }
-
     // Stop the ordinary grid AI immediately. From this frame until the rush
     // ends, updateRushPartyCats() owns cat.c / cat.r directly.
     for (const cat of model.cats) {
@@ -3227,9 +3247,9 @@
           // tiny warm flash before the existing return-to-shop choreography.
           model.batchCompleteFxTimer = ORDER_EXIT_DURATION + BATCH_COMPLETE_FLASH_DURATION;
           playGameSound("batch_complete");
-          // Every accepted batch is finished before returning. If the night is closing
-          // (three-light gauge or the seven-minute clock), this return leads to
-          // makanai; otherwise the next batch is physically picked up at the shop.
+          // Every accepted batch is finished before returning. If the three-light
+          // night gauge has gone out, this return leads to makanai; otherwise the
+          // next batch is physically picked up at the shop.
           model.returnGuide = { age: 0 };
         }
         return;
@@ -4147,8 +4167,9 @@
   function shiftClockCanAdvance() {
     if (model.attractMode || model.nightOver) return false;
     if (model.deliveryOrderIntro && model.deliveryOrderIntro.active) return false;
-    // Headless / background distribution audits still need the seven-minute
-    // clock to advance. Normal gameplay keeps the visibility pause behavior.
+    // Headless / background distribution audits still need elapsed play time
+    // to advance for atmosphere and telemetry. Normal gameplay keeps the
+    // visibility pause behavior.
     if (!distributionTestActive && typeof document !== "undefined" && document.hidden) return false;
     return true;
   }
@@ -4160,20 +4181,10 @@
     model.shiftElapsed += dt;
     model.playtestElapsed += dt;
 
-    if (model.closingTimeReached || model.shiftElapsed < SHIFT_DURATION_SECONDS) return;
-
-    model.closingTimeReached = true;
-    model.closingTimeReachedAtDeliveries = model.deliveries;
-    model.closingFinalBatchSize = model.currentBatchAcceptedSize || model.activeTargets.length || 0;
-    model.closingFinalBatchRemaining = Math.max(0, model.dishesLeft || 0);
-
-    // Reaching 7:00 never interrupts an accepted batch. It only prevents the
-    // next pickup. If the night gauge already ended the shift first, preserve
-    // that original reason rather than rewriting history.
-    if (!model.nightClosing) {
-      model.nightClosing = true;
-      model.nightEndReason = "closing-time";
-    }
+    // Endless service: elapsed time now exists only for atmosphere and local
+    // telemetry. The neighbourhood reaches its deepest-night look after the
+    // fade duration, but the shop keeps accepting batches until the night gauge
+    // is exhausted.
   }
 
 
@@ -4276,9 +4287,9 @@
   // ----------------------------------------------------------
   // MAKANAI GENERATOR
   // ----------------------------------------------------------
-  // The result is not a grade. It translates the *character of the night*
-  // into a meal. A small seeded jitter prevents the mapping from becoming a
-  // transparent lookup table, while strong play traits still dominate.
+  // The result is not a style lookup table. Delivery progress opens a wider
+  // recipe pool, while play style only nudges the ordinary weights. The longer
+  // the player survives, the less predictable the base curry becomes.
 
   function seededNightUnit(seed, salt) {
     let x = ((seed >>> 0) ^ hashToken(salt)) >>> 0;
@@ -4300,17 +4311,23 @@
   function makanaiPepperStory(result, seed) {
     const spent = makanaiPepperSpent(result);
     const left = Math.max(0, Math.floor(result && result.pepperHeld || 0));
+    const deliveries = Math.max(0, Math.floor(result && result.deliveries || 0));
     return {
       spent,
       left,
-      // Cooked PEPPER becomes charred spice inside the curry. Density is capped
-      // quickly so more RUSH does not simply mean an ever-hotter-looking bowl.
-      roastedLevel: spent > 0 ? Math.min(2, Math.max(1, Math.ceil(spent / (PEPPER_RUSH_COST * 2)))) : 0,
-      // A small remainder is kept in the result data, not always plated as a
-      // garnish. A substantial remainder may be served fresh; its shape and
-      // visual amount still do not encode a heat/spiciness rank.
-      freshStyle: left >= Math.ceil(PEPPER_RUSH_COST / 2)
-        && seededNightUnit(seed, "pepper:fresh-serve") < 0.40
+      // Endless runs can spend a lot of PEPPER, but the bowl must still read as
+      // curry. Compress cooking history into only three visual states: none,
+      // a few roasted flecks after two RUSHes, and the current maximum after
+      // roughly five RUSHes.
+      roastedLevel: spent >= PEPPER_RUSH_COST * 5
+        ? 2
+        : (spent >= PEPPER_RUSH_COST * 2 ? 1 : 0),
+      // Fresh garnish is deliberately rarer than before. It appears only on a
+      // long run with a nearly full leftover pouch, and is still only a small
+      // visual accent rather than another score readout.
+      freshStyle: deliveries >= 120
+        && left >= Math.max(7, Math.ceil(PEPPER_RUSH_COST * 0.75))
+        && seededNightUnit(seed, "pepper:fresh-serve") < 0.15
         ? (seededNightUnit(seed, "pepper:fresh-style") < 0.5 ? "whole" : "slices")
         : null,
     };
@@ -4329,7 +4346,6 @@
       PU: makanaiPepperSpent(result),
       PL: Math.max(0, Math.floor(result.pepperHeld || 0)),
       NEW: !!result.newBest,
-      CLOSE: result.endReason === "closing-time",
       T: Math.max(0, Number(result.finishElapsedSeconds) || 0),
     };
   }
@@ -4339,108 +4355,94 @@
       id: "dal",
       name: { jp: "ダルカレー", en: "DAL CURRY" },
       primaryFeature: "cold",
-      eligible: () => true,
-      score: (m) =>
-        (m.C >= 0.25 ? 2 : 0)
-        + (m.C >= 0.40 ? 3 : 0)
-        + (m.D <= 15 ? 1 : 0),
+      unlockAt: 0,
+      weight: (m) =>
+        1.00
+        + (m.C >= 0.25 ? 0.15 : 0)
+        + (m.C >= 0.45 ? 0.15 : 0),
     },
     {
       id: "chana",
       name: { jp: "チャナマサラ", en: "CHANA MASALA" },
       primaryFeature: "deliveries",
-      eligible: () => true,
-      score: (m) => {
+      unlockAt: 0,
+      weight: (m) => {
         const hitRate = m.D > 0 ? m.B / m.D : 0;
-        return (
-          (m.D >= 18 ? 1 : 0)
-          + (m.D >= 30 ? 2 : 0)
-          + (m.D >= 50 ? 1 : 0)
-          + (m.C <= 0.25 ? 2 : 0)
-          + (m.D >= 18 && hitRate <= 0.20 ? 1 : 0)
-          + (m.D >= 18 && hitRate <= 0.08 ? 1 : 0)
-        );
+        return 1.00
+          + (m.D >= 18 && m.C <= 0.25 ? 0.10 : 0)
+          + (m.D >= 18 && hitRate <= 0.08 ? 0.10 : 0)
+          + (m.H >= 0.35 && m.H < 0.75 ? 0.10 : 0);
       },
     },
     {
       id: "keema",
       name: { jp: "キーマカレー", en: "KEEMA CURRY" },
       primaryFeature: "bike",
-      eligible: () => true,
-      score: (m) => {
+      unlockAt: 0,
+      weight: (m) => {
         const hitRate = m.D > 0 ? m.B / m.D : 0;
-        return (
-          (m.B >= 3 && hitRate >= 0.06 ? 2 : 0)
-          + (m.B >= 5 && hitRate >= 0.12 ? 2 : 0)
-          + (m.B >= 8 && hitRate >= 0.25 ? 1 : 0)
-        );
-      },
-    },
-    {
-      id: "chicken",
-      name: { jp: "チキンマサラ", en: "CHICKEN MASALA" },
-      primaryFeature: "hot",
-      eligible: () => true,
-      score: (m) =>
-        (m.H >= 0.50 ? 3 : 0)
-        + (m.H >= 0.65 ? 3 : 0)
-        + (m.H >= 0.80 ? 2 : 0)
-        + (m.H >= 0.50 && m.C <= 0.10 ? 1 : 0),
-    },
-    {
-      id: "saag",
-      name: { jp: "サグカレー", en: "SAAG CURRY" },
-      primaryFeature: "backdoor",
-      eligible: () => true,
-      score: (m) => {
-        const useRate = m.D > 0 ? m.U / m.D : 0;
-        return (
-          (m.U >= 4 ? 1 : 0)
-          + (m.U >= 8 ? 1 : 0)
-          + (m.U >= 4 && useRate >= 0.06 ? 1 : 0)
-          + (m.U >= 4 && useRate >= 0.12 ? 1 : 0)
-          + (m.U >= 8 && useRate >= 0.25 ? 1 : 0)
-          + (m.H >= 0.60 ? 1 : 0)
-        );
+        return 1.00
+          + (m.B >= 3 && hitRate >= 0.08 ? 0.15 : 0)
+          + (m.B >= 5 && hitRate >= 0.20 ? 0.15 : 0);
       },
     },
     {
       id: "aloo-gobi",
       name: { jp: "アルゴビ", en: "ALOO GOBI" },
       primaryFeature: "reheat",
-      eligible: () => true,
-      score: (m) => {
+      unlockAt: 30,
+      weight: (m) => {
         const reheatRate = m.D > 0 ? m.RH / m.D : 0;
-        return (
-          (m.RH >= 2 ? 2 : 0)
-          + (m.RH >= 4 ? 1 : 0)
-          + (m.RH >= 2 && reheatRate >= 0.10 ? 1 : 0)
-          + (m.H >= 0.40 && m.H < 0.75 ? 1 : 0)
-        );
+        return 1.00
+          + (m.RH >= 2 && reheatRate >= 0.04 ? 0.15 : 0)
+          + (m.RH >= 5 && reheatRate >= 0.08 ? 0.15 : 0);
       },
+    },
+    {
+      id: "saag",
+      name: { jp: "サグカレー", en: "SAAG CURRY" },
+      primaryFeature: "backdoor",
+      unlockAt: 50,
+      weight: (m) => {
+        const useRate = m.D > 0 ? m.U / m.D : 0;
+        return 1.00
+          + (m.U >= 4 && useRate >= 0.06 ? 0.15 : 0)
+          + (m.U >= 10 && useRate >= 0.18 ? 0.15 : 0);
+      },
+    },
+    {
+      id: "chicken",
+      name: { jp: "チキンマサラ", en: "CHICKEN MASALA" },
+      primaryFeature: "hot",
+      unlockAt: 70,
+      weight: (m) =>
+        1.00
+        + (m.H >= 0.60 ? 0.15 : 0)
+        + (m.H >= 0.75 ? 0.15 : 0),
     },
     {
       id: "biryani",
       name: { jp: "ビリヤニ", en: "BIRYANI" },
       primaryFeature: "deliveries",
-      // Long, consistently hot shifts can earn biryani, including at closing.
-      // Waiting out the clock alone is not enough to enter this candidate pool.
-      eligible: (m) => m.D >= 60 && m.H >= 0.55 && m.C <= 0.20,
-      score: (m) =>
-        6
-        + (m.D >= 80 ? 1 : 0)
-        + (m.D >= 100 ? 1 : 0)
-        + (m.H >= 0.70 ? 1 : 0),
+      unlockAt: 100,
+      // Biryani is the final ordinary unlock, not the automatic reward for a
+      // skilled style. It starts rare at 100 and slowly approaches an ordinary
+      // recipe weight only on very long endless runs.
+      weight: (m) => {
+        if (m.D < 100) return 0;
+        if (m.D < 125) return 0.35;
+        if (m.D < 150) return 0.50;
+        if (m.D < 200) return 0.70;
+        return 1.00;
+      },
     },
     {
       id: "special-masala",
-      name: { jp: "テンチョウノ トクベツマサラ", en: "BOSS\'S SPECIAL MASALA" },
+      name: { jp: "テンチョウノ トクベツマサラ", en: "BOSS'S SPECIAL MASALA" },
       primaryFeature: "completion",
-      // Closing is necessary, but neither an automatic win nor a reward for
-      // stalling: a productive, warm shift competes with the other dishes.
-      eligible: (m) => m.CLOSE && m.D >= 36 && m.H >= 0.50 && m.C <= 0.25,
-      score: (m) => 5 + (m.D >= 60 ? 1 : 0)
-        + (m.H >= 0.70 ? 1 : 0) + (m.R >= 2 ? 1 : 0),
+      unlockAt: Number.POSITIVE_INFINITY,
+      // Selected only by the separate long-run hidden event below.
+      weight: () => 0,
     },
   ];
 
@@ -4449,8 +4451,11 @@
       {
         id: "deliveries",
         label: { jp: "ヨフケノ", en: "LATE-NIGHT" },
-        score: (m.CLOSE || m.T >= 330 || m.D >= 85)
-          ? 2 + (m.D >= 30 ? 1 : 0) + (m.D >= 80 ? 1 : 0)
+        // Endless mode makes five or six minutes ordinary. Reserve YOFUKE for
+        // genuinely long nights so it does not become the default prefix after
+        // the normal recipe set opens.
+        score: (m.D >= 120 || m.T >= 600)
+          ? 2 + (m.D >= 180 ? 1 : 0) + (m.D >= 250 || m.T >= 900 ? 1 : 0)
           : 0,
       },
       {
@@ -4473,9 +4478,6 @@
         label: { jp: "ドタバタ", en: "CHAOTIC" },
         score: (() => {
           const hitRate = m.D > 0 ? m.B / m.D : 0;
-          // Long shifts naturally accumulate a few bicycle hits. Call the night
-          // "chaotic" only when collisions are genuinely frequent rather than
-          // when a careful 80-delivery run happened to take three bumps.
           if (m.B < 3 || hitRate < 0.08) return 0;
           return 2 + (m.B >= 5 && hitRate >= 0.20 ? 1 : 0)
             + (m.B >= 8 && hitRate >= 0.40 ? 1 : 0);
@@ -4492,10 +4494,6 @@
       {
         id: "rush",
         label: { jp: "トウガラシイリ", en: "CHILI" },
-        // A RUSH means PEPPER was actually used with heat. Keep the wording
-        // literal and easy to understand rather than grading the dish by heat;
-        // repeated RUSHes only make this ingredient-story more likely to be
-        // chosen over the other night traits.
         score:
           (m.PU >= PEPPER_RUSH_COST ? 2 : 0)
           + (m.PU >= PEPPER_RUSH_COST * 2 ? 1 : 0)
@@ -4506,9 +4504,10 @@
 
   function chooseMakanaiPrefix(metrics, recipe, seed) {
     const traits = makanaiTraitScores(metrics)
-      // Weak incidental traits need not label the whole night. The base dish
-      // already tells its primary story, so retain the no-prefix outcome.
-      .filter((trait) => trait.score >= 2 && trait.id !== recipe.primaryFeature)
+      // The base recipe no longer owns the night's play style. Prefixes are the
+      // dedicated place where HOT, bike, backdoor, RUSH and long-run character
+      // can remain visible, even when they happen to match the recipe theme.
+      .filter((trait) => trait.score >= 2)
       .map((trait) => ({
         ...trait,
         finalScore: trait.score + seededNightUnit(seed, `prefix:${trait.id}`) * 1.20,
@@ -4518,21 +4517,62 @@
     return traits.length ? traits[0] : null;
   }
 
-  function chooseMakanaiTopping(metrics, seed) {
-    const eggRoll = seededNightUnit(seed, "topping:egg");
-    const largeRoll = seededNightUnit(seed, "topping:large");
-
-    const egg = metrics.R >= 1 && eggRoll < 0.35;
-    const large = metrics.D >= 42 && largeRoll < 0.25;
-
-    if (egg && large) {
-      return seededNightUnit(seed, "topping:tie") < 0.58
-        ? { id: "egg", label: { jp: "タマゴノセ", en: "WITH EGG" } }
-        : { id: "large", label: { jp: "オオモリ", en: "LARGE" } };
+  function chooseMakanaiExtras(metrics, seed) {
+    // Extras are intentionally much stricter than the recipe unlocks. Endless
+    // scores may grow forever, but the bowl must remain recognisably curry.
+    let eggCount = 0;
+    if (
+      metrics.D >= 120
+      && metrics.R >= 4
+      && seededNightUnit(seed, "extra:egg:1") < 0.18
+    ) {
+      eggCount = 1;
     }
-    if (egg) return { id: "egg", label: { jp: "タマゴノセ", en: "WITH EGG" } };
-    if (large) return { id: "large", label: { jp: "オオモリ", en: "LARGE" } };
-    return null;
+    if (
+      eggCount >= 1
+      && metrics.D >= 200
+      && metrics.R >= 8
+      && seededNightUnit(seed, "extra:egg:2") < 0.12
+    ) {
+      eggCount = 2;
+    }
+    if (
+      eggCount >= 2
+      && metrics.D >= 300
+      && metrics.R >= 12
+      && seededNightUnit(seed, "extra:egg:3") < 0.06
+    ) {
+      eggCount = 3;
+    }
+
+    const largeChance = metrics.D >= 260
+      ? 0.16
+      : (metrics.D >= 180 ? 0.10 : 0);
+    const large = largeChance > 0
+      && seededNightUnit(seed, "extra:large") < largeChance;
+
+    return { eggCount, large, largeChance };
+  }
+
+  function weightedRecipePick(candidates, seed) {
+    if (!candidates.length) return null;
+    const total = candidates.reduce((sum, candidate) => sum + candidate.weight, 0);
+    if (total <= 0) return candidates[0];
+
+    const rollUnit = seededNightUnit(seed, "recipe:weighted-pick");
+    let cursor = rollUnit * total;
+    for (const candidate of candidates) {
+      cursor -= candidate.weight;
+      if (cursor <= 0) return { ...candidate, rollUnit };
+    }
+    return { ...candidates[candidates.length - 1], rollUnit };
+  }
+
+  function specialMasalaChance(deliveries) {
+    if (deliveries < 150) return 0;
+    if (deliveries < 200) return 0.03;
+    if (deliveries < 250) return 0.05;
+    return 0.08;
   }
 
   function generateMakanai(result) {
@@ -4543,36 +4583,35 @@
           `${result.sales}:${result.deliveries}:${result.hotDeliveries}:${result.bikeHits}:${result.backdoorUses}`
         );
 
-    const candidates = MAKANAI_RECIPES
-      .filter((recipe) => recipe.eligible(metrics))
-      .map((recipe) => {
-        const rawScore = recipe.score(metrics);
-        const jitter = seededNightUnit(seed, `recipe:${recipe.id}`) * 1.75;
-        return {
-          recipe,
-          rawScore,
-          jitter,
-          finalScore: rawScore + jitter,
-        };
-      })
-      .sort((a, b) => b.finalScore - a.finalScore);
+    const specialRecipe = MAKANAI_RECIPES.find((recipe) => recipe.id === "special-masala");
+    const specialChance = specialMasalaChance(metrics.D);
+    const specialEligible = specialChance > 0;
+    const specialRoll = seededNightUnit(seed, "recipe:special-masala:event");
+    const specialWon = !!(specialRecipe && specialEligible && specialRoll < specialChance);
 
-    // All ordinary recipes are eligible, so this is only a defensive fallback.
-    const selected = candidates[0] || {
+    const candidates = MAKANAI_RECIPES
+      .filter((recipe) => recipe.id !== "special-masala" && metrics.D >= recipe.unlockAt)
+      .map((recipe) => ({
+        recipe,
+        weight: Math.max(0.01, Number(recipe.weight(metrics)) || 0),
+      }));
+
+    const ordinarySelected = weightedRecipePick(candidates, seed) || {
       recipe: MAKANAI_RECIPES[0],
-      rawScore: 0,
-      jitter: 0,
-      finalScore: 0,
+      weight: 1,
+      rollUnit: 0,
     };
+    const selected = specialWon
+      ? { recipe: specialRecipe, weight: 0, rollUnit: ordinarySelected.rollUnit || 0 }
+      : ordinarySelected;
 
     const prefix = chooseMakanaiPrefix(metrics, selected.recipe, seed);
-    const topping = chooseMakanaiTopping(metrics, seed);
+    const extras = chooseMakanaiExtras(metrics, seed);
     const pepperStory = makanaiPepperStory(result, seed);
 
     const parts = [];
     if (prefix) parts.push(localizedText(prefix.label));
     parts.push(localizedText(selected.recipe.name));
-    if (topping) parts.push(localizedText(topping.label));
 
     return {
       makanai: parts.join(" "),
@@ -4580,19 +4619,32 @@
       makanaiBaseName: localizedText(selected.recipe.name),
       makanaiPrefix: prefix ? prefix.id : null,
       makanaiPrefixLabel: prefix ? localizedText(prefix.label) : "",
-      makanaiTopping: topping ? topping.id : null,
-      makanaiToppingLabel: topping ? localizedText(topping.label) : "",
+      // Keep the legacy single-topping field for old debug/export consumers,
+      // but extras are now independent and never appear in the meal name.
+      makanaiTopping: extras.large ? "large" : (extras.eggCount > 0 ? "egg" : null),
+      makanaiToppingLabel: "",
+      makanaiEggCount: extras.eggCount,
+      makanaiLarge: extras.large,
+      makanaiLargeChance: extras.largeChance,
       makanaiPepperSpent: pepperStory.spent,
       makanaiPepperLeft: pepperStory.left,
       makanaiPepperRoastedLevel: pepperStory.roastedLevel,
       makanaiPepperFreshStyle: pepperStory.freshStyle,
       makanaiMetrics: metrics,
-      makanaiScores: Object.fromEntries(
+      makanaiWeights: Object.fromEntries(
         candidates.map((candidate) => [
           candidate.recipe.id,
-          Number(candidate.finalScore.toFixed(3)),
+          Number(candidate.weight.toFixed(3)),
         ])
       ),
+      makanaiUnlockedRecipes: candidates.map((candidate) => candidate.recipe.id),
+      makanaiRecipeRoll: Number((ordinarySelected.rollUnit || 0).toFixed(6)),
+      makanaiSpecialEligible: specialEligible,
+      makanaiSpecialChance: specialChance,
+      makanaiSpecialRoll: Number(specialRoll.toFixed(6)),
+      makanaiBiryaniStage: metrics.D >= 200
+        ? 4
+        : (metrics.D >= 150 ? 3 : (metrics.D >= 125 ? 2 : (metrics.D >= 100 ? 1 : 0))),
     };
   }
 
@@ -4609,23 +4661,25 @@
     const prefix = result.makanaiPrefix
       ? makanaiTraitScores(metrics).find((item) => item.id === result.makanaiPrefix)
       : null;
-    const toppingLabels = {
-      egg: { jp: "タマゴノセ", en: "WITH EGG" },
-      large: { jp: "オオモリ", en: "LARGE" },
-    };
-    const toppingLabel = result.makanaiTopping
-      ? toppingLabels[result.makanaiTopping] || null
-      : null;
+
+    // Extras are visual only in the endless design. Older in-memory result
+    // payloads still map their single topping field into the new independent
+    // fields, but the visible meal name is always prefix + curry base.
+    if (!Number.isFinite(result.makanaiEggCount)) {
+      result.makanaiEggCount = result.makanaiTopping === "egg" ? 1 : 0;
+    }
+    if (typeof result.makanaiLarge !== "boolean") {
+      result.makanaiLarge = result.makanaiTopping === "large";
+    }
 
     const parts = [];
     if (prefix) parts.push(localizedText(prefix.label));
     parts.push(localizedText(recipe.name));
-    if (toppingLabel) parts.push(localizedText(toppingLabel));
 
     result.makanai = parts.join(" ");
     result.makanaiBaseName = localizedText(recipe.name);
     result.makanaiPrefixLabel = prefix ? localizedText(prefix.label) : "";
-    result.makanaiToppingLabel = toppingLabel ? localizedText(toppingLabel) : "";
+    result.makanaiToppingLabel = "";
     if (!Number.isFinite(result.makanaiPepperSpent) || result.makanaiPepperFreshStyle === undefined) {
       const seed = Number.isFinite(result.nightSeed)
         ? result.nightSeed >>> 0
@@ -4724,11 +4778,7 @@
         devicePixelRatio: typeof window !== "undefined" ? (window.devicePixelRatio || 1) : 1,
         renderDpr: typeof window !== "undefined" && window.CodeaLite ? window.CodeaLite.state.dpr : 1,
         frameRateCap: typeof window !== "undefined" && window.CodeaLite ? window.CodeaLite.maxFrameRate : 60,
-        shiftDurationSeconds: SHIFT_DURATION_SECONDS,
-        closingTimeReached: model.closingTimeReached,
-        closingTimeReachedAtDeliveries: model.closingTimeReachedAtDeliveries,
-        closingFinalBatchSize: model.closingFinalBatchSize,
-        closingFinalBatchRemaining: model.closingFinalBatchRemaining,
+        ambientFadeSeconds: AMBIENT_FADE_SECONDS,
         finishElapsedSeconds: Math.round(model.shiftElapsed * 10) / 10,
         hotDeliveries: result.hotDeliveries,
         warmDeliveries: result.warmDeliveries,
@@ -4763,12 +4813,21 @@
         makanaiBase: result.makanaiBase || null,
         makanaiPrefix: result.makanaiPrefix || null,
         makanaiTopping: result.makanaiTopping || null,
+        makanaiEggCount: Number(result.makanaiEggCount) || 0,
+        makanaiLarge: !!result.makanaiLarge,
+        makanaiLargeChance: Number(result.makanaiLargeChance) || 0,
         makanaiPepperSpent: result.makanaiPepperSpent,
         makanaiPepperLeft: result.makanaiPepperLeft,
         makanaiPepperRoastedLevel: result.makanaiPepperRoastedLevel,
         makanaiPepperFreshStyle: result.makanaiPepperFreshStyle || null,
         makanaiMetrics: result.makanaiMetrics ? { ...result.makanaiMetrics } : null,
-        makanaiScores: result.makanaiScores ? { ...result.makanaiScores } : null,
+        makanaiWeights: result.makanaiWeights ? { ...result.makanaiWeights } : null,
+        makanaiUnlockedRecipes: Array.isArray(result.makanaiUnlockedRecipes) ? result.makanaiUnlockedRecipes.slice() : [],
+        makanaiRecipeRoll: Number.isFinite(result.makanaiRecipeRoll) ? result.makanaiRecipeRoll : null,
+        makanaiSpecialEligible: !!result.makanaiSpecialEligible,
+        makanaiSpecialChance: Number(result.makanaiSpecialChance) || 0,
+        makanaiSpecialRoll: Number.isFinite(result.makanaiSpecialRoll) ? result.makanaiSpecialRoll : null,
+        makanaiBiryaniStage: Number(result.makanaiBiryaniStage) || 0,
         endReason: result.endReason || model.nightEndReason || (result.nightGauge <= 0 ? "night-gauge" : "other"),
         milestones: { ...model.playtestMilestones },
       });
@@ -4835,8 +4894,6 @@
       nightGauge: model.nightGauge,
       nightClosing: model.nightClosing,
       endReason,
-      closingTimeReached: model.closingTimeReached,
-      closingTimeReachedAtDeliveries: model.closingTimeReachedAtDeliveries,
       finishElapsedSeconds: Math.round(model.shiftElapsed * 10) / 10,
       makanaiTier: makanaiTier(model.deliveries),
       rank: personal.rank,
@@ -4856,15 +4913,8 @@
     savePlaytestRun(result);
 
     trackGameAnalytics("Masala Night End", {
-      deliveryBand: analyticsDeliveryBand(result.deliveries),
-      hotBand: analyticsHotBand(result.hotRatio),
-      rushCount: result.masalaRushCount,
-      pepperCollected: result.pepperCollected,
-      bikeBand: analyticsBikeBand(result.bikeHits),
-      newBest: result.newBest,
-      nightGauge: result.nightGauge,
-      orderMistakes: result.deliveryOrderMistakes,
       endReason: result.endReason,
+      newBest: result.newBest,
     });
     SSE.app.replace("makanaiLeadin", result, { duration: "quick" });
   }
@@ -5236,7 +5286,7 @@
     model.intentY = Math.sign(dy);
   }
 
-  function distributionDismissOrderIntro() {
+  function dismissDeliveryOrderIntro() {
     if (!model.deliveryOrderIntro || !model.deliveryOrderIntro.active) return;
     if (model.deliveryOrderIntro.age < DELIVERY_ORDER_INTRO_MIN_TAP_TIME) return;
     const startPickupAfter = !!model.deliveryOrderIntro.startPickupAfter;
@@ -5276,8 +5326,14 @@
       makanaiBase: result ? result.makanaiBase : null,
       makanaiPrefix: result ? result.makanaiPrefix : null,
       makanaiTopping: result ? result.makanaiTopping : null,
+      makanaiEggCount: result ? (Number(result.makanaiEggCount) || 0) : 0,
+      makanaiLarge: result ? !!result.makanaiLarge : false,
       makanaiPepperRoastedLevel: result ? result.makanaiPepperRoastedLevel : 0,
       makanaiPepperFreshStyle: result ? result.makanaiPepperFreshStyle : null,
+      makanaiSpecialEligible: result ? !!result.makanaiSpecialEligible : false,
+      makanaiSpecialChance: result ? result.makanaiSpecialChance : 0,
+      makanaiSpecialRoll: result ? result.makanaiSpecialRoll : null,
+      makanaiBiryaniStage: result ? result.makanaiBiryaniStage : 0,
       debugGX: failed ? Number(model.playerGX.toFixed(3)) : null,
       debugGY: failed ? Number(model.playerGY.toFixed(3)) : null,
       debugCarrying: failed ? !!model.carrying : null,
@@ -5316,7 +5372,7 @@
       while (!model.nightOver && steps < maxSteps) {
         distributionSetIntent(profile, state, rng, dt);
         updateGameForDistribution(dt);
-        distributionDismissOrderIntro();
+        dismissDeliveryOrderIntro();
 
         const moved = Math.hypot(model.playerGX - state.lastGX, model.playerGY - state.lastGY);
         if (model.touchActive && moved < 0.0005) state.stuckTimer += dt;
@@ -5365,7 +5421,7 @@
 
   function distributionSyntheticResult(seed) {
     const rng = distributionSeededRandom(seed);
-    const deliveries = 8 + Math.floor(rng() * 165);
+    const deliveries = 8 + Math.floor(rng() * 313);
     const hotRatio = rng();
     const coldRatio = Math.min(0.42, rng() * (1 - hotRatio) * 0.65);
     const hotDeliveries = Math.floor(deliveries * hotRatio);
@@ -5373,9 +5429,8 @@
     const remainder = Math.max(0, deliveries - hotDeliveries - coldDeliveries);
     const warmDeliveries = Math.floor(remainder * (0.35 + rng() * 0.45));
     const coolDeliveries = Math.max(0, remainder - warmDeliveries);
-    const rushes = Math.floor(rng() * 11);
+    const rushes = Math.floor(rng() * 16);
     const pepperHeld = Math.floor(rng() * PEPPER_RUSH_COST);
-    const closing = deliveries >= 80 && rng() < 0.24;
 
     const result = {
       sales: deliveries * DELIVERY_SALE_PRICE,
@@ -5392,7 +5447,7 @@
       reheatCount: Math.floor(rng() * Math.max(2, deliveries * 0.08)),
       nightSeed: seed >>> 0,
       newBest: rng() < 0.08,
-      endReason: closing ? "closing-time" : "night-gauge",
+      endReason: "night-gauge",
     };
     Object.assign(result, generateMakanai(result));
     return distributionCompactResult(result, "generator", seed, 0, false);
@@ -8630,7 +8685,6 @@
     const sound = typeof window !== "undefined" ? window.RojiuraSound : null;
     if (!sound || typeof sound.cycleLevel !== "function") return;
     const selected = sound.cycleLevel();
-    trackGameAnalytics("Masala Sound", { level: String(selected) });
   }
 
   function drawTitleOverlay(age) {
@@ -10371,12 +10425,9 @@
     const iconH = iconApi.height * px;
     const visual = makanaiIconVisual(result);
 
-    // Only the explicit オオモリ topping changes the serving size.
-    // Large portions rise inside the bowl; they do not spill down its side.
-    const servingSize =
-      result.makanaiTopping === "large"
-        ? "large"
-        : "normal";
+    // Large is now an independent visual bonus. It never changes the meal
+    // name and can coexist with the rare egg bonuses.
+    const servingSize = result.makanaiLarge ? "large" : "normal";
 
     withCanvasContext((ctx) => {
       ctx.save();
@@ -10392,7 +10443,7 @@
         palette: visual.palette,
         toppings: visual.toppings,
         size: servingSize,
-        egg: result.makanaiTopping === "egg",
+        eggCount: Math.max(0, Math.min(3, Math.floor(result.makanaiEggCount || 0))),
         roastedChili: result.makanaiPepperRoastedLevel || 0,
         freshChili: result.makanaiPepperFreshStyle || null,
       });
@@ -10766,9 +10817,7 @@
     drawWorld();
     drawTopHUD();
 
-    const messageGroup = result && result.endReason === "closing-time"
-      ? "closing"
-      : "leadin";
+    const messageGroup = "leadin";
     drawBriefingTerminal(
       age,
       messageGroup,
@@ -11176,6 +11225,11 @@
     age: 0,
     enter() {
       this.age = 0;
+      setKeyboardPrimaryAction("title", () => {
+        if (this.age < 0.35) return false;
+        SSE.app.replace("briefing", null, { duration: "quick" });
+        return true;
+      });
       // Normal BGM belongs to the whole night, not only the play scene.
       // Browser autoplay rules may keep the AudioContext suspended until the
       // first touch, but keeping the desired mode active means it begins as
@@ -11197,6 +11251,10 @@
       drawTitleDemo(this.age);
     },
 
+    leave() {
+      clearKeyboardPrimaryAction("title");
+    },
+
     touch(touch) {
       if (touch.state !== ENDED) return true;
 
@@ -11215,6 +11273,7 @@
       if (titleSettingsGuardHit(touch)) return true;
 
       if (this.age >= 0.35) {
+        markKeyboardPrimaryBusy("title");
         SSE.app.replace("briefing", null, { duration: "quick" });
       }
       return true;
@@ -11228,6 +11287,11 @@
 
     enter(context) {
       this.age = 0;
+      setKeyboardPrimaryAction("briefing", () => {
+        if (this.age < BRIEFING_MESSAGE_AT + 0.18) return false;
+        SSE.app.replace("play", { fromBriefing: true, source: this.source }, { duration: "quick" });
+        return true;
+      });
       // Keep the same normal loop running across title -> briefing -> play.
       // Do not restart from the head between these presentation scenes.
       setGameBgm("normal");
@@ -11287,8 +11351,13 @@
       drawBriefingScene(this.age);
     },
 
+    leave() {
+      clearKeyboardPrimaryAction("briefing");
+    },
+
     touch(touch) {
       if (touch.state === ENDED && this.age >= BRIEFING_MESSAGE_AT + 0.18) {
+        markKeyboardPrimaryBusy("briefing");
         SSE.app.replace("play", { fromBriefing: true, source: this.source }, { duration: "quick" });
       }
       return true;
@@ -11304,6 +11373,12 @@
 
     enter(context) {
       setGameBgm("normal");
+      setKeyboardPrimaryAction("play", () => {
+        if (!model.deliveryOrderIntro || !model.deliveryOrderIntro.active) return false;
+        if (model.deliveryOrderIntro.age < DELIVERY_ORDER_INTRO_MIN_TAP_TIME) return false;
+        dismissDeliveryOrderIntro();
+        return true;
+      });
       const fromBriefing = !!(context && context.payload && context.payload.fromBriefing);
       const source = context && context.payload && context.payload.source
         ? context.payload.source
@@ -11313,6 +11388,7 @@
       if (!fromBriefing) {
         resetSession();
         this.opening = false;
+        keyboardPlayOpening = false;
         this.openingHeatFillAge = GAME_OPENING_HEAT_FILL_DURATION;
         this.ordersReleased = true;
         return;
@@ -11322,6 +11398,7 @@
       // camera so the transition does not snap. The terminal is now in place;
       // the camera catches up first, then the orders arrive.
       this.opening = true;
+      keyboardPlayOpening = true;
       this.openingBeat = 0;
       this.openingHeatFillAge = 0;
       this.ordersReleased = false;
@@ -11334,7 +11411,9 @@
     },
 
     leave() {
+      keyboardPlayOpening = false;
       clearKeyboardControlState({ stopSpeed: true });
+      clearKeyboardPrimaryAction("play");
     },
 
     update(dt) {
@@ -11420,6 +11499,7 @@
         });
 
         this.opening = false;
+        keyboardPlayOpening = false;
       }
     },
 
@@ -11436,12 +11516,8 @@
           && model.deliveryOrderIntro.armed
           && model.deliveryOrderIntro.age >= DELIVERY_ORDER_INTRO_MIN_TAP_TIME
         ) {
-          const startPickupAfter = !!model.deliveryOrderIntro.startPickupAfter;
-          model.deliveryOrderIntro.active = false;
-          model.deliveryOrderIntro.armed = false;
-          model.deliveryOrderIntro.startPickupAfter = false;
-          activateDeliveryOrderMode();
-          if (startPickupAfter) beginPickupLeadin({ skipOrderIntro: true });
+          markKeyboardPrimaryBusy("play");
+          dismissDeliveryOrderIntro();
         }
         return true;
       }
@@ -11532,12 +11608,12 @@
       debugForce: { base: "biryani", prefix: "deliveries", topping: "large", roastedLevel: 2, freshStyle: null },
     },
     {
-      debugLabel: "店長特別 / 閉店",
+      debugLabel: "店長特別 / 長時間",
       sales: 124800, deliveries: 104, bestCombo: 28, masalaRushCount: 4,
       pepperHeld: 0, pepperSpent: 36, reheatCount: 6, backdoorUses: 12,
       nightSeed: 21008, hotDeliveries: 79, warmDeliveries: 17, coolDeliveries: 6,
       coldDeliveries: 2, bikeHits: 4, averageHeat: 78, nightGauge: 1,
-      nightClosing: true, endReason: "closing-time", makanaiTier: 6,
+      nightClosing: true, endReason: "night-gauge", makanaiTier: 6,
       rank: 1, nights: 14, bestSales: 124800, newBest: true, firstRecord: false,
       debugForce: { base: "special-masala", prefix: null, topping: null, roastedLevel: 2, freshStyle: null },
     },
@@ -11611,12 +11687,6 @@
     const prefix = force.prefix
       ? makanaiTraitScores(metrics).find((item) => item.id === force.prefix)
       : null;
-    const toppingLabels = {
-      egg: { jp: "タマゴノセ", en: "WITH EGG" },
-      large: { jp: "オオモリ", en: "LARGE" },
-    };
-    const toppingLabel = force.topping ? toppingLabels[force.topping] : null;
-
     if (recipe) {
       result.makanaiBase = recipe.id;
       result.makanaiBaseName = localizedText(recipe.name);
@@ -11624,7 +11694,9 @@
     result.makanaiPrefix = prefix ? prefix.id : null;
     result.makanaiPrefixLabel = prefix ? localizedText(prefix.label) : "";
     result.makanaiTopping = force.topping || null;
-    result.makanaiToppingLabel = toppingLabel ? localizedText(toppingLabel) : "";
+    result.makanaiToppingLabel = "";
+    result.makanaiEggCount = force.topping === "egg" ? 1 : 0;
+    result.makanaiLarge = force.topping === "large";
     result.makanaiPepperRoastedLevel = force.roastedLevel || 0;
     result.makanaiPepperFreshStyle = force.freshStyle || null;
     result.makanaiPepperLeft = force.freshStyle ? Math.max(1, result.pepperHeld || 1) : 0;
@@ -11633,7 +11705,6 @@
     const parts = [];
     if (result.makanaiPrefixLabel) parts.push(result.makanaiPrefixLabel);
     if (result.makanaiBaseName) parts.push(result.makanaiBaseName);
-    if (result.makanaiToppingLabel) parts.push(result.makanaiToppingLabel);
     result.makanai = parts.join(" ");
     return result;
   }
@@ -11734,6 +11805,11 @@
       this.age = 0;
       setGameBgm("off");
       this.finished = false;
+      setKeyboardPrimaryAction("makanaiLeadin", () => {
+        if (this.age < MAKANAI_LEADIN_MIN_TAP_TIME || this.finished) return false;
+        this.goNext();
+        return true;
+      });
       this.result = context && context.payload
         ? context.payload
         : null;
@@ -11762,6 +11838,7 @@
     goNext() {
       if (this.finished) return;
       this.finished = true;
+      markKeyboardPrimaryBusy("makanaiLeadin");
       SSE.app.replace("result", this.result, { duration: "quick" });
     },
 
@@ -11799,6 +11876,10 @@
       drawMakanaiLeadinScene(this.age, this.result);
     },
 
+    leave() {
+      clearKeyboardPrimaryAction("makanaiLeadin");
+    },
+
     touch(touch) {
       if (touch.state === ENDED && this.age >= MAKANAI_LEADIN_MIN_TAP_TIME) {
         this.goNext();
@@ -11817,6 +11898,11 @@
       this.age = 0;
       setGameBgm("off");
       this.exportBusy = false;
+      setKeyboardPrimaryAction("result", () => {
+        if (this.exportBusy || this.age < RESULT_MIN_TAP_TIME) return false;
+        SSE.app.replace("briefing", { source: "again" }, { duration: "quick" });
+        return true;
+      });
       this.result = context && context.payload ? context.payload : {
         sales: model.sales,
         deliveries: model.deliveries,
@@ -11862,6 +11948,10 @@
       }
     },
 
+    leave() {
+      clearKeyboardPrimaryAction("result");
+    },
+
     async exportImage(mode) {
       if (this.exportBusy) return;
       this.exportBusy = true;
@@ -11878,7 +11968,6 @@
           {
             success: !!(outcome && outcome.ok),
             method: outcome && (outcome.method || outcome.reason) || "unknown",
-            deliveryBand: analyticsDeliveryBand(this.result.deliveries),
           }
         );
       } finally {
@@ -11911,6 +12000,7 @@
       }
 
       if (!this.exportBusy) {
+        markKeyboardPrimaryBusy("result");
         SSE.app.replace("briefing", { source: "again" }, { duration: "quick" });
       }
       return true;
