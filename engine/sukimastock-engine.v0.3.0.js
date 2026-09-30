@@ -3735,9 +3735,118 @@
       return minutes + "m " + seconds + "s";
     },
 
+    // Snapshot only: never probe storage, instantiate resources, resume audio,
+    // resize, install listeners or inspect work-owned state.
+    observationSnapshot() {
+      const unknown = "unknown";
+      const doc = root.document;
+      const codea = root.CodeaLite;
+      const raw = codea?.state;
+      const canvas = raw?.canvas || null;
+      const number = value => typeof value === "number" && Number.isFinite(value) ? value : unknown;
+      const short = value => String(value ?? unknown).slice(0, 180);
+      let rect = null, hasFocus = unknown;
+      try { rect = canvas?.getBoundingClientRect?.() || null; } catch (_error) {}
+      try { if (typeof doc?.hasFocus === "function") hasFocus = !!doc.hasFocus(); } catch (_error) {}
+      const active = doc?.activeElement;
+      const editable = active ? input.isEditable({ target: active }) : false;
+      const keyboardActive = input.keyboardInstalled && state.config.keyboard?.enabled !== false;
+      const external = {};
+      for (const name of ["audio", "storage", "runtime", "listeners", "save", "buffers"]) {
+        const declared = state.config.diagnostics?.external?.[name];
+        external[name] = { observed: false, status: unknown,
+          declaration: typeof declared === "boolean" ? declared : unknown };
+      }
+      const counts = { total: 0, idle: 0, loading: 0, ready: 0, failed: 0, unavailable: 0,
+        music: 0, buffer: 0, media: 0 };
+      const failures = [];
+      const resourceNames = new Set([...Object.keys(audio.definitions), ...Object.keys(audio.musicDefinitions), ...audio.resources.keys()]);
+      for (const name of resourceNames) {
+        const isSound = Object.prototype.hasOwnProperty.call(audio.definitions, name);
+        const definition = audio.definition(isSound ? audio.definitions[name] : audio.musicDefinitions[name]);
+        // Configured, unattempted resources are idle without creating a resource record.
+        const resource = audio.resources.get(name) || { name, status: "idle", kind: isSound
+          ? (definition.mode === "buffer" || definition.buffer === true ? "buffer" : "media") : "music" };
+        counts.total++;
+        if (["idle", "loading", "ready", "failed", "unavailable"].includes(resource.status)) counts[resource.status]++;
+        if (["music", "buffer", "media"].includes(resource.kind)) counts[resource.kind]++;
+        if (["failed", "unavailable"].includes(resource.status) && failures.length < 5) {
+          failures.push({ name: short(resource.name), status: resource.status,
+            kind: resource.kind, reason: short(resource.reason) });
+        }
+      }
+      const contextState = audio.ctx?.state || "not-created";
+      const output = !audio.enabled ? "muted" : audio.masterVolume === 0 ? "volume-zero"
+        : contextState === "suspended" ? "suspended; gesture/resume may be needed"
+        : contextState === "closed" ? "context-closed"
+        : !audio.unlocked ? "gesture-not-observed" : "audibility-unknown";
+      const assetCounts = { total: assets.definitions.size, ready: 0, loading: 0, error: 0, idle: 0, unknown: 0 };
+      const assetFailures = [];
+      for (const name of assets.definitions.keys()) {
+        const record = assets.records.get(name);
+        const status = record?.status;
+        if (["ready", "loading", "error", "idle"].includes(status)) assetCounts[status]++;
+        else assetCounts.unknown++;
+        if (status === "error" && assetFailures.length < 5) assetFailures.push({
+          name: short(name), type: short(record.definition?.type), reason: short(record.error?.message || record.error) });
+      }
+      const memoryFallback = storage.memoryPreferred.size > 0 || storage.lastBackend === "memory";
+      return {
+        scope: "Engine-managed runtime only; outside Engine is unobserved.",
+        external,
+        runtime: { engineVersion: VERSION, codeaVersion: codea?.VERSION || unknown,
+          codeaPresent: !!codea, adapterPresent: typeof codea?.clearPointers === "function",
+          codeaStateAvailable: !!raw, engineConfigured: state.configured,
+          engineInitialized: state.setupDone, engineBootState: state.bootStatus,
+          codeaBootState: raw?.bootStatus || unknown, expectedCodeaVersion: "1.0.0" },
+        canvas: { available: !!canvas, logicalWidth: viewport.logicalWidth, logicalHeight: viewport.logicalHeight,
+          cssWidth: number(rect?.width), cssHeight: number(rect?.height),
+          clientWidth: number(canvas?.clientWidth), clientHeight: number(canvas?.clientHeight),
+          backingWidth: number(canvas?.width), backingHeight: number(canvas?.height),
+          dpr: number(raw?.dpr), deviceDpr: number(root.devicePixelRatio),
+          scale: viewport.scale, offsetX: viewport.offsetX, offsetY: viewport.offsetY },
+        focus: { documentHasFocus: hasFocus, activeElement: active?.tagName || unknown,
+          canvasActive: canvas && doc ? active === canvas : unknown, editable,
+          keyboardEligible: !keyboardActive || lifecycle.paused || editable ? false : hasFocus,
+          delivery: "Actual key delivery / nested iframe focus is not established by this snapshot." },
+        keyboard: { active: keyboardActive, enabled: state.config.keyboard?.enabled !== false,
+          bindings: input.bindings.size, held: input.keysDown.size, pressed: input.keysPressed.size,
+          released: input.keysReleased.size, listenerRegistered: input.keyboardInstalled },
+        pointer: { logicalActive: state.activePointerId !== null, primaryId: state.activePointerId,
+          rawCount: number(raw?.pointers?.size), captureCount: unknown,
+          captureObservation: "Codea capture registry is private; not inspected.",
+          lastKnownState: state.activePointerRaw?.state || unknown },
+        lifecycle: { installed: lifecycle.installed, paused: lifecycle.paused, reasons: Array.from(lifecycle.reasons),
+          visibility: doc?.visibilityState || unknown, lastReason: lifecycle.lastReason || unknown,
+          pagehideActive: lifecycle.installed ? lifecycle.reasons.has("pagehide") : unknown,
+          interruptionActive: lifecycle.paused, pageshowHistory: unknown },
+        audio: { managed: true, contextState, enabled: !!audio.enabled, muted: !audio.enabled,
+          unlocked: !!audio.unlocked, masterVolume: audio.masterVolume, musicVolume: audio.musicVolume,
+          seVolume: audio.seVolume, resources: counts, failures, output, audible: unknown },
+        assets: { managed: true, summary: assetCounts, failures: assetFailures },
+        storage: { managed: true, active: true, appId: String(state.config.id || "sukimastock-app"),
+          namespace: storage.namespace(), registered: storage.definitions.size,
+          persistenceAvailable: storage.lastBackend === "localStorage" ? true : memoryFallback ? false : unknown,
+          persistenceEvidence: "Last managed operation only; no availability probe or per-key persistence guarantee.",
+          lastBackend: storage.lastBackend, memoryFallback,
+          schemas: Array.from(storage.definitions.values()).slice(0, 5).map(def => ({
+            version: def.version, migrationConfigured: !!(def.migrate || def.migrations) })),
+          schemaSampleLimit: 5, migrationHistory: unknown }
+      };
+    },
+
     storageReport() {
-      const names = Array.from(storage.definitions.keys());
-      return names.map((name) => storage.info(name));
+      // Preserve the metadata shape without reading localStorage or saved values.
+      return Array.from(storage.definitions, ([name, definition]) => {
+        const key = storage.key(name), memoryPreferred = storage.memoryPreferred.has(key);
+        return { name, key, defined: true, version: definition.version,
+          storedVersion: storage.memory.get(key)?.version ?? null,
+          persistent: memoryPreferred ? false : "unknown",
+          memory: storage.memory.has(key), memoryPreferred, checkpoint: storage.checkpoints.has(key),
+          backend: storage.lastBackend,
+          lastError: storage.lastError ? "Managed storage operation reported an error." : null,
+          observation: "Cached metadata only; per-key persistence not probed." };
+      });
     },
 
     audioReport() {
@@ -3818,7 +3927,7 @@
       const failedAssets = report.assets.items.filter((item) => item.status === "error");
       if (failedAssets.length > 0) {
         issues.push({
-          level: "error",
+          level: "warn",
           code: "asset-error",
           text: failedAssets.length + " asset(s) failed to load: " +
             failedAssets.map((item) => item.name).join(", "),
@@ -3845,17 +3954,21 @@
         });
       }
 
-      if (
-        report.audio.enabled &&
-        !report.lifecycle.paused &&
-        report.audio.contextState === "suspended" &&
-        (report.audio.currentMusic || report.audio.buffersConfigured > 0)
-      ) {
-        issues.push({
-          level: "warn",
-          code: "audio-suspended",
-          text: "AudioContext is suspended while the work is active.",
-        });
+      const observed = report.observation || this.observationSnapshot();
+      if (observed.audio.resources.failed + observed.audio.resources.unavailable > 0) {
+        issues.push({ level: "warn", code: "audio-resource-error", text: "Engine-managed audio resources failed or are unavailable; see resource reasons." });
+      }
+      if (observed.storage.memoryFallback && storageFallback.length === 0) {
+        issues.push({ level: "warn", code: "storage-memory-fallback", text: "Managed storage used a memory fallback." });
+      }
+      if (observed.runtime.engineConfigured && !observed.runtime.codeaStateAvailable) {
+        issues.push({ level: "warn", code: "codea-state-unavailable", text: "Expected Codea state is unavailable; adapter observations are unknown." });
+      }
+      if (observed.runtime.codeaVersion !== "unknown" && observed.runtime.codeaVersion !== observed.runtime.expectedCodeaVersion) {
+        issues.push({ level: "warn", code: "codea-version-mismatch", text: "Observed Codea version differs from the supported canonical version." });
+      }
+      if (observed.runtime.engineBootState === "failed" || observed.runtime.codeaBootState === "failed") {
+        issues.push({ level: "error", code: "boot-failed", text: "Runtime reports a failed boot." });
       }
 
       const slowFrames = report.performance.frames.slow;
@@ -3913,7 +4026,7 @@
         issues.push({
           level: "ok",
           code: "healthy",
-          text: "No Engine-level problems detected in this session.",
+          text: "No issues detected in Engine-managed runtime. Outside Engine remains unobserved.",
         });
       }
 
@@ -3925,6 +4038,7 @@
       const assetState = this.assetReport();
 
       const report = {
+        observation: this.observationSnapshot(),
         generatedAt: new Date().toISOString(),
         app: {
           id: String(state.config.id || "sukimastock-app"),
@@ -3976,6 +4090,14 @@
       push("Scene: " + (r.app.scene || "none") + " [" + r.app.sceneStack.join(" > ") + "]");
       push("");
 
+      push("OBSERVATION SCOPE");
+      push(r.observation.scope);
+      push("External declarations are work-provided claims, not observations (false also remains unobserved).");
+      for (const [section, values] of Object.entries(r.observation)) {
+        if (section === "scope") continue;
+        push(section.toUpperCase() + ": " + JSON.stringify(values));
+      }
+      push("");
       push("ATTENTION");
       for (const issue of r.health) {
         push("- [" + issue.level.toUpperCase() + "] " + issue.text);
@@ -4070,7 +4192,7 @@
         r.assets.summary.error + "/" +
         r.assets.summary.idle
       );
-      for (const item of r.assets.items.filter((entry) => entry.status === "error")) {
+      for (const item of r.assets.items.filter((entry) => entry.status === "error").slice(0, 5)) {
         push("- ERROR " + item.name + ": " + (item.error || "unknown"));
       }
       push("");
@@ -4220,11 +4342,11 @@
           "  STORAGE " + (
             r.storage.some((item) => item.memoryPreferred)
               ? "MEMORY"
-              : "OK"
+              : r.observation.storage.persistenceAvailable === true ? "PERSISTENCE OBSERVED" : "UNKNOWN"
           ),
         issue
           ? "[" + issue.level.toUpperCase() + "] " + issue.text
-          : "[OK] No Engine-level problems detected.",
+          : "[OK] No issues detected in Engine-managed runtime. Outside Engine: unknown.",
       ].join("\n");
     },
 
