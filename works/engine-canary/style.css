@@ -1,0 +1,30 @@
+:root { color-scheme: dark; font-family: system-ui, -apple-system, sans-serif; color: #eef3f5; background: #101a25; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+#canvas { position: fixed; inset: 0; display: block; touch-action: none; -webkit-tap-highlight-color: transparent; }
+#canvas:focus-visible { outline: 3px solid #6fddc1; outline-offset: -3px; }
+header { position: fixed; top: 0; left: 0; padding: max(14px, env(safe-area-inset-top)) 18px 8px; pointer-events: none; }
+h1 { font-size: 18px; margin: 8px 0 3px; }
+header p { font-size: 12px; margin: 0; color: #b5c8d6; }
+.badge { font-size: 10px; font-weight: 700; letter-spacing: .14em; color: #6fddc1; }
+main { position: fixed; inset: 46% 0 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 16px 18px max(28px, env(safe-area-inset-bottom)); background: #162433; border-top: 1px solid #40566b; border-radius: 20px 20px 0 0; }
+section { padding: 10px 0 22px; border-bottom: 1px solid #344858; }
+h2 { font-size: 17px; line-height: 1.6; margin: 6px 0; }
+h3 { font-size: 12px; color: #9fc5d8; letter-spacing: .05em; margin-bottom: 6px; }
+p { font-size: 14px; line-height: 1.7; margin: 8px 0 12px; }
+.hint, footer p { font-size: 12px; color: #b5c8d6; }
+.notice { padding: 10px 12px; background: #223c43; border-radius: 8px; margin-top: 0; }
+.readings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin: 12px 0; }
+.readings div { padding: 9px 11px; background: #0f1c29; border-radius: 8px; min-width: 0; }
+dt { font-size: 11px; color: #a9c1d1; } dd { margin: 3px 0 0; font-family: ui-monospace, monospace; overflow-wrap: anywhere; }
+button, select { width: 100%; min-height: 48px; padding: 12px; font: inherit; font-size: 14px; font-weight: 650; border-radius: 10px; border: 1px solid #6fddc1; color: #102620; background: #6fddc1; touch-action: manipulation; }
+button { cursor: pointer; margin: 4px 0; } button:disabled { opacity: .45; cursor: default; }
+button:focus-visible, select:focus-visible { outline: 3px solid white; outline-offset: 3px; }
+select, .secondary { color: #eef3f5; background: #203647; border-color: #638094; }
+label { display: block; font-size: 13px; line-height: 2; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; line-height: 1.7; padding: 12px; background: #0f1c29; border-radius: 8px; }
+footer { padding-top: 22px; font-size: 12px; }
+@media (orientation: landscape) and (min-width: 600px) {
+  main { inset: 0 0 0 48%; border-radius: 0; border-top: 0; border-left: 1px solid #40566b; padding-top: max(16px, env(safe-area-inset-top)); }
+  header { max-width: 46%; padding-left: max(18px, env(safe-area-inset-left)); }
+}

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Engine 0.3 · Browser Canary</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="../../engine/codea-lite.v1.0.0.js"></script>
+  <script defer src="../../engine/sukimastock-engine.v0.3.0.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <canvas id="canvas" aria-label="タップ・ドラッグ確認領域"></canvas>
+  <header>
+    <span class="badge">STAGING ONLY</span>
+    <h1>Engine Browser Canary</h1>
+    <p>Engine <output id="engine-version">—</output> · Codea <output id="codea-version">—</output></p>
+  </header>
+  <main aria-label="確認手順と状態">
+    <p id="boot-message" class="notice" role="status">起動中…</p>
+    <section>
+      <h2>1 · 上の領域をタップ → ドラッグ → 離す</h2>
+      <p>1回でTapが1増え、指の下に丸が動きます。離したらHeldがOFFになり、次のタップも使えるか確認。</p>
+      <dl class="readings">
+        <div><dt>Tap</dt><dd id="taps">0</dd></div>
+        <div><dt>Held</dt><dd id="held">OFF</dd></div>
+        <div><dt>Last event</dt><dd id="last-event">NONE</dd></div>
+        <div><dt>Focus</dt><dd id="focus">—</dd></div>
+        <div><dt>Pointer ID</dt><dd id="pointer-id">—</dd></div>
+        <div><dt>Position</dt><dd id="position">—</dd></div>
+        <div><dt>Setup count</dt><dd id="setups">0</dd></div>
+        <div><dt>SPACE</dt><dd id="space">NOT TESTED</dd></div>
+      </dl>
+      <p class="hint">PC／外部keyboard：領域をタップ後、Spaceを押す。長押しでも1回、離して再度押すと＋1。iPhone単体はNOT TESTEDでOK。</p>
+    </section>
+    <section>
+      <h2>2 · Safariを離れて戻る → 縦横に回す</h2>
+      <p>バックグラウンドへ送り、数秒後に戻って再度ドラッグ。縦横回転後も丸が指の位置に追従し、1回のタップが二重に増えないか確認。</p>
+      <dl class="readings">
+        <div><dt>Visibility</dt><dd id="visibility">—</dd></div>
+        <div><dt>Hidden</dt><dd id="hidden-count">0</dd></div>
+        <div><dt>Visible復帰</dt><dd id="restore-count">0</dd></div>
+        <div><dt>Page hide / show</dt><dd id="page-count">0 / 0</dd></div>
+        <div><dt>Window</dt><dd id="window-size">—</dd></div>
+        <div><dt>Draw calls</dt><dd id="draws">0</dd></div>
+      </dl>
+      <p class="hint">Setupは1のままが期待値。回数表示だけで二重RAFの不在を自動認定はしません。</p>
+    </section>
+    <section>
+      <h2>3 · 小さな確認音を鳴らす</h2>
+      <button id="tone" type="button">PLAY TEST TONE</button>
+      <p>Context: <output id="context-state">not created</output><br>再生要求: <output id="play-request">NOT TESTED</output></p>
+      <label>Heard（耳で確認）
+        <select id="heard"><option value="NOT TESTED">NOT TESTED</option><option value="聞こえた（人間確認）">聞こえた</option><option value="聞こえない（人間確認）">聞こえない</option></select>
+      </label>
+      <p class="hint">小音量・短い音です。端末音量も確認してください。runningやreadyだけで「聞こえた」とは判定しません。</p>
+    </section>
+    <section>
+      <h2>4 · 正常音源を読み込む</h2>
+      <p>同じ短いWAVをbufferとHTMLAudioで読みます。期待値はAudio / Assetともready、Reasonなし。</p>
+      <button id="load-valid" type="button">LOAD VALID RESOURCES</button>
+      <article><h3>VALID BUFFER</h3><pre id="valid-buffer">Audio: idle / Asset: idle</pre><button id="play-buffer" type="button" disabled>PLAY VALID BUFFER</button></article>
+      <article><h3>VALID HTMLAudio</h3><pre id="valid-media">Audio: idle / Asset: idle</pre><button id="play-media" type="button" disabled>PLAY VALID HTMLAudio</button></article>
+      <p class="hint">loadingの経過は各欄に残ります。再生は読み込み後、ボタンを押してください。Heardは上の欄で人間が記録します。</p>
+    </section>
+    <section>
+      <h2>5 · 期待される404を確認する</h2>
+      <p>存在しない音源を1回だけ取得します。期待値はAudio: failed、Asset: error、Reasonあり。readyにならず、他の操作を続けられるか確認。</p>
+      <button id="load-missing" type="button">TEST MISSING RESOURCE / RETRY</button>
+      <pre id="missing">Audio: idle / Asset: idle</pre>
+      <p class="hint">この404は意図した失敗です。自動再試行はしません。</p>
+    </section>
+    <footer><strong>Browser / iPhone verification: UNVERIFIED</strong><p>このページは観測用です。自動PASS判定やEngineの診断機能追加はありません。</p><button id="reset" type="button" class="secondary">RESET TEST（再読み込み）</button></footer>
+  </main>
+  <noscript>JavaScriptを有効にして開いてください。</noscript>
+</body>
+</html>
