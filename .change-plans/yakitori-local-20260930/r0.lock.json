@@ -1,0 +1,78 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "07d5587827884fda9a55702058d7a7a69f8369ee042de43ba2947e3448309819",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "yakitori-local-20260930",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Host completed Yakitori ZIP locally without gameplay changes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "93d178370a20ba9e577ae836b089a062e71bb05e",
+    "canonicalSources": [
+      "data/works.js",
+      "User supplied Yakitori.zip"
+    ],
+    "allowedPaths": [
+      ".change-plans/yakitori-local-20260930/r0.lock.json",
+      "data/works.js",
+      "works/yakitori-wars/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "sw.js",
+      "data/work-search-meta.js"
+    ],
+    "expectedChanges": [
+      "Copy ZIP runtime preserving paths, omit macOS metadata",
+      "Rename undercoocked.wav to undercooked.wav; remove unused missing Logo.png load only",
+      "Switch only yakitori-wars to embedded local entry; preserve all other metadata and itch URLs"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "venue-menu-launch",
+      "title-click-play",
+      "network-audio-images-console",
+      "return-reentry",
+      "frame-mode-regression"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "works.venue-menu",
+      "works.direct-route",
+      "works.search-share",
+      "works.analytics-id",
+      "works.town-awareness",
+      "works.release-validator"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User authorizes staging-only local hosting and minimal broken-reference fixes"
+    ],
+    "rulesApplied": [
+      "Existing embedded launch and phone-yakitori frame"
+    ],
+    "rollback": [
+      "Revert implementation commit as one work unit"
+    ],
+    "promotion": "Merge staging PR after checks, verify staging; no production writes",
+    "unverified": [
+      "Physical iPhone and audible audio require owner observation"
+    ]
+  }
+}
