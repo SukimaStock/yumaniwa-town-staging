@@ -57,6 +57,107 @@ function harness({ setup, failRAF = false, contextMissing = false, tabIndex, con
 const observe = h => h.w.SSE.dev.report().observation;
 const warnings = h => h.w.SSE.dev.report().health.filter(i => ['warn', 'error'].includes(i.level));
 
+function assertPrivateReport(h, secrets) {
+  const report = h.w.SSE.dev.report(), text = h.w.SSE.dev.reportText();
+  for (const secret of secrets) {
+    assert.equal(JSON.stringify(report).includes(secret), false, 'JSON leaked ' + secret);
+    assert.equal(text.includes(secret), false, 'text leaked ' + secret);
+  }
+  return report;
+}
+
+test('privacy: page query and fragment export presence only', () => {
+  const h=harness(); h.start();
+  Object.assign(h.w.location, {pathname:'/canary/', search:'?unusual=SSE_SECRET_QUERY_123&v=123', hash:'#SSE_SECRET_PAGE_FRAGMENT'});
+  const before=JSON.stringify(h.w.location);
+  const r=assertPrivateReport(h,['SSE_SECRET_QUERY_123','SSE_SECRET_PAGE_FRAGMENT']);
+  assert.equal(r.environment.path,'/canary/');
+  assert.equal(r.environment.hasQuery,true); assert.equal(r.environment.hasFragment,true);
+  assert.equal('search' in r.environment,false); assert.equal('hash' in r.environment,false);
+  assert.equal(JSON.stringify(h.w.location),before);
+  h.w.location.search=''; h.w.location.hash='';
+  assert.equal(h.w.SSE.dev.report().environment.hasQuery,false);
+  assert.equal(h.w.SSE.dev.report().environment.hasFragment,false);
+});
+
+for (const [label,url,safe,secrets] of [
+  ['absolute','https://example.test/audio.wav?token=SSE_SECRET_ASSET_123&v=SSE_QUERY_VALUE#SSE_FRAGMENT_VALUE','https://example.test/audio.wav',['SSE_SECRET_ASSET_123','SSE_QUERY_VALUE','SSE_FRAGMENT_VALUE']],
+  ['relative','./sounds/test.wav?x=SSE_SECRET_RELATIVE_123','./sounds/test.wav',['SSE_SECRET_RELATIVE_123']],
+  ['bare relative','sounds/test.wav?anything=SSE_SECRET_BARE#SSE_FRAGMENT_BARE','sounds/test.wav',['SSE_SECRET_BARE','SSE_FRAGMENT_BARE']],
+  ['root relative','/sounds/test.wav#SSE_FRAGMENT_ROOT','/sounds/test.wav',['SSE_FRAGMENT_ROOT']],
+  ['protocol relative','//example.test/audio.wav?arbitrary=SSE_SECRET_PROTOCOL','//example.test/audio.wav',['SSE_SECRET_PROTOCOL']],
+  ['query reference','?arbitrary=SSE_SECRET_REFERENCE','',['SSE_SECRET_REFERENCE']],
+  ['fragment reference','#SSE_FRAGMENT_REFERENCE','',['SSE_FRAGMENT_REFERENCE']],
+  ['raw whitespace','./sound.wav?x=first SSE_SECRET_SPACE#SSE_FRAGMENT_SPACE','./sound.wav',['SSE_SECRET_SPACE','SSE_FRAGMENT_SPACE']],
+]) test('privacy: '+label+' asset URL and actual Engine fetch failure', async () => {
+  const h=harness(); h.start(); const s=h.w.SSE;
+  let requested;
+  h.w.fetch=async file=>{requested=file;return {ok:false,status:404};};
+  s.assets.register('privacy-asset',{type:'text',file:url});
+  await s.assets.load('privacy-asset'); // Real loader/error construction; no network.
+  assert.equal(requested,url);
+  const definition=s.assets.definitions.get('privacy-asset');
+  const record=s.assets.record('privacy-asset'), originalError=record.error;
+  const before=JSON.stringify({definition, error:originalError.message, events:s.diagnostics.events});
+  const r=assertPrivateReport(h,secrets), item=r.assets.items.find(i=>i.name==='privacy-asset');
+  assert.equal(item.file,safe); assert.equal(item.name,'privacy-asset');
+  assert.equal(item.type,'text'); assert.equal(item.status,'error');
+  assert.equal(item.error,'Asset fetch failed: '+safe+' (404)');
+  assert.equal(r.observation.assets.failures[0].reason,item.error);
+  assert.match(s.dev.reportText(),/Asset fetch failed: .* \(404\)/);
+  assert.equal(s.dev.assetReport().items[0].file,safe);
+  assert.equal(s.assets.definitions.get('privacy-asset'),definition);
+  assert.equal(definition.file,url); assert.equal(record.error,originalError);
+  assert.equal(JSON.stringify({definition, error:record.error.message, events:s.diagnostics.events}),before);
+  assert.equal(s.assets.report()[0].file,url); // Runtime inspection retains the original URL.
+});
+
+test('privacy: nested diagnostic strings/keys and audio reasons are detached copies', () => {
+  const h=harness(); h.start(); const s=h.w.SSE;
+  const url='https://example.test/sound.wav?odd=SSE_SECRET_EVENT#SSE_EVENT_FRAGMENT';
+  s.diagnostics.warn('privacy-event','Load failed: '+url+' (503)',{urls:[url],nested:{[url]:url}});
+  const resource={name:'sound',kind:'buffer',status:'failed',reason:'Decode failed: '+url};
+  s.audio.resources.set('sound',resource);
+  const before=JSON.stringify({events:s.diagnostics.events,resources:[...s.audio.resources],location:h.w.location,raf:[...h.raf.keys()],timers:[...h.timers.keys()]});
+  const r=assertPrivateReport(h,['SSE_SECRET_EVENT','SSE_EVENT_FRAGMENT']);
+  const event=r.diagnostics.recent.find(e=>e.code==='privacy-event');
+  assert.equal(event.message,'Load failed: https://example.test/sound.wav (503)');
+  assert.equal(event.detail.urls[0],'https://example.test/sound.wav');
+  assert.equal(r.observation.audio.failures[0].kind,'buffer');
+  assert.equal(r.observation.audio.failures[0].status,'failed');
+  assert.equal(r.observation.audio.failures[0].reason,'Decode failed: https://example.test/sound.wav');
+  assert.equal(s.dev.observationSnapshot().audio.failures[0].reason,r.observation.audio.failures[0].reason);
+  event.detail.urls[0]='changed';
+  assert.equal(s.audio.resources.get('sound'),resource);
+  assert.equal(JSON.stringify({events:s.diagnostics.events,resources:[...s.audio.resources],location:h.w.location,raf:[...h.raf.keys()],timers:[...h.timers.keys()]}),before);
+});
+
+test('privacy: sanitization precedes sample truncation and preserves ready metadata', () => {
+  const h=harness(); h.start(); const s=h.w.SSE;
+  s.audio.resources.set('ready',{name:'ready',kind:'buffer',status:'ready',reason:null});
+  s.audio.resources.set('bad',{name:'bad',kind:'buffer',status:'failed',reason:'Load failed: ./sound.wav?x=SSE_SECRET_LONG'+ 'x'.repeat(300)+' (404)'});
+  const r=assertPrivateReport(h,['SSE_SECRET_LONG']);
+  assert.equal(r.observation.audio.resources.ready,1);
+  assert.equal(r.observation.audio.failures[0].reason,'Load failed: ./sound.wav (404)');
+});
+
+test('privacy: clipboard and text fallback export the sanitized report', async () => {
+  const h=harness(); h.start(); const s=h.w.SSE;
+  s.diagnostics.warn('privacy-copy','Failure ./sound.wav?x=SSE_SECRET_COPY#SSE_COPY_FRAGMENT (404)');
+  let copied;
+  h.w.navigator.clipboard={writeText:async text=>{copied=text;}};
+  const clipboard=await s.dev.copyReport();
+  assert.equal(clipboard.ok,true); assert.equal(clipboard.text,copied);
+  delete h.w.navigator.clipboard;
+  const fallback=await s.dev.copyReport();
+  assert.equal(fallback.method,'text');
+  for (const text of [copied,clipboard.text,fallback.text]) {
+    assert.equal(text.includes('SSE_SECRET_COPY'),false);
+    assert.equal(text.includes('SSE_COPY_FRAGMENT'),false);
+    assert.match(text,/Failure \.\/sound.wav \(404\)/);
+  }
+});
+
 test('runtime identity, boot state and pre-start unknowns', () => {
   const h = harness(); let o = observe(h);
   assert.equal(o.runtime.engineVersion, '0.3.0'); assert.equal(o.runtime.codeaVersion, '1.0.0');

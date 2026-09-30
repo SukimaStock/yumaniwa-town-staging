@@ -156,3 +156,20 @@ external entries retain `observed: false` and `status: "unknown"`.
 Phase 1/2 canary checks on iPhone Safari were reported successful by the owner.
 That does not verify Phase 3 Report UI/output: see the separate Phase 3 validation
 record. Physical keyboard, strict BFCache and nested iframe focus remain unverified.
+
+### Session Report URL privacy
+
+Session Report strips URL queries and fragments from exported diagnostic
+representations: `SSE.dev.report()` JSON, `reportText()`, copy and panel output.
+`environment.search` is replaced by `hasQuery` and `hasFragment` booleans; neither
+query keys/values nor fragment contents are exported. Asset paths, resource kinds,
+readiness status and HTTP status in Engine failure messages remain useful.
+
+Sanitization makes detached Report copies, including nested diagnostic event
+details and URL-bearing reasons, before failure samples are truncated. It
+conservatively removes `?`/`#` suffixes of whitespace-delimited references, including
+relative URLs, and strips complete suffixes of registered Asset/Audio URLs even
+when their source strings contain literal whitespace. It does not classify parameter names or scan for arbitrary secrets
+outside URLs. Original runtime definitions, errors, events and location remain
+unchanged. This does not sanitize `SSE.assets.report()` or other internal runtime
+inspection APIs. See `SUKIMASTOCK-ENGINE-v0.3-PRIVACY-VALIDATION.md` for evidence.

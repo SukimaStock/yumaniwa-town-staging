@@ -3744,7 +3744,7 @@
       const raw = codea?.state;
       const canvas = raw?.canvas || null;
       const number = value => typeof value === "number" && Number.isFinite(value) ? value : unknown;
-      const short = value => String(value ?? unknown).slice(0, 180);
+      const short = value => this.sanitizeReport(String(value ?? unknown)).slice(0, 180);
       let rect = null, hasFocus = unknown;
       try { rect = canvas?.getBoundingClientRect?.() || null; } catch (_error) {}
       try { if (typeof doc?.hasFocus === "function") hasFocus = !!doc.hasFocus(); } catch (_error) {}
@@ -3791,7 +3791,7 @@
           name: short(name), type: short(record.definition?.type), reason: short(record.error?.message || record.error) });
       }
       const memoryFallback = storage.memoryPreferred.size > 0 || storage.lastBackend === "memory";
-      return {
+      return this.sanitizeReport({
         scope: "Engine-managed runtime only; outside Engine is unobserved.",
         external,
         runtime: { engineVersion: VERSION, codeaVersion: codea?.VERSION || unknown,
@@ -3832,7 +3832,7 @@
           schemas: Array.from(storage.definitions.values()).slice(0, 5).map(def => ({
             version: def.version, migrationConfigured: !!(def.migrate || def.migrations) })),
           schemaSampleLimit: 5, migrationHistory: unknown }
-      };
+      });
     },
 
     storageReport() {
@@ -3886,7 +3886,7 @@
         }
       }
 
-      return { summary, items };
+      return this.sanitizeReport({ summary, items });
     },
 
     inputReport() {
@@ -4033,6 +4033,32 @@
       return issues;
     },
 
+    // Export boundary only. Conservatively drop query/fragment suffixes from
+    // whitespace-delimited URL references (absolute, relative or embedded in
+    // errors). No parameter-name allowlist, URL decoding or runtime mutation.
+    // This is not a scanner for arbitrary secrets outside URL suffixes.
+    sanitizeReport(value) {
+      // Registered URLs may contain literal whitespace before fetch normalizes
+      // them. Replace those exact references first, including in Engine errors.
+      const urls = [...assets.definitions.values(), ...Object.values(audio.definitions),
+        ...Object.values(audio.musicDefinitions)]
+        .map(def => typeof def === "string" ? def : def?.file)
+        .filter(url => typeof url === "string" && /[?#]/.test(url))
+        .sort((a, b) => b.length - a.length);
+      const text = source => {
+        for (const url of urls) source = source.split(url).join(url.split(/[?#]/, 1)[0]);
+        return source.replace(/[?#]\S*/g, "");
+      };
+      const copy = item => {
+        if (typeof item === "string") return text(item);
+        if (Array.isArray(item)) return item.map(copy);
+        if (item && typeof item === "object") return Object.fromEntries(
+          Object.entries(item).map(([key, entry]) => [text(key), copy(entry)]));
+        return item;
+      };
+      return copy(value);
+    },
+
     report() {
       const perf = performanceMonitor.snapshot();
       const assetState = this.assetReport();
@@ -4049,7 +4075,8 @@
         },
         environment: {
           path: String(root.location?.pathname || ""),
-          search: String(root.location?.search || ""),
+          hasQuery: !!root.location?.search,
+          hasFragment: !!root.location?.hash,
           userAgent: String(root.navigator?.userAgent || ""),
           platform: String(root.navigator?.platform || ""),
           language: String(root.navigator?.language || ""),
@@ -4075,7 +4102,7 @@
       };
 
       report.health = this.health(report);
-      return report;
+      return this.sanitizeReport(report);
     },
 
     reportText() {
