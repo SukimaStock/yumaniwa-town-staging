@@ -1,0 +1,86 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3897ccab0cc91ecaaa877748b336983078634812e9c073d4ffb5141411bc96c1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpkin-kotsu-koro-canary-record-20261001",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Record observed final staging browser evidence for the new PUMPKIN work",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "05fa1afd817ce2593ed44084b906b02862a09621",
+    "canonicalSources": [
+      "engine/SUKIMASTOCK-NEW-WORK.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "engine/SUKIMASTOCK-AUDIO-BASELINE.md",
+      "works/_starter",
+      "Google Drive SukimaStock/Code/ including Rakugaki",
+      "works/kotsu-koro",
+      "engine/codea-lite.v1.0.0.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpkin-kotsu-koro-canary-record-20261001/r0.lock.json",
+      "works/kotsu-koro/VALIDATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "layout-fix.css",
+      "assets/**",
+      ".github/**",
+      "tools/**",
+      "works/coffee-factory/**",
+      "works/orbit/**",
+      "works/midnight-cola/**",
+      "works/yakitori-wars/**",
+      "works/junkissa-dive/**",
+      "works/rojiura-masala/**"
+    ],
+    "expectedChanges": [
+      "Record exact deployed runtime SHA, observed browser gestures and diagnostics, and unverified physical-device/audible-mix limits; no runtime changes"
+    ],
+    "ownerDecisions": [
+      "User explicitly delegates concept, title, visuals, central interaction, subtraction and staging playability; no concept-selection approval required",
+      "Only staging may be changed; merge and Pages delivery necessary for requested playable URL are authorized by this task"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "New Work Flow: local frozen starter then meaningful loop then canonical adoption",
+      "AGENTS and Change Plan: Plan-only first commit, immutable r0, branch + PR",
+      "No new launch/frameMode/venue/shared runtime/Engine contract; standalone experimental path only"
+    ],
+    "staticChecks": [],
+    "manualChecks": [
+      "confirm-evidence-matches-observed-runtime"
+    ],
+    "impactChecks": [],
+    "impactExclusions": [],
+    "rollback": "Revert only this new work directory and its Plan Lock; no persistent gameplay migration",
+    "outOfScope": [
+      "Production repository",
+      "Town registry/search/share/guide placement or external publication",
+      "Existing games or numerical tuning",
+      "Engine or Codea changes"
+    ],
+    "promotion": "none; staging-only standalone experiment, not production Release Complete",
+    "unverified": [
+      "Author iPhone Safari feel and audible mix",
+      "Safari background/BFCache; final automatic VERIFIED stays UNVERIFIED"
+    ],
+    "staticCheckExemptionReason": "Documentation-only evidence record; no executable runtime or configuration is changed."
+  }
+}

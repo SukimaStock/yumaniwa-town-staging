@@ -53,3 +53,50 @@ Observed runtime: staging merge `917ca9967770b957fee13952098110f8994f19eb`
   HQ REVIEW 0 / EXTERNAL 38. Output compared byte-for-byte equal to the
   start main `936dbc8e5993708853a9fc945c462f8cee201c35`; the 30 existing
   failures are not new work regressions and are not called PASS.
+
+## Accepted environment canary — 2026-10-01
+
+Observed deployed runtime SHA: `05fa1afd817ce2593ed44084b906b02862a09621`
+(PR #101 merge; implementation `78e2e82da55bbb577435649c158ef6749347c36b`).
+GitHub Pages deployment and Change Operations Tests both completed successfully.
+This following record changes documentation only; runtime is identical.
+
+Cloud Chrome at 1363 × 936 CSS viewport:
+
+- Ordinary `/works/kotsu-koro/` and `?dev=1` both render the work. The
+  ordinary page contains no diagnostic panel, score or results UI. Initial
+  one-line hint is visible, then fades after interaction.
+- Repeated diagonal mouse drags, release, opposite-direction regrab and a
+  later drag on the ordinary page all work. Early post-release screenshots
+  show separated moving seeds; later screenshots show recovered shell and
+  a settled arrangement. Regrab acts on the existing arrangement.
+- ArrowRight and Space were exercised; Space changes the contents without
+  a pointer gesture. Longer keyboard-hold equivalence is covered by the
+  executable physics/input test, not by the brief browser keypress.
+- Sound control changes its label/pressed state, and muted state persists
+  after reload. It was returned to enabled for the delivered page. Diagnostic
+  AudioContext changes from suspended before gesture to running afterward.
+  All three WAV URLs return HTTP 200. This confirms delivery/unlock and
+  controls, not subjective hearing or an iPhone speaker mix.
+- Session Report COPY reports COPIED. A subsequent clipboard read captured
+  the final report generated at `2026-10-01T03:42:12.987Z`: Engine 0.3.0 / Codea
+  1.0.0 both running; audio unlocked, running, buffers 3/3 ready, failed 0;
+  pointer inactive, held keys 0, lifecycle active; diagnostic error count 0.
+  It explicitly reports audibility unknown. Historic pre-correction console
+  entries are excluded from this new session report.
+- Ordinary-page navigation away and back, followed by Space, remains
+  playable. This is Chrome navigation recovery, not verified Safari
+  backgrounding or BFCache acceptance.
+- Environment reports roughly 51–54 average FPS / 60 current FPS and
+  ~33ms p95, with slow-frame warnings. Work update ~0.02–0.03ms and draw
+  ~0.31–0.37ms. Frame-count-independent motion is covered at 30/60/120fps.
+- Adoption tool removed the uncommitted local rollback Engine after canary.
+  Codea snapshot still equals canonical 1.0.0; Engine unchanged.
+- Production main rechecked: `53d31cfe98313c87cfc5ffb78e3b4e8cdaed1ca3`,
+  unchanged from task start. Only new work and locked Plans are changed.
+
+Eleven focused checks and Scope → Risk → Impact checks pass on implementation
+`78e2e82da55bbb577435649c158ef6749347c36b`; trusted base CI checks also pass.
+Formal verificationState remains UNVERIFIED. Physical iPhone touch feel,
+actual audible mix, Safari background/resume and the author's creative
+judgment remain unverified. No production or Release Complete claim.
