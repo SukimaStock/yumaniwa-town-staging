@@ -29,3 +29,27 @@ Observations and any following refinement belong to the subsequent exact-SHA
 record. No physical iPhone or subjective sound/feel claim is made here.
 
 Production, existing works, town registration and shared runtime are excluded.
+
+## First deployed browser canary / refinement
+
+Observed runtime: staging merge `917ca9967770b957fee13952098110f8994f19eb`
+(PR #100), Cloud Chrome, 1363 × 936 CSS viewport.
+
+- Rendering is present after bootstrap: paper, single vessel, seeds, title and
+  one sound control. The first capture preceded the first rendered frame; no
+  bootstrap error was observed.
+- Actual drag reproduced a work-side `CHANGED is not defined` exception on
+  pointer end. The original mock supplied a noncanonical constant and hid it.
+  Refinement removes that constant from both sketch and harness, and tests
+  ENDED and CANCELLED independently against canonical touch vocabulary.
+- Observed seed pile had visual overlap. Collision radius increased from 6.5
+  to 8.5; shell translation/rotation modestly increased to clarify the hold.
+  No additional effects/UI/game rules were introduced. Unused impact-flash
+  state was removed.
+- Eleven focused checks pass after this correction. Canonical Engine remains
+  unchanged. Final deployed drag/release/regrab and audio/lifecycle checks
+  are still pending at this refinement commit.
+- Existing six-work Release Validator: PASS 827 / FAIL 30 / WARNING 3 /
+  HQ REVIEW 0 / EXTERNAL 38. Output compared byte-for-byte equal to the
+  start main `936dbc8e5993708853a9fc945c462f8cee201c35`; the 30 existing
+  failures are not new work regressions and are not called PASS.

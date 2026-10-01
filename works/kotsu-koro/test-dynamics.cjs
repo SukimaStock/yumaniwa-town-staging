@@ -61,7 +61,7 @@ function harness() {
   let config; const held = new Set(), pressed = new Set(), plays = [];
   const c = { console, location: { search: '?dev=1' }, URLSearchParams,
     SUKIMASTOCK_WORK: { id: 'kotsu-koro', title: 'こつ、ころ。', logicalWidth: 390, logicalHeight: 740, frameRate: 60 },
-    PumpkinDynamics: D, BEGAN: 'BEGAN', MOVING: 'MOVING', CHANGED: 'MOVING', ENDED: 'ENDED', CANCELLED: 'CANCELLED',
+    PumpkinDynamics: D, BEGAN: 'BEGAN', MOVING: 'MOVING', ENDED: 'ENDED', CANCELLED: 'CANCELLED',
     SSE: { createApp: v => { config = v; }, audio: {
       withBaseline: v => v, baseline: () => ({ reference: { se: { action: .46, soft: .24 } } }),
       play: (name, options) => plays.push({ name, options }),
@@ -70,14 +70,14 @@ function harness() {
   vm.runInNewContext(fs.readFileSync(path.join(__dirname, 'sketch.js'), 'utf8'), c);
   return { scene: config.scenes.main, probe: c.PumpkinProbe, held, pressed, plays };
 }
-test('pointer outside the vessel is inert; drag and cancellation release correctly', () => {
+for (const ending of ['ENDED', 'CANCELLED']) test(`pointer outside is inert; drag and ${ending} release correctly`, () => {
   const h = harness();
   h.scene.touch({ id: 1, state: 'BEGAN', x: 10, y: 20 }); assert.equal(h.probe().held, false);
   h.scene.touch({ id: 1, state: 'BEGAN', x: 195, y: 375 });
   h.scene.touch({ id: 1, state: 'MOVING', x: 250, y: 350 });
   for (let i = 0; i < 30; i++) h.scene.update(1 / 60);
   assert.ok(h.probe().tilt[0] > .15);
-  h.scene.touch({ id: 1, state: 'CANCELLED', x: 250, y: 350 });
+  h.scene.touch({ id: 1, state: ending, x: 250, y: 350 });
   assert.equal(h.probe().held, false);
   for (let i = 0; i < 120; i++) h.scene.update(1 / 60);
   assert.ok(Math.abs(h.probe().tilt[0]) < .01);

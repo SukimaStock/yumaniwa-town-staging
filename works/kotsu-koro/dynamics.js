@@ -12,7 +12,7 @@
       seeds: Array.from({ length: 9 }, (_, i) => ({
         x: Math.cos(i * 2.399) * (12 + i * 5),
         y: Math.sin(i * 2.399) * (12 + i * 5), vx: 0, vy: 0,
-        angle: i * 2.399, spin: 0, cool: 0, flash: 0, r: 6.5,
+        angle: i * 2.399, spin: 0, cool: 0, r: 8.5,
       })),
     };
   }
@@ -32,7 +32,7 @@
   }
   function contact(s, p, speed, material) {
     if (speed < 17 || p.cool > 0) return;
-    p.cool = 0.09; p.flash = clamp(speed / 180, 0.12, 1);
+    p.cool = 0.09;
     s.contacts.push({ speed, x: p.x, y: p.y, material }); s.impactCount++;
   }
   function step(s, dt) {
@@ -46,7 +46,7 @@
     s.ringV += (-490 * s.ring - 9 * s.ringV) * dt;
     s.ring += s.ringV * dt;
     for (const p of s.seeds) {
-      p.cool = Math.max(0, p.cool - dt); p.flash *= Math.exp(-5 * dt);
+      p.cool = Math.max(0, p.cool - dt);
       const r = Math.hypot(p.x, p.y);
       // A concave interior, not a flat screen. The rim gets progressively steep.
       const bowl = 0.25 + r * 0.013;
