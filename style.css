@@ -1702,3 +1702,15 @@ body {
     padding-left: 6px;
     padding-right: 6px;
 }
+
+/* Wide Editor workspace: 470px town + 284px inspector + 16px gap.
+   Keep short landscape viewports on the base overlay layout. */
+@media (min-width: 820px) and (min-height: 600px) {
+    #editor-panel {
+        position: relative;
+        top: auto;
+        right: auto;
+        flex: 0 0 auto;
+        margin-left: 16px;
+    }
+}
