@@ -39,8 +39,8 @@
   }
   function vessel(c) {
     c.save();
-    c.translate(CX + model.x * 23, CY + model.y * 17);
-    c.rotate(model.x * 0.17);
+    c.translate(CX + model.x * 34, CY + model.y * 23);
+    c.rotate(model.x * 0.22);
     c.scale(1 + model.ring * 0.22, 1 - model.y * 0.15 - model.ring * 0.18);
     // Lower skin: the visible thickness gives the drag somewhere to land.
     c.save(); c.translate(0, 15);
@@ -151,7 +151,7 @@
         model.activeId = t.id; model.held = true;
         model.anchorX = t.x; model.anchorY = y;
         touchedOnce = true; knockAt(t.x, y);
-      } else if (t.id === model.activeId && (t.state === MOVING || t.state === CHANGED)) {
+      } else if (t.id === model.activeId && t.state === MOVING) {
         model.targetX = Math.max(-.38, Math.min(.38, (t.x - model.anchorX) / 210));
         model.targetY = Math.max(-.38, Math.min(.38, (y - model.anchorY) / 210));
       } else if (t.id === model.activeId && (t.state === ENDED || t.state === CANCELLED)) {
