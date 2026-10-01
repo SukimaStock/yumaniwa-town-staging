@@ -1,58 +1,19 @@
 # SteamClock / SukimaStock Starter lineage
 
-> Runtime note (2026-09-22): SteamClock now uses the canonical `../../engine/sukimastock-engine.v0.2.0.js`. The notes below are retained because this work also preserves the original Starter lineage.
+SteamClockは `index.html` と `sketch.js` で起動する作品です。現在のruntimeは共通の `../../engine/sukimastock-engine.v0.2.0.js` を参照しています。
 
-Koderで新しいSukimaStock作品を始めるための原本フォルダです。
+## 新作制作とEngine確認
 
-このStarterは、Codea Liteの上にSukimaStock Engineを載せ、作品固有部分だけを`sketch.js`へ書く構成です。
+新作には、現在の [共通Starter](../_starter/README.md) と [新作制作手順](../../engine/SUKIMASTOCK-NEW-WORK.md) を使用してください。このSteamClockフォルダをBlankテンプレートとして複製しないでください。
 
-## 最初にやること
+`index.demo.html` は旧Starter Demoの履歴用URLとして残しています。依存ファイルのない旧Demoは終了し、現在のStarterへの案内を表示します。
 
-1. このフォルダを複製する。
-2. 複製したフォルダを作品名または作品IDに変更する。
-3. `sketch.js`の`id: "replace-with-work-id"`を作品IDへ変更する。
-4. 必要なら`index.html`の`<title>`を作品名へ変更する。
-5. Koderで`index.html`を開いてPreviewする。
-6. 以後は複製側だけを編集し、原本Starterは直接制作に使わない。
+## 履歴資料
 
-## ファイル構成
+`docs/` はこの作品に残る旧Starter lineageの資料です。共通Engineの現行仕様は repository rootの `engine/` を参照してください。
 
-```text
-index.html                  新作の起動ページ
-index.demo.html             Engine更新後の動作確認用Demo
-codea-lite.js               Codea風Canvasランタイム
-../../engine/sukimastock-engine.v0.2.0.js   現在の共通SukimaStock Engine
-sketch.js                   新作開始用Blankテンプレート
-examples/
-  sketch.starter-demo.js    Engine機能確認用の動くStarter
-assets/                     画像などを置く場所
-sounds/                     音声などを置く場所
-docs/
-  ENGINE-README.md          Engineの詳しい使い方
-  ARCHITECTURE.md           Engineと作品の境界
-  CHANGELOG.md              Engine更新履歴
-  VALIDATION.md             v0.1.1で確認済みの項目
-WORKFLOW.md                  制作から公開までの標準フロー
-PUBLISH-CHECKLIST.md         公開直前に使う短いチェックリスト
-```
+作品固有の遊び、ルール、絵、文章は `sketch.js` に置きます。SteamClockの起動ページと作品runtimeは、この案内整理では変更しません。
 
-## 使い分け
+## 編集・公開するとき
 
-- 新作制作: `index.html` + `sketch.js`
-- Engine / テンプレート更新後の確認: `index.demo.html`
-- Engine仕様の確認: `docs/ENGINE-README.md`
-
-`index.demo.html`は`examples/sketch.starter-demo.js`を読みます。新作の`sketch.js`とは独立しているため、Blankテンプレートを壊さずにEngineの基本動作を確認できます。
-
-## 重要な境界
-
-作品固有の遊び、ルール、絵、文章は`sketch.js`へ置きます。
-
-共通化するのは、二作品以上で実際に必要になったものだけです。Engine本体を作品ごとに気軽に変更せず、共通化する価値が確認できた変更だけをStarterへ戻します。
-
-詳しくは`docs/ARCHITECTURE.md`を参照してください。
-
-
-## 公開するとき
-
-詳しい手順は `WORKFLOW.md`、公開直前の確認だけなら `PUBLISH-CHECKLIST.md` を使います。
+現行の編集手順は [root OPERATIONS.md](../../OPERATIONS.md)、公開完成判定は [root RELEASE-WORKFLOW.md](../../RELEASE-WORKFLOW.md) を参照してください。作品フォルダの `WORKFLOW.md` と `PUBLISH-CHECKLIST.md` は履歴資料です。

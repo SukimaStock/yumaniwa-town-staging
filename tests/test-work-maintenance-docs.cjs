@@ -20,3 +20,22 @@ for (const work of ['orbit', 'steamclock']) {
         });
     }
 }
+
+test('retired SteamClock demo preserves a readable URL and points to maintained files', () => {
+    const source = read('works/steamclock/index.demo.html');
+    assert.match(source, /旧Starter Demoは終了/);
+    assert.doesNotMatch(source, /<script\b|gameCanvas|sketch\.starter-demo\.js/);
+    for (const match of source.matchAll(/href="([^"]+)"/g)) {
+        const target = path.resolve(root, 'works/steamclock', match[1]);
+        assert.ok(fs.existsSync(target), match[1] + ' must resolve');
+    }
+    assert.match(source, /href="\.\.\/_starter\/"/);
+});
+
+test('SteamClock README points new work to the maintained starter instead of the absent demo script', () => {
+    const source = read('works/steamclock/README.md');
+    assert.match(source, /\(\.\.\/_starter\/README\.md\)/);
+    assert.match(source, /\(\.\.\/\.\.\/engine\/SUKIMASTOCK-NEW-WORK\.md\)/);
+    assert.doesNotMatch(source, /examples\/\s*sketch\.starter-demo\.js/);
+    assert.match(source, /作品runtime.*変更しません/);
+});
