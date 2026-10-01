@@ -1,0 +1,106 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "232e23c9d037ec1e8f6513630b6c9532562f710a091ecc2e484bb2ea9f2c4c96",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpkin-kotsu-koro-20261001",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Create standalone PUMPKIN work from cross-work source-code research and test its first meaningful interaction loop in staging",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "936dbc8e5993708853a9fc945c462f8cee201c35",
+    "canonicalSources": [
+      "engine/SUKIMASTOCK-NEW-WORK.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "engine/SUKIMASTOCK-AUDIO-BASELINE.md",
+      "works/_starter",
+      "Google Drive SukimaStock/Code/ including Rakugaki"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpkin-kotsu-koro-20261001/r0.lock.json",
+      "works/kotsu-koro/index.html",
+      "works/kotsu-koro/style.css",
+      "works/kotsu-koro/work-config.js",
+      "works/kotsu-koro/codea-lite.js",
+      "works/kotsu-koro/dynamics.js",
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/test-dynamics.cjs",
+      "works/kotsu-koro/RESEARCH.md",
+      "works/kotsu-koro/VALIDATION.md",
+      "works/kotsu-koro/audio/shell.wav",
+      "works/kotsu-koro/audio/rim.wav",
+      "works/kotsu-koro/audio/seed.wav"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "layout-fix.css",
+      "assets/**",
+      ".github/**",
+      "tools/**",
+      "works/coffee-factory/**",
+      "works/orbit/**",
+      "works/midnight-cola/**",
+      "works/yakitori-wars/**",
+      "works/junkissa-dive/**",
+      "works/rojiura-masala/**"
+    ],
+    "expectedChanges": [
+      "One autonomous work under works/kotsu-koro/, reachable directly; no town registry or production publication",
+      "Current Starter Codea snapshot byte-identical to canonical 1.0.0; canonical Engine 0.3.0 reference",
+      "Work-owned fixed-step tilt, seed physics, independent decay, bounded persistent traces",
+      "Three short original procedural WAV effects using Audio Baseline; no BGM or external service",
+      "Focused dynamics/input regression checks and source/validation notes"
+    ],
+    "ownerDecisions": [
+      "User explicitly delegates concept, title, visuals, central interaction, subtraction and staging playability; no concept-selection approval required",
+      "Only staging may be changed; merge and Pages delivery necessary for requested playable URL are authorized by this task"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "New Work Flow: local frozen starter then meaningful loop then canonical adoption",
+      "AGENTS and Change Plan: Plan-only first commit, immutable r0, branch + PR",
+      "No new launch/frameMode/venue/shared runtime/Engine contract; standalone experimental path only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-drag-release-regrab",
+      "browser-keyboard-knock",
+      "browser-layout-audio-report-lifecycle"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this new work directory and its Plan Lock; no persistent gameplay migration",
+    "outOfScope": [
+      "Production repository",
+      "Town registry/search/share/guide placement or external publication",
+      "Existing games or numerical tuning",
+      "Engine or Codea changes"
+    ],
+    "promotion": "none; staging-only standalone experiment, not production Release Complete",
+    "unverified": [
+      "Author iPhone Safari feel and audible mix",
+      "Safari background/BFCache; final automatic VERIFIED stays UNVERIFIED",
+      "Cloud Browser canary is performed on staging after first deployment; unavailable local preview does not certify rendering"
+    ]
+  }
+}
