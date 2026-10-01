@@ -211,7 +211,7 @@ test('two surface gaps have no floor, including outside the complete terrain', (
   for(const gap of J.GAP)for(let x=gap.left+.1;x<gap.right;x+=.5){assert.equal(J.floor(x),null);assert.equal(J.field(x,500),null);}
   for(const x of [-1000,-51,2071,10000])assert.equal(J.floor(x),null);
   for(const segment of J.segments)for(const p of segment.samples)assert.ok(Math.abs(J.floor(p.x).y-p.y)<1e-8);
-  const draw=fs.readFileSync(path.join(__dirname,'stage-draw.js'),'utf8');assert.ok(draw.includes('J.segments'));
+  const draw=fs.readFileSync(path.join(__dirname,'stage-draw.js'),'utf8');assert.ok(draw.includes('g.segments'));
   assert.ok(!draw.includes('for(const p of J.terrain)'),'drawing must not bridge separate platforms');
 });
 test('slow seed falls naturally through a gap without snapping onto a platform underside', () => {
@@ -233,7 +233,7 @@ test('lost grains retain identity, stop colliding/knocking and leave camera boun
   assert.ok(s.camera.x>50&&s.camera.y<350);assert.ok(s.camera.z>1.5);
   assert.equal(s.seeds[0],p);assert.equal(s.seeds.length,9);
   // Coincident inactive object cannot push or exchange momentum with a survivor.
-  const a=active[0];Object.assign(p,{x:a.x,y:a.y,vx:999,vy:999});const clone=structuredClone(s);
+  const a=active[0];Object.assign(p,{x:a.x,y:a.y,vx:999,vy:999});const clone={...structuredClone({...s,geometry:undefined}),geometry:s.geometry};
   Object.assign(clone.seeds[0],{x:-5000,y:5000});J.update(s,1/60);J.update(clone,1/60);
   for(let i=1;i<9;i++)assert.equal(s.seeds[i].vx,clone.seeds[i].vx);
 });
@@ -312,7 +312,7 @@ test('complete neutral stop near the gap regenerates momentum from left/right ti
   assert.ok(initial.every(p=>Math.hypot(p.vx,p.vy)<8),'no carried launch speed');
 });
 test('same high-speed landing: short opposite tilt reduces maximum survivor speed', () => {
-  const r=prepare();pump(r.s);const a=structuredClone(r.s),b=structuredClone(r.s);
+  const r=prepare();pump(r.s);const clone=()=>({...structuredClone({...r.s,geometry:undefined}),geometry:r.s.geometry});const a=clone(),b=clone();
   assert.equal(J.party(a).length,9);assert.ok(maxSpeed(a)>200);
   hold(a,.38);hold(b,-.18);advance(a,.6);advance(b,.6);
   assert.equal(J.party(b).length,9);assert.ok(maxSpeed(b)<maxSpeed(a)*.75,`catch ${maxSpeed(b)} vs flow ${maxSpeed(a)}`);

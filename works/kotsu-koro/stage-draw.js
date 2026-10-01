@@ -12,7 +12,7 @@
     c.lineTo(samples.at(-1).x, 1100); c.closePath();
   }
   function draw(c, s, seed, shell) {
-    const o = J.opening(s);
+    const o = J.opening(s), g = s.geometry || J.geometry;
     // The tabletop opens into cream space as the same cut surface fills the view.
     c.save(); c.globalAlpha = o;
     const sky = c.createLinearGradient(0, 0, 0, 740);
@@ -29,7 +29,7 @@
     c.lineTo(490,740); c.closePath(); c.fill(); c.restore();
     c.save(); transform(c,s);
     if (s.transition && o < .7 && shell) {
-      c.save(); c.translate(J.START.x,J.START.y);
+      c.save(); c.translate(g.START.x,g.START.y);
       // The curved cut unrolls into a huge landscape. Both visible rim and
       // collision expand; the grains themselves are never rescaled/replaced.
       c.scale(1 + o * 1150 / 94, 1 + o * 1150 / 94);
@@ -38,7 +38,7 @@
     if (o > 0) {
       const lift = (1-o)*700;
       c.save(); c.globalAlpha = J.smooth(o*2);
-      for (const segment of J.segments) {
+      for (const segment of g.segments) {
         const samples = segment.samples;
         c.save();
         surface(c,samples,lift);
@@ -72,8 +72,8 @@
         c.restore();
       }
       // Only the two outside walls remain; each gap stays open below its lips.
-      c.beginPath();c.moveTo(-40,-200);c.lineTo(-40,350+lift);
-      c.moveTo(2060,J.floor(2060).y+lift);c.lineTo(2060,-200);
+      c.beginPath();c.moveTo(g.bounds.left,-200);c.lineTo(g.bounds.left,(g.floor(g.bounds.left)?.y||350)+lift);
+      c.moveTo(g.bounds.right,(g.floor(g.bounds.right)?.y||350)+lift);c.lineTo(g.bounds.right,-200);
       c.strokeStyle='#647454';c.lineWidth=7;c.stroke();
       c.restore();
     }
