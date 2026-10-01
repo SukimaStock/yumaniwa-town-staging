@@ -1,0 +1,108 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6ae8dc5c1e5b29fbe283a67caf7cf5fd1071569e6b9ed0bcfbed94e640328599",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "kotsu-koro-two-gaps-20261001",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Stage 0 drawing-only subtle parallax and Stage 1 two shared surface gaps, loss and surviving-party finish",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "07bbecddf238bdf2aab24ee2ce50f35e2a1f6c61",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "engine/SUKIMASTOCK-NEW-WORK.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "engine/SUKIMASTOCK-AUDIO-BASELINE.md",
+      "works/kotsu-koro/ at current main",
+      "User hands-on discovery and Stage 0/Stage 1 instructions"
+    ],
+    "allowedPaths": [
+      ".change-plans/kotsu-koro-two-gaps-20261001/r0.lock.json",
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/journey.js",
+      "works/kotsu-koro/stage-draw.js",
+      "works/kotsu-koro/test-journey.cjs",
+      "works/kotsu-koro/STAGE1.md",
+      "works/kotsu-koro/VALIDATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "layout-fix.css",
+      "assets/**",
+      ".github/**",
+      "tools/**",
+      "works/coffee-factory/**",
+      "works/orbit/**",
+      "works/midnight-cola/**",
+      "works/yakitori-wars/**",
+      "works/junkissa-dive/**",
+      "works/rojiura-masala/**",
+      "works/kotsu-koro/dynamics.js",
+      "works/kotsu-koro/test-dynamics.cjs",
+      "works/kotsu-koro/codea-lite.js",
+      "works/kotsu-koro/work-config.js",
+      "works/kotsu-koro/audio/**"
+    ],
+    "expectedChanges": [
+      "Stage 0 physical tuning unchanged; layers differ by only a few pixels and fade continuously during zoom",
+      "Shared surface segments with exactly two gaps and unchanged basic seed physics",
+      "Falling/lost/inactive run state retains nine objects; party camera and finish use survivors; quiet all-lost replay",
+      "Deliberate 9/9 route, constant-right risk and frame-rate tests; staging browser verification"
+    ],
+    "ownerDecisions": [
+      "User supplied exact direction and explicitly delegates terrain/camera/timing refinement and staging delivery",
+      "Only one Stage 1; production, canonical Engine and Codea forbidden"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Current existing-work canonical Engine contract; all new physics/composition/timing remain work-owned",
+      "Plan-only first branch commit followed by scoped implementation and PR",
+      "SukimaStock Audio Baseline for new sounds; existing proven levels retained"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "stage0-parallax-hit-transition",
+      "two-gap-falling-camera-straggler-round-momentum",
+      "surviving-end-all-lost-replay",
+      "normal-dev-url-runtime-diagnostics"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only work-specific changes and this Plan; no gameplay persistence/migration",
+    "outOfScope": [
+      "Production",
+      "Canonical Engine or Codea",
+      "Other works, town/metadata registration",
+      "Stage 2+, enemies, collectibles, HP, score, character faces/names/story"
+    ],
+    "promotion": "none; staging-only standalone experiment, not production Release Complete",
+    "unverified": [
+      "Author iPhone Safari feel and audible mix",
+      "Safari background/BFCache; final automatic VERIFIED stays UNVERIFIED"
+    ]
+  }
+}

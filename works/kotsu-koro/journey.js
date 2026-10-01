@@ -6,35 +6,45 @@
   const START = Object.freeze({ x: 180, y: 250 });
   const END = Object.freeze({ left: 1790, right: 2030 });
   const ZOOM = 1.85, DURATION = 6.4;
-  // A single open surface: safe start, small slope, shallow reunion valley,
-  // broad round playground, and a long smooth release. No bowl/lane union.
+  // Three independent surfaces. The renderer uses these same samples: gaps
+  // have no top or hidden floor, and their cut sides stop under-lip re-entry.
   const knots = [
-    [-50,350],[0,350],[310,350],[420,328],[565,382],[700,354],
-    [810,391],[935,365],[1030,342],[1110,356],[1230,417],
-    [1330,440],[1450,421],[1570,395],[1645,407],[1795,464],
-    [1890,487],[1995,465],[2070,420],
+    [[-50,350],[0,350],[310,350],[420,326],[455,324]],
+    [[503,345],[615,372],[700,354],[810,391],[935,365],[1030,342],
+      [1110,356],[1230,417],[1330,440],[1450,397],[1545,338]],
+    [[1640,353],[1795,464],[1890,487],[1995,465],[2070,420]],
   ];
   const material = x => x > 1530 && x < 1810 ? 'polished' : x > 740 && x < 930 ? 'cushion' : 'flesh';
-  const terrain = [];
-  for (let k = 0; k < knots.length - 1; k++) {
-    const a = knots[k], b = knots[k + 1], n = Math.ceil((b[0] - a[0]) / 6);
-    for (let i = 0; i < n; i++) {
-      const t = i / n, x = a[0] + (b[0] - a[0]) * t;
-      terrain.push({ x, y: a[1] + (b[1] - a[1]) * smooth(t), material: material(x) });
+  const segments = knots.map((points, id) => {
+    const samples = [];
+    for (let k = 0; k < points.length - 1; k++) {
+      const a = points[k], b = points[k + 1], n = Math.ceil((b[0] - a[0]) / 6);
+      for (let i = 0; i < n; i++) {
+        const t = i / n, x = a[0] + (b[0] - a[0]) * t;
+        samples.push(Object.freeze({ x, y: a[1] + (b[1] - a[1]) * (id === 1 && k === points.length - 2 ? smooth(t * .75) / smooth(.75) : smooth(t)), material: material(x) }));
+      }
     }
-  }
-  terrain.push({ x: 2070, y: 420, material: 'flesh' });
+    const last = points.at(-1);
+    samples.push(Object.freeze({ x: last[0], y: last[1], material: material(last[0]) }));
+    return Object.freeze({ id, left: points[0][0], right: last[0], samples: Object.freeze(samples) });
+  });
+  Object.freeze(segments);
+  const GAP = Object.freeze(segments.slice(0,-1).map((s,i) => Object.freeze({ left:s.right, right:segments[i+1].left })));
+  const terrain = Object.freeze(segments.flatMap(segment => segment.samples));
   function floor(x) {
-    x = clamp(x, -50, 2070);
-    let lo = 0, hi = terrain.length - 1;
-    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (terrain[m].x <= x) lo = m; else hi = m; }
-    const a = terrain[lo], b = terrain[hi], slope = (b.y - a.y) / (b.x - a.x), len = Math.hypot(1, slope);
-    return { y: a.y + (x - a.x) * slope, nx: slope / len, ny: -1 / len, slope, material: material(x) };
+    const segment = segments.find(segment => x >= segment.left && x <= segment.right);
+    if (!segment) return null;
+    const samples = segment.samples;
+    let lo = 0, hi = samples.length - 1;
+    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (samples[m].x <= x) lo = m; else hi = m; }
+    const a = samples[lo], b = samples[hi], slope = (b.y - a.y) / (b.x - a.x), len = Math.hypot(1, slope);
+    return { y: a.y + (x - a.x) * slope, nx: slope / len, ny: -1 / len, slope, material: material(x), segment: segment.id };
   }
   function field(x, y) {
     const f = floor(x);
-    return { ...f, signed: (y - f.y) * -f.ny };
+    return f ? { ...f, signed: (y - f.y) * -f.ny } : null;
   }
+  function party(s) { return s.seeds.filter(p => !p.lost); }
   function support(p, nx, ny) {
     const c = Math.cos(p.angle), s = Math.sin(p.angle);
     return Math.hypot(10.3 * (nx * c + ny * s), 5.5 * (-nx * s + ny * c));
@@ -46,12 +56,13 @@
       ring: source.ring, ringV: source.ringV, contacts: [], marks: [], impactCount: source.impactCount,
       camera: { x: START.x, y: START.y, z: transitioning ? 1 : ZOOM },
       transition: transitioning ? { elapsed: 0, progress: 0, settled: false } : null,
-      quiet: 0, finished: false, seeds: source.seeds };
+      quiet: 0, emptyQuiet: 0, finished: false, seeds: source.seeds };
     // Stage 0 draws positions with y * .8, but rotates the grain in screen space.
     // Bake that projection into y and vy, keeping angle/spin/x/vx unchanged.
     // The matching camera transform makes transfer pixel-continuous (tested).
     for (const [i, p] of s.seeds.entries()) {
       p.x += START.x; p.y = START.y + p.y * .8; p.vy *= .8; p.attached = false;
+      p.lost = false; p.inactive = false; p.fallTime = 0;
       p.dragFactor = .98 + i % 4 * .014; p.turn = p.angle; p.roll = p.roll || 1;
     }
     return s;
@@ -81,11 +92,13 @@
   function knock(s, x, y) {
     s.ringV += .45;
     // Physical world impulse must not depend on render-rate camera smoothing.
-    const centreX = s.seeds.reduce((n,p) => n+p.x,0) / s.seeds.length;
-    const centreY = s.seeds.reduce((n,p) => n+p.y,0) / s.seeds.length;
+    const active = party(s);
+    if (!active.length) return;
+    const centreX = active.reduce((n,p) => n+p.x,0) / active.length;
+    const centreY = active.reduce((n,p) => n+p.y,0) / active.length;
     s.vx += clamp((x - centreX) / 110, -1, 1) * .09;
     s.vy += clamp((y - centreY) / 110, -1, 1) * .09;
-    for (const p of s.seeds) {
+    for (const p of active) {
       const dx = p.x - x, dy = p.y - y, d = Math.hypot(dx, dy) || 1;
       const force = 58 * Math.exp(-d / 170); p.vx += dx / d * force; p.vy += dy / d * force;
     }
@@ -109,8 +122,14 @@
     }
     if (o > 0) for (let n = 0; n < 3; n++) {
       const f = floor(p.x), lift = (1 - o) * 700;
-      const penetration = (p.y - f.y - lift) * -f.ny + support(p, f.nx, f.ny);
-      wall(s, p, f.nx, f.ny, penetration, f.material);
+      if (f && p.previousY <= f.y + lift) {
+        const penetration = (p.y - f.y - lift) * -f.ny + support(p, f.nx, f.ny);
+        wall(s, p, f.nx, f.ny, penetration, f.material);
+      }
+      for (const segment of segments) for (const [edge, nx] of [[segment.samples[0], -1], [segment.samples.at(-1), 1]]) {
+        if (p.y <= edge.y + lift || Math.abs(p.x - edge.x) > support(p, 1, 0)) continue;
+        wall(s, p, nx, 0, support(p, 1, 0) - (p.x - edge.x) * nx, 'rim');
+      }
       wall(s, p, 1, 0, -40 + support(p, 1, 0) - p.x, 'rim');
       wall(s, p, -1, 0, p.x + support(p, 1, 0) - 2060, 'rim');
     }
@@ -127,6 +146,14 @@
     s.vx += ax * dt; s.vy += ay * dt; s.x += s.vx * dt; s.y += s.vy * dt;
     s.ringV += (-490 * s.ring - 9 * s.ringV) * dt; s.ring += s.ringV * dt;
     for (const p of s.seeds) {
+      if (p.inactive) continue;
+      if (p.lost) {
+        p.fallTime += dt; p.vy += 360 * dt;
+        p.x += p.vx * dt; p.y += p.vy * dt; p.angle += p.spin * dt;
+        if (p.y > 1000 || p.fallTime > 2) p.inactive = true;
+        continue;
+      }
+      p.previousY = p.y;
       p.cool = Math.max(0, p.cool - dt);
       const f = floor(p.x), dx = p.x - START.x, dy = p.y - START.y;
       const concave = (.25 + Math.hypot(dx, dy / .8) * .013) * (1 - o);
@@ -134,10 +161,10 @@
       const fy = ((T.gravity * s.y - ay * 9) * .8 - dy * concave) * (1 - o)
         + (360 + T.gravity * s.y * .65 - ay * 9) * o;
       p.vx += fx * dt; p.vy += fy * dt;
-      const grounded = Math.abs((p.y - f.y) * -f.ny + support(p, f.nx, f.ny)) < 2;
+      const grounded = f && Math.abs((p.y - f.y) * -f.ny + support(p, f.nx, f.ny)) < 2;
       const cross = Math.abs(-Math.sin(p.angle) * p.vx + Math.cos(p.angle) * p.vy) / Math.max(1, Math.hypot(p.vx, p.vy));
       const friction = grounded ? (f.material === 'polished' ? 3 : 7 + cross * 3) : 0;
-      const drag = (.65 * (1 - o) + (f.material === 'polished' && grounded ? 1.15 : 1.35) * o) * p.dragFactor;
+      const drag = (.65 * (1 - o) + (grounded && f.material === 'polished' ? 1.15 : 1.35) * o) * p.dragFactor;
       const loss = Math.exp(-drag * dt) * Math.max(0, 1 - friction * dt / Math.max(.01, Math.hypot(p.vx, p.vy)));
       p.vx *= loss; p.vy *= loss; p.x += p.vx * dt; p.y += p.vy * dt;
       p.spin += ((p.vx + p.vy * .35) / 26 - p.spin) * (1 - Math.exp(-4 * dt));
@@ -147,6 +174,7 @@
     }
     for (let i = 0; i < s.seeds.length; i++) for (let j = i + 1; j < s.seeds.length; j++) {
       const a = s.seeds[i], b = s.seeds[j], dx = b.x - a.x, dy = b.y - a.y;
+      if (a.lost || b.lost) continue;
       const distance = Math.hypot(dx, dy) || .01, nx = dx / distance, ny = dy / distance;
       const reach = support(a, nx, ny) + support(b, nx, ny);
       if (distance >= reach) continue;
@@ -159,12 +187,21 @@
         contact(s, a, -relative, 'seed');
       }
     }
-    for (const p of s.seeds) boundary(s, p, o);
-    const together = o === 1 && s.seeds.every(p => p.x > END.left && p.x < END.right && Math.hypot(p.vx, p.vy) < 24);
-    s.quiet = together ? s.quiet + dt : 0; s.finished = s.quiet > 3.6;
+    for (const p of party(s)) {
+      boundary(s, p, o);
+      // Below every possible landing surface: the fall can no longer be saved.
+      // Keep its object and a short visible fall, but stop following/colliding.
+      if (o === 1 && p.y > 600) { p.lost = true; p.fallTime = 0; }
+    }
+    const active = party(s);
+    const together = o === 1 && active.length > 0 && active.every(p => p.x > END.left && p.x < END.right && Math.hypot(p.vx, p.vy) < 24);
+    s.quiet = together ? s.quiet + dt : 0; s.emptyQuiet = o === 1 && !active.length ? s.emptyQuiet + dt : 0;
+    s.finished = s.quiet > 3.6 || s.emptyQuiet > 2.4;
   }
   function camera(s, dt) {
-    const xs = s.seeds.map(p => p.x), ys = s.seeds.map(p => p.y);
+    const active = party(s);
+    if (!active.length) return; // Hold the last view during the quiet replay pause.
+    const xs = active.map(p => p.x), ys = active.map(p => p.y);
     const minX = Math.min(...xs), maxX = Math.max(...xs), maxY = Math.max(...ys);
     const sorted = xs.slice().sort((a,b) => a-b);
     // A lone distant grain must not drag the camera into an empty gap. Keep
@@ -190,7 +227,7 @@
     camera(s, clamp(elapsed, 0, .06));
   }
   const api = Object.freeze({ create, release, knock, update, point, screenPoint, view, field, floor,
-    support, terrain, START, END, opening, smooth, DURATION, ZOOM });
+    support, terrain, segments, GAP, party, START, END, opening, smooth, DURATION, ZOOM });
   root.PumpkinJourney = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

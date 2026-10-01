@@ -142,3 +142,36 @@ A fresh Plan at the deployed main fixes only Stage 1 tap/drag separation and
 view-only median follow; Stage 0 is unchanged. All 14 Stage 0 and 17 horizontal
 journey tests PASS, including the two new observed-case regressions. The new
 exact candidate/staging browser observation is recorded in the refinement PR.
+
+
+## Stage 0 depth / two-gap risk prototype — 2026-10-01
+
+Fetched current staging main before implementation:
+`07bbecddf238bdf2aab24ee2ce50f35e2a1f6c61`.
+Locked Plan: `.change-plans/kotsu-koro-two-gaps-20261001/r0.lock.json`.
+Formal verificationState remains UNVERIFIED; no production promotion.
+
+- Stage 0: 14 existing checks PASS. `dynamics.js` and `test-dynamics.cjs`
+  remain byte-identical to the fetched base. Only the vessel drawing changes.
+- Stage 1: 24 focused checks PASS, including exact nine-object transfer,
+  projected screen continuity, actual weak-layer drawing/fade, null gap floors,
+  natural fall/cut-side collision, retained objects, lost physics/camera exclusion,
+  live ground stragglers, 1/3/6/8/9-survivor finish, all-lost quiet replay,
+  actual replay returning to three loose/six attached, input-only nine-grain
+  route (including physically detached Stage 0 source), constant-right risk,
+  30/60/120fps, tap/regrab regression, and finite bounded 120-second stress.
+- Reproducible world-input route: moderate right/up until all x>730; neutral
+  gather 8s; moderate right/up until all x>1160; neutral gather 8s; left/up until
+  all x<1260; right/up (.32,-.32) run-up; release after all x>1820. It reaches
+  9/9 without seed position changes, jumps, knock or helper attraction.
+- Constant maximum right (.38,0) from the ordinary Stage 1 initial party loses
+  six grains at GAP B; the remaining three can settle and finish after release.
+  This is an observed simulation outcome, not a fixed required score.
+- Static canvas inspection: both holes match the rendered cuts; ordinary
+  falling seeds remain visible briefly beside a cut, with no extra effects;
+  surviving grains settle in the existing quiet basin. Transition retains the
+  original composition while the few-pixel layer differences ease away.
+- Scope → Risk → Impact and trusted PR checks are recorded at exact candidate
+  SHA in the PR. Actual deployed browser observations are recorded separately
+  there after deployment. Author device feel, subjective depth/risk/fun, audible
+  mix and Safari lifecycle remain for the author's hands-on check.
