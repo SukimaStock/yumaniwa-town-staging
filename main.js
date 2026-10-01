@@ -643,7 +643,7 @@ function getWorkPlayerFrameTitle(work) {
     return (work && work.title) || "湯間庭町";
 }
 
-var STATION_GUIDE_MAP_IMAGE = "assets/station-guide-map-20260813.png?v=20260813-1";
+var STATION_GUIDE_MAP_IMAGE = "assets/station-guide-map.jpg?v=20261001-jpeg01";
 var isStationGuideMapOpen = false;
 var stationGuideMapStylesReady = false;
 var stationGuideMapEventsReady = false;
