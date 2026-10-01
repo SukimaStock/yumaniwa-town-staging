@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9102465bd4b3552de9e0f766d565054a21259f5cda15c264cf1ac227f7af603b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "editor-viewport-scroll-phase1",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Keep the overlay Map Editor within the viewport and scroll only its body",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "8dcee05eabba09880577fe0f6a64b42594277bae",
+    "canonicalSources": [
+      "style.css",
+      "index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/editor-viewport-scroll-phase1/r0.lock.json",
+      "style.css",
+      "index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "layout-fix.css",
+      "data/**",
+      "assets/**",
+      "town-editor-*.js",
+      "town-scene-validation.js",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "works/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "CSS only: bound panel height and width by viewport and safe-area; keep header outside scrolling body; allow header controls to wrap without changing order.",
+      "Body min-height zero, vertical overflow and contained overscroll/touch panning. Preserve content-box base width and existing overlay.",
+      "Only update the style.css cache revision in index.html; no DOM or script changes."
+    ],
+    "hqDecisions": [
+      "User explicitly approved Phase 1 viewport scrolling, existing header/body DOM, no JS/state/canvas changes, staging branch and Draft PR without merge."
+    ],
+    "ownerDecisions": [
+      "Keep current appearance, controls, order, overlay and 280px base content width."
+    ],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "portrait-390-430-scroll-controls",
+      "short-viewport-scroll",
+      "collapse-reopen",
+      "desktop-canvas-editor-regression",
+      "layout-only-state-invariance"
+    ],
+    "impactChecks": [
+      "surface.shared",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert implementation commit containing CSS and CSS cache revision; no data migration.",
+    "outOfScope": [
+      "Catalog/assets/maps/Factory",
+      "Side inspector",
+      "State/Undo/export/validation",
+      "Canvas/camera/pointer/scene sizes",
+      "Production",
+      "Merge"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPhone/iPad Safari verification unless directly observed."
+    ],
+    "problem": "Editor body extends below a non-scrolling viewport and prevents access to lower controls.",
+    "currentContract": "Absolute 280px content-width flex-column overlay, separate header/content DOM; collapse hides body and clears inline maxHeight on expansion.",
+    "whyExistingIsInsufficient": "No panel height limit or body scroll; ancestors hide overflow.",
+    "design": "Scope CSS to existing Editor selectors, subtract safe-area margins and borders from viewport dimensions, nonshrinking wrapping header, shrinkable scrolling body with pan-y; no breakpoint device detection.",
+    "alternativesRejected": [
+      "DOM restructuring or sticky header",
+      "Side inspector",
+      "Runtime/JS changes",
+      "Changing body overflow or canvas dimensions"
+    ],
+    "migration": "None; retain all canonical sources and saved data.",
+    "compatibility": "Existing collapse sets maxHeight none only while body hidden; expansion removes inline value and restores CSS cap. Preserve scene session and rendering.",
+    "boundaryCases": [
+      "390 and 430 portrait widths",
+      "844x390 landscape",
+      "Very narrow 240px viewport",
+      "Collapsed and expanded long props form",
+      "Desktop 1440x900",
+      "Header with LOAD and discard controls"
+    ],
+    "testPlan": [
+      "Existing Editor session/history and Python scene/Desk regression tests.",
+      "Existing Change Operations checks and base-owned Scope/Risk/Impact gates.",
+      "Browser inspection if executable available; report unavailable checks UNVERIFIED.",
+      "Compare canonical files and canvas/state behavior before and after layout-only actions."
+    ],
+    "promotionRisk": "No merge or production promotion authorized."
+  }
+}
