@@ -100,3 +100,28 @@ Eleven focused checks and Scope → Risk → Impact checks pass on implementatio
 Formal verificationState remains UNVERIFIED. Physical iPhone touch feel,
 actual audible mix, Safari background/resume and the author's creative
 judgment remain unverified. No production or Release Complete claim.
+
+## Horizontal world / scale transition — 2026-10-01
+
+Base: `43eff88789468644f477d82847da8509d54cdf5f`.
+Plan: `.change-plans/kotsu-koro-world-zoom-20261001/r0.lock.json` (immutable
+plan-only first commit). Work-only scope; no production or canonical changes.
+
+- Stage 0: all 14 existing tests PASS; physics and tests unchanged.
+- Horizontal Stage 1: 15 focused tests PASS. Includes nine object identities,
+  projected position/pose/momentum and relative arrangement, exact screen
+  transform, continuous transition, complete route with world tilt only,
+  physical return/rejoin, knock, post-release/post-finish tail, shared terrain,
+  long bounded stress, neutral no-steering and 30/60/120fps matching physics.
+- Static syntax, Scope → Risk → Impact and PR trusted checks are recorded for
+  the implementation commit in the PR.
+- Actual staging browser observations follow deployment; do not reuse the old
+  vertical journey screenshots as evidence for this redesign.
+- Author iPhone feel, sound mix, Safari lifecycle and final automatic VERIFIED
+  remain UNVERIFIED. Passing code tests does not claim an author feel check.
+
+The town Release Validator with `--ids kotsu-koro` reports
+`metadata.identity: expected exactly one WORKS entry`: this standalone staging
+experiment is intentionally not registered in WORKS. This is not a release
+candidate, and no metadata/registration change is made to silence that result.
+Its work runtime is verified with the focused tests and browser observations.
