@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-  <meta name="theme-color" content="#0b1018">
+  <meta name="theme-color" content="#e6ddc7">
   <meta name="robots" content="noindex,nofollow">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>こつ、ころ。</title>
@@ -38,6 +38,8 @@
       Promise.resolve()
         .then(() => loadScript("./work-config.js" + cacheBust))
         .then(() => loadScript("./dynamics.js" + cacheBust))
+        .then(() => loadScript("./journey.js" + cacheBust))
+        .then(() => loadScript("./stage-draw.js" + cacheBust))
         .then(() => loadScript("./sketch.js" + cacheBust))
         .then(() => CodeaLite.start("gameCanvas"))
         .catch((error) => {

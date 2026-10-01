@@ -1,7 +1,11 @@
 (function (root) {
   "use strict";
   const W = root.SUKIMASTOCK_WORK, D = root.PumpkinDynamics;
-  const model = D.create();
+  const J = root.PumpkinJourney;
+  let model = D.create(), mode = "prologue";
+  if (new URLSearchParams(location.search).get("dev") === "1" && new URLSearchParams(location.search).get("stage") === "1") {
+    model = J.create(model); mode = "journey";
+  }
   const CX = 195, CY = 365, TAU = Math.PI * 2;
   let lastSound = -1, touchedOnce = false, hint = 1, paper;
   const grain = Array.from({ length: 760 }, (_, i) => {
@@ -21,9 +25,9 @@
     }
     c.closePath();
   }
-  function seed(c, p, i) {
-    const x = p.x, y = p.y * 0.80;
-    c.save(); c.translate(x, y); c.rotate(p.angle);
+  function seed(c, p, i, sy = .80) {
+    const x = p.x, y = p.y * sy;
+    c.save(); c.translate(x, y); c.rotate(p.angle); c.scale(1, p.roll || 1);
     oval(c, 2.2, 3, 8.2, 3.8, "rgba(66,33,17,.22)");
     c.beginPath(); c.moveTo(-10.5, 0);
     c.bezierCurveTo(-5, -7.7, 7.5, -6.7, 11.5, 0);
@@ -99,6 +103,7 @@
     withCanvasContext(c => {
       c.translate(0, W.logicalHeight); c.scale(1, -1);
       c.drawImage(paper, 0, 0);
+      if (mode === "journey") { root.PumpkinStageDraw.draw(c, model, seed); return; }
       // The shadow moves after the hand, at the body's speed.
       c.save(); c.translate(CX + 9 + model.x * 9, CY + 29 + model.y * 5);
       c.scale(1, .65);
@@ -119,7 +124,8 @@
     });
   }
   function knockAt(x, y) {
-    D.knock(model, x - CX, (y - CY) / .8);
+    if (mode === "journey") { const p = J.point(model, x, y); J.knock(model, p.x, p.y); }
+    else D.knock(model, x - CX, (y - CY) / .8);
     SSE.audio.play("shell");
   }
   const scene = {
@@ -134,7 +140,7 @@
       }
       if (kx || ky) touchedOnce = true;
       if (SSE.input.actionPressed("knock")) { knockAt(CX + 70, CY - 35); touchedOnce = true; }
-      D.update(model, dt);
+      if (mode === "journey") J.update(model, dt); else D.update(model, dt);
       if (touchedOnce) hint *= Math.exp(-dt * .8);
       if (model.contacts.length && model.time - lastSound > .065) {
         const hit = model.contacts.reduce((a, b) => a.speed > b.speed ? a : b);
@@ -147,7 +153,7 @@
     touch(t) {
       const y = W.logicalHeight - t.y;
       if (t.state === BEGAN) {
-        if (Math.hypot((t.x - CX) / 1.1, (y - CY) / .86) > 163) return true;
+        if (mode === "prologue" && Math.hypot((t.x - CX) / 1.1, (y - CY) / .86) > 163) return true;
         model.activeId = t.id; model.held = true;
         model.anchorX = t.x; model.anchorY = y;
         touchedOnce = true; knockAt(t.x, y);
@@ -155,11 +161,11 @@
         model.targetX = Math.max(-.38, Math.min(.38, (t.x - model.anchorX) / 210));
         model.targetY = Math.max(-.38, Math.min(.38, (y - model.anchorY) / 210));
       } else if (t.id === model.activeId && (t.state === ENDED || t.state === CANCELLED)) {
-        D.release(model);
+        (mode === "journey" ? J : D).release(model);
       }
       return true;
     },
-    exit() { D.release(model); },
+    exit() { (mode === "journey" ? J : D).release(model); },
   };
   SSE.createApp({
     id: W.id, logicalWidth: W.logicalWidth, logicalHeight: W.logicalHeight,
@@ -193,7 +199,7 @@
   });
   // Read-only diagnostics. No gameplay state is included in Session Report.
   if (new URLSearchParams(location.search).get("dev") === "1") {
-    root.PumpkinProbe = () => ({ held: model.held, tilt: [model.x, model.y],
+    root.PumpkinProbe = () => ({ mode, held: model.held, tilt: [model.x, model.y],
       speed: model.seeds.map(p => Math.hypot(p.vx, p.vy)), impacts: model.impactCount,
       marks: model.marks.length });
   }
