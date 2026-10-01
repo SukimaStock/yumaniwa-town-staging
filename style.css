@@ -936,6 +936,9 @@ textarea {
     top: max(10px, env(safe-area-inset-top));
     right: max(10px, env(safe-area-inset-right));
     width: 280px;
+    /* Content-box limits reserve both safe-area margins and the 2px borders. */
+    max-width: calc(100vw - max(10px, env(safe-area-inset-left)) - max(10px, env(safe-area-inset-right)) - 4px);
+    max-height: calc(100dvh - max(10px, env(safe-area-inset-top)) - max(10px, env(safe-area-inset-bottom)) - 4px);
     background: rgba(20, 20, 25, 0.95);
     border: 2px solid #666;
     border-radius: 8px;
@@ -945,16 +948,19 @@ textarea {
 }
 
 .editor-header {
+    flex-shrink: 0;
     background: #333;
     padding: 10px;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
 }
 
 .editor-header button {
+    flex-shrink: 0;
     background: transparent;
     color: white;
     border: none;
@@ -963,6 +969,10 @@ textarea {
 }
 
 .editor-content {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
     padding: 10px;
     font-size: 14px;
 }
