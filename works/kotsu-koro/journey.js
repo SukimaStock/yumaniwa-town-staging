@@ -6,22 +6,30 @@
   const START = Object.freeze({ x: 180, y: 250 });
   const END = Object.freeze({ left: 1790, right: 2030 });
   const ZOOM = 1.85, DURATION = 6.4;
+  // Stage 1 response only. The accepted Stage 0 spring is never modified.
+  const CONTROL = Object.freeze({ grabK:220, grabD:21, returnK:70, returnD:10, inertia:3 });
+  const ROUND = Object.freeze({ left:1110, bottom:1350, right:1545 });
   // Three independent surfaces. The renderer uses these same samples: gaps
   // have no top or hidden floor, and their cut sides stop under-lip re-entry.
   const knots = [
     [[-50,350],[0,350],[310,350],[420,326],[455,324]],
     [[503,345],[615,372],[700,354],[810,391],[935,365],[1030,342],
-      [1110,356],[1230,417],[1330,440],[1450,397],[1545,338]],
-    [[1640,353],[1795,464],[1890,487],[1995,465],[2070,420]],
+      [1110,356,0],[1200,406,.85],[1270,475,.70],[1350,500,0],[1430,468,-.8],[1490,407,-1.2],[1545,338,-1.25]],
+    [[1640,360,.45],[1715,422,.35],[1775,413,0],[1840,475,.45],[1890,487,0],[1995,465,0],[2070,420,0]],
   ];
-  const material = x => x > 1530 && x < 1810 ? 'polished' : x > 740 && x < 930 ? 'cushion' : 'flesh';
+  const material = x => x >= ROUND.left && x <= ROUND.right ? 'polished' : x > 1640 && x < 1775 || x > 740 && x < 930 ? 'cushion' : x > 1775 && x < 1840 ? 'polished' : 'flesh';
   const segments = knots.map((points, id) => {
     const samples = [];
     for (let k = 0; k < points.length - 1; k++) {
       const a = points[k], b = points[k + 1], n = Math.ceil((b[0] - a[0]) / 6);
       for (let i = 0; i < n; i++) {
         const t = i / n, x = a[0] + (b[0] - a[0]) * t;
-        samples.push(Object.freeze({ x, y: a[1] + (b[1] - a[1]) * (id === 1 && k === points.length - 2 ? smooth(t * .75) / smooth(.75) : smooth(t)), material: material(x) }));
+        // Hermite tangents form one continuous bowl/launch curve rather than
+        // flattening at every knot. Early terrain retains its exact samples.
+        const y = a.length > 2 && b.length > 2 ?
+          (2*t*t*t-3*t*t+1)*a[1] + (t*t*t-2*t*t+t)*(b[0]-a[0])*a[2] +
+          (-2*t*t*t+3*t*t)*b[1] + (t*t*t-t*t)*(b[0]-a[0])*b[2] : a[1]+(b[1]-a[1])*smooth(t);
+        samples.push(Object.freeze({ x, y, material: material(x) }));
       }
     }
     const last = points.at(-1);
@@ -141,7 +149,12 @@
       s.transition.progress = s.transition.elapsed / DURATION;
       s.transition.settled = s.transition.elapsed >= DURATION;
     }
-    const o = opening(s), k = s.held ? T.grabK : T.returnK, d = s.held ? T.grabD : T.returnD;
+    const o = opening(s), blend = (a,b) => a+(b-a)*o;
+    const k = s.held ? blend(T.grabK,CONTROL.grabK) : blend(T.returnK,CONTROL.returnK);
+    const d = s.held ? blend(T.grabD,CONTROL.grabD) : blend(T.returnD,CONTROL.returnD);
+    // Match the smaller Stage 1 world translation. This is vessel inertia,
+    // shared by the party, never a seed-directed impulse or jump boost.
+    const inertia = blend(9,CONTROL.inertia);
     const ax = k * (s.targetX - s.x) - d * s.vx, ay = k * (s.targetY - s.y) - d * s.vy;
     s.vx += ax * dt; s.vy += ay * dt; s.x += s.vx * dt; s.y += s.vy * dt;
     s.ringV += (-490 * s.ring - 9 * s.ringV) * dt; s.ring += s.ringV * dt;
@@ -157,14 +170,15 @@
       p.cool = Math.max(0, p.cool - dt);
       const f = floor(p.x), dx = p.x - START.x, dy = p.y - START.y;
       const concave = (.25 + Math.hypot(dx, dy / .8) * .013) * (1 - o);
-      const fx = T.gravity * s.x - ax * 9 - dx * concave;
-      const fy = ((T.gravity * s.y - ay * 9) * .8 - dy * concave) * (1 - o)
-        + (360 + T.gravity * s.y * .65 - ay * 9) * o;
+      const fx = T.gravity * s.x - ax * inertia - dx * concave;
+      const fy = ((T.gravity * s.y - ay * inertia) * .8 - dy * concave) * (1 - o)
+        + (360 + T.gravity * s.y * .65 - ay * inertia) * o;
       p.vx += fx * dt; p.vy += fy * dt;
       const grounded = f && Math.abs((p.y - f.y) * -f.ny + support(p, f.nx, f.ny)) < 2;
       const cross = Math.abs(-Math.sin(p.angle) * p.vx + Math.cos(p.angle) * p.vy) / Math.max(1, Math.hypot(p.vx, p.vy));
-      const friction = grounded ? (f.material === 'polished' ? 3 : 7 + cross * 3) : 0;
-      const drag = (.65 * (1 - o) + (grounded && f.material === 'polished' ? 1.15 : 1.35) * o) * p.dragFactor;
+      const inRound = p.x >= ROUND.left && p.x <= ROUND.right;
+      const friction = grounded ? (inRound ? 7 + cross * 2 : f.material === 'polished' ? 3 : 7 + cross * 3) : 0;
+      const drag = (.65 * (1-o) + (!grounded ? 1.0 : inRound ? .30 : f.material === 'polished' ? 1.15 : 1.35) * o) * p.dragFactor;
       const loss = Math.exp(-drag * dt) * Math.max(0, 1 - friction * dt / Math.max(.01, Math.hypot(p.vx, p.vy)));
       p.vx *= loss; p.vy *= loss; p.x += p.vx * dt; p.y += p.vy * dt;
       p.spin += ((p.vx + p.vy * .35) / 26 - p.spin) * (1 - Math.exp(-4 * dt));
@@ -227,7 +241,7 @@
     camera(s, clamp(elapsed, 0, .06));
   }
   const api = Object.freeze({ create, release, knock, update, point, screenPoint, view, field, floor,
-    support, terrain, segments, GAP, party, START, END, opening, smooth, DURATION, ZOOM });
+    support, terrain, segments, GAP, party, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
   root.PumpkinJourney = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

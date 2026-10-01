@@ -176,7 +176,8 @@
       const ky = (SSE.input.action("down") ? 1 : 0) - (SSE.input.action("up") ? 1 : 0);
       if (model.activeId === null) {
         model.held = !!(kx || ky);
-        model.targetX = kx * .28; model.targetY = ky * .28;
+        const strength = mode === "prologue" ? .28 : .28 + .10 * J.opening(model);
+        model.targetX = kx * strength; model.targetY = ky * strength;
       }
       if (kx || ky) touchedOnce = true;
       if (SSE.input.actionPressed("knock")) { knockAt(CX + 70, CY - 35); touchedOnce = true; }
@@ -196,7 +197,7 @@
         debugAt = model.time;
         const active = model.seeds.filter(p => !p.lost);
         const span = active.length ? Math.round(Math.min(...active.map(p => p.x))) + "…" + Math.round(Math.max(...active.map(p => p.x))) : "—";
-        debugStatus.textContent = mode + " | loose " + model.seeds.filter(p => !p.attached).length + "/9 | active " + active.length + " lost " + model.seeds.filter(p => p.lost).length + " reached " + active.filter(p => p.x > J.END.left && p.x < J.END.right).length + " | x " + span + " | held " + model.held + " | exit " + !!model.finished;
+        debugStatus.textContent = mode + " | loose " + model.seeds.filter(p => !p.attached).length + "/9 | active " + active.length + " lost " + model.seeds.filter(p => p.lost).length + " reached " + active.filter(p => p.x > J.END.left && p.x < J.END.right).length + " | x " + span + " | speed " + Math.round(Math.max(0,...active.map(p => Math.hypot(p.vx,p.vy)))) + " tilt " + model.x.toFixed(2) + " | held " + model.held + " | exit " + !!model.finished;
       }
       if (touchedOnce) hint *= Math.exp(-dt * .8);
       if (model.contacts.length && model.time - lastSound > .065) {

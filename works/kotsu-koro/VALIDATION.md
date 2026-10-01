@@ -175,3 +175,35 @@ Formal verificationState remains UNVERIFIED; no production promotion.
   SHA in the PR. Actual deployed browser observations are recorded separately
   there after deployment. Author device feel, subjective depth/risk/fun, audible
   mix and Safari lifecycle remain for the author's hands-on check.
+
+
+## Stage 1 response / local bowl technique — 2026-10-01
+
+Fresh fetched base: `9463b7674beafe8d79ebced381e85768e919a1d1`.
+Plan: `.change-plans/kotsu-koro-pump-catch-20261001/r0.lock.json`.
+
+- Stage 0: 14 checks PASS; dynamics, physics test and depth rendering unchanged.
+- Stage 1: 30 checks PASS. Preserves identity, transition, support, collision,
+  survivor/lost/camera/replay, small gap, regrab/tap, finite stress and END.
+- The stop acceptance route is generated entirely by world input: moderate
+  right/up across small gap; release 8s; moderate right to the local bowl;
+  fully release until every grain is below 8px/s for .5s. No seed fixture,
+  teleport, velocity reset, knock, vertical pumping or helper attraction.
+- Left .38 then right .38 at median x1260 regenerates enough momentum for
+  all nine to cross GAP B. All grains stay inside x1110–1545 until launch.
+  The same 30Hz input decisions at 30/60/120 render fps reach nine-grain END
+  with matching final physical state. A physically detached Stage 0 party
+  also traverses the zoom and completes 9/9 with maintained flow.
+- Identical high-speed landing copies compare continued right .38 with left
+  .18 for .6s. Opposite tilt retains nine, reduces maximum speed by more than
+  25%, and reduces the leading grain's forward travel. Spread reduction is
+  not claimed. This uses the same physics, with no artificial catching force.
+- No-input bowl stays quiet without launching. A weak approach remains on
+  ground and can return/retry. Maximum right and premature reversal expose
+  natural loss risk. These are observed simulation outcomes, not fixed scores.
+- Small gap geometry is unchanged. New work is confined to Stage 1 tuning,
+  bowl/landing profiles, dev observation and the focused regression record.
+- Exact-SHA Scope → Risk → Impact, trusted PR checks and actual deployed
+  pointer observations are recorded in the PR after execution. Physical iPhone
+  feel, subjective pumping/catching/fun and audible mix remain for the author.
+  Formal verificationState remains UNVERIFIED; no production/runtime changes.
