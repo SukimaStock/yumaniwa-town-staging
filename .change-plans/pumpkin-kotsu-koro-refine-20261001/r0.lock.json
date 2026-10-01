@@ -1,0 +1,106 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "97c1d9dd8bd0121b8d1e1bc1a16023bfe1cd86d72f981eae6bf467083f6fa60b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpkin-kotsu-koro-refine-20261001",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Refine the PUMPKIN work after staging canary, preserving its one interaction and closing observed input/render issues",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "917ca9967770b957fee13952098110f8994f19eb",
+    "canonicalSources": [
+      "engine/SUKIMASTOCK-NEW-WORK.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "engine/SUKIMASTOCK-AUDIO-BASELINE.md",
+      "works/_starter",
+      "Google Drive SukimaStock/Code/ including Rakugaki",
+      "works/kotsu-koro",
+      "engine/codea-lite.v1.0.0.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpkin-kotsu-koro-refine-20261001/r0.lock.json",
+      "works/kotsu-koro/index.html",
+      "works/kotsu-koro/style.css",
+      "works/kotsu-koro/work-config.js",
+      "works/kotsu-koro/dynamics.js",
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/test-dynamics.cjs",
+      "works/kotsu-koro/RESEARCH.md",
+      "works/kotsu-koro/VALIDATION.md",
+      "works/kotsu-koro/audio/shell.wav",
+      "works/kotsu-koro/audio/rim.wav",
+      "works/kotsu-koro/audio/seed.wav"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "layout-fix.css",
+      "assets/**",
+      ".github/**",
+      "tools/**",
+      "works/coffee-factory/**",
+      "works/orbit/**",
+      "works/midnight-cola/**",
+      "works/yakitori-wars/**",
+      "works/junkissa-dive/**",
+      "works/rojiura-masala/**"
+    ],
+    "expectedChanges": [
+      "Remove legacy CHANGED reference not present in canonical Codea 1.0.0; harness uses actual canonical touch vocabulary and checks both ENDED/CANCELLED",
+      "Refine work-local manipulation/weight/settling and visual composition after browser observation, subtracting before adding",
+      "Keep one playable hold/tilt/release/regrab loop, three effects and no game systems",
+      "Record observed browser canary and final exact-SHA checks with physical-device/audio limits",
+      "Remove local rollback copy via adoption tool after canonical canary; frozen copy was retained locally and never committed"
+    ],
+    "ownerDecisions": [
+      "User explicitly delegates concept, title, visuals, central interaction, subtraction and staging playability; no concept-selection approval required",
+      "Only staging may be changed; merge and Pages delivery necessary for requested playable URL are authorized by this task"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "New Work Flow: local frozen starter then meaningful loop then canonical adoption",
+      "AGENTS and Change Plan: Plan-only first commit, immutable r0, branch + PR",
+      "No new launch/frameMode/venue/shared runtime/Engine contract; standalone experimental path only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-drag-release-regrab",
+      "browser-keyboard-knock",
+      "browser-layout-audio-report-lifecycle"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this new work directory and its Plan Lock; no persistent gameplay migration",
+    "outOfScope": [
+      "Production repository",
+      "Town registry/search/share/guide placement or external publication",
+      "Existing games or numerical tuning",
+      "Engine or Codea changes"
+    ],
+    "promotion": "none; staging-only standalone experiment, not production Release Complete",
+    "unverified": [
+      "Author iPhone Safari feel and audible mix",
+      "Safari background/BFCache; final automatic VERIFIED stays UNVERIFIED"
+    ]
+  }
+}
