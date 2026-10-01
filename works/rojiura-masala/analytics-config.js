@@ -5,7 +5,7 @@
     enabled: true,
     domain: "sukimastock.github.io",
     endpoint: "https://plausible.io/api/event",
-    build: "update103",
+    build: "update105",
     captureOnLocalhost: false,
     standalonePageview: true,
   });

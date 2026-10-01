@@ -91,7 +91,7 @@ test('staging noindex is correct, production noindex fails, public staging page 
 for (const id of ['diorama-calendar','rojiura-masala']) test('unchanged production fixture detects '+id+' noindex and ordinary redirect',t=>{
     const c=candidate(t,id); put(c.root,'w/'+id+'/index.html',fs.readFileSync(path.join(FIX,id+'.html'))); const r=validate(c.options);
     has(r,'FAIL','search.robots'); has(r,'FAIL','search.redirect'); has(r,'FAIL','search.h1'); has(r,'FAIL','search.body');
-    if(id==='diorama-calendar') { has(r,'FAIL','search.og:image'); has(r,'PASS','install.iconless'); }
+    if(id==='diorama-calendar') { has(r,'FAIL','search.og:image'); has(r,'PASS','install.icon'); has(r,'PASS','manifest.icons'); }
 });
 test('unchanged production sitemap detects SteamClock omission',t=>{
     const c=candidate(t,'steamclock'); put(c.root,'sitemap.xml',fs.readFileSync(path.join(FIX,'production-sitemap.xml')));

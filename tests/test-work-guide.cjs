@@ -156,3 +156,76 @@ test('physical guide terminal does not get forced back to generic menu mode', ()
         /target !== "shinpo_board"\s*&&\s*target !== "leisure_catalog"/
     );
 });
+
+function attributionHarness(withTracker = true) {
+    const events = [];
+    const opened = [];
+    const context = {
+        location: { pathname: '/yumaniwa-town-staging/' },
+        navigator: {},
+        console: { info: (...args) => events.push(args) },
+        document: { getElementById: () => null },
+        isWorkPlayerOpen: false,
+        isDirectWorkVisit: false,
+        openWorkPlayer(work) { opened.push(work.id); },
+        showDestinationMessage() {},
+        renderDestination() {}
+    };
+    context.window = context;
+    vm.createContext(context);
+    const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+    vm.runInContext(read('data/works.js'), context);
+    vm.runInContext(read('data/work-guide-meta.js'), context);
+    context.getWorkById = id => context.WORKS.find(work => work.id === id);
+    const main = read('main.js');
+    const start = main.indexOf('window.launchWork = function(work) {');
+    const end = main.indexOf('\nfunction openDestinationExternalItem', start);
+    assert.ok(start >= 0 && end > start);
+    vm.runInContext(main.slice(start, end), context);
+    context.handleDestinationMenuItem = (destId, index) => context.launchWork(context.WORKS[index]);
+    if (withTracker) vm.runInContext(read('town-analytics.js'), context);
+    else context.trackYumaniwaEvent = () => {};
+    vm.runInContext(read('work-guide-terminal.js'), context);
+    context.YUMANIWA_WORK_GUIDE.showBrowse('all');
+    let click;
+    const container = { dataset: {}, querySelectorAll: () => [], contains: () => true,
+        addEventListener(name, handler) { if (name === 'click') click = handler; } };
+    context.YUMANIWA_WORK_GUIDE.bind(container);
+    const target = { getAttribute: () => 'play', closest: () => target };
+    return { context, events, opened, play() { click({ target, preventDefault() {}, stopPropagation() {} }); } };
+}
+
+test('terminal emits exactly one Work Open with the existing guide attribution', () => {
+    const h = attributionHarness();
+    h.play();
+    assert.equal(h.events.length, 1);
+    assert.equal(h.events[0][2].source, 'guide');
+    assert.equal(h.opened.length, 1);
+    h.context.launchWork(h.context.WORKS[0]);
+    assert.equal(h.events[1][2].source, 'town', 'guide scope must not leak to later town launches');
+});
+
+test('legacy guide menus and direct launches keep their existing source', () => {
+    const h = attributionHarness();
+    h.context.handleDestinationMenuItem('leisure_catalog', 0);
+    assert.equal(h.events[0][2].source, 'guide');
+    h.context.isDirectWorkVisit = true;
+    h.context.launchWork(h.context.WORKS[0]);
+    assert.equal(h.events[1][2].source, 'direct');
+});
+
+test('guide attribution is restored after a launch throws', () => {
+    const h = attributionHarness();
+    const launch = h.context.launchWork;
+    h.context.launchWork = () => { throw new Error('interrupted launch'); };
+    assert.throws(() => h.play(), /interrupted launch/);
+    h.context.launchWork = launch;
+    launch(h.context.WORKS[0]);
+    assert.equal(h.events[0][2].source, 'town');
+});
+
+test('terminal can still launch when the optional analytics tracker is absent', () => {
+    const h = attributionHarness(false);
+    h.play();
+    assert.equal(h.opened.length, 1);
+});

@@ -1,3 +1,7 @@
+> 履歴資料（2026-10-01）: この作品フォルダに残る旧Starter手順は、現在の運用手順ではありません。
+> 現行の編集手順は [root OPERATIONS.md](../../OPERATIONS.md)、変更分類は [root CHANGE-OPERATIONS.md](../../CHANGE-OPERATIONS.md)、公開完成判定は [root RELEASE-WORKFLOW.md](../../RELEASE-WORKFLOW.md) を参照してください。
+> 日常の変更は staging の作業branchとPlan Lock、PRで行います。本番mainへの直接編集や、更新履歴・案内会話を任意とする下記の旧記述は使用しません。
+
 # SukimaStock 標準制作フロー
 
 この手順は、SukimaStock Starterで新作を始め、Koderと自作パッチャーで制作し、完成後にYumaniwaDesk v0.8へ登録してWorking CopyからGitHubへ公開するまでの標準手順です。
