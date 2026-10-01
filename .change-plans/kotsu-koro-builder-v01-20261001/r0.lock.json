@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e2a31b8b8ebac0fb35dca21c37fe8d5c998058303b350555b67115da70da89fc",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "kotsu-koro-builder-v01-20261001",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Work-local Stage Data, direct terrain Builder and physical Loop v0.1",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "df635443fbac3d22e4c788d6509398382aff7224",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "engine/SUKIMASTOCK-NEW-WORK.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "engine/SUKIMASTOCK-AUDIO-BASELINE.md",
+      "works/kotsu-koro/ at current main",
+      "User hands-on discovery and Stage 0/Stage 1 instructions"
+    ],
+    "allowedPaths": [
+      ".change-plans/kotsu-koro-builder-v01-20261001/r0.lock.json",
+      "works/kotsu-koro/stage-data.js",
+      "works/kotsu-koro/stage-geometry.js",
+      "works/kotsu-koro/journey.js",
+      "works/kotsu-koro/stage-draw.js",
+      "works/kotsu-koro/index.html",
+      "works/kotsu-koro/builder/**",
+      "works/kotsu-koro/test-journey.cjs",
+      "works/kotsu-koro/test-stage.cjs",
+      "works/kotsu-koro/test-builder.cjs",
+      "works/kotsu-koro/test-loop.cjs",
+      "works/kotsu-koro/fixtures/**",
+      "works/kotsu-koro/STAGE1.md",
+      "works/kotsu-koro/BUILDER.md",
+      "works/kotsu-koro/VALIDATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "layout-fix.css",
+      "assets/**",
+      ".github/**",
+      "tools/**",
+      "works/coffee-factory/**",
+      "works/orbit/**",
+      "works/midnight-cola/**",
+      "works/yakitori-wars/**",
+      "works/junkissa-dive/**",
+      "works/rojiura-masala/**",
+      "works/kotsu-koro/dynamics.js",
+      "works/kotsu-koro/test-dynamics.cjs",
+      "works/kotsu-koro/codea-lite.js",
+      "works/kotsu-koro/work-config.js",
+      "works/kotsu-koro/audio/**"
+    ],
+    "expectedChanges": [
+      "Extract exact canonical geometry and metadata to validated JSON-compatible Stage Data; preserve accepted Stage 0 and Stage 1 numerical results before Builder work",
+      "One shared compiler and journey runtime consume canonical or draft data; scoped optional Loop collider with no scripted steering",
+      "Direct pointer terrain/gap/material/Loop editing, test marker, real-physics PLAY/RESET/EDIT, bounded traces/loss markers, work-only local draft and JSON IO",
+      "Canonical regression, compiler, Builder interaction, physical Loop tests and deployed ordinary/Builder browser operation"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes work-local Builder UI, draft-only persistence and physical Loop; canonical Stage 1 shape remains unchanged",
+      "No production, shared runtime, town registration or Stage 2"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Current existing-work canonical Engine contract; all new physics/composition/timing remain work-owned",
+      "Plan-only first branch commit followed by scoped implementation and PR",
+      "SukimaStock Audio Baseline for new sounds; existing proven levels retained"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "ordinary-stage0-zoom-stage1-regression",
+      "builder-direct-drag-gap-material-play-edit-trace-json",
+      "loop-place-radius-low-speed-high-speed-retry"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert scoped work changes; Builder draft schema version1 remains isolated from game storage",
+    "outOfScope": [
+      "Production",
+      "Canonical Engine or Codea",
+      "Other works, town/metadata registration",
+      "Stage 2+, enemies, collectibles, HP, score, character faces/names/story"
+    ],
+    "promotion": "none; staging-only standalone experiment, not production Release Complete",
+    "unverified": [
+      "Author iPhone Safari feel and audible mix",
+      "Safari background/BFCache; final automatic VERIFIED stays UNVERIFIED"
+    ]
+  }
+}
