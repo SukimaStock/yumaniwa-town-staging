@@ -3,14 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-  <meta name="theme-color" content="#e6ddc7">
+  <meta name="theme-color" content="#f7edd8">
   <meta name="robots" content="noindex,nofollow">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <title>こつ、ころ。</title>
+  <title>PUMPOKO</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <canvas id="gameCanvas" aria-label="かぼちゃをつかんで、ゆらす"></canvas>
+  <img id="title-art" src="./assets/pumpoko-logo.svg" alt="" hidden>
+  <canvas id="gameCanvas" aria-label="PUMPOKO — かぼちゃをつかんで、ゆらす"></canvas>
   <button id="again" type="button" hidden>もういちど</button>
   <button id="sound-toggle" type="button" aria-label="音を切る" aria-pressed="true">♪</button>
 
@@ -46,7 +47,7 @@
         .then(() => loadScript("./sketch.js" + cacheBust))
         .then(() => CodeaLite.start("gameCanvas"))
         .catch((error) => {
-          console.error("かぼちゃをつかんで、ゆらす bootstrap failed", error);
+          console.error("PUMPOKO bootstrap failed", error);
         });
     })();
   </script>

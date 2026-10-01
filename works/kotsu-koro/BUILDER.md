@@ -1,4 +1,4 @@
-# こつ、ころ。 Stage Builder v0.1
+# PUMPOKO Stage Builder v0.1
 
 Staging-only author tool: `/works/kotsu-koro/builder/`. No town registration,
 production publication, sharing service or physics parameter controls.

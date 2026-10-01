@@ -1,0 +1,103 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7f5e69bddd7e8b4768fcedaa22c1e65102822c41ee9f1b78c4376c20e3a8a387",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-gentle-pop-20261001",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "PUMPOKO title and Stage 0 visual adjustment; retire the provisional displayed title",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "62a8eb448e9293e03e5a578f3af9990076b12819",
+    "canonicalSources": [
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/work-config.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-gentle-pop-20261001/r0.lock.json",
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/index.html",
+      "works/kotsu-koro/style.css",
+      "works/kotsu-koro/work-config.js",
+      "works/kotsu-koro/RESEARCH.md",
+      "works/kotsu-koro/BUILDER.md",
+      "works/kotsu-koro/STAGE1.md",
+      "works/kotsu-koro/VALIDATION.md",
+      "works/kotsu-koro/builder/index.html",
+      "works/kotsu-koro/test-dynamics.cjs",
+      "works/kotsu-koro/test-journey.cjs",
+      "works/kotsu-koro/assets/pumpoko-logo.svg"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "index.html",
+      "style.css",
+      "tools/**",
+      "works/kotsu-koro/codea-lite.js",
+      "works/kotsu-koro/dynamics.js",
+      "works/kotsu-koro/journey.js",
+      "works/kotsu-koro/stage-data.js",
+      "works/kotsu-koro/stage-geometry.js",
+      "works/kotsu-koro/stage-draw.js",
+      "works/kotsu-koro/builder/model.js",
+      "works/kotsu-koro/builder/builder.js"
+    ],
+    "expectedChanges": [
+      "Use supplied PUMPOKO SVG as the only title with a text fallback",
+      "Keep spacious Stage 0 layout and minimal instruction/brand",
+      "Round vessel scallops slightly and soften colours, seed shading and shadow; warm cream backdrop",
+      "Replace provisional Japanese title in work-local configuration, documents, Builder display and test fixtures",
+      "Keep identifiers, paths, saves, input, physics, stage structure, Builder functionality and shared foundations unchanged"
+    ],
+    "ownerDecisions": [
+      "User explicitly chose PUMPOKO only and gentle pop with quiet space",
+      "Use supplied logo and keep author impression check pending"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Work-local runtime Standard floor",
+      "Plan Lock precedes implementation",
+      "staging only; branch and PR required"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "title-vessel-balance",
+      "ordinary-stage0-stage1-play",
+      "builder-title"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the work-local implementation commit via staging PR",
+    "outOfScope": [
+      "production",
+      "shared Engine/Codea/Builder",
+      "physics",
+      "stage changes",
+      "new gameplay"
+    ],
+    "promotion": "none; staging only for author confirmation",
+    "unverified": [
+      "physical iPhone/PWA",
+      "author impression approval"
+    ]
+  }
+}

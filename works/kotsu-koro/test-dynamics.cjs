@@ -61,7 +61,7 @@ test('traces survive the movement, then expire', () => {
 function harness() {
   let config; const held = new Set(), pressed = new Set(), plays = [];
   const c = { console, location: { search: '?dev=1' }, URLSearchParams,
-    SUKIMASTOCK_WORK: { id: 'kotsu-koro', title: 'こつ、ころ。', logicalWidth: 390, logicalHeight: 740, frameRate: 60 },
+    SUKIMASTOCK_WORK: { id: 'kotsu-koro', title: 'PUMPOKO', logicalWidth: 390, logicalHeight: 740, frameRate: 60 },
     PumpkinDynamics: D, PumpkinJourney: J, BEGAN: 'BEGAN', MOVING: 'MOVING', ENDED: 'ENDED', CANCELLED: 'CANCELLED',
     SSE: { createApp: v => { config = v; }, audio: {
       withBaseline: v => v, baseline: () => ({ reference: { se: { action: .46, soft: .24 } } }),
