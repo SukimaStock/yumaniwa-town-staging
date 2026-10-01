@@ -1,0 +1,125 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8406e039e314e3b6aba0ac118c6678ef0db1d24e16ca0a2405bf04edc6beb471",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "station-guide-jpeg-current-20261001",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Use the approved undated station guide JPEG from station-guide-jpeg-20261001 and refresh its loader cache keys",
+    "planLevel": "full",
+    "classes": [
+      "ASSET",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "167849a5894a7c042a4831ddba04634786d2596e",
+    "canonicalSources": [
+      "assets/station-guide-map.jpg",
+      "main.js",
+      "index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/station-guide-jpeg-current-20261001/r0.lock.json",
+      "assets/station-guide-map.jpg",
+      "main.js",
+      "index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "assets/station-guide-map-*.jpg",
+      "assets/station-guide-map*.png",
+      "style.css",
+      "data/**",
+      "works/**",
+      "engine/**",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md",
+      "CHANGE-*.md"
+    ],
+    "expectedChanges": [
+      "Copy only assets/station-guide-map.jpg byte-for-byte from source branch head d0c8ade723fcf3ebd5e9e2c4ac0eb3a685b3e7d9 (blob 9019869affe3312f061bcd461c613a07df332019)",
+      "Replace only STATION_GUIDE_MAP_IMAGE with assets/station-guide-map.jpg?v=20261001-jpeg01",
+      "Update only the main.js cache query in index.html to 20261001-station-guide-jpeg01",
+      "Keep dated JPEG/PNG files, hotspot coordinates, labels, map interactions and all unrelated files unchanged"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "station-map-local-browser",
+      "physical-device-unverified"
+    ],
+    "impactChecks": [
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.mobile-desktop",
+      "runtime.rollback",
+      "surface.shared"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User selected the undated source JPEG and requested reference/cache updates plus a Draft PR; expressly exclude dated JPG changes and stop before merge"
+    ],
+    "hqDecisions": [
+      "Reuse the existing image loader, query-string caching, CSS sizing, labels and hotspots; no new shared-runtime, geography or caching contract is introduced"
+    ],
+    "rulesApplied": [
+      "Shared runtime and root HTML use Full SYSTEM risk floor",
+      "Only the selected JPEG blob is imported; do not merge or cherry-pick the source branch",
+      "Immutable Plan-only first commit from current main"
+    ],
+    "problem": "The approved JPEG exists only on an asset branch while the station guide still loads the older dated PNG",
+    "currentContract": "main.js selects one station map URL, existing image loading and overlay UI reuse it; index.html versions main.js by query string",
+    "whyExistingIsInsufficient": "The current reference cannot display the selected JPEG",
+    "design": "Add the exact selected JPEG and change the two loader cache references only",
+    "alternativesRejected": [
+      "Merging the full source branch would import an excluded dated JPG modification",
+      "Re-encoding the selected JPEG",
+      "Changing hotspot geography or overlay styling",
+      "Production promotion"
+    ],
+    "migration": "None; no data schema, save keys, scene IDs or public routing changes",
+    "compatibility": "Keep dated assets available and preserve all map opening, closing, confirmation and travel behavior",
+    "boundaryCases": [
+      "JPEG decode and natural size",
+      "Open, close and reopen",
+      "Desktop and narrow viewport rendering",
+      "Map label and hotspot presence",
+      "Local request cache keys"
+    ],
+    "dependencies": [
+      "Source blob 9019869affe3312f061bcd461c613a07df332019 at d0c8ade723fcf3ebd5e9e2c4ac0eb3a685b3e7d9"
+    ],
+    "rollback": "Revert the single implementation commit (image addition and both URL updates together); keep the Plan Lock immutable",
+    "testPlan": [
+      "Compare imported JPEG blob identity and validate decoding",
+      "Inspect exact 4-path diff and unchanged dated JPEG blob",
+      "Scope then Risk then Impact",
+      "Trusted base node-syntax",
+      "Existing town transition, interaction, guide and scene validation regressions",
+      "Local Chromium map load/close/reopen at desktop and narrow viewport with external traffic blocked",
+      "Inspect remote exact-head required checks"
+    ],
+    "promotion": "Draft PR to staging main only; no merge, auto-merge, deployment or production writes",
+    "promotionRisk": "Only the reviewed draft branch is published; runtime logic is unchanged",
+    "unverified": [
+      "Physical iPhone and installed PWA are not tested",
+      "Final automatic VERIFIED is intentionally deferred"
+    ]
+  }
+}
