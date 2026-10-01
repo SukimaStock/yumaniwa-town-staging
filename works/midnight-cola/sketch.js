@@ -64136,6 +64136,8 @@ updateCapPower = function() {
  * This replaces the older overlapping ginger/lever patches. It is deliberately
  * installed last, after all existing visual and bottle patches are in place.
  */
+var drawColaRollConsolidatedAdjustmentPanel = null;
+
 function installColaRollConsolidatedAdjustmentSystem() {
     const root =
         typeof globalThis !== "undefined"
@@ -65682,6 +65684,9 @@ function installColaRollConsolidatedAdjustmentSystem() {
             resetLever(state);
         }
     };
+
+    // Keep the private renderer available to the later lever-lock wrapper.
+    drawColaRollConsolidatedAdjustmentPanel = drawAdjustmentPanel;
 
     const drawCapPanelBaseForConsolidatedAdjustment =
         drawCapPanel;
@@ -70364,7 +70369,7 @@ drawCapPanel = function() {
         gameState.phase ===
             "ADJUSTMENT_LOCKED"
     ) {
-        drawAdjustmentPanel();
+        drawColaRollConsolidatedAdjustmentPanel();
         drawColaRollLeverLockHardware();
         return;
     }
