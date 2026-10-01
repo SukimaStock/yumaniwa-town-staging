@@ -1,0 +1,90 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2963d28adcd594b80e813520b0cdb598bf972c9793743981292f3e657bfda701",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "kotsu-koro-stage1-evidence-20261001",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Record deployed Stage 0 to Stage 1 browser play-through evidence without changing runtime",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "dfc3b6566b2af72c5a75d9a5787af0914c0b8d11",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "engine/SUKIMASTOCK-NEW-WORK.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "engine/SUKIMASTOCK-AUDIO-BASELINE.md",
+      "works/kotsu-koro/ at current main",
+      "User hands-on discovery and Stage 0/Stage 1 instructions"
+    ],
+    "allowedPaths": [
+      ".change-plans/kotsu-koro-stage1-evidence-20261001/r0.lock.json",
+      "works/kotsu-koro/STAGE1.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "layout-fix.css",
+      "assets/**",
+      ".github/**",
+      "tools/**",
+      "works/coffee-factory/**",
+      "works/orbit/**",
+      "works/midnight-cola/**",
+      "works/yakitori-wars/**",
+      "works/junkissa-dive/**",
+      "works/rojiura-masala/**"
+    ],
+    "expectedChanges": [
+      "Record exact-SHA browser observations of fibre release, continuous journey, all-nine exit after rescuing a straggler, replay and mute persistence",
+      "Record five decoded audio buffers and diagnostics, while leaving subjective audibility and author iPhone/Safari unverified"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes this Stage 0 and exactly one Stage 1 extension; creative details, terrain, subtraction and staging delivery are delegated",
+      "Production and Engine changes are explicitly prohibited"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Current existing-work canonical Engine contract; all new physics/composition/timing remain work-owned",
+      "Plan-only first branch commit followed by scoped implementation and PR",
+      "SukimaStock Audio Baseline for new sounds; existing proven levels retained"
+    ],
+    "staticChecks": [],
+    "manualChecks": [
+      "exact-sha-browser-evidence-record",
+      "documentation-only-diff"
+    ],
+    "impactChecks": [],
+    "impactExclusions": [],
+    "rollback": "Revert this documentation record only",
+    "outOfScope": [
+      "Production",
+      "Canonical Engine or Codea",
+      "Other works, town/metadata registration",
+      "Stage 2+, enemies, collectibles, HP, score, character faces/names/story"
+    ],
+    "promotion": "none; staging-only standalone experiment, not production Release Complete",
+    "unverified": [
+      "Author iPhone Safari touch/feel and subjective audible mix",
+      "Safari lifecycle and background/BFCache; verificationState remains UNVERIFIED"
+    ],
+    "staticCheckExemptionReason": "Documentation-only evidence; no runtime code or assets changed"
+  }
+}
