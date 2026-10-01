@@ -4724,71 +4724,20 @@ function ensureTriggerEditorExtraFields() {
 // ==========================================
 // 5-B. マップパーツ編集
 // ==========================================
-var TOWN_PART_CATALOG = [
-    {
-        key: 'noticeBoard',
-        label: '横長掲示板',
-        objectId: 'notice_board_01',
+// Compatibility view only; all asset defaults are owned by WORLD OBJECTS.
+var TOWN_PART_CATALOG = window.YUMANIWA_WORLD_OBJECTS.getAddableEditorDefinitions().map(function (definition) {
+    return {
+        key: definition.catalogKey,
+        label: definition.label,
+        objectId: definition.objectId,
+        idStem: definition.idStem,
         file: '',
-        w: 5.25,
-        h: 5.25,
-        collision: { enabled: true, x: 0.041666666666666664, y: 0.8363636363636365, w: 0.9166666666666666, h: 0.15 }
-    },
-    {
-        key: 'touristMap',
-        label: '観光案内図',
-        objectId: 'tourist_map_01',
-        file: '',
-        w: 4,
-        h: 4,
-        collision: { enabled: true, x: 0.2520833333333332, y: 0.90625, w: 0.4958333333333333, h: 0.1125 }
-    },
-    {
-        key: 'bench',
-        label: '木製ベンチ',
-        objectId: 'bench_wood_01',
-        file: '',
-        w: 3,
-        h: 3,
-        collision: { enabled: true, x: 0.14, y: 0.8133333333333334, w: 0.72, h: 0.2 }
-    },
-    {
-        key: 'streetLamp',
-        label: 'レトロな街灯',
-        objectId: 'street_lamp_01',
-        file: '',
-        w: 2,
-        h: 3.5,
-        collision: { enabled: true, x: 0.405125, y: 0.9342857142857142, w: 0.18975, h: 0.1807142857142857 }
-    },
-    {
-        key: 'planter',
-        label: '植木鉢',
-        objectId: 'planter_01',
-        file: '',
-        w: 2,
-        h: 2,
-        collision: { enabled: true, x: 0.302, y: 0.66925, w: 0.396, h: 0.33075 }
-    },
-    {
-        key: 'directionSign',
-        label: '方向案内札',
-        objectId: 'station_direction_sign_01',
-        idStem: 'station_direction_sign',
-        file: '',
-        w: 1.4,
-        h: 2.4,
-        collision: { enabled: true, x: 0.34, y: 0.84, w: 0.32, h: 0.20 }
-    },
-    {
-        key: 'stationBuilding',
-        label: '湯間庭駅舎',
-        objectId: 'station_building_01',
-        file: '',
-        w: 8,
-        h: 8,
-        collision: { enabled: false, x: 0.06086956521739131, y: 0.7825292397660817, w: 0.8869565217391304, h: 0.21747076023391812 }
-    },
+        w: definition.defaults.w,
+        h: definition.defaults.h,
+        collision: definition.defaults.collision
+    };
+}).concat([
+    // Non-asset fallbacks for existing placements. These are not addable assets.
     {
         key: 'worldObjectFacility',
         label: '施設 WORLD OBJECT',
@@ -4818,7 +4767,7 @@ var TOWN_PART_CATALOG = [
         addable: false,
         collision: { enabled: false, x: 0, y: 0, w: 0.001, h: 0.001 }
     }
-];
+]);
 
 function getActiveTownParts() {
     if (!activeTownSceneDef) return [];
@@ -4855,13 +4804,10 @@ function inferTownPartCatalogKey(part) {
     var id = String((part && part.id) || '').toLowerCase();
     var objectId = String((part && part.objectId) || '').toLowerCase();
 
-    if (objectId === 'notice_board_01') return 'noticeBoard';
-    if (objectId === 'tourist_map_01') return 'touristMap';
-    if (objectId === 'bench_wood_01') return 'bench';
-    if (objectId === 'street_lamp_01') return 'streetLamp';
-    if (objectId === 'planter_01') return 'planter';
-    if (objectId === 'station_direction_sign_01') return 'directionSign';
-    if (objectId === 'station_building_01') return 'stationBuilding';
+    var definition = window.YUMANIWA_WORLD_OBJECTS.getEditorDefinition(objectId);
+    // Preserve historical inference: the five former upgrade additions did not
+    // infer a catalogKey for existing placements that omitted one.
+    if (definition && definition.inferFromObjectId) return definition.catalogKey;
 
     if (objectId.indexOf('_shop_') !== -1 || id.slice(-5) === '_shop') {
         return 'worldObjectShop';

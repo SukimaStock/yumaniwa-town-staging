@@ -1,0 +1,646 @@
+{
+  "baseSha": "74d1918ca0cd36dd379428d62603a15597e05ecb",
+  "catalog": [
+    {
+      "key": "noticeBoard",
+      "label": "横長掲示板",
+      "objectId": "notice_board_01",
+      "file": "",
+      "w": 5.25,
+      "h": 5.25,
+      "collision": {
+        "enabled": true,
+        "x": 0.041666666666666664,
+        "y": 0.8363636363636365,
+        "w": 0.9166666666666666,
+        "h": 0.15
+      }
+    },
+    {
+      "key": "touristMap",
+      "label": "観光案内図",
+      "objectId": "tourist_map_01",
+      "file": "",
+      "w": 4,
+      "h": 4,
+      "collision": {
+        "enabled": true,
+        "x": 0.2520833333333332,
+        "y": 0.90625,
+        "w": 0.4958333333333333,
+        "h": 0.1125
+      }
+    },
+    {
+      "key": "bench",
+      "label": "木製ベンチ",
+      "objectId": "bench_wood_01",
+      "file": "",
+      "w": 3,
+      "h": 3,
+      "collision": {
+        "enabled": true,
+        "x": 0.14,
+        "y": 0.8133333333333334,
+        "w": 0.72,
+        "h": 0.2
+      }
+    },
+    {
+      "key": "streetLamp",
+      "label": "レトロな街灯",
+      "objectId": "street_lamp_01",
+      "file": "",
+      "w": 2,
+      "h": 3.5,
+      "collision": {
+        "enabled": true,
+        "x": 0.405125,
+        "y": 0.9342857142857142,
+        "w": 0.18975,
+        "h": 0.1807142857142857
+      }
+    },
+    {
+      "key": "planter",
+      "label": "植木鉢",
+      "objectId": "planter_01",
+      "file": "",
+      "w": 2,
+      "h": 2,
+      "collision": {
+        "enabled": true,
+        "x": 0.302,
+        "y": 0.66925,
+        "w": 0.396,
+        "h": 0.33075
+      }
+    },
+    {
+      "key": "directionSign",
+      "label": "方向案内札",
+      "objectId": "station_direction_sign_01",
+      "idStem": "station_direction_sign",
+      "file": "",
+      "w": 1.4,
+      "h": 2.4,
+      "collision": {
+        "enabled": true,
+        "x": 0.34,
+        "y": 0.84,
+        "w": 0.32,
+        "h": 0.2
+      }
+    },
+    {
+      "key": "stationBuilding",
+      "label": "湯間庭駅舎",
+      "objectId": "station_building_01",
+      "file": "",
+      "w": 8,
+      "h": 8,
+      "collision": {
+        "enabled": false,
+        "x": 0.06086956521739131,
+        "y": 0.7825292397660817,
+        "w": 0.8869565217391304,
+        "h": 0.21747076023391812
+      }
+    },
+    {
+      "key": "worldObjectFacility",
+      "label": "施設 WORLD OBJECT",
+      "file": "",
+      "w": 1,
+      "h": 1,
+      "addable": false,
+      "collision": {
+        "enabled": false,
+        "x": 0,
+        "y": 0,
+        "w": 0.001,
+        "h": 0.001
+      }
+    },
+    {
+      "key": "worldObjectExhibit",
+      "label": "展示 WORLD OBJECT",
+      "file": "",
+      "w": 1,
+      "h": 1,
+      "addable": false,
+      "collision": {
+        "enabled": false,
+        "x": 0,
+        "y": 0,
+        "w": 0.001,
+        "h": 0.001
+      }
+    },
+    {
+      "key": "worldObjectShop",
+      "label": "店舗 WORLD OBJECT",
+      "file": "",
+      "w": 1,
+      "h": 1,
+      "addable": false,
+      "collision": {
+        "enabled": false,
+        "x": 0,
+        "y": 0,
+        "w": 0.001,
+        "h": 0.001
+      }
+    },
+    {
+      "key": "standingSignboard",
+      "label": "立て看板（共通）",
+      "objectId": "standing_sign_01",
+      "idStem": "town_standing_signboard",
+      "file": "",
+      "w": 2,
+      "h": 2,
+      "collision": {
+        "enabled": true,
+        "x": 0.14,
+        "y": 0.7375,
+        "w": 0.72,
+        "h": 0.2625
+      }
+    },
+    {
+      "key": "leisureDirectionSign",
+      "label": "簡易案内サイン（レジャーセンター）",
+      "objectId": "leisure_direction_sign_01",
+      "idStem": "leisure_direction_sign",
+      "file": "",
+      "w": 3.5,
+      "h": 3.5,
+      "collision": {
+        "enabled": true,
+        "x": 0.35,
+        "y": 0.82,
+        "w": 0.3,
+        "h": 0.16
+      }
+    },
+    {
+      "key": "leisurePamphletRack",
+      "label": "パンフレットラック（レジャーセンター）",
+      "objectId": "leisure_pamphlet_rack_01",
+      "idStem": "leisure_pamphlet_rack",
+      "file": "",
+      "w": 3.75,
+      "h": 3.75,
+      "collision": {
+        "enabled": true,
+        "x": 0.15,
+        "y": 0.84,
+        "w": 0.7,
+        "h": 0.14
+      }
+    },
+    {
+      "key": "leisureBulletinBoard",
+      "label": "掲示スタンド（レジャーセンター）",
+      "objectId": "leisure_bulletin_board_01",
+      "idStem": "leisure_bulletin_board",
+      "file": "",
+      "w": 3.25,
+      "h": 3.25,
+      "collision": {
+        "enabled": true,
+        "x": 0.08,
+        "y": 0.82,
+        "w": 0.84,
+        "h": 0.14
+      }
+    },
+    {
+      "key": "leisureGuideTerminal",
+      "label": "展示ガイド端末（レジャーセンター）",
+      "objectId": "leisure_guide_terminal_01",
+      "idStem": "leisure_guide_terminal",
+      "file": "",
+      "w": 3,
+      "h": 3,
+      "collision": {
+        "enabled": true,
+        "x": 0.05,
+        "y": 0.76,
+        "w": 0.9,
+        "h": 0.18
+      }
+    }
+  ],
+  "creations": [
+    {
+      "key": "noticeBoard",
+      "part": {
+        "id": "station_noticeBoard_16",
+        "objectId": "notice_board_01",
+        "x": 18.75,
+        "y": 18.75,
+        "w": 5.25,
+        "h": 5.25,
+        "enabled": true,
+        "catalogKey": "noticeBoard",
+        "collision": {
+          "enabled": true,
+          "x": 0.041666666666666664,
+          "y": 0.8363636363636365,
+          "w": 0.9166666666666666,
+          "h": 0.15
+        },
+        "interaction": {
+          "enabled": false,
+          "triggerId": "",
+          "x": 0,
+          "y": 0.6,
+          "w": 1,
+          "h": 0.4
+        },
+        "footY": 24
+      }
+    },
+    {
+      "key": "touristMap",
+      "part": {
+        "id": "station_touristMap_16",
+        "objectId": "tourist_map_01",
+        "x": 20,
+        "y": 20,
+        "w": 4,
+        "h": 4,
+        "enabled": true,
+        "catalogKey": "touristMap",
+        "collision": {
+          "enabled": true,
+          "x": 0.2520833333333332,
+          "y": 0.90625,
+          "w": 0.4958333333333333,
+          "h": 0.1125
+        },
+        "interaction": {
+          "enabled": false,
+          "triggerId": "",
+          "x": 0,
+          "y": 0.6,
+          "w": 1,
+          "h": 0.4
+        },
+        "footY": 24
+      }
+    },
+    {
+      "key": "bench",
+      "part": {
+        "id": "station_bench_16",
+        "objectId": "bench_wood_01",
+        "x": 21,
+        "y": 21,
+        "w": 3,
+        "h": 3,
+        "enabled": true,
+        "catalogKey": "bench",
+        "collision": {
+          "enabled": true,
+          "x": 0.14,
+          "y": 0.8133333333333334,
+          "w": 0.72,
+          "h": 0.2
+        },
+        "interaction": {
+          "enabled": false,
+          "triggerId": "",
+          "x": 0,
+          "y": 0.6,
+          "w": 1,
+          "h": 0.4
+        },
+        "footY": 24
+      }
+    },
+    {
+      "key": "streetLamp",
+      "part": {
+        "id": "station_streetLamp_16",
+        "objectId": "street_lamp_01",
+        "x": 22,
+        "y": 20.5,
+        "w": 2,
+        "h": 3.5,
+        "enabled": true,
+        "catalogKey": "streetLamp",
+        "collision": {
+          "enabled": true,
+          "x": 0.405125,
+          "y": 0.9342857142857142,
+          "w": 0.18975,
+          "h": 0.1807142857142857
+        },
+        "interaction": {
+          "enabled": false,
+          "triggerId": "",
+          "x": 0,
+          "y": 0.6,
+          "w": 1,
+          "h": 0.4
+        },
+        "footY": 24
+      }
+    },
+    {
+      "key": "planter",
+      "part": {
+        "id": "station_planter_16",
+        "objectId": "planter_01",
+        "x": 22,
+        "y": 22,
+        "w": 2,
+        "h": 2,
+        "enabled": true,
+        "catalogKey": "planter",
+        "collision": {
+          "enabled": true,
+          "x": 0.302,
+          "y": 0.66925,
+          "w": 0.396,
+          "h": 0.33075
+        },
+        "interaction": {
+          "enabled": false,
+          "triggerId": "",
+          "x": 0,
+          "y": 0.6,
+          "w": 1,
+          "h": 0.4
+        },
+        "footY": 24
+      }
+    },
+    {
+      "key": "directionSign",
+      "part": {
+        "id": "station_direction_sign_16",
+        "objectId": "station_direction_sign_01",
+        "x": 22.6,
+        "y": 21.6,
+        "w": 1.4,
+        "h": 2.4,
+        "enabled": true,
+        "catalogKey": "directionSign",
+        "collision": {
+          "enabled": true,
+          "x": 0.34,
+          "y": 0.84,
+          "w": 0.32,
+          "h": 0.2
+        },
+        "interaction": {
+          "enabled": false,
+          "triggerId": "",
+          "x": 0,
+          "y": 0.6,
+          "w": 1,
+          "h": 0.4
+        },
+        "footY": 24
+      }
+    },
+    {
+      "key": "stationBuilding",
+      "part": {
+        "id": "station_stationBuilding_16",
+        "objectId": "station_building_01",
+        "x": 16,
+        "y": 16,
+        "w": 8,
+        "h": 8,
+        "enabled": true,
+        "catalogKey": "stationBuilding",
+        "collision": {
+          "enabled": false,
+          "x": 0.06086956521739131,
+          "y": 0.7825292397660817,
+          "w": 0.8869565217391304,
+          "h": 0.21747076023391812
+        },
+        "interaction": {
+          "enabled": false,
+          "triggerId": "",
+          "x": 0,
+          "y": 0.6,
+          "w": 1,
+          "h": 0.4
+        },
+        "footY": 24
+      }
+    },
+    {
+      "key": "standingSignboard",
+      "part": {
+        "id": "town_standing_signboard_16",
+        "objectId": "standing_sign_01",
+        "x": 22,
+        "y": 22,
+        "w": 2,
+        "h": 2,
+        "enabled": true,
+        "catalogKey": "standingSignboard",
+        "collision": {
+          "enabled": true,
+          "x": 0.14,
+          "y": 0.7375,
+          "w": 0.72,
+          "h": 0.2625
+        },
+        "interaction": {
+          "enabled": false,
+          "triggerId": "",
+          "x": 0,
+          "y": 0.6,
+          "w": 1,
+          "h": 0.4
+        },
+        "footY": 24
+      }
+    },
+    {
+      "key": "leisureDirectionSign",
+      "part": {
+        "id": "leisure_direction_sign_16",
+        "objectId": "leisure_direction_sign_01",
+        "x": 20.5,
+        "y": 20.5,
+        "w": 3.5,
+        "h": 3.5,
+        "enabled": true,
+        "catalogKey": "leisureDirectionSign",
+        "collision": {
+          "enabled": true,
+          "x": 0.35,
+          "y": 0.82,
+          "w": 0.3,
+          "h": 0.16
+        },
+        "interaction": {
+          "enabled": false,
+          "triggerId": "",
+          "x": 0,
+          "y": 0.6,
+          "w": 1,
+          "h": 0.4
+        },
+        "footY": 24
+      }
+    },
+    {
+      "key": "leisurePamphletRack",
+      "part": {
+        "id": "leisure_pamphlet_rack_16",
+        "objectId": "leisure_pamphlet_rack_01",
+        "x": 20.25,
+        "y": 20.25,
+        "w": 3.75,
+        "h": 3.75,
+        "enabled": true,
+        "catalogKey": "leisurePamphletRack",
+        "collision": {
+          "enabled": true,
+          "x": 0.15,
+          "y": 0.84,
+          "w": 0.7,
+          "h": 0.14
+        },
+        "interaction": {
+          "enabled": false,
+          "triggerId": "",
+          "x": 0,
+          "y": 0.6,
+          "w": 1,
+          "h": 0.4
+        },
+        "footY": 24
+      }
+    },
+    {
+      "key": "leisureBulletinBoard",
+      "part": {
+        "id": "leisure_bulletin_board_16",
+        "objectId": "leisure_bulletin_board_01",
+        "x": 20.75,
+        "y": 20.75,
+        "w": 3.25,
+        "h": 3.25,
+        "enabled": true,
+        "catalogKey": "leisureBulletinBoard",
+        "collision": {
+          "enabled": true,
+          "x": 0.08,
+          "y": 0.82,
+          "w": 0.84,
+          "h": 0.14
+        },
+        "interaction": {
+          "enabled": false,
+          "triggerId": "",
+          "x": 0,
+          "y": 0.6,
+          "w": 1,
+          "h": 0.4
+        },
+        "footY": 24
+      }
+    },
+    {
+      "key": "leisureGuideTerminal",
+      "part": {
+        "id": "leisure_guide_terminal_16",
+        "objectId": "leisure_guide_terminal_01",
+        "x": 21,
+        "y": 21,
+        "w": 3,
+        "h": 3,
+        "enabled": true,
+        "catalogKey": "leisureGuideTerminal",
+        "collision": {
+          "enabled": true,
+          "x": 0.05,
+          "y": 0.76,
+          "w": 0.9,
+          "h": 0.18
+        },
+        "interaction": {
+          "enabled": false,
+          "triggerId": "",
+          "x": 0,
+          "y": 0.6,
+          "w": 1,
+          "h": 0.4
+        },
+        "footY": 24
+      }
+    }
+  ],
+  "inferences": [
+    {
+      "objectId": "notice_board_01",
+      "key": "noticeBoard"
+    },
+    {
+      "objectId": "tourist_map_01",
+      "key": "touristMap"
+    },
+    {
+      "objectId": "bench_wood_01",
+      "key": "bench"
+    },
+    {
+      "objectId": "street_lamp_01",
+      "key": "streetLamp"
+    },
+    {
+      "objectId": "planter_01",
+      "key": "planter"
+    },
+    {
+      "objectId": "station_direction_sign_01",
+      "key": "directionSign"
+    },
+    {
+      "objectId": "station_building_01",
+      "key": "stationBuilding"
+    },
+    {
+      "objectId": "standing_sign_01",
+      "key": "worldObjectFacility"
+    },
+    {
+      "objectId": "leisure_direction_sign_01",
+      "key": "worldObjectFacility"
+    },
+    {
+      "objectId": "leisure_pamphlet_rack_01",
+      "key": "worldObjectFacility"
+    },
+    {
+      "objectId": "leisure_bulletin_board_01",
+      "key": "worldObjectFacility"
+    },
+    {
+      "objectId": "leisure_guide_terminal_01",
+      "key": "worldObjectFacility"
+    }
+  ],
+  "sourceHashes": {
+    "data/station-plaza.js": "0b41cfac22b32b1679e32bf98391e77b37803e036228326a7b251a93d3b6e900",
+    "data/town-maps.js": "45a1af2166c184eb5f5d33827e902eb5dd3b8742b059207b329da3b24bb09656",
+    "town-ghost-npc.js": "302f196439d15fccc2c701ecda51e4179bf5fe5c9d0ceae650f73ab30826f747",
+    "data/station-plaza-props.js": "c58913e52f7afe9bb17250b43259b6ef90a8e5f216e95888068ff294afa53c1e",
+    "style.css": "97e6646de58d911a400e8f2da0f101d69f6d1d6036256be8684b2aa639185046",
+    "layout-fix.css": "10c4a5eb279398c15a02bf2aadbedee9808b1a6d1462e0886d88fa6b180a7f49"
+  },
+  "worldObjectsHash": "e3c99090ce318d475e52d530bbf43120408d5e82f84d1fb74011d92cd10c0c9a",
+  "upgradeActionsHash": "f6b26e1b123660a62c9d3c6a5a0b182e0e03a9e05da26afa8cdd7830a6f74d72"
+}
