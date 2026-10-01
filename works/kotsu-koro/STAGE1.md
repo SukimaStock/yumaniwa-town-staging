@@ -68,3 +68,43 @@ are covered. Browser canary for this connection follows deployment.
 Formal verificationState remains UNVERIFIED. Author iPhone touch/feel and
 subjective audible mix, Safari lifecycle and browser play through the full
 journey are not established by these executable checks. No Stage 2 created.
+
+## Deployed connected journey: final browser evidence
+
+Observed runtime main: `dfc3b6566b2af72c5a75d9a5787af0914c0b8d11`
+(PR #104), Cloud Chrome, 2026-10-01. This section supersedes the pending
+browser status above, not the remaining device/subjective limitations.
+
+- Started the actual prologue, with three loose and six attached grains.
+  Repeated circular drags stretched the visible fibres and released the rest.
+  All nine continued moving before the route unfolded without a stage card.
+- Travelled through the wet lanes and yielding fibre neck using only actual
+  world drags/knocks. The group split, rejoined and remained visible together.
+  Eight arrived in the exit hollow while one remained in the preceding bowl.
+- Returned attention to that visible grain and dragged from behind it toward
+  the last passage. It escaped the bowl and joined the others. The observed
+  final extent was y1340..1377, all nine present, input released, exit true.
+  No direct grain control, state injection or teleport was used in this play.
+- After the full party settled, the small replay button appeared. Clicking it
+  restored the three-loose/six-attached prologue; the runtime remained usable.
+- Mute changed its label/state and stayed muted after reload completed.
+  Re-enabled sound and opened the ordinary URL: no diagnostics, progress count
+  or score HUD; a world drag still stretched the fibres and moved loose seeds.
+- Session report at the exit: Engine0.3.0 / Codea1.0.0 running, pointer inactive,
+  no held keys, all five buffers ready, audio running/unlocked, no asset or
+  runtime diagnostic errors. Chrome extension metadata errors are external
+  to the work. The Cloud session reported slow frames (~15%, p95~33ms);
+  reported work update/draw averages were ~0.12/0.39ms. This is not a Safari
+  performance guarantee or proof of audible output.
+
+Short automation drags repeatedly release rather than sustaining a human
+hold. They establish physical route traversal and straggler recovery, not
+comfortable real-device effort or final tactile quality. Executable input
+tests cover world-only keyboard force, ENDED/CANCELLED release and continuity;
+the browser key presses alone are not evidence of a held-key journey.
+
+Formal verificationState remains UNVERIFIED. Author iPhone/Safari touch,
+rim-circulation feel after gameisation, effort to bring a late grain back,
+surface differentiation, subjective audio mix and Safari lifecycle still need
+the author's device judgement. Production main was rechecked unchanged at
+`53d31cfe98313c87cfc5ffb78e3b4e8cdaed1ca3`. Only one Stage 1 exists.
