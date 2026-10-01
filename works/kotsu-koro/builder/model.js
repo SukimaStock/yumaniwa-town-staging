@@ -52,6 +52,15 @@
       const next={id:m.uid('surface'),material:s.material,points:[edge(right),...ps.filter(p=>p.x>right)]};
       s.points=[...ps.filter(p=>p.x<left),edge(left)];const index=m.draft.surfaces.indexOf(s);m.draft.surfaces.splice(index+1,0,next);m.selection={type:'gap',index};return;
     }
+    if(kind==='Loop'){
+      const s=m.draft.surfaces.at(-1),a=s.points.at(-1),x=a.x,y=a.y;a.tangent=0;a.round=true;
+      const p=(dx,dy,t=0)=>({id:m.uid('point'),x:x+dx,y:y+dy,tangent:t,round:true});
+      s.points.push(p(80,0),p(165,80,.85),p(250,150),p(335,80,-.85),p(420,0),p(720-32*1.8,0),p(720-32*.65,32*.55),p(940,32*.55));
+      const radius=32,cx=x+720,cy=y-radius;
+      const f={id:m.uid('loop'),type:'loop',x:cx,y:cy,radius,entry:{x:cx-radius*1.8,y},exit:{x:cx+radius*1.8,y:y+radius*.55},material:'polished'};
+      m.draft.features.push(f);m.draft.materials.push({id:m.uid('material'),left:x,right:x+940,material:'polished',includeLeft:true,includeRight:true});
+      m.draft.end={left:x+830,right:x+930};m.testStart={x:x+250};m.selection={type:'loop',id:f.id};return;
+    }
     if(!['Straight','Slope','Bowl','Ramp'].includes(kind))throw Error('Unknown primitive');
     const s=m.draft.surfaces.at(-1),a=s.points.at(-1),x=a.x,y=a.y;
     const p=(dx,dy,t=0,round=false)=>({id:m.uid('point'),x:x+dx,y:y+dy,tangent:t,...(round?{round:true}:{})});
@@ -62,6 +71,13 @@
     if(kind==='Bowl'){a.round=true;s.points.push(p(85,85,1,true),p(170,155,0,true),p(255,85,-1,true),p(340,0,0,true),p(450,0));}
     const last=s.points.at(-1);m.draft.end={left:last.x-100,right:last.x-10};m.selection={type:'point',id:last.id};
   });}
+  function editLoop(m,id,kind,x,y,remember=true){return change(m,()=>{
+    const f=m.draft.features.find(f=>f.id===id);if(!f)throw Error('Loop not found');
+    const left=m.geometry.bounds.left+5,right=m.geometry.bounds.right-5;
+    if(kind==='radius'){const bottom=f.y+f.radius;f.radius=clamp(Math.hypot(x-f.x,y-f.y),24,Math.min(300,(f.x-left)/1.8,(right-f.x)/1.8));f.y=bottom-f.radius;}
+    else {f.x=clamp(x,left+f.radius*1.8,right-f.radius*1.8);f.y=clamp(y,-1900,1900);}
+    f.entry={x:f.x-f.radius*1.8,y:f.y+f.radius};f.exit={x:f.x+f.radius*1.8,y:m.geometry.floor(f.x+f.radius*1.8)?.y??f.y+f.radius*1.55};
+  },remember);}
   function moveStart(m,x,remember=true){return change(m,()=>{if(!m.geometry.floor(x))throw Error('TEST STARTは地面の上に置いてください');m.testStart.x=x;},remember);}
   function moveEnd(m,side,x,remember=true){return change(m,()=>{m.draft.end[side]=x;},remember);}
   function play(m){
@@ -89,6 +105,6 @@
   function edit(m){if(m.run)J.release(m.run);m.mode='edit';m.run=null;}
   function history(m,direction){if(m.mode!=='edit')return false;const from=direction==='undo'?m.undo:m.redo,to=direction==='undo'?m.redo:m.undo,item=from.pop();if(!item)return false;to.push({draft:copy(m.draft),testStart:copy(m.testStart)});m.draft=item.draft;m.testStart=item.testStart;m.geometry=G.compile(m.draft);m.selection=null;m.error='';return true;}
   function importJSON(m,text){try{const draft=JSON.parse(text);G.compile(draft);return change(m,()=>{m.draft=copy(draft);m.testStart={x:draft.start.x};m.selection=null;});}catch(e){m.error=e.message;return false;}}
-  const api=Object.freeze({create,checkpoint,change,point,editPoint,tangent,addPoint,remove,setMaterial,addPrimitive,moveStart,moveEnd,play,update,edit,history,importJSON,exportJSON:m=>JSON.stringify(m.draft,null,2)});
+  const api=Object.freeze({create,checkpoint,change,point,editPoint,tangent,addPoint,remove,setMaterial,addPrimitive,editLoop,moveStart,moveEnd,play,update,edit,history,importJSON,exportJSON:m=>JSON.stringify(m.draft,null,2)});
   root.PumpkinBuilderModel=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

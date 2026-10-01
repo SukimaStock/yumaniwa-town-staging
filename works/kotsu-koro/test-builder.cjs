@@ -8,7 +8,7 @@ test('direct point changes, x-order clamp, add/delete and material survive JSON 
   m.selection={type:'interval',surface:'surface-a',interval:1,x:200};assert.ok(M.setMaterial(m,'cushion'));assert.equal(m.geometry.material(200),'cushion');assert.equal(G.validate(JSON.parse(M.exportJSON(m))).length,0);
 });
 test('gap edges move directly and ordinary primitives remain free control points',()=>{
-  const m=M.create();m.selection={type:'gap',index:0};const old=m.geometry.GAP[0];M.editPoint(m,'point-0-4',old.left-8,324);assert.equal(m.geometry.GAP[0].right-m.geometry.GAP[0].left,56);
+  const m=M.create();m.selection={type:'gap',index:0};const old=m.geometry.GAP[0];M.editPoint(m,'point-0-4',old.left-8,324);assert.ok(Math.abs(m.geometry.GAP[0].right-m.geometry.GAP[0].left-56)<1e-7);
   for(const kind of ['Straight','Slope','Bowl','Ramp']){assert.ok(M.addPrimitive(m,kind));const p=M.point(m,m.selection.id).p;assert.ok(M.editPoint(m,p.id,p.x,p.y+7));}
   m.selection={type:'interval',surface:'surface-a',x:260};assert.ok(M.addPrimitive(m,'Gap'));assert.equal(m.geometry.segments.length,4);assert.equal(m.geometry.floor(260),null);
 });
@@ -39,5 +39,14 @@ test('actual UI pointer events edit a control point and keyboard/pointer PLAY us
   const sx=(1350-vx)*z,sy=(500-vy)*z,event=(x,y)=>({pointerId:1,clientX:x,clientY:y,type:'pointermove'});
   canvas.pointerdown(event(sx,sy));canvas.pointermove(event(sx,sy+15));canvas.pointerup({...event(sx,sy+15),type:'pointerup'});assert.ok(m.geometry.floor(1350).y>530);
   h.el('play').click();assert.equal(m.mode,'play');h.handlers.get('keydown')({target:{tagName:'CANVAS'},key:'ArrowRight',preventDefault(){}});h.frame(1000);for(let i=1;i<60;i++)h.frame(1000+i*1000/60);assert.ok(m.run.x>.3);assert.ok(m.traces[0].length>0);h.el('reset').click();assert.equal(m.run.time,0);h.el('edit').click();assert.equal(m.mode,'edit');assert.ok(m.geometry.floor(1350).y>530);
+});
+test('actual UI marker, gap, material, point and Loop handles edit the same draft',()=>{
+  const h=harness(),m=h.model,cv=h.el('stage-canvas');const z=990/2130,vx=-40-45/z,vy=100-50/z;
+  const drag=(x,y,tx,ty)=>{const e=(x,y)=>({pointerId:2,clientX:x,clientY:y,type:'pointermove'});cv.pointerdown(e(x,y));cv.pointermove(e(tx,ty));cv.pointerup({...e(tx,ty),type:'pointerup'});};
+  drag((180-vx)*z,(350-vy)*z-54,(1350-vx)*z,100);assert.ok(Math.abs(m.testStart.x-1350)<1e-7);
+  drag((455-vx)*z,(324-vy)*z,(447-vx)*z,(324-vy)*z);assert.ok(Math.abs(m.geometry.GAP[0].right-m.geometry.GAP[0].left-56)<1e-7);
+  const e={pointerId:2,clientX:(200-vx)*z,clientY:(350-vy)*z,type:'pointerup'};cv.pointerdown(e);cv.pointerup(e);h.el('material').value='cushion';h.el('material').onchange();assert.equal(m.geometry.material(200),'cushion');
+  const n=m.draft.surfaces[0].points.length;h.el('add-point').click();assert.equal(m.draft.surfaces[0].points.length,n+1);h.el('delete').click();assert.equal(m.draft.surfaces[0].points.length,n);
+  h.buttons.find(b=>b.dataset.primitive==='Loop').onclick();const f=m.draft.features[0];assert.ok(f);const cx=1080/2+220*.85,cy=650*.44;drag(cx+f.radius*.85,cy,cx+(f.radius+8)*.85,cy);assert.ok(m.draft.features[0].radius>39.9);assert.equal(G.validate(m.draft).length,0);
 });
 console.log(count+' Builder checks passed.');

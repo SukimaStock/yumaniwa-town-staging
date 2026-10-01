@@ -5,7 +5,7 @@
   let width=1,height=1,drag=null,last=0,savedView=null,notice='現在のStage 1を読み込みました。';const keys=new Set();
   const world=(x,y)=>{if(m.mode==='play'){const a=J.view(m.run).angle,dx=x-width/2,dy=y-height*.48;return{x:m.run.camera.x+(Math.cos(a)*dx+Math.sin(a)*dy)/view.z,y:m.run.camera.y+(-Math.sin(a)*dx+Math.cos(a)*dy)/view.z};}return{x:view.x+x/view.z,y:view.y+y/view.z};},screen=(x,y)=>({x:(x-view.x)*view.z,y:(y-view.y)*view.z});
   function size(){const r=canvas.getBoundingClientRect();width=r.width;height=r.height;const d=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(width*d);canvas.height=Math.round(height*d);c.setTransform(d,0,0,d,0,0);}
-  function fit(){const g=m.geometry;view.z=Math.min((width-90)/(g.bounds.right-g.bounds.left+30),(height-125)/Math.max(320,g.bounds.lostY-130));view.z=Math.max(.06,Math.min(1.4,view.z));view.x=g.bounds.left-45/view.z;view.y=100-50/view.z;}
+  function fit(){const g=m.geometry;view.z=Math.min((width-90)/(g.bounds.right-g.bounds.left+30),(height-125)/Math.max(320,g.bounds.lostY-130));view.z=Math.max(.06,Math.min(1.4,view.z));view.x=g.bounds.left-45/view.z;view.y=Math.min(100,g.bounds.top-50)-50/view.z;}
   function status(text){notice=text;sync();}
   function sync(){
     $('message').textContent=m.error||notice;$('message').classList.toggle('error',!!m.error);
@@ -15,7 +15,7 @@
     let info='';if(q)info=`x ${q.p.x.toFixed(1)} · y ${q.p.y.toFixed(1)}`;
     if(loop)info=`radius ${loop.radius.toFixed(1)} · center ${loop.x.toFixed(0)}, ${loop.y.toFixed(0)}`;
     if(m.selection?.type==='gap'){const g=m.geometry.GAP[m.selection.index];if(g)info=`幅 ${(g.right-g.left).toFixed(1)} px · 両端の●をドラッグ`;}
-    $('selection-info').textContent=info;$('tangent-label').hidden=!q;if(q)$('tangent').value=q.p.tangent??0;
+    $('selection-info').textContent=info;$('selection-help').textContent=loop?'中心をドラッグ / 右のhandleで半径を変更。入口と出口は一緒に追従します。':'点・地面の区間・gapをクリック。端の点を動かすとgap幅が変わります。';$('tangent-label').hidden=!q;if(q)$('tangent').value=q.p.tangent??0;
     $('material').disabled=!q&&!loop&&m.selection?.type!=='interval';const x=q?q.p.x+.01:m.selection?.x;$('material').value=loop?loop.material:x!==undefined?m.geometry.material(x):'flesh';
     $('delete').disabled=!q&&!loop;$('undo').disabled=!m.undo.length;$('redo').disabled=!m.redo.length;
     $('run-result').textContent=m.mode==='play'?`9 started · ${J.party(m.run).length} survived · ${m.run.seeds.filter(p=>p.lost).length} lost${m.run.finished?' · quiet':''}`:m.traces[0].length?`前の試遊 · ${9-m.losses.length} survived · ${m.losses.length} lost`:'';
@@ -23,7 +23,7 @@
   function hit(p){
     const marker=m.geometry.floor(m.testStart.x);if(marker){const a=screen(m.testStart.x,marker.y);a.y-=54;if(Math.hypot(p.x-a.x,p.y-a.y)<18)return {type:'start'};}
     for(const side of ['left','right']){const x=m.draft.end[side],f=m.geometry.floor(x);if(f){const a=screen(x,f.y);a.y-=25;if(Math.hypot(p.x-a.x,p.y-a.y)<12)return {type:'end',side};}}
-    for(const f of m.draft.features){const a=screen(f.x,f.y),r=screen(f.x+f.radius,f.y);if(Math.hypot(p.x-r.x,p.y-r.y)<14)return {type:'radius',id:f.id};if(Math.hypot(p.x-a.x,p.y-a.y)<16)return {type:'loop',id:f.id};}
+    for(const f of m.draft.features){const a=screen(f.x,f.y),r=screen(f.x+f.radius,f.y);const dr=Math.hypot(p.x-r.x,p.y-r.y),dc=Math.hypot(p.x-a.x,p.y-a.y);if(Math.min(dr,dc)<15)return {type:dr<dc?'radius':'loop',id:f.id};}
     for(const s of m.draft.surfaces)for(const q of s.points){const a=screen(q.x,q.y);if(Math.hypot(p.x-a.x,p.y-a.y)<13)return {type:'point',id:q.id};}
     const q=M.point(m,m.selection?.id);if(q&&q.p.tangent!==undefined){const a=screen(q.p.x+45,q.p.y+45*q.p.tangent);if(Math.hypot(p.x-a.x,p.y-a.y)<12)return {type:'tangent',id:q.p.id};}
     const w=world(p.x,p.y),gap=m.geometry.GAP.findIndex(g=>w.x>g.left&&w.x<g.right);if(gap>=0)return {type:'gap',index:gap};
@@ -53,8 +53,8 @@
   canvas.addEventListener('wheel',e=>{if(m.mode!=='edit')return;e.preventDefault();if(e.ctrlKey||e.metaKey){const p=pos(e),w=world(p.x,p.y);view.z=Math.max(.06,Math.min(3,view.z*Math.exp(-e.deltaY*.002)));view.x=w.x-p.x/view.z;view.y=w.y-p.y/view.z;}else{view.x+=(e.deltaX||e.deltaY)/view.z;}},{passive:false});
   function beginPlay(){if(M.play(m)){savedView={...view};drag=null;keys.clear();status('ドラッグで世界を傾ける · 放すと余韻 · EDITで地形へ戻る');}else sync();}
   $('play').onclick=beginPlay;$('reset').onclick=()=>{M.play(m);keys.clear();drag=null;sync();};$('edit').onclick=()=>{if(m.mode==='play'){M.edit(m);Object.assign(view,savedView);drag=null;keys.clear();status('薄い線が種の軌跡、×が脱落位置です。');}};
-  document.querySelectorAll('[data-primitive]').forEach(b=>b.onclick=()=>{M.addPrimitive(m,b.dataset.primitive);fit();sync();});
-  $('add-point').onclick=()=>{M.addPoint(m);sync();};$('delete').onclick=()=>{M.remove(m);sync();};$('material').onchange=()=>{M.setMaterial(m,$('material').value);sync();};$('tangent').onchange=()=>{M.tangent(m,m.selection?.id,Number($('tangent').value));sync();};$('undo').onclick=()=>{M.history(m,'undo');sync();};$('redo').onclick=()=>{M.history(m,'redo');sync();};$('fit').onclick=fit;
+  document.querySelectorAll('[data-primitive]').forEach(b=>b.onclick=()=>{if(M.addPrimitive(m,b.dataset.primitive)){fit();if(b.dataset.primitive==='Loop'){const f=m.draft.features.at(-1);view.z=.85;view.x=f.x-220-width/(2*view.z);view.y=f.y-height*.44/view.z;notice='Loopと練習用の谷を追加しました。▼から左右へ振って、勢いを作ってみてください。';}}sync();});
+  $('add-point').onclick=()=>{M.addPoint(m);sync();};$('delete').onclick=()=>{M.remove(m);sync();};$('material').onchange=()=>{M.setMaterial(m,$('material').value);sync();};$('tangent').onchange=()=>{M.tangent(m,m.selection?.id,Number($('tangent').value));sync();};$('undo').onclick=()=>{M.history(m,'undo');sync();};$('redo').onclick=()=>{M.history(m,'redo');sync();};$('fit').onclick=fit;function zoom(factor){const x=view.x+width/2/view.z,y=view.y+height/2/view.z;view.z=Math.max(.06,Math.min(3,view.z*factor));view.x=x-width/2/view.z;view.y=y-height/2/view.z;}$('zoom-in').onclick=()=>zoom(1.3);$('zoom-out').onclick=()=>zoom(1/1.3);
   $('save').onclick=()=>{try{localStorage.setItem(storageKey,JSON.stringify({stage:m.draft,testStart:m.testStart}));status('このブラウザへdraftを保存しました。');}catch(e){m.error='保存できませんでした。EXPORT JSONを使ってください。';sync();}};
   $('load').onclick=()=>{try{const text=localStorage.getItem(storageKey);if(!text)throw Error('保存したdraftがありません');const v=JSON.parse(text);if(!M.importJSON(m,JSON.stringify(v.stage)))throw Error(m.error);if(v.testStart&&m.geometry.floor(v.testStart.x))m.testStart=v.testStart;fit();status('保存したdraftを読み込みました。');}catch(e){m.error=e.message;sync();}};
   $('export').onclick=()=>{const blob=new Blob([M.exportJSON(m)+'\n'],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='kotsu-koro-stage.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status('Stage JSONをexportしました。');};
@@ -67,7 +67,7 @@
     c.clearRect(0,0,width,height);c.fillStyle='#faf2d5';c.fillRect(0,0,width,height);
     if(m.mode==='play')view.z=Math.min(1.25,width/480,height/500);
     c.save();if(m.mode==='play'){c.translate(width/2,height*.48);c.rotate(J.view(m.run).angle);c.scale(view.z,view.z);c.translate(-m.run.camera.x,-m.run.camera.y);}else{c.scale(view.z,view.z);c.translate(-view.x,-view.y);}
-    const g=m.mode==='play'?m.run.geometry:m.geometry;Draw.drawTerrain(c,g);
+    const g=m.mode==='play'?m.run.geometry:m.geometry;Draw.drawTerrain(c,g);Draw.drawLoops(c,g);
     if(m.mode==='play'){for(const [i,p]of m.run.seeds.entries())if(!p.inactive)seed(p,i);}
     else {
       for(const [i,trace]of m.traces.entries()){c.beginPath();for(const [k,p]of trace.entries()){if(!k)c.moveTo(p.x,p.y);else c.lineTo(p.x,p.y);}c.strokeStyle=`hsla(${30+i*13},35%,42%,.22)`;c.lineWidth=1.5/view.z;c.stroke();}

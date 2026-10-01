@@ -8,6 +8,15 @@
     const fail=s=>errors.push(s),id=(v,label)=>{if(typeof v!=='string'||!v.length||v.length>100||ids.has(v))fail(label+': unique id required');else ids.add(v);};
     const coord=(v,label)=>{if(!finite(v)||Math.abs(v)>20000)fail(label+': finite coordinate within ±20000 required');};
     if(!data||typeof data!=='object'||Array.isArray(data))return ['Stage Data must be an object'];
+    const visiting=new Set();let entries=0;
+    function json(v,depth=0){
+      if(++entries>50000||depth>16){fail('Stage Data is too large or deeply nested');return;}
+      if(v===null||typeof v==='string'||typeof v==='boolean')return;
+      if(typeof v==='number'){if(!Number.isFinite(v))fail('All numeric data must be finite');return;}
+      if(typeof v!=='object'){fail('Stage Data must contain JSON-compatible values only');return;}
+      if(visiting.has(v)){fail('Stage Data cannot contain cycles');return;}visiting.add(v);for(const child of Object.values(v))json(child,depth+1);visiting.delete(v);
+    }
+    json(data);
     if(data.version!==1)fail('Unsupported version (expected 1)');
     if(!data.start||!data.end)fail('start and end required');
     else {coord(data.start.x,'start.x');coord(data.start.y,'start.y');coord(data.end.left,'end.left');coord(data.end.right,'end.right');if(!(data.end.left<data.end.right))fail('end.left must precede end.right');}
@@ -41,6 +50,8 @@
       if(!finite(f.radius)||f.radius<24||f.radius>1000)fail('Loop radius must be 24–1000');
       if(!MATERIALS.includes(f.material))fail('Invalid Loop material');
       if(!f.entry||!f.exit||!finite(f.entry.x)||!finite(f.entry.y)||!finite(f.exit.x)||!finite(f.exit.y))fail('Loop entry/exit required');
+      else {for(const key of ['entry','exit']){coord(f[key].x,'loop.'+key+'.x');coord(f[key].y,'loop.'+key+'.y');}
+        if(Math.abs(f.entry.x-(f.x-f.radius*1.8))>.001||Math.abs(f.exit.x-(f.x+f.radius*1.8))>.001||Math.abs(f.entry.y-f.y-f.radius)>.001)fail('Loop ports must follow the fixed v1 topology');}
     }
     if(!errors.length){
       const contains=x=>data.surfaces.some(s=>x>=s.points[0].x&&x<=s.points.at(-1).x);
@@ -86,9 +97,46 @@
       const a=samples[lo],b=samples[hi],slope=(b.y-a.y)/(b.x-a.x),len=Math.hypot(1,slope);
       return {y:a.y+(x-a.x)*slope,nx:slope/len,ny:-1/len,slope,material:material(x),segment:segment.id};
     }
-    const bounds=Object.freeze({left:segments[0].left+10,right:segments.at(-1).right-10,lostY:Math.max(600,...terrain.map(p=>p.y+100))});
+    const loops=data.features.map(f=>{
+      // A circle with an open lower mouth. The raised approach passes above
+      // the returning lower arc; a slow grain can fall back to the foundation.
+      // All contacts below are one-sided geometry, never a path or motor.
+      const mouth=.45,bottom=f.y+f.radius;
+      const pieces=[[{x:f.entry.x,y:f.entry.y,t:0},{x:f.x-f.radius*Math.sin(mouth),y:bottom-f.radius*.12,t:-.22}],
+        [{x:f.x,y:bottom,t:0},{x:f.x+f.radius*Math.sin(mouth),y:f.y+f.radius*Math.cos(mouth),t:-Math.tan(mouth)}]];
+      const ramps=pieces.map(points=>{
+        const samples=[];
+        for(let k=0;k<points.length-1;k++){
+          const a=points[k],b=points[k+1],n=Math.ceil((b.x-a.x)/3);
+          for(let i=0;i<n;i++){const t=i/n;samples.push({x:a.x+(b.x-a.x)*t,y:(2*t*t*t-3*t*t+1)*a.y+(t*t*t-2*t*t+t)*(b.x-a.x)*a.t+(-2*t*t*t+3*t*t)*b.y+(t*t*t-t*t)*(b.x-a.x)*b.t});}
+        }
+        samples.push({x:points.at(-1).x,y:points.at(-1).y});return Object.freeze(samples.map(Object.freeze));
+      });
+      return Object.freeze({...f,mouth,ramps:Object.freeze(ramps)});
+    });
+    function rampFloor(loop,x){
+      const ps=loop.ramps.find(ps=>x>=ps[0].x&&x<=ps.at(-1).x);if(!ps)return null;let lo=0,hi=ps.length-1;
+      while(hi-lo>1){const k=(lo+hi)>>1;if(ps[k].x<=x)lo=k;else hi=k;}
+      const a=ps[lo],b=ps[hi],slope=(b.y-a.y)/(b.x-a.x),len=Math.hypot(1,slope);
+      return {y:a.y+(x-a.x)*slope,nx:slope/len,ny:-1/len};
+    }
+    function featureContacts(p,support){
+      const contacts=[];
+      for(const f of loops){
+        const ramp=rampFloor(f,p.x);
+        if(ramp&&((p.previousY??p.y)-ramp.y)*-ramp.ny+support(p,ramp.nx,ramp.ny)<=.75){const penetration=(p.y-ramp.y)*-ramp.ny+support(p,ramp.nx,ramp.ny);if(penetration>-3&&penetration<30)contacts.push({...ramp,penetration,material:f.material,kind:'ramp',loopId:f.id});}
+        const dx=p.x-f.x,dy=p.y-f.y,d=Math.hypot(dx,dy);if(!d)continue;
+        const angle=Math.atan2(dy,dx),inMouth=Math.abs(angle-Math.PI/2)<f.mouth;
+        const previous=Math.hypot((p.previousX??p.x)-f.x,(p.previousY??p.y)-f.y);
+        const nx=-dx/d,ny=-dy/d,penetration=d-f.radius+support(p,nx,ny);
+        if(!inMouth&&previous<=f.radius&&penetration>-3&&penetration<30)contacts.push({nx,ny,penetration,material:f.material,kind:'circle',loopId:f.id});
+      }
+      return contacts;
+    }
+    const bounds=Object.freeze({left:segments[0].left+10,right:segments.at(-1).right-10,lostY:Math.max(600,...terrain.map(p=>p.y+100),...loops.map(f=>f.y+f.radius+100)),top:Math.min(...terrain.map(p=>p.y),...loops.map(f=>f.y-f.radius))});
+    const freeze=v=>{if(v&&typeof v==='object'&&!Object.isFrozen(v)){Object.values(v).forEach(freeze);Object.freeze(v);}return v;};freeze(data);
     return Object.freeze({data,segments:Object.freeze(segments),terrain,GAP:gaps,START:Object.freeze(data.start),END:Object.freeze(data.end),ROUND:Object.freeze(round),bounds,
-      floor,material,isRound:x=>roundRanges.some(r=>x>=r.left&&x<=r.right),field:(x,y)=>{const f=floor(x);return f?{...f,signed:(y-f.y)*-f.ny}:null;},loops:Object.freeze(data.features)});
+      floor,material,isRound:x=>roundRanges.some(r=>x>=r.left&&x<=r.right),field:(x,y)=>{const f=floor(x);return f?{...f,signed:(y-f.y)*-f.ny}:null;},loops:Object.freeze(loops),featureContacts,rampFloor});
   }
   const api=Object.freeze({validate,compile,MATERIALS});root.PumpkinStageGeometry=api;
   if(typeof module!=='undefined'&&module.exports)module.exports=api;

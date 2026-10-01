@@ -93,6 +93,7 @@
         const penetration = (p.y - f.y - lift) * -f.ny + support(p, f.nx, f.ny);
         wall(s, p, f.nx, f.ny, penetration, f.material);
       }
+      for (const hit of s.geometry.featureContacts(p,support)) wall(s,p,hit.nx,hit.ny,hit.penetration,hit.material);
       for (const segment of segments) for (const [edge, nx] of [[segment.samples[0], -1], [segment.samples.at(-1), 1]]) {
         if (p.y <= edge.y + lift || Math.abs(p.x - edge.x) > support(p, 1, 0)) continue;
         wall(s, p, nx, 0, support(p, 1, 0) - (p.x - edge.x) * nx, 'rim');
@@ -123,10 +124,11 @@
       if (p.lost) {
         p.fallTime += dt; p.vy += 360 * dt;
         p.x += p.vx * dt; p.y += p.vy * dt; p.angle += p.spin * dt;
-        if (p.y > 1000 || p.fallTime > 2) p.inactive = true;
+        if (p.y > s.geometry.bounds.lostY + 400 || p.fallTime > 2) p.inactive = true;
         continue;
       }
       p.previousY = p.y;
+      if(s.geometry.loops.length)p.previousX=p.x;
       p.cool = Math.max(0, p.cool - dt);
       const f = floor(p.x), dx = p.x - START.x, dy = p.y - START.y;
       const concave = (.25 + Math.hypot(dx, dy / .8) * .013) * (1 - o);
@@ -134,11 +136,13 @@
       const fy = ((T.gravity * s.y - ay * inertia) * .8 - dy * concave) * (1 - o)
         + (360 + T.gravity * s.y * .65 - ay * inertia) * o;
       p.vx += fx * dt; p.vy += fy * dt;
-      const grounded = f && Math.abs((p.y - f.y) * -f.ny + support(p, f.nx, f.ny)) < 2;
+      const feature = s.geometry.featureContacts(p,support).find(hit=>Math.abs(hit.penetration)<2);
+      const ground = feature || f;
+      const grounded = !!feature || f && Math.abs((p.y - f.y) * -f.ny + support(p, f.nx, f.ny)) < 2;
       const cross = Math.abs(-Math.sin(p.angle) * p.vx + Math.cos(p.angle) * p.vy) / Math.max(1, Math.hypot(p.vx, p.vy));
-      const inRound = s.geometry.isRound(p.x);
-      const friction = grounded ? (inRound ? 7 + cross * 2 : f.material === 'polished' ? 3 : 7 + cross * 3) : 0;
-      const drag = (.65 * (1-o) + (!grounded ? 1.0 : inRound ? .30 : f.material === 'polished' ? 1.15 : 1.35) * o) * p.dragFactor;
+      const inRound = !!feature || s.geometry.isRound(p.x);
+      const friction = grounded ? (inRound ? 7 + cross * 2 : ground.material === 'polished' ? 3 : 7 + cross * 3) : 0;
+      const drag = (.65 * (1-o) + (!grounded ? 1.0 : inRound ? .30 : ground.material === 'polished' ? 1.15 : 1.35) * o) * p.dragFactor;
       const loss = Math.exp(-drag * dt) * Math.max(0, 1 - friction * dt / Math.max(.01, Math.hypot(p.vx, p.vy)));
       p.vx *= loss; p.vy *= loss; p.x += p.vx * dt; p.y += p.vy * dt;
       p.spin += ((p.vx + p.vy * .35) / 26 - p.spin) * (1 - Math.exp(-4 * dt));
