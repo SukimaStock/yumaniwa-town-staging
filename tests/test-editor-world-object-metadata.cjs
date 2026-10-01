@@ -36,7 +36,7 @@ c.applyTownSceneDefinition('station_plaza','default');
 
 test('exactly twelve options preserve order, key, label, objectId and every default',()=>{
     assert.equal(oldAssets.length,12);
-    assert.deepEqual(clone(c.TOWN_PART_CATALOG.filter(d=>d.addable!==false)),oldAssets);
+    assertCatalogMatchesBefore(c.TOWN_PART_CATALOG);
     const defs=clone(registry.getAddableEditorDefinitions());
     assert.equal(defs.length,12);
     assert.deepEqual(defs.map(d=>d.catalogKey),oldAssets.map(d=>d.key));
@@ -125,7 +125,7 @@ test('Editor APIs derive fresh ordered copies from literal metadata',()=>{
     } finally { meta.order=order; meta.addable=true; }
     assert.equal(JSON.stringify(registry.objects),original);
 });
-test('scene sources, ghost placements and Phase 1 layout stay byte-identical',()=>{
+test('scene sources and ghost placements stay byte-identical',()=>{
     for(const [file,expected] of Object.entries(fixture.sourceHashes)) {
         assert.equal(hash(fs.readFileSync(path.join(root,file))),expected,file);
     }
@@ -144,4 +144,124 @@ test('select uses the same twelve options and action UI still loads without cata
         vm.runInNewContext(upgrade,isolated);
         assert.equal(typeof isolated.YUMANIWA_EDITOR_ACTION_UI,dev?'object':'undefined');
     }
+});
+
+function assertCatalogMatchesBefore(catalog) {
+    assert.deepEqual(clone(catalog.filter(d=>d.addable!==false)),oldAssets);
+}
+
+// Small block reader for these flat declaration rules, not a browser cascade
+// evaluator. Keep base selectors distinct from media/supports/nested rules.
+function cssRules(css) {
+    const clean=css.replace(/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\/\*[\s\S]*?\*\//g,
+        token=>token.startsWith('/*')?token.replace(/[^\r\n]/g,' '):token);
+    const stack=[],rules=[];
+    let start=0;
+    for(const token of clean.matchAll(/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|[{}]/g)) {
+        if(token[0]==='{') {
+            stack.push({header:clean.slice(start,token.index).trim(),start:token.index+1,nested:false});
+            if(stack.length>1) stack[stack.length-2].nested=true;
+            start=token.index+1;
+        } else if(token[0]==='}') {
+            const block=stack.pop();
+            assert(block,'balanced CSS blocks');
+            if(!block.nested&&!block.header.startsWith('@')) {
+                rules.push({selector:block.header,ancestors:stack.map(b=>b.header),body:clean.slice(block.start,token.index),start:block.start,end:token.index});
+            }
+            start=token.index+1;
+        }
+    }
+    assert.equal(stack.length,0,'balanced CSS blocks');
+    return rules;
+}
+const compact=value=>value.replace(/\s+/g,'').toLowerCase();
+const selectorName=value=>value.trim().replace(/\s+/g,' ');
+function declarations(css,selector,media=null) {
+    const result={};
+    for(const rule of cssRules(css)) {
+        const inScope=media===null ? rule.ancestors.length===0
+            : rule.ancestors.length===1&&compact(rule.ancestors[0])===compact('@media '+media);
+        if(!inScope||!rule.selector.split(',').some(s=>selectorName(s)===selector)) continue;
+        for(const declaration of rule.body.split(';')) {
+            const colon=declaration.indexOf(':');
+            if(colon<0) continue;
+            const property=declaration.slice(0,colon).trim().toLowerCase();
+            const value=compact(declaration.slice(colon+1));
+            // Preserve !important precedence for repeated base declarations.
+            if(!result[property]?.endsWith('!important')||value.endsWith('!important')) result[property]=value;
+        }
+    }
+    return result;
+}
+function expectDeclarations(css,selector,expected,media=null) {
+    const actual=declarations(css,selector,media);
+    for(const [property,value] of Object.entries(expected)) {
+        assert.equal(actual[property],compact(value),`${selector} ${property} (${media||'base'})`);
+    }
+}
+function assertPhase1EditorContract(css) {
+    expectDeclarations(css,'#editor-panel',{
+        position:'absolute',width:'280px','flex-direction':'column',
+        top:'max(10px, env(safe-area-inset-top))',right:'max(10px, env(safe-area-inset-right))',
+        'max-width':'calc(100vw - max(10px, env(safe-area-inset-left)) - max(10px, env(safe-area-inset-right)) - 4px)',
+        'max-height':'calc(100dvh - max(10px, env(safe-area-inset-top)) - max(10px, env(safe-area-inset-bottom)) - 4px)'
+    });
+    expectDeclarations(css,'.editor-header',{'flex-shrink':'0','flex-wrap':'wrap'});
+    expectDeclarations(css,'.editor-header button',{'flex-shrink':'0'});
+    expectDeclarations(css,'.editor-content',{
+        'min-height':'0','overflow-y':'auto','overscroll-behavior':'contain','touch-action':'pan-y'
+    });
+}
+function assertTownSizingContract(css,fix) {
+    expectDeclarations(css,':root',{'--town-screen-ratio-w':'390','--town-screen-ratio-h':'780','--town-screen-max-w':'470px'});
+    expectDeclarations(css,'#town-screen',{flex:'0 0 auto'});
+    expectDeclarations(fix,'#town-screen',{
+        width:'min(100vw, calc(100dvh * var(--town-screen-ratio-w) / var(--town-screen-ratio-h)), var(--town-screen-max-w))',
+        height:'auto','max-width':'100vw','max-height':'100dvh',
+        'aspect-ratio':'var(--town-screen-ratio-w) / var(--town-screen-ratio-h)'
+    });
+    const mobile='(max-width: 768px) and (pointer: coarse)';
+    expectDeclarations(fix,':root',{'--town-screen-ratio-w':'9','--town-screen-ratio-h':'16'},mobile);
+    expectDeclarations(fix,'#town-screen',{
+        width:'min(100vw, calc(100dvh * 9 / 16)) !important',
+        'aspect-ratio':'9 / 16 !important'
+    },mobile);
+}
+function withoutBaseProperty(css,selector,property) {
+    // Mutation helper only: change the existing standalone base block in memory.
+    const rule=cssRules(css).find(r=>!r.ancestors.length&&r.selector===selector);
+    assert(rule,'mutation target exists');
+    const modified=rule.body.replace(new RegExp('(^|;)\\s*'+property+'\\s*:[^;]*;'), '$1');
+    assert.notEqual(modified,rule.body,'mutation removed '+property);
+    return css.slice(0,rule.start)+modified+css.slice(rule.end);
+}
+
+test('Phase 1 base Editor overlay and body scrolling contract',()=>{
+    assertPhase1EditorContract(source('style.css'));
+});
+test('town size remains viewport-based with canonical ratio and existing mobile 9:16 condition',()=>{
+    assertTownSizingContract(source('style.css'),source('layout-fix.css'));
+});
+test('unrelated CSS, formatting/comments and future wide Editor rules are allowed',()=>{
+    const css=source('style.css'),fix=source('layout-fix.css');
+    const additions='\n.unrelated { color: red; content: "{ harmless }"; }\n'+
+        '@media (min-width: 820px) { #editor-panel { position: relative; top: auto; right: auto; } }';
+    assertPhase1EditorContract(css+additions);
+    assertTownSizingContract(css+additions,fix+'\n.unrelated { color: blue; }');
+    assertPhase1EditorContract(css.replace(/(\.editor-content\s*\{[\s\S]*?)overflow-y:\s*auto;/,'$1overflow-y /* explanation */ :\n auto ;'));
+});
+test('missing overflow-y fails even if another selector or wide media provides it',()=>{
+    const broken=withoutBaseProperty(source('style.css'),'.editor-content','overflow-y');
+    assert.throws(()=>assertPhase1EditorContract(broken),/\.editor-content overflow-y/);
+    assert.throws(()=>assertPhase1EditorContract(broken+'\n.other {overflow-y:auto;}'),/\.editor-content overflow-y/);
+    assert.throws(()=>assertPhase1EditorContract(broken+'\n@media(min-width:820px){.editor-content{overflow-y:auto;}}'),/\.editor-content overflow-y/);
+});
+test('missing panel max-height fails despite other max-height declarations',()=>{
+    const broken=withoutBaseProperty(source('style.css'),'#editor-panel','max-height');
+    assert.throws(()=>assertPhase1EditorContract(broken),/#editor-panel max-height/);
+});
+test('metadata mutation still fails the unchanged pre-migration oracle',()=>{
+    const modified=clone(c.TOWN_PART_CATALOG);
+    modified[0].w+=1;
+    assert.throws(()=>assertCatalogMatchesBefore(modified),assert.AssertionError);
 });

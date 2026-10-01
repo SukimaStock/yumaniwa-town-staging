@@ -637,9 +637,7 @@
     "data/station-plaza.js": "0b41cfac22b32b1679e32bf98391e77b37803e036228326a7b251a93d3b6e900",
     "data/town-maps.js": "45a1af2166c184eb5f5d33827e902eb5dd3b8742b059207b329da3b24bb09656",
     "town-ghost-npc.js": "302f196439d15fccc2c701ecda51e4179bf5fe5c9d0ceae650f73ab30826f747",
-    "data/station-plaza-props.js": "c58913e52f7afe9bb17250b43259b6ef90a8e5f216e95888068ff294afa53c1e",
-    "style.css": "97e6646de58d911a400e8f2da0f101d69f6d1d6036256be8684b2aa639185046",
-    "layout-fix.css": "10c4a5eb279398c15a02bf2aadbedee9808b1a6d1462e0886d88fa6b180a7f49"
+    "data/station-plaza-props.js": "c58913e52f7afe9bb17250b43259b6ef90a8e5f216e95888068ff294afa53c1e"
   },
   "worldObjectsHash": "e3c99090ce318d475e52d530bbf43120408d5e82f84d1fb74011d92cd10c0c9a",
   "upgradeActionsHash": "f6b26e1b123660a62c9d3c6a5a0b182e0e03a9e05da26afa8cdd7830a6f74d72"
