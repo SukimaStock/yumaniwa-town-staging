@@ -75,7 +75,11 @@
 
     function getWorkSource(work) {
         if (!work) return "";
-        return work.embedUrl || work.entry || work.url || "";
+        var launch = work.launch || (work.url ? "external" : "embedded");
+        if (launch === "embedded") return work.entry || "";
+        if (launch === "itch_embed") return work.embedUrl || "";
+        if (launch === "external") return work.url || "";
+        return "";
     }
 
     function isItchWork(work) {
