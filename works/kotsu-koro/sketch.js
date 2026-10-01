@@ -2,7 +2,7 @@
   "use strict";
   const W = root.SUKIMASTOCK_WORK, D = root.PumpkinDynamics;
   const J = root.PumpkinJourney;
-  let model = D.create(), mode = "prologue";
+  let model = D.createPrologue(), mode = "prologue", openAt = null, reveal = 0, again, debugStatus, debugAt = 0;
   if (new URLSearchParams(location.search).get("dev") === "1" && new URLSearchParams(location.search).get("stage") === "1") {
     model = J.create(model); mode = "journey";
   }
@@ -92,6 +92,18 @@
       c.strokeStyle = `rgba(246,200,124,${.13 * Math.pow(1 - m.age / 18, 2)})`;
       c.lineWidth = 1.2; c.stroke();
     }
+    for (const p of model.seeds) {
+      if (!p.tether) continue;
+      const t = p.tether, tail = p.attached ? 1 : Math.exp(-(model.time - t.detachedAt) * 2.4);
+      const dx = p.x - t.ax, dy = p.y - t.ay;
+      c.beginPath(); c.moveTo(t.ax, t.ay * .8);
+      c.quadraticCurveTo(t.ax + dx * .4 - 6 * tail, (t.ay + dy * .4) * .8 + 6 * tail, t.ax + dx * tail, (t.ay + dy * tail) * .8);
+      c.strokeStyle = "rgba(119,72,28,.20)"; c.lineWidth = 4; c.stroke();
+      c.strokeStyle = "#f5d295"; c.lineWidth = p.attached ? 2.2 - Math.min(1, t.damage / t.strength) * 1.2 : 1;
+      c.stroke();
+      c.beginPath(); c.moveTo(-1, -6); c.quadraticCurveTo(t.ax - 6, t.ay * .8 - 4, t.ax, t.ay * .8);
+      c.strokeStyle = "rgba(246,202,128,.62)"; c.lineWidth = 1.1; c.stroke();
+    }
     for (const [i, p] of model.seeds.entries()) seed(c, p, i);
     c.restore();
     // A knife nick remains on the rim; no "completed" state clears the object.
@@ -103,7 +115,14 @@
     withCanvasContext(c => {
       c.translate(0, W.logicalHeight); c.scale(1, -1);
       c.drawImage(paper, 0, 0);
-      if (mode === "journey") { root.PumpkinStageDraw.draw(c, model, seed); return; }
+      if (mode === "journey") {
+        root.PumpkinStageDraw.draw(c, model, seed, reveal);
+        if (reveal < 1) {
+          c.globalAlpha = 1 - reveal; c.textAlign = "center"; c.fillStyle = "#665d4a";
+          c.font = "22px 'Hiragino Mincho ProN', 'Yu Mincho', serif"; c.fillText(W.title, 195, 130);
+        }
+        return;
+      }
       // The shadow moves after the hand, at the body's speed.
       c.save(); c.translate(CX + 9 + model.x * 9, CY + 29 + model.y * 5);
       c.scale(1, .65);
@@ -140,12 +159,26 @@
       }
       if (kx || ky) touchedOnce = true;
       if (SSE.input.actionPressed("knock")) { knockAt(CX + 70, CY - 35); touchedOnce = true; }
-      if (mode === "journey") J.update(model, dt); else D.update(model, dt);
+      if (mode === "journey") {
+        J.update(model, dt); reveal = Math.min(1, reveal + dt / 2.8);
+        if (again) again.hidden = !model.finished;
+      } else {
+        D.update(model, dt);
+        if (model.detachments.length) SSE.audio.play("fiber");
+        if (D.allLoose(model)) {
+          if (openAt === null) openAt = model.time;
+          if (model.time - openAt >= 4.2) { model = J.create(model); mode = "journey"; reveal = 0; debugAt = -1; }
+        }
+      }
+      if (debugStatus && model.time - debugAt > .35) {
+        debugAt = model.time;
+        debugStatus.textContent = mode + " | loose " + model.seeds.filter(p => !p.attached).length + "/9 | y " + Math.round(Math.min(...model.seeds.map(p => p.y))) + "…" + Math.round(Math.max(...model.seeds.map(p => p.y))) + " | held " + model.held + " | exit " + !!model.finished;
+      }
       if (touchedOnce) hint *= Math.exp(-dt * .8);
       if (model.contacts.length && model.time - lastSound > .065) {
         const hit = model.contacts.reduce((a, b) => a.speed > b.speed ? a : b);
         const gain = Math.min(1, .40 + hit.speed / 240);
-        SSE.audio.play(hit.material === "rim" ? "rim" : "seed", { volume: SSE.audio.baseline().reference.se.soft * gain, playbackRate: .9 + hit.speed / 900 });
+        SSE.audio.play(({ rim: "rim", fiber: "fiber", wet: "slide" })[hit.material] || "seed", { volume: SSE.audio.baseline().reference.se.soft * gain, playbackRate: .9 + hit.speed / 900 });
         lastSound = model.time;
       }
     },
@@ -177,10 +210,22 @@
       shell: { file: "./audio/shell.wav", mode: "buffer", volume: SSE.audio.baseline().reference.se.action },
       rim: { file: "./audio/rim.wav", mode: "buffer", volume: SSE.audio.baseline().reference.se.soft },
       seed: { file: "./audio/seed.wav", mode: "buffer", volume: SSE.audio.baseline().reference.se.soft },
+      fiber: { file: "./audio/fiber.wav", mode: "buffer", volume: SSE.audio.baseline().reference.se.soft },
+      slide: { file: "./audio/slide.wav", mode: "buffer", volume: SSE.audio.baseline().reference.se.soft },
     } }),
     analytics: { enabled: false }, scenes: { main: scene },
     setup() {
       SSE.audio.preload();
+      again = document.getElementById("again");
+      again.addEventListener("click", () => {
+        model = D.createPrologue(); mode = "prologue"; openAt = null; reveal = 0;
+        hint = 1; touchedOnce = false; lastSound = -1; debugAt = -1; again.hidden = true;
+        SSE.audio.unlock();
+      });
+      if (new URLSearchParams(location.search).get("dev") === "1") {
+        debugStatus = document.createElement("output"); debugStatus.id = "work-observation";
+        debugStatus.setAttribute("aria-label", "work runtime observation"); document.body.appendChild(debugStatus);
+      }
       paper = document.createElement("canvas"); paper.width = 390; paper.height = 740;
       const c = paper.getContext("2d");
       c.fillStyle = "#e6ddc7"; c.fillRect(0, 0, 390, 740);
@@ -199,7 +244,7 @@
   });
   // Read-only diagnostics. No gameplay state is included in Session Report.
   if (new URLSearchParams(location.search).get("dev") === "1") {
-    root.PumpkinProbe = () => ({ mode, held: model.held, tilt: [model.x, model.y],
+    root.PumpkinProbe = () => ({ mode, loose: model.seeds.filter(p => !p.attached).length, seedCount: model.seeds.length, finished: !!model.finished, held: model.held, tilt: [model.x, model.y],
       speed: model.seeds.map(p => Math.hypot(p.vx, p.vy)), impacts: model.impactCount,
       marks: model.marks.length });
   }

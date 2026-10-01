@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const D = require('./dynamics.js');
+const J = require('./journey.js');
 let passed = 0;
 function test(name, run) { run(); passed++; console.log('PASS', name); }
 function advance(s, seconds, fps = 60) { for (let i = 0; i < seconds * fps; i++) D.update(s, 1 / fps); }
@@ -61,7 +62,7 @@ function harness() {
   let config; const held = new Set(), pressed = new Set(), plays = [];
   const c = { console, location: { search: '?dev=1' }, URLSearchParams,
     SUKIMASTOCK_WORK: { id: 'kotsu-koro', title: 'こつ、ころ。', logicalWidth: 390, logicalHeight: 740, frameRate: 60 },
-    PumpkinDynamics: D, BEGAN: 'BEGAN', MOVING: 'MOVING', ENDED: 'ENDED', CANCELLED: 'CANCELLED',
+    PumpkinDynamics: D, PumpkinJourney: J, BEGAN: 'BEGAN', MOVING: 'MOVING', ENDED: 'ENDED', CANCELLED: 'CANCELLED',
     SSE: { createApp: v => { config = v; }, audio: {
       withBaseline: v => v, baseline: () => ({ reference: { se: { action: .46, soft: .24 } } }),
       play: (name, options) => plays.push({ name, options }),
@@ -89,5 +90,33 @@ test('keyboard holds and releases the same loop; Space creates a knock', () => {
   h.held.clear(); h.scene.update(1 / 60); assert.equal(h.probe().held, false);
   h.pressed.add('knock'); h.scene.update(1 / 60);
   assert.ok(h.plays.some(p => p.name === 'shell'));
+});
+test('prologue does not release on idle time or one physical knock', () => {
+  for (const knock of [false,true]) {
+    const s=D.createPrologue(); if(knock) D.knock(s,30,0); advance(s,40);
+    assert.equal(s.seeds.filter(p=>!p.attached).length,3);
+  }
+});
+test('circular world input physically frees grains one by one without deleting momentum', () => {
+  const s=D.createPrologue(), objects=s.seeds.slice(), times=[];
+  s.held=true;
+  for(let i=0;i<60*25 && !D.allLoose(s);i++) {
+    s.targetX=.34*Math.cos(i/60*3.2);s.targetY=.34*Math.sin(i/60*3.2);D.update(s,1/60);
+    for(const p of s.detachments){ times.push(s.time); assert.ok(Math.hypot(p.vx,p.vy)>1); }
+  }
+  assert.ok(D.allLoose(s));assert.equal(times.length,6);
+  for(let i=1;i<times.length;i++)assert.ok(times[i]-times[i-1]>.69);
+  objects.forEach((p,i)=>assert.equal(p,s.seeds[i]));
+});
+test('actual scene connects the fibre prologue to one journey with all grains', () => {
+  const h=harness();h.held.add('right');h.held.add('down');
+  let releasedAt=null, connectedAt=null;
+  for(let i=0;i<60*40;i++) {
+    h.scene.update(1/60);const p=h.probe();
+    if(p.loose===9 && releasedAt===null)releasedAt=i/60;
+    if(p.mode==='journey'){connectedAt=i/60;break;}
+  }
+  assert.ok(releasedAt!==null && connectedAt!==null);
+  assert.ok(connectedAt-releasedAt>=4.1); assert.equal(h.probe().seedCount,9);
 });
 console.log(`${passed} checks passed.`);

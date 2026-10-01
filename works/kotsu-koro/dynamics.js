@@ -16,6 +16,23 @@
       })),
     };
   }
+  function createPrologue() {
+    const s = create(); s.detachments = []; s.lastDetachTime = -10;
+    const loose = [0, 2, 6];
+    for (const [i, p] of s.seeds.entries()) {
+      if (loose.includes(i)) {
+        const a = loose.indexOf(i) * Math.PI * 2 / 3 + .4;
+        p.x = Math.cos(a) * 65; p.y = Math.sin(a) * 65;
+      } else {
+        const a = i * 2.399, ax = Math.cos(a) * (7 + i * 1.5), ay = Math.sin(a) * (7 + i * 1.5);
+        p.x = ax + Math.cos(a) * 13; p.y = ay + Math.sin(a) * 13;
+        p.attached = true;
+        p.tether = { ax, ay, length: 15, damage: 0, strength: 1.15 + i * .10, detachedAt: null };
+      }
+    }
+    return s;
+  }
+  function allLoose(s) { return s.seeds.every(p => !p.attached); }
   function knock(s, x, y) {
     s.ringV += 0.85;
     s.vx += clamp(x / 100, -1, 1) * 0.09;
@@ -50,8 +67,21 @@
       const r = Math.hypot(p.x, p.y);
       // A concave interior, not a flat screen. The rim gets progressively steep.
       const bowl = 0.25 + r * 0.013;
-      const fx = TUNE.gravity * s.x - p.x * bowl - ax * 9;
-      const fy = TUNE.gravity * s.y - p.y * bowl - ay * 9;
+      let fx = TUNE.gravity * s.x - p.x * bowl - ax * 9;
+      let fy = TUNE.gravity * s.y - p.y * bowl - ay * 9;
+      if (p.attached) {
+        const t = p.tether, dx = p.x - t.ax, dy = p.y - t.ay;
+        const length = Math.hypot(dx, dy) || 1, extension = Math.max(0, length - t.length);
+        const spring = 26 * (1 - .25 * Math.min(1, t.damage / t.strength));
+        fx -= dx / length * extension * spring + p.vx * 1.4;
+        fy -= dy / length * extension * spring + p.vy * 1.4;
+        // Fatigue comes from physical extension, not elapsed play or tapping a grain.
+        t.damage += Math.max(0, extension - 4) * .055 * dt;
+        if (t.damage >= t.strength && s.time - s.lastDetachTime > .7) {
+          p.attached = false; t.detachedAt = s.time; s.lastDetachTime = s.time;
+          s.detachments.push(p);
+        }
+      }
       const speed = Math.hypot(p.vx, p.vy);
       if (speed > 2 || Math.hypot(fx, fy) > 12) {
         p.vx += fx * dt; p.vy += fy * dt;
@@ -96,6 +126,8 @@
           a.vx -= nx * impulse; a.vy -= ny * impulse;
           b.vx += nx * impulse; b.vy += ny * impulse;
           contact(s, a, -relative, "seed");
+          if (a.attached) a.tether.damage += Math.min(.14, -relative * .0006);
+          if (b.attached) b.tether.damage += Math.min(.14, -relative * .0006);
         }
       }
     }
@@ -104,10 +136,11 @@
   }
   function update(s, elapsed) {
     s.contacts.length = 0;
+    if (s.detachments) s.detachments.length = 0;
     s.accumulator += clamp(elapsed, 0, 0.06);
     while (s.accumulator >= TUNE.step) { step(s, TUNE.step); s.accumulator -= TUNE.step; }
   }
-  const api = Object.freeze({ create, update, knock, release, TUNE });
+  const api = Object.freeze({ create, createPrologue, allLoose, update, knock, release, TUNE });
   root.PumpkinDynamics = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : globalThis);
