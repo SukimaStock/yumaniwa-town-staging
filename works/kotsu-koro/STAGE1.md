@@ -127,3 +127,18 @@ Camera follow uses the median grain position, so one remote grain cannot put
 the camera in a completely empty gap. This is view-only, not a recovery force.
 Two regressions cover actual scene regrabs/taps/cancellation and a dispersed
 camera fixture. The original refinement added two regressions. The current risk tests extend them.
+
+## Stage Data / Builder v0.1
+
+The canonical geometry now lives in `stage-data.js`, compiled once by
+`stage-geometry.js`. This migration preserves exact terrain samples, queried
+normals/materials and the pinned 60-second mixed-input physics hash of main
+`df635443fbac3d22e4c788d6509398382aff7224`; all current journey regressions remain.
+Drawing and runtime read `s.geometry`, so canonical and Builder draft stages
+share one compiler and the same journey implementation. Stage 0 dynamics,
+input, parallax and the canonical zoom composition are unchanged.
+
+The separate noindex author tool at `builder/` edits only draft terrain and can
+start nine grains from a movable test marker. Its optional circular Loop uses
+radial contact normals and existing seed support, with real gravity detachment.
+The canonical Stage 1 features array remains empty. See `BUILDER.md` for controls.

@@ -3,62 +3,20 @@
   const D = root.PumpkinDynamics || require('./dynamics.js'), T = D.TUNE;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const smooth = t => { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); };
-  const START = Object.freeze({ x: 180, y: 250 });
-  const END = Object.freeze({ left: 1790, right: 2030 });
+  const G = root.PumpkinStageGeometry || require('./stage-geometry.js');
+  const stageData = root.PumpkinStageData || require('./stage-data.js');
+  const geometry = G.compile(stageData);
+  const { START, END, ROUND, segments, terrain, GAP, floor, field } = geometry;
   const ZOOM = 1.85, DURATION = 6.4;
-  // Stage 1 response only. The accepted Stage 0 spring is never modified.
   const CONTROL = Object.freeze({ grabK:220, grabD:21, returnK:70, returnD:10, inertia:3 });
-  const ROUND = Object.freeze({ left:1110, bottom:1350, right:1545 });
-  // Three independent surfaces. The renderer uses these same samples: gaps
-  // have no top or hidden floor, and their cut sides stop under-lip re-entry.
-  const knots = [
-    [[-50,350],[0,350],[310,350],[420,326],[455,324]],
-    [[503,345],[615,372],[700,354],[810,391],[935,365],[1030,342],
-      [1110,356,0],[1200,406,.85],[1270,475,.70],[1350,500,0],[1430,468,-.8],[1490,407,-1.2],[1545,338,-1.25]],
-    [[1640,360,.45],[1715,422,.35],[1775,413,0],[1840,475,.45],[1890,487,0],[1995,465,0],[2070,420,0]],
-  ];
-  const material = x => x >= ROUND.left && x <= ROUND.right ? 'polished' : x > 1640 && x < 1775 || x > 740 && x < 930 ? 'cushion' : x > 1775 && x < 1840 ? 'polished' : 'flesh';
-  const segments = knots.map((points, id) => {
-    const samples = [];
-    for (let k = 0; k < points.length - 1; k++) {
-      const a = points[k], b = points[k + 1], n = Math.ceil((b[0] - a[0]) / 6);
-      for (let i = 0; i < n; i++) {
-        const t = i / n, x = a[0] + (b[0] - a[0]) * t;
-        // Hermite tangents form one continuous bowl/launch curve rather than
-        // flattening at every knot. Early terrain retains its exact samples.
-        const y = a.length > 2 && b.length > 2 ?
-          (2*t*t*t-3*t*t+1)*a[1] + (t*t*t-2*t*t+t)*(b[0]-a[0])*a[2] +
-          (-2*t*t*t+3*t*t)*b[1] + (t*t*t-t*t)*(b[0]-a[0])*b[2] : a[1]+(b[1]-a[1])*smooth(t);
-        samples.push(Object.freeze({ x, y, material: material(x) }));
-      }
-    }
-    const last = points.at(-1);
-    samples.push(Object.freeze({ x: last[0], y: last[1], material: material(last[0]) }));
-    return Object.freeze({ id, left: points[0][0], right: last[0], samples: Object.freeze(samples) });
-  });
-  Object.freeze(segments);
-  const GAP = Object.freeze(segments.slice(0,-1).map((s,i) => Object.freeze({ left:s.right, right:segments[i+1].left })));
-  const terrain = Object.freeze(segments.flatMap(segment => segment.samples));
-  function floor(x) {
-    const segment = segments.find(segment => x >= segment.left && x <= segment.right);
-    if (!segment) return null;
-    const samples = segment.samples;
-    let lo = 0, hi = samples.length - 1;
-    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (samples[m].x <= x) lo = m; else hi = m; }
-    const a = samples[lo], b = samples[hi], slope = (b.y - a.y) / (b.x - a.x), len = Math.hypot(1, slope);
-    return { y: a.y + (x - a.x) * slope, nx: slope / len, ny: -1 / len, slope, material: material(x), segment: segment.id };
-  }
-  function field(x, y) {
-    const f = floor(x);
-    return f ? { ...f, signed: (y - f.y) * -f.ny } : null;
-  }
   function party(s) { return s.seeds.filter(p => !p.lost); }
   function support(p, nx, ny) {
     const c = Math.cos(p.angle), s = Math.sin(p.angle);
     return Math.hypot(10.3 * (nx * c + ny * s), 5.5 * (-nx * s + ny * c));
   }
-  function create(source = D.create(), transitioning = false) {
-    const s = { time: source.time, accumulator: source.accumulator, held: source.held, activeId: source.activeId,
+  function create(source = D.create(), transitioning = false, stage = geometry) {
+    const {START}=stage;
+    const s = { geometry:stage, time: source.time, accumulator: source.accumulator, held: source.held, activeId: source.activeId,
       x: source.x, y: source.y, vx: source.vx, vy: source.vy,
       targetX: source.targetX, targetY: source.targetY, anchorX: source.anchorX, anchorY: source.anchorY,
       ring: source.ring, ringV: source.ringV, contacts: [], marks: [], impactCount: source.impactCount,
@@ -122,6 +80,7 @@
     }
   }
   function boundary(s, p, o = opening(s)) {
+    const {START,segments,floor,bounds}=s.geometry;
     if (o < 1) {
       // The visible rim expands and unrolls together with its physical boundary.
       const radius = 94 + o * 1150, dx = p.x - START.x, dy = (p.y - START.y) / .8;
@@ -134,15 +93,17 @@
         const penetration = (p.y - f.y - lift) * -f.ny + support(p, f.nx, f.ny);
         wall(s, p, f.nx, f.ny, penetration, f.material);
       }
+      for (const hit of s.geometry.featureContacts(p,support)) wall(s,p,hit.nx,hit.ny,hit.penetration,hit.material);
       for (const segment of segments) for (const [edge, nx] of [[segment.samples[0], -1], [segment.samples.at(-1), 1]]) {
         if (p.y <= edge.y + lift || Math.abs(p.x - edge.x) > support(p, 1, 0)) continue;
         wall(s, p, nx, 0, support(p, 1, 0) - (p.x - edge.x) * nx, 'rim');
       }
-      wall(s, p, 1, 0, -40 + support(p, 1, 0) - p.x, 'rim');
-      wall(s, p, -1, 0, p.x + support(p, 1, 0) - 2060, 'rim');
+      wall(s, p, 1, 0, bounds.left + support(p, 1, 0) - p.x, 'rim');
+      wall(s, p, -1, 0, p.x + support(p, 1, 0) - bounds.right, 'rim');
     }
   }
   function step(s, dt) {
+    const {START,END,floor}=s.geometry;
     s.time += dt;
     if (s.transition) {
       s.transition.elapsed = Math.min(DURATION, s.transition.elapsed + dt);
@@ -163,10 +124,11 @@
       if (p.lost) {
         p.fallTime += dt; p.vy += 360 * dt;
         p.x += p.vx * dt; p.y += p.vy * dt; p.angle += p.spin * dt;
-        if (p.y > 1000 || p.fallTime > 2) p.inactive = true;
+        if (p.y > s.geometry.bounds.lostY + 400 || p.fallTime > 2) p.inactive = true;
         continue;
       }
       p.previousY = p.y;
+      if(s.geometry.loops.length)p.previousX=p.x;
       p.cool = Math.max(0, p.cool - dt);
       const f = floor(p.x), dx = p.x - START.x, dy = p.y - START.y;
       const concave = (.25 + Math.hypot(dx, dy / .8) * .013) * (1 - o);
@@ -174,11 +136,13 @@
       const fy = ((T.gravity * s.y - ay * inertia) * .8 - dy * concave) * (1 - o)
         + (360 + T.gravity * s.y * .65 - ay * inertia) * o;
       p.vx += fx * dt; p.vy += fy * dt;
-      const grounded = f && Math.abs((p.y - f.y) * -f.ny + support(p, f.nx, f.ny)) < 2;
+      const feature = s.geometry.featureContacts(p,support).find(hit=>Math.abs(hit.penetration)<2);
+      const ground = feature || f;
+      const grounded = !!feature || f && Math.abs((p.y - f.y) * -f.ny + support(p, f.nx, f.ny)) < 2;
       const cross = Math.abs(-Math.sin(p.angle) * p.vx + Math.cos(p.angle) * p.vy) / Math.max(1, Math.hypot(p.vx, p.vy));
-      const inRound = p.x >= ROUND.left && p.x <= ROUND.right;
-      const friction = grounded ? (inRound ? 7 + cross * 2 : f.material === 'polished' ? 3 : 7 + cross * 3) : 0;
-      const drag = (.65 * (1-o) + (!grounded ? 1.0 : inRound ? .30 : f.material === 'polished' ? 1.15 : 1.35) * o) * p.dragFactor;
+      const inRound = !!feature || s.geometry.isRound(p.x);
+      const friction = grounded ? (inRound ? 7 + cross * 2 : ground.material === 'polished' ? 3 : 7 + cross * 3) : 0;
+      const drag = (.65 * (1-o) + (!grounded ? 1.0 : inRound ? .30 : ground.material === 'polished' ? 1.15 : 1.35) * o) * p.dragFactor;
       const loss = Math.exp(-drag * dt) * Math.max(0, 1 - friction * dt / Math.max(.01, Math.hypot(p.vx, p.vy)));
       p.vx *= loss; p.vy *= loss; p.x += p.vx * dt; p.y += p.vy * dt;
       p.spin += ((p.vx + p.vy * .35) / 26 - p.spin) * (1 - Math.exp(-4 * dt));
@@ -205,7 +169,7 @@
       boundary(s, p, o);
       // Below every possible landing surface: the fall can no longer be saved.
       // Keep its object and a short visible fall, but stop following/colliding.
-      if (o === 1 && p.y > 600) { p.lost = true; p.fallTime = 0; }
+      if (o === 1 && p.y > s.geometry.bounds.lostY) { p.lost = true; p.fallTime = 0; }
     }
     const active = party(s);
     const together = o === 1 && active.length > 0 && active.every(p => p.x > END.left && p.x < END.right && Math.hypot(p.vx, p.vy) < 24);
@@ -213,6 +177,7 @@
     s.finished = s.quiet > 3.6 || s.emptyQuiet > 2.4;
   }
   function camera(s, dt) {
+    const {START}=s.geometry;
     const active = party(s);
     if (!active.length) return; // Hold the last view during the quiet replay pause.
     const xs = active.map(p => p.x), ys = active.map(p => p.y);
@@ -241,7 +206,7 @@
     camera(s, clamp(elapsed, 0, .06));
   }
   const api = Object.freeze({ create, release, knock, update, point, screenPoint, view, field, floor,
-    support, terrain, segments, GAP, party, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
+    support, geometry, terrain, segments, GAP, party, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
   root.PumpkinJourney = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

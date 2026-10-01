@@ -207,3 +207,31 @@ Plan: `.change-plans/kotsu-koro-pump-catch-20261001/r0.lock.json`.
   pointer observations are recorded in the PR after execution. Physical iPhone
   feel, subjective pumping/catching/fun and audible mix remain for the author.
   Formal verificationState remains UNVERIFIED; no production/runtime changes.
+
+## Stage Builder v0.1 — 2026-10-01
+
+Fresh fetched staging base: `df635443fbac3d22e4c788d6509398382aff7224`.
+Plan: `.change-plans/kotsu-koro-builder-v01-20261001/r0.lock.json`.
+Implementation proceeds data extraction → exact gameplay regression → Builder
+editing → real draft play → optional physical Loop.
+
+- Stage 0 14 and current journey 30 checks PASS. Stage 0 physics, its regression
+  file and `sketch.js` remain byte-identical to base. Canonical data has no Loop.
+- Compiler 5 checks PASS: exact baseline samples, dense normal/material query
+  hash and 60-second mixed-input physics hash; draft isolation; valid JSON round
+  trips and rejected malformed data; finite normals, real gaps and own runtime.
+- Builder 7 checks PASS: actual UI pointer point/marker/gap/material/Loop handles,
+  point add/delete, primitive editability, x clamp, real draft runtime, nine-object
+  zero-velocity start, RESET/EDIT, retained and bounded tracks/loss marks, atomic
+  invalid import, valid JSON round trip and history.
+- Loop 7 checks PASS: high-speed physical lap and exit, insufficient-speed
+  gravity detachment/recovery, no-input no-orbit, same 30/60/120fps state, bounded
+  nine-grain collisions/identity, zero-velocity world-tilt-only practice route,
+  radius edit/replay, and compiler queries never writing seed positions/velocity.
+- Drawing uses the same circle radius/open mouth and sampled entry ramps as
+  collision; ordinary floors remain heightfields. No path index, progress motor,
+  attraction, boost, scripted orbit or physics parameter editor.
+- Exact-SHA Scope → Risk → Impact, trusted required CI and actual staging browser
+  edit/play/Loop/JSON observations follow in the PR. Unobserved device feel and
+  final automatic VERIFIED remain UNVERIFIED. No production, canonical runtime,
+  generic editor, registration or Stage 2.

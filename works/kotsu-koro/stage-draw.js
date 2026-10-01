@@ -6,13 +6,65 @@
     c.translate(v.x, v.y); c.rotate(v.angle); c.scale(v.sx, v.sy);
     c.translate(-s.camera.x, -s.camera.y);
   }
-  function surface(c, samples, lift = 0) {
-    c.beginPath(); c.moveTo(samples[0].x, 1100);
+  function surface(c, samples, lift = 0, bottom = 1100) {
+    c.beginPath(); c.moveTo(samples[0].x, bottom);
     for (const p of samples) c.lineTo(p.x, p.y + lift);
-    c.lineTo(samples.at(-1).x, 1100); c.closePath();
+    c.lineTo(samples.at(-1).x, bottom); c.closePath();
+  }
+  function drawTerrain(c,g,lift=0) {
+    const bottom=Math.max(1100,g.bounds.lostY+500);
+      for (const segment of g.segments) {
+        const samples = segment.samples;
+        c.save();
+        surface(c,samples,lift,bottom);
+        const ground = c.createLinearGradient(0,330+lift,0,750+lift);
+        ground.addColorStop(0,'#f4c16c'); ground.addColorStop(.55,'#e5a448'); ground.addColorStop(1,'#ce8c3c');
+        c.fillStyle=ground; c.fill();
+        c.save(); surface(c,samples,lift,bottom); c.clip();
+        c.beginPath(); for(const [i,p] of samples.entries()) { if(!i)c.moveTo(p.x,p.y+lift+21);else c.lineTo(p.x,p.y+lift+21); }
+        c.strokeStyle='#f9d791'; c.lineWidth=35; c.stroke();
+        c.beginPath(); for(const [i,p] of samples.entries()) { if(!i)c.moveTo(p.x,p.y+lift+76);else c.lineTo(p.x,p.y+lift+76); }
+        c.strokeStyle='rgba(204,135,53,.16)'; c.lineWidth=16; c.stroke();
+        c.restore();
+        // The top line uses the exact sampled collision surface, including walls.
+        c.lineCap='round'; c.lineJoin='round';
+        c.beginPath();
+        for(const [i,p] of samples.entries()) { if(!i)c.moveTo(p.x,p.y+lift);else c.lineTo(p.x,p.y+lift); }
+        // Visible cut sides bound the same platforms as collision; no bridge.
+        c.moveTo(samples[0].x,bottom);c.lineTo(samples[0].x,samples[0].y+lift);
+        c.moveTo(samples.at(-1).x,samples.at(-1).y+lift);c.lineTo(samples.at(-1).x,bottom);
+        c.strokeStyle='#647454'; c.lineWidth=7; c.stroke();
+        c.beginPath(); for(const [i,p] of samples.entries()) { if(!i)c.moveTo(p.x,p.y+lift+5);else c.lineTo(p.x,p.y+lift+5); }
+        c.strokeStyle='#fff0b8'; c.lineWidth=3; c.stroke();
+        for(const kind of ['cushion','polished']) {
+          c.beginPath();let pen=false;
+          for(const p of samples) {
+            if(p.material===kind) { if(!pen)c.moveTo(p.x,p.y+lift+1);else c.lineTo(p.x,p.y+lift+1);pen=true; }
+            else pen=false;
+          }
+          c.strokeStyle=kind==='cushion'?'#fff0c7':'#ffdf96'; c.lineWidth=kind==='cushion'?10:6;c.stroke();
+        }
+        c.restore();
+      }
+      // Only the two outside walls remain; each gap stays open below its lips.
+      c.beginPath();c.moveTo(g.bounds.left,-200);c.lineTo(g.bounds.left,(g.floor(g.bounds.left)?.y||350)+lift);
+      c.moveTo(g.bounds.right,(g.floor(g.bounds.right)?.y||350)+lift);c.lineTo(g.bounds.right,-200);
+      c.strokeStyle='#647454';c.lineWidth=7;c.stroke();
+  }
+  function drawLoops(c,g) {
+    for(const f of g.loops){
+      const a=Math.PI/2+f.mouth,b=Math.PI/2-f.mouth+Math.PI*2;
+      c.save();c.lineCap='round';
+      c.beginPath();c.arc(f.x,f.y,f.radius+13,a,b);c.strokeStyle='#e8ad53';c.lineWidth=26;c.stroke();
+      c.beginPath();c.arc(f.x,f.y,f.radius+5,a,b);c.strokeStyle='#fff0b8';c.lineWidth=6;c.stroke();
+      c.beginPath();c.arc(f.x,f.y,f.radius,a,b);c.strokeStyle='#647454';c.lineWidth=7;c.stroke();
+      for(const ramp of f.ramps){const path=(offset)=>{c.beginPath();for(const [i,p]of ramp.entries()){if(i)c.lineTo(p.x,p.y+offset);else c.moveTo(p.x,p.y+offset);}};
+      path(8);c.strokeStyle='#e8ad53';c.lineWidth=16;c.stroke();path(4);c.strokeStyle='#fff0b8';c.lineWidth=5;c.stroke();path(0);c.strokeStyle='#647454';c.lineWidth=7;c.stroke();}
+      c.restore();
+    }
   }
   function draw(c, s, seed, shell) {
-    const o = J.opening(s);
+    const o = J.opening(s), g = s.geometry || J.geometry;
     // The tabletop opens into cream space as the same cut surface fills the view.
     c.save(); c.globalAlpha = o;
     const sky = c.createLinearGradient(0, 0, 0, 740);
@@ -29,7 +81,7 @@
     c.lineTo(490,740); c.closePath(); c.fill(); c.restore();
     c.save(); transform(c,s);
     if (s.transition && o < .7 && shell) {
-      c.save(); c.translate(J.START.x,J.START.y);
+      c.save(); c.translate(g.START.x,g.START.y);
       // The curved cut unrolls into a huge landscape. Both visible rim and
       // collision expand; the grains themselves are never rescaled/replaced.
       c.scale(1 + o * 1150 / 94, 1 + o * 1150 / 94);
@@ -38,48 +90,13 @@
     if (o > 0) {
       const lift = (1-o)*700;
       c.save(); c.globalAlpha = J.smooth(o*2);
-      for (const segment of J.segments) {
-        const samples = segment.samples;
-        c.save();
-        surface(c,samples,lift);
-        const ground = c.createLinearGradient(0,330+lift,0,750+lift);
-        ground.addColorStop(0,'#f4c16c'); ground.addColorStop(.55,'#e5a448'); ground.addColorStop(1,'#ce8c3c');
-        c.fillStyle=ground; c.fill();
-        c.save(); surface(c,samples,lift); c.clip();
-        c.beginPath(); for(const [i,p] of samples.entries()) { if(!i)c.moveTo(p.x,p.y+lift+21);else c.lineTo(p.x,p.y+lift+21); }
-        c.strokeStyle='#f9d791'; c.lineWidth=35; c.stroke();
-        c.beginPath(); for(const [i,p] of samples.entries()) { if(!i)c.moveTo(p.x,p.y+lift+76);else c.lineTo(p.x,p.y+lift+76); }
-        c.strokeStyle='rgba(204,135,53,.16)'; c.lineWidth=16; c.stroke();
-        c.restore();
-        // The top line uses the exact sampled collision surface, including walls.
-        c.lineCap='round'; c.lineJoin='round';
-        c.beginPath();
-        for(const [i,p] of samples.entries()) { if(!i)c.moveTo(p.x,p.y+lift);else c.lineTo(p.x,p.y+lift); }
-        // Visible cut sides bound the same platforms as collision; no bridge.
-        c.moveTo(samples[0].x,1100);c.lineTo(samples[0].x,samples[0].y+lift);
-        c.moveTo(samples.at(-1).x,samples.at(-1).y+lift);c.lineTo(samples.at(-1).x,1100);
-        c.strokeStyle='#647454'; c.lineWidth=7; c.stroke();
-        c.beginPath(); for(const [i,p] of samples.entries()) { if(!i)c.moveTo(p.x,p.y+lift+5);else c.lineTo(p.x,p.y+lift+5); }
-        c.strokeStyle='#fff0b8'; c.lineWidth=3; c.stroke();
-        for(const kind of ['cushion','polished']) {
-          c.beginPath();let pen=false;
-          for(const p of samples) {
-            if(p.material===kind) { if(!pen)c.moveTo(p.x,p.y+lift+1);else c.lineTo(p.x,p.y+lift+1);pen=true; }
-            else pen=false;
-          }
-          c.strokeStyle=kind==='cushion'?'#fff0c7':'#ffdf96'; c.lineWidth=kind==='cushion'?10:6;c.stroke();
-        }
-        c.restore();
-      }
-      // Only the two outside walls remain; each gap stays open below its lips.
-      c.beginPath();c.moveTo(-40,-200);c.lineTo(-40,350+lift);
-      c.moveTo(2060,J.floor(2060).y+lift);c.lineTo(2060,-200);
-      c.strokeStyle='#647454';c.lineWidth=7;c.stroke();
+      drawTerrain(c,g,lift);
+      drawLoops(c,g);
       c.restore();
     }
     // Draw exactly one copy of each object over the changing world.
     for(const [i,p] of s.seeds.entries())if(!p.inactive)seed(c,p,i,1);
     c.restore();
   }
-  root.PumpkinStageDraw = { draw };
+  root.PumpkinStageDraw = { draw, drawTerrain, drawLoops };
 })(window);
