@@ -1,0 +1,123 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "30fbc79bdea60d0728261e62d54b5f714e821c470744d57eff00af5fb3fe4af5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "editor-side-inspector-phase3",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Place Map Editor beside town at sufficiently wide and tall viewports using CSS only",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "18742bdde80f63d151e6184289e41596f5b86c54",
+    "canonicalSources": [
+      "style.css",
+      "layout-fix.css",
+      "index.html",
+      "main.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/editor-side-inspector-phase3/r0.lock.json",
+      "style.css",
+      "index.html",
+      "tests/test-editor-side-inspector.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "layout-fix.css",
+      "data/**",
+      "town-editor-*.js",
+      "town-ghost-npc.js",
+      "assets/**",
+      "tools/**",
+      "works/**",
+      "engine/**",
+      ".github/**",
+      "tests/fixtures/**",
+      "tests/test-editor-world-object-metadata.cjs"
+    ],
+    "expectedChanges": [
+      "Append wide-only Editor override after existing overlay rules: min-width 820px and min-height 600px; relative position, top/right auto, flex 0 0 auto, margin-left 16px.",
+      "Keep all base CSS and town sizing unchanged; editor keeps content width 280px and Phase 1 scroll.",
+      "Change only style.css cache revision in index.html.",
+      "Add focused static wide-layout regression tests; reuse unchanged Phase 2.5 semantic tests."
+    ],
+    "hqDecisions": [
+      "User authorizes CSS-only side inspector using existing flex siblings; preserve town size, all JS and data.",
+      "User explicitly reauthorized Phase 3, browser Chromium acquisition, and fresh Plan-first history after previous local Plan omission; old local branch is not published."
+    ],
+    "ownerDecisions": [
+      "Draft PR only; do not merge."
+    ],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "narrow-overlay-scroll",
+      "wide-nonoverlap-town-size-open-close",
+      "collapse-reopen-scroll",
+      "pointer-select-add"
+    ],
+    "impactChecks": [
+      "surface.shared",
+      "runtime.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert implementation commit; no data migration.",
+    "outOfScope": [
+      "JS/runtime behavior",
+      "Town sizing/canvas/camera/pointer",
+      "Metadata/catalog/assets/map/Factory",
+      "Production",
+      "Merge"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Browser rendering and interaction are not proven by static CSS tests; attempt available browser and report actual evidence."
+    ],
+    "problem": "Wide Editor overlay hides town despite available surrounding space.",
+    "currentContract": "Town and hidden/visible Editor are siblings in centered flex container; Editor absolute overlay and body scroll.",
+    "whyExistingIsInsufficient": "Absolute Editor overlaps town on wide screens.",
+    "design": "Only Editor enters flex flow at >=820x600. Maximum workspace 470+284+16=770px; 820 reserves 50px. Minimum height preserves overlay for short landscape. Hidden Editor and its margin consume no flex space.",
+    "alternativesRejected": [
+      "New wrapper",
+      "JS state/class",
+      "Shrinking town",
+      "Wider Editor",
+      "Device detection",
+      "Changing layout-fix.css"
+    ],
+    "migration": "No data migration.",
+    "compatibility": "Base Phase 1 rules, Phase 2 metadata oracle, town sizing, JS display none/flex and collapse logic remain unchanged.",
+    "boundaryCases": [
+      "390/430 portrait",
+      "768 and 819/820/821 widths",
+      "1024/1280/1440 widths",
+      "844x390 overlay",
+      "Open/close, collapse/reopen, long content",
+      "Pointer relative to moved canvas rect"
+    ],
+    "testPlan": [
+      "Phase 2 migration 26 and Phase 3 dedicated tests",
+      "Editor session/history and Change Operations Node tests",
+      "Python Desk/scene and Release/work-guide tests",
+      "Scope then Risk then Impact; required/trusted checks",
+      "Attempt browser measurements and interactions; explicitly UNVERIFIED if unavailable"
+    ],
+    "promotionRisk": "Draft PR only. Browser verification may remain UNVERIFIED."
+  }
+}
