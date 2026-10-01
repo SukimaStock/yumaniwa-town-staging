@@ -7,7 +7,7 @@
     model = J.create(model); mode = "journey";
   }
   const CX = 195, CY = 365, TAU = Math.PI * 2;
-  let lastSound = -1, touchedOnce = false, hint = 1, paper;
+  let lastSound = -1, touchedOnce = false, hint = 1, paper, gesture = null;
   const grain = Array.from({ length: 760 }, (_, i) => {
     const f = n => { const v = Math.sin(n * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
     return { x: f(i) * 390, y: f(i + 99) * 740, r: 0.2 + f(i + 33) * 0.6 };
@@ -201,16 +201,22 @@
         if (mode === "prologue" && Math.hypot((t.x - CX) / 1.1, (y - CY) / .86) > 163) return true;
         model.activeId = t.id; model.held = true;
         model.anchorX = t.x; model.anchorY = y;
-        touchedOnce = true; knockAt(t.x, y);
+        gesture = { x: t.x, y, moved: false, knocked: mode === "prologue" };
+        touchedOnce = true;
+        // Keep the accepted Stage 0 grab impulse. In the open world only a
+        // tap knocks; regrabbing a tilt must not repeatedly kick stragglers away.
+        if (mode === "prologue") knockAt(t.x, y);
       } else if (t.id === model.activeId && t.state === MOVING) {
+        if (gesture && Math.hypot(t.x - gesture.x, y - gesture.y) > 8) gesture.moved = true;
         model.targetX = Math.max(-.38, Math.min(.38, (t.x - model.anchorX) / 210));
         model.targetY = Math.max(-.38, Math.min(.38, (y - model.anchorY) / 210));
       } else if (t.id === model.activeId && (t.state === ENDED || t.state === CANCELLED)) {
-        (mode !== "prologue" ? J : D).release(model);
+        if (mode !== "prologue" && t.state === ENDED && gesture && !gesture.moved && !gesture.knocked) knockAt(t.x, y);
+        (mode !== "prologue" ? J : D).release(model); gesture = null;
       }
       return true;
     },
-    exit() { (mode !== "prologue" ? J : D).release(model); },
+    exit() { (mode !== "prologue" ? J : D).release(model); gesture = null; },
   };
   SSE.createApp({
     id: W.id, logicalWidth: W.logicalWidth, logicalHeight: W.logicalHeight,
@@ -231,7 +237,7 @@
       again = document.getElementById("again");
       again.addEventListener("click", () => {
         model = D.createPrologue(); mode = "prologue"; openAt = null;
-        hint = 1; touchedOnce = false; lastSound = -1; debugAt = -1; again.hidden = true;
+        hint = 1; touchedOnce = false; lastSound = -1; gesture = null; debugAt = -1; again.hidden = true;
         SSE.audio.unlock();
       });
       if (new URLSearchParams(location.search).get("dev") === "1") {

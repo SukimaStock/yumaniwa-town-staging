@@ -134,14 +134,14 @@ test('neutral flat ground supplies gravity but no automatic horizontal progressi
   assert.ok(s.seeds.every(p=>p.x<310));assert.ok(!s.finished);
   assert.ok(s.seeds.every(p=>Math.abs(p.vx)<5));
 });
-function sceneHarness() {
-  let config;const held=new Set();const c={console,location:{search:'?dev=1'},URLSearchParams,
+function sceneHarness(search = "?dev=1") {
+  let config;const held=new Set(), plays=[];const c={console,location:{search},URLSearchParams,
     SUKIMASTOCK_WORK:{id:'kotsu-koro',title:'こつ、ころ。',logicalWidth:390,logicalHeight:740,frameRate:60},
     PumpkinDynamics:D,PumpkinJourney:J,BEGAN:'BEGAN',MOVING:'MOVING',ENDED:'ENDED',CANCELLED:'CANCELLED',
-    SSE:{createApp:v=>{config=v;},audio:{withBaseline:v=>v,baseline:()=>({reference:{se:{action:.46,soft:.24}}}),play:()=>{}},
+    SSE:{createApp:v=>{config=v;},audio:{withBaseline:v=>v,baseline:()=>({reference:{se:{action:.46,soft:.24}}}),play:name=>plays.push(name)},
     input:{action:n=>held.has(n),actionPressed:()=>false}}};c.window=c;
   vm.runInNewContext(fs.readFileSync(path.join(__dirname,'sketch.js'),'utf8'),c);
-  return {scene:config.scenes.main,probe:c.PumpkinProbe,held};
+  return {scene:config.scenes.main,probe:c.PumpkinProbe,held,plays};
 }
 test('actual scene preserves the post-detach pause, zoom state, and journey input', () => {
   const h=sceneHarness();h.held.add('right');h.held.add('down');
@@ -155,5 +155,32 @@ test('actual scene preserves the post-detach pause, zoom state, and journey inpu
   assert.ok(zoomAt-looseAt>=1.79);assert.ok(zoomAt-looseAt<1.85);
   assert.ok(journeyAt-zoomAt>=J.DURATION-.02);assert.equal(h.probe().held,true);
   h.held.clear();h.scene.update(1/60);assert.equal(h.probe().held,false);
+});
+test('Stage 1 drag regrabs do not knock; a tap does; cancelled gestures are inert', () => {
+  const h=sceneHarness('?dev=1&stage=1');
+  for(let i=0;i<25;i++) {
+    h.scene.touch({id:1,state:'BEGAN',x:130,y:300});
+    h.scene.touch({id:1,state:'MOVING',x:240,y:325});
+    for(let f=0;f<30;f++)h.scene.update(1/60);
+    h.scene.touch({id:1,state:'ENDED',x:240,y:325});
+    for(let f=0;f<10;f++)h.scene.update(1/60);
+  }
+  assert.ok(!h.plays.includes('shell'),'a world drag must not scatter the grains with a knock');
+  const p=h.probe(),xs=p.bounds.map(p=>p[0]);
+  assert.ok(Math.max(...xs)-Math.min(...xs)<370,`regrab spread: ${xs}`);
+  assert.ok(Math.min(...xs)>500,'repeated real scene gestures must advance the party');
+  h.scene.touch({id:2,state:'BEGAN',x:200,y:300});h.scene.touch({id:2,state:'CANCELLED',x:200,y:300});
+  assert.ok(!h.plays.includes('shell'));
+  h.scene.touch({id:3,state:'BEGAN',x:200,y:300});h.scene.touch({id:3,state:'ENDED',x:200,y:300});
+  assert.equal(h.plays.filter(n=>n==='shell').length,1);
+});
+test('a dispersed camera retains real grains instead of centring the empty extreme gap', () => {
+  const s=J.create(D.create());
+  // Camera-only fixture: eight grains here, one very distant laggard.
+  s.seeds.forEach((p,i)=>{p.x=i?1200+i*15:80;p.y=J.floor(p.x).y-10;});
+  for(let i=0;i<180;i++)J.update(s,1/60);
+  const visible=s.seeds.filter(p=>{const q=J.screenPoint(s,p.x,p.y);return q.x>15&&q.x<375&&q.y>15&&q.y<725;});
+  assert.ok(visible.length>=6,`camera lost the party: ${visible.length}`);
+  assert.ok(s.camera.z>=1.15);
 });
 console.log(`${passed} horizontal journey checks passed.`);
