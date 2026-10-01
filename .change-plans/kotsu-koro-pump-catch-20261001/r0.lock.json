@@ -1,0 +1,108 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "776193e249829c6b619c15695f496db47ab4e104d1556035607f5c55490dac61",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "kotsu-koro-pump-catch-20261001",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Stage 1 responsive world spring and local bowl pumping with controllable landing",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "9463b7674beafe8d79ebced381e85768e919a1d1",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "engine/SUKIMASTOCK-NEW-WORK.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "engine/SUKIMASTOCK-AUDIO-BASELINE.md",
+      "works/kotsu-koro/ at current main",
+      "User hands-on discovery and Stage 0/Stage 1 instructions"
+    ],
+    "allowedPaths": [
+      ".change-plans/kotsu-koro-pump-catch-20261001/r0.lock.json",
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/journey.js",
+      "works/kotsu-koro/stage-draw.js",
+      "works/kotsu-koro/test-journey.cjs",
+      "works/kotsu-koro/STAGE1.md",
+      "works/kotsu-koro/VALIDATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "layout-fix.css",
+      "assets/**",
+      ".github/**",
+      "tools/**",
+      "works/coffee-factory/**",
+      "works/orbit/**",
+      "works/midnight-cola/**",
+      "works/yakitori-wars/**",
+      "works/junkissa-dive/**",
+      "works/rojiura-masala/**",
+      "works/kotsu-koro/dynamics.js",
+      "works/kotsu-koro/test-dynamics.cjs",
+      "works/kotsu-koro/codea-lite.js",
+      "works/kotsu-koro/work-config.js",
+      "works/kotsu-koro/audio/**"
+    ],
+    "expectedChanges": [
+      "Stage 0 dynamics, input, depth rendering and handoff remain unchanged",
+      "Stage 1 dedicated spring response blends continuously during zoom; no direct seed steering",
+      "Round/launch/landing surfaces enable nearby stopped-party pumping and opposite-tilt catching; small gap and survivor rules protected",
+      "Input-only stopped 9/9 route, catch comparison, retry and fps tests; real staging pointer verification"
+    ],
+    "ownerDecisions": [
+      "User supplied exact direction and explicitly delegates terrain/camera/timing refinement and staging delivery",
+      "Only one Stage 1; production, canonical Engine and Codea forbidden"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Current existing-work canonical Engine contract; all new physics/composition/timing remain work-owned",
+      "Plan-only first branch commit followed by scoped implementation and PR",
+      "SukimaStock Audio Baseline for new sounds; existing proven levels retained"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "stage0-protected-transition-stage1-response",
+      "stopped-party-pointer-pumping-local-bowl",
+      "large-gap-landing-opposite-tilt-and-retry",
+      "ordinary-dev-runtime-diagnostics"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only work-specific changes and this Plan; no gameplay persistence/migration",
+    "outOfScope": [
+      "Production",
+      "Canonical Engine or Codea",
+      "Other works, town/metadata registration",
+      "Stage 2+, enemies, collectibles, HP, score, character faces/names/story"
+    ],
+    "promotion": "none; staging-only standalone experiment, not production Release Complete",
+    "unverified": [
+      "Author iPhone Safari feel and audible mix",
+      "Safari background/BFCache; final automatic VERIFIED stays UNVERIFIED"
+    ]
+  }
+}
