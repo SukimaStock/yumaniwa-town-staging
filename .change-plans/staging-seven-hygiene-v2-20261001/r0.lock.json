@@ -1,0 +1,171 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9b51e044a788f0b6617cabe47b49457255646b22ddf4845d7d3e0a2c9ccbe1f0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "staging-seven-hygiene-v2-20261001",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Repair seven approved staging runtime and maintenance defects in sequence",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "80cf05091902e1dee5c2ee55cb4abb619076fc6f",
+    "canonicalSources": [
+      "works/midnight-cola/sketch.js",
+      "main.js",
+      "town-analytics.js",
+      "works/rojiura-masala/analytics-config.js",
+      "works/rojiura-masala/analytics-runtime.js",
+      "work-install-meta.js",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md",
+      "works/_starter/README.md",
+      "engine/SUKIMASTOCK-NEW-WORK.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/staging-seven-hygiene-v2-20261001/r0.lock.json",
+      "works/midnight-cola/sketch.js",
+      "tests/test-midnight-cola-adjustment.cjs",
+      "work-ready.js",
+      "tests/test-work-ready.cjs",
+      "index.html",
+      "works/rojiura-masala/analytics-runtime.js",
+      "works/rojiura-masala/analytics-config.js",
+      "works/rojiura-masala/index.html",
+      "tests/test-rojiura-analytics.cjs",
+      "town-analytics.js",
+      "work-guide-terminal.js",
+      "tests/test-work-guide.cjs",
+      "works/orbit/WORKFLOW.md",
+      "works/orbit/PUBLISH-CHECKLIST.md",
+      "works/steamclock/WORKFLOW.md",
+      "works/steamclock/PUBLISH-CHECKLIST.md",
+      "work-install-meta.js",
+      "w/diorama-calendar/manifest.webmanifest",
+      "tests/test-release-validator.cjs",
+      "tests/test-work-install-meta.cjs",
+      "works/steamclock/index.demo.html",
+      "works/steamclock/README.md",
+      "tests/test-work-maintenance-docs.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "assets/**",
+      "works/kotsu-koro/**",
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md",
+      "CHANGE-*.md"
+    ],
+    "expectedChanges": [
+      "1: Capture Cola's existing private adjustment renderer for the locked lever wrapper and regress the locked phase without gameplay changes",
+      "2: Reuse PR #88's launch-aware retry selector and tests under a fresh immutable Plan; leave #88 open and untouched",
+      "3: Apply the town's existing staging-path analytics exclusion to Masala and align initial build metadata with update105",
+      "4: Give the guide terminal the existing guide attribution scope, preserving one Work Open event and legacy menu attribution",
+      "5: Mark ORBIT and SteamClock copied publishing procedures historical and point active operations to the root canonical documents",
+      "6: Remove only the Diorama iconless exception and reference its existing 1024x1024 icon in its manifest",
+      "7: Retire SteamClock's broken legacy demo page and direct new-work instructions to the maintained starter",
+      "Update only cache keys for changed loaded scripts; add focused regression coverage"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-device-unverified"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "surface.shared",
+      "work.runtime",
+      "work.regression",
+      "analytics.event-contract",
+      "analytics.production-debug",
+      "analytics.external-goals"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User approved proceeding through findings 1 through 7 in order on staging, keeping repairs small and excluding production, merge and deployment"
+    ],
+    "hqDecisions": [
+      "Use the existing renderer, launch inference, analytics staging path and source attribution contracts; no new runtime, analytics architecture or compatibility policy"
+    ],
+    "rulesApplied": [
+      "Work runtime remains work-local",
+      "Shared delivery and executable changes use Full SYSTEM risk floor",
+      "Historical work-level procedures yield to root canonical operations",
+      "Existing assets and URLs are preserved"
+    ],
+    "problem": "Seven confirmed small defects: locked renderer scope error, stale retry source, staging analytics sends and initial build drift, guide source misattribution, obsolete operating documents, omitted install icon, broken legacy demo",
+    "currentContract": "Existing town dispatch and analytics semantics, root operations and release rules, and maintained starter are canonical",
+    "whyExistingIsInsufficient": "These seven paths currently bypass or contradict their existing canonical contracts",
+    "design": "Apply seven narrow repairs sequentially, preserving existing behavior outside the reproduced defects and retaining old PR #88 as linked prior work",
+    "alternativesRejected": [
+      "Gameplay redesign",
+      "New analytics architecture",
+      "Editing production",
+      "Rewriting PR #88's locked Plan",
+      "Uploading unchanged assets",
+      "Changing validator or gate machinery"
+    ],
+    "migration": "None; no IDs, URLs, save keys or game rules change",
+    "compatibility": "Existing itch retry timing, direct/town source attribution, CoffeeFactory iconless behavior and SteamClock actual runtime remain unchanged",
+    "boundaryCases": [
+      "Locked and unlocked Cola phases",
+      "Repeated install",
+      "Missing and explicit launch fields",
+      "Close/change during pending retry",
+      "Staging and production Masala paths",
+      "Debug and private-host suppression",
+      "Guide source restoration after throw",
+      "Legacy destination menu",
+      "Missing tracker fallback",
+      "Diorama icon identity",
+      "CoffeeFactory remains iconless",
+      "Legacy demo URL remains a readable retirement notice"
+    ],
+    "testPlan": [
+      "Focused source/VM regressions for each defect",
+      "Existing Node and Python suites where materialized dependencies permit",
+      "Release validator and generated Search page checks",
+      "Scope then Risk then Impact against exact committed head",
+      "Required trusted CI for exact remote head"
+    ],
+    "rollback": "Revert the corresponding numbered implementation commit; the first Plan Lock remains immutable",
+    "outOfScope": [
+      "Kotsu Koro work",
+      "Production repository writes",
+      "Merge, auto-merge or deployment",
+      "Other audit findings",
+      "Gate or workflow modifications"
+    ],
+    "promotion": "Draft staging PR only; no merge, production promotion or deployment",
+    "promotionRisk": "Production is excluded; immutable Plan and trusted base gates govern the staging draft",
+    "unverified": [
+      "No physical iPhone or installed PWA test",
+      "No actual Plausible transmission or external Goal check",
+      "Local checkout is connector-materialized and may lack oversized unchanged assets; CI uses the full repository",
+      "Final automatic VERIFIED is intentionally deferred by repository policy"
+    ]
+  }
+}
