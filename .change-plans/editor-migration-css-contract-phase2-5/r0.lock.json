@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "92a48fce8ae93a997a7383c9ec1970edc1932fb25f580b092d6f4543c6008a1f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "editor-migration-css-contract-phase2-5",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Replace whole-CSS hashes with focused Phase 1 Editor and town sizing contract tests",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "1608612c2a09765e790e24fa5c6a44777b5dc687",
+    "canonicalSources": [
+      "tests/fixtures/editor-world-object-metadata-before.json",
+      "style.css",
+      "layout-fix.css"
+    ],
+    "allowedPaths": [
+      ".change-plans/editor-migration-css-contract-phase2-5/r0.lock.json",
+      "tests/test-editor-world-object-metadata.cjs",
+      "tests/fixtures/editor-world-object-metadata-before.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "style.css",
+      "layout-fix.css",
+      "index.html",
+      "main.js",
+      "data/**",
+      "town-editor-upgrade.js",
+      "town-ghost-npc.js",
+      "assets/**",
+      "tools/**",
+      "works/**",
+      "engine/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Remove only style.css and layout-fix.css sourceHashes entries; preserve all metadata/creation/inference/world/action and four data/runtime hashes.",
+      "Replace CSS immutability with selector-scoped base declaration checks for Phase 1 narrow overlay/scroll, plus minimal canonical town sizing and existing mobile ratio rules.",
+      "Small in-test block extractor ignores formatting/comments, separates media rules from base rules. No parser dependency.",
+      "In-memory positive/negative cases: unrelated CSS and wide overrides pass; missing overflow-y/max-height and wrong-selector/media-only declarations fail; metadata mutation still fails."
+    ],
+    "hqDecisions": [
+      "User explicitly authorized test-contract narrowing only, preserving migration guarantees and production/runtime invariance."
+    ],
+    "ownerDecisions": [
+      "No Phase 3 implementation. Draft PR only."
+    ],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert test/fixture implementation commit; product files are unchanged.",
+    "outOfScope": [
+      "Runtime/product changes",
+      "Phase3/side inspector",
+      "Metadata migration values",
+      "Data/assets/Factory",
+      "Production",
+      "Merge"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "CSS checks are static contract checks, not browser layout verification."
+    ],
+    "problem": "Whole-file CSS hashes prevent legitimate unrelated and wide-layout changes.",
+    "currentContract": "Phase2 test pins six source hashes including two CSS files, plus metadata and creation oracle.",
+    "whyExistingIsInsufficient": "Whole CSS immutability exceeds the narrow Editor layout contract.",
+    "design": "Keep four runtime/data hashes; inspect target base selector declarations and minimal existing town ratio/size declarations without freezing whole files or wide Editor rules.",
+    "alternativesRejected": [
+      "Updating CSS hashes",
+      "Removing all source hashes",
+      "Global substring checks",
+      "Runtime CSS changes",
+      "Large CSS parser dependency"
+    ],
+    "migration": "Delete exactly two CSS hash keys; all other fixture values byte-preserved.",
+    "compatibility": "All existing metadata/creation/inference/runtime/action assertions retained. Base-rule checks ignore future wide media overrides.",
+    "boundaryCases": [
+      "Whitespace/comments",
+      "Grouped selectors",
+      "Nested media excluded from base",
+      "Same declaration on unrelated selector",
+      "Required declaration deleted",
+      "Metadata mutation"
+    ],
+    "testPlan": [
+      "Run migration and new positive/negative tests",
+      "Existing Editor/history, Change Operations, Python Desk/scene, Release tests",
+      "Verify only three allowed files differ",
+      "Plan Lock, Scope/Risk/Impact, required/trusted checks"
+    ],
+    "promotionRisk": "Draft PR only, no merge or production changes.",
+    "manualCheckExemptionReason": "Tests and fixture only; no runtime/product changes. Static diff and automated positive/negative tests cover this scope."
+  }
+}
