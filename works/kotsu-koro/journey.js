@@ -40,9 +40,12 @@
     return Math.hypot(10.3 * (nx * c + ny * s), 5.5 * (-nx * s + ny * c));
   }
   function create(source) {
-    const s = { time: 0, accumulator: 0, held: false, activeId: null,
+    const s = { time: 0, accumulator: 0, held: source?.held || false, activeId: source?.activeId ?? null,
       x: source?.x || 0, y: source?.y || 0, vx: source?.vx || 0, vy: source?.vy || 0,
-      targetX: 0, targetY: 0, contacts: [], marks: [], impactCount: 0,
+      targetX: source?.targetX || 0, targetY: source?.targetY || 0,
+      anchorX: source?.anchorX, anchorY: source?.anchorY,
+      ring: source?.ring || 0, ringV: source?.ringV || 0, contacts: [],
+      marks: source ? source.marks.filter(m => m.age < 12).map(m => ({ ...m, x: m.x + START.x, y: m.y + START.y, ox: m.ox + START.x, oy: m.oy + START.y })) : [], impactCount: 0,
       camera: { x: START.x, y: START.y, z: 1 },
       fibres: [
         { ax: 101, ay: 751, bx: 155, by: 769, bend: 0, v: 0, cool: 0 },
@@ -87,13 +90,28 @@
       }
     }
   }
+  function strandPoint(x, y, strand) {
+    let nearest, old = { x: strand.ax, y: strand.ay };
+    for (let i = 1; i <= 6; i++) {
+      const t = i / 6;
+      const end = { x: strand.ax + (strand.bx - strand.ax) * t,
+        y: strand.ay + (strand.by - strand.ay) * t + 2 * (1 - t) * t * strand.bend };
+      const q = closest(x, y, { kind: 'lane', ax: old.x, ay: old.y, bx: end.x, by: end.y });
+      const d = Math.hypot(x - q.x, y - q.y);
+      if (!nearest || d < nearest.d) nearest = { ...q, d };
+      old = end;
+    }
+    return nearest;
+  }
   function step(s, dt) {
     s.time += dt;
     const k = s.held ? T.grabK : T.returnK, d = s.held ? T.grabD : T.returnD;
     const ax = k * (s.targetX - s.x) - d * s.vx, ay = k * (s.targetY - s.y) - d * s.vy;
     s.vx += ax * dt; s.vy += ay * dt; s.x += s.vx * dt; s.y += s.vy * dt;
+    s.ringV += (-490 * s.ring - 9 * s.ringV) * dt; s.ring += s.ringV * dt;
     for (const f of s.fibres) {
       f.v += (-72 * f.bend - 7 * f.v) * dt; f.bend += f.v * dt;
+      if (Math.abs(f.bend) > 22) { f.bend = clamp(f.bend, -22, 22); f.v *= .4; }
       f.cool = Math.max(0, f.cool - dt);
     }
     for (const p of s.seeds) {
@@ -105,8 +123,7 @@
         fx -= (p.x - f.q.x) * concave; fy -= (p.y - f.q.y) * concave;
       }
       for (const strand of s.fibres) {
-        const sg = { ...strand, kind: 'lane', ay: strand.ay + strand.bend, by: strand.by + strand.bend };
-        const q = closest(p.x, p.y, sg), dx = p.x - q.x, dy = p.y - q.y, dist = Math.hypot(dx, dy) || .01;
+        const q = strandPoint(p.x, p.y, strand), dx = p.x - q.x, dy = p.y - q.y, dist = q.d || .01;
         const reach = support(p, dx / dist, dy / dist) + 2;
         if (dist < reach) {
           const push = (reach - dist) * 17;
@@ -132,6 +149,9 @@
       boundary(s, p);
       if (f.g.material === 'wet' && speed > 27 && Math.floor(s.time * 20) !== Math.floor((s.time - dt) * 20)) {
         s.marks.push({ x: p.x, y: p.y, ox, oy, age: 0 });
+      }
+      if (f.g.material === 'wet' && speed > 70 && p.cool === 0) {
+        contact(s, p, speed * .4, 'wet'); p.cool = .38;
       }
     }
     for (let i = 0; i < s.seeds.length; i++) for (let j = i + 1; j < s.seeds.length; j++) {

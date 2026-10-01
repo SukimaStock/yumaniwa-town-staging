@@ -36,3 +36,17 @@ body {
   height: 100%;
   -webkit-tap-highlight-color: transparent;
 }
+
+#gameCanvas { outline: none; }
+#again {
+  position: fixed; bottom: max(38px, env(safe-area-inset-bottom));
+  left: 50%; transform: translateX(-50%); padding: 12px 22px;
+  border: 1px solid rgba(118,106,85,.28); border-radius: 22px;
+  background: rgba(247,232,201,.9); color: #766a55;
+  font: 12px 'Hiragino Kaku Gothic ProN', sans-serif; cursor: pointer;
+}
+#again[hidden] { display: none; }
+#work-observation {
+  position: fixed; left: 8px; bottom: 8px; font: 11px monospace;
+  color: #f4e9ce; background: #302b24; padding: 6px; pointer-events: none;
+}
