@@ -1,4 +1,4 @@
-# こつ、ころ。 — source research / authorship experiment
+# PUMPOKO — source research / authorship experiment
 
 Research baseline: staging/main `936dbc8e5993708853a9fc945c462f8cee201c35`,
 observed at task start on 2026-10-01. Production reference:

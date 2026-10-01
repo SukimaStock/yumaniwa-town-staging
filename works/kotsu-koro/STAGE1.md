@@ -1,4 +1,4 @@
-# こつ、ころ。 — one horizontal pumpkin world
+# PUMPOKO — one horizontal pumpkin world
 
 ## Author direction, 2026-10-01
 

@@ -7,7 +7,7 @@
     model = J.create(model); mode = "journey";
   }
   const CX = 195, CY = 365, TAU = Math.PI * 2;
-  let lastSound = -1, touchedOnce = false, hint = 1, paper, gesture = null;
+  let lastSound = -1, touchedOnce = false, hint = 1, paper, titleArt, gesture = null;
   const grain = Array.from({ length: 760 }, (_, i) => {
     const f = n => { const v = Math.sin(n * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
     return { x: f(i) * 390, y: f(i + 99) * 740, r: 0.2 + f(i + 33) * 0.6 };
@@ -28,17 +28,17 @@
   function seed(c, p, i, sy = .80) {
     const x = p.x, y = p.y * sy;
     c.save(); c.translate(x, y); c.rotate(p.angle); c.scale(1, p.roll || 1);
-    oval(c, 2.2, 3, 8.2, 3.8, "rgba(66,33,17,.22)");
+    oval(c, 2.2, 3, 8.2, 3.8, "rgba(101,64,31,.14)");
     c.beginPath(); c.moveTo(-10.5, 0);
     c.bezierCurveTo(-5, -7.7, 7.5, -6.7, 11.5, 0);
     c.bezierCurveTo(7, 6.5, -5.8, 6.5, -10.5, 0);
     const fill = c.createLinearGradient(0, -6, 1, 6);
-    fill.addColorStop(0, "#fff2ca"); fill.addColorStop(0.55, "#e6d4a3"); fill.addColorStop(1, "#b7a46f");
-    c.fillStyle = fill; c.fill(); c.strokeStyle = "#d7bf87"; c.lineWidth = 0.8; c.stroke();
+    fill.addColorStop(0, "#fff8df"); fill.addColorStop(0.55, "#f5e7bc"); fill.addColorStop(1, "#d9c18a");
+    c.fillStyle = fill; c.fill(); c.strokeStyle = "#d9bf88"; c.lineWidth = 0.8; c.stroke();
     c.beginPath(); c.moveTo(-7, -1); c.quadraticCurveTo(0, -3.5, 8, 0);
     c.strokeStyle = "rgba(255,250,221,.74)"; c.stroke();
     c.beginPath(); c.moveTo(-5, 2); c.quadraticCurveTo(1, 3.8, 7, 1.2);
-    c.strokeStyle = "rgba(145,116,62,.25)"; c.lineWidth = 0.65; c.stroke();
+    c.strokeStyle = "rgba(155,121,68,.18)"; c.lineWidth = 0.65; c.stroke();
     c.restore();
   }
   function vessel(c, showSeeds = true, local = false) {
@@ -54,47 +54,47 @@
     const px = model.x * depth, py = model.y * depth;
     // Lower skin: the visible thickness gives the drag somewhere to land.
     c.save(); c.translate(-px * 5, 15 - py * 3);
-    outline(c, 143, 0.80, 5);
+    outline(c, 143, 0.80, 3.5);
     const skin = c.createLinearGradient(-100, -110, 80, 100);
-    skin.addColorStop(0, "#62745b"); skin.addColorStop(0.46, "#3b5341"); skin.addColorStop(1, "#25392e");
+    skin.addColorStop(0, "#789063"); skin.addColorStop(0.46, "#526e4b"); skin.addColorStop(1, "#39573e");
     c.fillStyle = skin; c.fill();
     c.clip();
     for (let i = 0; i < 18; i++) {
       const a = i * TAU / 18;
       c.beginPath(); c.moveTo(Math.cos(a) * 40, Math.sin(a) * 35);
       c.quadraticCurveTo(Math.cos(a) * 116, Math.sin(a) * 110, Math.cos(a + 0.06) * 157, Math.sin(a + 0.06) * 130);
-      c.strokeStyle = i % 2 ? "rgba(134,145,95,.22)" : "rgba(20,40,26,.4)";
+      c.strokeStyle = i % 2 ? "rgba(134,145,95,.22)" : "rgba(29,57,34,.24)";
       c.lineWidth = i % 2 ? 6 : 4; c.stroke();
     }
     c.restore();
     c.save(); c.translate(-px * .7, -py * .5);
-    outline(c, 141, 0.80, 4.5);
+    outline(c, 141, 0.80, 3);
     const flesh = c.createLinearGradient(-90, -100, 110, 130);
-    flesh.addColorStop(0, "#f2bc59"); flesh.addColorStop(.44, "#df9640"); flesh.addColorStop(1, "#be762e");
+    flesh.addColorStop(0, "#ffd384"); flesh.addColorStop(.44, "#f5ac53"); flesh.addColorStop(1, "#df9248");
     c.fillStyle = flesh; c.fill();
-    c.strokeStyle = "#506346"; c.lineWidth = 3.2; c.stroke();
-    outline(c, 131, .80, 3);
-    c.strokeStyle = "rgba(255,217,139,.55)"; c.lineWidth = 1.2; c.stroke();
+    c.strokeStyle = "#516b4a"; c.lineWidth = 3.2; c.stroke();
+    outline(c, 131, .80, 2);
+    c.strokeStyle = "rgba(255,232,172,.65)"; c.lineWidth = 1.2; c.stroke();
     // Sparse cut fibres, stable between frames. They belong to the material.
     for (let i = 0; i < 105; i++) {
       const a = i * 2.399, r = 106 + (i * 17 % 27);
       c.beginPath(); c.moveTo(Math.cos(a) * r, Math.sin(a) * r * .8);
       c.lineTo(Math.cos(a + .01) * (r + 4 + i % 5), Math.sin(a + .01) * (r + 4 + i % 5) * .8);
-      c.strokeStyle = i % 3 ? "rgba(151,84,29,.14)" : "rgba(255,224,139,.35)";
+      c.strokeStyle = i % 3 ? "rgba(168,99,44,.09)" : "rgba(255,224,139,.35)";
       c.lineWidth = .6; c.stroke();
     }
     c.restore();
     c.save(); c.translate(px * 7, py * 4);
     outline(c, 105, .80, 2.5);
     const interior = c.createRadialGradient(-19 - model.x * 20, -17 - model.y * 20, 7, 0, 0, 118);
-    interior.addColorStop(0, "#ca8b44"); interior.addColorStop(.62, "#bf7b36"); interior.addColorStop(.88, "#9a5829"); interior.addColorStop(1, "#75441f");
+    interior.addColorStop(0, "#edb66d"); interior.addColorStop(.62, "#e4a45b"); interior.addColorStop(.88, "#ca8344"); interior.addColorStop(1, "#ad703d");
     c.fillStyle = interior; c.fill();
     c.save(); c.clip();
     for (let i = 0; i < 22; i++) {
       const a = i / 22 * TAU;
       c.beginPath(); c.moveTo(Math.cos(a) * 103, Math.sin(a) * 103 * .8);
       c.bezierCurveTo(Math.cos(a + .08) * 89, Math.sin(a + .08) * 89 * .8, Math.cos(a - .12) * 75, Math.sin(a - .12) * 75 * .8, Math.cos(a) * 71, Math.sin(a) * 71 * .8);
-      c.strokeStyle = "rgba(240,174,78,.24)"; c.lineWidth = 1.5; c.stroke();
+      c.strokeStyle = "rgba(255,211,139,.30)"; c.lineWidth = 1.5; c.stroke();
     }
     c.restore(); c.restore();
     // Physical seeds/tethers and their clip retain the original transform.
@@ -110,7 +110,7 @@
       const dx = p.x - t.ax, dy = p.y - t.ay;
       c.beginPath(); c.moveTo(t.ax, t.ay * .8);
       c.quadraticCurveTo(t.ax + dx * .4 - 6 * tail, (t.ay + dy * .4) * .8 + 6 * tail, t.ax + dx * tail, (t.ay + dy * tail) * .8);
-      c.strokeStyle = "rgba(119,72,28,.20)"; c.lineWidth = 4; c.stroke();
+      c.strokeStyle = "rgba(135,85,37,.14)"; c.lineWidth = 4; c.stroke();
       c.strokeStyle = "#f5d295"; c.lineWidth = p.attached ? 2.2 - Math.min(1, t.damage / t.strength) * 1.2 : 1;
       c.stroke();
       c.beginPath(); c.moveTo(-1, -6); c.quadraticCurveTo(t.ax - 6, t.ay * .8 - 4, t.ax, t.ay * .8);
@@ -127,19 +127,24 @@
       c.save(); c.translate(CX + 9 + model.x * 9, CY + 29 + model.y * 5);
       c.scale(1, .65);
       const sh = c.createRadialGradient(0, 0, 30, 0, 0, 164);
-      sh.addColorStop(0, "rgba(64,53,34,.26)"); sh.addColorStop(.7, "rgba(64,53,34,.13)"); sh.addColorStop(1, "rgba(64,53,34,0)");
+      sh.addColorStop(0, "rgba(127,91,48,.15)"); sh.addColorStop(.7, "rgba(127,91,48,.07)"); sh.addColorStop(1, "rgba(127,91,48,0)");
       oval(c, 0, 0, 166, 166, sh); c.restore();
   }
   function captions(c) {
-      c.textAlign = "center"; c.fillStyle = "#665d4a";
-      c.font = "22px 'Hiragino Mincho ProN', 'Yu Mincho', serif";
-      c.fillText(W.title, 195, 130);
-      c.fillStyle = "rgba(104,95,76,.62)"; c.font = "9px Georgia, serif";
-      c.fillText("P U M P K I N", 195, 153);
-      c.fillStyle = `rgba(91,82,66,${.64 * hint})`;
+      c.textAlign = "center";
+      // Keep the same quiet opening composition. The supplied vector is the
+      // only title; the text fallback also keeps it readable if loading fails.
+      if (titleArt && titleArt.complete && titleArt.naturalWidth > 0) {
+        c.drawImage(titleArt, 57, 91, 276, 276 * 654 / 2064);
+      } else {
+        c.fillStyle = "#b9672f";
+        c.font = "bold 32px 'Arial Rounded MT Bold', sans-serif";
+        c.fillText(W.title, 195, 148);
+      }
+      c.fillStyle = `rgba(105,85,57,${.78 * hint})`;
       c.font = "12px 'Hiragino Kaku Gothic ProN', sans-serif";
       c.fillText("つかんで、ゆらす", 195, 583);
-      c.fillStyle = "rgba(108,98,79,.42)"; c.font = "9px Georgia, serif";
+      c.fillStyle = "rgba(105,85,57,.55)"; c.font = "9px Georgia, serif";
       c.fillText("SukimaStock", 195, 684);
   }
   function draw() {
@@ -234,7 +239,7 @@
   SSE.createApp({
     id: W.id, logicalWidth: W.logicalWidth, logicalHeight: W.logicalHeight,
     frameRate: W.frameRate, initialScene: "main", pointerMode: "primary", debug: false,
-    outerBackground: "#e6ddc7",
+    outerBackground: "#f7edd8",
     keyboard: { bindings: { left: ["ArrowLeft", "KeyA"], right: ["ArrowRight", "KeyD"],
       up: ["ArrowUp", "KeyW"], down: ["ArrowDown", "KeyS"], knock: ["Space"] } },
     audio: SSE.audio.withBaseline({ storageKey: W.id + ".sound", sounds: {
@@ -247,6 +252,7 @@
     analytics: { enabled: false }, scenes: { main: scene },
     setup() {
       SSE.audio.preload();
+      titleArt = document.getElementById("title-art");
       again = document.getElementById("again");
       again.addEventListener("click", () => {
         model = D.createPrologue(); mode = "prologue"; openAt = null;
@@ -259,11 +265,11 @@
       }
       paper = document.createElement("canvas"); paper.width = 390; paper.height = 740;
       const c = paper.getContext("2d");
-      c.fillStyle = "#e6ddc7"; c.fillRect(0, 0, 390, 740);
+      c.fillStyle = "#f7edd8"; c.fillRect(0, 0, 390, 740);
       const light = c.createLinearGradient(0, 0, 390, 740);
-      light.addColorStop(0, "rgba(255,250,225,.45)"); light.addColorStop(1, "rgba(161,147,118,.13)");
+      light.addColorStop(0, "rgba(255,253,240,.62)"); light.addColorStop(1, "rgba(224,172,96,.10)");
       c.fillStyle = light; c.fillRect(0, 0, 390, 740);
-      for (const g of grain) oval(c, g.x, g.y, g.r, g.r, "rgba(99,86,65,.08)");
+      for (const g of grain) oval(c, g.x, g.y, g.r, g.r, "rgba(151,111,64,.035)");
       const button = document.getElementById("sound-toggle");
       const sync = () => {
         button.setAttribute("aria-pressed", String(SSE.audio.enabled));

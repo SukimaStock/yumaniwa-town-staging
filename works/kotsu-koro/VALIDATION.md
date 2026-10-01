@@ -1,4 +1,4 @@
-# Staging validation — こつ、ころ。
+# Staging validation — PUMPOKO
 
 This is a standalone experiment under `works/kotsu-koro/`, not a registered
 town release or a production publication. Formal verificationState remains
