@@ -78,10 +78,12 @@ Cloud Chrome at 1363 × 936 CSS viewport:
   AudioContext changes from suspended before gesture to running afterward.
   All three WAV URLs return HTTP 200. This confirms delivery/unlock and
   controls, not subjective hearing or an iPhone speaker mix.
-- Session Report COPY reports COPIED. The remote clipboard read returned
-  no report text, so a complete Session Report export is not claimed. The
-  on-screen panel showed asset ERR 0 and no new work runtime error after
-  correction. Historic pre-correction console entries remain timestamped.
+- Session Report COPY reports COPIED. A subsequent clipboard read captured
+  the final report generated at `2026-10-01T03:42:12.987Z`: Engine 0.3.0 / Codea
+  1.0.0 both running; audio unlocked, running, buffers 3/3 ready, failed 0;
+  pointer inactive, held keys 0, lifecycle active; diagnostic error count 0.
+  It explicitly reports audibility unknown. Historic pre-correction console
+  entries are excluded from this new session report.
 - Ordinary-page navigation away and back, followed by Space, remains
   playable. This is Chrome navigation recovery, not verified Safari
   backgrounding or BFCache acceptance.
