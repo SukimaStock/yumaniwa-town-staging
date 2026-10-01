@@ -166,7 +166,10 @@
   function camera(s, dt) {
     const xs = s.seeds.map(p => p.x), ys = s.seeds.map(p => p.y);
     const minX = Math.min(...xs), maxX = Math.max(...xs), maxY = Math.max(...ys);
-    const centre = (minX + maxX) / 2;
+    const sorted = xs.slice().sort((a,b) => a-b);
+    // A lone distant grain must not drag the camera into an empty gap. Keep
+    // the actual middle of the party visible; this changes only the view.
+    const centre = sorted[Math.floor(sorted.length / 2)];
     const z = clamp(350 / (maxX - minX + 65), 1.15, ZOOM);
     const o = opening(s);
     if (s.transition && !s.transition.settled) {

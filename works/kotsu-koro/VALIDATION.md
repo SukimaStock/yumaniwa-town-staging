@@ -125,3 +125,20 @@ The town Release Validator with `--ids kotsu-koro` reports
 experiment is intentionally not registered in WORKS. This is not a release
 candidate, and no metadata/registration change is made to silence that result.
 Its work runtime is verified with the focused tests and browser observations.
+
+### Browser-driven touch refinement
+
+Cloud Browser at deployed `5ff848a80ae3ffe001cc545771f8f0d941ec35fd`:
+observed ordinary prologue 3/9 -> physical detach 9/9 -> post-detach pause ->
+zoom with the rim beyond the viewport -> open horizontal ground with nine grains.
+Observed drag/release movement, mute toggle and running audio; Engine dev panel
+ERR 0. Slow-frame WARNs (inactive remote-browser frames around 1 second) remain
+observed and are not described as errors or silently cleared. Audible mix on
+the author's device remains unverified. Full round/recovery/end route was tested
+mechanically; do not claim those original browser gestures completed it.
+
+Repeated Stage 1 grabs exposed a large spread and an empty camera frame.
+A fresh Plan at the deployed main fixes only Stage 1 tap/drag separation and
+view-only median follow; Stage 0 is unchanged. All 14 Stage 0 and 17 horizontal
+journey tests PASS, including the two new observed-case regressions. The new
+exact candidate/staging browser observation is recorded in the refinement PR.

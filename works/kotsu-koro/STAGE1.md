@@ -79,3 +79,14 @@ observations show mode, party bounds, camera and transition progress.
 
 No Stage 2, enemy, HP, score, collection, story, town registration, production,
 canonical Engine or Codea changes.
+
+## Browser refinement: repeated grabs
+
+Actual browser play at `5ff848a80ae3ffe001cc545771f8f0d941ec35fd` showed that
+knocking on every Stage 1 pointer-BEGAN scattered the party after repeated grabs.
+Stage 1 now treats a drag as world tilt and an unmoved short tap as a knock on
+release; cancellation does not knock. The accepted Stage 0 grab knock remains.
+Camera follow uses the median grain position, so one remote grain cannot put
+the camera in a completely empty gap. This is view-only, not a recovery force.
+Two regressions cover actual scene regrabs/taps/cancellation and a dispersed
+camera fixture. The final horizontal test total is 17.

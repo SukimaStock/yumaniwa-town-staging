@@ -1,0 +1,107 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "425972f52ab148ad2f1160b84763db196f8e87c50403fe21970234c3da9e6f1f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "kotsu-koro-world-touch-refine-20261001",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Refine observed repeated touch grabs: tap-only Stage 1 knock and robust party camera",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "5ff848a80ae3ffe001cc545771f8f0d941ec35fd",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "engine/SUKIMASTOCK-NEW-WORK.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "engine/SUKIMASTOCK-AUDIO-BASELINE.md",
+      "works/kotsu-koro/ at current main",
+      "User hands-on discovery and Stage 0/Stage 1 instructions"
+    ],
+    "allowedPaths": [
+      ".change-plans/kotsu-koro-world-touch-refine-20261001/r0.lock.json",
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/journey.js",
+      "works/kotsu-koro/test-journey.cjs",
+      "works/kotsu-koro/STAGE1.md",
+      "works/kotsu-koro/VALIDATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "layout-fix.css",
+      "assets/**",
+      ".github/**",
+      "tools/**",
+      "works/coffee-factory/**",
+      "works/orbit/**",
+      "works/midnight-cola/**",
+      "works/yakitori-wars/**",
+      "works/junkissa-dive/**",
+      "works/rojiura-masala/**",
+      "works/kotsu-koro/dynamics.js",
+      "works/kotsu-koro/test-dynamics.cjs",
+      "works/kotsu-koro/codea-lite.js",
+      "works/kotsu-koro/work-config.js",
+      "works/kotsu-koro/audio/**"
+    ],
+    "expectedChanges": [
+      "Stage 0 touch and physical values remain unchanged",
+      "In Stage 1 a drag tilts the world; a short tap knocks on release instead of every regrab kicking the party",
+      "Camera follows the median party with bounded zoom so an unusually dispersed group does not produce an empty frame",
+      "Add actual scene touch regressions, report exact deployed browser observations; no production or shared changes"
+    ],
+    "ownerDecisions": [
+      "User supplied exact direction and explicitly delegates terrain/camera/timing refinement and staging delivery",
+      "Only one Stage 1; production, canonical Engine and Codea forbidden"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Current existing-work canonical Engine contract; all new physics/composition/timing remain work-owned",
+      "Plan-only first branch commit followed by scoped implementation and PR",
+      "SukimaStock Audio Baseline for new sounds; existing proven levels retained"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "stage0-rim-circulation-fibre-release-transition",
+      "horizontal-world-drag-release-round-recovery",
+      "normal-url-keyboard-mute-replay-lifecycle",
+      "browser-diagnostics-audio-report"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only work-specific changes and this Plan; no gameplay persistence/migration",
+    "outOfScope": [
+      "Production",
+      "Canonical Engine or Codea",
+      "Other works, town/metadata registration",
+      "Stage 2+, enemies, collectibles, HP, score, character faces/names/story"
+    ],
+    "promotion": "none; staging-only standalone experiment, not production Release Complete",
+    "unverified": [
+      "Author iPhone Safari feel and audible mix",
+      "Safari background/BFCache; final automatic VERIFIED stays UNVERIFIED"
+    ]
+  }
+}
