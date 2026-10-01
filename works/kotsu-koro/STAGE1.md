@@ -54,14 +54,33 @@ back onto the top. No bridge, invisible floor or grain attraction.
 2. GAP A: x455–503 (48 world px), with a slightly lower landing. Modest
    momentum carries the party; a slow or dispersed tail can fall.
 3. Safe reunion, then the shallow cushioned valley near x810.
-4. Round playground near x1330. Its rising downstream lip retains an upward
-   tangent; rolling back and gathering before a run-up helps the party launch.
-5. GAP B: x1545–1640 (95 world px), then the long release into the quiet END.
+4. A continuous U-shaped polished bowl spans x1110–1545, with its bottom
+   at x1350 / y500 and an upward launch tangent at x1545.
+5. GAP B remains x1545–1640 (95 world px). A shallow cushioned receiving
+   shelf at x1640–1775 precedes the long release into the quiet END.
 
-World tilt, tap knock, seed support/orientation/pair collisions, variable drag,
-release tail and fixed 1/120s steps remain. Stage 0 physics is byte-identical.
-There is no compulsory special move: the tested nine-grain route gathers in
-both valleys, rolls back a little, then uses a steady diagonal run-up.
+The bowl and landing use cubic Hermite tangents sampled by the same renderer
+and collision geometry. The early terrain and small-gap geometry are unchanged.
+Reduced Stage 1 bowl drag (.30, still multiplied by each grain's dragFactor)
+retains curved-surface momentum; ordinary contact friction remains so the party
+can gather and rest. There is no pump bonus, jump force or seed steering.
+
+Stage 1 alone blends toward grab K220/D21, return K70/D10 and world inertia3
+as the zoom opens. Stage 0 retains K58/D7.2, return K36/D3.8 and its accepted
+inertia. The response is still a continuous spring with a release tail. Stage 1
+keyboard tilt gradually reaches the pointer's .38 maximum; Stage 0 stays .28.
+
+The input-only acceptance route reaches the bowl, fully releases until every
+seed is below 8px/s, tilts left until the median is around x1260, then reverses
+right. Every seed remains inside the local bowl until launch: no long retreat
+into the previous valley or carried initial launch velocity. Horizontal tilt
+alone launches all nine. A premature reversal can lose grains; maintained
+right/up flow can also cross, so stopping is optional.
+
+A brief opposite tilt on landing reduces speed through the same world physics.
+After that, gentle right tilt carries the party into END, where release leaves
+the surviving arrangement to become quiet. No special receiving rule or result
+UI is added. The author still evaluates the subjective timing and feel.
 
 ## Loss and surviving-party finish
 
@@ -93,7 +112,7 @@ There is no individual-grain movement or jump button.
 
 `?dev=1&stage=1` starts the same Stage 1 for work inspection only. Ordinary and
 `?dev=1` retain the physical tether prologue and zoom transition. Read-only
-observations show mode, party bounds, camera and transition progress.
+observations show mode, party bounds, maximum speed, tilt, camera and transition progress.
 
 No Stage 2, enemy, HP, score, collection, story, town registration, production,
 canonical Engine or Codea changes.

@@ -89,10 +89,10 @@ test('neutral flat ground supplies gravity but no automatic horizontal progressi
   assert.ok(s.seeds.every(p=>p.x<310));assert.ok(!s.finished);
   assert.ok(s.seeds.every(p=>Math.abs(p.vx)<5));
 });
-function sceneHarness(search = "?dev=1") {
+function sceneHarness(search = "?dev=1", journey = J) {
   let config;const held=new Set(), plays=[];const c={console,location:{search},URLSearchParams,
     SUKIMASTOCK_WORK:{id:'kotsu-koro',title:'こつ、ころ。',logicalWidth:390,logicalHeight:740,frameRate:60},
-    PumpkinDynamics:D,PumpkinJourney:J,BEGAN:'BEGAN',MOVING:'MOVING',ENDED:'ENDED',CANCELLED:'CANCELLED',
+    PumpkinDynamics:D,PumpkinJourney:journey,BEGAN:'BEGAN',MOVING:'MOVING',ENDED:'ENDED',CANCELLED:'CANCELLED',
     SSE:{createApp:v=>{config=v;},audio:{withBaseline:v=>v,baseline:()=>({reference:{se:{action:.46,soft:.24}}}),play:name=>plays.push(name)},
     input:{action:n=>held.has(n),actionPressed:()=>false}}};c.window=c;
   vm.runInNewContext(fs.readFileSync(path.join(__dirname,'sketch.js'),'utf8'),c);
@@ -165,25 +165,46 @@ test('a dispersed camera retains real grains instead of centring the empty extre
   assert.ok(visible.length>=6,`camera lost the party: ${visible.length}`);
   assert.ok(s.camera.z>=1.15);
 });
-// Route uses world inputs only: gather in the two valleys, roll back for a
-// run-up, then release in END. No fixture positions, seed steering or knock.
-function deliberate(source = D.create(), fps = 60, transition = false) {
-  const s=J.create(source,transition), objects=s.seeds.slice();let phase=0, wait=0;
+const maxSpeed=s=>Math.max(...J.party(s).map(p=>Math.hypot(p.vx,p.vy)));
+const median=s=>J.party(s).map(p=>p.x).sort((a,b)=>a-b)[Math.floor(J.party(s).length/2)];
+// Decision sampling is 30Hz at every render rate. Only world targets change;
+// no seed position/velocity reset supplies the stopped-party acceptance route.
+function prepare(source=D.create(),fps=60,transition=false) {
+  const s=J.create(source,transition),objects=s.seeds.slice();let phase=0,wait=0,quiet=0;
   if(transition)advance(s,7,fps);
   const history=[];
-  for(let i=0;i<90*fps&&!s.finished;i++) {
-    const active=J.party(s),lo=Math.min(...active.map(p=>p.x)),hi=Math.max(...active.map(p=>p.x));
-    if(phase===0) {hold(s,.28,-.15);if(lo>730){phase++;wait=i;}}
-    else if(phase===1) {J.release(s);if(i-wait>=8*fps){phase++;wait=i;}}
-    else if(phase===2) {hold(s,.28,-.15);if(lo>1160){phase++;wait=i;}}
-    else if(phase===3) {J.release(s);if(i-wait>=8*fps){phase++;wait=i;}}
-    else if(phase===4) {hold(s,-.28,-.15);if(hi<1260){phase++;wait=i;}}
-    else if(phase===5) {hold(s,.32,-.32);if(lo>1820){phase++;wait=i;}}
-    else J.release(s);
-    J.update(s,1/fps);history.push({phase,active:J.party(s).length,x:s.seeds.map(p=>p.x)});
+  for(let i=0;i<80*fps;i++){
+    if(i%(fps/30)===0){
+      const lo=Math.min(...J.party(s).map(p=>p.x));
+      if(phase===0&&lo>730){phase++;wait=i;}
+      else if(phase===1&&i-wait>=8*fps)phase++;
+      else if(phase===2&&lo>1210)phase++;
+      else if(phase===3){quiet=maxSpeed(s)<8?quiet+1/30:0;if(quiet>=.5)return {s,history,objects,stopSpeed:maxSpeed(s)};}
+      if(phase===0)hold(s,.28,-.15);else if(phase===2)hold(s,.22);else J.release(s);
+    }
+    J.update(s,1/fps);history.push({phase,x:s.seeds.map(p=>p.x),active:J.party(s).length});
+    assert.equal(J.party(s).length,9,`preparation phase ${phase}, lost ${s.seeds.filter(p=>p.lost).map(p=>Math.round(p.x))}`);
     objects.forEach((p,i)=>assert.equal(s.seeds[i],p));
   }
-  return {s,history,phase};
+  throw Error('party did not reach a neutral complete stop in the bowl');
+}
+function pump(s,fps=60,turnAt=1260,crossAt=1650){
+  let reverse=false,minX=Infinity,peak=0,frames=0;
+  for(let i=0;i<15*fps;i++){
+    if(i%(fps/30)===0){if(median(s)<turnAt)reverse=true;hold(s,reverse?.38:-.38);}
+    J.update(s,1/fps);frames++;
+    minX=Math.min(minX,...J.party(s).map(p=>p.x));peak=Math.max(peak,maxSpeed(s));
+    if((i+1)%(fps/30)===0&&(Math.min(...J.party(s).map(p=>p.x))>crossAt||J.party(s).length<9))break;
+  }
+  return {s,minX,peak,frames,reverse};
+}
+function deliberate(source=D.create(),fps=60,transition=false){
+  const prep=prepare(source,fps,transition),result=pump(prep.s,fps);const s=result.s;
+  // Receive the landing, then gently leave the shallow landing shelf for END.
+  hold(s,-.18);advance(s,.6,fps);hold(s,.18);
+  for(let i=0;i<20*fps;i++){if(i%(fps/30)===0&&s.seeds.every(p=>p.x>1860))break;J.update(s,1/fps);}
+  J.release(s);advance(s,30,fps);
+  return {...prep,...result,phase:s.finished?6:5};
 }
 test('two surface gaps have no floor, including outside the complete terrain', () => {
   assert.equal(J.segments.length,3);assert.equal(J.GAP.length,2);
@@ -238,14 +259,9 @@ test('all lost holds a finite camera, waits quietly, and permits replay', () => 
   const s=endFixture(0),camera={...s.camera};advance(s,2);assert.ok(!s.finished);advance(s,.5);assert.ok(s.finished);
   assert.deepEqual(s.camera,camera);assert.equal(s.seeds.length,9);J.knock(s,180,250);advance(s,5);
   assert.ok(Number.isFinite(s.x+s.y+s.camera.x+s.camera.y+s.camera.z));
-  const h=sceneHarness('?dev=1&stage=1');h.setup();
-  // Input-only all-loss run: insufficient speed at the larger gap.
-  for(let i=0;i<25;i++){
-    h.scene.touch({id:1,state:'BEGAN',x:130,y:300});h.scene.touch({id:1,state:'MOVING',x:240,y:325});
-    for(let f=0;f<30;f++)h.scene.update(1/60);
-    h.scene.touch({id:1,state:'ENDED',x:240,y:325});for(let f=0;f<10;f++)h.scene.update(1/60);
-  }
-  for(let i=0;i<4*60;i++)h.scene.update(1/60);
+  // A fixture isolates the existing loss/replay contract from level tuning.
+  const h=sceneHarness('?dev=1&stage=1',{...J,create:()=>endFixture(0)});h.setup();
+  for(let i=0;i<3*60;i++)h.scene.update(1/60);
   assert.equal(h.probe().lost,9);assert.ok(h.probe().finished);assert.equal(h.elements.get('again').hidden,false);
   const status=h.elements.get('work-observation').textContent;assert.ok(status.includes('active 0 lost 9'));assert.ok(!status.includes('Infinity'));
   h.held.clear();h.elements.get('again').handlers.click();
@@ -254,28 +270,72 @@ test('all lost holds a finite camera, waits quietly, and permits replay', () => 
 });
 test('small gap is normally traversable; reunion gathers the same nine before round play', () => {
   const {s,history}=deliberate();assert.ok(history.some(f=>f.phase===2&&Math.min(...f.x)>503));
-  assert.ok(history.filter(f=>f.phase<5).every(f=>f.active===9));assert.equal(s.seeds.length,9);
+  assert.ok(history.filter(f=>f.phase<=3).every(f=>f.active===9));assert.equal(s.seeds.length,9);
 });
-test('deliberate gather, rollback and momentum carry all nine over the large gap to quiet END', () => {
+test('stopped local-bowl pumping, catch and gentle release carry nine to quiet END', () => {
   const {s,phase}=deliberate();assert.equal(phase,6);assert.equal(J.party(s).length,9);assert.ok(s.finished);
   assert.ok(s.seeds.every(p=>p.x>J.END.left&&p.x<J.END.right));
 });
 test('a physically detached Stage 0 party can zoom and then arrive 9/9', () => {
-  const source=attachedSource(),objects=source.seeds.slice(),{s}=deliberate(source,60,true);
+  const source=attachedSource(),objects=source.seeds.slice(),s=J.create(source,true);
+  advance(s,7);hold(s,.28,-.28);advance(s,16);J.release(s);advance(s,30);
   assert.ok(s.finished);assert.equal(J.party(s).length,9);objects.forEach((p,i)=>assert.equal(s.seeds[i],p));
 });
-test('constant maximum right exposes loss risk while remaining survivors can continue', () => {
-  const s=J.create(D.create());hold(s,.38);advance(s,12);
-  assert.ok(s.seeds.some(p=>p.lost));assert.ok(J.party(s).length>0);assert.ok(J.party(s).every(p=>p.x>J.END.left));
-  J.release(s);advance(s,25);assert.ok(s.finished);assert.equal(s.seeds.length,9);
+test('continuing right can cross the large gap; pumping is an additional route', () => {
+  const s=J.create(D.create());hold(s,.28,-.28);advance(s,16);
+  assert.equal(J.party(s).length,9);assert.ok(s.seeds.every(p=>p.x>J.END.left));
+  J.release(s);advance(s,30);assert.ok(s.finished);
 });
-test('30/60/120fps preserve deliberate 9/9 arrival and the same constant-right risk', () => {
-  const results=[30,60,120].map(fps=>{const {s}=deliberate(D.create(),fps);assert.ok(s.finished);assert.equal(J.party(s).length,9);
-    const rough=J.create(D.create());hold(rough,.38);advance(rough,12,fps);return rough;});
+test('30/60/120fps preserve stopped-party pumping, identity and nine-grain finish', () => {
+  const results=[30,60,120].map(fps=>{const r=deliberate(D.create(),fps);assert.ok(r.s.finished);assert.equal(J.party(r.s).length,9);assert.ok(r.minX>J.ROUND.left);return r.s;});
   for(const s of results.slice(1))for(let i=0;i<9;i++){
     assert.equal(s.seeds[i].lost,results[0].seeds[i].lost);
-    for(const key of ['x','y','vx','vy','angle'])assert.ok(Math.abs(s.seeds[i][key]-results[0].seeds[i][key])<1e-6);
+    for(const key of ['x','y','vx','vy','angle'])assert.ok(Math.abs(s.seeds[i][key]-results[0].seeds[i][key])<1e-6,`${key}: physical fps mismatch`);
   }
+});
+test('Stage 1 world response declares intent earlier, stays continuous and keeps a release tail', () => {
+  const a=D.create(),s=J.create(D.create());a.held=true;a.targetX=.3;hold(s,.3);
+  D.update(a,1/120);J.update(s,1/120);assert.ok(s.x>0&&s.x<.01,'spring must not snap to target');
+  for(let i=0;i<11;i++){D.update(a,1/120);J.update(s,1/120);}
+  assert.ok(s.x>a.x*1.8,`response ${s.x} vs Stage 0 ${a.x}`);
+  advance(s,.4);J.release(s);const before=s.seeds.map(p=>p.x);advance(s,.2);
+  assert.ok(s.seeds.some((p,i)=>Math.abs(p.x-before[i])>1));
+});
+test('complete neutral stop near the gap regenerates momentum from left/right tilt only', () => {
+  const r=prepare(),s=r.s;assert.ok(r.stopSpeed<8);assert.ok(Math.abs(s.x)+Math.abs(s.y)<.001);
+  assert.ok(s.seeds.every(p=>p.x>J.ROUND.left&&p.x<J.ROUND.right));
+  const initial=s.seeds.map(p=>({...p})),result=pump(s);
+  assert.ok(result.reverse);assert.ok(result.minX>J.ROUND.left,'every seed must stay within the local bowl until launch');
+  assert.ok(result.peak>300&&result.peak>r.stopSpeed*30);assert.equal(J.party(s).length,9);
+  assert.ok(s.seeds.every(p=>p.x>J.GAP[1].right));
+  assert.equal(s.targetY,0);assert.equal(s.seeds.length,9);r.objects.forEach((p,i)=>assert.equal(s.seeds[i],p));
+  assert.ok(initial.every(p=>Math.hypot(p.vx,p.vy)<8),'no carried launch speed');
+});
+test('same high-speed landing: short opposite tilt reduces maximum survivor speed', () => {
+  const r=prepare();pump(r.s);const a=structuredClone(r.s),b=structuredClone(r.s);
+  assert.equal(J.party(a).length,9);assert.ok(maxSpeed(a)>200);
+  hold(a,.38);hold(b,-.18);advance(a,.6);advance(b,.6);
+  assert.equal(J.party(b).length,9);assert.ok(maxSpeed(b)<maxSpeed(a)*.75,`catch ${maxSpeed(b)} vs flow ${maxSpeed(a)}`);
+  assert.ok(Math.max(...b.seeds.map(p=>p.x))<Math.max(...a.seeds.map(p=>p.x)));
+});
+test('quiet bowl has no automatic pump or launch without world input', () => {
+  const {s}=prepare();const before=median(s);advance(s,12);
+  assert.equal(J.party(s).length,9);assert.ok(maxSpeed(s)<15);assert.ok(Math.abs(median(s)-before)<25);
+  assert.ok(s.seeds.every(p=>p.x<J.ROUND.right));
+});
+test('a weak unsuccessful approach leaves ground survivors free to return and retry locally', () => {
+  const {s}=prepare();hold(s,.12);advance(s,5);assert.equal(J.party(s).length,9);
+  assert.ok(s.seeds.every(p=>p.x<J.ROUND.right),'not enough energy to leave the launch curve');
+  J.release(s);advance(s,25);const objects=s.seeds.slice();
+  const result=pump(s);assert.ok(result.minX>J.ROUND.left);assert.ok(s.seeds.some(p=>!p.lost&&p.x>J.GAP[1].right));
+  objects.forEach((p,i)=>assert.equal(s.seeds[i],p));
+});
+test('maximum right and premature bowl reversal expose physical risk', () => {
+  const flow=J.create(D.create());hold(flow,.38);advance(flow,20);
+  assert.ok(flow.seeds.some(p=>p.lost),'maximum right should expose the large-gap risk');
+  const {s}=prepare();pump(s,60,1290);advance(s,2);
+  assert.ok(s.seeds.some(p=>p.lost),'reversing before a sufficient left excursion can lose grains');
+  assert.equal(s.seeds.length,9);
 });
 test('long alternating world inputs retain every object with finite bounded state', () => {
   const s=J.create(D.create()),objects=s.seeds.slice();hold(s,0);
