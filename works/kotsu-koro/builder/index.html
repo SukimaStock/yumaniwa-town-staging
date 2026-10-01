@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#f3ecd7">
+<title>こつ、ころ。 Stage Builder</title><link rel="stylesheet" href="./builder.css">
+</head>
+<body>
+<header><div><strong>こつ、ころ。</strong><span>Stage Builder · v0.1</span></div><nav><button id="edit" aria-pressed="true">EDIT</button><button id="play">PLAY FROM HERE</button><button id="reset" hidden>RESET</button></nav></header>
+<div id="edit-tools"><div class="tools"><span>地形を伸ばす</span><button data-primitive="Straight">Straight</button><button data-primitive="Slope">Slope</button><button data-primitive="Bowl">Bowl</button><button data-primitive="Ramp">Ramp</button><button data-primitive="Gap">Gap</button><button data-primitive="Loop" disabled>Loop</button><i></i><button id="add-point">+ POINT</button><button id="delete">DELETE</button><button id="undo" aria-label="Undo">↶</button><button id="redo" aria-label="Redo">↷</button><button id="fit">FIT</button></div></div>
+<main><section id="canvas-area"><canvas id="stage-canvas" aria-label="Stage terrain editor" tabindex="0"></canvas><div id="canvas-hint">● をドラッグして地面をこねる · 線を選んでmaterial変更 · ホイールで横移動 / Ctrl＋ホイールで拡大</div><output id="run-result" aria-live="polite"></output></section>
+<aside id="inspector"><h1>地面を触って、すぐ遊ぶ。</h1><p>黄色の▼が試遊の出発点です。地面の上へドラッグして、PLAY FROM HERE。</p><h2 id="selection-title">地形を選択</h2><output id="selection-info"></output><label>material<select id="material"><option value="flesh">flesh</option><option value="polished">polished</option><option value="cushion">cushion</option></select></label><label id="tangent-label">tangent <input id="tangent" type="number" min="-4" max="4" step="0.05"></label><p id="selection-help">点・地面の区間・gapをクリック。端の点を動かすとgap幅が変わります。</p><hr><button id="save">SAVE DRAFT</button><button id="load">LOAD DRAFT</button><div class="file-row"><button id="export">EXPORT JSON</button><button id="import">IMPORT JSON</button></div><input id="file" type="file" accept=".json,application/json" hidden><button id="canonical">CURRENT STAGEへ戻す</button><p class="note">保存はこのブラウザ内。EXPORTしたJSONは作者が確認してから別途採用します。</p></aside></main>
+<footer><output id="message" role="status" aria-live="polite">現在のStage 1を読み込みました。</output><a href="../">本編を開く ↗</a></footer>
+<script src="../dynamics.js"></script><script src="../stage-data.js"></script><script src="../stage-geometry.js"></script><script src="../journey.js"></script><script src="../stage-draw.js"></script><script src="./model.js"></script><script src="./builder.js"></script>
+</body></html>

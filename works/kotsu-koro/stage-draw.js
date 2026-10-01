@@ -11,33 +11,7 @@
     for (const p of samples) c.lineTo(p.x, p.y + lift);
     c.lineTo(samples.at(-1).x, 1100); c.closePath();
   }
-  function draw(c, s, seed, shell) {
-    const o = J.opening(s), g = s.geometry || J.geometry;
-    // The tabletop opens into cream space as the same cut surface fills the view.
-    c.save(); c.globalAlpha = o;
-    const sky = c.createLinearGradient(0, 0, 0, 740);
-    sky.addColorStop(0, '#faf2d5'); sky.addColorStop(.58, '#fff3cf'); sky.addColorStop(1, '#efd8a4');
-    c.fillStyle = sky; c.fillRect(0, 0, 390, 740);
-    // Broad distant curves, separated from the foreground; no hollow or tube.
-    c.fillStyle = '#d8dec0';
-    c.beginPath(); c.moveTo(-100,740);
-    for(let x=-100;x<=490;x+=10) c.lineTo(x, 475 + Math.sin((x+s.camera.x*.16)/260)*52);
-    c.lineTo(490,740); c.closePath(); c.fill();
-    c.fillStyle = '#ecd5a0';
-    c.beginPath(); c.moveTo(-100,740);
-    for(let x=-100;x<=490;x+=10) c.lineTo(x, 560 + Math.sin((x+s.camera.x*.28)/210+.8)*34);
-    c.lineTo(490,740); c.closePath(); c.fill(); c.restore();
-    c.save(); transform(c,s);
-    if (s.transition && o < .7 && shell) {
-      c.save(); c.translate(g.START.x,g.START.y);
-      // The curved cut unrolls into a huge landscape. Both visible rim and
-      // collision expand; the grains themselves are never rescaled/replaced.
-      c.scale(1 + o * 1150 / 94, 1 + o * 1150 / 94);
-      c.globalAlpha = 1 - J.smooth((o - .20) / .5); shell(c); c.restore();
-    }
-    if (o > 0) {
-      const lift = (1-o)*700;
-      c.save(); c.globalAlpha = J.smooth(o*2);
+  function drawTerrain(c,g,lift=0) {
       for (const segment of g.segments) {
         const samples = segment.samples;
         c.save();
@@ -75,11 +49,40 @@
       c.beginPath();c.moveTo(g.bounds.left,-200);c.lineTo(g.bounds.left,(g.floor(g.bounds.left)?.y||350)+lift);
       c.moveTo(g.bounds.right,(g.floor(g.bounds.right)?.y||350)+lift);c.lineTo(g.bounds.right,-200);
       c.strokeStyle='#647454';c.lineWidth=7;c.stroke();
+  }
+  function draw(c, s, seed, shell) {
+    const o = J.opening(s), g = s.geometry || J.geometry;
+    // The tabletop opens into cream space as the same cut surface fills the view.
+    c.save(); c.globalAlpha = o;
+    const sky = c.createLinearGradient(0, 0, 0, 740);
+    sky.addColorStop(0, '#faf2d5'); sky.addColorStop(.58, '#fff3cf'); sky.addColorStop(1, '#efd8a4');
+    c.fillStyle = sky; c.fillRect(0, 0, 390, 740);
+    // Broad distant curves, separated from the foreground; no hollow or tube.
+    c.fillStyle = '#d8dec0';
+    c.beginPath(); c.moveTo(-100,740);
+    for(let x=-100;x<=490;x+=10) c.lineTo(x, 475 + Math.sin((x+s.camera.x*.16)/260)*52);
+    c.lineTo(490,740); c.closePath(); c.fill();
+    c.fillStyle = '#ecd5a0';
+    c.beginPath(); c.moveTo(-100,740);
+    for(let x=-100;x<=490;x+=10) c.lineTo(x, 560 + Math.sin((x+s.camera.x*.28)/210+.8)*34);
+    c.lineTo(490,740); c.closePath(); c.fill(); c.restore();
+    c.save(); transform(c,s);
+    if (s.transition && o < .7 && shell) {
+      c.save(); c.translate(g.START.x,g.START.y);
+      // The curved cut unrolls into a huge landscape. Both visible rim and
+      // collision expand; the grains themselves are never rescaled/replaced.
+      c.scale(1 + o * 1150 / 94, 1 + o * 1150 / 94);
+      c.globalAlpha = 1 - J.smooth((o - .20) / .5); shell(c); c.restore();
+    }
+    if (o > 0) {
+      const lift = (1-o)*700;
+      c.save(); c.globalAlpha = J.smooth(o*2);
+      drawTerrain(c,g,lift);
       c.restore();
     }
     // Draw exactly one copy of each object over the changing world.
     for(const [i,p] of s.seeds.entries())if(!p.inactive)seed(c,p,i,1);
     c.restore();
   }
-  root.PumpkinStageDraw = { draw };
+  root.PumpkinStageDraw = { draw, drawTerrain };
 })(window);
