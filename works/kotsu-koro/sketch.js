@@ -48,8 +48,12 @@
       c.rotate(model.x * 0.22);
       c.scale(1 + model.ring * 0.22, 1 - model.y * 0.15 - model.ring * 0.18);
     }
+    // A few local pixels of depth only. Fade before the shell expands so
+    // the local transition renderer starts with the identical layered pose.
+    const depth = model.transition ? 1 - J.smooth(model.transition.progress / .36) : 1;
+    const px = model.x * depth, py = model.y * depth;
     // Lower skin: the visible thickness gives the drag somewhere to land.
-    c.save(); c.translate(0, 15);
+    c.save(); c.translate(-px * 5, 15 - py * 3);
     outline(c, 143, 0.80, 5);
     const skin = c.createLinearGradient(-100, -110, 80, 100);
     skin.addColorStop(0, "#62745b"); skin.addColorStop(0.46, "#3b5341"); skin.addColorStop(1, "#25392e");
@@ -63,6 +67,7 @@
       c.lineWidth = i % 2 ? 6 : 4; c.stroke();
     }
     c.restore();
+    c.save(); c.translate(-px * .7, -py * .5);
     outline(c, 141, 0.80, 4.5);
     const flesh = c.createLinearGradient(-90, -100, 110, 130);
     flesh.addColorStop(0, "#f2bc59"); flesh.addColorStop(.44, "#df9640"); flesh.addColorStop(1, "#be762e");
@@ -78,6 +83,8 @@
       c.strokeStyle = i % 3 ? "rgba(151,84,29,.14)" : "rgba(255,224,139,.35)";
       c.lineWidth = .6; c.stroke();
     }
+    c.restore();
+    c.save(); c.translate(px * 7, py * 4);
     outline(c, 105, .80, 2.5);
     const interior = c.createRadialGradient(-19 - model.x * 20, -17 - model.y * 20, 7, 0, 0, 118);
     interior.addColorStop(0, "#ca8b44"); interior.addColorStop(.62, "#bf7b36"); interior.addColorStop(.88, "#9a5829"); interior.addColorStop(1, "#75441f");
@@ -89,6 +96,9 @@
       c.bezierCurveTo(Math.cos(a + .08) * 89, Math.sin(a + .08) * 89 * .8, Math.cos(a - .12) * 75, Math.sin(a - .12) * 75 * .8, Math.cos(a) * 71, Math.sin(a) * 71 * .8);
       c.strokeStyle = "rgba(240,174,78,.24)"; c.lineWidth = 1.5; c.stroke();
     }
+    c.restore(); c.restore();
+    // Physical seeds/tethers and their clip retain the original transform.
+    outline(c, 105, .80, 2.5); c.save(); c.clip();
     for (const m of showSeeds ? model.marks : []) {
       c.beginPath(); c.moveTo(m.ox, m.oy * .8); c.lineTo(m.x, m.y * .8);
       c.strokeStyle = `rgba(246,200,124,${.13 * Math.pow(1 - m.age / 18, 2)})`;
@@ -184,7 +194,9 @@
       }
       if (debugStatus && model.time - debugAt > .35) {
         debugAt = model.time;
-        debugStatus.textContent = mode + " | loose " + model.seeds.filter(p => !p.attached).length + "/9 | x " + Math.round(Math.min(...model.seeds.map(p => p.x))) + "…" + Math.round(Math.max(...model.seeds.map(p => p.x))) + " | held " + model.held + " | exit " + !!model.finished;
+        const active = model.seeds.filter(p => !p.lost);
+        const span = active.length ? Math.round(Math.min(...active.map(p => p.x))) + "…" + Math.round(Math.max(...active.map(p => p.x))) : "—";
+        debugStatus.textContent = mode + " | loose " + model.seeds.filter(p => !p.attached).length + "/9 | active " + active.length + " lost " + model.seeds.filter(p => p.lost).length + " reached " + active.filter(p => p.x > J.END.left && p.x < J.END.right).length + " | x " + span + " | held " + model.held + " | exit " + !!model.finished;
       }
       if (touchedOnce) hint *= Math.exp(-dt * .8);
       if (model.contacts.length && model.time - lastSound > .065) {
@@ -263,8 +275,10 @@
   // Read-only diagnostics. No gameplay state is included in Session Report.
   if (new URLSearchParams(location.search).get("dev") === "1") {
     root.PumpkinProbe = () => ({ mode, loose: model.seeds.filter(p => !p.attached).length, seedCount: model.seeds.length, finished: !!model.finished, held: model.held, tilt: [model.x, model.y],
+      active: model.seeds.filter(p => !p.lost).length, lost: model.seeds.filter(p => p.lost).length, reached: model.seeds.filter(p => !p.lost && p.x > J.END.left && p.x < J.END.right).length,
       speed: model.seeds.map(p => Math.hypot(p.vx, p.vy)), impacts: model.impactCount,
       bounds: model.seeds.map(p => [Math.round(p.x), Math.round(p.y)]),
+      state: model.seeds.map(p => ({lost: !!p.lost, inactive: !!p.inactive})),
       camera: model.camera ? { ...model.camera } : null, transition: model.transition ? model.transition.progress : null,
       marks: model.marks.length });
   }

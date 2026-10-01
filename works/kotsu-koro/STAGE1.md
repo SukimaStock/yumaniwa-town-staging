@@ -11,7 +11,7 @@ staging main `43eff88789468644f477d82847da8509d54cdf5f`.
 
 ## Single scene, three modes
 
-- `prologue`: existing Stage 0 physics and rendering.
+- `prologue`: existing Stage 0 physics, with drawing-only subtle depth layers.
 - `transition`: 1.8 seconds after the last detach, begin a 6.4-second camera zoom.
   The visible rim and its collision boundary expand together, the cut surface
   unrolls into open terrain, and vertical gravity gradually replaces the concave
@@ -43,30 +43,48 @@ movement, unique identities, count and finite state. Grain roll starts at its
 existing value and eases into Stage 1 tumbling rather than jumping at handoff.
 The seed array is drawn once, above the evolving world.
 
-## Five beats, one shared surface
+## Two gaps, three shared surfaces
 
-The Stage 1 ground is a single sampled height curve (`J.terrain`). Collision
-interpolates those same samples and computes their surface normals; rendering
-uses those samples directly. Visible green boundaries enclose only the left
-and right ends. The space above the ground stays open.
+`J.segments` defines three sampled surfaces. `floor(x)` returns null in each
+hole and outside the terrain. Both drawing and contact use these same samples,
+including their vertical cut sides: a grain below a landing lip is not pulled
+back onto the top. No bridge, invisible floor or grain attraction.
 
-1. Safe start: broad level surface, no horizontal force until the world tilts.
-2. Small slope: low rise and broad downward curve.
-3. Group break/rejoin: shallow pale cushioned valley, reachable in both directions.
-4. Round play: broad asymmetric half-pipe; swinging the world adds momentum,
-   while its lower downstream lip allows a slow ordinary tilt route.
-5. Release: slightly smoother bright ground leads into a wide quiet basin.
+1. Safe start, then a small slope.
+2. GAP A: x455–503 (48 world px), with a slightly lower landing. Modest
+   momentum carries the party; a slow or dispersed tail can fall.
+3. Safe reunion, then the shallow cushioned valley near x810.
+4. Round playground near x1330. Its rising downstream lip retains an upward
+   tangent; rolling back and gathering before a run-up helps the party launch.
+5. GAP B: x1545–1640 (95 world px), then the long release into the quiet END.
 
-There is no invisible waypoint force, auto-steering, death, checkpoint or
-teleport. Gravity and normal contact make the basin settle naturally.
-Stage 1 vertical gravity and friction are work-owned values and do not alter
-Stage 0. Per-grain drag differs slightly. Support uses the flat grain's
-orientation, pairs exchange momentum, and fixed physics steps remain 1/120s.
-World-knock force uses the physical party centre, never the render-rate camera.
+World tilt, tap knock, seed support/orientation/pair collisions, variable drag,
+release tail and fixed 1/120s steps remain. Stage 0 physics is byte-identical.
+There is no compulsory special move: the tested nine-grain route gathers in
+both valleys, rolls back a little, then uses a steady diagonal run-up.
 
-All nine must enter the end and remain slow for 3.6 seconds before the small
-`もういちど` button appears. Simulation continues after this; knocking or tilting
-can still disturb the group. Replay resets the original prologue.
+## Loss and surviving-party finish
+
+Below y600, a grain becomes `lost`: excluded from party collision, knock,
+median/span/zoom and END checks. Its same object keeps falling briefly; after
+passing y1000 or two seconds it becomes inactive. The array always contains
+all nine. A grain still on ground is never marked lost because it lags behind.
+
+At least one survivor must be within END and slow for 3.6 seconds. Any survivor
+count is accepted. Physics continues, and the remaining grains themselves are
+the result; no count HUD, score or failure display. With zero survivors, hold
+the last camera for a quiet 2.4 seconds before showing the same small replay.
+Replay returns to the original three loose / six attached Stage 0 seeds.
+
+## Drawing-only depth
+
+Within the existing vessel transform, the lower skin offsets by (-5*x,-3*y),
+the flesh by (-.7*x,-.5*y), and the bowl by (7*x,4*y). The maximum relative
+horizontal difference is 4.56 local pixels. Seeds, tethers, their clip and hit
+positions retain the original transform. The tabletop shadow retains its
+existing lower follow amount. These offsets ease to zero by transition progress
+.36, before the local shell begins expanding. The last prologue and first zoom
+frame therefore use the same depth offsets without a layer snap.
 
 ## Controls and boundaries
 
@@ -89,4 +107,4 @@ release; cancellation does not knock. The accepted Stage 0 grab knock remains.
 Camera follow uses the median grain position, so one remote grain cannot put
 the camera in a completely empty gap. This is view-only, not a recovery force.
 Two regressions cover actual scene regrabs/taps/cancellation and a dispersed
-camera fixture. The final horizontal test total is 17.
+camera fixture. The original refinement added two regressions. The current risk tests extend them.

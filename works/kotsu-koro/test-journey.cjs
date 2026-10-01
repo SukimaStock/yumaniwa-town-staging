@@ -65,21 +65,6 @@ test('flat seed support is orientation-sensitive along the surface normal', () =
   const p={angle:0};assert.ok(J.support(p,1,0)>J.support(p,0,1)*1.7);
   p.angle=Math.PI/2;assert.ok(J.support(p,0,1)>J.support(p,1,0)*1.7);
 });
-test('all nine reach the quiet end with only right world tilt; release settles them', () => {
-  const s=J.create(D.create()), objects=s.seeds.slice();hold(s,.28);
-  assert.ok(allAt(s,1820),'right tilt must have a slow route through the round section');
-  J.release(s);advance(s,20);assert.ok(s.finished);assert.equal(s.seeds.length,9);
-  objects.forEach((p,i)=>assert.equal(p,s.seeds[i]));
-});
-test('ordinary keyboard right/left can return from the round section and rejoin', () => {
-  const s=J.create(D.create());hold(s,.28);assert.ok(allAt(s,1390));
-  const spread=Math.max(...s.seeds.map(p=>p.x))-Math.min(...s.seeds.map(p=>p.x));
-  assert.ok(spread>25,'some grains should genuinely lag');
-  hold(s,-.28,-.20);
-  for(let i=0;i<25*60 && Math.max(...s.seeds.map(p=>p.x))>1050;i++)J.update(s,1/60);
-  assert.ok(s.seeds.every(p=>p.x<1050),'round hollow must be recoverable in both directions');
-  hold(s,.28);assert.ok(allAt(s,1820));J.release(s);advance(s,20);assert.ok(s.finished);
-});
 test('knock is a local world impulse, not direct grain steering', () => {
   const s=J.create(D.create()); const before=s.seeds.map(p=>({...p}));
   J.knock(s,J.START.x-40,J.START.y-30);
@@ -90,28 +75,6 @@ test('release leaves a physical tail after the world spring recovers', () => {
   const s=J.create(D.create());hold(s,.3);advance(s,2);J.release(s);advance(s,1);
   assert.ok(Math.abs(s.x)<.05);assert.ok(s.seeds.some(p=>Math.hypot(p.vx,p.vy)>15));
 });
-test('the finish retains live physics and can be disturbed after quiet', () => {
-  const s=J.create(D.create());hold(s,.28);assert.ok(allAt(s,1820));J.release(s);advance(s,20);assert.ok(s.finished);
-  const before=s.seeds.map(p=>p.x);J.knock(s,1890,450);advance(s,.2);
-  assert.ok(s.seeds.some((p,i)=>Math.abs(p.x-before[i])>.5));
-});
-test('draw and collision share the exact sampled horizontal terrain', () => {
-  const draw=fs.readFileSync(path.join(__dirname,'stage-draw.js'),'utf8');assert.ok(draw.includes('J.terrain'));
-  assert.ok(!draw.includes('bowl'));assert.ok(!draw.includes('lane'));
-  for(const p of J.terrain)assert.ok(Math.abs(J.floor(p.x).y-p.y)<1e-8);
-  assert.ok(J.terrain.at(-1).x-J.terrain[0].x>1500);
-  assert.ok(Math.max(...J.terrain.map(p=>p.y))-Math.min(...J.terrain.map(p=>p.y))<200);
-});
-test('no death, deletion, warp or hidden attraction over long alternating inputs', () => {
-  const s=J.create(D.create()),objects=s.seeds.slice();hold(s,0);
-  for(let i=0;i<120*60;i++) {
-    s.targetX=Math.sin(i*.013)*.38;s.targetY=Math.cos(i*.011)*.38;J.update(s,1/60);
-    for(const [k,p]of s.seeds.entries()) {
-      assert.equal(p,objects[k]);assert.ok(Number.isFinite(p.x+p.y+p.vx+p.vy+p.angle+p.roll));
-      assert.ok(p.x>-40&&p.x<2060);assert.ok(J.field(p.x,p.y).signed<1);
-    }
-  }
-});
 test('30/60/120fps match physical state through transition, tilt, knock and release', () => {
   const runs=[30,60,120].map(fps=>{
     const s=J.create(D.create(),true);advance(s,7,fps);hold(s,.28);advance(s,4,fps);
@@ -120,14 +83,6 @@ test('30/60/120fps match physical state through transition, tilt, knock and rele
   for(const s of runs.slice(1))for(let i=0;i<9;i++) {
     for(const k of ['x','y','vx','vy','angle','spin','roll'])assert.ok(Math.abs(s.seeds[i][k]-runs[0].seeds[i][k])<1e-6,`${k} fps mismatch`);
   }
-});
-test('camera has a readable minimum zoom and normal play stays compact', () => {
-  const s=J.create(D.create());hold(s,.28);let spread=0;
-  for(let i=0;i<15*60;i++) {
-    J.update(s,1/60);const xs=s.seeds.map(p=>p.x);spread=Math.max(spread,Math.max(...xs)-Math.min(...xs));
-    assert.ok(s.camera.z>=1.15);assert.ok(s.camera.z<=J.ZOOM);
-  }
-  assert.ok(spread<330,`group dispersed by ${spread}`);
 });
 test('neutral flat ground supplies gravity but no automatic horizontal progression', () => {
   const s=J.create(D.create());advance(s,12);
@@ -141,8 +96,35 @@ function sceneHarness(search = "?dev=1") {
     SSE:{createApp:v=>{config=v;},audio:{withBaseline:v=>v,baseline:()=>({reference:{se:{action:.46,soft:.24}}}),play:name=>plays.push(name)},
     input:{action:n=>held.has(n),actionPressed:()=>false}}};c.window=c;
   vm.runInNewContext(fs.readFileSync(path.join(__dirname,'sketch.js'),'utf8'),c);
-  return {scene:config.scenes.main,probe:c.PumpkinProbe,held,plays};
+  const elements = new Map(), translations = [];
+  function element() { return { hidden:true, textContent:'', handlers:{}, addEventListener(n,f){this.handlers[n]=f;}, setAttribute(){}, getContext(){return context;} }; }
+  const context = new Proxy({}, {get: (_,name) => name === 'createLinearGradient' || name === 'createRadialGradient' ? () => ({addColorStop(){}}) : name==='translate' ? (x,y)=>translations.push([x,y]) : () => {}});
+  c.document={getElementById(id){if(!elements.has(id))elements.set(id,element());return elements.get(id);},createElement:element,body:{appendChild(el){elements.set(el.id,el);}}};
+  c.withCanvasContext=run=>run(context);
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname,'stage-draw.js'),'utf8'),c);
+  c.SSE.audio.preload=()=>{};c.SSE.audio.unlock=()=>{};c.SSE.audio.enabled=true;
+  return {scene:config.scenes.main,probe:c.PumpkinProbe,held,plays,setup:config.setup,elements,translations};
 }
+test('actual drawing uses weak depth layers, leaves seeds physical and fades before shell expansion', () => {
+  const h=sceneHarness();h.setup();h.held.add('right');h.held.add('down');
+  for(let i=0;i<60;i++)h.scene.update(1/60);
+  h.translations.length=0;h.scene.draw();const [x,y]=h.probe().tilt;
+  assert.ok(Math.abs(h.translations[3][0]+x*5)<1e-10);
+  assert.ok(Math.abs(h.translations[4][0]+x*.7)<1e-10);
+  assert.ok(Math.abs(h.translations[5][0]-x*7)<1e-10);
+  assert.ok(Math.abs(h.translations[3][0]-h.translations[5][0])<5);
+  assert.equal(h.translations.length,15,'only nine seed translations; no seed parallax layer');
+  let found=false;
+  for(let i=0;i<40*60;i++){
+    h.scene.update(1/60);const p=h.probe();
+    if(p.mode==='transition'&&p.transition>.36&&p.transition<.45){
+      h.translations.length=0;h.scene.draw();
+      assert.ok(h.translations.some(([x,y])=>x===0&&y===15));
+      assert.ok(h.translations.filter(([x,y])=>x===0&&y===0).length>=2);found=true;break;
+    }
+  }
+  assert.ok(found);
+});
 test('actual scene preserves the post-detach pause, zoom state, and journey input', () => {
   const h=sceneHarness();h.held.add('right');h.held.add('down');
   let looseAt=null,zoomAt=null,journeyAt=null;
@@ -167,8 +149,8 @@ test('Stage 1 drag regrabs do not knock; a tap does; cancelled gestures are iner
   }
   assert.ok(!h.plays.includes('shell'),'a world drag must not scatter the grains with a knock');
   const p=h.probe(),xs=p.bounds.map(p=>p[0]);
-  assert.ok(Math.max(...xs)-Math.min(...xs)<370,`regrab spread: ${xs}`);
-  assert.ok(Math.min(...xs)>500,'repeated real scene gestures must advance the party');
+  assert.equal(p.active+p.lost,9);
+  assert.ok(Math.max(...xs)>500,'repeated real scene gestures must advance grains');
   h.scene.touch({id:2,state:'BEGAN',x:200,y:300});h.scene.touch({id:2,state:'CANCELLED',x:200,y:300});
   assert.ok(!h.plays.includes('shell'));
   h.scene.touch({id:3,state:'BEGAN',x:200,y:300});h.scene.touch({id:3,state:'ENDED',x:200,y:300});
@@ -182,5 +164,128 @@ test('a dispersed camera retains real grains instead of centring the empty extre
   const visible=s.seeds.filter(p=>{const q=J.screenPoint(s,p.x,p.y);return q.x>15&&q.x<375&&q.y>15&&q.y<725;});
   assert.ok(visible.length>=6,`camera lost the party: ${visible.length}`);
   assert.ok(s.camera.z>=1.15);
+});
+// Route uses world inputs only: gather in the two valleys, roll back for a
+// run-up, then release in END. No fixture positions, seed steering or knock.
+function deliberate(source = D.create(), fps = 60, transition = false) {
+  const s=J.create(source,transition), objects=s.seeds.slice();let phase=0, wait=0;
+  if(transition)advance(s,7,fps);
+  const history=[];
+  for(let i=0;i<90*fps&&!s.finished;i++) {
+    const active=J.party(s),lo=Math.min(...active.map(p=>p.x)),hi=Math.max(...active.map(p=>p.x));
+    if(phase===0) {hold(s,.28,-.15);if(lo>730){phase++;wait=i;}}
+    else if(phase===1) {J.release(s);if(i-wait>=8*fps){phase++;wait=i;}}
+    else if(phase===2) {hold(s,.28,-.15);if(lo>1160){phase++;wait=i;}}
+    else if(phase===3) {J.release(s);if(i-wait>=8*fps){phase++;wait=i;}}
+    else if(phase===4) {hold(s,-.28,-.15);if(hi<1260){phase++;wait=i;}}
+    else if(phase===5) {hold(s,.32,-.32);if(lo>1820){phase++;wait=i;}}
+    else J.release(s);
+    J.update(s,1/fps);history.push({phase,active:J.party(s).length,x:s.seeds.map(p=>p.x)});
+    objects.forEach((p,i)=>assert.equal(s.seeds[i],p));
+  }
+  return {s,history,phase};
+}
+test('two surface gaps have no floor, including outside the complete terrain', () => {
+  assert.equal(J.segments.length,3);assert.equal(J.GAP.length,2);
+  for(const gap of J.GAP)for(let x=gap.left+.1;x<gap.right;x+=.5){assert.equal(J.floor(x),null);assert.equal(J.field(x,500),null);}
+  for(const x of [-1000,-51,2071,10000])assert.equal(J.floor(x),null);
+  for(const segment of J.segments)for(const p of segment.samples)assert.ok(Math.abs(J.floor(p.x).y-p.y)<1e-8);
+  const draw=fs.readFileSync(path.join(__dirname,'stage-draw.js'),'utf8');assert.ok(draw.includes('J.segments'));
+  assert.ok(!draw.includes('for(const p of J.terrain)'),'drawing must not bridge separate platforms');
+});
+test('slow seed falls naturally through a gap without snapping onto a platform underside', () => {
+  const s=J.create(D.create()),p=s.seeds[0];
+  Object.assign(p,{x:478,y:327,vx:0,vy:0});advance(s,.4);
+  assert.ok(p.y>340);assert.ok(p.vy>40);assert.ok(!p.lost);
+  advance(s,3);assert.ok(p.lost&&p.inactive);assert.equal(s.seeds.length,9);
+  assert.equal(s.seeds[0],p);
+  // A below-lip grain approaching the far wall must remain below the top.
+  const q=s.seeds[1];Object.assign(q,{x:490,y:400,vx:100,vy:0});advance(s,.25);
+  assert.ok(q.y>400);assert.ok(q.x<503,'visible cut side must prevent entry below the platform');
+});
+test('lost grains retain identity, stop colliding/knocking and leave camera bounds', () => {
+  const s=J.create(D.create()),p=s.seeds[0];Object.assign(p,{x:478,y:599,vx:0,vy:80});advance(s,.05);
+  assert.ok(p.lost&&!p.inactive);const vx=p.vx,vy=p.vy;J.knock(s,p.x,p.y);
+  assert.equal(p.vx,vx);assert.equal(p.vy,vy);
+  const active=J.party(s);assert.equal(active.length,8);
+  Object.assign(p,{x:-5000,y:5000,inactive:true});advance(s,5);
+  assert.ok(s.camera.x>50&&s.camera.y<350);assert.ok(s.camera.z>1.5);
+  assert.equal(s.seeds[0],p);assert.equal(s.seeds.length,9);
+  // Coincident inactive object cannot push or exchange momentum with a survivor.
+  const a=active[0];Object.assign(p,{x:a.x,y:a.y,vx:999,vy:999});const clone=structuredClone(s);
+  Object.assign(clone.seeds[0],{x:-5000,y:5000});J.update(s,1/60);J.update(clone,1/60);
+  for(let i=1;i<9;i++)assert.equal(s.seeds[i].vx,clone.seeds[i].vx);
+});
+test('a distant ground straggler stays alive, affects framing and is recoverable', () => {
+  const s=J.create(D.create()),p=s.seeds[0];
+  s.seeds.forEach((p,i)=>Object.assign(p,{x:i?810+i*17:80,y:i?J.floor(810+i*17).y-11:339,vx:0,vy:0}));
+  advance(s,5);assert.ok(!p.lost);assert.equal(J.party(s).length,9);assert.ok(s.camera.z<1.2);
+  const x=p.x;hold(s,.28,-.15);advance(s,2);assert.ok(p.x>x+100);assert.ok(!p.lost);
+});
+function endFixture(count) {
+  const s=J.create(D.create());s.seeds.forEach((p,i)=>Object.assign(p,i<count?
+    {x:1840+i*14,y:J.floor(1840+i*14).y-12,vx:0,vy:0}:
+    {lost:true,inactive:true,x:478,y:1001,vx:0,vy:0}));return s;
+}
+test('1, 3, 6, 8 and 9 surviving seeds can finish while lost grains never block END', () => {
+  for(const count of [1,3,6,8,9]){
+    const s=endFixture(count);advance(s,25);assert.ok(s.finished,`survivors ${count}`);assert.equal(J.party(s).length,count);
+    const before=J.party(s).map(p=>p.x),a=J.party(s)[0];J.knock(s,a.x-40,a.y-20);advance(s,.2);
+    assert.ok(J.party(s).some((p,i)=>Math.abs(p.x-before[i])>.5),'finish keeps live physics');
+  }
+});
+test('all lost holds a finite camera, waits quietly, and permits replay', () => {
+  const s=endFixture(0),camera={...s.camera};advance(s,2);assert.ok(!s.finished);advance(s,.5);assert.ok(s.finished);
+  assert.deepEqual(s.camera,camera);assert.equal(s.seeds.length,9);J.knock(s,180,250);advance(s,5);
+  assert.ok(Number.isFinite(s.x+s.y+s.camera.x+s.camera.y+s.camera.z));
+  const h=sceneHarness('?dev=1&stage=1');h.setup();
+  // Input-only all-loss run: insufficient speed at the larger gap.
+  for(let i=0;i<25;i++){
+    h.scene.touch({id:1,state:'BEGAN',x:130,y:300});h.scene.touch({id:1,state:'MOVING',x:240,y:325});
+    for(let f=0;f<30;f++)h.scene.update(1/60);
+    h.scene.touch({id:1,state:'ENDED',x:240,y:325});for(let f=0;f<10;f++)h.scene.update(1/60);
+  }
+  for(let i=0;i<4*60;i++)h.scene.update(1/60);
+  assert.equal(h.probe().lost,9);assert.ok(h.probe().finished);assert.equal(h.elements.get('again').hidden,false);
+  const status=h.elements.get('work-observation').textContent;assert.ok(status.includes('active 0 lost 9'));assert.ok(!status.includes('Infinity'));
+  h.held.clear();h.elements.get('again').handlers.click();
+  assert.equal(h.probe().mode,'prologue');assert.equal(h.probe().seedCount,9);assert.equal(h.probe().loose,3);
+  assert.equal(h.probe().lost,0);assert.equal(h.probe().active,9);assert.ok(!h.probe().finished);
+});
+test('small gap is normally traversable; reunion gathers the same nine before round play', () => {
+  const {s,history}=deliberate();assert.ok(history.some(f=>f.phase===2&&Math.min(...f.x)>503));
+  assert.ok(history.filter(f=>f.phase<5).every(f=>f.active===9));assert.equal(s.seeds.length,9);
+});
+test('deliberate gather, rollback and momentum carry all nine over the large gap to quiet END', () => {
+  const {s,phase}=deliberate();assert.equal(phase,6);assert.equal(J.party(s).length,9);assert.ok(s.finished);
+  assert.ok(s.seeds.every(p=>p.x>J.END.left&&p.x<J.END.right));
+});
+test('a physically detached Stage 0 party can zoom and then arrive 9/9', () => {
+  const source=attachedSource(),objects=source.seeds.slice(),{s}=deliberate(source,60,true);
+  assert.ok(s.finished);assert.equal(J.party(s).length,9);objects.forEach((p,i)=>assert.equal(s.seeds[i],p));
+});
+test('constant maximum right exposes loss risk while remaining survivors can continue', () => {
+  const s=J.create(D.create());hold(s,.38);advance(s,12);
+  assert.ok(s.seeds.some(p=>p.lost));assert.ok(J.party(s).length>0);assert.ok(J.party(s).every(p=>p.x>J.END.left));
+  J.release(s);advance(s,25);assert.ok(s.finished);assert.equal(s.seeds.length,9);
+});
+test('30/60/120fps preserve deliberate 9/9 arrival and the same constant-right risk', () => {
+  const results=[30,60,120].map(fps=>{const {s}=deliberate(D.create(),fps);assert.ok(s.finished);assert.equal(J.party(s).length,9);
+    const rough=J.create(D.create());hold(rough,.38);advance(rough,12,fps);return rough;});
+  for(const s of results.slice(1))for(let i=0;i<9;i++){
+    assert.equal(s.seeds[i].lost,results[0].seeds[i].lost);
+    for(const key of ['x','y','vx','vy','angle'])assert.ok(Math.abs(s.seeds[i][key]-results[0].seeds[i][key])<1e-6);
+  }
+});
+test('long alternating world inputs retain every object with finite bounded state', () => {
+  const s=J.create(D.create()),objects=s.seeds.slice();hold(s,0);
+  for(let i=0;i<120*60;i++){
+    s.targetX=Math.sin(i*.013)*.38;s.targetY=Math.cos(i*.011)*.38;J.update(s,1/60);
+    for(const [k,p]of s.seeds.entries()){
+      assert.equal(p,objects[k]);for(const key of ['x','y','vx','vy','angle','roll'])assert.ok(Number.isFinite(p[key]));
+      assert.ok(p.x>-100&&p.x<2200&&p.y>-300&&p.y<1100);assert.ok(!p.inactive||p.lost);
+    }
+    assert.ok(Number.isFinite(s.camera.x+s.camera.y+s.camera.z));
+  }
 });
 console.log(`${passed} horizontal journey checks passed.`);
