@@ -124,6 +124,18 @@
     // main.js に残っている Work Open フックも、この共通関数へ流す。
     window.trackYumaniwaEvent = track;
 
+    // The terminal launches directly; keep the same temporary attribution scope as legacy guide menus.
+    window.launchYumaniwaGuideWork = function (work) {
+        if (typeof window.launchWork !== "function") return;
+        var previousSource = workOpenSource;
+        workOpenSource = "guide";
+        try {
+            return window.launchWork(work);
+        } finally {
+            workOpenSource = previousSource;
+        }
+    };
+
     function loadPlausible() {
         if (IS_STAGING) return;
         if (document.getElementById("yumaniwa-plausible-script")) return;

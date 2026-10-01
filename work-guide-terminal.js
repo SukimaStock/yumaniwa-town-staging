@@ -471,7 +471,9 @@
 
                 state.index = wrapIndex(state.index, works.length);
 
-                if (typeof root.launchWork === "function") {
+                if (typeof root.launchYumaniwaGuideWork === "function") {
+                    root.launchYumaniwaGuideWork(works[state.index]);
+                } else if (typeof root.launchWork === "function") {
                     root.launchWork(works[state.index]);
                 }
             }
