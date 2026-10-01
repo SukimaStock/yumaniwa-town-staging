@@ -2,7 +2,7 @@
   "use strict";
   const W = root.SUKIMASTOCK_WORK, D = root.PumpkinDynamics;
   const J = root.PumpkinJourney;
-  let model = D.createPrologue(), mode = "prologue", openAt = null, reveal = 0, again, debugStatus, debugAt = 0;
+  let model = D.createPrologue(), mode = "prologue", openAt = null, again, debugStatus, debugAt = 0;
   if (new URLSearchParams(location.search).get("dev") === "1" && new URLSearchParams(location.search).get("stage") === "1") {
     model = J.create(model); mode = "journey";
   }
@@ -41,11 +41,13 @@
     c.strokeStyle = "rgba(145,116,62,.25)"; c.lineWidth = 0.65; c.stroke();
     c.restore();
   }
-  function vessel(c) {
+  function vessel(c, showSeeds = true, local = false) {
     c.save();
-    c.translate(CX + model.x * 34, CY + model.y * 23);
-    c.rotate(model.x * 0.22);
-    c.scale(1 + model.ring * 0.22, 1 - model.y * 0.15 - model.ring * 0.18);
+    if (!local) {
+      c.translate(CX + model.x * 34, CY + model.y * 23);
+      c.rotate(model.x * 0.22);
+      c.scale(1 + model.ring * 0.22, 1 - model.y * 0.15 - model.ring * 0.18);
+    }
     // Lower skin: the visible thickness gives the drag somewhere to land.
     c.save(); c.translate(0, 15);
     outline(c, 143, 0.80, 5);
@@ -87,12 +89,12 @@
       c.bezierCurveTo(Math.cos(a + .08) * 89, Math.sin(a + .08) * 89 * .8, Math.cos(a - .12) * 75, Math.sin(a - .12) * 75 * .8, Math.cos(a) * 71, Math.sin(a) * 71 * .8);
       c.strokeStyle = "rgba(240,174,78,.24)"; c.lineWidth = 1.5; c.stroke();
     }
-    for (const m of model.marks) {
+    for (const m of showSeeds ? model.marks : []) {
       c.beginPath(); c.moveTo(m.ox, m.oy * .8); c.lineTo(m.x, m.y * .8);
       c.strokeStyle = `rgba(246,200,124,${.13 * Math.pow(1 - m.age / 18, 2)})`;
       c.lineWidth = 1.2; c.stroke();
     }
-    for (const p of model.seeds) {
+    for (const p of showSeeds ? model.seeds : []) {
       if (!p.tether) continue;
       const t = p.tether, tail = p.attached ? 1 : Math.exp(-(model.time - t.detachedAt) * 2.4);
       const dx = p.x - t.ax, dy = p.y - t.ay;
@@ -104,32 +106,21 @@
       c.beginPath(); c.moveTo(-1, -6); c.quadraticCurveTo(t.ax - 6, t.ay * .8 - 4, t.ax, t.ay * .8);
       c.strokeStyle = "rgba(246,202,128,.62)"; c.lineWidth = 1.1; c.stroke();
     }
-    for (const [i, p] of model.seeds.entries()) seed(c, p, i);
+    if (showSeeds) for (const [i, p] of model.seeds.entries()) seed(c, p, i);
     c.restore();
     // A knife nick remains on the rim; no "completed" state clears the object.
     c.beginPath(); c.moveTo(107, 65); c.lineTo(114, 69);
     c.strokeStyle = "#ffd089"; c.lineWidth = 1.5; c.stroke();
     c.restore();
   }
-  function draw() {
-    withCanvasContext(c => {
-      c.translate(0, W.logicalHeight); c.scale(1, -1);
-      c.drawImage(paper, 0, 0);
-      if (mode === "journey") {
-        root.PumpkinStageDraw.draw(c, model, seed, reveal);
-        if (reveal < 1) {
-          c.globalAlpha = 1 - reveal; c.textAlign = "center"; c.fillStyle = "#665d4a";
-          c.font = "22px 'Hiragino Mincho ProN', 'Yu Mincho', serif"; c.fillText(W.title, 195, 130);
-        }
-        return;
-      }
-      // The shadow moves after the hand, at the body's speed.
+  function shadow(c) {
       c.save(); c.translate(CX + 9 + model.x * 9, CY + 29 + model.y * 5);
       c.scale(1, .65);
       const sh = c.createRadialGradient(0, 0, 30, 0, 0, 164);
       sh.addColorStop(0, "rgba(64,53,34,.26)"); sh.addColorStop(.7, "rgba(64,53,34,.13)"); sh.addColorStop(1, "rgba(64,53,34,0)");
       oval(c, 0, 0, 166, 166, sh); c.restore();
-      vessel(c);
+  }
+  function captions(c) {
       c.textAlign = "center"; c.fillStyle = "#665d4a";
       c.font = "22px 'Hiragino Mincho ProN', 'Yu Mincho', serif";
       c.fillText(W.title, 195, 130);
@@ -140,10 +131,30 @@
       c.fillText("つかんで、ゆらす", 195, 583);
       c.fillStyle = "rgba(108,98,79,.42)"; c.font = "9px Georgia, serif";
       c.fillText("SukimaStock", 195, 684);
+  }
+  function draw() {
+    withCanvasContext(c => {
+      c.translate(0, W.logicalHeight); c.scale(1, -1);
+      c.drawImage(paper, 0, 0);
+      if (mode !== "prologue") {
+        if (mode === "transition") {
+          c.save(); c.globalAlpha = 1 - J.smooth(model.transition.progress / .48);
+          shadow(c); c.restore();
+        }
+        root.PumpkinStageDraw.draw(c, model, seed, c => vessel(c, false, true));
+        if (mode === "transition") {
+          c.save(); c.globalAlpha = 1 - J.smooth(model.transition.progress / .48);
+          captions(c); c.restore();
+        }
+        return;
+      }
+      shadow(c);
+      vessel(c);
+      captions(c);
     });
   }
   function knockAt(x, y) {
-    if (mode === "journey") { const p = J.point(model, x, y); J.knock(model, p.x, p.y); }
+    if (mode !== "prologue") { const p = J.point(model, x, y); J.knock(model, p.x, p.y); }
     else D.knock(model, x - CX, (y - CY) / .8);
     SSE.audio.play("shell");
   }
@@ -159,26 +170,27 @@
       }
       if (kx || ky) touchedOnce = true;
       if (SSE.input.actionPressed("knock")) { knockAt(CX + 70, CY - 35); touchedOnce = true; }
-      if (mode === "journey") {
-        J.update(model, dt); reveal = Math.min(1, reveal + dt / 2.8);
+      if (mode !== "prologue") {
+        J.update(model, dt);
+        if (mode === "transition" && model.transition.settled) mode = "journey";
         if (again) again.hidden = !model.finished;
       } else {
         D.update(model, dt);
         if (model.detachments.length) SSE.audio.play("fiber");
         if (D.allLoose(model)) {
           if (openAt === null) openAt = model.time;
-          if (model.time - openAt >= 4.2) { model = J.create(model); mode = "journey"; reveal = 0; debugAt = -1; }
+          if (model.time - openAt >= 1.8) { model = J.create(model, true); mode = "transition"; debugAt = -1; }
         }
       }
       if (debugStatus && model.time - debugAt > .35) {
         debugAt = model.time;
-        debugStatus.textContent = mode + " | loose " + model.seeds.filter(p => !p.attached).length + "/9 | y " + Math.round(Math.min(...model.seeds.map(p => p.y))) + "…" + Math.round(Math.max(...model.seeds.map(p => p.y))) + " | held " + model.held + " | exit " + !!model.finished;
+        debugStatus.textContent = mode + " | loose " + model.seeds.filter(p => !p.attached).length + "/9 | x " + Math.round(Math.min(...model.seeds.map(p => p.x))) + "…" + Math.round(Math.max(...model.seeds.map(p => p.x))) + " | held " + model.held + " | exit " + !!model.finished;
       }
       if (touchedOnce) hint *= Math.exp(-dt * .8);
       if (model.contacts.length && model.time - lastSound > .065) {
         const hit = model.contacts.reduce((a, b) => a.speed > b.speed ? a : b);
         const gain = Math.min(1, .40 + hit.speed / 240);
-        SSE.audio.play(({ rim: "rim", fiber: "fiber", wet: "slide" })[hit.material] || "seed", { volume: SSE.audio.baseline().reference.se.soft * gain, playbackRate: .9 + hit.speed / 900 });
+        SSE.audio.play(({ rim: "rim", fiber: "fiber", polished: "slide", cushion: "fiber" })[hit.material] || "seed", { volume: SSE.audio.baseline().reference.se.soft * gain, playbackRate: .9 + hit.speed / 900 });
         lastSound = model.time;
       }
     },
@@ -194,11 +206,11 @@
         model.targetX = Math.max(-.38, Math.min(.38, (t.x - model.anchorX) / 210));
         model.targetY = Math.max(-.38, Math.min(.38, (y - model.anchorY) / 210));
       } else if (t.id === model.activeId && (t.state === ENDED || t.state === CANCELLED)) {
-        (mode === "journey" ? J : D).release(model);
+        (mode !== "prologue" ? J : D).release(model);
       }
       return true;
     },
-    exit() { (mode === "journey" ? J : D).release(model); },
+    exit() { (mode !== "prologue" ? J : D).release(model); },
   };
   SSE.createApp({
     id: W.id, logicalWidth: W.logicalWidth, logicalHeight: W.logicalHeight,
@@ -218,7 +230,7 @@
       SSE.audio.preload();
       again = document.getElementById("again");
       again.addEventListener("click", () => {
-        model = D.createPrologue(); mode = "prologue"; openAt = null; reveal = 0;
+        model = D.createPrologue(); mode = "prologue"; openAt = null;
         hint = 1; touchedOnce = false; lastSound = -1; debugAt = -1; again.hidden = true;
         SSE.audio.unlock();
       });
@@ -246,6 +258,8 @@
   if (new URLSearchParams(location.search).get("dev") === "1") {
     root.PumpkinProbe = () => ({ mode, loose: model.seeds.filter(p => !p.attached).length, seedCount: model.seeds.length, finished: !!model.finished, held: model.held, tilt: [model.x, model.y],
       speed: model.seeds.map(p => Math.hypot(p.vx, p.vy)), impacts: model.impactCount,
+      bounds: model.seeds.map(p => [Math.round(p.x), Math.round(p.y)]),
+      camera: model.camera ? { ...model.camera } : null, transition: model.transition ? model.transition.progress : null,
       marks: model.marks.length });
   }
 })(window);
