@@ -15,6 +15,8 @@
 
   function canSend() {
     if (config.enabled === false || !config.domain || !config.endpoint) return false;
+    // Match the town tracker: staging never sends analytics, including direct work visits.
+    if (/\/yumaniwa-town-staging(?:\/|$)/.test((root.location && root.location.pathname) || "")) return false;
     try {
       const params = new URLSearchParams(root.location ? root.location.search : "");
       const persistentDebug = root.localStorage && root.localStorage.getItem("rojiura-debug-enabled-v1") === "1";
