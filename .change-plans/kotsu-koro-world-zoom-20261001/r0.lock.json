@@ -1,0 +1,110 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "00ae09dcd20e38e26227af6668e01ca35098a840abfee129c5622640315a6e5e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "kotsu-koro-world-zoom-20261001",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Keep Stage 0 physics; zoom the same nine seeds into one open horizontal pumpkin world",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "43eff88789468644f477d82847da8509d54cdf5f",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "engine/SUKIMASTOCK-NEW-WORK.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "engine/SUKIMASTOCK-AUDIO-BASELINE.md",
+      "works/kotsu-koro/ at current main",
+      "User hands-on discovery and Stage 0/Stage 1 instructions"
+    ],
+    "allowedPaths": [
+      ".change-plans/kotsu-koro-world-zoom-20261001/r0.lock.json",
+      "works/kotsu-koro/index.html",
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/journey.js",
+      "works/kotsu-koro/stage-draw.js",
+      "works/kotsu-koro/test-journey.cjs",
+      "works/kotsu-koro/STAGE1.md",
+      "works/kotsu-koro/VALIDATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "layout-fix.css",
+      "assets/**",
+      ".github/**",
+      "tools/**",
+      "works/coffee-factory/**",
+      "works/orbit/**",
+      "works/midnight-cola/**",
+      "works/yakitori-wars/**",
+      "works/junkissa-dive/**",
+      "works/rojiura-masala/**",
+      "works/kotsu-koro/dynamics.js",
+      "works/kotsu-koro/test-dynamics.cjs",
+      "works/kotsu-koro/codea-lite.js",
+      "works/kotsu-koro/work-config.js",
+      "works/kotsu-koro/audio/**"
+    ],
+    "expectedChanges": [
+      "Stage 0 dynamics.js and its regression tests remain byte-identical",
+      "Work-owned prologue/transition/journey with continuous camera/world morph and identical nine objects, pose and momentum",
+      "One open horizontal shared render/collision terrain: safe start, slope, shallow reunion valley, round play, release into a safe endpoint",
+      "World tilt/knock only, recoverable terrain, bounded camera zoom, material friction, fixed-step simulation",
+      "Focused identity/state/screen continuity, complete journey, straggler recovery and FPS regression tests; actual staging browser evidence"
+    ],
+    "ownerDecisions": [
+      "User supplied exact direction and explicitly delegates terrain/camera/timing refinement and staging delivery",
+      "Only one Stage 1; production, canonical Engine and Codea forbidden"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Current existing-work canonical Engine contract; all new physics/composition/timing remain work-owned",
+      "Plan-only first branch commit followed by scoped implementation and PR",
+      "SukimaStock Audio Baseline for new sounds; existing proven levels retained"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "stage0-rim-circulation-fibre-release-transition",
+      "horizontal-world-drag-release-round-recovery",
+      "normal-url-keyboard-mute-replay-lifecycle",
+      "browser-diagnostics-audio-report"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only work-specific changes and this Plan; no gameplay persistence/migration",
+    "outOfScope": [
+      "Production",
+      "Canonical Engine or Codea",
+      "Other works, town/metadata registration",
+      "Stage 2+, enemies, collectibles, HP, score, character faces/names/story"
+    ],
+    "promotion": "none; staging-only standalone experiment, not production Release Complete",
+    "unverified": [
+      "Author iPhone Safari feel and audible mix",
+      "Safari background/BFCache; final automatic VERIFIED stays UNVERIFIED"
+    ]
+  }
+}
