@@ -6,5 +6,13 @@
   "scope": "../../",
   "display": "standalone",
   "background_color": "#f7f5ef",
-  "theme_color": "#f7f5ef"
+  "theme_color": "#f7f5ef",
+  "icons": [
+    {
+      "src": "../../assets/works/diorama-calendar/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }
