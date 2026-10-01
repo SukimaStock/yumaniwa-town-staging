@@ -4,6 +4,18 @@
     var objects = {
         bench_wood_01: {
             id: 'bench_wood_01',
+            editor: {
+                catalogKey: 'bench',
+                label: '木製ベンチ',
+                addable: true,
+                order: 30,
+                inferFromObjectId: true,
+                defaults: {
+                    w: 3,
+                    h: 3,
+                    collision: { enabled: true, x: 0.14, y: 0.8133333333333334, w: 0.72, h: 0.2 }
+                }
+            },
             category: 'furniture',
             type: 'bench',
             src: 'assets/maps/objects/furniture/bench_wood_01.png?rev=20260924-bench56',
@@ -35,6 +47,18 @@
         },
         street_lamp_01: {
             id: 'street_lamp_01',
+            editor: {
+                catalogKey: 'streetLamp',
+                label: 'レトロな街灯',
+                addable: true,
+                order: 40,
+                inferFromObjectId: true,
+                defaults: {
+                    w: 2,
+                    h: 3.5,
+                    collision: { enabled: true, x: 0.405125, y: 0.9342857142857142, w: 0.18975, h: 0.1807142857142857 }
+                }
+            },
             category: 'light',
             type: 'street_lamp',
             src: 'assets/maps/objects/lights/street_lamp_01.png?rev=20260924-lamp32x56fix1',
@@ -66,6 +90,18 @@
         },
         planter_01: {
             id: 'planter_01',
+            editor: {
+                catalogKey: 'planter',
+                label: '植木鉢',
+                addable: true,
+                order: 50,
+                inferFromObjectId: true,
+                defaults: {
+                    w: 2,
+                    h: 2,
+                    collision: { enabled: true, x: 0.302, y: 0.66925, w: 0.396, h: 0.33075 }
+                }
+            },
             category: 'greenery',
             type: 'planter',
             src: 'assets/maps/objects/greenery/planter_01.png?rev=20260924-planter32fix1',
@@ -97,6 +133,18 @@
         },
         tourist_map_01: {
             id: 'tourist_map_01',
+            editor: {
+                catalogKey: 'touristMap',
+                label: '観光案内図',
+                addable: true,
+                order: 20,
+                inferFromObjectId: true,
+                defaults: {
+                    w: 4,
+                    h: 4,
+                    collision: { enabled: true, x: 0.2520833333333332, y: 0.90625, w: 0.4958333333333333, h: 0.1125 }
+                }
+            },
             category: 'sign',
             type: 'tourist_map',
             src: 'assets/maps/objects/signs/tourist_map_01.png?rev=20260924-touristmap64',
@@ -128,6 +176,18 @@
         },
         notice_board_01: {
             id: 'notice_board_01',
+            editor: {
+                catalogKey: 'noticeBoard',
+                label: '横長掲示板',
+                addable: true,
+                order: 10,
+                inferFromObjectId: true,
+                defaults: {
+                    w: 5.25,
+                    h: 5.25,
+                    collision: { enabled: true, x: 0.041666666666666664, y: 0.8363636363636365, w: 0.9166666666666666, h: 0.15 }
+                }
+            },
             category: 'sign',
             type: 'notice_board',
             src: 'assets/maps/objects/signs/notice_board_01.png?rev=20260925-noticeboard96logical1',
@@ -202,6 +262,19 @@
         },
         standing_sign_01: {
             id: 'standing_sign_01',
+            editor: {
+                catalogKey: 'standingSignboard',
+                label: '立て看板（共通）',
+                addable: true,
+                order: 80,
+                inferFromObjectId: false,
+                idStem: 'town_standing_signboard',
+                defaults: {
+                    w: 2,
+                    h: 2,
+                    collision: { enabled: true, x: 0.14, y: 0.7375, w: 0.72, h: 0.2625 }
+                }
+            },
             category: 'sign',
             type: 'standing_sign',
             src: 'assets/maps/objects/signs/standing_sign_01.png?rev=20260925-standing32x32',
@@ -245,6 +318,19 @@
         },
         station_direction_sign_01: {
             id: 'station_direction_sign_01',
+            editor: {
+                catalogKey: 'directionSign',
+                label: '方向案内札',
+                addable: true,
+                order: 60,
+                inferFromObjectId: true,
+                idStem: 'station_direction_sign',
+                defaults: {
+                    w: 1.4,
+                    h: 2.4,
+                    collision: { enabled: true, x: 0.34, y: 0.84, w: 0.32, h: 0.20 }
+                }
+            },
             category: 'sign',
             type: 'direction_sign',
             src: 'assets/maps/props/station-plaza/station-direction-sign.png?rev=asset-29b83965',
@@ -705,6 +791,19 @@
         },
         leisure_direction_sign_01: {
             id: 'leisure_direction_sign_01',
+            editor: {
+                catalogKey: 'leisureDirectionSign',
+                label: '簡易案内サイン（レジャーセンター）',
+                addable: true,
+                order: 90,
+                inferFromObjectId: false,
+                idStem: 'leisure_direction_sign',
+                defaults: {
+                    w: 3.5,
+                    h: 3.5,
+                    collision: { enabled: true, x: 0.35, y: 0.82, w: 0.30, h: 0.16 }
+                }
+            },
             category: 'sign',
             type: 'direction_sign',
             src: 'assets/maps/props/leisure-center/leisure-direction-sign.png?rev=asset-03542011',
@@ -721,6 +820,19 @@
         },
         leisure_pamphlet_rack_01: {
             id: 'leisure_pamphlet_rack_01',
+            editor: {
+                catalogKey: 'leisurePamphletRack',
+                label: 'パンフレットラック（レジャーセンター）',
+                addable: true,
+                order: 100,
+                inferFromObjectId: false,
+                idStem: 'leisure_pamphlet_rack',
+                defaults: {
+                    w: 3.75,
+                    h: 3.75,
+                    collision: { enabled: true, x: 0.15, y: 0.84, w: 0.70, h: 0.14 }
+                }
+            },
             category: 'facility',
             type: 'pamphlet_rack',
             src: 'assets/maps/props/leisure-center/leisure-pamphlet-rack.png?rev=asset-b7863407',
@@ -737,6 +849,19 @@
         },
         leisure_bulletin_board_01: {
             id: 'leisure_bulletin_board_01',
+            editor: {
+                catalogKey: 'leisureBulletinBoard',
+                label: '掲示スタンド（レジャーセンター）',
+                addable: true,
+                order: 110,
+                inferFromObjectId: false,
+                idStem: 'leisure_bulletin_board',
+                defaults: {
+                    w: 3.25,
+                    h: 3.25,
+                    collision: { enabled: true, x: 0.08, y: 0.82, w: 0.84, h: 0.14 }
+                }
+            },
             category: 'sign',
             type: 'bulletin_board',
             src: 'assets/maps/props/leisure-center/leisure-bulletin-board.png?rev=asset-bcec8713',
@@ -753,6 +878,19 @@
         },
         leisure_guide_terminal_01: {
             id: 'leisure_guide_terminal_01',
+            editor: {
+                catalogKey: 'leisureGuideTerminal',
+                label: '展示ガイド端末（レジャーセンター）',
+                addable: true,
+                order: 120,
+                inferFromObjectId: false,
+                idStem: 'leisure_guide_terminal',
+                defaults: {
+                    w: 3.0,
+                    h: 3.0,
+                    collision: { enabled: true, x: 0.05, y: 0.76, w: 0.90, h: 0.18 }
+                }
+            },
             category: 'facility',
             type: 'guide_terminal',
             src: 'assets/maps/props/leisure-center/leisure-guide-terminal.png?rev=asset-e2a2c8ac',
@@ -801,6 +939,18 @@
         },
         station_building_01: {
             id: 'station_building_01',
+            editor: {
+                catalogKey: 'stationBuilding',
+                label: '湯間庭駅舎',
+                addable: true,
+                order: 70,
+                inferFromObjectId: true,
+                defaults: {
+                    w: 8,
+                    h: 8,
+                    collision: { enabled: false, x: 0.06086956521739131, y: 0.7825292397660817, w: 0.8869565217391304, h: 0.21747076023391812 }
+                }
+            },
             category: 'facility',
             type: 'station_building',
             src: 'assets/maps/objects/facilities/station_building_01.png?rev=20260925-station128',
@@ -853,10 +1003,37 @@
         return objectDef && objectDef.src ? objectDef.src : '';
     }
 
+    // Editor placement defaults are derived from the literal registry, never
+    // applied to existing scene props. Return copies so UI edits cannot alter it.
+    function getEditorDefinition(objectId) {
+        var objectDef = get(objectId);
+        if (!objectDef || !objectDef.editor) return null;
+        var definition = JSON.parse(JSON.stringify(objectDef.editor));
+        definition.objectId = objectDef.id;
+        return definition;
+    }
+
+    function getEditorDefinitions() {
+        return Object.keys(objects).map(getEditorDefinition).filter(function (definition) {
+            return definition !== null;
+        }).sort(function (a, b) {
+            return a.order - b.order;
+        });
+    }
+
+    function getAddableEditorDefinitions() {
+        return getEditorDefinitions().filter(function (definition) {
+            return definition.addable === true;
+        });
+    }
+
     window.YUMANIWA_WORLD_OBJECTS = {
         version: '0.1',
         objects: objects,
         get: get,
-        resolveSrc: resolveSrc
+        resolveSrc: resolveSrc,
+        getEditorDefinition: getEditorDefinition,
+        getEditorDefinitions: getEditorDefinitions,
+        getAddableEditorDefinitions: getAddableEditorDefinitions
     };
 })();

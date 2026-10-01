@@ -1,0 +1,128 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "268cfcfbcff2128f9bc7dc0831337333c393a7a1c470ed268ea2e7dec6b3670f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "editor-world-object-metadata-phase2",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Move twelve existing Editor placement defaults into WORLD OBJECT metadata without changing behavior",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "74d1918ca0cd36dd379428d62603a15597e05ecb",
+    "canonicalSources": [
+      "data/world-objects.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/editor-world-object-metadata-phase2/r0.lock.json",
+      "data/world-objects.js",
+      "main.js",
+      "town-editor-upgrade.js",
+      "index.html",
+      "tests/test-editor-world-object-metadata.cjs",
+      "tests/fixtures/editor-world-object-metadata-before.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "style.css",
+      "layout-fix.css",
+      "assets/**",
+      "data/station-plaza.js",
+      "data/town-maps.js",
+      "town-ghost-npc.js",
+      "tools/**",
+      "works/**",
+      "engine/**",
+      ".github/**",
+      "town-editor-session.js",
+      "town-editor-safe-export.js",
+      "town-editor-spatial.js"
+    ],
+    "expectedChanges": [
+      "Add nested editor metadata to exactly twelve existing object literals; preserve all old identity/src/finalization fields and object ordering.",
+      "Expose fresh derived Editor definition APIs. Main catalog becomes derived compatibility view plus three non-asset generic fallbacks; preserve unknown-key fallback and historical inference of only the first seven object IDs.",
+      "Remove only upgrade catalog registration and its catalog guard; retain all action UI code and dev guard.",
+      "Update only the three modified JS cache revisions in index.html. Add frozen pre-migration behavior fixture and focused regression test."
+    ],
+    "hqDecisions": [
+      "User explicitly authorized behavior-preserving source consolidation with literal objects, twelve unchanged options, generic compatibility fallbacks and existing unknown-key semantics."
+    ],
+    "ownerDecisions": [
+      "No additions, removals, replacements, known inconsistency fixes or layout changes."
+    ],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "editor-select-twelve-order-labels",
+      "editor-add-notice-standing-guide"
+    ],
+    "impactChecks": [
+      "world-object.registry",
+      "world-object.references",
+      "world-object.asset",
+      "world-object.rendering",
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.mobile-desktop",
+      "runtime.rollback",
+      "surface.shared",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert implementation commit as one unit; no data migration or placement writes.",
+    "outOfScope": [
+      "Placement data/assets/finalization changes",
+      "UI/layout/Phase1 CSS",
+      "Session/Undo/export/validation",
+      "Factory/status/replacement",
+      "Production",
+      "Merge"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPhone/iPad Safari verification unless directly observed."
+    ],
+    "problem": "Twelve asset Editor definitions are duplicated across main and upgrade instead of WORLD OBJECT source.",
+    "currentContract": "Seven core plus five upgrade addable definitions; three generic non-addable fallbacks; unknown key falls back to noticeBoard. Only seven core object IDs are inferred explicitly.",
+    "whyExistingIsInsufficient": "Adding metadata requires editing separate asset ledgers in runtime and upgrade.",
+    "design": "Literal nested editor: catalogKey,label,addable,order,optional idStem,inferFromObjectId,defaults w/h/collision. APIs derive flat compatibility records without copying src/finalization. Main retains derived catalog variable for existing consumers and three generic non-asset fallbacks only.",
+    "alternativesRejected": [
+      "New catalog file",
+      "Normalizing defaults from image size",
+      "Inferring all twelve keys and changing existing metadata fallback",
+      "Rewriting consumers/session/upgrade action code"
+    ],
+    "migration": "Mechanically extract current catalog and capture creation outputs before implementation; copy exact values, preserve implicit idStem fallback.",
+    "compatibility": "Keep get/resolveSrc and objects literal; no placement defaults reapplied. Preserve inference distinction and missing-key fallback. Upgrade action UI must still load without old catalog registration.",
+    "boundaryCases": [
+      "All twelve options/order/defaults",
+      "Unknown key",
+      "Three generic entries",
+      "Implicit and explicit id stems",
+      "Existing placements without catalogKey",
+      "Derived result mutation",
+      "Dev mode on/off"
+    ],
+    "testPlan": [
+      "Frozen pre-migration catalog/creation/inference and source hashes",
+      "World object non-editor definition digest unchanged",
+      "Existing Editor session/history, Desk/scene, Change Operations and Release Validator suites",
+      "Scope/Risk/Impact and exact-head required/trusted CI",
+      "Browser if available; otherwise UNVERIFIED"
+    ],
+    "promotionRisk": "Staging Draft PR only. No merge or production authorization."
+  }
+}
