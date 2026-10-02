@@ -4,7 +4,7 @@ const D=require('./dynamics.js'),J=require('./journey.js'),G=require('./stage-ge
 const advance=(s,t,fps=60)=>{for(let i=0;i<Math.round(t*fps);i++)J.update(s,1/fps);};
 function place(s,p,x,vx=0){const f=s.geometry.floor(x);Object.assign(p,{x,y:f.y-J.support(p,f.nx,f.ny)/-f.ny-.1,vx,vy:0,spin:0});}
 function fixture(n,g=J.geometry){const s=J.create(D.create(),false,g);s.seeds.forEach((p,i)=>{if(i>=n){p.lost=p.inactive=true;return;}place(s,p,g.END.left+22+(g.END.right-g.END.left-44)*(i+.5)/n);});s.camera={x:(g.END.left+g.END.right)/2,y:g.floor((g.END.left+g.END.right)/2).y-80,z:J.ZOOM};return s;}
-function context(){const calls=[];return {calls,c:new Proxy({}, {get:(_,key)=>key==='createLinearGradient'?()=>({addColorStop(){}}):(...args)=>calls.push([key,...args]),set:()=>true})};}
+function context(){const calls=[];return {calls,c:new Proxy({globalAlpha:1}, {get:(target,key)=>key==='globalAlpha'?target.globalAlpha:key==='createLinearGradient'?()=>({addColorStop(){}}):(...args)=>calls.push([key,...args]),set:(target,key,value)=>{target[key]=value;return true;}})};}
 for(let n=1;n<=9;n++)test(`${n} arrivals retain identity, produce exactly ${n} plants/fruits and never duplicate`,()=>{
   const s=fixture(n),objects=s.seeds.slice(),seen=[];
   for(let i=0;i<120;i++){J.update(s,1/60);seen.push(...s.arrivalEvents);}
@@ -50,7 +50,7 @@ test('current draft END/floor drive soil contact, framing and roots; JSON and RE
   const m=M.create(d),json=M.exportJSON(m);M.moveStart(m,2600);assert.ok(M.play(m));for(let i=0;i<2*60;i++)M.update(m,1/60);assert.ok(m.run.result);assert.equal(M.exportJSON(m),json);M.edit(m);assert.equal(m.mode,'edit');assert.ok(M.play(m));assert.equal(m.run.result,null);assert.equal(m.run.arrivals.length,0);assert.equal(m.run.time,0);assert.equal(G.validate(JSON.parse(M.exportJSON(m))).length,0);
 });
 test('growth has a bounded stagger, overlapping camera/growth and a quiet separate replay phase',()=>{
-  const s=fixture(9);advance(s,1);assert.equal(s.ending.phase,'pullback');assert.ok(!s.ending.growthComplete&&!s.replayReady);advance(s,2);assert.equal(s.ending.phase,'growing');const ages=J.plants(s).map(p=>p.age);assert.ok(ages[0]>ages[8]);assert.ok(ages[0]-ages[8]<1);advance(s,4);assert.ok(s.ending.growthComplete&&!s.replayReady);advance(s,2);assert.ok(s.replayReady);const snapshot=s.result;advance(s,50);assert.equal(s.result,snapshot);assert.equal(J.plants(s).length,9);
+  const s=fixture(9);advance(s,1);assert.equal(s.ending.phase,'pullback');assert.ok(!s.ending.growthComplete&&!s.replayReady);advance(s,2);assert.equal(s.ending.phase,'growing');const ages=J.plants(s).map(p=>p.age);assert.ok(ages[0]>ages[8]);assert.ok(ages[0]-ages[8]<1);advance(s,3.5);assert.ok(s.ending.growthComplete&&!s.replayReady);advance(s,2);assert.ok(s.replayReady);const snapshot=s.result;advance(s,50);assert.equal(s.result,snapshot);assert.equal(J.plants(s).length,9);
 });
 test('resolved nursery stays opaque and grounded through arrival, pullback, growth and rest',()=>{
   const s=fixture(9);advance(s,1);
@@ -64,4 +64,31 @@ test('resolved nursery stays opaque and grounded through arrival, pullback, grow
     const alphas=[];const opaque=new Proxy(c,{set(target,key,value){if(key==='globalAlpha')alphas.push(value);target[key]=value;return true;}});
     Draw.draw(opaque,s,()=>{});assert.ok(alphas.every(a=>a===1),'no ground transparency during ending');
   }
+});
+
+test('fruit rests on the sampled curve, roots stay fixed, and the central focus is deterministic',()=>{
+  const s=fixture(9);advance(s,7);
+  const centre=s.farm.frame.x,expected=s.result.arrivals.slice().sort((a,b)=>Math.abs(J.plantPose(s,a).x-centre)-Math.abs(J.plantPose(s,b).x-centre)||a.id-b.id)[0];
+  assert.equal(s.ending.focus,expected);
+  for(const a of s.result.arrivals){const p=J.plantPose(s,a);assert.ok(Math.abs(p.x-a.x)<=14.1);assert.equal(p.y+13*p.size,s.geometry.floor(p.x).y+1);assert.equal(a.rootY,s.geometry.floor(a.x).y);assert.ok(s.geometry.floor(p.x).y-p.y<13,'fruit centre sits just above its own soil contact');}
+});
+test('continuous zoom connects the same fruit to the exact original title scale at 30/60/120fps',()=>{
+  for(const fps of [30,60,120]) {
+    const s=fixture(9);s.titleCycle=true;advance(s,7,fps);assert.equal(s.ending.phase,'rest');assert.ok(s.replayReady);const roots=s.result.arrivals.map(a=>[a.x,a.y,a.rootY]);
+    advance(s,2,fps);assert.equal(J.returnZoom(s),0,'a useful rest precedes the zoom');
+    let old={...s.camera},maxStep=0,phases=new Set();
+    for(let i=0;i<5*fps;i++){J.update(s,1/fps);phases.add(s.ending.phase);maxStep=Math.max(maxStep,Math.abs(s.camera.z-old.z));assert.ok(Number.isFinite(s.camera.x+s.camera.y+s.camera.z));old={...s.camera};}
+    assert.ok(phases.has('zoom')&&phases.has('connecting')&&phases.has('title'));assert.ok(maxStep<.18,'no camera scale jump');assert.ok(s.ending.titleReady);
+    const p=J.plantPose(s,s.ending.focus),q=J.screenPoint(s,p.x,p.y);assert.ok(Math.abs(q.x-195)<1e-8&&Math.abs(q.y-365)<1e-8);assert.ok(Math.abs(s.camera.z*20*p.size-143)<1e-8);assert.equal(J.titleMix(s),1);
+    assert.deepEqual(s.result.arrivals.map(a=>[a.x,a.y,a.rootY]),roots);
+  }
+});
+test('Builder runs keep their grown farm view; empty endings never fabricate a focus or auto-return',()=>{
+  for(const n of [0,3]) {const s=fixture(n);advance(s,20);assert.ok(!s.ending.titleReady);assert.equal(J.returnZoom(s),0);assert.equal(J.titleMix(s),0);if(n)assert.deepEqual(s.camera,s.farm.frame);else assert.equal(s.ending.focus,null);}
+});
+
+test('late focus quiets neighbouring plants while leaving the chosen fruit continuous',()=>{
+ const s=fixture(9);s.titleCycle=true;advance(s,12.3);assert.ok(J.returnZoom(s)>.8&&J.titleMix(s)>.05);
+ const {c,calls}=context(),alphas=[];const observed=new Proxy(c,{set(target,key,value){if(key==='globalAlpha')alphas.push(value);target[key]=value;return true;}});Draw.drawPlants(observed,s,()=>{});
+ assert.ok(alphas.some(a=>a>0&&a<.2),'neighbours recede softly during the approach');assert.ok(calls.filter(a=>a[0]==='ellipse'&&a[3]===16&&a[4]===3).length===9,'focus does not delete result fruit');
 });

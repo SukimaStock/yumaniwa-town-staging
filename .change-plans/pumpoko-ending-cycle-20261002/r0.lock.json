@@ -1,0 +1,98 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6a03d21cd675d0c46de0158e7409adb934b5b93ee68ebd378769c47dbab75fa2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-ending-cycle-20261002",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Ground the ending pumpkins and continuously zoom into one fruit to return to the existing title",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "2480ffeed0ea0f9045ac72a8c3637ad61bc0817e",
+    "canonicalSources": [
+      "works/pumpoko/journey.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/sketch.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-ending-cycle-20261002/r0.lock.json",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/test-ending.cjs",
+      "works/pumpoko/test-audio.cjs",
+      "works/pumpoko/test-migration.cjs",
+      "works/pumpoko/README.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/pumpoko/codea-lite.js",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/builder/**",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/assets/**",
+      "works/kotsu-koro/**"
+    ],
+    "expectedChanges": [
+      "Short sprout, low sideways vine, two soft leaves, fruit grounded on the actual nursery surface; one fruit per immutable arrival",
+      "Keep arrival/contact/physics and existing pullback; add rest then continuous zoom to a deterministic central fruit",
+      "Blend the focused fruit into the existing half-pumpkin/title at the same world position; auto-return and early replay share a reset without music seek",
+      "Direction A: replay available during a meaningful rest and zoom; keep zero arrivals empty with its existing manual replay",
+      "Ending and audio regressions, pin historical migration byte proof to its original commit while keeping current save/URL and protected asset/runtime guards",
+      "Document ending author-review flow without changing historical evidence"
+    ],
+    "ownerDecisions": [
+      "User explicitly requests grounded pumpkin growth, quiet zoom/title cycle, direction A, same BGM and staging-only author review"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Existing work-owned renderer and state only; no new scene/Engine/storage contract",
+      "Plan-first lock-only commit, immutable r0; Scope then Risk then Impact; formal UNVERIFIED"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-grounded-growth-1-and-9",
+      "browser-rest-zoom-title-and-early-replay",
+      "browser-ordinary-play-and-bgm-continuity",
+      "browser-builder-regression"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing PumpkinDynamics, PumpkinJourney, PumpkinStageDraw and canonical Engine public audio APIs unchanged"
+    ],
+    "rollback": "Revert only this work implementation through a staging PR; no storage or asset migration",
+    "outOfScope": [
+      "Stage0 physics/parallax, Stage1 terrain, seed physics, pumping/gap/Loop, Builder changes, assets/logo/music changes, scores/story, production, canonical runtime, other works"
+    ],
+    "promotion": "Staging author review only; no production",
+    "unverified": [
+      "iPhone hardware, audible playback and author device feel; formal verification remains UNVERIFIED"
+    ]
+  }
+}

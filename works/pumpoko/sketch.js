@@ -2,15 +2,15 @@
   "use strict";
   const W = root.SUKIMASTOCK_WORK, D = root.PumpkinDynamics;
   const J = root.PumpkinJourney;
-  let model = D.createPrologue(), mode = "prologue", openAt = null, again, debugStatus, debugAt = 0;
+  let model = D.createPrologue(), mode = "prologue", openAt = null, returnModel = null, again, debugStatus, debugAt = 0;
   if (new URLSearchParams(location.search).get("dev") === "1" && new URLSearchParams(location.search).get("stage") === "1") {
-    model = J.create(model); mode = "journey";
+    model = J.create(model); mode = "journey"; model.titleCycle=true;
   }
   // Explicit development fixtures: placement only, then the real contact/result
   // pipeline. Ordinary play never reads these parameters.
   const fixture=new URLSearchParams(location.search);
   if(fixture.get("dev")==="1" && /^[1-9]$/.test(fixture.get("ending")||"")) {
-    model=J.create(D.createPrologue());mode="journey";
+    model=J.create(D.createPrologue());mode="journey";model.titleCycle=true;
     const count=Number(fixture.get("ending")), {left,right}=model.geometry.END;
     model.seeds.forEach((p,i)=>{if(i>=count){p.lost=p.inactive=true;return;}
       p.x=left+35+(right-left-70)*(i+.5)/count;
@@ -58,17 +58,17 @@
     c.strokeStyle = "rgba(155,121,68,.18)"; c.lineWidth = 0.65; c.stroke();
     c.restore();
   }
-  function vessel(c, showSeeds = true, local = false) {
+  function vessel(c, showSeeds = true, local = false, state = model) {
     c.save();
     if (!local) {
-      c.translate(CX + model.x * 34, CY + model.y * 23);
-      c.rotate(model.x * 0.22);
-      c.scale(1 + model.ring * 0.22, 1 - model.y * 0.15 - model.ring * 0.18);
+      c.translate(CX + state.x * 34, CY + state.y * 23);
+      c.rotate(state.x * 0.22);
+      c.scale(1 + state.ring * 0.22, 1 - state.y * 0.15 - state.ring * 0.18);
     }
     // A few local pixels of depth only. Fade before the shell expands so
     // the local transition renderer starts with the identical layered pose.
-    const depth = model.transition ? 1 - J.smooth(model.transition.progress / .36) : 1;
-    const px = model.x * depth, py = model.y * depth;
+    const depth = state.transition ? 1 - J.smooth(state.transition.progress / .36) : 1;
+    const px = state.x * depth, py = state.y * depth;
     // Lower skin: the visible thickness gives the drag somewhere to land.
     c.save(); c.translate(-px * 5, 15 - py * 3);
     outline(c, 143, 0.80, 3.5);
@@ -96,7 +96,7 @@
     c.save(); c.translate(px * 7, py * 4);
     outline(c, 105, .80, 2.5);
     // Wide, quiet colour masses describe a soft hollow; no fibre diagram.
-    const interior = c.createRadialGradient(-17 - model.x * 20, -12 - model.y * 20, 6, 0, 0, 119);
+    const interior = c.createRadialGradient(-17 - state.x * 20, -12 - state.y * 20, 6, 0, 0, 119);
     interior.addColorStop(0, "#e6a05a"); interior.addColorStop(.52, "#e9a760");
     interior.addColorStop(.82, "#efb36c"); interior.addColorStop(1, "#c58b50");
     c.fillStyle = interior; c.fill();
@@ -112,20 +112,20 @@
     c.restore(); c.restore();
     // Physical seeds/tethers and their clip retain the original transform.
     outline(c, 105, .80, 2.5); c.save(); c.clip();
-    for (const m of showSeeds ? model.marks : []) {
+    for (const m of showSeeds ? state.marks : []) {
       c.beginPath(); c.moveTo(m.ox, m.oy * .8); c.lineTo(m.x, m.y * .8);
       c.strokeStyle = `rgba(246,200,124,${.13 * Math.pow(1 - m.age / 18, 2)})`;
       c.lineWidth = 1.2; c.stroke();
     }
-    if (showSeeds && model.seeds.some(p => p.attached)) {
+    if (showSeeds && state.seeds.some(p => p.attached)) {
       const pulp = c.createRadialGradient(0, -2, 0, 0, -2, 20);
       pulp.addColorStop(0, "rgba(255,224,163,.42)"); pulp.addColorStop(1, "rgba(255,224,163,0)");
       oval(c, 0, -2, 20, 14, pulp);
     }
     c.lineCap = "round";
-    for (const p of showSeeds ? model.seeds : []) {
+    for (const p of showSeeds ? state.seeds : []) {
       if (!p.tether) continue;
-      const t = p.tether, tail = p.attached ? 1 : Math.exp(-(model.time - t.detachedAt) * 2.4);
+      const t = p.tether, tail = p.attached ? 1 : Math.exp(-(state.time - t.detachedAt) * 2.4);
       const dx = p.x - t.ax, dy = p.y - t.ay;
       c.beginPath(); c.moveTo(t.ax, t.ay * .8);
       c.quadraticCurveTo(t.ax + dx * .4 - 6 * tail, (t.ay + dy * .4) * .8 + 6 * tail, t.ax + dx * tail, (t.ay + dy * tail) * .8);
@@ -133,15 +133,15 @@
       c.strokeStyle = "#ffe0a6"; c.lineWidth = p.attached ? 3.2 - Math.min(1, t.damage / t.strength) * 1.5 : 1.4;
       c.stroke();
     }
-    if (showSeeds) for (const [i, p] of model.seeds.entries()) seed(c, p, i);
+    if (showSeeds) for (const [i, p] of state.seeds.entries()) seed(c, p, i);
     c.restore();
     // A knife nick remains on the rim; no "completed" state clears the object.
     c.beginPath(); c.moveTo(107, 65); c.lineTo(114, 69);
     c.strokeStyle = "#ffd089"; c.lineWidth = 1.5; c.stroke();
     c.restore();
   }
-  function shadow(c) {
-      c.save(); c.translate(CX + 9 + model.x * 9, CY + 29 + model.y * 5);
+  function shadow(c, state = model) {
+      c.save(); c.translate(CX + 9 + state.x * 9, CY + 29 + state.y * 5);
       c.scale(1, .65);
       const sh = c.createRadialGradient(0, 0, 30, 0, 0, 164);
       sh.addColorStop(0, "rgba(127,91,48,.15)"); sh.addColorStop(.7, "rgba(127,91,48,.07)"); sh.addColorStop(1, "rgba(127,91,48,0)");
@@ -173,7 +173,10 @@
           c.save(); c.globalAlpha = 1 - J.smooth(model.transition.progress / .48);
           shadow(c); c.restore();
         }
-        root.PumpkinStageDraw.draw(c, model, seed, c => vessel(c, false, true));
+        const mix=J.titleMix(model);
+        if(mix>0) { c.save();c.globalAlpha=mix;shadow(c,returnModel);c.restore(); }
+        root.PumpkinStageDraw.draw(c, model, seed, c => vessel(c, false, true), c => vessel(c, true, true, returnModel));
+        if(mix>0) { c.save();c.globalAlpha=mix;const previousHint=hint;hint=1;captions(c);hint=previousHint;c.restore(); }
         if (mode === "transition") {
           c.save(); c.globalAlpha = 1 - J.smooth(model.transition.progress / .48);
           captions(c); c.restore();
@@ -184,6 +187,14 @@
       vessel(c);
       captions(c);
     });
+  }
+  function returnToTitle() {
+    SSE.input.reset?.();
+    model = returnModel || D.createPrologue(); returnModel = null;
+    mode = "prologue"; openAt = null;
+    hint = 1; touchedOnce = false; lastArrivalSound = -1; gesture = null; debugAt = -1;
+    if(again)again.hidden = true;
+    // Keep the Engine's one music player and position, including automatic return.
   }
   function knockAt(x, y) {
     if (mode !== "prologue") { const p = J.point(model, x, y); J.knock(model, p.x, p.y); }
@@ -205,7 +216,7 @@
       if (mode !== "prologue") {
         J.update(model, dt);
         if (mode === "transition" && model.transition.settled) mode = "journey";
-        if(model.result)gesture=null;
+        if(model.result) { gesture=null;if(!returnModel)returnModel=D.createPrologue(); }
         // J.update emits each arrival once. Coalesce near-simultaneous events;
         // never queue sounds to be replayed after mute/background recovery.
         if(model.arrivalEvents.length && model.time-lastArrivalSound>SOUND.arrivalWindow) {
@@ -213,12 +224,13 @@
           lastArrivalSound=model.time;
         }
         if (again) again.hidden = !model.replayReady;
+        if(model.ending?.titleReady)returnToTitle();
       } else {
         D.update(model, dt);
         if (model.detachments.length) SSE.audio.play(SOUND.detach);
         if (D.allLoose(model)) {
           if (openAt === null) openAt = model.time;
-          if (model.time - openAt >= 1.8) { model = J.create(model, true); mode = "transition"; debugAt = -1; }
+          if (model.time - openAt >= 1.8) { model = J.create(model, true); model.titleCycle=true; mode = "transition"; debugAt = -1; }
         }
       }
       if (debugStatus && model.time - debugAt > .35) {
@@ -293,9 +305,7 @@
       titleArt = document.getElementById("title-art");
       again = document.getElementById("again");
       again.addEventListener("click", () => {
-        SSE.input.reset?.();
-        model = D.createPrologue(); mode = "prologue"; openAt = null;
-        hint = 1; touchedOnce = false; lastArrivalSound = -1; gesture = null; debugAt = -1; again.hidden = true;
+        returnToTitle();
         SSE.audio.unlock();
       });
       if (new URLSearchParams(location.search).get("dev") === "1") {
@@ -321,7 +331,7 @@
   // Read-only diagnostics. No gameplay state is included in Session Report.
   if (new URLSearchParams(location.search).get("dev") === "1") {
     root.PumpkinProbe = () => ({ mode, loose: model.seeds.filter(p => !p.attached).length, seedCount: model.seeds.length, finished: !!model.finished, held: model.held, tilt: [model.x, model.y],
-      travelling: model.seeds.filter(p=>!p.lost&&!p.arrival).length, arrived:model.seeds.filter(p=>p.arrival).length, plants:J.plants(model).length, replayReady:!!model.replayReady, ending:model.ending?{elapsed:model.ending.elapsed,phase:model.ending.phase,growthComplete:model.ending.growthComplete}:null,
+      travelling: model.seeds.filter(p=>!p.lost&&!p.arrival).length, arrived:model.seeds.filter(p=>p.arrival).length, plants:J.plants(model).length, replayReady:!!model.replayReady, ending:model.ending?{elapsed:model.ending.elapsed,phase:model.ending.phase,growthComplete:model.ending.growthComplete,focus:model.ending.focus?.id,zoom:J.returnZoom(model),titleMix:J.titleMix(model)}:null,
       active: model.seeds.filter(p => !p.lost).length, lost: model.seeds.filter(p => p.lost).length, reached: model.seeds.filter(p => p.arrival).length,
       speed: model.seeds.map(p => Math.hypot(p.vx, p.vy)), impacts: model.impactCount,
       bounds: model.seeds.map(p => [Math.round(p.x), Math.round(p.y)]),

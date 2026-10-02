@@ -25,3 +25,17 @@ also remain unchanged. See [MIGRATION.md](./MIGRATION.md) for the reference audi
 This remains an unregistered staging work. The rename does not add town
 registration, analytics, production publication or standalone distribution.
 A Draft PR is not a deployed new URL.
+
+## Ending author review
+
+Each arrived seed grows one small pumpkin on the nursery surface, with a short
+vine and two leaves. After growth, “もういちど” offers an early return. Waiting
+keeps the farm in view briefly, then moves toward a central fruit and reveals
+the existing half-pumpkin/title in that same place. The same music player keeps
+running. An empty result keeps its quiet manual replay; Builder PLAY keeps its
+farm view and existing RESET/EDIT controls.
+
+Development placement fixtures: `?dev=1&ending=1` or `?dev=1&ending=9`.
+They exercise real soil contact/growth after placement; they are separate from
+ordinary-play verification. Device appearance and audible playback remain for
+author review.
