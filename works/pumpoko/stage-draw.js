@@ -213,10 +213,11 @@
     if (o > 0) {
       const lift = (1-o)*700;
       c.save(); c.globalAlpha = J.smooth(o*2)*(1-mix);
-      // Only a resolved result may simplify the surrounding terrain. Keep the
-      // land opaque throughout pullback; active gaps/walls remain exact in play.
+      // The journey and nursery remain one continuous piece of land. A result
+      // changes what grows here, not whether the Stage 1 ground still exists.
       const settled=!!(s.result&&s.ending&&s.result.arrivals.length);
-      if(!settled) { drawTerrain(c,g,lift); drawLoops(c,g); }
+      drawTerrain(c,g,lift);
+      drawLoops(c,g);
       drawFarm(c,g,lift,settled);
       c.restore();
     }
