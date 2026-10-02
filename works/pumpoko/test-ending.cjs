@@ -66,6 +66,12 @@ test('resolved nursery stays opaque and grounded through arrival, pullback, grow
   }
 });
 
+test('resolved ending keeps the Stage 1 terrain and farm as one continuous ground view',()=>{
+  const source=fs.readFileSync(require.resolve('./stage-draw.js'),'utf8');
+  assert.match(source,/drawTerrain\(c,g,lift\);\s*drawLoops\(c,g\);\s*drawFarm\(c,g,lift,settled\);/);
+  assert.doesNotMatch(source,/if\s*\(!settled\)\s*\{\s*drawTerrain/,'successful ending must not suppress the journey ground');
+});
+
 test('fruit rests on the sampled curve, roots stay fixed, and the central focus is deterministic',()=>{
   const s=fixture(9);advance(s,7);
   const centre=s.farm.frame.x,expected=s.result.arrivals.slice().sort((a,b)=>Math.abs(J.plantPose(s,a).x-centre)-Math.abs(J.plantPose(s,b).x-centre)||a.id-b.id)[0];
