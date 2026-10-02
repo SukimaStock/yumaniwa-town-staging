@@ -65,19 +65,26 @@
       c.restore();
     }
   }
-  function drawFarm(c,g,lift=0) {
+  function drawFarm(c,g,lift=0,settled=false) {
     const f=J.farm(g), ps=f.samples, first=ps[0], last=ps.at(-1);
-    const low=Math.max(...ps.map(p=>p.y))+lift, middle=(f.left+f.right)/2;
+    const low=Math.max(...ps.map(p=>p.y))+lift;
+    const bottom=Math.max(6000,g.bounds.lostY+500), reach=6000;
     c.save();
-    // The upper lip is still the real planting surface. The underside is a
-    // rounded receiver, not a section through a cliff or layered soil.
-    c.fillStyle='rgba(125,100,58,.08)';c.beginPath();
-    c.ellipse(middle,low+65,(f.right-f.left)*.44,8,0,0,TAU);c.fill();
-    c.beginPath();c.moveTo(first.x,first.y+lift);
+    // Roots stay on the exact contact surface. Soil continues downward;
+    // this is a hollow in the land, with no separate bottom or hovering shadow.
+    c.beginPath();
+    if(settled) {
+      c.moveTo(first.x-reach,first.y+lift-50);
+      c.lineTo(first.x-90,first.y+lift-50);
+      c.bezierCurveTo(first.x-45,first.y+lift-50,first.x-24,first.y+lift-24,first.x,first.y+lift);
+    } else c.moveTo(first.x,first.y+lift);
     for(const p of ps)c.lineTo(p.x,p.y+lift);
-    c.bezierCurveTo(last.x+13,last.y+lift+8,last.x+8,low+34,last.x-20,low+43);
-    c.bezierCurveTo(middle+50,low+67,middle-50,low+67,first.x+20,low+43);
-    c.bezierCurveTo(first.x-8,low+34,first.x-13,first.y+lift+8,first.x,first.y+lift);
+    if(settled) {
+      c.bezierCurveTo(last.x+24,last.y+lift-22,last.x+45,last.y+lift-34,last.x+90,last.y+lift-34);
+      c.lineTo(last.x+reach,last.y+lift-34);
+    }
+    c.lineTo(last.x+(settled?reach:0),bottom);
+    c.lineTo(first.x-(settled?reach:0),bottom);
     c.closePath();
     const soil=c.createLinearGradient(0,Math.min(...ps.map(p=>p.y))+lift,0,low+65);
     soil.addColorStop(0,'#c5a577');soil.addColorStop(.48,'#d7b989');soil.addColorStop(1,'#ead2a6');
@@ -171,13 +178,11 @@
     if (o > 0) {
       const lift = (1-o)*700;
       c.save(); c.globalAlpha = J.smooth(o*2);
-      // Once all travellers are resolved, the journey's cut edges recede into
-      // cream space. During play the exact visible/colliding terrain is intact.
-      const nursery=s.ending&&s.result.arrivals.length?J.smooth(s.ending.elapsed/2.8):0;
-      c.save();c.globalAlpha*=1-nursery;
-      drawTerrain(c,g,lift,1-nursery);
-      drawLoops(c,g);c.restore();
-      drawFarm(c,g,lift);
+      // Only a resolved result may simplify the surrounding terrain. Keep the
+      // land opaque throughout pullback; active gaps/walls remain exact in play.
+      const settled=!!(s.result&&s.ending&&s.result.arrivals.length);
+      if(!settled) { drawTerrain(c,g,lift); drawLoops(c,g); }
+      drawFarm(c,g,lift,settled);
       c.restore();
     }
     // Draw exactly one copy of each object over the changing world.
