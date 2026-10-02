@@ -78,22 +78,57 @@ alone launches all nine. A premature reversal can lose grains; maintained
 right/up flow can also cross, so stopping is optional.
 
 A brief opposite tilt on landing reduces speed through the same world physics.
-After that, gentle right tilt carries the party into END, where release leaves
-the surviving arrangement to become quiet. No special receiving rule or result
-UI is added. The author still evaluates the subjective timing and feel.
+After that, gentle right tilt carries the party into END. Only the soil inside
+the current END adds local damping and soft restitution; the receiving shelf
+and large-gap catch remain unchanged. Release leaves any overshooting grains
+free to roll back into the field. The author still evaluates timing and feel.
 
-## Loss and surviving-party finish
+## Rooted field ending (current)
 
-Below y600, a grain becomes `lost`: excluded from party collision, knock,
-median/span/zoom and END checks. Its same object keeps falling briefly; after
-passing y1000 or two seconds it becomes inactive. The array always contains
-all nine. A grain still on ground is never marked lost because it lags behind.
+The run keeps every original grain. `party()` still means all non-lost seeds;
+`travelling()` is the subset not yet rooted. Each travelling grain becomes
+lost only below the compiled geometry's loss boundary, or arrives after 0.24 s
+of actual top contact within that geometry's END at less than 95 px/s. Air
+passage, the underside and lost seeds never count. Soil changes neither the
+route nor the preceding receiving shelf. Arrival records the original object,
+stable run index, active simulation time, grain pose and exact floor root.
+Rooted grains stop participating in movement, knock and seed collisions, so
+late travelling grains remain controllable and the normal camera follows them.
 
-At least one survivor must be within END and slow for 3.6 seconds. Any survivor
-count is accepted. Physics continues, and the remaining grains themselves are
-the result; no count HUD, score or failure display. With zero survivors, hold
-the last camera for a quiet 2.4 seconds before showing the same small replay.
-Replay returns to the original three loose / six attached Stage 0 seeds.
+When no travelling seed remains, the result is frozen once. `finished` means
+that result is fixed; growth completion and `replayReady` are separate states.
+The ending captures the current camera/tilt and eases into a field-wide frame
+in 2.8 s, with its own scale independent of the ordinary 1.15 zoom minimum.
+Growth starts at 2.2 s with a 0.12 s stagger: the exact root sinks its original
+grain, sprouts, opens two leaves and bears exactly one pumpkin. The last
+pumpkin settles around 6.2 s; the small replay appears at 8.4 s. Deterministic
+leaf/fruit poses make nearby roots readable without moving seeds into slots.
+There are no decorative pumpkins, counters, cards, ranks or success text.
+
+The soil patch and shallow furrows are already visible while approaching END.
+They follow the same compiled floor/END used for contact, including draft END
+moves. No Stage Data schema/JSON migration was added. Builder renders the same
+soil, rooted grains and plants; EDIT and RESET remain immediate throughout.
+
+With zero arrivals there is no field pullback or plant: hold the last camera,
+finish the short visible falls, and permit replay after a quiet 2.4 s. Replay
+creates the original three free/six attached grains and resets arrival/growth
+and event state, while retaining Engine music and its playback position.
+
+## Event-based sound
+
+Work policy lives in `sketch.js` as `SOUND`. Only actual Stage 0 detachments
+play the short existing `fiber` sound. Ordinary collisions, grabs, sliding and
+knocks retain their physical effects but emit no SE. Arrivals emit a one-shot
+work event, coalesced within a 0.12 s window. No existing file has been verified
+as a suitable soft-soil sound, so the initial arrival policy is silent rather
+than reusing a mismatched contact/fiber sound. Sprouts, leaves and fruit use
+BGM only. All SE files remain for comparison. BGM asset, baseline level, first
+trusted-input start, mute and Engine lifecycle behavior are unchanged.
+
+All growth/settling time comes from fixed simulation updates. Canonical Engine
+omits work updates while paused and clamps resume delta; no timeout chains or
+queued sound bursts were introduced.
 
 ## Drawing-only depth
 

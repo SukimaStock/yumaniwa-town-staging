@@ -154,7 +154,7 @@ test('Stage 1 drag regrabs do not knock; a tap does; cancelled gestures are iner
   h.scene.touch({id:2,state:'BEGAN',x:200,y:300});h.scene.touch({id:2,state:'CANCELLED',x:200,y:300});
   assert.ok(!h.plays.includes('shell'));
   h.scene.touch({id:3,state:'BEGAN',x:200,y:300});h.scene.touch({id:3,state:'ENDED',x:200,y:300});
-  assert.equal(h.plays.filter(n=>n==='shell').length,1);
+  assert.equal(h.plays.filter(n=>n==='shell').length,0,'tap retains physics but is silent');
 });
 test('a dispersed camera retains real grains instead of centring the empty extreme gap', () => {
   const s=J.create(D.create());
@@ -248,15 +248,15 @@ function endFixture(count) {
     {x:1840+i*14,y:J.floor(1840+i*14).y-12,vx:0,vy:0}:
     {lost:true,inactive:true,x:478,y:1001,vx:0,vy:0}));return s;
 }
-test('1, 3, 6, 8 and 9 surviving seeds can finish while lost grains never block END', () => {
+test('1, 3, 6, 8 and 9 arriving seeds root safely while lost grains never block END', () => {
   for(const count of [1,3,6,8,9]){
     const s=endFixture(count);advance(s,25);assert.ok(s.finished,`survivors ${count}`);assert.equal(J.party(s).length,count);
     const before=J.party(s).map(p=>p.x),a=J.party(s)[0];J.knock(s,a.x-40,a.y-20);advance(s,.2);
-    assert.ok(J.party(s).some((p,i)=>Math.abs(p.x-before[i])>.5),'finish keeps live physics');
+    assert.deepEqual(J.party(s).map(p=>p.x),before,'rooted seeds never relaunch');assert.equal(J.travelling(s).length,0);
   }
 });
 test('all lost holds a finite camera, waits quietly, and permits replay', () => {
-  const s=endFixture(0),camera={...s.camera};advance(s,2);assert.ok(!s.finished);advance(s,.5);assert.ok(s.finished);
+  const s=endFixture(0),camera={...s.camera};advance(s,2);assert.ok(s.finished&&!s.replayReady);advance(s,.5);assert.ok(s.replayReady);
   assert.deepEqual(s.camera,camera);assert.equal(s.seeds.length,9);J.knock(s,180,250);advance(s,5);
   assert.ok(Number.isFinite(s.x+s.y+s.camera.x+s.camera.y+s.camera.z));
   // A fixture isolates the existing loss/replay contract from level tuning.

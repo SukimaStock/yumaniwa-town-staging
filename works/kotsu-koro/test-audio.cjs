@@ -7,7 +7,7 @@ const D = require('./dynamics.js'), J = require('./journey.js');
 const tick = async () => { for (let i = 0; i < 16; i++) await Promise.resolve(); };
 function harness(options = {}) {
   const media = [], saved = options.saved || new Map(), timers = new Map();
-  let config, journey, serial = 0;
+  let config, journey, serial = 0; const plays=[];
   class Target {
     constructor(tagName = 'DIV') { this.tagName = tagName; this.handlers = new Map(); this.hidden = true; this.complete = true; this.naturalWidth = 2064; }
     addEventListener(type, fn) { if (!this.handlers.has(type)) this.handlers.set(type, []); this.handlers.get(type).push(fn); }
@@ -44,9 +44,10 @@ function harness(options = {}) {
   vm.runInNewContext(fs.readFileSync(path.join(__dirname, 'work-config.js'), 'utf8'), w);
   w.SSE.createApp = value => { config = value; };
   vm.runInNewContext(fs.readFileSync(path.join(__dirname, 'sketch.js'), 'utf8'), w);
+  const playSE=w.SSE.audio.play.bind(w.SSE.audio);w.SSE.audio.play=(name,...args)=>{plays.push(name);return playSE(name,...args);};
   w.SSE.audio.configure(config.audio); w.SSE.input.configureKeyboard(config.keyboard); config.setup();
   return { w, audio: w.SSE.audio, config, scene: config.scenes.main, elements, media, saved,
-    get journey() { return journey; }, get track() { return media[0]; },
+    plays, get journey() { return journey; }, get track() { return media[0]; },
     pointer(extra) { elements.get('gameCanvas').emit('pointerdown', extra); },
     key(extra = {}) { w.emit('keydown', { code: 'ArrowRight', key: 'ArrowRight', ...extra }); },
     toggle() { elements.get('sound-toggle').emit('click'); },
@@ -73,12 +74,12 @@ test('normal simulated scene flow keeps the identical track/time across prologue
 });
 for (const ending of ['goal', 'all-lost']) test(ending + ' fixture and replay retain the same media position', () => {
   const h = harness(); h.key(); h.w.SSE.input.keysDown.add('ArrowRight'); h.w.SSE.input.keysDown.add('ArrowDown'); h.advance(35);
-  h.w.SSE.input.reset(); const s = h.journey; assert.ok(s);
+  h.w.SSE.input.reset(); const s = h.journey; assert.ok(s); s.result=s.ending=null;s.finished=s.replayReady=false;s.arrivals=[];for(const p of s.seeds){p.arrival=null;p.soilTime=0;}
   // Explicit end-state injection: tests audio continuity at both waiting screens,
   // not the player's ability to complete the whole level.
   if (ending === 'goal') for (const p of s.seeds) { p.lost = p.inactive = false; p.x = (J.END.left + J.END.right) / 2; p.y = s.geometry.floor(p.x).y - J.support(p, 0, 1); p.vx = p.vy = 0; }
   else for (const p of s.seeds) p.lost = true;
-  h.advance(6); assert.equal(h.elements.get('again').hidden, false); assert.ok(h.w.PumpkinProbe().finished);
+  h.advance(12); assert.equal(h.elements.get('again').hidden, false); assert.ok(h.w.PumpkinProbe().finished);
   const old = h.track.currentTime; h.elements.get('again').emit('click');
   assert.equal(h.w.PumpkinProbe().mode, 'prologue'); assert.equal(h.track.currentTime, old);
   h.advance(2); assert.ok(h.track.currentTime > old + 1.9); assert.equal(h.media.length, 1); assert.equal(h.track.plays, 1);
@@ -106,4 +107,23 @@ test('media failure remains in Engine diagnostics while game update and input ke
   const h = harness({ fail: true }); await tick(); const r = h.audio.resourceState('pumpoko'); assert.equal(r.status, 'failed'); assert.ok(r.reason);
   h.pointer(); h.scene.touch({ id: 1, state: 'BEGAN', x: 195, y: 375 }); h.scene.touch({ id: 1, state: 'MOVING', x: 250, y: 350 }); h.advance(1);
   assert.equal(h.w.PumpkinProbe().seedCount, 9); assert.ok(h.w.PumpkinProbe().tilt[0] > .1); assert.equal(h.audio.resourceState('pumpoko').status, 'failed');
+});
+
+test('ordinary collisions/grab/knock are silent; only real Stage0 detach emits fiber',()=>{
+  const h=harness();h.scene.touch({id:1,state:'BEGAN',x:195,y:375});h.scene.touch({id:1,state:'ENDED',x:195,y:375});h.advance(2);assert.equal(h.plays.length,0);assert.ok(h.w.PumpkinProbe().impacts>0);
+  h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(40);
+  assert.ok(h.plays.length>0);assert.ok(h.plays.every(n=>n==='fiber'));assert.equal(h.w.PumpkinProbe().loose,9);
+});
+test('ending growth receives only active update time and resumes without audio replay burst',()=>{
+  const h=harness();h.key();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(35);h.w.SSE.input.reset();
+  const s=h.journey;s.result=s.ending=null;s.finished=s.replayReady=false;s.arrivals=[];s.seeds.forEach((p,i)=>{p.arrival=null;p.soilTime=0;p.lost=p.inactive=i>0;if(!i){p.x=1900;p.y=s.geometry.floor(p.x).y-J.support(p,0,1);p.vx=p.vy=0;}});h.advance(1);assert.ok(s.result);const elapsed=s.ending.elapsed,pos=h.track.currentTime,plays=h.plays.length;
+  h.w.SSE.lifecycle.pause('hidden');h.track.advance(30);assert.equal(s.ending.elapsed,elapsed);assert.equal(h.track.currentTime,pos);h.w.SSE.lifecycle.resume('hidden');h.advance(1);assert.ok(s.ending.elapsed>elapsed+.9);assert.equal(h.plays.length,plays);assert.equal(h.media.length,1);assert.ok(h.track.currentTime>pos+.9);
+  // Engine frame dispatcher (unchanged) gates scene updates while paused. This
+  // harness supplies no work updates in the hidden interval, as that gate does.
+});
+test('normal simulated run grows once, reject new tilts, and replay resets growth without music seek',()=>{
+  const h=harness();h.key();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(12);h.w.SSE.input.reset();h.scene.touch({id:2,state:'BEGAN',x:195,y:375});h.scene.touch({id:2,state:'MOVING',x:253.8,y:433.8});h.advance(42);h.scene.touch({id:2,state:'ENDED',x:253.8,y:433.8});h.advance(20);const s=h.journey;
+  assert.ok(s.result&&s.result.arrivals.length>0&&s.replayReady);const result=s.result,elapsed=s.ending.elapsed,old=h.track.currentTime;
+  h.scene.touch({id:10,state:'BEGAN',x:190,y:375});h.scene.touch({id:10,state:'MOVING',x:300,y:200});h.advance(1);assert.equal(s.result,result);assert.equal(s.held,false);assert.ok(s.ending.elapsed>elapsed);assert.equal(h.media.length,1);
+  h.elements.get('again').emit('click');const p=h.w.PumpkinProbe();assert.equal(p.mode,'prologue');assert.equal(p.arrived,0);assert.equal(p.plants,0);assert.equal(p.loose,3);assert.equal(p.ending,null);assert.ok(!p.replayReady);assert.equal(h.w.SSE.input.keysDown.size,0);assert.ok(h.track.currentTime>=old);assert.equal(h.track.plays,1);
 });

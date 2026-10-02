@@ -65,10 +65,10 @@
   function seed(p,i){c.save();c.translate(p.x,p.y);c.rotate(p.angle);c.scale(1,p.roll||1);c.fillStyle=i%2?'#f4e8b9':'#f8edc6';c.strokeStyle='#c9bb85';c.lineWidth=1;c.beginPath();c.ellipse(0,0,10.3,5.5,0,0,Math.PI*2);c.fill();c.stroke();c.beginPath();c.moveTo(-6,0);c.lineTo(7,0);c.strokeStyle='#fff5d7';c.stroke();c.restore();}
   function render(){
     c.clearRect(0,0,width,height);c.fillStyle='#faf2d5';c.fillRect(0,0,width,height);
-    if(m.mode==='play')view.z=Math.min(1.25,width/480,height/500);
+    if(m.mode==='play')view.z=Math.min(1.25,width/480,height/500)*(m.run.result?Math.min(1,m.run.camera.z/J.ZOOM):1);
     c.save();if(m.mode==='play'){c.translate(width/2,height*.48);c.rotate(J.view(m.run).angle);c.scale(view.z,view.z);c.translate(-m.run.camera.x,-m.run.camera.y);}else{c.scale(view.z,view.z);c.translate(-view.x,-view.y);}
-    const g=m.mode==='play'?m.run.geometry:m.geometry;Draw.drawTerrain(c,g);Draw.drawLoops(c,g);
-    if(m.mode==='play'){for(const [i,p]of m.run.seeds.entries())if(!p.inactive)seed(p,i);}
+    const g=m.mode==='play'?m.run.geometry:m.geometry;Draw.drawTerrain(c,g);Draw.drawLoops(c,g);Draw.drawFarm(c,g);
+    if(m.mode==='play'){Draw.drawSeeds(c,m.run,(_c,p,i)=>seed(p,i));Draw.drawPlants(c,m.run);}
     else {
       for(const [i,trace]of m.traces.entries()){c.beginPath();for(const [k,p]of trace.entries()){if(!k)c.moveTo(p.x,p.y);else c.lineTo(p.x,p.y);}c.strokeStyle=`hsla(${30+i*13},35%,42%,.22)`;c.lineWidth=1.5/view.z;c.stroke();}
       for(const p of m.losses){c.strokeStyle='#a77b61';c.lineWidth=1.4/view.z;c.beginPath();const r=5/view.z;c.moveTo(p.x-r,p.y-r);c.lineTo(p.x+r,p.y+r);c.moveTo(p.x+r,p.y-r);c.lineTo(p.x-r,p.y+r);c.stroke();}

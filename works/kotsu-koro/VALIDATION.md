@@ -235,3 +235,37 @@ editing → real draft play → optional physical Loop.
   edit/play/Loop/JSON observations follow in the PR. Unobserved device feel and
   final automatic VERIFIED remain UNVERIFIED. No production, canonical runtime,
   generic editor, registration or Stage 2.
+
+## Field ending and event sound — 2026-10-02
+
+Base: staging/main `86f1b8926007ca6538676cd13896645726cb1207`.
+90 logical checks PASS: existing 63 (only obsolete finish/relaunch and SE
+assertions updated), canonical Engine audio integration 11, field ending 16.
+`node --test works/kotsu-koro/test-*.cjs` reports 32 native test entries because
+several existing suites aggregate their own checks.
+
+Explicit placement fixtures check arrivals 1–9, original-object retention,
+one-shot events, one root/plant/fruit per arrival, stable results, air/underside
+rejection, rolling before rooting, stragglers, zero-arrival replay, camera
+continuity/bounds, 30/60/120fps and changed draft END. Drawing spies verify
+fruit counts and the absence of duplicate mature grain rendering. These are
+state/draw-command checks, not browser screenshots or ordinary completions.
+
+Canonical terrain query/sample hashes stay unchanged. A frozen Git base
+reference reproduces the previous full physics snapshot. New/base physical
+states match exactly until END contact; a valid extended draft with END far
+away additionally compares 60 seconds of identical travelling/gap/loss input.
+Existing Stage0, transition, stopped-party pumping/catch and Loop checks pass.
+
+Canonical Engine tests use simulated media, and verify BGM continuity through
+waiting/growth/replay, mute/OFF persistence and lifecycle pause/resume. An
+input-only simulated Stage0-to-growth run completes without state injection.
+Other waiting/goal tests explicitly inject placement/loss state. Ordinary SE
+is silent and only actual detachments emit fiber. The hidden growth interval
+in this scene harness supplies no work updates, matching the unchanged
+Engine frame dispatch gate; this does not emulate a physical app switch.
+
+Actual browser ordinary play, development-fixture screenshots, Builder UI,
+physical iPhone and listening results must be reported against the published
+candidate separately. Formal verificationState remains UNVERIFIED. No
+production/shared Engine/Codea/Stage Data/BGM/logo modification.

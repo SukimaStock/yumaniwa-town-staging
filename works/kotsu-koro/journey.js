@@ -9,7 +9,29 @@
   const { START, END, ROUND, segments, terrain, GAP, floor, field } = geometry;
   const ZOOM = 1.85, DURATION = 6.4;
   const CONTROL = Object.freeze({ grabK:220, grabD:21, returnK:70, returnD:10, inertia:3 });
+  // party remains the surviving result, including rooted seeds.
   function party(s) { return s.seeds.filter(p => !p.lost); }
+  function travelling(s) { return s.seeds.filter(p => !p.lost && !p.arrival); }
+  function farm(g) {
+    const samples = [], {left,right} = g.END;
+    for (let i=0;i<=40;i++) { const x=left+(right-left)*i/40, f=g.floor(x); samples.push({x,y:f.y}); }
+    const top=Math.min(...samples.map(p=>p.y))-110, bottom=Math.max(...samples.map(p=>p.y))+85;
+    return {left,right,samples,frame:{x:(left+right)/2,y:(top+bottom)/2,z:Math.min(1.05,340/(right-left+110),500/(bottom-top+70))}};
+  }
+  const ENDING = Object.freeze({ growAt:2.2, stagger:.12, growthDuration:3, replayAt:8.4, emptyReplayAt:2.4 });
+  function plants(s) {
+    if (!s.result) return [];
+    return s.result.arrivals.map((arrival,i)=>({arrival, age:s.ending.elapsed-ENDING.growAt-i*ENDING.stagger}));
+  }
+  function resolve(s) {
+    if (s.result || travelling(s).length) return;
+    const arrivals=Object.freeze(s.seeds.filter(p=>p.arrival).map(p=>p.arrival).sort((a,b)=>a.at-b.at||a.id-b.id));
+    s.result=Object.freeze({arrivals,lost:s.seeds.filter(p=>p.lost).length,total:s.seeds.length,at:s.time});
+    s.finished=true;
+    s.ending={elapsed:0,phase:arrivals.length?'pullback':'empty',growthComplete:!arrivals.length,
+      from:{...s.camera},pose:{x:s.x,y:s.y,ring:s.ring}};
+    release(s); // Release only input; preserve physical pose/camera for the pullback.
+  }
   function support(p, nx, ny) {
     const c = Math.cos(p.angle), s = Math.sin(p.angle);
     return Math.hypot(10.3 * (nx * c + ny * s), 5.5 * (-nx * s + ny * c));
@@ -22,13 +44,13 @@
       ring: source.ring, ringV: source.ringV, contacts: [], marks: [], impactCount: source.impactCount,
       camera: { x: START.x, y: START.y, z: transitioning ? 1 : ZOOM },
       transition: transitioning ? { elapsed: 0, progress: 0, settled: false } : null,
-      quiet: 0, emptyQuiet: 0, finished: false, seeds: source.seeds };
+      finished: false, replayReady:false, result:null, ending:null, arrivals:[], arrivalEvents:[], farm:farm(stage), seeds: source.seeds };
     // Stage 0 draws positions with y * .8, but rotates the grain in screen space.
     // Bake that projection into y and vy, keeping angle/spin/x/vx unchanged.
     // The matching camera transform makes transfer pixel-continuous (tested).
     for (const [i, p] of s.seeds.entries()) {
       p.x += START.x; p.y = START.y + p.y * .8; p.vy *= .8; p.attached = false;
-      p.lost = false; p.inactive = false; p.fallTime = 0;
+      p.lost = false; p.inactive = false; p.fallTime = 0; p.arrival=null; p.soilTime=0; p.runId=i;
       p.dragFactor = .98 + i % 4 * .014; p.turn = p.angle; p.roll = p.roll || 1;
     }
     return s;
@@ -36,9 +58,11 @@
   function opening(s) { return s.transition ? smooth((s.transition.progress - .36) / .57) : 1; }
   function view(s) {
     const o = opening(s), z = s.camera.z;
-    return { x: 195 + s.x * (34 - 22 * o), y: 365 + s.y * (23 - 15 * o),
-      angle: s.x * (.22 - .15 * o), sx: z * (1 + s.ring * .22),
-      sy: z * (1 - s.y * .15 - s.ring * .18) };
+    const ease=s.ending ? 1-smooth(s.ending.elapsed/2.8) : 1;
+    const x=s.ending?s.ending.pose.x:s.x, y=s.ending?s.ending.pose.y:s.y, ring=s.ending?s.ending.pose.ring:s.ring;
+    return { x: 195 + x * (34 - 22 * o)*ease, y: 365 + y * (23 - 15 * o)*ease,
+      angle: x * (.22 - .15 * o)*ease, sx: z * (1 + ring * .22*ease),
+      sy: z * (1 - y * .15*ease - ring * .18*ease) };
   }
   function screenPoint(s, x, y) {
     const v = view(s), dx = (x - s.camera.x) * v.sx, dy = (y - s.camera.y) * v.sy;
@@ -56,9 +80,10 @@
     p.cool = .09; s.impactCount++; s.contacts.push({ x: p.x, y: p.y, speed, material });
   }
   function knock(s, x, y) {
+    if(s.result)return;
     s.ringV += .45;
     // Physical world impulse must not depend on render-rate camera smoothing.
-    const active = party(s);
+    const active = travelling(s);
     if (!active.length) return;
     const centreX = active.reduce((n,p) => n+p.x,0) / active.length;
     const centreY = active.reduce((n,p) => n+p.y,0) / active.length;
@@ -74,7 +99,8 @@
     p.x += nx * penetration; p.y += ny * penetration;
     const vn = p.vx * nx + p.vy * ny;
     if (vn < 0) {
-      const bounce = material === 'cushion' ? .08 : .22;
+      const soil=p.x>=s.geometry.END.left&&p.x<=s.geometry.END.right&&ny<-.5;
+      const bounce = soil || material === 'cushion' ? .08 : .22;
       p.vx -= (1 + bounce) * vn * nx; p.vy -= (1 + bounce) * vn * ny;
       p.spin += (p.vx * ny - p.vy * nx) * .005; contact(s, p, -vn, material);
     }
@@ -105,6 +131,19 @@
   function step(s, dt) {
     const {START,END,floor}=s.geometry;
     s.time += dt;
+    if(s.result) {
+      const e=s.ending;e.elapsed+=dt;
+      e.growthComplete=!s.result.arrivals.length || e.elapsed>=ENDING.growAt+(s.result.arrivals.length-1)*ENDING.stagger+ENDING.growthDuration;
+      e.phase=!s.result.arrivals.length?'empty':e.growthComplete?'rest':e.elapsed<ENDING.growAt?'pullback':'growing';
+      s.replayReady=e.elapsed>=(s.result.arrivals.length?ENDING.replayAt:ENDING.emptyReplayAt);
+      release(s);
+      // The same short visible fall still completes after an all-lost result.
+      for(const p of s.seeds)if(p.lost&&!p.inactive) {
+        p.fallTime+=dt;p.vy+=360*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.angle+=p.spin*dt;
+        if(p.y>s.geometry.bounds.lostY+400||p.fallTime>2)p.inactive=true;
+      }
+      return;
+    }
     if (s.transition) {
       s.transition.elapsed = Math.min(DURATION, s.transition.elapsed + dt);
       s.transition.progress = s.transition.elapsed / DURATION;
@@ -120,7 +159,7 @@
     s.vx += ax * dt; s.vy += ay * dt; s.x += s.vx * dt; s.y += s.vy * dt;
     s.ringV += (-490 * s.ring - 9 * s.ringV) * dt; s.ring += s.ringV * dt;
     for (const p of s.seeds) {
-      if (p.inactive) continue;
+      if (p.inactive || p.arrival) continue;
       if (p.lost) {
         p.fallTime += dt; p.vy += 360 * dt;
         p.x += p.vx * dt; p.y += p.vy * dt; p.angle += p.spin * dt;
@@ -142,7 +181,8 @@
       const cross = Math.abs(-Math.sin(p.angle) * p.vx + Math.cos(p.angle) * p.vy) / Math.max(1, Math.hypot(p.vx, p.vy));
       const inRound = !!feature || s.geometry.isRound(p.x);
       const friction = grounded ? (inRound ? 7 + cross * 2 : ground.material === 'polished' ? 3 : 7 + cross * 3) : 0;
-      const drag = (.65 * (1-o) + (!grounded ? 1.0 : inRound ? .30 : ground.material === 'polished' ? 1.15 : 1.35) * o) * p.dragFactor;
+      const soil = o===1 && grounded && p.x>=END.left && p.x<=END.right && p.y<f.y;
+      const drag = (soil ? 5.5 : (.65 * (1-o) + (!grounded ? 1.0 : inRound ? .30 : ground.material === 'polished' ? 1.15 : 1.35) * o)) * p.dragFactor;
       const loss = Math.exp(-drag * dt) * Math.max(0, 1 - friction * dt / Math.max(.01, Math.hypot(p.vx, p.vy)));
       p.vx *= loss; p.vy *= loss; p.x += p.vx * dt; p.y += p.vy * dt;
       p.spin += ((p.vx + p.vy * .35) / 26 - p.spin) * (1 - Math.exp(-4 * dt));
@@ -152,7 +192,7 @@
     }
     for (let i = 0; i < s.seeds.length; i++) for (let j = i + 1; j < s.seeds.length; j++) {
       const a = s.seeds[i], b = s.seeds[j], dx = b.x - a.x, dy = b.y - a.y;
-      if (a.lost || b.lost) continue;
+      if (a.lost || b.lost || a.arrival || b.arrival) continue;
       const distance = Math.hypot(dx, dy) || .01, nx = dx / distance, ny = dy / distance;
       const reach = support(a, nx, ny) + support(b, nx, ny);
       if (distance >= reach) continue;
@@ -165,20 +205,35 @@
         contact(s, a, -relative, 'seed');
       }
     }
-    for (const p of party(s)) {
+    for (const p of travelling(s)) {
       boundary(s, p, o);
       // Below every possible landing surface: the fall can no longer be saved.
       // Keep its object and a short visible fall, but stop following/colliding.
       if (o === 1 && p.y > s.geometry.bounds.lostY) { p.lost = true; p.fallTime = 0; }
     }
-    const active = party(s);
-    const together = o === 1 && active.length > 0 && active.every(p => p.x > END.left && p.x < END.right && Math.hypot(p.vx, p.vy) < 24);
-    s.quiet = together ? s.quiet + dt : 0; s.emptyQuiet = o === 1 && !active.length ? s.emptyQuiet + dt : 0;
-    s.finished = s.quiet > 3.6 || s.emptyQuiet > 2.4;
+    if(o===1) for(const p of travelling(s)) {
+      const f=floor(p.x), onSoil=p.x>=END.left&&p.x<=END.right&&f&&p.y<f.y;
+      const gap=onSoil ? (p.y-f.y)*-f.ny+support(p,f.nx,f.ny) : Infinity;
+      // Actual one-sided top contact, not x-range, air passage or an underside.
+      p.soilTime=onSoil&&Math.abs(gap)<1.2&&Math.hypot(p.vx,p.vy)<95 ? p.soilTime+dt : 0;
+      if(p.soilTime>=.24) {
+        const arrival=Object.freeze({seed:p,id:p.runId,at:s.time,x:p.x,y:p.y,rootY:f.y,angle:p.angle,roll:p.roll});
+        p.arrival=arrival;p.vx=p.vy=p.spin=0;
+        s.arrivals.push(arrival);s.arrivalEvents.push(arrival);
+      }
+    }
+    if(o===1)resolve(s);
   }
   function camera(s, dt) {
     const {START}=s.geometry;
-    const active = party(s);
+    if(s.result) {
+      if(s.result.arrivals.length) {
+        const t=smooth(s.ending.elapsed/2.8),a=s.ending.from,b=s.farm.frame;
+        for(const k of ['x','y','z'])s.camera[k]=a[k]+(b[k]-a[k])*t;
+      }
+      return;
+    }
+    const active = travelling(s);
     if (!active.length) return; // Hold the last view during the quiet replay pause.
     const xs = active.map(p => p.x), ys = active.map(p => p.y);
     const minX = Math.min(...xs), maxX = Math.max(...xs), maxY = Math.max(...ys);
@@ -201,12 +256,12 @@
     }
   }
   function update(s, elapsed) {
-    s.contacts.length = 0; s.accumulator += clamp(elapsed, 0, .06);
+    s.contacts.length = 0; s.arrivalEvents.length=0; s.accumulator += clamp(elapsed, 0, .06);
     while (s.accumulator >= T.step) { step(s, T.step); s.accumulator -= T.step; }
     camera(s, clamp(elapsed, 0, .06));
   }
   const api = Object.freeze({ create, release, knock, update, point, screenPoint, view, field, floor,
-    support, geometry, terrain, segments, GAP, party, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
+    support, geometry, terrain, segments, GAP, party, travelling, farm, plants, ENDING, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
   root.PumpkinJourney = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);
