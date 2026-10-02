@@ -64,7 +64,7 @@ function harness() {
     SUKIMASTOCK_WORK: { id: 'kotsu-koro', title: 'PUMPOKO', logicalWidth: 390, logicalHeight: 740, frameRate: 60 },
     PumpkinDynamics: D, PumpkinJourney: J, BEGAN: 'BEGAN', MOVING: 'MOVING', ENDED: 'ENDED', CANCELLED: 'CANCELLED',
     SSE: { createApp: v => { config = v; }, audio: {
-      withBaseline: v => v, baseline: () => ({ reference: { se: { action: .46, soft: .24 } } }),
+      withBaseline: v => v, baseline: () => ({ reference: { bgm: { active: .225 }, se: { action: .46, soft: .24 } } }),
       play: (name, options) => plays.push({ name, options }),
     }, input: { action: n => held.has(n), actionPressed: n => pressed.has(n) } },
   }; c.window = c;

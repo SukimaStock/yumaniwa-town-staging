@@ -135,11 +135,11 @@
       // Keep the same quiet opening composition. The supplied vector is the
       // only title; the text fallback also keeps it readable if loading fails.
       if (titleArt && titleArt.complete && titleArt.naturalWidth > 0) {
-        c.drawImage(titleArt, 57, 91, 276, 276 * 654 / 2064);
+        c.drawImage(titleArt, 36.3, 102, 317.4, 317.4 * 654 / 2064);
       } else {
         c.fillStyle = "#b9672f";
-        c.font = "bold 32px 'Arial Rounded MT Bold', sans-serif";
-        c.fillText(W.title, 195, 148);
+        c.font = "bold 36.8px 'Arial Rounded MT Bold', sans-serif";
+        c.fillText(W.title, 195, 163);
       }
       c.fillStyle = `rgba(105,85,57,${.78 * hint})`;
       c.font = "12px 'Hiragino Kaku Gothic ProN', sans-serif";
@@ -242,7 +242,9 @@
     outerBackground: "#f7edd8",
     keyboard: { bindings: { left: ["ArrowLeft", "KeyA"], right: ["ArrowRight", "KeyD"],
       up: ["ArrowUp", "KeyW"], down: ["ArrowDown", "KeyS"], knock: ["Space"] } },
-    audio: SSE.audio.withBaseline({ storageKey: W.id + ".sound", sounds: {
+    audio: SSE.audio.withBaseline({ storageKey: W.id + ".sound", music: {
+      pumpoko: { file: "./audio/pumpoko-bgm.mp3", loop: true, volume: SSE.audio.baseline().reference.bgm.active },
+    }, sounds: {
       shell: { file: "./audio/shell.wav", mode: "buffer", volume: SSE.audio.baseline().reference.se.action },
       rim: { file: "./audio/rim.wav", mode: "buffer", volume: SSE.audio.baseline().reference.se.soft },
       seed: { file: "./audio/seed.wav", mode: "buffer", volume: SSE.audio.baseline().reference.se.soft },
@@ -252,6 +254,21 @@
     analytics: { enabled: false }, scenes: { main: scene },
     setup() {
       SSE.audio.preload();
+      // Only trusted existing controls start music. Engine owns its single
+      // cached player, mute/pause/resume and lifecycle; game resets never seek it.
+      const beginMusic = event => {
+        if (event.isTrusted !== true || document.hidden || SSE.lifecycle?.paused || !SSE.audio.enabled) return;
+        if (SSE.audio.currentMusic === "pumpoko") SSE.audio.resumeMusic("pumpoko");
+        else SSE.audio.playMusic("pumpoko", { restart: false });
+      };
+      document.getElementById("gameCanvas").addEventListener("pointerdown", event => {
+        if (event.isPrimary === false || event.button > 0) return;
+        beginMusic(event);
+      }, { passive: true });
+      root.addEventListener?.("keydown", event => {
+        if (event.repeat || SSE.input.isEditable(event)) return;
+        if (SSE.input.eventKeys(event).some(key => SSE.input.isBoundKey(key))) beginMusic(event);
+      });
       titleArt = document.getElementById("title-art");
       again = document.getElementById("again");
       again.addEventListener("click", () => {
@@ -276,7 +293,7 @@
         button.setAttribute("aria-label", SSE.audio.enabled ? "音を切る" : "音を入れる");
       };
       sync();
-      button.addEventListener("click", () => { SSE.audio.setEnabled(!SSE.audio.enabled); SSE.audio.unlock(); sync(); });
+      button.addEventListener("click", event => { SSE.audio.setEnabled(!SSE.audio.enabled); SSE.audio.unlock(); beginMusic(event); sync(); });
     },
   });
   // Read-only diagnostics. No gameplay state is included in Session Report.
