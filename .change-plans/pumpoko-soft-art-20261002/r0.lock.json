@@ -1,0 +1,83 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "dd6d8ede49bb012dbb1022690d7136ccf702827b380cfc0422fa765cd8b8e499",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-soft-art-20261002",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Draw-only soft pumpkin bowl, meaningful tethers and rounded ending nursery art",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "58cb64a5f4e4852ab4bc012174791610cfa22834",
+    "canonicalSources": [
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/stage-draw.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-soft-art-20261002/r0.lock.json",
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/stage-draw.js",
+      "works/kotsu-koro/test-ending.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "works/kotsu-koro/codea-lite.js",
+      "works/kotsu-koro/dynamics.js",
+      "works/kotsu-koro/journey.js",
+      "works/kotsu-koro/stage-data.js",
+      "works/kotsu-koro/stage-geometry.js",
+      "works/kotsu-koro/builder/**",
+      "works/kotsu-koro/audio/**",
+      "works/kotsu-koro/assets/**"
+    ],
+    "expectedChanges": [
+      "Remove interior/cut fibre detail; soft graduated bowl with original outline/parallax",
+      "One clear soft tether per connected seed; identical anchor/end coordinates",
+      "Round nursery underside and broad soil tones, fade surrounding cut terrain only after resolved ending",
+      "Softer lobed fruit and rounded leaves, retain plant count/root/timing",
+      "Adjust draw assertion to count fruit shadows rather than obsolete material strokes"
+    ],
+    "ownerDecisions": [
+      "User directed reduction of realistic line textures, soft pop art and rounded nursery"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Current existing-work canonical Engine contract; all new physics/composition/timing remain work-owned",
+      "Plan-only first branch commit followed by scoped implementation and PR",
+      "SukimaStock Audio Baseline for new sounds; existing proven levels retained"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "ordinary-title-stage0-transition",
+      "ending-one-nine-soft-nursery",
+      "ordinary-survivor-finish-replay",
+      "bgm-growth-continuity"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the draw-only implementation commit in staging",
+    "outOfScope": [
+      "Physics, level geometry, input, ending logic, music, Builder, production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Author device feel; final formal verification remains UNVERIFIED"
+    ]
+  }
+}
