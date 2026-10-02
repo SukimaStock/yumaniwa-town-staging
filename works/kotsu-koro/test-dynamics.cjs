@@ -89,7 +89,7 @@ test('keyboard holds and releases the same loop; Space creates a knock', () => {
   assert.ok(h.probe().tilt[0] > .25);
   h.held.clear(); h.scene.update(1 / 60); assert.equal(h.probe().held, false);
   h.pressed.add('knock'); h.scene.update(1 / 60);
-  assert.ok(h.plays.some(p => p.name === 'shell'));
+  assert.ok(!h.plays.some(p => p.name === 'shell'),'physical knock is now silent');assert.ok(h.probe().marks>0);
 });
 test('prologue does not release on idle time or one physical knock', () => {
   for (const knock of [false,true]) {

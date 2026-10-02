@@ -6,8 +6,25 @@
   if (new URLSearchParams(location.search).get("dev") === "1" && new URLSearchParams(location.search).get("stage") === "1") {
     model = J.create(model); mode = "journey";
   }
+  // Explicit development fixtures: placement only, then the real contact/result
+  // pipeline. Ordinary play never reads these parameters.
+  const fixture=new URLSearchParams(location.search);
+  if(fixture.get("dev")==="1" && /^[1-9]$/.test(fixture.get("ending")||"")) {
+    model=J.create(D.createPrologue());mode="journey";
+    const count=Number(fixture.get("ending")), {left,right}=model.geometry.END;
+    model.seeds.forEach((p,i)=>{if(i>=count){p.lost=p.inactive=true;return;}
+      p.x=left+35+(right-left-70)*(i+.5)/count;
+      p.y=model.geometry.floor(p.x).y-J.support(p,model.geometry.floor(p.x).nx,model.geometry.floor(p.x).ny)-.5;
+      p.vx=p.vy=p.spin=0;
+    });
+    model.camera={x:(left+right)/2,y:model.geometry.floor((left+right)/2).y-70,z:J.ZOOM};
+  }
+  // Sound policy is by event, not by shared filename. Keep original files for
+  // comparison. No existing sound has been verified as soft soil, so arrivals
+  // are intentionally silent in this version; the one-shot event is retained.
+  const SOUND=Object.freeze({detach:"fiber",arrival:null,arrivalWindow:.12});
   const CX = 195, CY = 365, TAU = Math.PI * 2;
-  let lastSound = -1, touchedOnce = false, hint = 1, paper, titleArt, gesture = null;
+  let lastArrivalSound = -1, touchedOnce = false, hint = 1, paper, titleArt, gesture = null;
   const grain = Array.from({ length: 760 }, (_, i) => {
     const f = n => { const v = Math.sin(n * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
     return { x: f(i) * 390, y: f(i + 99) * 740, r: 0.2 + f(i + 33) * 0.6 };
@@ -171,7 +188,6 @@
   function knockAt(x, y) {
     if (mode !== "prologue") { const p = J.point(model, x, y); J.knock(model, p.x, p.y); }
     else D.knock(model, x - CX, (y - CY) / .8);
-    SSE.audio.play("shell");
   }
   const scene = {
     opaque: true,
@@ -179,20 +195,27 @@
       // Keyboard is an equal way of holding the vessel, without extra HUD.
       const kx = (SSE.input.action("right") ? 1 : 0) - (SSE.input.action("left") ? 1 : 0);
       const ky = (SSE.input.action("down") ? 1 : 0) - (SSE.input.action("up") ? 1 : 0);
-      if (model.activeId === null) {
+      if (!model.result && model.activeId === null) {
         model.held = !!(kx || ky);
         const strength = mode === "prologue" ? .28 : .28 + .10 * J.opening(model);
         model.targetX = kx * strength; model.targetY = ky * strength;
       }
       if (kx || ky) touchedOnce = true;
-      if (SSE.input.actionPressed("knock")) { knockAt(CX + 70, CY - 35); touchedOnce = true; }
+      if (!model.result && SSE.input.actionPressed("knock")) { knockAt(CX + 70, CY - 35); touchedOnce = true; }
       if (mode !== "prologue") {
         J.update(model, dt);
         if (mode === "transition" && model.transition.settled) mode = "journey";
-        if (again) again.hidden = !model.finished;
+        if(model.result)gesture=null;
+        // J.update emits each arrival once. Coalesce near-simultaneous events;
+        // never queue sounds to be replayed after mute/background recovery.
+        if(model.arrivalEvents.length && model.time-lastArrivalSound>SOUND.arrivalWindow) {
+          if(SOUND.arrival)SSE.audio.play(SOUND.arrival);
+          lastArrivalSound=model.time;
+        }
+        if (again) again.hidden = !model.replayReady;
       } else {
         D.update(model, dt);
-        if (model.detachments.length) SSE.audio.play("fiber");
+        if (model.detachments.length) SSE.audio.play(SOUND.detach);
         if (D.allLoose(model)) {
           if (openAt === null) openAt = model.time;
           if (model.time - openAt >= 1.8) { model = J.create(model, true); mode = "transition"; debugAt = -1; }
@@ -202,18 +225,14 @@
         debugAt = model.time;
         const active = model.seeds.filter(p => !p.lost);
         const span = active.length ? Math.round(Math.min(...active.map(p => p.x))) + "…" + Math.round(Math.max(...active.map(p => p.x))) : "—";
-        debugStatus.textContent = mode + " | loose " + model.seeds.filter(p => !p.attached).length + "/9 | active " + active.length + " lost " + model.seeds.filter(p => p.lost).length + " reached " + active.filter(p => p.x > J.END.left && p.x < J.END.right).length + " | x " + span + " | speed " + Math.round(Math.max(0,...active.map(p => Math.hypot(p.vx,p.vy)))) + " tilt " + model.x.toFixed(2) + " | held " + model.held + " | exit " + !!model.finished;
+        debugStatus.textContent = mode + " | loose " + model.seeds.filter(p => !p.attached).length + "/9 | active " + active.length + " lost " + model.seeds.filter(p => p.lost).length + " reached " + active.filter(p => p.arrival).length + " | x " + span + " | speed " + Math.round(Math.max(0,...active.map(p => Math.hypot(p.vx,p.vy)))) + " tilt " + model.x.toFixed(2) + " | held " + model.held + " | travelling " + active.filter(p=>!p.arrival).length + " | ending " + (model.ending?model.ending.phase:"—") + " | exit " + !!model.finished;
       }
       if (touchedOnce) hint *= Math.exp(-dt * .8);
-      if (model.contacts.length && model.time - lastSound > .065) {
-        const hit = model.contacts.reduce((a, b) => a.speed > b.speed ? a : b);
-        const gain = Math.min(1, .40 + hit.speed / 240);
-        SSE.audio.play(({ rim: "rim", fiber: "fiber", polished: "slide", cushion: "fiber" })[hit.material] || "seed", { volume: SSE.audio.baseline().reference.se.soft * gain, playbackRate: .9 + hit.speed / 900 });
-        lastSound = model.time;
-      }
+
     },
     draw,
     touch(t) {
+      if(model.result)return true;
       const y = W.logicalHeight - t.y;
       if (t.state === BEGAN) {
         if (mode === "prologue" && Math.hypot((t.x - CX) / 1.1, (y - CY) / .86) > 163) return true;
@@ -272,8 +291,9 @@
       titleArt = document.getElementById("title-art");
       again = document.getElementById("again");
       again.addEventListener("click", () => {
+        SSE.input.reset?.();
         model = D.createPrologue(); mode = "prologue"; openAt = null;
-        hint = 1; touchedOnce = false; lastSound = -1; gesture = null; debugAt = -1; again.hidden = true;
+        hint = 1; touchedOnce = false; lastArrivalSound = -1; gesture = null; debugAt = -1; again.hidden = true;
         SSE.audio.unlock();
       });
       if (new URLSearchParams(location.search).get("dev") === "1") {
@@ -299,10 +319,11 @@
   // Read-only diagnostics. No gameplay state is included in Session Report.
   if (new URLSearchParams(location.search).get("dev") === "1") {
     root.PumpkinProbe = () => ({ mode, loose: model.seeds.filter(p => !p.attached).length, seedCount: model.seeds.length, finished: !!model.finished, held: model.held, tilt: [model.x, model.y],
-      active: model.seeds.filter(p => !p.lost).length, lost: model.seeds.filter(p => p.lost).length, reached: model.seeds.filter(p => !p.lost && p.x > J.END.left && p.x < J.END.right).length,
+      travelling: model.seeds.filter(p=>!p.lost&&!p.arrival).length, arrived:model.seeds.filter(p=>p.arrival).length, plants:J.plants(model).length, replayReady:!!model.replayReady, ending:model.ending?{elapsed:model.ending.elapsed,phase:model.ending.phase,growthComplete:model.ending.growthComplete}:null,
+      active: model.seeds.filter(p => !p.lost).length, lost: model.seeds.filter(p => p.lost).length, reached: model.seeds.filter(p => p.arrival).length,
       speed: model.seeds.map(p => Math.hypot(p.vx, p.vy)), impacts: model.impactCount,
       bounds: model.seeds.map(p => [Math.round(p.x), Math.round(p.y)]),
-      state: model.seeds.map(p => ({lost: !!p.lost, inactive: !!p.inactive})),
+      state: model.seeds.map(p => ({lost: !!p.lost, arrived:!!p.arrival, inactive: !!p.inactive})),
       camera: model.camera ? { ...model.camera } : null, transition: model.transition ? model.transition.progress : null,
       marks: model.marks.length });
   }
