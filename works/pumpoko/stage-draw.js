@@ -101,8 +101,8 @@
     c.bezierCurveTo(24,-16,24,-3,14,1);c.bezierCurveTo(8,4,3,2,0,0);
     c.fillStyle=color;c.fill();c.restore();
   }
-  function fruit(c,x,y,size,id) {
-    c.save();c.translate(x,y);c.rotate((id%3-1)*.045);c.scale(size,size);
+  function fruit(c,x,y,size,id,zoom=0) {
+    c.save();c.translate(x,y);c.rotate((id%3-1)*.045*(1-zoom));c.scale(size,size);
     c.fillStyle='rgba(93,68,32,.12)';c.beginPath();c.ellipse(1,13,16,3,0,0,TAU);c.fill();
     // A single plump silhouette, with broad lobes instead of outlined ribs.
     c.beginPath();c.moveTo(0,-12);
@@ -118,23 +118,32 @@
     c.strokeStyle='#698253';c.lineWidth=4.5;c.lineCap='round';c.stroke();
     c.beginPath();c.ellipse(-6,-7,3.8,2.2,-.45,0,TAU);c.fillStyle='rgba(255,233,183,.48)';c.fill();c.restore();
   }
-  function drawPlants(c,s) {
-    // Each stable arrival produces one stem and exactly one fruit. Fruit/leaf
-    // pose varies by seed ID, while every stem begins at the recorded soil root.
+  function drawPlants(c,s,returnShell) {
+    const mix=J.titleMix(s),zoom=J.returnZoom(s);
     const ps=J.plants(s).slice().sort((a,b)=>a.arrival.rootY-b.arrival.rootY||a.arrival.id-b.arrival.id);
     for(const {arrival:a,age} of ps) {
       if(age<=0)continue;
       const sprout=ease(age/.65), leaves=ease((age-.5)/.85), grow=ease((age-1.4)/.95);
-      const height=12*sprout+(21+Math.floor(a.id/3)*22)*leaves, dx=(a.id%3-1)*24*leaves;
-      const sway=Math.sin(s.ending.elapsed*1.1+a.id*1.7)*.045*leaves;
-      c.save();c.translate(a.x,a.rootY);c.rotate(sway);
-      c.beginPath();c.moveTo(0,1);c.quadraticCurveTo(-dx*.3,-height*.65,dx,-height);
-      c.strokeStyle='#607b4e';c.lineWidth=2+leaves*1.2;c.lineCap='round';c.stroke();
-      leaf(c,-1,-height*.50,.34*sprout+.5*leaves,-.35+sway,'#758f59');
-      leaf(c,1,-height*.63,.28*sprout+.52*leaves,-2.5-sway,'#5f7d51');
+      const p=J.plantPose(s,a), dx=p.x-a.x, dy=p.y-a.rootY, focused=a===s.ending.focus;
+      c.save();c.translate(a.x,a.rootY);
+      c.save();c.globalAlpha*=1-mix;
+      // A small upright shoot relaxes into a low sideways vine, never a pedestal.
+      c.beginPath();c.moveTo(0,1);
+      c.quadraticCurveTo(-dx*.5,-10*sprout,dx*leaves,(dy+13*p.size)*leaves-2);
+      c.strokeStyle='#607b4e';c.lineWidth=2+leaves*.8;c.lineCap='round';c.stroke();
+      const sway=Math.sin(s.ending.elapsed*1.1+a.id*1.7)*.025*leaves;
+      leaf(c,-4,-5,.28*sprout+.40*leaves,-.5+sway,'#758f59');
+      leaf(c,5,-7,.24*sprout+.38*leaves,-2.5-sway,'#5f7d51');
       if(grow>0) {
-        const settling=1+.065*Math.sin(Math.max(0,age-2.35)*9)*Math.exp(-Math.max(0,age-2.35)*3.5);
-        fruit(c,dx,-height+3,grow*settling*(.95+a.id%3*.025),a.id);
+        const settling=1+.055*Math.sin(Math.max(0,age-2.35)*9)*Math.exp(-Math.max(0,age-2.35)*3.5);
+        // Bottom stays on the soil while the fruit swells, instead of lifting it.
+        fruit(c,dx,dy+13*p.size*(1-grow*settling),grow*settling*p.size,a.id,focused?zoom:0);
+      }
+      c.restore();
+      if(focused&&mix>0&&returnShell) {
+        // Reveal the existing cut pumpkin at the very same fruit centre/scale.
+        c.save();c.translate(dx,dy);c.scale(20*p.size/143,20*p.size/143);
+        c.globalAlpha*=mix;returnShell(c);c.restore();
       }
       c.restore();
     }
@@ -151,10 +160,11 @@
       c.restore();
     }
   }
-  function draw(c, s, seed, shell) {
+  function draw(c, s, seed, shell, returnShell) {
+    const mix=J.titleMix(s);
     const o = J.opening(s), g = s.geometry || J.geometry;
     // The tabletop opens into cream space as the same cut surface fills the view.
-    c.save(); c.globalAlpha = o;
+    c.save(); c.globalAlpha = o*(1-mix);
     const sky = c.createLinearGradient(0, 0, 0, 740);
     sky.addColorStop(0, '#faf2d5'); sky.addColorStop(.58, '#fff3cf'); sky.addColorStop(1, '#efd8a4');
     c.fillStyle = sky; c.fillRect(0, 0, 390, 740);
@@ -177,7 +187,7 @@
     }
     if (o > 0) {
       const lift = (1-o)*700;
-      c.save(); c.globalAlpha = J.smooth(o*2);
+      c.save(); c.globalAlpha = J.smooth(o*2)*(1-mix);
       // Only a resolved result may simplify the surrounding terrain. Keep the
       // land opaque throughout pullback; active gaps/walls remain exact in play.
       const settled=!!(s.result&&s.ending&&s.result.arrivals.length);
@@ -186,8 +196,8 @@
       c.restore();
     }
     // Draw exactly one copy of each object over the changing world.
-    drawSeeds(c,s,seed);
-    drawPlants(c,s);
+    c.save();c.globalAlpha*=1-mix;drawSeeds(c,s,seed);c.restore();
+    drawPlants(c,s,returnShell);
     c.restore();
   }
   const api={ draw, drawTerrain, drawLoops, drawFarm, drawPlants, drawSeeds };

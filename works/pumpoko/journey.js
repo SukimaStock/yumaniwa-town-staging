@@ -18,7 +18,19 @@
     const top=Math.min(...samples.map(p=>p.y))-110, bottom=Math.max(...samples.map(p=>p.y))+85;
     return {left,right,samples,frame:{x:(left+right)/2,y:(top+bottom)/2,z:Math.min(1.05,340/(right-left+110),500/(bottom-top+70))}};
   }
-  const ENDING = Object.freeze({ growAt:2.2, stagger:.12, growthDuration:3, replayAt:8.4, emptyReplayAt:2.4 });
+  const ENDING = Object.freeze({ growAt:2.2, stagger:.12, growthDuration:3,
+    replayAt:6.7, zoomAt:9.1, zoomDuration:3.8, connectDuration:1.2, emptyReplayAt:2.4 });
+  // Fruit rests on the same sampled soil as its root, even on a sloping draft.
+  // This is a drawing pose only: arrivals, seeds and collision are never moved.
+  function plantPose(s, a) {
+    const density=Math.max(.62,1-(s.result.arrivals.length-1)*.05);
+    const size=(.95+a.id%3*.025)*density, x=clamp(a.x+8,s.geometry.END.left+14,s.geometry.END.right-14);
+    return { x, y:s.geometry.floor(x).y-13*size+1, size };
+  }
+  function returnZoom(s) { return s.titleCycle&&s.ending&&s.ending.focus?smooth((s.ending.elapsed-ENDING.zoomAt)/ENDING.zoomDuration):0; }
+  function titleMix(s) {
+    return s.titleCycle&&s.ending&&s.ending.focus?smooth((s.ending.elapsed-ENDING.zoomAt-ENDING.zoomDuration+ENDING.connectDuration)/ENDING.connectDuration):0;
+  }
   function plants(s) {
     if (!s.result) return [];
     return s.result.arrivals.map((arrival,i)=>({arrival, age:s.ending.elapsed-ENDING.growAt-i*ENDING.stagger}));
@@ -28,7 +40,8 @@
     const arrivals=Object.freeze(s.seeds.filter(p=>p.arrival).map(p=>p.arrival).sort((a,b)=>a.at-b.at||a.id-b.id));
     s.result=Object.freeze({arrivals,lost:s.seeds.filter(p=>p.lost).length,total:s.seeds.length,at:s.time});
     s.finished=true;
-    s.ending={elapsed:0,phase:arrivals.length?'pullback':'empty',growthComplete:!arrivals.length,
+    const focus=arrivals.slice().sort((a,b)=>Math.abs(plantPose(s,a).x-s.farm.frame.x)-Math.abs(plantPose(s,b).x-s.farm.frame.x)||a.id-b.id)[0]||null;
+    s.ending={elapsed:0,focus,titleReady:false,phase:arrivals.length?'pullback':'empty',growthComplete:!arrivals.length,
       from:{...s.camera},pose:{x:s.x,y:s.y,ring:s.ring}};
     release(s); // Release only input; preserve physical pose/camera for the pullback.
   }
@@ -134,7 +147,8 @@
     if(s.result) {
       const e=s.ending;e.elapsed+=dt;
       e.growthComplete=!s.result.arrivals.length || e.elapsed>=ENDING.growAt+(s.result.arrivals.length-1)*ENDING.stagger+ENDING.growthDuration;
-      e.phase=!s.result.arrivals.length?'empty':e.growthComplete?'rest':e.elapsed<ENDING.growAt?'pullback':'growing';
+      e.titleReady=!!s.titleCycle&&!!e.focus&&e.elapsed>=ENDING.zoomAt+ENDING.zoomDuration;
+      e.phase=!e.focus?'empty':e.titleReady?'title':titleMix(s)>0?'connecting':s.titleCycle&&e.elapsed>=ENDING.zoomAt?'zoom':e.growthComplete?'rest':e.elapsed<ENDING.growAt?'pullback':'growing';
       s.replayReady=e.elapsed>=(s.result.arrivals.length?ENDING.replayAt:ENDING.emptyReplayAt);
       release(s);
       // The same short visible fall still completes after an all-lost result.
@@ -230,6 +244,10 @@
       if(s.result.arrivals.length) {
         const t=smooth(s.ending.elapsed/2.8),a=s.ending.from,b=s.farm.frame;
         for(const k of ['x','y','z'])s.camera[k]=a[k]+(b[k]-a[k])*t;
+        const zoom=returnZoom(s),p=plantPose(s,s.ending.focus);
+        // Match the original title's 143px shell at the end of this same move.
+        const target={x:p.x,y:p.y,z:143/(20*p.size)};
+        for(const k of ['x','y','z'])s.camera[k]+=(target[k]-s.camera[k])*zoom;
       }
       return;
     }
@@ -261,7 +279,7 @@
     camera(s, clamp(elapsed, 0, .06));
   }
   const api = Object.freeze({ create, release, knock, update, point, screenPoint, view, field, floor,
-    support, geometry, terrain, segments, GAP, party, travelling, farm, plants, ENDING, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
+    support, geometry, terrain, segments, GAP, party, travelling, farm, plants, plantPose, returnZoom, titleMix, ENDING, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
   root.PumpkinJourney = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

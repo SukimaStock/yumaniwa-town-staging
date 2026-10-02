@@ -1,6 +1,6 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),vm=require('node:vm');
-const root=path.resolve(__dirname,'../..'),base='8661c64d9f7dcdd4b19e9f95fbb1f58c86c046b6';
+const root=path.resolve(__dirname,'../..'),base='8661c64d9f7dcdd4b19e9f95fbb1f58c86c046b6',migration='45c9c6117d7a35382681803df8161753ce28b5aa';
 const git=(...args)=>cp.execFileSync('git',args,{cwd:root,maxBuffer:32*1024*1024});
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const oldFiles=git('ls-tree','-r','--name-only',base,'works/kotsu-koro').toString().trim().split('\n');
@@ -11,16 +11,26 @@ const edits={
  'test-dynamics.cjs':s=>s.replace("id: 'kotsu-koro'","id: 'pumpoko'"),
  'test-journey.cjs':s=>s.replace("id:'kotsu-koro'","id:'pumpoko'"),
 };
-test('all moved runtime, stage, assets and evidence bytes match baseline except approved naming edits',()=>{
+// The byte-for-byte migration proof is historical; later work edits do not rewrite it.
+test('migration commit preserves every moved byte except its approved naming edits',()=>{
  assert.equal(oldFiles.length,33);
- for(const old of oldFiles){const rel=old.slice('works/kotsu-koro/'.length),before=git('show',base+':'+old),after=fs.readFileSync(path.join(__dirname,rel));
+ for(const old of oldFiles){const rel=old.slice('works/kotsu-koro/'.length),before=git('show',base+':'+old),after=git('show',migration+':works/pumpoko/'+rel);
   if(rel==='BUILDER.md')continue;
   if(edits[rel])assert.equal(after.toString(),edits[rel](before.toString()),rel);
   else assert.deepEqual(after,before,rel);
  }
- const unchanged=git('diff','--name-only',base,'--','engine','data','tools','tests','.github','main.js','index.html','style.css').toString();assert.equal(unchanged,'');
+ const unchanged=git('diff','--name-only',base,migration,'--','engine','data','tools','tests','.github','main.js','index.html','style.css').toString();assert.equal(unchanged,'');
  const oldLocks=git('ls-tree','-r','--name-only',base,'.change-plans').toString().trim().split('\n');
  for(const p of oldLocks)assert.deepEqual(fs.readFileSync(path.join(root,p)),git('show',base+':'+p),p);
+});
+test('current protected gameplay, Builder, assets, save keys and historical evidence retain migration contents',()=>{
+ const protectedFiles=oldFiles.map(p=>p.slice('works/kotsu-koro/'.length)).filter(p=>
+  /^(assets|audio|builder|fixtures)\//.test(p)||['codea-lite.js','dynamics.js','stage-data.js','stage-geometry.js','RESEARCH.md','VALIDATION.md','STAGE1.md','BUILDER.md'].includes(p));
+ for(const rel of protectedFiles)assert.deepEqual(fs.readFileSync(path.join(__dirname,rel)),git('show',migration+':works/pumpoko/'+rel),rel);
+ assert.match(read('works/pumpoko/sketch.js'),/storageKey: "kotsu-koro\.sound"/);
+ assert.match(read('works/pumpoko/sketch.js'),/storageKey: "sse:kotsu-koro:language"/);
+ assert.match(read('works/pumpoko/builder/builder.js'),/kotsu-koro-stage-builder-v1/);
+ assert.match(read('works/pumpoko/builder/builder.js'),/pumpoko-stage\.json/);
 });
 function files(p){return fs.readdirSync(p,{withFileTypes:true}).flatMap(d=>d.isDirectory()?files(path.join(p,d.name)):path.relative(root,path.join(p,d.name)));}
 test('legacy tree contains only two no-runtime redirect pages',()=>{
