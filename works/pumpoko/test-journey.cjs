@@ -165,6 +165,26 @@ test('a dispersed camera retains real grains instead of centring the empty extre
   assert.ok(visible.length>=6,`camera lost the party: ${visible.length}`);
   assert.ok(s.camera.z>=1.15);
 });
+test('camera looks ahead only when the travelling party carries rightward speed', () => {
+  const s=J.create(D.create());
+  s.transition=null;
+  s.seeds.forEach((p,i)=>{p.x=700+i*4;p.y=J.floor(p.x).y-10;p.vx=0;p.vy=0;});
+  for(let i=0;i<90;i++)J.update(s,1/60);
+  const restingMedian=s.seeds.map(p=>p.x).sort((a,b)=>a-b)[4];
+  const restingOffset=s.camera.x-restingMedian;
+  s.seeds.forEach(p=>{p.vx=105;});
+  for(let i=0;i<45;i++)J.update(s,1/60);
+  const movingMedian=s.seeds.map(p=>p.x).sort((a,b)=>a-b)[4];
+  assert.ok(s.camera.x-movingMedian>restingOffset+20,`camera did not reveal route ahead: ${s.camera.x-movingMedian}`);
+  assert.ok(s.cameraLead>20&&s.cameraLead<=82);
+});
+test('one fast grain cannot steer camera look-ahead for the party', () => {
+  const s=J.create(D.create());
+  s.transition=null;
+  s.seeds.forEach((p,i)=>{p.x=700+i*4;p.y=J.floor(p.x).y-10;p.vx=i===0?260:0;p.vy=0;});
+  for(let i=0;i<20;i++)J.update(s,1/60);
+  assert.ok(s.cameraLead<3,`outlier grain steered look-ahead: ${s.cameraLead}`);
+});
 const maxSpeed=s=>Math.max(...J.party(s).map(p=>Math.hypot(p.vx,p.vy)));
 const median=s=>J.party(s).map(p=>p.x).sort((a,b)=>a-b)[Math.floor(J.party(s).length/2)];
 // Decision sampling is 30Hz at every render rate. Only world targets change;
