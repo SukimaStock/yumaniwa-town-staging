@@ -67,7 +67,7 @@
     c.clearRect(0,0,width,height);c.fillStyle='#faf2d5';c.fillRect(0,0,width,height);
     if(m.mode==='play')view.z=Math.min(1.25,width/480,height/500)*(m.run.result?Math.min(1,m.run.camera.z/J.ZOOM):1);
     c.save();if(m.mode==='play'){c.translate(width/2,height*.48);c.rotate(J.view(m.run).angle);c.scale(view.z,view.z);c.translate(-m.run.camera.x,-m.run.camera.y);}else{c.scale(view.z,view.z);c.translate(-view.x,-view.y);}
-    const g=m.mode==='play'?m.run.geometry:m.geometry;Draw.drawTerrain(c,g);Draw.drawLoops(c,g);Draw.drawFarm(c,g);
+    const g=m.mode==='play'?m.run.geometry:m.geometry;Draw.drawTerrain(c,g,0,m.run?.ending&&m.run.result.arrivals.length?1-J.smooth(m.run.ending.elapsed/2.8):1);Draw.drawLoops(c,g);Draw.drawFarm(c,g);
     if(m.mode==='play'){Draw.drawSeeds(c,m.run,(_c,p,i)=>seed(p,i));Draw.drawPlants(c,m.run);}
     else {
       for(const [i,trace]of m.traces.entries()){c.beginPath();for(const [k,p]of trace.entries()){if(!k)c.moveTo(p.x,p.y);else c.lineTo(p.x,p.y);}c.strokeStyle=`hsla(${30+i*13},35%,42%,.22)`;c.lineWidth=1.5/view.z;c.stroke();}

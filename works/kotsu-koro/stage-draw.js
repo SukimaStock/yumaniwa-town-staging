@@ -12,7 +12,7 @@
     for (const p of samples) c.lineTo(p.x, p.y + lift);
     c.lineTo(samples.at(-1).x, bottom); c.closePath();
   }
-  function drawTerrain(c,g,lift=0) {
+  function drawTerrain(c,g,lift=0,wallAlpha=1) {
     const bottom=Math.max(1100,g.bounds.lostY+500);
       for (const segment of g.segments) {
         const samples = segment.samples;
@@ -47,10 +47,11 @@
         }
         c.restore();
       }
+      c.save();c.globalAlpha*=wallAlpha;
       // Only the two outside walls remain; each gap stays open below its lips.
       c.beginPath();c.moveTo(g.bounds.left,-200);c.lineTo(g.bounds.left,(g.floor(g.bounds.left)?.y||350)+lift);
       c.moveTo(g.bounds.right,(g.floor(g.bounds.right)?.y||350)+lift);c.lineTo(g.bounds.right,-200);
-      c.strokeStyle='#647454';c.lineWidth=7;c.stroke();
+      c.strokeStyle='#647454';c.lineWidth=7;c.stroke();c.restore();
   }
   function drawLoops(c,g) {
     for(const f of g.loops){
@@ -160,7 +161,7 @@
     if (o > 0) {
       const lift = (1-o)*700;
       c.save(); c.globalAlpha = J.smooth(o*2);
-      drawTerrain(c,g,lift);
+      drawTerrain(c,g,lift,s.ending&&s.result.arrivals.length?1-J.smooth(s.ending.elapsed/2.8):1);
       drawLoops(c,g);
       drawFarm(c,g,lift);
       c.restore();
