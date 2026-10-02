@@ -9,6 +9,52 @@
   const { START, END, ROUND, segments, terrain, GAP, floor, field } = geometry;
   const ZOOM = 1.85, DURATION = 6.4;
   const CONTROL = Object.freeze({ grabK:220, grabD:21, returnK:70, returnD:10, inertia:3 });
+  // Read-only run-local observation. These limits never enter collision/control.
+  // Distance calibration and actual-input samples are recorded in JUMP-NOTES.md.
+  const JUMP = Object.freeze({ contactSlop:.75, groundTime:.04, landingTime:.025,
+    airTime:.10, rise:2, minDistance:80, fullDistance:360, fruitBonus:.08 });
+  function jumpRecord() { return { best:0, grounded:0, armed:false, last:null, flight:null, landing:null, recent:null }; }
+  function jumpAmount(distance) { return smooth((distance-JUMP.minDistance)/(JUMP.fullDistance-JUMP.minDistance)); }
+  function observeJump(r, p, contact, dt) {
+    if(p.lost||p.inactive) { r.flight=r.landing=null;r.armed=false;r.grounded=0;return; }
+    if(contact.touching) {
+      if(r.flight) {
+        const f=r.flight;
+        if(!contact.landing) { r.flight=r.landing=null;r.armed=false; }
+        else {
+          if(!r.landing)r.landing={x:p.x,y:p.y,time:0}; // First contact, never rolling/debounce distance.
+          r.landing.time+=dt;
+          if(r.landing.time>=JUMP.landingTime) {
+            const distance=r.landing.x-f.x;
+            if(f.time>=JUMP.airTime&&f.y-f.minY>=JUMP.rise&&distance>JUMP.minDistance) {
+              r.best=Math.max(r.best,distance);
+              r.recent={takeoffX:f.x,landingX:r.landing.x,distance};
+            }
+            r.flight=r.landing=null;r.armed=false;
+          }
+        }
+      }
+      r.grounded=contact.landing?r.grounded+dt:0;
+      if(!r.flight&&r.grounded>=JUMP.groundTime)r.armed=true;
+      if(contact.landing)r.last={x:p.x,y:p.y};
+      else r.armed=false;
+    } else {
+      r.grounded=0;
+      if(r.landing) { r.flight=r.landing=null;r.armed=false; } // Unstable landing is not success.
+      if(!r.flight&&r.armed&&r.last)r.flight={...r.last,minY:p.y,time:0};
+      if(r.flight) { r.flight.time+=dt;r.flight.minY=Math.min(r.flight.minY,p.y); }
+      r.armed=false;
+    }
+  }
+  function terrainContact(s,p) {
+    const f=s.geometry.floor(p.x), slop=JUMP.contactSlop;
+    const top=!!f&&p.y<f.y&&Math.abs((p.y-f.y)*-f.ny+support(p,f.nx,f.ny))<=slop;
+    const hits=s.geometry.featureContacts(p,support).filter(h=>Math.abs(h.penetration)<=slop);
+    // Contact anywhere on a Loop interrupts a free flight; only upward support
+    // can receive it. Seed pairs, outside walls and sound cooldowns are not ground.
+    return {touching:top||hits.length>0,landing:top&&f.ny<-.5||hits.some(h=>h.ny<-.5)};
+  }
+  const jump=Object.freeze({create:jumpRecord,observe:observeJump,amount:jumpAmount,contact:terrainContact,TUNE:JUMP});
   // party remains the surviving result, including rooted seeds.
   function party(s) { return s.seeds.filter(p => !p.lost); }
   function travelling(s) { return s.seeds.filter(p => !p.lost && !p.arrival); }
@@ -19,17 +65,20 @@
     return {left,right,samples,frame:{x:(left+right)/2,y:(top+bottom)/2,z:Math.min(1.05,340/(right-left+110),500/(bottom-top+70))}};
   }
   const ENDING = Object.freeze({ growAt:2.2, stagger:.12, growthDuration:3,
-    replayAt:6.7, zoomAt:9.1, zoomDuration:3.8, connectDuration:1.2, emptyReplayAt:2.4 });
+    replayAt:6.7, zoomAt:9.1, zoomDuration:3.8, connectDuration:1.2, emptyReplayAt:2.4, emptyDuration:1.2 });
   // Fruit rests on the same sampled soil as its root, even on a sloping draft.
   // This is a drawing pose only: arrivals, seeds and collision are never moved.
   function plantPose(s, a) {
     const density=Math.max(.62,1-(s.result.arrivals.length-1)*.05);
-    const size=(.95+a.id%3*.025)*density, x=clamp(a.x+8,s.geometry.END.left+14,s.geometry.END.right-14);
-    return { x, y:s.geometry.floor(x).y-13*size+1, size };
+    const reward=clamp(a.reward||0,0,1), size=(.95+a.id%3*.025)*density*(1+JUMP.fruitBonus*smooth((reward-.45)/.55));
+    const x=clamp(a.x+8,s.geometry.END.left+14,s.geometry.END.right-14);
+    return { x, y:s.geometry.floor(x).y-13*size+1, size, density, reward };
   }
   function returnZoom(s) { return s.titleCycle&&s.ending&&s.ending.focus?smooth((s.ending.elapsed-ENDING.zoomAt)/ENDING.zoomDuration):0; }
   function titleMix(s) {
-    return s.titleCycle&&s.ending&&s.ending.focus?smooth((s.ending.elapsed-ENDING.zoomAt-ENDING.zoomDuration+ENDING.connectDuration)/ENDING.connectDuration):0;
+    if(!s.titleCycle||!s.ending)return 0;
+    if(!s.ending.focus)return smooth((s.ending.elapsed-ENDING.emptyReplayAt)/ENDING.emptyDuration);
+    return smooth((s.ending.elapsed-ENDING.zoomAt-ENDING.zoomDuration+ENDING.connectDuration)/ENDING.connectDuration);
   }
   function plants(s) {
     if (!s.result) return [];
@@ -65,6 +114,7 @@
       p.x += START.x; p.y = START.y + p.y * .8; p.vy *= .8; p.attached = false;
       p.lost = false; p.inactive = false; p.fallTime = 0; p.arrival=null; p.soilTime=0; p.runId=i;
       p.dragFactor = .98 + i % 4 * .014; p.turn = p.angle; p.roll = p.roll || 1;
+      p.jump=jumpRecord(); // Fresh run, including Builder TEST START/RESET. Never serialized.
     }
     return s;
   }
@@ -147,8 +197,8 @@
     if(s.result) {
       const e=s.ending;e.elapsed+=dt;
       e.growthComplete=!s.result.arrivals.length || e.elapsed>=ENDING.growAt+(s.result.arrivals.length-1)*ENDING.stagger+ENDING.growthDuration;
-      e.titleReady=!!s.titleCycle&&!!e.focus&&e.elapsed>=ENDING.zoomAt+ENDING.zoomDuration;
-      e.phase=!e.focus?'empty':e.titleReady?'title':titleMix(s)>0?'connecting':s.titleCycle&&e.elapsed>=ENDING.zoomAt?'zoom':e.growthComplete?'rest':e.elapsed<ENDING.growAt?'pullback':'growing';
+      e.titleReady=!!s.titleCycle&&e.elapsed>=(e.focus?ENDING.zoomAt+ENDING.zoomDuration:ENDING.emptyReplayAt+ENDING.emptyDuration);
+      e.phase=e.titleReady?'title':titleMix(s)>0?'connecting':!e.focus?'empty':s.titleCycle&&e.elapsed>=ENDING.zoomAt?'zoom':e.growthComplete?'rest':e.elapsed<ENDING.growAt?'pullback':'growing';
       s.replayReady=e.elapsed>=(s.result.arrivals.length?ENDING.replayAt:ENDING.emptyReplayAt);
       release(s);
       // The same short visible fall still completes after an all-lost result.
@@ -225,13 +275,18 @@
       // Keep its object and a short visible fall, but stop following/colliding.
       if (o === 1 && p.y > s.geometry.bounds.lostY) { p.lost = true; p.fallTime = 0; }
     }
+    // Observe the final physical contact before END can freeze velocity/results.
+    // OFF is a diagnostic comparison switch only; no physics reads this state.
+    if(o===1&&(!s.transition||s.transition.settled)&&s.observeJumps!==false)
+      for(const p of s.seeds)if(!p.arrival)observeJump(p.jump,p,terrainContact(s,p),dt);
     if(o===1) for(const p of travelling(s)) {
       const f=floor(p.x), onSoil=p.x>=END.left&&p.x<=END.right&&f&&p.y<f.y;
       const gap=onSoil ? (p.y-f.y)*-f.ny+support(p,f.nx,f.ny) : Infinity;
       // Actual one-sided top contact, not x-range, air passage or an underside.
       p.soilTime=onSoil&&Math.abs(gap)<1.2&&Math.hypot(p.vx,p.vy)<95 ? p.soilTime+dt : 0;
       if(p.soilTime>=.24) {
-        const arrival=Object.freeze({seed:p,id:p.runId,at:s.time,x:p.x,y:p.y,rootY:f.y,angle:p.angle,roll:p.roll});
+        const bestJump=p.jump.best;
+        const arrival=Object.freeze({seed:p,id:p.runId,at:s.time,x:p.x,y:p.y,rootY:f.y,angle:p.angle,roll:p.roll,bestJump,reward:jumpAmount(bestJump)});
         p.arrival=arrival;p.vx=p.vy=p.spin=0;
         s.arrivals.push(arrival);s.arrivalEvents.push(arrival);
       }
@@ -279,7 +334,7 @@
     camera(s, clamp(elapsed, 0, .06));
   }
   const api = Object.freeze({ create, release, knock, update, point, screenPoint, view, field, floor,
-    support, geometry, terrain, segments, GAP, party, travelling, farm, plants, plantPose, returnZoom, titleMix, ENDING, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
+    support, geometry, terrain, segments, GAP, party, travelling, farm, plants, plantPose, returnZoom, titleMix, jump, ENDING, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
   root.PumpkinJourney = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

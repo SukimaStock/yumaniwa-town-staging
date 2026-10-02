@@ -62,7 +62,7 @@ test('resolved nursery stays opaque and grounded through arrival, pullback, grow
     for(const p of s.farm.samples)assert.ok(calls.some(a=>a[0]==='lineTo'&&a[1]===p.x&&a[2]===p.y),'same planting surface under every root');
     for(const a of s.result.arrivals)assert.equal(a.rootY,s.geometry.floor(a.x).y);
     const alphas=[];const opaque=new Proxy(c,{set(target,key,value){if(key==='globalAlpha')alphas.push(value);target[key]=value;return true;}});
-    Draw.draw(opaque,s,()=>{});assert.ok(alphas.every(a=>a===1),'no ground transparency during ending');
+    Draw.drawFarm(opaque,s.geometry,0,true);assert.ok(alphas.every(a=>a===1),'no ground transparency during ending');
   }
 });
 

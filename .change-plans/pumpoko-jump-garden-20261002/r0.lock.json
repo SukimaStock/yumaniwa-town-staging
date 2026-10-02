@@ -1,0 +1,101 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0e9421b502004427a98776fe2ccd18b6cf228b4fc1db3910535afffb6b222f31",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-jump-garden-20261002",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Observe each seed longest successful forward jump and add gentle ending richness; remove normal replay button and return empty runs to title",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "1c68b6ebd55546fba04a54dfe11d087d5088ea23",
+    "canonicalSources": [
+      "works/pumpoko/journey.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/JUMP-NOTES.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-jump-garden-20261002/r0.lock.json",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/index.html",
+      "works/pumpoko/style.css",
+      "works/pumpoko/test-jumps.cjs",
+      "works/pumpoko/test-journey.cjs",
+      "works/pumpoko/test-ending.cjs",
+      "works/pumpoko/test-audio.cjs",
+      "works/pumpoko/README.md",
+      "works/pumpoko/JUMP-NOTES.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/pumpoko/codea-lite.js",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/builder/**",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/assets/**",
+      "works/kotsu-koro/**"
+    ],
+    "expectedChanges": [
+      "Fixed-step read-only terrain contact observer independent of sound and grounded friction; per-seed best forward first-landing distance, debounce and small rise reject falling/jitter/continuous Loop; initial falls and losses excluded",
+      "Freeze each arrived seed own best and smooth reward before arrival velocity reset; clear on create/reset, no storage/JSON change",
+      "Healthy baseline with subdued distant landscape and minimal grass; stable surface-rooted round grass clumps and richer leaves, fruit at most 8 percent larger through shared plantPose including title zoom",
+      "Keep natural focus and timing; fade decoration during title connection; remove normal replay button, empty run quiet blend to waiting title without BGM reset; Builder remains in its editor/play mode",
+      "Observer ON/OFF physical equality, boundary and per-seed tests, fps/reset/empty/title/audio regressions and identical-layout zero/mid/max visual fixtures"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes per-seed longest successful jump rewards, leaf/grass-first richness, max8 percent fruit, no normal replay button, zero-fruit title return and Draft PR without merge"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Existing work-owned renderer and state only; no new scene/Engine/storage contract",
+      "Plan-first lock-only commit, immutable r0; Scope then Risk then Impact; formal UNVERIFIED"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-identical-layout-reward-1-3-9",
+      "browser-ordinary-and-deliberate-jumps",
+      "browser-title-empty-bgm-and-builder"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing PumpkinDynamics, PumpkinJourney, PumpkinStageDraw and canonical Engine public audio APIs unchanged"
+    ],
+    "rollback": "Revert only this work implementation through a staging PR; no storage or asset migration",
+    "outOfScope": [
+      "Physics, collision response, terrain, Stage0/parallax, pumping/gap/Loop controls, Builder feature or save/schema changes, assets/logo/audio changes, analytics, scores, production/canonical Engine/Codea Lite/other works"
+    ],
+    "promotion": "Draft staging PR for author review; stop before merge; no deployment or production",
+    "unverified": [
+      "iPhone hardware, audible playback and author device feel; formal verification remains UNVERIFIED"
+    ]
+  }
+}

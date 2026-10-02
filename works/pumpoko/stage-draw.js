@@ -101,6 +101,24 @@
     c.bezierCurveTo(24,-16,24,-3,14,1);c.bezierCurveTo(8,4,3,2,0,0);
     c.fillStyle=color;c.fill();c.restore();
   }
+  function grassPoses(s,a) {
+    const density=J.plantPose(s,a).density, g=s.geometry;
+    // Stable slots: richness reveals existing places; it never relocates a tuft.
+    return [-24,27,-38,40].map((offset,i)=> {
+      const x=a.x+(offset+(a.id%3-1)*3)*density;
+      const f=g.floor(x);
+      return f&&x>g.END.left+3&&x<g.END.right-3?{x,y:f.y,angle:Math.atan2(f.nx,-f.ny),slot:i}:null;
+    }).filter(Boolean);
+  }
+  function grass(c,x,y,size,angle) {
+    c.save();c.translate(x,y+1);c.rotate(angle);
+    const color=c.createLinearGradient(0,-12*size,0,2);
+    color.addColorStop(0,'#a4b386');color.addColorStop(1,'#83976c');
+    for(const [lean,scale] of [[-2.4,.40],[-1.5,.47],[-.6,.36]])
+      leaf(c,0,0,size*scale,lean,color);
+    c.restore();
+  }
+  function smoothGrass(reward,slot) { return ease((reward-(slot-1)*.22)/.45)*.78; }
   function fruit(c,x,y,size,id,zoom=0) {
     c.save();c.translate(x,y);c.rotate((id%3-1)*.045*(1-zoom));c.scale(size,size);
     c.fillStyle='rgba(93,68,32,.12)';c.beginPath();c.ellipse(1,13,16,3,0,0,TAU);c.fill();
@@ -124,16 +142,22 @@
     for(const {arrival:a,age} of ps) {
       if(age<=0)continue;
       const sprout=ease(age/.65), leaves=ease((age-.5)/.85), grow=ease((age-1.4)/.95);
-      const p=J.plantPose(s,a), density=p.size/(.95+a.id%3*.025), dx=p.x-a.x, dy=p.y-a.rootY, focused=a===s.ending.focus;
+      const p=J.plantPose(s,a), density=p.density, reward=p.reward, dx=p.x-a.x, dy=p.y-a.rootY, focused=a===s.ending.focus;
       c.save();c.translate(a.x,a.rootY);
       c.save();c.globalAlpha*=(1-mix)*(focused?1:1-ease((zoom-.45)/.5));
+      for(const tuft of grassPoses(s,a)) {
+        const amount=tuft.slot===0?.48:smoothGrass(reward,tuft.slot);
+        if(amount<=0)continue;
+        c.save();c.globalAlpha*=amount*leaves;
+        grass(c,tuft.x-a.x,tuft.y-a.rootY,density*(.65+.18*reward),tuft.angle);c.restore();
+      }
       // A small upright shoot relaxes into a low sideways vine, never a pedestal.
       c.beginPath();c.moveTo(0,1);
       c.quadraticCurveTo(-dx*.5,-10*sprout,dx*leaves,(dy+13*p.size)*leaves-2);
       c.strokeStyle='#607b4e';c.lineWidth=2+leaves*.8;c.lineCap='round';c.stroke();
       const sway=Math.sin(s.ending.elapsed*1.1+a.id*1.7)*.025*leaves;
-      leaf(c,-4,-5,(.28*sprout+.40*leaves)*density,-.5+sway,'#758f59');
-      leaf(c,5,-7,(.24*sprout+.38*leaves)*density,-2.5-sway,'#5f7d51');
+      leaf(c,-4-8*reward,-5-2*reward,(.28*sprout+.40*leaves)*density*(1+.28*reward),-.5-.9*reward+sway,'#758f59');
+      leaf(c,5+12*reward,-7,(.24*sprout+.38*leaves)*density*(1+.25*reward),-2.5+2.2*reward-sway,'#5f7d51');
       if(grow>0) {
         const settling=1+.055*Math.sin(Math.max(0,age-2.35)*9)*Math.exp(-Math.max(0,age-2.35)*3.5);
         // Bottom stays on the soil while the fruit swells, instead of lifting it.
@@ -162,6 +186,7 @@
   }
   function draw(c, s, seed, shell, returnShell) {
     const mix=J.titleMix(s);
+    const rest=s.ending?ease(s.ending.elapsed/2.8):0;
     const o = J.opening(s), g = s.geometry || J.geometry;
     // The tabletop opens into cream space as the same cut surface fills the view.
     c.save(); c.globalAlpha = o*(1-mix);
@@ -171,11 +196,11 @@
     // Broad distant curves, separated from the foreground; no hollow or tube.
     c.fillStyle = '#d8dec0';
     c.beginPath(); c.moveTo(-100,740);
-    for(let x=-100;x<=490;x+=10) c.lineTo(x, 475 + Math.sin((x+s.camera.x*.16)/260)*52);
+    for(let x=-100;x<=490;x+=10) c.lineTo(x, 475-220*rest + Math.sin((x+s.camera.x*.16)/260)*52);
     c.lineTo(490,740); c.closePath(); c.fill();
     c.fillStyle = '#ecd5a0';
     c.beginPath(); c.moveTo(-100,740);
-    for(let x=-100;x<=490;x+=10) c.lineTo(x, 560 + Math.sin((x+s.camera.x*.28)/210+.8)*34);
+    for(let x=-100;x<=490;x+=10) c.lineTo(x, 560-215*rest + Math.sin((x+s.camera.x*.28)/210+.8)*34);
     c.lineTo(490,740); c.closePath(); c.fill(); c.restore();
     c.save(); transform(c,s);
     if (s.transition && o < .7 && shell) {
@@ -200,7 +225,7 @@
     drawPlants(c,s,returnShell);
     c.restore();
   }
-  const api={ draw, drawTerrain, drawLoops, drawFarm, drawPlants, drawSeeds };
+  const api={ draw, drawTerrain, drawLoops, drawFarm, drawPlants, drawSeeds, grassPoses };
   root.PumpkinStageDraw=api;
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

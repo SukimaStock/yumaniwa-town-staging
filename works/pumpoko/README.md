@@ -28,14 +28,14 @@ A Draft PR is not a deployed new URL.
 
 ## Ending author review
 
-Each arrived seed grows one small pumpkin on the nursery surface, with a short
-vine and two leaves. After growth, “もういちど” offers an early return. Waiting
-keeps the farm in view briefly, then moves toward a central fruit and reveals
-the existing half-pumpkin/title in that same place. The same music player keeps
-running. An empty result keeps its quiet manual replay; Builder PLAY keeps its
-farm view and existing RESET/EDIT controls.
+Each arrived seed grows one healthy pumpkin on the nursery surface. Its own
+longest successful forward jump adds a little leaf/grass richness, and the best
+jumps make the fruit at most 8 percent fuller. After growth and a quiet rest,
+the view moves toward a central fruit and returns to the existing title.
+There is no normal replay button; an empty result also returns quietly without
+creating a fruit. The same music keeps running, and title waits for a new touch.
+Builder PLAY keeps its farm view and existing RESET/EDIT controls.
 
-Development placement fixtures: `?dev=1&ending=1` or `?dev=1&ending=9`.
-They exercise real soil contact/growth after placement; they are separate from
-ordinary-play verification. Device appearance and audible playback remain for
-author review.
+See [JUMP-NOTES.md](./JUMP-NOTES.md) for calibration, local checks and explicit
+comparison fixtures. Device appearance and audible playback remain for author
+review. Unmerged changes are not deployed to the staging entry.

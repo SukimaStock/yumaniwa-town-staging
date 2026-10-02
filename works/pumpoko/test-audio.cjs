@@ -79,8 +79,8 @@ for (const ending of ['goal', 'all-lost']) test(ending + ' fixture and replay re
   // not the player's ability to complete the whole level.
   if (ending === 'goal') for (const p of s.seeds) { p.lost = p.inactive = false; p.x = (J.END.left + J.END.right) / 2; p.y = s.geometry.floor(p.x).y - J.support(p, 0, 1); p.vx = p.vy = 0; }
   else for (const p of s.seeds) p.lost = true;
-  h.advance(12); assert.equal(h.elements.get('again').hidden, false); assert.ok(h.w.PumpkinProbe().finished);
-  const old = h.track.currentTime; h.elements.get('again').emit('click');
+  h.advance(16); assert.equal(h.elements.has('again'), false);
+  const old = h.track.currentTime;
   assert.equal(h.w.PumpkinProbe().mode, 'prologue'); assert.equal(h.track.currentTime, old);
   h.advance(2); assert.ok(h.track.currentTime > old + 1.9); assert.equal(h.media.length, 1); assert.equal(h.track.plays, 1);
 });
@@ -125,15 +125,15 @@ test('normal simulated run grows once, reject new tilts, and replay resets growt
   const h=harness();h.key();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(12);h.w.SSE.input.reset();h.scene.touch({id:2,state:'BEGAN',x:195,y:375});h.scene.touch({id:2,state:'MOVING',x:253.8,y:433.8});h.advance(42);h.scene.touch({id:2,state:'ENDED',x:253.8,y:433.8});for(let i=0;i<30*60&&!h.journey?.replayReady;i++)h.advance(1/60);const s=h.journey;
   assert.ok(s.result&&s.result.arrivals.length>0&&s.replayReady);const result=s.result,elapsed=s.ending.elapsed,old=h.track.currentTime;
   h.scene.touch({id:10,state:'BEGAN',x:190,y:375});h.scene.touch({id:10,state:'MOVING',x:300,y:200});h.advance(1);assert.equal(s.result,result);assert.equal(s.held,false);assert.ok(s.ending.elapsed>elapsed);assert.equal(h.media.length,1);
-  h.elements.get('again').emit('click');const p=h.w.PumpkinProbe();assert.equal(p.mode,'prologue');assert.equal(p.arrived,0);assert.equal(p.plants,0);assert.equal(p.loose,3);assert.equal(p.ending,null);assert.ok(!p.replayReady);assert.equal(h.w.SSE.input.keysDown.size,0);assert.ok(h.track.currentTime>=old);assert.equal(h.track.plays,1);
+  h.advance(7);const p=h.w.PumpkinProbe();assert.equal(p.mode,'prologue');assert.equal(p.arrived,0);assert.equal(p.plants,0);assert.equal(p.loose,3);assert.equal(p.ending,null);assert.ok(!p.replayReady);assert.equal(h.w.SSE.input.keysDown.size,0);assert.ok(h.track.currentTime>=old);assert.equal(h.track.plays,1);
 });
 
 for(const count of [1,9])test(count+' grown fruits automatically reconnect to title without replacing, pausing or seeking music',()=>{
   const h=harness();h.key();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(35);h.w.SSE.input.reset();
   const s=h.journey;s.result=s.ending=null;s.finished=s.replayReady=false;s.arrivals=[];
   s.seeds.forEach((p,i)=>{p.arrival=null;p.soilTime=0;p.lost=p.inactive=i>=count;if(i<count){p.x=1830+i*24;p.y=s.geometry.floor(p.x).y-J.support(p,s.geometry.floor(p.x).nx,s.geometry.floor(p.x).ny);p.vx=p.vy=0;}});
-  h.advance(7.2);assert.ok(s.result&&s.replayReady);assert.equal(h.elements.get('again').hidden,false);
-  h.advance(2.8);assert.equal(s.ending.phase,'zoom');assert.ok(!h.elements.get('again').hidden);const player=h.track,pos=player.currentTime;
+  h.advance(7.2);assert.ok(s.result&&s.replayReady);assert.equal(h.elements.has('again'),false);
+  h.advance(2.8);assert.equal(s.ending.phase,'zoom');assert.equal(h.elements.has('again'),false);const player=h.track,pos=player.currentTime;
   h.advance(2.5);assert.equal(s.ending.phase,'connecting');assert.equal(h.w.PumpkinProbe().mode,'journey');
-  h.advance(1.5);const p=h.w.PumpkinProbe();assert.equal(p.mode,'prologue');assert.equal(p.plants,0);assert.equal(p.loose,3);assert.equal(p.ending,null);assert.ok(h.elements.get('again').hidden);assert.equal(h.media.length,1);assert.equal(h.track,player);assert.ok(player.currentTime>pos+3.9);assert.ok(!player.paused);assert.equal(player.plays,1);
+  h.advance(1.5);const p=h.w.PumpkinProbe();assert.equal(p.mode,'prologue');assert.equal(p.plants,0);assert.equal(p.loose,3);assert.equal(p.ending,null);assert.equal(h.elements.has('again'),false);assert.equal(h.media.length,1);assert.equal(h.track,player);assert.ok(player.currentTime>pos+3.9);assert.ok(!player.paused);assert.equal(player.plays,1);
 });
