@@ -71,6 +71,14 @@ test('resolved ending keeps the Stage 1 terrain and farm as one continuous groun
   assert.doesNotMatch(source,/if\s*\(!settled\)\s*\{\s*drawTerrain/,'successful ending must not suppress the journey ground');
 });
 
+test('successful ending hides the visible right wall and extends only the drawn terrain horizon',()=>{
+  const s=fixture(3);advance(s,2);
+  const before=s.geometry.bounds.right;
+  const {c,calls}=context();Draw.drawTerrain(c,s.geometry,0,1,true);
+  assert.equal(s.geometry.bounds.right,before,'render-only extension must not mutate world bounds');
+  assert.ok(calls.some(a=>a[0]==='lineTo'&&a[1]>before+400),'ending terrain continues beyond the physical right bound');
+  assert.ok(!calls.some(a=>a[0]==='moveTo'&&a[1]===before&&a[2]===s.geometry.floor(before).y&&calls.some(b=>b[0]==='lineTo'&&b[1]===before&&b[2]===-200)),'right outside wall is not drawn in the resolved view');
+});
 test('fruit rests on the sampled curve, roots stay fixed, and the central focus is deterministic',()=>{
   const s=fixture(9);advance(s,7);
   const centre=s.farm.frame.x,expected=s.result.arrivals.slice().sort((a,b)=>Math.abs(J.plantPose(s,a).x-centre)-Math.abs(J.plantPose(s,b).x-centre)||a.id-b.id)[0];

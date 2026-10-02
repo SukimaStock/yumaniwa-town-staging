@@ -12,10 +12,19 @@
     for (const p of samples) c.lineTo(p.x, p.y + lift);
     c.lineTo(samples.at(-1).x, bottom); c.closePath();
   }
-  function drawTerrain(c,g,lift=0,wallAlpha=1) {
+  function drawTerrain(c,g,lift=0,wallAlpha=1,openRight=false) {
     const bottom=Math.max(1100,g.bounds.lostY+500);
       for (const segment of g.segments) {
-        const samples = segment.samples;
+        let samples = segment.samples;
+        // Once the successful ending resolves, the final platform is allowed
+        // to continue visually beyond the physical world edge. Collision and
+        // geometry stay unchanged; these extra samples exist only for drawing.
+        if(openRight && segment===g.segments.at(-1)) {
+          const last=samples.at(-1), prev=samples.at(-2), extension=[];
+          const slope=prev?(last.y-prev.y)/(last.x-prev.x):0;
+          for(let x=last.x+40;x<=last.x+900;x+=40) extension.push({...last,x,y:last.y+slope*Math.min(x-last.x,120)});
+          samples=samples.concat(extension);
+        }
         c.save();
         surface(c,samples,lift,bottom);
         const ground = c.createLinearGradient(0,330+lift,0,750+lift);
@@ -50,7 +59,7 @@
       c.save();c.globalAlpha*=wallAlpha;
       // Only the two outside walls remain; each gap stays open below its lips.
       c.beginPath();c.moveTo(g.bounds.left,-200);c.lineTo(g.bounds.left,(g.floor(g.bounds.left)?.y||350)+lift);
-      c.moveTo(g.bounds.right,(g.floor(g.bounds.right)?.y||350)+lift);c.lineTo(g.bounds.right,-200);
+      if(!openRight) { c.moveTo(g.bounds.right,(g.floor(g.bounds.right)?.y||350)+lift);c.lineTo(g.bounds.right,-200); }
       c.strokeStyle='#647454';c.lineWidth=7;c.stroke();c.restore();
   }
   function drawLoops(c,g) {
@@ -203,7 +212,7 @@
       // The journey and nursery remain one continuous piece of land. A result
       // changes what grows here, not whether the Stage 1 ground still exists.
       const settled=!!(s.result&&s.ending&&s.result.arrivals.length);
-      drawTerrain(c,g,lift);
+      drawTerrain(c,g,lift,1,settled);
       drawLoops(c,g);
       drawFarm(c,g,lift,settled);
       c.restore();
