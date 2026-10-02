@@ -40,6 +40,22 @@ var SHINPO_RACK = {
 var NOTE_ARTICLES = [
     // [NOTES:ADD_NEWEST_HERE]
     {
+        id: "note-20261002-b65558a3",
+        title: "「自分らしさ」は、たぶん自分で決められない",
+        url: "https://note.com/hamamah/n/n6ff53bd959cf",
+        publishedAt: "2026-10-02",
+        featured: false
+    },
+
+    {
+        id: "note-20260925-e665741c",
+        title: "まだ知らない「欲しくなるもの」に出会いに",
+        url: "https://note.com/hamamah/n/nfe5abc30d0a9",
+        publishedAt: "2026-09-25",
+        featured: false
+    },
+
+    {
         id: "note-20260917-c12ade65",
         title: "ゲームジャムで、カレーを配達した",
         url: "https://note.com/hamamah/n/na42fdcfeabf2",
