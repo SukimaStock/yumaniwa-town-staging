@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ecd28210a35fede939826dbd8a355e71f78f4f209d8d39b9a4fbefd5ff2dff29",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-camera-lookahead-20261002",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add gentle Stage 1 forward camera look-ahead while preserving party-centred framing",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "e758d27fc0b74767e1cdbbf28d0d30e40753f4a1",
+    "canonicalSources": [
+      "works/pumpoko/journey.js",
+      "works/pumpoko/test-journey.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-camera-lookahead-20261002/r0.lock.json",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/test-journey.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/builder/**",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/assets/**",
+      "works/kotsu-koro/**"
+    ],
+    "expectedChanges": [
+      "Preserve travelling-party median as camera anchor",
+      "Use travelling-party median horizontal velocity to add bounded rightward look-ahead",
+      "Smooth look-ahead in and return it faster on slowdown/reversal",
+      "Keep one fast outlier seed from steering look-ahead",
+      "Add focused camera regression tests"
+    ],
+    "ownerDecisions": [
+      "User asked to improve Stage 1 camera visibility for sudden holes and authorized implementation and staging merge for hands-on review"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Work-owned camera only; no physics/terrain/ending changes",
+      "Plan-first lock-only commit, immutable r0; Scope then Risk then Impact"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "author-device-stage1-camera-feel"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing PumpkinJourney camera and travelling seed state only"
+    ],
+    "rollback": "Revert this staging camera PR; no data/storage migration",
+    "outOfScope": [
+      "Physics, terrain, Stage 0, goal/farm, ending growth, title, logo, audio, production, canonical Engine/Codea Lite, other works"
+    ],
+    "promotion": "Staging PR; merge after required checks so author can test via staging URL; no production change",
+    "unverified": [
+      "Author-device camera feel remains to be verified after staging deployment"
+    ]
+  }
+}
