@@ -92,27 +92,23 @@
     c.strokeStyle = "#516b4a"; c.lineWidth = 3.2; c.stroke();
     outline(c, 131, .80, 2);
     c.strokeStyle = "rgba(255,232,172,.65)"; c.lineWidth = 1.2; c.stroke();
-    // Sparse cut fibres, stable between frames. They belong to the material.
-    for (let i = 0; i < 105; i++) {
-      const a = i * 2.399, r = 106 + (i * 17 % 27);
-      c.beginPath(); c.moveTo(Math.cos(a) * r, Math.sin(a) * r * .8);
-      c.lineTo(Math.cos(a + .01) * (r + 4 + i % 5), Math.sin(a + .01) * (r + 4 + i % 5) * .8);
-      c.strokeStyle = i % 3 ? "rgba(168,99,44,.09)" : "rgba(255,224,139,.35)";
-      c.lineWidth = .6; c.stroke();
-    }
     c.restore();
     c.save(); c.translate(px * 7, py * 4);
     outline(c, 105, .80, 2.5);
-    const interior = c.createRadialGradient(-19 - model.x * 20, -17 - model.y * 20, 7, 0, 0, 118);
-    interior.addColorStop(0, "#edb66d"); interior.addColorStop(.62, "#e4a45b"); interior.addColorStop(.88, "#ca8344"); interior.addColorStop(1, "#ad703d");
+    // Wide, quiet colour masses describe a soft hollow; no fibre diagram.
+    const interior = c.createRadialGradient(-17 - model.x * 20, -12 - model.y * 20, 6, 0, 0, 119);
+    interior.addColorStop(0, "#e6a05a"); interior.addColorStop(.52, "#e9a760");
+    interior.addColorStop(.82, "#efb36c"); interior.addColorStop(1, "#c58b50");
     c.fillStyle = interior; c.fill();
     c.save(); c.clip();
-    for (let i = 0; i < 22; i++) {
-      const a = i / 22 * TAU;
-      c.beginPath(); c.moveTo(Math.cos(a) * 103, Math.sin(a) * 103 * .8);
-      c.bezierCurveTo(Math.cos(a + .08) * 89, Math.sin(a + .08) * 89 * .8, Math.cos(a - .12) * 75, Math.sin(a - .12) * 75 * .8, Math.cos(a) * 71, Math.sin(a) * 71 * .8);
-      c.strokeStyle = "rgba(255,211,139,.30)"; c.lineWidth = 1.5; c.stroke();
-    }
+    const shade = c.createLinearGradient(0, -85, 0, 65);
+    shade.addColorStop(0, "rgba(138,85,40,.17)");
+    shade.addColorStop(.48, "rgba(164,106,49,0)");
+    shade.addColorStop(1, "rgba(255,220,156,.18)");
+    oval(c, 0, 0, 112, 89, shade);
+    const warmth = c.createRadialGradient(-29, 34, 0, -29, 34, 85);
+    warmth.addColorStop(0, "rgba(255,218,155,.23)"); warmth.addColorStop(1, "rgba(255,218,155,0)");
+    oval(c, -29, 34, 85, 64, warmth);
     c.restore(); c.restore();
     // Physical seeds/tethers and their clip retain the original transform.
     outline(c, 105, .80, 2.5); c.save(); c.clip();
@@ -121,17 +117,21 @@
       c.strokeStyle = `rgba(246,200,124,${.13 * Math.pow(1 - m.age / 18, 2)})`;
       c.lineWidth = 1.2; c.stroke();
     }
+    if (showSeeds && model.seeds.some(p => p.attached)) {
+      const pulp = c.createRadialGradient(0, -2, 0, 0, -2, 20);
+      pulp.addColorStop(0, "rgba(255,224,163,.42)"); pulp.addColorStop(1, "rgba(255,224,163,0)");
+      oval(c, 0, -2, 20, 14, pulp);
+    }
+    c.lineCap = "round";
     for (const p of showSeeds ? model.seeds : []) {
       if (!p.tether) continue;
       const t = p.tether, tail = p.attached ? 1 : Math.exp(-(model.time - t.detachedAt) * 2.4);
       const dx = p.x - t.ax, dy = p.y - t.ay;
       c.beginPath(); c.moveTo(t.ax, t.ay * .8);
       c.quadraticCurveTo(t.ax + dx * .4 - 6 * tail, (t.ay + dy * .4) * .8 + 6 * tail, t.ax + dx * tail, (t.ay + dy * tail) * .8);
-      c.strokeStyle = "rgba(135,85,37,.14)"; c.lineWidth = 4; c.stroke();
-      c.strokeStyle = "#f5d295"; c.lineWidth = p.attached ? 2.2 - Math.min(1, t.damage / t.strength) * 1.2 : 1;
+      c.strokeStyle = "rgba(144,93,44,.12)"; c.lineWidth = 5; c.stroke();
+      c.strokeStyle = "#ffe0a6"; c.lineWidth = p.attached ? 3.2 - Math.min(1, t.damage / t.strength) * 1.5 : 1.4;
       c.stroke();
-      c.beginPath(); c.moveTo(-1, -6); c.quadraticCurveTo(t.ax - 6, t.ay * .8 - 4, t.ax, t.ay * .8);
-      c.strokeStyle = "rgba(246,202,128,.62)"; c.lineWidth = 1.1; c.stroke();
     }
     if (showSeeds) for (const [i, p] of model.seeds.entries()) seed(c, p, i);
     c.restore();

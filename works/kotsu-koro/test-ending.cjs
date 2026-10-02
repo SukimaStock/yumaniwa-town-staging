@@ -12,7 +12,7 @@ for(let n=1;n<=9;n++)test(`${n} arrivals retain identity, produce exactly ${n} p
   objects.forEach((p,i)=>assert.equal(s.seeds[i],p));assert.equal(J.party(s).length,n);assert.equal(J.travelling(s).length,0);
   for(const a of s.result.arrivals){assert.equal(a.seed.arrival,a);assert.equal(a.x,a.seed.x);assert.equal(a.y,a.seed.y);assert.equal(a.rootY,s.geometry.floor(a.x).y);assert.ok(a.at>=.24);}
   const result=s.result;advance(s,10);assert.equal(s.result,result);assert.ok(s.replayReady&&s.ending.growthComplete);assert.equal(J.plants(s).length,n);
-  const {c,calls}=context();Draw.drawPlants(c,s);assert.equal(calls.filter(a=>a[0]==='ellipse').length,n*7,'one fruit body/shadow/highlight per plant');
+  const {c,calls}=context();Draw.drawPlants(c,s);assert.equal(calls.filter(a=>a[0]==='ellipse'&&a[3]===16&&a[4]===3).length,n,'exactly one fruit shadow per plant, independent of decorative lobe count');
   const seeds=[];Draw.drawSeeds(c,s,(_c,p,i)=>seeds.push(i));assert.equal(seeds.length,0,'rooted grain disappears once, underneath its own plant');
   J.knock(s,1800,430);s.held=true;s.targetX=-.38;advance(s,2);assert.equal(s.result,result);assert.ok(!s.held);assert.equal(s.arrivalEvents.length,0);
   for(const a of result.arrivals){assert.equal(a.seed.x,a.x);assert.equal(a.seed.y,a.y);}

@@ -66,40 +66,50 @@
     }
   }
   function drawFarm(c,g,lift=0) {
-    const f=J.farm(g), ps=f.samples;
-    c.save();c.beginPath();c.moveTo(f.left,ps[0].y+lift);
+    const f=J.farm(g), ps=f.samples, first=ps[0], last=ps.at(-1);
+    const low=Math.max(...ps.map(p=>p.y))+lift, middle=(f.left+f.right)/2;
+    c.save();
+    // The upper lip is still the real planting surface. The underside is a
+    // rounded receiver, not a section through a cliff or layered soil.
+    c.fillStyle='rgba(125,100,58,.08)';c.beginPath();
+    c.ellipse(middle,low+65,(f.right-f.left)*.44,8,0,0,TAU);c.fill();
+    c.beginPath();c.moveTo(first.x,first.y+lift);
     for(const p of ps)c.lineTo(p.x,p.y+lift);
-    c.lineTo(f.right,ps.at(-1).y+lift+60);
-    for(const p of ps.slice().reverse())c.lineTo(p.x,p.y+lift+60);
+    c.bezierCurveTo(last.x+13,last.y+lift+8,last.x+8,low+34,last.x-20,low+43);
+    c.bezierCurveTo(middle+50,low+67,middle-50,low+67,first.x+20,low+43);
+    c.bezierCurveTo(first.x-8,low+34,first.x-13,first.y+lift+8,first.x,first.y+lift);
     c.closePath();
-    const soil=c.createLinearGradient(0,Math.min(...ps.map(p=>p.y))+lift,0,Math.max(...ps.map(p=>p.y))+lift+75);
-    soil.addColorStop(0,'#b99465');soil.addColorStop(.6,'#ceb080');soil.addColorStop(1,'#ddc598');
+    const soil=c.createLinearGradient(0,Math.min(...ps.map(p=>p.y))+lift,0,low+65);
+    soil.addColorStop(0,'#c5a577');soil.addColorStop(.48,'#d7b989');soil.addColorStop(1,'#ead2a6');
     c.fillStyle=soil;c.fill();c.clip();
     c.lineCap='round';c.lineJoin='round';
-    for(const depth of [2,19,41,58]) {
-      c.beginPath();for(const [i,p]of ps.entries()) {if(i)c.lineTo(p.x,p.y+lift+depth);else c.moveTo(p.x,p.y+lift+depth);}
-      c.strokeStyle=depth===2?'#d3b17c':depth===58?'rgba(238,213,166,.6)':'rgba(147,109,64,.23)';
-      c.lineWidth=depth===2?9:4;c.stroke();
-    }
-    for(let i=0;i<38;i++) {const x=f.left+(f.right-f.left)*(i+.5)/38,y=g.floor(x).y+lift+8+i%4*11;
-      c.fillStyle=i%2?'rgba(249,230,187,.38)':'rgba(124,93,55,.20)';c.beginPath();c.ellipse(x,y,1.4+i%3*.4,.7,0,0,TAU);c.fill();}
+    // One broad light face follows the hollow, without seams, grit or strata.
+    c.beginPath();for(const [i,p]of ps.entries()){if(i)c.lineTo(p.x,p.y+lift+5);else c.moveTo(p.x,p.y+lift+5);}
+    c.strokeStyle='#e1c596';c.lineWidth=14;c.stroke();
     c.restore();
   }
   function leaf(c,x,y,size,angle,color) {
     c.save();c.translate(x,y);c.rotate(angle);c.scale(size,size);
-    c.beginPath();c.moveTo(0,0);c.bezierCurveTo(-3,-14,12,-19,21,-12);c.bezierCurveTo(19,-1,7,4,0,0);
-    c.fillStyle=color;c.fill();c.beginPath();c.moveTo(0,0);c.quadraticCurveTo(9,-6,17,-10);c.strokeStyle='rgba(218,224,156,.50)';c.lineWidth=1;c.stroke();c.restore();
+    c.beginPath();c.moveTo(0,0);c.bezierCurveTo(-7,-9,0,-17,10,-16);
+    c.bezierCurveTo(24,-16,24,-3,14,1);c.bezierCurveTo(8,4,3,2,0,0);
+    c.fillStyle=color;c.fill();c.restore();
   }
   function fruit(c,x,y,size,id) {
-    c.save();c.translate(x,y);c.scale(size,size);
-    c.fillStyle='rgba(93,68,32,.13)';c.beginPath();c.ellipse(1,13,16,3,0,0,TAU);c.fill();
-    c.lineWidth=1.2;c.strokeStyle='#bf803a';
-    for(const [offset,width,color] of [[-9,8,'#eda04a'],[9,8,'#e89744'],[-4,10,'#f6af54'],[4,10,'#f2a44a'],[0,8,'#ffbb63']]) {
-      c.beginPath();c.ellipse(offset,0,width,13.5,offset*.017,0,TAU);c.fillStyle=color;c.fill();c.stroke();
-    }
-    c.beginPath();c.moveTo(-3,-12);c.quadraticCurveTo(-2,-18,2+id%2,-20);c.lineTo(5,-18);c.quadraticCurveTo(1,-16,2,-12);
-    c.closePath();c.fillStyle='#58734c';c.fill();
-    c.beginPath();c.ellipse(-5,-5,2,4,-.35,0,TAU);c.fillStyle='rgba(255,226,151,.72)';c.fill();c.restore();
+    c.save();c.translate(x,y);c.rotate((id%3-1)*.045);c.scale(size,size);
+    c.fillStyle='rgba(93,68,32,.12)';c.beginPath();c.ellipse(1,13,16,3,0,0,TAU);c.fill();
+    // A single plump silhouette, with broad lobes instead of outlined ribs.
+    c.beginPath();c.moveTo(0,-12);
+    c.bezierCurveTo(8,-18,20,-12,20,-1);c.bezierCurveTo(21,9,11,16,0,13);
+    c.bezierCurveTo(-11,16,-21,9,-20,-1);c.bezierCurveTo(-20,-12,-8,-18,0,-12);c.closePath();
+    const body=c.createLinearGradient(-12,-14,12,15);
+    body.addColorStop(0,'#ffc574');body.addColorStop(.55,'#f5ac56');body.addColorStop(1,'#e59445');
+    c.fillStyle=body;c.fill();c.save();c.clip();
+    c.beginPath();c.ellipse(-10,0,9,15,-.10,0,TAU);c.fillStyle='rgba(255,215,142,.30)';c.fill();
+    c.beginPath();c.ellipse(2,1,9,15,0,0,TAU);c.fillStyle='rgba(255,198,112,.38)';c.fill();
+    c.restore();
+    c.beginPath();c.moveTo(-2,-12);c.quadraticCurveTo(-4,-18,1+id%2,-20);
+    c.strokeStyle='#698253';c.lineWidth=4.5;c.lineCap='round';c.stroke();
+    c.beginPath();c.ellipse(-6,-7,3.8,2.2,-.45,0,TAU);c.fillStyle='rgba(255,233,183,.48)';c.fill();c.restore();
   }
   function drawPlants(c,s) {
     // Each stable arrival produces one stem and exactly one fruit. Fruit/leaf
@@ -161,8 +171,12 @@
     if (o > 0) {
       const lift = (1-o)*700;
       c.save(); c.globalAlpha = J.smooth(o*2);
-      drawTerrain(c,g,lift,s.ending&&s.result.arrivals.length?1-J.smooth(s.ending.elapsed/2.8):1);
-      drawLoops(c,g);
+      // Once all travellers are resolved, the journey's cut edges recede into
+      // cream space. During play the exact visible/colliding terrain is intact.
+      const nursery=s.ending&&s.result.arrivals.length?J.smooth(s.ending.elapsed/2.8):0;
+      c.save();c.globalAlpha*=1-nursery;
+      drawTerrain(c,g,lift,1-nursery);
+      drawLoops(c,g);c.restore();
       drawFarm(c,g,lift);
       c.restore();
     }
