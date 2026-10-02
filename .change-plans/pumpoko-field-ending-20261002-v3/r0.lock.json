@@ -1,0 +1,104 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a3f00210ae4b661e95d485cfbbc3247befa9d7ae3b0b20d7dd84854fcf7f95d7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-field-ending-20261002-v3",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Root each arrived seed in END soil, pull back and grow one pumpkin per seed; event-based SE",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "86f1b8926007ca6538676cd13896645726cb1207",
+    "canonicalSources": [
+      "works/kotsu-koro/journey.js",
+      "works/kotsu-koro/stage-draw.js",
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/stage-data.js",
+      "works/kotsu-koro/stage-geometry.js",
+      "works/kotsu-koro/builder/model.js",
+      "engine/sukimastock-engine.v0.3.0.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-field-ending-20261002-v3/r0.lock.json",
+      "works/kotsu-koro/journey.js",
+      "works/kotsu-koro/stage-draw.js",
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/builder/builder.js",
+      "works/kotsu-koro/test-journey.cjs",
+      "works/kotsu-koro/test-audio.cjs",
+      "works/kotsu-koro/test-builder.cjs",
+      "works/kotsu-koro/test-ending.cjs",
+      "works/kotsu-koro/STAGE1.md",
+      "works/kotsu-koro/VALIDATION.md",
+      "works/kotsu-koro/test-stage.cjs",
+      "works/kotsu-koro/test-dynamics.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "index.html",
+      "style.css",
+      "works/kotsu-koro/codea-lite.js",
+      "works/kotsu-koro/dynamics.js",
+      "works/kotsu-koro/stage-data.js",
+      "works/kotsu-koro/stage-geometry.js",
+      "works/kotsu-koro/audio/**",
+      "works/kotsu-koro/assets/**",
+      "works/kotsu-koro/builder/model.js"
+    ],
+    "expectedChanges": [
+      "Per-seed immutable arrived/lost outcomes, contact-gated soil settling only within current END; keep original objects and party survival meaning; travelling collection for physics/camera/input",
+      "Freeze result only after all seeds resolved, separate result/ending/replay states; active update time growth, continuous pullback, no extra scene/card",
+      "Draw soil and furrows from compiled floor/END before arrival, roots from exact arrival positions, deterministic staggered sprout/leaf/one fruit per arrival; no decorative extra fruit",
+      "Mute ordinary collision/grab/knock SE without changing their physical events; keep actual detach audio, explicit coalesced arrival event policy, leave files and BGM settings unchanged",
+      "Minimal Builder renderer integration using same arrival/end geometry and growth, keep edit/reset immediate and saved JSON/schema unchanged",
+      "Bounded explicit dev-only 1-9 ending fixtures for visual QA, distinguish from ordinary browser run",
+      "Update only obsolete quiet finish/finish relaunch tests; add arrival/count/straggler/camera/lifecycle/BGM/SE/Builder tests and docs",
+      "Replace obsolete full-run physical hash that includes END with exact old/new travelling-physics comparison outside END; retain canonical geometry hashes"
+    ],
+    "ownerDecisions": [
+      "User approved field landing → pullback → one seed/plant/fruit → quiet replay ending and event-based SE",
+      "Preserve all protected title, Stage 0, transition, travelling physics/terrain/gap/Loop and BGM; no production",
+      "If no suitable verified soil landing sound exists, leave arrivals silent and report rather than force mismatched audio"
+    ],
+    "rulesApplied": [
+      "WORK runtime Standard floor",
+      "Immutable Plan Lock first branch commit",
+      "No Stage Data schema changes; use current run geometry END/floor",
+      "Canonical Engine handles audio and lifecycle; no BGM reset/polling"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "ordinary-stage0-to-field",
+      "dev-fixtures-1-3-9-pullback-growth",
+      "desktop-ending-input-replay",
+      "builder-moved-end-edit-reset",
+      "audio-state-not-listening"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none; staging only",
+    "rollback": "Revert this work-local implementation via staging PR",
+    "unverified": [
+      "physical iPhone/PWA",
+      "subjective audio listening",
+      "mobile viewport if tool cannot resize"
+    ]
+  }
+}
