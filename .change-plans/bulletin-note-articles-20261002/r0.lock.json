@@ -1,0 +1,94 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2439f9520426f1295f0d311a6825963a7a60824937222ad8d811f93596d88b77",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "bulletin-note-articles-20261002",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add the two user-selected note articles to the existing bulletin data after confirming publication metadata",
+    "planLevel": "lite",
+    "classes": [
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "27b158a656aac163d59a70ff6d03969a1ac14e15",
+    "canonicalSources": [
+      "data/notes.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/bulletin-note-articles-20261002/r0.lock.json",
+      "data/notes.js"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/**",
+      "engine/**",
+      "assets/**",
+      ".github/**",
+      "tools/**",
+      "data/works.js",
+      "data/updates.js",
+      "data/ghost-dialogue.js",
+      "data/work-search-meta.js",
+      "w/**",
+      "en/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Add https://note.com/hamamah/n/nfe5abc30d0a9 with the official title and confirmed 2026-09-25 publication date",
+      "Add https://note.com/hamamah/n/n6ff53bd959cf only after its official publication date is confirmed; do not infer it",
+      "Prepend confirmed articles newest first at NOTES:ADD_NEWEST_HERE with unique Desk-format IDs, title, URL, publishedAt and featured:false",
+      "Preserve all existing entries, rack policy, embeds, links and runtime; index.html already loads notes.js with Date.now(), so no cache edit is required",
+      "Copy no article body and add no inferred author commentary, custom tags or featured selection"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "note-publication-metadata",
+      "note-rack-order-links-duplicates-cache",
+      "physical-device-unverified"
+    ],
+    "impactChecks": [],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "User selected exactly these two URLs and supplied their titles; authorized staging additions and a Draft PR only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md staging-only scope",
+      "OPERATIONS.md first commit contains immutable r0 Plan Lock only",
+      "Desk notes schema: note-YYYYMMDD-UUID8 / publishedAt / featured:false",
+      "Existing notes marker insertion and automatic Date.now cache busting",
+      "Known domain data is low-risk CONTENT; no derived Impact IDs for notes.js; final VERIFIED remains deferred"
+    ],
+    "dependencies": [
+      "Confirm every publication date from note public metadata or explicit user-supplied correction before inserting that article"
+    ],
+    "rollback": "Revert the article insertion commit while leaving the Plan Lock immutable",
+    "outOfScope": [
+      "SukimaStock/yumaniwa-town production",
+      "PUMPOKO and all other work changes",
+      "Article body republication or invented author comments",
+      "Merge, auto-merge, deployment and external configuration"
+    ],
+    "promotion": "Draft PR to staging main only; stop before merge; no production writes",
+    "unverified": [
+      "Second article metadata is currently unavailable through page/API/embed retrieval and searches; keep its insertion pending until confirmed",
+      "Physical device and live staged page are not observed",
+      "Final automatic VERIFIED is intentionally deferred by repository policy"
+    ]
+  }
+}
