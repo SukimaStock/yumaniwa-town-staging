@@ -93,7 +93,7 @@ function sceneHarness(search = "?dev=1", journey = J) {
   let config;const held=new Set(), plays=[];const c={console,location:{search},URLSearchParams,
     SUKIMASTOCK_WORK:{id:'kotsu-koro',title:'PUMPOKO',logicalWidth:390,logicalHeight:740,frameRate:60},
     PumpkinDynamics:D,PumpkinJourney:journey,BEGAN:'BEGAN',MOVING:'MOVING',ENDED:'ENDED',CANCELLED:'CANCELLED',
-    SSE:{createApp:v=>{config=v;},audio:{withBaseline:v=>v,baseline:()=>({reference:{se:{action:.46,soft:.24}}}),play:name=>plays.push(name)},
+    SSE:{createApp:v=>{config=v;},audio:{withBaseline:v=>v,baseline:()=>({reference:{bgm:{active:.225},se:{action:.46,soft:.24}}}),play:name=>plays.push(name)},
     input:{action:n=>held.has(n),actionPressed:()=>false}}};c.window=c;
   vm.runInNewContext(fs.readFileSync(path.join(__dirname,'sketch.js'),'utf8'),c);
   const elements = new Map(), translations = [];
