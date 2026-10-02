@@ -1,0 +1,90 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5ccae614555a49113ec56a2b89594efdaee47bf69217a129ccbea2bfd7d2060d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-pumpkin-world-goal-20261002",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Replace the realistic farm ground with a subtle goal hollow that preserves the pumpkin-world strata",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "63e04c302e50b6401f78c4beaeb2095e76540200",
+    "canonicalSources": [
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/test-ending.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-pumpkin-world-goal-20261002/r0.lock.json",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/test-ending.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/builder/**",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/assets/**",
+      "works/kotsu-koro/**"
+    ],
+    "expectedChanges": [
+      "Keep the yellow-orange Stage 1 terrain strata visually dominant through the ending",
+      "Remove the large realistic beige farm fill that covers the pumpkin-world ground",
+      "Retain only a restrained goal cue around the existing END hollow and planting surface",
+      "Keep roots/plants on the exact existing sampled collision surface",
+      "Preserve gameplay geometry, physics, camera, growth timing and rewards",
+      "Add renderer regression coverage that the settled goal no longer paints a giant separate farm body"
+    ],
+    "ownerDecisions": [
+      "User clarified that the yellow-orange pumpkin-like strata are the desired world identity, that the realistic farm is too literal, and that only a subtle indication of the goal is needed"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Work-owned renderer only; no physics/state/geometry changes",
+      "Plan-first lock-only commit, immutable r0; Scope then Risk then Impact"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "author-device-pumpkin-world-goal-continuity"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing PumpkinStageDraw, farm samples and Stage 1 terrain renderer only"
+    ],
+    "rollback": "Revert this staging renderer PR; no state/data migration",
+    "outOfScope": [
+      "Physics, terrain gameplay geometry, Stage 0, Stage 1 camera look-ahead, new ending camera pan/zoom, title interaction, logo animation, pulp fade, audio, production, canonical Engine/Codea Lite, other works"
+    ],
+    "promotion": "Staging PR; merge after required checks for author hands-on review; no production change",
+    "unverified": [
+      "Author-device visual balance of the subtle goal cue remains to be verified after staging deployment"
+    ]
+  }
+}
