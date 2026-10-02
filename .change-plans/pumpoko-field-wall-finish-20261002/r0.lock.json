@@ -1,0 +1,86 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "36cfe90dcb6cea67cbc2cbc8c798ed31f40b925f0a7a60de8cecdbe48c9a94f6",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-field-wall-finish-20261002",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Fade existing outer boundary wall drawing during the field ending",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "e2488cab67c23cf1bd9138161d6cfdfa2b27dca6",
+    "canonicalSources": [
+      "works/kotsu-koro/journey.js",
+      "works/kotsu-koro/stage-draw.js",
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/stage-data.js",
+      "works/kotsu-koro/stage-geometry.js",
+      "works/kotsu-koro/builder/model.js",
+      "engine/sukimastock-engine.v0.3.0.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-field-wall-finish-20261002/r0.lock.json",
+      "works/kotsu-koro/stage-draw.js",
+      "works/kotsu-koro/builder/builder.js"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "index.html",
+      "style.css",
+      "works/kotsu-koro/codea-lite.js",
+      "works/kotsu-koro/dynamics.js",
+      "works/kotsu-koro/stage-data.js",
+      "works/kotsu-koro/stage-geometry.js",
+      "works/kotsu-koro/audio/**",
+      "works/kotsu-koro/assets/**",
+      "works/kotsu-koro/builder/model.js"
+    ],
+    "expectedChanges": [
+      "Fade only the outer wall strokes during the existing 2.8-second ending pullback; leave soil/plant/terrain and physical collision untouched",
+      "Use same wall opacity in Builder play rendering, preserve edit/render defaults"
+    ],
+    "ownerDecisions": [
+      "User approved field landing → pullback → one seed/plant/fruit → quiet replay ending and event-based SE",
+      "Preserve all protected title, Stage 0, transition, travelling physics/terrain/gap/Loop and BGM; no production",
+      "If no suitable verified soil landing sound exists, leave arrivals silent and report rather than force mismatched audio"
+    ],
+    "rulesApplied": [
+      "WORK runtime Standard floor",
+      "Immutable Plan Lock first branch commit",
+      "No Stage Data schema changes; use current run geometry END/floor",
+      "Canonical Engine handles audio and lifecycle; no BGM reset/polling"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "ordinary-run-field-rest",
+      "dev-1-3-9-field-visuals",
+      "builder-end-reset-edit"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none; staging only",
+    "rollback": "Revert this work-local implementation via staging PR",
+    "unverified": [
+      "physical iPhone/PWA",
+      "subjective audio listening",
+      "mobile viewport if tool cannot resize"
+    ]
+  }
+}
