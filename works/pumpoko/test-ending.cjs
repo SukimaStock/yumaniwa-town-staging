@@ -86,3 +86,9 @@ test('continuous zoom connects the same fruit to the exact original title scale 
 test('Builder runs keep their grown farm view; empty endings never fabricate a focus or auto-return',()=>{
   for(const n of [0,3]) {const s=fixture(n);advance(s,20);assert.ok(!s.ending.titleReady);assert.equal(J.returnZoom(s),0);assert.equal(J.titleMix(s),0);if(n)assert.deepEqual(s.camera,s.farm.frame);else assert.equal(s.ending.focus,null);}
 });
+
+test('late focus quiets neighbouring plants while leaving the chosen fruit continuous',()=>{
+ const s=fixture(9);s.titleCycle=true;advance(s,12.3);assert.ok(J.returnZoom(s)>.8&&J.titleMix(s)>.05);
+ const {c,calls}=context(),alphas=[];const observed=new Proxy(c,{set(target,key,value){if(key==='globalAlpha')alphas.push(value);target[key]=value;return true;}});Draw.drawPlants(observed,s,()=>{});
+ assert.ok(alphas.some(a=>a>0&&a<.2),'neighbours recede softly during the approach');assert.ok(calls.filter(a=>a[0]==='ellipse'&&a[3]===16&&a[4]===3).length===9,'focus does not delete result fruit');
+});

@@ -124,16 +124,16 @@
     for(const {arrival:a,age} of ps) {
       if(age<=0)continue;
       const sprout=ease(age/.65), leaves=ease((age-.5)/.85), grow=ease((age-1.4)/.95);
-      const p=J.plantPose(s,a), dx=p.x-a.x, dy=p.y-a.rootY, focused=a===s.ending.focus;
+      const p=J.plantPose(s,a), density=p.size/(.95+a.id%3*.025), dx=p.x-a.x, dy=p.y-a.rootY, focused=a===s.ending.focus;
       c.save();c.translate(a.x,a.rootY);
-      c.save();c.globalAlpha*=1-mix;
+      c.save();c.globalAlpha*=(1-mix)*(focused?1:1-ease((zoom-.45)/.5));
       // A small upright shoot relaxes into a low sideways vine, never a pedestal.
       c.beginPath();c.moveTo(0,1);
       c.quadraticCurveTo(-dx*.5,-10*sprout,dx*leaves,(dy+13*p.size)*leaves-2);
       c.strokeStyle='#607b4e';c.lineWidth=2+leaves*.8;c.lineCap='round';c.stroke();
       const sway=Math.sin(s.ending.elapsed*1.1+a.id*1.7)*.025*leaves;
-      leaf(c,-4,-5,.28*sprout+.40*leaves,-.5+sway,'#758f59');
-      leaf(c,5,-7,.24*sprout+.38*leaves,-2.5-sway,'#5f7d51');
+      leaf(c,-4,-5,(.28*sprout+.40*leaves)*density,-.5+sway,'#758f59');
+      leaf(c,5,-7,(.24*sprout+.38*leaves)*density,-2.5-sway,'#5f7d51');
       if(grow>0) {
         const settling=1+.055*Math.sin(Math.max(0,age-2.35)*9)*Math.exp(-Math.max(0,age-2.35)*3.5);
         // Bottom stays on the soil while the fruit swells, instead of lifting it.
