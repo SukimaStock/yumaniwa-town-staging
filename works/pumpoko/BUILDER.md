@@ -1,6 +1,6 @@
 # PUMPOKO Stage Builder v0.1
 
-Staging-only author tool: `/works/kotsu-koro/builder/`. No town registration,
+Staging-only author tool: `/works/pumpoko/builder/`. No town registration,
 production publication, sharing service or physics parameter controls.
 
 ## Touch → play → refine
@@ -26,9 +26,11 @@ production publication, sharing service or physics parameter controls.
   complete stage. Empty-space dragging pans in both dimensions. Pointer events
   and generous handles support touch, with desktop recommended for precision.
 - SAVE DRAFT / LOAD DRAFT use only `kotsu-koro-stage-builder-v1` localStorage.
+  The legacy storage key is intentional and must not be renamed.
   Storage failure is visible and EXPORT remains available. No automatic load
   hides the current canonical stage. Undo/redo retains 40 edit transactions.
-- EXPORT JSON saves the canonical v1 schema. IMPORT validates before adoption;
+- EXPORT JSON saves `pumpoko-stage.json` with the canonical v1 schema.
+  Older `kotsu-koro-stage.json` files remain importable; names are not validated. IMPORT validates before adoption;
   invalid data leaves the current draft intact. TEST START is part of local
   drafts, not exported gameplay data. Export does not modify the repository.
 
