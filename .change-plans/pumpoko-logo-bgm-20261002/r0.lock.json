@@ -1,0 +1,87 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a75698e55dc76d4afad856fe445f1802a058c56db7b65f64019adbbd7152a230",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-logo-bgm-20261002",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Enlarge PUMPOKO logo and add continuous author BGM through replay",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "9ded92ac58a0a003d9768ed4bac966d57043671e",
+    "canonicalSources": [
+      "works/kotsu-koro/sketch.js",
+      "engine/sukimastock-engine.v0.3.0.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-logo-bgm-20261002/r0.lock.json",
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/audio/pumpoko-bgm.mp3",
+      "works/kotsu-koro/test-audio.cjs",
+      "works/kotsu-koro/test-dynamics.cjs",
+      "works/kotsu-koro/test-journey.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "index.html",
+      "style.css",
+      "works/kotsu-koro/codea-lite.js",
+      "works/kotsu-koro/dynamics.js",
+      "works/kotsu-koro/journey.js",
+      "works/kotsu-koro/stage-data.js",
+      "works/kotsu-koro/stage-geometry.js",
+      "works/kotsu-koro/stage-draw.js",
+      "works/kotsu-koro/builder/**"
+    ],
+    "expectedChanges": [
+      "Scale supplied logo 10-20 percent (start 15 percent), centered with a small downward shift; preserve composition/aspect ratio/title fade",
+      "Copy supplied Pumponko.mp3 byte-identical into work audio directory",
+      "Register one looped music definition with current Audio Baseline; keep all SE levels",
+      "Start/resume through trusted existing primary pointer/keyboard/sound-toggle gestures; no extra gameplay tap",
+      "Preserve the same cached Engine music player and timeline across all game modes, replay, mute and Engine lifecycle; no polling/new AudioContext",
+      "Add bounded Engine+work integration tests for autoplay gate, continuity, loop, toggles, persisted OFF, lifecycle and load failure",
+      "Extend existing test mocks with the canonical BGM baseline field; assertions unchanged"
+    ],
+    "ownerDecisions": [
+      "User approved modest logo enlargement and full-length/full-game BGM loop",
+      "Keep filename spelling inside source asset provenance; PUMPOKO remains title",
+      "No production/shared foundation/gameplay changes"
+    ],
+    "rulesApplied": [
+      "WORK runtime Standard floor",
+      "Immutable Plan Lock first branch commit",
+      "Use existing canonical Engine Audio API and lifecycle"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "logo-desktop-mobile-layout",
+      "browser-audio-start-continuity-loop",
+      "audio-source-seam-analysis"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none; staging only",
+    "rollback": "Revert this work-local implementation via staging PR",
+    "unverified": [
+      "physical iPhone/PWA",
+      "subjective sound balance until actual listening evidence"
+    ]
+  }
+}
