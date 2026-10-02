@@ -64,7 +64,8 @@
     const top=Math.min(...samples.map(p=>p.y))-110, bottom=Math.max(...samples.map(p=>p.y))+85;
     return {left,right,samples,frame:{x:(left+right)/2,y:(top+bottom)/2,z:Math.min(1.05,340/(right-left+110),500/(bottom-top+70))}};
   }
-  const ENDING = Object.freeze({ growAt:2.2, stagger:.12, growthDuration:3,
+  const ENDING = Object.freeze({ growAt:1.45, stagger:.34, growthDuration:2.25,
+    pullIn:.95, closeZoom:1.48, panPadding:34,
     replayAt:6.7, zoomAt:9.1, zoomDuration:3.8, connectDuration:1.2, emptyReplayAt:2.4, emptyDuration:1.2 });
   // Fruit rests on the same sampled soil as its root, even on a sloping draft.
   // This is a drawing pose only: arrivals, seeds and collision are never moved.
@@ -80,9 +81,13 @@
     if(!s.ending.focus)return smooth((s.ending.elapsed-ENDING.emptyReplayAt)/ENDING.emptyDuration);
     return smooth((s.ending.elapsed-ENDING.zoomAt-ENDING.zoomDuration+ENDING.connectDuration)/ENDING.connectDuration);
   }
+  function growthOrder(s) {
+    if(!s.result)return [];
+    return s.result.arrivals.slice().sort((a,b)=>plantPose(s,a).x-plantPose(s,b).x||a.id-b.id);
+  }
   function plants(s) {
     if (!s.result) return [];
-    return s.result.arrivals.map((arrival,i)=>({arrival, age:s.ending.elapsed-ENDING.growAt-i*ENDING.stagger}));
+    return growthOrder(s).map((arrival,i)=>({arrival, age:s.ending.elapsed-ENDING.growAt-i*ENDING.stagger}));
   }
   function resolve(s) {
     if (s.result || travelling(s).length) return;
@@ -297,8 +302,16 @@
     const {START}=s.geometry;
     if(s.result) {
       if(s.result.arrivals.length) {
-        const t=smooth(s.ending.elapsed/2.8),a=s.ending.from,b=s.farm.frame;
-        for(const k of ['x','y','z'])s.camera[k]=a[k]+(b[k]-a[k])*t;
+        const order=growthOrder(s),poses=order.map(a=>plantPose(s,a));
+        const first=poses[0],last=poses.at(-1);
+        const pull=smooth(s.ending.elapsed/ENDING.pullIn);
+        const growthSpan=Math.max(ENDING.stagger,ENDING.growAt+(order.length-1)*ENDING.stagger-ENDING.growAt);
+        const pan=smooth((s.ending.elapsed-ENDING.growAt)/growthSpan);
+        const panX=first.x+(last.x-first.x)*pan;
+        const floorY=s.geometry.floor(panX)?.y||s.farm.frame.y;
+        const close={x:panX,y:floorY-62,z:ENDING.closeZoom};
+        const a=s.ending.from;
+        for(const k of ['x','y','z'])s.camera[k]=a[k]+(close[k]-a[k])*pull;
         const zoom=returnZoom(s),p=plantPose(s,s.ending.focus);
         // Match the original title's 143px shell at the end of this same move.
         const target={x:p.x,y:p.y,z:143/(20*p.size)};
@@ -343,7 +356,7 @@
     camera(s, clamp(elapsed, 0, .06));
   }
   const api = Object.freeze({ create, release, knock, update, point, screenPoint, view, field, floor,
-    support, geometry, terrain, segments, GAP, party, travelling, farm, plants, plantPose, returnZoom, titleMix, jump, ENDING, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
+    support, geometry, terrain, segments, GAP, party, travelling, farm, plants, plantPose, growthOrder, returnZoom, titleMix, jump, ENDING, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
   root.PumpkinJourney = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);
