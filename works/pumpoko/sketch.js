@@ -261,7 +261,9 @@
     outerBackground: "#f7edd8",
     keyboard: { bindings: { left: ["ArrowLeft", "KeyA"], right: ["ArrowRight", "KeyD"],
       up: ["ArrowUp", "KeyW"], down: ["ArrowDown", "KeyS"], knock: ["Space"] } },
-    audio: SSE.audio.withBaseline({ storageKey: W.id + ".sound", music: {
+    // Legacy persistence keys are intentional: renaming the work must not reset saved settings.
+    i18n: { storageKey: "sse:kotsu-koro:language" },
+    audio: SSE.audio.withBaseline({ storageKey: "kotsu-koro.sound", music: {
       pumpoko: { file: "./audio/pumpoko-bgm.mp3", loop: true, volume: SSE.audio.baseline().reference.bgm.active },
     }, sounds: {
       shell: { file: "./audio/shell.wav", mode: "buffer", volume: SSE.audio.baseline().reference.se.action },

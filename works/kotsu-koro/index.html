@@ -2,53 +2,20 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-  <meta name="theme-color" content="#f7edd8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <title>PUMPOKO</title>
-  <link rel="stylesheet" href="./style.css">
+  <title>PUMPOKO — 新しい入口</title>
 </head>
 <body>
-  <img id="title-art" src="./assets/pumpoko-logo.svg" alt="" hidden>
-  <canvas id="gameCanvas" aria-label="PUMPOKO — かぼちゃをつかんで、ゆらす"></canvas>
-  <button id="again" type="button" hidden>もういちど</button>
-  <button id="sound-toggle" type="button" aria-label="音を切る" aria-pressed="true">♪</button>
-
-  <script src="./codea-lite.js"></script>
-
-  <!--
-    Repository/Staging source uses the canonical Engine.
-    The standalone/local starter export rewrites this marked tag to:
-      ./sukimastock-engine.js
-  -->
-  <script data-sse-engine src="../../engine/sukimastock-engine.v0.3.0.js"></script>
-
+  <p>PUMPOKOの入口が変わりました。<a id="new-entry" href="../pumpoko/">新しい入口を開く</a></p>
   <script>
     (() => {
-      const isStaging = /\/yumaniwa-town-staging(?:\/|$)/.test(window.location.pathname);
-      const cacheBust = isStaging ? ("?devbuild=" + Date.now()) : "";
-
-      const loadScript = (src) => new Promise((resolve, reject) => {
-        const script = document.createElement("script");
-        script.src = src;
-        script.onload = resolve;
-        script.onerror = () => reject(new Error("Failed to load " + src));
-        document.body.appendChild(script);
-      });
-
-      Promise.resolve()
-        .then(() => loadScript("./work-config.js" + cacheBust))
-        .then(() => loadScript("./dynamics.js" + cacheBust))
-        .then(() => loadScript("./stage-data.js" + cacheBust))
-        .then(() => loadScript("./stage-geometry.js" + cacheBust))
-        .then(() => loadScript("./journey.js" + cacheBust))
-        .then(() => loadScript("./stage-draw.js" + cacheBust))
-        .then(() => loadScript("./sketch.js" + cacheBust))
-        .then(() => CodeaLite.start("gameCanvas"))
-        .catch((error) => {
-          console.error("PUMPOKO bootstrap failed", error);
-        });
+      // Keep the site prefix, but fix the destination; never accept a query redirect target.
+      const path = location.pathname.replace(/\/works\/kotsu-koro(?:\/index\.html|\/)?$/, "/works/pumpoko/");
+      const target = path + location.search + location.hash;
+      document.getElementById("new-entry").href = target;
+      location.replace(target);
     })();
   </script>
 </body>
