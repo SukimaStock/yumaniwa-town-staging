@@ -66,33 +66,20 @@
     }
   }
   function drawFarm(c,g,lift=0,settled=false) {
-    const f=J.farm(g), ps=f.samples, first=ps[0], last=ps.at(-1);
-    const low=Math.max(...ps.map(p=>p.y))+lift;
-    const bottom=Math.max(6000,g.bounds.lostY+500), reach=6000;
-    c.save();
-    // Roots stay on the exact contact surface. Soil continues downward;
-    // this is a hollow in the land, with no separate bottom or hovering shadow.
-    c.beginPath();
-    if(settled) {
-      c.moveTo(first.x-reach,first.y+lift-50);
-      c.lineTo(first.x-90,first.y+lift-50);
-      c.bezierCurveTo(first.x-45,first.y+lift-50,first.x-24,first.y+lift-24,first.x,first.y+lift);
-    } else c.moveTo(first.x,first.y+lift);
-    for(const p of ps)c.lineTo(p.x,p.y+lift);
-    if(settled) {
-      c.bezierCurveTo(last.x+24,last.y+lift-22,last.x+45,last.y+lift-34,last.x+90,last.y+lift-34);
-      c.lineTo(last.x+reach,last.y+lift-34);
+    const f=J.farm(g), ps=f.samples;
+    c.save();c.lineCap='round';c.lineJoin='round';
+    if(!settled) {
+      // During play, a quiet light edge is enough to hint that the shallow
+      // hollow can receive the travelling seeds. The terrain remains the body.
+      c.beginPath();for(const [i,p]of ps.entries()){if(i)c.lineTo(p.x,p.y+lift+5);else c.moveTo(p.x,p.y+lift+5);}
+      c.strokeStyle='#e1c596';c.lineWidth=14;c.stroke();
+    } else {
+      // The ending is still the same pumpkin-world stratum, not a new farm.
+      // Keep only a restrained warm seam at the receiving hollow; plants root
+      // on the unchanged sampled surface drawn by drawTerrain underneath.
+      c.beginPath();for(const [i,p]of ps.entries()){if(i)c.lineTo(p.x,p.y+lift+6);else c.moveTo(p.x,p.y+lift+6);}
+      c.strokeStyle='rgba(255,240,184,.48)';c.lineWidth=8;c.stroke();
     }
-    c.lineTo(last.x+(settled?reach:0),bottom);
-    c.lineTo(first.x-(settled?reach:0),bottom);
-    c.closePath();
-    const soil=c.createLinearGradient(0,Math.min(...ps.map(p=>p.y))+lift,0,low+65);
-    soil.addColorStop(0,'#c5a577');soil.addColorStop(.48,'#d7b989');soil.addColorStop(1,'#ead2a6');
-    c.fillStyle=soil;c.fill();c.clip();
-    c.lineCap='round';c.lineJoin='round';
-    // One broad light face follows the hollow, without seams, grit or strata.
-    c.beginPath();for(const [i,p]of ps.entries()){if(i)c.lineTo(p.x,p.y+lift+5);else c.moveTo(p.x,p.y+lift+5);}
-    c.strokeStyle='#e1c596';c.lineWidth=14;c.stroke();
     c.restore();
   }
   function leaf(c,x,y,size,angle,color) {
