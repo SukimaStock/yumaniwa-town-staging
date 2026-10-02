@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "afcff5ee7ee3552741a8130170bc9faccee9241db057f7021da6ba5018ff4f59",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-open-horizon-20261002",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Hide the visible right boundary during the successful ending and visually continue the pumpkin strata beyond the goal",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "7361e332d4d412b63cf29122ceedd0aabd89828c",
+    "canonicalSources": [
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/test-ending.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-open-horizon-20261002/r0.lock.json",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/test-ending.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/builder/**",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/assets/**",
+      "works/kotsu-koro/**"
+    ],
+    "expectedChanges": [
+      "Keep the physical right boundary and collision unchanged",
+      "Suppress only the visible right outside-wall stroke after a successful result",
+      "Extend the final pumpkin-like terrain layers visually beyond the right world bound during the ending",
+      "Preserve the existing goal hollow, plants, camera, physics and arrival logic",
+      "Add renderer regression coverage for an open visual horizon without changing geometry"
+    ],
+    "ownerDecisions": [
+      "User approved removing the right vertical bar and making the pumpkin terrain look as if it continues beyond the goal"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Renderer-only illusion; physical world bounds remain unchanged",
+      "Plan-first lock-only commit, immutable r0; Scope then Risk then Impact"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "author-device-ending-open-horizon"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing PumpkinStageDraw and Stage 1 terrain samples only"
+    ],
+    "rollback": "Revert this staging renderer PR; no state/data migration",
+    "outOfScope": [
+      "Collision/world bounds, physics, terrain gameplay geometry, Stage 0, camera look-ahead, new ending camera pan/zoom, title, logo, pulp fade, audio, production, canonical Engine/Codea Lite, other works"
+    ],
+    "promotion": "Staging PR; merge after required checks for author hands-on review; no production change",
+    "unverified": [
+      "Author-device visual continuity beyond the right edge remains to be verified after staging deployment"
+    ]
+  }
+}
