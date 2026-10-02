@@ -1,0 +1,79 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "90136537f42fa7e107cb4f119210d8e650b32aaf26ae056a67ea142b46623236",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-grounded-ending-20261002",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Keep resolved ending nursery attached to continuous opaque ground",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "7b64335eb5aa7e8413befed4cb8bc5c12ce9a003",
+    "canonicalSources": [
+      "works/kotsu-koro/stage-draw.js",
+      "works/kotsu-koro/journey.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-grounded-ending-20261002/r0.lock.json",
+      "works/kotsu-koro/stage-draw.js",
+      "works/kotsu-koro/test-ending.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "works/kotsu-koro/codea-lite.js",
+      "works/kotsu-koro/dynamics.js",
+      "works/kotsu-koro/journey.js",
+      "works/kotsu-koro/stage-data.js",
+      "works/kotsu-koro/stage-geometry.js",
+      "works/kotsu-koro/builder/**",
+      "works/kotsu-koro/audio/**",
+      "works/kotsu-koro/assets/**",
+      "works/kotsu-koro/sketch.js"
+    ],
+    "expectedChanges": [
+      "Remove detached nursery underside and hovering shadow; extend soil beneath exact roots to viewport bottom",
+      "Preserve ordinary terrain and gaps; use continuous opaque ground only after all travellers resolve",
+      "Soften ending outer shoulders and omit distant cut walls/green boundaries without relocating plants",
+      "Verify opaque ground coverage through arrival, pullback, growing and rest"
+    ],
+    "ownerDecisions": [
+      "User explicitly requires a shallow depression in the same land, not an independent bowl"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Existing work-owned drawing only; no canonical runtime changes",
+      "Plan-first scoped PR with immutable lock"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "last-arrival-pullback-growing-rest-ground-continuity",
+      "ordinary-terrain-gap-wall-unchanged"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the draw-only implementation commit in staging",
+    "outOfScope": [
+      "Stage 0, physics, level geometry, camera, growth, audio, Builder, production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Author device feel; final formal verification remains UNVERIFIED"
+    ]
+  }
+}
