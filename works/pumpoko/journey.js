@@ -104,7 +104,7 @@
       x: source.x, y: source.y, vx: source.vx, vy: source.vy,
       targetX: source.targetX, targetY: source.targetY, anchorX: source.anchorX, anchorY: source.anchorY,
       ring: source.ring, ringV: source.ringV, contacts: [], marks: [], impactCount: source.impactCount,
-      camera: { x: START.x, y: START.y, z: transitioning ? 1 : ZOOM },
+      camera: { x: START.x, y: START.y, z: transitioning ? 1 : ZOOM }, cameraLead: 0,
       transition: transitioning ? { elapsed: 0, progress: 0, settled: false } : null,
       finished: false, replayReady:false, result:null, ending:null, arrivals:[], arrivalEvents:[], farm:farm(stage), seeds: source.seeds };
     // Stage 0 draws positions with y * .8, but rotates the grain in screen space.
@@ -316,14 +316,23 @@
     const centre = sorted[Math.floor(sorted.length / 2)];
     const z = clamp(350 / (maxX - minX + 65), 1.15, ZOOM);
     const o = opening(s);
+    // Keep the party median as the anchor, but reveal more of the route when
+    // the group is genuinely travelling right. Positive velocity is sampled
+    // by median too, so one launched/stranded grain cannot steer the view.
+    const vxs = active.map(p=>p.vx).sort((a,b)=>a-b);
+    const partyVx = vxs[Math.floor(vxs.length / 2)];
+    const leadTarget = clamp((partyVx - 18) * .55, 0, 82);
+    const leadFollow = 1 - Math.exp(-(leadTarget > s.cameraLead ? 2.8 : 4.5) * dt);
+    s.cameraLead += (leadTarget - s.cameraLead) * leadFollow;
+    const targetX = centre + s.cameraLead;
     if (s.transition && !s.transition.settled) {
       const t = smooth(s.transition.progress);
       s.camera.z = 1 + (ZOOM - 1) * t;
-      s.camera.x = START.x + (centre - START.x) * t;
+      s.camera.x = START.x + (targetX - START.x) * t;
       s.camera.y = START.y + (Math.max(START.y, maxY - 90) - START.y) * o;
     } else {
       const follow = 1 - Math.exp(-3 * dt);
-      s.camera.x += (centre - s.camera.x) * follow;
+      s.camera.x += (targetX - s.camera.x) * follow;
       s.camera.y += (Math.max(START.y, maxY - 90) - s.camera.y) * follow;
       s.camera.z += (z - s.camera.z) * (1 - Math.exp(-1.8 * dt));
     }
