@@ -1,0 +1,88 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ea6586d618a43e5e4508796faf43577fc30c03b3dd91ca7d1a57c362c491ab3c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-ground-continuity-20261002",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Keep the pumpkin-like Stage 1 terrain visible through the successful farm ending",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "e0b30bd767a8f03885ad6b3813c3f81ee5bfc300",
+    "canonicalSources": [
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/test-ending.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-ground-continuity-20261002/r0.lock.json",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/test-ending.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/builder/**",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/assets/**",
+      "works/kotsu-koro/**"
+    ],
+    "expectedChanges": [
+      "Keep Stage 1 terrain visible after a successful result instead of suppressing it",
+      "Keep farm soil and plants on the same sampled contact surface",
+      "Preserve gameplay gaps, walls, loops, physics and ending camera/timing",
+      "Add regression coverage for terrain continuity in a resolved ending"
+    ],
+    "ownerDecisions": [
+      "User explicitly asked why the pumpkin-like ground disappears at the goal and chose to keep it visible before changing the growth camera"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Work-owned renderer only; no physics or ending-state changes",
+      "Plan-first lock-only commit, immutable r0; Scope then Risk then Impact"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "author-device-goal-ground-continuity"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing PumpkinStageDraw and compiled Stage 1 geometry only"
+    ],
+    "rollback": "Revert this staging renderer PR; no state/data migration",
+    "outOfScope": [
+      "Physics, terrain geometry, Stage 0, Stage 1 camera look-ahead, growth camera, title, logo, audio, production, canonical Engine/Codea Lite, other works"
+    ],
+    "promotion": "Staging PR; merge after required checks for author hands-on review; no production change",
+    "unverified": [
+      "Author-device visual continuity remains to be verified after staging deployment"
+    ]
+  }
+}
