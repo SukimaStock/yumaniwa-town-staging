@@ -85,6 +85,19 @@ test('fruit rests on the sampled curve, roots stay fixed, and the central focus 
   assert.equal(s.ending.focus,expected);
   for(const a of s.result.arrivals){const p=J.plantPose(s,a);assert.ok(Math.abs(p.x-a.x)<=14.1);assert.equal(p.y+13*p.size,s.geometry.floor(p.x).y+1);assert.equal(a.rootY,s.geometry.floor(a.x).y);assert.ok(s.geometry.floor(p.x).y-p.y<13,'fruit centre sits just above its own soil contact');}
 });
+test('growth presentation is spatially left-to-right and camera stays close while following it',()=>{
+  for(const fps of [30,60,120]) {
+    const s=fixture(9);advance(s,1,fps);
+    const order=J.growthOrder(s),xs=order.map(a=>J.plantPose(s,a).x);
+    assert.deepEqual(xs,xs.slice().sort((a,b)=>a-b),'growth order follows space, not arrival time');
+    advance(s,.55,fps);const left=s.camera.x;
+    assert.ok(s.camera.z>1.25,'ending moves closer than the old whole-farm frame');
+    advance(s,2.8,fps);const right=s.camera.x;
+    assert.ok(right>left+80,'camera travels across the growing pumpkins');
+    const ages=J.plants(s).map(p=>p.age);
+    assert.ok(ages[0]>ages.at(-1),'leftmost plant begins before rightmost plant');
+  }
+});
 test('continuous zoom connects the same fruit to the exact original title scale at 30/60/120fps',()=>{
   for(const fps of [30,60,120]) {
     const s=fixture(9);s.titleCycle=true;advance(s,7,fps);assert.equal(s.ending.phase,'rest');assert.ok(s.replayReady);const roots=s.result.arrivals.map(a=>[a.x,a.y,a.rootY]);
