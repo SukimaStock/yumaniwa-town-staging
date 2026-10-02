@@ -2,20 +2,27 @@
   "use strict";
   const W = root.SUKIMASTOCK_WORK, D = root.PumpkinDynamics;
   const J = root.PumpkinJourney;
-  let model = D.createPrologue(), mode = "prologue", openAt = null, returnModel = null, again, debugStatus, debugAt = 0;
+  let model = D.createPrologue(), mode = "prologue", openAt = null, returnModel = null, debugStatus, debugAt = 0;
   if (new URLSearchParams(location.search).get("dev") === "1" && new URLSearchParams(location.search).get("stage") === "1") {
     model = J.create(model); mode = "journey"; model.titleCycle=true;
   }
   // Explicit development fixtures: placement only, then the real contact/result
   // pipeline. Ordinary play never reads these parameters.
   const fixture=new URLSearchParams(location.search);
-  if(fixture.get("dev")==="1" && /^[1-9]$/.test(fixture.get("ending")||"")) {
+  if(fixture.get("dev")==="1" && /^[0-9]$/.test(fixture.get("ending")||"")) {
     model=J.create(D.createPrologue());mode="journey";model.titleCycle=true;
     const count=Number(fixture.get("ending")), {left,right}=model.geometry.END;
     model.seeds.forEach((p,i)=>{if(i>=count){p.lost=p.inactive=true;return;}
       p.x=left+35+(right-left-70)*(i+.5)/count;
       p.y=model.geometry.floor(p.x).y-J.support(p,model.geometry.floor(p.x).nx,model.geometry.floor(p.x).ny)-.5;
       p.vx=p.vy=p.spin=0;
+      const reward=Number(fixture.get("reward")||0);
+      // Visual fixture only: identical IDs/placement at zero, middle and cap.
+      if(reward>0&&reward<=1) {
+        let lo=J.jump.TUNE.minDistance,hi=J.jump.TUNE.fullDistance;
+        for(let n=0;n<40;n++){const m=(lo+hi)/2;if(J.jump.amount(m)<reward)lo=m;else hi=m;}
+        p.jump.best=hi;
+      }
     });
     model.camera={x:(left+right)/2,y:model.geometry.floor((left+right)/2).y-70,z:J.ZOOM};
   }
@@ -176,6 +183,7 @@
         const mix=J.titleMix(model);
         if(mix>0) { c.save();c.globalAlpha=mix;shadow(c,returnModel);c.restore(); }
         root.PumpkinStageDraw.draw(c, model, seed, c => vessel(c, false, true), c => vessel(c, true, true, returnModel));
+        if(mix>0&&!model.ending.focus) { c.save();c.globalAlpha=mix;vessel(c,true,false,returnModel);c.restore(); }
         if(mix>0) { c.save();c.globalAlpha=mix;const previousHint=hint;hint=1;captions(c);hint=previousHint;c.restore(); }
         if (mode === "transition") {
           c.save(); c.globalAlpha = 1 - J.smooth(model.transition.progress / .48);
@@ -193,7 +201,6 @@
     model = returnModel || D.createPrologue(); returnModel = null;
     mode = "prologue"; openAt = null;
     hint = 1; touchedOnce = false; lastArrivalSound = -1; gesture = null; debugAt = -1;
-    if(again)again.hidden = true;
     // Keep the Engine's one music player and position, including automatic return.
   }
   function knockAt(x, y) {
@@ -223,12 +230,11 @@
           if(SOUND.arrival)SSE.audio.play(SOUND.arrival);
           lastArrivalSound=model.time;
         }
-        if (again) again.hidden = !model.replayReady;
         if(model.ending?.titleReady)returnToTitle();
       } else {
         D.update(model, dt);
         if (model.detachments.length) SSE.audio.play(SOUND.detach);
-        if (D.allLoose(model)) {
+        if (touchedOnce && D.allLoose(model)) {
           if (openAt === null) openAt = model.time;
           if (model.time - openAt >= 1.8) { model = J.create(model, true); model.titleCycle=true; mode = "transition"; debugAt = -1; }
         }
@@ -303,11 +309,6 @@
         if (SSE.input.eventKeys(event).some(key => SSE.input.isBoundKey(key))) beginMusic(event);
       });
       titleArt = document.getElementById("title-art");
-      again = document.getElementById("again");
-      again.addEventListener("click", () => {
-        returnToTitle();
-        SSE.audio.unlock();
-      });
       if (new URLSearchParams(location.search).get("dev") === "1") {
         debugStatus = document.createElement("output"); debugStatus.id = "work-observation";
         debugStatus.setAttribute("aria-label", "work runtime observation"); document.body.appendChild(debugStatus);
@@ -336,6 +337,7 @@
       speed: model.seeds.map(p => Math.hypot(p.vx, p.vy)), impacts: model.impactCount,
       bounds: model.seeds.map(p => [Math.round(p.x), Math.round(p.y)]),
       state: model.seeds.map(p => ({lost: !!p.lost, arrived:!!p.arrival, inactive: !!p.inactive})),
+      jumps:model.seeds.map(p=>({id:p.runId,best:p.jump?.best||0,reward:p.arrival?.reward||J.jump.amount(p.jump?.best||0),recent:p.jump?.recent||null,flight:p.jump?.flight?{...p.jump.flight}:null})),
       camera: model.camera ? { ...model.camera } : null, transition: model.transition ? model.transition.progress : null,
       marks: model.marks.length });
   }

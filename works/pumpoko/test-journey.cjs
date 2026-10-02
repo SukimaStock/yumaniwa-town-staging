@@ -255,18 +255,14 @@ test('1, 3, 6, 8 and 9 arriving seeds root safely while lost grains never block 
     assert.deepEqual(J.party(s).map(p=>p.x),before,'rooted seeds never relaunch');assert.equal(J.travelling(s).length,0);
   }
 });
-test('all lost holds a finite camera, waits quietly, and permits replay', () => {
-  const s=endFixture(0),camera={...s.camera};advance(s,2);assert.ok(s.finished&&!s.replayReady);advance(s,.5);assert.ok(s.replayReady);
-  assert.deepEqual(s.camera,camera);assert.equal(s.seeds.length,9);J.knock(s,180,250);advance(s,5);
-  assert.ok(Number.isFinite(s.x+s.y+s.camera.x+s.camera.y+s.camera.z));
-  // A fixture isolates the existing loss/replay contract from level tuning.
+test('all lost returns quietly to a waiting title without fabricating fruit or a replay button', () => {
+  const s=endFixture(0);s.titleCycle=true;advance(s,5);assert.ok(s.ending.titleReady);assert.equal(s.ending.focus,null);assert.equal(J.plants(s).length,0);assert.equal(J.titleMix(s),1);
   const h=sceneHarness('?dev=1&stage=1',{...J,create:()=>endFixture(0)});h.setup();
-  for(let i=0;i<3*60;i++)h.scene.update(1/60);
-  assert.equal(h.probe().lost,9);assert.ok(h.probe().finished);assert.equal(h.elements.get('again').hidden,false);
-  const status=h.elements.get('work-observation').textContent;assert.ok(status.includes('active 0 lost 9'));assert.ok(!status.includes('Infinity'));
-  h.held.clear();h.elements.get('again').handlers.click();
+  for(let i=0;i<5*60;i++)h.scene.update(1/60);
   assert.equal(h.probe().mode,'prologue');assert.equal(h.probe().seedCount,9);assert.equal(h.probe().loose,3);
-  assert.equal(h.probe().lost,0);assert.equal(h.probe().active,9);assert.ok(!h.probe().finished);
+  assert.equal(h.probe().lost,0);assert.equal(h.probe().active,9);assert.ok(!h.probe().finished);assert.equal(h.elements.has('again'),false);
+  for(let i=0;i<30*60;i++)h.scene.update(1/60);
+  assert.equal(h.probe().mode,'prologue','idle title never starts another journey');
 });
 test('small gap is normally traversable; reunion gathers the same nine before round play', () => {
   const {s,history}=deliberate();assert.ok(history.some(f=>f.phase===2&&Math.min(...f.x)>503));
