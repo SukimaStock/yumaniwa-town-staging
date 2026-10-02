@@ -1,0 +1,177 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ce633967db8da382d942fe2f93ec4e129fa88e36ae8d7fb50a9b487c2935d440",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-name-migration-20261002",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Migrate PUMPOKO paths and internal ID while retaining saved data and historical evidence",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "8661c64d9f7dcdd4b19e9f95fbb1f58c86c046b6",
+    "canonicalSources": [
+      "works/kotsu-koro",
+      "engine/sukimastock-engine.v0.3.0.js (read-only API)",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-name-migration-20261002/r0.lock.json",
+      "works/kotsu-koro/BUILDER.md",
+      "works/kotsu-koro/RESEARCH.md",
+      "works/kotsu-koro/STAGE1.md",
+      "works/kotsu-koro/VALIDATION.md",
+      "works/kotsu-koro/assets/pumpoko-logo.svg",
+      "works/kotsu-koro/audio/fiber.wav",
+      "works/kotsu-koro/audio/pumpoko-bgm.mp3",
+      "works/kotsu-koro/audio/rim.wav",
+      "works/kotsu-koro/audio/seed.wav",
+      "works/kotsu-koro/audio/shell.wav",
+      "works/kotsu-koro/audio/slide.wav",
+      "works/kotsu-koro/builder/builder.css",
+      "works/kotsu-koro/builder/builder.js",
+      "works/kotsu-koro/builder/index.html",
+      "works/kotsu-koro/builder/model.js",
+      "works/kotsu-koro/codea-lite.js",
+      "works/kotsu-koro/dynamics.js",
+      "works/kotsu-koro/fixtures/canonical-baseline.json",
+      "works/kotsu-koro/index.html",
+      "works/kotsu-koro/journey.js",
+      "works/kotsu-koro/sketch.js",
+      "works/kotsu-koro/stage-data.js",
+      "works/kotsu-koro/stage-draw.js",
+      "works/kotsu-koro/stage-geometry.js",
+      "works/kotsu-koro/style.css",
+      "works/kotsu-koro/test-audio.cjs",
+      "works/kotsu-koro/test-builder.cjs",
+      "works/kotsu-koro/test-dynamics.cjs",
+      "works/kotsu-koro/test-ending.cjs",
+      "works/kotsu-koro/test-journey.cjs",
+      "works/kotsu-koro/test-loop.cjs",
+      "works/kotsu-koro/test-stage.cjs",
+      "works/kotsu-koro/work-config.js",
+      "works/pumpoko/BUILDER.md",
+      "works/pumpoko/RESEARCH.md",
+      "works/pumpoko/STAGE1.md",
+      "works/pumpoko/VALIDATION.md",
+      "works/pumpoko/assets/pumpoko-logo.svg",
+      "works/pumpoko/audio/fiber.wav",
+      "works/pumpoko/audio/pumpoko-bgm.mp3",
+      "works/pumpoko/audio/rim.wav",
+      "works/pumpoko/audio/seed.wav",
+      "works/pumpoko/audio/shell.wav",
+      "works/pumpoko/audio/slide.wav",
+      "works/pumpoko/builder/builder.css",
+      "works/pumpoko/builder/builder.js",
+      "works/pumpoko/builder/index.html",
+      "works/pumpoko/builder/model.js",
+      "works/pumpoko/codea-lite.js",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/fixtures/canonical-baseline.json",
+      "works/pumpoko/index.html",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/style.css",
+      "works/pumpoko/test-audio.cjs",
+      "works/pumpoko/test-builder.cjs",
+      "works/pumpoko/test-dynamics.cjs",
+      "works/pumpoko/test-ending.cjs",
+      "works/pumpoko/test-journey.cjs",
+      "works/pumpoko/test-loop.cjs",
+      "works/pumpoko/test-stage.cjs",
+      "works/pumpoko/work-config.js",
+      "works/pumpoko/README.md",
+      "works/pumpoko/MIGRATION.md",
+      "works/pumpoko/test-migration.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "work-ready.js"
+    ],
+    "expectedChanges": [
+      "Move all 33 work files retaining relative placement; old tree has only game/Builder redirect index pages",
+      "Set work ID pumpoko and export filename pumpoko-stage.json; update current Builder guide and test fixtures",
+      "Explicit old sound key and optional i18n key using existing Engine API; fixed Builder draft key with compatibility comments",
+      "Fixed same-site replace redirects preserving query/hash; no old runtime/audio; JavaScript-free links",
+      "Preserve historical locks, validation/research, pinned git-show paths, all assets and gameplay bytes; add current README, inventory and migration regression tests"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes formal name/path/ID migration, compatibility redirects and preserving all old save keys; Draft PR only"
+    ],
+    "hqDecisions": [
+      "Current contract: one unregistered staging work, sound W.id+.sound and fixed Builder draft key",
+      "User supplies exact compatibility contract; existing audio.storageKey and i18n.storageKey APIs suffice; no Engine/storage/schema modification",
+      "Managed SSE.storage has no work calls or registered records; keep inactive namespace unused. Optional i18n old key is explicitly preserved defensively"
+    ],
+    "rulesApplied": [
+      "Plan-first lock-only commit; immutable r0; Scope then Risk then Impact; current formal UNVERIFIED",
+      "No town registration/publication or analytics activation"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "local-browser-old-save-new-load",
+      "local-browser-redirects",
+      "local-browser-game-builder-audio"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert migration implementation commit in staging; legacy storage and stage JSON require no rollback migration",
+    "outOfScope": [
+      "Gameplay, assets content, Engine/Codea, other works, production, publication, standalone, shared runtime, storage migration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Deployed post-merge new URLs, actual iPhone and audible/device feel; final verification remains UNVERIFIED"
+    ],
+    "problem": "Temporary folder and work ID differ from stable PUMPOKO title",
+    "currentContract": "Direct staging work with relative scripts/assets, Builder local draft and immutable historical plans; no town registry references",
+    "whyExistingIsInsufficient": "Future entry points should use formal name without breaking existing links or saved stages",
+    "design": "Single moved work, two tiny fixed redirects, explicit legacy persistence keys",
+    "alternativesRejected": [
+      "Global replace",
+      "Duplicate old game",
+      "Rename/copy/clear saves",
+      "Modify common runtime or add publication"
+    ],
+    "migration": "Move files only; minimal ID/key/export/current-document/fixture edits",
+    "compatibility": "Sound kotsu-koro.sound; Builder kotsu-koro-stage-builder-v1; optional language sse:kotsu-koro:language; JSON filename ignored",
+    "boundaryCases": [
+      "slash/no slash/index.html; nested site prefix; query/hash; JS disabled; old export filename; TEST START; replay media clock"
+    ],
+    "testPlan": [
+      "Base/current file content manifest comparison",
+      "Old-save/new-load same context/origin browser",
+      "Focused work regression suite plus redirect invariants",
+      "Base-owned gate and remote required checks"
+    ],
+    "promotionRisk": "No merge/deploy authorized; actual staging slashless redirect remains post-merge follow-up"
+  }
+}
