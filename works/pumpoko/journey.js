@@ -303,13 +303,23 @@
     if(s.result) {
       if(s.result.arrivals.length) {
         const order=growthOrder(s),poses=order.map(a=>plantPose(s,a));
-        const first=poses[0],last=poses.at(-1);
         const pull=smooth(s.ending.elapsed/ENDING.pullIn);
-        const growthSpan=Math.max(ENDING.stagger,ENDING.growAt+(order.length-1)*ENDING.stagger-ENDING.growAt);
-        const pan=smooth((s.ending.elapsed-ENDING.growAt)/growthSpan);
-        const panX=first.x+(last.x-first.x)*pan;
-        const floorY=s.geometry.floor(panX)?.y||s.farm.frame.y;
-        const close={x:panX,y:floorY-62,z:ENDING.closeZoom};
+        // drawPlants starts fruit swelling at age 1.4 (after shoot/leaves).
+        // Let each fruit become visible, then turn the gaze .45s later. Ease to its
+        // own pose over .26s, leaving a small pause before the next event.
+        // Wider gaps take up to .7s; overlapping gaze moves add smoothly,
+        // so sparse arrivals never require a sudden sideways sweep.
+        // Absolute plant age keeps this soft follow identical at any fps;
+        // the first/last pose holds without extra state, drift or overshoot.
+        const fruitTime=s.ending.elapsed-ENDING.growAt-1.4-.45;
+        let followX=poses[0].x;
+        for(let i=1;i<poses.length;i++) {
+          const distance=poses[i].x-poses[i-1].x;
+          const duration=clamp(distance/180,.26,.7);
+          followX+=distance*smooth((fruitTime-i*ENDING.stagger)/duration);
+        }
+        const floorY=s.geometry.floor(followX)?.y||s.farm.frame.y;
+        const close={x:followX,y:floorY-62,z:ENDING.closeZoom};
         const a=s.ending.from;
         for(const k of ['x','y','z'])s.camera[k]=a[k]+(close[k]-a[k])*pull;
         const zoom=returnZoom(s),p=plantPose(s,s.ending.focus);

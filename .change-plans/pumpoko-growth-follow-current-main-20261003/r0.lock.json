@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "45302966dc03a562b327857b0a8871ac315bb545ec2aaf49d5c5d7a8fa40481b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-growth-follow-current-main-20261003",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Promote the verified PR140 ending camera with .45s visible-fruit delay onto current staging main",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "1ee7743cf6b72d3e411089fedb99c655e25a5de3",
+    "canonicalSources": [
+      "works/pumpoko/journey.js",
+      "works/pumpoko/test-ending.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-growth-follow-current-main-20261003/r0.lock.json",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/test-ending.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/builder/**",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/assets/**",
+      "works/kotsu-koro/**",
+      "works/pumpoko/test-journey.cjs"
+    ],
+    "expectedChanges": [
+      "Copy exactly the two verified code/test blobs from PR140 head 383a93fce856796d67c29dca4c4358ecc7b9eff1, with event-timed ending follow and .45s delay; no additional code tuning",
+      "Preserve PR141 main test-journey.cjs and its Plan; Stage 0/1 gameplay, physics, geometry, drawing, growth timing, zoom and title unchanged",
+      "Reverify exact blob identity, conflict-free integration, existing ending/empty/title regression and immutable fresh Plan-first scope"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes staging reflection after .45s delay adjustment; production remains out of scope"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK / Standard existing work-local ending presentation",
+      "Plan-first lock-only commit, immutable r0; Scope then Risk then Impact; final verification state remains UNVERIFIED",
+      "CHANGE-PLAN.md section 10 / OPERATIONS.md: recreate branch and Plan on current main when base advances; same work paths unchanged on main since old base"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "chromium-ending-0-1-2-3-9-rhythm",
+      "chromium-mobile-ending-rhythm-title"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing PumpkinJourney ending state, plantPose and growth timing only"
+    ],
+    "rollback": "Revert camera/test implementation commit; immutable plan retained, no state or data migration",
+    "outOfScope": [
+      "Plant/fruit artwork, pumpkin-world terrain rendering, physical geometry, Stage 0, Stage 1 gameplay camera look-ahead, title interaction, logo animation, pulp fade, audio, production, canonical Engine/Codea Lite, other works"
+    ],
+    "promotion": "User-authorized staging merge after required/trusted checks; production and manual deployment prohibited",
+    "unverified": [
+      "Physical iPhone/iPad and subjective author feel; final verificationState UNVERIFIED"
+    ],
+    "previousPlanDigest": null,
+    "revisionReason": null
+  }
+}
