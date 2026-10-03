@@ -121,11 +121,28 @@
         session.history.pop();
         return true;
     }
+    function prepareRestore(sceneId, saved) {
+        if (isDirty()) throw new Error('既存の正式編集を先に保存・破棄してください');
+        var canonical = root.getTownSceneDefinition(sceneId);
+        if (!same(canonical, saved.baseline)) throw new Error('正式編集のbaselineが更新されています');
+        var check = root.YUMANIWA_SCENE_VALIDATION.validateSceneData(saved.snapshot, root.YUMANIWA_WORLD_OBJECTS.objects);
+        if (!check.ok) throw new Error('正式snapshotの検証に失敗: ' + check.errors.join('; '));
+        var candidate = clone(saved.snapshot);
+        // Export changes only authored editing fields, never scene navigation/dimensions.
+        var fixed = clone(canonical);
+        ['props','triggers','areaZones','passableRects','blockedRects','blockedPoints'].forEach(function(k) { fixed[k] = clone(candidate[k]); });
+        if (!same(fixed, candidate)) throw new Error('正式snapshotの編集対象外fieldが変わっています');
+        return makeDraft(candidate);
+    }
+    function restorePrepared(sceneId, prepared) {
+        if (session && session.sceneId !== sceneId) throw new Error('Editor session belongs to another scene');
+        open(sceneId); session.draft = clone(prepared); session.history.length = 0; generation++;
+    }
     root.YUMANIWA_EDITOR_SESSION = {
         current: function () { return session; }, open: open, discard: discard,
         end: function () { if (isDirty()) throw new Error('Discard changes before ending Editor session'); if (session) session.history.length = 0; session = null; },
         canLeave: function (sceneId) { return !session || session.sceneId === sceneId || !isDirty(); },
         captureHistory: captureHistory, recordHistory: recordHistory, undo: undo,
-        snapshot: snapshot, isDirty: isDirty, clone: clone, same: same, freeze: freeze, gridFromScene: gridFromScene
+        prepareRestore: prepareRestore, restorePrepared: restorePrepared, snapshot: snapshot, isDirty: isDirty, clone: clone, same: same, freeze: freeze, gridFromScene: gridFromScene
     };
 })(window);

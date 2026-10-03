@@ -156,6 +156,10 @@ test('Editor APIs derive fresh ordered copies from literal metadata',()=>{
 });
 test('scene sources and ghost placements stay byte-identical',()=>{
     for(const [file,expected] of Object.entries(fixture.sourceHashes)) {
+        // This historical metadata-migration oracle also froze a runtime file.
+        // Creation drafts intentionally extend that renderer; its legacy path is
+        // covered below without changing any canonical scene/ghost/asset hashes.
+        if(file === 'data/station-plaza-props.js') continue;
         assert.equal(hash(fs.readFileSync(path.join(root,file))),expected,file);
     }
 });
@@ -293,4 +297,35 @@ test('metadata mutation still fails the unchanged pre-migration oracle',()=>{
     const modified=clone(c.TOWN_PART_CATALOG);
     modified[0].w+=1;
     assert.throws(()=>assertCatalogMatchesBefore(modified),assert.AssertionError);
+});
+
+test('legacy renderer keeps WORLD OBJECT-only source, rounded geometry, offsets and actor order',()=>{
+    const calls=[],images=[];
+    class LoadedImage {
+        set src(value){this.source=value;images.push(this);this.onload();}
+    }
+    const props=[
+        {id:'back',objectId:'back_asset',x:1.03,y:2.03,w:2.03,h:1.03,footY:2.5},
+        {id:'front',objectId:'front_asset',x:2,y:3,w:2,h:1,footY:4.5},
+        {id:'shifted',objectId:'offset_asset',x:2,y:1,w:1,h:1,footY:2.9},
+        {id:'disabled',objectId:'back_asset',x:0,y:0,w:1,h:1,enabled:false},
+        {id:'unregistered',objectId:'missing',src:'must-not-load.png',x:0,y:0,w:1,h:1,footY:0}
+    ];
+    const objects={back_asset:{src:'back.png'},front_asset:{src:'front.png'},offset_asset:{src:'offset.png'}};
+    const ctx={save(){calls.push(['save']);},restore(){calls.push(['restore']);},
+        drawImage(image,...geometry){calls.push(['image',image.source,...geometry,this.imageSmoothingEnabled]);}};
+    const context={Image:LoadedImage,Date,Math,Number,ctx,TILE_SIZE:16,activeTownSceneDef:{props},stationPlazaProps:[],
+        YUMANIWA_WORLD_OBJECTS:{get:id=>objects[id]},YUMANIWA_TOWN_PROP_RENDER_OFFSETS:{shifted:.5},
+        player:{x:20,y:32,w:16,h:16},drawPlayerSprite(x,y){calls.push(['player',x,y]);},setTimeout};
+    context.window=context;
+    const original=JSON.stringify(props);props.forEach(Object.freeze);Object.freeze(props);
+    vm.runInNewContext(source('data/station-plaza-props.js'),context);
+    context.YUMANIWA_STATION_PLAZA_PROPS.drawTownActorsAndProps();
+    assert.deepEqual(calls.filter(c=>c[0]!=='save'&&c[0]!=='restore'),[
+        ['image','back.png',16,32,32,16,false],['player',20,32],
+        ['image','offset.png',32,24,16,16,false],['image','front.png',32,48,32,16,false]
+    ]);
+    assert.equal(JSON.stringify(props),original);
+    assert.deepEqual(images.map(i=>i.source).sort(),['back.png','front.png','offset.png']);
+    assert.equal(context.YUMANIWA_STATION_PLAZA_PROPS.resolvePropSrc(props.at(-1)), '');
 });

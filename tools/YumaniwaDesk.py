@@ -3172,6 +3172,366 @@ def apply_map_object_registration(root, plan, confirmed=False):
     return True
 
 
+# -----------------------------------------------------------------------------
+# Creation draft ZIP: read/review only, followed by one asset+scene transaction.
+# Existing scene schema, PNG registration validation and Git/session gates remain.
+# -----------------------------------------------------------------------------
+CREATION_SOURCES = ("data/station-plaza.js", "data/town-maps.js", "town-ghost-npc.js", "data/world-objects.js")
+CREATION_FIELDS = ("props", "triggers", "areaZones", "passableRects", "blockedRects", "blockedPoints")
+
+
+def _creation_safe_json(value, depth=0, metadata=False):
+    if depth > 32:
+        raise ValueError("JSONの階層が深すぎます。")
+    if value is None or type(value) is bool:
+        return
+    if type(value) in (int, float):
+        if not math.isfinite(value):
+            raise ValueError("非有限数は使用できません。")
+        return
+    if isinstance(value, str):
+        if len(value) > 1024 * 1024 or (metadata and re.search(r"https?:|data:|blob:|file:|javascript:|//", value, re.I)):
+            raise ValueError("外部URLや異常な文字列をmetadataに使用できません。")
+        return
+    if not isinstance(value, (dict, list)):
+        raise ValueError("JSON値が不正です。")
+    if isinstance(value, dict) and any(k in value for k in ("__proto__", "constructor", "prototype")):
+        raise ValueError("JSON keyが不正です。")
+    for child in (value.values() if isinstance(value, dict) else value):
+        _creation_safe_json(child, depth + 1, metadata)
+
+
+def _creation_exact(value, keys):
+    if not isinstance(value, dict) or set(value) != set(keys):
+        raise ValueError("制作下書きmanifestのfieldが不正です。")
+
+
+def _creation_key(value):
+    return isinstance(value, str) and re.fullmatch(r"k_[a-f0-9]{32}", value) is not None
+
+
+def _creation_sha(value):
+    return isinstance(value, str) and re.fullmatch(r"[a-f0-9]{64}", value) is not None
+
+
+def _creation_png(data):
+    import struct
+    import zlib
+    image = _map_png(data)
+    at, idat, ended = 8, False, False
+    while at < len(data):
+        if at + 12 > len(data):
+            raise ValueError("PNG chunkが途中で切れています。")
+        size = struct.unpack(">I", data[at:at + 4])[0]
+        kind = data[at + 4:at + 8]
+        end = at + size + 12
+        if end > len(data) or kind in (b"acTL", b"fcTL", b"fdAT"):
+            raise ValueError("静止PNGのchunkが不正です。")
+        if zlib.crc32(data[at + 4:end - 4]) & 0xffffffff != struct.unpack(">I", data[end - 4:end])[0]:
+            raise ValueError("PNG chunkのCRCが一致しません。")
+        if at == 8 and (kind != b"IHDR" or size != 13):
+            raise ValueError("PNG headerが不正です。")
+        if at != 8 and kind == b"IHDR":
+            raise ValueError("PNG headerが重複しています。")
+        if kind == b"IDAT":
+            idat = True
+        at = end
+        if kind == b"IEND":
+            if size != 0 or at != len(data):
+                raise ValueError("PNG末尾が不正です。")
+            ended = True
+            break
+    if not ended or not idat:
+        raise ValueError("PNGデータが不足しています。")
+    return image
+
+
+def read_creation_draft_zip(data):
+    import io
+    import zipfile
+    import stat
+    if not isinstance(data, bytes) or len(data) > 65 * 1024 * 1024 + 16384:
+        raise ValueError("制作下書きZIPは65 MiB以内にしてください。")
+    with zipfile.ZipFile(io.BytesIO(data)) as archive:
+        entries = archive.infolist()
+        if len(entries) > 17 or len({e.filename for e in entries}) != len(entries):
+            raise ValueError("ZIPの個数・重複pathが不正です。")
+        for e in entries:
+            mode = e.external_attr >> 16
+            if (e.compress_type != zipfile.ZIP_STORED or e.flag_bits & ~0x800 or e.is_dir()
+                    or stat.S_ISLNK(mode) or e.file_size != e.compress_size
+                    or e.file_size > 16 * 1024 * 1024
+                    or not re.fullmatch(r"manifest\.json|images/k_[a-f0-9]{32}\.png", e.filename)):
+                raise ValueError("ZIPのpath・圧縮形式・サイズが不正です。")
+        if sum(e.file_size for e in entries) > 65 * 1024 * 1024:
+            raise ValueError("ZIPの展開容量が上限を超えています。")
+        if "manifest.json" not in archive.namelist() or archive.getinfo("manifest.json").file_size > 1024 * 1024:
+            raise ValueError("manifest.jsonがないか大きすぎます。")
+        def pairs(items):
+            result = {}
+            for key, value in items:
+                if key in result:
+                    raise ValueError("JSON keyが重複しています。")
+                result[key] = value
+            return result
+        m = json.loads(archive.read("manifest.json").decode("utf-8"), object_pairs_hook=pairs)
+        _creation_safe_json(m)
+        _creation_exact(m, ("format", "version", "purpose", "draftKey", "repository", "scene", "sources", "assets", "placements", "adoption", "formal"))
+        if (m["format"] != "yumaniwa-creation-draft" or type(m["version"]) is not int or m["version"] != 1
+                or m["purpose"] not in ("draft", "adoption") or not _creation_key(m["draftKey"])
+                or m["repository"] != EXPECTED_GITHUB_REPOSITORY):
+            raise ValueError("対応するstaging制作下書きv1が必要です。")
+        scene = m["scene"]
+        _creation_exact(scene, ("id", "coordinates", "tileSize", "mapWidth", "mapHeight"))
+        if (not isinstance(scene["id"], str) or not re.fullmatch(r"[a-z][a-z0-9_]*", scene["id"])
+                or scene["coordinates"] != "scene-tiles" or type(scene["tileSize"]) is not int or scene["tileSize"] != 16
+                or any(type(scene[k]) is not int or not 0 < scene[k] <= 2048 for k in ("mapWidth", "mapHeight"))):
+            raise ValueError("scene座標系が不正です。")
+        _creation_exact(m["sources"], CREATION_SOURCES)
+        if any(not _creation_sha(h) for h in m["sources"].values()):
+            raise ValueError("source hashが不正です。")
+        if (any(not isinstance(m[k], list) for k in ("assets", "placements", "adoption"))
+                or len(m["assets"]) > 16 or len(m["placements"]) > 16):
+            raise ValueError("試し置きは16件以内にしてください。")
+        assets, pngs, total, pixels = {}, {}, 0, 0
+        for a in m["assets"]:
+            _creation_exact(a, ("key", "path", "name", "sha256", "bytes", "physical", "metadata"))
+            if (not _creation_key(a["key"]) or a["key"] in assets or a["path"] != "images/" + a["key"] + ".png"
+                    or not _creation_sha(a["sha256"]) or not isinstance(a["name"], str) or len(a["name"]) > 120
+                    or type(a["bytes"]) is not int or not 45 <= a["bytes"] <= 16 * 1024 * 1024):
+                raise ValueError("仮素材identityが不正です。")
+            _map_dimensions(a["physical"], "PNG physical")
+            _creation_safe_json(a["metadata"], metadata=True)
+            if len(json.dumps(a["metadata"], ensure_ascii=False).encode("utf-8")) > 65536:
+                raise ValueError("metadataは64 KiB以内にしてください。")
+            if a["path"] not in archive.namelist() or archive.getinfo(a["path"]).file_size != a["bytes"]:
+                raise ValueError("元PNGが一致しません。")
+            png = archive.read(a["path"])
+            if hashlib.sha256(png).hexdigest() != a["sha256"] or list(_creation_png(png).size) != a["physical"]:
+                raise ValueError("PNGのhash・寸法が一致しません。")
+            assets[a["key"]], pngs[a["key"]] = a, png
+            total += a["bytes"]
+            pixels += a["physical"][0] * a["physical"][1]
+        if total > 64 * 1024 * 1024 or pixels > 16 * 1024 * 1024 or set(archive.namelist()) != {"manifest.json"} | {a["path"] for a in assets.values()}:
+            raise ValueError("PNG全体の容量・展開画素・pathが不正です。")
+        seen = set()
+        for p in m["placements"]:
+            _creation_exact(p, ("key", "assetKey", "x", "y", "w", "h", "footY", "visible"))
+            if not _creation_key(p["key"]) or p["key"] in seen or p["assetKey"] not in assets or type(p["visible"]) is not bool:
+                raise ValueError("仮配置identityが不正です。")
+            seen.add(p["key"])
+            if (any(type(p[k]) not in (int, float) or not math.isfinite(p[k]) for k in ("x", "y", "w", "h", "footY"))
+                    or p["w"] * 16 < 1 or p["h"] * 16 < 1 or p["x"] < 0 or p["y"] < 0
+                    or p["x"] + p["w"] > scene["mapWidth"] + 1e-8 or p["y"] + p["h"] > scene["mapHeight"] + 1e-8
+                    or not 0 <= p["footY"] <= scene["mapHeight"]):
+                raise ValueError("仮配置のscene座標が不正です。")
+            physical = assets[p["assetKey"]]["physical"]
+            if abs(p["w"] / p["h"] - physical[0] / physical[1]) > 1e-8:
+                raise ValueError("仮配置の縦横比が入力PNGと一致しません。")
+        if (len(set(m["adoption"])) != len(m["adoption"]) or any(k not in seen for k in m["adoption"])
+                or any(not any(p["assetKey"] == a for p in m["placements"]) for a in assets)):
+            raise ValueError("採用対象が不正です。")
+        if m["formal"] is not None:
+            _creation_exact(m["formal"], ("baseline", "snapshot", "diff"))
+            if m["formal"]["diff"].get("format") != "yumaniwa-editor-diff-v1" or m["formal"]["diff"].get("scene") != scene["id"]:
+                raise ValueError("正式編集diffのsceneが一致しません。")
+        return {"manifest": m, "pngs": pngs, "zip_sha256": hashlib.sha256(data).hexdigest()}
+
+
+def _creation_plan_lock(root, rel, targets):
+    import fnmatch
+    if not isinstance(rel, str) or not re.fullmatch(r"\.change-plans/[a-z0-9][a-z0-9-]{2,80}/r0\.lock\.json", rel):
+        raise ValueError("採用用の実装前r0 Plan Lockを指定してください。")
+    text = safe_read(_map_repo_path(root, rel))
+    if len(text) > 1024 * 1024:
+        raise ValueError("Plan Lockが大きすぎます。")
+    lock = json.loads(text)
+    plan = lock.get("plan", {})
+    encoded = json.dumps(plan, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    if (lock.get("schema") != "yumaniwa-change-plan-lock/0.2" or hashlib.sha256(encoded).hexdigest() != lock.get("planDigest")
+            or plan.get("schema") != "yumaniwa-change-plan/0.2" or plan.get("repository") != EXPECTED_GITHUB_REPOSITORY
+            or plan.get("status") != "READY" or plan.get("revision") != 0 or not re.fullmatch(r"[a-f0-9]{40}", plan.get("baseSha", ""))
+            or not {"ASSET", "PLACEMENT"}.issubset(plan.get("classes", []))):
+        raise ValueError("採用用Plan Lockのdigest・scope・分類が不正です。")
+    # This entry changes index cache too: preserve the existing SYSTEM/full floor.
+    if "index.html" in targets and (plan.get("planLevel") != "full" or "SYSTEM" not in plan.get("classes", []) or "HQ Review" not in plan.get("authority", [])):
+        raise ValueError("index cacheを含む採用には既存SYSTEM / Full / HQ基準が必要です。")
+    for target in targets:
+        if (any(fnmatch.fnmatchcase(target, p) for p in plan.get("forbiddenPaths", []))
+                or any(fnmatch.fnmatchcase(target, p.get("path", "")) for p in plan.get("conditionalPaths", []))
+                or not any(fnmatch.fnmatchcase(target, p) for p in plan.get("allowedPaths", []))):
+            raise ValueError("採用用PlanのallowedPathsへ明示してください: " + target)
+    return {"path": rel, "sha256": _sha256_text(text), "digest": lock["planDigest"]}
+
+
+def plan_creation_draft_adoption(root, zip_data, choices, lock_path):
+    """No writes/Git operations. All adopted assets and placements are one candidate."""
+    require_staging_project(root)
+    package = read_creation_draft_zip(zip_data)
+    m, pngs = package["manifest"], package["pngs"]
+    scene_id = m["scene"]["id"]
+    texts = {rel: safe_read(_map_repo_path(root, rel)) for rel in CREATION_SOURCES}
+    if any(_sha256_text(texts[rel]) != m["sources"][rel] for rel in CREATION_SOURCES):
+        raise ValueError("関連sourceが更新されています。元ZIPと調整値を保持し、再確認してください。")
+    baseline = _read_scene_contract(root, scene_id, texts)
+    if any(baseline[k] != m["scene"][k] for k in ("mapWidth", "mapHeight")):
+        raise ValueError("map寸法が変わっています。")
+    adopted = [p for p in m["placements"] if p["key"] in m["adoption"]]
+    keys = {p["assetKey"] for p in adopted}
+    if not adopted or not isinstance(choices, dict) or set(choices) != keys:
+        raise ValueError("各採用素材の表示名・分類・objectId・TARGETを確定してください。")
+    candidate = dict(texts)
+    formal_plan = None
+    if m["formal"]:
+        formal = m["formal"]
+        formal_plan = _plan_editor_diff_import(root, formal["diff"])
+        # Independently stored snapshot and diff must describe the same edits.
+        for item in formal_plan["file_plans"]:
+            candidate[item["target_rel"]] = item["new_text"]
+        formal_scene = _read_scene_contract(root, scene_id, candidate)
+        for field in CREATION_FIELDS:
+            expected = formal["snapshot"].get(field)
+            before = formal["baseline"].get(field)
+            if field == "props":
+                expected = [_normalize_diff_prop_for_persistence(p) for p in expected]
+                before = [_normalize_diff_prop_for_persistence(p) for p in before]
+            if not _same_persisted_value(before, baseline[field]) or not _same_persisted_value(expected, formal_scene[field]):
+                raise ValueError("正式snapshot / diff / baselineが一致しません: " + field)
+    objects = _read_var_object_value(texts["data/world-objects.js"], "objects")
+    definitions, images, mapping = [], [], []
+    ids, catalog_keys = set(objects), {o.get("editor", {}).get("catalogKey") for o in objects.values()}
+    for a in m["assets"]:
+        if a["key"] not in keys:
+            continue
+        c = choices[a["key"]]
+        _creation_exact(c, ("objectId", "label", "category", "target"))
+        obj_id = _map_identifier(c["objectId"], "objectId")
+        if a["metadata"] is not None:
+            definition = _map_cleaner_definition(a["metadata"])
+            if definition["finalization"]["target"] != c["target"]:
+                raise ValueError("Cleaner TARGETの変更には再確認が必要です。元ZIPは保持してください。")
+            definition.update(id=obj_id, label=c["label"], category=c["category"], type="static_prop")
+            definition.pop("src", None)
+            definition["editor"] = make_map_object_definition(pngs[a["key"]], obj_id, c["label"], c["category"], "static_prop", c["target"])["editor"]
+        else:
+            definition = make_map_object_definition(pngs[a["key"]], obj_id, c["label"], c["category"], "static_prop", c["target"])
+        definition["creationDraft"] = {"draftKey": m["draftKey"], "assetKey": a["key"], "originalSha256": a["sha256"]}
+        if any(o.get("creationDraft", {}).get("draftKey") == m["draftKey"] and o.get("creationDraft", {}).get("assetKey") == a["key"] for o in objects.values()):
+            raise ValueError("この下書き素材は既に採用されています。二重取込みはしません。")
+        registration = plan_map_object_registration(root, pngs[a["key"]], json.dumps(definition))
+        obj = registration["object"]
+        if obj_id in ids or obj["editor"]["catalogKey"] in catalog_keys:
+            raise ValueError("採用素材のobjectId / catalogKeyが衝突しています。")
+        ids.add(obj_id)
+        catalog_keys.add(obj["editor"]["catalogKey"])
+        objects[obj_id] = obj
+        definitions.append(obj)
+        images.append({"target_rel": registration["target_rel"], "png": registration["png"], "original_png": pngs[a["key"]],
+                       "physical": registration["physical"], "logical": registration["logical"]})
+        for p in adopted:
+            if p["assetKey"] == a["key"]:
+                # Only these allowed placement fields cross into a formal scene.
+                prop = {k: p[k] for k in ("x", "y", "w", "h", "footY")}
+                prop.update(id="creation_" + m["draftKey"][2:] + "_" + p["key"][2:], objectId=obj_id,
+                            collision={"enabled": False, "x": 0, "y": 0, "w": 1, "h": 1})
+                mapping.append({"placementKey": p["key"], "assetKey": a["key"], "prop": prop})
+    # Add registry entries to the same candidate, never an intermediate repository.
+    registry = candidate["data/world-objects.js"]
+    opening = re.search(r"\bvar\s+objects\s*=\s*(\{)", registry).start(1)
+    insertion = "".join("\n        " + json.dumps(o["id"]) + ": " + json.dumps(o, ensure_ascii=True, indent=4).replace("\n", "\n        ") + "," for o in definitions)
+    candidate["data/world-objects.js"] = registry[:opening + 1] + insertion + registry[opening + 1:]
+    source = "data/station-plaza.js" if scene_id == "station_plaza" else "data/town-maps.js"
+    changes = [{"op": "add", "id": entry["prop"]["id"], "source": source, "after": entry["prop"]} for entry in mapping]
+    candidate[source] = _patch_diff_file(source, candidate[source], scene_id, changes, [], None, None)
+    scene = _read_scene_contract(root, scene_id, candidate)
+    validation = validate_scene_data(scene, objects)
+    if not validation["ok"]:
+        raise ValueError("候補scene検証: " + "; ".join(validation["errors"]))
+    files = [{"target_rel": rel, "current_hash": _sha256_text(texts[rel]), "new_hash": _sha256_text(value), "new_text": value, "changed": value != texts[rel]}
+             for rel, value in candidate.items() if rel in texts and value != texts[rel]]
+    cache = _plan_editor_cache_bust(root, files)
+    if cache:
+        # Registry is deliberately not in the legacy Editor cache-source map.
+        # This combined intake must fingerprint both the scene and new registry.
+        cache["new_text"] = _replace_script_cache_revision(cache["new_text"], "./data/world-objects.js", _cache_revision_for_text(candidate["data/world-objects.js"]))
+        cache["new_hash"] = _sha256_text(cache["new_text"])
+        cache["changed"] = True
+        files.append(cache)
+    else:
+        current_index = safe_read(_map_repo_path(root, "index.html"))
+        new_index = _replace_script_cache_revision(current_index, "./data/world-objects.js", _cache_revision_for_text(candidate["data/world-objects.js"]))
+        files.append({"target_rel": "index.html", "current_hash": _sha256_text(current_index), "new_hash": _sha256_text(new_index), "new_text": new_index, "changed": current_index != new_index})
+    targets = [f["target_rel"] for f in files] + [i["target_rel"] for i in images]
+    locked = _creation_plan_lock(root, lock_path, targets)
+    session = safe_session_info(root)
+    validation_inputs = {rel: _sha256_text(text) for rel, text in texts.items()}
+    validation_inputs.update({REPOSITORY_IDENTITY_PATH: _sha256_text(safe_read(_map_repo_path(root, REPOSITORY_IDENTITY_PATH))), locked["path"]: locked["sha256"]})
+    return {"root": os.path.realpath(root), "branch": session.get("branch"), "revision": session.get("revision"),
+            "input_zip": zip_data, "choices": choices, "lock_path": lock_path, "plan_lock": locked,
+            "scene_id": scene_id, "package": package, "objects": definitions, "images": images, "mapping": mapping,
+            "formal_summary": formal_plan["change_summary"] if formal_plan else "正式編集なし",
+            "file_plans": files, "validation_inputs": validation_inputs}
+
+
+def apply_creation_draft_adoption(root, plan, confirmed=False):
+    if confirmed is not True:
+        return False
+    require_safe_write_session(root)
+    session = safe_session_info(root)
+    if (plan["root"] != os.path.realpath(root) or plan["branch"] != session.get("branch") or plan["revision"] != session.get("revision")):
+        raise ValueError("確認後にrepository / branch / revisionが変わりました。")
+    _assert_editor_plan_current(root, plan)
+    fresh = plan_creation_draft_adoption(root, plan["input_zip"], plan["choices"], plan["lock_path"])
+    if fresh != plan:
+        raise ValueError("確認後に採用計画が変わりました。読み込みから再確認してください。")
+    state_paths = (last_transaction_path(root), SETTINGS_PATH)
+    state = {}
+    for path in state_paths:
+        if os.path.isfile(path):
+            with open(path, "rb") as stream:
+                state[path] = stream.read()
+        else:
+            state[path] = None
+    tx = None
+    try:
+        tx = create_transaction(root, "adopt-creation-" + plan["package"]["manifest"]["draftKey"] + "-" + os.urandom(4).hex(), [p["target_rel"] for p in plan["file_plans"]])
+        tx["created_files"] = []
+        for item in plan["images"]:
+            dest = _map_repo_path(root, item["target_rel"])
+            with open(dest, "xb") as stream:
+                tx["created_files"].append(item["target_rel"])
+                stream.write(item["png"])
+            with open(dest, "rb") as stream:
+                if stream.read() != item["png"]:
+                    raise ValueError("PNG書込み検証に失敗しました。")
+        for item in plan["file_plans"]:
+            dest = _map_repo_path(root, item["target_rel"])
+            atomic_write(dest, item["new_text"])
+            if _sha256_text(safe_read(dest)) != item["new_hash"]:
+                raise ValueError("正本書込み検証に失敗しました。")
+        texts = {rel: safe_read(_map_repo_path(root, rel)) for rel in CREATION_SOURCES}
+        if not validate_scene_data(_read_scene_contract(root, plan["scene_id"], texts), _read_var_object_value(texts["data/world-objects.js"], "objects"))["ok"]:
+            raise ValueError("適用後scene検証に失敗しました。")
+        finish_transaction(root, tx)
+    except Exception as exc:
+        failures = restore_transaction_files(root, tx)
+        if tx:
+            for path, original in state.items():
+                try:
+                    if original is None:
+                        if os.path.exists(path):
+                            os.remove(path)
+                    else:
+                        with open(path, "wb") as stream:
+                            stream.write(original)
+                except Exception as error:
+                    failures.append(str(error))
+        if failures:
+            raise RuntimeError(str(exc) + "\nrollback失敗:\n" + "\n".join(failures))
+        raise
+    return True
+
+
 def ensure_marker(path, marker):
     text = safe_read(path)
     if text.count(marker) != 1:
@@ -4681,6 +5041,7 @@ class YumaniwaDesk(ui.View):
         self._initial_page_built = False
         self.pending_town_import = None
         self.pending_map_object = None
+        self.pending_creation_adoption = None
 
         self.header = ui.View()
         self.header.background_color = COLORS["panel"]
@@ -5494,6 +5855,100 @@ class YumaniwaDesk(ui.View):
     # -----------------------------------------------------------------
     # 町 / 開発モード取り込み
     # -----------------------------------------------------------------
+    def build_creation_adoption(self, b):
+        b.section("制作下書きの採用：素材と配置をまとめて正式化")
+        b.label("Map EditorのZIPをファイルから選びます。位置・配置サイズ・足元線は再入力しません。採用用branchの最初のcommitに、PNG／台帳／scene／cacheを許可したPlan Lockを登録し、同名origin branchへ同期してから適用してください。", lines=0, size=14, gap=12)
+        b.button("制作下書き／Desk採用分ZIPを確認", "blue", self.inspect_creation_adoption)
+        plan = self.pending_creation_adoption
+        if not plan:
+            return
+        b.label("対象repository: " + EXPECTED_GITHUB_REPOSITORY + "\nbranch: " + str(plan["branch"]) + "\nPlan: " + plan["lock_path"] + "\nZIP hash: " + plan["package"]["zip_sha256"], lines=0, size=13, gap=12)
+        for obj, image in zip(plan["objects"], plan["images"]):
+            preview = ui.ImageView()
+            preview.background_color = COLORS["panel_alt"]
+            preview.content_mode = ui.CONTENT_SCALE_ASPECT_FIT
+            preview.image = ui.Image.from_data(image["original_png"])
+            b.add(preview, 130)
+            f = obj["finalization"]
+            process = f.get("importNormalization", {}).get("type", "元PNGのバイト列をそのまま保存")
+            b.label("{0}\n分類: {1} / objectId: {2}\n入力: {3}px / logical: {4}px\n画像処理: {5}\npixelSafe: {6}（PNGのみではfalseのまま）\n素材の標準サイズはlogical canvas。今回の配置サイズへ昇格しません。".format(
+                obj["editor"]["label"], obj["category"], obj["id"], image["physical"], image["logical"], process, f["pixelSafe"]), lines=0, size=13, gap=12)
+        summary = "配置先scene: " + plan["scene_id"] + "\n"
+        for item in plan["mapping"]:
+            p = item["prop"]
+            summary += "\n仮配置 {0} → {1} / {2}\nx={3}, y={4}, w={5}, h={6}, footY={7}（scene tile、1tile=16 world px）\n".format(
+                item["placementKey"], p["id"], p["objectId"], p["x"], p["y"], p["w"], p["h"], p["footY"])
+        summary += "\n正式編集: " + plan["formal_summary"] + "\n\n変更予定:\n" + "\n".join(
+            "・" + item["target_rel"] for item in plan["file_plans"] + plan["images"])
+        details = make_text_view(summary)
+        details.editable = False
+        b.add(details, 300)
+        b.label("読込・確認はまだ書込みません。適用は作業branchの更新です。公開stagingへの反映には差分確認→Commit→Push→PR→mergeが必要です。元ZIPを保管してください。", lines=0, size=13, gap=12)
+        b.button("素材登録＋配置＋含まれる正式編集を適用", "accent", self.apply_creation_adoption)
+        b.button("採用候補をキャンセル", "panel_alt", self.clear_creation_adoption)
+
+    def inspect_creation_adoption(self, sender):
+        if not self.require_project():
+            return
+        try:
+            path = dialogs.pick_document(types=["public.zip-archive"])
+            if not path:
+                return
+            with open(path, "rb") as stream:
+                data = stream.read(65 * 1024 * 1024 + 16385)
+            package = read_creation_draft_zip(data)
+            m = package["manifest"]
+            adopted = {p["assetKey"] for p in m["placements"] if p["key"] in m["adoption"]}
+            choices = {}
+            for a in m["assets"]:
+                if a["key"] not in adopted:
+                    continue
+                metadata = a["metadata"]
+                target_value = metadata.get("target", {}).get("profile", "") if isinstance(metadata, dict) else ""
+                category = dialogs.list_dialog("分類: " + a["name"], sorted(MAP_OBJECT_FOLDERS))
+                if category is None:
+                    return
+                target = dialogs.list_dialog("logical TARGET: " + a["name"] + "（PNG " + str(a["physical"]) + "px、metadata " + target_value + "）", sorted(MAP_OBJECT_TARGETS))
+                if target is None:
+                    return
+                result = dialogs.form_dialog("採用する名前と正式ID: " + a["name"], fields=[
+                    {"type": "text", "key": "objectId", "title": "正式objectId", "value": ""},
+                    {"type": "text", "key": "label", "title": "表示名", "value": a["name"]}])
+                if result is None:
+                    return
+                choices[a["key"]] = dict(result, category=category, target=target)
+            locked = dialogs.form_dialog("採用用の実装前Plan Lock", fields=[
+                {"type": "text", "key": "path", "title": "r0.lock.jsonのrepo内path", "value": ".change-plans/"}])
+            if locked is None:
+                return
+            # Replace pending review only after complete successful validation.
+            plan = plan_creation_draft_adoption(self.project_root, data, choices, locked["path"])
+            self.pending_creation_adoption = plan
+        except Exception as exc:
+            alert("採用計画を作れません", str(exc) + "\n元ZIPと調整値はそのまま保持してください。画像のcropや余白変更は行いません。")
+        finally:
+            self.show_tab(4)
+
+    def clear_creation_adoption(self, sender):
+        self.pending_creation_adoption = None
+        self.show_tab(4)
+
+    def apply_creation_adoption(self, sender):
+        plan = self.pending_creation_adoption
+        if not plan or not self.require_project():
+            return
+        if not confirm("素材と配置をまとめて採用", "repository: {0}\nbranch: {1}\nscene: {2}\n素材 {3}件 / 配置 {4}件\n正式編集: {5}\n\n確認した採用用Plan Lockを最初のcommitに登録し同期済みですか？ 作業branchのファイルを更新します。公開反映は別のPR・merge手順です。".format(
+                EXPECTED_GITHUB_REPOSITORY, plan["branch"], plan["scene_id"], len(plan["objects"]), len(plan["mapping"]), plan["formal_summary"]), "計画に沿って適用"):
+            return
+        try:
+            apply_creation_draft_adoption(self.project_root, plan, confirmed=True)
+        except Exception as exc:
+            alert("採用に失敗しました", str(exc))
+            return
+        self.pending_creation_adoption = None
+        hud("作業branchへ登録・配置しました。差分確認後、PRへ進んでください。", "success")
+        self.show_tab(4)
+
     def build_map_object_intake(self, b):
         b.section("完成素材を新規登録")
         b.add(make_label("完成PNGとobject.jsonを選び、町の素材台帳へ1件追加します。登録だけでは町に配置しません。Recipe JSON・素材庫ZIPは対象外です。", 14, COLORS["text"], lines=0), 70)
@@ -5610,6 +6065,7 @@ class YumaniwaDesk(ui.View):
             b.label("町へ反映する前に、Working CopyでPullと同期状態を確認してください。", lines=0, color=COLORS["red"], size=14, gap=8)
             b.button("Working CopyのStatusを開く", "blue", self.open_working_copy_status)
             b.button("Pull・同期状態を確認済み", "panel_alt", self.confirm_working_copy_sync)
+        self.build_creation_adoption(b)
         self.build_map_object_intake(b)
         b.section("使い方")
         b.label("1. 作業前にWorking CopyでPull\n2. 湯間庭町を ?dev=1 で開く\n3. 開発モードで編集\n4. [書き出す]→コードをコピー\n5. この画面でクリップボードを確認\n6. 内容を確認して反映\n7. Working Copyで差分確認→Commit→Push", lines=0, color=COLORS["text"], size=14, gap=14)

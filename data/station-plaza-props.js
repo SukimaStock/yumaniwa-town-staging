@@ -318,6 +318,11 @@
             return false;
         }
 
+        return drawPlacementImage(prop, entry.image);
+    }
+
+    // Shared pixel snapping and geometry for formal props and local authoring images.
+    function drawPlacementImage(prop, image) {
         var tileSize = window.TILE_SIZE || 16;
         var renderOffsetY = getTownPropRenderOffsetY(prop);
         var dx = Math.round(prop.x * tileSize);
@@ -327,7 +332,7 @@
 
         window.ctx.save();
         window.ctx.imageSmoothingEnabled = false;
-        window.ctx.drawImage(entry.image, dx, dy, dw, dh);
+        window.ctx.drawImage(image, dx, dy, dw, dh);
         window.ctx.restore();
         return true;
     }
@@ -358,6 +363,12 @@
             });
         }
 
+        var creation = window.YUMANIWA_CREATION_DRAFT;
+        var previews = creation ? creation.renderItems() : [];
+        previews.forEach(function(item, i) {
+            drawItems.push({kind:'creation', footY:item.prop.footY*tileSize, order:props.length+i, prop:item.prop, image:item.image});
+        });
+
         drawItems.push({
             kind: 'player',
             footY: window.player.y + window.player.h,
@@ -377,6 +388,8 @@
 
             if (item.kind === 'prop') {
                 if (drawTownProp(item.prop)) drawnPropCount += 1;
+            } else if (item.kind === 'creation') {
+                drawPlacementImage(item.prop, item.image);
             } else {
                 window.drawPlayerSprite(window.player.x, window.player.y);
             }
@@ -403,6 +416,7 @@
         resolvePropSrc: resolvePropSrc,
         preloadPropImage: getPropImage,
         preloadSceneProps: preloadSceneProps,
+        drawPlacementImage: drawPlacementImage,
         drawTownActorsAndProps: drawTownActorsAndProps
     };
 })();
