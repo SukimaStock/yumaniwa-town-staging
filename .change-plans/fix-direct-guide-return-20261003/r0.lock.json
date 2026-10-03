@@ -1,0 +1,140 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "fc0cdd277f51877de669d7107745fa678662ddf888a9cda6c5effe0d8a0c7cb1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "fix-direct-guide-return-20261003",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Anchor direct destination routes to their authored return scene",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging-production",
+    "baseSha": "a1305b3f6d4b46b7ac9b3629015611ea18eb00de",
+    "canonicalSources": [
+      "staging/main@a1305b3f6d4b46b7ac9b3629015611ea18eb00de",
+      "data/places.js existing returnScene and returnLabel",
+      "main.js existing direct routes, remember/restoreTownWindowReturnPoint and changeTownScene lifecycle",
+      "reproduced public staging and production direct guide exit to station instead of authored Leisure Center"
+    ],
+    "allowedPaths": [
+      ".change-plans/fix-direct-guide-return-20261003/r0.lock.json",
+      "main.js",
+      "index.html",
+      "tests/test-town-direct-routes.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "assets/**",
+      "works/**",
+      "engine/**",
+      "w/**",
+      "en/**",
+      "tools/**",
+      ".github/**",
+      "*.md",
+      "style.css",
+      "work-guide-terminal.js",
+      "work-guide-terminal.css",
+      "share-bridge.js",
+      "work-ready.js"
+    ],
+    "expectedChanges": [
+      "For direct nonphysical destinations with a valid existing returnScene, enter that town scene using the canonical scene API before opening the destination",
+      "Preserve physical entry exact position restoration, routes without a valid returnScene, physical scene routes and all work routes",
+      "Add actual-runtime regression covering configured destination route anchors, physical guide position, URL aliases, invalid routes and dirty Editor rejection",
+      "Update only the main.js root cache fingerprint"
+    ],
+    "ownerDecisions": [
+      "Authorized staged staging-to-production migration and necessary fixes; Coffee factory and PUMPOKO stay excluded from production",
+      "Existing authored destination returnScene/returnLabel and UI wording remain unchanged"
+    ],
+    "hqDecisions": [
+      "Resolve direct-route origin ambiguity using existing authored returnScene as the physical context before opening a destination; no new navigation contract or wrapper",
+      "Use existing changeTownScene lifecycle and abort on rejection, retaining dirty Editor state",
+      "Do not change remember/restore semantics for physical entry; menus lacking valid returnScene continue to remember the actual current scene",
+      "Do not alter guide labels, scene layouts, assets, work runtimes, storage or analytics"
+    ],
+    "rulesApplied": [
+      "Staging branch -> locked Plan -> PR -> trusted base gates -> merge -> Pages -> browser verification before production promotion",
+      "Scope -> Risk -> Impact",
+      "Production branch -> locked Plan -> PR -> exact-head safety -> merge -> Pages -> public bytes and browser",
+      "No automatic VERIFIED or Release Complete"
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "direct-destination-route-regression",
+      "town-transition-regression",
+      "editor-session-history-regression",
+      "guide-regression",
+      "cache-fingerprint-check",
+      "production-invariants"
+    ],
+    "manualChecks": [
+      "Observe staging direct guide exit to Leisure Center and physical guide position restoration after deployment",
+      "Observe production direct guide exit, map travel and work/guide return after promotion"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.mobile-desktop",
+      "runtime.rollback",
+      "surface.shared",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this route fix and matching main.js cache query together through a new PR; no data or storage migration. Keep the town foundation package intact.",
+    "outOfScope": [
+      "New scene/placement/guide text, storage/analytics policy and asset changes",
+      "Coffee factory/PUMPOKO production publication",
+      "Town foundation rollback or changes to verification tools"
+    ],
+    "promotion": "After staging exact-head trusted gates, regression and browser verification, promote the same main.js change with production DEV=false, matching cache fingerprint and unchanged nine-work projection.",
+    "unverified": [
+      "Physical device/PWA behavior and external analytics are not newly certified",
+      "Evidence is exact-SHA, not automatic VERIFIED"
+    ],
+    "problem": "Direct ?place=leisure_catalog opens from station_plaza and remembers station as its return point, overriding the authored leisure_center_map fallback despite the Leisure Center exit label.",
+    "currentContract": "Destinations declare returnScene/returnLabel; physical menus remember their exact town entry and restore it. Direct work routes already establish their physical venue before launch.",
+    "whyExistingIsInsufficient": "Direct place routes open nonphysical menus without establishing the authored physical scene, so restoreTownWindowReturnPoint overrides the authored fallback with startup station.",
+    "design": "Anchor direct destination to a valid declared returnScene through the existing scene API before changeScene opens the menu. Physical opening stays unchanged.",
+    "migration": "Small shared-route correction, same source patch in staging and production, no schema/identity/layout migration.",
+    "compatibility": "Preserve URL aliases, exact physical entry coordinates, configured UI labels, work routes, unknown route rejection and dirty Editor protection.",
+    "alternativesRejected": [
+      "Change only the guide exit label to station",
+      "Discard remembered positions for all physical menu visits",
+      "Add a runtime wrapper or new routing data schema"
+    ],
+    "boundaryCases": [
+      "All configured nonphysical destinations return to their authored scene",
+      "Physical guide closes to its exact original coordinates",
+      "place/dest/destination aliases behave identically",
+      "Physical scene and invalid routes remain unchanged",
+      "Missing/invalid returnScene keeps current town entry",
+      "Dirty Editor scene change rejection preserves its draft",
+      "Nine public production works and excluded works remain unchanged"
+    ],
+    "testPlan": [
+      "node-syntax",
+      "direct-destination-route-regression",
+      "town-transition-regression",
+      "editor-session-history-regression",
+      "guide-regression",
+      "cache-fingerprint-check",
+      "production-invariants",
+      "Observe staging direct guide exit to Leisure Center and physical guide position restoration after deployment",
+      "Observe production direct guide exit, map travel and work/guide return after promotion"
+    ],
+    "promotionRisk": "Shared routing can affect menu origin and dirty Editor state. Keep the fix at direct entry only, reuse canonical lifecycle, test actual runtime/return points and check deployed direct guide exit before promotion."
+  }
+}
