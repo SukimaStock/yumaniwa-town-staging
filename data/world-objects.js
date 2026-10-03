@@ -2,6 +2,291 @@
     'use strict';
 
     var objects = {
+        "object_nhehgtc": {
+            "category": "sign",
+            "type": "sign",
+            "label": "board",
+            "id": "object_nhehgtc",
+            "cleanerMetadata": {
+                "schema": "yumaniwa-world-object/0.1",
+                "finalization": {
+                    "pixelSafe": true,
+                    "townCanvas": {
+                        "enabled": true,
+                        "exactFinal": true,
+                        "width": 32.0,
+                        "height": 32.0,
+                        "editable": true
+                    },
+                    "finalizedAt": 1791018121,
+                    "grid": {
+                        "block": 1,
+                        "offsetX": 0,
+                        "offsetY": 0
+                    },
+                    "canvas": {
+                        "height": 32.0,
+                        "width": 32.0
+                    },
+                    "target": {
+                        "width": 32,
+                        "mode": "TOWN_CANVAS",
+                        "groundMargin": 2,
+                        "label": "PROP M",
+                        "logicalRasterMethod": "EXPLICIT_LOGICAL_NEAREST",
+                        "logicalRasterScope": "CONTENT_BOUNDS",
+                        "contentBounds": {
+                            "h": 30,
+                            "y": 0,
+                            "x": 4,
+                            "w": 24
+                        },
+                        "id": "PROP_M",
+                        "logicalRasterized": true,
+                        "contentMode": "DIRECT_CANONICAL",
+                        "groundAnchorY": 29,
+                        "drawY": 2,
+                        "height": 32,
+                        "drawX": 4,
+                        "contentFitBounds": {
+                            "h": 30,
+                            "y": 0,
+                            "x": 4,
+                            "w": 24
+                        },
+                        "contentFitMode": "LOSSLESS_INTEGER_TRANSLATION"
+                    },
+                    "output": {
+                        "metadataFile": "Yumaniwa_PROP_M_32x32_1791018121.object.json",
+                        "exportContract": "yumaniwa-logical-canvas-physical-file/0.1",
+                        "imageAsset": "Yumaniwa_PROP_M_32x32_1791018121",
+                        "fileCanvasPx": {
+                            "height": 96,
+                            "width": 96
+                        },
+                        "filePixelRatioX": 3.0,
+                        "integerUniformScale": true,
+                        "physicalFileInspected": true,
+                        "logicalCanvasPx": {
+                            "height": 32.0,
+                            "width": 32.0
+                        },
+                        "filePixelRatio": 3,
+                        "filePixelRatioY": 3.0,
+                        "physicalFileStatus": "PASS",
+                        "physicalFileVerified": true
+                    },
+                    "status": "final"
+                },
+                "target": {
+                    "profile": "PROP_M",
+                    "contentBounds": {
+                        "h": 30,
+                        "y": 0,
+                        "x": 4,
+                        "w": 24
+                    },
+                    "groundAnchorY": 29,
+                    "contentMode": "DIRECT_CANONICAL"
+                },
+                "object": {
+                    "category": "sign",
+                    "type": "sign",
+                    "label": "board",
+                    "id": "object_nhehgtc"
+                },
+                "pixelStandard": {
+                    "pixelSafeMethod": "EXPLICIT_LOGICAL_NEAREST_PLUS_PHYSICAL_INTEGER_SCALE_PASS",
+                    "filePixelRatio": 3,
+                    "version": "yumaniwa-pixel/0.2",
+                    "targetId": "PROP_M",
+                    "logicalGridVerified": true,
+                    "targetProfile": "PROP_M",
+                    "previewMatchesTown": true,
+                    "townUsesLogicalCanvas": true,
+                    "contentFitMode": "LOSSLESS_INTEGER_TRANSLATION",
+                    "logicalRasterScope": "CONTENT_BOUNDS",
+                    "exportContract": "yumaniwa-logical-canvas-physical-file/0.1",
+                    "groundAnchorY": 29,
+                    "physicalFileMayUseDeviceScale": true,
+                    "fileCanvasPx": {
+                        "height": 96,
+                        "width": 96
+                    },
+                    "contentFitBounds": {
+                        "h": 30,
+                        "y": 0,
+                        "x": 4,
+                        "w": 24
+                    },
+                    "contentBounds": {
+                        "h": 30,
+                        "y": 0,
+                        "x": 4,
+                        "w": 24
+                    },
+                    "contentMode": "DIRECT_CANONICAL",
+                    "pixelSafe": true,
+                    "sourceGrid": {
+                        "block": 1,
+                        "offsetX": 0,
+                        "offsetY": 0
+                    },
+                    "sourcePhysicalPx": {
+                        "height": 32.0,
+                        "width": 26.0
+                    },
+                    "worldPxPerLogicalPx": 1,
+                    "logicalRasterized": true,
+                    "editingSpace": "TOWN_LOGICAL_PIXELS",
+                    "logicalRasterMethod": "EXPLICIT_LOGICAL_NEAREST",
+                    "logicalCanvasPx": {
+                        "height": 32.0,
+                        "width": 32.0
+                    }
+                }
+            },
+            "finalization": {
+                "pixelSafe": true,
+                "townCanvas": {
+                    "enabled": true,
+                    "exactFinal": true,
+                    "width": 32.0,
+                    "height": 32.0,
+                    "editable": true
+                },
+                "finalizedAt": 1791018121,
+                "grid": {
+                    "block": 1,
+                    "offsetX": 0,
+                    "offsetY": 0
+                },
+                "canvas": {
+                    "height": 32.0,
+                    "width": 32.0
+                },
+                "target": "PROP_M",
+                "output": {
+                    "metadataFile": "Yumaniwa_PROP_M_32x32_1791018121.object.json",
+                    "exportContract": "yumaniwa-logical-canvas-physical-file/0.1",
+                    "imageAsset": "Yumaniwa_PROP_M_32x32_1791018121",
+                    "fileCanvasPx": {
+                        "height": 96,
+                        "width": 96
+                    },
+                    "filePixelRatioX": 3.0,
+                    "integerUniformScale": true,
+                    "physicalFileInspected": true,
+                    "logicalCanvasPx": {
+                        "height": 32.0,
+                        "width": 32.0
+                    },
+                    "filePixelRatio": 3,
+                    "filePixelRatioY": 3.0,
+                    "physicalFileStatus": "PASS",
+                    "physicalFileVerified": true
+                },
+                "status": "final",
+                "logicalCanvasPx": [
+                    32,
+                    32
+                ],
+                "fileCanvasPx": [
+                    96,
+                    96
+                ],
+                "exportScale": 3.0,
+                "filePixelRatio": 3.0,
+                "exportContract": "yumaniwa-logical-canvas-physical-file/0.1",
+                "physicalFileVerified": true,
+                "pixelStandard": {
+                    "pixelSafeMethod": "EXPLICIT_LOGICAL_NEAREST_PLUS_PHYSICAL_INTEGER_SCALE_PASS",
+                    "filePixelRatio": 3,
+                    "version": "yumaniwa-pixel/0.2",
+                    "targetId": "PROP_M",
+                    "logicalGridVerified": true,
+                    "targetProfile": "PROP_M",
+                    "previewMatchesTown": true,
+                    "townUsesLogicalCanvas": true,
+                    "contentFitMode": "LOSSLESS_INTEGER_TRANSLATION",
+                    "logicalRasterScope": "CONTENT_BOUNDS",
+                    "exportContract": "yumaniwa-logical-canvas-physical-file/0.1",
+                    "groundAnchorY": 29,
+                    "physicalFileMayUseDeviceScale": true,
+                    "fileCanvasPx": {
+                        "height": 96,
+                        "width": 96
+                    },
+                    "contentFitBounds": {
+                        "h": 30,
+                        "y": 0,
+                        "x": 4,
+                        "w": 24
+                    },
+                    "contentBounds": {
+                        "h": 30,
+                        "y": 0,
+                        "x": 4,
+                        "w": 24
+                    },
+                    "contentMode": "DIRECT_CANONICAL",
+                    "pixelSafe": true,
+                    "sourceGrid": {
+                        "block": 1,
+                        "offsetX": 0,
+                        "offsetY": 0
+                    },
+                    "sourcePhysicalPx": {
+                        "height": 32.0,
+                        "width": 26.0
+                    },
+                    "worldPxPerLogicalPx": 1,
+                    "logicalRasterized": true,
+                    "editingSpace": "TOWN_LOGICAL_PIXELS",
+                    "logicalRasterMethod": "EXPLICIT_LOGICAL_NEAREST",
+                    "logicalCanvasPx": {
+                        "height": 32.0,
+                        "width": 32.0
+                    }
+                },
+                "sourceDeliveryFilePx": [
+                    96,
+                    96
+                ],
+                "sourceDeliveryPixelRatio": 3,
+                "sourceDeliveryVerified": true,
+                "importNormalization": {
+                    "applied": true,
+                    "type": "LOSSLESS_INTEGER_DEVICE_SCALE_COLLAPSE",
+                    "fromPixelRatio": 3,
+                    "toPixelRatio": 1
+                },
+                "townAssetFilePx": [
+                    32,
+                    32
+                ],
+                "townAssetPixelRatio": 1
+            },
+            "src": "assets/maps/objects/signs/object_nhehgtc.png",
+            "editor": {
+                "catalogKey": "object_nhehgtc",
+                "label": "board",
+                "addable": true,
+                "order": 1000,
+                "inferFromObjectId": true,
+                "defaults": {
+                    "w": 2.0,
+                    "h": 2.0,
+                    "collision": {
+                        "enabled": false,
+                        "x": 0,
+                        "y": 0,
+                        "w": 1,
+                        "h": 1
+                    }
+                }
+            }
+        },
         bench_wood_01: {
             id: 'bench_wood_01',
             editor: {

@@ -29,18 +29,22 @@ const clone=value=>JSON.parse(JSON.stringify(value));
 const hash=value=>crypto.createHash('sha256').update(value).digest('hex');
 const source=file=>fs.readFileSync(path.join(root,file),'utf8');
 const oldAssets=fixture.catalog.filter(d=>d.addable!==false);
+// Explicitly adopted additions extend the frozen oracle; historical entries stay exact.
+const boardAsset={key:'object_nhehgtc',label:'board',objectId:'object_nhehgtc',file:'',w:2,h:2,
+    collision:{enabled:false,x:0,y:0,w:1,h:1}};
+const expectedAssets=[...oldAssets,boardAsset];
 const registry=c.YUMANIWA_WORLD_OBJECTS;
 c.loadTownSceneBackground=def=>{c.activeTownSceneDef=def;};
 c.updateInteractionHint=()=>{};c.updateControlVisibility=()=>{};
 c.applyTownSceneDefinition('station_plaza','default');
 
-test('exactly twelve options preserve order, key, label, objectId and every default',()=>{
+test('twelve historical options and adopted board preserve exact order and defaults',()=>{
     assert.equal(oldAssets.length,12);
     assertCatalogMatchesBefore(c.TOWN_PART_CATALOG);
     const defs=clone(registry.getAddableEditorDefinitions());
-    assert.equal(defs.length,12);
-    assert.deepEqual(defs.map(d=>d.catalogKey),oldAssets.map(d=>d.key));
-    assert.equal(new Set(defs.map(d=>d.order)).size,12);
+    assert.equal(defs.length,expectedAssets.length);
+    assert.deepEqual(defs.map(d=>d.catalogKey),expectedAssets.map(d=>d.key));
+    assert.equal(new Set(defs.map(d=>d.order)).size,expectedAssets.length);
     assert(!defs.some(d=>d.objectId==='post_box_01'||d.objectId==='leisure_catalog_terminal_01'));
     for(const d of defs) {
         assert(!('src' in d)); assert(!('finalization' in d));
@@ -52,6 +56,28 @@ for(const expected of fixture.creations) {
         assert.deepEqual(clone(c.createTownPartFromCatalog(expected.key,512,384)),expected.part);
     });
 }
+test('adopted board uses canonical pixels and objectId placement with Cleaner provenance',()=>{
+    const obj=registry.get(boardAsset.objectId);
+    assert.equal(obj.category,'sign');
+    assert.equal(obj.type,'sign');
+    assert.equal(obj.src,'assets/maps/objects/signs/object_nhehgtc.png');
+    assert.equal(obj.finalization.status,'final');
+    assert.equal(obj.finalization.target,'PROP_M');
+    assert.deepEqual(clone(obj.finalization.logicalCanvasPx),[32,32]);
+    assert.equal(obj.cleanerMetadata.schema,'yumaniwa-world-object/0.1');
+    assert.deepEqual(clone(obj.cleanerMetadata.object),{category:'sign',type:'sign',label:'board',id:'object_nhehgtc'});
+    assert.equal(obj.cleanerMetadata.finalization.output.filePixelRatio,3);
+    const png=fs.readFileSync(path.join(root,obj.src));
+    assert.equal(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
+    assert.equal(png.readUInt32BE(16),32); assert.equal(png.readUInt32BE(20),32);
+    const part=clone(c.createTownPartFromCatalog(boardAsset.key,512,384));
+    assert.equal(part.objectId,boardAsset.objectId);
+    assert.equal(part.w,2); assert.equal(part.h,2);
+    assert.deepEqual(part.collision,boardAsset.collision);
+    assert(!('src' in part));
+    assert.equal(c.inferTownPartCatalogKey({objectId:boardAsset.objectId}),boardAsset.key);
+    assert(!c.getActiveTownParts().some(p=>p.objectId===boardAsset.objectId),'registration does not auto-place');
+});
 test('implicit/explicit id stems, unknown key fallback and unique ID suffix remain compatible',()=>{
     assert.equal(c.getPartCatalogEntry('unknown-key'),c.TOWN_PART_CATALOG[0]);
     assert.deepEqual(clone(c.createTownPartFromCatalog('unknown-key',512,384)),fixture.creations[0].part);
@@ -96,13 +122,16 @@ test('existing placement metadata views are read-only and retain historical fall
         assert.deepEqual(part,snapshot);
     }
 });
-test('WORLD OBJECT runtime fields, finalization, get and resolveSrc are unchanged',()=>{
+test('historical WORLD OBJECT runtime fields and finalization are unchanged',()=>{
     const objects=clone(registry.objects);
     for(const [id,def] of Object.entries(objects)) {
         assert.equal(registry.get(id),registry.objects[id]);
         assert.equal(registry.resolveSrc(id),def.src||'');
         delete def.editor;
     }
+    // Exclude only this explicitly tested addition from the pre-migration hash.
+    assert(objects.object_nhehgtc);
+    delete objects.object_nhehgtc;
     assert.equal(hash(JSON.stringify(objects)),fixture.worldObjectsHash);
     assert.equal(registry.get('missing-object'),null);
     assert.equal(registry.resolveSrc('missing-object'),'');
@@ -118,10 +147,10 @@ test('Editor APIs derive fresh ordered copies from literal metadata',()=>{
     const meta=registry.get('notice_board_01').editor;
     const order=meta.order;
     try {
-        meta.order=1000;
+        meta.order=Math.max(...defs.map(d=>d.order))+1;
         assert.equal(registry.getAddableEditorDefinitions().at(-1).catalogKey,'noticeBoard');
         meta.addable=false;
-        assert.equal(registry.getAddableEditorDefinitions().length,11);
+        assert.equal(registry.getAddableEditorDefinitions().length,expectedAssets.length-1);
     } finally { meta.order=order; meta.addable=true; }
     assert.equal(JSON.stringify(registry.objects),original);
 });
@@ -130,12 +159,12 @@ test('scene sources and ghost placements stay byte-identical',()=>{
         assert.equal(hash(fs.readFileSync(path.join(root,file))),expected,file);
     }
 });
-test('select uses the same twelve options and action UI still loads without catalog dependency',()=>{
+test('select includes historical options and board; action UI remains independent',()=>{
     c.ensurePartEditorFields();
     const form=document.getElementById('part-form');
-    const options=[...form.innerHTML.matchAll(/<option value="([^"]*)">([^<]*)<\/option>/g)].slice(0,12);
-    assert.deepEqual(options.map(m=>({key:m[1],label:m[2]})),oldAssets.map(d=>({key:d.key,label:d.label})));
-    assert.equal(document.getElementById('part-asset-select').options.length,12);
+    const options=[...form.innerHTML.matchAll(/<option value="([^"]*)">([^<]*)<\/option>/g)].slice(0,expectedAssets.length);
+    assert.deepEqual(options.map(m=>({key:m[1],label:m[2]})),expectedAssets.map(d=>({key:d.key,label:d.label})));
+    assert.equal(document.getElementById('part-asset-select').options.length,expectedAssets.length);
     assert(document.getElementById('part-action-editor'));
     const upgrade=source('town-editor-upgrade.js');
     assert.equal(hash(upgrade.split('    function escapeEditorHtml')[1]),fixture.upgradeActionsHash);
@@ -147,7 +176,7 @@ test('select uses the same twelve options and action UI still loads without cata
 });
 
 function assertCatalogMatchesBefore(catalog) {
-    assert.deepEqual(clone(catalog.filter(d=>d.addable!==false)),oldAssets);
+    assert.deepEqual(clone(catalog.filter(d=>d.addable!==false)),expectedAssets);
 }
 
 // Small block reader for these flat declaration rules, not a browser cascade
