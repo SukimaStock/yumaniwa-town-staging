@@ -43,10 +43,11 @@
         style.id = "yumaniwa-share-bridge-style";
         style.textContent = [
             "#yumaniwa-share-panel[hidden]{display:none!important}",
-            "#yumaniwa-share-panel{position:absolute;inset:0;z-index:40;display:flex;align-items:flex-end;justify-content:center;padding:max(14px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));box-sizing:border-box;background:rgba(3,6,9,.68);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);touch-action:none}",
-            ".yumaniwa-share-card{width:min(430px,100%);max-height:calc(100dvh - 28px);overflow:auto;box-sizing:border-box;padding:16px;border:1px solid rgba(255,255,255,.18);border-radius:20px;background:rgba(16,22,29,.98);box-shadow:0 18px 52px rgba(0,0,0,.55);color:#fff;text-align:center}",
+            "#yumaniwa-share-panel{position:absolute;inset:0;z-index:40;display:flex;align-items:flex-end;justify-content:center;padding:max(58px,calc(env(safe-area-inset-top) + 48px)) max(14px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));box-sizing:border-box;background:rgba(3,6,9,.68);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);touch-action:manipulation}",
+            ".yumaniwa-share-card{width:min(430px,100%);max-height:calc(100dvh - 86px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow:auto;box-sizing:border-box;padding:16px;border:1px solid rgba(255,255,255,.18);border-radius:20px;background:rgba(16,22,29,.98);box-shadow:0 18px 52px rgba(0,0,0,.55);color:#fff;text-align:center}",
             ".yumaniwa-share-preview-wrap{display:flex;align-items:center;justify-content:center;min-height:120px;max-height:42dvh;margin-bottom:14px;border-radius:14px;overflow:hidden;background:#080a0d;border:1px solid rgba(255,255,255,.10)}",
-            "#yumaniwa-share-preview{display:block;max-width:100%;max-height:42dvh;object-fit:contain}",
+            "#yumaniwa-share-preview{display:block;max-width:100%;max-height:42dvh;object-fit:contain;touch-action:manipulation;-webkit-touch-callout:default;user-select:auto;-webkit-user-select:auto}",
+            "#yumaniwa-share-dismiss{position:absolute;top:max(8px,env(safe-area-inset-top));left:max(8px,env(safe-area-inset-left));width:44px;height:44px;border:0;border-radius:50%;background:#10161d;color:#fff;font:28px/1 system-ui;touch-action:manipulation}",
             ".yumaniwa-share-title{font-size:16px;font-weight:700;line-height:1.4;letter-spacing:.04em}",
             ".yumaniwa-share-message{margin-top:6px;color:rgba(255,255,255,.70);font-size:12px;line-height:1.6}",
             ".yumaniwa-share-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}",
@@ -64,6 +65,7 @@
         panel.hidden = true;
         panel.setAttribute("aria-hidden", "true");
         panel.innerHTML = [
+            '<button id="yumaniwa-share-dismiss" type="button" aria-label="画像を閉じてゲームへ戻る">×</button>',
             '<div class="yumaniwa-share-card" role="dialog" aria-modal="true" aria-labelledby="yumaniwa-share-title">',
             '  <div class="yumaniwa-share-preview-wrap"><img id="yumaniwa-share-preview" alt="共有する結果画像"></div>',
             '  <div class="yumaniwa-share-title" id="yumaniwa-share-title">作品の記録</div>',
@@ -88,6 +90,13 @@
             closeButton: document.getElementById("yumaniwa-share-close")
         };
 
+        var dismiss = function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            closeSharePanel("closed");
+        };
+        document.getElementById("yumaniwa-share-dismiss").addEventListener("click", dismiss);
+
         result.card.addEventListener("click", function (event) {
             event.stopPropagation();
         });
@@ -98,9 +107,16 @@
 
         result.shareButton.addEventListener("click", sharePendingResult);
         result.saveButton.addEventListener("click", savePendingResult);
-        result.closeButton.addEventListener("click", function () {
+        result.closeButton.addEventListener("click", dismiss);
+
+        // The town's Escape handler exits the entire player. An open image
+        // panel owns this key first, just like its own X control.
+        document.addEventListener("keydown", function (event) {
+            if (event.key !== "Escape" || result.panel.hidden) return;
+            event.preventDefault();
+            event.stopImmediatePropagation();
             closeSharePanel("closed");
-        });
+        }, true);
 
         return result;
     }
@@ -238,8 +254,11 @@
         previewUrl = URL.createObjectURL(result.file);
         ui.preview.src = previewUrl;
         ui.title.textContent = result.title || "作品の記録";
-        ui.message.textContent = "画像の準備ができました。共有先や保存方法を選んでください。";
+        ui.message.textContent = usesImagePressSave()
+            ? "画像を長押しして保存できます。共有ボタンからも保存先を選べます。"
+            : "画像の準備ができました。共有先や保存方法を選んでください。";
         ui.shareButton.hidden = !(navigator && typeof navigator.share === "function");
+        ui.shareButton.disabled = false;
         ui.panel.hidden = false;
         ui.panel.setAttribute("aria-hidden", "false");
 
@@ -294,14 +313,17 @@
             return;
         }
 
+        var result = pendingShare;
         ui.shareButton.disabled = true;
         ui.message.textContent = "共有画面を開いています…";
 
         try {
-            await navigator.share(buildShareData(pendingShare));
+            await navigator.share(buildShareData(result));
+            if (pendingShare !== result) return;
             sendStatus("shared");
             clearPending(true);
         } catch (error) {
+            if (pendingShare !== result) return;
             if (error && error.name === "AbortError") {
                 ui.message.textContent = "共有をキャンセルしました。";
                 sendStatus("cancelled");
@@ -310,8 +332,13 @@
                 sendStatus("failed", error && error.name ? error.name : "share-error");
             }
         } finally {
-            ui.shareButton.disabled = false;
+            if (!pendingShare || pendingShare === result) ui.shareButton.disabled = false;
         }
+    }
+
+    function usesImagePressSave() {
+        return /iPad|iPhone|iPod/.test(navigator.userAgent || "") ||
+            (/Macintosh/.test(navigator.userAgent || "") && navigator.maxTouchPoints > 1);
     }
 
     function savePendingResult(event) {
@@ -319,6 +346,13 @@
         event.stopPropagation();
 
         if (!pendingShare || !pendingShare.file) return;
+
+        // iOS can open a synthetic download as a preview or silently reject
+        // it. Keep the actual image visible for the native long-press menu.
+        if (usesImagePressSave()) {
+            ui.message.textContent = "画像を長押しして「写真に保存」を選んでください。×でゲームへ戻れます。";
+            return;
+        }
 
         var url = URL.createObjectURL(pendingShare.file);
         var anchor = document.createElement("a");
@@ -334,7 +368,7 @@
         }, 1600);
 
         sendStatus("saved");
-        clearPending(true);
+        ui.message.textContent = "ダウンロードを開始しました。×でゲームへ戻れます。";
     }
 
     window.addEventListener("message", function (event) {

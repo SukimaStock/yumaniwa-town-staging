@@ -11141,6 +11141,10 @@
       return { ok: false, reason: "save-unavailable" };
     }
 
+    if (sendResultToYumaniwa(resultBlobToFile(blob, resultExportFileName()), resultShareText(result), "")) {
+      return { ok: true, method: "yumaniwa-bridge" };
+    }
+
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;

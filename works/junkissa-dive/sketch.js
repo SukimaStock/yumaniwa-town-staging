@@ -4753,6 +4753,39 @@ function jdShowPosterImageFallback(dataUrl, fileName) {
   return true;
 }
 
+// Use the existing town panel when available; standalone/itch keeps the
+// original native-share, visible-image and download fallbacks below.
+let jdYumaniwaShareBridgeReady = false;
+(function installJdYumaniwaShareBridge() {
+  if (typeof window === "undefined" || !window.top || window.top === window) return;
+  window.addEventListener("message", function(event) {
+    const data = event && event.data;
+    if (event.source !== window.top || !data || (data.workId && data.workId !== "junkissa-dive")) return;
+    if (data.type === "yumaniwa:share-bridge-ready") jdYumaniwaShareBridgeReady = true;
+  });
+  const probe = function() {
+    try {
+      window.top.postMessage({ type: "yumaniwa:share-bridge-probe", version: 1, workId: "junkissa-dive" }, "*");
+    } catch (_error) {}
+  };
+  probe();
+  [350, 1200, 2800].forEach(function(delay) { window.setTimeout(probe, delay); });
+})();
+
+function jdSendPosterToYumaniwa(dataUrl, fileName) {
+  if (!jdYumaniwaShareBridgeReady || typeof window === "undefined" || window.top === window) return false;
+  try {
+    window.top.postMessage({
+      type: "yumaniwa:share-result", version: 1, workId: "junkissa-dive",
+      title: jdT("receipt.shop", "JUNKISSA DIVE"), text: "",
+      fileName: fileName, mimeType: "image/png", dataUrl: dataUrl
+    }, "*");
+    return true;
+  } catch (_error) {
+    return false;
+  }
+}
+
 async function jdSavePosterImage() {
   const canvas = jdFindGameCanvas();
   if (!canvas) {
@@ -4808,6 +4841,16 @@ async function jdSavePosterImage() {
   }
 
   const fileName = jdBuildPosterImageFileName();
+  if (jdSendPosterToYumaniwa(dataUrl, fileName)) {
+    trackJunkissaDiveEvent("Result Save", {
+      method: "yumaniwa-bridge",
+      language: JD.lang === "en" ? "en" : "jp",
+      poster_type: String((jdGetPosterItem() && jdGetPosterItem().targetType) || "failure")
+    });
+    JD.posterSaveStatus = null;
+    JD.posterSaveStatusUntil = 0;
+    return;
+  }
   const imageBlob = jdDataUrlToPngBlob(dataUrl);
   const imageFile = jdNamePosterPngBlob(imageBlob, fileName);
 
