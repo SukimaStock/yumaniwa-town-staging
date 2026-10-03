@@ -2806,6 +2806,372 @@ def plan_town_editor_import(root, clipboard_text):
 # 更新・バックアップ・検証
 # -----------------------------------------------------------------------------
 
+# Existing WORLD OBJECT fields, not a second registry or package schema.
+MAP_OBJECT_FOLDERS = {
+    "furniture": "assets/maps/objects/furniture",
+    "light": "assets/maps/objects/lights",
+    "greenery": "assets/maps/objects/greenery",
+    "sign": "assets/maps/objects/signs",
+    "street_furniture": "assets/maps/objects/street_furniture",
+    "facility": "assets/maps/objects/facilities",
+    "shop": "assets/maps/objects/shops",
+    "exhibit": "assets/maps/props/leisure-center",
+    "npc": "assets/maps/props/station-plaza",
+}
+MAP_OBJECT_TARGETS = {
+    "CHARA": [16, 24], "PROP_S": [24, 24], "PROP_M": [32, 32],
+    "PROP_W": [48, 40], "PROP_T": [32, 56], "PROP_L": [56, 56],
+    "FACILITY_S": [64, 64], "FACILITY_M": [96, 96], "FACILITY_L": [128, 128],
+    "SHOP_S": [96, 96], "SHOP_L": [128, 128],
+}
+
+
+def _map_json(text):
+    def pairs(items):
+        result = {}
+        for key, value in items:
+            if key in result or key == "__proto__":
+                raise ValueError("JSONの重複/禁止key: " + key)
+            result[key] = value
+        return result
+
+    def invalid(value):
+        raise ValueError("JSONの非有限数: " + value)
+
+    if not isinstance(text, str) or len(text.encode("utf-8")) > 1024 * 1024:
+        raise ValueError("object.jsonは1 MiB以内のJSONにしてください。")
+    obj = json.loads(text, object_pairs_hook=pairs, parse_constant=invalid)
+    if not isinstance(obj, dict):
+        raise ValueError("object.jsonは1素材のobject定義が必要です。")
+    # json.loads can also overflow an exponent such as 1e999.
+    json.dumps(obj, allow_nan=False)
+    return obj
+
+
+def _map_identifier(value, label):
+    if (not isinstance(value, str) or not re.fullmatch(r"[a-z][a-z0-9_]{1,79}", value)
+            or re.search(r"\d{10,}", value)
+            or value in ("constructor", "prototype", "__proto__")):
+        raise ValueError(label + ": 安定した英小文字・数字・_のIDが必要です（timestamp不可）。")
+    return value
+
+
+def _map_repo_path(root, rel):
+    if (not isinstance(rel, str) or not rel or "\\" in rel or ":" in rel
+            or rel.startswith("/") or any(p in ("", ".", "..") for p in rel.split("/"))):
+        raise ValueError("repository内の相対pathが必要です: " + str(rel))
+    target = os.path.join(root, rel)
+    if not path_is_inside(os.path.realpath(target), os.path.realpath(root)):
+        raise ValueError("repository外へのpathです: " + rel)
+    current = root
+    for part in rel.split("/"):
+        current = os.path.join(current, part)
+        if os.path.islink(current):
+            raise ValueError("symlinkは登録先に使用できません: " + rel)
+    return target
+
+
+def _map_png(data):
+    # Pillow is bundled with Pythonista; imports stay local for non-UI tests.
+    import io
+    from PIL import Image
+    if not isinstance(data, bytes) or not data or len(data) > 16 * 1024 * 1024:
+        raise ValueError("PNGは16 MiB以内にしてください。")
+    with Image.open(io.BytesIO(data)) as img:
+        if img.format != "PNG" or getattr(img, "n_frames", 1) != 1:
+            raise ValueError("静止PNGが必要です。")
+        if not (0 < img.width <= 2048 and 0 < img.height <= 2048):
+            raise ValueError("PNGの実寸法は各辺1〜2048pxにしてください。")
+        img.verify()
+    with Image.open(io.BytesIO(data)) as img:
+        img.load()
+        return img.convert("RGBA")
+
+
+def _map_dimensions(value, label):
+    if (not isinstance(value, list) or len(value) != 2
+            or any(type(n) is not int or n <= 0 or n > 2048 for n in value)):
+        raise ValueError(label + ": 正の整数2個が必要です。")
+    return value
+
+
+def _map_final_png(data, finalization):
+    import io
+    from PIL import Image
+    f = finalization
+    if not isinstance(f, dict) or f.get("status") != "final":
+        raise ValueError("finalization.status=finalが必要です。")
+    logical = _map_dimensions(f.get("logicalCanvasPx"), "logicalCanvasPx")
+    if MAP_OBJECT_TARGETS.get(f.get("target")) != logical:
+        raise ValueError("targetとlogicalCanvasPxが既存TARGET規格に一致しません。")
+    if type(f.get("pixelSafe")) is not bool:
+        raise ValueError("pixelSafeの明示値が必要です。Deskではtrueへ補正しません。")
+    if f.get("exportContract") != "yumaniwa-logical-canvas-physical-file/0.1":
+        raise ValueError("対応するexportContractが必要です。")
+    if not isinstance(f.get("townCanvas"), dict) or any(
+            f["townCanvas"].get(k) is not True for k in ("enabled", "editable", "exactFinal")):
+        raise ValueError("確定済みtownCanvasが必要です。")
+    ps = f.get("pixelStandard")
+    if (not isinstance(ps, dict) or ps.get("version") not in ("yumaniwa-pixel/0.1", "yumaniwa-pixel/0.2", "yumaniwa-pixel/0.2.1")
+            or type(ps.get("worldPxPerLogicalPx")) not in (int, float)
+            or ps["worldPxPerLogicalPx"] != 1 or ps.get("editingSpace") != "TOWN_LOGICAL_PIXELS"):
+        raise ValueError("既存pixelStandardの1 logical px = 1 world pxが必要です。")
+    image = _map_png(data)
+    physical = list(image.size)
+    # Canonical definitions use townAssetFilePx; Cleaner deliveries use fileCanvasPx.
+    declared = f.get("townAssetFilePx", f.get("fileCanvasPx"))
+    if _map_dimensions(declared, "fileCanvasPx / townAssetFilePx") != physical:
+        raise ValueError("PNG実寸法とmetadataが一致しません。")
+    ratio = physical[0] // logical[0]
+    if ratio < 1 or physical != [n * ratio for n in logical]:
+        raise ValueError("PNGはlogical canvasと同一整数倍率でなければ登録できません。")
+    for key in (("townAssetPixelRatio",) if "townAssetFilePx" in f else ("exportScale", "filePixelRatio")):
+        if key in f and (type(f[key]) not in (int, float) or f[key] != ratio):
+            raise ValueError(key + "とPNG倍率が一致しません。")
+    if "townAssetFilePx" not in f and "exportScale" not in f:
+        raise ValueError("exportScaleが必要です。")
+    if "physicalFileVerified" in f and f["physicalFileVerified"] is not True:
+        raise ValueError("physicalFileVerifiedが未確認です。Cleanerで再確認してください。")
+    # Select one pixel per cell, then compare *all* RGBA bytes. No guessed resize.
+    nearest = getattr(Image, "Resampling", Image).NEAREST
+    canonical = image.resize(tuple(logical), nearest)
+    if canonical.resize(image.size, nearest).tobytes() != image.tobytes():
+        raise ValueError("整数ブロックが不均一です。lossless縮約できません。")
+    result = data
+    if ratio != 1:
+        output = io.BytesIO()
+        canonical.save(output, format="PNG")
+        result = output.getvalue()
+        f["sourceDeliveryFilePx"] = physical
+        f["sourceDeliveryPixelRatio"] = ratio
+        f["sourceDeliveryVerified"] = True
+        f["importNormalization"] = {"applied": True, "type": "LOSSLESS_INTEGER_DEVICE_SCALE_COLLAPSE",
+                                    "fromPixelRatio": ratio, "toPixelRatio": 1}
+    f["townAssetFilePx"] = logical[:]
+    f["townAssetPixelRatio"] = 1
+    return result, physical, logical
+
+
+def make_map_object_definition(png_data, object_id, label, category, object_type, target):
+    """Explicit PNG-only UI action; never reinterpret a malformed object.json."""
+    logical = MAP_OBJECT_TARGETS.get(target)
+    if logical is None:
+        raise ValueError("既存TARGETを選択してください。")
+    physical = list(_map_png(png_data).size)
+    return {
+        "id": object_id, "category": category, "type": object_type,
+        "editor": {"catalogKey": object_id, "label": label, "addable": True, "order": 1000,
+                   "inferFromObjectId": True, "defaults": {"w": logical[0] / 16, "h": logical[1] / 16,
+                   "collision": {"enabled": False, "x": 0, "y": 0, "w": 1, "h": 1}}},
+        "finalization": {"target": target, "logicalCanvasPx": logical[:], "fileCanvasPx": physical,
+                         "exportScale": physical[0] / logical[0], "pixelSafe": False, "status": "final",
+                         "exportContract": "yumaniwa-logical-canvas-physical-file/0.1",
+                         "townCanvas": {"enabled": True, "editable": True, "exactFinal": True},
+                         "pixelStandard": {"version": "yumaniwa-pixel/0.1", "worldPxPerLogicalPx": 1,
+                                           "editingSpace": "TOWN_LOGICAL_PIXELS"}}
+    }
+
+
+def _map_cleaner_definition(metadata):
+    """Existing yumaniwa-world-object/0.1 -> existing registry entry fields.
+
+    The unchanged sidecar is provenance only. Runtime still reads canonical src
+    and finalization; placementSnapshot is never a scene edit instruction.
+    """
+    if metadata.get("schema") != "yumaniwa-world-object/0.1" or not isinstance(metadata.get("object"), dict):
+        raise ValueError("Cleanerのyumaniwa-world-object/0.1定義が必要です。")
+    f, ps = metadata.get("finalization"), metadata.get("pixelStandard")
+    if not isinstance(f, dict) or not isinstance(ps, dict) or not isinstance(f.get("output"), dict):
+        raise ValueError("Cleaner finalization / output / pixelStandardが必要です。")
+    output = f["output"]
+    def dimensions(value):
+        if not isinstance(value, dict):
+            raise ValueError("Cleanerのwidth/heightが必要です。")
+        values = [value.get("width"), value.get("height")]
+        if any(type(n) not in (int, float) or not math.isfinite(n) or n != int(n) or n <= 0 for n in values):
+            raise ValueError("Cleanerのwidth/heightは正の整数が必要です。")
+        return _map_dimensions([int(n) for n in values], "Cleaner寸法")
+    logical, physical = dimensions(output.get("logicalCanvasPx")), dimensions(output.get("fileCanvasPx"))
+    for value in (f.get("canvas"), f.get("townCanvas"), ps.get("logicalCanvasPx")):
+        if dimensions(value) != logical:
+            raise ValueError("Cleaner logical寸法metadataが不整合です。")
+    if dimensions(ps.get("fileCanvasPx")) != physical:
+        raise ValueError("Cleaner physical寸法metadataが不整合です。")
+    target = f.get("target")
+    if not isinstance(target, dict) or dimensions(target) != logical:
+        raise ValueError("Cleaner target寸法が不整合です。")
+    profile = target.get("id")
+    if (ps.get("targetId") != profile or ps.get("targetProfile") != profile
+            or not isinstance(metadata.get("target"), dict) or metadata["target"].get("profile") != profile):
+        raise ValueError("Cleaner target profileが不整合です。")
+    if any(output.get(k) is not True for k in ("physicalFileInspected", "physicalFileVerified", "integerUniformScale")) or output.get("physicalFileStatus") != "PASS":
+        raise ValueError("Cleaner physical file検証がPASSではありません。")
+    ratio = physical[0] / logical[0]
+    for value in (output.get("filePixelRatio"), output.get("filePixelRatioX"), output.get("filePixelRatioY"), ps.get("filePixelRatio")):
+        if type(value) not in (int, float) or value != ratio:
+            raise ValueError("Cleaner filePixelRatioが不整合です。")
+    if ps.get("exportContract") != output.get("exportContract") or ps.get("pixelSafe") != f.get("pixelSafe"):
+        raise ValueError("Cleaner exportContract / pixelSafeが不整合です。")
+    if f.get("pixelSafe") is True and (ps.get("logicalRasterized") is not True or ps.get("logicalRasterMethod") != "EXPLICIT_LOGICAL_NEAREST"):
+        raise ValueError("Cleaner pixelSafeの論理検証が不足しています。")
+    # Deep copy so intake cannot rewrite input metadata or a placement snapshot.
+    obj = json.loads(json.dumps(metadata["object"]))
+    obj["cleanerMetadata"] = metadata
+    if "placementSnapshot" in metadata:
+        obj["placementSnapshot"] = metadata["placementSnapshot"]
+    obj["finalization"] = json.loads(json.dumps(f))
+    obj["finalization"].update(target=profile, logicalCanvasPx=logical, fileCanvasPx=physical,
+                               exportScale=ratio, filePixelRatio=ratio, exportContract=output["exportContract"],
+                               physicalFileVerified=output["physicalFileVerified"], pixelStandard=json.loads(json.dumps(ps)))
+    if "editor" in metadata:
+        obj["editor"] = metadata["editor"]
+    return obj
+
+
+def plan_map_object_registration(root, png_data, object_text, label=None, object_id=None):
+    """Read-only, one object; input JSON is data, never JS. No scene writes."""
+    require_staging_project(root)
+    obj = _map_json(object_text)
+    if "schema" in obj or "object" in obj:
+        obj = _map_cleaner_definition(obj)
+    if object_id is not None:
+        obj["id"] = object_id
+    object_id = _map_identifier(obj.get("id"), "objectId (id)")
+    _map_identifier(obj.get("type"), "type")
+    folder = MAP_OBJECT_FOLDERS.get(obj.get("category"))
+    if not folder:
+        raise ValueError("既存categoryを指定してください。")
+    src = obj.get("src", folder + "/" + object_id + ".png")
+    target = _map_repo_path(root, src)
+    if os.path.dirname(src) != folder or not re.fullmatch(r"[a-z0-9][a-z0-9_-]*\.png", os.path.basename(src)):
+        raise ValueError("srcはcategoryの保存先にあるPNG名にしてください: " + folder)
+    if not os.path.isdir(os.path.dirname(target)):
+        raise ValueError("既存の素材フォルダがありません: " + folder)
+    if os.path.lexists(target):
+        raise ValueError("保存先が既に存在します: " + src)
+    obj["src"] = src
+    png, physical, logical = _map_final_png(png_data, obj.get("finalization"))
+    if "editor" not in obj:
+        # Missing placement UI metadata is supplied explicitly at intake.
+        template = make_map_object_definition(png_data, object_id, label if label is not None else obj.get("label"), obj["category"], obj["type"], obj["finalization"]["target"])
+        obj["editor"] = template["editor"]
+    editor = obj["editor"]
+    if not isinstance(editor, dict):
+        raise ValueError("editor metadataが不正です。")
+    key = editor.get("catalogKey")
+    if (not isinstance(key, str) or not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]{1,79}", key)
+            or key in ("constructor", "prototype", "worldObjectShop", "worldObjectExhibit", "worldObjectFacility")):
+        raise ValueError("editor.catalogKeyが不正です。")
+    if not isinstance(editor.get("label"), str) or not editor["label"].strip() or len(editor["label"]) > 100 or re.search(r"[<>&\x00-\x1f]", editor["label"]):
+        raise ValueError("Editorの表示名を入力してください。")
+    if (editor.get("addable") is not True or type(editor.get("inferFromObjectId")) is not bool
+            or type(editor.get("order")) not in (int, float) or not math.isfinite(editor["order"])):
+        raise ValueError("editorのaddable / inferFromObjectId / orderが不正です。")
+    if "idStem" in editor:
+        _map_identifier(editor["idStem"], "editor.idStem")
+    defaults = editor.get("defaults")
+    if not isinstance(defaults, dict) or set(defaults) != {"w", "h", "collision"}:
+        raise ValueError("editor.defaultsはw / h / collisionのみを指定してください。")
+    if any(type(defaults.get(k)) not in (int, float) or defaults[k] != logical[i] / 16
+           for i, k in enumerate(("w", "h"))):
+        raise ValueError("Editor初期サイズはlogicalCanvasPx / TILE_SIZE(16)が必要です。")
+    if not isinstance(defaults["collision"], dict) or type(defaults["collision"].get("enabled")) is not bool:
+        raise ValueError("collision.enabledの明示値が必要です。")
+    sample = {"mapWidth": 64, "mapHeight": 64, "props": [dict(defaults, id="intake", objectId=object_id, x=0, y=0)],
+              "triggers": [], "areaZones": [], "passableRects": [], "blockedRects": [], "blockedPoints": []}
+    validation = validate_scene_data(sample, {object_id: obj})
+    if not validation["ok"]:
+        raise ValueError("配置metadata: " + "; ".join(validation["errors"]))
+    texts = {rel: safe_read(_map_repo_path(root, rel)) for rel in
+             ("data/world-objects.js", "index.html", "data/station-plaza.js", REPOSITORY_IDENTITY_PATH)}
+    if not re.search(r"\bvar\s+TILE_SIZE\s*=\s*16\s*;", texts["data/station-plaza.js"]):
+        raise ValueError("町のTILE_SIZE契約が変わっています。登録を停止します。")
+    current = texts["data/world-objects.js"]
+    objects = _read_var_object_value(current, "objects")
+    if object_id in objects:
+        raise ValueError("objectIdが既に存在します: " + object_id)
+    if any(o.get("editor", {}).get("catalogKey") == key for o in objects.values()):
+        raise ValueError("catalogKeyが既に存在します: " + key)
+    if any(o.get("src", "").split("?")[0].split("#")[0] == src for o in objects.values()):
+        raise ValueError("保存先が台帳で使用済みです: " + src)
+    opening = re.search(r"\bvar\s+objects\s*=\s*(\{)", current).start(1)
+    insertion = "\n        " + json.dumps(object_id) + ": " + json.dumps(obj, ensure_ascii=True, indent=4).replace("\n", "\n        ") + ","
+    updated = current[:opening + 1] + insertion + current[opening + 1:]
+    candidate = _read_var_object_value(updated, "objects")
+    if candidate.pop(object_id) != obj or candidate != objects:
+        raise ValueError("台帳の追加内容を確認できません。")
+    # Use the existing cache fingerprint algorithm without broadening legacy checks.
+    index = _replace_script_cache_revision(texts["index.html"], "./data/world-objects.js", _cache_revision_for_text(updated))
+    files = [{"target_rel": rel, "current_hash": _sha256_text(texts[rel]), "new_hash": _sha256_text(value),
+              "new_text": value, "changed": value != texts[rel]}
+             for rel, value in (("data/world-objects.js", updated), ("index.html", index))]
+    session = safe_session_info(root)
+    return {"root": os.path.realpath(root), "branch": session.get("branch"), "revision": session.get("revision"),
+            "object": obj, "png": png, "input_png": png_data, "input_json": object_text, "label": label, "object_id": object_id,
+            "physical": physical, "logical": logical, "target_rel": src, "file_plans": files,
+            "validation_inputs": {rel: _sha256_text(value) for rel, value in texts.items()}}
+
+
+def apply_map_object_registration(root, plan, confirmed=False):
+    if confirmed is not True:
+        return False
+    require_safe_write_session(root)
+    session = safe_session_info(root)
+    if (plan.get("root") != os.path.realpath(root) or plan.get("branch") != session.get("branch")
+            or plan.get("revision") != session.get("revision")):
+        raise ValueError("計画後にrepository / branch / revisionが変わりました。")
+    for rel, expected in plan["validation_inputs"].items():
+        if _sha256_text(safe_read(_map_repo_path(root, rel))) != expected:
+            raise ValueError("計画後にファイルが更新されています: " + rel)
+    fresh = plan_map_object_registration(root, plan["input_png"], plan["input_json"], plan["label"], plan["object_id"])
+    if fresh != plan:
+        raise ValueError("確認した登録計画が変更されています。もう一度読み込んでください。")
+    tx = None
+    # finish_transaction can fail after recording state; restore previous Undo too.
+    state_paths = (last_transaction_path(root), SETTINGS_PATH)
+    state = {}
+    for path in state_paths:
+        if os.path.isfile(path):
+            with open(path, "rb") as stream:
+                state[path] = stream.read()
+        else:
+            state[path] = None
+    try:
+        tx = create_transaction(root, "register-map-" + plan["object"]["id"],
+                                [p["target_rel"] for p in plan["file_plans"]])
+        dest = _map_repo_path(root, plan["target_rel"])
+        # Exclusive creation: a late collision must never be overwritten or removed.
+        with open(dest, "xb") as stream:
+            tx["created_files"] = [plan["target_rel"]]
+            stream.write(plan["png"])
+        for item in plan["file_plans"]:
+            atomic_write(_map_repo_path(root, item["target_rel"]), item["new_text"])
+        with open(dest, "rb") as stream:
+            if stream.read() != plan["png"]:
+                raise ValueError("PNGの書込み検証に失敗しました。")
+        for item in plan["file_plans"]:
+            if _sha256_text(safe_read(_map_repo_path(root, item["target_rel"]))) != item["new_hash"]:
+                raise ValueError("台帳/cacheの書込み検証に失敗しました。")
+        finish_transaction(root, tx)
+    except Exception as exc:
+        failures = restore_transaction_files(root, tx)
+        if tx:
+            for path, original in state.items():
+                try:
+                    if original is None:
+                        if os.path.exists(path):
+                            os.remove(path)
+                    else:
+                        with open(path, "wb") as stream:
+                            stream.write(original)
+                except Exception as error:
+                    failures.append(path + ": " + str(error))
+        if failures:
+            raise RuntimeError(str(exc) + "\nrollback失敗:\n" + "\n".join(failures))
+        raise
+    return True
+
+
 def ensure_marker(path, marker):
     text = safe_read(path)
     if text.count(marker) != 1:
@@ -2927,6 +3293,13 @@ def restore_transaction_files(root, tx):
         except Exception as exc:
             failures.append(rel + ": " + str(exc))
 
+    for rel in tx.get("created_files", []):
+        try:
+            target = _map_repo_path(root, rel)
+            if os.path.isfile(target):
+                os.remove(target)
+        except Exception as exc:
+            failures.append(rel + ": " + str(exc))
     return failures
 
 
@@ -2957,6 +3330,11 @@ def undo_last_transaction(root):
             shutil.copy2(source, target)
         except Exception:
             shutil.copyfile(source, target)
+
+    for rel in tx.get("created_files", []):
+        target = _map_repo_path(root, rel)
+        if os.path.isfile(target):
+            os.remove(target)
 
     # テンプレートから作っただけの新規フォルダだけを削除する。
     for rel in tx.get("created_paths", []):
@@ -4302,6 +4680,7 @@ class YumaniwaDesk(ui.View):
         self._last_layout_width = 0
         self._initial_page_built = False
         self.pending_town_import = None
+        self.pending_map_object = None
 
         self.header = ui.View()
         self.header.background_color = COLORS["panel"]
@@ -5115,6 +5494,114 @@ class YumaniwaDesk(ui.View):
     # -----------------------------------------------------------------
     # 町 / 開発モード取り込み
     # -----------------------------------------------------------------
+    def build_map_object_intake(self, b):
+        b.section("完成素材を新規登録")
+        b.add(make_label("完成PNGとobject.jsonを選び、町の素材台帳へ1件追加します。登録だけでは町に配置しません。Recipe JSON・素材庫ZIPは対象外です。", 14, COLORS["text"], lines=0), 70)
+        b.button("完成PNG＋object.jsonを選ぶ", "blue", self.inspect_map_object_files)
+        b.button("PNGだけの場合：定義を入力する", "panel_alt", self.inspect_map_object_png)
+        plan = self.pending_map_object
+        if not plan:
+            return
+        preview = ui.ImageView()
+        preview.background_color = COLORS["panel_alt"]
+        preview.content_mode = ui.CONTENT_SCALE_ASPECT_FIT
+        preview.image = ui.Image.from_data(plan["png"])
+        b.add(preview, 180)
+        obj = plan["object"]
+        summary = "対象: {0}\nbranch: {1}\nobjectId: {2}\n表示名: {3}\n入力PNG: {4} px / logical・保存PNG: {5} px\n保存先: {6}\n変更: PNG新規追加 / data/world-objects.js / index.htmlのcache\n配置は別操作。再読込後にEditorで追加してください。".format(
+            plan["root"], plan["branch"], obj["id"], obj["editor"]["label"], plan["physical"], plan["logical"], plan["target_rel"])
+        details = make_text_view(summary + "\n\n登録する定義（placementSnapshotは来歴として保持）:\n" + json.dumps(obj, ensure_ascii=False, indent=2))
+        details.editable = False
+        b.add(details, 300)
+        b.button("この素材を新規登録する", "accent", self.apply_map_object_intake)
+        b.button("登録候補をキャンセル", "panel_alt", self.clear_map_object_intake)
+
+    def inspect_map_object_files(self, sender):
+        if not self.require_project():
+            return
+        self.pending_map_object = None
+        try:
+            png_path = dialogs.pick_document(types=["public.png"])
+            if not png_path:
+                return
+            object_path = dialogs.pick_document(types=["public.json"])
+            if not object_path:
+                return
+            with open(png_path, "rb") as stream:
+                png = stream.read(16 * 1024 * 1024 + 1)
+            with open(object_path, "r", encoding="utf-8-sig") as stream:
+                text = stream.read(1024 * 1024 + 1)
+            obj = _map_json(text)
+            label, object_id = None, None
+            if obj.get("schema") == "yumaniwa-world-object/0.1":
+                definition = _map_cleaner_definition(obj)
+                result = dialogs.form_dialog("町に採用する新規IDと表示名", fields=[
+                    {"type": "text", "key": "id", "title": "objectId", "value": definition.get("id", "")},
+                    {"type": "text", "key": "label", "title": "表示名", "value": definition.get("label", "")}])
+                if result is None:
+                    return
+                object_id, label = result["id"], result["label"]
+            elif "editor" not in obj:
+                result = dialogs.form_dialog("Editor用の表示名", fields=[
+                    {"type": "text", "key": "label", "title": "表示名", "value": obj.get("label", "")}])
+                if result is None:
+                    return
+                label = result["label"]
+            self.pending_map_object = plan_map_object_registration(self.project_root, png, text, label, object_id)
+        except Exception as exc:
+            alert("登録候補を読み取れません", str(exc))
+        finally:
+            self.show_tab(4)
+
+    def inspect_map_object_png(self, sender):
+        if not self.require_project():
+            return
+        self.pending_map_object = None
+        try:
+            png_path = dialogs.pick_document(types=["public.png"])
+            if not png_path:
+                return
+            with open(png_path, "rb") as stream:
+                png = stream.read(16 * 1024 * 1024 + 1)
+            dimensions = list(_map_png(png).size)
+            category = dialogs.list_dialog("既存categoryを選択", sorted(MAP_OBJECT_FOLDERS))
+            if category is None:
+                return
+            target = dialogs.list_dialog("町でのlogical canvasを選択（入力PNG {0}px）".format(dimensions), sorted(MAP_OBJECT_TARGETS))
+            if target is None:
+                return
+            fields = [{"type": "text", "key": key, "title": title, "value": ""} for key, title in
+                      (("id", "安定objectId（英小文字・数字・_）"), ("label", "表示名"), ("type", "type（英小文字・数字・_）"))]
+            result = dialogs.form_dialog("完成素材の定義（collision初期値は無効）", fields=fields)
+            if result is None:
+                return
+            obj = make_map_object_definition(png, result["id"], result["label"], category, result["type"], target)
+            self.pending_map_object = plan_map_object_registration(self.project_root, png, json.dumps(obj))
+        except Exception as exc:
+            alert("登録候補を作れません", str(exc))
+        finally:
+            self.show_tab(4)
+
+    def clear_map_object_intake(self, sender):
+        self.pending_map_object = None
+        self.show_tab(4)
+
+    def apply_map_object_intake(self, sender):
+        plan = self.pending_map_object
+        if not plan or not self.require_project():
+            return
+        if not confirm("完成素材を新規登録", "{0}\n{1}\n\n台帳とcacheを更新し、PNGを新規保存します。町への配置は変更しません。".format(
+                plan["object"]["id"], plan["target_rel"]), "登録する"):
+            return
+        try:
+            apply_map_object_registration(self.project_root, plan, confirmed=True)
+        except Exception as exc:
+            alert("素材登録に失敗しました", str(exc))
+            return
+        self.pending_map_object = None
+        hud("素材を登録しました。作業コピーの町を再読込してください。", "success")
+        self.show_tab(4)
+
     def build_town(self, b):
         b.title("町の編集を取り込む", "Webの開発モードで触った差分だけを読み取り、必要な正本ファイルへ安全に反映します。")
         info = safe_session_info(self.project_root)
@@ -5123,6 +5610,7 @@ class YumaniwaDesk(ui.View):
             b.label("町へ反映する前に、Working CopyでPullと同期状態を確認してください。", lines=0, color=COLORS["red"], size=14, gap=8)
             b.button("Working CopyのStatusを開く", "blue", self.open_working_copy_status)
             b.button("Pull・同期状態を確認済み", "panel_alt", self.confirm_working_copy_sync)
+        self.build_map_object_intake(b)
         b.section("使い方")
         b.label("1. 作業前にWorking CopyでPull\n2. 湯間庭町を ?dev=1 で開く\n3. 開発モードで編集\n4. [書き出す]→コードをコピー\n5. この画面でクリップボードを確認\n6. 内容を確認して反映\n7. Working Copyで差分確認→Commit→Push", lines=0, color=COLORS["text"], size=14, gap=14)
         b.button("クリップボードの書き出しを確認", "blue", self.inspect_town_clipboard)
