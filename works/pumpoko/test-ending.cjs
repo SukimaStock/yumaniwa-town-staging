@@ -99,22 +99,60 @@ test('growth presentation is spatially left-to-right and camera stays close whil
   }
 });
 const endingTo=(s,time,fps=60)=>{while(s.ending.elapsed<time-1e-7)J.update(s,1/fps);};
-test('nine gaze moves follow individual fruit events, pause between them, and keep each swelling fruit visible',()=>{
+function drawnFruitGrowth(s,arrival) {
+  const {c,calls}=context();Draw.drawPlants(c,s);
+  const visible=J.plants(s).sort((a,b)=>a.arrival.rootY-b.arrival.rootY||a.arrival.id-b.arrival.id).filter(p=>p.age>1.4);
+  const scales=calls.flatMap((a,i)=>a[0]==='ellipse'&&a[3]===16&&a[4]===3 ? [calls.slice(0,i).findLast(a=>a[0]==='scale')[1]] : []);
+  assert.equal(scales.length,visible.length,'observe each actual drawn fruit scale');
+  const index=visible.findIndex(p=>p.arrival===arrival);
+  return index<0 ? 0 : scales[index]/J.plantPose(s,arrival).size;
+}
+test('dense fruit gaze starts after visible growth, arrives in .26s, and pauses for .08s',()=>{
+  const s=fixture(9);advance(s,1);
+  const order=J.growthOrder(s),poses=order.map(a=>J.plantPose(s,a));
+  // Sample exact presentation boundaries through the public update. This is
+  // separate from the real 30/60/120fps frame sampling checked below.
+  const at=time=>{s.ending.elapsed=time;J.update(s,0);};
+  for(let i=1;i<9;i++) {
+    const onset=J.ENDING.growAt+i*J.ENDING.stagger+1.4,start=onset+.45,end=start+.26;
+    assert.ok(poses[i].x-poses[i-1].x<=180*.26,'fixture uses the unchanged dense-row duration');
+    at(onset+.40);assert.ok(Math.abs(s.camera.x-poses[i-1].x)<1e-8,'keep previous fruit through onset + .40s');
+    at(start);assert.ok(Math.abs(s.camera.x-poses[i-1].x)<1e-8,'no anticipation before .45s delay');
+    assert.ok(Math.abs(drawnFruitGrowth(s,order[i])-.4605627642513486)<1e-9,'actual target fruit is about 46% grown at follow start');
+    if(i<8)assert.ok(drawnFruitGrowth(s,order[i+1])>0&&drawnFruitGrowth(s,order[i+1])<.04,'next fruit is still visually negligible at follow start');
+    at(start+.01);assert.ok(s.camera.x>poses[i-1].x&&s.camera.x<poses[i].x,'gaze begins softly after visible growth');
+    at(end);assert.ok(Math.abs(s.camera.x-poses[i].x)<1e-8,'arrive after .26s');
+    assert.ok(Math.abs(drawnFruitGrowth(s,order[i])-.840779122321038)<1e-9,'target fruit is about 84% grown on arrival');
+    for(const time of [end+.04,start+J.ENDING.stagger]) {
+      at(time);assert.ok(Math.abs(s.camera.x-poses[i].x)<1e-8,'hold through the full .08s pause');
+    }
+  }
+});
+test('delayed nine-fruit gaze has the same schedule at 30/60/120fps and keeps swelling fruit visible',()=>{
+  const runs=[];
   for(const fps of [30,60,120]) {
     const s=fixture(9);advance(s,1,fps);
     const order=J.growthOrder(s),poses=order.map(a=>J.plantPose(s,a));
     endingTo(s,J.ENDING.growAt+1.4,fps);
-    assert.equal(s.camera.x,poses[0].x,'hold first fruit until the next fruit swells, rather than pan across sprouts');
-    for(let i=1;i<9;i++) {
-      const at=J.ENDING.growAt+i*J.ENDING.stagger+1.4;
-      endingTo(s,at,fps);
-      assert.ok(Math.abs(s.camera.x-poses[i-1].x)<1e-8,'previous fruit remains the gaze anchor at next fruit onset');
-      const before=s.camera.x;
-      endingTo(s,at+.20,fps);
-      assert.ok(s.camera.x>before&&s.camera.x<poses[i].x,'gaze turns softly after each growth event without snapping');
-      endingTo(s,at+J.ENDING.stagger,fps);
-      assert.ok(Math.abs(s.camera.x-poses[i].x)<1e-7,'each dense-row move arrives before the next gaze event');
+    assert.equal(s.camera.x,poses[0].x,'first fruit remains held after the unchanged pull-in');
+    const starts=[],ends=[],samples=new Map();
+    while(s.ending.elapsed<7) {
+      J.update(s,1/fps);const time=s.ending.elapsed;
+      // Common 1/30s samples must agree exactly across render frame rates.
+      if(Math.abs(time*30-Math.round(time*30))<1e-7)samples.set(Math.round(time*30),s.camera.x);
+      for(let i=1;i<9;i++) {
+        const onset=J.ENDING.growAt+i*J.ENDING.stagger+1.4,start=onset+.45,end=start+.26;
+        if(time>=onset+.40&&time<=start+1e-8)assert.ok(Math.abs(s.camera.x-poses[i-1].x)<1e-8,'hold until the fruit is visibly grown');
+        if(starts[i]===undefined&&s.camera.x>poses[i-1].x+1e-8) {
+          starts[i]=time;assert.ok(time>start&&time<=start+1/fps+1e-8,'first moving frame follows .45s boundary within one render frame');
+        }
+        if(ends[i]===undefined&&s.camera.x>=poses[i].x-1e-8) {
+          ends[i]=time;assert.ok(time>=end-1e-8&&time<=end+1/fps+1e-8,'arrival follows .26s easing within one render frame');
+        }
+        if(time>=end-1e-8&&time<=start+J.ENDING.stagger+1e-8)assert.ok(Math.abs(s.camera.x-poses[i].x)<1e-8,'dense-row pause retains its target');
+      }
     }
+    assert.equal(starts.filter(t=>t!==undefined).length,8);assert.equal(ends.filter(t=>t!==undefined).length,8);runs.push(samples);
     const view=fixture(9);advance(view,1,fps);
     while(view.ending.elapsed<7) {
       J.update(view,1/fps);
@@ -124,6 +162,7 @@ test('nine gaze moves follow individual fruit events, pause between them, and ke
       }
     }
   }
+  for(const samples of runs.slice(1))for(const [frame,x] of runs[0])assert.ok(Math.abs(samples.get(frame)-x)<1e-7,'absolute-time gaze agrees at every common frame');
 });
 test('one arrival holds its own X after pull-in without any growth pan',()=>{
   const s=fixture(1);advance(s,1.5);const x=s.camera.x;
@@ -150,6 +189,11 @@ test('last plant holds through growth completion and at least one second of rest
     const s=fixture(n);s.titleCycle=true;advance(s,1);
     endingTo(s,J.ENDING.growAt+(n-1)*J.ENDING.stagger+J.ENDING.growthDuration+.1);
     assert.ok(s.ending.growthComplete);assert.equal(J.returnZoom(s),0);
+    // Sparse rows retain their distance-based duration. With the later gaze,
+    // the last move may finish just after growthComplete; then it must settle.
+    const poses=J.growthOrder(s).map(a=>J.plantPose(s,a));
+    const duration=n>1?Math.max(.26,Math.min(.7,(poses.at(-1).x-poses.at(-2).x)/180)):0;
+    endingTo(s,J.ENDING.growAt+(n-1)*J.ENDING.stagger+1.4+.45+duration);
     const last=J.plantPose(s,J.growthOrder(s).at(-1)),old={...s.camera};assert.equal(old.x,last.x);
     advance(s,1);assert.deepEqual(s.camera,old,'quiet final pause');assert.equal(J.returnZoom(s),0);
     endingTo(s,J.ENDING.zoomAt-.05);assert.deepEqual(s.camera,old,'hold final plant until the original title return begins');

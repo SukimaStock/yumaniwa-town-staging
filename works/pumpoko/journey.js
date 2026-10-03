@@ -305,13 +305,13 @@
         const order=growthOrder(s),poses=order.map(a=>plantPose(s,a));
         const pull=smooth(s.ending.elapsed/ENDING.pullIn);
         // drawPlants starts fruit swelling at age 1.4 (after shoot/leaves).
-        // Let each fruit appear, then turn the gaze .08s later. Ease to its
+        // Let each fruit become visible, then turn the gaze .45s later. Ease to its
         // own pose over .26s, leaving a small pause before the next event.
         // Wider gaps take up to .7s; overlapping gaze moves add smoothly,
         // so sparse arrivals never require a sudden sideways sweep.
         // Absolute plant age keeps this soft follow identical at any fps;
         // the first/last pose holds without extra state, drift or overshoot.
-        const fruitTime=s.ending.elapsed-ENDING.growAt-1.4-.08;
+        const fruitTime=s.ending.elapsed-ENDING.growAt-1.4-.45;
         let followX=poses[0].x;
         for(let i=1;i<poses.length;i++) {
           const distance=poses[i].x-poses[i-1].x;
