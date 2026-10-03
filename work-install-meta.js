@@ -19,6 +19,8 @@
         "coffee-factory": true
     };
 
+    var installRevision = workId === "steamclock" ? "?v=20261003-steamclock-icon" : "";
+
     function addLink(rel, href) {
         var link = document.createElement("link");
         link.rel = rel;
@@ -29,7 +31,7 @@
     if (!iconlessWorkIds[workId]) {
         addLink(
             "apple-touch-icon",
-            "./assets/works/" + workId + "/icon.png"
+            "./assets/works/" + workId + "/icon.png" + installRevision
         );
     }
 
