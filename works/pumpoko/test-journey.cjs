@@ -1,7 +1,7 @@
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs'), vm = require('node:vm'), path = require('node:path');
-const D = require('./dynamics.js'), J = require('./journey.js');
+const D = require('./dynamics.js'), J = require('./journey.js'), G = require('./stage-geometry.js');
 let passed = 0;
 function test(name, run) { run(); passed++; console.log('PASS', name); }
 function advance(s, seconds, fps = 60) { for (let i = 0; i < Math.round(seconds * fps); i++) J.update(s, 1 / fps); }
@@ -165,25 +165,91 @@ test('a dispersed camera retains real grains instead of centring the empty extre
   assert.ok(visible.length>=6,`camera lost the party: ${visible.length}`);
   assert.ok(s.camera.z>=1.15);
 });
-test('camera looks ahead only when the travelling party carries rightward speed', () => {
-  const s=J.create(D.create());
-  s.transition=null;
-  s.seeds.forEach((p,i)=>{p.x=700+i*4;p.y=J.floor(p.x).y-10;p.vx=0;p.vy=0;});
-  for(let i=0;i<90;i++)J.update(s,1/60);
-  const restingMedian=s.seeds.map(p=>p.x).sort((a,b)=>a-b)[4];
-  const restingOffset=s.camera.x-restingMedian;
-  s.seeds.forEach(p=>{p.vx=105;});
-  for(let i=0;i<45;i++)J.update(s,1/60);
-  const movingMedian=s.seeds.map(p=>p.x).sort((a,b)=>a-b)[4];
-  assert.ok(s.camera.x-movingMedian>restingOffset+20,`camera did not reveal route ahead: ${s.camera.x-movingMedian}`);
-  assert.ok(s.cameraLead>20&&s.cameraLead<=82);
+function cameraMedian(s,key='x') {
+  const values=J.travelling(s).map(p=>p[key]).sort((a,b)=>a-b);
+  return values[Math.floor(values.length/2)];
+}
+function cameraFixture() {
+  // The old "rest" fixture overlapped grains on a slope, then assigned vx
+  // only once. Use flat, non-overlapping ground and keep real physics running.
+  const g=G.compile({version:1,start:{x:180,y:250},end:{left:2800,right:3000},
+    surfaces:[{id:'camera-flat',material:'flesh',points:[{id:'flat-left',x:-50,y:350},{id:'flat-right',x:3300,y:350}]}],materials:[],features:[]});
+  const s=J.create(D.create(),false,g);
+  s.seeds.forEach((p,i)=>Object.assign(p,{x:500+i*24,y:350-5.5,vx:0,vy:0,angle:0,spin:0}));
+  s.camera.x=cameraMedian(s);
+  return s;
+}
+function cameraRun(s,seconds,fps,observe=()=>{}) {
+  for(let i=0;i<Math.round(seconds*fps);i++) {
+    J.update(s,1/fps);
+    assert.equal(J.travelling(s).length,9,'fixture must remain travelling, without arrival/loss');
+    assert.ok(Number.isFinite(s.camera.x+s.camera.y+s.camera.z+s.cameraLead));
+    assert.ok(s.cameraLead>=0&&s.cameraLead<=82,'bounded rightward lead at every frame');
+    observe();
+  }
+}
+test('stationary and slow rightward parties have no forward lead', () => {
+  for(const fps of [30,60,120]) {
+    const s=cameraFixture();cameraRun(s,2,fps);
+    assert.equal(cameraMedian(s,'vx'),0,'rest fixture is actually stationary');
+    assert.equal(s.cameraLead,0);assert.equal(s.camera.x,cameraMedian(s));
+    hold(s,.02);cameraRun(s,4,fps);
+    assert.ok(cameraMedian(s,'vx')>0&&cameraMedian(s,'vx')<18,'slow motion remains below activation speed');
+    assert.equal(s.cameraLead,0,'slow motion must not fabricate look-ahead');
+  }
+});
+test('sustained rightward world input reveals more route on the same physical trajectory', () => {
+  const runs=[30,60,120].map(fps=>{
+    const s=cameraFixture();cameraRun(s,2,fps);hold(s,.2);
+    let noLead=s.camera.x;
+    cameraRun(s,4,fps,()=>{
+      // Reference: the pre-look-ahead position-only camera on these exact
+      // physics samples. Do not compare a moving camera with a resting one.
+      noLead+=(cameraMedian(s)-noLead)*(1-Math.exp(-3/fps));
+    });
+    assert.ok(cameraMedian(s,'vx')>18,'rightward speed must still be present at assertion time');
+    assert.ok(s.cameraLead>20&&s.cameraLead<82,'moderate motion supplies a non-saturated lead');
+    assert.ok(s.camera.x-noLead>20,'look-ahead adds visible route over the same-trajectory baseline');
+    assert.ok(s.camera.x-noLead<s.cameraLead,'camera body follows the lead softly rather than snapping');
+    assert.ok(Math.abs(s.cameraLead-(cameraMedian(s,'vx')-18)*.55)<1,'sustained motion approaches its speed-derived lead');
+    return s;
+  });
+  for(const s of runs.slice(1)) {
+    assert.ok(Math.abs(cameraMedian(s)-cameraMedian(runs[0]))<1e-6,'physical trajectory matches across frame rates');
+    assert.ok(Math.abs(s.cameraLead-runs[0].cameraLead)<1,'look-ahead stays stable across frame rates');
+    assert.ok(Math.abs(s.camera.x-runs[0].camera.x)<2,'render smoothing differences remain small');
+  }
+});
+test('fast sustained movement reaches the lead cap without exceeding it', () => {
+  for(const fps of [30,60,120]) {
+    const s=cameraFixture();hold(s,.38);cameraRun(s,4,fps);
+    assert.ok(cameraMedian(s,'vx')>18+82/.55,'fixture actually requests a capped lead');
+    assert.ok(s.cameraLead>81,'camera approaches the existing cap');
+  }
+});
+test('stopping and reversing sustained world input release the forward lead', () => {
+  for(const fps of [30,60,120])for(const reverse of [false,true]) {
+    const s=cameraFixture();hold(s,.2);cameraRun(s,4,fps);const movingLead=s.cameraLead;
+    assert.ok(movingLead>20);
+    if(reverse)hold(s,-.2);else J.release(s);
+    cameraRun(s,4,fps);
+    assert.ok(reverse?cameraMedian(s,'vx')<0:Math.abs(cameraMedian(s,'vx'))<.01,'assertion follows real reversal or stop');
+    assert.ok(s.cameraLead<movingLead*.01,'lead decays after speed no longer requests it');
+    if(!reverse)assert.ok(Math.abs(s.camera.x-cameraMedian(s))<.1,'quiet camera settles back on the party');
+  }
 });
 test('one fast grain cannot steer camera look-ahead for the party', () => {
-  const s=J.create(D.create());
-  s.transition=null;
-  s.seeds.forEach((p,i)=>{p.x=700+i*4;p.y=J.floor(p.x).y-10;p.vx=i===0?260:0;p.vy=0;});
-  for(let i=0;i<20;i++)J.update(s,1/60);
-  assert.ok(s.cameraLead<3,`outlier grain steered look-ahead: ${s.cameraLead}`);
+  for(const fps of [30,60,120]) {
+    const s=cameraFixture();
+    // Keep the fast outlier away from the other grains so collision cannot
+    // turn this into a test of momentum transferred into the whole party.
+    s.seeds[0].x=200;s.seeds[0].vx=260;
+    cameraRun(s,.8,fps,()=>{
+      assert.equal(cameraMedian(s,'vx'),0,'the other eight grains really stay still');
+      assert.equal(s.cameraLead,0,'median speed ignores the one fast grain');
+    });
+    assert.ok(s.seeds[0].vx>18,'outlier stays fast throughout the observation');
+  }
 });
 const maxSpeed=s=>Math.max(...J.party(s).map(p=>Math.hypot(p.vx,p.vy)));
 const median=s=>J.party(s).map(p=>p.x).sort((a,b)=>a-b)[Math.floor(J.party(s).length/2)];

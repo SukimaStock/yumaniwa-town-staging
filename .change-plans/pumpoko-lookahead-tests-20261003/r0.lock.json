@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e2685f3490ec9c106e922b052d8f2de50a1960949a63db44c6c6896dc271fd3d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-lookahead-tests-20261003",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Repair look-ahead camera test fixtures and assertions without changing gameplay",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "469f0749b0b184fcec989e25876c1e14b8a95446",
+    "canonicalSources": [
+      "works/pumpoko/journey.js",
+      "works/pumpoko/test-journey.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-lookahead-tests-20261003/r0.lock.json",
+      "works/pumpoko/test-journey.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/builder/**",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/assets/**",
+      "works/kotsu-koro/**",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/test-ending.cjs"
+    ],
+    "expectedChanges": [
+      "Replace overlapping sloped purportedly resting camera fixture with validated flat, non-overlapping fixture using real physics and actual sustained/released world inputs",
+      "Separate stationary, slow positive, sustained rightward, cap, slowdown/reversal and single-speed-outlier behaviors across 30/60/120fps",
+      "Compare look-ahead effect against same-trajectory no-lead baseline rather than stationary offset; assert fixture velocity preconditions",
+      "Keep original gameplay tests unchanged outside the two camera look-ahead blocks; no runtime exports, physics skips, constants or behavior changes",
+      "Validate exact PR140 plus this test change in a separate disposable copy without modifying either branch"
+    ],
+    "ownerDecisions": [
+      "User authorizes organizing tests after causal analysis; PR140 must remain unchanged and held"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK / Standard; test executable scope under works",
+      "Immutable Plan-first commit, Scope then Risk then Impact"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing PumpkinJourney camera and travelling seed state only"
+    ],
+    "rollback": "Revert test-only commit; no data/state migration",
+    "outOfScope": [
+      "PR140 writes/commits/rebase/merge; ending changes; all gameplay runtime/physics/camera/art/audio/geometry; production; canonical Engine/Codea"
+    ],
+    "promotion": "Separate Draft PR only; no merge/deploy; keep PR140 unchanged and held",
+    "unverified": [
+      "Main-only ending historical assertion failures are already repaired in held PR140; do not repair them in this test-only branch",
+      "No gameplay/art changes, physical iPhone/iPad untouched"
+    ],
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "manualCheckExemptionReason": "Test-only change: verify runtime blobs are identical to main; prior real Chromium Stage1 investigation applies to the unchanged runtime."
+  }
+}
