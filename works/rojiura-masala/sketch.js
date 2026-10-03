@@ -10935,6 +10935,12 @@
     );
   }
 
+  function resultSaveButtonX() {
+    // In town, both old entries open the same image panel. Keep one entry;
+    // standalone Save/download and Share/native sheet remain distinct.
+    return yumaniwaShareBridgeReady ? (W - RESULT_ACTION_W) * 0.5 : RESULT_SAVE_X;
+  }
+
   function drawResultActions(age) {
     if (age <= RESULT_MIN_TAP_TIME) return;
 
@@ -10942,19 +10948,21 @@
     // the brown result panel. The footer surface itself is drawn by the result
     // scene so it remains correct even when controls are hidden for export.
     drawResultActionButton(
-      RESULT_SAVE_X,
+      resultSaveButtonX(),
       RESULT_ACTION_Y,
       RESULT_ACTION_W,
       RESULT_ACTION_H,
       SSE.i18n.t("result.save")
     );
-    drawResultActionButton(
-      RESULT_SHARE_X,
-      RESULT_ACTION_Y,
-      RESULT_ACTION_W,
-      RESULT_ACTION_H,
-      SSE.i18n.t("result.share")
-    );
+    if (!yumaniwaShareBridgeReady) {
+      drawResultActionButton(
+        RESULT_SHARE_X,
+        RESULT_ACTION_Y,
+        RESULT_ACTION_W,
+        RESULT_ACTION_H,
+        SSE.i18n.t("result.share")
+      );
+    }
   }
 
   function resultActionHit(touch, x) {
@@ -11993,12 +12001,12 @@
 
       if (this.age < RESULT_MIN_TAP_TIME) return true;
 
-      if (resultActionHit(touch, RESULT_SAVE_X)) {
+      if (resultActionHit(touch, resultSaveButtonX())) {
         void this.exportImage("save");
         return true;
       }
 
-      if (resultActionHit(touch, RESULT_SHARE_X)) {
+      if (!yumaniwaShareBridgeReady && resultActionHit(touch, RESULT_SHARE_X)) {
         void this.exportImage("share");
         return true;
       }
