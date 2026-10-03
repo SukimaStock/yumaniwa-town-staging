@@ -1,0 +1,143 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "74e1fd423939679573e6f6c1d874755f2bc81a481b561591b45150856a93cab2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "editor-creation-draft-v1-20261003",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent single-scene creation draft ZIP and atomic Desk asset plus placement adoption",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "ASSET",
+      "PLACEMENT"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "28548425897abb5a873f0e4f7ed21a36ed16b76f",
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "tools/EDITOR-SESSION.md",
+      "tools/SCENE-DATA-CONTRACT.md",
+      "YUMANIWA-PIXEL-STANDARD.md",
+      "town-editor-session.js",
+      "town-editor-safe-export.js",
+      "data/station-plaza-props.js",
+      "tools/YumaniwaDesk.py"
+    ],
+    "allowedPaths": [
+      ".change-plans/editor-creation-draft-v1-20261003/r0.lock.json",
+      "main.js",
+      "index.html",
+      "style.css",
+      "town-editor-session.js",
+      "data/station-plaza-props.js",
+      "town-creation-draft.js",
+      "town-creation-draft-ui.js",
+      "tools/YumaniwaDesk.py",
+      "tools/CREATION-DRAFT.md",
+      "tests/test-creation-draft.cjs",
+      "tests/creation-draft-browser.cjs",
+      "tests/test_creation_draft.py",
+      "tests/test-editor-world-object-metadata.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "engine/**",
+      ".github/**",
+      "data/world-objects.js",
+      "data/town-maps.js",
+      "data/station-plaza.js",
+      "tools/change-*",
+      "tools/map-factory/**"
+    ],
+    "expectedChanges": [
+      "Independent draft owner, image and placement keys, separate dirty/Undo; no formal prop or registry insertion",
+      "Shared renderer geometry and foot ordering using local decoded images without telemetry",
+      "Bounded stored ZIP with exact PNG bytes and strict manifest/hash/source checks; full save versus selected adoption share structure",
+      "Validated formal session snapshot/diff roundtrip; restore rejects existing edits, source changes and overwrites",
+      "Desk read-only review then branch/identity/source/Plan-scope checked atomic registration and placements using existing transaction rollback",
+      "No persistent fixture adoption; draft-only operations stay local; no production writes",
+      "Keep canonical scene/ghost hash checks; replace the historical whole-renderer frozen hash assertion with explicit legacy geometry/source/order/pixel behavior regression because renderer integration is authorized"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes the full implementation design and Draft PR stop; adoption choice remains in Desk review"
+    ],
+    "hqDecisions": [
+      "User current request explicitly specifies independent ZIP saving, renderer integration and combined Desk adoption; formal scene schema, objectId-only reference and safety boundaries unchanged"
+    ],
+    "rulesApplied": [
+      "SYSTEM/full/HQ risk floor",
+      "Existing scene validator and integer lossless normalization; unsupported logical size or nonuniform pixels are blocked with original ZIP retained",
+      "One draft owner per page belongs to one scene; scene changes retain it without implicit replacement"
+    ],
+    "problem": "Formal registration precedes placement experiments and loses experimentation on adoption",
+    "currentContract": "Immutable canonical -> session baseline -> formal draft -> view, safe diff; Desk registers one object without placements",
+    "whyExistingIsInsufficient": "No unregistered scene composition or atomic combined registration/placement intake",
+    "design": "Separate temporary local owner and bounded portable manifest; explicit lifecycle hooks only; Full package contains independent validated formal snapshot/baseline/diff; selection export always includes formal changes explicitly; Exact relevant source hashes, dimensions and baseline; unrelated HEAD changes alone do not block; Desk choices confirm identity/target and deterministic placement mapping; minimal adoption provenance prevents duplicates; Desk Plan-first checks immutable r0 lock path scope for all assets/scene/registry/cache; Git-hidden uses existing manual synchronization plus lock declaration",
+    "alternativesRejected": [
+      "Temporary formal registry entries",
+      "Foreground-only overlay renderer",
+      "Canvas rewriting original images",
+      "Registration merge before manual replacement",
+      "Weakened validator or generic transaction framework"
+    ],
+    "migration": "Additive staging feature; old Editor diff and one-object Desk entry remain compatible",
+    "compatibility": "Existing session/Undo/collision/nav and metadata pixel contracts preserved",
+    "boundaryCases": [
+      "same filename distinct bytes",
+      "metadata optional, stale placementSnapshot ignored",
+      "1x/3x uniform PNG and transparent margins",
+      "scene return, cancellations, stale sources, ZIP path/size/count/coordinates",
+      "formal dirty protection and independent draft changes",
+      "ID collision, second adoption, transaction failure"
+    ],
+    "testPlan": [
+      "JS independent state/ZIP/security and real session separation",
+      "Python temp-copy Desk combined adoption/Plan/source/duplicate/rollback",
+      "Chromium file input, PNG comparison/occlusion, formal edits/save/reload/Desk/reload workflow",
+      "Existing Editor session/history/Desk/scene/registration and shared regression tests",
+      "Legacy renderer path behavior in metadata regression; preserve all historical oracle asset/scene values"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "creation-draft-browser-roundtrip",
+      "iphone-ipad-owner-check"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.mobile-desktop",
+      "runtime.rollback",
+      "surface.shared",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert feature commit as a unit; Desk uses existing file backup plus created_files rollback and Undo",
+    "outOfScope": [
+      "production",
+      "Factory/Cleaner modifications",
+      "canonical Engine",
+      "animation/collision/events",
+      "auto-save/cloud/multi-scene library",
+      "generic conflict resolution"
+    ],
+    "promotion": "none; Draft PR only; do not merge/deploy",
+    "promotionRisk": "Staging development feature only",
+    "unverified": [
+      "iPhone/iPad actual device and Pythonista UI remain owner check; no final VERIFIED"
+    ]
+  }
+}
