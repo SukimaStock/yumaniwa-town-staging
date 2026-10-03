@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9fdda92e3eaefb38586f537910cdac6db5cde1170c7cf5bdc0333f5f5878a2f2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "simplify-result-actions-20261003",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Remove duplicate town result export entry from Masala after auditing existing save/share controls",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "118a9565193ea3c9722bb593bd50d6b01184f478",
+    "canonicalSources": [
+      "works/rojiura-masala/sketch.js",
+      "works/rojiura-masala/index.html",
+      "tests/test-result-image-save.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/simplify-result-actions-20261003/r0.lock.json",
+      "works/rojiura-masala/sketch.js",
+      "works/rojiura-masala/index.html",
+      "tests/test-result-image-save.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "style.css",
+      "share-bridge.js",
+      "index.html",
+      "engine/**",
+      "works/midnight-cola/**",
+      "works/junkissa-dive/**",
+      "works/yakitori-wars/**",
+      "works/pumpoko/**",
+      "works/kotsu-koro/**",
+      "works/coffee-factory/**",
+      "data/**",
+      "assets/**",
+      "tools/**",
+      ".github/**",
+      "w/**",
+      "en/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "When existing town bridge is ready, draw one centered Masala Save button and accept only its hit region",
+      "Standalone/non-town Masala keeps the existing two distinct Save and Share actions and their fallbacks",
+      "Cola already has one Record entry and Junkissa one Save Image entry; no changes to those works or common panel",
+      "Preserve result artwork, filenames, wire protocol, event names, ID, URL, save keys and gameplay",
+      "Update Masala sketch cache only"
+    ],
+    "ownerDecisions": [
+      "User confirms PR130 saving works and requests removal of redundant Masala Save/Share entries and review of other works"
+    ],
+    "hqDecisions": [
+      "Reuse existing bridge-ready flag; do not add an environment flag or new save contract",
+      "Collapse only equivalent town entry actions; retain distinct standalone behavior"
+    ],
+    "rulesApplied": [
+      "Production branch -> PR -> Production Safety Checks -> merge",
+      "No whole-repository copy",
+      "Keep public work set exactly the existing nine IDs",
+      "Plan Lock before implementation; Scope -> Risk -> Impact checks"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Town Masala shows one centered Save; tapping opens existing image panel and X returns to result",
+      "Standalone Masala still displays Save and Share",
+      "Existing result replay and export image composition remain correct"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the implementation commit through a new staging PR; production stays unchanged.",
+    "outOfScope": [
+      "Production deployment",
+      "Changing common panel save/share controls or result artwork",
+      "Adding saving to other works",
+      "Coffee factory/PUMPOKO and town migration"
+    ],
+    "promotion": "Create staging Draft PR; merge/promotion follows review and user direction.",
+    "unverified": [
+      "Real browser layout/taps on new candidate",
+      "Physical iPhone/iPad behavior on new candidate"
+    ],
+    "problem": "Town Masala Save and Share now open the same common panel, leaving redundant entries.",
+    "currentContract": "The existing bridge-ready flag identifies available town export; standalone Save downloads and Share invokes native share.",
+    "whyExistingIsInsufficient": "Town exposes two equivalent result buttons after PR130.",
+    "design": "Derive Save placement and Share visibility/hit handling from existing bridge readiness, without changing export routines.",
+    "migration": "Town uses one entry; standalone retains previous UI and behavior.",
+    "compatibility": "Preserve game capture, fallbacks, event names, result replay, translations and published identity.",
+    "alternativesRejected": [
+      "Removing standalone native Share despite its distinct behavior",
+      "Changing common panel or renaming existing work-specific entries"
+    ],
+    "boundaryCases": [
+      "Town bridge ready before result",
+      "Bridge ready arrives while result is visible",
+      "Standalone/no bridge",
+      "Hidden Share region does not export",
+      "Result age and busy gates",
+      "Replay outside Save hit region"
+    ],
+    "testPlan": [
+      "node-syntax",
+      "result-image-save and existing game regressions",
+      "Town single-entry and standalone two-entry draw/tap regression"
+    ],
+    "promotionRisk": "Work-local result controls only. Real layout/tap confirmation on new candidate remains unverified."
+  }
+}
