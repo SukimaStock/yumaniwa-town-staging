@@ -1703,6 +1703,20 @@ body {
     padding-right: 6px;
 }
 
+/* Local creation draft, within the existing Editor inspector. */
+#creation-draft-panel { border-top:1px solid #82745a; margin-top:16px; padding-top:12px; }
+#creation-draft-panel h3 { margin:0 0 10px; font-size:16px; }
+#creation-draft-panel p { font-size:12px; line-height:1.6; white-space:normal; overflow-wrap:anywhere; }
+#creation-draft-panel label { display:block; margin:10px 0; }
+#creation-draft-panel input[type=checkbox] { width:22px; height:22px; vertical-align:middle; }
+.creation-actions { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0; }
+#creation-draft-panel button, #creation-draft-panel select, #creation-download-link { min-height:44px; touch-action:manipulation; }
+#creation-draft-panel button:disabled { opacity:.45; }
+#creation-download-link { display:block; padding:12px; color:#ffc86a; }
+#creation-preview-status { position:fixed; z-index:1500; top:calc(env(safe-area-inset-top) + 8px); left:8px; max-width:75vw; padding:6px 9px; background:#382d20e8; color:#ffc86a; font-size:11px; border-radius:6px; pointer-events:none; }
+#creation-preview-status[hidden], #creation-download[hidden] { display:none; }
+.creation-mode-active .editor-content > :not(#creation-draft-panel):not(.editor-actions):not(#editor-status) { display:none !important; }
+
 /* Wide Editor workspace: 470px town + 284px inspector + 16px gap.
    Keep short landscape viewports on the base overlay layout. */
 @media (min-width: 820px) and (min-height: 600px) {

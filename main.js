@@ -3237,7 +3237,8 @@ function drawTownDevOverlay(cam) {
     }
 
     drawTownDevGridLabels(cam);
-    drawTownPartEditorOverlay();
+    if (window.YUMANIWA_CREATION_DRAFT && window.YUMANIWA_CREATION_DRAFT.activeMode()) window.YUMANIWA_CREATION_DRAFT.overlay();
+    else drawTownPartEditorOverlay();
 
     if (isEditMode) {
         if (editStep === 1 && currentHoverTile) {
@@ -3860,6 +3861,7 @@ function setupCompactTownController() {
 function setupEvents() {
     window.addEventListener('keydown', function(e) {
         if (handleRpgMenuKeyboard(e)) return;
+        if (window.YUMANIWA_CREATION_DRAFT && window.YUMANIWA_CREATION_DRAFT.handleKeyboard(e)) return;
         if (
             isEditMode &&
             editTarget === 'props' &&
@@ -4138,6 +4140,8 @@ function setupEvents() {
                 return;
             }
 
+            if (window.YUMANIWA_CREATION_DRAFT && window.YUMANIWA_CREATION_DRAFT.pointerDown(e)) return;
+
             if (
                 isEditMode &&
                 editTarget === 'props'
@@ -4198,6 +4202,8 @@ function setupEvents() {
         function(e) {
             e.preventDefault();
 
+            if (window.YUMANIWA_CREATION_DRAFT && window.YUMANIWA_CREATION_DRAFT.pointerMove(e)) return;
+
             if (!debugMode && !isEditMode) {
                 return;
             }
@@ -4225,17 +4231,17 @@ function setupEvents() {
 
     canvas.addEventListener(
         'pointerup',
-        finishPartEditorDrag
+        function () { finishPartEditorDrag(); if (window.YUMANIWA_CREATION_DRAFT) window.YUMANIWA_CREATION_DRAFT.finish(); }
     );
 
     canvas.addEventListener(
         'pointercancel',
-        finishPartEditorDrag
+        function () { finishPartEditorDrag(); if (window.YUMANIWA_CREATION_DRAFT) window.YUMANIWA_CREATION_DRAFT.finish(); }
     );
 
     canvas.addEventListener(
         'lostpointercapture',
-        finishPartEditorDrag
+        function () { finishPartEditorDrag(); if (window.YUMANIWA_CREATION_DRAFT) window.YUMANIWA_CREATION_DRAFT.finish(); }
     );
 }
 
@@ -4263,6 +4269,7 @@ function setupMessageLayerEvents() {
 
 
 function resetTownEditorTransientState() {
+    if (window.YUMANIWA_CREATION_UI) window.YUMANIWA_CREATION_UI.refresh();
     editingPartIndex = -1;
     editingTriggerIndex = -1;
     editStep = 0;
@@ -4286,6 +4293,7 @@ function bindTownEditorDraft() {
 
 function closeTownEditor() {
     finishPartEditorDrag();
+    if (window.YUMANIWA_CREATION_DRAFT) window.YUMANIWA_CREATION_DRAFT.finish();
     window.YUMANIWA_TOWN_INTERACTION.cancel();
     pendingWarp = null;
     document.getElementById('editor-panel').style.display = 'none';
@@ -4299,6 +4307,7 @@ function closeTownEditor() {
     updatePartEditorSelectionUi();
     updateInteractionHint();
     updateControlVisibility();
+    if (window.YUMANIWA_CREATION_UI) window.YUMANIWA_CREATION_UI.refresh();
 }
 
 function openTownEditorSession() {
@@ -4345,6 +4354,7 @@ function toggleDebugMode() {
         setPartEditorVisible(editTarget === 'props');
         updatePartEditorSelectionUi();
         updateEditorStatus("編集対象を選んでタップしてください");
+        if (window.YUMANIWA_CREATION_UI) { window.YUMANIWA_CREATION_UI.install(); window.YUMANIWA_CREATION_UI.refresh(); }
         document.getElementById('interaction-hint').classList.remove('visible');
         document.getElementById('area-title').classList.remove('visible');
         clearDpadInput();
@@ -4588,6 +4598,7 @@ function setupEditorEvents() {
     });
 
     document.getElementById('btn-editor-undo').addEventListener('click', function() {
+        if (window.YUMANIWA_CREATION_DRAFT && window.YUMANIWA_CREATION_DRAFT.activeMode()) { updateEditorStatus('下書きUndoを使ってください'); return; }
         finishPartEditorDrag();
         if (!window.YUMANIWA_EDITOR_SESSION.undo()) {
             updateEditorStatus("Undoする履歴がありません"); return;
@@ -7041,6 +7052,7 @@ function changeTownScene(sceneId, spawnKey, transitionToken) {
 
     prepareSceneUiForChange();
     currentScene = sceneId;
+    if (window.YUMANIWA_CREATION_UI) window.YUMANIWA_CREATION_UI.refresh();
     resetDestinationState();
     closeDestinationScene();
 
@@ -7073,6 +7085,7 @@ window.changeScene = function(sceneId, spawnKey, transitionToken) {
 
     prepareSceneUiForChange();
     currentScene = sceneId;
+    if (window.YUMANIWA_CREATION_UI) window.YUMANIWA_CREATION_UI.refresh();
 
     updateUI();
     openDestination(sceneId);
