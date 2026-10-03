@@ -149,3 +149,52 @@ test('Junkissa existing save captures PNG then hands it to town, standalone fall
     vm.runInContext('jdYumaniwaShareBridgeReady = false', ctx);
     await ctx.jdSavePosterImage(); assert.equal(messages.at(-1), 'standalone-fallback');
 });
+
+function masalaActionsHarness(bridgeReady) {
+    const src = read('works/rojiura-masala/sketch.js'), drawn = [], exported = [], replays = [];
+    const ctx = { W: 360, RESULT_ACTION_W: 92, RESULT_ACTION_H: 25, RESULT_ACTION_Y: 10,
+        RESULT_SAVE_X: 74, RESULT_SHARE_X: 194, RESULT_ACTION_HIT_PAD_X: 8, RESULT_ACTION_HIT_PAD_Y: 8,
+        RESULT_MIN_TAP_TIME: 1.35, ENDED: 2, yumaniwaShareBridgeReady: bridgeReady,
+        drawResultActionButton: (...args) => drawn.push(args), titleLanguageChoice: () => null,
+        markKeyboardPrimaryBusy() {}, SSE: { i18n: { t: key => key }, app: { replace: (...args) => replays.push(args) } } };
+    vm.createContext(ctx);
+    const start = src.indexOf('  function resultSaveButtonX('), end = src.indexOf('  function resultExportFileName(', start);
+    vm.runInContext(src.slice(start, end), ctx);
+    const sceneStart = src.indexOf('  const resultScene = {');
+    const sceneEnd = src.indexOf('  // Begin loading authored prop', sceneStart);
+    vm.runInContext(src.slice(sceneStart, sceneEnd) + '\nthis.scene = resultScene;', ctx);
+    ctx.scene.age = 2;
+    ctx.scene.exportImage = mode => exported.push(mode);
+    return { ctx, drawn, exported, replays, tap: (x, y = 22) => ctx.scene.touch({ x, y, state: 2 }) };
+}
+test('town Masala renders one centered Save and opens export once; hidden Share has no action', () => {
+    const h = masalaActionsHarness(true);
+    h.ctx.drawResultActions(2);
+    assert.equal(h.drawn.length, 1);
+    assert.equal(h.drawn[0][0] + h.drawn[0][2] * 0.5, 180);
+    assert.equal(h.drawn[0][4], 'result.save');
+    h.tap(180); assert.deepEqual(h.exported, ['save']); assert.equal(h.replays.length, 0);
+    h.tap(240); assert.deepEqual(h.exported, ['save']); assert.equal(h.replays.length, 1);
+});
+test('standalone Masala retains both distinct Save and Share controls', () => {
+    const h = masalaActionsHarness(false); h.ctx.drawResultActions(2);
+    assert.deepEqual(h.drawn.map(x => x[4]), ['result.save', 'result.share']);
+    h.tap(120); h.tap(240); assert.deepEqual(h.exported, ['save', 'share']);
+    assert.equal(h.replays.length, 0);
+});
+test('late bridge readiness updates both drawing and hit regions together', () => {
+    const h = masalaActionsHarness(false);
+    h.ctx.yumaniwaShareBridgeReady = true;
+    h.ctx.drawResultActions(2); assert.equal(h.drawn.length, 1);
+    h.tap(180); h.tap(120);
+    assert.deepEqual(h.exported, ['save']); assert.equal(h.replays.length, 1);
+});
+test('result age, export busy gate and replay outside Save are preserved', () => {
+    const h = masalaActionsHarness(true);
+    h.ctx.scene.age = 0.5; h.ctx.drawResultActions(0.5); h.tap(180);
+    assert.equal(h.drawn.length, 0); assert.equal(h.exported.length, 0);
+    h.ctx.scene.age = 2; h.ctx.scene.exportBusy = true; h.tap(180);
+    assert.equal(h.exported.length, 0);
+    h.ctx.scene.exportBusy = false; h.tap(180, 90);
+    assert.equal(h.exported.length, 0); assert.equal(h.replays.length, 1);
+});
