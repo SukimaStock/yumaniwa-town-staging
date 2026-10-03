@@ -1,0 +1,130 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a342af1d6be8a4db7bc83eedd0a057b1038f983e0feb99a8a9f38c5fb5a195e2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "board-nhehgtc-20261003",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Register owner-approved Cleaner board object_nhehgtc as one addable sign; no scene placement",
+    "planLevel": "full",
+    "classes": [
+      "ASSET",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Rule / Skill",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "faf5e903322327798d09a3d8a680bcad4b1e85d0",
+    "canonicalSources": [
+      "data/world-objects.js",
+      "tools/YumaniwaDesk.py",
+      "YUMANIWA-PIXEL-STANDARD.md",
+      "tools/MAP-ASSET-REGISTRATION.md",
+      "tools/SCENE-DATA-CONTRACT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/board-nhehgtc-20261003/r0.lock.json",
+      "assets/maps/objects/signs/object_nhehgtc.png",
+      "data/world-objects.js",
+      "index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "style.css",
+      "town-*.js",
+      "data/station-plaza.js",
+      "data/town-maps.js",
+      "tools/**",
+      "tests/**",
+      "works/**",
+      "engine/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Register exactly one sign with stable id object_nhehgtc, label board, PROP_M logical canvas 32x32 using the existing Desk intake.",
+      "Losslessly canonicalize owner-supplied 96x96 export at verified integer scale 3 to 32x32; preserve every logical RGBA pixel and metadata provenance.",
+      "Add existing editor defaults (2x2 world tiles, collision disabled) through Desk; no placements.",
+      "Change only world-objects script cache fingerprint in index.html."
+    ],
+    "ownerDecisions": [
+      "User saved and registered this board locally, supplied matching finished PNG/object.json, and explicitly requested the dedicated asset branch/Plan/PR. Preserve input identity/name/category and size. Draft only; no merge/production."
+    ],
+    "hqDecisions": [
+      "Existing approved PR #137 Desk contract is reused unchanged. index.html is cache-fingerprint only; Full/SYSTEM/HQ classification honors shared-surface risk floor. No new runtime/design/schema."
+    ],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "YUMANIWA-PIXEL-STANDARD.md",
+      "tools/MAP-ASSET-REGISTRATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-board-candidate-place-undo-reload",
+      "iphone-ipad-public-staging-board"
+    ],
+    "impactChecks": [
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "surface.shared",
+      "runtime.regression",
+      "world-object.registry",
+      "world-object.references",
+      "world-object.asset",
+      "world-object.rendering"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert asset registration commit as one unit (PNG, catalog definition and matching cache fingerprint). No live placement to undo.",
+    "outOfScope": [
+      "Scene placement",
+      "existing objects",
+      "Factory/Cleaner/Desk/Editor changes",
+      "user iPhone local commit/stash manipulation",
+      "merge",
+      "production"
+    ],
+    "promotion": "none; Draft PR only",
+    "unverified": [
+      "iPhone/iPad display of this PR",
+      "Public staging placement until separately approved merge",
+      "Pythonista/File Provider operations are user-reported, not independently observed"
+    ],
+    "problem": "Owner completed Cleaner and local Desk registration; the asset is not yet available from canonical staging/main.",
+    "currentContract": "Existing Desk create-only PNG/object intake writes canonical PNG, one world object and index fingerprint; Editor consumes objectId metadata.",
+    "whyExistingIsInsufficient": "No implementation is needed. Only adopt the supplied finalized asset on a fresh main-based Plan-first branch.",
+    "design": "Lock plan first, run unchanged Desk planner/transaction for this exact supplied pair, verify catalog/cache and pixel identity; run existing regressions and real browser temporary placement.",
+    "alternativesRejected": [
+      "Push unrelated prior feature branch/local stash",
+      "Retroactively modify old Plan",
+      "Hand-edit catalog or create another registry",
+      "Permanent demo placement"
+    ],
+    "migration": "None. Existing catalog entries and scene files remain unchanged.",
+    "compatibility": "Existing yumaniwa-world-object/0.1 input; original Cleaner sidecar preserved in cleanerMetadata; objectId placement references unchanged.",
+    "boundaryCases": [
+      "duplicate id/path",
+      "scale/dimension mismatch",
+      "source mutation",
+      "cache-only index diff"
+    ],
+    "testPlan": [
+      "Actual Desk validation and transaction with owner pair; verify exact nearest-neighbor RGBA roundtrip and original metadata preservation.",
+      "Existing Desk/Scene/Editor/Catalog/session/history tests.",
+      "Real Chromium candidate and temporary placement/move/Undo/export/Desk apply/reload.",
+      "Scope then Risk then Impact; immutable Plan-first and remote required checks."
+    ],
+    "promotionRisk": "Staging-only catalog candidate; public scene is unchanged. Device rendering remains UNVERIFIED."
+  }
+}
