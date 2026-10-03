@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8d7270a92a8a65c8c80799f44d9b6991786ce6f0dcfca71c7555b2e09d40b168",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-growth-follow-20261003",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Follow each growing pumpkin with a delayed soft gaze and rest at the last plant",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "469f0749b0b184fcec989e25876c1e14b8a95446",
+    "canonicalSources": [
+      "works/pumpoko/journey.js",
+      "works/pumpoko/test-ending.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-growth-follow-20261003/r0.lock.json",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/test-ending.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/builder/**",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/assets/**",
+      "works/kotsu-koro/**"
+    ],
+    "expectedChanges": [
+      "Replace one whole-span pan with event-timed soft movement between growthOrder plant poses; delay the gaze to fruit swelling, no snap or overshoot",
+      "Keep original growAt/stagger/growthDuration, closeZoom, arrival identity, rewards, draw code, gameplay and title return",
+      "Hold the first plant for a single arrival and rest exactly at the final plant for multiple arrivals",
+      "Update five baseline-stale ending assertions to current close framing/stagger/open terrain calls; retain equivalent protections and add camera timing/visibility/finite/fps/empty/title regressions",
+      "Record baseline gameplay camera test failure without changing gameplay tests or gameplay camera"
+    ],
+    "ownerDecisions": [
+      "User explicitly requests small ending camera improvement, existing timing/art/physics/zoom/title protected, Draft PR only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK / Standard existing work-local ending presentation",
+      "Plan-first lock-only commit, immutable r0; Scope then Risk then Impact; final verification state remains UNVERIFIED"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "chromium-ending-0-1-2-3-9-rhythm",
+      "chromium-mobile-ending-rhythm-title"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing PumpkinJourney ending state, plantPose and growth timing only"
+    ],
+    "rollback": "Revert camera/test implementation commit; immutable plan retained, no state or data migration",
+    "outOfScope": [
+      "Plant/fruit artwork, pumpkin-world terrain rendering, physical geometry, Stage 0, Stage 1 gameplay camera look-ahead, title interaction, logo animation, pulp fade, audio, production, canonical Engine/Codea Lite, other works"
+    ],
+    "promotion": "none; Draft PR only; no merge/deploy/production changes",
+    "unverified": [
+      "Physical iPhone/iPad and author subjective feel; pre-existing test-journey gameplay camera failure"
+    ],
+    "previousPlanDigest": null,
+    "revisionReason": null
+  }
+}
