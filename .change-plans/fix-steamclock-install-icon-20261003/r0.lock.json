@@ -1,0 +1,128 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "89041951122cf2c97f5cb69a70e42b458c21d2517bcdf2cbd44edc5823c2ad2b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "fix-steamclock-install-icon-20261003",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Align adopted SteamClock town-entry icon metadata and cache references",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "164b282d90561401165385bc4cf53c05512b71ec",
+    "canonicalSources": [
+      "staging/main@164b282d90561401165385bc4cf53c05512b71ec",
+      "assets/works/steamclock/icon.png",
+      "w/steamclock/manifest.webmanifest",
+      "work-install-meta.js",
+      "index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/fix-steamclock-install-icon-20261003/r0.lock.json",
+      "w/steamclock/manifest.webmanifest",
+      "work-install-meta.js",
+      "index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "style.css",
+      "data/**",
+      "assets/**",
+      "works/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "en/**",
+      "sitemap.xml",
+      "w/coffee-factory/**",
+      "w/pumpoko/**"
+    ],
+    "expectedChanges": [
+      "Declare existing SteamClock town-entry PNG actual 512x512 size instead of 1024x1024",
+      "Version only SteamClock touch-icon, manifest and manifest-icon URLs; root loader query follows its content fingerprint",
+      "All other work install URLs and all PWA IDs/start URLs/scopes remain unchanged"
+    ],
+    "ownerDecisions": [
+      "User explicitly selected staging SteamClock artwork (gears/pipes visible) in this turn; use source unchanged and align metadata to its actual 512x512 dimensions",
+      "Original staged production migration remains authorized; Coffee factory and PUMPOKO remain excluded"
+    ],
+    "hqDecisions": [
+      "Ready design uses existing icon/manifest loader contract; actual PNG IHDR is authoritative for sizes. Only SteamClock cache revision is introduced; no new storage/navigation/install mechanism",
+      "Preserve work-local standalone SteamClock PWA package, SW and icons; change only town-entry package"
+    ],
+    "rulesApplied": [
+      "Plan Lock before implementation; Scope then Risk then Impact",
+      "Staging branch/PR and exact base-owned required checks",
+      "No artwork generation, upscaling or unrelated cleanup"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Inspect source image and dimensions",
+      "After Pages verify exact published bytes and live SteamClock install links / clock launch"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "surface.shared",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert implementation via new staging PR to restore previous town-entry declaration and unversioned links; keep source image unchanged.",
+    "promotion": "Original staged migration plus explicit icon choice authorizes production promotion only after exact-head required CI and staging Pages/bytes/UI checks.",
+    "problem": "Adopted SteamClock icon PNG is 512 square but town-entry manifest declares 1024; same-path artwork replacement also requires cache refresh.",
+    "currentContract": "?work=id adds touch-icon and w/id/manifest links. Town-entry manifest points at assets/works/id/icon.png; standalone work has separate unchanged PWA icons.",
+    "whyExistingIsInsufficient": "Staging manifest dimension is inaccurate; old production image cached under the same URL could obscure selected artwork.",
+    "design": "Correct only SteamClock town-entry manifest size; attach fixed version query to its existing icon and manifest references; content fingerprint updates only install-loader query in root.",
+    "migration": "Three existing text files only; no changed image or runtime work files.",
+    "compatibility": "Keep all nine production IDs, town/work URLs, PWA id/start_url/scope and all other install links unchanged. Keep staging noindex and DEV=true.",
+    "alternativesRejected": [
+      "Copy inconsistent staging declaration",
+      "Upscale or generate artwork",
+      "Change standalone PWA or SW",
+      "Version every work icon unnecessarily"
+    ],
+    "boundaryCases": [
+      "Manifest PNG dimensions/MIME/path match",
+      "SteamClock version applies to touch icon, manifest and manifest icon",
+      "Other existing install links unchanged",
+      "Invalid/empty work query rejected",
+      "Coffee iconless behavior remains unchanged"
+    ],
+    "dependencies": [
+      "Production uses exact stage fixed package and selected original PNG only after staging merge and Pages verification"
+    ],
+    "testPlan": [
+      "Existing work-install-meta test suite",
+      "Compare actual loader output for all nine existing IDs with trusted base (only SteamClock query may differ)",
+      "Manifest PNG signature/IHDR and unchanged identity/scopes assertions",
+      "Root diff only install-loader cache query with FNV-1a matching content",
+      "Staging noindex/DEV and exclusions/standalone package unchanged",
+      "Scope -> Risk -> Impact and base-owned registered static checks"
+    ],
+    "promotionRisk": "Shared loader must not alter other eight works. OS add-to-home-screen image caching cannot be certified in cloud browser.",
+    "outOfScope": [
+      "Coffee factory and PUMPOKO",
+      "Work-local PWA changes",
+      "Town/world/content/Search text/SEO changes",
+      "New artwork"
+    ],
+    "unverified": [
+      "Physical iPhone/iPad/Android home-screen icon refresh and installation"
+    ]
+  }
+}
