@@ -1,0 +1,135 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3846a63db6f7acb7e8f927fa450e2ebdc40c3683756394b5852b22310a1a980e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "result-image-save-20261003",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Unify existing town result image saving and keep image dismissal inside the current game",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "afdd70d4341b24fb8b9a1c34488f566c87f9ca80",
+    "canonicalSources": [
+      "share-bridge.js",
+      "works/junkissa-dive/sketch.js",
+      "works/rojiura-masala/sketch.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/result-image-save-20261003/r0.lock.json",
+      "share-bridge.js",
+      "index.html",
+      "works/junkissa-dive/sketch.js",
+      "works/junkissa-dive/index.html",
+      "works/rojiura-masala/sketch.js",
+      "works/rojiura-masala/index.html",
+      "tests/test-result-image-save.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "style.css",
+      "engine/**",
+      "works/midnight-cola/**",
+      "works/yakitori-wars/**",
+      "works/pumpoko/**",
+      "works/kotsu-koro/**",
+      "works/coffee-factory/**",
+      "data/**",
+      "assets/**",
+      "tools/**",
+      ".github/**",
+      "w/**",
+      "en/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Retain image panel after a download attempt; dismiss image via panel X, game-return button, backdrop or Escape without exiting the game",
+      "Use visible image long-press on iPhone/iPad including desktop-UA iPad; keep native Share and desktop download available",
+      "Route Junkissa Save and Masala Save through the existing bridge when hosted in town; preserve standalone and itch fallback",
+      "Preserve image composition, filenames, work identity, save keys, analytics event names and message protocol",
+      "Update only cache versions for the changed root bridge and two work sketches"
+    ],
+    "ownerDecisions": [
+      "User requests side-by-side audit and unification after confirming deployed games, reporting Cola save dismissal exits to the alley"
+    ],
+    "hqDecisions": [
+      "Reuse existing share-result v1 messages and top-level panel; no new save API, runtime state owner or main.js patch",
+      "Modal image dismissal owns only panel state; town player exit remains separate and is covered by regression",
+      "Native share cancellation retains preview; desktop download is an attempt, iOS long-press completion cannot be observed by JavaScript"
+    ],
+    "rulesApplied": [
+      "Production branch -> PR -> Production Safety Checks -> merge",
+      "No whole-repository copy",
+      "Keep public work set exactly the existing nine IDs",
+      "Plan Lock before implementation; Scope -> Risk -> Impact checks"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Cola, Junkissa and Masala result-image panel open and dismiss with X without town exit",
+      "Native share cancellation and denied/unavailable sharing preserve preview",
+      "Desktop download and mobile long-press preview retain game result and allow repeated export",
+      "Existing standalone game save fallback still operates"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "surface.shared",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the implementation commit through a new staging PR. Production remains unchanged.",
+    "outOfScope": [
+      "Production merge/deployment",
+      "Gameplay or result composition changes",
+      "Adding image saving to works without an existing image-save feature",
+      "Coffee factory and PUMPOKO",
+      "Original source content or note article edits"
+    ],
+    "promotion": "Create staging Draft PR; production remains unchanged pending review and staging verification.",
+    "unverified": [
+      "Physical iPhone/iPad native image saving and share sheet",
+      "Full gameplay result export if local browser unavailable"
+    ],
+    "problem": "Share panel currently clears immediately after Save, exposing town exit control; related games use different save paths.",
+    "currentContract": "share-result v1 accepts File/Blob or dataURL and displays one town-owned image panel; games own result rendering.",
+    "whyExistingIsInsufficient": "Panel disappears on save attempt and offers no consistent mobile visible-image saving; Junkissa and Masala Save bypass it.",
+    "design": "Keep image preview as a modal until explicitly dismissed, add modal X and Escape, enable native image long-press, route existing game save controls to the existing bridge.",
+    "migration": "Adopt existing bridge only when ready; preserve work standalone fallbacks.",
+    "compatibility": "No changes to URL, ID, save keys, result image capture, analytics names, Engine or town navigation.",
+    "alternativesRejected": [
+      "Changing town close-work behavior globally",
+      "Adding a new common save runtime or new image-save features"
+    ],
+    "boundaryCases": [
+      "Native share cancel and rejection",
+      "Share completes after panel dismissal or replacement",
+      "iPad desktop user agent",
+      "Unavailable bridge standalone fallback",
+      "Repeated save and reopen",
+      "Game close while image panel pending"
+    ],
+    "testPlan": [
+      "node-syntax",
+      "result-image-save regressions",
+      "existing Cola, work-ready and Masala regressions",
+      "Local browser verification if available"
+    ],
+    "promotionRisk": "Shared panel affects existing bridge consumers. Keep wire protocol and fallback paths; report browser and physical checks separately."
+  }
+}
