@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "cc91f1d7d73b159fcbff1671c945cc025c25064420ce2be679f8a33538d955e1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "map-factory-editor-connect-v2-20261003",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Create-only finalized PNG/object intake in Desk using canonical WORLD OBJECT editor metadata and existing scene diff pipeline",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "c66008b0720d29b2a2f340ba7bc6e7780d52e75b",
+    "canonicalSources": [
+      "tools/YumaniwaDesk.py",
+      "data/world-objects.js",
+      "YUMANIWA-PIXEL-STANDARD.md",
+      "tools/SCENE-DATA-CONTRACT.md",
+      "tools/EDITOR-SESSION.md",
+      "tools/ARTIFACT-CONTRACT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/map-factory-editor-connect-v2-20261003/r0.lock.json",
+      "tools/YumaniwaDesk.py",
+      "tools/MAP-ASSET-REGISTRATION.md",
+      "tests/test_map_asset_registration.py",
+      "tests/map-asset-browser.cjs",
+      ".github/workflows/change-operations-tests.yml"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "data/**",
+      "assets/**",
+      "works/**",
+      "engine/**",
+      "town-*.js",
+      "tools/map-factory/**",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      "tools/change-*.cjs",
+      "tools/change-static-check-registry.json"
+    ],
+    "expectedChanges": [
+      "Desk staged create-only PNG + existing object literal JSON intake with explicit preview/confirm, stable identity, category folder, editor metadata and finalization validation",
+      "Preserve unknown metadata and placementSnapshot as audit data; never auto-place",
+      "Reuse identity/session/hash/transaction/rollback/cache mechanisms; support created PNG file rollback and Undo",
+      "Explicit Desk form for PNG-only Cleaner output to create same object definition; no image processing redesign",
+      "Temporary fixtures and real browser roundtrip tests; concise usage and evidence in documentation",
+      "CI creates isolated Python venv with Pillow==11.3.0 before running existing unchanged unittest discovery; no tests skipped and no gate/registry changes."
+    ],
+    "ownerDecisions": [
+      "User authorizes staging implementation and Draft PR; no merge or production. No permanent demo objects."
+    ],
+    "hqDecisions": [
+      "User explicitly approves minimal Desk registration using existing Catalog and safety mechanisms. Existing registry/source-of-truth, Scene and Editor contracts remain unchanged.",
+      "Observed PR #136 CI failure: hosted system Python lacks PIL. Fresh branch/Plan includes only necessary test dependency setup; original lock is not edited. Test commands and all security gates remain enforced."
+    ],
+    "rulesApplied": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "YUMANIWA-PIXEL-STANDARD.md"
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "change-operations-regression"
+    ],
+    "manualChecks": [
+      "browser-register-place-undo-export-reload",
+      "pythonista-intake-ui"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert implementation commits. Registration transaction backs up catalog/index and removes only its newly created PNG on failure/Undo. No live scene mutation on registration.",
+    "outOfScope": [
+      "Production",
+      "merge",
+      "Factory/Cleaner redesign",
+      "existing asset cleanup",
+      "Editor UI/runtime changes",
+      "auto Git writes",
+      "live synchronization"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Pythonista native UI, Working Copy File Provider, iOS device and Codea save operation",
+      "Supplied PNG and sidecar filenames/semantic identities differ; use only explicit temporary adoption for format checks"
+    ],
+    "problem": "Finalized assets have no reusable create-only Desk registration entrance. First draft CI exposed missing Pillow; scoped dependency installation is required for reproducible tests.",
+    "currentContract": "Canonical objects literal owns src/finalization/editor defaults; Editor uses objectId; Desk validates scenes and hash before transactions. Cleaner source and sample confirm yumaniwa-world-object/0.1 envelope; retain source metadata as provenance.",
+    "whyExistingIsInsufficient": "Desk only imports scene differences; registry append and new binary need a guarded intake.",
+    "design": "Desk pure planning/validation plus native file picker/form/preview/confirmation. Preserve existing input object JSON; explicit UI creation for PNG-only exports. Pixel decode and exact integer block check permit only lossless canonical collapse; never force pixelSafe.",
+    "alternativesRejected": [
+      "IndexedDB runtime connection",
+      "second registry",
+      "hand-coded demo registration",
+      "new export schema"
+    ],
+    "migration": "None; existing objects/scenes byte-identical.",
+    "compatibility": "No format change to Editor diff, session/history or existing assets. New objects use existing editor fields.",
+    "boundaryCases": [
+      "duplicate id/path",
+      "invalid JSON/image/metadata/dimensions",
+      "symlink/traversal",
+      "cancel",
+      "mid-write failure",
+      "stale files",
+      "wrong repository/session"
+    ],
+    "testPlan": [
+      "Python intake and failures with full tree snapshots",
+      "Existing Python Desk/Scene/session and Node Editor/Catalog/history regressions",
+      "Real Chromium temporary-repo registration, controls, diff, Desk apply, reload",
+      "Required checks and Plan-first immutable gate",
+      "Run full Python suite with pinned Pillow==11.3.0 in isolated venv and confirm hosted CI success."
+    ],
+    "promotionRisk": "Staging-only; Pythonista UI remains unverified until device check."
+  }
+}
