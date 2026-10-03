@@ -2685,6 +2685,10 @@ function openTownPlaceFromRoute(placeId) {
     if (isTownScene(placeId)) {
         if (!changeTownScene(placeId)) return false;
     } else {
+        // 直リンクでは、施設が指定する戻り先を町内の入口にする。
+        // 物理端末から開いた時の位置保存・復元は変更しない。
+        var returnScene = DESTINATIONS[placeId].returnScene;
+        if (isTownScene(returnScene) && !changeTownScene(returnScene)) return false;
         changeScene(placeId);
     }
 
