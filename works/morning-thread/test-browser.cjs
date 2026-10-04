@@ -247,6 +247,15 @@ const fs = require("node:fs"),
     to = await centre("card-laundry");
     await drag(a, { x: to.x, y: to.y + 66 });
     assert.deepEqual(await route(), ["coffee", "laundry", "door"]);
+    // A connected paper can stay where it is placed, without changing order.
+    a = await centre("card-coffee");
+    await drag(a, { x: 190, y: 640 }, 120);
+    assert.deepEqual(await route(), ["coffee", "laundry", "door"]);
+    const free = await centre("card-coffee");
+    assert.ok(Math.abs(free.x - 190) < 2 && Math.abs(free.y - 637) < 2);
+    to = await centre("origin");
+    await drag(free, { x: to.x, y: to.y + 66 });
+    assert.deepEqual(await route(), ["coffee", "laundry", "door"]);
     // Real CDP touch drag and cancellation. No game-state injection.
     const cdp = await page.context().newCDPSession(page);
     const touch = async (type, points) =>
@@ -316,6 +325,20 @@ const fs = require("node:fs"),
       "08:41",
     );
     await screenshot("event-replan");
+    // Current-place slips cannot partially add a loose target (model boundary).
+    await inspect("food");
+    await tap(await centre("slip"));
+    await inspect("bakery");
+    await tap(await centre("slip"));
+    await tap(await centre("card-food"));
+    assert.deepEqual(await route(), ["central", "escalator", "roof"]);
+    await fallbackOpen();
+    assert.ok(
+      await page
+        .locator("#fallback [data-action=add][data-id=bakery]")
+        .isDisabled(),
+    );
+    await page.locator("#fallback [data-action=access-close]").click();
     await start();
     await phase("ending");
     assert.ok((await page.locator("#page").innerText()).includes("08:47"));

@@ -240,3 +240,28 @@ test("30/60/120fps settle paper/card/thread similarly and commit one departure",
       assert.ok(Math.abs(r[key] - results[0][key]) < 0.05, key);
   }
 });
+
+test("connected cards remain at free drops; paper motion moves positions without changing itinerary", () => {
+  const f = fixture(),
+    b = f.board;
+  b.sheet(2);
+  f.tick(500);
+  b.acquire("coffee", b.slot(1));
+  b.connect("coffee", f.state.at);
+  f.tick(500);
+  const c = b.cards.get("coffee");
+  b.down(f.event(c.x, c.y));
+  b.move(f.event(190, 640));
+  b.up(f.event(190, 640), false);
+  f.tick(500);
+  assert.deepEqual(f.state.route, ["coffee"]);
+  assert.ok(Math.abs(c.x - 190) < 0.1 && Math.abs(c.y - 637) < 0.1);
+  const relative = c.y - b.top;
+  b.sheet(1);
+  for (let i = 0; i < 60; i++) f.tick(1000 / 60);
+  assert.ok(Math.abs(c.y - b.top - relative) < 0.05);
+  b.normalize();
+  f.tick(500);
+  f.tick(500);
+  assert.ok(Math.abs(c.x - b.slot(1).x) < 0.1);
+});

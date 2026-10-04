@@ -130,8 +130,15 @@
       for (const [id, c] of this.cards) {
         const i = order.indexOf(id);
         if (i >= 0 && this.hand?.id !== id) {
-          const p = this.slot(i + 1);
-          c.tx = p.x;
+          const p =
+            c.manual && !this.previewOrder
+              ? { x: this.left + c.manual.x, y: this.top + c.manual.y }
+              : this.slot(i + 1);
+          c.tx = clamp(
+            p.x,
+            this.left + this.cw / 2 + 8,
+            this.left + this.paperW - this.cw / 2 - 8,
+          );
           c.ty = p.y;
         } else if (i < 0 && this.hand?.id !== id) {
           c.ly ??= c.ty - this.top;
@@ -300,9 +307,13 @@
       this.selected = id;
       this.sync();
     }
+    normalize() {
+      for (const c of this.cards.values()) delete c.manual;
+    }
     connect(id, after) {
       if (!this.editable || id === after) return;
-      this.a.connect(id, after);
+      if (this.a.connect(id, after) === false) return;
+      this.normalize();
       this.previewOrder = null;
       this.sync();
       this.a.tone(460);
@@ -466,7 +477,11 @@
               const i = s.route.indexOf(x);
               return {
                 id: x,
-                ...(i >= 0 ? this.slot(i + 1) : { x: c.tx, y: c.ty }),
+                ...(i >= 0
+                  ? c.manual
+                    ? { x: this.left + c.manual.x, y: this.top + c.manual.y }
+                    : this.slot(i + 1)
+                  : { x: c.tx, y: c.ty }),
               };
             }),
         ];
@@ -564,10 +579,12 @@
           } else if (v.y >= this.top + 48 && v.y < this.h - this.safe - 58) {
             if (d.kind === "slip") this.acquire(d.id, v);
             const c = this.cards.get(d.id);
-            if (c && !this.a.state().route.includes(d.id)) {
+            if (c) {
               c.tx = v.x;
               c.ty = clamp(v.y, this.top + 75, this.h - this.safe - 85);
               c.ly = c.ty - this.top;
+              if (this.a.state().route.includes(d.id))
+                c.manual = { x: c.tx - this.left, y: c.ly };
             }
           }
         }

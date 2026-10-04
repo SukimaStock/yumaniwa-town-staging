@@ -105,16 +105,25 @@
     render();
   }
   function connect(id, after) {
-    if (after !== state.at && !state.route.includes(after)) {
-      if (!M.add(state, after)) return;
+    // Ask the existing model about the held card first. An inadmissible
+    // current-place slip must not add a loose target as a partial connection.
+    const wasConnected = state.route.includes(id);
+    if (!wasConnected && !M.add(state, id)) return false;
+    if (
+      after !== state.at &&
+      !state.route.includes(after) &&
+      !M.add(state, after)
+    ) {
+      if (!wasConnected) M.remove(state, id);
+      return false;
     }
-    if (!state.route.includes(id) && !M.add(state, id)) return;
     const order = state.route.filter((x) => x !== id);
     const target = after === state.at ? 0 : order.indexOf(after) + 1;
     const delta = target - state.route.indexOf(id);
     for (let i = 0; i < Math.abs(delta); i++)
       M.move(state, id, Math.sign(delta));
     render();
+    return true;
   }
   function record() {
     return `<ol class="record">${[...state.record, ...departures]
@@ -132,7 +141,7 @@
       .filter((x) => x.id !== M.stages[state.stage].start)
       .map(
         (x) =>
-          `<section class="fallback-card">${button("inspect", escape(x.name), `data-id="${x.id}" ${state.phase === "running" ? "disabled" : ""}`)}${button("add", "糸へ入れる", `data-id="${x.id}" ${state.route.includes(x.id) || !state.discovered.includes(x.id) || state.phase === "running" ? "disabled" : ""}`)}${state.discovered.includes(x.id) ? `<p>${escape(x.note)}${state.event && x.id === "lift" ? " 8:44便は休止。" : state.event && x.id === "florist" ? " 屋上へ2分の裏通路が開いた。" : ""}</p>` : ""}</section>`,
+          `<section class="fallback-card">${button("inspect", escape(x.name), `data-id="${x.id}" ${state.phase === "running" ? "disabled" : ""}`)}${button("add", "糸へ入れる", `data-id="${x.id}" ${state.route.includes(x.id) || !state.discovered.includes(x.id) || (state.at === x.id && !(x.id === M.stages[state.stage].goal && state.route.length)) || state.phase === "running" ? "disabled" : ""}`)}${state.discovered.includes(x.id) ? `<p>${escape(x.note)}${state.event && x.id === "lift" ? " 8:44便は休止。" : state.event && x.id === "florist" ? " 屋上へ2分の裏通路が開いた。" : ""}</p>` : ""}</section>`,
       )
       .join(
         "",
@@ -244,7 +253,8 @@
       board.connect(id, state.route.at(-1) || state.at);
     }
     if (action === "up" || action === "down") {
-      if (board.editable) M.move(state, id, action === "up" ? -1 : 1);
+      if (board.editable && M.move(state, id, action === "up" ? -1 : 1))
+        board.normalize();
     }
     if (action === "remove") board.disconnect(id);
     if (action === "start") board.depart();
