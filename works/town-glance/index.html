@@ -13,8 +13,8 @@
 <nav class="modes" aria-label="街の見方"><button data-mode="A" aria-pressed="true"><b>A</b> 地図</button><button data-mode="B" aria-pressed="false"><b>B</b> 簡略</button><button data-mode="C" aria-pressed="false"><b>C</b> 模型</button></nav>
 <section class="map-shell" aria-label="架空の街"><div class="map-caption"><span id="view-label">道と区画を眺める</span><button id="overhead" hidden aria-pressed="false">真上から</button></div>
 <svg id="map" viewBox="0 0 600 560" role="group" aria-label="街の表示。ドラッグで移動、ピンチで拡大。目的地をタップして確認。"><g id="camera"><g id="scene"></g></g></svg>
-<div class="map-tools"><button id="zoom-out" aria-label="街を縮小">−</button><button id="zoom-in" aria-label="街を拡大">＋</button><button id="reset">街全体</button></div>
-<div class="map-foot"><span>架空の街 · ドラッグ / ピンチ</span><button id="turn" aria-label="YOUの向きだけを90度変える">YOU ↻</button></div></section>
+<div class="map-controls"><div class="map-tools"><button id="zoom-out" aria-label="街を縮小">−</button><button id="zoom-in" aria-label="街を拡大">＋</button><button id="reset">街全体</button></div>
+<button id="turn" aria-label="YOUの向きだけを90度変える">YOU ↻</button></div><div class="map-foot">架空の街 · ドラッグ / ピンチ</div></section>
 <section class="place-card" aria-live="polite"><div><span class="eyebrow">今日、初めて行く場所</span><h2 id="place-name">木陰の喫茶</h2><p id="place-detail">店をタップして、この辺を眺める。</p></div><button id="confirm">場所を見る</button></section>
 <footer>街はそのまま。YOUの向きだけが変わります。</footer>
 <noscript>このプロトタイプを操作するにはJavaScriptを有効にしてください。</noscript>
