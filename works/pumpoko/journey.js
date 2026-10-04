@@ -65,7 +65,7 @@
     return {left,right,samples,frame:{x:(left+right)/2,y:(top+bottom)/2,z:Math.min(1.05,340/(right-left+110),500/(bottom-top+70))}};
   }
   const ENDING = Object.freeze({ growAt:.90, stagger:.34, growthDuration:2.25,
-    pullIn:.55, closeZoom:1.75, panPadding:34,
+    closeZoom:1.75, heroScreenX:285, framePadding:28,
     replayAt:6.7, zoomAt:9.1, zoomDuration:3.8, connectDuration:1.2, emptyReplayAt:2.4, emptyDuration:1.2 });
   // Fruit rests on the same sampled soil as its root, even on a sloping draft.
   // This is a drawing pose only: arrivals, seeds and collision are never moved.
@@ -85,6 +85,22 @@
     if(!s.result)return [];
     return s.result.arrivals.slice().sort((a,b)=>plantPose(s,a).x-plantPose(s,b).x||a.id-b.id);
   }
+  // The leading pumpkin is the rightmost drawn fruit, with growthOrder's ID
+  // tie-break. This same subject carries the result into the original title.
+  function heroPumpkin(s) { return growthOrder(s).at(-1)||null; }
+  function endingFrame(s) {
+    const poses=growthOrder(s).map(a=>plantPose(s,a)), from=s.ending.from;
+    if(poses.length<2)return {...from}; // A lone result needs no survey pan.
+    const hero=poses.at(-1), pad=ENDING.framePadding;
+    const left=Math.min(...poses.map(p=>p.x-22*p.size));
+    const top=Math.min(...poses.map(p=>p.y-32*p.size));
+    const bottom=Math.max(...poses.map(p=>s.geometry.floor(p.x).y+24));
+    // Place the hero to the right of centre and reserve room for every fruit,
+    // including sparse Builder rows. Framing responds to bounds, not events.
+    const z=Math.min(ENDING.closeZoom,(ENDING.heroScreenX-pad)/(hero.x-left),
+      (390-pad-ENDING.heroScreenX)/(22*hero.size),500/(bottom-top));
+    return {x:hero.x-(ENDING.heroScreenX-195)/z,y:(top+bottom)/2-62,z};
+  }
   function plants(s) {
     if (!s.result) return [];
     return growthOrder(s).map((arrival,i)=>({arrival, age:s.ending.elapsed-ENDING.growAt-i*ENDING.stagger}));
@@ -94,7 +110,7 @@
     const arrivals=Object.freeze(s.seeds.filter(p=>p.arrival).map(p=>p.arrival).sort((a,b)=>a.at-b.at||a.id-b.id));
     s.result=Object.freeze({arrivals,lost:s.seeds.filter(p=>p.lost).length,total:s.seeds.length,at:s.time});
     s.finished=true;
-    const focus=arrivals.slice().sort((a,b)=>Math.abs(plantPose(s,a).x-s.farm.frame.x)-Math.abs(plantPose(s,b).x-s.farm.frame.x)||a.id-b.id)[0]||null;
+    const focus=heroPumpkin(s);
     s.ending={elapsed:0,focus,titleReady:false,phase:arrivals.length?'pullback':'empty',growthComplete:!arrivals.length,
       from:{...s.camera},pose:{x:s.x,y:s.y,ring:s.ring}};
     release(s); // Release only input; preserve physical pose/camera for the pullback.
@@ -302,26 +318,15 @@
     const {START}=s.geometry;
     if(s.result) {
       if(s.result.arrivals.length) {
-        const order=growthOrder(s),poses=order.map(a=>plantPose(s,a));
-        const pull=smooth(s.ending.elapsed/ENDING.pullIn);
-        // drawPlants starts fruit swelling at age 1.4 (after shoot/leaves).
-        // Let each fruit become visible, then turn the gaze .45s later. Ease to its
-        // own pose over .26s, leaving a small pause before the next event.
-        // Wider gaps take up to .7s; overlapping gaze moves add smoothly,
-        // so sparse arrivals never require a sudden sideways sweep.
-        // Absolute plant age keeps this soft follow identical at any fps;
-        // the first/last pose holds without extra state, drift or overshoot.
-        const fruitTime=s.ending.elapsed-ENDING.growAt-1.4-.45;
-        let followX=poses[0].x;
-        for(let i=1;i<poses.length;i++) {
-          const distance=poses[i].x-poses[i-1].x;
-          const duration=clamp(distance/180,.26,.7);
-          followX+=distance*smooth((fruitTime-i*ENDING.stagger)/duration);
-        }
-        const floorY=s.geometry.floor(followX)?.y||s.farm.frame.y;
-        const close={x:followX,y:floorY-62,z:ENDING.closeZoom};
+        const frame=endingFrame(s);
+        const growthEnd=ENDING.growAt+(s.result.arrivals.length-1)*ENDING.stagger+ENDING.growthDuration;
+        // One uninterrupted, gently decelerating gaze starts from the exact
+        // gameplay view. Nothing restarts at a sprout/fruit event. The complete
+        // row comes to rest before the unchanged title approach to its hero.
+        const time=clamp(s.ending.elapsed/growthEnd,0,1);
+        const glide=time===1?1:Math.sin(time*Math.PI/2);
         const a=s.ending.from;
-        for(const k of ['x','y','z'])s.camera[k]=a[k]+(close[k]-a[k])*pull;
+        for(const k of ['x','y','z'])s.camera[k]=time===1?frame[k]:a[k]+(frame[k]-a[k])*glide;
         const zoom=returnZoom(s),p=plantPose(s,s.ending.focus);
         // Match the original title's 143px shell at the end of this same move.
         const target={x:p.x,y:p.y,z:143/(20*p.size)};
@@ -366,7 +371,7 @@
     camera(s, clamp(elapsed, 0, .06));
   }
   const api = Object.freeze({ create, release, knock, update, point, screenPoint, view, field, floor,
-    support, geometry, terrain, segments, GAP, party, travelling, farm, plants, plantPose, growthOrder, returnZoom, titleMix, jump, ENDING, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
+    support, geometry, terrain, segments, GAP, party, travelling, farm, plants, plantPose, growthOrder, heroPumpkin, endingFrame, returnZoom, titleMix, jump, ENDING, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
   root.PumpkinJourney = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);
