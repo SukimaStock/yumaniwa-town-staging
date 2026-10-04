@@ -36,7 +36,7 @@ test('early arrivals wait safely while distant living stragglers remain controll
   place(s,late,1970);advance(s,1);assert.equal(s.result.arrivals.length,2);assert.equal(s.result.lost,7);assert.equal(s.result.total,9);
 });
 test('arrival/plant/root is deterministic across 30/60/120fps, with continuous pullback and bounds',()=>{
-  const states=[30,60,120].map(fps=>{const s=fixture(9);let old={...s.camera},delta=0;for(let i=0;i<10*fps;i++){J.update(s,1/fps);delta=Math.max(delta,Math.hypot(s.camera.x-old.x,s.camera.y-old.y));old={...s.camera};assert.equal(J.travelling(s).length+J.party(s).filter(p=>p.arrival).length+s.seeds.filter(p=>p.lost).length,9);}assert.ok(delta<5,'continuous small gaze steps at all supported frame rates');assert.equal(s.camera.z,J.ENDING.closeZoom,'keep current close framing');return s;});
+  const states=[30,60,120].map(fps=>{const s=fixture(9);for(let i=0;i<10*fps;i++){J.update(s,1/fps);assert.ok(Number.isFinite(s.camera.x+s.camera.y+s.camera.z));assert.equal(J.travelling(s).length+J.party(s).filter(p=>p.arrival).length+s.seeds.filter(p=>p.lost).length,9);}assert.equal(s.camera.z,J.ENDING.closeZoom,'keep current close framing');return s;});
   for(const s of states.slice(1))for(let i=0;i<9;i++)for(const k of ['x','y','at'])assert.ok(Math.abs(s.result.arrivals[i][k]-states[0].result.arrivals[i][k])<1e-7);
   for(const s of states){const p=J.plantPose(s,J.growthOrder(s).at(-1)),q=J.screenPoint(s,p.x,p.y);assert.ok(Math.abs(q.x-195)<1e-8&&q.y>30&&q.y<710,'last fruit rests in the close view');}
 });
@@ -99,6 +99,44 @@ test('growth presentation is spatially left-to-right and camera stays close whil
   }
 });
 const endingTo=(s,time,fps=60)=>{while(s.ending.elapsed<time-1e-7)J.update(s,1/fps);};
+test('ending enters close framing by .55s and starts visible shoots at .90s without a long idle gap',()=>{
+  for(const fps of [30,60,120])for(const n of [1,2,3,9]) {
+    const s=fixture(n);while(!s.ending)J.update(s,1/fps);
+    const first=J.plantPose(s,J.growthOrder(s)[0]),close={x:first.x,y:s.geometry.floor(first.x).y-62,z:1.75},from=s.ending.from;
+    let old={...from},lastTime=0,reached,shoot;
+    while(s.ending.elapsed<1.15) {
+      const time=s.ending.elapsed;
+      const fraction=J.smooth(time/.55);
+      for(const key of ['x','y','z'])assert.ok(Math.abs(s.camera[key]-(from[key]+(close[key]-from[key])*fraction))<1e-8,'short pull-in is smooth rather than a snap or delayed jump');
+      const distance=Math.hypot(close.x-from.x,close.y-from.y);
+      assert.ok(Math.hypot(s.camera.x-old.x,s.camera.y-old.y)<=distance*1.5/.55*(time-lastTime)+1e-7,'camera steps respect the continuous easing speed bound');
+      if(time>=.10&&time<=.10+1/fps)assert.ok((s.camera.z-from.z)/(close.z-from.z)>.08,'close framing has visibly begun in the first .10s');
+      if(time>=.55&&reached===undefined){reached=time;assert.deepEqual(s.camera,close);}
+      const {c,calls}=context();Draw.drawPlants(c,s);
+      if(time<=.90)assert.equal(calls.length,0,'no plant is drawn before growAt');
+      else if(shoot===undefined){shoot=time;assert.ok(calls.some(a=>a[0]==='quadraticCurveTo'),'actual shoot rendering begins immediately after growAt');}
+      old={...s.camera};lastTime=time;J.update(s,1/fps);
+    }
+    assert.ok(reached>=.55&&reached<=.55+1/fps+1e-8,'reach close framing in about .55s');
+    assert.ok(shoot>.90&&shoot<=.90+1/fps+1e-8,'start plant movement at about .90s');
+    assert.ok(shoot-reached<=.35+1/fps+1e-8,'short pause separates the pull-in and visible plant movement');
+  }
+});
+test('closer framing makes the same nine-plant follow visibly wider while retaining the active fruit and ground',()=>{
+  const s=fixture(9);advance(s,1);
+  const poses=J.growthOrder(s).map(a=>J.plantPose(s,a));
+  const at=time=>{s.ending.elapsed=time;J.update(s,0);};
+  const marker=poses[0];at(.55);const initial=J.screenPoint(s,marker.x,marker.y).x;
+  for(let i=1;i<9;i++) {
+    at(J.ENDING.growAt+i*J.ENDING.stagger+1.4+.45+.26);
+    const shifted=Math.abs(J.screenPoint(s,marker.x,marker.y).x-initial);
+    const oldShift=(poses[i].x-poses[0].x)*1.48;
+    assert.ok(shifted>oldShift*1.14&&shifted<oldShift*1.25,'same physical travel is perceptibly larger within the requested modest zoom range');
+    const fruit=J.screenPoint(s,poses[i].x,poses[i].y),ground=J.screenPoint(s,poses[i].x,s.geometry.floor(poses[i].x).y);
+    assert.ok(Math.abs(fruit.x-195)<1e-8&&fruit.y>100&&fruit.y<600,'active fruit stays comfortably inside the close frame');
+    assert.ok(ground.y>fruit.y&&ground.y<650,'surrounding ground remains visible');
+  }
+});
 function drawnFruitGrowth(s,arrival) {
   const {c,calls}=context();Draw.drawPlants(c,s);
   const visible=J.plants(s).sort((a,b)=>a.arrival.rootY-b.arrival.rootY||a.arrival.id-b.arrival.id).filter(p=>p.age>1.4);
@@ -165,8 +203,10 @@ test('delayed nine-fruit gaze has the same schedule at 30/60/120fps and keeps sw
   for(const samples of runs.slice(1))for(const [frame,x] of runs[0])assert.ok(Math.abs(samples.get(frame)-x)<1e-7,'absolute-time gaze agrees at every common frame');
 });
 test('one arrival holds its own X after pull-in without any growth pan',()=>{
-  const s=fixture(1);advance(s,1.5);const x=s.camera.x;
-  for(let i=0;i<7*60;i++){J.update(s,1/60);assert.equal(s.camera.x,x);assert.equal(s.camera.z,J.ENDING.closeZoom);}
+  for(const fps of [30,60,120]) {
+    const s=fixture(1);while(!s.ending)J.update(s,1/fps);endingTo(s,.55,fps);const x=s.camera.x;
+    for(let i=0;i<8*fps;i++){J.update(s,1/fps);assert.equal(s.camera.x,x);assert.equal(s.camera.z,J.ENDING.closeZoom);}
+  }
 });
 test('sparse and tightly clustered arrivals remain finite, monotonic, bounded and gentle',()=>{
   for(const n of [2,3,9])for(const clustered of [false,true])for(const fps of [30,60,120]) {
