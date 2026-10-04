@@ -21,9 +21,14 @@
         </div>
         <button id="sound" aria-label="音を切り替える">音 OFF</button>
       </header>
-      <div class="map-space" aria-hidden="true"></div>
-      <main id="page"></main>
-      <footer id="controls"></footer>
+      <section class="map-space" aria-label="朝の館内図">
+        <div id="map-caption"></div>
+        <div id="map-places"></div>
+      </section>
+      <section id="desk" aria-label="つなぎめの手帳">
+        <main id="page"></main>
+        <footer id="controls"></footer>
+      </section>
     </div>
     <dialog id="notebook" aria-labelledby="note-title">
       <div id="note-content"></div>
