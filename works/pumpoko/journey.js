@@ -66,7 +66,8 @@
   }
   const ENDING = Object.freeze({ growAt:.90, stagger:.34, growthDuration:2.25,
     closeZoom:1.75, heroScreenX:285, framePadding:28,
-    replayAt:6.7, zoomAt:9.1, zoomDuration:3.8, connectDuration:1.2, emptyReplayAt:2.4, emptyDuration:1.2 });
+    cameraDelay:.50, cameraAcceleration:.20, resultHold:1.0,
+    replayAt:6.7, zoomDuration:3.8, connectDuration:1.2, emptyReplayAt:2.4, emptyDuration:1.2 });
   // Fruit rests on the same sampled soil as its root, even on a sloping draft.
   // This is a drawing pose only: arrivals, seeds and collision are never moved.
   function plantPose(s, a) {
@@ -75,11 +76,25 @@
     const x=clamp(a.x+8,s.geometry.END.left+14,s.geometry.END.right-14);
     return { x, y:s.geometry.floor(x).y-13*size+1, size, density, reward };
   }
-  function returnZoom(s) { return s.titleCycle&&s.ending&&s.ending.focus?smooth((s.ending.elapsed-ENDING.zoomAt)/ENDING.zoomDuration):0; }
+  function endingTiming(s) {
+    const count=s.result?.arrivals.length||0;
+    const growthEnd=count?ENDING.growAt+(count-1)*ENDING.stagger+ENDING.growthDuration:0;
+    return {cameraStart:ENDING.growAt+ENDING.cameraDelay,growthEnd,
+      titleZoomAt:count?growthEnd+ENDING.resultHold:ENDING.emptyReplayAt};
+  }
+  // Integrate a continuous trapezoidal velocity: 20% acceleration, 60% cruise,
+  // 20% deceleration. No individual plant event changes this one-shot path.
+  function cameraProgress(time) {
+    const p=clamp(time,0,1),a=ENDING.cameraAcceleration,v=1/(1-a);
+    if(p<a)return v*p*p/(2*a);
+    if(p>1-a)return 1-v*(1-p)*(1-p)/(2*a);
+    return v*(p-a/2);
+  }
+  function returnZoom(s) { return s.titleCycle&&s.ending&&s.ending.focus?smooth((s.ending.elapsed-endingTiming(s).titleZoomAt)/ENDING.zoomDuration):0; }
   function titleMix(s) {
     if(!s.titleCycle||!s.ending)return 0;
     if(!s.ending.focus)return smooth((s.ending.elapsed-ENDING.emptyReplayAt)/ENDING.emptyDuration);
-    return smooth((s.ending.elapsed-ENDING.zoomAt-ENDING.zoomDuration+ENDING.connectDuration)/ENDING.connectDuration);
+    return smooth((s.ending.elapsed-endingTiming(s).titleZoomAt-ENDING.zoomDuration+ENDING.connectDuration)/ENDING.connectDuration);
   }
   function growthOrder(s) {
     if(!s.result)return [];
@@ -216,10 +231,10 @@
     const {START,END,floor}=s.geometry;
     s.time += dt;
     if(s.result) {
-      const e=s.ending;e.elapsed+=dt;
-      e.growthComplete=!s.result.arrivals.length || e.elapsed>=ENDING.growAt+(s.result.arrivals.length-1)*ENDING.stagger+ENDING.growthDuration;
-      e.titleReady=!!s.titleCycle&&e.elapsed>=(e.focus?ENDING.zoomAt+ENDING.zoomDuration:ENDING.emptyReplayAt+ENDING.emptyDuration);
-      e.phase=e.titleReady?'title':titleMix(s)>0?'connecting':!e.focus?'empty':s.titleCycle&&e.elapsed>=ENDING.zoomAt?'zoom':e.growthComplete?'rest':e.elapsed<ENDING.growAt?'pullback':'growing';
+      const e=s.ending,timing=endingTiming(s);e.elapsed+=dt;
+      e.growthComplete=!s.result.arrivals.length || e.elapsed>=timing.growthEnd;
+      e.titleReady=!!s.titleCycle&&e.elapsed>=(e.focus?timing.titleZoomAt+ENDING.zoomDuration:ENDING.emptyReplayAt+ENDING.emptyDuration);
+      e.phase=e.titleReady?'title':titleMix(s)>0?'connecting':!e.focus?'empty':s.titleCycle&&e.elapsed>=timing.titleZoomAt?'zoom':e.growthComplete?'rest':e.elapsed<ENDING.growAt?'pullback':'growing';
       s.replayReady=e.elapsed>=(s.result.arrivals.length?ENDING.replayAt:ENDING.emptyReplayAt);
       release(s);
       // The same short visible fall still completes after an all-lost result.
@@ -319,12 +334,11 @@
     if(s.result) {
       if(s.result.arrivals.length) {
         const frame=endingFrame(s);
-        const growthEnd=ENDING.growAt+(s.result.arrivals.length-1)*ENDING.stagger+ENDING.growthDuration;
-        // One uninterrupted, gently decelerating gaze starts from the exact
-        // gameplay view. Nothing restarts at a sprout/fruit event. The complete
-        // row comes to rest before the unchanged title approach to its hero.
-        const time=clamp(s.ending.elapsed/growthEnd,0,1);
-        const glide=time===1?1:Math.sin(time*Math.PI/2);
+        const {cameraStart,growthEnd}=endingTiming(s);
+        // Hold the gameplay view until leaves open. Cruise through the fruit
+        // onsets, then land with growth completion and hold the whole result.
+        const time=clamp((s.ending.elapsed-cameraStart)/(growthEnd-cameraStart),0,1);
+        const glide=cameraProgress(time);
         const a=s.ending.from;
         for(const k of ['x','y','z'])s.camera[k]=time===1?frame[k]:a[k]+(frame[k]-a[k])*glide;
         const zoom=returnZoom(s),p=plantPose(s,s.ending.focus);
@@ -371,7 +385,7 @@
     camera(s, clamp(elapsed, 0, .06));
   }
   const api = Object.freeze({ create, release, knock, update, point, screenPoint, view, field, floor,
-    support, geometry, terrain, segments, GAP, party, travelling, farm, plants, plantPose, growthOrder, heroPumpkin, endingFrame, returnZoom, titleMix, jump, ENDING, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
+    support, geometry, terrain, segments, GAP, party, travelling, farm, plants, plantPose, growthOrder, heroPumpkin, endingFrame, endingTiming, cameraProgress, returnZoom, titleMix, jump, ENDING, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
   root.PumpkinJourney = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);
