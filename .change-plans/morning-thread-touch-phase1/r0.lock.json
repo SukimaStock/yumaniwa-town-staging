@@ -1,0 +1,84 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b74fc09b1402a919b67dde62f7da561910c21780a43194de2aef96e4e0da92ad",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "morning-thread-touch-phase1",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Phase 1 tactile full-viewport board for existing Morning Thread, without rule changes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "d83658a8982a0601c9b4e2dc50b5117c3b741acc",
+    "canonicalSources": [
+      "engine/sukimastock-engine.v0.3.0.js",
+      "engine/codea-lite.v1.0.0.js",
+      "works/_starter",
+      "works/morning-thread/model.js",
+      "Google Drive SukimaStock / Calendar, PocketLeather, ClockworkGarden, AmberTime, ゲーム未満、アプリ未満の心地よさ",
+      "user Phase 1 brief"
+    ],
+    "allowedPaths": [
+      ".change-plans/morning-thread-touch-phase1/r0.lock.json",
+      "works/morning-thread/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/_starter/**",
+      "works/morning-thread/model.js",
+      "works/morning-thread/work-config.js"
+    ],
+    "expectedChanges": [
+      "A: full-bleed viewport and safe-area board, constrained notebook with local scrolling",
+      "B: directly accessible shop hit areas aligned with miniature map and shop-note slips",
+      "C: press, drag lift, magnetic placement, animated thread and yielding reorder; tap alternatives",
+      "D: departure stamp and displayed departure mark, quiet baseline sound; rules and time unchanged"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes Phase 1 touch/layout changes to existing work; Draft PR only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Engine 0.3.0 / canonical Codea 1.0.0 references, no forks",
+      "Existing starter createApp / audio baseline / disabled analytics; no host or storage contract change"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-playthrough",
+      "mobile-board",
+      "engine-diagnostics",
+      "reduced-motion",
+      "pointer-drag"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated Phase 1 work and Plan commits",
+    "outOfScope": [
+      "Game rule, stage or event expansion; canonical/shared runtime changes; production, merge, deploy"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and audible hardware mix"
+    ]
+  }
+}
