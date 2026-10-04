@@ -89,7 +89,16 @@ const fs = require("node:fs"),
     assert.ok(await page.locator("dialog [data-action=add]").isDisabled());
     await page.locator("#close-note").click();
     await screenshot("home-board");
+    const dockBefore = await page.locator("#desk").boundingBox();
     await click("start");
+    assert.match(
+      await page.locator(".departure-mark").innerText(),
+      /08:10.*START/,
+    );
+    await page.waitForTimeout(280);
+    assert.ok((await page.locator("#desk").boundingBox()).y > dockBefore.y);
+    assert.equal(await page.locator("#sound").innerText(), "音 OFF");
+    await screenshot("departed");
     await page.locator("[data-action=mall]").waitFor({ timeout: 15000 });
     await click("mall");
     await add("bakery");
@@ -158,7 +167,58 @@ const fs = require("node:fs"),
           () => document.documentElement.scrollWidth <= innerWidth,
         ),
       );
+      await page.waitForTimeout(260);
+      const layout = await page.evaluate(() => {
+        const canvas = document.querySelector("canvas"),
+          ctx = canvas.getContext("2d");
+        const pixels = [0, canvas.width - 1].map((x) => [
+          ...ctx.getImageData(x, Math.floor(canvas.height * 0.25), 1, 1).data,
+        ]);
+        const places = [...document.querySelectorAll(".place")].map((el) => {
+          const r = el.getBoundingClientRect();
+          return {
+            width: r.width,
+            height: r.height,
+            left: r.left,
+            right: r.right,
+            top: r.top,
+            bottom: r.bottom,
+          };
+        });
+        const dock = document
+          .querySelector("#controls")
+          .getBoundingClientRect();
+        return {
+          height: document.documentElement.scrollHeight,
+          pixels,
+          places,
+          dockBottom: dock.bottom,
+          offsets: [SSE.viewport.offsetX, SSE.viewport.offsetY],
+        };
+      });
+      assert.ok(layout.height <= viewport.height, JSON.stringify(layout));
+      assert.deepEqual(layout.offsets, [0, 0]);
+      assert.ok(
+        layout.pixels.every(
+          (rgb) =>
+            rgb[0] > 150 && rgb[1] > 150 && rgb[2] > 150 && rgb[3] === 255,
+        ),
+        "canvas edges must be morning colours",
+      );
+      assert.ok(
+        layout.places.every(
+          (r) =>
+            r.width >= 44 &&
+            r.height >= 44 &&
+            r.left >= 0 &&
+            r.right <= viewport.width,
+        ),
+        JSON.stringify(layout.places),
+      );
+      assert.ok(layout.dockBottom <= viewport.height);
       await add("coffee");
+      assert.equal(await page.locator(".thread path").count(), 1);
+      await screenshot(`viewport-${viewport.width}`);
       await page.locator("[data-action=remove][data-id=coffee]").click();
     }
     await page.setViewportSize({ width: 390, height: 844 });
@@ -176,20 +236,97 @@ const fs = require("node:fs"),
       handle.y + handle.height / 2,
     );
     await page.mouse.down();
-    await page.mouse.move(handle.x + handle.width / 2, target.y + 8, {
-      steps: 6,
-    });
+    const threadBefore = await page
+      .locator(".thread path")
+      .evaluateAll((nodes) =>
+        nodes.map((el) => el.getAttribute("d")).join("|"),
+      );
+    await page.mouse.move(
+      handle.x + handle.width / 2 + 8,
+      target.y + target.height / 2 + 7,
+      { steps: 6 },
+    );
+    assert.ok(await page.locator(".drag-ghost.snapped").isVisible());
+    await page.waitForTimeout(160);
+    assert.notEqual(
+      await page
+        .locator(".thread path")
+        .evaluateAll((nodes) =>
+          nodes.map((el) => el.getAttribute("d")).join("|"),
+        ),
+      threadBefore,
+    );
+    const ghost = await page.locator(".drag-ghost").boundingBox();
+    assert.ok(Math.abs(ghost.y - target.y) < 3);
+    assert.ok((await page.locator(".yielding").count()) >= 2);
+    await screenshot("magnet-held");
     await page.mouse.up();
+    await page.waitForTimeout(250);
     assert.deepEqual(await route(), ["coffee", "laundry", "door"]);
     assert.equal(await page.locator("dialog").isVisible(), false);
     await page.locator(".drag-handle[data-id=coffee]").click();
     assert.ok(await page.locator("dialog").isVisible());
     await page.locator("#close-note").click();
+    // A real touchscreen stream, including cancellation, complements mouse drag.
+    const cdp = await page.context().newCDPSession(page);
+    const touchDrag = async (cancel = false) => {
+      const handle = await page
+        .locator(".route-card[data-id=coffee] .drag-handle")
+        .boundingBox();
+      const dest = await page
+        .locator(".route-card[data-id=laundry]")
+        .boundingBox();
+      const x = handle.x + handle.width / 2,
+        y = handle.y + handle.height / 2;
+      await cdp.send("Input.dispatchTouchEvent", {
+        type: "touchStart",
+        touchPoints: [{ x, y }],
+      });
+      await cdp.send("Input.dispatchTouchEvent", {
+        type: "touchMove",
+        touchPoints: [{ x, y: dest.y + dest.height / 2 }],
+      });
+      await page.waitForTimeout(160);
+      assert.ok(await page.locator(".drag-ghost.snapped").isVisible());
+      await cdp.send("Input.dispatchTouchEvent", {
+        type: cancel ? "touchCancel" : "touchEnd",
+        touchPoints: [],
+      });
+      await page.waitForTimeout(250);
+      assert.equal(await page.locator(".drag-ghost").count(), 0);
+      assert.equal(await page.locator("dialog").isVisible(), false);
+    };
+    await touchDrag();
+    assert.deepEqual(await route(), ["laundry", "coffee", "door"]);
+    await touchDrag(true);
+    assert.deepEqual(await route(), ["laundry", "coffee", "door"]);
+    await cdp.detach();
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await click("reset");
+    await add("laundry");
+    await add("coffee");
+    await page.locator("[data-action=up][data-id=coffee]").click();
+    assert.deepEqual(await route(), ["coffee", "laundry"]);
+    assert.equal(await page.evaluate(() => document.getAnimations().length), 0);
+    assert.equal(await page.locator(".thread path").count(), 2);
+    await screenshot("reduced-motion");
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await click("reset");
+    assert.equal(await page.locator("#sound").innerText(), "音 OFF");
     await page.locator("#sound").click();
     const report = await page.evaluate(() => SSE.dev.report());
     assert.equal(report.observation.runtime.engineBootState, "running");
     assert.equal(report.observation.audio.enabled, true);
     assert.equal(report.observation.audio.contextState, "running");
+    assert.equal(report.diagnostics.summary.error, 0);
+    assert.ok(!report.health.some((x) => x.level === "error"));
+    await page.locator("#sound").click();
+    await click("reset");
+    assert.equal(await page.locator("#sound").innerText(), "音 OFF");
+    assert.equal(
+      await page.evaluate(() => SSE.dev.report().observation.audio.enabled),
+      false,
+    );
     assert.deepEqual(errors, []);
     assert.deepEqual(external, []);
     console.log(
@@ -202,6 +339,13 @@ const fs = require("node:fs"),
           escalator: "08:47",
           failureRecovery: true,
           drag: true,
+          magneticSnap: true,
+          touchscreenDrag: true,
+          touchCancel: true,
+          threadFollows: true,
+          reducedMotion: true,
+          canvasEdges: "ivory",
+          departureStamp: true,
           errors,
           external,
           report,
