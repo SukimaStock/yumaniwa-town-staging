@@ -64,8 +64,8 @@
     const top=Math.min(...samples.map(p=>p.y))-110, bottom=Math.max(...samples.map(p=>p.y))+85;
     return {left,right,samples,frame:{x:(left+right)/2,y:(top+bottom)/2,z:Math.min(1.05,340/(right-left+110),500/(bottom-top+70))}};
   }
-  const ENDING = Object.freeze({ growAt:1.45, stagger:.34, growthDuration:2.25,
-    pullIn:.95, closeZoom:1.48, panPadding:34,
+  const ENDING = Object.freeze({ growAt:.90, stagger:.34, growthDuration:2.25,
+    pullIn:.55, closeZoom:1.75, panPadding:34,
     replayAt:6.7, zoomAt:9.1, zoomDuration:3.8, connectDuration:1.2, emptyReplayAt:2.4, emptyDuration:1.2 });
   // Fruit rests on the same sampled soil as its root, even on a sloping draft.
   // This is a drawing pose only: arrivals, seeds and collision are never moved.
