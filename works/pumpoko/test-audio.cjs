@@ -132,8 +132,10 @@ for(const count of [1,9])test(count+' grown fruits automatically reconnect to ti
   const h=harness();h.key();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(35);h.w.SSE.input.reset();
   const s=h.journey;s.result=s.ending=null;s.finished=s.replayReady=false;s.arrivals=[];
   s.seeds.forEach((p,i)=>{p.arrival=null;p.soilTime=0;p.lost=p.inactive=i>=count;if(i<count){p.x=1830+i*24;p.y=s.geometry.floor(p.x).y-J.support(p,s.geometry.floor(p.x).nx,s.geometry.floor(p.x).ny);p.vx=p.vy=0;}});
-  h.advance(7.2);assert.ok(s.result&&s.replayReady);assert.equal(h.elements.has('again'),false);
-  h.advance(2.8);assert.equal(s.ending.phase,'zoom');assert.equal(h.elements.has('again'),false);const player=h.track,pos=player.currentTime;
-  h.advance(2.5);assert.equal(s.ending.phase,'connecting');assert.equal(h.w.PumpkinProbe().mode,'journey');
+  h.advance(1);assert.ok(s.result);const timing=J.endingTiming(s);
+  const until=time=>{while(s.ending.elapsed<time-1e-8)h.advance(1/60);};
+  until(timing.growthEnd+.5);assert.ok(s.ending.growthComplete);assert.equal(s.ending.phase,'rest');assert.equal(h.elements.has('again'),false);
+  until(timing.titleZoomAt+.7);assert.equal(s.ending.phase,'zoom');assert.equal(h.elements.has('again'),false);const player=h.track,pos=player.currentTime;
+  until(timing.titleZoomAt+3.2);assert.equal(s.ending.phase,'connecting');assert.equal(h.w.PumpkinProbe().mode,'journey');
   h.advance(1.5);const p=h.w.PumpkinProbe();assert.equal(p.mode,'prologue');assert.equal(p.plants,0);assert.equal(p.loose,3);assert.equal(p.ending,null);assert.equal(h.elements.has('again'),false);assert.equal(h.media.length,1);assert.equal(h.track,player);assert.ok(player.currentTime>pos+3.9);assert.ok(!player.paused);assert.equal(player.plays,1);
 });

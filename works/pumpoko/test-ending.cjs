@@ -43,6 +43,15 @@ test('arrival/plant/root is deterministic across 30/60/120fps, with continuous p
 test('zero arrivals yields no growth and the same finite view with a short replay pause',()=>{
   const s=fixture(0),old={...s.camera};advance(s,1);assert.ok(s.finished&&!s.replayReady);assert.equal(J.plants(s).length,0);assert.equal(s.ending.phase,'empty');advance(s,2);assert.ok(s.replayReady);assert.deepEqual(s.camera,old);assert.ok(Number.isFinite(s.time+s.x+s.y));
 });
+test('empty title keeps its original 2.4 second pause and 1.2 second connection at all frame rates',()=>{
+  for(const fps of [30,60,120]) {
+    const s=fixture(0);s.titleCycle=true;advance(s,1,fps);const camera={...s.camera};
+    endingTo(s,2.35,fps);assert.equal(s.ending.phase,'empty');assert.equal(J.titleMix(s),0);assert.ok(!s.replayReady);
+    endingTo(s,2.45,fps);assert.equal(s.ending.phase,'connecting');assert.ok(J.titleMix(s)>0&&s.replayReady);assert.ok(!s.ending.titleReady);
+    endingTo(s,3.65,fps);assert.equal(s.ending.phase,'title');assert.equal(J.titleMix(s),1);assert.ok(s.ending.titleReady);
+    assert.equal(s.ending.focus,null);assert.equal(J.returnZoom(s),0);assert.equal(J.plants(s).length,0);assert.deepEqual(s.camera,camera);
+  }
+});
 test('current draft END/floor drive soil contact, framing and roots; JSON and RESET/EDIT stay usable',()=>{
   const d=JSON.parse(JSON.stringify(data));d.surfaces.at(-1).points.push({id:'extra-land',x:2900,y:460});d.end={left:2420,right:2770};const g=G.compile(d),s=fixture(3,g);
   advance(s,10);assert.equal(s.farm.left,2420);assert.equal(s.result.arrivals.length,3);assert.ok(s.result.arrivals.every(a=>a.x>2420&&a.x<2770&&a.rootY===g.floor(a.x).y));assert.deepEqual(s.camera,J.endingFrame(s));assert.equal(J.END.left,1790);
@@ -119,28 +128,65 @@ test('plant order, stagger, shoot onset and actual fruit curve stay independent 
     assert.ok(Math.abs(drawnFruitGrowth(s,order[i])-.5)<1e-9,'unchanged fruit reaches half scale .475s after fruit onset');
   }
 });
-test('one absolute-time camera path preserves the arrival view and never stops/restarts at a plant event',()=>{
+test('one leaf-to-growth shot accelerates, cruises and decelerates without plant-event stops',()=>{
   for(const fps of [30,60,120])for(const n of [2,3,9]) {
     const s=fixture(n);while(!s.ending)J.update(s,1/fps);
-    const end=growthEnd(s),from={...s.ending.from},frame=J.endingFrame(s);
-    s.ending.elapsed=0;J.update(s,0);assert.deepEqual(s.camera,from,'exact arrival view, no opening snap or first-plant pull-in');
-    let old={...from},oldTime=0,oldSpeed=Infinity;
+    const {cameraStart,growthEnd:end}=J.endingTiming(s),duration=end-cameraStart;
+    const from={...s.ending.from},frame=J.endingFrame(s),hero=s.ending.focus;
+    const distance=Math.hypot(frame.x-from.x,frame.y-from.y,(frame.z-from.z)*100);
+    s.ending.elapsed=0;J.update(s,0);assert.deepEqual(s.camera,from);
+    let old={...from},oldTime=0;
+    const observed={accelerate:[],cruise:[],decelerate:[]};
     while(s.ending.elapsed<end) {
       J.update(s,1/fps);const time=Math.min(s.ending.elapsed,end),delta=time-oldTime;
-      const distance=Math.hypot(frame.x-from.x,frame.y-from.y,(frame.z-from.z)*100);
       const step=Math.hypot(s.camera.x-old.x,s.camera.y-old.y,(s.camera.z-old.z)*100);
-      assert.ok(Number.isFinite(step));
-      assert.ok(step<=distance*Math.PI/(2*end)*delta+1e-7,'bounded continuous glide rather than an event jump');
-      if(delta>0&&time<end-.03) {
-        const speed=step/delta;
-        assert.ok(speed>0,'no intermediate hold, including .34s growth boundaries');
-        assert.ok(speed<=oldSpeed+1e-7,'one gentle deceleration, never periodic re-acceleration');oldSpeed=speed;
-      }
+      const speed=step/delta;
+      assert.ok(Number.isFinite(speed)&&speed<=distance*1.25/duration+1e-7,'continuous bounded speed');
+      if(time<=cameraStart+1e-9)assert.deepEqual(s.camera,from,'quiet arrival and shoot, before leaves');
+      if(oldTime>=cameraStart&&time<end)assert.ok(speed>0,'no intermediate hold at any fruit onset');
+      const phaseStart=cameraStart+.2*duration,phaseEnd=cameraStart+.8*duration;
+      if(oldTime>=cameraStart&&time<phaseStart)observed.accelerate.push(speed);
+      if(oldTime>=phaseStart&&time<phaseEnd)observed.cruise.push(speed);
+      if(oldTime>=phaseEnd&&time<end)observed.decelerate.push(speed);
       for(const k of ['x','y','z'])assert.ok((s.camera[k]-old[k])*(frame[k]-from[k])>=-1e-8,'no reversal');
+      assert.equal(s.ending.focus,hero,'never change subject at a growth event');
       old={...s.camera};oldTime=time;
     }
-    assert.deepEqual(s.camera,frame,'settle exactly on the result composition');
+    for(let i=1;i<observed.accelerate.length;i++)assert.ok(observed.accelerate[i]>observed.accelerate[i-1]);
+    for(const speed of observed.cruise)assert.ok(Math.abs(speed-distance*1.25/duration)<1e-7,'constant middle velocity');
+    for(let i=1;i<observed.decelerate.length;i++)assert.ok(observed.decelerate[i]<observed.decelerate[i-1]);
+    assert.ok(Object.values(observed).every(a=>a.length>2),'observe all three motion phases');
+    assert.deepEqual(s.camera,frame,'settle on the unchanged result composition');
   }
+});
+test('trapezoidal position and velocity are continuous at 20/80%, with zero endpoint velocity',()=>{
+  const f=J.cameraProgress,h=1e-6,velocity=p=>(f(p+h)-f(p-h))/(2*h);
+  for(const [p,value] of [[0,0],[.2,.125],[.5,.5],[.8,.875],[1,1]])assert.ok(Math.abs(f(p)-value)<1e-12);
+  assert.equal(f(-.1),0);assert.equal(f(1.1),1);
+  for(const p of [.2,.8]) {
+    assert.ok(Math.abs(f(p+h)-f(p-h))<2.51*h,'no position jump');
+    const left=(f(p)-f(p-h))/h,right=(f(p+h)-f(p))/h;
+    assert.ok(Math.abs(left-right)<1e-5&&Math.abs(left-1.25)<1e-5&&Math.abs(right-1.25)<1e-5,'no velocity jump');
+  }
+  assert.ok(Math.abs(velocity(0))<1e-5&&Math.abs(velocity(1))<1e-5);
+  for(const p of [.3,.4,.5,.6,.7])assert.ok(Math.abs(velocity(p)-1.25)<1e-8);
+});
+test('nine fruit onsets advance naturally through one camera path and share growth completion',()=>{
+  const s=fixture(9);advance(s,1);const t=J.endingTiming(s),duration=t.growthEnd-t.cameraStart;
+  assert.ok(Math.abs(t.cameraStart-1.4)<1e-12);assert.ok(Math.abs(t.growthEnd-5.87)<1e-12);
+  assert.ok(Math.abs(t.titleZoomAt-6.87)<1e-12);
+  assert.ok(Math.abs(t.cameraStart+.2*duration-2.294)<1e-12);
+  assert.ok(Math.abs(t.cameraStart+.8*duration-4.976)<1e-12);
+  const expected=[13,22,32,41,51,60,70,79,89],from=s.ending.from,frame=J.endingFrame(s);
+  const order=J.growthOrder(s),hero=s.ending.focus;
+  for(let i=0;i<9;i++) {
+    const onset=2.30+i*.34;s.ending.elapsed=onset;J.update(s,0);
+    assert.ok(Math.abs(J.plants(s)[i].age-1.4)<1e-10);
+    const progress=(s.camera.x-from.x)/(frame.x-from.x);
+    assert.ok(Math.abs(progress*100-expected[i])<.7,'approximately ten percent of the same path per fruit');
+    assert.equal(s.ending.focus,hero);assert.deepEqual(J.growthOrder(s),order);
+  }
+  s.ending.elapsed=t.growthEnd;J.update(s,0);assert.deepEqual(s.camera,frame);
 });
 test('continuous ending agrees at common times at 30/60/120fps',()=>{
   for(const n of [1,2,3,9]) {
@@ -208,15 +254,15 @@ test('the full result and rightmost hero hold until the original title approach'
   for(const n of [1,2,3,9]) {
     const s=fixture(n);s.titleCycle=true;advance(s,1);endingTo(s,growthEnd(s));
     const subject=s.ending.focus,frame={...s.camera};assert.equal(subject,J.heroPumpkin(s));
-    advance(s,1);assert.deepEqual(s.camera,frame,'quiet final pause');
-    endingTo(s,J.ENDING.zoomAt-.05);assert.deepEqual(s.camera,frame);assert.equal(J.returnZoom(s),0);
-    endingTo(s,J.ENDING.zoomAt+.3);assert.ok(J.returnZoom(s)>0);assert.equal(s.ending.focus,subject,'title continues toward the same hero');
+    endingTo(s,J.endingTiming(s).titleZoomAt-.05);assert.deepEqual(s.camera,frame,'one second of the complete result');
+    endingTo(s,J.endingTiming(s).titleZoomAt-.05);assert.deepEqual(s.camera,frame);assert.equal(J.returnZoom(s),0);
+    endingTo(s,J.endingTiming(s).titleZoomAt+.3);assert.ok(J.returnZoom(s)>0);assert.equal(s.ending.focus,subject,'title continues toward the same hero');
   }
 });
 test('continuous zoom connects the same fruit to the exact original title scale at 30/60/120fps',()=>{
   for(const fps of [30,60,120]) {
-    const s=fixture(9);s.titleCycle=true;advance(s,7,fps);assert.equal(s.ending.phase,'rest');assert.ok(s.replayReady);const roots=s.result.arrivals.map(a=>[a.x,a.y,a.rootY]);
-    advance(s,2,fps);assert.equal(J.returnZoom(s),0,'a useful rest precedes the zoom');
+    const s=fixture(9);s.titleCycle=true;advance(s,1,fps);endingTo(s,growthEnd(s),fps);assert.equal(s.ending.phase,'rest');const roots=s.result.arrivals.map(a=>[a.x,a.y,a.rootY]);
+    endingTo(s,J.endingTiming(s).titleZoomAt-.05,fps);assert.equal(J.returnZoom(s),0,'one second of rest precedes the zoom');
     let old={...s.camera},maxStep=0,phases=new Set();
     for(let i=0;i<5*fps;i++){J.update(s,1/fps);phases.add(s.ending.phase);maxStep=Math.max(maxStep,Math.abs(s.camera.z-old.z));assert.ok(Number.isFinite(s.camera.x+s.camera.y+s.camera.z));old={...s.camera};}
     assert.ok(phases.has('zoom')&&phases.has('connecting')&&phases.has('title'));assert.ok(maxStep<.18,'no camera scale jump');assert.ok(s.ending.titleReady);
@@ -229,7 +275,22 @@ test('Builder runs keep their grown farm view; empty endings never fabricate a f
 });
 
 test('late focus quiets neighbouring plants while leaving the chosen fruit continuous',()=>{
- const s=fixture(9);s.titleCycle=true;advance(s,12.3);assert.ok(J.returnZoom(s)>.8&&J.titleMix(s)>.05);
+ const s=fixture(9);s.titleCycle=true;advance(s,1);endingTo(s,J.endingTiming(s).titleZoomAt+3.2);assert.ok(J.returnZoom(s)>.8&&J.titleMix(s)>.05);
  const {c,calls}=context(),alphas=[];const observed=new Proxy(c,{set(target,key,value){if(key==='globalAlpha')alphas.push(value);target[key]=value;return true;}});Draw.drawPlants(observed,s,()=>{});
  assert.ok(alphas.some(a=>a>0&&a<.2),'neighbours recede softly during the approach');assert.ok(calls.filter(a=>a[0]==='ellipse'&&a[3]===16&&a[4]===3).length===9,'focus does not delete result fruit');
+});
+
+test('one/three/nine results hold for exactly one second before the same hero zoom and original connection',()=>{
+  for(const fps of [30,60,120])for(const [n,end,zoomAt] of [[1,3.15,4.15],[3,3.83,4.83],[9,5.87,6.87]]) {
+    const s=fixture(n);s.titleCycle=true;advance(s,1,fps);const timing=J.endingTiming(s),hero=s.ending.focus;
+    assert.ok(Math.abs(timing.growthEnd-end)<1e-12&&Math.abs(timing.titleZoomAt-zoomAt)<1e-12);
+    assert.equal(timing.cameraStart,1.4);assert.equal(J.ENDING.zoomDuration,3.8);assert.equal(J.ENDING.connectDuration,1.2);
+    endingTo(s,end+.04,fps);assert.equal(s.ending.phase,'rest');const frame={...s.camera};
+    endingTo(s,zoomAt-.05,fps);assert.deepEqual(s.camera,frame);assert.equal(J.returnZoom(s),0);
+    endingTo(s,zoomAt+.05,fps);assert.equal(s.ending.phase,'zoom');assert.ok(J.returnZoom(s)>0);assert.equal(J.titleMix(s),0);
+    endingTo(s,zoomAt+2.55,fps);assert.equal(J.titleMix(s),0,'same 1.2 second connection within the 3.8 second zoom');
+    endingTo(s,zoomAt+2.65,fps);assert.equal(s.ending.phase,'connecting');assert.ok(J.titleMix(s)>0);
+    endingTo(s,zoomAt+3.85,fps);assert.ok(s.ending.titleReady);assert.equal(s.ending.phase,'title');
+    assert.equal(s.ending.focus,hero);assert.equal(J.returnZoom(s),1);assert.equal(J.titleMix(s),1);
+  }
 });
