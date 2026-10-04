@@ -1,0 +1,79 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "071e05f4a43127e30b55292d8e0aac67644213b9a40c966a21cab20b8552afb4",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "town-glance-03",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent two-place prediction then confirmation experience on a fixed ordinary fictional map",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "4fea2cdd0abe28efb7831b26ec63e14d8c325652",
+    "canonicalSources": [
+      "user Prototype 0.3 request",
+      "works/town-glance-03/index.html",
+      "works/town-glance-03/app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/town-glance-03/r0.lock.json",
+      "works/town-glance-03/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/town-glance/**",
+      "works/town-glance-02/**",
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Ordinary fixed fictional 2D map; two destinations hidden until slide or skip",
+      "Brief YOU-centered coarse prediction; immediately reveal map without scoring, comparison or instruction",
+      "Independent browser checks and observer notes; no external services or shared runtime changes"
+    ],
+    "ownerDecisions": [
+      "User requests independent Prototype 0.3, preserve earlier works, short Plan then implement, Draft PR only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standalone WORK profile; no town registration, launch or shared contract changes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "phone-browser-slide-and-skip",
+      "two-destinations-and-reload",
+      "short-height-layout",
+      "network-isolation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Remove independent new work and plan commits; existing works remain unchanged",
+    "outOfScope": [
+      "Merge, deployment, production, APIs, GPS, compass, real city, diorama, routes, storage, analytics, scores, tutorials, improvement claims"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "User burden, quiz perception, relational reasoning and long-term improvement"
+    ]
+  }
+}
