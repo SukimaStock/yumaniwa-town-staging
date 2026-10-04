@@ -4,22 +4,15 @@
     WORK = window.SUKIMASTOCK_WORK;
   let state = M.create(),
     screen = "title",
-    lastRevision = -1,
     sound = false,
-    dragging = null,
-    visualTime = 0,
-    pressedPlace = null,
-    mapLayout = null,
-    threadKeys = new Set(),
-    suppressClickUntil = 0,
+    lastRevision = -1,
     departures = [],
-    followFrame = null,
-    mapJoins = new Map(),
-    suppressedId = null;
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    mapLayout = null,
+    visualTime = 0,
+    mapJoins = new Map();
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   const page = document.getElementById("page"),
-    controls = document.getElementById("controls"),
-    dialog = document.getElementById("notebook");
+    controls = document.getElementById("controls");
   const escape = (s) =>
     String(s).replace(
       /[&<>"']/g,
@@ -32,23 +25,22 @@
           "'": "&#39;",
         })[c],
     );
-  const button = (action, label, cls = "", extra = "") =>
-    `<button data-action="${action}" class="${cls}" ${extra}>${label}</button>`;
+  const button = (action, label, extra = "") =>
+    `<button data-action="${action}" ${extra}>${label}</button>`;
   const n = (id) => M.node(state, id);
-  const tone = (pitch = 440) => {
+  const tone = (frequency = 440) => {
     if (sound) {
       SSE.audio.unlock();
       SSE.audio.tone({
-        frequency: pitch,
-        endFrequency: pitch * 0.82,
+        frequency,
+        endFrequency: frequency * 0.72,
         duration: 0.045,
-        volume: SSE.audio.baseline().reference.se.ui * 0.65,
+        volume: SSE.audio.baseline().reference.se.ui * 0.5,
       });
     }
   };
-  function announce(text) {
-    document.getElementById("announce").textContent = text;
-  }
+  const announce = (text) =>
+    (document.getElementById("announce").textContent = text);
   const plot = (id) =>
     id === "roof"
       ? { x: 337, y: 24 }
@@ -62,162 +54,141 @@
       Math.max(0.79, (map.height - 105) / 205),
       1.65,
     );
-    const left = (map.width - 390 * scale) / 2;
-    const top = Math.max(94, (map.height - 205 * scale + 84) / 2);
-    mapLayout = { map, scale, left, top };
+    mapLayout = {
+      map,
+      scale,
+      left: (map.width - 390 * scale) / 2,
+      top: Math.max(94, (map.height - 205 * scale + 84) / 2),
+    };
     const places = document.getElementById("map-places");
-    places.style.transform = `translate(${left}px, ${top}px) scale(${scale})`;
+    places.style.transform = `translate(${mapLayout.left}px,${mapLayout.top}px) scale(${scale})`;
   }
-  function mapPlaces() {
-    document.getElementById("map-places").innerHTML = M.stages[
-      state.stage
-    ].nodes
-      .filter((item) => item.id !== M.stages[state.stage].start)
-      .map((item) => {
-        const pos = plot(item.id);
-        return `<button class="place ${state.discovered.includes(item.id) ? "known" : ""}" style="left:${pos.x - 34}px;top:${pos.y - 28}px" data-action="inspect" data-id="${item.id}" aria-label="${item.name}を調べる" ${screen !== "play" || state.phase === "running" || state.phase === "success" ? "disabled" : ""}><span class="sr-only">${item.name}</span></button>`;
-      })
-      .join("");
-    layoutMap();
+  function place(id) {
+    const p = plot(id),
+      l = mapLayout;
+    return {
+      x: l.map.left + l.left + p.x * l.scale,
+      y: l.map.top + l.top + p.y * l.scale,
+    };
   }
-  new ResizeObserver(layoutMap).observe(document.querySelector(".map-space"));
-  function record() {
-    const entries = [...state.record, ...departures].sort(
-      (a, b) => a.at - b.at,
-    );
-    return `<ul class="record">${entries.map((r) => `<li><time>${M.time(r.at)}</time><span>${escape(r.text)}</span></li>`).join("")}</ul>`;
-  }
-  function card(id, i) {
-    const from = i ? state.route[i - 1] : state.at,
-      travel = M.edge(state, from, id);
-    return `<div class="connector">${travel === null ? "通路を調べよう" : travel + "分"}${id === "roof" && from === "lift" ? (state.event ? " · 8:44便は休止" : " · 定時便") : ""}</div><div class="route-card" data-id="${id}" style="--offset:${i % 2 ? 7 : 0}px"><button class="drag-handle icon" data-action="inspect" data-id="${id}" aria-label="${n(id).name}を調べる・ドラッグで移動">${n(id).icon}</button><div class="name">${n(id).name}<small>${n(id).open ? M.time(n(id).open) + "から" : ""}${n(id).service ? " · 用事 " + n(id).service + "分" : ""}</small></div><div class="arrows">${button("up", "↑", "", 'data-id="' + id + '" aria-label="' + n(id).name + 'を前へ" ' + (i === 0 ? "disabled" : ""))}${button("down", "↓", "", 'data-id="' + id + '" aria-label="' + n(id).name + 'を後ろへ" ' + (i === state.route.length - 1 ? "disabled" : ""))}</div>${button("remove", "×", "remove", 'data-id="' + id + '" aria-label="' + n(id).name + 'を外す"')}</div>`;
-  }
-  function cardRects() {
-    return new Map(
-      [...document.querySelectorAll(".route-card")].map((el) => [
-        el.dataset.id,
-        el.getBoundingClientRect(),
-      ]),
-    );
-  }
-  function drawThread(animate = false) {
-    const route = document.getElementById("route");
-    if (!route) {
-      threadKeys.clear();
+  function note(id) {
+    const el = document.getElementById("slip-text");
+    if (!id) {
+      el.textContent = "";
+      el.hidden = true;
       return;
     }
-    let svg = route.querySelector(".thread");
-    if (!svg) {
-      svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      svg.classList.add("thread");
-      svg.setAttribute("aria-hidden", "true");
-      route.prepend(svg);
-    }
-    const bounds = route.getBoundingClientRect();
-    svg.setAttribute("viewBox", `0 0 ${bounds.width} ${route.scrollHeight}`);
-    svg.style.height = route.scrollHeight + "px";
-    let point = { x: 27, y: 0 },
-      from = state.at;
-    const keys = new Set(),
-      paths = [],
-      existing = [...svg.children];
-    // Preview order belongs to the hand, not to the time/route model.
-    const order = state.route.slice();
-    if (dragging?.moved) {
-      order.splice(dragging.index, 1);
-      order.splice(dragging.target, 0, dragging.id);
-    }
-    for (const id of order) {
-      const el = document.querySelector(
-        `.route-card[data-id="${id}"] .drag-handle`,
-      );
-      if (!el) continue;
-      const rect = (
-        dragging?.moved && dragging.id === id
-          ? dragging.ghost.querySelector(".drag-handle")
-          : el
-      ).getBoundingClientRect();
-      const to = {
-        x: rect.left + rect.width / 2 - bounds.left,
-        y: rect.top + rect.height / 2 - bounds.top,
-      };
-      const travel = M.edge(state, from, id),
-        cancelled = from === "lift" && id === "roof" && state.event;
-      const key = `${from}:${id}:${travel}:${cancelled}`;
-      keys.add(key);
-      const loose = travel === null || cancelled;
-      const bend = loose ? 25 : 0;
-      const middle = (point.y + to.y) / 2;
-      const path =
-        existing[paths.length] ||
-        document.createElementNS(svg.namespaceURI, "path");
-      path.setAttribute(
-        "d",
-        `M ${point.x} ${point.y} C ${point.x + bend} ${middle}, ${to.x + bend} ${middle}, ${to.x} ${to.y}`,
-      );
-      path.classList.toggle("slack", loose && !cancelled);
-      path.classList.toggle("unravelled", cancelled);
-      paths.push([path, key]);
-      point = to;
-      from = id;
-    }
-    svg.replaceChildren(...paths.map(([path]) => path));
-    if (animate && !reducedMotion.matches)
-      for (const [path, key] of paths)
-        if (!threadKeys.has(key)) {
-          const length = path.getTotalLength();
-          path.animate(
-            [
-              {
-                strokeDasharray: `${length} ${length}`,
-                strokeDashoffset: length,
-              },
-              { strokeDasharray: `${length} ${length}`, strokeDashoffset: 0 },
-            ],
-            { duration: 200, easing: "ease-out" },
-          );
-        }
-    threadKeys = keys;
+    const item = n(id),
+      edges = M.stages[state.stage].nodes
+        .filter((x) => M.edge(state, id, x.id) !== null)
+        .map((x) => `${x.name} ${M.edge(state, id, x.id)}分`)
+        .join(" · ");
+    const extra =
+      id === "lift" && state.event
+        ? " 8:44便は休止。次は8:52。"
+        : id === "florist" && state.event
+          ? " 裏の通路から屋上へ2分。"
+          : "";
+    el.hidden = false;
+    el.innerHTML = `<strong>${escape(item.name)}</strong><p>${escape(item.note + extra)}</p><small>${escape(edges)}</small>`;
+    const sp = board.slipPoint();
+    el.style.top =
+      (sp
+        ? Math.max(138, Math.min(sp.y + 38, board.top - 100))
+        : Math.max(144, board.top - 94)) + "px";
   }
-  function followThread(ms = 220) {
-    cancelAnimationFrame(followFrame);
-    if (reducedMotion.matches) return;
-    const until = performance.now() + ms;
-    function step() {
-      drawThread();
-      if (performance.now() < until) followFrame = requestAnimationFrame(step);
+  function inspect(id) {
+    M.discover(state, id);
+    note(id);
+    announce(n(id).name + "の札を拾った");
+    tone(380);
+    render();
+  }
+  function connect(id, after) {
+    if (after !== state.at && !state.route.includes(after)) {
+      if (!M.add(state, after)) return;
     }
-    followFrame = requestAnimationFrame(step);
+    if (!state.route.includes(id) && !M.add(state, id)) return;
+    const order = state.route.filter((x) => x !== id);
+    const target = after === state.at ? 0 : order.indexOf(after) + 1;
+    const delta = target - state.route.indexOf(id);
+    for (let i = 0; i < Math.abs(delta); i++)
+      M.move(state, id, Math.sign(delta));
+    render();
   }
-  function settleCards(before) {
-    if (!reducedMotion.matches)
-      for (const el of document.querySelectorAll(".route-card")) {
-        const old = before.get(el.dataset.id),
-          rect = el.getBoundingClientRect();
-        if (old && Math.abs(old.top - rect.top) > 1)
-          el.animate(
-            [
-              { transform: `translateY(${old.top - rect.top}px)` },
-              { transform: "translateY(0)" },
-            ],
-            { duration: 200, easing: "cubic-bezier(.2,.65,.3,1)" },
-          );
-      }
-    drawThread(true);
-    followThread();
+  function record() {
+    return `<ol class="record">${[...state.record, ...departures]
+      .sort((a, b) => a.at - b.at)
+      .map((r) => `<li><time>${M.time(r.at)}</time> ${escape(r.text)}</li>`)
+      .join("")}</ol>`;
   }
+  function fallback() {
+    const el = document.getElementById("fallback");
+    if (el.hidden) return;
+    const focus = document.activeElement?.dataset;
+    el.innerHTML = `<h2>操作のメモ</h2><p>札をタップして選び、手帳の「いま」か次につなぎたいカードをタップ。選んだカードの結び目で糸をほどけます。糸の端はタップでも出発できます。</p><div class="fallback-actions">${button("paper", "紙の端をめくる")}${button("reset", "朝をやり直す")}${button("start", state.event ? "つづきへ" : "出発する", !state.route.length || state.phase === "running" ? "disabled" : "")}</div><h3>場所の札</h3>${M.stages[
+      state.stage
+    ].nodes
+      .filter((x) => x.id !== M.stages[state.stage].start)
+      .map(
+        (x) =>
+          `<section class="fallback-card">${button("inspect", escape(x.name), `data-id="${x.id}" ${state.phase === "running" ? "disabled" : ""}`)}${button("add", "糸へ入れる", `data-id="${x.id}" ${state.route.includes(x.id) || !state.discovered.includes(x.id) || state.phase === "running" ? "disabled" : ""}`)}${state.discovered.includes(x.id) ? `<p>${escape(x.note)}${state.event && x.id === "lift" ? " 8:44便は休止。" : state.event && x.id === "florist" ? " 屋上へ2分の裏通路が開いた。" : ""}</p>` : ""}</section>`,
+      )
+      .join(
+        "",
+      )}<h3>糸の順番</h3><ol>${state.route.map((id) => `<li data-route-id="${id}">${escape(n(id).name)} ${button("up", "前へ", `data-id="${id}" aria-label="${n(id).name}を前へ"`)}${button("down", "後ろへ", `data-id="${id}" aria-label="${n(id).name}を後ろへ"`)}${button("remove", "ほどく", `data-id="${id}" aria-label="${n(id).name}の糸をほどく"`)}</li>`).join("")}</ol>${button("access-close", "盤面へ戻る")}`;
+    if (focus?.action)
+      el.querySelector(
+        `[data-action="${focus.action}"]${focus.id ? `[data-id="${focus.id}"]` : ""}`,
+      )?.focus({ preventScroll: true });
+  }
+  const board = new MorningPaperBoard({
+    state: () => state,
+    screen: () => screen,
+    node: n,
+    time: M.time,
+    place,
+    edge: (a, b) => M.edge(state, a, b),
+    hitPlace: (p) =>
+      M.stages[state.stage].nodes
+        .filter((x) => x.id !== M.stages[state.stage].start)
+        .find(
+          (x) =>
+            Math.abs(p.x - place(x.id).x) < 34 * mapLayout.scale &&
+            Math.abs(p.y - place(x.id).y) < 30 * mapLayout.scale,
+        )?.id,
+    inspect,
+    note,
+    connect,
+    disconnect: (id) => {
+      M.remove(state, id);
+      render();
+    },
+    tone,
+    announce,
+    refreshFallback: fallback,
+    depart: () => {
+      const at = state.now,
+        label = state.event ? "RESUME" : "START";
+      if (M.start(state)) departures.push({ at, text: label });
+      render();
+    },
+  });
   function render() {
-    const before = cardRects(),
-      scroll = page.scrollTop;
     lastRevision = state.revision;
-    const focus = document.activeElement?.dataset,
-      focusAction = focus?.action,
-      focusId = focus?.id;
     const spec = M.stages[state.stage];
     document.getElementById("app").dataset.phase =
       screen === "play" ? state.phase : screen;
     document.getElementById("map-caption").innerHTML =
-      `<div class="stage-top"><div><span class="eyebrow">${state.stage === "home" ? "PROLOGUE" : "CHAPTER 01"}</span><h2>${spec.title}</h2></div><div class="clock">${M.time(state.now)}<small>${state.phase === "running" ? "朝が動いている" : "考える時間 · 時計は停止中"}</small></div></div><div class="goal"><p>${spec.goalText}</p></div>`;
+      `<div class="stage-top"><div><span class="eyebrow">${state.stage === "home" ? "PROLOGUE" : "CHAPTER 01"}</span><h2>${spec.title}</h2></div><div class="clock">${M.time(state.now)}<small>${state.phase === "running" ? "朝が動いている" : "考える時間 · 時計は停止中"}</small></div></div><p class="goal">${spec.goalText}</p>`;
+    document.getElementById("map-places").innerHTML = spec.nodes
+      .filter((x) => x.id !== spec.start)
+      .map((x) => {
+        const p = plot(x.id);
+        return `<button class="place" style="left:${p.x - 34}px;top:${p.y - 28}px" data-action="inspect" data-id="${x.id}" aria-label="${x.name}を調べる" ${screen !== "play" || state.phase === "running" ? "disabled" : ""}><span class="sr-only">${x.name}</span></button>`;
+      })
+      .join("");
+    layoutMap();
     const joins = new Map();
     let from = state.at;
     for (const id of state.route) {
@@ -226,316 +197,88 @@
       from = id;
     }
     mapJoins = joins;
-    mapPlaces();
-    if (screen === "title") {
-      page.innerHTML = `<span class="eyebrow">線をつなぐと、朝が動く。</span><h2>小さな予定を、一本の旅に。</h2><p>洗濯もの。焼きたてのパン。<br>別々だった予定を、手帳からつないでみる。</p><div class="paper"><p>調べる → カードをつなぐ → START</p><p class="hint">急がなくて大丈夫。考えている間、時計は止まっています。</p></div>`;
-      controls.innerHTML = button("begin", "朝をはじめる", "primary");
-      return;
-    }
-    if (screen === "ending") {
-      page.innerHTML = `<span class="eyebrow">A LITTLE JOURNEY · 01</span><div class="stamp">届いた</div><h2>朝を、届けた。</h2><p>紙袋を開くと、パンの香り。${state.done.includes("florist") ? "窓辺には、寄り道の一輪。" : "カフェには、まだ誰もいない。"}<br>自分でつないだ線が、今日の道になった。</p><div class="paper"><h3>あなたの旅の記録</h3>${record()}</div><div class="teaser"><small>NEXT, SOMEWHERE</small><div class="world-line">⌂ · ◉ · ◎</div><p>家の中から、街へ。街から、遠くへ。<br>次のページは、まだ白い。</p></div>`;
-      controls.innerHTML =
-        button("mall-again", "別の朝をつなぐ", "primary") +
-        button("title", "表紙へ", "secondary");
-      return;
-    }
-    if (state.phase === "success") {
-      page.innerHTML = `<span class="eyebrow">PROLOGUE · ひとつめの旅</span><h2>いってきます。</h2><p>ほんの数分でも、自分でつなぐと道になる。</p><div class="paper">${record()}</div>`;
-      controls.innerHTML = button("mall", "モールへ", "primary");
-      return;
-    }
+    document.getElementById("status-note").innerHTML = "";
     page.innerHTML = "";
-    if (state.phase === "running") {
-      page.innerHTML += `<div class="departure-mark">${M.time(departures.at(-1)?.at ?? state.now)} · ${departures.at(-1)?.text || "START"}</div><div class="status" role="status">${escape(state.message)}</div><div class="paper"><h3>線が、道になっていく。</h3>${record()}<p class="hint">このあと：${state.route.map((id) => n(id).name).join(" → ") || "ここまで"}</p></div>`;
-      controls.innerHTML = button(
-        "watch",
-        "朝を、見届けている",
-        "secondary",
-        "disabled",
-      );
-    } else {
-      if (state.phase === "event")
-        page.innerHTML += `<section class="notice"><h3>♪ 朝の館内放送</h3><p>${escape(state.message)}</p><p class="hint">時計は止めてあります。残りのカードを組み替えて、続けよう。</p></section>`;
-      if (state.phase === "failed")
-        page.innerHTML += `<section class="notice"><h3>ここで、ひと休み。</h3><p>${escape(state.message)}</p><p class="hint">ここから組み直すか、同じ朝をもう一度。</p></section>`;
-      page.innerHTML += `<section class="paper"><div class="paper-title"><h3>つなぎめの手帳</h3>${button("clear", "線をほどく", "", 'aria-label="残りのカードをすべて外す"')}</div><p class="hint">絵を持って並べる · ↑ ↓ でもつなぎ直せます</p><div class="origin">● いま：${n(state.at).name} · ${M.time(state.now)}</div><div id="route">${state.route.map(card).join("") || '<div class="empty">館内図の場所を触って、最初の紙片を拾おう。</div>'}</div></section>`;
+    controls.innerHTML = "";
+    if (screen === "title") {
+      page.innerHTML =
+        '<span class="eyebrow">線をつなぐと、朝が動く。</span><h2>小さな予定を、一本の旅に。</h2><p>洗濯もの。焼きたてのパン。<br>別々だった予定を、紙の上でつないでみる。</p><p class="hint">考える時間は、時計が止まる。<br>札を拾う。近づける。糸の端を引く。</p>';
+      controls.innerHTML = button("begin", "朝をはじめる");
+    } else if (screen === "ending") {
+      page.innerHTML = `<span class="eyebrow">A LITTLE JOURNEY · 01</span><h2>朝を、届けた。</h2><p>紙袋を開くと、パンの香り。${state.done.includes("florist") ? "窓辺には、寄り道の一輪。" : "カフェには、まだ誰もいない。"}<br>自分でつないだ糸が、今日の道になった。</p><h3>あなたの旅の記録</h3>${record()}<p class="hint">家の中から、街へ。街から、遠くへ。<br>次のページは、まだ白い。</p>`;
       controls.innerHTML =
-        button("reset", "朝をやり直す", "secondary") +
-        button(
-          "start",
-          `<span>${state.event ? "RESUME" : "START"}</span><small>出発印</small>`,
-          "departure-stamp",
-          state.route.length ? "" : "disabled",
-        );
+        button("mall-again", "別の朝をつなぐ") + button("title", "表紙へ");
+    } else if (state.phase === "success") {
+      page.innerHTML = `<h2>いってきます。</h2><p>ほんの数分でも、自分でつなぐと道になる。</p>${record()}`;
+      controls.innerHTML = button("mall", "モールへ");
+    } else if (["running", "event", "failed"].includes(state.phase)) {
+      document.getElementById("status-note").innerHTML =
+        `<section class="notice" role="status"><strong>${state.phase === "event" ? "♪ 朝の館内放送" : state.phase === "failed" ? "ここで、ひと休み。" : "線が、道になっていく。"}</strong><p>${escape(state.message)}</p>${state.phase === "running" ? record() : "<small>時計は停止中。糸を結び直して、つづきへ。</small>"}</section>`;
     }
-    lastRevision = state.revision;
-    page.scrollTop = scroll;
-    settleCards(before);
-    if (focusAction) {
-      const candidates = [...document.querySelectorAll("[data-action]")];
-      candidates
-        .find(
-          (el) =>
-            el.dataset.action === focusAction && el.dataset.id === focusId,
-        )
-        ?.focus({ preventScroll: true });
-    }
-  }
-  function inspect(id) {
-    if (!M.discover(state, id)) return;
-    const item = n(id),
-      spec = M.stages[state.stage];
-    const edges = spec.nodes
-      .filter((x) => M.edge(state, id, x.id) !== null)
-      .map(
-        (x) =>
-          `<li>${x.name} <span class="hint">↔ ${M.edge(state, id, x.id)}分</span></li>`,
-      )
-      .join("");
-    const extra =
-      id === "lift" && state.event
-        ? "<p>今朝の8:44便は休止。次は8:52です。</p>"
-        : id === "florist" && state.event
-          ? "<p>「準備、早く終わったの。裏の通路を使っていいよ。」<br>屋上への道：2分。</p>"
-          : "";
-    document.getElementById("note-content").innerHTML =
-      `<span class="eyebrow">朝のメモ</span><h2 id="note-title">${item.icon} ${item.name}</h2><p>${item.note}</p>${extra}<h3>つながる場所</h3><ul class="edge-list">${edges}</ul>${button("add", "このカードをつなぐ", "wide primary", 'data-id="' + id + '" ' + (state.route.includes(id) || (state.at === id && !(id === M.stages[state.stage].goal && state.route.length)) ? "disabled" : ""))}`;
-    dialog.dataset.place = id;
-    dialog.showModal();
-    tone(380);
+    board.sync();
+    fallback();
   }
   function act(action, id) {
     if (action === "inspect") {
-      inspect(id);
+      board.inspect(id);
       return;
     }
-    if (action === "begin") {
-      screen = "play";
-      state = M.create();
+    if (["begin", "mall", "mall-again", "title", "reset"].includes(action)) {
+      screen = action === "title" ? "title" : "play";
+      state = M.create(
+        ["mall", "mall-again"].includes(action)
+          ? "mall"
+          : action === "reset"
+            ? state.stage
+            : "home",
+      );
+      departures = [];
+      board.reset();
+      note(null);
+      mapJoins.clear();
     }
-    if (action === "mall" || action === "mall-again") {
-      screen = "play";
-      state = M.create("mall");
-      window.scrollTo(0, 0);
-    }
-    if (action === "title") {
-      screen = "title";
-      state = M.create();
-      window.scrollTo(0, 0);
-    }
+    if (action.startsWith("object-")) board.tapObject(action.slice(7), id);
+    if (action === "paper") board.cycle();
     if (action === "add") {
-      if (M.add(state, id)) {
-        dialog.close();
-        tone(510 + state.route.length * 70);
-        announce(n(id).name + "をつないだ");
-      }
-    }
-    if (action === "remove") {
-      M.remove(state, id);
-      tone(350);
+      board.acquire(id, board.slot(state.route.length + 1));
+      board.connect(id, state.route.at(-1) || state.at);
     }
     if (action === "up" || action === "down") {
-      M.move(state, id, action === "up" ? -1 : 1);
-      tone(540);
+      if (board.editable) M.move(state, id, action === "up" ? -1 : 1);
     }
-    if (action === "clear") {
-      state.route = [];
-      state.revision++;
-      tone(310);
+    if (action === "remove") board.disconnect(id);
+    if (action === "start") board.depart();
+    if (action === "access-close") {
+      document.getElementById("fallback").hidden = true;
+      document.getElementById("access").setAttribute("aria-expanded", "false");
+      document.getElementById("access").focus();
     }
-    if (action === "start") {
-      const at = state.now,
-        label = state.event ? "RESUME" : "START";
-      if (M.start(state)) departures.push({ at, text: label });
-      page.scrollTop = 0;
-      tone(260);
-      window.scrollTo(0, 0);
-    }
-    if (action === "reset") {
-      state = M.create(state.stage);
-      window.scrollTo(0, 0);
-    }
-    if (["begin", "mall", "mall-again", "title", "reset"].includes(action)) {
-      departures = [];
-      page.scrollTop = 0;
-      threadKeys.clear();
-    }
-    if (state.phase === "success" && state.stage === "mall") screen = "ending";
     render();
   }
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-action]");
-    if (b && !b.disabled) {
-      if (
-        performance.now() < suppressClickUntil &&
-        b.dataset.action === "inspect" &&
-        b.dataset.id === suppressedId
-      )
-        return;
-      act(b.dataset.action, b.dataset.id);
-    }
+    if (b && !b.disabled) act(b.dataset.action, b.dataset.id);
   });
-  document.getElementById("close-note").addEventListener("click", () => {
-    dialog.close();
-    render();
-  });
-  dialog.addEventListener("cancel", () => {
-    setTimeout(render, 0);
+  document.getElementById("access").addEventListener("click", () => {
+    const el = document.getElementById("fallback");
+    el.hidden = !el.hidden;
+    document
+      .getElementById("access")
+      .setAttribute("aria-expanded", String(!el.hidden));
+    fallback();
   });
   document.getElementById("sound").addEventListener("click", () => {
     sound = !sound;
     SSE.audio.setEnabled(sound);
     document.getElementById("sound").textContent =
       "音 " + (sound ? "ON" : "OFF");
-    tone(510);
-  });
-  function finishDrag(cancelled) {
-    const drag = dragging;
-    if (!drag) return;
-    dragging = null;
-    if (drag.moved) {
-      suppressClickUntil = performance.now() + 180;
-      suppressedId = drag.id;
-      document.querySelectorAll(".route-card").forEach((el) => {
-        el.style.transform = "";
-        el.classList.remove("held", "yielding");
-      });
-      if (!cancelled && drag.target !== drag.index) {
-        const delta = drag.target - state.route.indexOf(drag.id);
-        for (let step = 0; step < Math.abs(delta); step++)
-          M.move(state, drag.id, Math.sign(delta));
-      }
-      render();
-      const card = document.querySelector(`.route-card[data-id="${drag.id}"]`);
-      if (card && !reducedMotion.matches) {
-        const to = card.getBoundingClientRect(),
-          from = drag.ghost.getBoundingClientRect();
-        card.animate(
-          [
-            {
-              transform: `translate(${from.left - to.left}px, ${from.top - to.top}px) scale(1.015)`,
-            },
-            { transform: "translate(0,0) scale(1)" },
-          ],
-          { duration: 140, easing: "cubic-bezier(.18,.7,.3,1)" },
-        );
-      }
-      drag.ghost.remove();
-      followThread(150);
-      tone(cancelled ? 310 : 470);
-      if (!cancelled) announce(n(drag.id).name + "の位置を決めた");
-    }
-  }
-  document.addEventListener("pointerdown", (e) => {
-    pressedPlace = e.target.closest(".place")?.dataset.id || null;
-    const handle = e.target.closest(".drag-handle");
-    if (!handle || state.phase === "running" || e.button !== 0 || dragging)
-      return;
-    const card = handle.closest(".route-card");
-    dragging = {
-      id: handle.dataset.id,
-      x: e.clientX,
-      y: e.clientY,
-      pointer: e.pointerId,
-      handle,
-      card,
-      index: state.route.indexOf(handle.dataset.id),
-      target: state.route.indexOf(handle.dataset.id),
-      slots: [...document.querySelectorAll(".route-card")].map((el) =>
-        el.getBoundingClientRect(),
-      ),
-      moved: false,
-    };
-    handle.setPointerCapture(e.pointerId);
-  });
-  document.addEventListener(
-    "pointermove",
-    (e) => {
-      const drag = dragging;
-      if (!drag || e.pointerId !== drag.pointer) return;
-      const dx = e.clientX - drag.x,
-        dy = e.clientY - drag.y;
-      if (!drag.moved && Math.hypot(dx, dy) > 8) {
-        drag.moved = true;
-        drag.ghost = drag.card.cloneNode(true);
-        drag.ghost.classList.add("drag-ghost");
-        drag.ghost.setAttribute("aria-hidden", "true");
-        drag.ghost.removeAttribute("data-id");
-        const rect = drag.slots[drag.index];
-        Object.assign(drag.ghost.style, {
-          position: "fixed",
-          left: rect.left + "px",
-          top: rect.top + "px",
-          width: rect.width + "px",
-          margin: "0",
-        });
-        document.body.append(drag.ghost);
-        drag.card.classList.add("held");
-        tone(330);
-      }
-      if (!drag.moved) return;
-      e.preventDefault();
-      const original = drag.slots[drag.index],
-        center = original.top + original.height / 2 + dy;
-      let target = drag.index,
-        distance = Infinity;
-      drag.slots.forEach((rect, i) => {
-        const d = Math.abs(center - rect.top - rect.height / 2);
-        if (d < distance) {
-          distance = d;
-          target = i;
-        }
-      });
-      const snapped = distance < 16 && Math.abs(dx) < 34;
-      if (target !== drag.target) {
-        drag.target = target;
-        document
-          .querySelectorAll(".route-card:not(.drag-ghost)")
-          .forEach((el, i) => {
-            let destination = i;
-            if (i >= target && i < drag.index) destination++;
-            if (i <= target && i > drag.index) destination--;
-            el.classList.add("yielding");
-            el.style.transform =
-              i === drag.index
-                ? ""
-                : `translateY(${drag.slots[destination].top - drag.slots[i].top}px)`;
-          });
-      }
-      if (snapped && !drag.snapped) tone(470);
-      drag.snapped = snapped;
-      drag.ghost.classList.toggle("snapped", snapped);
-      drag.ghost.style.transform = snapped
-        ? `translate(${drag.slots[target].left - original.left}px, ${drag.slots[target].top - original.top}px)`
-        : `translate(${dx}px, ${dy - 3}px) scale(1.015)`;
-      drawThread();
-      if (snapped) followThread(150);
-    },
-    { passive: false },
-  );
-  document.addEventListener("pointerup", (e) => {
-    pressedPlace = null;
-    if (dragging?.pointer === e.pointerId) finishDrag(false);
-  });
-  document.addEventListener("pointercancel", () => {
-    pressedPlace = null;
-    finishDrag(true);
-  });
-  document.addEventListener("lostpointercapture", () => finishDrag(true));
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") finishDrag(true);
-  });
-  window.addEventListener("blur", () => {
-    pressedPlace = null;
-    finishDrag(true);
-  });
-  page.addEventListener("scroll", () => {
-    if (dragging?.moved) finishDrag(true);
+    tone(350);
   });
   new ResizeObserver(() => {
-    finishDrag(true);
-    drawThread();
-  }).observe(page);
+    layoutMap();
+    board.refreshGeometry();
+    if (board.slip) note(board.slip);
+  }).observe(document.querySelector(".map-space"));
   function draw() {
     const canvas = document.getElementById("gameCanvas"),
       ctx = canvas.getContext("2d"),
@@ -602,7 +345,14 @@
     }
     for (const item of spec.nodes) {
       let { x, y } = plot(item.id);
-      if (pressedPlace === item.id) y += 1.5;
+      if (board.hand?.kind === "place" && board.hand.id === item.id) y += 1.5;
+      const reply =
+        board.reply?.id === item.id && !reducedMotion.matches
+          ? Math.max(0, 1 - (board.clock - board.reply.at) / 0.6)
+          : 0;
+      if (item.id === "bakery")
+        y +=
+          Math.sin((board.clock - (board.reply?.at || 0)) * 18) * reply * 1.5;
       box(x - 24, y - 14, 48, 31, "#d6d5c4");
       box(
         x - 24,
@@ -632,6 +382,12 @@
       ctx.font = "9px system-ui";
       ctx.fillStyle = "#697365";
       ctx.fillText(item.name, x, y + 25);
+      if (["lift", "escalator"].includes(item.id)) {
+        ctx.fillStyle = reply > 0.1 ? "#d4b379" : "#a6b79c";
+        ctx.beginPath();
+        ctx.arc(x + 18, y - 5, 2.3, 0, Math.PI * 2);
+        ctx.fill();
+      }
       if (item.id === "bakery") {
         for (let i = 0; i < 3; i++)
           box(x - 14 + i * 10, y + 4, 7, 3, "#d7a263", 2);
@@ -640,7 +396,13 @@
         ctx.fillStyle = "#d99c87";
         for (let i = 0; i < 3; i++) {
           ctx.beginPath();
-          ctx.arc(x - 15 + i * 14, y - 17, 3, 0, Math.PI * 2);
+          ctx.arc(
+            x - 15 + i * 14,
+            y - 17 + reply * Math.sin(board.clock * 14 + i) * 2,
+            3,
+            0,
+            Math.PI * 2,
+          );
           ctx.fill();
         }
       }
@@ -680,7 +442,12 @@
     }
     // Tiny staff / cleaning cart: quiet background motion, unrelated to game time.
     if (state.stage === "mall") {
-      const cartX = 205 + Math.sin(visualTime * 0.4) * 9;
+      const cartX =
+        205 +
+        Math.sin(visualTime * 0.4) * 9 +
+        (board.reply?.id === "central"
+          ? Math.max(0, 1 - (board.clock - board.reply.at) / 0.6) * 3
+          : 0);
       box(cartX, 103, 7, 5, "#aab5a2", 2);
       ctx.fillStyle = "#829383";
       ctx.beginPath();
@@ -688,11 +455,16 @@
       ctx.fill();
     }
     ctx.restore();
+    ctx.save();
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    board.draw(ctx);
+    ctx.restore();
   }
+
   SSE.createApp({
     id: WORK.id,
-    logicalWidth: window.innerWidth,
-    logicalHeight: window.innerHeight,
+    logicalWidth: innerWidth,
+    logicalHeight: innerHeight,
     outerBackground: [243, 238, 227],
     frameRate: WORK.frameRate,
     initialScene: "main",
@@ -708,20 +480,31 @@
         opaque: true,
         update(dt) {
           if (
-            SSE.viewport.logicalWidth !== window.innerWidth ||
-            SSE.viewport.logicalHeight !== window.innerHeight
+            SSE.viewport.logicalWidth !== innerWidth ||
+            SSE.viewport.logicalHeight !== innerHeight
           )
-            SSE.viewport.configure(window.innerWidth, window.innerHeight);
+            SSE.viewport.configure(innerWidth, innerHeight);
           if (!reducedMotion.matches) visualTime += dt;
           const prior = state.phase;
-          M.update(state, dt);
+          // Game clock consumes exactly the elapsed time from the unchanged model.
+          // Departure punctuation is visual; no model time is spent until it commits.
+          const starting = board.startAt !== null;
+          if (!starting) M.update(state, dt);
+          board.update(dt);
           if (state.phase === "success" && state.stage === "mall")
             screen = "ending";
           if (state.revision !== lastRevision && screen !== "title") {
+            if (
+              prior !== state.phase &&
+              ["event", "failed"].includes(state.phase)
+            ) {
+              board.cancel();
+              board.sheet(2);
+            }
             render();
             if (prior !== state.phase) {
               announce(state.message);
-              tone(state.phase === "event" ? 740 : 620);
+              tone(state.phase === "event" ? 520 : 410);
             }
           }
         },

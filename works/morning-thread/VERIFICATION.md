@@ -1,156 +1,57 @@
-# Phase 1: touch and viewport verification
+# Morning Thread — paper and thread phase
 
-Date: 2026-10-04
-Base: `d83658a8982a0601c9b4e2dc50b5117c3b741acc`
-Plan digest: `b74fc09b1402a919b67dde62f7da561910c21780a43194de2aef96e4e0da92ad`
-Exact final candidate SHA and GitHub check results are recorded in the Draft PR.
-Formal Change OS `verificationState` remains **UNVERIFIED**. Observed browser results below
-are Chromium checks, not an attestation from physical iPhone Safari.
+Formal verificationState: **UNVERIFIED** under CHANGE-VERIFICATION.md's current closure boundary. The observations below are local automated browser observations; physical-device Human Attestation and production Release Complete are not claimed.
 
-## Scope and design
+## Baseline and protected sources
 
-- Current main inspected; initial Morning Thread PR #146 already merged. The only open staging PR
-  at start was unrelated PUMPOKO #140; only existing Morning Thread remote branch was `feat/morning-thread`.
-- Production/main baseline: `db4b91a01890e78cfed66a92169dfebc380c6a97`. Read-only comparison, no writes.
-- Canonical Engine 0.3.0 blob: `1bc5b86b6098ab26ba19fc236ab8f8bae0256f48`.
-  Codea 1.0.0 blob: `d618a94bc19ab2215f52ab227e6dfeb31b64c714`.
-  Starter sketch blob: `259afee19dfe8f8fb828841ee7280b07de3d8ff3`.
-  All are unchanged, as is `model.js` blob `fc10797101e4f626fa2759a961eafff6e90b4310`.
-- Black bands came from Engine's fixed 390×844 logical viewport, centred letterboxing and
-  `nightDeep` outer background. The sketch's screen-sized fill inherited the viewport clip.
-- A: existing `outerBackground` and `SSE.viewport.configure` APIs now use ivory and actual
-  viewport dimensions. The full-bleed canvas sits behind a 100dvh board, with safe-area
-  header/footer and a notebook of at most 620px. Only the notebook scrolls. Short landscape
-  screens place the notebook beside the map. No shared runtime changes or patches.
-- B: shops themselves have native, labelled map hit targets, aligned with the canvas miniature.
-  A press sinks the shop 1.5px; a tap opens a small ruled note slip. Discovery still goes through
-  the existing model, and adding remains an explicit action. The old separate location menu is removed.
-- C: paper objects depress in 80ms, lift with their shadow while held, and preview order without
-  changing the route model. Adjacent papers yield in 200ms. Within 16px vertically / 34px horizontally,
-  the held paper attracts to its slot over 130ms; releasing seats it over 140ms.
-  Cancellation, loss of capture, Escape, blur, resize and notebook scrolling restore the pending order.
-  Drag commits through existing `M.move`, and ↑/↓/× alternatives remain 44px targets.
-- A single SVG thread follows both the held paper and yielding cards. New stitches extend in 200ms;
-  the map's planned line also grows in 200ms. Missing links sag/dash with an explanatory note.
-  The cancelled 08:44 lift stitch loosens and explicitly names the cancelled departure.
-  This is known connection information, not an advance verdict on the complete itinerary.
-- D: the bottom START/RESUME is a small departure stamp. It is quiet when the route is empty;
-  pressing writes a display-only timestamp, then the notebook lowers and the mall runs.
-  Marks are merged into the displayed chronological record, without changing model records or timing.
-- Audio uses the existing Engine baseline and ON/OFF control. Pickup, magnetic entry, placement and
-  stamping have short, falling tones (45ms, 65% of the existing UI reference). No music or new assets.
-  Reduced Motion removes CSS/WAAPI movement and ambient motion, retaining static order/connection/state.
-  No parallax was added; node response takes priority.
+- Repository: SukimaStock/yumaniwa-town-staging; base `712fb6369f2bc423fbb695a6ab507bc536ef6ba8`.
+- Previous Phase 1: merged PR #147, staging merge `98f249ec20abcdedf172719dd5b5d5995f3d2c0f`. No Morning Thread / Engine / starter changes between that merge and this base. Open PR #140 is unrelated PUMPOKO; morning branches were `feat/morning-thread` and `feat/morning-thread-touch`, with no open Morning Thread PR.
+- Read-only production/main at start: `db4b91a01890e78cfed66a92169dfebc380c6a97`.
+- Canonical Engine 0.3.0 blob `1bc5b86b6098ab26ba19fc236ab8f8bae0256f48`; Codea 1.0.0 blob `d618a94bc19ab2215f52ab227e6dfeb31b64c714`; starter sketch blob `259afee19dfe8f8fb828841ee7280b07de3d8ff3`. All unchanged.
+- `model.js` / `work-config.js` unchanged. No new Chapter, route rule, time condition, event, storage contract, asset or shared runtime.
+- Plan locked before implementation: `.change-plans/morning-thread-paper-gestures/r0.lock.json`, digest `b2410e0cbeb36251737638d974d663f47121fcc317e6b59fdb5a1a1e03a445d1`.
+- Exact published head and gate / CI evidence are recorded in the Draft PR body. This file cannot contain its own enclosing commit hash.
 
-## Original references (Google Drive / SukimaStock)
+## Source references
 
-Read the original code and article, not screenshots or copies of other games:
+Read the originals in the Google Drive SukimaStock folder: 「ひねる、積む、なぞる。触れるらくがきの話」, 「ゲーム未満、アプリ未満の心地よさ」, RakugakiEngine.codea (Main.lua), Calendar.txt (Diorama Room swipe/tilt), PocketLeather.txt, ClockworkGarden.txt, Tap master.txt and AmberTime.txt.
 
-- [Calendar / Diorama Room](https://drive.google.com/file/d/1D3fSJIV46twv9xJzVTk255DYep9sXx-6/view): layered input targets and gentle return.
-- [PocketLeather](https://drive.google.com/file/d/1pb0cp3UrRSYJ9NiVv2p9BL57n8xZTVfw/view): held-button state and release/cancel distinction.
-- [ClockworkGarden](https://drive.google.com/file/d/1S0lRyA8Ahm7Ol6hERh4L4pR6grYCRMk-/view): an action leaves a continuous trace.
-- [AmberTime](https://drive.google.com/file/d/1cAtwEtLj0DoMbrw7XOwI0XdcA2dopTFi/view): short input feedback / freeze mechanism.
-- [ゲーム未満、アプリ未満の心地よさ](https://drive.google.com/file/d/1bJvteZ2xEwJ3dETtecmEM_HRMvgbsibB/view): the response to a small touch.
+Applied ideas: input ownership and a target that follows the finger (Rakugaki); held-object state and cancellation (PocketLeather); continuous input leaves a visible result (ClockworkGarden and the tracing essay); soft settling after release (Calendar / Tap Master); a short punctuation before an outcome (essay / AmberTime). No assets/code copied, no tilt permission or parallax workload added. The morning map and palette remain the work's own.
 
-Only input-response ideas are applied; no source code, visual style or game rules are copied.
+## Implementation boundaries
 
-## Observed tests
+- **Canvas/sketch:** existing miniature map plus shop replies; paper, card shadows/press/lift, thread curves, preview, magnet, tension, departure tail and stamp. `paper-board.js` owns the visual state only; `sketch.js` adapts completed operations to existing M.add/remove/move/start APIs.
+- **DOM:** title/result/record, goal and clock, retained shop/card note, sound/settings, live announcements; transparent accessible projections of physical objects; a secondary tap/keyboard operation memo. No primary add/close/reorder/delete/START command toolbar during play.
+- **Visual vs game state:** cards on paper can remain loose without entering the route. Acquisition, free position, preview order, paper height, thread lag and animation time are independent of the integer-minute game model. Route mutations occur on an accepted drop or equivalent tap/keyboard command. Future connections are not graded as a completed route.
+- **Notebook:** CLOSED leaves 58px plus bottom safe area; PEEK exposes a portion of the itinerary; OPEN exposes the planning paper while the upper mall/clock remain present. Paper-edge tap cycles PEEK→OPEN→PEEK→CLOSED→PEEK. Drag follows the finger; release chooses the nearest stop with a bounded 90ms velocity projection for a fresh flick. A stale held release uses position. Cancellation restores the previous stop. No bounce.
+- **Hit testing:** viewport CSS coordinates; map rectangles align with the unchanged sketch layout; paper header, slip, card, origin, knot and thread-tail hit regions. Cards >=54px high, paper/tail/knot >=44px targets. 2-column serpentine paper, 4 columns on short wide screens; desktop paper width capped at 620px.
+- **Cards and snap:** 7px drag threshold; a slip carried near paper lifts it to OPEN. A card centre approaches the seam below another card. Preview within 64px; attraction within the final 24px; drop commits only within 30px. Preview targets use committed order, not yielding positions, so the target cannot chase its own animation. Loose cards can also be joined. Neighbours move toward preview slots; release settles from the held position. Direct card tap retains its information memo.
+- **Thread:** cubic Bezier, 70ms punctuation + 200ms partial-curve growth via de Casteljau. Endpoints follow cards; control points use a 90ms exponential visual trail. Unknown/unavailable connections sag/dash in morning colours. No traffic-light grading.
+- **Disconnect:** pull a connected card above the paper header, more than 95px from its resting position; hold tension for >=140ms and release. Short/fast accidental pulls do not cut it. The loose card remains for reconnection. A selected knot also offers a tap/keyboard equivalent.
+- **Departure:** pull the small thread-end wooden tab >=44px right, or tap it. After 80ms, existing M.start commits once; a displayed START/RESUME stamp is retained separately from model records and the paper returns to PEEK. No pending departure survives RESET.
+- **Pointer:** one primary pointer, pointer capture, touch-action:none on the object surface. Cancel/lost capture/Escape/blur/resize restores without committing an incomplete drag; secondary fingers cannot steal the held object. Settings remain above the gesture surface.
+- **Fallback:** slip tap→paper origin/card tap connects; card selection→knot tap disconnects; tail tap departs. Transparent native buttons project the same objects for Enter/Space and screen readers. Operation memo retains inspect/add/forward/back/disconnect/start/reset, including acquired notes; no drag required. Main settings have 44px targets.
+- **Reduced Motion:** same state changes, selection border, positions, thread order and stamp; immediate paper/card settling, complete thread, no shop wobble or ambient animation. No large spring/parallax.
+- **Sound:** existing explicit ON/OFF maintained; short quiet falling tones at pickup/snap/unravel/paper/departure using canonical audio baseline at 0.5 UI reference. Audible hardware character remains unconfirmed.
 
-- `node --test works/morning-thread/test-model.cjs`: **15/15 PASS**; the model and tests are unchanged.
-  Integer-minute movement, waits, deadline ±1 minute, event stop, duplicate protection,
-  success/failure recovery and identical 30/60/120fps records are preserved.
-- `node --test tests/test-*.cjs`: **390/390 PASS**, including real Engine input/boot browser fixture.
-  First attempt lacked Playwright's default Chromium executable; installed test-only binary path,
-  then reran the complete suite successfully. No fixture/code changes to bypass checks.
-- `python3 -B -m unittest discover -s tests -p 'test_*.py'`: **62/62 PASS**.
-- Syntax / whitespace / immutable Plan Lock / Scope → Risk → Impact: **PASS**.
-  Trusted base static syntax and exact published tree comparison are reported in the PR.
-- `CHROMIUM_EXECUTABLE=/tmp/morning-chromium node works/morning-thread/test-browser.cjs`:
-  **PASS**, real Chromium 153.0.8010.0 / Playwright / locally HTTP-served repository, no game-state injection.
-- Home → mall → event → flower route **08:48**, escalator **08:47**, lift failure → immediate replan
-  → **08:50** success. Clock stayed unchanged during the announcement's one-second wait.
-- Add, duplicate disabled, remove, ↑ reorder, clear, START/RESUME, RESET and reload: **PASS**.
-- Actual mouse and CDP touchscreen drag: slot snap within 3px, adjacent yielding and changing thread
-  geometry observed. Touch cancellation restores the order and leaves no ghost/dialog: **PASS**.
-- **320×568, 390×844, 844×390, 1280×800**: no document horizontal/vertical overflow; canvas edge
-  pixels are light morning colours and viewport offsets are zero; shop hit targets ≥44px;
-  departure controls stay in viewport. Screenshots inspected, including the 320px board and landscape.
-- Reduced Motion: reorder still works, stitches remain visible, active animations **0**.
-- Sound OFF persists through RESET; explicit ON unlocks WebAudio; switching OFF works.
-- pageerror **0**, external requests **0**. Engine / Codea boot state **running**.
-  Diagnostics error count **0**; health has no error-level item.
-- Last headless snapshot: average FPS **56.3**, p95 frame **31.1ms**, max **32.4ms**;
-  Engine update average **0.077ms**, draw average **0.125ms**, managed work max **0.6ms**.
-  `slow-frames` warning remains: **19 / 461 rendered frames (4.1%)**. These figures include browser
-  automation and do not measure all DOM work or establish physical-device performance.
+## Mechanical and browser observations
 
-## Unverified and Phase 2 connection points
+- Model + paper unit tests: **21/21**. Existing model 15 tests cover waits, exact deadline, missed departure, pleasant event link, duplicate/current/unknown nodes, failure recovery, paused clock and identical 30/60/120fps records. New paper 6 tests cover loose acquisition, preview/commit boundary, stable targets, loose-card connection, tap/drag/flick/cancel, tension hold, RESET/pending departure and visual settling at 30/60/120fps (<0.05px final difference).
+- Staging common Node tests `node --test tests/test-*.cjs`: **390/390**.
+- Staging common Python tests `python3 -B -m unittest discover -s tests -p 'test_*.py'`: **62/62**.
+- Scope→Risk→Impact, syntax, immutable Plan, diff whitespace and trusted base static checks: see exact-head evidence in PR.
+- Real headless Chromium 153, 390×844 mobile/touch at DPR2: start→paper repeated taps/drag/flick→shop→grasp slip→carry to paper→proximity preview/snap→drag reorder→tension cut→reconnect→pull departure→home success 08:16→mall event at 08:41 (wait observed frozen)→resume→success 08:47. Flower route succeeds 08:48; cancelled lift fails 08:44 and direct recovery arrives 08:50. Results/records/RESET/reload checked.
+- Actual CDP touch drag, touchCancel, multi-touch cancellation and mouse drag; keyboard Enter and tap-only surface connection/disconnection; fallback reorder/remove and duplicate-add disabled; sound ON context running, then OFF retained through RESET. No game-state injection in browser tests.
+- 320×568, 390×844, 844×390, 1280×800: document size exactly viewport, no horizontal/page overflow, edge canvas pixels `[243,238,227,255]`, paper inside viewport, >=44px paper handle. Seven pending cards fit OPEN at 320×568. Generated screenshots visually inspected. Safe-area CSS and measured bottom inset feed geometry; Chromium's inset is zero, not evidence of physical Safari's nonzero inset.
+- Final Chromium report: diagnostics info/warn/error **0/0/0**, Engine health `healthy`; page errors **0**, external runtime requests **0**. During a real held-card drag, RAF sample **132 frames**, mean **16.666ms**, p95 **16.8ms**, max **16.8ms** (~60fps). Engine 120-frame window: update mean **0.127ms**, draw mean **0.313ms**, total work max **0.8ms**, frame p95 **17ms**, no recent slow frames. Lifetime at that sample included **8 slow frames / 820 rendered** around startup/interaction setup; no sustained drag jank observed. This is headless Chromium on this runner, not an iPhone benchmark.
+- Release Validator `--env staging --ids morning-thread`: 45 PASS / 1 FAIL / 2 WARNING / 2 EXTERNAL_CHECK_REQUIRED, **identical on the untouched base**. FAIL `metadata.identity` because Morning Thread is not registered in WORKS. Metadata registration / publication set are outside this work-only phase and untouched. This is not Release Complete.
 
-Physical iPhone Safari, real notch/home-indicator and dynamic Safari toolbar behaviour, hardware audio
-balance, subjective one-handed comfort and sustained real-device frame rate remain UNVERIFIED.
-Safe-area env declarations and dynamic viewport behaviour were checked in Chromium; hardware evidence
-is not substituted. No merge/deploy or production delivery is part of this Draft.
+## Remaining unconfirmed
 
-No new stage, event or rule is added. The existing `state.phase === "event"` branch still opens the
-editable notebook, with the same `state.now` / pending `state.route`. Phase 2 can provide announcement
-presentation there, and thread state comes from existing `M.edge` / `state.event`; `M.start` continues
-RESUME from the existing place/time. Presentation marks and drag previews remain outside the model.
+Physical iPhone Safari, Safari bottom chrome transitions, nonzero hardware safe-area inset, VoiceOver reading order and audible device mix; actual 30/120Hz hardware. Local headless browser and unit tests do not certify those. Draft only: no merge/deploy/production change or observation of this new phase at the staging Pages URL.
 
----
+## Next event integration point
 
-# First playable verification
+Existing bakery event and pause/resume remain intact. The renderer derives sag/unravelling from current model edge/event state; `board.sheet(2)` opens the same paper when the model enters event/failed. Future event presentation can use that visual seam and thread trail without changing the route clock or adding a second event model. No events added here.
 
-Date: 2026-10-04
-Base: `17bffca036eb18084bcdee672e3b32fb671ef1e2`
-Plan digest: `38ab8b6ad9fe235fa0c779eb6958097c10eb51a3fa3b48e5d0584eb2a35061dc`
-
-Formal Change OS verificationState remains `UNVERIFIED` under the repository contract.
-The following are observed checks, not a production release or an iPhone attestation.
-The exact candidate SHA is recorded in the Draft PR.
-
-## Observed
-
-- Work rules: **15/15 PASS** (`node --test works/morning-thread/test-model.cjs`).
-  Waiting, scheduled departures, missed connection, duplicate/edit protection, exact deadline,
-  failure recovery, partial route continuation, frozen announcement and 30/60/120fps records.
-- Existing standard Node tests: **390/390 PASS** (`node --test tests/test-*.cjs`).
-  Includes the existing real Chromium Engine input/boot fixture.
-- Existing Python tests: **62/62 PASS** (`python3 -B -m unittest discover -s tests -p 'test_*.py'`).
-- New real-browser script: **PASS**, Chromium 153.0.8010.0, Playwright, HTTP-served repository.
-  Interaction uses actual DOM buttons and pointer events, without injecting game state.
-- Home → mall → announcement → flower route → record: **08:48**.
-- Escalator route → record: **08:47**.
-- Cancelled lift → failure board → food/florist reroute → success: **08:50**.
-- Add/remove/tap reorder, duplicate disabled in notebook, actual handle drag and subsequent tap: **PASS**.
-- During the announcement, clock unchanged across a real one-second browser wait: **PASS**.
-- Widths **320 / 390 / 844 / 1280**, portrait and landscape: no horizontal overflow; controls remain operable.
-- Reload returns safely to the cover, ready to start again.
-- Screenshots of title, home board, mall board, announcement and result inspected visually.
-  Japanese system font was installed only in the test environment; the game has no external font dependency.
-- Browser page exceptions: **0**. External requests: **0**.
-- Engine **0.3.0** / Codea **1.0.0**, both running. WebAudio context running after the native sound button.
-- Diagnostics: no error-level issues. The final automated run reports `slow-frames`:
-  **20 frames (12.7%), p95 37.3ms, max 66.5ms**. This is a remaining headless measurement,
-  not proof of iPhone performance. Browser automation includes screenshots and viewport resizing.
-- Scope → Risk → Impact and diff whitespace checks: **PASS**. Trusted static syntax result is in the PR.
-
-## Supplemental existing browser failures
-
-The broad `tests/*.cjs` glob includes two standalone browser helpers in addition to the standard tests.
-They fail identically in the candidate and an untouched detached worktree at the base SHA:
-
-- `creation-draft-browser.cjs`: `#creation-save` exists but is not visible; 30s click timeout.
-- `map-asset-browser.cjs`: fixture assumes `.git` is a directory, but a Git worktree has a `.git` file;
-  `FileExistsError` while creating `.git` metadata.
-
-These helpers and their fixtures are unmodified. Their failures are recorded, not marked PASS.
-
-## Unverified / intentionally limited
-
-- Physical iPhone Safari, safe-area behavior on actual hardware, interruption by an actual phone app,
-  audible sound balance and subjective one-handed comfort.
-- Real-device performance. Frame-independent rule tests do not establish device rendering speed.
-- Town host entry/return, production delivery and install/SEO/OGP metadata. This Draft is standalone within staging.
-- Journey records are session-local and return to the cover on reload; no new persistent save contract.
-- No registered town work, merge, deployment, production change, canonical Engine/Codea change,
-  or unrelated existing-work change.
+Rollback: revert the isolated work implementation and its Plan commit.
