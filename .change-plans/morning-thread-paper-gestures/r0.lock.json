@@ -1,0 +1,87 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b2410e0cbeb36251737638d974d663f47121fcc317e6b59fdb5a1a1e03a445d1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "morning-thread-paper-gestures",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Canvas paper, slips, cards and thread with direct notebook/connect/disconnect/departure gestures; preserve existing rules",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "712fb6369f2bc423fbb695a6ab507bc536ef6ba8",
+    "canonicalSources": [
+      "engine/sukimastock-engine.v0.3.0.js",
+      "engine/codea-lite.v1.0.0.js",
+      "works/_starter",
+      "works/morning-thread/model.js",
+      "Google Drive SukimaStock / Calendar, PocketLeather, ClockworkGarden, AmberTime, ゲーム未満、アプリ未満の心地よさ",
+      "user Phase 1 brief",
+      "Google Drive SukimaStock / ひねる、積む、なぞる。触れるらくがきの話, RakugakiEngine, Tap master",
+      "user current direct manipulation brief"
+    ],
+    "allowedPaths": [
+      ".change-plans/morning-thread-paper-gestures/r0.lock.json",
+      "works/morning-thread/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/_starter/**",
+      "works/morning-thread/model.js",
+      "works/morning-thread/work-config.js"
+    ],
+    "expectedChanges": [
+      "Canvas notebook CLOSED/PEEK/OPEN with tap/drag/flick and velocity snapping",
+      "Shop-specific replies and graspable information slips carried to paper",
+      "Independent visual positions with magnetic proximity connection, soft threads, tension disconnect and reorder",
+      "Pull itinerary thread to depart; tap/keyboard alternatives, reduced motion and existing sound control",
+      "Real browser gesture/playthrough regression and recorded limitations"
+    ],
+    "ownerDecisions": [
+      "User authorizes this work-local direct manipulation phase; stop at Draft PR without merge/deploy"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Engine 0.3.0 / canonical Codea 1.0.0 references, no forks",
+      "Existing starter createApp / audio baseline / disabled analytics; no host or storage contract change"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-playthrough",
+      "mobile-board",
+      "engine-diagnostics",
+      "reduced-motion",
+      "pointer-gestures"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated paper gesture implementation and Plan commits",
+    "outOfScope": [
+      "Game rule, stage or event expansion; canonical/shared runtime changes; production, merge, deploy"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and audible hardware mix"
+    ]
+  }
+}

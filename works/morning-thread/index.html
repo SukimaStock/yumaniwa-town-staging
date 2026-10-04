@@ -19,7 +19,16 @@
           <small>SUKIMASTOCK · A LITTLE ITINERARY</small>
           <h1>あさのつなぎめ</h1>
         </div>
-        <button id="sound" aria-label="音を切り替える">音 OFF</button>
+        <div class="settings">
+          <button
+            id="access"
+            aria-expanded="false"
+            aria-controls="fallback"
+            aria-label="タップとキーボードの操作手帳"
+          >
+            操作のメモ</button
+          ><button id="sound" aria-label="音を切り替える">音 OFF</button>
+        </div>
       </header>
       <section class="map-space" aria-label="朝の館内図">
         <div id="map-caption"></div>
@@ -30,10 +39,12 @@
         <footer id="controls"></footer>
       </section>
     </div>
-    <dialog id="notebook" aria-labelledby="note-title">
-      <div id="note-content"></div>
-      <button id="close-note" class="wide">手帳を閉じる</button>
-    </dialog>
+    <div id="board" aria-hidden="true"></div>
+    <div id="objects" aria-label="紙と札の盤面"></div>
+    <aside id="status-note" aria-live="polite"></aside>
+    <aside id="slip-text" aria-live="polite"></aside>
+    <div id="fallback" hidden aria-label="タップとキーボードの操作手帳"></div>
+    <div id="safe-probe" aria-hidden="true"></div>
     <p id="announce" class="sr-only" aria-live="polite"></p>
     <script src="../../engine/codea-lite.v1.0.0.js"></script>
     <script
@@ -55,6 +66,7 @@
           });
         load("work-config.js")
           .then(() => load("model.js"))
+          .then(() => load("paper-board.js"))
           .then(() => load("sketch.js"))
           .then(() => CodeaLite.start("gameCanvas"))
           .catch((error) => {
