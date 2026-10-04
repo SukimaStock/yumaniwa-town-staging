@@ -1,0 +1,104 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4df97640255f1e4140d0bde546b1e3463c9cba38d791577002124c8d889bc88d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-ending-continuous-20261004",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Keep the journey ground continuous, glide once through growth, and frame the rightmost hero with the whole result",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "a87c5ae0911deb76759ad4d2566503dc41d1efc7",
+    "canonicalSources": [
+      "works/pumpoko/journey.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/test-ending.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-ending-continuous-20261004/r0.lock.json",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/test-ending.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/builder/**",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/assets/**",
+      "works/kotsu-koro/**",
+      "works/pumpoko/test-journey.cjs"
+    ],
+    "expectedChanges": [
+      "Replace per-plant follow accumulation with one absolute-time smooth camera path from the arrival view to a bounds-aware whole-row composition through growth completion; one arrival holds its current view",
+      "Define the rightmost growthOrder plant as Hero Pumpkin and use that same immutable subject for the final composition and original title return",
+      "Use identical receiving-hollow strokes and Stage 1 terrain horizon before/after resolution; remove ending-only background lift, keep ground geometry and artwork",
+      "Preserve growAt .90, stagger .34, growthDuration 2.25, fruit growth curve, plantPose and spatial growthOrder; update obsolete per-event/pull-in assertions to continuous motion/full-result/hero/ground continuity regressions",
+      "Preserve Stage 0/transition, Stage 1 gameplay and physics, arrival/reward/jump evaluation, pumpkin/leaf/grass art, audio, title-return structure/timing, Engine/Codea Lite and all other works",
+      "Verify real pre-arrival through growth/rest/title in Chromium 0/1/2/3/9 and mobile9, 30/60/120fps regressions, exact head/base and required/trusted CI; merge staging and verify Pages deployment and live browser only after successful checks"
+    ],
+    "ownerDecisions": [
+      "User explicitly supersedes Draft-only/no-merge restrictions for this staging task: implement, verify, merge and publish staging without additional approval; production prohibited",
+      "Owner requests one continuous gaze, seamless ground and rightmost hero with all pumpkins visible; existing individual-event camera rhythm is superseded"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK / Standard existing work-local ending presentation",
+      "Plan-first lock-only commit, immutable r0; Scope then Risk then Impact; final verification state remains UNVERIFIED",
+      "CHANGE-PLAN.md section 10 / OPERATIONS.md: recreate branch and Plan on current main when base advances; same work paths unchanged on main since old base"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "chromium-pre-arrival-growth-rest-title-0-1-2-3-9",
+      "chromium-mobile9-continuous-ending",
+      "pages-build-deploy-exact-merge",
+      "public-ending-title-after-deploy"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing PumpkinJourney ending state, plantPose and growth timing only"
+    ],
+    "rollback": "Revert this work-local implementation commit; immutable Plan retained, no data/state migration",
+    "outOfScope": [
+      "Stage 0 and 0-to-1 transition",
+      "Stage 1 gameplay/physics/arrival/reward/jump evaluation",
+      "Basic pumpkin/leaf/grass artwork and audio",
+      "Canonical Engine/Codea Lite",
+      "Production repository and other works",
+      "Title return structure/timing; only its selected subject changes to the rightmost hero"
+    ],
+    "promotion": "Explicitly authorized staging merge and GitHub Pages publication after tests/required CI; production prohibited",
+    "unverified": [
+      "Physical iPhone/iPad; verificationState remains UNVERIFIED"
+    ],
+    "previousPlanDigest": null,
+    "revisionReason": null
+  }
+}
