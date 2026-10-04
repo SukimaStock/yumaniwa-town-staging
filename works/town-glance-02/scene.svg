@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 590" fill="none">
+<defs>
+ <linearGradient id="soil" x1="165" y1="184" x2="260" y2="560" gradientUnits="userSpaceOnUse"><stop stop-color="#ece5d3"/><stop offset="1" stop-color="#e3ddc8"/></linearGradient>
+ <linearGradient id="mountain" x1="310" y1="80" x2="298" y2="228" gradientUnits="userSpaceOnUse"><stop stop-color="#8b9c83"/><stop offset="1" stop-color="#bac3a4"/></linearGradient>
+ <linearGradient id="water" x1="50" y1="295" x2="370" y2="409" gradientUnits="userSpaceOnUse"><stop stop-color="#88b8b9"/><stop offset=".6" stop-color="#a7c9c4"/><stop offset="1" stop-color="#8bb3b4"/></linearGradient>
+ <filter id="ground-shadow" x="-25%" y="-25%" width="150%" height="150%"><feGaussianBlur stdDeviation="8"/></filter>
+ <g id="tree"><path d="M0 0v12" stroke="#8a8974" stroke-width="2"/><ellipse cy="-2" rx="8" ry="11" fill="#99ad86"/><ellipse cx="-3" cy="-4" rx="4" ry="8" fill="#adbd94"/></g>
+ <g id="small-house"><path d="m0 0 21 4 0 16-21-4z" fill="#ddd2b5"/><path d="m21 4 11-9v16l-11 9z" fill="#c0b99e"/><path d="m-3 0 12-12 26 5-12 12z" fill="#bb9880"/><path d="m9-12 26 5-12 12-5-12z" fill="#d3b199"/><path d="m7 5 5 1v7l-5-1zm10 2 3 .5v5l-3-.5z" fill="#9c9d8c"/></g>
+ <g id="bazaar-house"><path d="m0 0 31 5v23L0 23z" fill="#eadcc1"/><path d="m31 5 15-10v23L31 28z" fill="#c6b69a"/><path d="m-3 0 18-13 34 6-17 13z" fill="#ad8068"/><path d="m15-13 34 6-17 13-7-15z" fill="#c89b7b"/><path d="m4 15 9 1.5v9L4 24zm16 2 7 1v9l-7-1z" fill="#7c8176"/><path d="m2 12 28 5" stroke="#bfad8c" stroke-width="2"/></g>
+ <g id="modern-house"><path d="m0 0 34 6v29L0 29z" fill="#e6dfcd"/><path d="m34 6 14-10v29L34 35z" fill="#c5c7b6"/><path d="m-1 0 15-10 35 6-15 11z" fill="#c9ccbc"/><path d="m5 8 25 4m-25 6 25 4m-25 6 25 4" stroke="#b0b9a9" stroke-width="3"/></g>
+ <g id="lamp"><path d="M0 0v15" stroke="#8e9280" stroke-width="1.3"/><circle r="2.2" fill="#c3b57b"/></g>
+ <style>text{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',Meiryo,sans-serif;fill:#626b5c;font-size:15px;letter-spacing:.2px;paint-order:stroke;stroke:#f3f0e6;stroke-width:3px;stroke-linejoin:round}.en{font-size:9px;fill:#899080;letter-spacing:.4px}.river-label{fill:#527f83;stroke:#d5e5dd;stroke-width:2px}</style>
+</defs>
+<!-- A compressed, south-facing relationship scene; not a road map. -->
+<ellipse cx="216" cy="506" rx="173" ry="34" fill="#a19b7d" opacity=".13" filter="url(#ground-shadow)"/>
+<!-- One continuous miniature ground: foothills join the town. -->
+<path d="M39 288Q67 228 132 216L214 184Q286 176 344 220L403 340Q421 394 390 451L296 522Q203 559 112 517L43 446Q11 372 39 288Z" fill="#c6c8ac"/>
+<path d="M39 279Q67 219 132 207L214 175Q286 167 344 211L403 331Q421 385 390 442L296 513Q203 550 112 508L43 437Q11 363 39 279Z" fill="url(#soil)"/>
+<!-- Vodno, connected foothills rather than a separate scenic backdrop. -->
+<path d="M187 215Q230 166 263 118Q280 103 299 68Q304 64 311 72Q324 95 341 111Q370 147 384 230L346 255Q296 245 256 229Z" fill="url(#mountain)"/>
+<path d="M299 69Q288 116 263 145Q247 179 228 217L264 229Q280 204 292 159Q299 121 312 90Z" fill="#778f78" opacity=".4"/>
+<path d="M315 94Q329 137 343 157Q355 188 360 240L346 255Q329 218 329 182Q329 142 310 110Z" fill="#c2c9ad" opacity=".65"/>
+<path d="M219 206Q262 197 306 218Q329 233 355 236L346 264L261 247L215 234Z" fill="#bcc6a7"/>
+<path d="M310 77V43M297 53h26" stroke="#f7f3e5" stroke-width="5" stroke-linecap="square"/>
+<path d="M310 77V43M297 53h26" stroke="#767e6b" stroke-width="1.4"/>
+<text x="260" y="41" text-anchor="end">ヴォドノの十字架</text><text class="en" x="260" y="55" text-anchor="end">Vodno</text>
+<!-- The river and its banks are the strongest continuous shape in the town. -->
+<path d="M28 277C78 297 103 279 151 306C208 335 221 369 269 383C321 402 358 387 406 420" stroke="#d7d9bd" stroke-width="50"/>
+<path d="M28 277C78 297 103 279 151 306C208 335 221 369 269 383C321 402 358 387 406 420" stroke="url(#water)" stroke-width="35"/>
+<path d="M28 268C78 288 103 270 151 297C208 326 221 360 269 374C321 393 358 378 406 411" stroke="#d6e5da" stroke-width="1.5" opacity=".6"/>
+<path d="m54 283 13 2m52 12 17 4m160 92 16 2m45 2 13 5" stroke="#e5efdf" stroke-width="1.2" opacity=".7"/>
+<!-- Sparse large-scale street/promenade, no detailed road network. -->
+<path d="M249 274Q233 252 228 230Q223 216 204 209" stroke="#f4f0e2" stroke-width="12" stroke-linecap="round"/>
+<path d="M209 384Q184 413 168 427Q145 447 109 454" stroke="#f5ebd8" stroke-width="10" stroke-linecap="round"/>
+<path d="M269 420Q305 436 356 425" stroke="#f5eddf" stroke-width="9" stroke-linecap="round"/>
+<!-- Square: open ground and a recognisable fountain/plinth. -->
+<path d="m199 270 63-24 55 50-61 26-44-11z" fill="#f4eddb" stroke="#e1d7be" stroke-width="1.5"/>
+<path d="m213 278 49-18 36 34-45 17z" fill="#eae2ce"/>
+<ellipse cx="256" cy="287" rx="18" ry="9" fill="#d8d0b5"/><ellipse cx="256" cy="284" rx="15" ry="7" fill="#a3c0b5"/>
+<path d="m249 277 10 2 6-4v-18l-16-1z" fill="#b0aa91"/><path d="m249 256 10 2 6-4-10-2z" fill="#d4cbb1"/>
+<!-- Small horse-and-rider silhouette, enough to identify the square. -->
+<path d="m250 253-2-9 5-4 7 1 3-7 5 1 1 6-4 3-3 10h-3l1-8-7-1-1 8zm6-13v-8l3-3 3 3v8z" fill="#858674"/><circle cx="259" cy="226" r="2.5" fill="#858674"/>
+<text x="302" y="235" text-anchor="middle">マケドニア広場</text><text x="302" y="249" class="en" text-anchor="middle">Macedonia Square</text>
+<!-- A few quiet buildings, not a dense model city. -->
+<use href="#modern-house" x="165" y="235"/>
+<use href="#small-house" x="136" y="250"/>
+<use href="#modern-house" x="333" y="300"/>
+<use href="#small-house" x="365" y="324"/>
+<use href="#tree" x="208" y="242"/><use href="#tree" x="195" y="216"/><use href="#tree" x="156" y="284"/>
+<use href="#tree" x="343" y="280"/><use href="#tree" x="340" y="342"/>
+<!-- Bridge joins square bank and bazaar bank. Arches belong to its visible side. -->
+<path d="m201 380 48-60 15 8-48 62z" fill="#c2bba3"/>
+<path d="m201 370 48-60 15 8-48 62z" fill="#e7debf"/>
+<path d="m202 369 48-60m-35 71 48-60" stroke="#b4ad95" stroke-width="2.5"/>
+<path d="m223 378 4-5v-5q-2-6-5-1l-3 5m16-11 4-5v-5q-2-6-5-1l-3 5m16-11 4-5v-5q-2-6-5-1l-3 5" fill="#899b91"/>
+<path d="m203 369 3-4m9-10 3-4m8-10 3-4m9-10 3-4m8-10 3-4" stroke="#f5efdb" stroke-width="3"/>
+
+<!-- Old Bazaar: low roofs, a dome and a slender minaret. -->
+<use href="#bazaar-house" x="131" y="406"/><use href="#bazaar-house" x="92" y="424"/>
+<use href="#small-house" x="182" y="398"/><use href="#bazaar-house" x="176" y="432"/>
+<use href="#small-house" x="119" y="472"/>
+<path d="m77 379 29 5 13-8v20l-13 8-29-5z" fill="#d8cbb0"/>
+<path d="M73 377q8-25 23-25q15 0 27 20l-17 12z" fill="#a7ada0"/>
+<path d="m89 353 5-5 6 4" fill="#c6c8b7"/>
+<path d="m119 387 5-3v-54l-5 1z" fill="#c4bda2"/><path d="m115 332 5-15 7 13z" fill="#939f92"/>
+<path d="m117 354 9-2" stroke="#e9dfc7" stroke-width="3"/>
+<use href="#tree" x="72" y="421"/><use href="#tree" x="78" y="451"/>
+<text x="91" y="511" text-anchor="middle">オールドバザール</text><text x="91" y="525" class="en" text-anchor="middle">Old Bazaar</text>
+<use href="#tree" x="221" y="468"/><use href="#tree" x="262" y="483"/><use href="#tree" x="370" y="456"/>
+<use href="#lamp" x="234" y="317"/><use href="#lamp" x="274" y="331"/>
+<use href="#lamp" x="280" y="423"/><use href="#lamp" x="344" y="427"/>
+<text x="355" y="375" text-anchor="middle" class="river-label">ヴァルダル川</text>
+<text x="155" y="338" text-anchor="middle">石橋</text><text x="155" y="352" class="en" text-anchor="middle">Stone Bridge</text>
+<!-- Demo YOU stays in the square-side neighborhood. -->
+<ellipse cx="248" cy="325" rx="11" ry="5" fill="#6b99a0" opacity=".15"/>
+<circle cx="248" cy="318" r="7" fill="#568e9b" stroke="#f5f1e8" stroke-width="3"/>
+<text x="269" y="321" class="en" style="fill:#4c7e86;stroke:#f3f0e6;font-size:10px">YOU</text>
+</svg>
