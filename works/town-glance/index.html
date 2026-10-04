@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#f4f1e9">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'">
+<title>そこって、どの辺？ · Prototype 0</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<header><div class="eyebrow">TOWN GLANCE <span>PROTOTYPE 0</span></div><h1>そこって、どの辺？</h1><p>いつもの街で、今日行きたい場所。</p></header>
+<section class="destination"><label for="destination">今日の行き先</label><select id="destination"><option value="cafe">木陰の喫茶</option><option value="bread">橋のパン屋</option><option value="books">駅裏の本屋</option></select></section>
+<nav class="modes" aria-label="街の見方"><button data-mode="A" aria-pressed="true"><b>A</b> 地図</button><button data-mode="B" aria-pressed="false"><b>B</b> 簡略</button><button data-mode="C" aria-pressed="false"><b>C</b> 模型</button></nav>
+<section class="map-shell" aria-label="架空の街"><div class="map-caption"><span id="view-label">道と区画を眺める</span><button id="overhead" hidden aria-pressed="false">真上から</button></div>
+<svg id="map" viewBox="0 0 600 560" role="group" aria-label="街の表示。ドラッグで移動、ピンチで拡大。目的地をタップして確認。"><g id="camera"><g id="scene"></g></g></svg>
+<div class="map-tools"><button id="zoom-out" aria-label="街を縮小">−</button><button id="zoom-in" aria-label="街を拡大">＋</button><button id="reset">街全体</button></div>
+<div class="map-foot"><span>架空の街 · ドラッグ / ピンチ</span><button id="turn" aria-label="YOUの向きだけを90度変える">YOU ↻</button></div></section>
+<section class="place-card" aria-live="polite"><div><span class="eyebrow">今日、初めて行く場所</span><h2 id="place-name">木陰の喫茶</h2><p id="place-detail">店をタップして、この辺を眺める。</p></div><button id="confirm">場所を見る</button></section>
+<footer>街はそのまま。YOUの向きだけが変わります。</footer>
+<noscript>このプロトタイプを操作するにはJavaScriptを有効にしてください。</noscript>
+</main><script type="module" src="app.mjs"></script>
+</body></html>
