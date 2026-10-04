@@ -16,8 +16,8 @@
     const bottom=Math.max(1100,g.bounds.lostY+500);
       for (const segment of g.segments) {
         let samples = segment.samples;
-        // Once the successful ending resolves, the final platform is allowed
-        // to continue visually beyond the physical world edge. Collision and
+        // The final platform continues visually beyond the physical world edge
+        // during both play and ending, with no arrival-time switch. Collision and
         // geometry stay unchanged; these extra samples exist only for drawing.
         if(openRight && segment===g.segments.at(-1)) {
           const last=samples.at(-1), prev=samples.at(-2), extension=[];
@@ -74,21 +74,13 @@
       c.restore();
     }
   }
-  function drawFarm(c,g,lift=0,settled=false) {
+  function drawFarm(c,g,lift=0) {
     const f=J.farm(g), ps=f.samples;
     c.save();c.lineCap='round';c.lineJoin='round';
-    if(!settled) {
-      // During play, a quiet light edge is enough to hint that the shallow
-      // hollow can receive the travelling seeds. The terrain remains the body.
-      c.beginPath();for(const [i,p]of ps.entries()){if(i)c.lineTo(p.x,p.y+lift+5);else c.moveTo(p.x,p.y+lift+5);}
-      c.strokeStyle='#e1c596';c.lineWidth=14;c.stroke();
-    } else {
-      // The ending is still the same pumpkin-world stratum, not a new farm.
-      // Keep only a restrained warm seam at the receiving hollow; plants root
-      // on the unchanged sampled surface drawn by drawTerrain underneath.
-      c.beginPath();for(const [i,p]of ps.entries()){if(i)c.lineTo(p.x,p.y+lift+6);else c.moveTo(p.x,p.y+lift+6);}
-      c.strokeStyle='rgba(255,240,184,.48)';c.lineWidth=8;c.stroke();
-    }
+    // Keep the gameplay seam unchanged as the seeds become plants. Switching
+    // its width/opacity used to reveal a suddenly thicker green terrain edge.
+    c.beginPath();for(const [i,p]of ps.entries()){if(i)c.lineTo(p.x,p.y+lift+5);else c.moveTo(p.x,p.y+lift+5);}
+    c.strokeStyle='#e1c596';c.lineWidth=14;c.stroke();
     c.restore();
   }
   function leaf(c,x,y,size,angle,color) {
@@ -182,7 +174,6 @@
   }
   function draw(c, s, seed, shell, returnShell) {
     const mix=J.titleMix(s);
-    const rest=s.ending?ease(s.ending.elapsed/2.8):0;
     const o = J.opening(s), g = s.geometry || J.geometry;
     // The tabletop opens into cream space as the same cut surface fills the view.
     c.save(); c.globalAlpha = o*(1-mix);
@@ -192,11 +183,11 @@
     // Broad distant curves, separated from the foreground; no hollow or tube.
     c.fillStyle = '#d8dec0';
     c.beginPath(); c.moveTo(-100,740);
-    for(let x=-100;x<=490;x+=10) c.lineTo(x, 475-220*rest + Math.sin((x+s.camera.x*.16)/260)*52);
+    for(let x=-100;x<=490;x+=10) c.lineTo(x, 475 + Math.sin((x+s.camera.x*.16)/260)*52);
     c.lineTo(490,740); c.closePath(); c.fill();
     c.fillStyle = '#ecd5a0';
     c.beginPath(); c.moveTo(-100,740);
-    for(let x=-100;x<=490;x+=10) c.lineTo(x, 560-215*rest + Math.sin((x+s.camera.x*.28)/210+.8)*34);
+    for(let x=-100;x<=490;x+=10) c.lineTo(x, 560 + Math.sin((x+s.camera.x*.28)/210+.8)*34);
     c.lineTo(490,740); c.closePath(); c.fill(); c.restore();
     c.save(); transform(c,s);
     if (s.transition && o < .7 && shell) {
@@ -211,10 +202,9 @@
       c.save(); c.globalAlpha = J.smooth(o*2)*(1-mix);
       // The journey and nursery remain one continuous piece of land. A result
       // changes what grows here, not whether the Stage 1 ground still exists.
-      const settled=!!(s.result&&s.ending&&s.result.arrivals.length);
-      drawTerrain(c,g,lift,1,settled);
+      drawTerrain(c,g,lift,1,o===1);
       drawLoops(c,g);
-      drawFarm(c,g,lift,settled);
+      drawFarm(c,g,lift);
       c.restore();
     }
     // Draw exactly one copy of each object over the changing world.

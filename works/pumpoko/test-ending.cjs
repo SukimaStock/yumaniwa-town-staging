@@ -4,7 +4,7 @@ const D=require('./dynamics.js'),J=require('./journey.js'),G=require('./stage-ge
 const advance=(s,t,fps=60)=>{for(let i=0;i<Math.round(t*fps);i++)J.update(s,1/fps);};
 function place(s,p,x,vx=0){const f=s.geometry.floor(x);Object.assign(p,{x,y:f.y-J.support(p,f.nx,f.ny)/-f.ny-.1,vx,vy:0,spin:0});}
 function fixture(n,g=J.geometry){const s=J.create(D.create(),false,g);s.seeds.forEach((p,i)=>{if(i>=n){p.lost=p.inactive=true;return;}place(s,p,g.END.left+22+(g.END.right-g.END.left-44)*(i+.5)/n);});s.camera={x:(g.END.left+g.END.right)/2,y:g.floor((g.END.left+g.END.right)/2).y-80,z:J.ZOOM};return s;}
-function context(){const calls=[];return {calls,c:new Proxy({globalAlpha:1}, {get:(target,key)=>key==='globalAlpha'?target.globalAlpha:key==='createLinearGradient'?()=>({addColorStop(){}}):(...args)=>calls.push([key,...args]),set:(target,key,value)=>{target[key]=value;return true;}})};}
+function context(){const calls=[];return {calls,c:new Proxy({globalAlpha:1}, {get:(target,key)=>key==='globalAlpha'?target.globalAlpha:key==='createLinearGradient'?()=>({addColorStop(){}}):(...args)=>calls.push([key,...args]),set:(target,key,value)=>{calls.push(['style',key,typeof value==='object'?'gradient':value]);target[key]=value;return true;}})};}
 for(let n=1;n<=9;n++)test(`${n} arrivals retain identity, produce exactly ${n} plants/fruits and never duplicate`,()=>{
   const s=fixture(n),objects=s.seeds.slice(),seen=[];
   for(let i=0;i<120;i++){J.update(s,1/60);seen.push(...s.arrivalEvents);}
@@ -36,16 +36,16 @@ test('early arrivals wait safely while distant living stragglers remain controll
   place(s,late,1970);advance(s,1);assert.equal(s.result.arrivals.length,2);assert.equal(s.result.lost,7);assert.equal(s.result.total,9);
 });
 test('arrival/plant/root is deterministic across 30/60/120fps, with continuous pullback and bounds',()=>{
-  const states=[30,60,120].map(fps=>{const s=fixture(9);for(let i=0;i<10*fps;i++){J.update(s,1/fps);assert.ok(Number.isFinite(s.camera.x+s.camera.y+s.camera.z));assert.equal(J.travelling(s).length+J.party(s).filter(p=>p.arrival).length+s.seeds.filter(p=>p.lost).length,9);}assert.equal(s.camera.z,J.ENDING.closeZoom,'keep current close framing');return s;});
+  const states=[30,60,120].map(fps=>{const s=fixture(9);for(let i=0;i<10*fps;i++){J.update(s,1/fps);assert.ok(Number.isFinite(s.camera.x+s.camera.y+s.camera.z));assert.equal(J.travelling(s).length+J.party(s).filter(p=>p.arrival).length+s.seeds.filter(p=>p.lost).length,9);}assert.deepEqual(s.camera,J.endingFrame(s),'hold the whole result composition');return s;});
   for(const s of states.slice(1))for(let i=0;i<9;i++)for(const k of ['x','y','at'])assert.ok(Math.abs(s.result.arrivals[i][k]-states[0].result.arrivals[i][k])<1e-7);
-  for(const s of states){const p=J.plantPose(s,J.growthOrder(s).at(-1)),q=J.screenPoint(s,p.x,p.y);assert.ok(Math.abs(q.x-195)<1e-8&&q.y>30&&q.y<710,'last fruit rests in the close view');}
+  for(const s of states){const p=J.plantPose(s,J.growthOrder(s).at(-1)),q=J.screenPoint(s,p.x,p.y);assert.ok(Math.abs(q.x-J.ENDING.heroScreenX)<1e-8&&q.y>30&&q.y<710,'rightmost hero rests to the right of centre');}
 });
 test('zero arrivals yields no growth and the same finite view with a short replay pause',()=>{
   const s=fixture(0),old={...s.camera};advance(s,1);assert.ok(s.finished&&!s.replayReady);assert.equal(J.plants(s).length,0);assert.equal(s.ending.phase,'empty');advance(s,2);assert.ok(s.replayReady);assert.deepEqual(s.camera,old);assert.ok(Number.isFinite(s.time+s.x+s.y));
 });
 test('current draft END/floor drive soil contact, framing and roots; JSON and RESET/EDIT stay usable',()=>{
   const d=JSON.parse(JSON.stringify(data));d.surfaces.at(-1).points.push({id:'extra-land',x:2900,y:460});d.end={left:2420,right:2770};const g=G.compile(d),s=fixture(3,g);
-  advance(s,10);assert.equal(s.farm.left,2420);assert.equal(s.result.arrivals.length,3);assert.ok(s.result.arrivals.every(a=>a.x>2420&&a.x<2770&&a.rootY===g.floor(a.x).y));assert.equal(s.camera.x,J.plantPose(s,J.growthOrder(s).at(-1)).x);assert.equal(J.END.left,1790);
+  advance(s,10);assert.equal(s.farm.left,2420);assert.equal(s.result.arrivals.length,3);assert.ok(s.result.arrivals.every(a=>a.x>2420&&a.x<2770&&a.rootY===g.floor(a.x).y));assert.deepEqual(s.camera,J.endingFrame(s));assert.equal(J.END.left,1790);
   const {c,calls}=context();Draw.drawFarm(c,g);assert.ok(calls.some(a=>a[0]==='moveTo'&&a[1]===2420));
   const m=M.create(d),json=M.exportJSON(m);M.moveStart(m,2600);assert.ok(M.play(m));for(let i=0;i<2*60;i++)M.update(m,1/60);assert.ok(m.run.result);assert.equal(M.exportJSON(m),json);M.edit(m);assert.equal(m.mode,'edit');assert.ok(M.play(m));assert.equal(m.run.result,null);assert.equal(m.run.arrivals.length,0);assert.equal(m.run.time,0);assert.equal(G.validate(JSON.parse(M.exportJSON(m))).length,0);
 });
@@ -65,10 +65,22 @@ test('resolved goal keeps pumpkin-world terrain instead of painting a separate f
   }
 });
 
-test('resolved ending keeps the Stage 1 terrain and farm as one continuous ground view',()=>{
+test('arrival leaves the exact gameplay ground, receiving seam and background unchanged',()=>{
+  const s=fixture(9);while(!s.ending)J.update(s,1/60);
+  s.ending.elapsed=0;J.update(s,0);
+  const result=s.result,ending=s.ending;
+  const {c:after,calls:afterCalls}=context();Draw.draw(after,s,()=>{},()=>{},()=>{});
+  s.result=s.ending=null;
+  const {c:before,calls:beforeCalls}=context();Draw.draw(before,s,()=>{},()=>{},()=>{});
+  assert.deepEqual(afterCalls,beforeCalls,'arrival changes neither terrain/background paths nor stroke widths/opacity');
+  s.result=result;s.ending=ending;
+  for(const time of [0,.9,2.3,5.87,8]) {
+    s.ending.elapsed=time;
+    const a=context(),b=context();Draw.drawFarm(a.c,s.geometry,0,false);Draw.drawFarm(b.c,s.geometry,0,true);
+    assert.deepEqual(a.calls,b.calls,'the green edge keeps the same cover throughout growth');
+  }
   const source=fs.readFileSync(require.resolve('./stage-draw.js'),'utf8');
-  assert.match(source,/drawTerrain\(c,g,lift,1,settled\);\s*drawLoops\(c,g\);\s*drawFarm\(c,g,lift,settled\);/);
-  assert.doesNotMatch(source,/if\s*\(!settled\)\s*\{\s*drawTerrain/,'successful ending must not suppress the journey ground');
+  assert.match(source,/drawTerrain\(c,g,lift,1,o===1\);\s*drawLoops\(c,g\);\s*drawFarm\(c,g,lift\);/);
 });
 
 test('successful ending hides the visible right wall and extends only the drawn terrain horizon',()=>{
@@ -79,64 +91,14 @@ test('successful ending hides the visible right wall and extends only the drawn 
   assert.ok(calls.some(a=>a[0]==='lineTo'&&a[1]>before+400),'ending terrain continues beyond the physical right bound');
   assert.ok(!calls.some(a=>a[0]==='moveTo'&&a[1]===before&&a[2]===s.geometry.floor(before).y&&calls.some(b=>b[0]==='lineTo'&&b[1]===before&&b[2]===-200)),'right outside wall is not drawn in the resolved view');
 });
-test('fruit rests on the sampled curve, roots stay fixed, and the central focus is deterministic',()=>{
+test('fruit rests on the sampled curve and the deterministic final subject is the rightmost hero',()=>{
   const s=fixture(9);advance(s,7);
-  const centre=s.farm.frame.x,expected=s.result.arrivals.slice().sort((a,b)=>Math.abs(J.plantPose(s,a).x-centre)-Math.abs(J.plantPose(s,b).x-centre)||a.id-b.id)[0];
-  assert.equal(s.ending.focus,expected);
+  const expected=J.growthOrder(s).at(-1);
+  assert.equal(J.heroPumpkin(s),expected);assert.equal(s.ending.focus,expected);
   for(const a of s.result.arrivals){const p=J.plantPose(s,a);assert.ok(Math.abs(p.x-a.x)<=14.1);assert.equal(p.y+13*p.size,s.geometry.floor(p.x).y+1);assert.equal(a.rootY,s.geometry.floor(a.x).y);assert.ok(s.geometry.floor(p.x).y-p.y<13,'fruit centre sits just above its own soil contact');}
 });
-test('growth presentation is spatially left-to-right and camera stays close while following it',()=>{
-  for(const fps of [30,60,120]) {
-    const s=fixture(9);advance(s,1,fps);
-    const order=J.growthOrder(s),xs=order.map(a=>J.plantPose(s,a).x);
-    assert.deepEqual(xs,xs.slice().sort((a,b)=>a-b),'growth order follows space, not arrival time');
-    advance(s,.55,fps);const left=s.camera.x;
-    assert.ok(s.camera.z>1.25,'ending moves closer than the old whole-farm frame');
-    advance(s,3.8,fps);const right=s.camera.x;
-    assert.ok(right>left+80,'camera travels across the growing pumpkins');
-    const ages=J.plants(s).map(p=>p.age);
-    assert.ok(ages[0]>ages.at(-1),'leftmost plant begins before rightmost plant');
-  }
-});
 const endingTo=(s,time,fps=60)=>{while(s.ending.elapsed<time-1e-7)J.update(s,1/fps);};
-test('ending enters close framing by .55s and starts visible shoots at .90s without a long idle gap',()=>{
-  for(const fps of [30,60,120])for(const n of [1,2,3,9]) {
-    const s=fixture(n);while(!s.ending)J.update(s,1/fps);
-    const first=J.plantPose(s,J.growthOrder(s)[0]),close={x:first.x,y:s.geometry.floor(first.x).y-62,z:1.75},from=s.ending.from;
-    let old={...from},lastTime=0,reached,shoot;
-    while(s.ending.elapsed<1.15) {
-      const time=s.ending.elapsed;
-      const fraction=J.smooth(time/.55);
-      for(const key of ['x','y','z'])assert.ok(Math.abs(s.camera[key]-(from[key]+(close[key]-from[key])*fraction))<1e-8,'short pull-in is smooth rather than a snap or delayed jump');
-      const distance=Math.hypot(close.x-from.x,close.y-from.y);
-      assert.ok(Math.hypot(s.camera.x-old.x,s.camera.y-old.y)<=distance*1.5/.55*(time-lastTime)+1e-7,'camera steps respect the continuous easing speed bound');
-      if(time>=.10&&time<=.10+1/fps)assert.ok((s.camera.z-from.z)/(close.z-from.z)>.08,'close framing has visibly begun in the first .10s');
-      if(time>=.55&&reached===undefined){reached=time;assert.deepEqual(s.camera,close);}
-      const {c,calls}=context();Draw.drawPlants(c,s);
-      if(time<=.90)assert.equal(calls.length,0,'no plant is drawn before growAt');
-      else if(shoot===undefined){shoot=time;assert.ok(calls.some(a=>a[0]==='quadraticCurveTo'),'actual shoot rendering begins immediately after growAt');}
-      old={...s.camera};lastTime=time;J.update(s,1/fps);
-    }
-    assert.ok(reached>=.55&&reached<=.55+1/fps+1e-8,'reach close framing in about .55s');
-    assert.ok(shoot>.90&&shoot<=.90+1/fps+1e-8,'start plant movement at about .90s');
-    assert.ok(shoot-reached<=.35+1/fps+1e-8,'short pause separates the pull-in and visible plant movement');
-  }
-});
-test('closer framing makes the same nine-plant follow visibly wider while retaining the active fruit and ground',()=>{
-  const s=fixture(9);advance(s,1);
-  const poses=J.growthOrder(s).map(a=>J.plantPose(s,a));
-  const at=time=>{s.ending.elapsed=time;J.update(s,0);};
-  const marker=poses[0];at(.55);const initial=J.screenPoint(s,marker.x,marker.y).x;
-  for(let i=1;i<9;i++) {
-    at(J.ENDING.growAt+i*J.ENDING.stagger+1.4+.45+.26);
-    const shifted=Math.abs(J.screenPoint(s,marker.x,marker.y).x-initial);
-    const oldShift=(poses[i].x-poses[0].x)*1.48;
-    assert.ok(shifted>oldShift*1.14&&shifted<oldShift*1.25,'same physical travel is perceptibly larger within the requested modest zoom range');
-    const fruit=J.screenPoint(s,poses[i].x,poses[i].y),ground=J.screenPoint(s,poses[i].x,s.geometry.floor(poses[i].x).y);
-    assert.ok(Math.abs(fruit.x-195)<1e-8&&fruit.y>100&&fruit.y<600,'active fruit stays comfortably inside the close frame');
-    assert.ok(ground.y>fruit.y&&ground.y<650,'surrounding ground remains visible');
-  }
-});
+const growthEnd=s=>J.ENDING.growAt+(s.result.arrivals.length-1)*J.ENDING.stagger+J.ENDING.growthDuration;
 function drawnFruitGrowth(s,arrival) {
   const {c,calls}=context();Draw.drawPlants(c,s);
   const visible=J.plants(s).sort((a,b)=>a.arrival.rootY-b.arrival.rootY||a.arrival.id-b.arrival.id).filter(p=>p.age>1.4);
@@ -145,99 +107,110 @@ function drawnFruitGrowth(s,arrival) {
   const index=visible.findIndex(p=>p.arrival===arrival);
   return index<0 ? 0 : scales[index]/J.plantPose(s,arrival).size;
 }
-test('dense fruit gaze starts after visible growth, arrives in .26s, and pauses for .08s',()=>{
+test('plant order, stagger, shoot onset and actual fruit curve stay independent of the continuous camera',()=>{
   const s=fixture(9);advance(s,1);
-  const order=J.growthOrder(s),poses=order.map(a=>J.plantPose(s,a));
-  // Sample exact presentation boundaries through the public update. This is
-  // separate from the real 30/60/120fps frame sampling checked below.
-  const at=time=>{s.ending.elapsed=time;J.update(s,0);};
-  for(let i=1;i<9;i++) {
-    const onset=J.ENDING.growAt+i*J.ENDING.stagger+1.4,start=onset+.45,end=start+.26;
-    assert.ok(poses[i].x-poses[i-1].x<=180*.26,'fixture uses the unchanged dense-row duration');
-    at(onset+.40);assert.ok(Math.abs(s.camera.x-poses[i-1].x)<1e-8,'keep previous fruit through onset + .40s');
-    at(start);assert.ok(Math.abs(s.camera.x-poses[i-1].x)<1e-8,'no anticipation before .45s delay');
-    assert.ok(Math.abs(drawnFruitGrowth(s,order[i])-.4605627642513486)<1e-9,'actual target fruit is about 46% grown at follow start');
-    if(i<8)assert.ok(drawnFruitGrowth(s,order[i+1])>0&&drawnFruitGrowth(s,order[i+1])<.04,'next fruit is still visually negligible at follow start');
-    at(start+.01);assert.ok(s.camera.x>poses[i-1].x&&s.camera.x<poses[i].x,'gaze begins softly after visible growth');
-    at(end);assert.ok(Math.abs(s.camera.x-poses[i].x)<1e-8,'arrive after .26s');
-    assert.ok(Math.abs(drawnFruitGrowth(s,order[i])-.840779122321038)<1e-9,'target fruit is about 84% grown on arrival');
-    for(const time of [end+.04,start+J.ENDING.stagger]) {
-      at(time);assert.ok(Math.abs(s.camera.x-poses[i].x)<1e-8,'hold through the full .08s pause');
-    }
+  const order=J.growthOrder(s),xs=order.map(a=>J.plantPose(s,a).x);
+  assert.deepEqual(xs,xs.slice().sort((a,b)=>a-b));
+  assert.equal(J.ENDING.growAt,.90);assert.equal(J.ENDING.stagger,.34);assert.equal(J.ENDING.growthDuration,2.25);
+  for(let i=0;i<9;i++) {
+    const onset=.9+i*.34;
+    s.ending.elapsed=onset;J.update(s,0);assert.ok(Math.abs(J.plants(s)[i].age)<1e-8);
+    s.ending.elapsed=onset+1.4+.475;J.update(s,0);
+    assert.ok(Math.abs(drawnFruitGrowth(s,order[i])-.5)<1e-9,'unchanged fruit reaches half scale .475s after fruit onset');
   }
 });
-test('delayed nine-fruit gaze has the same schedule at 30/60/120fps and keeps swelling fruit visible',()=>{
-  const runs=[];
-  for(const fps of [30,60,120]) {
-    const s=fixture(9);advance(s,1,fps);
-    const order=J.growthOrder(s),poses=order.map(a=>J.plantPose(s,a));
-    endingTo(s,J.ENDING.growAt+1.4,fps);
-    assert.equal(s.camera.x,poses[0].x,'first fruit remains held after the unchanged pull-in');
-    const starts=[],ends=[],samples=new Map();
-    while(s.ending.elapsed<7) {
-      J.update(s,1/fps);const time=s.ending.elapsed;
-      // Common 1/30s samples must agree exactly across render frame rates.
-      if(Math.abs(time*30-Math.round(time*30))<1e-7)samples.set(Math.round(time*30),s.camera.x);
-      for(let i=1;i<9;i++) {
-        const onset=J.ENDING.growAt+i*J.ENDING.stagger+1.4,start=onset+.45,end=start+.26;
-        if(time>=onset+.40&&time<=start+1e-8)assert.ok(Math.abs(s.camera.x-poses[i-1].x)<1e-8,'hold until the fruit is visibly grown');
-        if(starts[i]===undefined&&s.camera.x>poses[i-1].x+1e-8) {
-          starts[i]=time;assert.ok(time>start&&time<=start+1/fps+1e-8,'first moving frame follows .45s boundary within one render frame');
-        }
-        if(ends[i]===undefined&&s.camera.x>=poses[i].x-1e-8) {
-          ends[i]=time;assert.ok(time>=end-1e-8&&time<=end+1/fps+1e-8,'arrival follows .26s easing within one render frame');
-        }
-        if(time>=end-1e-8&&time<=start+J.ENDING.stagger+1e-8)assert.ok(Math.abs(s.camera.x-poses[i].x)<1e-8,'dense-row pause retains its target');
+test('one absolute-time camera path preserves the arrival view and never stops/restarts at a plant event',()=>{
+  for(const fps of [30,60,120])for(const n of [2,3,9]) {
+    const s=fixture(n);while(!s.ending)J.update(s,1/fps);
+    const end=growthEnd(s),from={...s.ending.from},frame=J.endingFrame(s);
+    s.ending.elapsed=0;J.update(s,0);assert.deepEqual(s.camera,from,'exact arrival view, no opening snap or first-plant pull-in');
+    let old={...from},oldTime=0,oldSpeed=Infinity;
+    while(s.ending.elapsed<end) {
+      J.update(s,1/fps);const time=Math.min(s.ending.elapsed,end),delta=time-oldTime;
+      const distance=Math.hypot(frame.x-from.x,frame.y-from.y,(frame.z-from.z)*100);
+      const step=Math.hypot(s.camera.x-old.x,s.camera.y-old.y,(s.camera.z-old.z)*100);
+      assert.ok(Number.isFinite(step));
+      assert.ok(step<=distance*Math.PI/(2*end)*delta+1e-7,'bounded continuous glide rather than an event jump');
+      if(delta>0&&time<end-.03) {
+        const speed=step/delta;
+        assert.ok(speed>0,'no intermediate hold, including .34s growth boundaries');
+        assert.ok(speed<=oldSpeed+1e-7,'one gentle deceleration, never periodic re-acceleration');oldSpeed=speed;
       }
+      for(const k of ['x','y','z'])assert.ok((s.camera[k]-old[k])*(frame[k]-from[k])>=-1e-8,'no reversal');
+      old={...s.camera};oldTime=time;
     }
-    assert.equal(starts.filter(t=>t!==undefined).length,8);assert.equal(ends.filter(t=>t!==undefined).length,8);runs.push(samples);
-    const view=fixture(9);advance(view,1,fps);
-    while(view.ending.elapsed<7) {
-      J.update(view,1/fps);
-      for(const {arrival,age} of J.plants(view))if(age>=1.4&&age<=2.35) {
-        const p=J.plantPose(view,arrival),q=J.screenPoint(view,p.x,p.y);
-        assert.ok(q.x>35&&q.x<355&&q.y>30&&q.y<710,'every fruit stays fully visible during its large swelling, including earlier overlapping fruit');
-      }
-    }
-  }
-  for(const samples of runs.slice(1))for(const [frame,x] of runs[0])assert.ok(Math.abs(samples.get(frame)-x)<1e-7,'absolute-time gaze agrees at every common frame');
-});
-test('one arrival holds its own X after pull-in without any growth pan',()=>{
-  for(const fps of [30,60,120]) {
-    const s=fixture(1);while(!s.ending)J.update(s,1/fps);endingTo(s,.55,fps);const x=s.camera.x;
-    for(let i=0;i<8*fps;i++){J.update(s,1/fps);assert.equal(s.camera.x,x);assert.equal(s.camera.z,J.ENDING.closeZoom);}
+    assert.deepEqual(s.camera,frame,'settle exactly on the result composition');
   }
 });
-test('sparse and tightly clustered arrivals remain finite, monotonic, bounded and gentle',()=>{
-  for(const n of [2,3,9])for(const clustered of [false,true])for(const fps of [30,60,120]) {
-    const s=fixture(n);advance(s,1,fps);
-    if(clustered)s.result={...s.result,arrivals:s.result.arrivals.map((a,i)=>({...a,x:1900+i*.25}))};
-    endingTo(s,1.5,fps);let old=s.camera.x,maxSpeed=0;
-    const poses=J.growthOrder(s).map(a=>J.plantPose(s,a));
-    while(s.ending.elapsed<8) {
-      J.update(s,1/fps);const change=s.camera.x-old;maxSpeed=Math.max(maxSpeed,change*fps);
-      assert.ok(Number.isFinite(s.camera.x+s.camera.y+s.camera.z));
-      assert.ok(change>=-1e-8&&s.camera.x<=poses.at(-1).x+1e-8,'no reversal or overshoot');old=s.camera.x;
-    }
-    assert.ok(maxSpeed<300,'wider gaps ease more slowly instead of sudden sideways movement');
-    if(clustered)assert.ok(maxSpeed<2,'nearby targets do not cause small jitters');
-    assert.ok(Math.abs(s.camera.x-poses.at(-1).x)<1e-8);
-  }
-});
-test('last plant holds through growth completion and at least one second of rest before original return zoom',()=>{
+test('continuous ending agrees at common times at 30/60/120fps',()=>{
   for(const n of [1,2,3,9]) {
-    const s=fixture(n);s.titleCycle=true;advance(s,1);
-    endingTo(s,J.ENDING.growAt+(n-1)*J.ENDING.stagger+J.ENDING.growthDuration+.1);
-    assert.ok(s.ending.growthComplete);assert.equal(J.returnZoom(s),0);
-    // Sparse rows retain their distance-based duration. With the later gaze,
-    // the last move may finish just after growthComplete; then it must settle.
-    const poses=J.growthOrder(s).map(a=>J.plantPose(s,a));
-    const duration=n>1?Math.max(.26,Math.min(.7,(poses.at(-1).x-poses.at(-2).x)/180)):0;
-    endingTo(s,J.ENDING.growAt+(n-1)*J.ENDING.stagger+1.4+.45+duration);
-    const last=J.plantPose(s,J.growthOrder(s).at(-1)),old={...s.camera};assert.equal(old.x,last.x);
-    advance(s,1);assert.deepEqual(s.camera,old,'quiet final pause');assert.equal(J.returnZoom(s),0);
-    endingTo(s,J.ENDING.zoomAt-.05);assert.deepEqual(s.camera,old,'hold final plant until the original title return begins');
-    endingTo(s,J.ENDING.zoomAt+.3);assert.ok(J.returnZoom(s)>0,'original title zoom still starts on schedule');
+    const runs=[30,60,120].map(fps=>{
+      const s=fixture(n);while(!s.ending)J.update(s,1/fps);
+      // Match arrival view: gameplay smoothing is intentionally frame-rate
+      // dependent; the ending itself uses absolute elapsed time only.
+      s.ending.from={x:1900,y:400,z:1.8};const samples=new Map();
+      while(s.ending.elapsed<8) {
+        J.update(s,1/fps);const t=s.ending.elapsed;
+        if(Math.abs(t*30-Math.round(t*30))<1e-7)samples.set(Math.round(t*30),{...s.camera});
+      }
+      return samples;
+    });
+    for(const run of runs.slice(1))for(const [time,cam] of runs[0])for(const k of ['x','y','z'])assert.ok(Math.abs(run.get(time)[k]-cam[k])<1e-7);
+  }
+});
+test('one arrival holds its gameplay view throughout growth and the result pause',()=>{
+  for(const fps of [30,60,120]) {
+    const s=fixture(1);while(!s.ending)J.update(s,1/fps);const from={...s.ending.from};
+    for(let i=0;i<8*fps;i++){J.update(s,1/fps);assert.deepEqual(s.camera,from);}
+    assert.equal(s.ending.focus,J.growthOrder(s)[0]);
+  }
+});
+test('whole-result framing keeps every fruit visible and the rightmost hero off-centre',()=>{
+  for(const n of [2,3,9])for(const fps of [30,60,120]) {
+    const s=fixture(n);advance(s,1,fps);endingTo(s,growthEnd(s),fps);
+    const hero=J.plantPose(s,s.ending.focus),h=J.screenPoint(s,hero.x,hero.y);
+    assert.ok(h.x>260&&h.x<310,'hero is the leading subject, not a centred final fruit');
+    for(const a of s.result.arrivals) {
+      const p=J.plantPose(s,a),q=J.screenPoint(s,p.x,p.y),radius=22*p.size*s.camera.z;
+      assert.ok(q.x-radius>=J.ENDING.framePadding-1e-7&&q.x+radius<=390-J.ENDING.framePadding+1e-7,'all complete fruits fit the final view');
+      assert.ok(q.y-32*p.size*s.camera.z>30&&q.y+24*s.camera.z<710,'foliage and surrounding ground have space');
+    }
+  }
+});
+test('swelling fruit stays visible during the standard row glide',()=>{
+  for(const n of [1,2,3,9])for(const fps of [30,60,120]) {
+    const s=fixture(n);advance(s,1,fps);
+    while(s.ending.elapsed<growthEnd(s)) {
+      J.update(s,1/fps);
+      for(const {arrival,age} of J.plants(s))if(age>=1.4&&age<=2.35) {
+        const p=J.plantPose(s,arrival),q=J.screenPoint(s,p.x,p.y),r=22*p.size*s.camera.z;
+        assert.ok(q.x-r>10&&q.x+r<380&&q.y>30&&q.y<710,'a growing fruit is seen without an event-timed target');
+      }
+    }
+  }
+});
+test('sparse Builder and tightly clustered rows settle without oscillation and show the full result',()=>{
+  const wide=JSON.parse(JSON.stringify(data));wide.surfaces.at(-1).points.push({id:'long-result',x:2900,y:460});wide.end={left:1900,right:2770};
+  for(const n of [2,3,9])for(const fps of [30,60,120])for(const clustered of [false,true]) {
+    const s=fixture(n,clustered?J.geometry:G.compile(wide));advance(s,1,fps);
+    if(clustered)s.result={...s.result,arrivals:s.result.arrivals.map((a,i)=>({...a,x:1900+i*.25}))};
+    const frame=J.endingFrame(s),from=s.ending.from;let old={...s.camera};
+    while(s.ending.elapsed<8) {
+      J.update(s,1/fps);
+      for(const k of ['x','y','z']){assert.ok(Number.isFinite(s.camera[k]));assert.ok((s.camera[k]-old[k])*(frame[k]-from[k])>=-1e-7);}
+      old={...s.camera};
+    }
+    assert.deepEqual(s.camera,frame);
+    for(const a of s.result.arrivals){const p=J.plantPose(s,a),q=J.screenPoint(s,p.x,p.y);assert.ok(q.x-22*p.size*s.camera.z>=27.99&&q.x+22*p.size*s.camera.z<=362.01);}
+  }
+});
+test('the full result and rightmost hero hold until the original title approach',()=>{
+  for(const n of [1,2,3,9]) {
+    const s=fixture(n);s.titleCycle=true;advance(s,1);endingTo(s,growthEnd(s));
+    const subject=s.ending.focus,frame={...s.camera};assert.equal(subject,J.heroPumpkin(s));
+    advance(s,1);assert.deepEqual(s.camera,frame,'quiet final pause');
+    endingTo(s,J.ENDING.zoomAt-.05);assert.deepEqual(s.camera,frame);assert.equal(J.returnZoom(s),0);
+    endingTo(s,J.ENDING.zoomAt+.3);assert.ok(J.returnZoom(s)>0);assert.equal(s.ending.focus,subject,'title continues toward the same hero');
   }
 });
 test('continuous zoom connects the same fruit to the exact original title scale at 30/60/120fps',()=>{
@@ -252,7 +225,7 @@ test('continuous zoom connects the same fruit to the exact original title scale 
   }
 });
 test('Builder runs keep their grown farm view; empty endings never fabricate a focus or auto-return',()=>{
-  for(const n of [0,3]) {const s=fixture(n);advance(s,20);assert.ok(!s.ending.titleReady);assert.equal(J.returnZoom(s),0);assert.equal(J.titleMix(s),0);if(n){const p=J.plantPose(s,J.growthOrder(s).at(-1));assert.deepEqual(s.camera,{x:p.x,y:s.geometry.floor(p.x).y-62,z:J.ENDING.closeZoom});}else assert.equal(s.ending.focus,null);}
+  for(const n of [0,3]) {const s=fixture(n);advance(s,20);assert.ok(!s.ending.titleReady);assert.equal(J.returnZoom(s),0);assert.equal(J.titleMix(s),0);if(n){assert.deepEqual(s.camera,J.endingFrame(s));}else assert.equal(s.ending.focus,null);}
 });
 
 test('late focus quiets neighbouring plants while leaving the chosen fruit continuous',()=>{
