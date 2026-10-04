@@ -1,0 +1,79 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "af5803a00f18c514466422a693b98e70624a0cfd42d32a0d59cb847dd4e51ef2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "town-glance-02",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "New experience-first Skopje miniature destination view; preserve Prototype 0 lab",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "87a10851fe022f6e8a9dd3bc82585c02914c09e4",
+    "canonicalSources": [
+      "approved Prototype 0.2 Plan",
+      "works/town-glance-02/scene.svg",
+      "works/town-glance-02/places.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/town-glance-02/r0.lock.json",
+      "works/town-glance-02/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/town-glance/**",
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "One phone-first full-scene Skopje miniature with recognizable square, Stone Bridge, Old Bazaar, river and mountain cross",
+      "Three fictional destinations; selected shop entrance and roof warm, name appears while city and camera remain fixed",
+      "No map controls, tutorials, external dependencies, sensing, storage or analytics; sources and observation notes outside product UI"
+    ],
+    "ownerDecisions": [
+      "User approved A–J Plan on 2026-10-04: preserve old URL, isolated new work, fixed camera, no pan/pinch, three fictional shops and demo YOU"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standalone WORK profile, no host registration or shared contract changes",
+      "Artwork is original vector scene, not reuse of game assets"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "phone-browser",
+      "destination-taps",
+      "initial-reload-short-height",
+      "network-isolation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Remove isolated new work and plan commits; lab remains unchanged",
+    "outOfScope": [
+      "Merge, deployment, production, town registration, geography precision, APIs, GPS, compass, routes, search, storage, analytics, rewards, improvement claims"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "User recognition, desire to revisit and cognition"
+    ]
+  }
+}
