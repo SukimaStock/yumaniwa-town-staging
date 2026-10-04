@@ -1,0 +1,76 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "62daa629899bc48f849396b059c350f931295de967b86a8062da7d225376fc7c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "town-glance-prototype-0",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Isolated fictional town A/B/C viewing prototype",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "98f249ec20abcdedf172719dd5b5d5995f3d2c0f",
+    "canonicalSources": [
+      "user Prototype 0 brief",
+      "works/town-glance/town.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/town-glance-prototype-0/r0.lock.json",
+      "works/town-glance/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Shared fixed town coordinates rendered as detailed 2D, simplified 2D, miniature with overhead option",
+      "Three destinations, tap details, bounded pan/pinch/zoom, only YOU heading changes",
+      "Phone first isolated static app without external services or persisted data; observation protocol"
+    ],
+    "ownerDecisions": [
+      "User authorizes small fictional town and temporary work placement; town-glance is a provisional slug, not final product identity"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Work-local runtime profile; standalone draft only, no town registration, new host launch, storage or engine changes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "phone-browser",
+      "desktop-browser",
+      "gestures-heading",
+      "network-isolation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Remove isolated work and plan commits",
+    "outOfScope": [
+      "Production, merge, deploy, town registration, real maps, GPS, routes, accounts, analytics, storage, gamification"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "User cognition and preference"
+    ]
+  }
+}
