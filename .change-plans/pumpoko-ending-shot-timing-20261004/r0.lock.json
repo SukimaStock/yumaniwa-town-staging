@@ -1,0 +1,107 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b2a54db98168831dc9f510cd81a1f01f395d368869d5db769d3be2f89becfb8b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-ending-shot-timing-20261004",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Overlap a single trapezoidal camera shot with staggered pumpkin growth and hold the finished result for one second",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "2f8127622822e58ae3652ff358eac0ef4abe487b",
+    "canonicalSources": [
+      "works/pumpoko/journey.js",
+      "works/pumpoko/test-ending.cjs",
+      "works/pumpoko/test-audio.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-ending-shot-timing-20261004/r0.lock.json",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/test-ending.cjs",
+      "works/pumpoko/test-audio.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/builder/**",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/assets/**",
+      "works/kotsu-koro/**",
+      "works/pumpoko/test-journey.cjs",
+      "works/pumpoko/stage-draw.js",
+      ".change-plans/pumpoko-ending-continuous-20261004/**",
+      ".change-plans/pumpoko-growth-follow-20261003/**"
+    ],
+    "expectedChanges": [
+      "Replace sin ease-out timing only: camera holds until growAt+.50 then uses an absolute-time 20% acceleration / 60% constant velocity / 20% deceleration trapezoid, ending at per-result growthEnd; one arrival holds gameplay view",
+      "Share count-based growthEnd/titleZoomAt helpers across returnZoom/titleMix/titleReady/ending phase; titleZoomAt=growthEnd+1.0; keep zoomDuration 3.8 and connectDuration 1.2; empty timing unchanged",
+      "Keep PR144 endingFrame/heroPumpkin/plantPose/growthOrder and ground drawing byte-identical, growAt .90/stagger .34/growthDuration 2.25/closeZoom 1.75 unchanged; no gameplay, physics, geometry, reward, audio or artwork changes",
+      "Update obsolete single-deceleration and fixed-title-start ending tests; protect trapezoid position/velocity continuity, leaf/fruit/motion synchronization, unchanged final frame/hero, one-second rest, 0/1/2/3/9 and 30/60/120fps",
+      "Update only fixed ending observation times in existing audio regression fixtures to count-based phases, preserving BGM identity/no-seek/no-replay/no-extra-SE assertions",
+      "Verify real-time Chromium 0/1/2/3/9 and mobile9 before merge; after exact-head tests and required/trusted CI success merge staging and confirm exact Pages build/deploy plus fresh-context live ending9/title return"
+    ],
+    "ownerDecisions": [
+      "User authorizes fresh branch/Plan/Draft PR on current main, followed by ready/merge/staging Pages publication and live verification once checks pass; production and old PR140 branch/Lock/head prohibited",
+      "Owner preserves PR144 composition/ground/rightmost hero, requests 20/60/20 camera motion during leaves/fruit growth and one-second final hold"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK / Standard existing work-local ending timing",
+      "Plan-first lock-only commit, immutable r0; Scope then Risk then Impact; final verification state remains UNVERIFIED",
+      "CHANGE-PLAN.md section 10: fresh current-main branch/Plan; never modify old PR140"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "chromium-real-time-ending-0-1-2-3-9",
+      "chromium-mobile9-shot-growth-sync",
+      "pages-build-deploy-exact-merge",
+      "public-fresh-ending9-title-after-deploy"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing PumpkinJourney ending state, absolute elapsed time, plant timing and title cycle"
+    ],
+    "rollback": "Revert this work-local implementation commit; immutable Plan retained, no data/state migration",
+    "outOfScope": [
+      "Stage0/0-to-1 transition/Stage1 gameplay camera and physics/arrival/reward/jump",
+      "Ground/terrain/plant art, hero definition and final framing",
+      "Audio implementation/policy, new effects or SE",
+      "Title transition visuals, zoomDuration 3.8/connectDuration1.2, empty ending flow",
+      "Engine/Codea Lite/other works/production",
+      "Old PR140 branch/Plan Lock/head"
+    ],
+    "promotion": "Explicitly authorized staging merge and GitHub Pages publication after tests/required CI; production prohibited",
+    "unverified": [
+      "Physical iPhone/iPad; verificationState remains UNVERIFIED"
+    ],
+    "previousPlanDigest": null,
+    "revisionReason": null
+  }
+}
