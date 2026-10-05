@@ -1,0 +1,1735 @@
+{
+  "automaticDetection": true,
+  "physicalIphoneSafari": "UNVERIFIED",
+  "cases": [
+    {
+      "id": "nn",
+      "input": "nanntomoienaihidakedo",
+      "target": "なんとも言えない日だけど",
+      "spans": [
+        {
+          "raw": "nanntomoienaihidakedo",
+          "language": "ja"
+        }
+      ],
+      "output": "なんとも言えない日だけど",
+      "top1Exact": true,
+      "targetSelectable": true,
+      "candidates": [
+        {
+          "raw": "nanntomo",
+          "text": "なんとも",
+          "reading": "なんとも",
+          "candidates": [
+            "なんとも",
+            "何とも",
+            "南斗も",
+            "南都も",
+            "ナントモ",
+            "南砺も",
+            "何斗も",
+            "ナントも",
+            "無んとも",
+            "難とも",
+            "ナンとも",
+            "男とも",
+            "南とも",
+            "南戸も",
+            "楠とも",
+            "灘とも"
+          ]
+        },
+        {
+          "raw": "ienai",
+          "text": "言えない",
+          "reading": "いえない",
+          "candidates": [
+            "言えない",
+            "いえない",
+            "癒えない",
+            "云えない",
+            "瘉えない",
+            "謂えない",
+            "家ない",
+            "イエない",
+            "イエナイ"
+          ]
+        },
+        {
+          "raw": "hidakedo",
+          "text": "日だけど",
+          "reading": "ひだけど",
+          "candidates": [
+            "日だけど",
+            "陽だけど",
+            "火だけど",
+            "ひだけど",
+            "否だけど",
+            "飛だけど",
+            "碑だけど",
+            "非だけど",
+            "比だけど",
+            "緋だけど",
+            "秘だけど",
+            "費だけど",
+            "樋だけど",
+            "灯だけど",
+            "干だけど",
+            "牌だけど",
+            "杼だけど",
+            "妃だけど",
+            "陽だケド",
+            "簸だけど"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "today",
+      "input": "kyouhatukareta",
+      "target": "今日は疲れた",
+      "spans": [
+        {
+          "raw": "kyouhatukareta",
+          "language": "ja"
+        }
+      ],
+      "output": "今日はつかれた",
+      "top1Exact": false,
+      "targetSelectable": true,
+      "candidates": [
+        {
+          "raw": "kyouha",
+          "text": "今日は",
+          "reading": "きょうは",
+          "candidates": [
+            "今日は",
+            "きょうは",
+            "教は",
+            "強は",
+            "凶は",
+            "経は",
+            "卿は",
+            "興は",
+            "境は",
+            "供は",
+            "狂は",
+            "鏡は",
+            "京は",
+            "橋は",
+            "協は",
+            "キョウは",
+            "挟は",
+            "教派",
+            "饗は",
+            "恭は"
+          ]
+        },
+        {
+          "raw": "tukareta",
+          "text": "つかれた",
+          "reading": "つかれた",
+          "candidates": [
+            "つかれた",
+            "疲れた",
+            "付かれた",
+            "突かれた",
+            "着かれた",
+            "😪",
+            "😫",
+            "😵",
+            "就かれた",
+            "点かれた",
+            "憑かれた",
+            "吐かれた",
+            "衝かれた",
+            "築かれた",
+            "撞かれた",
+            "尽かれた",
+            "附かれた",
+            "搗かれた",
+            "點かれた",
+            "即かれた"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meeting",
+      "input": "ashitahakaishanomembertomtg",
+      "target": "明日は会社のmemberとmtg",
+      "spans": [
+        {
+          "raw": "ashitahakaishano",
+          "language": "ja"
+        },
+        {
+          "raw": "member",
+          "language": "en"
+        },
+        {
+          "raw": "to",
+          "language": "ja"
+        },
+        {
+          "raw": "mtg",
+          "language": "en"
+        }
+      ],
+      "output": "明日は会社のmemberとmtg",
+      "top1Exact": true,
+      "targetSelectable": true,
+      "candidates": [
+        {
+          "raw": "ashitaha",
+          "text": "明日は",
+          "reading": "あしたは",
+          "candidates": [
+            "明日は",
+            "あしたは",
+            "芦田は",
+            "朝は",
+            "足田は",
+            "葦田は",
+            "阿下は",
+            "アシタは",
+            "アシタハ"
+          ]
+        },
+        {
+          "raw": "kaishano",
+          "text": "会社の",
+          "reading": "かいしゃの",
+          "candidates": [
+            "会社の",
+            "カイシャの",
+            "かいしゃの",
+            "會社の",
+            "膾炙の",
+            "下位者の",
+            "会しゃの",
+            "介しゃの",
+            "解しゃの",
+            "カイシャノ"
+          ]
+        },
+        {
+          "raw": "member",
+          "text": "member"
+        },
+        {
+          "raw": "to",
+          "text": "と",
+          "reading": "と",
+          "candidates": [
+            "と",
+            "都",
+            "戸",
+            "🚪",
+            "斗",
+            "途",
+            "賭",
+            "徒",
+            "砥",
+            "堵",
+            "穫",
+            "杜",
+            "外",
+            "塗",
+            "取",
+            "採",
+            "捕",
+            "摂",
+            "撮",
+            "執"
+          ]
+        },
+        {
+          "raw": "mtg",
+          "text": "mtg"
+        }
+      ]
+    },
+    {
+      "id": "staff",
+      "input": "mouiiya staff to isshoni",
+      "target": "もういいや staff と一緒に",
+      "spans": [
+        {
+          "raw": "mouiiya",
+          "language": "ja"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "staff",
+          "language": "en"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "to isshoni",
+          "language": "ja"
+        }
+      ],
+      "output": "もういいや staff と一緒に",
+      "top1Exact": true,
+      "targetSelectable": true,
+      "candidates": [
+        {
+          "raw": "mou",
+          "text": "もう",
+          "reading": "もう",
+          "candidates": [
+            "もう",
+            "モウ",
+            "網",
+            "盲",
+            "毛",
+            "牟",
+            "孟",
+            "妄",
+            "耗",
+            "望",
+            "猛",
+            "蒙",
+            "虻",
+            "萠",
+            "儚",
+            "尨",
+            "惘",
+            "旄",
+            "曚",
+            "檬"
+          ]
+        },
+        {
+          "raw": "iiya",
+          "text": "いいや",
+          "reading": "いいや",
+          "candidates": [
+            "いいや",
+            "いい家",
+            "イイや",
+            "良いや",
+            "井伊谷",
+            "謂や",
+            "易々や",
+            "云いや",
+            "言いや",
+            "イイ家",
+            "井伊や",
+            "唯々や",
+            "飯谷",
+            "伊井谷",
+            "謂いや",
+            "伊や",
+            "易易や",
+            "飯や",
+            "尹や",
+            "伊井や"
+          ]
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "staff",
+          "text": "staff"
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "to",
+          "text": "と",
+          "reading": "と",
+          "candidates": [
+            "と",
+            "都",
+            "戸",
+            "🚪",
+            "斗",
+            "途",
+            "賭",
+            "徒",
+            "砥",
+            "堵",
+            "穫",
+            "杜",
+            "外",
+            "塗",
+            "取",
+            "採",
+            "捕",
+            "摂",
+            "撮",
+            "執"
+          ]
+        },
+        {
+          "raw": " isshoni",
+          "text": "一緒に",
+          "reading": "いっしょに",
+          "candidates": [
+            "一緒に",
+            "いっしょに",
+            "一所に",
+            "逸書に",
+            "佚書に",
+            "逸しょに",
+            "言っしょに",
+            "行っしょに",
+            "逝っしょに",
+            "云っしょに",
+            "イッしょに",
+            "炒っしょに",
+            "入っしょに",
+            "煎っしょに",
+            "往っしょに",
+            "要っしょに",
+            "謂っしょに",
+            "イッショに",
+            "イッショニ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "yesterday",
+      "input": "kinou PUMPOKO wo tsukutteita",
+      "target": "昨日 PUMPOKO を作っていた",
+      "spans": [
+        {
+          "raw": "kinou",
+          "language": "ja"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "PUMPOKO",
+          "language": "en"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "wo tsukutteita",
+          "language": "ja"
+        }
+      ],
+      "output": "機能 PUMPOKO を作っていた",
+      "top1Exact": false,
+      "targetSelectable": true,
+      "candidates": [
+        {
+          "raw": "kinou",
+          "text": "機能",
+          "reading": "きのう",
+          "candidates": [
+            "機能",
+            "昨日",
+            "2026/10/04",
+            "2026-10-04",
+            "2026年10月4日",
+            "令和8年10月4日",
+            "日曜日",
+            "きのう",
+            "帰納",
+            "帰農",
+            "気嚢",
+            "生脳",
+            "喜納",
+            "気囊",
+            "城能",
+            "木納",
+            "寄能",
+            "貴納",
+            "希乃う",
+            "き乃う"
+          ]
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "PUMPOKO",
+          "text": "PUMPOKO"
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "wo",
+          "text": "を",
+          "reading": "を",
+          "candidates": [
+            "を",
+            "ヲ",
+            "乎",
+            "を゙",
+            "ヺ"
+          ]
+        },
+        {
+          "raw": " tsukutteita",
+          "text": "作っていた",
+          "reading": "つくっていた",
+          "candidates": [
+            "作っていた",
+            "つくっていた",
+            "造っていた",
+            "創っていた",
+            "ツクっていた",
+            "做っていた",
+            "ツクッていた",
+            "ツクッテイタ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prototype",
+      "input": "SukimaStock no prototype wo tsukutta",
+      "target": "SukimaStock の prototype を作った",
+      "spans": [
+        {
+          "raw": "SukimaStock",
+          "language": "en"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "no",
+          "language": "ja"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "prototype",
+          "language": "en"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "wo tsukutta",
+          "language": "ja"
+        }
+      ],
+      "output": "SukimaStock の prototype を作った",
+      "top1Exact": true,
+      "targetSelectable": true,
+      "candidates": [
+        {
+          "raw": "SukimaStock",
+          "text": "SukimaStock"
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "no",
+          "text": "の",
+          "reading": "の",
+          "candidates": [
+            "の",
+            "ノ",
+            "野",
+            "之",
+            "盧",
+            "載",
+            "乗",
+            "宣",
+            "乃",
+            "埜",
+            "農",
+            "廼",
+            "膿",
+            "箆",
+            "儂",
+            "孥",
+            "及",
+            "布",
+            "希",
+            "伸"
+          ]
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "prototype",
+          "text": "prototype"
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "wo",
+          "text": "を",
+          "reading": "を",
+          "candidates": [
+            "を",
+            "ヲ",
+            "乎",
+            "を゙",
+            "ヺ"
+          ]
+        },
+        {
+          "raw": " tsukutta",
+          "text": "作った",
+          "reading": "つくった",
+          "candidates": [
+            "作った",
+            "つくった",
+            "造った",
+            "創った",
+            "ツクった",
+            "做った",
+            "ツクッた",
+            "ツクッタ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "staff-unspaced",
+      "input": "mouiiyastafftoisshoni",
+      "target": "もういいやstaffと一緒に",
+      "spans": [
+        {
+          "raw": "mouiiya",
+          "language": "ja"
+        },
+        {
+          "raw": "staff",
+          "language": "en"
+        },
+        {
+          "raw": "toisshoni",
+          "language": "ja"
+        }
+      ],
+      "output": "もういいやstaffと一緒に",
+      "top1Exact": true,
+      "targetSelectable": true,
+      "candidates": [
+        {
+          "raw": "mou",
+          "text": "もう",
+          "reading": "もう",
+          "candidates": [
+            "もう",
+            "モウ",
+            "網",
+            "盲",
+            "毛",
+            "牟",
+            "孟",
+            "妄",
+            "耗",
+            "望",
+            "猛",
+            "蒙",
+            "虻",
+            "萠",
+            "儚",
+            "尨",
+            "惘",
+            "旄",
+            "曚",
+            "檬"
+          ]
+        },
+        {
+          "raw": "iiya",
+          "text": "いいや",
+          "reading": "いいや",
+          "candidates": [
+            "いいや",
+            "いい家",
+            "イイや",
+            "良いや",
+            "井伊谷",
+            "謂や",
+            "易々や",
+            "云いや",
+            "言いや",
+            "イイ家",
+            "井伊や",
+            "唯々や",
+            "飯谷",
+            "伊井谷",
+            "謂いや",
+            "伊や",
+            "易易や",
+            "飯や",
+            "尹や",
+            "伊井や"
+          ]
+        },
+        {
+          "raw": "staff",
+          "text": "staff"
+        },
+        {
+          "raw": "to",
+          "text": "と",
+          "reading": "と",
+          "candidates": [
+            "と",
+            "都",
+            "戸",
+            "🚪",
+            "斗",
+            "途",
+            "賭",
+            "徒",
+            "砥",
+            "堵",
+            "穫",
+            "杜",
+            "外",
+            "塗",
+            "取",
+            "採",
+            "捕",
+            "摂",
+            "撮",
+            "執"
+          ]
+        },
+        {
+          "raw": "isshoni",
+          "text": "一緒に",
+          "reading": "いっしょに",
+          "candidates": [
+            "一緒に",
+            "いっしょに",
+            "一所に",
+            "逸書に",
+            "佚書に",
+            "逸しょに",
+            "言っしょに",
+            "行っしょに",
+            "逝っしょに",
+            "云っしょに",
+            "イッしょに",
+            "炒っしょに",
+            "入っしょに",
+            "煎っしょに",
+            "往っしょに",
+            "要っしょに",
+            "謂っしょに",
+            "イッショに",
+            "イッショニ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paragraph",
+      "input": "kyouha PUMPOKO wo tukutteite omottakoto ga aru. saishohatada kabocha wo sawatteitakedodondon game ni natteitta.",
+      "target": "今日は PUMPOKO を作っていて思ったことがある。最初はただかぼちゃを触っていたけど、どんどんゲームになっていった。",
+      "spans": [
+        {
+          "raw": "kyouha",
+          "language": "ja"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "PUMPOKO",
+          "language": "en"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "wo tukutteite omottakoto ga aru. saishohatada kabocha wo sawatteitakedodondon",
+          "language": "ja"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "game",
+          "language": "en"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "ni natteitta.",
+          "language": "ja"
+        }
+      ],
+      "output": "今日は PUMPOKO を作っていて思ったことがある。最初はただかぼちゃを触っていたけどどんどん game 担っていった。",
+      "top1Exact": false,
+      "targetSelectable": false,
+      "candidates": [
+        {
+          "raw": "kyouha",
+          "text": "今日は",
+          "reading": "きょうは",
+          "candidates": [
+            "今日は",
+            "きょうは",
+            "教は",
+            "強は",
+            "凶は",
+            "経は",
+            "教派",
+            "卿は",
+            "興は",
+            "境は",
+            "供は",
+            "狂は",
+            "鏡は",
+            "京は",
+            "橋は",
+            "協は",
+            "キョウは",
+            "挟は",
+            "饗は",
+            "恭は"
+          ]
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "PUMPOKO",
+          "text": "PUMPOKO"
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "wo",
+          "text": "を",
+          "reading": "を",
+          "candidates": [
+            "を",
+            "ヲ",
+            "乎",
+            "を゙",
+            "ヺ"
+          ]
+        },
+        {
+          "raw": " tukutteite",
+          "text": "作っていて",
+          "reading": "つくっていて",
+          "candidates": [
+            "作っていて",
+            "つくっていて",
+            "造っていて",
+            "創っていて",
+            "ツクっていて",
+            "做っていて",
+            "ツクッていて",
+            "ツクッテイテ"
+          ]
+        },
+        {
+          "raw": " omottakoto ga",
+          "text": "思ったことが",
+          "reading": "おもったことが",
+          "candidates": [
+            "思ったことが",
+            "おもったことが",
+            "想ったことが",
+            "重ったことが",
+            "お持ったことが",
+            "懐ったことが",
+            "謂ったことが",
+            "懷ったことが",
+            "侖ったことが",
+            "オモッたことが",
+            "オモッタコトガ"
+          ]
+        },
+        {
+          "raw": " aru",
+          "text": "ある",
+          "reading": "ある",
+          "candidates": [
+            "ある",
+            "有る",
+            "在る",
+            "アル",
+            "或る",
+            "或",
+            "亜留",
+            "阿留",
+            "有",
+            "歩",
+            "儻",
+            "步"
+          ]
+        },
+        {
+          "raw": ".",
+          "text": "。",
+          "reading": "。",
+          "candidates": [
+            "。",
+            "．",
+            ".",
+            "‥",
+            "…",
+            "⋮",
+            "⋯",
+            "⋰",
+            "⋱"
+          ]
+        },
+        {
+          "raw": " saishoha",
+          "text": "最初は",
+          "reading": "さいしょは",
+          "candidates": [
+            "最初は",
+            "細書は",
+            "さいしょは",
+            "税所は",
+            "最所は",
+            "再処は",
+            "斉所は",
+            "才所は",
+            "最しょは",
+            "斎所は",
+            "際しょは",
+            "差異しょは",
+            "歳しょは",
+            "サイしょは",
+            "菜しょは",
+            "才しょは",
+            "咲いしょは",
+            "賽しょは",
+            "犀しょは",
+            "采しょは"
+          ]
+        },
+        {
+          "raw": "tada",
+          "text": "ただ",
+          "reading": "ただ",
+          "candidates": [
+            "ただ",
+            "タダ",
+            "唯",
+            "只",
+            "多田",
+            "🆓",
+            "🈚️",
+            "太田",
+            "惟",
+            "忠",
+            "夛田",
+            "他だ",
+            "田だ",
+            "多だ",
+            "允",
+            "考",
+            "斉",
+            "紀",
+            "宰",
+            "聖"
+          ]
+        },
+        {
+          "raw": " kabocha wo",
+          "text": "かぼちゃを",
+          "reading": "かぼちゃを",
+          "candidates": [
+            "かぼちゃを",
+            "カボチャを",
+            "南瓜を",
+            "過ボチャを",
+            "可ボチャを",
+            "カボチャヲ"
+          ]
+        },
+        {
+          "raw": " sawatteitakedo",
+          "text": "触っていたけど",
+          "reading": "さわっていたけど",
+          "candidates": [
+            "触っていたけど",
+            "さわっていたけど",
+            "障っていたけど",
+            "サワッていたけど",
+            "サワッテイタケド"
+          ]
+        },
+        {
+          "raw": "dondon",
+          "text": "どんどん",
+          "reading": "どんどん",
+          "candidates": [
+            "どんどん",
+            "ドンドン"
+          ]
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "game",
+          "text": "game"
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "ni natteitta",
+          "text": "担っていった",
+          "reading": "になっていった",
+          "candidates": [
+            "担っていった",
+            "担って行った",
+            "になっていった",
+            "になって行った",
+            "荷なっていった",
+            "荷なって行った",
+            "ニナッていった",
+            "ニナッテイッタ"
+          ]
+        },
+        {
+          "raw": ".",
+          "text": "。",
+          "reading": "。",
+          "candidates": [
+            "。",
+            "．",
+            ".",
+            "‥",
+            "…",
+            "⋮",
+            "⋯",
+            "⋰",
+            "⋱"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paragraph-2",
+      "input": "ashitaha staff to isshoni prototype wo naoshitai. mada kanseishiteinai kedo sukoshizutsu susumetai.",
+      "target": "明日は staff と一緒に prototype を直したい。まだ完成していないけど少しずつ進めたい。",
+      "spans": [
+        {
+          "raw": "ashitaha",
+          "language": "ja"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "staff",
+          "language": "en"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "to isshoni",
+          "language": "ja"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "prototype",
+          "language": "en"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "wo naoshitai. mada kanseishiteinai kedo sukoshizutsu susumetai.",
+          "language": "ja"
+        }
+      ],
+      "output": "明日は staff と一緒に prototype を直したい。まだ完成していないけど少しずつ進めたい。",
+      "top1Exact": true,
+      "targetSelectable": true,
+      "candidates": [
+        {
+          "raw": "ashitaha",
+          "text": "明日は",
+          "reading": "あしたは",
+          "candidates": [
+            "明日は",
+            "あしたは",
+            "芦田は",
+            "朝は",
+            "足田は",
+            "葦田は",
+            "阿下は",
+            "アシタは",
+            "アシタハ"
+          ]
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "staff",
+          "text": "staff"
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "to",
+          "text": "と",
+          "reading": "と",
+          "candidates": [
+            "と",
+            "都",
+            "戸",
+            "🚪",
+            "斗",
+            "途",
+            "賭",
+            "徒",
+            "砥",
+            "堵",
+            "穫",
+            "杜",
+            "外",
+            "塗",
+            "取",
+            "採",
+            "捕",
+            "摂",
+            "撮",
+            "執"
+          ]
+        },
+        {
+          "raw": " isshoni",
+          "text": "一緒に",
+          "reading": "いっしょに",
+          "candidates": [
+            "一緒に",
+            "いっしょに",
+            "一所に",
+            "逸書に",
+            "佚書に",
+            "逸しょに",
+            "言っしょに",
+            "行っしょに",
+            "逝っしょに",
+            "云っしょに",
+            "イッしょに",
+            "炒っしょに",
+            "入っしょに",
+            "煎っしょに",
+            "往っしょに",
+            "要っしょに",
+            "謂っしょに",
+            "イッショに",
+            "イッショニ"
+          ]
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "prototype",
+          "text": "prototype"
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "wo",
+          "text": "を",
+          "reading": "を",
+          "candidates": [
+            "を",
+            "ヲ",
+            "乎",
+            "を゙",
+            "ヺ"
+          ]
+        },
+        {
+          "raw": " naoshitai",
+          "text": "直したい",
+          "reading": "なおしたい",
+          "candidates": [
+            "直したい",
+            "治したい",
+            "なおしたい",
+            "尚したい",
+            "猶したい",
+            "直衣たい",
+            "ナオシたい",
+            "直たい",
+            "尚志たい",
+            "綯おしたい",
+            "尚史たい",
+            "直司たい",
+            "直志たい",
+            "直史たい",
+            "直対",
+            "直士たい",
+            "尚志対",
+            "尚司たい",
+            "尚史対",
+            "直司対"
+          ]
+        },
+        {
+          "raw": ".",
+          "text": "。",
+          "reading": "。",
+          "candidates": [
+            "。",
+            "．",
+            ".",
+            "‥",
+            "…",
+            "⋮",
+            "⋯",
+            "⋰",
+            "⋱"
+          ]
+        },
+        {
+          "raw": " mada",
+          "text": "まだ",
+          "reading": "まだ",
+          "candidates": [
+            "まだ",
+            "未だ",
+            "真田",
+            "マダ",
+            "間田",
+            "馬田",
+            "万田",
+            "魔だ",
+            "馬だ",
+            "間だ"
+          ]
+        },
+        {
+          "raw": " kanseishiteinai kedo",
+          "text": "完成していないけど",
+          "reading": "かんせいしていないけど",
+          "candidates": [
+            "完成していないけど",
+            "管制していないけど",
+            "感性していないけど",
+            "歓声していないけど",
+            "閑静していないけど",
+            "慣性していないけど",
+            "官製していないけど",
+            "乾性していないけど",
+            "官制していないけど",
+            "陥穽していないけど",
+            "喚声していないけど",
+            "喊声していないけど",
+            "鼾声していないけど",
+            "感せいしていないけど",
+            "缶せいしていないけど",
+            "かんせいしていないけど",
+            "噛んせいしていないけど",
+            "カンせいしていないけど",
+            "完せいしていないけど",
+            "勘せいしていないけど"
+          ]
+        },
+        {
+          "raw": " sukoshizutsu",
+          "text": "少しずつ",
+          "reading": "すこしずつ",
+          "candidates": [
+            "少しずつ",
+            "すこしずつ",
+            "す腰ずつ",
+            "すコシずつ",
+            "す古紙ずつ",
+            "す輿ずつ",
+            "好こしずつ",
+            "空こしずつ",
+            "漉こしずつ",
+            "抄こしずつ",
+            "梳こしずつ",
+            "透こしずつ",
+            "鋤こしずつ",
+            "隙こしずつ",
+            "スコシずつ",
+            "スコシズツ"
+          ]
+        },
+        {
+          "raw": " susumetai",
+          "text": "進めたい",
+          "reading": "すすめたい",
+          "candidates": [
+            "進めたい",
+            "勧めたい",
+            "すすめたい",
+            "薦めたい",
+            "奨めたい",
+            "ススメたい",
+            "推めたい",
+            "勸めたい",
+            "奬めたい",
+            "侑めたい",
+            "獎めたい",
+            "膳めたい",
+            "すゝめたい",
+            "ススメタイ"
+          ]
+        },
+        {
+          "raw": ".",
+          "text": "。",
+          "reading": "。",
+          "candidates": [
+            "。",
+            "．",
+            ".",
+            "‥",
+            "…",
+            "⋮",
+            "⋯",
+            "⋰",
+            "⋱"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paragraph-3",
+      "input": "SukimaStock no game wo tsukutteiru. URL ha https://example.com/note da. konokiroku wo note ni nokoshitai.",
+      "target": "SukimaStock の game を作っている。URL は https://example.com/note だ。この記録を note に残したい。",
+      "spans": [
+        {
+          "raw": "SukimaStock",
+          "language": "en"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "no",
+          "language": "ja"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "game",
+          "language": "en"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "wo tsukutteiru. ",
+          "language": "ja"
+        },
+        {
+          "raw": "URL",
+          "language": "en"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "ha",
+          "language": "ja"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "https://example.com/note",
+          "language": "literal"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "da. konokiroku wo",
+          "language": "ja"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "note",
+          "language": "en"
+        },
+        {
+          "raw": " ",
+          "language": "literal"
+        },
+        {
+          "raw": "ni nokoshitai.",
+          "language": "ja"
+        }
+      ],
+      "output": "SukimaStock の game を作っている。URL は https://example.com/note だ。この記録を note に残したい。",
+      "top1Exact": true,
+      "targetSelectable": true,
+      "candidates": [
+        {
+          "raw": "SukimaStock",
+          "text": "SukimaStock"
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "no",
+          "text": "の",
+          "reading": "の",
+          "candidates": [
+            "の",
+            "ノ",
+            "野",
+            "之",
+            "盧",
+            "載",
+            "乗",
+            "宣",
+            "乃",
+            "埜",
+            "農",
+            "廼",
+            "膿",
+            "箆",
+            "儂",
+            "孥",
+            "及",
+            "布",
+            "希",
+            "伸"
+          ]
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "game",
+          "text": "game"
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "wo",
+          "text": "を",
+          "reading": "を",
+          "candidates": [
+            "を",
+            "ヲ",
+            "乎",
+            "を゙",
+            "ヺ"
+          ]
+        },
+        {
+          "raw": " tsukutteiru",
+          "text": "作っている",
+          "reading": "つくっている",
+          "candidates": [
+            "作っている",
+            "つくっている",
+            "造っている",
+            "創っている",
+            "ツクっている",
+            "做っている",
+            "ツクッている",
+            "ツクッテイル"
+          ]
+        },
+        {
+          "raw": ". ",
+          "text": "。",
+          "reading": "。",
+          "candidates": [
+            "。",
+            "．",
+            ".",
+            "‥",
+            "…",
+            "⋮",
+            "⋯",
+            "⋰",
+            "⋱"
+          ]
+        },
+        {
+          "raw": "URL",
+          "text": "URL"
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "ha",
+          "text": "は",
+          "reading": "は",
+          "candidates": [
+            "は",
+            "葉",
+            "歯",
+            "刃",
+            "羽",
+            "齒",
+            "☘️",
+            "🌿",
+            "🍀",
+            "🍁",
+            "🍂",
+            "🍃",
+            "🦷",
+            "🧛",
+            "🪒",
+            "派",
+            "端",
+            "覇",
+            "波",
+            "貼"
+          ]
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "https://example.com/note",
+          "text": "https://example.com/note"
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "da",
+          "text": "だ",
+          "reading": "だ",
+          "candidates": [
+            "だ",
+            "打",
+            "駄",
+            "那",
+            "ダ",
+            "大",
+            "田",
+            "妥",
+            "陀",
+            "雫",
+            "蛇",
+            "唾",
+            "舵",
+            "堕",
+            "惰",
+            "楕",
+            "難",
+            "詑",
+            "柁",
+            "騨"
+          ]
+        },
+        {
+          "raw": ".",
+          "text": "。",
+          "reading": "。",
+          "candidates": [
+            "。",
+            "．",
+            ".",
+            "‥",
+            "…",
+            "⋮",
+            "⋯",
+            "⋰",
+            "⋱"
+          ]
+        },
+        {
+          "raw": " kono",
+          "text": "この",
+          "reading": "この",
+          "candidates": [
+            "この",
+            "娘の",
+            "此の",
+            "個の",
+            "子の",
+            "小の",
+            "仔の",
+            "コノ",
+            "呼の",
+            "児の",
+            "弧の",
+            "孤の",
+            "股の",
+            "蚕の",
+            "顧の",
+            "高の",
+            "鼓の",
+            "小野",
+            "黄の",
+            "胡の"
+          ]
+        },
+        {
+          "raw": "kiroku wo",
+          "text": "記録を",
+          "reading": "きろくを",
+          "candidates": [
+            "記録を",
+            "喜六を",
+            "生ロクを",
+            "生禄を",
+            "既ロクを",
+            "生録を",
+            "貴ロクを",
+            "既禄を",
+            "生碌を",
+            "紀陸を",
+            "キロクを",
+            "きろくを",
+            "キロクヲ"
+          ]
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "note",
+          "text": "note"
+        },
+        {
+          "raw": " ",
+          "text": " "
+        },
+        {
+          "raw": "ni",
+          "text": "に",
+          "reading": "に",
+          "candidates": [
+            "に",
+            "二",
+            "似",
+            "荷",
+            "煮",
+            "2️⃣",
+            "弐",
+            "２",
+            "2",
+            "Ⅱ",
+            "ⅱ",
+            "②",
+            "²",
+            "₂",
+            "丹",
+            "尼",
+            "煎",
+            "烹",
+            "爾",
+            "ニ"
+          ]
+        },
+        {
+          "raw": " nokoshitai",
+          "text": "残したい",
+          "reading": "のこしたい",
+          "candidates": [
+            "残したい",
+            "遺したい",
+            "のこしたい",
+            "ノコしたい",
+            "鋸したい",
+            "残対",
+            "野越対",
+            "退こしたい",
+            "残たい",
+            "野越たい",
+            "ノコシたい",
+            "ノコシタイ"
+          ]
+        },
+        {
+          "raw": ".",
+          "text": "。",
+          "reading": "。",
+          "candidates": [
+            "。",
+            "．",
+            ".",
+            "‥",
+            "…",
+            "⋮",
+            "⋯",
+            "⋰",
+            "⋱"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -15,11 +15,11 @@
 <div class="row"><span class="hint">文章は外部に送信しません。</span><button id="refresh" type="button">候補を更新</button></div>
 <h3>候補</h3><p class="hint">語をタップすると直せます。点線は判断が曖昧な箇所。</p>
 <div id="preview" aria-label="変換候補"></div>
-<div id="choices" hidden><strong id="choice-title"></strong><div class="row"><button id="choice-original" type="button">英字</button><button id="choice-kana" type="button">ひらがな</button><button id="choice-katakana" type="button">カタカナ</button><button id="choice-close" type="button">閉じる</button></div><label for="custom">表記を直す</label><div class="row"><input id="custom" maxlength="128"><button id="choice-custom" type="button">候補に反映</button></div></div>
+<div id="choices" hidden><strong id="choice-title"></strong><div id="kanji-candidates" class="actions" aria-label="漢字候補"></div><div class="row"><button id="choice-original" type="button">英字</button><button id="choice-kana" type="button">ひらがな</button><button id="choice-katakana" type="button">カタカナ</button><button id="choice-close" type="button">閉じる</button></div><label for="custom">表記を直す</label><div class="row"><input id="custom" maxlength="128"><button id="choice-custom" type="button">候補に反映</button></div></div>
 <button id="commit" class="primary" type="button">下書きに入れる</button>
 </section>
 <section aria-labelledby="draft-title"><div class="row"><h2 id="draft-title">下書き</h2><button id="undo" type="button" disabled>ひとつ戻す</button></div>
-<label for="draft">ここで文章を整えられます。漢字は通常の日本語入力や辞書で補えます。</label>
+<label for="draft">文節ごとの漢字候補を選んでから、ここで文章を整えられます。</label>
 <textarea id="draft" rows="10" placeholder="ここに下書きがたまります。"></textarea>
 <div class="actions"><button id="copy" class="primary" type="button">全文をコピー</button><button id="export" type="button">.txtを書き出す</button></div>
 <p id="status" role="status" aria-live="polite"></p><p id="save-status" class="hint" role="status"></p>
@@ -28,6 +28,6 @@
 <details><summary>辞書と修正の記憶</summary><p>作品名・よく使う表記を登録できます。修正した英字／かなの選択は、下書きに入れたときだけ覚えます。</p>
 <form id="dictionary-form"><label for="reading">読み（ローマ字）</label><input id="reading" required maxlength="64" autocapitalize="off" spellcheck="false"><label for="surface">表記</label><input id="surface" required maxlength="128"><button type="submit">登録する</button></form>
 <ul id="dictionary-list"></ul><p id="dictionary-message" role="status"></p><div class="row"><span id="memory-count"></span><button id="forget" type="button">修正の記憶を消す</button></div></details>
-<footer>Phase 1：かな・日英判定・登録語の試作。汎用の漢字変換は含みません。<br>下書きはこのブラウザに保存します。<a href="RESEARCH.md">着想元と調査</a> · <a href="THIRD-PARTY-NOTICES.md">ライセンス</a></footer>
+<footer>Mozc漢字変換・日英の局所判定の試作。初回は外部配信元からエンジンと辞書（約20MB）を読み込みます。文章は送信しません。<br>下書きはこのブラウザに保存します。<a href="INTEGRATION.md">変換方式と確認状況</a> · <a href="THIRD-PARTY-NOTICES.md">ライセンス</a></footer>
 </main><script type="module" src="app.mjs"></script>
 </body></html>

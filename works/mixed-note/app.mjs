@@ -1,10 +1,13 @@
-import { detect, compose, kana, katakana, remember, validateEntry } from './detection.mjs';
+import { compose, remember, validateEntry } from './detection.mjs';
+import {kana,katakana} from './composition.mjs';
+import {convertSource} from './conversion.mjs';
+import {convertKana} from './mozc.mjs';
 import { readState, writeState } from './state.mjs';
 const $=id=>document.getElementById(id);
 let storage;
 try { storage=window.localStorage; } catch { storage={getItem(){throw Error('denied')},setItem(){throw Error('denied')}}; }
 const loaded=readState(storage);
-let state=loaded.state, segments=[], overrides={}, selected=-1, composing=false, draftComposing=false, timer=null, undo=null, copySelection=null;
+let state=loaded.state, segments=[], overrides={}, selected=-1, composing=false, draftComposing=false, timer=null, undo=null, copySelection=null, previewVersion=0, pendingPreview=false, previewSource=null;
 const autoSaveAllowed=!loaded.error;
 $('source').value=state.source; $('draft').value=state.draft;
 $('draft').setSelectionRange(state.draft.length,state.draft.length);
@@ -18,12 +21,22 @@ function save(){
   $('save-status').textContent=error??'このブラウザに保存しました。';
 }
 function closeChoice(){selected=-1;$('choices').hidden=true;}
-function preview(){
+async function preview(){
   clearTimeout(timer);timer=null;
   if(composing) return;
-  overrides={}; closeChoice();
-  segments=detect($('source').value,state);
-  paint();
+  const version=++previewVersion, source=$('source').value;
+  overrides={};closeChoice();pendingPreview=true;previewSource=null;
+  $('commit').disabled=true;$('refresh').disabled=true;
+  status(source?'漢字候補を準備しています。初回は辞書を読み込みます。':'');
+  try {
+    const next=await convertSource(source,state,convertKana);
+    if(version!==previewVersion||source!==$('source').value||composing)return;
+    segments=next;previewSource=source;pendingPreview=false;paint();
+    status(source?'文節をタップして漢字候補を選べます。':'');
+  }catch(error){
+    if(version!==previewVersion||source!==$('source').value)return;
+    segments=[];pendingPreview=false;paint();status(error.message+' 原文はそのまま残っています。');
+  }finally{if(version===previewVersion)$('refresh').disabled=false;}
 }
 function paint(){
   $('preview').replaceChildren();
@@ -33,10 +46,14 @@ function paint(){
     button.textContent=overrides[i]?.text??s.text;button.dataset.language=s.language;
     button.classList.toggle('uncertain',s.uncertain&&!overrides[i]);
     button.title=s.reason;button.setAttribute('aria-label',`${button.textContent}：${s.reason}。表記を選ぶ`);
-    button.addEventListener('click',()=>{selected=i;$('choice-title').textContent=`「${s.raw}」の表記`;$('custom').value=button.textContent;$('choices').hidden=false;});
+    button.addEventListener('click',()=>{selected=i;$('choice-title').textContent=`「${s.raw}」の表記`;$('custom').value=button.textContent;$('choices').hidden=false;showCandidates(s);});
     $('preview').append(button);
   });
-  $('commit').disabled=composing||draftComposing||!$('source').value;
+  $('commit').disabled=pendingPreview||previewSource!==$('source').value||composing||draftComposing||!$('source').value;
+}
+function showCandidates(segment){
+  $('kanji-candidates').replaceChildren();
+  for(const text of segment.candidates??[]){const button=document.createElement('button');button.type='button';button.textContent=text;button.onclick=()=>choose(text,'kanji');$('kanji-candidates').append(button);}
 }
 function choose(text,language){
   if(selected<0||composing) return;
@@ -53,10 +70,10 @@ $('choice-close').onclick=closeChoice;
 $('source').addEventListener('focus',()=>{
   if(copySelection){$('draft').setSelectionRange(...copySelection);copySelection=null;}
 });
-$('source').addEventListener('compositionstart',()=>{composing=true;clearTimeout(timer);closeChoice();$('commit').disabled=true;});
+$('source').addEventListener('compositionstart',()=>{composing=true;++previewVersion;previewSource=null;clearTimeout(timer);closeChoice();$('commit').disabled=true;});
 $('source').addEventListener('compositionend',()=>{composing=false;save();preview();});
 $('source').addEventListener('input',event=>{
-  save();
+  save();++previewVersion;previewSource=null;
   if(composing||event.isComposing) return;
   // Avoid stale candidates while editing; never mutate the native textarea.
   $('commit').disabled=true;closeChoice();clearTimeout(timer);timer=setTimeout(preview,120);
@@ -71,8 +88,7 @@ $('example').onclick=()=>{
   $('source').value='kyouhaPUMPOKOno prototypewotsukutta.\nI like the touch feeling.'; save();preview();
 };
 $('commit').onclick=()=>{
-  if(composing||draftComposing||!$('source').value)return;
-  if(timer){preview();timer=null;}
+  if(composing||draftComposing||pendingPreview||previewSource!==$('source').value||!$('source').value)return;
   const raw=$('source').value;
   undo={state:structuredClone(state),draft:$('draft').value,source:raw};
   const text=compose(segments,overrides), draft=$('draft'), at=draft.selectionStart, end=draft.selectionEnd;
@@ -125,6 +141,6 @@ $('dictionary-form').onsubmit=event=>{
   save();dictionaryView();preview();$('dictionary-form').reset();$('dictionary-message').textContent='登録しました。';
 };
 $('forget').onclick=()=>{state.memory={};undo=null;$('undo').disabled=true;save();dictionaryView();preview();status('修正の記憶を消しました。');};
-// Capture final state before Safari backgrounding. No network, timers or native key interception.
+// Capture final state before Safari backgrounding; source is never sent to a conversion API.
 window.addEventListener('pagehide',save);
 preview();dictionaryView();
