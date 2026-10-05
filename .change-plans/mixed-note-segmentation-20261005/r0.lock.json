@@ -1,0 +1,126 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e7391b74eb45703f084bc80fc4c0f06e6bb94a8538c57a12f9cba5b5cbed337a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "mixed-note-segmentation-20261005",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Compare multiple whole-input segmentation paths with independent language evidence and existing Mozc candidates",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "b7d1ec651c439655ee6f045c356b300f306a1416",
+    "canonicalSources": [
+      "User instruction 2026-10-05",
+      "AGENTS.md",
+      "data/work-lifecycle.json",
+      "works/mixed-note"
+    ],
+    "allowedPaths": [
+      ".change-plans/mixed-note-segmentation-20261005/r0.lock.json",
+      "works/mixed-note/segmentation.mjs",
+      "works/mixed-note/conversion.mjs",
+      "works/mixed-note/english-lexicon.mjs",
+      "works/mixed-note/test-segmentation.mjs",
+      "works/mixed-note/SEGMENTATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "works/town-glance*/**",
+      "works/morning-thread*/**",
+      "works/tea-unfold/**",
+      "lab/**"
+    ],
+    "expectedChanges": [
+      "Bounded multiple-path lattice for Japanese/English boundaries rather than substring-first decisions",
+      "Separate romaji/English/dictionary/case/context evidence",
+      "Score whole-input paths with cached existing Mozc candidate evidence; keep candidate ranking and engine intact",
+      "Regression paths and supplied five examples plus accidental matches and prior quality/formatting tests"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-05 requests segmentation improvement while preserving conversion quality and UI. Existing instruction: tests then staging merge."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Plan-first; work-local algorithm only",
+      "No GPL Meltype code/dictionaries copied",
+      "No engine binaries, dependencies or UI changes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "real-engine-whole-input-paths",
+      "browser-runtime-and-regressions",
+      "live-staging",
+      "physical-iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the work-local segmentation PR; draft/source storage remains compatible.",
+    "outOfScope": [
+      "Production",
+      "Shared runtime",
+      "Large UI redesign",
+      "Claiming physical iPhone verification"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari soft-keyboard behavior, memory and subjective writing comfort"
+    ],
+    "problem": "Embedded had overrides a complete Japanese reading while real English goal is missed.",
+    "currentContract": "Raw spans feed fixed Mozc conversion; candidate rendering and final formatting unchanged.",
+    "whyExistingIsInsufficient": "One winning dictionary-island path is selected before kanji evidence; dictionary substrings can dominate Japanese context.",
+    "design": "Generate bounded paths from Japanese spans and English/dictionary islands; compare Japanese coverage, embedded-word evidence, adjacent spans and unchanged Mozc output. Keep whole JA/EN alternatives and original offsets. Cache readings and conversions per request.",
+    "alternativesRejected": [
+      "Input-specific had/goal exceptions",
+      "Dictionary substring wins",
+      "Treating heuristic Mozc evidence as probability",
+      "Changing engine ranking or UI"
+    ],
+    "migration": "None",
+    "compatibility": "UI, formatting, engine, composition, candidates and storage unchanged.",
+    "boundaryCases": [
+      "Accidental embedded English and short fragments",
+      "Readable English vs Japanese",
+      "Proper names/acronyms/CamelCase",
+      "User dictionary and explicit memory",
+      "Protected URL/mail/code",
+      "Long input, path budgets, errors and stale requests"
+    ],
+    "testPlan": [
+      "Five supplied regressions using real unchanged Mozc",
+      "Candidate paths and evidence diagnostics",
+      "Existing 15 real-engine, 12 baseline and 21 formatting tests",
+      "Broader Japanese/English/mixed cases and bounded call counts",
+      "Trusted gates and deployed browser"
+    ],
+    "promotionRisk": "No production change or eligibility change"
+  }
+}
