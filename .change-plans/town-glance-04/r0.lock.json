@@ -1,0 +1,81 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "95db6b79cbf287f28057af004b34e7fc6e117a74d22bb4efa657aff7a5b7b72f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "town-glance-04",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Isolated minimal orientation-retention experiment: baseline then 90-degree turn across three cue conditions",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "70285d54c5b3f5f681fa84789df552c305c69396",
+    "canonicalSources": [
+      "user orientation experiment request",
+      "works/town-glance-04/model.mjs",
+      "works/town-glance-04/app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/town-glance-04/r0.lock.json",
+      "works/town-glance-04/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/town-glance/**",
+      "works/town-glance-02/**",
+      "works/town-glance-03/**",
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Six matched trials across no-aid, brief overview, remembered fixed tower cue conditions; baseline and post-turn responses including unknown",
+      "Only self heading changes; no scoring or feedback; participant UI separate from observer record and JSON export",
+      "Balanced condition orders, mirrored scenario variants, monotonic timings and interruption records; isolated memory-only experiment"
+    ],
+    "ownerDecisions": [
+      "User requests new minimal experiment work, three conditions, preserve all existing works, Draft PR only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standalone WORK; no shared contract, registration or Engine changes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "phone-browser-taps-and-rotation",
+      "matched-cues-and-hidden-answers",
+      "observer-record-and-export",
+      "interruption-reload-short-height",
+      "network-isolation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Remove new work and Plan commits; all existing works remain unchanged",
+    "outOfScope": [
+      "Merge, deployment, production, APIs, GPS, compass, maps, cities, routes, scores, accounts, persistent storage, analytics, clinical or causal conclusions"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Actual body-turn phenomenon, human cue retention and qualitative reasoning"
+    ]
+  }
+}
