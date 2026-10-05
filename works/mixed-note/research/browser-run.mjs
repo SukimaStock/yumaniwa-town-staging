@@ -1,0 +1,42 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {createServer} from 'node:http';
+import {pathToFileURL} from 'node:url';
+import {references} from './references.mjs';
+const [root,output,playwrightPath,browserName='chromium',executablePath]=process.argv.slice(2);
+if(!output||!playwrightPath)throw new Error('Usage: browser-run.mjs <reference-root> <output.json> <playwright-module-path> [chromium|webkit] [executable]');
+const refs=references(root);
+const { [browserName]: browserType }=await import(pathToFileURL(playwrightPath).href);
+if(!browserType)throw new Error('Unsupported browser');
+const files=new Map();
+const add=(url,bytes,mime)=>files.set(url,{bytes,mime});
+for(const f of ['adapters.mjs','evaluate.mjs','fixtures.json'])add('/'+f,readFileSync(new URL('./'+f,import.meta.url)),f.endsWith('json')?'application/json':'text/javascript');
+add('/detection.mjs',readFileSync(new URL('../detection.mjs',import.meta.url)),'text/javascript');
+add('/vendor/wanakana.mjs',readFileSync(new URL('../vendor/wanakana.mjs',import.meta.url)),'text/javascript');
+add('/jaime.wasm',Object.values(refs.jaime.files)[0],'application/wasm');
+for(const [file,bytes] of Object.entries(refs.hechima.files))add('/'+file.split('/').at(-1),bytes,file.endsWith('.js')?'text/javascript':file.endsWith('.wasm')?'application/wasm':'application/octet-stream');
+add('/',Buffer.from('<!doctype html><meta charset="utf-8"><title>Independent engine harness</title><script src="/hechima-wasm.js"></script>'),'text/html');
+const server=createServer((req,res)=>{const file=files.get(req.url);if(!file){res.writeHead(404);res.end();return;}res.writeHead(200,{'Content-Type':file.mime,'Cache-Control':'no-store'});res.end(file.bytes);});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));
+let browser;
+try {
+  browser=await browserType.launch({headless:true,...(executablePath?{executablePath}:{}),args:browserName==='chromium'?['--no-sandbox']:[]});
+  const page=await browser.newPage();
+  await page.goto(`http://127.0.0.1:${server.address().port}/`);
+  const result=await page.evaluate(async()=>{
+    const {evaluate}=await import('/evaluate.mjs');
+    const {toHiragana}=await import('/vendor/wanakana.mjs');
+    const {detect,compose}=await import('/detection.mjs');
+    const fixtures=await(await fetch('/fixtures.json')).json();
+    const jaime=await WebAssembly.compile(await(await fetch('/jaime.wasm')).arrayBuffer());
+    const started=performance.now();
+    const mozc=await globalThis.HechimaModule({wasmBinary:await(await fetch('/hechima-wasm.wasm')).arrayBuffer(),printErr:()=>{}});
+    mozc.FS.writeFile('/mozc.data',new Uint8Array(await(await fetch('/mozc.data')).arrayBuffer()));
+    if(mozc.ccall('hechima_init','number',['string'],['/mozc.data'])!==0)throw new Error('Mozc init failed');
+    const mozcInitMs=performance.now()-started;
+    const r=await evaluate(fixtures,jaime,mozc,toHiragana,s=>compose(detect(s)));
+    r.environment={userAgent:navigator.userAgent,crossOriginIsolated,mozcInitMs,mozcHeapBytes:mozc.HEAPU8.byteLength,physicalDevice:false,inputMethod:'programmatic engine calls; no OS keyboard validation'};
+    return r;
+  });
+  writeFileSync(output,JSON.stringify(result,null,2)+'\n');
+  console.log(JSON.stringify({browser:browserName,cases:result.cases.length,environment:result.environment,integrationEligible:result.integrationEligible}));
+}finally{if(browser)await browser.close();await new Promise(r=>server.close(r));}

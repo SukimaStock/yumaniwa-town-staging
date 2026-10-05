@@ -1,0 +1,19 @@
+{
+  "jaime": {
+    "repository":"https://github.com/egegungordu/jaime",
+    "revision":"8d7a41ccb23acb129c01936a2fb31c36ab9965c0",
+    "files":{"examples/web-react/public/libjaime.wasm":"743dbff1aa7ad5304a73dad3c7966671d84e21ea82da24530d22acbc6a4f6f82"}
+  },
+  "hechima": {
+    "repository":"https://github.com/msonrm/hechima",
+    "revision":"5cab51b401b76d95aee1657eba2366cdc5d9bca5",
+    "files":{
+      "site/public/vendor/hechima-wasm/hechima-wasm.js":"919c95012901731ec490660b9e823d20998c658dba2d78a60119fa00438f8e7d",
+      "site/public/vendor/hechima-wasm/hechima-wasm.wasm":"e0d3d7e7a84b8a4980626bf16f7404d7c65d67403b98da298f33690fd74a33a4",
+      "site/public/vendor/hechima-wasm/mozc.data":"0a3eec3a34e7582c3519f05fb90d09158cd4b42d2668a7790288fb519b44b84f"
+    }
+  },
+  "meltype":{"repository":"https://github.com/yksr-melt/Meltype","main":"2e18486c116cc8736af06b845b56c1b88f8fa93c","v1.0.0":"467255bfe3e36b803a3fd3f5a1480fe35d5058c9"},
+  "azookey":{"repository":"https://github.com/azooKey/AzooKeyKanaKanjiConverter","revision":"d59a28e4c7ca049aef04f29a91eae9677a7753f2","dictionaryRevision":"4d418525b090cf49c219819d05a7e3cc2a4346eb"},
+  "distribution":"No new third-party source, WASM or dictionary is bundled. Explicit local reference checkouts only."
+}
