@@ -1,0 +1,23 @@
+:root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; color: #4d5347; background: #eeece2; }
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+body { position: fixed; inset: 0; }
+canvas { display: block; touch-action: none; -webkit-user-select: none; user-select: none; }
+#interface { position: absolute; width: 390px; height: 740px; transform-origin: top left; pointer-events: none; }
+header { position: absolute; top: 49px; left: 20px; right: 20px; text-align: center; }
+.eyebrow { margin: 0 0 16px; color: #7b8271; font-size: 9px; letter-spacing: .27em; }
+h1 { margin: 0; font-family: 'Hiragino Mincho ProN', 'Yu Mincho', Georgia, serif; font-size: 26px; font-weight: 400; letter-spacing: .12em; }
+.subtitle { margin: 15px 0 0; color: #79806f; font-size: 11px; letter-spacing: .08em; }
+footer { position: absolute; top: 597px; left: 20px; right: 20px; text-align: center; }
+#interface.landscape header { top: 190px; left: -350px; right: auto; width: 300px; }
+#interface.landscape footer { top: 320px; left: 440px; right: auto; width: 300px; }
+#hint { margin: 0; color: #6a7261; font-size: var(--hint-font, 12px); letter-spacing: .06em; }
+#clock { margin: 14px 0 7px; font-size: 17px; font-variant-numeric: tabular-nums; letter-spacing: .16em; }
+.actions { display: flex; justify-content: center; gap: 12px; align-items: center; }
+button { pointer-events: auto; font: inherit; font-size: var(--button-font, 11px); letter-spacing: .06em; border: 1px solid #abb09b; border-radius: 24px; color: #505b44; background: #f5f3e9b3; min-height: var(--button-height, 44px); padding: 0 20px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+button:hover { background: #f8f7ef; }
+button:focus-visible { outline: 2px solid #637643; outline-offset: 4px; }
+button[hidden] { display: none; }
+#sound { border-color: transparent; background: transparent; padding: 0 13px; color: #717963; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { button { transition: none; } }

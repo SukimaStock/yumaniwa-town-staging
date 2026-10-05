@@ -181,6 +181,12 @@
       "theme": "家の用事を指の跡でつなぐ",
       "archive": "works/morning-thread-02/ARCHIVE.md",
       "freezeDecision": "Owner instruction 2026-10-05: freeze Town Glance and Morning Thread exploration families"
+    },
+    {
+      "id": "tea-unfold",
+      "path": "works/tea-unfold",
+      "status": "active",
+      "title": "茶葉がひらく · 試作"
     }
   ]
 }
