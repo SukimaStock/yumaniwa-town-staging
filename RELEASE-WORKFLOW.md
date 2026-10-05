@@ -6,7 +6,7 @@
 
 1. 変更・新機能・作品追加は、まず `yumaniwa-town-staging` に反映する。
 2. staging で実機確認・表示確認・導線確認を行う。
-3. 問題がなければ、確認済みの変更を `yumaniwa-town`（本番）へ反映する。
+3. 検証成功だけで本番へ移さない。新規移行はcandidate状態と、それとは別のユーザーの明示的なproduction反映指示が揃ったときだけ、確認済みの差分を `yumaniwa-town`（本番）へ反映する。
 4. 本番反映後、staging と本番の意図した差分だけが残っていることを確認する。
 
 原則として、**staging → 本番** の順序を崩さない。
@@ -43,7 +43,7 @@ staging と本番の双方に独自変更がある場合、どちらか一方で
 
 ---
 
-**基本原則: staging を次の本番状態の正本として保つ。**
+**基本原則: stagingを制作・探索の正本として保ち、許可された差分だけを本番へ移す。**
 
 ## 新作公開Policy v1（Phase 2・完成判定の正本）
 
@@ -255,3 +255,35 @@ staging `ccae0a7d4ca3e69117db636a265468df5a1cdf54`。
 Phase 1のstaging固定SHAからの19コミットはORBIT本体/専用export関連6ファイルのみ。
 登録・w・OGP・analytics・scene・Manualの結論は不変。
 今回、既知SEO/sitemap/OGPの実データは直さない。まず赤を出せることが成果。
+
+## Work lifecycleによるproductionゲート
+
+`data/work-lifecycle.json`を昇格状態の唯一の正本とする。WORKS.statusやRelease Readyとの混同を避ける。
+active/frozen/未登録workはproduction対象外。candidate化には明示的な候補化指示、実反映には別のproduction指示が必要。
+releasedは既存公開集合へ保持できるが新規移行の対象ではない。公開済み作品の修正指示も個別にRelease記録へ残す。
+
+```sh
+# staging正本で、移行するcandidateだけを選択してread-only確認
+node tools/work-lifecycle.cjs --promotion-check --ids <candidate IDs> \
+  --production-instruction '<今回のユーザーproduction指示の参照>'
+
+# 新作を含むproduction候補: FULL_SETは既存released＋今回candidate。
+# --promoteは今回新規移行するcandidateだけ。candidate化指示を使い回さない。
+node tools/release-validator.cjs --root /path/to/production-candidate --env production \
+  --ids <検査対象IDs> --published <FULL_SET> --promote <candidate IDs> \
+  --production-instruction '<今回のユーザーproduction指示の参照>'
+
+# production用のSearch生成にも同じ二段階チェックを適用
+node tools/generate-work-search-pages.cjs --env production --published <FULL_SET> \
+  --promote <candidate IDs> --production-instruction '<今回の指示の参照>' --write
+```
+
+既存公開集合を読み取り検査するだけの場合はreleasedだけの集合を渡し、--promoteは不要。
+production生成の--writeは既存公開集合だけでも今回の明示指示参照が必要。
+昇格対象がないstaging生成・検査の従来コマンドは変更しない。
+production snapshotに台帳がなければproduction検査はFAIL。省略を旧動作への迂回として扱わない。
+移行時は公開対象の台帳項目だけを選別したsnapshotを準備し、LAB/ARCHIVE/凍結・開発中のwork本体をコピーしない。
+配信と確認の証拠が揃った後、staging台帳をcandidate → releasedへ更新してproductionInstructionとreleaseEvidenceを残す。
+
+これは既存validator/generatorとAI運用に対するゲートであり、別ツールによるGit書き込みを物理的に禁止する権限境界ではない。
+ユーザー指示参照の真偽はレビューする。CI成功や参照文字列だけで公開許可・Release Completeを認定しない。

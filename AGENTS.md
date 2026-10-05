@@ -2,6 +2,7 @@
 
 日常の追加・編集は staging (`SukimaStock/yumaniwa-town-staging`) で行う。
 作品identityの正本は `data/works.js`。
+探索・昇格状態の正本は `data/work-lifecycle.json`。作業開始時に `node tools/work-lifecycle.cjs --list` で対象の状態も確認する。
 Search / Share v2 の日英文面・検索語彙・schemaTypeの正本は `data/work-search-meta.js`。
 `w/<id>/` と `en/w/<id>/` と `sitemap.xml` は `tools/generate-work-search-pages.cjs` から生成する。生成物を直接編集しない。
 変更種別と作業の重さは [CHANGE-OPERATIONS.md](CHANGE-OPERATIONS.md) で分類する。
@@ -51,3 +52,16 @@ runtime patch／compatibility例外、既存ID/URL/保存keyの変更はHQ対象
 - Validatorを通すために検査を弱めたり、許可範囲外の作品・SEO・sitemapを直したりしない。
 - `README.md`は訪問者向け。運用・debug手順を混ぜない。
 
+
+## Work lifecycle — staging-onlyがデフォルト
+
+- 新しいwork・未登録workは常に **active / staging-only**。登録忘れもproduction許可にしない。`data/work-lifecycle.json`へID/path/title/statusを追加する。既存WORKSのopen/preparing/hiddenは町内表示であり、昇格許可ではない。
+- active → frozen、または active → candidate → released。凍結／候補化はユーザーの明示的な指示を記録して実施する。AIが完成度からcandidateを推定しない。
+- productionへ新規移行できるのはcandidateだけ。**candidateでも別の明示的なproduction反映指示が必要**。staging依頼、検証成功、merge指示、候補化をproduction指示へ拡張しない。
+- frozenは探索終了。コード・画像・音・URLを保存し、原則追加開発しない。再開はユーザーの明示的な再開指示を`resumeDecision`へ記録し、frozen → activeへ戻してから行う。ARCHIVE.mdの記録修正はゲーム内容の変更と区別する。
+- 凍結時はwork内のARCHIVE.mdに8項目を短く記録し、台帳のarchive/theme/freezeDecisionを設定する。`node tools/work-lifecycle.cjs --write-lab`でLABを更新する。
+- `released`は既存公開の記録。公開集合への保持は新規移行ではない。公開済み作品の修正も別の明示的なproduction指示と既存Release手順が必要。
+- production反映前は`node tools/work-lifecycle.cjs --promotion-check --ids <candidate IDs> --production-instruction '<今回のユーザー指示の参照>'`。read-onlyの適格性確認であり、ツール成功は公開実施・ユーザー許可の証明ではない。
+- 対象だけを選別移送する。台帳全体、LAB、ARCHIVE、active/frozenのコード・asset・検索ページを本番へコピーしない。公開候補snapshotには公開対象の台帳項目だけを含め、昇格の判断は必ずstaging正本で行う。
+
+詳しい手順と証拠の扱いは[OPERATIONS.md](OPERATIONS.md)、production検査は[RELEASE-WORKFLOW.md](RELEASE-WORKFLOW.md)。

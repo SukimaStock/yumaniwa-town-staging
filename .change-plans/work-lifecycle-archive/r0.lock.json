@@ -1,0 +1,149 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "57208a777860deea4f6e6938acb0ec5a09a42c5139052ac9aef46f0420cd8cd2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "work-lifecycle-archive",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Preserve frozen experiments and require explicit candidate plus separate owner instruction for production promotion",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "5a3a330e7e42175f06448282000fd4280ea3dee9",
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md",
+      "data/works.js",
+      "user lifecycle/freeze instruction 2026-10-05",
+      "existing prototype README / NOTES / OBSERVATION files"
+    ],
+    "allowedPaths": [
+      ".change-plans/work-lifecycle-archive/r0.lock.json",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md",
+      "data/work-lifecycle.json",
+      "tools/work-lifecycle.cjs",
+      "tools/release-validator.cjs",
+      "tools/generate-work-search-pages.cjs",
+      "tests/test-work-lifecycle.cjs",
+      "tests/test-work-lifecycle-browser.cjs",
+      "tests/test-release-validator.cjs",
+      ".github/workflows/release-validator-tests.yml",
+      "index.html",
+      "lab/index.html",
+      "works/town-glance/ARCHIVE.md",
+      "works/town-glance-02/ARCHIVE.md",
+      "works/town-glance-03/ARCHIVE.md",
+      "works/town-glance-04/ARCHIVE.md",
+      "works/morning-thread/ARCHIVE.md",
+      "works/morning-thread-02/ARCHIVE.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "works/pumpoko/**",
+      "works/coffee-factory/**",
+      "main.js",
+      "style.css",
+      "data/works.js",
+      "tools/YumaniwaDesk.py",
+      "tools/change-*.cjs",
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml"
+    ],
+    "expectedChanges": [
+      "Independent lifecycle JSON references existing work identity and defaults unknown/new work to active/staging-only",
+      "Existing release validator and Search generator reject active/frozen/new unknown publication, require candidate plus separate explicit production instruction; released members only retained",
+      "Archive six experiments without modifying existing work files; static noindex LAB generated from registry/archives, tiny link in existing developer panel",
+      "Extend existing release CI to run lifecycle tests and frozen diff guard; no new management system"
+    ],
+    "ownerDecisions": [
+      "User explicitly freezes both exploration families and authorizes staging-only repository policy/registry/archive/LAB implementation; Draft PR stop"
+    ],
+    "hqDecisions": [
+      "User explicitly specifies four-state contract, default deny production and small separate archive surface; extend existing release tools rather than duplicate deployment system"
+    ],
+    "rulesApplied": [
+      "Full SYSTEM Plan and trusted base gate; no changes to contracted Change OS tools",
+      "Released baseline: production main db4b91a01890e78cfed66a92169dfebc380c6a97 read-only; nine open actual releases excluding CoffeeFactory"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "lab-mobile-desktop-links",
+      "staging-developer-entry",
+      "representative-work-and-return",
+      "no-external-analytics"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "surface.shared",
+      "runtime.regression",
+      "risk.high-risk-review",
+      "search.generated-pages",
+      "search.sitemap",
+      "search.structured-data",
+      "search.validator",
+      "search.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated staging PR; existing work runtime and production remain unchanged",
+    "outOfScope": [
+      "merge",
+      "deploy",
+      "production writes",
+      "Engine/Codea changes",
+      "prototype gameplay changes",
+      "human-attestation infrastructure"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Future production deployment needs a separate user instruction and release evidence"
+    ],
+    "problem": "Unfinished experiments must remain playable without accidental production adoption",
+    "currentContract": "WORKS.status controls town display, release tools require a publication set but no exploration lifecycle",
+    "whyExistingIsInsufficient": "Open/preparing/hidden cannot represent frozen/candidate authorization",
+    "design": "Small lifecycle JSON plus read-only guard integrated with existing release tools and static LAB",
+    "alternativesRejected": [
+      "Overload WORKS.status and change gameplay menu behavior",
+      "New deployment system or large archive application"
+    ],
+    "migration": "Bootstrap nine confirmed released entries and freeze six user-selected experiments; other works active",
+    "compatibility": "Town visibility, identities, URLs, saved state and runtime unchanged; retained released set stays valid",
+    "boundaryCases": [
+      "Missing registry defaults active but cannot promote",
+      "Candidate without separate instruction denied",
+      "Released retained but not a new promotion",
+      "Frozen edit or reopen without explicit owner decision denied",
+      "Unknown/duplicate/path escape/malformed registry rejected"
+    ],
+    "testPlan": [
+      "Lifecycle unit tests and negative promotion fixtures",
+      "Existing release/generator regression tests",
+      "Trusted Scope Risk Impact Static gates",
+      "Browser LAB links at phone/desktop and staging dev entry",
+      "Git diff protected runtime and production SHA check"
+    ],
+    "promotionRisk": "No production writes; validators are review gates rather than a GitHub permission boundary"
+  }
+}

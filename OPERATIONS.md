@@ -1,6 +1,6 @@
 # 湯間庭町 安全運用ルール
 
-湯間庭町は **staging を次の本番状態の正本**として扱う。
+湯間庭町は **staging を制作・探索の正本**として扱う。本番へは明示的に許可された差分だけを移す。
 
 - 日常の編集・作品追加・町の調整は `yumaniwa-town-staging`
 - YumaniwaDesk は staging 専用
@@ -19,7 +19,7 @@ repositoryを変更する場合は続けて `CHANGE-PLAN.md` の Lite / Standard
 ### 1. 作業前（Working Copyで作業branchを選ぶ）
 
 1. `yumaniwa-town-staging` の main をPullし、未コミット変更がないことを確認する。
-2. 今回のChange Planを決める。AIに準備を任せる場合も、編集開始前に行う。
+2. `node tools/work-lifecycle.cjs --list`で対象workの制作状態を確認し、今回のChange Planを決める。AIに準備を任せる場合も、編集開始前に行う。
 3. 最新mainから作業branchを作り、最初のcommitに今回のPlan Lockだけを登録する。
    既に準備済みなら、そのbranchをWorking Copyで選択する。軽い変更でもPRにはLockが必要だが、Planを一律Fullにしない。
 4. 作業branchを同名の `origin/<作業branch>` へPush・同期する。
@@ -504,3 +504,39 @@ live comment workflowは有効化していないため、通常運用で追加�
 **今のOSを使って普通に制作する**。
 その中で具体的な事故や過剰な摩擦が見つかった場合のみ、
 その1 findingを1 work packageとして修正する。
+
+## 探索記録と作品の昇格
+
+制作状態は`data/work-lifecycle.json`、町のidentity/表示状態は従来の`data/works.js`。
+台帳をWORKSの代わりに町へ読み込まない。titleは未登録試作の一覧表示用であり、町内作品の改名の正本ではない。
+新workは台帳へactiveとして登録する。Desk・雛形・手編集による新作も、台帳未登録の間は自動的にactive/staging-only扱いとなり、productionチェックは拒否する。
+`--list`はworks配下の未登録folderもactiveとして表示する（_starter/_templateは制作雛形）。
+準備中でfolderがまだない既存WORKSもactiveとして記録する。
+
+| ユーザーの指示 | 台帳・記録の変更 | production |
+| --- | --- | --- |
+| 新しいworkを作る | active / staging-only | 変更しない |
+| これは凍結します | active → frozen、freezeDecision、ARCHIVE.md、theme、archive | 変更しない |
+| production候補にします | active → candidate、candidateDecision | 変更しない |
+| candidateをproductionへ反映してください | 対象IDと今回の指示参照をRelease記録へ。配信確認後candidate → released、productionInstruction / releaseEvidence | 既存の選別移送・PR・検証手順 |
+| 凍結した作品を再開します | frozen → active、新しいresumeDecision。ARCHIVEは旧探索の記録として残す | 変更しない |
+
+Decision fieldsは日付・指示内容・会話/issue等の参照を短く記録する。これらは人間がレビューする証拠であり、ユーザー許可を機械的に認証するものではない。AIが架空の指示参照を書いて許可を得た扱いにしない。
+
+凍結時のARCHIVE.mdは今回の6記録を見本に、以下の8見出しを使う。
+What we explored / Initial hypothesis / What we tried / What we learned / Why we stopped / What still feels interesting / Related prototypes / Playable staging URL。
+現象についての仮説と、制作を止めた判断を区別し、実証していない認知効果を主張しない。
+
+```sh
+node tools/work-lifecycle.cjs --list
+node tools/work-lifecycle.cjs --write-lab
+node tools/work-lifecycle.cjs --check
+node tools/work-lifecycle.cjs --check --base <変更前のexact SHA>
+```
+
+[LAB](lab/index.html)は生成された静的な探索入口。開発 → マップ編集内の「LAB — 探索の記録」からも開ける。
+各ARCHIVEの内容をその場で読め、試作の元URLへ進める。JS不要・noindex・通信/計測なし。
+台帳または記録を変更したら`--write-lab`を実行し、生成物を直接編集しない。
+既存Release Validator Tests workflowがLAB一致・凍結workの差分・状態遷移を検査する。
+初回だけ、baseに台帳がないため凍結差分チェックはbootstrap扱い。以後はbase台帳から凍結状態を読み、再開指示なしの本体変更や削除・移動を拒否する。
+LABはstaging専用の選別移送対象外。productionへの書き込み権限やGitHub側のルールをこのstaging PRで変更するものではない。

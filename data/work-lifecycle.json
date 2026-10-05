@@ -1,0 +1,186 @@
+{
+  "schema": "sukimastock-work-lifecycle/1",
+  "defaults": {
+    "status": "active",
+    "environment": "staging"
+  },
+  "works": [
+    {
+      "id": "orbit",
+      "path": "works/orbit",
+      "status": "released",
+      "title": "ORBIT — Silent Reboot",
+      "releaseEvidence": "SukimaStock/yumaniwa-town@db4b91a01890e78cfed66a92169dfebc380c6a97:data/works.js (open; read-only baseline 2026-10-05)"
+    },
+    {
+      "id": "diorama-calendar",
+      "path": "works/diorama-calendar",
+      "status": "released",
+      "title": "Diorama Calendar",
+      "releaseEvidence": "SukimaStock/yumaniwa-town@db4b91a01890e78cfed66a92169dfebc380c6a97:data/works.js (open; read-only baseline 2026-10-05)"
+    },
+    {
+      "id": "rojiura-masala",
+      "path": "works/rojiura-masala",
+      "status": "released",
+      "title": "路地裏マサラ",
+      "releaseEvidence": "SukimaStock/yumaniwa-town@db4b91a01890e78cfed66a92169dfebc380c6a97:data/works.js (open; read-only baseline 2026-10-05)"
+    },
+    {
+      "id": "steamclock",
+      "path": "works/steamclock",
+      "status": "released",
+      "title": "SteamClock",
+      "releaseEvidence": "SukimaStock/yumaniwa-town@db4b91a01890e78cfed66a92169dfebc380c6a97:data/works.js (open; read-only baseline 2026-10-05)"
+    },
+    {
+      "id": "dotweather",
+      "path": "works/dotweather",
+      "status": "released",
+      "title": "DotWeather",
+      "releaseEvidence": "SukimaStock/yumaniwa-town@db4b91a01890e78cfed66a92169dfebc380c6a97:data/works.js (open; read-only baseline 2026-10-05)"
+    },
+    {
+      "id": "junkissa-dive",
+      "path": "works/junkissa-dive",
+      "status": "released",
+      "title": "純喫茶ダイヴ",
+      "releaseEvidence": "SukimaStock/yumaniwa-town@db4b91a01890e78cfed66a92169dfebc380c6a97:data/works.js (open; read-only baseline 2026-10-05)"
+    },
+    {
+      "id": "midnight-cola",
+      "path": "works/midnight-cola",
+      "status": "released",
+      "title": "MIDNIGHT COLA",
+      "releaseEvidence": "SukimaStock/yumaniwa-town@db4b91a01890e78cfed66a92169dfebc380c6a97:data/works.js (open; read-only baseline 2026-10-05)"
+    },
+    {
+      "id": "yakitori-wars",
+      "path": "works/yakitori-wars",
+      "status": "released",
+      "title": "Yakitori Wars",
+      "releaseEvidence": "SukimaStock/yumaniwa-town@db4b91a01890e78cfed66a92169dfebc380c6a97:data/works.js (open; read-only baseline 2026-10-05)"
+    },
+    {
+      "id": "rainy-window",
+      "path": "works/rainy-window",
+      "status": "released",
+      "title": "雨の日の窓",
+      "releaseEvidence": "SukimaStock/yumaniwa-town@db4b91a01890e78cfed66a92169dfebc380c6a97:data/works.js (open; read-only baseline 2026-10-05)"
+    },
+    {
+      "id": "coffee-factory",
+      "path": "works/coffee-factory",
+      "status": "active",
+      "title": "CoffeeFactory"
+    },
+    {
+      "id": "pumpoko",
+      "path": "works/pumpoko",
+      "status": "active",
+      "title": "PUMPOKO"
+    },
+    {
+      "id": "kotsu-koro",
+      "path": "works/kotsu-koro",
+      "status": "active",
+      "title": "こつ、ころ。旧URL"
+    },
+    {
+      "id": "engine-canary",
+      "path": "works/engine-canary",
+      "status": "active",
+      "title": "Engine Canary"
+    },
+    {
+      "id": "rakugaki-template-test",
+      "path": "works/_template",
+      "status": "active",
+      "title": "新しい筐体の見本"
+    },
+    {
+      "id": "unpushable-button",
+      "path": "works/unpushable-button",
+      "status": "active",
+      "title": "絶対に押せないボタン"
+    },
+    {
+      "id": "notification-badge",
+      "path": "works/notification-badge",
+      "status": "active",
+      "title": "通知バッジ増殖"
+    },
+    {
+      "id": "someone-pedometer",
+      "path": "works/someone-pedometer",
+      "status": "active",
+      "title": "誰かの歩数計"
+    },
+    {
+      "id": "fast-forward-clock",
+      "path": "works/fast-forward-clock",
+      "status": "active",
+      "title": "Fast-Forward Clock"
+    },
+    {
+      "id": "town-glance",
+      "path": "works/town-glance",
+      "status": "frozen",
+      "title": "Town Glance / 01",
+      "family": "Town Glance",
+      "theme": "情報量と投影を変えた街の見え方",
+      "archive": "works/town-glance/ARCHIVE.md",
+      "freezeDecision": "Owner instruction 2026-10-05: freeze Town Glance and Morning Thread exploration families"
+    },
+    {
+      "id": "town-glance-02",
+      "path": "works/town-glance-02",
+      "status": "frozen",
+      "title": "Town Glance / 02",
+      "family": "Town Glance",
+      "theme": "小さなスコピエと目印の関係",
+      "archive": "works/town-glance-02/ARCHIVE.md",
+      "freezeDecision": "Owner instruction 2026-10-05: freeze Town Glance and Morning Thread exploration families"
+    },
+    {
+      "id": "town-glance-03",
+      "path": "works/town-glance-03",
+      "status": "frozen",
+      "title": "Town Glance / 03",
+      "family": "Town Glance",
+      "theme": "場所を見る前に、指で方向を予想する",
+      "archive": "works/town-glance-03/ARCHIVE.md",
+      "freezeDecision": "Owner instruction 2026-10-05: freeze Town Glance and Morning Thread exploration families"
+    },
+    {
+      "id": "town-glance-04",
+      "path": "works/town-glance-04",
+      "status": "frozen",
+      "title": "Town Glance / 04",
+      "family": "Town Glance",
+      "theme": "向きが変わった直後、位置関係を保てるか",
+      "archive": "works/town-glance-04/ARCHIVE.md",
+      "freezeDecision": "Owner instruction 2026-10-05: freeze Town Glance and Morning Thread exploration families"
+    },
+    {
+      "id": "morning-thread",
+      "path": "works/morning-thread",
+      "status": "frozen",
+      "title": "あさのつなぎめ / Morning Thread",
+      "family": "Morning Thread",
+      "theme": "予定の紙片をつないで、一つの朝を動かす",
+      "archive": "works/morning-thread/ARCHIVE.md",
+      "freezeDecision": "Owner instruction 2026-10-05: freeze Town Glance and Morning Thread exploration families"
+    },
+    {
+      "id": "morning-thread-02",
+      "path": "works/morning-thread-02",
+      "status": "frozen",
+      "title": "Morning Thread / 02",
+      "family": "Morning Thread",
+      "theme": "家の用事を指の跡でつなぐ",
+      "archive": "works/morning-thread-02/ARCHIVE.md",
+      "freezeDecision": "Owner instruction 2026-10-05: freeze Town Glance and Morning Thread exploration families"
+    }
+  ]
+}
