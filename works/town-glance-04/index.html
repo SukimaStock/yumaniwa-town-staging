@@ -1,0 +1,21 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#f5f5f2"><title>Town Glance — 向きを変える</title><link rel="stylesheet" href="style.css"></head>
+<body><main class="participant">
+<header>Town Glance <span>向きを変える</span></header>
+<section class="stage" aria-label="向きと位置の確認">
+<div class="words"><h1 id="prompt">駅の方向を見て、向きを変えます。</h1><p id="hint">前・後ろ・右・左。わからないでも大丈夫です。</p></div>
+<svg id="space" viewBox="0 0 360 360" role="img" aria-labelledby="space-title"><title id="space-title">自分の向き</title>
+<circle class="self-ring" cx="180" cy="180" r="40"/>
+<g id="station" hidden><circle r="10" class="station-dot"/><text y="-19" text-anchor="middle">駅</text></g>
+<g id="tower" hidden><path d="M-8 7 L-3 -13 H3 L8 7Z M-9 8 H9" class="tower-icon"/><text y="-23" text-anchor="middle">塔</text></g>
+<g id="self" transform="translate(180 180)"><g id="heading"><path d="M0 -26 L15 12 L0 5 L-15 12Z"/></g></g>
+<text id="self-label" x="180" y="235" text-anchor="middle">自分</text>
+</svg>
+</section>
+<section class="controls">
+<div id="answers" hidden aria-label="今の自分から見た駅の方向">
+<button data-answer="0" class="front">前</button><button data-answer="1" class="right">右</button><button data-answer="2" class="back">後ろ</button><button data-answer="3" class="left">左</button><button data-answer="unknown" class="unknown">わからない</button>
+</div>
+<button id="action" class="primary">はじめる</button>
+<button id="record" class="quiet" hidden>記録を別画面で開く</button>
+</section>
+</main><script type="module" src="app.mjs"></script></body></html>

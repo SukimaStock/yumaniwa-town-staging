@@ -1,0 +1,7 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Town Glance — 観察記録</title><link rel="stylesheet" href="style.css"></head><body>
+<main class="observer"><h1>観察記録</h1><p>A: 駅の方向のみ　B: 俯瞰図　C: 塔の方向を記憶<br>被験者画面には条件・一致／不一致・時間を表示しません。</p>
+<div class="setup"><label>最初の条件順<select id="order"><option>ABC</option><option>ACB</option><option>BAC</option><option>BCA</option><option>CAB</option><option>CBA</option></select></label><label>場面<select id="mirror"><option value="0">基本</option><option value="1">左右を反転</option></select></label><button id="launch">実験を別画面で開く</button></div>
+<p id="status" class="notice" role="status">記録待ち。実験は6回です。記録はこのブラウザのメモリだけに残ります。</p>
+<code id="session"></code><div class="table-wrap"><table><thead><tr><th>回 / 試行</th><th>条件</th><th>回転</th><th>回転前</th><th>回転後</th><th>提示 / 回転</th><th>扱い</th><th>本人の説明・観察メモ</th></tr></thead><tbody id="rows"></tbody></table></div>
+<button id="export" class="export" disabled>記録をJSONで保存</button><p>回転前の方向を保持できた試行と、「わからない」と方向の取り違えを分けて確認します。回転後の方向一致は診断や改善の証明ではありません。メモは回答後に聞き取り、氏名などは入れないでください。リロード／タブを閉じる前に必要な記録を保存してください。</p>
+</main><script type="module" src="observer.mjs"></script></body></html>
