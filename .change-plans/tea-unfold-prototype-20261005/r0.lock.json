@@ -1,0 +1,128 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "18ec9cc4673fc46a4e420bc2a42e5f468b25c7d76e43161418f414a0a8044512",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tea-unfold-prototype-20261005",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Build a single-leaf thirty-second tea-unfold prototype, active/staging-only",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "cd1bca335460c16db4bae52cc6ae835ebac446ee",
+    "canonicalSources": [
+      "User-approved thirty-second tea-leaf prototype design 2026-10-05",
+      "AGENTS.md",
+      "engine/SUKIMASTOCK-NEW-WORK.md",
+      "data/work-lifecycle.json",
+      "works/tea-unfold"
+    ],
+    "allowedPaths": [
+      ".change-plans/tea-unfold-prototype-20261005/r0.lock.json",
+      "works/tea-unfold/**",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "works/town-glance*/**",
+      "works/morning-thread*/**"
+    ],
+    "expectedChanges": [
+      "One leaf unfolding through mesh geometry and delayed water-driven motion",
+      "Thirty-second fixed trial; pour/start, timer, repeat and quiet sound",
+      "Append one active work to lifecycle registry; regenerate LAB without changing frozen records",
+      "Work-local meaningful model tests and browser verification instructions"
+    ],
+    "ownerDecisions": [
+      "User approved the visual/interaction design and requested implementation; tea-unfold is a temporary prototype ID, not a final public title; Draft PR only"
+    ],
+    "hqDecisions": [
+      "Architecture review: canonical Engine/Codea versions reused unchanged; no new launch/frame/venue/storage/API or shared runtime contract; lifecycle uses existing active schema. Full SYSTEM profile covers the currently unregistered JSON/LAB paths, without a policy extension."
+    ],
+    "rulesApplied": [
+      "Full floor for data/work-lifecycle.json and LAB under current risk policy; work-local runtime remains WORK",
+      "Plan Lock first commit; Scope then Risk then Impact",
+      "Frozen works untouched; active/staging-only default; no town/SEO publication"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "desktop-interaction",
+      "mobile-viewport-touch",
+      "leaf-unfold-and-water-response",
+      "background-resume-and-retry",
+      "physical-iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated staging prototype PR as one unit; keep all pre-existing lifecycle records intact.",
+    "outOfScope": [
+      "Production, merge, deployment",
+      "Town listing, physical exhibit and Search/Share registration",
+      "Real extraction measurement, configurable durations, multi-leaf simulation, journals, background notifications",
+      "Shared Engine changes and frozen exploration changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and subjective owner assessment remain unverified; browser emulation is distinct."
+    ],
+    "problem": "Test whether waiting for one folded leaf to open and nudging water is worth watching and repeating",
+    "currentContract": "Canonical SSE 0.3.0 + Codea 1.0.0, work-local scene, existing active lifecycle schema",
+    "whyExistingIsInsufficient": "New work-local geometry and fluid coupling required; no shared changes needed",
+    "design": "Deterministic rolled/folded 3D sheet projected with shaded surface/veins, fixed-step damped water and leaf motion, monotonic thirty-second timer, pointer/keyboard/native controls",
+    "alternativesRejected": [
+      "Uniform sprite scaling or rotation as unfolding",
+      "Separate local Engine fork",
+      "Full water solver or multi-leaf simulation",
+      "Town publication before owner evaluates trial"
+    ],
+    "migration": "Append active lifecycle entry only; no identity changes or frozen transitions",
+    "compatibility": "Existing works, Engine, town menus, SEO and production stay byte-identical",
+    "boundaryCases": [
+      "Tap versus drag, pointer cancel and multitouch",
+      "Replay while running and after completion",
+      "Resize and narrow mobile viewport",
+      "Hidden/visible page, wall-clock completion without background alarm",
+      "30/60/120fps water response"
+    ],
+    "testPlan": [
+      "Node model tests for timing, geometry exposure and water coupling",
+      "Desktop and mobile-emulated browser interaction/screenshot checks",
+      "Lifecycle/frozen diff, existing lifecycle and release/guide regression",
+      "Plan lock + Scope/Risk/Impact + trusted static registry checks"
+    ],
+    "promotionRisk": "No production changes; prototype remains active and not eligible for promotion"
+  }
+}
