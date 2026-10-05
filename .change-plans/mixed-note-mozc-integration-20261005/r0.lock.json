@@ -1,0 +1,128 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e30945be2d4d9958be2a133a1d3df41f55b6d392e1e738cbb2f737e1367ad454",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "mixed-note-mozc-integration-20261005",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Integrate real Mozc conversion and independent local language segmentation into the writing screen",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "a02be1bb7146aab0160a56dd84308ae8f77e6ea9",
+    "canonicalSources": [
+      "User instruction 2026-10-05",
+      "AGENTS.md",
+      "data/work-lifecycle.json",
+      "works/mixed-note"
+    ],
+    "allowedPaths": [
+      ".change-plans/mixed-note-mozc-integration-20261005/r0.lock.json",
+      "works/mixed-note/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "works/town-glance*/**",
+      "works/morning-thread*/**",
+      "works/tea-unfold/**",
+      "lab/**"
+    ],
+    "expectedChanges": [
+      "Composition with correct nn and pending n semantics",
+      "Independent locally scored language spans and protected proper names/URLs",
+      "Worker-based pinned Mozc WASM assets with verified hashes and license notices",
+      "Real segment candidate selection, stale-result guard and safe commit",
+      "Automatic input and browser regression fixtures, deployment verification"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-05 explicitly requests reflecting the new conversion in the writing screen. Staging only."
+    ],
+    "hqDecisions": [
+      "Work-local worker and pinned external static engine assets approved within integration request; no text conversion API or draft transmission. No shared runtime, service worker or hosting settings changes."
+    ],
+    "rulesApplied": [
+      "Plan-first; work-local research only",
+      "No Meltype code or dictionary copy",
+      "No bundled engine until distribution terms are reviewed"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "automatic-real-inputs",
+      "multi-paragraph-candidates",
+      "browser-edit-save-commit",
+      "network-failure",
+      "physical-iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work-local integration PR; source/draft storage schema and keys remain compatible",
+    "outOfScope": [
+      "Production",
+      "Shared runtime",
+      "Large UI redesign",
+      "Claiming physical iPhone verification"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari soft-keyboard behavior, memory and subjective writing comfort"
+    ],
+    "problem": "Merged research does not change the old editor; user requests functional integration",
+    "currentContract": "Existing editor remains unchanged; standalone work-local research harness only",
+    "whyExistingIsInsufficient": "Current runtime only produces kana and fails local mixed-language segmentation",
+    "design": "Raw textarea snapshot → independently scored local spans → Worker Mozc candidates → reversible selection/commit; verify pinned engine downloads before executing; block commit on engine failure",
+    "alternativesRejected": [
+      "GPL code port without settled license compatibility",
+      "Cloud conversion sending drafts externally",
+      "Live rewriting native IME input",
+      "Large kanji engine in Phase 1"
+    ],
+    "migration": "One new active lifecycle row",
+    "compatibility": "No shared runtime/launch/storage changes",
+    "boundaryCases": [
+      "Ambiguous short words",
+      "No-space mixed input",
+      "URLs/email/code",
+      "Backspace/mid-string edit/paste",
+      "compositionstart/end",
+      "Storage denial/corruption",
+      "Clipboard denial",
+      "Long input"
+    ],
+    "testPlan": [
+      "Mandatory three cases through automatic detection, not oracle",
+      "All six supplied fixtures and three paragraphs",
+      "Composition, unknown English, URL, no-space mix, stale input and candidate selection",
+      "Trusted gates and live staging assets"
+    ],
+    "promotionRisk": "No integration or production eligibility"
+  }
+}
