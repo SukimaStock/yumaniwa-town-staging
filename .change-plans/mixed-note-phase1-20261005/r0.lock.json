@@ -1,0 +1,133 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ad04ae44c10ec0340f7de70921dd9a4b68efcf4e585f1f774857b8cb51add8f6",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "mixed-note-phase1-20261005",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Research Meltype first; build an isolated native-DOM bilingual note-writing prototype",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "57072fb5551c340ad3e2cee49bf55e31f8a798b7",
+    "canonicalSources": [
+      "User instruction 2026-10-05",
+      "AGENTS.md",
+      "data/work-lifecycle.json",
+      "works/mixed-note"
+    ],
+    "allowedPaths": [
+      ".change-plans/mixed-note-phase1-20261005/r0.lock.json",
+      "works/mixed-note/**",
+      "data/work-lifecycle.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "works/town-glance*/**",
+      "works/morning-thread*/**",
+      "works/tea-unfold/**",
+      "lab/**"
+    ],
+    "expectedChanges": [
+      "Source-grounded Meltype report with exact revisions and license/dependency provenance",
+      "Independent span detection, kana conversion via vendored MIT WanaKana, protected English and user dictionary",
+      "Native input composition safety, reversible preview, explicit correction memory, draft save/export/copy",
+      "Append one active staging-only lifecycle entry"
+    ],
+    "ownerDecisions": [
+      "User explicitly requests investigation then Phase 1 implementation. Temporary internal work title, no town publication."
+    ],
+    "hqDecisions": [
+      "Native DOM editor requires no canvas engine; existing Engine/Codea untouched. Work-local localStorage only, no shared save contract or external API. Full plan covers lifecycle unknown-code floor."
+    ],
+    "rulesApplied": [
+      "Plan-first and active/staging-only default",
+      "GPL code/dictionaries/tests not incorporated; independent design and corpus",
+      "No service worker, external API, analytics or global keyboard listeners"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "mobile-editor",
+      "desktop-editor",
+      "native-composition",
+      "draft-recovery",
+      "copy-fallback",
+      "physical-iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated PR and lifecycle append; existing works unchanged.",
+    "outOfScope": [
+      "Production/merge/deploy",
+      "General kanji IME",
+      "Keyboard extension/OS integration",
+      "Town listing/SEO",
+      "Existing works/Engine/Codea"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari keyboard and subjective writing comfort"
+    ],
+    "problem": "Mode switching interrupts mixed Japanese/English note writing",
+    "currentContract": "Isolated work under works/ and active lifecycle registration",
+    "whyExistingIsInsufficient": "Canvas work runtimes cannot provide native text editing/IME behavior; native DOM needed locally",
+    "design": "Raw composition textarea → pure detection → reversible segment preview → explicit commit into editable draft; retain source snapshot. User corrections learn only on commit.",
+    "alternativesRejected": [
+      "GPL code port without settled license compatibility",
+      "Cloud conversion sending drafts externally",
+      "Live rewriting native IME input",
+      "Large kanji engine in Phase 1"
+    ],
+    "migration": "One new active lifecycle row",
+    "compatibility": "No shared runtime/launch/storage changes",
+    "boundaryCases": [
+      "Ambiguous short words",
+      "No-space mixed input",
+      "URLs/email/code",
+      "Backspace/mid-string edit/paste",
+      "compositionstart/end",
+      "Storage denial/corruption",
+      "Clipboard denial",
+      "Long input"
+    ],
+    "testPlan": [
+      "Independent categorized quality corpus",
+      "Lossless span/source offsets",
+      "DOM/mobile/browser draft/IME/copy tests",
+      "Lifecycle and base-owned gates"
+    ],
+    "promotionRisk": "No production eligibility"
+  }
+}
