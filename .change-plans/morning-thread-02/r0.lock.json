@@ -1,0 +1,86 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "01e35884b6553aa077d7c4cd16eae61f6f72d47683500d091fd24d8b5738aed9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "morning-thread-02",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent one-stage tactile itinerary prototype; trace household objects and run the resulting morning",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "acbe5510cb24a8bc13fb40552bfc5f0d329d63ae",
+    "canonicalSources": [
+      "user request",
+      "engine/sukimastock-engine.v0.3.0.js",
+      "engine/codea-lite.v1.0.0.js",
+      "works/_starter",
+      "works/morning-thread/model.js",
+      "Google Drive SukimaStock/Code/Rakugaki and note"
+    ],
+    "allowedPaths": [
+      ".change-plans/morning-thread-02/r0.lock.json",
+      "works/morning-thread-02/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/morning-thread/**",
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "New independent work; object tracing with persistent itinerary and reversible last connection",
+      "One home stage with time constraints, execution, once-only laundry delay, replanning and retry",
+      "Local model/browser tests and source/verification notes"
+    ],
+    "ownerDecisions": [
+      "User authorizes new prototype and operation design, preserving old work; Draft PR only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Work-local runtime; existing canonical Engine and Codea only; no town registration or shared contracts"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "touch route success failure retry",
+      "phone retina portrait short viewport",
+      "pointer cancellation and lifecycle",
+      "30/60/120fps and diagnostics"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert new work and plan commits only",
+    "outOfScope": [
+      "merge",
+      "deploy",
+      "production",
+      "town registry",
+      "shared runtime",
+      "additional stages"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Subjective touch pleasure"
+    ]
+  }
+}
