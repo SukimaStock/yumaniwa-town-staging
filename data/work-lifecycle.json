@@ -193,6 +193,12 @@
       "path": "works/tea-unfold-02",
       "status": "active",
       "title": "ひと粒が、ほどける · 試作"
+    },
+    {
+      "id": "mixed-note",
+      "path": "works/mixed-note",
+      "status": "active",
+      "title": "日英の下書き · 試作"
     }
   ]
 }
