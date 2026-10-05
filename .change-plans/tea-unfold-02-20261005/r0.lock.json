@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ecbf777fff389c76fcf89881efd3fe4d98671c080118731121a62583e39b8ff4",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tea-unfold-02-20261005",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Build an isolated rolled-oolong geometry observation prototype and merge to staging",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "27afe850d53a9431916b9b0f6b739baaf0ff1f09",
+    "canonicalSources": [
+      "User-approved prompt and staging merge instruction 2026-10-05",
+      "AGENTS.md",
+      "engine/SUKIMASTOCK-NEW-WORK.md",
+      "data/work-lifecycle.json",
+      "works/tea-unfold-02"
+    ],
+    "allowedPaths": [
+      ".change-plans/tea-unfold-02-20261005/r0.lock.json",
+      "works/tea-unfold-02/**",
+      "data/work-lifecycle.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "works/town-glance*/**",
+      "works/morning-thread*/**",
+      "works/tea-unfold/**",
+      "lab/**"
+    ],
+    "expectedChanges": [
+      "Two persistent folded 3D leaf sheets and short stem form one irregular pellet; sequential local unfolding with residual wrinkles",
+      "Native playback, pause, rewind, deterministic scrub and observation speed; no extraction clock",
+      "Append one active staging-only lifecycle record; preserve all existing records",
+      "Work-local geometry and playback tests; visual stage and desktop/mobile browser QA"
+    ],
+    "ownerDecisions": [
+      "User approved the complete observation-prototype prompt and explicitly requested implementation through staging merge. Temporary work ID/title, existing prototype preserved."
+    ],
+    "hqDecisions": [
+      "Architecture: canonical SSE/Codea unchanged, work-local offscreen WebGL depth-tested geometry composited onto existing 2D canvas. No shared contract/storage/launch/API extension. Full SYSTEM floor covers lifecycle JSON."
+    ],
+    "rulesApplied": [
+      "Full floor for data/work-lifecycle.json and LAB under current risk policy; work-local runtime remains WORK",
+      "Plan Lock first commit; Scope then Risk then Impact",
+      "Frozen works untouched; active/staging-only default; no town/SEO publication"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "desktop-controls",
+      "mobile-controls",
+      "five-shape-stages",
+      "webgl-context-recovery",
+      "physical-iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated staging prototype PR as one unit; keep all pre-existing lifecycle records intact.",
+    "outOfScope": [
+      "Production and candidate promotion",
+      "Existing tea-unfold and all other works",
+      "Water/glass/audio/timer functionality",
+      "Town listing and Search/Share registration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and subjective owner assessment; real one-pellet anatomy and opening timing remain hypotheses."
+    ],
+    "problem": "Original uniformly curled green-leaf portrayal did not represent compressed rolled tea",
+    "currentContract": "Canonical SSE 0.3.0 + Codea 1.0.0, work-local scene, existing active lifecycle schema",
+    "whyExistingIsInsufficient": "Need isolated study of multi-surface occlusion and locally phased folds, without overwriting the earlier trial",
+    "design": "Deterministic arclength centerlines, transverse folds, persistent wrinkles, depth-tested shaded sheets and stem; paused manual playback with reversible scrub",
+    "alternativesRejected": [
+      "Sprite scaling",
+      "Uniform whole-sheet morph",
+      "Shared runtime fork"
+    ],
+    "migration": "Append a single active lifecycle entry",
+    "compatibility": "Existing works, Engine, town menus, SEO and production stay byte-identical",
+    "boundaryCases": [
+      "Pause/resume without jump",
+      "Scrub while playing and from end",
+      "Slow/normal/fast playback",
+      "Hidden/resume freeze",
+      "Portrait/narrow/landscape/desktop",
+      "WebGL unavailable and context restoration"
+    ],
+    "testPlan": [
+      "Deterministic geometry/topology and variable-frame-rate playback tests",
+      "Five visual stages and mobile/desktop browser controls",
+      "Lifecycle/frozen/release/guide regression",
+      "Plan lock Scope Risk Impact and trusted syntax checks"
+    ],
+    "promotionRisk": "No production changes; prototype remains active and not eligible for promotion"
+  }
+}
