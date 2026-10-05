@@ -22,6 +22,100 @@ function diffFixture(t, status = 'frozen') {
 }
 function commit(root) { git(root, 'add', '.'); git(root, 'commit', '-m', 'candidate'); }
 
+test('review 1: production ledger contains exactly the selected works', t => {
+  const root = temp(t);
+  for (const status of ['active', 'frozen', 'candidate', 'released']) {
+    const extra = { ...row(status), id: 'extra-work', path: 'works/extra-work' };
+    assert.throws(() => lifecycle.assertProductionSnapshot(root, registry([row('released'), extra]), ['test-work']), /unselected lifecycle/);
+  }
+  assert.doesNotThrow(() => lifecycle.assertProductionSnapshot(root, registry([row('released')]), ['test-work']));
+});
+test('review 2: unselected search pages and assets cannot hide without a runtime', t => {
+  for (const directory of ['w', 'en/w', 'assets/works']) {
+    const root = temp(t), data = registry([row('released')]);
+    put(root, directory + '/test-work/index.html', 'selected payload');
+    assert.doesNotThrow(() => lifecycle.assertProductionSnapshot(root, data, ['test-work']));
+    put(root, directory + '/extra-work/index.html', 'staging payload without runtime');
+    assert.throws(() => lifecycle.assertProductionSnapshot(root, data, ['test-work']), /staging-only|unselected/);
+  }
+});
+test('review 3: canonical template accepted, modified/injected template rejected', t => {
+  for (const change of ['rewrite', 'inject', 'missing', 'symlink']) {
+    const root = temp(t), directory = path.join(root, 'works/_template');
+    fs.mkdirSync(path.dirname(directory), { recursive: true }); fs.cpSync(path.join(ROOT, 'works/_template'), directory, { recursive: true });
+    assert.doesNotThrow(() => lifecycle.assertProductionSnapshot(root, registry([row('released')]), ['test-work']));
+    if (change === 'rewrite') put(root, 'works/_template/sketch.js', 'function draw(){ arbitraryPrototype(); }');
+    if (change === 'inject') put(root, 'works/_template/assets/extra.js', 'arbitraryPrototype();');
+    if (change === 'missing') fs.rmSync(path.join(directory, 'work-meta.js'));
+    if (change === 'symlink') { fs.rmSync(path.join(directory, 'sketch.js')); fs.symlinkSync(path.join(ROOT, 'works/_template/sketch.js'), path.join(directory, 'sketch.js')); }
+    assert.throws(() => lifecycle.assertProductionSnapshot(root, registry([row('released')]), ['test-work']), /canonical template/);
+  }
+});
+test('review 4: refreeze requires a new freeze decision, not whitespace reuse', t => {
+  for (const fresh of [false, 'whitespace', true]) {
+    const { root, base } = diffFixture(t);
+    writeRegistry(root, registry([{ ...row('frozen'), status: 'active', resumeDecision: 'Owner: resume' }])); commit(root); lifecycle.checkDiff(root, base);
+    const resumedBase = git(root, 'rev-parse', 'HEAD');
+    writeRegistry(root, registry([{ ...row('frozen'), resumeDecision: 'Owner: resume', freezeDecision: fresh === true ? 'Owner: freeze again 2026-10-06' : fresh === 'whitespace' ? '  Owner: freeze  ' : 'Owner: freeze' }])); commit(root);
+    if (fresh === true) assert.doesNotThrow(() => lifecycle.checkDiff(root, resumedBase));
+    else assert.throws(() => lifecycle.checkDiff(root, resumedBase), /new explicit freezeDecision/);
+  }
+});
+test('review 5: resume preserves the archive file, reference, content and historical decision', t => {
+  for (const change of ['delete', 'drop-reference', 'move-reference', 'rewrite', 'drop-decision', 'valid']) {
+    const { root, base } = diffFixture(t), after = { ...row('frozen'), status: 'active', resumeDecision: 'Owner: resume' };
+    if (change === 'delete') fs.rmSync(path.join(root, after.archive));
+    if (change === 'drop-reference') delete after.archive;
+    if (change === 'move-reference') { after.archive = 'works/test-work/other.md'; put(root, after.archive, 'Old exploration'); }
+    if (change === 'rewrite') put(root, after.archive, 'Old exploration replaced');
+    if (change === 'drop-decision') delete after.freezeDecision;
+    put(root, 'works/test-work/index.html', 'Authorized resumed gameplay'); writeRegistry(root, registry([after])); commit(root);
+    if (change === 'valid') assert.doesNotThrow(() => lifecycle.checkDiff(root, base));
+    else assert.throws(() => lifecycle.checkDiff(root, base), /preserve.*archive|preserve.*freeze/);
+  }
+});
+test('legitimate existing released/candidate layouts and both canonical template variants pass', t => {
+  const root = temp(t), released = lifecycle.readRegistry(ROOT).works.filter(w => w.status === 'released');
+  const candidate = { ...row('candidate'), id: 'new-candidate', path: 'works/new-candidate' };
+  const data = registry([...released, candidate]), ids = data.works.map(w => w.id);
+  for (const work of data.works) {
+    put(root, work.path + '/index.html', 'selected runtime');
+    put(root, 'w/' + work.id + '/index.html', 'selected Japanese page');
+    put(root, 'en/w/' + work.id + '/index.html', 'selected English page');
+    put(root, 'assets/works/' + work.id + '/icon.png', 'selected icon');
+  }
+  lifecycle.assertPublication(data, ids, [candidate.id], 'Owner: publish candidate now');
+  assert.doesNotThrow(() => lifecycle.assertProductionSnapshot(root, data, ids));
+  fs.cpSync(path.join(ROOT, 'works/_template'), path.join(root, 'works/_template'), { recursive: true });
+  assert.doesNotThrow(() => lifecycle.assertProductionSnapshot(root, data, ids));
+  put(root, 'works/_template/Test.md', '\n'); put(root, 'works/_template/assets/test.md', '\n');
+  assert.doesNotThrow(() => lifecycle.assertProductionSnapshot(root, data, ids));
+  put(root, 'works/_template/assets/test.md', 'prototype replacing historical placeholder');
+  assert.throws(() => lifecycle.assertProductionSnapshot(root, data, ids), /canonical template/);
+});
+test('production validator and generator use all three tightened snapshot checks before writes', t => {
+  for (const leak of ['ledger', 'w', 'en/w', 'assets/works', 'template']) {
+    const root = temp(t), data = registry([row('released')]);
+    if (leak === 'ledger') data.works.push({ ...row(), id: 'extra-work', path: 'works/extra-work' });
+    else put(root, leak === 'template' ? 'works/_template/sketch.js' : leak + '/extra-work/index.html', 'unselected prototype');
+    writeRegistry(root, data); put(root, 'data/works.js', 'var WORKS = [];');
+    const result = validate({ root, env: 'production', ids: ['test-work'], published: ['test-work'] });
+    assert.ok(result.results.some(r => r.check === 'lifecycle.publication' && r.status === 'FAIL' && /unselected|canonical template/.test(r.message)));
+    const generator = spawnSync(process.execPath, [path.join(ROOT, 'tools/generate-work-search-pages.cjs'), '--env', 'production', '--published', 'test-work', '--production-instruction', 'Owner publish', '--write'], { cwd: root, encoding: 'utf8' });
+    assert.notEqual(generator.status, 0); assert.match(generator.stderr, /unselected|canonical template/);
+    assert.ok(!fs.existsSync(path.join(root, 'sitemap.xml')));
+    assert.ok(!fs.existsSync(path.join(root, 'w/test-work')));
+  }
+});
+test('historical archive reference and file also survive subsequent active development', t => {
+  const { root, base } = diffFixture(t);
+  const after = { ...row('frozen'), status: 'active', resumeDecision: 'Owner: resume' };
+  writeRegistry(root, registry([after])); commit(root); lifecycle.checkDiff(root, base);
+  const resumedBase = git(root, 'rev-parse', 'HEAD');
+  fs.rmSync(path.join(root, after.archive)); put(root, 'works/test-work/index.html', 'active gameplay edits'); commit(root);
+  assert.throws(() => lifecycle.checkDiff(root, resumedBase), /preserve historical archive file/);
+});
+
 test('new/unknown works default active/staging, including unregistered folders', t => {
   const root = temp(t); put(root, 'works/new-work/index.html', '<title>new</title>'); writeRegistry(root, registry([]));
   assert.equal(lifecycle.statusFor(lifecycle.readRegistry(root), 'new-work'), 'active');
@@ -44,7 +138,7 @@ test('schema rejects malformed/default-changed/unknown/duplicate/path escaping a
 });
 test('production snapshot rejects hidden/unregistered/frozen work payloads and LAB/archive, retains shared template', t => {
   const root = temp(t), data = registry([row('released')]);
-  put(root, 'works/test-work/index.html', '<title>release</title>'); put(root, 'works/_template/index.html', '<title>shared template</title>');
+  put(root, 'works/test-work/index.html', '<title>release</title>'); fs.cpSync(path.join(ROOT, 'works/_template'), path.join(root, 'works/_template'), { recursive: true });
   assert.doesNotThrow(() => lifecycle.assertProductionSnapshot(root, data, ['test-work']));
   put(root, 'works/forgotten-prototype/index.html', 'hidden prototype');
   assert.throws(() => lifecycle.assertProductionSnapshot(root, data, ['test-work']), /staging-only/);
@@ -68,10 +162,10 @@ test('frozen body edits, deletions and renames denied; archive text can be corre
 });
 test('frozen resumption requires fresh explicit decision and active state', t => {
   for (const status of ['active', 'candidate']) {
-    const { root, base } = diffFixture(t); writeRegistry(root, registry([row(status)])); commit(root);
+    const { root, base } = diffFixture(t); writeRegistry(root, registry([{ ...row('frozen'), ...row(status) }])); commit(root);
     assert.throws(() => lifecycle.checkDiff(root, base), /frozen can only resume/);
   }
-  const { root, base } = diffFixture(t); writeRegistry(root, registry([{ ...row(), resumeDecision: 'Owner: resume this work 2026-10-06' }])); put(root, 'works/test-work/index.html', 'resumed game'); commit(root);
+  const { root, base } = diffFixture(t); writeRegistry(root, registry([{ ...row('frozen'), status: 'active', resumeDecision: 'Owner: resume this work 2026-10-06' }])); put(root, 'works/test-work/index.html', 'resumed game'); commit(root);
   assert.doesNotThrow(() => lifecycle.checkDiff(root, base));
 });
 test('lifecycle transitions require decisions, and released is never a default', t => {

@@ -4,6 +4,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { execFileSync } = require('node:child_process');
+const { createHash } = require('node:crypto');
 const FILE = 'data/work-lifecycle.json';
 const SCHEMA = 'sukimastock-work-lifecycle/1';
 const STATES = ['active', 'frozen', 'candidate', 'released'];
@@ -12,6 +13,37 @@ const HEADINGS = ['What we explored', 'Initial hypothesis', 'What we tried',
   'What we learned', 'Why we stopped', 'What still feels interesting',
   'Related prototypes', 'Playable staging URL'];
 const nonempty = value => typeof value === 'string' && !!value.trim();
+// Existing authoring template, byte-identical in staging/main@3988147 and
+// production/main@db4b91a. This narrow legacy allowance is not a work release.
+const TEMPLATE_BLOBS = Object.freeze({
+  'README.md': 'b40ae4f49265080cd9ca897b67928d12f66d49b9',
+  'index.html': 'eeee2843fa9a44ad95e9e7e838ab377acd39ed96',
+  'sketch.js': '97ef52acc7f12a0ed9728ac306486bf515af5458',
+  'style.css': 'e130e1204a0f087d974a21481ef06d2f43dc84be',
+  'work-meta.js': '26ad4a662637f81ad0b03f81ae1e0bde51d059bb',
+});
+// Two inert historical placeholders in the existing production template.
+const TEMPLATE_OPTIONAL_BLOBS = Object.freeze({
+  'Test.md': '8b137891791fe96927ad78e64b0aad7bded08bdc',
+  'assets/test.md': '8b137891791fe96927ad78e64b0aad7bded08bdc',
+});
+function assertCanonicalTemplate(directory) {
+  const found = new Set();
+  function walk(dir, prefix = '') {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const relative = prefix + entry.name, file = path.join(dir, entry.name);
+      if (entry.isDirectory() && relative === 'assets') { walk(file, 'assets/'); continue; }
+      const expected = TEMPLATE_BLOBS[relative] || TEMPLATE_OPTIONAL_BLOBS[relative];
+      if (!entry.isFile() || !expected) throw new Error('canonical template: unexpected file ' + relative);
+      const bytes = fs.readFileSync(file);
+      const blob = createHash('sha1').update(Buffer.from('blob ' + bytes.length + '\0')).update(bytes).digest('hex');
+      if (blob !== expected) throw new Error('canonical template: modified file ' + relative);
+      found.add(relative);
+    }
+  }
+  walk(directory);
+  for (const file of Object.keys(TEMPLATE_BLOBS)) if (!found.has(file)) throw new Error('canonical template: missing file ' + file);
+}
 
 function validateRegistry(registry) {
   if (!registry || registry.schema !== SCHEMA ||
@@ -64,16 +96,25 @@ function assertPublication(registry, published, promote = [], instruction = '') 
 }
 
 function assertProductionSnapshot(root, registry, published) {
+  for (const work of registry.works) {
+    if (!published.includes(work.id)) throw new Error(work.id + ': unselected lifecycle entry in production snapshot');
+  }
   if (fs.existsSync(path.join(root, 'lab'))) throw new Error('LAB is staging-only; exclude it from production snapshot');
-  const directory = path.join(root, 'works');
-  if (!fs.existsSync(directory)) return; // metadata-only fixtures; launch checks validate actual entries
-  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
-    if (!entry.isDirectory()) continue;
-    const workPath = 'works/' + entry.name;
-    if (entry.name === '_template') continue; // existing shared player template, not a release
-    const work = registry.works.find(item => item.path === workPath);
-    if (!work || !published.includes(work.id) || !['candidate', 'released'].includes(work.status)) throw new Error(workPath + ': staging-only or unselected work directory in production snapshot');
-    if (fs.existsSync(path.join(root, workPath, 'ARCHIVE.md'))) throw new Error(workPath + ': exclude exploration ARCHIVE.md from production snapshot');
+  for (const relativeRoot of ['works', 'w', 'en/w', 'assets/works']) {
+    const directory = path.join(root, relativeRoot);
+    if (!fs.existsSync(directory)) continue;
+    if (!fs.lstatSync(directory).isDirectory()) throw new Error(relativeRoot + ': expected regular snapshot directory');
+    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      const workPath = relativeRoot + '/' + entry.name;
+      if (entry.isSymbolicLink()) throw new Error(workPath + ': staging-only or unselected symbolic link in production snapshot');
+      if (!entry.isDirectory()) continue;
+      if (relativeRoot === 'works' && entry.name === '_template') {
+        assertCanonicalTemplate(path.join(directory, entry.name)); continue;
+      }
+      const work = registry.works.find(item => relativeRoot === 'works' ? item.path === workPath : item.id === entry.name);
+      if (!work || !published.includes(work.id) || !['candidate', 'released'].includes(work.status)) throw new Error(workPath + ': staging-only or unselected work directory in production snapshot');
+      if (relativeRoot === 'works' && fs.existsSync(path.join(root, workPath, 'ARCHIVE.md'))) throw new Error(workPath + ': exclude exploration ARCHIVE.md from production snapshot');
+    }
   }
 }
 
@@ -90,6 +131,13 @@ function checkDiff(root, base) {
     const after = current.works.find(work => work.id === before.id);
     if (!after || after.path !== before.path) throw new Error(before.id + ': preserve registered identity/path');
     const resumed = before.status === 'frozen' && after.status === 'active' && nonempty(after.resumeDecision) && after.resumeDecision !== before.resumeDecision;
+    if (before.archive) {
+      if (after.archive !== before.archive) throw new Error(before.id + ': preserve historical archive reference');
+      const archiveEntry = git(root, ['ls-tree', 'HEAD', '--', before.archive]).trim();
+      if (!/^100644 blob /.test(archiveEntry)) throw new Error(before.id + ': preserve historical archive file');
+      if (resumed && git(root, ['show', base + ':' + before.archive]) !== git(root, ['show', 'HEAD:' + before.archive])) throw new Error(before.id + ': preserve historical archive content while resuming');
+    }
+    if (before.freezeDecision && !(before.status === 'active' && after.status === 'frozen') && after.freezeDecision !== before.freezeDecision) throw new Error(before.id + ': preserve historical freezeDecision');
     if (before.status === 'frozen' && !resumed) {
       if (after.status !== 'frozen') throw new Error(before.id + ': frozen can only resume to active with new explicit resumeDecision');
       if (changed.some(file => file.startsWith(before.path + '/') && file !== before.archive)) throw new Error(before.id + ': frozen runtime/artifacts must not change');
@@ -97,6 +145,7 @@ function checkDiff(root, base) {
     if (before.status !== after.status) {
       const transition = before.status + '->' + after.status;
       if (!['active->frozen', 'active->candidate', 'candidate->released', 'frozen->active'].includes(transition)) throw new Error(before.id + ': invalid transition ' + transition);
+      if (after.status === 'frozen' && (!nonempty(after.freezeDecision) || after.freezeDecision.trim() === (before.freezeDecision || '').trim())) throw new Error(before.id + ': new explicit freezeDecision required');
       if (after.status === 'candidate' && (!nonempty(after.candidateDecision) || after.candidateDecision === before.candidateDecision)) throw new Error(before.id + ': new explicit candidateDecision required');
       if (after.status === 'released' && (!nonempty(after.productionInstruction) || after.productionInstruction === before.productionInstruction || after.productionInstruction === before.candidateDecision || !nonempty(after.releaseEvidence))) throw new Error(before.id + ': separate productionInstruction and releaseEvidence required');
     }

@@ -1,0 +1,122 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9cd0ae7fcddd2db99bb2141ecf2441407c003251e109816f91a91a52ec69630e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "work-lifecycle-review-five",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reproduce and minimally repair five lifecycle snapshot/history review findings",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "3988147f9921d176d394dff554828fa2789bd8cd",
+    "canonicalSources": [
+      "Review 5410300157 on PR #154",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md",
+      "tools/work-lifecycle.cjs",
+      "existing staging/production _template Git blobs"
+    ],
+    "allowedPaths": [
+      ".change-plans/work-lifecycle-review-five/r0.lock.json",
+      "tools/work-lifecycle.cjs",
+      "tests/test-work-lifecycle.cjs",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "works/**",
+      "lab/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      ".github/**",
+      "tools/change-*.cjs"
+    ],
+    "expectedChanges": [
+      "Reject lifecycle entries outside explicit publication set",
+      "Scan works/w/en/w/assets/works for unselected payloads",
+      "Replace unconditional _template exception with exact canonical files check preserving both existing staging and production template layouts",
+      "Require fresh freezeDecision for refreeze",
+      "Preserve historical archive/ref/decision on resume; allow authorized runtime edits"
+    ],
+    "ownerDecisions": [
+      "User requests testing five unconfirmed findings, minimal fixes, required CI then staging merge/public verification; production and real lifecycle states protected"
+    ],
+    "hqDecisions": [
+      "Existing lifecycle contract only; exact-template exception narrowed without new approval stage"
+    ],
+    "rulesApplied": [
+      "Full SYSTEM Plan and trusted base gate; no changes to contracted Change OS tools",
+      "Released baseline: production main db4b91a01890e78cfed66a92169dfebc380c6a97 read-only; nine open actual releases excluding CoffeeFactory"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "published-LAB-records-preserved"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated staging fix PR",
+    "outOfScope": [
+      "production writes",
+      "actual work status changes",
+      "gameplay/template/archive modification",
+      "new approval stages",
+      "Change OS redesign"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari not relevant to read-only gate changes"
+    ],
+    "problem": "Review reports snapshot leakage and exploration history loss at lifecycle transitions",
+    "currentContract": "PR #154 four-state policy, read-only production snapshot and Git diff gates",
+    "whyExistingIsInsufficient": "Five suspected holes require failing fixture tests before changing behavior",
+    "design": "Extend existing helpers and fixture tests; retain exact known template layout instead of exempting arbitrary code",
+    "alternativesRejected": [
+      "Reject all legacy templates",
+      "New approval workflow",
+      "New lifecycle database"
+    ],
+    "migration": "No real state migration; registry, frozen works and archives stay byte-identical",
+    "compatibility": "Normal selected released/candidate snapshots and exact current authoring template remain valid",
+    "boundaryCases": [
+      "Extra ledger entries without payload",
+      "Extra search/assets without runtime",
+      "Template altered/added/missing files vs legitimate staging/legacy production variants",
+      "Old freezeDecision reuse including whitespace",
+      "Resume deleting/moving/rewriting archive or dropping historical reference",
+      "Authorized resume retaining archive and fresh refreeze"
+    ],
+    "testPlan": [
+      "Five red-before-green regression groups using temporary fixtures",
+      "Existing lifecycle/release/guide tests and full Node regression",
+      "Plan Scope Risk Impact trusted static gate",
+      "Post-merge CI and published LAB six records check"
+    ],
+    "promotionRisk": "Staging checks only; no production writes or actual resume/promotion"
+  }
+}
