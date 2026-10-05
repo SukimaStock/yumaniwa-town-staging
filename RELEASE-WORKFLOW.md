@@ -287,3 +287,13 @@ production snapshotに台帳がなければproduction検査はFAIL。省略を�
 
 これは既存validator/generatorとAI運用に対するゲートであり、別ツールによるGit書き込みを物理的に禁止する権限境界ではない。
 ユーザー指示参照の真偽はレビューする。CI成功や参照文字列だけで公開許可・Release Completeを認定しない。
+
+
+production snapshotでは、台帳の全項目が`--published`集合に含まれることを要求する。実体がなくても、選択対象外のactive/frozen等を台帳に残さない。
+混入検査は`works/`に加え、`w/`、`en/w/`、`assets/works/`の各作品ディレクトリにも適用する。選択済み作品の通常のページ・画像構成は保持できる。
+
+`works/_template/`は既存productionにも存在する制作雛形で、公開作品として昇格する対象ではない。
+以前の無条件の除外は廃止し、staging/main `3988147` とproduction/main `db4b91a`で一致する5つの正規ファイルをexact Git blobで確認する。
+productionに既存の空の`Test.md`と`assets/test.md`も、その既存blobのままに限り許容する。
+雛形の改変・欠落・未知の追加ファイル・symlinkは拒否する。`rakugaki-template-test`のactive台帳項目は公開集合へコピーしない。
+正規雛形を残せることは、任意の試作を`_template`という名前で本番へ移せることを意味しない。

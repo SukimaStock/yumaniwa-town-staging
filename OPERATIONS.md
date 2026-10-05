@@ -540,3 +540,9 @@ node tools/work-lifecycle.cjs --check --base <変更前のexact SHA>
 既存Release Validator Tests workflowがLAB一致・凍結workの差分・状態遷移を検査する。
 初回だけ、baseに台帳がないため凍結差分チェックはbootstrap扱い。以後はbase台帳から凍結状態を読み、再開指示なしの本体変更や削除・移動を拒否する。
 LABはstaging専用の選別移送対象外。productionへの書き込み権限やGitHub側のルールをこのstaging PRで変更するものではない。
+
+
+PR #154の追加レビュー後、再凍結のactive → frozenには、前回と異なる`freezeDecision`を要求する（前後の空白だけの違いは不可）。
+再開時には過去の`archive`参照・ARCHIVE.md本文・`freezeDecision`をそのまま保つ。再開と同時に記録を消す・別ファイルへ移す・書き換えることはできない。
+再開後のactive開発でも、過去のarchive参照とファイルは残す。新しい探索内容は以前の記録を残して追記し、次の凍結判断を新しい参照として記録する。
+これらは既存の凍結・再開指示の確認であり、新しい承認段階は追加しない。
