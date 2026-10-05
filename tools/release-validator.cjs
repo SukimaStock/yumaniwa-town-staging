@@ -7,6 +7,7 @@ const vm = require('node:vm');
 const { validateSceneData } = require('../town-scene-validation.js');
 const { buildPage: buildSearchPage, buildSitemap: buildSearchSitemap } = require('./generate-work-search-pages.cjs');
 const BASE = 'https://sukimastock.github.io/yumaniwa-town/';
+const { readRegistry, assertPublication, assertProductionSnapshot } = require('./work-lifecycle.cjs');
 const ID = /^[a-z0-9][a-z0-9-]*$/;
 const text = s => String(s || '').replace(/<[^>]*>/g, '').replace(/&(?:nbsp|#160);/g, ' ').trim();
 const decode = s => String(s || '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'");
@@ -187,6 +188,14 @@ function validate(options) {
     if (options.env === 'production' && !published) add('FAIL','*','release.set','production requires explicit full --published set or --production-root; staging open is NOT the publication set');
     const ids = options.allProduction ? published : options.ids;
     if (!Array.isArray(ids) || !ids.length || ids.some(id => !ID.test(id)) || new Set(ids).size !== ids.length) { add('FAIL','*','input.ids','provide unique --ids or --all-production with an explicit publication set'); return done(); }
+    if (options.env === 'production') {
+        try {
+            const lifecycle = readRegistry(root);
+            assertPublication(lifecycle, published, options.promote || [], options.productionInstruction || '');
+            assertProductionSnapshot(root, lifecycle, published);
+            add('PASS','*','lifecycle.publication','only authorized candidates and retained released members; lifecycle is separate from town visibility');
+        } catch (error) { add('FAIL','*','lifecycle.publication',error.message); }
+    }
     if (options.allProduction && options.ids?.length) add('FAIL','*','input.ids','choose --ids OR --all-production');
     for (const id of options.physical || []) if (!ids.includes(id)) add('FAIL',id,'input.physical','--physical ID must be selected in --ids/all-production');
     for (const w of works) if (!w || typeof w !== 'object' || !ID.test(w.id || '')) add('FAIL','*','metadata.id','WORKS contains an invalid identity');
@@ -518,19 +527,19 @@ function validate(options) {
 }
 function parseArgs(argv) {
     const o = {}; const list = s => s.split(',').map(x=>x.trim()).filter(Boolean);
-    const fields = {'--root':'root','--env':'env','--ids':'ids','--published':'published','--production-root':'productionRoot','--physical':'physical'};
+    const fields = {'--root':'root','--env':'env','--ids':'ids','--published':'published','--production-root':'productionRoot','--physical':'physical','--promote':'promote','--production-instruction':'productionInstruction'};
     for (let i=0;i<argv.length;i++) {
         const a=argv[i];
         if (['--help','--json','--all-production'].includes(a)) { o[a==='--all-production'?'allProduction':a.slice(2)] = true; continue; }
         if (!fields[a] || !argv[i+1] || argv[i+1].startsWith('--') || o[fields[a]]!==undefined) throw new Error('unknown, repeated or incomplete option: '+a);
-        o[fields[a]] = ['--ids','--published','--physical'].includes(a)?list(argv[++i]):argv[++i];
+        o[fields[a]] = ['--ids','--published','--physical','--promote'].includes(a)?list(argv[++i]):argv[++i];
     }
     return o;
 }
 if (require.main === module) {
     try {
         const o=parseArgs(process.argv.slice(2));
-        if (o.help) console.log('node tools/release-validator.cjs --env staging|production [--root CHECKOUT] (--ids ID[,ID] | --all-production) [--published FULL_ID_SET | --production-root VERIFIED_PRODUCTION_CHECKOUT] [--physical ID[,ID]] [--json]\nRead-only. Exit: 0 static checks nonblocking (external review still required), 1 FAIL/HQ_REQUIRED, 2 CLI error. See RELEASE-WORKFLOW.md.');
+        if (o.help) console.log('node tools/release-validator.cjs --env staging|production [--root CHECKOUT] (--ids ID[,ID] | --all-production) [--published FULL_ID_SET | --production-root VERIFIED_PRODUCTION_CHECKOUT] [--physical ID[,ID]] [--promote CANDIDATE_ID[,ID] --production-instruction USER_REFERENCE] [--json]\nRead-only. Exit: 0 static checks nonblocking (external review still required), 1 FAIL/HQ_REQUIRED, 2 CLI error. See RELEASE-WORKFLOW.md.');
         else { const r=validate(o); if (o.json) console.log(JSON.stringify(r,null,2)); else { for (const x of r.results) console.log(`${x.status} [${x.work}] ${x.check}: ${x.message}`); console.log('\n'+JSON.stringify(r.summary)+'\nRelease Complete: UNVERIFIED (never certified by this tool)'); } process.exitCode=r.exitCode; }
     } catch(e) { console.error('FAIL validator: '+e.message); process.exitCode=2; }
 }

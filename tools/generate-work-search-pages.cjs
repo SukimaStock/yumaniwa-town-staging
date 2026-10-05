@@ -4,6 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const { readRegistry, assertPublication, assertProductionSnapshot } = require('./work-lifecycle.cjs');
 
 const PROD_BASE = 'https://sukimastock.github.io/yumaniwa-town';
 
@@ -27,11 +28,13 @@ const THEMES = {
 };
 
 function parseArgs(argv) {
-  const out = { env:'', published:[], mode:'' };
+  const out = { env:'', published:[], promote:[], productionInstruction:'', mode:'' };
   for (let i=2;i<argv.length;i++) {
     const arg=argv[i];
     if (arg==='--env') out.env=argv[++i]||'';
     else if (arg==='--published') out.published=String(argv[++i]||'').split(',').map(v=>v.trim()).filter(Boolean);
+    else if (arg==='--promote') out.promote=String(argv[++i]||'').split(',').map(v=>v.trim()).filter(Boolean);
+    else if (arg==='--production-instruction') out.productionInstruction=argv[++i]||'';
     else if (arg==='--write') out.mode='write';
     else if (arg==='--check') out.mode='check';
     else throw new Error('unknown argument: '+arg);
@@ -213,6 +216,12 @@ function compareOrWrite(file, expected, mode, mismatches) {
 function main() {
   const args=parseArgs(process.argv);
   const root=process.cwd();
+  if (args.env==='production') {
+    const registry=readRegistry(root);
+    assertPublication(registry,args.published,args.promote,args.productionInstruction);
+    assertProductionSnapshot(root,registry,args.published);
+    if (args.mode==='write' && !args.productionInstruction.trim()) throw new Error('production generation requires separate explicit user production instruction reference');
+  }
   const works=loadVar(path.join(root,'data/works.js'),['WORKS']);
   const meta=loadVar(path.join(root,'data/work-search-meta.js'),['WORK_SEARCH_META']);
   const byId=new Map(works.map(work=>[work.id,work]));

@@ -2,8 +2,14 @@ name: Release Validator Tests
 
 on:
   workflow_dispatch:
+  pull_request:
   push:
     paths:
+      - "data/work-lifecycle.json"
+      - "tools/work-lifecycle.cjs"
+      - "tests/test-work-lifecycle*.cjs"
+      - "works/**"
+      - "lab/**"
       - "data/works.js"
       - "data/work-search-meta.js"
       - "data/work-guide-meta.js"
@@ -38,6 +44,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check lifecycle, archives and frozen diff
+        env:
+          LIFECYCLE_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          node tools/work-lifecycle.cjs --check
+          if [ -n "$LIFECYCLE_BASE" ] && [ "$LIFECYCLE_BASE" != "0000000000000000000000000000000000000000" ]; then
+            node tools/work-lifecycle.cjs --check --base "$LIFECYCLE_BASE"
+          fi
+          node --test tests/test-work-lifecycle.cjs
 
       - name: Run release validator and guide regression tests
         run: node --test tests/test-release-validator.cjs tests/test-work-guide.cjs

@@ -39,7 +39,8 @@ function candidate(t,id='dotweather') {
     const assets = path.join(REPO,'assets/works',id);
     if (fs.existsSync(assets)) fs.cpSync(assets,path.join(root,'assets/works',id),{recursive:true});
     put(root,'index.html','<a href="./w/'+id+'/">Work</a>');
-    const c={root,id,options:{root,env:'production',ids:[id],published:[id]}};
+    put(root,'data/work-lifecycle.json',JSON.stringify({schema:'sukimastock-work-lifecycle/1',defaults:{status:'active',environment:'staging'},works:[{id,path:'works/'+id,title:work.title,status:'candidate',candidateDecision:'Fixture owner: production candidate'}]}));
+    const c={root,id,options:{root,env:'production',ids:[id],published:[id],promote:[id],productionInstruction:'Fixture owner: publish this candidate'}};
     regenerateSearch(c,'production');
     return c;
 }
@@ -216,7 +217,7 @@ test('Search v2 does not emit meta keywords',t=>{
 
 test('CLI exit 0 does not certify release; failure exit 1 and invalid CLI exit 2',t=>{
     const c=candidate(t), script=path.join(REPO,'tools/release-validator.cjs');
-    const args=[script,'--root',c.root,'--env','production','--ids',c.id,'--published',c.id];
+    const args=[script,'--root',c.root,'--env','production','--ids',c.id,'--published',c.id,'--promote',c.id,'--production-instruction','Fixture owner publish'];
     let r=spawnSync(process.execPath,args,{encoding:'utf8'});assert.equal(r.status,0,r.stdout+r.stderr);assert.match(r.stdout,/Release Complete: UNVERIFIED/);assert.match(r.stdout,/EXTERNAL_CHECK_REQUIRED/);
     page(c,s=>s.replace('index,follow,max-image-preview:large','noindex'));r=spawnSync(process.execPath,args,{encoding:'utf8'});assert.equal(r.status,1);
     assert.equal(spawnSync(process.execPath,[script,'--unknown'],{encoding:'utf8'}).status,2);
