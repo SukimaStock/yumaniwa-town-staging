@@ -1,5 +1,5 @@
 import {complete,reading} from './composition.mjs';
-const lexicon=new Set('the this that these those with without from for of and or but as at by in on into hello thanks please good morning night today tomorrow yesterday want need like love have has had can could would should will do does did is are was were be been my your our their it its you we they he she write writing read reading create creating design game games app apps work works code coding prototype staging production feedback release update test tests editor browser github google safari iphone ipad javascript python note suno push commit pull request engine build sound music visual visuals texture smooth transition save copy undo redo draft local text staff member members meeting mtg email internet quux'.split(' '));
+import {englishWords as lexicon} from './english-lexicon.mjs';
 const ambiguous=new Set('a i to no go so make same mine sushi radio tomato camera'.split(' '));
 const proper=['SukimaStock','PUMPOKO','GitHub','JavaScript','iPhone','iPad','ORBIT'];
 const terms=[...lexicon].filter(w=>w.length>=3&&!ambiguous.has(w)&&(!complete(w)||w.length>=4)).sort((a,b)=>b.length-a.length);
@@ -9,60 +9,60 @@ function score(raw,kind,{englishContext=false,known=false}={}){
   // Dictionary membership, phonotactic completeness and context compete.
   return n-5+(known?10:0)+(valid?-5:2)+(englishContext?7:0);
 }
-function wordSpans(raw,offset,context,state){
-  const lower=raw.toLowerCase();
-  const entry=state.dictionary?.find(e=>e.raw.toLowerCase()===lower);
-  if(entry)return [{start:offset,end:offset+raw.length,raw,language:'dictionary',text:entry.value,reason:'ユーザー辞書',candidates:[entry.value]}];
-  const learned=Object.hasOwn(state.memory??{},lower)?state.memory[lower]:null;
-  const candidates=[];
-  const add=(a,b,kind,reason,uncertain=false)=>candidates.push({start:offset+a,end:offset+b,raw:raw.slice(a,b),language:kind,text:kind==='ja'?reading(raw.slice(a,b)):raw.slice(a,b),reason,uncertain});
-  if(learned){add(0,raw.length,learned,'明示した言語の修正');return candidates;}
-  if(raw==='I'||proper.includes(raw)||/^[A-Z]{2,}$/.test(raw)||/[a-z][A-Z]/.test(raw)||/^[A-Z][a-z]/.test(raw)){add(0,raw.length,'en','大文字・固有名詞');return candidates;}
-  const userTerms=(state.dictionary??[]).filter(e=>typeof e.raw==='string'&&typeof e.value==='string'&&e.raw.length>=2&&e.raw.length<=64);
-  const known=lexicon.has(lower)||ambiguous.has(lower);
-  const ja=score(raw,'ja',context),en=score(raw,'en',{...context,known:known&&!ambiguous.has(lower)});
-  // A complete isolated word has competing JA/EN scores, including short particles.
-  if(!userTerms.some(e=>lower.includes(e.raw.toLowerCase()))&&complete(raw)&&(!terms.some(w=>lower.includes(w)&&w!==lower)||raw.length<8)){
-    add(0,raw.length,en>ja?'en':'ja',`局所スコア 日本語:${ja} / 英語:${en}`,Math.abs(ja-en)<4);return candidates;
-  }
-  // Known English islands are considered only on complete kana boundaries.
-  const cuts=new Set([0,raw.length]);
-  for(const w of [...terms,...userTerms.map(e=>e.raw.toLowerCase())]){let p=lower.indexOf(w);while(p>=0){cuts.add(p);cuts.add(p+w.length);p=lower.indexOf(w,p+1);}}
-  const boundaries=[...cuts].sort((a,b)=>a-b);
-  const best=new Array(raw.length+1).fill(null);best[0]={value:0,parts:[]};
-  for(let i=0;i<raw.length;i++)if(best[i]){
-    const put=(end,kind,value,reason,surface)=>{const total=best[i].value+value;if(!best[end]||best[end].value<total)best[end]={value:total,parts:[...best[i].parts,{i,end,kind,reason,surface}]};};
-    for(const j of boundaries)if(j>i&&complete(raw.slice(i,j)))put(j,'ja',j-i-2,'音境界上の日本語候補');
-    for(const e of userTerms)if(lower.startsWith(e.raw.toLowerCase(),i))put(i+e.raw.length,'dictionary',e.raw.length+20,'ユーザー辞書の区間',e.value);
-    for(const w of terms)if(lower.startsWith(w,i))put(i+w.length,'en',score(w,'en',{known:true}),'英語候補・綴り・区間の競合');
-  }
-  const path=best[raw.length];
-  if(path&&path.parts.some(p=>p.kind==='en'||p.kind==='dictionary')&&path.value>en){for(const p of path.parts){add(p.i,p.end,p.kind,p.reason);if(p.surface)candidates.at(-1).text=p.surface;}}
-  else add(0,raw.length,en>ja?'en':'ja',`局所スコア 日本語:${ja} / 英語:${en}`,!known);
-  return candidates;
+const PATHS=12, WORD_PATHS=8;
+const identity = path => path.parts.map(s=>`${s.start}:${s.end}:${s.language}`).join('|');
+function keep(paths,limit=PATHS) {
+  const unique=new Map();
+  for(const p of paths) { const key=identity(p);if(!unique.has(key)||unique.get(key).score<p.score)unique.set(key,p); }
+  return [...unique.values()].sort((a,b)=>b.score-a.score||a.parts.length-b.parts.length).slice(0,limit);
 }
-export function segment(source,state={}){
-  const chunks=[...source.matchAll(/https?:\/\/[^\s<>]+|[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}|`[^`\n]*`|[A-Za-z]+(?:'[A-Za-z]+)*|[^A-Za-z]+/g)],out=[];
-  const evidence=t=>t&&(t==='I'||lexicon.has(t.toLowerCase())&&!ambiguous.has(t.toLowerCase()));
-  for(let n=0;n<chunks.length;n++){
-    const m=chunks[n],raw=m[0],start=m.index;
-    if(!/^[a-z']+$/i.test(raw)){out.push({start,end:start+raw.length,raw,language:'literal',text:raw,reason:'URL・記号・既存の日本語を保持'});continue;}
-    const context={englishContext:evidence(chunks[n-2]?.[0])&&evidence(chunks[n+2]?.[0])};
-    if(raw.length>256){out.push({start,end:start+raw.length,raw,language:'en',text:raw,uncertain:true,reason:'長い連続語は原文を保持'});continue;}
-    // Split uppercase/protected islands before reading lower-case neighbours.
-    const pattern=new RegExp(proper.join('|')+'|[A-Z]{2,}','g');let at=0;
-    for(const p of raw.matchAll(pattern)){
-      if(p.index>at)out.push(...wordSpans(raw.slice(at,p.index),start+at,context,state));
-      out.push({start:start+p.index,end:start+p.index+p[0].length,raw:p[0],language:'en',text:p[0],reason:'固有名詞の区間を保持'});at=p.index+p[0].length;
-    }
-    if(at<raw.length)out.push(...wordSpans(raw.slice(at),start+at,context,state));
+function join(paths,next) {return keep(paths.flatMap(p=>next.map(q=>({parts:[...p.parts,...q.parts],score:p.score+q.score}))));}
+function wordPaths(raw,offset,context,state) {
+  const lower=raw.toLowerCase(),cache=new Map();
+  const valid=text=>{if(!cache.has(text))cache.set(text,complete(text));return cache.get(text);};
+  const part=(a,b,language,reason,value,surface)=>({start:offset+a,end:offset+b,raw:raw.slice(a,b),language,text:surface??(language==='ja'?reading(raw.slice(a,b)):raw.slice(a,b)),reason,evidence:value,uncertain:language==='en'&&!lexicon.has(raw.slice(a,b).toLowerCase())});
+  const one=(language,reason,value,surface)=>[{parts:[part(0,raw.length,language,reason,value,surface)],score:Object.values(value).reduce((a,b)=>a+b,0)}];
+  const entry=state.dictionary?.find(e=>e.raw.toLowerCase()===lower);
+  if(entry)return one('dictionary','ユーザー辞書',{dictionary:raw.length+20},entry.value);
+  const learned=Object.hasOwn(state.memory??{},lower)?state.memory[lower]:null;
+  if(learned)return one(learned,'明示した言語の修正',{memory:raw.length+20});
+  if(raw==='I'||proper.includes(raw)||/^[A-Z]{2,}$/.test(raw)||/[a-z][A-Z]/.test(raw)||/^[A-Z][a-z]/.test(raw))return one('en','大文字・固有名詞',{case:raw.length+20});
+  const wholeValid=valid(raw),known=lexicon.has(lower)||ambiguous.has(lower);
+  const alternatives=one('en','全体の英語候補',{english:score(raw,'en',{...context,known:known&&!ambiguous.has(lower)})});
+  if(wholeValid)alternatives.push(...one('ja','全体の日本語候補',{romaji:score(raw,'ja',context)}));
+  const userTerms=(state.dictionary??[]).filter(e=>typeof e.raw==='string'&&typeof e.value==='string'&&e.raw.length>=2&&e.raw.length<=64);
+  const cuts=new Set([0,raw.length]);
+  for(const w of [...terms,...userTerms.map(e=>e.raw.toLowerCase())]) {
+    let at=lower.indexOf(w);while(at>=0){cuts.add(at);cuts.add(at+w.length);at=lower.indexOf(w,at+1);}
   }
-  // Rejoin Japanese across typed spaces; preserve gaps beside English and linebreaks.
+  // Bounded search: retain whole-language alternatives for pathological runs.
+  if(cuts.size>48)return keep(alternatives,WORD_PATHS);
+  const nodes=[...cuts].sort((a,b)=>a-b),best=new Map([[0,[{parts:[],score:0}]]]);
+  for(const at of nodes) {
+    const paths=best.get(at);if(!paths)continue;
+    const put=(end,language,reason,evidence,surface)=>{
+      const edge=part(at,end,language,reason,evidence,surface),value=Object.values(evidence).reduce((a,b)=>a+b,0);
+      best.set(end,keep([...(best.get(end)??[]),...paths.map(p=>({parts:[...p.parts,edge],score:p.score+value}))],WORD_PATHS));
+    };
+    for(const end of nodes)if(end>at&&valid(raw.slice(at,end)))put(end,'ja','ローマ字の成立と経路比較',{romaji:end-at,boundary:-2,context:context.englishContext?-6:0});
+    for(const e of userTerms)if(lower.startsWith(e.raw.toLowerCase(),at))put(at+e.raw.length,'dictionary','ユーザー辞書の区間',{dictionary:e.raw.length+20},e.value);
+    for(const w of terms)if(lower.startsWith(w,at)) {
+      const whole=at===0&&w.length===raw.length;
+      const end=at+w.length;
+      const broken=wholeValid?[at,end].filter(p=>p>0&&p<raw.length&&/[a-z]/i.test(reading(raw.slice(0,p),{final:false}))).length:0;
+      put(end,'en','英単語候補を日本語経路と比較',whole?{english:score(raw,'en',{...context,known:true})}:{english:w.length+9,boundary:-5,phonology:valid(w)?0:1,syllableBoundary:-3*broken});
+    }
+  }
+  // Reserve both whole-language alternatives even if the beam prefers islands.
+  const ranked=keep(best.get(raw.length)??[],WORD_PATHS-2);
+  return keep([...ranked,...alternatives],WORD_PATHS);
+}
+function mergeJapanese(out) {
   const merged=[];
-  for(let i=0;i<out.length;i++){
+  for(let i=0;i<out.length;i++) {
     const s={...out[i]},previous=merged.at(-1);
     if(s.language==='ja'&&previous?.language==='ja'){previous.end=s.end;previous.raw+=s.raw;previous.text+=s.text;continue;}
-    if(s.language==='literal'&&/^[ .,]+$/.test(s.raw)&&previous?.language==='ja'){
+    if(s.language==='literal'&&/^[ .,]+$/.test(s.raw)&&previous?.language==='ja') {
       if(/[.,]/.test(s.raw)){previous.end=s.end;previous.raw+=s.raw;previous.text+=s.raw.replaceAll('.','。').replaceAll(',','、').trim();continue;}
       if(out[i+1]?.language==='ja'){previous.end=s.end;previous.raw+=s.raw;continue;}
     }
@@ -70,3 +70,36 @@ export function segment(source,state={}){
   }
   return merged;
 }
+export function segmentCandidates(source,state={}) {
+  const chunks=[...source.matchAll(/https?:\/\/[^\s<>]+|www\.[^\s<>]+|[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}|`[^`\n]*`|[A-Za-z]+(?:'[A-Za-z]+)*|[^A-Za-z]+/g)];
+  const evidence=t=>t&&(t==='I'||lexicon.has(t.toLowerCase())&&!ambiguous.has(t.toLowerCase()));
+  let paths=[{parts:[],score:0}];
+  for(let n=0;n<chunks.length;n++) {
+    const m=chunks[n],raw=m[0],start=m.index;
+    if(!/^[a-z']+$/i.test(raw)||raw.length>256) {
+      paths=join(paths,[{parts:[{start,end:start+raw.length,raw,language:raw.length>256?'en':'literal',text:raw,reason:'保護された原文',uncertain:raw.length>256}],score:0}]);continue;
+    }
+    const context={englishContext:evidence(chunks[n-2]?.[0])&&evidence(chunks[n+2]?.[0])};
+    const pattern=new RegExp(proper.join('|')+'|[A-Z]{2,}','g');let at=0,options=[{parts:[],score:0}];
+    for(const p of raw.matchAll(pattern)) {
+      if(p.index>at)options=join(options,wordPaths(raw.slice(at,p.index),start+at,context,state));
+      options=join(options,[{parts:[{start:start+p.index,end:start+p.index+p[0].length,raw:p[0],language:'en',text:p[0],reason:'固有名詞の強いシグナル',evidence:{case:20}}],score:20}]);at=p.index+p[0].length;
+    }
+    if(at<raw.length)options=join(options,wordPaths(raw.slice(at),start+at,context,state));
+    paths=join(paths,options);
+  }
+  return keep(paths.map(p=>{
+    const parts=mergeJapanese(p.parts);let context=0;
+    const neighbour=(at,step)=>{let i=at+step;while(parts[i]?.language==='literal'&&/^[ \t]+$/.test(parts[i].raw))i+=step;return parts[i];};
+    // Isolated short Japanese remnants are weak boundary evidence. Penalize
+    // them symmetrically; no particular English word or sentence is exempted.
+    for(let i=0;i<parts.length;i++) {
+      const s=parts[i],left=neighbour(i,-1),right=neighbour(i,1);
+      if(s.language==='ja'&&reading(s.raw).length<=2&&(left?.language==='en'||right?.language==='en'))context-=2;
+      if(left?.language==='en'&&right?.language==='en')context+=s.language==='en'?4:s.language==='ja'?-4:0;
+      if(s.language==='en'&&left?.language==='en'&&s.start===left.end)context-=2;
+    }
+    return {...p,parts,score:p.score+context,context};
+  }));
+}
+export function segment(source,state={}) {return segmentCandidates(source,state)[0]?.parts??[];}
