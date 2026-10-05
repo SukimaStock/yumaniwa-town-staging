@@ -187,6 +187,12 @@
       "path": "works/tea-unfold",
       "status": "active",
       "title": "茶葉がひらく · 試作"
+    },
+    {
+      "id": "tea-unfold-02",
+      "path": "works/tea-unfold-02",
+      "status": "active",
+      "title": "ひと粒が、ほどける · 試作"
     }
   ]
 }
