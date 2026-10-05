@@ -1,0 +1,125 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "bb07fc3514979946bc4d0f33bd130bc788dc440c2d1d2716361a01c34d3abe42",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "mixed-note-final-format-20261005",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Separate final Japanese spacing and typed punctuation from conversion segment boundaries",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "ec195c8f4241ecef7257a430e3782ed89f57fa4a",
+    "canonicalSources": [
+      "User instruction 2026-10-05",
+      "AGENTS.md",
+      "data/work-lifecycle.json",
+      "works/mixed-note"
+    ],
+    "allowedPaths": [
+      ".change-plans/mixed-note-final-format-20261005/r0.lock.json",
+      "works/mixed-note/formatting.mjs",
+      "works/mixed-note/test-formatting.mjs",
+      "works/mixed-note/app.mjs",
+      "works/mixed-note/style.css",
+      "works/mixed-note/index.html",
+      "works/mixed-note/INTEGRATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "works/town-glance*/**",
+      "works/morning-thread*/**",
+      "works/tea-unfold/**",
+      "lab/**"
+    ],
+    "expectedChanges": [
+      "Pure final formatting over existing candidates and overrides without changing conversion/detection",
+      "Join Japanese boundaries without spaces; retain English word spaces and newlines",
+      "Normalize only typed punctuation in Japanese context, protecting URLs/email/numbers/code/English sentences",
+      "Same formatted parts for preview and commit; preserve candidate selection and Undo",
+      "Work-local cache fingerprint and spacing styles; regression and deployed browser tests"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-05 requests a final formatting layer and staging merge after tests; preserve current conversion quality."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Plan-first; existing work-local rendering and insertion contract",
+      "No new dependencies, storage changes or production changes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-preview-commit-candidates-undo",
+      "protected-punctuation-and-multiline",
+      "live-staging",
+      "physical-iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert work-local formatting PR; stored raw input and draft remain compatible.",
+    "outOfScope": [
+      "Production",
+      "Shared runtime",
+      "Large UI redesign",
+      "Claiming physical iPhone verification"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari soft-keyboard behavior, memory and subjective writing comfort"
+    ],
+    "problem": "Conversion boundaries and typed spaces leak into final Japanese prose; typed question/exclamation marks remain ASCII.",
+    "currentContract": "Mozc candidates plus independent local detection, raw snapshot and reversible draft insertion.",
+    "whyExistingIsInsufficient": "Direct compose joins segments without final-context formatting and preview buttons have horizontal padding.",
+    "design": "Pure per-segment formatting after overrides; protect explicit URLs/mail/code/numbers, convert input punctuation locally, remove inline gaps adjoining Japanese; keep raw offsets/candidates. Preview and commit share output.",
+    "alternativesRejected": [
+      "Changing engine scores/detection",
+      "Automatic punctuation guessing",
+      "Global punctuation replacement or whitespace deletion"
+    ],
+    "migration": "None",
+    "compatibility": "Existing candidates, dictionary, memory, raw input, storage and Undo unchanged.",
+    "boundaryCases": [
+      "Japanese/English/proper-name boundaries",
+      "Pure English and mixed paragraphs",
+      "URL/email/decimal/thousands separators/backticks",
+      "Manual choice and override",
+      "Newlines/indentation",
+      "Stale input and failed engine"
+    ],
+    "testPlan": [
+      "Pure formatting fixtures and mutation checks",
+      "Existing 15 real-engine regressions plus baseline suite",
+      "Browser preview equals committed draft with candidate correction and Undo",
+      "Trusted gates and deployed staging checks"
+    ],
+    "promotionRisk": "No production change or eligibility change"
+  }
+}

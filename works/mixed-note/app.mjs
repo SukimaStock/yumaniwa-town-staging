@@ -1,4 +1,5 @@
-import { compose, remember, validateEntry } from './detection.mjs';
+import { remember, validateEntry } from './detection.mjs';
+import {formatParts,formatText} from './formatting.mjs';
 import {kana,katakana} from './composition.mjs';
 import {convertSource} from './conversion.mjs';
 import {convertKana} from './mozc.mjs';
@@ -40,10 +41,11 @@ async function preview(){
 }
 function paint(){
   $('preview').replaceChildren();
+  const formatted=formatParts(segments,overrides);
   segments.forEach((s,i)=>{
-    if(s.language==='literal'){$('preview').append(document.createTextNode(s.text));return;}
+    if(s.language==='literal'){$('preview').append(document.createTextNode(formatted[i]));return;}
     const button=document.createElement('button');button.type='button';
-    button.textContent=overrides[i]?.text??s.text;button.dataset.language=s.language;
+    button.textContent=formatted[i];button.dataset.language=s.language;
     button.classList.toggle('uncertain',s.uncertain&&!overrides[i]);
     button.title=s.reason;button.setAttribute('aria-label',`${button.textContent}：${s.reason}。表記を選ぶ`);
     button.addEventListener('click',()=>{selected=i;$('choice-title').textContent=`「${s.raw}」の表記`;$('custom').value=button.textContent;$('choices').hidden=false;showCandidates(s);});
@@ -91,7 +93,7 @@ $('commit').onclick=()=>{
   if(composing||draftComposing||pendingPreview||previewSource!==$('source').value||!$('source').value)return;
   const raw=$('source').value;
   undo={state:structuredClone(state),draft:$('draft').value,source:raw};
-  const text=compose(segments,overrides), draft=$('draft'), at=draft.selectionStart, end=draft.selectionEnd;
+  const text=formatText(segments,overrides), draft=$('draft'), at=draft.selectionStart, end=draft.selectionEnd;
   // Native selection insertion works for middle edits as well as append.
   draft.setRangeText(text,at,end,'end');
   Object.entries(overrides).forEach(([i,value])=>{
