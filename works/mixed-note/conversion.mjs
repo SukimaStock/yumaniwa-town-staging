@@ -1,4 +1,4 @@
-import {segmentCandidates} from './segmentation.mjs';
+import {segmentCandidates} from './segmentation.mjs?v=paths-20261005';
 import {japaneseReading} from './composition.mjs';
 // Current engine API exposes candidates, not calibrated path/POS costs. This
 // is deliberately modest dictionary-support evidence, not a grammar oracle.
