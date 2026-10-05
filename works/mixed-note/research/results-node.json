@@ -1,0 +1,2676 @@
+{
+  "stability": {
+    "input": "kyouhatukaretakyouhatukaretakyouhatukaretakyouhatukaretakyouhatukaretakyouhatukaretakyouhatukaretakyouhatukaretakyouhatukaretakyouhatukareta",
+    "status": "engine-failed",
+    "failedAt": 66,
+    "partialKana": "きょうはつかれたきょうはつかれたきょうはつかれたきょうはつかれたきょうはつか",
+    "output": null,
+    "skipped": [],
+    "errors": [
+      4
+    ],
+    "error": "Error: Jaime error codes: 4",
+    "initMs": 166.87326700000085,
+    "conversionMs": 13.571352000000843,
+    "memoryBytes": 67108864
+  },
+  "schema": "mixed-note-engine-results/1",
+  "boundaryMode": "human-annotated-oracle-NOT-automatic-detection",
+  "automaticDetection": "NOT_IMPLEMENTED",
+  "physicalIphoneSafari": "UNVERIFIED",
+  "integrationEligible": false,
+  "reason": "Human-labelled spans are not automatic mixed-language detection; physical iPhone writing quality has not passed.",
+  "cases": [
+    {
+      "id": "nn",
+      "input": "nanntomoienaihidakedo",
+      "target": "なんとも言えない日だけど",
+      "mandatory": true,
+      "baseline": "なんんともいえないひだけど",
+      "jaimeRaw": {
+        "status": "observed",
+        "kana": "なんともいえないひだけど",
+        "words": [
+          "なんとも",
+          "言え",
+          "ない",
+          "日",
+          "だ",
+          "けど"
+        ],
+        "output": "なんとも言えない日だけど",
+        "skipped": [],
+        "errors": [],
+        "initMs": 165.99699900000002,
+        "conversionMs": 5.085643000000005,
+        "memoryBytes": 67108864
+      },
+      "jaimeOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "nanntomoienaihidakedo",
+            "status": "observed",
+            "kana": "なんともいえないひだけど",
+            "words": [
+              "なんとも",
+              "言え",
+              "ない",
+              "日",
+              "だ",
+              "けど"
+            ],
+            "output": "なんとも言えない日だけど",
+            "skipped": [],
+            "errors": [],
+            "initMs": 158.32690599999995,
+            "conversionMs": 3.7729679999999917,
+            "memoryBytes": 67108864
+          }
+        ],
+        "output": "なんとも言えない日だけど",
+        "top1Exact": true,
+        "targetSelectable": true
+      },
+      "mozcOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "nanntomoienaihidakedo",
+            "kana": "なんともいえないひだけど",
+            "segments": [
+              {
+                "key": "なんとも",
+                "candidates": [
+                  "なんとも",
+                  "何とも",
+                  "南斗も",
+                  "南都も",
+                  "ナントモ",
+                  "南砺も",
+                  "何斗も",
+                  "ナントも",
+                  "無んとも",
+                  "難とも"
+                ]
+              },
+              {
+                "key": "いえない",
+                "candidates": [
+                  "言えない",
+                  "いえない",
+                  "癒えない",
+                  "云えない",
+                  "瘉えない",
+                  "謂えない",
+                  "家ない",
+                  "イエない",
+                  "イエナイ"
+                ]
+              },
+              {
+                "key": "ひだけど",
+                "candidates": [
+                  "日だけど",
+                  "陽だけど",
+                  "火だけど",
+                  "ひだけど",
+                  "否だけど",
+                  "飛だけど",
+                  "碑だけど",
+                  "非だけど",
+                  "比だけど",
+                  "緋だけど"
+                ]
+              }
+            ],
+            "output": "なんとも言えない日だけど",
+            "conversionMs": 15.975109999999972
+          }
+        ],
+        "output": "なんとも言えない日だけど",
+        "top1Exact": true,
+        "targetSelectable": true
+      }
+    },
+    {
+      "id": "today",
+      "input": "kyouhatukareta",
+      "target": "今日は疲れた",
+      "mandatory": true,
+      "baseline": "きょうはつかれた",
+      "jaimeRaw": {
+        "status": "observed",
+        "kana": "きょうはつかれた",
+        "words": [
+          "教",
+          "は",
+          "疲れ",
+          "た"
+        ],
+        "output": "教は疲れた",
+        "skipped": [],
+        "errors": [],
+        "initMs": 163.97459600000002,
+        "conversionMs": 2.2492150000000493,
+        "memoryBytes": 67108864
+      },
+      "jaimeOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "kyouhatukareta",
+            "status": "observed",
+            "kana": "きょうはつかれた",
+            "words": [
+              "教",
+              "は",
+              "疲れ",
+              "た"
+            ],
+            "output": "教は疲れた",
+            "skipped": [],
+            "errors": [],
+            "initMs": 157.18809199999998,
+            "conversionMs": 2.206230000000005,
+            "memoryBytes": 67108864
+          }
+        ],
+        "output": "教は疲れた",
+        "top1Exact": false,
+        "targetSelectable": false
+      },
+      "mozcOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "kyouhatukareta",
+            "kana": "きょうはつかれた",
+            "segments": [
+              {
+                "key": "きょうは",
+                "candidates": [
+                  "今日は",
+                  "きょうは",
+                  "教は",
+                  "強は",
+                  "凶は",
+                  "経は",
+                  "卿は",
+                  "興は",
+                  "境は",
+                  "供は"
+                ]
+              },
+              {
+                "key": "つかれた",
+                "candidates": [
+                  "つかれた",
+                  "疲れた",
+                  "付かれた",
+                  "突かれた",
+                  "着かれた",
+                  "😪",
+                  "😫",
+                  "😵",
+                  "就かれた",
+                  "点かれた"
+                ]
+              }
+            ],
+            "output": "今日はつかれた",
+            "conversionMs": 1.6946100000000115
+          }
+        ],
+        "output": "今日はつかれた",
+        "top1Exact": false,
+        "targetSelectable": true
+      }
+    },
+    {
+      "id": "meeting",
+      "input": "ashitahakaishanomembertomtg",
+      "target": "明日は会社のmemberとmtg",
+      "mandatory": false,
+      "baseline": "ashitahakaishanomembertomtg",
+      "jaimeRaw": {
+        "status": "observed",
+        "kana": "あしたはかいしゃのめｍべｒとｍｔｇ",
+        "words": [
+          "明日",
+          "は",
+          "会社",
+          "の",
+          "眼",
+          "ｍ",
+          "べ",
+          "ｒ",
+          "＆",
+          "ｍ",
+          "ｔ",
+          "ｇ"
+        ],
+        "output": "明日は会社の眼ｍべｒ＆ｍｔｇ",
+        "skipped": [],
+        "errors": [],
+        "initMs": 158.37026200000014,
+        "conversionMs": 4.953743999999915,
+        "memoryBytes": 67108864
+      },
+      "jaimeOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "ashitahakaishano",
+            "status": "observed",
+            "kana": "あしたはかいしゃの",
+            "words": [
+              "明日",
+              "は",
+              "会社",
+              "の"
+            ],
+            "output": "明日は会社の",
+            "skipped": [],
+            "errors": [],
+            "initMs": 164.80231099999992,
+            "conversionMs": 2.5195119999998496,
+            "memoryBytes": 67108864
+          },
+          {
+            "kind": "en",
+            "raw": "member",
+            "output": "member"
+          },
+          {
+            "kind": "ja",
+            "raw": "to",
+            "status": "observed",
+            "kana": "と",
+            "words": [
+              "＆"
+            ],
+            "output": "＆",
+            "skipped": [],
+            "errors": [],
+            "initMs": 160.06321900000012,
+            "conversionMs": 2.60301800000002,
+            "memoryBytes": 67108864
+          },
+          {
+            "kind": "en",
+            "raw": "mtg",
+            "output": "mtg"
+          }
+        ],
+        "output": "明日は会社のmember＆mtg",
+        "top1Exact": false,
+        "targetSelectable": false
+      },
+      "mozcOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "ashitahakaishano",
+            "kana": "あしたはかいしゃの",
+            "segments": [
+              {
+                "key": "あしたは",
+                "candidates": [
+                  "明日は",
+                  "あしたは",
+                  "芦田は",
+                  "朝は",
+                  "足田は",
+                  "葦田は",
+                  "阿下は",
+                  "アシタは",
+                  "アシタハ"
+                ]
+              },
+              {
+                "key": "かいしゃの",
+                "candidates": [
+                  "会社の",
+                  "カイシャの",
+                  "かいしゃの",
+                  "會社の",
+                  "膾炙の",
+                  "下位者の",
+                  "会しゃの",
+                  "介しゃの",
+                  "解しゃの",
+                  "カイシャノ"
+                ]
+              }
+            ],
+            "output": "明日は会社の",
+            "conversionMs": 1.5567019999998593
+          },
+          {
+            "kind": "en",
+            "raw": "member",
+            "output": "member"
+          },
+          {
+            "kind": "ja",
+            "raw": "to",
+            "kana": "と",
+            "segments": [
+              {
+                "key": "と",
+                "candidates": [
+                  "と",
+                  "都",
+                  "戸",
+                  "🚪",
+                  "斗",
+                  "途",
+                  "賭",
+                  "徒",
+                  "砥",
+                  "堵"
+                ]
+              }
+            ],
+            "output": "と",
+            "conversionMs": 1.3896819999999934
+          },
+          {
+            "kind": "en",
+            "raw": "mtg",
+            "output": "mtg"
+          }
+        ],
+        "output": "明日は会社のmemberとmtg",
+        "top1Exact": true,
+        "targetSelectable": true
+      }
+    },
+    {
+      "id": "staff",
+      "input": "mouiiya staff to isshoni",
+      "target": "もういいや staff と一緒に",
+      "mandatory": true,
+      "baseline": "もういいや staff to いっしょに",
+      "jaimeRaw": {
+        "status": "observed",
+        "kana": "もういいやｓたっｆといっしょに",
+        "words": [
+          "猛威",
+          "イヤ",
+          "ｓ",
+          "足っ",
+          "ｆ",
+          "＆",
+          "一緒",
+          "に"
+        ],
+        "output": "猛威イヤｓ足っｆ＆一緒に",
+        "skipped": [
+          {
+            "index": 7,
+            "char": " "
+          },
+          {
+            "index": 13,
+            "char": " "
+          },
+          {
+            "index": 16,
+            "char": " "
+          }
+        ],
+        "errors": [],
+        "initMs": 161.27744600000005,
+        "conversionMs": 6.805520999999999,
+        "memoryBytes": 67108864
+      },
+      "jaimeOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "mouiiya",
+            "status": "observed",
+            "kana": "もういいや",
+            "words": [
+              "猛威",
+              "イヤ"
+            ],
+            "output": "猛威イヤ",
+            "skipped": [],
+            "errors": [],
+            "initMs": 165.558804,
+            "conversionMs": 2.49981200000002,
+            "memoryBytes": 67108864
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "en",
+            "raw": "staff",
+            "output": "staff"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "to isshoni",
+            "status": "observed",
+            "kana": "といっしょに",
+            "words": [
+              "＆",
+              "一緒",
+              "に"
+            ],
+            "output": "＆一緒に",
+            "skipped": [],
+            "errors": [],
+            "initMs": 170.94437900000003,
+            "conversionMs": 1.82544699999994,
+            "memoryBytes": 67108864
+          }
+        ],
+        "output": "猛威イヤ staff ＆一緒に",
+        "top1Exact": false,
+        "targetSelectable": false
+      },
+      "mozcOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "mouiiya",
+            "kana": "もういいや",
+            "segments": [
+              {
+                "key": "もう",
+                "candidates": [
+                  "もう",
+                  "モウ",
+                  "網",
+                  "盲",
+                  "毛",
+                  "牟",
+                  "孟",
+                  "妄",
+                  "耗",
+                  "望"
+                ]
+              },
+              {
+                "key": "いいや",
+                "candidates": [
+                  "いいや",
+                  "いい家",
+                  "イイや",
+                  "良いや",
+                  "井伊谷",
+                  "謂や",
+                  "易々や",
+                  "云いや",
+                  "言いや",
+                  "イイ家"
+                ]
+              }
+            ],
+            "output": "もういいや",
+            "conversionMs": 1.2329560000000583
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "en",
+            "raw": "staff",
+            "output": "staff"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "to isshoni",
+            "kana": "といっしょに",
+            "segments": [
+              {
+                "key": "と",
+                "candidates": [
+                  "と",
+                  "都",
+                  "戸",
+                  "🚪",
+                  "斗",
+                  "途",
+                  "賭",
+                  "徒",
+                  "砥",
+                  "堵"
+                ]
+              },
+              {
+                "key": "いっしょに",
+                "candidates": [
+                  "一緒に",
+                  "いっしょに",
+                  "一所に",
+                  "逸書に",
+                  "佚書に",
+                  "逸しょに",
+                  "言っしょに",
+                  "行っしょに",
+                  "逝っしょに",
+                  "云っしょに"
+                ]
+              }
+            ],
+            "output": "と一緒に",
+            "conversionMs": 1.8670290000000023
+          }
+        ],
+        "output": "もういいや staff と一緒に",
+        "top1Exact": true,
+        "targetSelectable": true
+      }
+    },
+    {
+      "id": "yesterday",
+      "input": "kinou PUMPOKO wo tsukutteita",
+      "target": "昨日 PUMPOKO を作っていた",
+      "mandatory": false,
+      "baseline": "きのう PUMPOKO を つくっていた",
+      "jaimeRaw": {
+        "status": "observed",
+        "kana": "きのうをつくっていた",
+        "words": [
+          "機能",
+          "を",
+          "ツクっ",
+          "て",
+          "い",
+          "た"
+        ],
+        "output": "機能をツクっていた",
+        "skipped": [
+          {
+            "index": 5,
+            "char": " "
+          },
+          {
+            "index": 6,
+            "char": "P"
+          },
+          {
+            "index": 7,
+            "char": "U"
+          },
+          {
+            "index": 8,
+            "char": "M"
+          },
+          {
+            "index": 9,
+            "char": "P"
+          },
+          {
+            "index": 10,
+            "char": "O"
+          },
+          {
+            "index": 11,
+            "char": "K"
+          },
+          {
+            "index": 12,
+            "char": "O"
+          },
+          {
+            "index": 13,
+            "char": " "
+          },
+          {
+            "index": 16,
+            "char": " "
+          }
+        ],
+        "errors": [],
+        "initMs": 160.94293300000004,
+        "conversionMs": 2.436497000000145,
+        "memoryBytes": 67108864
+      },
+      "jaimeOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "kinou",
+            "status": "observed",
+            "kana": "きのう",
+            "words": [
+              "機能"
+            ],
+            "output": "機能",
+            "skipped": [],
+            "errors": [],
+            "initMs": 160.10359999999991,
+            "conversionMs": 1.4649749999998676,
+            "memoryBytes": 67108864
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "proper",
+            "raw": "PUMPOKO",
+            "output": "PUMPOKO"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "wo tsukutteita",
+            "status": "observed",
+            "kana": "をつくっていた",
+            "words": [
+              "を",
+              "ツクっ",
+              "て",
+              "い",
+              "た"
+            ],
+            "output": "をツクっていた",
+            "skipped": [],
+            "errors": [],
+            "initMs": 159.10996499999965,
+            "conversionMs": 1.7341000000001259,
+            "memoryBytes": 67108864
+          }
+        ],
+        "output": "機能 PUMPOKO をツクっていた",
+        "top1Exact": false,
+        "targetSelectable": false
+      },
+      "mozcOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "kinou",
+            "kana": "きのう",
+            "segments": [
+              {
+                "key": "きのう",
+                "candidates": [
+                  "機能",
+                  "昨日",
+                  "2026/10/04",
+                  "2026-10-04",
+                  "2026年10月4日",
+                  "令和8年10月4日",
+                  "日曜日",
+                  "きのう",
+                  "帰納",
+                  "帰農"
+                ]
+              }
+            ],
+            "output": "機能",
+            "conversionMs": 1.6091519999999946
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "proper",
+            "raw": "PUMPOKO",
+            "output": "PUMPOKO"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "wo tsukutteita",
+            "kana": "をつくっていた",
+            "segments": [
+              {
+                "key": "を",
+                "candidates": [
+                  "を",
+                  "ヲ",
+                  "乎",
+                  "を゙",
+                  "ヺ"
+                ]
+              },
+              {
+                "key": "つくっていた",
+                "candidates": [
+                  "作っていた",
+                  "つくっていた",
+                  "造っていた",
+                  "創っていた",
+                  "ツクっていた",
+                  "做っていた",
+                  "ツクッていた",
+                  "ツクッテイタ"
+                ]
+              }
+            ],
+            "output": "を作っていた",
+            "conversionMs": 1.4837330000000293
+          }
+        ],
+        "output": "機能 PUMPOKO を作っていた",
+        "top1Exact": false,
+        "targetSelectable": true
+      }
+    },
+    {
+      "id": "prototype",
+      "input": "SukimaStock no prototype wo tsukutta",
+      "target": "SukimaStock の prototype を作った",
+      "mandatory": false,
+      "baseline": "SukimaStock no prototype を つくった",
+      "jaimeRaw": {
+        "status": "observed",
+        "kana": "うきまとｃｋのｐろとｔｙぺをつくった",
+        "words": [
+          "浮間",
+          "＆",
+          "ｃ",
+          "ｋ",
+          "ノ",
+          "ｐ",
+          "露",
+          "＆",
+          "ｔ",
+          "ｙ",
+          "ペ",
+          "を",
+          "ツクっ",
+          "た"
+        ],
+        "output": "浮間＆ｃｋノｐ露＆ｔｙペをツクった",
+        "skipped": [
+          {
+            "index": 0,
+            "char": "S"
+          },
+          {
+            "index": 6,
+            "char": "S"
+          },
+          {
+            "index": 11,
+            "char": " "
+          },
+          {
+            "index": 14,
+            "char": " "
+          },
+          {
+            "index": 24,
+            "char": " "
+          },
+          {
+            "index": 27,
+            "char": " "
+          }
+        ],
+        "errors": [],
+        "initMs": 162.1682780000001,
+        "conversionMs": 2.6979499999997643,
+        "memoryBytes": 67108864
+      },
+      "jaimeOracle": {
+        "parts": [
+          {
+            "kind": "proper",
+            "raw": "SukimaStock",
+            "output": "SukimaStock"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "no",
+            "status": "observed",
+            "kana": "の",
+            "words": [
+              "ノ"
+            ],
+            "output": "ノ",
+            "skipped": [],
+            "errors": [],
+            "initMs": 210.27806999999984,
+            "conversionMs": 1.2578229999999166,
+            "memoryBytes": 67108864
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "en",
+            "raw": "prototype",
+            "output": "prototype"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "wo tsukutta",
+            "status": "observed",
+            "kana": "をつくった",
+            "words": [
+              "を",
+              "ツクっ",
+              "た"
+            ],
+            "output": "をツクった",
+            "skipped": [],
+            "errors": [],
+            "initMs": 162.98806100000002,
+            "conversionMs": 3.3955800000003364,
+            "memoryBytes": 67108864
+          }
+        ],
+        "output": "SukimaStock ノ prototype をツクった",
+        "top1Exact": false,
+        "targetSelectable": false
+      },
+      "mozcOracle": {
+        "parts": [
+          {
+            "kind": "proper",
+            "raw": "SukimaStock",
+            "output": "SukimaStock"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "no",
+            "kana": "の",
+            "segments": [
+              {
+                "key": "の",
+                "candidates": [
+                  "の",
+                  "ノ",
+                  "野",
+                  "之",
+                  "盧",
+                  "載",
+                  "乗",
+                  "宣",
+                  "乃",
+                  "埜"
+                ]
+              }
+            ],
+            "output": "の",
+            "conversionMs": 0.4628060000000005
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "en",
+            "raw": "prototype",
+            "output": "prototype"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "wo tsukutta",
+            "kana": "をつくった",
+            "segments": [
+              {
+                "key": "を",
+                "candidates": [
+                  "を",
+                  "ヲ",
+                  "乎",
+                  "を゙",
+                  "ヺ"
+                ]
+              },
+              {
+                "key": "つくった",
+                "candidates": [
+                  "作った",
+                  "つくった",
+                  "造った",
+                  "創った",
+                  "ツクった",
+                  "做った",
+                  "ツクッた",
+                  "ツクッタ"
+                ]
+              }
+            ],
+            "output": "を作った",
+            "conversionMs": 1.1961299999998118
+          }
+        ],
+        "output": "SukimaStock の prototype を作った",
+        "top1Exact": true,
+        "targetSelectable": true
+      }
+    },
+    {
+      "id": "staff-unspaced",
+      "input": "mouiiyastafftoisshoni",
+      "target": "もういいやstaffと一緒に",
+      "mandatory": false,
+      "baseline": "mouiiyastafftoisshoni",
+      "jaimeRaw": {
+        "status": "observed",
+        "kana": "もういいやｓたっｆといっしょに",
+        "words": [
+          "猛威",
+          "イヤ",
+          "ｓ",
+          "足っ",
+          "ｆ",
+          "＆",
+          "一緒",
+          "に"
+        ],
+        "output": "猛威イヤｓ足っｆ＆一緒に",
+        "skipped": [],
+        "errors": [],
+        "initMs": 227.13866499999995,
+        "conversionMs": 3.240585999999894,
+        "memoryBytes": 67108864
+      },
+      "jaimeOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "mouiiya",
+            "status": "observed",
+            "kana": "もういいや",
+            "words": [
+              "猛威",
+              "イヤ"
+            ],
+            "output": "猛威イヤ",
+            "skipped": [],
+            "errors": [],
+            "initMs": 161.28669899999977,
+            "conversionMs": 1.745227000000341,
+            "memoryBytes": 67108864
+          },
+          {
+            "kind": "en",
+            "raw": "staff",
+            "output": "staff"
+          },
+          {
+            "kind": "ja",
+            "raw": "toisshoni",
+            "status": "observed",
+            "kana": "といっしょに",
+            "words": [
+              "＆",
+              "一緒",
+              "に"
+            ],
+            "output": "＆一緒に",
+            "skipped": [],
+            "errors": [],
+            "initMs": 202.15781800000013,
+            "conversionMs": 2.080902000000151,
+            "memoryBytes": 67108864
+          }
+        ],
+        "output": "猛威イヤstaff＆一緒に",
+        "top1Exact": false,
+        "targetSelectable": false
+      },
+      "mozcOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "mouiiya",
+            "kana": "もういいや",
+            "segments": [
+              {
+                "key": "もう",
+                "candidates": [
+                  "もう",
+                  "モウ",
+                  "網",
+                  "盲",
+                  "毛",
+                  "牟",
+                  "孟",
+                  "妄",
+                  "耗",
+                  "望"
+                ]
+              },
+              {
+                "key": "いいや",
+                "candidates": [
+                  "いいや",
+                  "いい家",
+                  "イイや",
+                  "良いや",
+                  "井伊谷",
+                  "謂や",
+                  "易々や",
+                  "云いや",
+                  "言いや",
+                  "イイ家"
+                ]
+              }
+            ],
+            "output": "もういいや",
+            "conversionMs": 1.187286999999742
+          },
+          {
+            "kind": "en",
+            "raw": "staff",
+            "output": "staff"
+          },
+          {
+            "kind": "ja",
+            "raw": "toisshoni",
+            "kana": "といっしょに",
+            "segments": [
+              {
+                "key": "と",
+                "candidates": [
+                  "と",
+                  "都",
+                  "戸",
+                  "🚪",
+                  "斗",
+                  "途",
+                  "賭",
+                  "徒",
+                  "砥",
+                  "堵"
+                ]
+              },
+              {
+                "key": "いっしょに",
+                "candidates": [
+                  "一緒に",
+                  "いっしょに",
+                  "一所に",
+                  "逸書に",
+                  "佚書に",
+                  "逸しょに",
+                  "言っしょに",
+                  "行っしょに",
+                  "逝っしょに",
+                  "云っしょに"
+                ]
+              }
+            ],
+            "output": "と一緒に",
+            "conversionMs": 2.1356540000001587
+          }
+        ],
+        "output": "もういいやstaffと一緒に",
+        "top1Exact": true,
+        "targetSelectable": true
+      }
+    },
+    {
+      "id": "paragraph",
+      "input": "kyouha PUMPOKO wo tukutteite omottakoto ga aru. saishohatada kabocha wo sawatteitakedodondon game ni natteitta.",
+      "target": "今日は PUMPOKO を作っていて思ったことがある。最初はただかぼちゃを触っていたけど、どんどんゲームになっていった。",
+      "mandatory": false,
+      "baseline": "きょうは PUMPOKO を つくっていて おもったこと が ある。 さいしょはただ かぼちゃ を さわっていたけどどんどん game に なっていった。",
+      "jaimeRaw": {
+        "status": "engine-failed",
+        "failedAt": 96,
+        "partialKana": "きょうはをつくっていておもったことがある。さいしょはただかぼちゃをさわっていたけどどんどんがｍ",
+        "output": null,
+        "skipped": [
+          {
+            "index": 6,
+            "char": " "
+          },
+          {
+            "index": 7,
+            "char": "P"
+          },
+          {
+            "index": 8,
+            "char": "U"
+          },
+          {
+            "index": 9,
+            "char": "M"
+          },
+          {
+            "index": 10,
+            "char": "P"
+          },
+          {
+            "index": 11,
+            "char": "O"
+          },
+          {
+            "index": 12,
+            "char": "K"
+          },
+          {
+            "index": 13,
+            "char": "O"
+          },
+          {
+            "index": 14,
+            "char": " "
+          },
+          {
+            "index": 17,
+            "char": " "
+          },
+          {
+            "index": 28,
+            "char": " "
+          },
+          {
+            "index": 39,
+            "char": " "
+          },
+          {
+            "index": 42,
+            "char": " "
+          },
+          {
+            "index": 47,
+            "char": " "
+          },
+          {
+            "index": 60,
+            "char": " "
+          },
+          {
+            "index": 68,
+            "char": " "
+          },
+          {
+            "index": 71,
+            "char": " "
+          },
+          {
+            "index": 92,
+            "char": " "
+          }
+        ],
+        "errors": [
+          4
+        ],
+        "error": "Error: Jaime error codes: 4",
+        "initMs": 179.25705199999993,
+        "conversionMs": 21.752860000000055,
+        "memoryBytes": 67108864
+      },
+      "jaimeOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "kyouha",
+            "status": "observed",
+            "kana": "きょうは",
+            "words": [
+              "教派"
+            ],
+            "output": "教派",
+            "skipped": [],
+            "errors": [],
+            "initMs": 174.984602,
+            "conversionMs": 1.7046649999997499,
+            "memoryBytes": 67108864
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "proper",
+            "raw": "PUMPOKO",
+            "output": "PUMPOKO"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "wo tukutteite omottakoto ga aru. saishohatada kabocha wo sawatteitakedodondon",
+            "status": "observed",
+            "kana": "をつくっていておもったことがある。さいしょはただかぼちゃをさわっていたけどどんどｎ",
+            "words": [
+              "を",
+              "ツクっ",
+              "て",
+              "い",
+              "て",
+              "重っ",
+              "た",
+              "コト",
+              "が",
+              "ある",
+              "。",
+              "最初",
+              "は",
+              "タダ",
+              "カボチャ",
+              "を",
+              "障っ",
+              "て",
+              "い",
+              "た",
+              "けど",
+              "どんど",
+              "ｎ"
+            ],
+            "output": "をツクっていて重ったコトがある。最初はタダカボチャを障っていたけどどんどｎ",
+            "skipped": [],
+            "errors": [],
+            "initMs": 182.92772500000046,
+            "conversionMs": 12.526589999999487,
+            "memoryBytes": 67108864
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "en",
+            "raw": "game",
+            "output": "game"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "ni natteitta.",
+            "status": "observed",
+            "kana": "になっていった。",
+            "words": [
+              "に",
+              "なっ",
+              "て",
+              "いっ",
+              "た"
+            ],
+            "output": "になっていった",
+            "skipped": [],
+            "errors": [],
+            "initMs": 203.4504990000005,
+            "conversionMs": 2.2439370000001873,
+            "memoryBytes": 67108864
+          }
+        ],
+        "output": "教派 PUMPOKO をツクっていて重ったコトがある。最初はタダカボチャを障っていたけどどんどｎ game になっていった",
+        "top1Exact": false,
+        "targetSelectable": false
+      },
+      "mozcOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "kyouha",
+            "kana": "きょうは",
+            "segments": [
+              {
+                "key": "きょうは",
+                "candidates": [
+                  "今日は",
+                  "きょうは",
+                  "教は",
+                  "強は",
+                  "凶は",
+                  "経は",
+                  "教派",
+                  "卿は",
+                  "興は",
+                  "境は"
+                ]
+              }
+            ],
+            "output": "今日は",
+            "conversionMs": 0.8646209999997154
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "proper",
+            "raw": "PUMPOKO",
+            "output": "PUMPOKO"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "wo tukutteite omottakoto ga aru. saishohatada kabocha wo sawatteitakedodondon",
+            "kana": "をつくっていておもったことがある。さいしょはただかぼちゃをさわっていたけどどんどん",
+            "segments": [
+              {
+                "key": "を",
+                "candidates": [
+                  "を",
+                  "ヲ",
+                  "乎",
+                  "を゙",
+                  "ヺ"
+                ]
+              },
+              {
+                "key": "つくっていて",
+                "candidates": [
+                  "作っていて",
+                  "つくっていて",
+                  "造っていて",
+                  "創っていて",
+                  "ツクっていて",
+                  "做っていて",
+                  "ツクッていて",
+                  "ツクッテイテ"
+                ]
+              },
+              {
+                "key": "おもったことが",
+                "candidates": [
+                  "思ったことが",
+                  "おもったことが",
+                  "想ったことが",
+                  "重ったことが",
+                  "お持ったことが",
+                  "懐ったことが",
+                  "謂ったことが",
+                  "懷ったことが",
+                  "侖ったことが",
+                  "オモッたことが"
+                ]
+              },
+              {
+                "key": "ある",
+                "candidates": [
+                  "ある",
+                  "有る",
+                  "在る",
+                  "アル",
+                  "或る",
+                  "或",
+                  "亜留",
+                  "阿留",
+                  "有",
+                  "歩"
+                ]
+              },
+              {
+                "key": "。",
+                "candidates": [
+                  "。",
+                  "．",
+                  ".",
+                  "‥",
+                  "…",
+                  "⋮",
+                  "⋯",
+                  "⋰",
+                  "⋱"
+                ]
+              },
+              {
+                "key": "さいしょは",
+                "candidates": [
+                  "最初は",
+                  "細書は",
+                  "さいしょは",
+                  "税所は",
+                  "最所は",
+                  "再処は",
+                  "斉所は",
+                  "才所は",
+                  "最しょは",
+                  "斎所は"
+                ]
+              },
+              {
+                "key": "ただ",
+                "candidates": [
+                  "ただ",
+                  "タダ",
+                  "唯",
+                  "只",
+                  "多田",
+                  "🆓",
+                  "🈚️",
+                  "太田",
+                  "惟",
+                  "忠"
+                ]
+              },
+              {
+                "key": "かぼちゃを",
+                "candidates": [
+                  "かぼちゃを",
+                  "カボチャを",
+                  "南瓜を",
+                  "過ボチャを",
+                  "可ボチャを",
+                  "カボチャヲ"
+                ]
+              },
+              {
+                "key": "さわっていたけど",
+                "candidates": [
+                  "触っていたけど",
+                  "さわっていたけど",
+                  "障っていたけど",
+                  "サワッていたけど",
+                  "サワッテイタケド"
+                ]
+              },
+              {
+                "key": "どんどん",
+                "candidates": [
+                  "どんどん",
+                  "ドンドン"
+                ]
+              }
+            ],
+            "output": "を作っていて思ったことがある。最初はただかぼちゃを触っていたけどどんどん",
+            "conversionMs": 7.121457000000191
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "en",
+            "raw": "game",
+            "output": "game"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "ni natteitta.",
+            "kana": "になっていった。",
+            "segments": [
+              {
+                "key": "になっていった",
+                "candidates": [
+                  "担っていった",
+                  "担って行った",
+                  "になっていった",
+                  "になって行った",
+                  "荷なっていった",
+                  "荷なって行った",
+                  "ニナッていった",
+                  "ニナッテイッタ"
+                ]
+              },
+              {
+                "key": "。",
+                "candidates": [
+                  "。",
+                  "．",
+                  ".",
+                  "‥",
+                  "…",
+                  "⋮",
+                  "⋯",
+                  "⋰",
+                  "⋱"
+                ]
+              }
+            ],
+            "output": "担っていった。",
+            "conversionMs": 1.0094289999997272
+          }
+        ],
+        "output": "今日は PUMPOKO を作っていて思ったことがある。最初はただかぼちゃを触っていたけどどんどん game 担っていった。",
+        "top1Exact": false,
+        "targetSelectable": false
+      }
+    },
+    {
+      "id": "paragraph-2",
+      "input": "ashitaha staff to isshoni prototype wo naoshitai. mada kanseishiteinai kedo sukoshizutsu susumetai.",
+      "target": "明日は staff と一緒に prototype を直したい。まだ完成していないけど少しずつ進めたい。",
+      "mandatory": false,
+      "baseline": "あしたは staff to いっしょに prototype を なおしたい。 まだ かんせいしていない けど すこしずつ すすめたい。",
+      "jaimeRaw": {
+        "status": "engine-failed",
+        "failedAt": 82,
+        "partialKana": "あしたはｓたっｆといっしょにｐろとｔｙぺをなおしたい。まだかんせいしていないけどすこｓｈ",
+        "output": null,
+        "skipped": [
+          {
+            "index": 8,
+            "char": " "
+          },
+          {
+            "index": 14,
+            "char": " "
+          },
+          {
+            "index": 17,
+            "char": " "
+          },
+          {
+            "index": 25,
+            "char": " "
+          },
+          {
+            "index": 35,
+            "char": " "
+          },
+          {
+            "index": 38,
+            "char": " "
+          },
+          {
+            "index": 49,
+            "char": " "
+          },
+          {
+            "index": 54,
+            "char": " "
+          },
+          {
+            "index": 70,
+            "char": " "
+          },
+          {
+            "index": 75,
+            "char": " "
+          }
+        ],
+        "errors": [
+          4
+        ],
+        "error": "Error: Jaime error codes: 4",
+        "initMs": 166.72106299999996,
+        "conversionMs": 15.066452000000027,
+        "memoryBytes": 67108864
+      },
+      "jaimeOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "ashitaha",
+            "status": "observed",
+            "kana": "あしたは",
+            "words": [
+              "明日",
+              "は"
+            ],
+            "output": "明日は",
+            "skipped": [],
+            "errors": [],
+            "initMs": 183.05179700000008,
+            "conversionMs": 1.4801870000001145,
+            "memoryBytes": 67108864
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "en",
+            "raw": "staff",
+            "output": "staff"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "to isshoni",
+            "status": "observed",
+            "kana": "といっしょに",
+            "words": [
+              "＆",
+              "一緒",
+              "に"
+            ],
+            "output": "＆一緒に",
+            "skipped": [],
+            "errors": [],
+            "initMs": 172.48174500000005,
+            "conversionMs": 1.6493319999999585,
+            "memoryBytes": 67108864
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "en",
+            "raw": "prototype",
+            "output": "prototype"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "wo naoshitai. mada kanseishiteinai kedo sukoshizutsu susumetai.",
+            "status": "engine-failed",
+            "failedAt": 52,
+            "partialKana": "をなおしたい。まだかんせいしていないけどすこしずつすすｍ",
+            "output": null,
+            "skipped": [],
+            "errors": [
+              4
+            ],
+            "error": "Error: Jaime error codes: 4",
+            "initMs": 161.69322099999954,
+            "conversionMs": 13.497362000000066,
+            "memoryBytes": 67108864
+          }
+        ],
+        "output": "明日は staff ＆一緒に prototype ",
+        "top1Exact": false,
+        "targetSelectable": false
+      },
+      "mozcOracle": {
+        "parts": [
+          {
+            "kind": "ja",
+            "raw": "ashitaha",
+            "kana": "あしたは",
+            "segments": [
+              {
+                "key": "あしたは",
+                "candidates": [
+                  "明日は",
+                  "あしたは",
+                  "芦田は",
+                  "朝は",
+                  "足田は",
+                  "葦田は",
+                  "阿下は",
+                  "アシタは",
+                  "アシタハ"
+                ]
+              }
+            ],
+            "output": "明日は",
+            "conversionMs": 0.7181409999993775
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "en",
+            "raw": "staff",
+            "output": "staff"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "to isshoni",
+            "kana": "といっしょに",
+            "segments": [
+              {
+                "key": "と",
+                "candidates": [
+                  "と",
+                  "都",
+                  "戸",
+                  "🚪",
+                  "斗",
+                  "途",
+                  "賭",
+                  "徒",
+                  "砥",
+                  "堵"
+                ]
+              },
+              {
+                "key": "いっしょに",
+                "candidates": [
+                  "一緒に",
+                  "いっしょに",
+                  "一所に",
+                  "逸書に",
+                  "佚書に",
+                  "逸しょに",
+                  "言っしょに",
+                  "行っしょに",
+                  "逝っしょに",
+                  "云っしょに"
+                ]
+              }
+            ],
+            "output": "と一緒に",
+            "conversionMs": 1.5231919999996535
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "en",
+            "raw": "prototype",
+            "output": "prototype"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "wo naoshitai. mada kanseishiteinai kedo sukoshizutsu susumetai.",
+            "kana": "をなおしたい。まだかんせいしていないけどすこしずつすすめたい。",
+            "segments": [
+              {
+                "key": "を",
+                "candidates": [
+                  "を",
+                  "ヲ",
+                  "乎",
+                  "を゙",
+                  "ヺ"
+                ]
+              },
+              {
+                "key": "なおしたい",
+                "candidates": [
+                  "直したい",
+                  "治したい",
+                  "なおしたい",
+                  "尚したい",
+                  "猶したい",
+                  "直衣たい",
+                  "ナオシたい",
+                  "直たい",
+                  "尚志たい",
+                  "綯おしたい"
+                ]
+              },
+              {
+                "key": "。",
+                "candidates": [
+                  "。",
+                  "．",
+                  ".",
+                  "‥",
+                  "…",
+                  "⋮",
+                  "⋯",
+                  "⋰",
+                  "⋱"
+                ]
+              },
+              {
+                "key": "まだ",
+                "candidates": [
+                  "まだ",
+                  "未だ",
+                  "真田",
+                  "マダ",
+                  "間田",
+                  "馬田",
+                  "万田",
+                  "魔だ",
+                  "馬だ",
+                  "間だ"
+                ]
+              },
+              {
+                "key": "かんせいしていないけど",
+                "candidates": [
+                  "完成していないけど",
+                  "管制していないけど",
+                  "感性していないけど",
+                  "歓声していないけど",
+                  "閑静していないけど",
+                  "慣性していないけど",
+                  "官製していないけど",
+                  "乾性していないけど",
+                  "官制していないけど",
+                  "陥穽していないけど"
+                ]
+              },
+              {
+                "key": "すこしずつ",
+                "candidates": [
+                  "少しずつ",
+                  "すこしずつ",
+                  "す腰ずつ",
+                  "すコシずつ",
+                  "す古紙ずつ",
+                  "す輿ずつ",
+                  "好こしずつ",
+                  "空こしずつ",
+                  "漉こしずつ",
+                  "抄こしずつ"
+                ]
+              },
+              {
+                "key": "すすめたい",
+                "candidates": [
+                  "進めたい",
+                  "勧めたい",
+                  "すすめたい",
+                  "薦めたい",
+                  "奨めたい",
+                  "ススメたい",
+                  "推めたい",
+                  "勸めたい",
+                  "奬めたい",
+                  "侑めたい"
+                ]
+              },
+              {
+                "key": "。",
+                "candidates": [
+                  "。",
+                  "．",
+                  ".",
+                  "‥",
+                  "…",
+                  "⋮",
+                  "⋯",
+                  "⋰",
+                  "⋱"
+                ]
+              }
+            ],
+            "output": "を直したい。まだ完成していないけど少しずつ進めたい。",
+            "conversionMs": 4.094761999999719
+          }
+        ],
+        "output": "明日は staff と一緒に prototype を直したい。まだ完成していないけど少しずつ進めたい。",
+        "top1Exact": true,
+        "targetSelectable": true
+      }
+    },
+    {
+      "id": "paragraph-3",
+      "input": "SukimaStock no game wo tsukutteiru. URL ha https://example.com/note da. konokiroku wo note ni nokoshitai.",
+      "target": "SukimaStock の game を作っている。URL は https://example.com/note だ。この記録を note に残したい。",
+      "mandatory": false,
+      "baseline": "SukimaStock no game を つくっている。 URL は https://example.com/note だ。 このきろく を note に のこしたい。",
+      "jaimeRaw": {
+        "status": "observed",
+        "kana": "うきまとｃｋのがめをつくっている。はｈっｔｐｓ：・・えぁｍｐぇ。こｍ・のてだ。このきろくをのてにのこしたい。",
+        "words": [
+          "浮間",
+          "＆",
+          "ｃ",
+          "ｋ",
+          "ノ",
+          "が",
+          "眼",
+          "を",
+          "ツクっ",
+          "て",
+          "いる",
+          "。",
+          "刃",
+          "ｈ",
+          "っ",
+          "ｔ",
+          "ｐ",
+          "ｓ",
+          "：",
+          "・",
+          "・",
+          "柄",
+          "ァ",
+          "ｍ",
+          "ｐ",
+          "ぇ",
+          "。",
+          "股",
+          "ｍ",
+          "・",
+          "の",
+          "手",
+          "だ",
+          "。",
+          "この",
+          "記録",
+          "を",
+          "の",
+          "手",
+          "に",
+          "残し",
+          "たい"
+        ],
+        "output": "浮間＆ｃｋノが眼をツクっている。刃ｈっｔｐｓ：・・柄ァｍｐぇ。股ｍ・の手だ。この記録をの手に残したい",
+        "skipped": [
+          {
+            "index": 0,
+            "char": "S"
+          },
+          {
+            "index": 6,
+            "char": "S"
+          },
+          {
+            "index": 11,
+            "char": " "
+          },
+          {
+            "index": 14,
+            "char": " "
+          },
+          {
+            "index": 19,
+            "char": " "
+          },
+          {
+            "index": 22,
+            "char": " "
+          },
+          {
+            "index": 35,
+            "char": " "
+          },
+          {
+            "index": 36,
+            "char": "U"
+          },
+          {
+            "index": 37,
+            "char": "R"
+          },
+          {
+            "index": 38,
+            "char": "L"
+          },
+          {
+            "index": 39,
+            "char": " "
+          },
+          {
+            "index": 42,
+            "char": " "
+          },
+          {
+            "index": 67,
+            "char": " "
+          },
+          {
+            "index": 71,
+            "char": " "
+          },
+          {
+            "index": 82,
+            "char": " "
+          },
+          {
+            "index": 85,
+            "char": " "
+          },
+          {
+            "index": 90,
+            "char": " "
+          },
+          {
+            "index": 93,
+            "char": " "
+          }
+        ],
+        "errors": [],
+        "initMs": 170.23037900000054,
+        "conversionMs": 14.86083299999973,
+        "memoryBytes": 67108864
+      },
+      "jaimeOracle": {
+        "parts": [
+          {
+            "kind": "proper",
+            "raw": "SukimaStock",
+            "output": "SukimaStock"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "no",
+            "status": "observed",
+            "kana": "の",
+            "words": [
+              "ノ"
+            ],
+            "output": "ノ",
+            "skipped": [],
+            "errors": [],
+            "initMs": 172.33147999999983,
+            "conversionMs": 1.5145489999995334,
+            "memoryBytes": 67108864
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "en",
+            "raw": "game",
+            "output": "game"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "wo tsukutteiru.",
+            "status": "observed",
+            "kana": "をつくっている。",
+            "words": [
+              "を",
+              "ツクっ",
+              "て",
+              "いる"
+            ],
+            "output": "をツクっている",
+            "skipped": [],
+            "errors": [],
+            "initMs": 166.77899399999933,
+            "conversionMs": 1.7550410000003467,
+            "memoryBytes": 67108864
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "proper",
+            "raw": "URL",
+            "output": "URL"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "ha",
+            "status": "observed",
+            "kana": "は",
+            "words": [
+              "刃"
+            ],
+            "output": "刃",
+            "skipped": [],
+            "errors": [],
+            "initMs": 163.92439899999954,
+            "conversionMs": 1.485805999999684,
+            "memoryBytes": 67108864
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "url",
+            "raw": "https://example.com/note",
+            "output": "https://example.com/note"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "da. konokiroku wo",
+            "status": "observed",
+            "kana": "だ。このきろくを",
+            "words": [
+              "打",
+              "。",
+              "この",
+              "記録",
+              "を"
+            ],
+            "output": "打。この記録を",
+            "skipped": [],
+            "errors": [],
+            "initMs": 169.11648199999945,
+            "conversionMs": 1.8121469999996407,
+            "memoryBytes": 67108864
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "en",
+            "raw": "note",
+            "output": "note"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "ni nokoshitai.",
+            "status": "observed",
+            "kana": "にのこしたい。",
+            "words": [
+              "に",
+              "残し",
+              "たい"
+            ],
+            "output": "に残したい",
+            "skipped": [],
+            "errors": [],
+            "initMs": 161.09068500000012,
+            "conversionMs": 1.880329000000529,
+            "memoryBytes": 67108864
+          }
+        ],
+        "output": "SukimaStock ノ game をツクっている URL 刃 https://example.com/note 打。この記録を note に残したい",
+        "top1Exact": false,
+        "targetSelectable": false
+      },
+      "mozcOracle": {
+        "parts": [
+          {
+            "kind": "proper",
+            "raw": "SukimaStock",
+            "output": "SukimaStock"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "no",
+            "kana": "の",
+            "segments": [
+              {
+                "key": "の",
+                "candidates": [
+                  "の",
+                  "ノ",
+                  "野",
+                  "之",
+                  "盧",
+                  "載",
+                  "乗",
+                  "宣",
+                  "乃",
+                  "埜"
+                ]
+              }
+            ],
+            "output": "の",
+            "conversionMs": 0.6931429999995089
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "en",
+            "raw": "game",
+            "output": "game"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "wo tsukutteiru.",
+            "kana": "をつくっている。",
+            "segments": [
+              {
+                "key": "を",
+                "candidates": [
+                  "を",
+                  "ヲ",
+                  "乎",
+                  "を゙",
+                  "ヺ"
+                ]
+              },
+              {
+                "key": "つくっている",
+                "candidates": [
+                  "作っている",
+                  "つくっている",
+                  "造っている",
+                  "創っている",
+                  "ツクっている",
+                  "做っている",
+                  "ツクッている",
+                  "ツクッテイル"
+                ]
+              },
+              {
+                "key": "。",
+                "candidates": [
+                  "。",
+                  "．",
+                  ".",
+                  "‥",
+                  "…",
+                  "⋮",
+                  "⋯",
+                  "⋰",
+                  "⋱"
+                ]
+              }
+            ],
+            "output": "を作っている。",
+            "conversionMs": 1.8351820000007137
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "proper",
+            "raw": "URL",
+            "output": "URL"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "ha",
+            "kana": "は",
+            "segments": [
+              {
+                "key": "は",
+                "candidates": [
+                  "は",
+                  "葉",
+                  "歯",
+                  "刃",
+                  "羽",
+                  "齒",
+                  "☘️",
+                  "🌿",
+                  "🍀",
+                  "🍁"
+                ]
+              }
+            ],
+            "output": "は",
+            "conversionMs": 0.5547649999998612
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "url",
+            "raw": "https://example.com/note",
+            "output": "https://example.com/note"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "da. konokiroku wo",
+            "kana": "だ。このきろくを",
+            "segments": [
+              {
+                "key": "だ",
+                "candidates": [
+                  "だ",
+                  "打",
+                  "駄",
+                  "那",
+                  "ダ",
+                  "大",
+                  "田",
+                  "妥",
+                  "陀",
+                  "雫"
+                ]
+              },
+              {
+                "key": "。",
+                "candidates": [
+                  "。",
+                  "．",
+                  ".",
+                  "‥",
+                  "…",
+                  "⋮",
+                  "⋯",
+                  "⋰",
+                  "⋱"
+                ]
+              },
+              {
+                "key": "この",
+                "candidates": [
+                  "この",
+                  "娘の",
+                  "此の",
+                  "個の",
+                  "子の",
+                  "小の",
+                  "仔の",
+                  "コノ",
+                  "呼の",
+                  "児の"
+                ]
+              },
+              {
+                "key": "きろくを",
+                "candidates": [
+                  "記録を",
+                  "喜六を",
+                  "生ロクを",
+                  "生禄を",
+                  "既ロクを",
+                  "生録を",
+                  "貴ロクを",
+                  "既禄を",
+                  "生碌を",
+                  "紀陸を"
+                ]
+              }
+            ],
+            "output": "だ。この記録を",
+            "conversionMs": 1.1558889999996609
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "en",
+            "raw": "note",
+            "output": "note"
+          },
+          {
+            "kind": "literal",
+            "raw": " ",
+            "output": " "
+          },
+          {
+            "kind": "ja",
+            "raw": "ni nokoshitai.",
+            "kana": "にのこしたい。",
+            "segments": [
+              {
+                "key": "に",
+                "candidates": [
+                  "に",
+                  "二",
+                  "似",
+                  "荷",
+                  "煮",
+                  "2️⃣",
+                  "弐",
+                  "２",
+                  "2",
+                  "Ⅱ"
+                ]
+              },
+              {
+                "key": "のこしたい",
+                "candidates": [
+                  "残したい",
+                  "遺したい",
+                  "のこしたい",
+                  "ノコしたい",
+                  "鋸したい",
+                  "残対",
+                  "野越対",
+                  "退こしたい",
+                  "残たい",
+                  "野越たい"
+                ]
+              },
+              {
+                "key": "。",
+                "candidates": [
+                  "。",
+                  "．",
+                  ".",
+                  "‥",
+                  "…",
+                  "⋮",
+                  "⋯",
+                  "⋰",
+                  "⋱"
+                ]
+              }
+            ],
+            "output": "に残したい。",
+            "conversionMs": 2.406992000000173
+          }
+        ],
+        "output": "SukimaStock の game を作っている。 URL は https://example.com/note だ。この記録を note に残したい。",
+        "top1Exact": false,
+        "targetSelectable": false
+      }
+    }
+  ],
+  "composition": [
+    {
+      "input": "nanntomo",
+      "target": "なんとも",
+      "actual": "なんとも",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "input": "n",
+      "target": "ｎ",
+      "pending": true,
+      "actual": "ｎ",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "input": "nn",
+      "target": "ん",
+      "actual": "ん",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "input": "nya",
+      "target": "にゃ",
+      "actual": "にゃ",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "input": "shinbun",
+      "target": "しんぶん",
+      "requiresFinalNFlush": true,
+      "actual": "しんぶｎ",
+      "pass": false,
+      "errors": []
+    },
+    {
+      "input": "shi chi tsu",
+      "target": "しちつ",
+      "actual": "しちつ",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "input": "kya kyu kyo",
+      "target": "きゃきゅきょ",
+      "actual": "きゃきゅきょ",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "input": "kitta",
+      "target": "きった",
+      "actual": "きった",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "input": "ko-hi-",
+      "target": "こーひー",
+      "actual": "こーひー",
+      "pass": true,
+      "errors": []
+    }
+  ],
+  "edits": [
+    {
+      "operation": "backspace",
+      "target": "かみ",
+      "actual": "かみ",
+      "pass": true,
+      "candidate": "加味",
+      "errors": []
+    },
+    {
+      "operation": "cursor-insert",
+      "target": "かみな",
+      "actual": "かみな",
+      "pass": true,
+      "candidate": "過ミナ",
+      "errors": []
+    },
+    {
+      "operation": "forward-delete",
+      "target": "か",
+      "actual": "か",
+      "pass": true,
+      "candidate": "蚊",
+      "errors": []
+    }
+  ],
+  "environment": {
+    "runtime": "v24.19.0",
+    "platform": "linux",
+    "arch": "x64",
+    "mozcInitMs": 53.910247,
+    "mozcHeapBytes": 26476544
+  },
+  "provenance": {
+    "jaime": {
+      "repository": "https://github.com/egegungordu/jaime",
+      "revision": "8d7a41ccb23acb129c01936a2fb31c36ab9965c0",
+      "files": {
+        "examples/web-react/public/libjaime.wasm": "743dbff1aa7ad5304a73dad3c7966671d84e21ea82da24530d22acbc6a4f6f82"
+      }
+    },
+    "hechima": {
+      "repository": "https://github.com/msonrm/hechima",
+      "revision": "5cab51b401b76d95aee1657eba2366cdc5d9bca5",
+      "files": {
+        "site/public/vendor/hechima-wasm/hechima-wasm.js": "919c95012901731ec490660b9e823d20998c658dba2d78a60119fa00438f8e7d",
+        "site/public/vendor/hechima-wasm/hechima-wasm.wasm": "e0d3d7e7a84b8a4980626bf16f7404d7c65d67403b98da298f33690fd74a33a4",
+        "site/public/vendor/hechima-wasm/mozc.data": "0a3eec3a34e7582c3519f05fb90d09158cd4b42d2668a7790288fb519b44b84f"
+      }
+    },
+    "meltype": {
+      "repository": "https://github.com/yksr-melt/Meltype",
+      "main": "2e18486c116cc8736af06b845b56c1b88f8fa93c",
+      "v1.0.0": "467255bfe3e36b803a3fd3f5a1480fe35d5058c9"
+    },
+    "azookey": {
+      "repository": "https://github.com/azooKey/AzooKeyKanaKanjiConverter",
+      "revision": "d59a28e4c7ca049aef04f29a91eae9677a7753f2",
+      "dictionaryRevision": "4d418525b090cf49c219819d05a7e3cc2a4346eb"
+    },
+    "distribution": "No new third-party source, WASM or dictionary is bundled. Explicit local reference checkouts only."
+  }
+}

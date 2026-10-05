@@ -1,0 +1,26 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {resolve} from 'node:path';
+import Module from 'node:module';
+import {references,provenance} from './references.mjs';
+import {evaluate} from './evaluate.mjs';
+import {toHiragana} from '../vendor/wanakana.mjs';
+import {detect,compose} from '../detection.mjs';
+const refs=references(process.argv[2]);
+const fixtures=JSON.parse(readFileSync(new URL('./fixtures.json',import.meta.url)));
+const jaime=await WebAssembly.compile(Object.values(refs.jaime.files)[0]);
+// Read the verified CJS glue as CJS despite upstream package.json's type:module.
+const filename=resolve(refs.hechima.dir,'site/public/vendor/hechima-wasm/hechima-wasm.js');
+const glue=new Module(filename);glue.filename=filename;glue.paths=Module._nodeModulePaths(refs.hechima.dir);
+glue._compile(refs.hechima.files['site/public/vendor/hechima-wasm/hechima-wasm.js'].toString('utf8'),filename);
+const start=performance.now();
+const mozc=await glue.exports({wasmBinary:refs.hechima.files['site/public/vendor/hechima-wasm/hechima-wasm.wasm'],printErr:()=>{}});
+mozc.FS.writeFile('/mozc.data',refs.hechima.files['site/public/vendor/hechima-wasm/mozc.data']);
+if(mozc.ccall('hechima_init','number',['string'],['/mozc.data'])!==0)throw new Error('Mozc init failed');
+const initMs=performance.now()-start;
+const result=await evaluate(fixtures,jaime,mozc,toHiragana,s=>compose(detect(s)));
+result.environment={runtime:process.version,platform:process.platform,arch:process.arch,mozcInitMs:initMs,mozcHeapBytes:mozc.HEAPU8.byteLength};
+result.provenance=provenance;
+if(process.argv[3])writeFileSync(process.argv[3],JSON.stringify(result,null,2)+'\n');
+for(const c of result.cases)console.log(JSON.stringify({id:c.id,baseline:c.baseline,jaimeRaw:c.jaimeRaw.output,jaimeError:c.jaimeRaw.error,jaimeOracle:c.jaimeOracle.output,mozcOracle:c.mozcOracle.output,targetSelectable:c.mozcOracle.targetSelectable}));
+console.log('INTEGRATION BLOCKED: automatic Detection and physical iPhone writing quality are unverified.');
+if(process.argv.includes('--require-quality'))process.exitCode=1;

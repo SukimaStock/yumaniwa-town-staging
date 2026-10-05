@@ -1,0 +1,371 @@
+{
+  "schema": "mixed-note-engine-fixtures/1",
+  "boundaryMode": "human-annotated-oracle-NOT-automatic-detection",
+  "cases": [
+    {
+      "id": "nn",
+      "input": "nanntomoienaihidakedo",
+      "target": "なんとも言えない日だけど",
+      "mandatory": true,
+      "spans": [
+        [
+          "ja",
+          "nanntomoienaihidakedo"
+        ]
+      ]
+    },
+    {
+      "id": "today",
+      "input": "kyouhatukareta",
+      "target": "今日は疲れた",
+      "mandatory": true,
+      "spans": [
+        [
+          "ja",
+          "kyouhatukareta"
+        ]
+      ]
+    },
+    {
+      "id": "meeting",
+      "input": "ashitahakaishanomembertomtg",
+      "target": "明日は会社のmemberとmtg",
+      "spans": [
+        [
+          "ja",
+          "ashitahakaishano"
+        ],
+        [
+          "en",
+          "member"
+        ],
+        [
+          "ja",
+          "to"
+        ],
+        [
+          "en",
+          "mtg"
+        ]
+      ]
+    },
+    {
+      "id": "staff",
+      "input": "mouiiya staff to isshoni",
+      "target": "もういいや staff と一緒に",
+      "mandatory": true,
+      "spans": [
+        [
+          "ja",
+          "mouiiya"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "en",
+          "staff"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "ja",
+          "to isshoni"
+        ]
+      ]
+    },
+    {
+      "id": "yesterday",
+      "input": "kinou PUMPOKO wo tsukutteita",
+      "target": "昨日 PUMPOKO を作っていた",
+      "spans": [
+        [
+          "ja",
+          "kinou"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "proper",
+          "PUMPOKO"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "ja",
+          "wo tsukutteita"
+        ]
+      ]
+    },
+    {
+      "id": "prototype",
+      "input": "SukimaStock no prototype wo tsukutta",
+      "target": "SukimaStock の prototype を作った",
+      "spans": [
+        [
+          "proper",
+          "SukimaStock"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "ja",
+          "no"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "en",
+          "prototype"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "ja",
+          "wo tsukutta"
+        ]
+      ]
+    },
+    {
+      "id": "staff-unspaced",
+      "input": "mouiiyastafftoisshoni",
+      "target": "もういいやstaffと一緒に",
+      "spans": [
+        [
+          "ja",
+          "mouiiya"
+        ],
+        [
+          "en",
+          "staff"
+        ],
+        [
+          "ja",
+          "toisshoni"
+        ]
+      ]
+    },
+    {
+      "id": "paragraph",
+      "input": "kyouha PUMPOKO wo tukutteite omottakoto ga aru. saishohatada kabocha wo sawatteitakedodondon game ni natteitta.",
+      "target": "今日は PUMPOKO を作っていて思ったことがある。最初はただかぼちゃを触っていたけど、どんどんゲームになっていった。",
+      "spans": [
+        [
+          "ja",
+          "kyouha"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "proper",
+          "PUMPOKO"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "ja",
+          "wo tukutteite omottakoto ga aru. saishohatada kabocha wo sawatteitakedodondon"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "en",
+          "game"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "ja",
+          "ni natteitta."
+        ]
+      ]
+    },
+    {
+      "id": "paragraph-2",
+      "input": "ashitaha staff to isshoni prototype wo naoshitai. mada kanseishiteinai kedo sukoshizutsu susumetai.",
+      "target": "明日は staff と一緒に prototype を直したい。まだ完成していないけど少しずつ進めたい。",
+      "spans": [
+        [
+          "ja",
+          "ashitaha"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "en",
+          "staff"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "ja",
+          "to isshoni"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "en",
+          "prototype"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "ja",
+          "wo naoshitai. mada kanseishiteinai kedo sukoshizutsu susumetai."
+        ]
+      ]
+    },
+    {
+      "id": "paragraph-3",
+      "input": "SukimaStock no game wo tsukutteiru. URL ha https://example.com/note da. konokiroku wo note ni nokoshitai.",
+      "target": "SukimaStock の game を作っている。URL は https://example.com/note だ。この記録を note に残したい。",
+      "spans": [
+        [
+          "proper",
+          "SukimaStock"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "ja",
+          "no"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "en",
+          "game"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "ja",
+          "wo tsukutteiru."
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "proper",
+          "URL"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "ja",
+          "ha"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "url",
+          "https://example.com/note"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "ja",
+          "da. konokiroku wo"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "en",
+          "note"
+        ],
+        [
+          "literal",
+          " "
+        ],
+        [
+          "ja",
+          "ni nokoshitai."
+        ]
+      ]
+    }
+  ],
+  "composition": [
+    {
+      "input": "nanntomo",
+      "target": "なんとも"
+    },
+    {
+      "input": "n",
+      "target": "ｎ",
+      "pending": true
+    },
+    {
+      "input": "nn",
+      "target": "ん"
+    },
+    {
+      "input": "nya",
+      "target": "にゃ"
+    },
+    {
+      "input": "shinbun",
+      "target": "しんぶん",
+      "requiresFinalNFlush": true
+    },
+    {
+      "input": "shi chi tsu",
+      "target": "しちつ"
+    },
+    {
+      "input": "kya kyu kyo",
+      "target": "きゃきゅきょ"
+    },
+    {
+      "input": "kitta",
+      "target": "きった"
+    },
+    {
+      "input": "ko-hi-",
+      "target": "こーひー"
+    }
+  ]
+}

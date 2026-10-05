@@ -1,0 +1,123 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "fb626ee5ac9b5546cabcfc8587baed5f62166d91e79fccb155c84ec5cdbdb8a7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "mixed-note-engine-research-20261005",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Evaluate real kana-kanji engines independently before any editor integration",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "460cd58779a1377c9e4be80f3fc7dcb5248b6a30",
+    "canonicalSources": [
+      "User instruction 2026-10-05",
+      "AGENTS.md",
+      "data/work-lifecycle.json",
+      "works/mixed-note"
+    ],
+    "allowedPaths": [
+      ".change-plans/mixed-note-engine-research-20261005/r0.lock.json",
+      "works/mixed-note/research/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "works/town-glance*/**",
+      "works/morning-thread*/**",
+      "works/tea-unfold/**",
+      "lab/**"
+    ],
+    "expectedChanges": [
+      "Pinned engine provenance and dictionary/license audit",
+      "Independent fixture/harness with actual kana/kanji outcomes and explicit unmet quality goals",
+      "Meltype local segmentation architecture review and Web versus native iOS decision"
+    ],
+    "ownerDecisions": [
+      "User requests research and engine validation; stop at Draft PR, no merge or production changes."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Plan-first; work-local research only",
+      "No Meltype code or dictionary copy",
+      "No bundled engine until distribution terms are reviewed"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "engine-fixtures",
+      "paragraph-quality",
+      "wasm-browser",
+      "physical-iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Drop/revert this research-only branch",
+    "outOfScope": [
+      "UI/runtime integration before quality approval",
+      "Merge",
+      "Production",
+      "Shared runtime",
+      "Lifecycle/SEO/hosting changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari performance and native keyboard behavior"
+    ],
+    "problem": "Real input fails nn composition, kanji conversion and local English preservation",
+    "currentContract": "Existing editor remains unchanged; standalone work-local research harness only",
+    "whyExistingIsInsufficient": "Kana transliteration alone is not note-quality Japanese input",
+    "design": "Observe A Composition, B local language segmentation, C genuine kana-kanji conversion as separate interfaces; preserve failures as evidence",
+    "alternativesRejected": [
+      "GPL code port without settled license compatibility",
+      "Cloud conversion sending drafts externally",
+      "Live rewriting native IME input",
+      "Large kanji engine in Phase 1"
+    ],
+    "migration": "One new active lifecycle row",
+    "compatibility": "No shared runtime/launch/storage changes",
+    "boundaryCases": [
+      "Ambiguous short words",
+      "No-space mixed input",
+      "URLs/email/code",
+      "Backspace/mid-string edit/paste",
+      "compositionstart/end",
+      "Storage denial/corruption",
+      "Clipboard denial",
+      "Long input"
+    ],
+    "testPlan": [
+      "User supplied six fixtures and multi-paragraph corpus",
+      "Composition edits and long-session failure probes",
+      "No goal passed for kana-only output",
+      "Scope/risk/impact gates"
+    ],
+    "promotionRisk": "No integration or production eligibility"
+  }
+}
