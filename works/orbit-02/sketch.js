@@ -1413,6 +1413,10 @@
         visible: false,
         mode: "browse",     // browse | archive | confirm
         archivePage: 0,
+        focusIndex: 0,
+        resonanceTarget: 0,
+        depositIndex: 0,
+        depositTimer: 0,
         pressed: null,
         status: "OFFLINE",
         opening: false,
@@ -1501,11 +1505,14 @@
         replayIndex: 0,
         source: "discovery",
       };
-      // DATA and ECHO are related but not identical. This archive remembers
-      // every SERA packet already decoded, including post-12 packets with no Echo.
+      // Recovered packets and HOME-decoded knowledge are separate; post-12
+      // packets remain valid DATA even when HOME finds no Echo.
       this.dataSignals = {
         decoded: new Set(),
+        // Recovered packet identities. Contents become knowledge only at HOME.
+        pendingAnalysis: new Set(),
       };
+      this.dataRecoveredTimer = 0;
       this.incident = {
         total: INCIDENT_SITE_IDS.length,
         discovered: new Set(),
@@ -1651,7 +1658,9 @@
         const decoded = data.dataSignals && Array.isArray(data.dataSignals.decoded)
           ? data.dataSignals.decoded.length
           : 0;
-        return echoFound > 0 || incidentFound > 0 || decoded > 0 || !!data.creditsSeen;
+        const pending = data.dataSignals && Array.isArray(data.dataSignals.pendingAnalysis)
+          ? data.dataSignals.pendingAnalysis.length : 0;
+        return echoFound > 0 || incidentFound > 0 || decoded > 0 || pending > 0 || !!data.creditsSeen;
       } catch (_) {
         return false;
       }
@@ -1683,6 +1692,7 @@
         },
         dataSignals: {
           decoded: this.dataSignals ? Array.from(this.dataSignals.decoded || []) : [],
+          pendingAnalysis: this.dataSignals ? Array.from(this.dataSignals.pendingAnalysis || []) : [],
         },
         creditsSeen: !!(this.credits && this.credits.seen),
         incident: {
@@ -1743,6 +1753,7 @@
         echoInterpreted: Array.isArray(ee.interpreted) ? ee.interpreted : echoRead,
         returnWaitLinked: !!ee.returnWaitLinked,
         decoded: data.dataSignals && data.dataSignals.decoded,
+        pendingAnalysis: data.dataSignals && data.dataSignals.pendingAnalysis,
         creditsSeen: !!data.creditsSeen,
         incidentDiscovered: ii.discovered,
         incidentFound: ii.found,
@@ -1846,6 +1857,7 @@
         },
         dataSignals: {
           decoded: this.dataSignals ? Array.from(this.dataSignals.decoded || []) : [],
+          pendingAnalysis: this.dataSignals ? Array.from(this.dataSignals.pendingAnalysis || []) : [],
         },
         incident: {
           discovered: this.incident ? Array.from(this.incident.discovered || []) : [],
@@ -1889,8 +1901,8 @@
     }
 
     saveGame(reason = "auto") {
-      // HOME remains the normal persistence point. v2.5 additionally commits decoded
-      // DATA/Echo after an emergency rescue; physical ORE still requires return.
+      // HOME remains the physical checkpoint. Recovered DATA and decoded Echo
+      // knowledge also survive rescue; physical ORE still requires return.
       const atHome = this.mode === "landed" && this.landPlanet && this.landPlanet.kind === "base";
       if (!atHome) return false;
 
@@ -1971,7 +1983,12 @@
 
       const ds = data.dataSignals || {};
       const savedDecoded = Array.isArray(ds.decoded) ? ds.decoded : Array.from(this.echoes.discovered);
-      this.dataSignals.decoded = new Set(savedDecoded);
+      this.dataSignals.decoded = new Set([...savedDecoded, ...this.echoes.discovered]);
+      // Phase 1 packets were already processed; absent pendingAnalysis is empty.
+      this.dataSignals.pendingAnalysis = new Set(
+        (Array.isArray(ds.pendingAnalysis) ? ds.pendingAnalysis : [])
+          .filter((id) => typeof id === "string" && id.length > 0 && !this.dataSignals.decoded.has(id))
+      );
 
       const ii = data.incident || {};
       this.incident.discovered = new Set(
@@ -3427,6 +3444,8 @@
     }
 
     startEchoAnalysis(index, planet) {
+      if (!this.canOpenEchoArchive() || !planet ||
+          !this.dataSignals.pendingAnalysis.has(this.echoIdForPlanet(planet))) return false;
       this.echoStory.pendingIndex = 0;
       this.echoStory.pendingTimer = 0;
       this.echoStory.pendingPlanet = null;
@@ -3444,13 +3463,19 @@
       // The Windows-style DATA ANALYSIS window now represents E.V.E.'s actual
       // processing. Clear any landing line so speech and system work stay distinct.
       this.eve.timer = 0;
+      return true;
     }
 
     startEchoMemory(index, source = "discovery") {
-      if (!Number.isInteger(index) || index < 1 || index > this.echoes.found) return false;
-      if (source === "archive" && (!this.canOpenEchoArchive() || this.homeTerminal.mode !== "archive" ||
+      if (!this.canOpenEchoArchive() || !Number.isInteger(index) || index < 1 || index > this.echoes.found) return false;
+      if (source === "archive" && (this.homeTerminal.mode !== "archive" ||
           this.echoStory.active || this.echoStory.analyzing || this.echoStory.pendingTimer > 0 ||
           this.echoStory.analysisResultTimer > 0)) return false;
+      if (source === "archive" || source === "home") {
+        this.homeTerminal.mode = "archive";
+        this.homeTerminal.archivePage = Math.floor((index - 1) / 4);
+        this.homeTerminal.focusIndex = index;
+      }
       this.echoStory.source = source;
       this.echoStory.pendingIndex = 0;
       this.echoStory.pendingTimer = 0;
@@ -3520,26 +3545,30 @@
     }
 
     queueDataAnalysis(planet) {
-      if (!planet || planet.kind !== "data") return false;
-      if (
-        this.echoStory.active ||
-        this.echoStory.analyzing ||
-        this.echoStory.pendingTimer > 0 ||
-        this.echoStory.analysisResultTimer > 0
-      ) return false;
-
-      // Before 12/12 every fresh SERA carries the next Echo. After 12/12 DATA
-      // remains recoverable, but analysis resolves to NO ECHO TRACE.
-      const stagedIndex = Math.max(0, Math.floor(Number(this.echoStory.pendingIndex || 0)));
-      this.echoStory.pendingIndex = stagedIndex > 0
-        ? stagedIndex
-        : (this.canDiscoverEcho(planet) ? this.echoes.found + 1 : 0);
+      if (!this.canOpenEchoArchive() || !planet || planet.kind !== "data" ||
+          !this.dataSignals.pendingAnalysis.has(this.echoIdForPlanet(planet)) || this.homeAnalysisBusy()) return false;
+      this.homeTerminal.mode = "browse";
+      this.homeTerminal.restoreReportLevel = 0;
+      this.echoStory.pendingIndex = this.canDiscoverEcho(planet) ? this.echoes.found + 1 : 0;
       this.echoStory.pendingPlanet = planet;
-      this.echoStory.pendingTimer = ECHO_TUNE.memoryRevealDelaySec;
-      this.echoStory.analyzing = false;
-      this.echoStory.analysisTimer = 0;
-      this.echoStory.analysisDuration = ECHO_TUNE.analysisSec;
+      // A receiving beat, in the existing terminal, before its analysis window.
+      this.echoStory.pendingTimer = 0.85;
       return true;
+    }
+
+    homeAnalysisBusy() {
+      return !!(this.echoStory.active || this.echoStory.analyzing || this.echoStory.pendingTimer > 0 ||
+        this.echoStory.analysisResultTimer > 0 || this.homeTerminal.depositTimer > 0);
+    }
+
+    receiveHomeData() {
+      if (!this.canOpenEchoArchive() || this.homeTerminal.opening || this.homeAnalysisBusy() ||
+          this.eve.timer > 0 || this.restoreRitualActive || this.homeRestoreLink.active ||
+          this.homeTerminal.mode === "confirm" || this.rescue.postFadeTimer > 0) return false;
+      const id = this.dataSignals.pendingAnalysis.values().next().value;
+      if (!id) return false;
+      // Packet identity is independent of procedural-sector cache lifetime.
+      return this.queueDataAnalysis({ kind: "data", atlasId: id });
     }
 
     echoIdForPlanet(planet) {
@@ -3555,11 +3584,12 @@
     }
 
     discoverEcho(planet) {
-      if (!this.canDiscoverEcho(planet)) return false;
+      if (!this.canOpenEchoArchive() || !this.canDiscoverEcho(planet) ||
+          !this.dataSignals.decoded.has(this.echoIdForPlanet(planet))) return false;
       const echoId = this.echoIdForPlanet(planet);
       this.echoes.discovered.add(echoId);
       this.echoes.found = Math.min(this.echoes.total, this.echoes.found + 1);
-      this.echoes.carriedThisTrip += 1;
+      // Echo discovery is now HOME knowledge, never in-flight cargo.
       this.echoes.pulseTimer = ECHO_TUNE.pulseSec;
       playOrbitCue("echo");
       this.pushSystemLog("echoRecovered", { index: String(this.echoes.found).padStart(2, "0") });
@@ -3572,6 +3602,7 @@
       return !!(
         this.echoes &&
         this.echoes.found >= this.echoes.total &&
+        this.dataSignals.pendingAnalysis.size === 0 &&
         this.echoes.read.has(12) &&
         this.echoes.interpreted.has(12) &&
         this.base &&
@@ -3643,12 +3674,12 @@
         (!this.finale || !this.finale.active) &&
         this.eve.timer <= 0;
 
-      if (replaySafe && this.echoStory && this.echoStory.replayIndex > 0 &&
+      if (replaySafe && this.canOpenEchoArchive() && !this.homeTerminal.opening &&
+          this.echoStory && this.echoStory.replayIndex > 0 &&
           !this.echoStory.active && !this.echoStory.analyzing &&
           this.echoStory.pendingTimer <= 0 && this.echoStory.analysisResultTimer <= 0) {
         const index = this.echoStory.replayIndex;
-        this.closeHomeTerminal();
-        this.startEchoMemory(index);
+        this.startEchoMemory(index, "home");
       } else if (
         replaySafe &&
         this.incident &&
@@ -3672,7 +3703,11 @@
         this.incident.completionTimer = 0.8;
       }
 
+      this.dataRecoveredTimer = Math.max(0, this.dataRecoveredTimer - dt);
+      this.receiveHomeData();
+
       if (
+        this.canOpenEchoArchive() &&
         this.echoStory &&
         !this.echoStory.active &&
         !this.echoStory.analyzing &&
@@ -3686,11 +3721,15 @@
         }
       }
 
-      if (this.echoStory && this.echoStory.analyzing) {
+      if (this.canOpenEchoArchive() && this.echoStory && this.echoStory.analyzing) {
         this.echoStory.analysisTimer = Math.max(0, this.echoStory.analysisTimer - dt);
         if (this.echoStory.analysisTimer <= 0) {
           const candidate = this.echoStory.analysisPlanet;
           const expectedIndex = this.echoStory.index;
+          const id = this.echoIdForPlanet(candidate);
+          // Commit processed state and discovery together; reload cannot double-decode.
+          this.dataSignals.pendingAnalysis.delete(id);
+          this.dataSignals.decoded.add(id);
           const found = expectedIndex > 0 && candidate ? this.discoverEcho(candidate) : false;
 
           this.echoStory.analyzing = false;
@@ -3703,7 +3742,7 @@
             : ECHO_TUNE.emptyResultSec;
           // discoverEcho() already persists an Echo-bearing DATA packet.
           // Empty/post-12 DATA still becomes permanent knowledge here.
-          if (!found) this.saveKnowledge("data-decoded");
+          this.saveGame("home-data-decoded");
         }
       }
 
@@ -3715,9 +3754,19 @@
           this.echoStory.analysisResult = null;
           this.echoStory.analysisResultIndex = 0;
           if (result === "echo" && index > 0) {
-            this.startEchoMemory(index);
+            this.homeTerminal.mode = "archive";
+            this.homeTerminal.archivePage = Math.floor((index - 1) / 4);
+            this.homeTerminal.depositIndex = index;
+            this.homeTerminal.depositTimer = 0.9;
+          } else if (this.shouldStartFinale()) {
+            this.finale.resumePending = true;
           }
         }
+      }
+
+      if (this.homeTerminal.depositTimer > 0) {
+        this.homeTerminal.depositTimer = Math.max(0, this.homeTerminal.depositTimer - dt);
+        if (this.homeTerminal.depositTimer <= 0) this.startEchoMemory(this.homeTerminal.depositIndex, "home");
       }
 
       if (this.echoStory && this.echoStory.active) {
@@ -3728,36 +3777,37 @@
           this.echoes.read.add(index);
           this.echoStory.replayIndex = 0;
           const fromArchive = this.echoStory.source === "archive";
+          const atHome = this.canOpenEchoArchive();
+          const wasInterpreted = this.echoes.interpreted.has(index);
           this.echoStory.source = "discovery";
-          // Discovery reads the original text. Only HOME gives a new memory
-          // its present-day interpretation. Replays never award DATA/Echoes.
-          if (fromArchive && this.canOpenEchoArchive() && !this.echoes.interpreted.has(index)) {
+          if (atHome && !wasInterpreted) {
             this.echoes.interpreted.add(index);
             const level = clamp(Math.floor(this.base.level || 1), 1, 5);
             const reaction = index === 12 ? txValue("archive.completeByLevel")[level] : this.echoReaction(index);
             if (reaction) this.sayEve(reaction, index === 12 ? 3.8 : 3.0);
-            this.saveKnowledge("echo-interpreted", false);
-            this.saveGame("echo-interpreted");
-            if (this.shouldStartFinale()) this.finale.resumePending = true;
-          } else {
-            this.saveKnowledge("echo-read", false);
-            // CONTINUE/rescue may resume an interrupted discovery while at
-            // HOME. Restore the terminal after reading; do not auto-interpret.
-            if (this.mode === "landed" && this.landPlanet && this.landPlanet.kind === "base" &&
-                !this.homeTerminal.visible) this.openHomeTerminal();
           }
+          // A first confirmation never solves the pair. A deliberate Archive
+          // revisit of one confirmed memory invites the other, across pages.
+          if (fromArchive && wasInterpreted && atHome && (index === 2 || index === 7) &&
+              this.echoes.interpreted.has(2) && this.echoes.interpreted.has(7) && !this.echoes.returnWaitLinked) {
+            if (this.homeTerminal.resonanceTarget === index) {
+              this.echoes.returnWaitLinked = true;
+              this.homeTerminal.resonanceTarget = 0;
+              this.sayEve(txValue("archive.resonanceByLevel")[clamp(Math.floor(this.base.level || 1), 1, 5)], 2.6);
+            } else {
+              this.homeTerminal.resonanceTarget = index === 2 ? 7 : 2;
+            }
+          }
+          this.homeTerminal.focusIndex = 0;
+          this.saveKnowledge("echo-home-read", false);
+          if (atHome) {
+            this.saveGame("echo-home-read");
+            if (this.shouldStartFinale()) this.finale.resumePending = true;
+          }
+          // Interrupted legacy space readings resume only after HOME boots.
+          const unread = this.firstUnreadEchoIndex();
+          if (unread) this.echoStory.replayIndex = unread;
         }
-      }
-
-      // The pair speaks only once, in the Archive, after both HOME readings.
-      if (this.canOpenEchoArchive() && this.homeTerminal.mode === "archive" &&
-          !this.echoStory.active && this.eve.timer <= 0 &&
-          this.echoes.interpreted.has(2) && this.echoes.interpreted.has(7) &&
-          !this.echoes.returnWaitLinked) {
-        this.echoes.returnWaitLinked = true;
-        this.sayEve(txValue("archive.resonanceByLevel")[clamp(Math.floor(this.base.level || 1), 1, 5)], 2.6);
-        this.saveKnowledge("echo-resonance", false);
-        this.saveGame("echo-resonance");
       }
 
       if (
@@ -4480,7 +4530,7 @@
         }
         return null;
       }
-      if (this.homeTerminal.restoreReportLevel >= 2 && this.pointInRect(x, y, L.restore)) return "archive";
+      if (this.homeTerminal.restoreReportLevel >= 2 && this.pointInRect(x, y, L.restore)) return "restore-report-back";
       if (!(this.homeTerminal.restoreReportLevel >= 2) && this.pointInRect(x, y, L.archive)) return "archive";
       if (
         !(this.homeTerminal.restoreReportLevel >= 2) &&
@@ -4609,7 +4659,8 @@
 
     handleHomeTerminalTouch(touch) {
       if (!this.homeTerminal || !this.homeTerminal.visible) return false;
-      if (this.homeTerminal.opening || this.echoStory.active || this.eve.timer > 0 && this.homeTerminal.mode === "archive") {
+      if (this.homeTerminal.opening || this.homeAnalysisBusy() || this.dataSignals.pendingAnalysis.size > 0 ||
+          this.eve.timer > 0 && this.homeTerminal.mode === "archive") {
         this.homeTerminal.pressed = null;
         this.pressing = false;
         this.departHold = 0;
@@ -4654,6 +4705,11 @@
         }
         if (pressed.startsWith("echo-")) {
           this.startEchoMemory(Number(pressed.slice(5)), "archive");
+          return true;
+        }
+
+        if (pressed === "restore-report-back") {
+          this.homeTerminal.restoreReportLevel = 0;
           return true;
         }
 
@@ -4774,8 +4830,7 @@
       if (!this.homeTerminal || !this.homeTerminal.visible) return;
       if (!this.landPlanet || this.landPlanet.kind !== "base") return;
       if (this.finale && this.finale.active) return;
-      // Let the unmodified Echo overlay own its entire reading beat.
-      if (this.echoStory.active) return;
+      // The same HOME frame stays present beneath analysis and Echo focus.
 
       const L = this.homeTerminalLayout();
       if (this.drawHomeTerminalOpening(L)) return;
@@ -4885,7 +4940,8 @@
             `${Math.floor(this.resources.data)}/${cost.data}`,
             dataOk ? 0 : 145
           );
-          drawStatusRow(5, tx("home.labels.status"), ready ? tx("home.values.restoreReady") : tx("home.values.waitingResources"));
+          drawStatusRow(5, tx("home.labels.status"), this.dataSignals.pendingAnalysis.size > 0
+            ? tx("archive.receiving") : ready ? tx("home.values.restoreReady") : tx("home.values.waitingResources"));
         } else {
           drawStatusRow(3, tx("home.labels.ore"), `${Math.floor(this.resources.ore)}/${this.resources.oreMax}`);
           drawStatusRow(4, tx("home.labels.data"), `${Math.floor(this.resources.data)}/${this.resources.dataMax}`);
@@ -4896,13 +4952,14 @@
               `${this.incident.found}/${this.incident.total}`
             );
           } else {
-            drawStatusRow(5, tx("home.labels.status"), tx("home.values.restoreComplete"));
+            drawStatusRow(5, tx("home.labels.status"), this.dataSignals.pendingAnalysis.size > 0
+              ? tx("archive.receiving") : tx("home.values.restoreComplete"));
           }
         }
       }
 
       const restoreLabel = reportLevel >= 2
-        ? tx("home.labels.echoArchive")
+        ? tx("archive.back")
         : (cost ? (ready ? tx("home.restoreButton.ready") : tx("home.restoreButton.locked")) : tx("home.restoreButton.complete"));
       this.drawHomeTerminalButton(
         L.restore,
@@ -4965,8 +5022,7 @@
     }
 
     openEchoArchive() {
-      if (!this.canOpenEchoArchive() || this.echoStory.active || this.echoStory.analyzing ||
-          this.echoStory.pendingTimer > 0 || this.echoStory.analysisResultTimer > 0) return false;
+      if (!this.canOpenEchoArchive() || this.homeAnalysisBusy() || this.dataSignals.pendingAnalysis.size > 0) return false;
       this.homeTerminal.mode = "archive";
       this.homeTerminal.restoreReportLevel = 0;
       this.homeTerminal.pressed = null;
@@ -4983,6 +5039,12 @@
       noStroke();
       fill(236, 233, 216, 255);
       rect(L.x + 18, L.y + 72, L.w - 36, L.h - 106);
+      if (this.echoStory.active) {
+        // Keep the window's frame and location; focus darkens its memory space.
+        fill(3, 7, 13, 255);
+        rect(L.x + 3, L.y + 3, L.w - 6, L.h - L.titleH - 5);
+        return;
+      }
       font("monospace");
       textAlign(LEFT);
       fontSize(8.9);
@@ -4994,6 +5056,18 @@
         const found = index <= this.echoes.found;
         const fresh = found && !this.echoes.interpreted.has(index);
         const linked = this.echoes.returnWaitLinked && (index === 2 || index === 7);
+        const invited = index === this.homeTerminal.resonanceTarget;
+        if (invited) {
+          noStroke();
+          fill(114, 156, 175, 70 + 40 * Math.sin(this.simTime * 1.2));
+          ellipse(r.x + 3, r.y + r.h / 2, 4, 4);
+        }
+        if (index === this.homeTerminal.depositIndex && this.homeTerminal.depositTimer > 0) {
+          const q = 1 - this.homeTerminal.depositTimer / 0.9;
+          noStroke();
+          fill(155, 208, 230, 190);
+          ellipse(r.x + r.w - 9 + (1 - q) * 20, r.y + r.h / 2 + (1 - q) * 18, 4, 4);
+        }
         if (fresh) {
           noStroke();
           fill(151, 181, 197, 30 + 12 * Math.sin(this.simTime * 1.5));
@@ -5023,6 +5097,12 @@
       fontSize(7.2);
       text(tx("archive.hint"), L.x + L.w / 2, L.y + 21);
       text(`${page + 1} / 3`, L.x + L.w / 2, L.y + 9);
+      const target = this.homeTerminal.resonanceTarget;
+      if (target && Math.floor((target - 1) / 4) !== page) {
+        const r = Math.floor((target - 1) / 4) > page ? L.next : L.previous;
+        fill(114, 156, 175, 85 + 30 * Math.sin(this.simTime * 1.2));
+        ellipse(r.x + r.w / 2, r.y - 4, 3, 3);
+      }
     }
 
     nextBaseRepairCost() {
@@ -5298,7 +5378,8 @@
       if (
         planet.kind === "data" &&
         this.dataSignals &&
-        this.dataSignals.decoded.has(this.echoIdForPlanet(planet))
+        (this.dataSignals.decoded.has(this.echoIdForPlanet(planet)) ||
+         this.dataSignals.pendingAnalysis.has(this.echoIdForPlanet(planet)))
       ) return false;
       if ((planet.kind === "mine" || planet.kind === "data") && !this.canInteractWithPlanet(planet)) return false;
 
@@ -5309,15 +5390,16 @@
 
     syncDiscoveredSeraState() {
       if (!this.echoes || !this.echoes.discovered) return;
-      const decoded = new Set(this.dataSignals ? Array.from(this.dataSignals.decoded || []) : []);
+      const recovered = new Set(this.dataSignals ? Array.from(this.dataSignals.decoded || []) : []);
       // Older saves predate the separate DATA archive; every discovered Echo in
       // those builds necessarily came from one decoded SERA.
-      for (const id of this.echoes.discovered) decoded.add(id);
+      for (const id of this.echoes.discovered) recovered.add(id);
+      for (const id of this.dataSignals.pendingAnalysis) recovered.add(id);
 
       const sync = (planet) => {
         if (!planet || planet.kind !== "data") return;
         const id = this.echoIdForPlanet(planet);
-        if (id && decoded.has(id)) {
+        if (id && recovered.has(id)) {
           planet.resourceCurrent = 0;
           planet.depleted = true;
         }
@@ -5325,8 +5407,8 @@
       for (const planet of this.fixedPlanets || []) sync(planet);
       if (this.planetAtlas) {
         // A rescued procedural SERA may no longer be in the active cache after
-        // the HOME rollback. Rebuild only sectors named by decoded signal ids.
-        for (const id of decoded) {
+        // the HOME rollback. Rebuild only sectors named by recovered signal ids.
+        for (const id of recovered) {
           const m = /^P:(-?\d+):(-?\d+):(\d+)$/.exec(id);
           if (!m) continue;
           const planets = this.planetAtlas.getSector(Number(m[1]), Number(m[2]));
@@ -5349,6 +5431,7 @@
         echoInterpreted: this.echoes ? Array.from(this.echoes.interpreted || []) : [],
         returnWaitLinked: !!(this.echoes && this.echoes.returnWaitLinked),
         decoded: this.dataSignals ? Array.from(this.dataSignals.decoded || []) : [],
+        pendingAnalysis: this.dataSignals ? Array.from(this.dataSignals.pendingAnalysis || []) : [],
         creditsSeen: !!(this.credits && this.credits.seen),
         incidentDiscovered: this.incident ? Array.from(this.incident.discovered || []) : [],
         incidentFound: this.incident ? this.incident.found : 0,
@@ -5385,6 +5468,12 @@
       for (const id of snapshot.decoded || []) decoded.add(id);
       for (const id of merged) decoded.add(id);
       this.dataSignals.decoded = decoded;
+      const pending = new Set(this.dataSignals.pendingAnalysis || []);
+      for (const id of snapshot.pendingAnalysis || []) {
+        if (typeof id === "string" && id.length > 0) pending.add(id);
+      }
+      // A newer decoded MEMORY always wins over an older pending HOME snapshot.
+      this.dataSignals.pendingAnalysis = new Set([...pending].filter((id) => !decoded.has(id)));
       if (snapshot.creditsSeen && this.credits) {
         this.credits.seen = true;
         if (this.finale) {
@@ -5670,12 +5759,11 @@
         return;
       }
 
-      // A DATA packet can only be decoded once from each SERA. This archive is
-      // intentionally separate from Echo discovery because post-12 DATA can be
-      // valid even when its analysis contains no Echo.
+      // A SERA packet can only be recovered once, even before HOME decodes it.
       if (p.kind === "data") {
         const dataId = this.echoIdForPlanet(p);
-        if (dataId && this.dataSignals && this.dataSignals.decoded.has(dataId)) {
+        if (dataId && this.dataSignals && (this.dataSignals.decoded.has(dataId) ||
+            this.dataSignals.pendingAnalysis.has(dataId))) {
           p.resourceCurrent = 0;
           p.depleted = true;
           this.harvest.timer = 0;
@@ -5746,8 +5834,6 @@
       }
 
       if (gained > 0) {
-        const echoCandidate = p.kind === "data" && this.canDiscoverEcho(p);
-
         if (p.kind === "mine") this.resources.ore += gained;
         else if (p.kind === "data") this.resources.data += gained;
         else if (p.kind === "refuel") this.resources.fuel += gained;
@@ -5758,14 +5844,13 @@
 
         if (p.kind === "data") {
           const dataId = this.echoIdForPlanet(p);
-          if (dataId && this.dataSignals) this.dataSignals.decoded.add(dataId);
+          if (dataId && this.dataSignals) this.dataSignals.pendingAnalysis.add(dataId);
 
-          // One SERA packet is one DATA recovery. The analysis window, not the
-          // pickup itself, reveals whether that packet contains an Echo.
+          // Recovery reveals no contents. HOME owns the later analysis.
           p.resourceCurrent = 0;
           p.depleted = true;
-          this.echoStory.pendingIndex = echoCandidate ? this.echoes.found + 1 : 0;
-          this.queueDataAnalysis(p);
+          this.dataRecoveredTimer = 1.8;
+          this.saveKnowledge("data-recovered");
         }
       }
 
@@ -6032,11 +6117,12 @@
 
             ctx.globalAlpha = uiA;
             this.drawFaintSignal();
-            this.drawDataAnalysis();
-            this.drawEchoMemory();
             this.drawSystemConsole();
             this.drawHomeTerminalBoot();
             this.drawHomeTerminal();
+            this.drawDataAnalysis();
+            this.drawEchoMemory();
+            this.drawDataRecovery();
             this.drawCredits();
             this.drawFinaleOverlay();
           }
@@ -6247,8 +6333,16 @@
       rect(0, 0, W, H);
     }
 
+    drawDataRecovery() {
+      if (this.dataRecoveredTimer <= 0 || this.mode !== "landed" || !this.landPlanet || this.landPlanet.kind !== "data") return;
+      noStroke();
+      fill(165, 205, 235, 170 * Math.min(1, this.dataRecoveredTimer / 0.4));
+      font("monospace"); fontSize(8.5); textAlign(CENTER);
+      text(tx("archive.recovered"), W / 2, H / 2 + 72);
+    }
+
     drawDataAnalysis() {
-      if (!this.echoStory) return;
+      if (!this.canOpenEchoArchive() || !this.echoStory) return;
       const showingAnalysis = this.echoStory.analyzing;
       const showingResult = this.echoStory.analysisResultTimer > 0 && !!this.echoStory.analysisResult;
       if (!showingAnalysis && !showingResult) return;

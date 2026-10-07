@@ -1,9 +1,9 @@
 # ORBIT / 02
 
-宇宙で拾ったEchoを、HOMEへ持ち帰る。
+宇宙でDATAを拾い、HOMEへ持ち帰る。
 
-HOME TerminalのECHO ARCHIVEを開くと、過去の記憶を何度でも再生できます。淡い光は、まだHOMEで振り返っていない記憶です。
+HOMEがDATAを解析すると、Archiveに記憶が収まります。ECHO ARCHIVEから、過去のEchoを何度でも聞くことができます。
 
-RETURNとWAITをここで確かめると、二つの記憶に小さな共鳴が残ります。
+RETURNとWAITを聞き返すと、もう一つの記憶が微かに反応することがあります。
 
-ORBIT — Silent Rebootを基にしたPhase 1の試作です。
+ORBIT — Silent Rebootを基にしたPhase 2の試作です。
