@@ -68,6 +68,7 @@ var WORKS = [
         playerWidth: 360,
         playerHeight: 640,
 
+        menuTitle: "DioramaCalendar",
         menuCategory: "カレンダー",
         menuDescription: "季節の小さな景色を、傾けて眺めるカレンダー。",
 
@@ -267,7 +268,7 @@ var WORKS = [
         playerWidth: 360,
         playerHeight: 660,
 
-        menuTitle: "MIDNIGHT COLA",
+        menuTitle: "真夜中コーラ",
         menuCategory: "仕込みゲーム",
         menuDescription: "材料を重ねて、今夜の一本を仕込むすごろく。",
 
