@@ -20,16 +20,16 @@ function harness(options = {}) {
   class Context {
     constructor() { this.state = 'suspended'; this.currentTime = 0; this.destination = {}; }
     createGain() { return node(); } createMediaElementSource() { return node(); } createBufferSource() { return node(); }
-    resume() { this.state = 'running'; return Promise.resolve(); } suspend() { this.state = 'suspended'; return Promise.resolve(); }
+    resume() { if (options.resumeGate) return options.resumeGate.promise.then(() => { this.state = 'running'; }); this.state = 'running'; return Promise.resolve(); } suspend() { this.state = 'suspended'; return Promise.resolve(); }
     decodeAudioData() { return Promise.resolve({ length: 8, numberOfChannels: 1, sampleRate: 48000, getChannelData: () => new Float32Array(8) }); }
   }
   class Media extends Target {
-    constructor(src) { super('AUDIO'); this.src = src; this.readyState = 0; this.error = null; this.paused = true; this.currentTime = 0; this.duration = 53.56; this.loops = 0; this.plays = 0; media.push(this); }
+    constructor(src) { super('AUDIO'); this.src = src; this.readyState = 0; this.error = null; this.paused = true; this.currentTime = 0; this.playbackRate = 1; this.duration = 53.56; this.loops = 0; this.plays = 0; media.push(this); }
     removeEventListener(type, fn) { this.handlers.set(type, (this.handlers.get(type) || []).filter(f => f !== fn)); }
     load() { if (options.fail) { this.error = { code: 4 }; this.emit('error'); } else { this.readyState = 4; this.emit('canplay'); } }
     play() { this.plays++; if (options.fail || options.denied) return Promise.reject(new Error('play denied')); this.paused = false; return Promise.resolve(); }
     pause() { this.paused = true; }
-    advance(dt) { if (this.paused) return; this.currentTime += dt; if (this.loop) { this.loops += Math.floor(this.currentTime / this.duration); this.currentTime %= this.duration; } }
+    advance(dt) { if (this.paused) return; this.currentTime += dt * this.playbackRate; if (this.loop) { this.loops += Math.floor(this.currentTime / this.duration); this.currentTime %= this.duration; } }
   }
   const w = new Target(); Object.assign(w, { console, URLSearchParams, location: { search: '?dev=1' },
     performance: { now: () => 100 }, setTimeout: fn => { timers.set(++serial, fn); return serial; }, clearTimeout: id => timers.delete(id),
@@ -59,21 +59,21 @@ test('preload is silent; only primary trusted pointer or bound non-editable keyb
   assert.equal(h.track.plays, 0); assert.equal(h.track.paused, true);
   h.pointer({ isTrusted: false }); h.pointer({ isPrimary: false }); h.pointer({ button: 2 });
   h.key({ code: 'KeyQ', key: 'q' }); h.key({ repeat: true }); h.key({ target: { tagName: 'INPUT' } });
-  assert.equal(h.track.plays, 0); h.pointer(); h.advance(2);
+  assert.equal(h.track.plays, 0); h.pointer(); await tick(); h.advance(2);
   assert.equal(h.track.paused, false); assert.ok(h.track.currentTime > 1.9);
   h.scene.touch({ id: 1, state: 'BEGAN', x: 195, y: 375 }); assert.equal(h.w.PumpkinProbe().held, true);
   for (let i = 0; i < 10; i++) h.pointer(); assert.equal(h.media.length, 1); assert.ok(h.track.currentTime > 1.9);
-  const k = harness(); k.key(); assert.equal(k.track.paused, false);
+  const k = harness(); k.key(); await tick(); assert.equal(k.track.paused, false);
 });
-test('normal simulated scene flow keeps the identical track/time across prologue, zoom and journey', () => {
-  const h = harness(); h.key(); const player = h.track, seen = new Set();
+test('normal simulated scene flow keeps the identical track/time across prologue, zoom and journey', async () => {
+  const h = harness(); h.key(); await tick(); const player = h.track, seen = new Set();
   h.w.SSE.input.keysDown.add('ArrowRight'); h.w.SSE.input.keysDown.add('ArrowDown');
   for (let i = 0; i < 40 * 60; i++) { h.scene.update(1 / 60); player.advance(1 / 60); seen.add(h.w.PumpkinProbe().mode); }
   assert.deepEqual([...seen], ['prologue', 'transition', 'journey']);
   assert.equal(h.media.length, 1); assert.equal(h.track, player); assert.ok(player.currentTime > 39.9); assert.equal(player.plays, 1);
 });
-for (const ending of ['goal', 'all-lost']) test(ending + ' fixture and replay retain the same media position', () => {
-  const h = harness(); h.key(); h.w.SSE.input.keysDown.add('ArrowRight'); h.w.SSE.input.keysDown.add('ArrowDown'); h.advance(35);
+for (const ending of ['goal', 'all-lost']) test(ending + ' fixture and replay retain the same media position', async () => {
+  const h = harness(); h.key(); await tick(); h.w.SSE.input.keysDown.add('ArrowRight'); h.w.SSE.input.keysDown.add('ArrowDown'); h.advance(35);
   h.w.SSE.input.reset(); const s = h.journey; assert.ok(s); s.result=s.ending=null;s.finished=s.replayReady=false;s.arrivals=[];for(const p of s.seeds){p.arrival=null;p.soilTime=0;}
   // Explicit end-state injection: tests audio continuity at both waiting screens,
   // not the player's ability to complete the whole level.
@@ -85,22 +85,22 @@ for (const ending of ['goal', 'all-lost']) test(ending + ' fixture and replay re
   h.advance(2); assert.ok(h.track.currentTime > old + 1.9); assert.equal(h.media.length, 1); assert.equal(h.track.plays, 1);
 });
 test('mute pauses BGM and suppresses SE; ON resumes without seek; stored OFF survives reload', async () => {
-  const h = harness(); h.pointer(); h.advance(5); const old = h.track.currentTime;
+  const h = harness(); h.pointer(); await tick(); h.advance(5); const old = h.track.currentTime;
   h.toggle(); h.advance(2); assert.equal(h.track.currentTime, old); assert.equal(h.track.paused, true); assert.equal(h.audio.play('seed'), false);
-  h.pointer(); assert.equal(h.track.paused, true); h.toggle(); h.advance(1); assert.ok(h.track.currentTime > old + .9);
+  h.pointer(); assert.equal(h.track.paused, true); h.toggle(); await tick(); h.advance(1); assert.ok(h.track.currentTime > old + .9);
   h.toggle(); const reloaded = harness({ saved: h.saved }); await tick(); reloaded.pointer(); reloaded.key();
   assert.equal(reloaded.audio.enabled, false); assert.equal(reloaded.track.plays, 0);
-  reloaded.toggle(); assert.equal(reloaded.track.paused, false); assert.equal(reloaded.media.length, 1);
+  reloaded.toggle(); await tick(); assert.equal(reloaded.track.paused, false); assert.equal(reloaded.media.length, 1);
 });
-test('canonical lifecycle pauses/resumes the same timeline and stays silent if OFF', () => {
-  const h = harness(); h.pointer(); h.advance(4); const old = h.track.currentTime;
+test('canonical lifecycle pauses/resumes the same timeline and stays silent if OFF', async () => {
+  const h = harness(); h.pointer(); await tick(); h.advance(4); const old = h.track.currentTime;
   h.w.document.hidden = true; h.w.SSE.lifecycle.pause('hidden'); h.track.advance(3); h.pointer();
   assert.equal(h.track.currentTime, old); assert.equal(h.track.paused, true);
-  h.w.document.hidden = false; h.w.SSE.lifecycle.resume('hidden'); h.advance(1); assert.ok(h.track.currentTime > old + .9);
+  h.w.document.hidden = false; h.w.SSE.lifecycle.resume('hidden'); await tick(); h.advance(1); assert.ok(h.track.currentTime > old + .9);
   h.w.SSE.lifecycle.pause('pagehide'); h.toggle(); h.w.SSE.lifecycle.resume('pagehide'); assert.equal(h.track.paused, true); assert.equal(h.media.length, 1);
 });
-test('full-file loop crosses the media-clock boundary without another player or play call', () => {
-  const h = harness(); h.pointer(); h.track.advance(54); assert.equal(h.track.loops, 1); assert.ok(h.track.currentTime > .4 && h.track.currentTime < .5);
+test('full-file loop crosses the media-clock boundary without another player or play call', async () => {
+  const h = harness(); h.pointer(); await tick(); h.track.advance(54); assert.equal(h.track.loops, 1); assert.ok(h.track.currentTime > .4 && h.track.currentTime < .5);
   h.track.advance(54); assert.equal(h.track.loops, 2); assert.equal(h.track.plays, 1); assert.equal(h.media.length, 1); assert.equal(h.track.paused, false);
 });
 test('media failure remains in Engine diagnostics while game update and input keep working', async () => {
@@ -114,22 +114,22 @@ test('ordinary collisions/grab/knock are silent; only real Stage0 detach emits f
   h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(40);
   assert.ok(h.plays.length>0);assert.ok(h.plays.every(n=>n==='fiber'));assert.equal(h.w.PumpkinProbe().loose,9);
 });
-test('ending growth receives only active update time and resumes without audio replay burst',()=>{
-  const h=harness();h.key();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(35);h.w.SSE.input.reset();
+test('ending growth receives only active update time and resumes without audio replay burst',async()=>{
+  const h=harness();h.key();await tick();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(35);h.w.SSE.input.reset();
   const s=h.journey;s.result=s.ending=null;s.finished=s.replayReady=false;s.arrivals=[];s.seeds.forEach((p,i)=>{p.arrival=null;p.soilTime=0;p.lost=p.inactive=i>0;if(!i){p.x=1900;p.y=s.geometry.floor(p.x).y-J.support(p,0,1);p.vx=p.vy=0;}});h.advance(1);assert.ok(s.result);const elapsed=s.ending.elapsed,pos=h.track.currentTime,plays=h.plays.length;
-  h.w.SSE.lifecycle.pause('hidden');h.track.advance(30);assert.equal(s.ending.elapsed,elapsed);assert.equal(h.track.currentTime,pos);h.w.SSE.lifecycle.resume('hidden');h.advance(1);assert.ok(s.ending.elapsed>elapsed+.9);assert.equal(h.plays.length,plays);assert.equal(h.media.length,1);assert.ok(h.track.currentTime>pos+.9);
+  h.w.SSE.lifecycle.pause('hidden');h.track.advance(30);assert.equal(s.ending.elapsed,elapsed);assert.equal(h.track.currentTime,pos);h.w.SSE.lifecycle.resume('hidden');await tick();h.advance(1);assert.ok(s.ending.elapsed>elapsed+.9);assert.equal(h.plays.length,plays);assert.equal(h.media.length,1);assert.ok(h.track.currentTime>pos+.9);
   // Engine frame dispatcher (unchanged) gates scene updates while paused. This
   // harness supplies no work updates in the hidden interval, as that gate does.
 });
-test('normal simulated run grows once, reject new tilts, and replay resets growth without music seek',()=>{
-  const h=harness();h.key();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(12);h.w.SSE.input.reset();h.scene.touch({id:2,state:'BEGAN',x:195,y:375});h.scene.touch({id:2,state:'MOVING',x:253.8,y:433.8});h.advance(42);h.scene.touch({id:2,state:'ENDED',x:253.8,y:433.8});for(let i=0;i<30*60&&!h.journey?.replayReady;i++)h.advance(1/60);const s=h.journey;
+test('normal simulated run grows once, reject new tilts, and replay resets growth without music seek',async()=>{
+  const h=harness();h.key();await tick();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(12);h.w.SSE.input.reset();h.scene.touch({id:2,state:'BEGAN',x:195,y:375});h.scene.touch({id:2,state:'MOVING',x:253.8,y:433.8});h.advance(42);h.scene.touch({id:2,state:'ENDED',x:253.8,y:433.8});for(let i=0;i<30*60&&!h.journey?.replayReady;i++)h.advance(1/60);const s=h.journey;
   assert.ok(s.result&&s.result.arrivals.length>0&&s.replayReady);const result=s.result,elapsed=s.ending.elapsed,old=h.track.currentTime;
   h.scene.touch({id:10,state:'BEGAN',x:190,y:375});h.scene.touch({id:10,state:'MOVING',x:300,y:200});h.advance(1);assert.equal(s.result,result);assert.equal(s.held,false);assert.ok(s.ending.elapsed>elapsed);assert.equal(h.media.length,1);
   h.advance(7);const p=h.w.PumpkinProbe();assert.equal(p.mode,'prologue');assert.equal(p.arrived,0);assert.equal(p.plants,0);assert.equal(p.loose,3);assert.equal(p.ending,null);assert.ok(!p.replayReady);assert.equal(h.w.SSE.input.keysDown.size,0);assert.ok(h.track.currentTime>=old);assert.equal(h.track.plays,1);
 });
 
-for(const count of [1,9])test(count+' grown fruits automatically reconnect to title without replacing, pausing or seeking music',()=>{
-  const h=harness();h.key();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(35);h.w.SSE.input.reset();
+for(const count of [1,9])test(count+' grown fruits automatically reconnect to title without replacing, pausing or seeking music',async()=>{
+  const h=harness();h.key();await tick();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(35);h.w.SSE.input.reset();
   const s=h.journey;s.result=s.ending=null;s.finished=s.replayReady=false;s.arrivals=[];
   s.seeds.forEach((p,i)=>{p.arrival=null;p.soilTime=0;p.lost=p.inactive=i>=count;if(i<count){p.x=1830+i*24;p.y=s.geometry.floor(p.x).y-J.support(p,s.geometry.floor(p.x).nx,s.geometry.floor(p.x).ny);p.vx=p.vy=0;}});
   h.advance(1);assert.ok(s.result);const timing=J.endingTiming(s);
@@ -138,4 +138,19 @@ for(const count of [1,9])test(count+' grown fruits automatically reconnect to ti
   until(timing.titleZoomAt+.7);assert.equal(s.ending.phase,'zoom');assert.equal(h.elements.has('again'),false);const player=h.track,pos=player.currentTime;
   until(timing.titleZoomAt+3.2);assert.equal(s.ending.phase,'connecting');assert.equal(h.w.PumpkinProbe().mode,'journey');
   h.advance(1.5);const p=h.w.PumpkinProbe();assert.equal(p.mode,'prologue');assert.equal(p.plants,0);assert.equal(p.loose,3);assert.equal(p.ending,null);assert.equal(h.elements.has('again'),false);assert.equal(h.media.length,1);assert.equal(h.track,player);assert.ok(player.currentTime>pos+3.9);assert.ok(!player.paused);assert.equal(player.plays,1);
+});
+
+// A real Promise barrier with the real work, across native lifecycle events.
+test('PUMPOKO deferred BFCache recovery keeps one clock/player and no SE burst', async () => {
+  let resolve; const gate={promise:new Promise(r=>{resolve=r;})};
+  const h=harness();h.pointer();await tick();h.advance(4);
+  const player=h.track,time=player.currentTime,effects=h.plays.length;
+  h.w.SSE.lifecycle.install();h.w.emit('pagehide',{persisted:true});
+  h.audio.ctx.resume=()=>gate.promise.then(()=>{h.audio.ctx.state='running';});
+  h.track.advance(45);assert.equal(player.currentTime,time);
+  h.w.emit('pageshow',{persisted:true});h.w.emit('pageshow',{persisted:true});h.pointer();h.key();
+  assert.equal(player.plays,1);assert.equal(player.paused,true);assert.equal(player.currentTime,time);
+  resolve();await tick();assert.equal(player.plays,2);assert.equal(player.currentTime,time);
+  assert.equal(h.audio.currentMusic,'pumpoko');assert.equal(h.track,player);assert.equal(h.media.length,1);assert.equal(player.playbackRate,1);assert.equal(player.loop,true);
+  h.advance(1);assert.ok(player.currentTime>time+.9&&player.currentTime<time+1.1);assert.equal(h.plays.length,effects);
 });

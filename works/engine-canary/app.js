@@ -8,19 +8,21 @@
     return;
   }
   // Tiny PCM fixture, 0.12 seconds / 8 kHz / mono / 16 bit, with quiet envelope.
-  function wavURI() {
-    const samples = 960, bytes = new Uint8Array(44 + samples * 2), view = new DataView(bytes.buffer);
+  function wavURI(samples = 960) {
+    const bytes = new Uint8Array(44 + samples * 2), view = new DataView(bytes.buffer);
     const text = (offset, value) => { for (let i = 0; i < value.length; i++) bytes[offset + i] = value.charCodeAt(i); };
     text(0, 'RIFF'); view.setUint32(4, bytes.length - 8, true); text(8, 'WAVE'); text(12, 'fmt ');
     view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, 1, true);
     view.setUint32(24, 8000, true); view.setUint32(28, 16000, true); view.setUint16(32, 2, true); view.setUint16(34, 16, true);
     text(36, 'data'); view.setUint32(40, samples * 2, true);
-    for (let i = 0; i < samples; i++) view.setInt16(44 + i * 2, Math.round(6000 * Math.sin(2 * Math.PI * 440 * i / 8000) * Math.sin(Math.PI * i / samples)), true);
-    return 'data:audio/wav;base64,' + btoa(String.fromCharCode(...bytes));
+    for (let i = 0; i < samples; i++) view.setInt16(44 + i * 2, Math.round(6000 * Math.sin(2 * Math.PI * (440 + 55 * Math.floor(i / 8000)) * i / 8000) * Math.sin(Math.PI * (i % 8000) / Math.min(samples, 8000))), true);
+    let binary = '';
+    for (let i = 0; i < bytes.length; i += 8192) binary += String.fromCharCode(...bytes.subarray(i, i + 8192));
+    return 'data:audio/wav;base64,' + btoa(binary);
   }
-  const wav = wavURI();
+  const wav = wavURI(), lifecycleWav = wavURI(64000);
   const probe = { taps: 0, held: false, last: 'NONE', pointer: '—', x: null, y: null, spaces: 0, keyboardTested: false, hidden: 0, restores: 0, pageHides: 0, pageShows: 0, setups: 0, draws: 0 };
-  const resources = [ ['validBuffer', 'valid-buffer'], ['validMedia', 'valid-media'], ['missing', 'missing'] ];
+  const resources = [ ['validBuffer', 'valid-buffer'], ['validMedia', 'valid-media'], ['missing', 'missing'], ['lifecycleMusic', 'lifecycle-resource'] ];
   const history = Object.fromEntries(resources.map(([name]) => [name, []]));
   function observeResources() {
     for (const [name, id] of resources) {
@@ -33,6 +35,25 @@
     }
     $('play-buffer').disabled = SSE.assets.status('validBuffer') !== 'ready';
     $('play-media').disabled = SSE.assets.status('validMedia') !== 'ready';
+    $('play-lifecycle').disabled = SSE.assets.status('lifecycleMusic') !== 'ready';
+  }
+  const musicObserver = { player: null, ids: new WeakMap(), serial: 0, playEvents: 0, pauseEvents: 0, before: null, restored: null, persisted: 'NOT OBSERVED' };
+  function observeMusic() {
+    const player = SSE.audio.musicPlayers?.lifecycleMusic;
+    if (player && player !== musicObserver.player) {
+      musicObserver.player = player;
+      if (!musicObserver.ids.has(player)) {
+        musicObserver.ids.set(player, ++musicObserver.serial);
+        player.audio.addEventListener('play', () => { musicObserver.playEvents++; });
+        player.audio.addEventListener('pause', () => { musicObserver.pauseEvents++; });
+      }
+    }
+    const media = player?.audio;
+    put('music-clock', media ? media.currentTime.toFixed(3) + ' s / rate ' + media.playbackRate + ' / loop ' + media.loop + ' / paused ' + media.paused : 'not created');
+    put('music-player', 'cached player #' + (player ? musicObserver.ids.get(player) : '—') + ' / currentMusic ' + (SSE.audio.currentMusic || 'none'));
+    put('music-events', musicObserver.playEvents + ' / ' + musicObserver.pauseEvents + ' (native play / pause events)');
+    put('music-boundary', 'before pause: ' + musicObserver.before + ' / on resume notification: ' + musicObserver.restored + ' / pageshow.persisted: ' + musicObserver.persisted);
+    put('music-enabled', SSE.audio.enabled ? 'ON' : 'OFF');
   }
   function renderStatus() {
     put('taps', probe.taps); put('held', probe.held ? 'ON' : 'OFF'); put('last-event', probe.last);
@@ -42,7 +63,7 @@
     put('visibility', document.visibilityState); put('hidden-count', probe.hidden); put('restore-count', probe.restores);
     put('page-count', probe.pageHides + ' / ' + probe.pageShows); put('draws', probe.draws);
     put('window-size', window.innerWidth + ' × ' + window.innerHeight);
-    put('context-state', SSE.audio.ctx?.state || 'not created'); observeResources();
+    put('context-state', SSE.audio.ctx?.state || 'not created'); observeResources(); observeMusic();
   }
   SSE.createApp({
     id: 'engine-browser-canary', logicalWidth: window.innerWidth, logicalHeight: window.innerHeight,
@@ -50,8 +71,8 @@
     keyboard: { bindings: { count: ['Space'] } }, pointerMode: 'primary',
     audio: { masterVolume: 0.5, storageKey: 'engine-browser-canary:sound',
       sounds: { validBuffer: { file: wav, mode: 'buffer', volume: 0.25 }, missing: { file: './__missing_audio_canary__.wav', mode: 'buffer' } },
-      music: { validMedia: { file: wav, loop: false, volume: 0.25 } } },
-    assets: { items: { validBuffer: { audioName: 'validBuffer' }, validMedia: { audioName: 'validMedia' }, missing: { audioName: 'missing', required: false } } },
+      music: { validMedia: { file: wav, loop: false, volume: 0.25 }, lifecycleMusic: { file: lifecycleWav, loop: true, volume: 0.25 } } },
+    assets: { items: { validBuffer: { audioName: 'validBuffer' }, validMedia: { audioName: 'validMedia' }, missing: { audioName: 'missing', required: false }, lifecycleMusic: { audioName: 'lifecycleMusic' } } },
     setup() { probe.setups++; }, initialScene: 'test',
     scenes: { test: {
       update() { if (SSE.input.actionPressed('count')) { probe.keyboardTested = true; probe.spaces++; renderStatus(); } },
@@ -80,11 +101,13 @@
   const events = [
     [document, 'visibilitychange', () => { if (document.hidden) probe.hidden++; else probe.restores++; renderStatus(); }],
     [window, 'pagehide', () => { probe.pageHides++; renderStatus(); }],
-    [window, 'pageshow', () => { probe.pageShows++; renderStatus(); }],
+    [window, 'pageshow', event => { probe.pageShows++; musicObserver.persisted = String(event.persisted); renderStatus(); }],
     [window, 'resize', () => { SSE.viewport.configure(window.innerWidth, window.innerHeight); renderStatus(); }],
     [document, 'focusin', renderStatus], [document, 'focusout', renderStatus]
   ];
   for (const [target, type, listener] of events) target.addEventListener(type, listener);
+  SSE.lifecycle.onPause(() => { musicObserver.before = SSE.audio.musicPlayers?.lifecycleMusic?.audio.currentTime ?? null; renderStatus(); });
+  SSE.lifecycle.onResume(() => { musicObserver.restored = SSE.audio.musicPlayers?.lifecycleMusic?.audio.currentTime ?? null; renderStatus(); });
   function playback(action) {
     // This stays synchronous inside the human click gesture, before any await.
     $('heard').value = 'NOT TESTED';
@@ -106,6 +129,9 @@
   }
   $('load-valid').addEventListener('click', () => load(['validBuffer', 'validMedia'], $('load-valid')));
   $('load-missing').addEventListener('click', () => load(['missing'], $('load-missing')));
+  $('load-lifecycle').addEventListener('click', () => load(['lifecycleMusic'], $('load-lifecycle')));
+  $('play-lifecycle').addEventListener('click', () => playback(() => SSE.audio.playMusic('lifecycleMusic', { restart: false })));
+  $('mute-lifecycle').addEventListener('click', () => { SSE.audio.setEnabled(!SSE.audio.enabled); if (SSE.audio.enabled) playback(() => SSE.audio.resumeMusic()); renderStatus(); });
   $('reset').addEventListener('click', () => window.location.reload());
   // DOM refresh only. No extra RAF, input wrapper, automatic loads or retries.
   window.setInterval(renderStatus, 250);

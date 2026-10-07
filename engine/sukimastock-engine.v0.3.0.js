@@ -2100,6 +2100,10 @@
     currentMusic: null,
     lifecyclePausedMusic: new Set(),
     lifecycleContextWasRunning: false,
+    lifecycleAudioPaused: false,
+    contextSuspendPromise: null,
+    contextResumePromise: null,
+    contextResumeNeedsGesture: false,
 
     storageKey: "sse-sound",
 
@@ -2140,6 +2144,7 @@
       }
       this.musicPlayers = {};
       this.currentMusic = null;
+      this.lifecyclePausedMusic.clear();
       this.toneResource = { status: "idle", reason: null, value: null };
       this.mediaTimeoutMs = Math.max(1, Number(source.mediaTimeoutMs) || 15000);
       this.definitions = source.sounds || {};
@@ -2196,7 +2201,7 @@
       }
     },
 
-    ensureContext() {
+    ensureContext(gesture) {
       const AudioContextClass = root.AudioContext || root.webkitAudioContext;
       if (!AudioContextClass) return null;
 
@@ -2207,10 +2212,88 @@
 
       if (this.ctx.state === "suspended") {
         // Output policy is independent of whether source data can be prepared.
-        try { this.ctx.resume()?.catch?.(() => {}); } catch (_error) {}
+        this.resumeContext(gesture, !gesture);
       }
 
       return this.ctx;
+    },
+
+    // Context control messages are asynchronous. A late suspend must settle
+    // before a new resume, and routed media must wait for that resume to finish.
+    // Null means already running (or no Web Audio); boolean Promise means recovery.
+    resumeContext(gesture, preparation = false) {
+      const ctx = this.ctx;
+      if (!ctx) return null;
+      if (this.contextSuspendPromise) {
+        return this.contextSuspendPromise.then(() => this.resumeContext(gesture, preparation));
+      }
+      // Preparation may call resume outside activation and leave it pending under
+      // autoplay policy. Preserve the native resume call on the next user gesture.
+      if (this.contextResumePromise && (!gesture || !this.contextResumeNeedsGesture)) return this.contextResumePromise;
+      if (ctx.state === "running") return null;
+      if (ctx.state === "closed" || typeof ctx.resume !== "function") return Promise.resolve(false);
+      let request;
+      try { request = ctx.resume(); } catch (_error) { return Promise.resolve(false); }
+      const pending = Promise.resolve(request).then(
+        () => {
+          if (this.lifecycleAudioPaused) { this.suspendContext(); return false; }
+          return this.ctx === ctx && ctx.state === "running";
+        }, () => false
+      ).finally(() => {
+        if (this.contextResumePromise === pending) { this.contextResumePromise = null; this.contextResumeNeedsGesture = false; }
+      });
+      this.contextResumePromise = pending;
+      this.contextResumeNeedsGesture = !!preparation;
+      return pending;
+    },
+
+    suspendContext() {
+      if (this.contextSuspendPromise || !this.ctx || this.ctx.state !== "running" ||
+          typeof this.ctx.suspend !== "function") return;
+      try {
+        const pending = Promise.resolve(this.ctx.suspend()).catch(() => {}).finally(() => {
+          if (this.contextSuspendPromise === pending) this.contextSuspendPromise = null;
+        });
+        this.contextSuspendPromise = pending;
+      } catch (_error) {}
+    },
+
+    requestMusicPlayback(player) {
+      if (!this.enabled || this.lifecycleAudioPaused || !player?.audio) return false;
+      if (player.playRequested) return true;
+      const token = ++player.playToken;
+      const ctx = this.ctx;
+      const mustWait = player.started || this.lifecycleContextWasRunning;
+      player.playRequested = true;
+      const current = () => player.playToken === token && this.musicPlayers[player.name] === player;
+      const finish = () => { if (current()) player.playRequested = false; };
+      const start = () => {
+        if (!current() || !this.enabled || this.lifecycleAudioPaused ||
+            (mustWait && player.source && ctx && ctx.state !== "running")) { finish(); return false; }
+        // A pending request or repeated work gesture cannot start a second copy.
+        if (!player.audio.paused && !player.audio.ended) { finish(); return true; }
+        try {
+          player.started = true;
+          const promise = player.audio.play();
+          if (promise?.then) Promise.resolve(promise).then(finish, finish);
+          else finish();
+          return true;
+        } catch (_error) { finish(); return false; }
+      };
+      // Initial play stays inside the initiating gesture (iOS media activation).
+      // Every restart after interruption waits for context recovery instead.
+      const ready = player.source && mustWait
+        ? this.resumeContext() : null;
+      if (ready) {
+        ready.then((ok) => { if (ok === false) finish(); else start(); });
+        return true; // Request accepted; output/autoplay success is not guaranteed.
+      }
+      return start();
+    },
+
+    cancelMusicPlayback(player) {
+      player.playToken += 1;
+      player.playRequested = false;
     },
 
     ensureBuses() {
@@ -2289,7 +2372,7 @@
     unlock() {
       if (this.unlocked) {
         if (this.ctx?.state === "suspended") {
-          try { this.ctx.resume()?.catch?.(() => {}); } catch (_error) {}
+          this.resumeContext(true);
         }
         return;
       }
@@ -2299,7 +2382,7 @@
         Object.keys(this.bufferDefinitions).length > 0 ||
         Object.keys(this.musicDefinitions).length > 0;
 
-      if (needsContext) this.ensureContext();
+      if (needsContext) this.ensureContext(true);
 
       // Legacy HTMLAudio pools still need a gesture unlock on iOS.
       for (const pool of Object.values(this.pools)) {
@@ -2648,6 +2731,9 @@
         gain: null,
         level: clamp(Number(definition.volume ?? 1), 0, 1),
         stopToken: 0,
+        playToken: 0,
+        playRequested: false,
+        started: false,
       };
 
       this.musicPlayers[name] = player;
@@ -2735,14 +2821,9 @@
         this.applyFallbackMusicVolume(player);
       }
 
-      try {
-        const promise = player.audio.play();
-        if (promise && promise.catch) promise.catch(() => {});
-        this.currentMusic = name;
-        return true;
-      } catch (_error) {
-        return false;
-      }
+      const requested = this.requestMusicPlayback(player);
+      if (requested) this.currentMusic = name;
+      return requested;
     },
 
     setMusicLevel(value, options) {
@@ -2770,6 +2851,8 @@
 
       const fade = Math.max(0, Number(opts.fade ?? 0) || 0);
       const token = ++player.stopToken;
+      this.cancelMusicPlayback(player);
+      this.lifecyclePausedMusic.delete(name);
 
       const stopNow = () => {
         if (player.stopToken !== token) return;
@@ -2795,6 +2878,8 @@
       const target = name || this.currentMusic;
       const player = target ? this.musicPlayers[target] : null;
       if (!player) return false;
+      this.cancelMusicPlayback(player);
+      this.lifecyclePausedMusic.delete(target);
       try {
         player.audio.pause();
         return true;
@@ -2813,73 +2898,38 @@
       if (this.ctx) this.wireMusicPlayer(player);
       else this.applyFallbackMusicVolume(player);
 
-      try {
-        const promise = player.audio.play();
-        if (promise && promise.catch) promise.catch(() => {});
-        this.currentMusic = target;
-        return true;
-      } catch (_error) {
-        return false;
-      }
+      const requested = this.requestMusicPlayback(player);
+      if (requested) this.currentMusic = target;
+      return requested;
     },
 
     pauseForLifecycle() {
-      this.lifecyclePausedMusic.clear();
+      this.lifecycleAudioPaused = true;
       this.lifecycleContextWasRunning = !!(
-        this.ctx &&
-        this.ctx.state === "running"
+        this.ctx && (this.ctx.state === "running" || this.contextResumePromise)
       );
 
       for (const [name, player] of Object.entries(this.musicPlayers)) {
-        if (!player?.audio || player.audio.paused) continue;
+        if (!player?.audio || (player.audio.paused && !player.playRequested)) continue;
         this.lifecyclePausedMusic.add(name);
+        this.cancelMusicPlayback(player);
         try { player.audio.pause(); } catch (_error) {}
       }
 
-      if (
-        this.ctx &&
-        this.ctx.state === "running" &&
-        typeof this.ctx.suspend === "function"
-      ) {
-        try {
-          const promise = this.ctx.suspend();
-          if (promise?.catch) promise.catch(() => {});
-        } catch (_error) {}
-      }
-
+      this.suspendContext();
       return true;
     },
 
     resumeFromLifecycle() {
-      if (!this.enabled) {
-        this.lifecyclePausedMusic.clear();
-        return false;
-      }
-
-      if (
-        this.ctx &&
-        this.lifecycleContextWasRunning &&
-        this.ctx.state === "suspended" &&
-        typeof this.ctx.resume === "function"
-      ) {
-        try {
-          const promise = this.ctx.resume();
-          if (promise?.catch) promise.catch(() => {});
-        } catch (_error) {}
-      }
-
+      this.lifecycleAudioPaused = false;
       const names = Array.from(this.lifecyclePausedMusic);
       this.lifecyclePausedMusic.clear();
-
+      if (!this.enabled) return false;
+      if (this.lifecycleContextWasRunning || names.length > 0) this.resumeContext();
       for (const name of names) {
         const player = this.musicPlayers[name];
-        if (!player?.audio) continue;
-        try {
-          const promise = player.audio.play();
-          if (promise?.catch) promise.catch(() => {});
-        } catch (_error) {}
+        if (player) this.requestMusicPlayback(player);
       }
-
       return names.length > 0;
     },
 
@@ -2939,7 +2989,9 @@
       if (this.ctx) this.syncBusVolumes(0.08);
 
       if (!this.enabled) {
+        this.lifecyclePausedMusic.clear();
         for (const player of Object.values(this.musicPlayers)) {
+          this.cancelMusicPlayback(player);
           try { player.audio.pause(); } catch (_error) {}
         }
       } else {
@@ -5137,7 +5189,7 @@
       try { audio.unlock(); } catch (_error) {}
       // unlock() is once-only; a later valid gesture must still resume a suspended context.
       if (audio.ctx?.state === "suspended") {
-        try { audio.ctx.resume()?.catch?.(() => {}); } catch (_error) {}
+        audio.resumeContext(true);
       }
     },
 
