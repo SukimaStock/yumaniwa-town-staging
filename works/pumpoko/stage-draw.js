@@ -2,6 +2,45 @@
   'use strict';
   const J = root.PumpkinJourney || require('./journey.js');
   const ease=J.smooth, TAU=Math.PI*2;
+  // One material family for the cut shell, landscape, nursery and ripe fruit.
+  // Drawing data only: nothing here is read by physics or progression.
+  const material = Object.freeze({
+    rindLight: '#738665', rind: '#536c4d', rindDeep: '#3e5942',
+    fleshLight: '#ffda96', flesh: '#efb666', fleshDeep: '#cf924e',
+    cream: '#fff4d9', seedLight: '#fff9e5', seed: '#f2e2b9', seedDeep: '#d6bc89',
+    air: '#faf1dc', airDeep: '#efdfba', far: '#e5e7ce', near: '#ecddba',
+    leaf: '#738b59', leafDeep: '#536f49', shadow: 'rgba(90,68,38,.13)'
+  });
+  const texturePaths = new Map();
+  function mottling(c, x, y, w, h, step, strength) {
+    // Fixed material-space cells; no random/time input, sparkle or moving noise.
+    const hash = n => { const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v); };
+    const cells=[Math.floor(x/step),Math.ceil((x+w)/step),Math.floor(y/step),Math.ceil((y+h)/step)];
+    const key=[...cells,step].join(':');
+    let paths=texturePaths.get(key);
+    if(!paths&&root.Path2D) {
+      paths=[new root.Path2D(),new root.Path2D()];
+      if(texturePaths.size>=32)texturePaths.delete(texturePaths.keys().next().value);
+      texturePaths.set(key,paths);
+      cellsFor((px,py,rx,ry,angle,tone)=>{const p=paths[tone];p.moveTo(px+rx*Math.cos(angle),py+rx*Math.sin(angle));p.ellipse(px,py,rx,ry,angle,0,TAU);});
+    }
+    function cellsFor(draw) {
+      for(let row=cells[2];row<=cells[3];row++)for(let col=cells[0];col<=cells[1];col++) {
+        const n=col+row*137;
+        draw((col+hash(n)*.8)*step,(row+hash(n+71)*.8)*step,
+          .4+hash(n+13)*1.2,.3+hash(n+29)*.6,hash(n+31),hash(n+9)>.45?0:1);
+      }
+    }
+    c.save();c.globalAlpha*=strength;
+    if(paths) {
+      // Two cached compound fills avoid hundreds of per-frame Canvas calls.
+      c.fillStyle='#fff4d9';c.fill(paths[0]);c.fillStyle='#795d38';c.fill(paths[1]);
+    } else cellsFor((px,py,rx,ry,angle,tone)=>{
+      c.beginPath();c.ellipse(px,py,rx,ry,angle,0,TAU);
+      c.fillStyle=tone===0?'#fff4d9':'#795d38';c.fill();
+    });
+    c.restore();
+  }
   function transform(c, s) {
     const v = J.view(s);
     c.translate(v.x, v.y); c.rotate(v.angle); c.scale(v.sx, v.sy);
@@ -28,13 +67,15 @@
         c.save();
         surface(c,samples,lift,bottom);
         const ground = c.createLinearGradient(0,330+lift,0,750+lift);
-        ground.addColorStop(0,'#f4c16c'); ground.addColorStop(.55,'#e5a448'); ground.addColorStop(1,'#ce8c3c');
+        ground.addColorStop(0,material.fleshLight); ground.addColorStop(.55,material.flesh); ground.addColorStop(1,material.fleshDeep);
         c.fillStyle=ground; c.fill();
         c.save(); surface(c,samples,lift,bottom); c.clip();
-        c.beginPath(); for(const [i,p] of samples.entries()) { if(!i)c.moveTo(p.x,p.y+lift+21);else c.lineTo(p.x,p.y+lift+21); }
-        c.strokeStyle='#f9d791'; c.lineWidth=35; c.stroke();
-        c.beginPath(); for(const [i,p] of samples.entries()) { if(!i)c.moveTo(p.x,p.y+lift+76);else c.lineTo(p.x,p.y+lift+76); }
-        c.strokeStyle='rgba(204,135,53,.16)'; c.lineWidth=16; c.stroke();
+        // A broad soft shoulder replaces two diagram-like strata bands.
+        c.beginPath(); for(const [i,p] of samples.entries()) { if(!i)c.moveTo(p.x,p.y+lift+8);else c.lineTo(p.x,p.y+lift+8); }
+        c.strokeStyle='rgba(255,235,185,.065)';
+        for(const width of [104,88,72,56,40,24]) { c.lineWidth=width;c.stroke(); }
+        c.save();c.translate(0,lift);
+        mottling(c,samples[0].x,310,samples.at(-1).x-samples[0].x,520,34,.075);c.restore();
         c.restore();
         // The top line uses the exact sampled collision surface, including walls.
         c.lineCap='round'; c.lineJoin='round';
@@ -43,16 +84,16 @@
         // Visible cut sides bound the same platforms as collision; no bridge.
         c.moveTo(samples[0].x,bottom);c.lineTo(samples[0].x,samples[0].y+lift);
         c.moveTo(samples.at(-1).x,samples.at(-1).y+lift);c.lineTo(samples.at(-1).x,bottom);
-        c.strokeStyle='#647454'; c.lineWidth=7; c.stroke();
+        c.strokeStyle=material.rind; c.lineWidth=7; c.stroke();
         c.beginPath(); for(const [i,p] of samples.entries()) { if(!i)c.moveTo(p.x,p.y+lift+5);else c.lineTo(p.x,p.y+lift+5); }
-        c.strokeStyle='#fff0b8'; c.lineWidth=3; c.stroke();
+        c.strokeStyle=material.cream; c.lineWidth=3; c.stroke();
         for(const kind of ['cushion','polished']) {
           c.beginPath();let pen=false;
           for(const p of samples) {
             if(p.material===kind) { if(!pen)c.moveTo(p.x,p.y+lift+1);else c.lineTo(p.x,p.y+lift+1);pen=true; }
             else pen=false;
           }
-          c.strokeStyle=kind==='cushion'?'#fff0c7':'#ffdf96'; c.lineWidth=kind==='cushion'?10:6;c.stroke();
+          c.strokeStyle=kind==='cushion'?material.seedLight:material.fleshLight; c.lineWidth=kind==='cushion'?10:6;c.stroke();
         }
         c.restore();
       }
@@ -60,17 +101,17 @@
       // Only the two outside walls remain; each gap stays open below its lips.
       c.beginPath();c.moveTo(g.bounds.left,-200);c.lineTo(g.bounds.left,(g.floor(g.bounds.left)?.y||350)+lift);
       if(!openRight) { c.moveTo(g.bounds.right,(g.floor(g.bounds.right)?.y||350)+lift);c.lineTo(g.bounds.right,-200); }
-      c.strokeStyle='#647454';c.lineWidth=7;c.stroke();c.restore();
+      c.strokeStyle=material.rind;c.lineWidth=7;c.stroke();c.restore();
   }
   function drawLoops(c,g) {
     for(const f of g.loops){
       const a=Math.PI/2+f.mouth,b=Math.PI/2-f.mouth+Math.PI*2;
       c.save();c.lineCap='round';
-      c.beginPath();c.arc(f.x,f.y,f.radius+13,a,b);c.strokeStyle='#e8ad53';c.lineWidth=26;c.stroke();
-      c.beginPath();c.arc(f.x,f.y,f.radius+5,a,b);c.strokeStyle='#fff0b8';c.lineWidth=6;c.stroke();
-      c.beginPath();c.arc(f.x,f.y,f.radius,a,b);c.strokeStyle='#647454';c.lineWidth=7;c.stroke();
+      c.beginPath();c.arc(f.x,f.y,f.radius+13,a,b);c.strokeStyle=material.flesh;c.lineWidth=26;c.stroke();
+      c.beginPath();c.arc(f.x,f.y,f.radius+5,a,b);c.strokeStyle=material.cream;c.lineWidth=6;c.stroke();
+      c.beginPath();c.arc(f.x,f.y,f.radius,a,b);c.strokeStyle=material.rind;c.lineWidth=7;c.stroke();
       for(const ramp of f.ramps){const path=(offset)=>{c.beginPath();for(const [i,p]of ramp.entries()){if(i)c.lineTo(p.x,p.y+offset);else c.moveTo(p.x,p.y+offset);}};
-      path(8);c.strokeStyle='#e8ad53';c.lineWidth=16;c.stroke();path(4);c.strokeStyle='#fff0b8';c.lineWidth=5;c.stroke();path(0);c.strokeStyle='#647454';c.lineWidth=7;c.stroke();}
+      path(8);c.strokeStyle=material.flesh;c.lineWidth=16;c.stroke();path(4);c.strokeStyle=material.cream;c.lineWidth=5;c.stroke();path(0);c.strokeStyle=material.rind;c.lineWidth=7;c.stroke();}
       c.restore();
     }
   }
@@ -80,7 +121,7 @@
     // Keep the gameplay seam unchanged as the seeds become plants. Switching
     // its width/opacity used to reveal a suddenly thicker green terrain edge.
     c.beginPath();for(const [i,p]of ps.entries()){if(i)c.lineTo(p.x,p.y+lift+5);else c.moveTo(p.x,p.y+lift+5);}
-    c.strokeStyle='#e1c596';c.lineWidth=14;c.stroke();
+    c.strokeStyle='rgba(255,230,174,.24)';c.lineWidth=14;c.stroke();
     c.restore();
   }
   function leaf(c,x,y,size,angle,color) {
@@ -101,7 +142,7 @@
   function grass(c,x,y,size,angle) {
     c.save();c.translate(x,y+1);c.rotate(angle);
     const color=c.createLinearGradient(0,-12*size,0,2);
-    color.addColorStop(0,'#a4b386');color.addColorStop(1,'#83976c');
+    color.addColorStop(0,material.leaf);color.addColorStop(1,material.leafDeep);
     for(const [lean,scale] of [[-2.4,.40],[-1.5,.47],[-.6,.36]])
       leaf(c,0,0,size*scale,lean,color);
     c.restore();
@@ -109,19 +150,25 @@
   function smoothGrass(reward,slot) { return ease((reward-(slot-1)*.22)/.45)*.78; }
   function fruit(c,x,y,size,id,zoom=0) {
     c.save();c.translate(x,y);c.rotate((id%3-1)*.045*(1-zoom));c.scale(size,size);
-    c.fillStyle='rgba(93,68,32,.12)';c.beginPath();c.ellipse(1,13,16,3,0,0,TAU);c.fill();
+    c.fillStyle=material.shadow;c.beginPath();c.ellipse(1,13,16,3,0,0,TAU);c.fill();
     // A single plump silhouette, with broad lobes instead of outlined ribs.
     c.beginPath();c.moveTo(0,-12);
     c.bezierCurveTo(8,-18,20,-12,20,-1);c.bezierCurveTo(21,9,11,16,0,13);
     c.bezierCurveTo(-11,16,-21,9,-20,-1);c.bezierCurveTo(-20,-12,-8,-18,0,-12);c.closePath();
     const body=c.createLinearGradient(-12,-14,12,15);
-    body.addColorStop(0,'#ffc574');body.addColorStop(.55,'#f5ac56');body.addColorStop(1,'#e59445');
+    body.addColorStop(0,material.fleshLight);body.addColorStop(.55,material.flesh);body.addColorStop(1,material.fleshDeep);
     c.fillStyle=body;c.fill();c.save();c.clip();
     c.beginPath();c.ellipse(-10,0,9,15,-.10,0,TAU);c.fillStyle='rgba(255,215,142,.30)';c.fill();
     c.beginPath();c.ellipse(2,1,9,15,0,0,TAU);c.fillStyle='rgba(255,198,112,.38)';c.fill();
+    // Local diffuse shade rounds the underside without outlining every rib.
+    const shade=c.createLinearGradient(0,2,0,16);
+    shade.addColorStop(0,'rgba(107,77,38,0)');
+    shade.addColorStop(1,'rgba(107,77,38,.16)');
+    c.fillStyle=shade;c.fillRect(-22,-18,44,36);
+    mottling(c,-22,-18,44,36,5,.08);
     c.restore();
     c.beginPath();c.moveTo(-2,-12);c.quadraticCurveTo(-4,-18,1+id%2,-20);
-    c.strokeStyle='#698253';c.lineWidth=4.5;c.lineCap='round';c.stroke();
+    c.strokeStyle=material.rind;c.lineWidth=4.5;c.lineCap='round';c.stroke();
     c.beginPath();c.ellipse(-6,-7,3.8,2.2,-.45,0,TAU);c.fillStyle='rgba(255,233,183,.48)';c.fill();c.restore();
   }
   function drawPlants(c,s,returnShell) {
@@ -142,10 +189,10 @@
       // A small upright shoot relaxes into a low sideways vine, never a pedestal.
       c.beginPath();c.moveTo(0,1);
       c.quadraticCurveTo(-dx*.5,-10*sprout,dx*leaves,(dy+13*p.size)*leaves-2);
-      c.strokeStyle='#607b4e';c.lineWidth=2+leaves*.8;c.lineCap='round';c.stroke();
+      c.strokeStyle=material.leafDeep;c.lineWidth=2+leaves*.8;c.lineCap='round';c.stroke();
       const sway=Math.sin(s.ending.elapsed*1.1+a.id*1.7)*.025*leaves;
-      leaf(c,-4-8*reward,-5-2*reward,(.28*sprout+.40*leaves)*density*(1+.28*reward),-.5-.9*reward+sway,'#758f59');
-      leaf(c,5+12*reward,-7,(.24*sprout+.38*leaves)*density*(1+.25*reward),-2.5+2.2*reward-sway,'#5f7d51');
+      leaf(c,-4-8*reward,-5-2*reward,(.28*sprout+.40*leaves)*density*(1+.28*reward),-.5-.9*reward+sway,material.leaf);
+      leaf(c,5+12*reward,-7,(.24*sprout+.38*leaves)*density*(1+.25*reward),-2.5+2.2*reward-sway,material.leafDeep);
       if(grow>0) {
         const settling=1+.055*Math.sin(Math.max(0,age-2.35)*9)*Math.exp(-Math.max(0,age-2.35)*3.5);
         // Bottom stays on the soil while the fruit swells, instead of lifting it.
@@ -178,14 +225,14 @@
     // The tabletop opens into cream space as the same cut surface fills the view.
     c.save(); c.globalAlpha = o*(1-mix);
     const sky = c.createLinearGradient(0, 0, 0, 740);
-    sky.addColorStop(0, '#faf2d5'); sky.addColorStop(.58, '#fff3cf'); sky.addColorStop(1, '#efd8a4');
+    sky.addColorStop(0, material.air); sky.addColorStop(.58, material.cream); sky.addColorStop(1, material.airDeep);
     c.fillStyle = sky; c.fillRect(0, 0, 390, 740);
     // Broad distant curves, separated from the foreground; no hollow or tube.
-    c.fillStyle = '#d8dec0';
+    c.fillStyle = material.far;
     c.beginPath(); c.moveTo(-100,740);
     for(let x=-100;x<=490;x+=10) c.lineTo(x, 475 + Math.sin((x+s.camera.x*.16)/260)*52);
     c.lineTo(490,740); c.closePath(); c.fill();
-    c.fillStyle = '#ecd5a0';
+    c.fillStyle = material.near;
     c.beginPath(); c.moveTo(-100,740);
     for(let x=-100;x<=490;x+=10) c.lineTo(x, 560 + Math.sin((x+s.camera.x*.28)/210+.8)*34);
     c.lineTo(490,740); c.closePath(); c.fill(); c.restore();
@@ -212,7 +259,7 @@
     drawPlants(c,s,returnShell);
     c.restore();
   }
-  const api={ draw, drawTerrain, drawLoops, drawFarm, drawPlants, drawSeeds, grassPoses };
+  const api={ material, mottling, draw, drawTerrain, drawLoops, drawFarm, drawPlants, drawSeeds, grassPoses };
   root.PumpkinStageDraw=api;
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
