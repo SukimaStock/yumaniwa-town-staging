@@ -199,6 +199,14 @@
       "path": "works/mixed-note",
       "status": "active",
       "title": "日英の下書き · 試作"
+    },
+    {
+      "id": "orbit-02",
+      "path": "works/orbit-02",
+      "status": "active",
+      "title": "ORBIT / 02",
+      "family": "ORBIT",
+      "theme": "Echoを持ち帰り、HOMEで記憶を振り返る"
     }
   ]
 }
