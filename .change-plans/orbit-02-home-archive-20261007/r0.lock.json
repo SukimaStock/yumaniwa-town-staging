@@ -1,0 +1,131 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c01a85c55a92c7c43e019db3b5f8664ad69e23e5580cba34b55565c7b80bc3c5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "orbit-02-home-archive-20261007",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Clone ORBIT into an isolated Phase 1 HOME Echo Archive prototype; stop at Draft PR",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "409964eae518cd92e73a177c8c85a24020b929a6",
+    "canonicalSources": [
+      "User Phase 1 instruction 2026-10-07",
+      "works/orbit",
+      "data/work-lifecycle.json",
+      "AGENTS.md",
+      "CHANGE-PLAN.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/orbit-02-home-archive-20261007/r0.lock.json",
+      "works/orbit-02/**",
+      "data/work-lifecycle.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/orbit/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "lab/**"
+    ],
+    "expectedChanges": [
+      "Byte-preserving ORBIT clone except work-local archive runtime/text/save namespace/export identity/docs/tests",
+      "HOME-only paged Archive reuses original Echo display; first interpretation moves from discovery to HOME",
+      "Persist interpreted indices and one RETURN/WAIT resonance; optional-field migration in unchanged HOME v3/MEMORY v1 schema",
+      "Replay cannot rediscover or duplicate DATA/resources/first-time events; final Echo interpretation gates existing Finale",
+      "Append active staging-only lifecycle entry; all existing entries preserved"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes complete Phase 1, safe save extension/migration, one RETURN/WAIT link; Draft PR only"
+    ],
+    "hqDecisions": [
+      "Work-local optional fields preserve existing two-layer localStorage contracts; isolate new identity namespace to prevent old-work save writes. No shared runtime/API/launch change. Full SYSTEM floor for lifecycle JSON."
+    ],
+    "rulesApplied": [
+      "Full floor for data/work-lifecycle.json and LAB under current risk policy; work-local runtime remains WORK",
+      "Plan Lock first commit; Scope then Risk then Impact",
+      "Frozen works untouched; active/staging-only default; no town/SEO publication"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "new-game-flight",
+      "home-archive-replay",
+      "return-wait-resonance",
+      "continue-migration",
+      "mobile-ja-en",
+      "physical-iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated PR and its single lifecycle entry; original work and keys remain unchanged.",
+    "outOfScope": [
+      "Production/merge/deploy",
+      "Existing ORBIT/Engine/Codea changes",
+      "Debris/new logs/chapters/missions/economy/upgrades",
+      "Town/SEO registration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and subjective return-home motivation"
+    ],
+    "problem": "Echo meanings complete at discovery while HOME Archive is display-only",
+    "currentContract": "Original ORBIT fixed 12 memories, two-layer HOME v3 and MEMORY v1, native terminal modes, existing SSE 0.2 and Codea untouched",
+    "whyExistingIsInsufficient": "HOME cannot browse or reinterpret memories",
+    "design": "Archive mode: four slots per page, dim undiscovered slots, faint new-memory mark, original timed Echo overlay; HOME first interpretation and a single quiet RETURN/WAIT resonance",
+    "alternativesRejected": [
+      "New web UI overlay",
+      "Automatic replay on return",
+      "Shared runtime edits",
+      "Original save namespace collision"
+    ],
+    "migration": "Optional interpreted indices fall back to legacy read indices; new saves explicitly include empty arrays; pair-state persists. New work has separate storage namespace.",
+    "compatibility": "12 existing Echo texts, physics/planets/RESTORE/MiniMap/rituals unchanged; old-shaped save data accepted in new namespace",
+    "boundaryCases": [
+      "0/1/12 discoveries",
+      "Repeated replay/no double progression",
+      "Return after rescue/unread Echo",
+      "Latest MEMORY merged over older HOME",
+      "Finale before/after last interpretation",
+      "Narrow portrait/landscape and ja/en",
+      "Save failure and interrupted playback"
+    ],
+    "testPlan": [
+      "Real runtime state-machine tests with original class loaded in VM",
+      "Browser bootstrap and native touch flows when browser executable available",
+      "Preservation comparison and physics/RESTORE/Finale regressions",
+      "Scope Risk Impact trusted syntax and lifecycle tests"
+    ],
+    "promotionRisk": "None: active staging-only and Draft PR without merge/deploy"
+  }
+}

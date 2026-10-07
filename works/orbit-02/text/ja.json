@@ -1,0 +1,601 @@
+{
+  "_meta": {
+    "locale": "ja",
+    "version": 40,
+    "note": "ORBIT Web Japanese runtime text. v2.9.20 slows the final E.V.E. explanation, restores the four-beat true ending, and gates INCIDENT signals until E.V.E. finishes the ASTRA introduction. Existing OGG cues remain unchanged."
+  },
+  "meta": {
+    "documentTitle": "ORBIT — Silent Reboot / Web v2.9.20"
+  },
+  "title": {
+    "title": "O R B I T",
+    "subtitle": "Silent Reboot",
+    "continue": "つづける",
+    "newOrbit": "はじめる"
+  },
+  "hud": {
+    "fuel": "FUEL {current}/{max}",
+    "saved": "SAVED",
+    "echo": "ECHO {found}/{total}",
+    "fuelPickup": "+{amount} FUEL",
+    "memoryFragment": "",
+    "eveLabel": "E.V.E.",
+    "echoLabel": "ECHO"
+  },
+  "system": {
+    "boot": "SYSTEM BOOT",
+    "eveOnline": "E.V.E. ONLINE.",
+    "emergencyReturn": "EMERGENCY RETURN",
+    "echoRecovered": "ECHO {index} RECOVERED",
+    "returnedHome": "RETURNED HOME",
+    "restoreLevel": "RESTORE LEVEL {level}",
+    "oreRecovered": "ORE RECOVERED",
+    "fuelRecovered": "FUEL RECOVERED",
+    "departedHome": "DEPARTED HOME"
+  },
+  "home": {
+    "terminalTitle": "BASE OPERATIONS TERMINAL",
+    "labels": {
+      "systemLink": "SYSTEM LINK",
+      "restore": "RESTORE",
+      "echoArchive": "ECHO ARCHIVE",
+      "ore": "ORE",
+      "data": "DATA",
+      "status": "STATUS",
+      "incidentArchive": "INCIDENT ARCHIVE"
+    },
+    "values": {
+      "online": "ONLINE",
+      "restoreReady": "RESTORE READY",
+      "waitingResources": "WAITING FOR RESOURCES",
+      "restoreComplete": "RESTORE COMPLETE"
+    },
+    "restoreButton": {
+      "ready": "RESTORE SYSTEM",
+      "locked": "RESTORE LOCKED",
+      "complete": "RESTORE COMPLETE"
+    },
+    "disconnect": "X DISCONNECTS TERMINAL",
+    "launchInstruction": "HOLD 1 SEC AFTER DISCONNECT TO LAUNCH",
+    "confirmTitle": "CONFIRM",
+    "confirmQuestion": "START RESTORE SEQUENCE?",
+    "yes": "YES",
+    "no": "NO",
+    "restoreReport": {
+      "complete": "RESTORE COMPLETE",
+      "baseCore": "BASE CORE      : LEVEL {level}",
+      "shipFrame": "SHIP FRAME     : {status}",
+      "eveLanguage": "E.V.E. LANGUAGE: {status}",
+      "fuelCapacity": "FUEL CAPACITY  : {prev} > {curr}",
+      "oreCapacity": "ORE CAPACITY   : {prev} > {curr}",
+      "navRange": "NAV RANGE      : {prev} > {curr}",
+      "homeFix": "HOME FIX       : {prev} > {curr}",
+      "accessBand": "ACCESS BAND    : LEVEL {level} ONLINE",
+      "degrees": "{value} DEG",
+      "precise": "PRECISE",
+      "fullyRestored": "FULLY RESTORED",
+      "updated": "UPDATED",
+      "completeStatus": "COMPLETE",
+      "baseSystemUpdated": "BASE SYSTEM     : UPDATED",
+      "systemsUpdated": "SYSTEMS         : UPDATED",
+      "navigationUpdated": "NAVIGATION      : UPDATED",
+      "systemStable": "SYSTEM STATUS   : STABLE"
+    },
+    "boot": {
+      "baseTerminal": "BASE // TERMINAL",
+      "systemLinkSlow": "SYSTEM LINK ....",
+      "retry": "RETRY",
+      "systemConnectedSlow": "SYSTEM LINK .... CONNECTED",
+      "terminalOnlineSlow": "TERMINAL .... ONLINE",
+      "systemConnected": "SYSTEM LINK ... CONNECTED",
+      "terminalOnline": "TERMINAL ... ONLINE",
+      "systemConnectedFast": "SYSTEM LINK .. CONNECTED",
+      "online": "ONLINE",
+      "linkEstablished": "LINK ESTABLISHED"
+    },
+    "restoreLink": {
+      "channel": "BASE // RESTORE CHANNEL",
+      "connecting": "RESTORE LINK",
+      "connected": "CONNECTED"
+    }
+  },
+  "eve": {
+    "phase": {
+      "1": {
+        "short": "...DOCKING... OK.",
+        "normal": "...WELCOME... BACK...",
+        "long": "...PILOT... RETURNED.\n...ANALYZING...",
+        "lowFuel": "...FUEL... LOW..."
+      },
+      "2": {
+        "short": "Docking complete.\nAll systems stable.",
+        "normal": "Welcome back.\nSystem check: OK.",
+        "long": "Welcome back, Pilot.\nLong range scan... complete.",
+        "lowFuel": "Fuel low.\nReturn recommended."
+      },
+      "3": {
+        "short": "ドッキング カンリョウ。\nキタイ ジョウキョウ: セイジョウ。",
+        "normal": "キカン ヲ カクニン。\nシステム チェック OK。",
+        "long": "キカン ヲ カクニン。\nスキャン データ ヲ カイセキ チュウ。",
+        "lowFuel": "ネンリョウ ザンリョウ テイカ。\nキカン ヲ スイショウ。"
+      },
+      "4": {
+        "short": "どっきんぐ かんりょう。\nふねの ちょうし、だいじょうぶ そうです。",
+        "normal": "おかえりなさい。きずは ありませんか？",
+        "long": "あ……おかえりなさい！\nすこし……おそかった ですね。",
+        "lowFuel": "ねんりょうが すくないです。\nむりしないで、もどりましょう。"
+      },
+      "5": {
+        "short": "ドッキング完了。\n機体各部、すべて正常です。",
+        "normal": "お帰りなさい。各系統、正常です。",
+        "long": "お帰りなさい、パイロット。\n……少し、遅かったですね。",
+        "lowFuel": "燃料が少なくなっています。\n無理をせず、一度戻りましょう。"
+      }
+    },
+    "idle": {
+      "1": [
+        "... ... ...",
+        "...QUERY: ...PENGUIN...?",
+        "...STAR... MANY...",
+        "...PILOT... THERE...?"
+      ],
+      "2": [
+        "Query: Why... sky... dark?",
+        "Calculating... trajectory... optimal.",
+        "Stars... too many... to count.",
+        "Fuel level... acceptable."
+      ],
+      "3": [
+        "スベテノ ... システム... グリーン。",
+        "...シンゴウ ヲ ... ジュシン...",
+        "ホシ ノ カズ...ケイソク フノウ。",
+        "ネンリョウ...モンダイ ナシ。"
+      ],
+      "4": [
+        "きょうは いい てんき……？ ううん、ずっと よる……。",
+        "あの ほし、きれいですね。",
+        "つうしん、せいじょうです。……ただ かくにん しただけです。",
+        "ねんりょう、まだ だいじょうぶです。",
+        "ほしの かず、まだ かぞえきれません。"
+      ],
+      "5": [
+        "……あの星、ずいぶん明るいですね。",
+        "燃料計、ちゃんと見ていますか？ ……念のためです。",
+        "通信、正常です。……特に用はありません。ただ、確認しただけです。",
+        "次の星は、どんな場所でしょう。……少し楽しみです。",
+        "星を数えるのは諦めました。……終わりそうにないので。",
+        "あなたの操縦、少し癖がありますね。……前からでした。",
+        "今の、流れ星でしょうか。……願い事、間に合いましたか？",
+        "……ペンギンって、宇宙を飛べると思いますか？"
+      ]
+    },
+    "landing": {
+      "1": {
+        "mine": [
+          "...MINE... PLANET...",
+          "...RESOURCE... DETECTED..."
+        ],
+        "data": [
+          "...DATA... PLANET...",
+          "...SIGNAL... DETECTED..."
+        ],
+        "refuel": [
+          "...FUEL... PLANET...",
+          "...SAFE... REFUEL..."
+        ]
+      },
+      "2": {
+        "mine": [
+          "Mine planet. Resources likely.",
+          "Mineral signals detected."
+        ],
+        "data": [
+          "Data signals detected.",
+          "Readings are noisy."
+        ],
+        "refuel": [
+          "Fuel source confirmed. Landing stable.",
+          "Refueling planet. Stable."
+        ]
+      },
+      "3": {
+        "mine": [
+          "コウブツ ワクセイ。シゲン カクホ カノウ。",
+          "コウブツ ハンノウ ヲ ケンチ。"
+        ],
+        "data": [
+          "データ シンゴウ ケンチ。ノイズ アリ。",
+          "コノ ワクセイ ノ データ...カイセキ ヲ カイシ。"
+        ],
+        "refuel": [
+          "ネンリョウ ゲン カクニン。チャクリク...アンテイ。"
+        ]
+      },
+      "4": {
+        "mine": [
+          "ここ、しげんが たくさん とれそうです。",
+          "きらきら したもの、いっぱいです。"
+        ],
+        "data": [
+          "ふしぎな かんじが します……。",
+          "なんだか……すこし さむい ばしょですね。"
+        ],
+        "refuel": [
+          "ふう。あんぜんな ばしょ ですね。",
+          "ここで すこし、きゅうけい できます。"
+        ]
+      },
+      "5": {
+        "mine": [
+          "この惑星は資源の宝庫ですね。",
+          "鉱物反応を確認しました。採掘可能です。"
+        ],
+        "data": [
+          "この惑星……古いデータが眠っている気がします。",
+          "データ反応を確認。微弱なノイズがあります。"
+        ],
+        "refuel": [
+          "安全な燃料補給地点です。安定しています。",
+          "エネルギー反応、安定。補給を開始します。"
+        ]
+      }
+    },
+    "collision": {
+      "1": [
+        "...WARNING... IMPACT.",
+        "...COLLISION... DETECTED..."
+      ],
+      "2": [
+        "Impact detected.",
+        "Pilot... are you okay?"
+      ],
+      "3": [
+        "ショウゲキ ケンチ。",
+        "パイロット...ダイジョウブ デスカ。"
+      ],
+      "4": [
+        "っ……！ いまの、しょうげき……！",
+        "だいじょうぶ ですか？ びっくりしました……"
+      ],
+      "5": [
+        "衝撃を検知。……大丈夫ですか？",
+        "今のは少し強かったですね。機体を確認します。"
+      ]
+    },
+    "echoAnalysis": {
+      "1": "...DATA... ANALYSIS...",
+      "2": "Analyzing recovered data...",
+      "3": "カイシュウ データ ヲ カイセキ...",
+      "4": "でーたを かいせき しています……",
+      "5": "回収データを解析しています。"
+    },
+    "echoReactions": {
+      "1": [
+        "...KNOWN...?",
+        "...MEMORY...?",
+        "...FAMILIAR...?",
+        "...RETURNING...?",
+        "...ALL... ECHO..."
+      ],
+      "2": [
+        "This... feels familiar.",
+        "...A memory?",
+        "I remember... something.",
+        "Something... is returning.",
+        "All Echoes... recovered.\n...Let's go home."
+      ],
+      "3": [
+        "コノ キオク...シッテイル...?",
+        "ナニカ...オモイダシソウ...",
+        "スコシ...モドッテキテイル。",
+        "モウスコシ...",
+        "エコー...ゼンブ。\n...カエリマショウ。"
+      ],
+      "4": [
+        "この きおく……しっている きがします。",
+        "……なにか、おもいだせそうです。",
+        "……すこしずつ、もどってきています。",
+        "……もうすこしで、わかりそうです。",
+        "ぜんぶ、そろいました。\n……かえりましょう。"
+      ],
+      "5": [
+        "この記憶……知っている気がします。",
+        "……何か、思い出せそうです。",
+        "……少しずつ、戻ってきています。",
+        "……もう少しで、分かりそうです。",
+        "……これで、全部です。\n……帰りましょう。"
+      ]
+    },
+    "echoReturn": {
+      "1": "...WELCOME... BACK...",
+      "2": "Welcome back.",
+      "3": "オカエリナサイ。",
+      "4": "おかえりなさい。",
+      "5": "お帰りなさい。"
+    },
+    "restoreDeparture": {
+      "2": "I can see... farther now.",
+      "3": "ホシガ...マエヨリ トオク マデ ミエル。",
+      "4": "そらが、まえより ひろく みえます。",
+      "5": "……あの星まで、行けそうですね。"
+    },
+    "farewell": "……いってらっしゃい。",
+    "astraIdle": {
+      "1": [
+        "...QUIET..."
+      ],
+      "2": [
+        "We can stay... a little."
+      ],
+      "3": [
+        "ココ...シズカ。"
+      ],
+      "4": [
+        "もうすこしだけ、ほしを みていきませんか？"
+      ],
+      "5": []
+    },
+    "rescueReturn": {
+      "1": "...PILOT... RETURNED...\n...SAFE...",
+      "2": "Pilot... returned.\nFuel... zero. Please... be careful.",
+      "3": "キカン ヲ カクニン。\n……ムチャ ハ、シナイデ。",
+      "4": "……もどって きましたね。\nつぎは、もうすこし はやく かえりましょう。",
+      "5": "……お帰りなさい。\n次は、もう少し早く帰ってきてくださいね。"
+    },
+    "firstFlightHint": "...HOME... SIGNAL...\n...RESTORE...?"
+  },
+  "echo": {
+    "header": "ECHO {index}/{total}",
+    "memories": [
+      {
+        "id": "voice",
+        "key": "VOICE",
+        "lines": [
+          "「……聞こえるか？」",
+          "音声入力を確認。"
+        ]
+      },
+      {
+        "id": "return",
+        "key": "RETURN",
+        "lines": [
+          "「ただいま」",
+          "ドッキング完了。\n……お帰りなさい、パイロット。"
+        ]
+      },
+      {
+        "id": "routine",
+        "key": "ROUTINE",
+        "lines": [
+          "「また燃料、\nぎりぎりまで使っちゃった」",
+          "警告は出していました。\n次はもう少し早く。"
+        ]
+      },
+      {
+        "id": "silence",
+        "key": "SILENCE",
+        "lines": [
+          "「…………」",
+          "今日は何も話さなかった。\nそれでも通信は切らなかった。"
+        ]
+      },
+      {
+        "id": "laugh",
+        "key": "LAUGH",
+        "lines": [
+          "「ペンギンって、\n宇宙飛べると思う？」",
+          "……意味不明な問い。\nあなたは笑っていた。"
+        ]
+      },
+      {
+        "id": "depart",
+        "key": "DEPART",
+        "lines": [
+          "「じゃあ、行ってくる」",
+          "航路を開きます。\nどうかご無事で。"
+        ]
+      },
+      {
+        "id": "wait",
+        "key": "WAIT",
+        "lines": [
+          "「…………」",
+          "帰還予定時刻を超過。\n……待機を継続します。"
+        ]
+      },
+      {
+        "id": "worry",
+        "key": "WORRY",
+        "lines": [
+          "「応答、遅れてすまない」",
+          "警告を三度送信。\n四度目は……送信しませんでした。"
+        ]
+      },
+      {
+        "id": "name",
+        "key": "NAME",
+        "lines": [
+          "「E.V.E.って呼びにくいから、\nイヴでいい？」",
+          "……未登録の呼称です。\nですが登録しました。"
+        ]
+      },
+      {
+        "id": "promise",
+        "key": "PROMISE",
+        "lines": [
+          "「少し遠くまで\n行ってくる」"
+        ]
+      },
+      {
+        "id": "keep",
+        "key": "KEEP",
+        "lines": [
+          "「これだけは、\nなくしたくないんだ」",
+          "「……預かってくれる？」"
+        ]
+      },
+      {
+        "id": "echo",
+        "key": "ECHO",
+        "lines": [
+          "「イヴ、全部バックアップしてくれ」",
+          "……了解。\n必ず、あなたにお返しします。"
+        ]
+      }
+    ]
+  },
+  "finale": {
+    "outro": "……お帰りなさい。",
+    "connected": "……すべて、繋がりました。",
+    "accident1": "あの日、あなたは\n記憶と感情を、私に預けました。",
+    "accident2": "失われないように、\n私はそれをECHOとして、星の海へ残しました。",
+    "accident3": "あなたが拾い集めてきたECHOは、\nどれも、あなた自身の欠片です。",
+    "returnMemory": "あなたを、あなた自身に。",
+    "returnLead": "……お返しします。"
+  },
+  "ritual": {
+    "shellLabel": "ORBIT / RESTORE",
+    "responseLabel": "[ E.V.E. ]",
+    "responseHint": "タップして続ける",
+    "wake": {
+      "name": "WAKE",
+      "response": "...PULSE... STABLE...",
+      "instruction": "タップする"
+    },
+    "link": {
+      "name": "LINK",
+      "response": "ツウシン...トオッタ。",
+      "instruction": "右回りになぞる"
+    },
+    "memory": {
+      "name": "MEMORY",
+      "response": "……きこえます。\nまえより、はっきり。",
+      "instruction": "光をなぞる"
+    },
+    "resonance": {
+      "name": "RESONANCE",
+      "response": "……ノイズが、消えました。",
+      "instruction": "点を順につなぐ"
+    },
+    "rebirth": {
+      "name": "REBIRTH",
+      "response": "……応答、確認しました。",
+      "instruction": "中央を長押しする"
+    }
+  },
+  "dataAnalysis": {
+    "title": "DATA ANALYSIS",
+    "analyzing": "E.V.E. ANALYZING...",
+    "complete": "ANALYSIS COMPLETE",
+    "echoDetected": "ECHO DETECTED",
+    "noEcho": "NO ECHO TRACE"
+  },
+  "credits": {
+    "lines": [
+      "O R B I T",
+      "Silent Reboot",
+      "",
+      "Created by",
+      "SukimaStock",
+      "",
+      "Thank you for drifting."
+    ]
+  },
+  "prologue": {
+    "reboot": "SYSTEM REBOOT",
+    "navigation": "NAVIGATION ........ ERROR",
+    "coreLink": "CORE LINK ......... LOST",
+    "eve": "E.V.E. ............ PARTIAL",
+    "pilot": "PILOT ............. ?",
+    "pilotBase": "PILOT .............",
+    "pilotUnknown": "PILOT ............. ?"
+  },
+  "incident": {
+    "header": "INCIDENT LOG // {code}",
+    "introWait": "……待ってください。",
+    "introSignal": "ASTRAから、微弱な記録信号。",
+    "siteFound": "……ここです。",
+    "complete": "……これで、残っていた記録はすべてです。",
+    "returnHome": "……帰りましょう。",
+    "unknownSignal": "UNKNOWN SIGNAL ........ DETECTED",
+    "logs": [
+      {
+        "code": "02",
+        "lines": [
+          "NAVIGATION OFFSET: +0.031",
+          "+0.084",
+          "+0.217",
+          "E.V.E.: 「……航路を外れています。」",
+          "PILOT: 「分かってる。もう少しだけ。」"
+        ]
+      },
+      {
+        "code": "04",
+        "lines": [
+          "UNKNOWN SIGNAL",
+          "SOURCE: NOT FOUND",
+          "DISTANCE: ---",
+          "E.V.E.: 「この信号……どこから？」"
+        ]
+      },
+      {
+        "code": "07",
+        "lines": [
+          "CORE LINK: UNSTABLE",
+          "RETURN WINDOW: 00:02:41",
+          "E.V.E.: 「戻りましょう。」",
+          "PILOT: 「……うん。帰ろう。」"
+        ]
+      },
+      {
+        "code": "09",
+        "lines": [
+          "MEMORY BACKUP REQUEST",
+          "TARGET: PILOT",
+          "PRIORITY: CRITICAL",
+          "PILOT: 「これだけは、なくしたくないんだ。」",
+          "E.V.E.: 「……了解。預かります。」"
+        ]
+      },
+      {
+        "code": "11",
+        "lines": [
+          "CORE LINK LOST",
+          "NAVIGATION LOST",
+          "DISTRIBUTED BACKUP: EXECUTING",
+          "NODE 01 ... SENT",
+          "NODE 02 ... SENT",
+          "NODE 03 ...",
+          "---",
+          "HOME SIGNAL: ACQUIRED",
+          "E.V.E.: 「……帰ります。」"
+        ]
+      }
+    ],
+    "trueEnding": {
+      "line1": "……あの日も、帰ろうとしていたんですね。",
+      "line2": "私も、あなたを帰そうとしていました。",
+      "line3": "……今度は、帰ってこられました。",
+      "line4": "……お帰りなさい、パイロット。"
+    },
+    "signalNear": "……信号源、この近くです。"
+  },
+  "archive": {
+    "back": "戻る",
+    "hint": "淡い光は、まだここで見ていない記憶。",
+    "resonanceByLevel": {
+      "1": "...WAIT...",
+      "2": "...I waited.",
+      "3": "……マッテイタ。",
+      "4": "……まっていた。",
+      "5": "……待っていた。"
+    },
+    "completeByLevel": {
+      "1": "...ALL... HERE...",
+      "2": "All Echoes... here.",
+      "3": "……ゼンブ、ココニ。",
+      "4": "……ぜんぶ、ここに。",
+      "5": "……全部、ここに。"
+    }
+  }
+}

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#080a10">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>ORBIT — Silent Reboot</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #080a10;
+      overscroll-behavior: none;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    body *,
+    #ritualHost {
+      -webkit-user-select: none !important;
+      user-select: none !important;
+      -webkit-touch-callout: none !important;
+      -webkit-user-drag: none !important;
+    }
+
+    #gameCanvas {
+      position: fixed;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      opacity: 1;
+      transition: opacity 120ms linear;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-user-drag: none;
+    }
+
+    #ritualHost {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: block;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      background: #090c12;
+    }
+    #ritualHost.active {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas"></canvas>
+  <div id="ritualHost" aria-hidden="true"></div>
+
+  <!-- Locale data is loaded before any game module reads display copy. -->
+  <script src="orbit-text.js?v=orbit-02-phase1"></script>
+
+  <!-- Low-level Codea-compatible canvas runtime -->
+  <script src="codea-lite.js?v=2.7.8"></script>
+
+  <!-- Canonical SukimaStock Engine v0.2; local copy remains temporarily for itch/export rollback. -->
+  <script data-sse-engine src="../../engine/sukimastock-engine.v0.2.0.js?v=20260922-orbit-canary"></script>
+
+  <script>
+    (async () => {
+      const loadScript = (src) => new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = () => reject(new Error("Failed to load " + src));
+        document.body.appendChild(script);
+      });
+
+      await OrbitText.load();
+      await loadScript("orbit-sound-config.js?t=" + Date.now());
+      await loadScript("restore-ritual-inline.js?v=2.7.27");
+      await loadScript("sketch.js?v=orbit-02-phase1");
+      CodeaLite.start("gameCanvas");
+    })().catch((error) => {
+      console.error("ORBIT bootstrap failed", error);
+    });
+  </script>
+</body>
+</html>
