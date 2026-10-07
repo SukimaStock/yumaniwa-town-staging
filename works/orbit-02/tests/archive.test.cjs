@@ -105,7 +105,7 @@ test('copied flight simulation and RESTORE costs/caps match Game Jam edition',()
  for(let l=1;l<=5;l++) {for(const a of [original,copy]){a.world.base.level=l;a.world.applyRestoreCaps(l,false)};assert.equal(JSON.stringify(copy.world.nextBaseRepairCost()),JSON.stringify(original.world.nextBaseRepairCost()));assert.equal(JSON.stringify(copy.world.resources),JSON.stringify(original.world.resources));}
 });
 test('all original Echo text/locales, planets, MiniMap, Codea and Engine copies preserved',()=>{
- for(const lang of ['ja','en']) {const a=load({locale:lang}),b=load({locale:lang,work:path.resolve(root,'../orbit')});delete a.data.archive;assert.deepEqual(a.data.echo,b.data.echo);a.data.eve.landing['3'].data[1]=b.data.eve.landing['3'].data[1];assert.deepEqual(a.data,b.data);assert.equal(JSON.stringify(a.world.fixedPlanets),JSON.stringify(b.world.fixedPlanets));assert.equal(a.World.prototype.drawMiniMap.toString(),b.World.prototype.drawMiniMap.toString());assert.equal(a.World.prototype.drawEchoMemory.toString(),b.World.prototype.drawEchoMemory.toString());}
+ for(const lang of ['ja','en']) {const a=load({locale:lang}),b=load({locale:lang,work:path.resolve(root,'../orbit')});delete a.data.archive;assert.deepEqual(a.data.echo,b.data.echo);a.data.eve.landing['3'].data[1]=b.data.eve.landing['3'].data[1];assert.deepEqual(a.data,b.data);assert.equal(JSON.stringify(a.world.fixedPlanets),JSON.stringify(b.world.fixedPlanets));assert.equal(a.World.prototype.drawMiniMap.toString(),b.World.prototype.drawMiniMap.toString());}
  for(const file of ['codea-lite.js','sukimastock-engine.js','restore-ritual-inline.js']) assert.equal(fs.readFileSync(path.join(root,file),'utf8'),fs.readFileSync(path.resolve(root,'../orbit',file),'utf8'));
 });
 
@@ -198,4 +198,32 @@ for(const stage of ['receiving','analyzing','deposit','reading'])test('CONTINUE 
  for(let i=0;i<1000&&!reached();i++)w.updateNarrative(1/60);assert.ok(reached());
  const b=load({storage:a.storage});assert.equal(b.world.loadGame(),true);home(b.world);tick(b.world);
  assert.equal(b.world.echoes.found,1);assert.equal(b.world.resources.data,1);assert.equal(b.world.dataSignals.pendingAnalysis.size,0);assert.equal(b.world.dataSignals.decoded.size,1);assert.ok(b.world.echoes.interpreted.has(1));
+});
+
+test('all 12 ja/en memories remain inside the native terminal and return to Archive',()=>{
+ for(const locale of ['ja','en']) {
+  const a=load({locale}),w=a.world;home(w);w.echoes.found=12;w.openEchoArchive();
+  const L=w.homeTerminalLayout();
+  const left=L.x+3,right=L.x+L.w-3,bottom=L.y+3,top=L.y+L.h-L.titleH-2;
+  for(let index=1;index<=12;index++) {
+   w.eve.timer=0;assert.notEqual(w.startEchoMemory(index,'archive'),false);w.echoStory.timer=3;
+   a.drawing.length=0;w.drawHomeMemoryBackdrop();w.drawHomeTerminal();w.drawEchoMemory();
+   assert.ok(a.drawing.some(c=>c[0]==='text'&&c[1]===a.data.home.terminalTitle));
+   const authored=a.data.echo.memories[index-1].lines.flatMap(line=>line.split('\n'));
+   for(const line of authored) {
+    const call=a.drawing.find(c=>c[0]==='text'&&c[1]===line);assert.ok(call,locale+' Echo '+index+' retains '+line);
+    assert.ok(call[2]>left+12&&call[2]<right-12&&call[3]>bottom+12&&call[3]<top-12);
+   }
+   assert.ok(!a.drawing.some(c=>c[0]==='rect'&&c.length>5),'no second rounded panel');
+   finish(w);assert.equal(w.homeTerminal.mode,'archive');assert.equal(w.homeTerminal.archivePage,Math.floor((index-1)/4));
+  }
+ }
+});
+test('memory backdrop is temporary and drawing cannot change knowledge/resources',()=>{
+ const a=load(),w=a.world;home(w);w.echoes.found=1;w.openEchoArchive();w.startEchoMemory(1,'archive');w.echoStory.timer=3;
+ const before=JSON.stringify(w.captureDiscoveryProgress()),resources=JSON.stringify(w.resources);
+ w.drawHomeMemoryBackdrop();assert.ok(a.drawing.some(c=>c[0]==='fill'&&c[4]===195));w.drawHomeTerminal();w.drawEchoMemory();
+ assert.equal(JSON.stringify(w.captureDiscoveryProgress()),before);assert.equal(JSON.stringify(w.resources),resources);
+ a.drawing.length=0;w.echoStory.active=false;w.drawHomeMemoryBackdrop();assert.equal(a.drawing.length,0);
+ w.echoStory.active=true;w.mode='flight';w.landPlanet=null;w.drawHomeMemoryBackdrop();w.drawEchoMemory();assert.equal(a.drawing.length,0);
 });

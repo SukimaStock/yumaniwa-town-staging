@@ -5042,7 +5042,8 @@
       if (this.echoStory.active) {
         // Keep the window's frame and location; focus darkens its memory space.
         fill(3, 7, 13, 255);
-        rect(L.x + 3, L.y + 3, L.w - 6, L.h - L.titleH - 5);
+        const R = this.homeTerminalClientLayout();
+        rect(R.x, R.y, R.w, R.h);
         return;
       }
       font("monospace");
@@ -6119,6 +6120,7 @@
             this.drawFaintSignal();
             this.drawSystemConsole();
             this.drawHomeTerminalBoot();
+            this.drawHomeMemoryBackdrop();
             this.drawHomeTerminal();
             this.drawDataAnalysis();
             this.drawEchoMemory();
@@ -6470,11 +6472,29 @@
       }
     }
 
+    homeTerminalClientLayout() {
+      const L = this.homeTerminalLayout();
+      return { x: L.x + 3, y: L.y + 3, w: L.w - 6, h: L.h - L.titleH - 5 };
+    }
+
+    drawHomeMemoryBackdrop() {
+      if (!this.echoStory.active || !this.canOpenEchoArchive()) return;
+      const fade = Math.min(
+        clamp((ECHO_TUNE.memorySec - this.echoStory.timer) / 0.35, 0, 1),
+        clamp(this.echoStory.timer / 0.55, 0, 1)
+      );
+      // Let the HOME window hold attention; the world stays quietly behind it.
+      noStroke();
+      fill(0, 0, 0, 195 * fade);
+      rect(0, 0, W, H);
+    }
+
     drawEchoMemory() {
-      if (!this.echoStory || !this.echoStory.active) return;
+      if (!this.echoStory || !this.echoStory.active || !this.canOpenEchoArchive()) return;
+      const R = this.homeTerminalClientLayout();
+      const centerX = R.x + R.w / 2;
       const item = ECHO_MEMORIES[this.echoStory.index - 1];
       if (!item) return;
-      const q = clamp(this.echoStory.timer / Math.max(0.001, ECHO_TUNE.memorySec), 0, 1);
       const fadeIn = clamp((ECHO_TUNE.memorySec - this.echoStory.timer) / 0.35, 0, 1);
       const fadeOut = clamp(this.echoStory.timer / 0.55, 0, 1);
       const a = 230 * Math.min(fadeIn, fadeOut);
@@ -6482,7 +6502,7 @@
       // English memories can be considerably wider than Japanese ones.
       // Respect authored line breaks first, then word-wrap long Latin lines as
       // a safety net. Monospace makes a character-count limit predictable.
-      const wrapEchoText = (value, maxChars = 40) => {
+      const wrapEchoText = (value, maxChars = Math.floor((R.w - 32) / 7.2)) => {
         const result = [];
         for (const raw of String(value || "").split("\n")) {
           if (raw.length <= maxChars || !raw.includes(" ")) {
@@ -6509,14 +6529,9 @@
       for (const line of item.lines || []) {
         bodyLines.push(...wrapEchoText(line));
       }
-      const safeLines = bodyLines.length ? bodyLines.slice(0, 5) : [""];
-      const extraLines = Math.max(0, safeLines.length - 2);
-      const panelH = 150 + extraLines * 20;
-      const panelY = H / 2 - panelH / 2 + 3;
-
-      noStroke();
-      fill(3, 7, 13, 150 * Math.min(fadeIn, fadeOut));
-      rect(24, panelY, W - 48, panelH, 10);
+      const safeLines = bodyLines.length ? bodyLines : [""];
+      // The opaque client surface belongs to the Terminal, not a second panel.
+      // All text is placed relative to that same surface, below its title bar.
 
       fill(165, 205, 235, a);
       font("monospace");
@@ -6526,15 +6541,15 @@
         index: String(this.echoStory.index).padStart(2, "0"),
         total: this.echoes.total,
         key: item.key
-      }), W / 2, panelY + panelH - 32);
+      }), centerX, R.y + R.h - 28);
 
       fill(230, 237, 244, a);
       fontSize(12);
-      const lineGap = 22;
-      const bodyCenterY = H / 2 - 5;
+      const lineGap = Math.min(22, (R.h - 84) / Math.max(1, safeLines.length - 1));
+      const bodyCenterY = R.y + R.h * 0.46;
       const firstY = bodyCenterY + ((safeLines.length - 1) * lineGap) / 2;
       for (let i = 0; i < safeLines.length; i += 1) {
-        text(safeLines[i], W / 2, firstY - i * lineGap);
+        text(safeLines[i], centerX, firstY - i * lineGap);
       }
 
       // No category/footer label here. The recovered lines are allowed to

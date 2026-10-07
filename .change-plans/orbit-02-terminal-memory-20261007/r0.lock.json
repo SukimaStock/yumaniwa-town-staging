@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "60395f0200b65d25b97caa5ddab6240ef0f4dc4eedee0023a34eb62739044523",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "orbit-02-terminal-memory-20261007",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Contain Echo reading within HOME terminal and dim its background; staging PR/merge",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "c5f61e305543efadd05b90dd4364ae3889a99bd4",
+    "canonicalSources": [
+      "User Phase 2 instruction 2026-10-07",
+      "works/orbit-02",
+      "AGENTS.md",
+      "CHANGE-PLAN.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/orbit-02-terminal-memory-20261007/r0.lock.json",
+      "works/orbit-02/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/orbit/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "lab/**"
+    ],
+    "expectedChanges": [
+      "Render existing Echo text/fades within terminal client coordinates, keep frame/title/list continuity",
+      "Dim background only during HOME Echo reading",
+      "Work-local rendering checks and verification notes; unchanged state/save/text/physics"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes terminal-contained memory presentation, subtle background reduction and staging merge after checks"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK runtime Standard floor",
+      "Plan Lock before implementation; Scope then Risk then Impact",
+      "Active staging-only work; original/production/shared foundation forbidden"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "terminal-memory-ja-en",
+      "phone-canvas-layout",
+      "deployed-bootstrap",
+      "physical-iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this rendering-only PR; no save migration needed.",
+    "outOfScope": [
+      "Production changes",
+      "Original ORBIT/Engine/Codea/shared foundation",
+      "State/save/schema/text changes",
+      "New game systems"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Subjective presentation evaluation"
+    ],
+    "problem": "Echo body uses old world-centered panel coordinates and exposes the old background outside terminal",
+    "currentContract": "Phase 2 HOME analysis, Archive replay and native terminal; existing fixed Echo text/timing and save contracts",
+    "whyExistingIsInsufficient": "Persistent frame alone does not contain the old Echo panel",
+    "design": "Client-relative header/body layout and opaque black client surface; subtle full-canvas dim behind persistent terminal while reading",
+    "alternativesRejected": [
+      "New UI container or scene transition",
+      "Text rewriting",
+      "Save/state changes"
+    ],
+    "migration": "None. Existing schema and keys untouched.",
+    "compatibility": "Narrative and input state machines untouched; only memory drawing and temporary visual backdrop change.",
+    "boundaryCases": [
+      "All 12 memories ja/en",
+      "Fade start/middle/end and Archive return",
+      "Narrow logical canvas",
+      "No effects when memory inactive or away from HOME"
+    ],
+    "testPlan": [
+      "Existing state/physics/save/Finale suite",
+      "Actual Codea offscreen canvas all 12 memories, text containment and background/frame checks",
+      "Scope Risk Impact trusted syntax and deployment bytes/browser bootstrap"
+    ],
+    "promotionRisk": "Staging only"
+  }
+}
