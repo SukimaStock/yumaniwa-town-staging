@@ -31,7 +31,7 @@
   // are intentionally silent in this version; the one-shot event is retained.
   const SOUND=Object.freeze({detach:"fiber",arrival:null,arrivalWindow:.12});
   const CX = 195, CY = 365, TAU = Math.PI * 2;
-  let lastArrivalSound = -1, touchedOnce = false, hint = 1, paper, titleArt, gesture = null;
+  let lastArrivalSound = -1, touchedOnce = false, paper, titleArt, gesture = null;
   const grain = Array.from({ length: 760 }, (_, i) => {
     const f = n => { const v = Math.sin(n * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
     return { x: f(i) * 390, y: f(i + 99) * 740, r: 0.2 + f(i + 33) * 0.6 };
@@ -80,6 +80,9 @@
     // the local transition renderer starts with the identical layered pose.
     const depth = state.transition ? 1 - J.smooth(state.transition.progress / .36) : 1;
     const px = state.x * depth, py = state.y * depth;
+    // Microscopic rind/flesh grain must not become seed-sized as the cut grows.
+    // Only local shell detail fades; terrain grain and the material colors stay.
+    const detail = state.transition ? 1 - J.smooth(J.opening(state) / .12) : 1;
     // Lower skin: the visible thickness gives the drag somewhere to land.
     c.save(); c.translate(-px * 5, 15 - py * 3);
     outline(c, 143, 0.80, 3.5);
@@ -94,7 +97,7 @@
       c.strokeStyle = i % 2 ? "rgba(134,145,95,.22)" : "rgba(29,57,34,.24)";
       c.lineWidth = i % 2 ? 6 : 4; c.stroke();
     }
-    root.PumpkinStageDraw.mottling(c,-155,-130,310,260,14,.16);
+    root.PumpkinStageDraw.mottling(c,-155,-130,310,260,14,.16 * detail);
     c.restore();
     c.save(); c.translate(-px * .7, -py * .5);
     outline(c, 141, 0.80, 3);
@@ -102,7 +105,7 @@
     flesh.addColorStop(0, "#ffd384"); flesh.addColorStop(.44, "#f5ac53"); flesh.addColorStop(1, "#df9248");
     c.fillStyle = flesh; c.fill();
     c.strokeStyle = M.rind; c.lineWidth = 3.2; c.stroke();
-    c.save();c.clip();root.PumpkinStageDraw.mottling(c,-143,-115,286,230,17,.10);c.restore();
+    c.save();c.clip();root.PumpkinStageDraw.mottling(c,-143,-115,286,230,17,.10 * detail);c.restore();
     outline(c, 131, .80, 2);
     c.strokeStyle = "rgba(255,232,172,.65)"; c.lineWidth = 1.2; c.stroke();
     c.restore();
@@ -122,22 +125,27 @@
     const warmth = c.createRadialGradient(-29, 34, 0, -29, 34, 85);
     warmth.addColorStop(0, "rgba(255,218,155,.23)"); warmth.addColorStop(1, "rgba(255,218,155,0)");
     oval(c, -29, 34, 85, 64, warmth);
-    root.PumpkinStageDraw.mottling(c,-110,-90,220,180,16,.08);
+    root.PumpkinStageDraw.mottling(c,-110,-90,220,180,16,.08 * detail);
     c.restore(); c.restore();
+    // Fade attachment remnants in the existing 1.8s pause: .25s of quiet,
+    // then 1.05s to a clean cut. Seed positions/visibility are independent.
+    const fiber = showSeeds && state === model && openAt !== null
+      ? 1 - J.smooth((state.time - openAt - .25) / 1.05) : 1;
     // Physical seeds/tethers and their clip retain the original transform.
     outline(c, 105, .80, 2.5); c.save(); c.clip();
-    for (const m of showSeeds ? state.marks : []) {
+    c.save(); c.globalAlpha *= fiber;
+    for (const m of showSeeds && fiber > 0 ? state.marks : []) {
       c.beginPath(); c.moveTo(m.ox, m.oy * .8); c.lineTo(m.x, m.y * .8);
       c.strokeStyle = `rgba(246,200,124,${.13 * Math.pow(1 - m.age / 18, 2)})`;
       c.lineWidth = 1.2; c.stroke();
     }
-    if (showSeeds && state.seeds.some(p => p.attached)) {
+    if (showSeeds && fiber > 0 && (state.seeds.some(p => p.attached) || state === model && openAt !== null)) {
       const pulp = c.createRadialGradient(0, -2, 0, 0, -2, 20);
       pulp.addColorStop(0, "rgba(255,224,163,.42)"); pulp.addColorStop(1, "rgba(255,224,163,0)");
       oval(c, 0, -2, 20, 14, pulp);
     }
     c.lineCap = "round";
-    for (const p of showSeeds ? state.seeds : []) {
+    for (const p of showSeeds && fiber > 0 ? state.seeds : []) {
       if (!p.tether) continue;
       const t = p.tether, tail = p.attached ? 1 : Math.exp(-(state.time - t.detachedAt) * 2.4);
       const dx = p.x - t.ax, dy = p.y - t.ay;
@@ -147,6 +155,7 @@
       c.strokeStyle = "#ffe0a6"; c.lineWidth = p.attached ? 3.2 - Math.min(1, t.damage / t.strength) * 1.5 : 1.4;
       c.stroke();
     }
+    c.restore(); c.lineCap = "round";
     if (showSeeds) for (const [i, p] of state.seeds.entries()) seed(c, p, i);
     c.restore();
     // A knife nick remains on the rim; no "completed" state clears the object.
@@ -161,20 +170,19 @@
       sh.addColorStop(0, "rgba(127,91,48,.15)"); sh.addColorStop(.7, "rgba(127,91,48,.07)"); sh.addColorStop(1, "rgba(127,91,48,0)");
       oval(c, 0, 0, 166, 166, sh); c.restore();
   }
-  function captions(c) {
+  function captions(c, state = model) {
       c.textAlign = "center";
       // Keep the same quiet opening composition. The supplied vector is the
       // only title; the text fallback also keeps it readable if loading fails.
+      c.save(); const logoY = 1.2 * Math.sin(state.time * TAU / 7);
       if (titleArt && titleArt.complete && titleArt.naturalWidth > 0) {
-        c.drawImage(titleArt, 36.3, 102, 317.4, 317.4 * 654 / 2064);
+        c.drawImage(titleArt, 36.3, 102 + logoY, 317.4, 317.4 * 654 / 2064);
       } else {
         c.fillStyle = "#b9672f";
         c.font = "bold 36.8px 'Arial Rounded MT Bold', sans-serif";
-        c.fillText(W.title, 195, 163);
+        c.fillText(W.title, 195, 163 + logoY);
       }
-      c.fillStyle = `rgba(105,85,57,${.78 * hint})`;
-      c.font = "12px 'Hiragino Kaku Gothic ProN', sans-serif";
-      c.fillText("つかんで、ゆらす", 195, 583);
+      c.restore();
       c.fillStyle = "rgba(105,85,57,.55)"; c.font = "9px Georgia, serif";
       c.fillText("SukimaStock", 195, 684);
   }
@@ -191,7 +199,7 @@
         if(mix>0) { c.save();c.globalAlpha=mix;shadow(c,returnModel);c.restore(); }
         root.PumpkinStageDraw.draw(c, model, seed, c => vessel(c, false, true), c => vessel(c, true, true, returnModel));
         if(mix>0&&!model.ending.focus) { c.save();c.globalAlpha=mix;vessel(c,true,false,returnModel);c.restore(); }
-        if(mix>0) { c.save();c.globalAlpha=mix;const previousHint=hint;hint=1;captions(c);hint=previousHint;c.restore(); }
+        if(mix>0) { c.save();c.globalAlpha=mix;captions(c,returnModel);c.restore(); }
         if (mode === "transition") {
           c.save(); c.globalAlpha = 1 - J.smooth(model.transition.progress / .48);
           captions(c); c.restore();
@@ -207,7 +215,7 @@
     SSE.input.reset?.();
     model = returnModel || D.createPrologue(); returnModel = null;
     mode = "prologue"; openAt = null;
-    hint = 1; touchedOnce = false; lastArrivalSound = -1; gesture = null; debugAt = -1;
+    touchedOnce = false; lastArrivalSound = -1; gesture = null; debugAt = -1;
     // Keep the Engine's one music player and position, including automatic return.
   }
   function knockAt(x, y) {
@@ -252,7 +260,6 @@
         const span = active.length ? Math.round(Math.min(...active.map(p => p.x))) + "…" + Math.round(Math.max(...active.map(p => p.x))) : "—";
         debugStatus.textContent = mode + " | loose " + model.seeds.filter(p => !p.attached).length + "/9 | active " + active.length + " lost " + model.seeds.filter(p => p.lost).length + " reached " + active.filter(p => p.arrival).length + " | x " + span + " | speed " + Math.round(Math.max(0,...active.map(p => Math.hypot(p.vx,p.vy)))) + " tilt " + model.x.toFixed(2) + " | held " + model.held + " | travelling " + active.filter(p=>!p.arrival).length + " | ending " + (model.ending?model.ending.phase:"—") + " | exit " + !!model.finished;
       }
-      if (touchedOnce) hint *= Math.exp(-dt * .8);
 
     },
     draw,
