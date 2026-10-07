@@ -1,0 +1,97 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "07b6589fc43e696f46d5722321fd0b2c73e1121caa5fc882763a3166b8a98afc",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-title-cleanup-20261007",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Clean title captions and attachment remnants; quietly animate logo; keep pumpkin-world opening clean without gameplay changes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "0c1a67b1a617e0ca05418e518ec19f2fff46119c",
+    "canonicalSources": [
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-title-cleanup-20261007/r0.lock.json",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/index.html",
+      "works/pumpoko/TITLE-VALIDATION.md",
+      "works/pumpoko/visual-review/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      "tests/**",
+      ".github/**",
+      "works/pumpoko/codea-lite.js",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/builder/**"
+    ],
+    "expectedChanges": [
+      "Remove visible grab hint and its drawing-only bookkeeping; preserve SukimaStock",
+      "Add <=1.2 logical pixel slow vertical logo motion with continuous title return pose",
+      "Fade attachment fibers/pulp/marks within the existing 1.8 second pre-opening interval",
+      "Identify seed-like opening shapes by separate seed/texture renders; attenuate magnified local specks only if reproduced; preserve true nine seeds and material texture",
+      "Keep all input/physics/camera/timing/audio/ending models byte-identical and compare actual touch-driven opening at multi-frame intervals"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-07 requests title/opening cleanup on same branch, Draft only; PR169 already merged, so use same branch based on merged main for a new Draft PR"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK / Standard work-local drawing only",
+      "Fresh r0 based on merged PR169; Plan-first; Scope then Risk then Impact",
+      "Original merged PR169 is not reopened; new Draft PR on the same branch; no merge/deploy/production"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "touch-driven-title-fiber-fade-opening-frame-review",
+      "opening-seed-versus-mottling-isolation",
+      "title-return-logo-continuity"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Current PR169 material world / orange follow-up; unchanged PumpkinJourney and PumpkinDynamics"
+    ],
+    "rollback": "Revert cleanup implementation, retaining merged PR169 orange/material world and immutable Plan",
+    "outOfScope": [
+      "Gameplay/input/physics/camera/timing/audio",
+      "Engine/Codea/shared runtime/other works/production",
+      "New objects/HUD/stages/particles",
+      "merge/deploy"
+    ],
+    "promotion": "Draft PR only; no merge, deploy or production changes",
+    "unverified": [
+      "Physical iPhone/iPad Safari and live browser candidate input/audio/performance",
+      "Offscreen actual-touch scene execution is not device verification"
+    ],
+    "previousPlanDigest": null,
+    "revisionReason": null
+  }
+}
