@@ -4,7 +4,7 @@ Formal verificationState: UNVERIFIED (repository policy). Automated checks do no
 
 ## Runtime and regression
 
-`node --test works/orbit-02/tests/archive.test.cjs tests/test-work-lifecycle.cjs tests/test-work-guide.cjs`: 59 PASS (28 ORBIT 02 state-machine tests, 31 repository regressions).
+`node --test works/orbit-02/tests/archive.test.cjs tests/test-work-lifecycle.cjs tests/test-work-guide.cjs`: 61 PASS (30 ORBIT 02 state-machine tests, 31 repository regressions).
 
 Tests load the actual DriftWorld in a VM through test-only lexical access; no debug API ships. They cover ja/en recovery without SERA analysis/body, immediate departure, ordinary HOME return voice/boot/receive order, automatic serial analysis, Echo discovery only on completion, quiet deposit then original text, inert repeated replay, deliberate RETURN/WAIT counterpart revisit and one-time persistence, RESTORE report entry separation, interrupted analysis/read CONTINUE, pending-only CONTINUE, actual rescue rollback, MEMORY/checkpoint merge with decoded precedence, legacy/malformed optional fields, storage failure checkpoint, Finale once, independent original save keys, NEW GAME/prologue, original 600-frame flight simulation, RESTORE 1→5 and original Echo texts/planets/MiniMap/Engine/Codea/ritual preservation.
 
@@ -26,3 +26,9 @@ Actual iPhone Safari, touch feel, sound playback and the subjective desire to re
 6. RESTORE through level 5 and Finale once, ja/en, portrait/landscape.
 
 Staging: https://sukimastock.github.io/yumaniwa-town-staging/works/orbit-02/
+
+## Terminal memory follow-up (2026-10-07)
+
+Base main: c5f61e305543efadd05b90dd4364ae3889a99bd4. Rendering only: the old rounded world-centered Echo panel is removed. Header/body use the terminal client rectangle; its opaque black surface, frame and title bar remain. A temporary soft backdrop dims the world/cockpit during reading, using the existing text fade timing. Archive page/return, text, duration, state/save/Finale logic are unchanged.
+
+The existing runtime suite plus all-memory client containment and temporary-backdrop checks pass (61 total including repository regressions). `node works/orbit-02/tests/terminal-memory-render.cjs <output-directory>` renders all 12 memories in ja/en at 360×640 through the actual copied Codea adapter: 24 frames PASS for native text-width/baseline bounds, opaque client-edge pixels, and absence of an external Echo panel. English two/three/four-line samples visually inspected. Japanese authored content/geometry is checked; offscreen Japanese glyph quality and physical iPhone Safari remain UNVERIFIED.
