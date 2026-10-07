@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "fb0fd2ff3858501173944a1d2109d2b8aa152fe3e0e470111628edfe9b3680a9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-material-world-20261007",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Unify pumpkin-derived material colors, quiet depth, soft flesh and contact shading across the complete loop",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "1b87ad41ec7c4f66e359ab30ed050a13b039576b",
+    "canonicalSources": [
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/stage-draw.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-material-world-20261007/r0.lock.json",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/VISUAL-VALIDATION.md",
+      "works/pumpoko/visual-review/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      "tests/**",
+      ".github/**",
+      "works/pumpoko/codea-lite.js",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/builder/**"
+    ],
+    "expectedChanges": [
+      "Share one work-local material palette and deterministic restrained texture between cut shell, terrain, farm, plants and fruit",
+      "Replace explanatory terrain stripes with soft depth and flesh/rind texture; quiet background air layers",
+      "Preserve all model, input, physics, camera, growth, title timing, audio and silhouettes; no objects, particles, assets or UI added",
+      "Compare complete-loop Canvas renders at portrait and landscape sizes against base and run existing PUMPOKO regressions"
+    ],
+    "ownerDecisions": [
+      "User requests visual unification of the pumpkin-derived world; authorizes Draft PR only; merge/deploy/production prohibited"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK / Standard work-local drawing only",
+      "Plan-first immutable r0; Scope then Risk then Impact; final verificationState remains UNVERIFIED",
+      "Current main includes #145 shot timing and #168 audio; old PR140 untouched"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "canvas-before-after-title-stage-farm-ending-return",
+      "canvas-density-and-contact-review"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing Canvas2D API and current PumpkinJourney geometry/view/plantPose"
+    ],
+    "rollback": "Revert this work-local implementation commit; immutable Plan retained, no data/state migration",
+    "outOfScope": [
+      "Gameplay/input/physics/camera/timing/audio",
+      "Engine/Codea/shared runtime/other works/production",
+      "New objects/HUD/stages/particles",
+      "merge/deploy"
+    ],
+    "promotion": "Draft PR only; no merge, deploy or production changes",
+    "unverified": [
+      "Physical iPhone/iPad Safari and subjective feel",
+      "Offscreen Canvas rendering is not browser or device verification"
+    ],
+    "previousPlanDigest": null,
+    "revisionReason": null
+  }
+}

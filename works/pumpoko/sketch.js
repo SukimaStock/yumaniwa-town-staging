@@ -50,14 +50,17 @@
     c.closePath();
   }
   function seed(c, p, i, sy = .80) {
+    const M = root.PumpkinStageDraw.material;
     const x = p.x, y = p.y * sy;
     c.save(); c.translate(x, y); c.rotate(p.angle); c.scale(1, p.roll || 1);
-    oval(c, 2.2, 3, 8.2, 3.8, "rgba(101,64,31,.14)");
+    // Soft cast/contact shadow stays close to the existing seed silhouette.
+    oval(c, 2.2, 3, 8.2, 3.8, M.shadow);
+    oval(c, 1, 3.3, 5.8, 1.6, "rgba(90,68,38,.12)");
     c.beginPath(); c.moveTo(-10.5, 0);
     c.bezierCurveTo(-5, -7.7, 7.5, -6.7, 11.5, 0);
     c.bezierCurveTo(7, 6.5, -5.8, 6.5, -10.5, 0);
     const fill = c.createLinearGradient(0, -6, 1, 6);
-    fill.addColorStop(0, "#fff8df"); fill.addColorStop(0.55, "#f5e7bc"); fill.addColorStop(1, "#d9c18a");
+    fill.addColorStop(0, M.seedLight); fill.addColorStop(0.55, M.seed); fill.addColorStop(1, M.seedDeep);
     c.fillStyle = fill; c.fill(); c.strokeStyle = "#d9bf88"; c.lineWidth = 0.8; c.stroke();
     c.beginPath(); c.moveTo(-7, -1); c.quadraticCurveTo(0, -3.5, 8, 0);
     c.strokeStyle = "rgba(255,250,221,.74)"; c.stroke();
@@ -66,6 +69,7 @@
     c.restore();
   }
   function vessel(c, showSeeds = true, local = false, state = model) {
+    const M = root.PumpkinStageDraw.material;
     c.save();
     if (!local) {
       c.translate(CX + state.x * 34, CY + state.y * 23);
@@ -80,7 +84,7 @@
     c.save(); c.translate(-px * 5, 15 - py * 3);
     outline(c, 143, 0.80, 3.5);
     const skin = c.createLinearGradient(-100, -110, 80, 100);
-    skin.addColorStop(0, "#789063"); skin.addColorStop(0.46, "#526e4b"); skin.addColorStop(1, "#39573e");
+    skin.addColorStop(0, M.rindLight); skin.addColorStop(0.46, M.rind); skin.addColorStop(1, M.rindDeep);
     c.fillStyle = skin; c.fill();
     c.clip();
     for (let i = 0; i < 18; i++) {
@@ -90,13 +94,15 @@
       c.strokeStyle = i % 2 ? "rgba(134,145,95,.22)" : "rgba(29,57,34,.24)";
       c.lineWidth = i % 2 ? 6 : 4; c.stroke();
     }
+    root.PumpkinStageDraw.mottling(c,-155,-130,310,260,14,.16);
     c.restore();
     c.save(); c.translate(-px * .7, -py * .5);
     outline(c, 141, 0.80, 3);
     const flesh = c.createLinearGradient(-90, -100, 110, 130);
     flesh.addColorStop(0, "#ffd384"); flesh.addColorStop(.44, "#f5ac53"); flesh.addColorStop(1, "#df9248");
     c.fillStyle = flesh; c.fill();
-    c.strokeStyle = "#516b4a"; c.lineWidth = 3.2; c.stroke();
+    c.strokeStyle = M.rind; c.lineWidth = 3.2; c.stroke();
+    c.save();c.clip();root.PumpkinStageDraw.mottling(c,-143,-115,286,230,17,.10);c.restore();
     outline(c, 131, .80, 2);
     c.strokeStyle = "rgba(255,232,172,.65)"; c.lineWidth = 1.2; c.stroke();
     c.restore();
@@ -116,6 +122,7 @@
     const warmth = c.createRadialGradient(-29, 34, 0, -29, 34, 85);
     warmth.addColorStop(0, "rgba(255,218,155,.23)"); warmth.addColorStop(1, "rgba(255,218,155,0)");
     oval(c, -29, 34, 85, 64, warmth);
+    root.PumpkinStageDraw.mottling(c,-110,-90,220,180,16,.08);
     c.restore(); c.restore();
     // Physical seeds/tethers and their clip retain the original transform.
     outline(c, 105, .80, 2.5); c.save(); c.clip();
