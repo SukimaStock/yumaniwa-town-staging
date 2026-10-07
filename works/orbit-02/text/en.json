@@ -205,7 +205,7 @@
         ],
         "data": [
           "DATA SIGNAL DETECTED. NOISE PRESENT.",
-          "THIS WORLD'S DATA... ANALYSIS START."
+          "THIS DATA... TO HOME."
         ],
         "refuel": [
           "FUEL SOURCE CONFIRMED. LANDING... STABLE."
@@ -596,6 +596,8 @@
       "3": "...All memories. Here.",
       "4": "…Every memory is here.",
       "5": "…Every memory is here."
-    }
+    },
+    "recovered": "DATA RECOVERED",
+    "receiving": "DATA RECEIVED"
   }
 }

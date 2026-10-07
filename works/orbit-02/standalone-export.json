@@ -38,5 +38,5 @@
     "Unused legacy audio files remain in the repository but are intentionally excluded from the standalone package.",
     "The canonical Engine is copied into the package as sukimastock-engine.js during export."
   ],
-  "output": "ORBIT-02-phase1.zip"
+  "output": "ORBIT-02-phase2.zip"
 }

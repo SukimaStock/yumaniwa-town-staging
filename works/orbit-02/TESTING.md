@@ -1,35 +1,28 @@
-# Phase 1 verification
+# Phase 2 verification
 
-Formal verificationState: UNVERIFIED (repository policy). Unit/mechanical success is not release completion.
+Formal verificationState: UNVERIFIED (repository policy). Automated checks do not substitute for physical-device or subjective playtesting.
 
-## Automated runtime tests
+## Runtime and regression
 
-`node --test works/orbit-02/tests/archive.test.cjs`: 17 PASS, 0 FAIL.
+`node --test works/orbit-02/tests/archive.test.cjs tests/test-work-lifecycle.cjs tests/test-work-guide.cjs`: 59 PASS (28 ORBIT 02 state-machine tests, 31 repository regressions).
 
-Actual `DriftWorld` loaded in an isolated VM with test-only lexical access (no shipped debug API). Covers ja/en SERA analysis/discovery, original text playback, HOME-only interpretation, repeated replay without resource/log/count/first-reaction changes, page/touch/cancel/launch isolation, one RETURN/WAIT resonance and CONTINUE, newer MEMORY/older HOME and rescue merges, legacy schemas, malformed indices, final Echo gate and one-time Finale trigger, separate saves/NEW GAME/prologue handoff, storage failure checkpoint, original flight simulation, RESTORE 1→5 spending/caps/departure voice, original planets/MiniMap/Echo text and byte-identical Engine/Codea/ritual copies.
+Tests load the actual DriftWorld in a VM through test-only lexical access; no debug API ships. They cover ja/en recovery without SERA analysis/body, immediate departure, ordinary HOME return voice/boot/receive order, automatic serial analysis, Echo discovery only on completion, quiet deposit then original text, inert repeated replay, deliberate RETURN/WAIT counterpart revisit and one-time persistence, RESTORE report entry separation, interrupted analysis/read CONTINUE, pending-only CONTINUE, actual rescue rollback, MEMORY/checkpoint merge with decoded precedence, legacy/malformed optional fields, storage failure checkpoint, Finale once, independent original save keys, NEW GAME/prologue, original 600-frame flight simulation, RESTORE 1→5 and original Echo texts/planets/MiniMap/Engine/Codea/ritual preservation.
 
-`python engine/export-standalone.py works/orbit-02/standalone-export.json --check`: PASS. ZIP built and inspected for local Engine, ja/en, runtime and sounds; no old-work dependency except the canonical development Engine path (export rewrites it to the local Engine).
+`python engine/export-standalone.py works/orbit-02/standalone-export.json --check`: PASS. The work retains its own entry, relative resources and original canonical development Engine path; standalone export supplies local Engine.
 
-## Canvas QA
+## Canvas layout
 
-`node works/orbit-02/tests/render.cjs /tmp/orbit-02-render` requires `@napi-rs/canvas`.
+`node works/orbit-02/tests/render.cjs <output-directory>` (requires @napi-rs/canvas): 16 offscreen 360×640 frames using the unchanged copied Codea adapter, ja/en browse, three Archive pages, memory focus, analysis, deposit and cross-page invitation. English layout visually inspected. Original Echo overlay remains above the persistent HOME frame; controls remain inside the logical phone canvas. Japanese glyph quality is not certified by this backend, which lacks Japanese fonts.
 
-Ten 360×640 offscreen frames rendered with the exact copied Codea adapter. Inspected browse, three Archive pages and original Echo overlay. Terminal/rows/buttons fit the logical iPhone-width canvas; replay overlay is unobstructed. English layouts visually checked. Japanese glyph rendering cannot be certified by this offscreen backend: Japanese system fonts are absent. Text-key parity, authored line preservation and short new strings are mechanically checked.
+## Manual device follow-up
 
-## Browser / physical device — UNVERIFIED
+Actual iPhone Safari, touch feel, sound playback and the subjective desire to return HOME remain UNVERIFIED. On the deployed staging URL:
 
-Playwright launch attempted: Chromium executable missing. Installation attempted: browser download was not a valid ZIP. No browser/Safari/PWA/audio/network claims are inferred from VM or offscreen Canvas evidence.
+1. NEW GAME; reach SERA, recover DATA and depart immediately. Contents remain unknown.
+2. Return HOME: short voice, boot, DATA RECEIVED, automatic analysis, ECHO DETECTED, Archive light, original memory.
+3. Replay from the terminal's Archive row; check no resource/count changes, all pages, return to Archive and launch.
+4. Confirm RETURN and WAIT; verify no immediate link. Revisit one, then the softly invited counterpart: one link/short phrase. CONTINUE preserves it.
+5. CONTINUE during carried DATA, analysis and body; try rescue before voluntary return. Pending/decoded/interpreted stay distinct.
+6. RESTORE through level 5 and Finale once, ja/en, portrait/landscape.
 
-After checkout/branch preview (or a separately authorized staging merge), verify on iPhone Safari:
-
-1. NEW GAME, short flight, SERA landing and DATA ANALYSIS: original Echo text appears; its present-day interpretation does not.
-2. Return HOME, wait for existing boot, tap ECHO ARCHIVE. Faint mark identifies pending memories; dim slots do not play. Check ja and en, page arrows and BACK.
-3. Tap a memory: original overlay plays, Terminal returns, one first interpretation is heard. Repeat: resource amounts/Echo count/first events remain unchanged. Close and launch normally.
-4. Interpret Echo 2 and 7: matching faint marks and one short E.V.E. phrase. Reopen/replay/CONTINUE: phrase does not repeat.
-5. CONTINUE before/after an interrupted reading, and after HOME interpretation. Echo count/read/interpretation/link restore correctly. Old-shaped data in the dedicated namespace migrates without damaging the Game Jam edition.
-6. RESTORE through level 5; post-RESTORE report still opens Archive. Echo 12 HOME confirmation enables the unchanged Finale once. Completed Echo 12 replay does not restart it.
-
-Staging URL after an authorized merge/deployment:
-https://sukimastock.github.io/yumaniwa-town-staging/works/orbit-02/
-
-Draft PR alone does not deploy this URL.
+Staging: https://sukimastock.github.io/yumaniwa-town-staging/works/orbit-02/
