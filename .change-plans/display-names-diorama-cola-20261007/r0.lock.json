@@ -1,0 +1,143 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9bbbfb5801618fb38b507a7f111929a11e2d0fcafa524e1e1684c5d191e6778e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "display-names-diorama-cola-20261007",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "作品一覧と展示ガイドの表示名をDioramaCalendar・真夜中コーラへ揃える",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "96e8eaddf271d4c36755a6766482d176491806fd",
+    "canonicalSources": [
+      "data/works.js",
+      "data/work-search-meta.js",
+      "tools/generate-work-search-pages.cjs",
+      "tools/YumaniwaDesk.py"
+    ],
+    "allowedPaths": [
+      ".change-plans/display-names-diorama-cola-20261007/r0.lock.json",
+      "data/works.js",
+      "w/diorama-calendar/index.html",
+      "w/midnight-cola/index.html"
+    ],
+    "conditionalPaths": [
+      {
+        "path": "index.html",
+        "condition": "Only update the existing data/works.js script cache fingerprint to its canonical FNV-1a value when works.js changes."
+      }
+    ],
+    "forbiddenPaths": [
+      "main.js",
+      "work-guide-terminal.js",
+      "work-guide-terminal.css",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "works/**",
+      "assets/**",
+      "en/**",
+      "data/work-search-meta.js",
+      "data/work-lifecycle.json",
+      "data/town-maps.js",
+      "data/updates.js",
+      "data/ghost-dialogue.js",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Add menuTitle DioramaCalendar to diorama-calendar without changing title or frameTitle.",
+      "Change midnight-cola menuTitle from MIDNIGHT COLA to 真夜中コーラ.",
+      "Regenerate the existing nine published Search/Share pages; only the two Japanese h1 values may differ.",
+      "Update only the works.js cache fingerprint in index.html; preserve all other bytes.",
+      "Keep internal IDs, URLs, work logos, English localization, publication set and lifecycle unchanged."
+    ],
+    "ownerDecisions": [
+      "User approved these two staging display-name corrections and Draft PR creation in delegated request 01a0f1b6-72a8-70bf-9420-f85f239780f5; no merge, deploy or production changes."
+    ],
+    "hqDecisions": [
+      "Full/SYSTEM/HQ Review is the mandatory path floor for root index.html and generated w/**/*.html. The authorized solution uses existing menuTitle, generator and cache contracts with no new design or contract changes; no additional owner decision is required."
+    ],
+    "rulesApplied": [
+      "AGENTS.md and OPERATIONS.md: current main, lifecycle, Plan-only first commit, immutable r0, Scope then Risk then Impact.",
+      "Generated files are produced by tools/generate-work-search-pages.cjs, never edited directly.",
+      "Use the existing FNV-1a over UTF-16 code units cache fingerprint from tools/YumaniwaDesk.py.",
+      "English heading comes from English shareTitle and must remain byte-identical.",
+      "CHANGE-VERIFICATION.md current state: final verificationState remains UNVERIFIED."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser.ja-venue-menu",
+      "browser.ja-guide",
+      "browser.ja-generated-headings",
+      "browser.en-preserved",
+      "device.iphone-ipad"
+    ],
+    "impactChecks": [
+      "works.venue-menu",
+      "works.direct-route",
+      "works.search-share",
+      "works.analytics-id",
+      "works.town-awareness",
+      "works.release-validator",
+      "surface.shared",
+      "runtime.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "problem": "Japanese runtime list and guide currently show Diorama Calendar and MIDNIGHT COLA instead of the approved display names.",
+    "currentContract": "WORKS menuTitle overrides title for venue menus and guide; Japanese generated h1 uses menuTitle; English h1 uses English Search/Share metadata.",
+    "whyExistingIsInsufficient": "Existing contracts are sufficient; only two metadata values and dependent generated/cache output need correction.",
+    "design": "Use existing menuTitle overrides; retain title/frameTitle, launch configuration and bilingual metadata. Full Plan reflects path risk floors, not an expanded implementation.",
+    "alternativesRejected": [
+      "Do not rename title, internal IDs, URLs, logos or English metadata.",
+      "Do not patch list/guide runtime or hand-edit generated pages.",
+      "Do not revise historic announcements or scene labels outside requested list/guide."
+    ],
+    "dependencies": [
+      "Existing published set: orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window"
+    ],
+    "migration": "None; existing IDs, URLs and storage remain unchanged.",
+    "compatibility": "Only display names change; existing launch/routes, guide order/filter, attribution and English pages remain unchanged.",
+    "boundaryCases": [
+      "Diorama has no prior menuTitle; Cola already has menuTitle.",
+      "Guide featured/all/mood eligibility and venue lists stay stable.",
+      "English generated pages and sitemap must remain unchanged."
+    ],
+    "testPlan": [
+      "Assert before/after WORKS differs only in the two menuTitle values; render real list and guide consumers.",
+      "Run existing guide, direct-route, analytics, lifecycle and release-validator regressions plus applicable Change Operations tests.",
+      "Run generator --check for the existing nine published works and Release Validator in staging.",
+      "Use local HTTP and Chromium to inspect Japanese menus/guide/h1 and preserved English headings, logos and routes on final head.",
+      "Verify immutable Lock, Scope then Risk then Impact, trusted base-owned node syntax, diff whitespace, final remote tree and required CI on exact final head."
+    ],
+    "rollback": "Revert the implementation commit through a new staging branch/Plan/PR, regenerating dependent outputs and cache; never force-push.",
+    "promotionRisk": "No production promotion authorized or performed.",
+    "outOfScope": [
+      "Merge",
+      "Deploy",
+      "Production writes",
+      "Runtime/schema/generator/test/workflow changes",
+      "Historical/search-copy/scene-label renaming"
+    ],
+    "promotion": "none; Draft PR against staging main only",
+    "unverified": [
+      "Actual iPhone/iPad and public deployment verification remain UNVERIFIED unless observed; final automatic VERIFIED is intentionally deferred."
+    ]
+  }
+}
