@@ -1,0 +1,139 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ce5ee22bf73240ad0ec04b3495a5adaef12972b18d7709bf1e96b39ee6668b42",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "engine-audio-lifecycle-20261007",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Serialize Engine BGM lifecycle context recovery and cancel/coalesce stale music requests; staging merge only",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "a99314cb142986715c7a315c3743abbfa451d386",
+    "canonicalSources": [
+      "User explicit Engine common repair instruction 2026-10-07",
+      "engine/sukimastock-engine.v0.3.0.js",
+      "AGENTS.md",
+      "CHANGE-PLAN.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/engine-audio-lifecycle-20261007/r0.lock.json",
+      "engine/sukimastock-engine.v0.3.0.js",
+      "engine/SUKIMASTOCK-ENGINE-v0.3-AUDIO-LIFECYCLE-VALIDATION.md",
+      "tests/test-engine-audio-lifecycle.cjs",
+      "tests/test-engine-audio-assets.cjs",
+      "tests/test-engine-input-boot.cjs",
+      "works/pumpoko/test-audio.cjs",
+      "works/engine-canary/app.js",
+      "works/engine-canary/index.html",
+      "tests/test_engine_canary.py"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/codea-lite.v1.0.0.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/audio/**",
+      "works/coffee-factory/**",
+      "works/orbit/**",
+      "works/orbit-02/**",
+      "main.js",
+      "index.html",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "assets/**",
+      "w/**",
+      "en/**"
+    ],
+    "expectedChanges": [
+      "Test deferred suspend/resume ordering and duplicate browser events before engine edit",
+      "Common BGM request gating, same player/time/loop/rate, stale cancellation, no per-PUMPOKO workaround",
+      "Canary observation and explicit UNVERIFIED physical device checklist"
+    ],
+    "ownerDecisions": [
+      "User permits common Engine minimal repair, tests/canary and staging merge; forbids production"
+    ],
+    "hqDecisions": [
+      "Explicit user instruction authorizes bounded Engine shared Audio lifecycle fix after tests; preserve existing buses/readiness/autoplay contract"
+    ],
+    "rulesApplied": [
+      "SYSTEM Full HQ risk floor",
+      "Plan first locked PR; Scope then Risk then Impact",
+      "No production writes or content/physics/audio asset/volume changes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "staging-deployed-bytes",
+      "browser-canary-observation",
+      "physical-iphone-safari-pwa"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "risk.high-risk-review",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging PR; no save migration, asset or work behavior migration",
+    "outOfScope": [
+      "Production",
+      "Game rules/physics/ending",
+      "Codea",
+      "Audio assets/volumes",
+      "Autoplay circumvention"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual audible iPhone Safari/PWA resume including BFCache",
+      "Safari internal clock/catch-up cause"
+    ],
+    "problem": "Lifecycle starts media before asynchronous AudioContext recovery finishes; reentry requests can bypass recovery",
+    "currentContract": "Engine single cached BGM player, media pause then context suspend; lifecycle normalized reason Set; work retains scene semantics",
+    "whyExistingIsInsufficient": "No Promise barrier or pending request cancellation; simulation used synchronous context state transitions",
+    "design": "Retain pause/suspend policy; settle pending suspend and resume context before routed BGM resumes; coalesce pending BGM requests and invalidate on pause/mute/stop/reconfigure",
+    "alternativesRejected": [
+      "PUMPOKO visibility workaround",
+      "Reset/seek/rate compensation",
+      "Timeout delay",
+      "Remove context suspension without evidence"
+    ],
+    "migration": "None",
+    "compatibility": "Preserve public boolean request APIs and existing gains/readiness; async completion is not audible success",
+    "boundaryCases": [
+      "Deferred resume/suspend",
+      "Duplicate hidden/pagehide/pageshow and BFCache",
+      "Interrupted context",
+      "Rehide during pending recovery",
+      "Mute/stop/reconfigure while pending",
+      "No AudioContext fallback",
+      "Rejected/throwing resume/play",
+      "CoffeeFactory onResume and update requests"
+    ],
+    "testPlan": [
+      "Fail-first asynchronous Engine cases",
+      "PUMPOKO real scene regression",
+      "Real CoffeeFactory lifecycle hooks with canonical engine",
+      "Existing Engine audio/readiness/input/diagnostic tests",
+      "Node/Python regression, scope/risk/impact, CI and staging byte checks"
+    ],
+    "promotionRisk": "Staging only; physical device remains UNVERIFIED"
+  }
+}
