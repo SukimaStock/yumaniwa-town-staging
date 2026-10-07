@@ -1,0 +1,126 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "accc833d01e4fbef04e57751147b4f56268ee795c7e0a8dc63b4844261b69b31",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "orbit-02-home-analysis-20261007",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Move ORBIT 02 recovery analysis to HOME; test and merge staging PR",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "fbfa4d4b1a32a63e84a8ed5cfb4c843df689a35f",
+    "canonicalSources": [
+      "User Phase 2 instruction 2026-10-07",
+      "works/orbit-02",
+      "AGENTS.md",
+      "CHANGE-PLAN.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/orbit-02-home-analysis-20261007/r0.lock.json",
+      "works/orbit-02/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/orbit/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "lab/**"
+    ],
+    "expectedChanges": [
+      "SERA recovery persists pending DATA knowledge without decoding or Echo discovery",
+      "HOME terminal automatically receives and analyzes each packet with existing analysis UI/audio",
+      "Quiet Archive deposit and continuous replay; deliberate RETURN/WAIT counterpart revisit",
+      "Optional pendingAnalysis migration preserves HOME v3 / MEMORY v1, resources and existing interpretations",
+      "Work-local tests and Phase 2 notes; original ORBIT/Engine/Codea/shared files untouched"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes HOME analysis, save migration, RETURN/WAIT revisit, staging PR and merge after tests"
+    ],
+    "hqDecisions": [
+      "Add work-local optional pendingAnalysis IDs to unchanged two-layer localStorage contract. Decoded IDs dominate pending during merge; existing save keys and interpreted/link states unchanged. No shared contracts change."
+    ],
+    "rulesApplied": [
+      "Full plan for work-local state migration, WORK runtime floor",
+      "Plan Lock before implementation; Scope then Risk then Impact",
+      "Active staging-only work; production forbidden"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "new-game-flight",
+      "home-auto-analysis",
+      "archive-deposit-replay",
+      "pair-revisit",
+      "continue-rescue-migration",
+      "mobile-ja-en",
+      "physical-iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated staging PR; unchanged keys remain backwards readable with added optional pending state.",
+    "outOfScope": [
+      "Production changes",
+      "Original ORBIT/Engine/Codea/shared infrastructure",
+      "New Echoes/logs/chapters/economy/mission/upgrades"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Subjective motivation to return HOME"
+    ],
+    "problem": "Echo discovery and analysis still complete at SERA",
+    "currentContract": "Phase 1 HOME Archive, isolated keys, HOME v3 / MEMORY v1, fixed 12 Echoes, native terminal/analysis",
+    "whyExistingIsInsufficient": "HOME only replays already-decoded memories",
+    "design": "Persist pending packet IDs at pickup; terminal receive delay then serial HOME analysis, atomic pending-to-decoded/discovered commit, quiet archive dot deposit then original text. Revisit confirmed pair to link once.",
+    "alternativesRejected": [
+      "New UI or rendering system",
+      "Manual ANALYZE chore",
+      "Changing original work or shared runtime"
+    ],
+    "migration": "Missing pendingAnalysis means no pending packets; existing decoded/discovered remain processed. Filter duplicates and decoded wins on merge. Retain Phase 1 interpreted and returnWaitLinked.",
+    "compatibility": "Existing resources, key namespaces, original texts and physics/caps preserved.",
+    "boundaryCases": [
+      "Multiple packets and post-12 empty result",
+      "Continue during recovery/analysis/deposit/playback",
+      "Rescue with newer knowledge over old checkpoint",
+      "Legacy missing optional fields and persisted pair",
+      "Repeated replay/Finale/resources",
+      "ja/en and narrow canvas"
+    ],
+    "testPlan": [
+      "Runtime state-machine tests for full HOME pipeline, rescue and migration",
+      "Preservation and physics/RESTORE/Finale regressions",
+      "Canvas layout render and deployed browser boot/input",
+      "Scope Risk Impact trusted syntax and repository validators"
+    ],
+    "promotionRisk": "Staging merge only; no production promotion"
+  }
+}
