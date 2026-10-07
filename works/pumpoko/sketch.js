@@ -99,7 +99,7 @@
     c.save(); c.translate(-px * .7, -py * .5);
     outline(c, 141, 0.80, 3);
     const flesh = c.createLinearGradient(-90, -100, 110, 130);
-    flesh.addColorStop(0, M.fleshLight); flesh.addColorStop(.44, M.flesh); flesh.addColorStop(1, M.fleshDeep);
+    flesh.addColorStop(0, "#ffd384"); flesh.addColorStop(.44, "#f5ac53"); flesh.addColorStop(1, "#df9248");
     c.fillStyle = flesh; c.fill();
     c.strokeStyle = M.rind; c.lineWidth = 3.2; c.stroke();
     c.save();c.clip();root.PumpkinStageDraw.mottling(c,-143,-115,286,230,17,.10);c.restore();
@@ -110,8 +110,8 @@
     outline(c, 105, .80, 2.5);
     // Wide, quiet colour masses describe a soft hollow; no fibre diagram.
     const interior = c.createRadialGradient(-17 - state.x * 20, -12 - state.y * 20, 6, 0, 0, 119);
-    interior.addColorStop(0, "#e2ac69"); interior.addColorStop(.52, M.flesh);
-    interior.addColorStop(.82, "#f6c982"); interior.addColorStop(1, M.fleshDeep);
+    interior.addColorStop(0, "#e6a05a"); interior.addColorStop(.52, "#e9a760");
+    interior.addColorStop(.82, "#efb36c"); interior.addColorStop(1, "#c58b50");
     c.fillStyle = interior; c.fill();
     c.save(); c.clip();
     const shade = c.createLinearGradient(0, -85, 0, 65);

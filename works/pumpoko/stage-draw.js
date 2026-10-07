@@ -156,7 +156,7 @@
     c.bezierCurveTo(8,-18,20,-12,20,-1);c.bezierCurveTo(21,9,11,16,0,13);
     c.bezierCurveTo(-11,16,-21,9,-20,-1);c.bezierCurveTo(-20,-12,-8,-18,0,-12);c.closePath();
     const body=c.createLinearGradient(-12,-14,12,15);
-    body.addColorStop(0,material.fleshLight);body.addColorStop(.55,material.flesh);body.addColorStop(1,material.fleshDeep);
+    body.addColorStop(0,'#ffc574');body.addColorStop(.55,'#f5ac56');body.addColorStop(1,'#e59445');
     c.fillStyle=body;c.fill();c.save();c.clip();
     c.beginPath();c.ellipse(-10,0,9,15,-.10,0,TAU);c.fillStyle='rgba(255,215,142,.30)';c.fill();
     c.beginPath();c.ellipse(2,1,9,15,0,0,TAU);c.fillStyle='rgba(255,198,112,.38)';c.fill();
