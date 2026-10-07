@@ -80,9 +80,6 @@
     // the local transition renderer starts with the identical layered pose.
     const depth = state.transition ? 1 - J.smooth(state.transition.progress / .36) : 1;
     const px = state.x * depth, py = state.y * depth;
-    // Microscopic rind/flesh grain must not become seed-sized as the cut grows.
-    // Only local shell detail fades; terrain grain and the material colors stay.
-    const detail = state.transition ? 1 - J.smooth(J.opening(state) / .12) : 1;
     // Lower skin: the visible thickness gives the drag somewhere to land.
     c.save(); c.translate(-px * 5, 15 - py * 3);
     outline(c, 143, 0.80, 3.5);
@@ -97,7 +94,7 @@
       c.strokeStyle = i % 2 ? "rgba(134,145,95,.22)" : "rgba(29,57,34,.24)";
       c.lineWidth = i % 2 ? 6 : 4; c.stroke();
     }
-    root.PumpkinStageDraw.mottling(c,-155,-130,310,260,14,.16 * detail);
+    root.PumpkinStageDraw.mottling(c,-155,-130,310,260,14,.16,true);
     c.restore();
     c.save(); c.translate(-px * .7, -py * .5);
     outline(c, 141, 0.80, 3);
@@ -105,7 +102,7 @@
     flesh.addColorStop(0, "#ffd384"); flesh.addColorStop(.44, "#f5ac53"); flesh.addColorStop(1, "#df9248");
     c.fillStyle = flesh; c.fill();
     c.strokeStyle = M.rind; c.lineWidth = 3.2; c.stroke();
-    c.save();c.clip();root.PumpkinStageDraw.mottling(c,-143,-115,286,230,17,.10 * detail);c.restore();
+    c.save();c.clip();root.PumpkinStageDraw.mottling(c,-143,-115,286,230,17,.10,true);c.restore();
     outline(c, 131, .80, 2);
     c.strokeStyle = "rgba(255,232,172,.65)"; c.lineWidth = 1.2; c.stroke();
     c.restore();
@@ -125,7 +122,7 @@
     const warmth = c.createRadialGradient(-29, 34, 0, -29, 34, 85);
     warmth.addColorStop(0, "rgba(255,218,155,.23)"); warmth.addColorStop(1, "rgba(255,218,155,0)");
     oval(c, -29, 34, 85, 64, warmth);
-    root.PumpkinStageDraw.mottling(c,-110,-90,220,180,16,.08 * detail);
+    root.PumpkinStageDraw.mottling(c,-110,-90,220,180,16,.08,true);
     c.restore(); c.restore();
     // Fade attachment remnants in the existing 1.8s pause: .25s of quiet,
     // then 1.05s to a clean cut. Seed positions/visibility are independent.
@@ -189,6 +186,7 @@
   function draw() {
     withCanvasContext(c => {
       c.translate(0, W.logicalHeight); c.scale(1, -1);
+      root.PumpkinStageDraw.materialFrame(c);
       c.drawImage(paper, 0, 0);
       if (mode !== "prologue") {
         if (mode === "transition") {

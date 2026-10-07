@@ -12,7 +12,28 @@
     leaf: '#738b59', leafDeep: '#536f49', shadow: 'rgba(90,68,38,.13)'
   });
   const texturePaths = new Map();
-  function mottling(c, x, y, w, h, step, strength) {
+  const textureFrames = new WeakMap();
+  function materialFrame(c) {
+    // Normalize to logical pixels, independent of backing resolution / DPR.
+    textureFrames.set(c, c.getTransform());
+  }
+  function textureDetail(c) {
+    const f=textureFrames.get(c);
+    if(!f)return 1;
+    const m=c.getTransform(),det=f.a*f.d-f.b*f.c;
+    if(!det)return 1;
+    const a=(f.d*m.a-f.c*m.b)/det,b=(-f.b*m.a+f.a*m.b)/det;
+    const cc=(f.d*m.c-f.c*m.d)/det,d=(-f.b*m.c+f.a*m.d)/det;
+    // Largest singular value: rotating a surface must not change its grain.
+    const sum=a*a+b*b+cc*cc+d*d,area=a*d-b*cc;
+    const scale=Math.sqrt((sum+Math.sqrt(Math.max(0,sum*sum-4*area*area)))/2);
+    // Ordinary title/ripe-fruit poses stay below 2x. Remove fine detail before
+    // a close-up turns these material-space cells into individually read dots.
+    return 1-ease((scale-2)/1);
+  }
+  function mottling(c, x, y, w, h, step, strength, zoomAware=false) {
+    if(zoomAware)strength*=textureDetail(c);
+    if(strength<=0)return;
     // Fixed material-space cells; no random/time input, sparkle or moving noise.
     const hash = n => { const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v); };
     const cells=[Math.floor(x/step),Math.ceil((x+w)/step),Math.floor(y/step),Math.ceil((y+h)/step)];
@@ -165,7 +186,7 @@
     shade.addColorStop(0,'rgba(107,77,38,0)');
     shade.addColorStop(1,'rgba(107,77,38,.16)');
     c.fillStyle=shade;c.fillRect(-22,-18,44,36);
-    mottling(c,-22,-18,44,36,5,.08);
+    mottling(c,-22,-18,44,36,5,.08,true);
     c.restore();
     c.beginPath();c.moveTo(-2,-12);c.quadraticCurveTo(-4,-18,1+id%2,-20);
     c.strokeStyle=material.rind;c.lineWidth=4.5;c.lineCap='round';c.stroke();
@@ -220,6 +241,7 @@
     }
   }
   function draw(c, s, seed, shell, returnShell) {
+    materialFrame(c);
     const mix=J.titleMix(s);
     const o = J.opening(s), g = s.geometry || J.geometry;
     // The tabletop opens into cream space as the same cut surface fills the view.
@@ -259,7 +281,7 @@
     drawPlants(c,s,returnShell);
     c.restore();
   }
-  const api={ material, mottling, draw, drawTerrain, drawLoops, drawFarm, drawPlants, drawSeeds, grassPoses };
+  const api={ material, materialFrame, textureDetail, mottling, draw, drawTerrain, drawLoops, drawFarm, drawPlants, drawSeeds, grassPoses };
   root.PumpkinStageDraw=api;
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

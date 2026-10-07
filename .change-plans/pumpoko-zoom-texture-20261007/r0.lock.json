@@ -1,0 +1,91 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "694fb88b56efa84868aa4817a29866b27d155adf3f01379b9bc50da7b0f34659",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-zoom-texture-20261007",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Use common drawing-scale texture attenuation for opening shell and Hero Pumpkin return",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "c331b66589f0602706e6f587c36aaac5eba358d9",
+    "canonicalSources": [
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/stage-draw.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-zoom-texture-20261007/r0.lock.json",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/ZOOM-TEXTURE-VALIDATION.md",
+      "works/pumpoko/visual-review/zoom-*"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "data/**",
+      "tests/**",
+      ".github/**",
+      "works/pumpoko/codea-lite.js",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/builder/**"
+    ],
+    "expectedChanges": [
+      "Replace opening-time-only grain fade with shared transform-based attenuation for pumpkin surfaces",
+      "Preserve normal-size grain, orange gradients, broad shading and contact shadows; leave terrain/background grain unchanged",
+      "Review opening and 1/9-fruit Hero return every three frames; compare models and normal-size renders"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-07 requests common zoom-aware texture handling for title opening and Hero Pumpkin return"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK / Standard drawing-only change; fresh r0 from merged PR170",
+      "Draft PR only; no new merge authorization for this follow-up"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "zoom-texture-frame-review",
+      "normal-size-material-preservation",
+      "title-cycle-state-equivalence"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Merged PR169 material/color and PR170 title cleanup"
+    ],
+    "rollback": "Revert this drawing implementation to merged PR170",
+    "outOfScope": [
+      "Gameplay/input/physics/camera/timing/audio",
+      "Engine/Codea/shared runtime/other works/production",
+      "New objects/HUD/stages/particles",
+      "merge/deploy"
+    ],
+    "promotion": "Draft PR only; no merge, deploy or production changes",
+    "unverified": [
+      "Physical iPhone/iPad playback and audio/performance; native Canvas review is not device verification"
+    ],
+    "previousPlanDigest": null,
+    "revisionReason": null
+  }
+}
