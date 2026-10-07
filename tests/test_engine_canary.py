@@ -62,7 +62,7 @@ global.btoa = s => Buffer.from(s,'binary').toString('base64');
 global.BEGAN='BEGAN'; global.ENDED='ENDED'; global.CANCELLED='CANCELLED';
 let config, tones=0, unlocks=0, pressed=false;
 global.SSE={VERSION:'test', createApp(c){config=c;}, input:{actionPressed(){const p=pressed; pressed=false; return p;}}, viewport:{configure(){}},
- audio:{ctx:{state:'suspended'}, resourceState(){return {status:'idle'};}, unlock(){unlocks++;}, tone(){tones++; return true;}},
+ lifecycle:{onPause(){},onResume(){}}, audio:{enabled:true,ctx:{state:'suspended'}, resourceState(){return {status:'idle'};}, unlock(){unlocks++;}, tone(){tones++; return true;}},
  assets:{status(){return 'idle';}, record(){return {};}, async preload(names){loads.push(names);}}};
 global.CodeaLite={VERSION:'test', start(){config.setup();}};
 require(process.argv[1]);
@@ -73,6 +73,9 @@ assert.equal(wav.toString('ascii',0,4),'RIFF'); assert.equal(wav.toString('ascii
 assert.equal(wav.readUInt32LE(4)+8,wav.length); assert.equal(wav.readUInt32LE(24),8000);
 assert.equal(wav.readUInt32LE(40)+44,wav.length); assert.equal(wav.readUInt16LE(34),16);
 assert.equal(config.audio.music.validMedia.file,config.audio.sounds.validBuffer.file);
+const lifecycleWav=Buffer.from(config.audio.music.lifecycleMusic.file.split(',')[1],'base64');
+assert.equal(lifecycleWav.readUInt32LE(40),64000*2); assert.equal(config.audio.music.lifecycleMusic.loop,true);
+assert.equal(element('resume-heard').value,'NOT TESTED'); // fake select never auto-passes
 assert.equal(config.audio.sounds.missing.file,'./__missing_audio_canary__.wav');
 config.scenes.test.touch({state:BEGAN,id:1,x:20,y:30});
 config.scenes.test.touch({state:ENDED,id:1,x:20,y:30});

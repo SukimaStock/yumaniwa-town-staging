@@ -25,7 +25,7 @@ class Target {
 function harness({ setup, failRAF = false, contextMissing = false, tabIndex } = {}) {
   const w = new Target(), doc = new Target();
   const canvas = new Target('CANVAS'), other = new Target('CANVAS');
-  const trace = [], raf = new Map(), timers = new Map(); let serial = 0;
+  const trace = [], updates = [], raf = new Map(), timers = new Map(); let serial = 0, clockMs = 100;
   canvas.captures = new Set(); canvas.focusCalls = 0;
   canvas.focus = () => { canvas.focusCalls++; trace.push('focus'); doc.activeElement = canvas; };
   canvas.setPointerCapture = id => canvas.captures.add(id);
@@ -38,7 +38,7 @@ function harness({ setup, failRAF = false, contextMissing = false, tabIndex } = 
   doc.querySelector = () => null; doc.hidden = false; doc.activeElement = null;
   const rafRequest = cb => { if (failRAF) throw new Error('RAF failure'); const id = ++serial; raf.set(id, cb); return id; };
   Object.assign(w, { window: w, document: doc, console: { log() {}, warn() {}, error() {} }, innerWidth: 360, innerHeight: 640, devicePixelRatio: 3,
-    performance: { now: () => 100 }, requestAnimationFrame: rafRequest, cancelAnimationFrame: id => raf.delete(id),
+    performance: { now: () => clockMs }, requestAnimationFrame: rafRequest, cancelAnimationFrame: id => raf.delete(id),
     setTimeout: cb => { const id = ++serial; timers.set(id, cb); return id; }, clearTimeout: id => timers.delete(id),
     setInterval: cb => { const id = ++serial; timers.set(id, cb); return id; }, clearInterval: id => timers.delete(id),
     localStorage: { getItem: () => null }, navigator: {}, location: { search: '' } });
@@ -47,12 +47,12 @@ function harness({ setup, failRAF = false, contextMissing = false, tabIndex } = 
   run(codea); run(engine);
   let setups = 0, unlocks = 0, resumes = 0;
   const touches = [];
-  w.SSE.createApp({ logicalWidth: 360, logicalHeight: 640, debug: false, devtools: { enabled: false }, keyboard: { bindings: { fire: ['Space'] } }, setup() { setups++; setup?.(w); }, initialScene: 'main', scenes: { main: { draw() {}, touch(t) { touches.push(t.state); trace.push(t.state); } } } });
+  w.SSE.createApp({ logicalWidth: 360, logicalHeight: 640, debug: false, devtools: { enabled: false }, keyboard: { bindings: { fire: ['Space'] } }, setup() { setups++; setup?.(w); }, initialScene: 'main', scenes: { main: { update(dt) { updates.push(dt); }, draw() {}, touch(t) { touches.push(t.state); trace.push(t.state); } } } });
   const start = () => w.CodeaLite.start('canvas');
   const spyAudio = () => { w.SSE.audio.unlock = () => { unlocks++; }; w.SSE.audio.ctx = { state: 'suspended', resume() { resumes++; return Promise.resolve(); } }; };
   const pointer = (type, pointerId = 1, extra = {}) => canvas.emit(type, { pointerId, clientX: 180, clientY: 320, ...extra });
   const key = (type, extra = {}) => w.emit(type, { code: 'Space', key: ' ', target: canvas, ...extra });
-  return { w, doc, canvas, other, trace, raf, timers, run, start, spyAudio, pointer, key, touches, get setups() { return setups; }, get unlocks() { return unlocks; }, get resumes() { return resumes; } };
+  return { w, doc, canvas, other, trace, raf, timers, run, start, spyAudio, pointer, key, touches, updates, frame(at) { clockMs = at; const [id, cb] = [...raf][0]; raf.delete(id); cb(at); }, get setups() { return setups; }, get unlocks() { return unlocks; }, get resumes() { return resumes; } };
 }
 test('single, duplicate and reentrant start keep one setup, RAF and listener set', () => {
   const h = harness({ setup(w) { w.CodeaLite.start('canvas'); } }); h.start();
@@ -130,11 +130,11 @@ for (const type of ['blur', 'pagehide', 'hidden']) test(`${type} interruption or
   assert.equal(h.touches.filter(t => t === 'CANCELLED').length, 1); assert.equal(h.unlocks, unlocks);
   assert.ok(h.trace.indexOf('CANCELLED') < h.trace.indexOf('raw')); assert.ok(h.trace.indexOf('raw') < h.trace.indexOf('audio')); assert.equal(lifecycle.paused, true);
 });
-test('valid pointer/key gestures resume audio; synthetic, unbound keys and cancellation do not', () => {
+test('valid pointer/key gestures resume audio; synthetic, unbound keys and cancellation do not', async () => {
   const h = harness(); h.start(); h.spyAudio();
   h.pointer('pointerdown', 1, { isTrusted: false }); h.pointer('pointercancel'); h.key('keydown', { isTrusted: false }); h.key('keyup');
   h.key('keydown', { code: 'KeyQ', key: 'q' }); assert.equal(h.unlocks, 0); assert.equal(h.resumes, 0);
-  h.pointer('pointerdown', 2); h.key('keydown'); assert.equal(h.unlocks, 2); assert.equal(h.resumes, 2);
+  h.pointer('pointerdown', 2); for(let n=0;n<12;n++)await Promise.resolve(); h.key('keydown'); assert.equal(h.unlocks, 2); assert.equal(h.resumes, 2);
   h.w.emit('blur'); assert.equal(h.unlocks, 2);
 });
 test('Subsystems outside Phase 2 Audio/Asset and Phase 3 reports remain byte-identical to v0.2', () => {
@@ -176,4 +176,12 @@ test('boot failure clears captures, delayed resize, and preserves unrelated list
 test('a failing audio unlock does not prevent keyboard action delivery', () => {
   const h = harness(); h.start(); h.w.SSE.audio.unlock = () => { throw new Error('unsupported audio'); };
   h.key('keydown'); assert.equal(h.w.SSE.input.actionPressed('fire'), true);
+});
+
+test('real Engine/Codea dispatcher excludes hidden wall time and keeps one RAF across BFCache', () => {
+  const h=harness();h.start();h.frame(116);h.frame(133);const before=h.updates.length;
+  h.doc.hidden=true;h.doc.emit('visibilitychange');h.w.emit('pagehide',{persisted:true});
+  h.frame(60133);assert.equal(h.updates.length,before);
+  h.doc.hidden=false;h.w.emit('pageshow',{persisted:true});h.doc.emit('visibilitychange');h.w.emit('pageshow',{persisted:true});
+  h.frame(60150);assert.equal(h.updates.length,before+1);assert.ok(h.updates.at(-1)>0&&h.updates.at(-1)<=.05);assert.equal(h.raf.size,1);assert.equal(h.setups,1);
 });

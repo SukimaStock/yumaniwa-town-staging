@@ -71,6 +71,18 @@
       <pre id="missing">Audio: idle / Asset: idle</pre>
       <p class="hint">この404は意図した失敗です。自動再試行はしません。</p>
     </section>
+    <section>
+      <h2>6 · BGMを流して離脱・復帰する</h2>
+      <p>8秒でループする、音程が1秒ごとに上がる確認音です。LOAD → PLAY後にSafariを別画面へ送り、戻った直後の速度を耳で確認してください。別ページへ進んで「戻る」も試します。</p>
+      <button id="load-lifecycle" type="button">LOAD LIFECYCLE MUSIC</button>
+      <button id="play-lifecycle" type="button" disabled>PLAY / RESUME MUSIC</button>
+      <button id="mute-lifecycle" type="button">MUTE / UNMUTE</button>
+      <pre id="lifecycle-resource">Audio: idle / Asset: idle</pre>
+      <p id="music-clock">not created</p><p id="music-player">—</p><p id="music-events">—</p><p id="music-boundary">—</p><p>Sound: <output id="music-enabled">—</output></p>
+      <p class="hint">離脱中に時計は停止。復帰時は同じplayer・位置、rate 1、通常速度が期待値です。8秒での曲末ループは自然な時計の折り返しです。BFCacheを使ったかはpageshow.persistedで観測します。</p>
+      <label>復帰直後の音（耳で確認）<select id="resume-heard"><option>UNVERIFIED</option><option>通常速度で再開（人間確認）</option><option>高速／音飛び／無音（人間確認）</option></select></label>
+      <p class="hint">Safari / iPhone / PWAの別画面・長時間離脱・連続離脱・戻る操作をそれぞれ確認。表示値だけで音の正常を判定しません。</p>
+    </section>
     <footer><strong>Browser / iPhone verification: UNVERIFIED</strong><p>このページは観測用です。自動PASS判定やEngineの診断機能追加はありません。</p><button id="reset" type="button" class="secondary">RESET TEST（再読み込み）</button></footer>
   </main>
   <noscript>JavaScriptを有効にして開いてください。</noscript>
