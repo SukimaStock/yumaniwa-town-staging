@@ -1,0 +1,32 @@
+name: World Consistency Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "tests/world-consistency/**"
+      - "works/pumpoko/**"
+      - "works/orbit-02/**"
+      - ".github/workflows/world-consistency-tests.yml"
+  push:
+    branches: [main]
+    paths:
+      - "tests/world-consistency/**"
+      - "works/pumpoko/**"
+      - "works/orbit-02/**"
+      - ".github/workflows/world-consistency-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Audit contract positive and negative traces
+        run: node --test tests/world-consistency/integration.test.cjs
+      - name: Run current PUMPOKO and ORBIT 02 source integration tests
+        run: node --test works/pumpoko/test-ending.cjs works/pumpoko/test-audio.cjs works/orbit-02/tests/archive.test.cjs

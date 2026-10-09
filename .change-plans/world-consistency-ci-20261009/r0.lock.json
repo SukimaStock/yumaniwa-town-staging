@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "db51a239f3fb0f19ddc632332f917058c56fa2f80437f162299501602f840bc1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "world-consistency-ci-20261009",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add read-only event-timeline consistency audit for PUMPOKO and ORBIT 02 in isolated staging CI",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review",
+      "Rule / Skill"
+    ],
+    "environment": "staging",
+    "baseSha": "c8462bd1ad08c6400ed9c7030535c884b51613f8",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/sketch.js",
+      "works/orbit-02/sketch.js",
+      "works/orbit-02/tests/harness.cjs",
+      "world-consistency-v2/SKILL.md (prior local research, not canonical runtime)"
+    ],
+    "allowedPaths": [
+      ".change-plans/world-consistency-ci-20261009/r0.lock.json",
+      "tests/world-consistency/timeline-audit.cjs",
+      "tests/world-consistency/pumpoko-contract.cjs",
+      "tests/world-consistency/orbit-contract.cjs",
+      "tests/world-consistency/integration.test.cjs",
+      "tests/world-consistency/README.md",
+      ".github/workflows/world-consistency-tests.yml"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "works/**",
+      "data/**",
+      "tools/change-*.cjs",
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      ".github/workflows/release-validator-tests.yml",
+      "main.js",
+      "index.html"
+    ],
+    "expectedChanges": [
+      "Add independent read-only event timeline runner with per-work invariants and earliest-step findings",
+      "Run current PUMPOKO scene through ending, title reset, and second journey without gameplay mutation; use existing debug probe and captured J.create result",
+      "Run current ORBIT 02 source through real recovery, HOME decode, first interpretation, and archive replay using existing test harness",
+      "Inject contradictory traces to prove detection; hook standalone workflow into PR and push for relevant work/test paths",
+      "Preserve all source and production paths unchanged; stop at Draft PR"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-09 requested the next stage: staging-independent audit tests and automatic contradiction detection; no production or merge instruction"
+    ],
+    "hqDecisions": [
+      "Implement the approved pilot as a separate read-only CI workflow, retaining the trusted Change PR Gate and other validation workflows unchanged"
+    ],
+    "rulesApplied": [
+      "Full SYSTEM Plan and immutable Plan Lock before implementation",
+      "No production changes; no gameplay or shared runtime edits"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "review-first-result-and-second-run-chronology",
+      "review-orbit-knowledge-and-replay-chronology",
+      "inspect-actions-workflow-check-on-draft-pr"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Close Draft PR and delete staging-only audit branch; no work code or production artifacts changed",
+    "outOfScope": [
+      "Merge and staging/main modification",
+      "Production publish or copying staging tests to production",
+      "Work code or Engine/Codea change",
+      "Change OS security gate modification",
+      "Release validator behavioral changes"
+    ],
+    "promotion": "Draft PR only; no merge or production",
+    "unverified": [
+      "Real device input/pixels/audio",
+      "Every gameplay route outside sampled deterministic fixtures",
+      "Hard-enforced required check status if repository ruleset is unknown"
+    ],
+    "problem": "Prior world consistency pilot only runs static recorded fixtures and separate manually executed live snippets, so code drift is not checked automatically",
+    "currentContract": "Staging has existing work-local tests plus trusted Change PR Gate, but no single read-only cross-event audit for these two works",
+    "whyExistingIsInsufficient": "Recorded snapshots cannot detect future behavior changes and existing tests do not share a common event-level contradiction report",
+    "design": "One independent pull_request/push workflow executes a standalone Node test file, small generic evaluator and work contracts; no candidate code runs in privileged pull_request_target context",
+    "alternativesRejected": [
+      "Integrating into trusted Change OS checks or editing baseline exact-blob contracts",
+      "Changing work runtime for instrumentation",
+      "Pretending recorded fixture pass proves future commits"
+    ],
+    "migration": "None; staging-only CI and tests without data/save/schema changes",
+    "compatibility": "Works, Engine, Codea, audio, saves, pages, publishing, and existing workflow behavior remain untouched",
+    "boundaryCases": [
+      "One frame can reset ending before titleReady can be sampled",
+      "ORBIT existing knowledge must not be treated as zero on every SERA visit",
+      "Planned plants are not visible fruit count",
+      "Read-only archive replay must not increment discovery/resources",
+      "Mutation tests must detect contradicted traces"
+    ],
+    "testPlan": [
+      "Run new integration test at exact candidate SHA on GitHub PR",
+      "Prove normal and deliberately corrupted traces",
+      "Confirm isolated workflow trigger on changes to works or audit tests",
+      "Run trusted Plan Scope Risk Impact gates; leave human/device checks UNVERIFIED"
+    ],
+    "promotionRisk": "Separate CI workflow does not authorize deploy; PR CI executing candidate test code uses contents:read only, never pull_request_target"
+  }
+}
