@@ -1,0 +1,131 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9f26b5d3e41f63f608557f4d4b4d98585a058f1f548741d328b1e3c90b6d1e3d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "motion-lab-v01-20261009",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add Motion Lab v0.1: three source-grounded tactile experiments and local specimen shelf; PR only",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "c3b9c2729bd314c6452ff9838e94872103c260d6",
+    "canonicalSources": [
+      "Attached Motion Lab v0.1 implementation prompt 2026-10-09",
+      "AGENTS.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "data/work-lifecycle.json",
+      "Google Drive SukimaStock/Code/Rakugaki Slime PuddleMoon Firefly RakugakiEngine",
+      "Google Drive SukimaStock/note: five specified essays"
+    ],
+    "allowedPaths": [
+      ".change-plans/motion-lab-v01-20261009/r0.lock.json",
+      "works/motion-lab/**",
+      "data/work-lifecycle.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "works/pumpoko/**",
+      "works/orbit*/**",
+      "works/tea-unfold*/**",
+      "works/morning-thread*/**",
+      "works/town-glance*/**",
+      "lab/**"
+    ],
+    "expectedChanges": [
+      "Independent responsive motion shelf, embedded canvas stage, four live parameters each, reset and replay",
+      "Source-grounded Slime nodes and lag, PuddleMoon ripple and moon memory, Firefly sweet/bitter input",
+      "Versioned validated local specimen settings, seed, memo, JSON export/import, source catalog",
+      "Append one active staging-only lifecycle entry; no other registry mutation",
+      "Numerical, input, persistence, lifecycle and isolation tests; source notes and physical-device drill"
+    ],
+    "ownerDecisions": [
+      "User supplied complete v0.1 implementation directive and authorized staging PR, explicitly no merge and no production changes"
+    ],
+    "hqDecisions": [
+      "Use work-local Canvas loop/input/storage because canonical Codea owns full-window canvas size/RAF and primary-pointer interruption, while this work needs an embedded responsive stage and independent touch tracking. No canonical fork, no shared launch/storage/API changes; local JSON is explicitly requested. Lifecycle entry carries full risk floor."
+    ],
+    "rulesApplied": [
+      "Plan-only first commit, then Scope → Risk → Impact checks",
+      "Active staging-only; no candidate, release or town listing",
+      "Source archives read-only; actual Codea differences documented"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-iphone-safari",
+      "physical-ipad-multitouch",
+      "owner-tactile-comparison"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated PR and only its appended lifecycle record.",
+    "outOfScope": [
+      "Production/merge/promotion",
+      "Other works and canonical runtime",
+      "Composition, game rules, editor, cloud storage, audio"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad/PC browsers and subjective touch quality; browser QA unavailable without control-browser skill"
+    ],
+    "problem": "Need a small place to explore motion before game rules emerge",
+    "currentContract": "Staging-only independent works with active lifecycle metadata; canonical Engine remains unchanged",
+    "whyExistingIsInsufficient": "Three independent full-screen Codea originals lack shared responsive adjustment and specimen retrieval",
+    "design": "Work-local common runner/input/storage plus separate models; soft-node slime, additive ripple/moon and delayed individual fireflies",
+    "alternativesRejected": [
+      "Canonical runtime fork",
+      "Global scene/editor framework",
+      "Full-window Codea canvas behind panels"
+    ],
+    "migration": "Append one active record only",
+    "compatibility": "All existing works, Engine, town, SEO and production remain byte-identical",
+    "boundaryCases": [
+      "Two independent pointers and cancellation",
+      "Extreme parameters and long-run bounded allocation",
+      "Resize/orientation during touch",
+      "Hidden and BFCache resume without catch-up",
+      "Malformed/future storage and quota fallback",
+      "Import duplicate/unknown experiment/version"
+    ],
+    "testPlan": [
+      "Node model stability and parameter response",
+      "Fake DOM canvas input, interruption and runner integration",
+      "Storage roundtrip malformed/import/quota tests",
+      "Existing lifecycle and current PUMPOKO/ORBIT regression",
+      "Scope Risk Impact trusted node syntax"
+    ],
+    "promotionRisk": "No merge or deploy; physical checks pending"
+  }
+}
