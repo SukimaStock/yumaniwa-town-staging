@@ -207,6 +207,13 @@
       "title": "ORBIT / 02",
       "family": "ORBIT",
       "theme": "Echoを持ち帰り、HOMEで記憶を振り返る"
+    },
+    {
+      "id": "motion-lab",
+      "path": "works/motion-lab",
+      "status": "active",
+      "title": "Motion Lab · 動きの実験室",
+      "theme": "触れるらくがきから取り出した小さな動きを、変えて残す"
     }
   ]
 }

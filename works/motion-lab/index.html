@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#eeeee5">
+  <meta name="description" content="小さな動きを触って、変えて、残す。SukimaStockの動きの実験室。">
+  <title>Motion Lab · 動きの実験室</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="catalog.js"></script><script defer src="math.js"></script>
+  <script defer src="slime.js"></script><script defer src="puddle.js"></script><script defer src="firefly.js"></script>
+  <script defer src="storage.js"></script><script defer src="runner.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="brand"><span class="mark" aria-hidden="true">m<span>·</span></span><div><p class="eyebrow">SUKIMASTOCK / SMALL MOTION STUDIES</p><h1>Motion Lab <span>動きの実験室</span></h1></div></div>
+    <nav aria-label="棚"><button id="open-shelf" class="quiet">標本棚 <span id="specimen-count">0</span></button><button id="open-sources" class="quiet">原作の棚</button></nav>
+  </header>
+  <main class="laboratory">
+    <nav class="motion-shelf" aria-label="動きを選ぶ"><p class="eyebrow shelf-label">動きの棚</p><div id="experiments"></div><p class="shelf-note">まだ名前のない<br>面白さを、ひとつ。</p></nav>
+    <section class="stage-column" aria-labelledby="stage-title">
+      <div class="stage-heading"><div><p class="eyebrow" id="stage-number">STUDY / 01</p><h2 id="stage-title">引っ張る <span>Slime</span></h2></div><span class="live-label"><i></i> 触ってみる</span></div>
+      <div class="stage-frame"><canvas id="stage" tabindex="0" aria-label="Slimeの実験台。1本指でつかみ、2本指で引っ張ります。"></canvas><noscript>実験台を使うにはJavaScriptを有効にしてください。</noscript><p id="stage-error" role="alert" hidden></p></div>
+      <div class="stage-bottom"><p id="hint">1本指でつかむ。2本指で、ゆっくり伸ばす。</p><p id="pc-hint" class="pc-hint"></p>
+        <div class="stage-actions"><button id="replay" class="quiet">動きだけ戻す</button><div id="firefly-mode" hidden><button data-mode="sweet" aria-pressed="true">集まる</button><button data-mode="bitter" aria-pressed="false">逃げる</button></div><button id="open-save" class="primary">標本に残す <span aria-hidden="true">＋</span></button></div>
+      </div>
+    </section>
+    <details id="tuning" class="tuning" open>
+      <summary><span>手触りの調整</span><span class="summary-icon" aria-hidden="true">＋</span></summary>
+      <div class="tuning-body"><div class="panel-title"><p class="eyebrow">少し変えて、もう一度。</p><button id="close-tuning" class="quiet mobile-only" aria-label="調整を閉じる">閉じる</button></div><div id="parameters"></div><button id="reset" class="reset">初期設定に戻す</button><p class="panel-note">数値に正解はありません。<br>気になるところを、少しだけ。</p><p id="restored-label" class="restored-label" hidden></p></div>
+    </details>
+  </main>
+  <footer class="page-footer"><span>触る → 変える → また触る → 残す</span><span>STUDY EDITION / 0.1</span></footer>
+  <p id="status" class="status" role="status" aria-live="polite"></p>
+  <dialog id="save-dialog" aria-labelledby="save-title"><div class="dialog-header"><div><p class="eyebrow">A SMALL DISCOVERY</p><h2 id="save-title">この動きを、残す。</h2></div><button type="button" data-close="save-dialog" class="quiet" aria-label="保存画面を閉じる">閉じる</button></div><form id="save-form"><p id="save-description" class="muted"></p><label for="specimen-title">名前 <span>任意</span></label><input id="specimen-title" type="text" maxlength="80" placeholder="なんとなく、気持ちいい"><label for="specimen-memo">一言メモ <span>任意</span></label><textarea id="specimen-memo" maxlength="300" rows="3" placeholder="何が気になった？"></textarea><p class="muted small">調整値とシードを、このブラウザーに保存します。動きの途中の形や指の軌跡は含みません。</p><button type="submit" class="primary wide">標本を保存する</button></form></dialog>
+  <dialog id="shelf-dialog" aria-labelledby="shelf-title"><div class="dialog-header"><div><p class="eyebrow">SPECIMENS</p><h2 id="shelf-title">標本棚</h2></div><button data-close="shelf-dialog" class="quiet">閉じる</button></div><p class="muted">気になった手触りを、もう一度。</p><p id="storage-warning" role="status" class="storage-warning" hidden></p><div class="shelf-tools"><button id="export" class="quiet">JSONを書き出す</button><label class="file-button" for="import">JSONを取り込む<input id="import" type="file" accept=".json,application/json"></label></div><div id="specimens"></div></dialog>
+  <dialog id="sources-dialog" aria-labelledby="sources-title"><div class="dialog-header"><div><p class="eyebrow">FROM #触れるらくがき</p><h2 id="sources-title">原作の棚</h2></div><button data-close="sources-dialog" class="quiet">閉じる</button></div><p class="muted">Codeaで作った動きから、ひとつずつ取り出しました。</p><div id="sources"></div></dialog>
+</body>
+</html>
