@@ -1,0 +1,97 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1a14c406d7bf5d45f7eba89e184b018c8206dd4a8fec685d7587b06997bfe9ca",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "world-loop-length-comparison-20261009",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Compare two and four world handoffs while preserving adopted baseline physics",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "5e619fc11396b44c694ca526d7e240dcb7a05df0",
+    "canonicalSources": [
+      "User WORLD LOOP 2/4 comparison instruction 2026-10-09",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/pumpkin-rutabaga-lab",
+      "works/pumpoko/stage-geometry.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/journey.js",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/world-loop-length-comparison-20261009/r0.lock.json",
+      "works/pumpkin-rutabaga-lab/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "engine/**",
+      "data/**",
+      "index.html",
+      "main.js",
+      "production"
+    ],
+    "expectedChanges": [
+      "WORLD LOOP 2 and 4 with identical prefix and shared physical model/hole/camera",
+      "Independent authored second cycle and natural finish without forced stop",
+      "Small world course selector, RESET and hidden experiment timings/reset counts",
+      "Exact baseline regression, both complete paths and geometry/contact tests"
+    ],
+    "ownerDecisions": [
+      "User adopts WORLD LOOP and authorizes length comparison with staging PR and merge only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard",
+      "Plan-only first commit",
+      "Canonical Engine and Codea; no shared changes",
+      "Formal verification remains UNVERIFIED"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "ipad-pop-plug-feel",
+      "continuous-camera-touch"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing Engine 0.3.0 and Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert this isolated PR",
+    "outOfScope": [
+      "Production",
+      "Other works",
+      "New saves, HUD, progression or BGM"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPad/Safari and subjective pop/plug feel"
+    ],
+    "testPlan": [
+      "Exact old three modes and baseline WORLD LOOP equality",
+      "Shared course prefix equality",
+      "Input-driven two and four swaps to finish, planted entities and retry",
+      "Low/high contacts, curvature/bounds/penetration and camera continuity",
+      "Measurements, pause/reset and canonical Engine/Codea UI integration",
+      "Unchanged PUMPOKO regressions"
+    ]
+  }
+}

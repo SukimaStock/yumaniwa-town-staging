@@ -20,8 +20,8 @@
     underground: [[410, 220, -.6], [660, 95, 0], [830, 125, 0], [1010, 85, 0], [1240, 125, 0], [1310, 132, .1]],
     return: [[1140, 248, 0], [1240, 240, -.15], [1490, 205, 0], [1750, 310, .7]],
   };
-  function curve(layer, x) {
-    const points = CURVES[layer]; x = clamp(x, points[0][0], points.at(-1)[0]);
+  function curve(layer, x, course) {
+    const points = (course ? course.curves : CURVES)[layer]; x = clamp(x, points[0][0], points.at(-1)[0]);
     const i = Math.max(0, points.findIndex((p, i) => i && x <= p[0]) - 1), a = points[i], b = points[i + 1];
     const length = b[0] - a[0], t = (x - a[0]) / length;
     const y = (2*t*t*t-3*t*t+1)*a[1] + (t*t*t-2*t*t+t)*length*a[2] + (-2*t*t*t+3*t*t)*b[1] + (t*t*t-t*t)*length*b[2];
@@ -30,17 +30,17 @@
     const k = Math.hypot(1, slope);
     return { x, y, slope, curvature, tx: 1/k, ty: slope/k, nx: -slope/k, ny: 1/k };
   }
-  function contact(b) {
+  function contact(b, course) {
     let x = b.x;
     for (let i = 0; i < 8; i++) {
-      const f = curve(b.layer, x);
+      const f = curve(b.layer, x, course);
       x -= clamp(((f.x-b.x)+(f.y-b.y)*f.slope)/Math.max(.4,1+f.slope*f.slope+(f.y-b.y)*f.curvature),-45,45);
     }
-    const f = curve(b.layer, x); f.distance = (b.x-f.x)*f.nx+(b.y-f.y)*f.ny; return f;
+    const f = curve(b.layer, x, course); f.distance = (b.x-f.x)*f.nx+(b.y-f.y)*f.ny; return f;
   }
-  function fruit(kind, x, layer, plug = false) {
+  function fruit(kind, x, layer, plug = false, course) {
     const b = P.body(kind, 0); b.layer = layer; b.plugged = plug;
-    const f = curve(layer, x); b.x = f.x + f.nx*b.r; b.y = f.y+f.ny*b.r;
+    const f = curve(layer, x, course); b.x = f.x + f.nx*b.r; b.y = f.y+f.ny*b.r;
     return b;
   }
   function create(settings = P.defaults()) {
@@ -53,11 +53,22 @@
     s.holes = [hole('down',500,490,-1,s.rutabaga,'pumpkin','underground'),hole('up',1240,230,1,next,'rutabaga','return')];
     s.camera = {x:s.pumpkin.x,y:s.pumpkin.y+70,vx:0,vy:0}; return s;
   }
+  function createCourse(course, settings = P.defaults()) {
+    const s=create(settings);s.course=course;s.finished=false;s.finishedAt=null;
+    s.pumpkin=fruit('pumpkin',-250,'surface',false,course);s.entities=[s.pumpkin];
+    s.holes=course.holes.map(spec=>{
+      const kind=spec.direction<0?'rutabaga':'pumpkin',occupant=fruit(kind,spec.x,spec.exitLayer,true,course);
+      occupant.x=spec.x;occupant.y=spec.y;s.entities.push(occupant);
+      const h=hole(spec.id,spec.x,spec.y,spec.direction,occupant,spec.direction<0?'pumpkin':'rutabaga',spec.exitLayer);
+      h.entryLayer=spec.entryLayer;return h;
+    });
+    s.rutabaga=s.entities[1];s.camera={x:s.pumpkin.x,y:s.pumpkin.y+70,vx:0,vy:0};return s;
+  }
   function hole(id,x,y,direction,occupant,incomingKind,exitLayer) {
     return {id,x,y,direction,occupant,incomingKind,exitLayer,state:'waiting',swaps:0,elapsed:0,incoming:null};
   }
   function eligible(s,h,b) {
-    if(h.state!=='waiting'||h.swaps||b.plugged||b.kind!==h.incomingKind) return false;
+    if(h.state!=='waiting'||h.swaps||b.plugged||b.kind!==h.incomingKind||(h.entryLayer&&b.layer!==h.entryLayer)) return false;
     // Project into the oriented mouth: both a vertical approach and real circle
     // contact are needed. Pure side contact and the opposite side cannot fire.
     const dx=b.x-h.occupant.x,dy=b.y-h.occupant.y, gap=Math.hypot(dx,dy);
@@ -66,7 +77,7 @@
       gap<=b.r+h.occupant.r+3 && speed>=(h.direction>0?s.settings.world.upward:.5);
   }
   function rejectContact(h,b) {
-    if(h.state!=='waiting'||b.kind!==h.incomingKind||b.layer!==(h.direction<0?'surface':'underground'))return;
+    if(h.state!=='waiting'||b.kind!==h.incomingKind||b.layer!==(h.entryLayer||(h.direction<0?'surface':'underground')))return;
     const dx=b.x-h.occupant.x,dy=b.y-h.occupant.y,distance=Math.hypot(dx,dy),radius=b.r+h.occupant.r;
     if(distance>=radius||distance<.001)return;
     const nx=dx/distance,ny=dy/distance,penetration=radius-distance;
@@ -100,7 +111,8 @@
       out.plugged=false; out.exiting=h.direction>0; out.grounded=false; out.safety=out.kind==='rutabaga'; out.pulse=1;
       incoming.plugged=true; incoming.vx=incoming.vy=0; incoming.grounded=false;
       h.settleFrom={x:incoming.x,y:incoming.y}; h.occupant=incoming; h.state='settling'; h.elapsed=0; h.swaps++;
-      s.active=out.kind; s[out.kind]=out; s.handoffs++; s.phase=h.direction<0?'underground':'return';
+      s.active=out.kind; s[out.kind]=out; s.handoffs++; s.phase=s.course?h.exitLayer:(h.direction<0?'underground':'return');
+      if(s.course)out.exitX=h.x;
       s.bufferedAt=-10;s.boostUsed=true; // Same held input survives; old landing buffer does not.
       s.events.push({type:'handoff',kind:out.kind,strength:h.impact.speed});
     } else if(h.state==='settling') {
@@ -111,22 +123,38 @@
       if(t===1){h.state='complete';h.incoming=null;h.occupant.angle=0;}
     }
   }
-  function surfaceHeight(x) {
+  function surfaceHeight(x, course) {
+    if(course){
+      const layers=course.surfaces;
+      for(let i=0;i<layers.length;i++){
+        const points=course.curves[layers[i]],last=points.at(-1);
+        if(x<=last[0]||i===layers.length-1)return curve(layers[i],x,course).y;
+        const next=course.curves[layers[i+1]][0];
+        if(x<next[0])return last[1]+(next[1]-last[1])*(x-last[0])/(next[0]-last[0]);
+      }
+    }
     if(x<=590)return curve('surface',x).y;
     if(x>=1140)return curve('return',x).y;
     return 480+(248-480)*(x-590)/550;
   }
-  function roof(x) { return Math.min(surfaceHeight(x)-25,x<650?430:Math.max(215,430-(x-650)*215/590)); }
+  function roof(x, course, layer) {
+    if(course){
+      const cell=course.cellars.find(c=>c.layer===layer)||course.cellars.find(c=>x>=c.left&&x<=c.right)||course.cellars[0];
+      const value=x<cell.roofStart?cell.roofHeight:Math.max(cell.exitRoof,cell.roofHeight-(x-cell.roofStart)*(cell.roofHeight-cell.exitRoof)/(cell.exitX-cell.roofStart));
+      return Math.min(surfaceHeight(x,course)-25,value);
+    }
+    return Math.min(surfaceHeight(x)-25,x<650?430:Math.max(215,430-(x-650)*215/590)); }
   function geometry(s,b) {
-    return {contact,frame:x=>curve(b.layer,x),constrain(body) {
-      const points=CURVES[body.layer],left=points[0][0]+body.r,right=points.at(-1)[0]-body.r;
+    const findContact=s.course?body=>contact(body,s.course):contact;
+    return {contact:findContact,frame:x=>curve(b.layer,x,s.course),constrain(body) {
+      const points=(s.course?s.course.curves:CURVES)[body.layer],left=points[0][0]+body.r,right=points.at(-1)[0]-body.r;
       if(body.x<left||body.x>right){body.x=clamp(body.x,left,right);body.vx=body.x===left?Math.abs(body.vx)*.35:-Math.abs(body.vx)*.35;}
-      const floor=contact(body);
+      const floor=findContact(body);
       if(floor.distance<body.r){body.x=floor.x+floor.nx*body.r;body.y=floor.y+floor.ny*body.r;}
       // The cellar roof and return lip use separate collision layers. The
       // return pumpkin passes through its mouth until its center clears it.
-      if(body.layer==='underground') {
-        const ceiling=roof(body.x);
+      if(body.layer==='underground'||s.course?.cellars.some(c=>c.layer===body.layer)) {
+        const ceiling=roof(body.x,s.course,body.layer);
         if(body.y+body.r>ceiling && !s.holes.some(h=>Math.abs(body.x-h.x)<65&&((h.direction>0&&h.state==='waiting')||(h.direction<0&&h.swaps===1&&body.safety)))) {
           body.y=ceiling-body.r;body.vy=Math.min(body.vy,0)*.25;
         }
@@ -143,10 +171,16 @@
         const geo=geometry(s,active);
         // Upward launch must clear the occupied surface lip before normal floor
         // projection resumes. This does not alter the pumpkin's gravity/drive.
-        if(active.exiting && contact(active).distance>=active.r) active.exiting=false;
+        // Only the extended course has an extra convex crest. Its surface can
+        // support, never pull, a rolling fruit; gravity handles the brief flight.
+        if(s.course?.crestStart && active.layer==='return' && active.x>=s.course.crestStart && active.grounded){
+          const f=geo.contact(active),v=active.vx*f.tx+active.vy*f.ty;
+          if(f.curvature<0 && v*v*(-f.curvature)/Math.pow(1+f.slope*f.slope,1.5)>P.G*f.ny)active.grounded=false;
+        }
+        if(active.exiting && geo.contact(active).distance>=active.r) active.exiting=false;
         if(active.exiting && active.vy>0) {
           active.vx+=s.axis*s.settings.pumpkin.response/s.settings.pumpkin.mass*s.settings.pumpkin.air*step;
-          active.vy-=P.G*step; active.x=clamp(active.x+active.vx*step,1236,1244);active.y+=active.vy*step;active.pulse*=Math.exp(-step*10);
+          active.vy-=P.G*step; active.x=clamp(active.x+active.vx*step,(s.course?active.exitX:1240)-4,(s.course?active.exitX:1240)+4);active.y+=active.vy*step;active.pulse*=Math.exp(-step*10);
         } else P.integrate(s,active,s.axis,step,geo);
         for(const h of s.holes){if(eligible(s,h,active)){start(s,h,active);break;}rejectContact(h,active);}
       }
@@ -159,9 +193,10 @@
         s.camera[v]+=((target-s.camera[key])*49-s.camera[v]*14)*step;
         s.camera[key]+=s.camera[v]*step;
       }
+      if(s.course&&!s.finished&&s.handoffs===s.holes.length&&b.grounded&&b.x>=s.course.finishX){s.finished=true;s.finishedAt=s.time;}
       s.accumulator-=step;
     }
     return s.events;
   }
-  return {PARAMETERS,CURVES,curve,surfaceHeight,roof,contact,create,update,eligible};
+  return {PARAMETERS,CURVES,curve,surfaceHeight,roof,contact,create,createCourse,update,eligible};
 });

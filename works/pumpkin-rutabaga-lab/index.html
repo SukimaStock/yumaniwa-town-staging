@@ -16,7 +16,10 @@
 <button data-mode="pumpkin" aria-pressed="true">PUMPKIN</button>
 <button data-mode="rutabaga" aria-pressed="false">RUTABAGA</button>
 <button data-mode="handoff" aria-pressed="false">HANDOFF</button>
+<div class="world-group">
 <button data-mode="world" aria-pressed="false">WORLD LOOP</button>
+<select id="world-course" aria-label="WORLD LOOP コース"><option value="world">基準（現行）</option><option value="world2">2回</option><option value="world4">4回</option></select>
+</div>
 </nav>
 </header>
 <div id="feel" aria-live="polite">するする、ころころ</div>
@@ -29,6 +32,7 @@
 <div class="panel-head"><strong>触り心地の調整</strong><button id="close-tune" aria-label="調整を閉じる">×</button></div>
 <p>値はすぐ反映。RESETは位置だけ戻します。</p>
 <div id="sliders"></div>
+<details id="comparison-stats"><summary>比較の計測</summary><pre id="measurements">WORLD LOOP系列を選ぶと計測を開始します。</pre></details>
 <button id="defaults">初期の触り心地へ戻す</button>
 </aside>
 <output id="boot-error" hidden>起動できませんでした。ページを再読み込みしてください。</output>
@@ -36,6 +40,8 @@
 <script data-sse-engine src="../../engine/sukimastock-engine.v0.3.0.js"></script>
 <script src="./physics.js"></script>
 <script src="./world.js"></script>
+<script src="./courses.js"></script>
+<script src="./measurements.js"></script>
 <script src="./draw.js"></script>
 <script src="./world-draw.js"></script>
 <script src="./app.js"></script>
