@@ -1,0 +1,128 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "62a33ec0ebb7777759daea645e756035529fbdcfea2388a1f65514f621193aed",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-world-loop-main-20261009",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Move adopted WORLD LOOP 4 to independent game with continuous opening and equal fruit ending",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "2bc55b2cf93457f6ed1409609075789aaa1dbe22",
+    "canonicalSources": [
+      "User pumpoko-02 WORLD LOOP story instruction 2026-10-09",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "data/work-lifecycle.json",
+      "works/pumpkin-rutabaga-lab",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/stage-geometry.js",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-world-loop-main-20261009/r0.lock.json",
+      "works/pumpoko-02/**",
+      "data/work-lifecycle.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "index.html",
+      "main.js",
+      "production"
+    ],
+    "expectedChanges": [
+      "Byte-identical adopted physics, world, course and fruit art inside independent work",
+      "Pumpkin-led provisional title starts same body using left/right, no lab UI",
+      "Four swaps followed by natural coast, smooth equal-subject zoom out and quiet title return",
+      "Active staging-only lifecycle entry, no town placement",
+      "Exact lab trajectory/camera/contact comparison, full route, replay/lifecycle/render tests"
+    ],
+    "ownerDecisions": [
+      "User formally adopts four handoffs, authorizes independent pumpoko-02 and staging PR/merge; final title undecided"
+    ],
+    "hqDecisions": [
+      "Risk-floor SYSTEM classification only for lifecycle JSON. Existing lifecycle schema and existing Engine/Codea APIs, no shared contract extension. AGENTS permits schema-bounded new work IDs; owner explicitly authorizes this active staging-only entry. No new persistence model."
+    ],
+    "rulesApplied": [
+      "WORK Standard",
+      "Plan-only first commit",
+      "Canonical Engine and Codea; no shared changes",
+      "Formal verification remains UNVERIFIED",
+      "Fresh full plan before reapplying reviewed implementation; initial standard draft is not published"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "ipad-pop-plug-feel",
+      "continuous-camera-touch"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing Engine 0.3.0 and Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert this isolated PR",
+    "outOfScope": [
+      "Production",
+      "Lab or existing PUMPOKO edits",
+      "Shared runtime changes",
+      "New mechanics, collection, growth, score, BGM or town placement"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPad/Safari and subjective pop/plug feel"
+    ],
+    "testPlan": [
+      "Byte copies and exact lab WORLD LOOP 4 trajectory with same input",
+      "All four exchanges, minimum/maximum launch, restart and planted bodies",
+      "Opening continuous and ending two-fruit bounds, gradual camera and replay",
+      "Canonical Engine/Codea pointer, keyboard, interruption and one RAF",
+      "Lab, PUMPOKO, lifecycle and foundation regressions"
+    ],
+    "problem": "The adopted lab WORLD LOOP 4 needs an independent beginning and ending without experimental UI.",
+    "currentContract": "Canonical Engine/Codea and existing work lifecycle schema permit a work-local game and an active staging-only registry entry. Existing works and town navigation are protected.",
+    "whyExistingIsInsufficient": "The lab intentionally exposes modes, tuning and comparison instrumentation. A separate presentation wrapper is needed; no existing shared contract requires extension.",
+    "design": "Copy tested physical kernel unchanged into pumpoko-02, run only WORLD LOOP 4, place opening and equal-subject ending in a separate presentation state machine and view.",
+    "migration": "Create a new independent URL. Append exactly one active lifecycle record. No rename, transfer of saved data, town registration or production copy.",
+    "compatibility": "Lab and PUMPOKO code are byte-unchanged. Canonical Engine 0.3.0 and Codea Lite APIs and one RAF are retained. Gameplay snapshots match the adopted lab.",
+    "promotionRisk": "Staging-only; no production promotion. Subjective and real-device observations remain UNVERIFIED.",
+    "alternativesRejected": [
+      "Modifying existing PUMPOKO or lab would disturb the protected experiments.",
+      "Reimplementing physics or retuning constants would lose the validated feel.",
+      "Adding collection, growth, score or new controls is outside this migration."
+    ],
+    "boundaryCases": [
+      "Low/high and off-centre contacts at all four holes, planted body identity and no double fire.",
+      "Stopped reacceleration, fixed-step frame rates and min/max tuning validation.",
+      "Title held input, natural coast, both subjects visible during slow pull, replay without camera jump.",
+      "Pointer cancel, blur/focus, reset, phone/tablet landscape and portrait."
+    ]
+  }
+}
