@@ -24,6 +24,19 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
    for(let i=0;i<18 && await page.evaluate(()=>FruitLabProbe().handoffs<2);i++){await page.keyboard.up('ArrowRight');await page.waitForTimeout(60);await page.keyboard.down('ArrowRight');await page.waitForTimeout(420);}
    await page.keyboard.up('ArrowRight');assert.equal(await page.evaluate(()=>FruitLabProbe().handoffs),2);
    await page.locator('#reset').click();assert.equal(await page.evaluate(()=>FruitLabProbe().phase),'surface');
+   for(const [id,count]of [['world2',2],['world4',4]]){
+    await page.locator('#world-course').selectOption(id);
+    assert.equal(await page.evaluate(()=>FruitLabProbe().course),id);
+    await page.keyboard.down('ArrowRight');
+    for(let i=0;i<65&&!await page.evaluate(()=>FruitLabProbe().finished);i++){
+     if(await page.evaluate(()=>FruitLabProbe().active==='rutabaga')){await page.keyboard.up('ArrowRight');await page.waitForTimeout(50);await page.keyboard.down('ArrowRight');}
+     await page.waitForTimeout(400);
+    }
+    await page.keyboard.up('ArrowRight');assert.equal(await page.evaluate(()=>FruitLabProbe().handoffs),count);
+    assert.equal(await page.evaluate(()=>FruitLabProbe().finished),true);
+    const metrics=await page.evaluate(()=>FruitLabMeasurements());assert.equal(metrics.current.complete,true);assert.equal(metrics.current.sections.length,count+1);
+    await page.locator('#reset').click();assert.equal(await page.evaluate(()=>FruitLabProbe().course),id);assert.equal(await page.evaluate(()=>FruitLabProbe().handoffs),0);
+   }
    assert.deepEqual(errors,[]);console.log('PASS browser',viewport);await page.close();
   }
  }finally{await browser.close()}

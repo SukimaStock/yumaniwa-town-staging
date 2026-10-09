@@ -34,3 +34,13 @@ input[type=range] { grid-column: 1 / -1; width: 100%; min-height: 24px; accent-c
 
 @media(max-width: 650px) { nav { gap: 4px; max-width: 100%; } nav button { padding: 8px 8px; letter-spacing: 0; } }
 @media(min-width: 651px) and (max-width: 900px) { header { gap: 8px; } h1 { font-size: 16px; } nav button { padding: 8px 9px; } }
+
+nav { align-items: start; }
+.world-group { display: grid; gap: 3px; }
+#world-course { width: 100%; min-height: 24px; max-width: 120px; font: inherit; font-size: 10px; color: #66513f; background: #fff9edb8; border: 1px solid #9f866840; border-radius: 7px; padding: 2px 5px; touch-action: manipulation; }
+#world-course:focus-visible { outline: 2px solid #86667c; }
+#comparison-stats { margin: 12px 0; border-top: 1px solid #9f866830; padding-top: 12px; font-size: 11px; }
+#comparison-stats summary { cursor: pointer; min-height: 30px; }
+#measurements { font: inherit; line-height: 1.8; white-space: pre-wrap; }
+@media(max-width: 650px) { #feel { top: max(154px, calc(env(safe-area-inset-top) + 154px)); } }
+@media(max-height: 500px) { #feel { top: 84px; } #tuning { top: 88px; } }

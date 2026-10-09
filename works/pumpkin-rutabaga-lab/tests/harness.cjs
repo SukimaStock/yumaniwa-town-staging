@@ -12,7 +12,8 @@ class Target {
 function harness({width=1000,height=760,native=false}={}) {
   const doc=new Target('DOCUMENT'),w=new Target('WINDOW'),ids=new Map(),errors=[],raf=new Map(),timers=new Map(),captures=new Set();let clock=100,serial=0;
   const add=id=>{const t=new Target();t.ownerDocument=doc;ids.set(id,t);return t};
-  for(const id of ['gameCanvas','feel','hint','reset','sound','tune','tuning','close-tune','sliders','defaults'])add(id);
+  for(const id of ['gameCanvas','feel','hint','reset','sound','tune','tuning','close-tune','sliders','defaults','world-course','measurements'])add(id);
+  ids.get('world-course').tagName='SELECT';ids.get('world-course').value='world';
   const canvas=ids.get('gameCanvas');canvas.tagName='CANVAS';
   const modes=['pumpkin','rutabaga','handoff','world'].map(mode=>{const t=new Target('BUTTON');t.ownerDocument=doc;t.dataset.mode=mode;return t});
   const header=new Target(),footer=new Target();for(const t of [header,footer])t.ownerDocument=doc;
@@ -29,7 +30,7 @@ function harness({width=1000,height=760,native=false}={}) {
     requestAnimationFrame:fn=>{raf.set(++serial,fn);return serial},cancelAnimationFrame:id=>raf.delete(id),
     setTimeout:fn=>{timers.set(++serial,fn);return serial},clearTimeout:id=>timers.delete(id),setInterval:fn=>{timers.set(++serial,fn);return serial},clearInterval:id=>timers.delete(id)});
   const context=vm.createContext(w),repo=path.resolve(__dirname,'../../..');
-  for(const file of ['engine/codea-lite.v1.0.0.js','engine/sukimastock-engine.v0.3.0.js','works/pumpkin-rutabaga-lab/physics.js','works/pumpkin-rutabaga-lab/world.js','works/pumpkin-rutabaga-lab/draw.js','works/pumpkin-rutabaga-lab/world-draw.js','works/pumpkin-rutabaga-lab/app.js'])vm.runInContext(fs.readFileSync(path.join(repo,file),'utf8'),context,{filename:file});
+  for(const file of ['engine/codea-lite.v1.0.0.js','engine/sukimastock-engine.v0.3.0.js','works/pumpkin-rutabaga-lab/physics.js','works/pumpkin-rutabaga-lab/world.js','works/pumpkin-rutabaga-lab/courses.js','works/pumpkin-rutabaga-lab/measurements.js','works/pumpkin-rutabaga-lab/draw.js','works/pumpkin-rutabaga-lab/world-draw.js','works/pumpkin-rutabaga-lab/app.js'])vm.runInContext(fs.readFileSync(path.join(repo,file),'utf8'),context,{filename:file});
   w.CodeaLite.start('gameCanvas');const tones=[];w.SSE.audio.tone=e=>tones.push({...e,at:w.FruitLabProbe().time});
   function frame(){clock+=1000/60;const [id,fn]=[...raf][0];raf.delete(id);fn(clock)}
   function advance(seconds){for(let i=0;i<seconds*60;i++)frame()}
