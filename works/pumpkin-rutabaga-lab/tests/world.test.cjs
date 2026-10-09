@@ -125,3 +125,10 @@ test('all WORLD tuning extremes and 30 repeated resets maintain fresh hole ident
   const h=harness();h.modes[3].emit('click');
   for(let i=0;i<30;i++){h.pointer('pointerdown');h.advance(.3);h.ids.get('reset').emit('click');assert.equal(h.probe().handoffs,0);assert.equal(h.probe().holes.every(x=>x.state==='waiting'),true);assert.equal(h.probe().pointer,null);assert.equal(h.raf.size,1);}
 });
+
+test('rejected real side contact separates circles, and used downward mouth is solid on return',()=>{
+  const s=prime(1,0);s.rutabaga.x=1240-60;s.rutabaga.y=230;s.rutabaga.vx=100;s.rutabaga.vy=0;
+  W.update(s,P.STEP);assert.equal(s.holes[1].swaps,0);assert.ok(Math.hypot(s.rutabaga.x-1240,s.rutabaga.y-230)>=68-.01);assert.ok(s.rutabaga.vx<0);
+  const t=W.create();run(t,3);assert.equal(t.holes[0].swaps,1);const b=t.rutabaga;b.safety=false;b.x=500;b.y=W.roof(500)-b.r-.2;b.vx=0;b.vy=200;b.grounded=false;
+  W.update(t,P.STEP);assert.ok(b.y+b.r<=W.roof(500)+.01);assert.ok(b.vy<=0);assert.equal(t.holes[0].swaps,1);
+});

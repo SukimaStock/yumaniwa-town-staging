@@ -100,10 +100,12 @@ Plan Lock: `.change-plans/pumpkin-rutabaga-lab-v01-20261009/r0.lock.json`。開�
 
 ### 自動検証と限界
 
-`node --test works/pumpkin-rutabaga-lab/tests/*.test.cjs`：旧27件＋WORLD LOOP 14件。方向、±35px実接触、低／高速、速度上限、低速の安定した未発動、固定／解放、二重発火防止、実入力1サイクル、停止再開、最小上限での地上復帰、カメラ連続／画面内追従、30/60/120fps一致、全既存パラメータ両極値20秒、canonical Engine/Codeaのpointer／RESET／panel／RAFを検査する。
+`node --test works/pumpkin-rutabaga-lab/tests/*.test.cjs`：旧27件＋WORLD LOOP 15件。方向、±35px実接触、低／高速、速度上限、低速の安定した未発動、固定／解放、二重発火防止、実入力1サイクル、停止再開、最小上限での地上復帰、カメラ連続／画面内追従、30/60/120fps一致、全既存パラメータ両極値20秒、canonical Engine/Codeaのpointer／RESET／panel／RAFを検査する。
 
 Native Canvasは実際のEngine/Codea描画を使うが、DOMはtest doubles。実ブラウザdrillは `tests/browser-smoke.cjs` にWORLD LOOP完走を追加。実iPad/Safari、音の聴感、「スポン／スポッ」の楽しさは自動テストでは証明しない。Formal verificationState: UNVERIFIED。今回もproduction昇格なし。
 
 残る実験課題：地下を急いで抜けるか、バウンドを楽しんでから抜けるかのテンポ、穴の75ms抵抗／180ms収まりの好み、縦追従の速さ、短い屋根への反発の読みやすさ。穴の逆方向再利用と長いステージは対象外。
 
-今回実行：Lab **41/41**、PUMPOKO **71/71**、Engine input/boot・台帳・World Consistency **58/58**（合計170件）PASS。Native Canvasで地上／地下／交代の実描画を確認。Scope→Risk→Impact、base-owned trusted node-syntax、diff whitespaceの結果はPRにも記録する。
+今回実行：Lab **42/42**、PUMPOKO **71/71**、Engine input/boot・台帳・World Consistency **58/58**（合計171件）PASS。Native Canvasで地上／地下／交代の実描画を確認。Scope→Risk→Impact、base-owned trusted node-syntax、diff whitespaceの結果はPRにも記録する。
+
+発動しない実接触は円同士を分離し、接近速度を弱く反発させる。地下への初回落下が終わった穴は屋根として閉じ、上から／横からのすり抜けを防ぐ。この追加接触はWORLD LOOPだけに適用する。

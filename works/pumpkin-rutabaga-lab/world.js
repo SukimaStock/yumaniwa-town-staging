@@ -65,6 +65,16 @@
     return Math.abs(dx)<=s.settings.world.tolerance && dy*-h.direction>=22 &&
       gap<=b.r+h.occupant.r+3 && speed>=(h.direction>0?s.settings.world.upward:.5);
   }
+  function rejectContact(h,b) {
+    if(h.state!=='waiting'||b.kind!==h.incomingKind||b.layer!==(h.direction<0?'surface':'underground'))return;
+    const dx=b.x-h.occupant.x,dy=b.y-h.occupant.y,distance=Math.hypot(dx,dy),radius=b.r+h.occupant.r;
+    if(distance>=radius||distance<.001)return;
+    const nx=dx/distance,ny=dy/distance,penetration=radius-distance;
+    b.x+=nx*penetration;b.y+=ny*penetration;
+    const approach=b.vx*nx+b.vy*ny;
+    if(approach<0){b.vx-=nx*approach*1.1;b.vy-=ny*approach*1.1;}
+    b.grounded=false; // A rejected touch settles again through ordinary gravity.
+  }
   function start(s,h,b) {
     h.state='compressing'; h.elapsed=0; h.incoming=b; h.from={x:b.x,y:b.y};
     h.impact={vx:b.vx,vy:b.vy,speed:Math.hypot(b.vx,b.vy)};
@@ -117,7 +127,7 @@
       // return pumpkin passes through its mouth until its center clears it.
       if(body.layer==='underground') {
         const ceiling=roof(body.x);
-        if(body.y+body.r>ceiling && !s.holes.some(h=>Math.abs(body.x-h.x)<65)) {
+        if(body.y+body.r>ceiling && !s.holes.some(h=>Math.abs(body.x-h.x)<65&&((h.direction>0&&h.state==='waiting')||(h.direction<0&&h.swaps===1&&body.safety)))) {
           body.y=ceiling-body.r;body.vy=Math.min(body.vy,0)*.25;
         }
       }
@@ -138,7 +148,7 @@
           active.vx+=s.axis*s.settings.pumpkin.response/s.settings.pumpkin.mass*s.settings.pumpkin.air*step;
           active.vy-=P.G*step; active.x=clamp(active.x+active.vx*step,1236,1244);active.y+=active.vy*step;active.pulse*=Math.exp(-step*10);
         } else P.integrate(s,active,s.axis,step,geo);
-        for(const h of s.holes)if(eligible(s,h,active)){start(s,h,active);break;}
+        for(const h of s.holes){if(eligible(s,h,active)){start(s,h,active);break;}rejectContact(h,active);}
       }
       for(const h of s.holes)advanceHole(s,h,step);
       const b=s[s.active];
