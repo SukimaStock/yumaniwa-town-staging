@@ -1,0 +1,101 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e42c0a872ab12668b561802b0562ab3e2a43d39c4adbcacf86614f400a7d6467",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-local-sync-20261009",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Replace PUMPOKO with owner uploaded local latest version; preserve staging-only canonical audit fixture",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "ASSET"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "2fad9acc57f34b98f83982e7c08ed1a3d965fca0",
+    "canonicalSources": [
+      "Owner attachment pumpoko(1).zip",
+      "works/pumpoko/fixtures/canonical-baseline.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-local-sync-20261009/r0.lock.json",
+      "works/pumpoko/GROWTH-RETURN.md",
+      "works/pumpoko/MOMENTUM-CONTROL.md",
+      "works/pumpoko/POYON-REWARD.md",
+      "works/pumpoko/audio/drum-chit.wav",
+      "works/pumpoko/audio/drum-don.wav",
+      "works/pumpoko/builder/builder.js",
+      "works/pumpoko/fixtures/momentum-route.cjs",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/stage-data.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/test-arrival-camera.cjs",
+      "works/pumpoko/test-audio.cjs",
+      "works/pumpoko/test-builder-input.cjs",
+      "works/pumpoko/test-builder.cjs",
+      "works/pumpoko/test-course.cjs",
+      "works/pumpoko/test-drag.cjs",
+      "works/pumpoko/test-ending.cjs",
+      "works/pumpoko/test-fruit-spacing.cjs",
+      "works/pumpoko/test-growth-return.cjs",
+      "works/pumpoko/test-journey.cjs",
+      "works/pumpoko/test-jumps.cjs",
+      "works/pumpoko/test-loop.cjs",
+      "works/pumpoko/test-migration.cjs",
+      "works/pumpoko/test-percussion.cjs",
+      "works/pumpoko/test-stage.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "works/pumpoko-02/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "data/**",
+      "works/pumpoko/codea-lite.js"
+    ],
+    "expectedChanges": [
+      "Import all changed/new attachment files byte-for-byte, excluding macOS metadata",
+      "Keep staging-only canonical-baseline.json used by repository audit",
+      "Import long course, gesture input, camera tail, growth return and don-only percussion with supplied tests"
+    ],
+    "ownerDecisions": [
+      "2026-10-09 user identifies attachment as latest locally edited PUMPOKO and explicitly requests staging replacement"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md existing work update; staging branch and Plan-first PR",
+      "Preserve shared Engine audio lifecycle and unrelated works",
+      "Local upload is canonical for overlapping PUMPOKO files"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-title-stage-render"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert implementation commit through staging PR; attached original and Git baseline retained",
+    "outOfScope": [
+      "Production",
+      "PUMPOKO 02",
+      "Shared Engine",
+      "Editing supplied implementation to fit obsolete tests"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Author iPhone/iPad and audible playback; final formal verification remains UNVERIFIED"
+    ]
+  }
+}
