@@ -221,6 +221,14 @@
       "status": "active",
       "title": "PUMPKIN × RUTABAGA · Physics Lab",
       "theme": "同じU字地形で転がる・跳ねる・勢いを渡す触り心地を比べる"
+    },
+    {
+      "id": "pumpoko-02",
+      "path": "works/pumpoko-02",
+      "status": "active",
+      "title": "PUMPOKO / 02（仮）",
+      "family": "PUMPOKO",
+      "theme": "滑る、跳ねる、穴から押し出し合う地上と地下の旅"
     }
   ]
 }
