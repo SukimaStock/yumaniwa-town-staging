@@ -1,0 +1,66 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "09a5d1e0d3057b86ee7508f8cc7813af7857fc884c61738c17f6fa8e1a7daceb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "note-orbit-20261009",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add the owner's published ORBIT retrospective to the bulletin",
+    "planLevel": "lite",
+    "classes": [
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging-production",
+    "baseSha": "3bde74a0aa0d8731692ca20bb2eaef2219b06f86",
+    "canonicalSources": [
+      "data/notes.js"
+    ],
+    "allowedPaths": [
+      "data/notes.js",
+      ".change-plans/note-orbit-20261009/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "engine/**",
+      "works/**",
+      "data/works.js",
+      "data/work-lifecycle.json"
+    ],
+    "expectedChanges": [
+      "Prepend one article with exact title, canonical note URL and verified publication date; preserve all existing entries and runtime"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "bulletin-entry-and-link"
+    ],
+    "impactChecks": [],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "Owner requested this article be reflected on the public Yumaniwa bulletin and approved dot cloud fallback."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Existing note data schema; separate article-only production branch"
+    ],
+    "rollback": "Revert only this article addition",
+    "outOfScope": [
+      "Other works, runtime, layouts, publication of staging experiments"
+    ],
+    "promotion": "Article-only production PR after staging checks; do not promote unrelated staging changes",
+    "unverified": [
+      "Physical iPhone interaction"
+    ]
+  }
+}
