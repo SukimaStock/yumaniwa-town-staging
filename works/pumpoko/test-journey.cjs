@@ -1,11 +1,11 @@
 'use strict';
 const assert = require('node:assert/strict');
 const fs = require('node:fs'), vm = require('node:vm'), path = require('node:path');
-const D = require('./dynamics.js'), J = require('./journey.js'), G = require('./stage-geometry.js');
+const D = require('./dynamics.js'), J = require('./journey.js'), G = require('./stage-geometry.js'), Route=require('./fixtures/momentum-route.cjs');
 let passed = 0;
 function test(name, run) { run(); passed++; console.log('PASS', name); }
 function advance(s, seconds, fps = 60) { for (let i = 0; i < Math.round(seconds * fps); i++) J.update(s, 1 / fps); }
-function hold(s, x, y = 0) { s.held = true; s.targetX = x; s.targetY = y; }
+function hold(s, x, y = 0) { s.held = true; J.drag(s,x,y); }
 function allAt(s, x, seconds = 35) {
   for (let i = 0; i < seconds * 60; i++) { J.update(s, 1/60); if (s.seeds.every(p => p.x > x)) return true; }
   return false;
@@ -251,6 +251,7 @@ test('one fast grain cannot steer camera look-ahead for the party', () => {
     assert.ok(s.seeds[0].vx>18,'outlier stays fast throughout the observation');
   }
 });
+const FIRST_BOWL=Object.freeze({left:1110,bottom:1350,right:1545});
 const maxSpeed=s=>Math.max(...J.party(s).map(p=>Math.hypot(p.vx,p.vy)));
 const median=s=>J.party(s).map(p=>p.x).sort((a,b)=>a-b)[Math.floor(J.party(s).length/2)];
 // Decision sampling is 30Hz at every render rate. Only world targets change;
@@ -266,7 +267,7 @@ function prepare(source=D.create(),fps=60,transition=false) {
       else if(phase===1&&i-wait>=8*fps)phase++;
       else if(phase===2&&lo>1210)phase++;
       else if(phase===3){quiet=maxSpeed(s)<8?quiet+1/30:0;if(quiet>=.5)return {s,history,objects,stopSpeed:maxSpeed(s)};}
-      if(phase===0)hold(s,.28,-.15);else if(phase===2)hold(s,.22);else J.release(s);
+      if(phase===0)hold(s,.28);else if(phase===2)hold(s,.22);else J.release(s);
     }
     J.update(s,1/fps);history.push({phase,x:s.seeds.map(p=>p.x),active:J.party(s).length});
     assert.equal(J.party(s).length,9,`preparation phase ${phase}, lost ${s.seeds.filter(p=>p.lost).map(p=>Math.round(p.x))}`);
@@ -284,18 +285,26 @@ function pump(s,fps=60,turnAt=1260,crossAt=1650){
   }
   return {s,minX,peak,frames,reverse};
 }
+function flowToFarm(s,fps=60,profile='canonical'){
+  const input=Route.create(profile);
+  for(let i=0;i<120*fps;i++){
+    if(i%(fps/30)===0){if(s.finished||s.seeds.every(p=>p.x>s.geometry.END.left+70))return;const p=input(s);hold(s,p.x,p.y);}
+    J.update(s,1/fps);
+    assert.equal(J.party(s).length,9,'the full extended route must retain all nine seeds');
+  }
+  throw Error('horizontal drag with timed upward gestures did not reach the extended farm');
+}
 function deliberate(source=D.create(),fps=60,transition=false){
   const prep=prepare(source,fps,transition),result=pump(prep.s,fps);const s=result.s;
-  // Receive the landing, then gently leave the shallow landing shelf for END.
-  hold(s,-.18);advance(s,.6,fps);hold(s,.18);
-  for(let i=0;i<20*fps;i++){if(i%(fps/30)===0&&s.seeds.every(p=>p.x>1860))break;J.update(s,1/fps);}
-  J.release(s);advance(s,30,fps);
+  // Receive the first-bowl landing, then traverse the extended route to END.
+  hold(s,-.18);advance(s,.6,fps);flowToFarm(s,fps,'pumped');
+  J.release(s);advance(s,40,fps);
   return {...prep,...result,phase:s.finished?6:5};
 }
-test('two surface gaps have no floor, including outside the complete terrain', () => {
-  assert.equal(J.segments.length,3);assert.equal(J.GAP.length,2);
+test('all seven surface gaps have no floor, including outside the complete terrain', () => {
+  assert.equal(J.segments.length,8);assert.equal(J.GAP.length,7);
   for(const gap of J.GAP)for(let x=gap.left+.1;x<gap.right;x+=.5){assert.equal(J.floor(x),null);assert.equal(J.field(x,500),null);}
-  for(const x of [-1000,-51,2071,10000])assert.equal(J.floor(x),null);
+  for(const x of [-1000,J.segments[0].left-1,J.segments.at(-1).right+1,20001])assert.equal(J.floor(x),null);
   for(const segment of J.segments)for(const p of segment.samples)assert.ok(Math.abs(J.floor(p.x).y-p.y)<1e-8);
   const draw=fs.readFileSync(path.join(__dirname,'stage-draw.js'),'utf8');assert.ok(draw.includes('g.segments'));
   assert.ok(!draw.includes('for(const p of J.terrain)'),'drawing must not bridge separate platforms');
@@ -330,9 +339,11 @@ test('a distant ground straggler stays alive, affects framing and is recoverable
   const x=p.x;hold(s,.28,-.15);advance(s,2);assert.ok(p.x>x+100);assert.ok(!p.lost);
 });
 function endFixture(count) {
-  const s=J.create(D.create());s.seeds.forEach((p,i)=>Object.assign(p,i<count?
-    {x:1840+i*14,y:J.floor(1840+i*14).y-12,vx:0,vy:0}:
-    {lost:true,inactive:true,x:478,y:1001,vx:0,vy:0}));return s;
+  const s=J.create(D.create());s.seeds.forEach((p,i)=>{
+    if(i>=count){Object.assign(p,{lost:true,inactive:true,x:478,y:s.geometry.bounds.lostY+401,vx:0,vy:0});return;}
+    const x=s.geometry.END.left+50+i*14,f=s.geometry.floor(x);
+    Object.assign(p,{x,y:f.y-J.support(p,f.nx,f.ny)/-f.ny-.1,vx:0,vy:0});
+  });return s;
 }
 test('1, 3, 6, 8 and 9 arriving seeds root safely while lost grains never block END', () => {
   for(const count of [1,3,6,8,9]){
@@ -358,18 +369,21 @@ test('stopped local-bowl pumping, catch and gentle release carry nine to quiet E
   const {s,phase}=deliberate();assert.equal(phase,6);assert.equal(J.party(s).length,9);assert.ok(s.finished);
   assert.ok(s.seeds.every(p=>p.x>J.END.left&&p.x<J.END.right));
 });
-test('a physically detached Stage 0 party can zoom and then arrive 9/9', () => {
+test('a physically detached Stage 0 party keeps all nine through zoom, first gap and reunion', () => {
   const source=attachedSource(),objects=source.seeds.slice(),s=J.create(source,true);
-  advance(s,7);hold(s,.28,-.28);advance(s,16);J.release(s);advance(s,30);
-  assert.ok(s.finished);assert.equal(J.party(s).length,9);objects.forEach((p,i)=>assert.equal(s.seeds[i],p));
+  advance(s,7);hold(s,.28);assert.ok(allAt(s,730,12));J.release(s);advance(s,8);
+  assert.ok(s.transition.settled);assert.ok(s.seeds.every(p=>p.x>J.GAP[0].right));
+  assert.equal(J.party(s).length,9);objects.forEach((p,i)=>assert.equal(s.seeds[i],p));
+  // Complete actual title-to-nine-root coverage lives in test-audio.cjs, through
+  // the real scene/keyboard/pointer handlers rather than this rotating source fixture.
 });
-test('continuing right can cross the large gap; pumping is an additional route', () => {
-  const s=J.create(D.create());hold(s,.28,-.28);advance(s,16);
+test('continuing right with timed upward gestures crosses every gap; pumping is an additional route', () => {
+  const s=J.create(D.create());flowToFarm(s);
   assert.equal(J.party(s).length,9);assert.ok(s.seeds.every(p=>p.x>J.END.left));
-  J.release(s);advance(s,30);assert.ok(s.finished);
+  J.release(s);advance(s,40);assert.ok(s.finished);
 });
 test('30/60/120fps preserve stopped-party pumping, identity and nine-grain finish', () => {
-  const results=[30,60,120].map(fps=>{const r=deliberate(D.create(),fps);assert.ok(r.s.finished);assert.equal(J.party(r.s).length,9);assert.ok(r.minX>J.ROUND.left);return r.s;});
+  const results=[30,60,120].map(fps=>{const r=deliberate(D.create(),fps);assert.ok(r.s.finished);assert.equal(J.party(r.s).length,9);assert.ok(r.minX>FIRST_BOWL.left);return r.s;});
   for(const s of results.slice(1))for(let i=0;i<9;i++){
     assert.equal(s.seeds[i].lost,results[0].seeds[i].lost);
     for(const key of ['x','y','vx','vy','angle'])assert.ok(Math.abs(s.seeds[i][key]-results[0].seeds[i][key])<1e-6,`${key}: physical fps mismatch`);
@@ -385,9 +399,9 @@ test('Stage 1 world response declares intent earlier, stays continuous and keeps
 });
 test('complete neutral stop near the gap regenerates momentum from left/right tilt only', () => {
   const r=prepare(),s=r.s;assert.ok(r.stopSpeed<8);assert.ok(Math.abs(s.x)+Math.abs(s.y)<.001);
-  assert.ok(s.seeds.every(p=>p.x>J.ROUND.left&&p.x<J.ROUND.right));
+  assert.ok(s.seeds.every(p=>p.x>FIRST_BOWL.left&&p.x<FIRST_BOWL.right));
   const initial=s.seeds.map(p=>({...p})),result=pump(s);
-  assert.ok(result.reverse);assert.ok(result.minX>J.ROUND.left,'every seed must stay within the local bowl until launch');
+  assert.ok(result.reverse);assert.ok(result.minX>FIRST_BOWL.left,'every seed must stay within the local bowl until launch');
   assert.ok(result.peak>300&&result.peak>r.stopSpeed*30);assert.equal(J.party(s).length,9);
   assert.ok(s.seeds.every(p=>p.x>J.GAP[1].right));
   assert.equal(s.targetY,0);assert.equal(s.seeds.length,9);r.objects.forEach((p,i)=>assert.equal(s.seeds[i],p));
@@ -403,13 +417,13 @@ test('same high-speed landing: short opposite tilt reduces maximum survivor spee
 test('quiet bowl has no automatic pump or launch without world input', () => {
   const {s}=prepare();const before=median(s);advance(s,12);
   assert.equal(J.party(s).length,9);assert.ok(maxSpeed(s)<15);assert.ok(Math.abs(median(s)-before)<25);
-  assert.ok(s.seeds.every(p=>p.x<J.ROUND.right));
+  assert.ok(s.seeds.every(p=>p.x<FIRST_BOWL.right));
 });
 test('a weak unsuccessful approach leaves ground survivors free to return and retry locally', () => {
   const {s}=prepare();hold(s,.12);advance(s,5);assert.equal(J.party(s).length,9);
-  assert.ok(s.seeds.every(p=>p.x<J.ROUND.right),'not enough energy to leave the launch curve');
+  assert.ok(s.seeds.every(p=>p.x<FIRST_BOWL.right),'not enough energy to leave the launch curve');
   J.release(s);advance(s,25);const objects=s.seeds.slice();
-  const result=pump(s);assert.ok(result.minX>J.ROUND.left);assert.ok(s.seeds.some(p=>!p.lost&&p.x>J.GAP[1].right));
+  const result=pump(s);assert.ok(result.minX>FIRST_BOWL.left);assert.ok(s.seeds.some(p=>!p.lost&&p.x>J.GAP[1].right));
   objects.forEach((p,i)=>assert.equal(s.seeds[i],p));
 });
 test('maximum right and premature bowl reversal expose physical risk', () => {
@@ -422,10 +436,10 @@ test('maximum right and premature bowl reversal expose physical risk', () => {
 test('long alternating world inputs retain every object with finite bounded state', () => {
   const s=J.create(D.create()),objects=s.seeds.slice();hold(s,0);
   for(let i=0;i<120*60;i++){
-    s.targetX=Math.sin(i*.013)*.38;s.targetY=Math.cos(i*.011)*.38;J.update(s,1/60);
+    J.drag(s,Math.sin(i*.013)*.38,Math.cos(i*.011)*.38);J.update(s,1/60);
     for(const [k,p]of s.seeds.entries()){
       assert.equal(p,objects[k]);for(const key of ['x','y','vx','vy','angle','roll'])assert.ok(Number.isFinite(p[key]));
-      assert.ok(p.x>-100&&p.x<2200&&p.y>-300&&p.y<1100);assert.ok(!p.inactive||p.lost);
+      assert.ok(p.x>s.geometry.bounds.left-60&&p.x<s.geometry.bounds.right+130&&p.y>-300&&p.y<s.geometry.bounds.lostY+500);assert.ok(!p.inactive||p.lost);
     }
     assert.ok(Number.isFinite(s.camera.x+s.camera.y+s.camera.z));
   }

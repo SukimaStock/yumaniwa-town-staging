@@ -14,26 +14,26 @@ for(let n=1;n<=9;n++)test(`${n} arrivals retain identity, produce exactly ${n} p
   const result=s.result;advance(s,10);assert.equal(s.result,result);assert.ok(s.replayReady&&s.ending.growthComplete);assert.equal(J.plants(s).length,n);
   const {c,calls}=context();Draw.drawPlants(c,s);assert.equal(calls.filter(a=>a[0]==='ellipse'&&a[3]===16&&a[4]===3).length,n,'exactly one fruit shadow per plant, independent of decorative lobe count');
   const seeds=[];Draw.drawSeeds(c,s,(_c,p,i)=>seeds.push(i));assert.equal(seeds.length,0,'rooted grain disappears once, underneath its own plant');
-  J.knock(s,1800,430);s.held=true;s.targetX=-.38;advance(s,2);assert.equal(s.result,result);assert.ok(!s.held);assert.equal(s.arrivalEvents.length,0);
+  J.knock(s,s.geometry.END.left+10,s.geometry.floor(s.geometry.END.left+10).y);s.held=true;s.targetX=-.38;advance(s,2);assert.equal(s.result,result);assert.ok(!s.held);assert.equal(s.arrivalEvents.length,0);
   for(const a of result.arrivals){assert.equal(a.seed.x,a.x);assert.equal(a.seed.y,a.y);}
 });
 test('air passage, underside and lost grain inside END never count as contact',()=>{
   for(const kind of ['air','below','lost']) {
-    const s=fixture(0),p=s.seeds[0];p.lost=p.inactive=false;p.x=1900;p.y=s.geometry.floor(p.x).y+(kind==='air'?-150:25);p.vx=50;p.vy=0;
+    const s=fixture(0),p=s.seeds[0];p.lost=p.inactive=false;p.x=s.geometry.END.left+110;p.y=s.geometry.floor(p.x).y+(kind==='air'?-150:25);p.vx=50;p.vy=0;
     if(kind==='lost')p.lost=true;
     advance(s,.2);assert.equal(p.arrival,null);assert.equal(s.arrivals.length,0);
   }
 });
 test('soil contact allows visible rolling and a short settle before one-shot rooting',()=>{
-  const s=fixture(1),p=s.seeds[0];place(s,p,1870,80);const x=p.x;advance(s,.15);assert.equal(p.arrival,null);assert.ok(p.x>x+3);
+  const s=fixture(1),p=s.seeds[0];place(s,p,s.geometry.END.left+80,80);const x=p.x;advance(s,.15);assert.equal(p.arrival,null);assert.ok(p.x>x+3);
   advance(s,.8);assert.ok(p.arrival);assert.ok(p.arrival.x>x+4);assert.ok(p.arrival.x<s.geometry.END.right);assert.ok(p.arrival.at<1);
 });
 test('early arrivals wait safely while distant living stragglers remain controllable/followed',()=>{
-  const s=fixture(1),late=s.seeds[1];late.lost=late.inactive=false;place(s,late,810);advance(s,1);
-  const a=s.seeds[0].arrival;assert.ok(a);assert.equal(s.result,null);assert.equal(J.plants(s).length,0);assert.equal(J.party(s).length,2);assert.equal(J.travelling(s).length,1);assert.ok(s.camera.x<1300);
+  const s=fixture(1),late=s.seeds[1];late.lost=late.inactive=false;place(s,late,810);const cameraStart=s.camera.x;advance(s,1);
+  const a=s.seeds[0].arrival;assert.ok(a);assert.equal(s.result,null);assert.equal(J.plants(s).length,0);assert.equal(J.party(s).length,2);assert.equal(J.travelling(s).length,1);assert.ok(Math.abs(s.camera.x-late.x)<Math.abs(cameraStart-late.x)*.15,'camera closes at least 85 percent of the initial distance to the living straggler');
   const x=late.x;J.knock(s,late.x-30,late.y-20);s.held=true;s.targetX=.28;advance(s,1);assert.ok(late.x>x+50);assert.equal(a.seed.x,a.x);assert.equal(a.seed.vx,0);assert.equal(s.result,null);
   J.release(s);advance(s,25);assert.ok(!late.lost,'ground laggards do not timeout');assert.equal(s.result,null);
-  place(s,late,1970);advance(s,1);assert.equal(s.result.arrivals.length,2);assert.equal(s.result.lost,7);assert.equal(s.result.total,9);
+  place(s,late,s.geometry.END.left+180);advance(s,1);assert.equal(s.result.arrivals.length,2);assert.equal(s.result.lost,7);assert.equal(s.result.total,9);
 });
 test('arrival/plant/root is deterministic across 30/60/120fps, with continuous pullback and bounds',()=>{
   const states=[30,60,120].map(fps=>{const s=fixture(9);for(let i=0;i<10*fps;i++){J.update(s,1/fps);assert.ok(Number.isFinite(s.camera.x+s.camera.y+s.camera.z));assert.equal(J.travelling(s).length+J.party(s).filter(p=>p.arrival).length+s.seeds.filter(p=>p.lost).length,9);}assert.deepEqual(s.camera,J.endingFrame(s),'hold the whole result composition');return s;});
@@ -53,10 +53,10 @@ test('empty title keeps its original 2.4 second pause and 1.2 second connection 
   }
 });
 test('current draft END/floor drive soil contact, framing and roots; JSON and RESET/EDIT stay usable',()=>{
-  const d=JSON.parse(JSON.stringify(data));d.surfaces.at(-1).points.push({id:'extra-land',x:2900,y:460});d.end={left:2420,right:2770};const g=G.compile(d),s=fixture(3,g);
-  advance(s,10);assert.equal(s.farm.left,2420);assert.equal(s.result.arrivals.length,3);assert.ok(s.result.arrivals.every(a=>a.x>2420&&a.x<2770&&a.rootY===g.floor(a.x).y));assert.deepEqual(s.camera,J.endingFrame(s));assert.equal(J.END.left,1790);
-  const {c,calls}=context();Draw.drawFarm(c,g);assert.ok(calls.some(a=>a[0]==='moveTo'&&a[1]===2420));
-  const m=M.create(d),json=M.exportJSON(m);M.moveStart(m,2600);assert.ok(M.play(m));for(let i=0;i<2*60;i++)M.update(m,1/60);assert.ok(m.run.result);assert.equal(M.exportJSON(m),json);M.edit(m);assert.equal(m.mode,'edit');assert.ok(M.play(m));assert.equal(m.run.result,null);assert.equal(m.run.arrivals.length,0);assert.equal(m.run.time,0);assert.equal(G.validate(JSON.parse(M.exportJSON(m))).length,0);
+  const d=JSON.parse(JSON.stringify(data)),lastX=d.surfaces.at(-1).points.at(-1).x;d.surfaces.at(-1).points.push({id:'extra-land',x:lastX+830,y:460});d.end={left:lastX+350,right:lastX+700};const g=G.compile(d),s=fixture(3,g);
+  advance(s,10);assert.equal(s.farm.left,d.end.left);assert.equal(s.result.arrivals.length,3);assert.ok(s.result.arrivals.every(a=>a.x>d.end.left&&a.x<d.end.right&&a.rootY===g.floor(a.x).y));assert.deepEqual(s.camera,J.endingFrame(s));assert.deepEqual(J.END,data.end);
+  const {c,calls}=context();Draw.drawFarm(c,g);assert.ok(calls.some(a=>a[0]==='moveTo'&&a[1]===d.end.left));
+  const m=M.create(d),json=M.exportJSON(m);M.moveStart(m,lastX+530);assert.ok(M.play(m));for(let i=0;i<2*60;i++)M.update(m,1/60);assert.ok(m.run.result);assert.equal(M.exportJSON(m),json);M.edit(m);assert.equal(m.mode,'edit');assert.ok(M.play(m));assert.equal(m.run.result,null);assert.equal(m.run.arrivals.length,0);assert.equal(m.run.time,0);assert.equal(G.validate(JSON.parse(M.exportJSON(m))).length,0);
 });
 test('growth has a bounded stagger, overlapping camera/growth and a quiet separate replay phase',()=>{
   const s=fixture(9);advance(s,1);assert.equal(s.ending.phase,'pullback');assert.ok(!s.ending.growthComplete&&!s.replayReady);advance(s,2);assert.equal(s.ending.phase,'growing');const ages=J.plants(s).map(p=>p.age);assert.ok(ages[0]>ages[8]);assert.ok(Math.abs(ages[0]-ages[8]-8*J.ENDING.stagger)<1e-9,'preserve existing stagger exactly');advance(s,3.75);assert.ok(s.ending.growthComplete&&!s.replayReady);advance(s,2);assert.ok(s.replayReady);const snapshot=s.result;advance(s,50);assert.equal(s.result,snapshot);assert.equal(J.plants(s).length,9);
@@ -125,7 +125,7 @@ test('plant order, stagger, shoot onset and actual fruit curve stay independent 
     const onset=.9+i*.34;
     s.ending.elapsed=onset;J.update(s,0);assert.ok(Math.abs(J.plants(s)[i].age)<1e-8);
     s.ending.elapsed=onset+1.4+.475;J.update(s,0);
-    assert.ok(Math.abs(drawnFruitGrowth(s,order[i])-.5)<1e-9,'unchanged fruit reaches half scale .475s after fruit onset');
+    assert.ok(Math.abs(drawnFruitGrowth(s,order[i])-J.fruitGrowth(1.875,J.plantPose(s,order[i]).bonus))<1e-9,'actual renderer uses the shared poyon curve without changing stagger');
   }
 });
 test('one leaf-to-growth shot accelerates, cruises and decelerates without plant-event stops',()=>{
@@ -194,7 +194,7 @@ test('continuous ending agrees at common times at 30/60/120fps',()=>{
       const s=fixture(n);while(!s.ending)J.update(s,1/fps);
       // Match arrival view: gameplay smoothing is intentionally frame-rate
       // dependent; the ending itself uses absolute elapsed time only.
-      s.ending.from={x:1900,y:400,z:1.8};const samples=new Map();
+      s.ending.from={x:s.geometry.END.left+110,y:400,z:1.8};const samples=new Map();
       while(s.ending.elapsed<8) {
         J.update(s,1/fps);const t=s.ending.elapsed;
         if(Math.abs(t*30-Math.round(t*30))<1e-7)samples.set(Math.round(t*30),{...s.camera});
@@ -236,10 +236,10 @@ test('swelling fruit stays visible during the standard row glide',()=>{
   }
 });
 test('sparse Builder and tightly clustered rows settle without oscillation and show the full result',()=>{
-  const wide=JSON.parse(JSON.stringify(data));wide.surfaces.at(-1).points.push({id:'long-result',x:2900,y:460});wide.end={left:1900,right:2770};
+  const wide=JSON.parse(JSON.stringify(data)),lastX=wide.surfaces.at(-1).points.at(-1).x;wide.surfaces.at(-1).points.push({id:'long-result',x:lastX+830,y:460});wide.end={left:lastX-170,right:lastX+700};
   for(const n of [2,3,9])for(const fps of [30,60,120])for(const clustered of [false,true]) {
     const s=fixture(n,clustered?J.geometry:G.compile(wide));advance(s,1,fps);
-    if(clustered)s.result={...s.result,arrivals:s.result.arrivals.map((a,i)=>({...a,x:1900+i*.25}))};
+    if(clustered)s.result={...s.result,arrivals:s.result.arrivals.map((a,i)=>({...a,x:s.geometry.END.left+110+i*.25}))};
     const frame=J.endingFrame(s),from=s.ending.from;let old={...s.camera};
     while(s.ending.elapsed<8) {
       J.update(s,1/fps);
@@ -292,5 +292,39 @@ test('one/three/nine results hold for exactly one second before the same hero zo
     endingTo(s,zoomAt+2.65,fps);assert.equal(s.ending.phase,'connecting');assert.ok(J.titleMix(s)>0);
     endingTo(s,zoomAt+3.85,fps);assert.ok(s.ending.titleReady);assert.equal(s.ending.phase,'title');
     assert.equal(s.ending.focus,hero);assert.equal(J.returnZoom(s),1);assert.equal(J.titleMix(s),1);
+  }
+});
+
+for(const fps of [30,60,120])for(const n of [0,1,8,9])test(`poyon ${n} arrivals at ${fps}fps keeps identities, settles on soil and reserves peak bounds`,()=>{
+  const s=fixture(n);s.seeds.forEach(p=>p.jump.best=360);advance(s,1,fps);
+  assert.equal(J.plants(s).length,n);
+  if(!n){assert.equal(J.heroPumpkin(s),null);return;}
+  const order=J.growthOrder(s),hero=order.at(-1),peaks=new Map();
+  for(let tick=0;tick<=Math.ceil(J.endingTiming(s).growthEnd*fps);tick++){
+    s.ending.elapsed=tick/fps;J.update(s,0);
+    for(const {arrival:a,age} of J.plants(s)){
+      const p=J.plantPose(s,a),g=J.fruitGrowth(age,p.bonus);
+      assert.equal(p.bonus,n===9&&a===hero);
+      const base=(.95+a.id%3*.025)*p.density*1.08;
+      assert.ok(Math.abs(p.size/base-(p.bonus?1.24:1))<1e-10);
+      assert.ok(Math.abs((p.y+13*p.size*(1-g))+13*p.size*g-(s.geometry.floor(p.x).y+1))<1e-10,'scaled bottom stays grounded');
+      peaks.set(a,Math.max(peaks.get(a)||0,g));
+      if(age>1.4&&age<=J.ENDING.growthDuration){
+        const q=J.screenPoint(s,p.x,p.y+13*p.size*(1-g)),r=22*p.size*g*s.camera.z;
+        assert.ok(q.x-r>0&&q.x+r<390&&q.y-24*p.size*g*s.camera.z>0&&q.y+16*p.size*g*s.camera.z<740,'actual peak fruit remains inside screen');
+      }
+    }
+  }
+  for(const a of order){assert.ok(peaks.get(a)>1.12);assert.equal(J.fruitGrowth(3,J.plantPose(s,a).bonus),1);assert.equal(J.fruitGrowth(50,J.plantPose(s,a).bonus),1);}
+  assert.equal(s.result.arrivals.length,n);
+});
+test('poyon extrema and endpoint are continuous and have no endless vibration',()=>{
+  for(const bonus of [false,true]){
+    const age=u=>1.4+u*(J.ENDING.growthDuration-1.4);
+    assert.equal(J.fruitGrowth(1.4,bonus),0);
+    assert.ok(Math.abs(J.fruitGrowth(age(.64),bonus)-(bonus?1.20:1.14))<1e-10);
+    assert.ok(Math.abs(J.fruitGrowth(age(.85),bonus)-.97)<1e-10);
+    assert.equal(J.fruitGrowth(J.ENDING.growthDuration,bonus),1);
+    for(const u of [0,.64,.85,1])assert.ok(Math.abs(J.fruitGrowth(age(u)+1e-6,bonus)-J.fruitGrowth(age(u)-1e-6,bonus))<1e-8);
   }
 });

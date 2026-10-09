@@ -3,8 +3,9 @@
 // These checks establish playback state, not audible output or device behavior.
 const test = require('node:test'), assert = require('node:assert/strict');
 const fs = require('node:fs'), path = require('node:path'), vm = require('node:vm');
-const D = require('./dynamics.js'), J = require('./journey.js');
+const D = require('./dynamics.js'), J = require('./journey.js'), Route=require('./fixtures/momentum-route.cjs');
 const tick = async () => { for (let i = 0; i < 16; i++) await Promise.resolve(); };
+function placeOnSoil(s,p,x) { const f=s.geometry.floor(x);Object.assign(p,{x,y:f.y-J.support(p,f.nx,f.ny)/-f.ny-.1,vx:0,vy:0,spin:0}); }
 function harness(options = {}) {
   const media = [], saved = options.saved || new Map(), timers = new Map();
   let config, journey, serial = 0; const plays=[];
@@ -77,7 +78,7 @@ for (const ending of ['goal', 'all-lost']) test(ending + ' fixture and replay re
   h.w.SSE.input.reset(); const s = h.journey; assert.ok(s); s.result=s.ending=null;s.finished=s.replayReady=false;s.arrivals=[];for(const p of s.seeds){p.arrival=null;p.soilTime=0;}
   // Explicit end-state injection: tests audio continuity at both waiting screens,
   // not the player's ability to complete the whole level.
-  if (ending === 'goal') for (const p of s.seeds) { p.lost = p.inactive = false; p.x = (J.END.left + J.END.right) / 2; p.y = s.geometry.floor(p.x).y - J.support(p, 0, 1); p.vx = p.vy = 0; }
+  if (ending === 'goal') for (const p of s.seeds) { p.lost = p.inactive = false; placeOnSoil(s,p,(s.geometry.END.left+s.geometry.END.right)/2); }
   else for (const p of s.seeds) p.lost = true;
   h.advance(16); assert.equal(h.elements.has('again'), false);
   const old = h.track.currentTime;
@@ -109,21 +110,35 @@ test('media failure remains in Engine diagnostics while game update and input ke
   assert.equal(h.w.PumpkinProbe().seedCount, 9); assert.ok(h.w.PumpkinProbe().tilt[0] > .1); assert.equal(h.audio.resourceState('pumpoko').status, 'failed');
 });
 
-test('ordinary collisions/grab/knock are silent; only real Stage0 detach emits fiber',()=>{
+test('Stage0 contacts/grab/knock are silent; detach emits fiber, Stage1 permits only the landing drum',()=>{
   const h=harness();h.scene.touch({id:1,state:'BEGAN',x:195,y:375});h.scene.touch({id:1,state:'ENDED',x:195,y:375});h.advance(2);assert.equal(h.plays.length,0);assert.ok(h.w.PumpkinProbe().impacts>0);
-  h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(40);
-  assert.ok(h.plays.length>0);assert.ok(h.plays.every(n=>n==='fiber'));assert.equal(h.w.PumpkinProbe().loose,9);
+  h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');
+  for(let i=0;i<40*60&&!h.journey;i++)h.advance(1/60);
+  assert.ok(h.journey);assert.ok(h.plays.length>0);assert.ok(h.plays.every(n=>n==='fiber'));assert.equal(h.w.PumpkinProbe().loose,9);
+  h.advance(10);assert.ok(h.plays.every(n=>['fiber','drumDon'].includes(n)));
 });
 test('ending growth receives only active update time and resumes without audio replay burst',async()=>{
   const h=harness();h.key();await tick();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(35);h.w.SSE.input.reset();
-  const s=h.journey;s.result=s.ending=null;s.finished=s.replayReady=false;s.arrivals=[];s.seeds.forEach((p,i)=>{p.arrival=null;p.soilTime=0;p.lost=p.inactive=i>0;if(!i){p.x=1900;p.y=s.geometry.floor(p.x).y-J.support(p,0,1);p.vx=p.vy=0;}});h.advance(1);assert.ok(s.result);const elapsed=s.ending.elapsed,pos=h.track.currentTime,plays=h.plays.length;
+  const s=h.journey;s.result=s.ending=null;s.finished=s.replayReady=false;s.arrivals=[];s.seeds.forEach((p,i)=>{p.arrival=null;p.soilTime=0;p.lost=p.inactive=i>0;if(!i)placeOnSoil(s,p,s.geometry.END.left+110);});s.camera={x:s.geometry.END.left+110,y:s.geometry.floor(s.geometry.END.left+110).y-80,z:1.85};h.advance(1);assert.ok(s.result);const elapsed=s.ending.elapsed,pos=h.track.currentTime,plays=h.plays.length;
   h.w.SSE.lifecycle.pause('hidden');h.track.advance(30);assert.equal(s.ending.elapsed,elapsed);assert.equal(h.track.currentTime,pos);h.w.SSE.lifecycle.resume('hidden');await tick();h.advance(1);assert.ok(s.ending.elapsed>elapsed+.9);assert.equal(h.plays.length,plays);assert.equal(h.media.length,1);assert.ok(h.track.currentTime>pos+.9);
   // Engine frame dispatcher (unchanged) gates scene updates while paused. This
   // harness supplies no work updates in the hidden interval, as that gate does.
 });
 test('normal simulated run grows once, reject new tilts, and replay resets growth without music seek',async()=>{
-  const h=harness();h.key();await tick();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(12);h.w.SSE.input.reset();h.scene.touch({id:2,state:'BEGAN',x:195,y:375});h.scene.touch({id:2,state:'MOVING',x:253.8,y:433.8});h.advance(42);h.scene.touch({id:2,state:'ENDED',x:253.8,y:433.8});for(let i=0;i<30*60&&!h.journey?.replayReady;i++)h.advance(1/60);const s=h.journey;
-  assert.ok(s.result&&s.result.arrivals.length>0&&s.replayReady);const result=s.result,elapsed=s.ending.elapsed,old=h.track.currentTime;
+  const h=harness();h.key();await tick();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');
+  // Detach through the real title controls, then let the unfolding floor settle
+  // under neutral input before steering onto its first visible gap.
+  for(let i=0;i<30*60&&!h.journey;i++)h.advance(1/60);
+  assert.ok(h.journey);h.w.SSE.input.reset();h.advance(7);assert.ok(h.journey.transition.settled);
+  assert.equal(J.party(h.journey).length,9);h.scene.touch({id:2,state:'BEGAN',x:195,y:375});
+  const input=Route.create('title'),objects=h.journey.seeds.slice();
+  for(let i=0;i<120*60&&!h.journey.seeds.every(p=>p.x>h.journey.geometry.END.left+70);i++){
+    if(i%2===0){const v=input(h.journey);h.scene.touch({id:2,state:'MOVING',x:195+v.x*210,y:375-v.y*210});}
+    h.advance(1/60);assert.equal(J.party(h.journey).length,9);
+  }
+  const s=h.journey;objects.forEach((p,i)=>assert.equal(s.seeds[i],p));assert.ok(s.seeds.every(p=>!p.lost&&p.x>s.geometry.END.left+70),'all nine seeds traverse the full course under held finger and momentum gestures');
+  h.scene.touch({id:2,state:'ENDED',x:253.8,y:433.8});for(let i=0;i<40*60&&!s.replayReady;i++)h.advance(1/60);
+  assert.ok(s.result&&s.result.arrivals.length===9&&s.replayReady);const result=s.result,elapsed=s.ending.elapsed,old=h.track.currentTime;
   h.scene.touch({id:10,state:'BEGAN',x:190,y:375});h.scene.touch({id:10,state:'MOVING',x:300,y:200});h.advance(1);assert.equal(s.result,result);assert.equal(s.held,false);assert.ok(s.ending.elapsed>elapsed);assert.equal(h.media.length,1);
   h.advance(7);const p=h.w.PumpkinProbe();assert.equal(p.mode,'prologue');assert.equal(p.arrived,0);assert.equal(p.plants,0);assert.equal(p.loose,3);assert.equal(p.ending,null);assert.ok(!p.replayReady);assert.equal(h.w.SSE.input.keysDown.size,0);assert.ok(h.track.currentTime>=old);assert.equal(h.track.plays,1);
 });
@@ -131,7 +146,7 @@ test('normal simulated run grows once, reject new tilts, and replay resets growt
 for(const count of [1,9])test(count+' grown fruits automatically reconnect to title without replacing, pausing or seeking music',async()=>{
   const h=harness();h.key();await tick();h.w.SSE.input.keysDown.add('ArrowRight');h.w.SSE.input.keysDown.add('ArrowDown');h.advance(35);h.w.SSE.input.reset();
   const s=h.journey;s.result=s.ending=null;s.finished=s.replayReady=false;s.arrivals=[];
-  s.seeds.forEach((p,i)=>{p.arrival=null;p.soilTime=0;p.lost=p.inactive=i>=count;if(i<count){p.x=1830+i*24;p.y=s.geometry.floor(p.x).y-J.support(p,s.geometry.floor(p.x).nx,s.geometry.floor(p.x).ny);p.vx=p.vy=0;}});
+  s.seeds.forEach((p,i)=>{p.arrival=null;p.soilTime=0;p.lost=p.inactive=i>=count;if(i<count)placeOnSoil(s,p,s.geometry.END.left+40+i*24);});
   h.advance(1);assert.ok(s.result);const timing=J.endingTiming(s);
   const until=time=>{while(s.ending.elapsed<time-1e-8)h.advance(1/60);};
   until(timing.growthEnd+.5);assert.ok(s.ending.growthComplete);assert.equal(s.ending.phase,'rest');assert.equal(h.elements.has('again'),false);

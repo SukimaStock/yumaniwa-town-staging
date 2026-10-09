@@ -30,6 +30,34 @@
   // comparison. No existing sound has been verified as soft soil, so arrivals
   // are intentionally silent in this version; the one-shot event is retained.
   const SOUND=Object.freeze({detach:"fiber",arrival:null,arrivalWindow:.12});
+  // Read-only percussion: group landings, never rolling contacts.
+  // State is consumed even while OFF/hidden; there is no delayed sound queue.
+  const percussionRuns=new WeakMap();
+  function percussion(s,dt) {
+    let run=percussionRuns.get(s);
+    if(!run){run={seeds:new WeakMap(),don:-Infinity,any:-Infinity};percussionRuns.set(s,run);}
+    let landing=false;
+    for(const p of s.seeds) {
+      let r=run.seeds.get(p);
+      if(!r){r={air:0,fall:0};run.seeds.set(p,r);}
+      if(p.lost||p.inactive||p.arrival){r.air=r.fall=0;continue;}
+      if(J.jump.contact(s,p).landing) {
+        if(r.air>=.16&&r.fall>=90)landing=true;
+        r.air=r.fall=0;
+      } else {
+        r.air+=dt;r.fall=Math.max(r.fall,p.vy);
+      }
+    }
+    const ready=!s.result&&J.opening(s)===1&&(!s.transition||s.transition.settled);
+    const enabled=SSE.audio.enabled!==false&&!root.document?.hidden&&!SSE.lifecycle?.paused;
+    // Stamp suppressed events too: resuming cannot replay an old movement.
+    const hit=(name,window)=>{
+      const allowed=s.time-run[name]>=window&&s.time-run.any>=.065;
+      run[name]=s.time;
+      if(ready&&enabled&&allowed){SSE.audio.play('drumDon');run.any=s.time;}
+    };
+    if(landing)hit('don',.35);
+  }
   const CX = 195, CY = 365, TAU = Math.PI * 2;
   let lastArrivalSound = -1, touchedOnce = false, paper, titleArt, gesture = null;
   const grain = Array.from({ length: 760 }, (_, i) => {
@@ -229,12 +257,15 @@
       if (!model.result && model.activeId === null) {
         model.held = !!(kx || ky);
         const strength = mode === "prologue" ? .28 : .28 + .10 * J.opening(model);
-        model.targetX = kx * strength; model.targetY = ky * strength;
+        if(mode === "prologue") { model.targetX = kx * strength; model.targetY = ky * strength; }
+        else J.drag(model,kx * strength,ky * strength);
       }
       if (kx || ky) touchedOnce = true;
       if (!model.result && SSE.input.actionPressed("knock")) { knockAt(CX + 70, CY - 35); touchedOnce = true; }
       if (mode !== "prologue") {
+        percussion(model,0);
         J.update(model, dt);
+        percussion(model,Math.min(dt,.06));
         if (mode === "transition" && model.transition.settled) mode = "journey";
         if(model.result) { gesture=null;if(!returnModel)returnModel=D.createPrologue(); }
         // J.update emits each arrival once. Coalesce near-simultaneous events;
@@ -266,7 +297,9 @@
       const y = W.logicalHeight - t.y;
       if (t.state === BEGAN) {
         if (mode === "prologue" && Math.hypot((t.x - CX) / 1.1, (y - CY) / .86) > 163) return true;
+        if(model.activeId!==null&&model.activeId!==t.id)return true;
         model.activeId = t.id; model.held = true;
+        if(mode !== "prologue")J.beginDrag(model);
         model.anchorX = t.x; model.anchorY = y;
         gesture = { x: t.x, y, moved: false, knocked: mode === "prologue" };
         touchedOnce = true;
@@ -275,8 +308,13 @@
         if (mode === "prologue") knockAt(t.x, y);
       } else if (t.id === model.activeId && t.state === MOVING) {
         if (gesture && Math.hypot(t.x - gesture.x, y - gesture.y) > 8) gesture.moved = true;
-        model.targetX = Math.max(-.38, Math.min(.38, (t.x - model.anchorX) / 210));
-        model.targetY = Math.max(-.38, Math.min(.38, (y - model.anchorY) / 210));
+        const dx = (t.x - model.anchorX) / 210, dy = (y - model.anchorY) / 210;
+        if (mode === "prologue") {
+          model.targetX = Math.max(-.38, Math.min(.38, dx));
+          model.targetY = Math.max(-.38, Math.min(.38, dy));
+        } else {
+          J.drag(model,dx,dy);
+        }
       } else if (t.id === model.activeId && (t.state === ENDED || t.state === CANCELLED)) {
         if (mode !== "prologue" && t.state === ENDED && gesture && !gesture.moved && !gesture.knocked) knockAt(t.x, y);
         (mode !== "prologue" ? J : D).release(model); gesture = null;
@@ -296,6 +334,7 @@
     audio: SSE.audio.withBaseline({ storageKey: "kotsu-koro.sound", music: {
       pumpoko: { file: "./audio/pumpoko-bgm.mp3", loop: true, volume: SSE.audio.baseline().reference.bgm.active },
     }, sounds: {
+      drumDon: { file: "./audio/drum-don.wav", mode: "buffer", volume: SSE.audio.baseline().reference.se.soft },
       shell: { file: "./audio/shell.wav", mode: "buffer", volume: SSE.audio.baseline().reference.se.action },
       rim: { file: "./audio/rim.wav", mode: "buffer", volume: SSE.audio.baseline().reference.se.soft },
       seed: { file: "./audio/seed.wav", mode: "buffer", volume: SSE.audio.baseline().reference.se.soft },

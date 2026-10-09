@@ -29,7 +29,7 @@ test('nine independently colliding grains retain identity and finite bounded ene
 });
 test('Builder Loop from zero velocity can be pumped and completed with only world tilt',()=>{
   const m=M.create();assert.ok(M.addPrimitive(m,'Loop'));const f=m.draft.features[0];assert.equal(f.radius,32);assert.ok(M.play(m));const s=m.run,objects=s.seeds.slice(),top=new Set(),left=new Set(),exits=new Set();let reverse=false;
-  for(let i=0;i<20*120;i++){const xs=J.party(s).map(p=>p.x).sort((a,b)=>a-b);if(xs[4]<2235)reverse=true;s.held=true;s.targetX=reverse?.38:-.38;s.targetY=0;M.update(m,1/120);s.seeds.forEach((p,k)=>{if(p.y<f.y&&Math.abs(p.x-f.x)<20)top.add(k);if(top.has(k)&&p.x<f.x-f.radius*.6)left.add(k);if(left.has(k)&&p.x>f.exit.x)exits.add(k);assert.equal(p,objects[k]);});}
+  for(let i=0;i<20*120;i++){const xs=J.party(s).map(p=>p.x).sort((a,b)=>a-b);if(xs[4]<m.testStart.x-85)reverse=true;s.held=true;s.targetX=reverse?.38:-.38;s.targetY=0;M.update(m,1/120);s.seeds.forEach((p,k)=>{if(p.y<f.y&&Math.abs(p.x-f.x)<20)top.add(k);if(top.has(k)&&p.x<f.x-f.radius*.6)left.add(k);if(left.has(k)&&p.x>f.exit.x)exits.add(k);assert.equal(p,objects[k]);});}
   assert.ok(reverse&&exits.size>0,'zero-velocity, input-only Loop route');assert.equal(J.party(s).length,9);assert.ok(m.traces[0].length>0);M.edit(m);assert.ok(M.editLoop(m,f.id,'radius',f.x+24,f.y));assert.equal(m.draft.features[0].radius,24);assert.equal(G.validate(JSON.parse(M.exportJSON(m))).length,0);assert.ok(M.play(m));
 });
 test('Loop uses geometric contact only, without scripted steering or progress fields',()=>{
