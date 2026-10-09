@@ -10,7 +10,7 @@ test('direct point changes, x-order clamp, add/delete and material survive JSON 
 test('gap edges move directly and ordinary primitives remain free control points',()=>{
   const m=M.create();m.selection={type:'gap',index:0};const old=m.geometry.GAP[0];M.editPoint(m,'point-0-4',old.left-8,324);assert.ok(Math.abs(m.geometry.GAP[0].right-m.geometry.GAP[0].left-56)<1e-7);
   for(const kind of ['Straight','Slope','Bowl','Ramp']){assert.ok(M.addPrimitive(m,kind));const p=M.point(m,m.selection.id).p;assert.ok(M.editPoint(m,p.id,p.x,p.y+7));}
-  m.selection={type:'interval',surface:'surface-a',x:260};assert.ok(M.addPrimitive(m,'Gap'));assert.equal(m.geometry.segments.length,4);assert.equal(m.geometry.floor(260),null);
+  m.selection={type:'interval',surface:'surface-a',x:260};assert.ok(M.addPrimitive(m,'Gap'));assert.equal(m.geometry.segments.length,data.surfaces.length+1);assert.equal(m.geometry.floor(260),null);
 });
 test('TEST START creates a nine-object zero-velocity cluster using real draft physics; RESET and EDIT preserve draft',()=>{
   const m=M.create();M.moveStart(m,1350);const before=M.exportJSON(m);assert.ok(M.play(m));const s=m.run,objects=s.seeds.slice(),positions=s.seeds.map(p=>[p.x,p.y]);assert.equal(s.geometry.floor(1350).y,500);assert.equal(new Set(positions.map(p=>p.join(','))).size,9);assert.ok(s.seeds.every(p=>p.vx===0&&p.vy===0));s.held=true;s.targetX=.3;step(m,3);assert.ok(m.traces[0].length>20);objects.forEach((p,i)=>assert.equal(m.run.seeds[i],p));assert.equal(M.exportJSON(m),before);
@@ -32,16 +32,26 @@ function harness(){
   vm.runInNewContext(fs.readFileSync(__dirname+'/stage-draw.js','utf8'),c);vm.runInNewContext(fs.readFileSync(__dirname+'/builder/builder.js','utf8'),c);
   return {model,el,handlers,frame:t=>{const f=frames.shift();f(t);},buttons};
 }
+function fitView(g,width=1080,height=650){
+  let z=Math.min((width-90)/(g.bounds.right-g.bounds.left+30),(height-125)/Math.max(320,g.bounds.lostY-130));z=Math.max(.06,Math.min(1.4,z));
+  return {z,x:g.bounds.left-45/z,y:Math.min(100,g.bounds.top-50)-50/z};
+}
+function zoomAt(h,v,x,y,z=.6){
+  const sx=(x-v.x)*v.z,sy=(y-v.y)*v.z;
+  h.el('stage-canvas').wheel({clientX:sx,clientY:sy,ctrlKey:true,deltaY:-Math.log(z/v.z)/.002,preventDefault(){}});
+  return {z,x:x-sx/z,y:y-sy/z};
+}
 test('actual UI pointer events edit a control point and keyboard/pointer PLAY use journey',()=>{
   const h=harness(),canvas=h.el('stage-canvas'),m=h.model;
-  // FIT coordinates for the actual 1080×650 editor viewport.
-  const z=Math.min(990/2130,525/470),vx=-40-45/z,vy=100-50/z;
+  // Derive the real FIT transform, then zoom through the UI so long-course
+  // control-point hit targets do not overlap at the whole-stage scale.
+  const v=zoomAt(h,fitView(m.geometry),1350,500),z=v.z,vx=v.x,vy=v.y;
   const sx=(1350-vx)*z,sy=(500-vy)*z,event=(x,y)=>({pointerId:1,clientX:x,clientY:y,type:'pointermove'});
-  canvas.pointerdown(event(sx,sy));canvas.pointermove(event(sx,sy+15));canvas.pointerup({...event(sx,sy+15),type:'pointerup'});assert.ok(m.geometry.floor(1350).y>530);
+  canvas.pointerdown(event(sx,sy));canvas.pointermove(event(sx,sy+35*z));canvas.pointerup({...event(sx,sy+35*z),type:'pointerup'});assert.ok(m.geometry.floor(1350).y>530);
   h.el('play').click();assert.equal(m.mode,'play');h.handlers.get('keydown')({target:{tagName:'CANVAS'},key:'ArrowRight',preventDefault(){}});h.frame(1000);for(let i=1;i<60;i++)h.frame(1000+i*1000/60);assert.ok(m.run.x>.3);assert.ok(m.traces[0].length>0);h.el('reset').click();assert.equal(m.run.time,0);h.el('edit').click();assert.equal(m.mode,'edit');assert.ok(m.geometry.floor(1350).y>530);
 });
 test('actual UI marker, gap, material, point and Loop handles edit the same draft',()=>{
-  const h=harness(),m=h.model,cv=h.el('stage-canvas');const z=990/2130,vx=-40-45/z,vy=100-50/z;
+  const h=harness(),m=h.model,cv=h.el('stage-canvas'),v=zoomAt(h,fitView(m.geometry),180,350),z=v.z,vx=v.x,vy=v.y;
   const drag=(x,y,tx,ty)=>{const e=(x,y)=>({pointerId:2,clientX:x,clientY:y,type:'pointermove'});cv.pointerdown(e(x,y));cv.pointermove(e(tx,ty));cv.pointerup({...e(tx,ty),type:'pointerup'});};
   drag((180-vx)*z,(350-vy)*z-54,(1350-vx)*z,100);assert.ok(Math.abs(m.testStart.x-1350)<1e-7);
   drag((455-vx)*z,(324-vy)*z,(447-vx)*z,(324-vy)*z);assert.ok(Math.abs(m.geometry.GAP[0].right-m.geometry.GAP[0].left-56)<1e-7);

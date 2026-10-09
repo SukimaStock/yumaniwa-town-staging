@@ -34,13 +34,13 @@
   function pos(e){const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};}
   canvas.addEventListener('pointerdown',e=>{
     if(drag)return;const p=pos(e);canvas.setPointerCapture(e.pointerId);canvas.focus();
-    if(m.mode==='play'){drag={type:'tilt',id:e.pointerId,px:p.x,py:p.y,moved:0};m.run.held=true;return;}
+    if(m.mode==='play'){drag={type:'tilt',id:e.pointerId,px:p.x,py:p.y,moved:0};m.run.held=true;J.beginDrag(m.run);return;}
     const target=hit(p);drag={...target,pointer:e.pointerId,px:p.x,py:p.y,vx:view.x,vy:view.y};m.selection=target.type==='radius'?{type:'loop',id:target.id}:target;sync();
   });
   canvas.addEventListener('pointermove',e=>{
     if(!drag||(drag.pointer??drag.id)!==e.pointerId)return;const p=pos(e),w=world(p.x,p.y);
     if(m.mode==='edit'&&['point','tangent','start','end','loop','radius'].includes(drag.type)&&!drag.checkpoint){M.checkpoint(m);drag.checkpoint=true;}
-    if(drag.type==='tilt'){drag.moved=Math.max(drag.moved,Math.hypot(p.x-drag.px,p.y-drag.py));m.run.targetX=Math.max(-.38,Math.min(.38,(p.x-drag.px)/210));m.run.targetY=Math.max(-.38,Math.min(.38,(p.y-drag.py)/210));}
+    if(drag.type==='tilt'){drag.moved=Math.max(drag.moved,Math.hypot(p.x-drag.px,p.y-drag.py));J.drag(m.run,(p.x-drag.px)/210,(p.y-drag.py)/210);}
     else if(drag.type==='point')M.editPoint(m,drag.id,w.x,w.y,false);
     else if(drag.type==='tangent'){const q=M.point(m,drag.id);M.tangent(m,drag.id,(w.y-q.p.y)/Math.max(15,w.x-q.p.x),false);}
     else if(drag.type==='start')M.moveStart(m,w.x,false);
@@ -49,7 +49,7 @@
     else if(drag.type==='pan'){view.x=drag.vx-(p.x-drag.px)/view.z;view.y=drag.vy-(p.y-drag.py)/view.z;}
     sync();
   });
-  function end(e){if(!drag)return;if(m.mode==='play'){if(e.type==='pointerup'&&drag.moved<9){const w=world(pos(e).x,pos(e).y);J.knock(m.run,w.x,w.y);}J.release(m.run);}drag=null;sync();}
+  function end(e){if(!drag||(drag.pointer??drag.id)!==e.pointerId)return;if(m.mode==='play'){if(e.type==='pointerup'&&drag.moved<9){const w=world(pos(e).x,pos(e).y);J.knock(m.run,w.x,w.y);}J.release(m.run);}drag=null;sync();}
   canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);canvas.addEventListener('lostpointercapture',end);
   canvas.addEventListener('wheel',e=>{if(m.mode!=='edit')return;e.preventDefault();if(e.ctrlKey||e.metaKey){const p=pos(e),w=world(p.x,p.y);view.z=Math.max(.06,Math.min(3,view.z*Math.exp(-e.deltaY*.002)));view.x=w.x-p.x/view.z;view.y=w.y-p.y/view.z;}else{view.x+=(e.deltaX||e.deltaY)/view.z;}},{passive:false});
   function beginPlay(){if(M.play(m)){savedView={...view};drag=null;keys.clear();status('ドラッグで世界を傾ける · 放すと余韻 · EDITで地形へ戻る');}else sync();}
@@ -84,7 +84,7 @@
     c.restore();
   }
   function frame(time){const dt=last?Math.min(.06,(time-last)/1000):0;last=time;
-    if(m.mode==='play'){if(!drag){m.run.held=keys.size>0;m.run.targetX=(Number(keys.has('ArrowRight')||keys.has('d'))-Number(keys.has('ArrowLeft')||keys.has('a')))*.38;m.run.targetY=(Number(keys.has('ArrowDown')||keys.has('s'))-Number(keys.has('ArrowUp')||keys.has('w')))*.38;}M.update(m,dt);$('run-result').textContent=`9 started · ${J.party(m.run).length} survived · ${m.run.seeds.filter(p=>p.lost).length} lost${m.run.finished?' · quiet':''}`;}
+    if(m.mode==='play'){if(!drag){m.run.held=keys.size>0;J.drag(m.run,(Number(keys.has('ArrowRight')||keys.has('d'))-Number(keys.has('ArrowLeft')||keys.has('a')))*.38,(Number(keys.has('ArrowDown')||keys.has('s'))-Number(keys.has('ArrowUp')||keys.has('w')))*.38);}M.update(m,dt);$('run-result').textContent=`9 started · ${J.party(m.run).length} survived · ${m.run.seeds.filter(p=>p.lost).length} lost${m.run.finished?' · quiet':''}`;}
     render();requestAnimationFrame(frame);
   }
   new ResizeObserver(()=>{size();}).observe($('canvas-area'));size();fit();sync();requestAnimationFrame(frame);

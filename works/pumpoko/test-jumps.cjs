@@ -1,11 +1,12 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict');
-const J=require('./journey.js'),D=require('./dynamics.js'),G=require('./stage-geometry.js'),Draw=require('./stage-draw.js'),M=require('./builder/model.js');
+const J=require('./journey.js'),D=require('./dynamics.js'),G=require('./stage-geometry.js'),Draw=require('./stage-draw.js'),M=require('./builder/model.js'),Route=require('./fixtures/momentum-route.cjs');
 const dt=D.TUNE.step, tick=(r,x,y,touching=false,landing=touching,n=1)=>{for(let i=0;i<n;i++)J.jump.observe(r,{x,y}, {touching,landing},dt);};
 function ground(r,x=0,y=0){tick(r,x,y,true,true,12);}
 function flight(r,distance=200,landingX=distance){ground(r);for(let i=0;i<48;i++)tick(r,distance*i/48,-10*Math.sin(Math.PI*i/48));tick(r,landingX,0,true);tick(r,landingX+20,0,true,true,8);}
+function flowToFarm(s,fps){const input=Route.create();for(let i=0;i<120*fps;i++){if(i%(fps/30)===0){if(s.finished||s.seeds.every(p=>p.x>s.geometry.END.left+70))return;const p=input(s);s.held=true;J.drag(s,p.x,p.y);}J.update(s,1/fps);assert.equal(J.party(s).length,9);}throw Error('horizontal drag and timed upward gestures did not reach the extended farm');}
 const advance=(s,t,fps=120)=>{for(let i=0;i<Math.round(t*fps);i++)J.update(s,1/fps);};
-function physical(s){return {time:s.time,pose:[s.x,s.y,s.vx,s.vy,s.ring,s.ringV],contacts:s.contacts,impacts:s.impactCount,seeds:s.seeds.map(p=>Object.fromEntries(['x','y','vx','vy','angle','spin','turn','roll','cool','lost','inactive','soilTime'].map(k=>[k,p[k]]))),arrivals:s.arrivals.map(a=>[a.id,a.x,a.y,a.at]),lost:s.seeds.filter(p=>p.lost).length};}
+function physical(s){return {time:s.time,pose:[s.x,s.y,s.vx,s.vy,s.ring,s.ringV],gesture:{...s.gestureAssist},assists:s.seeds.map(p=>({...p.assist})),contacts:s.contacts,impacts:s.impactCount,seeds:s.seeds.map(p=>Object.fromEntries(['x','y','vx','vy','angle','spin','turn','roll','cool','lost','inactive','soilTime'].map(k=>[k,p[k]]))),arrivals:s.arrivals.map(a=>[a.id,a.x,a.y,a.at]),lost:s.seeds.filter(p=>p.lost).length};}
 test('first contact is the landing coordinate; records are max, not repeated jump totals',()=>{
   const r=J.jump.create();flight(r,200);assert.equal(r.best,200);assert.equal(r.recent.landingX,200);assert.equal(r.recent.takeoffX,0);
   flight(r,120);flight(r,120);assert.equal(r.best,200);flight(r,240);assert.equal(r.best,240);
@@ -31,29 +32,30 @@ test('smooth richness has healthy zero baseline and bounded 8 percent fruit bonu
   assert.ok(Math.abs(J.jump.amount(220.001)-J.jump.amount(220))<.00001);
 });
 for(const fps of [30,60,120])test(`observer ON/OFF has identical physical state and arrivals at ${fps}fps`,()=>{
-  const a=J.create(D.create(),true),b=J.create(D.create(),true);b.observeJumps=false;
-  for(let i=0;i<45*fps;i++){
-    for(const s of [a,b]){s.held=i<23*fps;s.targetX=s.held?.28:0;s.targetY=s.held?-.28:0;}
+  const a=J.create(D.create(),true),b=J.create(D.create(),true),input=Route.create('observer');b.observeJumps=false;
+  for(let i=0;i<100*fps;i++){
+    if(i%(fps/30)===0){const p=input(a);for(const s of [a,b]){if(i<7*fps||s.seeds.every(p=>p.x>s.geometry.END.left+70))J.release(s);else{s.held=true;J.drag(s,p.x,p.y);}}}
     if(i===9*fps){J.knock(a,900,380);J.knock(b,900,380);}
     J.update(a,1/fps);J.update(b,1/fps);assert.deepEqual(physical(a),physical(b));
   }
+  assert.equal(a.arrivals.length,9);assert.equal(b.arrivals.length,9);
   assert.ok(a.seeds.some(p=>p.jump.best>80));assert.ok(b.seeds.every(p=>p.jump.best===0));
 });
 test('real normal rolling is unrecorded; current-stage successful jumps are fixed-step consistent',()=>{
   const still=J.create(D.create());advance(still,12);assert.ok(still.seeds.every(p=>p.jump.best===0));
-  const runs=[30,60,120].map(fps=>{const s=J.create(D.create());s.held=true;s.targetX=.28;s.targetY=-.28;advance(s,16,fps);J.release(s);advance(s,30,fps);return s;});
+  const runs=[30,60,120].map(fps=>{const s=J.create(D.create());flowToFarm(s,fps);J.release(s);advance(s,40,fps);return s;});
   assert.equal(runs[0].arrivals.length,9);
   for(const s of runs.slice(1))assert.deepEqual(s.seeds.map(p=>p.jump.best),runs[0].seeds.map(p=>p.jump.best));
-  for(const s of runs)for(const a of s.arrivals){assert.equal(a.bestJump,a.seed.jump.best);assert.equal(a.reward,J.jump.amount(a.bestJump));}
+  for(const s of runs){assert.equal(s.arrivals.length,9);for(const a of s.arrivals){assert.equal(a.bestJump,a.seed.jump.best);assert.equal(a.reward,J.jump.amount(a.bestJump));}}
 });
 test('final farm jump is observed and frozen before arrival, with no rolling distance added',()=>{
   const s=J.create(D.create()),p=s.seeds[0];s.seeds.forEach((q,i)=>{q.lost=q.inactive=i>0;});
-  p.x=1740;p.angle=0;p.y=s.geometry.floor(p.x).y-J.support(p,0,1);p.vx=p.vy=0;advance(s,.15);
+  p.x=s.geometry.END.left-50;p.angle=0;p.y=s.geometry.floor(p.x).y-J.support(p,0,1);p.vx=p.vy=0;advance(s,.15);
   // Explicit launch fixture, not ordinary-input evidence.
   p.vx=350;p.vy=-140;advance(s,4);assert.ok(p.arrival);assert.ok(p.arrival.bestJump>80);assert.ok(p.jump.recent.landingX>=J.END.left);assert.ok(p.arrival.x>p.jump.recent.landingX);
   const result=s.result,record=JSON.stringify(p.jump);advance(s,30);assert.equal(s.result,result);assert.equal(JSON.stringify(p.jump),record);
 });
-function fixture(n,reward,g=J.geometry){const s=J.create(D.create(),false,g);s.seeds.forEach((p,i)=>{p.lost=p.inactive=i>=n;if(i<n){p.x=g.END.left+25+(g.END.right-g.END.left-50)*(i+.5)/n;p.y=g.floor(p.x).y-J.support(p,g.floor(p.x).nx,g.floor(p.x).ny)/-g.floor(p.x).ny-.1;p.vx=p.vy=p.spin=0;p.jump.best=reward===1?360:reward===.5?220:0;}});advance(s,7);return s;}
+function fixture(n,reward,g=J.geometry){const s=J.create(D.create(),false,g);s.seeds.forEach((p,i)=>{p.lost=p.inactive=i>=n;if(i<n){p.x=g.END.left+25+(g.END.right-g.END.left-50)*(i+.5)/n;p.y=g.floor(p.x).y-J.support(p,g.floor(p.x).nx,g.floor(p.x).ny)/-g.floor(p.x).ny-.1;p.vx=p.vy=p.spin=0;p.jump.best=reward===1?360:reward===.5?220:0;}});s.camera={x:(g.END.left+g.END.right)/2,y:g.floor((g.END.left+g.END.right)/2).y-80,z:J.ZOOM};advance(s,7);return s;}
 test('1, few and nine rewards keep same roots/counts/slots; boosted fruit stays grounded and title scale exact',()=>{
   for(const n of [1,3,9]){
     const states=[0,.5,1].map(r=>fixture(n,r));
@@ -64,7 +66,7 @@ test('1, few and nine rewards keep same roots/counts/slots; boosted fruit stays 
   }
 });
 test('sloping draft grass and enlarged fruit use actual surfaces; Builder RESET and old JSON carry no reward',()=>{
-  const m=M.create(),old=M.exportJSON(m);M.moveStart(m,1860);assert.ok(M.play(m));advance(m.run,1);m.run.seeds[0].jump.best=999;M.edit(m);assert.ok(M.play(m));assert.ok(m.run.seeds.every(p=>p.jump.best===0));M.edit(m);assert.ok(M.importJSON(m,old));assert.ok(M.play(m));assert.ok(m.run.seeds.every(p=>p.jump.best===0));assert.equal(M.exportJSON(m),old);
+  const m=M.create(),old=M.exportJSON(m);M.moveStart(m,J.END.left+70);assert.ok(M.play(m));advance(m.run,1);m.run.seeds[0].jump.best=999;M.edit(m);assert.ok(M.play(m));assert.ok(m.run.seeds.every(p=>p.jump.best===0));M.edit(m);assert.ok(M.importJSON(m,old));assert.ok(M.play(m));assert.ok(m.run.seeds.every(p=>p.jump.best===0));assert.equal(M.exportJSON(m),old);
   const draft=JSON.parse(old);draft.surfaces.at(-1).points.at(-1).y+=60;const s=fixture(3,1,G.compile(draft));assert.equal(s.arrivals.length,3);for(const a of s.arrivals)for(const t of Draw.grassPoses(s,a))assert.equal(t.y,s.geometry.floor(t.x).y);
 });
 

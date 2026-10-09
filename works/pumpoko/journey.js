@@ -8,7 +8,43 @@
   const geometry = G.compile(stageData);
   const { START, END, ROUND, segments, terrain, GAP, floor, field } = geometry;
   const ZOOM = 1.85, DURATION = 6.4;
+  // Presentation history only; never read by seed physics or arrival rules.
+  const cameraMotion=new WeakMap(),arrivalTail=new WeakMap();
   const CONTROL = Object.freeze({ grabK:220, grabD:21, returnK:70, returnD:10, inertia:3 });
+  const ASSIST = Object.freeze({ gesture:.12, rearm:.08, sideways:.12, coyote:.12, contactSlop:.75,
+    minSpeed:55, fullSpeed:230, maxLift:180, landTime:.06 });
+  // Input edges, not held gravity: horizontal propulsion never loses strength
+  // to an upward gesture. Each grain spends only its own recent ground speed.
+  function beginDrag(s) { s.gestureAssist={armed:true,peakY:0,lastX:0,lastY:0,side:0,down:0,direction:0}; }
+  function drag(s,x,y) {
+    s.targetX=clamp(x,-T.maxTilt,T.maxTilt);s.targetY=clamp(y,-T.maxTilt,T.maxTilt);
+    const g=s.gestureAssist;
+    if(Math.abs(s.targetX)>.04)g.direction=Math.sign(s.targetX);
+    const dx=x-g.lastX,dy=y-g.lastY;g.lastX=x;g.lastY=y;
+    if(!g.armed) {
+      g.side+=Math.abs(dx);g.down=Math.max(0,g.down+dy);
+      if(g.side>=ASSIST.sideways||g.down>=ASSIST.rearm) {
+        g.armed=true;g.peakY=y;g.side=g.down=0;
+      }
+      return; // A sideways/down stroke rearms; it never also launches.
+    }
+    g.peakY=Math.max(g.peakY,y);
+    if(dy>=0||g.peakY-y<ASSIST.gesture)return;
+    g.armed=false;g.side=g.down=0;
+    if(!s.held||s.result||opening(s)<1||s.transition&&!s.transition.settled)return;
+    const direction=g.direction;
+    if(!direction)return;
+    for(const p of travelling(s)) {
+      const a=p.assist;
+      if(a.used||s.time-a.at>ASSIST.coyote)continue;
+      const speed=Math.max(0,direction*a.speed);
+      const lift=ASSIST.maxLift*smooth((speed-ASSIST.minSpeed)/(ASSIST.fullSpeed-ASSIST.minSpeed));
+      if(lift<=0)continue;
+      // Consume on the gesture. Holding up cannot wait for sufficient speed,
+      // and another airborne gesture cannot buy another impulse.
+      p.vy-=lift;a.used=true;a.groundTime=0;a.count++;a.lastLift=lift;
+    }
+  }
   // Read-only run-local observation. These limits never enter collision/control.
   // Distance calibration and actual-input samples are recorded in JUMP-NOTES.md.
   const JUMP = Object.freeze({ contactSlop:.75, groundTime:.04, landingTime:.025,
@@ -70,11 +106,52 @@
     replayAt:6.7, zoomDuration:3.8, connectDuration:1.2, emptyReplayAt:2.4, emptyDuration:1.2 });
   // Fruit rests on the same sampled soil as its root, even on a sloping draft.
   // This is a drawing pose only: arrivals, seeds and collision are never moved.
+  const FRUIT = Object.freeze({ allArrivedBonus:1.24, overshoot:.14, heroOvershoot:.20 });
+  const preferredPlantX=(s,a)=>clamp(a.x+8,s.geometry.END.left+14,s.geometry.END.right-14);
+  const fruitLayouts=new WeakMap();
+  function perfectHero(s,a) {
+    const arrivals=s.result?.arrivals||[];
+    return arrivals.length===9&&s.result.total===9&&arrivals.every(b=>preferredPlantX(s,b)<preferredPlantX(s,a)||preferredPlantX(s,b)===preferredPlantX(s,a)&&b.id<=a.id);
+  }
+  function plantX(s,a) {
+    const result=s.result,cached=fruitLayouts.get(result);
+    if(cached?.geometry===s.geometry)return cached.positions.get(a)??preferredPlantX(s,a);
+    const order=result.arrivals.slice().sort((a,b)=>preferredPlantX(s,a)-preferredPlantX(s,b)||a.id-b.id);
+    const lo=s.geometry.END.left+14,hi=s.geometry.END.right-14;
+    const density=Math.max(.62,1-(order.length-1)*.05);
+    // Layout reserves full jump richness and the growth overshoot, so reward
+    // changes and individual growth events never move a fruit or its camera.
+    const radii=order.map(a=>22*(.95+a.id%3*.025)*density*1.08*
+      (perfectHero(s,a)?FRUIT.allArrivedBonus*(1+FRUIT.heroOvershoot):1+FRUIT.overshoot));
+    // Keep each centre outside its neighbour's largest silhouette. A little
+    // edge overlap belongs to this organic cluster; full rows are unnecessary.
+    const gaps=radii.slice(1).map((r,i)=>Math.max(r,radii[i])+2);
+    const span=gaps.reduce((sum,gap)=>sum+gap,0);
+    // A narrow nursery may need modest silhouette overlap; centres remain
+    // distinct. Do not shrink, merge, delete or relocate the physical seeds.
+    const fit=Math.min(1,(hi-lo)/Math.max(1,span));
+    const xs=order.map(a=>preferredPlantX(s,a));
+    for(let i=1;i<xs.length;i++)xs[i]=Math.max(xs[i],xs[i-1]+gaps[i-1]*fit);
+    if(xs.length)xs[xs.length-1]=Math.min(hi,xs.at(-1));
+    for(let i=xs.length-2;i>=0;i--)xs[i]=Math.min(xs[i],xs[i+1]-gaps[i]*fit);
+    const positions=new Map(order.map((a,i)=>[a,xs[i]]));
+    fruitLayouts.set(result,{geometry:s.geometry,positions});
+    return positions.get(a)??preferredPlantX(s,a);
+  }
+  // Finite, time-based growth: swell, a small compression, then exact rest.
+  function fruitGrowth(age,bonus=false) {
+    const u=clamp((age-1.4)/(ENDING.growthDuration-1.4),0,1);
+    const peak=1+(bonus?FRUIT.heroOvershoot:FRUIT.overshoot);
+    if(u<.64)return peak*smooth(u/.64);
+    if(u<.85)return peak+(.97-peak)*smooth((u-.64)/.21);
+    return .97+.03*smooth((u-.85)/.15);
+  }
   function plantPose(s, a) {
     const density=Math.max(.62,1-(s.result.arrivals.length-1)*.05);
-    const reward=clamp(a.reward||0,0,1), size=(.95+a.id%3*.025)*density*(1+JUMP.fruitBonus*smooth((reward-.45)/.55));
-    const x=clamp(a.x+8,s.geometry.END.left+14,s.geometry.END.right-14);
-    return { x, y:s.geometry.floor(x).y-13*size+1, size, density, reward };
+    const bonus=perfectHero(s,a);
+    const reward=clamp(a.reward||0,0,1), size=(.95+a.id%3*.025)*density*(1+JUMP.fruitBonus*smooth((reward-.45)/.55))*(bonus?FRUIT.allArrivedBonus:1);
+    const x=plantX(s,a);
+    return { x, y:s.geometry.floor(x).y-13*size+1, size, density, reward, bonus };
   }
   function endingTiming(s) {
     const count=s.result?.arrivals.length||0;
@@ -105,16 +182,61 @@
   function heroPumpkin(s) { return growthOrder(s).at(-1)||null; }
   function endingFrame(s) {
     const poses=growthOrder(s).map(a=>plantPose(s,a)), from=s.ending.from;
-    if(poses.length<2)return {...from}; // A lone result needs no survey pan.
+    if(poses.length<2&&!s.ending.returning)return {...from}; // A visible lone result needs no survey pan.
     const hero=poses.at(-1), pad=ENDING.framePadding;
-    const left=Math.min(...poses.map(p=>p.x-22*p.size));
-    const top=Math.min(...poses.map(p=>p.y-32*p.size));
+    const left=Math.min(...poses.map(p=>p.x-22*p.size*(1+FRUIT.heroOvershoot)));
+    const top=Math.min(...poses.map(p=>p.y-32*p.size*(1+FRUIT.heroOvershoot)));
     const bottom=Math.max(...poses.map(p=>s.geometry.floor(p.x).y+24));
     // Place the hero to the right of centre and reserve room for every fruit,
     // including sparse Builder rows. Framing responds to bounds, not events.
     const z=Math.min(ENDING.closeZoom,(ENDING.heroScreenX-pad)/(hero.x-left),
-      (390-pad-ENDING.heroScreenX)/(22*hero.size),500/(bottom-top));
+      (390-pad-ENDING.heroScreenX)/(22*hero.size*(1+FRUIT.heroOvershoot)),500/(bottom-top));
     return {x:hero.x-(ENDING.heroScreenX-195)/z,y:(top+bottom)/2-62,z};
+  }
+  // Only a resolved, offscreen result needs a separate return. Living stragglers
+  // keep the existing gameplay camera and unlimited opportunity to arrive.
+  function prepareReturn(s) {
+    const first=growthOrder(s)[0];
+    if(!first)return;
+    const visible=growthOrder(s).some(a=>{
+      const p=plantPose(s,a),q=screenPoint(s,p.x,p.y);
+      return q.x>=10&&q.x<=380&&q.y>=30&&q.y<=710;
+    });
+    if(visible)return;
+    const e=s.ending;
+    e.returning={elapsed:0}; // Also opts the single-fruit frame into real framing.
+    const target=endingFrame(s);
+    // Leave a small continuous glide for the existing leaf-to-fruit shot.
+    if(s.result.arrivals.length>1)target.x-=12/target.z;
+    const from={...s.camera},distance=Math.hypot(target.x-from.x,target.y-from.y);
+    const overview=Math.min(from.z,target.z,1.05);
+    const wide=distance*Math.max(from.z,target.z)>640;
+    const travelDuration=Math.max(2.4,distance*overview*1.25/800);
+    Object.assign(e.returning,{from,target,overview,wide,travelDuration,duration:wide?travelDuration+1.8:2.4});
+    e.phase='returning';
+    arrivalTail.delete(s);
+  }
+  function returnCamera(s,dt) {
+    const e=s.ending,r=e.returning;
+    r.elapsed=Math.min(r.duration,r.elapsed+dt);
+    const mix=(a,b,t)=>a+(b-a)*smooth(t);
+    const zoom=(a,b,t)=>Math.exp(mix(Math.log(a),Math.log(b),t));
+    if(r.wide) {
+      // Keep the terrain at a readable scale. Distance sets duration, not an
+      // arbitrary rush deadline: at most 800 logical px/s, zero endpoint speed.
+      const travel=cameraProgress((r.elapsed-.9)/r.travelDuration);
+      s.camera.x=r.from.x+(r.target.x-r.from.x)*travel;
+      s.camera.y=r.from.y+(r.target.y-r.from.y)*travel;
+      s.camera.z=r.elapsed<.9?zoom(r.from.z,r.overview,r.elapsed/.9):
+        r.elapsed<.9+r.travelDuration?r.overview:zoom(r.overview,r.target.z,(r.elapsed-.9-r.travelDuration)/.9);
+    } else {
+      const t=smooth(r.elapsed/r.duration);
+      for(const k of ['x','y','z'])s.camera[k]=r.from[k]+(r.target[k]-r.from[k])*t;
+    }
+    if(r.elapsed>=r.duration) {
+      s.camera={...r.target};e.from={...r.target};e.pose={x:0,y:0,ring:0};
+      e.returning=null;e.phase='pullback';
+    }
   }
   function plants(s) {
     if (!s.result) return [];
@@ -128,6 +250,12 @@
     const focus=heroPumpkin(s);
     s.ending={elapsed:0,focus,titleReady:false,phase:arrivals.length?'pullback':'empty',growthComplete:!arrivals.length,
       from:{...s.camera},pose:{x:s.x,y:s.y,ring:s.ring}};
+    const motion=cameraMotion.get(s);
+    if(arrivals.length&&motion?.travelled) {
+      const z=Math.max(.1,s.camera.z);
+      arrivalTail.set(s,{vx:clamp(motion.vx,-60/z,60/z),vy:clamp(motion.vy,-18/z,18/z)});
+    }
+    prepareReturn(s);
     release(s); // Release only input; preserve physical pose/camera for the pullback.
   }
   function support(p, nx, ny) {
@@ -142,7 +270,7 @@
       ring: source.ring, ringV: source.ringV, contacts: [], marks: [], impactCount: source.impactCount,
       camera: { x: START.x, y: START.y, z: transitioning ? 1 : ZOOM }, cameraLead: 0,
       transition: transitioning ? { elapsed: 0, progress: 0, settled: false } : null,
-      finished: false, replayReady:false, result:null, ending:null, arrivals:[], arrivalEvents:[], farm:farm(stage), seeds: source.seeds };
+      gestureAssist:{armed:true,peakY:0,lastX:0,lastY:0,side:0,down:0,direction:0}, finished: false, replayReady:false, result:null, ending:null, arrivals:[], arrivalEvents:[], farm:farm(stage), seeds: source.seeds };
     // Stage 0 draws positions with y * .8, but rotates the grain in screen space.
     // Bake that projection into y and vy, keeping angle/spin/x/vx unchanged.
     // The matching camera transform makes transfer pixel-continuous (tested).
@@ -150,14 +278,18 @@
       p.x += START.x; p.y = START.y + p.y * .8; p.vy *= .8; p.attached = false;
       p.lost = false; p.inactive = false; p.fallTime = 0; p.arrival=null; p.soilTime=0; p.runId=i;
       p.dragFactor = .98 + i % 4 * .014; p.turn = p.angle; p.roll = p.roll || 1;
+      p.assist={at:-Infinity,speed:0,used:false,groundTime:0,count:0,lastLift:0};
       p.jump=jumpRecord(); // Fresh run, including Builder TEST START/RESET. Never serialized.
+      // Presentation only: one first-floor landing on the title-to-stage fall.
+      p.entryLandingUntil=transitioning?s.time+DURATION+.6:null;
+      p.entryLandedAt=null;
     }
     return s;
   }
   function opening(s) { return s.transition ? smooth((s.transition.progress - .36) / .57) : 1; }
   function view(s) {
     const o = opening(s), z = s.camera.z;
-    const ease=s.ending ? 1-smooth(s.ending.elapsed/2.8) : 1;
+    const ease=s.ending ? 1-smooth(s.ending.returning?s.ending.returning.elapsed/s.ending.returning.duration:s.ending.elapsed/2.8) : 1;
     const x=s.ending?s.ending.pose.x:s.x, y=s.ending?s.ending.pose.y:s.y, ring=s.ending?s.ending.pose.ring:s.ring;
     return { x: 195 + x * (34 - 22 * o)*ease, y: 365 + y * (23 - 15 * o)*ease,
       angle: x * (.22 - .15 * o)*ease, sx: z * (1 + ring * .22*ease),
@@ -173,7 +305,7 @@
     return { x: (Math.cos(v.angle) * dx + Math.sin(v.angle) * dy) / v.sx + s.camera.x,
       y: (-Math.sin(v.angle) * dx + Math.cos(v.angle) * dy) / v.sy + s.camera.y };
   }
-  function release(s) { s.held = false; s.activeId = null; s.targetX = s.targetY = 0; }
+  function release(s) { s.held = false; s.activeId = null; s.targetX = s.targetY = 0; beginDrag(s); }
   function contact(s, p, speed, material) {
     if (speed < 17 || p.cool > 0) return;
     p.cool = .09; s.impactCount++; s.contacts.push({ x: p.x, y: p.y, speed, material });
@@ -193,10 +325,14 @@
       const force = 58 * Math.exp(-d / 170); p.vx += dx / d * force; p.vy += dy / d * force;
     }
   }
-  function wall(s, p, nx, ny, penetration, material) {
+  function wall(s, p, nx, ny, penetration, material, entryFloor = false) {
     if (penetration <= 0) return;
     p.x += nx * penetration; p.y += ny * penetration;
     const vn = p.vx * nx + p.vy * ny;
+    if(entryFloor&&ny<-.5&&p.entryLandingUntil!==null) {
+      if(vn<0&&s.time<=p.entryLandingUntil)p.entryLandedAt=s.time;
+      p.entryLandingUntil=null;
+    }
     if (vn < 0) {
       const soil=p.x>=s.geometry.END.left&&p.x<=s.geometry.END.right&&ny<-.5;
       const bounce = soil || material === 'cushion' ? .08 : .22;
@@ -216,7 +352,7 @@
       const f = floor(p.x), lift = (1 - o) * 700;
       if (f && p.previousY <= f.y + lift) {
         const penetration = (p.y - f.y - lift) * -f.ny + support(p, f.nx, f.ny);
-        wall(s, p, f.nx, f.ny, penetration, f.material);
+        wall(s, p, f.nx, f.ny, penetration, f.material, true);
       }
       for (const hit of s.geometry.featureContacts(p,support)) wall(s,p,hit.nx,hit.ny,hit.penetration,hit.material);
       for (const segment of segments) for (const [edge, nx] of [[segment.samples[0], -1], [segment.samples.at(-1), 1]]) {
@@ -231,11 +367,14 @@
     const {START,END,floor}=s.geometry;
     s.time += dt;
     if(s.result) {
-      const e=s.ending,timing=endingTiming(s);e.elapsed+=dt;
-      e.growthComplete=!s.result.arrivals.length || e.elapsed>=timing.growthEnd;
-      e.titleReady=!!s.titleCycle&&e.elapsed>=(e.focus?timing.titleZoomAt+ENDING.zoomDuration:ENDING.emptyReplayAt+ENDING.emptyDuration);
-      e.phase=e.titleReady?'title':titleMix(s)>0?'connecting':!e.focus?'empty':s.titleCycle&&e.elapsed>=timing.titleZoomAt?'zoom':e.growthComplete?'rest':e.elapsed<ENDING.growAt?'pullback':'growing';
-      s.replayReady=e.elapsed>=(s.result.arrivals.length?ENDING.replayAt:ENDING.emptyReplayAt);
+      const e=s.ending,timing=endingTiming(s);
+      if(!e.returning) { // No offscreen growth/title clock; lost grains still fall.
+        e.elapsed+=dt;
+        e.growthComplete=!s.result.arrivals.length || e.elapsed>=timing.growthEnd;
+        e.titleReady=!!s.titleCycle&&e.elapsed>=(e.focus?timing.titleZoomAt+ENDING.zoomDuration:ENDING.emptyReplayAt+ENDING.emptyDuration);
+        e.phase=e.titleReady?'title':titleMix(s)>0?'connecting':!e.focus?'empty':s.titleCycle&&e.elapsed>=timing.titleZoomAt?'zoom':e.growthComplete?'rest':e.elapsed<ENDING.growAt?'pullback':'growing';
+        s.replayReady=e.elapsed>=(s.result.arrivals.length?ENDING.replayAt:ENDING.emptyReplayAt);
+      }
       release(s);
       // The same short visible fall still completes after an all-lost result.
       for(const p of s.seeds)if(p.lost&&!p.inactive) {
@@ -273,7 +412,7 @@
       const concave = (.25 + Math.hypot(dx, dy / .8) * .013) * (1 - o);
       const fx = T.gravity * s.x - ax * inertia - dx * concave;
       const fy = ((T.gravity * s.y - ay * inertia) * .8 - dy * concave) * (1 - o)
-        + (360 + T.gravity * s.y * .65 - ay * inertia) * o;
+        + 360 * o; // Stage 1 vertical drag is a gesture, never sustained lift.
       p.vx += fx * dt; p.vy += fy * dt;
       const feature = s.geometry.featureContacts(p,support).find(hit=>Math.abs(hit.penetration)<2);
       const ground = feature || f;
@@ -311,6 +450,17 @@
       // Keep its object and a short visible fall, but stop following/colliding.
       if (o === 1 && p.y > s.geometry.bounds.lostY) { p.lost = true; p.fallTime = 0; }
     }
+    if(o===1&&(!s.transition||s.transition.settled))for(const p of travelling(s)) {
+      const a=p.assist,f=floor(p.x);
+      const feature=s.geometry.featureContacts(p,support).find(h=>h.ny<-.5&&Math.abs(h.penetration)<=ASSIST.contactSlop);
+      const surface=feature||(f&&p.y<f.y&&f.ny<-.5&&Math.abs((p.y-f.y)*-f.ny+support(p,f.nx,f.ny))<=ASSIST.contactSlop?f:null);
+      if(surface) {
+        a.groundTime+=dt;
+        // A stable landing rearms this grain; tiny launch-contact jitter does not.
+        if(a.groundTime>=ASSIST.landTime)a.used=false;
+        if(!a.used){a.at=s.time;a.speed=p.vx*-surface.ny+p.vy*surface.nx;}
+      } else a.groundTime=0;
+    }
     // Observe the final physical contact before END can freeze velocity/results.
     // OFF is a diagnostic comparison switch only; no physics reads this state.
     if(o===1&&(!s.transition||s.transition.settled)&&s.observeJumps!==false)
@@ -332,6 +482,7 @@
   function camera(s, dt) {
     const {START}=s.geometry;
     if(s.result) {
+      if(s.ending.returning) { returnCamera(s,dt);return; }
       if(s.result.arrivals.length) {
         const frame=endingFrame(s);
         const {cameraStart,growthEnd}=endingTiming(s);
@@ -345,6 +496,20 @@
         // Match the original title's 143px shell at the end of this same move.
         const target={x:p.x,y:p.y,z:143/(20*p.size)};
         for(const k of ['x','y','z'])s.camera[k]+=(target[k]-s.camera[k])*zoom;
+        let tail=arrivalTail.get(s);
+        const t=s.ending.elapsed;
+        // Re-evaluating the initial ending pose (preview/reset), or rewinding
+        // its clock, must not replay motion sampled from a previous view.
+        if(tail&&(t<(tail.elapsed||0)||dt===0&&t===0)) {
+          arrivalTail.delete(s);tail=null;
+        }
+        if(tail&&t<.45) {
+          tail.elapsed=t;
+          // Continue the incoming motion, then softly settle back into the
+          // unchanged shot anchor. Peak travel is under 3 logical pixels.
+          const carry=t*Math.pow(1-t/.45,3);
+          s.camera.x+=tail.vx*carry;s.camera.y+=tail.vy*carry;
+        } else if(tail)arrivalTail.delete(s);
       }
       return;
     }
@@ -381,11 +546,14 @@
   }
   function update(s, elapsed) {
     s.contacts.length = 0; s.arrivalEvents.length=0; s.accumulator += clamp(elapsed, 0, .06);
+    const dt=clamp(elapsed,0,.06),before={x:s.camera.x,y:s.camera.y};
+    const motion=cameraMotion.get(s),travelled=!!motion?.travelled||travelling(s).some(p=>Math.abs(p.vx)>18);
     while (s.accumulator >= T.step) { step(s, T.step); s.accumulator -= T.step; }
-    camera(s, clamp(elapsed, 0, .06));
+    camera(s, dt);
+    if(!s.result&&dt>0)cameraMotion.set(s,{vx:(s.camera.x-before.x)/dt,vy:(s.camera.y-before.y)/dt,travelled});
   }
-  const api = Object.freeze({ create, release, knock, update, point, screenPoint, view, field, floor,
-    support, geometry, terrain, segments, GAP, party, travelling, farm, plants, plantPose, growthOrder, heroPumpkin, endingFrame, endingTiming, cameraProgress, returnZoom, titleMix, jump, ENDING, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
+  const api = Object.freeze({ create, release, beginDrag, drag, ASSIST, knock, update, point, screenPoint, view, field, floor,
+    support, geometry, terrain, segments, GAP, party, travelling, farm, plants, plantPose, fruitGrowth, FRUIT, growthOrder, heroPumpkin, endingFrame, endingTiming, cameraProgress, returnZoom, titleMix, jump, ENDING, CONTROL, ROUND, START, END, opening, smooth, DURATION, ZOOM });
   root.PumpkinJourney = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -7,8 +7,8 @@
     "y": 250
   },
   "end": {
-    "left": 1790,
-    "right": 2030
+    "left": 8710,
+    "right": 8950
   },
   "surfaces": [
     {
@@ -150,26 +150,422 @@
           "tangent": 0
         },
         {
-          "id": "point-2-3",
-          "x": 1840,
+          "id": "course-point-1",
+          "x": 1850,
+          "y": 390,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-2",
+          "x": 2020,
+          "y": 390,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-3",
+          "x": 2190,
+          "y": 379,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-4",
+          "x": 2330,
+          "y": 406,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-5",
+          "x": 2460,
+          "y": 369,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-6",
+          "x": 2600,
+          "y": 400,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-7",
+          "x": 2740,
+          "y": 351,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-8",
+          "x": 2860,
+          "y": 348,
+          "tangent": 0
+        }
+      ]
+    },
+    {
+      "id": "surface-d",
+      "material": "flesh",
+      "points": [
+        {
+          "id": "course-point-9",
+          "x": 2920,
+          "y": 368,
+          "tangent": 0.22
+        },
+        {
+          "id": "course-point-10",
+          "x": 3050,
+          "y": 408,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-11",
+          "x": 3220,
+          "y": 408,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-12",
+          "x": 3390,
+          "y": 384,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-13",
+          "x": 3510,
+          "y": 361,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-14",
+          "x": 3630,
+          "y": 367,
+          "tangent": 0,
+          "round": true
+        },
+        {
+          "id": "course-point-15",
+          "x": 3720,
+          "y": 416,
+          "tangent": 0.76,
+          "round": true
+        },
+        {
+          "id": "course-point-16",
+          "x": 3805,
+          "y": 485,
+          "tangent": 0,
+          "round": true
+        },
+        {
+          "id": "course-point-17",
+          "x": 3890,
+          "y": 456,
+          "tangent": -0.7,
+          "round": true
+        },
+        {
+          "id": "course-point-18",
+          "x": 3960,
+          "y": 394,
+          "tangent": -1.1,
+          "round": true
+        },
+        {
+          "id": "course-point-19",
+          "x": 4015,
+          "y": 329,
+          "tangent": -1.2,
+          "round": true
+        }
+      ]
+    },
+    {
+      "id": "surface-e",
+      "material": "flesh",
+      "points": [
+        {
+          "id": "course-point-20",
+          "x": 4100,
+          "y": 356,
+          "tangent": 0.35
+        },
+        {
+          "id": "course-point-21",
+          "x": 4210,
+          "y": 417,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-22",
+          "x": 4340,
+          "y": 404,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-23",
+          "x": 4510,
+          "y": 405,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-24",
+          "x": 4680,
+          "y": 376,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-25",
+          "x": 4820,
+          "y": 387,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-26",
+          "x": 4960,
+          "y": 366,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-27",
+          "x": 5100,
+          "y": 405,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-28",
+          "x": 5210,
+          "y": 389,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-29",
+          "x": 5340,
+          "y": 341,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-30",
+          "x": 5440,
+          "y": 337,
+          "tangent": 0
+        }
+      ]
+    },
+    {
+      "id": "surface-f",
+      "material": "flesh",
+      "points": [
+        {
+          "id": "course-point-31",
+          "x": 5510,
+          "y": 360,
+          "tangent": 0.22
+        },
+        {
+          "id": "course-point-32",
+          "x": 5630,
+          "y": 395,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-33",
+          "x": 5800,
+          "y": 396,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-34",
+          "x": 5970,
+          "y": 391,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-35",
+          "x": 6120,
+          "y": 412,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-36",
+          "x": 6250,
+          "y": 370,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-37",
+          "x": 6380,
+          "y": 405,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-38",
+          "x": 6500,
+          "y": 354,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-39",
+          "x": 6600,
+          "y": 369,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-40",
+          "x": 6710,
+          "y": 386,
+          "tangent": 0,
+          "round": true
+        },
+        {
+          "id": "course-point-41",
+          "x": 6810,
+          "y": 440,
+          "tangent": 0.7,
+          "round": true
+        },
+        {
+          "id": "course-point-42",
+          "x": 6890,
+          "y": 491,
+          "tangent": 0,
+          "round": true
+        },
+        {
+          "id": "course-point-43",
+          "x": 6975,
+          "y": 456,
+          "tangent": -0.7,
+          "round": true
+        },
+        {
+          "id": "course-point-44",
+          "x": 7045,
+          "y": 391,
+          "tangent": -1.08,
+          "round": true
+        },
+        {
+          "id": "course-point-45",
+          "x": 7100,
+          "y": 324,
+          "tangent": -1.18,
+          "round": true
+        }
+      ]
+    },
+    {
+      "id": "surface-g",
+      "material": "flesh",
+      "points": [
+        {
+          "id": "course-point-46",
+          "x": 7190,
+          "y": 355,
+          "tangent": 0.3
+        },
+        {
+          "id": "course-point-47",
+          "x": 7300,
+          "y": 408,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-48",
+          "x": 7410,
+          "y": 405,
+          "tangent": 0
+        },
+        {
+          "id": "late-run-0",
+          "x": 7540,
+          "y": 391,
+          "tangent": 0
+        },
+        {
+          "id": "late-run-1",
+          "x": 7710,
+          "y": 380,
+          "tangent": 0
+        },
+        {
+          "id": "late-run-2",
+          "x": 7890,
+          "y": 397,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-49",
+          "x": 8030,
+          "y": 371,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-50",
+          "x": 8160,
+          "y": 400,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-51",
+          "x": 8290,
+          "y": 346,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-52",
+          "x": 8390,
+          "y": 340,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-53",
+          "x": 8485,
+          "y": 338,
+          "tangent": 0
+        }
+      ]
+    },
+    {
+      "id": "surface-h",
+      "material": "flesh",
+      "points": [
+        {
+          "id": "course-point-54",
+          "x": 8560,
+          "y": 360,
+          "tangent": 0.45
+        },
+        {
+          "id": "course-point-55",
+          "x": 8635,
+          "y": 422,
+          "tangent": 0.35
+        },
+        {
+          "id": "course-point-56",
+          "x": 8695,
+          "y": 413,
+          "tangent": 0
+        },
+        {
+          "id": "course-point-57",
+          "x": 8760,
           "y": 475,
           "tangent": 0.45
         },
         {
-          "id": "point-2-4",
-          "x": 1890,
+          "id": "course-point-58",
+          "x": 8810,
           "y": 487,
           "tangent": 0
         },
         {
-          "id": "point-2-5",
-          "x": 1995,
+          "id": "course-point-59",
+          "x": 8915,
           "y": 465,
           "tangent": 0
         },
         {
-          "id": "point-2-6",
-          "x": 2070,
+          "id": "course-point-60",
+          "x": 8990,
           "y": 420,
           "tangent": 0
         }
@@ -202,9 +598,65 @@
       "includeRight": false
     },
     {
-      "id": "release-polished",
-      "left": 1775,
-      "right": 1840,
+      "id": "rolling-catch",
+      "left": 2920,
+      "right": 3130,
+      "material": "cushion",
+      "includeLeft": false,
+      "includeRight": false
+    },
+    {
+      "id": "middle-bowl",
+      "left": 3630,
+      "right": 4015,
+      "material": "polished",
+      "includeLeft": true,
+      "includeRight": true
+    },
+    {
+      "id": "middle-bowl-catch",
+      "left": 4100,
+      "right": 4340,
+      "material": "cushion",
+      "includeLeft": false,
+      "includeRight": false
+    },
+    {
+      "id": "hill-catch",
+      "left": 5510,
+      "right": 5700,
+      "material": "cushion",
+      "includeLeft": false,
+      "includeRight": false
+    },
+    {
+      "id": "last-bowl",
+      "left": 6710,
+      "right": 7100,
+      "material": "polished",
+      "includeLeft": true,
+      "includeRight": true
+    },
+    {
+      "id": "last-bowl-catch",
+      "left": 7190,
+      "right": 7380,
+      "material": "cushion",
+      "includeLeft": false,
+      "includeRight": false
+    },
+    {
+      "id": "last-crossing-catch",
+      "left": 8560,
+      "right": 8695,
+      "material": "cushion",
+      "includeLeft": false,
+      "includeRight": false
+    },
+    {
+      "id": "farm-release",
+      "left": 8695,
+      "right": 8760,
       "material": "polished",
       "includeLeft": false,
       "includeRight": false

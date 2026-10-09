@@ -197,7 +197,7 @@
     const ps=J.plants(s).slice().sort((a,b)=>a.arrival.rootY-b.arrival.rootY||a.arrival.id-b.arrival.id);
     for(const {arrival:a,age} of ps) {
       if(age<=0)continue;
-      const sprout=ease(age/.65), leaves=ease((age-.5)/.85), grow=ease((age-1.4)/.95);
+      const sprout=ease(age/.65), leaves=ease((age-.5)/.85), grow=J.fruitGrowth(age,J.plantPose(s,a).bonus);
       const p=J.plantPose(s,a), density=p.density, reward=p.reward, dx=p.x-a.x, dy=p.y-a.rootY, focused=a===s.ending.focus;
       c.save();c.translate(a.x,a.rootY);
       c.save();c.globalAlpha*=(1-mix)*(focused?1:1-ease((zoom-.45)/.5));
@@ -215,9 +215,8 @@
       leaf(c,-4-8*reward,-5-2*reward,(.28*sprout+.40*leaves)*density*(1+.28*reward),-.5-.9*reward+sway,material.leaf);
       leaf(c,5+12*reward,-7,(.24*sprout+.38*leaves)*density*(1+.25*reward),-2.5+2.2*reward-sway,material.leafDeep);
       if(grow>0) {
-        const settling=1+.055*Math.sin(Math.max(0,age-2.35)*9)*Math.exp(-Math.max(0,age-2.35)*3.5);
         // Bottom stays on the soil while the fruit swells, instead of lifting it.
-        fruit(c,dx,dy+13*p.size*(1-grow*settling),grow*settling*p.size,a.id,focused?zoom:0);
+        fruit(c,dx,dy+13*p.size*(1-grow),grow*p.size,a.id,focused?zoom:0);
       }
       c.restore();
       if(focused&&mix>0&&returnShell) {
@@ -231,12 +230,26 @@
   function drawSeeds(c,s,seed) {
     for(const [i,p] of s.seeds.entries()) {
       if(p.inactive)continue;
-      if(!p.arrival){seed(c,p,i,1);continue;}
+      if(!p.arrival){
+        const age=p.entryLandedAt==null?-1:s.time-p.entryLandedAt;
+        if(age>0&&age<.20&&!p.lost) {
+          // A single tiny, smooth "poyon". Physical position, hit testing,
+          // collision tuning and the next landing all remain unchanged.
+          const u=age/.20, lift=1.2*Math.sin(Math.PI*u)**2;
+          seed(c,{...p,y:p.y-lift},i,1);
+        } else seed(c,p,i,1);
+        continue;
+      }
       const a=p.arrival, plant=J.plants(s).find(v=>v.arrival===a), age=plant?plant.age:-1;
       if(age>=.6)continue;
       const local=Math.max(0,s.time-a.at), sink=ease(age/.6);
       c.save();c.globalAlpha=1-sink;
-      seed(c,{...p,x:a.x,y:a.y+sink*6+Math.sin(local*12)*1.2*Math.exp(-local*6),angle:a.angle+Math.sin(local*9)*.10*Math.exp(-local*5)},i,1);
+      // A short, damped settling gesture, anchored to the immutable arrival.
+      // It fades before sprouting, without moving the seed's physical pose.
+      const settle=1-ease((local-.45)/.35), wave=Math.sin(local*TAU*3);
+      const tilt=wave*.085*Math.exp(-local*4.5)*settle;
+      const lift=wave*wave*.4*Math.exp(-local*5)*settle;
+      seed(c,{...p,x:a.x,y:a.y+sink*6-lift,angle:a.angle+tilt},i,1);
       c.restore();
     }
   }
