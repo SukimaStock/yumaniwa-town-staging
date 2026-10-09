@@ -39,7 +39,12 @@
     }
   }
   function setMode(mode) {
-    if (current === 'firefly' && runner.model) { runner.model.mode = mode; fireflyMode = mode; }
+    if (current === 'firefly' && runner.model) {
+      runner.model.mode = mode; fireflyMode = mode;
+      const hint = mode === 'bitter' ? '逃げる設定：1本指でも「にがい」。' : '1本指は「あまい」。2本指は「にがい」。';
+      get('hint').textContent = hint;
+      get('stage').setAttribute('aria-label', 'Fireflyの実験台。' + hint);
+    }
     document.querySelectorAll('[data-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.mode === mode)));
   }
   function select(id, restored = null) {

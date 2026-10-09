@@ -62,13 +62,14 @@ test('actual application boot, selection and live slider wiring; each experiment
 test('actual save/restore flow crosses experiments, preserves Firefly mode, and stores plain memo text', async () => {
   const h = boot({ compact: true }); assert.equal(h.ids.get('tuning').open, false);
   await h.buttons()[2].click(); await h.document.querySelectorAll('[data-mode]')[1].click();
+  assert.ok(h.ids.get('hint').textContent.includes('1本指でも'));
   await h.ids.get('open-save').click(); h.ids.get('specimen-title').value = 'にがい水'; h.ids.get('specimen-memo').value = '<script>hello</script>';
   await h.ids.get('save-form').emit('submit'); assert.equal(h.snapshot().specimens, 1); assert.equal(h.ids.get('save-dialog').open, false);
   const saved = JSON.parse([...h.memory.values()][0]).specimens[0]; assert.equal(saved.interactionMode, 'bitter'); assert.equal(saved.seed, 42);
   await h.buttons()[0].click(); await h.ids.get('open-shelf').click();
   const card = h.ids.get('specimens').children[0]; assert.ok(card.textContent.includes('<script>hello</script>'));
   await card.querySelector('button').click(); h.frame(0); h.frame(250);
-  assert.equal(h.snapshot().experiment, 'firefly'); assert.equal(h.ids.get('shelf-dialog').open, false); assert.ok(h.snapshot().state.water.bitter > .3);
+  assert.equal(h.snapshot().experiment, 'firefly'); assert.equal(h.ids.get('shelf-dialog').open, false); assert.ok(h.snapshot().state.water.bitter > .3); assert.ok(h.ids.get('hint').textContent.includes('1本指でも'));
   await h.ids.get('replay').click(); h.frame(300); h.frame(350); assert.ok(h.snapshot().state.water.bitter > .3, 'replay keeps chosen interaction mode'); assert.deepEqual(h.errors, []);
 });
 test('actual import handler fails safely, source catalog is data-driven and navigation opens the right experiment', async () => {
