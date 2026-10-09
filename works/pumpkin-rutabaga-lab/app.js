@@ -1,24 +1,26 @@
 (function (root) {
   'use strict';
-  const P = root.FruitLabPhysics, W = 1000, H = 760;
-  let settings = P.defaults(), state = P.create('pumpkin', settings), pointer = null;
+  const P = root.FruitLabPhysics, World = root.FruitLabWorld, W = 1000, H = 760;
+  function defaults() { const settings = P.defaults(); settings.world = Object.fromEntries(Object.entries(World.PARAMETERS).map(([k,v]) => [k,v[1]])); return settings; }
+  let settings = defaults(), state = P.create('pumpkin', settings), pointer = null;
   let touchAxis = 0, panel = false, ui, lastSound = -10, lastFeel = '';
-  const feelings = { pumpkin: 'するする、ころころ', rutabaga: 'ぽん、ぽよん', handoff: 'ころころ、から、ぽよん。' };
+  const feelings = { pumpkin: 'するする、ころころ', rutabaga: 'ぽん、ぽよん', handoff: 'ころころ、から、ぽよん。', world: 'ころころ、スポン、ぽよん。' };
   const hints = {
     pumpkin: '画面の左・右を押す。切り返して、勢いをつくる。',
     rutabaga: '左・右で方向。着地に合わせて押し直すと、ぽよん。',
     handoff: '右へ転がして、勢いを渡す。そのまま左右で、ぽよん。',
+    world: '右へ滑り、頭を押す。地下では押し直して、天井へぽよん。',
   };
   function release() {
     pointer = null; touchAxis = 0; P.clearInput(state);
     root.SSE.input.reset(); root.CodeaLite?.clearPointers();
   }
   function reset(mode = state.mode) {
-    release(); state = P.create(mode, settings); lastSound = -10; sync();
+    release(); state = mode === 'world' ? World.create(settings) : P.create(mode, settings); lastSound = -10; sync();
   }
   function sync() {
     if (!ui) return;
-    const feel = state.mode === 'handoff' && state.handoffs ? '勢いが、ぽよんに変わった。' : feelings[state.mode];
+    const feel = state.mode === 'world' ? ({ surface: feelings.world, underground: 'スポッ。次は、天井を突き上げる。', return: 'スポン！地上で、ころころ。' })[state.phase] : state.mode === 'handoff' && state.handoffs ? '勢いが、ぽよんに変わった。' : feelings[state.mode];
     if (feel !== lastFeel) { ui.feel.textContent = feel; lastFeel = feel; }
     ui.hint.textContent = hints[state.mode];
     for (const button of ui.modes) button.setAttribute('aria-pressed', String(button.dataset.mode === state.mode));
@@ -43,11 +45,11 @@
       if (panel) return;
       const keyAxis = Number(root.SSE.input.action('right')) - Number(root.SSE.input.action('left'));
       P.input(state, pointer !== null ? touchAxis : keyAxis);
-      playEvents(P.update(state, dt)); sync();
+      playEvents(state.mode === 'world' ? World.update(state, dt) : P.update(state, dt)); sync();
     },
     draw() {
       root.background(241, 231, 212);
-      root.withCanvasContext(c => root.FruitLabDraw(c, state));
+      root.withCanvasContext(c => state.mode === 'world' ? root.FruitLabWorldDraw(c, state) : root.FruitLabDraw(c, state));
     },
     touch(t) {
       if (panel) return true;
@@ -85,19 +87,19 @@
       // Native controls must not leave a held canvas direction running underneath.
       for (const element of [doc.querySelector('header'), doc.querySelector('footer'), tuning]) element.addEventListener('pointerdown', release);
       const controls = [];
-      for (const [group, values] of Object.entries(P.PARAMETERS)) {
+      for (const [group, values] of Object.entries({ ...P.PARAMETERS, world: World.PARAMETERS })) {
         const fieldset = doc.createElement('fieldset'), legend = doc.createElement('legend'); legend.textContent = group.toUpperCase(); fieldset.appendChild(legend);
         for (const [key, def] of Object.entries(values)) {
           const label = doc.createElement('label'), title = doc.createElement('span'), output = doc.createElement('output'), slider = doc.createElement('input');
           title.textContent = def[0]; slider.type = 'range'; slider.min = def[2]; slider.max = def[3]; slider.step = def[4]; slider.value = settings[group][key];
           slider.id = `${group}-${key}`; label.htmlFor = slider.id; output.setAttribute('for', slider.id); output.textContent = slider.value;
-          slider.addEventListener('input', () => { P.setParameter(settings, group, key, slider.value); output.textContent = String(settings[group][key]); });
+          slider.addEventListener('input', () => { if (group === 'world') settings.world[key] = Math.max(def[2], Math.min(def[3], Number(slider.value) || def[1])); else P.setParameter(settings, group, key, slider.value); output.textContent = String(settings[group][key]); });
           label.append(title, output, slider); fieldset.appendChild(label); controls.push({ group, key, slider, output });
         }
         byId('sliders').appendChild(fieldset);
       }
       byId('defaults').addEventListener('click', () => {
-        settings = P.defaults(); state.settings = settings;
+        settings = defaults(); state.settings = settings;
         for (const { group, key, slider, output } of controls) { slider.value = settings[group][key]; output.textContent = slider.value; }
       });
       sync();

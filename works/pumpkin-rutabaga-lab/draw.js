@@ -44,6 +44,7 @@
     (b.kind === 'pumpkin' ? pumpkin : rutabaga)(c, b);
     if (active) { ellipse(c, b.x, b.y + b.r + 26, 2.5, 2.5, '#88705780'); }
   }
+  root.FruitLabArt = { pumpkin, rutabaga, ellipse };
   root.FruitLabDraw = function (c, s) {
     c.save(); c.translate(500 - s.camera.x, 64 - s.camera.y);
     c.beginPath(); c.moveTo(-510, 0);

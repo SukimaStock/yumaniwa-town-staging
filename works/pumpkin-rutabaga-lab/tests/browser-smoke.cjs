@@ -19,6 +19,11 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
    const point=await page.evaluate(()=>{const v=SSE.viewport;return{x:v.offsetX+v.scale*750,y:innerHeight-(v.offsetY+v.scale*400)}});
    await page.mouse.move(point.x,point.y);await page.mouse.down();await page.waitForFunction(()=>FruitLabProbe().pumpkin.x>15);await page.mouse.up();
    await page.locator('#reset').click();assert.equal(await page.evaluate(()=>FruitLabProbe().pumpkin.x),0);
+   await page.locator('[data-mode="world"]').click();
+   await page.keyboard.down('ArrowRight');await page.waitForFunction(()=>FruitLabProbe().phase==='underground');
+   for(let i=0;i<18 && await page.evaluate(()=>FruitLabProbe().handoffs<2);i++){await page.keyboard.up('ArrowRight');await page.waitForTimeout(60);await page.keyboard.down('ArrowRight');await page.waitForTimeout(420);}
+   await page.keyboard.up('ArrowRight');assert.equal(await page.evaluate(()=>FruitLabProbe().handoffs),2);
+   await page.locator('#reset').click();assert.equal(await page.evaluate(()=>FruitLabProbe().phase),'surface');
    assert.deepEqual(errors,[]);console.log('PASS browser',viewport);await page.close();
   }
  }finally{await browser.close()}

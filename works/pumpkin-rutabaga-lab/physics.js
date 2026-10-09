@@ -102,8 +102,9 @@
     s.boostUsed = true; b.landing = null;
     s.events.push({ type: 'boost', kind: b.kind, strength: impulse });
   }
-  function integrate(s, b, control, dt) {
-    const p = s.settings[b.kind], f = contact(b), oldX = b.x;
+  function integrate(s, b, control, dt, geometry) {
+    const findContact = geometry ? geometry.contact : contact, findFrame = geometry ? geometry.frame : frame;
+    const p = s.settings[b.kind], f = findContact(b), oldX = b.x;
     b.pulse *= Math.exp(-dt * 10);
     const armed = b.kind === 'rutabaga' && !s.boostUsed && s.time - s.bufferedAt <= .22;
     const late = armed && b.landing && !b.landing.used && s.time - b.landing.at <= .12;
@@ -116,7 +117,7 @@
         v += (-G * f.ty + control * p.response / p.mass * f.tx) * dt / rolling;
         v *= Math.exp(-dt * (b.kind === 'pumpkin' ? p.friction : .22));
         v = clamp(v, -620, 620);
-        const next = frame(f.x + v * f.tx * dt);
+        const next = findFrame(f.x + v * f.tx * dt);
         b.x = next.x + next.nx * b.r; b.y = next.y + next.ny * b.r;
         b.vx = v * next.tx; b.vy = v * next.ty;
       }
@@ -125,7 +126,7 @@
       b.vx += control * p.response / p.mass * p.air * dt;
       b.vy -= G * dt; velocityCap(b);
       b.x += b.vx * dt; b.y += b.vy * dt;
-      const hit = contact(b);
+      const hit = findContact(b);
       if (hit.distance <= b.r) {
         b.x = hit.x + hit.nx * b.r; b.y = hit.y + hit.ny * b.r;
         const incoming = -(b.vx * hit.nx + b.vy * hit.ny);
@@ -145,14 +146,15 @@
         }
       }
     }
-    if (Math.abs(b.x) > LIMIT - b.r) {
+    if (geometry) geometry.constrain(b);
+    else if (Math.abs(b.x) > LIMIT - b.r) {
       b.x = clamp(b.x, -LIMIT + b.r, LIMIT - b.r);
       b.vx = -Math.sign(b.x) * Math.abs(b.vx) * .35;
       // Reproject after the side-wall correction, including simultaneous floor contact.
       const wallFloor = contact(b);
       if (wallFloor.distance < b.r) { b.x = wallFloor.x + wallFloor.nx * b.r; b.y = wallFloor.y + wallFloor.ny * b.r; }
     }
-    if (b.y > 630 - b.r) { b.y = 630 - b.r; b.vy = Math.min(0, b.vy) * .2; }
+    if (!geometry && b.y > 630 - b.r) { b.y = 630 - b.r; b.vy = Math.min(0, b.vy) * .2; }
     b.angular += ((b.x - oldX) / (b.r * dt) - b.angular) * (1 - Math.exp(-dt * 12));
     b.angular = clamp(b.angular, -16, 16); b.angle += b.angular * dt;
     b.stretch += ((b.grounded ? 0 : clamp(Math.abs(b.vy) / 900, 0, .2)) - b.stretch) * (1 - Math.exp(-dt * 14));
@@ -199,7 +201,7 @@
   }
   function snapshot(s) {
     return JSON.parse(JSON.stringify({ mode: s.mode, active: s.active, time: s.time, axis: s.axis,
-      handoffs: s.handoffs, pumpkin: s.pumpkin, rutabaga: s.rutabaga, camera: s.camera }));
+      handoffs: s.handoffs, pumpkin: s.pumpkin, rutabaga: s.rutabaga, camera: s.camera, ...(s.mode === 'world' ? { phase: s.phase, holes: s.holes.map(h => ({ id: h.id, state: h.state, swaps: h.swaps, occupant: h.occupant.kind, x: h.x, y: h.y })), entities: s.entities } : {}) }));
   }
-  return { PARAMETERS, STEP, G, LIMIT, SPEED, defaults, setParameter, terrain, frame, contact, body, create, input, clearInput, update, snapshot, handoff };
+  return { PARAMETERS, STEP, G, LIMIT, SPEED, defaults, setParameter, terrain, frame, contact, body, create, input, clearInput, update, snapshot, handoff, integrate };
 });
