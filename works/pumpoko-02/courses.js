@@ -11,16 +11,31 @@
   ];
   const cellar={layer:'underground',left:410,right:1310,roofStart:650,roofHeight:430,exitX:1240,exitRoof:215};
   const two={id:'world2',title:'WORLD LOOP 2',curves:clone(W.CURVES),surfaces:['surface','return'],cellars:[clone(cellar)],holes:clone(holes),finishX:1570,labels:[[-110,380,'地上 · ころころ'],[850,45,'地下 · ぽよん'],[1490,170,'地上 · ころころ']]};
-  const four={id:'world4',title:'WORLD LOOP 4',curves:clone(W.CURVES),surfaces:['surface','return','finish'],cellars:[clone(cellar)],holes:clone(holes),crestStart:1750,finishX:3930,labels:clone(two.labels)};
-  // Every control point through x=1750 is the two-swap course. After it, a
-  // broader descent and another U let the same left/right pumping open up.
-  four.curves.return.push([1900,345,0],[2140,155,0],[2430,250,0],[2560,230,-.35],[2650,215,0]);
-  four.curves.underground2=[[2470,-65,-.5],[2800,-170,0],[3020,-105,0],[3260,-165,0],[3480,-75,0],[3600,-75,0],[3670,-68,.1]];
-  four.curves.finish=two.curves.return.map(([x,y,t])=>[x+2360,y-200,t]);
-  four.holes.push({id:'down-2',x:2560,y:220,direction:-1,entryLayer:'return',exitLayer:'underground2'},
-    {id:'up-2',x:3600,y:30,direction:1,entryLayer:'underground2',exitLayer:'finish'});
-  four.cellars.push({layer:'underground2',left:2470,right:3670,roofStart:2710,roofHeight:160,exitX:3600,exitRoof:15});
-  four.labels.push([2130,105,'地上 · ころころ'],[3060,-220,'地下 · ぽよん'],[3850,-30,'地上 · ころころ']);
+  // Five different phrases: rolling shoulders, shallow cellar, broad half-pipe,
+  // deeper bouncing basin and a quiet catch. Y-up Hermite points adapt the
+  // original's late-run undulations and rounded bowls, not its seed mechanics.
+  const four={id:'world4',title:'PUMPOKO 02',curves:{},surfaces:['surface','return','finish'],cellars:[],holes:[],crestStart:4400,finishX:7380,labels:[]};
+  four.curves.surface=[[-440,710,-.8],[0,420,0],
+    [190,440,0],[380,413,0],[530,452,0],[710,410,0],[900,420,0],
+    [1220,580,0],[1400,500,-.45],[1490,480,0]];
+  four.curves.underground=[[1310,220,-.6],[1560,95,0],[1730,125,0],
+    [1930,110,0],[2120,140,0],[2330,95,0],[2560,85,0],[2790,125,0],[2860,132,.1]];
+  four.curves.return=[[2690,248,0],[2790,240,-.15],[3040,205,0],
+    [3230,224,0],[3420,190,0],[3610,218,0],
+    [3740,190,-.3],[3850,145,-.6],[3990,116,0],[4100,154,.6],[4200,228,.7],
+    [4400,310,.7],[4550,345,0],[4790,155,0],[5080,250,0],[5210,230,-.35],[5300,215,0]];
+  four.curves.underground2=[[5120,-65,-.5],[5450,-170,0],[5670,-105,0],
+    [5870,-130,0],[6090,-195,0],[6310,-145,0],[6510,-110,0],
+    [6710,-165,0],[6930,-75,0],[7050,-75,0],[7120,-68,.1]];
+  four.curves.finish=[[6950,48,0],[7050,40,-.15],[7300,5,0],[7510,95,.6],[7660,195,0],[7820,210,0]];
+  four.holes=[
+    {id:'down',x:1400,y:490,direction:-1,entryLayer:'surface',exitLayer:'underground'},
+    {id:'up',x:2790,y:230,direction:1,entryLayer:'underground',exitLayer:'return'},
+    {id:'down-2',x:5210,y:220,direction:-1,entryLayer:'return',exitLayer:'underground2'},
+    {id:'up-2',x:7050,y:30,direction:1,entryLayer:'underground2',exitLayer:'finish'}];
+  four.cellars=[
+    {layer:'underground',left:1310,right:2860,roofStart:1550,roofHeight:430,exitX:2790,exitRoof:215},
+    {layer:'underground2',left:5120,right:7120,roofStart:5360,roofHeight:160,exitX:7050,exitRoof:15}];
   function freeze(v){if(v&&typeof v==='object'){Object.values(v).forEach(freeze);Object.freeze(v);}return v;}
   const courses=freeze({world2:two,world4:four});
   function get(id){const c=courses[id];if(!c)throw Error('Unknown comparison course');return c;}

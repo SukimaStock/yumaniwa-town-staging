@@ -1,55 +1,14 @@
-# WORLD LOOP 本編移行
+# PUMPOKO 02 — current validation
 
-active / staging-only。正式 verificationState: **UNVERIFIED**。正式タイトル・町の配置・production昇格は未決定／対象外。
+The original #178 route and artwork comparison record has been superseded by the 2026-10-09 original-PUMPOKO integration. Current design, protection, scope conflict and device drill: [INTEGRATION.md](INTEGRATION.md).
 
-## 正本と保護
+- Current physical kernel (`physics.js`, `world.js`) is unchanged. Course geometry, fruit palette, title, presentation camera and music integration are deliberately adapted.
+- Integration tests: 12 distinct cases passed (11-case full suite, then the strengthened repeated-play case and new primary-touch case; the physical/runtime implementation is identical). Native Canvas, canonical Engine/Codea, DOM/media doubles. Native 390×844 / 1180×820 / 844×390 renders passed; these are not real browser layouts.
+- Existing Lab + original PUMPOKO ending/audio + Engine input/audio lifecycle + work lifecycle + World Consistency regression: 196 tests, 196 passed.
+- Scope→Risk→Impact, immutable work-local Plan digest, JavaScript syntax and Git whitespace checks passed.
+- Native visual inspection covers title, opening, both cellar layers, all four exchanges, final pair, zoom return and replay. Initial native test attempts exhausted memory; the renderer now rasterizes periodically so deferred native commands do not accumulate. Those failed verification attempts are not counted as successes.
+- Arrival release probes after 0/2/10/30 seconds of continued input all reach ending and return under unchanged constants.
+- Local Playwright is unavailable because Chromium is not installed. Actual iPhone/iPad/Safari, CSS orientation changes, audible BGM continuity, loudness and subjective touch remain **UNVERIFIED**.
+- Required PR gate is blocked by the user-scoped Plan path. It accepts `.change-plans/.../r0.lock.json` only, but all authorized changes are inside this work. The reviewed implementation is provided as a draft PR; staging/main and production are unchanged until that conflict is resolved.
 
-開始main `2bc55b2cf93457f6ed1409609075789aaa1dbe22`、PR #176・#177のWORLD LOOP 4を正本とした。
-
-`physics.js`、`world.js`、`courses.js`、`draw.js` はラボからバイト一致で独立複製。共通基盤やラボのファイルに依存して起動しない。既存カーネルの未使用単独モード関数は改変せず残すが、UI・操作経路から呼び出さない。コース選択・調整・比較計測は読み込まない。
-
-- 4回の交代、5区間、全曲線・穴の位置・finishXはWORLD LOOP 4と同一。
-- 重力・加速・転がり抵抗・反発・入力猶予・空中制御・速度上限は同一。
-- 75ms圧縮／180ms収まり、実接触＋方向＋相対速度、初速継承・上限、最初の地下着地の保護は同一。
-- `world.camera` は一切上書きしない。通常プレイの描画はそのカメラ。開始と終了の表示倍率・構図だけ `story.view` に分離する。
-- 描画は果実・地層・穴を継承。ラボの文字・左右矢印・操作対象の点を除去。画面端へ地層を描き続け、終景に縦の切れ目を出さない。描画範囲の拡張は物理境界を変えない。
-
-PUMPOKOの現行 `journey.js` の「着地直後に固定せず、余韻から一つのカメラ移動へ」という設計、三次Hermiteの地形・連続地層を参考にした。種・育成・PUMPOKOの物理／ステージは移植しない。Google DriveのSukimaStock/CodeとPUMPOKO／こつの検索を確認したが該当原典は見つからず、ユーザー指定の現行repositoryを実装参照にした。
-
-## 始まりと終わり
-
-最初のタイトルは同じ初期カボチャを2.2倍で映す。待機中は物理を進めない。画面の左右／←→／A Dで開始した瞬間から同じ入力を適用し、1.2秒で通常構図へつなぐ。開始ボタン／Space／Enterでも始められる。種を外す演出・開始ロックはない。プレイ中はラボUIもスコアHUDもない。
-
-4回目の交代後も最後の滑走をそのまま続ける。ラボと同じ完了地点を通ったあと、小さな「そっと離して、ひと息。」を出す。この時点でも左右で滑走でき、速度をゼロにしない。
-
-入力を離し、接地速度35px/s未満が0.4秒続き、最後の滑走から1.8秒以上経ったら終景へ入る。完全停止を強制せず、既存の重力と摩擦でゆっくり動く。谷の自然な折り返しで穏やかになるまで待つため、入力や勢いにより待ち時間が変わる。待ち時間と余韻の好みは実機調整対象。
-
-終景は最後の実カボチャと最後の穴の実ルタバガを同じ重みで注視する。6秒の滑らかな引きと5秒の余韻。開始時のカメラ速度も短い余韻として受け継ぐ。植物を新しく生成・移動・成長させない。カボチャの残る転がりに構図が穏やかに追従する。二つが画面内に留まり、地上／地下の断面が同時に見える。
-
-その景色のままタイトルを戻す。残る物理と描画追従は続き、急に静止しない。再開始時だけ新しい初期状態を作り、前の景色から1.2秒の同じ色のディゾルブでつなぐ。暗転・別画面ロードはない。Rはいつでも最初のタイトルへ戻る。音はタイトルで設定し、既存Engineの音量基準と控えめな仮SEを維持。新BGMなし。
-
-## 自動検証
-
-```
-node --test works/pumpoko-02/tests/*.test.cjs
-node --test works/pumpkin-rutabaga-lab/tests/*.test.cjs
-node --test works/pumpoko/test-*.cjs
-node --test tests/test-engine-input-boot.cjs tests/test-work-lifecycle.cjs tests/world-consistency/integration.test.cjs
-node tools/work-lifecycle.cjs --check
-```
-
-新作の8テストは、正本4ファイルのバイト一致、初期停止と即時入力、20秒×30/60/120fps×初期／全最小／全最大設定のラボsnapshot一致、4交代完走、植え込み・床法線・全穴低高速／±35px・最小初速上限、開始／終景カメラの連続性、二植物の画面内・同じ個体・タイトル復帰／再開始、canonical Engine/Codeaのpointer・keyboard・blur/focus・1 RAFを検証する。
-
-1180×820、390×844、844×390で実Engine/Codea＋native Canvasのタイトル・全区間・終景・復帰を描画。DOMはtest doublesで、CSS layoutやiPadの証明ではない。local PlaywrightはChromium実行ファイルがないため未実行。実ブラウザでは配信後に起動・タイトル・開始・画面構成を確認し、全経路完走を観測できた場合だけ別記する。
-
-## 実機で確認すること
-
-1. タイトルのカボチャへ触れ、そのまま滑走を始められるか。1.2秒の構図移動で操作対象を見失わないか。
-2. ラボ4と交互に遊び、滑走、反発、低速からの再加速、全4回のスポン／スポッが同じか。
-3. 最後に指を離したあと、余韻を待ちすぎないか。まだ滑りたい場合は左右入力を続けられるか。
-4. 引きの速さ、カボチャの残る転がり、地下ルタバガの存在感が釣り合うか。景色が美しいか。
-5. タイトルへ戻って再開始、音のON/OFF、別画面から復帰、iPad回転・portrait/landscapeの表示と入力。
-
-自動テスト成功は操作感・聴感・美しさの完成判定ではない。Plan Lock `.change-plans/pumpoko-02-world-loop-main-20261009/r0.lock.json`。rollbackはこのPRと新作の台帳1項目をrevert。ラボ・PUMPOKO・Engine・Codea Lite・町の公開集合・productionは変更しない。
-
-今回の実行結果：新作 **8/8**、ラボ **56/56**、PUMPOKO **71/71**、Engine Input/Boot・lifecycle・World Consistency **58/58**、合計 **193/193 PASS**。Lifecycle / frozen archives / LAB checkも成功。新しい台帳のactive項目は町の公開集合に追加されず、凍結作品用LABの生成内容も変えない。実機の開始ズーム・終景の待ち時間・二植物の存在感・音は未確認。
+No test, native image or CI status establishes real-device feel or Release Complete. No production promotion is authorized.
