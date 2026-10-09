@@ -40,6 +40,14 @@ var SHINPO_RACK = {
 var NOTE_ARTICLES = [
     // [NOTES:ADD_NEWEST_HERE]
     {
+        id: "note-20261009-n308001a6a00a",
+        title: "昔の自分ともう一度ゲームを作る",
+        url: "https://note.com/hamamah/n/n308001a6a00a",
+        publishedAt: "2026-10-09",
+        featured: false
+    },
+
+    {
         id: "note-20261002-b65558a3",
         title: "「自分らしさ」は、たぶん自分で決められない",
         url: "https://note.com/hamamah/n/n6ff53bd959cf",
