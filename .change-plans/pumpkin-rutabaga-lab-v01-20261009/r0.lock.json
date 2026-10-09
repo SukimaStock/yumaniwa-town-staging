@@ -1,0 +1,131 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f04414a2b4599a58002c19c69624e8de356af231187fdc0ef6174955dc469fad",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpkin-rutabaga-lab-v01-20261009",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent Pumpkin × Rutabaga physical feel lab, three modes; staging merge authorized",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "f7f52cb25e42e7c5c6c7ca0689716cebb0d7b839",
+    "canonicalSources": [
+      "User implementation directive 2026-10-09",
+      "AGENTS.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "works/_starter",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpkin-rutabaga-lab-v01-20261009/r0.lock.json",
+      "works/pumpkin-rutabaga-lab/**",
+      "data/work-lifecycle.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "works/pumpoko/**",
+      "works/orbit*/**",
+      "works/tea-unfold*/**",
+      "works/morning-thread*/**",
+      "works/town-glance*/**",
+      "lab/**"
+    ],
+    "expectedChanges": [
+      "Three modes use the same analytic U bowl and common left/right input",
+      "Distinct grounded rolling and buffered elastic bouncing; momentum-limited automatic contact handoff",
+      "Live collapsible parameter panel, reset, modest synthesized sound, miniature vector rendering",
+      "Append one active staging-only lifecycle record; existing navigation unmodified",
+      "Physics, input, browser smoke and protection tests; real-device comparison drill"
+    ],
+    "ownerDecisions": [
+      "User specified identity, independent work, complete experimental scope, authorized PR and staging merge; prohibits production"
+    ],
+    "hqDecisions": [
+      "Risk-floor SYSTEM classification only for lifecycle JSON. Existing lifecycle schema, existing Engine/Codea APIs; no shared contract extension. All physics and experiment UI remain work-local. No new persistence model."
+    ],
+    "rulesApplied": [
+      "Plan-only first commit; Scope → Risk → Impact",
+      "Use canonical Codea and Engine 0.3.0 URLs; single runtime RAF",
+      "Active staging-only; never candidate; no town registration"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-ipad-touch",
+      "physical-safari-audio",
+      "owner-tactile-comparison"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this PR and only its appended lifecycle record.",
+    "outOfScope": [
+      "production/promotion",
+      "Existing PUMPOKO and other works",
+      "Engine/Codea/common infrastructure",
+      "Stages/story/score/growth/ending"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPad/Safari and subjective pleasure require owner testing"
+    ],
+    "problem": "Compare rolling pumpkin and bouncing rutabaga, then their continuous handoff",
+    "currentContract": "Independent staging work using canonical Engine scene/update/touch/draw and Codea canvas owner",
+    "whyExistingIsInsufficient": "PUMPOKO seed physics is not a fruit rolling/bouncing comparison; preserve it",
+    "design": "Analytic U bowl, circle-contact model with separate visual silhouettes, fixed substeps; common axis and buffered landing impulse; instantaneous contact handoff; full bowl camera with smooth small follow",
+    "alternativesRejected": [
+      "Shared runtime modification",
+      "PUMPOKO copy or modification",
+      "Dedicated jump/switch button",
+      "Camera cut or scripted input lock"
+    ],
+    "migration": "Append one active lifecycle record only; no game persistence",
+    "compatibility": "Existing works/runtime/navigation/production unchanged",
+    "boundaryCases": [
+      "Stopped start; unpowered decay; high speed and shallow contact",
+      "Buffered late/early landing; held input without repeated boosts",
+      "Low/high-speed contact handoff; inherited held input; safety first landing",
+      "Pointer cancel/blur/pagehide/mode/reset/panel/resize",
+      "30/60/120fps; extreme live parameters; bounded sounds"
+    ],
+    "testPlan": [
+      "Deterministic physics and parameter sweeps",
+      "Scene and DOM integration incl interruption",
+      "Local browser pointer and keyboard smoke at desktop/tablet/phone viewports when browser executable available",
+      "Existing lifecycle and PUMPOKO regressions",
+      "Scope/Risk/Impact and base-owned trusted mechanical CI"
+    ],
+    "promotionRisk": "staging only; subjective checks remain UNVERIFIED"
+  }
+}

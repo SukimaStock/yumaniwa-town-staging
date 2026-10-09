@@ -214,6 +214,13 @@
       "status": "active",
       "title": "Motion Lab · 動きの実験室",
       "theme": "触れるらくがきから取り出した小さな動きを、変えて残す"
+    },
+    {
+      "id": "pumpkin-rutabaga-lab",
+      "path": "works/pumpkin-rutabaga-lab",
+      "status": "active",
+      "title": "PUMPKIN × RUTABAGA · Physics Lab",
+      "theme": "同じU字地形で転がる・跳ねる・勢いを渡す触り心地を比べる"
     }
   ]
 }

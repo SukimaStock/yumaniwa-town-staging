@@ -1,0 +1,74 @@
+# 操作実験と検証
+
+Status: active / staging-only. Formal verificationState: **UNVERIFIED**.
+No game completion, production promotion or claim of tactile quality.
+
+## 実機ドリル（約5分）
+
+横向きiPadから試してください。スマートフォン縦向きでも全地形を見せるため、物体の表示は小さめです。入力は描画された実験画面の左半分／右半分。画面上下の余白はEngineのletterboxです。
+
+1. PUMPKINで右を押してから離す。急停止せず、斜面から戻るか。
+2. 底を通る向きに左右を切り返す。静止から勢いが育つか。
+3. 大きく往復して逆方向を押す。加速と受け止めの違いが分かるか。
+4. RUTABAGAに切替。最初は触らず、反発が弱まり静止するまで見る。
+5. 止まったら左右を一度押す。再開できるか。
+6. 着地の少し前に離して押し直す。触らない着地より強く弾むか。少し遅れて押しても強化されるか。
+7. 方向だけ保持する／着地ごとに押し直す、を比較。リズムを自分で作れるか。
+8. HANDOFFで右を保持。暗転・ボタン・入力ロックなしで、接触と同時に操作が移るか。
+9. 遅い到着／速い到着で、勢いの差と初回反発を比べる。カボチャは画面内に残る。
+10. 調整→RESETで同じ初期状態から比較。重さ、抵抗、反発、強化、継承率をそれぞれ変える。音OFFでも接地と弾力が読めるか。
+11. 指を置いたまま他画面へ移動→復帰、画面回転、RESET、モード切替。入力が残らないか。
+
+「転がすだけで楽しい」「跳ねるだけで楽しい」「つながるとさらに楽しい」を別々に評価してください。合わなければステージを足さず、物理と入力の調整へ戻ります。
+
+## 物理と入力
+
+- 同じ解析的なU字床: `y = 100 + .0015 x²`、重力720 px/s²。左右に安全壁、上限に安全天井。スコア・進行なし。
+- 240Hz固定サブステップ。1フレーム最大50ms、離脱復帰時catch-upなし。30/60/120fpsで同じ物理履歴。
+- カボチャ: 円の法線接触＋接線上の重力・入力加速、回転慣性の係数1.32、指数的な転がり抵抗。一定の移動量を直接足す方式ではない。床上では滑らかな連続接触を優先し、反発係数は空中からの着地に適用。
+- ルタバガ: 自然反発＋最大±3.5%の決定的な形状感、接線の横移動、空中制御。物理円と紫／黄白の不規則な表示形状を分離。着地で軽く潰れ、飛行で伸びる。
+- 新しい押し始め／左右反転で1回分の強化を予約（着地前220ms、着地後120msの猶予）。保持だけでは再予約しない。静止時は同じ操作で小さく跳ぶ。
+- HANDOFF: 同画面の物体同士の接触。入力対象だけ即時移行。前の速度×継承率、最低初速170、設定上限220〜650 px/s。方向25〜75°。最初の着地は法線反発を最低200に保護。古い強化予約を破棄し、押している方向は保持。
+- 接地移動620、全速度720、法線反発530、強化後570 px/sまで。初速上限はHANDOFF発射時に適用、以降は共通の物理制限。
+- カメラは全地形を見せたまま小さく追従する臨界減衰。切替時に位置を設定し直さない。
+- 音: Engineのtone、低い転がり／着地、高めの軽い反発、強化時は少し低い音。転がり650ms、全体130ms以上の間隔、同フレームは強いイベント1つ。BGMなし。
+- Engine 0.3.0 / Codea Lite 1.0.0をcanonical URLから直接読込。forkなし、Codeaの1 RAF、既存Engine keyboard / primary pointer / lifecycle / audioを利用。
+
+## 調整（13項目）
+
+| グループ | 項目 | 初期値 | 範囲 |
+| --- | --- | ---: | --- |
+| PUMPKIN | 重さ | 2.4 | 1〜5 |
+| PUMPKIN | 転がる応答（駆動力） | 850 | 300〜1600 |
+| PUMPKIN | 転がり抵抗（毎秒） | .14 | .02〜.65 |
+| PUMPKIN | 反発 | .08 | 0〜.25 |
+| PUMPKIN | 空中制御倍率 | .16 | 0〜.5 |
+| RUTABAGA | 重さ | 1.5 | .7〜3 |
+| RUTABAGA | 反発 | .63 | .3〜.85 |
+| RUTABAGA | 強化インパルス | 230 | 60〜420 |
+| RUTABAGA | 横方向の駆動力 | 570 | 200〜1000 |
+| RUTABAGA | 空中制御倍率 | .35 | .05〜.7 |
+| HANDOFF | 継承率 | .85 | .2〜1.4 |
+| HANDOFF | 発射角度（度） | 48 | 25〜75 |
+| HANDOFF | 初速上限（px/s） | 520 | 220〜650 |
+
+重さは駆動応答と強化インパルスに効き、重力加速度は変えません。カボチャは通常床から離れないため、空中制御／反発を比べる自然な機会は少なめです。調整はページ内メモリのみ。音ON/OFFは既存Engine設定に保存。新しいsave/schemaはありません。
+
+## 自動検証
+
+```
+node --test works/pumpkin-rutabaga-lab/tests/*.test.cjs
+node --test tests/test-work-lifecycle.cjs tests/test-work-guide.cjs tests/test-work-maintenance-docs.cjs tests/world-consistency/*.test.cjs works/pumpoko/test-*.cjs works/orbit-02/tests/archive.test.cjs
+```
+
+- Lab: 27/27 PASS（物理16、canonical Engine/Codea＋DOM doublesの統合11）。静止からの加速、ポンピング、減衰、停止から再開、早い／遅い入力、反発リズム、低高速handoff、カメラ連続性、fps一致、全13パラメータの挙動差、極値45秒安定性、100回切替、pointer/key/interruption/panel/reset/mute。
+- 既存: 178/178 PASS（前述150件＋Engine Input/Boot 28件）。PUMPOKO全回帰、ORBIT 02 archive、lifecycle、guide、maintenance、World Consistency。
+- オフスクリーン描画: canonical Codea＋native Canvasで3モード、390×844／1180×820／844×390を描画。JS errorなし。果実とU字床の描画を目視。DOM/CSSのブラウザlayout証明ではありません。
+- local Playwright browser smoke: **BLOCKED**。Chromium実行ファイルなし。取得archiveが破損し、インストール失敗。ブラウザ成功として数えません。
+- 実iPad／Safari／聴感／主観的な楽しさ: **UNVERIFIED**。初期定数は操作候補であり、完成判定ではありません。
+
+## 制限と次の判断
+
+円接触の安定性を優先しており、ルタバガの凹凸は表示と小さな反発差のみです。カボチャはU字床へ連続接触する簡略モデルで、厳密な剛体回転ではありません。左右入力の共通性は実機で調整が必要です。HANDOFF後は自由なバウンドだけを続け、終了条件はありません。RESETでまた比較できます。
+
+Plan Lock: `.change-plans/pumpkin-rutabaga-lab-v01-20261009/r0.lock.json`。開始main `f7f52cb`。新workと台帳1項目以外は変更しません。rollbackは本PRと追加台帳項目のみのrevert。
