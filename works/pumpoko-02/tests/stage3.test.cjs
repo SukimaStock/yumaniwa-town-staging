@@ -11,10 +11,11 @@ test('accepted STAGE 3 preserves its original experiment and protects sockets, c
  for(const range of [p=>p[0]<g1.b,p=>p[0]>=15590])assert.equal(json(course.curves.return.filter(range)),json(old.curves.return.filter(range)));
  assert.equal(course.gaps.filter(g=>g.stage===3).length,3);assert.equal(g2.a-g1.b,300);assert.ok(g2.a-g1.b>=P.body('pumpkin',0).r*8);
  for(const file of ['physics.js','world.js','story.js','world-draw.js','app.js','draw.js','index.html','opening.js','opening-draw.js','prologue.js','material.js','title-draw.js','style.css']){
-  assert.ok(fs.readFileSync(__dirname+'/../'+file).equals(execFileSync('git',['show',BASE+':works/pumpoko-02/'+file])),file+' byte match');
+  if(file==='world.js'){require('./handoff-retry-reference.cjs').protect();assert.equal(require('./handoff-retry-reference.cjs').priorRestore(fs.readFileSync(__dirname+'/../'+file,'utf8')),execFileSync('git',['show',BASE+':works/pumpoko-02/'+file],{encoding:'utf8'}),file+' byte match before approved retry change');}
+  else assert.ok(fs.readFileSync(__dirname+'/../'+file).equals(execFileSync('git',['show',BASE+':works/pumpoko-02/'+file])),file+' byte match');
  }
 });
-test('identical checkpoint starts: held right falls at second gap, braking clears both, low momentum falls at first, actual stop/reverse/restart clears',()=>{
+test('identical stationary terrain-review starts: held right falls at second gap, braking clears both, low momentum falls at first, actual stop/reverse/restart clears',()=>{
  for(const fps of [30,60,120]){
   assert.equal(trial({mode:'settle',fps}).success,true,'moderate ground braking also works');
   const held=trial({mode:'held',fps}),brake=trial({mode:'brake',fps}),low=trial({mode:'low',fps}),stop=trial({mode:'stop',fps});
@@ -23,7 +24,7 @@ test('identical checkpoint starts: held right falls at second gap, braking clear
   assert.equal(brake.success,true);assert.ok(brake.lands.some(l=>l.x>g1.b&&l.x<g2.a),'actual intermediate contact');assert.ok(brake.lands.some(l=>l.x>=g2.b-36),'far bank');
   assert.equal(low.success,false);assert.ok(low.fall&&low.fall.x>g1.a&&low.fall.x<g1.b,'first gap shortfall');
   assert.equal(stop.success,true);assert.ok(stop.stopped.grounded&&Math.abs(stop.stopped.vx)<8,'real near-zero velocity before reverse');assert.ok(stop.reversed&&stop.minX<stop.stopped.x-150);
-  for(const r of [held,low]){assert.ok(r.retry);assert.ok(Math.abs(r.retry.time-r.fall.time-.65)<=1/fps+1e-8);assert.equal(r.retry.handoffs,2);assert.deepEqual(r.retry.completed,[1,2]);assert.equal(r.retry.phase,'playing');assert.equal(r.retry.input,0);assert.equal(r.retry.body.vx,0);assert.equal(r.retry.body.vy,0);assert.equal(r.retry.body.grounded,true);}
+  for(const r of [held,low]){assert.ok(r.retry);assert.ok(Math.abs(r.retry.time-r.fall.time-.65)<=1/fps+1e-8);assert.equal(r.retry.handoffs,2);assert.deepEqual(r.retry.completed,[1,2]);assert.equal(r.retry.phase,'playing');assert.equal(r.retry.input,0);require('./handoff-retry-reference.cjs').restoredBody(r.retry.body,r.retry.checkpointBody);}
  }
 });
 test('braking accepts a range of starts/releases, and stopped first and intermediate runups remain attainable',()=>{

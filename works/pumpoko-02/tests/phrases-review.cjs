@@ -12,7 +12,7 @@ function starting(stage,before=false){
 }
 function pair(c,stage){const ids=stage===1?['second','second']:['stage'+stage+'-'+(stage===2?1:2),'stage'+stage+'-'+(stage===2?2:3)];return ids.map(id=>c.gaps.find(g=>g.id===id));}
 function trial({stage=2,mode='controlled',fps=60,before=false,capture=false,delay=0,release=1/fps,brakeStart=80,brakeEnd=20,trigger=650,lead=80,early=false}={}){
- const s=starting(stage,before),api=before?previous().PumpokoStory:S,c=s.world.course,[first,last]=pair(c,stage),b=s.world[s.world.active],initial={...b};
+ const s=starting(stage,before);if(stage>1)require('./handoff-retry-reference.cjs').terrainReviewStart(s);const api=before?previous().PumpokoStory:S,c=s.world.course,[first,last]=pair(c,stage),b=s.world[s.world.active],initial={...b};
  const frames=[],inputs=[],lands=[],events=[],departures=[];let phase='approach',stopped=null,brakingZero=null,fall=null,retry=null,lastAxis=null,pending=null,used=new Set(),pushes=0;
  const control=()=>{
   if(stage===2||stage===4){
@@ -42,7 +42,7 @@ function trial({stage=2,mode='controlled',fps=60,before=false,capture=false,dela
   for(const e of es)if(['boost','fall','retry','handoff'].includes(e.type))events.push({...e,time:t,x:b.x});
   if(es.some(e=>e.type==='fall'))fall={time:t,x:b.x,y:b.y};
   if(capture&&i%(fps/15)===0)frames.push({time:t,axis,phase,world:structuredClone(s.world),view:{...s.view}});
-  if(es.some(e=>e.type==='retry')){retry={time:t,handoffs:s.world.handoffs,completed:[...s.world.stages.completed],input:s.world.target,body:{...s.world[s.world.active]},phase:s.phase};break;}
+  if(es.some(e=>e.type==='retry')){retry={time:t,handoffs:s.world.handoffs,completed:[...s.world.stages.completed],input:s.world.target,body:{...s.world[s.world.active]},checkpointBody:structuredClone(s.world.stages.checkpoint?.body||s.stage1Start),phase:s.phase};break;}
   if(!fall&&b.x>last.b+120&&(b.grounded||lands.some(l=>l.x>last.b)))return {stage,mode,fps,before,success:true,seconds:t,initial,inputs,lands,departures,events,stopped,brakingZero,pushes,frames};
  }
  return {stage,mode,fps,before,success:false,initial,inputs,lands,departures,events,stopped,brakingZero,pushes,fall,retry,frames};

@@ -5,7 +5,7 @@ test('fresh-base scope: only four terrain phrases change; accepted STAGE 3, all 
  protect();assert.deepEqual(course.stages.map(s=>course.gaps.filter(g=>g.layer===s.layer).length),[2,2,3,4,5]);
  for(const stage of [2,4,5]){const [a,b]=pair(course,stage);assert.ok(b.a-a.b>=P.body(course.stages[stage-1].kind,0).r*8,'broad receiving bank '+stage);}
 });
-test('same starts at 30/60/120fps: held misses STAGE 2/4/5; controlled input clears; weak momentum misses; real grounded stop then reacceleration clears',()=>{
+test('same stationary terrain-review starts at 30/60/120fps: held misses STAGE 2/4/5; controlled input clears; weak momentum misses; real grounded stop then reacceleration clears',()=>{
  for(const stage of [1,2,4,5])for(const fps of [30,60,120]){
   const held=trial({stage,fps,mode:'held'}),good=trial({stage,fps}),weak=trial({stage,fps,mode:'weak'}),stop=trial({stage,fps,mode:'stop'}),[first,last]=pair(course,stage);
   for(const r of [good,weak,stop])assert.deepEqual(r.initial,held.initial);
@@ -13,7 +13,7 @@ test('same starts at 30/60/120fps: held misses STAGE 2/4/5; controlled input cle
   assert.ok(stop.stopped?.grounded&&Math.abs(stop.stopped.vx)<10,'actual physics stop');assert.ok(stop.inputs.some(i=>i.axis<0)&&stop.inputs.some(i=>i.phase==='restart'&&i.axis>0));
   if(stage===2||stage===4){assert.ok(good.lands.some(l=>l.x>first.b&&l.x<last.a));assert.equal(good.pushes,stage===2?1:2);}
   if(stage===5){const a=held.lands.find(l=>l.x>first.b),b=good.lands.find(l=>l.x>first.b);assert.ok(a.x-b.x>30,'brake changes actual receiving position');}
-  for(const r of [held,weak].filter(r=>!r.success)){assert.ok(r.fall&&r.retry);assert.ok(Math.abs(r.retry.time-r.fall.time-.65)<=1/fps+1e-8);assert.equal(r.retry.handoffs,stage-1);assert.deepEqual(r.retry.completed,Array.from({length:stage-1},(_,i)=>i+1));assert.equal(r.retry.input,0);assert.equal(r.retry.body.vx,0);assert.equal(r.retry.body.vy,0);assert.ok(r.retry.body.grounded);assert.equal(r.retry.phase,'playing');}
+  for(const r of [held,weak].filter(r=>!r.success)){assert.ok(r.fall&&r.retry);assert.ok(Math.abs(r.retry.time-r.fall.time-.65)<=1/fps+1e-8);assert.equal(r.retry.handoffs,stage-1);assert.deepEqual(r.retry.completed,Array.from({length:stage-1},(_,i)=>i+1));assert.equal(r.retry.input,0);require('./handoff-retry-reference.cjs').restoredBody(r.retry.body,r.retry.checkpointBody);assert.equal(r.retry.phase,'playing');}
  }
 });
 test('STAGE 4 requires the second push as well as the first; all pre-change held runs clear the same phrase',()=>{

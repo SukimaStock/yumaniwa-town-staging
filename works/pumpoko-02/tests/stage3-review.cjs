@@ -3,7 +3,7 @@ const S=require('../story.js'),W=require('../world.js'),P=require('../physics.js
 const BASE='102cb79e031dabf8b79da795a1963411cef5a0ac';
 const g1=course.gaps.find(g=>g.id==='stage3-1'),g2=course.gaps.find(g=>g.id==='stage3-2');
 function trial({mode='brake',fps=60,brake=g1.b,end=g1.b+80,capture=false,before=false,stoppedStart=false,lowStart=g1.a-180,lowEnd=g1.a-20,reverseX=g1.a-280}={}){
- const s=atStage(3),api=before?require('./harness.cjs').harness({sourceRef:BASE}).w.PumpokoStory:S;
+ const s=require('./handoff-retry-reference.cjs').terrainReviewStart(atStage(3)),api=before?require('./harness.cjs').harness({sourceRef:BASE}).w.PumpokoStory:S;
  if(before)s.world.course=require('./harness.cjs').harness({sourceRef:BASE}).w.FruitLabCourses.get('world4');
  const c=s.world.course,b=s.world.pumpkin,finish=before?c.gaps.find(g=>g.id==='stage3-2').b+200:g2.b+200;
  if(stoppedStart){const f=W.curve('return',g1.a-650,c);Object.assign(b,{x:f.x+f.nx*b.r,y:f.y+f.ny*b.r,vx:0,vy:0,grounded:true,exiting:false});P.clearInput(s.world);s.world.camera={x:b.x,y:b.y+70,vx:0,vy:0};s.view={...s.world.camera,z:.8};}
@@ -25,7 +25,7 @@ function trial({mode='brake',fps=60,brake=g1.b,end=g1.b+80,capture=false,before=
   for(const e of ev)if(['fall','retry','handoff'].includes(e.type))events.push({...e,time:t});
   if(ev.some(e=>e.type==='fall'))fall={time:t,x:b.x,y:b.y};
   if(capture&&i%(fps/15)===0)frames.push({time:t,axis,phase,world:structuredClone(s.world),view:{...s.view}});
-  if(ev.some(e=>e.type==='retry')){retry={time:t,handoffs:s.world.handoffs,completed:[...s.world.stages.completed],input:s.world.target,body:{...s.world.pumpkin},phase:s.phase};break;}
+  if(ev.some(e=>e.type==='retry')){retry={time:t,handoffs:s.world.handoffs,completed:[...s.world.stages.completed],input:s.world.target,body:{...s.world.pumpkin},checkpointBody:structuredClone(s.world.stages.checkpoint.body),phase:s.phase};break;}
   if(!fall&&b.x>=finish&&b.grounded)return {success:true,mode,fps,seconds:t,initial,inputs,lands,departures,stopped,reversed,minX,events,frames};
  }
  return {success:false,mode,fps,initial,inputs,lands,departures,stopped,reversed,minX,fall,retry,events,frames};
