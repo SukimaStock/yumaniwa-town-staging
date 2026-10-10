@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e338d82d8b796ab0444e519ae1603ce2998bda928b351dd6b51f3e57696193c5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-feel-lab-fit-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Fit four feel-lab terrains and fruits to the visible portrait game canvas using measured world bounds rather than arbitrary translation",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "e65f0f06697d332bc57c7983324e70a594b7c708",
+    "canonicalSources": [
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-02/world.js",
+      "engine/codea-lite.v1.0.0.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-feel-lab-fit-20261010/r0.lock.json",
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/VIEW-REVIEW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/**",
+      "works/pumpoko/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Compute min and max course floor height at sampled x and incorporate both fruit radius and bouncing headroom",
+      "Use view-fit camera conversion in Y-up Codea canvas to preserve visible bowl bottom, sides and starting character",
+      "Keep complete course playable without clipping and preserve existing input and physical parameters",
+      "Add numerical viewport bounds assertions in work-local review plus record iPhone manual verification as outstanding"
+    ],
+    "ownerDecisions": [
+      "Owner explicitly asks to fix out-of-frame terrain and demands verification"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main confirmed",
+      "Plan Lock before implementation",
+      "Staging isolated fix; no changes to PUMPOKO 02"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Four terrain modes with both fruits on iPhone portrait",
+      "Both sides and valley bottom visible",
+      "Tap left and right to move, reset and save"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated work PR",
+    "outOfScope": [
+      "Changing physics",
+      "Updating stages",
+      "Production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical touch and full mobile browser drawing require a real device check",
+      "Formal verificationState UNVERIFIED"
+    ]
+  }
+}
