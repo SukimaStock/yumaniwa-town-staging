@@ -133,24 +133,30 @@
       c.save(); c.translate(CX + 9 + state.x * 9, CY + 29 + state.y * 5);
       c.scale(1, .65);
       const sh = c.createRadialGradient(0, 0, 30, 0, 0, 164);
-      sh.addColorStop(0, "rgba(127,91,48,.15)"); sh.addColorStop(.7, "rgba(127,91,48,.07)"); sh.addColorStop(1, "rgba(127,91,48,0)");
+      sh.addColorStop(0, "rgba(127,91,48,.19)"); sh.addColorStop(.7, "rgba(127,91,48,.085)"); sh.addColorStop(1, "rgba(127,91,48,0)");
       oval(c, 0, 0, 166, 166, sh); c.restore();
   }
   function captions(c, state) {
       c.textAlign = "center";
       // Keep the same quiet opening composition. The supplied vector is the
       // only title; the text fallback also keeps it readable if loading fails.
-      c.save(); const logoY = 1.2 * Math.sin(state.time * TAU / 7);
+      c.save(); const logoY = 2.2 * Math.sin(state.time * TAU / 7);
       if (titleArt && titleArt.complete && titleArt.naturalWidth > 0) {
-        c.drawImage(titleArt, 36.3, 102 + logoY, 317.4, 317.4 * titleArt.naturalHeight / titleArt.naturalWidth);
+        c.drawImage(titleArt, 26.78, 99 + logoY, 336.44, 336.44 * titleArt.naturalHeight / titleArt.naturalWidth);
       } else {
         c.fillStyle = "#b9672f";
-        c.font = "bold 36.8px 'Arial Rounded MT Bold', sans-serif";
+        c.font = "bold 39px 'Arial Rounded MT Bold', sans-serif";
         c.fillText("PUMPOKO", 195, 163 + logoY);
       }
       c.restore();
-      c.fillStyle = "rgba(105,85,57,.55)"; c.font = "9px Georgia, serif";
-      c.fillText("SukimaStock", 195, 684);
+      c.fillStyle = "rgba(105,85,57,.63)";
+      c.font = "500 12px 'Avenir Next', 'Segoe UI', sans-serif";
+      const credit = "SUKIMA STOCK", spacing = 1.55;
+      const widths = [...credit].map(letter => c.measureText(letter).width);
+      const total = widths.reduce((a,b) => a+b, 0) + (credit.length-1)*spacing;
+      let x = 195 - total/2; c.textAlign = "left";
+      for(let i=0;i<credit.length;i++){c.fillText(credit[i],x,684); x+=widths[i]+spacing;}
+      c.textAlign = "center";
   }
   // Original title projections are used by continuity tests. Opening consumes
   // the same moving grains; WORLD LOOP never consumes their physics state.
@@ -175,9 +181,9 @@
     // A tiny visual-only invitation after the title has been idle for 3s.
     // No seed or vessel physics changes; interaction immediately cancels it.
     const idle=state.held?0:Math.max(0,state.time-Math.max(0,state.lastTouchedAt)-3);
-    const pulse=idle>0?Math.pow(Math.max(0,Math.sin(idle*1.35)),12):0;
-    const jitter=pulse*(1.4*Math.sin(idle*15)+.5*Math.sin(idle*23));
-    c.save();c.translate(jitter,0);c.rotate(pulse*.006*Math.sin(idle*17));
+    const pulse=idle>0?Math.pow(Math.max(0,Math.sin(idle*1.35)),10):0;
+    const jitter=pulse*(1.9*Math.sin(idle*15)+.6*Math.sin(idle*23));
+    c.save();c.translate(jitter,0);c.rotate(pulse*.008*Math.sin(idle*17));
     shadow(c,state);vessel(c,showSeeds,false,state);c.restore();
     c.save();c.globalAlpha*=captionsAlpha;titleArt=root.document?.getElementById('title-art');captions(c,state);c.restore();
     c.restore();
