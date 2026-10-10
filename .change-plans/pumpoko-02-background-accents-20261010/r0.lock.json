@@ -1,0 +1,102 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a49e32690ff744045accd059b3e73683e26b46f44942b6c7d89b98de5d2e1e8e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-background-accents-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add sparse small clouds/birds, surface grass/rare flowers and embedded soil stones as subtle drawing-only accents; keep gameplay and readable hazards",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "eed8bc652d005536ba9fbde77692ef1a8df0cbb3",
+    "canonicalSources": [
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/material.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-background-accents-20261010/r0.lock.json",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/tests/**",
+      "works/pumpoko-02/BACKGROUND-ACCENTS-REVIEW.md",
+      "works/pumpoko-02/visual-review/accents-*.png",
+      "works/pumpoko-02/visual-review/accents-*.mp4"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/assets/**",
+      "works/pumpoko-02/audio/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Add bounded deterministic sparse accents to work-local renderer using existing palette and normal camera/time; no assets/actions/UI/state changes",
+      "Small distant clouds and rarer tiny birds only in clipped sky above surface; slow parallax/drift",
+      "Short sparse grass and rarer tiny flowers rooted to actual above-ground surface, away from lips, sockets, steep faces and final quiet approach",
+      "Warm subdued rounded stones embedded only in solid soil, away from its contour/cellar/walls/gaps; no obstacle-like outlines",
+      "Fade in after introductory entry and fade out before the protected final approach; opening/finale stay exact",
+      "Check all five stage views, visual density/scale, slow camera motion, clipping and hazard/socket clearance; read-only deterministic rendering and frame cost",
+      "Keep all physics/terrain/checkpoint/input/audio/camera/goal untouched; compare complete trajectories to fresh main at 30/60/120fps",
+      "Retain exact geometric/fruit/shadow pixel invariants using a test-only removal of the approved accents; full renderer fresh-base guard protects all original code and ordinary tests remain meaningful",
+      "Save native before/after screenshots and a short motion comparison; report real-device limitations"
+    ],
+    "ownerDecisions": [
+      "User approves proposed subtle background accents and requests staging implementation; prior staging-only PR/CI/merge authority continues"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main and related PR check",
+      "READY r0 Plan-only first commit",
+      "Work-specific renderer standard; no shared change",
+      "Sparse decoration leaves empty intervals; existing five-stage difficulty protected"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "native-canvas-accents-before-after-and-motion",
+      "iphone-ipad-accents-density-and-readability"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated background-accents staging PR",
+    "outOfScope": [
+      "Terrain/difficulty, physics, bodies/handoffs/checkpoints/input/audio/HUD/camera/intro/goal/ending, Engine/Codea/other works/production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone/iPad visual feel and performance",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
