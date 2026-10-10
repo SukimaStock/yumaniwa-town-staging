@@ -7,3 +7,7 @@ button:focus-visible{outline:2px solid #738665;outline-offset:3px;border-radius:
 #title-controls:focus-within{position:fixed;top:75%;left:50%;transform:translateX(-50%);width:auto;height:auto;clip-path:none;overflow:visible}
 #start{font:inherit;color:inherit;border:0;background:#faf1dc;padding:12px;min-height:44px}
 [hidden]{display:none!important}#boot-error{position:fixed;top:45%;left:10%;right:10%;text-align:center;background:#fff;padding:20px}
+
+/* iOS Safari: the game canvas is an interactive surface, not selectable text. */
+#gameCanvas{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-user-drag:none}
+#title-art{-webkit-user-select:none;-webkit-touch-callout:none;-webkit-user-drag:none}
