@@ -1,0 +1,91 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f25f1fa6cb7bc0ff6a23078d88aa638a00f24ef6ce80144f8efca6494ef03604",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-goal-pacing-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Shorten final shot/hold/title return to 3/1/2.2 seconds while retaining smooth proportional title dissolve",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "88efa2f64909aea89e8d2143002006f3746528d6",
+    "canonicalSources": [
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/tests/timing.test.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-goal-pacing-20261010/r0.lock.json",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/tests/timing.test.cjs",
+      "works/pumpoko-02/tests/goal.test.cjs",
+      "works/pumpoko-02/tests/timing-review.cjs",
+      "works/pumpoko-02/TIMING-REVIEW.md",
+      "works/pumpoko-02/GOAL-REVIEW.md",
+      "works/pumpoko-02/visual-review/timing-opening.png",
+      "works/pumpoko-02/visual-review/timing-ending.png",
+      "works/pumpoko-02/visual-review/timing-comparison.mp4"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Final camera 6→3 seconds, hold 2.5→1 seconds, title return 3.6→2.2 seconds",
+      "Scale the existing title dissolve proportionally with the return duration; preserve ease, placement and final composition",
+      "Update existing timing/goal assertions; retain physical, seating, input, replay and exact held-view protections",
+      "Measure actual before/after state timelines and refresh timing evidence; distinguish previous goal evidence from current pacing"
+    ],
+    "ownerDecisions": [
+      "User approved proposed 3.0/1.0/2.2 seconds and requested staging reflection on 2026-10-10"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main and related PR inspection",
+      "Fresh READY r0 Plan-only first commit",
+      "Staging only; no production promotion",
+      "Manual iPhone pacing remains UNVERIFIED"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-goal-pacing-and-title-return-continuity"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated pacing PR",
+    "outOfScope": [
+      "Opening mechanics/timing, four collision handoffs, terrain, goal conditions, squash, audio, assets and shared runtime"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPhone feel and sound; formal verificationState UNVERIFIED"
+    ]
+  }
+}

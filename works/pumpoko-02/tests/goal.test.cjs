@@ -57,18 +57,19 @@ test('existing integrator remains identical on the new terrain until the explici
   }assert.ok(seated);
  }
 });
-test('goal rest overlaps continuous final camera, retains 2.5s hold/3.6s return and rebuilds the next journey',()=>{
- const s=S.create();s.phase='playing';s.world=ready(7680,120);s.view={...s.world.camera,z:.8};let count=0,previous={...s.view},maxJump=0,start=null,fixed=null,returnAt=null;
+test('goal rest overlaps continuous final camera, uses 3s shot/1s hold/2.2s return and rebuilds the next journey',()=>{
+ const s=S.create();s.phase='playing';s.world=ready(7680,120);s.view={...s.world.camera,z:.8};let count=0,previous={...s.view},maxJump=0,start=null,fixed=null,returnAt=null,previousMix=0;
  for(let i=0;i<3600&&!s.returnTitle;i++){
   count+=S.update(s,1,1/60).filter(e=>e.type==='seat').length;
   if(s.phase==='coast'&&start===null)start=s.world.time;
   if(s.phase==='coast'||s.phase==='ending')maxJump=Math.max(maxJump,Math.hypot(s.view.x-previous.x,s.view.y-previous.y));
   if(s.ending?.settledAt!=null&&fixed===null)fixed=s.world.time;
   if(s.phase==='returning'&&returnAt===null)returnAt=s.world.time;
+  if(s.phase==='returning'){const mix=S.returnMix(s);assert.ok(mix>=previousMix&&mix-previousMix<.03,'title dissolve stays continuous after shortening');if(s.elapsed<1.28)assert.equal(mix,0);if(s.elapsed>2.1)assert.ok(mix>.96,'title is almost fully visible before the final frame');previousMix=mix;}
   if(s.ending?.settledAt!=null&&s.phase==='ending')for(const b of [s.world.pumpkin,s.world.holes[3].occupant]){assert.ok(Math.abs((b.x-s.view.x)*s.view.z)<160);assert.ok(Math.abs((b.y-s.view.y)*s.view.z)<270);}
   previous={...s.view};
  }
- assert.equal(count,1);assert.ok(s.returnTitle);assert.ok(maxJump<10);assert.ok(Math.abs(fixed-start-6)<=1/60+.001);assert.ok(Math.abs(returnAt-fixed-2.5)<=1/60+.001);assert.ok(Math.abs(s.world.time-returnAt-3.6)<=1/60+.001);
+ assert.equal(count,1);assert.ok(s.returnTitle);assert.ok(maxJump<10);assert.ok(Math.abs(fixed-start-3)<=1/60+.001);assert.ok(Math.abs(returnAt-fixed-1)<=1/60+.001);assert.ok(Math.abs(s.world.time-returnAt-2.2)<=1/60+.001);
  const old=s.world;S.beginJourney(s);assert.notEqual(s.world,old);assert.equal(s.world.finished,false);assert.equal(s.world.goal.state,'approach');assert.equal(s.world.goal.seatedAt,null);assert.equal(s.world.handoffs,0);
 });
 test('real app emits one softer existing shell sound and preserves pause/mute/replay lifecycle',()=>{

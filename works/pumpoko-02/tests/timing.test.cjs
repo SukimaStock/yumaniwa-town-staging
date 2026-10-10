@@ -9,10 +9,10 @@ test('runtime/art/assets outside approved timing and goal files remain exact acc
 });
 test('real title interaction has exactly one-second after-detachment pause and retains four natural handoffs',()=>{
  const r=collect();assert.ok(Math.abs(r.events.opening-r.events.loose-1)<=1/60+1e-8);assert.ok(r.events.playing>r.events.opening+6.4);
- assert.ok(r.events.fixed>=r.events.ending);assert.ok(Math.abs(r.events.returning-r.events.fixed-2.5)<=1/60+1e-8);
- assert.ok(Math.abs(r.events.title-r.events.returning-3.6)<=1/60+1e-8);
+ assert.ok(r.events.fixed>=r.events.ending);assert.ok(Math.abs(r.events.returning-r.events.fixed-1)<=1/60+1e-8);
+ assert.ok(Math.abs(r.events.title-r.events.returning-2.2)<=1/60+1e-8);
 });
-test('shot overlaps coast, widens monotonically, holds an exact view for 2.5 seconds and restores replay',()=>{
+test('shot overlaps coast, widens monotonically, holds an exact view for one second and restores replay',()=>{
  const s=enter(S);let shotStart,held=null,returnAt,priorZ=1,firstCoast,previous={...s.view},maxJump=0;
  for(let i=0;i<5400&&!s.returnTitle;i++){
   const input=s.phase==='playing'?axis(s,i):0;const prev=s.phase;S.update(s,input,1/60);
@@ -20,13 +20,13 @@ test('shot overlaps coast, widens monotonically, holds an exact view for 2.5 sec
   if(s.phase==='coast'||s.phase==='ending'){
    assert.ok(s.ending);assert.ok(s.ending.target.z<=priorZ+1e-10);priorZ=s.ending.target.z;
    maxJump=Math.max(maxJump,Math.hypot(s.view.x-previous.x,s.view.y-previous.y));
-   if(s.ending.time>=6)for(const b of [s.world.pumpkin,s.world.holes[3].occupant]){assert.ok(Math.abs((b.x-s.view.x)*s.view.z)<160);assert.ok(Math.abs((b.y-s.view.y)*s.view.z)<270);}
+   if(s.ending.time>=3)for(const b of [s.world.pumpkin,s.world.holes[3].occupant]){assert.ok(Math.abs((b.x-s.view.x)*s.view.z)<160);assert.ok(Math.abs((b.y-s.view.y)*s.view.z)<270);}
    if(s.ending.settledAt!==null){if(!held)held={time:s.world.time,view:{...s.view}};assert.deepEqual(s.view,held.view,'no follow or zoom breathing during hold');}
   }
   if(prev==='ending'&&s.phase==='returning')returnAt=s.world.time;
   previous={...s.view};
  }
- assert.ok(s.returnTitle);assert.equal(s.world.handoffs,4);assert.ok(held.time-shotStart>=6-1/60);assert.ok(Math.abs(returnAt-held.time-2.5)<=1/60+1e-8);assert.ok(maxJump<10);
+ assert.ok(s.returnTitle);assert.equal(s.world.handoffs,4);assert.ok(held.time-shotStart>=3-1/60);assert.ok(Math.abs(returnAt-held.time-1)<=1/60+1e-8);assert.ok(maxJump<10);
  assert.ok(Math.abs(firstCoast.z-held.view.z)>.01,'camera travel begins before rest, not afterwards');
  const old=s.world;S.beginJourney(s);assert.notEqual(s.world,old);assert.equal(s.ending,null);assert.equal(s.world.handoffs,0);
 });

@@ -1,3 +1,34 @@
+# Current goal pacing — 2026-10-10
+
+Base main: `88efa2f64909aea89e8d2143002006f3746528d6` (PR #190). Owner approved a 3.0-second final camera move, 1.0-second final hold and 2.2-second return to title.
+
+Only story.js changes runtime. Its existing ease, final pair composition, projected hero placement and exact held view remain. The existing title dissolve keeps the same normalized start (7/12 of return) and duration (5/12), now beginning at 1.283 seconds and lasting .917 seconds instead of being left at the old 2.1/1.5-second timing. The seating squash (.48 seconds) overlaps the camera as before. Opening, growth, gameplay, terrain, four exchanges, goal gate, audio and assets are unchanged.
+
+## Actual same-input 60Hz measurement
+
+| Event, seconds after first touch | Before #190 | Shorter goal |
+|---|---:|---:|
+| All grains loose | 5.217 | 5.217 |
+| Opening starts | 6.217 | 6.217 |
+| Gameplay starts | 15.700 | 15.700 |
+| Goal seating / final shot starts | 38.617 | 38.617 |
+| Final composition fixed | 44.617 | 41.617 |
+| Return begins | 47.133 | 42.633 |
+| Title restored | 50.750 | 44.850 |
+| Goal → title | 12.133 | 6.233 |
+
+Observed stage lengths are 3.000 + 1.017 + 2.217 seconds. The extra .033 seconds are 60Hz threshold rounding; configured total is 6.2 seconds. Total saves 5.9 seconds. All opening and gameplay timestamps match exactly; opening from all-loose to control remains 10.483 seconds.
+
+The current [before/after ending frames](visual-review/timing-ending.png), [unchanged opening frames](visual-review/timing-opening.png) and [comparison video](visual-review/timing-comparison.mp4) compare #190 with this pacing revision. These are actual 60Hz model states sampled at 15fps, native Canvas with DOM/media doubles, not browser/iPhone recording; no audio or trajectory retiming. Shorter variant holds its already restored title for side-by-side comparison.
+
+Existing story/goal/timing/socket/material regressions retain the seating, four-handoff, read-only drawing, lifecycle, exact final view, continuity and replay checks. Goal regression now also checks monotonically smooth title dissolve with near-complete opacity before the final switch. Full command counts, exact head and CI/deployment results are recorded in the PR. Actual iPhone pacing and sound remain UNVERIFIED; production unchanged.
+
+---
+
+## Historical timing revision before the pocket goal
+
+The record below describes PR #188, not current goal timing. Its images/video have been replaced by the current #190 comparison above.
+
 # Shot timing revision
 
 Base main: `d9c3f115eb7dda60e2c9d9dcc77432e4b2835307` (PR #187).
