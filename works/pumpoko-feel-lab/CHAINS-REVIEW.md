@@ -28,3 +28,7 @@ A standalone V8 DOM/canvas stub loaded the exact committed PUMPOKO 02 physics/wo
 These are **not real-browser or iPhone tests**; the synthetic canvas did not rasterize actual fruit art. The user needs to verify camera motion, readability and enjoyment on mobile, plus all original single-mode regression; physical "fun" is never inferred from CI success. Staging merge requires scope, risk, trusted static and validator checks. Formal verificationState remains UNVERIFIED.
 
 Rollback: revert isolated PR.
+
+## Longer physics continuity trial
+
+The exact work-local `P.integrate` + `W.contact` code was also run in a separate no-render 240Hz fixture for 25 seconds per active kind and chain, starting at the same x=-410 spawn. Four chains × both characters = 8 ordinary right-held paths. All eight reached the final boundary (x≈1649/1653) naturally within ~4.2–5.1 seconds without script errors. No position teleport or test-only speed changes were used. A second 25-second alternating hold/release pattern crossed the end on the pumpkin routes, but some rutabaga trials lost momentum earlier, which is useful experimental variation rather than proof of an impassable course. These tests establish simple traversability, **not** good level design or engaging timing.
