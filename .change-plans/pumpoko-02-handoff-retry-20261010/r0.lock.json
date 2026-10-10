@@ -1,0 +1,95 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3b82074281f10f916ecad69d6fa4454cfeb83264565cbf93d1627a30b92d26a7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-handoff-retry-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Restart STAGE 2/3/4/5 at saved baton handoff position and outgoing motion instead of fixed mid-road spawn; preserve completed sockets, terrain and input reset",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "dff988a941f609a0826af85585f36411c6ba8fed",
+    "canonicalSources": [
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/physics.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-handoff-retry-20261010/r0.lock.json",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/tests/**",
+      "works/pumpoko-02/HANDOFF-RETRY-REVIEW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/assets/**",
+      "works/pumpoko-02/audio/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Restore the saved outgoing body at the actual handoff with existing launch velocity/flags, rather than ground it at spec.spawnX",
+      "Keep completed holes settled, entity references intact, prior clears and checkpoint reusable across repeated retries",
+      "Keep STAGE 1 retry, .65 second delay, neutral/fresh-input guard, BGM, geometry, physics constants, all handoffs and goal unchanged",
+      "Verify all four checkpoints from real full-route handoffs, natural fall and repeated retry, neutral safe launch and next-stage completion at 30/60/120fps; retain whole-course success and input regressions",
+      "Update superseded stationary retry assertions and historical whole-world equality with a fresh-base strict restore-only code guard; no invariant tests weakened"
+    ],
+    "ownerDecisions": [
+      "User explicitly requests retries from the baton handoff instead of mid-road; prior staging-only PR/CI/merge instruction continues"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main and related PR check",
+      "Fresh READY r0 Plan-only first commit",
+      "Registered work-specific runtime Standard; no shared contract change",
+      "No unobserved real-device result claimed"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-ipad-handoff-retry-feel"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated handoff-retry staging PR",
+    "outOfScope": [
+      "Terrain/difficulty, physics/constants/controls, handoff trigger/animation/kernel, STAGE 1 opening/retry, retry delay, HUD, audio, camera behavior, final goal/ending, Engine/Codea/old works/production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone/iPad human retry feel",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
