@@ -1,0 +1,103 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "81bc56410f2fe4ccfd545a3eeb54ac8244db7a8249d83bd264c960a198970400",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-seed-to-fruit-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Connect detached title seeds to grown playable fruit; adapt original ending fruit art",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "cbf10a3b2aa1781ecf6f0d32ed98ddaf593529a6",
+    "canonicalSources": [
+      "Owner additional instruction 2026-10-10",
+      "works/pumpoko/stage-draw.js fruit() (owner snapshot #179)",
+      "works/pumpoko-02/ at PR #181",
+      "Drive SukimaStock/Code (no named PUMPOKO source)",
+      "AGENTS.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-seed-to-fruit-20261010/r0.lock.json",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/draw.js",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/title-draw.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/index.html",
+      "works/pumpoko-02/tests/story.test.cjs",
+      "works/pumpoko-02/tests/render-review.cjs",
+      "works/pumpoko-02/visual-review/continuous-journey.png",
+      "works/pumpoko-02/INTEGRATION.md",
+      "works/pumpoko-02/VALIDATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Project detached title seeds continuously onto unchanged initial ground",
+      "Three miniature pumpkins grow; rightmost is the existing playable body",
+      "One original fruit silhouette and broad lobes for every pumpkin; simplified purple/cream rutabaga",
+      "Continuous opening camera, natural initial slope roll, unchanged play/ending/lifecycle/audio"
+    ],
+    "ownerDecisions": [
+      "Owner requests seed-to-fruit opening and original ending art; protect four exchanges, motion and frame",
+      "Existing authorized work-only integration scope and mandatory root Plan exception persist; staging merge after checks"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "READY locked Plan-only first commit; no physics.js/world.js/courses.js diff",
+      "WORK standard; original and common runtime read-only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-seed-to-fruit-continuity",
+      "iphone-original-fruit-recognition",
+      "iphone-four-swaps",
+      "audio-resume-listen"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated work-only PR",
+    "outOfScope": [
+      "production",
+      "physics.js/world.js/courses.js",
+      "logical viewport/control changes",
+      "new gameplay mechanics",
+      "shared runtime",
+      "original PUMPOKO"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPhone/iPad/Safari appearance, feel and sound"
+    ]
+  }
+}
