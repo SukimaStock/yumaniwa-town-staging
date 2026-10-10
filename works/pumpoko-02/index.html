@@ -1,17 +1,20 @@
 <!doctype html>
 <html lang="ja"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#f1e7d4">
-<title>PUMPKIN × RUTABAGA · PUMPOKO / 02</title><link rel="stylesheet" href="./style.css">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#faf1dc">
+<title>PUMPOKO 02</title><link rel="stylesheet" href="./style.css">
 </head><body>
-<canvas id="gameCanvas" aria-label="地上のカボチャと地下のルタバガを左右に動かす旅"></canvas>
-<header id="title"><small>SukimaStock</small><h1>PUMPKIN <span>×</span> RUTABAGA</h1></header>
-<div id="title-controls"><button id="start">左右に触れて、旅へ</button><button id="sound" aria-pressed="true">音あり</button></div>
-<p id="rest" hidden>そっと離して、ひと息。</p><div id="status" class="sr-only" aria-live="polite"></div>
+<img id="title-art" src="./assets/pumpoko-logo.svg" alt="" hidden>
+<canvas id="gameCanvas" aria-label="カボチャに触れて、その内部の世界をカボチャとルタバガで旅する"></canvas>
+<header id="title" class="sr-only"><h1>PUMPOKO 02</h1></header>
+<div id="title-controls" class="sr-only"><button id="start">カボチャに触れる</button></div>
+<button id="sound" aria-pressed="true" aria-label="音を切る">♪</button>
+<p id="rest" hidden></p><div id="status" class="sr-only" aria-live="polite"></div>
 <output id="boot-error" hidden>起動できませんでした。ページを再読み込みしてください。</output>
 <script src="../../engine/codea-lite.v1.0.0.js"></script>
 <script data-sse-engine src="../../engine/sukimastock-engine.v0.3.0.js"></script>
 <script src="./physics.js"></script><script src="./world.js"></script><script src="./courses.js"></script>
-<script src="./draw.js"></script><script src="./world-draw.js"></script><script src="./story.js"></script><script src="./app.js"></script>
+<script src="./material.js"></script><script src="./draw.js"></script><script src="./world-draw.js"></script>
+<script src="./prologue.js"></script><script src="./title-draw.js"></script><script src="./story.js"></script><script src="./app.js"></script>
 <script>try {CodeaLite.start('gameCanvas');} catch(error){document.getElementById('boot-error').hidden=false;console.error(error);}</script>
 </body></html>
