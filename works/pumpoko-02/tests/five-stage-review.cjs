@@ -48,14 +48,14 @@ function crossing(g,options={}){
  return {success:false,timeout:true,depart,land};
 }
 function measure(){
- const examples=[run(),run({policy:'periodic',period:55,release:4}),run({policy:'periodic',period:25,release:2})];
+ const examples=[run(),run({fps:30}),run({fps:120})];
  const stages=course.stages.map((spec,i)=>{
   const durations=examples.map(r=>{const ends=r.events.filter(e=>e.type==='handoff'||e.type==='seat');return ends[i].time-(i?ends[i-1].time:0);});
   const start=i?course.holes[i-1].x:examples[0].startX,length=spec.endX-start;
   return {stage:i+1,kind:spec.kind,start,end:spec.endX,length,screens:length/(390/.8),ratio:i?length/(course.stages[i-1].endX-(i===1?examples[0].startX:course.holes[i-2].x)):null,gaps:course.gaps.filter(g=>g.layer===spec.layer).length,seconds:durations,minimumSampledSeconds:Math.min(...durations),retrySeconds:spec.retrySeconds};
  });
  const gaps=course.gaps.map(g=>({...g,width:g.b-g.a,fromRest:crossing(g),lowMomentum:crossing(g,{speed:60,start:g.a-8,steady:true,launch:true}),flight:examples[0].flights.find(f=>f.gap===g.id)}));
- return {base:require('./five-stage-reference.cjs').BASE,zoom:.8,logicalWidth:390,visibleUnits:487.5,stages,gaps,examples:examples.map((r,i)=>({policy:i?'periodic':'landing',period:i?[55,25][i-1]:null,release:i?[4,2][i-1]:null,seat:r.seat,title:r.title,ending:r.title-r.seat,events:r.events})),evidence:'240Hz integrator / 60Hz automatic Story input; native Canvas; real device and human feel UNVERIFIED'};
+ return {base:require('./five-stage-reference.cjs').BASE,zoom:.8,logicalWidth:390,visibleUnits:487.5,stages,gaps,examples:examples.map((r,i)=>({policy:'landing',fps:[60,30,120][i],seat:r.seat,title:r.title,ending:r.title-r.seat,events:r.events})),evidence:'240Hz integrator / 60Hz automatic Story input; native Canvas; real device and human feel UNVERIFIED'};
 }
 module.exports={course,run,acceptedRun,atStage,placed,crossing,measure};
 if(require.main===module)console.log(JSON.stringify(measure(),null,2));

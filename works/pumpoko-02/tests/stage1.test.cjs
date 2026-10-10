@@ -38,7 +38,7 @@ test('edge departure, airborne travel and landing remain continuous at fixed 240
   }
  }
  assert.equal(departures,2);assert.ok(landings>=2);assert.equal(s.world.handoffs,1);
- for(const fps of [30,60,120]){const r=travel({fps,full:true,releaseFrames:4});assert.equal(r.state.world.handoffs,4);assert.ok(r.state.returnTitle);assert.ok(Math.abs(r.clear-12.2666666667)<.06);assert.ok(Math.abs(r.title-r.seat-6.2333333333)<.09);}
+ for(const fps of [30,60,120]){const r=travel({fps,full:true,releaseFrames:4});assert.equal(r.state.world.handoffs,4);assert.ok(r.state.returnTitle);assert.ok(Math.abs(r.clear-12.6)<.06);assert.ok(Math.abs(r.title-r.seat-6.2333333333)<.09);}
 });
 test('failure follows natural flight offscreen, holds view .65s, restores safe birth pose and waits for fresh input',()=>{
  for(const fps of [30,60,120]){const s=enter(),start={...s.stage1Start};s.nursery.fall=null;s.world=placed(c.gaps.filter(g=>g.layer==='surface')[0],120);const b=s.world.pumpkin;

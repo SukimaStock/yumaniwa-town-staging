@@ -9,7 +9,8 @@ const between=(s,a,b)=>s.slice(s.indexOf(a),s.indexOf(b));
 function protectCourse(){
  const c=require('../courses.js').get('world4'),old=previous().FruitLabCourses.get('world4');
  const equal=(a,b,label)=>assert.equal(JSON.stringify(a),JSON.stringify(b),label);
- equal(c.curves.surface,old.curves.surface,'complete STAGE 1 terrain');equal(c.stage1,old.stage1,'STAGE 1 settings');
+ equal(c.curves.surface,old.curves.surface.map(p=>p[0]===3270?[3270,385,.35]:p[0]===3580?[3580,425,0]:p),'STAGE 1 exact apart from two approved phrase points');
+ require('./phrases-reference.cjs').protect();equal(c.stage1,old.stage1,'STAGE 1 settings');
  equal(c.gaps.filter(g=>g.layer==='surface'),old.gaps,'complete STAGE 1 gaps');equal(c.holes[0],old.holes[0],'first socket');
  equal(c.surfaces,old.surfaces,'surface topology');
  for(const [i,h]of c.holes.entries())equal({...h,x:h.x-c.exitOffsets[i]},old.holes[i],'translated socket '+i);

@@ -13,9 +13,10 @@ function collect(ref=null){
   if(p.phase==='title'&&!released)h.pointer('pointermove',195+79*Math.sin((frame-1)/60*2.3),365+70*Math.cos((frame-1)/60*2.3));
   if(p.phase==='playing'){
    if(!playFrame)playFrame=frame;
-   h.key(!require('./five-stage-controls.cjs').axis(p.model)?'keyup':'keydown','ArrowRight');
+   const input=require('./five-stage-controls.cjs').axis(p.model);
+   h.key(input>0?'keydown':'keyup','ArrowRight');h.key(input<0?'keydown':'keyup','ArrowLeft');
   }
-  if(p.finished&&!finished){finished=true;h.key('keyup','ArrowRight');}
+  if(p.finished&&!finished){finished=true;h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');}
   h.frame();const q=h.probe(),t=frame/60;
   if(q.prologue.loose===9&&!released){events.loose=t;h.pointer('pointerup',195,365);released=true;}
   if(q.phase!==phase){events[q.phase]=t;phase=q.phase;}

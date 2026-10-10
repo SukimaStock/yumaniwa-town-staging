@@ -48,7 +48,7 @@ test('final shot pauses on lifecycle interruption without timer catch-up or resi
  const h=harness(),api=h.w.PumpokoStory;let state;const update=api.update;api.update=(s,...a)=>{state=s;return update(s,...a);};
  h.pointer('pointerdown',750,400);for(let i=0;i<1800&&h.probe().phase==='title';i++){h.key('keyup',i%60===0?'ArrowRight':'ArrowLeft');h.key('keydown',i%60===0?'ArrowLeft':'ArrowRight');h.frame();}
  h.key('keyup','ArrowLeft');h.key('keyup','ArrowRight');for(let i=0;i<1200&&h.probe().phase==='opening';i++)h.frame();
- for(let i=0;i<10800&&h.probe().phase==='playing';i++){h.key(require('./five-stage-controls.cjs').axis(h.probe().model)?'keydown':'keyup','ArrowRight');h.frame();}
+ for(let i=0;i<10800&&h.probe().phase==='playing';i++){const input=require('./five-stage-controls.cjs').axis(h.probe().model);h.key(input>0?'keydown':'keyup','ArrowRight');h.key(input<0?'keydown':'keyup','ArrowLeft');h.frame();}
  assert.equal(state.phase,'coast');const time=state.ending.time,view={...state.view};h.w.emit('blur');h.advance(2);assert.equal(state.ending.time,time);assert.equal(JSON.stringify(state.view),JSON.stringify(view));
  h.w.emit('focus');h.frame();assert.ok(state.ending.time-time<=1/30);assert.equal(h.probe().target,0);assert.deepEqual(h.errors,[]);
 });

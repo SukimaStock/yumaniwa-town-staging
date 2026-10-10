@@ -13,8 +13,8 @@ function crossing(g,speed,start=g.a-8){const w=placed(g,speed,start),b=w.pumpkin
  }return {success:false,timeout:true,time:w.time,depart,landing};}
 function travel({normal=false,full=false,capture=false,fps=60,releaseFrames=2}={}){const s=enter(),startX=s.world.pumpkin.x;let failed=false,retries=0,elapsed=0,clear=null,seat=null,title=null;const frames=[],events=[],flights=[];let flight=null;
  for(let i=0;i<fps*120;i++){
-  const b=s.world[s.world.active],previous={...b};let axis=s.phase==='playing'?(b.kind==='rutabaga'?require('./five-stage-controls.cjs').axis(s.world):1):0;
-  if(normal&&s.phase==='playing'&&s.world.handoffs===0){if(b.x<900||b.x>3900)axis=Math.floor(i/fps*60)%60<30?1:0;if(!failed&&b.x>3230)axis=-1;}
+  const b=s.world[s.world.active],previous={...b};let axis=s.phase==='playing'?(s.world.handoffs?require('./five-stage-controls.cjs').axis(s.world):1):0;
+  if(normal&&s.phase==='playing'&&s.world.handoffs===0){if(b.x<900||b.x>3900)axis=Math.floor(i/fps*60)%60<22?1:0;if(!failed&&b.x>3230)axis=-1;}
   const ev=S.update(s,axis,1/fps);elapsed+=1/fps;
   if(ev.some(e=>e.type==='fall'))failed=true;
   if(ev.some(e=>e.type==='retry')){S.update(s,0,1/fps);elapsed+=1/fps;retries++;}
