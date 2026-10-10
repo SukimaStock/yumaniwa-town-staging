@@ -1,0 +1,96 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5cc637e951bbd19058fb796e18a131953cf1654338003451fbfa89a2d508aabe",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-goal-restart-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Keep the new pocket goal but make every final approach slope restartable with existing held input",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "eed74aecc6a94374326634f2c3de4b02be993df3",
+    "canonicalSources": [
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/tests/goal.test.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-goal-restart-20261010/r0.lock.json",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/tests/goal.test.cjs",
+      "works/pumpoko-02/tests/goal-review.cjs",
+      "works/pumpoko-02/GOAL-REVIEW.md",
+      "works/pumpoko-02/visual-review/goal-sequence.png",
+      "works/pumpoko-02/visual-review/goal-comparison.png",
+      "works/pumpoko-02/visual-review/goal.mp4"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Lower and round only the final approach after7300 so its positive slope stays below the unchanged default drive/gravity balance; retain 7745 goal centre and all four sockets",
+      "Adjust pocket baseline with the approach; preserve seating logic, gate timing/speed, art compression, audio and final shot/return bytes",
+      "Add stopped-start samples along the entire approach plus an analytic slope bound; retain all original goal cases and four handoff regressions",
+      "Regenerate native time-series/four-stage evidence and correct measurement/doc to the final combined result"
+    ],
+    "ownerDecisions": [
+      "Original user requires recovery from stopping before goal, friendly slow entry and terrain-first implementation; this correction fulfils that scope",
+      "PR189 already merged; new fresh base/branch/r0 fixes additional position coverage found before task closure"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh READY Plan-only first commit before new implementation",
+      "Only courses runtime changes; no changes to mechanics/physics.js/shared/original/production",
+      "Exact-head gates and PR merge; manual feel stays unverified"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-normal-slow-fast-pocket-seating-feel",
+      "iphone-reversal-and-held-input-goal-readability",
+      "iphone-short-squash-soft-sound-and-continuous-final-pair-shot"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated work-only PR",
+    "outOfScope": [
+      "All runtime besides final course data",
+      "Four sockets, initial/title/growth, character art, goal gate/compression/audio, final shot/return",
+      "Shared/other works/production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPhone feel and sound",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
