@@ -4,7 +4,7 @@
   let state=S.create(),pointer=null,touchAxis=0,ui,lastSound=-10,lastPhase='',freshInput=false;
   let musicStatus='loading';
   const musicReady=()=>!root.SSE.audio.enabled||musicStatus==='ready'||musicStatus==='silent';
-  function applyMusicGate(){state.musicReady=musicReady();if(ui){ui.wait.hidden=state.phase!=='title'||state.musicReady;ui.silent.hidden=musicStatus!=='failed';}}
+  function applyMusicGate(){state.musicReady=musicReady();if(ui){ui.wait.hidden=state.phase!=='title'||state.musicReady||!D.allLoose(state.prologue);ui.silent.hidden=musicStatus!=='failed';}}
   function release(){pointer=null;touchAxis=0;D.release(state.prologue);P.clearInput(state.world);root.SSE.input.reset();root.CodeaLite?.clearPointers();}
   function reset(){release();state=S.create();freshInput=false;lastSound=-10;applyMusicGate();sync();}
   function sync(){
