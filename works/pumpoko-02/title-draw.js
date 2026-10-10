@@ -142,7 +142,7 @@
       // only title; the text fallback also keeps it readable if loading fails.
       c.save(); const logoY = 1.2 * Math.sin(state.time * TAU / 7);
       if (titleArt && titleArt.complete && titleArt.naturalWidth > 0) {
-        c.drawImage(titleArt, 36.3, 102 + logoY, 317.4, 317.4 * 654 / 2064);
+        c.drawImage(titleArt, 36.3, 102 + logoY, 317.4, 317.4 * titleArt.naturalHeight / titleArt.naturalWidth);
       } else {
         c.fillStyle = "#b9672f";
         c.font = "bold 36.8px 'Arial Rounded MT Bold', sans-serif";

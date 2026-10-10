@@ -1,4 +1,5 @@
 'use strict';
+const {protectLogo}=require('./approved-logo.cjs');
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const P=require('../physics.js'),W=require('../world.js'),C=require('../courses.js'),S=require('../story.js'),D=require('../prologue.js');
 const LabP=require('../../pumpkin-rutabaga-lab/physics.js'),LabW=require('../../pumpkin-rutabaga-lab/world.js');
@@ -19,8 +20,8 @@ function liveFinish(h){
   for(let i=0;i<60*90&&!h.probe().returnTitle;i++)h.frame();assert.ok(h.probe().returnTitle);
 }
 test('physical integrator/fruit constants and asset bytes are preserved; goal contact is work-local',()=>{
-  protectPhysics();
-  for(const file of ['assets/pumpoko-logo.svg','audio/pumpoko-bgm.mp3','audio/shell.wav','audio/fiber.wav','audio/drum-don.wav','audio/seed.wav'])assert.ok(fs.readFileSync(path.join(__dirname,'..',file)).equals(fs.readFileSync(path.join(__dirname,'../../pumpoko',file))),file);
+  protectPhysics();protectLogo();
+  for(const file of ['audio/pumpoko-bgm.mp3','audio/shell.wav','audio/fiber.wav','audio/drum-don.wav','audio/seed.wav'])assert.ok(fs.readFileSync(path.join(__dirname,'..',file)).equals(fs.readFileSync(path.join(__dirname,'../../pumpoko',file))),file);
   const html=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');assert.equal(/pumpkin-rutabaga-lab|measurements\.js|data-mode|world-course|sliders|tuning/.test(html),false);
   assert.ok(html.includes('../../engine/sukimastock-engine.v0.3.0.js'));assert.ok(html.includes('../../engine/codea-lite.v1.0.0.js'));
 });

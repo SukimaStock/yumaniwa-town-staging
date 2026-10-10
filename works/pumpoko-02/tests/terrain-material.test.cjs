@@ -1,4 +1,5 @@
 'use strict';
+const {approvedLogoPath}=require('./approved-logo.cjs');
 const {SHIFT,x:shiftX,protectPhysics}=require('./stage1-reference.cjs');
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{execFileSync}=require('node:child_process');
 const {harness}=require('./harness.cjs'),{BASE,render}=require('./terrain-review.cjs');
@@ -9,7 +10,7 @@ const close=(a,b)=>a.every((v,i)=>Math.abs(v-b[i])<4);
 function scene(x,y,{holes=false}={}){const s=W.createCourse(course);s.entities=[];if(!holes)s.holes=[];const view={x,y,z:.8};const canvas=render(w,s,view),c=canvas.getContext('2d');return {s,view,canvas,pixel(wx,wy){return [...c.getImageData(Math.round(195+(wx-x)*.8),Math.round(340-(wy-y)*.8),1,1).data].slice(0,3);}};}
 test('accepted runtime/assets except terrain drawing and approved shot timing/goal contact remain exact-main bytes',()=>{
  const repo=path.resolve(__dirname,'../../..');
- const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(f=>!f.includes('/tests/')&&!f.includes('/visual-review/')&&!f.endsWith('.md')&&!f.endsWith('/world-draw.js')&&!['/physics.js','/story.js','/app.js','/courses.js','/world.js'].some(x=>f.endsWith(x)));
+ const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(f=>!approvedLogoPath(f)&&!f.includes('/tests/')&&!f.includes('/visual-review/')&&!f.endsWith('.md')&&!f.endsWith('/world-draw.js')&&!['/physics.js','/story.js','/app.js','/courses.js','/world.js'].some(x=>f.endsWith(x)));
  protectPhysics();
  for(const file of files)assert.ok(fs.readFileSync(path.join(repo,file)).equals(execFileSync('git',['show',BASE+':'+file],{cwd:repo,maxBuffer:10e6})),file);
 });

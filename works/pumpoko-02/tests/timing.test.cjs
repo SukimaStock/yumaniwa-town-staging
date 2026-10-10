@@ -1,11 +1,12 @@
 'use strict';
+const {approvedLogoPath}=require('./approved-logo.cjs');
 const {SHIFT,x:shiftX,protectPhysics}=require('./stage1-reference.cjs');
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{execFileSync}=require('node:child_process');
 const S=require('../story.js'),P=require('../physics.js'),{harness}=require('./harness.cjs'),{BASE,collect}=require('./timing-review.cjs');
 const axis=(s,i)=>s.world.active==='rutabaga'&&i%40===0?0:1;
 function enter(api){const s=api.create();api.beginJourney(s);for(let i=0;i<1200&&s.phase==='opening';i++)api.update(s,0,1/60);assert.equal(s.phase,'playing');return s;}
 test('runtime/art/assets outside approved timing and goal files remain exact accepted main',()=>{
- const repo=path.resolve(__dirname,'../../..');const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!['/physics.js','/story.js','/app.js','/courses.js','/world.js','/world-draw.js'].some(x=>p.endsWith(x)));
+ const repo=path.resolve(__dirname,'../../..');const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!approvedLogoPath(p)&&!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!['/physics.js','/story.js','/app.js','/courses.js','/world.js','/world-draw.js'].some(x=>p.endsWith(x)));
  protectPhysics();
  for(const p of files)assert.ok(fs.readFileSync(path.join(repo,p)).equals(execFileSync('git',['show',BASE+':'+p],{cwd:repo,maxBuffer:10e6})),p);
 });

@@ -1,4 +1,5 @@
 'use strict';
+const {approvedLogoPath}=require('./approved-logo.cjs');
 const {SHIFT,x:shiftX,protectPhysics}=require('./stage1-reference.cjs');
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{execFileSync}=require('node:child_process');
 const {createCanvas}=require('@napi-rs/canvas'),{BASE,collect,draw,picks}=require('./socket-review.cjs');
@@ -17,7 +18,7 @@ function sprite(frame,body,clipped=true){
 }
 test('all existing runtime/assets except terrain drawing and approved shot timing/goal contact stay exact #186 bytes',()=>{
  const repo=path.resolve(__dirname,'../../..');
- const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!p.endsWith('/world-draw.js')&&!['/physics.js','/story.js','/app.js','/courses.js','/world.js'].some(x=>p.endsWith(x)));
+ const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!approvedLogoPath(p)&&!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!p.endsWith('/world-draw.js')&&!['/physics.js','/story.js','/app.js','/courses.js','/world.js'].some(x=>p.endsWith(x)));
  protectPhysics();
  for(const p of files)assert.deepEqual(fs.readFileSync(path.join(repo,p)),execFileSync('git',['show',BASE+':'+p],{cwd:repo,maxBuffer:10e6}),p);
 });

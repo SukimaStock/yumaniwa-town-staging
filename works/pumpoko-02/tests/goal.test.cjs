@@ -1,4 +1,5 @@
 'use strict';
+const {approvedLogoPath}=require('./approved-logo.cjs');
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{execFileSync}=require('node:child_process');
 const P=require('../physics.js'),W=require('../world.js'),C=require('../courses.js'),S=require('../story.js'),{harness}=require('./harness.cjs');
 const {SHIFT,protectPhysics}=require('./stage1-reference.cjs');
@@ -16,7 +17,7 @@ function run(w,input=0,seconds=45){let count=0,maxX=-Infinity,prior=null;for(let
  }return {count,maxX,prior};}
 test('all existing runtime/assets outside the five declared goal files remain exact current main',()=>{
  const repo=path.resolve(__dirname,'../../..'),allowed=['physics.js','app.js','courses.js','world.js','story.js','world-draw.js'];
- const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!allowed.includes(path.basename(p)));
+ const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!approvedLogoPath(p)&&!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!allowed.includes(path.basename(p)));
  for(const file of files)assert.ok(fs.readFileSync(path.join(repo,file)).equals(execFileSync('git',['show',BASE+':'+file],{cwd:repo,maxBuffer:10e6})),file);
  protectPhysics();
  const before=harness({sourceRef:BASE}).w.FruitLabCourses.get('world4'),after=structuredClone(C.get('world4'));
