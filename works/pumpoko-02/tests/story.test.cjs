@@ -9,7 +9,7 @@ function finish(s){enter(s);for(let i=0;i<60*90&&!s.world.finished;i++)S.update(
 function ending(s){finish(s);for(let i=0;i<60*60&&s.phase!=='ending';i++)S.update(s,0,1/60);assert.equal(s.phase,'ending');return s;}
 function liveEnter(h){
   for(let i=0;i<60*30&&h.probe().phase==='title';i++){if(i%30===0){h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');h.key('keydown',i%60===0?'ArrowRight':'ArrowLeft');}h.frame();}
-  assert.equal(h.probe().phase,'opening');h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');h.advance(3.3);assert.equal(h.probe().phase,'playing');
+  assert.equal(h.probe().phase,'opening');h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');h.advance(S.OPENING_DURATION+.1);assert.equal(h.probe().phase,'playing');
 }
 function liveFinish(h){
   liveEnter(h);h.key('keydown','ArrowRight');
@@ -28,10 +28,39 @@ test('original vessel touch and seed detachment are isolated; frozen world enter
   assert.equal(D.touch(s.prologue,{id:1,state:'began',x:10,y:730}),false);
   assert.ok(D.touch(s.prologue,{id:1,state:'began',x:195,y:375}));D.touch(s.prologue,{id:1,state:'moving',x:280,y:425});assert.equal(s.prologue.targetX,.38);D.release(s.prologue);
   for(let i=0;i<60*25&&s.phase==='title';i++){S.update(s,Math.floor(i/30)%2?1:-1,1/60);assert.deepEqual(P.snapshot(s.world),initial);}
-  assert.equal(s.phase,'opening');assert.ok(D.allLoose(s.prologue));assert.ok(s.prologue.time-s.prologue.looseAt>=1.8);
+  assert.equal(s.phase,'opening');assert.ok(D.allLoose(s.prologue));assert.ok(s.prologue.time-s.prologue.looseAt>=.55);
   const entities=s.world.entities;for(let i=0;i<192;i++)S.update(s,1,1/60);assert.equal(s.world.entities,entities);assert.ok(s.world.entities.every(b=>!s.prologue.seeds.includes(b)));
   while(s.phase==='opening')S.update(s,0,1/60);assert.deepEqual(P.snapshot(s.world),initial);
   S.update(s,1,1/60);assert.equal(s.world.target,1);assert.ok(s.world.time>0);
+});
+test('detached seeds land on the same ground, three fruits grow, and only the real hero starts rolling',()=>{
+  const s=S.create();for(let i=0;i<1500&&s.phase==='title';i++)S.update(s,Math.floor(i/30)%2?1:-1,1/60);
+  assert.equal(s.phase,'opening');const world=s.world,body=world.pumpkin,initial=P.snapshot(world);
+  const origin=s.nursery.seeds.map(p=>p.origin),poses=S.nurseryPoses(s);
+  for(const [i,p]of poses.seeds.entries()){
+    const projected=require('../title-draw.js').seedPose(s.opening.shell,s.prologue.seeds[i]);
+    assert.ok(Math.abs(195+(p.x-s.view.x)*s.view.z-projected.x)<1e-8);
+    assert.ok(Math.abs(400+(p.y-s.view.y)*s.view.z-projected.y)<1e-8);
+    assert.ok(p.y>W.surfaceHeight(s.nursery.seeds[i].x,world.course),'seed falls down to soil');
+  }
+  let previous={...s.view},maxJump=0;
+  while(s.phase==='opening'){
+    S.update(s,1,1/60);const p=S.nurseryPoses(s);
+    assert.deepEqual(P.snapshot(world),initial,'opening never kicks or retunes the body');
+    for(const plant of p.plants){
+      const seed=s.nursery.seeds.filter(seed=>seed.plant===plant.id);
+      if(plant.grow>0)assert.ok(seed.every(seed=>s.nursery.time>seed.land));
+    }
+    maxJump=Math.max(maxJump,Math.hypot(s.view.x-previous.x,s.view.y-previous.y));previous={...s.view};
+  }
+  assert.ok(maxJump<3);assert.equal(world.pumpkin,body);assert.equal(world.entities.length,5);
+  const plants=S.nurseryPoses(s).plants;assert.equal(plants.length,3);assert.ok(plants.every(p=>p.grow===1));
+  const hero=plants.find(p=>p.hero);assert.equal(hero.x,body.x);assert.equal(hero.y,body.y);assert.equal(hero.scale,1);
+  const planted=JSON.stringify(s.nursery.plants),x=body.x;
+  for(let i=0;i<90;i++)S.update(s,0,1/60);
+  assert.ok(body.x>x+20,'unchanged slope naturally begins the roll before directional input');
+  assert.equal(JSON.stringify(s.nursery.plants),planted,'companions stay at their roots');
+  assert.equal(world.handoffs,0);assert.equal(world.target,0);
 });
 test('adapted terrain with unchanged physics matches lab integrator exactly at diverse fps/tuning',()=>{
   for(const fps of [30,60,120])for(const extreme of [null,2,3]){
@@ -130,5 +159,22 @@ test('primary touch drives all four sockets and interruption clears pointer/inpu
     h.pointer('pointerdown',600,400);h.frame();const handoffs=h.probe().model.handoffs;h.w.emit(interrupt);assert.equal(h.probe().pointer,null);assert.equal(h.probe().target,0);assert.equal(h.probe().axis,0);
     if(resume)h.w.emit(resume);h.frame();assert.equal(h.probe().model.handoffs,handoffs);
   }
+  assert.equal(h.raf.size,1);assert.deepEqual(h.errors,[]);
+});
+
+test('opening interruption pauses the same seeds and growth; reset and replay rebuild the nursery',()=>{
+  const h=harness();
+  for(let i=0;i<1800&&h.probe().phase==='title';i++){
+    if(i%30===0){h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');h.key('keydown',i%60===0?'ArrowRight':'ArrowLeft');}h.frame();
+  }
+  h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');assert.equal(h.probe().phase,'opening');
+  h.advance(.6);h.pointer('pointerdown',600,400);assert.equal(h.probe().pointer,null);
+  for(const time of [.6,2.6]){
+    while(h.probe().elapsed<time)h.frame();h.w.emit('blur');
+    const before=JSON.stringify(h.probe());h.advance(2);assert.equal(JSON.stringify(h.probe()),before);
+    h.w.emit('focus');h.frame();assert.equal(h.probe().axis,0);assert.equal(h.probe().target,0);
+  }
+  h.key('keydown','KeyR');h.frame();h.key('keyup','KeyR');assert.equal(h.probe().phase,'title');assert.equal(h.probe().nursery,null);
+  liveFinish(h);liveEnter(h);assert.equal(h.probe().nursery.plants.length,3);assert.equal(h.probe().model.handoffs,0);
   assert.equal(h.raf.size,1);assert.deepEqual(h.errors,[]);
 });

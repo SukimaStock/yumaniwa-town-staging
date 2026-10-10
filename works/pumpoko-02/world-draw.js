@@ -5,7 +5,7 @@
     for(let x=left;x<right;x+=step)x===left?c.moveTo(x,height(x)):c.lineTo(x,height(x));
     c.lineTo(right,height(right));
   }
-  root.PumpokoWorldDraw=function(c,s,view) {
+  root.PumpokoWorldDraw=function(c,s,view,nursery) {
     const camera=view||{...s.camera,z:1},z=camera.z||1;
     const course=s.course,surface=x=>W.surfaceHeight(x,course),roof=x=>W.roof(x,course);
     // Continue the soil to the viewport edges; collision bounds stay adopted.
@@ -46,7 +46,9 @@
       const y=surface(h.x);c.fillStyle=M.fleshDeep;c.fillRect(h.x-39,roof(h.x)-2,78,y-roof(h.x)+4);
       A.ellipse(c,h.x,y,40,6,M.shadow);A.ellipse(c,h.x,roof(h.x),39,5,M.shadow);
     }
+    A.nursery(c,nursery,s);
     for(const b of s.entities){
+      if(nursery?.opening&&b===s.entities[0])continue;
       if(!b.plugged){const floor=W.curve(b.layer,b.x,course).y;const altitude=Math.max(0,b.y-b.r-floor);A.ellipse(c,b.x,floor+2,b.r,4,`rgba(80,54,27,${.18/(1+altitude/80)})`);}
       (b.kind==='pumpkin'?A.pumpkin:A.rutabaga)(c,b);
     }
