@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3b9d53afe8f2673658a3b2615dd111e0d5ee1cc3bd16c39ce86dcc0592de442c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-rutabaga-logo-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Replace PUMPOKO 02 title logo with owner-supplied rutabaga SVG, preserving its aspect ratio and all gameplay",
+    "planLevel": "standard",
+    "classes": [
+      "ASSET",
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "4c4c24ead66b4cc8e8ea2e5fc6392d519fc28855",
+    "canonicalSources": [
+      "works/pumpoko-02/assets/pumpoko-logo.svg",
+      "works/pumpoko-02/title-draw.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-rutabaga-logo-20261010/r0.lock.json",
+      "works/pumpoko-02/assets/pumpoko-logo.svg",
+      "works/pumpoko-02/title-draw.js",
+      "works/pumpoko-02/tests/approved-logo.cjs",
+      "works/pumpoko-02/tests/story.test.cjs",
+      "works/pumpoko-02/tests/goal.test.cjs",
+      "works/pumpoko-02/tests/timing.test.cjs",
+      "works/pumpoko-02/tests/socket-draw.test.cjs",
+      "works/pumpoko-02/tests/terrain-material.test.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Copy uploaded pumpoko-logo-rutabaga(1).svg byte-for-byte; SHA256 09e3cb1558423d6df7baee46ac8889431b2e7379a74b0497591e8ed7b23db63e",
+      "Use loaded SVG natural aspect ratio at unchanged title x/y/width; no other runtime edits",
+      "Update existing exact asset guards to protect supplied logo SHA and exact one-expression title change; keep all other baseline byte guards and behavioral assertions"
+    ],
+    "ownerDecisions": [
+      "User on 2026-10-10: logoをこれに差し替えてください with uploaded SVG",
+      "Existing session authorizes successful staging PR merge; production prohibited"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main and related PR check; isolated worktree",
+      "Fresh READY r0 Plan-only first commit",
+      "Approved asset substitution with original bytes; preserve SVG vector and proportions",
+      "No human/device result invented"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-title-logo-composition"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing title renderer and SVG image loader"
+    ],
+    "rollback": "Revert isolated logo PR",
+    "outOfScope": [
+      "Gameplay, terrain, physics, intro timing, ending timing, audio, original PUMPOKO, shared runtime, production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone title rendering; formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
