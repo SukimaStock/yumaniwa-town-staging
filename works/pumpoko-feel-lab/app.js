@@ -37,7 +37,7 @@
     release();
     course={curves:{surface:terrainPoints[terrain].map(p=>p.slice())},surfaces:['surface'],holes:[],cellars:[],gaps:[],finishX:100000};
     state=P.create(kind,P.defaults());
-    const b=state[kind],f=floor(-275);
+    const b=state[kind],f=floor(-420);
     b.layer='surface';b.x=f.x+f.nx*b.r;b.y=f.y+f.ny*b.r+(kind==='rutabaga'?95:0);
     b.vx=b.vy=0;b.grounded=kind==='pumpkin';
     for(const item of doc.querySelectorAll('[data-kind]'))item.classList.toggle('active',item.dataset.kind===kind);
