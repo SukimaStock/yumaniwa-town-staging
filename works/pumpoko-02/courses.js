@@ -31,7 +31,7 @@
   // receives speed, then a shallow, rounded fruit-sized pocket receives fruit.
   four.curves.finish=[[6950,48,0],[7050,40,-.15],[7300,5,0],
     [7500,65,.42],[7620,115.4,.42],[7690,90,-1.0909090909],
-    [7745,60,0],[7800,90,1.0909090909],[8300,750,1.5],[8540,950,0]];
+    [7745,60,0],[7800,90,1.0909090909],[7940,312,1.6],[8300,750,1.5],[8540,950,0]];
   four.goal={layer:'finish',x:7745,halfWidth:16,bottom:60,depth:18,speed:150,dwell:.06};
   four.holes=[
     {id:'down',x:1400,y:490,direction:-1,entryLayer:'surface',exitLayer:'underground'},
