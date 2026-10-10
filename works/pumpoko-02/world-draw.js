@@ -6,19 +6,16 @@
     c.lineTo(right,height(right));
   }
   root.PumpokoWorldDraw=function(c,s,view,nursery,opening) {
-    if(opening&&opening.unroll===0)return;
     const camera=view||{...s.camera,z:1},z=camera.z||1;
-    const course=s.course,surface=opening?.surface||(x=>W.surfaceHeight(x,course)),roof=x=>W.roof(x,course);
+    const course=s.course,surface=x=>W.surfaceHeight(x,course)-(opening?.lift||0),roof=x=>W.roof(x,course);
     // Continue the soil to the viewport edges; collision bounds stay adopted.
     const left=camera.x-240/z,right=camera.x+240/z,bottom=Math.min(-650,camera.y-900/z);
     const cellars=course?course.cellars:[{left:410,right:1310,layer:'underground'}];
     c.save();
     if(opening){
-      // Air opens ABOVE the same unrolling rind. It never replaces the shell
-      // with an unrelated complete background or floats a second ground in.
-      c.globalAlpha*=opening.air;c.beginPath();c.moveTo(0,740);
-      for(let x=0;x<=390;x+=3)c.lineTo(x,400+(surface(camera.x+(x-195)/z)-camera.y)*z);
-      c.lineTo(390,740);c.closePath();c.clip();
+      // Broad space emerges after the enclosing cut has lost its edge. No
+      // clipping/morph ties the sky to a diagram of the vessel's outline.
+      c.globalAlpha*=opening.air;
       c.fillStyle=M.air;c.fillRect(0,0,390,740);
     }
     for(const [base,color,amplitude,rate] of [[160,M.far,17,.18],[100,M.near,12,.3]]){
@@ -26,7 +23,8 @@
       for(let x=0;x<=390;x+=6)c.lineTo(x,base+Math.sin((x+camera.x*rate)*.013)*amplitude);
       c.lineTo(390,0);c.closePath();c.fillStyle=color;c.fill();
     }c.restore();
-    c.save();c.translate(195,400);c.scale(z,z);c.translate(-camera.x,-camera.y);
+    if(opening&&opening.ground===0)return;
+    c.save();c.globalAlpha*=opening?.ground??1;c.translate(195,400);c.scale(z,z);c.translate(-camera.x,-camera.y);
     // One continuous cutaway: collision heights also drive all visible lips.
     c.beginPath();line(c,left,right,surface);c.lineTo(right,bottom);c.lineTo(left,bottom);c.closePath();
     const earth=c.createLinearGradient(0,600,0,-200);earth.addColorStop(0,M.fleshLight);earth.addColorStop(.55,M.flesh);earth.addColorStop(1,M.fleshDeep);c.fillStyle=earth;c.fill();

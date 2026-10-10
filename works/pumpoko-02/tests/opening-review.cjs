@@ -3,7 +3,7 @@
 // Native offscreen Canvas; not a browser/device capture.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
 const {createCanvas,loadImage,Path2D}=require('@napi-rs/canvas'),{harness}=require('./harness.cjs');
-const repo=path.resolve(__dirname,'../../..'),base='7ef0384aa7073c314cda338a1b808720cc468336';
+const repo=path.resolve(__dirname,'../../..'),base='b40842a3b919277ad432f3452e98e366ea980d92';
 async function original(){
   const D=require('../../pumpoko/dynamics.js'),J=require('../../pumpoko/journey.js');
   const canvas=createCanvas(390,740),c=canvas.getContext('2d'),held=new Set();let config;
@@ -39,13 +39,13 @@ function version(sourceRef){
     if(i%30===0){h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');h.key('keydown',i%60===0?'ArrowRight':'ArrowLeft');}h.frame();
   }
   assert.equal(h.probe().phase,'opening');h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');
-  const times=sourceRef?[[.7,'Shell fading'],[1.8,'Seeds on a new ground'],[3,'Three fruits'],[4.4,'Hero begins']]
-    :[[1.3,'Inside the same cut'],[2.65,'Same rim / falling seeds'],[4.5,'Three fruits'],[6.2,'Same hero begins']];
+  const times=sourceRef?[[1.3,'Expanded cut'],[2.65,'Matched rim / falling seeds'],[4.5,'Three fruits'],[6.2,'Hero begins']]
+    :[[2.3,'Perimeter disappears'],[4.2,'Space / falling seeds'],[6.4,'Fruit in the landscape'],[7.2,'Same hero begins']];
   let time=0;for(const [at,label]of times){h.advance(at-time);time=at;capture(label);}assert.deepEqual(h.errors,[]);return frames;
 }
 (async()=>{
   const rows=[{label:'Original PUMPOKO reference',frames:await original()},
-    {label:'PUMPOKO 02 before (#182)',frames:version(base)},
+    {label:'PUMPOKO 02 before (#183)',frames:version(base)},
     {label:'PUMPOKO 02 corrected',frames:version(null)}];
   const sheet=createCanvas(1950,3*790),c=sheet.getContext('2d');c.fillStyle='#faf1dc';c.fillRect(0,0,sheet.width,sheet.height);
   for(const [row,r]of rows.entries()){

@@ -12,8 +12,7 @@
   const blend=(a,b,t)=>Object.fromEntries(['x','y','z'].map(k=>[k,a[k]+(b[k]-a[k])*t]));
   const follow=s=>({x:s.world.camera.x+s.look,y:s.world.camera.y,z:.8});
   const ease=t=>{t=Math.max(0,Math.min(1,t));return t*t*t*(10+t*(-15+6*t));};
-  const OPENING_DURATION=6.1,UNROLL_START=1.6,UNROLL_END=3.05;
-  const shellScale=time=>1+4.3*ease(time/2.15);
+  const OPENING_DURATION=7.1;
   function create(){
     const world=W.createCourse(C.get('world4')),prologue=D.create();prologue.looseAt=null;
     return {world,prologue,phase:'title',elapsed:0,slow:0,look:0,returnTitle:false,
@@ -29,7 +28,7 @@
     if(s.phase!=='title')return false;
     if(s.returnTitle)s.world=W.createCourse(C.get('world4'));
     s.phase='opening';s.elapsed=0;s.slow=0;s.look=0;
-    const b=s.world.pumpkin,from={x:b.x-70,y:b.y+250,z:1};
+    const b=s.world.pumpkin,from={x:b.x-70,y:b.y+250,z:.42};
     const plants=[{id:0,x:b.x-168,scale:.63},{id:1,x:b.x-97,scale:.72},
       {id:2,x:b.x,scale:1,hero:true}].map(p=>({...p,
         ground:W.surfaceHeight(p.x,s.world.course),
@@ -40,31 +39,22 @@
       return {id:i,plant:plant.id,origin:{x:from.x+(origin.x-195)/from.z,
         y:from.y+(origin.y-400)/from.z,angle:origin.angle,sx:origin.sx/from.z,sy:origin.sy/from.z},
         x:plant.x+(i%3-1)*9,y:W.surfaceHeight(plant.x+(i%3-1)*9,s.world.course)+3,
-        depart:1.45+i*.025,land:3.2+i*.045};
+        depart:.85+i*.025,land:4.9+i*.035};
     });
     const centre={x:from.x,y:from.y-25/from.z};
-    const rim=T.lowerRim(s.prologue).map(p=>({
-      x:centre.x+(p.x-195)*shellScale(UNROLL_START)/from.z,
-      y:centre.y+(p.y-375)*shellScale(UNROLL_START)/from.z})).sort((a,b)=>a.x-b.x);
-    s.opening={progress:0,from,to:follow(s),centre,rim,shell:{...s.prologue}};
+    s.opening={progress:0,from,to:follow(s),centre,shell:{...s.prologue}};
     s.nursery={plants,seeds,time:0};s.view={...from};
     s.returnTitle=false;s.ending=null;D.release(s.prologue);return true;
   }
   function openingFrame(s) {
     if(!s.opening)return null;
-    const o=s.opening,unroll=ease((s.elapsed-UNROLL_START)/(UNROLL_END-UNROLL_START));
-    return {unroll,air:unroll,caption:1-ease(s.elapsed/1.2),
+    const o=s.opening,t=s.elapsed;
+    // The perimeter is lost before the landscape becomes legible. The cut
+    // and the world share colour and time, not an explanatory matched edge.
+    return {air:smooth((t-2.7)/2.1),ground:smooth((t-2.65)/1.8),
+      lift:580*(1-ease((t-2.4)/2.3)),shell:1-smooth((t-2.9)/2),caption:1-ease(t/1.8),
       pose:{x:195+(o.centre.x-s.view.x)*s.view.z,y:400+(o.centre.y-s.view.y)*s.view.z,
-        scale:s.view.z/o.from.z*shellScale(s.elapsed)}};
-  }
-  function openingSurface(s,x) {
-    const actual=W.surfaceHeight(x,s.world.course),frame=openingFrame(s);
-    if(!frame||frame.unroll===1)return actual;
-    const points=s.opening.rim;
-    let i=0;while(i<points.length-2&&points[i+1].x<x)i++;
-    const a=points[i],b=points[i+1],t=Math.max(0,Math.min(1,(x-a.x)/(b.x-a.x)));
-    const skin=a.y+(b.y-a.y)*t;
-    return skin+(actual-skin)*frame.unroll;
+        scale:s.view.z/o.from.z*(1+11*smooth((t-.4)/4.8))}};
   }
   function nurseryPoses(s) {
     if(!s.nursery)return null;
@@ -74,7 +64,9 @@
       return {...p,x:p.origin.x+(p.x-p.origin.x)*smooth(u),
         y:p.origin.y+(p.y-p.origin.y)*u*u+3*Math.sin(Math.min(1,after/.25)*Math.PI)*Math.exp(-after*8),
         angle:p.origin.angle+smooth(u)*.35,alpha:1-smooth(after/.5),
-        sx:p.origin.sx+(.65-p.origin.sx)*smooth(u),sy:p.origin.sy+(.65-p.origin.sy)*smooth(u)};
+        // Keep a grain as the scale reference while entering the world. It
+        // becomes soil quietly after landing, rather than shrinking in flight.
+        sx:p.origin.sx+(.65-p.origin.sx)*smooth(after/.5),sy:p.origin.sy+(.65-p.origin.sy)*smooth(after/.5)};
     }),plants:s.nursery.plants.map(p=>{
       const landed=Math.max(...s.nursery.seeds.filter(seed=>seed.plant===p.id).map(seed=>seed.land));
       const age=time-landed;
@@ -102,9 +94,9 @@
       s.nursery.time=s.elapsed;s.opening.progress=smooth(s.elapsed/OPENING_DURATION);
       const t=ease(s.elapsed/OPENING_DURATION);
       s.view=blend(s.opening.from,s.opening.to,t);
-      // A gentle push into the widening cut, then settle to the existing .8x
-      // gameplay frame. One C2-continuous camera path spans the entire opening.
-      s.view.z+=.8*t*(1-t);
+      // Inward scale change: grains grow in the view with the cut. This is
+      // presentation only; settle into the identical .8x playing frame.
+      s.view.z+=.5*t*(1-t);
       // Reveal the existing body at full size before handing over. Its natural
       // initial slope supplies the first roll once normal play resumes.
       if(s.elapsed>=OPENING_DURATION){s.phase='playing';s.elapsed=0;s.opening=null;s.view=follow(s);}
@@ -140,5 +132,5 @@
   }
   function openingMix(s){return s.opening?s.opening.progress:1;}
   function returnMix(s){return s.phase==='returning'?smooth((s.elapsed-2.1)/1.5):s.phase==='title'?1:0;}
-  return {create,start,beginJourney,update,pair,openingMix,returnMix,smooth,nurseryPoses,OPENING_DURATION,openingFrame,openingSurface};
+  return {create,start,beginJourney,update,pair,openingMix,returnMix,smooth,nurseryPoses,OPENING_DURATION,openingFrame};
 });

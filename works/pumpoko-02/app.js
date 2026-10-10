@@ -32,11 +32,10 @@
       if(state.phase==='title')root.PumpokoTitleDraw(c,state.prologue);
       else if(state.phase==='opening'){
         const plants=S.nurseryPoses(state),frame=S.openingFrame(state);
-        // The cut physically fills the view before its expanded lower skin
-        // unrolls into the actual terrain. No shell fade or early separate stage.
-        if(frame.unroll<1)root.PumpokoTitleDraw(c,state.opening.shell,frame.pose,1,0,false);
-        root.PumpokoWorldDraw(c,state.world,state.view,{...plants,opening:true,seeds:[]},
-          {...frame,surface:x=>S.openingSurface(state,x)});
+        // First lose the cut's perimeter. Landscape opens within its material
+        // while the same grains fall; no skin-to-course shape explanation.
+        if(frame.shell>0)root.PumpokoTitleDraw(c,state.opening.shell,frame.pose,frame.shell,0,false);
+        root.PumpokoWorldDraw(c,state.world,state.view,{...plants,opening:true,seeds:[]},frame);
         c.save();c.translate(195,400);c.scale(state.view.z,state.view.z);c.translate(-state.view.x,-state.view.y);
         root.FruitLabArt.nursery(c,{plants:[],seeds:plants.seeds},state.world);c.restore();
         root.PumpokoTitleArt.captions(c,state.opening.shell,frame.caption);
