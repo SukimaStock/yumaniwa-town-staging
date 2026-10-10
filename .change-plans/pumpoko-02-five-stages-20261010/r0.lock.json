@@ -1,0 +1,102 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4e76c2b9832cde754ca2c96c7b1842458bb147de38b96679c78cc0f5e999bdd7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-five-stages-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Complete STAGE 2–5 with progressively longer terrain, existing-action gap traversal, per-stage checkpoint retry; preserve completed STAGE 1 and exact goal/ending/fruit/audio",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "d19ecf43bc5d3706a09e24fea0a60f8d21e49d87",
+    "canonicalSources": [
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/world-draw.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-five-stages-20261010/r0.lock.json",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/tests/**",
+      "works/pumpoko-02/FIVE-STAGES.md",
+      "works/pumpoko-02/visual-review/five-stages-map.png",
+      "works/pumpoko-02/visual-review/five-stages-cliffs.png",
+      "works/pumpoko-02/visual-review/five-stages-run.mp4"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/assets/**",
+      "works/pumpoko-02/audio/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Retain STAGE 1 surface, first hole and gap/camera/retry behavior exactly; later lengths increase initially ~20%, tune terrain by attainable existing physics",
+      "Extend only later layers and translate protected socket approach/exit and full final goal pocket with unchanged relative geometry",
+      "Reuse finite unsupported gaps for pumpkin/rutabaga contact and material; keep cellar roof above underground gaps; no invisible support/underside snap or new actions/constants",
+      "Record each baton as stage clear; safe grounded stage spawn and consistent indexed entity/hole checkpoint preserve all previous swaps; restore current stage after .65s with clean input and fixed camera, no title/opening replay",
+      "Keep stage1 camera expression; gradual later gap anticipation and bounded falling camera at same .8 zoom; keep all ending/seat/handoff math unchanged",
+      "Adapt fixed-coordinate and exact-byte tests only for authorized stage geometry translations; strengthen fresh-base STAGE 1/goal/intro/art/audio/physics protections; meaningful all-stage flight/fall/retry/reacceleration/fps/full-run assertions",
+      "Measure every stage/gap/clear/retry and produce exact native Canvas map and clips explicitly distinguished from real-device evidence"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-10 all-five-stages instruction authorizes STAGE 2–5 expansion, checkpoint recovery, camera, tests and staging merge on successful checks; STAGE 1 and production prohibited"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main and related PR check; isolated worktree",
+      "Fresh READY r0 Plan-only first commit",
+      "Registered WORK runtime standard scope; no shared runtime extension",
+      "No human/device result invented"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-all-stage-gap-readability-and-control-feel",
+      "iphone-checkpoint-retry-fresh-input",
+      "iphone-seamless-handoffs-goal-ending-replay"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated five-stage PR",
+    "outOfScope": [
+      "STAGE 1 behavior/terrain, physics constants, character art, title/logo, intro/goal/ending timing, audio, shared runtime, old works, production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real-device and human progressive challenge/control enjoyment",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
