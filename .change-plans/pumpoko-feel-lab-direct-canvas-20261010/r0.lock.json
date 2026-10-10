@@ -1,0 +1,96 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "438f4c24a610c3b2448efbef594261dc3397e459ffd75ef6cc2e16aa23e5e927",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-feel-lab-direct-canvas-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Make PUMPOKO FEEL LAB immediately visible and controllable on iPhone by sizing its canvas to the actual game panel",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "e92c33ea48952e64c120b134b9b71afd76aab690",
+    "canonicalSources": [
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/draw.js",
+      "engine/codea-lite.v1.0.0.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-feel-lab-direct-canvas-20261010/r0.lock.json",
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/INPUT-VIEW-REVIEW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/**",
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Remove Codea/SSE fullscreen canvas ownership from the embedded FEEL LAB only; size native HTML canvas to panel client rectangle at device pixel ratio",
+      "Keep existing PUMPOKO 02 P/W physics and original fruit art, render Y-up with explicit per-canvas transform",
+      "Fit all terrain heights and safe body headroom to real canvas width/height, not window dimensions",
+      "Wire touch pointer on canvas and visible left/right hold controls directly into original P.input/P.integrate; support keyboard, cancel, resize and reset",
+      "Preserve four chosen terrain shapes and local favorites, add a diagnostic proof/read-only motion check"
+    ],
+    "ownerDecisions": [
+      "User requests immediate correction after repeat mobile screenshots show invisible terrain and no apparent gameplay"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main and Codea canvas resize implementation read",
+      "Plan-only first commit and narrow staging-only scope",
+      "No changes to canonical physical integrator or other works"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Browser DOM canvas box and full terrain screenshot",
+      "Mobile touch and button hold moves body left/right",
+      "Roll and bounce both render and move; four course layouts, reset and persistence",
+      "iPhone Safari tactile verification remains owner manual"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Unmodified PUMPOKO 02 physics.js, world.js, draw.js"
+    ],
+    "rollback": "Revert isolated staging PR",
+    "outOfScope": [
+      "Change shared Engine/Codea, original PUMPOKO 02 or physics",
+      "production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Owner iPhone visual/tactile test not yet done",
+      "Final formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
