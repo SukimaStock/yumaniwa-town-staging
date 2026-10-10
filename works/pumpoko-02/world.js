@@ -98,8 +98,10 @@
         return h;
       });
       for(const kind of ['pumpkin','rutabaga'])world[kind]=world.entities[cp[kind+'Index']]||world.entities.findLast(b=>b.kind===kind&&!b.plugged)||world.entities.findLast(b=>b.kind===kind);
-      const spec=stageSpec(world),body=world.entities[cp.entityIndex];
-      Object.assign(body,fruit(cp.active,spec.spawnX,spec.layer,false,s.course),{grounded:true});world[cp.active]=body;
+      // Resume the actual outgoing launch saved at the baton handoff.
+      // Grounding at spawnX would skip the socket and part of the new stage.
+      const body=world.entities[cp.entityIndex];
+      Object.assign(body,JSON.parse(JSON.stringify(cp.body)));world[cp.active]=body;
       world.stages={completed:Array.from({length:cp.handoffs},(_,i)=>i+1),checkpoint:cp,failedAt:null};
     }else Object.assign(world.pumpkin,start);
     P.clearInput(world);if(cp){world.time=s.time;world.lastRoll=s.time;}

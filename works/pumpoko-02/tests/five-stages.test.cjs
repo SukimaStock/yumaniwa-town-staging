@@ -47,7 +47,8 @@ test('each stage naturally falls offscreen, restores only its checkpoint in .65s
   }
   assert.ok(fall!==null&&retry!==null,'natural fall '+stage);assert.ok(Math.abs(retry-fall-.65)<=1/fps+1e-9);
   const w=s.world,b=w[w.active];assert.equal(w.handoffs,stage-1);assert.deepEqual(w.stages.completed,completed);assert.equal(w.stages.failedAt,null);
-  assert.equal(w.target,0);assert.equal(w.axis,0);assert.equal(b.vx,0);assert.equal(b.vy,0);assert.equal(b.grounded,true);assert.ok(Math.abs(W.contact(b,c).distance-b.r)<1e-6);
+  assert.equal(w.target,0);assert.equal(w.axis,0);if(stage===1){assert.equal(b.vx,0);assert.equal(b.vy,0);assert.equal(b.grounded,true);assert.ok(Math.abs(W.contact(b,c).distance-b.r)<1e-6);}
+  else require('./handoff-retry-reference.cjs').restoredBody(b,w.stages.checkpoint.body);
   assert.equal(s.phase,'playing');assert.equal(s.opening,null);assert.equal(w.camera.vx,0);assert.equal(w.camera.vy,0);
   if(stage>1){assert.equal(w.stages.checkpoint.stage,stage);for(const h of w.holes.slice(0,stage-1)){assert.equal(h.swaps,1);assert.equal(h.state,'complete');assert.ok(w.entities.includes(h.occupant));}}
   S.update(s,1,1/fps);assert.equal(w.target,0);S.update(s,0,1/fps);S.update(s,1,1/fps);assert.equal(w.target,1);
