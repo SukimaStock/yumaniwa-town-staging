@@ -1,0 +1,102 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0a83885b46b8efdd194618edde0ba11bf2a6c16b90db7c6c773f3e76b882c497",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-touch-audio-gate-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Disable Safari loupe on game canvas, and allow playful pumpkin title while BGM loads before entering opening",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "72c4d3cec9f52a9a03c9036f82293a25ca119425",
+    "canonicalSources": [
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/style.css",
+      "works/pumpoko-02/index.html",
+      "engine/sukimastock-engine.v0.3.0.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-touch-audio-gate-20261010/r0.lock.json",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/style.css",
+      "works/pumpoko-02/index.html",
+      "works/pumpoko-02/TOUCH-AUDIO-REVIEW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/prologue.js",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/audio/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Prevent iOS Safari long press selection loupe/context menu/gesture selection on the game canvas, preserve touch and sound control",
+      "Preload BGM and gate all-seeds-detached transition to opening until music ready or explicitly muted",
+      "Keep title pumpkin interaction alive while BGM loads even after all seeds detach; do not bypass seed mechanics",
+      "On audio failure, provide optional sound-off continue; avoid permanent wait",
+      "Preserve title-to-opening positions, story stages/physics/audio lifecycle, and existing keyboard accessibility"
+    ],
+    "ownerDecisions": [
+      "User approved work-local touch and BGM gate; keep pumpkin playable during loading"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main read",
+      "Plan-only first commit before implementation",
+      "Standard work-local scope; no shared runtime changes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iOS Safari long press game canvas and tap gestures",
+      "Slow network music readiness while dragging pumpkin and all seeds detach",
+      "Muted and failed music scenarios; sound-off proceed",
+      "iPhone title-to-opening, four swaps, goal and replay"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated staging PR",
+    "outOfScope": [
+      "production",
+      "shared Engine/Codea",
+      "new gameplay actions",
+      "game physics and sound files"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone/Safari interaction and audio perception still require owner testing",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
