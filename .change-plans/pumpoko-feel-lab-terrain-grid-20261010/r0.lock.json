@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e6dfe5111313c6df6c80ac49addc0f0d1b3cc262da6937d2bc09dcfa3bd1acc9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-feel-lab-terrain-grid-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Make all eight terrain buttons visible and switch courses even when Safari cached an older application script",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "5d7c312af5f4c791d1591c0ac06e11db1435b707",
+    "canonicalSources": [
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-feel-lab/index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-feel-lab-terrain-grid-20261010/r0.lock.json",
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-feel-lab/TERRAIN-UI-REVIEW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/**",
+      "works/pumpoko/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Show eight equal width terrain options in two four-button rows on mobile",
+      "Use versioned CSS and script URLs to avoid stale client assets",
+      "Show a clear message if a clicked terrain code is unavailable, rather than silent failure",
+      "Preserve actual game physics and existing saved notes"
+    ],
+    "ownerDecisions": [
+      "Owner reports terrain selector taps do not switch newly added courses"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main and source examined",
+      "Plan-only first commit",
+      "Staging isolated scope"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone eight buttons visible and every one switches terrain",
+      "Stale cached JavaScript no longer used",
+      "All four new terrain titles and curves reflect selections"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing FEEL LAB app"
+    ],
+    "rollback": "Revert staging PR",
+    "outOfScope": [
+      "game physics",
+      "other works",
+      "production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari full verification pending"
+    ]
+  }
+}
