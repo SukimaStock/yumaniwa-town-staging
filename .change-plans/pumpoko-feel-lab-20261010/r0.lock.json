@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1ba7a6a0b8764d0440acbdacb67a367cf82e703e5e22f43d240173f1302088a8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-feel-lab-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Create isolated PUMPOKO feel lab to A/B test rolling and bouncing using the current PUMPOKO 02 physics engine",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "f52d80dee57b3d72b12ef83b22d1a8078f98dcf5",
+    "canonicalSources": [
+      "works/pumpoko-02/physics.js",
+      "works/pumpkin-rutabaga-lab/README.md",
+      "works/pumpoko-02/README.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-feel-lab-20261010/r0.lock.json",
+      "works/pumpoko-feel-lab/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "works/pumpoko/**",
+      "works/motion-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Build isolated accessible ROLL/BOUNCE experiment screen with current immutable PUMPOKO 02 physics source linked directly",
+      "Offer baseline and two experimental tuning presets per action, never silently rewrite the original",
+      "Allow safe immediate reset, side-by-side qualitative selection and notes; store results locally for later comparison",
+      "Avoid adding hazards, scores, progression or changes to real stages"
+    ],
+    "ownerDecisions": [
+      "User requests movement-first lab with repeated pleasing interaction comparisons; staging exploration only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main and existing labs inspected",
+      "Plan-only first commit",
+      "All new files isolated to one work; no production"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Both modes and all variants on mobile Safari",
+      "Continuous input and bounce timing on device",
+      "Notes/selection persistence and reset",
+      "No runtime effects on PUMPOKO 02"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing PUMPOKO 02 physics.js",
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated staging PR",
+    "outOfScope": [
+      "modifying the existing game",
+      "Stage design and achievements",
+      "production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "User's tactile evaluations and device rendering require actual hands-on review",
+      "Formal verificationState UNVERIFIED"
+    ]
+  }
+}
