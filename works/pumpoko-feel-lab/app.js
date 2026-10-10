@@ -20,6 +20,39 @@
     pump:[[-500,295,-.5],[-320,160,-.86],[-120,45,-.35],[40,35,0],[235,110,.64],[440,245,.58],[620,100,-.70],[790,48,0],[950,118,.72],[1150,220,.3],[1320,105,-.50],[1530,175,.53],[1700,280,.5]],
     breath:[[-500,280,-.47],[-290,125,-.8],[-90,42,0],[115,105,.50],[300,130,0],[500,130,0],[675,130,0],[860,80,-.51],[1040,40,0],[1240,125,.64],[1460,190,.38],[1700,220,0]]
   };
+  // Preserve each earlier chain verbatim (only translate the second in x/y).
+  // A short C1-continuous runway between the parts keeps the order experiment
+  // about sequence rather than a sudden seam or physics changes.
+  const orderSpecs={
+    ac:['flow','pump'],ca:['pump','flow'],
+    bd:['rhythm','breath'],db:['breath','rhythm']
+  };
+  function composeOrder(firstId,secondId){
+    const first=chainPoints[firstId].map(p=>p.slice()),second=chainPoints[secondId];
+    const tail=first[first.length-1],head=second[0];
+    const separation=180,dx=tail[0]+separation-head[0],dy=tail[1]-head[1];
+    const connector=[
+      [tail[0]+55,tail[1],0],
+      [tail[0]+125,tail[1],0]
+    ];
+    const shifted=second.map(p=>[p[0]+dx,p[1]+dy,p[2]]);
+    const joined=first.concat(connector,shifted);
+    for(let i=1;i<joined.length;i++){
+      if(!(joined[i][0]>joined[i-1][0])||!joined[i].every(Number.isFinite))throw Error('Invalid connected terrain');
+    }
+    return joined;
+  }
+  const orderPoints=Object.fromEntries(Object.entries(orderSpecs).map(([key,[a,b]])=>[key,composeOrder(a,b)]));
+  const orderDescriptions={
+    ac:'ROLL比較｜A · FLOW → C · PUMP。自然に作った勢いを切り返しへつなぐ。',
+    ca:'ROLL比較｜C · PUMP → A · FLOW。切り返しで作った勢いを次の流れへ渡す。',
+    bd:'BOUNCE比較｜B · RHYTHM → D · BREATH。連続バウンドから平面の余白へ。',
+    db:'BOUNCE比較｜D · BREATH → B · RHYTHM。平面で整えてからリズムへ入る。'
+  };
+  const orderParts={ac:'A · FLOW → C · PUMP',ca:'C · PUMP → A · FLOW',
+    bd:'B · RHYTHM → D · BREATH',db:'D · BREATH → B · RHYTHM'};
+  const orderJoinX=1700+90;
+  const orderSecondStartX=1880;
   const chainDescriptions={
     flow:'FLOW｜長い下り → 深い谷 → 小さな谷 → 長い上り。勢いをつないで進む。',
     rhythm:'RHYTHM｜浅い谷と短い岸をつなぐ。着地の押し直しを楽しむ。',
@@ -39,7 +72,7 @@
   let kind='pumpkin',terrain='bowl',mode='single',feedback='retry',course,state,activePointer=null,pointerSource=null,axis=0;
   let keys=new Set(),canvasSize={width:0,height:0,dpr:1},lastTime=0,view=null;
   const byId=id=>doc.getElementById(id);
-  function points(){return mode==='chain'?chainPoints[terrain]:terrainPoints[terrain]}
+  function points(){return mode==='order'?orderPoints[terrain]:mode==='chain'?chainPoints[terrain]:terrainPoints[terrain]}
   function limits(){const p=points();return {min:p[0][0],max:p[p.length-1][0]}}
   function floor(x){const l=limits();return W.curve('surface',Math.max(l.min,Math.min(l.max,x)),course)}
   const geometry={
@@ -59,15 +92,19 @@
     release();
     course={curves:{surface:points().map(p=>p.slice())},surfaces:['surface'],holes:[],cellars:[],gaps:[],finishX:100000};
     state=P.create(kind,P.defaults());
-    const b=state[kind],f=floor(mode==='chain'?-410:-420);
+    const b=state[kind],f=floor(mode==='single'?-420:-410);
     b.layer='surface';b.x=f.x+f.nx*b.r;b.y=f.y+f.ny*b.r+(kind==='rutabaga'?95:0);
     b.vx=b.vy=0;b.grounded=kind==='pumpkin';
     for(const item of doc.querySelectorAll('[data-kind]'))item.classList.toggle('active',item.dataset.kind===kind);
     for(const item of doc.querySelectorAll('[data-terrain]'))item.classList.toggle('active',mode==='single'&&item.dataset.terrain===terrain);
     for(const item of doc.querySelectorAll('[data-chain]'))item.classList.toggle('active',mode==='chain'&&item.dataset.chain===terrain);
+    for(const item of doc.querySelectorAll('[data-order]'))item.classList.toggle('active',mode==='order'&&item.dataset.order===terrain);
     for(const item of doc.querySelectorAll('[data-study]'))item.classList.toggle('active',item.dataset.study===mode);
     byId('single-courses').hidden=mode!=='single';byId('chain-courses').hidden=mode!=='chain';
-    byId('saved').textContent=(mode==='chain'?chainDescriptions:descriptions)[terrain];
+    byId('order-courses').hidden=mode!=='order';
+    byId('order-hint').hidden=mode!=='order';
+    byId('saved').textContent=(mode==='order'?orderDescriptions:mode==='chain'?chainDescriptions:descriptions)[terrain];
+    const label=byId('order-progress');if(label)label.textContent=mode==='order'?(orderParts[terrain]+' · 前半'):'';
     computeView();
   }
   function computeView(){
@@ -111,6 +148,11 @@
     ctx.setTransform(dpr,0,0,-dpr,0,height*dpr);
     ctx.fillStyle='#faf1dc';ctx.fillRect(0,0,width,height);
     const v=computeView(),l=limits();
+    if(mode==='order'){
+      const label=byId('order-progress');
+      if(label)label.textContent=orderParts[terrain]+
+        (state[kind].x>=orderSecondStartX?' · 後半':state[kind].x>=1700?' · つなぎ':' · 前半');
+    }
     ctx.save();ctx.translate(v.originX,v.originY);ctx.scale(v.zoom,v.zoom);
     ctx.beginPath();ctx.moveTo(l.min-15,v.bottom-80);ctx.lineTo(l.min-15,floor(l.min).y);
     for(let x=l.min;x<=l.max;x+=5)ctx.lineTo(x,floor(x).y);
@@ -179,14 +221,23 @@
   root.addEventListener('keyup',event=>{keys.delete(event.code)});
   root.addEventListener('blur',release);
   doc.addEventListener('visibilitychange',()=>{if(doc.hidden){release();lastTime=0}});
-  for(const b of doc.querySelectorAll('[data-kind]'))b.addEventListener('click',()=>{kind=b.dataset.kind;reset()});
-  for(const b of doc.querySelectorAll('[data-study]'))b.addEventListener('click',()=>{mode=b.dataset.study;terrain=mode==='chain'?'flow':'bowl';reset()});
+  for(const b of doc.querySelectorAll('[data-kind]'))b.addEventListener('click',()=>{kind=b.dataset.kind;if(mode==='order')terrain=kind==='pumpkin'?'ac':'bd';reset()});
+  for(const b of doc.querySelectorAll('[data-study]'))b.addEventListener('click',()=>{
+    mode=b.dataset.study;
+    terrain=mode==='order'?(kind==='pumpkin'?'ac':'bd'):mode==='chain'?'flow':'bowl';
+    reset();
+  });
   for(const b of doc.querySelectorAll('[data-chain]'))b.addEventListener('click',()=>{if(!chainPoints[b.dataset.chain])return;mode='chain';terrain=b.dataset.chain;reset()});
+  for(const b of doc.querySelectorAll('[data-order]'))b.addEventListener('click',()=>{
+    if(!orderPoints[b.dataset.order])return;mode='order';terrain=b.dataset.order;reset();
+  });
   for(const b of doc.querySelectorAll('[data-feedback]'))b.addEventListener('click',()=>{feedback=b.dataset.feedback;for(const item of doc.querySelectorAll('[data-feedback]'))item.classList.toggle('active',item===b)});
   for(const b of doc.querySelectorAll('[data-terrain]'))b.addEventListener('click',()=>{if(!terrainPoints[b.dataset.terrain])return;mode='single';terrain=b.dataset.terrain;reset()});
   byId('reset').addEventListener('click',reset);
   byId('save').addEventListener('click',()=>{
-    const entry={kind,mode,terrain,feedback,points:points().map(p=>p.slice()),note:byId('memo').value.trim(),at:new Date().toISOString()};
+    const entry={kind,mode,terrain,feedback,points:points().map(p=>p.slice()),
+      ...(mode==='order'?{sourceCourses:orderSpecs[terrain].slice(),junctionX:orderJoinX}:{}),
+      note:byId('memo').value.trim(),at:new Date().toISOString()};
     try{
       const key='pumpoko-feel-lab-terrains-v1';
       const items=JSON.parse(root.localStorage.getItem(key)||'[]');
@@ -198,7 +249,7 @@
   if(root.ResizeObserver)new root.ResizeObserver(resize).observe(canvas.parentElement);
   resize();reset();
   if(new URLSearchParams(root.location.search).get('dev')==='1'){
-    root.FeelLabProbe=()=>({kind,terrain,mode,feedback,axis:currentAxis(),x:state[kind].x,y:state[kind].y,
+    root.FeelLabProbe=()=>({kind,terrain,mode,feedback,parts:mode==='order'?orderSpecs[terrain]:null,axis:currentAxis(),x:state[kind].x,y:state[kind].y,
       vx:state[kind].vx,vy:state[kind].vy,time:state.time,view:{...view},
       canvas:{width:canvasSize.width,height:canvasSize.height},grounded:state[kind].grounded});
   }

@@ -36,3 +36,12 @@ footer{text-align:center;line-height:1.3}
 .observation[open]{display:grid;gap:8px}
 .observation .feel-feedback{margin-top:8px}
 .observation textarea{margin-top:4px}
+
+/* Three equal-width experiment-mode tabs; paired orders stay in a four-button row. */
+.study-tabs{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.study-tabs button{min-width:0;font-size:11px;line-height:1.25;padding:7px 2px}
+#order-courses{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+#order-courses button{white-space:nowrap;font-size:13px;font-weight:600;min-height:46px}
+#order-hint{font-size:11px;line-height:1.35;color:#897359}
+.order-progress{margin:0;font-size:11px;color:#6f825f;line-height:1.2}
+.order-progress:empty{display:none}
