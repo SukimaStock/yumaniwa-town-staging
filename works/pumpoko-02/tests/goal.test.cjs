@@ -1,9 +1,10 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{execFileSync}=require('node:child_process');
 const P=require('../physics.js'),W=require('../world.js'),C=require('../courses.js'),S=require('../story.js'),{harness}=require('./harness.cjs');
+const {SHIFT,protectPhysics}=require('./stage1-reference.cjs');
 const BASE='0246b9ec22f7113addca96c53082474ab87fbcc7';
 function ready(x=7680,speed=120){
- const w=W.createCourse(C.get('world4'));
+ x+=SHIFT;const w=W.createCourse(C.get('world4'));
  w.holes.forEach((h,i)=>{h.state='complete';h.swaps=1;h.occupant=w.entities[i];Object.assign(h.occupant,{x:h.x,y:h.y,plugged:true,vx:0,vy:0});});
  const b=w.entities.at(-1),f=W.curve('finish',x,w.course);
  Object.assign(b,{x:f.x+f.nx*b.r,y:f.y+f.ny*b.r,vx:speed*f.tx,vy:speed*f.ty,layer:'finish',plugged:false,grounded:true});
@@ -14,13 +15,17 @@ function run(w,input=0,seconds=45){let count=0,maxX=-Infinity,prior=null;for(let
  const events=W.update(w,1/60);count+=events.filter(e=>e.type==='seat').length;maxX=Math.max(maxX,w.pumpkin.x);
  }return {count,maxX,prior};}
 test('all existing runtime/assets outside the five declared goal files remain exact current main',()=>{
- const repo=path.resolve(__dirname,'../../..'),allowed=['app.js','courses.js','world.js','story.js','world-draw.js'];
+ const repo=path.resolve(__dirname,'../../..'),allowed=['physics.js','app.js','courses.js','world.js','story.js','world-draw.js'];
  const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!allowed.includes(path.basename(p)));
  for(const file of files)assert.ok(fs.readFileSync(path.join(repo,file)).equals(execFileSync('git',['show',BASE+':'+file],{cwd:repo,maxBuffer:10e6})),file);
- const before=harness({sourceRef:BASE}).w.FruitLabCourses.get('world4'),after=C.get('world4');
+ protectPhysics();
+ const before=harness({sourceRef:BASE}).w.FruitLabCourses.get('world4'),after=structuredClone(C.get('world4'));
+ for(const [layer,points]of Object.entries(after.curves))if(layer!=='surface')for(const p of points)p[0]-=SHIFT;
+ for(const h of after.holes)h.x-=SHIFT;for(const c of after.cellars)for(const k of ['left','right','roofStart','exitX'])c[k]-=SHIFT;
+ after.crestStart-=SHIFT;after.finishX-=SHIFT;
  assert.equal(JSON.stringify(after.curves.finish.slice(0,3)),JSON.stringify(before.curves.finish.slice(0,3)));
  for(const key of ['holes','cellars','surfaces','crestStart','finishX'])assert.equal(JSON.stringify(after[key]),JSON.stringify(before[key]),key);
- for(const key of ['surface','underground','return','underground2'])assert.equal(JSON.stringify(after.curves[key]),JSON.stringify(before.curves[key]),key);
+ for(const key of ['underground','return','underground2'])assert.equal(JSON.stringify(after.curves[key]),JSON.stringify(before.curves[key]),key);
  const oldWorld=execFileSync('git',['show',BASE+':works/pumpoko-02/world.js'],{cwd:repo,encoding:'utf8'}),now=fs.readFileSync(path.join(__dirname,'../world.js'),'utf8');
  assert.equal(now.slice(now.indexOf('  function hole('),now.indexOf('  function surfaceHeight(')),oldWorld.slice(oldWorld.indexOf('  function hole('),oldWorld.indexOf('  function surfaceHeight(')),'all four collision/rejection/compression/transfer functions stay byte-identical');
  const oldApp=execFileSync('git',['show',BASE+':works/pumpoko-02/app.js'],{cwd:repo,encoding:'utf8'}),app=fs.readFileSync(path.join(__dirname,'../app.js'),'utf8');
@@ -33,16 +38,16 @@ for(const [name,speed,input]of [['slow',10,0],['ordinary',120,0],['fast held-rig
  const pose={x:b.x,y:b.y,angle:b.angle};for(let i=0;i<1200;i++){P.input(w,i%2?-1:1);assert.ok(!W.update(w,1/60).some(e=>e.type==='seat'));assert.deepEqual({x:b.x,y:b.y,angle:b.angle},pose);assert.equal(w.target,0);assert.equal(w.axis,0);}
 });
 test('stopping before the rise does not finish, and ordinary controls recover',()=>{
- const w=ready(7300,0),b=w.pumpkin;run(w,0,2);assert.equal(w.finished,false);assert.ok(Math.abs(b.x-7300)<1);assert.equal(w.target,0);
+ const w=ready(7300,0),b=w.pumpkin;run(w,0,2);assert.equal(w.finished,false);assert.ok(Math.abs(b.x-(7300+SHIFT))<1);assert.equal(w.target,0);
  run(w,1);assert.equal(w.finished,true);
 });
 test('fast free entry can overshoot, then reverse and return without hidden assistance',()=>{
- const w=ready(7680,620);let overshot=false;const r=run(w,(w)=>{if(w.pumpkin.x>7900)overshot=true;return overshot?-1:0;},4);
- assert.ok(overshot);assert.ok(r.maxX>7900);assert.equal(w.finished,false,'passing the pocket at speed cannot finish');
- run(w,1);assert.equal(w.finished,true);assert.ok(w.pumpkin.x>7700&&w.pumpkin.x<7800);
+ const w=ready(7680,620);let overshot=false;const r=run(w,(w)=>{if(w.pumpkin.x>7900+SHIFT)overshot=true;return overshot?-1:0;},4);
+ assert.ok(overshot);assert.ok(r.maxX>7900+SHIFT);assert.equal(w.finished,false,'passing the pocket at speed cannot finish');
+ run(w,1);assert.equal(w.finished,true);assert.ok(w.pumpkin.x>7700+SHIFT&&w.pumpkin.x<7800+SHIFT);
 });
 test('contact, layer, actual support, all four handoffs and low speed are required; finishX passage is insufficient',()=>{
- for(const [name,patch]of [['airborne',{grounded:false,y:260}],['early handoff',{handoffs:3}],['outside pocket',{x:7900}],['fast crossing',{vx:620}],['wrong layer',{layer:'return'}]]){
+ for(const [name,patch]of [['airborne',{grounded:false,y:260}],['early handoff',{handoffs:3}],['outside pocket',{x:7900+SHIFT}],['fast crossing',{vx:620}],['wrong layer',{layer:'return'}]]){
   const w=ready(7745,0);if('handoffs'in patch)w.handoffs=patch.handoffs;else Object.assign(w.pumpkin,patch);P.input(w,0);W.update(w,P.STEP);assert.equal(w.finished,false,name);
  }
 });
@@ -84,7 +89,7 @@ test('real app emits one softer existing shell sound and preserves pause/mute/re
 });
 module.exports={ready,run,BASE};
 test('final contact path has no folded circle offset; goal squash is short, grounded, read-only and restores the exact art',()=>{
- const c=C.get('world4');for(let x=7300;x<8540;x+=2){const f=W.curve('finish',x,c);assert.ok(1-36*f.curvature/(1+f.slope*f.slope)**1.5>.24,'no contact fold at '+x);}
+ const c=C.get('world4');for(let x=7300+SHIFT;x<8540+SHIFT;x+=2){const f=W.curve('finish',x,c);assert.ok(1-36*f.curvature/(1+f.slope*f.slope)**1.5>.24,'no contact fold at '+x);}
  const h=harness(),w=ready(7680,120);run(w,0);assert.ok(w.finished);const {createCanvas}=require('@napi-rs/canvas'),canvas=createCanvas(390,740),native=canvas.getContext('2d');
  for(const [age,expected]of [[0,null],[.16,[1+.085*.6,1-.085]],[.40,[1-.012*.6,1+.012]],[.6,null]]){
   w.time=w.goal.seatedAt+age;const prior=JSON.stringify(w),scales=[];
@@ -103,7 +108,7 @@ test('a muted seat is consumed once and is not replayed on unmute',()=>{
 
 test('every part of the final approach restarts without pumping or precise speed; cubic slopes stay below default drive balance',()=>{
  const c=C.get('world4'),balance=P.defaults().pumpkin.response/P.defaults().pumpkin.mass/P.G;
- for(let i=3;i<c.curves.finish.length&&c.curves.finish[i][0]<=7690;i++){
+ for(let i=3;i<c.curves.finish.length&&c.curves.finish[i][0]<=7690+SHIFT;i++){
   const a=c.curves.finish[i-1],b=c.curves.finish[i],length=b[0]-a[0];
   const qa=6*(a[1]-b[1])/length+3*a[2]+3*b[2],qb=6*(b[1]-a[1])/length-4*a[2]-2*b[2];
   const t=qa?-qb/(2*qa):-1,maximum=Math.max(a[2],b[2],t>0&&t<1?qa*t*t+qb*t+a[2]:-Infinity);

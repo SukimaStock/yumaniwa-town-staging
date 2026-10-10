@@ -1,4 +1,5 @@
 'use strict';
+const {SHIFT,x:shiftX,protectPhysics}=require('./stage1-reference.cjs');
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{execFileSync}=require('node:child_process');
 const {createCanvas}=require('@napi-rs/canvas'),{BASE,collect,draw,picks}=require('./socket-review.cjs');
 const {w,clips}=collect(),W=w.FruitLabWorld;
@@ -16,7 +17,8 @@ function sprite(frame,body,clipped=true){
 }
 test('all existing runtime/assets except terrain drawing and approved shot timing/goal contact stay exact #186 bytes',()=>{
  const repo=path.resolve(__dirname,'../../..');
- const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!p.endsWith('/world-draw.js')&&!['/story.js','/app.js','/courses.js','/world.js'].some(x=>p.endsWith(x)));
+ const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!p.endsWith('/world-draw.js')&&!['/physics.js','/story.js','/app.js','/courses.js','/world.js'].some(x=>p.endsWith(x)));
+ protectPhysics();
  for(const p of files)assert.deepEqual(fs.readFileSync(path.join(repo,p)),execFileSync('git',['show',BASE+':'+p],{cwd:repo,maxBuffer:10e6}),p);
 });
 for(const clip of clips){
@@ -57,8 +59,8 @@ for(const clip of clips){
 }
 test('ordinary surface/cellar art outside sockets remains byte-identical in rendered appearance',()=>{
  for(const [layer,x]of [['surface',530],['underground',1930],['return',3990],['underground2',6090],['finish',7500]]){
-  const s=W.createCourse(w.FruitLabCourses.get('world4')),b=w.FruitLabPhysics.body(layer==='surface'||layer==='return'||layer==='finish'?'pumpkin':'rutabaga',0),f=W.curve(layer,x,s.course);
+  const sx=shiftX(layer,x);const s=W.createCourse(w.FruitLabCourses.get('world4')),b=w.FruitLabPhysics.body(layer==='surface'||layer==='return'||layer==='finish'?'pumpkin':'rutabaga',0),f=W.curve(layer,sx,s.course);
   Object.assign(b,{layer,x:f.x+f.nx*b.r,y:f.y+f.ny*b.r,plugged:false});s.entities=[b];
-  const frame={world:s,view:{x,y:f.y+70,z:.8}},visible=sprite(frame,b),full=sprite(frame,b,false);assert.ok(Buffer.from(visible.data).equals(Buffer.from(full.data)),layer+' unchanged ordinary sprite');
+  const frame={world:s,view:{x:sx,y:f.y+70,z:.8}},visible=sprite(frame,b),full=sprite(frame,b,false);assert.ok(Buffer.from(visible.data).equals(Buffer.from(full.data)),layer+' unchanged ordinary sprite');
  }
 });

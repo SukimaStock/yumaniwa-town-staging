@@ -36,8 +36,17 @@
       const f = curve(b.layer, x, course);
       x -= clamp(((f.x-b.x)+(f.y-b.y)*f.slope)/Math.max(.4,1+f.slope*f.slope+(f.y-b.y)*f.curvature),-45,45);
     }
-    const f = curve(b.layer, x, course); f.distance = (b.x-f.x)*f.nx+(b.y-f.y)*f.ny; return f;
+    const f = curve(b.layer, x, course); f.distance = (b.x-f.x)*f.nx+(b.y-f.y)*f.ny;
+    if(course?.gaps?.some(g=>g.layer===b.layer)){
+      if(!hasGround(b.layer,f.x,course)||f.distance<0)return emptyFrame;
+    }
+    return f;
   }
+  // Infinity explicitly means no support, never a virtual floor. Gap endpoints
+  // remain real top contact; there are no extra side-wall clamps at the lips.
+  const emptyFrame=Object.freeze({support:false,distance:Infinity});
+  function hasGround(layer,x,course){return !course?.gaps?.some(g=>g.layer===layer&&x>g.a&&x<g.b);}
+  function groundFrame(layer,x,course){return hasGround(layer,x,course)?curve(layer,x,course):emptyFrame;}
   function fruit(kind, x, layer, plug = false, course) {
     const b = P.body(kind, 0); b.layer = layer; b.plugged = plug;
     const f = curve(layer, x, course); b.x = f.x + f.nx*b.r; b.y = f.y+f.ny*b.r;
@@ -63,6 +72,7 @@
       const h=hole(spec.id,spec.x,spec.y,spec.direction,occupant,spec.direction<0?'pumpkin':'rutabaga',spec.exitLayer);
       h.entryLayer=spec.entryLayer;return h;
     });
+    s.stages=course.stage1?{completed:[],checkpoint:null,failedAt:null}:null;
     s.rutabaga=s.entities[1];s.camera={x:s.pumpkin.x,y:s.pumpkin.y+70,vx:0,vy:0};return s;
   }
   function hole(id,x,y,direction,occupant,incomingKind,exitLayer) {
@@ -147,7 +157,7 @@
     return Math.min(surfaceHeight(x)-25,x<650?430:Math.max(215,430-(x-650)*215/590)); }
   function geometry(s,b) {
     const findContact=s.course?body=>contact(body,s.course):contact;
-    return {contact:findContact,frame:x=>curve(b.layer,x,s.course),constrain(body) {
+    return {contact:findContact,frame:x=>groundFrame(b.layer,x,s.course),constrain(body) {
       const points=(s.course?s.course.curves:CURVES)[body.layer],left=points[0][0]+body.r,right=points.at(-1)[0]-body.r;
       if(body.x<left||body.x>right){body.x=clamp(body.x,left,right);body.vx=body.x===left?Math.abs(body.vx)*.35:-Math.abs(body.vx)*.35;}
       const floor=findContact(body);
@@ -195,7 +205,8 @@
         // projection resumes. This does not alter the pumpkin's gravity/drive.
         // Only the extended course has an extra convex crest. Its surface can
         // support, never pull, a rolling fruit; gravity handles the brief flight.
-        if(s.course?.crestStart && active.layer==='return' && active.x>=s.course.crestStart && active.grounded){
+        if((s.course?.crestStart && active.layer==='return' && active.x>=s.course.crestStart ||
+          s.course?.stage1 && active.layer==='surface' && active.x>1220) && active.grounded){
           const f=geo.contact(active),v=active.vx*f.tx+active.vy*f.ty;
           if(f.curvature<0 && v*v*(-f.curvature)/Math.pow(1+f.slope*f.slope,1.5)>P.G*f.ny)active.grounded=false;
         }
@@ -208,10 +219,30 @@
       }
       for(const h of s.holes)advanceHole(s,h,step);
       const b=s[s.active];
+      if(s.course?.stage1){
+        s.stages??={completed:[],checkpoint:null,failedAt:null};
+        if(s.handoffs===1&&!s.stages.completed.length){
+          s.stages.completed.push(1);
+          // Only the first clear is installed now. The observed outgoing pose
+          // and indexed world data can seed future stage recovery.
+          s.stages.checkpoint={stage:2,at:s.time,active:s.active,layer:b.layer,
+            entityIndex:s.entities.indexOf(b),handoffs:s.handoffs,phase:s.phase,
+            body:JSON.parse(JSON.stringify(b)),entities:JSON.parse(JSON.stringify(s.entities)),
+            holes:s.holes.map(h=>({...JSON.parse(JSON.stringify(h)),
+              occupantIndex:s.entities.indexOf(h.occupant),incomingIndex:s.entities.indexOf(h.incoming)})),
+            camera:{...s.camera},settings:JSON.parse(JSON.stringify(s.settings))};
+          s.events.push({type:'stage-clear',stage:1,next:2});
+        }
+        if(s.handoffs===0&&b.layer==='surface'&&b.y<s.course.stage1.failY&&s.stages.failedAt===null){
+          s.stages.failedAt=s.time;s.events.push({type:'fall',kind:b.kind});
+          s.target=s.axis=s.previousInput=0;s.bufferedAt=-10;s.boostUsed=true;
+        }
+      }
       if(b.kind==='pumpkin'&&b.grounded&&Math.hypot(b.vx,b.vy)>85&&s.time-s.lastRoll>.65){s.events.push({type:'roll',kind:b.kind,strength:Math.hypot(b.vx,b.vy)});s.lastRoll=s.time;}
       // No reset at exchange and no view of the next plug before the player.
       for(const key of ['x','y']) {
-        const target=b[key]+(key==='y'?70:0),v='v'+key;
+        let target=b[key]+(key==='y'?70:0);const v='v'+key;
+        if(s.course?.stage1&&s.handoffs===0&&key==='y')target=Math.max(target,s.course.stage1.cameraFloor);
         s.camera[v]+=((target-s.camera[key])*49-s.camera[v]*14)*step;
         s.camera[key]+=s.camera[v]*step;
       }
@@ -223,5 +254,5 @@
     }
     return s.events;
   }
-  return {PARAMETERS,CURVES,curve,surfaceHeight,roof,contact,create,createCourse,update,eligible};
+  return {PARAMETERS,CURVES,curve,groundFrame,hasGround,surfaceHeight,roof,contact,create,createCourse,update,eligible};
 });

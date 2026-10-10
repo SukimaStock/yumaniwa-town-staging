@@ -29,10 +29,10 @@
     for(const space of spaces)cut(c,space.a,space.b,space.floor,space.ceiling);
     c.clip();
   }
-  function skin(c,left,right,bottom,surface,cavities,mouths) {
-    c.save();solid(c,left,right,bottom,surface,[...cavities,...mouths]);
+  function skin(c,left,right,bottom,surface,cavities,mouths,gaps) {
+    c.save();solid(c,left,right,bottom,surface,[...cavities,...mouths,...gaps]);
     c.beginPath();line(c,left,right,surface);
-    for(const space of [...cavities,...mouths])cut(c,space.a,space.b,space.floor,space.ceiling);
+    for(const space of [...cavities,...mouths,...gaps])cut(c,space.a,space.b,space.floor,space.ceiling);
     c.lineCap='round';c.lineJoin='round';
     // The clip puts the entire skin / pale band on the SOLID side of the same
     // contour. Floors, ceilings, vertical cut ends and socket walls share it.
@@ -85,7 +85,10 @@
     const mouths=s.holes.filter(h=>h.x+44>=left&&h.x-44<=right).map(h=>({
       a:h.x-44,b:h.x+44,floor:roof,ceiling:surface
     }));
-    const spaces=[...cavities,...mouths];
+    const gaps=(course?.gaps||[]).filter(g=>g.b>=left&&g.a<=right).map(g=>({
+      a:g.a,b:g.b,floor:()=>bottom-1,ceiling:()=>Math.max(1100,camera.y+1000/z)
+    }));
+    const spaces=[...cavities,...mouths,...gaps];
     // All material layers share actual openings; no fruit fill crosses a mouth.
     c.save();solid(c,left,right,bottom,surface,spaces);
     c.beginPath();line(c,left,right,surface);c.lineTo(right,bottom);c.lineTo(left,bottom);c.closePath();
@@ -117,7 +120,7 @@
          b.y-reach<Math.max(surface(h.x-44),surface(h.x+44))&&
          b.y+reach>Math.min(roof(h.x-44),roof(h.x+44))));
       if(hole)groups.get(hole).push(b);else free.push(b);
-      if(!b.plugged){
+      if(!b.plugged&&W.hasGround(b.layer,b.x,course)){
         const floor=W.curve(b.layer,b.x,course).y,altitude=Math.max(0,b.y-b.r-floor);
         c.save();if(hole)solid(c,left,right,bottom,surface,spaces);
         A.ellipse(c,b.x,floor+2,b.r,4,`rgba(80,54,27,${.18/(1+altitude/80)})`);c.restore();
@@ -141,7 +144,7 @@
       c.save();air(c,left,right,Math.max(1100,camera.y+1000/z),surface,spaces);
       for(const b of bodies)fruit(b);c.restore();
     }
-    skin(c,left,right,bottom,surface,cavities,mouths);
+    skin(c,left,right,bottom,surface,cavities,mouths,gaps);
     c.restore();
 
   };

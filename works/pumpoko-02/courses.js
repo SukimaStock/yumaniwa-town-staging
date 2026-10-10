@@ -41,6 +41,22 @@
   four.cellars=[
     {layer:'underground',left:1310,right:2860,roofStart:1550,roofHeight:430,exitX:2790,exitRoof:215},
     {layer:'underground2',left:5120,right:7120,roofStart:5360,roofHeight:160,exitX:7050,exitRoof:15}];
+  // One work-local extension. Every later phrase is a rigid x translation;
+  // its height, derivative, clearance and mouth geometry stay authored above.
+  const shift=3700;
+  four.curves.surface=[...four.curves.surface.slice(0,8),
+    [1380,490,-.7],[1500,360,0],[1600,375,.25],[1700,415,.4],
+    [1800,365,-.08],[2100,350,0],[2380,380,.2],
+    [2600,440,0],[2810,520,0],[3090,320,0],[3270,370,.4],[3400,430,.4],
+    [3580,445,.05],[3890,460,0],[4130,440,0],[4500,520,0],[4920,580,0],
+    ...four.curves.surface.slice(8).map(p=>[p[0]+shift,p[1],p[2]])];
+  four.gaps=[{id:'first',layer:'surface',a:1700,b:1800,runup:320},
+    {id:'second',layer:'surface',a:3400,b:3580,runup:590}];
+  four.stage1={shift,startX:-250,endX:1400+shift,cameraFloor:320,failY:-300,retrySeconds:.65};
+  for(const [layer,points]of Object.entries(four.curves))if(layer!=='surface')for(const p of points)p[0]+=shift;
+  for(const h of four.holes)h.x+=shift;
+  for(const cell of four.cellars)for(const key of ['left','right','roofStart','exitX'])cell[key]+=shift;
+  four.crestStart+=shift;four.finishX+=shift;four.goal.x+=shift;
   function freeze(v){if(v&&typeof v==='object'){Object.values(v).forEach(freeze);Object.freeze(v);}return v;}
   const courses=freeze({world2:two,world4:four});
   function get(id){const c=courses[id];if(!c)throw Error('Unknown comparison course');return c;}
