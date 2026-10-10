@@ -27,22 +27,23 @@ async function originalRunner(){
 }
 function runner(ref){
  const h=harness({native:true,width:390,height:740,sourceRef:ref}),title=h.renderCanvas.toBuffer('image/png');
+ h.pointer('pointerdown',195,365);
  for(let i=0;i<1800&&h.probe().prologue.loose<9;i++){
-  if(i%30===0){h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');h.key('keydown',i%60===0?'ArrowRight':'ArrowLeft');}h.frame();
+  h.pointer('pointermove',195+79*Math.sin(i/60*2.3),365+70*Math.cos(i/60*2.3));h.frame();
  }
- assert.equal(h.probe().prologue.loose,9);h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');
+ assert.equal(h.probe().prologue.loose,9);h.pointer('pointerup',195,365);
  return {canvas:h.renderCanvas,title,frame:h.frame,probe:h.probe};
 }
 
-(async()=>{
+async function main(){
  const {mkdtempSync,rmSync}=fs,{tmpdir}=require('node:os'),{execFileSync}=require('node:child_process');
  const temporary=mkdtempSync(path.join(tmpdir(),'pumpoko-entry-'));
  const out=path.resolve(__dirname,'../visual-review');fs.mkdirSync(out,{recursive:true});
- const runs=[await originalRunner(),runner('b40842a3b919277ad432f3452e98e366ea980d92'),runner(null)];
- const names=['Original PUMPOKO','02 before (#183)','02 revised: scale / time'];
+ const runs=[await originalRunner(),runner('7a5fadefc589bcf5b743ee86ac35a104df8ad9da'),runner(null)];
+ const names=['Original PUMPOKO','02 before (#184)','02 revised: original moving fall'];
  const sheet=createCanvas(1170,790),c=sheet.getContext('2d'),selected=[];
  try {
-  for(let i=0;i<165;i++){
+  for(let i=0;i<210;i++){
    c.fillStyle='#faf1dc';c.fillRect(0,0,1170,790);
    for(let j=0;j<runs.length;j++){
     const r=runs[j];if(i>12)for(let k=0;k<4;k++)r.frame();
@@ -56,10 +57,10 @@ function runner(ref){
   }
   assert.equal(runs[0].probe().mode,'journey');
   for(const r of runs.slice(1)){assert.equal(r.probe().phase,'playing');assert.equal(r.probe().model.handoffs,0);}
-  const strip=createCanvas(1560,3*340),sc=strip.getContext('2d');sc.fillStyle='#faf1dc';sc.fillRect(0,0,strip.width,strip.height);
+  const strip=createCanvas(2184,3*340),sc=strip.getContext('2d');sc.fillStyle='#faf1dc';sc.fillRect(0,0,strip.width,strip.height);
   for(let j=0;j<3;j++){
    sc.fillStyle='#695539';sc.font='16px sans-serif';sc.fillText(names[j]+' — elapsed seconds after detachment, left to right',8,j*340+19);
-   for(let i=0;i<10;i++){
+   for(let i=0;i<14;i++){
     sc.drawImage(await loadImage(selected[i]),j*390,30,390,740,i*156,j*340+27,156,296);
     sc.fillStyle='#695539';sc.font='12px sans-serif';sc.fillText(i+'s',i*156+70,j*340+337);
    }
@@ -67,7 +68,9 @@ function runner(ref){
   fs.writeFileSync(path.join(out,'opening-sequence.png'),strip.toBuffer('image/png'));
   execFileSync('ffmpeg',['-loglevel','error','-y','-framerate','15','-i',path.join(temporary,'%04d.png'),'-c:v','libx264','-pix_fmt','yuv420p','-crf','26','-movflags','+faststart',path.join(out,'opening-film.mp4')]);
   const probe=JSON.parse(execFileSync('ffprobe',['-v','error','-show_entries','format=duration:stream=codec_name,width,height,nb_frames','-of','json',path.join(out,'opening-film.mp4')],{encoding:'utf8'}));
-  assert.equal(Number(probe.format.duration),11);assert.equal(Number(probe.streams[0].nb_frames),165);
-  console.log(JSON.stringify({out,frames:165,fps:15,duration:11,baseline:'b40842a3b919277ad432f3452e98e366ea980d92',alignment:'actual nine-seed detachment + .8s title still; native timings, 60Hz updates',capture:'native Canvas / DOM doubles, no audio or device evidence',probe}));
+  assert.equal(Number(probe.format.duration),14);assert.equal(Number(probe.streams[0].nb_frames),210);
+  console.log(JSON.stringify({out,frames:210,fps:15,duration:14,baseline:'7a5fadefc589bcf5b743ee86ac35a104df8ad9da',alignment:'actual nine-seed detachment + .8s title still; native timings, 60Hz updates',capture:'native Canvas / DOM doubles, no audio or device evidence',probe}));
  }finally{rmSync(temporary,{recursive:true,force:true});}
-})().catch(e=>{console.error(e);process.exitCode=1});
+}
+module.exports={originalRunner,runner};
+if(require.main===module)main().catch(e=>{console.error(e);process.exitCode=1});

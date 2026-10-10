@@ -1,36 +1,35 @@
-# PUMPOKO 02 — entering the material world, 2026-10-10
+# PUMPOKO 02 — original opening, actual roots, 2026-10-10
 
-Base: `b40842a3b919277ad432f3452e98e366ea980d92` (#183). Source is GitHub's read-only `works/pumpoko/`. Current main and related PRs were checked first; original-only draft #140 is not applied.
+Base: `7a5fadefc589bcf5b743ee86ac35a104df8ad9da` (#184). Original GitHub work is read-only. Main and open PRs were checked first; original-only draft #140 is not applied. Production is untouched.
 
-## Re-evaluating the original as a shot
+## What is reused as one opening
 
-Before implementation, 165 timed native Canvas frames (15fps / 11 seconds) and an MP4 compared actual original scenes with #183. Both were aligned at real nine-seed detachment, not at selected matching silhouettes. Original `sketch.js` leaves a 1.8-second breath. `journey.js` changes view scale from 1 to 1.85 over its 6.4-second transition. Its opening curve begins after 36% of that transition; `stage-draw.js` enlarges the cut, releases its outline, and brings terrain up from below while broad distant planes appear.
+`opening.js` extracts the original `journey.js` opening kernel, rather than a new flight animation: title seed objects and their velocity/spin are retained; the .8 title projection is baked once; fixed 1/120-second vessel inertia, concavity, expanding physical rim, ellipse support, terrain bounce, pair collisions, rolling pose, opening curve, median/velocity camera and 1→1.85 zoom run together. The original post-detachment 1.8-second breath is restored; title dynamics continue during it. Original seed gameplay controls, jump rewards, final field layout and ending state machine are not imported.
 
-The perceived threshold is losing the enclosing perimeter: before that, cream space surrounds a recognisable object; afterward, flesh occupies the whole view and the remaining seed grains become its scale reference. Grains grow in the view rather than becoming miniature props. Quiet time before and during this loss of the edge allows attention to change from watching a pumpkin to looking around inside its material. Sky and land arrive while this change is still underway, rather than giving a separate explanation of the transformation.
+`opening-draw.js` reuses the original `stage-draw.js` shot ordering and timing: broad distant planes appear with opening progress; the cut expands by `1 + opening * 1150 / 94` under the seed camera; its outline fades on the original curve; terrain rises by `(1-opening) * 700`; exactly one copy of each grain is drawn. The title's existing original vessel primitive supplies the cut. No matched rim contour, new zoom timeline, suction or dark transition is added.
 
-#183's timed sequence reveals a clear ground early and shrinks its grains from title size toward .52 screen scale. Its exact skin-to-course interpolation makes the mechanism legible quickly. The hypothesis for this revision is that this certainty, and the outward scale change, work against the original's ambiguity. This is an interpretation of code and timed renders, not a claim of successful iPhone perception.
+The connection adapter keeps original Y-down coordinates, converts once to 02 Y-up units (`1.85 / .8`), and samples the existing 02 surface for both seed contact and terrain rendering. The initial floor is 100 original units below the cut centre, as in the source. This changes the landing terrain to the actual 02 course, not the opening's motion/camera equations. The original course is not copied over the accepted WORLD LOOP course.
 
-## Opening prototype
+## Removed scheduled flight
 
-- Remove `shellScale`, `openingSurface`, the captured lower-rim data and its clipping/morph renderer. No contour is fitted to the course.
-- Keep the existing 1.35-second post-detachment breath. During the 7.1-second opening, enlarge the cut gently, let its perimeter leave the view, and keep warm flesh present before the landscape becomes legible.
-- Project the same title grains into presentation space once. Start the opening camera at .42× and move inward to the unchanged .8× playing frame, with a very small settling overshoot (peak approximately .807×). Airborne grains retain their own scale, so their apparent size grows to almost twice the title size. They quietly fade into planting only after landing.
-- Reveal air/distant planes while the actual course rises from below the viewport. This is a temporary uniform presentation lift, not a course morph or collision change. Lift is zero at 4.7 seconds, before first landing at 4.9 seconds.
-- Seed fall overlaps enclosure and landscape reveal. Growth happens within the shot; the nine-to-three grouping receives no extra marker or explanation. The three adopted fruits and their locations remain. The rightmost uses the same real hero renderer/size/position before natural physics resumes at 7.1 seconds.
-- There is no dark transition, suction effect, scripted launch, new control or seed-to-WORLD-LOOP physics conversion.
+The three predetermined plants, nine destination coordinates, `depart` / `land` deadlines, `origin→target` interpolation, frozen in-flight seed poses and independent 7.1-second shell/camera timeline are removed. A grain can root only after the surface has fully unfolded and its actual one-sided top contact stays stable for .24 seconds below speed 95, using the original arrival contact condition. Root x/y/time are immutable observations. Rooted grains remain members of the original median camera party until the handover, so early rooting cannot abruptly switch its transition anchor. Seeds are never attracted, snapped, collected into a group or rearranged afterward. If any grain is still falling when play begins, its independent original integrator continues; it is not discarded at the handover.
 
-## Protected behavior and scope
+## Actual root → original growth → same body
 
-`draw.js`, `physics.js`, `world.js`, `courses.js`, `prologue.js`, `material.js`, `style.css`, audio/logo assets, Engine/Codea and original PUMPOKO are unchanged. Four real handoffs, initial course slope, slide/bounce/pop, gameplay .8× view and controls, adopted art, ending and title return are protected. The physical world stays frozen during opening and resumes without a kick.
+Each actual arrival grows at its recorded surface position. Original ending shoot/leaf timing, .90-second quiet onset and the 2.25-second overshooting fruit-growth curve are reused locally, without the original final-field composition, reward sizing or fruit layout. The adopted pumpkin/rutabaga art functions are byte-identical to #184.
 
-Only work-owned opening code/tests/review assets/docs change, plus the previously authorized mandatory Plan-only root file. Production is untouched. Rollback: revert this isolated staging PR.
+At the end of the original inward transition, one observed root is selected, favouring a downhill contact so normal gravity can begin its roll. Selection does not alter seed flight. The existing `world.entities[0]` body is seated there **before fruit is visible**, with the same root x and a vertical solution for the unchanged contact circle. Its art identity is retained. Other roots stay where they landed; their miniature size uses the original nine-fruit density.
 
-## Motion comparison and owner review
+The 1.25-second camera bridge overlaps leaves/fruit growth and ends at full growth, the identical .8× gameplay frame and the already seated body. There is no body replacement, later relocation, scripted velocity kick or new input. Normal WORLD LOOP integration then resumes at that actual birthplace. Remaining local growth continues while that one pumpkin rolls away.
 
-[Timed three-way MP4](visual-review/opening-film.mp4): original / before #183 / revision, 60Hz scene updates captured at 15fps, 11 seconds, no audio or retiming. An initial .8-second title still precedes each real detachment-to-play sequence. [Sequential frames](visual-review/opening-sequence.png) compare every second after detachment, left to right. [Five-scene references](visual-review/opening-comparison.png) and [complete journey](visual-review/continuous-journey.png) provide closer detail. Original has no opening growth; the five-scene reference explicitly marks that difference.
+## Protected behavior
 
-The original row uses actual original scene code with minimal DOM/audio doubles; 02 rows use the canonical Engine/Codea harness. These are native offscreen Canvas renders, not browser/device recordings. Generation: `node --expose-gc works/pumpoko-02/tests/opening-film.cjs` (requires ffmpeg/ffprobe), `opening-review.cjs` and `render-review.cjs` in the same directory.
+`physics.js`, `world.js`, `courses.js`, `prologue.js`, `material.js`, `style.css`, audio/logo assets, original PUMPOKO and Engine/Codea are unchanged. The full playing/coast/ending/title-return block is byte-identical to #184. Four real collision handoffs, slide/bounce/pop, controls and gameplay .8× frame remain. The initial playable location follows the selected actual root instead of teleporting to the old fixed start.
 
-On iPhone, compare the previous revision and this prototype for when the pumpkin stops feeling like an object, whether the surrounding flesh has enough time to become a place, whether scale change feels pleasant, and whether growth starts feeling like an explanation again. Confirm the adopted hero/controls and all four handoffs afterward. Subjective success, touch visibility, orientation layout and audible sound await the owner's actual-device review.
+Only `works/pumpoko-02/` changes, plus the previously authorized mandatory root Plan Lock committed alone before implementation: `.change-plans/pumpoko-02-original-fall-growth-20261010/r0.lock.json`. No shared runtime or external service dependency is added. Rollback: revert this staging PR.
 
-Plan: `.change-plans/pumpoko-02-world-entry-20261010/r0.lock.json`, locked alone before implementation. Formal verificationState remains UNVERIFIED. This is a staging prototype, not a declared artistic success or production release.
+## Motion evidence
+
+[14-second three-way comparison](visual-review/opening-film.mp4): original / exact #184 / revision, identical actual pointer detachment gesture, 60Hz updates captured at 15fps, 210 frames, no retiming or audio. A .8-second title still precedes the detachment-aligned sequence. [Sequential frames](visual-review/opening-sequence.png) show every second after detachment. [Five-scene detail](visual-review/opening-comparison.png) and [complete journey](visual-review/continuous-journey.png) supplement the motion capture.
+
+The original row runs actual original scenes; 02 rows run canonical Engine/Codea with DOM/media doubles. All images are native offscreen Canvas, **not browser or iPhone recordings**. Code-level continuity is tested; whether the old entering-the-world feeling succeeds awaits the owner's actual iPhone review. See [TESTING.md](TESTING.md).

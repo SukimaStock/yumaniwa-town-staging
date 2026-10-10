@@ -31,14 +31,7 @@
     draw(){root.background(250,241,220);root.withCanvasContext(c=>{
       if(state.phase==='title')root.PumpokoTitleDraw(c,state.prologue);
       else if(state.phase==='opening'){
-        const plants=S.nurseryPoses(state),frame=S.openingFrame(state);
-        // First lose the cut's perimeter. Landscape opens within its material
-        // while the same grains fall; no skin-to-course shape explanation.
-        if(frame.shell>0)root.PumpokoTitleDraw(c,state.opening.shell,frame.pose,frame.shell,0,false);
-        root.PumpokoWorldDraw(c,state.world,state.view,{...plants,opening:true,seeds:[]},frame);
-        c.save();c.translate(195,400);c.scale(state.view.z,state.view.z);c.translate(-state.view.x,-state.view.y);
-        root.FruitLabArt.nursery(c,{plants:[],seeds:plants.seeds},state.world);c.restore();
-        root.PumpokoTitleArt.captions(c,state.opening.shell,frame.caption);
+        root.PumpokoOpeningDraw(c,state,S.nurseryPoses(state),S.openingFrame(state));
       }else{
         const mix=S.returnMix(state);
         c.save();c.globalAlpha=1-mix;root.PumpokoWorldDraw(c,state.world,state.view,S.nurseryPoses(state));c.restore();
@@ -86,6 +79,6 @@
     }
   });
   if(new URLSearchParams(root.location.search).get('dev')==='1'){
-    root.PumpokoProbe=()=>({phase:state.phase,elapsed:state.elapsed,finished:state.world.finished,target:state.world.target,returnTitle:state.returnTitle,view:{...state.view},model:P.snapshot(state.world),pointer,axis:touchAxis,prologue:{time:state.prologue.time,loose:state.prologue.seeds.filter(p=>!p.attached).length,held:state.prologue.held},opening:state.opening?.progress,openingFrame:S.openingFrame(state),nursery:S.nurseryPoses(state)});
+    root.PumpokoProbe=()=>({phase:state.phase,elapsed:state.elapsed,finished:state.world.finished,target:state.world.target,returnTitle:state.returnTitle,view:{...state.view},model:P.snapshot(state.world),pointer,axis:touchAxis,prologue:{time:state.prologue.time,loose:state.prologue.seeds.filter(p=>!p.attached).length,held:state.prologue.held},opening:state.opening?.transition.progress,openingFrame:S.openingFrame(state),nursery:S.nurseryPoses(state)});
   }
 })(typeof window!=='undefined'?window:globalThis);

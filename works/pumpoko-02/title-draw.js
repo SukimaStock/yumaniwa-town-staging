@@ -152,8 +152,8 @@
       c.fillStyle = "rgba(105,85,57,.55)"; c.font = "9px Georgia, serif";
       c.fillText("SukimaStock", 195, 684);
   }
-  // The same seed pose is sampled once when it leaves the vessel. The nursery
-  // owns its subsequent flight; title dynamics never enter the game world.
+  // Original title projections are used by continuity tests. Opening consumes
+  // the same moving grains; WORLD LOOP never consumes their physics state.
   function pointPose(state,x,y) {
     const a=state.x*.22, sx=1+state.ring*.22, sy=1-state.y*.15-state.ring*.18;
     x*=sx;y*=sy;
@@ -168,7 +168,7 @@
     c.save();c.globalAlpha*=alpha;c.translate(0,740);c.scale(1,-1);
     titleArt=root.document?.getElementById('title-art');captions(c,state);c.restore();
   }
-  root.PumpokoTitleArt={seedPose,seed,captions:titleCaptions};
+  root.PumpokoTitleArt={seedPose,seed,captions:titleCaptions,vessel};
   if(typeof module==='object'&&module.exports)module.exports=root.PumpokoTitleArt;
   root.PumpokoTitleDraw=function(c,state,pose={x:195,y:375,scale:1},alpha=1,captionsAlpha=1,showSeeds=true){
     c.save();c.globalAlpha*=alpha;c.translate(pose.x,pose.y);c.scale(pose.scale,-pose.scale);c.translate(-195,-365);

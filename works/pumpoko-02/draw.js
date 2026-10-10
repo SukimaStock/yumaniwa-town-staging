@@ -57,14 +57,20 @@
     for(const p of poses.plants){
       // Keep the planted companions in place. Only the real hero can depart.
       const departure=p.hero?Math.max(0,1-Math.abs(world.entities[0].x-p.x)/45):1;
-      if(p.leaves>0){
-        leaf(c,p.x-4,p.ground+2,p.leaves*.7*departure,-.45,'#738b59');
-        leaf(c,p.x+3,p.ground+3,p.leaves*.6*departure,2.2,'#536f49');
+      if(p.sprout>0){
+        // Original ending growth: upright shoot relaxes into a low vine;
+        // leaves open before the original overshooting fruit swell.
+        c.beginPath();c.moveTo(p.x,p.ground-1);
+        c.quadraticCurveTo(p.x,p.ground+10*p.sprout,p.x,p.ground+2-p.leaves);
+        c.strokeStyle='#536f49';c.lineWidth=2+p.leaves*.8;c.lineCap='round';c.stroke();
+        leaf(c,p.x-4,p.ground+5,(.28*p.sprout+.40*p.leaves)*2.15*p.scale*departure,.5,'#738b59');
+        leaf(c,p.x+5,p.ground+7,(.24*p.sprout+.38*p.leaves)*2.15*p.scale*departure,2.5,'#536f49');
       }
       if(p.grow>0&&(!p.hero||poses.opening)){
-        const size=p.scale*p.grow,y=p.ground+(p.y-p.ground)*p.grow;
+        const size=p.scale*p.grow,b=p.hero?world.entities[0]:p;
+        const y=p.ground+(b.y-p.ground)*p.grow;
         ellipse(c,p.x,p.ground+2,36*size,3,'rgba(90,68,38,.13)');
-        pumpkin(c,{x:p.x,y,angle:0,artId:p.id},size);
+        pumpkin(c,{...b,x:p.x,y,angle:0,artId:p.id},size);
       }
     }
     for(const p of poses.seeds){
