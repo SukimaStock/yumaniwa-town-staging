@@ -1,0 +1,100 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "16a2ea03b7a854a608bdf02a0523d557763881f1d1320af90b492d0c5e495bd3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-title-polish-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Polish PUMPOKO 02 title logo scale and gentle float, seed-area shadow and visible idle motion, and SUKIMA STOCK credit",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "db2dd9eca49add0bf0434ba75955bc6d45712a5e",
+    "canonicalSources": [
+      "works/pumpoko-02/title-draw.js",
+      "works/pumpoko-02/prologue.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-title-polish-20261010/r0.lock.json",
+      "works/pumpoko-02/title-draw.js",
+      "works/pumpoko-02/TITLE-POLISH-REVIEW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/prologue.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/assets/**",
+      "works/pumpoko-02/audio/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "works/pumpoko/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Scale existing PUMPOKO logo approximately 6% using existing asset; keep logo and vessel visually separated",
+      "Maintain very gentle title logo floating animation",
+      "Strengthen title pumpkin cast shadow subtly and idle-only wiggle as a rendering-only invitation",
+      "Change bottom credit to uppercase SUKIMA STOCK using spaced 12px sans-serif text",
+      "Keep titles clear on existing portrait canvas; no new start instruction; do not alter any physics or opening"
+    ],
+    "ownerDecisions": [
+      "User approved specified title-screen polish and authorized staging PR and merge conditional on checks"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main and related PR review",
+      "Plan Lock in first commit before implementation",
+      "Work-only title renderer; no common code and no production"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "portrait layout title logo and signature readability",
+      "idle motion and touching to stop idle jitter",
+      "title seed detachment and complete opening",
+      "ending return to title",
+      "iPhone Safari screen review"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated staging PR",
+    "outOfScope": [
+      "production",
+      "physics",
+      "all stages",
+      "audio",
+      "Engine and Codea"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone/browser visual perception not attested",
+      "formal verificationState stays UNVERIFIED"
+    ]
+  }
+}
