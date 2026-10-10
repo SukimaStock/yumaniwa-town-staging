@@ -1,0 +1,99 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7c02897855693c3f24f2b31d653a4a7847dc391c66649b6f8cffd22a1704d39e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-shot-timing-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Shorten title after-detachment pause to 1s; overlap six-second final camera with natural coast and hold stable composition for 2.5s",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "d9c3f115eb7dda60e2c9d9dcc77432e4b2835307",
+    "canonicalSources": [
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/opening.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/tests/story.test.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-shot-timing-20261010/r0.lock.json",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/tests/story.test.cjs",
+      "works/pumpoko-02/tests/socket-draw.test.cjs",
+      "works/pumpoko-02/tests/timing.test.cjs",
+      "works/pumpoko-02/tests/timing-review.cjs",
+      "works/pumpoko-02/TIMING-REVIEW.md",
+      "works/pumpoko-02/visual-review/timing-opening.png",
+      "works/pumpoko-02/visual-review/timing-ending.png",
+      "works/pumpoko-02/visual-review/timing-comparison.mp4"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Reduce last-detachment pause 1.8 to 1.0 without changing opening kernel, growth or bridge curves",
+      "Begin six-second final shot during controlled natural coast, track monotonic observed pair bounds until composition settles, then lock view for 2.5s",
+      "Preserve 3.6s returning zoom and title fade, normal input during coast and exact kernel/course/art/drawing/audio bytes",
+      "Update two existing tests only for the expressly changed timing/presentation protection boundary; add exact natural trajectory, time, view continuity, framing, replay/lifecycle checks",
+      "Record same-input 60Hz native Canvas before/after actual timings, with all4 handoffs and honest device caveat"
+    ],
+    "ownerDecisions": [
+      "User approved the preceding timing design and explicitly requests implementation",
+      "Existing staging merge authorization and mandatory root Plan exception retained"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "READY Plan-only first commit",
+      "Only story.js runtime changes; protect all other runtime/assets exact base",
+      "staging branch/PR exact-head checks; no production"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-one-second-title-pause-retains-entry-surprise",
+      "iphone-ending-natural-coast-and-camera-overlap",
+      "iphone-2.5-second-fixed-final-pair-composition-and-title-return"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated work-only PR",
+    "outOfScope": [
+      "WORLD LOOP physics, courses, four exchanges, trajectories and gameplay camera",
+      "opening kernel, growth/art, ground/socket drawing, audio/shared lifecycle",
+      "original/lab/shared/production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPhone perceived opening and ending pacing",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
