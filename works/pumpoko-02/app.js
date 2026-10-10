@@ -2,10 +2,13 @@
   'use strict';
   const P=root.FruitLabPhysics,S=root.PumpokoStory,D=root.PumpokoPrologue;
   let state=S.create(),pointer=null,touchAxis=0,ui,lastSound=-10,lastPhase='',freshInput=false;
+  let musicStatus='loading';
+  const musicReady=()=>!root.SSE.audio.enabled||musicStatus==='ready'||musicStatus==='silent';
+  function applyMusicGate(){state.musicReady=musicReady();if(ui){ui.wait.hidden=state.phase!=='title'||state.musicReady;ui.silent.hidden=musicStatus!=='failed';}}
   function release(){pointer=null;touchAxis=0;D.release(state.prologue);P.clearInput(state.world);root.SSE.input.reset();root.CodeaLite?.clearPointers();}
-  function reset(){release();state=S.create();freshInput=false;lastSound=-10;sync();}
+  function reset(){release();state=S.create();freshInput=false;lastSound=-10;applyMusicGate();sync();}
   function sync(){
-    if(!ui)return;const title=state.phase==='title';ui.title.hidden=!title;ui.controls.hidden=!title;
+    if(!ui)return;applyMusicGate();const title=state.phase==='title';ui.title.hidden=!title;ui.controls.hidden=!title;
     ui.rest.hidden=true;
     const phase=state.phase+':'+state.world.phase;
     if(phase!==lastPhase){lastPhase=phase;ui.status.textContent=title?'カボチャに触れて旅をはじめる':state.phase==='ending'||state.phase==='returning'?'地上のカボチャと地下のルタバガが残る景色':state.world.active==='pumpkin'?'地上でカボチャを滑らせる':'地下でルタバガを跳ねさせる';}
@@ -23,6 +26,7 @@
   const scene={opaque:true,
     update(dt){
       if(root.SSE.input.actionPressed('reset')){reset();return;}
+      applyMusicGate();
       if(state.phase==='title'&&root.SSE.input.actionPressed('start')){S.start(state);root.SSE.audio.play('shell');}
       const axis=pointer!==null?touchAxis:Number(root.SSE.input.action('right'))-Number(root.SSE.input.action('left'));
       const previous=state.phase;sound(S.update(state,freshInput?0:axis,dt));
@@ -66,8 +70,14 @@
       seed:{file:'./audio/seed.wav',mode:'buffer',volume:root.SSE.audio.baseline().reference.se.soft}}}),
     devtools:{enabled:false},analytics:{enabled:false},lifecycle:{pauseOnBlur:true,onPause:release,onResume:release},scenes:{journey:scene},
     setup(){
+      const doc=root.document;ui={title:doc.getElementById('title'),controls:doc.getElementById('title-controls'),start:doc.getElementById('start'),rest:doc.getElementById('rest'),status:doc.getElementById('status'),wait:doc.getElementById('audio-wait'),silent:doc.getElementById('continue-silent')};
       root.SSE.audio.preload();
-      const doc=root.document;ui={title:doc.getElementById('title'),controls:doc.getElementById('title-controls'),start:doc.getElementById('start'),rest:doc.getElementById('rest'),status:doc.getElementById('status')};
+      root.SSE.audio.preload('pumpoko').then(()=>{if(musicStatus!=='loading')return;musicStatus=root.SSE.audio.resourceState('pumpoko').status==='ready'?'ready':'failed';sync();}).catch(()=>{if(musicStatus==='loading'){musicStatus='failed';sync();}});
+      ui.silent.addEventListener('click',()=>{musicStatus='silent';root.SSE.audio.setEnabled(false);sync();});
+      const canvas=doc.getElementById('gameCanvas');
+      canvas.addEventListener('contextmenu',event=>event.preventDefault());
+      canvas.addEventListener('selectstart',event=>event.preventDefault());
+      canvas.addEventListener('dragstart',event=>event.preventDefault());
       root.addEventListener('keydown',event=>{
         if(state.phase==='playing'&&!event.repeat&&!root.SSE.input.isEditable(event)&&
           ['ArrowLeft','KeyA','ArrowRight','KeyD'].some(key=>root.SSE.input.eventKeys(event).includes(key))){freshInput=false;state.needsNeutral=false;}
@@ -81,7 +91,7 @@
       root.addEventListener('keydown',event=>{if(!event.repeat&&!root.SSE.input.isEditable(event)&&root.SSE.input.eventKeys(event).some(key=>root.SSE.input.isBoundKey(key)))beginMusic(event);});
       ui.start.addEventListener('click',event=>{release();beginMusic(event);S.start(state);sync();});
       const button=doc.getElementById('sound');function label(){button.textContent=root.SSE.audio.enabled?'♪':'♪̸';button.setAttribute('aria-pressed',String(root.SSE.audio.enabled));button.setAttribute('aria-label',root.SSE.audio.enabled?'音を切る':'音を入れる');}
-      button.addEventListener('click',event=>{release();root.SSE.audio.setEnabled(!root.SSE.audio.enabled);root.SSE.audio.unlock();beginMusic(event);label();});label();
+      button.addEventListener('click',event=>{release();root.SSE.audio.setEnabled(!root.SSE.audio.enabled);root.SSE.audio.unlock();beginMusic(event);label();sync();});label();
       root.addEventListener('resize',release);root.addEventListener('blur',release);sync();
     }
   });
