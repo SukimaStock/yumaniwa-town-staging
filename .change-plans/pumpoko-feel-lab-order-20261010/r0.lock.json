@@ -1,0 +1,97 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0a7330c6e537889ec666deac0a6a2a6edfca45675594ec22c59d15f25112851a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-feel-lab-order-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Implement controlled A→C/C→A and B→D/D→B terrain order experiments in PUMPOKO FEEL LAB while retaining all earlier experiments",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "2ebe228a1348294f3ed8fcf6796b6292b19b486c",
+    "canonicalSources": [
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-feel-lab/CHAINS-REVIEW.md",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-feel-lab-order-20261010/r0.lock.json",
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-feel-lab/ORDER-REVIEW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/**",
+      "works/pumpoko/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Derive four order comparisons by reusing actual earlier connected course Hermite points; only short consistent level-transition connectors plus matching offset, no new physics or surprise terrain",
+      "Provide third mode for order comparison A→C C→A B→D D→B, with clear selectors and preserved prior single 8 and chain 4",
+      "Maintain horizontally following viewport, input, reversible course, fixed-step physics, reset, local saved notes; save generated Hermite points and order provenance",
+      "Cache-bust updated CSS/JS for iPhone Safari; show concise labels and maintain playable height",
+      "Validate both kinds × all orders with direct original PUMPOKO physics and basic selection/save/camera checks; manually verify actual browser display if possible"
+    ],
+    "ownerDecisions": [
+      "After iPhone testing ROLL prefers A (FLOW) and C (PUMP), BOUNCE prefers B (RHYTHM) and D (BREATH); user asks to proceed with order experiments"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh staging HEAD/current prior lab code reviewed",
+      "READY Plan Lock is immutable first branch commit",
+      "No production or shared runtime changes",
+      "Existing localStorage key and authoring scheme preserved"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "All four order selectors work on iPhone portrait and landscape with no stale JS",
+      "Both fruit characters can reverse and traverse the 2-part course through the junction",
+      "Compare alternate orders for momentum, bounce, recovery; user subjective evaluation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "unchanged PUMPOKO 02 physics.js and world.js",
+      "staging-only standalone canvas"
+    ],
+    "rollback": "Revert isolated staging PR",
+    "outOfScope": [
+      "Editing main PUMPOKO 02 stages",
+      "New jump controls, boosted acceleration or other physical tuning",
+      "Holes and baton-handoffs",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real user iPhone feel and smoothness remain UNVERIFIED until tested",
+      "Formal verificationState UNVERIFIED"
+    ]
+  }
+}
