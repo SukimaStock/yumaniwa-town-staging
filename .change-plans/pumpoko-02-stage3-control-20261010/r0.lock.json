@@ -1,0 +1,103 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e74f715caf58ffa4a1a141d48addda79df96d377f01f6202dbc8cc83f4da096c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-stage3-control-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reshape only STAGE 3 existing three gaps into one momentum/braking/relaunch pair, without changing physics, other stages or checkpoint/goal/handoffs",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "102cb79e031dabf8b79da795a1963411cef5a0ac",
+    "canonicalSources": [
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/physics.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-stage3-control-20261010/r0.lock.json",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/tests/**",
+      "works/pumpoko-02/STAGE-3-REVIEW.md",
+      "works/pumpoko-02/visual-review/stage3-*.png",
+      "works/pumpoko-02/visual-review/stage3-*.mp4"
+    ],
+    "conditionalPaths": [
+      {
+        "path": "works/pumpoko-02/story.js",
+        "condition": "Only minimal STAGE 3 camera anticipation if measured gap readability requires it; no other story/phase/timing changes"
+      }
+    ],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/assets/**",
+      "works/pumpoko-02/audio/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Reshape/reposition STAGE 3 existing gaps with sufficiently broad short intermediate bank; demand attained takeoff speed then braking/relaunch using unchanged controls",
+      "Preserve STAGE 1/2/4/5, all socket and entry/exit shoulders, checkpoint/goal data and three STAGE 3 gaps; collision and drawing remain same course source",
+      "Compare identical starting conditions for held right, controlled braking, low momentum and stop/reaccelerate; test tolerant input windows and 30/60/120fps",
+      "Adapt previous automatic-control examples to navigate new challenge without weakening fall/landing/continuity protections; add exact fresh-main protection tests",
+      "Generate before/after native Canvas images and short videos with measured actual simulation states; report evidence and human/device limitations"
+    ],
+    "ownerDecisions": [
+      "User current STAGE 3 instruction explicitly authorizes terrain experiment, necessary minimal camera, verification artifacts, PR and staging merge after checks"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main and related PR check; isolated worktree",
+      "Fresh READY r0 Plan-only first commit",
+      "Registered WORK runtime standard scope; no shared runtime extension",
+      "No human/device result invented"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "stage3-before-after-native-canvas-review",
+      "iphone-stage3-readable-failure-and-success-feel"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated STAGE 3 PR",
+    "outOfScope": [
+      "Physics/constants/controls, STAGE 1/2/4/5, all four handoffs, checkpoints, final goal, HUD/hints/new actions, shared runtime, old works, production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone/iPad human feel and retry motivation",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}

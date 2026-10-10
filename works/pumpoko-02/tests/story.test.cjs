@@ -15,8 +15,8 @@ function liveEnter(h){
 }
 function liveFinish(h){
   liveEnter(h);h.key('keydown','ArrowRight');
-  for(let i=0;i<60*180&&!h.probe().finished;i++){h.key(require('./five-stage-controls.cjs').axis(h.probe().model)?'keydown':'keyup','ArrowRight');h.frame();}
-  assert.equal(h.probe().model.handoffs,4);assert.ok(h.probe().finished);h.key('keyup','ArrowRight');
+  for(let i=0;i<60*180&&!h.probe().finished;i++){const input=require('./five-stage-controls.cjs').axis(h.probe().model);h.key(input>0?'keydown':'keyup','ArrowRight');h.key(input<0?'keydown':'keyup','ArrowLeft');h.frame();}
+  assert.equal(h.probe().model.handoffs,4);assert.ok(h.probe().finished);h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');
   for(let i=0;i<60*180&&!h.probe().returnTitle;i++)h.frame();assert.ok(h.probe().returnTitle);
 }
 test('physical integrator/fruit constants and asset bytes are preserved; goal contact is work-local',()=>{
@@ -154,7 +154,7 @@ module.exports={liveEnter,liveFinish};
 
 test('primary touch drives all four sockets and interruption clears pointer/input without changing the world',()=>{
   const h=harness();liveEnter(h);h.pointer('pointerdown',600,400);
-  for(let i=0;i<10800&&!h.probe().finished;i++){if(require('./five-stage-controls.cjs').axis(h.probe().model)){if(h.probe().pointer===null)h.pointer('pointerdown',600,400);}else h.pointer('pointerup',600,400);h.frame();}
+  for(let i=0;i<10800&&!h.probe().finished;i++){const input=require('./five-stage-controls.cjs').axis(h.probe().model);if(input){h.pointer(h.probe().pointer===null?'pointerdown':'pointermove',input<0?400:600,400);}else h.pointer('pointerup',600,400);h.frame();}
   assert.equal(h.probe().model.handoffs,4);assert.equal(h.probe().phase,'coast');h.pointer('pointerup',600,400);
   for(const [interrupt,resume] of [['resize',null],['pagehide','pageshow'],['blur','focus']]){
     h.pointer('pointerdown',600,400);h.frame();const handoffs=h.probe().model.handoffs;h.w.emit(interrupt);assert.equal(h.probe().pointer,null);assert.equal(h.probe().target,0);assert.equal(h.probe().axis,0);

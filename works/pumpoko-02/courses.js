@@ -91,6 +91,19 @@
     }filled.push(point);}
     four.curves[layer]=filled;
   }
+  // STAGE 3: keep the first runup and the third gap. The second gap moves
+  // onto a short, rounded receiving bank: arrive early enough to use its rise.
+  // Too much speed carries the pumpkin past the valley and off the next lip
+  // without a useful upward tangent. Opposite input in flight lets it settle
+  // and roll up again. These are ordinary Hermite points, shared by draw/contact.
+  const first3=four.gaps.find(g=>g.id==='stage3-1'),second3=four.gaps.find(g=>g.id==='stage3-2');
+  const bank3=first3.b;
+  Object.assign(second3,{a:bank3+300,b:bank3+440,runup:300});
+  four.curves.return=[...four.curves.return.filter(p=>p[0]<bank3),
+    [bank3,290,0],[bank3+105,240,0],[bank3+200,260,.6],
+    [bank3+300,310,1],[bank3+440,290,0],[bank3+740,260,0],
+    [14290,350,0],[14940,326,0],
+    ...four.curves.return.filter(p=>p[0]>15420)];
   four.holes=original.holes.map((h,i)=>({...h,x:h.x+exitOffsets[i]}));
   four.cellars=original.cellars.map((cell,i)=>{const stage=i?4:2,end=ends[stage-1],layer=layers[stage-1],points=four.curves[layer];
     return {...cell,left:points[0][0],right:points.at(-1)[0],roofStart:end-(i?1690:1240),roofHeight:cell.roofHeight,exitX:end,entryRoof:{until:ends[stage-2]+500,roofStart:cell.roofStart+offsets[layer],height:cell.roofHeight,exitX:cell.exitX+offsets[layer],exitRoof:cell.exitRoof}};});
