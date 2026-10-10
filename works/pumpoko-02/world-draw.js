@@ -5,6 +5,50 @@
     for(let x=left;x<right;x+=step)x===left?c.moveTo(x,height(x)):c.lineTo(x,height(x));
     c.lineTo(right,height(right));
   }
+  // Original drawTerrain: rind 7, then cream 3 inside it, at zoom 1.85.
+  // 02 keeps its .8 camera: convert material units, never collision coordinates.
+  const MATERIAL_UNITS=1.85/.8;
+  function cut(c,a,b,floor,ceiling) {
+    line(c,a,b,floor);c.lineTo(b,ceiling(b));
+    for(let x=b;x>a;x-=6)c.lineTo(x,ceiling(x));
+    c.lineTo(a,ceiling(a));c.closePath();
+  }
+  function skin(c,left,right,bottom,surface,cavities,mouths) {
+    c.save();
+    c.beginPath();line(c,left,right,surface);
+    c.lineTo(right,bottom);c.lineTo(left,bottom);c.closePath();c.clip();
+    // Intersect with the complement of each opening. Unlike one even-odd path,
+    // overlapping cellar/socket cutouts cannot accidentally fill each other.
+    for(const space of [...cavities,...mouths]){
+      c.beginPath();c.rect(left-100,bottom-100,right-left+200,4000);
+      cut(c,space.a,space.b,space.floor,space.ceiling);c.clip('evenodd');
+    }
+    c.beginPath();line(c,left,right,surface);
+    for(const space of [...cavities,...mouths])cut(c,space.a,space.b,space.floor,space.ceiling);
+    c.lineCap='round';c.lineJoin='round';
+    // The clip puts the entire skin / pale band on the SOLID side of the same
+    // contour. Floors, ceilings, vertical cut ends and socket walls share it.
+    c.strokeStyle=M.cream;c.lineWidth=2*(7+3)*MATERIAL_UNITS;c.stroke();
+    c.strokeStyle=M.rind;c.lineWidth=2*7*MATERIAL_UNITS;c.stroke();
+    // In the existing thin roof (sometimes only 25 units), opposing skins
+    // share one pale inner seam instead of overlapping into a green lump.
+    // This remains inside the solid; neither ceiling nor surface is moved.
+    c.beginPath();
+    for(const space of cavities){
+      let pen=false;
+      for(let x=Math.max(left,space.a);x<=Math.min(right,space.b);x+=2){
+        const top=surface(x),ceiling=space.ceiling(x);
+        const slope=(surface(x+1)-surface(x-1))/2;
+        const thickness=(top-ceiling)/Math.hypot(1,slope);
+        if(thickness<17*MATERIAL_UNITS){
+          const y=(top+ceiling)/2;
+          if(pen)c.lineTo(x,y);else c.moveTo(x,y);pen=true;
+        }else pen=false;
+      }
+    }
+    c.lineCap='butt';c.strokeStyle=M.cream;c.lineWidth=3*MATERIAL_UNITS;c.stroke();
+    c.restore();
+  }
   root.PumpokoWorldDraw=function(c,s,view,nursery,opening) {
     const camera=view||{...s.camera,z:1},z=camera.z||1;
     const course=s.course,surface=x=>W.surfaceHeight(x,course)-(opening?.lift||0),roof=x=>W.roof(x,course);
@@ -40,13 +84,6 @@
       c.beginPath();line(c,a,b,floor);c.lineTo(b,ceiling(b));for(let x=b;x>=a;x-=6)c.lineTo(x,ceiling(x));c.closePath();
       const air=c.createLinearGradient(0,430,0,90);air.addColorStop(0,M.airDeep);air.addColorStop(1,M.air);c.fillStyle=air;c.fill();
     }
-    for(const [a,b,height]of[[course?left:-440,right,surface],...cellars.filter(cell=>!course||cell.right>=left&&cell.left<=right).map(cell=>[course?Math.max(cell.left,left):cell.left,course?Math.min(cell.right,right):cell.right,x=>W.curve(cell.layer,x,course).y])]){
-      c.beginPath();line(c,a,b,height);c.strokeStyle=M.rind;c.lineWidth=7;c.stroke();c.strokeStyle=M.cream;c.lineWidth=3;c.stroke();
-    }
-    for(const cell of cellars){
-      if(course&&(cell.right<left||cell.left>right))continue;
-      c.beginPath();line(c,course?Math.max(cell.left,left):cell.left,course?Math.min(cell.right,right):cell.right,x=>W.roof(x,course,cell.layer));c.strokeStyle=M.rind;c.lineWidth=5;c.stroke();
-    }
     for(const h of s.holes){
       const y=surface(h.x);c.fillStyle=M.fleshDeep;c.fillRect(h.x-39,roof(h.x)-2,78,y-roof(h.x)+4);
       A.ellipse(c,h.x,y,40,6,M.shadow);A.ellipse(c,h.x,roof(h.x),39,5,M.shadow);
@@ -62,9 +99,17 @@
     for(const h of s.holes){
       const top=surface(h.x),bottom=roof(h.x);
       c.fillStyle=earth;c.fillRect(h.x-44,bottom+7,88,Math.max(0,top-bottom-14));
-      c.beginPath();c.moveTo(h.x-44,top);c.lineTo(h.x-36,top-5);c.moveTo(h.x+36,top-5);c.lineTo(h.x+44,top);c.strokeStyle=M.cream;c.lineWidth=5;c.stroke();
-      c.beginPath();c.moveTo(h.x-43,bottom);c.lineTo(h.x-32,bottom+6);c.moveTo(h.x+32,bottom+6);c.lineTo(h.x+43,bottom);c.strokeStyle=M.rind;c.lineWidth=5;c.stroke();
     }
+    const cavities=cellars.filter(cell=>cell.right>=left&&cell.left<=right).map(cell=>({
+      // Keep real cut sides outside the viewport; do not invent a wall at its edge.
+      a:cell.left,b:cell.right,
+      floor:x=>W.curve(cell.layer,x,course).y,
+      ceiling:x=>W.roof(x,course,cell.layer)
+    }));
+    const mouths=s.holes.filter(h=>h.x+44>=left&&h.x-44<=right).map(h=>({
+      a:h.x-44,b:h.x+44,floor:roof,ceiling:surface
+    }));
+    skin(c,left,right,bottom,surface,cavities,mouths);
     c.restore();
 
   };
