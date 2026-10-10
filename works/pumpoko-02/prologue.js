@@ -19,7 +19,7 @@
     };
   }
   function create() {
-    const s = initialSeeds(); s.detachments = []; s.lastDetachTime = -10;
+    const s = initialSeeds(); s.detachments = []; s.lastDetachTime = -10; s.lastTouchedAt = -10;
     const loose = [0, 2, 6];
     for (const [i, p] of s.seeds.entries()) {
       if (loose.includes(i)) {
@@ -46,6 +46,7 @@
     }
   }
   function release(s) {
+    if (s.held) s.lastTouchedAt = s.time;
     s.held = false; s.activeId = null; s.targetX = s.targetY = 0;
     // Leave both velocities intact. Let the vessel and its contents finish.
   }
@@ -146,7 +147,7 @@
     const y=height-t.y;
     if(t.state==='began'){
       if(Math.hypot((t.x-195)/1.1,(y-365)/.86)>163)return false;
-      s.activeId=t.id;s.held=true;s.anchorX=t.x;s.anchorY=y;
+      s.activeId=t.id;s.held=true;s.lastTouchedAt=s.time;s.anchorX=t.x;s.anchorY=y;
       knock(s,t.x-195,(y-365)/.8);return true;
     }
     if(t.id!==s.activeId)return false;
