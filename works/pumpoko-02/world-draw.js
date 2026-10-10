@@ -13,16 +13,24 @@
     for(let x=b;x>a;x-=6)c.lineTo(x,ceiling(x));
     c.lineTo(a,ceiling(a));c.closePath();
   }
-  function skin(c,left,right,bottom,surface,cavities,mouths) {
-    c.save();
+  function solid(c,left,right,bottom,surface,spaces) {
     c.beginPath();line(c,left,right,surface);
     c.lineTo(right,bottom);c.lineTo(left,bottom);c.closePath();c.clip();
-    // Intersect with the complement of each opening. Unlike one even-odd path,
-    // overlapping cellar/socket cutouts cannot accidentally fill each other.
-    for(const space of [...cavities,...mouths]){
+    // Complement intersections preserve the UNION of connected air spaces.
+    for(const space of spaces){
       c.beginPath();c.rect(left-100,bottom-100,right-left+200,4000);
       cut(c,space.a,space.b,space.floor,space.ceiling);c.clip('evenodd');
     }
+  }
+  function air(c,left,right,top,surface,spaces) {
+    c.beginPath();cut(c,left,right,surface,()=>top);
+    // Same winding: nonzero clipping unions overlapping cellar / mouth paths.
+    // Above ground AND the whole cellar remain visible, not just the socket box.
+    for(const space of spaces)cut(c,space.a,space.b,space.floor,space.ceiling);
+    c.clip();
+  }
+  function skin(c,left,right,bottom,surface,cavities,mouths) {
+    c.save();solid(c,left,right,bottom,surface,[...cavities,...mouths]);
     c.beginPath();line(c,left,right,surface);
     for(const space of [...cavities,...mouths])cut(c,space.a,space.b,space.floor,space.ceiling);
     c.lineCap='round';c.lineJoin='round';
@@ -67,7 +75,19 @@
     c.save();c.globalAlpha*=opening?.ground??1;
     if(opening){const v=opening.screen;c.translate(v.x,v.y);c.rotate(v.angle);c.scale(v.sx,v.sy);c.translate(-v.camera.x,-v.camera.y);}
     else {c.translate(195,400);c.scale(z,z);c.translate(-camera.x,-camera.y);}
-    // One continuous cutaway: collision heights also drive all visible lips.
+    const cavities=cellars.filter(cell=>cell.right>=left&&cell.left<=right).map(cell=>({
+      // Keep a full material shoulder beyond the view; artificial clipping
+      // ends stay offscreen while real cellar walls inside it are retained.
+      a:Math.max(cell.left,left-46.25),b:Math.min(cell.right,right+46.25),
+      floor:x=>W.curve(cell.layer,x,course).y,
+      ceiling:x=>W.roof(x,course,cell.layer)
+    }));
+    const mouths=s.holes.filter(h=>h.x+44>=left&&h.x-44<=right).map(h=>({
+      a:h.x-44,b:h.x+44,floor:roof,ceiling:surface
+    }));
+    const spaces=[...cavities,...mouths];
+    // All material layers share actual openings; no fruit fill crosses a mouth.
+    c.save();solid(c,left,right,bottom,surface,spaces);
     c.beginPath();line(c,left,right,surface);c.lineTo(right,bottom);c.lineTo(left,bottom);c.closePath();
     const earth=c.createLinearGradient(0,600,0,-200);earth.addColorStop(0,M.fleshLight);earth.addColorStop(.55,M.flesh);earth.addColorStop(1,M.fleshDeep);c.fillStyle=earth;c.fill();
     c.save();c.clip();
@@ -75,6 +95,7 @@
     c.beginPath();line(c,left,right,x=>surface(x)-12);
     c.strokeStyle='rgba(255,235,185,.065)';
     for(const width of [104,88,72,56,40,24]){c.lineWidth=width;c.stroke();}
+    c.restore();
     c.restore();
     // The open cellar is a real space below the same surface, not a scene swap.
     for(const cell of cellars){
@@ -84,31 +105,33 @@
       c.beginPath();line(c,a,b,floor);c.lineTo(b,ceiling(b));for(let x=b;x>=a;x-=6)c.lineTo(x,ceiling(x));c.closePath();
       const air=c.createLinearGradient(0,430,0,90);air.addColorStop(0,M.airDeep);air.addColorStop(1,M.air);c.fillStyle=air;c.fill();
     }
-    for(const h of s.holes){
-      const y=surface(h.x);c.fillStyle=M.fleshDeep;c.fillRect(h.x-39,roof(h.x)-2,78,y-roof(h.x)+4);
-      A.ellipse(c,h.x,y,40,6,M.shadow);A.ellipse(c,h.x,roof(h.x),39,5,M.shadow);
-    }
-    if(!opening)A.nursery(c,nursery,s);
+    // Bodies near a socket share its actual cutaway, with the EXIT side behind
+    // the ENTRY side. Signed depth reverses the order for upward exchanges.
+    const groups=new Map(s.holes.map(h=>[h,[]])),free=[];
     for(const b of opening?[]:s.entities){
       if(nursery?.opening&&b===s.entities[0])continue;
-      if(!b.plugged){const floor=W.curve(b.layer,b.x,course).y;const altitude=Math.max(0,b.y-b.r-floor);A.ellipse(c,b.x,floor+2,b.r,4,`rgba(80,54,27,${.18/(1+altitude/80)})`);}
-      (b.kind==='pumpkin'?A.pumpkin:A.rutabaga)(c,b);
+      const reach=2*b.r;
+      if(b.x+reach<left||b.x-reach>right)continue;
+      const hole=s.holes.find(h=>h.occupant===b||h.incoming===b||
+        (Math.abs(b.x-h.x)<44+reach&&
+         b.y-reach<Math.max(surface(h.x-44),surface(h.x+44))&&
+         b.y+reach>Math.min(roof(h.x-44),roof(h.x+44))));
+      if(hole)groups.get(hole).push(b);else free.push(b);
+      if(!b.plugged){
+        const floor=W.curve(b.layer,b.x,course).y,altitude=Math.max(0,b.y-b.r-floor);
+        c.save();if(hole)solid(c,left,right,bottom,surface,spaces);
+        A.ellipse(c,b.x,floor+2,b.r,4,`rgba(80,54,27,${.18/(1+altitude/80)})`);c.restore();
+      }
     }
-    // Socket collars occlude the buried middle, leaving heads above and bottoms
-    // below. Compression and seating use actual object positions throughout.
-    for(const h of s.holes){
-      const top=surface(h.x),bottom=roof(h.x);
-      c.fillStyle=earth;c.fillRect(h.x-44,bottom+7,88,Math.max(0,top-bottom-14));
+    if(!opening)A.nursery(c,nursery,s);
+    const fruit=b=>(b.kind==='pumpkin'?A.pumpkin:A.rutabaga)(c,b);
+    for(const b of free)fruit(b);
+    for(const [h,bodies]of groups){
+      if(!bodies.length)continue;
+      bodies.sort((a,b)=>h.direction*(b.y-a.y));
+      c.save();air(c,left,right,Math.max(1100,camera.y+1000/z),surface,spaces);
+      for(const b of bodies)fruit(b);c.restore();
     }
-    const cavities=cellars.filter(cell=>cell.right>=left&&cell.left<=right).map(cell=>({
-      // Keep real cut sides outside the viewport; do not invent a wall at its edge.
-      a:cell.left,b:cell.right,
-      floor:x=>W.curve(cell.layer,x,course).y,
-      ceiling:x=>W.roof(x,course,cell.layer)
-    }));
-    const mouths=s.holes.filter(h=>h.x+44>=left&&h.x-44<=right).map(h=>({
-      a:h.x-44,b:h.x+44,floor:roof,ceiling:surface
-    }));
     skin(c,left,right,bottom,surface,cavities,mouths);
     c.restore();
 
