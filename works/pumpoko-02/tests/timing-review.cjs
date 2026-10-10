@@ -2,7 +2,7 @@
 // Actual 60Hz Engine/Codea states; native Canvas samples at 15fps. No retiming.
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const {harness}=require('./harness.cjs'),{createCanvas,loadImage}=require('@napi-rs/canvas');
-const BASE='d9c3f115eb7dda60e2c9d9dcc77432e4b2835307';
+const BASE='88efa2f64909aea89e8d2143002006f3746528d6';
 function collect(ref=null){
  const h=harness({width:390,height:740,sourceRef:ref}),w=h.w,S=w.PumpokoStory;
  let state,frame=0,phase='title',released=false,playFrame=0,finished=false;const events={},opening=[],ending=[];
@@ -53,7 +53,7 @@ async function main(){
  const {execFileSync}=require('node:child_process'),tmp=fs.mkdtempSync(require('node:os').tmpdir()+'/pumpoko-timing-');
  const panel=createCanvas(390,740),pc=panel.getContext('2d'),film=createCanvas(780,780),fc=film.getContext('2d');let serial=0;
  try{
-  for(const [section,offsets]of [['opening',[0,2,4,6,8,10,11]],['ending',[0,3,6,9,12,15,18,21,24]]]){
+  for(const [section,offsets]of [['opening',[0,2,4,6,8,10,11]],['ending',[0,.48,1.5,3,4,6.2,8.5,12.1]]]){
    const start=run=>section==='opening'?run.events.loose:run.events.coast;
    const closest=(run,t)=>run[section].find(f=>f.t>=start(run)+t)||run[section].at(-1);
    const sheet=createCanvas(offsets.length*195,2*410),sc=sheet.getContext('2d');sc.fillStyle='#faf1dc';sc.fillRect(0,0,sheet.width,sheet.height);

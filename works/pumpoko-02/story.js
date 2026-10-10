@@ -99,11 +99,11 @@
     }
     shot.target={x:(bounds.left+bounds.right)/2,y:(bounds.bottom+bounds.top)/2+25,
       z:Math.min(.8,310/(bounds.right-bounds.left+180),520/(bounds.top-bounds.bottom+160))};
-    const t=smooth(shot.time/6);s.view=blend(shot.from,shot.target,t);
+    const t=smooth(shot.time/3);s.view=blend(shot.from,shot.target,t);
     for(const key of ['x','y'])s.view[key]+=shot.velocity[key]*shot.time*Math.exp(-shot.time*2)*(1-t);
     // Camera travel overlaps coast. Start the quiet hold only when BOTH the
-    // existing natural slow condition and the six-second shot have completed.
-    if(s.phase==='ending'&&shot.time>=6){shot.settledAt=shot.time;s.view={...shot.target};}
+    // existing natural slow condition and the three-second shot have completed.
+    if(s.phase==='ending'&&shot.time>=3){shot.settledAt=shot.time;s.view={...shot.target};}
   }
   function update(s,axis,dt){
     dt=Math.max(0,Math.min(.05,Number(dt)||0));
@@ -148,17 +148,17 @@
       s.look+=(target-s.look)*(1-Math.exp(-dt*3));s.view=follow(s);
     }else if(s.phase==='coast'||s.phase==='ending'){
       shotView(s,dt);
-      if(s.phase==='ending'&&s.ending.settledAt!==null&&s.ending.time-s.ending.settledAt>=2.5){s.phase='returning';s.elapsed=0;s.ending.hero={from:{...s.view},offset:{x:(s.world.pumpkin.x-s.view.x)*s.view.z,y:(s.world.pumpkin.y-s.view.y)*s.view.z}};s.prologue=D.create();s.prologue.looseAt=null;P.clearInput(s.world);}
+      if(s.phase==='ending'&&s.ending.settledAt!==null&&s.ending.time-s.ending.settledAt>=1){s.phase='returning';s.elapsed=0;s.ending.hero={from:{...s.view},offset:{x:(s.world.pumpkin.x-s.view.x)*s.view.z,y:(s.world.pumpkin.y-s.view.y)*s.view.z}};s.prologue=D.create();s.prologue.looseAt=null;P.clearInput(s.world);}
     }else if(s.phase==='returning'){
-      const b=s.world.pumpkin,h=s.ending.hero,t=smooth(s.elapsed/3.6);
+      const b=s.world.pumpkin,h=s.ending.hero,t=smooth(s.elapsed/2.2);
       // Interpolate projected subject placement while zooming, so an initially
       // off-centre hero cannot be magnified outside the portrait before recentering.
       const z=h.from.z+(3.325-h.from.z)*t;
       s.view={x:b.x-h.offset.x*(1-t)/z,y:b.y-(h.offset.y*(1-t)-25*t)/z,z};
-      if(s.elapsed>=3.6){s.phase='title';s.returnTitle=true;s.elapsed=0;P.clearInput(s.world);}
+      if(s.elapsed>=2.2){s.phase='title';s.returnTitle=true;s.elapsed=0;P.clearInput(s.world);}
     }
     return events;
   }
-  function returnMix(s){return s.phase==='returning'?smooth((s.elapsed-2.1)/1.5):s.phase==='title'?1:0;}
+  function returnMix(s){return s.phase==='returning'?smooth((s.elapsed/2.2-7/12)/(5/12)):s.phase==='title'?1:0;}
   return {create,start,beginJourney,update,pair,returnMix,smooth,nurseryPoses,openingFrame};
 });
