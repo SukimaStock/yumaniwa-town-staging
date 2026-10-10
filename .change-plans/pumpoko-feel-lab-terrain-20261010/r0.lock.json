@@ -1,0 +1,95 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ca06f8f079f6ee1a63bbd3a34251b2b6fb78489a6d97c290f5836a9e787f95d6",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-feel-lab-terrain-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Replace unusable FEEL LAB with playable PUMPOKO character-and-terrain experiment, original physics, safe course selection and reusable feel notes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "f0b4fa31e2ffd348ed1685f6be99b60e03873780",
+    "canonicalSources": [
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko/BUILDER.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-feel-lab-terrain-20261010/r0.lock.json",
+      "works/pumpoko-feel-lab/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/**",
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Replace incorrect portrait rendering and featureless circles with centered y-up terrain and actual pumpkin/rutabaga art",
+      "Use unchanged PUMPOKO 02 physics and sampled Hermite terrain for both rendering and contact",
+      "Swap physical tuning presets for distinct safe rolling/bouncing terrain phrases with reset and start-at-course option",
+      "Keep interaction and course selection visible on iPhone without scrolling through vast canvas",
+      "Allow saving a favorite terrain and note locally with a reproducible JSON course descriptor, with no main-game automatic import",
+      "Preserve initial Builder's authoring principles; do not falsely claim to implement a full editable loop"
+    ],
+    "ownerDecisions": [
+      "User requests functional stage-making laboratory repair; explicit reference to original Builder and Sonic-like loop"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main and old Builder read",
+      "READY Plan Lock before implementation",
+      "Staging work-local scope only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone landscape/portrait centered drawing, usable controls",
+      "Roll/bounce modes and four safe terrain studies",
+      "Reset, repeat and favorite saved locally",
+      "Gameplay physics untouched"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Original work-owned PUMPOKO 02 physics and world geometry",
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated staging PR",
+    "outOfScope": [
+      "release of PUMPOKO 02",
+      "production changes",
+      "full original stage-builder migration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone visual feel and touch, repeat-play enjoyment remain owner evaluation",
+      "Formal verificationState UNVERIFIED"
+    ]
+  }
+}
