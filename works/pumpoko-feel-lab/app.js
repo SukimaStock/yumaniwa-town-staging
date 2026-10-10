@@ -43,6 +43,7 @@
   function release(){activePointer=null;pointerSource=null;axis=0;keys.clear();if(state)P.clearInput(state)}
   function reset(){
     release();
+    if(!terrainPoints[terrain]){byId('saved').textContent='地形のデータを読み込めません。ページを再読み込みしてください。';return;}
     course={curves:{surface:terrainPoints[terrain].map(p=>p.slice())},surfaces:['surface'],holes:[],cellars:[],gaps:[],finishX:100000};
     state=P.create(kind,P.defaults());
     const b=state[kind],f=floor(-420);
@@ -147,7 +148,7 @@
   root.addEventListener('blur',release);
   doc.addEventListener('visibilitychange',()=>{if(doc.hidden){release();lastTime=0}});
   for(const b of doc.querySelectorAll('[data-kind]'))b.addEventListener('click',()=>{kind=b.dataset.kind;reset()});
-  for(const b of doc.querySelectorAll('[data-terrain]'))b.addEventListener('click',()=>{terrain=b.dataset.terrain;reset()});
+  for(const b of doc.querySelectorAll('[data-terrain]'))b.addEventListener('click',()=>{const selected=b.dataset.terrain;if(!terrainPoints[selected]){byId('saved').textContent='この地形のデータがありません。ページを再読み込みしてください。';return;}terrain=selected;reset();});
   byId('reset').addEventListener('click',reset);
   byId('save').addEventListener('click',()=>{
     const entry={kind,terrain,points:terrainPoints[terrain],note:byId('memo').value.trim(),at:new Date().toISOString()};
