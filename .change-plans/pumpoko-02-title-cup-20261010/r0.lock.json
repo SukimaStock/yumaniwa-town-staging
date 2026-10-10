@@ -1,0 +1,94 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f8156b4fcd8caab18f3cd7e27725f6341574ff431d886711438e3730a91a7838",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-title-cup-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Subtle inactive title pumpkin motion and more legible climb after goal cup",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "4dd6497f2d5f980b56a09f73c6bc33a148e4170b",
+    "canonicalSources": [
+      "works/pumpoko-02/prologue.js",
+      "works/pumpoko-02/title-draw.js",
+      "works/pumpoko-02/courses.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-title-cup-20261010/r0.lock.json",
+      "works/pumpoko-02/prologue.js",
+      "works/pumpoko-02/title-draw.js",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/IDLE-GOAL-REVIEW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/app.js",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "A subtle idle-only pumpkin visual twitch after three seconds, cancelled by touch without moving the seeds or changing game physics",
+      "Make the terrain rise on the far side of goal cup easier to read while preserving the cup and goal seat trigger",
+      "Keep all five stages, four handoffs, audio, input and end sequence untouched"
+    ],
+    "ownerDecisions": [
+      "User approved both appearance changes and requested staging merge"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh staging main read",
+      "New plan-first branch from exact base",
+      "Work-local Standard scope only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone idle title, touch cancellation and no seed detachment",
+      "iPhone goal cup visibility, natural return and seating",
+      "All five stages and four handoffs, 30/60/120fps",
+      "Audio and end to title"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated staging PR",
+    "outOfScope": [
+      "production",
+      "shared engine",
+      "other works",
+      "physics and goal trigger"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPhone/Safari feel and hearing remain UNVERIFIED"
+    ]
+  }
+}
