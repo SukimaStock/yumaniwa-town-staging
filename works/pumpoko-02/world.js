@@ -38,7 +38,7 @@
     }
     const f = curve(b.layer, x, course); f.distance = (b.x-f.x)*f.nx+(b.y-f.y)*f.ny;
     if(course?.gaps?.some(g=>g.layer===b.layer)){
-      if(!hasGround(b.layer,f.x,course)||f.distance<0)return emptyFrame;
+      if(!hasGround(b.layer,f.x,course)||f.distance<0){const edge=edgeContact(b,course);if(edge)return edge;return emptyFrame;}
     }
     return f;
   }
@@ -74,6 +74,42 @@
     });
     s.stages=course.stage1?{completed:[],checkpoint:null,failedAt:null}:null;
     s.rutabaga=s.entities[1];s.camera={x:s.pumpkin.x,y:s.pumpkin.y+70,vx:0,vy:0};return s;
+  }
+  // A real circle may touch the solid bank's corner before its centre reaches
+  // that bank. Later stages resolve that endpoint, never the missing interior.
+  // Original STAGE 1 uses its accepted contact path without this extension.
+  function edgeContact(b,course){
+    let nearest=null;
+    for(const g of course.gaps||[]){if(!g.stage||g.layer!==b.layer||b.x<g.a-b.r||b.x>g.b+b.r)continue;
+      for(const x of [g.a,g.b]){const f=curve(b.layer,x,course),dx=b.x-x,dy=b.y-f.y,d=Math.hypot(dx,dy);
+        if(dy<0||d<1e-8||d>b.r+3||(nearest&&d>=nearest.distance))continue;
+        const nx=dx/d,ny=dy/d;nearest={...f,nx,ny,tx:ny,ty:-nx,distance:d};
+      }
+    }return nearest;
+  }
+  function stageSpec(s){return s.course?.stages?.[s.handoffs]||(s.handoffs===0?s.course?.stage1:null);}
+  function restoreCheckpoint(s,start){
+    const cp=s.stages?.checkpoint,world=createCourse(s.course,s.settings);
+    if(cp){
+      world.entities=JSON.parse(JSON.stringify(cp.entities));world.active=cp.active;world.phase=cp.phase;world.handoffs=cp.handoffs;
+      world.holes=cp.holes.map(saved=>{
+        const h={...JSON.parse(JSON.stringify(saved)),occupant:world.entities[saved.occupantIndex],incoming:null};
+        if(h.swaps){h.state='complete';h.elapsed=0;Object.assign(h.occupant,{x:h.x,y:h.y,vx:0,vy:0,pulse:0,angle:0,plugged:true});}
+        return h;
+      });
+      for(const kind of ['pumpkin','rutabaga'])world[kind]=world.entities[cp[kind+'Index']]||world.entities.findLast(b=>b.kind===kind&&!b.plugged)||world.entities.findLast(b=>b.kind===kind);
+      const spec=stageSpec(world),body=world.entities[cp.entityIndex];
+      Object.assign(body,fruit(cp.active,spec.spawnX,spec.layer,false,s.course),{grounded:true});world[cp.active]=body;
+      world.stages={completed:Array.from({length:cp.handoffs},(_,i)=>i+1),checkpoint:cp,failedAt:null};
+    }else Object.assign(world.pumpkin,start);
+    P.clearInput(world);if(cp){world.time=s.time;world.lastRoll=s.time;}
+    const b=world[world.active];world.camera={x:b.x,y:b.y+70,vx:0,vy:0};return world;
+  }
+  function closingWorld(s){
+    const course=s.course.finale;if(!course)return null;
+    const spec=course.holes.at(-1),h=s.holes.at(-1),partner={...h.occupant,x:spec.x,y:spec.y};
+    return {course,entities:[partner,s.pumpkin],holes:[{...h,x:spec.x,y:spec.y,occupant:partner,incoming:null}],
+      pumpkin:s.pumpkin,rutabaga:partner,active:s.active,goal:s.goal,time:s.time,camera:s.camera};
   }
   function hole(id,x,y,direction,occupant,incomingKind,exitLayer) {
     return {id,x,y,direction,occupant,incomingKind,exitLayer,state:'waiting',swaps:0,elapsed:0,incoming:null};
@@ -141,7 +177,16 @@
         const points=course.curves[layers[i]],last=points.at(-1);
         if(x<=last[0]||i===layers.length-1)return curve(layers[i],x,course).y;
         const next=course.curves[layers[i+1]][0];
-        if(x<next[0])return last[1]+(next[1]-last[1])*(x-last[0])/(next[0]-last[0]);
+        if(x<next[0]){
+          const bridge=course.surfaceBridges?.find(b=>b.layer===layers[i]);
+          if(bridge){const u=x-bridge.a,start=bridge.y+500*bridge.slope;
+            if(u<=500)return bridge.y+u*bridge.slope;
+            if(u<1100)return start+(bridge.plateau-start)*(u-500)/600;
+            if(x>bridge.b-600)return bridge.plateau+(bridge.endY-bridge.plateau)*(x-bridge.b+600)/600;
+            return bridge.plateau;
+          }
+          return last[1]+(next[1]-last[1])*(x-last[0])/(next[0]-last[0]);
+        }
       }
     }
     if(x<=590)return curve('surface',x).y;
@@ -151,7 +196,10 @@
   function roof(x, course, layer) {
     if(course){
       const cell=course.cellars.find(c=>c.layer===layer)||course.cellars.find(c=>x>=c.left&&x<=c.right)||course.cellars[0];
-      const value=x<cell.roofStart?cell.roofHeight:Math.max(cell.exitRoof,cell.roofHeight-(x-cell.roofStart)*(cell.roofHeight-cell.exitRoof)/(cell.exitX-cell.roofStart));
+      let value=x<cell.roofStart?cell.roofHeight:Math.max(cell.exitRoof,cell.roofHeight-(x-cell.roofStart)*(cell.roofHeight-cell.exitRoof)/(cell.exitX-cell.roofStart));
+      if(cell.entryRoof&&x<cell.entryRoof.until+600){const e=cell.entryRoof,at=Math.min(x,e.until),entry=at<e.roofStart?e.height:Math.max(e.exitRoof,e.height-(at-e.roofStart)*(e.height-e.exitRoof)/(e.exitX-e.roofStart));
+        value=x<=e.until?entry:entry+(value-entry)*(x-e.until)/600;
+      }
       return Math.min(surfaceHeight(x,course)-25,value);
     }
     return Math.min(surfaceHeight(x)-25,x<650?430:Math.max(215,430-(x-650)*215/590)); }
@@ -206,7 +254,9 @@
         // Only the extended course has an extra convex crest. Its surface can
         // support, never pull, a rolling fruit; gravity handles the brief flight.
         if((s.course?.crestStart && active.layer==='return' && active.x>=s.course.crestStart ||
-          s.course?.stage1 && active.layer==='surface' && active.x>1220) && active.grounded){
+          s.course?.stage1 && active.layer==='surface' && active.x>1220 ||
+          s.course?.stages && active.kind==='pumpkin' && s.handoffs>0 &&
+          (active.layer!=='finish'||active.x<s.course.goal.x-445)) && active.grounded){
           const f=geo.contact(active),v=active.vx*f.tx+active.vy*f.ty;
           if(f.curvature<0 && v*v*(-f.curvature)/Math.pow(1+f.slope*f.slope,1.5)>P.G*f.ny)active.grounded=false;
         }
@@ -221,20 +271,19 @@
       const b=s[s.active];
       if(s.course?.stage1){
         s.stages??={completed:[],checkpoint:null,failedAt:null};
-        if(s.handoffs===1&&!s.stages.completed.length){
-          s.stages.completed.push(1);
-          // Only the first clear is installed now. The observed outgoing pose
-          // and indexed world data can seed future stage recovery.
-          s.stages.checkpoint={stage:2,at:s.time,active:s.active,layer:b.layer,
-            entityIndex:s.entities.indexOf(b),handoffs:s.handoffs,phase:s.phase,
+        if(s.handoffs>s.stages.completed.length){
+          const cleared=s.handoffs;s.stages.completed.push(cleared);
+          s.stages.checkpoint={stage:cleared+1,at:s.time,active:s.active,layer:b.layer,
+            entityIndex:s.entities.indexOf(b),pumpkinIndex:s.entities.indexOf(s.pumpkin),rutabagaIndex:s.entities.indexOf(s.rutabaga),handoffs:s.handoffs,phase:s.phase,
             body:JSON.parse(JSON.stringify(b)),entities:JSON.parse(JSON.stringify(s.entities)),
             holes:s.holes.map(h=>({...JSON.parse(JSON.stringify(h)),
               occupantIndex:s.entities.indexOf(h.occupant),incomingIndex:s.entities.indexOf(h.incoming)})),
             camera:{...s.camera},settings:JSON.parse(JSON.stringify(s.settings))};
-          s.events.push({type:'stage-clear',stage:1,next:2});
+          s.events.push({type:'stage-clear',stage:cleared,next:cleared+1});
         }
-        if(s.handoffs===0&&b.layer==='surface'&&b.y<s.course.stage1.failY&&s.stages.failedAt===null){
-          s.stages.failedAt=s.time;s.events.push({type:'fall',kind:b.kind});
+        const spec=stageSpec(s);
+        if(spec&&b.y<spec.failY&&s.stages.failedAt===null){
+          s.stages.failedAt=s.time;s.events.push({type:'fall',kind:b.kind,stage:s.handoffs+1});
           s.target=s.axis=s.previousInput=0;s.bufferedAt=-10;s.boostUsed=true;
         }
       }
@@ -242,17 +291,19 @@
       // No reset at exchange and no view of the next plug before the player.
       for(const key of ['x','y']) {
         let target=b[key]+(key==='y'?70:0);const v='v'+key;
-        if(s.course?.stage1&&s.handoffs===0&&key==='y')target=Math.max(target,s.course.stage1.cameraFloor);
+        if(s.course?.stage1&&key==='y'&&(s.handoffs===0||s.course.stages))target=Math.max(target,stageSpec(s)?.cameraFloor??s.course.stage1.cameraFloor);
         s.camera[v]+=((target-s.camera[key])*49-s.camera[v]*14)*step;
         s.camera[key]+=s.camera[v]*step;
       }
       if(s.course&&!s.finished&&s.handoffs===s.holes.length){
         if(s.course.goal)seatGoal(s,b,step,previous);
         else if(b.grounded&&b.x>=s.course.finishX){s.finished=true;s.finishedAt=s.time;}
+        if(s.finished&&s.course.stages&&!s.stages.completed.includes(5)){s.stages.completed.push(5);s.finale=closingWorld(s);s.events.push({type:'stage-clear',stage:5,next:null});}
+        if(s.finale)s.finale.time=s.time;
       }
       s.accumulator-=step;
     }
     return s.events;
   }
-  return {PARAMETERS,CURVES,curve,groundFrame,hasGround,surfaceHeight,roof,contact,create,createCourse,update,eligible};
+  return {PARAMETERS,CURVES,curve,groundFrame,hasGround,surfaceHeight,roof,contact,create,createCourse,stageSpec,restoreCheckpoint,update,eligible};
 });

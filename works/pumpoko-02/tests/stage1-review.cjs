@@ -11,18 +11,18 @@ function crossing(g,speed,start=g.a-8){const w=placed(g,speed,start),b=w.pumpkin
  if(b.grounded&&b.x>g.b+40)return {success:true,time:w.time,depart,landing};
  if(w.stages.failedAt!==null)return {success:false,time:w.time,depart,landing};
  }return {success:false,timeout:true,time:w.time,depart,landing};}
-function travel({normal=false,full=false,capture=false,fps=60,releaseFrames=1}={}){const s=enter(),startX=s.world.pumpkin.x;let failed=false,retries=0,elapsed=0,clear=null,seat=null,title=null;const frames=[],events=[],flights=[];let flight=null;
+function travel({normal=false,full=false,capture=false,fps=60,releaseFrames=2}={}){const s=enter(),startX=s.world.pumpkin.x;let failed=false,retries=0,elapsed=0,clear=null,seat=null,title=null;const frames=[],events=[],flights=[];let flight=null;
  for(let i=0;i<fps*120;i++){
-  const b=s.world[s.world.active],previous={...b};let axis=s.phase==='playing'?(b.kind==='rutabaga'&&Math.floor(i/fps*60)%40<releaseFrames?0:1):0;
+  const b=s.world[s.world.active],previous={...b};let axis=s.phase==='playing'?(b.kind==='rutabaga'?require('./five-stage-controls.cjs').axis(s.world):1):0;
   if(normal&&s.phase==='playing'&&s.world.handoffs===0){if(b.x<900||b.x>3900)axis=Math.floor(i/fps*60)%60<30?1:0;if(!failed&&b.x>3230)axis=-1;}
   const ev=S.update(s,axis,1/fps);elapsed+=1/fps;
   if(ev.some(e=>e.type==='fall'))failed=true;
   if(ev.some(e=>e.type==='retry')){S.update(s,0,1/fps);elapsed+=1/fps;retries++;}
   for(const e of ev)if(['fall','retry','handoff','stage-clear','seat'].includes(e.type))events.push({...e,time:elapsed});
   if(!flight&&previous.grounded&&!b.grounded&&previous.layer==='surface'){
-   const g=course.gaps.find(g=>b.x>g.a-60&&b.x<g.a+40);if(g)flight={gap:g.id,depart:{time:elapsed,x:b.x,y:b.y,vx:b.vx,vy:b.vy,speed:Math.hypot(b.vx,b.vy)}};
+   const g=course.gaps.filter(g=>g.layer==='surface').find(g=>b.x>g.a-60&&b.x<g.a+40);if(g)flight={gap:g.id,depart:{time:elapsed,x:b.x,y:b.y,vx:b.vx,vy:b.vy,speed:Math.hypot(b.vx,b.vy)}};
   }
-  if(flight&&ev.some(e=>e.type==='land')&&b.x>course.gaps.find(g=>g.id===flight.gap).b-36){flight.landing={time:elapsed,x:b.x,y:b.y,vx:b.vx,vy:b.vy};flights.push(flight);flight=null;}
+  if(flight&&ev.some(e=>e.type==='land')&&b.x>course.gaps.filter(g=>g.layer==='surface').find(g=>g.id===flight.gap).b-36){flight.landing={time:elapsed,x:b.x,y:b.y,vx:b.vx,vy:b.vy};flights.push(flight);flight=null;}
   if(capture&&i%4===0)frames.push({time:elapsed,world:structuredClone(s.world),view:{...s.view},nursery:structuredClone(S.nurseryPoses(s))});
   if(clear===null&&s.world.handoffs===1){clear=elapsed;if(!full&&!capture)break;}
   if(capture&&!full&&clear!==null&&i%4===0)break;
@@ -30,7 +30,7 @@ function travel({normal=false,full=false,capture=false,fps=60,releaseFrames=1}={
   if(s.returnTitle){title=elapsed;break;}
  }
  return {state:s,startX,length:course.stage1.endX-startX,screens:(course.stage1.endX-startX)/(390/.8),clear,seat,title,retries,events,flights,frames};}
-function measure(){const fast=travel(),normal=travel({normal:true}),full=travel({full:true}),gaps=course.gaps.map(g=>{let threshold=null;for(let speed=50;speed<=620;speed++)if(crossing(g,speed).success){threshold=speed;break;}return {...g,width:g.b-g.a,minimumTestedTangentSpeed:threshold,restart:crossing(g,0,g.a-g.runup)};});return {base:BASE,shift:SHIFT,zoom:.8,logicalWidth:390,visibleWorldWidth:390/.8,startX:fast.startX,endX:course.stage1.endX,length:fast.length,screens:fast.screens,nominalLength:course.stage1.endX-course.stage1.startX,fastClear:fast.clear,normalClear:normal.clear,normalRetries:normal.retries,gaps,flights:fast.flights,full:{seat:full.seat,title:full.title,ending:full.title-full.seat,events:full.events},retry:course.stage1.retrySeconds,evidence:'fixed 240Hz physics, 60Hz story/app harness; native Canvas rendering; no real-device/human play evidence'};}
+function measure(){const fast=travel(),normal=travel({normal:true}),full=travel({full:true}),gaps=course.gaps.filter(g=>g.layer==='surface').map(g=>{let threshold=null;for(let speed=50;speed<=620;speed++)if(crossing(g,speed).success){threshold=speed;break;}return {...g,width:g.b-g.a,minimumTestedTangentSpeed:threshold,restart:crossing(g,0,g.a-g.runup)};});return {base:BASE,shift:SHIFT,zoom:.8,logicalWidth:390,visibleWorldWidth:390/.8,startX:fast.startX,endX:course.stage1.endX,length:fast.length,screens:fast.screens,nominalLength:course.stage1.endX-course.stage1.startX,fastClear:fast.clear,normalClear:normal.clear,normalRetries:normal.retries,gaps,flights:fast.flights,full:{seat:full.seat,title:full.title,ending:full.title-full.seat,events:full.events},retry:course.stage1.retrySeconds,evidence:'fixed 240Hz physics, 60Hz story/app harness; native Canvas rendering; no real-device/human play evidence'};}
 function render(w,c,f){c.resetTransform();c.fillStyle='#faf1dc';c.fillRect(0,0,390,740);c.save();c.translate(0,740);c.scale(1,-1);w.PumpokoWorldDraw(c,f.world,f.view,f.nursery);c.restore();}
 async function main(){const {createCanvas,loadImage}=require('@napi-rs/canvas'),out=path.resolve(__dirname,'../visual-review'),h=harness(),w=h.w,m=measure(),run=travel({capture:true});fs.mkdirSync(out,{recursive:true});
  // An overview is explicitly a map, rather than a gameplay zoom capture.
@@ -39,7 +39,7 @@ async function main(){const {createCanvas,loadImage}=require('@napi-rs/canvas'),
  const segments=[[-440,1700],[1800,3400],[3580,5190]];
  for(const [a,b]of segments){c.beginPath();c.moveTo(sx(a),sy(W.curve('surface',a,course).y));for(let x=a+4;x<b;x+=4)c.lineTo(sx(x),sy(W.curve('surface',x,course).y));c.lineTo(sx(b),sy(W.curve('surface',b,course).y));c.lineTo(sx(b),330);c.lineTo(sx(a),330);c.closePath();c.fillStyle=w.PumpokoMaterial.flesh;c.fill();c.save();c.clip();c.strokeStyle=w.PumpokoMaterial.cream;c.lineWidth=10;c.stroke();c.strokeStyle=w.PumpokoMaterial.rind;c.lineWidth=6;c.stroke();c.restore();}
  for(const [name,x]of [['A / roll',600],['B / first gap',1700],['C / build speed',3000],['D / first handoff',4600]]){c.fillStyle='#695539';c.font='15px sans-serif';c.fillText(name,sx(x)-60,65);}
- for(const g of course.gaps){c.fillStyle='#695539';c.font='13px sans-serif';c.fillText('gap '+g.id+' / '+(g.b-g.a),sx(g.a)-35,355);}
+ for(const g of course.gaps.filter(g=>g.layer==='surface')){c.fillStyle='#695539';c.font='13px sans-serif';c.fillText('gap '+g.id+' / '+(g.b-g.a),sx(g.a)-35,355);}
  c.beginPath();c.arc(sx(m.startX),sy(W.curve('surface',m.startX,course).y)-9,9,0,Math.PI*2);c.fillStyle='#d48b36';c.fill();c.fillStyle='#695539';c.fillText('actual spawn',sx(m.startX)-30,95);
  c.beginPath();c.arc(sx(course.stage1.endX),sy(490)-8,8,0,Math.PI*2);c.fillStyle='#e6d7b5';c.fill();
  const old=harness({sourceRef:BASE}).w.FruitLabCourses.get('world4');c.strokeStyle='#738665';c.lineWidth=3;c.beginPath();

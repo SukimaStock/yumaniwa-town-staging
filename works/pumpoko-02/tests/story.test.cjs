@@ -5,9 +5,9 @@ const P=require('../physics.js'),W=require('../world.js'),C=require('../courses.
 const LabP=require('../../pumpkin-rutabaga-lab/physics.js'),LabW=require('../../pumpkin-rutabaga-lab/world.js');
 const {SHIFT,x:shiftX,protectPhysics}=require('./stage1-reference.cjs');
 const {harness}=require('./harness.cjs');
-const axis=(s,i)=>s.world.active==='rutabaga'&&i%40===0?0:1;
+const axis=(s,i)=>require('./five-stage-controls.cjs').axis(s.world);
 function enter(s){S.beginJourney(s);for(let i=0;i<1200&&s.phase==='opening';i++)S.update(s,0,1/60);assert.equal(s.phase,'playing');return s;}
-function finish(s){enter(s);for(let i=0;i<60*90&&!s.world.finished;i++)S.update(s,axis(s,i),1/60);assert.ok(s.world.finished);return s;}
+function finish(s){enter(s);for(let i=0;i<60*180&&!s.world.finished;i++)S.update(s,axis(s,i),1/60);assert.ok(s.world.finished);return s;}
 function ending(s){finish(s);for(let i=0;i<60*60&&s.phase!=='ending';i++)S.update(s,0,1/60);assert.equal(s.phase,'ending');return s;}
 function liveEnter(h){
   for(let i=0;i<60*30&&h.probe().phase==='title';i++){if(i%30===0){h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');h.key('keydown',i%60===0?'ArrowRight':'ArrowLeft');}h.frame();}
@@ -15,9 +15,9 @@ function liveEnter(h){
 }
 function liveFinish(h){
   liveEnter(h);h.key('keydown','ArrowRight');
-  for(let i=0;i<60*90&&!h.probe().finished;i++){if(i%40===0&&h.probe().model.active==='rutabaga'){h.key('keyup','ArrowRight');h.frame();h.key('keydown','ArrowRight');}h.frame();}
+  for(let i=0;i<60*180&&!h.probe().finished;i++){h.key(require('./five-stage-controls.cjs').axis(h.probe().model)?'keydown':'keyup','ArrowRight');h.frame();}
   assert.equal(h.probe().model.handoffs,4);assert.ok(h.probe().finished);h.key('keyup','ArrowRight');
-  for(let i=0;i<60*90&&!h.probe().returnTitle;i++)h.frame();assert.ok(h.probe().returnTitle);
+  for(let i=0;i<60*180&&!h.probe().returnTitle;i++)h.frame();assert.ok(h.probe().returnTitle);
 }
 test('physical integrator/fruit constants and asset bytes are preserved; goal contact is work-local',()=>{
   protectPhysics();protectLogo();
@@ -75,11 +75,11 @@ test('adapted terrain with unchanged physics matches lab integrator exactly at d
 test('four natural exchanges stay in portrait frame; every plug plants and transfers without resetting input/camera',()=>{
   for(const fps of [30,60,120]){
     const s=enter(S.create());let count=0,last={...s.view},maxStep=0;
-    for(let i=0;i<fps*90&&!s.world.finished;i++){
-      const input=s.world.active==='rutabaga'&&Math.floor(i/fps*60)%40<4?0:1;S.update(s,input,1/fps);const w=s.world,b=w[w.active];
+    for(let i=0;i<fps*180&&!s.world.finished;i++){
+      const input=axis(s,i);S.update(s,input,1/fps);const w=s.world,b=w[w.active];
       maxStep=Math.max(maxStep,Math.hypot(s.view.x-last.x,s.view.y-last.y));last={...s.view};
       assert.ok(Math.abs((b.x-s.view.x)*s.view.z)<185,'horizontal target stays in portrait');assert.ok(Math.abs((b.y-s.view.y)*s.view.z)<330,'vertical target stays in portrait');
-      if(w.handoffs>count){assert.equal(w.handoffs,count+1);count++;assert.equal(w.target,1);assert.equal(w.holes[count-1].occupant.plugged,true);assert.equal(b.plugged,false);}
+      if(w.handoffs>count){assert.equal(w.handoffs,count+1);count++;assert.equal(w.target,input);assert.equal(w.holes[count-1].occupant.plugged,true);assert.equal(b.plugged,false);}
       const mouth=w.holes.some(h=>h.state==='compressing'&&h.incoming===b)||b.exiting;if(!mouth)assert.ok(W.contact(b,w.course).distance>=b.r-.05);
     }
     assert.equal(count,4);assert.equal(s.phase,'coast');assert.ok(maxStep<35);assert.equal(s.world.entities.filter(b=>b.plugged).length,4);
@@ -91,7 +91,7 @@ test('seated goal ends held input and one shot frames real final pair; continuou
   const pumpkin=s.world.pumpkin,rutabaga=s.world.holes[3].occupant;let last={...s.view},maxJump=0;
   for(let i=0;i<60*11&&s.phase==='ending';i++){
     S.update(s,0,1/60);maxJump=Math.max(maxJump,Math.hypot(s.view.x-last.x,s.view.y-last.y));last={...s.view};
-    if(s.ending.settledAt!==null)for(const b of [pumpkin,rutabaga]){assert.ok(Math.abs((b.x-s.view.x)*s.view.z)<160);assert.ok(Math.abs((b.y-s.view.y)*s.view.z)<270);}
+    if(s.ending.settledAt!==null)for(const b of [pumpkin,(s.world.finale||s.world).holes.at(-1).occupant]){assert.ok(Math.abs((b.x-s.view.x)*s.view.z)<160);assert.ok(Math.abs((b.y-s.view.y)*s.view.z)<270);}
     assert.equal(s.world.pumpkin,pumpkin);assert.equal(s.world.holes[3].occupant,rutabaga);assert.equal(rutabaga.x,C.get('world4').holes[3].x);assert.equal(rutabaga.y,30);assert.equal(s.world.handoffs,4);
   }
   assert.ok(maxJump<6);while(s.phase==='ending')S.update(s,0,1/60);assert.equal(s.phase,'returning');
@@ -119,7 +119,7 @@ test('authored course has distinct long phrases, positive cellar clearances and 
   assert.notDeepEqual(c.curves.underground.map(p=>p[1]),c.curves.underground2.map(p=>p[1]));
 });
 test('stop, reverse and reaccelerate from each surface/underground phrase under unchanged controls',()=>{
-  for(const [layer,x] of [['surface',530],['underground',1930],['return',3990],['underground2',6090],['finish',7600]]){
+  for(const [layer,x] of [['surface',530],['underground',1930],['return',3990],['underground2',6090],['finish',7350]]){
     const s=W.createCourse(C.get('world4')),kind=layer.startsWith('underground')?'rutabaga':'pumpkin',b=P.body(kind,0),f=W.curve(layer,shiftX(layer,x),s.course);
     Object.assign(b,{x:f.x+f.nx*b.r,y:f.y+f.ny*b.r,layer,plugged:false,grounded:true});s[kind]=b;s.active=kind;s.phase=layer;
     for(let i=0;i<120;i++){P.input(s,-1);W.update(s,1/60);}const reversed=b.x;
@@ -154,9 +154,7 @@ module.exports={liveEnter,liveFinish};
 
 test('primary touch drives all four sockets and interruption clears pointer/input without changing the world',()=>{
   const h=harness();liveEnter(h);h.pointer('pointerdown',600,400);
-  for(let i=0;i<5400&&!h.probe().finished;i++){
-    if(i%40===0&&h.probe().model.active==='rutabaga'){h.pointer('pointerup',600,400);h.frame();h.pointer('pointerdown',600,400);}h.frame();
-  }
+  for(let i=0;i<10800&&!h.probe().finished;i++){if(require('./five-stage-controls.cjs').axis(h.probe().model)){if(h.probe().pointer===null)h.pointer('pointerdown',600,400);}else h.pointer('pointerup',600,400);h.frame();}
   assert.equal(h.probe().model.handoffs,4);assert.equal(h.probe().phase,'coast');h.pointer('pointerup',600,400);
   for(const [interrupt,resume] of [['resize',null],['pagehide','pageshow'],['blur','focus']]){
     h.pointer('pointerdown',600,400);h.frame();const handoffs=h.probe().model.handoffs;h.w.emit(interrupt);assert.equal(h.probe().pointer,null);assert.equal(h.probe().target,0);assert.equal(h.probe().axis,0);

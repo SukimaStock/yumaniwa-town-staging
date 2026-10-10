@@ -13,7 +13,7 @@ function collect(ref=null){
   if(p.phase==='title'&&!released)h.pointer('pointermove',195+79*Math.sin((frame-1)/60*2.3),365+70*Math.cos((frame-1)/60*2.3));
   if(p.phase==='playing'){
    if(!playFrame)playFrame=frame;
-   h.key(p.model.active==='rutabaga'&&(frame-playFrame)%40===0?'keyup':'keydown','ArrowRight');
+   h.key(!require('./five-stage-controls.cjs').axis(p.model)?'keyup':'keydown','ArrowRight');
   }
   if(p.finished&&!finished){finished=true;h.key('keyup','ArrowRight');}
   h.frame();const q=h.probe(),t=frame/60;

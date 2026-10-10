@@ -9,8 +9,8 @@ function collect(){
  for(let i=0;i<1200&&s.phase==='opening';i++)S.update(s,0,1/60);
  assert.equal(s.phase,'playing');
  const clips=[],seen=new Set(),history=[];let active=null;
- for(let i=0;i<5400&&(!s.world.finished||active);i++){
-  const axis=s.world.active==='rutabaga'&&i%40===0?0:1;
+ for(let i=0;i<10800&&(!s.world.finished||active);i++){
+  const axis=require('./five-stage-controls.cjs').axis(s.world);
   S.update(s,axis,1/60);
   const frame={world:structuredClone(s.world),view:{...s.view},nursery:structuredClone(S.nurseryPoses(s))};
   history.push(frame);if(history.length>91)history.shift();

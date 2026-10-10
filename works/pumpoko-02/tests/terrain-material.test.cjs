@@ -27,7 +27,7 @@ test('original screen thickness, ordered skin → cream → flesh, entirely soli
 });
 test('ceiling and vertical cellar walls place cream into terrain, not into playable air',()=>{
  const cases=[{x:1420+SHIFT,y:W.roof(1420+SHIFT,course),dx:0,dy:1},
-  {x:1310+SHIFT,y:320,dx:-1,dy:0},{x:2860+SHIFT,y:170,dx:1,dy:0}];
+  {x:1310+SHIFT,y:320,dx:-1,dy:0},{x:course.cellars[0].right,y:170,dx:1,dy:0}];
  for(const p of cases){const r=scene(p.x,p.y);
   assert.ok(close(r.pixel(p.x+p.dx*10,p.y+p.dy*10),rind),JSON.stringify(p));
   assert.ok(close(r.pixel(p.x+p.dx*21,p.y+p.dy*21),cream));
@@ -35,7 +35,7 @@ test('ceiling and vertical cellar walls place cream into terrain, not into playa
  }
 });
 test('thin roof retains the inner pale seam and no contour invades cellar air',()=>{
- for(const x of [1930,2400,2700,5600,6800,7000].map(x=>x+SHIFT)){
+ for(const x of course.holes.filter(h=>h.direction>0).flatMap(h=>[-70,-35,15].map(dx=>h.x+dx))){
   const top=W.surfaceHeight(x,course),roof=W.roof(x,course),r=scene(x,(top+roof)/2);
   assert.ok(close(r.pixel(x,(top+roof)/2),cream),'inner seam '+x);
   assert.ok(!close(r.pixel(x,roof-4),rind)&&!close(r.pixel(x,roof-4),cream),'ceiling air '+x);
