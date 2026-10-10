@@ -58,6 +58,7 @@
     c.restore();
   }
   root.PumpokoWorldDraw=function(c,s,view,nursery,opening) {
+    s=s.finale?{...s.finale,time:s.time}:s;
     const camera=view||{...s.camera,z:1},z=camera.z||1;
     const course=s.course,surface=x=>W.surfaceHeight(x,course)-(opening?.lift||0),roof=x=>W.roof(x,course);
     // Continue the soil to the viewport edges; collision bounds stay adopted.
@@ -86,7 +87,7 @@
       a:h.x-44,b:h.x+44,floor:roof,ceiling:surface
     }));
     const gaps=(course?.gaps||[]).filter(g=>g.b>=left&&g.a<=right).map(g=>({
-      a:g.a,b:g.b,floor:()=>bottom-1,ceiling:()=>Math.max(1100,camera.y+1000/z)
+      a:g.a,b:g.b,floor:()=>bottom-1,ceiling:x=>course.cellars.some(cell=>cell.layer===g.layer)?W.roof(x,course,g.layer):Math.max(1100,camera.y+1000/z)
     }));
     const spaces=[...cavities,...mouths,...gaps];
     // All material layers share actual openings; no fruit fill crosses a mouth.

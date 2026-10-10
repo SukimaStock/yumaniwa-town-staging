@@ -57,6 +57,66 @@
   for(const h of four.holes)h.x+=shift;
   for(const cell of four.cellars)for(const key of ['left','right','roofStart','exitX'])cell[key]+=shift;
   four.crestStart+=shift;four.finishX+=shift;four.goal.x+=shift;
+  // Rigid socket shoulders and final pocket surround new, attainable terrain.
+  const original=clone(four),layers=['surface','underground','return','underground2','finish'];
+  const ends=[four.holes[0].x,11240,18600,27430,38030];
+  const offsets={surface:0,underground:0,return:4750,underground2:9690,finish:16680};
+  const exitOffsets=[0,4750,9690,16680];
+  const move=(points,dx)=>points.map(p=>[p[0]+dx,p[1],p[2]]);
+  const layouts=[
+    {stage:2,layer:'underground',base:100,gaps:[[1850,110,-65],[3900,120,-50]],kind:'rutabaga'},
+    {stage:3,layer:'return',base:220,gaps:[[1800,160,15],[3700,180,25],[5000,140,-25]],kind:'pumpkin'},
+    {stage:4,layer:'underground2',base:-120,gaps:[[1700,125,-60],[3600,140,-55],[4900,130,-40],[6700,150,-55]],kind:'rutabaga'},
+    {stage:5,layer:'finish',base:100,gaps:[[1800,180,25],[3700,190,20],[5000,165,-60],[7200,200,20],[9000,200,20]],kind:'pumpkin'}
+  ];
+  for(const layout of layouts){
+    const {stage,layer,base,kind}=layout,start=ends[stage-2],end=ends[stage-1];
+    const points=original.curves[layer],prefix=move(points.slice(0,3),offsets[layer]);
+    const tail=stage===5?move(points.slice(2),end-original.goal.x):move(points.slice(-3),exitOffsets[stage-1]);
+    const middle=[];
+    for(const [distance,width,rise]of layout.gaps){
+      const a=start+distance,b=a+width;
+      if(kind==='rutabaga')middle.push([a-650,base+100,0],[a-360,base,0],[a-180,base+40,0],
+        [a,base+40,0],[b,base+40+rise,0],[b+300,base+10,0]);
+      else middle.push([a-650,base+130,0],[a-360,base-25,0],[a-180,base+5,.35],
+        [a,base+70,.5],[b,base+70+rise,0],[b+300,base+40,0]);
+      four.gaps.push({id:'stage'+stage+'-'+(four.gaps.filter(g=>g.stage===stage).length+1),stage,layer,a,b,runup:650,
+        preview:kind==='rutabaga'?220:285,approach:1000,referenceSpeed:kind==='rutabaga'?350:500});
+    }
+    // Small swells join the challenges, each within about 1.5 game screens.
+    const all=[...prefix,...middle,...tail].sort((a,b)=>a[0]-b[0]),filled=[];
+    for(const point of all){const prev=filled.at(-1);if(prev&&point[0]-prev[0]>800){
+      const n=Math.ceil((point[0]-prev[0])/650);
+      for(let k=1;k<n;k++){const t=k/n;filled.push([prev[0]+(point[0]-prev[0])*t,prev[1]+(point[1]-prev[1])*t+(k%2?24:-12),0]);}
+    }filled.push(point);}
+    four.curves[layer]=filled;
+  }
+  four.holes=original.holes.map((h,i)=>({...h,x:h.x+exitOffsets[i]}));
+  four.cellars=original.cellars.map((cell,i)=>{const stage=i?4:2,end=ends[stage-1],layer=layers[stage-1],points=four.curves[layer];
+    return {...cell,left:points[0][0],right:points.at(-1)[0],roofStart:end-(i?1690:1240),roofHeight:cell.roofHeight,exitX:end,entryRoof:{until:ends[stage-2]+500,roofStart:cell.roofStart+offsets[layer],height:cell.roofHeight,exitX:cell.exitX+offsets[layer],exitRoof:cell.exitRoof}};});
+  // Retain the visible STAGE 1 bridge, then keep a level overhead clearance
+  // through each bouncing challenge. A descending roof must not carry fruit
+  // across several gaps via the existing roof constraint.
+  four.surfaceBridges=original.surfaces.slice(0,-1).map((layer,i)=>{
+    const oldEnd=original.curves[layer].at(-1),oldNext=original.curves[original.surfaces[i+1]][0];
+    return {layer,a:four.curves[layer].at(-1)[0],b:four.curves[original.surfaces[i+1]][0][0],
+      y:oldEnd[1],slope:(oldNext[1]-oldEnd[1])/(oldNext[0]-oldEnd[0]),plateau:i?300:500,endY:oldNext[1]};
+  });
+  four.goal={...original.goal,x:ends[4]};four.finishX=original.finishX+(ends[4]-original.goal.x);
+  four.crestStart=original.crestStart+offsets.return;
+  four.offsets=offsets;four.exitOffsets=exitOffsets;four.goalOffset=ends[4]-original.goal.x;
+  // The accepted short closing tableau is presentation data only. Extended
+  // gameplay/checkpoints keep their real positions; its pocket is identical.
+  four.finale=clone(original);
+  for(const points of Object.values(four.finale.curves))for(const p of points)p[0]+=four.goalOffset;
+  for(const h of four.finale.holes)h.x+=four.goalOffset;
+  for(const cell of four.finale.cellars)for(const k of ['left','right','roofStart','exitX'])cell[k]+=four.goalOffset;
+  four.finale.goal.x+=four.goalOffset;four.finale.finishX+=four.goalOffset;
+  four.finale.gaps=four.finale.gaps.map(g=>({...g,a:g.a+four.goalOffset,b:g.b+four.goalOffset}));
+  four.stages=layers.map((layer,i)=>({id:i+1,layer,kind:i%2?'rutabaga':'pumpkin',
+    startX:i?ends[i-1]:four.stage1.startX,spawnX:i?(i%2?four.curves[layer][1][0]:ends[i-1]+180):null,endX:ends[i],
+    cameraFloor:i?Math.min(...four.curves[layer].map(p=>p[1]))+45:four.stage1.cameraFloor,
+    failY:i?Math.min(...four.curves[layer].map(p=>p[1]))-720:four.stage1.failY,retrySeconds:four.stage1.retrySeconds}));
   function freeze(v){if(v&&typeof v==='object'){Object.values(v).forEach(freeze);Object.freeze(v);}return v;}
   const courses=freeze({world2:two,world4:four});
   function get(id){const c=courses[id];if(!c)throw Error('Unknown comparison course');return c;}

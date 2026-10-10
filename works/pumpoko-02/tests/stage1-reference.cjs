@@ -3,7 +3,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const BASE='3063834fdedf034c26db009f3f5e0d42c0555cc2',SHIFT=require('../courses.js').get('world4').stage1.shift;
 const repo=path.resolve(__dirname,'../../..');
 const source=file=>execFileSync('git',['show',BASE+':works/pumpoko-02/'+file],{cwd:repo,encoding:'utf8'});
-const x=(layer,value)=>value+(layer==='surface'?0:SHIFT);
+const x=(layer,value)=>{const c=require('../courses.js').get('world4');return value+(layer==='surface'?0:SHIFT)+(layer==='finish'?c.goalOffset||0:c.offsets?.[layer]||0);};
 function protectPhysics(){
  const old=require('./harness.cjs').harness({sourceRef:BASE}).w.FruitLabPhysics,now=require('../physics.js');
  for(const key of ['PARAMETERS','STEP','G','LIMIT','SPEED'])assert.equal(JSON.stringify(now[key]),JSON.stringify(old[key]),key);

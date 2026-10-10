@@ -2,7 +2,8 @@
 const {approvedLogoPath}=require('./approved-logo.cjs');
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{execFileSync}=require('node:child_process');
 const P=require('../physics.js'),W=require('../world.js'),C=require('../courses.js'),S=require('../story.js'),{harness}=require('./harness.cjs');
-const {SHIFT,protectPhysics}=require('./stage1-reference.cjs');
+const {protectPhysics}=require('./stage1-reference.cjs');
+const SHIFT=require('../courses.js').get('world4').stage1.shift+require('../courses.js').get('world4').goalOffset;
 const BASE='0246b9ec22f7113addca96c53082474ab87fbcc7';
 function ready(x=7680,speed=120){
  x+=SHIFT;const w=W.createCourse(C.get('world4'));
@@ -20,13 +21,8 @@ test('all existing runtime/assets outside the five declared goal files remain ex
  const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!approvedLogoPath(p)&&!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!allowed.includes(path.basename(p)));
  for(const file of files)assert.ok(fs.readFileSync(path.join(repo,file)).equals(execFileSync('git',['show',BASE+':'+file],{cwd:repo,maxBuffer:10e6})),file);
  protectPhysics();
- const before=harness({sourceRef:BASE}).w.FruitLabCourses.get('world4'),after=structuredClone(C.get('world4'));
- for(const [layer,points]of Object.entries(after.curves))if(layer!=='surface')for(const p of points)p[0]-=SHIFT;
- for(const h of after.holes)h.x-=SHIFT;for(const c of after.cellars)for(const k of ['left','right','roofStart','exitX'])c[k]-=SHIFT;
- after.crestStart-=SHIFT;after.finishX-=SHIFT;
- assert.equal(JSON.stringify(after.curves.finish.slice(0,3)),JSON.stringify(before.curves.finish.slice(0,3)));
- for(const key of ['holes','cellars','surfaces','crestStart','finishX'])assert.equal(JSON.stringify(after[key]),JSON.stringify(before[key]),key);
- for(const key of ['underground','return','underground2'])assert.equal(JSON.stringify(after.curves[key]),JSON.stringify(before.curves[key]),key);
+ require('./five-stage-reference.cjs').protectCourse();
+ require('./five-stage-reference.cjs').protectRuntime();
  const oldWorld=execFileSync('git',['show',BASE+':works/pumpoko-02/world.js'],{cwd:repo,encoding:'utf8'}),now=fs.readFileSync(path.join(__dirname,'../world.js'),'utf8');
  assert.equal(now.slice(now.indexOf('  function hole('),now.indexOf('  function surfaceHeight(')),oldWorld.slice(oldWorld.indexOf('  function hole('),oldWorld.indexOf('  function surfaceHeight(')),'all four collision/rejection/compression/transfer functions stay byte-identical');
  const oldApp=execFileSync('git',['show',BASE+':works/pumpoko-02/app.js'],{cwd:repo,encoding:'utf8'}),app=fs.readFileSync(path.join(__dirname,'../app.js'),'utf8');
@@ -43,8 +39,11 @@ test('stopping before the rise does not finish, and ordinary controls recover',(
  run(w,1);assert.equal(w.finished,true);
 });
 test('fast free entry can overshoot, then reverse and return without hidden assistance',()=>{
- const w=ready(7680,620);let overshot=false;const r=run(w,(w)=>{if(w.pumpkin.x>7900+SHIFT)overshot=true;return overshot?-1:0;},4);
+ // Reverse within the protected final approach. Four seconds of held-left
+ // would leave that approach and reach a newly authored STAGE 5 gap.
+ const w=ready(7680,620);let overshot=false;const r=run(w,(w)=>{if(w.pumpkin.x>7900+SHIFT)overshot=true;return overshot?-1:0;},2.5);
  assert.ok(overshot);assert.ok(r.maxX>7900+SHIFT);assert.equal(w.finished,false,'passing the pocket at speed cannot finish');
+ assert.ok(w.pumpkin.vx<0,'actually reverse before the recovery input');assert.ok(w.pumpkin.x>=7300+SHIFT,'remain on the protected final approach');
  run(w,1);assert.equal(w.finished,true);assert.ok(w.pumpkin.x>7700+SHIFT&&w.pumpkin.x<7800+SHIFT);
 });
 test('contact, layer, actual support, all four handoffs and low speed are required; finishX passage is insufficient',()=>{
@@ -72,7 +71,7 @@ test('goal rest overlaps continuous final camera, uses 3s shot/1s hold/2.2s retu
   if(s.ending?.settledAt!=null&&fixed===null)fixed=s.world.time;
   if(s.phase==='returning'&&returnAt===null)returnAt=s.world.time;
   if(s.phase==='returning'){const mix=S.returnMix(s);assert.ok(mix>=previousMix&&mix-previousMix<.03,'title dissolve stays continuous after shortening');if(s.elapsed<1.28)assert.equal(mix,0);if(s.elapsed>2.1)assert.ok(mix>.96,'title is almost fully visible before the final frame');previousMix=mix;}
-  if(s.ending?.settledAt!=null&&s.phase==='ending')for(const b of [s.world.pumpkin,s.world.holes[3].occupant]){assert.ok(Math.abs((b.x-s.view.x)*s.view.z)<160);assert.ok(Math.abs((b.y-s.view.y)*s.view.z)<270);}
+  if(s.ending?.settledAt!=null&&s.phase==='ending')for(const b of [s.world.pumpkin,(s.world.finale||s.world).holes.at(-1).occupant]){assert.ok(Math.abs((b.x-s.view.x)*s.view.z)<160);assert.ok(Math.abs((b.y-s.view.y)*s.view.z)<270);}
   previous={...s.view};
  }
  assert.equal(count,1);assert.ok(s.returnTitle);assert.ok(maxJump<10);assert.ok(Math.abs(fixed-start-3)<=1/60+.001);assert.ok(Math.abs(returnAt-fixed-1)<=1/60+.001);assert.ok(Math.abs(s.world.time-returnAt-2.2)<=1/60+.001);
@@ -109,8 +108,9 @@ test('a muted seat is consumed once and is not replayed on unmute',()=>{
 
 test('every part of the final approach restarts without pumping or precise speed; cubic slopes stay below default drive balance',()=>{
  const c=C.get('world4'),balance=P.defaults().pumpkin.response/P.defaults().pumpkin.mass/P.G;
- for(let i=3;i<c.curves.finish.length&&c.curves.finish[i][0]<=7690+SHIFT;i++){
-  const a=c.curves.finish[i-1],b=c.curves.finish[i],length=b[0]-a[0];
+ const approach=c.curves.finish.filter(p=>p[0]>=7300+SHIFT);
+ for(let i=1;i<approach.length&&approach[i][0]<=7690+SHIFT;i++){
+  const a=approach[i-1],b=approach[i],length=b[0]-a[0];
   const qa=6*(a[1]-b[1])/length+3*a[2]+3*b[2],qb=6*(b[1]-a[1])/length-4*a[2]-2*b[2];
   const t=qa?-qb/(2*qa):-1,maximum=Math.max(a[2],b[2],t>0&&t<1?qa*t*t+qb*t+a[2]:-Infinity);
   assert.ok(maximum<balance-.05,'analytic positive slope bound at '+a[0]+'..'+b[0]);

@@ -10,7 +10,8 @@
   'use strict';
   const smooth=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);};
   const blend=(a,b,t)=>Object.fromEntries(['x','y','z'].map(k=>[k,a[k]+(b[k]-a[k])*t]));
-  const follow=s=>({x:s.world.camera.x+s.look,y:s.world.camera.y,z:.8});
+  const follow=s=>{const x=s.world.camera.x+s.look,b=s.world[s.world.active];
+    return {x:s.world.handoffs>0?Math.max(b.x-180,Math.min(b.x+180,x)):x,y:s.world.camera.y,z:.8};};
   function create(){
     const world=W.createCourse(C.get('world4')),prologue=D.create();prologue.looseAt=null;
     return {world,prologue,phase:'title',elapsed:0,slow:0,look:0,returnTitle:false,
@@ -79,7 +80,7 @@
     })};
   }
   function pair(s){
-    const a=s.world.pumpkin,b=s.world.holes.at(-1).occupant;
+    const world=s.world.finale||s.world,a=world.pumpkin,b=world.holes.at(-1).occupant;
     const z=Math.min(.8,310/(Math.abs(a.x-b.x)+180),520/(Math.abs(a.y-b.y)+160));
     return {x:(a.x+b.x)/2,y:(a.y+b.y)/2+25,z};
   }
@@ -93,7 +94,7 @@
     // Accumulate the REAL travel during deceleration. The shot can widen but
     // never breathe in and out as the pumpkin rolls back through the valley.
     const bounds=shot.bounds;
-    for(const b of [s.world.pumpkin,s.world.holes.at(-1).occupant]){
+    for(const b of [(s.world.finale||s.world).pumpkin,(s.world.finale||s.world).holes.at(-1).occupant]){
       bounds.left=Math.min(bounds.left,b.x);bounds.right=Math.max(bounds.right,b.x);
       bounds.bottom=Math.min(bounds.bottom,b.y);bounds.top=Math.max(bounds.top,b.y);
     }
@@ -130,10 +131,8 @@
       return [];
     }
     if(s.phase==='retrying'){
-      if(s.elapsed>=s.world.course.stage1.retrySeconds-1e-9){
-        const world=W.createCourse(s.world.course,s.world.settings);
-        Object.assign(world.pumpkin,s.stage1Start);P.clearInput(world);
-        Object.assign(world.camera,{x:world.pumpkin.x,y:world.pumpkin.y+70,vx:0,vy:0});
+      if(s.elapsed>=(W.stageSpec(s.world)?.retrySeconds??s.world.course.stage1.retrySeconds)-1e-9){
+        const world=W.restoreCheckpoint(s.world,s.stage1Start);
         s.world=world;s.phase='playing';s.elapsed=0;s.look=0;s.view=follow(s);s.needsNeutral=true;
         return [{type:'retry'}];
       }
@@ -159,8 +158,13 @@
       // camera, input, constants or plug transfers. Its range stays within view.
       const b=s.world[s.world.active],g=s.world.handoffs===0&&s.world.course.gaps?.find(g=>b.x>=g.a-(g.id==='second'?650:500)&&b.x<=g.b+80);
       const extra=g?(g.id==='second'?285:170)*smooth((b.x-(g.a-(g.id==='second'?650:500)))/240)*Math.max(0,Math.min(1,b.vx/(g.id==='second'?500:180))):0;
-      const target=Math.max(-55,Math.min(55,b.vx*.12))+extra;
-      s.look+=(target-s.look)*(1-Math.exp(-dt*3));s.view=follow(s);
+      // Completed STAGE 1 keeps its exact anticipation. Later authored gaps
+      // announce the far bank gradually, using the same portrait scale.
+      const upcoming=s.world.handoffs>0&&s.world.course.gaps?.find(g=>g.layer===b.layer&&b.x>=g.a-g.approach&&b.x<=g.b+80);
+      const later=upcoming?upcoming.preview*smooth((b.x-(upcoming.a-upcoming.approach))/280)*Math.max(0,Math.min(1,b.vx/upcoming.referenceSpeed)):0;
+      const target=Math.max(-55,Math.min(55,b.vx*.12))+extra+later;
+      const change=(target-s.look)*(1-Math.exp(-dt*3));
+      s.look+=s.world.handoffs>0?Math.max(-200*dt,Math.min(200*dt,change)):change;s.view=follow(s);
     }else if(s.phase==='coast'||s.phase==='ending'){
       shotView(s,dt);
       if(s.phase==='ending'&&s.ending.settledAt!==null&&s.ending.time-s.ending.settledAt>=1){s.phase='returning';s.elapsed=0;s.ending.hero={from:{...s.view},offset:{x:(s.world.pumpkin.x-s.view.x)*s.view.z,y:(s.world.pumpkin.y-s.view.y)*s.view.z}};s.prologue=D.create();s.prologue.looseAt=null;P.clearInput(s.world);}
