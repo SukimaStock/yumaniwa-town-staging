@@ -1,0 +1,99 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "fb1b2363888bc2f07607b7efceffbc7a64dde1bc381efb3c1c6cb6d3a7c8fe8e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-stage-rind-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reuse original thick skin, inner cream band and flesh on all WORLD LOOP terrain boundaries",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "fe586873233f80272a96d84f85fd3c8eb6a38ea3",
+    "canonicalSources": [
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/journey.js",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/material.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/courses.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-stage-rind-20261010/r0.lock.json",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/tests/terrain-material.test.cjs",
+      "works/pumpoko-02/tests/terrain-review.cjs",
+      "works/pumpoko-02/STAGE-MATERIAL.md",
+      "works/pumpoko-02/visual-review/stage-material-comparison.png"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Scale original rind 7 / cream 3 by original zoom 1.85 divided by adopted zoom .8",
+      "Use solid-side clipped contours for surface, cellar floors, ceilings, ends and socket rims; no painted aperture narrowing",
+      "Retain original flesh palette/gradient and soft shoulder; no new decoration",
+      "Render same camera/geometry before-after comparisons and original reference; test pixel material orientation and protected files"
+    ],
+    "ownerDecisions": [
+      "Owner confirms current opening ideal on actual device; preserve all motion/timing/camera",
+      "Owner requests stage drawing only, legacy skin/cream/flesh and unchanged physics/course/art/audio/ending",
+      "Existing mandatory root Plan-only exception and staging merge authorization persist; no production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "READY Plan-only first commit",
+      "Only world-draw runtime changes; all other existing work runtime files byte-identical to base",
+      "Original and shared foundations read-only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-skin-presence",
+      "iphone-contact-and-hole-readability",
+      "iphone-surface-cellar-rim-consistency"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated work-only PR",
+    "outOfScope": [
+      "production",
+      "all gameplay/physics/course/camera/timing changes",
+      "intro logic, character art, audio and ending",
+      "original PUMPOKO",
+      "shared foundations"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "New terrain appearance/contact readability on actual iPhone",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
