@@ -7,7 +7,9 @@ const h=harness({native:true,width:390,height:844}),frames=[];
 function capture(label){frames.push({label,bytes:h.renderCanvas.toBuffer('image/png')});}
 capture('Title');
 for(let i=0;i<1800&&h.probe().phase==='title';i++){if(i%30===0){h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');h.key('keydown',i%60===0?'ArrowRight':'ArrowLeft');}h.frame();}
-h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');h.advance(2.3);capture('Inside the cut');h.advance(1.9);capture('Space unfolds');h.advance(2.2);capture('Three fruits');h.advance(.8);capture('The same hero');h.key('keydown','ArrowRight');let swaps=0;
+h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');h.advance(3.2);capture('Original cut expands');h.advance(1.4);capture('Physical seeds fall');
+while(!h.probe().nursery.plants.some(p=>p.grow>.1))h.frame();capture('Fruit grows at actual roots');
+while(h.probe().phase==='opening')h.frame();capture('The same seated hero');h.key('keydown','ArrowRight');let swaps=0;
 for(let i=0;i<5400&&!h.probe().finished;i++){
   if(i%40===0&&h.probe().model.active==='rutabaga'){h.key('keyup','ArrowRight');h.frame();h.key('keydown','ArrowRight');}h.frame();
   if(h.probe().model.handoffs>swaps){swaps=h.probe().model.handoffs;h.advance(.5);capture('Exchange '+swaps);}

@@ -4,15 +4,13 @@
     typeof module==='object'&&module.exports?require('./world.js'):root.FruitLabWorld,
     typeof module==='object'&&module.exports?require('./courses.js'):root.FruitLabCourses,
     typeof module==='object'&&module.exports?require('./prologue.js'):root.PumpokoPrologue,
-    typeof module==='object'&&module.exports?require('./title-draw.js'):root.PumpokoTitleArt);
+    typeof module==='object'&&module.exports?require('./opening.js'):root.PumpokoOpening);
   if(typeof module==='object'&&module.exports)module.exports=api;else root.PumpokoStory=api;
-})(typeof window!=='undefined'?window:globalThis,function(P,W,C,D,T){
+})(typeof window!=='undefined'?window:globalThis,function(P,W,C,D,O){
   'use strict';
   const smooth=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);};
   const blend=(a,b,t)=>Object.fromEntries(['x','y','z'].map(k=>[k,a[k]+(b[k]-a[k])*t]));
   const follow=s=>({x:s.world.camera.x+s.look,y:s.world.camera.y,z:.8});
-  const ease=t=>{t=Math.max(0,Math.min(1,t));return t*t*t*(10+t*(-15+6*t));};
-  const OPENING_DURATION=7.1;
   function create(){
     const world=W.createCourse(C.get('world4')),prologue=D.create();prologue.looseAt=null;
     return {world,prologue,phase:'title',elapsed:0,slow:0,look:0,returnTitle:false,
@@ -28,49 +26,56 @@
     if(s.phase!=='title')return false;
     if(s.returnTitle)s.world=W.createCourse(C.get('world4'));
     s.phase='opening';s.elapsed=0;s.slow=0;s.look=0;
-    const b=s.world.pumpkin,from={x:b.x-70,y:b.y+250,z:.42};
-    const plants=[{id:0,x:b.x-168,scale:.63},{id:1,x:b.x-97,scale:.72},
-      {id:2,x:b.x,scale:1,hero:true}].map(p=>({...p,
-        ground:W.surfaceHeight(p.x,s.world.course),
-        y:p.hero?b.y:W.surfaceHeight(p.x,s.world.course)+33*p.scale,
-        angle:0}));
-    const seeds=s.prologue.seeds.map((p,i)=>{
-      const origin=T.seedPose(s.prologue,p),plant=plants[Math.floor(i/3)];
-      return {id:i,plant:plant.id,origin:{x:from.x+(origin.x-195)/from.z,
-        y:from.y+(origin.y-400)/from.z,angle:origin.angle,sx:origin.sx/from.z,sy:origin.sy/from.z},
-        x:plant.x+(i%3-1)*9,y:W.surfaceHeight(plant.x+(i%3-1)*9,s.world.course)+3,
-        depart:.85+i*.025,land:4.9+i*.035};
-    });
-    const centre={x:from.x,y:from.y-25/from.z};
-    s.opening={progress:0,from,to:follow(s),centre,shell:{...s.prologue}};
-    s.nursery={plants,seeds,time:0};s.view={...from};
-    s.returnTitle=false;s.ending=null;D.release(s.prologue);return true;
+    D.release(s.prologue);
+    const opening=O.create(s.prologue,s.world);
+    s.opening=opening;s.nursery={plants:[],time:opening.time,fall:opening};s.bridge=null;
+    s.view=O.frame(opening);s.returnTitle=false;s.ending=null;return true;
   }
-  function openingFrame(s) {
+  function openingFrame(s){
     if(!s.opening)return null;
-    const o=s.opening,t=s.elapsed;
-    // The perimeter is lost before the landscape becomes legible. The cut
-    // and the world share colour and time, not an explanatory matched edge.
-    return {air:smooth((t-2.7)/2.1),ground:smooth((t-2.65)/1.8),
-      lift:580*(1-ease((t-2.4)/2.3)),shell:1-smooth((t-2.9)/2),caption:1-ease(t/1.8),
-      pose:{x:195+(o.centre.x-s.view.x)*s.view.z,y:400+(o.centre.y-s.view.y)*s.view.z,
-        scale:s.view.z/o.from.z*(1+11*smooth((t-.4)/4.8))}};
+    const f=O.frame(s.opening);
+    if(s.bridge){
+      const t=smooth((s.opening.time-s.bridge.at)/1.25),target=follow(s),q=f.screen;
+      f.screen={x:q.x+(195-q.x)*t,y:q.y+(400-q.y)*t,angle:q.angle*(1-t),
+        sx:q.sx+(.8-q.sx)*t,sy:q.sy+(.8-q.sy)*t,camera:blend({...q.camera,z:0},{...target,z:0},t)};
+      f.backgroundMix=t;f.z=f.screen.sx;
+      f.x=f.screen.camera.x+(195-f.screen.x)/f.screen.sx;
+      f.y=f.screen.camera.y+(400-f.screen.y)/f.screen.sy;
+    }
+    return f;
   }
-  function nurseryPoses(s) {
+  function rootPlants(s){
+    const fall=s.nursery.fall;
+    for(const a of fall.arrivalEvents){
+      const root=fall.geometry.worldPoint({x:a.x,y:a.rootY}),scale=(.95+a.id%3*.025)*.62;
+      s.nursery.plants.push({id:a.id,x:root.x,ground:root.y,y:root.y+36*scale,scale,hero:false,at:a.at,
+        arrival:{id:a.id,x:a.x,y:a.y,rootY:a.rootY,at:a.at}});
+    }
+    if(!fall.transition.settled||s.nursery.plants.some(p=>p.hero)||!s.nursery.plants.length)return;
+    // Choose from observed roots, favouring a downhill that can start the
+    // normal zero-input roll. This selection never changes a seed trajectory.
+    const plant=s.nursery.plants.find(p=>W.curve('surface',p.x,s.world.course).slope<-.05)||s.nursery.plants[0];
+    plant.hero=true;plant.scale=1;
+    // Seat the existing body at that root before any fruit is visible. Solve
+    // only height for the unchanged contact circle; the root's x stays exact.
+    const b=s.world.pumpkin;b.x=plant.x;b.y=plant.ground+b.r;b.artId=plant.id;
+    for(let i=0;i<16;i++){
+      const f=W.contact(b,s.world.course);b.y+=(b.r-f.distance)/f.ny;
+    }
+    plant.y=b.y;
+    Object.assign(s.world.camera,{x:b.x,y:b.y+70,vx:0,vy:0});
+  }
+  function nurseryPoses(s){
     if(!s.nursery)return null;
-    const time=s.nursery.time;
-    return {seeds:s.nursery.seeds.map(p=>{
-      const u=Math.max(0,Math.min(1,(time-p.depart)/(p.land-p.depart))),after=Math.max(0,time-p.land);
-      return {...p,x:p.origin.x+(p.x-p.origin.x)*smooth(u),
-        y:p.origin.y+(p.y-p.origin.y)*u*u+3*Math.sin(Math.min(1,after/.25)*Math.PI)*Math.exp(-after*8),
-        angle:p.origin.angle+smooth(u)*.35,alpha:1-smooth(after/.5),
-        // Keep a grain as the scale reference while entering the world. It
-        // becomes soil quietly after landing, rather than shrinking in flight.
-        sx:p.origin.sx+(.65-p.origin.sx)*smooth(after/.5),sy:p.origin.sy+(.65-p.origin.sy)*smooth(after/.5)};
-    }),plants:s.nursery.plants.map(p=>{
-      const landed=Math.max(...s.nursery.seeds.filter(seed=>seed.plant===p.id).map(seed=>seed.land));
-      const age=time-landed;
-      return {...p,leaves:smooth(age/.6),grow:smooth((age-.3)/1.45)};
+    const time=s.nursery.time,opening=s.nursery.fall;
+    return {opening:s.phase==='opening',seeds:opening?opening.seeds.map(p=>{
+      const w=opening.geometry.worldPoint(p),age=p.arrival?time-p.arrival.at-.9:-1;
+      const landing=p.entryLandedAt==null?-1:time-p.entryLandedAt;
+      if(landing>0&&landing<.20&&!p.lost)w.y+=O.UNITS*1.2*Math.sin(Math.PI*landing/.20)**2;
+      return {id:p.runId,...w,angle:-p.angle,alpha:p.inactive?0:1-smooth(age/.6),sx:O.UNITS,sy:O.UNITS*p.roll};
+    }):[],plants:s.nursery.plants.map(p=>{
+      const age=time-p.at-.9;
+      return {...p,sprout:smooth(age/.65),leaves:smooth((age-.5)/.85),grow:O.fruitGrowth(age)};
     })};
   }
   function pair(s){
@@ -85,22 +90,25 @@
       D.update(s.prologue,dt);
       if(D.allLoose(s.prologue)){
         if(s.prologue.looseAt===null)s.prologue.looseAt=s.prologue.time;
-        if(s.prologue.time-s.prologue.looseAt>=1.35){beginJourney(s);return [];}
+        if(s.prologue.time-s.prologue.looseAt>=1.8){beginJourney(s);return [];}
       }
       return s.prologue.detachments.map(()=>({type:'detach'}));
     }
     s.elapsed+=dt;
     if(s.phase==='opening'){
-      s.nursery.time=s.elapsed;s.opening.progress=smooth(s.elapsed/OPENING_DURATION);
-      const t=ease(s.elapsed/OPENING_DURATION);
-      s.view=blend(s.opening.from,s.opening.to,t);
-      // Inward scale change: grains grow in the view with the cut. This is
-      // presentation only; settle into the identical .8x playing frame.
-      s.view.z+=.5*t*(1-t);
-      // Reveal the existing body at full size before handing over. Its natural
-      // initial slope supplies the first roll once normal play resumes.
-      if(s.elapsed>=OPENING_DURATION){s.phase='playing';s.elapsed=0;s.opening=null;s.view=follow(s);}
+      O.update(s.opening,dt);s.nursery.time=s.opening.time;rootPlants(s);
+      const hero=s.nursery.plants.find(p=>p.hero);
+      if(hero&&s.opening.transition.settled&&!s.bridge&&s.opening.time-hero.at-.9>=1)
+        s.bridge={at:s.opening.time};
+      s.view=openingFrame(s);
+      if(s.bridge&&s.opening.time-s.bridge.at>=1.25){
+        s.phase='playing';s.elapsed=0;s.opening=null;s.bridge=null;s.view=follow(s);
+      }
       return [];
+    }
+    if(s.nursery?.fall){
+      O.update(s.nursery.fall,dt);s.nursery.time=s.nursery.fall.time;rootPlants(s);
+      if(s.nursery.fall.seeds.every(p=>p.inactive||p.arrival&&s.nursery.time-p.arrival.at>=3.15))s.nursery.fall=null;
     }
     const controlled=s.phase==='playing'||s.phase==='coast';
     P.input(s.world,controlled?axis:0);const events=W.update(s.world,dt);
@@ -130,7 +138,6 @@
     }
     return events;
   }
-  function openingMix(s){return s.opening?s.opening.progress:1;}
   function returnMix(s){return s.phase==='returning'?smooth((s.elapsed-2.1)/1.5):s.phase==='title'?1:0;}
-  return {create,start,beginJourney,update,pair,openingMix,returnMix,smooth,nurseryPoses,OPENING_DURATION,openingFrame};
+  return {create,start,beginJourney,update,pair,returnMix,smooth,nurseryPoses,openingFrame};
 });

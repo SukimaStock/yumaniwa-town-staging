@@ -4,12 +4,12 @@ const P=require('../physics.js'),W=require('../world.js'),C=require('../courses.
 const LabP=require('../../pumpkin-rutabaga-lab/physics.js'),LabW=require('../../pumpkin-rutabaga-lab/world.js');
 const {harness}=require('./harness.cjs');
 const axis=(s,i)=>s.world.active==='rutabaga'&&i%40===0?0:1;
-function enter(s){S.beginJourney(s);while(s.phase==='opening')S.update(s,0,1/60);return s;}
+function enter(s){S.beginJourney(s);for(let i=0;i<1200&&s.phase==='opening';i++)S.update(s,0,1/60);assert.equal(s.phase,'playing');return s;}
 function finish(s){enter(s);for(let i=0;i<60*90&&!s.world.finished;i++)S.update(s,axis(s,i),1/60);assert.ok(s.world.finished);return s;}
 function ending(s){finish(s);for(let i=0;i<60*60&&s.phase!=='ending';i++)S.update(s,0,1/60);assert.equal(s.phase,'ending');return s;}
 function liveEnter(h){
   for(let i=0;i<60*30&&h.probe().phase==='title';i++){if(i%30===0){h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');h.key('keydown',i%60===0?'ArrowRight':'ArrowLeft');}h.frame();}
-  assert.equal(h.probe().phase,'opening');h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');h.advance(S.OPENING_DURATION+.1);assert.equal(h.probe().phase,'playing');
+  assert.equal(h.probe().phase,'opening');h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');for(let i=0;i<60*20&&h.probe().phase==='opening';i++)h.frame();assert.equal(h.probe().phase,'playing');
 }
 function liveFinish(h){
   liveEnter(h);h.key('keydown','ArrowRight');
@@ -30,42 +30,40 @@ test('original vessel touch and seed detachment are isolated; frozen world enter
   for(let i=0;i<60*25&&s.phase==='title';i++){S.update(s,Math.floor(i/30)%2?1:-1,1/60);assert.deepEqual(P.snapshot(s.world),initial);}
   assert.equal(s.phase,'opening');assert.ok(D.allLoose(s.prologue));assert.ok(s.prologue.time-s.prologue.looseAt>=.55);
   const entities=s.world.entities;for(let i=0;i<192;i++)S.update(s,1,1/60);assert.equal(s.world.entities,entities);assert.ok(s.world.entities.every(b=>!s.prologue.seeds.includes(b)));
-  while(s.phase==='opening')S.update(s,0,1/60);assert.deepEqual(P.snapshot(s.world),initial);
+  while(s.phase==='opening')S.update(s,0,1/60);assert.equal(s.world.time,0);assert.equal(s.world.target,0);
   S.update(s,1,1/60);assert.equal(s.world.target,1);assert.ok(s.world.time>0);
 });
-test('detached seeds land on the same ground, three fruits grow, and only the real hero starts rolling',()=>{
-  const s=S.create();for(let i=0;i<1500&&s.phase==='title';i++)S.update(s,Math.floor(i/30)%2?1:-1,1/60);
-  assert.equal(s.phase,'opening');const world=s.world,body=world.pumpkin,initial=P.snapshot(world);
-  const origin=s.nursery.seeds.map(p=>p.origin),poses=S.nurseryPoses(s);
-  for(const [i,p]of poses.seeds.entries()){
-    const projected=require('../title-draw.js').seedPose(s.opening.shell,s.prologue.seeds[i]);
-    assert.ok(Math.abs(195+(p.x-s.view.x)*s.view.z-projected.x)<1e-8);
-    assert.ok(Math.abs(400+(p.y-s.view.y)*s.view.z-projected.y)<1e-8);
-    assert.ok(p.y>W.surfaceHeight(s.nursery.seeds[i].x,world.course),'seed falls down to soil');
-  }
-  let previous={...s.view},maxJump=0;
-  while(s.phase==='opening'){
-    S.update(s,1,1/60);const p=S.nurseryPoses(s);
-    assert.deepEqual(P.snapshot(world),initial,'opening never kicks or retunes the body');
-    for(const plant of p.plants){
-      const seed=s.nursery.seeds.filter(seed=>seed.plant===plant.id);
-      if(plant.grow>0)assert.ok(seed.every(seed=>s.nursery.time>seed.land));
+test('actual seed contacts grow in place and the same seated body begins normal rolling',()=>{
+  for(const impulse of [-80,0,80]){
+    const s=S.create();for(const p of s.prologue.seeds)p.vx+=impulse;
+    const body=s.world.pumpkin,settings=JSON.stringify(s.world.settings),plugs=JSON.stringify(s.world.entities.slice(1));
+    S.beginJourney(s);const fall=s.opening;let count=0;
+    for(let i=0;i<60*20&&s.phase==='opening';i++){
+      S.update(s,1,1/60);
+      assert.equal(s.world.time,0);assert.equal(s.world.target,0);assert.equal(s.world.pumpkin,body);
+      assert.equal(JSON.stringify(s.world.settings),settings);assert.equal(JSON.stringify(s.world.entities.slice(1)),plugs);
+      for(const p of s.nursery.plants){
+        const a=fall.seeds[p.id].arrival;assert.ok(a);const root=fall.geometry.worldPoint({x:a.x,y:a.rootY});
+        assert.equal(p.x,root.x);assert.equal(p.ground,root.y);assert.ok(Math.abs(p.ground-W.surfaceHeight(p.x,s.world.course))<1e-9);
+        const f=fall.geometry.floor(a.x);assert.ok(Math.abs((a.y-f.y)*-f.ny+require('../opening.js').support(a.seed,f.nx,f.ny))<1.2);
+        assert.ok(Object.isFrozen(a));assert.equal(a.seed.x,a.x,'planted physical grain is never rearranged');
+      }
+      count=s.nursery.plants.length;
     }
-    maxJump=Math.max(maxJump,Math.hypot(s.view.x-previous.x,s.view.y-previous.y));previous={...s.view};
+    assert.equal(s.phase,'playing');assert.ok(count>0);const hero=S.nurseryPoses(s).plants.find(p=>p.hero);
+    assert.equal(hero.x,body.x);assert.equal(hero.y,body.y);assert.equal(hero.scale,1);assert.equal(hero.grow,1);
+    assert.ok(Math.abs(W.contact(body,s.world.course).distance-body.r)<1e-7);assert.equal(body.artId,hero.id);
+    const roots=s.nursery.plants.map(p=>[p.id,p.x,p.ground]),x=body.x;
+    for(let i=0;i<90;i++)S.update(s,0,1/60);
+    assert.ok(Math.abs(body.x-x)>1,'the unchanged slope starts normal movement without a launch impulse');
+    assert.deepEqual(s.nursery.plants.slice(0,roots.length).map(p=>[p.id,p.x,p.ground]),roots);
+    assert.equal(s.world.handoffs,0);assert.equal(s.world.target,0);assert.equal(s.view.z,.8);
   }
-  assert.ok(maxJump<3);assert.equal(world.pumpkin,body);assert.equal(world.entities.length,5);
-  const plants=S.nurseryPoses(s).plants;assert.equal(plants.length,3);assert.ok(plants.every(p=>p.grow===1));
-  const hero=plants.find(p=>p.hero);assert.equal(hero.x,body.x);assert.equal(hero.y,body.y);assert.equal(hero.scale,1);
-  const planted=JSON.stringify(s.nursery.plants),x=body.x;
-  for(let i=0;i<90;i++)S.update(s,0,1/60);
-  assert.ok(body.x>x+20,'unchanged slope naturally begins the roll before directional input');
-  assert.equal(JSON.stringify(s.nursery.plants),planted,'companions stay at their roots');
-  assert.equal(world.handoffs,0);assert.equal(world.target,0);
 });
 test('adapted terrain with unchanged physics matches lab integrator exactly at diverse fps/tuning',()=>{
   for(const fps of [30,60,120])for(const extreme of [null,2,3]){
     const s=enter(S.create());if(extreme)for(const [group,defs]of Object.entries({...P.PARAMETERS,world:W.PARAMETERS}))for(const [key,d]of Object.entries(defs))s.world.settings[group][key]=d[extreme];
-    const lab=LabW.createCourse(C.get('world4'),JSON.parse(JSON.stringify(s.world.settings)));
+    const lab=LabW.createCourse(C.get('world4'),JSON.parse(JSON.stringify(s.world.settings)));Object.assign(lab.pumpkin,s.world.pumpkin);Object.assign(lab.camera,s.world.camera);
     for(let i=0;i<fps*20;i++){const input=Math.floor(i/fps*3)%2?1:0;S.update(s,input,1/fps);LabP.input(lab,input);LabW.update(lab,1/fps);assert.deepEqual(P.snapshot(s.world),LabP.snapshot(lab));}
   }
 });
@@ -175,68 +173,58 @@ test('opening interruption pauses the same seeds and growth; reset and replay re
     h.w.emit('focus');h.frame();assert.equal(h.probe().axis,0);assert.equal(h.probe().target,0);
   }
   h.key('keydown','KeyR');h.frame();h.key('keyup','KeyR');assert.equal(h.probe().phase,'title');assert.equal(h.probe().nursery,null);
-  liveFinish(h);liveEnter(h);assert.equal(h.probe().nursery.plants.length,3);assert.equal(h.probe().model.handoffs,0);
+  liveFinish(h);liveEnter(h);assert.ok(h.probe().nursery.plants.length>0);assert.equal(h.probe().nursery.plants.filter(p=>p.hero).length,1);assert.equal(h.probe().model.handoffs,0);
   assert.equal(h.raf.size,1);assert.deepEqual(h.errors,[]);
 });
 
-test('one camera carries the title seeds through cut expansion, emerging space, landing and growth at diverse fps',()=>{
-  const trajectories=[];
+test('reused original opening agrees with original journey motion and camera until real rooting at 30/60/120fps',()=>{
+  const O=require('../opening.js'),J=require('../../pumpoko/journey.js'),T=require('../title-draw.js');
   for(const fps of [30,60,120]){
-    const s=S.create();S.beginJourney(s);const initial=P.snapshot(s.world),source=s.prologue.seeds;
-    const project=p=>({x:195+(p.x-s.view.x)*s.view.z,y:400+(p.y-s.view.y)*s.view.z});
-    for(const [i,p]of S.nurseryPoses(s).seeds.entries()){
-      const expected=require('../title-draw.js').seedPose(s.prologue,source[i]),actual=project(p);
-      for(const key of ['x','y'])assert.ok(Math.abs(actual[key]-expected[key])<1e-9);
+    const s=S.create();D.knock(s.prologue,-45,60);D.update(s.prologue,.04);D.release(s.prologue);
+    const title=s.prologue.seeds.map(p=>T.seedPose(s.prologue,p)),copy=structuredClone(s.prologue);
+    S.beginJourney(s);const fall=s.opening,g={...fall.geometry,END:{left:100000,right:100100}};
+    const reference=J.create(copy,true,g);J.release(reference);
+    for(const [i,p]of fall.seeds.entries()){
+      const q=O.screenPoint(fall,p.x,p.y);
+      assert.ok(Math.abs(q.x-title[i].x)<1e-9);assert.ok(Math.abs(740-q.y-title[i].y)<1e-9);
     }
-    let previous=S.nurseryPoses(s).seeds.map(project),oldView={...s.view},maxSeed=0,maxCamera=0,maxZoom=0,moving=0;
-    const samples=[];
-    for(let i=1;i<fps*S.OPENING_DURATION;i++){
-      S.update(s,0,1/fps);assert.deepEqual(P.snapshot(s.world),initial);
-      const poses=S.nurseryPoses(s),frame=S.openingFrame(s);assert.ok(frame,'the entire opening remains one shot');
-      const current=poses.seeds.map(project);
-      maxSeed=Math.max(maxSeed,...current.map((p,j)=>Math.hypot(p.x-previous[j].x,p.y-previous[j].y)));
-      maxCamera=Math.max(maxCamera,Math.hypot(s.view.x-oldView.x,s.view.y-oldView.y));maxZoom=Math.max(maxZoom,s.view.z);
-      if(Math.hypot(s.view.x-oldView.x,s.view.y-oldView.y)>1e-6)moving++;
-      previous=current;oldView={...s.view};
-      if(s.elapsed>=2.65&&s.elapsed<=2.65+1/fps){
-        assert.ok(frame.pose.scale>4,'cut expands to surround the view before any terrain is revealed');
-      }
-      if(frame.lift===0)assert.equal(frame.ground,1);
-      for(const p of poses.plants)if(p.leaves>0||p.grow>0)assert.equal(frame.lift,0,'growth uses only the actual ground');
-      if(i%fps===0)samples.push({view:{...s.view},seeds:current,frame});
+    let moving=0,previous=fall.seeds.map(p=>[p.x,p.y]);
+    for(let i=0;i<fps*15&&!fall.arrivals.length;i++){
+      O.update(fall,1/fps);J.update(reference,1/fps);
+      if(fall.arrivals.length)break;
+      for(const key of ['x','y','vx','vy','ring','ringV','cameraLead'])assert.equal(fall[key],reference[key],key);
+      for(const key of ['x','y','z'])assert.equal(fall.camera[key],reference.camera[key],key);
+      for(const [j,p]of fall.seeds.entries())for(const key of ['x','y','vx','vy','angle','spin','roll'])assert.equal(p[key],reference.seeds[j][key],key);
+      if(fall.seeds.some((p,j)=>Math.hypot(p.x-previous[j][0],p.y-previous[j][1])>1e-4))moving++;
+      previous=fall.seeds.map(p=>[p.x,p.y]);
+      if(O.opening(fall)<1)assert.equal(fall.arrivals.length,0);
     }
-    assert.ok(maxSeed<900/fps);assert.ok(maxCamera<450/fps);assert.ok(maxZoom>.8);
-    assert.ok(moving>fps*S.OPENING_DURATION*.95,'camera is not held until a late scripted switch');
-    while(s.phase==='opening')S.update(s,0,1/fps);
-    assert.equal(s.view.z,.8);assert.equal(s.view.x,s.world.camera.x);assert.equal(s.view.y,s.world.camera.y);
-    assert.deepEqual(P.snapshot(s.world),initial);trajectories.push(samples);
-  }
-  for(const samples of trajectories.slice(1))for(const [i,sample]of samples.entries()){
-    for(const key of ['x','y','z'])assert.ok(Math.abs(sample.view[key]-trajectories[0][i].view[key])<1e-7);
-    for(const [j,p]of sample.seeds.entries())for(const key of ['x','y'])assert.ok(Math.abs(p[key]-trajectories[0][i].seeds[j][key])<1e-7);
+    assert.ok(fall.arrivals.length);assert.ok(moving>fps*5,'grains keep physical motion throughout entry');
   }
 });
 
-
-test('scale reference grows before landing; space opens after enclosure, with no course morph',()=>{
- const s=S.create();S.beginJourney(s);const original=S.nurseryPoses(s).seeds;
- const sizes=original.map(p=>p.sx*s.view.z);let peak=0;
- for(let i=0;i<7.1*120;i++){
-  const f=S.openingFrame(s),poses=S.nurseryPoses(s);
-  if(f.ground>0)assert.ok(f.pose.scale>4,'cut has lost its perimeter before terrain appears');
-  for(const [j,p]of poses.seeds.entries())if(s.elapsed<p.land) {
-   assert.equal(p.sx,original[j].sx,'grains remain scale references through the fall');
-   peak=Math.max(peak,p.sx*s.view.z/sizes[j]);
+test('landing is discovered from motion, never fixed targets; fall and growth share one continuous view',()=>{
+  const O=require('../opening.js'),landings=[];
+  const project=(q,p)=>{const dx=(p.x-q.camera.x)*q.sx,dy=(p.y-q.camera.y)*q.sy;return {x:q.x+dx*Math.cos(q.angle)-dy*Math.sin(q.angle),y:q.y+dx*Math.sin(q.angle)+dy*Math.cos(q.angle)};};
+  for(const fps of [30,60,120])for(const impulse of [-75,0,75]){
+    const s=S.create();for(const p of s.prologue.seeds)p.vx+=impulse;S.beginJourney(s);
+    const fall=s.opening;assert.equal(s.nursery.plants.length,0);let last=null,maxStep=0,previousCamera=null,maxCamera=0;
+    while(s.phase==='opening'){
+      const frame=S.openingFrame(s),poses=S.nurseryPoses(s),hero=poses.plants.find(p=>p.hero);
+      if(previousCamera&&poses.plants.length)maxCamera=Math.max(maxCamera,Math.hypot((frame.screen.camera.x-previousCamera.x)*frame.screen.sx,(frame.screen.camera.y-previousCamera.y)*frame.screen.sy));
+      previousCamera={...frame.screen.camera};
+      assert.ok(fall.seeds.every(p=>p.depart===undefined&&p.land===undefined&&p.destination===undefined));
+      if(frame.lift>0)assert.equal(poses.plants.length,0);
+      if(hero){const current=project(frame.screen,{x:hero.x,y:hero.ground+(hero.y-hero.ground)*hero.grow});
+        if(last)maxStep=Math.max(maxStep,Math.hypot(current.x-last.x,current.y-last.y));last=current;}
+      S.update(s,0,1/fps);
+    }
+    const b=s.world.pumpkin,current={x:195+(b.x-s.view.x)*.8,y:400+(b.y-s.view.y)*.8};
+    assert.ok(Math.hypot(current.x-last.x,current.y-last.y)<1,'same fully grown fruit hands over without a jump');
+    assert.ok(maxStep<480/fps,'growth and camera remain temporally continuous');assert.ok(maxCamera<480/fps,'actual rooting must not jump the camera party anchor');
+    landings.push(s.nursery.plants.map(p=>[p.id,p.x]));
   }
-  if(f.lift>0)assert.ok(poses.plants.every(p=>p.grow===0&&p.leaves===0));
-  S.update(s,0,1/120);
- }
- assert.ok(peak>1.7,'the view moves inward instead of miniaturising the grains');
- assert.equal(s.opening?.rim,undefined);assert.equal(S.openingSurface,undefined);
- const h=harness(),{createCanvas}=require('@napi-rs/canvas'),c=createCanvas(390,740).getContext('2d');
- for(const time of [0,1.3,2.65,3.4,4.7,5.8,7]){
-  s.elapsed=time;const f=S.openingFrame(s),before=JSON.stringify(s);
-  h.w.PumpokoWorldDraw(c,s.world,s.view,{...S.nurseryPoses(s),opening:true},f);
-  assert.equal(JSON.stringify(s),before,'presentation never changes the course or model');
- }
+  assert.notDeepEqual(landings[0],landings[1],'birthplaces follow the actual initial motion');
+  const old=require('node:child_process').execFileSync('git',['show','7a5fadefc589bcf5b743ee86ac35a104df8ad9da:works/pumpoko-02/draw.js'],{cwd:path.resolve(__dirname,'../../..'),encoding:'utf8'}),now=fs.readFileSync(path.join(__dirname,'../draw.js'),'utf8');
+  for(const [a,b]of [['  function pumpkin(', '  function leaf('],['  function rutabaga(', '  function nursery(']])assert.equal(now.slice(now.indexOf(a),now.indexOf(b)),old.slice(old.indexOf(a),old.indexOf(b)),'adopted character art is unchanged');
 });
