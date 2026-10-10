@@ -9,7 +9,8 @@ class Target {
   appendChild(child){child.parentElement=this;this.children.push(child);return child} append(...children){for(const c of children)this.appendChild(c)}
   focus(){this.ownerDocument.activeElement=this} count(){return [...this.events.values()].reduce((n,s)=>n+s.size,0)}
 }
-function harness({width=1000,height=760,native=false}={}) {
+function harness({width=1000,height=760,native=false,sourceRef=null}={}) {
+  if(sourceRef&&!/^[a-f0-9]{40}$/.test(sourceRef))throw Error('Comparison source must be an exact commit SHA');
   const doc=new Target('DOCUMENT'),w=new Target('WINDOW'),ids=new Map(),errors=[],raf=new Map(),timers=new Map(),captures=new Set();let clock=100,serial=0,frameCount=0;
   const add=id=>{const t=new Target();t.ownerDocument=doc;ids.set(id,t);return t};
   for(const id of ['gameCanvas','title','title-controls','start','rest','status','sound','boot-error','title-art'])add(id);
@@ -44,7 +45,12 @@ function harness({width=1000,height=760,native=false}={}) {
     requestAnimationFrame:fn=>{raf.set(++serial,fn);return serial},cancelAnimationFrame:id=>raf.delete(id),
     setTimeout:fn=>{timers.set(++serial,fn);return serial},clearTimeout:id=>timers.delete(id),setInterval:fn=>{timers.set(++serial,fn);return serial},clearInterval:id=>timers.delete(id)});
   const context=vm.createContext(w),repo=path.resolve(__dirname,'../../..');
-  for(const file of ['engine/codea-lite.v1.0.0.js','engine/sukimastock-engine.v0.3.0.js','works/pumpoko-02/physics.js','works/pumpoko-02/world.js','works/pumpoko-02/courses.js','works/pumpoko-02/material.js','works/pumpoko-02/draw.js','works/pumpoko-02/world-draw.js','works/pumpoko-02/prologue.js','works/pumpoko-02/title-draw.js','works/pumpoko-02/story.js','works/pumpoko-02/app.js'])vm.runInContext(fs.readFileSync(path.join(repo,file),'utf8'),context,{filename:file});
+  for(const file of ['engine/codea-lite.v1.0.0.js','engine/sukimastock-engine.v0.3.0.js','works/pumpoko-02/physics.js','works/pumpoko-02/world.js','works/pumpoko-02/courses.js','works/pumpoko-02/material.js','works/pumpoko-02/draw.js','works/pumpoko-02/world-draw.js','works/pumpoko-02/prologue.js','works/pumpoko-02/title-draw.js','works/pumpoko-02/story.js','works/pumpoko-02/app.js']){
+    const source=sourceRef&&file.startsWith('works/pumpoko-02/')
+      ?require('node:child_process').execFileSync('git',['show',sourceRef+':'+file],{cwd:repo,encoding:'utf8'})
+      :fs.readFileSync(path.join(repo,file),'utf8');
+    vm.runInContext(source,context,{filename:file});
+  }
   if(native){const img=new (require('@napi-rs/canvas').Image)();img.src=fs.readFileSync(path.join(repo,'works/pumpoko-02/assets/pumpoko-logo.svg'));ids.set('title-art',img);}
   w.CodeaLite.start('gameCanvas');const tones=[],sounds=[];w.SSE.audio.tone=e=>tones.push({...e,at:w.PumpokoProbe().model.time});
   const play=w.SSE.audio.play.bind(w.SSE.audio);w.SSE.audio.play=(name,...args)=>{sounds.push(name);return play(name,...args);};

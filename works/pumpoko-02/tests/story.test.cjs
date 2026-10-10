@@ -178,3 +178,67 @@ test('opening interruption pauses the same seeds and growth; reset and replay re
   liveFinish(h);liveEnter(h);assert.equal(h.probe().nursery.plants.length,3);assert.equal(h.probe().model.handoffs,0);
   assert.equal(h.raf.size,1);assert.deepEqual(h.errors,[]);
 });
+
+test('one camera carries the title seeds through cut expansion, unrolling rim, landing and growth at diverse fps',()=>{
+  const trajectories=[];
+  for(const fps of [30,60,120]){
+    const s=S.create();S.beginJourney(s);const initial=P.snapshot(s.world),source=s.prologue.seeds;
+    const project=p=>({x:195+(p.x-s.view.x)*s.view.z,y:400+(p.y-s.view.y)*s.view.z});
+    for(const [i,p]of S.nurseryPoses(s).seeds.entries()){
+      const expected=require('../title-draw.js').seedPose(s.prologue,source[i]),actual=project(p);
+      for(const key of ['x','y'])assert.ok(Math.abs(actual[key]-expected[key])<1e-9);
+    }
+    let previous=S.nurseryPoses(s).seeds.map(project),oldView={...s.view},maxSeed=0,maxCamera=0,maxZoom=0,moving=0;
+    const samples=[];
+    for(let i=1;i<fps*S.OPENING_DURATION;i++){
+      S.update(s,0,1/fps);assert.deepEqual(P.snapshot(s.world),initial);
+      const poses=S.nurseryPoses(s),frame=S.openingFrame(s);assert.ok(frame,'the entire opening remains one shot');
+      const current=poses.seeds.map(project);
+      maxSeed=Math.max(maxSeed,...current.map((p,j)=>Math.hypot(p.x-previous[j].x,p.y-previous[j].y)));
+      maxCamera=Math.max(maxCamera,Math.hypot(s.view.x-oldView.x,s.view.y-oldView.y));maxZoom=Math.max(maxZoom,s.view.z);
+      if(Math.hypot(s.view.x-oldView.x,s.view.y-oldView.y)>1e-6)moving++;
+      previous=current;oldView={...s.view};
+      if(s.elapsed>=1.6&&s.elapsed<=1.6+1/fps){
+        assert.ok(frame.pose.scale>4,'cut expands to surround the view before any terrain is revealed');
+      }
+      if(frame.unroll===1)for(let x=-580;x<=80;x+=13)assert.equal(S.openingSurface(s,x),W.surfaceHeight(x,s.world.course));
+      for(const p of poses.plants)if(p.leaves>0||p.grow>0)assert.equal(frame.unroll,1,'growth uses only the actual ground');
+      if(i%fps===0)samples.push({view:{...s.view},seeds:current,frame});
+    }
+    assert.ok(maxSeed<900/fps);assert.ok(maxCamera<450/fps);assert.ok(maxZoom>1.1);
+    assert.ok(moving>fps*S.OPENING_DURATION*.95,'camera is not held until a late scripted switch');
+    while(s.phase==='opening')S.update(s,0,1/fps);
+    assert.equal(s.view.z,.8);assert.equal(s.view.x,s.world.camera.x);assert.equal(s.view.y,s.world.camera.y);
+    assert.deepEqual(P.snapshot(s.world),initial);trajectories.push(samples);
+  }
+  for(const samples of trajectories.slice(1))for(const [i,sample]of samples.entries()){
+    for(const key of ['x','y','z'])assert.ok(Math.abs(sample.view[key]-trajectories[0][i].view[key])<1e-7);
+    for(const [j,p]of sample.seeds.entries())for(const key of ['x','y'])assert.ok(Math.abs(p[key]-trajectories[0][i].seeds[j][key])<1e-7);
+  }
+});
+
+test('expanded lower skin itself is the unrolling rim; boundary endpoints and render state stay continuous',()=>{
+  const s=S.create();S.beginJourney(s);s.elapsed=1.6;const frame=S.openingFrame(s),rim=require('../title-draw.js').lowerRim(s.prologue);
+  assert.equal(frame.unroll,0);
+  for(const p of rim){
+    const x=s.view.x+(frame.pose.x+(p.x-195)*frame.pose.scale-195)/s.view.z;
+    const y=s.view.y+(frame.pose.y+(p.y-375)*frame.pose.scale-400)/s.view.z;
+    const match=s.opening.rim.find(q=>Math.abs(q.x-x)<1e-8);assert.ok(match);
+    assert.ok(Math.abs(match.y-y)<1e-8,'unrolling starts on the rendered skin, not an unrelated curve');
+  }
+  const positions=[-480,-395,-324,s.world.pumpkin.x,20];
+  let previous=null,maxStep=0;
+  for(let i=0;i<=120;i++){
+    s.elapsed=1.6+i/120*(3.05-1.6);const points=positions.map(x=>S.openingSurface(s,x));
+    if(previous)maxStep=Math.max(maxStep,...points.map((p,j)=>Math.abs(p-previous[j])));previous=points;
+  }
+  assert.ok(maxStep<12);
+  for(const x of positions)assert.equal(S.openingSurface(s,x),W.surfaceHeight(x,s.world.course));
+  // Drawing may consume the profile but never mutate opening, nursery or world.
+  const h=harness(),{createCanvas}=require('@napi-rs/canvas'),c=createCanvas(390,740).getContext('2d');
+  for(const time of [0,1.3,1.6,2.4,3.05,4.5]){
+    s.elapsed=time;const f=S.openingFrame(s),before=JSON.stringify(s);
+    h.w.PumpokoWorldDraw(c,s.world,s.view,{...S.nurseryPoses(s),opening:true}, {...f,surface:x=>S.openingSurface(s,x)});
+    assert.equal(JSON.stringify(s),before);
+  }
+});
