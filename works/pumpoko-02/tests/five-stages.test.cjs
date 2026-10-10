@@ -67,7 +67,8 @@ test('later gap camera keeps .8 zoom, previews far banks and stays bounded throu
   assert.ok(Math.abs((b.x-frame.view.x)*.8)<185,'fruit remains horizontally visible');
   for(const g of c.gaps.filter(g=>g.layer===b.layer))if(b.x<g.a&&g.b+40<frame.view.x+195/.8&&!seen.has(g.id))seen.set(g.id,frame.time);
  }
- for(const flight of r.flights)assert.ok(flight.depart.time-seen.get(flight.gap)>.15,'bank visible before '+flight.gap);
+ // Nine 60Hz frames is the 0.15s threshold; tolerate only subtraction roundoff.
+ for(const flight of r.flights)assert.ok(flight.depart.time-seen.get(flight.gap)>=.15-1e-9,'bank visible before '+flight.gap);
 });
 test('all stage app retries clear keyboard/pointer/autorepeat and accept a fresh action without restarting BGM',()=>{
  for(const stage of [2,3,4,5])for(const mode of ['key','pointer']){const h=harness(),api=h.w.PumpokoStory;let s;const update=api.update;api.update=(state,...a)=>{s=state;return update(state,...a);};h.frame();
