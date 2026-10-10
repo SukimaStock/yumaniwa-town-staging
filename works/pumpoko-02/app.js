@@ -14,11 +14,11 @@
     const t=state.world.time||state.prologue.time;
     if(t<lastSound)lastSound=-10;
     // No rolling ticks or boosted repeated chirps. Stamp muted events too.
-    const e=events.find(e=>e.type==='handoff')||events.find(e=>e.type==='detach')||events.find(e=>e.type==='land'&&e.strength>90);
-    if(!e||t-lastSound<(e.type==='land'?.35:.13))return;
+    const e=events.find(e=>e.type==='seat')||events.find(e=>e.type==='handoff')||events.find(e=>e.type==='detach')||events.find(e=>e.type==='land'&&e.strength>90);
+    if(!e||(e.type!=='seat'&&t-lastSound<(e.type==='land'?.35:.13)))return;
     lastSound=t;if(!root.SSE.audio.enabled||root.document.hidden||root.SSE.lifecycle?.paused)return;
     const name=e.type==='handoff'?'shell':e.type==='detach'?'fiber':e.kind==='pumpkin'?'drumDon':'seed';
-    root.SSE.audio.play(name);
+    root.SSE.audio.play(e.type==='seat'?'shell':name,e.type==='seat'?{volume:root.SSE.audio.baseline().reference.se.soft*.72,playbackRate:.88}:undefined);
   }
   const scene={opaque:true,
     update(dt){
@@ -39,7 +39,7 @@
       }
     });},
     touch(t){
-      if(state.phase==='ending'||state.phase==='returning'||state.phase==='opening')return true;
+      if(state.world.finished&&state.phase!=='title'||state.phase==='ending'||state.phase==='returning'||state.phase==='opening')return true;
       if(state.phase==='title'){
         const names=new Map([[root.BEGAN,'began'],[root.MOVING,'moving'],[root.ENDED,'ended'],[root.CANCELLED,'cancelled']]);
         if(D.touch(state.prologue,{...t,state:names.get(t.state)})){

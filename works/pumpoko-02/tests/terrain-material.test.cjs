@@ -6,9 +6,9 @@ const rgb=hex=>[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16));
 const rind=rgb(w.PumpokoMaterial.rind),cream=rgb(w.PumpokoMaterial.cream);
 const close=(a,b)=>a.every((v,i)=>Math.abs(v-b[i])<4);
 function scene(x,y,{holes=false}={}){const s=W.createCourse(course);s.entities=[];if(!holes)s.holes=[];const view={x,y,z:.8};const canvas=render(w,s,view),c=canvas.getContext('2d');return {s,view,canvas,pixel(wx,wy){return [...c.getImageData(Math.round(195+(wx-x)*.8),Math.round(340-(wy-y)*.8),1,1).data].slice(0,3);}};}
-test('accepted runtime/assets except terrain drawing and approved shot timing remain exact-main bytes',()=>{
+test('accepted runtime/assets except terrain drawing and approved shot timing/goal contact remain exact-main bytes',()=>{
  const repo=path.resolve(__dirname,'../../..');
- const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(f=>!f.includes('/tests/')&&!f.includes('/visual-review/')&&!f.endsWith('.md')&&!f.endsWith('/world-draw.js')&&!f.endsWith('/story.js'));
+ const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(f=>!f.includes('/tests/')&&!f.includes('/visual-review/')&&!f.endsWith('.md')&&!f.endsWith('/world-draw.js')&&!['/story.js','/app.js','/courses.js','/world.js'].some(x=>f.endsWith(x)));
  for(const file of files)assert.ok(fs.readFileSync(path.join(repo,file)).equals(execFileSync('git',['show',BASE+':'+file],{cwd:repo,maxBuffer:10e6})),file);
 });
 test('original screen thickness, ordered skin → cream → flesh, entirely solid-side',()=>{

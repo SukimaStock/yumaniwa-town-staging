@@ -124,7 +124,16 @@
       }
     }
     if(!opening)A.nursery(c,nursery,s);
-    const fruit=b=>(b.kind==='pumpkin'?A.pumpkin:A.rutabaga)(c,b);
+    const fruit=b=>{
+      // A soft 0.48s compression/recovery pivots at the attained contact.
+      // This is drawing only: it cannot change the circle, path or fruit art.
+      const age=b===s.pumpkin&&s.goal?.state==='seated'?s.time-s.goal.seatedAt:-1;
+      const q=age>=0&&age<.32?.085*Math.sin(Math.PI*age/.32)**2:
+        age>=.32&&age<.48?-.012*Math.sin(Math.PI*(age-.32)/.16)**2:0;
+      c.save();
+      if(q){c.translate(b.x,b.y-b.r);c.scale(1+q*.6,1-q);c.translate(-b.x,-b.y+b.r);}
+      (b.kind==='pumpkin'?A.pumpkin:A.rutabaga)(c,b);c.restore();
+    };
     for(const b of free)fruit(b);
     for(const [h,bodies]of groups){
       if(!bodies.length)continue;
