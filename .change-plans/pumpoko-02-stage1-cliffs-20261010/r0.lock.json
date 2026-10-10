@@ -1,0 +1,111 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e47bbf55a8e8ca79d42efc356dba23237d6dc1bc9a71e622536b0ffa4f570545",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-stage1-cliffs-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Extend only STAGE 1 to 10–12 actual .8-scale screens with two finite ground gaps, natural falls and quick retry; translate later stages intact",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "3063834fdedf034c26db009f3f5e0d42c0555cc2",
+    "canonicalSources": [
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/story.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-stage1-cliffs-20261010/r0.lock.json",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/STAGE-1.md",
+      "works/pumpoko-02/README.md",
+      "works/pumpoko-02/tests/story.test.cjs",
+      "works/pumpoko-02/tests/goal.test.cjs",
+      "works/pumpoko-02/tests/timing.test.cjs",
+      "works/pumpoko-02/tests/socket-draw.test.cjs",
+      "works/pumpoko-02/tests/terrain-material.test.cjs",
+      "works/pumpoko-02/tests/stage1-reference.cjs",
+      "works/pumpoko-02/tests/stage1.test.cjs",
+      "works/pumpoko-02/tests/stage1-review.cjs",
+      "works/pumpoko-02/visual-review/stage1-map.png",
+      "works/pumpoko-02/visual-review/stage1-cliffs.png",
+      "works/pumpoko-02/visual-review/stage1-run.mp4"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Keep original opening landing terrain and all title/seed/fruit art; extend only surface before first hole with safe A, first gap B, second ramp/landing gap C, safe D",
+      "Use shared finite terrain gaps for contact/frame/draw, optional unsupported frames in work-local integrator, and prevent below-lip snap; keep all physical constants and ordinary continuous integrator unchanged",
+      "Translate all downstream x coordinates together; preserve relative shapes, four transfer functions, rutabaga behavior, goal contact/squash and 3/1/2.2-second ending",
+      "Detect only stage1 falls after leaving screen, retry in .65 seconds at observed safe start with fresh input/velocity/camera and no opening replay; record first stage clear/second start without scene transition",
+      "Bound stage1 falling camera and add gradual gap look-ahead without changing .8 gameplay zoom or later camera",
+      "Update coordinate/byte guards to enforce normalized downstream equivalence and unchanged constants; retain meaningful art/socket/goal/input tests",
+      "Add finite-edge/air/landing/retry/fps/input/audio/stage-clear tests and actual travel/screen/speed/time measurements",
+      "Produce native Canvas terrain overview and continuous clip, labeling simulation and unverified real-device feel"
+    ],
+    "ownerDecisions": [
+      "User detailed STAGE 1 request on 2026-10-10 permits necessary work-local terrain/physics/retry/stage/drawing implementation and downstream coordinate translation",
+      "Merge staging when tests and protections pass; production prohibited"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main and related PR check; isolated worktree",
+      "Fresh READY r0 Plan-only first commit",
+      "Registered WORK runtime standard scope; no shared runtime extension",
+      "No human/device result invented"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-first-and-second-cliff-readability-and-feel",
+      "iphone-failure-retry-new-input",
+      "iphone-opening-handoffs-final-goal-pacing"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated stage1 PR",
+    "outOfScope": [
+      "New jump action, character buffs, checkpoints during stage1, new hazards/stage2–5 behavior, shared runtime, old works, production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "First-time human clear target 30–50 seconds; actual fun/readability on iPhone",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
