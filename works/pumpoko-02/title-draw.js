@@ -152,9 +152,20 @@
       c.fillStyle = "rgba(105,85,57,.55)"; c.font = "9px Georgia, serif";
       c.fillText("SukimaStock", 195, 684);
   }
-  root.PumpokoTitleDraw=function(c,state,pose={x:195,y:375,scale:1},alpha=1,captionsAlpha=1){
+  // The same seed pose is sampled once when it leaves the vessel. The nursery
+  // owns its subsequent flight; title dynamics never enter the game world.
+  function seedPose(state,p) {
+    const a=state.x*.22, sx=1+state.ring*.22, sy=1-state.y*.15-state.ring*.18;
+    const x=p.x*sx,y=p.y*.8*sy;
+    return {x:195+state.x*34+x*Math.cos(a)-y*Math.sin(a),
+      y:375-state.y*23-x*Math.sin(a)-y*Math.cos(a),angle:-p.angle-a,
+      sx,sy:(p.roll||1)*sy};
+  }
+  root.PumpokoTitleArt={seedPose,seed};
+  if(typeof module==='object'&&module.exports)module.exports=root.PumpokoTitleArt;
+  root.PumpokoTitleDraw=function(c,state,pose={x:195,y:375,scale:1},alpha=1,captionsAlpha=1,showSeeds=true){
     c.save();c.globalAlpha*=alpha;c.translate(pose.x,pose.y);c.scale(pose.scale,-pose.scale);c.translate(-195,-365);
-    shadow(c,state);vessel(c,true,false,state);
+    shadow(c,state);vessel(c,showSeeds,false,state);
     c.save();c.globalAlpha*=captionsAlpha;titleArt=root.document?.getElementById('title-art');captions(c,state);c.restore();
     c.restore();
   };

@@ -1,14 +1,14 @@
-# PUMPOKO 02 — current validation
+# PUMPOKO 02 — seed-to-fruit validation, 2026-10-10
 
-The original #178 route and artwork comparison record has been superseded by the 2026-10-09 original-PUMPOKO integration. Current design, protection, scope conflict and device drill: [INTEGRATION.md](INTEGRATION.md).
+Base: `cbf10a3b2aa1781ecf6f0d32ed98ddaf593529a6` (#181). Design/source/protection and actual-device drill: [INTEGRATION.md](INTEGRATION.md).
 
-- Current physical kernel (`physics.js`, `world.js`) is unchanged. Course geometry, fruit palette, title, presentation camera and music integration are deliberately adapted.
-- Integration tests: 12 distinct cases passed (11-case full suite, then the strengthened repeated-play case and new primary-touch case; the physical/runtime implementation is identical). Native Canvas, canonical Engine/Codea, DOM/media doubles. Native 390×844 / 1180×820 / 844×390 renders passed; these are not real browser layouts.
-- Existing Lab + original PUMPOKO ending/audio + Engine input/audio lifecycle + work lifecycle + World Consistency regression: 196 tests, 196 passed.
-- Scope→Risk→Impact, immutable work-local Plan digest, JavaScript syntax and Git whitespace checks passed.
-- Native visual inspection covers title, opening, both cellar layers, all four exchanges, final pair, zoom return and replay. Initial native test attempts exhausted memory; the renderer now rasterizes periodically so deferred native commands do not accumulate. Those failed verification attempts are not counted as successes.
-- Arrival release probes after 0/2/10/30 seconds of continued input all reach ending and return under unchanged constants.
-- Local Playwright is unavailable because Chromium is not installed. Actual iPhone/iPad/Safari, CSS orientation changes, audible BGM continuity, loudness and subjective touch remain **UNVERIFIED**.
-- Owner merge authorization on 2026-10-10 includes the requested one root Plan exception. The fresh merge branch starts with the accepted `.change-plans/pumpoko-02-integration-merge-20261010/r0.lock.json` only, then reapplies reviewed PR #180 byte-identical runtime/assets/tests. Required PR checks must pass before staging merge. Production remains excluded.
+- Final integration suite: **14/14 PASS**, all run together after the final art change. Includes actual detached seed projection, same-ground landing before growth, three plants with one real travelling hero, frozen opening world, natural zero-input roll, continuous camera, original integrator equivalence, all four contact exchanges, coast/ending/replay, primary pointer, and blur during both falling and growth.
+- Existing Lab, original ending/audio, Engine input/audio lifecycle, work lifecycle and World Consistency regression: **196/196 PASS**. Total: 210 distinct automated cases.
+- Exact diff protection: `physics.js`, `world.js`, `courses.js`, `prologue.js`, `material.js`, `style.css`, Engine/Codea, audio and logo bytes are unchanged from the base. No original PUMPOKO/Lab/data/shared/production changes.
+- Native offscreen Canvas: title, falling seeds, soil, three fruits, same hero, four exchanges, actual final pair and title return were rendered and visually reviewed. Full replay tests cover 390×844, 1180×820 and 844×390 with canonical Engine/Codea and DOM/media doubles. [Frames](visual-review/continuous-journey.png) are not browser screenshots.
+- Original ending `fruit()` and the new fruit were rendered side by side for comparison. The exact contour, broad orange lobes, diffuse underside, stem and highlight are retained; the final adaptation uses uniform scaling to preserve the original's plump proportions. Rutabaga has simplified purple/cream colour masses and no face or thin veins.
+- Scope → Risk → Impact PASS; immutable Plan digest and trusted base-owned syntax/registry checks are separately recorded in the PR at the exact published SHA. Git whitespace PASS.
+- A preliminary broad regression glob also selected the Lab's optional browser-smoke script and failed because Chromium is unavailable. It was not counted as a pass. The correct automated `.test.cjs` set was rerun and all 196 tests passed. No browser or device execution is claimed.
+- Actual iPhone/iPad/Safari: seed-to-fruit pacing, recognition of the original art, subjective slide/bounce/pop, CSS orientation layout and audible BGM/SE remain **UNVERIFIED**. Existing single-player logical audio continuity passed media doubles; those do not establish audible playback.
 
-No test, native image or CI status establishes real-device feel or Release Complete. No production promotion is authorized.
+Plan: `.change-plans/pumpoko-02-seed-to-fruit-20261010/r0.lock.json` registered alone before implementation. Work-owned changes plus the previously authorized mandatory root Plan only. Formal verificationState remains UNVERIFIED; no Release Complete claim or production promotion.

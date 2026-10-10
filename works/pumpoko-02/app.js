@@ -31,12 +31,17 @@
     draw(){root.background(250,241,220);root.withCanvasContext(c=>{
       if(state.phase==='title')root.PumpokoTitleDraw(c,state.prologue);
       else if(state.phase==='opening'){
-        const p=S.openingMix(state),worldAlpha=S.smooth((p-.15)/.55);
-        c.save();c.globalAlpha=worldAlpha;root.PumpokoWorldDraw(c,state.world,state.view);c.restore();
-        root.PumpokoTitleDraw(c,state.prologue,{x:195,y:375,scale:1+7*p},1-S.smooth((p-.35)/.5),1-S.smooth(p/.3));
+        const t=state.elapsed,plants=S.nurseryPoses(state);
+        // Ground appears below the shell. Its seeds keep their screen positions
+        // as they begin falling; no expansion/crossfade into an unrelated body.
+        c.save();c.globalAlpha=S.smooth(t/.45);root.PumpokoWorldDraw(c,state.world,state.view,{...plants,opening:true,seeds:[]});c.restore();
+        const shell=1-S.smooth(t/.8);
+        root.PumpokoTitleDraw(c,state.opening.shell,{x:195,y:375+22*S.smooth(t/.8),scale:1},shell,shell,false);
+        c.save();c.translate(195,400);c.scale(state.view.z,state.view.z);c.translate(-state.view.x,-state.view.y);
+        root.FruitLabArt.nursery(c,{plants:[],seeds:plants.seeds},state.world);c.restore();
       }else{
         const mix=S.returnMix(state);
-        c.save();c.globalAlpha=1-mix;root.PumpokoWorldDraw(c,state.world,state.view);c.restore();
+        c.save();c.globalAlpha=1-mix;root.PumpokoWorldDraw(c,state.world,state.view,S.nurseryPoses(state));c.restore();
         if(mix)root.PumpokoTitleDraw(c,state.prologue,{x:195,y:375,scale:1},mix,mix);
       }
     });},
@@ -81,6 +86,6 @@
     }
   });
   if(new URLSearchParams(root.location.search).get('dev')==='1'){
-    root.PumpokoProbe=()=>({phase:state.phase,finished:state.world.finished,target:state.world.target,returnTitle:state.returnTitle,view:{...state.view},model:P.snapshot(state.world),pointer,axis:touchAxis,prologue:{time:state.prologue.time,loose:state.prologue.seeds.filter(p=>!p.attached).length,held:state.prologue.held},opening:state.opening?.progress});
+    root.PumpokoProbe=()=>({phase:state.phase,elapsed:state.elapsed,finished:state.world.finished,target:state.world.target,returnTitle:state.returnTitle,view:{...state.view},model:P.snapshot(state.world),pointer,axis:touchAxis,prologue:{time:state.prologue.time,loose:state.prologue.seeds.filter(p=>!p.attached).length,held:state.prologue.held},opening:state.opening?.progress,nursery:S.nurseryPoses(state)});
   }
 })(typeof window!=='undefined'?window:globalThis);
