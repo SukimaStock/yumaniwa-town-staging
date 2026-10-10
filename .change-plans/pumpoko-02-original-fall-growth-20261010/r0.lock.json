@@ -1,0 +1,120 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d5a06286c212964ce646d6b947c393acc3c1e63cc594fa8df0ad3eca954e8ac2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-original-fall-growth-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reuse original continuous opening; grow at observed seed contacts and hand same fruit into WORLD LOOP",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "7a5fadefc589bcf5b743ee86ac35a104df8ad9da",
+    "canonicalSources": [
+      "works/pumpoko/sketch.js",
+      "works/pumpoko/journey.js",
+      "works/pumpoko/stage-draw.js",
+      "works/pumpoko/dynamics.js",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/draw.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-original-fall-growth-20261010/r0.lock.json",
+      "works/pumpoko-02/opening.js",
+      "works/pumpoko-02/opening-draw.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/title-draw.js",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/draw.js",
+      "works/pumpoko-02/index.html",
+      "works/pumpoko-02/tests/story.test.cjs",
+      "works/pumpoko-02/tests/harness.cjs",
+      "works/pumpoko-02/tests/opening-film.cjs",
+      "works/pumpoko-02/tests/opening-review.cjs",
+      "works/pumpoko-02/tests/render-review.cjs",
+      "works/pumpoko-02/INTEGRATION.md",
+      "works/pumpoko-02/TESTING.md",
+      "works/pumpoko-02/visual-review/opening-film.mp4",
+      "works/pumpoko-02/visual-review/opening-sequence.png",
+      "works/pumpoko-02/visual-review/opening-comparison.png",
+      "works/pumpoko-02/visual-review/continuous-journey.png"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Reuse original fixed-step moving seed/vessel/boundary/camera/opening transforms as one work-local kernel",
+      "Reuse original cut expansion / background / rising actual terrain timing",
+      "Delete departures/destinations/deadline interpolation and three fixed plant positions",
+      "Root each grain only after actual stable top contact, preserve actual x/y for growth",
+      "Reuse original sprout/leaf/fruit growth at those roots; choose one actual arrival, place same WORLD body there before it is visible",
+      "Bridge the grown same body into natural slide with unchanged gameplay camera/physics/course/end",
+      "Compare original / current main #184 / revision in native timed footage and test real contact, uninterrupted trajectories, hero identity and four handoffs"
+    ],
+    "ownerDecisions": [
+      "Latest owner explicitly requests coherent original opening reuse and actual-landing growth; no target/attraction/relocation",
+      "Existing root Plan-only exception and staging merge authorization persist; no production",
+      "Device experience requires actual owner iPhone review"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "READY Plan-only first commit",
+      "physics/world/courses, pumpkin and rutabaga art functions, ending/return remain unchanged",
+      "Original work read-only; no shared runtime changes or added controls"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-continuous-original-fall",
+      "iphone-actual-root-growth",
+      "iphone-same-fruit-roll",
+      "iphone-four-handoffs-and-ending"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated work-only PR",
+    "outOfScope": [
+      "production",
+      "physics.js/world.js/courses.js",
+      "logical viewport/control changes",
+      "new gameplay mechanics",
+      "shared runtime",
+      "original PUMPOKO"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPhone opening/touch/audio/lifecycle",
+      "Artistic impression and success await owner review"
+    ]
+  }
+}
