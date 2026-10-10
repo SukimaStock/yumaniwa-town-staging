@@ -55,6 +55,7 @@
   }
   function createCourse(course, settings = P.defaults()) {
     const s=create(settings);s.course=course;s.finished=false;s.finishedAt=null;
+    s.goal=course.goal?{state:'approach',contact:0,seatedAt:null,pose:null}:null;
     s.pumpkin=fruit('pumpkin',-250,'surface',false,course);s.entities=[s.pumpkin];
     s.holes=course.holes.map(spec=>{
       const kind=spec.direction<0?'rutabaga':'pumpkin',occupant=fruit(kind,spec.x,spec.exitLayer,true,course);
@@ -162,12 +163,33 @@
 
     }};
   }
+  function seatGoal(s,b,step,previous) {
+    const goal=s.course.goal,state=s.goal;
+    if(!goal||s.finished)return;
+    const f=contact(b,s.course);
+    // Use observed centre travel, not the tangent velocity parameter: normal
+    // circle offset shortens travel inside a rounded cup in the existing model.
+    const speed=Math.hypot(b.x-previous.x,b.y-previous.y)/step;state.travelSpeed=speed;
+    const supported=b.kind==='pumpkin'&&b.layer===goal.layer&&b.grounded&&
+      Math.abs(f.distance-b.r)<.05&&Math.abs(b.x-goal.x)<=goal.halfWidth&&
+      f.y<=goal.bottom+goal.depth&&speed<=goal.speed;
+    state.contact=supported?state.contact+step:0;
+    if(state.contact+1e-10<goal.dwell)return;
+    // Success latches the attained, supported pose. No attraction, position
+    // correction or extra damping precedes it; the fruit can overshoot/return.
+    s.finished=true;s.finishedAt=s.time;state.state='seated';state.seatedAt=s.time;
+    state.pose={x:b.x,y:b.y,angle:b.angle};b.vx=b.vy=b.angular=0;
+    s.target=s.axis=s.previousInput=0;s.bufferedAt=-10;s.boostUsed=true;
+    s.events.push({type:'seat',kind:b.kind,strength:speed});
+  }
   function update(s,dt) {
     s.events.length=0; s.accumulator+=clamp(Number(dt)||0,0,.05);
     while(s.accumulator+1e-10>=P.STEP) {
-      const step=P.STEP;s.time+=step;s.axis+=(s.target-s.axis)*(1-Math.exp(-step*12));
-      const active=s[s.active];
-      if(!s.holes.some(h=>h.state==='compressing'&&h.incoming===active)) {
+      const step=P.STEP;s.time+=step;
+      if(s.goal?.state==='seated')s.target=s.axis=s.previousInput=0;
+      s.axis+=(s.target-s.axis)*(1-Math.exp(-step*12));
+      const active=s[s.active],previous={x:active.x,y:active.y};
+      if(s.goal?.state!=='seated'&&!s.holes.some(h=>h.state==='compressing'&&h.incoming===active)) {
         const geo=geometry(s,active);
         // Upward launch must clear the occupied surface lip before normal floor
         // projection resumes. This does not alter the pumpkin's gravity/drive.
@@ -193,7 +215,10 @@
         s.camera[v]+=((target-s.camera[key])*49-s.camera[v]*14)*step;
         s.camera[key]+=s.camera[v]*step;
       }
-      if(s.course&&!s.finished&&s.handoffs===s.holes.length&&b.grounded&&b.x>=s.course.finishX){s.finished=true;s.finishedAt=s.time;}
+      if(s.course&&!s.finished&&s.handoffs===s.holes.length){
+        if(s.course.goal)seatGoal(s,b,step,previous);
+        else if(b.grounded&&b.x>=s.course.finishX){s.finished=true;s.finishedAt=s.time;}
+      }
       s.accumulator-=step;
     }
     return s.events;

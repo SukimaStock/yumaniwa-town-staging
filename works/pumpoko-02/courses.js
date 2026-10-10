@@ -27,7 +27,12 @@
   four.curves.underground2=[[5120,-65,-.5],[5450,-170,0],[5670,-105,0],
     [5870,-130,0],[6090,-195,0],[6310,-145,0],[6510,-110,0],
     [6710,-165,0],[6930,-75,0],[7050,-75,0],[7120,-68,.1]];
-  four.curves.finish=[[6950,48,0],[7050,40,-.15],[7300,5,0],[7510,95,.6],[7660,195,0],[7820,210,0]];
+  // The fourth mouth and its landing shoulder are unchanged. The final rise
+  // receives speed, then a shallow, rounded fruit-sized pocket receives fruit.
+  four.curves.finish=[[6950,48,0],[7050,40,-.15],[7300,5,0],
+    [7550,110,.46],[7620,142.2,.46],[7690,156,-1.0909090909],
+    [7745,126,0],[7800,156,1.0909090909],[8300,750,1.5],[8540,950,0]];
+  four.goal={layer:'finish',x:7745,halfWidth:16,bottom:126,depth:18,speed:150,dwell:.06};
   four.holes=[
     {id:'down',x:1400,y:490,direction:-1,entryLayer:'surface',exitLayer:'underground'},
     {id:'up',x:2790,y:230,direction:1,entryLayer:'underground',exitLayer:'return'},

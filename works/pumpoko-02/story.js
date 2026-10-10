@@ -132,13 +132,14 @@
       O.update(s.nursery.fall,dt);s.nursery.time=s.nursery.fall.time;rootPlants(s);
       if(s.nursery.fall.seeds.every(p=>p.inactive||p.arrival&&s.nursery.time-p.arrival.at>=3.15))s.nursery.fall=null;
     }
-    const controlled=s.phase==='playing'||s.phase==='coast';
+    const controlled=s.world.goal?.state!=='seated'&&(s.phase==='playing'||s.phase==='coast');
     P.input(s.world,controlled?axis:0);const events=W.update(s.world,dt);
     if(s.phase==='playing'&&s.world.finished){s.phase='coast';s.elapsed=0;s.ending=finalShot(s);}
     if(s.phase==='coast'){
       const b=s.world.pumpkin;
-      s.slow=!axis&&Math.abs(s.world.axis)<.1&&b.grounded&&Math.hypot(b.vx,b.vy)<35?s.slow+dt:0;
-      if(s.elapsed>=1.8&&s.slow>=.4){s.phase='ending';s.elapsed=0;}
+      s.slow=(!axis||s.world.goal?.state==='seated')&&Math.abs(s.world.axis)<.1&&b.grounded&&Math.hypot(b.vx,b.vy)<35?s.slow+dt:0;
+      const minimum=s.world.goal?.state==='seated'?.4:1.8;
+      if(s.elapsed>=minimum&&s.slow>=.4){s.phase='ending';s.elapsed=0;}
     }
     if(s.phase==='playing'){
       // Velocity anticipation is low-pass filtered and never modifies the model

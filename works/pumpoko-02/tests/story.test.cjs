@@ -17,8 +17,8 @@ function liveFinish(h){
   assert.equal(h.probe().model.handoffs,4);assert.ok(h.probe().finished);h.key('keyup','ArrowRight');
   for(let i=0;i<60*90&&!h.probe().returnTitle;i++)h.frame();assert.ok(h.probe().returnTitle);
 }
-test('physical kernel bytes and asset bytes are preserved; course and material are work-local adaptations',()=>{
-  for(const file of ['physics.js','world.js'])assert.ok(fs.readFileSync(path.join(__dirname,'..',file)).equals(fs.readFileSync(path.join(__dirname,'../../pumpkin-rutabaga-lab',file))),file);
+test('physical integrator/fruit constants and asset bytes are preserved; goal contact is work-local',()=>{
+  for(const file of ['physics.js'])assert.ok(fs.readFileSync(path.join(__dirname,'..',file)).equals(fs.readFileSync(path.join(__dirname,'../../pumpkin-rutabaga-lab',file))),file);
   for(const file of ['assets/pumpoko-logo.svg','audio/pumpoko-bgm.mp3','audio/shell.wav','audio/fiber.wav','audio/drum-don.wav','audio/seed.wav'])assert.ok(fs.readFileSync(path.join(__dirname,'..',file)).equals(fs.readFileSync(path.join(__dirname,'../../pumpoko',file))),file);
   const html=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');assert.equal(/pumpkin-rutabaga-lab|measurements\.js|data-mode|world-course|sliders|tuning/.test(html),false);
   assert.ok(html.includes('../../engine/sukimastock-engine.v0.3.0.js'));assert.ok(html.includes('../../engine/codea-lite.v1.0.0.js'));
@@ -80,8 +80,8 @@ test('four natural exchanges stay in portrait frame; every plug plants and trans
     assert.equal(count,4);assert.equal(s.phase,'coast');assert.ok(maxStep<35);assert.equal(s.world.entities.filter(b=>b.plugged).length,4);
   }
 });
-test('natural coast and one shot frame real final pair; zoom returns continuously and replay restores four unused sockets',()=>{
-  const s=finish(S.create());for(let i=0;i<120;i++)S.update(s,1,1/60);assert.equal(s.phase,'coast');
+test('seated goal ends held input and one shot frames real final pair; continuous return restores four unused sockets',()=>{
+  const s=finish(S.create());for(let i=0;i<12;i++)S.update(s,1,1/60);assert.equal(s.phase,'coast');assert.equal(s.world.target,0);
   for(let i=0;i<60*60&&s.phase!=='ending';i++)S.update(s,0,1/60);assert.equal(s.phase,'ending');assert.ok(Math.hypot(s.world.pumpkin.vx,s.world.pumpkin.vy)<35);
   const pumpkin=s.world.pumpkin,rutabaga=s.world.holes[3].occupant;let last={...s.view},maxJump=0;
   for(let i=0;i<60*11&&s.phase==='ending';i++){

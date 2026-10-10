@@ -1,0 +1,110 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8772f6c97e468bda7745147daa9811a68518defb5a539e33c5363e0c28bed9d2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-pocket-goal-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Seat the final pumpkin in a shallow terrain pocket using existing physical contact, then play one soft visual settle and preserve final shot/return",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "0246b9ec22f7113addca96c53082474ab87fbcc7",
+    "canonicalSources": [
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/tests/story.test.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-pocket-goal-20261010/r0.lock.json",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/tests/story.test.cjs",
+      "works/pumpoko-02/tests/socket-draw.test.cjs",
+      "works/pumpoko-02/tests/terrain-material.test.cjs",
+      "works/pumpoko-02/tests/timing.test.cjs",
+      "works/pumpoko-02/tests/goal.test.cjs",
+      "works/pumpoko-02/tests/goal-review.cjs",
+      "works/pumpoko-02/GOAL-REVIEW.md",
+      "works/pumpoko-02/visual-review/goal-sequence.png",
+      "works/pumpoko-02/visual-review/goal-comparison.png",
+      "works/pumpoko-02/visual-review/goal.mp4"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Alter only finish terrain after the fourth socket approach; preserve all other course coordinates, mouth widths and physics constants",
+      "Replace world4 finishX crossing with grounded, low-speed supported pocket seating; no pre-success attractor, relocation or velocity assistance",
+      "Latch the attained pose after success without moving it; end player drive and avoid repeated success; use only a short drawing squash/recovery and one existing soft sound",
+      "Overlap six-second final shot with small seating remainder; preserve 2.5s fixed hold and 3.6s return, normal gameplay .8 view and accepted opening",
+      "Update existing tests only where authorized goal changes supersede byte/ending assumptions; retain all4 contact/frame/material/art checks; add diverse-speed/held input/reversal/replay/audio/lifecycle goal regressions",
+      "Native Canvas actual-physics four-stage frames and time-sequence evidence; explicitly leave iPhone feel unverified"
+    ],
+    "ownerDecisions": [
+      "User explicitly requested terrain pocket goal, post-success control end, small squash, one existing sound, protected final shot; permits staging merge after checks",
+      "Existing mandatory Plan metadata exception only outside work"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard; READY Plan-only first commit before implementation",
+      "No physics.js edits or shared runtime/assets; no fifth handoff; no pre-success attraction/teleport",
+      "Exact-head Scope Risk Impact trusted Static CI and staging-only delivery"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-normal-slow-fast-pocket-seating-feel",
+      "iphone-reversal-and-held-input-goal-readability",
+      "iphone-short-squash-soft-sound-and-continuous-final-pair-shot"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated work-only PR",
+    "outOfScope": [
+      "Title, original internal opening and seed landing/growth",
+      "Physics constants/integrator and four handoff mechanisms/holes",
+      "Characters, material palette, BGM/audio lifecycle and shared foundations",
+      "Original/lab/other works/production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPhone feel and sound",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
