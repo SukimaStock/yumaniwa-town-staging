@@ -221,7 +221,7 @@
   root.addEventListener('keyup',event=>{keys.delete(event.code)});
   root.addEventListener('blur',release);
   doc.addEventListener('visibilitychange',()=>{if(doc.hidden){release();lastTime=0}});
-  for(const b of doc.querySelectorAll('[data-kind]'))b.addEventListener('click',()=>{kind=b.dataset.kind;reset()});
+  for(const b of doc.querySelectorAll('[data-kind]'))b.addEventListener('click',()=>{kind=b.dataset.kind;if(mode==='order')terrain=kind==='pumpkin'?'ac':'bd';reset()});
   for(const b of doc.querySelectorAll('[data-study]'))b.addEventListener('click',()=>{
     mode=b.dataset.study;
     terrain=mode==='order'?(kind==='pumpkin'?'ac':'bd'):mode==='chain'?'flow':'bowl';
