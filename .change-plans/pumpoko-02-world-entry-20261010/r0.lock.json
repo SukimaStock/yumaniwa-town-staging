@@ -1,0 +1,108 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "26555ebea0138e2944f451f43698c06670ee2a3f819b5a1588aef402e74a3ce1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-world-entry-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Restore perceptual scale and time inside the cut; remove literal rind-to-course morph",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "b40842a3b919277ad432f3452e98e366ea980d92",
+    "canonicalSources": [
+      "Owner experiential opening instruction 2026-10-10",
+      "GitHub original sketch.js journey.js stage-draw.js",
+      "Native timed baseline 165 frames at 15fps before implementation",
+      "AGENTS.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-world-entry-20261010/r0.lock.json",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/title-draw.js",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/tests/story.test.cjs",
+      "works/pumpoko-02/tests/opening-review.cjs",
+      "works/pumpoko-02/tests/opening-film.cjs",
+      "works/pumpoko-02/tests/render-review.cjs",
+      "works/pumpoko-02/visual-review/continuous-journey.png",
+      "works/pumpoko-02/visual-review/opening-comparison.png",
+      "works/pumpoko-02/visual-review/opening-film.mp4",
+      "works/pumpoko-02/visual-review/opening-sequence.png",
+      "works/pumpoko-02/INTEGRATION.md",
+      "works/pumpoko-02/VALIDATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Evaluate original and #183 in timed motion first",
+      "Remove exact skin morph; let an expanding cut lose its perimeter before landscape emerges",
+      "Reverse miniature pullback: seeds and camera scale move inward before settling at identical playing frame",
+      "Overlap fall and growth with landscape reveal, preserving three fruits and same real hero",
+      "Provide original / #183 / revision timed video and sequential frames"
+    ],
+    "ownerDecisions": [
+      "Owner explicitly prioritizes entering-the-world feeling and scale over literal spatial mapping",
+      "Preserve all adopted art/gameplay/ending; actual iPhone impression awaits owner",
+      "Existing root Plan exception and conditional staging merge authorization persist"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "READY immutable Plan-only first commit",
+      "No draw/physics/world/courses/prologue/style/audio/ending change",
+      "Original GitHub source read-only; no production"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-entering-world",
+      "iphone-scale-and-tempo",
+      "iphone-seed-and-hero-visibility"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated work-only PR",
+    "outOfScope": [
+      "production",
+      "physics.js/world.js/courses.js",
+      "logical viewport/control changes",
+      "new gameplay mechanics",
+      "shared runtime",
+      "original PUMPOKO"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Subjective success and pacing pending actual iPhone owner review",
+      "Actual-device orientation/audio/lifecycle"
+    ]
+  }
+}

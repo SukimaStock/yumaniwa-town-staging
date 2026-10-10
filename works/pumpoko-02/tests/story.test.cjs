@@ -169,7 +169,7 @@ test('opening interruption pauses the same seeds and growth; reset and replay re
   }
   h.key('keyup','ArrowRight');h.key('keyup','ArrowLeft');assert.equal(h.probe().phase,'opening');
   h.advance(.6);h.pointer('pointerdown',600,400);assert.equal(h.probe().pointer,null);
-  for(const time of [.6,2.6]){
+  for(const time of [1.6,5.8]){
     while(h.probe().elapsed<time)h.frame();h.w.emit('blur');
     const before=JSON.stringify(h.probe());h.advance(2);assert.equal(JSON.stringify(h.probe()),before);
     h.w.emit('focus');h.frame();assert.equal(h.probe().axis,0);assert.equal(h.probe().target,0);
@@ -179,7 +179,7 @@ test('opening interruption pauses the same seeds and growth; reset and replay re
   assert.equal(h.raf.size,1);assert.deepEqual(h.errors,[]);
 });
 
-test('one camera carries the title seeds through cut expansion, unrolling rim, landing and growth at diverse fps',()=>{
+test('one camera carries the title seeds through cut expansion, emerging space, landing and growth at diverse fps',()=>{
   const trajectories=[];
   for(const fps of [30,60,120]){
     const s=S.create();S.beginJourney(s);const initial=P.snapshot(s.world),source=s.prologue.seeds;
@@ -198,14 +198,14 @@ test('one camera carries the title seeds through cut expansion, unrolling rim, l
       maxCamera=Math.max(maxCamera,Math.hypot(s.view.x-oldView.x,s.view.y-oldView.y));maxZoom=Math.max(maxZoom,s.view.z);
       if(Math.hypot(s.view.x-oldView.x,s.view.y-oldView.y)>1e-6)moving++;
       previous=current;oldView={...s.view};
-      if(s.elapsed>=1.6&&s.elapsed<=1.6+1/fps){
+      if(s.elapsed>=2.65&&s.elapsed<=2.65+1/fps){
         assert.ok(frame.pose.scale>4,'cut expands to surround the view before any terrain is revealed');
       }
-      if(frame.unroll===1)for(let x=-580;x<=80;x+=13)assert.equal(S.openingSurface(s,x),W.surfaceHeight(x,s.world.course));
-      for(const p of poses.plants)if(p.leaves>0||p.grow>0)assert.equal(frame.unroll,1,'growth uses only the actual ground');
+      if(frame.lift===0)assert.equal(frame.ground,1);
+      for(const p of poses.plants)if(p.leaves>0||p.grow>0)assert.equal(frame.lift,0,'growth uses only the actual ground');
       if(i%fps===0)samples.push({view:{...s.view},seeds:current,frame});
     }
-    assert.ok(maxSeed<900/fps);assert.ok(maxCamera<450/fps);assert.ok(maxZoom>1.1);
+    assert.ok(maxSeed<900/fps);assert.ok(maxCamera<450/fps);assert.ok(maxZoom>.8);
     assert.ok(moving>fps*S.OPENING_DURATION*.95,'camera is not held until a late scripted switch');
     while(s.phase==='opening')S.update(s,0,1/fps);
     assert.equal(s.view.z,.8);assert.equal(s.view.x,s.world.camera.x);assert.equal(s.view.y,s.world.camera.y);
@@ -217,28 +217,26 @@ test('one camera carries the title seeds through cut expansion, unrolling rim, l
   }
 });
 
-test('expanded lower skin itself is the unrolling rim; boundary endpoints and render state stay continuous',()=>{
-  const s=S.create();S.beginJourney(s);s.elapsed=1.6;const frame=S.openingFrame(s),rim=require('../title-draw.js').lowerRim(s.prologue);
-  assert.equal(frame.unroll,0);
-  for(const p of rim){
-    const x=s.view.x+(frame.pose.x+(p.x-195)*frame.pose.scale-195)/s.view.z;
-    const y=s.view.y+(frame.pose.y+(p.y-375)*frame.pose.scale-400)/s.view.z;
-    const match=s.opening.rim.find(q=>Math.abs(q.x-x)<1e-8);assert.ok(match);
-    assert.ok(Math.abs(match.y-y)<1e-8,'unrolling starts on the rendered skin, not an unrelated curve');
+
+test('scale reference grows before landing; space opens after enclosure, with no course morph',()=>{
+ const s=S.create();S.beginJourney(s);const original=S.nurseryPoses(s).seeds;
+ const sizes=original.map(p=>p.sx*s.view.z);let peak=0;
+ for(let i=0;i<7.1*120;i++){
+  const f=S.openingFrame(s),poses=S.nurseryPoses(s);
+  if(f.ground>0)assert.ok(f.pose.scale>4,'cut has lost its perimeter before terrain appears');
+  for(const [j,p]of poses.seeds.entries())if(s.elapsed<p.land) {
+   assert.equal(p.sx,original[j].sx,'grains remain scale references through the fall');
+   peak=Math.max(peak,p.sx*s.view.z/sizes[j]);
   }
-  const positions=[-480,-395,-324,s.world.pumpkin.x,20];
-  let previous=null,maxStep=0;
-  for(let i=0;i<=120;i++){
-    s.elapsed=1.6+i/120*(3.05-1.6);const points=positions.map(x=>S.openingSurface(s,x));
-    if(previous)maxStep=Math.max(maxStep,...points.map((p,j)=>Math.abs(p-previous[j])));previous=points;
-  }
-  assert.ok(maxStep<12);
-  for(const x of positions)assert.equal(S.openingSurface(s,x),W.surfaceHeight(x,s.world.course));
-  // Drawing may consume the profile but never mutate opening, nursery or world.
-  const h=harness(),{createCanvas}=require('@napi-rs/canvas'),c=createCanvas(390,740).getContext('2d');
-  for(const time of [0,1.3,1.6,2.4,3.05,4.5]){
-    s.elapsed=time;const f=S.openingFrame(s),before=JSON.stringify(s);
-    h.w.PumpokoWorldDraw(c,s.world,s.view,{...S.nurseryPoses(s),opening:true}, {...f,surface:x=>S.openingSurface(s,x)});
-    assert.equal(JSON.stringify(s),before);
-  }
+  if(f.lift>0)assert.ok(poses.plants.every(p=>p.grow===0&&p.leaves===0));
+  S.update(s,0,1/120);
+ }
+ assert.ok(peak>1.7,'the view moves inward instead of miniaturising the grains');
+ assert.equal(s.opening?.rim,undefined);assert.equal(S.openingSurface,undefined);
+ const h=harness(),{createCanvas}=require('@napi-rs/canvas'),c=createCanvas(390,740).getContext('2d');
+ for(const time of [0,1.3,2.65,3.4,4.7,5.8,7]){
+  s.elapsed=time;const f=S.openingFrame(s),before=JSON.stringify(s);
+  h.w.PumpokoWorldDraw(c,s.world,s.view,{...S.nurseryPoses(s),opening:true},f);
+  assert.equal(JSON.stringify(s),before,'presentation never changes the course or model');
+ }
 });
