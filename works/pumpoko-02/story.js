@@ -103,7 +103,7 @@
     for(const key of ['x','y'])s.view[key]+=shot.velocity[key]*shot.time*Math.exp(-shot.time*2)*(1-t);
     // Camera travel overlaps coast. Start the quiet hold only when BOTH the
     // existing natural slow condition and the six-second shot have completed.
-    if(s.phase==='ending'&&shot.time>=6)shot.settledAt=shot.time;
+    if(s.phase==='ending'&&shot.time>=6){shot.settledAt=shot.time;s.view={...shot.target};}
   }
   function update(s,axis,dt){
     dt=Math.max(0,Math.min(.05,Number(dt)||0));

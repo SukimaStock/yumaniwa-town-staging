@@ -99,3 +99,16 @@ test('a muted seat is consumed once and is not replayed on unmute',()=>{
  h.w.SSE.audio.enabled=false;h.key('keydown','ArrowRight');for(let i=0;i<1800&&!state.world.finished;i++)h.frame();assert.ok(state.world.finished);const sounds=h.sounds.length;
  h.w.SSE.audio.enabled=true;h.advance(1);assert.equal(h.sounds.length,sounds);assert.deepEqual(h.errors,[]);
 });
+
+test('every part of the final approach restarts without pumping or precise speed; cubic slopes stay below default drive balance',()=>{
+ const c=C.get('world4'),balance=P.defaults().pumpkin.response/P.defaults().pumpkin.mass/P.G;
+ for(let i=3;i<c.curves.finish.length&&c.curves.finish[i][0]<=7690;i++){
+  const a=c.curves.finish[i-1],b=c.curves.finish[i],length=b[0]-a[0];
+  const qa=6*(a[1]-b[1])/length+3*a[2]+3*b[2],qb=6*(b[1]-a[1])/length-4*a[2]-2*b[2];
+  const t=qa?-qb/(2*qa):-1,maximum=Math.max(a[2],b[2],t>0&&t<1?qa*t*t+qb*t+a[2]:-Infinity);
+  assert.ok(maximum<balance-.05,'analytic positive slope bound at '+a[0]+'..'+b[0]);
+ }
+ for(const x of [7300,7350,7400,7450,7500,7550,7600,7620,7650,7700,7850]){
+  const w=ready(x,0);run(w,1,12);assert.equal(w.finished,true,'restart from '+x);assert.ok(w.time<6,'short, unassisted recovery at '+x);assert.equal(w.handoffs,4);
+ }
+});
