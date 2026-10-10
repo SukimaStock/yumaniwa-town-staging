@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0e308e01af262b69f0feb78e8380179524baee821a0d28d9f80f301cad878518",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-integration-merge-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Integrate original PUMPOKO presentation and authored terrain with protected four-swap physics",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "ASSET"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "b71b444b0eea6080db501cc0bf52401f46d3f0fc",
+    "canonicalSources": [
+      "User integration instruction 2026-10-09",
+      "works/pumpoko",
+      "works/pumpoko-02",
+      "AGENTS.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-integration-merge-20261010/r0.lock.json",
+      "works/pumpoko-02/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Adapt original cut-pumpkin touch prologue with isolated seed dynamics",
+      "Lengthen and vary five sections around original socket approaches without retuning physical kernel",
+      "Continuous material cutaway, portrait composition and smooth predictive camera",
+      "Actual final pair, continuous return zoom, original unchanged BGM and sparse object sounds"
+    ],
+    "ownerDecisions": [
+      "User authorizes work-only integration, dedicated branch and PR; staging merge conditional on passing checks",
+      "User 2026-10-10: mergeしてください in response to explicit request for one root Plan file exception and staging merge."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Owner authorizes one root Plan file; fresh current-main branch with accepted Plan-only first commit; reviewed runtime unchanged",
+      "No shared runtime changes; original physics.js and world.js byte preserved",
+      "UNVERIFIED actual iPhone/Safari feel"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-title-touch",
+      "iphone-four-swaps",
+      "audio-resume-listen",
+      "ending-composition"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated work-only PR",
+    "outOfScope": [
+      "production",
+      "physical constants",
+      "new controls or mechanics",
+      "original work",
+      "common infrastructure"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real-device touch/sound/composition"
+    ]
+  }
+}
