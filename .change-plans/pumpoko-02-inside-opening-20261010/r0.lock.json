@@ -1,0 +1,104 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "cd13629e539159d3cca709c538da412049cd28916a0f9624a54d67dc8360e5eb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-inside-opening-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Restore continuous cut-shell expansion, rim unrolling and shared seed/camera space in opening only",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "7ef0384aa7073c314cda338a1b808720cc468336",
+    "canonicalSources": [
+      "Owner opening-continuity instruction 2026-10-10",
+      "GitHub works/pumpoko/sketch.js journey.js stage-draw.js",
+      "works/pumpoko-02/ merged #182",
+      "AGENTS.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-inside-opening-20261010/r0.lock.json",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/title-draw.js",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/tests/story.test.cjs",
+      "works/pumpoko-02/tests/harness.cjs",
+      "works/pumpoko-02/tests/render-review.cjs",
+      "works/pumpoko-02/tests/opening-review.cjs",
+      "works/pumpoko-02/visual-review/continuous-journey.png",
+      "works/pumpoko-02/visual-review/opening-comparison.png",
+      "works/pumpoko-02/INTEGRATION.md",
+      "works/pumpoko-02/VALIDATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "One exact initial seed transfer followed by a continuous camera move",
+      "Expand original shell until it surrounds the view; unroll its lower skin rim into the actual course surface",
+      "Overlap expansion, air/far reveal and seed fall; only grow after contact on final unchanged surface",
+      "Retain existing nursery/hero art, physics/course, controls, gameplay/ending/return"
+    ],
+    "ownerDecisions": [
+      "Owner requests opening-only spatial continuity; preserves #182 fruit and nursery result",
+      "Existing root Plan exception and conditional staging merge authorization persist"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "READY immutable Plan-only first commit",
+      "No draw.js/physics.js/world.js/courses.js/prologue.js/style.css/audio/ending change",
+      "Original GitHub source read-only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-entering-shell",
+      "iphone-continuous-rim-and-seeds",
+      "iphone-opening-pacing"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated work-only PR",
+    "outOfScope": [
+      "production",
+      "physics.js/world.js/courses.js",
+      "logical viewport/control changes",
+      "new gameplay mechanics",
+      "shared runtime",
+      "original PUMPOKO"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone/iPad/Safari subjective continuity and tempo",
+      "Real-device sound/lifecycle"
+    ]
+  }
+}

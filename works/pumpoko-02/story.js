@@ -11,7 +11,9 @@
   const smooth=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);};
   const blend=(a,b,t)=>Object.fromEntries(['x','y','z'].map(k=>[k,a[k]+(b[k]-a[k])*t]));
   const follow=s=>({x:s.world.camera.x+s.look,y:s.world.camera.y,z:.8});
-  const OPENING_DURATION=4.3;
+  const ease=t=>{t=Math.max(0,Math.min(1,t));return t*t*t*(10+t*(-15+6*t));};
+  const OPENING_DURATION=6.1,UNROLL_START=1.6,UNROLL_END=3.05;
+  const shellScale=time=>1+4.3*ease(time/2.15);
   function create(){
     const world=W.createCourse(C.get('world4')),prologue=D.create();prologue.looseAt=null;
     return {world,prologue,phase:'title',elapsed:0,slow:0,look:0,returnTitle:false,
@@ -27,7 +29,7 @@
     if(s.phase!=='title')return false;
     if(s.returnTitle)s.world=W.createCourse(C.get('world4'));
     s.phase='opening';s.elapsed=0;s.slow=0;s.look=0;
-    const b=s.world.pumpkin,from={x:b.x-70,y:b.y+250,z:.8};
+    const b=s.world.pumpkin,from={x:b.x-70,y:b.y+250,z:1};
     const plants=[{id:0,x:b.x-168,scale:.63},{id:1,x:b.x-97,scale:.72},
       {id:2,x:b.x,scale:1,hero:true}].map(p=>({...p,
         ground:W.surfaceHeight(p.x,s.world.course),
@@ -38,11 +40,31 @@
       return {id:i,plant:plant.id,origin:{x:from.x+(origin.x-195)/from.z,
         y:from.y+(origin.y-400)/from.z,angle:origin.angle,sx:origin.sx/from.z,sy:origin.sy/from.z},
         x:plant.x+(i%3-1)*9,y:W.surfaceHeight(plant.x+(i%3-1)*9,s.world.course)+3,
-        depart:.08+i*.025,land:1.35+i*.045};
+        depart:1.45+i*.025,land:3.2+i*.045};
     });
-    s.opening={progress:0,from,to:follow(s),shell:{...s.prologue}};
+    const centre={x:from.x,y:from.y-25/from.z};
+    const rim=T.lowerRim(s.prologue).map(p=>({
+      x:centre.x+(p.x-195)*shellScale(UNROLL_START)/from.z,
+      y:centre.y+(p.y-375)*shellScale(UNROLL_START)/from.z})).sort((a,b)=>a.x-b.x);
+    s.opening={progress:0,from,to:follow(s),centre,rim,shell:{...s.prologue}};
     s.nursery={plants,seeds,time:0};s.view={...from};
     s.returnTitle=false;s.ending=null;D.release(s.prologue);return true;
+  }
+  function openingFrame(s) {
+    if(!s.opening)return null;
+    const o=s.opening,unroll=ease((s.elapsed-UNROLL_START)/(UNROLL_END-UNROLL_START));
+    return {unroll,air:unroll,caption:1-ease(s.elapsed/1.2),
+      pose:{x:195+(o.centre.x-s.view.x)*s.view.z,y:400+(o.centre.y-s.view.y)*s.view.z,
+        scale:s.view.z/o.from.z*shellScale(s.elapsed)}};
+  }
+  function openingSurface(s,x) {
+    const actual=W.surfaceHeight(x,s.world.course),frame=openingFrame(s);
+    if(!frame||frame.unroll===1)return actual;
+    const points=s.opening.rim;
+    let i=0;while(i<points.length-2&&points[i+1].x<x)i++;
+    const a=points[i],b=points[i+1],t=Math.max(0,Math.min(1,(x-a.x)/(b.x-a.x)));
+    const skin=a.y+(b.y-a.y)*t;
+    return skin+(actual-skin)*frame.unroll;
   }
   function nurseryPoses(s) {
     if(!s.nursery)return null;
@@ -71,14 +93,18 @@
       D.update(s.prologue,dt);
       if(D.allLoose(s.prologue)){
         if(s.prologue.looseAt===null)s.prologue.looseAt=s.prologue.time;
-        if(s.prologue.time-s.prologue.looseAt>=.55){beginJourney(s);return [];}
+        if(s.prologue.time-s.prologue.looseAt>=1.35){beginJourney(s);return [];}
       }
       return s.prologue.detachments.map(()=>({type:'detach'}));
     }
     s.elapsed+=dt;
     if(s.phase==='opening'){
       s.nursery.time=s.elapsed;s.opening.progress=smooth(s.elapsed/OPENING_DURATION);
-      s.view=blend(s.opening.from,s.opening.to,smooth((s.elapsed-2.4)/1.9));
+      const t=ease(s.elapsed/OPENING_DURATION);
+      s.view=blend(s.opening.from,s.opening.to,t);
+      // A gentle push into the widening cut, then settle to the existing .8x
+      // gameplay frame. One C2-continuous camera path spans the entire opening.
+      s.view.z+=.8*t*(1-t);
       // Reveal the existing body at full size before handing over. Its natural
       // initial slope supplies the first roll once normal play resumes.
       if(s.elapsed>=OPENING_DURATION){s.phase='playing';s.elapsed=0;s.opening=null;s.view=follow(s);}
@@ -114,5 +140,5 @@
   }
   function openingMix(s){return s.opening?s.opening.progress:1;}
   function returnMix(s){return s.phase==='returning'?smooth((s.elapsed-2.1)/1.5):s.phase==='title'?1:0;}
-  return {create,start,beginJourney,update,pair,openingMix,returnMix,smooth,nurseryPoses,OPENING_DURATION};
+  return {create,start,beginJourney,update,pair,openingMix,returnMix,smooth,nurseryPoses,OPENING_DURATION,openingFrame,openingSurface};
 });

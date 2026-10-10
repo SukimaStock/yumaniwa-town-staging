@@ -154,14 +154,29 @@
   }
   // The same seed pose is sampled once when it leaves the vessel. The nursery
   // owns its subsequent flight; title dynamics never enter the game world.
-  function seedPose(state,p) {
+  function pointPose(state,x,y) {
     const a=state.x*.22, sx=1+state.ring*.22, sy=1-state.y*.15-state.ring*.18;
-    const x=p.x*sx,y=p.y*.8*sy;
+    x*=sx;y*=sy;
     return {x:195+state.x*34+x*Math.cos(a)-y*Math.sin(a),
-      y:375-state.y*23-x*Math.sin(a)-y*Math.cos(a),angle:-p.angle-a,
-      sx,sy:(p.roll||1)*sy};
+      y:375-state.y*23-x*Math.sin(a)-y*Math.cos(a),sx,sy};
   }
-  root.PumpokoTitleArt={seedPose,seed};
+  function seedPose(state,p) {
+    const pose=pointPose(state,p.x,p.y*.8);
+    return {...pose,angle:-p.angle-state.x*.22,sy:(p.roll||1)*pose.sy};
+  }
+  function lowerRim(state) {
+    // The very same outer outline/depth/tilt used by vessel(), sampled along
+    // its lower skin. It becomes the foreground lip, not a second piece of land.
+    return Array.from({length:97},(_,i)=>{
+      const a=Math.PI*(1-i/96),r=143+Math.cos(a*9+.35)*3.5+Math.sin(a*3)*3.5*.3;
+      return pointPose(state,Math.cos(a)*r-state.x*5,Math.sin(a)*r*.8+15-state.y*3);
+    });
+  }
+  function titleCaptions(c,state,alpha) {
+    c.save();c.globalAlpha*=alpha;c.translate(0,740);c.scale(1,-1);
+    titleArt=root.document?.getElementById('title-art');captions(c,state);c.restore();
+  }
+  root.PumpokoTitleArt={seedPose,seed,lowerRim,captions:titleCaptions};
   if(typeof module==='object'&&module.exports)module.exports=root.PumpokoTitleArt;
   root.PumpokoTitleDraw=function(c,state,pose={x:195,y:375,scale:1},alpha=1,captionsAlpha=1,showSeeds=true){
     c.save();c.globalAlpha*=alpha;c.translate(pose.x,pose.y);c.scale(pose.scale,-pose.scale);c.translate(-195,-365);

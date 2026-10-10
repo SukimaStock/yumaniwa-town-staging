@@ -1,38 +1,31 @@
-# PUMPOKO 02 — seed to fruit, 2026-10-10
+# PUMPOKO 02 — inside the cut, 2026-10-10
 
-Current base: `cbf10a3b2aa1781ecf6f0d32ed98ddaf593529a6` (merged #181). Related #176/#177/#178 establish the adopted four-swap world; #179 is the owner's latest original PUMPOKO snapshot. #180 was superseded by #181. The older original-only #140 is not applied.
+Base: `7ef0384aa7073c314cda338a1b808720cc468336` (merged #182). Source is GitHub's read-only `works/pumpoko/`, not Drive. The original-only draft #140 is not applied.
 
-## Source and result
+## Opening continuity
 
-The owner clarified: “Driveにはないです。githubですよ”. The read-only source is GitHub's `works/pumpoko/stage-draw.js`, especially its ending `fruit()` and `leaf()` functions. Drive's SukimaStock/Code was checked before that clarification; no named PUMPOKO source was found. No Drive file supplies this implementation.
+The original `sketch.js` holds a short breath after detachment; `journey.js` transfers the displayed seed coordinates once and moves the camera through the opening; `stage-draw.js` expands the cut into the material world while revealing terrain. These spatial responsibilities are adapted to 02's Y-up world and existing 390×740 presentation. Original seed gameplay is not imported.
 
-The opening now keeps one visible cause and effect: touch the cut shell → detach its seeds → those same seeds fall onto the actual initial surface → three little pumpkins grow → the rightmost starts the journey. The old expanding-shell opening is removed. The shell recedes softly while the ground appears below it; the camera follows the planting ground continuously into the unchanged playing view.
+After actual detachment, the existing title dynamics continue for a 1.35-second breath. A 6.1-second opening then carries one camera from the title projection to the unchanged .8× playing frame. Quintic easing gives zero velocity and acceleration at its endpoints; a restrained zoom push overlaps the translation. This replaces the previous late-only camera move.
 
-- After actual detachment of all seeds, a .55-second breath precedes 4.3 seconds of falling, planting and growth. The original title dynamics and hit test remain isolated and unchanged.
-- Every seed's starting world pose is obtained by inverting the initial camera around its actual transformed title position. Three groups land at distinct points of the existing surface. Growth begins only after that group's seeds have landed.
-- The rightmost grown fruit uses the same position, scale, silhouette and renderer as the existing initial WORLD LOOP body. The physical model remains frozen throughout the opening. Normal play then resumes and the original initial slope supplies its roll; there is no scripted kick, teleport or seed-to-body physics conversion.
-- The other two fruits stay at their roots, remain drawable during play, and add no collision or gameplay rules. The travelling plant's small leaves stay at its root and quietly disappear as it moves away. Replaying creates a fresh nursery and world.
-- `draw.js` adapts the original ending fruit's exact plump contour, orange gradient, two broad lobes, underside shade, stem and small highlight. Fine rib lines and grain are absent. One uniform art scale keeps the original proportions; a small visual seating offset does not affect contact circles. The same renderer serves all grown and rolling pumpkins.
-- Rutabaga keeps its purple shoulder, cream bulb, short root and small green leaves. Its drawing uses broad soft fills instead of rim/vein detail. Original spin, pulse and stretch inputs still animate its art. No faces or additional character mechanics.
+The shell stays opaque and enlarges until its flesh surrounds the view. Its exact lower skin outline, including depth and vessel tilt, is sampled through the same title transform. From 1.6 to 3.05 seconds that expanded rim unrolls into `World.surfaceHeight()` of the real initial course. The foreground and sky clipping share that surface: air and distant colour planes open above the rim while flesh continues below it. There is no early separate stage or disappearing-shell fade. Once unrolling finishes, drawing uses the exact unchanged collision surface.
 
-## Protected bytes and layout
+Each detached seed's initial world pose is the inverse of its actual displayed title pose. The camera then projects that same seed continuously; there is no second seed set at a new location. Falling starts during expansion (1.45 seconds plus small offsets); landing follows the completed terrain (3.2 seconds plus offsets). Growth follows each group's actual arrival on that terrain. Expansion, falling, air reveal and planting overlap.
 
-`physics.js`, `world.js`, `courses.js`, `prologue.js`, `material.js`, `style.css`, all audio and logo assets are unchanged from #181. The logical viewport is still 390×740, with the same fit and primary pointer/keyboard bindings. Four real-contact exchanges, 240Hz integration, input transfer, compression/seating, speed inheritance, bounce/slide, course and gameplay/ending camera are unchanged. BGM keeps the existing single Engine player across all phases.
+The three adopted miniature fruits and their positions are retained. The rightmost is drawn at the existing real hero's position, scale and silhouette before control begins. The physical world stays frozen during presentation. Normal play then resumes; the unchanged initial slope supplies its roll, without a scripted kick or teleport. Title seed dynamics remain separate from WORLD LOOP physics.
 
-Changes are restricted to work-owned presentation, art, tests and documentation plus the previously authorized mandatory root Plan. Original PUMPOKO, Lab, Engine, Codea, shared data and production have no diff.
+## Protected behavior
 
-## Verification and actual-device drill
+`draw.js`, `physics.js`, `world.js`, `courses.js`, `prologue.js`, `material.js`, `style.css`, logo/audio assets and Engine/Codea bytes are unchanged from #182. This preserves the original ending-inspired pumpkin and matching rutabaga, nursery result, four real-contact exchanges, input transfer, integrator constants, course difficulty, control bindings, viewport fit, gameplay camera, ending and title return. Audio still uses the existing single Engine player.
 
-Run `node --expose-gc --test works/pumpoko-02/tests/story.test.cjs` and `node --expose-gc works/pumpoko-02/tests/render-review.cjs`.
+Only work-owned opening presentation, tests, review images and documentation change, plus the previously authorized mandatory root Plan. Original PUMPOKO, other works, shared infrastructure and production have no diff. Rollback is a revert of the isolated staging PR; no saved-data migration.
 
-The canonical Engine/Codea harness uses DOM/media doubles and native offscreen Canvas. It checks actual detached-seed projection, landing-before-growth, frozen physical world, same hero, natural zero-input departure, camera continuity, four exchanges, stop/reverse/recovery, replay, interruption, one RAF and one music player. Native Canvas comparison covers the opening, all exchanges, final pair and return; it is not a browser screenshot or proof of audible Safari playback.
+## Review and device drill
 
-On iPhone/iPad/Safari, focus on:
+Run `node --expose-gc --test works/pumpoko-02/tests/story.test.cjs`, `node --expose-gc works/pumpoko-02/tests/render-review.cjs` and `node --expose-gc works/pumpoko-02/tests/opening-review.cjs`.
 
-1. Touch/drag the shell: the seeds visibly land, then produce three fruits; the rightmost is recognisably the very same fruit you control. Assess the .55+4.3-second pacing and follow shot.
-2. Recognise the old ending's round miniature pumpkin, including while rolling; assess whether rutabaga belongs alongside it without excessive characterisation.
-3. Make all four exchanges, including stop/reverse/restart. Compare slide, bounce, pop and camera framing to #181.
-4. Finish and replay twice; interrupt title, falling, growth and play with page switch/lock/orientation. Check fresh seeds/plants/sockets and no residual touch.
-5. Listen through the opening, play, ending, return, mute and page resume. Music/timbre/volume on a real device remain unverified.
+[Opening comparison](visual-review/opening-comparison.png) shows original PUMPOKO, pre-fix #182 and this revision in five columns: title, expansion, falling, growth, play. Original PUMPOKO has no growth in its opening, so that cell explicitly says so. Each row uses its own actual timing; these are native offscreen Canvas renders, not synchronized browser screenshots. [Complete journey](visual-review/continuous-journey.png) also covers all four exchanges, the final pair and return.
 
-Plan: `.change-plans/pumpoko-02-seed-to-fruit-20261010/r0.lock.json`, committed alone before implementation. Formal verificationState: **UNVERIFIED**. No production promotion. Rollback: revert this isolated staging PR; no saved-data migration.
+On iPhone/iPad/Safari, assess whether the cut envelops the view and becomes the ground, whether seeds remain easy to follow, and whether the 1.35+6.1-second pacing feels natural. Confirm the grown hero rolls directly into the same-size gameplay. Check touch interruption during expansion/fall/growth, portrait/landscape layout, four exchanges, replay and audible music continuity. These subjective and actual-device checks remain UNVERIFIED.
+
+Plan: `.change-plans/pumpoko-02-inside-opening-20261010/r0.lock.json`, locked alone before implementation. Formal verificationState remains UNVERIFIED; no production promotion or Release Complete claim.
