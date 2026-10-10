@@ -4,7 +4,7 @@
 <main><canvas id="gameCanvas" aria-label="画面の左右に触れて転がす・跳ねる"></canvas></main>
 <div class="steering" aria-label="左右の操作"><button id="left-control" type="button">◀ 左へ</button><button id="right-control" type="button">右へ ▶</button></div>
 <section class="panel"><p class="caption">気持ちいい地形を試す（物理設定は現行版）</p>
-<div class="terrains"><button data-terrain="bowl" class="active">深い谷</button><button data-terrain="waves">連続谷</button><button data-terrain="ramp">助走坂</button><button data-terrain="steps">ぽよん坂</button></div>
+<div class="terrains"><button data-terrain="bowl" class="active">深い谷</button><button data-terrain="waves">連続谷・難</button><button data-terrain="ramp">助走坂</button><button data-terrain="steps">ぽよん坂</button><button data-terrain="bigU">大きなU字</button><button data-terrain="softWaves">ゆるい連続谷</button><button data-terrain="doubleBounce">二段バウンド</button><button data-terrain="halfpipe">小さなハーフパイプ</button></div>
 <div class="actions"><button id="reset">もう一度</button><button id="save">この地形を保存</button></div>
 <label for="memo">気持ちよかった瞬間を記録</label><textarea id="memo" rows="2" placeholder="例：谷底で切り返すと勢いが乗った"></textarea><p id="saved" role="status"></p></section>
 <footer>左右ボタンを長押し、または画面の左右を押す。ルタバガは着地で押し直す。</footer>
