@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "78a69175827a9cae10ea3e3001adf9d33abf5c070b0a3e615a76097a5efff4ea",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-fall-shadow-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Hide the fruit ground shadow after falling below its layer ground; preserve normal grounded/airborne shadows and all game behavior",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "5f146ae6221e4a606ab1c62abd673afa3fcbfdb1",
+    "canonicalSources": [
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/world.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-fall-shadow-20261010/r0.lock.json",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/tests/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/assets/**",
+      "works/pumpoko-02/audio/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Render active fruit shadow only when its center remains on or above actual layer ground at its x; unsupported gap interiors stay shadowless",
+      "Keep normal grounded/airborne shadow position/color/opacity and socket clipping identical",
+      "Preserve physics, terrain, handoffs, newly accepted checkpoint launches, input/BGM/goal/ending, all other works/shared/prod",
+      "Reproduce below-far-bank falling ghost shadow on native Canvas; compare all 16 gaps and normal ground/flight/landing/plug cases with exact fresh base; read-only rendering and existing material/socket/full-route/retry regression",
+      "Normalize only the approved draw condition in historical byte guards with a strict whole-renderer fresh-base guard; retain other assertions"
+    ],
+    "ownerDecisions": [
+      "User requests fix for the shadow left above the ground when falling into a hole; prior staging-only PR/CI/merge authority continues"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main and related PR",
+      "READY r0 Plan-only first commit",
+      "Work-specific renderer Standard; no shared contract change"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "native-canvas-fall-shadow-before-after",
+      "iphone-ipad-fall-shadow"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated falling-shadow staging PR",
+    "outOfScope": [
+      "Physics, terrain/difficulty, handoffs/checkpoint/body state/input/audio/HUD/camera/ending, other works, Engine/Codea/production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone/iPad actual display",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}

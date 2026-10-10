@@ -7,7 +7,8 @@ function priorRestore(source){assert.equal(source.split(after).length,2,'exactly
 function protect(){
  const root=__dirname+'/..',source=fs.readFileSync(root+'/world.js','utf8');
  assert.equal(priorRestore(source),execFileSync('git',['show',BASE+':works/pumpoko-02/world.js'],{encoding:'utf8'}),'whole world exact except approved restore');
- for(const file of ['courses.js','physics.js','story.js','app.js','world-draw.js','draw.js','opening.js','opening-draw.js','prologue.js','title-draw.js','index.html','style.css'])assert.ok(fs.readFileSync(root+'/'+file).equals(execFileSync('git',['show',BASE+':works/pumpoko-02/'+file])),file+' fresh-base byte match');
+ require('./fall-shadow-reference.cjs').protect();
+ for(const file of ['courses.js','physics.js','story.js','app.js','world-draw.js','draw.js','opening.js','opening-draw.js','prologue.js','title-draw.js','index.html','style.css']){if(file==='world-draw.js')assert.equal(require('./fall-shadow-reference.cjs').priorShadow(fs.readFileSync(root+'/'+file,'utf8')),execFileSync('git',['show',BASE+':works/pumpoko-02/'+file],{encoding:'utf8'}),file+' exact before shadow fix');else assert.ok(fs.readFileSync(root+'/'+file).equals(execFileSync('git',['show',BASE+':works/pumpoko-02/'+file])),file+' fresh-base byte match');}
 }
 function restoredBody(actual,expected){assert.deepEqual(JSON.parse(JSON.stringify(actual)),JSON.parse(JSON.stringify(expected)),'exact saved handoff body including position, motion and launch flags');}
 // Historical terrain experiments keep their approved stationary initial fixture.

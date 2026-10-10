@@ -122,9 +122,13 @@
          b.y+reach>Math.min(roof(h.x-44),roof(h.x+44))));
       if(hole)groups.get(hole).push(b);else free.push(b);
       if(!b.plugged&&W.hasGround(b.layer,b.x,course)){
-        const floor=W.curve(b.layer,b.x,course).y,altitude=Math.max(0,b.y-b.r-floor);
-        c.save();if(hole)solid(c,left,right,bottom,surface,spaces);
-        A.ellipse(c,b.x,floor+2,b.r,4,`rgba(80,54,27,${.18/(1+altitude/80)})`);c.restore();
+        const floor=W.curve(b.layer,b.x,course).y;
+        // A fruit below this ground cannot cast a shadow onto its upper side.
+        if(b.y>=floor){
+          const altitude=Math.max(0,b.y-b.r-floor);
+          c.save();if(hole)solid(c,left,right,bottom,surface,spaces);
+          A.ellipse(c,b.x,floor+2,b.r,4,`rgba(80,54,27,${.18/(1+altitude/80)})`);c.restore();
+        }
       }
     }
     if(!opening)A.nursery(c,nursery,s);
