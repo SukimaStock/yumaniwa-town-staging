@@ -3,8 +3,8 @@
   const P=root.FruitLabPhysics,S=root.PumpokoStory,D=root.PumpokoPrologue;
   let state=S.create(),pointer=null,touchAxis=0,ui,lastSound=-10,lastPhase='',freshInput=false;
   let musicStatus='loading';
-  const musicReady=()=>!root.SSE.audio.enabled||musicStatus==='ready'||musicStatus==='silent';
-  function applyMusicGate(){state.musicReady=musicReady();if(ui){ui.wait.hidden=state.phase!=='title'||state.musicReady||!D.allLoose(state.prologue);ui.silent.hidden=musicStatus!=='failed';}}
+  const musicReady=()=>!root.SSE.audio.enabled||musicStatus==='ready'||musicStatus==='silent'||(musicStatus==='loading'&&root.SSE.audio.musicPlayers?.pumpoko?.audio?.readyState>=3&&!root.SSE.audio.musicPlayers.pumpoko.audio.error);
+  function applyMusicGate(){state.musicReady=musicReady();if(ui){if(ui.wait)ui.wait.hidden=state.phase!=='title'||state.musicReady||!D.allLoose(state.prologue);if(ui.silent)ui.silent.hidden=musicStatus!=='failed';}}
   function release(){pointer=null;touchAxis=0;D.release(state.prologue);P.clearInput(state.world);root.SSE.input.reset();root.CodeaLite?.clearPointers();}
   function reset(){release();state=S.create();freshInput=false;lastSound=-10;applyMusicGate();sync();}
   function sync(){
@@ -73,7 +73,7 @@
       const doc=root.document;ui={title:doc.getElementById('title'),controls:doc.getElementById('title-controls'),start:doc.getElementById('start'),rest:doc.getElementById('rest'),status:doc.getElementById('status'),wait:doc.getElementById('audio-wait'),silent:doc.getElementById('continue-silent')};
       root.SSE.audio.preload();
       root.SSE.audio.preload('pumpoko').then(()=>{if(musicStatus!=='loading')return;musicStatus=root.SSE.audio.resourceState('pumpoko').status==='ready'?'ready':'failed';sync();}).catch(()=>{if(musicStatus==='loading'){musicStatus='failed';sync();}});
-      ui.silent.addEventListener('click',()=>{musicStatus='silent';root.SSE.audio.setEnabled(false);sync();});
+      ui.silent?.addEventListener('click',()=>{musicStatus='silent';root.SSE.audio.setEnabled(false);sync();});
       const canvas=doc.getElementById('gameCanvas');
       canvas.addEventListener('contextmenu',event=>event.preventDefault());
       canvas.addEventListener('selectstart',event=>event.preventDefault());
