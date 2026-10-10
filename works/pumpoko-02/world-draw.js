@@ -57,6 +57,65 @@
     c.lineCap='butt';c.strokeStyle=M.cream;c.lineWidth=3*MATERIAL_UNITS;c.stroke();
     c.restore();
   }
+  // BEGIN BACKGROUND ACCENTS — drawing only, fixed sparse world locations.
+  const accentNoise=(i,salt)=>{const n=Math.sin(i*127.1+salt*311.7)*43758.5453;return n-Math.floor(n);};
+  const accentClamp=t=>Math.max(0,Math.min(1,t));
+  function accentStrength(s,opening){
+    if(opening||!s.course?.stages||s.finished)return 0;
+    const b=s[s.active];
+    return (s.handoffs?1:accentClamp((b.x-500)/350))*accentClamp((s.course.goal.x-b.x-450)/650);
+  }
+  function accentClear(course,layer,x,margin){
+    return !course.holes.some(h=>Math.abs(x-h.x)<140)&&
+      !course.gaps.some(g=>g.layer===layer&&x>g.a-margin&&x<g.b+margin);
+  }
+  function accentSky(c,s,camera,left,right,surface,amount){
+    if(!amount)return;
+    const z=camera.z||1,scroll=camera.x*.18+s.time*.8;
+    c.save();c.globalAlpha*=amount;c.beginPath();cut(c,left,right,surface,()=>camera.y+800/z);c.clip();
+    for(let i=Math.floor((scroll-120)/950);i<=Math.floor((scroll+480)/950);i++){
+      const sx=i*950+180+accentNoise(i,1)*170-scroll;
+      const x=camera.x+(sx-195)/z,y=camera.y+(575+accentNoise(i,2)*60-400)/z;
+      c.fillStyle='rgba(255,249,229,.82)';c.beginPath();
+      c.ellipse(x,y,17/z,4.5/z,0,0,Math.PI*2);
+      c.ellipse(x-10/z,y+3/z,9/z,6/z,0,0,Math.PI*2);
+      c.ellipse(x+7/z,y+4/z,10/z,7/z,0,0,Math.PI*2);c.fill();
+      if((i%3+3)%3!==2)continue;
+      const bx=x+(135-s.time*2.2)/z,by=y-38/z,wing=(3+Math.sin(s.time*2.2+i)*.6)/z;
+      c.strokeStyle='rgba(83,108,77,.30)';c.lineWidth=1.1/z;c.lineCap='round';c.beginPath();
+      c.moveTo(bx-4/z,by+wing);c.quadraticCurveTo(bx-1/z,by+wing,bx,by);
+      c.quadraticCurveTo(bx+1/z,by+wing,bx+4/z,by+wing);c.stroke();
+    }c.restore();
+  }
+  function accentSoil(c,s,left,right,surface,amount){
+    if(!amount)return;
+    const course=s.course;c.save();c.globalAlpha*=amount;
+    for(let i=Math.floor((left-30)/880);i<=Math.floor((right+30)/880);i++){
+      const x=i*880+170+accentNoise(i,3)*350,spec=course.stages.find(p=>x>p.startX+280&&x<p.endX-280);
+      if(!spec||!accentClear(course,spec.layer,x,220))continue;
+      const y=W.curve(spec.layer,x,course).y-120-accentNoise(i,4)*130,rx=10+accentNoise(i,5)*8,ry=5+accentNoise(i,6)*5;
+      if(y+ry>surface(x)-55||course.cellars.some(cell=>x>cell.left-40&&x<cell.right+40&&y+ry>W.curve(cell.layer,x,course).y-55&&y-ry<W.roof(x,course,cell.layer)+55))continue;
+      c.fillStyle='rgba(137,105,73,.20)';c.beginPath();c.ellipse(x,y,rx,ry,(accentNoise(i,7)-.5)*.6,0,Math.PI*2);c.fill();
+      c.strokeStyle='rgba(255,244,217,.27)';c.lineWidth=1.3;c.lineCap='round';c.beginPath();c.moveTo(x-rx*.5,y+ry*.45);c.quadraticCurveTo(x,y+ry*.65,x+rx*.25,y+ry*.55);c.stroke();
+    }c.restore();
+  }
+  function accentSprigs(c,s,left,right,amount){
+    if(!amount)return;
+    const course=s.course;c.save();c.globalAlpha*=amount;
+    for(let i=Math.floor((left-20)/1080);i<=Math.floor((right+20)/1080);i++){
+      const x=i*1080+150+accentNoise(i,8)*350,spec=course.stages.find(p=>p.kind==='pumpkin'&&x>p.startX+500&&x<p.endX-700);
+      if(!spec||!accentClear(course,spec.layer,x,180)||!W.hasGround(spec.layer,x,course))continue;
+      const f=W.curve(spec.layer,x,course);if(Math.abs(f.slope)>.65)continue;
+      c.save();c.translate(x,f.y);c.rotate(Math.atan(f.slope));c.strokeStyle='rgba(83,108,77,.65)';c.lineWidth=1.6;c.lineCap='round';c.beginPath();
+      c.moveTo(-4,0);c.quadraticCurveTo(-5,4,-8,7);c.moveTo(0,0);c.quadraticCurveTo(0,5,1,10);c.moveTo(3,0);c.quadraticCurveTo(5,4,7,6);c.stroke();
+      if((i%5+5)%5===2&&Math.abs(f.slope)<.35){
+        c.strokeStyle='rgba(83,108,77,.55)';c.beginPath();c.moveTo(8,0);c.quadraticCurveTo(9,5,8,12);c.stroke();
+        c.fillStyle='rgba(168,126,133,.64)';c.beginPath();c.ellipse(6.5,12,2.2,2.3,-.4,0,Math.PI*2);c.ellipse(9.5,12.5,2.1,2.4,.4,0,Math.PI*2);c.fill();
+        c.fillStyle=M.cream;c.beginPath();c.ellipse(8,12,1.2,1.2,0,0,Math.PI*2);c.fill();
+      }c.restore();
+    }c.restore();
+  }
+  // END BACKGROUND ACCENTS
   root.PumpokoWorldDraw=function(c,s,view,nursery,opening) {
     s=s.finale?{...s.finale,time:s.time}:s;
     const camera=view||{...s.camera,z:1},z=camera.z||1;
@@ -90,6 +149,8 @@
       a:g.a,b:g.b,floor:()=>bottom-1,ceiling:x=>course.cellars.some(cell=>cell.layer===g.layer)?W.roof(x,course,g.layer):Math.max(1100,camera.y+1000/z)
     }));
     const spaces=[...cavities,...mouths,...gaps];
+    const accent=accentStrength(s,opening);
+    accentSky(c,s,camera,left,right,surface,accent);
     // All material layers share actual openings; no fruit fill crosses a mouth.
     c.save();solid(c,left,right,bottom,surface,spaces);
     c.beginPath();line(c,left,right,surface);c.lineTo(right,bottom);c.lineTo(left,bottom);c.closePath();
@@ -100,6 +161,7 @@
     c.strokeStyle='rgba(255,235,185,.065)';
     for(const width of [104,88,72,56,40,24]){c.lineWidth=width;c.stroke();}
     c.restore();
+    accentSoil(c,s,left,right,surface,accent);
     c.restore();
     // The open cellar is a real space below the same surface, not a scene swap.
     for(const cell of cellars){
@@ -109,6 +171,7 @@
       c.beginPath();line(c,a,b,floor);c.lineTo(b,ceiling(b));for(let x=b;x>=a;x-=6)c.lineTo(x,ceiling(x));c.closePath();
       const air=c.createLinearGradient(0,430,0,90);air.addColorStop(0,M.airDeep);air.addColorStop(1,M.air);c.fillStyle=air;c.fill();
     }
+    accentSprigs(c,s,left,right,accent);
     // Bodies near a socket share its actual cutaway, with the EXIT side behind
     // the ENTRY side. Signed depth reverses the order for upward exchanges.
     const groups=new Map(s.holes.map(h=>[h,[]])),free=[];

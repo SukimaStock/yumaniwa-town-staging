@@ -5,7 +5,7 @@ const now=harness().w,before=harness({sourceRef:BASE}).w,W=now.FruitLabWorld,c=n
 function render(api,world,view,suppress=false){
  const canvas=createCanvas(390,740),ctx=canvas.getContext('2d'),calls=[],original=api.FruitLabArt.ellipse,unchanged=JSON.stringify(world);
  api.FruitLabArt.ellipse=(ctx,...args)=>{if(String(args[4]).startsWith('rgba(80,54,27,')){calls.push(args);if(suppress)return;}original(ctx,...args);};
- try{ctx.fillStyle=api.PumpokoMaterial.air;ctx.fillRect(0,0,390,740);ctx.save();ctx.translate(0,740);ctx.scale(1,-1);api.PumpokoWorldDraw(ctx,world,view);ctx.restore();}finally{api.FruitLabArt.ellipse=original;}
+ try{ctx.fillStyle=api.PumpokoMaterial.air;ctx.fillRect(0,0,390,740);ctx.save();ctx.translate(0,740);ctx.scale(1,-1);require('./accents-reference.cjs').withoutAccents(api,()=>api.PumpokoWorldDraw(ctx,world,view));ctx.restore();}finally{api.FruitLabArt.ellipse=original;}
  assert.equal(JSON.stringify(world),unchanged,'rendering remains read-only');
  return {canvas,calls,data:Buffer.from(ctx.getImageData(0,0,390,740).data)};
 }
