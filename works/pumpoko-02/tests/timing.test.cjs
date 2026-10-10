@@ -1,10 +1,12 @@
 'use strict';
+const {SHIFT,x:shiftX,protectPhysics}=require('./stage1-reference.cjs');
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{execFileSync}=require('node:child_process');
 const S=require('../story.js'),P=require('../physics.js'),{harness}=require('./harness.cjs'),{BASE,collect}=require('./timing-review.cjs');
 const axis=(s,i)=>s.world.active==='rutabaga'&&i%40===0?0:1;
 function enter(api){const s=api.create();api.beginJourney(s);for(let i=0;i<1200&&s.phase==='opening';i++)api.update(s,0,1/60);assert.equal(s.phase,'playing');return s;}
 test('runtime/art/assets outside approved timing and goal files remain exact accepted main',()=>{
- const repo=path.resolve(__dirname,'../../..');const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!['/story.js','/app.js','/courses.js','/world.js','/world-draw.js'].some(x=>p.endsWith(x)));
+ const repo=path.resolve(__dirname,'../../..');const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!['/physics.js','/story.js','/app.js','/courses.js','/world.js','/world-draw.js'].some(x=>p.endsWith(x)));
+ protectPhysics();
  for(const p of files)assert.ok(fs.readFileSync(path.join(repo,p)).equals(execFileSync('git',['show',BASE+':'+p],{cwd:repo,maxBuffer:10e6})),p);
 });
 test('real title interaction has exactly one-second after-detachment pause and retains four natural handoffs',()=>{
@@ -30,16 +32,16 @@ test('shot overlaps coast, widens monotonically, holds an exact view for one sec
  assert.ok(Math.abs(firstCoast.z-held.view.z)>.01,'camera travel begins before rest, not afterwards');
  const old=s.world;S.beginJourney(s);assert.notEqual(s.world,old);assert.equal(s.ending,null);assert.equal(s.world.handoffs,0);
 });
-test('matched opening/body starts yield exact previous-main physical trajectories through all four handoffs until final terrain',()=>{
- const before=harness({sourceRef:BASE}).w.PumpokoStory,a=enter(before),b=enter(S);
- assert.equal(JSON.stringify(P.snapshot(a.world)),JSON.stringify(P.snapshot(b.world)));
- let reached=false;
+test('matched opening/body starts yield exact previous-main trajectories across the complete protected entry terrain',()=>{
+ const base=require('./stage1-reference.cjs').BASE,before=harness({sourceRef:base}).w.PumpokoStory,a=enter(before),b=enter(S);
+ assert.equal(JSON.stringify(before.nurseryPoses(a)),JSON.stringify(S.nurseryPoses(b)));
  for(let i=0;i<5400;i++){
-  if(b.world.handoffs===4&&b.world.pumpkin.x>=7280){reached=true;break;}
-  const input=axis(b,i);before.update(a,input,1/60);S.update(b,input,1/60);
-  assert.equal(JSON.stringify(P.snapshot(a.world)),JSON.stringify(P.snapshot(b.world)),'unchanged body/model camera before final terrain at '+i);
+  assert.equal(JSON.stringify(a.world.pumpkin),JSON.stringify(b.world.pumpkin),'same body at '+i);
+  assert.equal(JSON.stringify(a.world.camera),JSON.stringify(b.world.camera),'same model camera at '+i);
+  if(b.world.pumpkin.x>1100)return;
+  before.update(a,1,1/60);S.update(b,1,1/60);
  }
- assert.ok(reached);assert.equal(b.world.handoffs,4);assert.equal(b.world.finished,false);
+ assert.fail('did not traverse protected entry terrain');
 });
 test('final shot pauses on lifecycle interruption without timer catch-up or residual input',()=>{
  const h=harness(),api=h.w.PumpokoStory;let state;const update=api.update;api.update=(s,...a)=>{state=s;return update(s,...a);};

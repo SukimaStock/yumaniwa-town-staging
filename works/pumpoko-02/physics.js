@@ -105,6 +105,9 @@
   function integrate(s, b, control, dt, geometry) {
     const findContact = geometry ? geometry.contact : contact, findFrame = geometry ? geometry.frame : frame;
     const p = s.settings[b.kind], f = findContact(b), oldX = b.x;
+    // Optional finite work terrain has no contact/frame inside a gap. Keep
+    // attained velocity and let the unchanged airborne branch do the work.
+    if (b.grounded && f.support === false) b.grounded = false;
     b.pulse *= Math.exp(-dt * 10);
     const armed = b.kind === 'rutabaga' && !s.boostUsed && s.time - s.bufferedAt <= .22;
     const late = armed && b.landing && !b.landing.used && s.time - b.landing.at <= .12;
@@ -118,8 +121,11 @@
         v *= Math.exp(-dt * (b.kind === 'pumpkin' ? p.friction : .22));
         v = clamp(v, -620, 620);
         const next = findFrame(f.x + v * f.tx * dt);
+        if (next.support === false) b.grounded = false;
+        else {
         b.x = next.x + next.nx * b.r; b.y = next.y + next.ny * b.r;
         b.vx = v * next.tx; b.vy = v * next.ty;
+        }
       }
     }
     if (!b.grounded) {

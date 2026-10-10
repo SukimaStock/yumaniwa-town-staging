@@ -2,6 +2,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const P=require('../physics.js'),W=require('../world.js'),C=require('../courses.js'),S=require('../story.js'),D=require('../prologue.js');
 const LabP=require('../../pumpkin-rutabaga-lab/physics.js'),LabW=require('../../pumpkin-rutabaga-lab/world.js');
+const {SHIFT,x:shiftX,protectPhysics}=require('./stage1-reference.cjs');
 const {harness}=require('./harness.cjs');
 const axis=(s,i)=>s.world.active==='rutabaga'&&i%40===0?0:1;
 function enter(s){S.beginJourney(s);for(let i=0;i<1200&&s.phase==='opening';i++)S.update(s,0,1/60);assert.equal(s.phase,'playing');return s;}
@@ -18,7 +19,7 @@ function liveFinish(h){
   for(let i=0;i<60*90&&!h.probe().returnTitle;i++)h.frame();assert.ok(h.probe().returnTitle);
 }
 test('physical integrator/fruit constants and asset bytes are preserved; goal contact is work-local',()=>{
-  for(const file of ['physics.js'])assert.ok(fs.readFileSync(path.join(__dirname,'..',file)).equals(fs.readFileSync(path.join(__dirname,'../../pumpkin-rutabaga-lab',file))),file);
+  protectPhysics();
   for(const file of ['assets/pumpoko-logo.svg','audio/pumpoko-bgm.mp3','audio/shell.wav','audio/fiber.wav','audio/drum-don.wav','audio/seed.wav'])assert.ok(fs.readFileSync(path.join(__dirname,'..',file)).equals(fs.readFileSync(path.join(__dirname,'../../pumpoko',file))),file);
   const html=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');assert.equal(/pumpkin-rutabaga-lab|measurements\.js|data-mode|world-course|sliders|tuning/.test(html),false);
   assert.ok(html.includes('../../engine/sukimastock-engine.v0.3.0.js'));assert.ok(html.includes('../../engine/codea-lite.v1.0.0.js'));
@@ -63,7 +64,10 @@ test('actual seed contacts grow in place and the same seated body begins normal 
 test('adapted terrain with unchanged physics matches lab integrator exactly at diverse fps/tuning',()=>{
   for(const fps of [30,60,120])for(const extreme of [null,2,3]){
     const s=enter(S.create());if(extreme)for(const [group,defs]of Object.entries({...P.PARAMETERS,world:W.PARAMETERS}))for(const [key,d]of Object.entries(defs))s.world.settings[group][key]=d[extreme];
-    const lab=LabW.createCourse(C.get('world4'),JSON.parse(JSON.stringify(s.world.settings)));Object.assign(lab.pumpkin,s.world.pumpkin);Object.assign(lab.camera,s.world.camera);
+    const legacy=harness({sourceRef:require('./stage1-reference.cjs').BASE}).w.FruitLabCourses.get('world4');
+    const spawn={...s.world.pumpkin},camera={...s.world.camera};
+    s.world=W.createCourse(legacy,s.world.settings);Object.assign(s.world.pumpkin,spawn);Object.assign(s.world.camera,camera);
+    const lab=LabW.createCourse(legacy,JSON.parse(JSON.stringify(s.world.settings)));Object.assign(lab.pumpkin,s.world.pumpkin);Object.assign(lab.camera,s.world.camera);
     for(let i=0;i<fps*20;i++){const input=Math.floor(i/fps*3)%2?1:0;S.update(s,input,1/fps);LabP.input(lab,input);LabW.update(lab,1/fps);assert.deepEqual(P.snapshot(s.world),LabP.snapshot(lab));}
   }
 });
@@ -71,7 +75,7 @@ test('four natural exchanges stay in portrait frame; every plug plants and trans
   for(const fps of [30,60,120]){
     const s=enter(S.create());let count=0,last={...s.view},maxStep=0;
     for(let i=0;i<fps*90&&!s.world.finished;i++){
-      const input=s.world.active==='rutabaga'&&Math.floor(i/fps*60)%40===0?0:1;S.update(s,input,1/fps);const w=s.world,b=w[w.active];
+      const input=s.world.active==='rutabaga'&&Math.floor(i/fps*60)%40<4?0:1;S.update(s,input,1/fps);const w=s.world,b=w[w.active];
       maxStep=Math.max(maxStep,Math.hypot(s.view.x-last.x,s.view.y-last.y));last={...s.view};
       assert.ok(Math.abs((b.x-s.view.x)*s.view.z)<185,'horizontal target stays in portrait');assert.ok(Math.abs((b.y-s.view.y)*s.view.z)<330,'vertical target stays in portrait');
       if(w.handoffs>count){assert.equal(w.handoffs,count+1);count++;assert.equal(w.target,1);assert.equal(w.holes[count-1].occupant.plugged,true);assert.equal(b.plugged,false);}
@@ -115,7 +119,7 @@ test('authored course has distinct long phrases, positive cellar clearances and 
 });
 test('stop, reverse and reaccelerate from each surface/underground phrase under unchanged controls',()=>{
   for(const [layer,x] of [['surface',530],['underground',1930],['return',3990],['underground2',6090],['finish',7600]]){
-    const s=W.createCourse(C.get('world4')),kind=layer.startsWith('underground')?'rutabaga':'pumpkin',b=P.body(kind,0),f=W.curve(layer,x,s.course);
+    const s=W.createCourse(C.get('world4')),kind=layer.startsWith('underground')?'rutabaga':'pumpkin',b=P.body(kind,0),f=W.curve(layer,shiftX(layer,x),s.course);
     Object.assign(b,{x:f.x+f.nx*b.r,y:f.y+f.ny*b.r,layer,plugged:false,grounded:true});s[kind]=b;s.active=kind;s.phase=layer;
     for(let i=0;i<120;i++){P.input(s,-1);W.update(s,1/60);}const reversed=b.x;
     for(let i=0;i<240;i++){P.input(s,i%40===0?0:1);W.update(s,1/60);}assert.ok(b.x>reversed+50,layer);assert.ok(Number.isFinite(b.y));

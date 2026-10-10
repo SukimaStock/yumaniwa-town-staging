@@ -1,9 +1,9 @@
 (function(root){
   'use strict';
   const P=root.FruitLabPhysics,S=root.PumpokoStory,D=root.PumpokoPrologue;
-  let state=S.create(),pointer=null,touchAxis=0,ui,lastSound=-10,lastPhase='';
+  let state=S.create(),pointer=null,touchAxis=0,ui,lastSound=-10,lastPhase='',freshInput=false;
   function release(){pointer=null;touchAxis=0;D.release(state.prologue);P.clearInput(state.world);root.SSE.input.reset();root.CodeaLite?.clearPointers();}
-  function reset(){release();state=S.create();lastSound=-10;sync();}
+  function reset(){release();state=S.create();freshInput=false;lastSound=-10;sync();}
   function sync(){
     if(!ui)return;const title=state.phase==='title';ui.title.hidden=!title;ui.controls.hidden=!title;
     ui.rest.hidden=true;
@@ -14,19 +14,22 @@
     const t=state.world.time||state.prologue.time;
     if(t<lastSound)lastSound=-10;
     // No rolling ticks or boosted repeated chirps. Stamp muted events too.
-    const e=events.find(e=>e.type==='seat')||events.find(e=>e.type==='handoff')||events.find(e=>e.type==='detach')||events.find(e=>e.type==='land'&&e.strength>90);
+    const e=events.find(e=>e.type==='seat')||events.find(e=>e.type==='handoff')||events.find(e=>e.type==='fall')||events.find(e=>e.type==='detach')||events.find(e=>e.type==='land'&&e.strength>90);
     if(!e||(e.type!=='seat'&&t-lastSound<(e.type==='land'?.35:.13)))return;
     lastSound=t;if(!root.SSE.audio.enabled||root.document.hidden||root.SSE.lifecycle?.paused)return;
-    const name=e.type==='handoff'?'shell':e.type==='detach'?'fiber':e.kind==='pumpkin'?'drumDon':'seed';
-    root.SSE.audio.play(e.type==='seat'?'shell':name,e.type==='seat'?{volume:root.SSE.audio.baseline().reference.se.soft*.72,playbackRate:.88}:undefined);
+    const name=e.type==='handoff'?'shell':e.type==='detach'||e.type==='fall'?'fiber':e.kind==='pumpkin'?'drumDon':'seed';
+    root.SSE.audio.play(e.type==='seat'?'shell':name,e.type==='fall'?{volume:root.SSE.audio.baseline().reference.se.soft*.35}:e.type==='seat'?{volume:root.SSE.audio.baseline().reference.se.soft*.72,playbackRate:.88}:undefined);
   }
   const scene={opaque:true,
     update(dt){
       if(root.SSE.input.actionPressed('reset')){reset();return;}
       if(state.phase==='title'&&root.SSE.input.actionPressed('start')){S.start(state);root.SSE.audio.play('shell');}
       const axis=pointer!==null?touchAxis:Number(root.SSE.input.action('right'))-Number(root.SSE.input.action('left'));
-      const previous=state.phase;sound(S.update(state,axis,dt));
-      if(previous!==state.phase&&(state.phase==='opening'||state.phase==='title'))release();sync();
+      const previous=state.phase;sound(S.update(state,freshInput?0:axis,dt));
+      if(previous!==state.phase){
+        if(state.phase==='retrying'||previous==='retrying'){release();freshInput=true;}
+        else if(state.phase==='opening'||state.phase==='title'){release();freshInput=false;}
+      }sync();
     },
     draw(){root.background(250,241,220);root.withCanvasContext(c=>{
       if(state.phase==='title')root.PumpokoTitleDraw(c,state.prologue);
@@ -39,7 +42,7 @@
       }
     });},
     touch(t){
-      if(state.world.finished&&state.phase!=='title'||state.phase==='ending'||state.phase==='returning'||state.phase==='opening')return true;
+      if(state.world.finished&&state.phase!=='title'||state.phase==='ending'||state.phase==='returning'||state.phase==='opening'||state.phase==='retrying')return true;
       if(state.phase==='title'){
         const names=new Map([[root.BEGAN,'began'],[root.MOVING,'moving'],[root.ENDED,'ended'],[root.CANCELLED,'cancelled']]);
         if(D.touch(state.prologue,{...t,state:names.get(t.state)})){
@@ -48,7 +51,7 @@
         }
         return true;
       }
-      if(t.state===root.BEGAN){pointer=t.id;touchAxis=t.x<195?-1:1;}
+      if(t.state===root.BEGAN){freshInput=false;state.needsNeutral=false;pointer=t.id;touchAxis=t.x<195?-1:1;}
       else if(t.id===pointer&&t.state===root.MOVING)touchAxis=t.x<195?-1:1;
       else if(t.id===pointer&&(t.state===root.ENDED||t.state===root.CANCELLED)){pointer=null;touchAxis=0;if(t.state===root.CANCELLED)P.clearInput(state.world);}
       if(t.state!==root.CANCELLED)P.input(state.world,touchAxis);sync();return true;
@@ -65,6 +68,10 @@
     setup(){
       root.SSE.audio.preload();
       const doc=root.document;ui={title:doc.getElementById('title'),controls:doc.getElementById('title-controls'),start:doc.getElementById('start'),rest:doc.getElementById('rest'),status:doc.getElementById('status')};
+      root.addEventListener('keydown',event=>{
+        if(state.phase==='playing'&&!event.repeat&&!root.SSE.input.isEditable(event)&&
+          ['ArrowLeft','KeyA','ArrowRight','KeyD'].some(key=>root.SSE.input.eventKeys(event).includes(key))){freshInput=false;state.needsNeutral=false;}
+      });
       const beginMusic=event=>{
         if(event.isTrusted!==true||doc.hidden||root.SSE.lifecycle?.paused||!root.SSE.audio.enabled)return;
         if(root.SSE.audio.currentMusic==='pumpoko')root.SSE.audio.resumeMusic('pumpoko');
@@ -79,6 +86,6 @@
     }
   });
   if(new URLSearchParams(root.location.search).get('dev')==='1'){
-    root.PumpokoProbe=()=>({phase:state.phase,elapsed:state.elapsed,finished:state.world.finished,target:state.world.target,returnTitle:state.returnTitle,view:{...state.view},model:P.snapshot(state.world),pointer,axis:touchAxis,prologue:{time:state.prologue.time,loose:state.prologue.seeds.filter(p=>!p.attached).length,held:state.prologue.held},opening:state.opening?.transition.progress,openingFrame:S.openingFrame(state),nursery:S.nurseryPoses(state)});
+    root.PumpokoProbe=()=>({phase:state.phase,elapsed:state.elapsed,finished:state.world.finished,target:state.world.target,returnTitle:state.returnTitle,view:{...state.view},model:P.snapshot(state.world),pointer,axis:touchAxis,prologue:{time:state.prologue.time,loose:state.prologue.seeds.filter(p=>!p.attached).length,held:state.prologue.held},stages:state.world.stages,freshInput,opening:state.opening?.transition.progress,openingFrame:S.openingFrame(state),nursery:S.nurseryPoses(state)});
   }
 })(typeof window!=='undefined'?window:globalThis);

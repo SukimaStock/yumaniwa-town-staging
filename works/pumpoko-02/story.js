@@ -125,15 +125,28 @@
       s.view=openingFrame(s);
       if(s.bridge&&s.opening.time-s.bridge.at>=1.25){
         s.phase='playing';s.elapsed=0;s.opening=null;s.bridge=null;s.view=follow(s);
+        s.stage1Start={...s.world.pumpkin,vx:0,vy:0,angular:0,pulse:0,stretch:0,grounded:true};s.needsNeutral=false;
       }
       return [];
     }
+    if(s.phase==='retrying'){
+      if(s.elapsed>=s.world.course.stage1.retrySeconds-1e-9){
+        const world=W.createCourse(s.world.course,s.world.settings);
+        Object.assign(world.pumpkin,s.stage1Start);P.clearInput(world);
+        Object.assign(world.camera,{x:world.pumpkin.x,y:world.pumpkin.y+70,vx:0,vy:0});
+        s.world=world;s.phase='playing';s.elapsed=0;s.look=0;s.view=follow(s);s.needsNeutral=true;
+        return [{type:'retry'}];
+      }
+      return [];
+    }
+    if(s.needsNeutral&&axis===0)s.needsNeutral=false;
     if(s.nursery?.fall){
       O.update(s.nursery.fall,dt);s.nursery.time=s.nursery.fall.time;rootPlants(s);
       if(s.nursery.fall.seeds.every(p=>p.inactive||p.arrival&&s.nursery.time-p.arrival.at>=3.15))s.nursery.fall=null;
     }
     const controlled=s.world.goal?.state!=='seated'&&(s.phase==='playing'||s.phase==='coast');
-    P.input(s.world,controlled?axis:0);const events=W.update(s.world,dt);
+    P.input(s.world,controlled&&!s.needsNeutral?axis:0);const events=W.update(s.world,dt);
+    if(events.some(e=>e.type==='fall')){s.phase='retrying';s.elapsed=0;P.clearInput(s.world);return events;}
     if(s.phase==='playing'&&s.world.finished){s.phase='coast';s.elapsed=0;s.ending=finalShot(s);}
     if(s.phase==='coast'){
       const b=s.world.pumpkin;
@@ -144,7 +157,9 @@
     if(s.phase==='playing'){
       // Velocity anticipation is low-pass filtered and never modifies the model
       // camera, input, constants or plug transfers. Its range stays within view.
-      const target=Math.max(-55,Math.min(55,s.world[s.world.active].vx*.12));
+      const b=s.world[s.world.active],g=s.world.handoffs===0&&s.world.course.gaps?.find(g=>b.x>=g.a-(g.id==='second'?650:500)&&b.x<=g.b+80);
+      const extra=g?(g.id==='second'?285:170)*smooth((b.x-(g.a-(g.id==='second'?650:500)))/240)*Math.max(0,Math.min(1,b.vx/(g.id==='second'?500:180))):0;
+      const target=Math.max(-55,Math.min(55,b.vx*.12))+extra;
       s.look+=(target-s.look)*(1-Math.exp(-dt*3));s.view=follow(s);
     }else if(s.phase==='coast'||s.phase==='ending'){
       shotView(s,dt);
