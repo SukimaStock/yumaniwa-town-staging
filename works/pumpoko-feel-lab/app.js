@@ -11,8 +11,16 @@ function reset(){course={curves:{surface:courses[terrain].map(v=>[...v])},surfac
 function frame(b){return W.curve('surface',Math.max(-500,Math.min(500,b.x)),course)}
 const geometry={contact(b){return W.contact(b,course)},frame(x){return frame({x})},constrain(b){if(b.x<-470+b.r||b.x>470-b.r){b.x=Math.max(-470+b.r,Math.min(470-b.r,b.x));b.vx*=-.25;const f=W.contact(b,course);if(f.distance<b.r){b.x=f.x+f.nx*b.r;b.y=f.y+f.ny*b.r}}}};
 function update(dt){state.accumulator+=Math.min(.05,Math.max(0,dt));while(state.accumulator+1e-10>=P.STEP){state.time+=P.STEP;state.axis+=(state.target-state.axis)*(1-Math.exp(-P.STEP*12));P.integrate(state,state[kind],state.axis,P.STEP,geometry);state.accumulator-=P.STEP}}
-function draw(c){c.save();// Codea Lite canvas already uses Y-up coordinates; do not invert again.
-c.translate(500,175);c.scale(.78,.78);
+function viewFit(){
+ const values=[];for(let x=-500;x<=500;x+=5)values.push(W.curve('surface',x,course).y);
+ const lo=Math.min(...values),hi=Math.max(...values);
+ const margin=65,headroom=kind==='rutabaga'?270:120;
+ const bottom=lo-90,top=hi+headroom;
+ const z=Math.min((WIDTH-2*margin)/1040,(HEIGHT-2*margin)/(top-bottom));
+ return {z,x:WIDTH/2,y:(HEIGHT-z*(top+bottom))/2,lo,hi,bottom,top};
+}
+function draw(c){c.save();
+ const view=viewFit();c.translate(view.x,view.y);c.scale(view.z,view.z);
 c.fillStyle='#d6b184';c.beginPath();c.moveTo(-510,-270);c.lineTo(-510,W.curve('surface',-500,course).y);for(let x=-500;x<=500;x+=4)c.lineTo(x,W.curve('surface',x,course).y);c.lineTo(510,-270);c.closePath();c.fill();
 c.strokeStyle='#6d855d';c.lineWidth=9;c.lineJoin='round';c.beginPath();for(let x=-500;x<=500;x+=4){const f=frame({x});if(x===-500)c.moveTo(x,f.y);else c.lineTo(x,f.y)}c.stroke();
 const b=state[kind],f=frame(b),altitude=Math.max(0,b.y-b.r-f.y);A.ellipse(c,b.x,f.y+3,b.r,4,'rgba(80,54,27,'+(.15/(1+altitude/80))+')');
