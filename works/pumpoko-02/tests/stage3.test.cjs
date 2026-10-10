@@ -3,10 +3,10 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 const {BASE,g1,g2,trial}=require('./stage3-review.cjs'),{course,run}=require('./five-stage-review.cjs'),W=require('../world.js'),P=require('../physics.js');
 const previous=()=>require('./harness.cjs').harness({sourceRef:BASE}).w.FruitLabCourses.get('world4');
 const json=v=>JSON.stringify(v);
-test('fresh main: only STAGE 3 terrain/gaps change; all other courses, sockets, checkpoints, finale and runtime are exact',()=>{
+test('accepted STAGE 3 preserves its original experiment and protects sockets, checkpoints, finale and runtime',()=>{
  const old=previous();for(const key of Object.keys(old).filter(k=>!['curves','gaps'].includes(k)))assert.equal(json(course[key]),json(old[key]),key);
- for(const layer of Object.keys(old.curves).filter(l=>l!=='return'))assert.equal(json(course.curves[layer]),json(old.curves[layer]),layer);
- assert.equal(json(course.gaps.filter(g=>g.stage!==3)),json(old.gaps.filter(g=>g.stage!==3)));
+ // Later stage-phrase work has its own fresh-base exact scope protection.
+ require('./phrases-reference.cjs').protect();
  assert.equal(json(course.gaps.find(g=>g.id==='stage3-3')),json(old.gaps.find(g=>g.id==='stage3-3')));
  for(const range of [p=>p[0]<g1.b,p=>p[0]>=15590])assert.equal(json(course.curves.return.filter(range)),json(old.curves.return.filter(range)));
  assert.equal(course.gaps.filter(g=>g.stage===3).length,3);assert.equal(g2.a-g1.b,300);assert.ok(g2.a-g1.b>=P.body('pumpkin',0).r*8);

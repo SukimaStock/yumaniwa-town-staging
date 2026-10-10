@@ -3,14 +3,17 @@ const test=require('node:test'),assert=require('node:assert/strict');
 const {course:c,run,atStage,placed,crossing,measure}=require('./five-stage-review.cjs');
 const {previous,protectCourse,protectRuntime}=require('./five-stage-reference.cjs');
 const S=require('../story.js'),P=require('../physics.js'),W=require('../world.js'),{harness}=require('./harness.cjs');
-test('fresh-main STAGE 1, all physics, assets, socket and goal kernels are protected; stage lengths increase ~20%',()=>{
+test('protected STAGE 1 boundaries, all physics, assets, socket and goal kernels are protected; stage lengths increase ~20%',()=>{
  protectCourse();protectRuntime();const m=measure();
  for(const spec of m.stages){assert.ok(spec.screens>10);if(spec.ratio)assert.ok(spec.ratio>=1.15&&spec.ratio<=1.25);}
  assert.deepEqual(m.stages.map(s=>s.gaps),[2,2,3,4,5]);
  for(const layer of Object.values(c.curves))assert.ok(layer.every((p,i)=>!i||p[0]>layer[i-1][0]),'strictly ordered Hermite points');
 });
-test('STAGE 1 opening, trajectory, model camera and anticipation match fresh main through the first clear',()=>{
+test('STAGE 1 opening, trajectory, camera and anticipation match the old runtime with identical authored terrain',()=>{
  const old=previous().PumpokoStory,a=old.create(),b=S.create();old.beginJourney(a);S.beginJourney(b);
+ // Compare runtime behavior on matched terrain; fresh-base terrain scope is
+ // protected separately, including the two newly authored STAGE 1 points.
+ a.world.course={...a.world.course,curves:{...a.world.course.curves,surface:c.curves.surface}};
  for(let i=0;i<2400&&!b.world.handoffs;i++){
   const axis=b.phase==='playing'?1:0;old.update(a,axis,1/60);S.update(b,axis,1/60);
   assert.equal(JSON.stringify(a.world.pumpkin),JSON.stringify(b.world.pumpkin),'complete first-stage body '+i);
@@ -81,11 +84,11 @@ test('all stage app retries clear keyboard/pointer/autorepeat and accept a fresh
   if(mode==='key'){h.key('keyup');h.key('keydown');}else h.pointer('pointerdown',600,400,2);h.frame();assert.equal(h.probe().target,1);assert.equal(music[0].plays,plays);assert.deepEqual(h.errors,[]);
  }
 });
-test('STAGE 1 visible terrain is pixel-identical; every later chasm removes soil rather than painting a hole',()=>{
+test('STAGE 1 drawing is pixel-identical on matched terrain; every later chasm removes soil rather than painting a hole',()=>{
  const {createCanvas}=require('@napi-rs/canvas'),{render}=require('./terrain-review.cjs'),old=previous(),now=harness().w;
  for(const x of [-100,0,1700,3400,4800,5100]){
   const view={x,y:W.curve('surface',x,c).y+70,z:.8};
-  const a=render(old,old.FruitLabWorld.createCourse(old.FruitLabCourses.get('world4')),view),b=render(now,W.createCourse(c),view);
+  const a=render(old,old.FruitLabWorld.createCourse({...old.FruitLabCourses.get('world4'),curves:{...old.FruitLabCourses.get('world4').curves,surface:c.curves.surface}}),view),b=render(now,W.createCourse(c),view);
   assert.ok(Buffer.from(a.getContext('2d').getImageData(0,0,390,740).data).equals(Buffer.from(b.getContext('2d').getImageData(0,0,390,740).data)),'unchanged first-stage pixels '+x);
  }
  const canvas=createCanvas(390,740),ctx=canvas.getContext('2d');

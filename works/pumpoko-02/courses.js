@@ -104,6 +104,35 @@
     [bank3+300,310,1],[bank3+440,290,0],[bank3+740,260,0],
     [14290,350,0],[14940,326,0],
     ...four.curves.return.filter(p=>p[0]>15420)];
+  // One phrase per remaining stage, using existing gaps and ordinary banks.
+  // STAGE 1 keeps a generous drive-through: a smoother rise and lower catch.
+  four.curves.surface=four.curves.surface.map(p=>p[0]===3270?[3270,385,.35]:p[0]===3580?[3580,425,0]:p);
+  // STAGE 2: a level bank lets the first bounce decay. A fresh landing push
+  // carries the rutabaga to the slightly higher second bank.
+  const first2=four.gaps.find(g=>g.id==='stage2-1'),second2=four.gaps.find(g=>g.id==='stage2-2'),bank2=first2.b;
+  Object.assign(second2,{a:bank2+650,b:bank2+770,runup:650});
+  four.curves.underground=[...four.curves.underground.filter(p=>p[0]<bank2),
+    [bank2,75,0],[bank2+320,75,0],[bank2+650,75,0],
+    [bank2+770,110,0],[bank2+1070,110,0],[8350,200,0],
+    ...four.curves.underground.filter(p=>p[0]>9120)];
+  // STAGE 4: the longer, shallow receiving basin needs two renewed bounces
+  // before its higher exit. It also leaves room to settle and start again.
+  const first4=four.gaps.find(g=>g.id==='stage4-2'),second4=four.gaps.find(g=>g.id==='stage4-3'),bank4=first4.b;
+  Object.assign(second4,{a:bank4+1200,b:bank4+1330,runup:1200});
+  four.curves.underground2=[...four.curves.underground2.filter(p=>p[0]<bank4),
+    [bank4,-135,0],[bank4+460,-150,0],[bank4+1200,-135,0],
+    [bank4+1330,-65,0],[bank4+1630,-110,0],
+    ...four.curves.underground2.filter(p=>p[0]>23930)];
+  // STAGE 5: countersteer on the first rise to catch the valley earlier,
+  // then roll into a new upward launch. Later gaps and the quiet goal stay.
+  const first5=four.gaps.find(g=>g.id==='stage5-2'),second5=four.gaps.find(g=>g.id==='stage5-3');
+  four.curves.finish=four.curves.finish.map(p=>p[0]===first5.a?[p[0],p[1],.7]:p);
+  first5.b=first5.a+160;const bank5=first5.b;
+  Object.assign(second5,{a:bank5+300,b:bank5+440,runup:300});
+  four.curves.finish=[...four.curves.finish.filter(p=>p[0]<bank5),
+    [bank5,170,0],[bank5+105,120,0],[bank5+200,140,.6],
+    [bank5+300,190,1],[bank5+440,150,0],[bank5+765,140,0],
+    ...four.curves.finish.filter(p=>p[0]>32595)];
   four.holes=original.holes.map((h,i)=>({...h,x:h.x+exitOffsets[i]}));
   four.cellars=original.cellars.map((cell,i)=>{const stage=i?4:2,end=ends[stage-1],layer=layers[stage-1],points=four.curves[layer];
     return {...cell,left:points[0][0],right:points.at(-1)[0],roofStart:end-(i?1690:1240),roofHeight:cell.roofHeight,exitX:end,entryRoof:{until:ends[stage-2]+500,roofStart:cell.roofStart+offsets[layer],height:cell.roofHeight,exitX:cell.exitX+offsets[layer],exitRoof:cell.exitRoof}};});
