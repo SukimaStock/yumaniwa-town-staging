@@ -1,0 +1,98 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "664af585e1a12ec88bea4da5884b402424811dfc1975ffefafd20bc50dd785f7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-socket-cutaway-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Integrate all four handoff openings into actual terrain fill and direction-aware plant visibility",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "ab66a9a9f05a5ae72b5f6cd9c56cac89d3de9149",
+    "canonicalSources": [
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/draw.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-socket-cutaway-20261010/r0.lock.json",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/tests/socket-draw.test.cjs",
+      "works/pumpoko-02/tests/socket-review.cjs",
+      "works/pumpoko-02/SOCKET-DRAW.md",
+      "works/pumpoko-02/visual-review/socket-comparison.png",
+      "works/pumpoko-02/visual-review/socket-handoffs.mp4"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Remove 78-unit brown bridge fill and 88-unit foreground fruit rectangles; these have no physical role",
+      "Use one actual solid/cavity/opening mask for flesh, shoulder and thick skin, keeping existing 88-unit aperture and actual surface/roof coordinates",
+      "Order local socket actors by signed approach/exit depth; clip only socket-intersecting bodies to union of real air spaces, never a fixed body crop",
+      "Preserve complete art once moving body clears real lip; remaining plant fits same opening",
+      "Render all four actual natural handoffs before/contact/exiting/after at real timing and compare exact previous main"
+    ],
+    "ownerDecisions": [
+      "Owner supplies two device screenshots showing bar and rectangular occlusion; requests drawings only at all four sockets",
+      "Accepted intro and thick skin/band/flesh remain protected",
+      "Existing root Plan-only exception and staging merge authorization persist; no production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "READY Plan-only first commit",
+      "All runtime except world-draw stays byte-identical to base",
+      "Original/lab/shared foundations/production read-only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-all-four-socket-approach-contact-exit-after",
+      "iphone-natural-plug-and-visible-push",
+      "iphone-no-bar-or-rectangular-body-crop"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated work-only PR",
+    "outOfScope": [
+      "physics/world/courses",
+      "waiting positions, trajectories, widths, collision, handoff timing",
+      "intro/camera/audio/ending/character art",
+      "original/lab/shared runtime/production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "New socket readability and natural pop on actual iPhone/iPad",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
