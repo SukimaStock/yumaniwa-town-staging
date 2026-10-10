@@ -7,3 +7,10 @@ button:focus-visible{outline:2px solid #738665;outline-offset:3px;border-radius:
 #title-controls:focus-within{position:fixed;top:75%;left:50%;transform:translateX(-50%);width:auto;height:auto;clip-path:none;overflow:visible}
 #start{font:inherit;color:inherit;border:0;background:#faf1dc;padding:12px;min-height:44px}
 [hidden]{display:none!important}#boot-error{position:fixed;top:45%;left:10%;right:10%;text-align:center;background:#fff;padding:20px}
+
+/* iOS Safari: the game canvas is an interactive surface, not selectable text. */
+#gameCanvas{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-user-drag:none}
+#title-art{-webkit-user-select:none;-webkit-touch-callout:none;-webkit-user-drag:none}
+
+#audio-wait{position:fixed;bottom:max(16%,env(safe-area-inset-bottom));left:8%;right:8%;text-align:center;font:12px 'Avenir Next','Segoe UI',sans-serif;color:#806746;pointer-events:none}
+#continue-silent{display:block;margin:10px auto 0;padding:8px 12px;border:1px solid #b9a17b;border-radius:16px;background:#faf1dc;color:inherit;font:inherit;pointer-events:auto}

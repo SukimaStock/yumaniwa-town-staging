@@ -15,7 +15,7 @@
   function create(){
     const world=W.createCourse(C.get('world4')),prologue=D.create();prologue.looseAt=null;
     return {world,prologue,phase:'title',elapsed:0,slow:0,look:0,returnTitle:false,
-      view:{x:world.pumpkin.x,y:world.pumpkin.y+70,z:.8},opening:null,nursery:null,ending:null};
+      view:{x:world.pumpkin.x,y:world.pumpkin.y+70,z:.8},opening:null,nursery:null,ending:null,musicReady:true};
   }
   // The existing keyboard/start accessibility action touches the shell, never
   // bypasses seed detachment. Pointer dragging uses the original vessel model.
@@ -113,7 +113,7 @@
       D.update(s.prologue,dt);
       if(D.allLoose(s.prologue)){
         if(s.prologue.looseAt===null)s.prologue.looseAt=s.prologue.time;
-        if(s.prologue.time-s.prologue.looseAt>=1){beginJourney(s);return [];}
+        if(s.prologue.time-s.prologue.looseAt>=1&&s.musicReady){beginJourney(s);return [];}
       }
       return s.prologue.detachments.map(()=>({type:'detach'}));
     }
