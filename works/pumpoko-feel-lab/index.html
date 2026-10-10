@@ -11,8 +11,9 @@
 <div id="chain-courses" class="terrains" aria-label="接続コース" hidden>
 <button type="button" data-chain="flow">A · FLOW</button><button type="button" data-chain="rhythm">B · RHYTHM</button><button type="button" data-chain="pump">C · PUMP</button><button type="button" data-chain="breath">D · BREATH</button></div>
 <div class="actions"><button id="reset">もう一度</button><button id="save">この感触を保存</button></div>
+<details class="observation"><summary>感触を記録する（任意）</summary>
 <div class="feel-feedback" role="group" aria-label="今回の感触"><button type="button" data-feedback="retry" class="active">もう一回！</button><button type="button" data-feedback="good">良い瞬間</button><button type="button" data-feedback="lost">勢いが切れた</button></div>
-<label for="memo">気持ちよかった瞬間を記録</label><textarea id="memo" rows="2" placeholder="例：平面で勢いが切れた／2つ目の谷が気持ちいい"></textarea><p id="saved" role="status"></p>
+<label for="memo">気持ちよかった瞬間を記録</label><textarea id="memo" rows="2" placeholder="例：平面で勢いが切れた／2つ目の谷が気持ちいい"></textarea></details><p id="saved" role="status"></p>
 </section>
 <footer>左右を長押し／画面の左右を触る。ルタバガは着地で押し直す。接続コースは左右へ戻ることもできます。</footer>
 <script src="../pumpoko-02/physics.js"></script><script src="../pumpoko-02/world.js"></script><script src="../pumpoko-02/draw.js"></script><script src="./app.js?v=chains-20261010"></script>
