@@ -1,0 +1,91 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "07e94a49ddb27d0ff185023f73ba882027865400cacbbee65a409e54ea55c6e7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-feel-lab-coordinate-input-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Fix Y-up rendering and verify touch-to-physics behavior in the isolated PUMPOKO FEEL LAB",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "c4f2ad83c262944128ec886c9485905722d25307",
+    "canonicalSources": [
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/world-draw.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-feel-lab-coordinate-input-20261010/r0.lock.json",
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/VALIDATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/**",
+      "works/pumpoko/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Fix double y-axis inversion: Codea canvas rendering is already Y-up",
+      "Put traversable terrain in visible playable area with correct contact alignment",
+      "Make touch input directly produce P.input and verify movement in actual model on repeated touches",
+      "Keep existing lab terrain choices and saved favorites; do not touch game physics or main stages"
+    ],
+    "ownerDecisions": [
+      "User explicitly requests fixing the unusable lab and reverse terrain on iPhone"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh staging main inspected",
+      "READY Plan Lock first",
+      "Staging-only work changes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone visible correct soil and character",
+      "Touch left/right produces movement in all four terrains and both bodies",
+      "Character has correct up/down orientation, reset works"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0",
+      "PUMPOKO 02 physics and renderer"
+    ],
+    "rollback": "Revert isolated PR",
+    "outOfScope": [
+      "Production",
+      "other works",
+      "physics constants"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone manual touch behavior until the user verifies it",
+      "Formal verificationState UNVERIFIED"
+    ]
+  }
+}
