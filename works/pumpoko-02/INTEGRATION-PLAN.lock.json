@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "550fefe257f2fd3fce4ab5e058cb7d28b9b0f6c8906d0383d7237230442505d0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-material-journey-20261009",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Integrate original PUMPOKO presentation and authored terrain with protected four-swap physics",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "ASSET"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "b71b444b0eea6080db501cc0bf52401f46d3f0fc",
+    "canonicalSources": [
+      "User integration instruction 2026-10-09",
+      "works/pumpoko",
+      "works/pumpoko-02",
+      "AGENTS.md"
+    ],
+    "allowedPaths": [
+      "works/pumpoko-02/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Adapt original cut-pumpkin touch prologue with isolated seed dynamics",
+      "Lengthen and vary five sections around original socket approaches without retuning physical kernel",
+      "Continuous material cutaway, portrait composition and smooth predictive camera",
+      "Actual final pair, continuous return zoom, original unchanged BGM and sparse object sounds"
+    ],
+    "ownerDecisions": [
+      "User authorizes work-only integration, dedicated branch and PR; staging merge conditional on passing checks"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "User strict work-only scope overrides root plan path; internal immutable plan is preserved but root-only PR gate will block merge",
+      "No shared runtime changes; original physics.js and world.js byte preserved",
+      "UNVERIFIED actual iPhone/Safari feel"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-title-touch",
+      "iphone-four-swaps",
+      "audio-resume-listen",
+      "ending-composition"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0",
+      "Codea Lite 1.0.0"
+    ],
+    "rollback": "Revert isolated work-only PR",
+    "outOfScope": [
+      "production",
+      "physical constants",
+      "new controls or mechanics",
+      "original work",
+      "common infrastructure"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real-device touch/sound/composition",
+      "Merge blocked by root-only Plan gate unless owner authorizes plan file exception"
+    ]
+  }
+}
