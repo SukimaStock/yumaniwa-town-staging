@@ -172,7 +172,13 @@
   if(typeof module==='object'&&module.exports)module.exports=root.PumpokoTitleArt;
   root.PumpokoTitleDraw=function(c,state,pose={x:195,y:375,scale:1},alpha=1,captionsAlpha=1,showSeeds=true){
     c.save();c.globalAlpha*=alpha;c.translate(pose.x,pose.y);c.scale(pose.scale,-pose.scale);c.translate(-195,-365);
-    shadow(c,state);vessel(c,showSeeds,false,state);
+    // A tiny visual-only invitation after the title has been idle for 3s.
+    // No seed or vessel physics changes; interaction immediately cancels it.
+    const idle=state.held?0:Math.max(0,state.time-Math.max(0,state.lastTouchedAt)-3);
+    const pulse=idle>0?Math.pow(Math.max(0,Math.sin(idle*1.35)),12):0;
+    const jitter=pulse*(1.4*Math.sin(idle*15)+.5*Math.sin(idle*23));
+    c.save();c.translate(jitter,0);c.rotate(pulse*.006*Math.sin(idle*17));
+    shadow(c,state);vessel(c,showSeeds,false,state);c.restore();
     c.save();c.globalAlpha*=captionsAlpha;titleArt=root.document?.getElementById('title-art');captions(c,state);c.restore();
     c.restore();
   };
