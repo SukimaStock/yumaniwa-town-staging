@@ -14,6 +14,18 @@
     doubleBounce:[[-500,230,-.4],[-320,92,-.55],[-170,90,.20],[-45,155,.4],[90,95,-.32],[240,170,.42],[390,120,-.26],[500,170,.15]],
     halfpipe:[[-500,310,-.3],[-370,185,-1.0],[-170,60,-.45],[0,43,0],[170,60,.45],[370,185,1.0],[500,310,.3]]
   };
+  const chainPoints={
+    flow:[[-500,275,-.50],[-320,145,-.64],[-120,40,0],[70,105,.67],[250,195,.35],[410,100,-.66],[590,64,0],[790,130,.49],[1010,220,-.18],[1240,80,-.48],[1510,160,.52],[1700,240,.24]],
+    rhythm:[[-500,175,-.24],[-335,92,-.4],[-150,70,0],[20,118,.35],[190,93,-.37],[360,66,0],[550,125,.5],[730,95,-.28],[910,75,0],[1090,175,.5],[1320,105,-.35],[1540,190,.35],[1700,190,0]],
+    pump:[[-500,295,-.5],[-320,160,-.86],[-120,45,-.35],[40,35,0],[235,110,.64],[440,245,.58],[620,100,-.70],[790,48,0],[950,118,.72],[1150,220,.3],[1320,105,-.50],[1530,175,.53],[1700,280,.5]],
+    breath:[[-500,280,-.47],[-290,125,-.8],[-90,42,0],[115,105,.50],[300,130,0],[500,130,0],[675,130,0],[860,80,-.51],[1040,40,0],[1240,125,.64],[1460,190,.38],[1700,220,0]]
+  };
+  const chainDescriptions={
+    flow:'FLOW｜長い下り → 深い谷 → 小さな谷 → 長い上り。勢いをつないで進む。',
+    rhythm:'RHYTHM｜浅い谷と短い岸をつなぐ。着地の押し直しを楽しむ。',
+    pump:'PUMP｜大きなU字 → 上り → 小さなU字。切り返して勢いを作り直す。',
+    breath:'BREATH｜下り → 深い谷 → 平面 → 小さな谷。余白が気持ちよさを変えるか。'
+  };
   const descriptions={
     bowl:'下って、受けて、登る。左右の切り返しを試す。',
     waves:'谷をつなぐ。前の勢いが次へ届くか。',
@@ -24,15 +36,17 @@
     doubleBounce:'二段の起伏。着地を次の跳ねにつなぐ。',
     halfpipe:'小さなハーフパイプ。左右へ繰り返して勢いを育てる。'
   };
-  let kind='pumpkin',terrain='bowl',course,state,activePointer=null,pointerSource=null,axis=0;
+  let kind='pumpkin',terrain='bowl',mode='single',feedback='retry',course,state,activePointer=null,pointerSource=null,axis=0;
   let keys=new Set(),canvasSize={width:0,height:0,dpr:1},lastTime=0,view=null;
   const byId=id=>doc.getElementById(id);
-  function floor(x){return W.curve('surface',Math.max(-500,Math.min(500,x)),course)}
+  function points(){return mode==='chain'?chainPoints[terrain]:terrainPoints[terrain]}
+  function limits(){const p=points();return {min:p[0][0],max:p[p.length-1][0]}}
+  function floor(x){const l=limits();return W.curve('surface',Math.max(l.min,Math.min(l.max,x)),course)}
   const geometry={
     contact(body){return W.contact(body,course)},
     frame(x){return floor(x)},
     constrain(body){
-      const min=-485+body.r,max=485-body.r;
+      const l=limits(),min=l.min+15+body.r,max=l.max-15-body.r;
       if(body.x>=min&&body.x<=max)return;
       body.x=Math.max(min,Math.min(max,body.x));
       body.vx*=-.25;
@@ -43,24 +57,43 @@
   function release(){activePointer=null;pointerSource=null;axis=0;keys.clear();if(state)P.clearInput(state)}
   function reset(){
     release();
-    course={curves:{surface:terrainPoints[terrain].map(p=>p.slice())},surfaces:['surface'],holes:[],cellars:[],gaps:[],finishX:100000};
+    course={curves:{surface:points().map(p=>p.slice())},surfaces:['surface'],holes:[],cellars:[],gaps:[],finishX:100000};
     state=P.create(kind,P.defaults());
-    const b=state[kind],f=floor(-420);
+    const b=state[kind],f=floor(mode==='chain'?-410:-420);
     b.layer='surface';b.x=f.x+f.nx*b.r;b.y=f.y+f.ny*b.r+(kind==='rutabaga'?95:0);
     b.vx=b.vy=0;b.grounded=kind==='pumpkin';
     for(const item of doc.querySelectorAll('[data-kind]'))item.classList.toggle('active',item.dataset.kind===kind);
-    for(const item of doc.querySelectorAll('[data-terrain]'))item.classList.toggle('active',item.dataset.terrain===terrain);
-    byId('saved').textContent=descriptions[terrain];
+    for(const item of doc.querySelectorAll('[data-terrain]'))item.classList.toggle('active',mode==='single'&&item.dataset.terrain===terrain);
+    for(const item of doc.querySelectorAll('[data-chain]'))item.classList.toggle('active',mode==='chain'&&item.dataset.chain===terrain);
+    for(const item of doc.querySelectorAll('[data-study]'))item.classList.toggle('active',item.dataset.study===mode);
+    byId('single-courses').hidden=mode!=='single';byId('chain-courses').hidden=mode!=='chain';
+    byId('saved').textContent=(mode==='chain'?chainDescriptions:descriptions)[terrain];
     computeView();
   }
   function computeView(){
-    let lo=Infinity,hi=-Infinity;
-    for(let x=-500;x<=500;x+=5){const y=floor(x).y;lo=Math.min(lo,y);hi=Math.max(hi,y)}
     const width=Math.max(1,canvasSize.width),height=Math.max(1,canvasSize.height);
-    const bottom=lo-100,top=hi+(kind==='rutabaga'?330:145),margin=16;
-    const zoom=Math.min((width-margin*2)/1050,(height-margin*2)/(top-bottom));
-    view={zoom,originX:width/2,originY:height/2-zoom*(top+bottom)/2,
-      lo,hi,bottom,top,width,height};
+    const l=limits(),b=state[kind],headroom=kind==='rutabaga'?235:100,margin=20;
+    if(mode==='single'){
+      let lo=Infinity,hi=-Infinity;
+      for(let x=l.min;x<=l.max;x+=5){const y=floor(x).y;lo=Math.min(lo,y);hi=Math.max(hi,y)}
+      const bottom=lo-75,top=hi+headroom;
+      const zoom=Math.min((width-2*margin)/(l.max-l.min+50),(height-2*margin)/(top-bottom));
+      view={zoom,originX:width/2-zoom*(l.min+l.max)/2,originY:height/2-zoom*(top+bottom)/2,lo,hi,bottom,top,width,height};
+    }else{
+      // Follow the active body, with a little forward anticipation. Only the camera moves.
+      const zoom=Math.min(.73,Math.max(.47,(width-2*margin)/650));
+      const half=width/(2*zoom),desired=b.x+Math.max(-55,Math.min(145,b.vx*.22+75));
+      const centreX=Math.max(l.min+half-20,Math.min(l.max-half+20,desired));
+      let lo=Infinity,hi=-Infinity;
+      for(let x=centreX-half-20;x<=centreX+half+20;x+=8){
+        const y=floor(x).y;lo=Math.min(lo,y);hi=Math.max(hi,y);
+      }
+      const bottom=lo-90,top=Math.max(hi+headroom,b.y+b.r+55);
+      const verticalZoom=Math.min(zoom,(height-2*margin)/(top-bottom));
+      // Preserve scale within each visible phrase; avoiding snap or crop is more important than zooming in.
+      const centerY=(top+bottom)/2;
+      view={zoom:verticalZoom,originX:width/2-verticalZoom*centreX,originY:height/2-verticalZoom*centerY,lo,hi,bottom,top,width,height,centreX};
+    }
     return view;
   }
   function resize(){
@@ -77,13 +110,13 @@
     if(!width||!height||!state)return;
     ctx.setTransform(dpr,0,0,-dpr,0,height*dpr);
     ctx.fillStyle='#faf1dc';ctx.fillRect(0,0,width,height);
-    const v=view||computeView();
+    const v=computeView(),l=limits();
     ctx.save();ctx.translate(v.originX,v.originY);ctx.scale(v.zoom,v.zoom);
-    ctx.beginPath();ctx.moveTo(-515,v.bottom-80);ctx.lineTo(-515,floor(-500).y);
-    for(let x=-500;x<=500;x+=4)ctx.lineTo(x,floor(x).y);
-    ctx.lineTo(515,v.bottom-80);ctx.closePath();
+    ctx.beginPath();ctx.moveTo(l.min-15,v.bottom-80);ctx.lineTo(l.min-15,floor(l.min).y);
+    for(let x=l.min;x<=l.max;x+=5)ctx.lineTo(x,floor(x).y);
+    ctx.lineTo(l.max+15,v.bottom-80);ctx.closePath();
     ctx.fillStyle='#d9b385';ctx.fill();
-    ctx.beginPath();for(let x=-500;x<=500;x+=4){const y=floor(x).y;if(x===-500)ctx.moveTo(x,y);else ctx.lineTo(x,y)}
+    ctx.beginPath();for(let x=l.min;x<=l.max;x+=5){const y=floor(x).y;if(x===l.min)ctx.moveTo(x,y);else ctx.lineTo(x,y)}
     ctx.strokeStyle='#68835f';ctx.lineWidth=9;ctx.lineJoin='round';ctx.lineCap='round';ctx.stroke();
     const body=state[kind],f=floor(body.x);
     const altitude=Math.max(0,body.y-body.r-f.y);
@@ -147,10 +180,13 @@
   root.addEventListener('blur',release);
   doc.addEventListener('visibilitychange',()=>{if(doc.hidden){release();lastTime=0}});
   for(const b of doc.querySelectorAll('[data-kind]'))b.addEventListener('click',()=>{kind=b.dataset.kind;reset()});
-  for(const b of doc.querySelectorAll('[data-terrain]'))b.addEventListener('click',()=>{terrain=b.dataset.terrain;reset()});
+  for(const b of doc.querySelectorAll('[data-study]'))b.addEventListener('click',()=>{mode=b.dataset.study;terrain=mode==='chain'?'flow':'bowl';reset()});
+  for(const b of doc.querySelectorAll('[data-chain]'))b.addEventListener('click',()=>{if(!chainPoints[b.dataset.chain])return;mode='chain';terrain=b.dataset.chain;reset()});
+  for(const b of doc.querySelectorAll('[data-feedback]'))b.addEventListener('click',()=>{feedback=b.dataset.feedback;for(const item of doc.querySelectorAll('[data-feedback]'))item.classList.toggle('active',item===b)});
+  for(const b of doc.querySelectorAll('[data-terrain]'))b.addEventListener('click',()=>{if(!terrainPoints[b.dataset.terrain])return;mode='single';terrain=b.dataset.terrain;reset()});
   byId('reset').addEventListener('click',reset);
   byId('save').addEventListener('click',()=>{
-    const entry={kind,terrain,points:terrainPoints[terrain],note:byId('memo').value.trim(),at:new Date().toISOString()};
+    const entry={kind,mode,terrain,feedback,points:points().map(p=>p.slice()),note:byId('memo').value.trim(),at:new Date().toISOString()};
     try{
       const key='pumpoko-feel-lab-terrains-v1';
       const items=JSON.parse(root.localStorage.getItem(key)||'[]');
@@ -162,7 +198,7 @@
   if(root.ResizeObserver)new root.ResizeObserver(resize).observe(canvas.parentElement);
   resize();reset();
   if(new URLSearchParams(root.location.search).get('dev')==='1'){
-    root.FeelLabProbe=()=>({kind,terrain,axis:currentAxis(),x:state[kind].x,y:state[kind].y,
+    root.FeelLabProbe=()=>({kind,terrain,mode,feedback,axis:currentAxis(),x:state[kind].x,y:state[kind].y,
       vx:state[kind].vx,vy:state[kind].vy,time:state.time,view:{...view},
       canvas:{width:canvasSize.width,height:canvasSize.height},grounded:state[kind].grounded});
   }

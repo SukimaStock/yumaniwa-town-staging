@@ -1,0 +1,96 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f93aad0bb7b128e3c25f2a86731127da6b4220d5663b0f23713f068e9ff0f636",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-feel-lab-chains-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add FLOW RHYTHM PUMP BREATH multi-phrase scrolling comparison courses to PUMPOKO feel lab while preserving eight single-terrain trials",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "5d7c312af5f4c791d1591c0ac06e11db1435b707",
+    "canonicalSources": [
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-feel-lab-chains-20261010/r0.lock.json",
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-feel-lab/CHAINS-REVIEW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/**",
+      "works/pumpoko/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Preserve all eight single-terrain studies, controls, original fruit art, exact PUMPOKO 02 physical tuning and local saved notes",
+      "Add four separate horizontally scrollable multi-phrase terrain experiments FLOW RHYTHM PUMP BREATH, ~3-5 screens each, with continuous Hermite surfaces and no hazards",
+      "Keep character in sight with horizontal tracking and ground-aware vertical framing; allow stop, reverse, retry and continued play at both ends",
+      "Support both pumpkin and rutabaga in all courses, update mobile UI with explicit course mode, selection, and versioned assets to prevent stale scripts",
+      "Record favorite feedback as retry / good moment / lost momentum with reproducible course geometry and free-text note",
+      "Validate input through original physics, terrain transitions, viewport bounds, selection controls and local saved data, distinguish device-unverified experience"
+    ],
+    "ownerDecisions": [
+      "User requests implementing four Phase 1 connected courses as designed for finding satisfying terrain transitions; staging merge after checks"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Read fresh staging main and related PRs",
+      "READY Plan Lock committed before implementation",
+      "Work-local changes only; no production promotion"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone portrait all four chain choices and all original eight singles",
+      "ROLL and BOUNCE actual touch, follow camera, reverse, reset, end-of-course continuity",
+      "Qualitative enjoyment and feedback selection",
+      "Verify caches and selectors"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "PUMPOKO 02 physics.js and world.js, unchanged"
+    ],
+    "rollback": "Revert this isolated staging PR",
+    "outOfScope": [
+      "PUMPOKO 02 stage changes",
+      "New actions or physics tuning",
+      "Gaps and handoffs",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone/browser sensation and practical course quality need human confirmation",
+      "Formal verificationState UNVERIFIED"
+    ]
+  }
+}
