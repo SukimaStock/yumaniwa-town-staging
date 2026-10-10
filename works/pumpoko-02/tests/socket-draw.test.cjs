@@ -14,9 +14,9 @@ function sprite(frame,body,clipped=true){
  }finally{Object.assign(A,old);}
  const data=native.getImageData(0,0,390,740).data;let alpha=0;for(let i=3;i<data.length;i+=4)alpha+=data[i];return {data,alpha};
 }
-test('all existing runtime and asset files except world-draw stay exact #186 bytes',()=>{
+test('all existing runtime/assets except terrain drawing and approved shot timing stay exact #186 bytes',()=>{
  const repo=path.resolve(__dirname,'../../..');
- const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!p.endsWith('/world-draw.js'));
+ const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!p.endsWith('/world-draw.js')&&!p.endsWith('/story.js'));
  for(const p of files)assert.deepEqual(fs.readFileSync(path.join(repo,p)),execFileSync('git',['show',BASE+':'+p],{cwd:repo,maxBuffer:10e6}),p);
 });
 for(const clip of clips){

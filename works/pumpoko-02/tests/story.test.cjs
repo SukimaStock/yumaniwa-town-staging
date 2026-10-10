@@ -84,9 +84,9 @@ test('natural coast and one shot frame real final pair; zoom returns continuousl
   const s=finish(S.create());for(let i=0;i<120;i++)S.update(s,1,1/60);assert.equal(s.phase,'coast');
   for(let i=0;i<60*60&&s.phase!=='ending';i++)S.update(s,0,1/60);assert.equal(s.phase,'ending');assert.ok(Math.hypot(s.world.pumpkin.vx,s.world.pumpkin.vy)<35);
   const pumpkin=s.world.pumpkin,rutabaga=s.world.holes[3].occupant;let last={...s.view},maxJump=0;
-  for(let i=0;i<60*11;i++){
+  for(let i=0;i<60*11&&s.phase==='ending';i++){
     S.update(s,0,1/60);maxJump=Math.max(maxJump,Math.hypot(s.view.x-last.x,s.view.y-last.y));last={...s.view};
-    if(s.elapsed>=6)for(const b of [pumpkin,rutabaga]){assert.ok(Math.abs((b.x-s.view.x)*s.view.z)<160);assert.ok(Math.abs((b.y-s.view.y)*s.view.z)<270);}
+    if(s.ending.settledAt!==null)for(const b of [pumpkin,rutabaga]){assert.ok(Math.abs((b.x-s.view.x)*s.view.z)<160);assert.ok(Math.abs((b.y-s.view.y)*s.view.z)<270);}
     assert.equal(s.world.pumpkin,pumpkin);assert.equal(s.world.holes[3].occupant,rutabaga);assert.equal(rutabaga.x,C.get('world4').holes[3].x);assert.equal(rutabaga.y,30);assert.equal(s.world.handoffs,4);
   }
   assert.ok(maxJump<6);while(s.phase==='ending')S.update(s,0,1/60);assert.equal(s.phase,'returning');
@@ -134,7 +134,7 @@ test('native Canvas renders portrait/landscape title, all layers, final pair and
     const h=harness({...viewport,native:true});liveFinish(h);assert.deepEqual(h.errors,[]);assert.ok(h.renderCanvas.toBuffer('image/png').length>1000);
   }
   const h=harness(),s=ending(S.create()),{createCanvas}=require('@napi-rs/canvas'),canvas=createCanvas(390,740);
-  for(const time of [0,1,3,6,10]){while(s.elapsed<time&&s.phase==='ending')S.update(s,0,1/60);const before=P.snapshot(s.world);h.w.PumpokoWorldDraw(canvas.getContext('2d'),s.world,s.view);assert.deepEqual(P.snapshot(s.world),before);}
+  for(const time of [0,.5,1,2,2.5]){while(s.elapsed<time&&s.phase==='ending')S.update(s,0,1/60);const before=P.snapshot(s.world);h.w.PumpokoWorldDraw(canvas.getContext('2d'),s.world,s.view);assert.deepEqual(P.snapshot(s.world),before);}
 });
 const tick=async()=>{for(let i=0;i<20;i++)await Promise.resolve();};
 test('trusted gestures start one original music player; full journey and replay never restart or seek it',async()=>{

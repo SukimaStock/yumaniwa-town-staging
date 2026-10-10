@@ -83,6 +83,28 @@
     const z=Math.min(.8,310/(Math.abs(a.x-b.x)+180),520/(Math.abs(a.y-b.y)+160));
     return {x:(a.x+b.x)/2,y:(a.y+b.y)/2+25,z};
   }
+  function finalShot(s){
+    return {from:{...s.view},target:pair(s),velocity:{x:s.world.camera.vx,y:s.world.camera.vy},
+      time:0,settledAt:null,bounds:{left:Infinity,right:-Infinity,bottom:Infinity,top:-Infinity},hero:null};
+  }
+  function shotView(s,dt){
+    const shot=s.ending;shot.time+=dt;
+    if(shot.settledAt!==null){s.view={...shot.target};return;}
+    // Accumulate the REAL travel during deceleration. The shot can widen but
+    // never breathe in and out as the pumpkin rolls back through the valley.
+    const bounds=shot.bounds;
+    for(const b of [s.world.pumpkin,s.world.holes.at(-1).occupant]){
+      bounds.left=Math.min(bounds.left,b.x);bounds.right=Math.max(bounds.right,b.x);
+      bounds.bottom=Math.min(bounds.bottom,b.y);bounds.top=Math.max(bounds.top,b.y);
+    }
+    shot.target={x:(bounds.left+bounds.right)/2,y:(bounds.bottom+bounds.top)/2+25,
+      z:Math.min(.8,310/(bounds.right-bounds.left+180),520/(bounds.top-bounds.bottom+160))};
+    const t=smooth(shot.time/6);s.view=blend(shot.from,shot.target,t);
+    for(const key of ['x','y'])s.view[key]+=shot.velocity[key]*shot.time*Math.exp(-shot.time*2)*(1-t);
+    // Camera travel overlaps coast. Start the quiet hold only when BOTH the
+    // existing natural slow condition and the six-second shot have completed.
+    if(s.phase==='ending'&&shot.time>=6)shot.settledAt=shot.time;
+  }
   function update(s,axis,dt){
     dt=Math.max(0,Math.min(.05,Number(dt)||0));
     if(s.phase==='title'){
@@ -90,7 +112,7 @@
       D.update(s.prologue,dt);
       if(D.allLoose(s.prologue)){
         if(s.prologue.looseAt===null)s.prologue.looseAt=s.prologue.time;
-        if(s.prologue.time-s.prologue.looseAt>=1.8){beginJourney(s);return [];}
+        if(s.prologue.time-s.prologue.looseAt>=1){beginJourney(s);return [];}
       }
       return s.prologue.detachments.map(()=>({type:'detach'}));
     }
@@ -112,22 +134,20 @@
     }
     const controlled=s.phase==='playing'||s.phase==='coast';
     P.input(s.world,controlled?axis:0);const events=W.update(s.world,dt);
-    if(s.phase==='playing'&&s.world.finished){s.phase='coast';s.elapsed=0;}
+    if(s.phase==='playing'&&s.world.finished){s.phase='coast';s.elapsed=0;s.ending=finalShot(s);}
     if(s.phase==='coast'){
       const b=s.world.pumpkin;
       s.slow=!axis&&Math.abs(s.world.axis)<.1&&b.grounded&&Math.hypot(b.vx,b.vy)<35?s.slow+dt:0;
-      if(s.elapsed>=1.8&&s.slow>=.4){s.phase='ending';s.elapsed=0;s.ending={from:{...s.view},target:pair(s),velocity:{x:s.world.camera.vx,y:s.world.camera.vy},hero:null};}
+      if(s.elapsed>=1.8&&s.slow>=.4){s.phase='ending';s.elapsed=0;}
     }
-    if(s.phase==='playing'||s.phase==='coast'){
+    if(s.phase==='playing'){
       // Velocity anticipation is low-pass filtered and never modifies the model
       // camera, input, constants or plug transfers. Its range stays within view.
       const target=Math.max(-55,Math.min(55,s.world[s.world.active].vx*.12));
       s.look+=(target-s.look)*(1-Math.exp(-dt*3));s.view=follow(s);
-    }else if(s.phase==='ending'){
-      s.ending.target=blend(s.ending.target,pair(s),1-Math.exp(-dt*2));
-      s.view=blend(s.ending.from,s.ending.target,smooth(s.elapsed/6));
-      for(const key of ['x','y'])s.view[key]+=s.ending.velocity[key]*s.elapsed*Math.exp(-s.elapsed*2)*(1-smooth(s.elapsed/6));
-      if(s.elapsed>=11){s.phase='returning';s.elapsed=0;s.ending.hero={from:{...s.view},offset:{x:(s.world.pumpkin.x-s.view.x)*s.view.z,y:(s.world.pumpkin.y-s.view.y)*s.view.z}};s.prologue=D.create();s.prologue.looseAt=null;P.clearInput(s.world);}
+    }else if(s.phase==='coast'||s.phase==='ending'){
+      shotView(s,dt);
+      if(s.phase==='ending'&&s.ending.settledAt!==null&&s.ending.time-s.ending.settledAt>=2.5){s.phase='returning';s.elapsed=0;s.ending.hero={from:{...s.view},offset:{x:(s.world.pumpkin.x-s.view.x)*s.view.z,y:(s.world.pumpkin.y-s.view.y)*s.view.z}};s.prologue=D.create();s.prologue.looseAt=null;P.clearInput(s.world);}
     }else if(s.phase==='returning'){
       const b=s.world.pumpkin,h=s.ending.hero,t=smooth(s.elapsed/3.6);
       // Interpolate projected subject placement while zooming, so an initially
