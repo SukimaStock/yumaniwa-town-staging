@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c3da6942d30c2e19c9d8ef8cabf9255e1acc16dbfee685f526ea487ed351941c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-feel-lab-terrain-studies-20261010",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add four distinct movement-first terrain studies to independent PUMPOKO FEEL LAB, retaining current physics and noting the impassable waves experiment",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "21ee7e9b9263079f8c5f1d759406f23993831b12",
+    "canonicalSources": [
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-feel-lab-terrain-studies-20261010/r0.lock.json",
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-feel-lab/TERRAIN-STUDIES.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/**",
+      "works/pumpoko/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Keep existing four terrain studies including blocked waves as a labeled comparison failure",
+      "Add wide U-pipe, gentler connected valleys, two-step rebound bank, and short halfpipe using existing Hermite floor geometry",
+      "Fit eight course choices into mobile using wrapping layout and preserve visible controls",
+      "Preserve unmodified work-owned physical tuning, left/right input, original fruit art and saved terrain-note data",
+      "Compare right held and left/right alternating input with both fruit kinds in code; leave device feel judgment to owner"
+    ],
+    "ownerDecisions": [
+      "User reports all three terrain studies other than continuous valleys feel good, wants several further experiments"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh main inspected",
+      "Plan-only first commit",
+      "Work-only staging; no production promotion"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone all eight terrain displays and navigation",
+      "Both characters try new courses",
+      "Rhythmic pump and leap feel user evaluation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "PUMPOKO 02 physics.js and world.js unchanged"
+    ],
+    "rollback": "Revert isolated staging PR",
+    "outOfScope": [
+      "Changes to PUMPOKO 02 stages or shared framework",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone feel and difficulty are unverified",
+      "Current formal verificationState UNVERIFIED"
+    ]
+  }
+}
