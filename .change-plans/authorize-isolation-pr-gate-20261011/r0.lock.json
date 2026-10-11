@@ -1,0 +1,122 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e3e8a8b2ab9c73c08b2b5005af1f4e7b541194bc1609aac5ac2f150057fae7da",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "authorize-isolation-pr-gate-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Preauthorize one exact SHA-1 Git blob update to the trusted Change PR Gate workflow, to conditionally allow provably isolated brand-new staging work additions without Plan Lock; no gate source changes in this authorization PR.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "4c4cc336bd2f9dbdb67a2d9deab05929353c7342",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-pr-gate.yml",
+      "tools/change-static-check.cjs",
+      "tools/staging-isolation-fastpath.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/authorize-isolation-pr-gate-20261011/r0.lock.json",
+      "tools/change-static-check-registry.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/change-pr-gate.yml",
+      "tools/change-verification.yml",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/staging-isolation-fastpath.cjs",
+      "works/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Only registry blob pin for .github/workflows/change-pr-gate.yml changes from edbf5e1edb6e33e07e081ab708eb05ad782e7e75 to exact precomputed f2eaa9886d851313c9a041d5e9376f97002d4ead.",
+      "Set transitionPolicy to pending:.github/workflows/change-pr-gate.yml:<old-blob>:<new-blob>, bump registry version. Keep all other contracted files and definitions unchanged.",
+      "The workflow file itself is completely unchanged in this authorization phase, so regular immutable Plan Lock enforcement continues."
+    ],
+    "ownerDecisions": [
+      "User instruction 2026-10-11: continue staged CI simplification for isolated new prototypes, while protecting shared and production surfaces; no approval for production deployment."
+    ],
+    "hqDecisions": [
+      "Use the existing two-phase exact-blob transition to preauthorize one protected security workflow at a time; never replace its current source in same authorization PR.",
+      "Future workflow will run only pinned blob classifier from trusted base and will fail closed to current gate when any existing/shared file is changed.",
+      "The second independent trusted verification workflow must be updated separately, preventing unaudited no-Plan bypass."
+    ],
+    "rulesApplied": [
+      "Keep existing PR Lock intact in first phase",
+      "Avoid broad glob path allowlists in gate",
+      "No publication or lifecycle status changes",
+      "No untrusted scripts in privileged checks"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review exact prior workflow blob and precomputed candidate blob, ensure no production workflow changes",
+      "Confirm candidate registry changes only one existing contract expectedBlob",
+      "Confirm old workflow remains byte-identical"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Current base 4c4cc336bd2f9dbdb67a2d9deab05929353c7342",
+      "Base-owned registry transition validation",
+      "New candidate exact blob f2eaa9886d851313c9a041d5e9376f97002d4ead and pinned classifier Git blob 78305495d3e85f9fdc319acf6ce90834257b8087"
+    ],
+    "rollback": "Revert registry-only authorization before implementing protected workflow; do not change production.",
+    "outOfScope": [
+      "Changing .github workflow file in this PR",
+      "Activating fastpath in this PR",
+      "Changing production or Work lifecycle"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Future compiled workflow not yet tested as PR gating"
+    ],
+    "alternativesRejected": [
+      "Merge a protected workflow without advance exact-blob authorization",
+      "Trust unpinned mutable classifier as security authority",
+      "Bypass verification workflow checks"
+    ],
+    "boundaryCases": [
+      "Registry transition is one path only and target file remains old exact blob",
+      "Other contract entries byte-identical",
+      "Normal PRs still require first-commit Plan Lock in authorization stage"
+    ],
+    "testPlan": [
+      "Check existing trusted registry transition proof",
+      "Compare commit diff exactly lock+registry",
+      "Run existing Change OS regression tests and trusted previous-base gates"
+    ],
+    "problem": "An inert classifier has passed tests, but protected PR workflow source can only be modified through existing exact Git blob registry transition.",
+    "currentContract": "Security workflow file is pinned in trusted static registry with steady status; candidate cannot self-update a contract and pass.",
+    "whyExistingIsInsufficient": "Fastpath is not active; direct workflow edit without registry authorization is intentionally blocked by current policy.",
+    "design": "Preauthorize one precomputed future workflow blob, preserve current workflow bytes; later independent transition swaps only this workflow to the preauthorized blob.",
+    "migration": "steady to pending registry authorization, followed by separate gated workflow transition PR back to steady, then independent verification workflow authorization and transition.",
+    "compatibility": "No runtime/CI behavior changes in this registry-only PR; all existing PR contracts remain in force.",
+    "promotionRisk": "Activation only after both trusted workflows are updated and canaries pass. No production changes."
+  }
+}
