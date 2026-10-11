@@ -38,8 +38,8 @@ function entry(root,sha,file){
   const size=Number(git(root,['cat-file','-s',m[1]]).trim());
   if(size>512*1024)throw new Error('BLOB_TOO_LARGE');
   const text=git(root,['cat-file','blob',m[1]]);
-  if(text.includes('\0')||!text.endsWith('\n'))throw new Error('UNSUPPORTED_TEXT');
-  return {oid:m[1],lines:text.slice(0,-1).split('\n')};
+  if(text.includes('\0'))throw new Error('UNSUPPORTED_TEXT');
+  return {oid:m[1],lines:text.replace(/\n$/,'').split('\n'),finalNewline:text.endsWith('\n')};
 }
 function parseHunks(diff){
   if(diff.includes('Binary files')||diff.includes('GIT binary patch')||diff.includes('No newline'))throw new Error('UNSUPPORTED_PATCH');
@@ -50,7 +50,8 @@ function parseHunks(diff){
   }
   return result;
 }
-function reverseHunk(file,h,before,after){
+function reverseHunk(file,h,beforeEntry,afterEntry){
+  const before=beforeEntry.lines,after=afterEntry.lines;
   const oldAt=h.oldCount?h.oldStart-1:h.oldStart;
   const newAt=h.newCount?h.newStart-1:h.newStart;
   const pre=Math.min(3,oldAt,newAt);
@@ -59,7 +60,10 @@ function reverseHunk(file,h,before,after){
   const newContext=after.slice(newAt-pre,newAt).concat(after.slice(newAt+h.newCount,newAt+h.newCount+post));
   if(JSON.stringify(oldContext)!==JSON.stringify(newContext)||pre+post<2)throw new Error('AMBIGUOUS_CONTEXT');
   // Direct reverse patch: current side is the source's after, target is before.
-  const lines=[...after.slice(newAt-pre,newAt).map(l=>' '+l),...after.slice(newAt,newAt+h.newCount).map(l=>'-'+l),...before.slice(oldAt,oldAt+h.oldCount).map(l=>'+'+l),...after.slice(newAt+h.newCount,newAt+h.newCount+post).map(l=>' '+l)];
+  const section=(entry,start,count,prefix)=>entry.lines.slice(start,start+count).flatMap((l,i)=>[
+    prefix+l,...(!entry.finalNewline&&start+i===entry.lines.length-1?['\\ No newline at end of file']:[])
+  ]);
+  const lines=[...section(afterEntry,newAt-pre,pre,' '),...section(afterEntry,newAt,h.newCount,'-'),...section(beforeEntry,oldAt,h.oldCount,'+'),...section(afterEntry,newAt+h.newCount,post,' ')];
   return `diff --git a/${file} b/${file}\n--- a/${file}\n+++ b/${file}\n@@ -${newAt-pre+1},${h.newCount+pre+post} +${oldAt-pre+1},${h.oldCount+pre+post} @@\n${lines.join('\n')}\n`;
 }
 function restore({root,baseSha,headSha}){
@@ -102,7 +106,7 @@ function restore({root,baseSha,headSha}){
         if(!Number.isInteger(id)||id<1||id>hunks.length)return deny('INVALID_HUNK_SELECTION');
         const h=hunks[id-1];
         if(h.oldCount+h.newCount>240)return deny('BROAD_RESTORE');
-        const reverse=reverseHunk(file,h,before.lines,after.lines);
+        const reverse=reverseHunk(file,h,before,after);
         git(root,['-c','core.hooksPath=/dev/null','apply','--cached','--whitespace=nowarn','-'],reverse,env);
         count++;
       }

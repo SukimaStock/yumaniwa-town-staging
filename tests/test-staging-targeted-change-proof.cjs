@@ -34,6 +34,11 @@ test('selected reverse hunk preserves SEO and a later independent improvement in
   assert.equal(result.verificationState,'UNVERIFIED');
 });
 test('revert name alone grants no shared-file exception',t=>{const f=fixture(t);f.put('index.html',f.read('index.html')+'<aside>new UI</aside>\n');assert.equal(f.check(f.initial,f.commit('revert approved change')).eligible,false);});
+test('real-world root HTML without a final newline can restore an interior UI hunk',t=>{
+  const f=fixture(t);const original=f.read('index.html').trimEnd();f.put('index.html',original);f.commit('no final newline');
+  f.put('index.html',original.replace('<main>town</main>','<main>town</main>\n<aside>UI</aside>'));const source=f.commit();
+  f.put('index.html',original);assert.equal(f.check(source,f.commit(reference(source,{'index.html':[1]}))).eligible,true);
+});
 test('source reference plus an extra unproven edit is rejected',t=>{
   const f=fixture(t);const original=f.read('index.html');f.put('index.html',original.replace('<main>town</main>','<main>town</main>\n<aside>UI</aside>'));const source=f.commit();
   f.put('index.html',original.replace('original','unrelated alteration'));assert.equal(f.check(source,f.commit(reference(source,{'index.html':[1]}))).reason,'NOT_EXACT_SELECTED_REVERSE');
