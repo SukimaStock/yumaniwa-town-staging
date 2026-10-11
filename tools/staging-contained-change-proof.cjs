@@ -18,6 +18,7 @@ const MAX_TOTAL_BYTES=4*1024*1024;
 const MAX_MODIFIED_LINES=120;
 const MAX_MODIFIED_PATCH=16*1024;
 const HISTORY_LIMIT=24;
+const MAX_REGISTRY_BYTES=256*1024;
 
 // Packaging/export, work registration and executable lifecycle files are not
 // an innocent local animation/level tweak. Fall back to the full Plan path.
@@ -54,6 +55,30 @@ function byteSize(root,oid){
   const size=Number(git(root,['cat-file','-s',oid]).toString('ascii').trim());
   if(!Number.isSafeInteger(size)||size<0)throw new Error('BAD_BLOB_SIZE');
   return size;
+}
+function activeLifecycleAtBase(root,base,id){
+  const entry=blobEntry(root,base,'data/work-lifecycle.json');
+  if(!entry||entry.type!=='blob'||entry.mode!=='100644')return 'INVALID_LIFECYCLE';
+  if(byteSize(root,entry.oid)>MAX_REGISTRY_BYTES)return 'INVALID_LIFECYCLE';
+  let registry;
+  try{
+    registry=JSON.parse(decoder.decode(git(root,['cat-file','blob',entry.oid])));
+  }catch(_){return 'INVALID_LIFECYCLE';}
+  if(!registry||registry.schema!=='sukimastock-work-lifecycle/1'||
+     !Array.isArray(registry.works)||registry.works.length>128)return 'INVALID_LIFECYCLE';
+  const seenIds=new Set(),seenPaths=new Set();
+  let record=null;
+  for(const work of registry.works){
+    if(!work||typeof work.id!=='string'||typeof work.path!=='string'||
+       seenIds.has(work.id)||seenPaths.has(work.path))return 'INVALID_LIFECYCLE';
+    seenIds.add(work.id);seenPaths.add(work.path);
+    if(work.id===id||work.path==='works/'+id){
+      if(record||work.id!==id||work.path!=='works/'+id)return 'INVALID_LIFECYCLE';
+      record=work;
+    }
+  }
+  if(!record||record.status!=='active')return 'WORK_NOT_ACTIVE';
+  return null;
 }
 function classify({root,baseSha,headSha}){
   const deny=reason=>({eligible:false,reason});
@@ -95,6 +120,8 @@ function classify({root,baseSha,headSha}){
     if(!id||!blobEntry(root,base,'works/'+id+'/index.html'))return deny('NOT_AN_EXISTING_WORK');
     const workEntry=blobEntry(root,base,'works/'+id+'/index.html');
     if(workEntry.mode!=='100644'||workEntry.type!=='blob')return deny('UNSAFE_WORK_ENTRY');
+    const lifecycleDenial=activeLifecycleAtBase(root,base,id);
+    if(lifecycleDenial)return deny(lifecycleDenial);
     // Prevent small *file* size being a disguise for a sweeping whole-file rewrite.
     // Binary modifications are refused; binary additions stay scoped and size-limited.
     const stats=readZ(git(root,['diff','--numstat','-z','--no-renames',base,head,'--']));
