@@ -1,0 +1,172 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b1ab8a9d0221fd35b9ece4aa5f8ae9dfedc46547ba9bf9a5724d02dd4d0595ed",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-folder-swap-town-v2-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Preserve the original PUMPOKO as works/pumpoko-01, make the game-jam PUMPOKO 02 the canonical works/pumpoko, retain a legacy URL redirect, and install new PUMPOKO in the Yumaniwa Town leisure center on staging only",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "WORLD"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "bda7d6abd315b4155f53980d8d0d2f50fe5908b5",
+    "canonicalSources": [
+      "works/pumpoko/index.html",
+      "works/pumpoko-02/index.html",
+      "works/pumpoko-02/tests/harness.cjs",
+      "works/pumpoko/test-migration.cjs",
+      "tests/world-consistency/integration.test.cjs",
+      "data/works.js",
+      "data/work-lifecycle.json",
+      "data/work-guide-meta.js",
+      "data/work-search-meta.js",
+      "data/updates.js",
+      "data/ghost-dialogue.js",
+      "RELEASE-WORKFLOW.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-folder-swap-town-v2-20261011/r0.lock.json",
+      "works/pumpoko/**",
+      "works/pumpoko-01/**",
+      "works/pumpoko-02/**",
+      "data/works.js",
+      "data/work-lifecycle.json",
+      "data/work-guide-meta.js",
+      "data/work-search-meta.js",
+      "data/ghost-dialogue.js",
+      "data/updates.js",
+      "tests/world-consistency/integration.test.cjs",
+      ".github/workflows/world-consistency-tests.yml",
+      ".github/workflows/pumpoko-02-itch-export.yml"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "tools/**",
+      "main.js",
+      "work-ready.js",
+      "work-guide-terminal.js",
+      "work-install-meta.js",
+      "town-analytics.js",
+      "works/orbit/**",
+      "works/rojiura-masala/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "production/**"
+    ],
+    "expectedChanges": [
+      "Move the previous complete works/pumpoko Git tree without dropping audio or artwork to works/pumpoko-01",
+      "Move the complete works/pumpoko-02 Git tree to works/pumpoko without changing physics, course, BGM, rendering or other gameplay source",
+      "Replace works/pumpoko-02 with only a noindex same-site entry redirect preserving query and hash",
+      "Retarget work-local comparison tests and root world consistency legacy work checks to works/pumpoko-01 but keep historical git show commit paths unchanged",
+      "Retarget packaging workflow and new game harness to canonical works/pumpoko, keeping same ZIP output",
+      "Display PUMPOKO as an open leisure center work via the existing embedded work player and guide; add town update and ghost dialogue",
+      "Record alias and old-work path in work lifecycle without renaming any existing registry ID/path",
+      "Add search/share metadata (no production published pages), keeping staging-only visibility and production gates"
+    ],
+    "ownerDecisions": [
+      "Owner approves old works/pumpoko -> works/pumpoko-01 and PUMPOKO 02 -> works/pumpoko as canonical; requests Yumaniwa Town integration",
+      "Itch.io version already uploaded by owner and tested; keep it unchanged"
+    ],
+    "hqDecisions": [
+      "GitHub Actions modifications are necessary to stop itch exporter breaking from directory rename; the workflow only builds artifacts with read-only permissions",
+      "Preserve existing lifecycle identity/path stability by keeping pumpoko and pumpoko-02 IDs and using a 02 URL alias; add pumpoko-01 as separate active work, no silent released promotion",
+      "Do not change production or imply Search/Share / release completeness from staging checks"
+    ],
+    "rulesApplied": [
+      "Use current staging main plus work-lifecycle and release workflow rules",
+      "Plan Lock as first branch commit; full Scope/Risk/Impact verification",
+      "Keep original byte provenance for moved work trees except explicit URL/test metadata edits"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Check staging: leisure-center list, guide filtering, embedded open/close/reopen, mobile and desktop",
+      "Verify works/pumpoko/ is new complete 5-stage title, works/pumpoko-01/ is old, works/pumpoko-02/ redirects preserving query and hash",
+      "Check PUMPOKO music and touch input in the town iframe after returning to town",
+      "Verify no production promotion; guide/search artwork for production remains a separate task"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression",
+      "works.venue-menu",
+      "works.direct-route",
+      "works.search-share",
+      "works.analytics-id",
+      "works.town-awareness",
+      "works.release-validator",
+      "updates.runtime",
+      "updates.work-id",
+      "ghost.runtime",
+      "ghost.work-id"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0 and Codea Lite 1.0.0 remain at ../../engine from either new work path",
+      "Town shared embedded player and guide existing API",
+      "Existing generic zip exporter and read-only Action",
+      "Unchanged world consistency contract for PUMPOKO 01"
+    ],
+    "rollback": "Revert the staging pull request as one unit, restoring the old work folder names and previous town metadata; production is untouched",
+    "outOfScope": [
+      "Any production promotion or release candidate transition",
+      "Changing gameplay, sounds, level design, original art or Engine",
+      "Publishing/altering the already uploaded itch.io game",
+      "Renaming historical git commits/fixtures in immutable refs",
+      "Inventing an itch.io URL or an OGP image"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real mobile / desktop player open/close/return and audio after the move require owner review",
+      "Public SEO asset and production Search/Share pages not yet generated",
+      "Formal verificationState UNVERIFIED"
+    ],
+    "alternativesRejected": [
+      "Delete old PUMPOKO to reuse path",
+      "Leave PUMPOKO 02 as canonical after owner requested the swap",
+      "Globally rewrite past git show SHA path references that must stay historical",
+      "Skip the 02 link compatibility bridge"
+    ],
+    "boundaryCases": [
+      "New and old subtrees must preserve original blob SHA for all pre-existing runtime, media and test files except explicitly edited path-bound tests or document title",
+      "Historic tests must continue to read old immutable commit path, while current sources resolve renamed folders",
+      "Staging game HTML still references ../../engine correctly",
+      "No duplicate WORKS ids or guide metadata omissions",
+      "02 redirect must not navigate off-site or drop existing query/hash",
+      "No production assets, scripts or metadata can be changed"
+    ],
+    "testPlan": [
+      "Change Plan Gate full risk/scope/impact against base",
+      "Compile moving work JS and modified tests; updated standalone ZIP Action",
+      "Run existing new and old PUMPOKO and world consistency tests",
+      "Run guide and release-validator tests",
+      "Check both work directory trees and alias paths and basic GitHub Pages availability after staging merge",
+      "Owner mobile/Safari in-town smoke test after CI"
+    ],
+    "problem": "The completed PUMPOKO 02 game is published to itch.io but the repository's canonical works/pumpoko path still points at the older original, and the town catalog has no PUMPOKO game entry.",
+    "currentContract": "Existing original game is at works/pumpoko, new five-stage game is at works/pumpoko-02, the town loads embedded works by data/works.js identity, and historical tests reference immutable Git commit paths. The lifecycle registry preserves identity and path.",
+    "whyExistingIsInsufficient": "Merely renaming two folders would break current test path reads, world consistency Actions, standalone ZIP exporter, and shared direct staging links; it would not install Town Ready / Guide Ready / ghost / update metadata.",
+    "design": "Move the two complete Git trees by object SHA, adapt only path-bound test inputs and the packaging workflow, provide works/pumpoko-02 as a same-site redirect, preserve the original game in works/pumpoko-01, and use existing Leisure Center embedded player plus guide, ghost, update and search metadata without changing shared runtimes.",
+    "migration": "The existing works/pumpoko and works/pumpoko-02 lifecycle IDs retain their stable registered paths. After moving content, works/pumpoko is new canonical game; works/pumpoko-02 becomes redirect; works/pumpoko-01 is a newly registered active archive. Immutable historical Git reference paths stay unchanged.",
+    "compatibility": "No changes to physics, drawing, audio samples or engines. Existing itch.io upload remains unaffected. New game is available from works/pumpoko, old game from works/pumpoko-01; old 02 URL redirects preserving path site prefix, query and hash.",
+    "promotionRisk": "Changing directory paths and Actions CI affects staging workflows; this is not a production release and cannot be used to auto-promote. Mobile iframe input/audio, future OGP art and production release gates remain pending."
+  }
+}
