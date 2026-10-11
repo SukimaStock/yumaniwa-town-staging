@@ -6,7 +6,7 @@
 Search / Share v2 の日英文面・検索語彙・schemaTypeの正本は `data/work-search-meta.js`。
 `w/<id>/` と `en/w/<id>/` と `sitemap.xml` は `tools/generate-work-search-pages.cjs` から生成する。生成物を直接編集しない。
 変更種別と作業の重さは [CHANGE-OPERATIONS.md](CHANGE-OPERATIONS.md) で分類する。
-repository変更前の実行範囲は [CHANGE-PLAN.md](CHANGE-PLAN.md) で固定する。high-risk / PR / promotionではPlan Lockのdigestへ固定する。
+repository変更前の実行範囲は [CHANGE-PLAN.md](CHANGE-PLAN.md) で固定する。high-risk / fast-path対象外PR / promotionではPlan Lockのdigestへ固定する。
 実装後の確認証拠は [CHANGE-VERIFICATION.md](CHANGE-VERIFICATION.md) でexact SHAへ固定する。
 手順は [OPERATIONS.md](OPERATIONS.md)、
 Release完成判定の唯一の正本は [RELEASE-WORKFLOW.md](RELEASE-WORKFLOW.md)。
@@ -20,7 +20,7 @@ Release完成判定の唯一の正本は [RELEASE-WORKFLOW.md](RELEASE-WORKFLOW.
 4. **承認を水増ししない。** 一般的な制作目的への承認、共有UI等の設計承認、production公開承認は別物。Planの `authority` / `ownerDecisions` / `hqDecisions` に文字列を記入するだけでは実際の承認証拠にならない。AIによるHQの設計整理と、作者が持つ選択権を混同しない。
 5. **同じ作業指示を何度も聞き返さない。** 作者から明示されたstaging作業範囲には、必要なbranch・commit・PR・テスト・安全なstagingマージの実行を含めて扱う。新たな設計判断、範囲外の変更、production、接続サービス側の操作承認は別途確認する。
 
-これは作業の**判断原則**であり、既存の `Change PR Gate`・Plan Lock・trusted static checkを無効化しない。現行CIはstaging PRすべてにPlan Lockを要求する。将来の軽量fast-pathは既存ゲートと同等の境界保護を確認してから別変更で導入する。
+これは作業の**判断原則**であり、Plan Lockとtrusted static checkを無効化しない。**隔離された新作だけのfast-path**は、2つのbase-owned検査で実装・検証済み（成功canary #241／遮断canary #242、いずれも未マージ）。対象は、既存のworkを触らず、新しい単一 `works/<slug>/` 以下に通常ファイルだけを追加するPRで、`index.html` が必要。その他すべてのPRは従来のPlan Lockを要求する。productionへの公開承認ではない。
 
 ## 判断権限の4層
 
@@ -49,7 +49,7 @@ runtime patch／compatibility例外、既存ID/URL/保存keyの変更はHQ対象
 ## 作業上の必須ルール
 
 - 作業開始時に対象HEAD・差分・既存契約を読む。並行変更を上書きしない。
-- repository変更では実装前にChange PlanをREADYにする。high-risk / PR / promotionではPlan Lockを実装前に固定し、実装後は Scope Guard → Risk Gate → Impact Check の順で照合する。Plan外path・risk floor違反・core Impact除外・未処理Impactが出たら完了扱いにせず停止する。
+- repository変更では実装前にChange PlanをREADYにする。high-risk / 隔離fast-path対象外PR / promotionではPlan Lockを実装前に固定し、実装後は Scope Guard → Risk Gate → Impact Check の順で照合する。Plan外path・risk floor違反・core Impact除外・未処理Impactが出たら完了扱いにせず停止する。
 - `CHANGE-VERIFICATION.md` 冒頭の現在状態を優先する。final / automatic VERIFIEDは保留。旧v0.2 checkerのexit 0はRecord整合確認であり、trusted verification完了ではない。確認対象SHAと各結果を記録し、AIが観測していない実機確認をPASSにしない。
 - Change OS自身、shared runtime、root HTML/CSS、Service Worker、manifest、未登録executable pathは `tools/change-risk-policy.cjs` の下限を優先する。依頼文が「軽く直して」でもCONTENT/Liteへ落とさない。
 - Change OS自身の更新はstaging mainへ直接積まず、原則branch + locked Plan + PRで検査する。検査toolを変更するPRが自分の変更版だけで自己認証しないよう、trusted base gateを使う。
