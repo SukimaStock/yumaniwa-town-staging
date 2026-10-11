@@ -1,0 +1,169 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "31f634222dde2f4690cc1c68c8ab27078169043f4396ea6cb4edf774cdf9de2f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-search-share-images-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Prepare PUMPOKO's actual user-supplied icon and logo OGP assets, Japanese and English Search/Share landing pages, web app manifest, discoverability and staging release checks without production deployment",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "ASSET",
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "d28965c8c2c127041defb980fababfe4f107b2f9",
+    "canonicalSources": [
+      "RELEASE-WORKFLOW.md",
+      "data/work-search-meta.js",
+      "data/works.js",
+      "data/work-guide-meta.js",
+      "tools/generate-work-search-pages.cjs",
+      "tools/release-validator.cjs",
+      "work-install-meta.js",
+      "index.html",
+      ".github/workflows/release-validator-tests.yml",
+      "w/orbit/manifest.webmanifest",
+      "w/orbit/index.html",
+      "en/w/orbit/index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-search-share-images-20261011/r0.lock.json",
+      "assets/works/pumpoko/icon.png",
+      "assets/works/pumpoko/ogp.jpg",
+      "assets/works/pumpoko/README.md",
+      "data/work-search-meta.js",
+      "w/pumpoko/index.html",
+      "en/w/pumpoko/index.html",
+      "w/pumpoko/manifest.webmanifest",
+      "sitemap.xml",
+      "index.html",
+      ".github/workflows/release-validator-tests.yml",
+      "tests/test-pumpoko-presentation.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpoko-01/**",
+      "works/pumpoko-02/**",
+      "engine/**",
+      "tools/**",
+      "data/works.js",
+      "data/work-lifecycle.json",
+      "data/work-guide-meta.js",
+      "data/ghost-dialogue.js",
+      "data/updates.js",
+      "production/**"
+    ],
+    "expectedChanges": [
+      "Register owner-supplied 1024x1024 PNG icon byte-identically as assets/works/pumpoko/icon.png and 1200x630 JPEG logo byte-identically as assets/works/pumpoko/ogp.jpg",
+      "Correct OGP alt text in the existing Japanese/English Search metadata to describe the provided PUMPOKO logo rather than a gameplay screenshot",
+      "Generate PUMPOKO Japanese and English noindex staging Search/Share pages byte-for-byte from the existing canonical generator without changing any generator code",
+      "Provide a 1024x1024 icon-based web app manifest for ?work=pumpoko",
+      "Add PUMPOKO to staging's explicit ten-work Search/Share generator/sitemap/Release Validator published set",
+      "Provide one static keyboard-accessible search link in the town root navigation, preserving all other root HTML",
+      "Add an image contract regression test and upload guide for the two asset files",
+      "Keep all existing nine published Search/Share pages byte-identical"
+    ],
+    "ownerDecisions": [
+      "User reported actual PUMPOKO startup success in town and supplied final square pumpkin PNG plus horizontal PUMPOKO-logo JPEG on 2026-10-11, then asked to complete remaining tasks and identify any required user steps"
+    ],
+    "hqDecisions": [
+      "The only allowed shared changes are adding the 10th work to the explicit staging metadata validation and sitemap, plus one static work link; full Plan/Risk/Impact gates must pass",
+      "The two exact binary images require a manual GitHub upload to this PR branch because connected GitHub write methods only accept UTF8 text and cannot ingest user image file refs",
+      "No production promotion is authorized; staging remains noindex and no production repository is modified"
+    ],
+    "rulesApplied": [
+      "Full locked Plan first commit; do not revise a lock after registration",
+      "Generated Search/Share v2 must exactly match tools/generate-work-search-pages.cjs",
+      "PUMPOKO remains active staging, not an implicitly promoted candidate",
+      "Original supplied images are not regenerated"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Ensure icon.png exactly matches the owner's 1024x1024 PNG and ogp.jpg exactly matches 1200x630 JPEG before merge",
+      "Check staged PUMPOKO JA/EN pages, navigation from pages to town, and iPhone Safari presentation of OGP and guide image",
+      "Verify opening PUMPOKO in town, sound/BGM, controls and returning to town; report actual observations",
+      "Review Japanese/English Search copy and logo card against accepted source image before production decision"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "surface.shared",
+      "runtime.regression",
+      "risk.high-risk-review",
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "search.generated-pages",
+      "search.sitemap",
+      "search.localized-copy",
+      "search.structured-data",
+      "search.validator"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "The exact user-supplied icon.png and ogp.jpg are required before CI can pass and before any staging merge",
+      "Existing original Search/Share v2 generator and Release Validator unchanged",
+      "Existing town work player, guide and home-screen install script"
+    ],
+    "rollback": "Close unmerged PR if assets are unavailable, or revert one staging merge; never affect production",
+    "outOfScope": [
+      "Production candidate/promotion/release",
+      "Changing PUMPOKO game runtime or BGM",
+      "Editing existing nine work Search pages/metadata",
+      "Adding new shared runtime/player code or analytics",
+      "Publishing to social media or editing itch.io entry"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual GitHub image upload and staging Pages deployment are pending",
+      "On-device confirmation of Return to Town and BGM not explicitly verified beyond user's successful startup report",
+      "Live OGP social crawlers and production availability are pending future explicit release"
+    ],
+    "alternativesRejected": [
+      "Reference a missing OGP image and silently declare Search Ready",
+      "Regenerate or invent replacements for the exact images the user provided",
+      "Upload to production directly before staging checks",
+      "Put user image bytes or private download links in GitHub Actions sources"
+    ],
+    "boundaryCases": [
+      "PNG must be actual 1024x1024 and JPEG 1200x630, with correct MIME and no external URL dependency",
+      "New PUMPOKO manifest icon path resolves to the same canonical asset in both English and Japanese",
+      "Existing nine Search/Share pages remain exactly unchanged",
+      "English/Japanese noindex staging pages have canonical production URLs and bidirectional hreflang/x-default; sitemap is the explicit ten-work set",
+      "The root static navigation adds only PUMPOKO and does not change town game runtime",
+      "Missing images must cause CI to fail; do not merge until both upload and validation succeed"
+    ],
+    "testPlan": [
+      "Use trusted Plan Lock / Scope / Risk / Impact / Static checks",
+      "Run canonical generator --check --env staging --published exact ten-work set",
+      "Run existing Release Validator against exact ten-work staging set plus new work ID",
+      "Check OGP and icon presence/types/dimensions with a targeted Node regression test",
+      "On iPhone verify in-town work launch, controls, BGM and return; Share page links and logo",
+      "GitHub Pages staging SHA and noindex only; do not claim production Ready"
+    ],
+    "problem": "The completed PUMPOKO 02 game is published to itch.io but the repository's canonical works/pumpoko path still points at the older original, and the town catalog has no PUMPOKO game entry.",
+    "currentContract": "Existing original game is at works/pumpoko, new five-stage game is at works/pumpoko-02, the town loads embedded works by data/works.js identity, and historical tests reference immutable Git commit paths. The lifecycle registry preserves identity and path.",
+    "whyExistingIsInsufficient": "Merely renaming two folders would break current test path reads, world consistency Actions, standalone ZIP exporter, and shared direct staging links; it would not install Town Ready / Guide Ready / ghost / update metadata.",
+    "design": "Move the two complete Git trees by object SHA, adapt only path-bound test inputs and the packaging workflow, provide works/pumpoko-02 as a same-site redirect, preserve the original game in works/pumpoko-01, and use existing Leisure Center embedded player plus guide, ghost, update and search metadata without changing shared runtimes.",
+    "migration": "The existing works/pumpoko and works/pumpoko-02 lifecycle IDs retain their stable registered paths. After moving content, works/pumpoko is new canonical game; works/pumpoko-02 becomes redirect; works/pumpoko-01 is a newly registered active archive. Immutable historical Git reference paths stay unchanged.",
+    "compatibility": "No changes to physics, drawing, audio samples or engines. Existing itch.io upload remains unaffected. New game is available from works/pumpoko, old game from works/pumpoko-01; old 02 URL redirects preserving path site prefix, query and hash.",
+    "promotionRisk": "Changing directory paths and Actions CI affects staging workflows; this is not a production release and cannot be used to auto-promote. Mobile iframe input/audio, future OGP art and production release gates remain pending."
+  }
+}
