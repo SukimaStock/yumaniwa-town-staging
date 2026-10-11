@@ -1,0 +1,97 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "60203b3a86022067cbb72dd79d159fd46afaaebe4114e5a49d67f9043566042d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-feel-lab-bd-variants-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add four B→D felt-fun controlled variants: unchanged baseline, shorter/longer D flat, and B→D→B replay, while preserving all earlier FEEL LAB studies",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "30112d5dcf78a97dc10ba9d2bc20aa4475198fe4",
+    "canonicalSources": [
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-feel-lab/ORDER-REVIEW.md",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-feel-lab-bd-variants-20261011/r0.lock.json",
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-feel-lab/BD-REVIEW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/**",
+      "works/pumpoko/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Preserve reference B→D geometry exactly; generate shorter/longer flat exclusively by changing x-spacing in flat section of D while leaving other authored slopes and y positions unchanged",
+      "Append original B to unchanged B→D using existing 180-unit Hermite connector; avoid speed or gravity changes",
+      "Add a compact fourth lab selector with four variants, usable with either ROLL or BOUNCE, keeping all previous 8 single, 4 chains, 4 order comparisons available",
+      "Show optional qualitative feedback that separates replay value from pass/fail, save chosen course and actual geometry under existing localStorage key",
+      "Ensure viewport and touch hold continue to work, version asset URLs to avoid Safari stale scripts, and draw only visible terrain interval for long courses",
+      "Validate exact PUMPOKO 02 physics and Hermite contact, original BD parity, geometry continuity, controls, save, traversal and camera bounds"
+    ],
+    "ownerDecisions": [
+      "User explicitly agreed to proceed after both ROLL and BOUNCE found B→D intrinsically fun; follow latest agreed four-variant experiment, while keeping challenge/clear enjoyment separate"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh staging main and existing FEEL LAB code read",
+      "READY Plan Lock committed first",
+      "Staging WORK-only scope; original game and shared runtime protected",
+      "Previously observed cache/layout regressions guarded"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "All four B→D experiment buttons work in iPhone Safari, both characters visible and controllable",
+      "Original B→D identical to established enjoyable version",
+      "Flat length difference observable; B→D→B joint smooth and replayable",
+      "Observe desire to replay independent of success; subjective judgment to owner"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing unmodified PUMPOKO 02 physics/world/artwork and work-local canvas"
+    ],
+    "rollback": "Revert isolated staging PR, preserving source experiments",
+    "outOfScope": [
+      "Edit PUMPOKO 02 levels or physics constants",
+      "New gap, handoff, score, speed boost, goal or unlock",
+      "Production release"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real-device Safari motion/feel and subjective fun remain owner evaluation",
+      "Formal verificationState UNVERIFIED"
+    ]
+  }
+}
