@@ -240,6 +240,13 @@
       "title": "PUMPOKO / 01（旧版）",
       "family": "PUMPOKO",
       "theme": "カボチャから始まった最初のころころの旅"
+    },
+    {
+      "id": "sukima-3d-lab",
+      "path": "works/sukima-3d-lab",
+      "status": "active",
+      "title": "SukimaStock 3D · Touch Lab v0.1",
+      "theme": "小さな立体を押す、回す、離して余韻を触る"
     }
   ]
 }
