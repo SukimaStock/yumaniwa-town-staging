@@ -1,0 +1,112 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d2777b61c11c772756064aa44caa1b46785f67e529949e9b4c8ec8c3d93f2a8a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-stage4-choice-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Integrate FEEL LAB choice-of-retreat in STAGE 4 with an additive shallow basin / long flat / challenge gap after all four existing cliffs, preserving the surprising higher far-side bank and downstream Stage 5 final ending by rigid translation",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "251f9da7937cf268d718c1410e2cd4bafde91be2",
+    "canonicalSources": [
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/tests/stage3-extension.test.cjs",
+      "works/pumpoko-02/tests/phrases-reference.cjs",
+      "works/pumpoko-02/tests/five-stage-reference.cjs",
+      "works/pumpoko-02/tests/five-stage-review.cjs",
+      "works/pumpoko-02/tests/five-stages.test.cjs",
+      "works/pumpoko-feel-lab/RETREAT-REVIEW.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-stage4-choice-20261011/r0.lock.json",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/STAGE-4-EXTENSION.md",
+      "works/pumpoko-02/tests/stage4-extension.test.cjs",
+      "works/pumpoko-02/tests/phrases-reference.cjs",
+      "works/pumpoko-02/tests/stage3-extension.test.cjs",
+      "works/pumpoko-02/tests/five-stages.test.cjs",
+      "works/pumpoko-02/tests/stage3.test.cjs",
+      "works/pumpoko-02/tests/phrases.test.cjs",
+      "works/pumpoko-02/tests/five-stage-controls.cjs",
+      "works/pumpoko-02/tests/phrases-review.cjs",
+      "works/pumpoko-02/tests/five-stage-reference.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/draw.js",
+      "works/pumpoko-02/index.html",
+      "works/pumpoko-feel-lab/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Preserve all 4 existing stage4 gaps, heights, Hermite banks and surprise higher receiving bank exactly, and all pre-insertion stage4 ground points",
+      "Insert a rounded momentum basin followed by a long level shelf and one mid-shelf physical gap accessible by momentum and optionally voluntary retreat; do not force a stop/reverse or increase physics boost",
+      "Extend stage4 in X while rigidly translating only its tail and stage5 ground/gaps/final goal; update Stage4 cellar roof/exit, stage5 socket/start/end, bridge, goal and finale without altering end-shot shape",
+      "Keep Stage1-3, earlier Stage3 added terrain, former four gaps, both stages' checkpoint boundaries and screen touch unchanged",
+      "Explicitly test height of formerly tricky bank, exact earlier four cliff morphology, physical failure with insufficient momentum and at least one natural crossing, full title-to-title 30/60/120 fps tests",
+      "Update historical coordinate-based golden comparisons only with strictly specified new Stage4 normalization, not general loosened equivalence"
+    ],
+    "ownerDecisions": [
+      "User explicitly approves adding FEEL LAB findings to stage4 but protects the unexpectedly higher far shore shown in their real iPhone screenshot as a desirable stumbling point; additive integration not replacement"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh staging main/current STAGE 4 curve and tests verified",
+      "Plan Lock as first commit",
+      "Production and common runtime protected",
+      "User's iPhone observation has design priority over automation"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Observe retained high far-side obstacle on real device",
+      "Try low-speed direct and voluntary backwards run-up at added gap; verify both possible choices remain under physical control",
+      "Check total stage4 retry time and ceiling on iPhone",
+      "Check later stage5 pocket and finale",
+      "Preserve previously good stage3 feel and normal handoffs"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "PUMPOKO 02 existing Physics/World/Story and authored Stage 4 Hermite geometry"
+    ],
+    "rollback": "Revert staging-only PR",
+    "outOfScope": [
+      "Change protected high far shore or other existing stage4 difficulty",
+      "Tune fruit physics/boost, add checkpoint or UI hints",
+      "Modify production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone scene feel and subjective decision are UNVERIFIED until user testing",
+      "Formal verificationState UNVERIFIED"
+    ]
+  }
+}
