@@ -1,0 +1,126 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e973352cd8b4261ed16c410809b08df71bbb599e2ddb037fa338a0a5272592af",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "install-contained-pr-gate-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Install the one preauthorized trusted PR Gate blob for bounded single active-work changes and clean the static registry to steady, preserving standard Plan route for all other changes.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "5b2eebb16473bef7a29946f3cfc1351350c43615",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-pr-gate.yml",
+      "tools/change-static-check.cjs",
+      "tools/staging-isolation-fastpath.cjs",
+      "tools/staging-contained-change-proof.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/install-contained-pr-gate-20261011/r0.lock.json",
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-pr-gate.yml"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/change-verification.yml",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/staging-isolation-fastpath.cjs",
+      "works/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "tools/staging-contained-change-proof.cjs"
+    ],
+    "expectedChanges": [
+      "Swap only .github/workflows/change-pr-gate.yml from f2eaa9886d851313c9a041d5e9376f97002d4ead to preauthorized exact blob 6da0752cc0a58c589a2100280baceabe748bb0df.",
+      "Registry pending -> steady; bump version 2026-10-11.6, preserve all contract expected blobs and other definitions.",
+      "New trusted PR Gate may classify one bounded lifecycle-active existing-work edit using pinned 8c826e9c20078cc3e35bddf61a4dee533b664e20; all other PRs including frozen/candidate/released and shared root keep Plan checks.",
+      "Independent trusted Verification gate still requires a Plan Lock; end-to-end relaxed route remains disabled until independent authorization and transition."
+    ],
+    "ownerDecisions": [
+      "User authorized staging-only risk-aligned CI simplification of active local edits; preserve frozen/released/candidate and production."
+    ],
+    "hqDecisions": [
+      "Only preauthorized exact blob is installable; compare Git SHA before merge.",
+      "Current new-work route and legacy Plan path remain intact.",
+      "No verification workflow change here."
+    ],
+    "rulesApplied": [
+      "Keep existing PR Lock intact in first phase",
+      "Avoid broad glob path allowlists in gate",
+      "No publication or lifecycle status changes",
+      "No untrusted scripts in privileged checks"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Confirm installed workflow blob exactly preauthorized SHA",
+      "Confirm registry cleanup and protected verifier stays unchanged",
+      "Run legacy Plan CI and regression checks"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Pending registry base 5b2eebb16473bef7a29946f3cfc1351350c43615",
+      "Exact PR Gate target 6da0752cc0a58c589a2100280baceabe748bb0df",
+      "Pinned new-work classifier 78305495d3e85f9fdc319acf6ce90834257b8087",
+      "Pinned contained classifier 8c826e9c20078cc3e35bddf61a4dee533b664e20"
+    ],
+    "rollback": "Revert registry-only authorization before implementing protected workflow; do not change production.",
+    "outOfScope": [
+      "Changing .github workflow file in this PR",
+      "Activating fastpath in this PR",
+      "Changing production or Work lifecycle"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Not end-to-end active until independent verification workflow is transitioned and no-lock canaries pass"
+    ],
+    "alternativesRejected": [
+      "Self-authorize candidate workflow",
+      "Bypass verification workflow",
+      "Trust mutable candidate classifier"
+    ],
+    "boundaryCases": [
+      "Ineligible PR always requires existing Plan Lock checks",
+      "Workflow classifier SHA mismatch fails closed",
+      "Pending to steady registry cleanup"
+    ],
+    "testPlan": [
+      "Confirm one-path registry cleanup",
+      "Run current trusted previous-base gate",
+      "Negative change still fails no-lock",
+      "Later update verification workflow"
+    ],
+    "problem": "PR Gate target is preauthorized but current workflow still lacks bounded active edit classification.",
+    "currentContract": "Static registry pending from f2eaa... to 6da075... on PR Gate; current file is old.",
+    "whyExistingIsInsufficient": "Existing single active-work edits still require Plan Lock in both workflows.",
+    "design": "Install exact protected PR Gate workflow and restore registry steady, preserving original normal path.",
+    "migration": "Install PR Gate only, then independently preauthorize and install verification workflow, and run positive and negative unmerged canaries.",
+    "compatibility": "No shared world/Engine or production change; normal Plan path unaffected.",
+    "promotionRisk": "Do not claim Plan-free existing edits functional until second workflow and canaries pass."
+  }
+}
