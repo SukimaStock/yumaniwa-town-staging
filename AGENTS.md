@@ -20,7 +20,7 @@ Release完成判定の唯一の正本は [RELEASE-WORKFLOW.md](RELEASE-WORKFLOW.
 4. **承認を水増ししない。** 一般的な制作目的への承認、共有UI等の設計承認、production公開承認は別物。Planの `authority` / `ownerDecisions` / `hqDecisions` に文字列を記入するだけでは実際の承認証拠にならない。AIによるHQの設計整理と、作者が持つ選択権を混同しない。
 5. **同じ作業指示を何度も聞き返さない。** 作者から明示されたstaging作業範囲には、必要なbranch・commit・PR・テスト・安全なstagingマージの実行を含めて扱う。新たな設計判断、範囲外の変更、production、接続サービス側の操作承認は別途確認する。
 
-これは作業の**判断原則**であり、Plan Lockとtrusted static checkを無効化しない。**隔離された新作だけのfast-path**は、2つのbase-owned検査で実装・検証済み（成功canary #241／遮断canary #242、いずれも未マージ）。対象は、既存のworkを触らず、新しい単一 `works/<slug>/` 以下に通常ファイルだけを追加するPRで、`index.html` が必要。その他すべてのPRは従来のPlan Lockを要求する。productionへの公開承認ではない。
+これは作業の**判断原則**であり、Plan Lockとtrusted static checkを無効化しない。**Plan Lockなしのstaging PR**は、①完全に新規の単一 `works/<slug>/` への通常ファイル追加（`index.html`必須）、②基準SHAのライフサイクルが `active` の単一既存work内だけで完結する小変更（最大4件、通常ファイルのみ、編集行数・patchサイズ・blobサイズに制限）に限る。両方ともbase-owned固定判定器がGit差分・mode・blobと必要なら基準の台帳を検査する。`frozen` / `candidate` / `released`、町の共有UI、Engine、複数work、Work台帳、削除・改名・ビルド／公開ファイルなどは対象外。実施結果はcanary #250〜#255（すべて未マージ）で確認済み。既存のworkの操作感や表示品質を作者が承認した証拠にはならず、productionへの公開承認でもない。
 
 ## 判断権限の4層
 
