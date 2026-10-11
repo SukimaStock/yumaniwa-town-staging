@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5e76945e53765a5d29e2441e7da87df55c6559bdd6d59996a931ee3a9ebe38cd",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "prototype-fast-path-proof-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Implement and adversarially test a trusted-base isolated new-work fast-path classifier, without activating it in privileged PR gates, to prepare safely reducing Plan Lock overhead for true staging-only prototypes.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "4536f1596bc6d2a76676521199aaf08b35011397",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "tools/change-risk-policy.cjs",
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      ".github/workflows/change-operations-tests.yml"
+    ],
+    "allowedPaths": [
+      ".change-plans/prototype-fast-path-proof-20261011/r0.lock.json",
+      "tools/staging-isolation-fastpath.cjs",
+      "tests/test-staging-isolation-fastpath.cjs",
+      ".github/workflows/change-operations-tests.yml"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      "tools/change-static-check-registry.json",
+      "tools/change-risk-policy.cjs",
+      "tools/change-**",
+      "main.js",
+      "engine/**",
+      "index.html",
+      "style.css",
+      "data/**",
+      "works/**",
+      "w/**",
+      "en/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Create read-only base/head Git-tree classifier that admits only one entirely new standalone works/<slug>/ directory, created solely via regular non-executable blobs and with index.html, while rejecting updates, deletions, existing works, shared files, symlinks, large input and bad paths.",
+      "No path or output may be derived from candidate-executed code; classifier is a trusted-base tool candidate content only as read-only Git data.",
+      "Add positive and adversarial fixture tests using actual git repositories, including base/candidate SHA checks, symlink and deleted/replaced/second-work/shared paths.",
+      "Run new tests in existing read-only Change Operations Tests workflow; do not modify privileged PR gate or verification workflow in this step.",
+      "Existing PRs still require immutable first-commit Plan Lock; fast path not active until separately authorized exact-blob transitions and both trusted workflows support it."
+    ],
+    "ownerDecisions": [
+      "Owner approved 2026-10-11 simplification: isolated prototypes should be light, existing/shared and public systems protected, reversions simple; CI implementation to proceed in staging only."
+    ],
+    "hqDecisions": [
+      "Fail closed: only one brand-new never-present work dir and additions exclusively there; no lifecycle registry, shared engine, town root, published work or GitHub workflow changes.",
+      "Use secure trusted-base version, never run candidate JS/test or workflow in privileged context.",
+      "This PR is an independently useful validation prerequisite only; avoid changing protected exact-blob contracts and workflows until evidence proves classification."
+    ],
+    "rulesApplied": [
+      "Keep existing PR Lock intact in first phase",
+      "Avoid broad glob path allowlists in gate",
+      "No publication or lifecycle status changes",
+      "No untrusted scripts in privileged checks"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review matcher accepts a fresh demo work and rejects old works, shared files, symlinks and deceptive path inputs",
+      "Inspect all new tests and security boundary before any gate integration"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Exact trusted staging main 4536f1596bc6d2a76676521199aaf08b35011397",
+      "Git CLI and Node available in GitHub Actions checkout",
+      "Workflow tests use read-only token and unchanged trusted gates"
+    ],
+    "rollback": "Revert this isolated staging PR without affecting any production or existing gate; tool is inert until future integration.",
+    "outOfScope": [
+      "Making fast path active in current trusted gates",
+      "Changing existing exact-blob registry or any public or product deployment",
+      "Automatically publishing or registering new works in town"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "No fast-path CI behavior claimed until integration and independent canary success",
+      "Owner iPhone confirmation irrelevant for read-only tool"
+    ],
+    "alternativesRejected": [
+      "Immediately bypass all existing PR gates with a filename-only check",
+      "Allow data/works.js or lifecycle modification in isolated route",
+      "Trust candidate-controlled Plan flags or workflow scripts to decide exemption",
+      "Relax production public promotion"
+    ],
+    "boundaryCases": [
+      "Entire fresh dir only, no existing work additions",
+      "Fail closed for rename/delete/mixed PR, symlink/mode changes, odd Unicode paths, multiple works",
+      "Reject empty or oversized input and missing index.html",
+      "No modification to protected security contract in Phase 1"
+    ],
+    "testPlan": [
+      "Check Plan Lock first from fixed base, run trusted Scope/Risk/Impact/Static tests",
+      "Run new pure and real-git CLI adversarial fixtures plus existing Change Operations regression",
+      "Verify no current gate workflow changed and fast-path remains inactive",
+      "Consider separately staged trusted-workflow migration only after passing evidence"
+    ],
+    "problem": "All PRs require first-commit immutable full Plan structure, even isolated new experiments; need bounded safe classification before altering privileged gates.",
+    "currentContract": "All PRs are mediated by base-owned pull_request_target workflows and static exact-blob contracts; unverified human review remains UNVERIFIED.",
+    "whyExistingIsInsufficient": "Risk policy mainly distinguishes file families and Plan labels, not provably new isolated work roots; granting light path without independent proof could exempt dangerous existing/shared changes.",
+    "design": "New stand-alone base/head Git-tree classifier with closed allowlist and deterministic output plus independent regression test suite, wired only to unprivileged existing test workflow.",
+    "migration": "Follow up with separate registry-authorized workflow updates only after deterministic positive/negative checks, while retaining old immutable Plan path for all ineligible changes.",
+    "compatibility": "No effective CI/security gate behavior changes in this PR; all current works and production remain unmodified.",
+    "promotionRisk": "Never use fast classification to authorize production or scene registration; fail closed on any non-isolated change."
+  }
+}
