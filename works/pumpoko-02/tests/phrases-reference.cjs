@@ -2,7 +2,37 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),{execFileSync}=require('node:child_process'),C=require('../courses.js'),{BASE,previous}=require('./phrases-review.cjs');
 const json=v=>JSON.stringify(v);
 function protect(){
- const c=C.get('world4'),old=previous().FruitLabCourses.get('world4');
+ const raw=C.get('world4'),old=previous().FruitLabCourses.get('world4');
+ // Historical phrase baselines predate the new additive STAGE 3 interlude.
+ // Undo only its rigid downstream translation for the old snapshot assertions;
+ // the new independent extension test protects the inserted terrain itself.
+ const c=JSON.parse(JSON.stringify(raw)),delta=c.feel3?.shift||0;
+ if(delta){
+   const join=c.feel3.joinX,oldTail=old.curves.return.find(p=>p[0]>join)[0];
+   c.curves.return=[
+     ...c.curves.return.filter(p=>p[0]<=join),
+     ...c.curves.return.filter(p=>p[0]>=oldTail+delta).map(p=>[p[0]-delta,p[1],p[2]])
+   ];
+   for(const layer of ['underground2','finish'])
+     c.curves[layer]=c.curves[layer].map(p=>[p[0]-delta,p[1],p[2]]);
+   c.gaps=c.gaps.filter(g=>g.id!=='stage3-feel').map(g=>g.stage>=4?{...g,a:g.a-delta,b:g.b-delta}:g);
+   for(const h of c.holes.slice(2))h.x-=delta;
+   for(const h of c.finale.holes)h.x-=delta;
+   for(const points of Object.values(c.finale.curves))for(const p of points)p[0]-=delta;
+   for(const cell of c.finale.cellars)
+     for(const k of ['left','right','roofStart','exitX'])cell[k]-=delta;
+   for(const gap of c.finale.gaps){gap.a-=delta;gap.b-=delta;}
+   c.finale.goal.x-=delta;c.finale.finishX-=delta;
+   for(const k of ['left','right','roofStart','exitX'])c.cellars[1][k]-=delta;
+   for(const k of ['until','roofStart','exitX'])c.cellars[1].entryRoof[k]-=delta;
+   for(const k of ['a','b'])c.surfaceBridges[1][k]-=delta;
+   c.goal.x-=delta;c.finishX-=delta;c.goalOffset-=delta;
+   c.offsets.underground2-=delta;c.offsets.finish-=delta;
+   c.exitOffsets[2]-=delta;c.exitOffsets[3]-=delta;
+   c.stages[2].endX-=delta;
+   for(const spec of c.stages.slice(3)){spec.startX-=delta;spec.endX-=delta;spec.spawnX-=delta;}
+   delete c.feel3;
+ }
  for(const key of Object.keys(old).filter(k=>!['curves','gaps'].includes(k)))assert.equal(json(c[key]),json(old[key]),key+' exact base');
  assert.equal(json(c.curves.return),json(old.curves.return),'accepted STAGE 3 exact');assert.equal(json(c.gaps.filter(g=>g.stage===3)),json(old.gaps.filter(g=>g.stage===3)));
  const bounds={surface:p=>![3270,3580].includes(p[0]),underground:p=>p[0]<7060||p[0]>9120,underground2:p=>p[0]<22340||p[0]>=24650,finish:p=>p[0]<31130||p[0]>32595};
