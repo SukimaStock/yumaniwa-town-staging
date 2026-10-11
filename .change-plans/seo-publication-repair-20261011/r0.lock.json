@@ -1,0 +1,111 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c8daf36dfeb1cd490f6c10cba4dc52a61ed03ff09f7d4be84095902d63e27b58",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "seo-publication-repair-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reconcile published PUMPOKO lifecycle and ten-work sitemap/CI; document weekly export-based SEO observation in the existing runbook",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "8ca32d7a2178487992065077f8de25bf626a557c",
+    "canonicalSources": [
+      "data/work-lifecycle.json",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "tools/generate-work-search-pages.cjs",
+      "OPERATIONS.md",
+      "tests/test-release-validator.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/seo-publication-repair-20261011/r0.lock.json",
+      "data/work-lifecycle.json",
+      "sitemap.xml",
+      ".github/workflows/release-validator-tests.yml",
+      "OPERATIONS.md",
+      "tests/test-release-validator.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "engine/**",
+      "works/**",
+      "assets/**",
+      "w/**",
+      "en/**",
+      "tools/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/work-guide-meta.js"
+    ],
+    "expectedChanges": [
+      "Record already-authorized production PR51 and observed live PUMPOKO release only; do not promote another work",
+      "Regenerate sitemap through unchanged generator for the explicit current ten-work set; add pumpoko to the existing two CI commands",
+      "Add compact observe/improve instructions and update the obsolete nine-work examples within OPERATIONS.md; no new dashboard, rule document, tracker or approval stage",
+      "Update only stale PUMPOKO not-yet-published test oracle to released with both sitemap locales; retain staging noindex, generated page, manifest and asset hash assertions."
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Read-only production JA/EN/game/OGP live checks; existing Search pages and representative launch/return in browser; physical devices UNVERIFIED"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "2026-10-11 current user request authorizes SEO operation audit and safe staging fixes including branch/commit/PR/CI/merge. No production changes or external settings."
+    ],
+    "hqDecisions": [
+      "Use existing Generator, Validator, lifecycle and release-validator CI. Only extend its explicit audited published set to include already public PUMPOKO; preserve every existing test and gate. No contract change."
+    ],
+    "rollback": "Revert these four implementation files through a staging PR; preserve unrelated changes and production.",
+    "promotion": "none; staging-only operation repair",
+    "unverified": [
+      "Physical iPhone/iPad; Search Console/GA4 account access and metrics; external card renderer; Plausible current ingestion"
+    ],
+    "problem": "Staging sitemap/CI still cover nine works and PUMPOKO remains candidate although production release is merged/live. Weekly observation has no concise existing entry.",
+    "currentContract": "Explicit published IDs; unchanged Search Generator and Release Validator; lifecycle records authorized release evidence; production and staging remain separate.",
+    "whyExistingIsInsufficient": "The existing tools are sufficient; their staging inputs and two fixed CI ID lists are stale. Current runbook lacks a weekly observation handoff.",
+    "design": "Update existing inputs/runbook and explicit CI publication lists only. Preserve every existing validator and safety gate.",
+    "migration": "No code/schema/storage migration; recorded candidate->released acknowledges already authorized release.",
+    "compatibility": "No public URL, runtime, launch, image, tracker or page layout changes.",
+    "promotionRisk": "No production write; production registry remains candidate and is reported separately.",
+    "alternativesRejected": [
+      "New SEO panel/dashboard/docs/tracker or automated publishing",
+      "Copy staging into production or infer public set from open works"
+    ],
+    "boundaryCases": [
+      "All active/frozen works stay excluded",
+      "Released recording is not Release Complete or physical-device attestation",
+      "Missing/stale metrics remain UNVERIFIED; search result presence is not measured volume"
+    ],
+    "testPlan": [
+      "Existing lifecycle and Release Validator/guide tests",
+      "Unchanged generator --check and ten-work staging validator",
+      "Scope->Risk->Impact->base-owned static check and remote CI",
+      "Read-only public file byte checks and representative browser display/launch",
+      "Current pre-repair baseline has 59/59 passing but lacks PUMPOKO sitemap; observed repair exposes exactly one stale publication assertion. No validator or protection semantics change."
+    ]
+  }
+}
