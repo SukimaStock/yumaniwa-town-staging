@@ -27,7 +27,7 @@
     update(dt){
       if(root.SSE.input.actionPressed('reset')){reset();return;}
       applyMusicGate();
-      if(state.phase==='title'&&root.SSE.input.actionPressed('start')){S.start(state);root.SSE.audio.play('shell');}
+      if(state.phase==='title'&&root.SSE.input.actionPressed('start')){S.start(state);root.SSE.audio.play('shell',{playbackRate:.82});}
       const axis=pointer!==null?touchAxis:Number(root.SSE.input.action('right'))-Number(root.SSE.input.action('left'));
       const previous=state.phase;sound(S.update(state,freshInput?0:axis,dt));
       if(previous!==state.phase){
@@ -50,7 +50,7 @@
       if(state.phase==='title'){
         const names=new Map([[root.BEGAN,'began'],[root.MOVING,'moving'],[root.ENDED,'ended'],[root.CANCELLED,'cancelled']]);
         if(D.touch(state.prologue,{...t,state:names.get(t.state)})){
-          if(t.state===root.BEGAN){pointer=t.id;root.SSE.audio.play('shell');}
+          if(t.state===root.BEGAN){pointer=t.id;root.SSE.audio.play('shell',{playbackRate:.82});}
           else if(t.state===root.ENDED||t.state===root.CANCELLED){pointer=null;touchAxis=0;}
         }
         return true;

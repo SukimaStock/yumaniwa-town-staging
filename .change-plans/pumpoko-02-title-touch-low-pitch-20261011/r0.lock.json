@@ -1,0 +1,88 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e8cf949806e4a361e6b9a94020e3a91eac6aea06433868b976cf258dd7c861b6",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-title-touch-low-pitch-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Lower only title pumpkin shell playback pitch to .82x (normal volume); preserve its handoff/seat uses and the entire game",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "bcc63951c021e41cf0eb724f079ac043e4d66739",
+    "canonicalSources": [
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/index.html",
+      "engine/sukimastock-engine.v0.3.0.js",
+      "works/pumpoko-02/tests/harness.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-title-touch-low-pitch-20261011/r0.lock.json",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/tests/title-touch-pitch.test.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/audio/**",
+      "works/pumpoko-02/index.html",
+      "engine/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Apply per-play .82 playbackRate only to shell.wav when title pumpkin is touched or keyboard title start action",
+      "Preserve default shell volume/playback and existing handoff/seat/other sound event paths",
+      "Add focused title and non-title regression, retain all other files intact"
+    ],
+    "ownerDecisions": [
+      "User asks to try only lower pitch on the title pumpkin contact; no other effect changes"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh staging main and audio engine reviewed",
+      "Isolated Plan Lock first commit",
+      "No production/common runtime modifications"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone title touch sounds lower without losing softness",
+      "Handoff, goal, other effects and BGM sound identical to prior release"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing buffer playbackRate in Engine 0.3.0"
+    ],
+    "rollback": "Revert staging PR",
+    "outOfScope": [
+      "Change sound WAV or BGM bytes",
+      "Tune other volume or sound triggers",
+      "Update production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Human iPhone listening and formal verificationState remain UNVERIFIED"
+    ]
+  }
+}
