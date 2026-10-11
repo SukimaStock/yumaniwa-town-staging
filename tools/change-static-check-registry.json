@@ -1,7 +1,7 @@
 {
   "schema": "yumaniwa-trusted-static-check-registry/0.1",
-  "version": "2026-10-11.9",
-  "transitionPolicy": "pending:.github/workflows/change-pr-gate.yml:6da0752cc0a58c589a2100280baceabe748bb0df:fbcfea411d63e81181c426c544b5593aab8fa025",
+  "version": "2026-10-11.10",
+  "transitionPolicy": "steady",
   "checks": {
     "change-operations-regression": {
       "definitionVersion": "2",
