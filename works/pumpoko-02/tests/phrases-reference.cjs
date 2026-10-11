@@ -1,10 +1,31 @@
 'use strict';
 const assert=require('node:assert/strict'),fs=require('node:fs'),{execFileSync}=require('node:child_process'),C=require('../courses.js'),{BASE,previous}=require('./phrases-review.cjs');
 const json=v=>JSON.stringify(v);
+// Reverse exactly the *new* STAGE 5 interlude for historical shape checks.
+// Prior stages, mouth and original final approach remain strict comparands.
+function withoutStage5(raw){
+ const c=JSON.parse(JSON.stringify(raw)),cfg=c.feel5;
+ if(!cfg)return c;
+ const d=cfg.shift,tailFrom=cfg.points.at(-1)[0];
+ c.curves.finish=[
+  ...c.curves.finish.filter(p=>p[0]<=cfg.joinX),
+  ...c.curves.finish.filter(p=>p[0]>tailFrom).map(p=>[p[0]-d,p[1],p[2]])
+ ];
+ c.gaps=c.gaps.filter(g=>!['stage5-mastery-1','stage5-mastery-2'].includes(g.id));
+ c.goal.x-=d;c.finishX-=d;c.goalOffset-=d;c.stages[4].endX-=d;
+ for(const points of Object.values(c.finale.curves))for(const p of points)p[0]-=d;
+ for(const h of c.finale.holes)h.x-=d;
+ for(const cell of c.finale.cellars)
+  for(const k of ['left','right','roofStart','exitX'])cell[k]-=d;
+ for(const g of c.finale.gaps){g.a-=d;g.b-=d;}
+ c.finale.goal.x-=d;c.finale.finishX-=d;
+ delete c.feel5;
+ return c;
+}
 // Undo exactly the approved STAGE 4 insert for old pre-Stage-4 snapshots.
 // This is a pure golden-reference adapter; the real course is never modified.
 function withoutStage4(raw){
- const c=JSON.parse(JSON.stringify(raw)),cfg=c.feel4;
+ const c=withoutStage5(raw),cfg=c.feel4;
  if(!cfg)return c;
  const d=cfg.shift,tailFrom=cfg.points.at(-1)[0];
  c.curves.underground2=[
@@ -73,4 +94,4 @@ function protect(){
  for(const layer of Object.keys(bounds))assert.ok(c.curves[layer].every((p,i)=>!i||p[0]>c.curves[layer][i-1][0]));
  return {c,old};
 }
-module.exports={protect,withoutStage4,BASE};
+module.exports={protect,withoutStage5,withoutStage4,BASE};

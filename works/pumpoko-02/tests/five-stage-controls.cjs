@@ -29,6 +29,10 @@ function axis(model){
    }
   }
  }
+ // Recorded player example only: ease off on the rise before the two new
+ // master gaps. This is NOT a game input assist; actual input remains manual.
+ const mastery=gaps.find(g=>g.id==='stage5-mastery-1');
+ if(model.handoffs===4&&mastery&&b.x>=42540&&b.x<42710)return -1;
  const first5=gaps.find(g=>g.id==='stage5-2'),next5=gaps.find(g=>g.id==='stage5-3');
  if(model.handoffs===4&&first5&&next5&&next5.a-first5.b<500){
   return b.x>=first5.a-80&&b.x<first5.a-20?-1:1;

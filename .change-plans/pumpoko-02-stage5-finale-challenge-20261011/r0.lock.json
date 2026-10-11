@@ -1,0 +1,104 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a5c5ba936ecdea4d37abf4ae1befb5a40a32aba96066dea73160946b36e965e9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-stage5-finale-challenge-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Extend STAGE 5 by two connected momentum/catch/recovery cliffs after existing five, leaving the original quiet goal and stage 1-4 intact",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "067646e904f53ba639a8e1f1425712bd053870ae",
+    "canonicalSources": [
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/tests/stage4-extension.test.cjs",
+      "works/pumpoko-02/tests/phrases-reference.cjs",
+      "works/pumpoko-02/tests/five-stages.test.cjs",
+      "works/pumpoko-02/tests/goal.test.cjs",
+      "works/pumpoko-02/tests/five-stage-controls.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-stage5-finale-challenge-20261011/r0.lock.json",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/STAGE-5-EXTENSION.md",
+      "works/pumpoko-02/tests/stage5-extension.test.cjs",
+      "works/pumpoko-02/tests/stage4-extension.test.cjs",
+      "works/pumpoko-02/tests/phrases-reference.cjs",
+      "works/pumpoko-02/tests/stage3-extension.test.cjs",
+      "works/pumpoko-02/tests/five-stages.test.cjs",
+      "works/pumpoko-02/tests/stage3.test.cjs",
+      "works/pumpoko-02/tests/phrases.test.cjs",
+      "works/pumpoko-02/tests/five-stage-controls.cjs",
+      "works/pumpoko-02/tests/five-stage-reference.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/draw.js",
+      "works/pumpoko-02/index.html",
+      "works/pumpoko-feel-lab/**",
+      "engine/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Keep all five original Stage5 gaps and earlier slopes exactly unchanged",
+      "After gap five, insert a rolling bowl, two connected physical gaps and a recoverable bank that rewards controlling momentum without adding actions or cheats",
+      "Translate existing final approach and fruit-sized physical seating pocket rigidly in X, protect goal constants and 6.23-second original ending",
+      "Keep stages 1–4, four handoffs, camera/input/fall rules and production intact",
+      "Provide automated 30/60/120fps tests for full journey, real contact and low-momentum fail, with robust existing-map reference protection"
+    ],
+    "ownerDecisions": [
+      "User approved making Stage 5 properly difficult after successful STAGE 3 and 4 additive extensions; original five obstacles and quiet goal to be retained"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Current staging main reviewed",
+      "READY Plan Lock first on isolated branch",
+      "No shared/Engine/production changes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Experienced player perceives fair difficulty rather than simply wider gaps",
+      "Real iPhone gameplay confirms previously fun existing stages and the final soft catch",
+      "Failing late in expanded Stage5 does not make retry unacceptable"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing PUMPOKO 02 work-local physics and Hermite world"
+    ],
+    "rollback": "Revert staging PR",
+    "outOfScope": [
+      "Alter stages 1–4 or original stage5 gap shapes",
+      "Alter runtime physics/boost, HUD, final pocket or production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real device feel and player enjoyment remain UNVERIFIED",
+      "Formal verificationState UNVERIFIED"
+    ]
+  }
+}
