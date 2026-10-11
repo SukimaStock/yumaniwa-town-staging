@@ -1,0 +1,110 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f8fe364792da0843db35c70df3f46ea68c929eab83345b70f7eec0fd7eb07be0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-stage3-extended-feel-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Extend PUMPOKO 02 STAGE 3 additively after its third existing gap with a flowing bowl, long flat and a surprising mid-flat momentum gap; translate downstream course/reference geometry rigidly, protecting original stages and handoffs",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "e26b23940730823c8ee3b96dc13224a69720bfa9",
+    "canonicalSources": [
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/tests/five-stage-reference.cjs",
+      "works/pumpoko-02/tests/phrases-reference.cjs",
+      "works/pumpoko-02/tests/stage3.test.cjs",
+      "works/pumpoko-02/tests/five-stages.test.cjs",
+      "works/pumpoko-02/tests/phrases.test.cjs",
+      "works/pumpoko-feel-lab/RISK-REVIEW.md",
+      "works/pumpoko-feel-lab/RETREAT-REVIEW.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-stage3-extended-feel-20261011/r0.lock.json",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/STAGE-3-EXTENSION.md",
+      "works/pumpoko-02/tests/stage3-extension.test.cjs",
+      "works/pumpoko-02/tests/stage3.test.cjs",
+      "works/pumpoko-02/tests/five-stages.test.cjs",
+      "works/pumpoko-02/tests/five-stage-reference.cjs",
+      "works/pumpoko-02/tests/phrases-reference.cjs",
+      "works/pumpoko-02/tests/phrases.test.cjs",
+      "works/pumpoko-02/tests/five-stage-controls.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/world-draw.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/draw.js",
+      "works/pumpoko-02/index.html",
+      "works/pumpoko-feel-lab/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Preserve STAGE 3's original three gap widths, banks and timing; add one post-third-gap terrain passage consisting of flowing depression, long level bank, mid-flat gap and continuation",
+      "Build new terrain in world4 return layer while keeping original earlier points byte-identical, and shift its downstream tail +2200 in x",
+      "Rigidly shift STAGE 4 and 5 geometry and gap coordinates, sockets, cellar/roof fields, stage boundaries, final approach, finale offsets and bridges by the same x translation; preserve their local slopes and heights",
+      "Preserve Stage 1 and Stage 2 positions, input, work-owned physics, camera rules, title, goal pocket and four handoffs",
+      "Extend or adapt position-based legacy tests only where their previous absolute coordinate assertions conflict with approved insertion; add explicit immutable-base geometry and traversability tests",
+      "Validate actual PUMPOKO physics through all new gaps and checkpoint, and existing goal relative pocket. No hardcoded boosts, teleports or new checkpoints"
+    ],
+    "ownerDecisions": [
+      "User asks to integrate FEEL LAB discoveries without replacing any existing stage and accepts a longer STAGE 3; start with STAGE 3 only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh staging main and existing stage3 plus later stage/goal data reviewed",
+      "Protect original already-good three stage3 gaps",
+      "READY Plan Lock first commit; no production"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Play STAGE 3 from baton start through its three original gaps, then new bowl, flat and momentum gap",
+      "Keep fun momentum with unforced surprise, no new jump input, no forced backtrack",
+      "Retain all four handoffs and the same ending shot",
+      "Confirm real iPhone retry length doesn't feel frustrating; formal manual verification pending"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "PUMPOKO 02 work-owned Physics/World/Story and level-authoring contracts",
+      "Legacy tests and verification records"
+    ],
+    "rollback": "Revert isolated staging PR; production unchanged",
+    "outOfScope": [
+      "Modify other stages' local level geometry or add new risk to them",
+      "Modify physics constants, common engine, title, closing scene, audio or production",
+      "Automatic production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone visual and tactile/level design approval pending owner",
+      "Final formal verificationState UNVERIFIED"
+    ]
+  }
+}
