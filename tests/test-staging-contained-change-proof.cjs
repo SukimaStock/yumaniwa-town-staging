@@ -98,7 +98,9 @@ test('refuse changing a script into a symlink',t=>{
   const f=fixture(t);
   fs.unlinkSync(path.join(f.root,'works/existing/game.js'));
   fs.symlinkSync('../../engine/core.js',path.join(f.root,'works/existing/game.js'));
-  assert.equal(f.check(f.commit()).reason,'NON_REGULAR_NEW_FILE');
+  // Git reports a regular-file -> symlink replacement as T (type change),
+  // which is rejected before reading the target tree.
+  assert.equal(f.check(f.commit()).reason,'UNSAFE_DIFF_ACTION');
 });
 test('refuse changing file permission mode',t=>{
   const f=fixture(t);
