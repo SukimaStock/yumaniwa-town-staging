@@ -21,7 +21,10 @@
     if(!e||(e.type!=='seat'&&t-lastSound<(e.type==='land'?.35:.13)))return;
     lastSound=t;if(!root.SSE.audio.enabled||root.document.hidden||root.SSE.lifecycle?.paused)return;
     const name=e.type==='handoff'?'shell':e.type==='detach'||e.type==='fall'?'fiber':e.kind==='pumpkin'?'drumDon':'seed';
-    root.SSE.audio.play(e.type==='seat'?'shell':name,e.type==='fall'?{volume:root.SSE.audio.baseline().reference.se.soft*.35}:e.type==='seat'?{volume:root.SSE.audio.baseline().reference.se.soft*.72,playbackRate:.88}:undefined);
+    const options=e.type==='fall'?{volume:root.SSE.audio.baseline().reference.se.soft*.35}:
+      e.type==='seat'?{volume:root.SSE.audio.baseline().reference.se.soft*.72,playbackRate:.88}:
+      e.type==='detach'||e.type==='land'&&e.kind==='rutabaga'?{playbackRate:.82}:undefined;
+    root.SSE.audio.play(e.type==='seat'?'shell':name,options);
   }
   const scene={opaque:true,
     update(dt){
