@@ -1,0 +1,138 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c491596d831474f03ea076bc566d6d54283f40fded405aae266e90da8b2ae27c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-production-candidate-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Record only PUMPOKO as a lifecycle production candidate and create selective release handoff evidence without any production repository or game changes.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "70d2d0d27ead868f6ab623cb7d0e2eaf526e1588",
+    "canonicalSources": [
+      "data/work-lifecycle.json",
+      "tools/work-lifecycle.cjs",
+      "tools/release-validator.cjs",
+      "RELEASE-WORKFLOW.md",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "works/pumpoko/index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-production-candidate-20261011/r0.lock.json",
+      "data/work-lifecycle.json",
+      "release-candidates/pumpoko-20261011.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "index.html",
+      "main.js",
+      "assets/**",
+      "w/**",
+      "en/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/work-guide-meta.js",
+      "data/ghost-dialogue.js",
+      "data/updates.js",
+      "sitemap.xml",
+      "production/**"
+    ],
+    "expectedChanges": [
+      "Change only lifecycle entry pumpoko from active to candidate with new distinct candidateDecision",
+      "Preserve lifecycle IDs and statuses for nine released works and all staging-only works",
+      "Add written production target manifest with SHA, explicitly selected ten-work set, dependency list, exclusions and pending verification",
+      "No changes to work runtime, assets, production repository or generated production Search/Share pages"
+    ],
+    "ownerDecisions": [
+      "On 2026-10-11 the owner approved preparing a PUMPOKO-only production release candidate and expressly deferred public deployment."
+    ],
+    "hqDecisions": [
+      "Production snapshot must retain nine released works and only PUMPOKO as candidate; exclude all other staging content",
+      "Production is missing compatible lifecycle and validation tooling, Engine 0.3.0 and Codea Lite 1.0.0; do not claim release-ready or merge",
+      "Actual promotion needs a distinct owner production instruction, separate from this candidate decision."
+    ],
+    "rulesApplied": [
+      "Immutable Plan Lock first commit",
+      "Lifecycle active to candidate only for pumpoko",
+      "No production write; read-only production baseline inspection"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Confirm exact lifecycle-only delta for pumpoko",
+      "Run lifecycle validation and existing regression tests",
+      "Before future production release verify stage iPhone sound, return and replay and production ten-work snapshot",
+      "Obtain separate explicit approval before any production merge"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Staging source SHA 70d2d0d27ead868f6ab623cb7d0e2eaf526e1588",
+      "Production baseline SHA ebd32c56b3c486545cec4531dd84f26ca425a1aa",
+      "Required future Engine 0.3.0, Codea Lite 1.0.0 and work assets",
+      "Future production candidate must add a validated lifecycle registry and verifier tooling"
+    ],
+    "rollback": "Revert this single staging-only PR to lifecycle active status; no production artifact is changed.",
+    "outOfScope": [
+      "Any production repository write, publication or promotion",
+      "Any runtime/asset/game/engine changes",
+      "Publishing any other staging-only work",
+      "Generating indexed production Search pages"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Production candidate snapshot not yet built or tested",
+      "Only launch and introduction page directly confirmed; audio/return remains explicitly unverified",
+      "Production external goal and share card unverified",
+      "No production approval granted"
+    ],
+    "alternativesRejected": [
+      "Copy staging main to production indiscriminately",
+      "Claim staging acceptance authorizes production promotion",
+      "Carry inactive trials or CoffeeFactory into production",
+      "Reuse candidate decision string as future production instruction"
+    ],
+    "boundaryCases": [
+      "Only pumpoko status changes to candidate, without modifying its path",
+      "Keep released nine works and every other active/frozen work unchanged",
+      "Future published list is exactly ten works and excludes pumpoko-01 and pumpoko-02",
+      "Never modify production main in preparation"
+    ],
+    "testPlan": [
+      "Run trusted full Plan Scope Risk and Impact gates",
+      "Run lifecycle diff check against staging parent SHA",
+      "Run existing release and guide tests",
+      "Verify production selection manifest against current production baseline, no unchecked promotion"
+    ],
+    "problem": "PUMPOKO works and presents correctly in staging, but its lifecycle is active and a selective production handoff has not been prepared.",
+    "currentContract": "Staging lifecycle requires explicit candidate decision and a separate explicit production instruction before promotion; production lacks lifecycle and Engine 0.3.0.",
+    "whyExistingIsInsufficient": "A staging game and its pages cannot be blindly copied to a divergent production checkout that must preserve nine released works and exclude staging prototypes.",
+    "design": "Change only staging lifecycle state and store a release candidate review record referencing immutable source and target commits, selected files, dependencies, pending validation, and rollback.",
+    "migration": "A later, separate release operation will select PUMPOKO and dependencies into a production-base candidate, test the ten-work snapshot, and seek a fresh owner production approval.",
+    "compatibility": "All runtime, assets, metadata, release pages and nine existing released works are byte-identical before/after this staging-only decision.",
+    "promotionRisk": "Premature promotion would expose unreviewed staging dependencies; this request authorizes candidate status only, never public deployment."
+  }
+}
