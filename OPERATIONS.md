@@ -314,18 +314,30 @@ staging生成例:
 ```sh
 node tools/generate-work-search-pages.cjs \
   --env staging \
-  --published orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window \
+  --published orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window,pumpoko \
   --write
 
 node tools/generate-work-search-pages.cjs \
   --env staging \
-  --published orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window \
+  --published orbit,diorama-calendar,rojiura-masala,steamclock,dotweather,junkissa-dive,midnight-cola,yakitori-wars,rainy-window,pumpoko \
   --check
 ```
 
 productionではmainへ直接生成しない。production candidate branchで `--env production` と明示した全公開集合を使い、生成後に `--check` を通す。
 
 metadataが存在するだけでは公開対象にならない。たとえばCoffeeFactoryのSearch metadataがstagingにあっても、Owner承認・必要素材・Release対象集合に入るまではproductionへ含めない。
+
+### 公開後の検索観測と必要な改善
+
+作品制作中はSEO準備を強制しない。公開時は既存のSearch / Share生成・Release検査を使い、公開済み作品だけを観測する。町・ゲームの常設SEO表示、専用ダッシュボード、新しい計測体系は追加しない。
+
+- 正本: 公開集合は最新productionの `data/works.js` と公開PR、昇格状態はstagingの `data/work-lifecycle.json`。既に公開済みの作品は公開履歴と実配信を確認してreleasedを記録する。新作candidate化・production反映は従来どおり別判断。
+- 週1回のレビューは既存のChatGPT「SukimaStock Ops Review」を利用する。Google DriveのSukimaStock / Analyticsにある最新のSearch Console書き出し（クエリ・ページ・日付、表示回数・クリック・CTR・平均掲載順位）とページ登録状況を読む。接続がなくても書き出しで始められる。直接接続は作者が選んだ場合だけ利用し、Drive接続をSearch Console権限とみなさない。
+- 比較は取得日・集計期間・productionプロパティ・フィルタを揃え、同じ長さの前期間と比較する。集計遅れ、少数の表示、古い書き出し、匿名化されたクエリを明記し、未取得を0にしない。登録申請済みと登録確認済みを区別する。
+- 現在のサイト計測はPlausible。GA4導入は必須にしない。Plausibleはproductionパス／作品IDを限定して流入・利用の補助指標を確認し、staging・itch.io等との合算や過去91日分を今回のSEO効果と扱わない。表示回数・順位・検索語はSearch Consoleで確認する。
+- 報告は「全体の変化／反応のあった作品・検索語／問題ページ／次の改善候補（最大3件）」を短くまとめる。データがなければ未取得と必要操作だけ示し、検索結果の有無から需要量や順位を断定しない。変化や不備がなければ変更不要。
+- 改善はまず `data/work-search-meta.js` の必要な日英title・説明文を対象にし、既存Generator → Validator → CIでstagingへ反映する。生成HTMLは直接編集しない。production公開は別工程。検索語のために作品の内容・名前・ジャンルを変えない。
+- 過去作品とnoteの原典はGoogle DriveのSukimaStock / note・Code。既存記事から現行のSearch / Share URLへの自然な導線を検討し、記事更新・投稿は作者への改善案まで。既存OGPを維持し、新しい画像が必要なら実画面・既存素材を優先する。
 
 ## 本番反映前の確認
 

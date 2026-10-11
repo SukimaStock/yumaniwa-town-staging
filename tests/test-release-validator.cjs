@@ -235,7 +235,7 @@ test('invalid calendar lastmod is rejected without generating a replacement',t=>
     has(validate(c.options),'FAIL','sitemap.lastmod');
 });
 
-test('PUMPOKO staging-only Japanese/English previews and user-approved image assets match source contracts', () => {
+test('Published PUMPOKO retains noindex staging previews and user-approved image assets', () => {
     const id='pumpoko';
     const work=readWorks(REPO).find(w => w.id===id);
     const meta=readWorkSearchMeta(REPO)[id];
@@ -266,5 +266,11 @@ test('PUMPOKO staging-only Japanese/English previews and user-approved image ass
     assert.equal(m.icons[0].sizes,'1024x1024');
     assert.equal(m.icons[0].type,'image/png');
     const sitemap=fs.readFileSync(path.join(REPO,'sitemap.xml'),'utf8');
-    assert.ok(!sitemap.includes('/w/pumpoko/'),'PUMPOKO is not production-published yet');
+    const lifecycle=JSON.parse(fs.readFileSync(path.join(REPO,'data/work-lifecycle.json'),'utf8'));
+    const released=lifecycle.works.find(w=>w.id===id);
+    assert.equal(released.status,'released','ledger records the existing authorized production release');
+    assert.ok(released.productionInstruction && released.releaseEvidence,'release keeps separate instruction and evidence');
+    for (const localePath of ['w/pumpoko/','en/w/pumpoko/']) {
+        assert.ok(sitemap.includes('<loc>https://sukimastock.github.io/yumaniwa-town/'+localePath+'</loc>'),'published locale is included: '+localePath);
+    }
 });

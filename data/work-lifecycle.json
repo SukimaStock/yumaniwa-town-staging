@@ -77,9 +77,11 @@
     {
       "id": "pumpoko",
       "path": "works/pumpoko",
-      "status": "candidate",
+      "status": "released",
       "title": "PUMPOKO",
-      "candidateDecision": "Owner decision 2026-10-11: prepare PUMPOKO only as a production release candidate after staging introduction/launch confirmation; this is not authorization for production promotion or deployment."
+      "candidateDecision": "Owner decision 2026-10-11: prepare PUMPOKO only as a production release candidate after staging introduction/launch confirmation; this is not authorization for production promotion or deployment.",
+      "productionInstruction": "Owner production reflection instruction recorded in SukimaStock/yumaniwa-town PR #51 (2026-10-11); distinct from candidate approval. Current task records that existing release only.",
+      "releaseEvidence": "SukimaStock/yumaniwa-town PR #51 merged 5fd0a6a04db17d7d95d8b7f4c7b9001fc504c6b0; current main 75cf4d23ff7927643c61e4de60e9728f5871dc79 with Pages run 38163935493 success; live JA Search, game entry and OGP HTTP 200 observed 2026-10-11. Physical devices and external analytics remain UNVERIFIED; not Release Complete."
     },
     {
       "id": "kotsu-koro",
