@@ -1,0 +1,18 @@
+{
+  "name": "PUMPOKO",
+  "short_name": "PUMPOKO",
+  "id": "../../?work=pumpoko",
+  "start_url": "../../?work=pumpoko",
+  "scope": "../../",
+  "display": "standalone",
+  "background_color": "#faf1dc",
+  "theme_color": "#faf1dc",
+  "icons": [
+    {
+      "src": "../../assets/works/pumpoko/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
