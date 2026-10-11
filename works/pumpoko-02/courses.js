@@ -155,10 +155,62 @@
   for(const cell of four.finale.cellars)for(const k of ['left','right','roofStart','exitX'])cell[k]+=four.goalOffset;
   four.finale.goal.x+=four.goalOffset;four.finale.finishX+=four.goalOffset;
   four.finale.gaps=four.finale.gaps.map(g=>({...g,a:g.a+four.goalOffset,b:g.b+four.goalOffset}));
+  // STAGE 3 additive experiment: the original three gaps and their banks
+  // remain untouched. After gap 3, a smooth run + a long flat + a surprise
+  // 110-unit gap reproduce the FEEL LAB ordering within the full-size world.
+  // Only the later part of stage 3 and the downstream stages translate in X.
+  const feel3={shift:2200,joinX:16680,gapA:18440,gapB:18550};
+  const previousReturn=four.curves.return;
+  const insertedReturn=[
+    [16820,245,-.32],[17030,120,-.46],[17210,90,0],
+    [17450,145,.56],[17670,242,.16],
+    [17900,250,0],[18130,250,0],[18370,250,0],
+    [18580,250,0],[18720,250,0],
+    [18920,245,0],[19210,255,0]
+  ];
+  four.curves.return=[
+    ...previousReturn.filter(p=>p[0]<=feel3.joinX),
+    ...insertedReturn,
+    ...previousReturn.filter(p=>p[0]>feel3.joinX).map(p=>[p[0]+feel3.shift,p[1],p[2]])
+  ];
+  four.gaps.push({
+    id:'stage3-feel',stage:3,layer:'return',a:feel3.gapA,b:feel3.gapB,
+    runup:540,preview:220,approach:900,referenceSpeed:380
+  });
+  for(const layer of ['underground2','finish'])
+    four.curves[layer]=four.curves[layer].map(p=>[p[0]+feel3.shift,p[1],p[2]]);
+  for(const g of four.gaps.filter(g=>g.stage>=4)){g.a+=feel3.shift;g.b+=feel3.shift;}
+  for(const h of four.holes.slice(2))h.x+=feel3.shift;
+  // The underground ceiling is spatial too: shifting only the floor would
+  // make the original STAGE 4 bounce route collide with an invisible roof.
+  const laterCellar=four.cellars[1];
+  for(const k of ['left','right','roofStart','exitX'])laterCellar[k]+=feel3.shift;
+  for(const k of ['until','roofStart','exitX'])laterCellar.entryRoof[k]+=feel3.shift;
+  for(const k of ['a','b'])four.surfaceBridges[1][k]+=feel3.shift;
+  four.goal.x+=feel3.shift;
+  four.finishX+=feel3.shift;
+  four.offsets.underground2+=feel3.shift;four.offsets.finish+=feel3.shift;
+  four.exitOffsets[2]+=feel3.shift;four.exitOffsets[3]+=feel3.shift;
+  four.goalOffset+=feel3.shift;
+  // ClosingWorld uses a separate presentation-only course; it needs the same
+  // translation, but none of the ending's fruit-sized pocket geometry changes.
+  for(const points of Object.values(four.finale.curves))
+    for(const p of points)p[0]+=feel3.shift;
+  for(const h of four.finale.holes)h.x+=feel3.shift;
+  for(const cell of four.finale.cellars)
+    for(const k of ['left','right','roofStart','exitX'])cell[k]+=feel3.shift;
+  for(const g of four.finale.gaps){g.a+=feel3.shift;g.b+=feel3.shift;}
+  four.finale.goal.x+=feel3.shift;four.finale.finishX+=feel3.shift;
+  ends[2]+=feel3.shift;ends[3]+=feel3.shift;ends[4]+=feel3.shift;
+  // Accessible, reviewable layout metadata; this does not tune physics.
+  four.feel3={...feel3,points:insertedReturn.map(p=>p.slice())};
   four.stages=layers.map((layer,i)=>({id:i+1,layer,kind:i%2?'rutabaga':'pumpkin',
     startX:i?ends[i-1]:four.stage1.startX,spawnX:i?(i%2?four.curves[layer][1][0]:ends[i-1]+180):null,endX:ends[i],
     cameraFloor:i?Math.min(...four.curves[layer].map(p=>p[1]))+45:four.stage1.cameraFloor,
     failY:i?Math.min(...four.curves[layer].map(p=>p[1]))-720:four.stage1.failY,retrySeconds:four.stage1.retrySeconds}));
+  // Keep the accepted STAGE 3 camera band and fall threshold unchanged.
+  // The new trough is visible inside that framing without pulling the camera.
+  four.stages[2].cameraFloor=240;four.stages[2].failY=-525;
   function freeze(v){if(v&&typeof v==='object'){Object.values(v).forEach(freeze);Object.freeze(v);}return v;}
   const courses=freeze({world2:two,world4:four});
   function get(id){const c=courses[id];if(!c)throw Error('Unknown comparison course');return c;}
