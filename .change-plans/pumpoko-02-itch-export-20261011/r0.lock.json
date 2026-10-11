@@ -1,0 +1,134 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "01818ae8a7d00678668bdcf21b50da2c1a28ab2d6264745f87a28f855535f2e7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-itch-export-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add a standalone PUMPOKO itch.io HTML5 ZIP export and read-only Actions artifact workflow without changing the game or shared exporters",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "3ea81eee229c40d30db3265c0314467c32172236",
+    "canonicalSources": [
+      "works/pumpoko-02/index.html",
+      "works/pumpoko-02/app.js",
+      "engine/codea-lite.v1.0.0.js",
+      "engine/sukimastock-engine.v0.3.0.js",
+      "engine/export-standalone.py",
+      ".github/workflows/orbit-standalone-export.yml"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-itch-export-20261011/r0.lock.json",
+      "works/pumpoko-02/standalone-export.json",
+      "works/pumpoko-02/build-itch.py",
+      "works/pumpoko-02/ITCH-EXPORT.md",
+      ".github/workflows/pumpoko-02-itch-export.yml"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/index.html",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/assets/**",
+      "works/pumpoko-02/audio/**",
+      "engine/**",
+      "works/pumpoko/**",
+      "production/**"
+    ],
+    "expectedChanges": [
+      "A manifest enumerates exactly the shipped runtime and media files",
+      "A work-local Python adapter copies canonical Engine and Codea Lite to self-contained HTML5 ZIP, changing only package HTML script references and the browser tab title",
+      "A read-only workflow builds and validates the exact ZIP and uploads its extracted root as the itch-uploadable artifact",
+      "No game runtime, canonical asset, Engine, production, or other work is edited"
+    ],
+    "ownerDecisions": [
+      "User explicitly requested creating an itch.io upload ZIP for PUMPOKO 02 and authorized staging-side packaging work"
+    ],
+    "hqDecisions": [
+      "Release workflow requires a full-scope plan and reviewer scrutiny; GitHub Actions is read-only, uses standard pinned base actions, uploads no production deployment, and cannot approve any production change"
+    ],
+    "rulesApplied": [
+      "Fresh staging main and referenced scripts inspected",
+      "Plan Lock first commit",
+      "Work-local packaging and read-only GitHub Actions only"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Download the Actions artifact ZIP and verify its root index.html is present",
+      "Upload extracted-root artifact ZIP to private/draft itch.io page and verify browser assets/audio and keyboard/touch",
+      "Confirm game BGM sample and other materials are cleared for public distribution",
+      "Owner review is required for actual itch.io submission and promotion"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing canonical engine/export-standalone.py",
+      "Canonical Codea Lite 1.0.0 and Engine 0.3.0",
+      "GitHub Actions upload-artifact@v4"
+    ],
+    "rollback": "Revert this staging-only PR; no release-site or production deployment is modified",
+    "outOfScope": [
+      "Touch gameplay or game code",
+      "Change original PUMPOKO",
+      "Publishing itch.io entry or making game public",
+      "Changing shared Engine/Codea or exporter",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual itch.io iframe, iPhone Safari touch/audio and final image assets require user device review",
+      "Source media licensing not independently confirmed",
+      "Formal verificationState UNVERIFIED"
+    ],
+    "alternativesRejected": [
+      "Shipping the work folder alone, which contains ../../engine dependencies",
+      "Changing the canonical game HTML merely to satisfy a packaging workflow",
+      "Copying shared Engine files into staging source tree"
+    ],
+    "boundaryCases": [
+      "Missing or extra manifest entries must fail",
+      "No path traversal or absolute manifest includes",
+      "Exactly one expected Codea tag; exactly one marked Engine tag",
+      "All ZIP member files must be at root-relative paths with index.html directly at root",
+      "Native source and media must match original bytes except packaged index.html"
+    ],
+    "testPlan": [
+      "Compile Python wrapper and execute ZIP export on runner",
+      "Check ZIP CRC and exact manifest membership",
+      "Check full set of packaged HTML script and audio refs, with no ../../engine/ references",
+      "Check copies of canonical Codea Lite and Engine match via SHA-256",
+      "Upload root-extracted artifact for direct itch HTML5 upload"
+    ],
+    "problem": "PUMPOKO 02 works on staging Pages but cannot be uploaded as a portable itch.io HTML5 ZIP because the entry HTML uses ../ paths to shared Engine and Codea.",
+    "currentContract": "The canonical game lives in works/pumpoko-02 and uses shared Engine 0.3.0 plus Codea Lite 1.0.0; ORBIT already uses a generic standalone exporter.",
+    "whyExistingIsInsufficient": "The generic exporter rewrites only the marked Engine tag; PUMPOKO also uses an unmarked separate Codea Lite reference.",
+    "design": "Stage a temporary copy of only manifest-listed files, copy canonical Codea Lite locally, rewrite the Codea script reference only in this temporary copy, call the canonical generic exporter for Engine rewriting, then verify the ZIP tree. A read-only workflow stores itch-ready files as an artifact.",
+    "migration": "No change to canonical game assets, runtime, staging Pages paths, or production.",
+    "compatibility": "Identical game JS/audio/bitmap/Engine bytes; only HTML references in the exported ZIP and the tab title differ.",
+    "promotionRisk": "An Actions workflow is a shared execution surface; keep contents:read, same-repo execution, and artifacts only, subject to PR gate and review."
+  }
+}
