@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "11a2040daf6762b29c29703d171965d443356287bcf290c6dd5598fa27fd3771",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-02-detach-rutabaga-pitch-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Lower sound pitch only when a title seed detaches and when rutabaga strongly lands/bounces, retaining unchanged fiber fall sound and all other cue playback and volume",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "b75cb70193342ede787e714d5068180318acbadc",
+    "canonicalSources": [
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/story.js",
+      "engine/sukimastock-engine.v0.3.0.js",
+      "works/pumpoko-02/tests/title-touch-pitch.test.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-02-detach-rutabaga-pitch-20261011/r0.lock.json",
+      "works/pumpoko-02/app.js",
+      "works/pumpoko-02/tests/selective-effect-pitch.test.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/audio/**",
+      "works/pumpoko-02/courses.js",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/story.js",
+      "works/pumpoko-02/index.html",
+      "engine/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "For detach event using existing fiber sample play at 0.82 playbackRate without volume override",
+      "For rutabaga high-strength land event using existing seed sample play at 0.82 playbackRate without volume override",
+      "Other uses of fiber for falling and seed sound, if any, stay original playback settings; handoffs, goal, title tap shell at 0.82 remain unchanged",
+      "Strict one-replacement diff test and triggered event tests comparing event names and playback options"
+    ],
+    "ownerDecisions": [
+      "User asks to lower the pitch of seed coming loose and rutabaga jump/bounce effects only, following a prior .82x title shell trial"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh staging main and actual event dispatch checked",
+      "Work-only staging, Plan Lock first commit",
+      "All gameplay and production protected"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "On iPhone compare detached seed tone and audible rutabaga landing/bounce with original",
+      "Check fall (fiber), pumpkin land (drumDon), handoff, goal and BGM remain unchanged"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0 supports per-buffer playbackRate options"
+    ],
+    "rollback": "Revert staging PR",
+    "outOfScope": [
+      "New assets, effects or gameplay",
+      "Volume adjustment",
+      "Alter title shell, fall fiber or goal shell",
+      "Production promotion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPhone audio aesthetics remain UNVERIFIED until user tests",
+      "Formal verificationState UNVERIFIED"
+    ]
+  }
+}
