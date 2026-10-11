@@ -87,9 +87,10 @@ function classify({ root, baseSha, headSha }) {
       id = match[1];
       added.add(file);
     }
-    if (!id || !added.has('works/' + id + '/index.html')) return deny('MISSING_ENTRY');
+    if (!id) return deny('OUTSIDE_NEW_WORK');
     const selector = 'works/' + id;
     if (treeEntries(root, base, selector).size > 0) return deny('WORK_ALREADY_EXISTS');
+    if (!added.has('works/' + id + '/index.html')) return deny('MISSING_ENTRY');
     const files = treeEntries(root, head, selector);
     if (files.size !== added.size) return deny('TREE_DIFF_MISMATCH');
     let bytes = 0;
