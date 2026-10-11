@@ -258,7 +258,7 @@ test('PUMPOKO staging-only Japanese/English previews and user-approved image ass
     assert.deepEqual(imageInfo(icon),{mime:'image/png',width:1024,height:1024});
     assert.deepEqual(imageInfo(ogp),{mime:'image/jpeg',width:1200,height:630});
     assert.equal(crypto.createHash('sha256').update(icon).digest('hex'),'c3c752bd0398c5ff6597ba1d3226b0c8ca9dae36b3f2c5ab8ea889cef79a61f8');
-    assert.equal(crypto.createHash('sha256').update(ogp).digest('hex'),'8ba233dff9759c47d22fcd65e004a6ebbcc536077ca9b96204a');
+    assert.equal(crypto.createHash('sha256').update(ogp).digest('hex'),'8ba233dff9759c47d22fcd65f489bc2937d65e004a6ebbcc536077ca9b96204a');
     const m=JSON.parse(fs.readFileSync(path.join(REPO,'w/pumpoko/manifest.webmanifest'),'utf8'));
     assert.equal(new URL(m.start_url,'https://sukimastock.github.io/yumaniwa-town/w/pumpoko/').pathname,'/yumaniwa-town/');
     assert.equal(m.icons.length,1);
