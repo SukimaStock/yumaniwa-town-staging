@@ -30,11 +30,29 @@
 <meta content="湯間庭町の駅前広場" name="twitter:image:alt"/>
 <title>湯間庭町｜小さなブラウザゲームと触れる作品｜SukimaStock</title>
 <script src="./work-install-meta.js?rev=auto-9281b303"></script>
-<link href="./style.css?rev=seo-town-20261011" rel="stylesheet"/>
+<link href="./style.css?rev=town-restore-20261011" rel="stylesheet"/>
 <link href="./layout-fix.css?v=20260813-1" rel="stylesheet"/>
 <link href="./work-guide-terminal.css?v=20260929-guide-v1" rel="stylesheet"/>
+<style>
+.work-search-links { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.work-search-links:focus-within { position: fixed; top: 8px; left: 8px; right: 8px; width: auto; height: auto; max-height: 40vh; padding: 12px; overflow: auto; clip-path: none; white-space: normal; z-index: 100000; background: #0a0a0a; color: #f4efe5; }
+.work-search-links a { color: inherit; margin-right: 1em; }
+</style>
 </head>
 <body>
+<!-- Static work links for assistive technology and keyboard navigation; not a persistent town overlay. -->
+<nav class="work-search-links" aria-label="作品紹介">
+  <a href="./w/pumpoko/">PUMPOKO</a>
+  <a href="./w/orbit/">ORBIT — Silent Reboot</a>
+  <a href="./w/diorama-calendar/">DioramaCalendar</a>
+  <a href="./w/rojiura-masala/">路地裏マサラ</a>
+  <a href="./w/steamclock/">SteamClock</a>
+  <a href="./w/dotweather/">DotWeather</a>
+  <a href="./w/junkissa-dive/">純喫茶ダイヴ</a>
+  <a href="./w/midnight-cola/">真夜中コーラ</a>
+  <a href="./w/yakitori-wars/">Yakitori Wars</a>
+  <a href="./w/rainy-window/">雨の日の窓</a>
+</nav>
 
 <div id="game-container">
 
@@ -42,29 +60,7 @@
 
 
 
-<!-- 固定ゲーム画面: canvas・町UI・セリフ・操作UIはこの中で管理する --><div aria-label="湯間庭町の画面" id="town-screen"><canvas aria-label="湯間庭町" id="game-canvas"></canvas><aside id="town-search-intro" aria-label="湯間庭町の案内">
-  <h1>湯間庭町</h1>
-  <p>SukimaStockのブラウザゲームや、触って楽しむ小さな作品を、町を歩きながら見つける場所です。</p>
-  <details class="town-search-guide">
-    <summary>町の作品案内</summary>
-    <nav aria-label="作品紹介">
-      <h2>湯窓レジャーセンター</h2>
-      <p>小さなゲーム、アプリ、触れるらくがき</p>
-      <a href="./w/pumpoko/">PUMPOKO</a>
-      <a href="./w/orbit/">ORBIT — Silent Reboot</a>
-      <a href="./w/diorama-calendar/">DioramaCalendar</a>
-      <a href="./w/steamclock/">SteamClock</a>
-      <a href="./w/dotweather/">DotWeather</a>
-      <a href="./w/rainy-window/">雨の日の窓</a>
-      <h2>灯串横丁</h2>
-      <p>夜の路地で出会う、小さな遊び</p>
-      <a href="./w/rojiura-masala/">路地裏マサラ</a>
-      <a href="./w/junkissa-dive/">純喫茶ダイヴ</a>
-      <a href="./w/midnight-cola/">真夜中コーラ</a>
-      <a href="./w/yakitori-wars/">Yakitori Wars</a>
-    </nav>
-  </details>
-</aside><div id="ui-layer">
+<!-- 固定ゲーム画面: canvas・町UI・セリフ・操作UIはこの中で管理する --><div aria-label="湯間庭町の画面" id="town-screen"><canvas aria-label="湯間庭町" id="game-canvas"></canvas><div id="ui-layer">
 <div id="scene-name">駅前広場</div>
 <div id="debug-info" style="display:none;" data-nosnippet>
 <div id="coord-display">現在座標: (-, -)</div>
