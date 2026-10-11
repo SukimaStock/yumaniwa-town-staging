@@ -1,0 +1,110 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6219d70590c9c13059ed9f9ac04ad65bfecfbf2ff7765bbb850c1252ffb5e2ef",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "seo-pumpoko-runtime-title-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Align PUMPOKO execution-page title with approved formal name, before final SEO candidate handoff",
+    "planLevel": "standard",
+    "classes": [
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "20bbad43933a93b4e64913aa93b5f77f00a93f89",
+    "canonicalSources": [
+      "works/pumpoko/index.html",
+      "data/works.js",
+      "data/work-search-meta.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/seo-pumpoko-runtime-title-20261011/r0.lock.json",
+      "works/pumpoko/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "style.css",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "works/pumpoko/*.js",
+      "works/pumpoko/audio/**",
+      "works/pumpoko/assets/**"
+    ],
+    "expectedChanges": [
+      "Replace only <title>PUMPOKO 02</title> with <title>PUMPOKO</title>; retain exact remaining HTML bytes."
+    ],
+    "ownerDecisions": [
+      "Current user task authorizes formal work-name consistency in SEO preparation; PUMPOKO is the already approved formal name. No new design choice or public release is inferred."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Keep staging experimentation distinct from production",
+      "No fabricated design approval in Plan text",
+      "Owner can reject staging trial and request minimal rollback",
+      "No new gate, review step or human signoff for shared reversible staging UI"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Compare title with approved name; all non-title bytes and runtime body must remain identical"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "staging main 1629b59800ebc971ddd7432aa69eaf13021f198c",
+      "Currently enforced trusted PR Gate and Change Verification Evidence",
+      "Previous PR #256 policy texts"
+    ],
+    "rollback": "Reverse only the title replacement.",
+    "outOfScope": [
+      "Changing pinned original classifiers",
+      "Production publication",
+      "Human attestation system",
+      "New UI"
+    ],
+    "promotion": "Preparation-only production draft #52; merge/deployment withheld",
+    "unverified": [
+      "Production publication and device behavior; runtime unchanged"
+    ],
+    "alternativesRejected": [
+      "Continue demanding preapproval before every staging UI experiment",
+      "Automatically adopt a staging UI based on passing CI",
+      "Weaken required Scope/Risk/Impact gates to speed up undo"
+    ],
+    "boundaryCases": [
+      "Unchanged security classifiers",
+      "Reverse subset with later independent changes",
+      "Ambiguous/conflicting revert falls back",
+      "Town new UI requires concrete owner decision"
+    ],
+    "testPlan": [
+      "Normal local edits",
+      "Contract-sensitive edits rejected",
+      "Source subsets preserve unrelated improvements",
+      "Forged revert and mixed changes rejected",
+      "Source ancestry/modes/limits/production boundaries"
+    ],
+    "problem": "Existing local classifier verifies paths and size but cannot flag contract-sensitive small edits; known UI restore still requires a Full Plan.",
+    "currentContract": "Pinned base classifiers and two-phase exact-blob workflow transitions",
+    "whyExistingIsInsufficient": "Known rollback and local contract edits need bounded evidence rather than self-declared revert labels.",
+    "design": "One small read-only proof wrapper; exact source/hunk reverse application in temporary Git index; conservative contract signals supplement existing containment.",
+    "migration": "One-line staging correction before public SEO candidate is approved",
+    "compatibility": "Preserve original new-work route, old contained classifier, full-review fallback and exact-blob protections.",
+    "promotionRisk": "No production merge or external service action"
+  }
+}
