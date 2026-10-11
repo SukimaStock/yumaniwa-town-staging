@@ -1,7 +1,9 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict');
 const {harness}=require('./harness.cjs');
-const {course:c,run,crossing,placed}=require('./five-stage-review.cjs');
+const {course:current,run,crossing,placed}=require('./five-stage-review.cjs');
+const {withoutStage4}=require('./phrases-reference.cjs');
+const c=withoutStage4(current);
 const P=require('../physics.js'),W=require('../world.js'),S=require('../story.js');
 const BASE='e26b23940730823c8ee3b96dc13224a69720bfa9';
 const old=()=>harness({sourceRef:BASE}).w.FruitLabCourses.get('world4');
