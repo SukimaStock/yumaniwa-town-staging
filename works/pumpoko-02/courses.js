@@ -204,6 +204,49 @@
   ends[2]+=feel3.shift;ends[3]+=feel3.shift;ends[4]+=feel3.shift;
   // Accessible, reviewable layout metadata; this does not tune physics.
   four.feel3={...feel3,points:insertedReturn.map(p=>p.slice())};
+  // STAGE 4 additive choice laboratory, following all four protected cliffs.
+  // Particularly protect the existing high far-side bank at stage4-3
+  // (x25740..25870, y -135 to -65) and all earlier authored touch timings.
+  // A shallow basin supplies a return route to build momentum organically.
+  const feel4={shift:2400,joinX:27950,gapA:29440,gapB:29560};
+  const previousUnderground2=four.curves.underground2;
+  const insertedUnderground2=[
+    [28140,-145,-.45],[28330,-215,0],[28520,-180,.42],
+    [28730,-125,0],[28970,-125,0],[29210,-125,0],
+    [29450,-125,0],[29650,-125,0],[29840,-125,0],
+    [30060,-125,0],[30310,-112,0],[30620,-90,0]
+  ];
+  four.curves.underground2=[
+    ...previousUnderground2.filter(p=>p[0]<=feel4.joinX),
+    ...insertedUnderground2,
+    ...previousUnderground2.filter(p=>p[0]>feel4.joinX).map(p=>[p[0]+feel4.shift,p[1],p[2]])
+  ];
+  four.gaps.push({
+    id:'stage4-choice',stage:4,layer:'underground2',a:feel4.gapA,b:feel4.gapB,
+    runup:710,preview:220,approach:950,referenceSpeed:350
+  });
+  // Stage 5 and the original finish are translated rigidly, not reshaped.
+  four.curves.finish=four.curves.finish.map(p=>[p[0]+feel4.shift,p[1],p[2]]);
+  for(const g of four.gaps.filter(g=>g.stage===5)){g.a+=feel4.shift;g.b+=feel4.shift;}
+  four.holes[3].x+=feel4.shift;
+  for(const k of ['right','exitX'])four.cellars[1][k]+=feel4.shift;
+  four.cellars[1].roofStart+=feel4.shift;
+  four.surfaceBridges[1].b+=feel4.shift;
+  four.goal.x+=feel4.shift;
+  four.finishX+=feel4.shift;
+  four.offsets.finish+=feel4.shift;
+  four.exitOffsets[3]+=feel4.shift;
+  four.goalOffset+=feel4.shift;
+  // Closing artwork is a separate reference world; its accepted shape stays.
+  for(const points of Object.values(four.finale.curves))
+    for(const p of points)p[0]+=feel4.shift;
+  for(const h of four.finale.holes)h.x+=feel4.shift;
+  for(const cell of four.finale.cellars)
+    for(const k of ['left','right','roofStart','exitX'])cell[k]+=feel4.shift;
+  for(const g of four.finale.gaps){g.a+=feel4.shift;g.b+=feel4.shift;}
+  four.finale.goal.x+=feel4.shift;four.finale.finishX+=feel4.shift;
+  ends[3]+=feel4.shift;ends[4]+=feel4.shift;
+  four.feel4={...feel4,points:insertedUnderground2.map(p=>p.slice())};
   four.stages=layers.map((layer,i)=>({id:i+1,layer,kind:i%2?'rutabaga':'pumpkin',
     startX:i?ends[i-1]:four.stage1.startX,spawnX:i?(i%2?four.curves[layer][1][0]:ends[i-1]+180):null,endX:ends[i],
     cameraFloor:i?Math.min(...four.curves[layer].map(p=>p[1]))+45:four.stage1.cameraFloor,
@@ -211,6 +254,8 @@
   // Keep the accepted STAGE 3 camera band and fall threshold unchanged.
   // The new trough is visible inside that framing without pulling the camera.
   four.stages[2].cameraFloor=240;four.stages[2].failY=-525;
+  // Likewise, a longer STAGE 4 must not shift the old camera/fall band.
+  four.stages[3].cameraFloor=-125;four.stages[3].failY=-890;
   function freeze(v){if(v&&typeof v==='object'){Object.values(v).forEach(freeze);Object.freeze(v);}return v;}
   const courses=freeze({world2:two,world4:four});
   function get(id){const c=courses[id];if(!c)throw Error('Unknown comparison course');return c;}

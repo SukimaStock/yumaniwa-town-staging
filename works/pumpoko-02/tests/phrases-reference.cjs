@@ -1,12 +1,39 @@
 'use strict';
 const assert=require('node:assert/strict'),fs=require('node:fs'),{execFileSync}=require('node:child_process'),C=require('../courses.js'),{BASE,previous}=require('./phrases-review.cjs');
 const json=v=>JSON.stringify(v);
+// Undo exactly the approved STAGE 4 insert for old pre-Stage-4 snapshots.
+// This is a pure golden-reference adapter; the real course is never modified.
+function withoutStage4(raw){
+ const c=JSON.parse(JSON.stringify(raw)),cfg=c.feel4;
+ if(!cfg)return c;
+ const d=cfg.shift,tailFrom=cfg.points.at(-1)[0];
+ c.curves.underground2=[
+  ...c.curves.underground2.filter(p=>p[0]<=cfg.joinX),
+  ...c.curves.underground2.filter(p=>p[0]>tailFrom).map(p=>[p[0]-d,p[1],p[2]])
+ ];
+ c.curves.finish=c.curves.finish.map(p=>[p[0]-d,p[1],p[2]]);
+ c.gaps=c.gaps.filter(g=>g.id!=='stage4-choice').map(g=>g.stage===5?{...g,a:g.a-d,b:g.b-d}:g);
+ c.holes[3].x-=d;
+ c.cellars[1].right-=d;c.cellars[1].exitX-=d;c.cellars[1].roofStart-=d;
+ c.surfaceBridges[1].b-=d;
+ c.goal.x-=d;c.finishX-=d;c.offsets.finish-=d;c.exitOffsets[3]-=d;c.goalOffset-=d;
+ for(const points of Object.values(c.finale.curves))for(const p of points)p[0]-=d;
+ for(const h of c.finale.holes)h.x-=d;
+ for(const cell of c.finale.cellars)
+  for(const k of ['left','right','roofStart','exitX'])cell[k]-=d;
+ for(const g of c.finale.gaps){g.a-=d;g.b-=d;}
+ c.finale.goal.x-=d;c.finale.finishX-=d;
+ c.stages[3].endX-=d;
+ c.stages[4].startX-=d;c.stages[4].endX-=d;c.stages[4].spawnX-=d;
+ delete c.feel4;
+ return c;
+}
 function protect(){
  const raw=C.get('world4'),old=previous().FruitLabCourses.get('world4');
  // Historical phrase baselines predate the new additive STAGE 3 interlude.
  // Undo only its rigid downstream translation for the old snapshot assertions;
  // the new independent extension test protects the inserted terrain itself.
- const c=JSON.parse(JSON.stringify(raw)),delta=c.feel3?.shift||0;
+ const c=withoutStage4(raw),delta=c.feel3?.shift||0;
  if(delta){
    const join=c.feel3.joinX,oldTail=old.curves.return.find(p=>p[0]>join)[0];
    c.curves.return=[
@@ -46,4 +73,4 @@ function protect(){
  for(const layer of Object.keys(bounds))assert.ok(c.curves[layer].every((p,i)=>!i||p[0]>c.curves[layer][i-1][0]));
  return {c,old};
 }
-module.exports={protect,BASE};
+module.exports={protect,withoutStage4,BASE};
