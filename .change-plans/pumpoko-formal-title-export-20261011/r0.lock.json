@@ -1,0 +1,66 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "11516288f7ecbe591d60e1baa03f40180a7dea1263f386756eb399bc9eff2588",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-formal-title-export-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Keep existing PUMPOKO ZIP exporter compatible with the approved formal title",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "d72a508b9b6d932fbab5136af3f7b43fd91a3603",
+    "canonicalSources": [
+      "works/pumpoko/index.html",
+      "works/pumpoko/build-itch.py",
+      "works/pumpoko/standalone-export.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-formal-title-export-20261011/r0.lock.json",
+      "works/pumpoko/build-itch.py"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "main.js",
+      "style.css",
+      "works/pumpoko/index.html",
+      "works/pumpoko/*.js",
+      "works/pumpoko/audio/**"
+    ],
+    "expectedChanges": [
+      "Require exactly one current formal title instead of rewriting the retired title. Preserve all other packaging checks."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Build ZIP; inspect 22 exact members and canonical Engine/audio/runtime; reject unexpected and duplicate titles"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "Current task authorizes formal-name consistency and staging regression fixes; no design change, publication or itch.io upload."
+    ],
+    "rollback": "Reverse only this exporter diff together with any future title rollback.",
+    "promotion": "Staging packaging artifact only; no production or external publication.",
+    "unverified": [
+      "Actual itch.io browser/device upload remains unverified and is not performed."
+    ]
+  }
+}
