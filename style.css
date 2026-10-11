@@ -1728,3 +1728,94 @@ body {
         margin-left: 16px;
     }
 }
+
+/* SEO / town introduction: visible content without replacing the walking experience. */
+#town-screen #town-search-intro {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: min(228px, 48%);
+    z-index: 56;
+    padding: 9px 10px;
+    box-sizing: border-box;
+    border: 1px solid rgba(245, 230, 200, .27);
+    border-radius: 8px;
+    color: #f8eedc;
+    background: rgba(24, 26, 30, .76);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .75);
+    pointer-events: none;
+    line-height: 1.5;
+}
+#town-search-intro h1 {
+    margin: 0 0 3px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .07em;
+}
+#town-search-intro > p {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.5;
+}
+#town-search-intro .town-search-guide {
+    margin-top: 5px;
+    pointer-events: auto;
+    font-size: 11px;
+}
+#town-search-intro .town-search-guide summary {
+    cursor: pointer;
+    padding: 5px 0 2px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    touch-action: manipulation;
+}
+#town-search-intro .town-search-guide[open] {
+    position: relative;
+    z-index: 58;
+}
+#town-search-intro .town-search-guide nav {
+    max-height: min(52dvh, 370px);
+    padding: 10px;
+    margin-top: 6px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-radius: 6px;
+    border: 1px solid rgba(245, 230, 200, .35);
+    background: rgba(14, 16, 19, .96);
+}
+#town-search-intro .town-search-guide h2 {
+    font-size: 12px;
+    line-height: 1.45;
+    margin: 10px 0 2px;
+}
+#town-search-intro .town-search-guide h2:first-child { margin-top: 0; }
+#town-search-intro .town-search-guide nav p {
+    margin: 0 0 6px;
+    font-size: 10px;
+    opacity: .8;
+}
+#town-search-intro .town-search-guide a {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    color: #f5dfaa;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    padding: 4px 0;
+    font-size: 11px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+    touch-action: manipulation;
+}
+#town-search-intro .town-search-guide :focus-visible {
+    outline: 2px solid #ffe9aa;
+    outline-offset: 2px;
+}
+@media (max-width: 390px) {
+    #town-screen #town-search-intro {
+        width: min(192px, 53%);
+        padding: 6px 8px;
+    }
+    #town-search-intro h1 { font-size: 12px; }
+    #town-search-intro > p { font-size: 10px; }
+}

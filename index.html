@@ -6,7 +6,7 @@
 <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" name="viewport"/>
 <meta content="#0a0a0a" name="theme-color"/>
 <meta content="湯間庭町" name="apple-mobile-web-app-title"/>
-<meta content="つくったものが集まる町。湯間庭町。" name="description"/>
+<meta content="SukimaStockのブラウザゲームや、触って楽しむ小さな作品を、町を歩きながら見つける場所です。レジャーセンターや夜の横丁を気ままに散策できます。" name="description"/>
 <meta content="noindex,nofollow" name="robots"/>
 <!-- X / SNS共有カード（OGP） -->
 <!-- 公開時は assets/ogp/yumaniwa-town.jpg を 1200×630px で配置する。 -->
@@ -14,8 +14,8 @@
 <meta content="ja_JP" property="og:locale"/>
 <meta content="website" property="og:type"/>
 <meta content="湯間庭町" property="og:site_name"/>
-<meta content="湯間庭町｜つくったものが集まる町" property="og:title"/>
-<meta content="自分専用アプリ記事、触れるらくがき、夜の工房、焼き鳥屋台。少しずつ作ってきたものを、ひとつの町として歩ける場所にしました。" property="og:description"/>
+<meta content="湯間庭町｜小さなブラウザゲームと触れる作品" property="og:title"/>
+<meta content="SukimaStockのブラウザゲームや、触って楽しむ小さな作品を、町を歩きながら見つける場所です。" property="og:description"/>
 <meta content="https://sukimastock.github.io/yumaniwa-town/" property="og:url"/>
 <meta content="https://sukimastock.github.io/yumaniwa-town/assets/ogp/yumaniwa-town.jpg?v=1" property="og:image"/>
 <meta content="https://sukimastock.github.io/yumaniwa-town/assets/ogp/yumaniwa-town.jpg?v=1" property="og:image:secure_url"/>
@@ -24,34 +24,17 @@
 <meta content="630" property="og:image:height"/>
 <meta content="湯間庭町の駅前広場" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="湯間庭町｜つくったものが集まる町" name="twitter:title"/>
-<meta content="自分専用アプリ記事、触れるらくがき、夜の工房、焼き鳥屋台。少しずつ作ってきたものを、ひとつの町として歩ける場所にしました。" name="twitter:description"/>
+<meta content="湯間庭町｜小さなブラウザゲームと触れる作品" name="twitter:title"/>
+<meta content="SukimaStockのブラウザゲームや、触って楽しむ小さな作品を、町を歩きながら見つける場所です。" name="twitter:description"/>
 <meta content="https://sukimastock.github.io/yumaniwa-town/assets/ogp/yumaniwa-town.jpg?v=1" name="twitter:image"/>
 <meta content="湯間庭町の駅前広場" name="twitter:image:alt"/>
-<title>湯間庭町｜つくったものが集まる町</title>
+<title>湯間庭町｜小さなブラウザゲームと触れる作品｜SukimaStock</title>
 <script src="./work-install-meta.js?rev=auto-9281b303"></script>
-<link href="./style.css?rev=auto-9ef7181d" rel="stylesheet"/>
+<link href="./style.css?rev=seo-town-20261011" rel="stylesheet"/>
 <link href="./layout-fix.css?v=20260813-1" rel="stylesheet"/>
 <link href="./work-guide-terminal.css?v=20260929-guide-v1" rel="stylesheet"/>
-<style>
-.work-search-links { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.work-search-links:focus-within { position: fixed; top: 8px; left: 8px; right: 8px; width: auto; height: auto; max-height: 40vh; padding: 12px; overflow: auto; clip-path: none; white-space: normal; z-index: 100000; background: #0a0a0a; color: #f4efe5; }
-.work-search-links a { color: inherit; margin-right: 1em; }
-</style>
 </head>
 <body>
-<!-- Static work links: available to assistive technology and keyboard focus. -->
-<nav class="work-search-links" aria-label="作品紹介">
-  <a href="./w/orbit/">ORBIT</a>
-  <a href="./w/diorama-calendar/">Diorama Calendar</a>
-  <a href="./w/rojiura-masala/">路地裏マサラ</a>
-  <a href="./w/steamclock/">SteamClock</a>
-  <a href="./w/dotweather/">DotWeather</a>
-  <a href="./w/junkissa-dive/">純喫茶ダイヴ</a>
-  <a href="./w/midnight-cola/">真夜中コーラ</a>
-  <a href="./w/yakitori-wars/">Yakitori Wars</a>
-  <a href="./w/rainy-window/">雨の日の窓</a>
-</nav>
 
 <div id="game-container">
 
@@ -59,19 +42,41 @@
 
 
 
-<!-- 固定ゲーム画面: canvas・町UI・セリフ・操作UIはこの中で管理する --><div aria-label="湯間庭町の画面" id="town-screen"><canvas aria-label="湯間庭町" id="game-canvas"></canvas><div id="ui-layer">
+<!-- 固定ゲーム画面: canvas・町UI・セリフ・操作UIはこの中で管理する --><div aria-label="湯間庭町の画面" id="town-screen"><canvas aria-label="湯間庭町" id="game-canvas"></canvas><aside id="town-search-intro" aria-label="湯間庭町の案内">
+  <h1>湯間庭町</h1>
+  <p>SukimaStockのブラウザゲームや、触って楽しむ小さな作品を、町を歩きながら見つける場所です。</p>
+  <details class="town-search-guide">
+    <summary>町の作品案内</summary>
+    <nav aria-label="作品紹介">
+      <h2>湯窓レジャーセンター</h2>
+      <p>小さなゲーム、アプリ、触れるらくがき</p>
+      <a href="./w/pumpoko/">PUMPOKO</a>
+      <a href="./w/orbit/">ORBIT — Silent Reboot</a>
+      <a href="./w/diorama-calendar/">DioramaCalendar</a>
+      <a href="./w/steamclock/">SteamClock</a>
+      <a href="./w/dotweather/">DotWeather</a>
+      <a href="./w/rainy-window/">雨の日の窓</a>
+      <h2>灯串横丁</h2>
+      <p>夜の路地で出会う、小さな遊び</p>
+      <a href="./w/rojiura-masala/">路地裏マサラ</a>
+      <a href="./w/junkissa-dive/">純喫茶ダイヴ</a>
+      <a href="./w/midnight-cola/">真夜中コーラ</a>
+      <a href="./w/yakitori-wars/">Yakitori Wars</a>
+    </nav>
+  </details>
+</aside><div id="ui-layer">
 <div id="scene-name">駅前広場</div>
-<div id="debug-info" style="display:none;">
+<div id="debug-info" style="display:none;" data-nosnippet>
 <div id="coord-display">現在座標: (-, -)</div>
 <div id="clicked-coord">タップ: x=-, y=-</div>
 </div>
 </div><div id="area-title">
 <div id="area-title-main"></div>
 <div id="area-title-sub"></div>
-</div><button aria-label="近くを調べる" id="interaction-hint" type="button">
+</div><button aria-label="近くを調べる" id="interaction-hint" type="button" data-nosnippet>
 <span id="interaction-label"></span>
 <span id="interaction-action"></span>
-</button><div id="message-backdrop"></div><div aria-live="polite" id="message-window" role="dialog"></div><div id="mobile-controls">
+</button><div id="message-backdrop"></div><div aria-live="polite" id="message-window" role="dialog"></div><div id="mobile-controls" data-nosnippet>
 <div aria-label="移動コントローラー" id="dpad">
 <button aria-label="上へ" class="dpad-btn up" id="btn-up" type="button">▲</button>
 <button aria-label="左へ" class="dpad-btn left" id="btn-left" type="button">◀</button>
@@ -97,7 +102,7 @@
 </button>
 <div id="work-player-content">
 <iframe allow="autoplay; fullscreen; gamepad; web-share; clipboard-write" allowfullscreen="" id="work-player-frame" scrolling="no" title="町内コンテンツ"></iframe>
-<div aria-hidden="true" id="work-player-loading">
+<div aria-hidden="true" id="work-player-loading" data-nosnippet>
 <div class="work-player-loading-card" aria-live="polite" role="status">
 <div aria-hidden="true" class="work-player-loading-mark"></div>
 <div id="work-player-loading-label">準備しています…</div>
@@ -107,7 +112,7 @@
 </div>
 
 <button id="btn-debug-toggle" type="button">開発</button>
-<div id="editor-panel" style="display:none;">
+<div id="editor-panel" style="display:none;" data-nosnippet>
 <div class="editor-header">
 <strong>マップ編集</strong>
 <button aria-label="閉じる" id="btn-close-editor" type="button">×</button>
@@ -141,7 +146,7 @@
 </div>
 </div>
 </div>
-<div id="export-modal" style="display:none;">
+<div id="export-modal" style="display:none;" data-nosnippet>
 <div class="export-header">
 <strong>マップ設定を書き出す</strong>
 <button aria-label="閉じる" id="btn-close-export" type="button">閉じる</button>
