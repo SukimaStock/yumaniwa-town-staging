@@ -31,7 +31,7 @@ var WORK_SEARCH_META = {
             "body": "カボチャに触れると、いつの間にかその内側のような世界へ。地上を転がり、地下で跳ね、穴に詰まった相手を押し出して交代しながら5つのステージを進む物理アクションゲームです。",
             "shareTitle": "PUMPOKO｜湯間庭町",
             "shareDescription": "地上をころころ、地下をぽよん。カボチャとルタバガの旅。",
-            "imageAlt": "カボチャとルタバガが地上と地下を旅するPUMPOKOのゲーム画面",
+            "imageAlt": "かぼちゃ色の文字とルタバガが描かれたPUMPOKOのロゴ",
             "genres": ["アクション", "物理"],
             "terms": ["PUMPOKO", "カボチャゲーム", "物理アクションゲーム", "ブラウザゲーム", "ルタバガ"]
         },
@@ -41,7 +41,7 @@ var WORK_SEARCH_META = {
             "body": "Touch a pumpkin and enter a tiny world. Roll on the surface, bounce underground, and push your partner out of a hole to switch between them. Find your way across five stages of momentum and timing.",
             "shareTitle": "PUMPOKO | Yumaniwa Town",
             "shareDescription": "Roll above. Bounce below. A little journey with a pumpkin and a rutabaga.",
-            "imageAlt": "Pumpkin and rutabaga travelling above and below the ground in PUMPOKO",
+            "imageAlt": "The colorful PUMPOKO logo with a small rutabaga beneath the letters",
             "genres": ["Platformer", "Physics"],
             "terms": ["PUMPOKO", "pumpkin game", "rutabaga game", "physics platformer", "browser game"]
         }

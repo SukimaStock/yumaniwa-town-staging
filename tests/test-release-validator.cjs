@@ -234,3 +234,37 @@ test('invalid calendar lastmod is rejected without generating a replacement',t=>
     const c=candidate(t);mutate(c,'sitemap.xml',s=>s.replace('</loc></url>','</loc><lastmod>2026-02-30</lastmod></url>'));
     has(validate(c.options),'FAIL','sitemap.lastmod');
 });
+
+test('PUMPOKO staging-only Japanese/English previews and user-approved image assets match source contracts', () => {
+    const id='pumpoko';
+    const work=readWorks(REPO).find(w => w.id===id);
+    const meta=readWorkSearchMeta(REPO)[id];
+    assert.equal(work.status,'open');
+    assert.equal(work.entry,'./works/pumpoko/index.html');
+    assert.equal(meta.schemaType,'VideoGame');
+    assert.match(meta.ja.imageAlt,/ロゴ/);
+    assert.match(meta.en.imageAlt,/logo/);
+    for (const [locale,file] of [['ja','w/pumpoko/index.html'],['en','en/w/pumpoko/index.html']]) {
+        const page=fs.readFileSync(path.join(REPO,file),'utf8');
+        assert.equal(page,buildPage(id,work,meta,locale,'staging'),file+' must match canonical Search/Share generator');
+        assert.match(page,/<meta name="robots" content="noindex,nofollow">/);
+        assert.match(page,/<meta property="og:image:width" content="1200">/);
+        assert.match(page,/<meta property="og:image:height" content="630">/);
+        assert.match(page,/\?work=pumpoko/);
+    }
+    const dir=path.join(REPO,'assets/works/pumpoko');
+    const icon=fs.readFileSync(path.join(dir,'icon.png'));
+    const ogp=fs.readFileSync(path.join(dir,'ogp.jpg'));
+    assert.deepEqual(imageInfo(icon),{mime:'image/png',width:1024,height:1024});
+    assert.deepEqual(imageInfo(ogp),{mime:'image/jpeg',width:1200,height:630});
+    assert.equal(crypto.createHash('sha256').update(icon).digest('hex'),'c3c752bd0398c5ff6597ba1d3226b0c8ca9dae36b3f2c5ab8ea889cef79a61f8');
+    assert.equal(crypto.createHash('sha256').update(ogp).digest('hex'),'8ba233dff9759c47d22fcd65f489bc2937d65e004a6ebbcc536077ca9b96204a');
+    const m=JSON.parse(fs.readFileSync(path.join(REPO,'w/pumpoko/manifest.webmanifest'),'utf8'));
+    assert.equal(new URL(m.start_url,'https://sukimastock.github.io/yumaniwa-town/w/pumpoko/').pathname,'/yumaniwa-town/');
+    assert.equal(m.icons.length,1);
+    assert.equal(m.icons[0].src,'../../assets/works/pumpoko/icon.png');
+    assert.equal(m.icons[0].sizes,'1024x1024');
+    assert.equal(m.icons[0].type,'image/png');
+    const sitemap=fs.readFileSync(path.join(REPO,'sitemap.xml'),'utf8');
+    assert.ok(!sitemap.includes('/w/pumpoko/'),'PUMPOKO is not production-published yet');
+});
