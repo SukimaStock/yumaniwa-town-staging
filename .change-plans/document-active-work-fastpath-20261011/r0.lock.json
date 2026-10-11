@@ -1,0 +1,134 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ba1c1bf46368c8db80eeee3beecb62a927079a5f2154f13eea037b538fbf9683",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "document-active-work-fastpath-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Synchronize five existing canonical development documents with tested, active-only bounded work-local staging fast path and preserve original secure Plan requirements for all other paths.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "6a542c36e348e9e877c6bd739bef43c18dc855b3",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "tools/staging-isolation-fastpath.cjs",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      "tools/staging-contained-change-proof.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/document-active-work-fastpath-20261011/r0.lock.json",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "works/**",
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "w/**",
+      "en/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Document two narrow Plan-free staging routes: completely new isolated work, or bounded modifications/additions in exactly one lifecycle-active preexisting work.",
+      "Specify active-only requirements: <=4 ordinary files, no deleted/renamed/symlink/exec mode, protected packaging/metadata, <=120 modified lines and 16 KB patch, max file sizes and exact Git base lifecycle.",
+      "Explain exact prior version restoration is only within active work local classifier and does NOT allow Plan-free shared/town/Engine rollback.",
+      "Frozen, candidate, released, town/shared, lifecycle data, two work, production retain Plan Lock and existing gates.",
+      "Cite real no-Plan canaries #250 active PASS, #251 frozen blocked, #252 released blocked, #253 shared blocked, #254 new PASS, #255 candidate blocked, all closed unmerged."
+    ],
+    "ownerDecisions": [
+      "Owner requested easing isolated new and active existing local edits while protecting existing shared and published content; no production approval."
+    ],
+    "hqDecisions": [
+      "This PR updates docs only to match actual CI, not a new gateway exemption.",
+      "Owner aesthetic signoff, human/device verification, production publication and shared UI design remain separate decisions."
+    ],
+    "rulesApplied": [
+      "Keep existing PR Lock intact in first phase",
+      "Avoid broad glob path allowlists in gate",
+      "No publication or lifecycle status changes",
+      "No untrusted scripts in privileged checks"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Verify docs do not incorrectly claim existing released/frozen/candidate work edits may skip Plan",
+      "Confirm rollback on shared UI still normal protected path",
+      "Check exact prior author approval is not inferred from a Plan label or Git blob"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Trusted both workflow heads at 6a542c36e348e9e877c6bd739bef43c18dc855b3",
+      "Pinned active-only classifier 8c826e9c20078cc3e35bddf61a4dee533b664e20",
+      "CI test PRs #250-255 closed without merge"
+    ],
+    "rollback": "Revert registry-only authorization before implementing protected workflow; do not change production.",
+    "outOfScope": [
+      "Changing .github workflow file in this PR",
+      "Activating fastpath in this PR",
+      "Changing production or Work lifecycle"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "No visual or published-work verification asserted by fastpath"
+    ],
+    "alternativesRejected": [
+      "Leave stale docs leading operators to needless lock creation",
+      "Imply all routine edits may omit Plan Lock",
+      "Convert unverified human checks into machine PASS"
+    ],
+    "boundaryCases": [
+      "Only new single work and one bounded active local tweak are Plan-free",
+      "Frozen, released, candidate, shared, Engine and production require old Plan route",
+      "Restoring old shared town screen is not fastpath eligible",
+      "Positive and negative canaries are unmerged"
+    ],
+    "testPlan": [
+      "Trusted previous-base Change OS Plan/Scope/Risk/Impact/static",
+      "Run docs+Change Operations CI",
+      "Verify last gate SHA unchanged",
+      "Confirm production unchanged"
+    ],
+    "problem": "Installed security gates now allow bounded active local edits without Plan Lock, but operations docs still state all existing edits are excluded.",
+    "currentContract": "Two pinned base-owned protected workflows recognize one new work or one existing lifecycle-active bounded work while rejecting shared and public work changes.",
+    "whyExistingIsInsufficient": "Stale instructions cause needless Plan preparation and mislead when existing active work tweaks can be safely routed.",
+    "design": "Precisely edit five existing runbooks without touching any workflow, tools, registry, games or production.",
+    "migration": "Document the tested behavior only after positive and negative real PR canaries pass.",
+    "compatibility": "All secure CI, original Plan route, Work lifecycle and production unchanged.",
+    "promotionRisk": "No new production rights. User approval of visible shared UI remains required."
+  }
+}
