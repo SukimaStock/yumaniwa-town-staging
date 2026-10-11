@@ -75,7 +75,7 @@ Scene Visitや新session ID等の計測体系を追加しない。Plausible設�
 | `/en/w/<id>/` | 英語の検索・共有ページ。自己canonical、英語本文・OGP文面・JSON-LDを持ち、日本語ページとhreflangで相互接続 |
 | `/?work=<id>` | 町shellの実行入口。作品固有OGPを期待しない |
 | `/w/<id>/?open=1` | 既存互換の直接起動shortcut。町shellへredirect可。通常share URLにしない |
-| `/works/<id>/` | embedded実体・単体検証/standalone。検索代表でない。既存index/noindexは全面変更しない |
+| `/works/<id>/` | embedded実体・単体検証/standalone。公開10作品の実行ページはnoindex,followとし、検索代表は日英紹介ページ。未知の作品へ一律適用しない |
 | 通常itch URL | 作品紹介/配布用 |
 | itch embed-upload URL | 町内iframe専用。告知URLにしない |
 
@@ -243,18 +243,11 @@ redirectは既存inline scriptを通常queryとopen=1で実行し、load/timer�
 HTML/XMLは現行静的形式を対象とする。外部画像やJPEG/PNG以外は自動PASSにせずレビューへ。
 lastmodの実質的変更日との一致は履歴レビューで確認し、今日の日付を生成しない。
 
-### 未決HQ（Phase 2では解決しない）
+### 本番候補の準備と残る境界
 
-1. staging新WORLD OBJECT基盤と旧production基盤を越える昇格方法。新基盤の部分コピー禁止。
-2. `/works/`のindex/noindex・canonicalを統一する範囲。今回のw契約採用はこの全面変更を含まない。
-3. 将来generatorのためのSEO/Share追加metadataの最小設計。第二台帳・大規模schemaは未導入。
-4. landing計測/UTM引渡し等、既存analytics契約を超える変更。
+候補branch・差分・検証・rollbackの準備は公開と別工程。今回のSEO候補は既存公開10作品だけを現行productionから選別し、staging noindex・固定案内・開発UI・試作を持ち込まない。生成時のinstruction参照は「候補準備のみ」と明記し、それをmerge/deploy承認として流用しない。Search Console / Bingの設定・送信も別の指示を待つ。
 
-Phase 2確認時の基準: production `cc387496dbadbd5ddd1f937e15100c4c9bd82b83`、
-staging `ccae0a7d4ca3e69117db636a265468df5a1cdf54`。
-Phase 1のstaging固定SHAからの19コミットはORBIT本体/専用export関連6ファイルのみ。
-登録・w・OGP・analytics・scene・Manualの結論は不変。
-今回、既知SEO/sitemap/OGPの実データは直さない。まず赤を出せることが成果。
+現在も個別判断が必要なもの：staging新WORLD OBJECT基盤と旧production基盤を越える移送、新しいanalytics/UTM体系、未知の公開/保存/launch契約。Search generator・日英metadata・公開10作品の実行noindex整理は実装済みで、過去のPhase 2未決事項として繰り返さない。
 
 ## Work lifecycleによるproductionゲート
 

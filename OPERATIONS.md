@@ -8,7 +8,7 @@
 - 本番反映は production 用 branch → PR → Production Safety Checks → merge
 - 緊急で本番を直接修正した場合も、同じ修正を必ず staging へ戻す
 
-変更依頼を受けたら `CHANGE-OPERATIONS.md` で影響範囲を確認する。stagingでPlan Lock不要なのは、①新しい単一 `works/<slug>/` に通常ファイルだけを追加する場合、②ライフサイクルが `active` の単一既存work内で制限内の小変更だけ。base-owned固定判定器で判定し、開発者の自己申告では決めない。凍結・公開済み・candidate作品、共有部、町への登録、production公開を含む変更は従来のCHANGE-PLANとPlan Lockで保護する。
+変更依頼を受けたら `CHANGE-OPERATIONS.md` で影響を確認し、[CHANGE-PLAN.md §1](CHANGE-PLAN.md#1-plan-level) の3ルートへ振り分ける。軽量対象ならPR本文の短いscopeと関連回帰だけで進め、対象外は従来の事前Plan Lockで保護する。
 詳細な昇格ルールは `RELEASE-WORKFLOW.md` も参照する。
 
 画像アセット・WORLD OBJECTのピクセル基準は `YUMANIWA-PIXEL-STANDARD.md` を正本とする。
@@ -19,11 +19,11 @@
 
 - **新しい隔離試作:** `works/<new-id>/` を中心にstaging-onlyで作り、仮説・手触りを自由に試す。最初から町への設置・production移行・公開用紹介文を要求しない。独立作品の操作テストを優先する。必要な場合のWork lifecycle `active` 登録は公開承認とは別。
 - **既存作品の小変更:** 対象作品の期待動作を守り、影響先だけを確認する。Engine・共有町画面を安易に書き換えない。
-- **共有画面／共通Engine:** 何を守るか、既存手段ではなぜ足りないかを先に判断する。依頼範囲内の可逆な共有UIは、戻せる差分と関連CIを確認してstagingで試してよい。作者が見て採用・修正・撤回を選ぶ。共有契約・保存・既存動作の破壊には事前設計判断が必要。
+- **共有画面／共通Engine:** 何を守るか、既存手段ではなぜ足りないかを先に判断する。新しい常時表示UIは具体案について作者の判断を得る。未決の選択を含まない既存UIの局所修正は、戻せる差分と関連CIを確認してstagingで試してよい。作者が見て採用・修正・撤回を選ぶ。共有契約・保存・既存動作の破壊には事前設計判断が必要。
 - **部分的な取り消し:** 作者が「戻して」と指示した既知の変更は、過去のコミットとの差分から対象だけを戻す。無関係なSEO・作品改善を巻き戻さない。既存のCI必須チェックは維持する。
 - **承認の繰り返しを減らす:** 明示的なstaging作業の中のbranch作成・commit・PR・通常の検査・安全なstagingマージについて、許可を小分けに求めない。staging試行と作者による採用、不可逆な変更、production反映、接続サービス固有の権限要求は区別する。
 
-**現行CIで有効:** 新規単一workの追加と、基準SHAで `active` の単一既存work内の限定的小変更のみPlan Lock不要。active局所変更は4ファイル以内・通常ファイルのみ、編集量・patch・容量制限があり、削除・改名・symlink・実行可能mode・配布設定・共有パスを拒否。#250/#254で通過、#251/#252/#253/#255で拒否を検証（未マージ）。共有画面のrollback、既存の `frozen` / `candidate` / `released` work、productionはfast-path対象外で従来のゲートを維持する。人による実機・画面確認は別。
+**現行CIの境界はCHANGE-PLAN §1へ集約。** 新作、active作品の小変更、証明可能な限定復元だけを軽量化し、共有契約・凍結等・productionの保護を維持する。機械PASSと実機確認を混同しない。
 
 ---
 
@@ -33,7 +33,7 @@
 
 1. `yumaniwa-town-staging` の main をPullし、未コミット変更がないことを確認する。
 2. `node tools/work-lifecycle.cjs --list`で対象workの制作状態を確認し、今回のChange Planを決める。AIに準備を任せる場合も、編集開始前に行う。
-3. 最新mainから作業branchを作る。上記の新規単一work追加または基準ライフサイクル `active` の単一既存work小変更だけならPlan Lockなしで進められる。それ以外の作品状態・町・共有部・データ登録などの変更は、最初のcommitにPlan Lockだけを登録する。
+3. 最新mainから作業branchを作る。3ルートに該当すればPlan Lockなしで進められる。既知の取り消しは下記の「検証できる部分復元」へ。それ以外の作品状態・町・共有契約・データ登録などの変更は、最初のcommitにPlan Lockだけを登録する。
 4. 作業branchを同名の `origin/<作業branch>` へPush・同期する。
 5. そのbranchの `tools/YumaniwaDesk.py` を起動する。Deskの「編集branch」を確認する。
 6. Working CopyでHEADと同名origin branchの一致、cleanなStatusを確認し、「同期確認済み」を押す。
@@ -117,7 +117,7 @@ ChatGPT が GitHub 上の staging を修正した後に YumaniwaDesk を使う�
 
 現在のstaging/mainは全変更をPRで取り込む。軽いCONTENT / PLACEMENTのPlanまで一律Fullにはしない。
 
-ただし次はhigh-risk routeを使う。
+3ルート対象外の次の変更はhigh-risk routeを使う。
 
 - Change OS / workflow
 - shared runtime
@@ -218,8 +218,7 @@ workflowは `pull_request_target` で**PR base側の定義を実行**する。
 candidate branchのworkflow定義を実行しないため、PR自身がgateをno-opへ書き換えて同じcheck名を偽装する経路を閉じる。
 gateのJavaScriptもtrusted base checkoutから実行し、candidate checkoutはGit diff / Plan /対象fileのデータとしてだけ読む。
 
-v0.2導入PRはbase側にこのtrusted workflow自体がまだ存在しないため、bootstrap例外として
-既存CI・固定Plan・PR reviewによる確認を行う。merge後の将来PRではこの例外を使わない。
+初回bootstrapは完了済みで、通常の将来PRには使わない。契約変更は既存のregistry-only authorization → exact transitionの2段階を維持する。
 
 **重要:** workflowが成功しても、repository設定でrequired checkになっていなければGitHub上のmerge強制にはならない。
 required check / merge protectionを確認できるまでは「hard enforcement済み」と報告しない。
@@ -295,24 +294,7 @@ static exitを既存ruleset-required `trusted-mechanical-evidence` jobの最終�
 C3-2でも `verificationState` は `UNVERIFIED`。
 文字列evidenceをtrusted human/static evidenceへ読み替えない。
 
-C3-3ではまず、base-owned `tools/change-verification-check.cjs attest` を
-standalone verifierとして導入する。
-これはGitHub event / trusted PR metadata / immutable Plan Lock / verifier blobを入力として、
-manual check attestationのmachine evidenceを生成する。
-
-verifier単体導入時点ではlive `issue_comment` workflowは存在しない。
-したがってcommentを書くだけでattestationが成立するわけではない。
-
-初期C3-3のattester policyはrepository owner本人だけとする。
-
-- trusted GitHub eventの `repository.owner` が `type=User`
-- owner login / numeric user IDがcomment userとsenderの両方に一致
-- `author_association` はprovenanceのみ
-- collaborator / organization member / delegated reviewerは自動的にOwner扱いしない
-- organization-owned repository / delegationが必要になった場合は別のChange OS変更として扱う
-
-Human Attestation artifactを生成できるようになっても、Verification Record v0.3への最終統合までは
-`verificationState=UNVERIFIED` を維持する。
+Human Attestationの基盤は保留中。live comment workflowや追加の手動入力を通常運用へ持ち込まない。現行の意味と終了点は `CHANGE-VERIFICATION.md` を参照する。
 
 旧checkerの `Verification: VERIFIED` を現在のstaging確認完了として報告しない。production公開許可やRelease Completeでもない。
 
@@ -442,6 +424,24 @@ production 固有の次の条件を守る。
 - force push で履歴を消さない
 - 問題のCommitを打ち消す新しいCommitを作る
 - staging / production の双方に影響がある場合は、先に正しい統合状態を staging で作る
+
+## 検証できる部分復元
+
+作者は「さっきのUI変更だけ戻して」と依頼すればよい。AIが次を実行する。
+
+1. 依頼対象のPR・実装commitと差分を特定し、最新mainの後続変更を確認する。
+2. 元の変更から取り消すハンクだけを選ぶ。関係のないSEO・別作品・後続改善を残す。
+3. 復元commitの末尾に次の参照を記録する（JSONはAIが生成する）。
+
+```text
+Restore-Source: <exact single-parent implementation SHA>
+Restore-Hunks: {"index.html":[12]}
+```
+
+4. `node tools/staging-targeted-change-proof.cjs --root . --base <最新base SHA> --head <候補SHA>` と関連回帰を確認し、両trusted CI後にstagingへ反映する。sourceへの逆差分と候補treeが一致しなければ軽量扱いを止める。
+5. 実機確認が必要な箇所はUNVERIFIEDのまま作者へ示す。復元のために同じ作者選択を聞き直さない。productionは変更しない。
+
+このルートの対象外・競合・安全契約の変更は従来のprotected routeへ戻す。新しいデザイン会議や別の承認台帳は作らず、必要なscope/checks/復旧だけを既存Planへ固定する。
 
 ## Commitメッセージ例
 
