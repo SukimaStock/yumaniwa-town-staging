@@ -1,0 +1,146 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "646cdf2cf06be6092b607cb6498e13abbbe542cd6c1acbfb3d0320a32ef5445d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "seo-work-search-copy-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Align ten production-target work names and Japanese/English SEO copy with owner-approved draft, generate staging-only noindex JA/EN Search pages from canonical metadata and shared generator.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "f956aa8d68d9b9ae0f7401fe22521e8e3cf00fc5",
+    "canonicalSources": [
+      "data/work-search-meta.js",
+      "data/works.js",
+      "tools/generate-work-search-pages.cjs",
+      "RELEASE-WORKFLOW.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/seo-work-search-copy-20261011/r0.lock.json",
+      "data/work-search-meta.js",
+      "tools/generate-work-search-pages.cjs",
+      "w/pumpoko/index.html",
+      "en/w/pumpoko/index.html",
+      "w/orbit/index.html",
+      "en/w/orbit/index.html",
+      "w/diorama-calendar/index.html",
+      "en/w/diorama-calendar/index.html",
+      "w/rojiura-masala/index.html",
+      "en/w/rojiura-masala/index.html",
+      "w/steamclock/index.html",
+      "en/w/steamclock/index.html",
+      "w/dotweather/index.html",
+      "en/w/dotweather/index.html",
+      "w/junkissa-dive/index.html",
+      "en/w/junkissa-dive/index.html",
+      "w/midnight-cola/index.html",
+      "en/w/midnight-cola/index.html",
+      "w/yakitori-wars/index.html",
+      "en/w/yakitori-wars/index.html",
+      "w/rainy-window/index.html",
+      "en/w/rainy-window/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "index.html",
+      "style.css",
+      "main.js",
+      "engine/**",
+      "works/**",
+      "data/works.js",
+      "data/work-lifecycle.json",
+      "sitemap.xml",
+      "assets/**",
+      ".github/**",
+      "tools/change-**"
+    ],
+    "expectedChanges": [
+      "Preserve existing work IDs, play URLs, work runtime, artwork and metadata schemaType while updating JA/EN search copy for exactly ten production-target works",
+      "Provide explicit locale heading in Search metadata and change generator to prefer it, with legacy fallback for non-target works",
+      "Generate ten JA/EN staging preview pairs using the actual shared generator; preserve noindex,nofollow and existing canonical/hreflang relationship",
+      "Preserve CoffeeFactory and all staging-only prototypes metadata unchanged; retain the original nine-work sitemap exactly"
+    ],
+    "ownerDecisions": [
+      "Owner approved the complete ten-work JA/EN draft and nomenclature policy on 2026-10-11, then explicitly instructed implementation; no work renaming or launch changes"
+    ],
+    "hqDecisions": [
+      "Add optional locale heading field to existing metadata only, preserving generator legacy fallback so no effect on not-yet-target works",
+      "Production import must regenerate pages in production with index semantics, never copy staging generated noindex files",
+      "Preserve sitemap nine released despite PUMPOKO preview in staging, exclude CoffeeFactory and all staging-only works"
+    ],
+    "rulesApplied": [
+      "Search/Share metadata is source of truth; no direct edits to generated pages",
+      "Production publication list is explicit and never derived from staging open",
+      "Separate locale-specific H1 from town venue display name"
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "exact generated work pages comparison",
+      "release-validator staging nine-work check",
+      "sitemap preservation",
+      "all target work name and URL references"
+    ],
+    "manualChecks": [
+      "JA and EN Search previews for ORBIT/Diorama/JUNKISSA/COLA/Yakitori",
+      "JA and EN PUMPOKO previews and OGP",
+      "ordinary link into town and return on iPhone"
+    ],
+    "impactChecks": [
+      "search.generated-pages",
+      "search.sitemap",
+      "search.localized-copy",
+      "search.structured-data",
+      "search.validator",
+      "search.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Staging base f956aa8d68d9b9ae0f7401fe22521e8e3cf00fc5",
+      "Existing Search/Share generator and release validator",
+      "Owner-approved October 11 Japanese/English SEO copy"
+    ],
+    "rollback": "Revert only this isolated staging PR and leave production, sitemap, and root town guide unchanged.",
+    "outOfScope": [
+      "Any production change or console submission",
+      "Search index directives on games",
+      "Town title display or game runtime/engine changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Browser/device and screenshot review pending",
+      "Production publication and indexing not checked"
+    ],
+    "alternativesRejected": [
+      "Modify twenty generated HTML files without updating source",
+      "Bring staging noindex HTML directly into production",
+      "Alter standalone game names or URLs to solve SEO metadata"
+    ],
+    "boundaryCases": [
+      "Non-target CoffeeFactory generated page remains byte-identical",
+      "Japanese and English headings differ where needed but schemaName/shareTitle remain semantically correct",
+      "PUMPOKO gets preview pages without entering staging nine-work sitemap",
+      "All twenty Search pages remain noindex in staging"
+    ],
+    "testPlan": [
+      "Run node generator in staging mode against exactly nine published works and separately generate PUMPOKO pair",
+      "Check output files match direct generator",
+      "Check Search validator, sitemap unchanged and noindex preserved",
+      "Review head changes using trusted Scope/Risk/Impact checks"
+    ]
+  }
+}
