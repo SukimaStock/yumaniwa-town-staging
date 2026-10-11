@@ -1,54 +1,20 @@
 <!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-  <meta name="theme-color" content="#f7edd8">
-  <meta name="robots" content="noindex,nofollow">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <title>PUMPOKO</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-  <img id="title-art" src="./assets/pumpoko-logo.svg" alt="" hidden>
-  <canvas id="gameCanvas" aria-label="PUMPOKO"></canvas>
-  <button id="sound-toggle" type="button" aria-label="音を切る" aria-pressed="true">♪</button>
-
-  <script src="./codea-lite.js"></script>
-
-  <!--
-    Repository/Staging source uses the canonical Engine.
-    The standalone/local starter export rewrites this marked tag to:
-      ./sukimastock-engine.js
-  -->
-  <script data-sse-engine src="../../engine/sukimastock-engine.v0.3.0.js"></script>
-
-  <script>
-    (() => {
-      const isStaging = /\/yumaniwa-town-staging(?:\/|$)/.test(window.location.pathname);
-      const cacheBust = isStaging ? ("?devbuild=" + Date.now()) : "";
-
-      const loadScript = (src) => new Promise((resolve, reject) => {
-        const script = document.createElement("script");
-        script.src = src;
-        script.onload = resolve;
-        script.onerror = () => reject(new Error("Failed to load " + src));
-        document.body.appendChild(script);
-      });
-
-      Promise.resolve()
-        .then(() => loadScript("./work-config.js" + cacheBust))
-        .then(() => loadScript("./dynamics.js" + cacheBust))
-        .then(() => loadScript("./stage-data.js" + cacheBust))
-        .then(() => loadScript("./stage-geometry.js" + cacheBust))
-        .then(() => loadScript("./journey.js" + cacheBust))
-        .then(() => loadScript("./stage-draw.js" + cacheBust))
-        .then(() => loadScript("./sketch.js" + cacheBust))
-        .then(() => CodeaLite.start("gameCanvas"))
-        .catch((error) => {
-          console.error("PUMPOKO bootstrap failed", error);
-        });
-    })();
-  </script>
-</body>
-</html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#faf1dc">
+<title>PUMPOKO 02</title><link rel="stylesheet" href="./style.css">
+</head><body>
+<img id="title-art" src="./assets/pumpoko-logo.svg" alt="" hidden>
+<canvas id="gameCanvas" aria-label="カボチャに触れて種を外し、育ったカボチャとルタバガで旅する"></canvas>
+<header id="title" class="sr-only"><h1>PUMPOKO 02</h1></header>
+<div id="title-controls" class="sr-only"><button id="start">カボチャに触れる</button></div>
+<button id="sound" aria-pressed="true" aria-label="音を切る">♪</button>
+<p id="rest" hidden></p><div id="audio-wait" hidden role="status" aria-live="polite">音楽を準備しています。カボチャを触ってお待ちください。 <button id="continue-silent" type="button" hidden>音なしで続ける</button></div><div id="status" class="sr-only" aria-live="polite"></div>
+<output id="boot-error" hidden>起動できませんでした。ページを再読み込みしてください。</output>
+<script src="../../engine/codea-lite.v1.0.0.js"></script>
+<script data-sse-engine src="../../engine/sukimastock-engine.v0.3.0.js"></script>
+<script src="./physics.js"></script><script src="./world.js"></script><script src="./courses.js"></script>
+<script src="./material.js"></script><script src="./draw.js"></script><script src="./world-draw.js"></script>
+<script src="./prologue.js"></script><script src="./title-draw.js"></script><script src="./opening.js"></script><script src="./opening-draw.js"></script><script src="./story.js"></script><script src="./app.js"></script>
+<script>try {CodeaLite.start('gameCanvas');} catch(error){document.getElementById('boot-error').hidden=false;console.error(error);}</script>
+</body></html>

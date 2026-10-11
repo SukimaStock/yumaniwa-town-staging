@@ -7,6 +7,13 @@
 var TOWN_UPDATES = [
     // [UPDATES:ADD_NEWEST_HERE]
     {
+        date: "2026-10-11",
+        title: "レジャーセンターに『PUMPOKO』を設置",
+        body: "地上を転がり、地下で跳ねる。カボチャとルタバガの小さな旅が始まりました。",
+        tags: ["leisure-center", "game", "open"],
+        workIds: ["pumpoko"]
+    },
+    {
         date: "2026-09-27",
         title: "レジャーセンターに『ORBIT』を設置",
         body: "帰る場所を手がかりに、静かな宇宙を漂い続ける探索ゲームです。",

@@ -40,10 +40,10 @@ test('current protected gameplay, Builder, assets, save keys and historical evid
    assert.deepEqual(stageData,JSON.parse(JSON.stringify(context.module.exports)),rel+' historical stageData');
   }else assert.deepEqual(after,before,rel);
  }
- assert.match(read('works/pumpoko/sketch.js'),/storageKey: "kotsu-koro\.sound"/);
- assert.match(read('works/pumpoko/sketch.js'),/storageKey: "sse:kotsu-koro:language"/);
- assert.match(read('works/pumpoko/builder/builder.js'),/kotsu-koro-stage-builder-v1/);
- assert.match(read('works/pumpoko/builder/builder.js'),/pumpoko-stage\.json/);
+ assert.match(read('works/pumpoko-01/sketch.js'),/storageKey: "kotsu-koro\.sound"/);
+ assert.match(read('works/pumpoko-01/sketch.js'),/storageKey: "sse:kotsu-koro:language"/);
+ assert.match(read('works/pumpoko-01/builder/builder.js'),/kotsu-koro-stage-builder-v1/);
+ assert.match(read('works/pumpoko-01/builder/builder.js'),/pumpoko-stage\.json/);
 });
 function files(p){return fs.readdirSync(p,{withFileTypes:true}).flatMap(d=>d.isDirectory()?files(path.join(p,d.name)):path.relative(root,path.join(p,d.name)));}
 test('legacy tree contains only two no-runtime redirect pages',()=>{

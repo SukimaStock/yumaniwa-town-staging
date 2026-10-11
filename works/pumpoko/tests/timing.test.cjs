@@ -8,7 +8,7 @@ function enter(api){const s=api.create();api.beginJourney(s);for(let i=0;i<1200&
 test('runtime/art/assets outside approved timing and goal files remain exact accepted main',()=>{
  const repo=path.resolve(__dirname,'../../..');const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!approvedLogoPath(p)&&!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!['/physics.js','/story.js','/app.js','/courses.js','/world.js','/world-draw.js'].some(x=>p.endsWith(x)));
  protectPhysics();
- for(const p of files)assert.ok(fs.readFileSync(path.join(repo,p)).equals(execFileSync('git',['show',BASE+':'+p],{cwd:repo,maxBuffer:10e6})),p);
+ for(const p of files)assert.ok(fs.readFileSync(path.join(repo,p.replace('works/pumpoko-02/','works/pumpoko/'))).equals(execFileSync('git',['show',BASE+':'+p],{cwd:repo,maxBuffer:10e6})),p);
 });
 test('real title interaction has exactly one-second after-detachment pause and retains four natural handoffs',()=>{
  const r=collect();assert.ok(Math.abs(r.events.opening-r.events.loose-1)<=1/60+1e-8);assert.ok(r.events.playing>r.events.opening+6.4);

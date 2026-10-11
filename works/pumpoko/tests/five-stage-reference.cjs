@@ -35,6 +35,6 @@ function protectRuntime(){
  assert.equal(between(now,"    }else if(s.phase==='coast'||s.phase==='ending'){",'  function returnMix('),between(old,"    }else if(s.phase==='coast'||s.phase==='ending'){",'  function returnMix('),'entire ending/return branch exact');
  assert.equal(now.slice(now.indexOf('  function returnMix(')),old.slice(old.indexOf('  function returnMix(')),'dissolve exact');
  const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/assets/','works/pumpoko-02/audio/'],{cwd:repo,encoding:'utf8'}).trim().split('\n');
- for(const f of files)assert.ok(fs.readFileSync(path.join(repo,f)).equals(execFileSync('git',['show',BASE+':'+f],{cwd:repo,maxBuffer:10e6})),f);
+ for(const f of files)assert.ok(fs.readFileSync(path.join(repo,f.replace('works/pumpoko-02/','works/pumpoko/'))).equals(execFileSync('git',['show',BASE+':'+f],{cwd:repo,maxBuffer:10e6})),f);
 }
 module.exports={BASE,source,previous,protectCourse,protectRuntime};

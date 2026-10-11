@@ -26,6 +26,32 @@ var WORKS = [
     // [WORKS:ADD_NEWEST_HERE]
 
     {
+        id: "pumpoko",
+        title: "PUMPOKO",
+        venue: "leisure_center",
+        kind: "game",
+        status: "open",
+
+        launch: "embedded",
+        entry: "./works/pumpoko/index.html",
+
+        frameTitle: "PUMPOKO",
+        returnLabel: "湯窓レジャーセンター",
+        frameMode: "soft",
+
+        playerLayout: "phone",
+        playerWidth: 390,
+        playerHeight: 740,
+
+        menuTitle: "PUMPOKO",
+        menuCategory: "物理アクションゲーム",
+        menuDescription: "地上をころころ、地下をぽよん。カボチャとルタバガが交代する旅。",
+        description: "カボチャを転がし、ルタバガを跳ねさせて進む、地上と地下の小さな物理アクションゲーム。",
+        emptyText: "PUMPOKOの小さな世界を読み込んでいます。"
+    },
+
+
+    {
         id: "orbit",
         title: "ORBIT — Silent Reboot",
         venue: "leisure_center",

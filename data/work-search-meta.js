@@ -21,6 +21,31 @@
 var WORK_SEARCH_META_SCHEMA = 1;
 
 var WORK_SEARCH_META = {
+
+    "pumpoko": {
+        "schemaType": "VideoGame",
+        "alternateNames": [],
+        "ja": {
+            "pageTitle": "PUMPOKO｜カボチャとルタバガの物理アクション｜湯間庭町",
+            "metaDescription": "地上ではカボチャを転がし、地下ではルタバガを跳ねさせる。交代しながら5ステージを旅する小さなブラウザゲーム。",
+            "body": "カボチャに触れると、いつの間にかその内側のような世界へ。地上を転がり、地下で跳ね、穴に詰まった相手を押し出して交代しながら5つのステージを進む物理アクションゲームです。",
+            "shareTitle": "PUMPOKO｜湯間庭町",
+            "shareDescription": "地上をころころ、地下をぽよん。カボチャとルタバガの旅。",
+            "imageAlt": "カボチャとルタバガが地上と地下を旅するPUMPOKOのゲーム画面",
+            "genres": ["アクション", "物理"],
+            "terms": ["PUMPOKO", "カボチャゲーム", "物理アクションゲーム", "ブラウザゲーム", "ルタバガ"]
+        },
+        "en": {
+            "pageTitle": "PUMPOKO | A Pumpkin and Rutabaga Physics Platformer | Yumaniwa Town",
+            "metaDescription": "Roll as a pumpkin above ground and bounce as a rutabaga below in a five-stage browser physics platformer.",
+            "body": "Touch a pumpkin and enter a tiny world. Roll on the surface, bounce underground, and push your partner out of a hole to switch between them. Find your way across five stages of momentum and timing.",
+            "shareTitle": "PUMPOKO | Yumaniwa Town",
+            "shareDescription": "Roll above. Bounce below. A little journey with a pumpkin and a rutabaga.",
+            "imageAlt": "Pumpkin and rutabaga travelling above and below the ground in PUMPOKO",
+            "genres": ["Platformer", "Physics"],
+            "terms": ["PUMPOKO", "pumpkin game", "rutabaga game", "physics platformer", "browser game"]
+        }
+    },
     "orbit": {
         "schemaType": "VideoGame",
         "alternateNames": [
