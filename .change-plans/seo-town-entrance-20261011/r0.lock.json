@@ -1,0 +1,144 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "740a4a9338ad3ba3ddc0e27012da6f45647f9f2fc80b676b69529e1642a31e6c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "seo-town-entrance-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Implement visible and walkable town SEO introduction using existing station signage, update search/share metadata and reduce non-content snippets without changing gameplay.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "f956aa8d68d9b9ae0f7401fe22521e8e3cf00fc5",
+    "canonicalSources": [
+      "index.html",
+      "style.css",
+      "data/station-plaza.js",
+      "AGENTS.md",
+      "RELEASE-WORKFLOW.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/seo-town-entrance-20261011/r0.lock.json",
+      "index.html",
+      "style.css",
+      "data/station-plaza.js"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "engine/**",
+      "works/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "tools/**",
+      "w/**",
+      "en/**",
+      "sitemap.xml",
+      "assets/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Visible H1 and one-sentence explanation with a discoverable collapsible station guide containing ordinary Japanese Search links for the ten current staging open works",
+      "Update town title, description and OG/Twitter copy only; keep staging noindex intact",
+      "Mark editing/debug/loading-only DOM sections data-nosnippet where safe",
+      "Reuse existing station notice text to explain the town and both directions without changing trigger geometry",
+      "Keep town movement, opening and work navigation intact"
+    ],
+    "ownerDecisions": [
+      "User approved the October 11 SEO audit plan, specifically preserving town strolling, silence and touch, and requested staging implementation."
+    ],
+    "hqDecisions": [
+      "Use a small in-town native HTML details guide instead of a separate landing directory, requiring no shared runtime changes",
+      "Keep staging noindex and canonical existing; no production promotion; preserve existing work links and all IDs/trigger geometry"
+    ],
+    "rulesApplied": [
+      "Staging-first and production selection; no wholesale copy",
+      "No SEO-only hidden keyword-rich text",
+      "Reuse existing town signage and works indexes"
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "HTML structure and metadata spot checks",
+      "noindex unchanged",
+      "station-scene regression"
+    ],
+    "manualChecks": [
+      "iPhone and desktop town viewport legibility and no intrusion",
+      "Expand/collapse signboard and ordinary link navigation",
+      "Player can walk and inspect existing sign",
+      "Open and close representative works and resume town controls"
+    ],
+    "impactChecks": [
+      "surface.shared",
+      "runtime.regression",
+      "scene.rendering",
+      "scene.interaction",
+      "scene.validation"
+    ],
+    "impactExclusions": [
+      {
+        "id": "scene.collision",
+        "reason": "Station trigger text only: no geometry, collision or passability changes"
+      },
+      {
+        "id": "scene.editor-desk",
+        "reason": "No station positions, scene schema or editor state changes"
+      },
+      {
+        "id": "scene.transition-adjacency",
+        "reason": "No warp or spawn changes"
+      }
+    ],
+    "dependencies": [
+      "GitHub staging main f956aa8d68d9b9ae0f7401fe22521e8e3cf00fc5",
+      "Current static in-town navigation and ten staging open works"
+    ],
+    "rollback": "Revert this staging PR only; preserve other staging changes and production untouched.",
+    "outOfScope": [
+      "Production repository, merge or SEO console submission",
+      "Work pages generator and existing per-work copy",
+      "Game and Engine runtime changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Device layout and visibility not yet manually verified",
+      "Production crawl or search console state not evaluated"
+    ],
+    "alternativesRejected": [
+      "Replace town with static directory/list page",
+      "Keyword-rich invisible text",
+      "New runtime app route or scene navigation just for SEO"
+    ],
+    "boundaryCases": [
+      "Collapsed guide leaves town walking unobstructed on narrow iPhone",
+      "All ten links are ordinary navigable URLs and no duplicate static nav",
+      "Staging noindex stays unchanged",
+      "Debug and loading text remain functional while excluded from snippets"
+    ],
+    "testPlan": [
+      "Verify Plan Lock base and exact changed paths",
+      "Run trusted Scope Risk Impact gates via PR CI",
+      "Inspect index HTML headings, search tags, static links and noindex",
+      "Manually test iPhone and desktop route/overlay/station interaction before production"
+    ],
+    "problem": "Town has short meta description and no visible H1/intro, and the only standard work links are 1px-clipped.",
+    "currentContract": "Town root is a canvas experience with existing station notice and hidden static links; staging is noindex.",
+    "whyExistingIsInsufficient": "The current static links help crawling but do not provide a meaningful human-readable introduction or visible work guide.",
+    "design": "Add a small right-top title and compact collapsible work guide inside town-screen, reuse station notice; no new town route.",
+    "migration": "Staging-only; any future production patch selectively applies the approved root and station changes and replaces index-specific noindex with production-preserving semantics.",
+    "compatibility": "No changes to work IDs, navigation, game code, launch, save keys, scene geometry or assets.",
+    "promotionRisk": "Direct promotion of staging root could leak noindex or development UI and is explicitly forbidden."
+  }
+}
