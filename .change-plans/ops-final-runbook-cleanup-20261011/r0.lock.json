@@ -1,0 +1,133 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3f6d497c993c4b29b816dd2555d2fe9e596f2ad63e38ca01727f4a941fdc2db6",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ops-final-runbook-cleanup-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Consolidate three implemented lightweight staging routes and remove stale duplicate/historical procedures; preserve real owner decisions and production approval.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "201054f0786b299779acf6f6545ea399302bcddd",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ops-final-runbook-cleanup-20261011/r0.lock.json",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "works/**",
+      "engine/**",
+      "index.html",
+      "style.css",
+      "w/**",
+      "en/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "One canonical route table in CHANGE-PLAN, referenced by other runbooks.",
+      "Exact selected source/hunk restoration needs no new Full Plan; all unsupported/conflicting/security/shared-contract changes retain protected route.",
+      "New persistent town UI requires concrete author choice per current user instruction; ordinary scoped reversible corrections do not add blanket approvals.",
+      "Remove contradictory new-only statements, obsolete bootstrap use and repeated inactive Human Attestation procedures; do not activate those systems.",
+      "Clarify preparation-only production candidate and current SEO runtime indexing policy."
+    ],
+    "ownerDecisions": [
+      "User task 2026-10-11 explicitly delegates staging investigation, safety implementation, PRs and safe merges; production deployment remains withheld."
+    ],
+    "hqDecisions": [
+      "Source commit and selected Git hunks are data, not approval. Restore must reproduce candidate tree exactly and preserve unrelated improvements.",
+      "Town restore limited to existing index.html/style.css; shared Engine, other works, contracts and distribution remain full-review.",
+      "Do not activate until each base-owned workflow separately preauthorizes exact future blob."
+    ],
+    "rulesApplied": [
+      "Keep staging experimentation distinct from production",
+      "No fabricated design approval in Plan text",
+      "Owner can reject staging trial and request minimal rollback",
+      "No new gate, review step or human signoff for shared reversible staging UI"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Inspect proof boundaries and confirm no new UI or production changes"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "staging main 1629b59800ebc971ddd7432aa69eaf13021f198c",
+      "Currently enforced trusted PR Gate and Change Verification Evidence",
+      "Previous PR #256 policy texts"
+    ],
+    "rollback": "Revert only this runbook cleanup; do not alter active CI or production.",
+    "outOfScope": [
+      "Changing pinned original classifiers",
+      "Production publication",
+      "Human attestation system",
+      "New UI"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Machine canaries must match expectations before docs merge",
+      "Owner device quality and production SEO deployment remain unverified"
+    ],
+    "alternativesRejected": [
+      "Continue demanding preapproval before every staging UI experiment",
+      "Automatically adopt a staging UI based on passing CI",
+      "Weaken required Scope/Risk/Impact gates to speed up undo"
+    ],
+    "boundaryCases": [
+      "Unchanged security classifiers",
+      "Reverse subset with later independent changes",
+      "Ambiguous/conflicting revert falls back",
+      "Town new UI requires concrete owner decision"
+    ],
+    "testPlan": [
+      "Normal local edits",
+      "Contract-sensitive edits rejected",
+      "Source subsets preserve unrelated improvements",
+      "Forged revert and mixed changes rejected",
+      "Source ancestry/modes/limits/production boundaries"
+    ],
+    "problem": "Existing local classifier verifies paths and size but cannot flag contract-sensitive small edits; known UI restore still requires a Full Plan.",
+    "currentContract": "Pinned base classifiers and two-phase exact-blob workflow transitions",
+    "whyExistingIsInsufficient": "Known rollback and local contract edits need bounded evidence rather than self-declared revert labels.",
+    "design": "One small read-only proof wrapper; exact source/hunk reverse application in temporary Git index; conservative contract signals supplement existing containment.",
+    "migration": "Docs-only synchronization after exact trusted workflow transition",
+    "compatibility": "Preserve original new-work route, old contained classifier, full-review fallback and exact-blob protections.",
+    "promotionRisk": "No production merge or external service action"
+  }
+}
