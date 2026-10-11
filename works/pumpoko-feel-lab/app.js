@@ -79,6 +79,18 @@
         throw Error('Invalid BD variant: '+id);
     }
   }
+  // The liked long B→D course is identical for all trials: only gaps differ.
+  const riskStudies={
+    safe:null,
+    mid:{layer:'surface',a:2890,b:3000,stage:true},
+    exit:{layer:'surface',a:3160,b:3270,stage:true}
+  };
+  const riskDescriptions={
+    safe:'B→D 平面・長そのまま。危険がない時の操作感。',
+    mid:'同じ地形で平面の途中に崖。楽しさが変化するか。',
+    exit:'同じ地形で平面の終わり近くに崖。挑戦の感覚が生まれるか。'
+  };
+  const riskLabels={safe:'崖なし',mid:'平面途中',exit:'平面終盤'};
   const variantDescriptions={
     baseline:'B → D｜好評だった原型。そのままもう一度遊びたくなるか。',
     short:'B → D｜Dの平面だけ200短く。リズムが途切れなくなるか。',
@@ -115,14 +127,16 @@
     halfpipe:'小さなハーフパイプ。左右へ繰り返して勢いを育てる。'
   };
   let kind='pumpkin',terrain='bowl',mode='single',feedback='retry',course,state,activePointer=null,pointerSource=null,axis=0;
+  let failedAt=null,fallCount=0,crossed=false;
   let keys=new Set(),canvasSize={width:0,height:0,dpr:1},lastTime=0,view=null;
   const byId=id=>doc.getElementById(id);
-  function points(){return mode==='variant'?bdVariants[terrain]:mode==='order'?orderPoints[terrain]:mode==='chain'?chainPoints[terrain]:terrainPoints[terrain]}
+  function points(){return mode==='risk'?bdVariants.long:mode==='variant'?bdVariants[terrain]:mode==='order'?orderPoints[terrain]:mode==='chain'?chainPoints[terrain]:terrainPoints[terrain]}
   function limits(){const p=points();return {min:p[0][0],max:p[p.length-1][0]}}
   function floor(x){const l=limits();return W.curve('surface',Math.max(l.min,Math.min(l.max,x)),course)}
+  function activeGap(){return course?.gaps?.[0]||null}
   const geometry={
     contact(body){return W.contact(body,course)},
-    frame(x){return floor(x)},
+    frame(x){return mode==='risk'?W.groundFrame('surface',x,course):floor(x)},
     constrain(body){
       const l=limits(),min=l.min+15+body.r,max=l.max-15-body.r;
       if(body.x>=min&&body.x<=max)return;
@@ -135,7 +149,10 @@
   function release(){activePointer=null;pointerSource=null;axis=0;keys.clear();if(state)P.clearInput(state)}
   function reset(){
     release();
-    course={curves:{surface:points().map(p=>p.slice())},surfaces:['surface'],holes:[],cellars:[],gaps:[],finishX:100000};
+    fallCount=0;crossed=false;failedAt=null;
+    const selectedGap=mode==='risk'?riskStudies[terrain]:null;
+    course={curves:{surface:points().map(p=>p.slice())},surfaces:['surface'],holes:[],cellars:[],
+      gaps:selectedGap?[{...selectedGap}]:[],finishX:100000};
     state=P.create(kind,P.defaults());
     const b=state[kind],f=floor(mode==='single'?-420:-410);
     b.layer='surface';b.x=f.x+f.nx*b.r;b.y=f.y+f.ny*b.r+(kind==='rutabaga'?95:0);
@@ -145,16 +162,55 @@
     for(const item of doc.querySelectorAll('[data-chain]'))item.classList.toggle('active',mode==='chain'&&item.dataset.chain===terrain);
     for(const item of doc.querySelectorAll('[data-order]'))item.classList.toggle('active',mode==='order'&&item.dataset.order===terrain);
     for(const item of doc.querySelectorAll('[data-variant]'))item.classList.toggle('active',mode==='variant'&&item.dataset.variant===terrain);
+    for(const item of doc.querySelectorAll('[data-risk]'))item.classList.toggle('active',mode==='risk'&&item.dataset.risk===terrain);
     for(const item of doc.querySelectorAll('[data-study]'))item.classList.toggle('active',item.dataset.study===mode);
     byId('single-courses').hidden=mode!=='single';byId('chain-courses').hidden=mode!=='chain';
     byId('order-courses').hidden=mode!=='order';
     byId('order-hint').hidden=mode!=='order';
     byId('variant-courses').hidden=mode!=='variant';
     byId('variant-hint').hidden=mode!=='variant';
-    byId('saved').textContent=(mode==='variant'?variantDescriptions:mode==='order'?orderDescriptions:mode==='chain'?chainDescriptions:descriptions)[terrain];
+    byId('risk-courses').hidden=mode!=='risk';
+    byId('risk-hint').hidden=mode!=='risk';
+    byId('risk-status').hidden=mode!=='risk';
+    byId('saved').textContent=(mode==='risk'?riskDescriptions:mode==='variant'?variantDescriptions:mode==='order'?orderDescriptions:mode==='chain'?chainDescriptions:descriptions)[terrain];
     const label=byId('order-progress');if(label)label.textContent=mode==='order'?(orderParts[terrain]+' · 前半'):'';
     const progress=byId('variant-progress');if(progress)progress.textContent=mode==='variant'?(variantLabels[terrain]+' · B 前半'):'';
+    updateRiskStatus();
     computeView();
+  }
+  function updateRiskStatus(){
+    const el=byId('risk-status');if(!el)return;
+    if(mode!=='risk'){el.textContent='';return}
+    const gap=activeGap(),b=state?.[kind];
+    const phase=!gap?'基準コース（崖なし）':
+      crossed?'通過できました。操作中の楽しさも確認してください。':
+      failedAt!==null?'落下 — 再挑戦位置へ戻ります':
+      b&&b.x>gap.b?'反対岸へ':'崖の手前';
+    el.textContent=riskLabels[terrain]+' · '+phase+(fallCount?' · 落下 '+fallCount+'回':'');
+  }
+  function respawnNearGap(){
+    const gap=activeGap();if(!gap)return;
+    release();
+    const b=state[kind],x=gap.a-280,f=floor(x);
+    // Restore at rest and let the player make their own speed again.
+    Object.assign(b,{x:f.x+f.nx*b.r,y:f.y+f.ny*b.r,vx:0,vy:0,
+      grounded:true,landing:null,safety:false,pulse:0,stretch:0,angular:0,angle:0});
+    P.clearInput(state);failedAt=null;crossed=false;
+    updateRiskStatus();
+  }
+  function trackRisk(){
+    if(mode!=='risk')return;
+    const gap=activeGap(),b=state[kind];if(!gap)return;
+    if(failedAt!==null){
+      if(state.time-failedAt>.48)respawnNearGap();
+      return;
+    }
+    if(b.y<floor(b.x).y-85){
+      failedAt=state.time;fallCount++;crossed=false;
+      updateRiskStatus();
+    }else if(!crossed&&b.x>gap.b+b.r+20&&b.grounded){
+      crossed=true;updateRiskStatus();
+    }
   }
   function computeView(){
     const width=Math.max(1,canvasSize.width),height=Math.max(1,canvasSize.height);
@@ -239,7 +295,7 @@
     return Number(keys.has('ArrowRight')||keys.has('KeyD'))-Number(keys.has('ArrowLeft')||keys.has('KeyA'));
   }
   function simulate(dt){
-    P.input(state,currentAxis());
+    P.input(state,failedAt!==null?0:currentAxis());
     state.events.length=0;
     state.accumulator+=Math.max(0,Math.min(.05,dt));
     let limit=0;
@@ -247,6 +303,7 @@
       state.time+=P.STEP;
       state.axis+=(state.target-state.axis)*(1-Math.exp(-P.STEP*12));
       P.integrate(state,state[kind],state.axis,P.STEP,geometry);
+      trackRisk();
       state.accumulator-=P.STEP;
     }
   }
@@ -292,7 +349,7 @@
   for(const b of doc.querySelectorAll('[data-kind]'))b.addEventListener('click',()=>{kind=b.dataset.kind;if(mode==='order')terrain=kind==='pumpkin'?'ac':'bd';reset()});
   for(const b of doc.querySelectorAll('[data-study]'))b.addEventListener('click',()=>{
     mode=b.dataset.study;
-    terrain=mode==='variant'?'baseline':mode==='order'?(kind==='pumpkin'?'ac':'bd'):mode==='chain'?'flow':'bowl';
+    terrain=mode==='risk'?'safe':mode==='variant'?'baseline':mode==='order'?(kind==='pumpkin'?'ac':'bd'):mode==='chain'?'flow':'bowl';
     reset();
   });
   for(const b of doc.querySelectorAll('[data-chain]'))b.addEventListener('click',()=>{if(!chainPoints[b.dataset.chain])return;mode='chain';terrain=b.dataset.chain;reset()});
@@ -302,12 +359,17 @@
   for(const b of doc.querySelectorAll('[data-variant]'))b.addEventListener('click',()=>{
     if(!bdVariants[b.dataset.variant])return;mode='variant';terrain=b.dataset.variant;reset();
   });
+  for(const b of doc.querySelectorAll('[data-risk]'))b.addEventListener('click',()=>{
+    if(!(b.dataset.risk in riskStudies))return;mode='risk';terrain=b.dataset.risk;reset();
+  });
   for(const b of doc.querySelectorAll('[data-feedback]'))b.addEventListener('click',()=>{feedback=b.dataset.feedback;for(const item of doc.querySelectorAll('[data-feedback]'))item.classList.toggle('active',item===b)});
   for(const b of doc.querySelectorAll('[data-terrain]'))b.addEventListener('click',()=>{if(!terrainPoints[b.dataset.terrain])return;mode='single';terrain=b.dataset.terrain;reset()});
   byId('reset').addEventListener('click',reset);
   byId('save').addEventListener('click',()=>{
     const entry={kind,mode,terrain,feedback,points:points().map(p=>p.slice()),
       ...(mode==='order'?{sourceCourses:orderSpecs[terrain].slice(),junctionX:orderJoinX}:{}),
+      ...(mode==='risk'?{baseline:'B→D long',sourceCourses:['rhythm','breath'],
+        risk:{gap:activeGap()?{...activeGap()}:null,fallCount,crossed}}:{}),
       ...(mode==='variant'?{sourceCourses:terrain==='repeat'?['rhythm','breath','rhythm']:['rhythm','breath'],
         modifiedFactor:terrain==='short'?'D flat -200':terrain==='long'?'D flat +250':'none',
         baseline:'order:bd'}:{}),
@@ -323,8 +385,8 @@
   if(root.ResizeObserver)new root.ResizeObserver(resize).observe(canvas.parentElement);
   resize();reset();
   if(new URLSearchParams(root.location.search).get('dev')==='1'){
-    root.FeelLabProbe=()=>({kind,terrain,mode,feedback,parts:mode==='order'?orderSpecs[terrain]:mode==='variant'?(terrain==='repeat'?['rhythm','breath','rhythm']:['rhythm','breath']):null,axis:currentAxis(),x:state[kind].x,y:state[kind].y,
-      vx:state[kind].vx,vy:state[kind].vy,time:state.time,view:{...view},
+    root.FeelLabProbe=()=>({kind,terrain,mode,feedback,parts:mode==='risk'?['rhythm','breath']:mode==='order'?orderSpecs[terrain]:mode==='variant'?(terrain==='repeat'?['rhythm','breath','rhythm']:['rhythm','breath']):null,axis:currentAxis(),x:state[kind].x,y:state[kind].y,
+      vx:state[kind].vx,vy:state[kind].vy,time:state.time,gap:activeGap()?{...activeGap()}:null,fallCount,crossed,failedAt,view:{...view},
       canvas:{width:canvasSize.width,height:canvasSize.height},grounded:state[kind].grounded});
   }
   root.requestAnimationFrame(loop);
