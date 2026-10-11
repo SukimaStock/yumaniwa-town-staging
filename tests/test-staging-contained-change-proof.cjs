@@ -15,7 +15,7 @@ function file(root,p,body){
   const target=path.join(root,p);fs.mkdirSync(path.dirname(target),{recursive:true});
   fs.writeFileSync(target,body);
 }
-function fixture(t){
+function fixture(t,state='active'){
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'contained-fastpath-'));
   t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
   git(root,'init','-q');
@@ -27,7 +27,11 @@ function fixture(t){
   file(root,'works/existing/index.html','<title>Existing Game</title>\n');
   file(root,'works/existing/game.js','const level=1;\n');
   file(root,'works/other/index.html','<title>Other</title>\n');
-  file(root,'data/work-lifecycle.json','{"works":[]}');
+  const rows=state==='unknown'?[]:state==='duplicate'?
+    [{id:'existing',path:'works/existing',status:'active'},{id:'existing',path:'works/existing-copy',status:'active'}]:
+    [{id:'existing',path:'works/existing',status:state}];
+  file(root,'data/work-lifecycle.json',state==='invalid'?'bad-json':
+    JSON.stringify({schema:'sukimastock-work-lifecycle/1',works:rows}));
   git(root,'add','-A');git(root,'commit','-qm','initial');
   const baseSha=git(root,'rev-parse','HEAD');
   const commit=()=>{
@@ -62,6 +66,29 @@ test('detect a byte-exact historical restoration within the same work',t=>{
   const r=classify({root:f.root,baseSha:modifiedBase,headSha:restoredHead});
   assert.equal(r.eligible,true);
   assert.deepEqual(r.restoredPaths,['works/existing/game.js']);
+});
+test('each non-active lifecycle state uses the regular review route',t=>{
+  for(const status of ['frozen','candidate','released','unknown']){
+    const f=fixture(t,status);
+    file(f.root,'works/existing/game.js','const level=2;\n');
+    assert.equal(f.check(f.commit()).reason,'WORK_NOT_ACTIVE',status);
+  }
+});
+test('incorrect lifecycle records are rejected',t=>{
+  for(const status of ['invalid','duplicate']){
+    const f=fixture(t,status);
+    file(f.root,'works/existing/game.js','const level=3;\n');
+    assert.equal(f.check(f.commit()).reason,'INVALID_LIFECYCLE',status);
+  }
+});
+test('mixed work and lifecycle changes use regular review',t=>{
+  const f=fixture(t,'candidate');
+  file(f.root,'works/existing/game.js','const level=7;\n');
+  file(f.root,'data/work-lifecycle.json',JSON.stringify({
+    schema:'sukimastock-work-lifecycle/1',
+    works:[{id:'existing',path:'works/existing',status:'active'}]
+  }));
+  assert.equal(f.check(f.commit()).reason,'OUTSIDE_SINGLE_WORK');
 });
 test('refuse root town UI changes',t=>{
   const f=fixture(t);file(f.root,'index.html','<aside>bad UI</aside>');

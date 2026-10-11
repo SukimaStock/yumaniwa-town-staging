@@ -1,0 +1,135 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "485658de9f225fabc4915cd00ba12cebd7a4e0eafe658d9b1e76c391ec665c97",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "existing-work-active-only-proof-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Narrow bounded existing-work classifier to trusted base lifecycle active status only; reject frozen, released, candidate and unknown work states before any Plan-free rollout.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "5da955736d7d9a279f7a94f2f3675ac31a6e0288",
+    "canonicalSources": [
+      "tools/staging-contained-change-proof.cjs",
+      "tests/test-staging-contained-change-proof.cjs",
+      "data/work-lifecycle.json",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/existing-work-active-only-proof-20261011/r0.lock.json",
+      "tools/staging-contained-change-proof.cjs",
+      "tests/test-staging-contained-change-proof.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/change-**",
+      "tools/staging-isolation-fastpath.cjs",
+      "tools/change-static-check-registry.json",
+      "index.html",
+      "style.css",
+      "main.js",
+      "engine/**",
+      "works/**",
+      "data/**",
+      "w/**",
+      "en/**",
+      "sitemap.xml",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md"
+    ],
+    "expectedChanges": [
+      "Existing-work classifier reads trusted immutable base data/work-lifecycle.json as plain bounded JSON and requires exactly one id/path with status active before classifying local tweaks.",
+      "Rejected types are released, candidate, frozen, missing/duplicate/malformed/oversize lifecycle data, and status changes in same PR.",
+      "Keep prior single-work, <=4 files, patch/line/size caps and protected filenames, preserving no permissions to modify shared world.",
+      "Update real-git fixtures to include lifecycle registry, add positive active and negative frozen/candidate/released/unknown and malformed cases.",
+      "Leave privileged workflow pinned classifiers unchanged; this is no-op until independently authorized install."
+    ],
+    "ownerDecisions": [
+      "Owner requested flexible prototypes and easy local tweaking but strict preservation of frozen and published works; staging-only machine fastpath under construction."
+    ],
+    "hqDecisions": [
+      "Limit eventually Plan-free existing work scope to active/lifecycle-known works only, not public/frozen/candidate. A manual decision is still needed for riskier states.",
+      "Do not allow candidate to alter lifecycle manifest in same PR and do not allow unknown id fallback.",
+      "Trusted base source must be immutable Git blob, never parse candidate-controlled status or launch script."
+    ],
+    "rulesApplied": [
+      "Make protection lifecycle-aware",
+      "No production promotion",
+      "No self-certification by candidate code"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review fixture coverage for four lifecycle states and malformed base",
+      "Review exact git base-state lookup does not consult candidate manifest"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Current staging SHA 5da955736d7d9a279f7a94f2f3675ac31a6e0288",
+      "Current bounded classifier from PR #244",
+      "Work lifecycle schema source status active"
+    ],
+    "rollback": "Revert this staging classifier change; not yet referenced by any privileged fastpath.",
+    "outOfScope": [
+      "Activate light workflow in same PR",
+      "Modify lifecycle registry or games",
+      "Production publication"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "No Plan-free existing-work route authorized until protected workflow transition and live negative canary"
+    ],
+    "alternativesRejected": [
+      "Allow all status values for the same small work path",
+      "Read candidate untrusted registry for scope exemptions",
+      "Treat exact historical revert as author permission"
+    ],
+    "boundaryCases": [
+      "active work allowed for <4 local regular files",
+      "frozen released candidate and unknown denied",
+      "Malformed, duplicate, missing registry denied",
+      "Old additions-only fastpath unchanged",
+      "Unrelated root or shared engine remains denied"
+    ],
+    "testPlan": [
+      "Trusted base full Plan/Scope/Risk/Impact/Static CI",
+      "Run all modified real-git tests including lifecycle fixture",
+      "Verify no protected workflow or static registry changed",
+      "Separate pin+transition+canary for activation"
+    ],
+    "problem": "Current proof classifier only checks path locality, potentially treating frozen or released works as safe, against the author's preservation rules.",
+    "currentContract": "Existing works have lifecycle states active/frozen/candidate/released; public/frozen should not receive automatic relaxed routing.",
+    "whyExistingIsInsufficient": "File path and line count cannot distinguish work lifecycle and author expectations; status must be read from trusted base, not candidate.",
+    "design": "Require matching active state from exact base lifecycle blob, valid schema, unique id/path and bounded JSON, before existing file diff acceptance.",
+    "migration": "Proof-only change first. Recompute pinned blob for any future privileged workflow and separately preauthorize exact blob transitions; no gate change this PR.",
+    "compatibility": "Current new-work classifier, old existing-work full Plan gate, all production/legacy states unchanged.",
+    "promotionRisk": "Status active does not authorize production; staged classifier result remains limited evidence."
+  }
+}
