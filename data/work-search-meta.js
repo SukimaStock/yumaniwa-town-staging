@@ -27,8 +27,9 @@ var WORK_SEARCH_META = {
         "alternateNames": [],
         "ja": {
             "pageTitle": "PUMPOKO｜カボチャとルタバガの物理アクション｜湯間庭町",
-            "metaDescription": "地上ではカボチャを転がし、地下ではルタバガを跳ねさせる。交代しながら5ステージを旅する小さなブラウザゲーム。",
-            "body": "カボチャに触れると、いつの間にかその内側のような世界へ。地上を転がり、地下で跳ね、穴に詰まった相手を押し出して交代しながら5つのステージを進む物理アクションゲームです。",
+            "heading": "PUMPOKO",
+            "metaDescription": "地上ではカボチャを転がし、地下ではルタバガを跳ねさせる。ふたりが交代しながら5ステージを進む、小さなブラウザ物理アクションゲーム。",
+            "body": "カボチャに触れると、いつの間にかその内側のような世界へ。地上をころころ、地下をぽよん。穴に詰まった相手を押し出して交代しながら、5つのステージを進みます。",
             "shareTitle": "PUMPOKO｜湯間庭町",
             "shareDescription": "地上をころころ、地下をぽよん。カボチャとルタバガの旅。",
             "imageAlt": "かぼちゃ色の文字とルタバガが描かれたPUMPOKOのロゴ",
@@ -36,9 +37,10 @@ var WORK_SEARCH_META = {
             "terms": ["PUMPOKO", "カボチャゲーム", "物理アクションゲーム", "ブラウザゲーム", "ルタバガ"]
         },
         "en": {
-            "pageTitle": "PUMPOKO | A Pumpkin and Rutabaga Physics Platformer | Yumaniwa Town",
-            "metaDescription": "Roll as a pumpkin above ground and bounce as a rutabaga below in a five-stage browser physics platformer.",
-            "body": "Touch a pumpkin and enter a tiny world. Roll on the surface, bounce underground, and push your partner out of a hole to switch between them. Find your way across five stages of momentum and timing.",
+            "pageTitle": "PUMPOKO | A Pumpkin and Rutabaga Physics Game | Yumaniwa Town",
+            "heading": "PUMPOKO",
+            "metaDescription": "Roll as a pumpkin above ground and bounce as a rutabaga below. Switch between them in a five-stage browser physics game by SukimaStock.",
+            "body": "Touch a pumpkin and slip into a tiny world. Roll above ground, bounce below, and push your partner out of a hole to switch places. Five little stages of momentum and timing await.",
             "shareTitle": "PUMPOKO | Yumaniwa Town",
             "shareDescription": "Roll above. Bounce below. A little journey with a pumpkin and a rutabaga.",
             "imageAlt": "The colorful PUMPOKO logo with a small rutabaga beneath the letters",
@@ -52,9 +54,10 @@ var WORK_SEARCH_META = {
             "ORBIT"
         ],
         "ja": {
-            "pageTitle": "ORBIT — Silent Reboot｜宇宙を漂う探索ゲーム｜湯間庭町",
-            "metaDescription": "小さな宇宙船で静かな宇宙を漂い、資源を集めながら遠くへ進む探索ゲーム。帰る場所を手がかりに、少しずつ航続距離を伸ばしていきます。",
-            "body": "小さな宇宙船で静かな宇宙を漂い、惑星を巡りながら資源やデータを集め、HOMEへ帰還して少しずつ遠くへ進む探索ゲームです。帰る場所があるからこそ、また宇宙へ出ていける。その往復を静かに楽しむ作品です。",
+            "pageTitle": "ORBIT — Silent Reboot｜静かな宇宙探索ゲーム｜湯間庭町",
+            "heading": "ORBIT — Silent Reboot",
+            "metaDescription": "小さな宇宙船で惑星を巡り、資源やデータを集めてHOMEへ帰る探索ゲーム。帰る場所を手がかりに、少しずつ遠い宇宙へ進みます。",
+            "body": "静かな宇宙を漂い、星を訪ね、資源やデータを拾ってHOMEへ帰る。帰る場所があるからこそ、また遠くへ出かけられる。そんな往復を楽しむ小さな探索ゲームです。",
             "shareTitle": "ORBIT — Silent Reboot｜湯間庭町",
             "shareDescription": "帰る場所を手がかりに、静かな宇宙を漂い続ける探索ゲーム。",
             "imageAlt": "宇宙を漂う小型宇宙船を描いたORBIT — Silent Rebootの画面",
@@ -72,8 +75,9 @@ var WORK_SEARCH_META = {
         },
         "en": {
             "pageTitle": "ORBIT — Silent Reboot | A Quiet Space Exploration Game | Yumaniwa Town",
-            "metaDescription": "A quiet browser-based space exploration game. Drift through space, gather resources, return home, and gradually travel farther into the unknown.",
-            "body": "Drift through a quiet universe in a small spacecraft, visiting planets to gather resources and data before returning HOME. Each return lets you reach a little farther the next time. ORBIT is a small exploration game built around the feeling that having a place to return to makes it possible to keep drifting.",
+            "heading": "ORBIT — Silent Reboot",
+            "metaDescription": "Drift through a quiet universe, visit planets, gather resources, and return HOME in ORBIT — Silent Reboot, a browser exploration game.",
+            "body": "Drift between planets in a small spacecraft, collecting resources and data before returning HOME. Each journey lets you travel a little farther. A quiet exploration game about leaving and returning.",
             "shareTitle": "ORBIT — Silent Reboot | Yumaniwa Town",
             "shareDescription": "A quiet space exploration game about drifting farther with a place to return to.",
             "imageAlt": "A small spacecraft drifting through space in ORBIT — Silent Reboot",
@@ -92,12 +96,13 @@ var WORK_SEARCH_META = {
     },
     "diorama-calendar": {
         "schemaType": "SoftwareApplication",
-        "alternateNames": [],
+        "alternateNames": ["Diorama Calendar"],
         "ja": {
-            "pageTitle": "Diorama Calendar｜傾けて眺めるジオラマカレンダー｜湯間庭町",
-            "metaDescription": "12か月の小さな季節の景色を、端末の傾きや指の動きで立体的に眺めるインタラクティブカレンダー。",
-            "body": "12か月それぞれの小さな季節の景色を、端末の傾きや指の動きで立体的に眺めるカレンダーです。予定を詰め込むためではなく、月ごとに変わるミニチュアの景色を少し覗き込むように楽しめます。",
-            "shareTitle": "Diorama Calendar｜湯間庭町",
+            "pageTitle": "DioramaCalendar｜季節のミニチュアを眺めるWebカレンダー｜湯間庭町",
+            "heading": "DioramaCalendar",
+            "metaDescription": "12か月の季節を、小さな立体の景色にしたWebカレンダー。端末を傾けたり指で動かしたりして、ミニチュアの奥行きを楽しめます。",
+            "body": "予定を詰め込むのではなく、季節の景色を眺めるカレンダー。12か月それぞれの小さな世界を、少し傾けたり覗き込んだりして楽しめます。",
+            "shareTitle": "DioramaCalendar｜湯間庭町",
             "shareDescription": "季節の小さな景色を、傾けて眺めるカレンダー。",
             "imageAlt": "季節の小さな景色を立体的に眺めるDiorama Calendarの画面",
             "genres": [
@@ -113,10 +118,11 @@ var WORK_SEARCH_META = {
             ]
         },
         "en": {
-            "pageTitle": "Diorama Calendar | An Interactive Seasonal Calendar | Yumaniwa Town",
-            "metaDescription": "An interactive calendar with twelve miniature seasonal scenes that shift with device tilt and touch.",
-            "body": "Diorama Calendar turns each month into a small seasonal scene. Tilt your device or drag with a finger to look into the layered miniature landscape, then move from month to month as the scenery changes around you.",
-            "shareTitle": "Diorama Calendar | Yumaniwa Town",
+            "pageTitle": "DioramaCalendar | A Miniature Seasonal Web Calendar | Yumaniwa Town",
+            "heading": "DioramaCalendar",
+            "metaDescription": "Explore twelve miniature seasonal scenes in DioramaCalendar, an interactive web calendar that responds to device tilt and touch.",
+            "body": "A calendar made for looking, not scheduling. Each month holds a little layered landscape. Tilt or drag to explore the miniature scene and enjoy the changing seasons.",
+            "shareTitle": "DioramaCalendar | Yumaniwa Town",
             "shareDescription": "A calendar of miniature seasonal scenes that move as you tilt and touch.",
             "imageAlt": "A miniature seasonal scene displayed in Diorama Calendar",
             "genres": [
@@ -140,8 +146,9 @@ var WORK_SEARCH_META = {
         ],
         "ja": {
             "pageTitle": "路地裏マサラ｜夜の路地を走るカレー配達ゲーム｜湯間庭町",
-            "metaDescription": "夜の小さなカレー屋から注文を受け、冷める前に路地の奥へ届けるブラウザ配達ゲーム。",
-            "body": "夜の小さなカレー屋から、路地の奥にいるお客さんへ注文を届ける配達ゲームです。障害物を避けながら走り、カレーが冷める前の到着を目指します。静かな夜の路地を舞台にした、小さなブラウザゲームです。",
+            "heading": "路地裏マサラ — ROJIURA MASALA",
+            "metaDescription": "夜の小さなカレー屋から、冷める前に注文を配達するブラウザゲーム。色のピンを頼りに路地を走り、障害物を避けながら届けます。",
+            "body": "小さなカレー屋から、夜の路地へ。色のピンを目印に、冷める前にカレーを届けてください。自転車や猫、ときどき開く裏口。配達のたびに、少し違う夜になります。",
             "shareTitle": "路地裏マサラ - ROJIURA MASALA｜湯間庭町",
             "shareDescription": "夜の路地を走って、冷める前にカレーを届ける配達ゲーム。",
             "imageAlt": "夜の路地を走ってカレーを届ける路地裏マサラの画面",
@@ -159,8 +166,9 @@ var WORK_SEARCH_META = {
         },
         "en": {
             "pageTitle": "ROJIURA MASALA | A Nighttime Curry Delivery Game | Yumaniwa Town",
-            "metaDescription": "A small browser game about delivering curry through a quiet nighttime alley before the food gets cold.",
-            "body": "ROJIURA MASALA is a small delivery game set in a quiet nighttime alley. Carry curry from a tiny shop to customers deeper in the neighborhood, dodging obstacles and trying to arrive before the food gets cold.",
+            "heading": "ROJIURA MASALA",
+            "metaDescription": "Deliver curry through nighttime alleys before it gets cold. Follow colored markers, dodge obstacles, and explore a small browser delivery game.",
+            "body": "Take orders from a tiny curry shop and head into the nighttime alleys. Follow colored markers, dodge bicycles, and find shortcuts before the curry gets cold. Every delivery tells a slightly different story.",
             "shareTitle": "ROJIURA MASALA | Yumaniwa Town",
             "shareDescription": "Deliver curry through a quiet nighttime alley before it gets cold.",
             "imageAlt": "A nighttime curry delivery scene from ROJIURA MASALA",
@@ -181,9 +189,10 @@ var WORK_SEARCH_META = {
         "schemaType": "SoftwareApplication",
         "alternateNames": [],
         "ja": {
-            "pageTitle": "SteamClock｜歯車と蒸気を眺めるスチームパンク時計｜湯間庭町",
-            "metaDescription": "歯車と蒸気が静かに動き続けるWeb時計。アナログ時計とニキシー管の時刻を眺めながら、機械仕掛けの時間を楽しめます。",
-            "body": "歯車と蒸気が静かに動き続ける、スチームパンクのWeb時計です。アナログ時計とニキシー管の時刻表示を眺めながら、小さな機械仕掛けが時間を刻み続ける様子を楽しめます。",
+            "pageTitle": "SteamClock｜歯車と蒸気のスチームパンクWeb時計｜SukimaStock",
+            "heading": "SteamClock",
+            "metaDescription": "SukimaStock制作のスチームパンクWeb時計。歯車と蒸気が静かに動き、アナログ時計とニキシー管風の表示で時刻を眺められます。",
+            "body": "歯車が回り、蒸気がゆっくり流れる、小さな機械仕掛けの時計です。時間を確認するだけでなく、時間が流れていく様子を眺めるためのWebアプリです。",
             "shareTitle": "SteamClock｜湯間庭町",
             "shareDescription": "歯車と蒸気が静かに動き続ける、スチームパンクの時計。",
             "imageAlt": "歯車と蒸気が動くSteamClockのスチームパンク時計画面",
@@ -200,9 +209,10 @@ var WORK_SEARCH_META = {
             ]
         },
         "en": {
-            "pageTitle": "SteamClock | A Steampunk Web Clock | Yumaniwa Town",
-            "metaDescription": "A steampunk web clock with moving gears, steam, an analog clock, and a Nixie-style time display.",
-            "body": "SteamClock is a small steampunk web clock where gears turn and steam drifts while time keeps moving. Watch the analog clock and Nixie-style display as the little mechanism quietly works in the background.",
+            "pageTitle": "SteamClock | A Steampunk Web Clock by SukimaStock",
+            "heading": "SteamClock",
+            "metaDescription": "SteamClock by SukimaStock is an animated steampunk web clock with turning gears, drifting steam, analog hands, and a Nixie-style display.",
+            "body": "Gears turn, steam drifts, and time keeps moving. A little steampunk clock made not just for checking the hour, but for watching time pass.",
             "shareTitle": "SteamClock | Yumaniwa Town",
             "shareDescription": "A quiet steampunk clock of moving gears, steam and glowing time.",
             "imageAlt": "The moving gears and steam of the SteamClock web clock",
@@ -223,9 +233,10 @@ var WORK_SEARCH_META = {
         "schemaType": "SoftwareApplication",
         "alternateNames": [],
         "ja": {
-            "pageTitle": "DotWeather｜世界の空をドット絵で眺める天気アプリ｜湯間庭町",
-            "metaDescription": "世界の天気と時間を、静かなドット絵の景色で眺めるWeb天気アプリ。雨、雲、星、月などが実際の空模様に合わせて変化します。",
-            "body": "世界の空を、静かなドット絵の景色で眺める天気アプリです。場所ごとの天気や時間に合わせて、雨や雲、星、月などの小さな景色が変化します。数字を確認するだけでなく、その場所の空模様を眺めるためのWebアプリです。",
+            "pageTitle": "DotWeather｜世界の空をドット絵で眺める天気アプリ｜SukimaStock",
+            "heading": "DotWeather",
+            "metaDescription": "SukimaStockのドット絵Web天気アプリ。世界各地の天気と時間に合わせて、雨、雲、星、月などの景色が静かに変化します。",
+            "body": "世界の空を、静かなドット絵で眺める天気アプリ。場所ごとの天気や時間に合わせて、雨や雲、星や月が移り変わります。数字の向こうにある空模様を楽しむための小さな窓です。",
             "shareTitle": "DotWeather｜湯間庭町",
             "shareDescription": "世界の空を、静かなドットで眺める天気アプリ。",
             "imageAlt": "ドット絵の空模様を表示するDotWeatherの画面",
@@ -242,9 +253,10 @@ var WORK_SEARCH_META = {
             ]
         },
         "en": {
-            "pageTitle": "DotWeather | A Pixel-Art Weather App | Yumaniwa Town",
-            "metaDescription": "A quiet pixel-art weather app where rain, clouds, stars, the moon and scenery change with real weather and time around the world.",
-            "body": "DotWeather turns weather around the world into a quiet pixel-art scene. Rain, clouds, stars, the moon and other details shift with local weather and time, making it a place to watch the sky as well as check the forecast.",
+            "pageTitle": "DotWeather | A Pixel-Art Weather App by SukimaStock",
+            "heading": "DotWeather",
+            "metaDescription": "Explore weather around the world through pixel art. DotWeather by SukimaStock changes its skies, clouds, rain, stars, and moon with real conditions.",
+            "body": "Watch the world's weather through quiet pixel-art scenery. Clouds, rain, stars, and the moon change with local conditions and time, making each sky a little different.",
             "shareTitle": "DotWeather | Yumaniwa Town",
             "shareDescription": "A quiet pixel-art weather app for watching skies around the world.",
             "imageAlt": "A pixel-art weather scene displayed in DotWeather",
@@ -263,11 +275,12 @@ var WORK_SEARCH_META = {
     },
     "junkissa-dive": {
         "schemaType": "VideoGame",
-        "alternateNames": [],
+        "alternateNames": ["JUNKISSA DIVE","純喫茶ダイブ"],
         "ja": {
-            "pageTitle": "純喫茶ダイヴ｜深夜の喫茶店で遊ぶ物理アクションゲーム｜湯間庭町",
-            "metaDescription": "深夜だけ開く純喫茶で、さくらんぼや角砂糖などのトッピングを飛ばして商品を仕上げる小さな物理アクションゲーム。",
-            "body": "深夜だけ開く純喫茶で、さくらんぼや角砂糖などのトッピングを飛ばして商品を仕上げる物理アクションゲームです。狙いどおりに乗っても、思わぬ方向へ跳ねても、その一回ごとの結果を楽しめます。",
+            "pageTitle": "純喫茶ダイヴ｜深夜の喫茶店でトッピングを飛ばすゲーム｜湯間庭町",
+            "heading": "純喫茶ダイヴ — JUNKISSA DIVE",
+            "metaDescription": "深夜の純喫茶で、さくらんぼや角砂糖などのトッピングを飛ばして注文を仕上げる、小さな物理アクションゲーム。",
+            "body": "深夜だけ開く純喫茶で、トッピングをぽんと飛ばして商品を仕上げます。思いどおりに乗る日も、思わぬところへ跳ねる日も。その夜の結果を楽しむゲームです。",
             "shareTitle": "純喫茶ダイヴ｜湯間庭町",
             "shareDescription": "深夜だけ開く純喫茶で、トッピングを飛ばして商品を仕上げる小さなゲーム。",
             "imageAlt": "深夜の純喫茶でトッピングを飛ばす純喫茶ダイヴの画面",
@@ -284,10 +297,11 @@ var WORK_SEARCH_META = {
             ]
         },
         "en": {
-            "pageTitle": "純喫茶ダイヴ | A Late-Night Kissaten Physics Game | Yumaniwa Town",
-            "metaDescription": "A small physics game set in a late-night Japanese kissaten. Launch cherries, sugar cubes and other toppings to finish each order.",
-            "body": "Set inside a kissaten that opens only late at night, this small physics game asks you to launch cherries, sugar cubes and other toppings onto each order. A perfect landing is satisfying, but the unexpected bounces are part of the fun too.",
-            "shareTitle": "純喫茶ダイヴ | Yumaniwa Town",
+            "pageTitle": "JUNKISSA DIVE | A Late-Night Japanese Cafe Physics Game | Yumaniwa Town",
+            "heading": "JUNKISSA DIVE",
+            "metaDescription": "Launch cherries, sugar cubes, and other toppings onto cafe orders in JUNKISSA DIVE, a small late-night physics action game by SukimaStock.",
+            "body": "At a little Japanese cafe that opens after dark, launch cherries, sugar cubes, and other toppings to finish each order. Perfect landings and unexpected bounces are both part of the night.",
+            "shareTitle": "JUNKISSA DIVE | Yumaniwa Town",
             "shareDescription": "A small physics game set inside a late-night Japanese kissaten.",
             "imageAlt": "A topping being launched inside the late-night cafe of 純喫茶ダイヴ",
             "genres": [
@@ -310,9 +324,10 @@ var WORK_SEARCH_META = {
             "MIDNIGHT COLA"
         ],
         "ja": {
-            "pageTitle": "真夜中コーラ｜深夜の工房でクラフトコーラを仕込むゲーム｜湯間庭町",
-            "metaDescription": "深夜の工房で材料をひとつずつ重ね、自分だけのクラフトコーラを仕込む小さなすごろくゲーム。完成した一本には、その夜だけの名前がつきます。",
-            "body": "深夜の小さな工房で、材料をひとつずつ重ねながら今夜のクラフトコーラを仕込むすごろくゲームです。進むたびに材料が増え、最後にできあがった一本には、その夜だけの名前がつきます。",
+            "pageTitle": "真夜中コーラ｜クラフトコーラを仕込むすごろくゲーム｜湯間庭町",
+            "heading": "真夜中コーラ — MIDNIGHT COLA",
+            "metaDescription": "深夜の工房で王冠を弾き、材料を重ねて自分だけのクラフトコーラを仕込むすごろくゲーム。完成した一本には今夜だけの名前がつきます。",
+            "body": "灯串横丁の「クラフトコーラ研究所」で、今夜の一本を仕込みます。王冠を弾いて進み、材料を重ね、ときにはこぼしながら、自分だけのコーラを完成させてください。",
             "shareTitle": "真夜中コーラ｜湯間庭町",
             "shareDescription": "材料を重ねて、今夜の一本を仕込むすごろく。深夜の工房で自分だけのコーラを作るゲーム。",
             "imageAlt": "深夜の工房でクラフトコーラを仕込む真夜中コーラの画面",
@@ -329,9 +344,10 @@ var WORK_SEARCH_META = {
             ]
         },
         "en": {
-            "pageTitle": "MIDNIGHT COLA | A Craft Cola Brewing Game | Yumaniwa Town",
-            "metaDescription": "A small nighttime game about gathering ingredients and brewing your own bottle of craft cola in a curious little workshop.",
-            "body": "MIDNIGHT COLA is a small board-game-like experience set inside a workshop after dark. Move forward, gather ingredients, and gradually build tonight's bottle of craft cola. At the end, the finished drink receives a name that belongs only to that run.",
+            "pageTitle": "MIDNIGHT COLA | A Craft Cola Board Game | Yumaniwa Town",
+            "heading": "MIDNIGHT COLA",
+            "metaDescription": "Flick a bottle cap, choose your route, and layer ingredients to craft a unique bottle of cola in this small nighttime browser board game.",
+            "body": "Visit the Craft Cola Laboratory in Yumaniwa Town. Flick a bottle cap, choose your route, and layer ingredients into tonight's bottle. Each finished cola gets its own name and flavor.",
             "shareTitle": "MIDNIGHT COLA | Yumaniwa Town",
             "shareDescription": "Gather ingredients and brew tonight's bottle of craft cola.",
             "imageAlt": "A nighttime craft cola workshop scene from MIDNIGHT COLA",
@@ -354,9 +370,10 @@ var WORK_SEARCH_META = {
             "やきとり屋 ゆまど"
         ],
         "ja": {
-            "pageTitle": "Yakitori Wars｜焼き加減を読み合う二人対戦ゲーム｜湯間庭町",
-            "metaDescription": "焼き鳥の焼き加減と取りどきを読み合う二人対戦ゲーム。焼きすぎる前に取るか、もう少し待つか、短いターンで駆け引きを楽しめます。",
-            "body": "焼き鳥の焼き加減と取りどきを読み合う二人対戦ゲームです。今取るか、もう少し焼くか。短いターンの中で相手の動きと串の状態を見ながら、焼きすぎる前のちょうどいい瞬間を狙います。",
+            "pageTitle": "Yakitori Wars｜焼き加減を競う二人対戦ゲーム｜湯間庭町",
+            "heading": "Yakitori Wars",
+            "metaDescription": "焼き鳥の焼き加減と取りどきを読み合う二人対戦ブラウザゲーム。今取るか、もう少し焼くか。短い駆け引きを楽しめます。",
+            "body": "灯串横丁の「やきとり屋 ゆまど」で遊べる二人対戦ゲーム。串の焼き加減と相手の動きを見ながら、ちょうどいい取りどきを狙います。もう少し待つか、今取るか。",
             "shareTitle": "Yakitori Wars｜湯間庭町",
             "shareDescription": "焼き加減と取りどきを読み合う、二人対戦ゲーム。",
             "imageAlt": "焼き鳥の焼き加減を読み合うYakitori Warsの対戦画面",
@@ -373,9 +390,10 @@ var WORK_SEARCH_META = {
             ]
         },
         "en": {
-            "pageTitle": "Yakitori Wars | A Two-Player Grilling Game | Yumaniwa Town",
-            "metaDescription": "A two-player timing game about watching the grill and deciding exactly when to grab each skewer of yakitori.",
-            "body": "Yakitori Wars is a two-player timing game built around the grill. Take a skewer now or leave it a little longer? Watch the food and the other player, then try to grab the yakitori at just the right moment before it goes too far.",
+            "pageTitle": "Yakitori Wars | A Two-Player Yakitori Grilling Game | Yumaniwa Town",
+            "heading": "Yakitori Wars",
+            "metaDescription": "Compete over the perfect grilling moment in Yakitori Wars, a two-player browser timing game about watching and grabbing yakitori skewers.",
+            "body": "At Yumado, a little yakitori shop in Yumaniwa Town, two players compete over the grill. Watch the skewers and your opponent. Take one now, or let it cook a little longer?",
             "shareTitle": "Yakitori Wars | Yumaniwa Town",
             "shareDescription": "A two-player timing game about knowing exactly when to grab the yakitori.",
             "imageAlt": "Two players watching skewers cook in Yakitori Wars",
@@ -396,9 +414,10 @@ var WORK_SEARCH_META = {
         "schemaType": "CreativeWork",
         "alternateNames": [],
         "ja": {
-            "pageTitle": "雨の日の窓｜雨粒を指でなぞるインタラクティブ作品｜湯間庭町",
-            "metaDescription": "窓を流れる雨粒を指でなぞりながら、雨の日の景色を静かに眺めるWeb作品。勝ち負けではなく、手触りと時間を楽しむための小さな場所です。",
-            "body": "窓を流れる雨粒を指でなぞりながら、雨の日の景色を静かに眺めるインタラクティブ作品です。ゲームの勝ち負けではなく、雨粒に触れる感覚と、少しだけゆっくり流れる時間を楽しむための小さな場所です。",
+            "pageTitle": "雨の日の窓｜雨粒に触れるインタラクティブWeb作品｜湯間庭町",
+            "heading": "雨の日の窓",
+            "metaDescription": "SukimaStockの「雨の日の窓」は、窓を流れる雨粒に触れ、指でなぞりながら静かな景色を楽しむブラウザ作品です。",
+            "body": "窓を流れる雨粒を、指でそっとなぞる。勝ち負けも、急ぐ理由もありません。雨の日の景色と、指先に残る小さな手触りを楽しむ作品です。",
             "shareTitle": "雨の日の窓｜湯間庭町",
             "shareDescription": "雨粒を指でなぞり、窓の向こうを眺める作品。静かな雨の日を触って楽しめます。",
             "imageAlt": "窓を流れる雨粒を指でなぞる雨の日の窓の画面",
@@ -415,9 +434,10 @@ var WORK_SEARCH_META = {
             ]
         },
         "en": {
-            "pageTitle": "雨の日の窓 | A Quiet Interactive Rainy Window | Yumaniwa Town",
-            "metaDescription": "A quiet interactive web piece where you trace raindrops across a window and spend a little time watching the rain.",
-            "body": "This small interactive piece lets you trace raindrops as they move across a window and quietly watch the rainy scene beyond. There is nothing to win or finish; it is simply a place to spend a little time with the touch and rhythm of rain.",
+            "pageTitle": "雨の日の窓 | An Interactive Rainy Window by SukimaStock",
+            "heading": "雨の日の窓 — Rainy Window",
+            "metaDescription": "Trace raindrops across a window in this quiet interactive browser artwork by SukimaStock, part of Yumaniwa Town.",
+            "body": "Trace raindrops as they move across a window and watch the scene beyond. Nothing to win and nowhere to rush. Just a small interactive piece about rain, touch, and time.",
             "shareTitle": "雨の日の窓 | Yumaniwa Town",
             "shareDescription": "A quiet interactive piece for tracing raindrops across a rainy window.",
             "imageAlt": "Raindrops moving across the interactive window in 雨の日の窓",
