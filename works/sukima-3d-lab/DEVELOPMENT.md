@@ -39,6 +39,8 @@ Run `node --test works/sukima-3d-lab/tests/*.test.mjs` from the repository root,
 - Existing lifecycle and Engine input/boot, audio/assets, audio lifecycle, diagnostics suites pass.
 - Scope → Risk → Impact and node syntax checks run against the final implementation commit. Existing gates remain unchanged.
 - Local browser preview could not start: managed supervisor reported `bwrap: Can't mount proc on /newroot/proc: Operation not permitted`; a directly served localhost preview was unreachable from the remote browser. No local GPU, touch emulation or browser resize PASS is inferred from Node tests. Post-publication browser findings are recorded in the PR.
+- Post-publication cloud Chromium loaded the app and correctly displayed the WebGL2-unavailable message. Its graphics context is unavailable, so interactive 3D browser QA remains UNVERIFIED. Extension metadata errors are separate from the work; the app emitted only its expected unavailable warning.
+- Additional native offscreen validation: exact GLSL ES 3 shaders compiled/linked on Mesa OpenGL ES 3.2 llvmpipe. Rest, pressed and spun geometry rendered at 390×844, 844×390 and 900×900 with GL error 0; pressure changed thousands of rendered pixels. Rest/pressed portrait renders were visually inspected. This is GLES rendering evidence, not a WebGL/Safari test. Alpha blending for the soft shadow uses separate alpha factors so the transparent canvas remains correctly premultiplied.
 - Physical iPhone/iPad Safari, real mobile GPU performance and subjective touch quality remain UNVERIFIED. CI is not author adoption or production authorization. No Release Complete/final VERIFIED claim.
 
 ## Device drill
