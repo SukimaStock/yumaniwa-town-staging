@@ -208,7 +208,7 @@
   // Particularly protect the existing high far-side bank at stage4-3
   // (x25740..25870, y -135 to -65) and all earlier authored touch timings.
   // A shallow basin supplies a return route to build momentum organically.
-  const feel4={shift:2400,joinX:27950,gapA:29440,gapB:29590};
+  const feel4={shift:2400,joinX:27950,gapA:29440,gapB:29560};
   const previousUnderground2=four.curves.underground2;
   const insertedUnderground2=[
     [28140,-145,-.45],[28330,-215,0],[28520,-180,.42],
