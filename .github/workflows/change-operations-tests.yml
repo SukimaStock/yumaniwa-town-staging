@@ -18,6 +18,7 @@ on:
       - "tools/change-static-check.cjs"
       - "tools/change-static-check-registry.json"
       - "tools/staging-isolation-fastpath.cjs"
+      - "tools/staging-contained-change-proof.cjs"
       - "tests/test-change-scope-guard.cjs"
       - "tests/test-change-plan-lock.cjs"
       - "tests/test-change-risk-check.cjs"
@@ -26,6 +27,7 @@ on:
       - "tests/test-change-verification-check.cjs"
       - "tests/test-change-static-check.cjs"
       - "tests/test-staging-isolation-fastpath.cjs"
+      - "tests/test-staging-contained-change-proof.cjs"
       - "CHANGE-PLAN.md"
       - "CHANGE-VERIFICATION.md"
       - "CHANGE-OPERATIONS.md"
@@ -51,6 +53,7 @@ on:
       - "tools/change-static-check.cjs"
       - "tools/change-static-check-registry.json"
       - "tools/staging-isolation-fastpath.cjs"
+      - "tools/staging-contained-change-proof.cjs"
       - "tests/test-change-scope-guard.cjs"
       - "tests/test-change-plan-lock.cjs"
       - "tests/test-change-risk-check.cjs"
@@ -59,6 +62,7 @@ on:
       - "tests/test-change-verification-check.cjs"
       - "tests/test-change-static-check.cjs"
       - "tests/test-staging-isolation-fastpath.cjs"
+      - "tests/test-staging-contained-change-proof.cjs"
       - "CHANGE-PLAN.md"
       - "CHANGE-VERIFICATION.md"
       - "CHANGE-OPERATIONS.md"
@@ -92,9 +96,11 @@ jobs:
           node --check tools/change-verification-check.cjs
           node --check tools/change-static-check.cjs
           node --check tools/staging-isolation-fastpath.cjs
+          node --check tools/staging-contained-change-proof.cjs
           node --check tests/test-change-pr-gate.cjs
           node --check tests/test-change-static-check.cjs
           node --check tests/test-staging-isolation-fastpath.cjs
+          node --check tests/test-staging-contained-change-proof.cjs
           node -e "JSON.parse(require('fs').readFileSync('tools/change-static-check-registry.json','utf8'))"
 
       - name: Run Change Operations regression tests
@@ -108,6 +114,7 @@ jobs:
           tests/test-change-verification-check.cjs
           tests/test-change-static-check.cjs
           tests/test-staging-isolation-fastpath.cjs
+          tests/test-staging-contained-change-proof.cjs
 
       - name: Prepare Desk image validation test dependency
         run: |
