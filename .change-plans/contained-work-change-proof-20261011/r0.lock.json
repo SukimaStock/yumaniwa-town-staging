@@ -1,0 +1,143 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "78bb0eba4372682086cda050699a2600c37e6f2239049056a910d4e338dbd807",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "contained-work-change-proof-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Introduce read-only bounded existing single-work tweak and exact revert classifier plus adversarial tests without relaxing installed trusted PR gates.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "e062f8c56283cde27a4f5a3614931245d15a364a",
+    "canonicalSources": [
+      "tools/staging-isolation-fastpath.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      ".github/workflows/change-operations-tests.yml"
+    ],
+    "allowedPaths": [
+      ".change-plans/contained-work-change-proof-20261011/r0.lock.json",
+      "tools/staging-contained-change-proof.cjs",
+      "tests/test-staging-contained-change-proof.cjs",
+      ".github/workflows/change-operations-tests.yml"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      "tools/change-**",
+      "tools/staging-isolation-fastpath.cjs",
+      "tools/change-static-check-registry.json",
+      "index.html",
+      "style.css",
+      "main.js",
+      "engine/**",
+      "works/**",
+      "data/**",
+      "w/**",
+      "en/**",
+      "sitemap.xml",
+      "assets/**",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "RELEASE-WORKFLOW.md"
+    ],
+    "expectedChanges": [
+      "Implement inert trusted-base Git classifier that recognizes only one previously existing works/<slug> directory where at most four regular files are added or modified; no deletion, rename, symlink, mode change, shared file, nested dot path, build or publishing script, excessive size.",
+      "Identify exact previous blob restoration as a subtype, but never infer author approval from an exact content match; no shared root/Engine/document edits are eligible.",
+      "Test positive bounded edits and exact old-content restore, and negative untrusted/shared paths, pre-existing release script, changes in two works, deletions, symlinks, executable bits, multiple files, oversized changes, missing valid work and malformed SHA.",
+      "Extend unprivileged Change Operations Tests to execute the classifier regression; keep both existing privileged PR workflows unchanged and therefore current Plan Lock mandatory for all existing work edits."
+    ],
+    "ownerDecisions": [
+      "Owner 2026-10-11 requested next stage: make existing work improvements and rollback easier while protecting existing world and production."
+    ],
+    "hqDecisions": [
+      "Scope isolated existing work source only, no lifecycle/registry/public promotion; classify but do not exempt yet.",
+      "Fail closed for non-regular mode and build scripts, and treat whole-source changes to existing works as bounded by affected files not by caller-supplied Plan labels.",
+      "Proof-only PR leaves currently deployed trusted workflow immutable; later canary and exact registry authorization required to enable."
+    ],
+    "rulesApplied": [
+      "Current base-owned PR Gate remains authoritative",
+      "No production permissions granted",
+      "Candidate code never evaluated by privileged runner",
+      "Conservative fallback to full Plan whenever ambiguity"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review Git classifier negative cases and file-size caps",
+      "Inspect regression workflow remains unprivileged and unchanged trusted PR Gate"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Current protected staging gate exact base e062f8c56283cde27a4f5a3614931245d15a364a",
+      "Existing isolated new-work classifier and canary evidence",
+      "Node built-in test harness on unprivileged CI"
+    ],
+    "rollback": "Revert this single staging PR; classifier is inert until future authenticated gate transition.",
+    "outOfScope": [
+      "Activate a Plan-free existing-work path in this PR",
+      "Change production, shared town, engine, Work lifecycle, or any existing game",
+      "Automate approval of shared UI rollback"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Whether edited game still feels correct requires user device test; proof recognizes scope only",
+      "No PR gate relaxation until independent exact-blob migration and negative canaries"
+    ],
+    "alternativesRejected": [
+      "Allow any existing-path edit with no Plan",
+      "Treat a past blob as inherently approved for shared UI changes",
+      "Change trusted PR workflows and classifier in same unreviewed commit",
+      "Relax production permissions"
+    ],
+    "boundaryCases": [
+      "Modifies one existing index.html only",
+      "Adds one plain asset inside same existing work",
+      "Exact restored Git blob from bounded first-parent history recognized",
+      "Rejects build script, shared root file, symlink or executable file mode",
+      "Rejects cross-work, delete, Git rename, oversized or too-many-files",
+      "Ineligible edits stay on old locked Plan"
+    ],
+    "testPlan": [
+      "Base-owned Plan/Scope/Risk/Impact/Static for this implementation",
+      "Unprivileged node --test real temporary git fixtures and negative abuse cases",
+      "No protected base-owned workflow modified",
+      "Later PR separately pins exact proven new classifier, with positive and negative unmerged canaries"
+    ],
+    "problem": "Prototype no-Plan route is proven but existing isolated work tweaks and restoration still require full PR Plan even when isolated; want evidence before gate relaxation.",
+    "currentContract": "Only entirely new works paths can bypass locked Plan; protected workflows pin exact existing classifier Git blob.",
+    "whyExistingIsInsufficient": "Small existing work changes and undo cannot use current add-only new-work classifier and need a separate conservative scope predicate.",
+    "design": "New pure, deterministic, fail-closed Git-tree classifier for existing one-work modifications with file-size/count and protected-path limits, plus real-git unit tests; proof only.",
+    "migration": "After proof passes, separately preauthorize exact future protected workflow blobs and install sequentially, test both success/failure canaries, update documentation only when live.",
+    "compatibility": "Old new-work classifier, protected exact-blob registry/workflows and full Plan route unchanged; no game/runtime modifications.",
+    "promotionRisk": "No staging edit approval implies production publish or developer API permissions; no automatic common UI merge."
+  }
+}
