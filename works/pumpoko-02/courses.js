@@ -254,6 +254,8 @@
   // Keep the accepted STAGE 3 camera band and fall threshold unchanged.
   // The new trough is visible inside that framing without pulling the camera.
   four.stages[2].cameraFloor=240;four.stages[2].failY=-525;
+  // Likewise, a longer STAGE 4 must not shift the old camera/fall band.
+  four.stages[3].cameraFloor=-125;four.stages[3].failY=-890;
   function freeze(v){if(v&&typeof v==='object'){Object.values(v).forEach(freeze);Object.freeze(v);}return v;}
   const courses=freeze({world2:two,world4:four});
   function get(id){const c=courses[id];if(!c)throw Error('Unknown comparison course');return c;}
