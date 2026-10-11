@@ -16,6 +16,7 @@ const MAX_OLD_BYTES=512*1024;
 const MAX_NEW_BYTES=2*1024*1024;
 const MAX_TOTAL_BYTES=4*1024*1024;
 const MAX_MODIFIED_LINES=120;
+const MAX_MODIFIED_PATCH=16*1024;
 const HISTORY_LIMIT=24;
 
 // Packaging/export, work registration and executable lifecycle files are not
@@ -110,6 +111,10 @@ function classify({root,baseSha,headSha}){
       if(item.action==='M'){
         if(s.adds==='-'||s.dels==='-')return deny('BINARY_MODIFICATION');
         if(Number(s.adds)>MAX_MODIFIED_LINES||Number(s.dels)>MAX_MODIFIED_LINES)return deny('BROAD_REWRITE');
+        // A minified one-line source can hide an entire game rewrite behind
+        // a tiny numstat. Bound the actual rendered diff, not just line count.
+        const patch=git(root,['diff','--no-ext-diff','--no-color','--no-renames','--unified=0',base,head,'--',item.path]);
+        if(patch.length>MAX_MODIFIED_PATCH)return deny('BROAD_PATCH');
       }
     }
     // Historical matches are *observations*, not authorization to change common UI.
