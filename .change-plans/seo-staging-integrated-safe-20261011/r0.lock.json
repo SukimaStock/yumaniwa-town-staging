@@ -1,0 +1,193 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ee83b88c66a6f80d890041dc5a2b74e68bfeca157507ba1f5e65181f30d69337",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "seo-staging-integrated-safe-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Integrate approved Oct 11 SEO adjustments into staging: visible town entrance and station guide, canonical JA/EN Search text for ten works generated from source, and noindex,follow on ten runtime pages without altering games or production.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "f956aa8d68d9b9ae0f7401fe22521e8e3cf00fc5",
+    "canonicalSources": [
+      "index.html",
+      "style.css",
+      "data/station-plaza.js",
+      "data/work-search-meta.js",
+      "data/works.js",
+      "tools/generate-work-search-pages.cjs",
+      "RELEASE-WORKFLOW.md",
+      "AGENTS.md",
+      "works/pumpoko/build-itch.py"
+    ],
+    "allowedPaths": [
+      ".change-plans/seo-staging-integrated-safe-20261011/r0.lock.json",
+      "index.html",
+      "style.css",
+      "data/station-plaza.js",
+      "data/work-search-meta.js",
+      "tools/generate-work-search-pages.cjs",
+      "w/pumpoko/index.html",
+      "en/w/pumpoko/index.html",
+      "w/orbit/index.html",
+      "en/w/orbit/index.html",
+      "w/diorama-calendar/index.html",
+      "en/w/diorama-calendar/index.html",
+      "w/rojiura-masala/index.html",
+      "en/w/rojiura-masala/index.html",
+      "w/steamclock/index.html",
+      "en/w/steamclock/index.html",
+      "w/dotweather/index.html",
+      "en/w/dotweather/index.html",
+      "w/junkissa-dive/index.html",
+      "en/w/junkissa-dive/index.html",
+      "w/midnight-cola/index.html",
+      "en/w/midnight-cola/index.html",
+      "w/yakitori-wars/index.html",
+      "en/w/yakitori-wars/index.html",
+      "w/rainy-window/index.html",
+      "en/w/rainy-window/index.html",
+      "works/pumpoko/index.html",
+      "works/orbit/index.html",
+      "works/diorama-calendar/index.html",
+      "works/rojiura-masala/index.html",
+      "works/steamclock/index.html",
+      "works/dotweather/index.html",
+      "works/junkissa-dive/index.html",
+      "works/midnight-cola/index.html",
+      "works/yakitori-wars/index.html",
+      "works/rainy-window/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "engine/**",
+      "data/works.js",
+      "data/work-lifecycle.json",
+      "data/town-maps.js",
+      "sitemap.xml",
+      "assets/**",
+      ".github/**",
+      "tools/change-**",
+      "works/pumpoko/build-itch.py",
+      "works/pumpoko-01/**",
+      "works/pumpoko-02/**"
+    ],
+    "expectedChanges": [
+      "Town root: visible brief h1 and one-sentence intro plus collapsible human-readable ten-work station guidance with ordinary links, replacing 1px clipped nav; improve title, description and OG/Twitter, retain staging noindex.",
+      "Update existing station notice text only; do not change its position, ID, collision, scene navigation or any game interaction.",
+      "Update canonical Search metadata JA/EN for exactly ten production-target works, add optional locale heading with legacy fallback, regenerate exactly 20 staging noindex pages from existing generator.",
+      "Keep staging-only CoffeeFactory metadata and generated output identical and staging sitemap unchanged at 19 URLs (nine released works plus town).",
+      "Normalize only ten standalone execution HTML heads to a single noindex,follow, remove query canonical from SteamClock/DotWeather, safely align three other document titles.",
+      "Keep PUMPOKO source title PUMPOKO 02 required by existing itch exporter; its searchable introduction H1/title are PUMPOKO. Preserve every game script and body."
+    ],
+    "ownerDecisions": [
+      "On 2026-10-11 the owner approved the SEO audit plan and its Japanese/English drafts, then requested implementation and subsequently instructed moving ahead on staging and verification; no production approval given."
+    ],
+    "hqDecisions": [
+      "Keep existing canvas town and navigation, add small visible HTML guidance using native details; do not convert town to directory.",
+      "Search/Share headings belong to JA/EN metadata, with generator fallback for staging-only works; don't alter WORKS identity, launch, or save keys.",
+      "Production index,folllow instructions are environment-specific; staging generated pages and top remain noindex; do not copy to production.",
+      "Execution pages use noindex,follow without a conflicting query canonical; technical PUMPOKO source H1/title must remain to preserve ZIP exporter.",
+      "One combined PR is necessary because three prior draft PRs fail trusted static/Plan checks; do not weaken any gate or carry forward their deficient locks."
+    ],
+    "rulesApplied": [
+      "Staging-first; immutable full Plan Lock first commit",
+      "Search/Share generator is sole source for generated HTML; preserve production publication set",
+      "No hidden SEO-only text",
+      "Only registered trusted static check IDs, custom manual checks remain manual"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Visually inspect iPhone and PC root intro width, collapsible guide and town controls",
+      "Tap station notice and guide links, verify scene movement and return",
+      "Review ten Japanese and ten English Search pages for titles, H1, OGP and language navigation",
+      "Open, close and reopen sample games including PUMPOKO with iPhone audio and mouse controls",
+      "Confirm PUMPOKO Itch Export, Release Validator and World Consistency workflow results"
+    ],
+    "impactChecks": [
+      "surface.shared",
+      "runtime.regression",
+      "risk.high-risk-review",
+      "work.runtime",
+      "work.regression",
+      "scene.rendering",
+      "scene.collision",
+      "scene.interaction",
+      "scene.editor-desk",
+      "scene.validation",
+      "scene.transition-adjacency",
+      "search.generated-pages",
+      "search.sitemap",
+      "search.localized-copy",
+      "search.structured-data",
+      "search.validator",
+      "search.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Staging exact baseline f956aa8d68d9b9ae0f7401fe22521e8e3cf00fc5",
+      "10-work published target set (not CoffeeFactory)",
+      "Stable existing work IDs, launch URLs, and noindex staging preview contract",
+      "PUMPOKO build-itch.py exact <title>PUMPOKO 02</title> source input; exporter rewrites ZIP title to PUMPOKO"
+    ],
+    "rollback": "Revert only the combined staging PR merge. Preserve any later changes and never reset or force-push; production remains unchanged.",
+    "outOfScope": [
+      "Production repo changes, production deployment, site ownership and search engine submissions",
+      "Game source beyond runtime HTML head, shared Engine, physics, state and game assets",
+      "Staging-only prototypes or CoffeeFactory publication",
+      "Town route redesign and scene geometry changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Human iPhone/desktop operation cannot be inferred from CI and will require owner's real-device inspection",
+      "Staging Pages publication and SEO console registration not yet confirmed"
+    ],
+    "alternativesRejected": [
+      "Merge any of draft PRs #228 #229 #231 with failing trusted static gates",
+      "Change trusted checks or weaken Risk/Impact/Scope validation",
+      "SEO-optimized hidden keyword text or replace game-like town with directory",
+      "Modify PUMPOKO exporter to hide the source title dependency",
+      "Copy staging wholesale into production"
+    ],
+    "boundaryCases": [
+      "Single visible H1 on town root and ten normal direct links, no clipped SEO-only duplicate",
+      "Collapsible guide must not obstruct walking/controls on narrow phone",
+      "Works Search pages JA+EN retain self-canonical/hreflang and staging noindex; sitemap remains nine released only",
+      "CoffeeFactory metadata stays unchanged, no new staging open added to sitemap",
+      "PUMPOKO Itch Export succeeds and source title remains PUMPOKO 02",
+      "All runtime HTML bodies and scripts unchanged; no canonical present on runtime pages"
+    ],
+    "testPlan": [
+      "Run trusted Plan Lock → Scope → Risk → Impact → static verification checks on exact candidate SHA",
+      "Run node syntax and Release Validator / generated page checks; check Search metadata and generated pages match",
+      "Run PUMPOKO Itch Export with original technical HTML title, and existing World Consistency tests",
+      "Read back all changed paths, canonical/robots, sitemap and protected game bodies",
+      "After staging merge verify GitHub Pages deployment and open live URLs on available browser, leave device results UNVERIFIED"
+    ],
+    "problem": "The current production-target town entrance has no human-readable visible introduction; ten JA/EN Search previews need reviewed names, and game executables have inconsistent robots/canonical. Three prior staging PRs and one previous integrated attempt cannot be merged safely due immutable Plan validation failures, despite source implementation tests passing.",
+    "currentContract": "Staging is a canvas walking town with existing station notice; data/works.js controls runtime identity and routes; data/work-search-meta.js plus generator create JA/EN Search previews. Staging Search pages remain noindex; production release set is explicit. Exact Plan Lock precedes implementation and trusted static check IDs must be base-owned. PUMPOKO build-itch.py expects <title>PUMPOKO 02</title> in source.",
+    "whyExistingIsInsufficient": "Clipped nav is not a visible reader-friendly way to discover work; metadata H1 fallback picks shorter menu/venue labels; standalone runtime pages lack consistent search exclusion. Earlier PR locks had missing Full Plan fields or unsupported trusted static ID claims, and the three overlapping review workflows should not be promoted separately.",
+    "design": "From unchanged trusted main base, create first an immutable Full Plan Lock with all mandatory design fields and exactly two registered static check IDs. Then import only 35 disjoint implementation blob paths from previously reviewed PR heads: root intro/CSS/station text, bilingual metadata/generator/20 generated Search pages, ten game index head-only SEO tags. Preserve original runtime bodies and PUMPOKO source title. Publish to a single staging PR and require trusted gates.",
+    "migration": "staging branch -> immutable lock -> 35 implementation paths -> trusted mechanical/static CI -> staging merge only after full green checks -> staging HTTP/readable content QA and owner iPhone check; any future production release requires separate selective regeneration/index directives and explicit production approval.",
+    "compatibility": "Retains all work IDs, storage keys, entry routes, scene geometry, event handlers, game scripts, Engine, audio, assets, root navigation. Existing CoffeeFactory remains staging-only and its generated output unchanged. No change to nine-work staging sitemap. PUMPOKO technical title remains PUMPOKO 02 for itch exporter; indexed introduction says PUMPOKO.",
+    "promotionRisk": "Production differs from staging, so whole staging copy would import noindex and unwanted CoffeeFactory/experimental works. All future promotion must be selective from production base with indexable production Search pages, separate gates, runtime QA and approved release instruction."
+  }
+}
