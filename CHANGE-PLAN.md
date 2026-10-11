@@ -20,7 +20,7 @@ Change Planはそれらの代わりではなく、**一回の変更を安全に�
 
 ## 1. Plan Level
 
-repositoryを変更する作業では、実装前にChange Planを作る。
+repositoryを変更する作業では原則として実装前にChange Planを作る。ただし、完全に新規の単一 `works/<slug>/` 以下へ通常ファイルを追加するだけのstaging PRは、base-owned隔離fast-pathによってPlan Lockなしで進められる。既存作品・共有部・データ登録・productionは対象外。
 
 | Plan | 主な対象 | 目的 |
 | --- | --- | --- |
@@ -156,7 +156,7 @@ generated
 
 ## 5. Plan Lock / Risk Floor
 
-v0.2では、**高リスク変更、staging PR、production昇格の根拠に使う変更**は、
+v0.2では、**高リスク変更、隔離fast-path対象外のstaging PR、production昇格の根拠に使う変更**は、
 実装前Planを `tools/change-plan-lock.cjs` でdigest化して固定する。
 
 ```sh
@@ -187,14 +187,14 @@ core Impactは `impactExclusions` へ逃がせない。
 また、1 profileが要求するImpactを全部N/AにしてVERIFIEDへ進めない。
 
 日常の軽いCONTENT / PLACEMENTを一律Fullにしない。
-現在のstaging/mainは全変更にPRを要求し、**PRには実装前Plan Lockを必須**とする。Working Copy / Deskの手順は `OPERATIONS.md` を参照する。
+stagingでは、単一新規 `works/<slug>/` の通常ファイル追加だけをbase-owned分類器で自動認定し、**この限定範囲のみPlan Lockを免除**する。その他すべてのPRには実装前Plan Lockが必要。成功canary #241と遮断canary #242で境界を確認済み（両PRは未マージ）。Working Copy / Deskの手順は `OPERATIONS.md` を参照する。
 
 現行の `Change PR Gate v0.2` は `pull_request_target` でPR base側のworkflow定義とgate実装を使う。
 candidate branchのworkflowやgate toolを実行して自己認証しない。
 
 high-risk PRでscope変更が必要になった場合はlocked r0を上書きせず、
 いったん止めて現在のbaseからbranch/Planを作り直す。
-Plan Lock tool自体はr2以降のrevision chainも検証できるが、PR gate v0.2は意図的にfresh r0一つへ制限する。
+Plan Lock tool自体はr2以降のrevision chainも検証できるが、通常のPlan管理対象PRについて、PR gate v0.2は意図的にfresh r0一つへ制限する。
 
 Risk Policyが要求するstatic checkにはchanged pathに対する**applicability**を持たせる。
 適用対象が1件もないcheckを「実行済みPASS」とは扱わない。
