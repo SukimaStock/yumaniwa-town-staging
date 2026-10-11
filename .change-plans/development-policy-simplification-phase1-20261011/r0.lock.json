@@ -1,0 +1,138 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "142b55315da0f11014b01ff93f40eb68c363a1bc1f0e73f99daad556526112d1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "development-policy-simplification-phase1-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Document the approved lightweight exploration / protected shared change / prompt rollback operating boundaries, explicit actual owner design consent and differentiated use of existing staging vs production permissions, without weakening executable Change OS gate.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "8d34d9ff5c7c3085079b8de31c3342626e4394c2",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "tools/change-risk-policy.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/development-policy-simplification-phase1-20261011/r0.lock.json",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "RELEASE-WORKFLOW.md",
+      "main.js",
+      "style.css",
+      "index.html",
+      "engine/**",
+      "works/**",
+      "assets/**",
+      "data/**",
+      "w/**",
+      "en/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Place three nonduplicative, practical principles: isolated prototypes can be explored in owner-scoped staging without repeated execution permission; existing runtime/world changes require impact-focused review; production always requires separate owner approval.",
+      "Distinguish owner approval of general outcome from explicit approval of persistent town UI, shared scene navigation, changed naming or loss of an existing experience; AI cannot self-certify Owner Decision / HQ Review by writing the words in Plan.",
+      "Define requested selective rollback as a short, isolated, high-priority repair preserving unrelated changes; do not require fresh product ideation or repeated authorization for existing authorized staging work.",
+      "Acknowledge current PR Gate still requires immutable Plan Lock on EVERY PR and will not be bypassed by new documentation. CI relaxation is separate staged audit and tool change.",
+      "Clarify no fake human manual PASS from CI and no production promotion."
+    ],
+    "ownerDecisions": [
+      "Owner 2026-10-11: simplify disproportionate process, preserve existing town/game experiences, allow new creative work to be light and reversible, no new invasive town UI without specific design agreement, production remains separately approved."
+    ],
+    "hqDecisions": [
+      "This Phase 1 is a documentation and authority/operating policy clarification only; machine gate and exact blob protections unchanged.",
+      "No new formal review board or extra automatic check; fewer approvals where action is within already approved scope.",
+      "Phase 2 CI simplification needs separate threat model and staged implementation with trusted previous-base gates to preserve critical protections."
+    ],
+    "rulesApplied": [
+      "Least change scope",
+      "No staging-to-production auto promote",
+      "No authorial aesthetic judgment delegated to labels",
+      "No bypass of existing secure PR checker"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Read all three updated documents for no contradictory production permission",
+      "Verify existing workflow still blocks unauthorized path and preserves secure trusted gate",
+      "Ensure no new AI-run aesthetic approval claims"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Immutable staged main 8d34d9ff5c7c3085079b8de31c3342626e4394c2",
+      "Current trusted previous-base Change PR Gate",
+      "Current Work lifecycle status rules"
+    ],
+    "rollback": "Revert only this policy guidance PR on staging; existing CI remains unchanged and production untouched.",
+    "outOfScope": [
+      "Relaxing GitHub required checks or Plan Lock in CI within this PR",
+      "Changing connected GitHub permissions or provider approvals",
+      "Modifying engine/town/game, production or Search"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Formal fast-path CI not yet implemented and currently all staging PRs still need full existing lock flow",
+      "No GitHub branch protection administration access for exact enforcement confirmation"
+    ],
+    "alternativesRejected": [
+      "Delete CI protections blindly to make errors disappear",
+      "Require three author decisions and long forms for every new prototype",
+      "Treat unverified AI Plan statements as the owner's design approval",
+      "Combine doc semantics and security-critical workflow changes in one self-assessed PR"
+    ],
+    "boundaryCases": [
+      "New isolated works do not alter shared runtime or open/public status",
+      "Existing work edits cannot escape regressions by claiming experiment",
+      "Shared persistent UI requires specific visual choice before staging merge",
+      "An explicit rollback can revert known changes while preserving independent SEO and work updates",
+      "Phase 1 docs do not claim current CI gate has relaxed"
+    ],
+    "testPlan": [
+      "Trusted Plan lock first then base-owned Scope, Risk, Impact, Static checks for Change OS docs",
+      "Confirm exact changed paths and no regression to runtime or published index pages",
+      "Review consistency of new policy text against existing Plan Gate restrictions",
+      "Phase 2 separate threat model for machine gate relaxation and tests"
+    ],
+    "problem": "Current blanket immutable plans/repeated approvals impede exploration and even simple rollback, while the broad approved SEO plan allowed intrusive persistent town UI without actual design consent.",
+    "currentContract": "PR must have Plan Lock first, high-risk path floors and base-owned checks; current verifier can't authenticate human device confirmation.",
+    "whyExistingIsInsufficient": "Formal structure detects unauthorized paths and data tampering but doesn't separate aesthetic owner judgment, safe experiments and undo from shared high-risk changes, leading to high friction and weak meaningful guardrails.",
+    "design": "Add minimal execution-boundary policies and actual decision evidence requirement in existing documents without changing schemas or CI. Reserve runner modifications for separate phased review.",
+    "migration": "First adopt doc guidance under existing checks; after proven stable, build minimal isolated-work and rollback paths via separately audited CI change; no immediate blanket downgrades.",
+    "compatibility": "All existing schemas, Plan Lock, base-owned gate, Work lifecycle, production instructions and game runtime remain identical.",
+    "promotionRisk": "Guidance does not authorize production work and cannot silently relax critical tool gates; future changes need independent explicit review."
+  }
+}
