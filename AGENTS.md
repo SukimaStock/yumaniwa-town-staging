@@ -12,6 +12,16 @@ repository変更前の実行範囲は [CHANGE-PLAN.md](CHANGE-PLAN.md) で固定
 Release完成判定の唯一の正本は [RELEASE-WORKFLOW.md](RELEASE-WORKFLOW.md)。
 配置の契約は `tools/SCENE-DATA-CONTRACT.md` と `YUMANIWA-PIXEL-STANDARD.md` を参照する。
 
+## 制作を守る優先原則（2026-10-11）
+
+1. **新しい作品は試しやすく。** 既存の `works/<id>/`、町、Engine、公開URLに影響しない試作は、その作品の指示範囲で実装・試行・修正を進める。staging-onlyとproduction公開は別判断。独立した試作のために町全体を変更しない。
+2. **今ある体験を壊しにくく。** 共通画面、既存の動線、操作、保存、Engineへの影響を最初に把握する。特に既存の町に常時表示する新UIは、単なるSEO・機能改善の目的承認だけで採用しない。表示位置・必要性を作者が具体的に選ぶまで、実装・stagingマージを止める。見た目の実機確認はCI成功で代用しない。
+3. **失敗は簡単に戻す。** 指摘された既知の変更を取り消す場合は、独立した改善を残して最小差分で戻す。戻すための新しいデザイン会議や同じ承認の取り直しはしない。ただし現行PR/Plan Gateの検査を迂回してよいわけではない。
+4. **承認を水増ししない。** 一般的な制作目的への承認、共有UI等の設計承認、production公開承認は別物。Planの `authority` / `ownerDecisions` / `hqDecisions` に文字列を記入するだけでは実際の承認証拠にならない。AIによるHQの設計整理と、作者が持つ選択権を混同しない。
+5. **同じ作業指示を何度も聞き返さない。** 作者から明示されたstaging作業範囲には、必要なbranch・commit・PR・テスト・安全なstagingマージの実行を含めて扱う。新たな設計判断、範囲外の変更、production、接続サービス側の操作承認は別途確認する。
+
+これは作業の**判断原則**であり、既存の `Change PR Gate`・Plan Lock・trusted static checkを無効化しない。現行CIはstaging PRすべてにPlan Lockを要求する。将来の軽量fast-pathは既存ゲートと同等の境界保護を確認してから別変更で導入する。
+
 ## 判断権限の4層
 
 | 層 | AIの範囲 |
