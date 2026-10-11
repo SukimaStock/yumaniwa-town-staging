@@ -83,14 +83,17 @@
   const riskStudies={
     safe:null,
     mid:{layer:'surface',a:2890,b:3000,stage:true},
-    exit:{layer:'surface',a:3160,b:3270,stage:true}
+    exit:{layer:'surface',a:3160,b:3270,stage:true},
+    choice:{layer:'surface',a:2890,b:3000,stage:true}
   };
   const riskDescriptions={
     safe:'B→D 平面・長そのまま。危険がない時の操作感。',
     mid:'同じ地形で平面の途中に崖。楽しさが変化するか。',
-    exit:'同じ地形で平面の終わり近くに崖。挑戦の感覚が生まれるか。'
+    exit:'同じ地形で平面の終わり近くに崖。挑戦の感覚が生まれるか。',
+    choice:'途中の崖と同じ幅。静止した場所から、自分の判断で進み方を選ぶ。'
   };
-  const riskLabels={safe:'崖なし',mid:'平面途中',exit:'平面終盤'};
+  const riskLabels={safe:'崖なし',mid:'平面途中',exit:'平面終盤',choice:'判断の崖'};
+  const choiceStartX=2770;
   const variantDescriptions={
     baseline:'B → D｜好評だった原型。そのままもう一度遊びたくなるか。',
     short:'B → D｜Dの平面だけ200短く。リズムが途切れなくなるか。',
@@ -127,7 +130,7 @@
     halfpipe:'小さなハーフパイプ。左右へ繰り返して勢いを育てる。'
   };
   let kind='pumpkin',terrain='bowl',mode='single',feedback='retry',course,state,activePointer=null,pointerSource=null,axis=0;
-  let failedAt=null,fallCount=0,crossed=false;
+  let failedAt=null,fallCount=0,crossed=false,retreated=false;
   let keys=new Set(),canvasSize={width:0,height:0,dpr:1},lastTime=0,view=null;
   const byId=id=>doc.getElementById(id);
   function points(){return mode==='risk'?bdVariants.long:mode==='variant'?bdVariants[terrain]:mode==='order'?orderPoints[terrain]:mode==='chain'?chainPoints[terrain]:terrainPoints[terrain]}
@@ -149,14 +152,16 @@
   function release(){activePointer=null;pointerSource=null;axis=0;keys.clear();if(state)P.clearInput(state)}
   function reset(){
     release();
-    fallCount=0;crossed=false;failedAt=null;
+    fallCount=0;crossed=false;failedAt=null;retreated=false;
     const selectedGap=mode==='risk'?riskStudies[terrain]:null;
     course={curves:{surface:points().map(p=>p.slice())},surfaces:['surface'],holes:[],cellars:[],
       gaps:selectedGap?[{...selectedGap}]:[],finishX:100000};
     state=P.create(kind,P.defaults());
-    const b=state[kind],f=floor(mode==='single'?-420:-410);
-    b.layer='surface';b.x=f.x+f.nx*b.r;b.y=f.y+f.ny*b.r+(kind==='rutabaga'?95:0);
-    b.vx=b.vy=0;b.grounded=kind==='pumpkin';
+    const spawnX=mode==='risk'&&terrain==='choice'?choiceStartX:mode==='single'?-420:-410;
+    const b=state[kind],f=floor(spawnX);
+    b.layer='surface';b.x=f.x+f.nx*b.r;
+    b.y=f.y+f.ny*b.r+(kind==='rutabaga'&&terrain!=='choice'?95:0);
+    b.vx=b.vy=0;b.grounded=kind==='pumpkin'||mode==='risk'&&terrain==='choice';
     for(const item of doc.querySelectorAll('[data-kind]'))item.classList.toggle('active',item.dataset.kind===kind);
     for(const item of doc.querySelectorAll('[data-terrain]'))item.classList.toggle('active',mode==='single'&&item.dataset.terrain===terrain);
     for(const item of doc.querySelectorAll('[data-chain]'))item.classList.toggle('active',mode==='chain'&&item.dataset.chain===terrain);
@@ -191,16 +196,17 @@
   function respawnNearGap(){
     const gap=activeGap();if(!gap)return;
     release();
-    const b=state[kind],x=gap.a-280,f=floor(x);
+    const b=state[kind],x=terrain==='choice'?choiceStartX:gap.a-280,f=floor(x);
     // Restore at rest and let the player make their own speed again.
     Object.assign(b,{x:f.x+f.nx*b.r,y:f.y+f.ny*b.r,vx:0,vy:0,
       grounded:true,landing:null,safety:false,pulse:0,stretch:0,angular:0,angle:0});
-    P.clearInput(state);failedAt=null;crossed=false;
+    P.clearInput(state);failedAt=null;crossed=false;retreated=false;
     updateRiskStatus();
   }
   function trackRisk(){
     if(mode!=='risk')return;
     const gap=activeGap(),b=state[kind];if(!gap)return;
+    if(terrain==='choice'&&b.x<choiceStartX-80)retreated=true;
     if(failedAt!==null){
       if(state.time-failedAt>.48)respawnNearGap();
       return;
@@ -384,7 +390,8 @@
     const entry={kind,mode,terrain,feedback,points:points().map(p=>p.slice()),
       ...(mode==='order'?{sourceCourses:orderSpecs[terrain].slice(),junctionX:orderJoinX}:{}),
       ...(mode==='risk'?{baseline:'B→D long',sourceCourses:['rhythm','breath'],
-        risk:{gap:activeGap()?{...activeGap()}:null,fallCount,crossed}}:{}),
+        risk:{gap:activeGap()?{...activeGap()}:null,fallCount,crossed,
+          ...(terrain==='choice'?{startX:choiceStartX,retreated}: {})}}:{}),
       ...(mode==='variant'?{sourceCourses:terrain==='repeat'?['rhythm','breath','rhythm']:['rhythm','breath'],
         modifiedFactor:terrain==='short'?'D flat -200':terrain==='long'?'D flat +250':'none',
         baseline:'order:bd'}:{}),
@@ -401,7 +408,7 @@
   resize();reset();
   if(new URLSearchParams(root.location.search).get('dev')==='1'){
     root.FeelLabProbe=()=>({kind,terrain,mode,feedback,parts:mode==='risk'?['rhythm','breath']:mode==='order'?orderSpecs[terrain]:mode==='variant'?(terrain==='repeat'?['rhythm','breath','rhythm']:['rhythm','breath']):null,axis:currentAxis(),x:state[kind].x,y:state[kind].y,
-      vx:state[kind].vx,vy:state[kind].vy,time:state.time,gap:activeGap()?{...activeGap()}:null,fallCount,crossed,failedAt,view:{...view},
+      vx:state[kind].vx,vy:state[kind].vy,time:state.time,gap:activeGap()?{...activeGap()}:null,fallCount,crossed,failedAt,retreated,view:{...view},
       canvas:{width:canvasSize.width,height:canvasSize.height},grounded:state[kind].grounded});
   }
   root.requestAnimationFrame(loop);
