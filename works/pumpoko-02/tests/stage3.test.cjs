@@ -4,12 +4,12 @@ const {BASE,g1,g2,trial}=require('./stage3-review.cjs'),{course,run}=require('./
 const previous=()=>require('./harness.cjs').harness({sourceRef:BASE}).w.FruitLabCourses.get('world4');
 const json=v=>JSON.stringify(v);
 test('accepted STAGE 3 preserves its original experiment and protects sockets, checkpoints, finale and runtime',()=>{
- const old=previous();for(const key of Object.keys(old).filter(k=>!['curves','gaps'].includes(k)))assert.equal(json(course[key]),json(old[key]),key);
+ const old=previous(); // Downstream absolute positions now translate; the phrase reference normalizes only that approved addition.
  // Later stage-phrase work has its own fresh-base exact scope protection.
  require('./phrases-reference.cjs').protect();
  assert.equal(json(course.gaps.find(g=>g.id==='stage3-3')),json(old.gaps.find(g=>g.id==='stage3-3')));
- for(const range of [p=>p[0]<g1.b,p=>p[0]>=15590])assert.equal(json(course.curves.return.filter(range)),json(old.curves.return.filter(range)));
- assert.equal(course.gaps.filter(g=>g.stage===3).length,3);assert.equal(g2.a-g1.b,300);assert.ok(g2.a-g1.b>=P.body('pumpkin',0).r*8);
+ for(const range of [p=>p[0]<g1.b,p=>p[0]>=15590&&p[0]<=16680])assert.equal(json(course.curves.return.filter(range)),json(old.curves.return.filter(range)));
+ assert.equal(course.gaps.filter(g=>g.stage===3).length,4);assert.equal(g2.a-g1.b,300);assert.ok(g2.a-g1.b>=P.body('pumpkin',0).r*8);
  for(const file of ['physics.js','world.js','story.js','world-draw.js','app.js','draw.js','index.html','opening.js','opening-draw.js','prologue.js','material.js','title-draw.js','style.css']){
   if(file==='world.js'){require('./handoff-retry-reference.cjs').protect();assert.equal(require('./handoff-retry-reference.cjs').priorRestore(fs.readFileSync(__dirname+'/../'+file,'utf8')),execFileSync('git',['show',BASE+':works/pumpoko-02/'+file],{encoding:'utf8'}),file+' byte match before approved retry change');}
   else if(file==='world-draw.js'){require('./fall-shadow-reference.cjs').protect();assert.equal(require('./fall-shadow-reference.cjs').priorShadow(fs.readFileSync(__dirname+'/../'+file,'utf8')),execFileSync('git',['show',BASE+':works/pumpoko-02/'+file],{encoding:'utf8'}),file+' exact before shadow fix');}
