@@ -46,7 +46,37 @@ jobs:
           path: candidate
           persist-credentials: false
 
+      - name: Classify isolated new work using pinned trusted source
+        id: isolation
+        shell: bash
+        env:
+          EVENT_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          EVENT_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          trusted="$GITHUB_WORKSPACE/trusted"
+          candidate="$GITHUB_WORKSPACE/candidate"
+          actual="$(git -C "$trusted" hash-object tools/staging-isolation-fastpath.cjs)"
+          if [ "$actual" != "78305495d3e85f9fdc319acf6ce90834257b8087" ]; then
+            echo "Pinned isolation classifier mismatch: full safety review required."
+            exit 1
+          fi
+          if node "$trusted/tools/staging-isolation-fastpath.cjs" --root "$candidate" --base "$EVENT_BASE_SHA" --head "$EVENT_HEAD_SHA" > "$RUNNER_TEMP/isolated-result.json"; then
+            echo "eligible=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "eligible=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Preserve isolated-work verification boundary
+        if: steps.isolation.outputs.eligible == 'true'
+        shell: bash
+        run: |
+          echo "Read-only pinned Git-tree isolation check passed for this exact PR base/head."
+          echo "Production/public release and human visual verification remain UNVERIFIED."
+          cat "$RUNNER_TEMP/isolated-result.json"
+
       - name: Resolve immutable Plan Lock
+        if: steps.isolation.outputs.eligible != 'true'
         id: plan
         shell: bash
         working-directory: candidate
@@ -126,6 +156,7 @@ jobs:
           echo "lock_blob=$LOCK_OID" >> "$GITHUB_OUTPUT"
 
       - name: Verify Plan Lock with trusted base
+        if: steps.isolation.outputs.eligible != 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -139,6 +170,7 @@ jobs:
           NODE
 
       - name: Collect trusted Scope evidence
+        if: steps.isolation.outputs.eligible != 'true'
         id: scope
         shell: bash
         run: |
@@ -168,6 +200,7 @@ jobs:
           echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
 
       - name: Collect trusted Risk evidence
+        if: steps.isolation.outputs.eligible != 'true'
         id: risk
         shell: bash
         run: |
@@ -197,6 +230,7 @@ jobs:
           echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
 
       - name: Collect trusted Impact evidence
+        if: steps.isolation.outputs.eligible != 'true'
         id: impact
         shell: bash
         run: |
@@ -226,6 +260,7 @@ jobs:
           echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
 
       - name: Resolve trusted static definition blobs
+        if: steps.isolation.outputs.eligible != 'true'
         id: static_sources
         shell: bash
         working-directory: trusted
@@ -257,6 +292,7 @@ jobs:
           echo "executor_blob=$executor_blob" >> "$GITHUB_OUTPUT"
 
       - name: Collect trusted Static evidence
+        if: steps.isolation.outputs.eligible != 'true'
         id: static
         shell: bash
         env:
@@ -306,6 +342,7 @@ jobs:
           echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
 
       - name: Build exact-SHA trusted evidence envelope
+        if: steps.isolation.outputs.eligible != 'true'
         shell: bash
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -359,6 +396,7 @@ jobs:
           NODE
 
       - name: Upload trusted mechanical evidence
+        if: steps.isolation.outputs.eligible != 'true'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: trusted-mechanical-evidence-${{ github.run_id }}-attempt-${{ github.run_attempt }}
@@ -367,6 +405,7 @@ jobs:
           retention-days: 30
 
       - name: Build exact-SHA trusted static evidence envelope
+        if: steps.isolation.outputs.eligible != 'true'
         id: static_envelope
         shell: bash
         env:
@@ -457,6 +496,7 @@ jobs:
           fi
 
       - name: Upload trusted static evidence
+        if: steps.isolation.outputs.eligible != 'true'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: trusted-static-evidence-${{ github.run_id }}-attempt-${{ github.run_attempt }}
@@ -465,6 +505,7 @@ jobs:
           retention-days: 30
 
       - name: Fail after preserving trusted evidence
+        if: steps.isolation.outputs.eligible != 'true'
         shell: bash
         env:
           SCOPE_EXIT: ${{ steps.scope.outputs.exit_code }}

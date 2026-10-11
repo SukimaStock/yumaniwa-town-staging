@@ -1,0 +1,125 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "56824583d2b095fb65d17b23ccdc5fe7708f6cf171f1a2dedcbd8a9f80267fa6",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "install-isolation-verification-gate-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Install preauthorized verification fast-path workflow exact blob and restore static registry steady; support only validated isolated new work PRs, preserve all other evidence checks.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "2212e4fcc90ba00b1d87c7cc77fd9374581afbec",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-verification.yml",
+      "tools/change-static-check.cjs",
+      "tools/staging-isolation-fastpath.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/install-isolation-verification-gate-20261011/r0.lock.json",
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-verification.yml"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/change-pr-gate.yml",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/staging-isolation-fastpath.cjs",
+      "works/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Replace verification workflow only with previously authorized exact Git blob 28105f59e75e71eefadec4ca9d8f659145a94c2c.",
+      "Restore registry pending to steady without altering contract expectedBlob, increment version.",
+      "For truly isolated new work addition only, use base-owned pinned classifier, output read-only proof and skip original Plan evidence; all other PRs run legacy Scope/Risk/Impact/Static full evidence unchanged.",
+      "Both trusted workflows will then agree; verify with explicit positive no-Plan and negative shared-edit canaries."
+    ],
+    "ownerDecisions": [
+      "User requested isolated new works be easier in staging while protection on existing shared and public systems stays strict."
+    ],
+    "hqDecisions": [
+      "Trust the exact preauthorized Git blob and current base-owned classifier pin only.",
+      "Preserve legacy validation and evidence if not eligible.",
+      "Keep production and release decisions unaffected; no human verification claims."
+    ],
+    "rulesApplied": [
+      "Keep existing PR Lock intact in first phase",
+      "Avoid broad glob path allowlists in gate",
+      "No publication or lifecycle status changes",
+      "No untrusted scripts in privileged checks"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Confirm exact installed verification blob SHA and registry steady",
+      "Inspect no Plan skip allowed for any existing or shared changes",
+      "Run complete regression tests and positive/negative canaries"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Staging main pending-registry 2212e4fcc90ba00b1d87c7cc77fd9374581afbec",
+      "Authorized verification blob 28105f59e75e71eefadec4ca9d8f659145a94c2c",
+      "Pinned trusted classifier 78305495d3e85f9fdc319acf6ce90834257b8087"
+    ],
+    "rollback": "Revert registry-only authorization before implementing protected workflow; do not change production.",
+    "outOfScope": [
+      "Changing .github workflow file in this PR",
+      "Activating fastpath in this PR",
+      "Changing production or Work lifecycle"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "End-to-end no-Plan positive/negative PR canaries not yet completed",
+      "No production behavior or public release authorization"
+    ],
+    "alternativesRejected": [
+      "Disable trusted verification for all PRs",
+      "Rely on PR Gate alone",
+      "Execute candidate scripts in privileged context"
+    ],
+    "boundaryCases": [
+      "Single new works id exclusively additions only is eligible",
+      "Any shared/old work must have Plan Lock and complete evidence",
+      "Pin mismatch must fail closed",
+      "Pending to steady registry cleanup only"
+    ],
+    "testPlan": [
+      "Trusted exact registry transition and previous-base gate",
+      "Full Change Operations regression tests",
+      "Positive and negative canary PR evidence",
+      "Confirm no production changes"
+    ],
+    "problem": "Second trusted workflow still requires Plan Lock even for proven isolated new-work additions.",
+    "currentContract": "Verification workflow has one preauthorized exact blob pending, current file still old.",
+    "whyExistingIsInsufficient": "PR Gate cannot provide usable light path while verification gate rejects planless PRs.",
+    "design": "Install exactly authorized base-owned workflow, conditionally mark isolated cases with machine provenance and leave normal verification path unchanged.",
+    "migration": "Pending verification registry to new blob+steady; run positive and negative PR canaries.",
+    "compatibility": "All existing Plan PR safety checks maintained and release restrictions unchanged.",
+    "promotionRisk": "No public release rights or runtime changes; light path only changes staging PR precheck."
+  }
+}
