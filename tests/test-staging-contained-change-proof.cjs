@@ -67,6 +67,29 @@ test('detect a byte-exact historical restoration within the same work',t=>{
   assert.equal(r.eligible,true);
   assert.deepEqual(r.restoredPaths,['works/existing/game.js']);
 });
+test('each non-active lifecycle state uses the regular review route',t=>{
+  for(const status of ['frozen','candidate','released','unknown']){
+    const f=fixture(t,status);
+    file(f.root,'works/existing/game.js','const level=2;\n');
+    assert.equal(f.check(f.commit()).reason,'WORK_NOT_ACTIVE',status);
+  }
+});
+test('incorrect lifecycle records are rejected',t=>{
+  for(const status of ['invalid','duplicate']){
+    const f=fixture(t,status);
+    file(f.root,'works/existing/game.js','const level=3;\n');
+    assert.equal(f.check(f.commit()).reason,'INVALID_LIFECYCLE',status);
+  }
+});
+test('mixed work and lifecycle changes use regular review',t=>{
+  const f=fixture(t,'candidate');
+  file(f.root,'works/existing/game.js','const level=7;\n');
+  file(f.root,'data/work-lifecycle.json',JSON.stringify({
+    schema:'sukimastock-work-lifecycle/1',
+    works:[{id:'existing',path:'works/existing',status:'active'}]
+  }));
+  assert.equal(f.check(f.commit()).reason,'OUTSIDE_SINGLE_WORK');
+});
 test('refuse root town UI changes',t=>{
   const f=fixture(t);file(f.root,'index.html','<aside>bad UI</aside>');
   assert.equal(f.check(f.commit()).reason,'OUTSIDE_SINGLE_WORK');
