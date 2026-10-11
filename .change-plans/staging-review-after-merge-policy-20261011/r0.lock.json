@@ -1,0 +1,133 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "39b8e2e0c5a8df11210d6b883d16160660833e72473f6bf84b5a20184ee256c2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "staging-review-after-merge-policy-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Correct overly strict staging preapproval language: scoped, reversible shared UI trials may merge to staging after existing mechanical checks; owner evaluates visual experience afterwards and can request minimal rollback. Production still requires explicit separate approval.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "1629b59800ebc971ddd7432aa69eaf13021f198c",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "RELEASE-WORKFLOW.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/staging-review-after-merge-policy-20261011/r0.lock.json",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "works/**",
+      "data/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "RELEASE-WORKFLOW.md",
+      "w/**",
+      "en/**",
+      "sitemap.xml",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Update AGENTS.md principle that currently blocks implementation/staging merge of unapproved persistent UI: allow isolated reversible staging preview within user-authorized scope after existing CI and impact checks; distinguish staging trial from user adoption and production.",
+      "Update CHANGE-OPERATIONS.md phase 0 and authority rules to allow reversible shared UI staging trials without repeated mandatory pre-approval; forbid irreversible destructive, unbounded or scope-changing operations absent separate authorization.",
+      "Update OPERATIONS.md ordinary workflow to put author's visual judgment after staging merge; if rejected, apply smallest revert preserving unrelated changes, under currently required safety gates.",
+      "No modification of CI gates, Plan Lock, fast-path scope, frozen or released lifecycle, owner release decisions or production repository."
+    ],
+    "ownerDecisions": [
+      "Owner expressly clarified on 2026-10-11 that being able to stop or undo an already deployed staging experiment is sufficient; no universal visual approval before staging merge is desired. Owner requested updating those policies."
+    ],
+    "hqDecisions": [
+      "Keep mechanical safeguards for root UI, shared engine, protection and Plan Lock unchanged; this is a semantics-only correction.",
+      "Staging merge is a reversible trial and not owner adoption, visual VERIFIED, nor production approval.",
+      "A user rejection means targeted rollback, not an escalation to a fresh design-approval ceremony; don't promise bypass of current mandatory CI."
+    ],
+    "rulesApplied": [
+      "Keep staging experimentation distinct from production",
+      "No fabricated design approval in Plan text",
+      "Owner can reject staging trial and request minimal rollback",
+      "No new gate, review step or human signoff for shared reversible staging UI"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review three docs no longer require owner preapproval or visual QA before staging merge for reversible scoped UI trials",
+      "Confirm irreversible/shared-contract modifications retain existing protections",
+      "Confirm production remains explicit owner approval and CI does not count as visual acceptance"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "staging main 1629b59800ebc971ddd7432aa69eaf13021f198c",
+      "Currently enforced trusted PR Gate and Change Verification Evidence",
+      "Previous PR #256 policy texts"
+    ],
+    "rollback": "Revert only this policy clarification PR, retaining other staging work and production untouched.",
+    "outOfScope": [
+      "Any code, workflow, registry or Plan/Verification schema modification",
+      "Production deployment or Search Console changes",
+      "Any change to the two existing Plan-free fast-path classifiers"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "No claim to have visually tested town or to provide technical fast rollback exemption under existing CI",
+      "PR checks remain required for protected shared root changes"
+    ],
+    "alternativesRejected": [
+      "Continue demanding preapproval before every staging UI experiment",
+      "Automatically adopt a staging UI based on passing CI",
+      "Weaken required Scope/Risk/Impact gates to speed up undo"
+    ],
+    "boundaryCases": [
+      "Reversible overlay scoped to staging can be trialed and rejected afterwards",
+      "Common engine/state migration or irreversible data edits remain protected and might require decision before implementation",
+      "Staging visual review never grants production permission",
+      "An owner rejection restores only identified intrusive bits and leaves independent SEO copy intact"
+    ],
+    "testPlan": [
+      "Trusted base Plan Lock, Scope, Risk, Impact and static checks for documentation-only change",
+      "Compare exact diff to three approved policy docs",
+      "Review prior/after wording for staging merge vs production split",
+      "Confirm production head unchanged"
+    ],
+    "problem": "2026-10-11 policy response overcorrected invasive SEO overlay by requiring explicit author design/visual approval before staging merge, slowing the very try-observe-revert loop user wants.",
+    "currentContract": "Existing docs require author to choose permanent shared UI design and visually review before staging merge, while current CI mechanically protects shared source paths and production remains owner-only.",
+    "whyExistingIsInsufficient": "Mandatory staged visual preapproval is unnecessary for reversible experiments and creates bottlenecks; author can reject staging change after seeing it.",
+    "design": "Replace overly strict pre-merge requirements in existing three authority/operations documents with safe staging trial -> owner evaluate -> keep/revise/revert -> explicit production approval.",
+    "migration": "Docs-only update using current trusted Plan-first workflow, no CI changes or release migration.",
+    "compatibility": "Preserve existing Plan/Scope/Risk/Impact gates, owner decision on final work quality, lifecycle and separate production permission.",
+    "promotionRisk": "Do not interpret user's staging experimentation authorization as production release approval."
+  }
+}
