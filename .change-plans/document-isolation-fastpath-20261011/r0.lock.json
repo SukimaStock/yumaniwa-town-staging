@@ -1,0 +1,132 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "741530ff41b7a4e71b544f0efbef37020b8dddf4b7ea91794d66bac059fc06d0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "document-isolation-fastpath-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Bring canonical development and verification policy docs into line with the tested new isolated-work fastpath: only pure new works/<slug>/ addition PRs may omit Plan Lock, all others preserve trusted gate.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "3b6bf741ef0c52e827faef5c37ff649308c96d13",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "tools/staging-isolation-fastpath.cjs",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml"
+    ],
+    "allowedPaths": [
+      ".change-plans/document-isolation-fastpath-20261011/r0.lock.json",
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "works/**",
+      "engine/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "w/**",
+      "en/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Replace stale blanket all-PR Plan Lock language in five existing source docs with exact branch rule for single new isolated works/<slug>/ additions only.",
+      "Explicitly forbid existing work changes, shared root, data registry, engine, production, symlinks, mixed paths, deletion and second work from fastpath.",
+      "Preserve normal Plan Lock/Scope/Risk/Impact/Trusted Static validation for ineligible PRs and all production deployments.",
+      "State both real PR canaries #241 (success) and #242 (blocked) are closed unmerged; human/visual checks remain UNVERIFIED."
+    ],
+    "ownerDecisions": [
+      "User requested isolated new works be easier in staging while protection on existing shared and public systems stays strict."
+    ],
+    "hqDecisions": [
+      "This is documentation synchronization only, not a further gate relaxation.",
+      "Fastpath solely means Git-tree/regular-file isolation; no automatic publication or author aesthetic signoff.",
+      "Use existing documents rather than introduce a new sprawling policy."
+    ],
+    "rulesApplied": [
+      "Keep existing PR Lock intact in first phase",
+      "Avoid broad glob path allowlists in gate",
+      "No publication or lifecycle status changes",
+      "No untrusted scripts in privileged checks"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Cross-check all five docs against pinned classifier and workflow conditions",
+      "Ensure no instruction wrongly says all staging PRs need Plan Lock",
+      "Preserve different treatment of staging exploration vs production"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Merged trusted workflows 3b6bf741ef0c52e827faef5c37ff649308c96d13",
+      "Positive no-Plan canary #241 and negative shared change canary #242 evidence"
+    ],
+    "rollback": "Revert registry-only authorization before implementing protected workflow; do not change production.",
+    "outOfScope": [
+      "Changing .github workflow file in this PR",
+      "Activating fastpath in this PR",
+      "Changing production or Work lifecycle"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "No visual or published-work verification asserted by fastpath"
+    ],
+    "alternativesRejected": [
+      "Leave stale docs leading operators to needless lock creation",
+      "Imply all routine edits may omit Plan Lock",
+      "Convert unverified human checks into machine PASS"
+    ],
+    "boundaryCases": [
+      "New work files only within one fresh subdir omit Plan",
+      "Existing game adjustments still require old gate",
+      "Rollback still normal route pending separate safe design",
+      "Production promotion always separate explicit approval"
+    ],
+    "testPlan": [
+      "Trusted previous-base Change OS Plan/Scope/Risk/Impact/static",
+      "Run docs+Change Operations CI",
+      "Verify last gate SHA unchanged",
+      "Confirm production unchanged"
+    ],
+    "problem": "After guarded CI migration, existing policy prose still asserts every staging PR must have Plan Lock.",
+    "currentContract": "A single new isolated work can pass trusted checks without Plan, proven by PR #241; shared changes rejected by PR #242.",
+    "whyExistingIsInsufficient": "Stale runbook would keep creating unnecessary Plan Locks or misstate bypass scope, undermining simplification.",
+    "design": "Update only existing runbooks and execution notes with precise exception and retained safeguards.",
+    "migration": "Update prose under old Plan gate; no tool/schema changes.",
+    "compatibility": "Work lifecycle, existing Plan Lock, security workflows, production changes not modified.",
+    "promotionRisk": "No new publication permissions."
+  }
+}
