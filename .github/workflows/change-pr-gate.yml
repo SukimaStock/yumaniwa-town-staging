@@ -71,12 +71,18 @@ jobs:
             echo "Pinned bounded-work classifier mismatch; full security review required."
             exit 1
           fi
+          targeted_entry="$(git -C "$trusted" ls-tree "$EVENT_BASE_SHA" -- tools/staging-targeted-change-proof.cjs)"
+          read -r targeted_mode targeted_type targeted_blob targeted_path <<< "$targeted_entry"
+          if [ "$targeted_mode" != "100644" ] || [ "$targeted_type" != "blob" ] || [ "$targeted_blob" != "6b48476ce980a728953c484fbf57a3482fb2a0ca" ]; then
+            echo "Pinned targeted proof mismatch; security review required."
+            exit 1
+          fi
           if node "$trusted/tools/staging-isolation-fastpath.cjs" --root "$candidate" --base "$EVENT_BASE_SHA" --head "$EVENT_HEAD_SHA" > "$RUNNER_TEMP/isolated-result.json"; then
             echo "eligible=true" >> "$GITHUB_OUTPUT"
             echo "Trusted isolation classifier: new work only."
-          elif node "$trusted/tools/staging-contained-change-proof.cjs" --root "$candidate" --base "$EVENT_BASE_SHA" --head "$EVENT_HEAD_SHA" > "$RUNNER_TEMP/isolated-result.json"; then
+          elif node "$trusted/tools/staging-targeted-change-proof.cjs" --root "$candidate" --base "$EVENT_BASE_SHA" --head "$EVENT_HEAD_SHA" > "$RUNNER_TEMP/isolated-result.json"; then
             echo "eligible=true" >> "$GITHUB_OUTPUT"
-            echo "Trusted bounded classifier: one existing active work, limited local edit."
+            echo "Trusted proof: bounded local edit or exact selected UI restore."
           else
             echo "eligible=false" >> "$GITHUB_OUTPUT"
             echo "Regular Plan Lock / Scope / Risk / Impact required."
@@ -86,7 +92,7 @@ jobs:
         if: steps.isolation.outputs.eligible == 'true'
         shell: bash
         run: |
-          echo "Fast path: one entirely new work or bounded local edit of one active work; no shared files changed."
+          echo "Fast path: new work, bounded active work edit, or exact selected HTML/CSS restoration."
           echo "No production or release approval is inferred."
           echo "Trust source: base-owned workflow with pinned classifier blob."
 

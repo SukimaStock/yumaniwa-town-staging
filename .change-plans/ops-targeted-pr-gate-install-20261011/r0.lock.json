@@ -1,0 +1,123 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e0130d668f37eac75a705cdfedf724b9ac195a4c65d5a2388b27aff781343c72",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ops-targeted-pr-gate-install-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "install exact pinned targeted restore pr-gate workflow",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "08c319ccc1669bd1042b8d0f72820eabbd8f0d8e",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "tools/staging-contained-change-proof.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ops-targeted-pr-gate-install-20261011/r0.lock.json",
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-pr-gate.yml"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "engine/**",
+      "data/**",
+      "index.html",
+      "style.css",
+      "tools/staging-isolation-fastpath.cjs",
+      "tools/staging-contained-change-proof.cjs",
+      "tools/staging-targeted-change-proof.cjs"
+    ],
+    "expectedChanges": [
+      "install only .github/workflows/change-pr-gate.yml exact blob fbcfea411d63e81181c426c544b5593aab8fa025; preserve other contracts and base-owned execution."
+    ],
+    "ownerDecisions": [
+      "User task 2026-10-11 explicitly delegates staging investigation, safety implementation, PRs and safe merges; production deployment remains withheld."
+    ],
+    "hqDecisions": [
+      "Source commit and selected Git hunks are data, not approval. Restore must reproduce candidate tree exactly and preserve unrelated improvements.",
+      "Town restore limited to existing index.html/style.css; shared Engine, other works, contracts and distribution remain full-review.",
+      "Do not activate until each base-owned workflow separately preauthorizes exact future blob."
+    ],
+    "rulesApplied": [
+      "Keep staging experimentation distinct from production",
+      "No fabricated design approval in Plan text",
+      "Owner can reject staging trial and request minimal rollback",
+      "No new gate, review step or human signoff for shared reversible staging UI"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Inspect proof boundaries and confirm no new UI or production changes"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "staging main 1629b59800ebc971ddd7432aa69eaf13021f198c",
+      "Currently enforced trusted PR Gate and Change Verification Evidence",
+      "Previous PR #256 policy texts"
+    ],
+    "rollback": "Restore prior workflow using the same separate authorization/transition procedure, never bypass exact-blob protection",
+    "outOfScope": [
+      "Changing pinned original classifiers",
+      "Production publication",
+      "Human attestation system",
+      "New UI"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Human visual acceptance and production publication",
+      "End-to-end route only after BOTH workflows installed"
+    ],
+    "alternativesRejected": [
+      "Continue demanding preapproval before every staging UI experiment",
+      "Automatically adopt a staging UI based on passing CI",
+      "Weaken required Scope/Risk/Impact gates to speed up undo"
+    ],
+    "boundaryCases": [
+      "Unchanged security classifiers",
+      "Reverse subset with later independent changes",
+      "Ambiguous/conflicting revert falls back",
+      "Town new UI requires concrete owner decision"
+    ],
+    "testPlan": [
+      "Normal local edits",
+      "Contract-sensitive edits rejected",
+      "Source subsets preserve unrelated improvements",
+      "Forged revert and mixed changes rejected",
+      "Source ancestry/modes/limits/production boundaries"
+    ],
+    "problem": "Existing local classifier verifies paths and size but cannot flag contract-sensitive small edits; known UI restore still requires a Full Plan.",
+    "currentContract": "Pinned base classifiers and two-phase exact-blob workflow transitions",
+    "whyExistingIsInsufficient": "Known rollback and local contract edits need bounded evidence rather than self-declared revert labels.",
+    "design": "One small read-only proof wrapper; exact source/hunk reverse application in temporary Git index; conservative contract signals supplement existing containment.",
+    "migration": "Mandatory separate registry authorization then exact workflow installation",
+    "compatibility": "Preserve original new-work route, old contained classifier, full-review fallback and exact-blob protections.",
+    "promotionRisk": "No production merge or external service action"
+  }
+}
