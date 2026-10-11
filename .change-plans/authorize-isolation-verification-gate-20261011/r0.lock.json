@@ -1,0 +1,122 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7e1751a18a7e9445673e44ecb453acf9f500df52d4ebe01ba7221824f3627bc8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "authorize-isolation-verification-gate-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Preauthorize one exact protected Change Verification Evidence workflow blob for safe isolated-work classification; no protected workflow source changes in authorization PR.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "9ed5401fc9e9d93f46b46fda359817ea4e3bdb71",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-verification.yml",
+      "tools/change-static-check.cjs",
+      "tools/staging-isolation-fastpath.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/authorize-isolation-verification-gate-20261011/r0.lock.json",
+      "tools/change-static-check-registry.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/change-pr-gate.yml",
+      "tools/change-verification.yml",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/staging-isolation-fastpath.cjs",
+      "works/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Preauthorize existing Change Verification workflow from f467678810d6169c37c8eea0304d9032f312b8ec to exactly 28105f59e75e71eefadec4ca9d8f659145a94c2c, changing only one preexisting registry contract expectedBlob and transitionPolicy.",
+      "Leave verification workflow source at previous blob through authorization, increment registry version.",
+      "Preserve all other security contracts, including the now installed PR Gate classifier pin and strict normal Plan path."
+    ],
+    "ownerDecisions": [
+      "User requested isolated new works be easier in staging while protection on existing shared and public systems stays strict."
+    ],
+    "hqDecisions": [
+      "Use independent prior-authorization registry for verification workflow, no self-certification.",
+      "Support only provably isolated new-work additions via pinned trusted-base classifier; all other PRs run complete original evidence gates.",
+      "No fabricated human attestation; stay UNVERIFIED on fast path."
+    ],
+    "rulesApplied": [
+      "Keep existing PR Lock intact in first phase",
+      "Avoid broad glob path allowlists in gate",
+      "No publication or lifecycle status changes",
+      "No untrusted scripts in privileged checks"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Check existing protected verification workflow still unchanged",
+      "Review exact target future blob and identical classifier pin",
+      "Confirm one-path registry transition and unrelated contracts unchanged"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Staging base 9ed5401fc9e9d93f46b46fda359817ea4e3bdb71",
+      "Precomputed verification target 28105f59e75e71eefadec4ca9d8f659145a94c2c",
+      "Pinned classifier 78305495d3e85f9fdc319acf6ce90834257b8087"
+    ],
+    "rollback": "Revert registry-only authorization before implementing protected workflow; do not change production.",
+    "outOfScope": [
+      "Changing .github workflow file in this PR",
+      "Activating fastpath in this PR",
+      "Changing production or Work lifecycle"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Fast path not enabled in second gate until separate transition PR passes"
+    ],
+    "alternativesRejected": [
+      "Bypass evidence gate without independent trusted proof",
+      "Modify both protected workflows in one registry transition",
+      "Trust candidate code for authorization"
+    ],
+    "boundaryCases": [
+      "Exactly one registered verification workflow target is preauthorized",
+      "No current CI behavior changes in this authorization PR",
+      "PR Gate remains fully trusted for all other work"
+    ],
+    "testPlan": [
+      "Trusted exact registry authorization gate",
+      "Run Change Operations Tests and base-owned checks",
+      "Review no workflow diff in this PR"
+    ],
+    "problem": "Independent verification workflow must support legitimate isolated-work branch to complete fast path without bypassing trusted normal evidence.",
+    "currentContract": "Registry steady with installed PR Gate and unchanged original verification workflow.",
+    "whyExistingIsInsufficient": "A new-work no-Plan PR still fails Change Verification even if PR Gate admits it.",
+    "design": "Registry-only authorization of exactly one candidate future verification workflow blob, then separate transition.",
+    "migration": "steady to pending one-path registry, followed by exact workflow install and steady cleanup PR.",
+    "compatibility": "No gate behavior changes in authorization; normal Plan verification remains mandatory.",
+    "promotionRisk": "No production changes or change to release/owner signoff."
+  }
+}
