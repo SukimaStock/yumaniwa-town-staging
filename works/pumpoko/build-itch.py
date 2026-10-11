@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build an itch.io HTML5 ZIP without modifying canonical PUMPOKO 02 source."""
+"""Build an itch.io HTML5 ZIP without modifying canonical PUMPOKO source."""
 from __future__ import annotations
 import json
 import shutil
@@ -46,9 +46,8 @@ def main() -> None:
         if html.count(ORIGINAL_CODEA_SRC) != 1:
             raise ValueError("Expected exactly one canonical Codea Lite script reference")
         html = html.replace(ORIGINAL_CODEA_SRC, LOCAL_CODEA_SRC)
-        if html.count("<title>PUMPOKO 02</title>") != 1:
+        if html.count("<title>PUMPOKO</title>") != 1:
             raise ValueError("Unexpected game title; check before packaging")
-        html = html.replace("<title>PUMPOKO 02</title>", "<title>PUMPOKO</title>")
         entry.write_text(html, encoding="utf-8")
         (work / "standalone-export.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
         subprocess.run([
