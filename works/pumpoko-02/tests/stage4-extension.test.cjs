@@ -2,14 +2,15 @@
 const test=require('node:test'),assert=require('node:assert/strict');
 const {harness}=require('./harness.cjs');
 const {course:current,run,atStage,crossing}=require('./five-stage-review.cjs');
-const {withoutStage4}=require('./phrases-reference.cjs');
+const {withoutStage5,withoutStage4}=require('./phrases-reference.cjs');
+const baselineCurrent=withoutStage5(current);
 const P=require('../physics.js'),W=require('../world.js');
 const BASE='251f9da7937cf268d718c1410e2cd4bafde91be2';
 const old=()=>harness({sourceRef:BASE}).w.FruitLabCourses.get('world4');
 const STAGE4_JOIN=27950,DX=2400;
 
 test('STAGE 4 additive insertion: the preceding four gaps and surprise high far shore are EXACT',()=>{
- const base=old(),now=current,g=now.gaps.find(g=>g.id==='stage4-choice');
+ const base=old(),now=baselineCurrent,g=now.gaps.find(g=>g.id==='stage4-choice');
  assert.equal(now.gaps.length,base.gaps.length+1,'only one new gap');
  assert.deepEqual(now.gaps.filter(g=>g.stage===4&&g.id!=='stage4-choice'),base.gaps.filter(g=>g.stage===4));
  assert.deepEqual(now.curves.underground2.filter(p=>p[0]<=STAGE4_JOIN),
@@ -28,16 +29,16 @@ test('STAGE 4 additive insertion: the preceding four gaps and surprise high far 
 test('normalizing ONLY the Stage 4 insertion reproduces the entire exact prior main world',()=>{
  const base=old(),normal=withoutStage4(current);
  assert.deepEqual(normal,base,'no existing bank, chasm, socket, roof, checkpoint or ending change');
- assert.deepEqual(current.curves.underground2.filter(p=>p[0]>=28470+DX),
+ assert.deepEqual(baselineCurrent.curves.underground2.filter(p=>p[0]>=28470+DX),
   base.curves.underground2.filter(p=>p[0]>STAGE4_JOIN).map(p=>[p[0]+DX,p[1],p[2]]));
- assert.deepEqual(current.curves.finish,base.curves.finish.map(p=>[p[0]+DX,p[1],p[2]]));
- assert.deepEqual(current.stages.map(s=>s.endX-base.stages[s.id-1].endX),[0,0,0,DX,DX]);
- assert.equal(current.stages[3].cameraFloor,base.stages[3].cameraFloor);
- assert.equal(current.stages[3].failY,base.stages[3].failY);
- assert.equal(current.stages[3].retrySeconds,base.stages[3].retrySeconds);
- assert.equal(current.goal.x-base.goal.x,DX);
- assert.equal(current.goal.speed,base.goal.speed);
- assert.equal(current.goal.dwell,base.goal.dwell);
+ assert.deepEqual(baselineCurrent.curves.finish,base.curves.finish.map(p=>[p[0]+DX,p[1],p[2]]));
+ assert.deepEqual(baselineCurrent.stages.map(s=>s.endX-base.stages[s.id-1].endX),[0,0,0,DX,DX]);
+ assert.equal(baselineCurrent.stages[3].cameraFloor,base.stages[3].cameraFloor);
+ assert.equal(baselineCurrent.stages[3].failY,base.stages[3].failY);
+ assert.equal(baselineCurrent.stages[3].retrySeconds,base.stages[3].retrySeconds);
+ assert.equal(baselineCurrent.goal.x-base.goal.x,DX);
+ assert.equal(baselineCurrent.goal.speed,base.goal.speed);
+ assert.equal(baselineCurrent.goal.dwell,base.goal.dwell);
 });
 
 test('new choice chasm is real empty air and natural physics permits retreat, not forced crossing',()=>{
