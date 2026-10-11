@@ -127,6 +127,16 @@ test('reject broad rewrite of small text file, even within one work',t=>{
   file(f.root,'works/existing/game.js',Array.from({length:125},(_,i)=>'const a'+i+'=0;').join('\n'));
   assert.equal(f.check(f.commit()).reason,'BROAD_REWRITE');
 });
+test('minified one-line wholesale rewrite is refused by patch byte limit',t=>{
+  const f=fixture(t);
+  const original='const data="'+('a'.repeat(20000))+'";\n';
+  file(f.root,'works/existing/game.js',original);
+  const baseSha=f.commit();
+  file(f.root,'works/existing/game.js','const data="'+('b'.repeat(20000))+'";\n');
+  const headSha=f.commit();
+  const r=classify({root:f.root,baseSha,headSha});
+  assert.equal(r.reason,'BROAD_PATCH');
+});
 test('reject a binary replacement of a live work file',t=>{
   const f=fixture(t);
   file(f.root,'works/existing/game.js',Buffer.from([0,1,2,3,4]));
