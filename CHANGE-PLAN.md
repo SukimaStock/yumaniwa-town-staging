@@ -20,7 +20,7 @@ Change Planはそれらの代わりではなく、**一回の変更を安全に�
 
 ## 1. Plan Level
 
-repositoryを変更する作業では原則として実装前にChange Planを作る。ただし、完全に新規の単一 `works/<slug>/` 以下へ通常ファイルを追加するだけのstaging PRは、base-owned隔離fast-pathによってPlan Lockなしで進められる。既存作品・共有部・データ登録・productionは対象外。
+repository変更は原則、実装前にChange Planを作る。ただしstaging PRで、base-owned固定判定器が認める次の2類型はPlan Lock不要。①完全に新規の単一 `works/<slug>/` に通常ファイルだけ追加し `index.html` を含む。②ライフサイクルが基準SHAで `active` の単一既存work内の小変更（最大4ファイル、限定された行数・patch・容量、通常ファイルのみ）。後者は `frozen` / `candidate` / `released`、ビルド／公開設定、削除や改名、複数work、共有部・台帳を除外する。作者の見た目や操作の確認は別。いずれにも該当しない場合、現行のPlan Lock・Scope/Risk/Impact/Trusted Staticを必須とする。productionへの公開許可は別途必要。
 
 | Plan | 主な対象 | 目的 |
 | --- | --- | --- |
