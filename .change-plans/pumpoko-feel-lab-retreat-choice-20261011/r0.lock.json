@@ -1,0 +1,96 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "19335de5d1d8d694c4bbf3ec5674b2ce84a51bf7d9da92fd535ce233ba4a8098",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-feel-lab-retreat-choice-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add a retreat-versus-direct choice trial using the exact same B→D long mid-flat gap, changing only the starting state and retry position, without modifying the physical obstacle or core physics",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "415e7549c61be8023e0140de7bf87c95c0fcaa40",
+    "canonicalSources": [
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-feel-lab/RISK-REVIEW.md",
+      "works/pumpoko-02/physics.js",
+      "works/pumpoko-02/world.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-feel-lab-retreat-choice-20261011/r0.lock.json",
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-feel-lab/RETREAT-REVIEW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/**",
+      "works/pumpoko/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Preserve the liked mid-gap B→D long unchanged as a reference; add a fourth risk-study choice with identical ground geometry and identical gap [2890,3000]",
+      "For the new choice trial, start visibly near the gap at x2770 at rest (both characters grounded); on fall restart there again without forced boost, so backing up is the player's option",
+      "Keep left/backward movement free, full earlier terrain available and camera tracking, distinguish player-initiated retreat from direct approach only for optional diagnostic/saved data",
+      "Keep earlier single/chain/order/variant/risk trials unaffected, use same localStorage key and Safari versioned JS/CSS",
+      "Verify direct from new spawn fails for both ROLL/BOUNCE while deliberate retreat succeeds using actual PUMPOKO physics; verify full-speed from normal entry still crosses, and viewport/touch/reset/selection invariants"
+    ],
+    "ownerDecisions": [
+      "User accepts a trial of a terrain where the player judges the gap too risky at low speed, voluntarily backs up to gain momentum; original mid-gap experiment must remain protected"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh staging main inspected and physical W.groundFrame + P.integrate behavior studied",
+      "Prior iPhone feedback baseline preserved",
+      "READY Plan Lock committed first on new isolated staging branch",
+      "No shared/runtime or production edits"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone portrait: new choice location visibly presents gap and retreat direction; no camera cropping",
+      "From rest, direct right fails naturally; backing left then right passes after gathering momentum on both characters",
+      "Existing risk mid control retains original long run, reset/retry unaffected",
+      "Save and optional feedback distinguish intrinsic motion enjoyment, challenge, satisfaction"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Unchanged PUMPOKO 02 physics.js, world.js, draw.js"
+    ],
+    "rollback": "Revert staging PR",
+    "outOfScope": [
+      "New power-ups, speed boosts, changes to gap geometry for existing trials",
+      "Changing PUMPOKO 02 real game",
+      "Production release"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone Safari feel and voluntary decision experience require human testing",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
