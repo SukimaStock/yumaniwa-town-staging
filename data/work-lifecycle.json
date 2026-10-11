@@ -226,9 +226,17 @@
       "id": "pumpoko-02",
       "path": "works/pumpoko-02",
       "status": "active",
-      "title": "PUMPOKO / 02（仮）",
+      "title": "PUMPOKO 02（旧URL）",
       "family": "PUMPOKO",
       "theme": "滑る、跳ねる、穴から押し出し合う地上と地下の旅"
+    },
+    {
+      "id": "pumpoko-01",
+      "path": "works/pumpoko-01",
+      "status": "active",
+      "title": "PUMPOKO / 01（旧版）",
+      "family": "PUMPOKO",
+      "theme": "カボチャから始まった最初のころころの旅"
     }
   ]
 }

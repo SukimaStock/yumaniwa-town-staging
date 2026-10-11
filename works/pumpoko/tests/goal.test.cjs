@@ -19,7 +19,7 @@ function run(w,input=0,seconds=45){let count=0,maxX=-Infinity,prior=null;for(let
 test('all existing runtime/assets outside the five declared goal files remain exact current main',()=>{
  const repo=path.resolve(__dirname,'../../..'),allowed=['physics.js','app.js','courses.js','world.js','story.js','world-draw.js'];
  const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!approvedLogoPath(p)&&!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!allowed.includes(path.basename(p)));
- for(const file of files)assert.ok(fs.readFileSync(path.join(repo,file)).equals(execFileSync('git',['show',BASE+':'+file],{cwd:repo,maxBuffer:10e6})),file);
+ for(const file of files)assert.ok(fs.readFileSync(path.join(repo,file.replace('works/pumpoko-02/','works/pumpoko/'))).equals(execFileSync('git',['show',BASE+':'+file],{cwd:repo,maxBuffer:10e6})),file);
  protectPhysics();
  require('./five-stage-reference.cjs').protectCourse();
  require('./five-stage-reference.cjs').protectRuntime();

@@ -1,9 +1,9 @@
-name: PUMPOKO 02 Itch Export
+name: PUMPOKO Itch Export
 
 on:
   pull_request:
     paths:
-      - "works/pumpoko-02/**"
+      - "works/pumpoko/**"
       - "engine/export-standalone.py"
       - "engine/codea-lite.v1.0.0.js"
       - "engine/sukimastock-engine.v0.3.0.js"
@@ -11,7 +11,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "works/pumpoko-02/**"
+      - "works/pumpoko/**"
       - "engine/export-standalone.py"
       - "engine/codea-lite.v1.0.0.js"
       - "engine/sukimastock-engine.v0.3.0.js"
@@ -32,10 +32,10 @@ jobs:
           persist-credentials: false
 
       - name: Compile work-only exporter
-        run: python3 -m py_compile works/pumpoko-02/build-itch.py
+        run: python3 -m py_compile works/pumpoko/build-itch.py
 
       - name: Build standalone ZIP with canonical generic exporter
-        run: python3 works/pumpoko-02/build-itch.py
+        run: python3 works/pumpoko/build-itch.py
 
       - name: Inspect ZIP and prepare upload root
         run: |

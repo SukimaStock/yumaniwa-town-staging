@@ -21,7 +21,7 @@ function liveFinish(h){
 }
 test('physical integrator/fruit constants and asset bytes are preserved; goal contact is work-local',()=>{
   protectPhysics();protectLogo();
-  for(const file of ['audio/pumpoko-bgm.mp3','audio/shell.wav','audio/fiber.wav','audio/drum-don.wav','audio/seed.wav'])assert.ok(fs.readFileSync(path.join(__dirname,'..',file)).equals(fs.readFileSync(path.join(__dirname,'../../pumpoko',file))),file);
+  for(const file of ['audio/pumpoko-bgm.mp3','audio/shell.wav','audio/fiber.wav','audio/drum-don.wav','audio/seed.wav'])assert.ok(fs.readFileSync(path.join(__dirname,'..',file)).equals(fs.readFileSync(path.join(__dirname,'../../pumpoko-01',file))),file);
   const html=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');assert.equal(/pumpkin-rutabaga-lab|measurements\.js|data-mode|world-course|sliders|tuning/.test(html),false);
   assert.ok(html.includes('../../engine/sukimastock-engine.v0.3.0.js'));assert.ok(html.includes('../../engine/codea-lite.v1.0.0.js'));
 });
@@ -181,7 +181,7 @@ test('opening interruption pauses the same seeds and growth; reset and replay re
 });
 
 test('reused original opening agrees with original journey motion and camera until real rooting at 30/60/120fps',()=>{
-  const O=require('../opening.js'),J=require('../../pumpoko/journey.js'),T=require('../title-draw.js');
+  const O=require('../opening.js'),J=require('../../pumpoko-01/journey.js'),T=require('../title-draw.js');
   for(const fps of [30,60,120]){
     const s=S.create();D.knock(s.prologue,-45,60);D.update(s.prologue,.04);D.release(s.prologue);
     const title=s.prologue.seeds.map(p=>T.seedPose(s.prologue,p)),copy=structuredClone(s.prologue);
