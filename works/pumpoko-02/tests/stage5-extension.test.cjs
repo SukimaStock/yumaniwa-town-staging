@@ -5,7 +5,7 @@ const {course:c,run}=require('./five-stage-review.cjs');
 const {withoutStage5}=require('./phrases-reference.cjs');
 const P=require('../physics.js'),W=require('../world.js');
 const BASE='067646e904f53ba639a8e1f1425712bd053870ae';
-const old=()=>harness({sourceRef:BASE}).w.FruitLabCourses.get('world4');
+const old=()=>JSON.parse(JSON.stringify(harness({sourceRef:BASE}).w.FruitLabCourses.get('world4')));
 const SHIFT=3000,JOIN=41530,G1='stage5-mastery-1',G2='stage5-mastery-2';
 
 test('hard STAGE 5 is additive: all original five cliffs, banks, sockets and stages are identical',()=>{
