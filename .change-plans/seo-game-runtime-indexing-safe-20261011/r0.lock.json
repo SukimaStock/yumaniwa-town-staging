@@ -1,0 +1,148 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a8cecf399b23ea631b06bcfe977a2a11a51515ddd9332ab926dbb873a52e604f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "seo-game-runtime-indexing-safe-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Apply noindex,follow to ten standalone work execution HTML pages without changing PUMPOKO's exporter-required PUMPOKO 02 source title; remove misleading query canonicals and align safe document titles.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "f956aa8d68d9b9ae0f7401fe22521e8e3cf00fc5",
+    "canonicalSources": [
+      "RELEASE-WORKFLOW.md",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "works/pumpoko/index.html",
+      "works/orbit/index.html",
+      "works/diorama-calendar/index.html",
+      "works/rojiura-masala/index.html",
+      "works/steamclock/index.html",
+      "works/dotweather/index.html",
+      "works/junkissa-dive/index.html",
+      "works/midnight-cola/index.html",
+      "works/yakitori-wars/index.html",
+      "works/rainy-window/index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/seo-game-runtime-indexing-safe-20261011/r0.lock.json",
+      "works/pumpoko/index.html",
+      "works/orbit/index.html",
+      "works/diorama-calendar/index.html",
+      "works/rojiura-masala/index.html",
+      "works/steamclock/index.html",
+      "works/dotweather/index.html",
+      "works/junkissa-dive/index.html",
+      "works/midnight-cola/index.html",
+      "works/yakitori-wars/index.html",
+      "works/rainy-window/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "index.html",
+      "style.css",
+      "main.js",
+      "engine/**",
+      "data/**",
+      "w/**",
+      "en/**",
+      "tools/**",
+      "sitemap.xml",
+      "assets/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "All ten standalone execution pages have exactly one noindex,follow robots meta tag inside head; no links, script tags or launch behavior change",
+      "Remove existing SteamClock and DotWeather query-launcher canonical tags; introduce no new canonical",
+      "Keep PUMPOKO source title and hidden H1 exactly PUMPOKO 02, because build-itch.py checks this exact string before exporting PUMPOKO; normalize only the safe Junkissa, Midnight Cola and Yakitori titles",
+      "No game runtime JS, canvas markup, images, Engine, game URL, town navigation or site metadata changes"
+    ],
+    "ownerDecisions": [
+      "The user approved October 11 SEO plan including per-URL index/noindex policy and name standardization and requested implementation; staging-only implementation does not authorize production."
+    ],
+    "hqDecisions": [
+      "Search introductions are sole SEO entry points, standalone embedded execution pages receive noindex,follow and no canonical",
+      "The old PUMPOKO 02 HTML title is a protected exporter source contract; its output ZIP rewrites the title to PUMPOKO. Preserve this check instead of rewriting exporter",
+      "Old PUMPOKO 01/02 executable paths and redirects remain intact"
+    ],
+    "rulesApplied": [
+      "Do not combine noindex with a misleading canonical",
+      "Preserve game code and current launch URL",
+      "Staging-first, separate future production approvals"
+    ],
+    "staticChecks": [
+      "head-only diff audit",
+      "exact single robots noindex,follow per work",
+      "no canonical on any target runtime page",
+      "HTML head syntax inspection"
+    ],
+    "manualChecks": [
+      "Open and close representative works in the town",
+      "iPhone touch and audio for PUMPOKO",
+      "All ten direct execution URLs load and remain playable"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "runtime.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Staging baseline f956aa8d68d9b9ae0f7401fe22521e8e3cf00fc5",
+      "Protected old version redirects and intact WORKS IDs",
+      "Owner-approved canonical and robots plan",
+      "The PUMPOKO build-itch.py explicit <title>PUMPOKO 02</title> input contract and its production ZIP export CI"
+    ],
+    "rollback": "Revert this isolated staging change only, leaving other SEO PRs and production untouched.",
+    "outOfScope": [
+      "Changes to game JavaScript, canvas, physics, assets, Engine, production, legacy links",
+      "Copying staging noindex onto production Search pages",
+      "Robots.txt or Search Console submission"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Live iPhone game boot, audio, player return not inspected",
+      "No SEO console registrations or production URL verification performed"
+    ],
+    "alternativesRejected": [
+      "Use canonical to query launcher as search suppression",
+      "Delete or redirect game executables",
+      "Rewrite runtime code for SEO",
+      "Change any legacy direct game links"
+    ],
+    "boundaryCases": [
+      "Exactly one robots meta per runtime page",
+      "PUMPOKO source title and off-screen H1 must remain unchanged to preserve standalone ZIP export",
+      "PUMPOKO 01/02 paths retain old behavior",
+      "SteamClock and DotWeather query canonical absent",
+      "Ten JA/EN indexed production introductions remain independently governed"
+    ],
+    "testPlan": [
+      "Inspect exact head-only markup difference for all ten game HTMLs",
+      "Compare game body scripts byte-for-byte unchanged",
+      "Verify PUMPOKO Itch Export GitHub workflow succeeds",
+      "Run trusted base Scope/Risk/Impact gates and existing regressions"
+    ],
+    "problem": "Six of ten runtime pages lack search exclusion and two use query canonical inconsistently; some internal titles retain prototypes.",
+    "currentContract": "Works runtime pages are launched by town player and direct links, while /w and /en/w introduce each work. Earlier policy avoided blanket executable noindex.",
+    "whyExistingIsInsufficient": "Owner-approved SEO policy requires stable search entry semantics distinct from technical runtime; heterogeneous tags can expose game HTML as separate search entrances.",
+    "design": "Restrict changes to HTML head SEO directives, preserving executable body and PUMPOKO's build-itch.py title contract. No runtime code changes.",
+    "migration": "Ship on staging only. For any separately approved production promotion, recheck every production runtime HTML and apply only exact reviewed metadata changes.",
+    "compatibility": "Preserve PUMPOKO technical source title PUMPOKO 02 required for ZIP generation; published game title remains PUMPOKO via export tool. No game IDs, URLs, runtime, storage or redirects change.",
+    "promotionRisk": "Never transport staging runtime files wholesale to production for SEO metadata; use minimal head-only reviewed changes and protect the PUMPOKO exporter."
+  }
+}
