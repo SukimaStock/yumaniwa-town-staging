@@ -1,0 +1,58 @@
+name: PUMPOKO 02 Itch Export
+
+on:
+  pull_request:
+    paths:
+      - "works/pumpoko-02/**"
+      - "engine/export-standalone.py"
+      - "engine/codea-lite.v1.0.0.js"
+      - "engine/sukimastock-engine.v0.3.0.js"
+      - ".github/workflows/pumpoko-02-itch-export.yml"
+  push:
+    branches: [main]
+    paths:
+      - "works/pumpoko-02/**"
+      - "engine/export-standalone.py"
+      - "engine/codea-lite.v1.0.0.js"
+      - "engine/sukimastock-engine.v0.3.0.js"
+      - ".github/workflows/pumpoko-02-itch-export.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Compile work-only exporter
+        run: python3 -m py_compile works/pumpoko-02/build-itch.py
+
+      - name: Build standalone ZIP with canonical generic exporter
+        run: python3 works/pumpoko-02/build-itch.py
+
+      - name: Inspect ZIP and prepare upload root
+        run: |
+          set -euo pipefail
+          unzip -tq dist/PUMPOKO-itch.zip
+          mkdir -p dist/pumpoko-itch-root
+          unzip -q dist/PUMPOKO-itch.zip -d dist/pumpoko-itch-root
+          test -f dist/pumpoko-itch-root/index.html
+          test -f dist/pumpoko-itch-root/sukimastock-engine.js
+          test -f dist/pumpoko-itch-root/codea-lite.js
+          test "$(find dist/pumpoko-itch-root -type f | wc -l)" -eq 22
+          for file in dist/pumpoko-itch-root/*.js; do node --check "$file"; done
+
+      - name: Upload itch-ready HTML5 ZIP contents
+        uses: actions/upload-artifact@v4
+        with:
+          name: PUMPOKO-itch
+          path: dist/pumpoko-itch-root/
+          if-no-files-found: error
+          retention-days: 14
