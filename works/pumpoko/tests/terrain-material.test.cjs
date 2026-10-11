@@ -12,7 +12,7 @@ test('accepted runtime/assets except terrain drawing and approved shot timing/go
  const repo=path.resolve(__dirname,'../../..');
  const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(f=>!approvedLogoPath(f)&&!f.includes('/tests/')&&!f.includes('/visual-review/')&&!f.endsWith('.md')&&!f.endsWith('/world-draw.js')&&!['/physics.js','/story.js','/app.js','/courses.js','/world.js'].some(x=>f.endsWith(x)));
  protectPhysics();
- for(const file of files)assert.ok(fs.readFileSync(path.join(repo,file)).equals(execFileSync('git',['show',BASE+':'+file],{cwd:repo,maxBuffer:10e6})),file);
+ for(const file of files)assert.ok(fs.readFileSync(path.join(repo,file.replace('works/pumpoko-02/','works/pumpoko/'))).equals(execFileSync('git',['show',BASE+':'+file],{cwd:repo,maxBuffer:10e6})),file);
 });
 test('original screen thickness, ordered skin → cream → flesh, entirely solid-side',()=>{
  for(const [layer,x]of [['surface',190],['underground',1730],['underground2',5670],['finish',7660]]){

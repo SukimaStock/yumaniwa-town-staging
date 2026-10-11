@@ -9,27 +9,27 @@ const versions=['before','pr169','after'];
 for(const file of ['sketch.js','stage-draw.js']) {
  const p='works/pumpoko/'+file;
  const read=ref=>cp.execFileSync('git',['show',ref+':'+p],{cwd:repo,encoding:'utf8'});
- const current=fs.readFileSync(path.join(repo,p),'utf8');
+ const current=fs.readFileSync(path.join(repo,p.replace('works/pumpoko/','works/pumpoko-01/')),'utf8');
  const gradients=/^.*(?:flesh|interior|body)\.addColorStop.*$/gm;
  assert.equal(current.replace(gradients,''),read(pr169).replace(gradients,''),file+' must preserve all non-pumpkin colors, texture, shadows and logic from PR169');
  assert.deepEqual(current.match(gradients),read(base).match(gradients),file+' pumpkin gradient stops must match before');
 }
 // Offscreen diagnostic fixtures, not browser/Safari or playability evidence.
 const baselineSketch=cp.execFileSync('git',['show',base+':works/pumpoko/sketch.js'],{cwd:repo,encoding:'utf8'});
-const candidateSketch=fs.readFileSync(path.join(repo,'works/pumpoko/sketch.js'),'utf8');
+const candidateSketch=fs.readFileSync(path.join(repo,'works/pumpoko-01/sketch.js'),'utf8');
 const withoutSeedAndVessel=s=>s.slice(0,s.indexOf('  function seed('))+s.slice(s.indexOf('  function shadow('));
 assert.equal(withoutSeedAndVessel(candidateSketch),withoutSeedAndVessel(baselineSketch),'input/update/audio/setup and title cycle must remain byte-identical');
 for(const file of ['journey.js','dynamics.js','stage-data.js','stage-geometry.js','codea-lite.js','index.html','work-config.js'])
  assert.equal(fs.readFileSync(path.join(repo,'works/pumpoko',file),'utf8'),cp.execFileSync('git',['show',base+':works/pumpoko/'+file],{cwd:repo,encoding:'utf8'}),file+' must stay unchanged');
-const D=require(path.join(repo,'works/pumpoko/dynamics.js')),J=require(path.join(repo,'works/pumpoko/journey.js'));
+const D=require(path.join(repo,'works/pumpoko-01/dynamics.js')),J=require(path.join(repo,'works/pumpoko-01/journey.js'));
 async function harness(version,search){
  let config, model;const held=new Set(),canvas=createCanvas(390,740),ctx=canvas.getContext('2d');
- const logo=await loadImage(path.join(repo,'works/pumpoko/assets/pumpoko-logo.svg'));logo.complete=true;logo.naturalWidth=2064;
+ const logo=await loadImage(path.join(repo,'works/pumpoko-01/assets/pumpoko-logo.svg'));logo.complete=true;logo.naturalWidth=2064;
  const element=()=>({addEventListener(){},setAttribute(){}}), els={ 'title-art':logo,'gameCanvas':element(),'sound-toggle':element()};
  const w={console,Path2D,location:{search},URLSearchParams,window:null,SUKIMASTOCK_WORK:{id:'pumpoko',title:'PUMPOKO',logicalWidth:390,logicalHeight:740,frameRate:60},PumpkinDynamics:D,PumpkinJourney:{...J,create(...a){return model=J.create(...a)}},BEGAN:'BEGAN',MOVING:'MOVING',ENDED:'ENDED',CANCELLED:'CANCELLED',
  document:{getElementById:id=>els[id]||(els[id]=element()),createElement:tag=>tag==='canvas'?createCanvas(390,740):element(),body:{appendChild(){}}},
  SSE:{createApp:v=>config=v,audio:{withBaseline:v=>v,baseline:()=>({reference:{bgm:{active:.225},se:{action:.46,soft:.24}}}),preload(){},play(){},enabled:true},input:{action:n=>held.has(n),actionPressed:()=>false,reset:()=>held.clear()}},withCanvasContext:fn=>{ctx.save();ctx.translate(0,740);ctx.scale(1,-1);fn(ctx);ctx.restore();}};w.window=w;
- for(const file of ['stage-draw.js','sketch.js']){const p='works/pumpoko/'+file,src=version!=='after'?cp.execFileSync('git',['show',(version==='before'?base:pr169)+':'+p],{cwd:repo,encoding:'utf8'}):fs.readFileSync(path.join(repo,p),'utf8');vm.runInNewContext(src,w);}
+ for(const file of ['stage-draw.js','sketch.js']){const p='works/pumpoko/'+file,src=version!=='after'?cp.execFileSync('git',['show',(version==='before'?base:pr169)+':'+p],{cwd:repo,encoding:'utf8'}):fs.readFileSync(path.join(repo,p.replace('works/pumpoko/','works/pumpoko-01/')),'utf8');vm.runInNewContext(src,w);}
  config.setup();return {w,ctx,canvas,scene:config.scenes.main,held,get model(){return model},draw(){const before=JSON.stringify(w.PumpkinProbe());ctx.clearRect(0,0,390,740);config.scenes.main.draw();assert.equal(JSON.stringify(w.PumpkinProbe()),before,'drawing must leave gameplay state unchanged');return canvas}};
 }
 function save(a,version,name){
