@@ -1,0 +1,127 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "301c0af4091ad86a5a2e0d34668365ef40f6b3b7d35e41ffe9b71b26d646a4a0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-touch-lab-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Implement independent WebGL 2 Touch Lab v0.1 and active staging-only lifecycle entry; merge and publish staging",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "80647c70a2a8284771af8c29f909cd537dce3be9",
+    "canonicalSources": [
+      "User Touch Lab v0.1 directive 2026-10-11",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-touch-lab-20261011/r0.lock.json",
+      "works/sukima-3d-lab/**",
+      "data/work-lifecycle.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "works/pumpoko/**",
+      "works/orbit*/**",
+      "works/tea-unfold*/**",
+      "works/morning-thread*/**",
+      "works/town-glance*/**"
+    ],
+    "expectedChanges": [
+      "Work-local reusable math, geometry, camera, picking, dynamics, WebGL2 renderer and animation loop",
+      "One irregular 20-face matte polyhedron; press deformation, drag, inertia and subtle settling",
+      "Responsive pointer UI, hidden debug parameters, context and cancellation handling",
+      "Append only active staging-only lifecycle record",
+      "Meaningful geometry/picking/dynamics/input tests and browser QA evidence"
+    ],
+    "ownerDecisions": [
+      "User complete directive authorizes implementation, tests, PR, safe staging merge and staging URL; production forbidden"
+    ],
+    "hqDecisions": [
+      "Independent work-local WebGL2 module; no shared runtime, launch, storage, API or town contract changes. Lifecycle append uses full plan risk floor."
+    ],
+    "rulesApplied": [
+      "Plan-first commit; Scope then Risk then Impact; existing exact blob gates unchanged",
+      "Active staging-only; no town registration or production"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-iphone-safari",
+      "physical-ipad-touch",
+      "owner-tactile-evaluation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated PR and its single lifecycle entry.",
+    "outOfScope": [
+      "Production",
+      "Shared 2D Engine and other works",
+      "Town listing and SEO",
+      "v0.2 features"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad and tactile quality remain unverified"
+    ],
+    "problem": "Need one small pleasant touchable solid that can seed reusable 3D interactions",
+    "currentContract": "Independent staging experiments, active lifecycle default, unchanged shared 2D runtime",
+    "whyExistingIsInsufficient": "Existing 2D engines do not provide requested WebGL2 mesh picking and deformation",
+    "design": "Pure ES modules in new work: math, geometry, camera, CPU picking, damped dynamics and GL renderer; thin work app",
+    "alternativesRejected": [
+      "Third-party 3D engines",
+      "Shared Engine changes",
+      "General scene or plugin systems"
+    ],
+    "migration": "Append one active lifecycle entry only",
+    "compatibility": "All existing works, Engine, town, SEO and production remain byte-identical",
+    "boundaryCases": [
+      "Pointer cancel and capture loss",
+      "Resize during press",
+      "Hidden page and context loss",
+      "Long-run motion stability",
+      "Unsupported WebGL2"
+    ],
+    "testPlan": [
+      "Node geometry winding and face-picking tests",
+      "Restoration and inertial decay at different timesteps",
+      "Input threshold and cancellation tests",
+      "Browser draw touch resize and fallback checks",
+      "Lifecycle, scope, risk, impact and trusted static checks"
+    ],
+    "promotionRisk": "Staging merge permitted; no production promotion and no physical-device certification"
+  }
+}
