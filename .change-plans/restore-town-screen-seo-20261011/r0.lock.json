@@ -1,0 +1,119 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d5900266afbe4f74c07082520a2d200b617f5f29e5586627c410bdf03c78b3c7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "restore-town-screen-seo-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Remove unapproved persistent top-right SEO panel from staging town viewport; restore pre-SEO accessible keyboard navigation links to ten search pages; keep other search metadata and games untouched.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "2591ccb63b9e677755d459c7b1bf0904c25253e3",
+    "canonicalSources": [
+      "index.html",
+      "style.css",
+      "CHANGE-OPERATIONS.md",
+      "AGENTS.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/restore-town-screen-seo-20261011/r0.lock.json",
+      "index.html",
+      "style.css"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "engine/**",
+      "works/**",
+      "data/**",
+      "tools/**",
+      "w/**",
+      "en/**",
+      "sitemap.xml",
+      ".github/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Remove only the town-search-intro aside and its intrusive fixed CSS, restoring canvas and station art to pre-SEO visibility.",
+      "Restore pre-existing focus-visible assistive work-search-links nav, updated with PUMPOKO for ten released/candidate works; no ordinary overlaid copy.",
+      "Keep existing SEO metadata, canonical, OG descriptions, data-nosnippet, Search/Share pages and town station notice text unchanged.",
+      "Refresh root CSS cache query to avoid Safari stale styling; protect all runtime functionality."
+    ],
+    "ownerDecisions": [
+      "Owner explicitly rejected intrusive persistent SEO panel after on-device screenshot and authorized rollback in 2026-10-11 policy simplification discussion."
+    ],
+    "hqDecisions": [
+      "Treat this as reversing a known specific regression, not a new town information UI; retain only SEO enhancements outside the visible game view.",
+      "No changes to shared engine, gameplay or production; preserve pre-existing screen-reader/keyboard-focus navigation implementation.",
+      "Full Plan used due current root HTML/CSS risk floor, not because rollback should normally require this burden; future policy simplification separate."
+    ],
+    "rulesApplied": [
+      "No new visible persistent shared UI without specific approval",
+      "Keep work introduction pages as searchable semantic content in production, preserve staging noindex",
+      "Minimal reversible scope"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone town view has no overlay at top right",
+      "Existing town navigation, interaction and opening games works",
+      "Keyboard focus reveals work search links while normal view stays unchanged"
+    ],
+    "impactChecks": [
+      "surface.shared",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Staging HEAD 2591ccb63b9e677755d459c7b1bf0904c25253e3",
+      "Original pre-SEO navigation from f956aa8d68d9b9ae0f7401fe22521e8e3cf00fc5"
+    ],
+    "rollback": "Revert only this staging PR if restoring old overlay were ever explicitly desired. Production untouched.",
+    "outOfScope": [
+      "Any production update or SEO service submission",
+      "Town/games runtime and SEO Search page regeneration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Owner device verification pending; no claims of visual PASS before inspection"
+    ],
+    "alternativesRejected": [
+      "Reposition/resize the persistent overlay without evidence it is needed",
+      "Remove all other approved SEO improvements",
+      "Revert whole PR #233 and lose unrelated SEO changes"
+    ],
+    "boundaryCases": [
+      "No town-search-intro node or CSS remains",
+      "Meta title/description and staging noindex retained",
+      "Ten ordinary anchor links remain accessible on keyboard focus",
+      "No scene geometry or game launch changes"
+    ],
+    "testPlan": [
+      "Trusted base Plan/Scope/Risk/Impact and static gates",
+      "Compare changed files to original pre-SEO markup and isolate fixed overlay only",
+      "Existing release / world / PUMPOKO CI checks",
+      "Owner iPhone visual confirmation before production consideration"
+    ],
+    "problem": "Visible SEO panel overlaps the pixel-art station and developer UI, disrupting immersion despite a green CI merge.",
+    "currentContract": "Town is primarily a walkable canvas; intro pages and existing world-sign interactions provide content without persistent site chrome.",
+    "whyExistingIsInsufficient": "Persistent floating HTML was added without owner approval of that specific layout and prevented the original view from remaining unobstructed.",
+    "design": "Remove floating panel and its CSS; restore former assistive work nav while keeping updated metadata and locale pages.",
+    "migration": "Staging-only rollback of intrusive UI; any future public SEO promotion must explicitly exclude floating aside and CSS.",
+    "compatibility": "No runtime code, work IDs, links or game storage changes; prior keyboard-accessible work links restored.",
+    "promotionRisk": "Do not copy staging noindex to production; production would require separate selective patch and approval."
+  }
+}
