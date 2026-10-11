@@ -1,0 +1,127 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "77b455ec79ab1198dc64f5710c321ef175e04bc535f22631406aeabe68655490",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "install-contained-verification-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Install exactly preauthorized independent trusted Verification workflow with pinned active-work bounded classifier and clean static registry back to steady.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "a50c85eb0519cbcbcfead40dbd47d847149faf8c",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-verification.yml",
+      "tools/change-static-check.cjs",
+      "tools/staging-isolation-fastpath.cjs",
+      "tools/staging-contained-change-proof.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/install-contained-verification-20261011/r0.lock.json",
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-verification.yml"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/change-pr-gate.yml",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/staging-isolation-fastpath.cjs",
+      "works/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "tools/staging-contained-change-proof.cjs"
+    ],
+    "expectedChanges": [
+      "Replace only verification workflow from 28105f59e75e71eefadec4ca9d8f659145a94c2c to previously approved exact Git blob 9e94938ce373db6988afd5b8b1143986791aad22.",
+      "Transition registry from pending verification to steady, bump version 2026-10-11.8 and keep all expectedBlob contracts unchanged.",
+      "For one bounded lifecycle-active existing work (or entirely new work) use pinned Git-data classifier, preserve original Scope/Risk/Impact/Trusted Static for all ineligible PRs.",
+      "Do not count this as complete until unmerged positive and negative canaries prove behavior."
+    ],
+    "ownerDecisions": [
+      "Owner authorized staged light existing active-work local revisions but not frozen/released/candidate, shared or production."
+    ],
+    "hqDecisions": [
+      "Both protected workflows must pin the same proven active-only classifier SHA 8c826e9c20078cc3e35bddf61a4dee533b664e20.",
+      "No candidate code executes under privileged pull_request_target.",
+      "No fake human visual attestation; future PRs remain UNVERIFIED for manual quality."
+    ],
+    "rulesApplied": [
+      "Keep existing PR Lock intact in first phase",
+      "Avoid broad glob path allowlists in gate",
+      "No publication or lifecycle status changes",
+      "No untrusted scripts in privileged checks"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Check installed verification exact new Git blob and registry cleanup",
+      "Check positive active edit and negative frozen/old/root without lock after merge",
+      "Check existing new-work path still operational"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Pending verification registry a50c85eb0519cbcbcfead40dbd47d847149faf8c",
+      "Preauthorized verifier 9e94938ce373db6988afd5b8b1143986791aad22",
+      "Pinned active-only classifier 8c826e9c20078cc3e35bddf61a4dee533b664e20"
+    ],
+    "rollback": "Revert registry-only authorization before implementing protected workflow; do not change production.",
+    "outOfScope": [
+      "Changing .github workflow file in this PR",
+      "Activating fastpath in this PR",
+      "Changing production or Work lifecycle"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "End-to-end no-Plan positive/negative PR canaries not yet completed",
+      "No production behavior or public release authorization"
+    ],
+    "alternativesRejected": [
+      "Disable trusted verification for all PRs",
+      "Rely on PR Gate alone",
+      "Execute candidate scripts in privileged context"
+    ],
+    "boundaryCases": [
+      "Single new works id exclusively additions only is eligible",
+      "Any shared/old work must have Plan Lock and complete evidence",
+      "Pin mismatch must fail closed",
+      "Pending to steady registry cleanup only"
+    ],
+    "testPlan": [
+      "Trusted exact registry transition and previous-base gate",
+      "Full Change Operations regression tests",
+      "Positive and negative canary PR evidence",
+      "Confirm no production changes"
+    ],
+    "problem": "Independent trusted verifier not yet using preauthorized active-only classifier and therefore blocks all Plan-free existing work edits.",
+    "currentContract": "Verification exact preauthorization pending to 9e94938ce373db6988afd5b8b1143986791aad22; old verification still installed.",
+    "whyExistingIsInsufficient": "PR Gate alone cannot relax full staging PR gate because independent verification workflow also runs.",
+    "design": "Install preauthorized verifier and registry cleanup to steady, preserve all legacy checks for ineligible diffs.",
+    "migration": "After merge run unmerged positive and negative real PR canaries, then update docs only if checks are green.",
+    "compatibility": "No actual work, shared town, Engine, Work lifecycle, production changes.",
+    "promotionRisk": "Plan-free gate changes staging PR validation only, not permission to merge or production publish."
+  }
+}

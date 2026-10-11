@@ -1,7 +1,7 @@
 {
   "schema": "yumaniwa-trusted-static-check-registry/0.1",
-  "version": "2026-10-11.7",
-  "transitionPolicy": "pending:.github/workflows/change-verification.yml:28105f59e75e71eefadec4ca9d8f659145a94c2c:9e94938ce373db6988afd5b8b1143986791aad22",
+  "version": "2026-10-11.8",
+  "transitionPolicy": "steady",
   "checks": {
     "change-operations-regression": {
       "definitionVersion": "2",

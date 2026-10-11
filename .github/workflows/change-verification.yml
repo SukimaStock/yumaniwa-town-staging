@@ -61,17 +61,27 @@ jobs:
             echo "Pinned isolation classifier mismatch: full safety review required."
             exit 1
           fi
+          # Independent trusted-base classifier: only lifecycle-active local fixes.
+          # Candidate PR content is Git data only; do not execute changed code.
+          bounded_blob="$(git -C "$trusted" hash-object tools/staging-contained-change-proof.cjs)"
+          if [ "$bounded_blob" != "8c826e9c20078cc3e35bddf61a4dee533b664e20" ]; then
+            echo "Pinned bounded-work classifier mismatch; full security review required."
+            exit 1
+          fi
           if node "$trusted/tools/staging-isolation-fastpath.cjs" --root "$candidate" --base "$EVENT_BASE_SHA" --head "$EVENT_HEAD_SHA" > "$RUNNER_TEMP/isolated-result.json"; then
             echo "eligible=true" >> "$GITHUB_OUTPUT"
+          elif node "$trusted/tools/staging-contained-change-proof.cjs" --root "$candidate" --base "$EVENT_BASE_SHA" --head "$EVENT_HEAD_SHA" > "$RUNNER_TEMP/isolated-result.json"; then
+            echo "eligible=true" >> "$GITHUB_OUTPUT"
+            echo "Trusted bounded classifier: one existing active work, limited local edit."
           else
             echo "eligible=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Preserve isolated-work verification boundary
+      - name: Preserve staging work-only verification boundary
         if: steps.isolation.outputs.eligible == 'true'
         shell: bash
         run: |
-          echo "Read-only pinned Git-tree isolation check passed for this exact PR base/head."
+          echo "Read-only pinned Git-tree work-only check passed for this exact PR base/head."
           echo "Production/public release and human visual verification remain UNVERIFIED."
           cat "$RUNNER_TEMP/isolated-result.json"
 
