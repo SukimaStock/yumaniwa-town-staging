@@ -15,7 +15,7 @@ function file(root,p,body){
   const target=path.join(root,p);fs.mkdirSync(path.dirname(target),{recursive:true});
   fs.writeFileSync(target,body);
 }
-function fixture(t){
+function fixture(t,state='active'){
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'contained-fastpath-'));
   t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
   git(root,'init','-q');
@@ -27,7 +27,11 @@ function fixture(t){
   file(root,'works/existing/index.html','<title>Existing Game</title>\n');
   file(root,'works/existing/game.js','const level=1;\n');
   file(root,'works/other/index.html','<title>Other</title>\n');
-  file(root,'data/work-lifecycle.json','{"works":[]}');
+  const rows=state==='unknown'?[]:state==='duplicate'?
+    [{id:'existing',path:'works/existing',status:'active'},{id:'existing',path:'works/existing-copy',status:'active'}]:
+    [{id:'existing',path:'works/existing',status:state}];
+  file(root,'data/work-lifecycle.json',state==='invalid'?'bad-json':
+    JSON.stringify({schema:'sukimastock-work-lifecycle/1',works:rows}));
   git(root,'add','-A');git(root,'commit','-qm','initial');
   const baseSha=git(root,'rev-parse','HEAD');
   const commit=()=>{
