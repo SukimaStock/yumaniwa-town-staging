@@ -38,7 +38,7 @@ WORLD OBJECT / pixel規約は `YUMANIWA-PIXEL-STANDARD.md` を正本とする。
 - 作業範囲に含まれるbranch作成、commit、PR、テスト、stagingへの通常反映を、毎回新しい承認項目にしない。外部アプリの接続許可やproduction公開は独立して扱う。
 - 修正を元に戻す際は、既存の差分から対象箇所だけを特定して復元する。試作の失敗や作者による取り消しは、重大な設計変更と同列に扱わない。
 
-**実装段階の制約:** 現在のstaging PRは依然として全件Plan Lockを要求する。この章は判断を正しい方向へ戻すものであり、CIのfast-pathをすでに有効化した宣言ではない。機械的な緩和は信頼済みゲートの境界を保ち、別PR・回帰テストで実施する。既存のRisk Floor / Scope / Impact / Production選別を黙って迂回しない。
+**現在の実装:** 単一の**新規** `works/<slug>/` 以下への追加だけ（通常ファイル・`index.html` 必須、既存/共有/削除/移動/二作品/リンクなし）なら、stagingの2つのbase-owned CIがGit差分・mode・blobを検査し、Plan Lockなしで通せる。成功canary #241、共有画面変更を止めた#242はともに未マージ。新規ディレクトリであっても既存ファイルや町/Engine/公開データと混在すれば従来のPlan Lock・Scope/Risk/Impactへ戻す。fast-pathはproduction公開や人の実機確認を代替しない。
 
 ---
 
@@ -99,7 +99,7 @@ POST-DEPLOY VERIFICATION
 | 0. Classify | 変更種別、影響範囲、正本、必要権限を決める | Class / Authority / 対象sourceが明確 |
 | 1. Decide | Owner/HQ判断が必要な部分だけ先に確定 | 未決判断をコードで埋めていない |
 | 1.5 Plan | `CHANGE-PLAN.md` に従いscope・正本・検査を実装前に固定 | PlanがREADYでrepository / base / authority / checksが明確 |
-| 1.7 Lock | high-risk / PR / promotionではPlanをdigest固定 | 実装より前のPlan Lockが存在し、base / digestを後付け変更していない |
+| 1.7 Lock | high-risk / fast-path対象外PR / promotionではPlanをdigest固定 | 実装より前のPlan Lockが存在し、base / digestを後付け変更していない |
 | 2. Build | stagingの正本へ最小変更を入れる | 二重管理・runtime patchを増やしていない |
 | 2.5 Guard | Scope / Risk / Impactで、余計な変更・過少分類・確認漏れを照合 | Plan外path・risk floor違反・未処理Impactがない |
 | 3. Validate | 契約・syntax・既存test・validatorで静的確認 | FAIL/HQ_REQUIREDを残さない、未確認はUNVERIFIED |
@@ -114,7 +114,7 @@ production反映を依頼された場合だけ Phase 5–6へ進む。
 
 repositoryを変更する作業では、Class / Authority確定後、実装前に [CHANGE-PLAN.md](CHANGE-PLAN.md) のLite / Standard / Fullいずれかで実行範囲を固定する。実装中にPlan外の変更が必要になった場合は先に止めてPlanを再評価し、実装後に都合よくscopeを広げない。
 
-high-risk path、Change OS自身、staging PR、production昇格の根拠にする変更では、実装前にPlan Lockを作る。`tools/change-risk-policy.cjs` が示す下限より軽いClass / Plan / Authorityへ自己申告で落とさない。locked baseShaを変更後HEADへ差し替えてdiffを消すことを禁止する。
+high-risk path、Change OS自身、隔離fast-path対象外のstaging PR、production昇格の根拠にする変更では、実装前にPlan Lockを作る。`tools/change-risk-policy.cjs` が示す下限より軽いClass / Plan / Authorityへ自己申告で落とさない。locked baseShaを変更後HEADへ差し替えてdiffを消すことを禁止する。
 
 stagingをVERIFIEDと呼ぶ前に [CHANGE-VERIFICATION.md](CHANGE-VERIFICATION.md) のRecordで、確認対象SHAとPlan上のcheck結果を固定する。CI成功だけでOwner実機確認を代用しない。
 
@@ -517,7 +517,7 @@ profileのImpactを全部除外して確認なしで閉じることもできな�
 日常CONTENT / PLACEMENTを一律Fullへ上げない。
 危険なpathを軽い依頼文で触ろうとした場合だけ、実path側のrisk floorを優先する。
 
-staging PRでは `.github/workflows/change-pr-gate.yml` がPlan Lockの順序・固定性とScope / Risk / Impactを検査する。
+staging PRでは `.github/workflows/change-pr-gate.yml` が隔離fast-pathの対象をbase-owned判定し、対象外のPRで従来のPlan Lockの順序・固定性とScope / Risk / Impactを検査する。
 ただしworkflowが存在するだけではmerge強制にならない。
 repository側でrequired check / merge protectionが設定されていることを確認できるまでは、
 **hard enforcement済みとは呼ばない。**
