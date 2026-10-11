@@ -247,6 +247,47 @@
   four.finale.goal.x+=feel4.shift;four.finale.finishX+=feel4.shift;
   ends[3]+=feel4.shift;ends[4]+=feel4.shift;
   four.feel4={...feel4,points:insertedUnderground2.map(p=>p.slice())};
+  // STAGE 5 finale mastery, additive after all five established cliffs.
+  // This is an earned double obstacle, NOT two arbitrary wider gaps:
+  // preserve the original first five lips, add a gathering bowl, then require
+  // the player to adjust momentum before a raised far bank and short catch.
+  // The original quiet goal approach and fruit-sized pocket are shifted rigidly.
+  const feel5={shift:3000,joinX:41530,gap1A:42800,gap1B:42960,gap2A:43260,gap2B:43390};
+  const previousFinish=four.curves.finish;
+  const insertedFinish=[
+    [41770,90,-.52],[42020,-15,0],[42230,60,.56],
+    [42440,145,.25],[42600,140,0],
+    [42800,190,.5],[42960,190,0],
+    [43065,140,0],[43160,160,.6],[43260,210,1],
+    [43390,240,0],[43690,160,0],
+    [44010,140,0],[44280,140,0],
+    [44600,65,-.35],[44920,55,0]
+  ];
+  four.curves.finish=[
+    ...previousFinish.filter(p=>p[0]<=feel5.joinX),
+    ...insertedFinish,
+    ...previousFinish.filter(p=>p[0]>feel5.joinX).map(p=>[p[0]+feel5.shift,p[1],p[2]])
+  ];
+  four.gaps.push(
+    {id:'stage5-mastery-1',stage:5,layer:'finish',a:feel5.gap1A,b:feel5.gap1B,
+      runup:650,preview:285,approach:1000,referenceSpeed:500},
+    {id:'stage5-mastery-2',stage:5,layer:'finish',a:feel5.gap2A,b:feel5.gap2B,
+      runup:300,preview:285,approach:1000,referenceSpeed:500}
+  );
+  four.goal.x+=feel5.shift;
+  four.finishX+=feel5.shift;
+  four.goalOffset+=feel5.shift;
+  // ClosingWorld is an independent visual reference. Translate it in whole
+  // so the ending's accepted original geometry and relative pose stay exact.
+  for(const points of Object.values(four.finale.curves))
+    for(const p of points)p[0]+=feel5.shift;
+  for(const h of four.finale.holes)h.x+=feel5.shift;
+  for(const cell of four.finale.cellars)
+    for(const k of ['left','right','roofStart','exitX'])cell[k]+=feel5.shift;
+  for(const g of four.finale.gaps){g.a+=feel5.shift;g.b+=feel5.shift;}
+  four.finale.goal.x+=feel5.shift;four.finale.finishX+=feel5.shift;
+  ends[4]+=feel5.shift;
+  four.feel5={...feel5,points:insertedFinish.map(p=>p.slice())};
   four.stages=layers.map((layer,i)=>({id:i+1,layer,kind:i%2?'rutabaga':'pumpkin',
     startX:i?ends[i-1]:four.stage1.startX,spawnX:i?(i%2?four.curves[layer][1][0]:ends[i-1]+180):null,endX:ends[i],
     cameraFloor:i?Math.min(...four.curves[layer].map(p=>p[1]))+45:four.stage1.cameraFloor,
@@ -256,6 +297,9 @@
   four.stages[2].cameraFloor=240;four.stages[2].failY=-525;
   // Likewise, a longer STAGE 4 must not shift the old camera/fall band.
   four.stages[3].cameraFloor=-125;four.stages[3].failY=-890;
+  // The added valley must not silently alter the accepted final-stage camera
+  // band or make the original off-screen failure threshold more lenient.
+  four.stages[4].cameraFloor=50;four.stages[4].failY=-715;
   function freeze(v){if(v&&typeof v==='object'){Object.values(v).forEach(freeze);Object.freeze(v);}return v;}
   const courses=freeze({world2:two,world4:four});
   function get(id){const c=courses[id];if(!c)throw Error('Unknown comparison course');return c;}
