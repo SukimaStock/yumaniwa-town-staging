@@ -6,7 +6,7 @@
 
 現在の正式な `verificationState` は **`UNVERIFIED`**。末尾のCurrent Closure Boundaryとこの節を、過去のVERIFIED表現より優先する。
 
-2026-10-11追加: 単一の新規 `works/<slug>/` だけを含むstaging PRは、2つのbase-owned検査が固定された隔離判定器を用いてPlan Lockなしで認定できる。ただし、この軽量経路は**人による実機検証もproduction公開も証明しない**。本書以下のPlan Lock/Record v0.2の記述は、隔離fast-path以外の通常PRに引き続き適用する。
+2026-10-11更新: stagingのPlan Lock不要なPRは、base-owned固定判定器が判定する（1）新規単一workの追加、または（2）基準ライフサイクルが `active` の単一既存workに限定した最大4件の小変更のみ。既存作品でも `frozen` / `candidate` / `released` は対象外で、共有UI・Engine・作品台帳・公開ファイル・productionにも適用しない。#250 active・#254新規は通過、#251凍結・#252公開済・#255候補・#253共有画面は拒否（いずれも未マージ）。軽量ルートが認定するのは**正確なSHAの機械的変更範囲**だけ。人による実機確認、最終VERIFIED、production公開の証拠にはならない。本書のPlan Lock/Record v0.2は、これらのfast-path対象外の通常PRに引き続き適用する。
 
 - required checksはPlan / Scope / Risk / Impact / Trusted Static Evidenceを検査する。
 - `tools/change-verification-check.cjs` の旧v0.2 Record checkerは **record / schema / internal consistency check**。exit 0はPlan Lock・対象SHA・申告されたcheck結果の内部整合を確認したことだけを意味する。
