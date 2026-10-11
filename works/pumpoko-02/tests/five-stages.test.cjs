@@ -5,10 +5,11 @@ const {previous,protectCourse,protectRuntime}=require('./five-stage-reference.cj
 const S=require('../story.js'),P=require('../physics.js'),W=require('../world.js'),{harness}=require('./harness.cjs');
 test('protected STAGE 1 boundaries, all physics, assets, socket and goal kernels are protected; stage lengths increase ~20%',()=>{
  protectCourse();protectRuntime();const m=measure();
- for(const spec of m.stages){assert.ok(spec.screens>10);if(spec.ratio&&![3,4].includes(spec.stage))assert.ok(spec.ratio>=1.15&&spec.ratio<=1.25);}
- // Intentional additive STAGE 3 passage is longer; STAGE 4 still keeps its original length.
- assert.equal(m.stages[2].length,9560);assert.equal(m.stages[3].length,8830);
- assert.deepEqual(m.stages.map(s=>s.gaps),[2,2,4,4,5]);
+ for(const spec of m.stages){assert.ok(spec.screens>10);if(spec.ratio&&![3,4,5].includes(spec.stage))assert.ok(spec.ratio>=1.15&&spec.ratio<=1.25);}
+ // The accepted Stage 3 and new Stage 4 passages extend play; Stage 5's own shape stays unchanged.
+ assert.equal(m.stages[2].length,9560);assert.equal(m.stages[3].length,11230);
+ assert.equal(m.stages[4].length,10600);
+ assert.deepEqual(m.stages.map(s=>s.gaps),[2,2,4,5,5]);
  for(const layer of Object.values(c.curves))assert.ok(layer.every((p,i)=>!i||p[0]>layer[i-1][0]),'strictly ordered Hermite points');
 });
 test('STAGE 1 opening, trajectory, camera and anticipation match the old runtime with identical authored terrain',()=>{
@@ -33,7 +34,7 @@ test('every gap is real unsupported air at flight/fall heights and retains the o
   assert.ok(Math.abs(b.vx-before.vx-p.response/p.mass*p.air*P.STEP)<1e-8);assert.ok(Math.abs(b.vy-before.vy+P.G*P.STEP)<1e-8);
  }
 });
-test('all seventeen gaps restart from a safe stopped runup; insufficient unarmed momentum naturally fails',()=>{
+test('all eighteen gaps restart from a safe stopped runup; insufficient unarmed momentum naturally fails',()=>{
  for(const g of c.gaps){const a=crossing(g);assert.equal(a.success,true,g.id+' rest');assert.ok(a.land,'real landing '+g.id);
   const low=crossing(g,{speed:60,start:g.a-8,launch:true,steady:true});assert.equal(low.success,false,g.id+' insufficient momentum');assert.equal(low.timeout,undefined,g.id+' falls rather than sticking');
  }
