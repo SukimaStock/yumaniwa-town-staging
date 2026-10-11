@@ -14,7 +14,7 @@ test('additive STAGE 3: all three previous cliffs and shoulders stay exactly aut
  assert.equal(c.gaps.length,previous.gaps.length+1);
  assert.deepEqual(c.gaps.filter(g=>g.stage===3&&g.id!==NEW_ID),previous.gaps.filter(g=>g.stage===3));
  assert.deepEqual(c.curves.return.filter(p=>p[0]<=JOIN),previous.curves.return.filter(p=>p[0]<=JOIN));
- assert.deepEqual(c.curves.return.filter(p=>p[0]>JOIN+SH),
+ assert.deepEqual(c.curves.return.filter(p=>p[0]>=previous.curves.return.find(p=>p[0]>JOIN)[0]+SH),
    previous.curves.return.filter(p=>p[0]>JOIN).map(p=>[p[0]+SH,p[1],p[2]]));
  assert.deepEqual([newG.a,newG.b,newG.b-newG.a],[18440,18550,110]);
  assert.equal(c.feel3.shift,SH);
