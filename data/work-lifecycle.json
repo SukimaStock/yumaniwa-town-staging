@@ -77,8 +77,9 @@
     {
       "id": "pumpoko",
       "path": "works/pumpoko",
-      "status": "active",
-      "title": "PUMPOKO"
+      "status": "candidate",
+      "title": "PUMPOKO",
+      "candidateDecision": "Owner decision 2026-10-11: prepare PUMPOKO only as a production release candidate after staging introduction/launch confirmation; this is not authorization for production promotion or deployment."
     },
     {
       "id": "kotsu-koro",
