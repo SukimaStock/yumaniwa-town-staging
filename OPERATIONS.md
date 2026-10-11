@@ -8,8 +8,7 @@
 - 本番反映は production 用 branch → PR → Production Safety Checks → merge
 - 緊急で本番を直接修正した場合も、同じ修正を必ず staging へ戻す
 
-変更依頼を受けたら、実装前に `CHANGE-OPERATIONS.md` で CONTENT / PLACEMENT / ASSET / WORK / SYSTEM / WORLD に分類し、必要なAuthorityと検査を決める。
-repositoryを変更する場合は続けて `CHANGE-PLAN.md` の Lite / Standard / Full Planで、repository・base SHA・正本・allowed/conditional/forbidden path・検査・手動確認を実装前に固定する。high-risk / PR / promotionではPlan Lockを先に作る。
+変更依頼を受けたら、実装前に `CHANGE-OPERATIONS.md` で変更範囲を確認する。完全に独立した新規 `works/<slug>/` だけの追加PRは、base-owned隔離判定に任せてPlan Lockなしで進められる。既存作品・共有部・町への登録・production公開を含む変更は従来のCHANGE-PLAN (Lite/Standard/Full)とPlan Lockで保護する。
 詳細な昇格ルールは `RELEASE-WORKFLOW.md` も参照する。
 
 画像アセット・WORLD OBJECTのピクセル基準は `YUMANIWA-PIXEL-STANDARD.md` を正本とする。
@@ -24,7 +23,7 @@ repositoryを変更する場合は続けて `CHANGE-PLAN.md` の Lite / Standard
 - **部分的な取り消し:** 作者が「戻して」と指示した既知の変更は、過去のコミットとの差分から対象だけを戻す。無関係なSEO・作品改善を巻き戻さない。既存のCI必須チェックは維持する。
 - **承認の繰り返しを減らす:** 明示的なstaging作業の中のbranch作成・commit・PR・通常の検査・安全なstagingマージについて、許可を小分けに求めない。production反映、新しい共有体験の設計判断、接続サービス固有の権限要求は区別する。
 
-本節は日常運用の方針。現行CIは**すべてのstaging PRに事前Plan Lockを要求**しているため、ここに書いた簡素化がCI上で完了したわけではない。危険な共有変更を無検証で通すfast-pathは作らない。Change OSの機械的な簡素化は、旧trusted gateによる監査と境界試験を伴う別作業とする。
+**現行CIで有効:** 新規単一 `works/<slug>/` ディレクトリの通常ファイル追加のみ（`index.html` を含む）は、Plan Lockなしでstaging PRを作成できる。base-owned判定器は更新・削除・シンボリックリンク・実行可能mode・既存work・共有パスを拒否する。canary #241で通過、#242の共有root変更は拒否。既存コードの変更・町への作品登録・rollback・productionはfast-path対象外で、従来のゲートを維持する。
 
 ---
 
@@ -34,8 +33,7 @@ repositoryを変更する場合は続けて `CHANGE-PLAN.md` の Lite / Standard
 
 1. `yumaniwa-town-staging` の main をPullし、未コミット変更がないことを確認する。
 2. `node tools/work-lifecycle.cjs --list`で対象workの制作状態を確認し、今回のChange Planを決める。AIに準備を任せる場合も、編集開始前に行う。
-3. 最新mainから作業branchを作り、最初のcommitに今回のPlan Lockだけを登録する。
-   既に準備済みなら、そのbranchをWorking Copyで選択する。軽い変更でもPRにはLockが必要だが、Planを一律Fullにしない。
+3. 最新mainから作業branchを作る。**新しい作品の単一ディレクトリ内に通常ファイルを追加するだけ**ならPlan Lockは不要。既存work、町・共有部、データ登録などが含まれる場合は、最初のcommitにPlan Lockのみを登録する。
 4. 作業branchを同名の `origin/<作業branch>` へPush・同期する。
 5. そのbranchの `tools/YumaniwaDesk.py` を起動する。Deskの「編集branch」を確認する。
 6. Working CopyでHEADと同名origin branchの一致、cleanなStatusを確認し、「同期確認済み」を押す。
@@ -71,7 +69,7 @@ Undoは更新時と同じ作業branchでのみ行う。別branchの履歴やbran
 2. Plan外の変更があればCommitせず止める。
 3. 作業branchへCommit → Pushし、staging/main宛てのPRを作る。
 4. Scope / Risk / Impactと関連テストを確認し、`plan-risk-gate` と `trusted-mechanical-evidence` の成功を確認する。
-5. 許可されたmergeを行った後、Working Copyでmainへ戻してPullする。次の編集は新しい作業branch・Plan Lockから始める。
+5. 許可されたmergeを行った後、Working Copyでmainへ戻してPullする。次の編集は新しい作業branchから始め、fast-path対象外なら事前Plan Lockを用意する。
 
 mainが進んでPlanのbaseが古くなった場合は `CHANGE-PLAN.md` の既存手順で、現在のmainからbranch/Lockを作り直す。
 古いLockのbaseを書き換えたり、required checksを迂回したりしない。
@@ -113,7 +111,7 @@ ChatGPT が GitHub 上の staging を修正した後に YumaniwaDesk を使う�
 3. Statusがclean、HEADが同名origin branchと一致することを確認する
 4. YumaniwaDeskを起動し、表示された編集branchを確認する
 5. 「同期確認済み」
-6. 次の編集を開始する。mainへmerge済みなら新しい作業branch/Lockを準備する
+6. 次の編集を開始する。mainへmerge済みなら新しい作業branchを準備し、fast-path対象外ならPlan Lockを作る
 
 ## Change Plan Lock / Risk Gate
 
@@ -127,7 +125,7 @@ ChatGPT が GitHub 上の staging を修正した後に YumaniwaDesk を使う�
 - Service Worker / manifest
 - 未登録の実行可能path
 - production昇格の根拠にする変更
-- staging PRとして扱う変更
+- staging PRとして扱う変更（隔離fast-path対象外）
 
 high-riskでは実装前Planをv0.2でREADYにし、Plan Lockへ固定する。
 

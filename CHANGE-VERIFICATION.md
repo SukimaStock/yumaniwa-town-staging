@@ -6,6 +6,8 @@
 
 現在の正式な `verificationState` は **`UNVERIFIED`**。末尾のCurrent Closure Boundaryとこの節を、過去のVERIFIED表現より優先する。
 
+2026-10-11追加: 単一の新規 `works/<slug>/` だけを含むstaging PRは、2つのbase-owned検査が固定された隔離判定器を用いてPlan Lockなしで認定できる。ただし、この軽量経路は**人による実機検証もproduction公開も証明しない**。本書以下のPlan Lock/Record v0.2の記述は、隔離fast-path以外の通常PRに引き続き適用する。
+
 - required checksはPlan / Scope / Risk / Impact / Trusted Static Evidenceを検査する。
 - `tools/change-verification-check.cjs` の旧v0.2 Record checkerは **record / schema / internal consistency check**。exit 0はPlan Lock・対象SHA・申告されたcheck結果の内部整合を確認したことだけを意味する。
 - 互換のため残る旧出力 `verificationState: VERIFIED` / `Verification: VERIFIED` は、このchecker内の旧ラベル。trusted evidenceの最終統合、実機確認の認証、現在のfinal VERIFIEDへ読み替えない。
