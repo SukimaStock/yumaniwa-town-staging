@@ -53,7 +53,7 @@ export class Renderer {
   gl.useProgram(this.program);gl.bindVertexArray(this.vao);gl.bindBuffer(gl.ARRAY_BUFFER,this.buffer);
   gl.uniformMatrix4fv(u.projection,false,camera.projection);gl.uniform1f(u.distance,camera.distance);
   gl.enable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);
-  gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
+  gl.enable(gl.BLEND);gl.blendFuncSeparate(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA,gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
   gl.uniform1i(u.shadow,1);gl.uniformMatrix4fv(u.model,false,rotationMatrix([0,0,0,1]));
   gl.bufferData(gl.ARRAY_BUFFER,this.shadowData,gl.DYNAMIC_DRAW);gl.drawArrays(gl.TRIANGLES,0,this.shadowData.length/9);
   gl.disable(gl.BLEND);gl.enable(gl.CULL_FACE);gl.cullFace(gl.BACK);
