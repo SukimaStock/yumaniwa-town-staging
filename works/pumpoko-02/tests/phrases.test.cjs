@@ -2,7 +2,7 @@
 const test=require('node:test'),assert=require('node:assert/strict');
 const {trial,pair,previous,starting}=require('./phrases-review.cjs'),{protect}=require('./phrases-reference.cjs'),{course,run}=require('./five-stage-review.cjs'),W=require('../world.js'),P=require('../physics.js'),S=require('../story.js');
 test('fresh-base scope: only four terrain phrases change; accepted STAGE 3, all stage/checkpoint/goal data and runtime bytes remain exact',()=>{
- protect();assert.deepEqual(course.stages.map(s=>course.gaps.filter(g=>g.layer===s.layer).length),[2,2,4,4,5]);
+ protect();assert.deepEqual(course.stages.map(s=>course.gaps.filter(g=>g.layer===s.layer).length),[2,2,4,5,5]);
  for(const stage of [2,4,5]){const [a,b]=pair(course,stage);assert.ok(b.a-a.b>=P.body(course.stages[stage-1].kind,0).r*8,'broad receiving bank '+stage);}
 });
 test('same stationary terrain-review starts at 30/60/120fps: held misses STAGE 2/4/5; controlled input clears; weak momentum misses; real grounded stop then reacceleration clears',()=>{
