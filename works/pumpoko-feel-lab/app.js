@@ -253,6 +253,7 @@
     ctx.setTransform(dpr,0,0,-dpr,0,height*dpr);
     ctx.fillStyle='#faf1dc';ctx.fillRect(0,0,width,height);
     const v=computeView(),l=limits();
+    if(mode==='risk')updateRiskStatus();
     if(mode==='variant'){
       const label=byId('variant-progress'),x=state[kind].x;
       if(label){
@@ -273,20 +274,34 @@
     const visibleLeft=Math.max(l.min,(0-v.originX)/v.zoom-20);
     const visibleRight=Math.min(l.max,(width-v.originX)/v.zoom+20);
     if(visibleRight>visibleLeft){
-      ctx.beginPath();ctx.moveTo(visibleLeft,v.bottom-80);
-      ctx.lineTo(visibleLeft,floor(visibleLeft).y);
-      for(let x=visibleLeft+5;x<visibleRight;x+=5)ctx.lineTo(x,floor(x).y);
-      ctx.lineTo(visibleRight,floor(visibleRight).y);
-      ctx.lineTo(visibleRight,v.bottom-80);ctx.closePath();
-      ctx.fillStyle='#d9b385';ctx.fill();
-      ctx.beginPath();ctx.moveTo(visibleLeft,floor(visibleLeft).y);
-      for(let x=visibleLeft+5;x<visibleRight;x+=5)ctx.lineTo(x,floor(x).y);
-      ctx.lineTo(visibleRight,floor(visibleRight).y);
-      ctx.strokeStyle='#68835f';ctx.lineWidth=9;ctx.lineJoin='round';ctx.lineCap='round';ctx.stroke();
+      const gap=activeGap();
+      const spans=gap?[[visibleLeft,Math.min(visibleRight,gap.a)],
+        [Math.max(visibleLeft,gap.b),visibleRight]]:[[visibleLeft,visibleRight]];
+      for(const [start,end] of spans){
+        if(end<=start)continue;
+        // Draw only existing physical ground. There is no bridge across the gap.
+        ctx.beginPath();ctx.moveTo(start,v.bottom-80);ctx.lineTo(start,floor(start).y);
+        for(let x=start+5;x<end;x+=5)ctx.lineTo(x,floor(x).y);
+        ctx.lineTo(end,floor(end).y);ctx.lineTo(end,v.bottom-80);ctx.closePath();
+        ctx.fillStyle='#d9b385';ctx.fill();
+        ctx.beginPath();ctx.moveTo(start,floor(start).y);
+        for(let x=start+5;x<end;x+=5)ctx.lineTo(x,floor(x).y);
+        ctx.lineTo(end,floor(end).y);
+        ctx.strokeStyle='#68835f';ctx.lineWidth=9;ctx.lineJoin='round';ctx.lineCap='round';ctx.stroke();
+      }
+      if(gap){
+        for(const x of [gap.a,gap.b]){
+          if(x<visibleLeft||x>visibleRight)continue;
+          const y=floor(x).y;
+          // Visible soil cut on each bank, not an extra collision wall.
+          ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y-170);
+          ctx.strokeStyle='#bd8c65';ctx.lineWidth=3;ctx.stroke();
+        }
+      }
     }
     const body=state[kind],f=floor(body.x);
     const altitude=Math.max(0,body.y-body.r-f.y);
-    Art.ellipse(ctx,body.x,f.y+2,body.r,4,'rgba(80,54,27,'+(.16/(1+altitude/80))+')');
+    if(!activeGap()||W.hasGround('surface',body.x,course))Art.ellipse(ctx,body.x,f.y+2,body.r,4,'rgba(80,54,27,'+(.16/(1+altitude/80))+')');
     (kind==='pumpkin'?Art.pumpkin:Art.rutabaga)(ctx,body);
     ctx.restore();
   }
