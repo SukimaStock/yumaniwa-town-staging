@@ -6,7 +6,7 @@
 Search / Share v2 の日英文面・検索語彙・schemaTypeの正本は `data/work-search-meta.js`。
 `w/<id>/` と `en/w/<id>/` と `sitemap.xml` は `tools/generate-work-search-pages.cjs` から生成する。生成物を直接編集しない。
 変更種別と作業の重さは [CHANGE-OPERATIONS.md](CHANGE-OPERATIONS.md) で分類する。
-repository変更前の実行範囲は [CHANGE-PLAN.md](CHANGE-PLAN.md) で固定する。high-risk / fast-path対象外PR / promotionではPlan Lockのdigestへ固定する。
+repository変更前の実行範囲は [CHANGE-PLAN.md](CHANGE-PLAN.md) で固定する。軽量対象外PR / promotionではPlan Lockのdigestへ固定する。
 実装後の確認証拠は [CHANGE-VERIFICATION.md](CHANGE-VERIFICATION.md) でexact SHAへ固定する。
 手順は [OPERATIONS.md](OPERATIONS.md)、
 Release完成判定の唯一の正本は [RELEASE-WORKFLOW.md](RELEASE-WORKFLOW.md)。
@@ -15,12 +15,12 @@ Release完成判定の唯一の正本は [RELEASE-WORKFLOW.md](RELEASE-WORKFLOW.
 ## 制作を守る優先原則（2026-10-11）
 
 1. **新しい作品は試しやすく。** 既存の `works/<id>/`、町、Engine、公開URLに影響しない試作は、その作品の指示範囲で実装・試行・修正を進める。staging-onlyとproduction公開は別判断。独立した試作のために町全体を変更しない。
-2. **今ある体験を壊しにくく。** 共通画面、既存の動線、操作、保存、Engineへの影響を最初に把握する。特に既存の町に常時表示する新UIは、単なるSEO・機能改善の目的承認だけで採用しない。可逆で依頼範囲内のUIは既存の安全検査を通してstagingに試験反映してよい。作者は実際の画面を見て、残す・直す・戻すを判断する。stagingマージやCI成功を作者の採用・実機確認とみなさない。
+2. **今ある体験を壊しにくく。** 共通画面、既存の動線、操作、保存、Engineへの影響を最初に把握する。既存の町に新しい常時表示UIを加える場合は、SEO等の目的承認とは別に、具体的な表示案について作者の判断を得てから実装する。既存UIの局所修正など、依頼範囲内で具体的な未決選択のない可逆変更は、既存検査を通してstagingで試してよい。作者は実際の画面を見て、残す・直す・戻すを判断する。stagingマージやCI成功を作者の採用・実機確認とみなさない。
 3. **失敗は簡単に戻す。** 指摘された既知の変更を取り消す場合は、独立した改善を残して最小差分で戻す。戻すための新しいデザイン会議や同じ承認の取り直しはしない。ただし現行PR/Plan Gateの検査を迂回してよいわけではない。
 4. **承認を水増ししない。** 改善目的、可逆なstaging試行、作者による採用決定、production公開承認は別物。Planの `authority` / `ownerDecisions` / `hqDecisions` に文字列を記入するだけでは実際の承認証拠にならない。AIによるHQの設計整理と、作者が持つ選択権を混同しない。
 5. **同じ作業指示を何度も聞き返さない。** 作者から明示されたstaging作業範囲には、必要なbranch・commit・PR・テスト・安全なstagingマージの実行を含めて扱う。新たな設計判断、範囲外の変更、production、接続サービス側の操作承認は別途確認する。
 
-これは作業の**判断原則**であり、Plan Lockとtrusted static checkを無効化しない。**Plan Lockなしのstaging PR**は、①完全に新規の単一 `works/<slug>/` への通常ファイル追加（`index.html`必須）、②基準SHAのライフサイクルが `active` の単一既存work内だけで完結する小変更（最大4件、通常ファイルのみ、編集行数・patchサイズ・blobサイズに制限）に限る。両方ともbase-owned固定判定器がGit差分・mode・blobと必要なら基準の台帳を検査する。`frozen` / `candidate` / `released`、町の共有UI、Engine、複数work、Work台帳、削除・改名・ビルド／公開ファイルなどは対象外。実施結果はcanary #250〜#255（すべて未マージ）で確認済み。既存のworkの操作感や表示品質を作者が承認した証拠にはならず、productionへの公開承認でもない。
+これは作業の**判断原則**であり、trusted base / exact Git blob保護を無効化しない。Plan Lock不要の3ルートと対象外条件は [CHANGE-PLAN.md §1](CHANGE-PLAN.md#1-plan-level) を唯一の詳細入口とする。新作・active作品の小変更・検証可能な部分復元は、その範囲に必要な差分確認と回帰だけを行う。AIは未確認の共有依存・保存・外部連携を軽量判定のPASSだけで安全扱いにしない。
 
 ## 判断権限の4層
 
@@ -49,7 +49,7 @@ runtime patch／compatibility例外、既存ID/URL/保存keyの変更はHQ対象
 ## 作業上の必須ルール
 
 - 作業開始時に対象HEAD・差分・既存契約を読む。並行変更を上書きしない。
-- repository変更では実装前にChange PlanをREADYにする。high-risk / 隔離fast-path対象外PR / promotionではPlan Lockを実装前に固定し、実装後は Scope Guard → Risk Gate → Impact Check の順で照合する。Plan外path・risk floor違反・core Impact除外・未処理Impactが出たら完了扱いにせず停止する。
+- repository変更はまず3ルートへの適合を確認する。適合するstaging変更はPR本文の短いscope・関連回帰で進め、Full Planの作り直しを要求しない。対象外では実装前にChange PlanをREADYにし、high-risk / 通常PR / promotionではPlan Lockを固定し、実装後は Scope Guard → Risk Gate → Impact Check の順で照合する。Plan外path・risk floor違反・core Impact除外・未処理Impactが出たら完了扱いにせず停止する。
 - `CHANGE-VERIFICATION.md` 冒頭の現在状態を優先する。final / automatic VERIFIEDは保留。旧v0.2 checkerのexit 0はRecord整合確認であり、trusted verification完了ではない。確認対象SHAと各結果を記録し、AIが観測していない実機確認をPASSにしない。
 - Change OS自身、shared runtime、root HTML/CSS、Service Worker、manifest、未登録executable pathは `tools/change-risk-policy.cjs` の下限を優先する。依頼文が「軽く直して」でもCONTENT/Liteへ落とさない。
 - Change OS自身の更新はstaging mainへ直接積まず、原則branch + locked Plan + PRで検査する。検査toolを変更するPRが自分の変更版だけで自己認証しないよう、trusted base gateを使う。

@@ -26,24 +26,21 @@ WORLD OBJECT / pixel規約は `YUMANIWA-PIXEL-STANDARD.md` を正本とする。
 | --- | --- | --- |
 | 隔離された新しい試作 | 探索を優先。作業指示の範囲で繰り返し試し、手続きは最小限に | 既存作品・町・Engine・公開集合に触れず、staging-onlyのまま維持 |
 | 既存作品の局所改善 | その作品に必要な回帰に集中 | 既存の操作・音・保存・直リンクなど、指定された保護対象を守る |
-| 町の共有画面・共通基盤変更 | 機能の必要性と影響を先に審査 | 可逆なUIはstagingで試し、作者が見て採用・修正・撤回を選ぶ。既存機能や保存・共有契約の破壊は防ぐ |
+| 町の共有画面・共通基盤変更 | 機能の必要性と影響を先に審査 | 新しい常時表示UIは具体案への作者判断が必要。既存UIの局所修正はstagingで試せる。保存・共有契約を守る |
 | 既知の変更の取り消し | 最小の差分と関連回帰で迅速に復元 | 無関係な改善を戻さず、他の作品やproductionを巻き込まない |
 | production公開 | 既存の厳密な選別手順を維持 | candidate等の状態と、今回の明示的な公開指示を分ける |
 
 ### 承認と検証の意味
 
 - `Owner Decision` や `HQ Review` という**Planの項目名・文字列は承認の証拠ではない**。作者が承認した具体的な選択を参照する。AIの設計提案とOwnerの決定を混同しない。
-- 「SEOを改善する」などの目的を特定UIの採用決定と混同しない。既存の情報・導線で解決できるか考え、必要なら可逆な表示案をstagingで試す。作者が実際に見て採否を決める。
-- 可逆で変更範囲が限定された共有UIなら、必要なCIを通してstagingへ試験反映でき、事前の視覚承認を必須にしない。作者の実機確認は試行後に行う。CI成功は採用決定ではなく、復旧困難な変更は事前判断を要する。
+- 「SEOを改善する」などの目的を特定UIの採用決定と混同しない。既存の情報・導線で解決できるか考え、新しい常時表示UIは具体案への作者判断を得る。既存UIの限定修正ならstagingで試し、作者が実際に見て採否を決める。
+- 新しい常時表示UIには具体的な設計判断が必要。既存UIの限定的・可逆な修正に一律の事前実機承認を追加しない。CI成功と作者の実機確認・採用は別に記録し、AIがOwner/HQという文字列だけで自己承認しない。
 - 作業範囲に含まれるbranch作成、commit、PR、テスト、stagingへの通常反映を、毎回新しい承認項目にしない。外部アプリの接続許可やproduction公開は独立して扱う。
 - 修正を元に戻す際は、既存の差分から対象箇所だけを特定して復元する。試作の失敗や作者による取り消しは、重大な設計変更と同列に扱わない。
 
-**現在の実装:** stagingのbase-owned CIには2つの限定fast-pathがある。
+**現行ルートの詳細は [CHANGE-PLAN.md §1](CHANGE-PLAN.md#1-plan-level) に集約する。** 新規単一work・active作品の局所変更・変更元と一致する限定的復元はPlan-free。それ以外は従来のPlan Lock / Scope / Risk / Impact / Trusted Staticへ戻す。共有変更をすべて軽量化したのではない。機械が確認するGitの事実と、人間の体験判断・production公開を混ぜない。
 
-- **新規試作:** 未登録の単一 `works/<slug>/` に `index.html` を含む通常ファイルを追加するだけ。既存ファイルは変更しない。
-- **制作中作品の小変更:** 基準SHAの `data/work-lifecycle.json` で `active` と確認できる単一の既存work内だけ。追加・修正を計4ファイル以内、通常ファイル、編集行数・patch・blobサイズ制限内に限定し、削除・改名・ビルド／配布設定には使わない。古いGit blobへ正確に戻した場合も、その**active workの局所変更であること**が前提。
-
-実際の検査: #250はactive局所変更を許可、#254は新規作成を許可。#251 frozen、#252 released、#255 candidate、#253共有画面はPlanなしで拒否（全PR未マージ）。対象外は従来のPlan Lock・Scope/Risk/Impact・Trusted Staticへ戻す。**共有画面のrollbackも自動例外にしない**。fast-pathが証明するのはGit差分の隔離と形式のみで、作者の体験判断・production公開や人の実機確認は代替しない。
+実証: #264部分復元・#269 active局所変更・#267新作は両trusted jobで成功。#265偽復元・#266無計画共有変更・#268外部通信・#263判定器改変は両jobで意図した失敗。すべて未マージ。既存の凍結・candidate・releasedの境界は#251/#252/#255の拒否を維持。
 
 ---
 
@@ -73,7 +70,7 @@ CHANGE PLAN
     ├─ Standard
     └─ Full
     ↓
-PLAN LOCK（high-risk / PR / promotion）
+PLAN LOCK（軽量対象外 / promotion）
     ↓
 BUILD IN STAGING
     ↓
@@ -117,9 +114,9 @@ stagingだけを目的とする変更でも、VERIFIEDと呼ぶ場合は Phase 4
 単なる作業途中・試作ならVERIFIEDと呼ばずPhase 4以前で止めてよい。
 production反映を依頼された場合だけ Phase 5–6へ進む。
 
-repositoryを変更する作業では、Class / Authority確定後、実装前に [CHANGE-PLAN.md](CHANGE-PLAN.md) のLite / Standard / Fullいずれかで実行範囲を固定する。実装中にPlan外の変更が必要になった場合は先に止めてPlanを再評価し、実装後に都合よくscopeを広げない。
+軽量ルートに該当しないrepository変更では、Class / Authority確定後、実装前に [CHANGE-PLAN.md](CHANGE-PLAN.md) のLite / Standard / Fullいずれかで実行範囲を固定する。実装中にPlan外の変更が必要になった場合は先に止めてPlanを再評価し、実装後に都合よくscopeを広げない。
 
-high-risk path、Change OS自身、隔離fast-path対象外のstaging PR、production昇格の根拠にする変更では、実装前にPlan Lockを作る。`tools/change-risk-policy.cjs` が示す下限より軽いClass / Plan / Authorityへ自己申告で落とさない。locked baseShaを変更後HEADへ差し替えてdiffを消すことを禁止する。
+軽量対象外のhigh-risk path・Change OS自身・通常staging PR・production昇格の根拠にする変更では、実装前にPlan Lockを作る。`tools/change-risk-policy.cjs` が示す下限より軽いClass / Plan / Authorityへ自己申告で落とさない。locked baseShaを変更後HEADへ差し替えてdiffを消すことを禁止する。
 
 stagingをVERIFIEDと呼ぶ前に [CHANGE-VERIFICATION.md](CHANGE-VERIFICATION.md) のRecordで、確認対象SHAとPlan上のcheck結果を固定する。CI成功だけでOwner実機確認を代用しない。
 
@@ -231,7 +228,7 @@ scene placement
 - Retirement contractの新設、URL/identity変更、Hard Delete: **HQ Review**
 
 新作公開:
-- `RELEASE-WORKFLOW.md` の五つのReadyを使う。
+- `RELEASE-WORKFLOW.md` の六つのReadyを使う。
 - Search / Share v2は `data/work-search-meta.js` → generatorの契約を使う。
 - stagingの `status: open` をproduction公開許可と解釈しない。
 
@@ -331,7 +328,7 @@ HQでは最低限、次を決めてから実装する。
 
 作品や町の意味、味、見た目、残す/消す、公開時期など、人間が保持する判断。
 
-AIは候補提示・比較・可逆なstaging試行まで行える。作者の最終採用やproduction公開は勝手に決定しない。
+AIは候補提示・比較と、未決の作者選択を含まない可逆なstaging試行を行える。新しい常時表示UIの設計、作品体験の大変更、作者の最終採用・production公開を自己決定しない。
 
 ---
 

@@ -6,7 +6,7 @@
 
 現在の正式な `verificationState` は **`UNVERIFIED`**。末尾のCurrent Closure Boundaryとこの節を、過去のVERIFIED表現より優先する。
 
-2026-10-11更新: stagingのPlan Lock不要なPRは、base-owned固定判定器が判定する（1）新規単一workの追加、または（2）基準ライフサイクルが `active` の単一既存workに限定した最大4件の小変更のみ。既存作品でも `frozen` / `candidate` / `released` は対象外で、共有UI・Engine・作品台帳・公開ファイル・productionにも適用しない。#250 active・#254新規は通過、#251凍結・#252公開済・#255候補・#253共有画面は拒否（いずれも未マージ）。軽量ルートが認定するのは**正確なSHAの機械的変更範囲**だけ。人による実機確認、最終VERIFIED、production公開の証拠にはならない。本書のPlan Lock/Record v0.2は、これらのfast-path対象外の通常PRに引き続き適用する。
+2026-10-11更新: Plan Lock不要のstaging PRは [CHANGE-PLAN.md §1](CHANGE-PLAN.md#1-plan-level) の3ルートのみ。両trusted jobが同じ固定判定を使い、#264/#267/#269通過、#263/#265/#266/#268拒否を確認。部分復元は変更元・ハンク・実際の候補treeで証明し、「revert」という名称で例外化しない。軽量proof artifactはGitの機械的事実で、実機・作者の採用・production公開は証明しない。対象外は従来のPlan Lock/Record契約を維持。
 
 - required checksはPlan / Scope / Risk / Impact / Trusted Static Evidenceを検査する。
 - `tools/change-verification-check.cjs` の旧v0.2 Record checkerは **record / schema / internal consistency check**。exit 0はPlan Lock・対象SHA・申告されたcheck結果の内部整合を確認したことだけを意味する。
@@ -275,50 +275,9 @@ C3-2完了時点:
 - authenticated human attestation: なし
 - final `VERIFIED`: **成立させない**
 
-### C3-3 verifier install時点
+### 保留中のHuman Attestation
 
-`tools/change-verification-check.cjs` には、GitHub認証済みPR commentを
-immutable Plan Lock / exact PR head SHA / locked `manualChecks` へ束ねる
-standalone `attest` modeを追加する。
-
-このmodeはEvidence生成用のverifierであり、現時点ではlive workflowから呼ばない。
-
-attestationが保持するtrusted identity:
-
-- repository / PR number
-- base SHA / target SHA
-- Plan changeId / revision / digest / manualChecks
-- GitHub comment user login / immutable numeric user ID
-- GitHub event sender login / immutable numeric user ID
-- repository owner login / immutable numeric user ID
-- author association（provenanceのみ。authorizationには使わない）
-- comment ID / createdAt / URL
-- comment body SHA-256 / byte count
-- optional note SHA-256 / byte count
-- base-owned verifier Git blob
-
-raw comment body / raw noteはattestation artifactへ複製しない。
-
-1 commentはPlanの `manualChecks` 全件をexact setとしてattestする。
-partial / extra / duplicate / stale SHA / fork PR / non-default-base PR /
-bot identity / GitHub sender mismatch / verifier blob mismatchはREJECTする。
-
-ただしC3-3 verifier installだけでは、
-
-- issue_comment workflow: 未導入
-- live Human Attestation artifact: 未生成
-- Verification Record v0.3統合: 未実装
-- final `VERIFIED`: **成立させない**
-
-初期C3-3 policyでは、human attesterを**repository owner本人だけ**に限定する。
-
-- repository ownerはGitHub eventの `repository.owner` をtrusted sourceとする
-- ownerは `type=User` でなければならない
-- owner login / immutable numeric user ID がcomment userとsenderの両方へ一致することを要求する
-- `author_association` は証拠として残すが、Owner権限の代わりにはしない
-- delegated attester / organization-owned repositoryは未対応。必要なら別のChange OS契約として追加する
-
-live workflow導入時もこのowner-only verifier contractを変更せず使う。
+repository-owner-only verifierの基盤は `tools/change-verification-check.cjs attest` に残すが、live workflow・Record v0.3・final VERIFIEDは有効化しない。日常制作にcomment入力や追加承認を要求しない。将来この基盤を変更する際だけ、そのsource contractを確認する。現在の制限と再開条件は末尾のCurrent Closure Boundaryを正本とする。
 
 ---
 

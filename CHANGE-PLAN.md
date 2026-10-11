@@ -20,7 +20,19 @@ Change Planはそれらの代わりではなく、**一回の変更を安全に�
 
 ## 1. Plan Level
 
-repository変更は原則、実装前にChange Planを作る。ただしstaging PRで、base-owned固定判定器が認める次の2類型はPlan Lock不要。①完全に新規の単一 `works/<slug>/` に通常ファイルだけ追加し `index.html` を含む。②ライフサイクルが基準SHAで `active` の単一既存work内の小変更（最大4ファイル、限定された行数・patch・容量、通常ファイルのみ）。後者は `frozen` / `candidate` / `released`、ビルド／公開設定、削除や改名、複数work、共有部・台帳を除外する。作者の見た目や操作の確認は別。いずれにも該当しない場合、現行のPlan Lock・Scope/Risk/Impact/Trusted Staticを必須とする。productionへの公開許可は別途必要。
+まず実際のGit差分を次の3ルートへ分類する。該当するstaging PRは**Full Plan・Plan Lock不要**で、変更範囲、必要な回帰、未確認事項をPR本文へ短く記録する。ユーザーに判定用JSONやハンク番号の入力を求めない。
+
+| ルート | 機械が確認する境界 | 追加の判断 |
+| --- | --- | --- |
+| 新しい試作 | 従来の固定判定器：新規単一 `works/<id>/`、通常ファイル追加、index.htmlあり | staging-only。町への登録や公開は別 |
+| active作品の小変更 | 従来の単一work・最大4ファイル・mode/行数/patch/容量制限を維持。追加判定が保存・外部通信・共有依存・配布の変更兆候を検出したら通常ルートへ戻す | 対象作品に必要な回帰と意味上のdiff review。判定器は任意のJSの意味まで証明しない。aliasや動的依存等が疑わしければ通常ルート |
+| 既知変更の部分復元 | `Restore-Source` のancestor single-parent commitと選択ハンクを照合。temporary Git indexでその逆差分だけを適用し、候補treeとの完全一致を要求 | 変更元・取り消し範囲を依頼から特定し、無関係な改善を残す。名称や自己申告だけでは許可しない |
+
+復元ルートは既存の通常text fileのみ、最大4件。共有側は `index.html` / `style.css` だけで、実行script/保存/API等の契約を含む差分は対象外。作品内はactiveの既存小変更境界に従う。ハンクは1-basedの `git diff --unified=0 <source>^ <source> -- <path>` からAIが選び、sourceの前後contextで照合する。削除/新規ファイルの復元、merge commitそのもの、競合・曖昧なcontext・余分な変更・Engine・複数作品・判定器/CIの復元は通常ルートへ戻す。merge済みPRの場合は取り消す実装commitを特定する。任意の過去blobを上書きする仕組みではない。
+
+`frozen` / `candidate` / `released`の編集、共有runtime・作品台帳・配布生成・上記対象外の変更は従来のPlan Lock / Scope / Risk / Impact / Trusted Staticを維持する。凍結再開とproduction公開は既存の指示要件を守る。staging作業内のcommit・PR・関連テスト・安全なマージに再承認を追加しない。**CIは具体的なUI設計への作者承認、実機確認、production公開許可を証明しない。**
+
+実装の正本：従来 `tools/staging-isolation-fastpath.cjs` と `tools/staging-contained-change-proof.cjs` は変更せず維持。両base-owned workflowが追加の `tools/staging-targeted-change-proof.cjs` と依存をexact blobに固定する。PR候補の判定器を実行しない。必要な作品回帰は軽量ルートでも省かない。
 
 | Plan | 主な対象 | 目的 |
 | --- | --- | --- |
@@ -49,7 +61,7 @@ OWNER / HQ DECISION（必要な場合）
   ↓
 PLAN READY
   ↓
-PLAN LOCK（高リスク / PR / promotion）
+PLAN LOCK（軽量対象外 / promotion）
   ↓
 IMPLEMENT
   ↓
@@ -156,7 +168,7 @@ generated
 
 ## 5. Plan Lock / Risk Floor
 
-v0.2では、**高リスク変更、隔離fast-path対象外のstaging PR、production昇格の根拠に使う変更**は、
+v0.2では、**§1の軽量対象外の高リスク変更・通常staging PR・production昇格の根拠に使う変更**は、
 実装前Planを `tools/change-plan-lock.cjs` でdigest化して固定する。
 
 ```sh
@@ -187,7 +199,7 @@ core Impactは `impactExclusions` へ逃がせない。
 また、1 profileが要求するImpactを全部N/AにしてVERIFIEDへ進めない。
 
 日常の軽いCONTENT / PLACEMENTを一律Fullにしない。
-stagingでは、単一新規 `works/<slug>/` の通常ファイル追加だけをbase-owned分類器で自動認定し、**この限定範囲のみPlan Lockを免除**する。その他すべてのPRには実装前Plan Lockが必要。成功canary #241と遮断canary #242で境界を確認済み（両PRは未マージ）。Working Copy / Deskの手順は `OPERATIONS.md` を参照する。
+stagingのPlan Lock免除は§1の3ルートだけ。対象外のPRには従来どおり実装前Lockが必要。Working Copy / Deskの実行手順は `OPERATIONS.md` を参照する。
 
 現行の `Change PR Gate v0.2` は `pull_request_target` でPR base側のworkflow定義とgate実装を使う。
 candidate branchのworkflowやgate toolを実行して自己認証しない。
