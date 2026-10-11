@@ -38,7 +38,12 @@ WORLD OBJECT / pixel規約は `YUMANIWA-PIXEL-STANDARD.md` を正本とする。
 - 作業範囲に含まれるbranch作成、commit、PR、テスト、stagingへの通常反映を、毎回新しい承認項目にしない。外部アプリの接続許可やproduction公開は独立して扱う。
 - 修正を元に戻す際は、既存の差分から対象箇所だけを特定して復元する。試作の失敗や作者による取り消しは、重大な設計変更と同列に扱わない。
 
-**現在の実装:** 単一の**新規** `works/<slug>/` 以下への追加だけ（通常ファイル・`index.html` 必須、既存/共有/削除/移動/二作品/リンクなし）なら、stagingの2つのbase-owned CIがGit差分・mode・blobを検査し、Plan Lockなしで通せる。成功canary #241、共有画面変更を止めた#242はともに未マージ。新規ディレクトリであっても既存ファイルや町/Engine/公開データと混在すれば従来のPlan Lock・Scope/Risk/Impactへ戻す。fast-pathはproduction公開や人の実機確認を代替しない。
+**現在の実装:** stagingのbase-owned CIには2つの限定fast-pathがある。
+
+- **新規試作:** 未登録の単一 `works/<slug>/` に `index.html` を含む通常ファイルを追加するだけ。既存ファイルは変更しない。
+- **制作中作品の小変更:** 基準SHAの `data/work-lifecycle.json` で `active` と確認できる単一の既存work内だけ。追加・修正を計4ファイル以内、通常ファイル、編集行数・patch・blobサイズ制限内に限定し、削除・改名・ビルド／配布設定には使わない。古いGit blobへ正確に戻した場合も、その**active workの局所変更であること**が前提。
+
+実際の検査: #250はactive局所変更を許可、#254は新規作成を許可。#251 frozen、#252 released、#255 candidate、#253共有画面はPlanなしで拒否（全PR未マージ）。対象外は従来のPlan Lock・Scope/Risk/Impact・Trusted Staticへ戻す。**共有画面のrollbackも自動例外にしない**。fast-pathが証明するのはGit差分の隔離と形式のみで、作者の体験判断・production公開や人の実機確認は代替しない。
 
 ---
 
