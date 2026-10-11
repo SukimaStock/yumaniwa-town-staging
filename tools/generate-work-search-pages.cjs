@@ -62,6 +62,8 @@ function esc(v) {
 function jsonScript(v) { return JSON.stringify(v,null,2).replace(/</g,'\\u003c'); }
 
 function heading(work, localeData, locale) {
+  // Search/Share identity is distinct from the short label used inside the town.
+  if (typeof localeData.heading === 'string' && localeData.heading.trim()) return localeData.heading.trim();
   if (locale==='ja') return work.menuTitle || work.frameTitle || work.title;
   return localeData.shareTitle.replace(/\s*\|\s*Yumaniwa Town\s*$/,'');
 }
