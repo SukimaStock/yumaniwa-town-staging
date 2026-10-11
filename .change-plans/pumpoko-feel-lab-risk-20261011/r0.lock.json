@@ -1,0 +1,95 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1afc4e1284ed7fe3fe6dcedf75aea91eba34ee0bc3e13f42e4feec72b08e0ef8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-feel-lab-risk-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Compare B→D long with no hazard, a gap midway along its long D plateau, and a gap near the plateau exit, preserving the pleasant terrain and physics",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "8a144ebbba858e27a413c694c94e2b7bab741c0e",
+    "canonicalSources": [
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-feel-lab/BD-REVIEW.md",
+      "works/pumpoko-02/world.js",
+      "works/pumpoko-02/physics.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-feel-lab-risk-20261011/r0.lock.json",
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/style.css",
+      "works/pumpoko-feel-lab/RISK-REVIEW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko-02/**",
+      "works/pumpoko/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Reuse B→D long Hermite geometry exactly in all three variants; change only gap descriptors and collision/rasterization",
+      "Add FEEL LAB risk-comparison study mode with no-gap baseline, mid-flat gap and near-exit gap, fixed width, both pumpkin and rutabaga playable",
+      "Use unmodified W.contact/W.groundFrame and P.integrate ground gaps with real airborne falling, no invisible bridges, no extra jump/boost",
+      "Render genuine negative ground cutouts with physical lip at matching coordinates; promptly restart after a genuine fall; show quiet attempt/crossing feedback, not scores",
+      "Keep all previous lab modes, localStorage key, optional feel feedback and mobile canvas controls, with versioned CSS/JS to avoid cache errors",
+      "Validate shape parity, gap physical interactions, failure and successful crossing cases, iPhone canvas sizing, reset and regression on other modes, separate device-unverified notes"
+    ],
+    "ownerDecisions": [
+      "User explicitly requests implementing next risk comparison after identifying B→D long as most replayable and considering whether risk adds or detracts from tactile enjoyment"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Fresh current HEAD and work-owned gap/contact implementation examined",
+      "Plan Lock as branch first commit",
+      "Work-local staging-only changes; no production promotion"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "No-gap reference feels identical to original B→D long on iPhone",
+      "Both mid-flat and end-flat gaps visible, physically traversable at speed and cause falls without speed",
+      "Falling visibly triggers retry without stuck/cropped view",
+      "iPhone Safari buttons, camera, course selection and saved observations",
+      "Compare touch fun versus tension versus crossing satisfaction independently"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing PUMPOKO 02 work-local physics.js/world.js/draw.js used without changes"
+    ],
+    "rollback": "Revert isolated staging PR",
+    "outOfScope": [
+      "Changing physics parameters, hardening main PUMPOKO 02 game stages, adding baton-handoff holes, score or new action, production changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPhone Safari touch and perceived fun, risk and clear satisfaction are subjective and UNVERIFIED",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
