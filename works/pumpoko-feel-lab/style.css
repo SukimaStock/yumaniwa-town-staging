@@ -45,3 +45,14 @@ footer{text-align:center;line-height:1.3}
 #order-hint{font-size:11px;line-height:1.35;color:#897359}
 .order-progress{margin:0;font-size:11px;color:#6f825f;line-height:1.2}
 .order-progress:empty{display:none}
+
+/* Four clear research modes, with comparable B→D variants in their own row. */
+.study-tabs{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.study-tabs button{font-size:10px;line-height:1.25;min-height:45px;overflow-wrap:anywhere;padding:7px 3px}
+#variant-courses{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px}
+#variant-courses button{font-size:11px;min-height:48px;line-height:1.2;padding:6px 3px;white-space:normal}
+#variant-hint{font-size:11px;line-height:1.4;color:#897359}
+@media(max-width:370px){
+  .study-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #variant-courses{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
