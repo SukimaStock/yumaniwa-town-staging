@@ -1,0 +1,127 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d0b9cfd17ac3104a37c4749c5428f3f297aebac88173bcc317ed4329353fdc74",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ops-final-targeted-proof-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add inert targeted restore proof and contract-sensitive fallback for existing local edits, without activating either route yet.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "dda4c46d50c02566a85f666b0d099eadbb675fec",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "tools/staging-contained-change-proof.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ops-final-targeted-proof-20261011/r0.lock.json",
+      "tools/staging-targeted-change-proof.cjs",
+      "tests/test-staging-targeted-change-proof.cjs",
+      ".github/workflows/change-operations-tests.yml"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml",
+      "tools/staging-isolation-fastpath.cjs",
+      "tools/staging-contained-change-proof.cjs",
+      "tools/change-static-check-registry.json",
+      "data/**",
+      "works/**",
+      "engine/**",
+      "index.html",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Keep existing pinned classifiers unchanged; add a bounded wrapper that rejects contract-sensitive changed lines and proves selected reverse hunks against a reachable source commit using a temporary Git index.",
+      "Add positive and negative tests and run them in existing unprivileged regression workflow. No runtime or production changes."
+    ],
+    "ownerDecisions": [
+      "User task 2026-10-11 explicitly delegates staging investigation, safety implementation, PRs and safe merges; production deployment remains withheld."
+    ],
+    "hqDecisions": [
+      "Source commit and selected Git hunks are data, not approval. Restore must reproduce candidate tree exactly and preserve unrelated improvements.",
+      "Town restore limited to existing index.html/style.css; shared Engine, other works, contracts and distribution remain full-review.",
+      "Do not activate until each base-owned workflow separately preauthorizes exact future blob."
+    ],
+    "rulesApplied": [
+      "Keep staging experimentation distinct from production",
+      "No fabricated design approval in Plan text",
+      "Owner can reject staging trial and request minimal rollback",
+      "No new gate, review step or human signoff for shared reversible staging UI"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Inspect proof boundaries and confirm no new UI or production changes"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "staging main 1629b59800ebc971ddd7432aa69eaf13021f198c",
+      "Currently enforced trusted PR Gate and Change Verification Evidence",
+      "Previous PR #256 policy texts"
+    ],
+    "rollback": "Revert only new helper and test introduction before workflow activation; after activation restore exact previously authorized workflow through normal transitions.",
+    "outOfScope": [
+      "Changing pinned original classifiers",
+      "Production publication",
+      "Human attestation system",
+      "New UI"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Human experience and production deployment",
+      "New routes not live until both protected workflows transition"
+    ],
+    "alternativesRejected": [
+      "Continue demanding preapproval before every staging UI experiment",
+      "Automatically adopt a staging UI based on passing CI",
+      "Weaken required Scope/Risk/Impact gates to speed up undo"
+    ],
+    "boundaryCases": [
+      "Unchanged security classifiers",
+      "Reverse subset with later independent changes",
+      "Ambiguous/conflicting revert falls back",
+      "Town new UI requires concrete owner decision"
+    ],
+    "testPlan": [
+      "Normal local edits",
+      "Contract-sensitive edits rejected",
+      "Source subsets preserve unrelated improvements",
+      "Forged revert and mixed changes rejected",
+      "Source ancestry/modes/limits/production boundaries"
+    ],
+    "problem": "Existing local classifier verifies paths and size but cannot flag contract-sensitive small edits; known UI restore still requires a Full Plan.",
+    "currentContract": "Pinned base classifiers and two-phase exact-blob workflow transitions",
+    "whyExistingIsInsufficient": "Known rollback and local contract edits need bounded evidence rather than self-declared revert labels.",
+    "design": "One small read-only proof wrapper; exact source/hunk reverse application in temporary Git index; conservative contract signals supplement existing containment.",
+    "migration": "Install tool inert first, then authorize/install PR Gate, then authorize/install independent Verification.",
+    "compatibility": "Preserve original new-work route, old contained classifier, full-review fallback and exact-blob protections.",
+    "promotionRisk": "No production merge or external service action"
+  }
+}
