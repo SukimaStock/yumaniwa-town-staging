@@ -43,6 +43,51 @@
     return joined;
   }
   const orderPoints=Object.fromEntries(Object.entries(orderSpecs).map(([key,[a,b]])=>[key,composeOrder(a,b)]));
+  // BD is the owner-approved control sample. Never transform its points.
+  // Flat study: only the horizontal plateau inside D changes; the rest of D
+  // is translated in X, with all original Y values and tangents intact.
+  const bdVariants={
+    baseline:orderPoints.bd.map(p=>p.slice()),
+    short:null,
+    long:null,
+    repeat:null
+  };
+  const bdPlateauStart=300+2380; // Original D x=300 translated by composeOrder.
+  const bdPlateauMid=500+2380;
+  const bdPlateauEnd=675+2380;
+  function changeBDFlat(delta){
+    return orderPoints.bd.map(p=>{
+      const q=p.slice();
+      if(q[0]===bdPlateauMid)q[0]+=delta/2;
+      else if(q[0]>=bdPlateauEnd)q[0]+=delta;
+      return q;
+    });
+  }
+  function appendPhrase(firstPoints, phraseId){
+    const first=firstPoints.map(p=>p.slice()),incoming=chainPoints[phraseId];
+    const tail=first.at(-1),head=incoming[0],span=180;
+    const dx=tail[0]+span-head[0],dy=tail[1]-head[1];
+    return first.concat([[tail[0]+55,tail[1],0],[tail[0]+125,tail[1],0]],
+      incoming.map(p=>[p[0]+dx,p[1]+dy,p[2]]));
+  }
+  bdVariants.short=changeBDFlat(-200); // D plateau length 375 -> 175
+  bdVariants.long=changeBDFlat(250);   // D plateau length 375 -> 625
+  bdVariants.repeat=appendPhrase(orderPoints.bd,'rhythm');
+  for(const [id,curve] of Object.entries(bdVariants)){
+    for(let i=0;i<curve.length;i++){
+      if(!curve[i].every(Number.isFinite)||(i&&curve[i][0]<=curve[i-1][0]))
+        throw Error('Invalid BD variant: '+id);
+    }
+  }
+  const variantDescriptions={
+    baseline:'B → D｜好評だった原型。そのままもう一度遊びたくなるか。',
+    short:'B → D｜Dの平面だけ200短く。リズムが途切れなくなるか。',
+    long:'B → D｜Dの平面だけ250長く。次のバウンドの期待が増すか。',
+    repeat:'B → D → B｜余白の後、もう一度リズムへ戻る。遊び続けたくなるか。'
+  };
+  const variantLabels={baseline:'B → D · 原型',short:'B → D · 短い平面',
+    long:'B → D · 長い平面',repeat:'B → D → B'};
+  const variantPartEnds={baseline:[1700,1880],short:[1700,1880],long:[1700,1880],repeat:[1700,1880,4080,4260]};
   const orderDescriptions={
     ac:'ROLL比較｜A · FLOW → C · PUMP。自然に作った勢いを切り返しへつなぐ。',
     ca:'ROLL比較｜C · PUMP → A · FLOW。切り返しで作った勢いを次の流れへ渡す。',
@@ -72,7 +117,7 @@
   let kind='pumpkin',terrain='bowl',mode='single',feedback='retry',course,state,activePointer=null,pointerSource=null,axis=0;
   let keys=new Set(),canvasSize={width:0,height:0,dpr:1},lastTime=0,view=null;
   const byId=id=>doc.getElementById(id);
-  function points(){return mode==='order'?orderPoints[terrain]:mode==='chain'?chainPoints[terrain]:terrainPoints[terrain]}
+  function points(){return mode==='variant'?bdVariants[terrain]:mode==='order'?orderPoints[terrain]:mode==='chain'?chainPoints[terrain]:terrainPoints[terrain]}
   function limits(){const p=points();return {min:p[0][0],max:p[p.length-1][0]}}
   function floor(x){const l=limits();return W.curve('surface',Math.max(l.min,Math.min(l.max,x)),course)}
   const geometry={
@@ -99,12 +144,16 @@
     for(const item of doc.querySelectorAll('[data-terrain]'))item.classList.toggle('active',mode==='single'&&item.dataset.terrain===terrain);
     for(const item of doc.querySelectorAll('[data-chain]'))item.classList.toggle('active',mode==='chain'&&item.dataset.chain===terrain);
     for(const item of doc.querySelectorAll('[data-order]'))item.classList.toggle('active',mode==='order'&&item.dataset.order===terrain);
+    for(const item of doc.querySelectorAll('[data-variant]'))item.classList.toggle('active',mode==='variant'&&item.dataset.variant===terrain);
     for(const item of doc.querySelectorAll('[data-study]'))item.classList.toggle('active',item.dataset.study===mode);
     byId('single-courses').hidden=mode!=='single';byId('chain-courses').hidden=mode!=='chain';
     byId('order-courses').hidden=mode!=='order';
     byId('order-hint').hidden=mode!=='order';
-    byId('saved').textContent=(mode==='order'?orderDescriptions:mode==='chain'?chainDescriptions:descriptions)[terrain];
+    byId('variant-courses').hidden=mode!=='variant';
+    byId('variant-hint').hidden=mode!=='variant';
+    byId('saved').textContent=(mode==='variant'?variantDescriptions:mode==='order'?orderDescriptions:mode==='chain'?chainDescriptions:descriptions)[terrain];
     const label=byId('order-progress');if(label)label.textContent=mode==='order'?(orderParts[terrain]+' · 前半'):'';
+    const progress=byId('variant-progress');if(progress)progress.textContent=mode==='variant'?(variantLabels[terrain]+' · B 前半'):'';
     computeView();
   }
   function computeView(){
@@ -148,18 +197,37 @@
     ctx.setTransform(dpr,0,0,-dpr,0,height*dpr);
     ctx.fillStyle='#faf1dc';ctx.fillRect(0,0,width,height);
     const v=computeView(),l=limits();
+    if(mode==='variant'){
+      const label=byId('variant-progress'),x=state[kind].x;
+      if(label){
+        const ends=variantPartEnds[terrain];
+        const part=x<ends[0]?'B 前半':x<ends[1]?'接続①':
+          x<(ends[2]||Infinity)?'D 後半':x<ends[3]?'接続②':'B 再び';
+        label.textContent=variantLabels[terrain]+' · '+part;
+      }
+    }
     if(mode==='order'){
       const label=byId('order-progress');
       if(label)label.textContent=orderParts[terrain]+
         (state[kind].x>=orderSecondStartX?' · 後半':state[kind].x>=1700?' · つなぎ':' · 前半');
     }
     ctx.save();ctx.translate(v.originX,v.originY);ctx.scale(v.zoom,v.zoom);
-    ctx.beginPath();ctx.moveTo(l.min-15,v.bottom-80);ctx.lineTo(l.min-15,floor(l.min).y);
-    for(let x=l.min;x<=l.max;x+=5)ctx.lineTo(x,floor(x).y);
-    ctx.lineTo(l.max+15,v.bottom-80);ctx.closePath();
-    ctx.fillStyle='#d9b385';ctx.fill();
-    ctx.beginPath();for(let x=l.min;x<=l.max;x+=5){const y=floor(x).y;if(x===l.min)ctx.moveTo(x,y);else ctx.lineTo(x,y)}
-    ctx.strokeStyle='#68835f';ctx.lineWidth=9;ctx.lineJoin='round';ctx.lineCap='round';ctx.stroke();
+    // Only rasterize the horizontal interval visible in the canvas.
+    // Long B→D→B courses should not cost more to draw than short studies.
+    const visibleLeft=Math.max(l.min,(0-v.originX)/v.zoom-20);
+    const visibleRight=Math.min(l.max,(width-v.originX)/v.zoom+20);
+    if(visibleRight>visibleLeft){
+      ctx.beginPath();ctx.moveTo(visibleLeft,v.bottom-80);
+      ctx.lineTo(visibleLeft,floor(visibleLeft).y);
+      for(let x=visibleLeft+5;x<visibleRight;x+=5)ctx.lineTo(x,floor(x).y);
+      ctx.lineTo(visibleRight,floor(visibleRight).y);
+      ctx.lineTo(visibleRight,v.bottom-80);ctx.closePath();
+      ctx.fillStyle='#d9b385';ctx.fill();
+      ctx.beginPath();ctx.moveTo(visibleLeft,floor(visibleLeft).y);
+      for(let x=visibleLeft+5;x<visibleRight;x+=5)ctx.lineTo(x,floor(x).y);
+      ctx.lineTo(visibleRight,floor(visibleRight).y);
+      ctx.strokeStyle='#68835f';ctx.lineWidth=9;ctx.lineJoin='round';ctx.lineCap='round';ctx.stroke();
+    }
     const body=state[kind],f=floor(body.x);
     const altitude=Math.max(0,body.y-body.r-f.y);
     Art.ellipse(ctx,body.x,f.y+2,body.r,4,'rgba(80,54,27,'+(.16/(1+altitude/80))+')');
@@ -224,12 +292,15 @@
   for(const b of doc.querySelectorAll('[data-kind]'))b.addEventListener('click',()=>{kind=b.dataset.kind;if(mode==='order')terrain=kind==='pumpkin'?'ac':'bd';reset()});
   for(const b of doc.querySelectorAll('[data-study]'))b.addEventListener('click',()=>{
     mode=b.dataset.study;
-    terrain=mode==='order'?(kind==='pumpkin'?'ac':'bd'):mode==='chain'?'flow':'bowl';
+    terrain=mode==='variant'?'baseline':mode==='order'?(kind==='pumpkin'?'ac':'bd'):mode==='chain'?'flow':'bowl';
     reset();
   });
   for(const b of doc.querySelectorAll('[data-chain]'))b.addEventListener('click',()=>{if(!chainPoints[b.dataset.chain])return;mode='chain';terrain=b.dataset.chain;reset()});
   for(const b of doc.querySelectorAll('[data-order]'))b.addEventListener('click',()=>{
     if(!orderPoints[b.dataset.order])return;mode='order';terrain=b.dataset.order;reset();
+  });
+  for(const b of doc.querySelectorAll('[data-variant]'))b.addEventListener('click',()=>{
+    if(!bdVariants[b.dataset.variant])return;mode='variant';terrain=b.dataset.variant;reset();
   });
   for(const b of doc.querySelectorAll('[data-feedback]'))b.addEventListener('click',()=>{feedback=b.dataset.feedback;for(const item of doc.querySelectorAll('[data-feedback]'))item.classList.toggle('active',item===b)});
   for(const b of doc.querySelectorAll('[data-terrain]'))b.addEventListener('click',()=>{if(!terrainPoints[b.dataset.terrain])return;mode='single';terrain=b.dataset.terrain;reset()});
@@ -237,6 +308,9 @@
   byId('save').addEventListener('click',()=>{
     const entry={kind,mode,terrain,feedback,points:points().map(p=>p.slice()),
       ...(mode==='order'?{sourceCourses:orderSpecs[terrain].slice(),junctionX:orderJoinX}:{}),
+      ...(mode==='variant'?{sourceCourses:terrain==='repeat'?['rhythm','breath','rhythm']:['rhythm','breath'],
+        modifiedFactor:terrain==='short'?'D flat -200':terrain==='long'?'D flat +250':'none',
+        baseline:'order:bd'}:{}),
       note:byId('memo').value.trim(),at:new Date().toISOString()};
     try{
       const key='pumpoko-feel-lab-terrains-v1';
@@ -249,7 +323,7 @@
   if(root.ResizeObserver)new root.ResizeObserver(resize).observe(canvas.parentElement);
   resize();reset();
   if(new URLSearchParams(root.location.search).get('dev')==='1'){
-    root.FeelLabProbe=()=>({kind,terrain,mode,feedback,parts:mode==='order'?orderSpecs[terrain]:null,axis:currentAxis(),x:state[kind].x,y:state[kind].y,
+    root.FeelLabProbe=()=>({kind,terrain,mode,feedback,parts:mode==='order'?orderSpecs[terrain]:mode==='variant'?(terrain==='repeat'?['rhythm','breath','rhythm']:['rhythm','breath']):null,axis:currentAxis(),x:state[kind].x,y:state[kind].y,
       vx:state[kind].vx,vy:state[kind].vy,time:state.time,view:{...view},
       canvas:{width:canvasSize.width,height:canvasSize.height},grounded:state[kind].grounded});
   }
