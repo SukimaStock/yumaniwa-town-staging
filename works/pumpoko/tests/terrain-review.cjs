@@ -23,8 +23,8 @@ function main(){
   ['Mouth 1 / cellar cut side',{x:1400,hole:true}],['Mouth 2 / upward exchange',{x:2790,hole:true}],
   ['Mouth 3 / deeper cellar',{x:5210,hole:true}],['Mouth 4 / final surface',{x:7050,hole:true}]];
  const sheet=createCanvas(780,330+cases.length*500),c=sheet.getContext('2d');c.fillStyle='#faf1dc';c.fillRect(0,0,sheet.width,sheet.height);
- const g=require('../../pumpoko/stage-geometry.js').compile(require('../../pumpoko/stage-data.js'));
- const old=require('../../pumpoko/stage-draw.js'),reference=createCanvas(390,270),r=reference.getContext('2d');
+ const g=require('../../pumpoko-01/stage-geometry.js').compile(require('../../pumpoko-01/stage-data.js'));
+ const old=require('../../pumpoko-01/stage-draw.js'),reference=createCanvas(390,270),r=reference.getContext('2d');
  r.fillStyle=old.material.air;r.fillRect(0,0,390,270);r.translate(195,80);r.scale(1.85,1.85);r.translate(-190,-g.floor(190).y);old.drawTerrain(r,g);c.drawImage(reference,0,30);
  c.fillStyle='#695539';c.font='16px sans-serif';c.fillText('Original PUMPOKO / actual terrain at 1.85x',10,22);
  for(const [i,t]of ['Skin: 7 x 1.85 = 12.95 screen pixels','Inner cream: 3 x 1.85 = 5.55 pixels','02: same presence at unchanged .8x','All thickness on the solid side','Native Canvas fixtures / no device capture'].entries())c.fillText(t,400,80+i*35);

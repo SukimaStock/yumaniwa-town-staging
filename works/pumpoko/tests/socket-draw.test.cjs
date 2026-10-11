@@ -20,7 +20,7 @@ test('all existing runtime/assets except terrain drawing and approved shot timin
  const repo=path.resolve(__dirname,'../../..');
  const files=execFileSync('git',['ls-tree','-r','--name-only',BASE,'works/pumpoko-02/'],{cwd:repo,encoding:'utf8'}).trim().split('\n').filter(p=>!approvedLogoPath(p)&&!p.includes('/tests/')&&!p.includes('/visual-review/')&&!p.endsWith('.md')&&!p.endsWith('/world-draw.js')&&!['/physics.js','/story.js','/app.js','/courses.js','/world.js'].some(x=>p.endsWith(x)));
  protectPhysics();
- for(const p of files)assert.deepEqual(fs.readFileSync(path.join(repo,p)),execFileSync('git',['show',BASE+':'+p],{cwd:repo,maxBuffer:10e6}),p);
+ for(const p of files)assert.deepEqual(fs.readFileSync(path.join(repo,p.replace('works/pumpoko-02/','works/pumpoko/'))),execFileSync('git',['show',BASE+':'+p],{cwd:repo,maxBuffer:10e6}),p);
 });
 for(const clip of clips){
  test(clip.id+': actual opening is empty air through the full flesh, never an orange bridge',()=>{

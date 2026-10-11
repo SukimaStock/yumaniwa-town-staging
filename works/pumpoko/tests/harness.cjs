@@ -48,12 +48,13 @@ function harness({width=1000,height=760,native=false,sourceRef=null}={}) {
   const read=file=>sourceRef&&file.startsWith('works/pumpoko-02/')
     ?require('node:child_process').execFileSync('git',['show',sourceRef+':'+file],{cwd:repo,encoding:'utf8'})
     :fs.readFileSync(path.join(repo,file),'utf8');
-  const manifest=read('works/pumpoko-02/index.html');
+  const sourcePrefix=sourceRef?'works/pumpoko-02/':'works/pumpoko/';
+  const manifest=read(sourcePrefix+'index.html');
   for(const match of manifest.matchAll(/<script[^>]*src="([^"]+)"/g)){
-    const file=path.posix.normalize('works/pumpoko-02/'+match[1]);
+    const file=path.posix.normalize(sourcePrefix+match[1]);
     vm.runInContext(read(file),context,{filename:file});
   }
-  if(native){const img=new (require('@napi-rs/canvas').Image)();img.src=fs.readFileSync(path.join(repo,'works/pumpoko-02/assets/pumpoko-logo.svg'));ids.set('title-art',img);}
+  if(native){const img=new (require('@napi-rs/canvas').Image)();img.src=fs.readFileSync(path.join(repo,'works/pumpoko/assets/pumpoko-logo.svg'));ids.set('title-art',img);}
   w.CodeaLite.start('gameCanvas');const tones=[],sounds=[];w.SSE.audio.tone=e=>tones.push({...e,at:w.PumpokoProbe().model.time});
   const play=w.SSE.audio.play.bind(w.SSE.audio);w.SSE.audio.play=(name,...args)=>{sounds.push(name);return play(name,...args);};
   function frame(){clock+=1000/60;const [id,fn]=[...raf][0];raf.delete(id);fn(clock);for(const item of media)item.advance(1/60);if(native&&++frameCount%30===0){renderCanvas.getContext('2d').getImageData(0,0,1,1);if(global.gc)global.gc();}}

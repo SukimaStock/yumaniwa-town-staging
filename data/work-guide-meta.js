@@ -20,6 +20,11 @@ var WORK_GUIDE_FEATURED = [
 ];
 
 var WORK_GUIDE_META = {
+    "pumpoko": {
+        duration: "5〜15分",
+        moods: ["play"],
+        guideLine: "地上でころころ、地下でぽよん。ふたりの野菜の旅へ。"
+    },
     "orbit": {
         duration: "10〜20分",
         moods: ["play", "quiet"],

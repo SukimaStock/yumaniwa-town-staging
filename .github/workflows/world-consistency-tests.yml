@@ -6,6 +6,7 @@ on:
     paths:
       - "tests/world-consistency/**"
       - "works/pumpoko/**"
+      - "works/pumpoko-01/**"
       - "works/orbit-02/**"
       - ".github/workflows/world-consistency-tests.yml"
   push:
@@ -13,6 +14,7 @@ on:
     paths:
       - "tests/world-consistency/**"
       - "works/pumpoko/**"
+      - "works/pumpoko-01/**"
       - "works/orbit-02/**"
       - ".github/workflows/world-consistency-tests.yml"
 
@@ -29,4 +31,4 @@ jobs:
       - name: Audit contract positive and negative traces
         run: node --test tests/world-consistency/integration.test.cjs
       - name: Run current PUMPOKO and ORBIT 02 source integration tests
-        run: node --test works/pumpoko/test-ending.cjs works/pumpoko/test-audio.cjs works/orbit-02/tests/archive.test.cjs
+        run: node --test works/pumpoko-01/test-ending.cjs works/pumpoko-01/test-audio.cjs works/orbit-02/tests/archive.test.cjs

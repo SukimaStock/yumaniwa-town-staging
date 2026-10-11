@@ -5,9 +5,9 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),asse
 const {createCanvas,loadImage,Path2D}=require('@napi-rs/canvas'),{harness}=require('./harness.cjs');
 const repo=path.resolve(__dirname,'../../..');
 async function originalRunner(){
-  const D=require(repo+'/works/pumpoko/dynamics.js'),J=require(repo+'/works/pumpoko/journey.js');
+  const D=require(repo+'/works/pumpoko-01/dynamics.js'),J=require(repo+'/works/pumpoko-01/journey.js');
   const canvas=createCanvas(390,740),c=canvas.getContext('2d'),held=new Set();let config;
-  const logo=await loadImage(path.join(repo,'works/pumpoko/assets/pumpoko-logo.svg'));
+  const logo=await loadImage(path.join(repo,'works/pumpoko-01/assets/pumpoko-logo.svg'));
   const element=()=>({addEventListener(){},setAttribute(){},textContent:''}),els={'title-art':logo,'gameCanvas':element(),'sound-toggle':element()};
   const w={console,Path2D,location:{search:'?dev=1'},URLSearchParams,window:null,
     SUKIMASTOCK_WORK:{id:'pumpoko',title:'PUMPOKO',logicalWidth:390,logicalHeight:740,frameRate:60},

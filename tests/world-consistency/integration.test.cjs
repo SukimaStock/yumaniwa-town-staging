@@ -30,8 +30,8 @@ const fs=require('node:fs'), path=require('node:path'), vm=require('node:vm');
 const root=path.resolve(__dirname,'../..');
 
 function livePumpoko() {
- const D=require(path.join(root,'works/pumpoko/dynamics.js'));
- const J=require(path.join(root,'works/pumpoko/journey.js'));
+ const D=require(path.join(root,'works/pumpoko-01/dynamics.js'));
+ const J=require(path.join(root,'works/pumpoko-01/journey.js'));
  const keys=new Set();
  let config,journey=null;
  const input={action:k=>keys.has(k),actionPressed:()=>false,reset(){keys.clear()}};
@@ -51,7 +51,7 @@ function livePumpoko() {
    window,location:window.location,document:{hidden:false},
    SSE,URLSearchParams,BEGAN:'BEGAN',MOVING:'MOVING',ENDED:'ENDED',CANCELLED:'CANCELLED'
  };
- vm.runInNewContext(fs.readFileSync(path.join(root,'works/pumpoko/sketch.js'),'utf8'),context);
+ vm.runInNewContext(fs.readFileSync(path.join(root,'works/pumpoko-01/sketch.js'),'utf8'),context);
  const scene=config.scenes.main;
  const trace=[],snapshot=(event,session)=>{
    const p=window.PumpkinProbe();
