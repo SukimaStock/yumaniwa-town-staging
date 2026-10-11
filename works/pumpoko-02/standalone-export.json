@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "id": "pumpoko-02",
+  "title": "PUMPOKO",
+  "entry": "index.html",
+  "engine": {
+    "source": "engine/sukimastock-engine.v0.3.0.js",
+    "target": "sukimastock-engine.js",
+    "htmlMarker": "data-sse-engine"
+  },
+  "include": [
+    "index.html",
+    "style.css",
+    "codea-lite.js",
+    "physics.js",
+    "world.js",
+    "courses.js",
+    "material.js",
+    "draw.js",
+    "world-draw.js",
+    "prologue.js",
+    "title-draw.js",
+    "opening.js",
+    "opening-draw.js",
+    "story.js",
+    "app.js",
+    "assets/pumpoko-logo.svg",
+    "audio/drum-don.wav",
+    "audio/fiber.wav",
+    "audio/pumpoko-bgm.mp3",
+    "audio/seed.wav",
+    "audio/shell.wav"
+  ],
+  "output": "PUMPOKO-itch.zip"
+}
