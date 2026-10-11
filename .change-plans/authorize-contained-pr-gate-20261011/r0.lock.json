@@ -1,0 +1,125 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e25b25594bde9bc988b0d657f4ed9e870de7b9f5b7e96bfb7c0e5c71266a3b69",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "authorize-contained-pr-gate-20261011",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Preauthorize a single protected PR Gate exact blob to classify bounded changes only inside one lifecycle-active existing work; keep current workflow unchanged.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "700441f9fa5aeb2816ef1af14c13a8945f01fb13",
+    "canonicalSources": [
+      "tools/change-static-check-registry.json",
+      ".github/workflows/change-pr-gate.yml",
+      "tools/change-static-check.cjs",
+      "tools/staging-isolation-fastpath.cjs",
+      "tools/staging-contained-change-proof.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/authorize-contained-pr-gate-20261011/r0.lock.json",
+      "tools/change-static-check-registry.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/change-pr-gate.yml",
+      "tools/change-verification.yml",
+      "tools/change-static-check.cjs",
+      "tools/change-risk-policy.cjs",
+      "tools/staging-isolation-fastpath.cjs",
+      "works/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "tools/staging-contained-change-proof.cjs"
+    ],
+    "expectedChanges": [
+      "Pin future PR Gate from f2eaa9886d851313c9a041d5e9376f97002d4ead to 6da0752cc0a58c589a2100280baceabe748bb0df in exactly one registry contract.",
+      "Set registry version 2026-10-11.5 pending for the PR Gate only; keep workflow bytes unchanged.",
+      "New gate will use trusted-base pinned active-only classifier 8c826e9c20078cc3e35bddf61a4dee533b664e20 and existing new-work classifier; preserve normal Plan path for everything else."
+    ],
+    "ownerDecisions": [
+      "Owner approved the 2026-10-11 staging CI simplification for active existing work local fixes; frozen/released/candidate/shared/production stay protected."
+    ],
+    "hqDecisions": [
+      "Only one exact protected workflow blob is authorized, not installed in this PR.",
+      "Preserve original Plan path for all ineligible changes.",
+      "Update independent verification workflow later using its own authorization."
+    ],
+    "rulesApplied": [
+      "Keep existing PR Lock intact in first phase",
+      "Avoid broad glob path allowlists in gate",
+      "No publication or lifecycle status changes",
+      "No untrusted scripts in privileged checks"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Compare exact candidate workflow blob with old source and both classifier pins",
+      "Verify no workflow changed in this registry-only PR",
+      "Confirm unrelated static registry contracts unchanged"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Staging base 700441f9fa5aeb2816ef1af14c13a8945f01fb13",
+      "Current PR Gate f2eaa9886d851313c9a041d5e9376f97002d4ead",
+      "Precomputed candidate 6da0752cc0a58c589a2100280baceabe748bb0df",
+      "Lifecycle-active classifier Git blob 8c826e9c20078cc3e35bddf61a4dee533b664e20"
+    ],
+    "rollback": "Revert registry-only authorization before implementing protected workflow; do not change production.",
+    "outOfScope": [
+      "Changing .github workflow file in this PR",
+      "Activating fastpath in this PR",
+      "Changing production or Work lifecycle"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Future compiled workflow not yet tested as PR gating"
+    ],
+    "alternativesRejected": [
+      "Merge a protected workflow without advance exact-blob authorization",
+      "Trust unpinned mutable classifier as security authority",
+      "Bypass verification workflow checks"
+    ],
+    "boundaryCases": [
+      "Registry transition is one path only and target file remains old exact blob",
+      "Other contract entries byte-identical",
+      "Normal PRs still require first-commit Plan Lock in authorization stage"
+    ],
+    "testPlan": [
+      "Check existing trusted registry transition proof",
+      "Compare commit diff exactly lock+registry",
+      "Run existing Change OS regression tests and trusted previous-base gates"
+    ],
+    "problem": "Active-only bounded existing-work classifier is proven but trusted PR Gate still only recognizes entirely new works.",
+    "currentContract": "Protected workflow exact blob is pinned in steady registry.",
+    "whyExistingIsInsufficient": "Existing active local work edits require a Plan Lock because workflow has not been authorized for bounded classification.",
+    "design": "Preauthorize exactly one future workflow blob in registry, without changing current workflow source.",
+    "migration": "First authorize PR Gate blob, then install in a separate PR; repeat independently for verification workflow and run canaries.",
+    "compatibility": "No CI behavioral change in authorization phase. Production and all games unchanged.",
+    "promotionRisk": "Only staging active local work is eligible; no production or frozen/released/candidate exception."
+  }
+}
