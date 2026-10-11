@@ -47,7 +47,41 @@ jobs:
           path: candidate
           persist-credentials: false
 
+      - name: Classify isolated work additions using pinned trusted source
+        id: isolation
+        shell: bash
+        env:
+          EVENT_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          EVENT_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          trusted="$GITHUB_WORKSPACE/trusted"
+          candidate="$GITHUB_WORKSPACE/candidate"
+          # The classifier is pinned by the base-owned workflow exact-blob contract.
+          # Do not run a changed/unchecked classifier even from a later trusted base.
+          actual="$(git -C "$trusted" hash-object tools/staging-isolation-fastpath.cjs)"
+          if [ "$actual" != "78305495d3e85f9fdc319acf6ce90834257b8087" ]; then
+            echo "Pinned isolation classifier mismatch: full safety review required."
+            exit 1
+          fi
+          if node "$trusted/tools/staging-isolation-fastpath.cjs" --root "$candidate" --base "$EVENT_BASE_SHA" --head "$EVENT_HEAD_SHA" > "$RUNNER_TEMP/isolated-result.json"; then
+            echo "eligible=true" >> "$GITHUB_OUTPUT"
+            echo "Trusted isolation classifier: new work only."
+          else
+            echo "eligible=false" >> "$GITHUB_OUTPUT"
+            echo "Regular Plan Lock / Scope / Risk / Impact required."
+          fi
+
+      - name: Isolated new-work summary
+        if: steps.isolation.outputs.eligible == 'true'
+        shell: bash
+        run: |
+          echo "Fast path: one new staging work; no shared files or existing work changed."
+          echo "No production or release approval is inferred."
+          echo "Trust source: base-owned workflow with pinned classifier blob."
+
       - name: Verify locked Plan precedes implementation
+        if: steps.isolation.outputs.eligible != 'true'
         id: plan
         shell: bash
         working-directory: candidate
@@ -152,6 +186,7 @@ jobs:
           echo "lock_blob=$LOCK_OID" >> "$GITHUB_OUTPUT"
 
       - name: Require trusted gate implementation on base
+        if: steps.isolation.outputs.eligible != 'true'
         shell: bash
         working-directory: trusted
         run: |
@@ -162,6 +197,7 @@ jobs:
           test -f tools/change-impact-check.cjs
 
       - name: Extract and verify locked Plan with trusted base
+        if: steps.isolation.outputs.eligible != 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -179,6 +215,7 @@ jobs:
           NODE
 
       - name: Scope Gate
+        if: steps.isolation.outputs.eligible != 'true'
         shell: bash
         run: |
           node "$GITHUB_WORKSPACE/trusted/tools/change-scope-guard.cjs" \
@@ -187,6 +224,7 @@ jobs:
             --head HEAD
 
       - name: Risk Gate
+        if: steps.isolation.outputs.eligible != 'true'
         shell: bash
         run: |
           node "$GITHUB_WORKSPACE/trusted/tools/change-risk-check.cjs" \
@@ -195,6 +233,7 @@ jobs:
             --head HEAD
 
       - name: Impact Gate
+        if: steps.isolation.outputs.eligible != 'true'
         shell: bash
         run: |
           node "$GITHUB_WORKSPACE/trusted/tools/change-impact-check.cjs" \
@@ -203,6 +242,7 @@ jobs:
             --head HEAD
 
       - name: Gate summary
+        if: steps.isolation.outputs.eligible != 'true'
         shell: bash
         run: |
           echo "Plan Lock: ${{ steps.plan.outputs.lock_file }}"
