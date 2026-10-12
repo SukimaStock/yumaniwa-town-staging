@@ -1,0 +1,65 @@
+{
+  "schema": "yumaniwa-verification-record/0.2",
+  "changeId": "tsumatta-tsubu-first-prototype",
+  "planDigest": "a5e1e77f847015e4c21f1a639bf2b7bd0866753c5d668da1bae3689ebf8a7db7",
+  "planRevision": 0,
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "change": "Add isolated jammed grains prototype and mandatory active staging lifecycle entry",
+  "environment": "staging",
+  "baseSha": "d2c7f00c8cf9e5351e0e1b624bef17d5667ceea1",
+  "verifiedSha": "24f50b9a82245c19df491faa8611eae2e0ee0e74",
+  "recordedAt": "2026-10-12T05:59:18.842888+00:00",
+  "recordedBy": "Codex automated Chromium and local Node checks; not Owner device attestation",
+  "conditionalAcknowledgements": [],
+  "staticChecks": [
+    {
+      "id": "node-syntax",
+      "status": "pass",
+      "evidence": "node --check app.mjs and physics.mjs; executed physics and browser scripts parse and pass"
+    }
+  ],
+  "impactChecks": [
+    {
+      "id": "work.runtime",
+      "status": "pass",
+      "evidence": "physics.test.mjs 3/3; Chromium iPhone 13, iPad gen7, desktop: tap no release, lateral release 32/32 after 6 seconds, reset/cancel/resize, no JS errors"
+    },
+    {
+      "id": "work.regression",
+      "status": "pass",
+      "evidence": "3 repeated simulation release/reset cycles; touch/mouse browser flow and screenshot inspection"
+    },
+    {
+      "id": "risk.high-risk-review",
+      "status": "pass",
+      "evidence": "Only existing lifecycle schema one active item added; LAB generator ran with no output diff; no existing code or contract changes"
+    },
+    {
+      "id": "runtime.regression",
+      "status": "pass",
+      "evidence": "59 lifecycle/release/guide tests and 140 existing Engine tests pass; shared runtime byte unchanged"
+    }
+  ],
+  "manualChecks": [
+    {
+      "id": "causal-release",
+      "status": "pass",
+      "evidence": "Automated solver: 30s idle zero escape; stationary touch zero escape; +/-20 displacement then release flows all 32 with delayed tail. No physical-device claim."
+    },
+    {
+      "id": "repeat-reset",
+      "status": "pass",
+      "evidence": "Automated 3 reset cycles all restore jam; browser reset on three viewport profiles"
+    },
+    {
+      "id": "touch-cancel-resize",
+      "status": "pass",
+      "evidence": "Chromium CDP real touchCancel clears drag on iPhone/iPad emulation; desktop blur clears; 844x390 resize clears without release"
+    },
+    {
+      "id": "mobile-desktop-layout",
+      "status": "pass",
+      "evidence": "Inspected iPhone screenshot. Browser emulation has no horizontal overflow or JS errors on iPhone/iPad/Desktop. Physical devices UNVERIFIED."
+    }
+  ]
+}

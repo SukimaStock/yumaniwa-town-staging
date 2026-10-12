@@ -1,0 +1,118 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a5e1e77f847015e4c21f1a639bf2b7bd0866753c5d668da1bae3689ebf8a7db7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tsumatta-tsubu-first-prototype",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add isolated jammed grains prototype and mandatory active staging lifecycle entry",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "d2c7f00c8cf9e5351e0e1b624bef17d5667ceea1",
+    "canonicalSources": [
+      "works/tsumatta-tsubu/**",
+      "data/work-lifecycle.json",
+      "AGENTS.md",
+      "tools/work-lifecycle.cjs"
+    ],
+    "allowedPaths": [
+      "works/tsumatta-tsubu/**",
+      "data/work-lifecycle.json",
+      "lab/index.html",
+      ".change-plans/tsumatta-tsubu-first-prototype/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "data/works.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/motion-lab/**"
+    ],
+    "expectedChanges": [
+      "One new local canvas prototype: geometrically jammed small grain group; dragging one supporting grain breaks support and releases gravity flow, with late grains",
+      "Add only new active lifecycle item; regenerate LAB with existing generator",
+      "Record measured checks and gaps within work; no town registration or production"
+    ],
+    "ownerDecisions": [
+      "Source thread 01a11875-47fb-73f8-b86d-cf31e84fa0c8 delegated task: selected C つまった粒; authorized branch, commit, draft PR, CI, safe staging merge and mandatory normal-route lifecycle registration. Adoption and physical-device feel undecided."
+    ],
+    "hqDecisions": [
+      "Technical review: risk policy classifies existing lifecycle JSON and generated LAB as unknown-code, requiring Full/SYSTEM/HQ Review. Use unchanged existing schema and generator; no new contract, permissions, shared runtime or world decision. This technical review is not owner adoption."
+    ],
+    "rulesApplied": [
+      "AGENTS Work lifecycle mandatory active/staging-only registration",
+      "CHANGE-PLAN normal locked route; first commit lock only",
+      "CHANGE-VERIFICATION current state remains UNVERIFIED"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "causal-release",
+      "repeat-reset",
+      "touch-cancel-resize",
+      "mobile-desktop-layout"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [],
+    "rollback": "Revert this PR only, including new lifecycle entry and generated LAB change. Preserve all earlier work.",
+    "outOfScope": [
+      "Production",
+      "town registration",
+      "existing works",
+      "shared Engine",
+      "persistent storage",
+      "audio",
+      "new permissions"
+    ],
+    "promotion": "none; staging-only",
+    "unverified": [
+      "Physical iPhone/iPad Safari and owner feel/adoption",
+      "Public delivery until exact SHA Pages and URL observed"
+    ],
+    "problem": "Test whether a small lateral push releases a genuinely supported grain arch.",
+    "currentContract": "Isolated works may be authored, but lifecycle registration and LAB generation are mandatory.",
+    "whyExistingIsInsufficient": "No existing work implements the selected jammed-grains interaction; existing contracts are sufficient and unchanged.",
+    "design": "Small local canvas with geometric contacts and gravity; independent input and reset. Existing lifecycle schema and LAB generator.",
+    "migration": "No migration; add one active item and one new work folder.",
+    "compatibility": "No existing work, Engine, town UI or saved data changes.",
+    "promotionRisk": "Staging only; no production or adoption inferred.",
+    "alternativesRejected": [
+      "Do not omit mandatory lifecycle registration to claim lightweight route",
+      "Do not release grains from an unconditional touch timer"
+    ],
+    "boundaryCases": [
+      "Tap without displacement",
+      "Cancel pointer",
+      "Resize and blur",
+      "Repeat reset"
+    ],
+    "testPlan": [
+      "Contact stability and causal release simulation",
+      "Chromium iPhone/iPad emulation and desktop",
+      "Lifecycle and relevant regression",
+      "Scope/Risk/Impact and CI exact SHA"
+    ]
+  }
+}
