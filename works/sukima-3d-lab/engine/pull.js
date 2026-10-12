@@ -1,4 +1,4 @@
-import {add,sub,scale,dot,cross} from './math.js?v=0.3.0';
+import {add,sub,scale,dot,cross} from './math.js?v=0.4.0';
 
 export const PULL_DEFAULTS=Object.freeze({holdDelay:380,pullStrength:1,maxPull:.48,pullRadius:1.45,pullStiffness:520});
 export function attachment(mesh,hit,vertices=mesh.vertices){
@@ -36,6 +36,8 @@ export function shapeIsSafe(mesh,offsets,factor=1){
 // Rare safety guard for extreme drags/debug values. Scale the whole smooth
 // field, never individual vertices, to retain neighbour continuity.
 export function safeScale(mesh,offsets){
+ // At rest skip triangle work. This epsilon is far below valid authored edges.
+ if(offsets.every(v=>Math.hypot(...v)<1e-8))return 1;
  if(shapeIsSafe(mesh,offsets))return 1;
  let low=0,high=1;
  for(let i=0;i<12;i++){const middle=(low+high)/2;if(shapeIsSafe(mesh,offsets,middle))low=middle;else high=middle;}

@@ -1,0 +1,137 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "07e9dceacf8f459fac3308d25c3fc1bd79ca2f89e379c7e07513280c87f97271",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-collection-v04-20261012",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Touch Lab v0.4: independent specimen data, five low-poly forms and a quiet collection/touch gallery",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "90fbd73063cacb53252bb981e66fca9d074f8f34",
+    "canonicalSources": [
+      "User Touch Lab v0.4 directive 2026-10-12",
+      "Merged Touch Lab PR #277/#278/#279/#280",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/sukima-3d-lab/DEVELOPMENT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-collection-v04-20261012/r0.lock.json",
+      "works/sukima-3d-lab/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "engine/**",
+      "data/work-search-meta.js",
+      ".github/**",
+      "works/tea-unfold*/**",
+      "works/town-glance*/**",
+      "data/work-lifecycle.json",
+      "index.html",
+      "sitemap.xml",
+      "assets/**",
+      "en/w/**",
+      "main.js",
+      "tools/**",
+      "w/**",
+      "style.css",
+      "works/orbit*/**",
+      "works/morning-thread*/**",
+      "data/works.js",
+      "data/town-maps.js"
+    ],
+    "expectedChanges": [
+      "Validated work-local DOM-independent specimen schema and mesh adapter for welded outward convex face polygons",
+      "Independent geometry/material/feel/display data; preserve original polyhedron mesh and exact v0.2/v0.3 response",
+      "STONE CRYSTAL SEED SHELL ODD JSON specimens, lightweight same-data previews and collection registration",
+      "Collection and touch views with return/previous/next, fresh input/body state on every selection",
+      "Generic material packing and bounded shape-aware deformation constraints; no object-specific runtime branches",
+      "Maintain native iOS callout guard, gestures, profiles, resize/visibility/context lifecycle",
+      "COLLECTION_GUIDE.md examples and explicit new-data/registration steps; numerical invalid-data/shape/input/switch/cache tests and native/browser visual evidence",
+      "Consistent v0.4.0 runtime/data cache version; target-work docs/package/UI only"
+    ],
+    "ownerDecisions": [
+      "User v0.4 directive authorizes five named forms, collection/touch UI, reusable format, guide, tests, PR, safe staging merge/publication; production and other works forbidden"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard Plan-first multi-file WORK route; no shared runtime/identity/launch/storage contract change",
+      "Active staging-only; keep global registry/LAB and production unchanged",
+      "Shape limits are data constraints, not object-ID runtime branches"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-iphone-safari",
+      "physical-ipad-touch",
+      "owner-tactile-evaluation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated work-only PR; v0.3/callout guard remain in prior history.",
+    "outOfScope": [
+      "Production, shared 2D Engine, other works, town and LAB",
+      "3D walkable gallery, multi-object scene, dedicated editor, large asset management",
+      "Dots automation or actual game integration",
+      "New gestures or tactile overhaul"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real WebGL context unavailable in cloud browser; physical iPhone/iPad tactile quality"
+    ],
+    "problem": "One fixed polyhedron couples shape/material presentation and has no independent specimen registry or gallery",
+    "currentContract": "Work-local TouchBody consumes welded rest/vertices/triangles and optional deformation metadata; existing input/pull and material springs",
+    "whyExistingIsInsufficient": "Geometry/material generation is hardcoded; app always creates one body and cannot validate independent specimen data or clear state on selection",
+    "design": "Pure specimen validator/mesh factory plus work-local JSON manifest loader and one fresh body/input per touch session. Lightweight sorted SVG triangles generated from same data; single active WebGL2 renderer, minimal collection UI. Material color and conservative deformation constraints from data.",
+    "alternativesRejected": [
+      "Existing external 3D engine",
+      "Separate fake thumbnail shape data",
+      "Live WebGL context for every card",
+      "Per-object physics hacks or asset editor",
+      "Shared runtime changes"
+    ],
+    "migration": "Only work-local package/UI/docs version 0.4.0; no global lifecycle/identity change",
+    "compatibility": "Preserve original rest/pose/material/press/pull/rotation values; other works and shared runtime byte-identical",
+    "boundaryCases": [
+      "Invalid IDs/indices/NaN/degenerate/nonplanar faces/winding/open or disconnected meshes",
+      "Thin shell, crystal tips, off-centre hits and extreme pull vectors",
+      "All material presets, repeated tap/hold/pull/recovery",
+      "Selection during grabbed/flicking state; previous/next/list/re-entry",
+      "Duplicate/bad manifest entries and individual load errors",
+      "Mobile portrait/landscape, native long-press suppression, unsupported WebGL/context lifecycle",
+      "Warm browser graph/data caching and many collection entries"
+    ],
+    "testPlan": [
+      "Retain existing 38 tap/rotation/hold/pull/cache tests",
+      "Pure schema validation and registration failures",
+      "All specimens topology/normals/picking/rotation/press/pull/restore and data-bound safety",
+      "Fresh session switching without pose/velocity/offset/capture leakage",
+      "Additional specimen from data without engine edits",
+      "Exact shader native GLES rendering for every specimen at mobile/desktop sizes and several poses/states",
+      "Browser collection thumbnails/touch fallback/navigation/debug and screenshot QA",
+      "JS syntax diff checks and Scope Risk Impact"
+    ],
+    "promotionRisk": "Staging experimentation only; physical device feel/adoption and production remain separate"
+  }
+}

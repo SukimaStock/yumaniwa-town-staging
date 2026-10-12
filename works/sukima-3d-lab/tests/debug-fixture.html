@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Touch Lab v0.3 · Input / Debug UI fixture</title><link rel="stylesheet" href="../style.css?v=0.3.0">
-<main><header><p>DEVELOPER TEST</p><h1>Input / Debug UI fixture <span>0.3</span></h1><p>WebGLを使わない操作UIのテストです。</p></header>
+<title>Touch Lab v0.4 · Input / Debug UI fixture</title><link rel="stylesheet" href="../style.css?v=0.4.0">
+<main><header><p>DEVELOPER TEST</p><h1>Input / Debug UI fixture <span>0.4</span></h1><p>WebGLを使わない操作UIのテストです。</p></header>
 <output id="fixture-state" style="position:absolute;left:28px;top:145px;font-size:12px;white-space:pre-line"></output>
 <div id="input-surface" tabindex="0" role="region" aria-label="入力テスト領域" style="position:absolute;left:28px;top:250px;width:min(460px,55vw);height:260px;border:1px solid #b9ad9f;touch-action:none;user-select:none">入力テスト領域（3D描画なし）</div></main>
 <script type="module">
-import {createPolyhedron,pickMesh} from '../engine/geometry.js?v=0.3.0';
-import {TouchBody} from '../engine/dynamics.js?v=0.3.0';
-import {Camera} from '../engine/camera.js?v=0.3.0';
-import {TouchInput} from '../engine/interaction.js?v=0.3.0';
-import {createDebugPanel} from '../debug.js?v=0.3.0';
+import {createPolyhedron,pickMesh} from '../engine/geometry.js?v=0.4.0';
+import {TouchBody} from '../engine/dynamics.js?v=0.4.0';
+import {Camera} from '../engine/camera.js?v=0.4.0';
+import {TouchInput} from '../engine/interaction.js?v=0.4.0';
+import {createDebugPanel} from '../debug.js?v=0.4.0';
 const body=new TouchBody(createPolyhedron()),camera=new Camera(),surface=document.querySelector('#input-surface');
 // Every point in this labelled 2D fixture selects the centre face. This tests
 // real browser pointer capture/state, not 3D picking or WebGL rendering.

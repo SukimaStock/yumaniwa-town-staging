@@ -65,7 +65,7 @@ assert all(location>=0 for location in locations.values())
 um = gl('glUniformMatrix4fv',None,I,I,U,C.POINTER(F))
 uf = gl('glUniform1f',None,I,F); ui = gl('glUniform1i',None,I,I)
 read_pixels = gl('glReadPixels',None,I,I,I,I,U,U,P)
-images = {}
+images, references = {}, {}
 for scene in payload['scenes']:
     width, height = scene['width'], scene['height']
     surface = egl('eglCreatePbufferSurface',P,[P,P,C.POINTER(I)])(display,config,(I*5)(0x3057,width,0x3056,height,0x3038))
@@ -86,12 +86,13 @@ for scene in payload['scenes']:
     assert gl('glGetError',U)()==0
     image = Image.frombytes('RGBA',(width,height),bytes(pixels)).transpose(Image.Transpose.FLIP_TOP_BOTTOM).convert('RGB')
     body_pixels = sum(pixel != (238,233,223) for pixel in image.get_flattened_data()); assert body_pixels>5000
-    key = (width,height,scene['label']); images[key] = image.tobytes()
+    key = (width,height,scene['label']); images[key] = image.tobytes(); references[key] = scene.get('reference', 'rest')
     image.save(output/f"{width}x{height}-{scene['label']}.png")
     make_current(display,None,None,context); egl('eglDestroySurface',U,[P,P])(display,surface)
 for (width,height,label), pixels in images.items():
-    if label == 'rest': continue
-    before = images[width,height,'rest']
+    reference = references[width,height,label]
+    if label == reference: continue
+    before = images[width,height,reference]
     changes = sum(before[i:i+3] != pixels[i:i+3] for i in range(0,len(before),3))
     assert changes>300, (width,height,label,changes)
     print(f'{width}x{height} {label}: {changes} changed pixels, GL error 0')
