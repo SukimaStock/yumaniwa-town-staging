@@ -1,6 +1,7 @@
 import {createPolyhedron,pickMesh} from './engine/geometry.js';
 import {Camera} from './engine/camera.js';
 import {TouchBody} from './engine/dynamics.js';
+import {createDebugPanel} from './debug.js';
 import {TouchInput} from './engine/interaction.js';
 import {Renderer} from './engine/renderer.js';
 import {AnimationLoop} from './engine/loop.js';
@@ -12,7 +13,8 @@ try {
  function preference(){body.options.settle=reduced.matches?0:.014;body.options.damping=reduced.matches?4:1.85;}preference();reduced.addEventListener('change',preference);
  const pick=(x,y)=>{const ray=camera.ray(x,y,canvas.getBoundingClientRect(),body.pose());return pickMesh(mesh,ray.origin,ray.direction);};
  const input=new TouchInput(canvas,body,pick,()=>hint.classList.add('touched'));
- const loop=new AnimationLoop(dt=>body.step(dt),()=>renderer.draw(mesh,body.pose(),camera));
+ let debug=null;
+ const loop=new AnimationLoop(dt=>body.step(dt),()=>{renderer.draw(mesh,body.pose(),camera);debug?.update();});
  const resize=()=>{input.cancel();body.cancel();const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;renderer.resize(rect.width,rect.height,devicePixelRatio);camera.resize(rect.width,rect.height);};
  const observer=new ResizeObserver(resize);observer.observe(canvas);window.addEventListener('resize',resize);resize();
  let contextLost=false;
@@ -31,15 +33,9 @@ try {
  canvas.addEventListener('keyup',e=>{if(e.code==='Space'&&keyPress){e.preventDefault();body.release();keyPress=false;}});
  canvas.addEventListener('blur',()=>{keyPress=false;body.cancel();});
  if(new URLSearchParams(location.search).has('debug')) {
-  const panel=document.createElement('details');panel.className='debug';panel.open=true;panel.innerHTML='<summary>Touch parameters</summary>';
-  for(const [key,label,min,max,step] of [['damping','回転の減衰',.6,5,.05],['depth','へこみ',.03,.22,.005],['stiffness','戻る速さ',60,260,5],['settle','小さな揺れ',0,.035,.001]]){
-   const row=document.createElement('label'),slider=document.createElement('input');slider.type='range';slider.min=min;slider.max=max;slider.step=step;slider.value=body.options[key];slider.setAttribute('aria-label',label);row.textContent=label;row.append(slider);slider.addEventListener('input',()=>body.options[key]=Number(slider.value));panel.append(row);
-  }
-  const output=document.createElement('output');panel.append(output);document.querySelector('main').append(panel);
-  const timer=setInterval(()=>{output.textContent=`20 faces / ${mesh.triangles.length} triangles · DPR ${Math.min(2,devicePixelRatio)}\nface ${body.pressure?.face??'—'} · speed ${Math.hypot(...body.velocity).toFixed(2)} · GL ${renderer.gl.getError()}`;},200);
+  debug=createDebugPanel(body,input,document.querySelector('main'),()=>renderer.gl.getError());
   // Debug access is opt-in and work-local; useful for mechanical browser checks.
   window.touchLab={body,mesh,camera,pick,renderer,input,loop};
-  window.addEventListener('pagehide',()=>clearInterval(timer),{once:true});
  }
  resume();
 } catch(error) {
