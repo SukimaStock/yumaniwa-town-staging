@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "16e9aae552f28b9848b9ebb6230f143c80915a6d9615f8dd6bd2682b7c4c3f70",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "feel-studio-v02-evidence-20261012",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "ae3d88e5ffa9a7848b1a07368353fc3f93c7797b",
+    "change": "Persist completed real-browser production cycle and 390px visual evidence; no executable changes.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "works/feel-studio/**"
+    ],
+    "allowedPaths": [
+      "works/feel-studio/VALIDATION.md",
+      "works/feel-studio/cycle/browser-completed-workspace.json",
+      "works/feel-studio/visual-review/browser-phone.jpg",
+      ".change-plans/feel-studio-v02-evidence-20261012/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "data/works.js",
+      "data/lab-rooms.json",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/pumpoko/**",
+      "works/pumpoko-02/**",
+      "works/motion-lab/**",
+      "works/sukima-3d-lab/**",
+      "lab/lab.js",
+      "lab/lab.css",
+      "lab/lab-finish.css"
+    ],
+    "expectedChanges": [
+      "Record actual E import, direct timing edit, adoption, rebranch, parent navigation and reopened workspace",
+      "Save actual browser viewport capture",
+      "No runtime, catalog, saved-data contracts or source code changes"
+    ],
+    "ownerDecisions": [
+      "2026-10-12 current user Feel Studio 0.2 instruction authorizes redesign, real cycle A-E, branch/PR/tests/safe Staging merge. Excludes all other works, shared Engine and Production."
+    ],
+    "hqDecisions": [
+      "Documentation and replayable QA fixture only; existing contracts unchanged."
+    ],
+    "rulesApplied": [
+      "AGENTS: active/staging-only; no production or other work changes",
+      "Existing immutable plan lock used; evidence does not change executable code",
+      "No physical iPhone or author adoption claim"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Completed workspace imported into current Desk and provenance/history checked",
+      "Screenshot reviewed at actual 390px iframe width"
+    ],
+    "impactChecks": [
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this evidence-only PR; runtime and local saves remain unchanged.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Production",
+      "Existing works or shared Engine edits",
+      "Automatic AI communication",
+      "General game editor",
+      "New CI infrastructure"
+    ],
+    "unverified": [
+      "Physical iPhone Safari feel and performance",
+      "Author adoption"
+    ],
+    "problem": "0.1 compared fixed demo settings but did not connect AI code changes to production history.",
+    "currentContract": "0.1 has saved settings and a MotionRunner; all variants run the same Disc module.",
+    "whyExistingIsInsufficient": "Separate installed builds and request/response provenance are needed for actual code branches.",
+    "design": "Small working desk, immutable code manifests, sandboxed frames, direct declared handles, per-build config snapshots, explicit manual Work request and installed-response import.",
+    "migration": "Archive 0.1 with relative launch links repaired. No old save mutation. New v2 project namespaces.",
+    "compatibility": "No existing works, MotionRunner, Engine, Production or global runtime changes. Original code revisions remain playable.",
+    "promotionRisk": "Staging only; physical device and author adoption remain separate.",
+    "alternativesRejected": [
+      "Do not add disc presets",
+      "Do not execute imported code or arbitrary URLs",
+      "Do not label pending code synthesis as a running variant"
+    ],
+    "boundaryCases": [
+      "Blocked/corrupt storage and malformed imports",
+      "Unknown or changed code hashes",
+      "Cross-project/old-frame messages",
+      "Rapid program switching/hidden/resize",
+      "Request returning to a parent with later draft edits"
+    ],
+    "testPlan": [
+      "Validate completed workspace against current registered builds",
+      "Scope/Risk/Impact and trusted CI"
+    ]
+  }
+}
