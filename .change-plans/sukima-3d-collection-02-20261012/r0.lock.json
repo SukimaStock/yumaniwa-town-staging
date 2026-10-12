@@ -1,0 +1,160 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b975e284de2ed171005cfd8d592c4d0501cc36da423ee74871b04766423ba41f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-collection-02-20261012",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Collection 02 Free Forms: fifteen distinct static v2 specimens, explicit numbers 22–36",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "f0eaea118fea35b9ecbe503731465a0a7b38b487",
+    "canonicalSources": [
+      "User Free Forms directive; source thread 01a11875-47fb-73f8-b86d-cf31e84fa0c8",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "COLLECTION_GUIDE.md",
+      "works/sukima-3d-lab/engine/specimen.js",
+      "works/sukima-3d-lab/engine/mesh.js",
+      "PR #287"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-collection-02-20261012/r0.lock.json",
+      "works/sukima-3d-lab/collection.json",
+      "works/sukima-3d-lab/DEVELOPMENT.md",
+      "works/sukima-3d-lab/objects/tilt-mouth.json",
+      "works/sukima-3d-lab/objects/pocket-shell.json",
+      "works/sukima-3d-lab/objects/square-flue.json",
+      "works/sukima-3d-lab/objects/elbow-window.json",
+      "works/sukima-3d-lab/objects/fork-gap.json",
+      "works/sukima-3d-lab/objects/skew-tunnel.json",
+      "works/sukima-3d-lab/objects/crease-fan.json",
+      "works/sukima-3d-lab/objects/ribbon-turn.json",
+      "works/sukima-3d-lab/objects/saddle-sheet.json",
+      "works/sukima-3d-lab/objects/offset-stack.json",
+      "works/sukima-3d-lab/objects/bridge-pins.json",
+      "works/sukima-3d-lab/objects/orbit-cage.json",
+      "works/sukima-3d-lab/objects/three-ridges.json",
+      "works/sukima-3d-lab/objects/pinched-cross.json",
+      "works/sukima-3d-lab/objects/step-knot.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "engine/**",
+      "data/work-search-meta.js",
+      ".github/**",
+      "works/tea-unfold*/**",
+      "works/town-glance*/**",
+      "data/work-lifecycle.json",
+      "index.html",
+      "sitemap.xml",
+      "assets/**",
+      "en/w/**",
+      "main.js",
+      "tools/**",
+      "w/**",
+      "style.css",
+      "works/orbit*/**",
+      "works/morning-thread*/**",
+      "data/works.js",
+      "data/town-maps.js",
+      "works/sukima-3d-lab/engine/**",
+      "works/sukima-3d-lab/tests/**",
+      "works/sukima-3d-lab/*.js",
+      "works/sukima-3d-lab/index.html",
+      "works/sukima-3d-lab/style.css",
+      "works/sukima-3d-lab/package.json",
+      "works/sukima-3d-lab/objects/polyhedron.json",
+      "works/sukima-3d-lab/objects/stone.json",
+      "works/sukima-3d-lab/objects/crystal.json",
+      "works/sukima-3d-lab/objects/seed.json",
+      "works/sukima-3d-lab/objects/shell.json",
+      "works/sukima-3d-lab/objects/odd.json",
+      "works/sukima-3d-lab/objects/basalt.json",
+      "works/sukima-3d-lab/objects/doorstop.json",
+      "works/sukima-3d-lab/objects/elsewhere.json",
+      "works/sukima-3d-lab/objects/far-tip.json",
+      "works/sukima-3d-lab/objects/ice-raft.json",
+      "works/sukima-3d-lab/objects/lean-block.json",
+      "works/sukima-3d-lab/objects/offset.json",
+      "works/sukima-3d-lab/objects/pause.json",
+      "works/sukima-3d-lab/objects/tetra.json",
+      "works/sukima-3d-lab/objects/willow.json",
+      "works/sukima-3d-lab/objects/bowl.json",
+      "works/sukima-3d-lab/objects/mobile.json",
+      "works/sukima-3d-lab/objects/ring.json",
+      "works/sukima-3d-lab/objects/leaf.json",
+      "works/sukima-3d-lab/objects/dent.json"
+    ],
+    "expectedChanges": [
+      "Append fifteen individually designed static v2 meshes: three each cavities, gaps, thin surfaces, assemblies and free forms",
+      "Preserve existing 21 JSON blobs, manifest prefix and display numbers; append explicit 22–36",
+      "Short making and verification notes in existing DEVELOPMENT.md"
+    ],
+    "ownerDecisions": [
+      "Explicit user directive authorizes naming and creation, draft PR, tests, safe staging merge and Pages; production excluded"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard WORK preimplementation lock; more than four files",
+      "Current v2 indexed mesh and parts; behaviors:{} for all fifteen; no v1 convex restrictions"
+    ],
+    "staticChecks": [],
+    "manualChecks": [
+      "physical-iphone-safari",
+      "physical-ipad-touch",
+      "owner-tactile-evaluation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this collection PR.",
+    "outOfScope": [
+      "Engine, camera, input, Touch, Collection UI, existing 21 specimens, tests, shared 2D, other works, production",
+      "New physics, automation, games, asset previews"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad tactile feel, device pacing and native touch menus; live delivery if access denied"
+    ],
+    "problem": "Explore form before purpose across five directions",
+    "currentContract": "v2 indexed triangles, open/closed surfaces, per-part TRS and static rotation",
+    "whyExistingIsInsufficient": "Existing runtime is sufficient; new authored geometry/data only",
+    "design": "Distinct authored cavities, gaps, folded sheets, separated assemblies and nonconvex silhouettes; no random variation batch",
+    "alternativesRejected": [
+      "Color variants",
+      "Engine or physics extensions",
+      "v1 convex conversion"
+    ],
+    "migration": "Append only; no package/cache/runtime changes",
+    "compatibility": "Existing 21 data blobs and all executable files byte-identical",
+    "boundaryCases": [
+      "Holes remain clear; cavity inward surfaces; thin backs visible",
+      "Part transforms and separation",
+      "All36 load; static hold/drag/reset and switch isolation"
+    ],
+    "testPlan": [
+      "Existing work tests and baseline; honest report of fixed-count assumptions",
+      "Existing manifest-driven native GLES multi-angle and CPU/GPU preview comparison",
+      "Temporary all36 browser WebGL/rotation/switch checks; no permanent test framework",
+      "Scope → Risk → Impact; exact head CI; exact merge SHA CI and Pages; attempt live URL"
+    ],
+    "promotionRisk": "Staging experimentation only; physical device feel/adoption and production remain separate",
+    "staticCheckExemptionReason": "JSON and Markdown only; no JS paths apply to node-syntax. Existing specimen/schema, geometry, interaction and native rendering tests run and are reported in PR; no new registry check or executable changes."
+  }
+}
