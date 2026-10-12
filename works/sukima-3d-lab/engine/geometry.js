@@ -1,4 +1,4 @@
-import {add,sub,scale,cross,dot,norm,rayTriangle} from './math.js';
+import {add,sub,scale,cross,dot,norm,rayTriangle} from './math.js?v=0.2.1';
 export function createPolyhedron() {
  const t=(1+Math.sqrt(5))/2;
  const raw=[[-1,t,0],[1,t,0],[-1,-t,0],[1,-t,0],[0,-1,t],[0,1,t],[0,-1,-t],[0,1,-t],[t,0,-1],[t,0,1],[-t,0,-1],[-t,0,1]];

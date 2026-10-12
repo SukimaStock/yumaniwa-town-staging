@@ -1,0 +1,122 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1129fc2eb42b78a27a528d6ab70c9e5d7b2ae670d9076a76e30d2989cbe3e57e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-v02-module-cache-20261012",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Fix observed warm browser-cache mixing of v0.1 body and v0.2 debug/UI by versioning the complete local ES module graph",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "3b8fca4c3e56d2e62b41161fedf3c159711e63c8",
+    "canonicalSources": [
+      "Ongoing user Touch Lab v0.2 directive",
+      "Observed cloud-browser body.setFeel missing and preset fields undefined from cached v0.1 dynamics",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "works/sukima-3d-lab"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-v02-module-cache-20261012/r0.lock.json",
+      "works/sukima-3d-lab/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "engine/**",
+      "data/work-search-meta.js",
+      ".github/**",
+      "works/tea-unfold*/**",
+      "works/town-glance*/**",
+      "data/work-lifecycle.json",
+      "index.html",
+      "sitemap.xml",
+      "assets/**",
+      "en/w/**",
+      "main.js",
+      "tools/**",
+      "w/**",
+      "style.css",
+      "works/orbit*/**",
+      "works/morning-thread*/**",
+      "data/works.js",
+      "data/town-maps.js"
+    ],
+    "expectedChanges": [
+      "Version normal app/CSS entry and all local runtime imports consistently with package patch 0.2.1",
+      "Version the developer fixture imports using the same suffix",
+      "Add a cache/module graph regression test; preserve tactile values, behavior and appearance",
+      "Record browser findings and inspect actual preset switching after deployment"
+    ],
+    "ownerDecisions": [
+      "Complete user v0.2 directive authorizes implementation, tests, PR, safe staging merge and publication; forbids v0.3 and production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Existing full Plan-first route for multi-file work-only repair",
+      "No shared 2D Engine, registry, Service Worker, storage or external communication changes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-iphone-safari",
+      "physical-ipad-touch",
+      "owner-tactile-evaluation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work-only cache fix PR.",
+    "outOfScope": [
+      "Production and other works",
+      "Shared 2D runtime and town UI",
+      "New specimens, pinch/pull v0.3, editors/assets/scene systems"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real WebGL context unavailable in cloud browser; physical iPhone/iPad tactile quality"
+    ],
+    "problem": "A warm browser cache combines new HTML/debug with old dynamics and fails preset switching",
+    "currentContract": "Local ES modules served by GitHub Pages with normal browser caching",
+    "whyExistingIsInsufficient": "Unversioned imports allow old modules to remain fresh independently of the new entry HTML",
+    "design": "Explicit identical version query on CSS, app entry and every local runtime module edge; no loader/import-map/build framework",
+    "alternativesRejected": [
+      "Tell author to manually clear caches",
+      "Import maps with a higher Safari requirement",
+      "Service Worker or new build/cache framework"
+    ],
+    "migration": "Work-local package patch only; lifecycle title remains v0.2",
+    "compatibility": "All existing works, Engine, town, SEO and production remain byte-identical",
+    "boundaryCases": [
+      "Warm v0.1 module cache after v0.2 deployment",
+      "Shared modules resolve to one identical version URL",
+      "Normal vs debug entry and UI fixture",
+      "No external or cross-work imports"
+    ],
+    "testPlan": [
+      "Existing 28 tactile tests",
+      "Complete runtime/fixture import-graph version proof",
+      "Node/Python syntax",
+      "Scope Risk Impact",
+      "Post-publication browser preset/sliders and fallback"
+    ],
+    "promotionRisk": "Only safe staging repair; no production authorization"
+  }
+}

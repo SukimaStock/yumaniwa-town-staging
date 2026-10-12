@@ -86,3 +86,7 @@ Physical iPhone/iPad Safari touch feel, actual mobile frame pacing and browser c
 5. Try a face edge, a second finger, rotation to landscape during a hold, and leaving/returning to the app. No stuck press or queued tap should remain.
 
 Rollback: revert this isolated PR and only its target lifecycle title update. v0.3 waits for v0.2 device evaluation.
+
+## Browser-cache correction (0.2.1 package patch)
+
+Post-publication browser checking found a warm v0.1 cache mixed with the v0.2 debug panel: `body.feel`/new settings were undefined and `body.setFeel` was missing. The v0.2 label alone did not establish runtime freshness. All local runtime ES module imports, the normal app/CSS entry and debug UI fixture now use the same `?v=0.2.1` suffix. Shared module edges resolve to the same URL, and no import map, Service Worker or asset framework is introduced. This does not change tactile parameters or camera/light. `tests/cache.test.mjs` walks both entry graphs and verifies their complete version consistency and work-local boundaries, including distinct URLs from the cached unversioned graph. Updated checks and real browser switching results are recorded in the repair PR.
