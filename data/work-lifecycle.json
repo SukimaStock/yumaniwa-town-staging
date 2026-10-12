@@ -261,6 +261,13 @@
       "status": "active",
       "title": "雨つぎ",
       "theme": "雨どいを傾け、一粒の水を次へ渡す"
+    },
+    {
+      "id": "feel-studio",
+      "path": "works/feel-studio",
+      "status": "active",
+      "title": "Feel Studio · 0.1",
+      "theme": "三つの動きを触り、台を整え、好きな部分を組んで残す"
     }
   ]
 }
