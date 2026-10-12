@@ -13,7 +13,7 @@ import {Camera} from '../engine/camera.js?v=0.6.0';
 import {AnimationLoop} from '../engine/loop.js?v=0.6.0';
 import {rasterMesh} from '../engine/raster.js?v=0.6.0';
 const session=new SpecimenSession(),camera=new Camera(),canvas=document.querySelector('#motion-canvas'),output=document.querySelector('#motion-state'),select=document.querySelector('#object'),play=document.querySelector('#play');
-const ctx=canvas.getContext('2d'),items=(await loadCollection(new URL('../',location.href))).filter(i=>i.definition?.behaviors.motion);
+const ctx=canvas.getContext('2d'),items=(await loadCollection(new URL('../',location.href))).filter(i=>i.definition?.behaviors?.motion);
 let input,original,lastDraw=0;
 for(const i of items){const o=document.createElement('option');o.value=i.id;o.textContent=`${i.number} / ${i.definition.name}`;select.append(o);}
 function show(){input?.destroy();session.select(items.find(i=>i.id===select.value).definition);original=JSON.stringify(session.mesh.vertices);camera.resize(200,200,session.motion.radius);input=new PointerInput(canvas,session.body,()=>null);play.textContent='一時停止';draw();}
