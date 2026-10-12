@@ -1,6 +1,6 @@
 // Explicit triangle surfaces and assemblies. This module never triangulates a
 // polygon, fills a hole, takes a convex hull or attaches a behavior.
-import {add,sub,scale,cross,dot,norm,rotate} from './math.js?v=0.5.0';
+import {add,sub,scale,cross,dot,norm,rotate} from './math.js?v=0.6.0';
 const fail=m=>{throw new TypeError(`Invalid specimen: ${m}`);};
 const finite=(v,min,max)=>Number.isFinite(v)&&v>=min&&v<=max;
 const vector=(v,n,min,max)=>Array.isArray(v)&&v.length===n&&Array.from(v).every(x=>finite(x,min,max));
@@ -62,4 +62,15 @@ export function createMeshSpecimen(data){
   parts.push({id:part.id,start,count:g.vertices.length});
  }
  return {rest,vertices:rest.map(v=>v.slice()),triangles,parts,radius:Math.max(...rest.map(v=>Math.hypot(...v)))};
+}
+// Scale is baked once; rigid Motion and the base pose remain transforms.
+// This keeps authored nonuniform scale out of animated normal matrices.
+export function compileParts(data){
+ validateMeshSpecimen(data);let face=0;
+ return data.parts.map(part=>{
+  const {geometry:g,transform:t}=part,rest=g.vertices.map(v=>v.map((x,i)=>x*t.scale[i]));
+  const material=structuredClone(part.material),normals=g.normals?.map(n=>norm(n.map((x,i)=>x/t.scale[i])));
+  const triangles=g.triangles.map((indices,index)=>({indices:indices.slice(),face:face++,part:part.id,materialFace:index,material,normals:normals?indices.map(i=>normals[i]):undefined,doubleSided:material.doubleSided}));
+  return {id:part.id,transform:structuredClone(t),mesh:{rest,vertices:rest,triangles}};
+ });
 }

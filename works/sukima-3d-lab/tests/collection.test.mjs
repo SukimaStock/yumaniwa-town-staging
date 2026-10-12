@@ -75,7 +75,7 @@ test('manifest rejects duplicate, missing and external/traversing paths; local r
  assert.throws(()=>validateCollection({...manifest,items:[manifest.items[0],manifest.items[0]]}),/Invalid specimen/);
  let inFlight=0,maximum=0;const urls=[];
  const request=async (url,options)=>{
-  assert.equal(options.cache,'no-cache','data-only additions revalidate the registry and JSON');urls.push(url);assert.equal(url.origin,'https://local.test');assert.equal(url.search,'?v=0.5.0');inFlight++;maximum=Math.max(maximum,inFlight);await new Promise(resolve=>setTimeout(resolve,1));inFlight--;
+  assert.equal(options.cache,'no-cache','data-only additions revalidate the registry and JSON');urls.push(url);assert.equal(url.origin,'https://local.test');assert.equal(url.search,'?v=0.6.0');inFlight++;maximum=Math.max(maximum,inFlight);await new Promise(resolve=>setTimeout(resolve,1));inFlight--;
   const path=url.pathname.split('/works/sukima-3d-lab/')[1];return {ok:path!=='objects/shell.json',json:async()=>read(path)};
  };
  const result=await loadCollection(new URL('https://local.test/works/sukima-3d-lab/'),request);assert.equal(result.length,manifest.items.length);assert.equal(result[4].definition,undefined);assert.ok(result[4].error);assert.ok(result[5].definition);assert.ok(maximum<=4);assert.deepEqual(result.map(x=>x.id),manifest.items.map(x=>x.id));

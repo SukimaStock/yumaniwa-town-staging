@@ -26,3 +26,5 @@ button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent;touch-
 
 .thumbnail canvas{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;touch-action:pan-y;cursor:inherit}
 #reset-pose{position:absolute;right:max(22px,env(safe-area-inset-right));top:max(20px,env(safe-area-inset-top));font-size:.68rem}
+#toggle-motion{position:absolute;right:calc(max(22px,env(safe-area-inset-right)) + 78px);top:max(20px,env(safe-area-inset-top));font-size:.68rem}
+.debug output{white-space:pre-line}

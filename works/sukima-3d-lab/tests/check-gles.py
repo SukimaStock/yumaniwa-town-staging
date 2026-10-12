@@ -65,7 +65,7 @@ assert all(location>=0 for location in locations.values())
 um = gl('glUniformMatrix4fv',None,I,I,U,C.POINTER(F))
 uf = gl('glUniform1f',None,I,F); ui = gl('glUniform1i',None,I,I)
 read_pixels = gl('glReadPixels',None,I,I,I,I,U,U,P)
-images, references = {}, {}
+images, references, equal_references = {}, {}, {}
 for scene in payload['scenes']:
     width, height = scene['width'], scene['height']
     surface = egl('eglCreatePbufferSurface',P,[P,P,C.POINTER(I)])(display,config,(I*5)(0x3057,width,0x3056,height,0x3038))
@@ -75,12 +75,13 @@ for scene in payload['scenes']:
     gl('glClear',None,U)(0x4000|0x100)
     gl('glUseProgram',None,U)(program)
     um(locations['projection'],1,0,(F*16)(*scene['projection']))
-    um(locations['model'],1,0,(F*16)(*scene['model']))
     uf(locations['distance'],scene['distance']); ui(locations['shadow'],0)
     gl('glEnable',None,U)(0xB71); gl('glEnable',None,U)(0xB44); gl('glCullFace',None,U)(0x405)
     array = (F*len(scene['packed']))(*scene['packed'])
     gl('glBufferData',None,U,C.c_ssize_t,P,U)(0x8892,C.sizeof(array),array,0x88E8)
-    gl('glDrawArrays',None,U,I,I)(4,0,len(scene['packed'])//9)
+    for draw in scene.get('draws', [{'model':scene.get('model'), 'first':0, 'count':len(scene['packed'])//9}]):
+        um(locations['model'],1,0,(F*16)(*draw['model']))
+        gl('glDrawArrays',None,U,I,I)(4,draw['first'],draw['count'])
     pixels = (C.c_ubyte*(width*height*4))()
     read_pixels(0,0,width,height,0x1908,0x1401,pixels)
     assert gl('glGetError',U)()==0
@@ -112,6 +113,7 @@ for scene in payload['scenes']:
     for x, y in scene.get('backgroundAt', []):
         assert image.getpixel((x,y))==(238,233,223), (scene['label'], 'through-hole')
     key = (width,height,scene['label']); images[key] = image.tobytes(); references[key] = scene.get('reference', 'rest')
+    equal_references[key] = scene.get('equalReference', False)
     image.save(output/f"{width}x{height}-{scene['label']}.png")
     make_current(display,None,None,context); egl('eglDestroySurface',U,[P,P])(display,surface)
 for (width,height,label), pixels in images.items():
@@ -119,6 +121,9 @@ for (width,height,label), pixels in images.items():
     if label == reference: continue
     before = images[width,height,reference]
     changes = sum(before[i:i+3] != pixels[i:i+3] for i in range(0,len(before),3))
-    assert changes>300, (width,height,label,changes)
+    if equal_references[width,height,label]:
+        assert changes==0, (width,height,label,'reset differs from initial',changes)
+    else:
+        assert changes>300, (width,height,label,changes)
     print(f'{width}x{height} {label}: {changes} changed pixels, GL error 0')
 print(f'PASS: exact shaders compile/link; {len(images)} specimen frames. GLES evidence only.')

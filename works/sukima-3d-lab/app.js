@@ -1,28 +1,30 @@
-import {pickMesh} from './engine/geometry.js?v=0.5.0';
-import {Camera} from './engine/camera.js?v=0.5.0';
-import {SpecimenSession} from './engine/session.js?v=0.5.0';
-import {createDebugPanel} from './debug.js?v=0.5.0';
-import {PointerInput} from './engine/interaction.js?v=0.5.0';
-import {Renderer} from './engine/renderer.js?v=0.5.0';
-import {AnimationLoop} from './engine/loop.js?v=0.5.0';
-import {loadCollection} from './collection.js?v=0.5.0';
-import {previewSvg,previewRaster} from './preview.js?v=0.5.0';
+import {pickMesh} from './engine/geometry.js?v=0.6.0';
+import {Camera} from './engine/camera.js?v=0.6.0';
+import {SpecimenSession} from './engine/session.js?v=0.6.0';
+import {createDebugPanel} from './debug.js?v=0.6.0';
+import {PointerInput} from './engine/interaction.js?v=0.6.0';
+import {Renderer} from './engine/renderer.js?v=0.6.0';
+import {AnimationLoop} from './engine/loop.js?v=0.6.0';
+import {loadCollection} from './collection.js?v=0.6.0';
+import {previewSvg,previewRaster} from './preview.js?v=0.6.0';
 const canvas=document.querySelector('#solid'),notice=document.querySelector('#notice'),hint=document.querySelector('#hint');
 const collectionView=document.querySelector('#collection-view'),touchView=document.querySelector('#touch-view'),grid=document.querySelector('#collection-grid'),status=document.querySelector('#collection-status');
 const session=new SpecimenSession(),camera=new Camera(),debugHost=document.querySelector('#debug-host');
+const motionButton=document.querySelector('#toggle-motion');
 const debugMode=new URLSearchParams(location.search).has('debug'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
 let renderer=null,input=null,debug=null,contextLost=false,active=false,keyPress=false,items=[],selected=-1,collectionScroll=0;
 function message(text){notice.textContent=text;notice.hidden=false;hint.hidden=true;}
-function preference(){if(session.body){session.body.options.settle=reduced.matches?0:.014;session.body.options.damping=reduced.matches?4:1.85;}}
+function motionUI(){motionButton.hidden=!session.motion;motionButton.textContent=session.motion?.playing?'一時停止':'再生';motionButton.setAttribute('aria-label',session.motion?.playing?'パーツの動きを一時停止':'パーツの動きを再生');}
+function preference(){if(session.body){session.body.options.settle=reduced.matches?0:.014;session.body.options.damping=reduced.matches?4:1.85;}if(reduced.matches)session.motion?.setPlaying(false);motionUI();}
 reduced.addEventListener('change',preference);
-const loop=new AnimationLoop(dt=>{input?.step(dt);session.body?.step(dt);},()=>{
- if(renderer&&session.body){renderer.draw(session.mesh,session.body.pose(),camera);debug?.update();}
+const loop=new AnimationLoop(dt=>{input?.step(dt);session.step(dt);},()=>{
+ if(renderer&&session.body){renderer.draw(session.mesh,session.body.pose(),camera,session.motion);debug?.update();}
 });
-const pick=(x,y)=>{if(!session.body)return null;const ray=camera.ray(x,y,canvas.getBoundingClientRect(),session.body.pose());return pickMesh(session.mesh,ray.origin,ray.direction);};
+const pick=(x,y)=>{if(!session.body)return null;const ray=camera.ray(x,y,canvas.getBoundingClientRect(),session.body.pose());return session.motion?session.motion.pick(ray.origin,ray.direction):pickMesh(session.mesh,ray.origin,ray.direction);};
 function resize(){
  input?.cancel();session.body?.cancel();
  const r=canvas.getBoundingClientRect();if(!active||!r.width||!r.height)return;
- renderer?.resize(r.width,r.height,devicePixelRatio);camera.resize(r.width,r.height,session.mesh.radius);
+ renderer?.resize(r.width,r.height,devicePixelRatio);camera.resize(r.width,r.height,session.motion?.radius??session.mesh.radius);
 }
 function pause(){input?.cancel();session.body?.cancel();keyPress=false;loop.stop();}
 function resume(){if(active&&renderer&&!document.hidden&&!contextLost)loop.start();}
@@ -36,7 +38,8 @@ function show(index){
  notice.hidden=true;hint.hidden=false;hint.classList.remove('touched');canvas.hidden=false;
  session.select(item.definition);preference();
  const touch=session.body.touchEnabled;
- hint.textContent=touch?'押す。回す。長押しで引く。':'回して、眺める。';
+ hint.textContent=touch?'押す。回す。長押しで引く。':session.motion?'動く形を、回して眺める。':'回して、眺める。';
+ document.querySelector('#view-kind').textContent=session.motion?'MOVING PARTS / 0.6':'FREE FORMS / 0.6';
  canvas.setAttribute('aria-label',touch?'触れる立体。押す、回す、長押しで引く。矢印で回転、スペースで押せます。':'立体。ドラッグまたは矢印キーで回転。初期姿勢に戻せます。');
  document.querySelector('#reset-pose').hidden=touch;
  input=new PointerInput(canvas,session.body,pick,()=>hint.classList.add('touched'),(x,y,q,p)=>camera.pullMapping(x,y,canvas.getBoundingClientRect(),q,p));
@@ -45,9 +48,14 @@ function show(index){
   console.warn('Touch Lab could not start:',error.message);
  }
  if(contextLost){canvas.hidden=true;message('描画を一時停止しました。');}
+ motionButton.disabled=!renderer||contextLost;
  if(debugMode){
   if(session.body.touchEnabled)debug=createDebugPanel(session.body,input,debugHost,()=>renderer?renderer.gl.getError():'非対応');
-  window.touchLab={body:session.body,mesh:session.mesh,camera,pick,renderer,input,loop};
+  if(session.motion){
+   const panel=document.createElement('div'),output=document.createElement('output');panel.className='debug';panel.append(output);debugHost.append(panel);
+   debug={update(){output.textContent=`MOTION ${session.motion.playing?'PLAY':'PAUSE'} / ${session.motion.time.toFixed(2)}s\n${session.motion.tracks.map(t=>`${t.part}: ${t.type}`).join('\n')}`;}};debug.update();
+  }
+  window.touchLab={body:session.body,mesh:session.mesh,motion:session.motion,camera,pick,renderer,input,loop};
  }
  resize();resume();if(!canvas.hidden)canvas.focus({preventScroll:true});else document.querySelector('#back').focus({preventScroll:true});
 }
@@ -55,16 +63,17 @@ function back(){
  discard();active=false;touchView.hidden=true;collectionView.hidden=false;collectionView.scrollTop=collectionScroll;
  grid.querySelector(`[data-index="${selected}"]`)?.focus({preventScroll:true});
 }
-document.querySelector('#reset-pose').addEventListener('click',()=>{input?.cancel();session.body?.resetPose(session.definition.display.orientation);});
+document.querySelector('#reset-pose').addEventListener('click',()=>{input?.cancel();session.resetPose();debug?.update();});
+motionButton.addEventListener('click',()=>{session.motion?.setPlaying(!session.motion.playing);motionUI();debug?.update();});
 document.querySelector('#back').addEventListener('click',back);
 document.querySelector('#previous').addEventListener('click',()=>show((selected+items.length-1)%items.length));
 document.querySelector('#next').addEventListener('click',()=>show((selected+1)%items.length));
 new ResizeObserver(resize).observe(canvas);window.addEventListener('resize',resize);
 document.addEventListener('visibilitychange',()=>document.hidden?pause():resume());
 window.addEventListener('pagehide',pause);window.addEventListener('pageshow',resume);window.addEventListener('blur',pause);window.addEventListener('focus',resume);
-canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();contextLost=true;pause();if(active)message('描画を一時停止しました。');});
+canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();contextLost=true;motionButton.disabled=true;pause();if(active)message('描画を一時停止しました。');});
 canvas.addEventListener('webglcontextrestored',()=>{
- try{renderer.initialize();contextLost=false;if(active){canvas.hidden=false;notice.hidden=true;hint.hidden=false;resize();resume();}}
+ try{renderer.initialize();contextLost=false;motionButton.disabled=false;if(active){canvas.hidden=false;notice.hidden=true;hint.hidden=false;resize();resume();}}
  catch{if(active)message('描画を再開できませんでした。ページを開き直してください。');}
 });
 canvas.addEventListener('keydown',e=>{
