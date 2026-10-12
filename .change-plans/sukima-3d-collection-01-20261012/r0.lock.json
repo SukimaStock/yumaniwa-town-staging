@@ -1,0 +1,133 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e3201403a872fdc6a47636b1c60ec843e7ba095e0f7927d721476e371aa9e277",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-collection-01-20261012",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "SukimaStock 3D Collection 01: ten authored convex tactile specimens, append 07-16",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "ea0a63510f89a246e4ff00ee426024d03a880537",
+    "canonicalSources": [
+      "User Collection 01 directive 2026-10-12; source thread 01a11875-47fb-73f8-b86d-cf31e84fa0c8",
+      "PR #284 and #285",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/sukima-3d-lab/COLLECTION_GUIDE.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-collection-01-20261012/r0.lock.json",
+      "works/sukima-3d-lab/objects/*.json",
+      "works/sukima-3d-lab/collection.json",
+      "works/sukima-3d-lab/DEVELOPMENT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "engine/**",
+      "data/work-search-meta.js",
+      ".github/**",
+      "works/tea-unfold*/**",
+      "works/town-glance*/**",
+      "data/work-lifecycle.json",
+      "index.html",
+      "sitemap.xml",
+      "assets/**",
+      "en/w/**",
+      "main.js",
+      "tools/**",
+      "w/**",
+      "style.css",
+      "works/orbit*/**",
+      "works/morning-thread*/**",
+      "data/works.js",
+      "data/town-maps.js",
+      "works/sukima-3d-lab/engine/**",
+      "works/sukima-3d-lab/tests/**",
+      "works/sukima-3d-lab/*.js",
+      "works/sukima-3d-lab/index.html",
+      "works/sukima-3d-lab/style.css",
+      "works/sukima-3d-lab/package.json",
+      "works/sukima-3d-lab/objects/polyhedron.json",
+      "works/sukima-3d-lab/objects/stone.json",
+      "works/sukima-3d-lab/objects/crystal.json",
+      "works/sukima-3d-lab/objects/seed.json",
+      "works/sukima-3d-lab/objects/shell.json",
+      "works/sukima-3d-lab/objects/odd.json"
+    ],
+    "expectedChanges": [
+      "Ten new hand-authored closed convex low-poly solids: three nature, three geometric/artificial, four unidentified",
+      "Append 07-16 without changing existing order or six objects; use current JSON schema, profiles and bounded parameters only",
+      "Append concise creation notes, excluded nonconvex ideas, next exploration and honest validation limits to existing DEVELOPMENT.md"
+    ],
+    "ownerDecisions": [
+      "Explicit user Collection 01 directive authorizes ten forms and naming, tests, draft PR, safe staging merge and Pages verification; no production or engine/UI change"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard WORK Plan Lock: existing active work, more than four files, therefore not eligible for lightweight route",
+      "Single closed convex v1 solids; hard/soft/bouncy from existing whitelist; staging-only"
+    ],
+    "staticChecks": [],
+    "manualChecks": [
+      "physical-iphone-safari",
+      "physical-ipad-touch",
+      "owner-tactile-evaluation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated collection PR, removing only new ten entries/files and associated notes.",
+    "outOfScope": [
+      "Engine/render/input/UI, tests or new validation systems",
+      "Existing six objects, shared 2D engine, town, other works, Production",
+      "Games, automation, storage, external APIs or service configuration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad tactile feel, device pacing and native touch menus; live delivery if access denied"
+    ],
+    "problem": "Explore ten distinguishable small tactile forms within the existing v1 collection format",
+    "currentContract": "Single convex welded solid JSON plus ordered collection entry; generated same-data SVG preview and existing TouchSession",
+    "whyExistingIsInsufficient": "Existing runtime is sufficient; new authored geometry/data only",
+    "design": "Hand-designed silhouettes and logical planar facets with per-shape safe deformation limits. Reuse all unchanged tests/rendering/runtime.",
+    "alternativesRejected": [
+      "Randomly generated batch",
+      "Engine changes to bypass v1",
+      "Holes, concavity, detached parts, joints or external models"
+    ],
+    "migration": "Append manifest entries and new object JSON only; no runtime/package/cache changes",
+    "compatibility": "First six data files, engine, input, UI and shared/production paths byte-identical",
+    "boundaryCases": [
+      "Thin blade/slab and tips under all existing profiles and repeated press/pull/recovery",
+      "All sixteen load and generated previews match actual geometry",
+      "Switching between all sixteen while grabbed/spinning",
+      "Several angles and portrait/landscape/tablet display"
+    ],
+    "testPlan": [
+      "Existing node work tests, including all manifest-driven specimens",
+      "Existing native GLES collection render script: all sixteen x seven states x three sizes",
+      "Browser local real-app preview, tap/hold/rotate/pull, recovery and switching observations across all sixteen; viewport screenshot review",
+      "Base diff verifies six existing objects, engine/input/UI unchanged",
+      "Scope then Risk then Impact, PR CI, exact merge SHA CI/Pages, attempt live staging URL"
+    ],
+    "promotionRisk": "Staging experimentation only; physical device feel/adoption and production remain separate",
+    "staticCheckExemptionReason": "JSON and Markdown only; no JS paths apply to node-syntax. Existing specimen/schema, geometry, interaction and native rendering tests run and are reported in PR; no new registry check or executable changes."
+  }
+}
