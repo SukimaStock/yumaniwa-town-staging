@@ -1,3 +1,48 @@
+# Touch Lab v0.4 — collection foundation
+
+## Current scope / design
+
+Base: staging/main `90fbd73063cacb53252bb981e66fca9d074f8f34`, after merged #277/#278/#279/#280 and current LAB #283. Reviewed current engine, DEVELOPMENT, AGENTS and operations. Work-only Standard Plan locked before implementation. No global lifecycle/LAB, common 2D Engine, other works, deployment workflow or production changes. Remains active/staging-only. Author success feedback is not blanket certification of these new specimens.
+
+The app opens a six-item Collection View. A static SVG preview uses the exact validated specimen mesh/material/pose; there is no WebGL context or animation per card. The sheet scrolls, with two columns on phones and a responsive wider grid. Selected Touch View has one shared WebGL2 renderer and a fresh mesh/body/input. Back/previous/next are the only normal navigation controls; no score or new gesture. Return restores collection scroll/focus. Keyboard arrows/space, reduced-motion preferences and opt-in debug remain.
+
+`collection.json` is the ordered work-local registry. `objects/*.json` hold independent shape/material/feel/display data. `engine/specimen.js` is a pure validator/mesh adapter; `engine/session.js` creates a fresh body and clears the previous one. No DOM/fetch is required to reuse a specimen in a different app. `collection.js` handles same-work JSON loading at bounded concurrency (four), preserves order and isolates individual invalid/missing specimens. Fatal registry errors produce a short message. Metadata reaches the UI through textContent, and thumbnails contain only generated numeric SVG polygons.
+
+The v1 creation contract deliberately supports a single closed convex solid with planar convex polygon faces, 4–64 corners, 4–96 logical faces and at most 512 fan triangles. Validator checks finite/index bounds, duplicate/unused points, outward halfspaces, planarity/convexity/area, oppositely paired welded edges, connectedness, volume, color/material, whitelisted bounded feel overrides and unit pose/display limits. Hollow/open/concave/self-intersecting solids are rejected; no silent winding repair. SHELL is a thick closed fan, not a hollow shell. These are documented boundaries, not arbitrary imported-model support.
+
+Generic changes to existing engine:
+
+- Geometry packing reads a matte color/optional per-face palette and variation from mesh material. The legacy clay fallback and exact shaders/light remain unchanged.
+- Camera framing may move back for a specimen radius above 1.1. Original polyhedron framing is unchanged. The ground shadow also moves down for a larger bounding radius; its original position and shaders remain for the polyhedron.
+- TouchBody uses optional shape-owned pressure/displacement/pull caps and reuses the existing whole-field signed-area/edge-strain guard on all deformation of constrained shapes. No object-ID branches. Existing springs, impulse, hold/drag thresholds, quaternion drag/inertia and pull mapping are retained.
+- All module/CSS/data request URLs consistently use `?v=0.4.0`. Original `createPolyhedron()` remains the regression reference; production gallery loads its identical JSON copy. JSON requests conditionally revalidate HTTP caches, so subsequent data-only additions do not require changing engine/module versions. No runtime libraries, image downloads, external API, asset editor, storage, imported 3D engine or Dots automation.
+
+Native iOS selection/callout guard from #280 is retained inline on main. Pointer listeners are destroyed/capture cancelled before switching. Each selection creates a fresh pose, zero angular/offset velocities and rest vertices; no deformation/profile from the previous specimen is reused. Resize, blur, visibility/pagehide, BFCache and context-loss cancellation remain. WebGL is initialized only when opening a specimen, so the Collection View still works without WebGL2. In that environment Touch View offers the existing graceful notice plus navigation.
+
+## New specimens / making more
+
+STONE has unequal bevelled planes; CRYSTAL is a slanted hexagonal prism with two unequal tips; SEED tapers with asymmetric belly/tip; SHELL has a raised fan and thin but closed rim; ODD has three offset shoulders with a crooked crest. All use SOFT by default. HARD/SOFT/BOUNCY remain available; shape caps protect narrow geometry even under stronger debug values.
+
+Authoring procedure, valid cube example, parameter bounds, required tests and failure diagnosis: **COLLECTION_GUIDE.md** in this directory. Adding a specimen means a new JSON file and an appended registry entry; previews, UI and specimen tests consume the registry. No renderer/input/deformation edit is needed. A pure synthetic new-item registration and 100-item load test exercise that boundary.
+
+## Verification commands / limits
+
+```sh
+node --test works/sukima-3d-lab/tests/*.test.mjs
+node tests/test-work-lifecycle.cjs
+node works/sukima-3d-lab/tests/render-collection.mjs | python works/sukima-3d-lab/tests/check-gles.py /tmp/touch-v04-render
+```
+
+All 38 pre-v0.4 tests are retained. Collection tests add original-mesh/pose/colors/response identity, every specimen/material/face picking and bounded press/pull/recovery, repeated mixed deformation, five viewport sizes/many rotations, invalid data, isolated loading failures, synthetic data-only addition/100-item loading and grabbed/spinning session replacement. 62/62 work tests and 24/24 existing lifecycle tests passed locally. Exact checked SHA and CI are recorded in the PR.
+
+Native Mesa GLES compiled/linked the exact unchanged shaders and rendered **126 specimen frames**: six specimens × seven rest/rotated/back/tap/held/pull/release states × 390×844, 844×390 and 900×900. Pixel evidence and GL errors are checked against each specimen's own rest frame. Rest-frame montage was visually inspected. This is native GLES evidence, not browser WebGL or actual iPhone/iPad touch/performance. No UI/ground shadow is included in native rendering. The v0.3 script remains usable separately.
+
+Cloud-browser collection/navigation/fallback/debug observations and Pages publication are recorded after deployment in the PR. Physical Safari touch comfort, native menu suppression, real mobile frame pacing and WebGL context restoration remain UNVERIFIED until observed. Formal verificationState stays UNVERIFIED under the current repository contract; staging CI/merge is not final author adoption or production permission.
+
+Rollback: revert this isolated work-only PR. No shared registry or other work needs to change.
+
+## Historical v0.3 implementation reference
+
 # Touch Lab v0.3 — surface grab and elastic pull
 
 ## Scope / baseline

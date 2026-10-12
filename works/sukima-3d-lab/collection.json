@@ -1,0 +1,29 @@
+{
+  "schema": "sukima3d-collection/1",
+  "items": [
+    {
+      "id": "polyhedron",
+      "file": "objects/polyhedron.json"
+    },
+    {
+      "id": "stone",
+      "file": "objects/stone.json"
+    },
+    {
+      "id": "crystal",
+      "file": "objects/crystal.json"
+    },
+    {
+      "id": "seed",
+      "file": "objects/seed.json"
+    },
+    {
+      "id": "shell",
+      "file": "objects/shell.json"
+    },
+    {
+      "id": "odd",
+      "file": "objects/odd.json"
+    }
+  ]
+}

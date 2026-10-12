@@ -1,5 +1,5 @@
-import {rotationMatrix} from './math.js?v=0.3.0';
-import {packedMesh} from './geometry.js?v=0.3.0';
+import {rotationMatrix} from './math.js?v=0.4.0';
+import {packedMesh} from './geometry.js?v=0.4.0';
 const VERTEX=`#version 300 es
 precision highp float;
 layout(location=0) in vec3 position;
@@ -54,7 +54,8 @@ export class Renderer {
   gl.uniformMatrix4fv(u.projection,false,camera.projection);gl.uniform1f(u.distance,camera.distance);
   gl.enable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);
   gl.enable(gl.BLEND);gl.blendFuncSeparate(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA,gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
-  gl.uniform1i(u.shadow,1);gl.uniformMatrix4fv(u.model,false,rotationMatrix([0,0,0,1]));
+  const shadowModel=rotationMatrix([0,0,0,1]);shadowModel[13]=-Math.max(0,(mesh.radius??1.1)+.22-1.38);
+  gl.uniform1i(u.shadow,1);gl.uniformMatrix4fv(u.model,false,shadowModel);
   gl.bufferData(gl.ARRAY_BUFFER,this.shadowData,gl.DYNAMIC_DRAW);gl.drawArrays(gl.TRIANGLES,0,this.shadowData.length/9);
   gl.disable(gl.BLEND);gl.enable(gl.CULL_FACE);gl.cullFace(gl.BACK);
   gl.uniform1i(u.shadow,0);gl.uniformMatrix4fv(u.model,false,rotationMatrix(orientation));

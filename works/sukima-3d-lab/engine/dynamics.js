@@ -1,15 +1,16 @@
-import {axisAngle,multiply,norm,add,sub,scale,dot,cross} from './math.js?v=0.3.0';
-import {FEEL_PROFILES,DEFAULT_FEEL,springStep} from './response.js?v=0.3.0';
-import {PULL_DEFAULTS,attachment,pullWeights,resistantPull,safeScale} from './pull.js?v=0.3.0';
+import {axisAngle,multiply,norm,add,sub,scale,dot,cross} from './math.js?v=0.4.0';
+import {FEEL_PROFILES,DEFAULT_FEEL,springStep} from './response.js?v=0.4.0';
+import {PULL_DEFAULTS,attachment,pullWeights,resistantPull,safeScale} from './pull.js?v=0.4.0';
 export class TouchBody {
  constructor(mesh,options={}) {
   this.mesh=mesh;
+  this.shapeLimits=mesh.deformation?.limits;this.shapeSafety=Boolean(this.shapeLimits);
   this.feel=DEFAULT_FEEL;
   this.options={damping:1.85,settle:.014,maxDisplacement:.28,...FEEL_PROFILES[DEFAULT_FEEL],...PULL_DEFAULTS,...options};
   this.orientation=multiply(axisAngle([1,0,0],.19),axisAngle([0,1,0],-.23));
   this.velocity=[0,0,0];this.wobble=[0,0,0];this.wobbleVelocity=[0,0,0];
   this.offsets=mesh.rest.map(()=>[0,0,0]);this.offsetVelocity=mesh.rest.map(()=>[0,0,0]);
-  this.pressure=null;this.pull=null;this.pullSafety=false;this.deformationLimit=this.options.maxDisplacement;this.held=false;this.reboundDamping=this.options.returnDamping;
+  this.pressure=null;this.pull=null;this.pullSafety=false;this.deformationLimit=Math.min(this.options.maxDisplacement,this.shapeLimits?.maxDisplacement??Infinity);this.held=false;this.reboundDamping=this.options.returnDamping;
   this.compliance=mesh.deformation?.compliance??mesh.rest.map(()=>1);
   if(this.compliance.length!==mesh.rest.length||this.compliance.some(v=>!Number.isFinite(v)||v<0||v>1))throw new TypeError('Invalid mesh deformation compliance');
  }
@@ -64,13 +65,13 @@ export class TouchBody {
   this.orientation=this.pose();this.wobble=[0,0,0];this.wobbleVelocity=[0,0,0];
   this.velocity=[0,0,0];this.held=true;this.pressure=null;
   this.offsetVelocity.forEach(v=>v.fill(0));
-  this.pullSafety=true;this.deformationLimit=Math.max(this.options.maxPull,...this.offsets.map(v=>Math.hypot(...v)));
+  this.pullSafety=true;this.deformationLimit=Math.max(Math.min(this.options.maxPull,this.shapeLimits?.maxPull??Infinity),...this.offsets.map(v=>Math.hypot(...v)));
   this.pull={face:hit.face,weights:pullWeights(this.mesh,hit,this.options.pullRadius),base:this.offsets.map(v=>v.slice()),delta:[0,0,0]};
   return attachment(this.mesh,hit);
  }
  pullTo(delta){
   if(!this.pull||delta.length!==3||delta.some(v=>!Number.isFinite(v)))return;
-  this.pull.delta=resistantPull(delta,this.options.pullStrength,this.options.maxPull);
+  this.pull.delta=resistantPull(delta,this.options.pullStrength,Math.min(this.options.maxPull,this.shapeLimits?.maxPull??Infinity));
  }
  beginDrag() {
   this.release();this.held=true;
@@ -112,11 +113,11 @@ export class TouchBody {
   for(let i=0;i<this.mesh.rest.length;i++){
    const weight=contact?contact.local[i]+(contact.spread[i]-contact.local[i])*progress:0;
    for(let k=0;k<3;k++){
-    const target=this.pull?this.pull.base[i][k]+this.pull.delta[k]*this.pull.weights[i]:contact?-contact.normal[k]*this.options.depth*progress*weight:0;
+    const target=this.pull?this.pull.base[i][k]+this.pull.delta[k]*this.pull.weights[i]:contact?-contact.normal[k]*Math.min(this.options.depth,this.shapeLimits?.pressDepth??Infinity)*progress*weight:0;
     [this.offsets[i][k],this.offsetVelocity[i][k]]=springStep(this.offsets[i][k],this.offsetVelocity[i][k],target,stiffness,damping,dt);
    }
    const magnitude=Math.hypot(...this.offsets[i]);
-   if(!this.pullSafety&&magnitude>this.deformationLimit){
+   if(!this.pullSafety&&!this.shapeSafety&&magnitude>this.deformationLimit){
     const direction=scale(this.offsets[i],1/magnitude);
     this.offsets[i]=scale(direction,this.deformationLimit);
     const outward=dot(this.offsetVelocity[i],direction);
@@ -124,11 +125,11 @@ export class TouchBody {
    }
   }
   // Include return overshoot in the same topology guard as the active pull.
-  if(this.pullSafety){
+  if(this.pullSafety||this.shapeSafety){
    const magnitude=Math.max(...this.offsets.map(v=>Math.hypot(...v)));
    const factor=Math.min(1,this.deformationLimit/(magnitude||1),safeScale(this.mesh,this.offsets));
    if(factor<1){this.offsets=this.offsets.map(v=>scale(v,factor));this.offsetVelocity=this.offsetVelocity.map(v=>scale(v,factor));}
-   if(!this.pull&&this.offsets.every(v=>Math.hypot(...v)<.001)){this.pullSafety=false;this.deformationLimit=this.options.maxDisplacement;}
+   if(!this.pull&&this.offsets.every(v=>Math.hypot(...v)<.001)){this.pullSafety=false;this.deformationLimit=Math.min(this.options.maxDisplacement,this.shapeLimits?.maxDisplacement??Infinity);}
   }
   for(let i=0;i<this.mesh.rest.length;i++)this.mesh.vertices[i]=add(this.mesh.rest[i],this.offsets[i]);
  }

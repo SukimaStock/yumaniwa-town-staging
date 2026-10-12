@@ -5,18 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#eee9df">
 <title>Touch Lab · SukimaStock 3D</title>
-<meta name="description" content="小さな多面体を押す、回す。SukimaStockの3D実験室。">
-<link rel="stylesheet" href="style.css?v=0.3.0">
+<meta name="description" content="石、結晶、種、貝殻、不思議な塊。小さな立体を選んで触る、SukimaStockの3D展示室。">
+<link rel="stylesheet" href="style.css?v=0.4.0">
 </head>
 <body>
-<!-- Keep native selection/callout disabled even with a warm stylesheet cache. -->
+<!-- Native iOS selection/callout stays blocked even with a warm CSS cache. -->
 <main style="-webkit-touch-callout:none;-webkit-user-select:none;user-select:none">
-<header><p>SUKIMASTOCK / 3D</p><h1>Touch Lab <span>0.3</span></h1></header>
-<canvas id="solid" tabindex="0" role="img" aria-label="触れる多面体。押すとへこみ、ドラッグすると回転し、長押ししてドラッグすると面を引っ張れます。キーボードは矢印で回転、スペースで押します。"></canvas>
+<section id="collection-view" aria-labelledby="collection-title">
+<header class="collection-header"><p>SUKIMASTOCK / 3D</p><h1 id="collection-title">Touch Lab <span>0.4</span></h1><p class="collection-intro">小さな立体を、選んで触る。</p></header>
+<div id="collection-grid" class="collection-grid" aria-label="立体の一覧"></div>
+<p id="collection-status" role="status">立体を並べています。</p>
+<footer class="collection-footer">COLLECTION / 小さな形の実験室</footer>
+</section>
+<section id="touch-view" aria-labelledby="specimen-name" hidden>
+<header class="touch-header"><button id="back" class="text-button" type="button">← 一覧</button><p>TOUCH LAB / 0.4</p><h1 id="specimen-name"></h1></header>
+<canvas id="solid" tabindex="0" role="img" aria-label="触れる立体。押す、回す、長押しで引く。矢印で回転、スペースで押せます。"></canvas>
 <p class="hint" id="hint">押す。回す。長押しで引く。</p>
 <p id="notice" role="status" hidden></p>
+<nav class="specimen-nav" aria-label="立体の切り替え"><button id="previous" type="button" aria-label="前の立体">←</button><span id="specimen-number"></span><button id="next" type="button" aria-label="次の立体">→</button></nav>
+<div id="debug-host"></div>
+</section>
 <noscript><p class="fallback">この実験にはJavaScriptが必要です。</p></noscript>
 </main>
-<script type="module" src="app.js?v=0.3.0"></script>
+<script type="module" src="app.js?v=0.4.0"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-import {FEEL_PROFILES,DEFAULT_FEEL} from './engine/response.js?v=0.3.0';
+import {FEEL_PROFILES,DEFAULT_FEEL} from './engine/response.js?v=0.4.0';
 // UI only. The normal app calls this factory exclusively when ?debug is present.
 export function createDebugPanel(body,input,host,readGlError=()=> '未使用') {
  const panel=document.createElement('details');panel.className='debug';panel.open=true;
@@ -25,7 +25,7 @@ export function createDebugPanel(body,input,host,readGlError=()=> '未使用') {
  let last=-Infinity;
  const update=()=>{
   const now=performance.now();if(now-last<200)return;last=now;
-  output.textContent=`${body.feel} · ${body.mesh.faces?.length??'—'} faces / ${body.mesh.triangles.length} triangles · DPR ${Math.min(2,devicePixelRatio)}\n${input.pointer?.mode??'idle'} · face ${body.pull?.face??body.pressure?.face??'—'} · speed ${Math.hypot(...body.velocity).toFixed(2)} · GL ${readGlError()}`;
+  output.textContent=`${body.feel} · ${body.mesh.faces?.length??'—'} faces / ${body.mesh.triangles.length} triangles · DPR ${Math.min(2,devicePixelRatio)}\n${input.pointer?.mode??'idle'} · face ${body.pull?.face??body.pressure?.face??'—'} · speed ${Math.hypot(...body.velocity).toFixed(2)} · GL ${readGlError()}${body.shapeLimits?`\nshape cap · press ${body.shapeLimits.pressDepth} / pull ${body.shapeLimits.maxPull}`:''}`;
  };
  update();return {element:panel,update};
 }
