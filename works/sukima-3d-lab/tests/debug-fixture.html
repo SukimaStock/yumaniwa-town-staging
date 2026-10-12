@@ -1,12 +1,29 @@
 <!doctype html>
 <html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Touch Lab v0.2 · Debug UI fixture</title><link rel="stylesheet" href="../style.css?v=0.2.1">
-<main><header><p>DEVELOPER TEST</p><h1>Debug UI fixture <span>0.2</span></h1><p>WebGLを使わない操作UIのテストです。</p></header><output id="fixture-state" style="position:absolute;left:28px;top:140px;font-size:12px"></output></main>
+<title>Touch Lab v0.3 · Input / Debug UI fixture</title><link rel="stylesheet" href="../style.css?v=0.3.0">
+<main><header><p>DEVELOPER TEST</p><h1>Input / Debug UI fixture <span>0.3</span></h1><p>WebGLを使わない操作UIのテストです。</p></header>
+<output id="fixture-state" style="position:absolute;left:28px;top:145px;font-size:12px;white-space:pre-line"></output>
+<div id="input-surface" tabindex="0" role="region" aria-label="入力テスト領域" style="position:absolute;left:28px;top:250px;width:min(460px,55vw);height:260px;border:1px solid #b9ad9f;touch-action:none;user-select:none">入力テスト領域（3D描画なし）</div></main>
 <script type="module">
-import {createPolyhedron} from '../engine/geometry.js?v=0.2.1';
-import {TouchBody} from '../engine/dynamics.js?v=0.2.1';
-import {createDebugPanel} from '../debug.js?v=0.2.1';
-const body=new TouchBody(createPolyhedron()),panel=createDebugPanel(body,{cancel(){}},document.querySelector('main'));
-const output=document.querySelector('#fixture-state');
-function frame(){panel.update();output.textContent=`Material ${body.feel}; depth ${body.options.depth.toFixed(3)}; tap ${body.options.tapImpulse.toFixed(1)}`;requestAnimationFrame(frame);}frame();
+import {createPolyhedron,pickMesh} from '../engine/geometry.js?v=0.3.0';
+import {TouchBody} from '../engine/dynamics.js?v=0.3.0';
+import {Camera} from '../engine/camera.js?v=0.3.0';
+import {TouchInput} from '../engine/interaction.js?v=0.3.0';
+import {createDebugPanel} from '../debug.js?v=0.3.0';
+const body=new TouchBody(createPolyhedron()),camera=new Camera(),surface=document.querySelector('#input-surface');
+// Every point in this labelled 2D fixture selects the centre face. This tests
+// real browser pointer capture/state, not 3D picking or WebGL rendering.
+const pick=()=>{const r=surface.getBoundingClientRect();camera.resize(r.width,r.height);const ray=camera.ray(r.left+r.width/2,r.top+r.height/2,r,body.pose());return pickMesh(body.mesh,ray.origin,ray.direction);};
+const input=new TouchInput(surface,body,pick,()=>{},(x,y,q,p)=>camera.pullMapping(x,y,surface.getBoundingClientRect(),q,p));
+const panel=createDebugPanel(body,input,document.querySelector('main')),output=document.querySelector('#fixture-state');
+let last=null,peak=0,lastMode='idle';
+function frame(now){
+ const dt=last===null?0:Math.min(.05,(now-last)/1000);last=now;input.step(dt);body.step(dt);panel.update();
+ const offset=Math.max(...body.offsets.map(v=>Math.hypot(...v)));peak=Math.max(peak,offset);if(input.pointer)lastMode=input.pointer.mode;
+ output.textContent=`Material ${body.feel}; depth ${body.options.depth.toFixed(3)}; hold ${body.options.holdDelay} ms; max ${body.options.maxPull.toFixed(2)}\nmode ${input.pointer?.mode??'idle'}; last ${lastMode}; offset ${offset.toFixed(4)}; peak ${peak.toFixed(4)}; spin ${Math.hypot(...body.velocity).toFixed(2)}`;
+ requestAnimationFrame(frame);
+}
+const cancel=()=>{input.cancel();body.cancel();};
+window.addEventListener('blur',cancel);window.addEventListener('pagehide',cancel);window.addEventListener('resize',cancel);document.addEventListener('visibilitychange',()=>{if(document.hidden)cancel();});
+requestAnimationFrame(frame);
 </script></html>

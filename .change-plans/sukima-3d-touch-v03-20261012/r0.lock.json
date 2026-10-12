@@ -1,0 +1,135 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "06361ac369d4c96df83f7135532daca9665440da7df3f82bacd28ad0cc6143fb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-touch-v03-20261012",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Touch Lab v0.3: long-press surface grab and bounded finger-directed elastic pull",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "ddb4166106696f2aa0cda241732e5beb941dfcef",
+    "canonicalSources": [
+      "User Touch Lab v0.3 directive 2026-10-12",
+      "Merged PR #277 and #278",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "works/sukima-3d-lab/DEVELOPMENT.md",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-touch-v03-20261012/r0.lock.json",
+      "works/sukima-3d-lab/**",
+      "data/work-lifecycle.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "works/pumpoko/**",
+      "works/orbit*/**",
+      "works/tea-unfold*/**",
+      "works/morning-thread*/**",
+      "works/town-glance*/**"
+    ],
+    "expectedChanges": [
+      "Preserve v0.2 taps/held pressure and existing quaternion drag/flick",
+      "Long-press input state with finger-jitter tolerance, captured primary pointer and cancellation",
+      "Camera screen-plane mapping of world-space drag to object-local pull after arbitrary rotation",
+      "Smooth shape-independent neighbor field, progressive resistance, topology safety and elastic complete restoration",
+      "Debug hold delay/pull strength/max/radius/restoration/rebound controls and existing presets",
+      "Work-local v0.3 docs/labels/versioned module graph; only target lifecycle title",
+      "Numerical input projection stress tests and reproducible native rendering/browser QA"
+    ],
+    "ownerDecisions": [
+      "User v0.3 directive authorizes work-local implementation, tests, PR, safe staging merge and publication; production and other works are prohibited"
+    ],
+    "hqDecisions": [
+      "Design review: no shared contract/runtime changes. Work-local input state owns hold/drag distinction; Camera owns screen-plane mapping; TouchBody owns a smooth spatial pull field and safety bound. Reuse existing springs/materials. Full risk floor covers only target lifecycle title; author device/adoption decision remains open."
+    ],
+    "rulesApplied": [
+      "Plan-first commit; Scope then Risk then Impact; existing exact blob gates unchanged",
+      "Active staging-only; no town registration or production"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-iphone-safari",
+      "physical-ipad-touch",
+      "owner-tactile-evaluation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated PR and its single lifecycle entry.",
+    "outOfScope": [
+      "Production and other works",
+      "Shared 2D runtime and town UI",
+      "New objects, shape editor, assets/scene systems, two-finger scale gesture"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad tactile comparison and browser GL availability; no final VERIFIED claim"
+    ],
+    "problem": "Held surface pressure cannot follow finger movement; all drag currently rotates",
+    "currentContract": "Independent staging experiments, active lifecycle default, unchanged shared 2D runtime",
+    "whyExistingIsInsufficient": "No long-press grab state, screen-space pull mapping or smooth tangential displacement field",
+    "design": "Captured press/rotate/grab states with RAF hold aging; frozen grab pose and camera-plane displacement; compact smooth neighbor field, resistant bounded target, positive triangle area checks and existing return springs",
+    "alternativesRejected": [
+      "General physics engine or imported 3D engine",
+      "Separate per-face detached geometry",
+      "Multi-object, editor or two-finger manipulation",
+      "Shared Engine changes"
+    ],
+    "migration": "Target lifecycle title v0.2 to v0.3; no status/registry schema changes",
+    "compatibility": "All existing works, Engine, town, SEO and production remain byte-identical",
+    "boundaryCases": [
+      "Sub-frame tap and repeated taps",
+      "Fast drag before hold and minor hold jitter",
+      "Grab after rotation or during previous restoration",
+      "Offset canvas, portrait/landscape and camera projection",
+      "Extreme pull directions and debug limits; triangle flips",
+      "Primary/secondary cancellation; capture loss; resize/visibility/BFCache/context lifecycle",
+      "Vertex permutation and alternative topology"
+    ],
+    "testPlan": [
+      "All v0.2 regression tests",
+      "Input state transitions and gesture interruption",
+      "Screen-plane projection after many rotations at varied aspect ratios",
+      "Bounded pulls and restoration at 30/60/120fps",
+      "Continuous repeated/adversarial deformations with positive triangles",
+      "Exact shaders native GLES specimen rendering and browser debug UI/fallback",
+      "Scope Risk Impact node syntax and lifecycle regression"
+    ],
+    "promotionRisk": "Staging only; user device evaluation remains pending"
+  }
+}
