@@ -254,6 +254,13 @@
       "status": "active",
       "title": "つまった粒",
       "theme": "小さく横へずらすと、支え合っていた粒がほどけて落ちる"
+    },
+    {
+      "id": "ametsugi",
+      "path": "works/ametsugi",
+      "status": "active",
+      "title": "雨つぎ",
+      "theme": "雨どいを傾け、一粒の水を次へ渡す"
     }
   ]
 }
