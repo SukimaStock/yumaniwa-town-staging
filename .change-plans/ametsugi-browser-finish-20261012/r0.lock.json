@@ -1,0 +1,117 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4fe9fd20239c0a3752fb609a3ad7f61409e8617a7bf44f3821eab726f0f6671d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ametsugi-browser-finish-20261012",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Refine Ametsugi from observed browser play: low-frame-rate timing, landscape labels and complete touch QA.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "7c6443282cf974949d9ecea483e8384dd75719b4",
+    "canonicalSources": [
+      "works/ametsugi/**",
+      "engine/sukimastock-engine.v0.3.0.js",
+      "works/sukima-3d-lab/engine/manipulation.js"
+    ],
+    "allowedPaths": [
+      "works/ametsugi/**",
+      ".change-plans/ametsugi-browser-finish-20261012/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "works/sukima-3d-lab/**",
+      "data/**",
+      "lab/**",
+      ".github/**",
+      "tools/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Preserve hinge and contact rules; process bounded catch-up substeps when browser frames arrive slowly",
+      "Move only landscape title/hint to avoid overlap with the diegetic windows",
+      "Keep progress windows behind foreground gutters/water",
+      "Verify all roofs and replay through real browser input and synthetic touch fixture, with bounded waits tied to game progress",
+      "Version work module requests coherently and record measured results"
+    ],
+    "ownerDecisions": [
+      "2026-10-12 current user request: fully delegate one original SukimaStock game including concept/title/visual/audio, branch/implementation/testing/PR/safe Staging merge/Pages verification; exclude Production, candidate and formal town placement."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Registered active work: work-local runtime has Standard/WORK risk floor",
+      "Do not modify the shared Engine to fix a work-local timing cap",
+      "Plan-first branch before browser-driven changes",
+      "Actual devices and audible balance remain UNVERIFIED"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Real browser play: begin, controls, missed pour, retry, goal and replay",
+      "Portrait/tablet/landscape responsive composition",
+      "Synthetic touch routing/cancel distinguishable from physical Safari",
+      "Audio before/after valid user gesture and mute",
+      "Browser errors and screenshots"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Read-only canonical Engine 0.3.0 / Codea Lite 1.0.0",
+      "Read-only SukimaStock 3D v0.7 ManipulationPlayer"
+    ],
+    "rollback": "Revert this PR only: remove new work and its active registry entry and restore generated LAB. No old save or source migration.",
+    "outOfScope": [
+      "Production/candidate/formal town installation",
+      "Existing works or common Engines",
+      "New permissions/APIs/deployment workflows",
+      "Standalone distribution or publishing original Drive source files"
+    ],
+    "promotion": "none; staging-only",
+    "unverified": [
+      "Physical iPhone/iPad Safari touch feel, performance, lifecycle and audible balance",
+      "Public game until SHA-specific Pages/browser confirmation",
+      "Owner adoption"
+    ],
+    "problem": "Actual browser play reveals slow game time when frames are sparse and landscape hint overlaps windows.",
+    "currentContract": "Game uses 120Hz water substeps; Engine exposes a work-local maxDeltaSeconds option and excludes hidden wall time on lifecycle recovery.",
+    "whyExistingIsInsufficient": "A work-local .05s cap discards elapsed visible time at low fps; wide title/hint and windows share a vertical band.",
+    "design": "Allow bounded .2s visible-frame catch-up, retain 120Hz collision steps and all angle physics, separate wide label bands and render background windows first.",
+    "migration": "No save or data migration; work-local edits only.",
+    "compatibility": "Same game, paths, five roofs, HINGE version and result logic. New module query version prevents mixed cached work graph.",
+    "promotionRisk": "No lifecycle promotion or Production.",
+    "alternativesRejected": [
+      "Do not change shared Engine timing",
+      "Do not certify a synthetic touch event as a physical iPhone",
+      "Do not force goals to bypass browser play"
+    ],
+    "boundaryCases": [
+      "Fast/slow pour, wait at horizontal",
+      "Pointer end-stop reversal/cancel/resize/blur",
+      "Repeated reset/replay",
+      "Muted/autoplay-restricted sound",
+      "All five roofs both mirror directions"
+    ],
+    "testPlan": [
+      "Expand frame-rate invariance to 5/10/15/30/60/120fps",
+      "Retain natural miss/retry/reset/end/replay regression",
+      "Browser full touch fixture, manual play, low/high viewport widths and audio lifecycle",
+      "Scope/Risk/Impact/syntax/CI and exact Pages verification"
+    ]
+  }
+}
