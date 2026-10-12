@@ -279,6 +279,56 @@
       "id": "drawer",
       "file": "objects/drawer.json",
       "number": 59
+    },
+    {
+      "id": "keepsake",
+      "file": "objects/keepsake.json",
+      "number": 60
+    },
+    {
+      "id": "folio",
+      "file": "objects/folio.json",
+      "number": 61
+    },
+    {
+      "id": "awning",
+      "file": "objects/awning.json",
+      "number": 62
+    },
+    {
+      "id": "spool",
+      "file": "objects/spool.json",
+      "number": 63
+    },
+    {
+      "id": "petal-turntable",
+      "file": "objects/petal-turntable.json",
+      "number": 64
+    },
+    {
+      "id": "tri-rotor",
+      "file": "objects/tri-rotor.json",
+      "number": 65
+    },
+    {
+      "id": "riser",
+      "file": "objects/riser.json",
+      "number": 66
+    },
+    {
+      "id": "shuttle-block",
+      "file": "objects/shuttle-block.json",
+      "number": 67
+    },
+    {
+      "id": "twin-paddles",
+      "file": "objects/twin-paddles.json",
+      "number": 68
+    },
+    {
+      "id": "dial-and-slide",
+      "file": "objects/dial-and-slide.json",
+      "number": 69
     }
   ]
 }
