@@ -1,0 +1,781 @@
+{
+  "base": "6de4dc0329f1d5d248fe9d0c9010943f3399824f",
+  "specimens": [
+    {
+      "entry": {
+        "id": "polyhedron",
+        "file": "objects/polyhedron.json"
+      },
+      "source": "12b8e47f060eb9f907acce077a29cba6e3df4c7fe55e2a9f8ceb821d9026e993",
+      "mesh": "a19562079893526229446e708b95394a79dc4143687f12e76b9ed331a30adfc5",
+      "packed": "f25dba84d873d0d4558187d28e0aafe0147e0096d967eb52bd90566de87bbeee",
+      "preview": "3f041de75aa716191cdfe5faa42839656a2a97763c2be75070744e1bf7514725",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "stone",
+        "file": "objects/stone.json"
+      },
+      "source": "eedb55a8ed807a0d897a3e0f127f40a698fd4aa955ba25da6e86a8c4886651cd",
+      "mesh": "6169df6202391fc22e526b5d777602d4413ac842daa1390bbcc09216eecbc41d",
+      "packed": "3a1c31a6d2f2f3a3a6f5d7672d424d26629ae33e912ae84def321af72bf19a85",
+      "preview": "74ed8eca84a2868dfe5f462ef227ce31673f5275450d2c40c2e9be381948c3ff",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "crystal",
+        "file": "objects/crystal.json"
+      },
+      "source": "ceb0bcd738c6b8d5c3aa17fe2c23bfcb4a5d748e93218268f094973377b42b61",
+      "mesh": "08ec2511231e29c2688a645daacd1d2b219baec0c807a36ca727142a177025a5",
+      "packed": "ba257697e79a3207d83b519f89f00a0744ad568a855692d393a0f7b19f2bb254",
+      "preview": "c6feff63feedd5767c24ce57129cc72396c15f061fafbc92ae67b967742a0130",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "seed",
+        "file": "objects/seed.json"
+      },
+      "source": "7abb9646d299e59f46390255263aceac66d3ce7ee6700fb494b488f11a0d17b0",
+      "mesh": "64cc9bc7727a30fb79868b346dd575b52e8defae5fd8e0fa0a1b2878902e0928",
+      "packed": "9b2ac7032ab0643c00bb939beca018ebb472389b401620921d0de265f1869a86",
+      "preview": "9887c040b9d10796ab76a21c6765ad612d610d84b3e98e584dbf066ce9f5f153",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "shell",
+        "file": "objects/shell.json"
+      },
+      "source": "bd4d28f1d579c7310576df5f063b16d4b27402868dafb34dd7ab0efff294817b",
+      "mesh": "75282daedf25d5dc405b4ff46076bb166751c1e6111b97428fa705071136315c",
+      "packed": "89e5a06bd3046d047bc5eca8a58b70679eaa1262cf713c5c7aff03254dc4a8f2",
+      "preview": "5a635b0985c56ce115c2a772fcefe7cc6bccce99706ea04f7f196669ddabbb3a",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "odd",
+        "file": "objects/odd.json"
+      },
+      "source": "6323fd7cbaa2f61b2d8881f2a75c957824339d78679ba04eef53f401233c5e6f",
+      "mesh": "6e87c7846ee6cf4182568c34ef3458b0158db2aa74971b91afa74887da6556a7",
+      "packed": "561c9c8f27f885563fbaa011bdea6d702de965d06aded9817b2f28e997e23860",
+      "preview": "2acc8c2fec98784f4dd028b0f5fb5d1cb856a80236d499175468590079b8a88f",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "willow",
+        "file": "objects/willow.json"
+      },
+      "source": "8acabccb3d0ded6fe229d68457c7f702731f530c1bfc93d1c998b2ab93927169",
+      "mesh": "09592058a1827cd5ff3bd8a91ae9915eba7cd43bca7a9c4034d6c1e6cb897a48",
+      "packed": "4180d040e77ad5f300ad4558dc0146b1e711ce27cfde28f32e389bfd29954bb7",
+      "preview": "6dc2989beb59d6b4e403dbac153ef64e8ec58904f0da4217f1b2448e006fe9d3",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "basalt",
+        "file": "objects/basalt.json"
+      },
+      "source": "571ac5439754cd521d5bcd8fc421e171b79c5da09696e4bca0847e2a2a9977ca",
+      "mesh": "c6d0e740016fa3684aaad88ee78a58e54e33751043f4e82b4bd28637a86fe36e",
+      "packed": "7173a5f2a9b6313de803702038f86e5cd33acae96ca87f78ed34b4be105a3c1b",
+      "preview": "13d591223238676f25472eec59cb25ec908e8439e9cb45c783e55e8702f70801",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "ice-raft",
+        "file": "objects/ice-raft.json"
+      },
+      "source": "23771a2fe60944bbfe319b7ff7432a4963d21307dfddfcb13277c3433c1c533d",
+      "mesh": "b85afc00d09d794edca8f6204f01475b73be77b0da12efaf504eb31efaa3e212",
+      "packed": "6cf8e8cde645d33f94624b06575f35c6af23230332d4fc003b76d098ad85443e",
+      "preview": "c7223ee56b9657daf2f7efed3d158c3010f7dad8942e3c3ca3eddeb67069794f",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "doorstop",
+        "file": "objects/doorstop.json"
+      },
+      "source": "39d4d850309649eae21f29827b2d908f5f6e41779a38ace3a597c74a7e6f8d08",
+      "mesh": "d65ed78170a6176b4e7d37776f3dbaaa18bcb16358336ab78d765c38e56d8c82",
+      "packed": "2d9b5f4df931ba1e82ae10c835d785a38498d039afbe554434e742048026e6c9",
+      "preview": "790e97b28486316d582404d84b6f8d6f22ccab30ae509ce1a24f8e0314157c5b",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "lean-block",
+        "file": "objects/lean-block.json"
+      },
+      "source": "08a6636c0ef2a10e67366a5b8bd4e7f32b223f7396cc1e81c0425d40e966dab9",
+      "mesh": "886ccc24a11a0b30206c79d37b4911b4e5febef157518aa80d4fb47b4d3ed1e4",
+      "packed": "a7f21b80697b82369b488b9efa8adce5b1d110c1b6ee06883cdb63529e0857c2",
+      "preview": "e1b293c75acf08f63d26fd436ecb987b5fd71d244d98c6792028f04b379d0041",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "tetra",
+        "file": "objects/tetra.json"
+      },
+      "source": "dfe2da5a435a3515f1467bc59aff53f36a16cf636a699bb25c3b813d9ed26da9",
+      "mesh": "d402f55965e76d7614e8bccadcba152e2fee67d529c50d7fa180287aa3694563",
+      "packed": "72505d8fb4f395f88712e73f9fe943327da10e1f2d45e66321ead0c6f342d37e",
+      "preview": "83e56a276606b1a02ab2330620affad24d8dbc0df6351260f29c88f45ca81458",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "elsewhere",
+        "file": "objects/elsewhere.json"
+      },
+      "source": "37969fcc2de4c3e6530aab9b1c0cb62296abceca77c15bbc6f3897c1f0442056",
+      "mesh": "0dbfcc1d571ddcdafd831ee4184dcc5eacb7e27cc53d9ec9f9126f375e92ba6d",
+      "packed": "749814679b61d487cc836e49f7a3298855e738d7525e03e76d839f8190844eb8",
+      "preview": "2aabb3dc7838ef44516d374634867506b6cbf0bfebb2a8f7d92059cd88ff29e9",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "offset",
+        "file": "objects/offset.json"
+      },
+      "source": "b1629453172d98b8ec479870866a488be822b4f9752e4319cd697cd577fa9339",
+      "mesh": "eb331e38f27afac5edc679d512a5f6fca5b6270649d166391f63af5de1a4e50a",
+      "packed": "228e4277f874ef3836c82c0dfaac22446e54d107fc238cb61307571fd2ec10d2",
+      "preview": "b40104d39f17390713eed87aeb84b1ab5f023f40bb999d3d429de9c9a4e46f7d",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "far-tip",
+        "file": "objects/far-tip.json"
+      },
+      "source": "ec624ec59c82c15a8fe7c4960989c7e79bb582de9167facb11231712ea6a9632",
+      "mesh": "16fe6435692a69e97a5b2c3af3e3ede770e951353dd04d1711d054936f238cdf",
+      "packed": "4133560f399e12ff3a2a82e30e9803e21becc2f5416022e9415cea145b9ef69f",
+      "preview": "2f6870ab80e890cc89ad7b33a3c97f88c3977d6aca2a725e4359d28b9d036260",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "pause",
+        "file": "objects/pause.json"
+      },
+      "source": "e735b32a319ee2ad3220885b57b217b17cd46af30e3092d00d4ded821afd1272",
+      "mesh": "2c2e8b58589b553263b5874ae7d61a0c6e4f12df7a2d8254614c97e1a0b3a953",
+      "packed": "bd16cdde08684c53b6b64928a17d2467061f8f38eb3a0dd5bc1e3d1acfe2725e",
+      "preview": "f2ae3c8fe73bd3c51eb9f875bc353090e60f18ff1528c5656befc5891c4b5803",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "dent",
+        "file": "objects/dent.json",
+        "number": 17
+      },
+      "source": "efaca8d50aa4743aa65fd5a0da4bb05db227b1c4f5106b861b683e8a2748943e",
+      "mesh": "683bad31bf5ec4e9a5c287a0b62e4a04c7b3af4f44c7d34f25cfb25550d22eee",
+      "packed": "ba320f7148ca30079f74e453dad51fdcb87d91b6cfe9281c22b07bbe7f05cc36",
+      "preview": "1e875961486f96585c0dc2267ad52498de7e311a2e689a7023cde3fe57b91694",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "ring",
+        "file": "objects/ring.json",
+        "number": 18
+      },
+      "source": "b6a5f794e951c0137eac74ff7cef85b60660fc4b6ac9b3867caa18702d9602d9",
+      "mesh": "2a928b9878ef2066f589ec4770edf13a8a43a1aa9297bc84c51a16f38b51d21f",
+      "packed": "e834d91dcc0d763b39c9e5d692dfe27b59f7b0ee26f99e3370ba9ec6612a16ed",
+      "preview": "a8a713cd391a77bb72a99a5d774c36bd6d1f58913b8c53fda6f25aa09fcbfccc",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "bowl",
+        "file": "objects/bowl.json",
+        "number": 19
+      },
+      "source": "ac72d791ba8e1957c7b456f37326f6bc8af46f39ad57c2e1c4464be749678ad8",
+      "mesh": "e2ae0cf17230e6aa989ab74489d4be36ced67e0f331956b3949940be17d280af",
+      "packed": "9b5c648bba99305d6b50fb3eb606cd6cf5d6ee094a34417dc91beffccd6875e7",
+      "preview": "17385dac5a71df25c63fdbf20f354a3d8141eba0115220bf7793af609279238e",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "leaf",
+        "file": "objects/leaf.json",
+        "number": 20
+      },
+      "source": "45cf90e6b3f762a21338664eebf50b5fddbfba64f94234b30a9a0b802043771c",
+      "mesh": "7463f39ee6997d1cd1da095b12749a4c3851354584e4c15d8f3f9c151bba98cd",
+      "packed": "a537ce953fe9920ea25a8a3cd8d83f10170104346f1dd869286a771e49e15e34",
+      "preview": "df71f59f5f0b030acc0b88eb22b68c48b658d92c7ece5754431fd93d5154b684",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "mobile",
+        "file": "objects/mobile.json",
+        "number": 21
+      },
+      "source": "8a21d3795a38d7ebc4016a6ca7550942fc9c6b83e2fb6ba8f5937501ce863706",
+      "mesh": "4d99ff7117dd9e956f28b3786717b48b31549ba8bf9e26f4024d222d13c16d36",
+      "packed": "3df938181b72702958b676cc677770417b7af9a8d7ef5c206567dd5d1f0add63",
+      "preview": "f9a4a122a536175ec66b3d15c618bb54c443748544aa7dd78d92713be4bc66d6",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "tilt-mouth",
+        "file": "objects/tilt-mouth.json",
+        "number": 22
+      },
+      "source": "c8e561e179806b162d51038d9a7d1e8abf28ff545e85bda7a9e4438272d0a485",
+      "mesh": "8cb01b7aa75e44acd5b894a0eb13f1ec5ed3d441a31ce91fa1ae094487046e37",
+      "packed": "cb622124b27fea476418492751de0d24c818fc1b03fff0524b557c0d51643e3a",
+      "preview": "171db6dcaa08c3e0608d039e3de84068c88a3ef16c56861a39193a3969787f78",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "pocket-shell",
+        "file": "objects/pocket-shell.json",
+        "number": 23
+      },
+      "source": "b1b1f1d805c876763acdbcb1a8340e2a0233692fba16c65a8974b2ebf3196209",
+      "mesh": "4d40b3efc4b14e9b1f8ede02235ee678e3ee11a0e05a92c9112a61e57589b60c",
+      "packed": "9d092c5f47fcf345edc20cede9400c8606c7fca0d538ad2af46eeac70eaabfc2",
+      "preview": "4d28ed1e318f8c59d500a5b5e9135464f95da340259509e3bc90ed0cc5ef0306",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "square-flue",
+        "file": "objects/square-flue.json",
+        "number": 24
+      },
+      "source": "1627196364d7f0af54dd0140b9a95a9920183a1040ef8f60d63bed81c9770be2",
+      "mesh": "d5161fb831d34977b8ab7be40de107de9db2f81c5c5f6c1d50336d537aa8b648",
+      "packed": "346574b58b2b6d396efe16953a137199a31da1b81e04f96d41cba40574754e10",
+      "preview": "41cf217b1f4c2e15e8266b689b55545f54fa86cb17e6e3e6bf974d90b3bb635c",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "elbow-window",
+        "file": "objects/elbow-window.json",
+        "number": 25
+      },
+      "source": "98f007f68a0a10d76c822fc85c2f42a1309f1531270b204de99e9fbdc2766b60",
+      "mesh": "aba273ea8a9a0703b5b36ead75abebdfbf3e04021f1b19e65eab14e268e69583",
+      "packed": "be6eef3505f1c0105f05740720165719922e737a9cd2739da1898acc3b37a04f",
+      "preview": "9b8a085f9ec49386b288ca95329fdc29a8d20562ecd204770f442c74ba57a575",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "fork-gap",
+        "file": "objects/fork-gap.json",
+        "number": 26
+      },
+      "source": "9db49d182bdb0958c196bc79f17f0331d828000ee5b30cff7e37a02fbeaf9852",
+      "mesh": "56288c02bdb8a493a7900365e17b998d24119f61a24ce0ae51fdb73cb03b9892",
+      "packed": "153286cc7050fb8d64be06988caa71d9c786d3d00ca560a4f78842be70e6bd0d",
+      "preview": "cebf75c9d81f48da29187ce6a296cb9fd1aab67137f4dfa52de2d45214519c3b",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "skew-tunnel",
+        "file": "objects/skew-tunnel.json",
+        "number": 27
+      },
+      "source": "c44f8ccdd0a4718b1590bf06784d9b559640757e9e9a96698e0b1d361b6cd4f3",
+      "mesh": "67acdebdb0dd3322b77c2ff30910ba4c439aa5467861445166ea57966b90b6d2",
+      "packed": "ae36f316233c1f0c41b342378133380a1695ceeb222be7dfb7ca94ed0738998f",
+      "preview": "bd35da5f8707b29db839caecd86b9cd978c86b708e1536ae3d55e5c5708e0816",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "crease-fan",
+        "file": "objects/crease-fan.json",
+        "number": 28
+      },
+      "source": "c0ed9c871b6aa34963a942aef4a290120ae2aa7b5cf94a080ea549d648f5fd60",
+      "mesh": "7ad7ca166e73506a9ae146817816da1bd0fdd8b07b96d3fbbc062332c8417b03",
+      "packed": "f67969ddc995f267d6d986b9cd3823a474c9919b3bbbb542aa58a808e0830e28",
+      "preview": "a9abcca4c474bd8d9060f41cc6c50706341d2444f4edec92fa751407dedcf1b9",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "ribbon-turn",
+        "file": "objects/ribbon-turn.json",
+        "number": 29
+      },
+      "source": "98a1f3a7c1256600fab77892dbb7117336177e9d903cfcb8c49d4b2de18f1464",
+      "mesh": "48ed075b81ce76fd34ee39be64110a0a180f88dede7b26397cd2998e6aabcdde",
+      "packed": "913e0a4f02ace2b2632e25322c51203fc37825fa8f525c59d71b4bf807d1b6c7",
+      "preview": "70e5444def0e8bee8ef60f89cc8cb448ea04a5a22d553244afe788146dafb959",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "saddle-sheet",
+        "file": "objects/saddle-sheet.json",
+        "number": 30
+      },
+      "source": "2703940980baf18e2a2d8de4327abfcf831696c8f6759a3ee68f26eafc78ba73",
+      "mesh": "6a0994e467ccfc09bf7f624135b1722af2e8c1c34315b6e50b51e08106630a67",
+      "packed": "a42208be8b481bc348989b7c5da2b06565480c0e54f6b2cae707f1c13facd206",
+      "preview": "01c8ee1dca1e656ca6f1932c270179cd151c11cab9a8b5a124f35900bcde492c",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "offset-stack",
+        "file": "objects/offset-stack.json",
+        "number": 31
+      },
+      "source": "b90c180387aa528978b58d03b294a680cced9bcfcc44e016571a5aa0c0890a3d",
+      "mesh": "5e94b8b742a80152d4c3f6999770e10a87df074742e1ea35cc77faf1e60201d1",
+      "packed": "881eb58e9b7b392fa13180f139608d1a1e632334c301986cbfbd00c36723139b",
+      "preview": "01a04e29293fbdbded51364daa72ec15d3112cb0bc79e6d73de0f3179323ac77",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "bridge-pins",
+        "file": "objects/bridge-pins.json",
+        "number": 32
+      },
+      "source": "a9b7bd539418379f07bef51925053490ff9bff95ca98679f62839551518fb6fe",
+      "mesh": "40f11300a337886a9527a0e0e8acdbe7f14bb0962c14795984240583d556c3b6",
+      "packed": "61e3dadbed2a5dfdc4d30c9deb600d7d55de5970b85ca731596a0a834cecb8c9",
+      "preview": "b85d7ae7bd9215767e28a36292e8766a00862188db48f7ffb2196e6d258df2e5",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "orbit-cage",
+        "file": "objects/orbit-cage.json",
+        "number": 33
+      },
+      "source": "37190a057cdd4ce8198ec25cd7103f9cd542bb31dd9267ab632adef189363176",
+      "mesh": "7691740c6c7a5269d24e968ac4eb1ce4b1f92efac5ca49ff133f9cce73ba7ab2",
+      "packed": "5455b31af0b73085df528675925c17020114957b8b3c8a8023bd05e1e51f8e2f",
+      "preview": "8cbe64f24d70120a3b562b4065b4e71d9030124305fbcd005b59fb9e3c5af303",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "three-ridges",
+        "file": "objects/three-ridges.json",
+        "number": 34
+      },
+      "source": "a12f3f68d25c50d74dbc08d5c4925b39561151004b2a7775b8a4262d28d6a938",
+      "mesh": "e0275a3c58565f84bd0e66e43f0523f8356c0a8b16bf2fcd2dfce7d504b95b2b",
+      "packed": "b54d8c0ff2bcc63dbba00c616dfdeb90f530377fecf5a76b3b41f937383af5b2",
+      "preview": "bb6d35634ab136086e26b81e5339aefc09d03410190b103bfd5baa4fd7b78ada",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "pinched-cross",
+        "file": "objects/pinched-cross.json",
+        "number": 35
+      },
+      "source": "ec662b546ac19c2791961326c6d9ff5905e9e623157575bde29e5030f0f4b4f3",
+      "mesh": "5b38a5d88683034a754d8bdde549e6785c9ca0681a08fb81a0c618f59b0af5d4",
+      "packed": "61d1abb71761975073f72d15be68c6debe2c52acb08ce38abcf5b2776b7baa70",
+      "preview": "dacec5bdea0efb7d40a127b924ed61bf5a0e8f103a6bfec6c625711245396f8d",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "step-knot",
+        "file": "objects/step-knot.json",
+        "number": 36
+      },
+      "source": "9a2050556ad5dfa0daf42c60b8958a6016724fd6874494edc03cf2271d21d4f5",
+      "mesh": "c2355a5146cb394375874816a5e3e508d1545b1feabb255ebceedf75a38e7aef",
+      "packed": "551840b2b0061b4514eef17b82c5379c3edc46b2cfbd4904f307bb1edff6e35f",
+      "preview": "79cbf4d23fe547d6f146bdc5771b517678202e5ab4fd52314e95074e62ff5912",
+      "motion": []
+    },
+    {
+      "entry": {
+        "id": "pinwheel",
+        "file": "objects/pinwheel.json",
+        "number": 37
+      },
+      "source": "38390ffb070ee6daa640616146d97a830b4a874c0d87478d9fc9f53339bb2fbe",
+      "mesh": "044ea70c8ae705291fea14a02a96cc5c10c8228342e85b8205617da3c2898dbf",
+      "packed": "adab5924046e9ed436a92bc33eb4634834d827a1f3defbf2c0068db8e17c8ef9",
+      "preview": "3efb0ef8caea4c645fd42ad89e8dbcebdbf923e5668c84554a3eedea999cacdd",
+      "motion": [
+        "e93955cf3106aad3a46c46383a6147eb6eda7a9034d0a329a31b36ec1a6696b6",
+        "c4353ce40ea76762f7b4a6894c4d7dbe292b77f6bf48db1c5ea7e6469b4bbaf2",
+        "af6c7bc57e23a35483d43cdfc81b1ab45ec2a3057e9833bd2c0ab853bfb80e56",
+        "54500dad130dc5f69cce663333cc5a20376721d00e54ca910f1a971313ae78bc",
+        "5caa102f5c0707626441ca3cebf69551ac7086a76db4a7318d95e9d59d81318c"
+      ]
+    },
+    {
+      "entry": {
+        "id": "shutter",
+        "file": "objects/shutter.json",
+        "number": 38
+      },
+      "source": "f7542a817c0595d8953e56b8189003b711f333a981727e39bbb8ecdc79943f9a",
+      "mesh": "af9c9ef94189926b1ed05f4bd31642fb48a279b9043ea8fb519d82985900966a",
+      "packed": "589081e3943da607e70f91c87792dbe679b6500ef847b5eafc6b67eae6686b33",
+      "preview": "898611f7ec97497bd3d00fd8ff394424d0bd757b526d80ff659aa2da53caa5bc",
+      "motion": [
+        "cd863632cfb1192df25a3e7e48243fcef7f4e53b9d42c61e987493fd097b5fb1",
+        "1323747a43da1c2e18f603d51960f5377e53b66a6605e3af2da373e421336ea0",
+        "bd7dfb746bf201f2f052bcadbb6fa865c112ff6d42ea8333719e984668f9b936",
+        "cd863632cfb1192df25a3e7e48243fcef7f4e53b9d42c61e987493fd097b5fb1",
+        "97b277231ebec916698387de4d659a8175f49b1f13a249b030dac77f01b1cc2d"
+      ]
+    },
+    {
+      "entry": {
+        "id": "pendulum",
+        "file": "objects/pendulum.json",
+        "number": 39
+      },
+      "source": "51be31e5371d4f1cd89f98c37f4be8ca1e051e958c8de689f01ad8ac858b15ef",
+      "mesh": "839073b440936fea608e3181b3d8aa955904abc9bae4512d0dfb7a559014e3b5",
+      "packed": "ecdd1df8057c8dafcead0a1e091b86634ec0bb2fea8fa5142ab8ec46e69dc866",
+      "preview": "290d558088e281e4c9e26cfe88ba3f5ddb387112fa122bdb693fe220135f7dd6",
+      "motion": [
+        "15224e74f3659ede5362661a502b2257e84ea84ab536a316dd371ae4d07bd2ee",
+        "fe0356222831928afa8008f87773a75d3e414c987cd5898428920041fe1ced01",
+        "e9d3e0ddf92573936605175487aff2c79d342d791fd94b0d79e860f741ea0185",
+        "7f16e31def6e9bf4a504421d9ff694fe7948f40e00ac6c9cfb2dfaf2dfacb167",
+        "9ba9ef5ff665c35bdbb85311055b962087a5eced46b255023cade544f8d2cee4"
+      ]
+    },
+    {
+      "entry": {
+        "id": "slider",
+        "file": "objects/slider.json",
+        "number": 40
+      },
+      "source": "a803b63d27d1dae2c08beadd472e819508b3819a4558551bd2e519ae1ffb60c1",
+      "mesh": "8f1a1932fd0e6ea944bf7c50c77b24489d4e65de82a4bda1bae263e071326923",
+      "packed": "90463f6c352299050f62cc7ed515c2e25226331a6787b7d56ec6c39f92e7d1c2",
+      "preview": "e003dfbbb307f285d496c52a04e3d3c67f218dd913131a56dee5342a78392d05",
+      "motion": [
+        "c40cd39ee50dd98dafcda7878c18e838b18b2b69ab3313f6bf7d014ea72f3efc",
+        "f680c0242446c8d42ff98814d9a64296bd135ef0fa19533418ef5b99a05cdee4",
+        "bd720f2280ca836caacd9066522be8c9b534ab10f171ad9790d04735adaeb3c7",
+        "9b58a46d33359b483681b1f006ffc0c0bc6d8792dce98daccd01bc9c5e2eeb82",
+        "d7224bb2e5dd7081b9e84a1cd0e1b2c29a0f5d6bea2e94440072d7efc034c867"
+      ]
+    },
+    {
+      "entry": {
+        "id": "mobile-motion",
+        "file": "objects/mobile-motion.json",
+        "number": 41
+      },
+      "source": "f07e6e5f601e7f0ffbb0ed31e01cf0f1aa7b36096075299dee8e3496dacce0d3",
+      "mesh": "2667a3b1c8a263fe5f6cf430c90f92f28ffb819ee1a9bc353f260575f1accd47",
+      "packed": "83a4cf832d57a561c82595a528977eddf2869d0f81d403d86273c128b48376a7",
+      "preview": "06ea878df309b32700f9c86fbf684b9bf0cd2a5c671e0585bcaff0fffd99e47c",
+      "motion": [
+        "31762d43f8c09ad0e8d396b5e6671a4552c48a9fe5d705d272c2d095666976b4",
+        "6da74487a00bc671c07096925a3ca42b1988946ece904c4c5fa30b05f01673d2",
+        "9a94e334bfb03fcfe09132a35b51f25f213ec59278bc256b6934f0a558dc837b",
+        "d00e115d213396c53945e8251e4960f51371b6018b0e912fca8257f808ebc653",
+        "99b65c84bf644b1afc6cf474ff76b26390c3151594a20abe1a5e1c71a23944fa"
+      ]
+    },
+    {
+      "entry": {
+        "id": "eccentric-hoop",
+        "file": "objects/eccentric-hoop.json",
+        "number": 42
+      },
+      "source": "2707d16bb5aa4c77a2dfc72aad15aa682a020d39117bab50a0cb98d77e490d1c",
+      "mesh": "533f2004803744e650c8ada8d3c06f28396a4ef39d41ae334a55b306a92decaa",
+      "packed": "287d368859c258c69beb7c3e7ecdcf92115c2d10d736c0e4dda1705afa2698bb",
+      "preview": "dada8f3326bfdeed9e880bf5b448cf2f239d32fcf8a273e76c91494c435c257f",
+      "motion": [
+        "e44fc453253eab2e8fae8a3cea1e49ff8bd27b399cbf1ef0f7f60ae6873f5a11",
+        "00f99389bff7ff5568989bd0cf2c0ec8e53a36fcbaa97cdc8b0b2355266aaea2",
+        "05cb045c9626a875ec75ec66d67421189da37b70a58a1762d50c12266160d309",
+        "c70a7d195793d4d31fc55833afc213480beb4611f3c19ffd7cf02cee519e6f30",
+        "d562d854a97e51a11d69edcfcf885b887dcb1161a95d8cd0df6794cb3de7a0a7"
+      ]
+    },
+    {
+      "entry": {
+        "id": "folded-comet",
+        "file": "objects/folded-comet.json",
+        "number": 43
+      },
+      "source": "db56cf77303f4e68329477232f9fb3ab8241e2cb3fe203de47e22ca2b9843ee0",
+      "mesh": "73b04633450344cfbd067bf697bb8028b0e460adf4273d3729f732bbed41cb32",
+      "packed": "fe2cbe7e0778986c220506f1eed5e0b5ca539f0e7bff01679ee1a1c95335f2ed",
+      "preview": "03e394ec2c4038fc0f5883e984969e6da5d5ab81fa712d3102e52e8336dfaa28",
+      "motion": [
+        "13462909189edd8cd34e2d10585e65a70fdb4ee55868272bcf6316d648c00b48",
+        "91b7293605b85dad7629c7a0344d2e9042539c5ea685f3dab359d9cfad909ee7",
+        "897cc43c6339d054160e71ae947c377ed503909581e9a6430fb7b88925f58040",
+        "46e00a08e773a1aa366772022e54c3e8d51ad0fa824b4e89b497dd2a39fb5287",
+        "515e53d3f4ee3bfa9540c6397aafd7791f0507a89f75dd27e3d03815f31d68dd"
+      ]
+    },
+    {
+      "entry": {
+        "id": "split-disc",
+        "file": "objects/split-disc.json",
+        "number": 44
+      },
+      "source": "b6a2b03212be4f238ab0f83c2fb6f69d98b8c4d805371baff484a900100f32a6",
+      "mesh": "a1fb6cde0ded83b89a728451694046522d667c2dc599ed546ed3e1fc2f724a3e",
+      "packed": "63e36187ecacaa8897ee30eca653ab773e193ebc96e4e34da10a07625175c127",
+      "preview": "819fef49cdcfb703d702820a6cfccb0acc7e5d7225c9146e449f55f3bee5b42b",
+      "motion": [
+        "53bedb2ddf3d301e3516d9d3c053fccff37afe460f6b2df824e225e35c9fbc7c",
+        "24c43bb3c247b14217fa612d04ad499d5c4fc98454a12658ce0f63ff31694cc7",
+        "150ea106f3090ce265ec63f201802c4240b32ff4a0e2a2fadd13724cf4e12933",
+        "a50eec7acdc40520d520df23eae33be1d6cf7de71ea090fba5fd0db2ccd4f941",
+        "7fad43017d4f94e035b6fcd3679e4a8f5c0b2e259b34922f25697fb071c60fff"
+      ]
+    },
+    {
+      "entry": {
+        "id": "breathing-keel",
+        "file": "objects/breathing-keel.json",
+        "number": 45
+      },
+      "source": "738dc32ff3f9a455379d796c3161560ec7132b6c50d0fdc3d0ad3b0fb9b2ffad",
+      "mesh": "da896ec539375b4911856526f144367b697dd5bd09bb39ebdbb62f6bfdc4c8ed",
+      "packed": "fb84f6dc791cec805c37cee87c7f7748b66b5cfb722273131c2e1f0b74ab6f39",
+      "preview": "360b6d9f2c08e5363d72cd60f34b5aca0d5e3c694f06c8219deb9c70ad1b752e",
+      "motion": [
+        "cb60464e8fd7af111c125339421551ffc603ed91367fe5149d98d527ae47d404",
+        "c537a6a3059e053f61aaaeaa74e19096243546e2fd7712e2355238cca483eb93",
+        "cbee3d9fd000b1344523e7887bba2fe33f6ca34b0e3bf894a9bdd2d6e1915edf",
+        "cb60464e8fd7af111c125339421551ffc603ed91367fe5149d98d527ae47d404",
+        "5922e3badd3814b53e3d1077a6f5370ee07b3da2a0d536fd1641d89053ce8c62"
+      ]
+    },
+    {
+      "entry": {
+        "id": "soft-beak",
+        "file": "objects/soft-beak.json",
+        "number": 46
+      },
+      "source": "1b0fbfc3adcacdda63229848297371fef50c06a6935477173a1219e13ff4aae3",
+      "mesh": "ae4db7009ed14571ab089d3eb505ee93fecc16c986ebfd689fbb4ee800470bf1",
+      "packed": "11cff02454229287440a300e459bfd4b56596c947905b08f1ec7deb614bbfa11",
+      "preview": "3fe8eab5cedd5311c29c615533c3d631ae93fb690f65b79cf0ae57207f72c198",
+      "motion": [
+        "ca20573e2ed81b416f92cd8bf04bd991d711acea8bba059d9fdb51aa1b137c26",
+        "d468036db4a8c96fac5012ac9d105ce1b786bc445fd23b804a49a16f440e3a57",
+        "7f721a8994505d8ef1c26e7b1245a310b6f6ac04d43d980f56a112b53cc46b8d",
+        "7e2b4a8a1233a23171d7fde5583c4633fbdf64b8506830d30a8c4689e56449e6",
+        "ca20573e2ed81b416f92cd8bf04bd991d711acea8bba059d9fdb51aa1b137c26"
+      ]
+    },
+    {
+      "entry": {
+        "id": "tilting-cove",
+        "file": "objects/tilting-cove.json",
+        "number": 47
+      },
+      "source": "56fcfc4acc8bb56cfe6940b573f375128b1df088f2ac72a6ea51fe04dfe6eb70",
+      "mesh": "bc627773d1144c23764da16da825e2a6b0fbaf1389adcdd852f1a73432e67e87",
+      "packed": "53fe162eaf2b47e1694be2590763eba5cd4662c72a046523b0f7e4641453dbd3",
+      "preview": "28544c501c4547744001204dbe1bc77b3dd44cd71b2f162aabe8a6f9e93c839f",
+      "motion": [
+        "2ef23a5e8bf479cd90845c333798e4547059e3ff5455494ca90a6cbceb4568bf",
+        "bb29d2d4e8132bdf5074c1c6d57deccb9a6fecc3f7bd8cfbd57690e2a868ccb8",
+        "a11763c96df7f58a782716711bb619c0bf3c7037d03f79556dff864e812b35fe",
+        "e3fb5e41ea052e0c5ee81bfca642d550d0c4c2a5b8ff41ee27504cf21d115175",
+        "79431376b6eaa5a19337d3e6f8b90ae460e046de1ba6239a92826e5c9e2a9b46"
+      ]
+    },
+    {
+      "entry": {
+        "id": "wandering-teeth",
+        "file": "objects/wandering-teeth.json",
+        "number": 48
+      },
+      "source": "338e8299dcc8a73e14ad4c6de2bfef6cfed5de478eb97fc9bb20f06b4c0dc7cc",
+      "mesh": "a7c1b67e7d25c350579509c348eb2a08eda102c406ed0d9e2c3c2bf1b485534d",
+      "packed": "e0e67f5feb874dbbeca35b1c789c07a59906cc035a9366ad7fe9fa66140f9c36",
+      "preview": "e1090a95ebd8d57286770c8e3b0e2402002e7d7268ce29f3929bbdf3fe5504ec",
+      "motion": [
+        "b7c9eb9e8bac5cd6c1297867dbb35a420d2819e3c3147bc74c528e0a7ee0785f",
+        "3ceaf0df6ab22798246acfd8494603203c12b86ac5a6a5e626b8781bc1e3023f",
+        "84a691f5e43d25bd4270f0c51774ec2778e70a6ec8e760e34af142fd6d219ff3",
+        "1c3540c6b10f50024cd0da825a558b557f26e866bebf5b1b9da2ac79e989fb56",
+        "84a691f5e43d25bd4270f0c51774ec2778e70a6ec8e760e34af142fd6d219ff3"
+      ]
+    },
+    {
+      "entry": {
+        "id": "rising-islands",
+        "file": "objects/rising-islands.json",
+        "number": 49
+      },
+      "source": "5a6815c73b0e4e22ca1539e627bb8d17cb5ae2cd3295424f08171e23ed3d1ae4",
+      "mesh": "8b6d0a69bf7695643aa2e001070c65d4a422a113948540432091ab36ca501cbe",
+      "packed": "ea156331803521488d516c0b2bf7f725b6231bf6e94c98ab2ce024948a22bb53",
+      "preview": "bc556fa4fef3114e0fbc8972c6ba9e608c9a95d2a9dd8e0ad86ee1520a99e21b",
+      "motion": [
+        "746f9cc383b5fa49d9bc83a471b6b45ed826a2380ad5b5b9a8d1848fd7c79a30",
+        "9c8129593375d3090e4573d97a0978c9a0efa040d4cf1ff325d33b541484bac5",
+        "eacd9e442ecc2bffb67c5762100f43068df23a03f346511e1b760ee97ae5184b",
+        "663964c98a0f0c782f44626d8157df631665a3042f349a62203f0bc09b2eaec6",
+        "746f9cc383b5fa49d9bc83a471b6b45ed826a2380ad5b5b9a8d1848fd7c79a30"
+      ]
+    },
+    {
+      "entry": {
+        "id": "split-horizon",
+        "file": "objects/split-horizon.json",
+        "number": 50
+      },
+      "source": "854bba9bf2372bc27c86ddf72d66c4835a9751f406f4958d911661689a0a6bb2",
+      "mesh": "a9dc6ade013caa94276cde3b8c18eefbb6835bd59734def4010c57fa5b1e8d0c",
+      "packed": "b7e556a76873ca978b34812a27cdad1d06d689c56e67774aa0c8638153148abd",
+      "preview": "986bac080b90c90b51b47a5f4729779e0c27c126f5e26ca9b0e4bff7fdad07a6",
+      "motion": [
+        "e9d328327069b00646f39906f2cfd3d321444eea4540b255a5f13b004a5a969b",
+        "ebfd8cf04d7f3515fd4dae13edd3ef4c9b20450f42a273424e954d3d6023801c",
+        "10d8f7b415973bffa71c513b55cfcc0d956ec4b2722971620a13e3c89443a33d",
+        "1e5dba120f308e110a8c9a1feb56fd3ba8ac21ab6986fcecd5f48e6ebd645eae",
+        "e9d328327069b00646f39906f2cfd3d321444eea4540b255a5f13b004a5a969b"
+      ]
+    },
+    {
+      "entry": {
+        "id": "phase-petals",
+        "file": "objects/phase-petals.json",
+        "number": 51
+      },
+      "source": "0dd0d19c85514bcbe78f939ad534eeb865a32ff56967adc9b414278f966b9fb3",
+      "mesh": "378b4c539e25df7098997d57cbd96a12632e9f83db98db600d2c6a574d9255d8",
+      "packed": "1042c5cb28f53b486ba9f1e60dca690d2dd77e608f719384a825cf161b85e29f",
+      "preview": "47cd8d9791a1bb41ccb6df4cec656c0b636d01beb0ac4f16a5d71482bc27f797",
+      "motion": [
+        "cd42949d36a45629909533132dad5ee828f26eb7a625192347622a1849da482e",
+        "613438deaf7bdfa7bf7bc75e44e44028f49cff1b717d513f1671f978a2137b7d",
+        "b7ae56de814b6499cb2b2950277b6f2f9a0fcf0395c269972fd60e750c2ec559",
+        "34d87576fadfd5de789dae9a0bda9b700912b4f571ac125f6ccb3199a0f4f217",
+        "d8f3e0708e4f7dcc3705007dab3e1fe9dc4eb800506f73b4c4abf670be88207e"
+      ]
+    },
+    {
+      "entry": {
+        "id": "counter-arches",
+        "file": "objects/counter-arches.json",
+        "number": 52
+      },
+      "source": "f3c108d5c0d2562da8d53f7384bc72a50ee16b515f2619bf5bf9aa0b17509edd",
+      "mesh": "81987a68bc91260c0f79f2ea190494d916581279bec9a9759ede5cb90558725a",
+      "packed": "f7d3d0b9668e8fbefd88d4bf1b26988ffcdfce5ed09d745db59d40055b5a9213",
+      "preview": "54c574f4c8a0ef937deab54eb1427fc0bc238af4816d7733d19e08f59b3059a3",
+      "motion": [
+        "75a0f9afbaf02147b62440f0329b76b105924a3deaeecb0537ae042f5112665b",
+        "44e0895b4191318df54f1b6d9b93504687db12cf4185e292132f9cd54abff8e7",
+        "26ea4f52928119d59d4bd378a05d1c4c18004eb860019e9bc18760fa2df4cfb4",
+        "48a33ccdd699b3b3995edc8bc2cb2ef5e6d3f0b9a7b6d8bcde825c2f7abf5193",
+        "491c0f2247a35429b7d4ca0a98885bc8723297e5e516a4e60654be8f701ce1d5"
+      ]
+    },
+    {
+      "entry": {
+        "id": "slow-conversation",
+        "file": "objects/slow-conversation.json",
+        "number": 53
+      },
+      "source": "13d2cd4fba16e40b2562a73e7106c2037fd5c5178e17c0790a6e83ae66e7188a",
+      "mesh": "80eb69a1a4f1cbca829a6dd7da5b034121ecbc4b0a41a90e00c711a6020617d2",
+      "packed": "4f3672b5de35a250c9c77acf009b5526e1366b4e3cadb9e88198a228e4359fad",
+      "preview": "a3f4a8d2ec36cd92a59b94ac5bef083920a005ab8ba1e6abfdf863ba818ff9b0",
+      "motion": [
+        "51ec67fcae80b907a7536040602f238dde200cde999f237e8df467ba620fe622",
+        "b1a7525013063c2fdc1f8edaa23bfc4678261e6dec67cb78a531b392d988614c",
+        "ccb1754461c6541930901c4071cd0d384ebbb2e461d6cf221d71cccbfc7890a6",
+        "9e8a40dbd4d51db25f68f45bb8150005adb922e74cec9790f7e49e94da32b725",
+        "a3123552c5f4db9c79e68b124931f1ff5320ab45e7d50937a6d7b2158c7ea034"
+      ]
+    },
+    {
+      "entry": {
+        "id": "hollow-comma",
+        "file": "objects/hollow-comma.json",
+        "number": 54
+      },
+      "source": "19a499189fcf56f68474bb0028fc2965c16de8304a88d323bdfbe0aa0ca69a32",
+      "mesh": "4f3537fec1c08f384a2ed8b06f02018a020fdec0648655a55bf4573ecddb8fb3",
+      "packed": "a73dd6b90a48ec147c3623e098ff4a47c5f3cd8fa195a05de14923f3412d7b39",
+      "preview": "f89dc1596ae173e9bb1b0dca72e3212e8f8b27823532d00ce6d229eed319b357",
+      "motion": [
+        "19109ae6ea0689ab95cfb99ba4e1ea1c1bbd5e30c74ed9ed72b755b21974290e",
+        "17bd3de1d45b3244433df52ac3f0f0db2dc37f3a7eb841c2bc147a12e0dccca4",
+        "24101a057899519f3971eb2f7c69beb785c6cf36e952e665be093cde336c0e26",
+        "966f0595d2c2f58b3378bc4649e83d422881fc3a8d1c7f0b8a0dd8e2f5afc917",
+        "b82be0a5bb02fd5b70816da05650d2cc979c5d857ef3909872746c1adaaaeadf"
+      ]
+    },
+    {
+      "entry": {
+        "id": "walking-fold",
+        "file": "objects/walking-fold.json",
+        "number": 55
+      },
+      "source": "5dcdc3d245dcca43ca8b1600ea2c2c64a8e8578a7c7281897c99c41f97fb5d0c",
+      "mesh": "b74db834a3254e20b2d4ab56d62d688fec30d6bf0c1243f87dc8ed31981957ce",
+      "packed": "a60c39e2f9b4d054456720b275053e72420ef127da9a76e7c40ee10876792872",
+      "preview": "84deecba0442512dbb9257fc1cc2d776cfea10778353a408551dd4bd7375c87c",
+      "motion": [
+        "7a0c5072c59df705252003619c63e97f9dce887cdadee0adf83a83be8a69a84f",
+        "cae4c03267ccc5a8903ba0fa5498013912bcf95923b190f431bfee18e965e2e1",
+        "c97ba10e95d0f22e7a57accf2878a9628f922793c0e60c0c1478755455642af3",
+        "e60ca8e7b45b3073135e8fe52a8c8cc83e352dc3ef8f49051fae153184616dac",
+        "7a0c5072c59df705252003619c63e97f9dce887cdadee0adf83a83be8a69a84f"
+      ]
+    },
+    {
+      "entry": {
+        "id": "unsettled-crown",
+        "file": "objects/unsettled-crown.json",
+        "number": 56
+      },
+      "source": "99d73bea34d021af5abeb2b1be3ee267016960edd4b0479e97dfdc60ebf24957",
+      "mesh": "451a3410d1d4def14ffc543747414339ad4d872d82859f4b732f2f297026b4b0",
+      "packed": "d25d563ebfb2d7292b52d403c88d94bedb82aa7536d1b588b4766a3f9b446ef1",
+      "preview": "99529e217a9094ebe384fab5ab1dc99cd898bff44086d58a07b242768c2b8bbc",
+      "motion": [
+        "213538b2c6b45374788c004c6137daa8239bacb15f91d8902a7c6d6e0fba6fdb",
+        "ada24ea185e025e5f79947d6c83241a61084c7a7b20c0cc684ee21f928fe9546",
+        "fe353515eb179549fcbde6872ee05d772efacf90e3984b8d7003b29ecb3147db",
+        "0d4138efc0ab3d79e43dad2f40a4d4a5d4c12e3ca027a0989dcaefc955e3f043",
+        "6a972b0e1c9651ca755d1ca1fe519d260a4d8f23861661a5cce33cc4165b8444"
+      ]
+    }
+  ]
+}

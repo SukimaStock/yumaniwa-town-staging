@@ -1,8 +1,7 @@
 // Authored local transforms, evaluated analytically. No DOM, Touch physics,
 // object names, joints or edits to source geometry during playback.
-import {add,sub,scale,dot,cross,norm,rotate,inverse,multiply,axisAngle,rotationMatrix} from './math.js?v=0.6.0';
-import {compileParts} from './mesh.js?v=0.6.0';
-import {packedMesh,pickMesh} from './geometry.js?v=0.6.0';
+import {scale,norm} from './math.js?v=0.7.0';
+import {RigidParts,composePartPose,assemblyBounds} from './parts.js?v=0.7.0';
 const TAU=Math.PI*2,fail=m=>{throw new TypeError(`Invalid specimen: motion ${m}`);};
 const finite=(x,min,max)=>Number.isFinite(x)&&x>=min&&x<=max;
 const vector=(v,min,max)=>Array.isArray(v)&&v.length===3&&Array.from(v).every(x=>finite(x,min,max));
@@ -44,84 +43,24 @@ export function sampleTrack(track,time){
 }
 export function partPose(part,tracks,time){
  const rotation=tracks.find(t=>t.type!=='slide'),slide=tracks.find(t=>t.type==='slide');
- const q=rotation?axisAngle(rotation.axis,sampleTrack(rotation,time)):[0,0,0,1];
- const pivot=rotation?rotation.pivot.map((v,i)=>v*part.transform.scale[i]):[0,0,0];
- const offset=add(sub(pivot,rotate(q,pivot)),slide?sampleTrack(slide,time):[0,0,0]);
- const base=norm(part.transform.orientation);
- return {orientation:norm(multiply(base,q)),position:add(part.transform.position,rotate(base,offset))};
+ return composePartPose(part,rotation,rotation?sampleTrack(rotation,time):0,slide?sampleTrack(slide,time):[0,0,0]);
 }
-// Exact maximum of A cos(theta)+B sin(theta) over a bounded angular arc.
-function arcMax(A,B,lo,hi){
- let result=Math.max(A*Math.cos(lo)+B*Math.sin(lo),A*Math.cos(hi)+B*Math.sin(hi));
- const critical=Math.atan2(B,A),first=Math.ceil((lo-critical)/TAU);
- if(critical+first*TAU<=hi+1e-12)result=Math.max(result,Math.hypot(A,B));
- return result;
+export function motionRanges(data,part){
+ const tracks=data.behaviors?.motion?.tracks.filter(t=>t.part===part.id)??[],r=tracks.find(t=>t.type!=='slide'),s=tracks.find(t=>t.type==='slide');
+ const angles=!r?[0,0]:r.type==='spin'?(r.speed===0?[r.initialAngle,r.initialAngle]:[0,TAU]):[r.baseAngle-r.amplitude,r.baseAngle+r.amplitude];
+ return {rotation:r?{...r,min:angles[0],max:angles[1]}:null,slide:s?{direction:s.direction,min:-s.amplitude,max:s.amplitude}:null};
 }
-// Bound the complete authored motion, not just t=0 or a few sampled frames.
-// Slide endpoints and rotation arcs yield a safe bound even at different phases.
-export function motionBounds(data){
- let radius=0;
- for(const part of data.parts??[]){
-  const tracks=data.behaviors.motion.tracks.filter(t=>t.part===part.id),r=tracks.find(t=>t.type!=='slide'),s=tracks.find(t=>t.type==='slide'),base=norm(part.transform.orientation);
-  const pivot=r?r.pivot.map((v,i)=>v*part.transform.scale[i]):[0,0,0],axis=r?norm(r.axis):[0,0,1];
-  const endpoints=s?[-s.amplitude,s.amplitude]:[0];
-  const angles=!r?[0,0]:r.type==='spin'?(r.speed===0?[r.initialAngle,r.initialAngle]:[0,TAU]):[r.baseAngle-r.amplitude,r.baseAngle+r.amplitude];
-  for(const raw of part.geometry.vertices){
-   const v=raw.map((x,i)=>x*part.transform.scale[i]),u=sub(v,pivot),parallel=scale(axis,dot(u,axis)),radial=sub(u,parallel);
-   const R=rotate(base,radial),T=rotate(base,cross(axis,radial));
-   for(const amount of endpoints){
-    const c=add(part.transform.position,rotate(base,add(add(pivot,parallel),s?scale(norm(s.direction),amount):[0,0,0])));
-    const squared=dot(c,c)+dot(radial,radial)+2*arcMax(dot(c,R),dot(c,T),...angles);
-    radius=Math.max(radius,Math.sqrt(Math.max(0,squared))*data.display.scale);
-   }
-  }
- }
- return radius;
-}
-export class MotionPlayer {
+export function motionBounds(data){return assemblyBounds(data,part=>motionRanges(data,part));}
+export class MotionPlayer extends RigidParts {
  constructor(definition){
-  this.parts=compileParts(definition);validateMotion(definition);
+  super(definition);validateMotion(definition);
   if(!definition.behaviors?.motion)throw new TypeError('Motion definition required');
   this.tracks=structuredClone(definition.behaviors.motion.tracks);
-  this.scale=definition.display.scale;this.radius=motionBounds(definition);this.time=0;this.playing=true;
-  let length=0;
-  for(const part of this.parts){part.tracks=this.tracks.filter(t=>t.part===part.id);part.first=length/9;part.packed=packedMesh(part.mesh);part.count=part.packed.length/9;length+=part.packed.length;}
-  this.packed=new Float32Array(length);
-  for(const part of this.parts)this.packed.set(part.packed,part.first*9);
+  this.radius=motionBounds(definition);this.time=0;this.playing=true;
+  for(const part of this.parts)part.tracks=this.tracks.filter(t=>t.part===part.id);
  }
  step(dt){if(this.playing&&Number.isFinite(dt)&&dt>0)this.time+=Math.min(dt,.05);}
  setPlaying(value){this.playing=Boolean(value);}
  reset(){this.time=0;}
  pose(part){return partPose(part,part.tracks,this.time);}
- drawCommands(orientation){
-  const view=norm(orientation);
-  return this.parts.map(part=>{
-   const pose=this.pose(part),model=rotationMatrix(norm(multiply(view,pose.orientation))),position=rotate(view,scale(pose.position,this.scale));
-   for(const index of [0,1,2,4,5,6,8,9,10])model[index]*=this.scale;
-   model.set(position,12);
-   return {id:part.id,first:part.first,count:part.count,model};
-  });
- }
- // CPU snapshot for a static preview / validation only. The live renderer
- // instead sends fixed vertex buffers and the part model matrices above.
- snapshot(){
-  const vertices=[],triangles=[],parts=[];
-  for(const part of this.parts){
-   const pose=this.pose(part),start=vertices.length;
-   vertices.push(...part.mesh.rest.map(v=>scale(add(rotate(pose.orientation,v),pose.position),this.scale)));
-   triangles.push(...part.mesh.triangles.map(t=>({...t,indices:t.indices.map(i=>start+i),normals:t.normals?.map(n=>rotate(pose.orientation,n))})));
-   parts.push({id:part.id,start,count:part.mesh.rest.length});
-  }
-  return {rest:vertices,vertices,triangles,parts,radius:this.radius};
- }
- pick(origin,direction){
-  let closest=null;
-  for(const part of this.parts){
-   const pose=this.pose(part),inv=inverse(pose.orientation);
-   const o=rotate(inv,sub(scale(origin,1/this.scale),pose.position)),d=rotate(inv,scale(direction,1/this.scale));
-   const hit=pickMesh(part.mesh,o,d);
-   if(hit&&(!closest||hit.distance<closest.distance))closest={...hit,part:part.id,point:scale(add(rotate(pose.orientation,hit.point),pose.position),this.scale)};
-  }
-  return closest;
- }
 }

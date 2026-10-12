@@ -24,4 +24,6 @@ test('normal and debug fixture use a consistent fresh work-local module/CSS grap
  assert.equal(new URL(fixture.match(/href="([^"]+)"/)[1],fixtureUrl).search,`?v=${version}`);assert.ok(validateGraph(fixtureUrl,imports(fixture)).size>=5);
  const motion=readFileSync(new URL('tests/motion-fixture.html',root),'utf8'),motionUrl=new URL('tests/motion-fixture.html',deployed);
  assert.equal(new URL(motion.match(/href="([^"]+)"/)[1],motionUrl).search,`?v=${version}`);assert.ok(validateGraph(motionUrl,imports(motion)).size>=5);
+ const hands=readFileSync(new URL('tests/manipulation-fixture.html',root),'utf8'),handsUrl=new URL('tests/manipulation-fixture.html',deployed);
+ assert.equal(new URL(hands.match(/href="([^"]+)"/)[1],handsUrl).search,`?v=${version}`);assert.ok(validateGraph(handsUrl,imports(hands)).size>=5);
 });

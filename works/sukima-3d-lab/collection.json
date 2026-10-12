@@ -264,6 +264,21 @@
       "id": "unsettled-crown",
       "file": "objects/unsettled-crown.json",
       "number": 56
+    },
+    {
+      "id": "door",
+      "file": "objects/door.json",
+      "number": 57
+    },
+    {
+      "id": "crank",
+      "file": "objects/crank.json",
+      "number": 58
+    },
+    {
+      "id": "drawer",
+      "file": "objects/drawer.json",
+      "number": 59
     }
   ]
 }

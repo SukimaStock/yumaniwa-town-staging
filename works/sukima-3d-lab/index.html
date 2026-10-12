@@ -6,19 +6,19 @@
 <meta name="theme-color" content="#eee9df">
 <title>Touch Lab · SukimaStock 3D</title>
 <meta name="description" content="触れる形、静かに動く形。小さな立体を眺めて触る、SukimaStockの3D展示室。">
-<link rel="stylesheet" href="style.css?v=0.6.0">
+<link rel="stylesheet" href="style.css?v=0.7.0">
 </head>
 <body>
 <!-- Native iOS selection/callout stays blocked even with a warm CSS cache. -->
 <main style="-webkit-touch-callout:none;-webkit-user-select:none;user-select:none">
 <section id="collection-view" aria-labelledby="collection-title">
-<header class="collection-header"><p>SUKIMASTOCK / 3D</p><h1 id="collection-title">Touch Lab <span>0.6</span></h1><p class="collection-intro">小さな立体を、眺めて触る。</p></header>
+<header class="collection-header"><p>SUKIMASTOCK / 3D</p><h1 id="collection-title">Touch Lab <span>0.7</span></h1><p class="collection-intro">小さな立体を、眺めて触る。</p></header>
 <div id="collection-grid" class="collection-grid" aria-label="立体の一覧"></div>
 <p id="collection-status" role="status">立体を並べています。</p>
 <footer class="collection-footer">COLLECTION / 小さな形の実験室</footer>
 </section>
 <section id="touch-view" aria-labelledby="specimen-name" hidden>
-<header class="touch-header"><button id="back" class="text-button" type="button">← 一覧</button><p id="view-kind">FREE FORMS / 0.6</p><h1 id="specimen-name"></h1></header>
+<header class="touch-header"><button id="back" class="text-button" type="button">← 一覧</button><p id="view-kind">FREE FORMS / 0.7</p><h1 id="specimen-name"></h1></header>
 <button id="reset-pose" class="text-button" type="button" hidden>初期姿勢</button>
 <button id="toggle-motion" class="text-button" type="button" aria-label="パーツの動きを一時停止" hidden>一時停止</button>
 <canvas id="solid" tabindex="0" role="img" aria-label="触れる立体。押す、回す、長押しで引く。矢印で回転、スペースで押せます。"></canvas>
@@ -29,6 +29,6 @@
 </section>
 <noscript><p class="fallback">この実験にはJavaScriptが必要です。</p></noscript>
 </main>
-<script type="module" src="app.js?v=0.6.0"></script>
+<script type="module" src="app.js?v=0.7.0"></script>
 </body>
 </html>
