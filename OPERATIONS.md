@@ -27,7 +27,44 @@
 
 ---
 
-## 基本フロー
+## 道具の使い分け
+
+Workへ実装を任せる日は、iPhone側のGit操作は不要。作者は依頼と実機での体験判断に集中する。ローカル制作を始めるときだけWorking Copyを同期する。
+
+| 道具 | 担当 | 普段は任せなくてよいこと |
+| --- | --- | --- |
+| ChatGPT Work | 最新main・PR・差分調査、実装、既存検査、branch/PR、許可されたstaging反映、公開候補・復旧の準備 | 作者の触感・音・採否の判断。指示のないproduction公開・サービス設定変更 |
+| GitHub Web / アプリ | PRやActionsを作者が見たいとき、repository / Pages / 保護設定、公開判断 | Workが完了できるcommit、PR作成、検査結果収集を毎回手作業で繰り返すこと |
+| Working Copy | iPhone/iPadのローカルGit、branch、差分、Commit/Push/Pull、Deskとのファイル接続 | Workだけで行った変更を、毎回ローカルへ取り込んで再Pushすること |
+| YumaniwaDesk（Pythonista） | 素材登録、Editor差分の検証・適用、町のデータ編集、同じbranch内の直前Undo | Git操作。Workだけで完結する実装のために起動すること |
+| Map Factory | 素材・部品棚・構成を作る。画像入り素材庫ZIPとRecipe/PNGを書き出す | Gitへの登録・公開 |
+| Yumaniwa Cleaner（Codea） | PNGをピクセル基準へ仕上げ、完成PNG＋object.jsonを渡す | 配置・Git操作。FactoryやEditorに統合済みとは扱わない |
+| Map Editor | 町の開発メニュー内で正式配置を編集。制作下書きは既存の別モードで仮配置・ZIP保存 | Gitへの直接保存。正式反映はDeskまたはWorkの既存検証経由 |
+| その他の制作道具 | Audio Factoryの音/プリセット、Nudgeの修正仕様、Mixed Noteの下書き、必要なローカルアプリ | 不要なときの起動。端末内の導入版・動作はWorkから推測しない |
+
+| やりたいこと | 最短の流れ | 作者が判断するところ |
+| --- | --- | --- |
+| 新しいゲームを作る | Workへ依頼 → 独立したworkをstagingで試す。Engine作品は既存`works/_starter/`、らくがきは別の`works/_template/` | 手触りを試す。町の設置・候補化・公開は別判断 |
+| 既存作品を修正する | WorkがLifecycleと差分を確認 → 該当する軽量ルートまたは事前Lock → 関連回帰・PR | 変えた操作・画面・音だけ触って確認 |
+| 町へ物を置く | 既存素材ならEditor → 差分/下書きZIP → Desk/Work。新素材ならFactory → Cleaner → Desk登録を追加 | 見た目と置き場所。座標が決まっていればWorkへ反映を任せられる |
+| 共通Engineを更新する | Workが参照作品・保存/音/入力への影響を調べ、既存Full Plan・代表作回帰・Canaryで確認 | iPhoneの入力、音、復帰。旧作品の一括移行はしない |
+| StagingからProductionへ出す | 作者が対象と今回の公開を明示 → Workが選別候補・PR・Safety Checks・配信後確認 | candidate化と実際の公開を別に指示する |
+| 問題の変更を戻す | 「この変更だけ戻して」とWorkへ依頼 → 変更元を特定し、既存の部分復元または通常revert PR | 戻した体験。productionを戻すなら対象を明示する |
+| iPhoneで制作する | Working Copyで同期・作業branch → Pythonista/Codea/Desk等 → 差分・Commit/Push → Workへ検査/PRを依頼 | 端末にしかない作業の保全と作品の体験 |
+| Workへ実装を任せる | 目的・対象・守る体験を伝える → Workが調査からPR・関連検査まで行う | 必要な採否・実機判断。端末に未Push変更がある場合だけ先に知らせる |
+
+現在の変更ルートは`CHANGE-PLAN.md §1`、確認状態は`CHANGE-VERIFICATION.md`冒頭を優先する。古いPhase記録やEngine v0.2の例を、新しい一律必須手順として使わない。一般Engineの新作入口は0.3のStarter、SukimaStock 3Dの独立Engineはそのwork内の契約が入口。
+
+## Workへ任せる場合の基本フロー
+
+1. 作者が対象・目的・守りたい体験を伝える。端末側に同じ対象の未Push作業があれば、その旨だけ先に伝える。
+2. Workが最新main・関連PR・Lifecycle・現行契約を読み、独立branchを準備する。軽量対象外は**実装より前**にPlan Lockをcommitする。
+3. Workが実装・関連回帰・差分確認・PR・required checksまで進める。許可された範囲の安全なstaging反映にも、同じ許可を聞き直さない。
+4. 作者がstagingで変更した体験を確認する。iPhoneで制作を続ける場合だけ、下記のローカル同期へ進む。
+
+作者がコードを書かない日は、Working Copy・Deskを経由する必要はない。Workの一時checkoutは長期バックアップではない。
+
+## 基本フロー（iPhoneでローカル制作する場合）
 
 ### 1. 作業前（Working Copyで作業branchを選ぶ）
 
@@ -96,17 +133,24 @@ YumaniwaDesk で更新した内容を本番へ反映するときは、**作業br
 10. merge 後、staging と production に意図しない差分が増えていないことを確認する。
 
 **ChatGPT が確認できるのは GitHub に Push 済みの内容だけ。**
-Working Copy 内だけにある未Push変更は確認できないため、必ず先に Commit / Push する。
+Working Copy 内だけにある変更をWorkに調べてもらう場合は、保全してから専用branchへCommit / Pushする。ローカル変更がなければ、このためだけのCommit / Pushは不要。
 
 ## ChatGPT が staging を変更した場合
 
-ChatGPT が GitHub 上の staging を修正した後に YumaniwaDesk を使う場合は、先に Working Copy で Pull する。
+ChatGPTがGitHub上のstagingを修正した後にローカル制作を再開するときだけ、Working Copyを同期する。Deskを終了してから、Status（未コミット差分）とローカルbranchの未Push commitを確認する。
 
-古いローカル状態のまま Desk で編集を続けない。
+| ローカル状態 | 同期前に行うこと |
+| --- | --- |
+| clean・未Push commitなし | Workの変更がPR branchにあるかmainへmerge済みか確認してから、該当branchをPull |
+| 未コミット変更あり | Pullやbranch切替の前に変更をローカル保全branchへCommitするか、既存Stash/ファイルコピーへ保存。保全操作を事前Plan済みの実装とみなさない |
+| 未Push commitあり | 元のbranchを保持し、別名の保全branchでCommit/PushしてWorkへbranch名を渡す。クラウドbranchを同名で上書きしない |
+| 同じbranchが分岐・競合 | 強制Push・Discard・古いフォルダの上書きをせず、両方を保全。Workが差分を選別し、最新mainから新しいbranch/必要なLockで統合する |
+
+保全後も、古いbranchをmainへそのままmergeしない。Gitがcleanでも未Push commitがある場合がある。自動Pull/Pushを連続させず、送信先repository・branch・全差分を見てから操作する。
 
 推奨順序:
 
-1. ChatGPTが変更したbranchを確認する
+1. ローカル作業を保全し、ChatGPTが変更したbranchを確認する
 2. Working Copyでその作業branchを選択してPullする
 3. Statusがclean、HEADが同名origin branchと一致することを確認する
 4. YumaniwaDeskを起動し、表示された編集branchを確認する
@@ -558,9 +602,9 @@ node tools/work-lifecycle.cjs --check
 node tools/work-lifecycle.cjs --check --base <変更前のexact SHA>
 ```
 
-[LAB](lab/index.html)は生成された静的な探索入口。開発 → マップ編集内の「LAB — 探索の記録」からも開ける。
-各ARCHIVEの内容をその場で読め、試作の元URLへ進める。JS不要・noindex・通信/計測なし。
-台帳または記録を変更したら`--write-lab`を実行し、生成物を直接編集しない。
+[LAB](lab/index.html)は7研究室を巡る生成された静的な探索入口。開発 → マップ編集内のLABリンクからも開ける。
+部屋配置は`data/lab-rooms.json`のwork ID参照、状態とpathはLifecycle、凍結記録は各ARCHIVEが正本。研究室内の動きと選択はローカルJSで補い、JSなしでも全室・実リンク・記録を利用できる。実験本体を入口で先読みせず、外部API/計測を加えない。
+台帳・部屋配置・記録を変更したら`--write-lab`を実行し、生成物を直接編集しない。未配置の試作や将来の凍結記録は既存rendererの棚へ収まり、一覧のために別台帳や管理UIを作らない。
 既存Release Validator Tests workflowがLAB一致・凍結workの差分・状態遷移を検査する。
 初回だけ、baseに台帳がないため凍結差分チェックはbootstrap扱い。以後はbase台帳から凍結状態を読み、再開指示なしの本体変更や削除・移動を拒否する。
 LABはstaging専用の選別移送対象外。productionへの書き込み権限やGitHub側のルールをこのstaging PRで変更するものではない。
@@ -570,3 +614,112 @@ PR #154の追加レビュー後、再凍結のactive → frozenには、前回�
 再開時には過去の`archive`参照・ARCHIVE.md本文・`freezeDecision`をそのまま保つ。再開と同時に記録を消す・別ファイルへ移す・書き換えることはできない。
 再開後のactive開発でも、過去のarchive参照とファイルは残す。新しい探索内容は以前の記録を残して追記し、次の凍結判断を新しい参照として記録する。
 これらは既存の凍結・再開指示の確認であり、新しい承認段階は追加しない。
+
+## バックアップと復旧
+
+### 保存するものと、既存バックアップの範囲
+
+GitHubのstagingとproductionには、それぞれコード・commit履歴・追跡済み画像/音声・生成済みSearchページがある。同じGitHubアカウント内の2 repositoryは、アカウント障害に対する独立バックアップではない。Working Copyのcloneも、端末内の存在・取得済み履歴・保存先が確認できなければバックアップ済みと断定しない。
+
+| 保存対象 | 既存方式 / 最小の追加 |
+| --- | --- |
+| 両repositoryの取得できる全refsと到達可能な履歴 | Workがmirror cloneから完全な`git bundle --all`を作り、GitHub外に日付付きで保存。削除済みrefの回収、未Push/未Commit作業は含まれない |
+| 本番配信状態 | 成功した**production Pagesのhead SHA**、run URL、公開集合を復旧ファイルに記録。main最新SHAと配信成功SHAを同一視しない |
+| 町のDesk編集前ファイル | 既存Pythonista `Documents/YumaniwaDesk-data/backups/`、最大40世代。対象ファイルだけであり、repository全履歴の代わりではない |
+| Factory部品棚・画像・選択構成・WORK SLOT | 既存の画像入り素材庫ZIP v2を保存。Recipe JSON単独は依存画像を含まない |
+| Editor制作下書き・正式反映前の配置 | 既存の全保存/Desk採用分ZIP・差分。正式反映後は正本もGitへ。端末を閉じる前の作業をGitHubから読めるとは限らない |
+| Audio Factory等の制作物 | 必要なプリセット/再生コード、Nudge仕様、原画像/音声を既存の書き出しで保存。不要な一時履歴まで収集しない |
+| Codea / Pythonista / VectorBoyの端末内原稿 | 実際に使った未反映の原稿だけ作者がFiles/iCloud Drive等へ保存。過去作品・noteの原典はDriveのSukimaStock。原典の保存とGit全履歴のバックアップは別 |
+| ゲームの進行・設定 | localStorage/IndexedDB等は利用者のブラウザー内。Git bundleに含まれず、ドメイン変更でも自動移行されない。保存が必要な作品の既存export機能だけ利用 |
+| itch配布物・Actions生成ZIP | 生成元・manifest・source SHAはGit、最終アップロード/配布物は別。Actionsの保存期限（既存14/30日）を長期保管と扱わない |
+
+### Workが行う最小バックアップ
+
+月1回または大きな公開後に、作者は「OPERATIONSの月次点検と復旧コピー更新をお願いします」と依頼すればよい。新しいdaemon・監査workflow・常時同期を導入しない。日付・両SHA・checksumを添えた完全コピーを最新＋前回の2世代程度保持し、依存する差分bundleへ複雑化しない。保存成功を確認してから旧世代を整理する。
+
+以下はWork/PC側の手順。iPhoneでCLIを入力する必要はない。毎回**新しいrepository外の空ディレクトリ**で行い、既存mirrorを上書きしない。
+
+```sh
+git clone --mirror https://github.com/SukimaStock/yumaniwa-town-staging.git staging.git
+git clone --mirror https://github.com/SukimaStock/yumaniwa-town.git production.git
+git --git-dir=staging.git fsck --full
+git --git-dir=production.git fsck --full
+git --git-dir=staging.git bundle create yumaniwa-town-staging.bundle --all
+git --git-dir=production.git bundle create yumaniwa-town.bundle --all
+git --git-dir=staging.git bundle verify yumaniwa-town-staging.bundle
+git --git-dir=production.git bundle verify yumaniwa-town.bundle
+```
+
+保存物はbundle、SHA-256 checksum、復旧メモ（両SHA・Pages run・公開集合・既知の設定・復元結果）。GitHub外への**実際の保存成功**まで確認する。一時checkoutやDownload ZIPだけで全履歴保管と報告しない。現時点の両snapshotはLFS/submodule参照なし。将来導入する場合はbundleにLFS実体や別repositoryの内容が入らないため、別取得が必要。
+
+独立保存はGitHub外のファイル保管先を使う。作者がさらにiCloud Drive/PC/外部媒体にも置く場合は、完成した復旧ZIPを保存するだけでよい。認証token・秘密鍵・パスワード・recovery code、Gitの認証設定を復旧ZIPやrepositoryへ入れない。一般的なローカル秘密ファイル/キャッシュ/復旧コピーは`.gitignore`で除外するが、既存追跡ファイルや強制追加を保護する機能ではない。Push前の差分確認は残す。
+
+### GitHubなしで復元する
+
+1. コピーのchecksumを確認し、空の隔離フォルダでbundleからcloneする。productionはメモに記録した**配信成功SHA**へcheckoutする。元repositoryや作者のローカル変更を上書きしない。
+2. `fsck`、元と同じrefs/tree/追跡ファイルbytes、Lifecycle/LAB、Search generator `--check`とRelease Validatorを確認する。試験にはGitHub remoteを付けず、ブラウザーの既存保存データも使わない。
+3. production snapshotを静的HTTPで配信する。ローカル再現時は既存の`/yumaniwa-town/`パスを保つ。復元ファイルから配信したHTML/JS/画像/音声が同じbytesで届くか確認する。
+4. 新しいGitホストへ移す場合は、作者が選んだ**空の新repository**へbranches/tagsだけを移す。GitHubの`refs/pull/*`や既存productionへ盲目的に`push --mirror`しない。PR運用・必要checks・Pages設定は別途再設定する。
+
+```sh
+git clone --mirror yumaniwa-town.bundle restored-production.git
+git clone restored-production.git restored-production
+git -C restored-production checkout --detach <メモの配信成功SHA>
+git -C restored-production remote remove origin
+```
+
+静的ファイルはGitHub Pages以外でも再現できる。ただし別ドメイン/別pathへ**正式移転**すると、canonical・OGP/share URL・sitemap・PWA scope/start_url・Service Worker・検索サービス・計測の対応が必要。DotWeatherのOpen-Meteo API、itch等の外部launchも別サービスに依存する。HTTP/機械検査だけで外部サービス・実ブラウザー・実機の復旧完了とはしない。公開先の選択・正式移転は作者の判断後に行う。
+
+### Gitだけでは戻らない設定
+
+GitHubのrepository visibility/default branch、rulesets/旧branch protection、Pagesのbranch/公開ディレクトリ/domain、Actionsの許可・変数/secret・環境、GitHub App接続/権限、PR/issue/review/comment、Actionsのrun/artifact、Release添付ファイルはGit履歴と別。コード内のworkflowは保存されるが、外部側の設定・成果物まで復元されない。
+
+Search Console/Bingの所有者・プロパティ・送信状態、Plausibleの設定/集計、itchのアカウント・ページ/最終upload、DNS/custom domainも別。確認できる非秘密設定だけ復旧メモへ。権限で読めないものは**未確認**とし、必要な項目だけGitHub Web等で作者が確認する。秘密情報はパスワード管理側で保管する。Google/Bingの公開用所有確認ファイルやPlausible公開script IDを、それだけで認証secretの混入と扱わない。
+
+## 長期運用点検の基準snapshot（2026-10-12）
+
+staging `6de4dc0329f1d5d248fe9d0c9010943f3399824f`、production `3965de1abf5b5b48bd4c9bccca9c8f117a874fd7`を読み取り確認した。これは今回の点検開始時の基準であり、将来の最新状態の代用ではない。結果と実施した検査は今回のPRへ一度だけ記録する。
+
+| 項目 | 状態 | 確認できた根拠 | 必要な対応 |
+| --- | --- | --- | --- |
+| バックアップ | 一部不足 | Gitの両全履歴、Desk最大40世代、Factory素材庫ZIPは確認。以前からの独立全体バックアップ/端末内データは未確認 | 今回の完全bundle復元・独立保存を初回として、月次/大公開後に更新。必要な端末内制作物だけ作者が保存 |
+| ツール分担 | 一部不足 → 本文を整理 | 従来フローはWorking Copy/Desk中心。Work cloudと制作道具を上記で分離 | Workだけの日は端末Git不要。ローカル再開時だけ同期 |
+| 作品管理 | 対応済み | 台帳34件（released 10/active 18/frozen 6）、作品folder32個。Feel Labは既存implicit active。7研究室と6凍結記録が一致 | 正本と既存generatorを維持。数の違いには雛形・redirect・未配置shellが含まれ、欠落と即断しない |
+| 品質・公開 | 一部不足 | 両mainの最新対象Actions/Pages成功、Stagingのrequired 2 checks。制作状態・公開集合・生成正本は既存ゲートで保護 | 作品固有/Engineテストは変更時に選ぶ。Production保護設定の全体と実機は未確認 |
+| 安全性 | 一部不足 | 両repositoryはpublic。Staging rulesetはPR＋2 checks必須/force push・削除禁止。Productionで読めたrulesetはforce push・削除禁止のみ | noindexを秘匿手段にしない。旧branch protectionはAPI 403で未取得なので、設定全体を未保護と断定せず作者が確認 |
+| 定期運用 | 一部不足 → 最小手順を整理 | 既存Ops ReviewはSEO等の週次レビュー。長期復旧/ローカル保存の月次手順が未整理 | 下記を既存レビューへ必要時に加える。新しい定期タスクは作らない |
+
+作品数が増えてもLifecycleの状態/path、WORKSの町identity、Search metadata、LABの部屋配置をそれぞれの正本で保つ。LABは研究室を巡る体験を維持し、作品総数の表や検査状況を常設しない。未登録の試作を暗黙のactiveとして扱う既存方式があり、現段階で大規模再編や別台帳は不要。
+
+Engineの版付きURLは参照先の区別であり、同じファイルを変更すれば参照作品へ影響する。v0.2/0.3やwork内のlegacyを一括置換せず、実際の参照作品・保存/音/入力を調べ、影響profileの代表作と既存テストを選ぶ。独立3D Engineは`works/sukima-3d-lab/`内で扱う。全作品を毎回通し遊びしない。
+
+| 既存Actions | 主な確認範囲 | 完成判断との境界 |
+| --- | --- | --- |
+| Change PR Gate / Change Verification Evidence | base側の固定実装による軽量ルート/Lock、Scope/Risk/Impact、変更コードのsyntax・exact blob | 全作品の挙動テストや実機・作者承認ではない |
+| Change Operations Tests | 運用ゲートの回帰とPythonのDesk/scene/Starter/Canary等。対象path変更時 | 運用文書変更でも既存検査を維持 |
+| Release Validator Tests | Lifecycle・凍結差分・LAB、公開10作品の生成一致、Guide/町内告知/静的Release | 起動後の操作や外部サービスは別確認 |
+| World Consistency Audit | 指定されたPUMPOKO/ORBIT等のtrace契約・source integration | 新しい全workへ自動で同じゲーム判定を課すものではない |
+| New Work Starter / 個別export | Starter採用・bundle/export整合、ORBIT/PUMPOKOの配布物 | 生成ZIPそのものの実機確認と長期保管は別 |
+| Production Safety Checks / PUMPOKO Production Candidate Audit | JS/Python syntax、公開環境・manifest、既存町/導線・指定公開作品のsnapshot | 配信前条件の一部。公開後HTTP/操作・検索/計測は別 |
+
+作品固有のtests（例: PUMPOKOの`tests/`、3D Labの`npm test`）やEngineのInput/Boot・Audio/Assets・Audio lifecycle・DiagnosticsのNodeテストを、すべてのCIが自動実行しているとは扱わない。変更時にWorkが該当する既存テストを選んで実行する。CIのpathsや成功runだけで全作品の互換性を証明しない。
+
+今回のproduction復元確認では、公開順を明示した既存generator/validatorは成功した。一方、`--all-production`はWORKSの表示順（PUMPOKO先頭）で集合を得るため、現在のsitemap（PUMPOKO末尾）との**順序だけ**の不一致を1件FAILにする。URL集合・ファイル欠損の障害ではない。Workは復旧メモ/配信済みsitemapの公開順で`--published`を明示して既存検査を使い、両結果を記録する。作者にID一覧の手入力を求めない。validator/generatorの順序契約改修は次の関連変更時の小改善案とし、今回の文書PRには混ぜない。
+
+保留する改善は**Production mainのPR/Safety Checksの強制設定確認**。今回読めたrulesetにはないが、旧branch protectionは未取得。既存設定で不足している場合だけ、既存`Production Safety Checks`のjob contextを実行結果と照合してrequiredにする案を作者へ示す。今回の監査は設定変更を許可していないため、Workが自動で変更しない。
+
+古いDraft PR #140/#200/#209は別の探索/検証待ち作業。今回の変更へ取り込んだり、長期点検の都合でclose/mergeしたりしない。
+
+## 月1回の最小メンテナンス
+
+既存Ops Reviewでまとめて扱い、問題がなければ短い「変更不要」とバックアップ日付だけでよい。異常や作者への依頼は最大3件程度に絞る。毎月の新規ファイル/報告書・全作品テスト・新しい定期自動化を必須にしない。
+
+| 誰が | 確認内容 | 頻度・範囲 |
+| --- | --- | --- |
+| Work | 両main/Pages SHA・Actions失敗、Productionとの差分を環境差/未公開作品/有効な本番修正に分ける | 月1回。差分ゼロを目標にせず、意図不明な共通差分だけ追う |
+| Work | 独立保存済みの日付、完全bundle/checksum、Lifecycle/LAB整合・公開集合/生成物 | 月1回または大きな公開後。復元試験は初回、方式変更、実際の復旧時に実施 |
+| Work | 新しいworkの未登録、欠損入口/参照、継続して失敗する検査、再び繰り返した実装 | 月1回。具体的な増加や摩擦がなければ変更不要 |
+| 作者 | 町を起動 → 代表ゲーム1〜2作を操作して戻る → LABで1研究室へ入る | 月1回、数分。音・傾き・Safari復帰・触感は必要な作品だけ。毎回全作品は不要 |
+| 作者（制作物が増えたときだけ） | Factory素材庫ZIP、Editor下書き、未Push原稿が端末外にも保存されているか | Workから端末を読めないため必要な制作物だけ確認。使わない道具の点検は不要 |
+
+普段作者が意識することは、**①まずstagingで試す、②端末の未Push作業だけ先に知らせる、③変更した体験だけ触る、④本番公開は対象を明示する、⑤月1回または大公開後に復旧コピーを更新する**、の5点。
