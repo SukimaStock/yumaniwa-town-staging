@@ -33,7 +33,7 @@ test('camera ray matches projected face positions in portrait and landscape at o
 test('localized real vertex deformation restores with finite normals; picking follows deformation',()=>{
  const m=createPolyhedron(),b=new TouchBody(m),hit=frontHit(m);b.press(hit);
  for(let i=0;i<90;i++)b.step(1/120);
- assert.ok(maxOffset(b)>.035&&maxOffset(b)<.15);assert.ok(b.offsets.some(v=>Math.hypot(...v)<1e-7));
+ assert.ok(maxOffset(b)>.10&&maxOffset(b)<.23);assert.ok(b.offsets.some(v=>Math.hypot(...v)<1e-7));
  assert.equal(frontHit(m).face,hit.face);assert.ok(packedMesh(m).every(Number.isFinite));
  b.release();for(let i=0;i<240;i++)b.step(1/120);assert.ok(maxOffset(b)<1e-6);
 });
@@ -85,4 +85,26 @@ test('animation loop has one RAF, caps suspended time and resets on resume',asyn
   loop.start();loop.start();assert.equal(frames.size,1);run(100);run(116);run(90000);assert.deepEqual(updates,[0,.016,.05]);assert.equal(frames.size,1);
   loop.stop();assert.equal(frames.size,0);loop.start();run(100000);assert.equal(updates.at(-1),0);loop.stop();
  }finally{globalThis.requestAnimationFrame=priorRaf;globalThis.cancelAnimationFrame=priorCancel;}
+});
+
+test('off-centre presses visibly bend every face without folding; rotation is unchanged',()=>{
+ for(let face=0;face<20;face++){
+  for(const position of [.15,.5,.85]){
+   const m=createPolyhedron(),b=new TouchBody(m),f=m.faces[face],center=m.rest[12+face];
+   const point=add(scale(center,position),scale(m.rest[f[0]],1-position));
+   const normal=norm(cross(sub(m.rest[f[1]],m.rest[f[0]]),sub(m.rest[f[2]],m.rest[f[0]])));
+   const hit=pickMesh(m,add(point,scale(normal,3)),scale(normal,-1));assert.equal(hit.face,face);
+   const orientation=b.orientation.slice();b.press(hit);
+   for(let i=0;i<18;i++)b.step(1/120);
+   assert.ok(Math.hypot(...b.offsets[12+face])>.09,'selected face visibly bends within 150ms');
+   for(let i=0;i<72;i++)b.step(1/120);
+   assert.deepEqual(b.orientation,orientation);assert.ok(maxOffset(b)<.23);
+   for(const tri of m.triangles){
+    const [a,c,d]=tri.indices.map(i=>m.rest[i]),restNormal=norm(cross(sub(c,a),sub(d,a)));
+    const [x,y,z]=tri.indices.map(i=>m.vertices[i]),bentNormal=norm(cross(sub(y,x),sub(z,x)));
+    assert.ok(dot(restNormal,bentNormal)>.2,'no folded or degenerate faces');
+   }
+   b.release();for(let i=0;i<240;i++)b.step(1/120);assert.ok(maxOffset(b)<1e-6);
+  }
+ }
 });
