@@ -61,3 +61,11 @@ Run `node --test works/sukima-3d-lab/tests/*.test.mjs` from the repository root,
 - Only after this specimen feels good, choose the next single interaction for “触れるらくがき 3D”. No scene system, editor, assets or physics framework yet.
 
 Rollback: revert this PR and only its appended lifecycle record.
+
+## 2026-10-12 — clearer pressure response
+
+Owner tested the initial release: visible on device, overall touch feels good, but the dent is hard to see. Increased default depth from 0.135 to 0.205 (about 52%), and guaranteed a modest local bend at the selected face centre for off-centre/edge presses. Shared corners still use the original gentle weighting; spring stiffness, damping, drag, inertia and settling are unchanged. No color flash or new UI. This is a focused tuning pass, not a new scene or feature set.
+
+The suite now has 10 tests. Added 60 off-centre press cases across all 20 faces: perceptible deformation within 150ms, no flipped/degenerate triangles, exact stationary orientation while holding and complete restoration. Existing 30/60/120fps inertia, repeated input and cancellation checks remain in place. Revised press visibility and maximum-deformation assertions to match the stronger deformation; the new geometric checks protect against simply increasing depth until the shell folds.
+
+New real-device tactile judgement remains pending. Please compare holding a face and holding near an edge; normal rotation should feel the same.
