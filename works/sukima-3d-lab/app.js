@@ -1,10 +1,10 @@
-import {createPolyhedron,pickMesh} from './engine/geometry.js';
-import {Camera} from './engine/camera.js';
-import {TouchBody} from './engine/dynamics.js';
-import {createDebugPanel} from './debug.js';
-import {TouchInput} from './engine/interaction.js';
-import {Renderer} from './engine/renderer.js';
-import {AnimationLoop} from './engine/loop.js';
+import {createPolyhedron,pickMesh} from './engine/geometry.js?v=0.2.1';
+import {Camera} from './engine/camera.js?v=0.2.1';
+import {TouchBody} from './engine/dynamics.js?v=0.2.1';
+import {createDebugPanel} from './debug.js?v=0.2.1';
+import {TouchInput} from './engine/interaction.js?v=0.2.1';
+import {Renderer} from './engine/renderer.js?v=0.2.1';
+import {AnimationLoop} from './engine/loop.js?v=0.2.1';
 const canvas=document.querySelector('#solid'),notice=document.querySelector('#notice'),hint=document.querySelector('#hint');
 function message(text){notice.textContent=text;notice.hidden=false;hint.hidden=true;}
 try {
