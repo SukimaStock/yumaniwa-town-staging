@@ -1,0 +1,15 @@
+# Local credentials and generated caches; tracked files remain subject to review.
+.env
+.env.*
+!.env.example
+!.env.sample
+id_rsa
+id_ed25519
+*.private-key
+__pycache__/
+*.py[cod]
+node_modules/
+
+# Recovery copies belong outside the repository; do not ignore work/export ZIPs.
+/*.bundle
+/SukimaStock-recovery-*.zip

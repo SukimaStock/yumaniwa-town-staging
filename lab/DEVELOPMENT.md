@@ -1,6 +1,6 @@
 # SukimaStock LAB — staging institute
 
-LAB is a private research institute before works enter the town. This change is staging-only; it does not authorize production, author adoption, or frozen-work resumption.
+LAB is a staging research institute before works enter the town. Its repository and Pages URL are public; noindex/nofollow discourages search indexing and is not access control. This change is staging-only; it does not authorize production, author adoption, or frozen-work resumption.
 
 ## Source and generation
 
