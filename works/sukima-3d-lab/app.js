@@ -1,10 +1,10 @@
-import {createPolyhedron,pickMesh} from './engine/geometry.js?v=0.2.1';
-import {Camera} from './engine/camera.js?v=0.2.1';
-import {TouchBody} from './engine/dynamics.js?v=0.2.1';
-import {createDebugPanel} from './debug.js?v=0.2.1';
-import {TouchInput} from './engine/interaction.js?v=0.2.1';
-import {Renderer} from './engine/renderer.js?v=0.2.1';
-import {AnimationLoop} from './engine/loop.js?v=0.2.1';
+import {createPolyhedron,pickMesh} from './engine/geometry.js?v=0.3.0';
+import {Camera} from './engine/camera.js?v=0.3.0';
+import {TouchBody} from './engine/dynamics.js?v=0.3.0';
+import {createDebugPanel} from './debug.js?v=0.3.0';
+import {TouchInput} from './engine/interaction.js?v=0.3.0';
+import {Renderer} from './engine/renderer.js?v=0.3.0';
+import {AnimationLoop} from './engine/loop.js?v=0.3.0';
 const canvas=document.querySelector('#solid'),notice=document.querySelector('#notice'),hint=document.querySelector('#hint');
 function message(text){notice.textContent=text;notice.hidden=false;hint.hidden=true;}
 try {
@@ -12,9 +12,9 @@ try {
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  function preference(){body.options.settle=reduced.matches?0:.014;body.options.damping=reduced.matches?4:1.85;}preference();reduced.addEventListener('change',preference);
  const pick=(x,y)=>{const ray=camera.ray(x,y,canvas.getBoundingClientRect(),body.pose());return pickMesh(mesh,ray.origin,ray.direction);};
- const input=new TouchInput(canvas,body,pick,()=>hint.classList.add('touched'));
+ const input=new TouchInput(canvas,body,pick,()=>hint.classList.add('touched'),(x,y,pose,point)=>camera.pullMapping(x,y,canvas.getBoundingClientRect(),pose,point));
  let debug=null;
- const loop=new AnimationLoop(dt=>body.step(dt),()=>{renderer.draw(mesh,body.pose(),camera);debug?.update();});
+ const loop=new AnimationLoop(dt=>{input.step(dt);body.step(dt);},()=>{renderer.draw(mesh,body.pose(),camera);debug?.update();});
  const resize=()=>{input.cancel();body.cancel();const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;renderer.resize(rect.width,rect.height,devicePixelRatio);camera.resize(rect.width,rect.height);};
  const observer=new ResizeObserver(resize);observer.observe(canvas);window.addEventListener('resize',resize);resize();
  let contextLost=false;

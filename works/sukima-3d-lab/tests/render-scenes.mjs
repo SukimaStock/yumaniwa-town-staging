@@ -20,6 +20,12 @@ for(const [width,height] of [[390,844],[844,390],[900,900]]){
   body.press(hit());for(let i=0;i<10;i++)body.step(1/120);append(body,name+'-held-start');
   for(let i=0;i<110;i++)body.step(1/120);append(body,name+'-held');
   body.release(1);for(let i=0;i<18;i++)body.step(1/120);append(body,name+'-release');
+  for(let i=0;i<240;i++)body.step(1/120);
+  const grabbed=hit();body.press(grabbed);for(let i=0;i<48;i++)body.step(1/120);
+  const point=body.beginPull(grabbed),mapping=camera.pullMapping(width/2,height/2,{left:0,top:0,width,height},body.pose(),point);
+  body.pullTo(mapping(width/2+Math.min(width,height)*.11,height/2-Math.min(width,height)*.06));
+  for(let i=0;i<48;i++)body.step(1/120);append(body,name+'-pull');
+  body.release();for(let i=0;i<18;i++)body.step(1/120);append(body,name+'-pull-release');
  }
 }
 console.log(JSON.stringify({shaders,scenes}));
