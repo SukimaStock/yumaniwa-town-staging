@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b8905f87514f306523a26d97de475fd61b604f88f1cff6112158700a4e939240",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukimastock-long-term-ops-20261012",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Consolidate long-term recovery and tool roles in existing operations; exclude common local secrets/outputs without runtime changes",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "HQ Review",
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "6de4dc0329f1d5d248fe9d0c9010943f3399824f",
+    "canonicalSources": [
+      "OPERATIONS.md",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "RELEASE-WORKFLOW.md",
+      "lab/DEVELOPMENT.md",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukimastock-long-term-ops-20261012/r0.lock.json",
+      "OPERATIONS.md",
+      ".gitignore",
+      "lab/DEVELOPMENT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "engine/**",
+      "assets/**",
+      "data/**",
+      ".github/**",
+      "tools/**",
+      "tests/**",
+      "index.html",
+      "main.js",
+      "style.css",
+      "lab/index.html",
+      "lab/lab.js",
+      "lab/lab.css",
+      "w/**",
+      "en/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Make cloud Work and optional iPhone/Working Copy flows explicit; preserve Desk synchronization contract and safe handling of unpublished local changes",
+      "Document minimum full Git bundle backup/isolated recovery, last successful production Pages SHA, Git-external settings and browser/local originals",
+      "Integrate a brief monthly checklist, current evidence-based evaluation and at most five everyday reminders without new automation or gates",
+      "Clarify that LAB/staging are public although noindex; fix only development documentation wording",
+      "Add narrowly scoped ignore patterns for local env/secrets, Python/Node caches, and root recovery archives; do not ignore work assets/distribution ZIPs"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-12 long-term operations audit authorizes investigation, isolated recovery, smallest safe Staging changes, verification and PR; forbids Production changes and unsolicited new systems"
+    ],
+    "hqDecisions": [
+      "Reuse existing OPERATIONS as the single guide; preserve current three lightweight routes and all immutable trust contracts; no new dashboard, tool retirement, Engine changes, approval or deployment settings",
+      "Use standard Git mirror/bundle operations outside the repository and restore from those files with no GitHub remote; current backup does not imply continuing scheduled backup or local-device data capture"
+    ],
+    "rulesApplied": [
+      "OPERATIONS is an OS path: SYSTEM/Full/HQ and preimplementation Lock are required",
+      "Current verificationState stays UNVERIFIED; source/HTTP/model tests do not attest iPhone/audio/author adoption",
+      "Repository settings or production publication need a separate explicit decision"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [
+      "source-and-tool-role-review",
+      "unpublished-local-change-scenarios",
+      "backup-boundary-and-offline-restore-review",
+      "public-staging-and-settings-boundary-review"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "problem": "Current operations assume Working Copy for all work and do not define full off-GitHub recovery; LAB docs incorrectly call a public staging institute private.",
+    "currentContract": "Staging branch/PR with existing Plan and trusted gates; separate Production release authorization; Desk handles data and Working Copy handles iPhone Git.",
+    "whyExistingIsInsufficient": "Existing transaction/Map Factory backups are partial and do not independently preserve both full Git histories or reconstruct external service settings. Cloud-only implementation does not need iPhone Git steps.",
+    "design": "Documentation and ignore only, informed by both current snapshots, rulesets, Actions, lifecycle and tool source. All backup/test artifacts stay outside the repository; missing local/administrative evidence remains unverified.",
+    "alternativesRejected": [
+      "New backup daemon/dashboard/audit framework: unnecessary for current individual operations",
+      "Bulk repository synchronization, Engine migration or Production ruleset edits: outside authorization and unrelated risk",
+      "A separate duplicate tool manual: integrate into existing OPERATIONS"
+    ],
+    "migration": "No runtime/data/URL/save migration. Preserve existing Desk workflow, only qualify it as local work and add safe cloud-to-local handoff.",
+    "compatibility": "All works, frozen archives, LAB generated assets, shared Engines, runtime and CI definitions retain exact base blobs. Ignore does not remove tracked files or replace diff review.",
+    "boundaryCases": [
+      "Work-only session with no iPhone editing needs no Working Copy Pull/Push",
+      "Uncommitted/unpushed local changes must be preserved on a separate branch before receiving cloud changes",
+      "Public noindex staging is accessible by URL; private material must stay outside it",
+      "Git bundle includes reachable committed history only; no local worktree/secrets/settings/IndexedDB",
+      "Only successful exact production Pages revision is the recovery deployment anchor",
+      "Legacy branch protection API may be unavailable, so ruleset observations do not prove absence of other protections"
+    ],
+    "testPlan": [
+      "Existing Scope then Risk then Impact at fixed base/head; base-owned static exact-blob check",
+      "Existing Change Operations regression workflow commands and required PR checks",
+      "Lifecycle/LAB and release regressions; Search generation read-only check and both release snapshots",
+      "Ignore positive/negative cases via git check-ignore; exact protected-path Git diff; no new implementation-mirroring tests",
+      "Verify both complete Git bundles, clone them to isolated destinations, compare refs/trees/all tracked file bytes and run release/lifecycle checks there",
+      "HTTP smoke of current production/staging/LAB and isolated restored static site; no browser/device/audio PASS"
+    ],
+    "rollback": "Revert only OPERATIONS.md, lab/DEVELOPMENT.md and .gitignore from this PR. Plan Lock is history. Do not revert works, Engine, other PRs or Production.",
+    "promotionRisk": "No production migration or deployment authorized. Production settings are read-only observations and concrete suggestions only.",
+    "promotion": "none; Staging only",
+    "outOfScope": [
+      "Production writes/publication/settings",
+      "Other open PRs",
+      "Engine/works/LAB UI or lifecycle migration",
+      "Device credentials, account recovery codes, secrets export",
+      "New scheduled automation or report pipeline"
+    ],
+    "unverified": [
+      "iPhone/iPad installed tool versions and unpushed data",
+      "Legacy branch protection / Pages and external-service administrative settings",
+      "Rendered browser/real-device/audio/author judgment",
+      "Existing independent backups outside repository and connected sources"
+    ]
+  }
+}
