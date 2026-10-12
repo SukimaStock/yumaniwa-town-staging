@@ -1,0 +1,444 @@
+{
+  "schema": "feel-catalog/2",
+  "projects": [
+    {
+      "id": "boat",
+      "title": "小舟の渡し",
+      "config": {
+        "start": {
+          "x": 130,
+          "y": 190
+        },
+        "end": {
+          "x": 515,
+          "y": 260
+        },
+        "post": {
+          "x": 345,
+          "y": 305
+        },
+        "wait": 0.35,
+        "travel": 2,
+        "settle": 0.25
+      },
+      "inputMeaning": "Aは押している間に進む。Bは指をばねで追う。Cは押してため、離して出発。指の入力の意味は異なります。",
+      "settingParts": [
+        {
+          "id": "layout",
+          "label": "配置",
+          "keys": [
+            "start",
+            "end",
+            "post"
+          ],
+          "contract": "boat-layout/1"
+        },
+        {
+          "id": "departure",
+          "label": "出発と所要時間",
+          "keys": [
+            "wait",
+            "travel"
+          ],
+          "contract": "boat-clock/1"
+        }
+      ],
+      "ranges": {
+        "start.x": {
+          "min": 40,
+          "max": 600
+        },
+        "start.y": {
+          "min": 60,
+          "max": 345
+        },
+        "end.x": {
+          "min": 40,
+          "max": 600
+        },
+        "end.y": {
+          "min": 60,
+          "max": 345
+        },
+        "post.x": {
+          "min": 40,
+          "max": 600
+        },
+        "post.y": {
+          "min": 60,
+          "max": 345
+        },
+        "wait": {
+          "min": 0,
+          "max": 5
+        },
+        "travel": {
+          "min": 0.5,
+          "max": 5
+        },
+        "settle": {
+          "min": 0,
+          "max": 5
+        }
+      }
+    },
+    {
+      "id": "light",
+      "title": "あかりの待ち合わせ",
+      "config": {
+        "lamp": {
+          "x": 230,
+          "y": 205
+        },
+        "shutter": {
+          "x": 400,
+          "y": 200
+        },
+        "delay": 0.3,
+        "pulse": 1.5
+      },
+      "inputMeaning": "Aは押す間の段階的な開き、Bは周期と残光。物理方式を共有する必要はありません。",
+      "settingParts": [
+        {
+          "id": "placement",
+          "label": "灯と幕の配置",
+          "keys": [
+            "lamp",
+            "shutter"
+          ],
+          "contract": "light-placement/1"
+        },
+        {
+          "id": "rhythm",
+          "label": "待つ時間と周期",
+          "keys": [
+            "delay",
+            "pulse"
+          ],
+          "contract": "light-clock/1"
+        }
+      ],
+      "ranges": {
+        "lamp.x": {
+          "min": 40,
+          "max": 600
+        },
+        "lamp.y": {
+          "min": 60,
+          "max": 345
+        },
+        "shutter.x": {
+          "min": 40,
+          "max": 600
+        },
+        "shutter.y": {
+          "min": 60,
+          "max": 345
+        },
+        "delay": {
+          "min": 0,
+          "max": 5
+        },
+        "pulse": {
+          "min": 0.5,
+          "max": 5
+        }
+      }
+    }
+  ],
+  "builds": [
+    {
+      "id": "boat-a",
+      "project": "boat",
+      "title": "A · 押す間に渡る",
+      "description": "最初の実装。離した瞬間に止まる。",
+      "url": "builds/boat-a/index.html",
+      "codeHash": "bb7d1049e37907f956a965af595770ab9bdc0044811d30691bd4093007209cc0",
+      "version": "1.0.0",
+      "runtime": "feel-frame/2.0.0",
+      "initial": true,
+      "parts": [
+        {
+          "id": "propulsion",
+          "label": "進み方",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        },
+        {
+          "id": "release",
+          "label": "指を離した瞬間",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        },
+        {
+          "id": "contact",
+          "label": "杭に触れたとき",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        }
+      ],
+      "dependencies": [
+        {
+          "path": "geometry-v2.js",
+          "sha256": "07f30086e2c6b8d71bf3fe29d79db2ac642d548de26191bf379f546d52d8b4bc"
+        },
+        {
+          "path": "frame-v2.js",
+          "sha256": "52bd1a83e87f0f535e71dbf79c386409060daaf843351df5647e299bca4984db"
+        },
+        {
+          "path": "frame-v2.css",
+          "sha256": "7e7b9ec01fcdc53b0a67d22b8a778ba93a6cc2ff23de28287849c0dcf32b7c87"
+        },
+        {
+          "path": "../motion-lab/runner.js",
+          "sha256": "168e893f1410b1d4e42459eae7ab43ba10c3be9d48d7f64e9f951c459cbc944b"
+        }
+      ],
+      "htmlHash": "da79118e4af43a6b39ca4ede41bfd89d39eaa2cf7c71efdd0539cde9a18aa4b9"
+    },
+    {
+      "id": "boat-b",
+      "project": "boat",
+      "title": "B · 糸で引く",
+      "description": "Aから別コードへ分岐。ばねの追従と、離した後の余韻。",
+      "url": "builds/boat-b/index.html",
+      "codeHash": "a2f287e2d261b61d63c6fe9e7c908ea792fbc3be06454c457113e23407c27df7",
+      "version": "1.0.0",
+      "runtime": "feel-frame/2.0.0",
+      "initial": true,
+      "parts": [
+        {
+          "id": "propulsion",
+          "label": "進み方",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        },
+        {
+          "id": "release",
+          "label": "指を離した瞬間",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        },
+        {
+          "id": "contact",
+          "label": "杭に触れたとき",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        }
+      ],
+      "derivedFrom": "boat-a",
+      "dependencies": [
+        {
+          "path": "geometry-v2.js",
+          "sha256": "07f30086e2c6b8d71bf3fe29d79db2ac642d548de26191bf379f546d52d8b4bc"
+        },
+        {
+          "path": "frame-v2.js",
+          "sha256": "52bd1a83e87f0f535e71dbf79c386409060daaf843351df5647e299bca4984db"
+        },
+        {
+          "path": "frame-v2.css",
+          "sha256": "7e7b9ec01fcdc53b0a67d22b8a778ba93a6cc2ff23de28287849c0dcf32b7c87"
+        },
+        {
+          "path": "../motion-lab/runner.js",
+          "sha256": "168e893f1410b1d4e42459eae7ab43ba10c3be9d48d7f64e9f951c459cbc944b"
+        }
+      ],
+      "htmlHash": "da79118e4af43a6b39ca4ede41bfd89d39eaa2cf7c71efdd0539cde9a18aa4b9"
+    },
+    {
+      "id": "boat-c",
+      "project": "boat",
+      "title": "C · ためて放す",
+      "description": "Aから別方向へ。離すことが出発になる。",
+      "url": "builds/boat-c/index.html",
+      "codeHash": "f05c3765ff835ad3d683ddb8a8a19c6d820878aabd8693b451f396e14f51f10d",
+      "version": "1.0.0",
+      "runtime": "feel-frame/2.0.0",
+      "initial": true,
+      "parts": [
+        {
+          "id": "propulsion",
+          "label": "進み方",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        },
+        {
+          "id": "release",
+          "label": "指を離した瞬間",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        },
+        {
+          "id": "contact",
+          "label": "杭に触れたとき",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        }
+      ],
+      "derivedFrom": "boat-a",
+      "dependencies": [
+        {
+          "path": "geometry-v2.js",
+          "sha256": "07f30086e2c6b8d71bf3fe29d79db2ac642d548de26191bf379f546d52d8b4bc"
+        },
+        {
+          "path": "frame-v2.js",
+          "sha256": "52bd1a83e87f0f535e71dbf79c386409060daaf843351df5647e299bca4984db"
+        },
+        {
+          "path": "frame-v2.css",
+          "sha256": "7e7b9ec01fcdc53b0a67d22b8a778ba93a6cc2ff23de28287849c0dcf32b7c87"
+        },
+        {
+          "path": "../motion-lab/runner.js",
+          "sha256": "168e893f1410b1d4e42459eae7ab43ba10c3be9d48d7f64e9f951c459cbc944b"
+        }
+      ],
+      "htmlHash": "da79118e4af43a6b39ca4ede41bfd89d39eaa2cf7c71efdd0539cde9a18aa4b9"
+    },
+    {
+      "id": "light-a",
+      "project": "light",
+      "title": "A · 幕が開く",
+      "description": "押す時間で段階的に灯を見せる。",
+      "url": "builds/light-a/index.html",
+      "codeHash": "0fab2cfc3cf76977ae7b61ea9f8a76cb395e870dd7a3b71d84890b4a299e5fa3",
+      "version": "1.0.0",
+      "runtime": "feel-frame/2.0.0",
+      "initial": true,
+      "parts": [
+        {
+          "id": "reveal",
+          "label": "開き方",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        },
+        {
+          "id": "release",
+          "label": "離した瞬間",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        }
+      ],
+      "dependencies": [
+        {
+          "path": "geometry-v2.js",
+          "sha256": "07f30086e2c6b8d71bf3fe29d79db2ac642d548de26191bf379f546d52d8b4bc"
+        },
+        {
+          "path": "frame-v2.js",
+          "sha256": "52bd1a83e87f0f535e71dbf79c386409060daaf843351df5647e299bca4984db"
+        },
+        {
+          "path": "frame-v2.css",
+          "sha256": "7e7b9ec01fcdc53b0a67d22b8a778ba93a6cc2ff23de28287849c0dcf32b7c87"
+        },
+        {
+          "path": "../motion-lab/runner.js",
+          "sha256": "168e893f1410b1d4e42459eae7ab43ba10c3be9d48d7f64e9f951c459cbc944b"
+        }
+      ],
+      "htmlHash": "da79118e4af43a6b39ca4ede41bfd89d39eaa2cf7c71efdd0539cde9a18aa4b9"
+    },
+    {
+      "id": "light-b",
+      "project": "light",
+      "title": "B · 灯が呼吸する",
+      "description": "周期と残光を持つ独立プログラム。",
+      "url": "builds/light-b/index.html",
+      "codeHash": "b9f8cf45e3a57007b51f32228bf324fbd6c89c0d42e3469c768cf68774385011",
+      "version": "1.0.0",
+      "runtime": "feel-frame/2.0.0",
+      "initial": true,
+      "parts": [
+        {
+          "id": "rhythm",
+          "label": "点滅の周期",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        },
+        {
+          "id": "afterglow",
+          "label": "残る光",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        }
+      ],
+      "derivedFrom": "light-a",
+      "dependencies": [
+        {
+          "path": "geometry-v2.js",
+          "sha256": "07f30086e2c6b8d71bf3fe29d79db2ac642d548de26191bf379f546d52d8b4bc"
+        },
+        {
+          "path": "frame-v2.js",
+          "sha256": "52bd1a83e87f0f535e71dbf79c386409060daaf843351df5647e299bca4984db"
+        },
+        {
+          "path": "frame-v2.css",
+          "sha256": "7e7b9ec01fcdc53b0a67d22b8a778ba93a6cc2ff23de28287849c0dcf32b7c87"
+        },
+        {
+          "path": "../motion-lab/runner.js",
+          "sha256": "168e893f1410b1d4e42459eae7ab43ba10c3be9d48d7f64e9f951c459cbc944b"
+        }
+      ],
+      "htmlHash": "da79118e4af43a6b39ca4ede41bfd89d39eaa2cf7c71efdd0539cde9a18aa4b9"
+    },
+    {
+      "id": "boat-d",
+      "project": "boat",
+      "title": "D · 糸で引いて、すっと止まる",
+      "description": "実際の依頼からWorkが新規実装。Bの追従にAの即時停止を取り入れた。",
+      "url": "builds/boat-d/index.html",
+      "codeHash": "6b4567cb5f896e60183e056db9d06ddb29902484a2255003566d70a686dc528b",
+      "version": "1.0.0",
+      "runtime": "feel-frame/2.0.0",
+      "initial": false,
+      "parts": [
+        {
+          "id": "propulsion",
+          "label": "進み方",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        },
+        {
+          "id": "release",
+          "label": "指を離した瞬間",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        },
+        {
+          "id": "contact",
+          "label": "杭に触れたとき",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        }
+      ],
+      "derivedFrom": "boat-b",
+      "requestId": "r-n-mv5qsmn4-a3igfzv",
+      "dependencies": [
+        {
+          "path": "geometry-v2.js",
+          "sha256": "07f30086e2c6b8d71bf3fe29d79db2ac642d548de26191bf379f546d52d8b4bc"
+        },
+        {
+          "path": "frame-v2.js",
+          "sha256": "52bd1a83e87f0f535e71dbf79c386409060daaf843351df5647e299bca4984db"
+        },
+        {
+          "path": "frame-v2.css",
+          "sha256": "7e7b9ec01fcdc53b0a67d22b8a778ba93a6cc2ff23de28287849c0dcf32b7c87"
+        },
+        {
+          "path": "../motion-lab/runner.js",
+          "sha256": "168e893f1410b1d4e42459eae7ab43ba10c3be9d48d7f64e9f951c459cbc944b"
+        }
+      ],
+      "htmlHash": "da79118e4af43a6b39ca4ede41bfd89d39eaa2cf7c71efdd0539cde9a18aa4b9"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "feel-work-response/2",
+  "project": "boat",
+  "requestId": "r-n-mv5qsmn4-a3igfzv",
+  "buildId": "boat-d",
+  "codeHash": "6b4567cb5f896e60183e056db9d06ddb29902484a2255003566d70a686dc528b",
+  "config": {
+    "start": {
+      "x": 130,
+      "y": 190
+    },
+    "end": {
+      "x": 515,
+      "y": 260
+    },
+    "post": {
+      "x": 345,
+      "y": 305
+    },
+    "wait": 0.35,
+    "travel": 2,
+    "settle": 0.25
+  },
+  "summary": "独立したmodel.jsとしてBのばね追従を保持し、指を離したフレームで速度をゼロ・追従目標を現在位置に固定するAの停止へ変更。A/B/Cは変更せず、Dのコードを追加した。"
+}

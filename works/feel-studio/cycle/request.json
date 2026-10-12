@@ -1,0 +1,101 @@
+{
+  "schema": "feel-work-request/2",
+  "requestId": "r-n-mv5qsmn4-a3igfzv",
+  "project": "boat",
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "scope": "works/feel-studio/ (staging-only)",
+  "base": {
+    "nodeId": "boat-b",
+    "buildId": "boat-b",
+    "version": "1.0.0",
+    "codeHash": "a2f287e2d261b61d63c6fe9e7c908ea792fbc3be06454c457113e23407c27df7",
+    "path": "works/feel-studio/builds/boat-b/model.js",
+    "config": {
+      "start": {
+        "x": 130,
+        "y": 190
+      },
+      "end": {
+        "x": 515,
+        "y": 260
+      },
+      "post": {
+        "x": 345,
+        "y": 305
+      },
+      "wait": 0.35,
+      "travel": 2,
+      "settle": 0.25
+    }
+  },
+  "selections": [
+    {
+      "nodeId": "boat-b",
+      "buildId": "boat-b",
+      "codeHash": "a2f287e2d261b61d63c6fe9e7c908ea792fbc3be06454c457113e23407c27df7",
+      "partId": "propulsion",
+      "label": "進み方",
+      "anchor": "model.js#create.update",
+      "config": {
+        "start": {
+          "x": 130,
+          "y": 190
+        },
+        "end": {
+          "x": 515,
+          "y": 260
+        },
+        "post": {
+          "x": 345,
+          "y": 305
+        },
+        "wait": 0.35,
+        "travel": 2,
+        "settle": 0.25
+      }
+    },
+    {
+      "nodeId": "boat-a",
+      "buildId": "boat-a",
+      "codeHash": "bb7d1049e37907f956a965af595770ab9bdc0044811d30691bd4093007209cc0",
+      "partId": "release",
+      "label": "指を離した瞬間",
+      "anchor": "model.js#create.update",
+      "config": {
+        "start": {
+          "x": 130,
+          "y": 190
+        },
+        "end": {
+          "x": 515,
+          "y": 260
+        },
+        "post": {
+          "x": 345,
+          "y": 305
+        },
+        "wait": 0.35,
+        "travel": 2,
+        "settle": 0.25
+      }
+    }
+  ],
+  "comment": "Bの糸で引く動きと、Aの指を離した瞬間の停止を取り入れる。",
+  "locks": "CとA2のコード・設定は保存する",
+  "keep": [
+    "boat-a",
+    "boat-b",
+    "boat-c",
+    "n-mv5qsmn4-xd7m6bf"
+  ],
+  "returnContract": {
+    "schema": "feel-work-response/2",
+    "requestId": "same requestId",
+    "project": "boat",
+    "buildId": "installed catalog build",
+    "codeHash": "installed model SHA256",
+    "config": "validated config",
+    "summary": "what actually changed"
+  },
+  "inputComparisonLimit": "Aは押している間に進む。Bは指をばねで追う。Cは押してため、離して出発。指の入力の意味は異なります。"
+}

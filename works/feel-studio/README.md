@@ -1,83 +1,64 @@
-# Feel Studio 0.1
+# Feel Studio 0.2
 
-木の円盤を動かして、同じ台でA / B / Cを比べる小さな制作机。Stagingだけの試作です。
+制作中の試作品を、直接編集とAIの別コードで育てる小さな作業机。
 
 https://sukimastock.github.io/yumaniwa-town-staging/works/feel-studio/
 
-## まず試す
+## 最初に触る
 
-1. A / B / Cを選び、指で円盤を動かして離す。切り替えると速度・接触・ばねの内部状態をゼロにして同じ開始位置から試す。
-2. 「台を整える」で地形の6点、開始位置、指の力を直接動かす。「試す」に戻るとその設定で動く。A / B / Cは現在の台を共有する。
-3. 「案を残す」で設定・台の形・部分採用元を別の案に保存する。A2→A3でもA2は残る。保存後は親の作業案を保存時の状態へ戻し、新しい子で試す。保存前の作業案はタブを行き来しても保持する。
-4. 「比べる・組む」で、動きB・跳ね方B・止まり方Aを選ぶ。「この組み合わせを残して試す」で、実装済みの部品を持つM1が作られる。
-5. 「今の案を採用」と「今の案も残しておく」で判断を残し、「AIへ渡す」からJSONまたは要約を書き出す。
+「小舟の渡し」で「直接編集」を押し、始・岸・杭を動かす。下の「待つ」「動く」のつまみは時間そのものを変更する。「試遊へ戻る」で試し、気に入ったら「ここから分岐」。元の案のコードと設定は残る。
 
-保存案の選択は、その案の台と作業中の設定を戻す。「この案の保存時へ」で不変の保存状態へ戻せる。「調整をひとつ戻す」は現在の案の編集履歴（最大40回、画面内のみ）を戻す。保存案を削除・上書きする機能は0.1にない。
+Aは押している間に渡る。Bは指との糸をばねにして引く。Cはためて離すと出発する。設定違いではなく、それぞれ別のmodel.js。「並べて比べる」と「比較する案」は常に机の上にある。iPhoneは左/右をワンタップ切り替え、広い画面は2つの隔離した実装を並べる。
 
-## 3方式と部分採用
+同じ位置・時間の初期設定を持つA/B/Cから開始するが、設定の編集はその案だけ。自動的に別案の設定を書き換えない。指の記録も同じ力とはみなさない。
 
-| 案 | 指との関係 | 衝突 | 離したあと |
-| --- | --- | --- | --- |
-| A · すべる | 距離から力をかける。速度は指に直接固定しない | 小さく返る | 慣性を残して滑る |
-| B · はずむ | ばねと速度抵抗で指を追う | 弾性的に跳ね返る | 粘性抵抗で減速 |
-| C · おもい | 指の移動と物体の移動の差を接触変形にため、閾値を超えて押す | 衝撃を吸う | 乾性摩擦・静止摩擦で止まる |
+## AIとの制作
 
-数値プリセットだけでなく、driveに3つの別アルゴリズムがある。bounceとstopは独立した実装部品で、実際の衝突応答・減速へ適用される。driveは内部状態を含めて方式ごと残し、力の設定もその採用元から取る。台は現在のものを使う。
+1. 「良い部分を取り入れる」または「AIに変更を依頼」を開く。
+2. 試作が宣言した部分を選ぶ。例えば進み方B・指を離した瞬間A。
+3. 「変更依頼を作る」で対象node/build/version/コードSHA256/パス/現在設定/部分の出典/コメント/保護部分をJSONにする。ここではまだ実装案は増えない。
+4. JSONをWorkに渡す。Workは古いbuildを変えず、新しいbuildディレクトリへ独立したコードを追加し、catalog.jsonへ登録する。実装とテストはWorkが行う。
+5. Workの返答JSONを「Workの返答・保存」へ貼り、「Workの返答を取り込む」。同じrequestIdを持つ依頼と、実際に登録されたbuild・コードSHA256だけを受け付ける。
+6. 修正前後を比較し、採用・保留・今回は採用しないを選ぶ。採用案も再編集・再分岐できる。
 
-任意のコード・異なる試作バージョン・未登録の方式は自動合成しない。追加実装の欄に意図を残してWorkへ渡す。
+互換性のある宣言済み設定は、その場で別の案へ取り込める。小舟では配置と出発の時間、あかりでは灯と幕の配置・待つ時間と周期。コード部分の選択とは明確に区別する。任意のプログラムの自動合成やAIへの通信は行わない。
 
-## 同じ指の記録
+## 実装済みの制作往復
 
-「指を録る」は最初のタッチから最大720固定ステップ（120Hz、約6秒）の指の位置・押下状態を記録する。開始位置・地形・元の案の設定も保存する。物理状態の録画ではなく、入力の再実行。
+cycle/request.jsonは実際のDesk APIから書き出した依頼。開始位置と待ち時間を編集したA2を保存し、独立コードB/Cを比較したうえで、Bの進み方とAの停止を選んだ。作者操作の代理検証であり、作者本人の採用とは区別する。
 
-「再生する」で記録時の台から再生する。A / B / Cや保存案へ切り替えると最初から再生し直す。薄い線は同じ指の軌跡。「自分で触る」で通常操作に戻る。再生時の台を保存・採用・部分採用する場合は、その台を案に取り込む。
+Workはこの依頼を読み、A/B/Cを変えずにbuilds/boat-d/model.jsを追加した。DはBのばね追従を持ち、離したフレームで速度と追従先を止める。cycle/response.jsonが実装結果、cycle/workspace.jsonが依頼元の再開可能な作業机。
 
-A/Bは指の位置へ引く力、Cは指の移動をためる接触。位置が同じでも力の意味は同じではない。画面にもこの限界を表示する。隠れたタブ・pagehide・blur・pointercancel・resizeでは既存Runnerが入力を解除する。30/60fpsは同じ120Hzで計算する。非常に低いfpsではRunnerの既存dt上限により実時間よりゆっくり進む。
+「Workの返答・保存」→「制作往復の実例を読み込む」→「Workの返答を取り込む」で、この往復を実際に再開できる。既存保存案は保ったまま依頼元の机を読み、Dの実装を履歴へ追加する。感想だけを読み込む操作ではない。
 
-## 保存とAIへの受け渡し
+手動：WorkへのJSON受け渡し、コード実装・Git登録・Staging反映、返答の貼り付け、作者の採否。
+自動：直接編集の反映、分岐履歴・ローカル保存、コード識別と互換性検査、返答と依頼の接続、再試遊。
 
-- 独立したlocalStorageキー：sukimastock.feel-studio.workspace.v1.<prototype-id>
-- 保存案には設定全体、台、親の案、出典の設定、名前、作成日時、試作バージョンが入る。
-- 作業中の案、最後の指の記録、比較したID、採用ID、残すID、コメント・保護部分・追加実装も保持する。
-- JSONのschemaはsukimastock-feel-studio/1、Studio 0.1.0、円盤の試作1.0.0。
-- handoff.currentは現在の設定、handoff.comparedは比較した作業案、handoff.summaryは読みやすい要約。各部分のsourceSpecから元の調整内容も追える。
-- コピーできなければ選択可能なテキストを表示する。JSON保存・共有はiOSの共有機能を使える場合に使用し、通常環境ではダウンロードする。
-- JSON取込はversion/数値/地形/ID/入力/出典/履歴検査後に行う。既存保存案は維持し、同一IDの異なる設定は拒否する。取り込んだ作業机と判断は復元する。
-- 保存拒否や容量不足は明示し、画面内の案を維持する。壊れた既存データは上書きしない。ブラウザの削除・別端末・別ブラウザに備えて大切な案はJSONにも残す。
+## 新しい試作を接続する
 
-自動通信やクラウド同期はない。WorkへJSONを添付し「採用と残す案を尊重し、追加実装を次の独立案として作る」と依頼できる。
+大きなEngineは必要ない。
 
-## 小さな登録契約
+- catalog.jsonにproject（config初期値、ranges、settingParts、入力の比較限界）を登録する。
+- builds/<新しい不変ID>/へindex.htmlとmodel.jsを置く。別の実装は必ず別IDへ追加し、過去buildを上書きしない。
+- model.jsはStudioPrototypeとしてcreate(config)、validate(config)、handles(config)、edit(config,id,point)を宣言する。createの戻り値はupdate(dt,input)、draw(ctx,input)、stateを持つ。共通の物理方式は要求しない。
+- handlesは画面上の編集点とposition/time等の意味を返す。editが実設定を返す。実装できない箇所はハンドルにせず、partsのコード部分として宣言する。
+- catalogのbuildにmodelのSHA256、HTMLのSHA256、固定ランタイム/依存のSHA256、partsのid/label/anchorを登録する。partsは作品ごとに異なる。独立モデルを直接比較できる。
+- 初回表示するbuildはinitial:true。AI返答で取り込むbuildはinitial:false。derivedFromは元のbuild ID。
+- 同じ登録で「あかりの待ち合わせ」が動作する。空間の編集対象・時間の名前・コード部分が小舟とは異なり、同じDeskとframe機能を再利用する。
 
-Studioはphysicsを所有しない。registry/sessionが案・設定・出典・判断を持ち、benchが比較/編集/入力再生を仲介する。試作アダプタが物理・描画・編集できる箇所・合成可能な部品を持つ。
+## 隔離と保存
 
-新しい試作を追加する最小手順：
+実装はsandbox="allow-scripts"のiframeで動く。same-origin/top-navigation/forms/popups権限は与えない。各frameはnetworkを禁止するCSPを持ち、親はコード・HTML・依存のhashを照合してから起動する。メッセージは送信frame・ランダムnonce・protocolで照合する。切り替えでは旧frameを除去し、古い非同期読み込みとメッセージを破棄する。画面外の比較frameは停止する。
 
-1. work内に自分のadapter.jsを置き、FeelRegistry.register(entry)を一度呼ぶ。
-2. index.htmlでregistry.jsの後、session.jsの前にそのscriptを読む。
-3. ?prototype=<entry.id>で開く。既定はbodyのdata-prototype。保存領域は試作ごとに分ける。
+JSONに含まれる外部URL、コード文字列、未登録buildは実行しない。取込はconfigの宣言range、履歴の親、コードID、sourceの対応、依頼/返答対応を検査する。保存はv2のproject別キー。壊れた元データは上書きせず、保存失敗は通知する。大切な状態は「作業机をJSONにする」→保存。
 
-entryの契約：
+0.1はlegacy-01/に保管。旧コード・旧v1保存キーは維持し、旧JSONは旧机で開く。v1をv2へ誤解釈したり上書きしない。コードbuildはGitで保持し、workspace JSONはそのコードを再指定する。JSON単体でコードを持ち運ぶものではない。
 
-| メンバー | 役割 |
-| --- | --- |
-| id / version / title / width / height | 試作の識別・互換性・固定論理画面 |
-| presets | A/B/Cそれぞれのid・title・description・spec |
-| choices | 分離して合成できるcomponentsのkeyと値・ラベル |
-| validate(spec) | JSONから正規化済みの設定を返す。world/componentsを含める |
-| create(spec) | 独自モデルを返す。step(dt,input)で動く。inputはactive/x/y |
-| draw(ctx,model,spec,view) | 独自描画。viewはedit/input |
-| handles(spec) / edit(spec,id,point) | 編集位置を返し、直接操作を実動作の設定へ反映 |
-| describe(spec) / inputMeaning | 設定概要・比較の限界 |
+## 確認
 
-既存のゲームを丸ごと移行する必要はない。次の新作の小さな動きだけをアダプタへ接続し、Studioで得たspecと部分採用の出典を新作側へ渡す。Studioがゲームの入力・物理・描画方式を全作品へ強制しない。
+- node works/feel-studio/tests/cycle-v2.cjs
+- node works/feel-studio/tests/frame-v2.cjs
+- node works/feel-studio/legacy-01/tests/verify.cjs
+- node tools/work-lifecycle.cjs --check
 
-## 再利用と検証
-
-既存Motion Labのrunner.jsを変更せず読み込む。固定時間刻み、DPR上限、Pointer Capture、visibility/pagehide/blur/resize時の解除を再利用。Motion Labの厳密な標本検査・保存エラー通知、Engine 0.3のLive Tuning/Session Reportの責任分離、3Dの直接操作の考え方を参照した。Engine 0.3を二重ロードせず、物理・保存はこのworkだけで管理する。
-
-node works/feel-studio/tests/verify.cjs
-
-モデルの実挙動、UIイベントからの配線、保存/復元/合成/JSON、Runnerの回帰を確認する。DOM/Canvas代用の検証を実ブラウザ・実機の確認と扱わない。実施環境と限界はVALIDATION.mdとPRに記録する。
-
-0.2では実機での触感調整、A/Bの同時表示、試作間の互換性と部品ごとの値の調整を検討する。まず今回の机を実際に使って判断する。
+実ブラウザと実機の観測範囲はVALIDATION.mdとPRで分けて記録する。
