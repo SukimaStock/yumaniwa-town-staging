@@ -1,7 +1,7 @@
 // Pure JSON -> welded mesh. No DOM, requests, object IDs or shape generators.
-import {add,sub,scale,cross,dot,norm} from './math.js?v=0.6.0';
-import {validateFeel,validateBehaviors,touchSettings} from './behaviors.js?v=0.6.0';
-import {validateMeshSpecimen,createMeshSpecimen} from './mesh.js?v=0.6.0';
+import {add,sub,scale,cross,dot,norm} from './math.js?v=0.7.0';
+import {validateFeel,validateBehaviors,touchSettings} from './behaviors.js?v=0.7.0';
+import {validateMeshSpecimen,createMeshSpecimen} from './mesh.js?v=0.7.0';
 const fail=message=>{throw new TypeError(`Invalid specimen: ${message}`);};
 const finite=(value,min,max)=>Number.isFinite(value)&&value>=min&&value<=max;
 const vector=(v,length,min,max)=>Array.isArray(v)&&v.length===length&&v.every(x=>finite(x,min,max));

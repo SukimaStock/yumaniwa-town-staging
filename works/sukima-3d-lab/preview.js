@@ -1,12 +1,13 @@
 // Lightweight static vector preview of the SAME mesh/material as Touch View.
 // No WebGL context, image asset, animation or gallery dependency.
-import {createSpecimen} from './engine/specimen.js?v=0.6.0';
-import {rotate,sub,cross,dot,norm,scale} from './engine/math.js?v=0.6.0';
-import {Camera} from './engine/camera.js?v=0.6.0';
-import {rasterMesh} from './engine/raster.js?v=0.6.0';
-import {MotionPlayer} from './engine/motion.js?v=0.6.0';
+import {createSpecimen} from './engine/specimen.js?v=0.7.0';
+import {rotate,sub,cross,dot,norm,scale} from './engine/math.js?v=0.7.0';
+import {Camera} from './engine/camera.js?v=0.7.0';
+import {rasterMesh} from './engine/raster.js?v=0.7.0';
+import {MotionPlayer} from './engine/motion.js?v=0.7.0';
+import {ManipulationPlayer} from './engine/manipulation.js?v=0.7.0';
 export function previewRaster(definition,size=200,diagnostics=false){
- const source=createSpecimen(definition),mesh=definition.behaviors?.motion?new MotionPlayer(definition).snapshot():source,camera=new Camera();camera.resize(size,size,mesh.radius);
+ const source=createSpecimen(definition),motion=definition.behaviors?.motion?new MotionPlayer(definition):null,assembly=definition.behaviors?.manipulation?new ManipulationPlayer(definition,motion):motion,mesh=assembly?assembly.snapshot():source,camera=new Camera();camera.resize(size,size,mesh.radius);
  return rasterMesh(mesh,norm(definition.display.orientation),camera,size,diagnostics);
 }
 export function previewSvg(definition){

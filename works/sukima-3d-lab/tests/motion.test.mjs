@@ -14,7 +14,7 @@ import {add,sub,scale,norm,rotate,multiply,axisAngle,cross} from '../engine/math
 import {previewRaster,previewSvg} from '../preview.js';
 import {loadCollection} from '../collection.js';
 const root=new URL('../',import.meta.url),read=p=>JSON.parse(readFileSync(new URL(p,root),'utf8'));
-const manifest=read('collection.json'),definitions=manifest.items.map(i=>read(i.file)),moving=definitions.slice(36);
+const manifest=read('collection.json'),definitions=manifest.items.map(i=>read(i.file)),moving=definitions.filter(d=>d.behaviors?.motion);
 const hash=x=>createHash('sha256').update(x).digest('hex');
 const near=(a,b,t=1e-7)=>{if(Array.isArray(a)||ArrayBuffer.isView(a)){assert.equal(a.length,b.length);a.forEach((v,i)=>near(v,b[i],t));}else assert.ok(Math.abs(a-b)<t,`${a} != ${b}`);};
 const run=(s,n=120)=>{for(let i=0;i<n;i++)s.step(1/120);};

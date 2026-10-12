@@ -1,12 +1,14 @@
-import {pickMesh} from './engine/geometry.js?v=0.6.0';
-import {Camera} from './engine/camera.js?v=0.6.0';
-import {SpecimenSession} from './engine/session.js?v=0.6.0';
-import {createDebugPanel} from './debug.js?v=0.6.0';
-import {PointerInput} from './engine/interaction.js?v=0.6.0';
-import {Renderer} from './engine/renderer.js?v=0.6.0';
-import {AnimationLoop} from './engine/loop.js?v=0.6.0';
-import {loadCollection} from './collection.js?v=0.6.0';
-import {previewSvg,previewRaster} from './preview.js?v=0.6.0';
+import {pickMesh} from './engine/geometry.js?v=0.7.0';
+import {Camera} from './engine/camera.js?v=0.7.0';
+import {SpecimenSession} from './engine/session.js?v=0.7.0';
+import {createDebugPanel} from './debug.js?v=0.7.0';
+import {PointerInput} from './engine/interaction.js?v=0.7.0';
+import {Renderer} from './engine/renderer.js?v=0.7.0';
+import {AnimationLoop} from './engine/loop.js?v=0.7.0';
+import {loadCollection} from './collection.js?v=0.7.0';
+import {previewSvg,previewRaster} from './preview.js?v=0.7.0';
+import {manipulationMapping} from './engine/manipulation-mapping.js?v=0.7.0';
+import {createManipulationPanel} from './manipulation-debug.js?v=0.7.0';
 const canvas=document.querySelector('#solid'),notice=document.querySelector('#notice'),hint=document.querySelector('#hint');
 const collectionView=document.querySelector('#collection-view'),touchView=document.querySelector('#touch-view'),grid=document.querySelector('#collection-grid'),status=document.querySelector('#collection-status');
 const session=new SpecimenSession(),camera=new Camera(),debugHost=document.querySelector('#debug-host');
@@ -18,15 +20,15 @@ function motionUI(){motionButton.hidden=!session.motion;motionButton.textContent
 function preference(){if(session.body){session.body.options.settle=reduced.matches?0:.014;session.body.options.damping=reduced.matches?4:1.85;}if(reduced.matches)session.motion?.setPlaying(false);motionUI();}
 reduced.addEventListener('change',preference);
 const loop=new AnimationLoop(dt=>{input?.step(dt);session.step(dt);},()=>{
- if(renderer&&session.body){renderer.draw(session.mesh,session.body.pose(),camera,session.motion);debug?.update();}
+ if(renderer&&session.body){renderer.draw(session.mesh,session.body.pose(),camera,session.assembly);debug?.update();}
 });
-const pick=(x,y)=>{if(!session.body)return null;const ray=camera.ray(x,y,canvas.getBoundingClientRect(),session.body.pose());return session.motion?session.motion.pick(ray.origin,ray.direction):pickMesh(session.mesh,ray.origin,ray.direction);};
+const pick=(x,y)=>{if(!session.body)return null;const ray=camera.ray(x,y,canvas.getBoundingClientRect(),session.body.pose());return session.assembly?session.assembly.pick(ray.origin,ray.direction):pickMesh(session.mesh,ray.origin,ray.direction);};
 function resize(){
- input?.cancel();session.body?.cancel();
+ input?.cancel();session.body?.cancel();session.manipulation?.cancel();
  const r=canvas.getBoundingClientRect();if(!active||!r.width||!r.height)return;
- renderer?.resize(r.width,r.height,devicePixelRatio);camera.resize(r.width,r.height,session.motion?.radius??session.mesh.radius);
+ renderer?.resize(r.width,r.height,devicePixelRatio);camera.resize(r.width,r.height,session.assembly?.radius??session.mesh.radius);
 }
-function pause(){input?.cancel();session.body?.cancel();keyPress=false;loop.stop();}
+function pause(){input?.cancel();session.body?.cancel();session.manipulation?.cancel();keyPress=false;loop.stop();}
 function resume(){if(active&&renderer&&!document.hidden&&!contextLost)loop.start();}
 function discard(){pause();input?.destroy();input=null;debug=null;debugHost.replaceChildren();session.clear();if(debugMode)delete window.touchLab;}
 function show(index){
@@ -38,11 +40,13 @@ function show(index){
  notice.hidden=true;hint.hidden=false;hint.classList.remove('touched');canvas.hidden=false;
  session.select(item.definition);preference();
  const touch=session.body.touchEnabled;
- hint.textContent=touch?'押す。回す。長押しで引く。':session.motion?'動く形を、回して眺める。':'回して、眺める。';
- document.querySelector('#view-kind').textContent=session.motion?'MOVING PARTS / 0.6':'FREE FORMS / 0.6';
+ const controls=session.manipulation?.controls,partHint=controls?.length===1?{rotate:'つかんで、回す。',hinge:'つかんで、開ける。',linear:'引き出す。押し戻す。'}[controls[0].type]:'パーツをつかんで、動かす。';
+ hint.textContent=controls?partHint:touch?'押す。回す。長押しで引く。':session.motion?'動く形を、回して眺める。':'回して、眺める。';
+ document.querySelector('#view-kind').textContent=controls?'HANDS-ON / 0.7':session.motion?'MOVING PARTS / 0.7':'FREE FORMS / 0.7';
  canvas.setAttribute('aria-label',touch?'触れる立体。押す、回す、長押しで引く。矢印で回転、スペースで押せます。':'立体。ドラッグまたは矢印キーで回転。初期姿勢に戻せます。');
+ if(controls)canvas.setAttribute('aria-label',`${partHint} 固定部分や背景のドラッグ、矢印キーで模型全体を回せます。`);
  document.querySelector('#reset-pose').hidden=touch;
- input=new PointerInput(canvas,session.body,pick,()=>hint.classList.add('touched'),(x,y,q,p)=>camera.pullMapping(x,y,canvas.getBoundingClientRect(),q,p));
+ input=new PointerInput(canvas,session.body,pick,()=>hint.classList.add('touched'),(x,y,q,p)=>camera.pullMapping(x,y,canvas.getBoundingClientRect(),q,p),controls?{controller:session.manipulation,map:(hit,x,y,rect,view)=>manipulationMapping(session.manipulation,hit,x,y,rect,view,camera)}:null);
  try{if(!renderer)renderer=new Renderer(canvas);}catch(error){
   canvas.hidden=true;message(error.message==='WEBGL2_UNAVAILABLE'?'このブラウザではWebGL 2を利用できません。別のブラウザで開いてみてください。':'描画を開始できませんでした。ページを開き直してください。');
   console.warn('Touch Lab could not start:',error.message);
@@ -55,7 +59,8 @@ function show(index){
    const panel=document.createElement('div'),output=document.createElement('output');panel.className='debug';panel.append(output);debugHost.append(panel);
    debug={update(){output.textContent=`MOTION ${session.motion.playing?'PLAY':'PAUSE'} / ${session.motion.time.toFixed(2)}s\n${session.motion.tracks.map(t=>`${t.part}: ${t.type}`).join('\n')}`;}};debug.update();
   }
-  window.touchLab={body:session.body,mesh:session.mesh,motion:session.motion,camera,pick,renderer,input,loop};
+  if(controls)debug=createManipulationPanel(session.manipulation,input,debugHost,resize);
+  window.touchLab={body:session.body,mesh:session.mesh,motion:session.motion,manipulation:session.manipulation,camera,pick,renderer,input,loop};
  }
  resize();resume();if(!canvas.hidden)canvas.focus({preventScroll:true});else document.querySelector('#back').focus({preventScroll:true});
 }
