@@ -1,0 +1,124 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "be08c10ae74a6a451a2a091551c56b3de82bf22c646f295419ee8dd1a3041d3e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-v04-preview-facets-20261012",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Remove observed subtriangle antialias seams from static collection previews and check actual narrow viewports",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "6bb480eb9d9371c29257913c17cb8d795ad1c7f4",
+    "canonicalSources": [
+      "Ongoing user Touch Lab v0.4 directive",
+      "Observed live gallery SVG subtriangle seams after PR #284",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "works/sukima-3d-lab"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-v04-preview-facets-20261012/r0.lock.json",
+      "works/sukima-3d-lab/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "engine/**",
+      "data/work-search-meta.js",
+      ".github/**",
+      "works/tea-unfold*/**",
+      "works/town-glance*/**",
+      "data/work-lifecycle.json",
+      "index.html",
+      "sitemap.xml",
+      "assets/**",
+      "en/w/**",
+      "main.js",
+      "tools/**",
+      "w/**",
+      "style.css",
+      "works/orbit*/**",
+      "works/morning-thread*/**",
+      "data/works.js",
+      "data/town-maps.js"
+    ],
+    "expectedChanges": [
+      "Render each original flat logical polygon once in the static SVG preview, preserving exact shape/material/pose and eliminating fan subdivision seams",
+      "Version complete work-local module/CSS/data request graph to package patch 0.4.1; physical response/UI labels unchanged",
+      "Small labelled iframe QA fixture for actual 390x844,844x390,768x1024 layout/navigation checks without device-emulation claims",
+      "Preview polygon-count regression and existing work tests; update guide/development version notes"
+    ],
+    "ownerDecisions": [
+      "User v0.4 directive authorizes continued UI/visual QA fixes, tests, PR and safe staging publication; production/other works remain forbidden"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard Plan-first multi-file WORK route; no shared runtime/identity/launch/storage contract change",
+      "Active staging-only; keep global registry/LAB and production unchanged",
+      "Shape limits are data constraints, not object-ID runtime branches"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-iphone-safari",
+      "physical-ipad-touch",
+      "owner-tactile-evaluation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated preview/cache/QA repair PR; primary collection PR #284 remains",
+    "outOfScope": [
+      "Engine physics/gestures, model data or new objects",
+      "Production/shared runtime/other works/LAB",
+      "Editor or automated Dots production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real WebGL context unavailable in cloud browser; physical iPhone/iPad tactile quality"
+    ],
+    "problem": "Live collection preview exposes antialiased internal fan triangles absent from flat native 3D surfaces",
+    "currentContract": "Work-local TouchBody consumes welded rest/vertices/triangles and optional deformation metadata; existing input/pull and material springs",
+    "whyExistingIsInsufficient": "Geometry/material generation is hardcoded; app always creates one body and cannot validate independent specimen data or clear state on selection",
+    "design": "Project the same welded mesh corners as logical polygons for static rest previews; no alternate model assets or shader change",
+    "alternativesRejected": [
+      "Existing external 3D engine",
+      "Separate fake thumbnail shape data",
+      "Live WebGL context for every card",
+      "Per-object physics hacks or asset editor",
+      "Shared runtime changes"
+    ],
+    "migration": "Work-local package patch 0.4.1; public UI remains Touch Lab 0.4",
+    "compatibility": "Preserve original rest/pose/material/press/pull/rotation values; other works and shared runtime byte-identical",
+    "boundaryCases": [
+      "Coplanar fan triangles in static thumbnails",
+      "Every shape color/pose/face winding",
+      "Warm 0.4.0 module/CSS cache",
+      "Narrow and landscape gallery navigation with unsupported WebGL"
+    ],
+    "testPlan": [
+      "One SVG polygon per visible logical face with no centre-subtriangle boundaries",
+      "Retain 62 work tests plus preview regression",
+      "Scope Risk Impact and syntax/diff",
+      "Live main and narrow-frame collection/nav/fallback checks"
+    ],
+    "promotionRisk": "Staging experimentation only; physical device feel/adoption and production remain separate"
+  }
+}
