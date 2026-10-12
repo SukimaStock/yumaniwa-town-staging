@@ -1,0 +1,120 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "97738749392db4ee4935e9943e30a177fea0127a46586dc7808c7521471f1014",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "feel-studio-v02-browser-cycle-20261012",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "659178f06acd084a2c069b41d79475f228deafc7",
+    "change": "Consume the actual browser-authored request into a new independent E code build; record real cycle A-E evidence.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "works/feel-studio/**"
+    ],
+    "allowedPaths": [
+      "works/feel-studio/**",
+      ".change-plans/feel-studio-v02-browser-cycle-20261012/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "data/works.js",
+      "data/lab-rooms.json",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/pumpoko/**",
+      "works/pumpoko-02/**",
+      "works/motion-lab/**",
+      "works/sukima-3d-lab/**",
+      "lab/lab.js",
+      "lab/lab.css",
+      "lab/lab-finish.css"
+    ],
+    "expectedChanges": [
+      "Add only a new immutable boat-e implementation from browser-request.json; keep A/B/C/D unchanged",
+      "Register E initial:false and a response matching the browser request ID",
+      "Record browser spatial/time edits, comparison, request/response, continuation and second-project reuse",
+      "Only repair observed Studio defects if necessary within this work"
+    ],
+    "ownerDecisions": [
+      "2026-10-12 current user Feel Studio 0.2 instruction authorizes redesign, real cycle A-E, branch/PR/tests/safe Staging merge. Excludes all other works, shared Engine and Production."
+    ],
+    "hqDecisions": [
+      "Work-local browser finish. Runtime, code isolation and saved data contracts remain unchanged. A fresh code build is appropriate because the real browser produced its own request after the API proxy cycle."
+    ],
+    "rulesApplied": [
+      "AGENTS: active/staging-only; no production promotion or town installation",
+      "CHANGE-PLAN Full risk floor for lifecycle JSON and generated LAB; lock first",
+      "Existing MotionRunner handles pointers/visibility/resize/120Hz; no new common runtime",
+      "Record test environment truthfully; no physical iPhone claim"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Public browser request -> new code -> response -> play",
+      "Continue edit/parent/adopt/branch/reopen",
+      "Second project edit/save/compare",
+      "Screenshot and remaining iPhone limits"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this PR: new work, appended lifecycle entry, generated LAB and lock. No migration of old saves.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Production",
+      "Existing works or shared Engine edits",
+      "Automatic AI communication",
+      "General game editor",
+      "New CI infrastructure"
+    ],
+    "unverified": [
+      "Physical iPhone Safari feel and performance",
+      "Author adoption"
+    ],
+    "problem": "0.1 compared fixed demo settings but did not connect AI code changes to production history.",
+    "currentContract": "0.1 has saved settings and a MotionRunner; all variants run the same Disc module.",
+    "whyExistingIsInsufficient": "Separate installed builds and request/response provenance are needed for actual code branches.",
+    "design": "Small working desk, immutable code manifests, sandboxed frames, direct declared handles, per-build config snapshots, explicit manual Work request and installed-response import.",
+    "migration": "Archive 0.1 with relative launch links repaired. No old save mutation. New v2 project namespaces.",
+    "compatibility": "No existing works, MotionRunner, Engine, Production or global runtime changes. Original code revisions remain playable.",
+    "promotionRisk": "Staging only; physical device and author adoption remain separate.",
+    "alternativesRejected": [
+      "Do not add disc presets",
+      "Do not execute imported code or arbitrary URLs",
+      "Do not label pending code synthesis as a running variant"
+    ],
+    "boundaryCases": [
+      "Blocked/corrupt storage and malformed imports",
+      "Unknown or changed code hashes",
+      "Cross-project/old-frame messages",
+      "Rapid program switching/hidden/resize",
+      "Request returning to a parent with later draft edits"
+    ],
+    "testPlan": [
+      "Existing Node cycle/frame/legacy checks",
+      "Actual public browser UI cycle A-E",
+      "Trusted CI and exact-SHA Pages"
+    ]
+  }
+}
