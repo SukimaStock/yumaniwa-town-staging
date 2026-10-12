@@ -22,7 +22,10 @@ test('sixteen v0.4 data blobs, order and numbering remain immutable; 17–21 app
   assert.deepEqual(manifest.items[index],{id:item.id,file:item.file});
   assert.equal(createHash('sha256').update(readFileSync(new URL(item.file,root))).digest('hex'),item.sha256);
  }
- assert.deepEqual(manifest.items.slice(16).map(x=>[x.number,x.id]),[[17,'dent'],[18,'ring'],[19,'bowl'],[20,'leaf'],[21,'mobile']]);
+ assert.deepEqual(manifest.items.slice(16,21).map(x=>[x.number,x.id]),[[17,'dent'],[18,'ring'],[19,'bowl'],[20,'leaf'],[21,'mobile']]);
+ assert.equal(manifest.items.length,36);
+ assert.deepEqual(manifest.items.slice(21).map(x=>x.number),Array.from({length:15},(_,i)=>i+22));
+ for(const d of definitions.slice(21)){assert.equal(d.schema,'sukima3d-specimen/2');assert.deepEqual(d.behaviors,{});}
  assert.equal(validateCollection(manifest),manifest.items);
  assert.throws(()=>validateCollection({...manifest,items:[...manifest.items,{id:'extra',file:'objects/extra.json',number:17}]}),/collection number/);
  for(const number of [null,NaN,-1,1.5,10000])assert.throws(()=>validateCollection({...manifest,items:[{id:'extra',file:'objects/extra.json',number}]}),/collection number/);
@@ -110,7 +113,7 @@ test('capabilities are independent of schema: legacy STATIC and explicit convex 
  for(const deformation of [null,[],{cornerCompliance:null},{centerCompliance:NaN},{limits:null},{unknown:1}]){const bad=structuredClone(explicit);bad.behaviors.touch.deformation=deformation;assert.throws(()=>createSpecimen(bad),/Invalid specimen/);}
  const unsupported=structuredClone(forms[1]);unsupported.behaviors={touch:{profile:'SOFT',overrides:{}}};assert.throws(()=>createSpecimen(unsupported),/Invalid specimen/,'existing physics is not silently attached to concavity');
 });
-test('all 21 selections discard old input/rotation/deformation without contaminating the next body',()=>{
+test('all registered selections discard old input/rotation/deformation without contaminating the next body',()=>{
  const s=new SpecimenSession(),canvas=new Canvas();let input;
  for(const d of [...definitions,...definitions.slice().reverse()]){
   const old=s.body;input?.destroy();s.select(d);assert.equal(canvas.capture.size,0);assert.equal(old?.held??false,false);assert.deepEqual(s.body.velocity,[0,0,0]);assert.deepEqual(s.body.orientation,d.display.orientation);assert.deepEqual(s.mesh.vertices,s.mesh.rest);
@@ -145,7 +148,7 @@ test('every guide JSON example is executable independently of gallery DOM',()=>{
 });
 test('a new independent mesh file plus one registration loads without any engine or DOM edits',async()=>{
  const extra=structuredClone(forms[1]);extra.id='new-loop';extra.name='NEW LOOP';
- const list={schema:manifest.schema,items:[...manifest.items,{id:extra.id,file:'objects/new-loop.json',number:22}]};
+ const list={schema:manifest.schema,items:[...manifest.items,{id:extra.id,file:'objects/new-loop.json',number:Math.max(...manifest.items.map((item,index)=>item.number??index))+1}]};
  const request=async url=>({ok:true,json:async()=>url.pathname.endsWith('collection.json')?list:url.pathname.endsWith('new-loop.json')?extra:read(url.pathname.split('/').slice(-2).join('/'))});
- const items=await loadCollection(new URL('https://local.test/'),request);assert.equal(items.length,22);assert.ok(items.every(i=>i.definition));assert.ok(pixelCount(previewRaster(items.at(-1).definition))>400);
+ const items=await loadCollection(new URL('https://local.test/'),request);assert.equal(items.length,manifest.items.length+1);assert.ok(items.every(i=>i.definition));assert.ok(pixelCount(previewRaster(items.at(-1).definition))>400);
 });

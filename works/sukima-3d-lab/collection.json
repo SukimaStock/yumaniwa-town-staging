@@ -89,6 +89,81 @@
       "id": "mobile",
       "file": "objects/mobile.json",
       "number": 21
+    },
+    {
+      "id": "tilt-mouth",
+      "file": "objects/tilt-mouth.json",
+      "number": 22
+    },
+    {
+      "id": "pocket-shell",
+      "file": "objects/pocket-shell.json",
+      "number": 23
+    },
+    {
+      "id": "square-flue",
+      "file": "objects/square-flue.json",
+      "number": 24
+    },
+    {
+      "id": "elbow-window",
+      "file": "objects/elbow-window.json",
+      "number": 25
+    },
+    {
+      "id": "fork-gap",
+      "file": "objects/fork-gap.json",
+      "number": 26
+    },
+    {
+      "id": "skew-tunnel",
+      "file": "objects/skew-tunnel.json",
+      "number": 27
+    },
+    {
+      "id": "crease-fan",
+      "file": "objects/crease-fan.json",
+      "number": 28
+    },
+    {
+      "id": "ribbon-turn",
+      "file": "objects/ribbon-turn.json",
+      "number": 29
+    },
+    {
+      "id": "saddle-sheet",
+      "file": "objects/saddle-sheet.json",
+      "number": 30
+    },
+    {
+      "id": "offset-stack",
+      "file": "objects/offset-stack.json",
+      "number": 31
+    },
+    {
+      "id": "bridge-pins",
+      "file": "objects/bridge-pins.json",
+      "number": 32
+    },
+    {
+      "id": "orbit-cage",
+      "file": "objects/orbit-cage.json",
+      "number": 33
+    },
+    {
+      "id": "three-ridges",
+      "file": "objects/three-ridges.json",
+      "number": 34
+    },
+    {
+      "id": "pinched-cross",
+      "file": "objects/pinched-cross.json",
+      "number": 35
+    },
+    {
+      "id": "step-knot",
+      "file": "objects/step-knot.json",
+      "number": 36
     }
   ]
 }
