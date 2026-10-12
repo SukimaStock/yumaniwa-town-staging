@@ -1,0 +1,78 @@
+{
+  "schema": "feel-workspace/2",
+  "project": "light",
+  "nodes": [
+    {
+      "id": "light-a",
+      "title": "A · 幕が開く",
+      "buildId": "light-a",
+      "codeHash": "0fab2cfc3cf76977ae7b61ea9f8a76cb395e870dd7a3b71d84890b4a299e5fa3",
+      "parent": null,
+      "config": {
+        "lamp": {
+          "x": 230,
+          "y": 205
+        },
+        "shutter": {
+          "x": 400,
+          "y": 200
+        },
+        "delay": 0.3,
+        "pulse": 1.5
+      },
+      "kind": "implementation",
+      "decision": "hold",
+      "provenance": []
+    },
+    {
+      "id": "light-b",
+      "title": "B · 灯が呼吸する",
+      "buildId": "light-b",
+      "codeHash": "b9f8cf45e3a57007b51f32228bf324fbd6c89c0d42e3469c768cf68774385011",
+      "parent": "light-a",
+      "config": {
+        "lamp": {
+          "x": 230,
+          "y": 205
+        },
+        "shutter": {
+          "x": 400,
+          "y": 200
+        },
+        "delay": 0.3,
+        "pulse": 1.5
+      },
+      "kind": "implementation",
+      "decision": "hold",
+      "provenance": []
+    },
+    {
+      "id": "n-mv5rgr3v-scx5bxz",
+      "title": "A · 幕が開くから",
+      "buildId": "light-a",
+      "codeHash": "0fab2cfc3cf76977ae7b61ea9f8a76cb395e870dd7a3b71d84890b4a299e5fa3",
+      "parent": "light-a",
+      "config": {
+        "lamp": {
+          "x": 185.2989690721649,
+          "y": 151.76578608247422
+        },
+        "shutter": {
+          "x": 400,
+          "y": 200
+        },
+        "delay": 0.85,
+        "pulse": 1.5
+      },
+      "kind": "author-edit",
+      "decision": "hold",
+      "provenance": []
+    }
+  ],
+  "drafts": {},
+  "left": "n-mv5rgr3v-scx5bxz",
+  "right": "light-b",
+  "requests": [],
+  "completed": [],
+  "tape": null
+}

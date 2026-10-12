@@ -62,3 +62,9 @@ JSONに含まれる外部URL、コード文字列、未登録buildは実行し�
 - node tools/work-lifecycle.cjs --check
 
 実ブラウザと実機の観測範囲はVALIDATION.mdとPRで分けて記録する。
+
+## 実ブラウザの制作往復
+
+公開Stagingで、開始位置と待ち時間をドラッグして保存したAの分岐を保ち、Bの進み方とAの停止を選んだ実際のJSONがcycle/browser-request.json。Workがその出典を検査して独立コードEを追加し、browser-response.jsonへ返した。browser-source-workspace.jsonはその依頼元を再開できる机。「ブラウザ制作往復の実例を読み込む」から同じ往復を試せる。
+
+別題材も実ブラウザで灯の位置と待ち時間を変更・分岐し、別コードBと比較した。再開用はbrowser-light-workspace.json。実機iPhone本人の触感確認と、このブラウザ検証は別に扱う。
