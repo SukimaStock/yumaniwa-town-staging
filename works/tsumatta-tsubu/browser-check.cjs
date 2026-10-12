@@ -25,6 +25,7 @@ const {chromium,devices}=require('playwright');
   if(name!=='Desktop'){await touch('touchStart',st.x,st.y);await touch('touchCancel');}else{await page.mouse.move(st.x,st.y);await page.mouse.down();await page.evaluate(()=>window.dispatchEvent(new Event('blur')));await page.mouse.up();}
   if((await snap()).drag)throw Error('cancel retained drag');
   await page.setViewportSize({width:844,height:390});await page.waitForTimeout(300);st=await snap();if(st.overflow||st.drag||st.escaped)throw Error('resize');
+  if(errors.length)throw Error(name+' pageerror: '+errors.join('\n'));
   results.push({device:name,afterRelease:afterRelease.escaped,after6seconds:flowed.escaped,tapNoRelease:true,cancel:true,resize:true,overflow:st.overflow,errors});await context.close();
  }
  console.log(JSON.stringify(results,null,2));await browser.close();
