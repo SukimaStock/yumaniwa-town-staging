@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "caaf53c0306e66d76e1a6ce498e526b4fe9b433bab501d35d3d901d624b2c954",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-feel-lab-startup-20261012",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Restore FEEL LAB startup after PUMPOKO 02's canonical directory migration",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "95fb0d1ce29c07768ee8da257079c3dc0218f6dd",
+    "canonicalSources": [
+      "Owner report 2026-10-12: PUMPOKO Feel Labが動かなくなっていました。確認お願いします。",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko/physics.js",
+      "works/pumpoko/world.js",
+      "works/pumpoko/draw.js",
+      "Migration commit 8e3c39c: canonical physics/world/draw blobs exactly match the former pumpoko-02 files"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-feel-lab-startup-20261012/r0.lock.json",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/tests/startup.test.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/pumpoko-01/**",
+      "works/pumpoko-02/**",
+      "works/pumpkin-rutabaga-lab/**",
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/style.css",
+      "engine/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "style.css",
+      "main.js",
+      ".github/**",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "Change only the three FEEL LAB script URLs to the byte-identical canonical PUMPOKO dependency files",
+      "Add entry-point regression coverage which resolves and executes the actual HTML script graph before checking drawing, both controls, all existing courses, interruption/reset and local save",
+      "Keep FEEL LAB terrain data, coefficients, rendering, gestures, storage schema and URL unchanged"
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Repair within the reported staging work includes branch, commit, tests, PR and safe staging merge per AGENTS.md",
+      "Use normal Standard WORK Plan-first route because the repair changes cross-work script references",
+      "No new compatibility shim or duplicate physics source; existing dependency code is identical"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "live-browser-startup-and-controls",
+      "physical-iphone-safari"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated repair PR; no main game files are changed",
+    "outOfScope": [
+      "Production",
+      "Other works and shared Engine",
+      "Terrain/physics/visual/input/storage redesign",
+      "New UI or lifecycle transitions"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad Safari and subjective tactile feel"
+    ]
+  }
+}
