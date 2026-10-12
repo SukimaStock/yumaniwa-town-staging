@@ -1,3 +1,45 @@
+# SukimaStock 3D Collection 02 · Free Forms — 2026-10-12
+
+Base `f0eaea118fea35b9ecbe503731465a0a7b38b487` (merged #287); latest main, related PRs/reviews, all 21 definitions, COLLECTION_GUIDE, DEVELOPMENT, specimen/mesh and AGENTS/operations reviewed. No applicable production skill was present in the catalog or checkout `.agents/skills`; the work guide is canonical. Active / staging-only. Standard WORK preimplementation Plan `sukima-3d-collection-02-20261012` was committed before authoring; draft PR #288. An earlier plan-only branch was superseded before implementation when the user authorized minimal existing-test count maintenance.
+
+15 individually shaped **v2 STATIC** works, explicit unique display numbers **22–36**, appended after the unchanged 21 entries. Naming followed shape exploration. No random deformation, imported models, dedicated preview images, gameplay or scheduled production. Each JSON uses authored indexed triangles, flat normals and `behaviors:{}`. Shared previews derive from the same data. Engine/camera/input/Touch/UI/package, shared 2D Engine, other works and Production are unchanged.
+
+| No. / Category | Name / ID | Shape idea, v2 expression, angle to inspect; finding |
+| --- | --- | --- |
+| 22 / A 器と空洞 | TILT MOUTH / `tilt-mouth` | Five-sided deep pocket with sloping asymmetric lip and displaced foot. Closed outer/inner/rim/floors, 22 vertices / 40 triangles. Look down into mouth then below foot; oblique lip changes depth impression. |
+| 23 / A | POCKET SHELL / `pocket-shell` | Wide shallow seven-sided recess, thicker back and tilted rim. Closed 30/56. Front → edge → back; a shallow space can read as a shell without copying BOWL. |
+| 24 / A | SQUARE FLUE / `square-flue` | Leaning rectangular hollow tube, open at both ends but closed skin, 16/32. Look along Y then across side; thickness belongs to the skin, no end caps across the hole. |
+| 25 / B 穴と隙間 | ELBOW WINDOW / `elbow-window` | Concave L-shaped through-window; paired six-corner inner/outer boundary, closed 24/48. Face → oblique → back; the narrow horizontal passage joins the tall slot. |
+| 26 / B | FORK GAP / `fork-gap` | Unequal prongs with an open-ended gap, tapered and slanted. Extruded concave polygon, closed 16/28. Front then edge; gap stays open rather than becoming another ring. |
+| 27 / B | SKEW TUNNEL / `skew-tunnel` | Shifted triangular portals joined by sloping walls, closed 12/24. Front and back along Z then side; aperture partly occludes itself at oblique angles. |
+| 28 / C 薄いもの | CREASE FAN / `crease-fan` | Broad radial zigzag edge from one low corner, 11/9, open + doubleSided. Face → edge → back; nine folds collapse into a jagged profile. |
+| 29 / C | RIBBON TURN / `ribbon-turn` | Six unequal cross-sections turn a narrow strip through space, 12/10, open + doubleSided. Rotate around Y; waist is projected twist, not a hole or deformation. |
+| 30 / C | SADDLE SHEET / `saddle-sheet` | Four corners bend in opposing directions, 9/8, open + doubleSided. Face → diagonal edge → underside; broad quadrilateral becomes a pinched profile. |
+| 31 / D 複数パーツ | OFFSET STACK / `offset-stack` | Five unequal plates separated by explicit air gaps, 40/60. Five closed parts with position, Y rotation and nonuniform scale. Front and side reveal offset versus layering; no hidden supports/animation. |
+| 32 / D | BRIDGE PINS / `bridge-pins` | Two unequal feet, slanted lintel and detached triangular cap, 30/44. Four closed TRS parts. Front → side; deliberate small clearances make an unstable-looking assembly without collisions. |
+| 33 / D | ORBIT CAGE / `orbit-cage` | Five tangential flat blocks around a small central prism, 48/72. Six separated closed TRS parts. Face → side reveals depth and central occlusion; no moving orbit. |
+| 34 / E 自由造形 | THREE RIDGES / `three-ridges` | Three displaced height ridges above a flat underside, closed 24/44. Above → side → below; terrain/tool associations emerge from the same nonconvex solid. |
+| 35 / E | PINCHED CROSS / `pinched-cross` | Unequal four-way silhouette with a sheared thick body, closed 24/44. Front → diagonal → back; narrow waist and skew thickness change apparent balance. |
+| 36 / E | STEP KNOT / `step-knot` | Six square sections make a continuous angular ascending bend, closed 26/48. Front → side → underside; the bend reads as separate facets without detached parts. |
+
+All fifteen fit v2 without extension. 344 authored vertices / 567 triangles total; three thin sheets draw both sides (additional 27 triangles). Per-work budget is 8–72 authored triangles, far below the contract limit. No authored normal override or Touch configuration is required. Each closed part is one connected surface with positive signed volume; disconnected shells are separate parts. This avoids the known #287 P2 aggregate-volume blind spot. The unknown Touch-key P2 is inapplicable because all behaviors are empty. Neither existing Engine issue was repaired here.
+
+## Verification
+
+- Baseline main: 114/114 existing tests. Candidate: **129/129** work tests and **24/24** lifecycle tests. Minimal `free-forms.test.mjs` maintenance pins old 17–21 to slice(16,21), checks total36/new22–36/v2 STATIC, and makes the independent data-addition example choose the next unused number/count. Old sixteen hash/behavior baselines and old five named geometry checks remain. Manifest-driven v2 tests now cover all twenty v2 forms; switching walks all36 forwards/backwards. No new permanent test system.
+- Direct Git byte comparison protects **all21** original JSONs (including the five v2s), and exact manifest prefix equality protects order/number metadata. Only fifteen new JSONs, append-only manifest, this note, one existing test and the Plan Lock change.
+- Unchanged native script: **536 GLES frames**, exact shaders compile/link, GL error0; all36 rest/turned/back at three sizes, old Touch states, and all20 v2 CPU/GPU preview comparisons. Coverage .9996–1.0000 for v2 previews; mean channel differences 0–.006. Native results are not browser/device certification.
+- A temporary strict noncoplanar edge/triangle intersection check found a slight BRIDGE PINS lintel/left-foot overlap; raising only the lintel from Y=.36 to .42 creates a clear gap. All15 then pass this supplementary check; coplanar contacts/boundaries are not a complete intersection proof. The script is not committed.
+- Individually reviewed all15 native three-angle images and same-gray initial/side/back/underside previews (temporary outputs outside repository). Confirmed cavity interiors versus back/foot, unfilled apertures, edge silhouettes, thin backs and intentional separated parts. CPU/GPU equality alone is not the topology evidence.
+- Actual local Chromium `/usr/bin/chromium`, Playwright, WebGL2 SwiftShader: all36 load and draw; no pageerror/GL error. Real Pointer Events and next-while-captured switches restore pristine meshes/input; all20 STATIC rotate after hold, reset pose/velocity, retain exact vertices. New15 get >1s holds; keyboard rotations also exercised. Three CSS viewport sizes 390×844, 844×390, 768×1024: no horizontal overflow and collection scroll preserved. Additional actual WebGL views confirm background through SQUARE FLUE along its axis, the L-window and skew tunnel; the deep mouth interior and all three thin backs render. Existing v1 interaction behavior remains protected by unchanged fixed traces.
+- PR #288 records exact checked head, Scope → Risk → Impact, CI, merge SHA and Pages/live results. **Physical iPhone/iPad, native iOS menus and device frame pacing are UNVERIFIED**. Formal verificationState stays UNVERIFIED; staging publication is not owner adoption or Production permission.
+
+## Limits / next shapes
+
+Zero-thickness sheets deliberately vanish edge-on; they are not flexible cloth. Parts remain rigid and static, with no joints, transparency, collision or general nonconvex Touch. General self-intersection repair and nested-shell orientation are outside the current validator. Authored cross-sections and separate-part clearances were reviewed here; no automatic repair is claimed. Future exploration: an asymmetric split shell with a narrow slit, interleaved folds, or a branching hollow passage. Moving/contacting parts would require a separate capability decision; no extension or automation was started.
+
+---
+
 # SukimaStock 3D v0.5 · Free Forms — 2026-10-12
 
 ## Scope and architecture
