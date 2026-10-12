@@ -25,17 +25,36 @@ async function main() {
       const context = await browser.newContext({ viewport, javaScriptEnabled: false });
       const page = await context.newPage(); await page.goto(base + prefix + '/lab/');
       assert.equal(await page.locator('article').count(), 6);
+      assert.equal(await page.locator('[data-room-link]').count(), 7);
       assert.equal(await page.locator('meta[name=robots]').getAttribute('content'), 'noindex,nofollow');
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
       for (const work of frozen) {
         const card = page.locator('#' + work.id); await card.locator('summary').click();
-        assert.ok(await card.getByRole('heading', { name: 'What we learned', exact: true }).isVisible());
+        assert.ok(await card.getByRole('heading', { name: /What we learned/ }).isVisible());
         const href = await card.getByRole('link', { name: '試作に触れる', exact: true }).getAttribute('href');
         const response = await context.request.get(new URL(href, page.url()).href); assert.equal(response.status(), 200, work.id);
         assert.equal((await context.request.get(new URL('../' + work.archive, page.url()).href)).status(), 200);
       }
       if (process.env.LIFECYCLE_SCREENSHOTS) await page.screenshot({ path: path.join(process.env.LIFECYCLE_SCREENSHOTS, 'lab-' + viewport.width + '.png'), fullPage: true });
       await context.close(); console.log('PASS LAB without JavaScript, records and all links: ' + viewport.width + 'x' + viewport.height);
+    }
+    for (const viewport of [{ width: 320, height: 568 }, { width: 390, height: 844 }, { width: 844, height: 390 }, { width: 1280, height: 900 }]) {
+      const context = await browser.newContext({ viewport });
+      const requested = [], page = await context.newPage();
+      page.on('request', request => requested.push(request.url()));
+      await page.goto(base + prefix + '/lab/');
+      for (const room of ['motion', 'touch', 'pumpoko', 'observation', 'bench', 'archive', 'garage']) {
+        await page.locator('[data-room-link="' + room + '"]').click();
+        const panel = page.locator('#room-' + room);
+        assert.ok(await panel.isVisible());
+        assert.equal(await page.locator('.room-panel:visible').count(), 1);
+        assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+        await panel.locator('.back-to-building').first().click();
+        assert.ok(await page.locator('#hall').isVisible());
+      }
+      assert.equal(requested.length, 3, 'only HTML, local CSS and local navigation JS load at the entrance');
+      if (process.env.LIFECYCLE_SCREENSHOTS) await page.screenshot({ path: path.join(process.env.LIFECYCLE_SCREENSHOTS, 'institute-' + viewport.width + '.png'), fullPage: true });
+      await context.close(); console.log('PASS seven rooms and local-only entrance: ' + viewport.width + 'x' + viewport.height);
     }
     const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
     const blocked = [], errors = [];
@@ -50,9 +69,11 @@ async function main() {
     const link = page.getByRole('link', { name: 'LAB — 探索の記録', exact: true });
     await link.scrollIntoViewIfNeeded(); assert.ok(await link.isVisible()); await link.tap();
     await page.waitForURL('**/lab/'); assert.equal(await page.locator('article').count(), 6);
+    await page.locator('[data-room-link="archive"]').tap();
     await page.locator('#town-glance-03').getByRole('link', { name: '試作に触れる', exact: true }).tap();
     await page.waitForURL('**/works/town-glance-03/'); await page.getByRole('button', { name: '場所を見る', exact: true }).tap();
-    await page.goBack(); await page.waitForURL('**/lab/');
+    await page.goBack(); await page.waitForURL('**/lab/#room-archive');
+    assert.ok(await page.locator('#room-archive').isVisible());
     await page.goto(base + prefix + '/?work=rainy-window');
     await page.waitForFunction(() => isWorkPlayerOpen === true);
     assert.match(await page.locator('#work-player-frame').getAttribute('src'), /works\/rainy-window/);
