@@ -1,0 +1,120 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "123cee80f2b286383c8a3617408a56a44f47aef0bc99f625b9bd8d6766bcf831",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "lab-visual-copy-polish-20261012",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Refine SukimaStock LAB copy and presentation to match Yumaniwa Town without modifying room behavior or published works.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "24c2b3b365cc0723389f98c8777bcc71555931bd",
+    "canonicalSources": [
+      "lab/lab.css",
+      "lab/lab.js",
+      "data/lab-rooms.json",
+      "tools/lab-renderer.cjs",
+      "tools/work-lifecycle.cjs",
+      "index.html",
+      "style.css"
+    ],
+    "allowedPaths": [
+      ".change-plans/lab-visual-copy-polish-20261012/r0.lock.json",
+      "lab/lab-finish.css",
+      "lab/index.html",
+      "data/lab-rooms.json",
+      "tools/lab-renderer.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "works/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "lab/lab.js",
+      "tools/work-lifecycle.cjs",
+      "data/work-lifecycle.json"
+    ],
+    "expectedChanges": [
+      "Add lab/lab-finish.css as a narrow after-loaded CSS layer for dark town-like background, understated typography and quiet room signs.",
+      "Simplify the entrance copy, status labels and archive headings in tools/lab-renderer.cjs; update generated lab/index.html to the same content.",
+      "Clarify three room descriptions in data/lab-rooms.json without moving or removing a room or work.",
+      "Keep all seven room ids, scenes, href destinations, interactive navigation and archive records."
+    ],
+    "ownerDecisions": [
+      "Owner requested the LAB finishing pass and explicitly asked to merge this staging-only change on 2026-10-12."
+    ],
+    "hqDecisions": [
+      "Apply presentation-only changes. Keep LAB generated from the source renderer; do not modify runtime, protected workflows, Engine or Production."
+    ],
+    "rulesApplied": [
+      "Preserve existing room graph and all destinations",
+      "Keep generated LAB check passing",
+      "Production changes not authorized",
+      "Respect main branch protection"
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "change-operations-regression"
+    ],
+    "manualChecks": [
+      "Inspect room layout, labels and navigation on mobile and desktop after publication"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this LAB-only visual/copy PR; unchanged model/runtime should remain usable.",
+    "outOfScope": [
+      "Production repository and release",
+      "Work or Engine code",
+      "New room functionality",
+      "Shared town CSS or scene files"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Real iPhone layout after Pages deployment",
+      "Final live-page appearance until merge and Pages completion"
+    ],
+    "alternativesRejected": [
+      "Rebuild LAB layout from scratch",
+      "Edit generated HTML without changing its renderer",
+      "Weaken PR checks or branch rules"
+    ],
+    "boundaryCases": [
+      "Existing room hashes and direct links continue to work",
+      "Generated markup stays in sync with renderer",
+      "Mobile heading and room model do not overlap",
+      "All archive entries preserved"
+    ],
+    "testPlan": [
+      "Run node tools/work-lifecycle.cjs --check",
+      "Run existing release-validator regression tests",
+      "Inspect mobile and desktop layout, seven rooms and archived links",
+      "Review exact diff and CI required checks"
+    ],
+    "problem": "A strong room model is surrounded by marketing-style gradient, oversized headline and abstract copy not aligned with Yumaniwa Town.",
+    "currentContract": "Seven generated rooms use lab/lab.css, lab/lab.js, tools/lab-renderer.cjs and data/lab-rooms.json. Runtime and links must remain unchanged.",
+    "whyExistingIsInsufficient": "The original LAB presentation uses a large branded headline, gradients, metaphorical intro and repeated status/English labels.",
+    "design": "Use a focused after-loaded CSS file and replace only presentation text in the canonical source and generated page.",
+    "migration": "No data migration. Only static presentational changes and source-generated HTML.",
+    "compatibility": "No changes to JS interactions, room IDs, routes or work entrypoints. Staging only.",
+    "promotionRisk": "No production promotion. Review generated page and confirm old LAB links remain accessible."
+  }
+}

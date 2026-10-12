@@ -1,0 +1,33 @@
+/* LAB finishing layer: the building is the subject, not the surrounding UI. */
+:root{--ink:#e7e7df;--muted:#aeb6ad;--accent:#d3c9ae;--line:#3c443e;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif}
+body{background:#111513;color:var(--ink);line-height:1.8}
+.lab-header{padding-top:18px}
+.header-sign{font-size:11px;letter-spacing:.03em}
+.lab-layout{column-gap:48px}
+.hall{padding-top:46px}
+.eyebrow{font-size:11px;letter-spacing:.02em;margin-bottom:13px}
+h1{font-family:inherit;font-size:24px;font-weight:600;letter-spacing:0;line-height:1.4;margin-bottom:22px}
+.hall>p:not(.eyebrow){max-width:300px;color:#b8bfb7;margin:16px 0;line-height:1.95}
+.hall .entrance-lines{color:var(--ink)!important;font-size:14px;letter-spacing:0;line-height:1.9!important}
+.roof{border-color:#6c786a;border-top-color:#808a75;background:#5d6d5e;box-shadow:5px 6px 0 #28332c,inset 0 -5px #506451}
+.roof-sign{letter-spacing:.09em;color:#e1ddc7}
+.building{background:#515f51;border-left-color:#7a8674;border-right-color:#7a8674;box-shadow:6px 0 0 #27342c,0 15px 27px #0005}
+.room{background:#35483e;border-bottom-color:#788574;box-shadow:inset 0 2px #283a32}
+.room-number{font-family:inherit;font-size:11px}
+.room-sign strong{letter-spacing:0;color:#eee9db}
+.room-sign>span{color:#c2c9bd}
+.room[aria-current="location"]{background:#465b4c;box-shadow:inset 0 0 0 2px #c3bea4}
+.foundation{border-top-color:#6a7968;background:#465747;box-shadow:inset 0 -9px #34473b;color:#b9bfaa;letter-spacing:.04em}
+.map-note{font-size:12px;letter-spacing:0}
+.room-panel h2{font-family:inherit;font-size:23px;font-weight:600}
+.room-subtitle{letter-spacing:0}
+.room-closeup{background:#35483e;border-bottom-color:#75816e}
+.room-description{color:#c3c8c0}
+.machine p,.archive-machine>p{color:#b7bfb5}
+.machine-link{color:#dbd7bc}
+.state{color:#b7bdb5}
+.state:before{display:none}
+.record h4{color:#e1dfd0}
+.lab-footer{letter-spacing:0;color:#929f95}
+@media(max-width:960px){h1{font-size:23px}}
+@media(max-width:700px){.lab-header{padding-top:12px}.header-sign{font-size:10px;letter-spacing:0}.hall{padding-top:26px}h1{font-size:23px;margin-bottom:18px}.hall>p:not(.eyebrow){max-width:320px}.hall .entrance-lines{font-size:14px}.hall-object{display:none}.model{padding-top:18px}.exploring .model{padding-top:26px}.room-panel h2{font-size:23px}}
