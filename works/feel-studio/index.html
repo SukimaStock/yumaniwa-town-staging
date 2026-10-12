@@ -1,103 +1,15 @@
-<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#293f36">
-  <title>Feel Studio · SukimaStock</title>
-  <link rel="stylesheet" href="./style.css?v=0.1.0">
-  <script src="../motion-lab/runner.js" defer></script>
-  <script src="./registry.js?v=0.1.0" defer></script>
-  <script src="./disc.js?v=0.1.0" defer></script>
-  <script src="./session.js?v=0.1.0" defer></script>
-  <script src="./bench.js?v=0.1.0" defer></script>
-  <script src="./app.js?v=0.1.0" defer></script>
-</head>
-<body data-prototype="disc-table">
-  <main class="studio">
-    <header class="header">
-      <a href="../../lab/#room-bench">← LAB</a>
-      <h1>Feel Studio <small>0.1</small></h1>
-      <button id="help-open" aria-label="使い方を開く">?</button>
-    </header>
-    <div class="bench-title"><span id="prototype-title">木の円盤と、小さな坂</span><span id="current-title">A · すべる</span></div>
-    <div class="canvas-wrap">
-      <canvas id="canvas" tabindex="0" aria-label="円盤の実験台。指で引く・押す。編集では開始位置と地形を動かせます。"></canvas>
-      <span class="mode-label" id="mode-label" hidden></span>
-      <span class="bench-hint" id="bench-hint">指で動かして、離してみる</span>
-    </div>
-    <nav class="variants" aria-label="比べる案">
-      <button data-variant="A" aria-pressed="true"><b>A</b><span>すべる</span></button>
-      <button data-variant="B" aria-pressed="false"><b>B</b><span>はずむ</span></button>
-      <button data-variant="C" aria-pressed="false"><b>C</b><span>おもい</span></button>
-      <button id="shelf-open" aria-label="保存した案を開く"><span id="shelf-count">保存した案</span></button>
-    </nav>
-    <div class="toolbar">
-      <button id="retry" aria-label="同じ開始位置でやり直す">↺ やり直す</button>
-      <button id="edit" aria-pressed="false">台を整える</button>
-      <button id="save-open">案を残す</button>
-      <button id="tools-open">比べる・組む</button>
-    </div>
-    <p id="status" class="status" aria-live="polite">同じ台でA / B / Cを試せます。</p>
-    <p id="storage-warning" class="storage-warning" role="status" hidden></p>
-  </main>
-  <dialog id="panel" aria-labelledby="panel-title">
-    <header class="panel-header"><h2 id="panel-title"></h2><button id="panel-close" aria-label="閉じて実験台へ戻る">×</button></header>
-    <section id="tools-panel" hidden>
-      <h3>同じ指の動きで</h3>
-      <div class="button-row"><button id="record">指を録る</button><button id="replay">再生する</button><button id="live">自分で触る</button></div>
-      <p class="small" id="tape-info">指を動かし始めてから、最大6秒を録ります。</p>
-      <p class="small" id="input-limit"></p>
-      <hr>
-      <h3>好きな部分を取り入れる</h3>
-      <p class="small">台の形は今のまま。動き・跳ね方・止まり方を選びます。</p>
-      <div id="component-selectors"></div>
-      <button id="compose" class="primary wide">この組み合わせを残して試す</button>
-      <p class="small">「動き」は方式ごと残します。ここにない組み合わせは「追加実装」に書いて渡せます。</p>
-      <hr>
-      <div class="button-row"><button id="adopt">今の案を採用</button><button id="keep">今の案も残しておく</button></div>
-      <p class="small" id="decision-info"></p>
-      <hr>
-      <div class="button-row"><button id="undo">調整をひとつ戻す</button><button id="restore">この案の保存時へ</button></div>
-      <button id="handoff-open" class="wide">AIへ渡す・JSONを残す</button>
-    </section>
-    <section id="save-panel" hidden>
-      <p>今の設定と台の形を、新しい案として残します。</p>
-      <label>名前（空欄ならA2など）<input id="save-name" maxlength="80" autocomplete="off" placeholder="例：Bの弾みを少し弱く"></label>
-      <button id="save" class="primary wide">新しい案を残す</button>
-      <p class="small">元のA / B / Cや、以前の保存案は上書きしません。</p>
-    </section>
-    <section id="shelf-panel" hidden>
-      <p class="small">保存時の設定へ戻すには「この案の保存時へ」。調整途中の案も持ち続けます。</p>
-      <div id="shelf-list"></div>
-    </section>
-    <section id="handoff-panel" hidden>
-      <label>ひとこと<textarea id="comment" rows="2" maxlength="500" placeholder="Bが好き。止まり方だけ少し違う。"></textarea></label>
-      <label>変えない部分<textarea id="locks" rows="2" maxlength="500" placeholder="円盤の見た目、Cの保存案など"></textarea></label>
-      <label>追加実装<textarea id="request" rows="2" maxlength="1000" placeholder="この机では組めない動き、次に試したいこと"></textarea></label>
-      <div class="button-row"><button id="copy-summary">要約をコピー</button><button id="copy-json">JSONをコピー</button></div>
-      <div class="button-row"><button id="download">JSONを保存・共有</button><label class="file-button">JSONを取り込む<input id="import" type="file" accept=".json,application/json"></label></div>
-      <details><summary>書き出す内容を見る</summary><pre id="summary-preview"></pre></details>
-      <textarea id="copy-fallback" rows="7" aria-label="コピー用の書き出し内容" readonly hidden></textarea>
-      <p class="small">JSONには保存案、作業中の設定、比較した案、部分採用元、指の記録、作者の判断が入ります。別の端末にも取り込めます。</p>
-      <p class="small">「AIへ渡す」操作で通信はしません。コピーまたは保存した内容をChatGPT / Workへ渡してください。</p>
-    </section>
-    <section id="help-panel" hidden>
-      <p>まずA / B / Cで、円盤を動かして離してみてください。切り替えるたびに同じ開始位置へ戻ります。</p>
-      <ol>
-        <li>「台を整える」で、始の印と地形の点をつかむ。力のつまみは横に動かす。</li>
-        <li>「試す」に戻り、すぐ触る。気に入ったら「案を残す」。</li>
-        <li>「比べる・組む」で、例えば動きB・跳ね方B・止まり方Aを選ぶ。</li>
-        <li>新しい案とA / B / C、保存した案を行き来する。</li>
-      </ol>
-      <p class="small">Aは指への力と慣性。Bは指とのばね。Cは指を動かして接触をためて押す方式です。Cは触れるだけでは動きません。</p>
-      <p class="small">台の形はA / B / Cで共通です。保存案を選ぶとその案の台を復元します。指の再生中は、記録したときの台を使います。</p>
-      <p class="small">保存はこのブラウザ内です。大事な案はJSONにも残してください。PCではマウスで触れます。</p>
-      <p class="small">新しい試作の登録方法は <a href="./README.md">制作メモ</a>へ。</p>
-    </section>
-    <p id="panel-status" class="small" aria-live="polite"></p>
-  </dialog>
-  <noscript>Feel StudioにはJavaScriptが必要です。</noscript>
-</body>
-</html>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#293f36"><title>Feel Studio · 0.2</title><link rel="stylesheet" href="./studio-v2.css?v=0.2.0"><script src="./records-v2.js?v=0.2.0" defer></script><script src="./studio-v2.js?v=0.2.0" defer></script></head><body>
+<main><header><a href="../../lab/#room-bench">← LAB</a><h1>Feel Studio <small>0.2</small></h1><a href="./legacy-01/">0.1の机</a></header>
+<label class="project-label">制作中の試作 <select id="project" aria-label="制作中の試作"></select></label>
+<nav id="variants" aria-label="案を切り替える"></nav>
+<div class="compare-bar"><button id="compare" aria-pressed="false">並べて比べる</button><button id="side" hidden>右の案を見る</button><label>比較する案<select id="right" aria-label="比較する案"></select></label></div>
+<div class="panes" id="panes"><section id="left-pane"><p id="left-title"></p><div class="frame" id="left-frame"></div></section><section id="right-pane" hidden><p id="right-title"></p><div class="frame" id="right-frame"></div></section></div>
+<div class="actions"><button id="play">↺ 試す</button><button id="edit" aria-pressed="false">直接編集</button><button id="undo">ひとつ戻す</button><button id="branch">ここから分岐</button><button id="parent">親の案へ</button><button id="adopt">採用</button></div>
+<div class="actions secondary"><button id="parts">良い部分を取り入れる</button><button id="ai">AIに変更を依頼</button><button id="transfer-open">Workの返答・保存</button></div>
+<p id="status" aria-live="polite">試作品を読み込んでいます。</p><p id="warning" role="status" hidden></p>
+<details class="guide"><summary>この机でできること</summary><p>「直接編集」で印と時間のつまみを動かします。編集した案から分岐し、AIの別コードと比較できます。採用しなかった案も履歴に残ります。</p><p id="input-meaning"></p><div class="actions"><button id="record">指を録る</button><button id="replay">同じ指を再生</button><button id="hold">保留</button><button id="reject">今回は採用しない</button></div><p>同じ指の位置を最大6秒記録します。再生は各案の設定で開始し、力や操作の意味が同じとはみなしません。</p><a href="./README.md">新しい試作を接続する手順</a></details>
+</main>
+<dialog id="sheet"><header><h2 id="sheet-title">次の案を作る</h2><button id="close" aria-label="閉じる">×</button></header>
+<section id="request-section"><p>配置と時間は直接編集できます。進み方や演出のコードは、選んだ部分をWorkに渡して別案を作ります。</p><div id="part-fields"></div><label>次に試したいこと<textarea id="comment" maxlength="1500" rows="2" placeholder="例：Bの追従とAの止まる瞬間を取り入れたい"></textarea></label><label>変えない部分<textarea id="locks" maxlength="1000" rows="2" placeholder="例：Cの実装と、今の開始位置は残す"></textarea></label><button id="make-request">変更依頼を作る</button><hr><h3>互換性のある設定はその場で</h3><label>取り入れる設定<select id="setting-part"></select></label><label>元の案<select id="setting-donor"></select></label><button id="compose-settings">設定から新しい案を作る</button><p class="small">コードを混ぜる操作とは区別します。コードの依頼だけでは、新しい動く案は増えません。</p></section>
+<section id="transfer-section"><p>Workの実装は、この試作のcatalogに登録してから返答JSONを戻します。JSONだけでコードを実行することはありません。</p><label>依頼・返答・作業机のJSON<textarea id="transfer" rows="8" spellcheck="false"></textarea></label><div class="actions"><button id="copy">コピー</button><button id="receive">Workの返答を取り込む</button></div><div class="actions"><button id="export">作業机をJSONにする</button><button id="import">作業机を復元</button><button id="download">JSONを保存</button></div><label class="file-label">JSONファイルを開く<input id="file" type="file" accept=".json,application/json"></label><div id="samples"></div></section><p id="sheet-status" aria-live="polite"></p>
+</dialog></body></html>

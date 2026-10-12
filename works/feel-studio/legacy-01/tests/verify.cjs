@@ -289,7 +289,7 @@ if (require.main === module) {
   verify({
     Registry: require('../registry.js'), Disc: require('../disc.js'),
     Session: require('../session.js'), Bench: require('../bench.js'),
-    Runner: require('../../motion-lab/runner.js'), App: require('../app.js'),
+    Runner: require('../../../motion-lab/runner.js'), App: require('../app.js'),
     html: fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8')
   }).then(result => { console.log(JSON.stringify(result, null, 2)); process.exitCode = result.failed ? 1 : 0; })
     .catch(error => { console.error(error); process.exitCode = 1; });

@@ -1,0 +1,8 @@
+[
+  {
+    "title": "制作往復の実例を読み込む",
+    "project": "boat",
+    "workspace": "./cycle/workspace.json",
+    "response": "./cycle/response.json"
+  }
+]
