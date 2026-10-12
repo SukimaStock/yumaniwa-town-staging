@@ -24,7 +24,7 @@ async function tilt(index,target){
  pointer('pointerup',cursor);await wait(50);
  const actual=observe().pans[index].target;if(Math.abs(actual-target)>.04)throw Error(`Hinge ${index}: wanted ${target}, got ${actual}`);
 }
-async function until(check,max=15000){const end=Date.now()+max;while(Date.now()<end){const o=observe();if(check(o))return o;await wait(100);}throw Error('Timed out: '+JSON.stringify(observe()));}
+async function until(check,max=15000){const began=observe().time,end=Date.now()+90000;while(Date.now()<end){const o=observe();if(check(o))return o;if(o.time-began>max/1000)break;await wait(100);}throw Error('Timed out: '+JSON.stringify(observe()));}
 document.getElementById('touch').onclick=async()=>{
  if(running)return;running=true;const log=[];result.textContent='';
  try{

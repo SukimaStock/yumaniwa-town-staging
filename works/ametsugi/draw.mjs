@@ -1,4 +1,4 @@
-import {point} from './game.mjs';
+import {point} from './game.mjs?v=2';
 const TAU=Math.PI*2;
 export const PALETTE={air:'#24333b',wall:'#354950',deep:'#182930',seam:'#293c43',rim:'#759da8',enamel:'#a2c2c7',water:'#e4f5ee',copper:'#be8364',rust:'#815943',lamp:'#e6bb72',ink:'#ccdbd8'};
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -100,7 +100,7 @@ export class RainDrawing{
   }
  }
  draw(c,g,fade){
-  this.background(c,g);
+  this.background(c,g);this.sill(c,g);
   const P=PALETTE;
   if(g.phase!=='end'){
    const sp=this.project({x:g.source,y:g.pans[0].y-71});
@@ -118,16 +118,15 @@ export class RainDrawing{
    }
    this.line(c,[{x:30,y:516},{x:374,y:516}],'#718a84',4);
   }
-  this.sill(c,g);
   const titleAlpha=g.phase==='end'?Math.min(1,g.age*.9):fade;
-  const tx=this.wide?415:200,ty=this.wide?66:88;
+  const tx=this.wide?415:200,ty=this.wide?45:88;
   this.text(c,'雨つぎ',tx,ty,this.wide?28:37,'#dce5d5',titleAlpha);
   if(!g.started){
-   this.text(c,'雨どいを、かたむける。',tx,this.wide?101:122,12,'#9eb5b9');
+   this.text(c,'雨どいを、かたむける。',tx,this.wide?73:122,12,'#9eb5b9');
    const p=this.project(point(g.pans[0],g.pans[0].length/2-8));
    c.save();c.globalAlpha=this.reduced?.55:.45+.15*Math.sin(g.t*2);c.strokeStyle='#d5b388';c.lineWidth=1;c.beginPath();c.arc(p.x,p.y,15,0,TAU);c.stroke();c.restore();
   }
-  if(g.phase==='end')this.text(c,'SukimaStock',tx,this.wide?101:122,11,'#91aaad',Math.min(1,g.age));
+  if(g.phase==='end')this.text(c,'SukimaStock',tx,this.wide?73:122,11,'#91aaad',Math.min(1,g.age));
   if(g.phase==='retry')this.text(c,'もう一粒。',tx,this.wide?127:173,12,'#b6cac7',Math.min(1,g.age*4));
  }
 }

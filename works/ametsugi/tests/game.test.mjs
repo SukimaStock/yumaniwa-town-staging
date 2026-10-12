@@ -4,7 +4,7 @@ import {RainGame,COURSES,LIMIT,point,local} from '../game.mjs';
 import {RainDrawing} from '../draw.mjs';
 const angles=[[.36],[.36,-.4],[.36,-.36,.4],[-.36,.36,-.44],[.32,-.32,.36,-.48]];
 function until(g,predicate,hz=60,max=15){for(let i=0;i<max*hz;i++){g.update(1/hz);if(predicate(g))return i/hz;}assert.fail('Timed out: '+JSON.stringify(g.snapshot()));}
-for(const hz of [30,60,120])for(const mirror of [false,true])test(`all five roofs and natural end: ${hz} fps / ${mirror?'mirror':'normal'}`,()=>{
+for(const hz of [5,10,15,30,60,120])for(const mirror of [false,true])test(`all five roofs and natural end: ${hz} fps / ${mirror?'mirror':'normal'}`,()=>{
  const g=new RainGame();g.lap=mirror?1:0;g.reset();g.start();
  for(let i=0;i<5;i++){
   angles[i].forEach((a,p)=>g.setAngle(p,mirror?-a:a));
@@ -47,5 +47,5 @@ test('projection and pointer inverse agree in portrait and landscape',()=>{
 });
 test('long frame/invalid delta cannot explode spring or replay old elapsed time',()=>{
  const g=new RainGame();g.start();g.setAngle(0,.64);for(let i=0;i<100;i++){g.update(Infinity);g.update(NaN);g.update(-1);g.update(8);}
- for(const p of g.pans){assert.ok(Number.isFinite(p.angle));assert.ok(Math.abs(p.angle)<=LIMIT);}assert.ok(Number.isFinite(g.drop.x));assert.ok(Number.isFinite(g.drop.y));
+ for(const p of g.pans){assert.ok(Number.isFinite(p.angle));assert.ok(Math.abs(p.angle)<=LIMIT);}if(g.drop){assert.ok(Number.isFinite(g.drop.x));assert.ok(Number.isFinite(g.drop.y));}assert.ok(g.accumulator<1/120);
 });

@@ -64,7 +64,7 @@ export class RainGame{
  drainEvents(){return this.events.splice(0);}
  update(seconds){
   if(!Number.isFinite(seconds)||seconds<=0)return;
-  this.accumulator+=Math.min(seconds,.05);
+  this.accumulator+=Math.min(seconds,.2);
   while(this.accumulator>=STEP){this.step(STEP);this.accumulator-=STEP;}
  }
  step(dt){
@@ -126,5 +126,5 @@ export class RainGame{
    this.traces.push({x:d.x,y:d.y,life:.45});if(this.traces.length>65)this.traces.shift();
   }
  }
- snapshot(){return {phase:this.phase,level:this.level,filled:this.filled,lap:this.lap,failures:this.failures,started:this.started,drag:this.drag?.index??null,pans:this.pans.map(p=>({x:p.x,y:p.y,length:p.length,angle:p.angle,target:p.target})),cup:{...this.cup},drop:this.drop?{...this.drop}:null};}
+ snapshot(){return {phase:this.phase,time:this.t,level:this.level,filled:this.filled,lap:this.lap,failures:this.failures,started:this.started,drag:this.drag?.index??null,pans:this.pans.map(p=>({x:p.x,y:p.y,length:p.length,angle:p.angle,target:p.target})),cup:{...this.cup},drop:this.drop?{...this.drop}:null};}
 }

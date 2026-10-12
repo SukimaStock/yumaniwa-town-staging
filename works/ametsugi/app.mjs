@@ -1,5 +1,5 @@
-import {RainGame,local} from './game.mjs?v=1';
-import {RainDrawing,PALETTE} from './draw.mjs?v=1';
+import {RainGame,local} from './game.mjs?v=2';
+import {RainDrawing,PALETTE} from './draw.mjs?v=2';
 const game=new RainGame(),drawing=new RainDrawing(innerWidth/innerHeight>1.15);
 let pointer=null,selected=0,fade=1,wasStarted=false,lastPhase='',lastAngle=0,tickWait=0;
 const sound=document.getElementById('sound'),again=document.getElementById('again'),announce=document.getElementById('announce');
@@ -50,7 +50,7 @@ const scene={opaque:true,
   return true;
  }
 };
-SSE.createApp({id:'ametsugi',logicalWidth:drawing.width,logicalHeight:drawing.height,frameRate:60,initialScene:'rain',pointerMode:'primary',outerBackground:PALETTE.air,debug:false,
+SSE.createApp({id:'ametsugi',logicalWidth:drawing.width,logicalHeight:drawing.height,frameRate:60,performance:{maxDeltaSeconds:.2},initialScene:'rain',pointerMode:'primary',outerBackground:PALETTE.air,debug:false,
  keyboard:{bindings:{left:['ArrowLeft','KeyA'],right:['ArrowRight','KeyD'],reset:['KeyR'],pick0:['Digit1'],pick1:['Digit2'],pick2:['Digit3'],pick3:['Digit4']}},
  audio:SSE.audio.withBaseline({storageKey:'ametsugi.sound'}),analytics:{enabled:false},
  lifecycle:{pauseOnBlur:true,onPause:release,onResume:release},scenes:{rain:scene},
