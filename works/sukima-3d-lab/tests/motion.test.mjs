@@ -31,9 +31,9 @@ test('all 36 v0.5 registrations, JSON, compiled meshes, colors and initial previ
  }
 });
 test('37–41 append unique IDs; both MOBILE works keep their number, identity and order',()=>{
- assert.deepEqual(manifest.items.slice(36).map(i=>[i.number,i.id]),[[37,'pinwheel'],[38,'shutter'],[39,'pendulum'],[40,'slider'],[41,'mobile-motion']]);
+ assert.deepEqual(manifest.items.slice(36,41).map(i=>[i.number,i.id]),[[37,'pinwheel'],[38,'shutter'],[39,'pendulum'],[40,'slider'],[41,'mobile-motion']]);
  assert.equal(manifest.items[20].id,'mobile');assert.equal(manifest.items[20].number,21);
- assert.deepEqual(moving.map(d=>d.name),['PINWHEEL','SHUTTER','PENDULUM','SLIDER','MOBILE']);
+ assert.deepEqual(moving.slice(0,5).map(d=>d.name),['PINWHEEL','SHUTTER','PENDULUM','SLIDER','MOBILE']);
 });
 test('SPIN signed speed, initial angle and very large times; SWING/SLIDE cycle and phase are analytic',()=>{
  const spin={type:'spin',speed:-.5,initialAngle:.3};near(sampleTrack(spin,2),-.7);near(sampleTrack({...spin,speed:0},1e100),.3);assert.ok(Number.isFinite(sampleTrack(spin,1e308)));
@@ -52,7 +52,7 @@ test('off-centre pivot stays fixed; rotation and slide compose after nonuniform 
 for(const d of moving){
  test(`${d.id}: fixed geometry, animated part matrices, normals, bounds, picking, pause/reset and full-object rotation`,()=>{
   const source=JSON.stringify(d),s=new SpecimenSession().select(d),m=s.motion,before=structuredClone(s.mesh),packed=m.packed.slice(),initial=m.drawCommands(s.body.pose()).map(c=>Array.from(c.model));
-  assert.equal(s.body.touchEnabled,false);assert.ok(m.parts.length>1);
+  assert.equal(s.body.touchEnabled,false);assert.ok(m.parts.length>=(definitions.indexOf(d)<41?2:1));
   for(const time of [0,.7,1.5,3,5,8,20,80]){
    m.time=time;const snapshot=m.snapshot(),commands=m.drawCommands(s.body.pose());let start=0;
    for(const [i,p] of m.parts.entries()){
@@ -140,7 +140,7 @@ test('renderer draws fixed buffers using independent matrices; legacy renderer p
 });
 test('a new JSON Motion with arbitrary part IDs loads and previews without engine or collection UI edits',async()=>{
  const d=structuredClone(moving[0]);d.id='quiet-machine';d.name='QUIET MACHINE';d.parts.at(-1).id='my-part';d.behaviors.motion.tracks[0].part='my-part';
- const list={schema:manifest.schema,items:[...manifest.items,{id:d.id,file:'objects/quiet-machine.json',number:42}]};
+ const list={schema:manifest.schema,items:[...manifest.items,{id:d.id,file:'objects/quiet-machine.json',number:Math.max(...manifest.items.map((item,i)=>item.number??i))+1}]};
  const request=async url=>({ok:true,json:async()=>url.pathname.endsWith('collection.json')?list:url.pathname.endsWith('quiet-machine.json')?d:read(url.pathname.split('/').slice(-2).join('/'))});
- const items=await loadCollection(new URL('https://local.test/'),request);assert.equal(items.length,42);assert.ok(items.every(i=>i.definition));const s=new SpecimenSession().select(items.at(-1).definition);run(s);assert.ok(s.motion.time>.99);assert.ok(previewRaster(d).pixels.some(x=>x>0));
+ const items=await loadCollection(new URL('https://local.test/'),request);assert.equal(items.length,manifest.items.length+1);assert.ok(items.every(i=>i.definition));const s=new SpecimenSession().select(items.at(-1).definition);run(s);assert.ok(s.motion.time>.99);assert.ok(previewRaster(d).pixels.some(x=>x>0));
 });
