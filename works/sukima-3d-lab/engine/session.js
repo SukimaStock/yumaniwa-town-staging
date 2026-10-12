@@ -1,6 +1,6 @@
 // A small fresh-body factory, reusable by other apps without gallery/DOM state.
-import {createSpecimen} from './specimen.js?v=0.4.0';
-import {TouchBody} from './dynamics.js?v=0.4.0';
+import {createSpecimen} from './specimen.js?v=0.4.1';
+import {TouchBody} from './dynamics.js?v=0.4.1';
 export class TouchSession {
  select(definition){
   const mesh=createSpecimen(definition),body=new TouchBody(mesh);

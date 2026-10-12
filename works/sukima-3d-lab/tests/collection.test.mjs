@@ -75,7 +75,7 @@ test('manifest rejects duplicate, missing and external/traversing paths; local r
  assert.throws(()=>validateCollection({...manifest,items:[manifest.items[0],manifest.items[0]]}),/Invalid specimen/);
  let inFlight=0,maximum=0;const urls=[];
  const request=async (url,options)=>{
-  assert.equal(options.cache,'no-cache','data-only additions revalidate the registry and JSON');urls.push(url);assert.equal(url.origin,'https://local.test');assert.equal(url.search,'?v=0.4.0');inFlight++;maximum=Math.max(maximum,inFlight);await new Promise(resolve=>setTimeout(resolve,1));inFlight--;
+  assert.equal(options.cache,'no-cache','data-only additions revalidate the registry and JSON');urls.push(url);assert.equal(url.origin,'https://local.test');assert.equal(url.search,'?v=0.4.1');inFlight++;maximum=Math.max(maximum,inFlight);await new Promise(resolve=>setTimeout(resolve,1));inFlight--;
   const path=url.pathname.split('/works/sukima-3d-lab/')[1];return {ok:path!=='objects/shell.json',json:async()=>read(path)};
  };
  const result=await loadCollection(new URL('https://local.test/works/sukima-3d-lab/'),request);assert.equal(result.length,manifest.items.length);assert.equal(result[4].definition,undefined);assert.ok(result[4].error);assert.ok(result[5].definition);assert.ok(maximum<=4);assert.deepEqual(result.map(x=>x.id),manifest.items.map(x=>x.id));
@@ -109,4 +109,11 @@ test('documented cube example validates and deforms without a gallery or shape-s
  const guide=readFileSync(new URL('COLLECTION_GUIDE.md',root),'utf8'),example=JSON.parse(guide.match(/```json\n([\s\S]*?)\n```/)[1]);
  const session=new TouchSession().select(example);assert.equal(session.mesh.faces.length,6);assert.equal(session.mesh.rest.length,14);
  session.body.press(hitFace(session.mesh,0));run(session.body,.5);assert.ok(maxOffset(session.body)>.01);session.body.release();run(session.body,3);assert.ok(maxOffset(session.body)<3e-6);
+});
+
+test('static previews use logical faces instead of internal bending fan triangles',()=>{
+ for(const definition of definitions){
+  const mesh=createSpecimen(definition),count=[...previewSvg(definition).matchAll(/<polygon /g)].length;
+  assert.ok(count>0&&count<=mesh.faces.length,`${definition.id}: no fan subdivision seams`);
+ }
 });
