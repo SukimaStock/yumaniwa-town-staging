@@ -1,0 +1,29 @@
+import {FEEL_PROFILES,DEFAULT_FEEL} from './engine/response.js';
+// UI only. The normal app calls this factory exclusively when ?debug is present.
+export function createDebugPanel(body,input,host,readGlError=()=> '未使用') {
+ const panel=document.createElement('details');panel.className='debug';panel.open=true;
+ const summary=document.createElement('summary');summary.textContent='Touch parameters';panel.append(summary);
+ const choice=document.createElement('select');choice.id='feel-profile';choice.setAttribute('aria-label','触感の比較');
+ for(const name of Object.keys(FEEL_PROFILES)){
+  const option=document.createElement('option');option.value=name;option.textContent=name+(name===DEFAULT_FEEL?' · 初期値':'');choice.append(option);
+ }
+ choice.value=body.feel;
+ const feelLabel=document.createElement('label');feelLabel.textContent='触感の比較';feelLabel.append(choice);panel.append(feelLabel);
+ const sliders=new Map();
+ for(const [key,label,min,max,step] of [
+  ['depth','押し込みの強さ',.08,.23,.005],['radius','伝わる範囲',.55,1.35,.01],
+  ['pressRate','押し込みの速さ',3,16,.1],['restoreStiffness','復元の速さ・弾性',100,500,5],
+  ['returnDamping','反発の減衰',.40,.98,.02],['tapImpulse','タップの反発',1.8,3.6,.1],
+  ['damping','回転の減衰',.6,5,.05],['settle','回転の小さな揺れ',0,.035,.001]]){
+  const row=document.createElement('label'),slider=document.createElement('input');slider.type='range';slider.min=min;slider.max=max;slider.step=step;slider.value=body.options[key];slider.setAttribute('aria-label',label);row.textContent=label;row.append(slider);
+  slider.addEventListener('input',()=>{input.cancel();body.cancel();body.options[key]=Number(slider.value);body.reboundDamping=body.options.returnDamping;});panel.append(row);sliders.set(key,slider);
+ }
+ choice.addEventListener('change',()=>{input.cancel();body.setFeel(choice.value);for(const [key,slider] of sliders)slider.value=body.options[key];});
+ const output=document.createElement('output');output.id='feel-output';panel.append(output);host.append(panel);
+ let last=-Infinity;
+ const update=()=>{
+  const now=performance.now();if(now-last<200)return;last=now;
+  output.textContent=`${body.feel} · ${body.mesh.faces?.length??'—'} faces / ${body.mesh.triangles.length} triangles · DPR ${Math.min(2,devicePixelRatio)}\nface ${body.pressure?.face??'—'} · speed ${Math.hypot(...body.velocity).toFixed(2)} · GL ${readGlError()}`;
+ };
+ update();return {element:panel,update};
+}

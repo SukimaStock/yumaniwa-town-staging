@@ -4,14 +4,17 @@ export function createPolyhedron() {
  const raw=[[-1,t,0],[1,t,0],[-1,-t,0],[1,-t,0],[0,-1,t],[0,1,t],[0,-1,-t],[0,1,-t],[t,0,-1],[t,0,1],[-t,0,-1],[-t,0,1]];
  const corners=raw.map((v,i)=>{const n=norm(v),r=1+Math.sin(i*7.31)*.045;return [n[0]*r*.96,n[1]*r*1.06,n[2]*r];});
  const faces=[[0,11,5],[0,5,1],[0,1,7],[0,7,10],[0,10,11],[1,5,9],[5,11,4],[11,10,2],[10,7,6],[7,1,8],[3,9,4],[3,4,2],[3,2,6],[3,6,8],[3,8,9],[4,9,5],[2,4,11],[6,2,10],[8,6,7],[9,8,1]];
- const rest=corners.map(v=>v.slice()),triangles=[];
+ const rest=corners.map(v=>v.slice()),triangles=[],faceCenters=[];
  faces.forEach((f,face)=>{
   const [a,b,c]=f.map(i=>rest[i]);
   if(dot(cross(sub(b,a),sub(c,a)),a)<0)f.reverse();
   const center=scale(f.reduce((sum,i)=>add(sum,rest[i]),[0,0,0]),1/3),m=rest.push(center)-1;
+  faceCenters.push(m);
   for(let j=0;j<3;j++)triangles.push({indices:[f[j],f[(j+1)%3],m],face});
  });
- return {rest,vertices:rest.map(v=>v.slice()),faces,triangles};
+ // Shape-owned metadata: dynamics does not assume corner count or vertex ordering.
+ const compliance=rest.map((_,i)=>i<corners.length?.48:1);
+ return {rest,vertices:rest.map(v=>v.slice()),faces,triangles,deformation:{compliance,faceCenters}};
 }
 export function pickMesh(mesh,origin,direction) {
  let closest=null;

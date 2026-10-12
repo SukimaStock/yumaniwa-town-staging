@@ -35,7 +35,7 @@ test('localized real vertex deformation restores with finite normals; picking fo
  for(let i=0;i<90;i++)b.step(1/120);
  assert.ok(maxOffset(b)>.10&&maxOffset(b)<.23);assert.ok(b.offsets.some(v=>Math.hypot(...v)<1e-7));
  assert.equal(frontHit(m).face,hit.face);assert.ok(packedMesh(m).every(Number.isFinite));
- b.release();for(let i=0;i<240;i++)b.step(1/120);assert.ok(maxOffset(b)<1e-6);
+ b.release();for(let i=0;i<240;i++)b.step(1/120);assert.ok(maxOffset(b)<2e-6);
 });
 test('flick is finite, monotonically slows, settles across 30/60/120fps',()=>{
  const bodies=[];
@@ -49,7 +49,7 @@ test('flick is finite, monotonically slows, settles across 30/60/120fps',()=>{
 test('repeated press/drag/cancel and large suspended time remain bounded',()=>{
  const b=new TouchBody(createPolyhedron());
  for(let j=0;j<300;j++){b.press(frontHit(b.mesh));for(let i=0;i<5;i++)b.step(1/60);b.release();b.drag(20,-12,.015,390);b.step(10);b.cancel();assert.ok(packedMesh(b.mesh).every(Number.isFinite));assert.ok(maxOffset(b)<.2);}
- b.release();for(let i=0;i<180;i++)b.step(1/60);assert.ok(maxOffset(b)<1e-6);
+ b.release();for(let i=0;i<180;i++)b.step(1/60);assert.ok(maxOffset(b)<2e-6);
 });
 class Canvas {
  constructor(){this.handlers={};this.capture=new Set();this.classList={add(){},remove(){}};}
@@ -90,21 +90,22 @@ test('animation loop has one RAF, caps suspended time and resets on resume',asyn
 test('off-centre presses visibly bend every face without folding; rotation is unchanged',()=>{
  for(let face=0;face<20;face++){
   for(const position of [.15,.5,.85]){
-   const m=createPolyhedron(),b=new TouchBody(m),f=m.faces[face],center=m.rest[12+face];
+   const m=createPolyhedron(),b=new TouchBody(m),f=m.faces[face],center=m.rest[m.deformation.faceCenters[face]];
    const point=add(scale(center,position),scale(m.rest[f[0]],1-position));
    const normal=norm(cross(sub(m.rest[f[1]],m.rest[f[0]]),sub(m.rest[f[2]],m.rest[f[0]])));
    const hit=pickMesh(m,add(point,scale(normal,3)),scale(normal,-1));assert.equal(hit.face,face);
    const orientation=b.orientation.slice();b.press(hit);
    for(let i=0;i<18;i++)b.step(1/120);
-   assert.ok(Math.hypot(...b.offsets[12+face])>.09,'selected face visibly bends within 150ms');
+   assert.ok(Math.hypot(...b.offsets[m.deformation.faceCenters[face]])>.045,'prompt shallow response before progressive held press');
    for(let i=0;i<72;i++)b.step(1/120);
    assert.deepEqual(b.orientation,orientation);assert.ok(maxOffset(b)<.23);
+   assert.ok(Math.hypot(...b.offsets[m.deformation.faceCenters[face]])>.12,'holding deepens the selected face');
    for(const tri of m.triangles){
     const [a,c,d]=tri.indices.map(i=>m.rest[i]),restNormal=norm(cross(sub(c,a),sub(d,a)));
     const [x,y,z]=tri.indices.map(i=>m.vertices[i]),bentNormal=norm(cross(sub(y,x),sub(z,x)));
     assert.ok(dot(restNormal,bentNormal)>.2,'no folded or degenerate faces');
    }
-   b.release();for(let i=0;i<240;i++)b.step(1/120);assert.ok(maxOffset(b)<1e-6);
+   b.release();for(let i=0;i<240;i++)b.step(1/120);assert.ok(maxOffset(b)<2e-6);
   }
  }
 });

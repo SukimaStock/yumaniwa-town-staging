@@ -1,71 +1,88 @@
-# Touch Lab v0.1 — implementation and verification
+# Touch Lab v0.2 — tactile response and verification
 
-## Scope and provenance
+## Scope and history
 
-Started from staging/main `80647c70a2a8284771af8c29f909cd537dce3be9` on 2026-10-11.
-Checked current open PRs (#209, #200, #140); none belongs to this work. Existing Engine 0.3.0 and Codea Lite ownership were read. This work does not load or modify either.
-The only shared-source change is one appended active lifecycle record. No town listing, SEO, shared runtime, other work or production changes. Pages uses the existing main-branch publication path; no deployment workflow is added.
-The lifecycle append requires the existing full Plan Lock route; lock precedes all implementation in Git history. This introduces no new management system.
+v0.2 starts from staging/main `294b68b8ff4179750cdd3b8853cdb9f90d50841d` (2026-10-12). Current open PRs #209/#200/#140 concern other works. The earlier v0.1 launch (#274), shadow correction (#275), and clearer dent (#276) are retained in Git history. Owner feedback on v0.1: it displays, overall touch feels good, but the dent is weak. That feedback is not certification of v0.2.
 
-## Independent engine
+Only this work, its target lifecycle title and the required pre-implementation Plan Lock change. No 2D Engine/Codea, other work, town, SEO, deployment workflow, production or lifecycle status changes. No v0.3 pinch/pull or new specimen. Shared lifecycle title and a multi-file work change use the existing full Plan route; no new management system.
 
-No Three.js, Babylon.js, Unity, Godot, third-party math, physics or rendering libraries. Browser-standard WebGL 2 and Pointer Events only; no external runtime requests or package dependencies.
+No Three.js, Babylon.js, third-party math/physics, package dependencies, asset downloads, storage or external runtime communication. Browser-standard WebGL 2 and Pointer Events only. Optional native GLES QA uses host EGL/Mesa and Pillow, exclusively in tests.
 
-| File in `engine/` | Responsibility |
+## Modules and response
+
+| File | Responsibility |
 | --- | --- |
-| `math.js` | Vectors, normalized quaternions, projection matrices, triangle-ray intersections |
-| `geometry.js` | Irregular icosahedron, outward winding, welded vertices, 20 face IDs, nearest deformed-surface picking, flat normals |
-| `camera.js` | Perspective and matching inverse pointer rays; aspect-dependent distance |
-| `renderer.js` | WebGL 2 shaders/buffers, matte face lighting and a soft ground shadow; DPR capped at 2 |
-| `dynamics.js` | Quaternion rotation, damped flick, small settling spring, local vertex springs |
-| `interaction.js` | Primary-pointer capture, 7 CSS px drag threshold, stale-flick cutoff, cancellation |
-| `loop.js` | One RAF, delta cap, stop/resume without catch-up |
+| `engine/response.js` | HARD/SOFT/BOUNCY parameters and a small reusable scalar spring step |
+| `engine/dynamics.js` | Contact impulse, gradual held pressure/spread, bounded elastic restoration; existing quaternion rotation/inertia |
+| `engine/geometry.js` | Same rest shape, welded topology and picking; shape-owned compliance and optional face-centre metadata |
+| `engine/interaction.js` | Pointer identity/capture, 7 CSS px drag threshold, real hold duration and distinct drag/cancel release |
+| `debug.js` | Opt-in material selector and sliders; RAF-driven diagnostic updates, no separate timer |
+| `app.js` | Composition, resize/visibility/context lifecycle, keyboard and debug-only mounting |
+| `engine/camera.js`, `renderer.js`, `math.js`, `loop.js` | Camera/light/shaders/math/loop retained |
 
-`app.js` owns the one specimen, DOM, responsive sizing, visibility/BFCache/context handling and optional debug panel. `style.css` and `index.html` own presentation. Engine modules contain no specimen UI, external communication or storage.
+A contact seeds a bounded inward vertex velocity before any RAF. If down/up occurs in one frame, that energy still produces a shallow dent and a small rebound. There is no delayed task, effect queue or accumulated tap force. Repeated presses replace the required inward component, with less energy as a vertex is already compressed.
 
-The shell has 12 shared corner vertices plus 20 face centres. Each visible semantic face is triangulated into three GPU triangles (60 total). Centres remain coplanar at rest; subdividing permits actual local dents. Shared corner displacement keeps neighbouring faces welded. Springs change positions and normals, not just colors. Hit barycentrics attach pressure to the undeformed surface; nearest-hit tests use the currently deformed vertices. Small edge tolerances prevent a seam hit from selecting the back of the object.
+Holding grows the target with `1 - exp(-age * pressRate)`. The local contact field gradually blends toward a wider field, so neighbouring surfaces move slightly while the selected face remains legible. Releasing preserves current positions and velocities, changes the target to rest, and uses the material's return spring/damping. Holding up to one second reduces return damping by at most 7%, making a deeper/longer release a little livelier. No position snap or automatic whole-body bounce.
 
-Reuse the classes by importing them from this folder (or copying the `engine/` modules into a new isolated work). Generate a mesh; create a `Camera`, `TouchBody`, `Renderer` and `TouchInput`; run `body.step(dt)` and `renderer.draw(mesh, body.pose(), camera)` from `AnimationLoop`. The host owns resize, visibility and WebGL context-loss events, and should call `input.destroy()`, `loop.stop()` and `renderer.destroy()` at teardown. v0.1 picking/body deformation expects triangular convex shell faces and the generated mesh topology; support for arbitrary imported models is not claimed.
+Crossing the drag threshold stops the pending contact impulse, restores any existing dent quietly and keeps the established drag/flick equations. Cancellation, resize, blur, hidden/pagehide and context loss remove pending contact energy. A secondary pointer's cancel/lost-capture cannot cancel the primary pointer. The offset magnitude cap is 0.28 mesh units; outward velocity at that cap is removed. The cap is a safety bound for adversarial input, not the normal feel.
 
-## Development controls
+## Comparison settings
 
-Open `?debug` to show damping, dent depth, restoring stiffness and settling strength. Normal entry displays none of these controls. Debug-only `window.touchLab` and the panel expose face ID, angular speed and GL error code for verification. Parameters are ephemeral. Reduced-motion preference shortens inertia and disables settling.
+SOFT is the normal baseline: modest immediate contact, a slower deeper hold and restrained release. It is a provisional default; the author must judge actual iPhone/iPad comfort.
 
-Run `node --test works/sukima-3d-lab/tests/*.test.mjs` from the repository root, or `npm test` from this folder. No install step is needed.
+| Parameter | HARD | SOFT (default) | BOUNCY |
+| --- | ---: | ---: | ---: |
+| depth (mesh units) | 0.145 | 0.205 | 0.195 |
+| propagation radius (mesh units) | 0.78 | 1.08 | 0.98 |
+| pressRate (1/s) | 14 | 4.8 | 6.5 |
+| press spring stiffness (1/s²) | 460 | 210 | 240 |
+| press damping ratio | 0.90 | 0.95 | 0.85 |
+| return spring stiffness (1/s²) | 460 | 185 | 230 |
+| base return damping ratio | 0.78 | 0.68 | 0.46 |
+| tap velocity impulse (mesh units/s) | 3.1 | 2.9 | 3.0 |
 
-## Validation and limits
+HARD is shallower and faster. SOFT holds deeper and returns more slowly. BOUNCY has more rebound with a shorter damping ratio, without a long vibration. All presets leave rotation damping (1.85) and settling (0.014) unchanged. Reduced-motion preference still uses shorter rotation inertia and disables rotational settling.
 
-- 9 Node tests: all 20 face centres and welded outward topology; inverse camera rays at offset canvas positions; real localized deformation/restoration; finite normals; monotonic flick decay and timestep consistency at 30/60/120fps; 300 repeated press/drag/cancel cycles; pointer threshold, ignored second pointer, stale release and capture cleanup; viewport containment across portrait/landscape and many orientations; WebGL2-unavailable constructor path; one RAF and pause/resume timing.
-- Existing lifecycle and Engine input/boot, audio/assets, audio lifecycle, diagnostics suites pass.
-- Scope → Risk → Impact and node syntax checks run against the final implementation commit. Existing gates remain unchanged.
-- Local browser preview could not start: managed supervisor reported `bwrap: Can't mount proc on /newroot/proc: Operation not permitted`; a directly served localhost preview was unreachable from the remote browser. No local GPU, touch emulation or browser resize PASS is inferred from Node tests. Post-publication browser findings are recorded in the PR.
-- Post-publication cloud Chromium loaded the app and correctly displayed the WebGL2-unavailable message. Its graphics context is unavailable, so interactive 3D browser QA remains UNVERIFIED. Extension metadata errors are separate from the work; the app emitted only its expected unavailable warning.
-- Additional native offscreen validation: exact GLSL ES 3 shaders compiled/linked on Mesa OpenGL ES 3.2 llvmpipe. Rest, pressed and spun geometry rendered at 390×844, 844×390 and 900×900 with GL error 0; pressure changed thousands of rendered pixels. Rest/pressed portrait renders were visually inspected. This is GLES rendering evidence, not a WebGL/Safari test. Alpha blending for the soft shadow uses separate alpha factors so the transparent canvas remains correctly premultiplied.
-- Physical iPhone/iPad Safari, real mobile GPU performance and subjective touch quality remain UNVERIFIED. CI is not author adoption or production authorization. No Release Complete/final VERIFIED claim.
+Open `?debug` to switch materials and adjust strength, propagation range, press rate, return stiffness/elasticity, damping and tap impulse. Existing rotation controls remain available there. No controls appear in normal mode. Changing a preset cancels any active contact, updates sliders, and retains the current shape until it restores. Slider steps exactly represent preset values. The panel scrolls in a short landscape viewport. It has no extra timer, so diagnostics stop/resume with the app's RAF and BFCache lifecycle.
 
-## Device drill
+## Small mesh contract
 
-1. Press the centre of several visible faces; hold briefly and lift. The selected area should dent slightly, then soften back.
-2. Press near an edge; check that the front surface reacts, without a hole or a rear-face response.
-3. Slowly drag both ways, then flick and release. Observe gradual slowing and the small final settling motion.
-4. Drag, pause with the finger still down, then lift: it should not launch an old flick.
-5. Re-touch while spinning. Repeatedly switch between press and drag.
-6. Rotate the device during a hold, open another app and return, try a second finger, and repeat in landscape. No stuck press or jump should remain.
+`TouchBody` consumes `rest`, `vertices` and ray-hit triangle indices/barycentrics. Optional `deformation.compliance` is one finite 0..1 value per vertex; default is 1. Optional `deformation.faceCenters[faceId]` maps a logical face to a vertex that should bend gently even on an off-centre hit. Dynamics contains no fixed corner count or centre offset. Contact normal comes from the rest triangle, so translated shapes work. Shapes should use consistent outward winding and a sensible normalized size; arbitrary imported scenes/models are not claimed.
 
-## v0.2 questions, not implemented
+Generated polyhedron metadata uses gentle shared-corner compliance and full face-centre compliance. It has the same 12 corners, 20 face centres, 20 logical faces and 60 GPU triangles as v0.1. Camera, rest positions, face colors, lighting and background are preserved.
 
-- Calibrate dent depth, release time, inertia and settling on actual iPhone/iPad; compare lightly irregular forms and clay colors.
-- Decide whether local pressure should follow a tiny finger slide before rotation begins, and whether rotation needs an arcball near the silhouette.
-- Establish a small documented mesh contract before adding a second specimen; current geometry is deliberately specific.
-- Measure Safari GPU/frame pacing, context restoration and battery usage; consider rendering only while motion is active.
-- Only after this specimen feels good, choose the next single interaction for “触れるらくがき 3D”. No scene system, editor, assets or physics framework yet.
+## Checks and their limits
 
-Rollback: revert this PR and only its appended lifecycle record.
+`node --test works/sukima-3d-lab/tests/*.test.mjs` — 28 tests pass:
 
-## 2026-10-12 — clearer pressure response
+- Zero-frame and short taps have actual inward movement, small rebound and finite settling for each material.
+- Long holds progressively deepen, spread slightly, stabilize and restore without a position jump.
+- 1000 rapid taps per material remain bounded, finite and preserve triangle orientation; debug extremes recover too.
+- 30/60/120fps short/held/release traces remain consistent, including the already-visible shape at release.
+- Primary/secondary input, quick swipe without a tap impulse, paused flick, interruption and tap during spin.
+- Vertex permutation produces matching responses; a translated tetrahedral test mesh and a mesh without optional metadata work.
+- Existing geometry, inverse camera rays, welded mesh, 60 off-centre face cases, resizing math, RAF lifecycle and rotation tests.
 
-Owner tested the initial release: visible on device, overall touch feels good, but the dent is hard to see. Increased default depth from 0.135 to 0.205 (about 52%), and guaranteed a modest local bend at the selected face centre for off-centre/edge presses. Shared corners still use the original gentle weighting; spring stiffness, damping, drag, inertia and settling are unchanged. No color flash or new UI. This is a focused tuning pass, not a new scene or feature set.
+Existing lifecycle suite: 18/18 pass. JavaScript syntax, Python compilation, diff check and Scope → Risk → Impact pass. Exact PR head/CI and Pages publication results are recorded in the PR.
 
-The suite now has 10 tests. Added 60 off-centre press cases across all 20 faces: perceptible deformation within 150ms, no flipped/degenerate triangles, exact stationary orientation while holding and complete restoration. Existing 30/60/120fps inertia, repeated input and cancellation checks remain in place. Revised press visibility and maximum-deformation assertions to match the stronger deformation; the new geometric checks protect against simply increasing depth until the shell folds.
+Optional reproducible shader/geometry evidence:
 
-New real-device tactile judgement remains pending. Please compare holding a face and holding near an edge; normal rotation should feel the same.
+```sh
+node works/sukima-3d-lab/tests/render-scenes.mjs | python works/sukima-3d-lab/tests/check-gles.py /tmp/touch-v02-render
+```
+
+Mesa OpenGL ES 3.2 llvmpipe compiled/linked the exact shipped shaders and rendered 39 frames at 390×844, 844×390 and 900×900. Each material's sub-frame tap, early hold, full hold and release changes hundreds or thousands of pixels, with GL error 0. Portrait SOFT rest/tap/held output was visually inspected. The fixture intentionally renders only the specimen, with a plain background and no ground shadow/UI. This is native GLES drawing evidence, not WebGL/browser/touch/device verification.
+
+`tests/debug-fixture.html` mounts the real debug panel and real body without GL, for browser checks of preset/slider connections. Its visible heading explicitly identifies a UI test, and it does not simulate or certify 3D rendering. The cloud browser previously had no usable WebGL2 context; post-publication browser findings are recorded in the PR.
+
+Physical iPhone/iPad Safari touch feel, actual mobile frame pacing and browser context-restoration/rendering remain UNVERIFIED until observed. No final VERIFIED/Release Complete claim. User adoption and production permission are separate from CI success.
+
+## Device comparison
+
+1. In normal mode, tap very briefly, then tap five times at different faces. A small "コツッ" should still be visible after lifting.
+2. Hold for about one second and release. Compare the slow deeper dent and its short elastic return with a quick tap.
+3. In `?debug`, repeat exactly those gestures with HARD, SOFT and BOUNCY; identify excessive rebound or sluggishness.
+4. Swipe immediately, then flick, pause before lifting, and touch the spinning body again. Existing rotation should feel familiar.
+5. Try a face edge, a second finger, rotation to landscape during a hold, and leaving/returning to the app. No stuck press or queued tap should remain.
+
+Rollback: revert this isolated PR and only its target lifecycle title update. v0.3 waits for v0.2 device evaluation.
