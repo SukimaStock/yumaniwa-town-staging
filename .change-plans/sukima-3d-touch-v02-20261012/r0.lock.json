@@ -1,0 +1,134 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "90216cd63b9baf013120bec076e15d40c6b2fc3b65e06e9680046a8fc6121f1c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-touch-v02-20261012",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Touch Lab v0.2: perceptible short tap, progressive held press, elastic release and debug-only material comparisons",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "294b68b8ff4179750cdd3b8853cdb9f90d50841d",
+    "canonicalSources": [
+      "User Touch Lab v0.2 directive 2026-10-12",
+      "Owner feedback: overall feel good, dent weak",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "works/sukima-3d-lab",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-touch-v02-20261012/r0.lock.json",
+      "works/sukima-3d-lab/**",
+      "data/work-lifecycle.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      "assets/**",
+      "w/**",
+      "en/w/**",
+      "sitemap.xml",
+      "tools/**",
+      ".github/**",
+      "works/pumpoko/**",
+      "works/orbit*/**",
+      "works/tea-unfold*/**",
+      "works/morning-thread*/**",
+      "works/town-glance*/**"
+    ],
+    "expectedChanges": [
+      "Work-local reusable spring/material parameters; brief tap impulse continues after release",
+      "Progressive held depth and local propagation; bounded restoration and energy across repeated taps",
+      "Replace hardcoded 20-face vertex offsets with mesh deformation metadata",
+      "Maintain drag/flick rotation, distinguish up/drag/interruption to avoid ghost taps",
+      "Debug-only HARD/SOFT/BOUNCY presets and tunable touch parameters; retain normal appearance",
+      "Local v0.2 labels/docs/package and only the target lifecycle title",
+      "Numerical, input, varied topology, stability and rendering/browser evidence"
+    ],
+    "ownerDecisions": [
+      "Complete user v0.2 directive authorizes implementation, tests, PR, safe staging merge and publication; forbids v0.3 and production"
+    ],
+    "hqDecisions": [
+      "No shared runtime or contract extension. Work-local shape metadata carries deformation compliance and optional face centre mapping; vertex count independent. Full risk floor is used for the target lifecycle title update."
+    ],
+    "rulesApplied": [
+      "Plan-first commit; Scope then Risk then Impact; existing exact blob gates unchanged",
+      "Active staging-only; no town registration or production"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-iphone-safari",
+      "physical-ipad-touch",
+      "owner-tactile-evaluation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated PR and its single lifecycle entry.",
+    "outOfScope": [
+      "Production and other works",
+      "Shared 2D runtime and town UI",
+      "New specimens, pinch/pull v0.3, editors/assets/scene systems"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad tactile comparison and browser GL availability; no final VERIFIED claim"
+    ],
+    "problem": "Sub-frame tap is released before any mesh update; held press lacks a distinct gradual feel",
+    "currentContract": "Independent staging experiments, active lifecycle default, unchanged shared 2D runtime",
+    "whyExistingIsInsufficient": "Current target-only vertex springs have no persistent tap energy or material comparisons and assume corner/centre vertex ordering",
+    "design": "One bounded impulse plus progressive pressure target and damped scalar springs; mesh-owned compliance metadata; three work-local debug presets",
+    "alternativesRejected": [
+      "Queued unbounded effects or stacked forces",
+      "General physics engine",
+      "Pinch/pull or second specimen",
+      "Shared Engine changes"
+    ],
+    "migration": "Target lifecycle title v0.1 to v0.2; no other registry mutation",
+    "compatibility": "All existing works, Engine, town, SEO and production remain byte-identical",
+    "boundaryCases": [
+      "Zero-frame and very short tap",
+      "Rapid repeated and overlapping release/press",
+      "Drag transition and stale flick",
+      "Secondary pointer cancel/capture loss",
+      "Resize hidden BFCache context interruption",
+      "Different vertex ordering/topology",
+      "Extreme debug ranges and all materials"
+    ],
+    "testPlan": [
+      "Sub-frame and 16/50ms tap visibility and restoration",
+      "Held press, neighbours and release traces at 30/60/120fps",
+      "Rapid 1000 taps and drag/cancel interruptions with bounded meshes",
+      "Permuted vertices and smaller tetrahedral test mesh",
+      "Debug controls and fallback/browser UI checks",
+      "Scope Risk Impact node syntax and lifecycle regression"
+    ],
+    "promotionRisk": "Staging only; user device evaluation remains pending"
+  }
+}
