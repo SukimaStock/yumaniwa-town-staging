@@ -1,0 +1,143 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "fa27bf9f052dd051fef4e6c5008c0d14f20b10e44a90f0dc10cc3a375e646454",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-moving-parts-v06-20261012",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "SukimaStock 3D v0.6 Moving Parts: local SPIN SWING SLIDE and five autonomous specimens",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "5d15872c17e80ac92fc3add1a92c1b88b47e2e61",
+    "canonicalSources": [
+      "User v0.6 Moving Parts directive 2026-10-12",
+      "Merged work PRs #277 through #288",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/sukima-3d-lab/COLLECTION_GUIDE.md",
+      "works/sukima-3d-lab/DEVELOPMENT.md",
+      "works/sukima-3d-lab/collection.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-moving-parts-v06-20261012/r0.lock.json",
+      "works/sukima-3d-lab/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "engine/**",
+      "data/work-search-meta.js",
+      ".github/**",
+      "works/tea-unfold*/**",
+      "works/town-glance*/**",
+      "data/work-lifecycle.json",
+      "index.html",
+      "sitemap.xml",
+      "assets/**",
+      "en/w/**",
+      "main.js",
+      "tools/**",
+      "w/**",
+      "style.css",
+      "works/orbit*/**",
+      "works/morning-thread*/**",
+      "data/works.js",
+      "data/town-maps.js"
+    ],
+    "expectedChanges": [
+      "Versioned optional behaviors.motion tracks reference part IDs in specimen/2; strict spin/swing/slide validation",
+      "Immutable scaled part meshes and saved bind transforms, analytic time-driven rigid part transforms; no accumulating edits to authored vertices/rest",
+      "GPU per-part model matrices on existing WebGL2 shader pipeline; correct normals, motion bounds and posed picking/snapshots",
+      "DOM-independent optional MotionPlayer alongside existing rotation/Touch sessions, reset/pause/reentry lifecycle, no exclusive shape categories",
+      "Keep all 36 JSON blobs/order/numbers, exact Touch profiles and static mesh/render paths unchanged",
+      "Five new JSON works numbered 37 PINWHEEL 38 SHUTTER 39 PENDULUM 40 SLIDER 41 MOBILE (unique new ID mobile-motion)",
+      "Quiet motion-only play/pause and existing pose reset; no gallery timeline or extra live contexts; reduced-motion and visibility handling",
+      "Same-data initial-frame static previews, expanded numerical/native/browser fixtures and authoring guide, uniform 0.6.0 cache graph"
+    ],
+    "ownerDecisions": [
+      "User v0.6 directive authorizes local autonomous motions, five named works, minimal playback/reset UI, guide, tests, PR and safe staging merge/publication; forbids Production/shared 2D/other works"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard Plan-first multi-file work-local route; shared contracts and global registries unchanged",
+      "Motion is opt-in and separate from geometry and Touch; v0.6 rejects combined Touch/Motion while leaving capabilities composable in future",
+      "Axes/directions are in each part frame, pivot in authored geometry coordinates; base nonuniform scale precedes rigid motion",
+      "One rotation track and one slide per part; signed spin speed, sinusoidal swing/slide, explicit units and parameter bounds",
+      "No object-name runtime branching, physics engine or scene/editor system"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-iphone-safari",
+      "physical-ipad-touch",
+      "owner-tactile-evaluation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated work-only v0.6 PR to return to v0.5 and all 36 current works",
+    "outOfScope": [
+      "Production/shared 2D Engine/other works/global registries/Motion Lab",
+      "Direct manipulation of parts, new Touch physics or combined Touch/Motion runtime",
+      "Hierarchy/joints/IK/collisions/gravity/scene management/editor/timeline",
+      "Mesh repair, textures, automation or actual integration into other games"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad feel, iOS callout suppression and hardware performance",
+      "Browser WebGL2 availability will be observed; native GLES and any labelled CPU fixture do not certify real device GL"
+    ],
+    "problem": "v0.5 bakes part transforms once and can only rotate an entire static or deformable specimen",
+    "currentContract": "36 immutable v1/v2 works; pure specimen loader, optional Touch, common RotationBody, single WebGL2 draw path and static previews",
+    "whyExistingIsInsufficient": "No retained immutable per-part render geometry or time-varying local transform layer, motion lifecycle, parameter validation or moving bounds",
+    "design": "Pure validated MotionPlayer compiles immutable per-part vertex data with base nonuniform scale applied once. Each frame evaluates independent analytic spin/swing/slide tracks and composes rigid rotations about scaled local pivots plus slide translation, then saved base rotation/position and display/view transforms. Existing shader receives per-part model matrices and unchanged materials; vertices/rest are not updated by playback. Conservative analytic full-motion bounds drive camera framing. Optional session motion controller is independent from rotation/Touch; initial static snapshots reuse actual geometry for CPU preview/native/picking QA.",
+    "alternativesRejected": [
+      "External 3D/physics engine",
+      "Continuously rewriting source or mesh rest positions",
+      "Specimen-ID-specific animation",
+      "Large scene manager, joints, IK, gravity or editor",
+      "Unbounded/delta-accumulated motion or card WebGL contexts",
+      "Silent unknown-track or unsupported Touch/Motion handling",
+      "Existing JSON conversion or global/lifecycle changes"
+    ],
+    "migration": "Append motion capability to specimen/2 with motion.version=1; absent motion preserves v1/v2. All runtime URLs 0.6.0; old 36 data untouched and new numbers 37 to 41.",
+    "compatibility": "Preserve old compiled positions/colors/normals/poses and 16 Touch golden traces. Old session/input names kept. New Motion source meshes are immutable and renderer/picking/preview are generic by part ID.",
+    "boundaryCases": [
+      "Local pivot off-origin, negative spin and initial angle; arbitrary axes and nonuniform bind scales",
+      "Swing and slide phases/periods, extrema, zero-speed/amplitude, whole-object rotation and one rotation plus slide per part",
+      "Unknown/missing types, IDs, fields, versions, NaN/Infinity, zero/nonunit axes, conflicting tracks and excessive bounds",
+      "Unsupported combined Touch/Motion and v1 motion; unchanged static/Touch loading without motion",
+      "Pause/resume/reset/switch/reentry, nonvisible/context-lost/resize/reduced-motion lifecycle; no elapsed hidden time",
+      "Normals/backfaces, full-motion camera fit, posed picking and same-source static preview comparisons",
+      "All 36 immutable legacy data and snapshots, existing numerical tests and mobile CSS viewports"
+    ],
+    "testPlan": [
+      "Run existing baseline suite and immutable 36-work JSON/order/packed mesh/preview/pose fixtures",
+      "Retain all 16 Touch x three profiles golden traces and existing tap/hold/pull/restore/rotation/input tests",
+      "Analytic transform/phase/fps/local-space/signed speed/nonuniform-scale normal/bounds/picking/immutability and invalid-motion tests",
+      "All five motions over full cycles, reset/switch/pause/reentry and data-only new motion registration",
+      "Renderer call/matrix/buffer tests with actual per-part commands; native shipped-shader frames and CPU/GPU snapshots",
+      "Browser real collection/nav/debug/input/motion fixtures and three CSS viewport sizes; clearly separate native and browser GL/device evidence",
+      "JS/HTML syntax, diff checks, Scope then Risk then Impact, PR CI then safe staging merge/Pages/public byte verification"
+    ],
+    "promotionRisk": "Staging experimentation only; physical device feel/adoption and production remain separate"
+  }
+}
