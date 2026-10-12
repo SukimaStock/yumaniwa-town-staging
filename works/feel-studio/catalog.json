@@ -80,7 +80,8 @@
           "min": 0,
           "max": 5
         }
-      }
+      },
+      "editHint": "開始位置・岸・杭と、待つ時間・動く時間を「直接編集」で動かせます"
     },
     {
       "id": "light",
@@ -143,7 +144,8 @@
           "min": 0.5,
           "max": 5
         }
-      }
+      },
+      "editHint": "灯と幕の位置、待つ時間・光の周期を「直接編集」で動かせます"
     }
   ],
   "builds": [
@@ -439,6 +441,58 @@
         }
       ],
       "htmlHash": "da79118e4af43a6b39ca4ede41bfd89d39eaa2cf7c71efdd0539cde9a18aa4b9"
+    },
+    {
+      "id": "boat-e",
+      "project": "boat",
+      "title": "E · 画面で選んだ追従と停止",
+      "description": "ブラウザで選んだBの進み方とAの停止を、Workが独立コードへ実装した返答。",
+      "url": "builds/boat-e/index.html",
+      "codeHash": "e1fb30e1778920cbe0e7867340cfadfc2d423dbc56012d9e795f7c67288fe800",
+      "version": "1.0.0",
+      "runtime": "feel-frame/2.0.0",
+      "initial": false,
+      "parts": [
+        {
+          "id": "propulsion",
+          "label": "進み方",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        },
+        {
+          "id": "release",
+          "label": "指を離した瞬間",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        },
+        {
+          "id": "contact",
+          "label": "杭に触れたとき",
+          "kind": "code",
+          "anchor": "model.js#create.update"
+        }
+      ],
+      "derivedFrom": "boat-b",
+      "dependencies": [
+        {
+          "path": "geometry-v2.js",
+          "sha256": "07f30086e2c6b8d71bf3fe29d79db2ac642d548de26191bf379f546d52d8b4bc"
+        },
+        {
+          "path": "frame-v2.js",
+          "sha256": "52bd1a83e87f0f535e71dbf79c386409060daaf843351df5647e299bca4984db"
+        },
+        {
+          "path": "frame-v2.css",
+          "sha256": "7e7b9ec01fcdc53b0a67d22b8a778ba93a6cc2ff23de28287849c0dcf32b7c87"
+        },
+        {
+          "path": "../motion-lab/runner.js",
+          "sha256": "168e893f1410b1d4e42459eae7ab43ba10c3be9d48d7f64e9f951c459cbc944b"
+        }
+      ],
+      "htmlHash": "da79118e4af43a6b39ca4ede41bfd89d39eaa2cf7c71efdd0539cde9a18aa4b9",
+      "requestId": "r-n-mv5rbfvd-f4vxpjc"
     }
   ]
 }

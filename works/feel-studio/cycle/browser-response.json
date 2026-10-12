@@ -1,0 +1,25 @@
+{
+  "schema": "feel-work-response/2",
+  "project": "boat",
+  "requestId": "r-n-mv5rbfvd-f4vxpjc",
+  "buildId": "boat-e",
+  "codeHash": "e1fb30e1778920cbe0e7867340cfadfc2d423dbc56012d9e795f7c67288fe800",
+  "config": {
+    "start": {
+      "x": 130,
+      "y": 190
+    },
+    "end": {
+      "x": 515,
+      "y": 260
+    },
+    "post": {
+      "x": 345,
+      "y": 305
+    },
+    "wait": 0.35,
+    "travel": 2,
+    "settle": 0.25
+  },
+  "summary": "画面の依頼を読み、Bのばね追従とAの即時停止を新しいEコードに実装しました。Cと保存済みAの分岐は保持します。"
+}

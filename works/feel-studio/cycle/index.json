@@ -1,5 +1,11 @@
 [
   {
+    "title": "ブラウザ制作往復の実例を読み込む",
+    "project": "boat",
+    "workspace": "./cycle/browser-source-workspace.json",
+    "response": "./cycle/browser-response.json"
+  },
+  {
     "title": "制作往復の実例を読み込む",
     "project": "boat",
     "workspace": "./cycle/workspace.json",

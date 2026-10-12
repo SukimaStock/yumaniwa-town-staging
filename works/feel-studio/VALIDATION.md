@@ -19,3 +19,11 @@ cycle/workspace.json, request.json, response.json are runnable settings/history 
 Pending: real browser production cycle, portrait and side-by-side visual QA. The cloud browser could not connect to the local container's HTTP server; a local Playwright browser was absent and its official download did not complete. Node/harness results are not substituted for browser evidence. After trusted CI, Staging browser QA will be recorded in the PR and follow-up evidence if needed. Physical iPhone Safari remains unverified.
 
 No other work, Engine, shared Runner, Production, workflow or gate changed. A successful CI/deployment is not author adoption or physical device confirmation.
+
+## Public browser evidence at staging 659178f
+
+Actual Chrome UI operations (not hidden-state mutation): start dragged from (130,190) to (161.072,137.230); wait from .35 to 1.12 seconds; saved child retained while original A stayed unchanged. B and C loaded in distinct allow-scripts-only frames. UI parts B:propulsion + A:release produced request r-n-mv5rbfvd-f4vxpjc. Work checked those SHA256 sources and implemented new immutable boat-e from that browser request. Incoming response is linked by that same request ID. Code E result/import continuation is verified after its exact-SHA Pages deployment and recorded in the PR.
+
+Light project actual UI drag: lamp from (230,205) to (185.299,151.766); delay .30 -> .85. Saved child and separate B code comparison; initial A retained. Its actual workspace and the actual boat request source are committed under cycle/browser-*.json.
+
+Observed usability correction: Undo previously could target another node after switching. It now targets the active node only, with a regression test. The last project is retained for reopening; edit hints are project-specific. tests/phone.html provides a genuine 390px iframe viewport for responsive browser QA, not a physical iPhone. Browser-source artifacts contain AI-operated test edits, not author adoption.
