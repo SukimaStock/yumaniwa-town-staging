@@ -22,4 +22,6 @@ test('normal and debug fixture use a consistent fresh work-local module/CSS grap
  assert.equal(new URL(style,deployed).search,`?v=${version}`);assert.ok(validateGraph(new URL('index.html',deployed),[script]).size>=10);
  const fixture=readFileSync(new URL('tests/debug-fixture.html',root),'utf8'),fixtureUrl=new URL('tests/debug-fixture.html',deployed);
  assert.equal(new URL(fixture.match(/href="([^"]+)"/)[1],fixtureUrl).search,`?v=${version}`);assert.ok(validateGraph(fixtureUrl,imports(fixture)).size>=5);
+ const motion=readFileSync(new URL('tests/motion-fixture.html',root),'utf8'),motionUrl=new URL('tests/motion-fixture.html',deployed);
+ assert.equal(new URL(motion.match(/href="([^"]+)"/)[1],motionUrl).search,`?v=${version}`);assert.ok(validateGraph(motionUrl,imports(motion)).size>=5);
 });

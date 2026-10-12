@@ -5,8 +5,8 @@
 ## 最短の追加手順
 
 1. 最新staging/mainとAGENTS.mdを確認し、作業branchを作ります。既存の作品内の小変更に適合するか、現在の開発運用で判断してください。
-2. `works/sukima-3d-lab/objects/<id>.json`を作ります。閉じた凸形状を触れる立体にするなら`stone.json`や`seed.json`、自由な形を眺めるなら`dent.json`・`ring.json`・`bowl.json`・`leaf.json`・`mobile.json`を複製し、**新しいID**で形・色・触感・姿勢を調整してください。既存データを上書きしません。
-3. `works/sukima-3d-lab/collection.json`の`items`末尾へ`{"id":"<id>","file":"objects/<id>.json"}`を追加します。`number`省略時は従来どおり0始まりの登録順です。既存00〜15を保ち、v0.5追加分は明示番号17〜21です。次は`number:22`を指定し、以後も既存の順序・番号を変えません。番号は一意な0〜9999の整数です。
+2. `works/sukima-3d-lab/objects/<id>.json`を作ります。閉じた凸形状を触れる立体にするなら`stone.json`や`seed.json`、自由な形を眺めるなら`dent.json`・`ring.json`・`bowl.json`・`leaf.json`・`mobile.json`、パーツを動かすなら`pinwheel.json`・`shutter.json`・`pendulum.json`・`slider.json`・`mobile-motion.json`を複製し、**新しいID**で形・色・触感・姿勢を調整してください。既存データを上書きしません。
+3. `works/sukima-3d-lab/collection.json`の`items`末尾へ`{"id":"<id>","file":"objects/<id>.json"}`を追加します。`number`省略時は従来どおり0始まりの登録順です。既存00〜15、17〜36を保ち、v0.6追加分は37〜41です。次は`number:42`を指定し、以後も既存の順序・番号を変えません。番号は一意な0〜9999の整数です。
 4. 下記の自動テスト・描画・触感確認を行います。プレビューは同じデータから自動生成され、画像を別途用意する必要はありません。
 5. PRを作成し、必要なCI後にStagingへ反映します。Productionへの反映やDotsの定期実行は別の指示が必要です。
 
@@ -138,11 +138,59 @@ STATIC / TOUCHはUI上の操作説明です。形状の排他的な種類では�
 - **v2のTouchは現行物理が扱える1パーツの閉じた凸形状のみ**です。v1の頂点数・面数・体積等の厳しいチェックも適用し、doubleSidedは不可。任意で`touch.deformation`に`cornerCompliance`・`centerCompliance`・`limits`（v1と同じ範囲）を指定できます。法線は変形に合わせてフラットに再計算します。今回の5作品には付けません。
 - 凹形状・リング・器・薄い面・複数パーツへTouchを付けても、危険な変形を黙って適用せず読込み時に拒否します。新しい物理は次の検討事項です。
 
-共通の描画・カメラ・回転はTouchに依存しません。`behaviors`へ将来別の能力を足す余地を残していますが、未実装のMotionを実行したり未知の設定を無視したりはしません。Motion Labの変更はありません。
+共通の描画・カメラ・回転はTouchに依存しません。v0.6では別の能力として下記のMotionを実装します。未知の振る舞いは無視せず拒否します。独立したMotion Labの変更はありません。
 
 ### プレビュー
 
 v1は従来の静的SVG（論理面ごと）を維持します。v2は同じメッシュ／パーツ変換／マテリアル／カメラ／光から200pxの静止プレビューを生成し、奥行きバッファで前後を判定します。穴は透明で、内面と複数パーツの遮蔽も扱います。一覧にWebGLコンテキストやアニメーションは作りません。実物の投影と色の一致はCPU/GPU比較テストで確認します。
+
+## Motion — パーツを動かす（v0.6）
+
+形状はv2の`parts`、動きは`behaviors.motion`に記述します。表示だけは`behaviors:{}`（STATIC）、弾性変形は`touch`（TOUCH）、パーツの自律的な動きは`motion`（MOTION）です。これらは形状種別や排他的なmode列挙ではありません。v0.6はMotion単体を実装し、**TouchとMotionの同時指定は未対応として拒否**します。剛体パーツ変換と弾性変形を組み合わせる座標系は今後の課題です。
+
+`motion`は`version:1`と1〜64本の`tracks`を持ちます。トラックの`part`は`parts[].id`と完全一致させます。1パーツには回転（spinまたはswing）を1本、slideを1本まで指定できます。同じパーツの回転と移動を併用する場合は、支点回転のあとにslideを合成します。複数回転の順序や階層・親子パーツはまだ扱いません。静止した支柱や台座にトラックを付ける必要はありません。
+
+| type / 必須キー | 意味・範囲 |
+| --- | --- |
+| 共通 `part`, `type` | パーツIDと小文字`spin` / `swing` / `slide`。未知の種類・キー・欠けたキーを拒否 |
+| spin `axis`, `pivot`, `speed`, `initialAngle` | axisは単位3ベクトル。pivotは形状座標、各−2〜2。speedは−6〜6 rad/s（符号で方向、0も有効）、initialAngleは−2π〜2π rad |
+| swing `axis`, `pivot`, `baseAngle`, `amplitude`, `period`, `phase` | 基準角baseAngle＋amplitude×sin(2πt/period＋phase)。基準角・位相は−2π〜2π rad、振幅0〜1.4 rad、周期1〜120秒 |
+| slide `direction`, `amplitude`, `period`, `phase` | 単位direction×amplitude×sin(2πt/period＋phase)。振幅0〜0.65、周期1〜120秒、位相−2π〜2π rad |
+
+角度はすべて**ラジアン**、時間は秒です。pivotはパーツの`geometry.vertices`と同じ、倍率適用前の座標です。axisとdirectionは**パーツ基準の直交軸**で、base orientationが向きを決めます。directionの移動量はbase scaleで増減しません。変換順は **base scale → pivotを中心とするMotion回転 → Motion移動 → base orientation → base position → display.scale → 全体の展示回転**です。軸は作品全体の回転で逆転しません。
+
+base transformと形状データを保存し、時間から毎回ローカル変換を計算します。元の頂点へ少しずつ回転を積み重ねません。非一様のbase scaleは読み込み時に形状と法線へ一度適用し、再生時は剛体回転＋一様display scaleの行列をGPUへ渡します。平面法線もパーツとともに回転します。描画・プレビュー・当たり判定で同じ変換を使います。
+
+読み込み時の通常v2半径1.65制約は維持します。Motion全周期の最大半径は3以下に制限し、支点・全回転弧・移動の両端から安全な表示範囲を計算します。異なる位相を同時に最大にした上限なので、実際の形より余白が増えることがあります。カメラはその範囲に合わせ、途中で画角を変えません。パーツ同士の衝突や自己交差は自動検出しません。作者が周期全体を回して見て、必要なら支点・振幅・形を調整します。
+
+### 動く薄い面の完全な例
+
+```json
+{
+  "schema":"sukima3d-specimen/2",
+  "id":"turning-sheet","name":"TURNING SHEET","tags":["回る","薄い面"],
+  "parts":[{
+    "id":"sheet",
+    "geometry":{"surface":"open","vertices":[[-0.6,-0.5,0],[0.6,-0.5,0],[0,0.6,0.08]],"triangles":[[0,1,2]]},
+    "material":{"kind":"matte","color":[0.58,0.62,0.46],"variation":0.018,"doubleSided":true},
+    "transform":{"position":[0,0,0],"orientation":[0,0,0,1],"scale":[1,1,1]}
+  }],
+  "behaviors":{"motion":{"version":1,"tracks":[{"part":"sheet","type":"spin","axis":[0,1,0],"pivot":[0,0,0],"speed":0.35,"initialAngle":0}]}},
+  "display":{"orientation":[0,0,0,1],"scale":1}
+}
+```
+
+37 PINWHEELはSPIN、38 SHUTTER・39 PENDULUMはSWING、40 SLIDERはSLIDE、41 MOBILE（IDは`mobile-motion`、21の静止MOBILEは`mobile`のまま）は3種の同時再生の例です。Dotsは近い例を複製し、ID・形・色・base transform・トラックを編集して、manifest末尾へ新番号で登録します。エンジンやプレビューへ作品名の分岐を追加しません。
+
+作品を開くとt=0から再生します。「一時停止／再生」は現在時刻を保持し、「初期姿勢」は全体の回転・慣性・Motion時刻を戻します（停止中なら停止を維持）。一覧・作品切替で古い状態を破棄します。非表示・フォーカス離脱・描画中断はRAFを停止し、復帰時に非表示中の時間を追いかけません。動きを減らすOS設定では最初は停止し、作者の操作で再生できます。`?debug`では経過時間とパーツ／トラックの対応を確認できます。一覧プレビューは**初期角・位相を適用したt=0**の静止画で、36既存作品のプレビューは変わりません。
+
+### Motionの必須確認とよくある破綻
+
+- 自動テストで未知type、存在しないpart、単位軸、有限値、周期／振幅、重複回転、変換順、全周期の範囲、停止・リセット・作品切替を確認します。登録された全作品はネイティブ描画スクリプトの対象です。
+- Motionが大きな円を描く場合はpivotの座標とbase scaleを確認します。形状の端を支点にするとき、世界座標やpositionをpivotへ混ぜません。
+- パーツが離れる／交差する場合は連動する部品を同じパーツのメッシュにまとめる、または同じトラック・支点を与える方法を使います。今回はジョイントや衝突で補正しません。
+- 静止プレビューが実物と違う場合はinitialAngle・phaseを含めたt=0を比べます。Motionを止めて全方向から確認し、再生して周期全体の余白と接続を確認します。
+- `tests/motion-fixture.html`はWebGLがないブラウザで入力と再生時計を確認するCPU用ページです。WebGL性能・iOS実機の証拠にはしません。
 
 ## 触感と形状保護
 
@@ -173,7 +221,7 @@ node works/sukima-3d-lab/tests/render-collection.mjs | python works/sukima-3d-la
 git diff --check
 ```
 
-v1/v2の検査は分かれています。16作品のデータblob・変更前v0.4コードから取得した3プロフィールのtap/hold/pull/restore/flick数値も固定して照合します。全展示物の品質テストと描画スクリプトは一覧を読み込むため、新しいJSONも検査対象になります。任意の標準形の登録テストや不正データの検査も含まれます。Pythonの描画検証は任意の実行環境としてMesa/EGLとPillowを使い、アプリには不要です。実行できない場合は未確認として記録し、可能なブラウザ描画確認で補います。検査コードを弱めて通さないでください。
+v1/v2の検査は分かれています。36作品のJSON・登録・コンパイル済みメッシュ・初期プレビューを変更前v0.5 mainと照合し、16作品の変更前v0.4コードから取得した3プロフィールのtap/hold/pull/restore/flick数値も固定して照合します。全展示物の品質テストと描画スクリプトは一覧を読み込むため、新しいJSONも検査対象になります。任意の標準形の登録テストや不正データの検査も含まれます。Pythonの描画検証は任意の実行環境としてMesa/EGLとPillowを使い、アプリには不要です。実行できない場合は未確認として記録し、可能なブラウザ描画確認で補います。検査コードを弱めて通さないでください。
 
 Stagingでは、一覧のプレビューと実際の形が一致するか、全方向へ回して面が消えないか、短いタップ・1秒の長押し・回転・フリック・長押し後の引っ張りを確認します。STATICではくぼみ・穴・内面・表裏・パーツを回して見て、長押しでも変形しないことと初期姿勢への復帰を確認します。TOUCHでは面の端と尖った部分も触り、離した後に形が戻ること、他の立体へ切り替えて状態が残らないことを見ます。iPhone/iPadで触っていない触感は未検証として報告します。
 
@@ -193,4 +241,4 @@ Stagingでは、一覧のプレビューと実際の形が一致するか、全�
 
 ## 別アプリでの使用
 
-`engine/specimen.js`の`validateSpecimen(data)`と`createSpecimen(data)`はDOM・展示室・通信に依存しません。JSONを読む方法は利用側で選べます。`engine/session.js`の`SpecimenSession.select(data)`は能力に応じて新しい`RotationBody`または`TouchBody`とmeshを返します。旧名`TouchSession`も互換の別名として残っています。`engine/mesh.js`はパーツの変換とメッシュを扱い、`engine/rotation.js`は変形のない回転・慣性を扱います。`engine/behaviors.js`はTouchを選ぶための小さな能力設定です。描画・カメラ・入力は利用するアプリ側で組み合わせます。今回、他作品への組込みや共通2D Engineの変更は行っていません。
+`engine/specimen.js`の`validateSpecimen(data)`と`createSpecimen(data)`はDOM・展示室・通信に依存しません。JSONを読む方法は利用側で選べます。`createSpecimen`は元のbase transformを適用したbind meshを返し、Motionを自動再生しません。Motionを使うアプリは下記のsessionまたは独立したMotionPlayerを組み合わせます。`engine/session.js`の`SpecimenSession.select(data)`は能力に応じて新しい`RotationBody`または`TouchBody`とmeshを返します。旧名`TouchSession`も互換の別名として残っています。`engine/mesh.js`はパーツの変換とメッシュを扱い、`engine/rotation.js`は変形のない回転・慣性を扱います。`engine/behaviors.js`はTouch/Motionを選ぶ能力設定です。`SpecimenSession.motion`はMotion作品だけの`MotionPlayer`で、`session.step(dt)`、`session.resetPose()`、`session.clear()`で描画以外の再生ライフサイクルを扱えます。`Renderer.draw(mesh,pose,camera,motion)`へ任意で渡し、`motion.drawCommands(pose)`はUIなしでパーツごとの描画行列を返します。描画・カメラ・入力は利用するアプリ側で組み合わせます。今回、他作品への組込みや共通2D Engineの変更は行っていません。

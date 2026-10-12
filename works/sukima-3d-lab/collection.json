@@ -164,6 +164,31 @@
       "id": "step-knot",
       "file": "objects/step-knot.json",
       "number": 36
+    },
+    {
+      "id": "pinwheel",
+      "file": "objects/pinwheel.json",
+      "number": 37
+    },
+    {
+      "id": "shutter",
+      "file": "objects/shutter.json",
+      "number": 38
+    },
+    {
+      "id": "pendulum",
+      "file": "objects/pendulum.json",
+      "number": 39
+    },
+    {
+      "id": "slider",
+      "file": "objects/slider.json",
+      "number": 40
+    },
+    {
+      "id": "mobile-motion",
+      "file": "objects/mobile-motion.json",
+      "number": 41
     }
   ]
 }
