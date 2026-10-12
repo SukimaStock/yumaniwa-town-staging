@@ -1,0 +1,50 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>雨つぎ · browser QA</title>
+<style>body{margin:0;background:#16232a;color:#b7cacb;font:12px system-ui}header{position:sticky;top:0;background:#16232a;padding:8px;z-index:4;display:flex;gap:6px;align-items:center;flex-wrap:wrap}button{background:#31454e;color:#deece7;border:1px solid #657f80;padding:7px;cursor:pointer}iframe{display:block;margin:8px auto;border:1px solid #6e898a;max-width:calc(100vw - 16px)}pre{padding:10px;white-space:pre-wrap;max-height:180px;overflow:auto}#status{padding-left:7px}a{color:#c5d6b4}</style>
+<header><span>開発用・実機ではありません</span><button data-size="390,844">iPhone相当</button><button data-size="375,667">小画面</button><button data-size="820,820">iPad相当</button><button data-size="844,390">横画面</button><button id="touch">合成タッチで全屋根をプレイ</button><button id="cancel">合成タッチ cancel</button><a href="../?qa=1">普通に遊ぶ</a><span id="status">待機</span></header>
+<iframe id="game" src="../?qa=1" width="390" height="844" title="雨つぎ · 寸法確認"></iframe><pre id="result"></pre>
+<script type="module">
+const frame=document.getElementById('game'),status=document.getElementById('status'),result=document.getElementById('result');
+let running=false;
+for(const b of document.querySelectorAll('[data-size]'))b.onclick=()=>{const [w,h]=b.dataset.size.split(',');frame.width=w;frame.height=h;status.textContent=`${w} × ${h} CSS px`;};
+const wait=ms=>new Promise(r=>setTimeout(r,ms)),observe=()=>frame.contentWindow.rainObservation?.();
+function coords(p){const w=frame.contentWindow,o=observe(),v=w.SSE.viewport;return {x:v.offsetX+(p.x*o.layout.sx+o.layout.ox)*v.scale,y:v.offsetY+(p.y*o.layout.sy+o.layout.oy)*v.scale};}
+function pointer(type,p,id=9){const w=frame.contentWindow,c=w.document.getElementById('gameCanvas'),q=coords(p);c.dispatchEvent(new w.PointerEvent(type,{pointerId:id,pointerType:'touch',isPrimary:true,clientX:q.x,clientY:q.y,buttons:type==='pointerup'||type==='pointercancel'?0:1,pressure:.5,bubbles:true,cancelable:true}));}
+async function tilt(index,target){
+ const p=observe().pans[index],r=p.length*.34;
+ let cursor={x:p.x+r*Math.cos(p.angle),y:p.y+r*Math.sin(p.angle)};
+ pointer('pointerdown',cursor);
+ for(let i=0;i<28;i++){
+  const o=observe(),pan=o.pans[index],error=target-pan.target;if(Math.abs(error)<.005)break;
+  const step=Math.max(-.024,Math.min(.024,error)),oldAngle=pan.angle;
+  const dx=cursor.x-pan.x,dy=cursor.y-pan.y,u=dx*Math.cos(oldAngle)+dy*Math.sin(oldAngle);
+  // Tangent to the current lever, matching the work's incremental control.
+  cursor={x:cursor.x-Math.sin(oldAngle)*u*step,y:cursor.y+Math.cos(oldAngle)*u*step};
+  pointer('pointermove',cursor);await wait(18);
+ }
+ pointer('pointerup',cursor);await wait(50);
+ const actual=observe().pans[index].target;if(Math.abs(actual-target)>.04)throw Error(`Hinge ${index}: wanted ${target}, got ${actual}`);
+}
+async function until(check,max=15000){const end=Date.now()+max;while(Date.now()<end){const o=observe();if(check(o))return o;await wait(100);}throw Error('Timed out: '+JSON.stringify(observe()));}
+document.getElementById('touch').onclick=async()=>{
+ if(running)return;running=true;const log=[];result.textContent='';
+ try{
+  frame.contentWindow.document.getElementById('reset').click();await wait(100);
+  const sign=observe().lap%2?-1:1,angles=[[.36],[.36,-.4],[.36,-.36,.4],[-.36,.36,-.44],[.32,-.32,.36,-.48]];
+  for(let i=0;i<5;i++){
+   status.textContent=`touch · 屋根 ${i+1}`;
+   for(let j=0;j<angles[i].length;j++)await tilt(j,angles[i][j]*sign);
+   const done=await until(o=>o.phase==='caught');
+   if(done.drop.visited!==angles[i].length)throw Error('Skipped a gutter');
+   log.push({level:i+1,phase:done.phase,visited:done.drop.visited,failures:done.failures});result.textContent=JSON.stringify(log,null,2);
+   await until(o=>o.level!==i||o.phase==='end',3000);
+  }
+  status.textContent='PASS · 合成タッチで自然なゴール';
+  log.push({end:observe(),limit:'Synthetic PointerEvent; isTrusted=false. No physical iPhone, Safari or native touch claim.'});result.textContent=JSON.stringify(log,null,2);
+ }catch(e){status.textContent='FAIL';result.textContent=String(e)+'\n'+JSON.stringify(observe(),null,2);}
+ finally{running=false;}
+};
+document.getElementById('cancel').onclick=async()=>{
+ const p=observe().pans[0],at={x:p.x+p.length*.3,y:p.y};pointer('pointerdown',at);await wait(100);const held=observe().drag;pointer('pointercancel',at);await wait(100);
+ const o=observe();status.textContent=held===0&&o.drag===null?'PASS · touch cancel':'FAIL · touch cancel';result.textContent=JSON.stringify({before:held,after:o.drag,audio:o.audio},null,2);
+};
+</script></html>
