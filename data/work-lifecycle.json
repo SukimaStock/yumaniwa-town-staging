@@ -247,6 +247,13 @@
       "status": "active",
       "title": "SukimaStock 3D · Touch Lab v0.3",
       "theme": "小さな立体を押す、回す、離して余韻を触る"
+    },
+    {
+      "id": "tsumatta-tsubu",
+      "path": "works/tsumatta-tsubu",
+      "status": "active",
+      "title": "つまった粒",
+      "theme": "小さく横へずらすと、支え合っていた粒がほどけて落ちる"
     }
   ]
 }
