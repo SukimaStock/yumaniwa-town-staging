@@ -64,6 +64,31 @@
     {
       "id": "pause",
       "file": "objects/pause.json"
+    },
+    {
+      "id": "dent",
+      "file": "objects/dent.json",
+      "number": 17
+    },
+    {
+      "id": "ring",
+      "file": "objects/ring.json",
+      "number": 18
+    },
+    {
+      "id": "bowl",
+      "file": "objects/bowl.json",
+      "number": 19
+    },
+    {
+      "id": "leaf",
+      "file": "objects/leaf.json",
+      "number": 20
+    },
+    {
+      "id": "mobile",
+      "file": "objects/mobile.json",
+      "number": 21
     }
   ]
 }

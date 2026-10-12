@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2a1529f2a5a7bb6e43b1287010f6a4f7e4890a74d8a85a8aa7b3b45684f6a776",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-free-forms-v05-20261012",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "SukimaStock 3D v0.5 Free Forms: explicit meshes, optional Touch and five static forms",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "2a8af03d5795bd1e537ec410a521930dc047434e",
+    "canonicalSources": [
+      "User v0.5 Free Forms directive 2026-10-12",
+      "Merged work PRs #277/#278/#279/#280/#284/#285/#286",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/sukima-3d-lab/COLLECTION_GUIDE.md",
+      "works/sukima-3d-lab/DEVELOPMENT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-free-forms-v05-20261012/r0.lock.json",
+      "works/sukima-3d-lab/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "engine/**",
+      "data/work-search-meta.js",
+      ".github/**",
+      "works/tea-unfold*/**",
+      "works/town-glance*/**",
+      "data/work-lifecycle.json",
+      "index.html",
+      "sitemap.xml",
+      "assets/**",
+      "en/w/**",
+      "main.js",
+      "tools/**",
+      "w/**",
+      "style.css",
+      "works/orbit*/**",
+      "works/morning-thread*/**",
+      "data/works.js",
+      "data/town-maps.js"
+    ],
+    "expectedChanges": [
+      "Coexisting explicit sukima3d-specimen/2 triangles, optional normals, per-part matte materials and positive TRS transforms; distinct surface validation",
+      "Keep all sixteen v1 JSON blobs, initial pose/material/order and touch response unchanged",
+      "Extract common rotation/inertia from Touch; optional behaviors.touch rather than exclusive shape classes; static rotation and pose reset",
+      "Add DENT RING BOWL LEAF MOBILE as explicit static data with display numbers 17 to 21, retaining existing 00 to 15",
+      "One active WebGL2 renderer; same-data depth-tested lightweight static mesh previews without card WebGL contexts",
+      "Update work-local guide/development/tests and complete cache graph to 0.5.0"
+    ],
+    "ownerDecisions": [
+      "User v0.5 directive authorizes freer shapes, behavior separation, five named STATIC works, work-local guide/tests/PR/safe staging merge/publication; protects all sixteen works and forbids production/other works"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard Plan-first multi-file work-local route; no shared 2D engine, lifecycle, launch or storage change",
+      "Existing v1 convex validation and behavior retained; v2 uses independent triangle/surface checks",
+      "No specimen-name branches; capabilities and part/material data determine behavior"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-iphone-safari",
+      "physical-ipad-touch",
+      "owner-tactile-evaluation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated v0.5 staging PR to restore v0.4.1 runtime and sixteen-work collection",
+    "outOfScope": [
+      "Production, other works, shared 2D Engine and independent Motion Lab",
+      "New deformation physics or automatic mesh repair",
+      "Motion system, joints, collisions, scene manager or editor",
+      "Dots automation or actual game integration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad tactile quality, iOS menu suppression and actual device performance",
+      "Cloud browser WebGL2 availability will be observed; native GLES evidence is not a physical-device claim"
+    ],
+    "problem": "Convex touch-only specimen contract cannot represent holes, concavity, inner surfaces, thin sheets or assemblies",
+    "currentContract": "Sixteen immutable convex v1 JSON specimens, static logical-face SVG cards and a fresh TouchBody session per selection",
+    "whyExistingIsInsufficient": "Polygon centre fans and closed convex validation require a solid convex mesh; rotation and deformation currently share one body",
+    "design": "Versioned pure mesh loader and validators; v2 indexed triangles and baked positive part TRS with optional normals and double-sided surfaces. Shared rotation body, opt-in existing Touch behavior restricted to its supported convex domain; static forms do not allocate deformation. Preserve v1 SVG previews and use a small CPU depth raster for v2 cards from the same packed mesh and camera. Existing single WebGL renderer, minimal pose-reset control for static viewing.",
+    "alternativesRejected": [
+      "External 3D engine",
+      "Convex-hull conversion or capping authored holes",
+      "Per-specimen render/input branches",
+      "Many card WebGL contexts",
+      "Automatic mesh repair, scene/editor/physics system",
+      "Mass conversion of legacy JSON"
+    ],
+    "migration": "Add v2 and new data; no conversion or alteration of sixteen v1 JSON blobs. Runtime URLs consistently 0.5.0; legacy numbering remains 00 to 15, explicit new numbers 17 to 21.",
+    "compatibility": "Legacy exact mesh/material/pose/response numerical regressions, immutable old JSON/order, shared runtime/other works/production unchanged",
+    "boundaryCases": [
+      "Concave triangles, torus through-hole, bowl inner/outer/rim, double-sided bent leaf, independent transformed parts",
+      "Out-of-range/noninteger/NaN indices, nonfinite values, zero-area or duplicate triangles, invalid normals/TRS/material and mesh budgets",
+      "Static tap/hold never deforms; long hold drag rotates and reset stops residual angular state",
+      "All existing tap/hold/pull/inertia/profile regressions; switch/cancel/resize clears input and body state",
+      "Preview depth/occlusion/holes/backface handling and mobile budget",
+      "Unsupported WebGL and context lifecycle; browser/native/physical evidence separated"
+    ],
+    "testPlan": [
+      "Existing test suite and all sixteen v1 geometry/feel/picking/restore tests",
+      "New schema invalid-data and transformed normals, concavity/hole/inner/thin/assembly tests",
+      "Static pointer hold/drag/flick/reset, optional v1 static and v2 convex Touch reuse, all-session switching",
+      "Data-only twenty-second specimen registration without engine edits",
+      "Same-mesh preview depth/through-hole/back-side checks and native exact shader rendering at mobile/desktop sizes",
+      "Browser gallery/nav/reset/debug/unsupported fallback and portrait/landscape/tablet CSS checks",
+      "Syntax/diff/scope then risk then impact against exact implementation SHA"
+    ],
+    "promotionRisk": "Staging experimentation only; physical device feel/adoption and production remain separate"
+  }
+}

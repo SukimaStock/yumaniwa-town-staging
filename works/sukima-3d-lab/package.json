@@ -1,1 +1,1 @@
-{"name":"sukimastock-touch-lab","private":true,"version":"0.4.1","type":"module","scripts":{"test":"node --test tests/*.test.mjs"}}
+{"name":"sukimastock-touch-lab","private":true,"version":"0.5.0","type":"module","scripts":{"test":"node --test tests/*.test.mjs"}}

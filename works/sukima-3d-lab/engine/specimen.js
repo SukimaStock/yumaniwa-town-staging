@@ -1,13 +1,22 @@
 // Pure JSON -> welded mesh. No DOM, requests, object IDs or shape generators.
-import {add,sub,scale,cross,dot,norm} from './math.js?v=0.4.1';
-import {FEEL_PROFILES} from './response.js?v=0.4.1';
+import {add,sub,scale,cross,dot,norm} from './math.js?v=0.5.0';
+import {validateFeel,validateBehaviors,touchSettings} from './behaviors.js?v=0.5.0';
+import {validateMeshSpecimen,createMeshSpecimen} from './mesh.js?v=0.5.0';
 const fail=message=>{throw new TypeError(`Invalid specimen: ${message}`);};
 const finite=(value,min,max)=>Number.isFinite(value)&&value>=min&&value<=max;
 const vector=(v,length,min,max)=>Array.isArray(v)&&v.length===length&&v.every(x=>finite(x,min,max));
 const ID=/^[a-z][a-z0-9-]{1,47}$/;
-const SETTINGS=Object.freeze({depth:[.04,.23],radius:[.55,1.9],pressRate:[3,16],pressStiffness:[100,500],pressDamping:[.4,1],restoreStiffness:[100,500],returnDamping:[.4,.98],tapImpulse:[1.8,3.6],holdDelay:[200,700],pullStrength:[.5,1.5],maxPull:[.1,.6],pullRadius:[1,1.9],pullStiffness:[200,600]});
 export function validateSpecimen(data){
+ if(data?.schema==='sukima3d-specimen/2'){
+  validateBehaviors(data);
+  validateMeshSpecimen(data);
+  if(touchSettings(data))validateConvexSpecimen(touchProxy(data));
+ }else validateConvexSpecimen(data);
+ return data;
+}
+function validateConvexSpecimen(data){
  if(!data||data.schema!=='sukima3d-specimen/1')fail('schema');
+ validateBehaviors(data);
  if(typeof data.id!=='string'||!ID.test(data.id)||typeof data.name!=='string'||!data.name.trim()||data.name.length>48)fail('id/name');
  if(!Array.isArray(data.tags)||data.tags.length>8||data.tags.some(t=>typeof t!=='string'||!t.trim()||t.length>24))fail('tags');
  const g=data.geometry,v=g?.vertices,faces=g?.faces;
@@ -46,8 +55,7 @@ export function validateSpecimen(data){
  const m=data.material;
  if(!m||m.kind!=='matte'||!vector(m.color,3,0,1)||!finite(m.variation,0,.08))fail('matte material');
  if(m.faceColors&&(!Array.isArray(m.faceColors)||m.faceColors.length!==faces.length||m.faceColors.some(c=>!vector(c,3,0,1))))fail('face colors');
- if(!Object.hasOwn(FEEL_PROFILES,data.feel?.profile)||!data.feel.overrides||typeof data.feel.overrides!=='object'||Array.isArray(data.feel.overrides))fail('feel');
- for(const [key,value] of Object.entries(data.feel.overrides)){if(!Object.hasOwn(SETTINGS,key)||!finite(value,...SETTINGS[key]))fail(`feel override ${key}`);}
+ validateFeel(data.feel);
  const d=data.display;
  if(!d||!vector(d.orientation,4,-1,1)||Math.abs(Math.hypot(...d.orientation)-1)>1e-5||!finite(d.scale,.55,1.25))fail('display');
  if(Math.max(...v.map(p=>Math.hypot(...p)))*d.scale>1.65)fail('display bounds');
@@ -55,6 +63,7 @@ export function validateSpecimen(data){
 }
 export function createSpecimen(data){
  validateSpecimen(data);
+ if(data.schema==='sukima3d-specimen/2')return touchSettings(data)?createSpecimen(touchProxy(data)):createMeshSpecimen(data);
  const {geometry:g,display,material}=data,rest=g.vertices.map(v=>scale(v,display.scale)),faces=g.faces.map(f=>f.slice()),triangles=[],faceCenters=[];
  faces.forEach((f,face)=>{
   const point=scale(f.reduce((p,i)=>add(p,rest[i]),[0,0,0]),1/f.length),center=rest.push(point)-1;faceCenters.push(center);
@@ -63,11 +72,26 @@ export function createSpecimen(data){
  const compliance=rest.map((_,i)=>i<g.vertices.length?g.cornerCompliance:g.centerCompliance);
  return {rest,vertices:rest.map(v=>v.slice()),faces,triangles,material:{...material,color:material.color.slice(),faceColors:material.faceColors?.map(c=>c.slice())},radius:Math.max(...rest.map(p=>Math.hypot(...p))),deformation:{compliance,faceCenters,limits:g.limits?{...g.limits}:undefined}};
 }
+// Existing Touch is deliberately bounded to one closed convex solid. Its
+// adapter adds bending centres; STATIC explicit meshes keep authored indices.
+function touchProxy(data){
+ const touch=touchSettings(data),part=data.parts[0];
+ if(data.parts.length!==1||part.geometry.surface!=='closed'||part.material.doubleSided)fail('Touch requires one closed convex part');
+ if(touch.deformation!==undefined&&(!touch.deformation||typeof touch.deformation!=='object'||Array.isArray(touch.deformation)||Object.keys(touch.deformation).some(k=>!['cornerCompliance','centerCompliance','limits'].includes(k))))fail('Touch deformation');
+ const mesh=createMeshSpecimen(data),deformation=touch.deformation??{};
+ if(Object.hasOwn(deformation,'limits')&&(!deformation.limits||typeof deformation.limits!=='object'||Array.isArray(deformation.limits)))fail('Touch limits');
+ return {schema:'sukima3d-specimen/1',id:data.id,name:data.name,tags:data.tags,
+  geometry:{vertices:mesh.rest,faces:part.geometry.triangles,cornerCompliance:Object.hasOwn(deformation,'cornerCompliance')?deformation.cornerCompliance:.48,centerCompliance:Object.hasOwn(deformation,'centerCompliance')?deformation.centerCompliance:1,limits:deformation.limits},
+  material:{...part.material,faceColors:part.material.triangleColors},feel:touch,
+  display:{orientation:data.display.orientation,scale:1}};
+}
 export function validateCollection(data){
  if(!data||data.schema!=='sukima3d-collection/1'||!Array.isArray(data.items)||!data.items.length||data.items.length>1000)fail('collection');
- const ids=new Set(),files=new Set();
- for(const item of data.items){
-  if(!item||typeof item.id!=='string'||!ID.test(item.id)||!/^objects\/[a-z][a-z0-9-]{1,47}\.json$/.test(item.file)||ids.has(item.id)||files.has(item.file))fail('collection entry');
+ const ids=new Set(),files=new Set(),numbers=new Set();
+ for(const [index,item] of data.items.entries()){
+  if(!item||typeof item.id!=='string'||!ID.test(item.id)||typeof item.file!=='string'||!/^objects\/[a-z][a-z0-9-]{1,47}\.json$/.test(item.file)||ids.has(item.id)||files.has(item.file))fail('collection entry');
+  const number=Object.hasOwn(item,'number')?item.number:index;
+  if(!Number.isInteger(number)||number<0||number>9999||numbers.has(number))fail('collection number');numbers.add(number);
   ids.add(item.id);files.add(item.file);
  }
  return data.items;

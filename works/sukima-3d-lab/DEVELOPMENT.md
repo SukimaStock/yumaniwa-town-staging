@@ -1,3 +1,45 @@
+# SukimaStock 3D v0.5 · Free Forms — 2026-10-12
+
+## Scope and architecture
+
+Latest main `2a8af03d5795bd1e537ec410a521930dc047434e`; merged #277/#278/#279/#280/#284/#285/#286, all sixteen specimens and both guides reviewed before work. Standard WORK Plan locked first at `.change-plans/sukima-3d-free-forms-v05-20261012/r0.lock.json`. Only this work and its own Plan Lock change. Production, other works, shared 2D Engine, global registries, LAB and Motion Lab stay outside scope.
+
+- **Core**: `math.js`, `camera.js`, `geometry.js`, `mesh.js`, `renderer.js`, `rotation.js`, `loop.js`. `mesh.js` validates explicit triangle surfaces and bakes part TRS; it has no Touch or DOM imports. The existing WebGL 2 shader/light/camera remain. A flat face normal is generated unless authored normals are supplied; nonuniform scale uses inverse transpose. Only explicitly two-sided parts get reversed GPU triangles with reversed normals.
+- **Specimen loading**: `specimen.js` retains all v1 convex/welded/volume checks and dispatches v2 surface checks. `sukima3d-specimen/1` JSON is unchanged. `sukima3d-specimen/2` explicitly authors triangles, normals, materials and parts. Open boundaries, concavity, through-holes, inner surfaces and disconnected components are not converted to convex hulls or filled.
+- **Behaviors**: `behaviors.js` handles optional capabilities. V1 defaults to its existing `feel`; explicit `behaviors:{}` selects a `RotationBody`. V2 requires explicit behaviors, normally `{}`. Touch uses the existing `TouchBody`, now extending the shared rotation body. This preserves the exact rotation equations and Touch update order. V2 opt-in Touch is limited to one closed convex part validated through the old contract; its adapter adds bending centres. There is no new free-form physics.
+- **Collection**: `session.js` is a DOM-free fresh-body factory, named `SpecimenSession` with `TouchSession` retained as a compatibility alias. `PointerInput` retains `TouchInput` as an alias. Static down/hold never calls press or pull; a drag after any hold rotates. Static permits a drag starting on a hole/background. Reset cancels capture, angular velocity and wobble, and restores the authored pose. Existing Touch thresholds, hold/pull mapping, cancellation, presets and callout protection remain.
+- **Previews**: old logical-face SVG unchanged; new 200px CPU depth raster uses the same packed triangles, camera and matte lighting. No live card WebGL contexts. One active renderer remains. Static card canvases do not capture input or block collection scrolling. No external 3D engine or runtime package was added.
+
+## Works and registration
+
+| Display | ID | Authored vertices / triangles | Distinction |
+| --- | --- | --- | --- |
+| 17 | dent | 47 / 90 | irregular solid with a shallow central depression |
+| 18 | ring | 72 / 144 | closed torus surface with a genuine through-hole |
+| 19 | bowl | 86 / 168 | outer wall, rim, inner wall and inner floor |
+| 20 | leaf | 14 / 16 (32 GPU) | bent open sheet, two-sided |
+| 21 | mobile | 132 / 240, seven parts | plinth, axis, beam, two threads, warm weight and small loop |
+
+All five are STATIC. Old cards keep numbers 00–15 and original order; new entries explicitly carry 17–21 as requested. The number is display metadata, distinct from position/count. The next registration can use `number:22`. Shape data plus one manifest entry remain sufficient; no object-name conditions were added to runtime. All module/CSS/data URLs and package advance together to 0.5.0. JSON stays `cache:no-cache`, so later data-only additions need no engine-version edits.
+
+## Verification and limitations
+
+Reproducible commands are in COLLECTION_GUIDE.md. The expanded unit suite checks all sixteen unchanged JSON blobs and fixed tap/hold/pull/restore/flick hashes at every profile, generated from the actual pre-change `2a8af03` sources. It also checks all 21 session switches, static gestures/reset, explicit convex Touch reuse, transformed normals, bad indices/nonfinite/zero-area/winding/topology, separate components, ray-through-hole/interior/back-side geometry, preview depth, guide examples and data-only registration.
+
+Observed before PR: all 114 work tests and 24 existing work-lifecycle tests pass; all 27 JS/MJS modules and inline module fixtures pass syntax checks; git diff check passes. Native run succeeds for 386 frames with GL error 0, and all five preview masks match GPU coverage exactly at 200px (one subpixel facet-edge color difference per preview; mean channel difference 0.000–0.006).
+
+Native Mesa GLES compiles the exact shipped shaders and draws all 16 Touch works × 7 states × 3 sizes, all 5 static works × 3 poses × 3 sizes, and five 200px preview comparisons (386 frames). CPU/GPU preview coverage must exceed 99.5%; channel error is bounded, with only differences within 0.01px of an actual triangle edge permitted for subpixel raster rounding and fewer than 0.1% boundary pixels. Existing >5000 body-pixel and >300 change-pixel checks remain for the original full-size scene set. RING also asserts actual background pixels through the hole.
+
+The cloud browser has previously lacked WebGL2. The local runtime has Playwright but no Chromium executable; a browser installation returned truncated downloads, so local Chromium rendering is not claimed. Native GLES evidence is distinct from browser WebGL/device evidence. The actual browser UI/fallback/responsive pages and labelled `tests/debug-fixture.html` can verify Pointer Events, capture, profile controls, static rotation/reset and switching without claiming GL rendering. The fixture selects a centre ray for any point in its labelled 2D surface: it is not a pointer/3D alignment test. Exact final SHA, CI, Pages and live observations are recorded in the PR.
+
+Physical iPhone/iPad touch feel, native iOS callout suppression and actual device performance remain **UNVERIFIED** until tested on hardware. Formal verificationState remains UNVERIFIED under the repository contract; CI/staging merge is not author adoption or production approval.
+
+Remaining limits: self intersections and nested-shell outward orientation are not comprehensively diagnosed or repaired; no arbitrary nonconvex Touch physics, mesh editor, joints/collisions, transparency/textures or Motion system. Part transforms are baked at load time; per-part animation can be a later capability without rewriting authored shape data. Camera fits the bounds and restores orientation; no additional zoom gesture is introduced.
+
+---
+
+Below is preserved v0.4 / Collection 01 history.
+
 # SukimaStock 3D Collection 01 · 2026-10-12
 
 小さな造形を見て、触り、そこから用途を考えるための第1回。ゲームや機能の企画ではない。自然3・人工3・正体不明4を追加し、既存6作と合わせて16作。各形の頂点を意図して配置し、大きな論理面、厚み比率、偏りを先に設計した。ランダム標本、外部モデル、追加パーツは使っていない。

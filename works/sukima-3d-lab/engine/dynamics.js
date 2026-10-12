@@ -1,14 +1,12 @@
-import {axisAngle,multiply,norm,add,sub,scale,dot,cross} from './math.js?v=0.4.1';
-import {FEEL_PROFILES,DEFAULT_FEEL,springStep} from './response.js?v=0.4.1';
-import {PULL_DEFAULTS,attachment,pullWeights,resistantPull,safeScale} from './pull.js?v=0.4.1';
-export class TouchBody {
+import {RotationBody} from './rotation.js?v=0.5.0';
+import {norm,add,sub,scale,dot,cross} from './math.js?v=0.5.0';
+import {FEEL_PROFILES,DEFAULT_FEEL,springStep} from './response.js?v=0.5.0';
+import {PULL_DEFAULTS,attachment,pullWeights,resistantPull,safeScale} from './pull.js?v=0.5.0';
+export class TouchBody extends RotationBody {
  constructor(mesh,options={}) {
-  this.mesh=mesh;
+  super(mesh,{damping:1.85,settle:.014,maxDisplacement:.28,...FEEL_PROFILES[DEFAULT_FEEL],...PULL_DEFAULTS,...options});this.touchEnabled=true;
   this.shapeLimits=mesh.deformation?.limits;this.shapeSafety=Boolean(this.shapeLimits);
   this.feel=DEFAULT_FEEL;
-  this.options={damping:1.85,settle:.014,maxDisplacement:.28,...FEEL_PROFILES[DEFAULT_FEEL],...PULL_DEFAULTS,...options};
-  this.orientation=multiply(axisAngle([1,0,0],.19),axisAngle([0,1,0],-.23));
-  this.velocity=[0,0,0];this.wobble=[0,0,0];this.wobbleVelocity=[0,0,0];
   this.offsets=mesh.rest.map(()=>[0,0,0]);this.offsetVelocity=mesh.rest.map(()=>[0,0,0]);
   this.pressure=null;this.pull=null;this.pullSafety=false;this.deformationLimit=Math.min(this.options.maxDisplacement,this.shapeLimits?.maxDisplacement??Infinity);this.held=false;this.reboundDamping=this.options.returnDamping;
   this.compliance=mesh.deformation?.compliance??mesh.rest.map(()=>1);
@@ -79,32 +77,8 @@ export class TouchBody {
   // quietly without carrying a freshly seeded tap into a quick swipe.
   this.offsetVelocity.forEach(v=>v.fill(0));
  }
- drag(dx,dy,seconds,size) {
-  const factor=3.2/Math.max(180,size),delta=[dy*factor,dx*factor,0],angle=Math.hypot(...delta);
-  if(angle)this.orientation=norm(multiply(axisAngle(delta,angle),this.orientation));
-  const target=scale(delta,1/Math.max(1/240,seconds)),speed=Math.hypot(...target);
-  this.velocity=scale(target,Math.min(1,9/(speed||1)));
- }
- pose(){return norm(multiply(axisAngle(this.wobble,Math.hypot(...this.wobble)),this.orientation));}
- step(seconds) {
-  let remaining=Math.max(0,Math.min(seconds,.05));
-  while(remaining>1e-9){const dt=Math.min(remaining,1/120);remaining-=dt;this.integrate(dt);}
- }
  integrate(dt) {
-  if(!this.held){
-   const speed=Math.hypot(...this.velocity),angle=speed*dt;
-   if(angle)this.orientation=norm(multiply(axisAngle(this.velocity,angle),this.orientation));
-   const decay=Math.exp(-this.options.damping*dt);
-   this.velocity=scale(this.velocity,decay);
-   // A tiny spring follows braking torque as the body comes to rest.
-   const envelope=Math.exp(-(((speed-.65)/.65)**2));
-   for(let i=0;i<3;i++){
-    const target=this.velocity[i]*envelope*this.options.settle;
-    this.wobbleVelocity[i]+=((target-this.wobble[i])*85-this.wobbleVelocity[i]*11)*dt;
-    this.wobble[i]+=this.wobbleVelocity[i]*dt;
-   }
-   if(speed<.0002)this.velocity=[0,0,0];
-  }
+  super.integrate(dt);
   const contact=this.pressure;
   if(contact)contact.age+=dt;
   const progress=contact?1-Math.exp(-contact.age*this.options.pressRate):0;
