@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="style.css?v=0.3.0">
 </head>
 <body>
-<main>
+<!-- Keep native selection/callout disabled even with a warm stylesheet cache. -->
+<main style="-webkit-touch-callout:none;-webkit-user-select:none;user-select:none">
 <header><p>SUKIMASTOCK / 3D</p><h1>Touch Lab <span>0.3</span></h1></header>
 <canvas id="solid" tabindex="0" role="img" aria-label="触れる多面体。押すとへこみ、ドラッグすると回転し、長押ししてドラッグすると面を引っ張れます。キーボードは矢印で回転、スペースで押します。"></canvas>
 <p class="hint" id="hint">押す。回す。長押しで引く。</p>
