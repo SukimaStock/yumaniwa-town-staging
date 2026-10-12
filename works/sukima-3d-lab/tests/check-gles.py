@@ -85,7 +85,32 @@ for scene in payload['scenes']:
     read_pixels(0,0,width,height,0x1908,0x1401,pixels)
     assert gl('glGetError',U)()==0
     image = Image.frombytes('RGBA',(width,height),bytes(pixels)).transpose(Image.Transpose.FLIP_TOP_BOTTOM).convert('RGB')
-    body_pixels = sum(pixel != (238,233,223) for pixel in image.get_flattened_data()); assert body_pixels>5000
+    body_pixels = sum(pixel != (238,233,223) for pixel in image.get_flattened_data())
+    if 'cpuPreview' in scene:
+        assert body_pixels>400
+        cpu = scene['cpuPreview']; gpu = list(image.get_flattened_data())
+        intersection, union, difference, boundary_pixels = 0, 0, 0, 0
+        for i, color in enumerate(gpu):
+            expected = bool(cpu[i*4+3]); actual = color!=(238,233,223)
+            union += expected or actual
+            if expected and actual:
+                intersection += 1
+                error = max(abs(color[k]-cpu[i*4+k]) for k in range(3))
+                if error>2:
+                    # Fixed subpixel raster rules can choose the adjacent
+                    # facet at a shared edge. Permit only pixels within 0.01px
+                    # of an actual triangle edge, bounded to <0.1% of the body.
+                    assert scene['cpuEdgeDistance'][i]<.01, (scene['label'], i, color, cpu[i*4:i*4+3], scene['cpuEdgeDistance'][i])
+                    boundary_pixels += 1
+                difference += error
+        assert intersection/union>.995, (scene['label'], intersection, union)
+        assert boundary_pixels/intersection<.001, (scene['label'], boundary_pixels, intersection)
+        assert difference/intersection<.05, (scene['label'], difference/intersection)
+        print(f"{scene['label']}: CPU/GPU coverage {intersection/union:.4f}, mean channel difference {difference/intersection:.3f}, boundary pixels {boundary_pixels}")
+    else:
+        assert body_pixels>5000
+    for x, y in scene.get('backgroundAt', []):
+        assert image.getpixel((x,y))==(238,233,223), (scene['label'], 'through-hole')
     key = (width,height,scene['label']); images[key] = image.tobytes(); references[key] = scene.get('reference', 'rest')
     image.save(output/f"{width}x{height}-{scene['label']}.png")
     make_current(display,None,None,context); egl('eglDestroySurface',U,[P,P])(display,surface)

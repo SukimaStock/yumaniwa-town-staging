@@ -1,4 +1,4 @@
-import {FEEL_PROFILES,DEFAULT_FEEL} from './engine/response.js?v=0.4.1';
+import {FEEL_PROFILES,DEFAULT_FEEL} from './engine/response.js?v=0.5.0';
 // UI only. The normal app calls this factory exclusively when ?debug is present.
 export function createDebugPanel(body,input,host,readGlError=()=> '未使用') {
  const panel=document.createElement('details');panel.className='debug';panel.open=true;

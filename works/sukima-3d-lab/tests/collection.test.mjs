@@ -12,7 +12,7 @@ import {add,sub,scale,cross,dot,norm,rotate,axisAngle,multiply} from '../engine/
 import {previewSvg} from '../preview.js';
 import {loadCollection} from '../collection.js';
 const root=new URL('../',import.meta.url),read=path=>JSON.parse(readFileSync(new URL(path,root),'utf8'));
-const manifest=read('collection.json'),definitions=manifest.items.map(item=>read(item.file)),clone=x=>structuredClone(x);
+const manifest=read('collection.json'),definitions=manifest.items.map(item=>read(item.file)).filter(d=>d.schema==='sukima3d-specimen/1'),clone=x=>structuredClone(x);
 const run=(body,seconds)=>{for(let t=0;t<seconds-1e-8;t+=1/60)body.step(Math.min(1/60,seconds-t));};
 const maxOffset=b=>Math.max(...b.offsets.map(v=>Math.hypot(...v)));
 function hitFace(mesh,face){
@@ -75,7 +75,7 @@ test('manifest rejects duplicate, missing and external/traversing paths; local r
  assert.throws(()=>validateCollection({...manifest,items:[manifest.items[0],manifest.items[0]]}),/Invalid specimen/);
  let inFlight=0,maximum=0;const urls=[];
  const request=async (url,options)=>{
-  assert.equal(options.cache,'no-cache','data-only additions revalidate the registry and JSON');urls.push(url);assert.equal(url.origin,'https://local.test');assert.equal(url.search,'?v=0.4.1');inFlight++;maximum=Math.max(maximum,inFlight);await new Promise(resolve=>setTimeout(resolve,1));inFlight--;
+  assert.equal(options.cache,'no-cache','data-only additions revalidate the registry and JSON');urls.push(url);assert.equal(url.origin,'https://local.test');assert.equal(url.search,'?v=0.5.0');inFlight++;maximum=Math.max(maximum,inFlight);await new Promise(resolve=>setTimeout(resolve,1));inFlight--;
   const path=url.pathname.split('/works/sukima-3d-lab/')[1];return {ok:path!=='objects/shell.json',json:async()=>read(path)};
  };
  const result=await loadCollection(new URL('https://local.test/works/sukima-3d-lab/'),request);assert.equal(result.length,manifest.items.length);assert.equal(result[4].definition,undefined);assert.ok(result[4].error);assert.ok(result[5].definition);assert.ok(maximum<=4);assert.deepEqual(result.map(x=>x.id),manifest.items.map(x=>x.id));
@@ -93,9 +93,9 @@ class Canvas {
 }
 test('switching grabbed/spinning bodies destroys capture and uses fresh pose, feel and vertices',()=>{
  const session=new TouchSession(),canvas=new Canvas();let input;
- for(let i=0;i<24;i++){
-  input?.destroy();session.select(definitions[i%6]);
-  assert.deepEqual(session.body.offsets,session.mesh.rest.map(()=>[0,0,0]));assert.deepEqual(session.body.velocity,[0,0,0]);assert.equal(session.body.pressure,null);assert.equal(session.body.pull,null);assert.deepEqual(session.body.orientation,definitions[i%6].display.orientation);
+ for(let i=0;i<definitions.length*2;i++){
+  input?.destroy();session.select(definitions[i%definitions.length]);
+  assert.deepEqual(session.body.offsets,session.mesh.rest.map(()=>[0,0,0]));assert.deepEqual(session.body.velocity,[0,0,0]);assert.equal(session.body.pressure,null);assert.equal(session.body.pull,null);assert.deepEqual(session.body.orientation,definitions[i%definitions.length].display.orientation);
   const hit=hitFace(session.mesh,0);input=new TouchInput(canvas,session.body,()=>hit,()=>{},()=>((x,y)=>[x*.001,y*.001,0]));
   const event=(x,t)=>({clientX:x,clientY:200,timeStamp:t,pointerId:1,button:0,isPrimary:true,preventDefault(){}});
   input.down(event(100,0));input.move(event(160,i%2?50:400));run(session.body,.2);

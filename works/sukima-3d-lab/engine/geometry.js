@@ -1,4 +1,4 @@
-import {add,sub,scale,cross,dot,norm,rayTriangle} from './math.js?v=0.4.1';
+import {add,sub,scale,cross,dot,norm,rayTriangle} from './math.js?v=0.5.0';
 export function createPolyhedron() {
  const t=(1+Math.sqrt(5))/2;
  const raw=[[-1,t,0],[1,t,0],[-1,-t,0],[1,-t,0],[0,-1,t],[0,1,t],[0,-1,-t],[0,1,-t],[t,0,-1],[t,0,1],[-t,0,-1],[-t,0,1]];
@@ -25,12 +25,16 @@ export function pickMesh(mesh,origin,direction) {
  return closest;
 }
 export function packedMesh(mesh) {
- const out=new Float32Array(mesh.triangles.length*3*9);let offset=0;
- for(const {indices,face} of mesh.triangles){
+ const count=mesh.triangles.reduce((n,t)=>n+(t.doubleSided?2:1),0);
+ const out=new Float32Array(count*3*9);let offset=0;
+ for(const {indices,face,material:triangleMaterial,materialFace,normals,doubleSided} of mesh.triangles){
   const [a,b,c]=indices.map(i=>mesh.vertices[i]),normal=norm(cross(sub(b,a),sub(c,a)));
-  const material=mesh.material??{color:[.69,.385,.255],variation:.028};
-  const shade=1+Math.sin(face*4.17)*material.variation,color=(material.faceColors?.[face]??material.color).map(v=>Math.min(1,v*shade));
-  for(const vertex of [a,b,c]){out.set([...vertex,...normal,...color],offset);offset+=9;}
+  const material=triangleMaterial??mesh.material??{color:[.69,.385,.255],variation:.028},colorIndex=materialFace??face;
+  const shade=1+Math.sin(colorIndex*4.17)*material.variation,color=(material.triangleColors?.[colorIndex]??material.faceColors?.[colorIndex]??material.color).map(v=>Math.min(1,v*shade));
+  for(const j of [0,1,2]){out.set([...[a,b,c][j],...(normals?.[j]??normal),...color],offset);offset+=9;}
+  // A reversed copy only for explicitly two-sided sheets. The shared renderer
+  // still culls backs, and the visible reverse receives its own outward normal.
+  if(doubleSided)for(const j of [2,1,0]){out.set([...[a,b,c][j],...scale(normals?.[j]??normal,-1),...color],offset);offset+=9;}
  }
  return out;
 }

@@ -1,15 +1,15 @@
-import {pickMesh} from './engine/geometry.js?v=0.4.1';
-import {Camera} from './engine/camera.js?v=0.4.1';
-import {TouchSession} from './engine/session.js?v=0.4.1';
-import {createDebugPanel} from './debug.js?v=0.4.1';
-import {TouchInput} from './engine/interaction.js?v=0.4.1';
-import {Renderer} from './engine/renderer.js?v=0.4.1';
-import {AnimationLoop} from './engine/loop.js?v=0.4.1';
-import {loadCollection} from './collection.js?v=0.4.1';
-import {previewSvg} from './preview.js?v=0.4.1';
+import {pickMesh} from './engine/geometry.js?v=0.5.0';
+import {Camera} from './engine/camera.js?v=0.5.0';
+import {SpecimenSession} from './engine/session.js?v=0.5.0';
+import {createDebugPanel} from './debug.js?v=0.5.0';
+import {PointerInput} from './engine/interaction.js?v=0.5.0';
+import {Renderer} from './engine/renderer.js?v=0.5.0';
+import {AnimationLoop} from './engine/loop.js?v=0.5.0';
+import {loadCollection} from './collection.js?v=0.5.0';
+import {previewSvg,previewRaster} from './preview.js?v=0.5.0';
 const canvas=document.querySelector('#solid'),notice=document.querySelector('#notice'),hint=document.querySelector('#hint');
 const collectionView=document.querySelector('#collection-view'),touchView=document.querySelector('#touch-view'),grid=document.querySelector('#collection-grid'),status=document.querySelector('#collection-status');
-const session=new TouchSession(),camera=new Camera(),debugHost=document.querySelector('#debug-host');
+const session=new SpecimenSession(),camera=new Camera(),debugHost=document.querySelector('#debug-host');
 const debugMode=new URLSearchParams(location.search).has('debug'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
 let renderer=null,input=null,debug=null,contextLost=false,active=false,keyPress=false,items=[],selected=-1,collectionScroll=0;
 function message(text){notice.textContent=text;notice.hidden=false;hint.hidden=true;}
@@ -31,18 +31,22 @@ function show(index){
  const item=items[index];if(!item?.definition)return;
  if(!active)collectionScroll=collectionView.scrollTop;
  discard();selected=index;active=true;collectionView.hidden=true;touchView.hidden=false;
- document.querySelector('#specimen-name').textContent=`${String(item.index).padStart(2,'0')} / ${item.definition.name}`;
+ document.querySelector('#specimen-name').textContent=`${String(item.number??item.index).padStart(2,'0')} / ${item.definition.name}`;
  document.querySelector('#specimen-number').textContent=`${index+1} / ${items.length}`;
  notice.hidden=true;hint.hidden=false;hint.classList.remove('touched');canvas.hidden=false;
  session.select(item.definition);preference();
- input=new TouchInput(canvas,session.body,pick,()=>hint.classList.add('touched'),(x,y,q,p)=>camera.pullMapping(x,y,canvas.getBoundingClientRect(),q,p));
+ const touch=session.body.touchEnabled;
+ hint.textContent=touch?'押す。回す。長押しで引く。':'回して、眺める。';
+ canvas.setAttribute('aria-label',touch?'触れる立体。押す、回す、長押しで引く。矢印で回転、スペースで押せます。':'立体。ドラッグまたは矢印キーで回転。初期姿勢に戻せます。');
+ document.querySelector('#reset-pose').hidden=touch;
+ input=new PointerInput(canvas,session.body,pick,()=>hint.classList.add('touched'),(x,y,q,p)=>camera.pullMapping(x,y,canvas.getBoundingClientRect(),q,p));
  try{if(!renderer)renderer=new Renderer(canvas);}catch(error){
   canvas.hidden=true;message(error.message==='WEBGL2_UNAVAILABLE'?'このブラウザではWebGL 2を利用できません。別のブラウザで開いてみてください。':'描画を開始できませんでした。ページを開き直してください。');
   console.warn('Touch Lab could not start:',error.message);
  }
  if(contextLost){canvas.hidden=true;message('描画を一時停止しました。');}
  if(debugMode){
-  debug=createDebugPanel(session.body,input,debugHost,()=>renderer?renderer.gl.getError():'非対応');
+  if(session.body.touchEnabled)debug=createDebugPanel(session.body,input,debugHost,()=>renderer?renderer.gl.getError():'非対応');
   window.touchLab={body:session.body,mesh:session.mesh,camera,pick,renderer,input,loop};
  }
  resize();resume();if(!canvas.hidden)canvas.focus({preventScroll:true});else document.querySelector('#back').focus({preventScroll:true});
@@ -51,6 +55,7 @@ function back(){
  discard();active=false;touchView.hidden=true;collectionView.hidden=false;collectionView.scrollTop=collectionScroll;
  grid.querySelector(`[data-index="${selected}"]`)?.focus({preventScroll:true});
 }
+document.querySelector('#reset-pose').addEventListener('click',()=>{input?.cancel();session.body?.resetPose(session.definition.display.orientation);});
 document.querySelector('#back').addEventListener('click',back);
 document.querySelector('#previous').addEventListener('click',()=>show((selected+items.length-1)%items.length));
 document.querySelector('#next').addEventListener('click',()=>show((selected+1)%items.length));
@@ -66,7 +71,7 @@ canvas.addEventListener('keydown',e=>{
  if(input?.pointer||!session.body)return;
  const body=session.body;
  if(e.key.startsWith('Arrow')){e.preventDefault();body.release();const dx=e.key==='ArrowRight'?18:e.key==='ArrowLeft'?-18:0,dy=e.key==='ArrowDown'?18:e.key==='ArrowUp'?-18:0;body.drag(dx,dy,.1,400);hint.classList.add('touched');}
- if(e.code==='Space'&&!e.repeat){e.preventDefault();const r=canvas.getBoundingClientRect(),hit=pick(r.left+r.width/2,r.top+r.height/2);if(hit){body.press(hit);keyPress=true;}}
+ if(body.touchEnabled&&e.code==='Space'&&!e.repeat){e.preventDefault();const r=canvas.getBoundingClientRect(),hit=pick(r.left+r.width/2,r.top+r.height/2);if(hit){body.press(hit);keyPress=true;}}
 });
 canvas.addEventListener('keyup',e=>{if(e.code==='Space'&&keyPress){e.preventDefault();session.body?.release();keyPress=false;}});
 canvas.addEventListener('blur',()=>{keyPress=false;session.body?.cancel();});
@@ -75,11 +80,18 @@ try{
  const loaded=await loadCollection();items=loaded.filter(item=>item.definition);
  for(const item of loaded){
   const card=document.createElement('button');card.type='button';card.className='specimen-card';card.dataset.index=items.indexOf(item);
-  const number=document.createElement('span');number.className='card-number';number.textContent=String(item.index).padStart(2,'0');
+  const number=document.createElement('span');number.className='card-number';number.textContent=String(item.number??item.index).padStart(2,'0');
   const thumbnail=document.createElement('span');thumbnail.className='thumbnail';
   const name=document.createElement('span');name.className='card-name';name.textContent=item.definition?.name??item.id;
   const tags=document.createElement('span');tags.className='card-tags';tags.textContent=item.definition?.tags.join(' / ')??'準備中';
-  if(item.definition){thumbnail.innerHTML=previewSvg(item.definition);card.addEventListener('click',()=>show(items.indexOf(item)));}
+  if(item.definition){
+   if(item.definition.schema==='sukima3d-specimen/1')thumbnail.innerHTML=previewSvg(item.definition);
+   else{
+    const raster=previewRaster(item.definition),image=document.createElement('canvas');image.width=raster.width;image.height=raster.height;image.setAttribute('aria-hidden','true');
+    image.getContext('2d').putImageData(new ImageData(raster.pixels,raster.width,raster.height),0,0);thumbnail.append(image);
+   }
+   card.addEventListener('click',()=>show(items.indexOf(item)));
+  }
   else{card.disabled=true;thumbnail.textContent='読み込めませんでした';}
   card.append(number,thumbnail,name,tags);grid.append(card);
  }
