@@ -1,4 +1,4 @@
-import {add,sub,scale,dot,cross} from './math.js?v=0.6.0';
+import {add,sub,scale,dot,cross} from './math.js?v=0.7.0';
 
 export const PULL_DEFAULTS=Object.freeze({holdDelay:380,pullStrength:1,maxPull:.48,pullRadius:1.45,pullStiffness:520});
 export function attachment(mesh,hit,vertices=mesh.vertices){

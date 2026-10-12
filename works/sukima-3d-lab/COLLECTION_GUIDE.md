@@ -5,8 +5,8 @@
 ## 最短の追加手順
 
 1. 最新staging/mainとAGENTS.mdを確認し、作業branchを作ります。既存の作品内の小変更に適合するか、現在の開発運用で判断してください。
-2. `works/sukima-3d-lab/objects/<id>.json`を作ります。閉じた凸形状を触れる立体にするなら`stone.json`や`seed.json`、自由な形を眺めるなら`dent.json`・`ring.json`・`bowl.json`・`leaf.json`・`mobile.json`、パーツを動かすなら`pinwheel.json`・`shutter.json`・`pendulum.json`・`slider.json`・`mobile-motion.json`を複製し、**新しいID**で形・色・触感・姿勢を調整してください。既存データを上書きしません。
-3. `works/sukima-3d-lab/collection.json`の`items`末尾へ`{"id":"<id>","file":"objects/<id>.json"}`を追加します。`number`省略時は従来どおり0始まりの登録順です。既存00〜15、17〜36を保ち、v0.6追加分は37〜41です。次は`number:42`を指定し、以後も既存の順序・番号を変えません。番号は一意な0〜9999の整数です。
+2. `works/sukima-3d-lab/objects/<id>.json`を作ります。閉じた凸形状を触れる立体にするなら`stone.json`や`seed.json`、自由な形を眺めるなら`dent.json`・`ring.json`・`bowl.json`・`leaf.json`・`mobile.json`、パーツを動かすなら`pinwheel.json`・`shutter.json`・`pendulum.json`・`slider.json`・`mobile-motion.json`、指で動かす模型なら`door.json`・`crank.json`・`drawer.json`を複製し、**新しいID**で形・色・触感・姿勢を調整してください。既存データを上書きしません。
+3. `works/sukima-3d-lab/collection.json`の`items`末尾へ`{"id":"<id>","file":"objects/<id>.json"}`を追加します。`number`省略時は従来どおり0始まりの登録順です。既存00〜15、17〜36を保ち、v0.6追加分は37〜41、Collection 03は42〜56、v0.7追加分は57〜59です。次は`number:60`を指定し、以後も既存の順序・番号を変えません。番号は一意な0〜9999の整数です。
 4. 下記の自動テスト・描画・触感確認を行います。プレビューは同じデータから自動生成され、画像を別途用意する必要はありません。
 5. PRを作成し、必要なCI後にStagingへ反映します。Productionへの反映やDotsの定期実行は別の指示が必要です。
 
@@ -192,6 +192,65 @@ base transformと形状データを保存し、時間から毎回ローカル変
 - 静止プレビューが実物と違う場合はinitialAngle・phaseを含めたt=0を比べます。Motionを止めて全方向から確認し、再生して周期全体の余白と接続を確認します。
 - `tests/motion-fixture.html`はWebGLがないブラウザで入力と再生時計を確認するCPU用ページです。WebGL性能・iOS実機の証拠にはしません。
 
+## Manipulation — 指で動かす（v0.7）
+
+形は引き続き`parts`、直接操作は`behaviors.manipulation:{version:1,controls:[...]}`です。v1/v2既存データの変換は不要です。自律的に眺めたい動きにはMotion、指で角度や位置を保持したい動きにはManipulationを選びます。時間制御を手動値へ流用せず、同じ固定メッシュ・ローカル変換・描画・Pickingの基盤に、別の値制御を付けています。
+
+操作対象の`part`は`parts[].id`と一致させます。1パーツに操作を1つ、全体で1〜32個まで設定できます。**同じパーツのMotionとManipulationは拒否**します。異なるパーツなら自律Motionと直接操作を併用できます。**Touch変形との併用、親子階層、衝突、機構の連動は未対応**です。
+
+| type / キー | 内容・範囲 |
+| --- | --- |
+| 共通 `part`, `type`, `axis`, `initial`, `sensitivity` | typeは小文字`rotate` / `hinge` / `linear`。axisは有限な単位3ベクトル。感度0.25〜2、通常1。未知キー／欠けたキーも拒否 |
+| ROTATE `pivot` | 支点は形状座標（各−2〜2）、initialは−2π〜2π rad。操作中の角度は連続保持し、描画だけ周期を折り返す |
+| ROTATE 任意 `inertia`, `damping` | 慣性0〜1（省略・通常0）、減衰2〜18（省略8）。比較用で、通常は離した角度を保持 |
+| HINGE `pivot`, `min`, `max` | 支点はROTATE同様。範囲各−π〜π rad、max−minは0.001以上。initialは範囲内。途中で止められ、自動的には閉じない |
+| LINEAR `min`, `max` | パーツ軸に沿った移動量、各−1〜1、max−minは0.001以上。initialは範囲内。pivotは指定しない |
+
+角度はラジアン、移動量はbase scale適用後・display.scale適用前の単位です。axisはパーツ基準の直交軸で、base orientationが向きを決めます。pivotは倍率適用前のgeometry座標です。変換順はMotionと同じ **base scale → 支点回転／軸移動 → base orientation → base position → display.scale → 全体回転**です。元の頂点を書き換えて変形や復元を繰り返しません。
+
+### 指との対応と保持
+
+可動パーツに触れた時点でパーツIDを固定してPointer Captureを行います。途中で指が外れても同じ操作を続けます。固定パーツ・背景から始めたドラッグは従来の全体回転で、操作中に分類を切り替えません。つかむ瞬間の見えている姿勢を保存し、全体の慣性と揺れを止めるので、姿勢が突然変わりません。
+
+回転は軸を正面から見られる場合、軸に垂直な面へのレイ交点から支点周りの角度差を求めます。±πをまたいでも差分を連続して積み重ね、逆回転できます。斜め・横向きの軸は、触れた点の回転軌道を画面へ投影して指の差分に合わせます。LINEARは投影した移動軸へ指の差分を対応させます。範囲端では差分を取り直すため、大きく外へドラッグした後も逆方向へすぐ動きます。
+
+軸上や画面からほぼ見えない方向では、小さな指の移動を過剰に拡大せず動きを抑えます。固定部分・背景で模型を少し回し、操作方向が見える姿勢にしてください。操作開始でパーツは跳ねません。カメラ係数と全体姿勢は操作開始時に固定し、リサイズや画面切替で古い操作をキャンセルします。大きな角度差と慣性速度は上限で守ります。
+
+離すと角度・位置を保持します。cancel、capture loss、非表示、リサイズでも値は保持し、つかみ状態と速度だけ解除します。初期姿勢ボタン・作品の選び直しはJSONの初期値へ戻します。慣性はROTATEだけ任意で、基本3作品は0です。
+
+### 最小の開閉する面
+
+```json
+{
+  "schema":"sukima3d-specimen/2",
+  "id":"flap-study","name":"FLAP STUDY","tags":["指で開閉"],
+  "parts":[{
+    "id":"flap",
+    "geometry":{"surface":"open","vertices":[[0,-0.5,0],[0.8,-0.5,0],[0.8,0.5,0],[0,0.5,0]],"triangles":[[0,1,2],[0,2,3]]},
+    "material":{"kind":"matte","color":[0.48,0.56,0.43],"variation":0.018,"doubleSided":true},
+    "transform":{"position":[-0.4,0,0],"orientation":[0,0,0,1],"scale":[1,1,1]}
+  }],
+  "behaviors":{"manipulation":{"version":1,"controls":[{"part":"flap","type":"hinge","axis":[0,1,0],"pivot":[0,0,0],"initial":-0.15,"min":-1.3,"max":0,"sensitivity":1}]}},
+  "display":{"orientation":[0,-0.1986693308,0,0.9800665778],"scale":1}
+}
+```
+
+実例は57 DOOR（枠＋扉）、58 CRANK（台座＋軸＋回しやすい端のグリップ）、59 DRAWER（外箱＋中空のトレー）です。可動部にノブや面積を持たせ、細い軸だけをつかませない形を作ります。DOORは少し開いた初期値で方向を分かりやすくし、DRAWERは最大位置でも箱に一部残ります。見た目の支持・隙間・全可動範囲を作者が確認してください。衝突で隙間を自動修正しません。
+
+Dotsは近いJSONを複製し、新ID・part ID・形・マテリアル・軸・支点・初期値・範囲を調整して、collection末尾へ次番号（現在60）で登録します。**エンジン・入力・プレビューへ作品名の条件分岐を加えません**。静止プレビューは手動初期値を反映し、Pickingは操作後の行列で判定します。
+
+`?debug`に対象パーツ、入力mode、角度／移動量、感度、範囲、ROTATEの慣性／減衰を表示します。調整は一時的でJSONへ保存しません。範囲を変更すると位置はその範囲内へ制限され、表示範囲も再計算します。リセットは現在の調整範囲内の初期値へ、選び直しはJSON設定へ戻ります。
+
+必須確認：少しだけ動かして離す、逆へ戻す、端を越えてから逆へ動かす、全体を回した後に操作する、指を画面外へ動かす、操作中にリサイズ／切替／capture loss、リセット、静止・Motion・Touchの回帰。自動テストは既存56作品のJSON・登録・描画・Motion数値を変更前mainと照合し、手動操作のレイ、範囲、保持、キャンセル、同一パーツ競合、不正値も検査します。`tests/manipulation-fixture.html`は実際のPickingとPointerInputを使うCPU検証面です。WebGLや実機性能の確認とは区別します。
+
+| 症状 | 確認すること |
+| --- | --- |
+| つかんでも動かない | 固定部に隠れていないか、軸上を触っていないか、操作軸が画面上で見えるか |
+| 操作方向が違う | axisの符号、base orientation、pivotを世界座標で指定していないか |
+| 初めに大きく跳ねる | 初期値と範囲、ローカル支点、作者による独自の姿勢補正を混ぜていないか |
+| 扉が枠を貫く／引き出しが抜ける | 全範囲を回して確認。形やmin/maxを調整。今回は衝突で制限しない |
+| リセットすると違う位置 | 一時debug範囲内にinitialがあるか。選び直してJSON設定と比較 |
+
 ## 触感と形状保護
 
 形は`geometry`、見た目は`material`、触感は`feel`です。形を変えずにプロフィールを切り替えられます。`?debug`の比較は一時的な調整で、JSONへ自動保存しません。決まった値だけデータへ戻してください。
@@ -241,4 +300,4 @@ Stagingでは、一覧のプレビューと実際の形が一致するか、全�
 
 ## 別アプリでの使用
 
-`engine/specimen.js`の`validateSpecimen(data)`と`createSpecimen(data)`はDOM・展示室・通信に依存しません。JSONを読む方法は利用側で選べます。`createSpecimen`は元のbase transformを適用したbind meshを返し、Motionを自動再生しません。Motionを使うアプリは下記のsessionまたは独立したMotionPlayerを組み合わせます。`engine/session.js`の`SpecimenSession.select(data)`は能力に応じて新しい`RotationBody`または`TouchBody`とmeshを返します。旧名`TouchSession`も互換の別名として残っています。`engine/mesh.js`はパーツの変換とメッシュを扱い、`engine/rotation.js`は変形のない回転・慣性を扱います。`engine/behaviors.js`はTouch/Motionを選ぶ能力設定です。`SpecimenSession.motion`はMotion作品だけの`MotionPlayer`で、`session.step(dt)`、`session.resetPose()`、`session.clear()`で描画以外の再生ライフサイクルを扱えます。`Renderer.draw(mesh,pose,camera,motion)`へ任意で渡し、`motion.drawCommands(pose)`はUIなしでパーツごとの描画行列を返します。描画・カメラ・入力は利用するアプリ側で組み合わせます。今回、他作品への組込みや共通2D Engineの変更は行っていません。
+`engine/specimen.js`の`validateSpecimen(data)`と`createSpecimen(data)`はDOM・展示室・通信に依存しません。JSONを読む方法は利用側で選べます。`createSpecimen`は元のbase transformを適用したbind meshを返し、Motionを自動再生しません。Motion／直接操作を使うアプリは下記のsessionまたは独立したMotionPlayer／ManipulationPlayerを組み合わせます。`engine/session.js`の`SpecimenSession.select(data)`は能力に応じて新しい`RotationBody`または`TouchBody`とmeshを返します。旧名`TouchSession`も互換の別名として残っています。`engine/mesh.js`はパーツの変換とメッシュを扱い、`engine/rotation.js`は変形のない回転・慣性を扱います。`engine/behaviors.js`はTouch/Motion/Manipulationを選ぶ能力設定です。`session.assembly`は描画・Picking・snapshotを行う共有パーツ基盤、`session.manipulation`は手動値の制御です。`engine/manipulation-mapping.js`はDOMなしで画面差分を軸の差分へ変換し、PointerInputは取得済みhitと保持した対象へ渡します。`SpecimenSession.motion`はMotion作品だけの`MotionPlayer`で、`session.step(dt)`、`session.resetPose()`、`session.clear()`で描画以外の再生ライフサイクルを扱えます。`Renderer.draw(mesh,pose,camera,motion)`へ任意で渡し、`motion.drawCommands(pose)`はUIなしでパーツごとの描画行列を返します。描画・カメラ・入力は利用するアプリ側で組み合わせます。今回、他作品への組込みや共通2D Engineの変更は行っていません。

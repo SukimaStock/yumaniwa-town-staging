@@ -1,17 +1,17 @@
 <!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Motion · CPU / input fixture</title>
-<link rel="stylesheet" href="../style.css?v=0.6.0">
+<link rel="stylesheet" href="../style.css?v=0.7.0">
 <style>body{overflow:auto;padding:18px}h1{font-size:17px}p{font-size:12px}#controls{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0}#motion-canvas{width:min(100%,420px);height:420px;background:#f5f1e8;border:1px solid #d7cdbf}output{display:block;white-space:pre-line;font-size:12px;line-height:1.7;margin-top:12px}</style>
 <h1>Motion · ブラウザ入力・時計の検証</h1><p>CPU描画。WebGL・実機の描画性能や触感の検証ではありません。</p>
 <div id="controls"><label>作品 <select id="object"></select></label><button id="play" type="button">一時停止</button><button id="reset" type="button">初期姿勢</button><button id="reopen" type="button">開き直す</button></div>
 <canvas id="motion-canvas" width="200" height="200" tabindex="0" aria-label="Motion入力の検証。ドラッグで回転"></canvas><output id="motion-state" role="status">読み込み中</output>
 <script type="module">
-import {SpecimenSession} from '../engine/session.js?v=0.6.0';
-import {loadCollection} from '../collection.js?v=0.6.0';
-import {PointerInput} from '../engine/interaction.js?v=0.6.0';
-import {Camera} from '../engine/camera.js?v=0.6.0';
-import {AnimationLoop} from '../engine/loop.js?v=0.6.0';
-import {rasterMesh} from '../engine/raster.js?v=0.6.0';
+import {SpecimenSession} from '../engine/session.js?v=0.7.0';
+import {loadCollection} from '../collection.js?v=0.7.0';
+import {PointerInput} from '../engine/interaction.js?v=0.7.0';
+import {Camera} from '../engine/camera.js?v=0.7.0';
+import {AnimationLoop} from '../engine/loop.js?v=0.7.0';
+import {rasterMesh} from '../engine/raster.js?v=0.7.0';
 const session=new SpecimenSession(),camera=new Camera(),canvas=document.querySelector('#motion-canvas'),output=document.querySelector('#motion-state'),select=document.querySelector('#object'),play=document.querySelector('#play');
 const ctx=canvas.getContext('2d'),items=(await loadCollection(new URL('../',location.href))).filter(i=>i.definition?.behaviors?.motion);
 let input,original,lastDraw=0;

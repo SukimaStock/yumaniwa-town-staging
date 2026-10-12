@@ -12,7 +12,7 @@ import {previewRaster} from '../preview.js';
 import {rasterMesh} from '../engine/raster.js';
 import {loadCollection} from '../collection.js';
 const root=new URL('../',import.meta.url),read=p=>JSON.parse(readFileSync(new URL(p,root),'utf8'));
-const manifest=read('collection.json'),definitions=manifest.items.map(i=>read(i.file)),forms=definitions.filter(d=>d.schema==='sukima3d-specimen/2'&&!d.behaviors.motion);
+const manifest=read('collection.json'),definitions=manifest.items.map(i=>read(i.file)),forms=definitions.filter(d=>d.schema==='sukima3d-specimen/2'&&!d.behaviors.motion&&!d.behaviors.manipulation);
 const run=(b,t)=>{for(let n=0;n<t*120;n++)b.step(1/120);};
 const pixelCount=r=>r.pixels.filter((_,i)=>i%4===3&&r.pixels[i]>0).length;
 const normalAt=(mesh,hit)=>{const [a,b,c]=hit.triangle.map(i=>mesh.rest[i]);return norm(cross(sub(b,a),sub(c,a)));};
@@ -23,7 +23,7 @@ test('sixteen v0.4 data blobs, order and numbering remain immutable; 17–21 app
   assert.equal(createHash('sha256').update(readFileSync(new URL(item.file,root))).digest('hex'),item.sha256);
  }
  assert.deepEqual(manifest.items.slice(16,21).map(x=>[x.number,x.id]),[[17,'dent'],[18,'ring'],[19,'bowl'],[20,'leaf'],[21,'mobile']]);
- assert.equal(manifest.items.length,56);
+ assert.equal(manifest.items.length,59);
  assert.deepEqual(manifest.items.slice(21,36).map(x=>x.number),Array.from({length:15},(_,i)=>i+22));
  for(const d of definitions.slice(21,36)){assert.equal(d.schema,'sukima3d-specimen/2');assert.deepEqual(d.behaviors,{});}
  assert.equal(validateCollection(manifest),manifest.items);
@@ -144,7 +144,7 @@ test('explicit surfaces admit separate connected components without hulls or con
 });
 test('every guide JSON example is executable independently of gallery DOM',()=>{
  const guide=readFileSync(new URL('COLLECTION_GUIDE.md',root),'utf8'),examples=[...guide.matchAll(/```json\n([\s\S]*?)\n```/g)].map(m=>JSON.parse(m[1]));
- assert.equal(examples.length,3);for(const d of examples)assert.ok(new SpecimenSession().select(d).mesh.triangles.length>0);
+ assert.equal(examples.length,4);for(const d of examples)assert.ok(new SpecimenSession().select(d).mesh.triangles.length>0);
 });
 test('a new independent mesh file plus one registration loads without any engine or DOM edits',async()=>{
  const extra=structuredClone(forms[1]);extra.id='new-loop';extra.name='NEW LOOP';

@@ -1,0 +1,132 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f879482e2f120d7725b7a4a666f18f2e700b09c216c6805c86ab681fa06e383d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-hands-on-v07-current-20261012",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Touch Lab v0.7 Hands-on Miniatures: direct rotate hinge linear parts and three miniatures",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "cb1bcc8647d1cc43c7b1a40a6fee6d1bb4f8eddd",
+    "canonicalSources": [
+      "User v0.7 Hands-on Miniatures directive 2026-10-12",
+      "Merged PRs #289 #291 #292",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/sukima-3d-lab/COLLECTION_GUIDE.md",
+      "works/sukima-3d-lab/DEVELOPMENT.md",
+      "works/sukima-3d-lab/collection.json",
+      "Reviewed main #293 operations update; prior locked branch #294 superseded without merge"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-hands-on-v07-current-20261012/r0.lock.json",
+      "works/sukima-3d-lab/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "engine/**",
+      "data/work-search-meta.js",
+      ".github/**",
+      "works/tea-unfold*/**",
+      "works/town-glance*/**",
+      "data/work-lifecycle.json",
+      "index.html",
+      "sitemap.xml",
+      "assets/**",
+      "en/w/**",
+      "main.js",
+      "tools/**",
+      "w/**",
+      "style.css",
+      "works/orbit*/**",
+      "works/morning-thread*/**",
+      "data/works.js",
+      "data/town-maps.js"
+    ],
+    "expectedChanges": [
+      "Optional specimen/2 behaviors.manipulation version1 with part-ID controls rotate hinge linear and strict validation",
+      "Share immutable compiled part transforms/render/picking/snapshot foundation with v0.6 Motion; keep old outputs exactly",
+      "Captured direct part gestures driven by pivot/axis ray-plane angles or projected tangents; stable degenerate-axis guards; world-view rotation remains separate",
+      "Held intermediate values, bounded hinge/linear, optional rotate inertia default0, reset/cancel/switch lifecycle",
+      "57 DOOR 58 CRANK 59 DRAWER appended after unchanged56 JSON blobs/order/numbers",
+      "Minimal type-based hints, existing reset, hidden debug controls for part/type/value/sensitivity/range/inertia",
+      "Guide and baseline/interaction/geometry/native/browser tests; uniform0.7 cache graph"
+    ],
+    "ownerDecisions": [
+      "User expressly authorizes staging implementation, three named miniatures, minimal UI/debug, tests/review/PR/safe merge/publication; excludes Production/shared2D/other works"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Standard WORK Plan-first route for multi-file local capability extension",
+      "Data-only part ID configuration, no specimen-name runtime conditions",
+      "Autonomous and manual control may target different parts; same-part conflicts rejected; Touch+manipulation and hierarchy unsupported",
+      "One primary captured pointer; gesture target locked until end; stop viewer inertia without pose jump",
+      "No physics/collisions/editor/audio/game rules or automation"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-iphone-safari",
+      "physical-ipad-touch",
+      "owner-tactile-evaluation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated v0.7 work-only PR to v0.6 with all56 current works",
+    "outOfScope": [
+      "Production/shared2D/other works/global registries/Motion Lab",
+      "Touch+manual deformation, same-part auto+manual, hierarchy, collisions/IK/physics",
+      "Audio, scores, editor or new production automation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad feel, iOS callout suppression and hardware performance",
+      "Browser WebGL2 availability will be observed; native GLES and any labelled CPU fixture do not certify real device GL"
+    ],
+    "problem": "Author-defined Motion cannot yet be directly positioned by a finger",
+    "currentContract": "Specimen/2 indexed parts and optional independent Touch or autonomous Motion;56 works",
+    "whyExistingIsInsufficient": "No captured part-ID manual controller or screen-to-axis manipulation mapping",
+    "design": "Extract small DOM-free fixed-part assembly and local pose composition from Motion unchanged, add independent numeric manual controls and generic screen mappings. Use the same GPU buffers/per-part matrices, posed picking and bounded camera framing. Direct gestures latch part IDs; preserve all old input branches. Old56 baselines fixed before edits. Add3 low-poly miniatures and concise authoring guidance.",
+    "alternativesRejected": [
+      "Tap-triggered animations",
+      "Object-specific code, generic physics, editor, scene graph",
+      "Mandatory conversion of old JSON"
+    ],
+    "migration": "Additive optional behaviors.manipulation in specimen/2; no old JSON conversion",
+    "compatibility": "Same unchanged56 source data as original6de4dc0 baseline; transplant verified work tree from1e7281a without changing existing operations updates",
+    "boundaryCases": [
+      "Angle wrapping, inverted/oblique/edge-on axes, near pivot, large/coalesced moves and reversals",
+      "Partial range stop, range limits, optional inertia, pause/reset/cancel/capture loss/resize/hidden/switch",
+      "Bad references/type/units/values/ranges, same-part auto/manual conflict, unsupported Touch coexistence"
+    ],
+    "testPlan": [
+      "Baseline suite and immutable56 JSON/mesh/preview/Motion snapshots from base",
+      "Mapping/controller/Input property tests including all three miniatures, part vs whole capture and interruption",
+      "Actual fixed-buffer native shader scenes, initial/partial/end/reverse/turned/reset plus preview comparisons",
+      "Browser UI and labelled CPU fallback fixture if browser GPU unavailable, three CSS sizes",
+      "Exact-head Scope then Risk then Impact, CI/review then safe merge/Pages/public byte check"
+    ],
+    "promotionRisk": "Staging experimentation only; physical hardware/subjective quality/owner adoption/Production separate"
+  }
+}
