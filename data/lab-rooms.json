@@ -4,7 +4,7 @@
   "rooms": [
     {
       "id": "motion", "number": "01", "title": "Motion Lab", "subtitle": "動きの研究室",
-      "description": "小さな動きを触り、調整し、標本として残す。",
+      "description": "伸びる、揺れる、転がる。動きだけを試しています。",
       "machines": [{"work": "motion-lab", "note": "Slimeの伸び、PuddleMoonの波紋、Fireflyの小さな光。ひとつの実験室で試せます。"}]
     },
     {
@@ -34,7 +34,7 @@
     },
     {
       "id": "bench", "number": "05", "title": "Prototype Bench", "subtitle": "試作作業台",
-      "description": "まだ小さな思いつきを、ひとつずつ触ってみる。",
+      "description": "作りかけのゲームや小さな試作を置いています。",
       "machines": [
         {"work": "orbit-02", "note": "宇宙を漂い、拾ったEchoをHOMEへ持ち帰る試作。"},
         {"work": "coffee-factory", "note": "準備して、注いで、一杯を完成させる抽出タイマー。"},
@@ -46,7 +46,7 @@
     },
     {
       "id": "archive", "number": "06", "title": "Archive", "subtitle": "凍結保管庫",
-      "description": "研究を終えた機械と、そこで分かったことを残す。試作には今も触れられます。",
+      "description": "途中で止めた実験と、その記録を置いています。試作には今も触れられます。",
       "machines": []
     },
     {
