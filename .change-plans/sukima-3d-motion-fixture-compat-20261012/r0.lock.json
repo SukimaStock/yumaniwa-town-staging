@@ -1,0 +1,101 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "cbde7ccd141b4d4cd71902fc71c2e35c9ea0762b95bc3713071c476b929b612d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-motion-fixture-compat-20261012",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Fix CPU Motion browser fixture compatibility with v1 definitions lacking behaviors",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "ae25ebdad4c7b55b4516e1310c068a006520cb5a",
+    "canonicalSources": [
+      "User v0.6 request for implementation and browser verification",
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "Merged PR #289",
+      "works/sukima-3d-lab/tests/motion-fixture.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-motion-fixture-compat-20261012/r0.lock.json",
+      "works/sukima-3d-lab/tests/motion-fixture.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "engine/**",
+      "data/work-search-meta.js",
+      ".github/**",
+      "works/tea-unfold*/**",
+      "works/town-glance*/**",
+      "data/work-lifecycle.json",
+      "index.html",
+      "sitemap.xml",
+      "assets/**",
+      "en/w/**",
+      "main.js",
+      "tools/**",
+      "w/**",
+      "style.css",
+      "works/orbit*/**",
+      "works/morning-thread*/**",
+      "data/works.js",
+      "data/town-maps.js"
+    ],
+    "expectedChanges": [
+      "Optional-chain missing behaviors in existing CPU fixture collection filter; no engine, normal UI, geometry or network changes"
+    ],
+    "ownerDecisions": [
+      "User v0.6 request authorizes necessary browser-check fixes and safe staging PR/merge/publication within this work"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Small-edit classifier flags CONTRACT_REVIEW_REQUIRED because the changed line also contains existing getContext; use Standard WORK Plan-first route without editing gates",
+      "No actual shared/API/data contract change: v1 already permits absent behaviors",
+      "Fresh branch commits this lock before the single-character correction; superseded #290 remains unmerged"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "physical-iphone-safari",
+      "physical-ipad-touch",
+      "owner-tactile-evaluation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this fixture correction PR; keep the v0.6 Motion release",
+    "outOfScope": [
+      "Engine/normal gallery/source geometry/shared2D/other works/Production/automation changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad feel, iOS callout suppression and hardware performance",
+      "Browser WebGL2 availability will be observed; native GLES and any labelled CPU fixture do not certify real device GL"
+    ],
+    "design": "Use i.definition?.behaviors?.motion to filter all41 loaded entries safely; preserve all optional Motion playback logic.",
+    "testPlan": [
+      "19 relevant cache+Motion tests and exact fixture filter executed on all41 definitions plus unavailable entry",
+      "Inline module syntax, diff and exact-head Scope then Risk then Impact; CI before merge; public CPU browser controls afterward"
+    ],
+    "promotionRisk": "Staging fixture only; no production or hardware approval inferred"
+  }
+}
