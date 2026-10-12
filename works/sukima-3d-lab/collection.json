@@ -189,6 +189,81 @@
       "id": "mobile-motion",
       "file": "objects/mobile-motion.json",
       "number": 41
+    },
+    {
+      "id": "eccentric-hoop",
+      "file": "objects/eccentric-hoop.json",
+      "number": 42
+    },
+    {
+      "id": "folded-comet",
+      "file": "objects/folded-comet.json",
+      "number": 43
+    },
+    {
+      "id": "split-disc",
+      "file": "objects/split-disc.json",
+      "number": 44
+    },
+    {
+      "id": "breathing-keel",
+      "file": "objects/breathing-keel.json",
+      "number": 45
+    },
+    {
+      "id": "soft-beak",
+      "file": "objects/soft-beak.json",
+      "number": 46
+    },
+    {
+      "id": "tilting-cove",
+      "file": "objects/tilting-cove.json",
+      "number": 47
+    },
+    {
+      "id": "wandering-teeth",
+      "file": "objects/wandering-teeth.json",
+      "number": 48
+    },
+    {
+      "id": "rising-islands",
+      "file": "objects/rising-islands.json",
+      "number": 49
+    },
+    {
+      "id": "split-horizon",
+      "file": "objects/split-horizon.json",
+      "number": 50
+    },
+    {
+      "id": "phase-petals",
+      "file": "objects/phase-petals.json",
+      "number": 51
+    },
+    {
+      "id": "counter-arches",
+      "file": "objects/counter-arches.json",
+      "number": 52
+    },
+    {
+      "id": "slow-conversation",
+      "file": "objects/slow-conversation.json",
+      "number": 53
+    },
+    {
+      "id": "hollow-comma",
+      "file": "objects/hollow-comma.json",
+      "number": 54
+    },
+    {
+      "id": "walking-fold",
+      "file": "objects/walking-fold.json",
+      "number": 55
+    },
+    {
+      "id": "unsettled-crown",
+      "file": "objects/unsettled-crown.json",
+      "number": 56
     }
   ]
 }
