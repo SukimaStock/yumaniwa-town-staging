@@ -1,0 +1,131 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ca2e998487833466c1ac5171c39fb82155a86bb09f654358f95ab3df44d0dcd8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "feel-studio-v02-20261012",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "f7aac533b8745d28416a1230080d845f38dda37b",
+    "change": "Rebuild Feel Studio around independent immutable code builds, sandboxed prototypes and an actual author/Work branching roundtrip.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "works/feel-studio/**",
+      "data/work-lifecycle.json",
+      "tools/work-lifecycle.cjs",
+      "tools/lab-renderer.cjs",
+      "works/motion-lab/runner.js"
+    ],
+    "allowedPaths": [
+      "works/feel-studio/**",
+      "data/work-lifecycle.json",
+      "lab/index.html",
+      ".change-plans/feel-studio-v02-20261012/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "data/works.js",
+      "data/lab-rooms.json",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/pumpoko/**",
+      "works/pumpoko-02/**",
+      "works/motion-lab/**",
+      "works/sukima-3d-lab/**",
+      "lab/lab.js",
+      "lab/lab.css",
+      "lab/lab-finish.css"
+    ],
+    "expectedChanges": [
+      "Preserve playable 0.1 and its old storage namespace in legacy-01",
+      "Sandbox code builds independently; settings/history never overwrite other variants",
+      "Direct spatial and timing edits in two different projects",
+      "Implement original and two distinct AI branches; consume an actual exported request to create a fourth code build and import its linked response",
+      "Declare project-owned parts; compatible settings compose locally, code parts explicitly require Work",
+      "Retain adopted/held/edited/AI branches and validated portable workspaces; keep input replay",
+      "Update only Feel Studio lifecycle title/theme and regenerate LAB"
+    ],
+    "ownerDecisions": [
+      "2026-10-12 current user Feel Studio 0.2 instruction authorizes redesign, real cycle A-E, branch/PR/tests/safe Staging merge. Excludes all other works, shared Engine and Production."
+    ],
+    "hqDecisions": [
+      "Technical scope review: work-local v2 storage is a separate namespace; old v1 is preserved and available in legacy. Only installed same-work builds execute, in sandbox allow-scripts without same-origin, network or top navigation. JSON is data and cannot add executable URLs. Existing lifecycle/generator suffice."
+    ],
+    "rulesApplied": [
+      "AGENTS: active/staging-only; no production promotion or town installation",
+      "CHANGE-PLAN Full risk floor for lifecycle JSON and generated LAB; lock first",
+      "Existing MotionRunner handles pointers/visibility/resize/120Hz; no new common runtime",
+      "Record test environment truthfully; no physical iPhone claim"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Browser direct spatial and timing edits",
+      "Separate program comparison, parent preservation and inline branch/undo",
+      "Export a real Work request, implement its response and import it",
+      "Continue/restore/adopt/rebranch/reopen and second project reuse",
+      "Portrait and desktop comparison, isolation and stale message handling"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this PR: new work, appended lifecycle entry, generated LAB and lock. No migration of old saves.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Production",
+      "Existing works or shared Engine edits",
+      "Automatic AI communication",
+      "General game editor",
+      "New CI infrastructure"
+    ],
+    "unverified": [
+      "Physical iPhone Safari feel and performance",
+      "Author adoption"
+    ],
+    "problem": "0.1 compared fixed demo settings but did not connect AI code changes to production history.",
+    "currentContract": "0.1 has saved settings and a MotionRunner; all variants run the same Disc module.",
+    "whyExistingIsInsufficient": "Separate installed builds and request/response provenance are needed for actual code branches.",
+    "design": "Small working desk, immutable code manifests, sandboxed frames, direct declared handles, per-build config snapshots, explicit manual Work request and installed-response import.",
+    "migration": "Archive 0.1 with relative launch links repaired. No old save mutation. New v2 project namespaces.",
+    "compatibility": "No existing works, MotionRunner, Engine, Production or global runtime changes. Original code revisions remain playable.",
+    "promotionRisk": "Staging only; physical device and author adoption remain separate.",
+    "alternativesRejected": [
+      "Do not add disc presets",
+      "Do not execute imported code or arbitrary URLs",
+      "Do not label pending code synthesis as a running variant"
+    ],
+    "boundaryCases": [
+      "Blocked/corrupt storage and malformed imports",
+      "Unknown or changed code hashes",
+      "Cross-project/old-frame messages",
+      "Rapid program switching/hidden/resize",
+      "Request returning to a parent with later draft edits"
+    ],
+    "testPlan": [
+      "Node models/workspace/validation tests",
+      "Actual browser production cycle A-E and frame message routing",
+      "Legacy 0.1 regression and lifecycle/LAB",
+      "Scope/Risk/Impact/node syntax and trusted CI"
+    ]
+  }
+}
