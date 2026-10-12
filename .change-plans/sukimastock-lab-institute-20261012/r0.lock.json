@@ -1,0 +1,151 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9f8672d325933314334edffcc85ff64c827d44b9a36231ad6075d4fa0e320b4b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukimastock-lab-institute-20261012",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reconstruct the generated staging LAB as a seven-room private research institute",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "fcbbfd0a4fcf5e1d7fcdbd940bb261492db45ae4",
+    "canonicalSources": [
+      "data/work-lifecycle.json",
+      "tools/work-lifecycle.cjs",
+      "data/lab-rooms.json",
+      "works/town-glance/ARCHIVE.md",
+      "works/town-glance-02/ARCHIVE.md",
+      "works/town-glance-03/ARCHIVE.md",
+      "works/town-glance-04/ARCHIVE.md",
+      "works/morning-thread/ARCHIVE.md",
+      "works/morning-thread-02/ARCHIVE.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukimastock-lab-institute-20261012/r0.lock.json",
+      "data/lab-rooms.json",
+      "tools/work-lifecycle.cjs",
+      "tools/lab-renderer.cjs",
+      "lab/index.html",
+      "lab/lab.css",
+      "lab/lab.js",
+      "lab/DEVELOPMENT.md",
+      "tests/test-work-lifecycle.cjs",
+      "tests/test-work-lifecycle-browser.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "engine/**",
+      "assets/**",
+      "index.html",
+      "style.css",
+      "main.js",
+      "developer-access.js",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/work-lifecycle.json",
+      "w/**",
+      "en/**",
+      "sitemap.xml",
+      ".github/**",
+      "tools/change-**",
+      "OPERATIONS.md"
+    ],
+    "expectedChanges": [
+      "A lightweight cutaway institute with seven distinguishable room scenes and progressive room selection",
+      "A minimal placement file holds work IDs and presentation only; status and path always come from the existing lifecycle including its implicit active default",
+      "All frozen entries, original archive sections, historical anchor IDs and playable links remain available without JavaScript",
+      "Existing work pages open in the same tab; the browser Back action returns to the chosen LAB room; no work or engine changes",
+      "Extend the existing --write-lab/--check render boundary without changing lifecycle transitions or production gates",
+      "Document tests separately from pending author iPhone Safari and desktop visual checks"
+    ],
+    "ownerDecisions": [
+      "User request 2026-10-12: SukimaStock LAB name, seven rooms, exact entrance copy, private diorama appearance, lightweight room animations, staging implementation and protected production/town/works boundaries; author evaluates actual device feel after staging"
+    ],
+    "hqDecisions": [
+      "Technical design for the explicitly requested generator extension: delegate only LAB rendering to a local renderer, retain lifecycle gates unchanged, use one ID-based room configuration, and progressively enhance generated semantic HTML with local CSS/SVG and a small hash navigation script",
+      "Use existing plain same-tab links and browser Back; retain all archive anchors and full original sections; no iframe, game preload, shared engine, API, persistence or new operation system",
+      "Unassigned playable active/candidate prototypes can appear on the back of Prototype Bench; released works require an explicit research-result placement, and URL aliases stay omitted"
+    ],
+    "rulesApplied": [
+      "AGENTS.md staging authorization includes branch/commit/PR/tests/safe staging merge",
+      "Full Plan required by unknown-code risk profile for LAB HTML/CSS/JS and generator",
+      "CHANGE-VERIFICATION.md current final state remains UNVERIFIED; CI and tests do not attest author adoption or devices"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-safari-explore",
+      "desktop-cutaway-layout",
+      "room-animation-and-return-feel"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "problem": "The current LAB is a frozen archive list and does not expose active experiments or production tools as a place to explore.",
+    "currentContract": "tools/work-lifecycle.cjs generates lab/index.html from the lifecycle registry and frozen ARCHIVE.md files; --check compares exact output; frozen identity/runtime and production exclusion are protected.",
+    "whyExistingIsInsufficient": "The archive-only renderer cannot convey the requested seven-room institute or the relationship between active studies, tools and completed research results.",
+    "design": "Generate a semantic seven-room cutaway with symbolic local SVG machines; local CSS provides timber floors, light and restrained transform animation; a small optional hash script selects one room, restores selection after Back, and retains a no-JavaScript archive path. Machine URLs and lifecycle labels are resolved during generation, with existing URL existence checks. Native tools show their actual environment instead of a false Web launch.",
+    "alternativesRejected": [
+      "A card dashboard does not meet the requested spatial experience",
+      "Embedding live games or adding WebGL/free walking would add weight and exceed scope",
+      "Copying lifecycle statuses or editing only generated HTML would create drift",
+      "Adding LAB return UI to individual prototypes would violate protected work scope"
+    ],
+    "migration": "No identity, lifecycle or URL migration. Regenerate lab/index.html with the existing CLI after adding the placement/render assets.",
+    "compatibility": "Keep lab/, the town development link, all six frozen archive files and fragment IDs, same-tab work URLs, noindex,nofollow and a usable no-JavaScript fallback. Escape source text. Reduced-motion and narrow-view CSS are required.",
+    "boundaryCases": [
+      "320px and 390px portrait, landscape and desktop",
+      "JavaScript disabled",
+      "Old #town-glance and #morning-thread fragment links",
+      "Back/Forward and direct room fragments",
+      "An unregistered playable prototype remains implicit active",
+      "A future candidate is never displayed as released",
+      "Missing entrypoint, duplicate placement or a status in room config is rejected",
+      "Future frozen entries automatically retain their complete archive",
+      "External tools receive an environment label without a Web launch link",
+      "Reduced motion and hidden page stop symbolic animation"
+    ],
+    "testPlan": [
+      "node tools/work-lifecycle.cjs --list at untouched base",
+      "node tools/work-lifecycle.cjs --write-lab and --check with repeat generation equality",
+      "node --test tests/test-work-lifecycle.cjs including room config, archive, path/status and DOM-navigation regression",
+      "node --test tests/test-release-validator.cjs tests/test-work-guide.cjs",
+      "Existing Search / Share --check and published release validator without modifying SEO",
+      "Scope Guard then Risk Gate then Impact Check against the locked base and implementation SHA",
+      "Base-owned trusted PR checks and Pages workflow after staging merge",
+      "Optional existing browser regression is updated; browser QA is skipped if control-browser is unavailable, and physical iPhone/desktop checks are explicitly UNVERIFIED"
+    ],
+    "rollback": "Revert only this LAB implementation and generated index together; leave works, archives, lifecycle, engine, town, SEO and production untouched. The pre-implementation lock does not change runtime.",
+    "promotionRisk": "LAB is staging-only and must remain excluded from all production snapshots. No promotion is authorized.",
+    "promotion": "None: staging-only, no production changes",
+    "outOfScope": [
+      "Production",
+      "Town permanent entrance or UI",
+      "Work runtime/asset/archive edits",
+      "Shared Engine",
+      "SEO and release list",
+      "Overnight automation",
+      "New approval or operation system"
+    ],
+    "unverified": [
+      "Author iPhone Safari exploration and animation feel",
+      "Author desktop visual judgment",
+      "Real-device smoothness"
+    ]
+  }
+}
