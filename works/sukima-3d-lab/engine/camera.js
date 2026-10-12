@@ -1,4 +1,4 @@
-import {perspective,norm,rotate,inverse,sub} from './math.js?v=0.4.0';
+import {perspective,norm,rotate,inverse,sub} from './math.js?v=0.4.1';
 export class Camera {
  constructor(){this.fov=36*Math.PI/180;this.resize(1,1);}
  resize(width,height,radius=1.1){this.aspect=width/Math.max(1,height);this.distance=Math.max(4.75,3.7/this.aspect)*Math.max(1,radius/1.1);this.projection=perspective(this.fov,this.aspect);}

@@ -1,6 +1,6 @@
-import {axisAngle,multiply,norm,add,sub,scale,dot,cross} from './math.js?v=0.4.0';
-import {FEEL_PROFILES,DEFAULT_FEEL,springStep} from './response.js?v=0.4.0';
-import {PULL_DEFAULTS,attachment,pullWeights,resistantPull,safeScale} from './pull.js?v=0.4.0';
+import {axisAngle,multiply,norm,add,sub,scale,dot,cross} from './math.js?v=0.4.1';
+import {FEEL_PROFILES,DEFAULT_FEEL,springStep} from './response.js?v=0.4.1';
+import {PULL_DEFAULTS,attachment,pullWeights,resistantPull,safeScale} from './pull.js?v=0.4.1';
 export class TouchBody {
  constructor(mesh,options={}) {
   this.mesh=mesh;

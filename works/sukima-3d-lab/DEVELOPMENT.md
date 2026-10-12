@@ -15,7 +15,7 @@ Generic changes to existing engine:
 - Geometry packing reads a matte color/optional per-face palette and variation from mesh material. The legacy clay fallback and exact shaders/light remain unchanged.
 - Camera framing may move back for a specimen radius above 1.1. Original polyhedron framing is unchanged. The ground shadow also moves down for a larger bounding radius; its original position and shaders remain for the polyhedron.
 - TouchBody uses optional shape-owned pressure/displacement/pull caps and reuses the existing whole-field signed-area/edge-strain guard on all deformation of constrained shapes. No object-ID branches. Existing springs, impulse, hold/drag thresholds, quaternion drag/inertia and pull mapping are retained.
-- All module/CSS/data request URLs consistently use `?v=0.4.0`. Original `createPolyhedron()` remains the regression reference; production gallery loads its identical JSON copy. JSON requests conditionally revalidate HTTP caches, so subsequent data-only additions do not require changing engine/module versions. No runtime libraries, image downloads, external API, asset editor, storage, imported 3D engine or Dots automation.
+- All module/CSS/data request URLs consistently use `?v=0.4.1`. Original `createPolyhedron()` remains the regression reference; production gallery loads its identical JSON copy. JSON requests conditionally revalidate HTTP caches, so subsequent data-only additions do not require changing engine/module versions. No runtime libraries, image downloads, external API, asset editor, storage, imported 3D engine or Dots automation.
 
 Native iOS selection/callout guard from #280 is retained inline on main. Pointer listeners are destroyed/capture cancelled before switching. Each selection creates a fresh pose, zero angular/offset velocities and rest vertices; no deformation/profile from the previous specimen is reused. Resize, blur, visibility/pagehide, BFCache and context-loss cancellation remain. WebGL is initialized only when opening a specimen, so the Collection View still works without WebGL2. In that environment Touch View offers the existing graceful notice plus navigation.
 
@@ -33,7 +33,7 @@ node tests/test-work-lifecycle.cjs
 node works/sukima-3d-lab/tests/render-collection.mjs | python works/sukima-3d-lab/tests/check-gles.py /tmp/touch-v04-render
 ```
 
-All 38 pre-v0.4 tests are retained. Collection tests add original-mesh/pose/colors/response identity, every specimen/material/face picking and bounded press/pull/recovery, repeated mixed deformation, five viewport sizes/many rotations, invalid data, isolated loading failures, synthetic data-only addition/100-item loading and grabbed/spinning session replacement. 62/62 work tests and 24/24 existing lifecycle tests passed locally. Exact checked SHA and CI are recorded in the PR.
+All 38 pre-v0.4 tests are retained. Collection tests add original-mesh/pose/colors/response identity, every specimen/material/face picking and bounded press/pull/recovery, repeated mixed deformation, five viewport sizes/many rotations, invalid data, isolated loading failures, synthetic data-only addition/100-item loading and grabbed/spinning session replacement. 63/63 work tests and 24/24 existing lifecycle tests passed locally. Exact checked SHA and CI are recorded in the PR.
 
 Native Mesa GLES compiled/linked the exact unchanged shaders and rendered **126 specimen frames**: six specimens × seven rest/rotated/back/tap/held/pull/release states × 390×844, 844×390 and 900×900. Pixel evidence and GL errors are checked against each specimen's own rest frame. Rest-frame montage was visually inspected. This is native GLES evidence, not browser WebGL or actual iPhone/iPad touch/performance. No UI/ground shadow is included in native rendering. The v0.3 script remains usable separately.
 
@@ -154,3 +154,7 @@ Formal verificationState remains **UNVERIFIED** under the current repository con
 Future tuning depends on those observations: long-press discoverability/time, screen attachment lag versus resistance, neighbour radius/strain limits on other shapes and device performance. No additional gestures/editor are implemented.
 
 Rollback: revert this isolated PR, including only its target lifecycle title. The preceding v0.2 and cache repair remain available in Git history (#277/#278).
+
+## Static preview correction (package 0.4.1)
+
+Post-publication browser inspection found antialias seams between internal bending fan triangles in collection thumbnails. The preview now renders each original flat logical face as one polygon, using the same mesh corners/material/pose, with no alternate geometry asset. Native shaders/geometry/physics are unchanged. The complete module/CSS/data URL graph advances together to 0.4.1. A polygon-count regression prevents reintroducing internal preview subdivisions. `tests/viewport-fixture.html` embeds the actual app at portrait/landscape/tablet CSS sizes; it is a labelled developer QA page, not touch/device or WebGL certification. Final browser findings are recorded in the repair PR.
