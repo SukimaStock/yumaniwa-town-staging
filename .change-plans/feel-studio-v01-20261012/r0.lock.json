@@ -1,0 +1,135 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e1769ce133f98d39eebd5d95b8884d432d96d91802f7e5a2bd019c221b3e3f23",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "feel-studio-v01-20261012",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "d72ec746cf7af87750620dd88285bd786262d18a",
+    "change": "Build independent Feel Studio 0.1 with three mechanics, direct scene editing, immutable variants, replay, real component composition and manual AI handoff.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "works/feel-studio/**",
+      "data/work-lifecycle.json",
+      "tools/work-lifecycle.cjs",
+      "tools/lab-renderer.cjs",
+      "works/motion-lab/runner.js"
+    ],
+    "allowedPaths": [
+      "works/feel-studio/**",
+      "data/work-lifecycle.json",
+      "lab/index.html",
+      ".change-plans/feel-studio-v01-20261012/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "data/works.js",
+      "data/lab-rooms.json",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/pumpoko/**",
+      "works/pumpoko-02/**",
+      "works/motion-lab/**",
+      "works/sukima-3d-lab/**",
+      "lab/lab.js",
+      "lab/lab.css",
+      "lab/lab-finish.css"
+    ],
+    "expectedChanges": [
+      "One new work, using the unchanged MotionRunner input/lifecycle/fixed-step adapter",
+      "Three genuinely different drivers: inertial force, spring tether, frictional bristle; separate collision restitution and coast/viscous/dry stopping",
+      "Edit shared terrain/start position and per-variant pull strength directly on canvas; switch/retry with zero dynamic state",
+      "Keep immutable saved snapshots and working drafts; apply identical recorded pointer frames from one frozen scene",
+      "Compose independently implemented bounce/stop components into a playable saved child with provenance",
+      "Export/import strict versioned JSON plus human handoff; no automatic communication",
+      "Append one active/staging-only Lifecycle entry and regenerate LAB with unchanged generator"
+    ],
+    "ownerDecisions": [
+      "2026-10-12 user Feel Studio 0.1 request explicitly authorizes design, implementation, tests, isolated branch/PR, safe Staging merge and URL confirmation; excludes Production and completed PUMPOKO."
+    ],
+    "hqDecisions": [
+      "Technical scope review: existing Lifecycle/LAB consistency requires registry and generated LAB alongside the isolated work. No schema, generator, Engine, shared UI or save contract changes. Work-owned namespace and adapter suffice."
+    ],
+    "rulesApplied": [
+      "AGENTS: active/staging-only; no production promotion or town installation",
+      "CHANGE-PLAN Full risk floor for lifecycle JSON and generated LAB; lock first",
+      "Existing MotionRunner handles pointers/visibility/resize/120Hz; no new common runtime",
+      "Record test environment truthfully; no physical iPhone claim"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Three-way interaction and same-start replay",
+      "Direct edit, branching save, restore and actual bounce/stop combination",
+      "JSON handoff and roundtrip",
+      "Responsive canvas and lifecycle cancellation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this PR: new work, appended lifecycle entry, generated LAB and lock. No migration of old saves.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Production",
+      "Existing works or shared Engine edits",
+      "Automatic AI communication",
+      "General game editor",
+      "New CI infrastructure"
+    ],
+    "unverified": [
+      "Physical iPhone/iPad Safari feel and performance",
+      "Real browser visual QA unless a supported browser becomes available",
+      "Owner adoption"
+    ],
+    "problem": "Text-only AI iteration makes tactile comparison and partial adoption slow.",
+    "currentContract": "Motion Lab offers Runner and versioned specimens; Engine offers diagnostic reports and live tuning; 3D has direct manipulation. None provides simultaneous branches and real component choices.",
+    "whyExistingIsInsufficient": "A work-local studio session layer and adapter enable comparison without changing established runtimes.",
+    "design": "A quiet miniature desk with a wooden disc and editable terrain; A/B/C beneath a large canvas, optional tools, exact immutable snapshots and structured handoff.",
+    "migration": "New namespace only. One new active entry; unchanged generator refreshes LAB.",
+    "compatibility": "Read-only MotionRunner dependency; independent UMD model/session modules; no runtime, storage key, launch or URL edits to existing works.",
+    "promotionRisk": "CI and Staging availability are distinct from physical device verification and owner adoption.",
+    "alternativesRejected": [
+      "Do not reuse finished PUMPOKO",
+      "Do not duplicate Engine or add global tunables",
+      "Do not pretend arbitrary mechanic synthesis",
+      "Do not change workflows merely to run new tests"
+    ],
+    "boundaryCases": [
+      "Pointer cancel, blur, hidden, resize and lost capture",
+      "Blocked/corrupt/quota-limited storage",
+      "Invalid imports and conflicting snapshot IDs",
+      "Same-input comparison across distinct force mappings",
+      "Terrain bounds and rapid switching",
+      "Unsaved draft retention"
+    ],
+    "testPlan": [
+      "Execute deterministic models and session scenarios in available JS runtime",
+      "Test original MotionRunner with event/canvas harness",
+      "Check provenance, replay equality and meaningful mechanic differences",
+      "Generate and verify LAB byte equality with unchanged source",
+      "Trusted PR gates and release regression Actions",
+      "Record browser and physical device gaps"
+    ]
+  }
+}
