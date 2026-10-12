@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs'), path = require('node:path'), os = require('node:os');
 const { execFileSync, spawnSync } = require('node:child_process');
 const lifecycle = require('../tools/work-lifecycle.cjs');
+const lab = require('../tools/lab-renderer.cjs');
 const { validate } = require('../tools/release-validator.cjs');
 const ROOT = path.resolve(__dirname, '..');
 const registry = works => ({ schema: lifecycle.SCHEMA, defaults: { status: 'active', environment: 'staging' }, works });
@@ -179,8 +180,131 @@ test('registry/archives produce exact static LAB with six preserved playable lin
   assert.equal(frozen.length, 6);
   const html = lifecycle.renderLab(ROOT, data); assert.equal(html, fs.readFileSync(path.join(ROOT, 'lab/index.html'), 'utf8'));
   for (const work of frozen) { assert.ok(html.includes('href="../' + work.path + '/"')); assert.ok(html.includes('id="' + work.id + '"')); }
-  assert.match(html, /noindex,nofollow/); assert.ok(!html.includes('<script'));
+  assert.match(html, /noindex,nofollow/);
+  assert.equal((html.match(/<script\b/g) || []).length, 1);
+  assert.match(html, /<script src="\.\/lab\.js\?v=[a-f0-9]{12}" defer><\/script>/);
+  assert.doesNotMatch(html, /<iframe|https?:\/\/[^" ]+\.(?:js|css)/);
+  for (const work of frozen) {
+    const archive = fs.readFileSync(path.join(ROOT, work.archive), 'utf8');
+    for (const heading of lifecycle.HEADINGS) {
+      const section = archive.split('## ' + heading + '\n')[1].split('\n## ')[0].trim();
+      const escapedSection = section.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      assert.ok(html.includes(escapedSection), work.id + ': preserve full ' + heading);
+    }
+  }
   const escaped = lifecycle.renderLab(ROOT, { ...data, works: data.works.map(w => ({ ...w, title: '<img onerror="x">' })) }); assert.ok(!escaped.includes('<img onerror='));
+});
+test('LAB has seven rooms, unique project placements, current statuses and checked local links', () => {
+  const data = lifecycle.readRegistry(ROOT), works = lifecycle.listWorks(ROOT, data), rooms = lab.readRooms(ROOT, works);
+  assert.equal(rooms.length, 7);
+  const machines = rooms.flatMap(room => room.machines), placed = machines.filter(machine => machine.work);
+  assert.equal(new Set(placed.map(machine => machine.work.id)).size, placed.length);
+  for (const machine of placed) assert.equal(machine.status, lifecycle.statusFor(data, machine.work.id));
+  const pumpkin = placed.find(machine => machine.work.id === 'pumpoko');
+  assert.equal(pumpkin.status, 'released'); assert.equal(pumpkin.role, 'result');
+  assert.equal(placed.filter(machine => machine.work.id === 'sukima-3d-lab').length, 1);
+  assert.ok(!placed.some(machine => ['pumpoko-02', 'kotsu-koro'].includes(machine.work.id)));
+  const feel = placed.find(machine => machine.work.id === 'pumpoko-feel-lab');
+  assert.equal(feel.status, 'active'); assert.equal(feel.work.implicitDefault, true);
+  for (const machine of machines.filter(machine => machine.href)) {
+    const file = machine.href === '?dev=1' ? 'index.html' : machine.href + 'index.html';
+    assert.ok(fs.existsSync(path.join(ROOT, file)), file);
+  }
+  for (const id of ['unpushable-button', 'notification-badge', 'someone-pedometer', 'fast-forward-clock']) {
+    const machine = placed.find(machine => machine.work.id === id);
+    assert.equal(machine.href, null); assert.equal(machine.status, 'active'); assert.match(machine.entryNote, /準備中/);
+  }
+  for (const name of ['Yumaniwa Cleaner', 'Yumaniwa Desk', 'VectorBoy']) {
+    const machine = machines.find(machine => machine.title === name);
+    assert.equal(machine.href, undefined); assert.match(machine.environment, /Web版なし/);
+  }
+});
+test('LAB refuses duplicate placements, copied lifecycle fields, unsafe tool URLs and missing required entries', () => {
+  const works = lifecycle.listWorks(ROOT, lifecycle.readRegistry(ROOT));
+  const read = () => JSON.parse(fs.readFileSync(path.join(ROOT, lab.ROOM_FILE), 'utf8'));
+  for (const mutate of [
+    raw => raw.rooms[0].machines.push({ work: 'motion-lab' }),
+    raw => { raw.rooms[0].status = 'released'; },
+    raw => { raw.rooms[0].machines[0].status = 'released'; },
+    raw => { raw.rooms[0].machines[0].path = 'works/pumpoko'; },
+    raw => { raw.rooms[6].machines[0].href = 'https://example.invalid/'; },
+    raw => { raw.rooms[6].machines[0].href = 'tools/not-a-tool/'; },
+    raw => { raw.rooms[0].machines[0].work = 'missing-work'; },
+    raw => { raw.rooms[0].id = raw.rooms[1].id; }
+  ]) { const raw = read(); mutate(raw); assert.throws(() => lab.readRooms(ROOT, works, raw), /LAB:/); }
+  const missing = works.map(work => work.id === 'motion-lab' ? { ...work, path: 'works/missing-motion' } : work);
+  assert.throws(() => lab.readRooms(ROOT, missing), /Web entry missing/);
+});
+test('new unassigned playable prototypes go to the back bench; candidates do not become releases', t => {
+  const root = temp(t), works = lifecycle.listWorks(ROOT, lifecycle.readRegistry(ROOT));
+  for (const work of works) if (fs.existsSync(path.join(ROOT, work.path, 'index.html'))) put(root, work.path + '/index.html', 'entry');
+  put(root, 'index.html', 'town'); put(root, 'tools/map-factory/index.html', 'tool'); put(root, 'tools/audio-factory/index.html', 'tool');
+  for (const [id, status] of [['new-motion', 'active'], ['new-candidate', 'candidate'], ['other-release', 'released']]) {
+    put(root, 'works/' + id + '/index.html', 'entry'); works.push({ id, path: 'works/' + id, title: id, status });
+  }
+  const raw = JSON.parse(fs.readFileSync(path.join(ROOT, lab.ROOM_FILE), 'utf8'));
+  const rooms = lab.readRooms(root, works, raw), bench = rooms.find(room => room.id === 'bench');
+  for (const id of ['new-motion', 'new-candidate']) assert.equal(bench.machines.find(machine => machine.work.id === id).stored, true);
+  assert.equal(bench.machines.find(machine => machine.work.id === 'new-candidate').status, 'candidate');
+  assert.ok(!rooms.some(room => room.machines.some(machine => machine.work?.id === 'other-release')));
+  assert.equal(lab.STATUS_LABELS.candidate, '公開候補');
+});
+
+// A DOM/event model tests navigation only; it does not attest browser layout or devices.
+function navigation(hash = '', reduce = false) {
+  const vm = require('node:vm'), { createDOM } = require('./editor-dom.cjs');
+  const html = fs.readFileSync(path.join(ROOT, 'lab/index.html'), 'utf8');
+  const { document, Element } = createDOM(html), listeners = {}, scrolls = [];
+  Element.prototype.scrollIntoView = function (options) { scrolls.push({ id: this.id, options }); };
+  for (const panel of document.querySelectorAll('.room-panel')) {
+    panel.dataset.room = panel.getAttribute('data-room');
+    panel.querySelector('h2').textContent = panel.id;
+  }
+  for (const door of document.querySelectorAll('[data-room-link]')) door.dataset.roomLink = door.getAttribute('data-room-link');
+  document.hidden = false;
+  const window = { location: { hash }, matchMedia: () => ({ matches: reduce }), requestAnimationFrame: fn => fn(), addEventListener: (event, fn) => { (listeners[event] ||= []).push(fn); } };
+  vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'lab/lab.js'), 'utf8'), { document, window });
+  return { document, window, scrolls, fire: (event, payload) => { for (const fn of listeners[event] || []) fn(payload); } };
+}
+test('LAB navigation selects each room, focuses its heading and returns to the selected door', () => {
+  const n = navigation();
+  assert.equal(n.document.querySelectorAll('.room-panel').filter(panel => !panel.hidden).length, 0);
+  assert.equal(n.document.getElementById('hall').hidden, false);
+  for (const id of ['motion', 'touch', 'pumpoko', 'observation', 'bench', 'archive', 'garage']) {
+    n.window.location.hash = '#room-' + id; n.fire('hashchange');
+    const visible = n.document.querySelectorAll('.room-panel').filter(panel => !panel.hidden);
+    assert.equal(visible.length, 1); assert.equal(visible[0].dataset.room, id);
+    assert.equal(n.document.getElementById('hall').hidden, true);
+    assert.equal(n.document.activeElement.id, 'title-' + id);
+    const door = n.document.querySelectorAll('[data-room-link]').find(item => item.dataset.roomLink === id);
+    assert.equal(door.getAttribute('aria-current'), 'location');
+    n.window.location.hash = '#building'; n.fire('hashchange');
+    assert.equal(n.document.getElementById('hall').hidden, false);
+    assert.equal(n.document.activeElement, door);
+  }
+});
+test('LAB old archive fragments and browser cache restoration keep the archive accessible without a scroll reset', () => {
+  const n = navigation('#town-glance-03');
+  assert.equal(n.document.getElementById('room-archive').hidden, false);
+  assert.equal(n.document.getElementById('town-glance-03').closest('.room-panel').hidden, false);
+  n.fire('pageshow'); assert.equal(n.scrolls.length, 0);
+  n.window.location.hash = '#morning-thread'; n.fire('hashchange');
+  assert.equal(n.document.getElementById('room-archive').hidden, false);
+  assert.equal(n.scrolls.at(-1).id, 'morning-thread');
+  n.window.location.hash = '#%E0%A4%A'; assert.doesNotThrow(() => n.fire('hashchange'));
+  assert.equal(n.document.getElementById('hall').hidden, false);
+});
+test('LAB respects reduced motion, stops hidden-page animation and uses Escape for overview', () => {
+  const n = navigation('#room-touch', true);
+  n.fire('hashchange'); assert.equal(n.scrolls.at(-1).options.behavior, 'auto');
+  n.document.hidden = true; n.document.dispatch('visibilitychange');
+  assert.equal(n.document.body.classList.contains('is-paused'), true);
+  n.document.hidden = false; n.document.dispatch('visibilitychange');
+  assert.equal(n.document.body.classList.contains('is-paused'), false);
+  for (const handler of n.document.listeners.keydown) handler({ key: 'Escape' });
+  assert.equal(n.window.location.hash, 'building');
+  const css = fs.readFileSync(path.join(ROOT, 'lab/lab.css'), 'utf8');
+  assert.match(css, /@media\(prefers-reduced-motion:reduce\)/); assert.match(css, /animation:none!important/);
 });
 test('production validator fails closed for active/frozen/missing registry, despite explicit publication set', t => {
   const root = temp(t); put(root, 'data/works.js', 'var WORKS = [];');

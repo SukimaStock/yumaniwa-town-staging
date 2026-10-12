@@ -1,0 +1,69 @@
+{
+  "schema": "sukimastock-lab-rooms/1",
+  "omit": ["kotsu-koro", "pumpoko-02"],
+  "rooms": [
+    {
+      "id": "motion", "number": "01", "title": "Motion Lab", "subtitle": "動きの研究室",
+      "description": "小さな動きを触り、調整し、標本として残す。",
+      "machines": [{"work": "motion-lab", "note": "Slimeの伸び、PuddleMoonの波紋、Fireflyの小さな光。ひとつの実験室で試せます。"}]
+    },
+    {
+      "id": "touch", "number": "02", "title": "Touch Lab", "subtitle": "3D触感研究室",
+      "description": "立体を押す、回す、つまむ、引っ張る。",
+      "machines": [{"work": "sukima-3d-lab", "title": "SukimaStock 3D · Touch Lab", "note": "柔らかい多面体と、指を離したあとの余韻。"}]
+    },
+    {
+      "id": "pumpoko", "number": "03", "title": "PUMPOKO研究室", "subtitle": "植物運動・ゲーム物理研究室",
+      "description": "転がる、跳ねる、衝突する。勢いを受け渡す。",
+      "trait": "成果あり",
+      "machines": [
+        {"work": "pumpkin-rutabaga-lab", "title": "PUMPKIN × RUTABAGA", "note": "WORLD LOOP。地上と地下を行き来し、穴の相手を押し出す実験。"},
+        {"work": "pumpoko-feel-lab", "title": "PUMPOKO Feel Lab", "note": "小さな地形片で、転がる・跳ねる気持ちよさを比べる。"},
+        {"work": "pumpoko", "role": "result", "note": "WORLD LOOPの発見、バトンタッチ、地形の研究が、この本編へ育ちました。"},
+        {"work": "pumpoko-01", "stored": true, "note": "種を転がす最初のPUMPOKO。旧版として残した機械。"}
+      ]
+    },
+    {
+      "id": "observation", "number": "04", "title": "Observation Room", "subtitle": "現象観察室",
+      "description": "水の中でほどけるものを、じっくり眺める。",
+      "trait": "観察中",
+      "machines": [
+        {"work": "tea-unfold", "title": "茶葉がひらく / 01", "note": "最初の茶葉の試作。"},
+        {"work": "tea-unfold-02", "title": "ひと粒が、ほどける / 02", "note": "ひと粒の茶葉が、水の中でゆっくり開く。"}
+      ]
+    },
+    {
+      "id": "bench", "number": "05", "title": "Prototype Bench", "subtitle": "試作作業台",
+      "description": "まだ小さな思いつきを、ひとつずつ触ってみる。",
+      "machines": [
+        {"work": "orbit-02", "note": "宇宙を漂い、拾ったEchoをHOMEへ持ち帰る試作。"},
+        {"work": "coffee-factory", "note": "準備して、注いで、一杯を完成させる抽出タイマー。"},
+        {"work": "unpushable-button", "stored": true, "entryOptional": true, "note": "押したいのに、押せない。"},
+        {"work": "notification-badge", "stored": true, "entryOptional": true, "note": "通知の赤い粒が増えていく。"},
+        {"work": "someone-pedometer", "stored": true, "entryOptional": true, "note": "誰かの歩く気配を、小さな数字で。"},
+        {"work": "fast-forward-clock", "stored": true, "entryOptional": true, "note": "時間を早送りする小さな時計。"}
+      ]
+    },
+    {
+      "id": "archive", "number": "06", "title": "Archive", "subtitle": "凍結保管庫",
+      "description": "研究を終えた機械と、そこで分かったことを残す。試作には今も触れられます。",
+      "machines": []
+    },
+    {
+      "id": "garage", "number": "07", "title": "Tool Garage", "subtitle": "制作機材室",
+      "description": "素材を作り、整え、作品へ組み込むための道具。",
+      "trait": "制作機材",
+      "machines": [
+        {"title": "Map Factory", "href": "tools/map-factory/", "note": "町に置く素材を作り、組み合わせる。"},
+        {"title": "Yumaniwa Cleaner", "environment": "Codeaで使用 · Web版なし", "note": "画像を整え、町に置く素材へ仕上げる。"},
+        {"title": "Yumaniwa Desk", "environment": "Pythonistaで使用 · Web版なし", "note": "素材や配置を、制作データへ安全に反映する。"},
+        {"title": "Map Editor", "href": "?dev=1", "note": "湯間庭町の「開発 → マップ編集」から使う配置道具。"},
+        {"title": "Audio Factory", "href": "tools/audio-factory/", "note": "小さな音を作り、聴いて調整する。"},
+        {"title": "VectorBoy", "environment": "外部制作環境で使用 · Web版なし", "note": "十字キーとボタンの感覚で、形を細かく整える。"},
+        {"work": "mixed-note", "title": "Mixed Note", "note": "日本語と英語を混ぜて書くための下書き道具。"},
+        {"work": "engine-canary", "stored": true, "note": "Engineの動作を確かめる検査器。"},
+        {"work": "rakugaki-template-test", "stored": true, "note": "新しい筐体を作るための雛形。"}
+      ]
+    }
+  ]
+}
