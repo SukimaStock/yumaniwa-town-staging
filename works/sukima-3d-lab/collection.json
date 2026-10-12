@@ -24,6 +24,46 @@
     {
       "id": "odd",
       "file": "objects/odd.json"
+    },
+    {
+      "id": "willow",
+      "file": "objects/willow.json"
+    },
+    {
+      "id": "basalt",
+      "file": "objects/basalt.json"
+    },
+    {
+      "id": "ice-raft",
+      "file": "objects/ice-raft.json"
+    },
+    {
+      "id": "doorstop",
+      "file": "objects/doorstop.json"
+    },
+    {
+      "id": "lean-block",
+      "file": "objects/lean-block.json"
+    },
+    {
+      "id": "tetra",
+      "file": "objects/tetra.json"
+    },
+    {
+      "id": "elsewhere",
+      "file": "objects/elsewhere.json"
+    },
+    {
+      "id": "offset",
+      "file": "objects/offset.json"
+    },
+    {
+      "id": "far-tip",
+      "file": "objects/far-tip.json"
+    },
+    {
+      "id": "pause",
+      "file": "objects/pause.json"
     }
   ]
 }

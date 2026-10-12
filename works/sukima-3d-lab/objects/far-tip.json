@@ -1,0 +1,105 @@
+{
+  "schema": "sukima3d-specimen/1",
+  "id": "far-tip",
+  "name": "FAR TIP / とおい先",
+  "tags": [
+    "不明",
+    "横長",
+    "ふたつの先"
+  ],
+  "geometry": {
+    "vertices": [
+      [
+        -0.35,
+        0.7,
+        0.03
+      ],
+      [
+        -0.35,
+        -0.42,
+        0.62
+      ],
+      [
+        -0.35,
+        -0.5,
+        -0.65
+      ],
+      [
+        -1.04,
+        -0.05,
+        0.0
+      ],
+      [
+        1.23,
+        0.04,
+        0.01
+      ]
+    ],
+    "faces": [
+      [
+        3,
+        0,
+        2
+      ],
+      [
+        2,
+        0,
+        4
+      ],
+      [
+        1,
+        0,
+        3
+      ],
+      [
+        4,
+        0,
+        1
+      ],
+      [
+        2,
+        1,
+        3
+      ],
+      [
+        4,
+        1,
+        2
+      ]
+    ],
+    "cornerCompliance": 0.26,
+    "centerCompliance": 1,
+    "limits": {
+      "pressDepth": 0.09,
+      "maxDisplacement": 0.13,
+      "maxPull": 0.2
+    }
+  },
+  "material": {
+    "kind": "matte",
+    "color": [
+      0.57,
+      0.64,
+      0.63
+    ],
+    "variation": 0.018
+  },
+  "feel": {
+    "profile": "BOUNCY",
+    "overrides": {
+      "depth": 0.1,
+      "radius": 0.72,
+      "pullStrength": 0.65,
+      "returnDamping": 0.58
+    }
+  },
+  "display": {
+    "orientation": [
+      0.091519466,
+      -0.115055738,
+      -0.101110368,
+      0.983952772
+    ],
+    "scale": 1
+  }
+}

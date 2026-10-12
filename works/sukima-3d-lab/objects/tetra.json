@@ -1,0 +1,88 @@
+{
+  "schema": "sukima3d-specimen/1",
+  "id": "tetra",
+  "name": "TETRA / 四つ角",
+  "tags": [
+    "人工",
+    "四面",
+    "弾む"
+  ],
+  "geometry": {
+    "vertices": [
+      [
+        -0.87,
+        -0.57,
+        0.51
+      ],
+      [
+        0.92,
+        -0.57,
+        0.39
+      ],
+      [
+        -0.05,
+        -0.57,
+        -0.97
+      ],
+      [
+        0.15,
+        0.97,
+        0.03
+      ]
+    ],
+    "faces": [
+      [
+        3,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        2
+      ],
+      [
+        2,
+        0,
+        3
+      ],
+      [
+        3,
+        1,
+        2
+      ]
+    ],
+    "cornerCompliance": 0.33,
+    "centerCompliance": 1,
+    "limits": {
+      "pressDepth": 0.13,
+      "maxDisplacement": 0.18,
+      "maxPull": 0.27
+    }
+  },
+  "material": {
+    "kind": "matte",
+    "color": [
+      0.66,
+      0.48,
+      0.46
+    ],
+    "variation": 0.018
+  },
+  "feel": {
+    "profile": "BOUNCY",
+    "overrides": {
+      "returnDamping": 0.51,
+      "maxPull": 0.27
+    }
+  },
+  "display": {
+    "orientation": [
+      0.167348892,
+      -0.328205071,
+      0.110064524,
+      0.923125983
+    ],
+    "scale": 1
+  }
+}

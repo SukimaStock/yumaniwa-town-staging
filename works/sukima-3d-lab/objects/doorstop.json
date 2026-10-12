@@ -1,0 +1,109 @@
+{
+  "schema": "sukima3d-specimen/1",
+  "id": "doorstop",
+  "name": "DOORSTOP / 戸あたり",
+  "tags": [
+    "人工",
+    "楔",
+    "斜面"
+  ],
+  "geometry": {
+    "vertices": [
+      [
+        -0.94,
+        -0.46,
+        -0.42
+      ],
+      [
+        0.9,
+        -0.46,
+        -0.42
+      ],
+      [
+        0.9,
+        0.63,
+        -0.42
+      ],
+      [
+        -0.94,
+        -0.46,
+        0.42
+      ],
+      [
+        0.9,
+        -0.46,
+        0.42
+      ],
+      [
+        0.9,
+        0.63,
+        0.42
+      ]
+    ],
+    "faces": [
+      [
+        1,
+        0,
+        2
+      ],
+      [
+        5,
+        3,
+        4
+      ],
+      [
+        4,
+        3,
+        0,
+        1
+      ],
+      [
+        5,
+        2,
+        0,
+        3
+      ],
+      [
+        5,
+        4,
+        1,
+        2
+      ]
+    ],
+    "cornerCompliance": 0.3,
+    "centerCompliance": 1,
+    "limits": {
+      "pressDepth": 0.09,
+      "maxDisplacement": 0.12,
+      "maxPull": 0.18
+    }
+  },
+  "material": {
+    "kind": "matte",
+    "color": [
+      0.64,
+      0.43,
+      0.29
+    ],
+    "variation": 0.018
+  },
+  "feel": {
+    "profile": "HARD",
+    "overrides": {
+      "depth": 0.1,
+      "maxPull": 0.18,
+      "pullStrength": 0.75,
+      "restoreStiffness": 360,
+      "returnDamping": 0.72
+    }
+  },
+  "display": {
+    "orientation": [
+      0.094194165,
+      -0.259956004,
+      0.00189821,
+      0.961013388
+    ],
+    "scale": 1
+  }
+}
