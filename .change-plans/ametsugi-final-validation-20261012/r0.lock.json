@@ -1,0 +1,86 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "be8435a84fc522535ddf64fc1e4a51bd89999bd3b08895ac8a8438e0e3d6a042",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ametsugi-final-validation-20261012",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Reconcile Ametsugi's existing post-Pages evidence and record the final public browser checks without changing the game.",
+    "planLevel": "lite",
+    "classes": [
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "d72ec746cf7af87750620dd88285bd786262d18a",
+    "canonicalSources": [
+      "works/ametsugi/VALIDATION.md",
+      "works/ametsugi/RESEARCH.md",
+      "works/ametsugi/tests/viewport.html",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      "works/ametsugi/VALIDATION.md",
+      ".change-plans/ametsugi-final-validation-20261012/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "works/ametsugi/app.mjs",
+      "works/ametsugi/game.mjs",
+      "works/ametsugi/draw.mjs",
+      "works/ametsugi/index.html",
+      "works/ametsugi/style.css",
+      "works/ametsugi/tests/**",
+      "works/sukima-3d-lab/**",
+      "data/**",
+      "lab/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Replace the obsolete pending-publication statements with SHA-specific results already recorded in PR #303",
+      "Record newly observed public browser and regression results with truthful limitations",
+      "Give the author a short physical-iPhone checklist; retain active and formal verificationState UNVERIFIED"
+    ],
+    "ownerDecisions": [
+      "Current user instruction: resume existing Rain Tsugi work, complete final checks, minimum corrections, records, PR and safe Staging merge; Production, candidate promotion, formal town placement and unrelated shared changes are prohibited."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Documentation reconciliation is CONTENT; no executable or shared-contract change",
+      "Evidence containing URLs and recorded APIs is reviewed through the normal Plan-first gate rather than adjusting prose to force lightweight classification",
+      "If a game defect needs a fix, start a separate scope/Plan before changing executable files"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Compare #302/#303, current main and successful Pages/Actions",
+      "Public Chromium direct input and synthetic touch fixture: all roofs, end, mirror replay, screen sizes, cancel, mute and reset",
+      "Read final document to separate new observations from inherited evidence and physical-device limits"
+    ],
+    "impactChecks": [],
+    "impactExclusions": [],
+    "rollback": "Revert only this documentation PR; the already completed game, its registry and public behavior are unchanged.",
+    "outOfScope": [
+      "Game code or shared dependency changes",
+      "Production or lifecycle transitions",
+      "Source re-research or new game design"
+    ],
+    "promotion": "none; active / staging-only",
+    "unverified": [
+      "Physical iPhone/iPad and iOS Safari",
+      "Audible sound balance and tactile judgment",
+      "Author adoption",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
