@@ -1,3 +1,33 @@
+# Collection 24 · supplied STATIC trade tools260–269 — 2026-10-13
+
+Parent accepted259 and authorized these ten supplied drafts through safe Staging merge/exactSHA Pages. Current hardstop300; stop after this batch awaiting parent. Hydrant stays unregistered in batch22 originals for300. Clean base8fe8d588caa931a28d09e350166287de5342176c (PR346), Plan-only7bd1393 precedes implementation; digest8cb56ba99a17f50493ae80f8155305084ee710673fe80e7f0c3a54382f61a794. Existing AGENTS/guide/verification contracts and active/staging-only lifecycle retained. No .agents/skills available here. No engine/runtime/schema/gates/town/otherwork/Production changes.
+
+Original drafts preserved in `/workspace/scratch/sukima-batch24/originals/`. Reuse supplied coordinates and existing validation helpers. Only minimal correction: saw rear-grip lowerY−.30→−.32 and upperY.38→.40 (eight vertex Y components), removing visible coplanar top/bottom joint stripes while retaining both handle connections. All other original semantic fields unchanged; original images/logs retained.
+
+| Number / ID / name | Shape / comparison |
+| --- | --- |
+| 260 `carpenter-try-square` 大工の直角定規 | L square blade embedded in wood stock |
+| 261 `cobbler-stitching-awl` 靴屋の縫いきり | Awl faceted grip and ferrule/needle joins |
+| 262 `flat-head-screwdriver` 修理屋の平たいねじ回し | Screwdriver thin shaft/flared flat tip |
+| 263 `flat-paintbrush` 看板屋の平はけ | Paintbrush uneven broad bristle top |
+| 264 `mason-pointing-trowel` 石工の三角ごて | Triangular trowel with offset neck/grip |
+| 265 `plasterers-hawk` 壁塗り職人のこて板 | Hawk tray underside grip and plaster mound touch |
+| 266 `plastering-float` 左官屋の木ごて | Float raised bridge handle and broad sole |
+| 267 `rubber-squeegee` 窓拭き屋の水切り | Squeegee tapered rubber edge |
+| 268 `short-hand-saw` 建具屋の短いのこぎり | Saw11 triangles one connected open sheet,13 boundary edges,three teeth; doublesided; compare front/back/turned |
+| 269 `wooden-marking-gauge` 建具師のけびき | Gauge transverse fence and fixed scribing pin; no adjustment claim |
+
+**STATIC10 / TOUCH0 / MOTION0 / MANIPULATION0**. These are rigid models with whole-object rotation; no cutting, measuring, adjustment or tool physics claim.
+
+## Evidence and checkpoint
+
+- Immutable259 complete entries/JSON hashes/order/missing16. Twenty-one historical total assertions259→269 only; old slices and goldens unchanged. Exactten/current300cap, strict all-item loading/identity, STATIC idle/rotation/reset/switch/immutable mesh regression. Final test counts and exact candidate SHA in PR/handoff.
+- Initial100 new native GLES frames passed unchanged checker, shipped shaders, CPU/GPU previews and three viewports. Visual inspection identified saw handle coplanar striping despite initial automatic PASS; corrected10 saw frames passed and inspected. Full269 native run started before correction was stopped as superseded with logs retained; final full269 run is separate and only actual exit0 counts as PASS.
+- Thirty closed convex/outward parts,31 pairs,17 expected fixed embedded joins (tool handles/ferrules/blades/bridges/fence). Hawk tray/grip/mound and float sole/bridges meet flush. Open saw is one connected double-sided zero-thickness sheet:13 vertices/11 positive triangles/13 boundary edges; summed triangle area0.5349715 equals polygon; three teeth continuous. Front/back/turned/preview inspected. Exactly edge-on disappearance is expected for an open sheet; no fake thickness or closed collision claim.
+- Allten STATIC mouse/CDPtouch surface/heldsurface/background/reverse/reset/switch, immutable mesh; representative old213 two-control linear and258 rotate everycontrol regressions,219Touch/235Motion/reducedmotion226 and269cards/scroll/threeviewports. Final actual counts/errors in PR/handoff. Chromium mobile-equivalent is not physical iPhone/Safari. No milestone crossed: next performance measurements at300.
+- Public UI, physical iPhone/iPad/Safari and author adoption remain UNVERIFIED unless separately observed. Known intermittent public first-load failures have no diagnosed cause; local passes do not claim repair.
+- After safe merge formal269,next270,31 remain to current300cap. **Stop and await parent continuation; no270+ authored/registered.** Final CI/review/exactSHA Pages/public availability and merge/candidate tree are recorded in PR and `/workspace/scratch/sukima-batch24/handoff.json`. Earlier records follow unchanged.
+
 # Collection 23 · supplied miniatures250–259 — 2026-10-13
 
 Parent accepted249 and authorized250–259; current hardstop300, wait for parent after this batch. Hydrant remains original-only under batch22, reserved as a candidate for300. Latest clean main00203ad8ee0e25f4372092a69eedd6fd7f24b4f8 (PR345); AGENTS/guide/Plan/verification rules unchanged, workactive/staging-only. Plan-only1063303 precedes implementation; digestcb7d1ccf80d20162fe8a8152b70fe58e71a205f9398f0eb947c19cc67a41ea41. Immutable249 snapshot protects complete entries/JSON bytes/order/missing16. No engine/runtime/schema/gates/town/otherwork/Production changes.
