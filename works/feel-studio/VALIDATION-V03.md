@@ -23,3 +23,9 @@ Paper direct native drag moved rest to (u=.36,v=.6449294); common timing slider 
 The cloud Chrome returned null for a WebGL context. This is an observed environment limitation, not a WebGL rendering PASS. Original WebGL A/B remain immutable. New independent drawer-c plus view-fallback.js offers GPU WebGL where available and work-owned CPU 3D geometry, depth sorting and perspective projection otherwise. The desk did not change for this registration. Genuine WebGL draw/mapping logic is harness-tested, but actual GPU WebGL display and device performance remain unverified.
 
 DOM comparison loaded through API-free HTML; editing disabled and Level 1 limitations displayed. Node tests include CPU 3D fallback projection/mapping.
+
+## Completed 2D public browser cycle at 4db4bad
+
+Actual UI response imported paper-c as n-mv60bx23-qtlwqkm, linked to browser request r-n-mv5zywso-1uexap7 and saved A child. Further common slider edit .45 -> .50, adopted frozen child n-mv60cp28-cs9q7js, rebranch n-mv60cpud-gfgg3qp and parent navigation all succeeded. Reload restored adoption, setting and completed request. Actual replayable file: paper-browser-completed-workspace.json. DOM browser workspace preserves an adopted child of dom-a. Standalone paper play.html was operated directly and its only script was app.js, with no Bridge.
+
+Observed generic defect: a control:'work' position declaration was treated as a common screen marker although it intentionally has no screen coordinate. Fix routes work-owned controls to their hint and leaves the gesture to the work. A regression runs the actual common UI rendering function against this declaration plus a timing control; no project IDs or special cases are involved. Browser 3D gesture verification continues after this fix is published. Parent script cache query advances to 0.3.1.
