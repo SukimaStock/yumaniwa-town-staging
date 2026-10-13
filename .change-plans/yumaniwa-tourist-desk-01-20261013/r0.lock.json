@@ -1,0 +1,122 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "84157aa49c8b5aacb04a57341645461db1f5ab2c11dbecdd0df1a56cfdeb62f2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "yumaniwa-tourist-desk-01-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "ba34f6a76ca70adf0122097d9ae3432f543a0ac5",
+    "change": "Add an independent tourist association desk prototype using twenty existing miniatures, and register it as active/staging-only in lifecycle and generated LAB.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "User tourist desk 0.1 instruction 2026-10-13",
+      "works/sukima-3d-lab/collection.json",
+      "works/sukima-3d-lab/engine/**",
+      "AGENTS.md",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      "works/yumaniwa-tourist-desk/**",
+      "data/work-lifecycle.json",
+      "lab/index.html",
+      ".change-plans/yumaniwa-tourist-desk-01-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/sukima-3d-lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/pumpoko/**"
+    ],
+    "expectedChanges": [
+      "Add desk-local space, renderer and touch adapter, loading only 20 original models",
+      "Reuse eleven existing manual model mechanisms and fan spin; static props can move a little",
+      "Reuse SSE audio API with default silence and opt-in small material tones",
+      "Add exactly one active lifecycle record and regenerate LAB to expose the independent staging prototype",
+      "Add source tests and offscreen GLES validation record; leave browser/device validation explicitly unverified"
+    ],
+    "ownerDecisions": [
+      "The current user instruction authorizes new prototype implementation, related tests, PR, passing-CI Staging merge and GitHub Pages deployment. It explicitly excludes Production."
+    ],
+    "hqDecisions": [
+      "Keep all scene composition and multi-object adapters inside the new work. Reuse existing Renderer/Camera/RigidParts/Manipulation/Motion without changing their contract. Lifecycle and generated LAB are required existing metadata surfaces; no new town entry or UI."
+    ],
+    "rulesApplied": [
+      "AGENTS new work defaults active / staging-only",
+      "Lifecycle registry plus generated LAB exceed isolated-work path; lock before repository registration and source commit",
+      "No CI or GLES result is represented as author adoption or physical device PASS"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Offscreen 390x844 / 844x390 / 768x1024 / 1366x900 rest and manipulated composition",
+      "Physical iPhone/iPad Safari touch, rotation, return, audio: UNVERIFIED"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated Staging PR including its single lifecycle record and generated LAB addition. No source model or shared Engine changes to restore.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Production",
+      "Existing 3D Lab or model definition edits",
+      "Town menu, search, SEO or shared Engine changes",
+      "Games, goals, free roaming, physics collisions, durable state"
+    ],
+    "unverified": [
+      "Browser DOM events and Safari",
+      "Physical iPhone/iPad touch, performance, audio and lifecycle"
+    ],
+    "problem": "300 existing miniatures currently live as single-model displays; a shared working desk does not exist.",
+    "currentContract": "Lab exports Camera/Renderer/RigidParts/MotionPlayer/ManipulationPlayer and control mapping; work registry governs exploration and generated LAB.",
+    "whyExistingIsInsufficient": "Renderer.draw clears each frame for one specimen, so a work-local multi-object draw owner is needed. New prototype needs lifecycle and LAB reconciliation.",
+    "design": "Reuse exact Lab shaders and assemblies, add one work-local GPU upload and multi-object frame, world-local transforms and nearest ray hit selection. Authored axes remain local. Shelf mounted on rear board, plant supplied a pot.",
+    "migration": "One new active lifecycle record. No existing entries, URLs, storage or source definitions migrated.",
+    "compatibility": "Read-only imports of Lab modules and SSE audio. Existing town, model collection and works unaffected. Generated LAB gains one active prototype link.",
+    "promotionRisk": "Staging-only, no candidate or Production approval.",
+    "alternativesRejected": [
+      "Twenty separate canvases / gallery grids",
+      "Shared engine redesign",
+      "Invented model joints or flowing sand"
+    ],
+    "boundaryCases": [
+      "Multiple local scales and orientations",
+      "Nearest-depth picking of moved parts",
+      "Pointer capture, cancel, resize, hidden/restored page",
+      "GL context loss / restoration",
+      "Only selected model requests; DPR 1.5 cap",
+      "Physical device evidence remains unverified"
+    ],
+    "testPlan": [
+      "New scene test suite: 20 immutable models, transforms, placement, 11 controls, picking in 4 sizes, matchbox drag",
+      "Existing Lab manipulation/motion tests",
+      "Existing SSE audio lifecycle tests",
+      "Offscreen GLES 8 frames and visual review",
+      "Lifecycle validator and tests, frozen diff check",
+      "Scope -> Risk -> Impact and trusted PR/static CI"
+    ]
+  }
+}
