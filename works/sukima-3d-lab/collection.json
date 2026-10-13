@@ -579,6 +579,56 @@
       "id": "school-globe",
       "file": "objects/school-globe.json",
       "number": 119
+    },
+    {
+      "id": "grain-sack",
+      "file": "objects/grain-sack.json",
+      "number": 120
+    },
+    {
+      "id": "roof-gutter-corner",
+      "file": "objects/roof-gutter-corner.json",
+      "number": 121
+    },
+    {
+      "id": "tailor-scissors",
+      "file": "objects/tailor-scissors.json",
+      "number": 122
+    },
+    {
+      "id": "ticket-feeder",
+      "file": "objects/ticket-feeder.json",
+      "number": 123
+    },
+    {
+      "id": "folding-hanger",
+      "file": "objects/folding-hanger.json",
+      "number": 124
+    },
+    {
+      "id": "pottery-wheel",
+      "file": "objects/pottery-wheel.json",
+      "number": 125
+    },
+    {
+      "id": "rain-chain",
+      "file": "objects/rain-chain.json",
+      "number": 126
+    },
+    {
+      "id": "ginkgo-sprig",
+      "file": "objects/ginkgo-sprig.json",
+      "number": 127
+    },
+    {
+      "id": "desktop-fan",
+      "file": "objects/desktop-fan.json",
+      "number": 128
+    },
+    {
+      "id": "wooden-rocking-horse",
+      "file": "objects/wooden-rocking-horse.json",
+      "number": 129
     }
   ]
 }

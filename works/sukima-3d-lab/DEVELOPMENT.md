@@ -1,3 +1,33 @@
+# Collection 10 · 湯間庭町の小さな模型120–129 — 2026-10-13
+
+Parent authorized120–129 after PR326/main9c87a23afa5ec3e9a69af094713342d1055e84f2 and exactSHA Pages38348115827. Latest main, AGENTS, Plan/verification contract, guide, prior119 definitions/records and town palette reviewed; local `.agents/skills` absent. Work stays active/staging-only. Plan-only6bc70d0 precedes all source. Immutable119 snapshot is `tests/collection09-baseline.json`;00–15 implicit numbering, missing16, old order/entries/JSON bytes and1000 cap are protected. Candidate129; formal119 until merge.
+
+| No. / ID / name | Behavior | Shape, distinction and bounds |
+| --- | --- | --- |
+|120 `grain-sack` 米屋の小さな穀物袋 | TOUCH | Broad faceted belly tapers to a gathered flat crown. Convex one-piece cloth container, distinct from the prior cushion/fruit; conservative press.07/displacement.10/pull.16. |
+|121 `roof-gutter-corner` 軒下の曲がり雨樋 | STATIC | Actual open L-channel, bottom and raised walls above two mounting brackets; architectural fragment, not a closed abstract elbow. |
+|122 `tailor-scissors` 仕立屋の裁ちばさみ | MANIPULATION hingeZ | Broad loop handles and separate-depth blades; moving blade0….62rad, initial.22. Real pivot bore clears the fixed shaft. No linked second blade/cutting simulation. |
+|123 `ticket-feeder` 駅の切符差し込み口 | MANIPULATION linearZ | Broad ticket slides through an actual slot and remains partly supported;−.16….22, initial.08. No feed gears/payment/game. |
+|124 `folding-hanger` 宿の折り畳みハンガー | MANIPULATION two hingeZ | Independent broad shoulder arms in separate depth lanes and separate bored pivots; left0…1 initial.2, right−1…0 initial−.2. Unlike the paired paddles/shoji, shoulders fold down around an upper hanging hook. |
+|125 `pottery-wheel` 工房の手回しろくろ | MANIPULATION rotateY | Low broad platter and lopsided hollow pot are one rigid part, initial.3; fixed stem stays below. No throwing/deformation or linked mechanism. |
+|126 `rain-chain` 庭先の三段鎖樋 | STATIC | Three open flared cups around a narrow chain/rod, with real inner walls and throats. No water or unsupported pendular hierarchy. |
+|127 `ginkgo-sprig` 公園の銀杏の小枝 | STATIC | Two notched fan leaves in different orientations on a twig; folded thickness and asymmetric natural silhouette, not a recolored abstract leaf. |
+|128 `desktop-fan` 茶店の三枚羽根扇風機 | MOTION spinZ | Three swept blades and bored hub turn.55rad/s behind a fixed front guard and ahead of motor; no wind simulation. |
+|129 `wooden-rocking-horse` 古道具屋の木馬 | STATIC | Carved horse, uneven head/tail, four legs and two bowed runners; intentionally static, no claimed ground-contact rocking physics. |
+
+Four STATIC / one TOUCH / one MOTION / four MANIPULATION; five manual controls (hinge3/linear1/rotate1). Shapes compare soft/rigid, open/closed, natural/manmade, tall/flat, independent parts and asymmetric volumes against all prior119. New controls/schema/JS/physics are unnecessary.
+
+## Validation and restart checkpoint
+
+- Seven historical exact-count fixtures119→129 only; fixed past batch slices and goldens remain. New immutable119/exact-ten tests verify all entries/bytes, numbering/IDs, full reading/schema, ranges/cycles, unchanged source/mesh, hold/reverse/reset/switch and1000 cap. Initial299 tests pass; final results are recorded at the exact PR head. Lifecycle24.
+- Initial clearance exposed the scissor blade covering its pivot bore and the two hanger shafts intersecting the opposite hub. Blade roots now stop outside the hole; hanger pivots separate.16→.28. Initial scissor preview also exposed a malformed conditional-mirror outline; a correctly ordered closed outline fixes it. Initial JSON and failed logs retained under `/workspace/scratch/sukima-batch10/`.
+- Initial fan preview exposed coplanar crossing guard bars; one bar is offset in depth. No renderer/preview/validator/threshold changes. Strict new-object native preflight precedes unchanged full129 collection GLES checking, including all three viewports and200px CPU/GPU previews. Actual final frame counts are in the PR/handoff, not copied from prior batches.
+- Clearance covers145 positions for each manual control and the full fan cycle2π/speed, plus25×25 hanger arm combinations:1495 configurations. Annular hubs/handles/guard are split into actual convex sectors to preserve holes. Post-pivot-fix287615 component-pair comparisons have zero overlap; final post-guard-fix confirmation is retained separately.
+- Actual mouse and CDP touch cover all five controls: stationary/no-jump, tiny/reverse, intermediate hold, both endpoints and same-capture overtravel, fixed-part whole rotation, re-pick after rotation, initial reset/switch. Other-mode checks cover new Touch pressure/pull/recovery, STATIC/MOTION, pause/reset/reduced-motion and129-card navigation/full scroll at390×844,844×390,768×1024. Local SwiftShader/nativeGLES are not physical iPhone/Safari evidence.
+- Next specified full performance milestone remains300. Ordinary129-card load/scroll/input is checked; no exhaustive benchmark or speculative performance edit. PR324 scheduling/focus fallback, cache0.7.1 and all app/engine/preview/measurement files remain byte-identical.
+- Required before merge: Scope→Risk→Impact, self/automatic review and currentCI at exacthead. After merge: identical tree and Pages build/deploy exactSHA. Parent owns public card/navigation confirmation; known container403 is not retried. verificationState staysUNVERIFIED for physicalSafari/author adoption; Production is out of scope.
+- Resume after this batch: formal129, next130–139, remaining871 to exactly1000; no130+ authored. Last normal published state remains119 until this PR merges. Exact candidate/merge SHA, CI/Pages links, tests and any retained failures are in the PR and `/workspace/scratch/sukima-batch10/handoff.json`. Preserve all previous records below.
+
 # Collection 09 · 湯間庭町の小さな模型110–119 — 2026-10-13
 
 Parent explicitly authorized110–119 after PR325; latest main42ca4c60995dd53e2c1d18d205dc6a4653df22e8 and exactSHA Pages38345388297 confirmed before work. AGENTS, current Plan/verification rules, collection guide, previous records/109 definitions and established town palette reviewed. Local `.agents/skills` remains absent; work lifecycle remainsactive/staging-only. Plan-only186b0f5 precedes source. Immutable109 snapshot is `tests/collection08-baseline.json`; implicit00–15, missing16 and prior order/bytes remain protected. Final candidate119; formal109 until this data PR merges.
