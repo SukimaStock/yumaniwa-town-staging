@@ -1029,6 +1029,56 @@
       "id": "rocking-flour-sieve",
       "file": "objects/rocking-flour-sieve.json",
       "number": 209
+    },
+    {
+      "id": "curled-tree-bark",
+      "file": "objects/curled-tree-bark.json",
+      "number": 210
+    },
+    {
+      "id": "dried-bottle-gourd",
+      "file": "objects/dried-bottle-gourd.json",
+      "number": 211
+    },
+    {
+      "id": "folding-service-shelf",
+      "file": "objects/folding-service-shelf.json",
+      "number": 212
+    },
+    {
+      "id": "independent-two-jaw-chuck",
+      "file": "objects/independent-two-jaw-chuck.json",
+      "number": 213
+    },
+    {
+      "id": "turning-hourglass",
+      "file": "objects/turning-hourglass.json",
+      "number": 214
+    },
+    {
+      "id": "hanging-drying-basket",
+      "file": "objects/hanging-drying-basket.json",
+      "number": 215
+    },
+    {
+      "id": "hollow-rain-boot",
+      "file": "objects/hollow-rain-boot.json",
+      "number": 216
+    },
+    {
+      "id": "wide-tooth-comb",
+      "file": "objects/wide-tooth-comb.json",
+      "number": 217
+    },
+    {
+      "id": "folded-work-glove",
+      "file": "objects/folded-work-glove.json",
+      "number": 218
+    },
+    {
+      "id": "garden-pear",
+      "file": "objects/garden-pear.json",
+      "number": 219
     }
   ]
 }
