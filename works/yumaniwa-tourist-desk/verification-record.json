@@ -1,0 +1,55 @@
+{
+  "schema": "yumaniwa-verification-record/0.2",
+  "changeId": "yumaniwa-tourist-desk-01-20261013",
+  "planDigest": "84157aa49c8b5aacb04a57341645461db1f5ab2c11dbecdd0df1a56cfdeb62f2",
+  "planRevision": 0,
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "change": "Add an independent tourist association desk prototype using twenty existing miniatures, and register it as active/staging-only in lifecycle and generated LAB.",
+  "environment": "staging",
+  "baseSha": "ba34f6a76ca70adf0122097d9ae3432f543a0ac5",
+  "verifiedSha": "754fa46fc1b506a4e5b3f5f0c8dae3e2d7d61131",
+  "recordedAt": "2026-10-13T16:38:59.378732+00:00",
+  "recordedBy": "Codex local Node and offscreen Mesa/EGL checks; no browser/device/Owner attestation",
+  "conditionalAcknowledgements": [],
+  "staticChecks": [
+    {
+      "id": "node-syntax",
+      "status": "pass",
+      "evidence": "node --check app.js, scene.js, renderer.js, layout.js; imported new scene and tests parse and run"
+    }
+  ],
+  "impactChecks": [
+    {
+      "id": "work.runtime",
+      "status": "pass",
+      "evidence": "7 new tests; 4 viewport sizes each can pick all twenty objects and eleven manual models; transformed matchbox mapping; browser DOM/device behavior UNVERIFIED"
+    },
+    {
+      "id": "work.regression",
+      "status": "pass",
+      "evidence": "75 existing Lab manipulation/motion tests pass; source model definitions and shared modules unchanged"
+    },
+    {
+      "id": "risk.high-risk-review",
+      "status": "pass",
+      "evidence": "diff review: one active lifecycle record and one generated LAB link; existing registry members and other surfaces unchanged; Scope/Risk/Impact pass"
+    },
+    {
+      "id": "runtime.regression",
+      "status": "pass",
+      "evidence": "24 lifecycle tests and SSE audio lifecycle tests pass; lifecycle --check passes; shared Engine unchanged"
+    }
+  ],
+  "manualChecks": [
+    {
+      "id": "Offscreen 390x844 / 844x390 / 768x1024 / 1366x900 rest and manipulated composition",
+      "status": "pass",
+      "evidence": "Exact source shaders rendered and visually inspected for four viewport sizes; 8 rest/manipulated GLES frames compile/link and GL error 0; this is not browser evidence"
+    },
+    {
+      "id": "Physical iPhone/iPad Safari touch, rotation, return, audio: UNVERIFIED",
+      "status": "unverified",
+      "evidence": "Physical iPhone/iPad Safari, browser DOM events, audio perception, performance, return and touch feel not observed"
+    }
+  ]
+}
