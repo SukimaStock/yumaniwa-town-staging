@@ -529,6 +529,56 @@
       "id": "bicycle-stand",
       "file": "objects/bicycle-stand.json",
       "number": 109
+    },
+    {
+      "id": "bamboo-ladder",
+      "file": "objects/bamboo-ladder.json",
+      "number": 110
+    },
+    {
+      "id": "hanging-handbell",
+      "file": "objects/hanging-handbell.json",
+      "number": 111
+    },
+    {
+      "id": "round-street-hatch",
+      "file": "objects/round-street-hatch.json",
+      "number": 112
+    },
+    {
+      "id": "sliding-door-bolt",
+      "file": "objects/sliding-door-bolt.json",
+      "number": 113
+    },
+    {
+      "id": "shop-grindstone",
+      "file": "objects/shop-grindstone.json",
+      "number": 114
+    },
+    {
+      "id": "twin-bookends",
+      "file": "objects/twin-bookends.json",
+      "number": 115
+    },
+    {
+      "id": "folded-newspaper",
+      "file": "objects/folded-newspaper.json",
+      "number": 116
+    },
+    {
+      "id": "lotus-seedpod",
+      "file": "objects/lotus-seedpod.json",
+      "number": 117
+    },
+    {
+      "id": "dried-fish",
+      "file": "objects/dried-fish.json",
+      "number": 118
+    },
+    {
+      "id": "school-globe",
+      "file": "objects/school-globe.json",
+      "number": 119
     }
   ]
 }
