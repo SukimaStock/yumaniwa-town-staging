@@ -1,4 +1,5 @@
 'use strict';
+const {readStandalonePages,validateStandaloneHtml}=require('./standalone-pages.cjs');
 // Read-only lifecycle / promotion gates. User-decision references are review
 // evidence, not credentials or a substitute for repository access controls.
 const fs = require('node:fs');
@@ -96,6 +97,8 @@ function assertPublication(registry, published, promote = [], instruction = '') 
 }
 
 function assertProductionSnapshot(root, registry, published) {
+  const standalone=readStandalonePages(root);
+  for(const page of standalone)validateStandaloneHtml(root,page);
   for (const work of registry.works) {
     if (!published.includes(work.id)) throw new Error(work.id + ': unselected lifecycle entry in production snapshot');
   }
@@ -111,6 +114,7 @@ function assertProductionSnapshot(root, registry, published) {
       if (relativeRoot === 'works' && entry.name === '_template') {
         assertCanonicalTemplate(path.join(directory, entry.name)); continue;
       }
+      if(relativeRoot==='works' && standalone.some(page=>page.path===workPath))continue;
       const work = registry.works.find(item => relativeRoot === 'works' ? item.path === workPath : item.id === entry.name);
       if (!work || !published.includes(work.id) || !['candidate', 'released'].includes(work.status)) throw new Error(workPath + ': staging-only or unselected work directory in production snapshot');
       if (relativeRoot === 'works' && fs.existsSync(path.join(root, workPath, 'ARCHIVE.md'))) throw new Error(workPath + ': exclude exploration ARCHIVE.md from production snapshot');

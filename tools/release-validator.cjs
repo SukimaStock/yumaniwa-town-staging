@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 'use strict';
+const {readStandalonePages,validateStandaloneHtml}=require('./standalone-pages.cjs');
 // Read-only checks on trusted repository snapshots. VM is a test harness, not a security sandbox.
 const fs = require('node:fs');
 const path = require('node:path');
@@ -246,6 +247,8 @@ function validate(options) {
     }
     if (published) for (const id of published) check(works.some(w => w.id === id && w.status === 'open'), id, 'release.member', 'publication set member must exist and be open in the candidate');
     if (options.env === 'production' && published) for (const w of works.filter(w => w.status === 'open')) if (!published.includes(w.id)) add('FAIL',w.id,'release.unapproved-open','candidate contains an open work outside the explicit publication set');
+    let standalone=[];
+    try{standalone=readStandalonePages(root);if(options.env==='production')for(const page of standalone)validateStandaloneHtml(root,page);}catch(error){add('FAIL','*','standalone.publication',error.message);}
     let sitemap = [];
     const sm = path.join(root, 'sitemap.xml');
     if (!fs.existsSync(sm)) add(options.env === 'production' ? 'FAIL' : 'WARNING','*','sitemap.file','sitemap.xml missing; staging is not a production candidate');
@@ -270,10 +273,10 @@ function validate(options) {
                 if (m) {
                     const expected = locale === 'ja' ? BASE + 'w/' + m[1] + '/' : BASE + 'en/w/' + m[1] + '/';
                     check(published.includes(m[1]) && url === expected, m[1], 'sitemap.membership','sitemap work URL must be canonical and in explicit publication set: ' + url);
-                } else if (url !== BASE) add('HQ_REQUIRED','*','sitemap.nonwork','non-work URL outside current root/w and en/w policy: ' + url);
+                } else if (url !== BASE && !standalone.some(page=>page.url===url)) add('HQ_REQUIRED','*','sitemap.nonwork','non-work URL outside current root/w and en/w policy: ' + url);
             } catch { add('FAIL','*','sitemap.url','invalid URL: ' + url); }
         }
-        if (published) check(fs.readFileSync(sm,'utf8') === buildSearchSitemap(published),'*','sitemap.generated','sitemap.xml must exactly match Search/Share generator output for the explicit publication set');
+        if (published) check(fs.readFileSync(sm,'utf8') === buildSearchSitemap(published,standalone),'*','sitemap.generated','sitemap.xml must exactly match Search/Share generator output for the explicit publication set');
     }
     const reachable = reachablePages(root);
     let scenes, objects, sceneError;

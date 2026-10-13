@@ -1,0 +1,121 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4baa95dc7d3edcd669b61f30955a92e6ab990c52442aa6c2287b1bc0ffd34ba9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tourist-desk-publication-contract-v2-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "0f1e49312a06fcbbdb5a278cdd9dcefc11e55ba1",
+    "change": "Prepare explicit standalone-page sitemap generation and tourist desk production candidacy.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "Current explicit user production PR-only instruction",
+      "Staging 0.5 @0f1e493",
+      "Production existing sitemap/generator/lifecycle",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      "tools/standalone-pages.cjs",
+      "tools/generate-work-search-pages.cjs",
+      "tools/release-validator.cjs",
+      "tools/work-lifecycle.cjs",
+      "tests/test-standalone-pages.cjs",
+      "data/work-lifecycle.json",
+      "works/yumaniwa-tourist-desk/PUBLICATION.md",
+      ".change-plans/tourist-desk-publication-contract-v2-20261013/r0.lock.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "index.html",
+      "main.js",
+      "style.css",
+      "engine/**",
+      "works/sukima-3d-lab/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Explicit optional standalone-page publication manifest validated strictly; default existing behavior unchanged",
+      "Generator/validator append only manifest-declared canonical URLs without additional work descriptions",
+      "Snapshot accepts only strictly declared standalone work directories; unknown directories remain rejected",
+      "Mark approved completed tourist desk as staging candidate, not released",
+      "Publication design/limits and regression tests",
+      "Regenerate LAB listing to reflect candidate status only"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-13 explicitly requests production PR of completed 0.5 and adding exact standalone canonical URL to managed sitemap; final production merge requires later approval."
+    ],
+    "hqDecisions": [
+      "Use optional explicit standalone-page manifest for the approved /works URL, preserving current w/en/w generation and all rejection checks for unknown directories. Isolate missing 3D dependencies within new work, no shared Engine overwrite."
+    ],
+    "rulesApplied": [
+      "System Full locked route",
+      "Stage first; standalone is independent page, not a new town open work/venue/launch",
+      "Candidate preparation is authorized by explicit completed-release request; not authorization to merge Production"
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "change-operations-regression"
+    ],
+    "manualChecks": [
+      "Standalone contract review and unchanged existing sitemap output",
+      "Physical browser/device: UNVERIFIED"
+    ],
+    "impactChecks": [
+      "search.generated-pages",
+      "search.sitemap",
+      "search.structured-data",
+      "search.validator",
+      "search.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work-only patch to initial 0.3.",
+    "promotion": "PR only; production merge pending user approval",
+    "outOfScope": [
+      "Production merge/deploy",
+      "Root town UI, building, analytics, new features, broad Lab/Engine promotion"
+    ],
+    "unverified": [
+      "Physical Safari/iPhone/iPad feel and sound"
+    ],
+    "problem": "Area and work spotlights are mixed; redundant map enlargement; desk page lacks staging noindex.",
+    "currentContract": "0.4 static guidance below 100svh interactive desk.",
+    "whyExistingIsInsufficient": "Two works are favored without selection rationale; staging SEO boundary needs explicit noindex.",
+    "design": "Optional strict standalone publication manifest names exact id/path/sourceSha/candidateDecision/productionInstruction. Only declared standalone directories are accepted; existing publication set guards remain. Generator appends canonical URL and validator verifies actual indexable HTML. No manifest leaves output byte-identical.",
+    "migration": "Only index/style cache query v0.5; no stored state or runtime behavior changes.",
+    "compatibility": "Retain notices and existing place/work route handling; preserve every 3D/input runtime blob.",
+    "promotionRisk": "Staging only.",
+    "alternativesRejected": [
+      "Root SEO overlays",
+      "Invented areas",
+      "Production canonical before approval"
+    ],
+    "boundaryCases": [
+      "No manifest unchanged",
+      "Unknown/invalid standalone page rejected",
+      "No arbitrary external canonical or paths",
+      "Current w/en/w exact sitemap comparisons stay enforced",
+      "Production branch only approved desk plus private vendor assets"
+    ],
+    "testPlan": [
+      "Helper/generator/lifecycle/validator tests; existing release/lifecycle regressions",
+      "31 desk tests",
+      "Scope/Risk/Impact and CI",
+      "Production candidate dependency and safety checks"
+    ]
+  }
+}
