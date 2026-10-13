@@ -979,6 +979,56 @@
       "id": "wooden-triangle-ruler",
       "file": "objects/wooden-triangle-ruler.json",
       "number": 199
+    },
+    {
+      "id": "twig-bird-nest",
+      "file": "objects/twig-bird-nest.json",
+      "number": 200
+    },
+    {
+      "id": "sewing-thimble",
+      "file": "objects/sewing-thimble.json",
+      "number": 201
+    },
+    {
+      "id": "weighted-switch-lever",
+      "file": "objects/weighted-switch-lever.json",
+      "number": 202
+    },
+    {
+      "id": "hinged-fish-mold",
+      "file": "objects/hinged-fish-mold.json",
+      "number": 203
+    },
+    {
+      "id": "tokoroten-press",
+      "file": "objects/tokoroten-press.json",
+      "number": 204
+    },
+    {
+      "id": "hinged-bucket-handle",
+      "file": "objects/hinged-bucket-handle.json",
+      "number": 205
+    },
+    {
+      "id": "dented-tin-can",
+      "file": "objects/dented-tin-can.json",
+      "number": 206
+    },
+    {
+      "id": "small-lion-guardian",
+      "file": "objects/small-lion-guardian.json",
+      "number": 207
+    },
+    {
+      "id": "three-leaf-succulent",
+      "file": "objects/three-leaf-succulent.json",
+      "number": 208
+    },
+    {
+      "id": "rocking-flour-sieve",
+      "file": "objects/rocking-flour-sieve.json",
+      "number": 209
     }
   ]
 }
