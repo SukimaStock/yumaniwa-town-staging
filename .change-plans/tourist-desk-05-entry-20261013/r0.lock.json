@@ -1,0 +1,111 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ae2a4f4dbf7549fcfeb17174862ddffc84e1c176f98c75447b9a36926f2fed0f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tourist-desk-05-entry-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "2c7683036a4c047fca1039d7a12f8a9554d5a20f",
+    "change": "Organize reception guidance by area, remove map expansion and prepare staging-safe SEO.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "Current user 0.5 instruction",
+      "data/places.js",
+      "data/station-plaza.js",
+      "data/town-maps.js",
+      "data/works.js",
+      "data/updates.js",
+      "index.html",
+      "tools/generate-work-search-pages.cjs",
+      "Google Search Central documentation"
+    ],
+    "allowedPaths": [
+      "works/yumaniwa-tourist-desk/**",
+      ".change-plans/tourist-desk-05-entry-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/sukima-3d-lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/pumpoko/**"
+    ],
+    "expectedChanges": [
+      "Three actual areas instead of individual work spotlights",
+      "Remove image anchor and map enlargement link; keep station entry",
+      "Add accurate title/description and staging noindex,nofollow; defer production canonical/sitemap",
+      "SEO audit and production proposals, targeted guide and input regressions",
+      "Keep scene/camera/renderer/layout/pinch/app and full-height canvas unchanged"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes 0.5 staging implementation, PR, merge and Pages; production/SEO account settings forbidden."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Work-local standard locked route",
+      "Existing town routes only; no source/Engine/other work writes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Full-height desk and responsive source preservation",
+      "Physical iPhone/iPad and PC browser verification: UNVERIFIED"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work-only patch to initial 0.3.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Shared engine, Lab, models, other works, town UI/runtime, Production",
+      "Root canonical, sitemap, robots.txt, Search Console, Bing settings",
+      "New camera or model features"
+    ],
+    "unverified": [
+      "Physical Safari/iPhone/iPad feel and sound"
+    ],
+    "problem": "Area and work spotlights are mixed; redundant map enlargement; desk page lacks staging noindex.",
+    "currentContract": "0.4 static guidance below 100svh interactive desk.",
+    "whyExistingIsInsufficient": "Two works are favored without selection rationale; staging SEO boundary needs explicit noindex.",
+    "design": "Work-only HTML content refinement, static area routes, plain existing map, staging noindex; document future published URL and canonical decisions.",
+    "migration": "Only index/style cache query v0.5; no stored state or runtime behavior changes.",
+    "compatibility": "Retain notices and existing place/work route handling; preserve every 3D/input runtime blob.",
+    "promotionRisk": "Staging only.",
+    "alternativesRejected": [
+      "Root SEO overlays",
+      "Invented areas",
+      "Production canonical before approval"
+    ],
+    "boundaryCases": [
+      "Only area links in guide, work links allowed in dated notices",
+      "Image stays unlinked; station entry remains",
+      "Staging is not registered as production",
+      "All 3D source and canvas dimensions unchanged"
+    ],
+    "testPlan": [
+      "Area routes, no expansion, metadata and canonical/sitemap audit tests",
+      "Work/input/camera suite and existing town route regressions",
+      "Scope/Risk/Impact/CI",
+      "Pages and public file/route readback"
+    ]
+  }
+}
