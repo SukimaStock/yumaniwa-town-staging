@@ -143,3 +143,9 @@ pointer captureは背景への接触も保持し、キャンセル／lost captur
 390×844 / 844×390 / 768×1024 / 1366×900、初期／途中／操作後／最大の16フレームをMesa/EGLで描画、GL error 0。全16画像が0.3.1の同一条件の画像とSHA256一致し、3Dの配置・カメラ・動作を保っている。これはHTMLレイアウトやブラウザのスクリーンショット確認ではない。CSSの全画面寸法・PC2列／phone1列・canvasとscrollの領域分離、実appイベントとリンクのsource確認は済み。
 
 この環境ではSitesのcontrol-browserが使えないためブラウザQAを実行していない。実機iPhone/iPadおよびPCブラウザのスクロール、文字折返し、リンク遷移、触感はUNVERIFIED。作者の実機採用判断とCI成功を区別する。共有Engine・Lab・モデル・町・他作品・Productionは無変更。
+
+## 0.5 — 町への入口（2026-10-13）
+
+町の案内を駅前広場・灯串横丁・湯窓レジャーセンターの3エリアへ整理。?place=leisure_center_mapで施設そのものへ入り、各作品は従来の施設内で見つけられる。個別ピックアップだけを外し、作品やお知らせは削除しない。地図画像のリンクと「案内図を拡大」を削除、画像と「町を歩く（駅前から）」を保持。資料台→本文の案内図への接続も保持。
+
+title / descriptionをエリア中心の内容へ更新し、Stagingのnoindex,nofollowを追加。未公開作品にProduction canonicalを先付けしない。SEOの確認結果と本番への提案はSEO-REVIEW.md。町トップ・共有Engine・他作品・3D/input runtime・CSSは変更なし。31作品テストと既存町内route7グループ、Scope/Risk/Impact/lifecycle/syntax/diff checkを実施。100svh、phone1列／PC2列と可動部・ピンチ・接近／復帰の契約を維持。実際のiPhone/PCブラウザ確認は未実施として記録する。
