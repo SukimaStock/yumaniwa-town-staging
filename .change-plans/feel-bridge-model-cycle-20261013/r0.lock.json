@@ -1,0 +1,121 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "11c20822aa4901b8c88a93485c5e1112086a2ecfa54141ee819b19c9afffbcb2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "feel-bridge-model-cycle-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "aad4f11eaa33f619cea609b18cb02b242fb21313",
+    "change": "Implement the actual 3D browser request as an independent D code; document completed shared flow with no desk source changes.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "works/feel-studio/**"
+    ],
+    "allowedPaths": [
+      "works/feel-studio/**",
+      ".change-plans/feel-bridge-model-cycle-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "data/works.js",
+      "data/lab-rooms.json",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/pumpoko/**",
+      "works/pumpoko-02/**",
+      "works/motion-lab/**",
+      "works/sukima-3d-lab/**",
+      "lab/lab.js",
+      "lab/lab.css",
+      "lab/lab-finish.css"
+    ],
+    "expectedChanges": [
+      "Read actual 3D gesture/timing request and create new immutable D code",
+      "Register only prototype/catalog/result and replayable browser records; no desk source change",
+      "Record 390px and independent 3D operation honestly",
+      "Do not change A/B/C source/manifest hashes, Engine or other works"
+    ],
+    "ownerDecisions": [
+      "2026-10-13 user Feel Studio 0.3 explicitly authorizes Feel Bridge, new 2D/3D experiments, generic editing, real AI cycles, isolated branch/PR/testing/safe staging merge; no other works/Engine/Production."
+    ],
+    "hqDecisions": [
+      "Same work-local optional Bridge contract and no new permissions. Public-browser QA and routine fixes are inside current user scope."
+    ],
+    "rulesApplied": [
+      "AGENTS: active/staging-only; no production promotion or town installation",
+      "CHANGE-PLAN Full risk floor for lifecycle JSON and generated LAB; lock first",
+      "Existing MotionRunner handles pointers/visibility/resize/120Hz; no new common runtime",
+      "Record test environment truthfully; no physical iPhone claim"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "2D/WebGL public or local real browser direct edit/play/save/AI return/compare/adopt/branch",
+      "Third compare-only HTML loads without Bridge or parent code change",
+      "390px viewport and independent launch",
+      "Record actual observed hashes and author-proxy limits"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this follow-up; retain Bridge and installed original work builds.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Production",
+      "Existing works or shared Engine edits",
+      "Automatic AI communication",
+      "General game editor",
+      "New CI infrastructure"
+    ],
+    "unverified": [
+      "Physical iPhone Safari feel and performance",
+      "Author adoption"
+    ],
+    "problem": "0.2 requires a fixed Canvas and StudioPrototype wrapper, preventing renderer/input ownership.",
+    "currentContract": "Desk immutable histories and verified sandbox frames exist; only feel-frame/2.0.0 fixed Canvas builds launch.",
+    "whyExistingIsInsufficient": "A renderer-free optional capability interface and installed HTML source manifest are required.",
+    "design": "Work owns loop/render/input/state validation and mapping. Bridge transports optional operations; Studio generates declared controls and owns history/comparison/AI request flow.",
+    "migration": "No rewrite of boat/light saved data or archived 0.1. Bounded generic JSON shape added for new projects only; old protocol remains.",
+    "compatibility": "No existing works, MotionRunner, Engine, Production or global runtime changes. Original code revisions remain playable.",
+    "promotionRisk": "Staging only; physical device and author adoption remain separate.",
+    "alternativesRejected": [
+      "Do not add disc presets",
+      "Do not execute imported code or arbitrary URLs",
+      "Do not label pending code synthesis as a running variant"
+    ],
+    "boundaryCases": [
+      "No editor/no pause capabilities",
+      "Hidden compare-only frame destruction",
+      "Stale nonce/frame messages and async switch",
+      "Malformed/oversized JSON, incompatible state, edited source hashes",
+      "Bridge async hook errors and cancelled gestures",
+      "3D WebGL unavailable/context lost"
+    ],
+    "testPlan": [
+      "Prior 0.2 and legacy regressions",
+      "Bridge security/capabilities/state/manifest and 2D/3D request cycles",
+      "Actual browser and exact-SHA CI/Pages"
+    ]
+  }
+}
