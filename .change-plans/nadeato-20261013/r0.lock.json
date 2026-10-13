@@ -1,0 +1,108 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "bf731613bdb1ec8e90e1aed1fc175aba86ffb498d23f77c23330c0fe19a3bbca",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "nadeato-20261013",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "選択C なで跡の独立2D試作とactive台帳・生成LAB追加",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "e63cc66197e83e528928b9823a6d0cd9ff592ca4",
+    "canonicalSources": [
+      "works/nadeato",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/nadeato-20261013/r0.lock.json",
+      "works/nadeato/**",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/town-maps.js"
+    ],
+    "expectedChanges": [
+      "単一のなで動作、方向による濃淡、模様保持、逆なで上書き",
+      "active staging-only台帳項目と既存generatorによるLAB再生成"
+    ],
+    "ownerDecisions": [
+      "2026-10-13 source thread 01a11875-47fb-73f8-b86d-cf31e84fa0c8: 本人がCを選択、branch/commit/draft PR/CI/安全なstaging配信を許可。production不可。"
+    ],
+    "hqDecisions": [
+      "AI設計照合: lifecycle JSONと生成LABはunknown-code floorのためFull。既存schema/generatorをそのまま使い契約・共有処理は変更しない。作者による追加承認を意味しない。"
+    ],
+    "rulesApplied": [
+      "AGENTS Work lifecycle active default",
+      "CHANGE-PLAN normal locked route; not lightweight"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-direction-retention-cancel-resize-mobile"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "当該新規work、台帳の当該項目とLAB生成差分を同じ単位でrevert",
+    "outOfScope": [
+      "production",
+      "町登録",
+      "既存作品",
+      "共有Engine",
+      "外部権限",
+      "保存"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone/iPad実機",
+      "GitHub PR一覧:403"
+    ],
+    "problem": "短い毛の向きが指の跡として残る体験",
+    "currentContract": "単独worksとactive台帳、既存LAB generator",
+    "whyExistingIsInsufficient": "新作が存在しない",
+    "design": "Canvas2D上の固定毛根ごとの方向をドラッグで変更。外部依存・保存・音なし。",
+    "alternativesRejected": [
+      "町やEngine変更",
+      "3D化",
+      "ゲーム化"
+    ],
+    "migration": "既存データ変更なし",
+    "compatibility": "Pointer Events; devicePixelRatio上限2; resizeで方向保持",
+    "boundaryCases": [
+      "cancel",
+      "lost capture",
+      "resize",
+      "反復",
+      "複数指は先着のみ"
+    ],
+    "testPlan": [
+      "実ブラウザのpointer操作・画面画像、既存lifecycleとscope/risk/impact/trusted static"
+    ],
+    "promotionRisk": "staging only"
+  }
+}
