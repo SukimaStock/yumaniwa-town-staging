@@ -479,6 +479,56 @@
       "id": "cinema-projector",
       "file": "objects/cinema-projector.json",
       "number": 99
+    },
+    {
+      "id": "split-firewood",
+      "file": "objects/split-firewood.json",
+      "number": 100
+    },
+    {
+      "id": "print-roller",
+      "file": "objects/print-roller.json",
+      "number": 101
+    },
+    {
+      "id": "wooden-clothespin",
+      "file": "objects/wooden-clothespin.json",
+      "number": 102
+    },
+    {
+      "id": "mail-sorting-trays",
+      "file": "objects/mail-sorting-trays.json",
+      "number": 103
+    },
+    {
+      "id": "door-knocker",
+      "file": "objects/door-knocker.json",
+      "number": 104
+    },
+    {
+      "id": "bracket-fungus",
+      "file": "objects/bracket-fungus.json",
+      "number": 105
+    },
+    {
+      "id": "sweet-potato",
+      "file": "objects/sweet-potato.json",
+      "number": 106
+    },
+    {
+      "id": "field-rattle",
+      "file": "objects/field-rattle.json",
+      "number": 107
+    },
+    {
+      "id": "stone-water-basin",
+      "file": "objects/stone-water-basin.json",
+      "number": 108
+    },
+    {
+      "id": "bicycle-stand",
+      "file": "objects/bicycle-stand.json",
+      "number": 109
     }
   ]
 }
