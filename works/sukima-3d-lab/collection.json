@@ -1079,6 +1079,56 @@
       "id": "garden-pear",
       "file": "objects/garden-pear.json",
       "number": 219
+    },
+    {
+      "id": "fallen-icicle-cluster",
+      "file": "objects/fallen-icicle-cluster.json",
+      "number": 220
+    },
+    {
+      "id": "shed-deer-antler",
+      "file": "objects/shed-deer-antler.json",
+      "number": 221
+    },
+    {
+      "id": "short-rail-section",
+      "file": "objects/short-rail-section.json",
+      "number": 222
+    },
+    {
+      "id": "turning-wing-knob",
+      "file": "objects/turning-wing-knob.json",
+      "number": 223
+    },
+    {
+      "id": "bakery-hinged-tongs",
+      "file": "objects/bakery-hinged-tongs.json",
+      "number": 224
+    },
+    {
+      "id": "birdcage-lifting-door",
+      "file": "objects/birdcage-lifting-door.json",
+      "number": 225
+    },
+    {
+      "id": "hexagonal-washing-drum",
+      "file": "objects/hexagonal-washing-drum.json",
+      "number": 226
+    },
+    {
+      "id": "fishbone-remnant",
+      "file": "objects/fishbone-remnant.json",
+      "number": 227
+    },
+    {
+      "id": "bent-wire-spring",
+      "file": "objects/bent-wire-spring.json",
+      "number": 228
+    },
+    {
+      "id": "knobbly-ginger-root",
+      "file": "objects/knobbly-ginger-root.json",
+      "number": 229
     }
   ]
 }
