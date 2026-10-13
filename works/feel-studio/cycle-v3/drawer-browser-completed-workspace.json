@@ -1,0 +1,213 @@
+{
+  "schema": "feel-workspace/2",
+  "project": "drawer",
+  "nodes": [
+    {
+      "id": "drawer-c",
+      "title": "C · 指に追従 / 独立3D描画",
+      "buildId": "drawer-c",
+      "codeHash": "8683984f79612b15bea3dedf187311d84224b641a2020a68c70682bfdec47a66",
+      "parent": "drawer-a",
+      "config": {
+        "open": 0.15,
+        "range": 1,
+        "response": 0.65,
+        "camera": 0.45
+      },
+      "kind": "implementation",
+      "decision": "hold",
+      "provenance": []
+    },
+    {
+      "id": "drawer-a",
+      "title": "A · 指の位置へ追従",
+      "buildId": "drawer-a",
+      "codeHash": "79a6fb195c702f02e8b28d5dd06ac505d2c896b986287f410e7b51a33fbf0e9b",
+      "parent": null,
+      "config": {
+        "open": 0.15,
+        "range": 1,
+        "response": 0.65,
+        "camera": 0.45
+      },
+      "kind": "implementation",
+      "decision": "hold",
+      "provenance": []
+    },
+    {
+      "id": "n-mv60m07g-810evso",
+      "title": "C · 指に追従 / 独立3D描画から",
+      "buildId": "drawer-c",
+      "codeHash": "8683984f79612b15bea3dedf187311d84224b641a2020a68c70682bfdec47a66",
+      "parent": "drawer-c",
+      "config": {
+        "open": 0.5793420161609453,
+        "range": 1.05,
+        "response": 0.7,
+        "camera": 0.45
+      },
+      "kind": "author-edit",
+      "decision": "hold",
+      "provenance": []
+    },
+    {
+      "id": "n-mv612tjv-4h59uc4",
+      "title": "D · 端と、半開きの居場所",
+      "buildId": "drawer-d",
+      "codeHash": "54e27e82fa80108aca797fa9557ac2c15ca21e98319e0612ec7ab78b00455a95",
+      "parent": "n-mv60m07g-810evso",
+      "config": {
+        "open": 0.5793420161609453,
+        "range": 1.05,
+        "response": 0.7,
+        "camera": 0.45
+      },
+      "kind": "ai-implementation",
+      "decision": "hold",
+      "provenance": [
+        {
+          "nodeId": "drawer-c",
+          "buildId": "drawer-c",
+          "codeHash": "8683984f79612b15bea3dedf187311d84224b641a2020a68c70682bfdec47a66",
+          "partId": "response",
+          "label": "引き出しの追従",
+          "anchor": "Drawer.step",
+          "config": {
+            "open": 0.15,
+            "range": 1,
+            "response": 0.65,
+            "camera": 0.45
+          }
+        },
+        {
+          "nodeId": "drawer-c",
+          "buildId": "drawer-c",
+          "codeHash": "8683984f79612b15bea3dedf187311d84224b641a2020a68c70682bfdec47a66",
+          "partId": "release",
+          "label": "離した後の居場所",
+          "anchor": "Drawer.target",
+          "config": {
+            "open": 0.15,
+            "range": 1,
+            "response": 0.65,
+            "camera": 0.45
+          }
+        }
+      ],
+      "summary": "実画面の依頼を読み、ばね追従、端への収まり、半開き付近の保持を新しいDコードに実装。編集した開始姿勢・範囲・時間と元A/B/Cを保持。"
+    },
+    {
+      "id": "n-mv614qpa-e14z96b",
+      "title": "採用前の調整",
+      "buildId": "drawer-d",
+      "codeHash": "54e27e82fa80108aca797fa9557ac2c15ca21e98319e0612ec7ab78b00455a95",
+      "parent": "n-mv612tjv-4h59uc4",
+      "config": {
+        "open": 0.5793420161609453,
+        "range": 1.05,
+        "response": 0.75,
+        "camera": 0.45
+      },
+      "kind": "author-edit",
+      "decision": "adopt",
+      "provenance": [],
+      "summary": "実画面の依頼を読み、ばね追従、端への収まり、半開き付近の保持を新しいDコードに実装。編集した開始姿勢・範囲・時間と元A/B/Cを保持。"
+    },
+    {
+      "id": "n-mv614rhh-s281c7l",
+      "title": "採用前の調整から",
+      "buildId": "drawer-d",
+      "codeHash": "54e27e82fa80108aca797fa9557ac2c15ca21e98319e0612ec7ab78b00455a95",
+      "parent": "n-mv614qpa-e14z96b",
+      "config": {
+        "open": 0.5793420161609453,
+        "range": 1.05,
+        "response": 0.75,
+        "camera": 0.45
+      },
+      "kind": "author-edit",
+      "decision": "hold",
+      "provenance": [],
+      "summary": "実画面の依頼を読み、ばね追従、端への収まり、半開き付近の保持を新しいDコードに実装。編集した開始姿勢・範囲・時間と元A/B/Cを保持。"
+    }
+  ],
+  "drafts": {},
+  "left": "n-mv614qpa-e14z96b",
+  "right": "n-mv60m07g-810evso",
+  "requests": [
+    {
+      "schema": "feel-work-request/2",
+      "requestId": "r-n-mv60mi1k-h2pcs91",
+      "project": "drawer",
+      "repository": "SukimaStock/yumaniwa-town-staging",
+      "scope": "works/feel-studio/ (staging-only)",
+      "base": {
+        "nodeId": "n-mv60m07g-810evso",
+        "buildId": "drawer-c",
+        "version": "0.1.0",
+        "codeHash": "8683984f79612b15bea3dedf187311d84224b641a2020a68c70682bfdec47a66",
+        "path": "works/feel-studio/prototypes/drawer/drawer-c/app.js",
+        "config": {
+          "open": 0.5793420161609453,
+          "range": 1.05,
+          "response": 0.7,
+          "camera": 0.45
+        }
+      },
+      "selections": [
+        {
+          "nodeId": "drawer-c",
+          "buildId": "drawer-c",
+          "codeHash": "8683984f79612b15bea3dedf187311d84224b641a2020a68c70682bfdec47a66",
+          "partId": "response",
+          "label": "引き出しの追従",
+          "anchor": "Drawer.step",
+          "config": {
+            "open": 0.15,
+            "range": 1,
+            "response": 0.65,
+            "camera": 0.45
+          }
+        },
+        {
+          "nodeId": "drawer-c",
+          "buildId": "drawer-c",
+          "codeHash": "8683984f79612b15bea3dedf187311d84224b641a2020a68c70682bfdec47a66",
+          "partId": "release",
+          "label": "離した後の居場所",
+          "anchor": "Drawer.target",
+          "config": {
+            "open": 0.15,
+            "range": 1,
+            "response": 0.65,
+            "camera": 0.45
+          }
+        }
+      ],
+      "comment": "指への追従をばねにし、離すと近い端へ収めたい。ただし半開きの付近で離した時は、その場に残す案も試したい。",
+      "locks": "A/B/Cのコードと、保存した開始姿勢・範囲・時間を残す。",
+      "keep": [
+        "drawer-c",
+        "drawer-a",
+        "n-mv60m07g-810evso"
+      ],
+      "returnContract": {
+        "schema": "feel-work-response/2",
+        "requestId": "same requestId",
+        "project": "drawer",
+        "buildId": "installed catalog build",
+        "codeHash": "installed model SHA256",
+        "config": "validated config",
+        "summary": "what actually changed"
+      },
+      "inputComparisonLimit": "模型側が投影したZ軸に沿ってつまみを引く。画面座標をそのまま3D座標にしない。"
+    }
+  ],
+  "completed": [
+    {
+      "requestId": "r-n-mv60mi1k-h2pcs91",
+      "nodeId": "n-mv612tjv-4h59uc4"
+    }
+  ],
+  "tape": null
+}
