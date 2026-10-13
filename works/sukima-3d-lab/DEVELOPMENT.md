@@ -1,3 +1,64 @@
+# Collection 08 · 湯間庭町の小さな模型100–109 — 2026-10-13
+
+Authorized continuation from99 after PR322 merged209399f, exact Pages38338619784, automatic review3db9524 without findings. Latest main/AGENTS/guide/99 definitions/town palette/local skill availability reviewed. New plan-only1a8b2fe precedes source in Draft PR323. Existing99 entry/JSON SHA256 snapshot is `tests/collection07-baseline.json`; implicit00–15 numbering and missing16 stay unchanged. At the retained intermediate checkpoint only100 `split-firewood` 軒下の割り薪 was registered. The published formal count remains99 until this batch merges.
+
+Before101, run unchanged `tests/measure-collection.cjs --expected-count 100 --trials 3 --out /workspace/scratch/sukima-batch08/perf-100.json` without competing jobs, compare99 baseline, and investigate software graphics versus JS/preview/DOM costs separately. Performance tool/runtime/schema/gates remain byte-identical. Do not continue to101–109 with an unresolved major performance issue. A proven necessary optimization requires a separate Plan/PR; keep this data branch and failure evidence intact.
+
+Real100 checkpoint `f611cff7387ac01ff662d98984759a06921a2800`:242 work tests passed; final firewood native10 frames passed after adding cut-face colors. Existing99/measurement tool/runtime remain byte-identical. The unchanged3×cold/warm×desktop/mobile run completed all12 samples:100 enabled cards/fetches, full scroll endpoints and120 select/operate/back cycles, no page/GL/input errors. Raw evidence `perf-100.json`, comparison `performance-comparison.json`, diagnostic `scroll-diagnosis.json` in the batch08 evidence directory.
+
+| Median / same profile | 99 cold / warm | 100 cold / warm |
+| --- | --- | --- |
+| Desktop load ms |4815 /2721|1528 /1177|
+| Mobile-equivalent load ms |3548 /3685|3592 /3626|
+| Mobile post-fetch validation+preview+DOM ms |2297 /2525|2306 /2584|
+| Desktop scroll p95 ms |267 /217|50 /50|
+| Mobile touch scroll p95 ms |16.8 /16.8|16.7 /16.8|
+| Mobile selection→twoRAF ms (median of trial medians) |123 /113|122 /112|
+| Mobile input→observed change ms (automation-inclusive) |103 /96|102 /104|
+
+Separate warm CPU preview pass99→100: desktop846→496ms, mobile2239→2315ms (+3.4%). Faster desktop results are environment/backend variability, not an improvement caused by adding one object. GC-controlled pre-selection JS heap across six samples99→100: desktop2.664→2.677MiB, mobile3.375→3.387MiB; post-ten-cycle medians3.802→3.848 and3.795→3.838MiB. Raw uncollected heap varied with GC timing (including larger100 readings); it is not retained-memory growth. This does not establish absence of leaks beyond the measured cycles.
+
+Separate100 desktop scroll diagnosis, baseline flags:4.700s wall, main-thread Task221.5ms / Script5.8ms / Layout0 / RecalcStyle0, GPU process16.20 CPU-seconds, renderer0.52 CPU-seconds. WebGL backend identifies ANGLE Vulkan SwiftShader. Disabling accelerated2D canvas in a diagnostic browser only gave the same50ms p95 and16.38 GPU CPU-seconds; no application change was made. The measured scroll bottleneck is predominantly software graphics/compositing, not repeated JS preview/DOM layout. CPU preview/post-fetch costs are measured separately above. Diagnostic end RSS (not peak): GPU174MiB, renderer257MiB, browser163MiB. These are cloud Chromium measurements, not physical Safari results.
+
+**Milestone decision:** no reproducible major99→100 regression, missing content, unusable input or retained-memory escalation was observed. Continue101–109 without a performance PR; do not preemptively alter loading/schema/gates. Reassess at109 and future milestones using the same profiles and distinguish machine/backend drift. The100 intermediate is retained in Git and raw logs; candidate109 remains unmerged until final review/CI/Pages steps.
+
+After the successful real100 assessment,101–109 were authored; final candidate109. The four STATIC forms, one TOUCH, one MOTION and four MANIPULATION forms use5 independent controls (rotate1/hinge2/linear2), differing in mass, openings, asymmetry, natural/artificial surfaces and depth/lateral movement.
+
+| No. / ID / name | Mode | Form / authored range |
+| --- | --- | --- |
+|100 `split-firewood` 軒下の割り薪 | STATIC | Three uneven split logs with distinct cut-face colors and a stacked outline; distinct from the old forked bough. |
+|101 `print-roller` 版画室の手回しローラー | MANIPULATION rotate X | Drum, axle, open handwheel and eccentric grip form one rigid rotation assembly above a fixed stand; initial.25rad. No linked gears/printing simulation. |
+|102 `wooden-clothespin` 庭の大きな洗濯ばさみ | MANIPULATION hinge Z−.28…0 | Broad asymmetrical jaws, separate fixed pin/spring; upper jaw starts−.08rad. No automatic spring return. |
+|103 `mail-sorting-trays` 郵便室の二段仕分け盆 | MANIPULATION two linear Z0….40 | Independent deep trays on separate rails, initial.05/.20; broad inset grips and floor lips. Both can be picked and retained at arbitrary intermediate positions. |
+|104 `door-knocker` 古い戸の輪金具 | MANIPULATION hinge X−1…0 | Hollow oval polygon ring swings out from a fixed plate, initial−.12rad; no audio. Slight lower viewing angle keeps the initial opening gesture away from a projection reversal. |
+|105 `bracket-fungus` 木陰の棚きのこ | STATIC | Three unequal semicircular shelves grow from an angular stump; different heights and slants. |
+|106 `sweet-potato` 焼き芋屋のふかし芋 | TOUCH | Elongated asymmetric convex potato, muted purple and conservative press.09/pull.20 limits. |
+|107 `field-rattle` 畑の二枚鳴子 | MOTION swing X | Two separate broad clappers on one frame, ±.18rad/4.8s with distinct phases. Deliberate gaps; no contact/audio/wind simulation. |
+|108 `stone-water-basin` 庭の石の手水鉢 | STATIC | One closed thick-walled irregular basin with a real cavity and recessed floor, not a convex solid substitute. |
+|109 `bicycle-stand` 駅前の自転車留め | STATIC | Two unequal-height U-shaped open hoops and a common broad foot. |
+
+## Final validation and next checkpoint
+
+- Five historical exact-count assertions99→100→109 are the only old test edits; previous batch slices and all old goldens stay fixed. New immutable99 test protects complete entries/JSON byte hashes, normalized implicit00–15 numbering, missing16, uniqueness/order and≤1000. The complete109 work suite has261 tests; lifecycle24. Final outcomes are in the evidence directory and PR323.
+- Clearance:1,495 configurations including each full control range/cycle and the25×25 independent tray combinations;58,110 component-pair comparisons. Final rerun follows the handle/floor refinements. No unsupported linkage, parenting, collision solver or per-artwork executable code.
+- Visual/native feedback changed only new data: roller grip widened/embedded into the wheel; trays received a slight projecting floor lip and inset handles so shared outside faces no longer overlap; knocker initial viewing pitch moved below the near-face-on projection reversal. Initial roller GPU/CPU discrepancy was isolated to a foreground grip facet within−0.000084 barycentric distance of a pixel boundary (the unobscured interior facet agreed exactly). No renderer/preview/checker threshold changed. Failed logs and pre-refinement JSON remain in scratch.
+- Actual mouse/CDP touch checks cover all5 controls: no jump, tiny forward/reverse, hold, limits and same-capture overtravel reversal, fixed-part whole rotation, re-picking after settled rotation, reset and switching. The changed tray geometry receives a separate final two-control rerun. STATIC/TOUCH/MOTION pause/reset/deformation recovery, card navigation and three viewports are included. Physical iPhone/Safari and author adoption remain unverified.
+- Native full-collection exact shaders/coverage/CPU-preview/reset gates, final109 performance comparison, Scope→Risk→Impact, CI, self-review, automatic review, merge-tree identity and exact-SHA Pages outcome must all complete before declaring this batch done. Final immutable outcome and performance figures: [PR323](https://github.com/SukimaStock/yumaniwa-town-staging/pull/323). Evidence and resumable handoff: `/workspace/scratch/sukima-batch08/`.
+- **Next checkpoint110–119 only after PR323 outcome is successful.** Fetch latest main, confirm formal109 and unchanged prior objects, then use min(10,1000−count). Exactly1000 remains the stop. No Production/town/shared2D/other-work/runtime/schema/gate/measurement-tool changes. The parent performs public confirmation; known container proxy403 is not retried.
+
+
+---
+
+## Resumed on the separate performance base
+
+The final109 warm-load investigation justified separate PR324; PR323 was held, never merged. PR324 merged406972442aadecc2fae9b0345855ee9559e07b30 with tree8d39e16460e1466f9b519ec8e4c1f96af989e332 identical to reviewedeed4dc7. ExactSHA Pages38344793781 succeeded. Its sole review P2 (Back from unbuilt card losing focus) was reproduced, fixed and passed eight99/109 desktop/mobile normal/error regressions; final automatic review completed without new findings. Fresh Plan-only9835c9d precedes this transplant from original28bbedd. Every new JSON/registry/test byte is copied unchanged; original actual100 intermediatef611cff and all failure evidence remain. This supersedes the historical continuation decision above only for the final109 issue; no new forms or performance changes are made in this data PR.
+
+Final original data checks:261 work tests,24 lifecycle,2165 native frames with unchanged strict coverage/color/reset gates,1495 clearance configurations/58110 comparisons pass. After PR324's final focus fix, the exact109 JSON overlay again passed all5 controls×mouse/CDP touch:10 full browser records plus10 endpoint/no-jump/overtravel records. The numerical engine/preview code differs only in cache URLs; no geometry/input/rendering logic changed. Thus prior native and clearance evidence is preserved by exact JSON and normalized code comparison, not represented as a new2165-frame run.
+
+Measured scheduler109: unchanged tool12 cold/warm desktop/mobile samples and120 successful operation cycles,109cards/fetches, full scroll and no page/GL errors. Desktop load1689/1475ms, mobile5150/5847ms; mobile touch-scroll p9516.8ms; GC-controlled heap before/after10cycles desktop2.791/3.954MiB and mobile3.511/3.964MiB. Separate paired timing demonstrates earlier visible cards/shorter continuous main-thread blockage but slower full completion; see the performance section below. Measurements are73df43d scheduling source; finaleed4dc7 only restores focus, separately tested. Physical Safari and public browser confirmation remain separate.
+
+Checkpoint: formal99 until the new data PR merges; candidate109; next110–119 only after exactSHA CI/review/Pages success. OriginalPR323 and all evidence retained. Final immutable SHA/run links are in the replacement PR and `/workspace/scratch/sukima-batch08/handoff.json`; no110+ is created in this batch.
+
 # Collection preview responsiveness · 0.7.1 — 2026-10-13
 
 Separate authorized performance change from data PR323. Formal registration stays99. Plan-only248e330 on main209399f precedes implementation. At candidate109, unmodified paired100/109 mobile warm load medians were5114/8615ms; uninstrumented timings were variable but the all-preview synchronous task blocked input for seconds. Routed stage diagnosis isolated CPU preview cost; routing disables HTTP cache, so its smaller9–12% count growth does not dismiss the warm-cache result. Earlier paired CDP counter differences across reload are invalid because navigation resets counters; only navigation-relative timing/long-task/heap fields are used.
