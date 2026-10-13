@@ -1,0 +1,621 @@
+{
+  "baseSha": "44b40d8165fa6cc9c3c0c21d01d9514470717247",
+  "specimens": [
+    {
+      "entry": {
+        "id": "polyhedron",
+        "file": "objects/polyhedron.json"
+      },
+      "source": "12b8e47f060eb9f907acce077a29cba6e3df4c7fe55e2a9f8ceb821d9026e993"
+    },
+    {
+      "entry": {
+        "id": "stone",
+        "file": "objects/stone.json"
+      },
+      "source": "eedb55a8ed807a0d897a3e0f127f40a698fd4aa955ba25da6e86a8c4886651cd"
+    },
+    {
+      "entry": {
+        "id": "crystal",
+        "file": "objects/crystal.json"
+      },
+      "source": "ceb0bcd738c6b8d5c3aa17fe2c23bfcb4a5d748e93218268f094973377b42b61"
+    },
+    {
+      "entry": {
+        "id": "seed",
+        "file": "objects/seed.json"
+      },
+      "source": "7abb9646d299e59f46390255263aceac66d3ce7ee6700fb494b488f11a0d17b0"
+    },
+    {
+      "entry": {
+        "id": "shell",
+        "file": "objects/shell.json"
+      },
+      "source": "bd4d28f1d579c7310576df5f063b16d4b27402868dafb34dd7ab0efff294817b"
+    },
+    {
+      "entry": {
+        "id": "odd",
+        "file": "objects/odd.json"
+      },
+      "source": "6323fd7cbaa2f61b2d8881f2a75c957824339d78679ba04eef53f401233c5e6f"
+    },
+    {
+      "entry": {
+        "id": "willow",
+        "file": "objects/willow.json"
+      },
+      "source": "8acabccb3d0ded6fe229d68457c7f702731f530c1bfc93d1c998b2ab93927169"
+    },
+    {
+      "entry": {
+        "id": "basalt",
+        "file": "objects/basalt.json"
+      },
+      "source": "571ac5439754cd521d5bcd8fc421e171b79c5da09696e4bca0847e2a2a9977ca"
+    },
+    {
+      "entry": {
+        "id": "ice-raft",
+        "file": "objects/ice-raft.json"
+      },
+      "source": "23771a2fe60944bbfe319b7ff7432a4963d21307dfddfcb13277c3433c1c533d"
+    },
+    {
+      "entry": {
+        "id": "doorstop",
+        "file": "objects/doorstop.json"
+      },
+      "source": "39d4d850309649eae21f29827b2d908f5f6e41779a38ace3a597c74a7e6f8d08"
+    },
+    {
+      "entry": {
+        "id": "lean-block",
+        "file": "objects/lean-block.json"
+      },
+      "source": "08a6636c0ef2a10e67366a5b8bd4e7f32b223f7396cc1e81c0425d40e966dab9"
+    },
+    {
+      "entry": {
+        "id": "tetra",
+        "file": "objects/tetra.json"
+      },
+      "source": "dfe2da5a435a3515f1467bc59aff53f36a16cf636a699bb25c3b813d9ed26da9"
+    },
+    {
+      "entry": {
+        "id": "elsewhere",
+        "file": "objects/elsewhere.json"
+      },
+      "source": "37969fcc2de4c3e6530aab9b1c0cb62296abceca77c15bbc6f3897c1f0442056"
+    },
+    {
+      "entry": {
+        "id": "offset",
+        "file": "objects/offset.json"
+      },
+      "source": "b1629453172d98b8ec479870866a488be822b4f9752e4319cd697cd577fa9339"
+    },
+    {
+      "entry": {
+        "id": "far-tip",
+        "file": "objects/far-tip.json"
+      },
+      "source": "ec624ec59c82c15a8fe7c4960989c7e79bb582de9167facb11231712ea6a9632"
+    },
+    {
+      "entry": {
+        "id": "pause",
+        "file": "objects/pause.json"
+      },
+      "source": "e735b32a319ee2ad3220885b57b217b17cd46af30e3092d00d4ded821afd1272"
+    },
+    {
+      "entry": {
+        "id": "dent",
+        "file": "objects/dent.json",
+        "number": 17
+      },
+      "source": "efaca8d50aa4743aa65fd5a0da4bb05db227b1c4f5106b861b683e8a2748943e"
+    },
+    {
+      "entry": {
+        "id": "ring",
+        "file": "objects/ring.json",
+        "number": 18
+      },
+      "source": "b6a5f794e951c0137eac74ff7cef85b60660fc4b6ac9b3867caa18702d9602d9"
+    },
+    {
+      "entry": {
+        "id": "bowl",
+        "file": "objects/bowl.json",
+        "number": 19
+      },
+      "source": "ac72d791ba8e1957c7b456f37326f6bc8af46f39ad57c2e1c4464be749678ad8"
+    },
+    {
+      "entry": {
+        "id": "leaf",
+        "file": "objects/leaf.json",
+        "number": 20
+      },
+      "source": "45cf90e6b3f762a21338664eebf50b5fddbfba64f94234b30a9a0b802043771c"
+    },
+    {
+      "entry": {
+        "id": "mobile",
+        "file": "objects/mobile.json",
+        "number": 21
+      },
+      "source": "8a21d3795a38d7ebc4016a6ca7550942fc9c6b83e2fb6ba8f5937501ce863706"
+    },
+    {
+      "entry": {
+        "id": "tilt-mouth",
+        "file": "objects/tilt-mouth.json",
+        "number": 22
+      },
+      "source": "c8e561e179806b162d51038d9a7d1e8abf28ff545e85bda7a9e4438272d0a485"
+    },
+    {
+      "entry": {
+        "id": "pocket-shell",
+        "file": "objects/pocket-shell.json",
+        "number": 23
+      },
+      "source": "b1b1f1d805c876763acdbcb1a8340e2a0233692fba16c65a8974b2ebf3196209"
+    },
+    {
+      "entry": {
+        "id": "square-flue",
+        "file": "objects/square-flue.json",
+        "number": 24
+      },
+      "source": "1627196364d7f0af54dd0140b9a95a9920183a1040ef8f60d63bed81c9770be2"
+    },
+    {
+      "entry": {
+        "id": "elbow-window",
+        "file": "objects/elbow-window.json",
+        "number": 25
+      },
+      "source": "98f007f68a0a10d76c822fc85c2f42a1309f1531270b204de99e9fbdc2766b60"
+    },
+    {
+      "entry": {
+        "id": "fork-gap",
+        "file": "objects/fork-gap.json",
+        "number": 26
+      },
+      "source": "9db49d182bdb0958c196bc79f17f0331d828000ee5b30cff7e37a02fbeaf9852"
+    },
+    {
+      "entry": {
+        "id": "skew-tunnel",
+        "file": "objects/skew-tunnel.json",
+        "number": 27
+      },
+      "source": "c44f8ccdd0a4718b1590bf06784d9b559640757e9e9a96698e0b1d361b6cd4f3"
+    },
+    {
+      "entry": {
+        "id": "crease-fan",
+        "file": "objects/crease-fan.json",
+        "number": 28
+      },
+      "source": "c0ed9c871b6aa34963a942aef4a290120ae2aa7b5cf94a080ea549d648f5fd60"
+    },
+    {
+      "entry": {
+        "id": "ribbon-turn",
+        "file": "objects/ribbon-turn.json",
+        "number": 29
+      },
+      "source": "98a1f3a7c1256600fab77892dbb7117336177e9d903cfcb8c49d4b2de18f1464"
+    },
+    {
+      "entry": {
+        "id": "saddle-sheet",
+        "file": "objects/saddle-sheet.json",
+        "number": 30
+      },
+      "source": "2703940980baf18e2a2d8de4327abfcf831696c8f6759a3ee68f26eafc78ba73"
+    },
+    {
+      "entry": {
+        "id": "offset-stack",
+        "file": "objects/offset-stack.json",
+        "number": 31
+      },
+      "source": "b90c180387aa528978b58d03b294a680cced9bcfcc44e016571a5aa0c0890a3d"
+    },
+    {
+      "entry": {
+        "id": "bridge-pins",
+        "file": "objects/bridge-pins.json",
+        "number": 32
+      },
+      "source": "a9b7bd539418379f07bef51925053490ff9bff95ca98679f62839551518fb6fe"
+    },
+    {
+      "entry": {
+        "id": "orbit-cage",
+        "file": "objects/orbit-cage.json",
+        "number": 33
+      },
+      "source": "37190a057cdd4ce8198ec25cd7103f9cd542bb31dd9267ab632adef189363176"
+    },
+    {
+      "entry": {
+        "id": "three-ridges",
+        "file": "objects/three-ridges.json",
+        "number": 34
+      },
+      "source": "a12f3f68d25c50d74dbc08d5c4925b39561151004b2a7775b8a4262d28d6a938"
+    },
+    {
+      "entry": {
+        "id": "pinched-cross",
+        "file": "objects/pinched-cross.json",
+        "number": 35
+      },
+      "source": "ec662b546ac19c2791961326c6d9ff5905e9e623157575bde29e5030f0f4b4f3"
+    },
+    {
+      "entry": {
+        "id": "step-knot",
+        "file": "objects/step-knot.json",
+        "number": 36
+      },
+      "source": "9a2050556ad5dfa0daf42c60b8958a6016724fd6874494edc03cf2271d21d4f5"
+    },
+    {
+      "entry": {
+        "id": "pinwheel",
+        "file": "objects/pinwheel.json",
+        "number": 37
+      },
+      "source": "38390ffb070ee6daa640616146d97a830b4a874c0d87478d9fc9f53339bb2fbe"
+    },
+    {
+      "entry": {
+        "id": "shutter",
+        "file": "objects/shutter.json",
+        "number": 38
+      },
+      "source": "f7542a817c0595d8953e56b8189003b711f333a981727e39bbb8ecdc79943f9a"
+    },
+    {
+      "entry": {
+        "id": "pendulum",
+        "file": "objects/pendulum.json",
+        "number": 39
+      },
+      "source": "51be31e5371d4f1cd89f98c37f4be8ca1e051e958c8de689f01ad8ac858b15ef"
+    },
+    {
+      "entry": {
+        "id": "slider",
+        "file": "objects/slider.json",
+        "number": 40
+      },
+      "source": "a803b63d27d1dae2c08beadd472e819508b3819a4558551bd2e519ae1ffb60c1"
+    },
+    {
+      "entry": {
+        "id": "mobile-motion",
+        "file": "objects/mobile-motion.json",
+        "number": 41
+      },
+      "source": "f07e6e5f601e7f0ffbb0ed31e01cf0f1aa7b36096075299dee8e3496dacce0d3"
+    },
+    {
+      "entry": {
+        "id": "eccentric-hoop",
+        "file": "objects/eccentric-hoop.json",
+        "number": 42
+      },
+      "source": "2707d16bb5aa4c77a2dfc72aad15aa682a020d39117bab50a0cb98d77e490d1c"
+    },
+    {
+      "entry": {
+        "id": "folded-comet",
+        "file": "objects/folded-comet.json",
+        "number": 43
+      },
+      "source": "db56cf77303f4e68329477232f9fb3ab8241e2cb3fe203de47e22ca2b9843ee0"
+    },
+    {
+      "entry": {
+        "id": "split-disc",
+        "file": "objects/split-disc.json",
+        "number": 44
+      },
+      "source": "b6a2b03212be4f238ab0f83c2fb6f69d98b8c4d805371baff484a900100f32a6"
+    },
+    {
+      "entry": {
+        "id": "breathing-keel",
+        "file": "objects/breathing-keel.json",
+        "number": 45
+      },
+      "source": "738dc32ff3f9a455379d796c3161560ec7132b6c50d0fdc3d0ad3b0fb9b2ffad"
+    },
+    {
+      "entry": {
+        "id": "soft-beak",
+        "file": "objects/soft-beak.json",
+        "number": 46
+      },
+      "source": "1b0fbfc3adcacdda63229848297371fef50c06a6935477173a1219e13ff4aae3"
+    },
+    {
+      "entry": {
+        "id": "tilting-cove",
+        "file": "objects/tilting-cove.json",
+        "number": 47
+      },
+      "source": "56fcfc4acc8bb56cfe6940b573f375128b1df088f2ac72a6ea51fe04dfe6eb70"
+    },
+    {
+      "entry": {
+        "id": "wandering-teeth",
+        "file": "objects/wandering-teeth.json",
+        "number": 48
+      },
+      "source": "338e8299dcc8a73e14ad4c6de2bfef6cfed5de478eb97fc9bb20f06b4c0dc7cc"
+    },
+    {
+      "entry": {
+        "id": "rising-islands",
+        "file": "objects/rising-islands.json",
+        "number": 49
+      },
+      "source": "5a6815c73b0e4e22ca1539e627bb8d17cb5ae2cd3295424f08171e23ed3d1ae4"
+    },
+    {
+      "entry": {
+        "id": "split-horizon",
+        "file": "objects/split-horizon.json",
+        "number": 50
+      },
+      "source": "854bba9bf2372bc27c86ddf72d66c4835a9751f406f4958d911661689a0a6bb2"
+    },
+    {
+      "entry": {
+        "id": "phase-petals",
+        "file": "objects/phase-petals.json",
+        "number": 51
+      },
+      "source": "0dd0d19c85514bcbe78f939ad534eeb865a32ff56967adc9b414278f966b9fb3"
+    },
+    {
+      "entry": {
+        "id": "counter-arches",
+        "file": "objects/counter-arches.json",
+        "number": 52
+      },
+      "source": "f3c108d5c0d2562da8d53f7384bc72a50ee16b515f2619bf5bf9aa0b17509edd"
+    },
+    {
+      "entry": {
+        "id": "slow-conversation",
+        "file": "objects/slow-conversation.json",
+        "number": 53
+      },
+      "source": "13d2cd4fba16e40b2562a73e7106c2037fd5c5178e17c0790a6e83ae66e7188a"
+    },
+    {
+      "entry": {
+        "id": "hollow-comma",
+        "file": "objects/hollow-comma.json",
+        "number": 54
+      },
+      "source": "19a499189fcf56f68474bb0028fc2965c16de8304a88d323bdfbe0aa0ca69a32"
+    },
+    {
+      "entry": {
+        "id": "walking-fold",
+        "file": "objects/walking-fold.json",
+        "number": 55
+      },
+      "source": "5dcdc3d245dcca43ca8b1600ea2c2c64a8e8578a7c7281897c99c41f97fb5d0c"
+    },
+    {
+      "entry": {
+        "id": "unsettled-crown",
+        "file": "objects/unsettled-crown.json",
+        "number": 56
+      },
+      "source": "99d73bea34d021af5abeb2b1be3ee267016960edd4b0479e97dfdc60ebf24957"
+    },
+    {
+      "entry": {
+        "id": "door",
+        "file": "objects/door.json",
+        "number": 57
+      },
+      "source": "e9e207115b8739ebb7f1b5d945a7b7550ba56f9e69d44f063ea8339eba7e7f27"
+    },
+    {
+      "entry": {
+        "id": "crank",
+        "file": "objects/crank.json",
+        "number": 58
+      },
+      "source": "71359e438610b6bafdfe34ec7bb0b6b0473b887fc4d5784c22bc286755ba2f86"
+    },
+    {
+      "entry": {
+        "id": "drawer",
+        "file": "objects/drawer.json",
+        "number": 59
+      },
+      "source": "f6dc8d8b15582484f8a435770354c3f1e1685da27985419fc4987bfa61e18f65"
+    },
+    {
+      "entry": {
+        "id": "keepsake",
+        "file": "objects/keepsake.json",
+        "number": 60
+      },
+      "source": "6bd8ab35c659d39e29ea214cb064203999b7e49e373bf6bb7f71a328db22bd1b"
+    },
+    {
+      "entry": {
+        "id": "folio",
+        "file": "objects/folio.json",
+        "number": 61
+      },
+      "source": "fa064ef157642b70051336182e037c6101f4c5170b2abfe81ced888d14f813fd"
+    },
+    {
+      "entry": {
+        "id": "awning",
+        "file": "objects/awning.json",
+        "number": 62
+      },
+      "source": "022f4b7db27da89fb44cd20cdc2369169f2fa36a43bede69548da905ffc3e77f"
+    },
+    {
+      "entry": {
+        "id": "spool",
+        "file": "objects/spool.json",
+        "number": 63
+      },
+      "source": "4d01b36bb3044f6d6b3ea77ecbee6cdb1fafedd154eaa8eea368610960396890"
+    },
+    {
+      "entry": {
+        "id": "petal-turntable",
+        "file": "objects/petal-turntable.json",
+        "number": 64
+      },
+      "source": "cbef1b5071a7317ceafae39ade1dac20f64788bec3dd8d5c066b789938562729"
+    },
+    {
+      "entry": {
+        "id": "tri-rotor",
+        "file": "objects/tri-rotor.json",
+        "number": 65
+      },
+      "source": "f187fd3b9727a2e8273d26fd109c3c9d46967f5fc5f84b27bef932d4c0240dac"
+    },
+    {
+      "entry": {
+        "id": "riser",
+        "file": "objects/riser.json",
+        "number": 66
+      },
+      "source": "48587b23f34b94f469e5c4d8cf9e779107bd282683c739c11c33cc2ac60778c0"
+    },
+    {
+      "entry": {
+        "id": "shuttle-block",
+        "file": "objects/shuttle-block.json",
+        "number": 67
+      },
+      "source": "3f934ed7ef9d24057e8f38bdb4cda4555ed46cb1fa58957d4524b4193d9c9338"
+    },
+    {
+      "entry": {
+        "id": "twin-paddles",
+        "file": "objects/twin-paddles.json",
+        "number": 68
+      },
+      "source": "ffcc8958f3f59c7b2b0a8f8bb84312801b22d9968d04873058cc66587df0f82a"
+    },
+    {
+      "entry": {
+        "id": "dial-and-slide",
+        "file": "objects/dial-and-slide.json",
+        "number": 69
+      },
+      "source": "d3899941f2b1ed704bee7a97751621d32f0dfd645d5e4f8f4a9f8c448c51ed40"
+    },
+    {
+      "entry": {
+        "id": "alley-postbox",
+        "file": "objects/alley-postbox.json",
+        "number": 70
+      },
+      "source": "1ea2c4e594fe43fe7013241c02d101eae1cfbcf3c1f8f3b5192ab2ba1853e4af"
+    },
+    {
+      "entry": {
+        "id": "hand-coffee-mill",
+        "file": "objects/hand-coffee-mill.json",
+        "number": 71
+      },
+      "source": "f80af2e37118d362d0a25810896eac0952078f152647558d87e82b7cf3890aa4"
+    },
+    {
+      "entry": {
+        "id": "crossing-bar",
+        "file": "objects/crossing-bar.json",
+        "number": 72
+      },
+      "source": "a1e7151926944b74e4dc3adaa3ec4246e9fd2ecf7154bd37ba500a25ea6d8d66"
+    },
+    {
+      "entry": {
+        "id": "rain-lantern",
+        "file": "objects/rain-lantern.json",
+        "number": 73
+      },
+      "source": "503578fe06ee9be926a6efcd2a47a7be9121bac910245ea194bd15c249cf6fc0"
+    },
+    {
+      "entry": {
+        "id": "moss-stairs",
+        "file": "objects/moss-stairs.json",
+        "number": 74
+      },
+      "source": "b2292f2dedaca8a3217407541f5332bfcb9e0a608827f8817bd6bdbd3ee87b0e"
+    },
+    {
+      "entry": {
+        "id": "reed-sheaf",
+        "file": "objects/reed-sheaf.json",
+        "number": 75
+      },
+      "source": "967797855ebbe658396021294b8857bbd43bb7b94414a4c83cf425ffb6a68cd8"
+    },
+    {
+      "entry": {
+        "id": "garden-persimmon",
+        "file": "objects/garden-persimmon.json",
+        "number": 76
+      },
+      "source": "9c379fac46072d045b6bdd9633bc71108240720eccf609d6617c848a55f7c50f"
+    },
+    {
+      "entry": {
+        "id": "shop-flip-sign",
+        "file": "objects/shop-flip-sign.json",
+        "number": 77
+      },
+      "source": "70a16ea1f662dcdfe4d1c2a7aef01ac3ab8513d0a835474a8075fe488b80f333"
+    },
+    {
+      "entry": {
+        "id": "ticket-stamper",
+        "file": "objects/ticket-stamper.json",
+        "number": 78
+      },
+      "source": "f093c7e048dc0cc513045ce66cafeabc645507981556d9ad77eead92b1042117"
+    },
+    {
+      "entry": {
+        "id": "drying-cloth",
+        "file": "objects/drying-cloth.json",
+        "number": 79
+      },
+      "source": "3b5a67ec5b79975ab33f8e2d6833f89d478e2da6166bb0dc6900e198fd54a74a"
+    }
+  ]
+}

@@ -379,6 +379,56 @@
       "id": "drying-cloth",
       "file": "objects/drying-cloth.json",
       "number": 79
+    },
+    {
+      "id": "copper-kettle",
+      "file": "objects/copper-kettle.json",
+      "number": 80
+    },
+    {
+      "id": "garden-hand-pump",
+      "file": "objects/garden-hand-pump.json",
+      "number": 81
+    },
+    {
+      "id": "roof-ventilator",
+      "file": "objects/roof-ventilator.json",
+      "number": 82
+    },
+    {
+      "id": "three-row-counter",
+      "file": "objects/three-row-counter.json",
+      "number": 83
+    },
+    {
+      "id": "fallen-bough",
+      "file": "objects/fallen-bough.json",
+      "number": 84
+    },
+    {
+      "id": "rice-triangle",
+      "file": "objects/rice-triangle.json",
+      "number": 85
+    },
+    {
+      "id": "roadside-grate",
+      "file": "objects/roadside-grate.json",
+      "number": 86
+    },
+    {
+      "id": "water-level-gauge",
+      "file": "objects/water-level-gauge.json",
+      "number": 87
+    },
+    {
+      "id": "folding-perch",
+      "file": "objects/folding-perch.json",
+      "number": 88
+    },
+    {
+      "id": "plaza-setting-clock",
+      "file": "objects/plaza-setting-clock.json",
+      "number": 89
     }
   ]
 }
