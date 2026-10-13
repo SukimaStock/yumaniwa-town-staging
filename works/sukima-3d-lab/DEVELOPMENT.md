@@ -17,6 +17,8 @@ Tradeoff: painting/input opportunities increase total completion time in this ru
 
 Browser regression `tests/collection-scheduling.cjs` injects deliberate preview CPU work only in its test response, then performs actual selection, rotation, next/previous/back before all cards exist; checks full ordered previews and one503 failure isolation on desktop/mobile. It is not a performance/cache benchmark. Existing241 work tests and24 lifecycle tests pass; numerical engine and prior99 data are unchanged. Final99/109 scheduling results, unchanged measurement results, review/CI/Pages outcome are recorded in the performance PR and scratch handoff.
 
+Review of73df43d found that wrapping to an unbuilt last card then returning could lose keyboard focus. The follow-up preserves the original collection card as a fallback only while the selected card is absent; adds a real Previous-wrap/Back/focus regression during generation. This does not change preview scheduling. Initial paired/full measurement source remains73df43d; final focus fix is checked separately.
+
 Resume: merge this performance PR only after final review/CI; then create a fresh data Plan from that new main and transplant the preserved100–109 data without recreating forms. PR323 stays unmerged until this dependency is resolved. No110+ creation yet. Verification state remainsUNVERIFIED; author adoption and public browser confirmation are separate.
 
 # Collection 07 · 湯間庭町の小さな模型 90–99 — 2026-10-13

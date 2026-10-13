@@ -14,7 +14,7 @@ const collectionView=document.querySelector('#collection-view'),touchView=docume
 const session=new SpecimenSession(),camera=new Camera(),debugHost=document.querySelector('#debug-host');
 const motionButton=document.querySelector('#toggle-motion');
 const debugMode=new URLSearchParams(location.search).has('debug'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
-let renderer=null,input=null,debug=null,contextLost=false,active=false,keyPress=false,items=[],selected=-1,collectionScroll=0;
+let renderer=null,input=null,debug=null,contextLost=false,active=false,keyPress=false,items=[],selected=-1,collectionScroll=0,collectionFocusCard=null;
 function message(text){notice.textContent=text;notice.hidden=false;hint.hidden=true;}
 function motionUI(){motionButton.hidden=!session.motion;motionButton.textContent=session.motion?.playing?'一時停止':'再生';motionButton.setAttribute('aria-label',session.motion?.playing?'パーツの動きを一時停止':'パーツの動きを再生');}
 function preference(){if(session.body){session.body.options.settle=reduced.matches?0:.014;session.body.options.damping=reduced.matches?4:1.85;}if(reduced.matches)session.motion?.setPlaying(false);motionUI();}
@@ -33,7 +33,7 @@ function resume(){if(active&&renderer&&!document.hidden&&!contextLost)loop.start
 function discard(){pause();input?.destroy();input=null;debug=null;debugHost.replaceChildren();session.clear();if(debugMode)delete window.touchLab;}
 function show(index){
  const item=items[index];if(!item?.definition)return;
- if(!active)collectionScroll=collectionView.scrollTop;
+ if(!active){collectionScroll=collectionView.scrollTop;collectionFocusCard=grid.querySelector(`[data-index="${index}"]`);}
  discard();selected=index;active=true;collectionView.hidden=true;touchView.hidden=false;
  document.querySelector('#specimen-name').textContent=`${String(item.number??item.index).padStart(2,'0')} / ${item.definition.name}`;
  document.querySelector('#specimen-number').textContent=`${index+1} / ${items.length}`;
@@ -66,7 +66,7 @@ function show(index){
 }
 function back(){
  discard();active=false;touchView.hidden=true;collectionView.hidden=false;collectionView.scrollTop=collectionScroll;
- grid.querySelector(`[data-index="${selected}"]`)?.focus({preventScroll:true});
+ (grid.querySelector(`[data-index="${selected}"]`)??collectionFocusCard)?.focus({preventScroll:true});
 }
 document.querySelector('#reset-pose').addEventListener('click',()=>{input?.cancel();session.resetPose();debug?.update();});
 motionButton.addEventListener('click',()=>{session.motion?.setPlaying(!session.motion.playing);motionUI();debug?.update();});
