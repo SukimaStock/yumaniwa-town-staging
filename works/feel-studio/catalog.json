@@ -277,6 +277,45 @@
       "ranges": {},
       "settingParts": [],
       "inputMeaning": "DOM作品。瞬間的な開きとCSSの余韻を比較。内部状態を保存するAPIはない。"
+    },
+    {
+      "id": "ametsugi",
+      "title": "雨つぎ · 制作版",
+      "level": 3,
+      "config": {
+        "angle": 0,
+        "wait": 0.85
+      },
+      "ranges": {
+        "angle": {
+          "min": -0.66,
+          "max": 0.66
+        },
+        "wait": {
+          "min": 0,
+          "max": 2
+        }
+      },
+      "settingParts": [
+        {
+          "id": "first-roof",
+          "label": "最初の屋根の傾き",
+          "keys": [
+            "angle"
+          ],
+          "contract": "ametsugi-gutter-angle/1"
+        },
+        {
+          "id": "first-rain",
+          "label": "最初の一粒までの間",
+          "keys": [
+            "wait"
+          ],
+          "contract": "ametsugi-rain-wait/1"
+        }
+      ],
+      "inputMeaning": "雨どいを上下にドラッグして傾ける。全5屋根の水の物理は元作品のまま。編集は最初の屋根の初期傾きと、最初の一滴までの間に限定。",
+      "editHint": "最初の屋根の雨どいを動かすか、傾き・待つ時間を編集。水が流れる挙動は作品自身が管理。"
     }
   ],
   "builds": [
@@ -908,6 +947,55 @@
         {
           "path": "prototypes/drawer/view-fallback.js",
           "sha256": "ceb7de8a58425dec0cc7c4e2130cb0d1ccf49dbd93e7da6939be54a067e9786d"
+        }
+      ]
+    },
+    {
+      "id": "ametsugi-a",
+      "project": "ametsugi",
+      "title": "A · 雨つぎの元の流れ",
+      "description": "既存雨つぎの5屋根・水の物理とアートを隔離した制作版で再利用。最初の傾きと待ち時間を編集。",
+      "version": "0.1.0",
+      "runtime": "feel-bridge/1",
+      "url": "prototypes/ametsugi/ametsugi-a/index.html",
+      "source": "prototypes/ametsugi/ametsugi-a/app.js",
+      "initial": true,
+      "derivedFrom": null,
+      "parts": [
+        {
+          "id": "tilt",
+          "label": "雨どいの傾きと操作",
+          "anchor": "RainGame.move / RainGame.step"
+        },
+        {
+          "id": "water",
+          "label": "雨粒の流れと受け渡し",
+          "anchor": "RainGame.step"
+        },
+        {
+          "id": "presentation",
+          "label": "雨と屋根の演出",
+          "anchor": "RainDrawing.draw"
+        }
+      ],
+      "codeHash": "3977cdafbd102a324621fb5f3ec7ff19665c0ee1c5063a065630c3e148b98450",
+      "htmlHash": "c9428d50e39a5b4d23025022e4e53749aedb265a28398289aadac3cbac4cf8ad",
+      "dependencies": [
+        {
+          "path": "bridge-client.js",
+          "sha256": "60c1fc99e27df0198c2e5eb58895938d7ed15461601ce9c1899688bfe8bf507d"
+        },
+        {
+          "path": "prototypes/ametsugi/physics.js",
+          "sha256": "db9f245d91e9806d42f56e1003aabc23e4325f67bafad226d6271a278f4bad76"
+        },
+        {
+          "path": "prototypes/ametsugi/art.js",
+          "sha256": "4ab6a08e05724eda3a1e080945a192e3577a9b0ae107fa4ff5c0a193b961e5a1"
+        },
+        {
+          "path": "prototypes/ametsugi/style.css",
+          "sha256": "12367e0341181e1307ad4beb43ddc0af69175d6b460205ec9a98f825036c5f13"
         }
       ]
     }
