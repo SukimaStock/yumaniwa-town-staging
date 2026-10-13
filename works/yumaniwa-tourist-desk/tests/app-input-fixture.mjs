@@ -9,6 +9,7 @@ class Surface {
  releasePointerCapture(id){this.captures.delete(id);this.dispatch('lostpointercapture',{pointerId:id,pointerType:'touch'});}
 }
 const canvas=new Surface(),hint=new Surface(),error=new Surface(),sound=new Surface(),reset=new Surface(),mapLink=new Surface(),doc=new Surface(),win=new Surface();
+let touchSignals=0;win.trackTouristDeskTouch=()=>touchSignals++;
 doc.hidden=false;doc.querySelector=s=>({'canvas':canvas,'.invitation':hint,'.error':error,'.sound':sound,'.view-reset':reset,'.desk-map-link':mapLink})[s];
 const audio={withBaseline:x=>x,configure(){},enabled:false,unlock(){},resumeContext(){},syncBusVolumes(){},tone(){},resumeFromLifecycle(){},pauseForLifecycle(){}};win.SSE={audio};
 const control={part:'dial',type:'rotate',initial:.24,value:.24,min:0,max:1,inertia:0},player={active:false,controls:[control],control:()=>control,grab(){this.active=true;},release(){this.active=false;},moveBy(id,delta){control.value+=delta;}};
@@ -22,7 +23,7 @@ const source=readFileSync(new URL('../app.js',import.meta.url),'utf8'),app=new v
 await app.link(spec=>spec.includes('peek-zoom')?modules.pinch:spec.includes('manipulation-mapping')?modules.mapping:spec.includes('renderer')?modules.renderer:modules.scene);await app.evaluate();
 const e=(id,x,y=100)=>({pointerId:id,pointerType:'touch',clientX:x,clientY:y,button:0,timeStamp:1000});
 const send=(type,id,x,y=100)=>canvas.dispatch(type,e(id,x,y));
-assert.equal(reset.hidden,true);send('pointerdown',1,100);assert.equal(player.active,true);send('pointerdown',2,200);assert.equal(player.active,false);assert.equal(picks,1);assert.equal(canvas.captures.size,2);
+assert.equal(reset.hidden,true);send('pointerdown',1,100);assert.equal(player.active,true);send('pointerdown',2,200);assert.equal(player.active,false);assert.equal(picks,1);assert.equal(touchSignals,1);assert.equal(canvas.captures.size,2);
 send('pointermove',2,230);assert.equal(scene.zoom,1.3);assert.equal(reset.hidden,false);assert.equal(control.value,.24);
 send('pointerup',2,230);send('pointermove',1,160);send('pointerup',1,160);assert.equal(control.value,.24);assert.equal(canvas.captures.size,0);
 send('pointerdown',3,100);send('pointerup',3,100);assert.ok(Math.abs(control.value-.89)<1e-6);const value=control.value;
@@ -48,3 +49,5 @@ send('pointerdown',21,100);send('pointermove',21,130);send('pointerup',21,130);a
 send('pointerdown',22,100);send('pointerdown',23,200);send('pointermove',23,230);send('pointerup',23,230);send('pointerup',22,100);assert.equal(mapLink.hidden,true);
 mapLink.hidden=false;assert.notEqual(mapLink.dispatch('click').prevented,true);assert.equal(canvas.captures.size,0);
 console.log('PASS separate map anchor, existing hinge tap, no link on drag/pinch, native guide behavior.');
+
+const normalPick=scene.pick;scene.pick=()=>null;const countBeforeMiss=touchSignals;send('pointerdown',30,100);send('pointerup',30,100);assert.equal(touchSignals,countBeforeMiss);scene.pick=normalPick;win.trackTouristDeskTouch=()=>{throw new Error('tracker unavailable');};send('pointerdown',31,100);assert.equal(player.active,true);send('pointerup',31,100);assert.equal(player.active,false);
