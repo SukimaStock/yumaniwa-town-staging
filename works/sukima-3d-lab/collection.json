@@ -1379,6 +1379,56 @@
       "id": "woodland-acorn",
       "file": "objects/woodland-acorn.json",
       "number": 279
+    },
+    {
+      "id": "carved-chess-knight",
+      "file": "objects/carved-chess-knight.json",
+      "number": 280
+    },
+    {
+      "id": "faceted-spinning-top",
+      "file": "objects/faceted-spinning-top.json",
+      "number": 281
+    },
+    {
+      "id": "folding-leg-ironing-board",
+      "file": "objects/folding-leg-ironing-board.json",
+      "number": 282
+    },
+    {
+      "id": "sliding-matchbox",
+      "file": "objects/sliding-matchbox.json",
+      "number": 283
+    },
+    {
+      "id": "small-painters-easel",
+      "file": "objects/small-painters-easel.json",
+      "number": 284
+    },
+    {
+      "id": "square-ceramic-funnel",
+      "file": "objects/square-ceramic-funnel.json",
+      "number": 285
+    },
+    {
+      "id": "tilting-table-mirror",
+      "file": "objects/tilting-table-mirror.json",
+      "number": 286
+    },
+    {
+      "id": "wooden-citrus-reamer",
+      "file": "objects/wooden-citrus-reamer.json",
+      "number": 287
+    },
+    {
+      "id": "wooden-metronome",
+      "file": "objects/wooden-metronome.json",
+      "number": 288
+    },
+    {
+      "id": "wooden-toy-sailboat",
+      "file": "objects/wooden-toy-sailboat.json",
+      "number": 289
     }
   ]
 }
