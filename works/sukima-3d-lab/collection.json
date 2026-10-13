@@ -1429,6 +1429,56 @@
       "id": "wooden-toy-sailboat",
       "file": "objects/wooden-toy-sailboat.json",
       "number": 289
+    },
+    {
+      "id": "folded-zigzag-ribbon",
+      "file": "objects/folded-zigzag-ribbon.json",
+      "number": 290
+    },
+    {
+      "id": "hanging-shop-banner",
+      "file": "objects/hanging-shop-banner.json",
+      "number": 291
+    },
+    {
+      "id": "kiosk-service-flap",
+      "file": "objects/kiosk-service-flap.json",
+      "number": 292
+    },
+    {
+      "id": "leaning-twin-monoliths",
+      "file": "objects/leaning-twin-monoliths.json",
+      "number": 293
+    },
+    {
+      "id": "railway-buffer-stop",
+      "file": "objects/railway-buffer-stop.json",
+      "number": 294
+    },
+    {
+      "id": "rooftop-aerial",
+      "file": "objects/rooftop-aerial.json",
+      "number": 295
+    },
+    {
+      "id": "split-level-arch",
+      "file": "objects/split-level-arch.json",
+      "number": 296
+    },
+    {
+      "id": "station-luggage-trolley",
+      "file": "objects/station-luggage-trolley.json",
+      "number": 297
+    },
+    {
+      "id": "stone-drinking-trough",
+      "file": "objects/stone-drinking-trough.json",
+      "number": 298
+    },
+    {
+      "id": "suspended-lozenge",
+      "file": "objects/suspended-lozenge.json",
+      "number": 299
     }
   ]
 }

@@ -1,3 +1,34 @@
+# Collection 27 · supplied town/abstract miniatures290–299 — 2026-10-13
+
+Parent accepted289 and authorized these ten through safe Staging merge/exactSHA Pages. Stop after299,wait for parent before reserved hydrant300; never301. Basef064d815dd519e2699b196dc193811797ec2a68c (PR349), Plan-only4ad79f0 precedes implementation,digestf74f3dabd4906a0d6b316700340a20aa50a9ce056a3485856fb39babfb06f6c4. AGENTS/guide/verification and active/staging-only contracts retained; no .agents/skills available. No engine/runtime/schema/gates/town/otherwork/Production change.
+
+Original drafts preserved at `/workspace/scratch/sukima-batch27/originals/`. Six originals unchanged semantically. Minimal fixes: ribbon display yaw−.4→−.6; aerial display yaw0→+.5; flap display tiltX0→−.30; lozenge fixed thread bottomY.60→.64 (four vertices) leaves.01 to rotating tipY.63. All control ranges/tracks/other geometry retained.
+
+| Number / ID / name | Shape / supported behavior |
+| --- | --- |
+| 290 `folded-zigzag-ribbon` 折り返す帯 | Folded ribbon open connected zigzag sheet,display yaw−.6 |
+| 291 `hanging-shop-banner` 商店の垂れ幕 | Banner four open triangles swingX with shallow fold and fixedbracket clearance |
+| 292 `kiosk-service-flap` 売店の受け渡し窓 | Flap hingeX−1.25..0 initial−.22,wide grab area,lintel/jamb clearance |
+| 293 `leaning-twin-monoliths` 寄り添う二つの石 | Two separate asymmetrically leaning stones; preserve gap |
+| 294 `railway-buffer-stop` 終着線の車止め | Buffer slanted legs and redbeam fixed joins |
+| 295 `rooftop-aerial` 屋根のアンテナ | Aerial orthogonal thin rods; inspect front/back visibility |
+| 296 `split-level-arch` 段違いの門 | Unequal piers with sloping lintel and open portal |
+| 297 `station-luggage-trolley` 駅の荷物運び | Trolley openhandleframe and two fixed wheel solids rotatedY; no rolling physics |
+| 298 `stone-drinking-trough` 路地の石の水槽 | Wide open stone basin/plinth; thin surface,no water |
+| 299 `suspended-lozenge` 宙のひし形 | Lozenge spinY.24 and fixedthread,fullcycle support clearance |
+
+**STATIC7 / TOUCH0 / MOTION2 / MANIPULATION1**. Banner swingX,lozenge spinY,wide flap hingeX−1.25..0 initial−.22. Trolley wheels fixed,no rolling or linked physics. Ribbon/banner/basin/handle are intentional open surfaces.
+
+## Evidence and checkpoint
+
+- Immutable289 complete entries/JSON hashes/order/missing16. Twenty-four historical total assertions289→299 only; prior slices/goldens unchanged. Exactten/current300cap/strict loading and identity. Full work/lifecycle counts and candidate SHA in PR/handoff.
+- Ribbon/aerial original landscape body4546/4522 pixels failed unchanged5000 threshold; display-only yaw changes pass. Flap original mobile max-overtravel reverse−.0572496 missed expected−.035 ±.02; display−.30rad passes both inputs with no threshold change. Original thread intersected lozenge at145/145 spin poses; final.01 vertical gap avoids it continuously. Failed logs retained, no failed variant registered.
+- New native145 frames using unchanged shaders/checker/CPU-GPU previews/threeviewports; previews inspected. Full299 export5035 scenes partitioned only by viewport as established batch26 serialization workaround:1587+1587+1587+274. Actual checker completion/exit statuses in PR/handoff; no scene omission or repository renderer changes. This QA serialization issue is separate from public load reliability.
+- Exact geometry:21 closed parts,158 fixed component comparisons,9 intentional fixed embeddings (jamb/lintel,buffer legs/beam,aerial mast/rods,arch piers/lintel,trolley platform/wheels). Two leaning stones use authored-face tetra partitions12 each with verified interior kernels; rotated wheel components use authored quaternion transforms. Initial scratch identity-transform assertion retained as failed QA helper evidence. Dynamic435 poses/725 component pairs,zero overlaps. Banner uses conservative convex enclosure,so its clearance proves all open-sheet triangles clear; no solid-sheet physics claim. Open surfaces inspected front/back.
+- SevenSTATIC42 mouse/CDPtouch surface/heldsurface/background/reverse/reset/switch/immutable cases. New hinge both inputs allcontrol and tiny/nojump/overtravelreverse; old213 two independent sliders and258 rotate;219Touch/235Motion/new291+299/reducedmotion/299cards-scroll-threeviewports. Actual counts/page/GL errors in PR/handoff. Chromium mobile equivalent is not physical iPhone/iPad/Safari.
+- Parent269 public firstload103 disabled/reload recovery remains unresolved. Current normal publicURL tool read inaccessible. Public299 UI,physicalSafari,author adoption and final verification remain unverified. At300 separately measure load/preview/mobile/memory/scroll/selection and network/late-load behavior; no speculative improvement or access bypass.
+- After safe merge formal299,next300,one remains to current300cap. **Stop awaiting parent; no300/301 registered.** Reserved hydrant original stays under batch22. Exact candidate/merge tree,CI/review/Pages and restart state in PR and `/workspace/scratch/sukima-batch27/handoff.json`. Earlier records follow unchanged.
+
 # Collection 26 · supplied household/hobby miniatures280–289 — 2026-10-13
 
 Parent accepted279 and authorized these ten through safe Staging merge/exactSHA Pages; current300 hardstop, wait after batch. Hydrant remains original-only under batch22 for300. Clean base60cfd06d2ac570bcf09096ddee83491fa4d257cc (PR348); Plan-only2397168 precedes implementation, digest1bcbccaa9340f5edc7063b46b43fc03083bca2f7f8bbfd9d519703964c1ef7bd. Existing AGENTS/guide/verification and active/staging-only contracts retained. No .agents/skills available. No engine/runtime/schema/gates/town/otherwork/Production changes.
