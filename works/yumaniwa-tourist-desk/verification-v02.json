@@ -1,0 +1,45 @@
+{
+  "schema": "yumaniwa-verification-record/0.2",
+  "changeId": "yumaniwa-tourist-desk-02-20261013",
+  "planDigest": "73015f622fb31653832bbc4c9978968dbf61ca668c9b4104b639de0653127fb7",
+  "planRevision": 0,
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "change": "Refine the existing tourist reception desk to eight reused models, a close portrait composition, organized tourist papers and forgiving unambiguous touch selection.",
+  "environment": "staging",
+  "baseSha": "3dc2d705e9d6e36ee9706aecd66c4157107de84d",
+  "verifiedSha": "6679faea863b8d9305912b4bddb8796ab04477fb",
+  "recordedAt": "2026-10-13T17:13:53.920789+00:00",
+  "recordedBy": "Codex Node and offscreen Mesa/EGL checks; no browser or physical-device attestation",
+  "conditionalAcknowledgements": [],
+  "staticChecks": [
+    {
+      "id": "node-syntax",
+      "status": "pass",
+      "evidence": "app.js, scene.js, renderer.js syntax checks; updated modules and tests execute"
+    }
+  ],
+  "impactChecks": [
+    {
+      "id": "work.runtime",
+      "status": "pass",
+      "evidence": "11 updated tests: eight immutable source models, 6 manual mechanisms, fan pause, four sizes visible exact picks, near-miss no override/ambiguous none, hinge map, transformed matchbox; widths improve 1.83-2.06x"
+    },
+    {
+      "id": "work.regression",
+      "status": "pass",
+      "evidence": "75 Lab manipulation/motion tests and 20 SSE audio lifecycle tests; shared modules/source definitions unchanged; Scope/Risk/Impact pass"
+    }
+  ],
+  "manualChecks": [
+    {
+      "id": "0.1 vs 0.2 offscreen portrait comparison, landscape and tablet composition",
+      "status": "pass",
+      "evidence": "4 sizes x 2 states, exact shader compile/link and GL error 0; rest images inspected and portrait-comparison.png assembled from exact offscreen renders (not browser screenshots)"
+    },
+    {
+      "id": "Physical Safari/iPhone/iPad feel, sound and page return: UNVERIFIED",
+      "status": "unverified",
+      "evidence": "Safari/browser DOM events and physical iPhone/iPad touch, sound, load, return not observed"
+    }
+  ]
+}
