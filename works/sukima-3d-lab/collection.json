@@ -329,6 +329,56 @@
       "id": "dial-and-slide",
       "file": "objects/dial-and-slide.json",
       "number": 69
+    },
+    {
+      "id": "alley-postbox",
+      "file": "objects/alley-postbox.json",
+      "number": 70
+    },
+    {
+      "id": "hand-coffee-mill",
+      "file": "objects/hand-coffee-mill.json",
+      "number": 71
+    },
+    {
+      "id": "crossing-bar",
+      "file": "objects/crossing-bar.json",
+      "number": 72
+    },
+    {
+      "id": "rain-lantern",
+      "file": "objects/rain-lantern.json",
+      "number": 73
+    },
+    {
+      "id": "moss-stairs",
+      "file": "objects/moss-stairs.json",
+      "number": 74
+    },
+    {
+      "id": "reed-sheaf",
+      "file": "objects/reed-sheaf.json",
+      "number": 75
+    },
+    {
+      "id": "garden-persimmon",
+      "file": "objects/garden-persimmon.json",
+      "number": 76
+    },
+    {
+      "id": "shop-flip-sign",
+      "file": "objects/shop-flip-sign.json",
+      "number": 77
+    },
+    {
+      "id": "ticket-stamper",
+      "file": "objects/ticket-stamper.json",
+      "number": 78
+    },
+    {
+      "id": "drying-cloth",
+      "file": "objects/drying-cloth.json",
+      "number": 79
     }
   ]
 }
