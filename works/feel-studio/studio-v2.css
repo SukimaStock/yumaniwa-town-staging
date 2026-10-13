@@ -9,3 +9,9 @@
 #bridge-controls{align-items:flex-start;gap:6px}#bridge-controls details{flex:1 1 180px;min-width:0;max-width:100%;border-top:1px solid #687b6466;padding:4px 8px}#bridge-controls summary{min-height:44px;cursor:pointer;color:#d2c6a4;font-size:12px}#bridge-controls details label{display:block;margin:6px 0 12px;min-width:0}#bridge-controls label small{display:block;font-size:10px;color:#acbba6;line-height:1.5}#bridge-controls select{width:100%;font-size:14px}#bridge-controls input[type=checkbox]{width:44px;height:44px;margin:0}#bridge-controls input[type=color]{height:44px;border:1px solid var(--line);background:transparent;padding:3px}#bridge-controls details p{margin:0 0 8px}#defaults{font-size:12px;background:transparent}#tune-note{margin:5px 0}
 @media(max-width:799px){#bridge-controls details{flex-basis:calc(50% - 6px)}}
 @media(max-width:390px){#bridge-controls details{flex-basis:100%}.build-picker label{display:flex}.build-picker select{flex:1}}
+
+/* Keep the result in sight while the author scrolls the tuning controls. */
+.tuning-mode #panes{position:sticky;top:0;z-index:3;background:#293f36;padding:4px 0 6px}
+.tuning-mode .frame,.tuning-mode .panes.comparing .frame{height:clamp(230px,36svh,390px)}
+@media(max-width:799px){.tuning-mode .frame,.tuning-mode .panes.comparing .frame{height:clamp(190px,29svh,250px)}}
+@media(max-height:500px) and (orientation:landscape){.tuning-mode .frame,.tuning-mode .panes.comparing .frame{height:150px}}
