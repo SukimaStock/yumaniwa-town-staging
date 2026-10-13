@@ -1,3 +1,34 @@
+# Collection 23 · supplied miniatures250–259 — 2026-10-13
+
+Parent accepted249 and authorized250–259; current hardstop300, wait for parent after this batch. Hydrant remains original-only under batch22, reserved as a candidate for300. Latest clean main00203ad8ee0e25f4372092a69eedd6fd7f24b4f8 (PR345); AGENTS/guide/Plan/verification rules unchanged, workactive/staging-only. Plan-only1063303 precedes implementation; digestcb7d1ccf80d20162fe8a8152b70fe58e71a205f9398f0eb947c19cc67a41ea41. Immutable249 snapshot protects complete entries/JSON bytes/order/missing16. No engine/runtime/schema/gates/town/otherwork/Production changes.
+
+Original parent JSON saved under `/workspace/scratch/sukima-batch23/originals/`. Reused candidates and existing validation helpers; no new geometry generator or special renderer. One minimal correction: second baguette positionY−.07→−.04 separates the shared bottom level; all remaining original fields preserved.
+
+| No. / ID / name | Shape / supported behavior |
+| --- | --- |
+| 250 `bakery-baguette-pair` BAKERY BAGUETTE PAIR | Two unequal separated elongated baguettes,not149 single round loaf |
+| 251 `cobbler-boot-scraper` COBBLER BOOT SCRAPER | Broad fixed scraper blade with sidefeet,unlike190 rake |
+| 252 `curb-access-ramp` CURB ACCESS RAMP | Low triangular curb ramp with back curb,unlike243 raised bridge |
+| 253 `garden-snow-shovel` GARDEN SNOW SHOVEL | Broad snowblade/Tgrip,not narrow shovel or rake; check thin sides |
+| 254 `gardener-dibber` GARDENER DIBBER | Pointed dibber with palm grip,not237 mallet head |
+| 255 `laundry-beating-paddle` LAUNDRY BEATING PADDLE | Six-sided broad paddle blade/narrow handle; inspect coplanar joint |
+| 256 `old-parking-meter` OLD PARKING METER | Tapered parkingmeter case/solid window and coinslot; no payment function |
+| 257 `roof-dormer-window` ROOF DORMER WINDOW | Dormer gable and opaque insetpane/mullion; distinguish245 bird entrance/perch |
+| 258 `rotating-platform-scale` ROTATING PLATFORM SCALE | Independent broad triangular pointer rotateZ initial−.65 above fixedface; fullturn clears face/stand; no platform coupling |
+| 259 `stacked-delivery-parcels` STACKED DELIVERY PARCELS | Two offset parcels and raised paperband,not merely recolored boxes |
+
+**STATIC9 / TOUCH0 / MOTION0 / MANIPULATION1**. Scale has exactly one independent rotateZ pointer,initial−.65,inertia0. No scale linkage, weight calculation, working parking payment or window transparency claim.
+
+## Evidence and checkpoint
+
+- Twenty historical count assertions249→259 only; old slices/goldens unchanged. Immutable249/exactten/current300cap,strict reading/uniqueIDs/numbers,STATIC idle/rotation/reset/switch and complete control range regressions. Final fullwork/lifecycle counts in PR/handoff.
+- Original baguette CPU/GPU preview disagreed at an interior pixel (edgeDistance2.644), with two loaf bottom faces sharingY−.24. Raising only secondloaf.03 resolves strict preflight; original and failed scenes/logs retained. Final115 new native GLES frames pass unchanged shaders/checker/preview thresholds/threeviewports. Full259 native result recorded after actualexit0 in PR/handoff.
+- All29 closed authored parts convex/outward;31 initial component-pair checks find8 expected rigid embedded joins: scraper twofeet/blade,shovel blade/shaft/grip,dibber shaft/grip,paddle blade/grip,meter post/case,scale stem/face. These are fixed joints; no dynamic collision claim. Pointer fullturn145 poses /435 fixed-moving comparisons,zero overlap; its rearZ−.115 remains.035 in front of fixed dial frontZ−.15 at all angles.
+- Browser checks all nineSTATIC mouse/CDPtouch surface/background/longhold/reverse/reset/switch/immutable mesh; every pointer control path includes nojump,tiny reverse,hold,whole-model rotation from fixedparts,re-pick,reset/switch. Rotate has no finite endpoints; fullturn clearance and unbounded angle semantics checked. Old219Touch/235Motion/226Motion plus259cards/threeviewports/fullscroll/reducedmotion regression. Actual case counts/errors and screenshots in PR/handoff.
+- First STATIC browser attempt reached default30s while waiting for all259 enabled cards during concurrent QA. Retry retains all-enabled assertion,120s bounded wait and disabled-card/status diagnostic; records observed ready time without claiming isolated performance or a diagnosed runtime regression. No loader/runtime change. Next full performance milestone300 remains required.
+- Normal publicURL read via available Web retrieval returned not-accessible; do not claim public UI/operation PASS. Known container403 not bypassed. Earlier intermittent public firstload failures remain causeunknown; physical iPhone/iPad/Safari/author adoption/canonical final verification UNVERIFIED.
+- After safe merge formal259,next260,41 remain to300. **Stop and await parent continuation; no260+ authored or registered here.** Candidate/merge tree, finalCI/review/exactSHA Pages and remaining public confirmation in PR and `/workspace/scratch/sukima-batch23/handoff.json`. Earlier records follow unchanged.
+
 # Collection 22 · supplied STATIC town miniatures240–249 — 2026-10-13
 
 Parent explicitly resumed to **formal300 only**, current batch240–249 then wait for parent continuation. Earlier1000 goal does not authorize further work. Latest main2131727e7abbf4670367efcb2db506b4b9ca8b41 (PR344), clean tree/current AGENTS/guide/verification/lifecycle checked; active/staging-only. Plan-onlyf751849 precedes implementation; digest6d764bd2561035cbe4bd7dfa685796102c5a16c01213ae3e7565d909f21cd982. No local .agents/skills. Immutable239 entry/JSON snapshot, missing16 and original order protected. Runtime/engine/gates/town/Production untouched.
