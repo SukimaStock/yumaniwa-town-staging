@@ -1,0 +1,105 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "070cf6d1590160de5392c1578647c94773bd94db20e7ec92fb044a898dc448ce",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tourist-desk-plausible-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "8b352267af24f66160c749aaf949253641abf9d6",
+    "change": "Connect reception pageview and two minimal interaction events to existing Plausible tracker.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "Current user instruction to apply Plausible to published tourist desk",
+      "Existing Production town-analytics.js tracker bootstrap",
+      "Plausible official docs"
+    ],
+    "allowedPaths": [
+      "works/yumaniwa-tourist-desk/**",
+      ".change-plans/tourist-desk-plausible-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/sukima-3d-lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/pumpoko/**"
+    ],
+    "expectedChanges": [
+      "Production-only existing tracker loading and automatic pageview",
+      "First valid object interaction emits Tourist Desk Touch once per page",
+      "Ordinary town/notice links emit Tourist Desk to Town without blocking navigation",
+      "Staging/localhost load no tracker and send no events",
+      "Work-local tests and documentation; no model/camera/layout changes"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-13 explicitly asks to reflect the missing Plausible connection on the published desk. This authorizes tested Staging and Production code reflection."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Work-local standard locked route",
+      "Existing town routes only; no source/Engine/other work writes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Public tracker/script connection review",
+      "Real browser delivery and Plausible dashboard: UNVERIFIED"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work-only patch to initial 0.3.",
+    "promotion": "Reflect approved analytics fix on Production after CI; retain Staging noindex.",
+    "outOfScope": [
+      "Model, camera, layout, Engine, town root, new analytics体系, Search Console/Bing",
+      "Plausible dashboard settings without available authenticated tooling"
+    ],
+    "unverified": [
+      "Physical Safari/iPhone/iPad feel and sound"
+    ],
+    "problem": "Area and work spotlights are mixed; redundant map enlargement; desk page lacks staging noindex.",
+    "currentContract": "0.4 static guidance below 100svh interactive desk.",
+    "whyExistingIsInsufficient": "Two works are favored without selection rationale; staging SEO boundary needs explicit noindex.",
+    "design": "Work-local deferred analytics bootstrap reuses current site tracker URL; guard exact Production host/path. SDK supplies pageview once, no manual pageview call. Send one first-touch event and one aggregate town-link click event. No touchmove/pinch/frame tracking; navigation is never prevented.",
+    "migration": "Only analytics script and app/index cache versions change.",
+    "compatibility": "Retain notices and existing place/work route handling; preserve every 3D/input runtime blob.",
+    "promotionRisk": "Staging only.",
+    "alternativesRejected": [
+      "Root SEO overlays",
+      "Invented areas",
+      "Production canonical before approval"
+    ],
+    "boundaryCases": [
+      "Staging/local no external requests",
+      "No manual duplicate pageviews",
+      "SDK exception or blocked script never affects object/navigation",
+      "First object hit, repeated hits, empty canvas and pinch separated",
+      "Same-site actual navigation links only; hash anchors ignored"
+    ],
+    "testPlan": [
+      "Analytics bootstrap/event fake DOM tests",
+      "Actual app input fixture and full work suite",
+      "Scope/Risk/Impact/lifecycle and CI",
+      "Production audit regressions and public source verification"
+    ]
+  }
+}
