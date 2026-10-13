@@ -429,6 +429,56 @@
       "id": "plaza-setting-clock",
       "file": "objects/plaza-setting-clock.json",
       "number": 89
+    },
+    {
+      "id": "porch-cushion",
+      "file": "objects/porch-cushion.json",
+      "number": 90
+    },
+    {
+      "id": "courtyard-spigot",
+      "file": "objects/courtyard-spigot.json",
+      "number": 91
+    },
+    {
+      "id": "roof-weather-vane",
+      "file": "objects/roof-weather-vane.json",
+      "number": 92
+    },
+    {
+      "id": "octagonal-tea-caddy",
+      "file": "objects/octagonal-tea-caddy.json",
+      "number": 93
+    },
+    {
+      "id": "paired-shoji",
+      "file": "objects/paired-shoji.json",
+      "number": 94
+    },
+    {
+      "id": "gramophone-horn",
+      "file": "objects/gramophone-horn.json",
+      "number": 95
+    },
+    {
+      "id": "pine-cone",
+      "file": "objects/pine-cone.json",
+      "number": 96
+    },
+    {
+      "id": "canal-waterwheel",
+      "file": "objects/canal-waterwheel.json",
+      "number": 97
+    },
+    {
+      "id": "broken-roof-tiles",
+      "file": "objects/broken-roof-tiles.json",
+      "number": 98
+    },
+    {
+      "id": "cinema-projector",
+      "file": "objects/cinema-projector.json",
+      "number": 99
     }
   ]
 }
