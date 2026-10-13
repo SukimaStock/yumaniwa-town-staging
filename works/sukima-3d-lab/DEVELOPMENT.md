@@ -4,6 +4,24 @@ Authorized continuation from99 after PR322 merged209399f, exact Pages38338619784
 
 Before101, run unchanged `tests/measure-collection.cjs --expected-count 100 --trials 3 --out /workspace/scratch/sukima-batch08/perf-100.json` without competing jobs, compare99 baseline, and investigate software graphics versus JS/preview/DOM costs separately. Performance tool/runtime/schema/gates remain byte-identical. Do not continue to101–109 with an unresolved major performance issue. A proven necessary optimization requires a separate Plan/PR; keep this data branch and failure evidence intact.
 
+Real100 checkpoint `f611cff7387ac01ff662d98984759a06921a2800`:242 work tests passed; final firewood native10 frames passed after adding cut-face colors. Existing99/measurement tool/runtime remain byte-identical. The unchanged3×cold/warm×desktop/mobile run completed all12 samples:100 enabled cards/fetches, full scroll endpoints and120 select/operate/back cycles, no page/GL/input errors. Raw evidence `perf-100.json`, comparison `performance-comparison.json`, diagnostic `scroll-diagnosis.json` in the batch08 evidence directory.
+
+| Median / same profile | 99 cold / warm | 100 cold / warm |
+| --- | --- | --- |
+| Desktop load ms |4815 /2721|1528 /1177|
+| Mobile-equivalent load ms |3548 /3685|3592 /3626|
+| Mobile post-fetch validation+preview+DOM ms |2297 /2525|2306 /2584|
+| Desktop scroll p95 ms |267 /217|50 /50|
+| Mobile touch scroll p95 ms |16.8 /16.8|16.7 /16.8|
+| Mobile selection→twoRAF ms (median of trial medians) |123 /113|122 /112|
+| Mobile input→observed change ms (automation-inclusive) |103 /96|102 /104|
+
+Separate warm CPU preview pass99→100: desktop846→496ms, mobile2239→2315ms (+3.4%). Faster desktop results are environment/backend variability, not an improvement caused by adding one object. GC-controlled pre-selection JS heap across six samples99→100: desktop2.664→2.677MiB, mobile3.375→3.387MiB; post-ten-cycle medians3.802→3.848 and3.795→3.838MiB. Raw uncollected heap varied with GC timing (including larger100 readings); it is not retained-memory growth. This does not establish absence of leaks beyond the measured cycles.
+
+Separate100 desktop scroll diagnosis, baseline flags:4.700s wall, main-thread Task221.5ms / Script5.8ms / Layout0 / RecalcStyle0, GPU process16.20 CPU-seconds, renderer0.52 CPU-seconds. WebGL backend identifies ANGLE Vulkan SwiftShader. Disabling accelerated2D canvas in a diagnostic browser only gave the same50ms p95 and16.38 GPU CPU-seconds; no application change was made. The measured scroll bottleneck is predominantly software graphics/compositing, not repeated JS preview/DOM layout. CPU preview/post-fetch costs are measured separately above. Diagnostic end RSS (not peak): GPU174MiB, renderer257MiB, browser163MiB. These are cloud Chromium measurements, not physical Safari results.
+
+**Milestone decision:** no reproducible major99→100 regression, missing content, unusable input or retained-memory escalation was observed. Continue101–109 without a performance PR; do not preemptively alter loading/schema/gates. Reassess at109 and future milestones using the same profiles and distinguish machine/backend drift. The100 intermediate is retained in Git and raw logs; candidate109 remains unmerged until final review/CI/Pages steps.
+
 Planned distinct remaining forms:101 print roller rotateX;102 clothespin hingeZ;103 two independent sorting trays linearZ;104 ring door knocker hingeX;105 shelf fungus STATIC;106 sweet potato TOUCH;107 field rattle MOTION swingX;108 stone water basin STATIC;109 bicycle stand STATIC. Total4STATIC/1TOUCH/1MOTION/4MANIPULATION,5 controls. All prior protections and actual mouse/CDP touch/native/clearance/review/CI/exactSHA Pages requirements continue. Evidence/checkpoint `/workspace/scratch/sukima-batch08/`; final outcome will be recorded here and PR323. No Production/town/shared2D changes; physical iPhone/Safari and author adoption unverified.
 
 ---
