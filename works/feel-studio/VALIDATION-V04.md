@@ -44,3 +44,22 @@
 ## 実機・感覚
 
 実機iPhone/iPad Safari、実際の指での触感、音の実聴、作者本人の採用は未検証。Staging mergeとCI成功をこれらのPASSとは扱わない。
+
+
+## 最終公開追確認 · 2026-10-13
+
+修正コード: PR #333 merge `cfc706d8af1b0ff92b5c3190cf7d10018c20dcfb`。Pages run `38356664449` success。追加の文書・画像PRはこのコードを変更しない。
+
+- クラウドChromeで390×844と844×390の作品表示を再確認。LIVEつまみを操作する位置までスクロールしても作品は上部に残る。横画面ではHTMLのscrollWidth/clientWidthが829/829で横溢れなし。縦は背景全体付きの検証画像を保存。これはviewport再現であり、指/OS/実機Safariではない。
+- 縦でgravity300→1100、resistance1.05→3を操作し、作品を動かしたままLIVE表示を確認。iframe documentはvisibility='visible'。開始後の水滴と、タイトルが消えたままの画面を確認。位置・速度・時刻identityの数値証拠はNodeのものとして維持。
+- 横ではresistanceを0へ変更。作品が見えるまま、他の項目へスクロールできる。画面内の項目は折り畳める。
+- 修正後のREBUILD依頼を生成し、全12設定のbase.configと13個のparameterApplication、A/Bそれぞれの能力を含むinputComparisonLimitを確認。旧Aのみの説明は残っていない。
+- Bのplay.htmlは実ブラウザでも独立起動。旧小舟も起動・直接編集できる。旧build・全依存hashと旧保存JSONは変更なし。
+- 実際の採用判断は行っていない。AI検証で一時的に採用を試した分岐は保留に戻した。
+- 画像取得のclip指定はブラウザAPIがtimeout。通常のviewport画像取得を使い、取得した同じbytesを保存した。検証手段の失敗を作品の障害とは扱わない。
+
+![公開ChromeのTouch & Tune](./visual-review/touch-tune-v04-desktop-20261013.jpg)
+
+![390px viewportで作品とLIVEつまみ](./visual-review/touch-tune-v04-phone-20261013.jpg)
+
+完了範囲: Staging実装・Node/ハーネス・公開Chrome操作・PR/CI/マージ。未検証: 実機iPhone/iPad Safari、実指の触感、音の実聴、作者の採用。保存/分岐は制作設定を保持する。途中の水滴位置は保存しない。
