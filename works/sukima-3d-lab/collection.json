@@ -679,6 +679,56 @@
       "id": "tripod-incense-burner",
       "file": "objects/tripod-incense-burner.json",
       "number": 139
+    },
+    {
+      "id": "spiral-snail-shell",
+      "file": "objects/spiral-snail-shell.json",
+      "number": 140
+    },
+    {
+      "id": "wooden-spatula",
+      "file": "objects/wooden-spatula.json",
+      "number": 141
+    },
+    {
+      "id": "square-padlock",
+      "file": "objects/square-padlock.json",
+      "number": 142
+    },
+    {
+      "id": "paper-boat",
+      "file": "objects/paper-boat.json",
+      "number": 143
+    },
+    {
+      "id": "station-turnstile",
+      "file": "objects/station-turnstile.json",
+      "number": 144
+    },
+    {
+      "id": "ceramic-chopstick-rest",
+      "file": "objects/ceramic-chopstick-rest.json",
+      "number": 145
+    },
+    {
+      "id": "maple-samara",
+      "file": "objects/maple-samara.json",
+      "number": 146
+    },
+    {
+      "id": "hanging-ladle",
+      "file": "objects/hanging-ladle.json",
+      "number": 147
+    },
+    {
+      "id": "warded-key",
+      "file": "objects/warded-key.json",
+      "number": 148
+    },
+    {
+      "id": "half-round-loaf",
+      "file": "objects/half-round-loaf.json",
+      "number": 149
     }
   ]
 }
