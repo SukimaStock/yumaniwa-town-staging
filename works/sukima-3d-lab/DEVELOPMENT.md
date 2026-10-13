@@ -1,3 +1,31 @@
+# Collection 21 · 湯間庭町の小さな模型230–239 — 2026-10-13
+
+Resumed only the ten saved candidates by explicit parent instruction; stop after this batch, no240+. Latest main31a9780b14b324ee5533463f55646ed05a8585c8 remains unchanged. AGENTS/current verification/guide/lifecycle reviewed; active/staging-only. Plan-onlyc6368a6 precedes implementation; digest48d007faa8c8532682c1dc41d386176cb380e5b128ee14fa95ef7c660c060bc6. Existing229 full registry entries and JSON hashes protected by collection20-baseline.json. Missing16/order/runtime0.7.1/other work preserved. No new engine/schema/physics or Production change.
+
+| Number / name | Mode | Distinction and limits |
+| --- | --- | --- |
+| 230 古い家の四つ穴の蹄鉄 (`four-slot-horseshoe`) | STATIC | Horseshoe U opening and four real nail slots,thick ends |
+| 231 庭の先が丸まるシダの若芽 (`unfurling-fern-shoot`) | STATIC | Fern long stem and tightly curled tapered growing tip,not a coil size variant |
+| 232 帳場の回せるダイヤル電話 (`rotary-dial-telephone`) | MANIPULATION rotateY | Telephone actual dial fingerholes and hub bore; handset fixed, no cable physics or dialing logic |
+| 233 古書店の角度を変える読書灯 (`tilting-reading-lamp`) | MANIPULATION hingeX | Lamp actual hollow shade on bored side pivots; limited tilt clears yoke/stem |
+| 234 駅員室の引き上げる合図旗 (`lifting-signal-flag`) | MANIPULATION linearY | Flag rigid broad folded cloth plus shaft slide as one part within real open holder bore; no cloth simulation |
+| 235 屋根の三杯風速計 (`three-cup-anemometer`) | MOTION spinY | Anemometer three open cups on rigid arms spin about true hub bore,clear mast |
+| 236 八百屋の七つ穴の蓮根の輪切り (`lotus-root-slice`) | STATIC | Lotus root actual seven through holes,triangulated boundaries preserved |
+| 237 大工小屋の角を落とした木槌 (`beveled-wooden-mallet`) | STATIC | Mallet broad beveled head and unequal tapered handle,readable low-poly silhouette |
+| 238 庭の六本脚の蝉の抜け殻 (`cicada-cast-shell`) | STATIC | Cicada six bent legs and open shell seam; distinct from crab molt |
+| 239 魚屋の開ける帆立の殻 (`opening-scallop-shell`) | MANIPULATION hingeX | Scallop paired real cavities and fan outline; hinge opens away,finite gaps, no contact physics |
+
+Five STATIC / zero TOUCH / one MOTION / four MANIPULATION, four independent controls. Shape comparisons and bounded behavior are in the locked Plan; no color/size variants or simulated sound/light/cloth/wind measurement.
+
+## Validation and stop checkpoint
+
+- Eighteen historical total assertions229→239 only; prior exact slices/goldens retained. Strict definitions, immutable229, exactten, IDs/numbers/reading/1000cap/ranges/reset/switch regressions. Initial515 work tests pass; final modified geometry rechecked. Exact final results recorded in PR and scratch handoff.
+- Native preflight found thin horizontal silhouettes: horseshoe back4241pixels and fern rest4991/back4990, below unchanged5000 threshold. Horseshoe depth×1.8; fern seven-sided cross-sections×1.4 then×1.12. Lotus root initial preview had5 borderline pixels/4970; depth×1.2 resolves it without weakening the checker. All ten final native preflights pass (175 frames). Original data and failed logs retained under `/workspace/scratch/sukima-batch21/`.
+- Clearance725 actual poses (145×four controls+145motion),268395 component-pair checks,zero overlaps. Bores partitioned into actual annular sectors; telephone perforated plate into exact authored triangular prisms, avoiding a convex hull that falsely fills its central hole. No runtime collision feature added.
+- Mouse/CDPtouch checks iterate every control, including reverse/hold/endpoints/overtravel/nojump/tiny/fixed-part whole rotation/re-pick/reset/switch. Static/Motion plus old219Touch/226Motion cover pressure/pull/recovery/pause/reducedmotion;239enabledcards/fullscroll/390×844,844×390,768×1024. Final counts and unchanged full239 native GLES exit result are attached to PR after completion. All ten initial views inspected; changed final forms also reviewed.
+- Earlier public partial first-load failures at199/209 remain cause unknown; a normal reload recovered. Parent's219 firstload success is not a resolution. No speculative loader change or proxy403 bypass. No new performance milestone crossed; next300. Physical iPhone/iPad/Safari and author adoption remain UNVERIFIED; canonical verification remains UNVERIFIED.
+- Finish locked Scope→Risk→Impact, Draft PR/current CI/review/safe merge and exactSHA Pages. Before merge formal229; after successful merge formal239,next240,761 remain to cap1000. **Stop after this batch; do not begin240+.** Candidate/merge/Pages/evidence/restart details in PR and `/workspace/scratch/sukima-batch21/handoff.json`. Existing candidates/helpers reused; no recreation or repeated topic research. Earlier records follow unchanged.
+
 # Collection 20 · 湯間庭町の小さな模型220–229 — 2026-10-13
 
 Parent accepted210–219 and authorized220–229. Latest cleanmain9b2643b0fbc13ea5cb79661039f1d314b34f522e (PR342,exactSHA Pages38378987773), current AGENTS/Plan/verification/guide,219 definitions/records and unrelated open PRs checked; no `.agents/skills` present. Active/staging-only. Plan-onlyf728b44 precedes implementation; digest69c84deca264ff731b884a273d556a7f76c7cbe20448c3d180290414dcfda5a1. Immutable `tests/collection19-baseline.json` protects219 full entries/JSON hashes,implicit00–15/missing16/order/1000cap. Matte wood/iron/bone/ice tones follow the town's restrained materials; runtime/cache0.7.1/preview scheduling and parallel work preserved.

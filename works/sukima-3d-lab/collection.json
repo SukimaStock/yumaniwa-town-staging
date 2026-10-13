@@ -1129,6 +1129,56 @@
       "id": "knobbly-ginger-root",
       "file": "objects/knobbly-ginger-root.json",
       "number": 229
+    },
+    {
+      "id": "four-slot-horseshoe",
+      "file": "objects/four-slot-horseshoe.json",
+      "number": 230
+    },
+    {
+      "id": "unfurling-fern-shoot",
+      "file": "objects/unfurling-fern-shoot.json",
+      "number": 231
+    },
+    {
+      "id": "rotary-dial-telephone",
+      "file": "objects/rotary-dial-telephone.json",
+      "number": 232
+    },
+    {
+      "id": "tilting-reading-lamp",
+      "file": "objects/tilting-reading-lamp.json",
+      "number": 233
+    },
+    {
+      "id": "lifting-signal-flag",
+      "file": "objects/lifting-signal-flag.json",
+      "number": 234
+    },
+    {
+      "id": "three-cup-anemometer",
+      "file": "objects/three-cup-anemometer.json",
+      "number": 235
+    },
+    {
+      "id": "lotus-root-slice",
+      "file": "objects/lotus-root-slice.json",
+      "number": 236
+    },
+    {
+      "id": "beveled-wooden-mallet",
+      "file": "objects/beveled-wooden-mallet.json",
+      "number": 237
+    },
+    {
+      "id": "cicada-cast-shell",
+      "file": "objects/cicada-cast-shell.json",
+      "number": 238
+    },
+    {
+      "id": "opening-scallop-shell",
+      "file": "objects/opening-scallop-shell.json",
+      "number": 239
     }
   ]
 }
