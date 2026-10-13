@@ -1,0 +1,110 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e1b41074b41c08523cacb1cc1ce87fd7aedeb035d2cd4e98fdf2cfecac9cf78d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "feel-studio-v04-browser-finish-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "40730bdd1d2d6883cd3010f473351f02ed84e115",
+    "change": "Finish browser-observed Touch & Tune usability: keep work visible while tuning at mobile/landscape widths, correct request comparison description, preserve every immutable build and record public QA.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "works/feel-studio/**"
+    ],
+    "allowedPaths": [
+      "works/feel-studio/**",
+      ".change-plans/feel-studio-v04-browser-finish-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ametsugi/**",
+      "engine/**",
+      "works/sukima-3d-lab/**",
+      "works/motion-lab/**",
+      "works/pumpoko/**",
+      "works/pumpoko-02/**",
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Studio tuning mode keeps a compact sticky work view while controls scroll",
+      "Update Ametsugi project description for accurate Work request limits",
+      "Persist browser QA/workspace/request/screenshot and exact source SHA record without author adoption"
+    ],
+    "ownerDecisions": [
+      "User instruction 2026-10-13 explicitly authorizes Feel Studio 0.4 implementation, validation, PR and safe Staging merge; old builds/data and original Ametsugi protected."
+    ],
+    "hqDecisions": [
+      "Design review: add versioned 0.4 host/client/desk/UI files, preserve exact old runtime hashes; optional applyState hook and build-specific state schemas keep old project saves compatible; no external communication or code execution from JSON."
+    ],
+    "rulesApplied": [
+      "AGENTS: existing works protected; isolated Feel Studio trial in Staging only",
+      "Existing Plan Lock and high-risk checks remain enabled; do not treat CI as author device QA."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Public browser sticky work and LIVE controls at390x844 and844x390",
+      "Browser comparison, RESTART, default/undo, request description and old work launch"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert Feel Studio-only PR and keep original Ametsugi, older Feel Studio projects and storage untouched.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Production or candidate status changes",
+      "Existing Ametsugi, shared Engine and 3D Lab edits",
+      "New universal editors or automatic Work calls"
+    ],
+    "unverified": [
+      "Physical iPhone/iPad Safari",
+      "Audio listening and author feel/adoption"
+    ],
+    "problem": "Public browser at390px shows work scrolling offscreen when changing controls; request uses obsolete A-only description.",
+    "currentContract": "0.4 shipped in PR330; all build identities/assets immutable; Studio host UI may improve.",
+    "whyExistingIsInsufficient": "Immediate tuning needs the work visible alongside the controls on narrow or short screens.",
+    "design": "Studio body tuning-mode class and bounded responsive sticky work view; no iframe reload, physics, input or build changes. Accurate project metadata applies to A/B requests.",
+    "migration": "None; same save key and schemas, no build/config/hash changes.",
+    "compatibility": "All immutable build directories, dependencies and code hashes unchanged; author decisions remain hold in test workspace.",
+    "promotionRisk": "Staging trial only; author decides whether to keep or expand.",
+    "alternativesRejected": [
+      "Do not modify old client dependencies",
+      "Do not make all config messages reset",
+      "Do not silently rewrite old saved nodes"
+    ],
+    "boundaryCases": [
+      "Live physics while a drop is on a gutter or airborne",
+      "Restart-only settings queued until retry; defaults and undo avoid reset of live state",
+      "Saved A-only workspace can explicitly add B; comparison reset synchronizes current drafts",
+      "Invalid bool/color/choice/schema and stale nonce rejected"
+    ],
+    "testPlan": [
+      "Full new and old Feel Studio regression and manifest hashes",
+      "Scope/Risk/Impact and trusted CI",
+      "Public browser portrait and landscape controls with visible running work",
+      "Save browser evidence and separate physical Safari/audio limitations"
+    ]
+  }
+}
