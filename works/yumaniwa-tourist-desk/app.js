@@ -1,5 +1,5 @@
-import {loadDesk,DESK} from './scene.js';
-import {DeskRenderer} from './renderer.js';
+import {loadDesk,DESK} from './scene.js?v=0.2';
+import {DeskRenderer} from './renderer.js?v=0.2';
 import {manipulationMapping} from '../sukima-3d-lab/engine/manipulation-mapping.js?v=0.7.1';
 const canvas=document.querySelector('canvas'),hint=document.querySelector('.invitation'),error=document.querySelector('.error'),soundButton=document.querySelector('.sound');
 let scene,renderer,gesture=null,frame=0,previous=0,lost=false,sound=false,lastSound=0;
@@ -10,13 +10,13 @@ function tick(material){const now=performance.now()/1000;if(!sound||now-lastSoun
 soundButton.addEventListener('click',async()=>{sound=!sound;await readyAudio();soundButton.textContent=sound?'音あり':'音なし';soundButton.setAttribute('aria-pressed',String(sound));if(sound)tick('wood');});
 function resize(){cancel();if(!scene||lost)return;const r=canvas.getBoundingClientRect();scene.resize(r.width,r.height);renderer.resize(r.width,r.height,Math.min(devicePixelRatio||1,1.5));renderer.draw();}
 function cancel(){if(gesture){const {item,control}=gesture;item.player.release?.(false);if(item.entry.press&&control)item.returning={part:control.part,value:control.initial};if(canvas.hasPointerCapture(gesture.pointer))canvas.releasePointerCapture(gesture.pointer);gesture=null;}canvas.style.cursor='default';}
-function down(e){if(!scene||lost||gesture||e.button>0)return;const rect=canvas.getBoundingClientRect(),hit=scene.pick(e.clientX,e.clientY,rect);if(!hit)return;e.preventDefault();const item=hit.item;item.returning=null;const control=item.player.control?.(hit.part)??item.player.controls?.[0];
- const mapping=control?manipulationMapping(item.player,{...hit,part:control.part},e.clientX,e.clientY,rect,[0,0,0,1],item.localCamera(scene.camera,scene.view)):null;
+function down(e){if(!scene||lost||gesture||e.button>0)return;const rect=canvas.getBoundingClientRect(),hit=scene.pick(e.clientX,e.clientY,rect,e.pointerType==='mouse'?7:14);if(!hit)return;e.preventDefault();const item=hit.item;item.returning=null;const control=item.player.control?.(hit.part)??item.player.controls?.[0];
+ const mapping=control?manipulationMapping(item.player,{...hit,part:control.part},hit.sampleX??e.clientX,hit.sampleY??e.clientY,rect,[0,0,0,1],item.localCamera(scene.camera,scene.view)):null;
  if(control)item.player.grab(control.part);
- gesture={pointer:e.pointerId,item,control,mapping,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,time:e.timeStamp,moved:0,initial:control?.value,position:item.position.slice(),rect};
+ gesture={pointer:e.pointerId,item,control,mapping,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,time:e.timeStamp,moved:0,initial:control?.value,position:item.position.slice(),rect,offsetX:(hit.sampleX??e.clientX)-e.clientX,offsetY:(hit.sampleY??e.clientY)-e.clientY};
  if(item.entry.press&&control){control.value=item.id==='ticket-stamper'?control.min:control.max;tick(item.entry.material);}canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing';hint.classList.add('faded');if(sound)readyAudio();}
 function move(e){if(!gesture||gesture.pointer!==e.pointerId)return;e.preventDefault();const g=gesture,dt=Math.max(.001,(e.timeStamp-g.time)/1000),dx=e.clientX-g.x,dy=e.clientY-g.y;g.moved+=Math.hypot(dx,dy);
- if(g.control&&!g.item.entry.press)g.item.player.moveBy(g.control.part,g.mapping.delta(e.clientX,e.clientY),dt);
+ if(g.control&&!g.item.entry.press)g.item.player.moveBy(g.control.part,g.mapping.delta(e.clientX+g.offsetX,e.clientY+g.offsetY),dt);
  else if(!g.control&&g.moved>4){const units=2*scene.camera.distance*Math.tan(scene.camera.fov/2)/g.rect.height;g.item.position[0]=Math.max(-DESK.halfWidth+.45,Math.min(DESK.halfWidth-.45,g.position[0]+(e.clientX-g.startX)*units));g.item.position[2]=Math.max(-DESK.halfDepth+.4,Math.min(DESK.halfDepth-.4,g.position[2]+(e.clientY-g.startY)*units/Math.cos(.78)));g.item.position[0]=Math.max(g.item.home[0]-.28,Math.min(g.item.home[0]+.28,g.item.position[0]));g.item.position[2]=Math.max(g.item.home[2]-.28,Math.min(g.item.home[2]+.28,g.item.position[2]));}
  if(g.moved>4&&!g.item.entry.press)tick(g.item.entry.material);g.x=e.clientX;g.y=e.clientY;g.time=e.timeStamp;}
 function up(e){if(!gesture||gesture.pointer!==e.pointerId)return;e.preventDefault();const g=gesture;
