@@ -879,6 +879,56 @@
       "id": "claw-pry-bar",
       "file": "objects/claw-pry-bar.json",
       "number": 179
+    },
+    {
+      "id": "garden-lemon",
+      "file": "objects/garden-lemon.json",
+      "number": 180
+    },
+    {
+      "id": "folding-razor",
+      "file": "objects/folding-razor.json",
+      "number": 181
+    },
+    {
+      "id": "double-lid-toolbox",
+      "file": "objects/double-lid-toolbox.json",
+      "number": 182
+    },
+    {
+      "id": "radio-tuning-knob",
+      "file": "objects/radio-tuning-knob.json",
+      "number": 183
+    },
+    {
+      "id": "wooden-joinery-wedge",
+      "file": "objects/wooden-joinery-wedge.json",
+      "number": 184
+    },
+    {
+      "id": "split-cap-mushroom",
+      "file": "objects/split-cap-mushroom.json",
+      "number": 185
+    },
+    {
+      "id": "rolled-rug",
+      "file": "objects/rolled-rug.json",
+      "number": 186
+    },
+    {
+      "id": "stepped-fork-casting",
+      "file": "objects/stepped-fork-casting.json",
+      "number": 187
+    },
+    {
+      "id": "standing-grater",
+      "file": "objects/standing-grater.json",
+      "number": 188
+    },
+    {
+      "id": "double-candleholder",
+      "file": "objects/double-candleholder.json",
+      "number": 189
     }
   ]
 }

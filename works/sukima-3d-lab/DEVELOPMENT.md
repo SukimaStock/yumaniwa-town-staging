@@ -1,3 +1,32 @@
+# Collection 16 · 湯間庭町の小さな模型180–189 — 2026-10-13
+
+Parent accepted170–179 and authorized180–189, encouraging natural direct touch without a mode quota. Latest cleanmain7009cdffff0413cd98dc00604b0a237c181e8149 (PR338, exactSHA Pages38362984951), current AGENTS/Plan/verification rules, guide,179 definitions/records and openPRs checked. No `.agents/skills` present. Work remainsactive/staging-only. Plan-onlye89d87c precedes implementation; digestd380d052e9739de084be0539af75919ad45858d421a4582009007b74c5ec9c1c. Immutable `tests/collection15-baseline.json` preserves179 complete entries/JSON hashes, implicit00–15/missing16/order/1000cap. Existing scheduling/focus/runtime and unrelated work remain unchanged.
+
+| No. / ID / name | Behavior | Shape, distinction and limits |
+| --- | --- | --- |
+|180 `garden-lemon` 八百屋の押せるレモン | TOUCH | Convex pointed ends and broad faceted belly, unlike76 round persimmon/149 halfloaf. Conservative press.06/displacement.10/pull.14, no peel physics. |
+|181 `folding-razor` 理髪店の折りたたみ剃刀 | MANIPULATION hingeZ | Broad straight blade folds0…2rad,initial.48 alongside a separate thick handle; actual bored pivot. Different from122 pairedscissors/153 compass. No cutting/contact physics. |
+|182 `double-lid-toolbox` 工房の両開き工具箱 | MANIPULATION two hingeZ | Hollow welded box with two broad independently grasped lids: left0…1.2,initial.22; right−1.2…0,initial−.22. Actual hub holes/fixedpins; pairwise gaps survive both ranges. No linked lid or latch. |
+|183 `radio-tuning-knob` 古いラジオの選局つまみ | MANIPULATION rotateZ | Offset bored knob/raised pointer, real three-slot vents and carryhandle. Continuous rotation,initial.3,inertia0; no sound or tuning state. Unlike89 clock hands/155 cam plate. |
+|184 `wooden-joinery-wedge` 大工小屋の差し込む木楔 | MANIPULATION linearX | Sloping wedge slides−.18….26,initial.06 through actual open rectangular mortise. Positive top/bottom/side clearance and engagement at both ends; no wedging force/expansion. |
+|185 `split-cap-mushroom` 裏庭の傘の裂けた茸 | STATIC | Bent stalk and irregular low cap with radial cleft, actual underside/thickness. Distinct from105 stacked bracket fungus. |
+|186 `rolled-rug` 古い家の巻きかけの敷物 | STATIC | Thick sheet curls into an open scroll with separated inner end. Continuous section, unlike167 rope coil or140 spiral shell. |
+|187 `stepped-fork-casting` 町工場の段違い三叉片 | STATIC | Short thick unidentified casting with three unequal stepped prongs and tapered base. Broad angular silhouette differs from171 natural branching/179 long prybar. |
+|188 `standing-grater` 台所の立てかけおろし板 | STATIC | Nine actual holes, real ring handle, slanted thick plate and rear stand. Distinct from173 compact button; no cutting simulation. |
+|189 `double-candleholder` 古い家の二股燭台 | STATIC | Unequal curved branches, hollow drip cups and two unequal unlit stubs on broad base. No flame/linked motion. |
+
+Five STATIC / one TOUCH / zero MOTION / four MANIPULATION with five independent controls. Existing149 Touch/166 Motion regressions supplement the new lemon and static forms. No newJS/schema/controls/physics/hierarchy.
+
+## Validation and restart checkpoint
+
+- Thirteen historical count assertions179→189 only; fixed slices/goldens intact. Immutable179/exact-ten tests cover entries/bytes, uniqueIDs/numbers/order/missing16/allreading/1000cap, ranges/hold/reverse/reset/switch. Final actual unit/lifecycle counts are recorded in PR/handoff.
+- All ten final strict native definitions and171 new frames pass with unchanged shaders/checker/three viewports/strict CPU-GPU previews. Initial razor landscape-back4316pixels failed the>5000 minimum; width×1.4 alone4371, then handle thickness.16→.28/blade thickness×1.5 and separated depth lane achieved6245. Toolbox overlapping coplanar wall/floor surfaces caused preview mismatch; a continuous welded hollow shell fixes it. Initial/failed/width-only evidence retained. Scratch refinement import/color errors were corrected, never formally registered.
+- Final clearance1350 configurations:145×five controls plus25×25 two-lid combinations;504000 component-pair comparisons,zero overlaps. Real annular sectors preserve pivot holes. No fake convex filling of moving bores.
+- All five controls require final actual mouse/CDPtouch nojump/tiny/reverse/hold/endpoints/same-capture overtravel/fixed-part whole rotation/re-pick/reset/switch; independent otherlid must remain unchanged. New lemon/fiveSTATIC plus149Touch/166Motion,pressure/pull/recovery,pause/reset/reducedmotion and189 enabledcards/fullscroll/navigation at390×844,844×390,768×1024. Final results and full189 native frame count are recorded only after completion in PR/handoff. NativeGLES/SwiftShader do not certify physicalSafari.
+- No fullperformance benchmark/refactor before designated300 absent measured issues. All179 oldJSON/runtime/loader/preview/cache0.7.1/scheduling/focus/measurement/gates, town/shared2D/otherworks/Production protected.
+- Finish Scope→Risk→Impact,currentCI,self/automatic review,identical candidate/merge tree,exactSHA Pages build/deploy. Parent confirms publiccards/navigation; known403 not bypassed. PhysicalSafari/author adoption remainUNVERIFIED.
+- After merge formal189,next190–199,811 remain to exactly1000; no190+ authored. Beforemerge formal179 remains lastnormal. Actual SHA/QA/CI/review/Pages and restart evidence are in PR and `/workspace/scratch/sukima-batch16/handoff.json`. Earlier records follow unchanged.
+
 # Collection 15 · 湯間庭町の小さな模型170–179 — 2026-10-13
 
 Parent accepted160–169 and authorized170–179, welcoming simple forms and no forced control count. Latest cleanmain35a57bfb9fcdb55f5c65778f786cf6afa7e03684 (PR337, exactSHA Pages38360555023), current AGENTS/Plan/verification rules, guide,169 definitions/records and openPRs checked. No `.agents/skills` present. Work remainsactive/staging-only. Plan-only665765e precedes implementation. Immutable `tests/collection14-baseline.json` preserves169 complete entries/JSON hashes, implicit00–15/missing16/order/1000cap. PR324 scheduling/focus and parallelPR336 evidence unchanged.
