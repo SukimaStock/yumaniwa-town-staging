@@ -1,0 +1,139 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "cf6b802a62278083f85e21db44171c4d9229d8774bdc618acad975266d4c3db2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "sukima-3d-preview-yield-20261013",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Yield between completed collection previews to bound synchronous loading blockage",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard",
+      "Rule"
+    ],
+    "environment": "staging",
+    "baseSha": "209399f664bc485ca5a64d32936e3dc3bb33c0a1",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/sukima-3d-lab/app.js",
+      "works/sukima-3d-lab/tests/cache.test.mjs",
+      "Parent thread01a11875-47fb-73f8-b86d-cf31e84fa0c8 explicitly permits measured necessary minimal performance improvement in separate PR",
+      "PR323 candidate28bbedd / performance-paired-ab.json and load-stages.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/sukima-3d-preview-yield-20261013/r0.lock.json",
+      "works/sukima-3d-lab/app.js",
+      "works/sukima-3d-lab/collection.js",
+      "works/sukima-3d-lab/debug.js",
+      "works/sukima-3d-lab/engine/behaviors.js",
+      "works/sukima-3d-lab/engine/camera.js",
+      "works/sukima-3d-lab/engine/dynamics.js",
+      "works/sukima-3d-lab/engine/geometry.js",
+      "works/sukima-3d-lab/engine/manipulation-mapping.js",
+      "works/sukima-3d-lab/engine/manipulation.js",
+      "works/sukima-3d-lab/engine/mesh.js",
+      "works/sukima-3d-lab/engine/motion.js",
+      "works/sukima-3d-lab/engine/parts.js",
+      "works/sukima-3d-lab/engine/pull.js",
+      "works/sukima-3d-lab/engine/raster.js",
+      "works/sukima-3d-lab/engine/renderer.js",
+      "works/sukima-3d-lab/engine/rotation.js",
+      "works/sukima-3d-lab/engine/session.js",
+      "works/sukima-3d-lab/engine/specimen.js",
+      "works/sukima-3d-lab/index.html",
+      "works/sukima-3d-lab/preview.js",
+      "works/sukima-3d-lab/tests/collection.test.mjs",
+      "works/sukima-3d-lab/tests/debug-fixture.html",
+      "works/sukima-3d-lab/tests/manipulation-fixture.html",
+      "works/sukima-3d-lab/tests/motion-fixture.html",
+      "works/sukima-3d-lab/tests/viewport-fixture.html",
+      "works/sukima-3d-lab/package.json",
+      "works/sukima-3d-lab/DEVELOPMENT.md",
+      "works/sukima-3d-lab/tests/collection-scheduling.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/sukima-3d-lab/objects/**",
+      "works/sukima-3d-lab/collection.json"
+    ],
+    "expectedChanges": [
+      "Yield collection construction to browser tasks after a small elapsed-time budget, without changing preview raster or schemas",
+      "Retain all ordered cards, all200px previews, fetch concurrency4, error isolation, keyboard/navigation/reset and work-only scope",
+      "Version0.7.1 cache URLs consistently; engine and preview changes are URL-only, no numerical or input behavior edits",
+      "Add browser regression for real input while cards are still being built; document measured99 and candidate109 outcomes"
+    ],
+    "ownerDecisions": [
+      "User authorizes minimal separate Staging performance PR when measured necessary; preserve existing experience/schema/gates"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard locked Plan before implementation",
+      "No speculative virtualization/lazy-fetch/cache/worker overhaul",
+      "Preserve99 registered JSON bytes/entries and all existing gates"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "collection-early-input",
+      "complete-preview-order-errors",
+      "desktop-mobile-selection-back-reset",
+      "measured-load-longtask-and-scroll",
+      "staging-delivery"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only performance PR, preserve formal99 and data PR323",
+    "outOfScope": [
+      "Production/shared2D/town/other works",
+      "Collection/objects/schema/gates changes",
+      "Preview raster, physics, input algorithms, new UI or operation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/Safari, author adoption, Production"
+    ],
+    "problem": "At109 unchanged app creates all previews synchronously: paired CPU4 mobile warm load median8.615s and long tasks6.452s; routed stage diagnosis isolates preview CPU cost but disables HTTP cache and does not dismiss uninstrumented result",
+    "currentContract": "All definitions validated, ordered full200px previews, then selection/navigation using all loaded definitions",
+    "whyExistingIsInsufficient": "One synchronous loop prevents painting and input until all previews complete",
+    "design": "Yield with a browser task once elapsed construction budget is consumed, only between fully built cards; preserve entire collection and completion/error status. Version all production/fixture module graph URLs together.",
+    "alternativesRejected": [
+      "Virtualization/lazy assets/workers would broaden scope",
+      "Changing geometry or preview resolution would weaken visual contract",
+      "Discarding warm-cache measurements due to routed diagnostic result"
+    ],
+    "migration": "No data/storage migration; work-local cache version0.7.1 only",
+    "compatibility": "All99 objects and collection unchanged. Numerical engine/preview code unchanged after normalizing query version strings.",
+    "boundaryCases": [
+      "Early click and next/back while later cards unfinished",
+      "Partial failed definition retains disabled card and remaining items work",
+      "Final card order/canvas coverage and status completion",
+      "Background/visibility and context lifecycle remain unchanged"
+    ],
+    "testPlan": [
+      "Existing241 tests and24 lifecycle checks",
+      "New browser scheduling test: delayed continued construction, real early selection/input/back, complete99/109 ordered200px previews, failed definition isolation",
+      "Compare unmodified original109 and scheduler109 CPU4 repeated cold/warm, main-thread long tasks, first-card response, full-load and operation; compare main99 too",
+      "Scope Risk Impact CI self/automatic review exactSHA Pages"
+    ],
+    "promotionRisk": "Staging only; physical iPhone/Safari/author adoption/Production remain separate"
+  }
+}
