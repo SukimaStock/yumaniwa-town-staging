@@ -729,6 +729,56 @@
       "id": "half-round-loaf",
       "file": "objects/half-round-loaf.json",
       "number": 149
+    },
+    {
+      "id": "exposed-root-stump",
+      "file": "objects/exposed-root-stump.json",
+      "number": 150
+    },
+    {
+      "id": "split-geode",
+      "file": "objects/split-geode.json",
+      "number": 151
+    },
+    {
+      "id": "open-pea-pod",
+      "file": "objects/open-pea-pod.json",
+      "number": 152
+    },
+    {
+      "id": "drafting-compass",
+      "file": "objects/drafting-compass.json",
+      "number": 153
+    },
+    {
+      "id": "canal-slide-gate",
+      "file": "objects/canal-slide-gate.json",
+      "number": 154
+    },
+    {
+      "id": "triangular-cam-plate",
+      "file": "objects/triangular-cam-plate.json",
+      "number": 155
+    },
+    {
+      "id": "bamboo-deer-scarer",
+      "file": "objects/bamboo-deer-scarer.json",
+      "number": 156
+    },
+    {
+      "id": "three-way-pipe",
+      "file": "objects/three-way-pipe.json",
+      "number": 157
+    },
+    {
+      "id": "chipped-porcelain-insulator",
+      "file": "objects/chipped-porcelain-insulator.json",
+      "number": 158
+    },
+    {
+      "id": "straw-sandal",
+      "file": "objects/straw-sandal.json",
+      "number": 159
     }
   ]
 }
