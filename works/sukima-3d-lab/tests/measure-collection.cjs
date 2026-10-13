@@ -37,9 +37,12 @@ try{
  if(sample.cards!==expected||sample.objectFetchCount!==expected||sample.horizontalOverflow)throw Error('Collection integrity/overflow failure');
  sample.heapAfterLoad=await metrics();
  // Measure actual visible scrolling with RAF intervals. No arbitrary performance pass threshold.
- await page.evaluate(()=>{__measurement.scrollFrames=[];__measurement.scrolling=true;let last=performance.now();function frame(now){if(!__measurement.scrolling)return;__measurement.scrollFrames.push(now-last);last=now;requestAnimationFrame(frame);}requestAnimationFrame(frame);});
- for(const delta of [600,600,600,600,600,-600,-600,-600,-600,-600]){await page.mouse.wheel(0,delta);await page.waitForTimeout(70);}
- sample.scroll=await page.evaluate(()=>{__measurement.scrolling=false;return {frames:__measurement.scrollFrames,top:scrollY};});
+ const scrollDistance=await page.evaluate(()=>{const el=document.querySelector('#collection-view');el.scrollTop=0;__measurement.scrollFrames=[];__measurement.maxScrollTop=0;__measurement.scrolling=true;let last=performance.now();function frame(now){if(!__measurement.scrolling)return;__measurement.scrollFrames.push(now-last);__measurement.maxScrollTop=Math.max(__measurement.maxScrollTop,el.scrollTop);last=now;requestAnimationFrame(frame);}requestAnimationFrame(frame);return el.scrollHeight-el.clientHeight;});
+ const viewport=page.viewportSize();
+ for(const sign of [-1,1])await cdp.send('Input.synthesizeScrollGesture',{x:viewport.width/2,y:viewport.height/2,yDistance:sign*(scrollDistance+viewport.height),speed:Math.ceil(Math.max(3000,scrollDistance/2)),gestureSourceType:mobile?'touch':'mouse'});
+ await page.waitForTimeout(200);
+ sample.scroll=await page.evaluate(()=>{__measurement.scrolling=false;const el=document.querySelector('#collection-view');return {frames:__measurement.scrollFrames,maxTop:__measurement.maxScrollTop,finalTop:el.scrollTop,extent:el.scrollHeight-el.clientHeight};});
+ if(sample.scroll.maxTop<scrollDistance-2||sample.scroll.finalTop>2)throw Error('Full collection scroll did not reach bottom and return');
  sample.scroll.p95FrameMs=percentile(sample.scroll.frames,.95);sample.scroll.maxFrameMs=Math.max(...sample.scroll.frames);
  await cdp.send('HeapProfiler.collectGarbage');sample.heapBeforeSelectionCyclesAfterGc=await metrics();
  const card=page.locator('.specimen-card').filter({hasText:'中庭の丸ハンドル水栓'});if(await card.count()!==1)throw Error('Stable control specimen missing');
