@@ -74,3 +74,5 @@ cycle-v3/paper-request.jsonとdrawer-request.jsonはDeskから出した編集済
 自動: 公開能力の操作UI、編集の反映・保存、履歴/分岐、コード検証、依頼との対応、比較案としての取込。
 
 検証は作者操作のAI代理。作者本人の評価・実機iPhoneの操作感とは区別する。実観測の結果はVALIDATION-V03.mdに記録する。
+
+3D補足: クラウドChromeはWebGLコンテキスト非対応だったため、原案A/Bを残し、作品自身がWebGLまたはCPUの3D透視投影を選ぶdrawer-cを追加しました。Studioは描画方式の分岐を持ちません。GPU WebGLの実表示・実機性能は未検証です。

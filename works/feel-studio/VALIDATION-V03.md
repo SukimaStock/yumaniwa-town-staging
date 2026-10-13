@@ -15,3 +15,11 @@ Common code contains no paper/drawer/dom project branches. All those registratio
 ## Compatibility and limits
 
 Old catalog entries and original immutable executable files are untouched; old saved namespaces/schema remain supported. New state JSON is bounded and validated by project schema plus optional relations and work restore validation. No permission expansion; same isolated frame transport. New renderer-free Bridge requires installed local HTML/assets. Arbitrary JSON executable URLs, network-dependent apps, universal path editor/input replay and arbitrary 3D mapping are unsupported. Completed paper/drawer play.html entries exclude Bridge and run their own app/loop/input/renderer.
+
+## Actual public browser at 90f897c
+
+Paper direct native drag moved rest to (u=.36,v=.6449294); common timing slider to .45 seconds. Saved child n-mv5zy82j-d9gflwt. Actual UI request r-n-mv5zywso-1uexap7 was written and read by Work, source hash checked, and C implemented as a new independent code. C attaches near the anchor and returns home after a miss. A/B are unchanged. Browser request/source-workspace/response are under cycle-v3/paper-browser-*.json. Result import follows exact-SHA publication.
+
+The cloud Chrome returned null for a WebGL context. This is an observed environment limitation, not a WebGL rendering PASS. Original WebGL A/B remain immutable. New independent drawer-c plus view-fallback.js offers GPU WebGL where available and work-owned CPU 3D geometry, depth sorting and perspective projection otherwise. The desk did not change for this registration. Genuine WebGL draw/mapping logic is harness-tested, but actual GPU WebGL display and device performance remain unverified.
+
+DOM comparison loaded through API-free HTML; editing disabled and Level 1 limitations displayed. Node tests include CPU 3D fallback projection/mapping.
