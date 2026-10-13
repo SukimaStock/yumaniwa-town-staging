@@ -8,7 +8,7 @@ const shaders=Object.fromEntries(['VERTEX','FRAGMENT'].map(n=>[n,source.match(ne
 for(const [width,height] of [[390,844],[844,390],[768,1024],[1366,900]]){for(const label of ['rest','touched']){
  const scene=load();scene.resize(width,height);if(label==='touched'){scene.step(.05);for(const item of scene.items){const c=item.player.controls?.[0];if(c)c.value=c.type==='rotate'?c.value+1.3:c.max;}}
  const packed=Array.from(furniture()),draws=[{model:Array.from(rotationMatrix(scene.view)),first:0,count:packed.length/9}];
- for(const item of scene.items){const offset=packed.length/9;packed.push(...item.player.packed);draws.push(...item.commands(scene.view).map(c=>({model:Array.from(c.model),first:offset+c.first,count:c.count})));}
+ for(const item of scene.items){const offset=packed.length/9;packed.push(...item.player.packed);draws.push(...item.commands(scene.view).map(c=>({model:Array.from(c.model),first:offset+c.first,count:c.count})));if(item.printedMap){const first=packed.length/9;packed.push(...item.printedMap);const c=item.commands(scene.view).find(c=>c.id==='reading-plate');draws.push({model:Array.from(c.model),first,count:item.printedMap.length/9});}}
  scenes.push({label,width,height,packed,draws,projection:Array.from(scene.camera.projection),distance:scene.camera.distance});
 }}
 process.stdout.write(JSON.stringify({shaders,scenes}));

@@ -4,7 +4,7 @@ import {ManipulationPlayer} from '../sukima-3d-lab/engine/manipulation.js?v=0.7.
 import {validateSpecimen} from '../sukima-3d-lab/engine/specimen.js?v=0.7.1';
 import {Camera} from '../sukima-3d-lab/engine/camera.js?v=0.7.1';
 import {axisAngle,multiply,rotate,inverse,add,sub,scale,rotationMatrix,norm,cross,dot} from '../sukima-3d-lab/engine/math.js?v=0.7.1';
-import {LAYOUT} from './layout.js';
+import {LAYOUT} from './layout.js?v=0.2';
 export {LAYOUT};
 export const DESK={halfWidth:3.28,halfDepth:2.85};
 export function transformPoint(matrix,p){return [0,1,2].map(i=>matrix[i]*p[0]+matrix[i+4]*p[1]+matrix[i+8]*p[2]+matrix[i+12]);}
@@ -28,6 +28,7 @@ export class DeskItem {
   this.position=[entry.x,-lo[1]*this.scale+.012+(entry.mount?.55:0)+(entry.pot?.14:0),entry.z];
   this.pickRadius=(this.player.radius??Math.max(...points.map(p=>Math.hypot(...p))))*this.scale;
   this.home=this.position.slice();this.returning=null;this.bounds={lo,hi};
+  this.printedMap=this.id==='folding-reading-stand'?guideMap():null;
  }
  toWorld(p){return add(this.position,scale(rotate(this.orientation,p),this.scale));}
  toLocal(p){return scale(rotate(inverse(this.orientation),sub(p,this.position)),1/this.scale);}
@@ -38,8 +39,23 @@ export class DeskItem {
 }
 export class DeskScene {
  constructor(items){this.items=items;this.camera=new Camera();this.view=axisAngle([1,0,0],.78);this.resize(390,844);}
- resize(w,h){this.camera.resize(w,h,1.1);this.camera.distance=Math.max(12.8,11.8/this.camera.aspect);this.view=multiply(axisAngle([1,0,0],.78),axisAngle([0,1,0],w>h?-.16:-.035));}
- pick(x,y,rect){const ray=this.camera.ray(x,y,rect,this.view);let hit=null;for(const item of this.items){const h=item.pick(ray);if(h&&(!hit||h.distance<hit.distance))hit=h;}return hit;}
+ resize(w,h){this.camera.resize(w,h,1.1);this.camera.distance=Math.max(8.8,7.35/this.camera.aspect);this.view=multiply(axisAngle([1,0,0],.78),axisAngle([0,1,0],w>h?-.16:-.035));}
+ exactPick(x,y,rect){const ray=this.camera.ray(x,y,rect,this.view);let hit=null;for(const item of this.items){const h=item.pick(ray);if(h&&(!hit||h.distance<hit.distance))hit=h;}return hit;}
+ pick(x,y,rect,tolerance=0){
+  const exact=this.exactPick(x,y,rect);if(exact||tolerance<=0)return exact;
+  // Forgive a near miss, never override an exact surface or a nearer object.
+  // Capture the selected sampled point too, so the original mechanism mapping stays local.
+  const radius=Math.min(14,tolerance),candidates=[];
+  for(const fraction of [.5,1])for(let n=0;n<12;n++){
+   const angle=n*Math.PI/6,sx=x+Math.cos(angle)*radius*fraction,sy=y+Math.sin(angle)*radius*fraction;
+   if(sx<rect.left||sx>rect.left+rect.width||sy<rect.top||sy>rect.top+rect.height)continue;
+   const hit=this.exactPick(sx,sy,rect);if(hit)candidates.push({...hit,sampleX:sx,sampleY:sy,screenDistance:radius*fraction});
+  }
+  candidates.sort((a,b)=>a.screenDistance-b.screenDistance||a.distance-b.distance);
+  const first=candidates[0];if(!first)return null;
+  if(candidates.some(c=>c.item!==first.item&&c.screenDistance<=first.screenDistance))return null;
+  return first;
+ }
  step(dt){for(const item of this.items)item.step(dt);}
 }
 export async function loadDesk(request=fetch){
@@ -57,15 +73,29 @@ export function furniture(){const vertices=[];const tri=(a,b,c,color)=>{const n=
  box([0,-.34,2.7],[6.35,.26,.16],[.44,.305,.195]);
  for(const x of [-2.75,2.75])for(const z of [-2.35,2.35])box([x,-.88,z],[.25,1.25,.25],[.44,.31,.2]);
  box([0,-.66,-2.48],[5.7,.68,.16],[.49,.35,.235]);
- box([2.22,.5,-2.77],[1.23,1.05,.12],[.47,.34,.23]); // real mounting board for wall shelf
- for(let i=0;i<5;i++){box([-1.02+i*.018,.023+i*.012,.2],[.78,.012,.9],[.81+i*.013,.78+i*.014,.65+i*.02],-.15);}
- for(let i=0;i<3;i++){box([.96+i*.14,.3,-.91],[.115,.58,.38],[[.39,.48,.43],[.66,.49,.34],[.65,.64,.51]][i],-.03);}
- // Pamphlets, faint printed lines, no floating explanatory panels.
- box([.34,.024,1.78],[.46,.018,.63],[.77,.72,.58],.14);
- for(let i=0;i<4;i++)box([.34,.037,1.63+i*.073],[.26,.004,.009],[.45,.51,.43],.14);
- box([2.65,.07,.21],[.3,.14,.3],[.57,.36,.25]);box([2.65,.144,.21],[.34,.04,.34],[.62,.41,.29]);
- // Side ink pad and small stamp marks left on the stacked ticket slips.
- box([-1.57,.049,-.1],[.34,.07,.3],[.26,.29,.255],-.09);
- box([-.95,.09,.51],[.14,.003,.13],[.52,.32,.25],.13);
+ // Stamp slips sit together, leaving the visitor side free.
+ for(let i=0;i<4;i++)box([-1.015+i*.015,.023+i*.011,1.03],[.73,.012,.77],[.84+i*.007,.8+i*.01,.67+i*.016],-.08);
+ box([-1.74,.048,.67],[.27,.065,.27],[.26,.29,.255],-.08);
+ box([-1.02,.076,1.24],[.13,.003,.12],[.52,.32,.25],-.08);
+ // Two aligned visitor leaflets next to the reading stand, not scattered over the desk.
+ for(let i=0;i<2;i++)box([.96+i*.018,.022+i*.018,1.03],[.43,.015,.62],[.82,.79,.67],.065);
+ for(let i=0;i<4;i++)box([.96,.052,.86+i*.073],[.26,.003,.009],[.45,.51,.43],.065);
+ box([1.49,.07,1.25],[.32,.14,.32],[.57,.36,.25]);box([1.49,.144,1.25],[.36,.04,.36],[.62,.41,.29]);
  return new Float32Array(vertices);
+}
+
+// Printed ink on the existing reading plate. Moves with its authored hinge.
+export function guideMap(){
+ const v=[];const face=(points,color)=>{for(const p of points)v.push(...p,0,0,1,...color);};
+ const rect=(x,y,w,h,c,z=.047)=>{const a=[x,y,z],b=[x+w,y,z],d=[x,y+h,z],e=[x+w,y+h,z];face([a,b,e],c);face([a,e,d],c);};
+ const line=(a,b,width,c)=>{const dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy),n=[-dy/l*width/2,dx/l*width/2],p=[a[0]+n[0],a[1]+n[1],.05],q=[b[0]+n[0],b[1]+n[1],.05],r=[b[0]-n[0],b[1]-n[1],.05],t=[a[0]-n[0],a[1]-n[1],.05];face([p,t,r],c);face([p,r,q],c);};
+ rect(-.4,.26,.8,.73,[.87,.83,.69]);
+ rect(-.33,.88,.22,.023,[.36,.43,.36],.049);rect(-.08,.88,.15,.023,[.36,.43,.36],.049);
+ // River, two crossing streets, a station square and tiny landmark blocks.
+ const river=[[-.3,.3],[-.19,.43],[-.14,.56],[.04,.68],[.13,.82]];
+ for(let i=1;i<river.length;i++)line(river[i-1],river[i],.04,[.47,.62,.64]);
+ line([-.32,.61],[.32,.61],.019,[.58,.53,.43]);line([.22,.33],[.22,.8],.019,[.58,.53,.43]);
+ for(const [x,y] of [[-.31,.68],[-.23,.72],[.1,.38],[.12,.69],[.27,.7]])rect(x,y,.05,.045,[.58,.56,.43],.052);
+ rect(.16,.48,.115,.095,[.57,.43,.34],.053);rect(.183,.509,.068,.037,[.81,.75,.61],.054);
+ return new Float32Array(v);
 }
