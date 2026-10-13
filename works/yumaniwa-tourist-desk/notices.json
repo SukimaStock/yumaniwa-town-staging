@@ -1,0 +1,7 @@
+{
+  "source": "../../data/updates.js",
+  "items": [
+    {"date": "2026-10-11", "title": "レジャーセンターに『PUMPOKO』を設置", "workId": "pumpoko"},
+    {"date": "2026-09-27", "title": "レジャーセンターに『ORBIT』を設置", "workId": "orbit"}
+  ]
+}

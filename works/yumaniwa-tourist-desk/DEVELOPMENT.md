@@ -118,3 +118,28 @@ pointer captureは背景への接触も保持し、キャンセル／lost captur
 作品24テストPASS。距離・角度の単調で連続した変化、元の投影・姿勢への完全復帰、奥行きによって異なる拡大比、4画面サイズの電話／スタンプの操作部ピッキング、常時非表示UIを確認。既存Lab75件・SSE音20件を回帰確認。4サイズ×初期／途中／操作後／最大の16フレームを実シェーダーでMesa/EGL描画、GL error 0。比較画像 `tests/evidence/camera-approach.png` は初期／途中／最大の390×844オフスクリーン描画で、ブラウザのスクリーンショットではない。最大では周辺模型が切れるが、電話・スタンプ・資料と手前の余白を保つ。
 
 物理iPhone/iPad・Safariの触感と音はUNVERIFIED。モデル原典、共有Engine、Lab、他作品、Productionは変更しない。
+
+## 0.4 — 町を案内する受付（2026-10-13）
+
+3D机は100svhのまま。scene / renderer / layout / pinch / 原典8モデルを変更しない。小さなヘッダーナビと、机より下の空き部分にある案内リンクから本文へ進む。本文はスマートフォンで1列、PCで町の案内と地図の2列。canvasはtouch-action:none、ヘッダーと下端の案内部分はpan-y、本文は通常のスクロール。native callout / 選択 / drag抑止はcanvasだけに限定し、本文のリンクや文章には適用しない。
+
+案内は4件：灯串横丁、湯窓レジャーセンター（既存の展示ガイドへ）、路地裏マサラ、CoffeeFactory。既存の ?place / ?work の直リンクを利用。駅前の既存案内図 assets/station-guide-map.jpg を読み込み、原寸画像と駅前への導線を置く。画像に独自の地図機能や新しい施設を追加しない。
+
+資料台は既存ヒンジ操作を維持。短いtapが終了した時だけ、独立したHTMLリンク「資料台の案内：町内案内図を開く」を表示する。模型操作だけでは遷移せず、そのリンクを別に押して本文の地図へ進む。drag / pinchでは表示しない。黒電話やスタンプ等を触るとリンクを閉じる。keyboardの資料台選択・操作でも同じリンクを表示する。headerから地図を直接開く代替も常にある。
+
+お知らせは data/updates.js の2026-10-11 PUMPOKO設置と2026-09-27 ORBIT設置の2件。日付・題名・workIdを notices.json で管理する。更新時は正本を確認してJSONを編集し、`node works/yumaniwa-tourist-desk/update-notices.mjs` でHTMLへ反映する。静的HTMLのためJSや3Dの読み込み失敗でも案内を利用できる。架空の営業・交通・イベント情報は掲載しない。LABや未登録の試作は案内対象から外す。
+
+### 調査の原典
+
+- 小布施文化観光協会 https://www.obusekanko.jp/ ：町内交通／アクセス／エリアガイド／地図のダウンロードを分けた構成。
+- 長瀞町観光協会 https://www.nagatoro.gr.jp/ ：施設・店、観光案内所、パンフレット、日付付きのお知らせ。
+- 妻籠宿公式 https://tsumago.jp/access/ / https://tsumago.jp/news/ ：アクセスマップ、町内案内図のダウンロード、交通案内、お知らせ。トップページは検索サービスでタイムアウトしたため、公式下層ページを実際に取得して確認。
+- 過去作品はGoogle Drive SukimaStock内の Code/CoffeFacrory.txt、note/2026-09-17_ゲームジャムで、カレーを配達した.pdf を原典に参照。作品紹介は抽出タイマー／配達ゲームという具体的な機能だけを記載。現在のStagingでの公開状態・リンク・更新日は data/works.js / places.js / updates.js / main.js を確認。
+
+### 0.4検証
+
+作品29テストPASS（従来24＋案内5）。実appのNode fake DOM fixtureでヒンジ操作と地図リンクを分離し、drag / pinchではリンクを出さず、リンクclickのデフォルト動作を妨げないこと、本文のnative操作を抑止しないことを確認。案内先はopen作品・実在ファイル・既存の町内routeのみ。お知らせの正本一致とJSON→HTMLの再生成一致を検査。既存の直リンク7回帰グループPASS。Scope / Risk / Impact / lifecycle / syntax / diff check PASS。
+
+390×844 / 844×390 / 768×1024 / 1366×900、初期／途中／操作後／最大の16フレームをMesa/EGLで描画、GL error 0。全16画像が0.3.1の同一条件の画像とSHA256一致し、3Dの配置・カメラ・動作を保っている。これはHTMLレイアウトやブラウザのスクリーンショット確認ではない。CSSの全画面寸法・PC2列／phone1列・canvasとscrollの領域分離、実appイベントとリンクのsource確認は済み。
+
+この環境ではSitesのcontrol-browserが使えないためブラウザQAを実行していない。実機iPhone/iPadおよびPCブラウザのスクロール、文字折返し、リンク遷移、触感はUNVERIFIED。作者の実機採用判断とCI成功を区別する。共有Engine・Lab・モデル・町・他作品・Productionは無変更。
