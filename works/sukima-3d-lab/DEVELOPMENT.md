@@ -1,3 +1,32 @@
+# Collection 17 · 湯間庭町の小さな模型190–199 — 2026-10-13
+
+Parent accepted180–189 and explicitly authorized190–199 in the same staging scope. Latest cleanmaina4926bfca10701bbc6d9e3fb8e7a871fc81f37ea (PR339, exactSHA Pages38367023143), current AGENTS/Plan/verification rules, guide,189 definitions/records and openPRs checked; no `.agents/skills` present. Work remainsactive/staging-only. Plan-only64f54db precedes implementation; digest38d0f96c8d4b2add4b10a20fbdc1499d8d075d52002a7e29d9ee288adf501fab. Immutable `tests/collection16-baseline.json` protects189 complete entries/JSON hashes,implicit00–15/missing16/order/1000cap. Existing preview scheduling/focus and unrelated work preserved.
+
+| No. / ID / name | Behavior | Shape, distinction and limits |
+| --- | --- | --- |
+|190 `hand-garden-rake` 庭先の片手熊手 | STATIC | Five splayed curled metal fingers on a short uneven wood grip. Open fork silhouette differs from137 broom/187 stepped casting; stable cross-sections avoid twisted tips. |
+|191 `dried-sunflower` 畑の枯れた向日葵 | STATIC | Unequal dry rays around a thick faceted seedface on a bent stalk. Distinct from117 upright seedpod/127 paired fan leaves; no growth simulation. |
+|192 `worn-bath-soap` 風呂場の使いかけ石鹸 | TOUCH | Convex low asymmetric slab with wide planar bevels, unlike90 bulged cushion/180 pointed lemon. Conservative press.045/displacement.08/pull.11; no liquid/slipperiness physics. |
+|193 `cast-foot-pedal` 工場裏の踏み込みペダル | MANIPULATION hingeX | Broad ridged pedal−.68…0rad,initial−.20, on genuine bored hubs/fixed axle. Bottom/cheek gaps remain positive even fully depressed. Unlike175 tall open hoop; no connected machine/spring/contact. |
+|194 `photographic-dark-slide` 写真館の引き差し暗板 | MANIPULATION linearY | Broad dark plate/handle slides0….32,initial.10 inside actual front/back guide channels. Engagement remains throughout range; fixed frame can be grasped to rotate whole model. Unlike123 ticket mouth/164 telescoping ruler; no camera/light simulation. |
+|195 `vent-butterfly-plate` 通風管の回せる蝶板 | MANIPULATION rotateY | Two broad fins joined by bored hubs directly rotate around a fixed shaft inside a hollow pipe. Continuous turn,initial.35,inertia0; radial clearance throughout. Unlike91 external wheel valve/183 knob; no airflow. |
+|196 `hanging-paper-fan` 縁側の吊り団扇 | MOTION swingZ | One rigid paper fan/woodhandle sways±.20rad,period5.2,phase.2 from a real bored pivot. Broad fan silhouette differs from166 open perch/147 deep ladle. Pause/reset/reducedmotion supported; no flexible paper or wind physics. |
+|197 `broken-pottery-handle` 陶器屋の把手の欠片 | STATIC | Thick open C handle with two unequal jagged pottery remnants. Actual gap remains; neither a recolored ring nor complete vessel. |
+|198 `old-spectacle-frame` 古い家の片蔓が折れた眼鏡枠 | STATIC | Two thick open oval rims, inset bridge, one long bent temple and one broken stub. Frame only, no fabricated optical lens behavior. |
+|199 `wooden-triangle-ruler` 大工小屋の厚い三角定規 | STATIC | Simple substantial triangular rim around a true triangular hole. Three unequal edge bands; complements153 compass with a different static silhouette. |
+
+Five STATIC / one TOUCH / one MOTION / three MANIPULATION (hingeX/linearY/rotateY). Natural pressing, tilting, pulling and turning reasons take priority over any mode quota. No newJS/schema/controls/physics/hierarchy.
+
+## Validation and restart checkpoint
+
+- Fourteen historical count assertions189→199 only; oldfixedslices/goldens remain intact. Immutable189/exact-ten tests cover complete entries/bytes,uniqueIDs/numbers/order/missing16/allreading/1000cap and ranges/hold/reverse/reset/switch. Final439 work tests/24 lifecycle pass.
+- Final ten strict native definitions and171 new frames pass with unchanged shaders/checker/three viewports/CPU-GPU preview thresholds. Initial rake tip sweep changed reference axis abruptly, producing twisted faces/preview disagreement; a stable cross-section reference fixes the authored mesh. Handle landscape-back4748→7082pixels via depth×1.5; eyeframe4292→5370 via rim depth×1.7/inset bridge. All initial/failed logs and definitions retained in `/workspace/scratch/sukima-batch17/`. Three STATIC files changed; all tested control/Motion/Touch files remain byte-identical.
+- Clearance580 configurations (145×threecontrols +145 Motioncycle),100340 component-pair comparisons,zero overlap. Actual pipe/hub annular sectors preserve bores; no filled-hole convex surrogate. No multicontrol pair sweep needed.
+- Actual mouse/CDPtouch covers all three controls: nojump/tiny/reverse/hold/endpoints/same-capture overtravel/fixed-part whole rotation/re-pick/reset/switch. New fiveSTATIC/Touch/Motion plus180Touch/166Motion,pressure/pull/recovery,pause/reset/reducedmotion and199 enabledcards/fullscroll/navigation at390×844,844×390,768×1024. Final actual case counts and full199 native frame count are recorded after completion in PR/handoff. All ten browser rest views inspected; changed static views recaptured/inspected.
+- Next designated performance milestone300; no observed issue justifies a performance refactor. All189 oldJSON/runtime/loader/preview/cache0.7.1/scheduling/focus/measurement/gates, town/shared2D/otherworks/Production protected.
+- Finish Scope→Risk→Impact,currentCI,self/automatic review,identical candidate/merge tree,exactSHA Pages build/deploy. Parent handles publiccards/navigation; known403 not bypassed. NativeGLES/SwiftShader are not physicalSafari or authoradoption; canonicalverification remainsUNVERIFIED.
+- Aftermerge formal199,next200–209,801 remain to exactly1000; no200+ authored. Beforemerge formal189 is lastnormal. ActualSHA/QA/CI/review/Pages and safe restart state are in PR and `/workspace/scratch/sukima-batch17/handoff.json`. Earlier records follow unchanged.
+
 # Collection 16 · 湯間庭町の小さな模型180–189 — 2026-10-13
 
 Parent accepted170–179 and authorized180–189, encouraging natural direct touch without a mode quota. Latest cleanmain7009cdffff0413cd98dc00604b0a237c181e8149 (PR338, exactSHA Pages38362984951), current AGENTS/Plan/verification rules, guide,179 definitions/records and openPRs checked. No `.agents/skills` present. Work remainsactive/staging-only. Plan-onlye89d87c precedes implementation; digestd380d052e9739de084be0539af75919ad45858d421a4582009007b74c5ec9c1c. Immutable `tests/collection15-baseline.json` preserves179 complete entries/JSON hashes, implicit00–15/missing16/order/1000cap. Existing scheduling/focus/runtime and unrelated work remain unchanged.

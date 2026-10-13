@@ -929,6 +929,56 @@
       "id": "double-candleholder",
       "file": "objects/double-candleholder.json",
       "number": 189
+    },
+    {
+      "id": "hand-garden-rake",
+      "file": "objects/hand-garden-rake.json",
+      "number": 190
+    },
+    {
+      "id": "dried-sunflower",
+      "file": "objects/dried-sunflower.json",
+      "number": 191
+    },
+    {
+      "id": "worn-bath-soap",
+      "file": "objects/worn-bath-soap.json",
+      "number": 192
+    },
+    {
+      "id": "cast-foot-pedal",
+      "file": "objects/cast-foot-pedal.json",
+      "number": 193
+    },
+    {
+      "id": "photographic-dark-slide",
+      "file": "objects/photographic-dark-slide.json",
+      "number": 194
+    },
+    {
+      "id": "vent-butterfly-plate",
+      "file": "objects/vent-butterfly-plate.json",
+      "number": 195
+    },
+    {
+      "id": "hanging-paper-fan",
+      "file": "objects/hanging-paper-fan.json",
+      "number": 196
+    },
+    {
+      "id": "broken-pottery-handle",
+      "file": "objects/broken-pottery-handle.json",
+      "number": 197
+    },
+    {
+      "id": "old-spectacle-frame",
+      "file": "objects/old-spectacle-frame.json",
+      "number": 198
+    },
+    {
+      "id": "wooden-triangle-ruler",
+      "file": "objects/wooden-triangle-ruler.json",
+      "number": 199
     }
   ]
 }
