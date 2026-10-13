@@ -1179,6 +1179,56 @@
       "id": "opening-scallop-shell",
       "file": "objects/opening-scallop-shell.json",
       "number": 239
+    },
+    {
+      "id": "alley-stone-bench",
+      "file": "objects/alley-stone-bench.json",
+      "number": 240
+    },
+    {
+      "id": "boundary-milestone",
+      "file": "objects/boundary-milestone.json",
+      "number": 241
+    },
+    {
+      "id": "bus-stop-marker",
+      "file": "objects/bus-stop-marker.json",
+      "number": 242
+    },
+    {
+      "id": "canal-footbridge",
+      "file": "objects/canal-footbridge.json",
+      "number": 243
+    },
+    {
+      "id": "capped-brick-chimney",
+      "file": "objects/capped-brick-chimney.json",
+      "number": 244
+    },
+    {
+      "id": "garden-nesting-box",
+      "file": "objects/garden-nesting-box.json",
+      "number": 245
+    },
+    {
+      "id": "park-sundial",
+      "file": "objects/park-sundial.json",
+      "number": 246
+    },
+    {
+      "id": "picnic-trestle-table",
+      "file": "objects/picnic-trestle-table.json",
+      "number": 247
+    },
+    {
+      "id": "quay-mooring-bollard",
+      "file": "objects/quay-mooring-bollard.json",
+      "number": 248
+    },
+    {
+      "id": "roadwork-cone",
+      "file": "objects/roadwork-cone.json",
+      "number": 249
     }
   ]
 }

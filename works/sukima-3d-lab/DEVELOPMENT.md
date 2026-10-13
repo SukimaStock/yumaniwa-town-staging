@@ -1,3 +1,34 @@
+# Collection 22 · supplied STATIC town miniatures240–249 — 2026-10-13
+
+Parent explicitly resumed to **formal300 only**, current batch240–249 then wait for parent continuation. Earlier1000 goal does not authorize further work. Latest main2131727e7abbf4670367efcb2db506b4b9ca8b41 (PR344), clean tree/current AGENTS/guide/verification/lifecycle checked; active/staging-only. Plan-onlyf751849 precedes implementation; digest6d764bd2561035cbe4bd7dfa685796102c5a16c01213ae3e7565d909f21cd982. No local .agents/skills. Immutable239 entry/JSON snapshot, missing16 and original order protected. Runtime/engine/gates/town/Production untouched.
+
+Reused parent-provided JSON (whitespace compacted only), including already-validated bench. Original eleven candidates retained in `/workspace/scratch/sukima-batch22/originals/`; street-fire-hydrant is held unregistered for a later batch, not assigned a number. No recreated geometry, material variants or new JS. Names/materials/coordinates/behaviors preserved.
+
+| No. / ID / name | Shape and difference |
+| --- | --- |
+| 240 `alley-stone-bench` 路地角の石ベンチ | Bench slab and tapered legs contact; unlike88 folding stool |
+| 241 `boundary-milestone` BOUNDARY MILESTONE | Milestone peaked taper and flat arrow overlay; unlike01 irregular stone |
+| 242 `bus-stop-marker` BUS STOP MARKER | Busstop tall fixed post and broad board; unlike70 postalbox/79 shop sign |
+| 243 `canal-footbridge` CANAL FOOTBRIDGE | Footbridge raised span and two abutments; unlike32 abstract bridge pins |
+| 244 `capped-brick-chimney` CAPPED BRICK CHIMNEY | Chimney capped solid stack with side vents,not hollow/smoke simulation |
+| 245 `garden-nesting-box` GARDEN NESTING BOX | Nesting box pitched roof,flat dark entry inlay and perch; unlike200 twig nest/225 barred birdcage |
+| 246 `park-sundial` PARK SUNDIAL | Sundial triangular gnomon on pedestal; no time accuracy/shadow simulation |
+| 247 `picnic-trestle-table` PICNIC TRESTLE TABLE | Trestle table tall splayed panels and low stretcher; differs from low bench support topology |
+| 248 `quay-mooring-bollard` QUAY MOORING BOLLARD | Bollard broad horns over tapered neck and foot; no rope physics |
+| 249 `roadwork-cone` ROADWORK CONE | Roadcone segmented tapered pyramid with pale band and square foot; unlike96 natural pinecone |
+
+**STATIC10 / TOUCH0 / MOTION0 / MANIPULATION0**. All parts are rigid; no new controls to claim tested. The nesting-box entrance is explicitly a dark planar inlay, chimney is solid simplified geometry, sundial has no practical time accuracy or shadow simulation.
+
+## Evidence and checkpoint
+
+- Nineteen historical total assertions239→249 only; older fixed slices/goldens remain. New immutable239/exactten/current300cap tests protect all reading/unique IDs/numbers/bytes and STATIC idle/rotate/reset/switch invariance. Work/lifecycle final counts and exactSHA results in PR/handoff.
+- All ten native GLES preflights pass (100 frames), unchanged shipped shaders/checker/CPU-GPU preview thresholds/three viewports. JSON needs no fixes. Full249 native regression actual exit result is recorded in PR after completion.
+- Contact audit covers31 closed authored parts /37 convex-component pair checks. Milestone has a concave slope transition: exact lower eight-vertex frustum and upper triangular prism preserve its shape; one convex hull would fill that transition. Two deliberate fixed embedded joints: bus post inside board, bollard neck inside horns. Other closed components contact or separate; no unexpected volumetric overlap. Arrow, route stripe and entry inlay stand outside their backing by at least.005939/.005/.004, avoiding buried surfaces. No moving collision semantics claimed.
+- Mouse/CDPtouch iterates allten STATIC specimens at900×900/390×844: surface/background/longhold drags, reverse, reset/stopped inertia, immutable mesh, reselect, GL/pageerrors. Old219Touch/235Motion/226Motion plus213 two independent jaws/232dial/233lamp provide preserved-operation regressions, all selected controls iterated. Three mobile-equivalent viewports,249cards/scroll/reducedmotion checked. Actual counts in PR/handoff; physical iPhone/iPad/Safari remains UNVERIFIED.
+- Initial scratch contact checker assumed convexity for the entire milestone; corrected exact partition rather than altering valid JSON or weakening runtime validation. Plan CLI initially printed its lock to stdout; saved normal output before Plan-only commit. No implementation preceded that commit. Failed scratch logs retained.
+- No performance milestone crossed here; at300 measure load/preview/mobile/memory/scroll/selection response. Earlier occasional public first-load card failure remains cause unknown; one normal reload recovered. Parent public observation separate; known container403 is not bypassed. Canonical verification remains UNVERIFIED.
+- After safe merge formal249,next250,51 remain to300. **Stop after this batch and wait for parent; never auto-start next batch.** Exact candidate/merge tree, CI/review/Pages, QA hashes and remaining public verification recorded in PR and `/workspace/scratch/sukima-batch22/handoff.json`. Earlier records follow unchanged.
+
 # Collection 21 · 湯間庭町の小さな模型230–239 — 2026-10-13
 
 Resumed only the ten saved candidates by explicit parent instruction; stop after this batch, no240+. Latest main31a9780b14b324ee5533463f55646ed05a8585c8 remains unchanged. AGENTS/current verification/guide/lifecycle reviewed; active/staging-only. Plan-onlyc6368a6 precedes implementation; digest48d007faa8c8532682c1dc41d386176cb380e5b128ee14fa95ef7c660c060bc6. Existing229 full registry entries and JSON hashes protected by collection20-baseline.json. Missing16/order/runtime0.7.1/other work preserved. No new engine/schema/physics or Production change.
