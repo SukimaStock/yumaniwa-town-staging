@@ -1,0 +1,112 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "446215631d36c33e94cd613fbca7a2e782db1969e7d2fcc79bc4fa00dc161e03",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "feel-studio-touch-tune-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "4bba05555dd62afe3196a87aa0967addfe1133c5",
+    "change": "Feel Studio 0.4 Touch & Tune: declared live/restart/rebuild parameters, protected new Ametsugi build and optional Feel-ready integration.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "works/feel-studio/**"
+    ],
+    "allowedPaths": [
+      "works/feel-studio/**",
+      ".change-plans/feel-studio-touch-tune-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ametsugi/**",
+      "engine/**",
+      "works/sukima-3d-lab/**",
+      "works/motion-lab/**",
+      "works/pumpoko/**",
+      "works/pumpoko-02/**",
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "New immutable ametsugi-b with live physics and presentation; original A and source unchanged",
+      "Versioned UI and optional Bridge supporting live/restart/rebuild, typed controls and initial defaults",
+      "Backward-compatible per-build schemas using existing workspace/request contracts and keys",
+      "Feel-ready guide and meaningful runtime, persistence, registration and browser verification"
+    ],
+    "ownerDecisions": [
+      "User instruction 2026-10-13 explicitly authorizes Feel Studio 0.4 implementation, validation, PR and safe Staging merge; old builds/data and original Ametsugi protected."
+    ],
+    "hqDecisions": [
+      "Design review: add versioned 0.4 host/client/desk/UI files, preserve exact old runtime hashes; optional applyState hook and build-specific state schemas keep old project saves compatible; no external communication or code execution from JSON."
+    ],
+    "rulesApplied": [
+      "AGENTS: existing works protected; isolated Feel Studio trial in Staging only",
+      "Existing Plan Lock and high-risk checks remain enabled; do not treat CI as author device QA."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Public browser same-start compare and live controls at portrait/landscape widths",
+      "Browser save/branch/undo/defaults/reload and old A operation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert Feel Studio-only PR and keep original Ametsugi, older Feel Studio projects and storage untouched.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Production or candidate status changes",
+      "Existing Ametsugi, shared Engine and 3D Lab edits",
+      "New universal editors or automatic Work calls"
+    ],
+    "unverified": [
+      "Physical iPhone/iPad Safari",
+      "Audio listening and author feel/adoption"
+    ],
+    "problem": "Editing Ametsugi A resets every time and pauses simulation; no parameter application semantics.",
+    "currentContract": "Feel Bridge 1 with optional state/edit hooks; immutable builds, sandbox, hash verification and workspace/2.",
+    "whyExistingIsInsufficient": "restoreState means restart and one project-wide schema cannot preserve legacy A alongside expanded B.",
+    "design": "Versioned optional applyState hook for in-place full configuration sync; editable declarations carry apply and group. Per-build config/ranges optional, old project schema fallback. A remains byte-identical; B owns live validation/physics/audio/render updates.",
+    "migration": "No key migration; v04 reads old workspace/2 and keeps old node schema/hash; old runtimes unchanged. New B added explicitly through a catalog build selector for saved workspaces.",
+    "compatibility": "Keep old v2/v3 runtime files and hashes, prototypes and legacy JSON unchanged; versioned v04 source used only by Studio entry and B.",
+    "promotionRisk": "Staging trial only; author decides whether to keep or expand.",
+    "alternativesRejected": [
+      "Do not modify old client dependencies",
+      "Do not make all config messages reset",
+      "Do not silently rewrite old saved nodes"
+    ],
+    "boundaryCases": [
+      "Live physics while a drop is on a gutter or airborne",
+      "Restart-only settings queued until retry; defaults and undo avoid reset of live state",
+      "Saved A-only workspace can explicitly add B; comparison reset synchronizes current drafts",
+      "Invalid bool/color/choice/schema and stale nonce rejected"
+    ],
+    "testPlan": [
+      "Live state identity/time/drop continuity and numerical physics changes",
+      "Restart queuing and independent entry",
+      "Old hash manifests and full legacy suites",
+      "Workspace branch/adopt/hold/reload/request config and new registration",
+      "Public real browser responsive/touch simulation after staging publication"
+    ]
+  }
+}
