@@ -36,8 +36,8 @@ test('56 source blobs/registrations/geometry/packed normals/colors/initial previ
   if(s.motion)for(const [j,t] of [0,.8,2,7,80].entries()){s.motion.time=t;assert.equal(hash(JSON.stringify({draw:s.motion.drawCommands(s.body.pose()),snapshot:s.motion.snapshot(),radius:s.motion.radius,packed:Array.from(s.motion.packed)})),b.motion[j]);}
  }
 });
-test('57–59 append without modifying numbering; all69 load and expose the expected control capability',()=>{
- assert.deepEqual(manifest.items.slice(56,59),[{id:'door',file:'objects/door.json',number:57},{id:'crank',file:'objects/crank.json',number:58},{id:'drawer',file:'objects/drawer.json',number:59}]);assert.equal(manifest.items.length,69);
+test('57–59 append without modifying numbering; all registered specimens load and expose the expected control capability',()=>{
+ assert.deepEqual(manifest.items.slice(56,59),[{id:'door',file:'objects/door.json',number:57},{id:'crank',file:'objects/crank.json',number:58},{id:'drawer',file:'objects/drawer.json',number:59}]);assert.equal(manifest.items.length,79);
  assert.deepEqual(miniatures.map(d=>d.behaviors.manipulation.controls[0].type),['hinge','rotate','linear']);
  for(const d of definitions){const s=new SpecimenSession().select(d);assert.ok(s.mesh.triangles.length);if(d.behaviors?.manipulation){assert.equal(s.body.touchEnabled,false);assert.ok(s.assembly===s.manipulation);}}
 });
@@ -148,7 +148,7 @@ test('a new manual JSON and registration loads without engine or UI edits',async
 // Collection 04: retain v0.7 samples above; protect its three added blobs too.
 test('all59 prior JSON/entries protected; Collection 04 appends ten unique numbers and all controls load',()=>{
  for(const [id,digest] of [["door", "e9e207115b8739ebb7f1b5d945a7b7550ba56f9e69d44f063ea8339eba7e7f27"], ["crank", "71359e438610b6bafdfe34ec7bb0b6b0473b887fc4d5784c22bc286755ba2f86"], ["drawer", "f6dc8d8b15582484f8a435770354c3f1e1685da27985419fc4987bfa61e18f65"]])assert.equal(hash(readFileSync(new URL(`objects/${id}.json`,root))),digest);
- assert.deepEqual(manifest.items.slice(59).map(i=>[i.number,i.id]),[[60, "keepsake"], [61, "folio"], [62, "awning"], [63, "spool"], [64, "petal-turntable"], [65, "tri-rotor"], [66, "riser"], [67, "shuttle-block"], [68, "twin-paddles"], [69, "dial-and-slide"]]);
- assert.deepEqual(definitions.slice(59).map(d=>d.behaviors.manipulation.controls.map(c=>c.type)),[['hinge'],['hinge'],['hinge'],['rotate'],['rotate'],['rotate'],['linear'],['linear'],['hinge','hinge'],['rotate','linear']]);
- for(const d of definitions.slice(59)){const s=new SpecimenSession().select(d),p=s.manipulation;for(const c of p.controls){assert.equal(c.inertia,0);const initial=c.value;p.grab(c.part);p.moveBy(c.part,.08,.1);p.release();const held=c.value;run(s,120);near(c.value,held);p.grab(c.part);p.moveBy(c.part,-.04,.1);p.cancel();if(c.type!=='rotate'){p.grab(c.part);p.moveBy(c.part,10,.1);near(c.value,c.max);p.moveBy(c.part,-10,.1);near(c.value,c.min);p.cancel();}s.resetPose();near(c.value,initial);}assert.ok(previewRaster(d).pixels.some(v=>v));}
+ assert.deepEqual(manifest.items.slice(59,69).map(i=>[i.number,i.id]),[[60, "keepsake"], [61, "folio"], [62, "awning"], [63, "spool"], [64, "petal-turntable"], [65, "tri-rotor"], [66, "riser"], [67, "shuttle-block"], [68, "twin-paddles"], [69, "dial-and-slide"]]);
+ assert.deepEqual(definitions.slice(59,69).map(d=>d.behaviors.manipulation.controls.map(c=>c.type)),[['hinge'],['hinge'],['hinge'],['rotate'],['rotate'],['rotate'],['linear'],['linear'],['hinge','hinge'],['rotate','linear']]);
+ for(const d of definitions.slice(59,69)){const s=new SpecimenSession().select(d),p=s.manipulation;for(const c of p.controls){assert.equal(c.inertia,0);const initial=c.value;p.grab(c.part);p.moveBy(c.part,.08,.1);p.release();const held=c.value;run(s,120);near(c.value,held);p.grab(c.part);p.moveBy(c.part,-.04,.1);p.cancel();if(c.type!=='rotate'){p.grab(c.part);p.moveBy(c.part,10,.1);near(c.value,c.max);p.moveBy(c.part,-10,.1);near(c.value,c.min);p.cancel();}s.resetPose();near(c.value,initial);}assert.ok(previewRaster(d).pixels.some(v=>v));}
 });
