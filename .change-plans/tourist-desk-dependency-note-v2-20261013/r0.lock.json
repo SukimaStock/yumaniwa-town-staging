@@ -1,0 +1,60 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "98301517baeb81a5d081cd419d79adb81df554b43c06ae0d8f0bdbf9c8fd3beb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tourist-desk-dependency-note-v2-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "0a25ab8385d6273955331d705899926ec5b5876b",
+    "change": "Correct module count in publication dependency notes from 13 to 12.",
+    "planLevel": "lite",
+    "classes": [
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "Actual production bundle dependency hash manifest"
+    ],
+    "allowedPaths": [
+      "works/yumaniwa-tourist-desk/PUBLICATION.md",
+      ".change-plans/tourist-desk-dependency-note-v2-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "One documentation count correction only"
+    ],
+    "ownerDecisions": [
+      "Current user production preparation request authorizes accurate dependency reporting."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Candidate documentation correction; no runtime changes"
+    ],
+    "staticChecks": [],
+    "manualChecks": [
+      "Count 12 copied modules in production dependency manifest"
+    ],
+    "impactChecks": [],
+    "impactExclusions": [],
+    "rollback": "Revert this documentation correction.",
+    "promotion": "none",
+    "outOfScope": [
+      "All runtime and Production merge"
+    ],
+    "unverified": [
+      "Real devices"
+    ],
+    "staticCheckExemptionReason": "Documentation-only count correction; no executable or runtime asset changes."
+  }
+}
