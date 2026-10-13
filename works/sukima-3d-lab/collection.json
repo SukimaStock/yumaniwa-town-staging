@@ -629,6 +629,56 @@
       "id": "wooden-rocking-horse",
       "file": "objects/wooden-rocking-horse.json",
       "number": 129
+    },
+    {
+      "id": "wooden-shoe-last",
+      "file": "objects/wooden-shoe-last.json",
+      "number": 130
+    },
+    {
+      "id": "carpenter-hand-plane",
+      "file": "objects/carpenter-hand-plane.json",
+      "number": 131
+    },
+    {
+      "id": "folding-reading-stand",
+      "file": "objects/folding-reading-stand.json",
+      "number": 132
+    },
+    {
+      "id": "open-umbrella",
+      "file": "objects/open-umbrella.json",
+      "number": 133
+    },
+    {
+      "id": "split-chestnut-burr",
+      "file": "objects/split-chestnut-burr.json",
+      "number": 134
+    },
+    {
+      "id": "desk-stapler",
+      "file": "objects/desk-stapler.json",
+      "number": 135
+    },
+    {
+      "id": "barber-pole",
+      "file": "objects/barber-pole.json",
+      "number": 136
+    },
+    {
+      "id": "broom-and-dustpan",
+      "file": "objects/broom-and-dustpan.json",
+      "number": 137
+    },
+    {
+      "id": "sprouting-bulb",
+      "file": "objects/sprouting-bulb.json",
+      "number": 138
+    },
+    {
+      "id": "tripod-incense-burner",
+      "file": "objects/tripod-incense-burner.json",
+      "number": 139
     }
   ]
 }
