@@ -1,3 +1,9 @@
+# Feel Studio 0.4 · Touch & Tune
+
+雨つぎで「雨つぎ B · Touch & Tune」を開き、「触りながら調整」を押すと、雨を流したまま手触りを変更できます。既存の保存机では「別の実装を机に追加」からBを開いてください。LIVEはその場で、RESTARTは次の「試す」で、REBUILDはWorkの別コード依頼として扱います。気に入った設定は「ここから分岐」で残し、元案と比べられます。
+
+新作の短い接続手順は[Feel-ready](./FEEL-READY.md)、検証は[0.4の記録](./VALIDATION-V04.md)を参照してください。
+
 # Feel Studio 0.3
 
 作品の描画・入力・ルールを保ったまま、Feel Bridgeで制作机へ接続します。新作の接続手順は[FEEL-BRIDGE.md](./FEEL-BRIDGE.md)、実観測と制約は[VALIDATION-V03.md](./VALIDATION-V03.md)。紙をつまむ2D、WebGLの引き出し、編集APIのないDOM比較を同じ机で試せます。
