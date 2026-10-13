@@ -1,3 +1,35 @@
+# Collection 09 · 湯間庭町の小さな模型110–119 — 2026-10-13
+
+Parent explicitly authorized110–119 after PR325; latest main42ca4c60995dd53e2c1d18d205dc6a4653df22e8 and exactSHA Pages38345388297 confirmed before work. AGENTS, current Plan/verification rules, collection guide, previous records/109 definitions and established town palette reviewed. Local `.agents/skills` remains absent; work lifecycle remainsactive/staging-only. Plan-only186b0f5 precedes source. Immutable109 snapshot is `tests/collection08-baseline.json`; implicit00–15, missing16 and prior order/bytes remain protected. Final candidate119; formal109 until this data PR merges.
+
+No large performance benchmark at119: parent set the next specified milestone to300 and requested ordinary checks between milestones. PR324's preview yielding, focus fallback, cache0.7.1 and all runtime/preview/measurement code stay byte-identical.119-card load, full scroll/navigation, actual control input and mobile-equivalent viewports are checked normally. A newly observed major problem would stop this batch; any measured necessary performance fix requires a separate PR.
+
+| No. / ID / name | Behavior | Distinct shape and bounds |
+| --- | --- | --- |
+|110 `bamboo-ladder` 裏庭の竹ばしご | STATIC | Tall skewed rails, five open rung bays and uneven bamboo nodes; narrow airy outline, not another rack or stair. |
+|111 `hanging-handbell` 店裏の小さな吊り鐘 | MOTION swingZ | One hollow flared bell casting with a fixed tongue; ±.18rad/5.4s under an asymmetric bracket. No sound/contact or independent hanging linkage claim. |
+|112 `round-street-hatch` 路地の丸い点検蓋 | MANIPULATION hingeX | Round lid opens above an actual open ring; broad grip, rear pivot, range−1.20…0, initial−.25. Separated hinge cheeks retain clearance. |
+|113 `sliding-door-bolt` 納戸の横引きかんぬき | MANIPULATION linearX | Long rod passes through actual bored sleeves; broad central paddle, range−.16….16, initial−.12. Distinct from a tray or sliding door panel. |
+|114 `shop-grindstone` 刃物屋の丸い砥石 | MANIPULATION rotateZ | Slightly worn asymmetric annular stone above a fixed stand, axle through a real hole; initial.23. No grinding simulation or linked crank. |
+|115 `twin-bookends` 古本屋の二つの本立て | MANIPULATION two linearX | Independent L-shaped broad blocks in disjoint bays: left−.70…−.40 initial−.60; right.40….70 initial.60. No contact clamping or simulated books. |
+|116 `folded-newspaper` 店先の折り新聞 | STATIC | Three thin creased layers with offset corners; a shallow zigzag outline and visible thickness. |
+|117 `lotus-seedpod` 池端の蓮の実殻 | STATIC | Seven real recessed cavities in one connected closed head above a stem; holes are geometry, not dark paint. |
+|118 `dried-fish` 軒先の小さな干し魚 | STATIC | Thick faceted body, forked tail, dorsal fin and one dark eye; asymmetric horizontal natural form. |
+|119 `school-globe` 学校の小さな地球儀 | MOTION spinY | Faceted sphere with schematic land patches turns about its tilted localY axis inside a fixed meridian; .19rad/s. Not a geographic atlas. |
+
+Four STATIC / zero TOUCH / two MOTION / four MANIPULATION; five manual controls (rotate1/hinge1/linear3). Natural/manmade, thin/volumetric, tall/flat/round, single/multiple and symmetric/asymmetric silhouettes were compared with prior109. Elastic Touch is not forced onto these nonconvex multipart shapes; existing Touch is covered by regressions.
+
+## Validation and restart checkpoint
+
+- Six historical exact-count assertions109→119 only. Old fixed slices and all prior goldens remain intact. New immutable109/exact-ten tests check IDs, normalized numbering, absent16, order, reading/schema, complete ranges/cycles, frozen source/mesh, reverse/hold/reset/switch and1000 cap.
+- Initial279 work tests pass; final rerun follows the two new-data refinements. Lifecycle24. Native preflight strict200px CPU/GPU comparison passes all10 newv2 objects. Full119 collection GLES validation and final all-control browser checks are recorded in the final PR/evidence; do not substitute older batch frame counts.
+- First preview exposed coplanar overlap on bolt sleeve mounting feet; their cap width was inset from.16 to.12. Bookend feet were widened.34→.36 to create a small lip beyond the vertical plate, eliminating coplanar outside faces. Both fixed without renderer/preview/checker changes; initial JSON and failing logs retained under `/workspace/scratch/sukima-batch09/`.
+- Clearance samples include145 positions for each of five manual controls and both complete Motion cycles, plus25×25 independent bookend combinations:1640 configurations. Annular sleeves/rings are decomposed into their actual convex sectors for this diagnostic, preserving their voids instead of falsely filling holes with a convex hull. Initial34980 component-pair comparisons found zero overlap; final post-refinement rerun is retained separately.
+- Full native first pass found the dried fish too thin in an end-on view. Increasing depth alone passed portrait but still failed landscape (3677 body pixels). The final body has more height/depth, a proportionate fin and repositioned eye; the unchanged5000-pixel gate now passes all three fish viewports/poses, minimum5812 pixels, and its exact CPU/GPU preview passes. Diagnostic output only adds labels/pixel counts; no threshold changed. Both earlier shapes/logs are retained. Final full119 native rerun is required before merge.
+- Actual mouse/CDP touch covers all5 controls: no jump, tiny/reverse, intermediate hold, endpoints/same-capture overtravel, fixed-part whole rotation, re-pick after rotation, reset and switching. Other-mode checks include the six new STATIC/MOTION shapes, an existing TOUCH specimen, pause/reset, reduced-motion preference and three viewports. CloudChromium SwiftShader/nativeGLES are not physical iPhone/Safari evidence.
+- Before merge: Scope→Risk→Impact, self/automatic review and currentCI at exacthead. After merge: identicaltree and exactSHA Pages build/deploy. Parent checks public cards/navigation; known container403 is not retried. Current verificationState staysUNVERIFIED.
+- Resume after this batch: formal119, next120–129, remaining881 to exactly1000. No120+ authored here. Until merge, formal109 is the last normal checkpoint. Final immutable SHA/run links and actual test counts are in the PR plus `/workspace/scratch/sukima-batch09/handoff.json`. Preserve all existing records below.
+
 # Collection 08 · 湯間庭町の小さな模型100–109 — 2026-10-13
 
 Authorized continuation from99 after PR322 merged209399f, exact Pages38338619784, automatic review3db9524 without findings. Latest main/AGENTS/guide/99 definitions/town palette/local skill availability reviewed. New plan-only1a8b2fe precedes source in Draft PR323. Existing99 entry/JSON SHA256 snapshot is `tests/collection07-baseline.json`; implicit00–15 numbering and missing16 stay unchanged. At the retained intermediate checkpoint only100 `split-firewood` 軒下の割り薪 was registered. The published formal count remains99 until this batch merges.
