@@ -1,0 +1,111 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f1b63c444ed34847038e86878feea1e8df97578474d4ea35af6811c94d9a5a46",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "feel-studio-ametsugi-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "9c87a23afa5ec3e9a69af094713342d1055e84f2",
+    "change": "Connect a protected standalone Ametsugi studio variant via optional Feel Bridge to compare initial gutter tilt and first rain timing; preserve the original game and source.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "works/ametsugi/**",
+      "works/feel-studio/**"
+    ],
+    "allowedPaths": [
+      "works/feel-studio/**",
+      ".change-plans/feel-studio-ametsugi-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ametsugi/**",
+      "engine/**",
+      "works/sukima-3d-lab/**",
+      "works/motion-lab/**",
+      "works/pumpoko/**",
+      "works/pumpoko-02/**",
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Add an immutable Ametsugi prototype under Feel Studio, retaining all five roofs and source physics and drawing statements",
+      "Add declared first-roof angle and rain timing edit controls to Feel Bridge; keep original independent source untouched",
+      "Register one new project/build, local hashes and dependencies without altering the common Studio runtime",
+      "Add validation proving source behavior parity, isolated play without Bridge, and untouched older builds"
+    ],
+    "ownerDecisions": [
+      "2026-10-13 user explicitly asked to connect Ametsugi to Feel Studio; safe isolated staging implementation only."
+    ],
+    "hqDecisions": [
+      "Reuse optional Feel Bridge 1 and existing project-specific state contract; no protocol, renderer, auth, source game, or Engine changes."
+    ],
+    "rulesApplied": [
+      "AGENTS: existing works protected; isolated Feel Studio trial in Staging only",
+      "Existing Plan Lock and high-risk checks remain enabled; do not treat CI as author device QA."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Staging browser: edit gutter angle/timing, branch, compare, import/export and restart",
+      "5 roofs, inverted replay, normal feel and standalone play in portrait and narrow screen"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert Feel Studio-only PR and keep original Ametsugi, older Feel Studio projects and storage untouched.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Production or candidate status changes",
+      "Existing Ametsugi, shared Engine and 3D Lab edits",
+      "New universal editors or automatic Work calls"
+    ],
+    "unverified": [
+      "Physical iPhone/iPad Safari and audio perception",
+      "Author adoption and touch feel"
+    ],
+    "problem": "Feel Studio 0.3 has only purpose-made prototypes; using a real existing interactive game is unproven.",
+    "currentContract": "Feel Bridge allows autonomous HTML with optional state/edit and immutable verified builds.",
+    "whyExistingIsInsufficient": "Ametsugi uses a separate Engine/Codea rendering and 3D-lab HINGE dependency chain, and needs an isolated browser-compatible work-side adapter.",
+    "design": "Build a standalone work-local Ametsugi trial that preserves the authored five-roof simulation and artwork, with only the hinge value contract adapted for an isolated frame. Declare first-roof starting angle and wait; retain input ownership in the work.",
+    "migration": "New project-specific storage key; no migration of Ametsugi or Feel Studio 0.2/0.3 data.",
+    "compatibility": "No common Feel Bridge source, protocol, old immutable build, original Ametsugi, shared runtime, or town changes.",
+    "promotionRisk": "Staging trial only; author decides whether to keep or expand.",
+    "alternativesRejected": [
+      "Do not embed the whole original cross-work engine tree into a privileged iframe",
+      "Do not rewrite the original game for a test hookup",
+      "Do not allow unverified external URLs or JS returned from JSON"
+    ],
+    "boundaryCases": [
+      "Native gutter editing while Studio edit-mode is active",
+      "Angle clamping and cancellation, new-level reset",
+      "Viewport transform portrait and landscape",
+      "Source hashes, stale UI frames and unregistered builds"
+    ],
+    "testPlan": [
+      "Original RainGame physics parity of five courses and hinge drag",
+      "Manifest hashes, Bridge state bounds, setup/restore, first-roof edit and replay",
+      "Existing Feel Studio regression suites and staging CI/browser"
+    ]
+  }
+}
