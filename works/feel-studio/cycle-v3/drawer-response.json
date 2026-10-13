@@ -1,0 +1,14 @@
+{
+  "schema": "feel-work-response/2",
+  "project": "drawer",
+  "requestId": "r-n-mv5zien3-agcci10",
+  "buildId": "drawer-b",
+  "codeHash": "cccc452a25a80e550688918535cb6e7b5f254c4169312328f4e7b2c5a0fa0303",
+  "config": {
+    "open": 0.38,
+    "range": 1.2,
+    "response": 0.85,
+    "camera": 0.45
+  },
+  "summary": "実際の依頼から、ばね追従と離した後の端への収まりを独立したBコードで実装。開始姿勢・可動範囲と元Aを保持。"
+}

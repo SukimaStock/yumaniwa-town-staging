@@ -146,6 +146,137 @@
         }
       },
       "editHint": "灯と幕の位置、待つ時間・光の周期を「直接編集」で動かせます"
+    },
+    {
+      "id": "paper",
+      "title": "紙の留めどころ",
+      "level": 3,
+      "config": {
+        "rest": {
+          "u": 0.28,
+          "v": 0.58
+        },
+        "anchor": {
+          "u": 0.72,
+          "v": 0.38
+        },
+        "delay": 0.3,
+        "response": 0.6
+      },
+      "ranges": {
+        "rest.u": {
+          "min": 0.08,
+          "max": 0.92
+        },
+        "rest.v": {
+          "min": 0.08,
+          "max": 0.92
+        },
+        "anchor.u": {
+          "min": 0.08,
+          "max": 0.92
+        },
+        "anchor.v": {
+          "min": 0.08,
+          "max": 0.92
+        },
+        "delay": {
+          "min": 0,
+          "max": 2
+        },
+        "response": {
+          "min": 0.1,
+          "max": 2
+        }
+      },
+      "settingParts": [
+        {
+          "id": "paper-layout",
+          "label": "紙と留め具の位置",
+          "keys": [
+            "rest",
+            "anchor"
+          ],
+          "contract": "paper-layout/1"
+        },
+        {
+          "id": "paper-time",
+          "label": "待つ時間と追従時間",
+          "keys": [
+            "delay",
+            "response"
+          ],
+          "contract": "paper-time/1"
+        }
+      ],
+      "inputMeaning": "紙の目標位置を指で指定。別案で離した後の挙動が変わるため同じ入力を同じ力とみなさない。",
+      "editHint": "画面の位置を動かすか、公開された時間・範囲を調整してください",
+      "preferred": true
+    },
+    {
+      "id": "drawer",
+      "title": "小棚のひきだし",
+      "level": 3,
+      "config": {
+        "open": 0.15,
+        "range": 1,
+        "response": 0.65,
+        "camera": 0.45
+      },
+      "ranges": {
+        "open": {
+          "min": 0,
+          "max": 1.4
+        },
+        "range": {
+          "min": 0.2,
+          "max": 1.4
+        },
+        "response": {
+          "min": 0.1,
+          "max": 2
+        },
+        "camera": {
+          "min": -0.9,
+          "max": 0.9
+        }
+      },
+      "settingParts": [
+        {
+          "id": "drawer-pose",
+          "label": "開始姿勢と可動範囲",
+          "keys": [
+            "open",
+            "range"
+          ],
+          "contract": "drawer-pose/1"
+        },
+        {
+          "id": "drawer-time",
+          "label": "追従時間",
+          "keys": [
+            "response"
+          ],
+          "contract": "drawer-time/1"
+        }
+      ],
+      "inputMeaning": "模型側が投影したZ軸に沿ってつまみを引く。画面座標をそのまま3D座標にしない。",
+      "editHint": "画面の位置を動かすか、公開された時間・範囲を調整してください",
+      "relations": [
+        {
+          "path": "open",
+          "lte": "range"
+        }
+      ]
+    },
+    {
+      "id": "dom",
+      "title": "ひらく紙 · 比較のみ",
+      "level": 1,
+      "config": {},
+      "ranges": {},
+      "settingParts": [],
+      "inputMeaning": "DOM作品。瞬間的な開きとCSSの余韻を比較。内部状態を保存するAPIはない。"
     }
   ],
   "builds": [
@@ -493,6 +624,184 @@
       ],
       "htmlHash": "da79118e4af43a6b39ca4ede41bfd89d39eaa2cf7c71efdd0539cde9a18aa4b9",
       "requestId": "r-n-mv5rbfvd-f4vxpjc"
+    },
+    {
+      "id": "paper-a",
+      "project": "paper",
+      "title": "A · 始点に戻る",
+      "version": "0.1.0",
+      "runtime": "feel-bridge/1",
+      "url": "prototypes/paper/paper-a/index.html",
+      "source": "prototypes/paper/paper-a/app.js",
+      "initial": true,
+      "derivedFrom": null,
+      "parts": [
+        {
+          "id": "release",
+          "label": "指を離した後",
+          "anchor": "Paper.step"
+        }
+      ],
+      "codeHash": "e6f2dd724127dc2b0b25603bcfcd6622b30727133fc6d10a8a92652f722efa55",
+      "htmlHash": "41285125511cc6e52850f054a89221d278c168c06b0c8daa81ee27758a6ced2e",
+      "dependencies": [
+        {
+          "path": "bridge-client.js",
+          "sha256": "60c1fc99e27df0198c2e5eb58895938d7ed15461601ce9c1899688bfe8bf507d"
+        },
+        {
+          "path": "prototypes/paper/style.css",
+          "sha256": "a01175d2353484481604031b104e361fca6d3a0c92ca8df6771bee6ce248096c"
+        }
+      ]
+    },
+    {
+      "id": "drawer-a",
+      "project": "drawer",
+      "title": "A · 指の位置へ追従",
+      "version": "0.1.0",
+      "runtime": "feel-bridge/1",
+      "url": "prototypes/drawer/drawer-a/index.html",
+      "source": "prototypes/drawer/drawer-a/app.js",
+      "initial": true,
+      "derivedFrom": null,
+      "parts": [
+        {
+          "id": "response",
+          "label": "引き出しの追従",
+          "anchor": "Drawer.step"
+        },
+        {
+          "id": "release",
+          "label": "離した後の居場所",
+          "anchor": "Drawer.target"
+        }
+      ],
+      "codeHash": "79a6fb195c702f02e8b28d5dd06ac505d2c896b986287f410e7b51a33fbf0e9b",
+      "htmlHash": "686fb7f39c9b393b52e3e6a79a8afada3e0fb252d6d65c0b8ccaa26bdd18f868",
+      "dependencies": [
+        {
+          "path": "bridge-client.js",
+          "sha256": "60c1fc99e27df0198c2e5eb58895938d7ed15461601ce9c1899688bfe8bf507d"
+        },
+        {
+          "path": "prototypes/drawer/style.css",
+          "sha256": "d94582d8bde08a09e50cffc59a3923e948bb2abc2de2ef04543ae599f9d5ee60"
+        },
+        {
+          "path": "prototypes/drawer/view.js",
+          "sha256": "665c05e0ffcaead0a09838f463d7c75eb33f1247f546d28a950adc689b5078da"
+        }
+      ]
+    },
+    {
+      "id": "dom-a",
+      "project": "dom",
+      "title": "A · すぐ開く",
+      "version": "0.1.0",
+      "runtime": "html-isolated/1",
+      "url": "prototypes/dom/dom-a/index.html",
+      "source": "prototypes/dom/dom-a/app.js",
+      "initial": true,
+      "derivedFrom": null,
+      "parts": [],
+      "codeHash": "9fb495e93aeb8e7743030b6ec399511bc7cf880e84c6787cb1bedb25be4b1740",
+      "htmlHash": "eceb45b8557b52cc40acdd5d3e9b781b5fea6ec05df53225b52c4772667ebb33",
+      "dependencies": [
+        {
+          "path": "prototypes/dom/style.css",
+          "sha256": "f88d54583525fea57d44fc567423f1fd96da12657e08d2e3a03d0eb0afdeb90e"
+        }
+      ]
+    },
+    {
+      "id": "dom-b",
+      "project": "dom",
+      "title": "B · 余韻で開く",
+      "version": "0.1.0",
+      "runtime": "html-isolated/1",
+      "url": "prototypes/dom/dom-b/index.html",
+      "source": "prototypes/dom/dom-b/app.js",
+      "initial": true,
+      "derivedFrom": null,
+      "parts": [],
+      "codeHash": "2a791911ba05b9291b2aceea02759d72f211e8954e5eaf225a928e8acd9f2ebe",
+      "htmlHash": "eceb45b8557b52cc40acdd5d3e9b781b5fea6ec05df53225b52c4772667ebb33",
+      "dependencies": [
+        {
+          "path": "prototypes/dom/style.css",
+          "sha256": "f88d54583525fea57d44fc567423f1fd96da12657e08d2e3a03d0eb0afdeb90e"
+        }
+      ]
+    },
+    {
+      "id": "paper-b",
+      "project": "paper",
+      "title": "B · 滑って留め具に収まる",
+      "version": "0.1.0",
+      "runtime": "feel-bridge/1",
+      "url": "prototypes/paper/paper-b/index.html",
+      "source": "prototypes/paper/paper-b/app.js",
+      "initial": false,
+      "derivedFrom": "paper-a",
+      "parts": [
+        {
+          "id": "release",
+          "label": "指を離した後",
+          "anchor": "Paper.step"
+        }
+      ],
+      "codeHash": "078c9ecc0a38e92f53a13799949d2f3c7a3e8a981ea7ef25b129e96d585f9782",
+      "htmlHash": "41285125511cc6e52850f054a89221d278c168c06b0c8daa81ee27758a6ced2e",
+      "dependencies": [
+        {
+          "path": "bridge-client.js",
+          "sha256": "60c1fc99e27df0198c2e5eb58895938d7ed15461601ce9c1899688bfe8bf507d"
+        },
+        {
+          "path": "prototypes/paper/style.css",
+          "sha256": "a01175d2353484481604031b104e361fca6d3a0c92ca8df6771bee6ce248096c"
+        }
+      ]
+    },
+    {
+      "id": "drawer-b",
+      "project": "drawer",
+      "title": "B · 離すと近い端へ",
+      "version": "0.1.0",
+      "runtime": "feel-bridge/1",
+      "url": "prototypes/drawer/drawer-b/index.html",
+      "source": "prototypes/drawer/drawer-b/app.js",
+      "initial": false,
+      "derivedFrom": "drawer-a",
+      "parts": [
+        {
+          "id": "response",
+          "label": "引き出しの追従",
+          "anchor": "Drawer.step"
+        },
+        {
+          "id": "release",
+          "label": "離した後の居場所",
+          "anchor": "Drawer.target"
+        }
+      ],
+      "codeHash": "cccc452a25a80e550688918535cb6e7b5f254c4169312328f4e7b2c5a0fa0303",
+      "htmlHash": "686fb7f39c9b393b52e3e6a79a8afada3e0fb252d6d65c0b8ccaa26bdd18f868",
+      "dependencies": [
+        {
+          "path": "bridge-client.js",
+          "sha256": "60c1fc99e27df0198c2e5eb58895938d7ed15461601ce9c1899688bfe8bf507d"
+        },
+        {
+          "path": "prototypes/drawer/style.css",
+          "sha256": "d94582d8bde08a09e50cffc59a3923e948bb2abc2de2ef04543ae599f9d5ee60"
+        },
+        {
+          "path": "prototypes/drawer/view.js",
+          "sha256": "665c05e0ffcaead0a09838f463d7c75eb33f1247f546d28a950adc689b5078da"
+        }
+      ]
     }
   ]
 }

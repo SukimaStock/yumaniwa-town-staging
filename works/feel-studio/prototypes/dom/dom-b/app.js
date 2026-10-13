@@ -1,0 +1,1 @@
+const button=document.querySelector('button');button.onclick=()=>{const open=button.getAttribute('aria-pressed')!=='true';button.setAttribute('aria-pressed',String(open));button.style.transform=open?'rotate(-12deg) scale(1.2)':'none';};button.style.transition="transform .8s ease-out";
