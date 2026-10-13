@@ -1329,6 +1329,56 @@
       "id": "wooden-marking-gauge",
       "file": "objects/wooden-marking-gauge.json",
       "number": 269
+    },
+    {
+      "id": "asparagus-spear",
+      "file": "objects/asparagus-spear.json",
+      "number": 270
+    },
+    {
+      "id": "garden-eggplant",
+      "file": "objects/garden-eggplant.json",
+      "number": 271
+    },
+    {
+      "id": "garden-tulip",
+      "file": "objects/garden-tulip.json",
+      "number": 272
+    },
+    {
+      "id": "garden-turnip",
+      "file": "objects/garden-turnip.json",
+      "number": 273
+    },
+    {
+      "id": "halved-peach",
+      "file": "objects/halved-peach.json",
+      "number": 274
+    },
+    {
+      "id": "meadow-clover",
+      "file": "objects/meadow-clover.json",
+      "number": 275
+    },
+    {
+      "id": "pond-cattail",
+      "file": "objects/pond-cattail.json",
+      "number": 276
+    },
+    {
+      "id": "spring-bamboo-shoot",
+      "file": "objects/spring-bamboo-shoot.json",
+      "number": 277
+    },
+    {
+      "id": "summer-melon-wedge",
+      "file": "objects/summer-melon-wedge.json",
+      "number": 278
+    },
+    {
+      "id": "woodland-acorn",
+      "file": "objects/woodland-acorn.json",
+      "number": 279
     }
   ]
 }

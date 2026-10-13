@@ -37,7 +37,7 @@ test('56 source blobs/registrations/geometry/packed normals/colors/initial previ
  }
 });
 test('57–59 append without modifying numbering; all registered specimens load and expose the expected control capability',()=>{
- assert.deepEqual(manifest.items.slice(56,59),[{id:'door',file:'objects/door.json',number:57},{id:'crank',file:'objects/crank.json',number:58},{id:'drawer',file:'objects/drawer.json',number:59}]);assert.equal(manifest.items.length,269);
+ assert.deepEqual(manifest.items.slice(56,59),[{id:'door',file:'objects/door.json',number:57},{id:'crank',file:'objects/crank.json',number:58},{id:'drawer',file:'objects/drawer.json',number:59}]);assert.equal(manifest.items.length,279);
  assert.deepEqual(miniatures.map(d=>d.behaviors.manipulation.controls[0].type),['hinge','rotate','linear']);
  for(const d of definitions){const s=new SpecimenSession().select(d);assert.ok(s.mesh.triangles.length);if(d.behaviors?.manipulation){assert.equal(s.body.touchEnabled,false);assert.ok(s.assembly===s.manipulation);}}
 });
