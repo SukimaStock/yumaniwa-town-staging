@@ -1,7 +1,7 @@
 // Screen deltas -> one captured local degree of freedom. Frozen viewer pose;
 // no repicking, timeline, DOM or reclassification into whole-object rotation.
-import {add,sub,scale,dot,cross,norm,rotate,inverse} from './math.js?v=0.7.0';
-import {composePartPose} from './parts.js?v=0.7.0';
+import {add,sub,scale,dot,cross,norm,rotate,inverse} from './math.js?v=0.7.1';
+import {composePartPose} from './parts.js?v=0.7.1';
 export function manipulationMapping(player,hit,x,y,rect,view,camera){
  const part=player.parts.find(p=>p.id===hit.part),control=player.control(hit.part);
  if(!part||!control)throw new TypeError('Manipulation hit must reference a control');

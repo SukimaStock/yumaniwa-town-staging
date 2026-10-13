@@ -1,7 +1,7 @@
 // Authored local transforms, evaluated analytically. No DOM, Touch physics,
 // object names, joints or edits to source geometry during playback.
-import {scale,norm} from './math.js?v=0.7.0';
-import {RigidParts,composePartPose,assemblyBounds} from './parts.js?v=0.7.0';
+import {scale,norm} from './math.js?v=0.7.1';
+import {RigidParts,composePartPose,assemblyBounds} from './parts.js?v=0.7.1';
 const TAU=Math.PI*2,fail=m=>{throw new TypeError(`Invalid specimen: motion ${m}`);};
 const finite=(x,min,max)=>Number.isFinite(x)&&x>=min&&x<=max;
 const vector=(v,min,max)=>Array.isArray(v)&&v.length===3&&Array.from(v).every(x=>finite(x,min,max));

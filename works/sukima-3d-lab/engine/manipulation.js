@@ -1,8 +1,8 @@
 // Independent numeric controls on the shared rigid-part assembly. No timeline,
 // Touch vertices, scene graph, object names or automatic return to initial values.
-import {RigidParts,composePartPose,assemblyBounds} from './parts.js?v=0.7.0';
-import {motionRanges} from './motion.js?v=0.7.0';
-import {scale,norm} from './math.js?v=0.7.0';
+import {RigidParts,composePartPose,assemblyBounds} from './parts.js?v=0.7.1';
+import {motionRanges} from './motion.js?v=0.7.1';
+import {scale,norm} from './math.js?v=0.7.1';
 const TAU=Math.PI*2,fail=m=>{throw new TypeError(`Invalid specimen: manipulation ${m}`);};
 const finite=(x,a,b)=>Number.isFinite(x)&&x>=a&&x<=b;
 const vector=v=>Array.isArray(v)&&v.length===3&&Array.from(v).every(x=>finite(x,-2,2));

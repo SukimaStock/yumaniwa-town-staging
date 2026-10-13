@@ -1,3 +1,26 @@
+# Collection preview responsiveness · 0.7.1 — 2026-10-13
+
+Separate authorized performance change from data PR323. Formal registration stays99. Plan-only248e330 on main209399f precedes implementation. At candidate109, unmodified paired100/109 mobile warm load medians were5114/8615ms; uninstrumented timings were variable but the all-preview synchronous task blocked input for seconds. Routed stage diagnosis isolated CPU preview cost; routing disables HTTP cache, so its smaller9–12% count growth does not dismiss the warm-cache result. Earlier paired CDP counter differences across reload are invalid because navigation resets counters; only navigation-relative timing/long-task/heap fields are used.
+
+The app now yields a browser task between completed cards after12ms of preview construction. This budget is a yield threshold, not a guaranteed maximum task duration: an individual preview remains synchronous. All definitions, ordering,200px previews, error isolation and four concurrent fetches remain. No lazy fetch, virtualization, worker, schema, gate, geometry or input-physics changes. All work-local production/fixture cache URLs advance together to0.7.1; other changed runtime/preview bytes are identical after normalizing the version string. The old measurement CLI is unchanged. No town/other-work/Production changes.
+
+Unrouted paired109 CPU4 mobile390×844 DPR2, three alternating cold/warm trials, one local server and no competing QA (`scratch/sukima-preview-yield/paired-109.json`):
+
+| Median ms | Original cold / warm | Yielded cold / warm |
+| --- | --- | --- |
+| First completed cards painted |4286 /4136|1790 /1192|
+| Entire collection complete |4286 /4136|5840 /4590|
+| Longest main-thread long task |2752 /2821|112 /75|
+| Sum long tasks |2842 /2896|1410 /695|
+
+Tradeoff: painting/input opportunities increase total completion time in this run (+36% cold/+11% warm), while early access and worst continuous blockage improve substantially. This is a responsiveness fix, not a claim of faster full loading. Physical iPhone/Safari remains unverified; SwiftShader cloud graphics results are not hardware results.
+
+Browser regression `tests/collection-scheduling.cjs` injects deliberate preview CPU work only in its test response, then performs actual selection, rotation, next/previous/back before all cards exist; checks full ordered previews and one503 failure isolation on desktop/mobile. It is not a performance/cache benchmark. Existing241 work tests and24 lifecycle tests pass; numerical engine and prior99 data are unchanged. Final99/109 scheduling results, unchanged measurement results, review/CI/Pages outcome are recorded in the performance PR and scratch handoff.
+
+Review of73df43d found that wrapping to an unbuilt last card then returning could lose keyboard focus. The follow-up preserves the original collection card as a fallback only while the selected card is absent; adds a real Previous-wrap/Back/focus regression during generation. This does not change preview scheduling. Initial paired/full measurement source remains73df43d; final focus fix is checked separately.
+
+Resume: merge this performance PR only after final review/CI; then create a fresh data Plan from that new main and transplant the preserved100–109 data without recreating forms. PR323 stays unmerged until this dependency is resolved. No110+ creation yet. Verification state remainsUNVERIFIED; author adoption and public browser confirmation are separate.
+
 # Collection 07 · 湯間庭町の小さな模型 90–99 — 2026-10-13
 
 Authorized batch from89 formal registrations, next90; min(10,1000−89)=10. Registry is canonical; missing16 and previous order are preserved. Prior PR318 automatic review completed at1796220 without findings; parent confirmed the public89-card collection successfully during this batch. AGENTS, guide, previous records,89 shapes and town palette reviewed; no applicable local skills. Plan-only `dba2305` preceded implementation in Draft PR321 at main3bc8b61. Concurrent Feel Studio PR320 advanced main to d62739a; fresh Plan-only `71952e3` in Draft PR322 precedes source transplants `f0c51e3`/`b5e3f0a`, preserving that unrelated change without rewriting the old lock. Draft321 is closed as superseded; its history remains. Production, town placement, shared2D, runtime, UI, schema and gates are unchanged.

@@ -1,5 +1,5 @@
 // Display/rotation only. No spring vertices, Touch profile, input or gallery DOM.
-import {axisAngle,multiply,norm,scale} from './math.js?v=0.7.0';
+import {axisAngle,multiply,norm,scale} from './math.js?v=0.7.1';
 export class RotationBody {
  constructor(mesh,options={}){
   this.mesh=mesh;this.touchEnabled=false;

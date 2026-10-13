@@ -1,20 +1,20 @@
-import {pickMesh} from './engine/geometry.js?v=0.7.0';
-import {Camera} from './engine/camera.js?v=0.7.0';
-import {SpecimenSession} from './engine/session.js?v=0.7.0';
-import {createDebugPanel} from './debug.js?v=0.7.0';
-import {PointerInput} from './engine/interaction.js?v=0.7.0';
-import {Renderer} from './engine/renderer.js?v=0.7.0';
-import {AnimationLoop} from './engine/loop.js?v=0.7.0';
-import {loadCollection} from './collection.js?v=0.7.0';
-import {previewSvg,previewRaster} from './preview.js?v=0.7.0';
-import {manipulationMapping} from './engine/manipulation-mapping.js?v=0.7.0';
-import {createManipulationPanel} from './manipulation-debug.js?v=0.7.0';
+import {pickMesh} from './engine/geometry.js?v=0.7.1';
+import {Camera} from './engine/camera.js?v=0.7.1';
+import {SpecimenSession} from './engine/session.js?v=0.7.1';
+import {createDebugPanel} from './debug.js?v=0.7.1';
+import {PointerInput} from './engine/interaction.js?v=0.7.1';
+import {Renderer} from './engine/renderer.js?v=0.7.1';
+import {AnimationLoop} from './engine/loop.js?v=0.7.1';
+import {loadCollection} from './collection.js?v=0.7.1';
+import {previewSvg,previewRaster} from './preview.js?v=0.7.1';
+import {manipulationMapping} from './engine/manipulation-mapping.js?v=0.7.1';
+import {createManipulationPanel} from './manipulation-debug.js?v=0.7.1';
 const canvas=document.querySelector('#solid'),notice=document.querySelector('#notice'),hint=document.querySelector('#hint');
 const collectionView=document.querySelector('#collection-view'),touchView=document.querySelector('#touch-view'),grid=document.querySelector('#collection-grid'),status=document.querySelector('#collection-status');
 const session=new SpecimenSession(),camera=new Camera(),debugHost=document.querySelector('#debug-host');
 const motionButton=document.querySelector('#toggle-motion');
 const debugMode=new URLSearchParams(location.search).has('debug'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
-let renderer=null,input=null,debug=null,contextLost=false,active=false,keyPress=false,items=[],selected=-1,collectionScroll=0;
+let renderer=null,input=null,debug=null,contextLost=false,active=false,keyPress=false,items=[],selected=-1,collectionScroll=0,collectionFocusCard=null;
 function message(text){notice.textContent=text;notice.hidden=false;hint.hidden=true;}
 function motionUI(){motionButton.hidden=!session.motion;motionButton.textContent=session.motion?.playing?'一時停止':'再生';motionButton.setAttribute('aria-label',session.motion?.playing?'パーツの動きを一時停止':'パーツの動きを再生');}
 function preference(){if(session.body){session.body.options.settle=reduced.matches?0:.014;session.body.options.damping=reduced.matches?4:1.85;}if(reduced.matches)session.motion?.setPlaying(false);motionUI();}
@@ -33,7 +33,7 @@ function resume(){if(active&&renderer&&!document.hidden&&!contextLost)loop.start
 function discard(){pause();input?.destroy();input=null;debug=null;debugHost.replaceChildren();session.clear();if(debugMode)delete window.touchLab;}
 function show(index){
  const item=items[index];if(!item?.definition)return;
- if(!active)collectionScroll=collectionView.scrollTop;
+ if(!active){collectionScroll=collectionView.scrollTop;collectionFocusCard=grid.querySelector(`[data-index="${index}"]`);}
  discard();selected=index;active=true;collectionView.hidden=true;touchView.hidden=false;
  document.querySelector('#specimen-name').textContent=`${String(item.number??item.index).padStart(2,'0')} / ${item.definition.name}`;
  document.querySelector('#specimen-number').textContent=`${index+1} / ${items.length}`;
@@ -66,7 +66,7 @@ function show(index){
 }
 function back(){
  discard();active=false;touchView.hidden=true;collectionView.hidden=false;collectionView.scrollTop=collectionScroll;
- grid.querySelector(`[data-index="${selected}"]`)?.focus({preventScroll:true});
+ (grid.querySelector(`[data-index="${selected}"]`)??collectionFocusCard)?.focus({preventScroll:true});
 }
 document.querySelector('#reset-pose').addEventListener('click',()=>{input?.cancel();session.resetPose();debug?.update();});
 motionButton.addEventListener('click',()=>{session.motion?.setPlaying(!session.motion.playing);motionUI();debug?.update();});
@@ -92,6 +92,7 @@ canvas.addEventListener('blur',()=>{keyPress=false;session.body?.cancel();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&active){e.preventDefault();back();}});
 try{
  const loaded=await loadCollection();items=loaded.filter(item=>item.definition);
+ let previewBudgetStart=performance.now();
  for(const item of loaded){
   const card=document.createElement('button');card.type='button';card.className='specimen-card';card.dataset.index=items.indexOf(item);
   const number=document.createElement('span');number.className='card-number';number.textContent=String(item.number??item.index).padStart(2,'0');
@@ -108,6 +109,11 @@ try{
   }
   else{card.disabled=true;thumbnail.textContent='読み込めませんでした';}
   card.append(number,thumbnail,name,tags);grid.append(card);
+  // Let completed cards paint and accept input before building the rest.
+  if(performance.now()-previewBudgetStart>=12){
+   await new Promise(resolve=>setTimeout(resolve,0));
+   previewBudgetStart=performance.now();
+  }
  }
  status.hidden=loaded.every(item=>item.definition);if(!status.hidden)status.textContent='一部の立体を読み込めませんでした。ほかの立体は触れます。';
 }catch(error){status.textContent='立体を読み込めませんでした。ページを開き直してください。';console.warn('Touch Lab collection:',error.message);}

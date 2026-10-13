@@ -1,10 +1,10 @@
 // A small fresh-body factory, reusable by other apps without gallery/DOM state.
-import {createSpecimen} from './specimen.js?v=0.7.0';
-import {TouchBody} from './dynamics.js?v=0.7.0';
-import {RotationBody} from './rotation.js?v=0.7.0';
-import {touchSettings} from './behaviors.js?v=0.7.0';
-import {MotionPlayer} from './motion.js?v=0.7.0';
-import {ManipulationPlayer} from './manipulation.js?v=0.7.0';
+import {createSpecimen} from './specimen.js?v=0.7.1';
+import {TouchBody} from './dynamics.js?v=0.7.1';
+import {RotationBody} from './rotation.js?v=0.7.1';
+import {touchSettings} from './behaviors.js?v=0.7.1';
+import {MotionPlayer} from './motion.js?v=0.7.1';
+import {ManipulationPlayer} from './manipulation.js?v=0.7.1';
 export class SpecimenSession {
  select(definition){
   const mesh=createSpecimen(definition),touch=touchSettings(definition),body=touch?new TouchBody(mesh):new RotationBody(mesh);

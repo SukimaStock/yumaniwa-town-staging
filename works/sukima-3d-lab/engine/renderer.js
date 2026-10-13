@@ -1,5 +1,5 @@
-import {rotationMatrix} from './math.js?v=0.7.0';
-import {packedMesh} from './geometry.js?v=0.7.0';
+import {rotationMatrix} from './math.js?v=0.7.1';
+import {packedMesh} from './geometry.js?v=0.7.1';
 const VERTEX=`#version 300 es
 precision highp float;
 layout(location=0) in vec3 position;

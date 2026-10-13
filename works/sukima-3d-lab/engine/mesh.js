@@ -1,6 +1,6 @@
 // Explicit triangle surfaces and assemblies. This module never triangulates a
 // polygon, fills a hole, takes a convex hull or attaches a behavior.
-import {add,sub,scale,cross,dot,norm,rotate} from './math.js?v=0.7.0';
+import {add,sub,scale,cross,dot,norm,rotate} from './math.js?v=0.7.1';
 const fail=m=>{throw new TypeError(`Invalid specimen: ${m}`);};
 const finite=(v,min,max)=>Number.isFinite(v)&&v>=min&&v<=max;
 const vector=(v,n,min,max)=>Array.isArray(v)&&v.length===n&&Array.from(v).every(x=>finite(x,min,max));
