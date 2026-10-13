@@ -13,11 +13,12 @@
 
 ## Node / テストハーネス（実ブラウザとは別）
 
-`node tests/touch-tune-v04.cjs`（works/feel-studioから）10グループPASS。
+`node tests/touch-tune-v04.cjs`（works/feel-studioから）11グループPASS。
 
 - 全登録buildのcode/HTML/依存SHA256。
 - ゲーム/時間/水滴identityを維持して重力変更。1/120秒後の速度差を検証。
 - 接触した水滴の抵抗による速度変化、雨どいばねの追従、実ドラッグ式の感度。
+- 初期値で全5屋根を完了。5/30/120fpsでLIVE設定を極端値へ交互に変え、位置/速度/雨どいが有限のまま推移。
 - RESTARTは進行を変更せず、resetで傾き/間を反映。初期値同期でも不要なresetなし。
 - 色・雨表示・雨密度・水滴サイズがCanvas呼び出しを変える。型/範囲/色/選択肢の不正値は原子的に拒否。
 - Bridgeなしの独立RAF動作。旧Aのみの机を読み、Bを追加し、分岐・採用・保留・再読み込み・undo・依頼。
