@@ -8,8 +8,8 @@ class Surface {
  hasPointerCapture(id){return this.captures.has(id);}setPointerCapture(id){this.captures.add(id);}
  releasePointerCapture(id){this.captures.delete(id);this.dispatch('lostpointercapture',{pointerId:id,pointerType:'touch'});}
 }
-const canvas=new Surface(),hint=new Surface(),error=new Surface(),sound=new Surface(),reset=new Surface(),doc=new Surface(),win=new Surface();
-doc.hidden=false;doc.querySelector=s=>({'canvas':canvas,'.invitation':hint,'.error':error,'.sound':sound,'.view-reset':reset})[s];
+const canvas=new Surface(),hint=new Surface(),error=new Surface(),sound=new Surface(),reset=new Surface(),mapLink=new Surface(),doc=new Surface(),win=new Surface();
+doc.hidden=false;doc.querySelector=s=>({'canvas':canvas,'.invitation':hint,'.error':error,'.sound':sound,'.view-reset':reset,'.desk-map-link':mapLink})[s];
 const audio={withBaseline:x=>x,configure(){},enabled:false,unlock(){},resumeContext(){},syncBusVolumes(){},tone(){},resumeFromLifecycle(){},pauseForLifecycle(){}};win.SSE={audio};
 const control={part:'dial',type:'rotate',initial:.24,value:.24,min:0,max:1,inertia:0},player={active:false,controls:[control],control:()=>control,grab(){this.active=true;},release(){this.active=false;},moveBy(id,delta){control.value+=delta;}};
 const item={id:'rotary-dial-telephone',entry:{label:'電話',material:'machine'},player,position:[0,0,0],home:[0,0,0],localCamera:()=>({})};
@@ -35,6 +35,16 @@ send('pointerdown',6,100);send('pointerdown',7,200);reset.dispatch('click');asse
 send('pointerdown',8,100);send('pointerdown',9,200);win.dispatch('resize');assert.equal(canvas.captures.size,0);assert.equal(player.active,false);
 send('pointerdown',10,100);send('pointerdown',11,200);doc.hidden=true;doc.dispatch('visibilitychange');assert.equal(canvas.captures.size,0);doc.hidden=false;doc.dispatch('visibilitychange');
 send('pointerdown',12,100);canvas.dispatch('webglcontextlost');assert.equal(canvas.captures.size,0);assert.equal(player.active,false);const beforePicks=picks;send('pointerdown',13,100);assert.equal(picks,beforePicks);canvas.dispatch('webglcontextrestored');send('pointerdown',14,100);send('pointerup',14,100);assert.ok(picks>beforePicks);
-for(const type of ['contextmenu','selectstart','dragstart'])assert.equal(doc.dispatch(type).prevented,true);
+for(const type of ['contextmenu','selectstart','dragstart']){assert.equal(canvas.dispatch(type).prevented,true);assert.notEqual(doc.dispatch(type).prevented,true);};
 await Promise.resolve(sound.dispatch('click'));assert.equal(audio.enabled,true);assert.equal(sound.textContent,'音あり');
 console.log('PASS actual app event routing: pinch cancellation, drain, normal tap, reset, stamp release, cancel, resize, visibility, GL loss, native UI and sound button. Fake DOM only.');
+
+// A reading-stand tap operates its hinge and only reveals a separate HTML anchor.
+item.id='folding-reading-stand';item.entry.press=false;control.type='hinge';control.value=.3;
+mapLink.hidden=true;const zoomBefore=scene.zoom;
+send('pointerdown',20,100);send('pointerup',20,100);assert.equal(mapLink.hidden,false);assert.equal(scene.zoom,zoomBefore);assert.equal(control.value,control.min);
+// Drag and pinch never reveal the link or navigate.
+send('pointerdown',21,100);send('pointermove',21,130);send('pointerup',21,130);assert.equal(mapLink.hidden,true);
+send('pointerdown',22,100);send('pointerdown',23,200);send('pointermove',23,230);send('pointerup',23,230);send('pointerup',22,100);assert.equal(mapLink.hidden,true);
+mapLink.hidden=false;assert.notEqual(mapLink.dispatch('click').prevented,true);assert.equal(canvas.captures.size,0);
+console.log('PASS separate map anchor, existing hinge tap, no link on drag/pinch, native guide behavior.');

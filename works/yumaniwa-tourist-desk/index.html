@@ -1,3 +1,60 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#e5dfd2"><title>湯間庭町観光協会 — 受付のひとすみ</title><meta name="description" content="観光協会の受付に置かれた、小さな道具たち。少し触って、ひと休み。"><link rel="stylesheet" href="style.css?v=0.3.1"></head>
-<body><main><header><span>湯間庭町</span><h1>観光協会</h1><p>受付のひとすみ</p></header><canvas aria-label="観光協会の木製机。電話やスタンプなどを指で触れられます。" tabindex="0"></canvas><p class="invitation" role="status">道具に触れる。2本指で少し近くへ</p><button class="view-reset" type="button" hidden aria-label="元の眺めへ戻る">元の眺めへ</button><button class="sound" type="button" aria-pressed="false" aria-label="小さな物体音を有効にする">音なし</button><p class="error" hidden role="alert"></p></main><script src="../../engine/sukimastock-engine.v0.3.0.js"></script><script type="module" src="app.js?v=0.3.1"></script></body></html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e5dfd2">
+<title>湯間庭町 観光協会｜町内案内</title>
+<meta name="description" content="湯間庭町の町内案内図、施設・作品の案内、お知らせ。受付の机にある道具は操作できます。">
+<link rel="stylesheet" href="style.css?v=0.4">
+</head>
+<body>
+<main>
+<section class="desk-stage" id="reception" aria-label="観光案内所の受付">
+<header>
+<div class="association"><span>湯間庭町</span><h1>観光協会</h1></div>
+<nav aria-label="町内案内"><a href="#town-guide">町の案内</a><a href="#town-map">町内案内図</a><a href="#notices">お知らせ</a></nav>
+</header>
+<canvas aria-label="観光協会の木製机。1本指で電話やスタンプを操作、2本指で拡大・縮小できます。" tabindex="0"></canvas>
+<p class="invitation" role="status">受付の机にある道具は操作できます。<br>1本指で操作・2本指で拡大</p>
+<button class="view-reset" type="button" hidden aria-label="元の眺めへ戻る">元の眺めへ</button>
+<button class="sound" type="button" hidden aria-pressed="false" aria-label="小さな物体音を有効にする">音なし</button>
+<p class="error" hidden role="alert"></p>
+<div class="desk-guide-strip">
+<a class="desk-map-link" href="#town-map" hidden>資料台の案内：町内案内図を開く</a>
+<a class="guide-jump" href="#town-guide">町の案内を見る</a>
+</div>
+</section>
+<div class="information">
+<div class="guide-columns">
+<section id="town-guide" aria-labelledby="guide-heading">
+<h2 id="guide-heading">町の案内</h2>
+<p>施設や作品の名前を押すと、その場所へ進めます。</p>
+<ul class="places">
+<li><a href="../../?place=tomogushi_alley_map">灯串横丁</a><p>純喫茶ダイヴ、路地裏マサラ、クラフトコーラ研究所などの店があります。</p></li>
+<li><a href="../../?place=leisure_catalog">湯窓レジャーセンター</a><p>ゲームや時計、カレンダーなどを展示しています。展示ガイドから作品を選べます。</p></li>
+<li><a href="../../?work=rojiura-masala">路地裏マサラ</a><p>灯串横丁のカレー屋。街を走ってカレーを配達するゲームです。</p></li>
+<li><a href="../../?work=coffee-factory">CoffeeFactory</a><p>湯窓レジャーセンターのコーヒー抽出タイマー。注湯と待ち時間を確認できます。</p></li>
+</ul>
+</section>
+<section id="town-map" aria-labelledby="map-heading">
+<h2 id="map-heading">町内案内図</h2>
+<p>駅前の案内板で使われている案内図です。</p>
+<a class="map-image" href="../../assets/station-guide-map.jpg"><img src="../../assets/station-guide-map.jpg?v=20261001-jpeg01" alt="湯間庭町の駅前案内図。駅、広場、横丁、レジャーセンターが描かれています。" width="1448" height="1086" loading="lazy"></a>
+<div class="map-actions"><a href="../../assets/station-guide-map.jpg">案内図を拡大</a><a href="../../?place=station_plaza">町を歩く（駅前から）</a></div>
+</section>
+</div>
+<section id="notices" aria-labelledby="notices-heading">
+<h2 id="notices-heading">お知らせ</h2>
+<ul class="notices">
+<li><time datetime="2026-10-11">2026.10.11</time><a href="../../?work=pumpoko">レジャーセンターに『PUMPOKO』を設置</a></li>
+<li><time datetime="2026-09-27">2026.09.27</time><a href="../../?work=orbit">レジャーセンターに『ORBIT』を設置</a></li>
+</ul>
+</section>
+<footer><a href="#reception">受付の机へ戻る</a><a href="../../">湯間庭町</a></footer>
+</div>
+</main>
+<script src="../../engine/sukimastock-engine.v0.3.0.js"></script>
+<script type="module" src="app.js?v=0.4"></script>
+</body>
+</html>

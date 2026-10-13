@@ -1,0 +1,112 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2ee5b20048a212e739ceed66fe3a5291bc9dea85d3536901a11dd61edcf6586b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tourist-desk-04-guide-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "e63cc66197e83e528928b9823a6d0cd9ff592ca4",
+    "change": "Add practical town guidance below the preserved full-height 3D reception desk.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "Current user 0.4 instruction",
+      "data/works.js",
+      "data/places.js",
+      "data/updates.js",
+      "assets/station-guide-map.jpg",
+      "Google Drive SukimaStock Code/CoffeFacrory.txt and note/2026-09-17 game-jam curry article",
+      "Official Obuse/Nagatoro/Tsumago websites"
+    ],
+    "allowedPaths": [
+      "works/yumaniwa-tourist-desk/**",
+      ".change-plans/tourist-desk-04-guide-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/sukima-3d-lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/pumpoko/**"
+    ],
+    "expectedChanges": [
+      "Full-height desk plus scrollable town guidance, no camera/model/layout changes",
+      "Four real town destinations and existing station map",
+      "Two dated notices curated from existing updates in a small JSON data block",
+      "Reading stand selection reveals a separate map anchor without navigation during object manipulation",
+      "Native page scrolling outside canvas; keep longpress suppression on canvas only",
+      "Validation of local routes, notice sources, input isolation and unchanged camera"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes 0.4 practical guide and staged PR/merge/Pages; no production."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Work-local standard locked route",
+      "Existing town routes only; no source/Engine/other work writes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Four viewport offscreen desk preservation",
+      "Physical iPhone/iPad and PC browser scrolling/links: UNVERIFIED"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work-only patch to initial 0.3.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Shared Engine / Lab / models / town runtime / other works / Production",
+      "New maps, invented opening hours/events, automatic navigation on object tap"
+    ],
+    "unverified": [
+      "Physical Safari/iPhone/iPad feel and sound"
+    ],
+    "problem": "Desk needs real town information and working routes, preserving the current miniature experience.",
+    "currentContract": "Full viewport 3D desk with one-finger objects and bounded leaning pinch camera.",
+    "whyExistingIsInsufficient": "No guide links or notices; body overflow hidden prevents informational page scrolling.",
+    "design": "Keep canvas at 100svh with small header navigation and scrollable bottom strip; append plain lists and existing map below. Reading stand reveals a separate HTML anchor; use canonical existing route parameters. JSON notices retain dated source references.",
+    "migration": "No stored state changes; work asset query v0.4.",
+    "compatibility": "Camera/scene/renderer/layout/pinch unchanged; canvas input stays isolated from page pan.",
+    "promotionRisk": "Staging only.",
+    "alternativesRejected": [
+      "Smaller 3D panel",
+      "Navigation on a hinge tap",
+      "Invented access hours and events",
+      "New map system"
+    ],
+    "boundaryCases": [
+      "Scrolling after page hash changes keeps client-coordinate picking correct",
+      "Pinch never navigates or reveals map",
+      "Reading stand drag does not follow a link",
+      "Header/footer scroll strips remain outside canvas input",
+      "Longpress protection is confined to canvas"
+    ],
+    "testPlan": [
+      "Work tests and actual app fake DOM routing",
+      "Canonical route and notice/source tests",
+      "Scene images identical to 0.3.1 in four viewports",
+      "Scope/Risk/Impact and CI",
+      "Pages and public dependencies/linked target verification"
+    ]
+  }
+}

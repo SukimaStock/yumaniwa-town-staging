@@ -1,0 +1,45 @@
+{
+  "schema": "yumaniwa-verification-record/0.2",
+  "changeId": "tourist-desk-04-guide-20261013",
+  "planDigest": "2ee5b20048a212e739ceed66fe3a5291bc9dea85d3536901a11dd61edcf6586b",
+  "planRevision": 0,
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "change": "Add practical town guidance below the preserved full-height 3D reception desk.",
+  "environment": "staging",
+  "baseSha": "e63cc66197e83e528928b9823a6d0cd9ff592ca4",
+  "verifiedSha": "d39c3844dce1b86d53ceb714ecdc71dd87c5caa7",
+  "recordedAt": "2026-10-13T18:56:59.193279+00:00",
+  "recordedBy": "Codex Node source/input fixture and offscreen Mesa/EGL; no real-browser/device attestation",
+  "conditionalAcknowledgements": [],
+  "staticChecks": [
+    {
+      "id": "node-syntax",
+      "status": "pass",
+      "evidence": "node --check app.js / update-notices.mjs, executed ESM tests, unique HTML ids, git diff --check"
+    }
+  ],
+  "impactChecks": [
+    {
+      "id": "work.runtime",
+      "status": "pass",
+      "evidence": "29 work tests PASS: actual-app fake DOM stand tap reveals separate map anchor; drag/pinch never reveal or navigate; native guide behavior retained. Four destinations and all anchors map to real pages/known routes; two JSON notices match canonical updates and generated HTML. CSS full 100svh canvas and outside native pan reviewed."
+    },
+    {
+      "id": "work.regression",
+      "status": "pass",
+      "evidence": "Existing town direct route regression: 7 groups PASS. 16 exact-shader Mesa/EGL frames in four sizes SHA256 identical to 0.3.1; scene / renderer / layout / pinch / models / shared Engine / other works unchanged. Scope/Risk/Impact, lifecycle and syntax PASS."
+    }
+  ],
+  "manualChecks": [
+    {
+      "id": "Four viewport offscreen desk preservation",
+      "status": "pass",
+      "evidence": "16 GLES images match previous camera refinement exactly; initial/mid/max/touched at phone portrait/landscape, tablet and desktop sizes. HTML/source/CSS review only for responsive information, no real-browser claim."
+    },
+    {
+      "id": "Physical iPhone/iPad and PC browser scrolling/links: UNVERIFIED",
+      "status": "unverified",
+      "evidence": "Sites control-browser unavailable in managed environment; physical iPhone/iPad and PC browser scrolling/link navigation/text wrapping/touch feel not observed."
+    }
+  ]
+}
