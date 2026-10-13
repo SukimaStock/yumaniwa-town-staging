@@ -16,7 +16,7 @@ function cancelObject(release=true){if(gesture){const g=gesture;gesture=null;g.i
 function cancel(){const ids=zoomInput.cancel();cancelObject();for(const id of ids)releaseCapture(id);}
 function updateReset(){resetButton.hidden=!scene||scene.zoom<=1.0001;}
 resetButton.addEventListener('click',()=>{cancel();scene?.setZoom(1);updateReset();renderer?.draw();});
-function down(e){if(!scene||lost||gesture||e.button>0)return;const rect=canvas.getBoundingClientRect(),hit=scene.pick(e.clientX,e.clientY,rect,e.pointerType==='mouse'?7:14);if(!hit)return;e.preventDefault();const item=hit.item;mapLink.hidden=true;item.returning=null;const control=item.player.control?.(hit.part)??item.player.controls?.[0];
+function down(e){if(!scene||lost||gesture||e.button>0)return;const rect=canvas.getBoundingClientRect(),hit=scene.pick(e.clientX,e.clientY,rect,e.pointerType==='mouse'?7:14);if(!hit)return;e.preventDefault();const item=hit.item;try{window.trackTouristDeskTouch?.();}catch{}mapLink.hidden=true;item.returning=null;const control=item.player.control?.(hit.part)??item.player.controls?.[0];
  const mapping=control?manipulationMapping(item.player,{...hit,part:control.part},hit.sampleX??e.clientX,hit.sampleY??e.clientY,rect,[0,0,0,1],item.localCamera(scene.camera,scene.view)):null;
  if(control)item.player.grab(control.part);
  gesture={pointer:e.pointerId,item,control,mapping,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,time:e.timeStamp,moved:0,initial:control?.value,position:item.position.slice(),rect,offsetX:(hit.sampleX??e.clientX)-e.clientX,offsetY:(hit.sampleY??e.clientY)-e.clientY};
