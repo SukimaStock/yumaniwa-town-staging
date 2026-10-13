@@ -7,17 +7,18 @@ const {execFileSync}=require('node:child_process');
 const args=process.argv.slice(2),option=(key,fallback)=>{const i=args.indexOf(key);return i<0?fallback:args[i+1];};
 const url=new URL(option('--url','http://127.0.0.1:8765/works/sukima-3d-lab/'));
 url.searchParams.set('debug','');
+const profile=option('--profile','all');if(!['all','desktop','mobile'].includes(profile))throw Error('--profile must be all, desktop or mobile');
 const expected=Number(option('--expected-count','')),trials=Number(option('--trials','3')),out=option('--out','');
 if(!Number.isInteger(expected)||expected<99||expected>1000||!Number.isInteger(trials)||trials<1||trials>10||!out)throw Error('Use --expected-count 99..1000 --out /outside-repo/result.json [--trials 3]');
 const root=path.resolve(__dirname,'../../..');
 if(path.resolve(out).startsWith(root+path.sep))throw Error('Store measurement evidence outside the repository');
 const percentile=(a,q)=>a.length?[...a].sort((a,b)=>a-b)[Math.min(a.length-1,Math.ceil(a.length*q)-1)]:null;
-const report={schema:'sukima-collection-measurement/1',at:new Date().toISOString(),expected,trials,url:String(url),environment:{platform:os.platform(),cpus:os.cpus().length,source:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),dirty:!!execFileSync('git',['status','--porcelain'],{cwd:root,encoding:'utf8'}).trim(),renderer:'Chromium SwiftShader; CDP mobile equivalent, not physical iPhone/Safari',network:'unthrottled; record URL/server with comparisons'},samples:[]};
+const report={schema:'sukima-collection-measurement/1',at:new Date().toISOString(),expected,trials,profile,url:String(url),environment:{platform:os.platform(),cpus:os.cpus().length,source:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),dirty:!!execFileSync('git',['status','--porcelain'],{cwd:root,encoding:'utf8'}).trim(),renderer:'Chromium SwiftShader; CDP mobile equivalent, not physical iPhone/Safari',network:'unthrottled; record URL/server with comparisons'},samples:[]};
 function save(){fs.mkdirSync(path.dirname(path.resolve(out)),{recursive:true});fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');}
 (async()=>{let browser;
 try{
  browser=await chromium.launch({executablePath:option('--chromium','/usr/bin/chromium'),headless:true,args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});report.environment.browser=browser.version();
- for(const mobile of [false,true])for(let trial=1;trial<=trials;trial++){
+ for(const mobile of (profile==='all'?[false,true]:[profile==='mobile']))for(let trial=1;trial<=trials;trial++){
  const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:900,height:900},deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile});
  const page=await context.newPage(),cdp=await context.newCDPSession(page),errors=[];page.on('pageerror',e=>errors.push(String(e)));
  await cdp.send('Performance.enable');await cdp.send('Network.enable');await cdp.send('Emulation.setCPUThrottlingRate',{rate:mobile?4:1});
@@ -39,10 +40,23 @@ try{
  // Measure actual visible scrolling with RAF intervals. No arbitrary performance pass threshold.
  const scrollDistance=await page.evaluate(()=>{const el=document.querySelector('#collection-view');el.scrollTop=0;__measurement.scrollFrames=[];__measurement.maxScrollTop=0;__measurement.scrolling=true;let last=performance.now();function frame(now){if(!__measurement.scrolling)return;__measurement.scrollFrames.push(now-last);__measurement.maxScrollTop=Math.max(__measurement.maxScrollTop,el.scrollTop);last=now;requestAnimationFrame(frame);}requestAnimationFrame(frame);return el.scrollHeight-el.clientHeight;});
  const viewport=page.viewportSize();
- for(const sign of [-1,1])await cdp.send('Input.synthesizeScrollGesture',{x:viewport.width/2,y:viewport.height/2,yDistance:sign*(scrollDistance+viewport.height),speed:Math.ceil(Math.max(3000,scrollDistance/2)),gestureSourceType:mobile?'touch':'mouse'});
+ for(const sign of [-1,1]){
+  if(!mobile){await cdp.send('Input.synthesizeScrollGesture',{x:viewport.width/2,y:viewport.height/2,yDistance:sign*(scrollDistance+viewport.height),speed:Math.ceil(Math.max(3000,scrollDistance/2)),gestureSourceType:'mouse'});continue;}
+  // Touch gestures must stay inside the viewport; one oversized synthetic drag can be clipped.
+  const limit=Math.ceil(scrollDistance/(viewport.height*.45))*2+8;
+  for(let step=0;step<limit;step++){
+   const top=await page.locator('#collection-view').evaluate(el=>el.scrollTop);
+   if(sign<0?top>=scrollDistance-2:top<=2)break;
+   const start=viewport.height*(sign<0?.80:.25),end=viewport.height*(sign<0?.25:.80),x=viewport.width/2;
+   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y:start}]});
+   for(let i=1;i<=8;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:start+(end-start)*i/8}]});await page.waitForTimeout(16);}
+   await page.waitForTimeout(100);await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await page.waitForTimeout(40);
+  }
+ }
+
  await page.waitForTimeout(200);
  sample.scroll=await page.evaluate(()=>{__measurement.scrolling=false;const el=document.querySelector('#collection-view');return {frames:__measurement.scrollFrames,maxTop:__measurement.maxScrollTop,finalTop:el.scrollTop,extent:el.scrollHeight-el.clientHeight};});
- if(sample.scroll.maxTop<scrollDistance-2||sample.scroll.finalTop>2)throw Error('Full collection scroll did not reach bottom and return');
+ if(sample.scroll.maxTop<scrollDistance-2||sample.scroll.finalTop>2){report.failedSample=sample;throw Error('Full collection scroll did not reach bottom and return');}
  sample.scroll.p95FrameMs=percentile(sample.scroll.frames,.95);sample.scroll.maxFrameMs=Math.max(...sample.scroll.frames);
  await cdp.send('HeapProfiler.collectGarbage');sample.heapBeforeSelectionCyclesAfterGc=await metrics();
  const card=page.locator('.specimen-card').filter({hasText:'中庭の丸ハンドル水栓'});if(await card.count()!==1)throw Error('Stable control specimen missing');
