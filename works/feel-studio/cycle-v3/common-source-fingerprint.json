@@ -1,0 +1,11 @@
+{
+  "baseSha": "aad4f11eaa33f619cea609b18cb02b242fb21313",
+  "files": {
+    "studio-v2.js": "7d576e153950c27c463fe6beedd327caa8942becce13d8bc53b2a25ac323f1cf",
+    "records-v2.js": "396228c4467725262b08cdce8f1f44d27bb312420a12564e7563a41c79690414",
+    "bridge-host.js": "b4c5fb962b23c0dd6391fa89ca789b2f3c03d481d085dedff558a0754e46d13b",
+    "bridge-client.js": "60c1fc99e27df0198c2e5eb58895938d7ed15461601ce9c1899688bfe8bf507d",
+    "studio-v2.css": "8a5f1ce21a1b90d3a1043064e7ff15d21d688d56c360acab8453be1f248abbf0",
+    "index.html": "e2aa6df22aa2c244c696d203c18ba51e8e5db8478b49207db1b35ba4b761e5a4"
+  }
+}

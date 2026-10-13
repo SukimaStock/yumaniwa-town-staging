@@ -22,5 +22,17 @@
     "project": "drawer",
     "workspace": "./cycle-v3/drawer-source-workspace.json",
     "response": "./cycle-v3/drawer-response.json"
+  },
+  {
+    "title": "3Dの実画面依頼とDを読み込む",
+    "project": "drawer",
+    "workspace": "./cycle-v3/drawer-browser-source-workspace.json",
+    "response": "./cycle-v3/drawer-browser-response.json"
+  },
+  {
+    "title": "2Dの実画面依頼とCを読み込む",
+    "project": "paper",
+    "workspace": "./cycle-v3/paper-browser-source-workspace.json",
+    "response": "./cycle-v3/paper-browser-response.json"
   }
 ]
