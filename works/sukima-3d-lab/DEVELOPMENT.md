@@ -1,3 +1,33 @@
+# Collection 13 · 湯間庭町の小さな模型150–159 — 2026-10-13
+
+Parent accepted140–149 and explicitly authorized150–159 including irregular nature/unknown devices and object-based behavior. Latest cleanmain40730bdd1d2d6883cd3010f473351f02ed84e115 (PR332, exactSHA Pages38355916155), current AGENTS/Plan/verification rules, guide and149 objects/records reviewed. No `.agents/skills` present. Work remainsactive/staging-only. Plan-onlyb8c72ec precedes implementation. Immutable `tests/collection12-baseline.json` preserves149 entries/JSON hashes, implicit00–15, missing16/order and1000cap. PR324 scheduling/focus and parallelPR330 remain unchanged.
+
+| No. / ID / name | Behavior | Shape and distinction |
+| --- | --- | --- |
+|150 `exposed-root-stump` 裏庭の根が露出した切り株 | STATIC | Uneven thick stump/four differently bent tapering root arches; upright radial form differs from84 fallenbough/100 splitfirewood. |
+|151 `split-geode` 川原の割れた晶洞 | STATIC | Irregular thick shell with a real cavity/five pointed crystals; distinct from02 singlecrystal/108 basin. |
+|152 `open-pea-pod` 畑から届いた開いた豆の莢 | STATIC | Two elongated open valves with inner walls/thickness and three peas; distinct from117 round perforatedlotuspod. |
+|153 `drafting-compass` 工房の開脚コンパス | MANIPULATION hingeZ | Broad pointed legs in separate depth lanes/real pivot bore. .035….75rad, initial.29. No loops/crossed cuttingblades as in122 scissors; no linkedleg/drawing simulation. |
+|154 `canal-slide-gate` 水路の横引き堰板 | MANIPULATION linearX | Broad plate crosses a heavy open frame, retained between upper/lower front/back guides. −.37….37, initial−.19. Unlike59 depthdrawer/94 pairedshoji/123 thinticket; no fluid/linkage. |
+|155 `triangular-cam-plate` 路地の三角偏心板 | MANIPULATION rotateZ | Three-lobed offset plate with actual bore before a fixed bracket. Initial.24; no crankhandle/follower/claimed purpose. |
+|156 `bamboo-deer-scarer` 庭のゆっくり傾くししおどし | MOTION swingX | Open bamboo cup/external bored lugs are onepart; two short pins avoid piercing cupwalls. base.08±.26rad,7.2s,phase.3. No water/contact/sound trigger. |
+|157 `three-way-pipe` 工場裏の三叉管継手 | STATIC | One welded T casting/three connected square passages, no duplicate internalwalls. Distinct from121 openL gutter. |
+|158 `chipped-porcelain-insulator` 電柱の欠けた陶製碍子 | STATIC | Three broad skirts/narrow stem/cap; upper skirt has a real missing wedge. No gloss/electrical effects. |
+|159 `straw-sandal` 古い家の片方の草履 | STATIC | Thick asymmetric sole/arched thongs with actual gaps; low open form differs from130 solidshoelast. |
+
+Six STATIC / zero TOUCH / one MOTION / three MANIPULATION; three controls (hingeZ/linearX/rotateZ). No mode quota/newJS/controls/physics/schema. Existing149 Touch explicitly regressed.
+
+## Validation and restart checkpoint
+
+- Ten historical count assertions149→159 only; fixed slices/goldens unchanged. Immutable149/exact-ten tests cover entry/hash preservation, uniqueIDs/normalizednumbers/order/missing16/allreading/1000cap and ranges/cycles/hold/reverse/reset/switch. Final359 work tests and24 lifecycle pass.
+- Initial authoring caught clockwise compass outline/two unresolved palette aliases; orientation/RGB corrected. Initial snapshots/logs retained. First valid native run found compass200px boundary3/2313 above unchanged0.1% gate. Broader graspable legs (.21→.24 width, .105→.13 thickness) and clearer pivot rim (.18→.20 radius,12→14 facets) pass strict comparison. Visual inspection also corrected crystal taper to broad bases/narrow tips. No runtime/checker workaround.
+- Eight unchanged new objects pass125 strict native frames; refined compass/geode pass35, finalnew160. Full159 native uses the unchanged repository checker; actual fullcount recorded in PR/handoff after completion. Failure evidence remains in `/workspace/scratch/sukima-batch13/`.
+- Final clearance580 configurations (145/control plus145 fullbamboo-cycle),36250 component-pair comparisons,zero overlaps. Actual compass/cam/lug annular sectors preserve bores. No pair sweep needed for single-control objects.
+- Every control receives mouse/CDP-touch nojump/tiny/reverse/hold/endpoints/same-capture overtravel/fixed-part rotation/re-pick/reset/switch. Final post-refinement records are separate. All newSTATIC/MOTION plus149Touch pressure/pull/recovery, pause/reset/reduced-motion and159 enabledcards/fullscroll/navigation tested at390×844,844×390,768×1024. NativeGLES/SwiftShader are not physicalSafari evidence.
+- No fullperformance benchmark/refactor before designated300 absent real issues. All149 oldJSON/runtime/loader/preview/cache0.7.1/scheduling/focus/measurement/gates, town/shared2D/otherworks/Production protected.
+- Complete with Scope→Risk→Impact,currentCI,self/automatic review,identical tested/merge tree,exactSHA Pages build/deploy. Parent confirms publiccards/navigation; known403 not bypassed. PhysicalSafari/author adoption remainUNVERIFIED.
+- After merge formal159,next160–169,841 remain to exactly1000; no160+ authored. Before merge formal149 remains lastnormal. Actual SHA/QA/CI/review/Pages are in PR and `/workspace/scratch/sukima-batch13/handoff.json`. Earlier records follow unchanged.
+
 # Collection 12 · 湯間庭町の小さな模型140–149 — 2026-10-13
 
 Parent authorized140–149 after PR329/main4bba05555dd62afe3196a87aa0967addfe1133c5 and exactSHA Pages38352829387. Latest cleanmain/current rules, AGENTS, guide and139 definitions/records reviewed; work remainsactive/staging-only. Local `.agents/skills` absent. During final review, unrelated PR330 advanced main toe57e97e41e08763e9dd175643695f9045cded45e; work/rules were unchanged. InitialPlan d90825b and testedsource606cf02 remain on the original branch/PR331. FreshPlan-onlydc555eb on latestmain precedes copying the identical validated geometry/runtime inputs; the old lock was not amended. `tests/collection11-baseline.json` preserves139 complete entries/JSON hashes; implicit00–15, missing16/order and1000 cap remain. Candidate149; formal139 until merge. PR324 performance/focus and PR328 parallel FeelStudio work remain untouched.
