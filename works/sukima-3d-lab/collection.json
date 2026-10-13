@@ -1229,6 +1229,56 @@
       "id": "roadwork-cone",
       "file": "objects/roadwork-cone.json",
       "number": 249
+    },
+    {
+      "id": "bakery-baguette-pair",
+      "file": "objects/bakery-baguette-pair.json",
+      "number": 250
+    },
+    {
+      "id": "cobbler-boot-scraper",
+      "file": "objects/cobbler-boot-scraper.json",
+      "number": 251
+    },
+    {
+      "id": "curb-access-ramp",
+      "file": "objects/curb-access-ramp.json",
+      "number": 252
+    },
+    {
+      "id": "garden-snow-shovel",
+      "file": "objects/garden-snow-shovel.json",
+      "number": 253
+    },
+    {
+      "id": "gardener-dibber",
+      "file": "objects/gardener-dibber.json",
+      "number": 254
+    },
+    {
+      "id": "laundry-beating-paddle",
+      "file": "objects/laundry-beating-paddle.json",
+      "number": 255
+    },
+    {
+      "id": "old-parking-meter",
+      "file": "objects/old-parking-meter.json",
+      "number": 256
+    },
+    {
+      "id": "roof-dormer-window",
+      "file": "objects/roof-dormer-window.json",
+      "number": 257
+    },
+    {
+      "id": "rotating-platform-scale",
+      "file": "objects/rotating-platform-scale.json",
+      "number": 258
+    },
+    {
+      "id": "stacked-delivery-parcels",
+      "file": "objects/stacked-delivery-parcels.json",
+      "number": 259
     }
   ]
 }
