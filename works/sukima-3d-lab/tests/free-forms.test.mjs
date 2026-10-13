@@ -23,7 +23,7 @@ test('sixteen v0.4 data blobs, order and numbering remain immutable; 17–21 app
   assert.equal(createHash('sha256').update(readFileSync(new URL(item.file,root))).digest('hex'),item.sha256);
  }
  assert.deepEqual(manifest.items.slice(16,21).map(x=>[x.number,x.id]),[[17,'dent'],[18,'ring'],[19,'bowl'],[20,'leaf'],[21,'mobile']]);
- assert.equal(manifest.items.length,69);
+ assert.equal(manifest.items.length,79);
  assert.deepEqual(manifest.items.slice(21,36).map(x=>x.number),Array.from({length:15},(_,i)=>i+22));
  for(const d of definitions.slice(21,36)){assert.equal(d.schema,'sukima3d-specimen/2');assert.deepEqual(d.behaviors,{});}
  assert.equal(validateCollection(manifest),manifest.items);
