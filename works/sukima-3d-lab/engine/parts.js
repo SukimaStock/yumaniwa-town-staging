@@ -1,8 +1,8 @@
 // Shared fixed meshes and local rigid transforms; no time or input ownership.
-import {add,sub,scale,dot,cross,norm,rotate,inverse,multiply,axisAngle,rotationMatrix} from './math.js?v=0.7.0';
-import {compileParts} from './mesh.js?v=0.7.0';
-import {packedMesh,pickMesh} from './geometry.js?v=0.7.0';
-import {rayTriangle} from './math.js?v=0.7.0';
+import {add,sub,scale,dot,cross,norm,rotate,inverse,multiply,axisAngle,rotationMatrix} from './math.js?v=0.7.1';
+import {compileParts} from './mesh.js?v=0.7.1';
+import {packedMesh,pickMesh} from './geometry.js?v=0.7.1';
+import {rayTriangle} from './math.js?v=0.7.1';
 export function composePartPose(part,rotation,angle,translation=[0,0,0]){
  const q=rotation?axisAngle(rotation.axis,angle):[0,0,0,1];
  const pivot=rotation?rotation.pivot.map((v,i)=>v*part.transform.scale[i]):[0,0,0];

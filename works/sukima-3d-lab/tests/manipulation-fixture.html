@@ -1,21 +1,21 @@
 <!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Hands-on · CPU / picking / input fixture</title>
-<link rel="stylesheet" href="../style.css?v=0.7.0">
+<link rel="stylesheet" href="../style.css?v=0.7.1">
 <style>body{overflow:auto;padding:18px}h1{font-size:17px}p{font-size:12px}#controls{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0}#surface{position:relative;width:min(100%,420px);height:420px;background:#f5f1e8;border:1px solid #d7cdbf}#part-canvas{width:100%;height:100%}#grab-marker{position:absolute;pointer-events:none;color:#745e47;font-size:18px;transform:translate(-50%,-50%)}output{display:block;white-space:pre-line;font-size:12px;line-height:1.7;margin-top:12px}.debug{position:static;margin:15px 0}</style>
 <h1>Hands-on · 指とパーツの検証</h1><p>CPU描画。実際のPicking・PointerInput・軸変換を使用。WebGLや実機性能の検証ではありません。＋は検証用の操作点です。</p>
 <div id="controls"><label for="object">作品</label><select id="object"></select><button id="reset" type="button">初期姿勢</button><button id="reopen" type="button">開き直す</button></div>
 <div id="surface"><canvas id="part-canvas" width="200" height="200" tabindex="0" aria-label="パーツをつかむ検証面"></canvas><span id="grab-marker" aria-label="操作点">＋</span></div>
 <output id="part-state" role="status">読み込み中</output><div id="debug-host"></div>
 <script type="module">
-import {SpecimenSession} from '../engine/session.js?v=0.7.0';
-import {loadCollection} from '../collection.js?v=0.7.0';
-import {PointerInput} from '../engine/interaction.js?v=0.7.0';
-import {Camera} from '../engine/camera.js?v=0.7.0';
-import {AnimationLoop} from '../engine/loop.js?v=0.7.0';
-import {rasterMesh} from '../engine/raster.js?v=0.7.0';
-import {manipulationMapping} from '../engine/manipulation-mapping.js?v=0.7.0';
-import {createManipulationPanel} from '../manipulation-debug.js?v=0.7.0';
-import {add,scale,rotate,norm,sub} from '../engine/math.js?v=0.7.0';
+import {SpecimenSession} from '../engine/session.js?v=0.7.1';
+import {loadCollection} from '../collection.js?v=0.7.1';
+import {PointerInput} from '../engine/interaction.js?v=0.7.1';
+import {Camera} from '../engine/camera.js?v=0.7.1';
+import {AnimationLoop} from '../engine/loop.js?v=0.7.1';
+import {rasterMesh} from '../engine/raster.js?v=0.7.1';
+import {manipulationMapping} from '../engine/manipulation-mapping.js?v=0.7.1';
+import {createManipulationPanel} from '../manipulation-debug.js?v=0.7.1';
+import {add,scale,rotate,norm,sub} from '../engine/math.js?v=0.7.1';
 const session=new SpecimenSession(),camera=new Camera(),canvas=document.querySelector('#part-canvas'),ctx=canvas.getContext('2d'),output=document.querySelector('#part-state'),marker=document.querySelector('#grab-marker'),select=document.querySelector('#object'),host=document.querySelector('#debug-host');
 let input,debug,original,lastDraw=0;
 const items=(await loadCollection(new URL('../',location.href))).filter(i=>i.definition?.behaviors?.manipulation);

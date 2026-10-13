@@ -1,7 +1,7 @@
 // Capabilities compose with geometry. Absence of Touch means display/rotation.
-import {FEEL_PROFILES} from './response.js?v=0.7.0';
-import {validateMotion} from './motion.js?v=0.7.0';
-import {validateManipulation} from './manipulation.js?v=0.7.0';
+import {FEEL_PROFILES} from './response.js?v=0.7.1';
+import {validateMotion} from './motion.js?v=0.7.1';
+import {validateManipulation} from './manipulation.js?v=0.7.1';
 export const SETTINGS=Object.freeze({depth:[.04,.23],radius:[.55,1.9],pressRate:[3,16],pressStiffness:[100,500],pressDamping:[.4,1],restoreStiffness:[100,500],returnDamping:[.4,.98],tapImpulse:[1.8,3.6],holdDelay:[200,700],pullStrength:[.5,1.5],maxPull:[.1,.6],pullRadius:[1,1.9],pullStiffness:[200,600]});
 export function validateFeel(feel){
  if(!Object.hasOwn(FEEL_PROFILES,feel?.profile)||!feel.overrides||typeof feel.overrides!=='object'||Array.isArray(feel.overrides))throw new TypeError('Invalid specimen: feel');

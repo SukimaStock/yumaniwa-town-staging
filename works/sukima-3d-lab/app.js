@@ -1,14 +1,14 @@
-import {pickMesh} from './engine/geometry.js?v=0.7.0';
-import {Camera} from './engine/camera.js?v=0.7.0';
-import {SpecimenSession} from './engine/session.js?v=0.7.0';
-import {createDebugPanel} from './debug.js?v=0.7.0';
-import {PointerInput} from './engine/interaction.js?v=0.7.0';
-import {Renderer} from './engine/renderer.js?v=0.7.0';
-import {AnimationLoop} from './engine/loop.js?v=0.7.0';
-import {loadCollection} from './collection.js?v=0.7.0';
-import {previewSvg,previewRaster} from './preview.js?v=0.7.0';
-import {manipulationMapping} from './engine/manipulation-mapping.js?v=0.7.0';
-import {createManipulationPanel} from './manipulation-debug.js?v=0.7.0';
+import {pickMesh} from './engine/geometry.js?v=0.7.1';
+import {Camera} from './engine/camera.js?v=0.7.1';
+import {SpecimenSession} from './engine/session.js?v=0.7.1';
+import {createDebugPanel} from './debug.js?v=0.7.1';
+import {PointerInput} from './engine/interaction.js?v=0.7.1';
+import {Renderer} from './engine/renderer.js?v=0.7.1';
+import {AnimationLoop} from './engine/loop.js?v=0.7.1';
+import {loadCollection} from './collection.js?v=0.7.1';
+import {previewSvg,previewRaster} from './preview.js?v=0.7.1';
+import {manipulationMapping} from './engine/manipulation-mapping.js?v=0.7.1';
+import {createManipulationPanel} from './manipulation-debug.js?v=0.7.1';
 const canvas=document.querySelector('#solid'),notice=document.querySelector('#notice'),hint=document.querySelector('#hint');
 const collectionView=document.querySelector('#collection-view'),touchView=document.querySelector('#touch-view'),grid=document.querySelector('#collection-grid'),status=document.querySelector('#collection-status');
 const session=new SpecimenSession(),camera=new Camera(),debugHost=document.querySelector('#debug-host');
@@ -92,6 +92,7 @@ canvas.addEventListener('blur',()=>{keyPress=false;session.body?.cancel();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&active){e.preventDefault();back();}});
 try{
  const loaded=await loadCollection();items=loaded.filter(item=>item.definition);
+ let previewBudgetStart=performance.now();
  for(const item of loaded){
   const card=document.createElement('button');card.type='button';card.className='specimen-card';card.dataset.index=items.indexOf(item);
   const number=document.createElement('span');number.className='card-number';number.textContent=String(item.number??item.index).padStart(2,'0');
@@ -108,6 +109,11 @@ try{
   }
   else{card.disabled=true;thumbnail.textContent='読み込めませんでした';}
   card.append(number,thumbnail,name,tags);grid.append(card);
+  // Let completed cards paint and accept input before building the rest.
+  if(performance.now()-previewBudgetStart>=12){
+   await new Promise(resolve=>setTimeout(resolve,0));
+   previewBudgetStart=performance.now();
+  }
  }
  status.hidden=loaded.every(item=>item.definition);if(!status.hidden)status.textContent='一部の立体を読み込めませんでした。ほかの立体は触れます。';
 }catch(error){status.textContent='立体を読み込めませんでした。ページを開き直してください。';console.warn('Touch Lab collection:',error.message);}

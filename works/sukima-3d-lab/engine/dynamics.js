@@ -1,7 +1,7 @@
-import {RotationBody} from './rotation.js?v=0.7.0';
-import {norm,add,sub,scale,dot,cross} from './math.js?v=0.7.0';
-import {FEEL_PROFILES,DEFAULT_FEEL,springStep} from './response.js?v=0.7.0';
-import {PULL_DEFAULTS,attachment,pullWeights,resistantPull,safeScale} from './pull.js?v=0.7.0';
+import {RotationBody} from './rotation.js?v=0.7.1';
+import {norm,add,sub,scale,dot,cross} from './math.js?v=0.7.1';
+import {FEEL_PROFILES,DEFAULT_FEEL,springStep} from './response.js?v=0.7.1';
+import {PULL_DEFAULTS,attachment,pullWeights,resistantPull,safeScale} from './pull.js?v=0.7.1';
 export class TouchBody extends RotationBody {
  constructor(mesh,options={}) {
   super(mesh,{damping:1.85,settle:.014,maxDisplacement:.28,...FEEL_PROFILES[DEFAULT_FEEL],...PULL_DEFAULTS,...options});this.touchEnabled=true;

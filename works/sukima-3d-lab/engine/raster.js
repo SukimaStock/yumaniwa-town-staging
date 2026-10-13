@@ -1,7 +1,7 @@
 // Small static thumbnail raster. No DOM, animation, WebGL context or asset.
 // Uses the shipped packed geometry, perspective camera and matte light model.
-import {packedMesh} from './geometry.js?v=0.7.0';
-import {rotate,norm,dot} from './math.js?v=0.7.0';
+import {packedMesh} from './geometry.js?v=0.7.1';
+import {rotate,norm,dot} from './math.js?v=0.7.1';
 export function rasterMesh(mesh,orientation,camera,size=200,diagnostics=false){
  if(!Number.isInteger(size)||size<16||size>512)throw new RangeError('Preview size');
  const pixels=new Uint8ClampedArray(size*size*4),depth=new Float32Array(size*size),packed=packedMesh(mesh),light=norm([-.6,.85,1.2]),t=Math.tan(camera.fov/2);
