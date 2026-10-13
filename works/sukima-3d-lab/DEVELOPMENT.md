@@ -1,3 +1,32 @@
+# Collection 15 · 湯間庭町の小さな模型170–179 — 2026-10-13
+
+Parent accepted160–169 and authorized170–179, welcoming simple forms and no forced control count. Latest cleanmain35a57bfb9fcdb55f5c65778f786cf6afa7e03684 (PR337, exactSHA Pages38360555023), current AGENTS/Plan/verification rules, guide,169 definitions/records and openPRs checked. No `.agents/skills` present. Work remainsactive/staging-only. Plan-only665765e precedes implementation. Immutable `tests/collection14-baseline.json` preserves169 complete entries/JSON hashes, implicit00–15/missing16/order/1000cap. PR324 scheduling/focus and parallelPR336 evidence unchanged.
+
+| No. / ID / name | Behavior | Shape, distinction and limits |
+| --- | --- | --- |
+|170 `split-walnut` 庭で割った二つの胡桃の殻 | STATIC | Two uneven hollow cups at different angles and three-lobed kernel. Distinct from134 prickly burr/151 mineral cavity; true inner walls and rims. |
+|171 `coral-fragment` 海辺から届いた枝珊瑚のかけら | STATIC | Six short thick branching paths in different depths with blunt angular ends. Upright natural fragment differs from150 root arches/84 fallenbough. |
+|172 `holed-pebble` 川原の穴あき小石 | STATIC | One irregular bulged stone with offset through-hole; thick outer belt and real inner wall, not painted darkness. Unlike18 uniform ring/151 open cup. |
+|173 `four-hole-button` 裁縫箱の四つ穴木ボタン | STATIC | One small square button, clipped corners/four real square holes. Simple compact sewing object, not169 mask or a recolored disc. |
+|174 `sliding-jaw-vise` 工房の滑り顎の万力 | MANIPULATION linearX | Broad jaw slides−.12….28,initial.06 on two bored guides. Jaw gap remains positive and guide engagement remains at both ends; no linked screw/contact clamping. Unlike154 broad lateralgate/164 tallrule. |
+|175 `folding-parking-hoop` 駐輪場の倒せる輪止め | MANIPULATION hingeX | Thick open U hoop on real bored hubs,0…1.08rad,initial.24. Compare upright opening versus lowered projection; range avoids base/axle/bracket interference. No lock/contact mechanism. |
+|176 `twisted-air-duct` 路地のねじれた導風箱 | STATIC | Unknown old duct with offset/twisted rectangular mouths connected by real inner walls. Unlike157 orthogonal T casting/121 openL gutter; no airflow. |
+|177 `brass-whistle` 駅員室の古い真鍮ホイッスル | STATIC | Welded chamber, connected hollow mouthpiece/top window and actual attachment loop. No sound simulation. |
+|178 `folded-medicine-packet` 薬屋の折った薬包紙 | STATIC | Closed clipped packet base/four raised creased flaps with substantial thickness. Distinct from116 broad newspaper/143 openboat; no text texture or fake moving folds. |
+|179 `claw-pry-bar` 納屋の曲がった釘抜き棒 | STATIC | One long bent bar with hooked top and two genuinely separated lower claw prongs. Unlike122 scissors/153 compass: no pivot or paired moving blades. |
+
+Eight STATIC / zero TOUCH / zero MOTION / two MANIPULATION (linearX/hingeX). Simplicity and natural operation take priority over a per-batch mode quota. Existing149 Touch/166 Motion are explicitly regressed. No newJS/schema/controls/physics/hierarchy.
+
+## Validation and restart checkpoint
+
+- Twelve historical count assertions169→179 only; fixed slices/goldens intact. Immutable169/exact-ten tests cover entries/bytes, uniqueIDs/numbers/order/missing16/allreading/1000cap, ranges/hold/reverse/reset/switch.398 work tests and24 lifecycle pass; final exacthead evidence is recorded in PR/handoff.
+- All ten strict schema definitions and new-native130 frames pass on their first runs with unchanged gates/three rotated viewports/strict CPU-GPU previews. All ten actual browser rest views inspected. Full179 native uses the unchanged repository scripts/checker; actual fullcount recorded only after completion. Initial definitions/evidence retained in `/workspace/scratch/sukima-batch15/`.
+- Clearance290 configurations (145/control),32190 component-pair comparisons,zero overlaps. Actual vise/hoop annular sectors preserve bores. No newMotion or multi-control pairs require additional cycle/pair sweeps.
+- Both controls receive actual mouse/CDPtouch nojump/tiny/reverse/hold/endpoints/same-capture overtravel/fixed-part whole rotation/re-pick/reset/switch. Eight newSTATIC plus149Touch/166Motion,pressure/pull/recovery,pause/reset/reducedmotion and179 enabledcards/fullscroll/navigation at390×844,844×390,768×1024. Final records are in PR/handoff; nativeGLES/SwiftShader do not certify physicalSafari.
+- No fullperformance benchmark/refactor before designated300 absent realissues. All169 oldJSON/runtime/loader/preview/cache0.7.1/scheduling/focus/measurement/gates, town/shared2D/otherworks/Production protected.
+- Finish Scope→Risk→Impact,currentCI,self/automatic review,identical candidate/merge tree,exactSHA Pages build/deploy. Parent confirms publiccards/navigation; known403 not bypassed. PhysicalSafari/author adoption remainUNVERIFIED.
+- After merge formal179,next180–189,821 remain to exactly1000; no180+ authored. Beforemerge formal169 remains lastnormal. Actual SHA/QA/CI/review/Pages and restart evidence are in PR and `/workspace/scratch/sukima-batch15/handoff.json`. Earlier records follow unchanged.
+
 # Collection 14 · 湯間庭町の小さな模型160–169 — 2026-10-13
 
 Parent accepted150–159 and authorized160–169 with explicit rest/motion silhouette comparison. Latest cleanmain38ab0fc3b9aa225f56ffe9be80701349097ce61c (PR334, exactSHA Pages38358135402), current AGENTS/Plan/verification rules, guide,159 objects/records and openPRs reviewed. No `.agents/skills` present. Work remainsactive/staging-only. ParallelPR336 advancedmain to8076fff0aeaaaa135652e3e81dcb4151a521e336 with unrelated evidence only; work/rules remained identical. OriginalPlana2add1b/source9ebf984 retained. FreshPlan-only5da2c29 precedes copying identical validated geometry/runtime inputs; old lock not amended. Immutable `tests/collection13-baseline.json` preserves159 entries/hashes,00–15 implicit/missing16/order/1000cap. PR324 scheduling/focus and parallelPR333 FeelStudio unchanged.
