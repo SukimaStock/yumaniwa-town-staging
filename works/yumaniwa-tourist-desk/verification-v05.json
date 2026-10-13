@@ -1,0 +1,45 @@
+{
+  "schema": "yumaniwa-verification-record/0.2",
+  "changeId": "tourist-desk-05-entry-20261013",
+  "planDigest": "ae2a4f4dbf7549fcfeb17174862ddffc84e1c176f98c75447b9a36926f2fed0f",
+  "planRevision": 0,
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "change": "Organize reception guidance by area, remove map expansion and prepare staging-safe SEO.",
+  "environment": "staging",
+  "baseSha": "2c7683036a4c047fca1039d7a12f8a9554d5a20f",
+  "verifiedSha": "a7fd97823c31c553e1a6612c864bdc103648e905",
+  "recordedAt": "2026-10-13T19:18:31.092085+00:00",
+  "recordedBy": "Codex Node source/input fixture and offscreen Mesa/EGL; no real-browser/device attestation",
+  "conditionalAcknowledgements": [],
+  "staticChecks": [
+    {
+      "id": "node-syntax",
+      "status": "pass",
+      "evidence": "Changed guide.test.mjs node syntax and executed ESM test suite; git diff --check"
+    }
+  ],
+  "impactChecks": [
+    {
+      "id": "work.runtime",
+      "status": "pass",
+      "evidence": "31 work tests PASS: three existing area routes; no guide work spotlights; no image/map expansion link; station entry retained; staging noindex,nofollow, accurate title/description, one H1 and three H2, no premature canonical/sitemap registration. Existing object/pinch/map-anchor fixture and camera/picking pass."
+    },
+    {
+      "id": "work.regression",
+      "status": "pass",
+      "evidence": "7 existing town direct-route regression groups PASS. app/scene/renderer/layout/pinch/CSS/models/Engine/town/other works all exact unchanged blobs; current work-only HTML and tests. Scope/Risk/Impact/lifecycle/syntax/diff PASS."
+    }
+  ],
+  "manualChecks": [
+    {
+      "id": "Full-height desk and responsive source preservation",
+      "status": "pass",
+      "evidence": "Source review: 100svh canvas, responsive CSS, input and camera code all unchanged; existing 4-viewport camera/picking tests pass. No new screenshot claim."
+    },
+    {
+      "id": "Physical iPhone/iPad and PC browser verification: UNVERIFIED",
+      "status": "unverified",
+      "evidence": "Sites control-browser unavailable; no physical iPhone/iPad or actual PC browser observation."
+    }
+  ]
+}
