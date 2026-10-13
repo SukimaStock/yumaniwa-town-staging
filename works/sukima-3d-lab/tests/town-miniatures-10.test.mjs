@@ -14,7 +14,7 @@ test('immutable119: every complete original entry and JSON byte hash remains; mi
   assert.deepEqual(manifest.items[i],b.entry);
   assert.equal(createHash('sha256').update(readFileSync(new URL(b.entry.file,root))).digest('hex'),b.source);
  }
- assert.equal(manifest.items.length,169);assert.ok(manifest.items.length<=1000);
+ assert.equal(manifest.items.length,179);assert.ok(manifest.items.length<=1000);
  const nums=manifest.items.map((i,n)=>i.number??n);
  assert.equal(new Set(nums).size,manifest.items.length);assert.equal(new Set(manifest.items.map(i=>i.id)).size,manifest.items.length);
  assert.ok(!nums.includes(16));assert.deepEqual(nums,[...Array(16).keys(),...Array.from({length:manifest.items.length-16},(_,i)=>i+17)]);

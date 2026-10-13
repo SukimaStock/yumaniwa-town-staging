@@ -829,6 +829,56 @@
       "id": "angular-fox-mask",
       "file": "objects/angular-fox-mask.json",
       "number": 169
+    },
+    {
+      "id": "split-walnut",
+      "file": "objects/split-walnut.json",
+      "number": 170
+    },
+    {
+      "id": "coral-fragment",
+      "file": "objects/coral-fragment.json",
+      "number": 171
+    },
+    {
+      "id": "holed-pebble",
+      "file": "objects/holed-pebble.json",
+      "number": 172
+    },
+    {
+      "id": "four-hole-button",
+      "file": "objects/four-hole-button.json",
+      "number": 173
+    },
+    {
+      "id": "sliding-jaw-vise",
+      "file": "objects/sliding-jaw-vise.json",
+      "number": 174
+    },
+    {
+      "id": "folding-parking-hoop",
+      "file": "objects/folding-parking-hoop.json",
+      "number": 175
+    },
+    {
+      "id": "twisted-air-duct",
+      "file": "objects/twisted-air-duct.json",
+      "number": 176
+    },
+    {
+      "id": "brass-whistle",
+      "file": "objects/brass-whistle.json",
+      "number": 177
+    },
+    {
+      "id": "folded-medicine-packet",
+      "file": "objects/folded-medicine-packet.json",
+      "number": 178
+    },
+    {
+      "id": "claw-pry-bar",
+      "file": "objects/claw-pry-bar.json",
+      "number": 179
     }
   ]
 }
