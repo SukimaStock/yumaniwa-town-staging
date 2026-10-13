@@ -6,6 +6,8 @@ const path = require('path');
 const vm = require('vm');
 const { readRegistry, assertPublication, assertProductionSnapshot } = require('./work-lifecycle.cjs');
 
+const {readStandalonePages,validateStandaloneHtml}=require('./standalone-pages.cjs');
+
 const PROD_BASE = 'https://sukimastock.github.io/yumaniwa-town';
 
 const DEFAULT_THEME = {
@@ -188,7 +190,7 @@ ${jsonScript(schema)}
 `;
 }
 
-function buildSitemap(ids) {
+function buildSitemap(ids, standalone=[]) {
   const lines=[
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
@@ -198,6 +200,7 @@ function buildSitemap(ids) {
     lines.push('  <url><loc>'+PROD_BASE+'/w/'+id+'/</loc></url>');
     lines.push('  <url><loc>'+PROD_BASE+'/en/w/'+id+'/</loc></url>');
   }
+  for (const page of standalone) lines.push('  <url><loc>'+page.url+'</loc></url>');
   lines.push('</urlset>','');
   return lines.join('\n');
 }
@@ -218,6 +221,8 @@ function compareOrWrite(file, expected, mode, mismatches) {
 function main() {
   const args=parseArgs(process.argv);
   const root=process.cwd();
+  const standalone=readStandalonePages(root);
+  if(args.env==='production')for(const page of standalone)validateStandaloneHtml(root,page);
   if (args.env==='production') {
     const registry=readRegistry(root);
     assertPublication(registry,args.published,args.promote,args.productionInstruction);
@@ -244,7 +249,7 @@ function main() {
     compareOrWrite(path.join(root,'w',id,'index.html'),buildPage(id,work,meta[id],'ja',args.env),args.mode,mismatches);
     compareOrWrite(path.join(root,'en','w',id,'index.html'),buildPage(id,work,meta[id],'en',args.env),args.mode,mismatches);
   }
-  compareOrWrite(path.join(root,'sitemap.xml'),buildSitemap(args.published),args.mode,mismatches);
+  compareOrWrite(path.join(root,'sitemap.xml'),buildSitemap(args.published,standalone),args.mode,mismatches);
 
   if (args.mode==='check' && mismatches.length) {
     console.error('Generated Search/Share files are out of date:');

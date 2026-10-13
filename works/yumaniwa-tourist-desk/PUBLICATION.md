@@ -1,0 +1,13 @@
+# 観光協会0.5 Production候補
+
+ユーザー2026-10-13の指示に基づき、完成版0f1e493をProduction PRへ移送する。Production merge/deployは別のユーザー承認後。
+
+独立した案内ページであり、WORKSのopen作品や新しい町内venueには登録しない。建物・NPC・町内告知・作品のw/en/w紹介ページは追加しない。Staging lifecycleのcandidateは公開候補の記録であり、公開済みとは扱わない。
+
+既存のsitemap生成はw/en/w専用のため、任意のURLを足すのではなく、明示した独立ページをdata/standalone-pages.jsonで選別する。idとworks/<id>の一致、candidate/released、確認済みsourceSha、候補判断と別のproduction指示を必須とし、canonicalはProductionベースから機械的に決める。Production snapshotで許可される追加directoryはこのmanifestで選んだものだけ。未選択のディレクトリ、symlink、従来の公開集合違反は引き続き拒否する。HTMLのcanonical・robots・title・descriptionも確認する。manifestがない既存候補では生成結果とsnapshot検査は従来どおり。
+
+Productionには描画モジュール13個、原典8モデルと8件のcollection索引を観光協会内部vendor/3dへ同梱する。モジュール・モデル本体は原典と完全一致。scene/app/rendererのLab参照パスとモデルbaseだけを同梱先へ変更。既存SSE Engineと駅前案内図はProductionに同一ファイルがあり無変更で使う。Labのページ、300モデル全体、町のruntimeを移送しない。
+
+Production HTMLだけindex,followと正式canonicalを設定する。Stagingはnoindexを維持。Sitemapへの登録はgeneratorを通す。既存OGP運用に新画像を捏造しない。専用画像なしのため今回は画像OGPを追加しない。
+
+実際のiPhone/iPad・PCブラウザ検証は未実施。source/input tests、依存の完全性、実シェーダーのoffscreen描画を根拠として区別する。公開URLの動作確認はマージ後に行う。
