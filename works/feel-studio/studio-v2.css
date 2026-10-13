@@ -3,3 +3,9 @@
 .frame{position:relative}.bridge-marker{position:absolute;transform:translate(-50%,-50%);border-radius:50%;background:#344d40dd;min-width:44px;touch-action:none;z-index:2}#bridge-controls{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}#bridge-controls label{flex:1;min-width:130px}#bridge-controls input{display:block;width:100%;min-height:44px;accent-color:#cbbb94}#bridge-controls p{font-size:12px;margin:0}#level-info:empty{display:none}
 
 @media(max-width:799px){.actions{grid-template-columns:repeat(3,minmax(0,1fr))}.actions button{min-width:0;white-space:normal;overflow-wrap:anywhere}}
+
+/* Touch & Tune: compact, collapsible controls beside the work. */
+.build-picker{font-size:12px;color:var(--muted);margin:3px 0 8px}.build-picker summary{min-height:36px;cursor:pointer}.build-picker label{display:inline-flex;gap:8px;align-items:center;max-width:100%}.build-picker select{min-width:0;font-size:12px}.build-picker button{font-size:12px;margin:4px}
+#bridge-controls{align-items:flex-start;gap:6px}#bridge-controls details{flex:1 1 180px;min-width:0;max-width:100%;border-top:1px solid #687b6466;padding:4px 8px}#bridge-controls summary{min-height:44px;cursor:pointer;color:#d2c6a4;font-size:12px}#bridge-controls details label{display:block;margin:6px 0 12px;min-width:0}#bridge-controls label small{display:block;font-size:10px;color:#acbba6;line-height:1.5}#bridge-controls select{width:100%;font-size:14px}#bridge-controls input[type=checkbox]{width:44px;height:44px;margin:0}#bridge-controls input[type=color]{height:44px;border:1px solid var(--line);background:transparent;padding:3px}#bridge-controls details p{margin:0 0 8px}#defaults{font-size:12px;background:transparent}#tune-note{margin:5px 0}
+@media(max-width:799px){#bridge-controls details{flex-basis:calc(50% - 6px)}}
+@media(max-width:390px){#bridge-controls details{flex-basis:100%}.build-picker label{display:flex}.build-picker select{flex:1}}

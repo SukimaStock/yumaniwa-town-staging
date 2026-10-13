@@ -1,0 +1,55 @@
+{
+  "schema": "yumaniwa-verification-record/0.2",
+  "changeId": "feel-studio-touch-tune-20261013",
+  "planDigest": "446215631d36c33e94cd613fbca7a2e782db1969e7d2fcc79bc4fa00dc161e03",
+  "planRevision": 0,
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "change": "Feel Studio 0.4 Touch & Tune: declared live/restart/rebuild parameters, protected new Ametsugi build and optional Feel-ready integration.",
+  "environment": "staging",
+  "baseSha": "4bba05555dd62afe3196a87aa0967addfe1133c5",
+  "verifiedSha": "082bb627570200a75cd6ff82c4c3d8d71f91d00e",
+  "recordedAt": "2026-10-13T06:08:09.426Z",
+  "recordedBy": "Codex: Node and JS runtime harness only; browser pending",
+  "conditionalAcknowledgements": [],
+  "staticChecks": [
+    {
+      "id": "node-syntax",
+      "status": "pass",
+      "evidence": "Changed JS syntax and full dependency SHA verification; tests/touch-tune-v04.cjs and legacy suites."
+    }
+  ],
+  "impactChecks": [
+    {
+      "id": "work.runtime",
+      "status": "pass",
+      "evidence": "Original Ametsugi/A/Engine/Motion/3D unchanged; old runtime hashes and old tests PASS, branch/reload/request/schema compatibility tested in Node harness."
+    },
+    {
+      "id": "work.regression",
+      "status": "pass",
+      "evidence": "Original Ametsugi/A/Engine/Motion/3D unchanged; old runtime hashes and old tests PASS, branch/reload/request/schema compatibility tested in Node harness."
+    },
+    {
+      "id": "risk.high-risk-review",
+      "status": "pass",
+      "evidence": "Original Ametsugi/A/Engine/Motion/3D unchanged; old runtime hashes and old tests PASS, branch/reload/request/schema compatibility tested in Node harness."
+    },
+    {
+      "id": "runtime.regression",
+      "status": "pass",
+      "evidence": "Original Ametsugi/A/Engine/Motion/3D unchanged; old runtime hashes and old tests PASS, branch/reload/request/schema compatibility tested in Node harness."
+    }
+  ],
+  "manualChecks": [
+    {
+      "id": "Public browser same-start compare and live controls at portrait/landscape widths",
+      "status": "unverified",
+      "evidence": "Public browser validation will follow Staging deployment; not physical-device PASS."
+    },
+    {
+      "id": "Browser save/branch/undo/defaults/reload and old A operation",
+      "status": "unverified",
+      "evidence": "Public browser validation will follow Staging deployment; not physical-device PASS."
+    }
+  ]
+}
