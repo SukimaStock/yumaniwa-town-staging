@@ -656,6 +656,45 @@
       ]
     },
     {
+      "id": "drawer-c",
+      "project": "drawer",
+      "title": "C · 指に追従 / 独立3D描画",
+      "version": "0.1.0",
+      "runtime": "feel-bridge/1",
+      "url": "prototypes/drawer/drawer-c/index.html",
+      "source": "prototypes/drawer/drawer-c/app.js",
+      "initial": true,
+      "derivedFrom": "drawer-a",
+      "parts": [
+        {
+          "id": "response",
+          "label": "引き出しの追従",
+          "anchor": "Drawer.step"
+        },
+        {
+          "id": "release",
+          "label": "離した後の居場所",
+          "anchor": "Drawer.target"
+        }
+      ],
+      "codeHash": "8683984f79612b15bea3dedf187311d84224b641a2020a68c70682bfdec47a66",
+      "htmlHash": "a5eccbe66a3447c34b334fc010e51206d1dc5ff37c582a883ddd06b28e4e3333",
+      "dependencies": [
+        {
+          "path": "bridge-client.js",
+          "sha256": "60c1fc99e27df0198c2e5eb58895938d7ed15461601ce9c1899688bfe8bf507d"
+        },
+        {
+          "path": "prototypes/drawer/style.css",
+          "sha256": "d94582d8bde08a09e50cffc59a3923e948bb2abc2de2ef04543ae599f9d5ee60"
+        },
+        {
+          "path": "prototypes/drawer/view-fallback.js",
+          "sha256": "ceb7de8a58425dec0cc7c4e2130cb0d1ccf49dbd93e7da6939be54a067e9786d"
+        }
+      ]
+    },
+    {
       "id": "drawer-a",
       "project": "drawer",
       "title": "A · 指の位置へ追従",
@@ -800,6 +839,36 @@
         {
           "path": "prototypes/drawer/view.js",
           "sha256": "665c05e0ffcaead0a09838f463d7c75eb33f1247f546d28a950adc689b5078da"
+        }
+      ]
+    },
+    {
+      "id": "paper-c",
+      "project": "paper",
+      "title": "C · 留まるか、帰るか",
+      "version": "0.1.0",
+      "runtime": "feel-bridge/1",
+      "url": "prototypes/paper/paper-c/index.html",
+      "source": "prototypes/paper/paper-c/app.js",
+      "initial": false,
+      "derivedFrom": "paper-a",
+      "parts": [
+        {
+          "id": "release",
+          "label": "指を離した後",
+          "anchor": "Paper.step"
+        }
+      ],
+      "codeHash": "b29c368c981b5fe26f415cec8c81bf34be191e03cbc1eca1e75dceff97c2be67",
+      "htmlHash": "41285125511cc6e52850f054a89221d278c168c06b0c8daa81ee27758a6ced2e",
+      "dependencies": [
+        {
+          "path": "bridge-client.js",
+          "sha256": "60c1fc99e27df0198c2e5eb58895938d7ed15461601ce9c1899688bfe8bf507d"
+        },
+        {
+          "path": "prototypes/paper/style.css",
+          "sha256": "a01175d2353484481604031b104e361fca6d3a0c92ca8df6771bee6ce248096c"
         }
       ]
     }

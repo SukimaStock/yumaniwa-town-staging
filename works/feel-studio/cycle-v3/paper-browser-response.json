@@ -1,0 +1,20 @@
+{
+  "schema": "feel-work-response/2",
+  "project": "paper",
+  "requestId": "r-n-mv5zywso-1uexap7",
+  "buildId": "paper-c",
+  "codeHash": "b29c368c981b5fe26f415cec8c81bf34be191e03cbc1eca1e75dceff97c2be67",
+  "config": {
+    "rest": {
+      "u": 0.36,
+      "v": 0.6449294049384308
+    },
+    "anchor": {
+      "u": 0.72,
+      "v": 0.38
+    },
+    "delay": 0.45,
+    "response": 0.6
+  },
+  "summary": "実画面の依頼から、Bの吸着とAの帰る動きを、近い/遠い判定で組み込んだCコードを新規実装。保存済みAと開始位置・待つ時間を保持。"
+}
