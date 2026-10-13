@@ -479,6 +479,11 @@
       "id": "cinema-projector",
       "file": "objects/cinema-projector.json",
       "number": 99
+    },
+    {
+      "id": "split-firewood",
+      "file": "objects/split-firewood.json",
+      "number": 100
     }
   ]
 }

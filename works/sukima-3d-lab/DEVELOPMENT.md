@@ -1,3 +1,13 @@
+# Collection 08 · 100–109 real100 checkpoint — 2026-10-13
+
+Authorized continuation from99 after PR322 merged209399f, exact Pages38338619784, automatic review3db9524 without findings. Latest main/AGENTS/guide/99 definitions/town palette/local skill availability reviewed. New plan-only1a8b2fe precedes source in Draft PR323. Existing99 entry/JSON SHA256 snapshot is `tests/collection07-baseline.json`; implicit00–15 numbering and missing16 stay unchanged. Only100 `split-firewood` 軒下の割り薪 is registered at this checkpoint. Candidate100 is not yet the published formal count (99 until merge).
+
+Before101, run unchanged `tests/measure-collection.cjs --expected-count 100 --trials 3 --out /workspace/scratch/sukima-batch08/perf-100.json` without competing jobs, compare99 baseline, and investigate software graphics versus JS/preview/DOM costs separately. Performance tool/runtime/schema/gates remain byte-identical. Do not continue to101–109 with an unresolved major performance issue. A proven necessary optimization requires a separate Plan/PR; keep this data branch and failure evidence intact.
+
+Planned distinct remaining forms:101 print roller rotateX;102 clothespin hingeZ;103 two independent sorting trays linearZ;104 ring door knocker hingeX;105 shelf fungus STATIC;106 sweet potato TOUCH;107 field rattle MOTION swingX;108 stone water basin STATIC;109 bicycle stand STATIC. Total4STATIC/1TOUCH/1MOTION/4MANIPULATION,5 controls. All prior protections and actual mouse/CDP touch/native/clearance/review/CI/exactSHA Pages requirements continue. Evidence/checkpoint `/workspace/scratch/sukima-batch08/`; final outcome will be recorded here and PR323. No Production/town/shared2D changes; physical iPhone/Safari and author adoption unverified.
+
+---
+
 # Collection 07 · 湯間庭町の小さな模型 90–99 — 2026-10-13
 
 Authorized batch from89 formal registrations, next90; min(10,1000−89)=10. Registry is canonical; missing16 and previous order are preserved. Prior PR318 automatic review completed at1796220 without findings; parent confirmed the public89-card collection successfully during this batch. AGENTS, guide, previous records,89 shapes and town palette reviewed; no applicable local skills. Plan-only `dba2305` preceded implementation in Draft PR321 at main3bc8b61. Concurrent Feel Studio PR320 advanced main to d62739a; fresh Plan-only `71952e3` in Draft PR322 precedes source transplants `f0c51e3`/`b5e3f0a`, preserving that unrelated change without rewriting the old lock. Draft321 is closed as superseded; its history remains. Production, town placement, shared2D, runtime, UI, schema and gates are unchanged.
