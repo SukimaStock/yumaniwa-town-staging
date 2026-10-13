@@ -1279,6 +1279,56 @@
       "id": "stacked-delivery-parcels",
       "file": "objects/stacked-delivery-parcels.json",
       "number": 259
+    },
+    {
+      "id": "carpenter-try-square",
+      "file": "objects/carpenter-try-square.json",
+      "number": 260
+    },
+    {
+      "id": "cobbler-stitching-awl",
+      "file": "objects/cobbler-stitching-awl.json",
+      "number": 261
+    },
+    {
+      "id": "flat-head-screwdriver",
+      "file": "objects/flat-head-screwdriver.json",
+      "number": 262
+    },
+    {
+      "id": "flat-paintbrush",
+      "file": "objects/flat-paintbrush.json",
+      "number": 263
+    },
+    {
+      "id": "mason-pointing-trowel",
+      "file": "objects/mason-pointing-trowel.json",
+      "number": 264
+    },
+    {
+      "id": "plasterers-hawk",
+      "file": "objects/plasterers-hawk.json",
+      "number": 265
+    },
+    {
+      "id": "plastering-float",
+      "file": "objects/plastering-float.json",
+      "number": 266
+    },
+    {
+      "id": "rubber-squeegee",
+      "file": "objects/rubber-squeegee.json",
+      "number": 267
+    },
+    {
+      "id": "short-hand-saw",
+      "file": "objects/short-hand-saw.json",
+      "number": 268
+    },
+    {
+      "id": "wooden-marking-gauge",
+      "file": "objects/wooden-marking-gauge.json",
+      "number": 269
     }
   ]
 }
