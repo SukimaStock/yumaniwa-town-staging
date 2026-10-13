@@ -779,6 +779,56 @@
       "id": "straw-sandal",
       "file": "objects/straw-sandal.json",
       "number": 159
+    },
+    {
+      "id": "crab-molt",
+      "file": "objects/crab-molt.json",
+      "number": 160
+    },
+    {
+      "id": "bent-chili",
+      "file": "objects/bent-chili.json",
+      "number": 161
+    },
+    {
+      "id": "fallen-feather",
+      "file": "objects/fallen-feather.json",
+      "number": 162
+    },
+    {
+      "id": "louvered-vent-door",
+      "file": "objects/louvered-vent-door.json",
+      "number": 163
+    },
+    {
+      "id": "telescoping-rule",
+      "file": "objects/telescoping-rule.json",
+      "number": 164
+    },
+    {
+      "id": "wooden-turning-bird",
+      "file": "objects/wooden-turning-bird.json",
+      "number": 165
+    },
+    {
+      "id": "hanging-bird-perch",
+      "file": "objects/hanging-bird-perch.json",
+      "number": 166
+    },
+    {
+      "id": "loose-rope-coil",
+      "file": "objects/loose-rope-coil.json",
+      "number": 167
+    },
+    {
+      "id": "mortar-and-pestle",
+      "file": "objects/mortar-and-pestle.json",
+      "number": 168
+    },
+    {
+      "id": "angular-fox-mask",
+      "file": "objects/angular-fox-mask.json",
+      "number": 169
     }
   ]
 }

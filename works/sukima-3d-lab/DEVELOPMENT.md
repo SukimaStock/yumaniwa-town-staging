@@ -1,3 +1,33 @@
+# Collection 14 · 湯間庭町の小さな模型160–169 — 2026-10-13
+
+Parent accepted150–159 and authorized160–169 with explicit rest/motion silhouette comparison. Latest cleanmain38ab0fc3b9aa225f56ffe9be80701349097ce61c (PR334, exactSHA Pages38358135402), current AGENTS/Plan/verification rules, guide,159 objects/records and openPRs reviewed. No `.agents/skills` present. Work remainsactive/staging-only. ParallelPR336 advancedmain to8076fff0aeaaaa135652e3e81dcb4151a521e336 with unrelated evidence only; work/rules remained identical. OriginalPlana2add1b/source9ebf984 retained. FreshPlan-only5da2c29 precedes copying identical validated geometry/runtime inputs; old lock not amended. Immutable `tests/collection13-baseline.json` preserves159 entries/hashes,00–15 implicit/missing16/order/1000cap. PR324 scheduling/focus and parallelPR333 FeelStudio unchanged.
+
+| No. / ID / name | Behavior | Shape and rest/motion comparison |
+| --- | --- | --- |
+|160 `crab-molt` 海辺から来た蟹の抜け殻 | STATIC | Actual hollow carapace, eight angular legs and open pincers; broad low organic silhouette differs from root150 and driedfish118. |
+|161 `bent-chili` 店先で干した曲がり唐辛子 | STATIC | One curving tapered thick pepper plus bent stalk; concavity remains rigid, unlike convex fruit/Touch. |
+|162 `fallen-feather` 公園で拾った一枚の羽根 | STATIC | Asymmetric notched vanes, folded thickness and visible central quill. Unlike127 fans/146 pairedwings; back/side views retain substance. |
+|163 `louvered-vent-door` 壁の格子換気扉 | MANIPULATION hingeY | Six slats form one perforated panel with actual hinge bores. −1.08…0rad,initial−.28; opening changes frame/panel gaps while slats remain rigid. Distinct from57 soliddoor/94 pairedsliders. |
+|164 `telescoping-rule` 工房の引き伸ばし測り棒 | MANIPULATION linearY | Marked broad member and endcap slide through a genuinely open guide,0….38,initial.13. More marks and length emerge while lower member stays inside; unlike59 drawer/154 lateralplate. |
+|165 `wooden-turning-bird` 古道具屋の首を回せる木彫り鳥 | MANIPULATION rotateY | Broad head/beak and bored collar turn together above fixed body/feet/tail; initial−.18. Beak direction changes without moving body; no neck physics or linked bodyparts. |
+|166 `hanging-bird-perch` 庭の吊り止まり木 | MOTION swingX | One rigid open hanging frame/crossbar on a real bored eye. base.02±.28rad,5.8s,phase.2; depth swings within fixed stand. No rope hierarchy/gravity/contact. |
+|167 `loose-rope-coil` 納屋のほどけた縄の輪 | STATIC | Continuous solid tube with separated ascending coils/two loose ends. Unlike140 hollow flat spiral shell and63 drumspool; no rope dynamics. |
+|168 `mortar-and-pestle` 薬屋の小さな乳鉢と乳棒 | STATIC | Thick open inner bowl/separate diagonal rounded pestle; unlike108 basin alone/151 crystal cavity. No grinding simulation. |
+|169 `angular-fox-mask` 祭りの角張った狐面 | STATIC | Welded tapered cheek plate with two actual eye openings, triangular ears and projecting muzzle; no painted fake holes. |
+
+Six STATIC / zero TOUCH / one MOTION / three MANIPULATION (hingeY/linearY/rotateY). Behavior follows shape; no quota/newJS/schema/controls/physics. Existing149 Touch is explicitly regressed.
+
+## Validation and restart checkpoint
+
+- Eleven historical count assertions159→169 only; fixed slices/goldens unchanged. Immutable159/exact-ten tests protect fullentries/JSON bytes, uniqueIDs/numbers/order/missing16/allreading/1000cap, ranges/cycles/hold/reverse/reset/switch. Initial378 work tests and24 lifecycle pass; final exacthead results are in PR/handoff.
+- All newJSON pass strict schema first. Initial native detected162 landscape-back4112 bodypixels below5000. Vane thickness.15→.24,width+15%,quill shifted forward.13 to read visibly. Final minimum6180 pixels, CPU/GPU coverage.9997/mean difference.000/zero boundary exceptions. Geometry improved without camera/checker/runtime changes. Initial definitions and failed logs retained in `/workspace/scratch/sukima-batch14/`.
+- Nine unchanged objects pass150 native frames; refined feather passes10, finalnew160. Full169 collection uses unchanged repository native scripts/checker; actual final count recorded after completion. All10 rest views and163/164/165 manipulated views/166 motion view inspected, plus refined162.
+- Clearance580 configurations (145/control and145 fullperch-cycle),52345 component-pair comparisons,zero overlaps. Actual panel/neck/eye annular sectors preserve holes. No pair sweep needed for single-control objects; no moving geometry changed after clearance.
+- All3 controls: mouse/CDPtouch nojump/tiny/reverse/hold/endpoints/same-capture overtravel/fixed-part rotation/re-pick/reset/switch. AllnewSTATIC/MOTION plus149Touch pressure/pull/recovery,pause/reset/reducedmotion and169 enabledcards/fullscroll/navigation at390×844,844×390,768×1024. Final records in PR/handoff. SwiftShader/nativeGLES are not physicalSafari evidence.
+- No fullperformance benchmark/refactor before designated300 absent realissues. All159 oldJSON/runtime/loader/preview/cache0.7.1/scheduling/focus/measurement/gates and town/shared2D/otherworks/Production protected.
+- Complete with Scope→Risk→Impact,currentCI,self/automatic review,identical tested/merge tree,exactSHA Pages build/deploy. Parent confirms publiccards/navigation; known403 not bypassed. PhysicalSafari/author adoption remainUNVERIFIED.
+- After merge formal169,next170–179,831 remain to exactly1000; no170+ authored. Beforemerge formal159 remains lastnormal. Actual SHA/QA/CI/review/Pages and restart evidence are in PR and `/workspace/scratch/sukima-batch14/handoff.json`. Earlier records follow unchanged.
+
 # Collection 13 · 湯間庭町の小さな模型150–159 — 2026-10-13
 
 Parent accepted140–149 and explicitly authorized150–159 including irregular nature/unknown devices and object-based behavior. Latest cleanmain40730bdd1d2d6883cd3010f473351f02ed84e115 (PR332, exactSHA Pages38355916155), current AGENTS/Plan/verification rules, guide and149 objects/records reviewed. No `.agents/skills` present. Work remainsactive/staging-only. ParallelPR333 advancedmain tocfc706d8af1b0ff92b5c3190cf7d10018c20dcfb; work/rules stayed identical. OriginalPlanb8c72ec/source5b3fa4f retained on the first branch. FreshPlan-onlye0fcf64 precedes copying identical validated geometry/runtime inputs; the old lock was not amended. Immutable `tests/collection12-baseline.json` preserves149 entries/JSON hashes, implicit00–15, missing16/order and1000cap. PR324 scheduling/focus and parallelPR330 remain unchanged.
