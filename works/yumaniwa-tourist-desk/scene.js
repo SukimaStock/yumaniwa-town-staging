@@ -38,8 +38,9 @@ export class DeskItem {
  localCamera(camera,view){return {aspect:camera.aspect,distance:camera.distance,fov:camera.fov,project:(p,r)=>camera.project(this.toWorld(p),r,view),ray:(x,y,r)=>{const ray=camera.ray(x,y,r,view);return {origin:this.toLocal(ray.origin),direction:norm(rotate(inverse(this.orientation),ray.direction))};}};}
 }
 export class DeskScene {
- constructor(items){this.items=items;this.camera=new Camera();this.view=axisAngle([1,0,0],.78);this.resize(390,844);}
- resize(w,h){this.camera.resize(w,h,1.1);this.camera.distance=Math.max(8.8,7.35/this.camera.aspect);this.view=multiply(axisAngle([1,0,0],.78),axisAngle([0,1,0],w>h?-.16:-.035));}
+ constructor(items){this.items=items;this.camera=new Camera();this.zoom=1;this.baseFov=this.camera.fov;this.view=axisAngle([1,0,0],.78);this.resize(390,844);}
+ resize(w,h){this.width=w;this.height=h;this.camera.fov=2*Math.atan(Math.tan(this.baseFov/2)/this.zoom);this.camera.resize(w,h,1.1);this.camera.distance=Math.max(8.8,7.35/this.camera.aspect);this.view=multiply(axisAngle([1,0,0],.78),axisAngle([0,1,0],w>h?-.16:-.035));}
+ setZoom(value){if(!Number.isFinite(value))return;this.zoom=Math.max(1,Math.min(1.6,value));this.resize(this.width,this.height);}
  exactPick(x,y,rect){const ray=this.camera.ray(x,y,rect,this.view);let hit=null;for(const item of this.items){const h=item.pick(ray);if(h&&(!hit||h.distance<hit.distance))hit=h;}return hit;}
  pick(x,y,rect,tolerance=0){
   const exact=this.exactPick(x,y,rect);if(exact||tolerance<=0)return exact;

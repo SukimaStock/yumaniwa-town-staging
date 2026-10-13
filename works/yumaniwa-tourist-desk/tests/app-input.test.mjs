@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {spawnSync} from 'node:child_process';import {fileURLToPath} from 'node:url';
+test('actual app pointer listeners separate pinch from objects and safely release captures',()=>{const r=spawnSync(process.execPath,['--experimental-vm-modules',fileURLToPath(new URL('./app-input-fixture.mjs',import.meta.url))],{encoding:'utf8',timeout:15000});assert.equal(r.status,0,r.stdout+r.stderr);assert.match(r.stdout,/PASS actual app event routing/);});

@@ -1,0 +1,107 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "078b984fc833450f0d93c17d2f13c1eb80035e917919654f4bc93b05e18858e7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tourist-desk-03-pinch-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "daf52f2b8991870e420f0acd756d8e9b68f00e86",
+    "change": "Add bounded two-finger peek zoom and a discreet original-view reset, preserving one-finger miniature controls.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "Current user tourist desk 0.3 instruction",
+      "works/yumaniwa-tourist-desk/**"
+    ],
+    "allowedPaths": [
+      "works/yumaniwa-tourist-desk/**",
+      ".change-plans/tourist-desk-03-pinch-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/sukima-3d-lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/pumpoko/**"
+    ],
+    "expectedChanges": [
+      "Add 1.0 to 1.6 bounded work-local perspective zoom without pan or camera rotation",
+      "Two-touch pinch cancels the current object gesture and drains until every touch lifts",
+      "Discreet original-view button resets camera magnification only",
+      "Keep native loupe/copy suppression, existing models, mechanisms and audio intact",
+      "Add gesture state and camera/picking regressions plus verification evidence"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly requests 0.3 pinch zoom and return control; prior session authorizes necessary Staging tests, PR, safe merge and Pages publication."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Work-local standard locked route because files and input behavior exceed bounded edit route",
+      "One touch owns object control, two touches own zoom; no automatic focus on ordinary taps"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Offscreen phone/tablet normal and maximum zoom composition",
+      "Physical iPhone/iPad pinch and one-finger interactions: UNVERIFIED"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work-only 0.3 PR to 0.2.1.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Shared Engine / 3D Lab / model definitions / other works / Production",
+      "Free camera, pan, roaming, or automatic object focus",
+      "New sound/model features or saved camera state"
+    ],
+    "unverified": [
+      "Physical iPhone/iPad/Safari feel, browser rendering and audio"
+    ],
+    "problem": "Author wants to look more closely at the reception tools without turning the work into a free camera viewer.",
+    "currentContract": "A fixed angled 3D desk, original one-pointer controls and opt-in audio.",
+    "whyExistingIsInsufficient": "No multi-pointer arbitration or bounded magnification/reset exists.",
+    "design": "Keep distance/view angle fixed and adjust only camera fov with a 1.0-1.6 scale. Track touch identifiers and incremental separation; cancel the object on second touch and prohibit resuming on the remaining finger. No pan or tap focus mode.",
+    "migration": "No storage, URLs or source model changes.",
+    "compatibility": "Existing parts and sounds remain; native selection/callout blocking stays active. Zoom is work-local and uses shared Camera math unchanged.",
+    "promotionRisk": "Staging only.",
+    "alternativesRejected": [
+      "Browser-native page zoom that scales UI",
+      "Single-finger camera movement competing with parts",
+      "Automatic focus on every object tap"
+    ],
+    "boundaryCases": [
+      "Second touch on background while first controls stamp",
+      "Remaining finger after pinch cannot tap/drag a model",
+      "Third touch, pointercancel, lost capture, resize, visibility and GL loss",
+      "Bounded zoom and immediate reversal at limits",
+      "Reset restores original fov and picking without resetting objects"
+    ],
+    "testPlan": [
+      "Pinch-state unit tests and DOM event routing fixture",
+      "Camera bounds, view invariance, size growth and picking at max zoom",
+      "Existing scene, manipulation/motion and audio regression",
+      "Offscreen 4 sizes normal/max zoom",
+      "Syntax and Scope/Risk/Impact gates",
+      "Trusted CI, Pages and public byte verification"
+    ]
+  }
+}

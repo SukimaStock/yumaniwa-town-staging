@@ -1,0 +1,45 @@
+{
+  "schema": "yumaniwa-verification-record/0.2",
+  "changeId": "tourist-desk-03-pinch-20261013",
+  "planDigest": "078b984fc833450f0d93c17d2f13c1eb80035e917919654f4bc93b05e18858e7",
+  "planRevision": 0,
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "change": "Add bounded two-finger peek zoom and a discreet original-view reset, preserving one-finger miniature controls.",
+  "environment": "staging",
+  "baseSha": "daf52f2b8991870e420f0acd756d8e9b68f00e86",
+  "verifiedSha": "604a71793969a051c342ed343c57ca663c42ecdd",
+  "recordedAt": "2026-10-13T18:01:38.662908+00:00",
+  "recordedBy": "Codex Node source/input fixture and offscreen Mesa/EGL; no real-browser/device attestation",
+  "conditionalAcknowledgements": [],
+  "staticChecks": [
+    {
+      "id": "node-syntax",
+      "status": "pass",
+      "evidence": "node --check app.js/scene.js/peek-zoom.js and executed ESM tests; git diff --check"
+    }
+  ],
+  "impactChecks": [
+    {
+      "id": "work.runtime",
+      "status": "pass",
+      "evidence": "22 work tests including actual app listeners evaluated under Node fake DOM/renderer; pinch cancels object once, remaining finger drains, reset/capture/cancel/resize/visibility/GL loss; bounds 1.0-1.6, camera/model invariance, exact projection reset, phone/stamp max-zoom picks in 4 sizes"
+    },
+    {
+      "id": "work.regression",
+      "status": "pass",
+      "evidence": "75 existing Lab manipulation/motion plus 20 SSE audio lifecycle tests; 8 source definitions and shared Engine/Lab unchanged; Scope/Risk/Impact PASS"
+    }
+  ],
+  "manualChecks": [
+    {
+      "id": "Offscreen phone/tablet normal and maximum zoom composition",
+      "status": "pass",
+      "evidence": "12 exact-shader GLES frames (4 viewports x normal/touched/close), compile/link and GL error 0; maximum-zoom layouts visually inspected and exact phone comparison saved. No browser screenshot claim."
+    },
+    {
+      "id": "Physical iPhone/iPad pinch and one-finger interactions: UNVERIFIED",
+      "status": "unverified",
+      "evidence": "Real browser/Safari and physical iPhone/iPad pinch, touch/audio feel, load and native UI not observed"
+    }
+  ]
+}
