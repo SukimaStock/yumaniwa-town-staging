@@ -1479,6 +1479,11 @@
       "id": "suspended-lozenge",
       "file": "objects/suspended-lozenge.json",
       "number": 299
+    },
+    {
+      "id": "street-fire-hydrant",
+      "file": "objects/street-fire-hydrant.json",
+      "number": 300
     }
   ]
 }
