@@ -30,7 +30,7 @@ Formal `verificationState` remains **UNVERIFIED**. Physical iPhone/iPad Safari, 
 
 ## Resume checkpoint
 
-Pending safe Staging merge/Pages proof: candidate registry79, next80; formally delivered count stays69 until this PR is merged/deployed. Preserve this checkpoint with PR outcome at handoff. Next authorized batch is80–89, min(10,1000−verified registry count); re-fetch latest main, inspect worktree/related PRs and keep16 absent. Stop exactly at1000 formal registrations (maximum number will be1000 with current numbering). First performance milestone is crossed by the future99→109 batch; measure real load/preview/mobile-equivalent/memory/scroll/selection-to-operation then. If CI/write/old-work integrity/deployment cannot be resolved within three retries, keep artifacts and stop without claiming delivery. Production and town placement remain untouched.
+Delivery outcome and exact merge/Pages SHA are recorded in PR #313. Checked registry79, next80; before resuming confirm that PR is merged and its exact-SHA Pages deployment succeeded, then re-count current main. A candidate branch alone is not a formal delivery. Next authorized batch is80–89, min(10,1000−verified registry count); re-fetch latest main, inspect worktree/related PRs and keep16 absent. Stop exactly at1000 formal registrations (maximum number will be1000 with current numbering). First performance milestone is crossed by the future99→109 batch; measure real load/preview/mobile-equivalent/memory/scroll/selection-to-operation then. If CI/write/old-work integrity/deployment cannot be resolved within three retries, keep artifacts and stop without claiming delivery. Production and town placement remain untouched.
 
 ---
 
