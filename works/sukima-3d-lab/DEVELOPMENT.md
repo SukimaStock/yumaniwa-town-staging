@@ -1,3 +1,47 @@
+# Collection 07 · 湯間庭町の小さな模型 90–99 — 2026-10-13
+
+Authorized batch from89 formal registrations, next90; min(10,1000−89)=10. Registry is canonical; missing16 and previous order are preserved. Prior PR318 automatic review completed at1796220 without findings. AGENTS, guide, previous records,89 shapes and town palette reviewed; no applicable local skills. Plan-only `dba2305` preceded implementation in Draft PR321 at main3bc8b61. Concurrent Feel Studio PR320 advanced main to d62739a; a fresh plan/PR will preserve that unrelated change, without rewriting the old lock. Production, town placement, shared2D, runtime, UI, schema and gates are unchanged.
+
+| No. / ID / name | Behavior | Shape and interaction |
+| --- | --- | --- |
+|90 `porch-cushion` 縁側の座布団 | TOUCH | Flattened chamfered cushion, asymmetric faceted top; conservative press/pull deformation. |
+|91 `courtyard-spigot` 中庭の丸ハンドル水栓 | MANIPULATION rotate Z | Broad perforated handwheel in front of the fixed casting/spout. Free bidirectional rotation; no water simulation. |
+|92 `roof-weather-vane` 屋根の矢羽根風見 | MOTION swing Y | Concave arrow and unequal tail above a polygon mast; ±.50rad/9.2s. Authored motion, no wind physics. |
+|93 `octagonal-tea-caddy` 八角茶筒のふた | MANIPULATION hinge X | Hollow octagonal tea tin, broad lid and square knob;−1.25…0rad, initial−.25. Rear pivot keeps the lid above the case. |
+|94 `paired-shoji` 路地の二枚引き戸 | MANIPULATION two linear X | Two broad open wooden sashes, independent−.35….35 travel in separated depth lanes. Different crossbar heights keep both accessible when aligned; no collision/linkage. |
+|95 `gramophone-horn` 古道具屋の蓄音ラッパ | STATIC | Hollow flared ten-sided horn with an open throat and thick rim on a small cabinet; no audio. |
+|96 `pine-cone` 公園で拾った松かさ | STATIC | Sixteen unequal-height polygon scales around a tapered core; a compact natural silhouette. |
+|97 `canal-waterwheel` 小水路の八枚水車 | MOTION spin Z | Eight paddles on an open rim and spokes in front of a wooden support;−.23rad/s, no linked water mechanism. |
+|98 `broken-roof-tiles` 路地に重ねた欠け瓦 | STATIC | Three closed curved tile fragments, unequal lengths/edges; offsets tightened after visual review to read as a stack. |
+|99 `cinema-projector` 映写室の二巻映写機 | MANIPULATION two rotate Z | Independent open reels above a fixed body/lens; disjoint X bays and separated support depth, no film/playback/gearing. |
+
+Mix **STATIC3 / TOUCH1 / MOTION2 / MANIPULATION4**, **6 independent controls** (rotate3/hinge1/linear2). Compare the flat soft cushion, thin arrow, hollow vessel/horn, open frames/wheels, scale cluster and nested tile arcs; these are distinct forms, not color/size variants of prior entries.
+
+## Verification and checkpoint
+
+- New immutable89 fixture captures complete previous registry entries and SHA256 of every old JSON. Four old count assertions change89→99 only; all previous batch slices/goldens remain fixed. All99 load; unique IDs/numbers, missing16/order and≤1000 cap are checked.
+- Work suite241/241 and lifecycle24/24 passed. Mechanical/native/browser final evidence follows before merge; verificationState remains UNVERIFIED (physical iPhone/Safari and author adoption unobserved).
+- Clearance:2,410 whole-model/control-combination configurations,86,130 component-pair comparisons, zero penetration. Concave vane is decomposed into its actual triangulated extrusion prisms; the initial whole-concavity convex hull false positive and its log are retained outside the repository. Other moving/fixed depth gaps are conservatively tested. No thresholds were relaxed.
+- Actual mouse/CDP touch exercises all6 controls. The first fast fixed-part flick turned a sash behind its frame; the retained failed capture is followed by slow whole-object rotation, settled pose, and re-picking. Hidden/back-facing surfaces are not claimed pickable through geometry.
+- Evidence directory: `/workspace/scratch/sukima-batch07/`; failed attempts are retained. Public proxy403 is known and is not retried; parent performs public browser confirmation. Mobile viewport/CDP evidence is not physical iPhone/Safari.
+- Candidate99; next100. Do not append beyond99 in this PR. Before next batch fetch latest main, confirm this PR review/Pages outcome and89→99 integrity. Next batch100–109 crosses the100 milestone; measure the real100-entry intermediate registry before continuing to109. Stop at exactly1000 cumulative formal registrations.
+
+## Performance measurement prepared before100
+
+Developer-only `tests/measure-collection.cjs` uses the existing Playwright and `/usr/bin/chromium`; it is not loaded by the application and adds no package/runtime/CI gate changes. Run with the local server and no competing QA/render jobs:
+
+```sh
+node works/sukima-3d-lab/tests/measure-collection.cjs --expected-count 99 --trials 3 --out /workspace/scratch/sukima-batch07/perf-99.json
+```
+
+At the real100-entry intermediate point, and again at109, use the same command with the actual count and a separate output. Repeat at300/500/750/1000. Preserve identical machine/browser/server, viewport/DPR, CPU throttle and cache conditions. Do not fabricate registrations to hit a measurement count. The CLI rejects count mismatch, missing cards, overflow, WebGL errors and failed first interaction.
+
+Each of3 trials uses a new context: desktop900×900/DPR1/CPU1 and mobile-equivalent390×844/DPR2/CPU4, then cache-enabled reload in that same context. Network is unthrottled and URL/server are recorded. It measures all enabled previews/cards plus two RAFs, last object response, post-fetch validation+preview+DOM time (not pure preview time), load long tasks, heap/DOM counters, actual scroll RAF distribution, fixed91 handwheel selection→ready and actual mouse/CDP touch change. Input timings include automation observation/round-trip time, so they are comparable upper bounds, not isolated hardware latency. A separate warm CPU preview pass records200px SVG/raster costs without fetch or DOM. Ten select/operate/back cycles compare heap after controlled GC; this is retained-memory evidence, not real-world peak memory.
+
+Compare cold/warm/profile medians and scroll p95 across equal trials, recording absolute times and growth. Investigate repeatable load/preview/operation regression or worsening scroll/memory together with visible symptoms, card completeness and first-input success. A slow synthetic profile alone is not evidence of an iPhone regression. Re-run a noisy comparison without competing jobs before attributing it to collection growth. Reproducible missing cards, unusable input, WebGL failure or unbounded retained-memory growth blocks continuation; retain the last normal checkpoint. Any required loading/preview optimization must be a separate, minimal Staging PR preserving schema and existing gates. No optimization is implemented here.
+
+---
+
 # Collection 06 · 湯間庭町の小さな模型 80–89 — 2026-10-13
 
 Authorized continuation after Collection05. Starting main `44b40d8165fa6cc9c3c0c21d01d9514470717247`,79 formal registrations, next80; batch min(10,1000−79)=10. Parent requested80–89 and public browser confirmation separately; do not repeat known proxy403. PR314 automatic Codex Code Review completed at `f080b46` with no findings or unresolved threads (summary issuecomment6136241083), confirmed before starting. Latest AGENTS/guide/DEVELOPMENT, actual79 registry, existing silhouettes and `.agents/skills` status reviewed; no applicable local skills. Plan `6650caa` precedes all new data in Draft PR317. Unrelated Feel Bridge#316 advanced main to `7f46f0e`; new Plan-only `f053d11` precedes exact tested source `2a695f7` transplanted as `6216c02` in Draft PR318. Original history is retained; no stale lock was rewritten. Palette remains matte wood, iron/green, cream and rust from the town references. No production/town placement/shared2D/runtime/schema/gate/cache changes.
