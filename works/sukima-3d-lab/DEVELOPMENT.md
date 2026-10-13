@@ -1,3 +1,33 @@
+# Collection 25 · supplied STATIC natural forms270–279 — 2026-10-13
+
+Parent accepted269 and authorized these ten supplied drafts through safe Staging merge/exactSHA Pages. Hardstop300, wait after batch. Hydrant remains unregistered in batch22 originals for300. Clean base2b15d93b65d69a2cb810ad76611d0788a418dd64 (PR347); Plan-only76083d2 precedes implementation, digest77f75c6291788e33a321a5fe4d0e8c18382bd7be76500e68f05ed64ee748ab50. AGENTS/guide/verification contracts retained; active/staging-only. No .agents/skills available. No engine/runtime/schema/gates/town/otherwork/Production changes.
+
+Original drafts preserved in `/workspace/scratch/sukima-batch25/originals/`; allten retained without semantic changes. Supplied coordinates/triangles/materials reused; existing QA helpers only, no new repository QA management or runtime branch.
+
+| Number / ID / name | Shape / comparison |
+| --- | --- |
+| 270 `asparagus-spear` 畑のアスパラガス | Asparagus tapering stalk and pointed closed bud with open scales |
+| 271 `garden-eggplant` 畑のなす | Eggplant leaning asymmetric purple fruit,open calyx and bent stem |
+| 272 `garden-tulip` 庭のチューリップ | Tulip open serrated flowercup and rising leaf; visible inside/back |
+| 273 `garden-turnip` 畑の小かぶ | Turnip pointed root and two unequal leaves |
+| 274 `halved-peach` 半分の桃 | Peach planar cut/colored peel/raised embedded pit,not mere fruit recolor |
+| 275 `meadow-clover` 野原の三つ葉 | Clover three broad open leaves and slender stem; distinguish208 succulent |
+| 276 `pond-cattail` 池のがまの穂 | Cattail narrow seedhead/stalk and blade leaf |
+| 277 `spring-bamboo-shoot` 春のたけのこ | Bamboo three overlapping unequal sheaths,not simply resized parts |
+| 278 `summer-melon-wedge` 夏のすいか一切れ | Melon triangular thick flesh/rind and two raised seeds |
+| 279 `woodland-acorn` 林のどんぐり | Acorn six-sided nut/cap with leaning short stem; distinguish chestnut/pinecone |
+
+**STATIC10 / TOUCH0 / MOTION0 / MANIPULATION0**. Whole-model rotation only; no plant motion, fruit deformation or tool behavior claimed.
+
+## Evidence and checkpoint
+
+- Immutable269 complete entries/JSON hashes/order/missing16. Twenty-two historical total assertions269→279 only; existing slices/goldens unchanged. Exactten/current300cap, strict all-item reading/identity, STATIC idle/rotation/reset/switch/immutable mesh.602 work tests/24 lifecycle PASS. Exact candidate and final results in PR/handoff.
+- New100 native GLES frames PASS unchanged shipped shaders/checker/CPU-GPU preview/threeviewports. Allten initial previews inspected, representative flower/fruit/leaf/acorn back views inspected. Full279 native completion requires actualexit0 and is recorded in PR/handoff.
+- Closed21 parts. Initial reused convex-only contact helper rejected asparagus stalk; retained failedlog. v2 supports these closed nonconvex meshes, so no data/schema weakening. Five parts (asparagus stalk,eggplant fruit,turnip root,cattail head,acorn nut) have tiny nonconvex triangulated sides. Existing SAT was applied to exact tetrahedra from authored triangles and a verified visibility-kernel centroid (16/16/16/24/24 components); remaining16parts convex.115 component-pair comparisons,12 expected fixed embeddings: asparagus stalk/bud,eggplant fruit/stem,peach/pit,cattail stalk/head,three bamboo sheath pairs,melon flesh/rind andtwo seeds,acorn nut/cap/stem. Open scales/leaves/petals are intentionally double-sided zero-thickness surfaces; no collision/physical thickness claim.
+- Browser alltenSTATIC mouse/CDPtouch surface/heldsurface/background/reverse/reset/switch/immutable mesh; old213 two-control linear and258 rotate everycontrol;219Touch/235Motion/reducedmotion226 and279cards/scroll/threeviewports. Actual counts/errors and screenshots in PR/handoff. Chromium mobile-equivalent is not physical Safari.
+- Parent public QA for269: first load269total but103 mail-sorting-trays disabled with partial-load warning; after full settling, one ordinary reload restored269enabled.260–269 previews/navigation268/back passed. Cause remains unknown, consistent with prior intermittent first-load failures. At300 measure load/preview/mobile/memory/scroll/selection responsiveness and distinguish network/late load causes using evidence. No speculative fix/access bypass in this batch. Current normal web read inaccessible; physical iPhone/iPad/Safari/author adoption/final verification UNVERIFIED.
+- After safe merge formal279,next280,21 remain to current300cap. **Stop and await parent; no280+ authored/registered.** Exact candidate/merge tree,CI/review/Pages and remaining public confirmation in PR and `/workspace/scratch/sukima-batch25/handoff.json`. Earlier records follow unchanged.
+
 # Collection 24 · supplied STATIC trade tools260–269 — 2026-10-13
 
 Parent accepted259 and authorized these ten supplied drafts through safe Staging merge/exactSHA Pages. Current hardstop300; stop after this batch awaiting parent. Hydrant stays unregistered in batch22 originals for300. Clean base8fe8d588caa931a28d09e350166287de5342176c (PR346), Plan-only7bd1393 precedes implementation; digest8cb56ba99a17f50493ae80f8155305084ee710673fe80e7f0c3a54382f61a794. Existing AGENTS/guide/verification contracts and active/staging-only lifecycle retained. No .agents/skills available here. No engine/runtime/schema/gates/town/otherwork/Production changes.
