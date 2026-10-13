@@ -1,0 +1,113 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9cbeea4fac09fc896f8b908e872621dcb09f44322cf6f38cce9eba43fb8e6696",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "feel-studio-v04-evidence-current-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "38ab0fc3b9aa225f56ffe9be80701349097ce61c",
+    "change": "Record exact public browser verification and screenshots for completed Feel Studio 0.4, without changing runtime, builds or saved data.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "works/feel-studio/**"
+    ],
+    "allowedPaths": [
+      "works/feel-studio/VALIDATION-V04.md",
+      "works/feel-studio/verification-v04-browser.json",
+      "works/feel-studio/visual-review/touch-tune-v04-phone-20261013.jpg",
+      "works/feel-studio/visual-review/touch-tune-v04-desktop-20261013.jpg",
+      ".change-plans/feel-studio-v04-evidence-current-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ametsugi/**",
+      "engine/**",
+      "works/sukima-3d-lab/**",
+      "works/motion-lab/**",
+      "works/pumpoko/**",
+      "works/pumpoko-02/**",
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Append final public browser findings with exact cfc706d and Pages success",
+      "Record actual mobile/landscape/default/undo/compare/request/standalone/legacy observations without physical PASS",
+      "Add two QA screenshots as repository-backed verification artifacts"
+    ],
+    "ownerDecisions": [
+      "User instruction 2026-10-13 explicitly authorizes Feel Studio 0.4 implementation, validation, PR and safe Staging merge; old builds/data and original Ametsugi protected."
+    ],
+    "hqDecisions": [
+      "Design review: add versioned 0.4 host/client/desk/UI files, preserve exact old runtime hashes; optional applyState hook and build-specific state schemas keep old project saves compatible; no external communication or code execution from JSON."
+    ],
+    "rulesApplied": [
+      "AGENTS: existing works protected; isolated Feel Studio trial in Staging only",
+      "Existing Plan Lock and high-risk checks remain enabled; do not treat CI as author device QA.",
+      "PR334 advanced main after evidence registration; exact Feel Studio subtree unchanged from cfc706d. Old PR335/branch preserved; fresh Plan-only commit precedes copying the same recorded bytes. No Plan base/digest amended."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Screenshots match observed public work plus live controls",
+      "Browser evidence names code SHA and separates physical/audio limitations"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert Feel Studio-only PR and keep original Ametsugi, older Feel Studio projects and storage untouched.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Production or candidate status changes",
+      "Existing Ametsugi, shared Engine and 3D Lab edits",
+      "New universal editors or automatic Work calls"
+    ],
+    "unverified": [
+      "Physical iPhone/iPad Safari",
+      "Audio listening and author feel/adoption"
+    ],
+    "problem": "Runtime complete; current checked-in report still marks sticky follow-up pending.",
+    "currentContract": "PR330/333 merged, immutable A/B assets/hash and workspace2 keys protected.",
+    "whyExistingIsInsufficient": "Actual browser evidence must be distinguishable from Node and physical device results.",
+    "design": "Documentation/evidence artifacts only; no runtime/config/build/code/save changes.",
+    "migration": "None; same save key and schemas, no build/config/hash changes.",
+    "compatibility": "All immutable build directories, dependencies and code hashes unchanged; author decisions remain hold in test workspace.",
+    "promotionRisk": "Staging trial only; author decides whether to keep or expand.",
+    "alternativesRejected": [
+      "Do not modify old client dependencies",
+      "Do not make all config messages reset",
+      "Do not silently rewrite old saved nodes"
+    ],
+    "boundaryCases": [
+      "Live physics while a drop is on a gutter or airborne",
+      "Restart-only settings queued until retry; defaults and undo avoid reset of live state",
+      "Saved A-only workspace can explicitly add B; comparison reset synchronizes current drafts",
+      "Invalid bool/color/choice/schema and stale nonce rejected"
+    ],
+    "testPlan": [
+      "No runtime/build dependency diff",
+      "Record references exact code and Plan digest",
+      "Scope/Risk/Impact and trusted static applicability"
+    ]
+  }
+}
