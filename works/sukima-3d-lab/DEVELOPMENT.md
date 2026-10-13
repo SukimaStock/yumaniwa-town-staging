@@ -1,3 +1,34 @@
+# Collection 26 · supplied household/hobby miniatures280–289 — 2026-10-13
+
+Parent accepted279 and authorized these ten through safe Staging merge/exactSHA Pages; current300 hardstop, wait after batch. Hydrant remains original-only under batch22 for300. Clean base60cfd06d2ac570bcf09096ddee83491fa4d257cc (PR348); Plan-only2397168 precedes implementation, digest1bcbccaa9340f5edc7063b46b43fc03083bca2f7f8bbfd9d519703964c1ef7bd. Existing AGENTS/guide/verification and active/staging-only contracts retained. No .agents/skills available. No engine/runtime/schema/gates/town/otherwork/Production changes.
+
+Original drafts in `/workspace/scratch/sukima-batch26/originals/`. Eight unchanged semantically. Minimal fixes: matchbox initial extension.22→.12, same0.. .62 range; mirror fixed solid axle replaced by two coaxial support stubs x[−.51,−.445]/[.445,.51],same cross-section/position/material; mirror display quaternion[sin(.425),0,0,cos(.425)] to keep default hinge gesture away from frontal projection ambiguity. Mirror hinge−.55.. .55/initial−.12 and all other geometry/controls remain.
+
+| Number / ID / name | Shape / supported behavior |
+| --- | --- |
+| 280 `carved-chess-knight` 喫茶室のナイト | Knight concave extruded neck/head with ear and plinth |
+| 281 `faceted-spinning-top` 駄菓子屋の角ごま | Faceted top is STATIC; geometric point/stem,not physical spinning |
+| 282 `folding-leg-ironing-board` 洗濯室のアイロン台 | Ironing board fixed crossed legs separated inZ; no folding claim |
+| 283 `sliding-matchbox` 喫茶店のマッチ箱 | Hollow sleeve openalongX and broad insert linear0..0.62 initial.22; allwall clearance and picks |
+| 284 `small-painters-easel` 窓辺の小さなイーゼル | Easel disconnected frontlegs withinonepart,joined by brace/ledge/rearleg |
+| 285 `square-ceramic-funnel` 台所の角じょうご | Square funnel open mouth and spout,tab connected; no liquid physics |
+| 286 `tilting-table-mirror` 支度部屋の卓上鏡 | Mirror hingeX−.55..+.55 initial−.12; fixed arms/axle/foot clearance,matte no reflections |
+| 287 `wooden-citrus-reamer` 台所のレモンしぼり | Wooden reamer pointed ridges and tapered handle |
+| 288 `wooden-metronome` 音楽室のメトロノーム | Metronome composite pendulum swingZ amplitude.42 period2.4; frontdial clearance/fullcycle |
+| 289 `wooden-toy-sailboat` 池に浮かべる帆船 | Sailboat pointed closed hull/mast/open two sails; no water dynamics |
+
+**STATIC7 / TOUCH0 / MOTION1 / MANIPULATION2**. Matchbox one independent linear insert,mirror one hinge plate,metronome one swing track containing rigid rod/weight. No linked extra controls,reflection,sound,folding-board or top/boat physics.
+
+## Evidence and checkpoint
+
+- Immutable279 complete entries/JSON byte hashes/order/missing16. Twenty-three historical total assertions279→289 only; old slices/goldens unchanged. Exactten/current300cap and strict loading/identity; fullwork/lifecycle counts and exact SHA in PR/handoff.
+- Initial matchbox standard partial target.248 was only.028 from original.22 and failed unchanged300-pixel change threshold. Trial.32 still failed landscape259pixels; final.12 passed all25 frames and browser controls. Failures retained. Original mirror fixed axle overlapped plate at145/145 poses; two stubs leave.005 lateral gap and avoid intersection throughout unchanged range. Initial frontal gesture reverse failed; display tilt.7rad passed normal controls but mobile min-overtravel reverse missed the unchanged tolerance; final.85rad aboutX passed native25frames and edge checks. Final complete browser results in PR/handoff. No thresholds/input algorithms changed.
+- Final new native145frames from unchanged shaders/checker/CPU-GPU previews/threeviewports. Allten previews inspected. Standard full renderer reached Node single-string limit at JSON.stringify before rendering; kept failed logs. Scratch exporter uses identical source scene generation,partitioning only output by390×844,844×390,900×900,200×200; each group passed to unchanged repository checker,full counts/exit statuses in PR/handoff. The four-group export captured mirror tilt.7; after final.85 change, its25 exact scenes were rerun with unchanged checker, while hashes prove all other definitions unchanged. Final coverage is4865 unchanged scenes plus25 final mirror scenes; superseded25 also retained. No repository render/test engine change or scene omission. This QA serialization limit is distinct from public load reliability.
+- Exact geometry support check:27 closed parts,39 fixed component comparisons,10 deliberate fixed joins. Disconnected components by topology; knight concave neck/head partitioned into5 authored triangular prisms; hollow sleeve4 exact trapezoid walls; funnel tab12 authored-face tetrahedra with verified interior kernel. Component volumes equal authored volumes. Dynamic435 whole-model poses/2030 component-pair comparisons,zero overlaps:145 perlinear/hinge and145 fullswing cycle. Mirror xclearance.005 to stubs/.01 toarms; pendulum rearZ.315 vsdialfront.265 gives.05; sleeve inner clearanceY.015 bottom/.04top andZ.02 before display.95 scale. Open funnel/sails double-sided; no fluid/collision claim.
+- SevenSTATIC mouse/CDPtouch42 surface/heldsurface/background/reverse/reset/switch/immutable cases. Everynew manipulation control tested mouse/CDPtouch forward/reverse/hold/endpoints/fixedpart wholeturn/re-pick/reset/switch plus tiny/nojump/overtravelreverse. OldTouch219/Motion235 and new288 play/pause/reset/reducedmotion plus289cards/scroll/threeviewports. Final actual results/errors in PR/handoff; physical iPhone/iPad/Safari UNVERIFIED.
+- Parent269 public first-load103 mail-sorting-trays failure/reload recovery remains unresolved. Keep300 load/preview/mobile/memory/scroll/selection measurements and network/late-load diagnosis separate from data. No speculative fix/access bypass. Current publicUI/author adoption/final verification unverified unless separately observed.
+- After safe merge formal289,next290,11 remain to300. **Stop and await parent; no290+ authored/registered.** Exact candidate/merge tree,CI/review/Pages and restart state in PR and `/workspace/scratch/sukima-batch26/handoff.json`. Earlier records follow unchanged.
+
 # Collection 25 · supplied STATIC natural forms270–279 — 2026-10-13
 
 Parent accepted269 and authorized these ten supplied drafts through safe Staging merge/exactSHA Pages. Hardstop300, wait after batch. Hydrant remains unregistered in batch22 originals for300. Clean base2b15d93b65d69a2cb810ad76611d0788a418dd64 (PR347); Plan-only76083d2 precedes implementation, digest77f75c6291788e33a321a5fe4d0e8c18382bd7be76500e68f05ed64ee748ab50. AGENTS/guide/verification contracts retained; active/staging-only. No .agents/skills available. No engine/runtime/schema/gates/town/otherwork/Production changes.
