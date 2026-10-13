@@ -1,0 +1,121 @@
+{
+  "schema": "feel-workspace/2",
+  "project": "paper",
+  "nodes": [
+    {
+      "id": "paper-a",
+      "title": "A · 始点に戻る",
+      "buildId": "paper-a",
+      "codeHash": "e6f2dd724127dc2b0b25603bcfcd6622b30727133fc6d10a8a92652f722efa55",
+      "parent": null,
+      "config": {
+        "rest": {
+          "u": 0.28,
+          "v": 0.58
+        },
+        "anchor": {
+          "u": 0.72,
+          "v": 0.38
+        },
+        "delay": 0.3,
+        "response": 0.6
+      },
+      "kind": "implementation",
+      "decision": "hold",
+      "provenance": []
+    },
+    {
+      "id": "n-mv5zien0-4g8su9z",
+      "title": "直接整えた開始案",
+      "buildId": "paper-a",
+      "codeHash": "e6f2dd724127dc2b0b25603bcfcd6622b30727133fc6d10a8a92652f722efa55",
+      "parent": "paper-a",
+      "config": {
+        "rest": {
+          "u": 0.36,
+          "v": 0.65
+        },
+        "anchor": {
+          "u": 0.68,
+          "v": 0.42
+        },
+        "delay": 0.55,
+        "response": 0.6
+      },
+      "kind": "author-edit",
+      "decision": "hold",
+      "provenance": []
+    }
+  ],
+  "drafts": {},
+  "left": "n-mv5zien0-4g8su9z",
+  "right": "paper-a",
+  "requests": [
+    {
+      "schema": "feel-work-request/2",
+      "requestId": "r-n-mv5zien1-lcysf0x",
+      "project": "paper",
+      "repository": "SukimaStock/yumaniwa-town-staging",
+      "scope": "works/feel-studio/ (staging-only)",
+      "base": {
+        "nodeId": "n-mv5zien0-4g8su9z",
+        "buildId": "paper-a",
+        "version": "0.1.0",
+        "codeHash": "e6f2dd724127dc2b0b25603bcfcd6622b30727133fc6d10a8a92652f722efa55",
+        "path": "works/feel-studio/prototypes/paper/paper-a/app.js",
+        "config": {
+          "rest": {
+            "u": 0.36,
+            "v": 0.65
+          },
+          "anchor": {
+            "u": 0.68,
+            "v": 0.42
+          },
+          "delay": 0.55,
+          "response": 0.6
+        }
+      },
+      "selections": [
+        {
+          "nodeId": "paper-a",
+          "buildId": "paper-a",
+          "codeHash": "e6f2dd724127dc2b0b25603bcfcd6622b30727133fc6d10a8a92652f722efa55",
+          "partId": "release",
+          "label": "指を離した後",
+          "anchor": "Paper.step",
+          "config": {
+            "rest": {
+              "u": 0.28,
+              "v": 0.58
+            },
+            "anchor": {
+              "u": 0.72,
+              "v": 0.38
+            },
+            "delay": 0.3,
+            "response": 0.6
+          }
+        }
+      ],
+      "comment": "紙を離すと始点へ戻る案を残し、余勢で滑って留め具に吸着する別コードを試したい。",
+      "locks": "元のAと直接編集した開始位置・待ち時間を残す。",
+      "keep": [
+        "paper-a",
+        "n-mv5zien0-4g8su9z"
+      ],
+      "returnContract": {
+        "schema": "feel-work-response/2",
+        "requestId": "same requestId",
+        "project": "paper",
+        "buildId": "installed catalog build",
+        "codeHash": "installed model SHA256",
+        "config": "validated config",
+        "summary": "what actually changed"
+      },
+      "inputComparisonLimit": "紙の目標位置を指で指定。別案で離した後の挙動が変わるため同じ入力を同じ力とみなさない。"
+    }
+  ],
+  "completed": [],
+  "tape": null
+}

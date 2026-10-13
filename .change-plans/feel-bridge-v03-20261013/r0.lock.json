@@ -1,0 +1,122 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5629eef126ed66452af04be0ae0170edf734c5f55d2849b4b915eeb1ef552887",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "feel-bridge-v03-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "e9c82f4a60d7e4611e9d350554f26e864316eb6a",
+    "change": "Add optional capability-based Feel Bridge to existing desk, independent 2D/WebGL and compare-only DOM prototypes with actual Work cycles.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "works/feel-studio/**"
+    ],
+    "allowedPaths": [
+      "works/feel-studio/**",
+      ".change-plans/feel-bridge-v03-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "data/works.js",
+      "data/lab-rooms.json",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/pumpoko/**",
+      "works/pumpoko-02/**",
+      "works/motion-lab/**",
+      "works/sukima-3d-lab/**",
+      "lab/lab.js",
+      "lab/lab.css",
+      "lab/lab-finish.css"
+    ],
+    "expectedChanges": [
+      "Reuse Desk save/history/request-response/UI while adding installed non-Canvas runtimes",
+      "Optional Bridge commands, renderer-free editable declarations and work-owned gestures; compare-only HTML without API",
+      "New self-contained work-local 2D and WebGL miniatures, separately versioned AI results created after reading actual requests",
+      "Keep old code hashes and boat/light workspace schema and namespaces; add bounded JSON state support",
+      "Test production cycles, safe imports and independent execution; document manual vs automatic and device limits"
+    ],
+    "ownerDecisions": [
+      "2026-10-13 user Feel Studio 0.3 explicitly authorizes Feel Bridge, new 2D/3D experiments, generic editing, real AI cycles, isolated branch/PR/testing/safe staging merge; no other works/Engine/Production."
+    ],
+    "hqDecisions": [
+      "User requests optional work-local Bridge contract. Reuse feel-frame/2 transport and feel-workspace/2; runtime identified by installed manifests, no source-string import, no same-origin permission. New prototypes stay inside active Feel Studio work."
+    ],
+    "rulesApplied": [
+      "AGENTS: active/staging-only; no production promotion or town installation",
+      "CHANGE-PLAN Full risk floor for lifecycle JSON and generated LAB; lock first",
+      "Existing MotionRunner handles pointers/visibility/resize/120Hz; no new common runtime",
+      "Record test environment truthfully; no physical iPhone claim"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "2D/WebGL public or local real browser direct edit/play/save/AI return/compare/adopt/branch",
+      "Third compare-only HTML loads without Bridge or parent code change",
+      "390px viewport and independent launch",
+      "Record actual observed hashes and author-proxy limits"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this PR; new project namespaces unused; existing 0.2 JSON and code remain supported.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Production",
+      "Existing works or shared Engine edits",
+      "Automatic AI communication",
+      "General game editor",
+      "New CI infrastructure"
+    ],
+    "unverified": [
+      "Physical iPhone Safari feel and performance",
+      "Author adoption"
+    ],
+    "problem": "0.2 requires a fixed Canvas and StudioPrototype wrapper, preventing renderer/input ownership.",
+    "currentContract": "Desk immutable histories and verified sandbox frames exist; only feel-frame/2.0.0 fixed Canvas builds launch.",
+    "whyExistingIsInsufficient": "A renderer-free optional capability interface and installed HTML source manifest are required.",
+    "design": "Work owns loop/render/input/state validation and mapping. Bridge transports optional operations; Studio generates declared controls and owns history/comparison/AI request flow.",
+    "migration": "No rewrite of boat/light saved data or archived 0.1. Bounded generic JSON shape added for new projects only; old protocol remains.",
+    "compatibility": "No existing works, MotionRunner, Engine, Production or global runtime changes. Original code revisions remain playable.",
+    "promotionRisk": "Staging only; physical device and author adoption remain separate.",
+    "alternativesRejected": [
+      "Do not add disc presets",
+      "Do not execute imported code or arbitrary URLs",
+      "Do not label pending code synthesis as a running variant"
+    ],
+    "boundaryCases": [
+      "No editor/no pause capabilities",
+      "Hidden compare-only frame destruction",
+      "Stale nonce/frame messages and async switch",
+      "Malformed/oversized JSON, incompatible state, edited source hashes",
+      "Bridge async hook errors and cancelled gestures",
+      "3D WebGL unavailable/context lost"
+    ],
+    "testPlan": [
+      "Prior 0.2 and legacy regressions",
+      "Bridge security/capabilities/state/manifest and 2D/3D request cycles",
+      "Actual browser and exact-SHA CI/Pages"
+    ]
+  }
+}

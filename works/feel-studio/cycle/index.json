@@ -10,5 +10,17 @@
     "project": "boat",
     "workspace": "./cycle/workspace.json",
     "response": "./cycle/response.json"
+  },
+  {
+    "title": "2D Bridge制作往復を読み込む",
+    "project": "paper",
+    "workspace": "./cycle-v3/paper-source-workspace.json",
+    "response": "./cycle-v3/paper-response.json"
+  },
+  {
+    "title": "3D Bridge制作往復を読み込む",
+    "project": "drawer",
+    "workspace": "./cycle-v3/drawer-source-workspace.json",
+    "response": "./cycle-v3/drawer-response.json"
   }
 ]

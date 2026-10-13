@@ -1,4 +1,7 @@
-# Feel Studio 0.2
+# Feel Studio 0.3
+
+作品の描画・入力・ルールを保ったまま、Feel Bridgeで制作机へ接続します。新作の接続手順は[FEEL-BRIDGE.md](./FEEL-BRIDGE.md)、実観測と制約は[VALIDATION-V03.md](./VALIDATION-V03.md)。紙をつまむ2D、WebGLの引き出し、編集APIのないDOM比較を同じ机で試せます。
+
 
 制作中の試作品を、直接編集とAIの別コードで育てる小さな作業机。
 

@@ -1,0 +1,52 @@
+{
+  "schema": "feel-work-request/2",
+  "requestId": "r-n-mv5zien3-agcci10",
+  "project": "drawer",
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "scope": "works/feel-studio/ (staging-only)",
+  "base": {
+    "nodeId": "n-mv5zien3-6mcpqkx",
+    "buildId": "drawer-a",
+    "version": "0.1.0",
+    "codeHash": "79a6fb195c702f02e8b28d5dd06ac505d2c896b986287f410e7b51a33fbf0e9b",
+    "path": "works/feel-studio/prototypes/drawer/drawer-a/app.js",
+    "config": {
+      "open": 0.38,
+      "range": 1.2,
+      "response": 0.85,
+      "camera": 0.45
+    }
+  },
+  "selections": [
+    {
+      "nodeId": "drawer-a",
+      "buildId": "drawer-a",
+      "codeHash": "79a6fb195c702f02e8b28d5dd06ac505d2c896b986287f410e7b51a33fbf0e9b",
+      "partId": "release",
+      "label": "離した後の居場所",
+      "anchor": "Drawer.target",
+      "config": {
+        "open": 0.15,
+        "range": 1,
+        "response": 0.65,
+        "camera": 0.45
+      }
+    }
+  ],
+  "comment": "指への追従は残し、離すと近い端にゆっくり収まる別コードを試したい。",
+  "locks": "元のAと直接編集した開始位置・待ち時間を残す。",
+  "keep": [
+    "drawer-a",
+    "n-mv5zien3-6mcpqkx"
+  ],
+  "returnContract": {
+    "schema": "feel-work-response/2",
+    "requestId": "same requestId",
+    "project": "drawer",
+    "buildId": "installed catalog build",
+    "codeHash": "installed model SHA256",
+    "config": "validated config",
+    "summary": "what actually changed"
+  },
+  "inputComparisonLimit": "模型側が投影したZ軸に沿ってつまみを引く。画面座標をそのまま3D座標にしない。"
+}
