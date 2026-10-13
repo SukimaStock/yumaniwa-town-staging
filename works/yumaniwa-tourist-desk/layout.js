@@ -1,0 +1,23 @@
+// Positions are authored as a desk in use, never a collection grid. +z is the visitor.
+export const LAYOUT = [
+ {number:232,id:'rotary-dial-telephone',x:-1.25,z:-1.65,size:1.22,yaw:-.12,label:'黒電話',material:'machine'},
+ {number:128,id:'desktop-fan',x:-2.47,z:-2.05,size:.82,yaw:.15,label:'卓上扇風機',material:'machine'},
+ {number:233,id:'tilting-reading-lamp',x:2.18,z:-1.2,size:1.1,yaw:-.3,label:'卓上照明',material:'metal'},
+ {number:103,id:'mail-sorting-trays',x:.32,z:-1.86,size:1.1,yaw:.07,label:'書類整理トレー',material:'paper'},
+ {number:212,id:'folding-service-shelf',x:2.22,z:-2.48,size:.9,yaw:0,mount:true,label:'折り畳み棚',material:'wood'},
+ {number:115,id:'twin-bookends',x:1.02,z:-.91,size:.9,yaw:-.03,label:'本立て',material:'wood'},
+ {number:119,id:'school-globe',x:-2.32,z:-.65,size:.83,yaw:.12,label:'地球儀',material:'wood'},
+ {number:208,id:'three-leaf-succulent',x:2.65,z:.21,size:.59,yaw:0,pot:true,label:'多肉植物',material:'wood'},
+ {number:78,id:'ticket-stamper',x:-.92,z:-.13,size:.94,yaw:-.15,press:true,label:'観光記念スタンプ',material:'machine'},
+ {number:132,id:'folding-reading-stand',x:.44,z:.17,size:.96,yaw:.1,label:'案内書の台',material:'paper'},
+ {number:214,id:'turning-hourglass',x:1.53,z:.49,size:.68,yaw:-.13,label:'砂時計',material:'wood'},
+ {number:135,id:'desk-stapler',x:-.05,z:1.2,size:.75,yaw:-.6,press:true,label:'ホチキス',material:'machine'},
+ {number:116,id:'folded-newspaper',x:-1.57,z:1.13,size:1.02,yaw:.26,label:'古新聞',material:'paper'},
+ {number:198,id:'old-spectacle-frame',x:-1.62,z:1.93,size:.87,yaw:-.16,flat:true,label:'眼鏡',material:'metal'},
+ {number:148,id:'warded-key',x:-.54,z:2.22,size:.6,yaw:.54,flat:true,label:'古い鍵',material:'metal'},
+ {number:283,id:'sliding-matchbox',x:.85,z:2.02,size:.88,yaw:.16,label:'マッチ箱',material:'paper'},
+ {number:177,id:'brass-whistle',x:1.91,z:2.03,size:.54,yaw:-.39,label:'真鍮の笛',material:'metal'},
+ {number:280,id:'carved-chess-knight',x:2.08,z:1.22,size:.51,yaw:-.4,label:'木製の馬の駒',material:'wood'},
+ {number:289,id:'wooden-toy-sailboat',x:-2.37,z:.51,size:.84,yaw:.44,label:'小さな帆船',material:'wood'},
+ {number:143,id:'paper-boat',x:-2.57,z:2.1,size:.59,yaw:-.2,label:'紙の舟',material:'paper'},
+];
