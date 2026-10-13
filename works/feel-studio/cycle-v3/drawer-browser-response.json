@@ -1,0 +1,14 @@
+{
+  "schema": "feel-work-response/2",
+  "project": "drawer",
+  "requestId": "r-n-mv60mi1k-h2pcs91",
+  "buildId": "drawer-d",
+  "codeHash": "54e27e82fa80108aca797fa9557ac2c15ca21e98319e0612ec7ab78b00455a95",
+  "config": {
+    "open": 0.5793420161609453,
+    "range": 1.05,
+    "response": 0.7,
+    "camera": 0.45
+  },
+  "summary": "実画面の依頼を読み、ばね追従、端への収まり、半開き付近の保持を新しいDコードに実装。編集した開始姿勢・範囲・時間と元A/B/Cを保持。"
+}
