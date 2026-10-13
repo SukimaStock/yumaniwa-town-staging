@@ -1,6 +1,6 @@
-# Collection 08 · 100–109 real100 checkpoint — 2026-10-13
+# Collection 08 · 湯間庭町の小さな模型100–109 — 2026-10-13
 
-Authorized continuation from99 after PR322 merged209399f, exact Pages38338619784, automatic review3db9524 without findings. Latest main/AGENTS/guide/99 definitions/town palette/local skill availability reviewed. New plan-only1a8b2fe precedes source in Draft PR323. Existing99 entry/JSON SHA256 snapshot is `tests/collection07-baseline.json`; implicit00–15 numbering and missing16 stay unchanged. Only100 `split-firewood` 軒下の割り薪 is registered at this checkpoint. Candidate100 is not yet the published formal count (99 until merge).
+Authorized continuation from99 after PR322 merged209399f, exact Pages38338619784, automatic review3db9524 without findings. Latest main/AGENTS/guide/99 definitions/town palette/local skill availability reviewed. New plan-only1a8b2fe precedes source in Draft PR323. Existing99 entry/JSON SHA256 snapshot is `tests/collection07-baseline.json`; implicit00–15 numbering and missing16 stay unchanged. At the retained intermediate checkpoint only100 `split-firewood` 軒下の割り薪 was registered. The published formal count remains99 until this batch merges.
 
 Before101, run unchanged `tests/measure-collection.cjs --expected-count 100 --trials 3 --out /workspace/scratch/sukima-batch08/perf-100.json` without competing jobs, compare99 baseline, and investigate software graphics versus JS/preview/DOM costs separately. Performance tool/runtime/schema/gates remain byte-identical. Do not continue to101–109 with an unresolved major performance issue. A proven necessary optimization requires a separate Plan/PR; keep this data branch and failure evidence intact.
 
@@ -22,7 +22,30 @@ Separate100 desktop scroll diagnosis, baseline flags:4.700s wall, main-thread Ta
 
 **Milestone decision:** no reproducible major99→100 regression, missing content, unusable input or retained-memory escalation was observed. Continue101–109 without a performance PR; do not preemptively alter loading/schema/gates. Reassess at109 and future milestones using the same profiles and distinguish machine/backend drift. The100 intermediate is retained in Git and raw logs; candidate109 remains unmerged until final review/CI/Pages steps.
 
-Planned distinct remaining forms:101 print roller rotateX;102 clothespin hingeZ;103 two independent sorting trays linearZ;104 ring door knocker hingeX;105 shelf fungus STATIC;106 sweet potato TOUCH;107 field rattle MOTION swingX;108 stone water basin STATIC;109 bicycle stand STATIC. Total4STATIC/1TOUCH/1MOTION/4MANIPULATION,5 controls. All prior protections and actual mouse/CDP touch/native/clearance/review/CI/exactSHA Pages requirements continue. Evidence/checkpoint `/workspace/scratch/sukima-batch08/`; final outcome will be recorded here and PR323. No Production/town/shared2D changes; physical iPhone/Safari and author adoption unverified.
+After the successful real100 assessment,101–109 were authored; final candidate109. The four STATIC forms, one TOUCH, one MOTION and four MANIPULATION forms use5 independent controls (rotate1/hinge2/linear2), differing in mass, openings, asymmetry, natural/artificial surfaces and depth/lateral movement.
+
+| No. / ID / name | Mode | Form / authored range |
+| --- | --- | --- |
+|100 `split-firewood` 軒下の割り薪 | STATIC | Three uneven split logs with distinct cut-face colors and a stacked outline; distinct from the old forked bough. |
+|101 `print-roller` 版画室の手回しローラー | MANIPULATION rotate X | Drum, axle, open handwheel and eccentric grip form one rigid rotation assembly above a fixed stand; initial.25rad. No linked gears/printing simulation. |
+|102 `wooden-clothespin` 庭の大きな洗濯ばさみ | MANIPULATION hinge Z−.28…0 | Broad asymmetrical jaws, separate fixed pin/spring; upper jaw starts−.08rad. No automatic spring return. |
+|103 `mail-sorting-trays` 郵便室の二段仕分け盆 | MANIPULATION two linear Z0….40 | Independent deep trays on separate rails, initial.05/.20; broad inset grips and floor lips. Both can be picked and retained at arbitrary intermediate positions. |
+|104 `door-knocker` 古い戸の輪金具 | MANIPULATION hinge X−1…0 | Hollow oval polygon ring swings out from a fixed plate, initial−.12rad; no audio. Slight lower viewing angle keeps the initial opening gesture away from a projection reversal. |
+|105 `bracket-fungus` 木陰の棚きのこ | STATIC | Three unequal semicircular shelves grow from an angular stump; different heights and slants. |
+|106 `sweet-potato` 焼き芋屋のふかし芋 | TOUCH | Elongated asymmetric convex potato, muted purple and conservative press.09/pull.20 limits. |
+|107 `field-rattle` 畑の二枚鳴子 | MOTION swing X | Two separate broad clappers on one frame, ±.18rad/4.8s with distinct phases. Deliberate gaps; no contact/audio/wind simulation. |
+|108 `stone-water-basin` 庭の石の手水鉢 | STATIC | One closed thick-walled irregular basin with a real cavity and recessed floor, not a convex solid substitute. |
+|109 `bicycle-stand` 駅前の自転車留め | STATIC | Two unequal-height U-shaped open hoops and a common broad foot. |
+
+## Final validation and next checkpoint
+
+- Five historical exact-count assertions99→100→109 are the only old test edits; previous batch slices and all old goldens stay fixed. New immutable99 test protects complete entries/JSON byte hashes, normalized implicit00–15 numbering, missing16, uniqueness/order and≤1000. The complete109 work suite has261 tests; lifecycle24. Final outcomes are in the evidence directory and PR323.
+- Clearance:1,495 configurations including each full control range/cycle and the25×25 independent tray combinations;58,110 component-pair comparisons. Final rerun follows the handle/floor refinements. No unsupported linkage, parenting, collision solver or per-artwork executable code.
+- Visual/native feedback changed only new data: roller grip widened/embedded into the wheel; trays received a slight projecting floor lip and inset handles so shared outside faces no longer overlap; knocker initial viewing pitch moved below the near-face-on projection reversal. Initial roller GPU/CPU discrepancy was isolated to a foreground grip facet within−0.000084 barycentric distance of a pixel boundary (the unobscured interior facet agreed exactly). No renderer/preview/checker threshold changed. Failed logs and pre-refinement JSON remain in scratch.
+- Actual mouse/CDP touch checks cover all5 controls: no jump, tiny forward/reverse, hold, limits and same-capture overtravel reversal, fixed-part whole rotation, re-picking after settled rotation, reset and switching. The changed tray geometry receives a separate final two-control rerun. STATIC/TOUCH/MOTION pause/reset/deformation recovery, card navigation and three viewports are included. Physical iPhone/Safari and author adoption remain unverified.
+- Native full-collection exact shaders/coverage/CPU-preview/reset gates, final109 performance comparison, Scope→Risk→Impact, CI, self-review, automatic review, merge-tree identity and exact-SHA Pages outcome must all complete before declaring this batch done. Final immutable outcome and performance figures: [PR323](https://github.com/SukimaStock/yumaniwa-town-staging/pull/323). Evidence and resumable handoff: `/workspace/scratch/sukima-batch08/`.
+- **Next checkpoint110–119 only after PR323 outcome is successful.** Fetch latest main, confirm formal109 and unchanged prior objects, then use min(10,1000−count). Exactly1000 remains the stop. No Production/town/shared2D/other-work/runtime/schema/gate/measurement-tool changes. The parent performs public confirmation; known container proxy403 is not retried.
+
 
 ---
 
