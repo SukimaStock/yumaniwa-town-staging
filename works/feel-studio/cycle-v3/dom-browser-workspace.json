@@ -1,0 +1,45 @@
+{
+  "schema": "feel-workspace/2",
+  "project": "dom",
+  "nodes": [
+    {
+      "id": "dom-a",
+      "title": "A · すぐ開く",
+      "buildId": "dom-a",
+      "codeHash": "9fb495e93aeb8e7743030b6ec399511bc7cf880e84c6787cb1bedb25be4b1740",
+      "parent": null,
+      "config": {},
+      "kind": "implementation",
+      "decision": "hold",
+      "provenance": []
+    },
+    {
+      "id": "dom-b",
+      "title": "B · 余韻で開く",
+      "buildId": "dom-b",
+      "codeHash": "2a791911ba05b9291b2aceea02759d72f211e8954e5eaf225a928e8acd9f2ebe",
+      "parent": null,
+      "config": {},
+      "kind": "implementation",
+      "decision": "hold",
+      "provenance": []
+    },
+    {
+      "id": "n-mv6057ib-60it3iz",
+      "title": "A · すぐ開くから",
+      "buildId": "dom-a",
+      "codeHash": "9fb495e93aeb8e7743030b6ec399511bc7cf880e84c6787cb1bedb25be4b1740",
+      "parent": "dom-a",
+      "config": {},
+      "kind": "author-edit",
+      "decision": "adopt",
+      "provenance": []
+    }
+  ],
+  "drafts": {},
+  "left": "n-mv6057ib-60it3iz",
+  "right": "dom-b",
+  "requests": [],
+  "completed": [],
+  "tape": null
+}
