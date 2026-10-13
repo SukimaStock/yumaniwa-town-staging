@@ -1,6 +1,6 @@
 import {Renderer} from '../sukima-3d-lab/engine/renderer.js?v=0.7.1';
 import {rotationMatrix,rotate} from '../sukima-3d-lab/engine/math.js?v=0.7.1';
-import {furniture} from './scene.js?v=0.3';
+import {furniture} from './scene.js?v=0.3.1';
 // Reuse the exact Lab shader/program/VAO. Extend frame ownership only here.
 export class DeskRenderer extends Renderer {
  constructor(canvas,scene){super(canvas);this.scene=scene;this.upload();}

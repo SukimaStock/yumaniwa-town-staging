@@ -1,0 +1,45 @@
+{
+  "schema": "yumaniwa-verification-record/0.2",
+  "changeId": "tourist-desk-camera-refine-20261013",
+  "planDigest": "d5750508ee7d698e6510147975a21919fcded3967cf91dd1423287476d37390f",
+  "planRevision": 0,
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "change": "Refine pinch camera motion to approach the desk with a shallower angle, hide bottom view/audio labels, and document absent tap focus.",
+  "environment": "staging",
+  "baseSha": "5b64a397902d6696bbab472c6b7f95be7e082524",
+  "verifiedSha": "ace70d8b48ec485080296176d1ff41f706c919d0",
+  "recordedAt": "2026-10-13T18:29:54.678759+00:00",
+  "recordedBy": "Codex Node source/input fixture and offscreen Mesa/EGL; no real-browser/device attestation",
+  "conditionalAcknowledgements": [],
+  "staticChecks": [
+    {
+      "id": "node-syntax",
+      "status": "pass",
+      "evidence": "node --check app.js/scene.js/peek-zoom.js and executed ESM tests; git diff --check"
+    }
+  ],
+  "impactChecks": [
+    {
+      "id": "work.runtime",
+      "status": "pass",
+      "evidence": "24 work tests PASS: camera distance/pitch continuity and exact return, depth-dependent perspective, maximum zoom phone/stamp picking at four sizes; existing real-app fake DOM event fixture preserves object/pinch ownership. Bottom controls always CSS-hidden."
+    },
+    {
+      "id": "work.regression",
+      "status": "pass",
+      "evidence": "75 existing Lab manipulation/motion and 20 SSE audio lifecycle tests PASS; Scope/Risk/Impact and lifecycle PASS; shared Engine, Lab, all models and other works unchanged."
+    }
+  ],
+  "manualChecks": [
+    {
+      "id": "Initial/middle/close offscreen portrait camera sequence",
+      "status": "pass",
+      "evidence": "16 exact-shader Mesa/EGL frames in four sizes; GL error 0. Initial/middle/max portrait montage visually inspected, models grow and shallower angle remains coherent. Offscreen rendering only, no browser claim."
+    },
+    {
+      "id": "Physical iPhone/iPad camera feel and gestures: UNVERIFIED",
+      "status": "unverified",
+      "evidence": "Physical Safari/iPhone/iPad touch feel and actual browser audio not observed; device validation remains open."
+    }
+  ]
+}

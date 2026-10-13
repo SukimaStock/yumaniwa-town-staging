@@ -1,0 +1,107 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d5750508ee7d698e6510147975a21919fcded3967cf91dd1423287476d37390f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tourist-desk-camera-refine-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "5b64a397902d6696bbab472c6b7f95be7e082524",
+    "change": "Refine pinch camera motion to approach the desk with a shallower angle, hide bottom view/audio labels, and document absent tap focus.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "Current user camera-work refinement instruction",
+      "works/yumaniwa-tourist-desk/**"
+    ],
+    "allowedPaths": [
+      "works/yumaniwa-tourist-desk/**",
+      ".change-plans/tourist-desk-camera-refine-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/sukima-3d-lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/pumpoko/**"
+    ],
+    "expectedChanges": [
+      "Replace lens-only scaling with continuous distance/pitch/fov interpolation",
+      "Keep initial composition and reverse pinch return; no free pan or camera rotation controls",
+      "Hide both view-reset and sound controls as requested; audio default unchanged",
+      "Confirm tap focus was never implemented and retain ordinary object tap behavior without automatic focus",
+      "Update camera/picking and interaction tests, three-state rendering and verification evidence"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly authorizes camera refinement, label hiding and focus cleanup; existing session authorizes Staging tests, PR, safe merge and Pages."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Work-local standard locked route",
+      "No shared Camera/Renderer/Engine changes",
+      "Tap-focus absence is documented, not misreported as a repaired feature"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Initial/middle/close offscreen portrait camera sequence",
+      "Physical iPhone/iPad camera feel and gestures: UNVERIFIED"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work-only patch to initial 0.3.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Shared Engine / 3D Lab / model definitions / other works / Production",
+      "Free camera, pan, roaming, or automatic object focus",
+      "New sound/model features or saved camera state"
+    ],
+    "unverified": [
+      "Physical Safari/iPhone/iPad feel and sound"
+    ],
+    "problem": "Lens-only zoom reads as enlarged imagery; user wants a physical approach and fewer UI labels.",
+    "currentContract": "Bounded two-finger zoom with one-finger objects, hidden-input drain and optional audio.",
+    "whyExistingIsInsufficient": "0.3 changes only fov and intentionally omitted tap focus; view/audio labels are no longer desired.",
+    "design": "Interpolate authored camera distance and pitch with a smoothstep of bounded zoom, retain slight lens adjustment and initial exact pose. Hide existing bottom controls; zoom-out restores the view. Preserve ordinary taps and input separation.",
+    "migration": "No state or URL changes; update only work asset queries.",
+    "compatibility": "Original models/parts/audio and pinch ownership remain. No new tap gesture is assigned.",
+    "promotionRisk": "Staging only.",
+    "alternativesRejected": [
+      "Free camera viewer",
+      "Unstable tap focus competing with object taps",
+      "Automatic unmuting merely because the sound label is hidden"
+    ],
+    "boundaryCases": [
+      "Initial/middle/max camera continuity",
+      "Zoom-out exact return",
+      "Picking and static-prop drag use the current camera pitch",
+      "Hidden controls do not reappear at larger zoom",
+      "Ordinary taps change parts, not camera"
+    ],
+    "testPlan": [
+      "Camera endpoint/continuity/size/picking tests and actual app event fixture",
+      "Three camera states plus manipulation in four viewport sizes",
+      "Existing scene/manipulation/motion/audio regressions",
+      "Source/UI visibility review",
+      "Scope/Risk/Impact, CI, Pages/public byte verification"
+    ]
+  }
+}

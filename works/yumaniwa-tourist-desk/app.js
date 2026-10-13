@@ -1,6 +1,6 @@
-import {PinchZoom} from './peek-zoom.js?v=0.3';
-import {loadDesk,DESK} from './scene.js?v=0.3';
-import {DeskRenderer} from './renderer.js?v=0.3';
+import {PinchZoom} from './peek-zoom.js?v=0.3.1';
+import {loadDesk,DESK} from './scene.js?v=0.3.1';
+import {DeskRenderer} from './renderer.js?v=0.3.1';
 import {manipulationMapping} from '../sukima-3d-lab/engine/manipulation-mapping.js?v=0.7.1';
 const canvas=document.querySelector('canvas'),hint=document.querySelector('.invitation'),error=document.querySelector('.error'),soundButton=document.querySelector('.sound'),resetButton=document.querySelector('.view-reset');
 let scene,renderer,gesture=null,frame=0,previous=0,lost=false,sound=false,lastSound=0;
@@ -23,7 +23,7 @@ function down(e){if(!scene||lost||gesture||e.button>0)return;const rect=canvas.g
  if(item.entry.press&&control){control.value=item.id==='ticket-stamper'?control.min:control.max;tick(item.entry.material);}canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing';hint.classList.add('faded');if(sound)readyAudio();}
 function move(e){if(!gesture||gesture.pointer!==e.pointerId)return;e.preventDefault();const g=gesture,dt=Math.max(.001,(e.timeStamp-g.time)/1000),dx=e.clientX-g.x,dy=e.clientY-g.y;g.moved+=Math.hypot(dx,dy);
  if(g.control&&!g.item.entry.press)g.item.player.moveBy(g.control.part,g.mapping.delta(e.clientX+g.offsetX,e.clientY+g.offsetY),dt);
- else if(!g.control&&g.moved>4){const units=2*scene.camera.distance*Math.tan(scene.camera.fov/2)/g.rect.height;g.item.position[0]=Math.max(-DESK.halfWidth+.45,Math.min(DESK.halfWidth-.45,g.position[0]+(e.clientX-g.startX)*units));g.item.position[2]=Math.max(-DESK.halfDepth+.4,Math.min(DESK.halfDepth-.4,g.position[2]+(e.clientY-g.startY)*units/Math.cos(.78)));g.item.position[0]=Math.max(g.item.home[0]-.28,Math.min(g.item.home[0]+.28,g.item.position[0]));g.item.position[2]=Math.max(g.item.home[2]-.28,Math.min(g.item.home[2]+.28,g.item.position[2]));}
+ else if(!g.control&&g.moved>4){const units=2*scene.camera.distance*Math.tan(scene.camera.fov/2)/g.rect.height;g.item.position[0]=Math.max(-DESK.halfWidth+.45,Math.min(DESK.halfWidth-.45,g.position[0]+(e.clientX-g.startX)*units));g.item.position[2]=Math.max(-DESK.halfDepth+.4,Math.min(DESK.halfDepth-.4,g.position[2]+(e.clientY-g.startY)*units/Math.cos(scene.pitch)));g.item.position[0]=Math.max(g.item.home[0]-.28,Math.min(g.item.home[0]+.28,g.item.position[0]));g.item.position[2]=Math.max(g.item.home[2]-.28,Math.min(g.item.home[2]+.28,g.item.position[2]));}
  if(g.moved>4&&!g.item.entry.press)tick(g.item.entry.material);g.x=e.clientX;g.y=e.clientY;g.time=e.timeStamp;}
 function up(e){if(!gesture||gesture.pointer!==e.pointerId)return;e.preventDefault();const g=gesture;
  if(g.moved<5&&!g.item.entry.press){if(g.control){const c=g.control;c.value=c.type==='rotate'?c.value+.65:c.value>(c.min+c.max)/2?c.min:c.max;tick(g.item.entry.material);}else if(g.item.motion){g.item.motion.setPlaying(!g.item.motion.playing);tick('machine');}else {g.item.position[0]=Math.max(g.item.home[0]-.28,Math.min(g.item.home[0]+.28,g.item.position[0]+(g.item.position[0]>g.item.home[0]?.06:-.06)));tick(g.item.entry.material);}}
