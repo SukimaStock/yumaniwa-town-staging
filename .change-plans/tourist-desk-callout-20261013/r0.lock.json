@@ -1,0 +1,102 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "72649210156c3c3b01e036063c1581bf7578a6bd6abe0001d66ddcb1f651ab2d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tourist-desk-callout-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "406f74b1400d46fd5f34e4740d599c70ff788b08",
+    "change": "Suppress native iOS long-press loupe, text selection, copy callouts and drag previews in tourist desk only.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "Current user request to block magnifier/copy interference",
+      "works/yumaniwa-tourist-desk/app.js",
+      "works/yumaniwa-tourist-desk/style.css"
+    ],
+    "allowedPaths": [
+      "works/yumaniwa-tourist-desk/**",
+      ".change-plans/tourist-desk-callout-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/sukima-3d-lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/pumpoko/**"
+    ],
+    "expectedChanges": [
+      "Disable user selection and WebKit touch callouts on all work elements",
+      "Prevent contextmenu/selectstart/dragstart defaults at work document only; preserve pointer and sound handlers",
+      "Bump stylesheet/app query version to refresh cached changes",
+      "Record source verification and explicit physical iOS limit"
+    ],
+    "ownerDecisions": [
+      "Current user explicitly requests suppression of magnifier/copy interference; existing session authorizes Staging patch, CI and publication."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Work-local reversible fix",
+      "Existing minified HTML/CSS diff contains unchanged shared-script/top tokens, so use standard locked work route rather than bypass conservative contract classifier"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone/Safari long press and native copy menu suppression: UNVERIFIED"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this three-file work patch and query versions.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Any shared Engine, model, 3D Lab, other work or Production changes",
+      "Viewport maximum-scale/user-scalable restrictions",
+      "New model or scene changes"
+    ],
+    "unverified": [
+      "Physical Safari/iPhone/iPad native loupe and copy menu behavior"
+    ],
+    "problem": "Native selection loupe/copy menu can interrupt direct toy interaction.",
+    "currentContract": "Pointer capture operates existing miniatures; text content and button are ordinary DOM nodes.",
+    "whyExistingIsInsufficient": "Only canvas user-select/contextmenu prevention exists; WebKit callout and whole-work text selection are not suppressed.",
+    "design": "Apply CSS user-select and -webkit-touch-callout none to every element and prevent only native contextmenu/selectstart/dragstart defaults; do not cancel pointerdown or button click globally.",
+    "migration": "None; keep existing audio and work storage.",
+    "compatibility": "Pointer handlers and audio logic preserved; only unwanted native UI defaults suppressed.",
+    "promotionRisk": "Staging only.",
+    "alternativesRejected": [
+      "Global touchstart prevention that could suppress buttons",
+      "Disabling viewport zoom",
+      "Editing shared Engine"
+    ],
+    "boundaryCases": [
+      "Long press over canvas, text and sound button",
+      "Pointer capture and button click remain intact",
+      "Cached CSS/app reload"
+    ],
+    "testPlan": [
+      "node syntax and whitespace validation",
+      "Source diff review verifies pointer handlers and audio logic untouched",
+      "Related trusted CI",
+      "Public files HTTP200 and exact byte match"
+    ]
+  }
+}

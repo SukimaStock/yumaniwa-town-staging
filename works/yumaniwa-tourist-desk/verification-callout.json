@@ -1,0 +1,40 @@
+{
+  "schema": "yumaniwa-verification-record/0.2",
+  "changeId": "tourist-desk-callout-20261013",
+  "planDigest": "72649210156c3c3b01e036063c1581bf7578a6bd6abe0001d66ddcb1f651ab2d",
+  "planRevision": 0,
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "change": "Suppress native iOS long-press loupe, text selection, copy callouts and drag previews in tourist desk only.",
+  "environment": "staging",
+  "baseSha": "406f74b1400d46fd5f34e4740d599c70ff788b08",
+  "verifiedSha": "7a297a14a67257ab561b8d9bb19ee87122f5279d",
+  "recordedAt": "2026-10-13T17:28:36.328150+00:00",
+  "recordedBy": "Codex source/syntax review; no physical-device claim",
+  "conditionalAcknowledgements": [],
+  "staticChecks": [
+    {
+      "id": "node-syntax",
+      "status": "pass",
+      "evidence": "node --check app.js; git diff --check"
+    }
+  ],
+  "impactChecks": [
+    {
+      "id": "work.runtime",
+      "status": "pass",
+      "evidence": "work-only CSS selection/callout prevention and three cancelable DOM defaults; pointer down/move/up and sound/button/frame functions preserved byte-identically"
+    },
+    {
+      "id": "work.regression",
+      "status": "pass",
+      "evidence": "source comparison of complete audio/gesture/frame/lifecycle/key and button handling; shared modules and model layout unchanged; Scope/Risk/Impact PASS"
+    }
+  ],
+  "manualChecks": [
+    {
+      "id": "iPhone/Safari long press and native copy menu suppression: UNVERIFIED",
+      "status": "unverified",
+      "evidence": "Physical iPhone/Safari long-press loupe and copy menu suppression not directly observed"
+    }
+  ]
+}

@@ -22,7 +22,9 @@ function move(e){if(!gesture||gesture.pointer!==e.pointerId)return;e.preventDefa
 function up(e){if(!gesture||gesture.pointer!==e.pointerId)return;e.preventDefault();const g=gesture;
  if(g.moved<5&&!g.item.entry.press){if(g.control){const c=g.control;c.value=c.type==='rotate'?c.value+.65:c.value>(c.min+c.max)/2?c.min:c.max;tick(g.item.entry.material);}else if(g.item.motion){g.item.motion.setPlaying(!g.item.motion.playing);tick('machine');}else {g.item.position[0]=Math.max(g.item.home[0]-.28,Math.min(g.item.home[0]+.28,g.item.position[0]+(g.item.position[0]>g.item.home[0]?.06:-.06)));tick(g.item.entry.material);}}
  g.item.player.release?.(e.timeStamp-g.time<100);if(g.item.entry.press&&g.control)g.item.returning={part:g.control.part,value:g.control.initial};if(canvas.hasPointerCapture(g.pointer))canvas.releasePointerCapture(g.pointer);gesture=null;canvas.style.cursor='default';}
-canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',cancel);canvas.addEventListener('lostpointercapture',cancel);canvas.addEventListener('contextmenu',e=>e.preventDefault());
+canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',cancel);canvas.addEventListener('lostpointercapture',cancel);
+// Suppress native text selection, copy menus and drag previews across the work.
+for(const type of ['contextmenu','selectstart','dragstart'])document.addEventListener(type,e=>e.preventDefault());
 function loop(time){frame=0;if(document.hidden||lost||!scene)return;scene.step(previous?Math.min(.05,(time-previous)/1000):0);previous=time;renderer.draw();frame=requestAnimationFrame(loop);}
 function start(){if(!frame&&!document.hidden&&!lost&&scene){previous=0;audio.resumeFromLifecycle();frame=requestAnimationFrame(loop);}}
 function pause(){cancel();cancelAnimationFrame(frame);frame=0;previous=0;audio.pauseForLifecycle();}
