@@ -1,0 +1,62 @@
+{
+  "schema": "yumaniwa-verification-record/0.2",
+  "changeId": "feel-studio-v04-browser-finish-20261013",
+  "planDigest": "e1b41074b41c08523cacb1cc1ce87fd7aedeb035d2cd4e98fdf2cfecac9cf78d",
+  "planRevision": 0,
+  "repository": "SukimaStock/yumaniwa-town-staging",
+  "change": "Finish browser-observed Touch & Tune usability: keep work visible while tuning at mobile/landscape widths, correct request comparison description, preserve every immutable build and record public QA.",
+  "environment": "staging",
+  "baseSha": "40730bdd1d2d6883cd3010f473351f02ed84e115",
+  "verifiedSha": "cfc706d8af1b0ff92b5c3190cf7d10018c20dcfb",
+  "recordedAt": "2026-10-13T06:40:24.583246+00:00",
+  "recordedBy": "Codex: actual public cloud Chrome interaction; Node numerical checks separately",
+  "conditionalAcknowledgements": [],
+  "staticChecks": [
+    {
+      "id": "node-syntax",
+      "status": "pass",
+      "evidence": "Changed Studio JS parsed; all immutable manifests match; Touch & Tune11 groups and old suites PASS. PR333 trusted CI checks success."
+    }
+  ],
+  "impactChecks": [
+    {
+      "id": "work.runtime",
+      "status": "pass",
+      "evidence": "Studio-only correction; no original Ametsugi, A/B assets, hashes, Engine/Motion/3D or Production changes. VALIDATION-V04.md states evidence boundary."
+    },
+    {
+      "id": "work.regression",
+      "status": "pass",
+      "evidence": "Studio-only correction; no original Ametsugi, A/B assets, hashes, Engine/Motion/3D or Production changes. VALIDATION-V04.md states evidence boundary."
+    },
+    {
+      "id": "risk.high-risk-review",
+      "status": "pass",
+      "evidence": "Studio-only correction; no original Ametsugi, A/B assets, hashes, Engine/Motion/3D or Production changes. VALIDATION-V04.md states evidence boundary."
+    },
+    {
+      "id": "runtime.regression",
+      "status": "pass",
+      "evidence": "Studio-only correction; no original Ametsugi, A/B assets, hashes, Engine/Motion/3D or Production changes. VALIDATION-V04.md states evidence boundary."
+    }
+  ],
+  "manualChecks": [
+    {
+      "id": "Public browser sticky work and LIVE controls at390x844 and844x390",
+      "status": "pass",
+      "evidence": "Actual public Chrome at390x844 and844x390 after Pages38356664449. LIVE controls and sticky work visible, request current config/limits verified. Initial full browser cycle at e57e97e retained. See VALIDATION-V04.md and two screenshots."
+    },
+    {
+      "id": "Browser comparison, RESTART, default/undo, request description and old work launch",
+      "status": "pass",
+      "evidence": "Actual public Chrome at390x844 and844x390 after Pages38356664449. LIVE controls and sticky work visible, request current config/limits verified. Initial full browser cycle at e57e97e retained. See VALIDATION-V04.md and two screenshots."
+    }
+  ],
+  "verificationState": "UNVERIFIED",
+  "unverified": [
+    "Physical iPhone/iPad Safari",
+    "Actual finger feel and audio listening",
+    "Author adoption"
+  ],
+  "note": "Current formal state remains UNVERIFIED per CHANGE-VERIFICATION.md; v0.2 checker success is internal evidence consistency, not physical verification."
+}
