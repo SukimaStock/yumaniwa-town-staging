@@ -1,0 +1,112 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "73015f622fb31653832bbc4c9978968dbf61ca668c9b4104b639de0653127fb7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "yumaniwa-tourist-desk-02-20261013",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "3dc2d705e9d6e36ee9706aecd66c4157107de84d",
+    "change": "Refine the existing tourist reception desk to eight reused models, a close portrait composition, organized tourist papers and forgiving unambiguous touch selection.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "Current user tourist desk 0.2 instruction",
+      "works/yumaniwa-tourist-desk/**",
+      "works/sukima-3d-lab/collection.json",
+      "AGENTS.md"
+    ],
+    "allowedPaths": [
+      "works/yumaniwa-tourist-desk/**",
+      ".change-plans/yumaniwa-tourist-desk-02-20261013/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/sukima-3d-lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/pumpoko/**"
+    ],
+    "expectedChanges": [
+      "Reduce existing layout to the eight requested models, arranged by work use with open visitor space",
+      "Move the fixed camera closer and shrink header margins; keep main objects visible on portrait and landscape",
+      "Use small geometric tourist-map printing on the existing reading plate and sorted paper stacks",
+      "Add bounded screen-space miss tolerance that never overrides a direct hit on another object; preserve mechanisms/audio",
+      "Update work tests, offscreen comparison evidence and verification record"
+    ],
+    "ownerDecisions": [
+      "Current user instruction 2026-10-13 explicitly authorizes existing 0.1 refinement, required tests and passing-CI Staging PR merge and Pages publication; excludes Production."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Existing active work; changes exceed four-file small-edit route so use an immutable Plan Lock",
+      "No model, shared runtime, lifecycle, town or Production changes",
+      "Physical-device evidence cannot be inferred from offscreen rendering"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "0.1 vs 0.2 offscreen portrait comparison, landscape and tablet composition",
+      "Physical Safari/iPhone/iPad feel, sound and page return: UNVERIFIED"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work-only Staging PR to 0.1; shared modules and source models are untouched.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Model additions or definition edits",
+      "Shared Engine / 3D Lab / other work edits",
+      "Town / LAB / lifecycle / Production changes",
+      "Gameplay, camera roaming, storage, new sound mechanisms"
+    ],
+    "unverified": [
+      "Browser DOM events and Safari",
+      "Physical iPhone/iPad touch, performance, audio and lifecycle"
+    ],
+    "problem": "Author observed that the twenty-model whole-desk layout feels cluttered and too small on iPhone.",
+    "currentContract": "A single shared 3D desk with existing direct model mechanisms, fixed camera and audio is already implemented.",
+    "whyExistingIsInsufficient": "Whole-desk fit and twenty small props weaken touch targets and reception use.",
+    "design": "Retain scene assembly and renderer, author a smaller working group around stamp and map, closer portrait crop, and nearby-miss ray samples with per-object boundaries.",
+    "migration": "No saved state or URLs change. Remove twelve layout references only, never collection definitions.",
+    "compatibility": "Keep the eight original definitions, axes, ranges, fan motion and SSE audio; only work-local composition/input improves.",
+    "promotionRisk": "Staging only.",
+    "alternativesRejected": [
+      "Increasing model count",
+      "Remote whole-desk view",
+      "Adding explanatory panels"
+    ],
+    "boundaryCases": [
+      "Portrait small touch targets",
+      "Partially cropped tabletop but visible objects",
+      "Nearest direct hit must beat enlarged neighbouring targets",
+      "Pointer capture and cancel",
+      "Reading plate map follows hinge and remains non-pickable overlay"
+    ],
+    "testPlan": [
+      "Updated scene tests and source loading count",
+      "Four key models visible projected size improves >=1.5x on iPhone",
+      "Four sizes independent exact and expanded picks",
+      "Offscreen GLES comparison",
+      "Existing manipulation/motion/audio regressions",
+      "Scope Risk Impact and related trusted CI"
+    ]
+  }
+}
