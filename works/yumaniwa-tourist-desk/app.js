@@ -1,15 +1,21 @@
-import {loadDesk,DESK} from './scene.js?v=0.2';
-import {DeskRenderer} from './renderer.js?v=0.2';
+import {PinchZoom} from './peek-zoom.js?v=0.3';
+import {loadDesk,DESK} from './scene.js?v=0.3';
+import {DeskRenderer} from './renderer.js?v=0.3';
 import {manipulationMapping} from '../sukima-3d-lab/engine/manipulation-mapping.js?v=0.7.1';
-const canvas=document.querySelector('canvas'),hint=document.querySelector('.invitation'),error=document.querySelector('.error'),soundButton=document.querySelector('.sound');
+const canvas=document.querySelector('canvas'),hint=document.querySelector('.invitation'),error=document.querySelector('.error'),soundButton=document.querySelector('.sound'),resetButton=document.querySelector('.view-reset');
 let scene,renderer,gesture=null,frame=0,previous=0,lost=false,sound=false,lastSound=0;
+const zoomInput=new PinchZoom({getZoom:()=>scene?.zoom??1,setZoom:value=>{scene?.setZoom(value);updateReset();},cancelObject:()=>cancelObject(false)});
 const audio=window.SSE.audio;audio.configure(window.SSE.audio.withBaseline({storageKey:"yumaniwa-tourist-desk.sound"}));audio.enabled=false;
 // Sound is opt-in. It starts only from a user gesture; no BGM or ambient loop.
 function readyAudio(){try{audio.enabled=sound;audio.unlock();audio.resumeContext();audio.syncBusVolumes(0);}catch{sound=false;soundButton.textContent='音なし';soundButton.setAttribute('aria-pressed','false');}}
 function tick(material){const now=performance.now()/1000;if(!sound||now-lastSound<.075)return;lastSound=now;audio.tone({type:material==='metal'?'sine':'triangle',frequency:{metal:760,paper:180,wood:240,machine:125}[material]??200,endFrequency:65,duration:.075,volume:.075});}
 soundButton.addEventListener('click',async()=>{sound=!sound;await readyAudio();soundButton.textContent=sound?'音あり':'音なし';soundButton.setAttribute('aria-pressed',String(sound));if(sound)tick('wood');});
-function resize(){cancel();if(!scene||lost)return;const r=canvas.getBoundingClientRect();scene.resize(r.width,r.height);renderer.resize(r.width,r.height,Math.min(devicePixelRatio||1,1.5));renderer.draw();}
-function cancel(){if(gesture){const {item,control}=gesture;item.player.release?.(false);if(item.entry.press&&control)item.returning={part:control.part,value:control.initial};if(canvas.hasPointerCapture(gesture.pointer))canvas.releasePointerCapture(gesture.pointer);gesture=null;}canvas.style.cursor='default';}
+function resize(){cancel();if(!scene||lost)return;const r=canvas.getBoundingClientRect();scene.resize(r.width,r.height);renderer.resize(r.width,r.height,Math.min(devicePixelRatio||1,1.5));renderer.draw();updateReset();}
+function releaseCapture(id){if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);}
+function cancelObject(release=true){if(gesture){const g=gesture;gesture=null;g.item.player.release?.(false);if(g.item.entry.press&&g.control)g.item.returning={part:g.control.part,value:g.control.initial};if(release)releaseCapture(g.pointer);}canvas.style.cursor='default';}
+function cancel(){const ids=zoomInput.cancel();cancelObject();for(const id of ids)releaseCapture(id);}
+function updateReset(){resetButton.hidden=!scene||scene.zoom<=1.0001;}
+resetButton.addEventListener('click',()=>{cancel();scene?.setZoom(1);updateReset();renderer?.draw();});
 function down(e){if(!scene||lost||gesture||e.button>0)return;const rect=canvas.getBoundingClientRect(),hit=scene.pick(e.clientX,e.clientY,rect,e.pointerType==='mouse'?7:14);if(!hit)return;e.preventDefault();const item=hit.item;item.returning=null;const control=item.player.control?.(hit.part)??item.player.controls?.[0];
  const mapping=control?manipulationMapping(item.player,{...hit,part:control.part},hit.sampleX??e.clientX,hit.sampleY??e.clientY,rect,[0,0,0,1],item.localCamera(scene.camera,scene.view)):null;
  if(control)item.player.grab(control.part);
@@ -21,8 +27,13 @@ function move(e){if(!gesture||gesture.pointer!==e.pointerId)return;e.preventDefa
  if(g.moved>4&&!g.item.entry.press)tick(g.item.entry.material);g.x=e.clientX;g.y=e.clientY;g.time=e.timeStamp;}
 function up(e){if(!gesture||gesture.pointer!==e.pointerId)return;e.preventDefault();const g=gesture;
  if(g.moved<5&&!g.item.entry.press){if(g.control){const c=g.control;c.value=c.type==='rotate'?c.value+.65:c.value>(c.min+c.max)/2?c.min:c.max;tick(g.item.entry.material);}else if(g.item.motion){g.item.motion.setPlaying(!g.item.motion.playing);tick('machine');}else {g.item.position[0]=Math.max(g.item.home[0]-.28,Math.min(g.item.home[0]+.28,g.item.position[0]+(g.item.position[0]>g.item.home[0]?.06:-.06)));tick(g.item.entry.material);}}
- g.item.player.release?.(e.timeStamp-g.time<100);if(g.item.entry.press&&g.control)g.item.returning={part:g.control.part,value:g.control.initial};if(canvas.hasPointerCapture(g.pointer))canvas.releasePointerCapture(g.pointer);gesture=null;canvas.style.cursor='default';}
-canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',cancel);canvas.addEventListener('lostpointercapture',cancel);
+ g.item.player.release?.(e.timeStamp-g.time<100);if(g.item.entry.press&&g.control)g.item.returning={part:g.control.part,value:g.control.initial};gesture=null;releaseCapture(g.pointer);canvas.style.cursor='default';}
+function pointerDown(e){if(!scene||lost||e.button>0)return;const consumed=zoomInput.down(e);if(e.pointerType==='touch'){e.preventDefault();canvas.setPointerCapture(e.pointerId);}if(consumed){e.preventDefault();hint.classList.add('faded');return;}down(e);}
+function pointerMove(e){if(zoomInput.move(e)){e.preventDefault();return;}move(e);}
+function pointerUp(e){const consumed=zoomInput.end(e);if(consumed)e.preventDefault();else up(e);releaseCapture(e.pointerId);}
+function pointerAbort(e){zoomInput.end(e);if(gesture?.pointer===e.pointerId)cancelObject(false);releaseCapture(e.pointerId);}
+function pointerLost(e){if(zoomInput.points.has(e.pointerId))zoomInput.end(e);if(gesture?.pointer===e.pointerId)cancelObject(false);}
+canvas.addEventListener('pointerdown',pointerDown);canvas.addEventListener('pointermove',pointerMove);canvas.addEventListener('pointerup',pointerUp);canvas.addEventListener('pointercancel',pointerAbort);canvas.addEventListener('lostpointercapture',pointerLost);
 // Suppress native text selection, copy menus and drag previews across the work.
 for(const type of ['contextmenu','selectstart','dragstart'])document.addEventListener(type,e=>e.preventDefault());
 function loop(time){frame=0;if(document.hidden||lost||!scene)return;scene.step(previous?Math.min(.05,(time-previous)/1000):0);previous=time;renderer.draw();frame=requestAnimationFrame(loop);}

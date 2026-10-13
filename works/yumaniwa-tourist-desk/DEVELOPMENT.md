@@ -90,3 +90,21 @@ python works/sukima-3d-lab/tests/check-gles.py /tmp/tourist-desk-renders < /tmp/
 - `tests/evidence/portrait-comparison.png` は0.1／0.2の同一390×844オフスクリーン描画比較。ブラウザのスクリーンショットではなく、HTMLタイトルや接触影は含まない。
 - Browser/Safariと物理iPhone/iPadの実際のDOMイベント・触感・音・復帰はUNVERIFIED。今回の実機での採用判断は作者に委ねる。
 - 共通Engine、3D Lab、モデル原典、作品台帳、LAB、町、他作品、Productionは無変更。既存0.1の検証recordは履歴であり0.2の確認証拠ではない。
+
+## 0.3 — もう少し近くで見る（2026-10-13）
+
+1本指は既存の道具操作、2本指は1.0〜1.6倍のピンチ拡大／縮小。角度・カメラ距離・モデル位置を保ち、作品側Cameraの画角だけを変更する。パン、自由回転、通常タップでの自動フォーカスは追加しない。机を見渡す1.0倍が下限。拡大時だけ画面左下に「元の眺めへ」を表示し、道具の状態は保持して倍率だけ戻す。
+
+2本目の接触で進行中の道具操作をcancelし、スタンプ等は従来のreleaseで戻す。ピンチ中は同じ2個のpointer idが倍率を所有し、片方が離れたら残る接触が全て離れるまで道具のtap/dragを再開しない。3本目は倍率を所有しない。上限外からの反転は直ちに反応する。拡大・縮小は指の間隔の増分から計算し、指の中心移動をパンへ変換しない。
+
+pointer captureは背景への接触も保持し、キャンセル／lost capture／resize／visibility／GL loss／戻すボタンで入力を整理する。元の文字選択・コピー・長押しcalloutの抑止、既存パーツ／静かなMotion／SSE音を維持。戻すボタンのクリックと音ボタンのクリックは独立。
+
+### 0.3検証
+
+- 作品テスト22件PASS：従来11件、pinch状態・倍率・camera/pickingの10件、実appのイベント接続fixture1件。
+- イベントfixtureはNodeのfake DOM／fake rendererで実app.jsを評価する。実際のpointerdown/move/up/cancel/lostcaptureとbutton/lifecycleの接続で、道具cancel、残る指のdrain、新しい単指tap、reset、押下中スタンプ復帰、画面回転、非表示、GL loss、copy抑止、音ボタンを確認。ブラウザ試験と扱わない。
+- Camera倍率は有限な1.0〜1.6に制限。元の角度・距離・モデル行列不変、resetで投影行列が元と一致、4viewportの最大倍率で電話とスタンプの可動部が画面内で選択可能、投影幅が1.6倍になることを確認。
+- 既存Lab manipulation/motion75件、SSE audio lifecycle20件PASS。
+- 同じ実シェーダーで4サイズ×通常／操作後／最大倍率の12フレームをMesa/EGL描画、compile/link成功・GL error 0。4構図の最大倍率画像を確認。比較画像 `tests/evidence/peek-zoom-comparison.png` はオフスクリーンの倍率比較であり、HTML UI／接触影／ブラウザ画面は含まない。
+- 物理iPhone/iPad・Safariのピンチ、触感、描画負荷、音とネイティブUI抑止はUNVERIFIED。最大倍率では周辺の模型の一部が画面外へ切れるため、見渡す場合は「元の眺めへ」で戻す。
+- 8原典、共有Engine、3D Lab、他作品、台帳、LAB、町、Productionに変更なし。旧verification recordは旧版の履歴、0.3の証拠は別recordへ記録。
