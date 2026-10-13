@@ -1,0 +1,128 @@
+{
+  "schema": "feel-workspace/2",
+  "project": "drawer",
+  "nodes": [
+    {
+      "id": "drawer-c",
+      "title": "C · 指に追従 / 独立3D描画",
+      "buildId": "drawer-c",
+      "codeHash": "8683984f79612b15bea3dedf187311d84224b641a2020a68c70682bfdec47a66",
+      "parent": "drawer-a",
+      "config": {
+        "open": 0.15,
+        "range": 1,
+        "response": 0.65,
+        "camera": 0.45
+      },
+      "kind": "implementation",
+      "decision": "hold",
+      "provenance": []
+    },
+    {
+      "id": "drawer-a",
+      "title": "A · 指の位置へ追従",
+      "buildId": "drawer-a",
+      "codeHash": "79a6fb195c702f02e8b28d5dd06ac505d2c896b986287f410e7b51a33fbf0e9b",
+      "parent": null,
+      "config": {
+        "open": 0.15,
+        "range": 1,
+        "response": 0.65,
+        "camera": 0.45
+      },
+      "kind": "implementation",
+      "decision": "hold",
+      "provenance": []
+    },
+    {
+      "id": "n-mv60m07g-810evso",
+      "title": "C · 指に追従 / 独立3D描画から",
+      "buildId": "drawer-c",
+      "codeHash": "8683984f79612b15bea3dedf187311d84224b641a2020a68c70682bfdec47a66",
+      "parent": "drawer-c",
+      "config": {
+        "open": 0.5793420161609453,
+        "range": 1.05,
+        "response": 0.7,
+        "camera": 0.45
+      },
+      "kind": "author-edit",
+      "decision": "hold",
+      "provenance": []
+    }
+  ],
+  "drafts": {},
+  "left": "n-mv60m07g-810evso",
+  "right": "drawer-a",
+  "requests": [
+    {
+      "schema": "feel-work-request/2",
+      "requestId": "r-n-mv60mi1k-h2pcs91",
+      "project": "drawer",
+      "repository": "SukimaStock/yumaniwa-town-staging",
+      "scope": "works/feel-studio/ (staging-only)",
+      "base": {
+        "nodeId": "n-mv60m07g-810evso",
+        "buildId": "drawer-c",
+        "version": "0.1.0",
+        "codeHash": "8683984f79612b15bea3dedf187311d84224b641a2020a68c70682bfdec47a66",
+        "path": "works/feel-studio/prototypes/drawer/drawer-c/app.js",
+        "config": {
+          "open": 0.5793420161609453,
+          "range": 1.05,
+          "response": 0.7,
+          "camera": 0.45
+        }
+      },
+      "selections": [
+        {
+          "nodeId": "drawer-c",
+          "buildId": "drawer-c",
+          "codeHash": "8683984f79612b15bea3dedf187311d84224b641a2020a68c70682bfdec47a66",
+          "partId": "response",
+          "label": "引き出しの追従",
+          "anchor": "Drawer.step",
+          "config": {
+            "open": 0.15,
+            "range": 1,
+            "response": 0.65,
+            "camera": 0.45
+          }
+        },
+        {
+          "nodeId": "drawer-c",
+          "buildId": "drawer-c",
+          "codeHash": "8683984f79612b15bea3dedf187311d84224b641a2020a68c70682bfdec47a66",
+          "partId": "release",
+          "label": "離した後の居場所",
+          "anchor": "Drawer.target",
+          "config": {
+            "open": 0.15,
+            "range": 1,
+            "response": 0.65,
+            "camera": 0.45
+          }
+        }
+      ],
+      "comment": "指への追従をばねにし、離すと近い端へ収めたい。ただし半開きの付近で離した時は、その場に残す案も試したい。",
+      "locks": "A/B/Cのコードと、保存した開始姿勢・範囲・時間を残す。",
+      "keep": [
+        "drawer-c",
+        "drawer-a",
+        "n-mv60m07g-810evso"
+      ],
+      "returnContract": {
+        "schema": "feel-work-response/2",
+        "requestId": "same requestId",
+        "project": "drawer",
+        "buildId": "installed catalog build",
+        "codeHash": "installed model SHA256",
+        "config": "validated config",
+        "summary": "what actually changed"
+      },
+      "inputComparisonLimit": "模型側が投影したZ軸に沿ってつまみを引く。画面座標をそのまま3D座標にしない。"
+    }
+  ],
+  "completed": [],
+  "tape": null
+}
