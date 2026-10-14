@@ -1,0 +1,132 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "efcd57e2ef0256b0949b7f4e2f70d6939c7cd9963cdfa1951d255c0d6e117f8b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "feel-nadeato-touch-20261014",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "2077d961f45f991b9e46e79c26315d886c2efdea",
+    "change": "Connect independent Nadeato Feel-ready build with four LIVE touch settings and two work-defined scenes.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "works/feel-studio/**"
+    ],
+    "allowedPaths": [
+      ".change-plans/feel-nadeato-touch-20261014/r0.lock.json",
+      "works/feel-studio/prototypes/nadeato/nadeato-a/**",
+      "works/feel-studio/studio-v05-touch.js",
+      "works/feel-studio/studio-v05-touch.css",
+      "works/feel-studio/index.html",
+      "works/feel-studio/catalog.json",
+      "works/feel-studio/README.md",
+      "works/feel-studio/NADEATO.md",
+      "works/feel-studio/VALIDATION-NADEATO.md",
+      "works/feel-studio/tests/nadeato-touch.cjs",
+      "works/feel-studio/tests/nadeato-browser.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ametsugi/**",
+      "engine/**",
+      "works/sukima-3d-lab/**",
+      "works/motion-lab/**",
+      "works/pumpoko/**",
+      "works/pumpoko-02/**",
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css",
+      "works/nadeato/**",
+      "works/feel-studio/prototypes/ametsugi/**",
+      "works/feel-studio/bridge-client-v05.js",
+      "works/feel-studio/bridge-host-v05.js",
+      "works/feel-studio/records-v05.js",
+      "works/feel-studio/studio-v05.js"
+    ],
+    "expectedChanges": [
+      "One independent new Nadeato build keeps original palette, short hairs, direction shading, reverse strokes and retained traces",
+      "Four LIVE settings affect actual response, input resistance, brush width and shading; no source Nadeato edits",
+      "Deterministic clean and seeded-stroke recipes use existing Scene Replay transport; one code build branches settings",
+      "Work-independent Studio scene labels/difference display, preserving old RainGame compare and saved workspace contracts",
+      "Meaningful runtime/input/render/scene/save regression and public Chrome checks; LAB links retained"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-14 explicitly requests Feel Studio x なで跡 Touch Comparison: independent build, four LIVE settings, two scenes, tests, published Chrome, PR and Staging merge. Production and original work protected."
+    ],
+    "hqDecisions": [
+      "Existing Bridge/client/Records APIs reused unchanged. Only Studio display extended to use declared scene/setting labels instead of RainGame-specific angle/wait rendering. Work owns sampling, Canvas, input and response. One immutable build and configuration branching."
+    ],
+    "rulesApplied": [
+      "AGENTS: existing works protected; isolated Feel Studio trial in Staging only",
+      "Existing Plan Lock and high-risk checks remain enabled; do not treat CI as author device QA."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Published Nadeato finger/mouse-like slow/fast/reverse strokes and LIVE controls",
+      "Scene pair/differences, branch/Undo/save/restore and standalone",
+      "LAB original Nadeato and Feel Studio links retained"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert Feel Studio-only PR; original Nadeato and all existing builds remain unchanged.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Production and original Nadeato",
+      "Audio, score, extra work UI, multiple physical builds",
+      "New scene transport or save schema, input playback, universal editor"
+    ],
+    "unverified": [
+      "Physical iPhone/iPad Safari",
+      "Author finger perception and selected feel"
+    ],
+    "problem": "Nadeato has no live parameter or scene capability; existing Studio scene result display names RainGame-specific values.",
+    "currentContract": "Feel-ready parameters and optional Scene Replay with validated flat metadata, immutable catalog and workspace/request v2.",
+    "whyExistingIsInsufficient": "Nadeato requires work-local adapter/model; Studio result text currently assumes angle/wait.",
+    "design": "Single work-local material-space model and renderer derived from original, deterministic geometry, resampled pointer trajectories and seconds-based response. Existing four parameter declarations and two scene hooks. Versioned Studio display only.",
+    "migration": "New project v2 storage key; old projects, nodes, source hashes and client/Records unchanged. No execution state saved.",
+    "compatibility": "All existing immutable builds preserved. Original Nadeato and independent play retained; existing Ametsugi and old UI regression run.",
+    "promotionRisk": "Staging trial only; author decides whether to keep or expand.",
+    "alternativesRejected": [
+      "Do not modify old client dependencies",
+      "Do not make all config messages reset",
+      "Do not silently rewrite old saved nodes"
+    ],
+    "boundaryCases": [
+      "Slow/fast/coalesced strokes, direction reversal, reverse stroking, continuous strokes",
+      "Second pointer, cancel/blur/resize, hidden pause and frame switch",
+      "LIVE settings preserve roots/trace/game identity and remain finite across dt",
+      "Clean and seeded scenes retain current config; invalid requests atomic",
+      "A/B branch, Undo, save/restore, old scene and workspace UI",
+      "Phone portrait/landscape and independent Bridge-free startup"
+    ],
+    "testPlan": [
+      "Actual orientation and shading effects of each LIVE setting",
+      "Sample-frequency equivalence and material-coordinate preservation across resize",
+      "Fixed-scene reset reproducibility and input cancellation",
+      "Workspace branch/Undo/JSON and generic scene UI regression",
+      "Immutable catalog/source identities and existing suite",
+      "Public Chrome actual stroke controls and two scenes, mobile viewport checks"
+    ]
+  }
+}

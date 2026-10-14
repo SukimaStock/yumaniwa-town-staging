@@ -1,0 +1,3 @@
+/* Keep focused touch controls below the real sticky work preview. */
+:root{scroll-padding-top:var(--preview-offset,0px)}
+.tuning-mode #bridge-controls summary,.tuning-mode #bridge-controls input,.tuning-mode #bridge-controls select{scroll-margin-top:var(--preview-offset,280px)}
