@@ -1,0 +1,125 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "93bbf6290e41506f659583789b83670756e6a52fbd9b8d0fa0fddbf95077d779",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-tasting-character-04-20261014",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.4 free tasting, saved comparisons and state-driven cask character",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "fe01190884af9ef6559fc89dca157c93bb0eb661",
+    "canonicalSources": [
+      "Current user AmberTime0.4",
+      "works/ambertime/journey.mjs",
+      "works/ambertime/app.mjs sample comparison",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/VERIFICATION-V03.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-tasting-character-04-20261014/r0.lock.json",
+      "works/ambertime/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "tools/**",
+      ".github/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Restore optional free tasting with glass, previous comparison, saved snapshots, final tasting memory",
+      "Move detailed flavor off observation, retain color/age/volume and short visual clues",
+      "Continuous seeded raw profile and existing cask variation determine different event order/timing",
+      "One cool-shelf intervention changes actual existing aging variation with costs of slower softening",
+      "Retain0.3 current cask/choices/results through versioned compatible wrapper; next cask uses0.4; original economy key unchanged",
+      "Free bottling with quote, finite progression, no event repeats, bounded records, PC/mobile browser multi-cask QA and independent review"
+    ],
+    "ownerDecisions": [
+      "User0.4 explicitly authorizes free tasting, character/state/history driven events, minimum real intervention, compatible versioned saves, Staging merge/publish; no Production"
+    ],
+    "hqDecisions": [
+      "Work-local versioned save facade within requested compatibility work: original key preserved, v1 rules retained rather than reinterpret current cask; no shared contract change"
+    ],
+    "rulesApplied": [
+      "AGENTS 2026-10-14 useful delegation and independent review",
+      "CHANGE-PLAN normal route with lock before implementation",
+      "Work lifecycle active staging-only; no town/search/Production registration"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "free-tasting-multiple-casks",
+      "pc-and-mobile-comparison-restart",
+      "independent-model-storage-clock-review"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work-only PR; v1 player saves remain valid",
+    "outOfScope": [
+      "Production",
+      "Other games and Engine",
+      "Expansion/events/missions/new markets",
+      "Pixel art or large animation system",
+      "Automatic reset of existing player data"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad Safari",
+      "Human user test and repeated-play interest"
+    ],
+    "problem": "0.1 exposes calculations before players can develop interest in a barrel",
+    "currentContract": "Version1 one-barrel0.3 saves with exact replay; legacy economy key untouched",
+    "whyExistingIsInsufficient": "Continuous flavor display removes tasting; same ordered four events repeat for every cask",
+    "design": "Single barrel free tasting pause, nonlinear state-driven events, one real cooling intervention; versioned facade keeps0.3 rules for current saves and next cask starts0.4",
+    "alternativesRejected": [
+      "Direct Lua port",
+      "shared Engine modifications",
+      "new market/events/expansion systems"
+    ],
+    "migration": "Version1 restore retains all original core/choice/result bytes inside compatible envelope; no overwrite on load. Current0.3 rulesfinish unchanged; next uses0.4. Corrupt/future retained.",
+    "compatibility": "Same modelVersion/SAVE_VERSION/key, modern DOM/SVG/Pointer Events, prefers-reduced-motion",
+    "boundaryCases": [
+      "Tasting duringwatch/choice/pause and reload",
+      "Same-month repeat no comparisonerasure",
+      "Manual bottle atanytime stale/double actions",
+      "Cool once physicaleffects",
+      "Eventunique/cooldown/finiteend",
+      "Version1current andoldrecords preserved",
+      "Savedtrialhistory/choices replay",
+      "Storage unavailable/corrupt/future",
+      "320/390/844/1280"
+    ],
+    "testPlan": [
+      "Old model andlegacy regression",
+      "V1fixtures onallphases compatible",
+      "Seeded distinct casks/eventpaths andcool tradeoff atsameage",
+      "Tasting snapshots/comparison/reload/final memory",
+      "Clock/storage/rapidaction tests",
+      "PC/mobile browser fullruns/screens",
+      "Scope/Risk/Impact/CI and exact publishedsource verification"
+    ],
+    "promotionRisk": "Staging only; never promote active work"
+  }
+}
