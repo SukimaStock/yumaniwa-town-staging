@@ -46,7 +46,8 @@ function draw() {
 function drawTile(left, top, edge, foot) {
   const sx = canvas.width / W, sy = canvas.height / H;
   const x = Math.floor(left * sx) / sx, y = Math.floor(top * sy) / sy;
-  const right = Math.floor(edge * sx) / sx, bottom = Math.floor(foot * sy) / sy;
+  const right = edge === W ? W : Math.floor(edge * sx) / sx;
+  const bottom = foot === H ? H : Math.floor(foot * sy) / sy;
   ctx.setTransform(sx, 0, 0, sy, 0, 0);
   ctx.save(); ctx.beginPath(); ctx.rect(x, y, right - x, bottom - y); ctx.clip();
   ctx.fillStyle = '#8d9873'; ctx.fillRect(0, 0, W, H);
