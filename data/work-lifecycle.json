@@ -283,6 +283,12 @@
       "status": "active",
       "title": "なで跡",
       "theme": "短い毛をなで、向きの濃淡で指の跡を残す"
+    },
+    {
+      "id": "ambertime",
+      "path": "works/ambertime",
+      "status": "active",
+      "title": "AmberTime — 時間を育てる蒸留所"
     }
   ]
 }
