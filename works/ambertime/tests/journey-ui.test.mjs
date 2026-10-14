@@ -54,3 +54,9 @@ test('thirteenth record replaces the oldest visibly even though shelf remains tw
 test('fresh background load is visibly paused and waits for foreground resume',async()=>{
  for(const search of ['', '?preview=1']){const e=await boot({search,initialHidden:true});assert.equal(e.active().length,0);assert.equal(e.node('toggle-time').textContent,'続きを見守る');e.hidden(false);assert.equal(e.active().length,0);e.click('toggle-time');assert.equal(e.active().length,1);e.month();assert.equal(e.node('age').textContent,'1か月');}
 });
+
+test('faint refill heading describes observed wood without changing its saved choice',async()=>{
+ let j=newJourney(20261015);while(j.phase==='watching')j=tick(j);j=choose(j,'wood');while(j.phase==='watching')j=tick(j);
+ assert.equal(j.pending.id,'arrival');assert(j.core.casks[0].wood<JOURNEY_PARAMETERS.woodGoal);
+ const text=serializeJourney(j),e=await boot({text});assert(e.node('decision').innerHTML.includes('まだ淡い樽香'));assert.equal(e.text(),text);assert.equal(e.writes.length,0);
+});
