@@ -45,6 +45,8 @@ const root = path.resolve(__dirname, '../..');
       await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:p.x,y:p.y,id:0}]});
       await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:p.x,y:p.y+100*p.scale,id:0}]});
       assert.ok(await length() > 95);
+      const touchHeld = await length(); await page.waitForTimeout(220);
+      assert.equal(await length(), touchHeld); assert.notEqual(await knob.getAttribute('data-held'), null);
       await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});
       assert.equal(await knob.getAttribute('data-held'),null);
       await page.waitForTimeout(2600); assert.equal(await length(),0);
