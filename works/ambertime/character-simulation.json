@@ -1,0 +1,6958 @@
+{
+  "runs": 300,
+  "summary": [
+    {
+      "policy": "early",
+      "age": 8.93,
+      "litres": 33.33030307260688,
+      "bottles": 47.05,
+      "cash": 3468.24,
+      "minCash": 3237,
+      "minAge": 6,
+      "maxAge": 17,
+      "paths": [
+        "fruit",
+        "rough",
+        "rounded"
+      ]
+    },
+    {
+      "policy": "wait",
+      "age": 67.08,
+      "litres": 29.195776751688175,
+      "bottles": 41.21,
+      "cash": 2346.51,
+      "minCash": 1950,
+      "minAge": 38,
+      "maxAge": 82,
+      "paths": [
+        "fruit/wood/loss/last",
+        "fruit/wood/fading/last",
+        "rough/wood/rounded/last",
+        "rough/rounded/wood/last",
+        "rounded/wood/loss/last",
+        "rounded/wood/fading/last"
+      ]
+    },
+    {
+      "policy": "cool",
+      "age": 70.82,
+      "litres": 29.389144013216857,
+      "bottles": 41.48,
+      "cash": 2263.92,
+      "minCash": 1884,
+      "minAge": 40,
+      "maxAge": 84,
+      "paths": [
+        "fruit/wood/loss/last",
+        "fruit/wood/fading/last",
+        "rough/wood/rounded/last",
+        "rough/rounded/wood/last",
+        "rounded/wood/loss/last",
+        "rounded/wood/fading/last"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "seed": 1,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.6177732036449015,
+      "age": 12,
+      "litres": 33.06825172588036,
+      "bottles": 47,
+      "cash": 3633,
+      "upkeep": 346,
+      "evaporated": 0.811748274119644,
+      "profile": {
+        "roughness": 0.3778411387726241,
+        "character": 0.8095504291503771,
+        "wood": 0.11924341776784231,
+        "litres": 33.06825172588036
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 1,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.6177732036449015,
+      "age": 68,
+      "litres": 29.529842026816308,
+      "bottles": 42,
+      "cash": 2376,
+      "upkeep": 1858,
+      "evaporated": 4.350157973183695,
+      "profile": {
+        "roughness": 0.03854878185651552,
+        "character": 1,
+        "wood": 0.6217186245525802,
+        "litres": 29.529842026816308
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 1,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.6177732036449015,
+      "age": 70,
+      "litres": 29.678448256633015,
+      "bottles": 42,
+      "cash": 2322,
+      "upkeep": 1912,
+      "evaporated": 4.201551743366988,
+      "profile": {
+        "roughness": 0.0415510399624283,
+        "character": 1,
+        "wood": 0.5931962101798852,
+        "litres": 29.678448256633015
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 2,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.8382781121763401,
+      "age": 6,
+      "litres": 36.87483586235577,
+      "bottles": 52,
+      "cash": 3300,
+      "upkeep": 184,
+      "evaporated": 0.5351641376442231,
+      "profile": {
+        "roughness": 0.5297318690288011,
+        "character": 0.8764728152548432,
+        "wood": 0.12525785079976476,
+        "litres": 36.87483586235577
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 2,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.8382781121763401,
+      "age": 72,
+      "litres": 31.469972258571197,
+      "bottles": 44,
+      "cash": 2202,
+      "upkeep": 1966,
+      "evaporated": 5.9400277414288,
+      "profile": {
+        "roughness": 0.009612041212105437,
+        "character": 0.8545341974235234,
+        "wood": 1.2282526773940472,
+        "litres": 31.469972258571197
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 2,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.8382781121763401,
+      "age": 76,
+      "litres": 31.751702749565517,
+      "bottles": 45,
+      "cash": 2091,
+      "upkeep": 2074,
+      "evaporated": 5.6582972504344795,
+      "profile": {
+        "roughness": 0.011505556285536204,
+        "character": 0.8706763127188957,
+        "wood": 1.1476497230683382,
+        "litres": 31.751702749565517
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 3,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.8856088928878307,
+      "age": 6,
+      "litres": 37.59205652388033,
+      "bottles": 53,
+      "cash": 3267,
+      "upkeep": 184,
+      "evaporated": 0.5779434761196711,
+      "profile": {
+        "roughness": 0.6116532865336991,
+        "character": 0.9488450271720619,
+        "wood": 0.12563714033277784,
+        "litres": 37.59205652388033
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 3,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.8856088928878307,
+      "age": 39,
+      "litres": 34.566282337913506,
+      "bottles": 49,
+      "cash": 3078,
+      "upkeep": 1075,
+      "evaporated": 3.6037176620864955,
+      "profile": {
+        "roughness": 0.1093399656905352,
+        "character": 1,
+        "wood": 0.7366266989186006,
+        "litres": 34.566282337913506
+      },
+      "events": [
+        "rough",
+        "wood",
+        "rounded",
+        "last"
+      ]
+    },
+    {
+      "seed": 3,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.8856088928878307,
+      "age": 42,
+      "litres": 34.74654506026549,
+      "bottles": 49,
+      "cash": 2997,
+      "upkeep": 1156,
+      "evaporated": 3.423454939734512,
+      "profile": {
+        "roughness": 0.11713535241032501,
+        "character": 1,
+        "wood": 0.6839509373045997,
+        "litres": 34.74654506026549
+      },
+      "events": [
+        "rough",
+        "wood",
+        "rounded",
+        "last"
+      ]
+    },
+    {
+      "seed": 4,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.8182144576683641,
+      "age": 6,
+      "litres": 36.69326245844843,
+      "bottles": 52,
+      "cash": 3300,
+      "upkeep": 184,
+      "evaporated": 0.39673754155157326,
+      "profile": {
+        "roughness": 0.607181560217118,
+        "character": 0.8771732382639099,
+        "wood": 0.05858651824118884,
+        "litres": 36.69326245844843
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 4,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.8182144576683641,
+      "age": 54,
+      "litres": 33.66838457002402,
+      "bottles": 48,
+      "cash": 2736,
+      "upkeep": 1480,
+      "evaporated": 3.4216154299759864,
+      "profile": {
+        "roughness": 0.09831347158200684,
+        "character": 1,
+        "wood": 0.4916898248465729,
+        "litres": 33.66838457002402
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 4,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.8182144576683641,
+      "age": 61,
+      "litres": 33.71101222538863,
+      "bottles": 48,
+      "cash": 2547,
+      "upkeep": 1669,
+      "evaporated": 3.3789877746113746,
+      "profile": {
+        "roughness": 0.0968330963295487,
+        "character": 1,
+        "wood": 0.4717885073611187,
+        "litres": 33.71101222538863
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 5,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.5990073621971532,
+      "age": 12,
+      "litres": 32.855671113274404,
+      "bottles": 46,
+      "cash": 3606,
+      "upkeep": 346,
+      "evaporated": 0.7243288867255941,
+      "profile": {
+        "roughness": 0.42052115920278477,
+        "character": 0.8077871611888079,
+        "wood": 0.11805246235822613,
+        "litres": 32.855671113274404
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 5,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.5990073621971532,
+      "age": 73,
+      "litres": 29.40826482387615,
+      "bottles": 42,
+      "cash": 2241,
+      "upkeep": 1993,
+      "evaporated": 4.17173517612385,
+      "profile": {
+        "roughness": 0.0615369772567885,
+        "character": 1,
+        "wood": 0.6565403312380492,
+        "litres": 29.40826482387615
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 5,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.5990073621971532,
+      "age": 77,
+      "litres": 29.479113629004633,
+      "bottles": 42,
+      "cash": 2133,
+      "upkeep": 2101,
+      "evaporated": 4.100886370995365,
+      "profile": {
+        "roughness": 0.059329617883620324,
+        "character": 1,
+        "wood": 0.6366150935243547,
+        "litres": 29.479113629004633
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 6,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.44364734742557627,
+      "age": 14,
+      "litres": 30.25591327499327,
+      "bottles": 43,
+      "cash": 3711,
+      "upkeep": 400,
+      "evaporated": 0.8440867250067328,
+      "profile": {
+        "roughness": 0.2992460033158916,
+        "character": 0.7339059874903171,
+        "wood": 0.11619655417935064,
+        "litres": 30.25591327499327
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 6,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.44364734742557627,
+      "age": 69,
+      "litres": 27.155847261111877,
+      "bottles": 38,
+      "cash": 2361,
+      "upkeep": 1885,
+      "evaporated": 3.944152738888125,
+      "profile": {
+        "roughness": 0.03442082723912635,
+        "character": 0.9100550022303073,
+        "wood": 0.5347818177334576,
+        "litres": 27.155847261111877
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 6,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.44364734742557627,
+      "age": 70,
+      "litres": 27.282252970506672,
+      "bottles": 38,
+      "cash": 2334,
+      "upkeep": 1912,
+      "evaporated": 3.8177470294933293,
+      "profile": {
+        "roughness": 0.03706168054840339,
+        "character": 0.9107549827003961,
+        "wood": 0.5168299560185092,
+        "litres": 27.282252970506672
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 7,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.5423378896783106,
+      "age": 12,
+      "litres": 31.685358400980927,
+      "bottles": 45,
+      "cash": 3669,
+      "upkeep": 346,
+      "evaporated": 0.9946415990190722,
+      "profile": {
+        "roughness": 0.334546366826684,
+        "character": 0.8074700369535074,
+        "wood": 0.21882635992033128,
+        "litres": 31.685358400980927
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 7,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.5423378896783106,
+      "age": 76,
+      "litres": 26.86996059007766,
+      "bottles": 38,
+      "cash": 2112,
+      "upkeep": 2074,
+      "evaporated": 5.810039409922339,
+      "profile": {
+        "roughness": 0.01352059087019162,
+        "character": 0.8309822265034962,
+        "wood": 1.1650685972714807,
+        "litres": 26.86996059007766
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 7,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.5423378896783106,
+      "age": 81,
+      "litres": 27.10695572327138,
+      "bottles": 38,
+      "cash": 1977,
+      "upkeep": 2209,
+      "evaporated": 5.57304427672862,
+      "profile": {
+        "roughness": 0.012992107509220209,
+        "character": 0.8487682186145282,
+        "wood": 1.100018254487628,
+        "litres": 27.10695572327138
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 8,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.5931144512374885,
+      "age": 10,
+      "litres": 32.85896643192781,
+      "bottles": 46,
+      "cash": 3510,
+      "upkeep": 292,
+      "evaporated": 0.6310335680721906,
+      "profile": {
+        "roughness": 0.4544165334645944,
+        "character": 0.8077582619720399,
+        "wood": 0.0881298909315879,
+        "litres": 32.85896643192781
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 8,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.5931144512374885,
+      "age": 71,
+      "litres": 29.259054031984927,
+      "bottles": 41,
+      "cash": 2298,
+      "upkeep": 1939,
+      "evaporated": 4.2309459680150745,
+      "profile": {
+        "roughness": 0.05977593718602863,
+        "character": 1,
+        "wood": 0.577472119714403,
+        "litres": 29.259054031984927
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 8,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.5931144512374885,
+      "age": 73,
+      "litres": 29.381948626725883,
+      "bottles": 41,
+      "cash": 2244,
+      "upkeep": 1993,
+      "evaporated": 4.108051373274119,
+      "profile": {
+        "roughness": 0.06304239372241792,
+        "character": 1,
+        "wood": 0.5544433128243175,
+        "litres": 29.381948626725883
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 9,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.8114569627912716,
+      "age": 6,
+      "litres": 36.4275948257533,
+      "bottles": 52,
+      "cash": 3270,
+      "upkeep": 184,
+      "evaporated": 0.5524051742466938,
+      "profile": {
+        "roughness": 0.5601403645329589,
+        "character": 0.9022759278283996,
+        "wood": 0.10279506917680444,
+        "litres": 36.4275948257533
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 9,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.8114569627912716,
+      "age": 39,
+      "litres": 33.53360508793771,
+      "bottles": 47,
+      "cash": 3054,
+      "upkeep": 1075,
+      "evaporated": 3.4463949120622885,
+      "profile": {
+        "roughness": 0.0865435300674655,
+        "character": 1,
+        "wood": 0.6140548759104117,
+        "litres": 33.53360508793771
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 9,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.8114569627912716,
+      "age": 40,
+      "litres": 33.85181759468965,
+      "bottles": 48,
+      "cash": 3054,
+      "upkeep": 1102,
+      "evaporated": 3.1281824053103477,
+      "profile": {
+        "roughness": 0.10302289520688919,
+        "character": 1,
+        "wood": 0.5677427654698185,
+        "litres": 33.85181759468965
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 10,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.5981055209063925,
+      "age": 11,
+      "litres": 32.65158689468557,
+      "bottles": 46,
+      "cash": 3603,
+      "upkeep": 319,
+      "evaporated": 0.9184131053144284,
+      "profile": {
+        "roughness": 0.354308382266533,
+        "character": 0.8088408689792596,
+        "wood": 0.17605840122725372,
+        "litres": 32.65158689468557
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 10,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.5981055209063925,
+      "age": 82,
+      "litres": 27.298958228991044,
+      "bottles": 38,
+      "cash": 1950,
+      "upkeep": 2236,
+      "evaporated": 6.2710417710089565,
+      "profile": {
+        "roughness": 0.00912171822127389,
+        "character": 0.8673983013277544,
+        "wood": 1.1089872276335235,
+        "litres": 27.298958228991044
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 10,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.5981055209063925,
+      "age": 84,
+      "litres": 27.743755421451304,
+      "bottles": 39,
+      "cash": 1893,
+      "upkeep": 2290,
+      "evaporated": 5.826244578548696,
+      "profile": {
+        "roughness": 0.01136287707869017,
+        "character": 0.8753167484920337,
+        "wood": 1.082379671152207,
+        "litres": 27.743755421451304
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 11,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.46649075972381976,
+      "age": 10,
+      "litres": 30.60207401339427,
+      "bottles": 43,
+      "cash": 3579,
+      "upkeep": 292,
+      "evaporated": 0.857925986605732,
+      "profile": {
+        "roughness": 0.2940533710062525,
+        "character": 0.7125434411028667,
+        "wood": 0.18738321178804646,
+        "litres": 30.60207401339427
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 11,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.46649075972381976,
+      "age": 75,
+      "litres": 25.568178526568655,
+      "bottles": 36,
+      "cash": 2085,
+      "upkeep": 2047,
+      "evaporated": 5.891821473431346,
+      "profile": {
+        "roughness": 0.005924216305624268,
+        "character": 0.747192614694462,
+        "wood": 1.1734668716545387,
+        "litres": 25.568178526568655
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 11,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.46649075972381976,
+      "age": 79,
+      "litres": 25.87181739011407,
+      "bottles": 36,
+      "cash": 2037,
+      "upkeep": 2155,
+      "evaporated": 5.58818260988593,
+      "profile": {
+        "roughness": 0.0071282925164169566,
+        "character": 0.772763851655114,
+        "wood": 1.0964722264042275,
+        "litres": 25.87181739011407
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 12,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.40750983537873253,
+      "age": 13,
+      "litres": 29.75378139240021,
+      "bottles": 42,
+      "cash": 3651,
+      "upkeep": 373,
+      "evaporated": 0.7662186075997894,
+      "profile": {
+        "roughness": 0.2894394538868747,
+        "character": 0.6970420196688752,
+        "wood": 0.10876425229268333,
+        "litres": 29.75378139240021
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 12,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.40750983537873253,
+      "age": 69,
+      "litres": 26.667055963794155,
+      "bottles": 38,
+      "cash": 2361,
+      "upkeep": 1885,
+      "evaporated": 3.8529440362058445,
+      "profile": {
+        "roughness": 0.029716190376404043,
+        "character": 0.8792306255002278,
+        "wood": 0.5381486720150118,
+        "litres": 26.667055963794155
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 12,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.40750983537873253,
+      "age": 71,
+      "litres": 26.752890391665257,
+      "bottles": 38,
+      "cash": 2307,
+      "upkeep": 1939,
+      "evaporated": 3.767109608334742,
+      "profile": {
+        "roughness": 0.031100288943778,
+        "character": 0.8805781469914568,
+        "wood": 0.5240742345591615,
+        "litres": 26.752890391665257
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 13,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.3982735636993311,
+      "age": 9,
+      "litres": 29.71456924088864,
+      "bottles": 42,
+      "cash": 3489,
+      "upkeep": 265,
+      "evaporated": 0.6554307591113613,
+      "profile": {
+        "roughness": 0.29925737913025674,
+        "character": 0.6496442560029982,
+        "wood": 0.18694339412421979,
+        "litres": 29.71456924088864
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 13,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.3982735636993311,
+      "age": 71,
+      "litres": 25.567883835785015,
+      "bottles": 36,
+      "cash": 1983,
+      "upkeep": 1939,
+      "evaporated": 4.802116164214986,
+      "profile": {
+        "roughness": 0.01107493945013354,
+        "character": 0.6726343206864575,
+        "wood": 1.2191907487326592,
+        "litres": 25.567883835785015
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 13,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.3982735636993311,
+      "age": 75,
+      "litres": 25.816285724135394,
+      "bottles": 36,
+      "cash": 2055,
+      "upkeep": 2047,
+      "evaporated": 4.553714275864607,
+      "profile": {
+        "roughness": 0.012158070514712111,
+        "character": 0.6974349706415217,
+        "wood": 1.1402576968111917,
+        "litres": 25.816285724135394
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 14,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.6286177266272717,
+      "age": 8,
+      "litres": 33.57902202044948,
+      "bottles": 47,
+      "cash": 3411,
+      "upkeep": 238,
+      "evaporated": 0.48097797955052357,
+      "profile": {
+        "roughness": 0.4809024849719889,
+        "character": 0.8020347984496741,
+        "wood": 0.06791901720329756,
+        "litres": 33.57902202044948
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 14,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.6286177266272717,
+      "age": 75,
+      "litres": 29.80842402206709,
+      "bottles": 42,
+      "cash": 2187,
+      "upkeep": 2047,
+      "evaporated": 4.251575977932912,
+      "profile": {
+        "roughness": 0.03723534163800525,
+        "character": 1,
+        "wood": 0.5850468627730531,
+        "litres": 29.80842402206709
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 14,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.6286177266272717,
+      "age": 77,
+      "litres": 29.940317863544024,
+      "bottles": 42,
+      "cash": 2133,
+      "upkeep": 2101,
+      "evaporated": 4.119682136455978,
+      "profile": {
+        "roughness": 0.03994562126504648,
+        "character": 1,
+        "wood": 0.5629631984507178,
+        "litres": 29.940317863544024
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 15,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.5268037951085717,
+      "age": 14,
+      "litres": 31.599915602838713,
+      "bottles": 45,
+      "cash": 3735,
+      "upkeep": 400,
+      "evaporated": 0.8300843971612863,
+      "profile": {
+        "roughness": 0.33470663607527334,
+        "character": 0.808447784998722,
+        "wood": 0.1113313716286602,
+        "litres": 31.599915602838713
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 15,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.5268037951085717,
+      "age": 72,
+      "litres": 28.381353357579457,
+      "bottles": 40,
+      "cash": 2274,
+      "upkeep": 1966,
+      "evaporated": 4.048646642420543,
+      "profile": {
+        "roughness": 0.031348989273614306,
+        "character": 0.9929942686471428,
+        "wood": 0.5343103932478641,
+        "litres": 28.381353357579457
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 15,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.5268037951085717,
+      "age": 74,
+      "litres": 28.467844335111423,
+      "bottles": 40,
+      "cash": 2220,
+      "upkeep": 2020,
+      "evaporated": 3.962155664888577,
+      "profile": {
+        "roughness": 0.032815807040432715,
+        "character": 0.9942314648963086,
+        "wood": 0.528669184686926,
+        "litres": 28.467844335111423
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 16,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.8873204018105753,
+      "age": 6,
+      "litres": 37.740383162287664,
+      "bottles": 53,
+      "cash": 3297,
+      "upkeep": 184,
+      "evaporated": 0.4596168377123391,
+      "profile": {
+        "roughness": 0.6793015643615166,
+        "character": 0.941474776166207,
+        "wood": 0.048128371161904736,
+        "litres": 37.740383162287664
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 16,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.8873204018105753,
+      "age": 63,
+      "litres": 33.6406404642477,
+      "bottles": 48,
+      "cash": 2493,
+      "upkeep": 1723,
+      "evaporated": 4.5593595357523,
+      "profile": {
+        "roughness": 0.10209657043588147,
+        "character": 1,
+        "wood": 0.4720698232106505,
+        "litres": 33.6406404642477
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 16,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.8873204018105753,
+      "age": 68,
+      "litres": 33.89184293624159,
+      "bottles": 48,
+      "cash": 2358,
+      "upkeep": 1858,
+      "evaporated": 4.308157063758415,
+      "profile": {
+        "roughness": 0.11072445010561045,
+        "character": 1,
+        "wood": 0.4603120123254797,
+        "litres": 33.89184293624159
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 17,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.8839739124057815,
+      "age": 6,
+      "litres": 37.50700746679546,
+      "bottles": 53,
+      "cash": 3237,
+      "upkeep": 184,
+      "evaporated": 0.6329925332045434,
+      "profile": {
+        "roughness": 0.6235117147636086,
+        "character": 0.9579806041110062,
+        "wood": 0.11180527977318151,
+        "litres": 37.50700746679546
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 17,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.8839739124057815,
+      "age": 42,
+      "litres": 33.923665496398186,
+      "bottles": 48,
+      "cash": 3000,
+      "upkeep": 1156,
+      "evaporated": 4.216334503601814,
+      "profile": {
+        "roughness": 0.10033388944748571,
+        "character": 1,
+        "wood": 0.7081420622626852,
+        "litres": 33.923665496398186
+      },
+      "events": [
+        "rough",
+        "wood",
+        "rounded",
+        "last"
+      ]
+    },
+    {
+      "seed": 17,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.8839739124057815,
+      "age": 44,
+      "litres": 34.239884035086256,
+      "bottles": 48,
+      "cash": 2946,
+      "upkeep": 1210,
+      "evaporated": 3.900115964913745,
+      "profile": {
+        "roughness": 0.11425283575785336,
+        "character": 1,
+        "wood": 0.6404813322350532,
+        "litres": 34.239884035086256
+      },
+      "events": [
+        "rough",
+        "wood",
+        "rounded",
+        "last"
+      ]
+    },
+    {
+      "seed": 18,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.7179160601925105,
+      "age": 6,
+      "litres": 34.94640589748701,
+      "bottles": 49,
+      "cash": 3309,
+      "upkeep": 184,
+      "evaporated": 0.5435941025129907,
+      "profile": {
+        "roughness": 0.5039815452500755,
+        "character": 0.8097578705269108,
+        "wood": 0.12263220795786509,
+        "litres": 34.94640589748701
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 18,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.7179160601925105,
+      "age": 72,
+      "litres": 29.48928275350374,
+      "bottles": 42,
+      "cash": 2208,
+      "upkeep": 1966,
+      "evaporated": 6.0007172464962615,
+      "profile": {
+        "roughness": 0.015670887165387823,
+        "character": 0.8610966955405072,
+        "wood": 1.2074845685341054,
+        "litres": 29.48928275350374
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 18,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.7179160601925105,
+      "age": 77,
+      "litres": 29.727614615918597,
+      "bottles": 42,
+      "cash": 2073,
+      "upkeep": 2101,
+      "evaporated": 5.762385384081405,
+      "profile": {
+        "roughness": 0.017372265223267853,
+        "character": 0.8682936210186118,
+        "wood": 1.1416000767759253,
+        "litres": 29.727614615918597
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 19,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.7798102547880262,
+      "age": 6,
+      "litres": 35.907712826546046,
+      "bottles": 51,
+      "cash": 3303,
+      "upkeep": 184,
+      "evaporated": 0.572287173453951,
+      "profile": {
+        "roughness": 0.5454083853405323,
+        "character": 0.8723750512884674,
+        "wood": 0.10733744505418549,
+        "litres": 35.907712826546046
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 19,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.7798102547880262,
+      "age": 78,
+      "litres": 29.70179567799068,
+      "bottles": 42,
+      "cash": 2046,
+      "upkeep": 2128,
+      "evaporated": 6.778204322009316,
+      "profile": {
+        "roughness": 0.010923365845980325,
+        "character": 0.8651043042265922,
+        "wood": 1.1551994029811805,
+        "litres": 29.70179567799068
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 19,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.7798102547880262,
+      "age": 82,
+      "litres": 30.060062874881254,
+      "bottles": 42,
+      "cash": 1938,
+      "upkeep": 2236,
+      "evaporated": 6.419937125118743,
+      "profile": {
+        "roughness": 0.013081874902753565,
+        "character": 0.8808462843942082,
+        "wood": 1.0840361200054478,
+        "litres": 30.060062874881254
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 20,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.4961086369934492,
+      "age": 11,
+      "litres": 30.973744835525817,
+      "bottles": 44,
+      "cash": 3639,
+      "upkeep": 319,
+      "evaporated": 0.9662551644741839,
+      "profile": {
+        "roughness": 0.29012301590105616,
+        "character": 0.7502136433792864,
+        "wood": 0.2236840983106079,
+        "litres": 30.973744835525817
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 20,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.4961086369934492,
+      "age": 71,
+      "litres": 26.195310995724597,
+      "bottles": 37,
+      "cash": 2160,
+      "upkeep": 1939,
+      "evaporated": 5.744689004275404,
+      "profile": {
+        "roughness": 0.0077583888411925355,
+        "character": 0.7688853420663089,
+        "wood": 1.2043989857337216,
+        "litres": 26.195310995724597
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 20,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.4961086369934492,
+      "age": 76,
+      "litres": 26.414928535644446,
+      "bottles": 37,
+      "cash": 2115,
+      "upkeep": 2074,
+      "evaporated": 5.525071464355555,
+      "profile": {
+        "roughness": 0.008669706629049331,
+        "character": 0.78424672642339,
+        "wood": 1.1400523870438968,
+        "litres": 26.414928535644446
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 21,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.8408172358991579,
+      "age": 6,
+      "litres": 36.83808111467526,
+      "bottles": 52,
+      "cash": 3270,
+      "upkeep": 184,
+      "evaporated": 0.6119188853247408,
+      "profile": {
+        "roughness": 0.5708129076648166,
+        "character": 0.8792123737375092,
+        "wood": 0.10678514016110804,
+        "litres": 36.83808111467526
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 21,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.8408172358991579,
+      "age": 41,
+      "litres": 33.462665875069696,
+      "bottles": 47,
+      "cash": 3000,
+      "upkeep": 1129,
+      "evaporated": 3.9873341249303067,
+      "profile": {
+        "roughness": 0.1030317854320871,
+        "character": 1,
+        "wood": 0.6649305356943245,
+        "litres": 33.462665875069696
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 21,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.8408172358991579,
+      "age": 42,
+      "litres": 33.83648317301642,
+      "bottles": 48,
+      "cash": 3000,
+      "upkeep": 1156,
+      "evaporated": 3.6135168269835845,
+      "profile": {
+        "roughness": 0.11638700661368992,
+        "character": 1,
+        "wood": 0.5962921730208527,
+        "litres": 33.83648317301642
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 22,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.6370154309319332,
+      "age": 9,
+      "litres": 33.400381949185174,
+      "bottles": 47,
+      "cash": 3474,
+      "upkeep": 265,
+      "evaporated": 0.7896180508148234,
+      "profile": {
+        "roughness": 0.41011307458914165,
+        "character": 0.8082623265680534,
+        "wood": 0.16720861538068496,
+        "litres": 33.400381949185174
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 22,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.6370154309319332,
+      "age": 75,
+      "litres": 28.14071994911382,
+      "bottles": 40,
+      "cash": 2133,
+      "upkeep": 2047,
+      "evaporated": 6.049280050886178,
+      "profile": {
+        "roughness": 0.01439074736372032,
+        "character": 0.8688700430501024,
+        "wood": 1.1625189661872959,
+        "litres": 28.14071994911382
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 22,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.6370154309319332,
+      "age": 80,
+      "litres": 28.3909122498601,
+      "bottles": 40,
+      "cash": 1998,
+      "upkeep": 2182,
+      "evaporated": 5.799087750139897,
+      "profile": {
+        "roughness": 0.01499208452071133,
+        "character": 0.878458894535483,
+        "wood": 1.0966905480259646,
+        "litres": 28.3909122498601
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 23,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.35699349226197225,
+      "age": 11,
+      "litres": 29.10474400912772,
+      "bottles": 41,
+      "cash": 3558,
+      "upkeep": 319,
+      "evaporated": 0.6052559908722799,
+      "profile": {
+        "roughness": 0.2898608353605304,
+        "character": 0.6367513777309491,
+        "wood": 0.08497439011362305,
+        "litres": 29.10474400912772
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 23,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.35699349226197225,
+      "age": 72,
+      "litres": 25.965321095675545,
+      "bottles": 37,
+      "cash": 2283,
+      "upkeep": 1966,
+      "evaporated": 3.7446789043244557,
+      "profile": {
+        "roughness": 0.0254598059299592,
+        "character": 0.8352389122127818,
+        "wood": 0.5183668843663903,
+        "litres": 25.965321095675545
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 23,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.35699349226197225,
+      "age": 73,
+      "litres": 26.080366429242204,
+      "bottles": 37,
+      "cash": 2256,
+      "upkeep": 1993,
+      "evaporated": 3.6296335707577967,
+      "profile": {
+        "roughness": 0.0274416973526607,
+        "character": 0.8358268375436628,
+        "wood": 0.5124570901777931,
+        "litres": 26.080366429242204
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 24,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.581060379918199,
+      "age": 13,
+      "litres": 32.541894911222364,
+      "bottles": 46,
+      "cash": 3669,
+      "upkeep": 373,
+      "evaporated": 0.7581050887776328,
+      "profile": {
+        "roughness": 0.367763940975168,
+        "character": 0.8086932107199786,
+        "wood": 0.1076614068264947,
+        "litres": 32.541894911222364
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 24,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.581060379918199,
+      "age": 75,
+      "litres": 29.157069786705005,
+      "bottles": 41,
+      "cash": 2190,
+      "upkeep": 2047,
+      "evaporated": 4.142930213294992,
+      "profile": {
+        "roughness": 0.034406249614741556,
+        "character": 1,
+        "wood": 0.5751833706962987,
+        "litres": 29.157069786705005
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 24,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.581060379918199,
+      "age": 77,
+      "litres": 29.278354973484525,
+      "bottles": 41,
+      "cash": 2136,
+      "upkeep": 2101,
+      "evaporated": 4.021645026515472,
+      "profile": {
+        "roughness": 0.03674361616393827,
+        "character": 1,
+        "wood": 0.5580099094939962,
+        "litres": 29.278354973484525
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 25,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.8967262169229798,
+      "age": 6,
+      "litres": 37.790398789744366,
+      "bottles": 53,
+      "cash": 3267,
+      "upkeep": 184,
+      "evaporated": 0.5596012102556358,
+      "profile": {
+        "roughness": 0.5986393540655641,
+        "character": 0.9237319142774512,
+        "wood": 0.10442261983565629,
+        "litres": 37.790398789744366
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 25,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.8967262169229798,
+      "age": 41,
+      "litres": 34.68503179015061,
+      "bottles": 49,
+      "cash": 3024,
+      "upkeep": 1129,
+      "evaporated": 3.664968209849391,
+      "profile": {
+        "roughness": 0.10100410537568758,
+        "character": 1,
+        "wood": 0.6515507553730826,
+        "litres": 34.68503179015061
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 25,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.8967262169229798,
+      "age": 43,
+      "litres": 34.95677585870777,
+      "bottles": 49,
+      "cash": 2970,
+      "upkeep": 1183,
+      "evaporated": 3.3932241412922295,
+      "profile": {
+        "roughness": 0.11434470422235896,
+        "character": 1,
+        "wood": 0.6067781224501791,
+        "litres": 34.95677585870777
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 26,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.540353899972979,
+      "age": 14,
+      "litres": 31.431000848110042,
+      "bottles": 44,
+      "cash": 3768,
+      "upkeep": 400,
+      "evaporated": 1.2189991518899568,
+      "profile": {
+        "roughness": 0.28514755690819893,
+        "character": 0.806915452323665,
+        "wood": 0.25686503204107736,
+        "litres": 31.431000848110042
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 26,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.540353899972979,
+      "age": 75,
+      "litres": 26.629102688797204,
+      "bottles": 38,
+      "cash": 2139,
+      "upkeep": 2047,
+      "evaporated": 6.020897311202795,
+      "profile": {
+        "roughness": 0.011821886735349936,
+        "character": 0.8135678073038618,
+        "wood": 1.1640849742028632,
+        "litres": 26.629102688797204
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 26,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.540353899972979,
+      "age": 80,
+      "litres": 26.877033692917266,
+      "bottles": 38,
+      "cash": 2004,
+      "upkeep": 2182,
+      "evaporated": 5.772966307082733,
+      "profile": {
+        "roughness": 0.012701409648362024,
+        "character": 0.8319085414898332,
+        "wood": 1.098191168633404,
+        "litres": 26.877033692917266
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 27,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.6119138602283783,
+      "age": 10,
+      "litres": 32.89105739222372,
+      "bottles": 46,
+      "cash": 3570,
+      "upkeep": 292,
+      "evaporated": 0.8989426077762772,
+      "profile": {
+        "roughness": 0.3683505772686235,
+        "character": 0.8038221888552337,
+        "wood": 0.1739998689364973,
+        "litres": 32.89105739222372
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 27,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.6119138602283783,
+      "age": 78,
+      "litres": 27.380880710823313,
+      "bottles": 39,
+      "cash": 2055,
+      "upkeep": 2128,
+      "evaporated": 6.409119289176687,
+      "profile": {
+        "roughness": 0.009480021902832585,
+        "character": 0.864941616239845,
+        "wood": 1.1391688553782198,
+        "litres": 27.380880710823313
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 27,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.6119138602283783,
+      "age": 82,
+      "litres": 27.70839579007395,
+      "bottles": 39,
+      "cash": 1947,
+      "upkeep": 2236,
+      "evaporated": 6.0816042099260486,
+      "profile": {
+        "roughness": 0.011261781127450599,
+        "character": 0.8802378251841166,
+        "wood": 1.0813725591344145,
+        "litres": 27.70839579007395
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 28,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.6857201297883876,
+      "age": 7,
+      "litres": 34.29915672826561,
+      "bottles": 48,
+      "cash": 3375,
+      "upkeep": 211,
+      "evaporated": 0.6708432717343911,
+      "profile": {
+        "roughness": 0.4498184313745291,
+        "character": 0.8060278953396931,
+        "wood": 0.11835447964997123,
+        "litres": 34.29915672826561
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 28,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.6857201297883876,
+      "age": 54,
+      "litres": 30.116298858442722,
+      "bottles": 43,
+      "cash": 2691,
+      "upkeep": 1480,
+      "evaporated": 4.853701141557277,
+      "profile": {
+        "roughness": 0.03029706186587095,
+        "character": 0.9955787483708394,
+        "wood": 0.8112487841141287,
+        "litres": 30.116298858442722
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 28,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.6857201297883876,
+      "age": 56,
+      "litres": 30.335892113134076,
+      "bottles": 43,
+      "cash": 2637,
+      "upkeep": 1534,
+      "evaporated": 4.634107886865923,
+      "profile": {
+        "roughness": 0.03390472751142462,
+        "character": 0.9964705768226405,
+        "wood": 0.7877408101122492,
+        "litres": 30.335892113134076
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 29,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.762932666845154,
+      "age": 6,
+      "litres": 35.66840591674669,
+      "bottles": 50,
+      "cash": 3306,
+      "upkeep": 184,
+      "evaporated": 0.5415940832533082,
+      "profile": {
+        "roughness": 0.5118876706411297,
+        "character": 0.8376623230646375,
+        "wood": 0.10533085357584673,
+        "litres": 35.66840591674669
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 29,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.762932666845154,
+      "age": 78,
+      "litres": 29.767736130489645,
+      "bottles": 42,
+      "cash": 2046,
+      "upkeep": 2128,
+      "evaporated": 6.442263869510356,
+      "profile": {
+        "roughness": 0.008439463449658565,
+        "character": 0.8725022932519652,
+        "wood": 1.1375209375718531,
+        "litres": 29.767736130489645
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 29,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.762932666845154,
+      "age": 83,
+      "litres": 30.0342865996788,
+      "bottles": 42,
+      "cash": 1911,
+      "upkeep": 2263,
+      "evaporated": 6.1757134003212,
+      "profile": {
+        "roughness": 0.009633021783189066,
+        "character": 0.8752676825632879,
+        "wood": 1.0911667630248976,
+        "litres": 30.0342865996788
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 30,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.7948526618769393,
+      "age": 6,
+      "litres": 36.30863091283344,
+      "bottles": 51,
+      "cash": 3303,
+      "upkeep": 184,
+      "evaporated": 0.4113690871665554,
+      "profile": {
+        "roughness": 0.6070486153106893,
+        "character": 0.8769203210787888,
+        "wood": 0.060694193740683106,
+        "litres": 36.30863091283344
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 30,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.7948526618769393,
+      "age": 53,
+      "litres": 33.24167859291071,
+      "bottles": 47,
+      "cash": 2736,
+      "upkeep": 1453,
+      "evaporated": 3.4783214070892896,
+      "profile": {
+        "roughness": 0.10352252261745891,
+        "character": 1,
+        "wood": 0.49944180612164774,
+        "litres": 33.24167859291071
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 30,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.7948526618769393,
+      "age": 59,
+      "litres": 33.33080449100468,
+      "bottles": 47,
+      "cash": 2574,
+      "upkeep": 1615,
+      "evaporated": 3.3891955089953214,
+      "profile": {
+        "roughness": 0.10493463210623721,
+        "character": 1,
+        "wood": 0.4730959488304043,
+        "litres": 33.33080449100468
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 31,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.6134820412611589,
+      "age": 9,
+      "litres": 33.2415981769081,
+      "bottles": 47,
+      "cash": 3474,
+      "upkeep": 265,
+      "evaporated": 0.5784018230919017,
+      "profile": {
+        "roughness": 0.4556458027412063,
+        "character": 0.8046698049507566,
+        "wood": 0.09098588257504145,
+        "litres": 33.2415981769081
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 31,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.6134820412611589,
+      "age": 70,
+      "litres": 29.57363883504202,
+      "bottles": 42,
+      "cash": 2322,
+      "upkeep": 1912,
+      "evaporated": 4.246361164957982,
+      "profile": {
+        "roughness": 0.044223483294850395,
+        "character": 1,
+        "wood": 0.6455383949879291,
+        "litres": 29.57363883504202
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 31,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.6134820412611589,
+      "age": 73,
+      "litres": 29.681764212012215,
+      "bottles": 42,
+      "cash": 2241,
+      "upkeep": 1993,
+      "evaporated": 4.138235787987785,
+      "profile": {
+        "roughness": 0.0462999277047034,
+        "character": 1,
+        "wood": 0.6209822508961997,
+        "litres": 29.681764212012215
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 32,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.6796795171569101,
+      "age": 6,
+      "litres": 34.49292787644083,
+      "bottles": 49,
+      "cash": 3339,
+      "upkeep": 184,
+      "evaporated": 0.3770721235591665,
+      "profile": {
+        "roughness": 0.5426455403039705,
+        "character": 0.8061143696801721,
+        "wood": 0.057734324776761194,
+        "litres": 34.49292787644083
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 32,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.6796795171569101,
+      "age": 74,
+      "litres": 30.49406630813268,
+      "bottles": 43,
+      "cash": 2211,
+      "upkeep": 2020,
+      "evaporated": 4.375933691867317,
+      "profile": {
+        "roughness": 0.03870502163834004,
+        "character": 1,
+        "wood": 0.6461751303492179,
+        "litres": 30.49406630813268
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 32,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.6796795171569101,
+      "age": 77,
+      "litres": 30.614991071842116,
+      "bottles": 43,
+      "cash": 2130,
+      "upkeep": 2101,
+      "evaporated": 4.255008928157881,
+      "profile": {
+        "roughness": 0.040930910866869806,
+        "character": 1,
+        "wood": 0.6202469840818411,
+        "litres": 30.614991071842116
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 33,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.4355115913553163,
+      "age": 9,
+      "litres": 30.202148230934732,
+      "bottles": 43,
+      "cash": 3516,
+      "upkeep": 265,
+      "evaporated": 0.7678517690652669,
+      "profile": {
+        "roughness": 0.2844989697741289,
+        "character": 0.6799054755173054,
+        "wood": 0.169425049173524,
+        "litres": 30.202148230934732
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 33,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.4355115913553163,
+      "age": 74,
+      "litres": 25.193660293931483,
+      "bottles": 35,
+      "cash": 2115,
+      "upkeep": 2020,
+      "evaporated": 5.776339706068516,
+      "profile": {
+        "roughness": 0.003990085429693872,
+        "character": 0.729750062627977,
+        "wood": 1.1626051009362932,
+        "litres": 25.193660293931483
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 33,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.4355115913553163,
+      "age": 79,
+      "litres": 25.42451772586559,
+      "bottles": 36,
+      "cash": 2037,
+      "upkeep": 2155,
+      "evaporated": 5.545482274134407,
+      "profile": {
+        "roughness": 0.004573843982272259,
+        "character": 0.7469794434677817,
+        "wood": 1.0980745432823171,
+        "litres": 25.42451772586559
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 34,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.35119936013361436,
+      "age": 12,
+      "litres": 28.944356730998457,
+      "bottles": 41,
+      "cash": 3591,
+      "upkeep": 346,
+      "evaporated": 0.6756432690015437,
+      "profile": {
+        "roughness": 0.29934147108972364,
+        "character": 0.6669165576163647,
+        "wood": 0.09777949661267192,
+        "litres": 28.944356730998457
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 34,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.35119936013361436,
+      "age": 70,
+      "litres": 25.88977843289142,
+      "bottles": 36,
+      "cash": 2340,
+      "upkeep": 1912,
+      "evaporated": 3.7302215671085825,
+      "profile": {
+        "roughness": 0.034652100704087585,
+        "character": 0.8542492685588954,
+        "wood": 0.5314304659603911,
+        "litres": 25.88977843289142
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 34,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.35119936013361436,
+      "age": 72,
+      "litres": 25.96470517145678,
+      "bottles": 37,
+      "cash": 2283,
+      "upkeep": 1966,
+      "evaporated": 3.6552948285432194,
+      "profile": {
+        "roughness": 0.035964583808733776,
+        "character": 0.8555051436248527,
+        "wood": 0.5229955059028464,
+        "litres": 25.96470517145678
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 35,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.44790698285214603,
+      "age": 15,
+      "litres": 30.266943881416317,
+      "bottles": 43,
+      "cash": 3774,
+      "upkeep": 427,
+      "evaporated": 0.9030561185836845,
+      "profile": {
+        "roughness": 0.2970038807371318,
+        "character": 0.7675134570548287,
+        "wood": 0.13464700513353287,
+        "litres": 30.266943881416317
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 35,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.44790698285214603,
+      "age": 69,
+      "litres": 27.227197447283405,
+      "bottles": 38,
+      "cash": 2361,
+      "upkeep": 1885,
+      "evaporated": 3.9428025527165964,
+      "profile": {
+        "roughness": 0.034000907138515515,
+        "character": 0.9354429049135194,
+        "wood": 0.5758929871955921,
+        "litres": 27.227197447283405
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 35,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.44790698285214603,
+      "age": 71,
+      "litres": 27.33753540555173,
+      "bottles": 39,
+      "cash": 2304,
+      "upkeep": 1939,
+      "evaporated": 3.832464594448272,
+      "profile": {
+        "roughness": 0.036081810298950016,
+        "character": 0.9368142756007348,
+        "wood": 0.5535516072044028,
+        "litres": 27.33753540555173
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 36,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.4713103371905163,
+      "age": 11,
+      "litres": 30.658831860506815,
+      "bottles": 43,
+      "cash": 3642,
+      "upkeep": 319,
+      "evaporated": 0.8811681394931838,
+      "profile": {
+        "roughness": 0.2859030974215546,
+        "character": 0.7480681932640378,
+        "wood": 0.1921945181440489,
+        "litres": 30.658831860506815
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 36,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.4713103371905163,
+      "age": 77,
+      "litres": 25.86539361257429,
+      "bottles": 36,
+      "cash": 2091,
+      "upkeep": 2101,
+      "evaporated": 5.674606387425708,
+      "profile": {
+        "roughness": 0.005069706568122219,
+        "character": 0.7900349521290746,
+        "wood": 1.1337651227287788,
+        "litres": 25.86539361257429
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 36,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.4713103371905163,
+      "age": 82,
+      "litres": 26.09355228872594,
+      "bottles": 37,
+      "cash": 1953,
+      "upkeep": 2236,
+      "evaporated": 5.4464477112740575,
+      "profile": {
+        "roughness": 0.005799056737906467,
+        "character": 0.8015669430095552,
+        "wood": 1.0832386133133494,
+        "litres": 26.09355228872594
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 37,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.5024805978871882,
+      "age": 11,
+      "litres": 31.134454053055364,
+      "bottles": 44,
+      "cash": 3639,
+      "upkeep": 319,
+      "evaporated": 0.9055459469446347,
+      "profile": {
+        "roughness": 0.29680215020225476,
+        "character": 0.7703609878409422,
+        "wood": 0.18034255155445306,
+        "litres": 31.134454053055364
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 37,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.5024805978871882,
+      "age": 80,
+      "litres": 26.009855671725813,
+      "bottles": 37,
+      "cash": 2007,
+      "upkeep": 2182,
+      "evaporated": 6.0301443282741864,
+      "profile": {
+        "roughness": 0.004309059754201666,
+        "character": 0.8233149818039912,
+        "wood": 1.1090074095217828,
+        "litres": 26.009855671725813
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 37,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.5024805978871882,
+      "age": 83,
+      "litres": 26.379164635232957,
+      "bottles": 37,
+      "cash": 1926,
+      "upkeep": 2263,
+      "evaporated": 5.660835364767042,
+      "profile": {
+        "roughness": 0.005575270233439789,
+        "character": 0.8311113737611147,
+        "wood": 1.0776613795441565,
+        "litres": 26.379164635232957
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 38,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.7379488773294725,
+      "age": 6,
+      "litres": 35.26780088458437,
+      "bottles": 50,
+      "cash": 3336,
+      "upkeep": 184,
+      "evaporated": 0.5421991154156345,
+      "profile": {
+        "roughness": 0.48538075859896784,
+        "character": 0.8301693745689418,
+        "wood": 0.1010515390870777,
+        "litres": 35.26780088458437
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 38,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.7379488773294725,
+      "age": 80,
+      "litres": 29.218535430475637,
+      "bottles": 41,
+      "cash": 1995,
+      "upkeep": 2182,
+      "evaporated": 6.591464569524366,
+      "profile": {
+        "roughness": 0.004307571338136585,
+        "character": 0.8731974689820785,
+        "wood": 1.1221825665946297,
+        "litres": 29.218535430475637
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 38,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.7379488773294725,
+      "age": 83,
+      "litres": 29.623197835520227,
+      "bottles": 42,
+      "cash": 1911,
+      "upkeep": 2263,
+      "evaporated": 6.186802164479776,
+      "profile": {
+        "roughness": 0.005632339622890583,
+        "character": 0.8802843707489962,
+        "wood": 1.0815107501887333,
+        "litres": 29.623197835520227
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 39,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.8268784241867252,
+      "age": 6,
+      "litres": 36.688183380134646,
+      "bottles": 52,
+      "cash": 3270,
+      "upkeep": 184,
+      "evaporated": 0.5418166198653509,
+      "profile": {
+        "roughness": 0.5743909849814605,
+        "character": 0.9230197899590704,
+        "wood": 0.10409035783613363,
+        "litres": 36.688183380134646
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 39,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.8268784241867252,
+      "age": 39,
+      "litres": 33.84610159610394,
+      "bottles": 48,
+      "cash": 3081,
+      "upkeep": 1075,
+      "evaporated": 3.3838984038960547,
+      "profile": {
+        "roughness": 0.08800686148149954,
+        "character": 1,
+        "wood": 0.6211340057263465,
+        "litres": 33.84610159610394
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 39,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.8268784241867252,
+      "age": 40,
+      "litres": 34.15889730233009,
+      "bottles": 48,
+      "cash": 3054,
+      "upkeep": 1102,
+      "evaporated": 3.0711026976699074,
+      "profile": {
+        "roughness": 0.10484660388130067,
+        "character": 1,
+        "wood": 0.5688516327253611,
+        "litres": 34.15889730233009
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 40,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.6275834832573309,
+      "age": 10,
+      "litres": 33.420184070970706,
+      "bottles": 47,
+      "cash": 3507,
+      "upkeep": 292,
+      "evaporated": 0.6198159290292935,
+      "profile": {
+        "roughness": 0.43391857168753173,
+        "character": 0.8037239629265117,
+        "wood": 0.08269586672009399,
+        "litres": 33.420184070970706
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 40,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.6275834832573309,
+      "age": 73,
+      "litres": 29.766675997256595,
+      "bottles": 42,
+      "cash": 2241,
+      "upkeep": 1993,
+      "evaporated": 4.273324002743404,
+      "profile": {
+        "roughness": 0.04073799846448637,
+        "character": 1,
+        "wood": 0.558517125148675,
+        "litres": 29.766675997256595
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 40,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.6275834832573309,
+      "age": 75,
+      "litres": 29.879747889752334,
+      "bottles": 42,
+      "cash": 2187,
+      "upkeep": 2047,
+      "evaporated": 4.160252110247665,
+      "profile": {
+        "roughness": 0.04306610891283335,
+        "character": 1,
+        "wood": 0.54427141087884,
+        "litres": 29.879747889752334
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 41,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.5359748382121324,
+      "age": 12,
+      "litres": 31.90232507971437,
+      "bottles": 45,
+      "cash": 3639,
+      "upkeep": 346,
+      "evaporated": 0.6776749202856287,
+      "profile": {
+        "roughness": 0.39069820375609815,
+        "character": 0.8019496174493487,
+        "wood": 0.113627858030314,
+        "litres": 31.90232507971437
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 41,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.5359748382121324,
+      "age": 76,
+      "litres": 28.519092525679863,
+      "bottles": 40,
+      "cash": 2166,
+      "upkeep": 2074,
+      "evaporated": 4.060907474320135,
+      "profile": {
+        "roughness": 0.03792830001409378,
+        "character": 0.9999564046223016,
+        "wood": 0.6573569021656022,
+        "litres": 28.519092525679863
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 41,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.5359748382121324,
+      "age": 79,
+      "litres": 28.625782743235234,
+      "bottles": 40,
+      "cash": 2085,
+      "upkeep": 2155,
+      "evaporated": 3.954217256764764,
+      "profile": {
+        "roughness": 0.04032286911033993,
+        "character": 1,
+        "wood": 0.6290716881415749,
+        "litres": 28.625782743235234
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 42,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.41788230647798624,
+      "age": 9,
+      "litres": 29.98797601812928,
+      "bottles": 42,
+      "cash": 3549,
+      "upkeep": 265,
+      "evaporated": 0.7020239818707203,
+      "profile": {
+        "roughness": 0.28765476130450424,
+        "character": 0.6867407159211522,
+        "wood": 0.1699981321715008,
+        "litres": 29.98797601812928
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 42,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.41788230647798624,
+      "age": 74,
+      "litres": 25.37264515456943,
+      "bottles": 36,
+      "cash": 2112,
+      "upkeep": 2020,
+      "evaporated": 5.317354845430572,
+      "profile": {
+        "roughness": 0.0040844340034125615,
+        "character": 0.733195028429188,
+        "wood": 1.1658358576214567,
+        "litres": 25.37264515456943
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 42,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.41788230647798624,
+      "age": 79,
+      "litres": 25.586812476674215,
+      "bottles": 36,
+      "cash": 2037,
+      "upkeep": 2155,
+      "evaporated": 5.103187523325786,
+      "profile": {
+        "roughness": 0.004680147633781671,
+        "character": 0.7503750166072518,
+        "wood": 1.1011731913406022,
+        "litres": 25.586812476674215
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 43,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.6709322834620253,
+      "age": 6,
+      "litres": 34.349381012312264,
+      "bottles": 49,
+      "cash": 3309,
+      "upkeep": 184,
+      "evaporated": 0.3806189876877326,
+      "profile": {
+        "roughness": 0.5705865193044269,
+        "character": 0.8120232529309983,
+        "wood": 0.050974182942478276,
+        "litres": 34.349381012312264
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 43,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.6709322834620253,
+      "age": 60,
+      "litres": 31.106138653236478,
+      "bottles": 44,
+      "cash": 2586,
+      "upkeep": 1642,
+      "evaporated": 3.623861346763519,
+      "profile": {
+        "roughness": 0.10301814789969292,
+        "character": 1,
+        "wood": 0.47605673928378966,
+        "litres": 31.106138653236478
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 43,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.6709322834620253,
+      "age": 67,
+      "litres": 31.194631405478454,
+      "bottles": 44,
+      "cash": 2397,
+      "upkeep": 1831,
+      "evaporated": 3.535368594521543,
+      "profile": {
+        "roughness": 0.09861404576407906,
+        "character": 1,
+        "wood": 0.456586997567488,
+        "litres": 31.194631405478454
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 44,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.6505568412481807,
+      "age": 7,
+      "litres": 33.93665398169357,
+      "bottles": 48,
+      "cash": 3345,
+      "upkeep": 211,
+      "evaporated": 0.47334601830642953,
+      "profile": {
+        "roughness": 0.5317108202856043,
+        "character": 0.8017532386058053,
+        "wood": 0.05638560369217067,
+        "litres": 33.93665398169357
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 44,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.6505568412481807,
+      "age": 69,
+      "litres": 30.018399232264695,
+      "bottles": 42,
+      "cash": 2349,
+      "upkeep": 1885,
+      "evaporated": 4.3916007677353015,
+      "profile": {
+        "roughness": 0.07235081426177171,
+        "character": 1,
+        "wood": 0.5159567900839656,
+        "litres": 30.018399232264695
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 44,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.6505568412481807,
+      "age": 70,
+      "litres": 30.150721283613148,
+      "bottles": 43,
+      "cash": 2319,
+      "upkeep": 1912,
+      "evaporated": 4.259278716386849,
+      "profile": {
+        "roughness": 0.07556231143460931,
+        "character": 1,
+        "wood": 0.5049910611002763,
+        "litres": 30.150721283613148
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 45,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.4277632574667223,
+      "age": 9,
+      "litres": 30.08909712704055,
+      "bottles": 42,
+      "cash": 3519,
+      "upkeep": 265,
+      "evaporated": 0.7509028729594505,
+      "profile": {
+        "roughness": 0.2932884363734208,
+        "character": 0.6870609572227744,
+        "wood": 0.16430505793660066,
+        "litres": 30.08909712704055
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 45,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.4277632574667223,
+      "age": 76,
+      "litres": 25.044639894062307,
+      "bottles": 35,
+      "cash": 2061,
+      "upkeep": 2074,
+      "evaporated": 5.795360105937693,
+      "profile": {
+        "roughness": 0.00415295754609953,
+        "character": 0.7348952180905759,
+        "wood": 1.1581244338852366,
+        "litres": 25.044639894062307
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 45,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.4277632574667223,
+      "age": 81,
+      "litres": 25.279632608282196,
+      "bottles": 36,
+      "cash": 1983,
+      "upkeep": 2209,
+      "evaporated": 5.560367391717804,
+      "profile": {
+        "roughness": 0.004776050062751193,
+        "character": 0.7526270091358482,
+        "wood": 1.0933603752352359,
+        "litres": 25.279632608282196
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 46,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.4201472384505905,
+      "age": 10,
+      "litres": 29.954110248774537,
+      "bottles": 42,
+      "cash": 3582,
+      "upkeep": 292,
+      "evaporated": 0.7658897512254619,
+      "profile": {
+        "roughness": 0.29624775015816657,
+        "character": 0.7044766782833906,
+        "wood": 0.19893949304128508,
+        "litres": 29.954110248774537
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 46,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.4201472384505905,
+      "age": 72,
+      "litres": 25.613842916475203,
+      "bottles": 36,
+      "cash": 2076,
+      "upkeep": 1966,
+      "evaporated": 5.106157083524796,
+      "profile": {
+        "roughness": 0.008510245150840156,
+        "character": 0.7303227917800106,
+        "wood": 1.1931181116472667,
+        "litres": 25.613842916475203
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 46,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.4201472384505905,
+      "age": 77,
+      "litres": 25.816979337727005,
+      "bottles": 36,
+      "cash": 2091,
+      "upkeep": 2101,
+      "evaporated": 4.9030206622729935,
+      "profile": {
+        "roughness": 0.009520945832813182,
+        "character": 0.7467994028113926,
+        "wood": 1.1278017967552856,
+        "litres": 25.816979337727005
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 47,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.3603301214170642,
+      "age": 8,
+      "litres": 29.14987088208199,
+      "bottles": 41,
+      "cash": 3459,
+      "upkeep": 238,
+      "evaporated": 0.6201291179180082,
+      "profile": {
+        "roughness": 0.29903470712617236,
+        "character": 0.6144040023971284,
+        "wood": 0.16070476093773545,
+        "litres": 29.14987088208199
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 47,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.3603301214170642,
+      "age": 72,
+      "litres": 24.63196402144815,
+      "bottles": 35,
+      "cash": 1959,
+      "upkeep": 1966,
+      "evaporated": 5.138035978551848,
+      "profile": {
+        "roughness": 0.00996478317505714,
+        "character": 0.6539904416934189,
+        "wood": 1.196635459183809,
+        "litres": 24.63196402144815
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 47,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.3603301214170642,
+      "age": 76,
+      "litres": 24.891874947014337,
+      "bottles": 35,
+      "cash": 2061,
+      "upkeep": 2074,
+      "evaporated": 4.878125052985663,
+      "profile": {
+        "roughness": 0.010733879201000772,
+        "character": 0.6780475327598745,
+        "wood": 1.1198670320723394,
+        "litres": 24.891874947014337
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 48,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.364645027462393,
+      "age": 8,
+      "litres": 29.243955371049474,
+      "bottles": 41,
+      "cash": 3489,
+      "upkeep": 238,
+      "evaporated": 0.5860446289505248,
+      "profile": {
+        "roughness": 0.29211397101210823,
+        "character": 0.64537674799439,
+        "wood": 0.13926137881929052,
+        "litres": 29.243955371049474
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 48,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.364645027462393,
+      "age": 78,
+      "litres": 24.58307066581437,
+      "bottles": 35,
+      "cash": 2007,
+      "upkeep": 2128,
+      "evaporated": 5.24692933418563,
+      "profile": {
+        "roughness": 0.003407302974409655,
+        "character": 0.7066316538773504,
+        "wood": 1.1346040535195816,
+        "litres": 24.58307066581437
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 48,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.364645027462393,
+      "age": 82,
+      "litres": 24.853365826324534,
+      "bottles": 35,
+      "cash": 1959,
+      "upkeep": 2236,
+      "evaporated": 4.976634173675464,
+      "profile": {
+        "roughness": 0.004176215863373414,
+        "character": 0.7224904952514908,
+        "wood": 1.0800521224667348,
+        "litres": 24.853365826324534
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 49,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.8218108972767368,
+      "age": 6,
+      "litres": 36.756693711323756,
+      "bottles": 52,
+      "cash": 3300,
+      "upkeep": 184,
+      "evaporated": 0.39330628867624284,
+      "profile": {
+        "roughness": 0.6509044114497612,
+        "character": 0.9226843577773948,
+        "wood": 0.054130045631921295,
+        "litres": 36.756693711323756
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 49,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.8218108972767368,
+      "age": 57,
+      "litres": 33.57733475363211,
+      "bottles": 47,
+      "cash": 2628,
+      "upkeep": 1561,
+      "evaporated": 3.5726652463678903,
+      "profile": {
+        "roughness": 0.10445016582563559,
+        "character": 1,
+        "wood": 0.48014853112533723,
+        "litres": 33.57733475363211
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 49,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.8218108972767368,
+      "age": 65,
+      "litres": 33.59320030626695,
+      "bottles": 47,
+      "cash": 2412,
+      "upkeep": 1777,
+      "evaporated": 3.5567996937330477,
+      "profile": {
+        "roughness": 0.10105900715655819,
+        "character": 1,
+        "wood": 0.46421105859575906,
+        "litres": 33.59320030626695
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 50,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.7651047891005873,
+      "age": 6,
+      "litres": 35.70384705010484,
+      "bottles": 51,
+      "cash": 3303,
+      "upkeep": 184,
+      "evaporated": 0.5361529498951612,
+      "profile": {
+        "roughness": 0.5234545692414442,
+        "character": 0.8558030216125107,
+        "wood": 0.1011953056426461,
+        "litres": 35.70384705010484
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 50,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.7651047891005873,
+      "age": 80,
+      "litres": 29.70839439207742,
+      "bottles": 42,
+      "cash": 1992,
+      "upkeep": 2182,
+      "evaporated": 6.531605607922582,
+      "profile": {
+        "roughness": 0.007505814738806525,
+        "character": 0.8729758809615104,
+        "wood": 1.1234935181049022,
+        "litres": 29.70839439207742
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 50,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.7651047891005873,
+      "age": 83,
+      "litres": 30.11027521038184,
+      "bottles": 43,
+      "cash": 1908,
+      "upkeep": 2263,
+      "evaporated": 6.129724789618162,
+      "profile": {
+        "roughness": 0.009550538337589521,
+        "character": 0.880393677641586,
+        "wood": 1.0818946625026153,
+        "litres": 30.11027521038184
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 51,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.7360300731728785,
+      "age": 6,
+      "litres": 35.1980567636614,
+      "bottles": 50,
+      "cash": 3306,
+      "upkeep": 184,
+      "evaporated": 0.5819432363386028,
+      "profile": {
+        "roughness": 0.5405534293698172,
+        "character": 0.8588765067920968,
+        "wood": 0.10020436036780911,
+        "litres": 35.1980567636614
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 51,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.7360300731728785,
+      "age": 54,
+      "litres": 30.87063025954863,
+      "bottles": 44,
+      "cash": 2688,
+      "upkeep": 1480,
+      "evaporated": 4.909369740451371,
+      "profile": {
+        "roughness": 0.043952970546302116,
+        "character": 0.996574356831136,
+        "wood": 0.8006709348350453,
+        "litres": 30.87063025954863
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 51,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.7360300731728785,
+      "age": 57,
+      "litres": 31.019954558851783,
+      "bottles": 44,
+      "cash": 2607,
+      "upkeep": 1561,
+      "evaporated": 4.760045441148218,
+      "profile": {
+        "roughness": 0.04650609409016166,
+        "character": 0.9956207970612608,
+        "wood": 0.7948275112935949,
+        "litres": 31.019954558851783
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 52,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.4498584132059477,
+      "age": 13,
+      "litres": 30.437391555578568,
+      "bottles": 43,
+      "cash": 3648,
+      "upkeep": 373,
+      "evaporated": 0.7626084444214314,
+      "profile": {
+        "roughness": 0.29848690075011325,
+        "character": 0.7124063368555095,
+        "wood": 0.1145855101940866,
+        "litres": 30.437391555578568
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 52,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.4498584132059477,
+      "age": 71,
+      "litres": 27.255775983172292,
+      "bottles": 38,
+      "cash": 2307,
+      "upkeep": 1939,
+      "evaporated": 3.9442240168277074,
+      "profile": {
+        "roughness": 0.027909314708840543,
+        "character": 0.8993477042570395,
+        "wood": 0.5796868410139355,
+        "litres": 27.255775983172292
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 52,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.4498584132059477,
+      "age": 73,
+      "litres": 27.370337021287494,
+      "bottles": 39,
+      "cash": 2250,
+      "upkeep": 1993,
+      "evaporated": 3.8296629787125056,
+      "profile": {
+        "roughness": 0.029794783758448618,
+        "character": 0.9006009557630595,
+        "wood": 0.5565787136400586,
+        "litres": 27.370337021287494
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 53,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.5986881283693947,
+      "age": 10,
+      "litres": 32.76780182835231,
+      "bottles": 46,
+      "cash": 3600,
+      "upkeep": 292,
+      "evaporated": 0.8121981716476867,
+      "profile": {
+        "roughness": 0.33526138416882706,
+        "character": 0.8032248216030482,
+        "wood": 0.2075330911399368,
+        "litres": 32.76780182835231
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 53,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.5986881283693947,
+      "age": 71,
+      "litres": 28.2217324350121,
+      "bottles": 40,
+      "cash": 2211,
+      "upkeep": 1939,
+      "evaporated": 5.358267564987898,
+      "profile": {
+        "roughness": 0.007171116936903943,
+        "character": 0.8332070690790047,
+        "wood": 1.2214772487381325,
+        "litres": 28.2217324350121
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 53,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.5986881283693947,
+      "age": 75,
+      "litres": 28.49867676629457,
+      "bottles": 40,
+      "cash": 2133,
+      "upkeep": 2047,
+      "evaporated": 5.0813232337054295,
+      "profile": {
+        "roughness": 0.008576856824712525,
+        "character": 0.8582055816861942,
+        "wood": 1.1424378480685762,
+        "litres": 28.49867676629457
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 54,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.8057743397541344,
+      "age": 6,
+      "litres": 36.28732326851145,
+      "bottles": 51,
+      "cash": 3273,
+      "upkeep": 184,
+      "evaporated": 0.6026767314885504,
+      "profile": {
+        "roughness": 0.5576476632950889,
+        "character": 0.9022365014125756,
+        "wood": 0.10833466669838031,
+        "litres": 36.28732326851145
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 54,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.8057743397541344,
+      "age": 38,
+      "litres": 33.23546444321552,
+      "bottles": 47,
+      "cash": 3081,
+      "upkeep": 1048,
+      "evaporated": 3.654535556784481,
+      "profile": {
+        "roughness": 0.08925113514263124,
+        "character": 1,
+        "wood": 0.6293722206619439,
+        "litres": 33.23546444321552
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 54,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.8057743397541344,
+      "age": 40,
+      "litres": 33.48876779159877,
+      "bottles": 47,
+      "cash": 3027,
+      "upkeep": 1102,
+      "evaporated": 3.4012322084012325,
+      "profile": {
+        "roughness": 0.10053962184289163,
+        "character": 1,
+        "wood": 0.5724850893188845,
+        "litres": 33.48876779159877
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 55,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.7870943190646358,
+      "age": 6,
+      "litres": 35.999447955312334,
+      "bottles": 51,
+      "cash": 3303,
+      "upkeep": 184,
+      "evaporated": 0.5905520446876693,
+      "profile": {
+        "roughness": 0.5189946948466516,
+        "character": 0.8471650108243356,
+        "wood": 0.12739367566603194,
+        "litres": 35.999447955312334
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 55,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.7870943190646358,
+      "age": 71,
+      "litres": 30.181536755302112,
+      "bottles": 43,
+      "cash": 2232,
+      "upkeep": 1939,
+      "evaporated": 6.4084632446978915,
+      "profile": {
+        "roughness": 0.01264034074841306,
+        "character": 0.8559138580548451,
+        "wood": 1.231402145050795,
+        "litres": 30.181536755302112
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 55,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.7870943190646358,
+      "age": 75,
+      "litres": 30.509831304989294,
+      "bottles": 43,
+      "cash": 2124,
+      "upkeep": 2047,
+      "evaporated": 6.080168695010709,
+      "profile": {
+        "roughness": 0.014867985588480433,
+        "character": 0.8710668321984245,
+        "wood": 1.151903289560352,
+        "litres": 30.509831304989294
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 56,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.6179487028741277,
+      "age": 9,
+      "litres": 33.27253070403642,
+      "bottles": 47,
+      "cash": 3474,
+      "upkeep": 265,
+      "evaporated": 0.6174692959635806,
+      "profile": {
+        "roughness": 0.45153392482235716,
+        "character": 0.8059447745888989,
+        "wood": 0.07306908767986267,
+        "litres": 33.27253070403642
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 56,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.6179487028741277,
+      "age": 68,
+      "litres": 29.4940837705872,
+      "bottles": 42,
+      "cash": 2376,
+      "upkeep": 1858,
+      "evaporated": 4.395916229412801,
+      "profile": {
+        "roughness": 0.04391229193936086,
+        "character": 1,
+        "wood": 0.5139807576000692,
+        "litres": 29.4940837705872
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 56,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.6179487028741277,
+      "age": 68,
+      "litres": 29.671935451650345,
+      "bottles": 42,
+      "cash": 2376,
+      "upkeep": 1858,
+      "evaporated": 4.2180645483496555,
+      "profile": {
+        "roughness": 0.0485081783716756,
+        "character": 1,
+        "wood": 0.4961394010323817,
+        "litres": 29.671935451650345
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 57,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.5466671393718571,
+      "age": 12,
+      "litres": 32.036715967922916,
+      "bottles": 45,
+      "cash": 3609,
+      "upkeep": 346,
+      "evaporated": 0.7132840320770839,
+      "profile": {
+        "roughness": 0.3998519728570424,
+        "character": 0.8047418911209324,
+        "wood": 0.09785619455192948,
+        "litres": 32.036715967922916
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 57,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.5466671393718571,
+      "age": 73,
+      "litres": 28.644053801086496,
+      "bottles": 40,
+      "cash": 2247,
+      "upkeep": 1993,
+      "evaporated": 4.105946198913504,
+      "profile": {
+        "roughness": 0.04740725131673859,
+        "character": 1,
+        "wood": 0.5526091150244777,
+        "litres": 28.644053801086496
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 57,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.5466671393718571,
+      "age": 75,
+      "litres": 28.745315325430635,
+      "bottles": 41,
+      "cash": 2190,
+      "upkeep": 2047,
+      "evaporated": 4.004684674569365,
+      "profile": {
+        "roughness": 0.04971543409114585,
+        "character": 1,
+        "wood": 0.5414264132290083,
+        "litres": 28.745315325430635
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 58,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.5678970984416083,
+      "age": 13,
+      "litres": 31.960128724750625,
+      "bottles": 45,
+      "cash": 3732,
+      "upkeep": 373,
+      "evaporated": 1.1298712752493785,
+      "profile": {
+        "roughness": 0.29779693353137204,
+        "character": 0.798998341107376,
+        "wood": 0.23313819645802916,
+        "litres": 31.960128724750625
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 58,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.5678970984416083,
+      "age": 76,
+      "litres": 27.00775915279184,
+      "bottles": 38,
+      "cash": 2112,
+      "upkeep": 2074,
+      "evaporated": 6.082240847208162,
+      "profile": {
+        "roughness": 0.010435167210634304,
+        "character": 0.8218878527443357,
+        "wood": 1.1516835808914299,
+        "litres": 27.00775915279184
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 58,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.5678970984416083,
+      "age": 81,
+      "litres": 27.254983267998675,
+      "bottles": 38,
+      "cash": 1977,
+      "upkeep": 2209,
+      "evaporated": 5.835016732001328,
+      "profile": {
+        "roughness": 0.011730691974906508,
+        "character": 0.8397838628781724,
+        "wood": 1.0871863384444598,
+        "litres": 27.254983267998675
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 59,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.7953996154945344,
+      "age": 6,
+      "litres": 36.29029656717534,
+      "bottles": 51,
+      "cash": 3303,
+      "upkeep": 184,
+      "evaporated": 0.4397034328246576,
+      "profile": {
+        "roughness": 0.5995273647478485,
+        "character": 0.8517934742377911,
+        "wood": 0.05280705448088307,
+        "litres": 36.29029656717534
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 59,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.7953996154945344,
+      "age": 58,
+      "litres": 32.69341507338683,
+      "bottles": 46,
+      "cash": 2634,
+      "upkeep": 1588,
+      "evaporated": 4.036584926613166,
+      "profile": {
+        "roughness": 0.10104444230148019,
+        "character": 1,
+        "wood": 0.47680691874739595,
+        "litres": 32.69341507338683
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 59,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.7953996154945344,
+      "age": 66,
+      "litres": 32.72015148161047,
+      "bottles": 46,
+      "cash": 2418,
+      "upkeep": 1804,
+      "evaporated": 4.009848518389525,
+      "profile": {
+        "roughness": 0.09831404405575637,
+        "character": 1,
+        "wood": 0.45994588913040846,
+        "litres": 32.72015148161047
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 60,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.4154432778828777,
+      "age": 10,
+      "litres": 29.910933162395242,
+      "bottles": 42,
+      "cash": 3552,
+      "upkeep": 292,
+      "evaporated": 0.7390668376047564,
+      "profile": {
+        "roughness": 0.28992022180565813,
+        "character": 0.6924576644916376,
+        "wood": 0.18881683739043062,
+        "litres": 29.910933162395242
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 60,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.4154432778828777,
+      "age": 74,
+      "litres": 25.585072792513344,
+      "bottles": 36,
+      "cash": 2082,
+      "upkeep": 2020,
+      "evaporated": 5.0649272074866545,
+      "profile": {
+        "roughness": 0.007443326718065049,
+        "character": 0.7268622447834789,
+        "wood": 1.1682494727653314,
+        "litres": 25.585072792513344
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 60,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.4154432778828777,
+      "age": 79,
+      "litres": 25.79001654455421,
+      "bottles": 36,
+      "cash": 2037,
+      "upkeep": 2155,
+      "evaporated": 4.859983455445789,
+      "profile": {
+        "roughness": 0.008384143515079275,
+        "character": 0.7440170712363489,
+        "wood": 1.1034883134300322,
+        "litres": 25.79001654455421
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 61,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.5002327613765374,
+      "age": 17,
+      "litres": 31.020799003629115,
+      "bottles": 44,
+      "cash": 3747,
+      "upkeep": 481,
+      "evaporated": 0.979200996370885,
+      "profile": {
+        "roughness": 0.2896840809430537,
+        "character": 0.7856272593953258,
+        "wood": 0.1299437151767115,
+        "litres": 31.020799003629115
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 61,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.5002327613765374,
+      "age": 73,
+      "litres": 28.002208090018748,
+      "bottles": 40,
+      "cash": 2247,
+      "upkeep": 1993,
+      "evaporated": 3.9977919099812524,
+      "profile": {
+        "roughness": 0.03576100129207427,
+        "character": 0.9436982214946701,
+        "wood": 0.523220832573133,
+        "litres": 28.002208090018748
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 61,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.5002327613765374,
+      "age": 75,
+      "litres": 28.086434798327634,
+      "bottles": 40,
+      "cash": 2193,
+      "upkeep": 2047,
+      "evaporated": 3.913565201672366,
+      "profile": {
+        "roughness": 0.03728893412225974,
+        "character": 0.9448673616700183,
+        "wood": 0.5234577642794326,
+        "litres": 28.086434798327634
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 62,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.594489284476731,
+      "age": 12,
+      "litres": 32.518703595984846,
+      "bottles": 46,
+      "cash": 3726,
+      "upkeep": 346,
+      "evaporated": 0.9912964040151522,
+      "profile": {
+        "roughness": 0.28846083136116396,
+        "character": 0.8019690021568417,
+        "wood": 0.2294812915968792,
+        "litres": 32.518703595984846
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 62,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.594489284476731,
+      "age": 74,
+      "litres": 27.845413263941353,
+      "bottles": 39,
+      "cash": 2163,
+      "upkeep": 2020,
+      "evaporated": 5.664586736058645,
+      "profile": {
+        "roughness": 0.0061238206422893965,
+        "character": 0.8225489805479361,
+        "wood": 1.1862476238831023,
+        "litres": 27.845413263941353
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 62,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.594489284476731,
+      "age": 79,
+      "litres": 28.074122669148455,
+      "bottles": 40,
+      "cash": 2025,
+      "upkeep": 2155,
+      "evaporated": 5.435877330851543,
+      "profile": {
+        "roughness": 0.006968688854515361,
+        "character": 0.839748704267262,
+        "wood": 1.120757475265418,
+        "litres": 28.074122669148455
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 63,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.4931357049266808,
+      "age": 11,
+      "litres": 30.987756670442103,
+      "bottles": 44,
+      "cash": 3639,
+      "upkeep": 319,
+      "evaporated": 0.9022433295578978,
+      "profile": {
+        "roughness": 0.29264082432501914,
+        "character": 0.7621200203860687,
+        "wood": 0.18894098639399948,
+        "litres": 30.987756670442103
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 63,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.4931357049266808,
+      "age": 78,
+      "litres": 26.017808819320543,
+      "bottles": 37,
+      "cash": 2061,
+      "upkeep": 2128,
+      "evaporated": 5.872191180679458,
+      "profile": {
+        "roughness": 0.004810565839269203,
+        "character": 0.8066408932164181,
+        "wood": 1.1294894685796852,
+        "litres": 26.017808819320543
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 63,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.4931357049266808,
+      "age": 82,
+      "litres": 26.318865001541052,
+      "bottles": 37,
+      "cash": 1953,
+      "upkeep": 2236,
+      "evaporated": 5.571134998458948,
+      "profile": {
+        "roughness": 0.005853407502687904,
+        "character": 0.8209639907605026,
+        "wood": 1.078574988817754,
+        "litres": 26.318865001541052
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 64,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.6441029408713803,
+      "age": 9,
+      "litres": 33.737062435081526,
+      "bottles": 48,
+      "cash": 3471,
+      "upkeep": 265,
+      "evaporated": 0.572937564918476,
+      "profile": {
+        "roughness": 0.461809978299566,
+        "character": 0.8064217873441243,
+        "wood": 0.08322713640169283,
+        "litres": 33.737062435081526
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 64,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.6441029408713803,
+      "age": 72,
+      "litres": 29.985624109686754,
+      "bottles": 42,
+      "cash": 2268,
+      "upkeep": 1966,
+      "evaporated": 4.324375890313249,
+      "profile": {
+        "roughness": 0.043973689147080844,
+        "character": 1,
+        "wood": 0.6104489758137481,
+        "litres": 29.985624109686754
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 64,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.6441029408713803,
+      "age": 74,
+      "litres": 30.13319221578969,
+      "bottles": 43,
+      "cash": 2211,
+      "upkeep": 2020,
+      "evaporated": 4.176807784210311,
+      "profile": {
+        "roughness": 0.04731139561205432,
+        "character": 1,
+        "wood": 0.5826419857358554,
+        "litres": 30.13319221578969
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 65,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.8335079047246836,
+      "age": 6,
+      "litres": 36.73689764758523,
+      "bottles": 52,
+      "cash": 3300,
+      "upkeep": 184,
+      "evaporated": 0.6031023524147727,
+      "profile": {
+        "roughness": 0.5617815286310033,
+        "character": 0.9300102870883498,
+        "wood": 0.10231316204326883,
+        "litres": 36.73689764758523
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 65,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.8335079047246836,
+      "age": 38,
+      "litres": 33.68108110498834,
+      "bottles": 48,
+      "cash": 3108,
+      "upkeep": 1048,
+      "evaporated": 3.6589188950116665,
+      "profile": {
+        "roughness": 0.07717287453534971,
+        "character": 1,
+        "wood": 0.5972377549190763,
+        "litres": 33.68108110498834
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 65,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.8335079047246836,
+      "age": 40,
+      "litres": 33.93482538580482,
+      "bottles": 48,
+      "cash": 3054,
+      "upkeep": 1102,
+      "evaporated": 3.4051746141951824,
+      "profile": {
+        "roughness": 0.08780138320485883,
+        "character": 1,
+        "wood": 0.5673302156981969,
+        "litres": 33.93482538580482
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 66,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.5736066870507784,
+      "age": 10,
+      "litres": 32.5059165668255,
+      "bottles": 46,
+      "cash": 3540,
+      "upkeep": 292,
+      "evaporated": 0.674083433174502,
+      "profile": {
+        "roughness": 0.4124918260555712,
+        "character": 0.800263043428862,
+        "wood": 0.07681949709508168,
+        "litres": 32.5059165668255
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 66,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.5736066870507784,
+      "age": 71,
+      "litres": 28.68053362948552,
+      "bottles": 40,
+      "cash": 2301,
+      "upkeep": 1939,
+      "evaporated": 4.4994663705144795,
+      "profile": {
+        "roughness": 0.0325693354626173,
+        "character": 1,
+        "wood": 0.5085480579258831,
+        "litres": 28.68053362948552
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 66,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.5736066870507784,
+      "age": 71,
+      "litres": 28.8542803754231,
+      "bottles": 41,
+      "cash": 2298,
+      "upkeep": 1939,
+      "evaporated": 4.325719624576898,
+      "profile": {
+        "roughness": 0.03617089014533365,
+        "character": 1,
+        "wood": 0.4984920178272342,
+        "litres": 28.8542803754231
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 67,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.6126300849020481,
+      "age": 12,
+      "litres": 32.788855302072,
+      "bottles": 46,
+      "cash": 3696,
+      "upkeep": 346,
+      "evaporated": 1.011144697927996,
+      "profile": {
+        "roughness": 0.31246157757848186,
+        "character": 0.8055338912869346,
+        "wood": 0.2110128531105981,
+        "litres": 32.788855302072
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 67,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.6126300849020481,
+      "age": 77,
+      "litres": 27.814932542230082,
+      "bottles": 39,
+      "cash": 2082,
+      "upkeep": 2101,
+      "evaporated": 5.985067457769915,
+      "profile": {
+        "roughness": 0.008179350844690026,
+        "character": 0.8452633942308948,
+        "wood": 1.1423590577665066,
+        "litres": 27.814932542230082
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 67,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.6126300849020481,
+      "age": 82,
+      "litres": 28.065928529191304,
+      "bottles": 40,
+      "cash": 1944,
+      "upkeep": 2236,
+      "evaporated": 5.7340714708086935,
+      "profile": {
+        "roughness": 0.009315085473467037,
+        "character": 0.8610303793979276,
+        "wood": 1.083776850198695,
+        "litres": 28.065928529191304
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 68,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.6790782735799439,
+      "age": 7,
+      "litres": 34.190440912857575,
+      "bottles": 48,
+      "cash": 3375,
+      "upkeep": 211,
+      "evaporated": 0.6795590871424224,
+      "profile": {
+        "roughness": 0.44393029957295665,
+        "character": 0.804927456536989,
+        "wood": 0.12018349898484243,
+        "litres": 34.190440912857575
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 68,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.6790782735799439,
+      "age": 53,
+      "litres": 30.042570225340413,
+      "bottles": 42,
+      "cash": 2721,
+      "upkeep": 1453,
+      "evaporated": 4.827429774659585,
+      "profile": {
+        "roughness": 0.0294552982572064,
+        "character": 0.996171063028567,
+        "wood": 0.8090891539909699,
+        "litres": 30.042570225340413
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 68,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.6790782735799439,
+      "age": 55,
+      "litres": 30.265163307300277,
+      "bottles": 43,
+      "cash": 2664,
+      "upkeep": 1507,
+      "evaporated": 4.60483669269972,
+      "profile": {
+        "roughness": 0.03306457292247776,
+        "character": 0.9974799537165355,
+        "wood": 0.779132169744214,
+        "litres": 30.265163307300277
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 69,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.7618502901052124,
+      "age": 6,
+      "litres": 35.638703061193794,
+      "bottles": 50,
+      "cash": 3306,
+      "upkeep": 184,
+      "evaporated": 0.5512969388062032,
+      "profile": {
+        "roughness": 0.5122583155810352,
+        "character": 0.8482603910986876,
+        "wood": 0.09951690981505523,
+        "litres": 35.638703061193794
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 69,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.7618502901052124,
+      "age": 81,
+      "litres": 29.41631321742628,
+      "bottles": 42,
+      "cash": 1965,
+      "upkeep": 2209,
+      "evaporated": 6.773686782573719,
+      "profile": {
+        "roughness": 0.0060180490835297544,
+        "character": 0.8720697100966136,
+        "wood": 1.119356482000168,
+        "litres": 29.41631321742628
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 69,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.7618502901052124,
+      "age": 84,
+      "litres": 29.836938940282682,
+      "bottles": 42,
+      "cash": 1884,
+      "upkeep": 2290,
+      "evaporated": 6.353061059717316,
+      "profile": {
+        "roughness": 0.00777366181430256,
+        "character": 0.8757604793307145,
+        "wood": 1.087696692687611,
+        "litres": 29.836938940282682
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 70,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.8499413051875309,
+      "age": 6,
+      "litres": 37.14993897324006,
+      "bottles": 53,
+      "cash": 3297,
+      "upkeep": 184,
+      "evaporated": 0.45006102675993986,
+      "profile": {
+        "roughness": 0.63435318875043,
+        "character": 0.8834455904335419,
+        "wood": 0.05756563688962128,
+        "litres": 37.14993897324006
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 70,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.8499413051875309,
+      "age": 55,
+      "litres": 33.6704219793548,
+      "bottles": 48,
+      "cash": 2709,
+      "upkeep": 1507,
+      "evaporated": 3.9295780206452022,
+      "profile": {
+        "roughness": 0.13013713828851325,
+        "character": 1,
+        "wood": 0.491968775659478,
+        "litres": 33.6704219793548
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 70,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.8499413051875309,
+      "age": 62,
+      "litres": 33.72769198962411,
+      "bottles": 48,
+      "cash": 2520,
+      "upkeep": 1696,
+      "evaporated": 3.872308010375889,
+      "profile": {
+        "roughness": 0.12896451360669128,
+        "character": 1,
+        "wood": 0.47100793003615526,
+        "litres": 33.72769198962411
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 71,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.38257776469690724,
+      "age": 8,
+      "litres": 29.53495815166597,
+      "bottles": 42,
+      "cash": 3486,
+      "upkeep": 238,
+      "evaporated": 0.5850418483340327,
+      "profile": {
+        "roughness": 0.28292167098180815,
+        "character": 0.6280711841423681,
+        "wood": 0.14753983976082696,
+        "litres": 29.53495815166597
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 71,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.38257776469690724,
+      "age": 75,
+      "litres": 25.060689775683503,
+      "bottles": 35,
+      "cash": 2028,
+      "upkeep": 2047,
+      "evaporated": 5.059310224316498,
+      "profile": {
+        "roughness": 0.003898800560441163,
+        "character": 0.6868603743276293,
+        "wood": 1.1528352725121773,
+        "litres": 25.060689775683503
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 71,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.38257776469690724,
+      "age": 80,
+      "litres": 25.262343236557765,
+      "bottles": 36,
+      "cash": 2010,
+      "upkeep": 2182,
+      "evaporated": 4.857656763442236,
+      "profile": {
+        "roughness": 0.004453455605180339,
+        "character": 0.7035498533422373,
+        "wood": 1.0895774819020556,
+        "litres": 25.262343236557765
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 72,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.6526040158700198,
+      "age": 6,
+      "litres": 34.076558368266426,
+      "bottles": 48,
+      "cash": 3342,
+      "upkeep": 184,
+      "evaporated": 0.363441631733572,
+      "profile": {
+        "roughness": 0.56192369755478,
+        "character": 0.8042573599827926,
+        "wood": 0.046727655896566835,
+        "litres": 34.076558368266426
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 72,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.6526040158700198,
+      "age": 64,
+      "litres": 30.755115488022867,
+      "bottles": 43,
+      "cash": 2481,
+      "upkeep": 1750,
+      "evaporated": 3.684884511977131,
+      "profile": {
+        "roughness": 0.08719879871276788,
+        "character": 1,
+        "wood": 0.46598883620942355,
+        "litres": 30.755115488022867
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 72,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.6526040158700198,
+      "age": 68,
+      "litres": 31.009636622061794,
+      "bottles": 44,
+      "cash": 2370,
+      "upkeep": 1858,
+      "evaporated": 3.4303633779382032,
+      "profile": {
+        "roughness": 0.09380763250896756,
+        "character": 1,
+        "wood": 0.45908704010355866,
+        "litres": 31.009636622061794
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 73,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.5896255172789097,
+      "age": 11,
+      "litres": 32.48099226873457,
+      "bottles": 46,
+      "cash": 3603,
+      "upkeep": 319,
+      "evaporated": 0.9490077312654321,
+      "profile": {
+        "roughness": 0.35622675801349474,
+        "character": 0.8051707721998553,
+        "wood": 0.17850031252166754,
+        "litres": 32.48099226873457
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 73,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.5896255172789097,
+      "age": 56,
+      "litres": 28.87113957021203,
+      "bottles": 41,
+      "cash": 2643,
+      "upkeep": 1534,
+      "evaporated": 4.55886042978797,
+      "profile": {
+        "roughness": 0.03674534276172801,
+        "character": 0.9837281222495304,
+        "wood": 0.8145317043276761,
+        "litres": 28.87113957021203
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 73,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.5896255172789097,
+      "age": 83,
+      "litres": 27.49959738136668,
+      "bottles": 39,
+      "cash": 1920,
+      "upkeep": 2263,
+      "evaporated": 5.93040261863332,
+      "profile": {
+        "roughness": 0.012132381040374849,
+        "character": 0.8758583775700509,
+        "wood": 1.0749047858440095,
+        "litres": 27.49959738136668
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 74,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.6490833430201747,
+      "age": 6,
+      "litres": 33.99003471674282,
+      "bottles": 48,
+      "cash": 3342,
+      "upkeep": 184,
+      "evaporated": 0.39996528325718117,
+      "profile": {
+        "roughness": 0.5595307562292811,
+        "character": 0.8078339789876257,
+        "wood": 0.053190113225576374,
+        "litres": 33.99003471674282
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 74,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.6490833430201747,
+      "age": 58,
+      "litres": 30.712843147339505,
+      "bottles": 43,
+      "cash": 2643,
+      "upkeep": 1588,
+      "evaporated": 3.677156852660495,
+      "profile": {
+        "roughness": 0.09744912269698144,
+        "character": 1,
+        "wood": 0.48002959818401986,
+        "litres": 30.712843147339505
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 74,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.6490833430201747,
+      "age": 66,
+      "litres": 30.737227558784955,
+      "bottles": 43,
+      "cash": 2427,
+      "upkeep": 1804,
+      "evaporated": 3.6527724412150455,
+      "profile": {
+        "roughness": 0.09486375304599709,
+        "character": 1,
+        "wood": 0.4630634321051619,
+        "litres": 30.737227558784955
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 75,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.43234629958169535,
+      "age": 10,
+      "litres": 30.099009201685384,
+      "bottles": 42,
+      "cash": 3552,
+      "upkeep": 292,
+      "evaporated": 0.8209907983146181,
+      "profile": {
+        "roughness": 0.28635981366486074,
+        "character": 0.6893993986672403,
+        "wood": 0.19059375611900287,
+        "litres": 30.099009201685384
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 75,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.43234629958169535,
+      "age": 74,
+      "litres": 25.336905549387254,
+      "bottles": 36,
+      "cash": 2052,
+      "upkeep": 2020,
+      "evaporated": 5.583094450612748,
+      "profile": {
+        "roughness": 0.006918846881903461,
+        "character": 0.7207465532098983,
+        "wood": 1.177286693628805,
+        "litres": 25.336905549387254
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 75,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.43234629958169535,
+      "age": 79,
+      "litres": 25.560821396105588,
+      "bottles": 36,
+      "cash": 2037,
+      "upkeep": 2155,
+      "evaporated": 5.359178603894414,
+      "profile": {
+        "roughness": 0.007808763431210265,
+        "character": 0.7378473388273206,
+        "wood": 1.112158287370144,
+        "litres": 25.560821396105588
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 76,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.6926432459731586,
+      "age": 6,
+      "litres": 34.708517340785825,
+      "bottles": 49,
+      "cash": 3309,
+      "upkeep": 184,
+      "evaporated": 0.37148265921417334,
+      "profile": {
+        "roughness": 0.5749737561121043,
+        "character": 0.8279786904457609,
+        "wood": 0.04996796198395858,
+        "litres": 34.708517340785825
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 76,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.6926432459731586,
+      "age": 61,
+      "litres": 31.481380741669348,
+      "bottles": 44,
+      "cash": 2559,
+      "upkeep": 1669,
+      "evaporated": 3.5986192583306504,
+      "profile": {
+        "roughness": 0.08647901057584642,
+        "character": 1,
+        "wood": 0.4744912121733299,
+        "litres": 31.481380741669348
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 76,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.6926432459731586,
+      "age": 67,
+      "litres": 31.623947921122937,
+      "bottles": 45,
+      "cash": 2394,
+      "upkeep": 1831,
+      "evaporated": 3.456052078877061,
+      "profile": {
+        "roughness": 0.0905016313196719,
+        "character": 1,
+        "wood": 0.4557051189177831,
+        "litres": 31.623947921122937
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 77,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.4719439135864377,
+      "age": 17,
+      "litres": 30.52205353033125,
+      "bottles": 43,
+      "cash": 3750,
+      "upkeep": 481,
+      "evaporated": 1.027946469668752,
+      "profile": {
+        "roughness": 0.300125155856553,
+        "character": 0.8016722498403713,
+        "wood": 0.1438402817636088,
+        "litres": 30.52205353033125
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 77,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.4719439135864377,
+      "age": 70,
+      "litres": 27.52735494863509,
+      "bottles": 39,
+      "cash": 2331,
+      "upkeep": 1912,
+      "evaporated": 4.022645051364911,
+      "profile": {
+        "roughness": 0.04284773822567845,
+        "character": 0.955918402984715,
+        "wood": 0.5536416294697039,
+        "litres": 27.52735494863509
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 77,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.4719439135864377,
+      "age": 71,
+      "litres": 27.669484372135674,
+      "bottles": 39,
+      "cash": 2304,
+      "upkeep": 1939,
+      "evaporated": 3.8805156278643267,
+      "profile": {
+        "roughness": 0.04631726235600036,
+        "character": 0.9565954413447504,
+        "wood": 0.5294983033761788,
+        "litres": 27.669484372135674
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 78,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.6152928276685998,
+      "age": 8,
+      "litres": 33.319451019894345,
+      "bottles": 47,
+      "cash": 3381,
+      "upkeep": 238,
+      "evaporated": 0.5205489801056586,
+      "profile": {
+        "roughness": 0.5040929034870386,
+        "character": 0.8049101698736598,
+        "wood": 0.0743406064242543,
+        "litres": 33.319451019894345
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 78,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.6152928276685998,
+      "age": 70,
+      "litres": 29.54750600132912,
+      "bottles": 42,
+      "cash": 2322,
+      "upkeep": 1912,
+      "evaporated": 4.292493998670885,
+      "profile": {
+        "roughness": 0.06653328432723758,
+        "character": 1,
+        "wood": 0.5969975012717976,
+        "litres": 29.54750600132912
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 78,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.6152928276685998,
+      "age": 72,
+      "litres": 29.681998276654383,
+      "bottles": 42,
+      "cash": 2268,
+      "upkeep": 1966,
+      "evaporated": 4.15800172334562,
+      "profile": {
+        "roughness": 0.06967565820357005,
+        "character": 1,
+        "wood": 0.5716059700941298,
+        "litres": 29.681998276654383
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 79,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.4371840219362639,
+      "age": 15,
+      "litres": 30.081937803100438,
+      "bottles": 42,
+      "cash": 3747,
+      "upkeep": 427,
+      "evaporated": 0.9080621968995608,
+      "profile": {
+        "roughness": 0.2922349341912098,
+        "character": 0.7503435575739418,
+        "wood": 0.1313718948806374,
+        "litres": 30.081937803100438
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 79,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.4371840219362639,
+      "age": 69,
+      "litres": 27.0276973321989,
+      "bottles": 38,
+      "cash": 2361,
+      "upkeep": 1885,
+      "evaporated": 3.9623026678010973,
+      "profile": {
+        "roughness": 0.0352630080914447,
+        "character": 0.9174978125732945,
+        "wood": 0.5628817495869105,
+        "litres": 27.0276973321989
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 79,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.4371840219362639,
+      "age": 70,
+      "litres": 27.177252239119227,
+      "bottles": 38,
+      "cash": 2334,
+      "upkeep": 1912,
+      "evaporated": 3.8127477608807716,
+      "profile": {
+        "roughness": 0.038496077437698305,
+        "character": 0.9181958418188388,
+        "wood": 0.5360535500295505,
+        "litres": 27.177252239119227
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 80,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.7675609235302545,
+      "age": 6,
+      "litres": 35.7581591785393,
+      "bottles": 51,
+      "cash": 3273,
+      "upkeep": 184,
+      "evaporated": 0.5218408214606995,
+      "profile": {
+        "roughness": 0.5577842413721991,
+        "character": 0.8683197254890299,
+        "wood": 0.1055202871480819,
+        "litres": 35.7581591785393
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 80,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.7675609235302545,
+      "age": 40,
+      "litres": 32.93971050210972,
+      "bottles": 47,
+      "cash": 3027,
+      "upkeep": 1102,
+      "evaporated": 3.340289497890282,
+      "profile": {
+        "roughness": 0.10350550110869328,
+        "character": 1,
+        "wood": 0.6433912625429641,
+        "litres": 32.93971050210972
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 80,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.7675609235302545,
+      "age": 41,
+      "litres": 33.24494264791465,
+      "bottles": 47,
+      "cash": 3000,
+      "upkeep": 1129,
+      "evaporated": 3.035057352085353,
+      "profile": {
+        "roughness": 0.11639122263190244,
+        "character": 1,
+        "wood": 0.5826762173128228,
+        "litres": 33.24494264791465
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 81,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.4721426740870811,
+      "age": 17,
+      "litres": 30.5102816128468,
+      "bottles": 43,
+      "cash": 3750,
+      "upkeep": 481,
+      "evaporated": 1.0397183871532008,
+      "profile": {
+        "roughness": 0.3014070257914486,
+        "character": 0.8041534092208859,
+        "wood": 0.14349520928829637,
+        "litres": 30.5102816128468
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 81,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.4721426740870811,
+      "age": 69,
+      "litres": 27.537892911672078,
+      "bottles": 39,
+      "cash": 2358,
+      "upkeep": 1885,
+      "evaporated": 4.012107088327923,
+      "profile": {
+        "roughness": 0.04466040819688874,
+        "character": 0.9577040423550169,
+        "wood": 0.5451956398324199,
+        "litres": 27.537892911672078
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 81,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.4721426740870811,
+      "age": 70,
+      "litres": 27.674094287598006,
+      "bottles": 39,
+      "cash": 2331,
+      "upkeep": 1912,
+      "evaporated": 3.8759057124019947,
+      "profile": {
+        "roughness": 0.04806358664865702,
+        "character": 0.9584126253287051,
+        "wood": 0.5226241199663185,
+        "litres": 27.674094287598006
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 82,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.4210719445487484,
+      "age": 9,
+      "litres": 29.999300799118746,
+      "bottles": 42,
+      "cash": 3549,
+      "upkeep": 265,
+      "evaporated": 0.7406992008812523,
+      "profile": {
+        "roughness": 0.28595783704000116,
+        "character": 0.689936003306748,
+        "wood": 0.18734743337854126,
+        "litres": 29.999300799118746
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 82,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.4210719445487484,
+      "age": 71,
+      "litres": 25.359400875220235,
+      "bottles": 36,
+      "cash": 2043,
+      "upkeep": 1939,
+      "evaporated": 5.3805991247797635,
+      "profile": {
+        "roughness": 0.004546989701883767,
+        "character": 0.7140621541698153,
+        "wood": 1.2213315139571914,
+        "litres": 25.359400875220235
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 82,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.4210719445487484,
+      "age": 75,
+      "litres": 25.635056677744036,
+      "bottles": 36,
+      "cash": 2145,
+      "upkeep": 2047,
+      "evaporated": 5.104943322255963,
+      "profile": {
+        "roughness": 0.005496806489263026,
+        "character": 0.7388780577490229,
+        "wood": 1.142298886073069,
+        "litres": 25.635056677744036
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 83,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.46926597674610093,
+      "age": 14,
+      "litres": 30.724164312640635,
+      "bottles": 43,
+      "cash": 3711,
+      "upkeep": 400,
+      "evaporated": 0.7858356873593664,
+      "profile": {
+        "roughness": 0.2925891108890183,
+        "character": 0.7400948863714684,
+        "wood": 0.13673814625663006,
+        "litres": 30.724164312640635
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 83,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.46926597674610093,
+      "age": 74,
+      "litres": 27.572298760423212,
+      "bottles": 39,
+      "cash": 2223,
+      "upkeep": 2020,
+      "evaporated": 3.937701239576789,
+      "profile": {
+        "roughness": 0.023678208706920417,
+        "character": 0.919323268004194,
+        "wood": 0.6620142496239301,
+        "litres": 27.572298760423212
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 83,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.46926597674610093,
+      "age": 77,
+      "litres": 27.688142291454373,
+      "bottles": 39,
+      "cash": 2142,
+      "upkeep": 2101,
+      "evaporated": 3.821857708545629,
+      "profile": {
+        "roughness": 0.02527775419810995,
+        "character": 0.9226883839446804,
+        "wood": 0.6341524016458322,
+        "litres": 27.688142291454373
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 84,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.8169192116358317,
+      "age": 6,
+      "litres": 36.66432305166467,
+      "bottles": 52,
+      "cash": 3300,
+      "upkeep": 184,
+      "evaporated": 0.4056769483353335,
+      "profile": {
+        "roughness": 0.6146189334140558,
+        "character": 0.8869276268649335,
+        "wood": 0.05943315603649825,
+        "litres": 36.66432305166467
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 84,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.8169192116358317,
+      "age": 54,
+      "litres": 33.57471612687221,
+      "bottles": 47,
+      "cash": 2709,
+      "upkeep": 1480,
+      "evaporated": 3.4952838731277893,
+      "profile": {
+        "roughness": 0.09934553046379861,
+        "character": 1,
+        "wood": 0.4982949787853217,
+        "litres": 33.57471612687221
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 84,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.8169192116358317,
+      "age": 60,
+      "litres": 33.67127936267509,
+      "bottles": 48,
+      "cash": 2574,
+      "upkeep": 1642,
+      "evaporated": 3.3987206373249137,
+      "profile": {
+        "roughness": 0.10117259956987769,
+        "character": 1,
+        "wood": 0.4710351204189032,
+        "litres": 33.67127936267509
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 85,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.8107386066112667,
+      "age": 6,
+      "litres": 36.5739588436341,
+      "bottles": 52,
+      "cash": 3300,
+      "upkeep": 184,
+      "evaporated": 0.39604115636589654,
+      "profile": {
+        "roughness": 0.6544255195962095,
+        "character": 0.9161569360040289,
+        "wood": 0.06097537975348917,
+        "litres": 36.5739588436341
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 85,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.8107386066112667,
+      "age": 53,
+      "litres": 33.614892120980805,
+      "bottles": 48,
+      "cash": 2763,
+      "upkeep": 1453,
+      "evaporated": 3.3551078790191937,
+      "profile": {
+        "roughness": 0.13544312620169963,
+        "character": 1,
+        "wood": 0.5015918993440712,
+        "litres": 33.614892120980805
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 85,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.8107386066112667,
+      "age": 59,
+      "litres": 33.70103136316145,
+      "bottles": 48,
+      "cash": 2601,
+      "upkeep": 1615,
+      "evaporated": 3.268968636838551,
+      "profile": {
+        "roughness": 0.1370872009660639,
+        "character": 1,
+        "wood": 0.4751418900514688,
+        "litres": 33.70103136316145
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 86,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.7422658307477832,
+      "age": 6,
+      "litres": 35.330360202367366,
+      "bottles": 50,
+      "cash": 3306,
+      "upkeep": 184,
+      "evaporated": 0.5496397976326364,
+      "profile": {
+        "roughness": 0.524230313349574,
+        "character": 0.8345902795239298,
+        "wood": 0.09998088451725837,
+        "litres": 35.330360202367366
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 86,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.7422658307477832,
+      "age": 81,
+      "litres": 29.13019894191404,
+      "bottles": 41,
+      "cash": 1968,
+      "upkeep": 2209,
+      "evaporated": 6.749801058085964,
+      "profile": {
+        "roughness": 0.010551902252505704,
+        "character": 0.8699084315501057,
+        "wood": 1.123640944842587,
+        "litres": 29.13019894191404
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 86,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.7422658307477832,
+      "age": 84,
+      "litres": 29.54910845391581,
+      "bottles": 42,
+      "cash": 1884,
+      "upkeep": 2290,
+      "evaporated": 6.330891546084192,
+      "profile": {
+        "roughness": 0.01321391115391038,
+        "character": 0.874824100590613,
+        "wood": 1.088931521447554,
+        "litres": 29.54910845391581
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 87,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.6516962136607617,
+      "age": 7,
+      "litres": 33.80410347842837,
+      "bottles": 48,
+      "cash": 3375,
+      "upkeep": 211,
+      "evaporated": 0.625896521571633,
+      "profile": {
+        "roughness": 0.46608940861357456,
+        "character": 0.8112980849138581,
+        "wood": 0.11714000057788829,
+        "litres": 33.80410347842837
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 87,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.6516962136607617,
+      "age": 80,
+      "litres": 27.917642027187846,
+      "bottles": 39,
+      "cash": 2001,
+      "upkeep": 2182,
+      "evaporated": 6.512357972812154,
+      "profile": {
+        "roughness": 0.009763743794784355,
+        "character": 0.8736408715531252,
+        "wood": 1.1186194634112727,
+        "litres": 27.917642027187846
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 87,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.6516962136607617,
+      "age": 83,
+      "litres": 28.316263862483673,
+      "bottles": 40,
+      "cash": 1917,
+      "upkeep": 2263,
+      "evaporated": 6.113736137516327,
+      "profile": {
+        "roughness": 0.012195733037841007,
+        "character": 0.8798399658795935,
+        "wood": 1.0804681137356915,
+        "litres": 28.316263862483673
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 88,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.8441847028094345,
+      "age": 6,
+      "litres": 36.93921283923001,
+      "bottles": 52,
+      "cash": 3300,
+      "upkeep": 184,
+      "evaporated": 0.5707871607699886,
+      "profile": {
+        "roughness": 0.5449086971977243,
+        "character": 0.9000285825607777,
+        "wood": 0.11526473000472644,
+        "litres": 36.93921283923001
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 88,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.8441847028094345,
+      "age": 75,
+      "litres": 30.96736258637577,
+      "bottles": 44,
+      "cash": 2121,
+      "upkeep": 2047,
+      "evaporated": 6.542637413624227,
+      "profile": {
+        "roughness": 0.008045530074112562,
+        "character": 0.862026614010434,
+        "wood": 1.1863154735926353,
+        "litres": 30.96736258637577
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 88,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.8441847028094345,
+      "age": 80,
+      "litres": 31.238354322796095,
+      "bottles": 44,
+      "cash": 1986,
+      "upkeep": 2182,
+      "evaporated": 6.271645677203903,
+      "profile": {
+        "roughness": 0.009202948886596101,
+        "character": 0.871060622763176,
+        "wood": 1.119501466307518,
+        "litres": 31.238354322796095
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 89,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.6561997968819924,
+      "age": 7,
+      "litres": 33.92582921885656,
+      "bottles": 48,
+      "cash": 3375,
+      "upkeep": 211,
+      "evaporated": 0.5741707811434367,
+      "profile": {
+        "roughness": 0.44361464762561914,
+        "character": 0.8050445797088897,
+        "wood": 0.1470916253664441,
+        "litres": 33.92582921885656
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 89,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.6561997968819924,
+      "age": 71,
+      "litres": 29.09990879072095,
+      "bottles": 41,
+      "cash": 2238,
+      "upkeep": 1939,
+      "evaporated": 5.400091209279051,
+      "profile": {
+        "roughness": 0.010295376532842734,
+        "character": 0.8565564228364805,
+        "wood": 1.224324148536513,
+        "litres": 29.09990879072095
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 89,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.6561997968819924,
+      "age": 75,
+      "litres": 29.344947884706716,
+      "bottles": 41,
+      "cash": 2130,
+      "upkeep": 2047,
+      "evaporated": 5.155052115293284,
+      "profile": {
+        "roughness": 0.012166540926175782,
+        "character": 0.8719390671570146,
+        "wood": 1.1451525951215769,
+        "litres": 29.344947884706716
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 90,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.3854098497191444,
+      "age": 9,
+      "litres": 29.48373996763888,
+      "bottles": 42,
+      "cash": 3489,
+      "upkeep": 265,
+      "evaporated": 0.6862600323611225,
+      "profile": {
+        "roughness": 0.28781818214953037,
+        "character": 0.64410910251975,
+        "wood": 0.16756066114114646,
+        "litres": 29.48373996763888
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 90,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.3854098497191444,
+      "age": 75,
+      "litres": 24.90591458545295,
+      "bottles": 35,
+      "cash": 1998,
+      "upkeep": 2047,
+      "evaporated": 5.264085414547051,
+      "profile": {
+        "roughness": 0.007105136325547105,
+        "character": 0.6862441779989986,
+        "wood": 1.1645296115862163,
+        "litres": 24.90591458545295
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 90,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.3854098497191444,
+      "age": 80,
+      "litres": 25.12394233217334,
+      "bottles": 35,
+      "cash": 2013,
+      "upkeep": 2182,
+      "evaporated": 5.046057667826663,
+      "profile": {
+        "roughness": 0.008038171639489906,
+        "character": 0.7044224975136483,
+        "wood": 1.0986172540350991,
+        "litres": 25.12394233217334
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 91,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.8535629476653412,
+      "age": 6,
+      "litres": 37.05543046083613,
+      "bottles": 52,
+      "cash": 3270,
+      "upkeep": 184,
+      "evaporated": 0.6045695391638688,
+      "profile": {
+        "roughness": 0.5664783340212526,
+        "character": 0.9133969014753438,
+        "wood": 0.0981054969219752,
+        "litres": 37.05543046083613
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 91,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.8535629476653412,
+      "age": 39,
+      "litres": 33.89966224892527,
+      "bottles": 48,
+      "cash": 3081,
+      "upkeep": 1075,
+      "evaporated": 3.7603377510747293,
+      "profile": {
+        "roughness": 0.08495685651731506,
+        "character": 1,
+        "wood": 0.5882940726918963,
+        "litres": 33.89966224892527
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 91,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.8535629476653412,
+      "age": 40,
+      "litres": 34.2457230148003,
+      "bottles": 48,
+      "cash": 3054,
+      "upkeep": 1102,
+      "evaporated": 3.414276985199699,
+      "profile": {
+        "roughness": 0.10141534892625816,
+        "character": 1,
+        "wood": 0.5637281289805469,
+        "litres": 34.2457230148003
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 92,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.7572653690120206,
+      "age": 6,
+      "litres": 35.57770675339126,
+      "bottles": 50,
+      "cash": 3306,
+      "upkeep": 184,
+      "evaporated": 0.542293246608736,
+      "profile": {
+        "roughness": 0.5173257258941361,
+        "character": 0.8685791956324592,
+        "wood": 0.10541719731831754,
+        "litres": 35.57770675339126
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 92,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.7572653690120206,
+      "age": 78,
+      "litres": 29.67156581497412,
+      "bottles": 42,
+      "cash": 2046,
+      "upkeep": 2128,
+      "evaporated": 6.448434185025878,
+      "profile": {
+        "roughness": 0.005954191874241737,
+        "character": 0.8720965854037833,
+        "wood": 1.1382843617233398,
+        "litres": 29.67156581497412
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 92,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.7572653690120206,
+      "age": 83,
+      "litres": 29.938275848401524,
+      "bottles": 42,
+      "cash": 1911,
+      "upkeep": 2263,
+      "evaporated": 6.181724151598473,
+      "profile": {
+        "roughness": 0.006875429315199344,
+        "character": 0.8750717402833182,
+        "wood": 1.091386660794157,
+        "litres": 29.938275848401524
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 93,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.8533385497983546,
+      "age": 6,
+      "litres": 37.235874264000365,
+      "bottles": 53,
+      "cash": 3297,
+      "upkeep": 184,
+      "evaporated": 0.4141257359996331,
+      "profile": {
+        "roughness": 0.6746457425854793,
+        "character": 0.9225155653321336,
+        "wood": 0.0494746676812122,
+        "litres": 37.235874264000365
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 93,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.8533385497983546,
+      "age": 61,
+      "litres": 33.645745503691614,
+      "bottles": 48,
+      "cash": 2547,
+      "upkeep": 1669,
+      "evaporated": 4.004254496308384,
+      "profile": {
+        "roughness": 0.12794536002675994,
+        "character": 1,
+        "wood": 0.47012148101510615,
+        "litres": 33.645745503691614
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 93,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.8533385497983546,
+      "age": 67,
+      "litres": 33.804072725364136,
+      "bottles": 48,
+      "cash": 2385,
+      "upkeep": 1831,
+      "evaporated": 3.845927274635862,
+      "profile": {
+        "roughness": 0.12352182447785601,
+        "character": 1,
+        "wood": 0.45527278274953964,
+        "litres": 33.804072725364136
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 94,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.6411410654895008,
+      "age": 9,
+      "litres": 33.66946902277763,
+      "bottles": 48,
+      "cash": 3441,
+      "upkeep": 265,
+      "evaporated": 0.5905309772223646,
+      "profile": {
+        "roughness": 0.47585805637223744,
+        "character": 0.8093683455957271,
+        "wood": 0.07150578728453508,
+        "litres": 33.66946902277763
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 94,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.6411410654895008,
+      "age": 70,
+      "litres": 29.926549759468056,
+      "bottles": 42,
+      "cash": 2322,
+      "upkeep": 1912,
+      "evaporated": 4.333450240531942,
+      "profile": {
+        "roughness": 0.05817215476867585,
+        "character": 1,
+        "wood": 0.5173532145425946,
+        "litres": 29.926549759468056
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 94,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.6411410654895008,
+      "age": 71,
+      "litres": 30.055329778718857,
+      "bottles": 42,
+      "cash": 2295,
+      "upkeep": 1939,
+      "evaporated": 4.204670221281141,
+      "profile": {
+        "roughness": 0.061808839148801135,
+        "character": 1,
+        "wood": 0.5081172892151249,
+        "litres": 30.055329778718857
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 95,
+      "policy": "early",
+      "type": "refill",
+      "cut": 0.5666143439710141,
+      "age": 11,
+      "litres": 32.349170132122175,
+      "bottles": 46,
+      "cash": 3573,
+      "upkeep": 319,
+      "evaporated": 0.7208298678778249,
+      "profile": {
+        "roughness": 0.39965486243599435,
+        "character": 0.8037100616568722,
+        "wood": 0.09375602137157334,
+        "litres": 32.349170132122175
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 95,
+      "policy": "wait",
+      "type": "refill",
+      "cut": 0.5666143439710141,
+      "age": 68,
+      "litres": 28.858097628808416,
+      "bottles": 41,
+      "cash": 2379,
+      "upkeep": 1858,
+      "evaporated": 4.211902371191584,
+      "profile": {
+        "roughness": 0.04173689904225724,
+        "character": 1,
+        "wood": 0.5389655420766178,
+        "litres": 28.858097628808416
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 95,
+      "policy": "cool",
+      "type": "refill",
+      "cut": 0.5666143439710141,
+      "age": 69,
+      "litres": 28.995035418802892,
+      "bottles": 41,
+      "cash": 2352,
+      "upkeep": 1885,
+      "evaporated": 4.074964581197108,
+      "profile": {
+        "roughness": 0.044965705093698675,
+        "character": 1,
+        "wood": 0.517204082314416,
+        "litres": 28.995035418802892
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "loss",
+        "last"
+      ]
+    },
+    {
+      "seed": 96,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.6220825474127196,
+      "age": 7,
+      "litres": 33.38330756069701,
+      "bottles": 47,
+      "cash": 3378,
+      "upkeep": 211,
+      "evaporated": 0.5666924393029902,
+      "profile": {
+        "roughness": 0.4405116093918511,
+        "character": 0.8024786800461213,
+        "wood": 0.1461858698123064,
+        "litres": 33.38330756069701
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 96,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.6220825474127196,
+      "age": 71,
+      "litres": 28.62142705244305,
+      "bottles": 40,
+      "cash": 2241,
+      "upkeep": 1939,
+      "evaporated": 5.328572947556953,
+      "profile": {
+        "roughness": 0.01022974104801324,
+        "character": 0.8584461436483355,
+        "wood": 1.2182352952156055,
+        "litres": 28.62142705244305
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 96,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.6220825474127196,
+      "age": 76,
+      "litres": 28.813347541607076,
+      "bottles": 41,
+      "cash": 2103,
+      "upkeep": 2074,
+      "evaporated": 5.136652458392927,
+      "profile": {
+        "roughness": 0.011479123537904307,
+        "character": 0.8659472763033129,
+        "wood": 1.1509759995969822,
+        "litres": 28.813347541607076
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 97,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.47663951870054005,
+      "age": 11,
+      "litres": 30.670007413457995,
+      "bottles": 43,
+      "cash": 3612,
+      "upkeep": 319,
+      "evaporated": 0.959992586542004,
+      "profile": {
+        "roughness": 0.2861677346938126,
+        "character": 0.7209697270744317,
+        "wood": 0.22124879041282833,
+        "litres": 30.670007413457995
+      },
+      "events": [
+        "rounded"
+      ]
+    },
+    {
+      "seed": 97,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.47663951870054005,
+      "age": 72,
+      "litres": 25.85152975856292,
+      "bottles": 36,
+      "cash": 2076,
+      "upkeep": 1966,
+      "evaporated": 5.7784702414370805,
+      "profile": {
+        "roughness": 0.008899076509490915,
+        "character": 0.7346547451201412,
+        "wood": 1.2069325462869653,
+        "litres": 25.85152975856292
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 97,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.47663951870054005,
+      "age": 76,
+      "litres": 26.142132015757877,
+      "bottles": 37,
+      "cash": 2115,
+      "upkeep": 2074,
+      "evaporated": 5.487867984242122,
+      "profile": {
+        "roughness": 0.010459712436607767,
+        "character": 0.7588525965776569,
+        "wood": 1.129685559686356,
+        "litres": 26.142132015757877
+      },
+      "events": [
+        "rounded",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 98,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.7104774371837266,
+      "age": 6,
+      "litres": 34.79237235883177,
+      "bottles": 49,
+      "cash": 3309,
+      "upkeep": 184,
+      "evaporated": 0.5776276411682275,
+      "profile": {
+        "roughness": 0.5313194055374563,
+        "character": 0.8467458435971976,
+        "wood": 0.12134504812422078,
+        "litres": 34.79237235883177
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 98,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.7104774371837266,
+      "age": 73,
+      "litres": 28.948830105180125,
+      "bottles": 41,
+      "cash": 2184,
+      "upkeep": 1993,
+      "evaporated": 6.421169894819872,
+      "profile": {
+        "roughness": 0.016193580484387734,
+        "character": 0.8563642539084959,
+        "wood": 1.2103963563872147,
+        "litres": 28.948830105180125
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 98,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.7104774371837266,
+      "age": 77,
+      "litres": 29.27876880373658,
+      "bottles": 41,
+      "cash": 2076,
+      "upkeep": 2101,
+      "evaporated": 6.0912311962634185,
+      "profile": {
+        "roughness": 0.01889378511760147,
+        "character": 0.8724602498556405,
+        "wood": 1.1317552707934244,
+        "litres": 29.27876880373658
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 99,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.8011509475647471,
+      "age": 6,
+      "litres": 36.28183687784567,
+      "bottles": 51,
+      "cash": 3273,
+      "upkeep": 184,
+      "evaporated": 0.5381631221543302,
+      "profile": {
+        "roughness": 0.5615649578940755,
+        "character": 0.8706007335439552,
+        "wood": 0.11568254795450325,
+        "litres": 36.28183687784567
+      },
+      "events": [
+        "rough"
+      ]
+    },
+    {
+      "seed": 99,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.8011509475647471,
+      "age": 40,
+      "litres": 33.37748933697126,
+      "bottles": 47,
+      "cash": 3027,
+      "upkeep": 1102,
+      "evaporated": 3.4425106630287416,
+      "profile": {
+        "roughness": 0.10495080876807646,
+        "character": 1,
+        "wood": 0.699349148569021,
+        "litres": 33.37748933697126
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 99,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.8011509475647471,
+      "age": 42,
+      "litres": 33.62785964775464,
+      "bottles": 48,
+      "cash": 3000,
+      "upkeep": 1156,
+      "evaporated": 3.19214035224536,
+      "profile": {
+        "roughness": 0.11316715178106099,
+        "character": 1,
+        "wood": 0.6344457636245913,
+        "litres": 33.62785964775464
+      },
+      "events": [
+        "rough",
+        "rounded",
+        "wood",
+        "last"
+      ]
+    },
+    {
+      "seed": 100,
+      "policy": "early",
+      "type": "bourbon",
+      "cut": 0.6215612627915107,
+      "age": 10,
+      "litres": 33.099279672844666,
+      "bottles": 47,
+      "cash": 3567,
+      "upkeep": 292,
+      "evaporated": 0.8407203271553314,
+      "profile": {
+        "roughness": 0.36044689911752725,
+        "character": 0.8008724331405378,
+        "wood": 0.1794332605307008,
+        "litres": 33.099279672844666
+      },
+      "events": [
+        "fruit"
+      ]
+    },
+    {
+      "seed": 100,
+      "policy": "wait",
+      "type": "bourbon",
+      "cut": 0.6215612627915107,
+      "age": 77,
+      "litres": 27.97908210415722,
+      "bottles": 39,
+      "cash": 2082,
+      "upkeep": 2101,
+      "evaporated": 5.960917895842776,
+      "profile": {
+        "roughness": 0.00867691728183326,
+        "character": 0.8555067714120056,
+        "wood": 1.1564183871325888,
+        "litres": 27.97908210415722
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    },
+    {
+      "seed": 100,
+      "policy": "cool",
+      "type": "bourbon",
+      "cut": 0.6215612627915107,
+      "age": 82,
+      "litres": 28.22927529525867,
+      "bottles": 40,
+      "cash": 1944,
+      "upkeep": 2236,
+      "evaporated": 5.710724704741327,
+      "profile": {
+        "roughness": 0.009872069466030918,
+        "character": 0.8744393277585542,
+        "wood": 1.0904674581951144,
+        "litres": 28.22927529525867
+      },
+      "events": [
+        "fruit",
+        "wood",
+        "fading",
+        "last"
+      ]
+    }
+  ]
+}

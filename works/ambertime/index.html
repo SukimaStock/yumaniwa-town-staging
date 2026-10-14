@@ -1,32 +1,28 @@
-<!doctype html>
-<html lang="ja">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#172124">
-<title>AmberTime — 時間を育てる蒸留所</title>
-<link rel="stylesheet" href="./journey.css"><script type="module" src="./journey-app.mjs"></script>
-</head>
-<body>
-<div class="page">
-<header><div><h1>AmberTime</h1><span class="edition">0.3 · Time & Choice</span></div><a href="../../lab/">研究所へ</a></header>
+<!doctype html><html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#172124">
+<title>AmberTime — 時間を育てる蒸留所</title><link rel="stylesheet" href="./journey.css?v=0.4"><script type="module" src="./journey-app.mjs?v=0.4"></script></head>
+<body><div class="page">
+<header><div><h1>AmberTime</h1><span class="edition">0.4 · Tasting & Character</span></div><a href="../../lab/">研究所へ</a></header>
 <p id="storage-notice" role="status" hidden></p>
 <main id="game" hidden>
 <section class="warehouse" aria-label="一樽の熟成">
 <div class="stamp"><span id="cask-kind"></span><strong id="age"></strong></div>
-<div class="objects"><div id="barrel" class="barrel"></div><div id="glass" class="glass"></div></div>
-<div class="amount"><span id="amount"></span><span id="loss"></span></div>
-<div class="taste" id="taste"></div>
-<p id="change" class="change"></p>
+<div class="objects"><div id="barrel" class="barrel"></div><button id="glass-button" class="glass-button" aria-label="グラスで試飲する" type="button"><span id="glass" class="glass"></span></button></div>
+<div class="amount"><span id="amount"></span><span id="loss"></span></div><p id="change" class="change"></p><p id="last-taste" class="quiet"></p>
+</section>
+<div id="free-actions" class="free-actions"><button id="taste-button" class="taste-button" type="button">試飲する</button><button id="open-bottle" type="button">瓶詰めへ</button></div>
+<section id="tasting-panel" class="tasting-panel" aria-label="試飲" hidden>
+<h2 id="taste-date"></h2><div id="taste-current"></div><div id="taste-previous" class="taste-previous" hidden></div><p id="taste-same-month" class="quiet" hidden>同じ月の試飲です。</p>
+<div class="free-actions"><button id="end-tasting" type="button">樽を見守る</button><button id="taste-bottle" type="button">瓶詰めへ</button></div>
 </section>
 <section id="decision" class="decision" aria-live="polite" hidden></section>
+<section id="bottle-tray" class="bottle-tray" aria-label="瓶詰めの確認" hidden><h2>今の風味を瓶に残す</h2><p id="bottle-quote"></p><div class="free-actions"><button id="confirm-bottle" type="button">瓶詰めする</button><button id="cancel-bottle" type="button">戻る</button></div></section>
 <section id="result" class="result" hidden></section>
-<div id="time-controls" class="time-controls"><button id="toggle-time" type="button">ひと休み</button><button id="skip" type="button">次の変化まで</button></div>
-<p id="time-status" class="time-status" role="status"></p>
+<div id="time-controls" class="time-controls"><button id="toggle-time" type="button">ひと休み</button><button id="skip" type="button">次の変化まで</button></div><p id="time-status" class="time-status" role="status"></p>
 <details id="ledger" class="ledger"><summary>この樽の帳面</summary><div id="ledger-body"></div></details>
-<details id="records" class="records" hidden><summary>これまでの一本</summary><div id="records-body"></div></details>
+<details id="records" class="records" hidden><summary>これまでの一本を見比べる</summary><div id="records-body"></div></details>
+<p id="legacy-note" class="quiet" hidden>この樽の進行は0.3から引き継いでいます。次の樽から、新しい熟成の節目へ進みます。</p>
 </main>
 <section id="recovery" hidden><p>保存された記録を残したまま、進行を止めています。</p></section>
-<footer><a href="./legacy.html">以前の蒸留所</a><details><summary>保存・遊び方</summary><p>樽の変化を見守り、節目で残すか瓶詰めするかを選びます。画面を離れると時間は止まります。戻ったら「続きを見守る」で再開できます。</p><p>操作と月の経過ごとに保存します。以前の蒸留所の保存とは別の記録です。</p><button id="reset" type="button">この記録を初期化</button><span id="save-status" role="status"></span></details></footer>
-<noscript><p>JavaScriptを有効にしてください。</p></noscript>
-</div>
-</body></html>
+<footer><a href="./legacy.html">以前の蒸留所</a><details><summary>保存・遊び方</summary><p>色と残量を見守り、味が気になったら試飲します。試飲中や画面を離れた間は、時間が止まります。</p><p>試飲と判断も保存します。以前の蒸留所の保存はそのまま残ります。</p><button id="reset" type="button">この記録を初期化</button><span id="save-status" role="status"></span></details></footer>
+<noscript><p>JavaScriptを有効にしてください。</p></noscript></div></body></html>
