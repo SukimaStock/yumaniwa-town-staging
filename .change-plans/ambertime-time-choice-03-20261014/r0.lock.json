@@ -1,0 +1,119 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c0e62737c421d1701d345148571df9177ae05ea9f511b49253729fc5ae0b7473",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-time-choice-03-20261014",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime 0.3 Time & Choice: single barrel semiautomatic journey with bounded state-driven decisions and bottle records",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "7bdfcfa07449943f19dc8cf9bca4837d32150269",
+    "canonicalSources": [
+      "Current user AmberTime0.3",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/DESIGN-V02.md",
+      "https:/1in8b.life"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-time-choice-03-20261014/r0.lock.json",
+      "works/ambertime/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "tools/**",
+      ".github/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "New one-barrel entry UI and deterministic journey wrapper over unchanged economic/aging core",
+      "Versioned separate journey save with strict restore; preserve old key and exact legacy UI at legacy.html",
+      "Foreground-only semiautomatic months, pause at state-based choices, bounded skip and final end",
+      "Consequential waiting goals and bottling outcomes, concise final records and repeat seed variation",
+      "Regression, exhaustive policy tests, saved timer/choice safety, independent review and PC/mobile CSS viewport browser QA"
+    ],
+    "ownerDecisions": [
+      "User AmberTime0.3 explicitly authorizes Time & Choice redesign, compatible data, Staging tests/merge, no Production; separate journey save protects old economy and legacy resume"
+    ],
+    "hqDecisions": [
+      "Within explicitly requested work-local redesign: keep original save key/core unchanged and retain legacy entry; separate versioned journey localStorage only, no shared storage/Engine contract change"
+    ],
+    "rulesApplied": [
+      "AGENTS 2026-10-14 useful delegation and independent review",
+      "CHANGE-PLAN normal route with lock before implementation",
+      "Work lifecycle active staging-only; no town/search/Production registration"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "pc-and-mobile-journey",
+      "multiple-choice-playthroughs",
+      "independent-save-timer-review"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work-only PR; v1 player saves remain valid",
+    "outOfScope": [
+      "Production",
+      "Other games and Engine",
+      "Expansion/events/missions/new markets",
+      "Pixel art or large animation system",
+      "Automatic reset of existing player data"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad Safari",
+      "Human user test and repeated-play interest"
+    ],
+    "problem": "0.1 exposes calculations before players can develop interest in a barrel",
+    "currentContract": "AmberTime 0.2 v1 economy saved under original key",
+    "whyExistingIsInsufficient": "Monthly button and three management rooms expose tasks instead of time and a few choices",
+    "design": "Reuse unchanged core in a separate one-barrel journey, foreground timer, state thresholds, finite last decision, records",
+    "alternativesRejected": [
+      "Direct Lua port",
+      "shared Engine modifications",
+      "new market/events/expansion systems"
+    ],
+    "migration": "No destructive migration: original key and legacy page unchanged; new separate journey version1. Corrupt/future retained.",
+    "compatibility": "Same modelVersion/SAVE_VERSION/key, modern DOM/SVG/Pointer Events, prefers-reduced-motion",
+    "boundaryCases": [
+      "Hidden tab and pause no catch-up",
+      "Reload at decision/result",
+      "Invalid/future save preserved",
+      "Repeated click and stale choice",
+      "Maximum age bounded",
+      "Storage unavailable",
+      "320/390/844/1280 widths",
+      "Repeat seed variation"
+    ],
+    "testPlan": [
+      "Unchanged 0.1 game regression and baseline numerical comparison",
+      "Paid opening trace and v1 fixture roundtrip",
+      "PC/iPhone-size browser actions/screens/overflow/tap target tests when supported",
+      "Scope/Risk/Impact/CI and final Pages byte confirmation"
+    ],
+    "promotionRisk": "Staging only; never promote active work"
+  }
+}
