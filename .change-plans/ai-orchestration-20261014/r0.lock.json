@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6d38faa0ca96c02fa255c26debe26c541e02d63afeb473a017c1094eb57758fb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ai-orchestration-20261014",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add proportional AI execution and interruption recovery instructions without changing gates or production",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "c658cdcb069876335aae608e30c52223220be4fb",
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ai-orchestration-20261014/r0.lock.json",
+      "AGENTS.md",
+      "OPERATIONS.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "works/**",
+      "engine/**",
+      "index.html",
+      "style.css",
+      "w/**",
+      "en/**",
+      "assets/**"
+    ],
+    "expectedChanges": [
+      "Choose execution size independently of mandatory risk floor",
+      "Use actual supported model and subagent controls; preserve fallback and approval boundaries",
+      "Persist resumable progress in existing PR/branch records and reconcile remote evidence before continuing",
+      "Bound repeated fixes to three attempts per issue"
+    ],
+    "ownerDecisions": [
+      "User instruction 2026-10-14 SukimaStock AI development orchestration explicitly permits these staging documentation changes, PR, checks and safe staging merge; production excluded"
+    ],
+    "hqDecisions": [
+      "Docs-only SYSTEM/full change; preserve all classifiers, exact-blob contracts and required CI. No runtime or new management system."
+    ],
+    "rulesApplied": [
+      "2026-10-11 simplification",
+      "CHANGE-PLAN §1 and risk floor",
+      "Actual tool capability precedes instruction text"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review proportional execution, capability limits and recovery cases A/B/C"
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing GitHub PR/commit/Plan Lock records"
+    ],
+    "rollback": "Revert only this documentation implementation commit in a staging PR",
+    "outOfScope": [
+      "Production changes",
+      "Runtime or validator edits",
+      "Global model/config changes",
+      "Automatic session restart"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Dots runtime controls",
+      "Actual process-crash automatic recovery",
+      "Local Codex client configuration"
+    ],
+    "alternativesRejected": [
+      "Hardcoded models or concurrency",
+      "New progress database"
+    ],
+    "boundaryCases": [
+      "Light active work vs SYSTEM docs risk",
+      "Parallel read-only tasks vs shared writes",
+      "Stale records vs merged PR"
+    ],
+    "testPlan": [
+      "Existing gate/proof regression suites",
+      "A light task, B two independent tasks, C stale record and merged commit recovery"
+    ],
+    "problem": "Long Work tasks have stopped and required manual reconstruction",
+    "currentContract": "GitHub evidence and pre-implementation lock; three protected lightweight routes",
+    "whyExistingIsInsufficient": "No common checkpoint and restart reconciliation guidance",
+    "design": "Small AGENTS execution policy and OPERATIONS recovery procedure using existing records",
+    "migration": "None",
+    "compatibility": "No changes to runtime, gates, lifecycle, approval or release contracts",
+    "promotionRisk": "Production excluded"
+  }
+}
