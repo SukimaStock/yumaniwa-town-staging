@@ -1,0 +1,605 @@
+{
+  "note": "Numerical model unchanged. Compare120 playable months from each opening.0.2 has one normally paid8-month cask and starts month8, cash3364; old starts month0,cash4000. Calendar endpoints/assets differ; this is viability, not an equal-assets profit ranking.",
+  "runs": [
+    {
+      "key": "A",
+      "seed": 1,
+      "before": {
+        "cash": 16840,
+        "minCash": 2479,
+        "revenue": 37737,
+        "upkeep": 3825,
+        "costs": 21072
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16784,
+        "minCash": 2463,
+        "revenue": 38451,
+        "upkeep": 4031,
+        "costs": 21636,
+        "evaporatedLitres": 18.730722136047582,
+        "batches": 41,
+        "liveCasks": 2,
+        "stock": 41
+      }
+    },
+    {
+      "key": "A",
+      "seed": 7,
+      "before": {
+        "cash": 16777,
+        "minCash": 2479,
+        "revenue": 37674,
+        "upkeep": 3825,
+        "costs": 21072
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16679,
+        "minCash": 2463,
+        "revenue": 38346,
+        "upkeep": 4031,
+        "costs": 21636,
+        "evaporatedLitres": 18.638378870536222,
+        "batches": 41,
+        "liveCasks": 2,
+        "stock": 46
+      }
+    },
+    {
+      "key": "A",
+      "seed": 42,
+      "before": {
+        "cash": 16777,
+        "minCash": 2479,
+        "revenue": 37674,
+        "upkeep": 3825,
+        "costs": 21072
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16763,
+        "minCash": 2400,
+        "revenue": 38430,
+        "upkeep": 4031,
+        "costs": 21636,
+        "evaporatedLitres": 18.873815380547057,
+        "batches": 41,
+        "liveCasks": 2,
+        "stock": 42
+      }
+    },
+    {
+      "key": "A",
+      "seed": 81,
+      "before": {
+        "cash": 16819,
+        "minCash": 2479,
+        "revenue": 37716,
+        "upkeep": 3825,
+        "costs": 21072
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16763,
+        "minCash": 2463,
+        "revenue": 38430,
+        "upkeep": 4031,
+        "costs": 21636,
+        "evaporatedLitres": 18.6059857644023,
+        "batches": 41,
+        "liveCasks": 2,
+        "stock": 42
+      }
+    },
+    {
+      "key": "A",
+      "seed": 2026,
+      "before": {
+        "cash": 16714,
+        "minCash": 2479,
+        "revenue": 37611,
+        "upkeep": 3825,
+        "costs": 21072
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16574,
+        "minCash": 2463,
+        "revenue": 38241,
+        "upkeep": 4031,
+        "costs": 21636,
+        "evaporatedLitres": 18.817449477197485,
+        "batches": 41,
+        "liveCasks": 2,
+        "stock": 51
+      }
+    },
+    {
+      "key": "A",
+      "seed": 20261014,
+      "before": {
+        "cash": 16714,
+        "minCash": 2479,
+        "revenue": 37611,
+        "upkeep": 3825,
+        "costs": 21072
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16574,
+        "minCash": 2526,
+        "revenue": 38241,
+        "upkeep": 4031,
+        "costs": 21636,
+        "evaporatedLitres": 18.76638888486076,
+        "batches": 41,
+        "liveCasks": 2,
+        "stock": 51
+      }
+    },
+    {
+      "key": "A",
+      "seed": 123456789,
+      "before": {
+        "cash": 16777,
+        "minCash": 2479,
+        "revenue": 37674,
+        "upkeep": 3825,
+        "costs": 21072
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16805,
+        "minCash": 2526,
+        "revenue": 38472,
+        "upkeep": 4031,
+        "costs": 21636,
+        "evaporatedLitres": 18.881829093820798,
+        "batches": 41,
+        "liveCasks": 2,
+        "stock": 40
+      }
+    },
+    {
+      "key": "A",
+      "seed": 987654321,
+      "before": {
+        "cash": 16714,
+        "minCash": 2479,
+        "revenue": 37611,
+        "upkeep": 3825,
+        "costs": 21072
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16574,
+        "minCash": 2526,
+        "revenue": 38241,
+        "upkeep": 4031,
+        "costs": 21636,
+        "evaporatedLitres": 19.09741209728699,
+        "batches": 41,
+        "liveCasks": 2,
+        "stock": 51
+      }
+    },
+    {
+      "key": "B",
+      "seed": 1,
+      "before": {
+        "cash": 16975,
+        "minCash": 463,
+        "revenue": 25776,
+        "upkeep": 4950,
+        "costs": 7851
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16729,
+        "minCash": 553,
+        "revenue": 25776,
+        "upkeep": 5196,
+        "costs": 7851,
+        "evaporatedLitres": 35.519381876043084,
+        "batches": 16,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "B",
+      "seed": 7,
+      "before": {
+        "cash": 16930,
+        "minCash": 466,
+        "revenue": 25728,
+        "upkeep": 4950,
+        "costs": 7848
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16684,
+        "minCash": 556,
+        "revenue": 25728,
+        "upkeep": 5196,
+        "costs": 7848,
+        "evaporatedLitres": 35.63928217708768,
+        "batches": 16,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "B",
+      "seed": 42,
+      "before": {
+        "cash": 16885,
+        "minCash": 466,
+        "revenue": 25680,
+        "upkeep": 4950,
+        "costs": 7845
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16639,
+        "minCash": 556,
+        "revenue": 25680,
+        "upkeep": 5196,
+        "costs": 7845,
+        "evaporatedLitres": 36.12925749489949,
+        "batches": 16,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "B",
+      "seed": 81,
+      "before": {
+        "cash": 16975,
+        "minCash": 466,
+        "revenue": 25776,
+        "upkeep": 4950,
+        "costs": 7851
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16729,
+        "minCash": 556,
+        "revenue": 25776,
+        "upkeep": 5196,
+        "costs": 7851,
+        "evaporatedLitres": 35.14603967131367,
+        "batches": 16,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "B",
+      "seed": 2026,
+      "before": {
+        "cash": 16975,
+        "minCash": 466,
+        "revenue": 25776,
+        "upkeep": 4950,
+        "costs": 7851
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16729,
+        "minCash": 556,
+        "revenue": 25776,
+        "upkeep": 5196,
+        "costs": 7851,
+        "evaporatedLitres": 35.584094379579625,
+        "batches": 16,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "B",
+      "seed": 20261014,
+      "before": {
+        "cash": 16975,
+        "minCash": 466,
+        "revenue": 25776,
+        "upkeep": 4950,
+        "costs": 7851
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16729,
+        "minCash": 556,
+        "revenue": 25776,
+        "upkeep": 5196,
+        "costs": 7851,
+        "evaporatedLitres": 35.33587080418538,
+        "batches": 16,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "B",
+      "seed": 123456789,
+      "before": {
+        "cash": 16975,
+        "minCash": 466,
+        "revenue": 25776,
+        "upkeep": 4950,
+        "costs": 7851
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16729,
+        "minCash": 556,
+        "revenue": 25776,
+        "upkeep": 5196,
+        "costs": 7851,
+        "evaporatedLitres": 35.5621785008666,
+        "batches": 16,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "B",
+      "seed": 987654321,
+      "before": {
+        "cash": 16840,
+        "minCash": 466,
+        "revenue": 25632,
+        "upkeep": 4950,
+        "costs": 7842
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16594,
+        "minCash": 556,
+        "revenue": 25632,
+        "upkeep": 5196,
+        "costs": 7842,
+        "evaporatedLitres": 35.938693805687656,
+        "batches": 16,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "C",
+      "seed": 1,
+      "before": {
+        "cash": 16513,
+        "minCash": 2203,
+        "revenue": 29520,
+        "upkeep": 4830,
+        "costs": 12177
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16287,
+        "minCash": 2061,
+        "revenue": 29520,
+        "upkeep": 5056,
+        "costs": 12177,
+        "evaporatedLitres": 30.106542446125033,
+        "batches": 24,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "C",
+      "seed": 7,
+      "before": {
+        "cash": 16513,
+        "minCash": 2203,
+        "revenue": 29520,
+        "upkeep": 4830,
+        "costs": 12177
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16287,
+        "minCash": 2061,
+        "revenue": 29520,
+        "upkeep": 5056,
+        "costs": 12177,
+        "evaporatedLitres": 30.017467211184837,
+        "batches": 24,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "C",
+      "seed": 42,
+      "before": {
+        "cash": 16423,
+        "minCash": 2203,
+        "revenue": 29424,
+        "upkeep": 4830,
+        "costs": 12171
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16197,
+        "minCash": 2061,
+        "revenue": 29424,
+        "upkeep": 5056,
+        "costs": 12171,
+        "evaporatedLitres": 30.541941473715454,
+        "batches": 24,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "C",
+      "seed": 81,
+      "before": {
+        "cash": 16513,
+        "minCash": 2203,
+        "revenue": 29520,
+        "upkeep": 4830,
+        "costs": 12177
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16287,
+        "minCash": 2061,
+        "revenue": 29520,
+        "upkeep": 5056,
+        "costs": 12177,
+        "evaporatedLitres": 29.774329380592967,
+        "batches": 24,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "C",
+      "seed": 2026,
+      "before": {
+        "cash": 16468,
+        "minCash": 2203,
+        "revenue": 29472,
+        "upkeep": 4830,
+        "costs": 12174
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16242,
+        "minCash": 2061,
+        "revenue": 29472,
+        "upkeep": 5056,
+        "costs": 12174,
+        "evaporatedLitres": 30.174457540991778,
+        "batches": 24,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "C",
+      "seed": 20261014,
+      "before": {
+        "cash": 16468,
+        "minCash": 2203,
+        "revenue": 29472,
+        "upkeep": 4830,
+        "costs": 12174
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16242,
+        "minCash": 2061,
+        "revenue": 29472,
+        "upkeep": 5056,
+        "costs": 12174,
+        "evaporatedLitres": 30.261165224394816,
+        "batches": 24,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "C",
+      "seed": 123456789,
+      "before": {
+        "cash": 16558,
+        "minCash": 2203,
+        "revenue": 29568,
+        "upkeep": 4830,
+        "costs": 12180
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16332,
+        "minCash": 2061,
+        "revenue": 29568,
+        "upkeep": 5056,
+        "costs": 12180,
+        "evaporatedLitres": 30.43085243439367,
+        "batches": 24,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    },
+    {
+      "key": "C",
+      "seed": 987654321,
+      "before": {
+        "cash": 16423,
+        "minCash": 2203,
+        "revenue": 29424,
+        "upkeep": 4830,
+        "costs": 12171
+      },
+      "after": {
+        "startMonth": 8,
+        "endMonth": 128,
+        "months": 120,
+        "cash": 16197,
+        "minCash": 2061,
+        "revenue": 29424,
+        "upkeep": 5056,
+        "costs": 12171,
+        "evaporatedLitres": 30.51778171138145,
+        "batches": 24,
+        "liveCasks": 4,
+        "stock": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+// Authored, decorative object drawings. State remains in model.mjs.
+const svg=(view,body)=>`<svg viewBox="${view}" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
+export function barrel(type='bourbon') {
+  const wood=type==='refill'?'#726447':'#936b3e';
+  return svg('0 0 160 176',`<ellipse cx="80" cy="161" rx="55" ry="7" fill="#111a1d" opacity=".55"/><path d="M39 26Q80 14 121 26Q142 85 122 145Q80 161 38 145Q17 85 39 26Z" fill="${wood}" stroke="#332d26" stroke-width="3"/><path d="M57 23Q40 87 55 151M80 21V154M103 23Q120 87 105 151" fill="none" stroke="#392e23" stroke-width="2" opacity=".6"/><path d="M40 27Q80 38 120 27M36 144Q80 131 124 144" fill="none" stroke="#b39364" stroke-width="2" opacity=".5"/><path d="M32 51Q80 61 128 51L131 64Q80 75 29 64Z M29 112Q80 123 131 112L128 125Q80 136 32 125Z" fill="#414644" stroke="#222b2c" stroke-width="2"/><path d="M33 53Q80 64 127 53M30 114Q80 125 130 114" fill="none" stroke="#8b8b70" opacity=".55"/><circle cx="80" cy="90" r="8" fill="#473b2b" stroke="#b49766" stroke-width="2"/><path d="M79 84V95" stroke="#211f1c"/><path d="M48 34L43 46M110 76L112 104M59 78L58 97M96 138L97 146" stroke="#d1ae73" stroke-width="1.5" opacity=".4"/>`);
+}
+export function glass(wood=0) {
+  const color=wood>.65?'#ad743a':wood>.3?'#d79743':wood>.1?'#dfb262':'#dfd2a8';
+  return svg('0 0 96 108',`<ellipse cx="48" cy="98" rx="30" ry="5" fill="#0b1416" opacity=".6"/><path d="M23 18H73L67 72Q64 85 48 85Q32 85 29 72Z" fill="#cdd0b0" fill-opacity=".05" stroke="#b9c0aa" stroke-width="1.5"/><path d="M27 46Q48 50 69 46L66 70Q62 81 48 81Q34 81 30 70Z" fill="${color}" fill-opacity=".82"/><ellipse cx="48" cy="46" rx="21" ry="3" fill="${color}"/><path d="M32 24L36 65M48 85V95M33 96H63" stroke="#cdd0b0" fill="none" stroke-width="2" opacity=".7"/><path d="M40 7Q35 1 39 -4M53 10Q58 4 54 -2" stroke="#b9b090" opacity=".3" fill="none"/>`);
+}
+export function bottleArt(wood=0) {
+  const color=wood>.6?'#946332':wood>.2?'#bb8542':'#ccad6d';
+  return svg('0 0 52 120',`<ellipse cx="26" cy="114" rx="21" ry="3" fill="#0d1619" opacity=".5"/><rect x="20" y="5" width="12" height="10" rx="2" fill="#94734c"/><path d="M20 16H32V37Q44 42 44 52V107Q44 112 39 112H13Q8 112 8 107V52Q8 42 20 37Z" fill="#a9b690" fill-opacity=".12" stroke="#8f9a7d" stroke-width="1.5"/><path d="M11 52H41V106Q41 109 38 109H14Q11 109 11 106Z" fill="${color}" opacity=".85"/><rect x="10" y="66" width="32" height="25" rx="1" fill="#d9cba4"/><path d="M18 74H34M20 79H32M22 85H30" stroke="#786343" stroke-width="1.5"/><path d="M15 46V62M15 96V104" stroke="#e2d6a8" opacity=".5" stroke-width="2"/>`);
+}
+export function stillArt(cut=.5, litres=32) {
+  return svg('0 0 360 180',`<path d="M47 151H177M56 153V162M167 153V162" stroke="#444d48" stroke-width="6"/><path d="M77 69Q50 77 53 115Q55 148 113 148Q171 148 173 115Q176 76 148 69L137 51H88Z" fill="#a16e45" stroke="#503b2f" stroke-width="3"/><path d="M92 57Q109 66 140 57M67 93Q81 79 86 80" stroke="#d9a271" fill="none" stroke-width="3" opacity=".5"/><path d="M98 52V36Q103 13 122 16L153 37H250Q262 37 262 53V80" fill="none" stroke="#b98655" stroke-width="13"/><path d="M111 25L153 41H247" fill="none" stroke="#dfb582" stroke-width="2" opacity=".4"/><path d="M230 99H298L292 154H236Z" fill="#b8c3a1" fill-opacity=".07" stroke="#a6b092" stroke-width="2"/><path d="M234 ${146-litres}H294L289 150H239Z" fill="#d6c9a1" opacity=".65"/><path d="M262 81V96" stroke="#d4c797" stroke-width="3" stroke-dasharray="3 4"/><path d="M26 169H330" stroke="#536057" opacity=".6"/>`);
+}

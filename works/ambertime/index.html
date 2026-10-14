@@ -5,43 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>AmberTime — 時間を育てる蒸留所</title>
-  <meta name="theme-color" content="#ede5d6">
+  <meta name="theme-color" content="#182326">
   <link rel="stylesheet" href="./style.css">
   <script type="module" src="./app.mjs"></script>
 </head>
 <body>
   <div class="page">
-    <header class="masthead">
-      <div><p class="edition">小さな蒸留所の帳面 · WEB 0.1</p><h1>AmberTime<span>時間を育てる蒸留所</span></h1></div>
-      <a class="back-link" href="../../lab/">研究所へ</a>
-    </header>
+    <header class="masthead"><div><h1>AmberTime</h1><p>小さな蒸留所 · 0.2</p></div><a href="../../lab/" class="back-link">研究所へ</a></header>
     <div id="storage-notice" class="notice storage-notice" role="status" hidden></div>
     <div id="recovery" hidden></div>
     <div id="game" hidden>
-      <section class="monthbar" aria-label="蒸留所の現在">
-        <div><span class="label">帳面の日付</span><strong id="month"></strong></div>
-        <div><span class="label">手元の資金</span><strong id="cash"></strong></div>
-        <button id="advance" class="primary" type="button">1か月進める <span aria-hidden="true">→</span></button>
-        <p id="upkeep" class="month-cost"></p>
-      </section>
-      <div id="message" class="notice action-notice" role="status" aria-live="polite" hidden></div>
-      <nav class="rooms" aria-label="蒸留所の部屋">
-        <button type="button" data-room="warehouse" aria-current="page">貯蔵庫</button>
-        <button type="button" data-room="distillery">蒸留室</button>
-        <button type="button" data-room="sales">販売室</button>
-      </nav>
+      <section class="monthbar" aria-label="蒸留所の現在"><strong id="month"></strong><div><span class="label">資金</span> <strong id="cash"></strong></div><p id="upkeep"></p></section>
+      <nav class="rooms" aria-label="蒸留所の部屋"><button id="nav-warehouse" type="button" data-room="warehouse" aria-current="page">貯蔵庫</button><button id="nav-distillery" type="button" data-room="distillery">蒸留室</button><button id="nav-sales" type="button" data-room="sales">販売室</button></nav>
       <main id="room" tabindex="-1"></main>
+      <div id="message" class="notice action-notice" role="status" aria-live="polite" hidden></div>
       <details class="ledger"><summary>蒸留所の帳面</summary><div id="journal"></div></details>
-      <footer class="footer">
-        <div class="save-row"><button id="save" type="button">保存する</button><span id="save-status"></span></div>
-        <details class="restart"><summary>新しい蒸留所を始める</summary>
-          <p>今の進行を初期化します。同じシードと操作なら、同じ結果を再現できます。</p>
-          <form id="restart-form"><label for="seed">シード</label><input id="seed" name="seed" type="number" min="1" max="4294967295" step="1" required value="20261014"><button type="submit">初期化して始める</button></form>
-        </details>
-        <p class="smallprint">月の流れを縮めた、小さな経営ゲームです。£はゲーム内の通貨で、実際のウイスキーの熟成期間・価格を再現するものではありません。操作ごとに、このブラウザへ自動保存します。</p>
-      </footer>
+      <footer class="footer"><div class="save-row"><button id="save" type="button">保存する</button><span id="save-status"></span></div><details class="restart"><summary>新しい蒸留所を始める</summary><p>今の進行を初期化します。</p><form id="restart-form"><label for="seed">シード</label><input id="seed" name="seed" type="number" min="1" max="4294967295" step="1" required value="20261014"><button type="submit">初期化して始める</button></form></details><details><summary>遊び方・この蒸留所について</summary><p>原酒を仕込み、樽で育て、瓶詰めして販売します。月を進めると維持費を払い、棚の瓶が売れます。早く売って次を仕込むか、もう少し待つかは自由です。</p><p>残量は蒸発でも減ります。試飲すると今の味と、前に試飲した時の味を比べられます。</p><p>操作ごとにこのブラウザへ保存します。月の流れを縮めたゲームで、実際の熟成や価格の再現ではありません。</p></details></footer>
+      <div class="clock"><span id="month-feedback" aria-live="polite">樽を選んで、試飲してみる。</span><button id="advance" type="button" class="primary">ひと月進める <span aria-hidden="true">→</span></button></div>
     </div>
-    <noscript><p class="notice">AmberTimeを遊ぶにはJavaScriptを有効にしてください。</p></noscript>
+    <noscript><p class="notice">JavaScriptを有効にしてください。</p></noscript>
   </div>
 </body>
 </html>
