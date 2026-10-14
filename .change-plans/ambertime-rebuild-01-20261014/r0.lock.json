@@ -1,0 +1,127 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c0d5b4f267d7d822a608eb1776f61dcda4565c425ae9b996af89eca73c02e69e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-rebuild-01-20261014",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime Web 0.1: isolated seeded distillation, cask aging, bottling and monthly sales game; active lifecycle and generated LAB entry",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "11ac438a70480818af3f078fa391281fab4d8983",
+    "canonicalSources": [
+      "User AmberTime Rebuild 0.1 instruction 2026-10-14",
+      "Drive SukimaStock/Code/AmberTime.txt",
+      "Drive SukimaStock/note/AmberTime 2026-02-13",
+      "works/ambertime/**",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-rebuild-01-20261014/r0.lock.json",
+      "works/ambertime/**",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/town-maps.js",
+      ".github/**",
+      "tools/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "New deterministic game model with central parameters, one cut control, two cask types, evaporation, upkeep, manual bottling and priced monthly stock sales",
+      "Three responsive HTML rooms, observations and cask history, versioned localStorage save/restart/reset",
+      "Seeded A/B/C multi-year simulation, meaningful tests, browser checks and independent review",
+      "Add only ambertime active lifecycle record; regenerate LAB using existing unchanged generator"
+    ],
+    "ownerDecisions": [
+      "2026-10-14 current user instruction explicitly authorizes autonomous design, implementation, tests, browser verification, PR and Staging merge, with no Production changes"
+    ],
+    "hqDecisions": [
+      "AI scope analysis: existing lifecycle/LAB files require Full unknown-code floor; existing schemas and generator unchanged. This is design analysis, not an additional owner approval claim.",
+      "Independent new-work versioned localStorage key; no existing save or shared persistence contract changed. User expressly requests new-game save/restore."
+    ],
+    "rulesApplied": [
+      "AGENTS 2026-10-14 useful delegation and independent review",
+      "CHANGE-PLAN normal route with lock before implementation",
+      "Work lifecycle active staging-only; no town/search/Production registration"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-game-loop-save-resume-desktop-mobile",
+      "browser-state-errors",
+      "source-and-balance-review"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated PR including only ambertime lifecycle entry and generated LAB difference",
+    "outOfScope": [
+      "Production",
+      "existing games and Engine",
+      "competitors, events, staff, expansion, research, missions, blending",
+      "pixel art and animation",
+      "Feel Studio Bridge/editor",
+      "external APIs and analytics systems"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad Safari and author subjective enjoyment"
+    ],
+    "problem": "Waiting must create observable decisions about casks without a feature-heavy management game",
+    "currentContract": "New isolated work plus existing active lifecycle/LAB generator",
+    "whyExistingIsInsufficient": "Codea version is reference only; web work does not exist",
+    "design": "Pure state transitions, seeded cask variation, central tunables, 3 buildless HTML rooms, scoped localStorage",
+    "alternativesRejected": [
+      "Direct Lua port",
+      "shared Engine modifications",
+      "new market/events/expansion systems"
+    ],
+    "migration": "No prior Web AmberTime save; version 1 validates before loading",
+    "compatibility": "Modern browsers; localStorage failure keeps session playable and shows warning",
+    "boundaryCases": [
+      "no funds",
+      "empty volume",
+      "invalid inputs",
+      "no warehouse capacity",
+      "invalid/future/corrupt saves",
+      "price input edits",
+      "multiple month actions",
+      "over-aged casks",
+      "insolvency and reset"
+    ],
+    "testPlan": [
+      "Node game and seeded simulation tests",
+      "Desktop/mobile real browser operation where tooling supports it; report exact limitations",
+      "Existing lifecycle/LAB/regression and Scope/Risk/Impact/trusted syntax",
+      "Required PR checks, Pages success and deployed browser/asset checks"
+    ],
+    "promotionRisk": "Staging only; never promote active work"
+  }
+}
