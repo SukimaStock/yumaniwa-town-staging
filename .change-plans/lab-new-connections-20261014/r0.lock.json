@@ -1,0 +1,120 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a0ae6a62677aab424752480354b5a51fe4e1c3651a5520bfc0ea918b2c1611a4",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "lab-new-connections-20261014",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Connect current prototypes and production tools to existing LAB rooms.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "f79e1102f4ff859a6dff9759c4c3d72beef626cc",
+    "canonicalSources": [
+      "data/lab-rooms.json",
+      "data/work-lifecycle.json",
+      "tools/lab-renderer.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/lab-new-connections-20261014/r0.lock.json",
+      "data/lab-rooms.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/work-lifecycle.json",
+      "data/works.js",
+      "main.js",
+      "index.html",
+      "style.css",
+      "lab/lab.js",
+      "lab/lab.css",
+      "lab/lab-finish.css",
+      "w/**",
+      "en/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Place tsumatta-tsubu, nadeato, ametsugi, ambertime and yumaniwa-tourist-desk explicitly on the main Prototype Bench, using current existing titles and destinations.",
+      "Place Feel Studio 0.4 in Tool Garage and describe live tuning, comparison and branching.",
+      "Update Touch Lab presentation to describe miniature collection and direct part manipulation.",
+      "Regenerate lab/index.html with the existing generator; preserve seven rooms, archive records, lifecycle state and all old destinations."
+    ],
+    "ownerDecisions": [
+      "User 2026-10-14 explicitly requested connecting newly created items in SukimaStock LAB and merging. Existing room categorization is a reversible staging implementation within that request."
+    ],
+    "hqDecisions": [
+      "Use existing machine placement schema and generator, no new rooms, runtime, save system or shared contracts. Full risk floor is retained for generated HTML and JSON."
+    ],
+    "rulesApplied": [
+      "Existing seven-room placement schema",
+      "Generated HTML edited only through --write-lab",
+      "No lifecycle or Production changes",
+      "Staging merge explicitly authorized"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Check desktop and mobile room layout, new links and browser Back return in Chromium."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this LAB connection PR; all target works are unchanged.",
+    "outOfScope": [
+      "Production",
+      "Individual work code and assets",
+      "Lifecycle changes",
+      "New rooms or UI behavior"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari behavior",
+      "Author adoption"
+    ],
+    "alternativesRejected": [
+      "Add new rooms or runtime",
+      "Change individual works or lifecycle states",
+      "Edit generated HTML directly"
+    ],
+    "boundaryCases": [
+      "New works have unique visible placement",
+      "Candidate remains candidate",
+      "Frozen records are preserved",
+      "All links have existing local entrypoints",
+      "Mobile width and browser Back"
+    ],
+    "testPlan": [
+      "Lifecycle --check and existing lifecycle regression",
+      "Scope, Risk and Impact checks against exact SHA",
+      "Chromium mobile/desktop room and link verification",
+      "Required PR checks"
+    ],
+    "problem": "Recently created active works are absent from generated LAB or relegated to the back shelf; Feel Studio and Touch Lab labels are outdated.",
+    "currentContract": "data/lab-rooms.json assigns work IDs; lifecycle supplies status/path; existing generator creates LAB. Unassigned active/candidate works fall back to the stored bench.",
+    "whyExistingIsInsufficient": "New works lack deliberate visible placement and current descriptions.",
+    "design": "Register current IDs in existing main bench and garage; update presentation only; regenerate HTML.",
+    "migration": "None.",
+    "compatibility": "All existing rooms, archive anchors, runtime and target URLs remain unchanged.",
+    "promotionRisk": "Staging only; no Production promotion."
+  }
+}
