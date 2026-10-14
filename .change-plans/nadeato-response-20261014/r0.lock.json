@@ -1,0 +1,86 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5f7e3c60ed059d2e8c4580d9b0d0325cb037378a50962205e65207e82e8a1b7d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "nadeato-response-20261014",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "なで跡の入力と色変化の遅れを局所描画で削減",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "a89af8d02b724c8b1bc883420b20bf1e4b98e4c0",
+    "canonicalSources": [
+      "works/nadeato/app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/nadeato-response-20261014/r0.lock.json",
+      "works/nadeato/app.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "既存毛根格子で影響範囲だけ探索、固定タイルで変更範囲のみ描画",
+      "毛の密度・向き計算・色・保持・入力操作は維持、reset/resize時は全描画"
+    ],
+    "ownerDecisions": [
+      "2026-10-14 ユーザー: 操作にくらべて遅れて色が変わる、修正できますか。既存staging制作・安全merge許可を継続。ゲーム化は今回の範囲外。"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "active作品だが軽量判定 CONTRACT_REVIEW_REQUIRED（Canvas save / 座標topを含む保守的検出）。迂回せず通常Standard Planで新branchに再適用。"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-input-regression",
+      "before-after-performance",
+      "partial-full-raster-equivalence"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "当該作品app.mjsのみrevert",
+    "dependencies": [
+      "Browser Canvas2D and Pointer Events only; no new dependencies"
+    ],
+    "outOfScope": [
+      "production",
+      "既存の他作品",
+      "町",
+      "Engine",
+      "LAB",
+      "保存",
+      "ゲーム化"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone/iPad実機 Safari触感"
+    ],
+    "testPlan": [
+      "同方向/逆方向/保持/反復/cancel/resize/touch/reset",
+      "同一環境で旧版と処理時間比較",
+      "部分描画と全描画の一致・旧版と毛の状態一致"
+    ]
+  }
+}
