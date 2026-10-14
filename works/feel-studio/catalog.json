@@ -1191,6 +1191,199 @@
           "sha256": "2376743357c1b8e42c54a0420ba557120217e43c052e24013a64b7cbc611b1ea"
         }
       ]
+    },
+    {
+      "id": "ametsugi-c",
+      "project": "ametsugi",
+      "title": "雨つぎ C · Scene Replay",
+      "version": "0.5.0",
+      "runtime": "feel-bridge/1",
+      "url": "prototypes/ametsugi/ametsugi-c/index.html",
+      "source": "prototypes/ametsugi/ametsugi-c/app.js",
+      "initial": true,
+      "derivedFrom": "ametsugi-b",
+      "config": {
+        "angle": 0,
+        "wait": 0.85,
+        "gravity": 670,
+        "resistance": 1.05,
+        "response": 1,
+        "sensitivity": 1,
+        "rainDensity": 46,
+        "dropSize": 1,
+        "waterColor": "#e4f5ee",
+        "rainEnabled": true,
+        "rainStyle": "soft",
+        "volume": 1
+      },
+      "ranges": {
+        "response": {
+          "min": 0.4,
+          "max": 1.8
+        },
+        "sensitivity": {
+          "min": 0.5,
+          "max": 1.8
+        },
+        "gravity": {
+          "min": 300,
+          "max": 1100
+        },
+        "resistance": {
+          "min": 0,
+          "max": 3
+        },
+        "rainDensity": {
+          "min": 0,
+          "max": 92
+        },
+        "dropSize": {
+          "min": 0.6,
+          "max": 1.5
+        },
+        "volume": {
+          "min": 0,
+          "max": 1.5
+        },
+        "angle": {
+          "min": -0.66,
+          "max": 0.66
+        },
+        "wait": {
+          "min": 0,
+          "max": 2
+        }
+      },
+      "colors": [
+        "waterColor"
+      ],
+      "values": {
+        "rainStyle": [
+          "soft",
+          "clear"
+        ]
+      },
+      "parameters": [
+        {
+          "id": "response",
+          "label": "雨どいが指に追いつく速さ",
+          "type": "range",
+          "apply": "live"
+        },
+        {
+          "id": "sensitivity",
+          "label": "指の動きへの反応",
+          "type": "range",
+          "apply": "live"
+        },
+        {
+          "id": "gravity",
+          "label": "雨粒の落ちる強さ",
+          "type": "range",
+          "apply": "live"
+        },
+        {
+          "id": "resistance",
+          "label": "雨どいを流れる水の抵抗",
+          "type": "range",
+          "apply": "live"
+        },
+        {
+          "id": "rainDensity",
+          "label": "背景の雨の密度",
+          "type": "range",
+          "apply": "live"
+        },
+        {
+          "id": "dropSize",
+          "label": "水滴の見た目の大きさ",
+          "type": "range",
+          "apply": "live"
+        },
+        {
+          "id": "waterColor",
+          "label": "水の色",
+          "type": "color",
+          "apply": "live"
+        },
+        {
+          "id": "rainEnabled",
+          "label": "背景に雨を降らせる",
+          "type": "boolean",
+          "apply": "live"
+        },
+        {
+          "id": "rainStyle",
+          "label": "雨の見え方",
+          "type": "choice",
+          "apply": "live"
+        },
+        {
+          "id": "volume",
+          "label": "水音の大きさ",
+          "type": "range",
+          "apply": "live"
+        },
+        {
+          "id": "angle",
+          "label": "最初の雨どいの傾き",
+          "type": "value",
+          "apply": "restart"
+        },
+        {
+          "id": "wait",
+          "label": "最初の雨までの間",
+          "type": "timing",
+          "apply": "restart"
+        },
+        {
+          "id": "gutterShape",
+          "label": "雨どいの形を変える",
+          "type": "rebuild",
+          "apply": "rebuild"
+        }
+      ],
+      "parts": [
+        {
+          "id": "tilt",
+          "label": "雨どいの傾きと操作",
+          "anchor": "RainGame.move / RainGame.step"
+        },
+        {
+          "id": "water",
+          "label": "雨粒の流れと受け渡し",
+          "anchor": "RainGame.step"
+        },
+        {
+          "id": "presentation",
+          "label": "雨と屋根の演出",
+          "anchor": "RainDrawing.draw"
+        }
+      ],
+      "codeHash": "722a5b114e07e0a93e0d373fef483367b0a6d1d6bdae372a53ac3a82a69c79fe",
+      "htmlHash": "7a420e5de8473be93f95012b86bb24f7476362d44bd4be3a52475433f3f95fc1",
+      "dependencies": [
+        {
+          "path": "prototypes/ametsugi/ametsugi-c/parameters.js",
+          "sha256": "c2b5a1d7e9c3f3ae501ad93bd54c943aae6dc6147d7be35eaa2fd0567b44ac17"
+        },
+        {
+          "path": "prototypes/ametsugi/ametsugi-c/physics.js",
+          "sha256": "1690b41f0a9bba39c85fae065ef5bb5beedc1e458f632113a70065e349f1f3a5"
+        },
+        {
+          "path": "prototypes/ametsugi/ametsugi-c/art.js",
+          "sha256": "1cb17bcb6a128175b3d9dd67465f380e553071fe4e6d59a52067a58e41681877"
+        },
+        {
+          "path": "prototypes/ametsugi/style.css",
+          "sha256": "12367e0341181e1307ad4beb43ddc0af69175d6b460205ec9a98f825036c5f13"
+        },
+        {
+          "path": "bridge-client-v05.js",
+          "sha256": "3f0a312fd0ec8d342b1746f374ef7e6355816189f2a719b55ac0c6c6351bba54"
+        }
+      ]
     }
   ]
 }

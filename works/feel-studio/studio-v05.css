@@ -1,0 +1,5 @@
+/* Scene Replay keeps one small control beside the actual work. */
+.scene-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}.scene-bar label{display:flex;gap:6px;align-items:center;flex:1;min-width:180px}.scene-bar select{min-width:0;flex:1;font-size:14px}.scene-bar button{font-size:12px}#scene-note{margin:4px 0;line-height:1.5}
+.tuning-mode #panes{position:static}.tuning-mode #preview{position:sticky;top:0;z-index:3;background:#293f36;padding:4px 0 6px}
+@media(max-width:799px){.scene-bar label{flex-basis:100%}.scene-bar button{flex:1;min-width:0}.scene-bar select{font-size:16px}#scene-note{font-size:11px}.tuning-mode .frame,.tuning-mode .panes.comparing .frame{height:clamp(150px,24svh,220px)}}
+@media(max-height:500px) and (orientation:landscape){.tuning-mode .frame,.tuning-mode .panes.comparing .frame{height:130px}.scene-bar label{flex-basis:auto}.scene-bar{flex-wrap:nowrap}#scene-note{max-height:44px;overflow:auto}}
