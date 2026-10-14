@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4152b495be8f811c18fb34afe4d5a1834cab6b0fe6c8c729e86acd685410a525",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v02-browser-review-20261014",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime 0.2 browser findings: compact phone cellar, context-sensitive first hint and actual verification evidence",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "84360fabc3f0231d2fd00a752c687ce2783514ad",
+    "canonicalSources": [
+      "User AmberTime0.2 instruction 2026-10-14",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/app.mjs",
+      "works/ambertime/opening.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v02-browser-review-20261014/r0.lock.json",
+      "works/ambertime/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "tools/**",
+      ".github/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Compact phone empty slots so initial tasting actions clear fixed clock",
+      "Choose first hint from restored state without modifying save",
+      "Record PC/phone iframe browser loop, screenshots and limitations"
+    ],
+    "ownerDecisions": [
+      "2026-10-14 current user AmberTime0.2 instruction explicitly authorizes autonomous UI/experience redesign, compatible saves, Staging tests/browser/merge; Production forbidden"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS 2026-10-14 useful delegation and independent review",
+      "CHANGE-PLAN normal route with lock before implementation",
+      "Work lifecycle active staging-only; no town/search/Production registration"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "pc-and-iphone-size-ui-loop",
+      "initial-minute-interest-analysis",
+      "independent-ui-and-save-review"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work-only PR; v1 player saves remain valid",
+    "outOfScope": [
+      "Production",
+      "Other games and Engine",
+      "Expansion/events/missions/new markets",
+      "Pixel art or large animation system",
+      "Automatic reset of existing player data"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad Safari",
+      "Human user test and repeated-play interest"
+    ],
+    "problem": "0.1 exposes calculations before players can develop interest in a barrel",
+    "currentContract": "Staging AmberTime 0.2 with v1 saves and unchanged model",
+    "whyExistingIsInsufficient": "Phone first action partly overlaps fixed clock and empty saved games receive barrel hint",
+    "design": "Sparse dark 2D cellar objects with short tasting comparison and month feedback; model remains unchanged by default",
+    "alternativesRejected": [
+      "Direct Lua port",
+      "shared Engine modifications",
+      "new market/events/expansion systems"
+    ],
+    "migration": "Valid v1 save loaded as-is; new opening composition only for absent-save or confirmed new game",
+    "compatibility": "Same modelVersion/SAVE_VERSION/key, modern DOM/SVG/Pointer Events, prefers-reduced-motion",
+    "boundaryCases": [
+      "No save vs existing empty save",
+      "Corrupt/future save preserved",
+      "Storage unavailable",
+      "Low funds/full four-cask cellar/eight active products",
+      "Partial filling/bottling",
+      "Rapid time inputs",
+      "320px/390px/844px/desktop widths",
+      "Expired animation event cleanup"
+    ],
+    "testPlan": [
+      "Unchanged 0.1 game regression and baseline numerical comparison",
+      "Paid opening trace and v1 fixture roundtrip",
+      "PC/iPhone-size browser actions/screens/overflow/tap target tests when supported",
+      "Scope/Risk/Impact/CI and final Pages byte confirmation"
+    ],
+    "promotionRisk": "Staging only; never promote active work"
+  }
+}

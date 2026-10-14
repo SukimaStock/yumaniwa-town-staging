@@ -6,3 +6,6 @@
 .bottle-shelf{position:relative}.departing-bottle{display:none;position:absolute;width:52px;height:126px;right:18%;bottom:0;pointer-events:none}body[data-motion=month] .departing-bottle{display:block;animation:bottle-depart .32s ease-out forwards}@keyframes bottle-depart{from{opacity:.7;transform:translate(0,0) rotate(0)}to{opacity:0;transform:translate(20px,-14px) rotate(8deg)}}@media(max-width:600px){.departing-bottle{height:105px;width:45px}}@media(prefers-reduced-motion:reduce){body[data-motion=month] .departing-bottle{display:none}}
 /* Decisions stay readable on a phone; small metadata is secondary. */
 @media(max-width:600px){.cask-choice strong,.price-choices button,.quantity-choices button,.decision button{font-size:14px}.cask-choice small,.product-heading h3 small,.barrel-tag small,.range-ends,.spirit-summary p{font-size:12px}.record-meta,.history li,.journal-list li{font-size:12px}.prediction>span{font-size:13px}}
+
+/* Keep the first tasting action above the clock on a 390×844 opening. */
+@media(max-width:600px){.empty-slot{min-height:110px}}

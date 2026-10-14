@@ -220,3 +220,4 @@ else try {
   memoryOnly=true;readUnknown=true;state=createOpening();storageWarning('保存領域にアクセスできません。今はこのページを開いている間だけ遊べます。「保存する」で再試行できます。');
 }
 render();
+if(state&&!invalidSave)$('#month-feedback').textContent=state.casks.length?'樽を選んで、試飲してみる。':state.spirit?'蒸留室で、原酒を樽に詰める。':state.products.some(p=>p.stock>0)?'販売室で価格を決め、ひと月待つ。':'蒸留室で、最初の原酒を仕込む。';
