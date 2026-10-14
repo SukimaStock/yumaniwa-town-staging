@@ -82,6 +82,16 @@ runtime patch／compatibility例外、既存ID/URL/保存keyの変更はHQ対象
 - `README.md`は訪問者向け。運用・debug手順を混ぜない。
 
 
+## 新作・制作ツールのLAB接続（2026-10-14）
+
+- 新しい試作・ゲーム・アプリ・実験室・制作ツールをstagingへ追加する作業には、LABへの接続と再生成・検証を含める。作者に別の接続依頼を求めない。具体的な手順は [OPERATIONS.mdのLAB接続](OPERATIONS.md#新作制作ツールのlab接続) を参照する。
+- workのID/path/title/statusは既存の `data/work-lifecycle.json`、研究室の配置と短い説明は `data/lab-rooms.json` を正本とする。既存の配置・除外指定を優先し、重複登録しない。
+- 分類が未指定の新しい遊べるactive/candidate workは、既存generatorが試作作業台の通常一覧へ自動で拾う。制作ツールは制作機材室、明確な研究対象は既存の該当室へ配置する。新しい部屋・作品名・公開状態を独断で作らない。
+- 新しいWeb制作ツールは実在する入口を確認して制作機材室へ登録する。Web版がないものは利用環境を明記し、架空のリンクを作らない。模型・素材・内部buildを独立した作品として大量登録しない。
+- 実装前に必要な台帳・配置・生成HTMLをscopeへ含め、同じ作業PRで `node tools/work-lifecycle.cjs --write-lab` → `--check` と関連回帰を実行する。これらの共有pathを含む差分は隔離軽量ルートへ押し込まず、従来のPlan Lock / Scope / Risk / Impactを使う。
+- 作品更新で名称・説明・入口・探索状態が変わる場合もLABとの整合を確認する。凍結した試作は既存のArchive生成へ反映する。LAB接続はstaging-onlyであり、作者による採用・凍結・production公開の許可を代替しない。
+- この自動化は制作担当AIの作業規則とgeneratorの自動検出である。独立した常駐botやマージ後の自動commitは導入していない。完成報告には接続先の部屋と検証結果を短く含める。
+
 ## Work lifecycle — staging-onlyがデフォルト
 
 - 新しいwork・未登録workは常に **active / staging-only**。登録忘れもproduction許可にしない。`data/work-lifecycle.json`へID/path/title/statusを追加する。既存WORKSのopen/preparing/hiddenは町内表示であり、昇格許可ではない。
