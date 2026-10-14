@@ -316,6 +316,64 @@
       ],
       "inputMeaning": "雨どいを上下にドラッグして傾ける。旧Aは元の物理と開始角度・待ち時間の編集を保持。BはLIVE物理・演出調整に対応。各案の設定から再試行できるが、手の操作や水の経路が同じ力・同じ結果になるとは扱わない。",
       "editHint": "Aは開始角度と待ち時間を直接編集。Bは「触りながら調整」でLIVEの項目を変え、開始角度・待ち時間は次の「試す」で反映します。"
+    },
+    {
+      "id": "nadeato",
+      "title": "なで跡 · Touch Comparison",
+      "level": 3,
+      "config": {
+        "followDelay": 0,
+        "resistance": 0,
+        "fingerWidth": 54,
+        "contrast": 1
+      },
+      "ranges": {
+        "followDelay": {
+          "min": 0,
+          "max": 0.35
+        },
+        "resistance": {
+          "min": 0,
+          "max": 1
+        },
+        "fingerWidth": {
+          "min": 24,
+          "max": 96
+        },
+        "contrast": {
+          "min": 0.4,
+          "max": 1.8
+        }
+      },
+      "settingParts": [
+        {
+          "id": "response",
+          "label": "毛の反応",
+          "keys": [
+            "followDelay",
+            "resistance"
+          ],
+          "contract": "nadeato-response/1"
+        },
+        {
+          "id": "brush",
+          "label": "指幅",
+          "keys": [
+            "fingerWidth"
+          ],
+          "contract": "nadeato-brush-css/1"
+        },
+        {
+          "id": "shade",
+          "label": "跡の濃淡",
+          "keys": [
+            "contrast"
+          ],
+          "contract": "nadeato-direction-light/1"
+        }
+      ],
+      "inputMeaning": "なでた場所の毛の向きと陰影が変わり、跡が残ります。抵抗感は毛の反応のつきにくさ。物理的な指の抵抗ではありません。自由な手の操作は左右で同一にはなりません。指幅は画面上のCSS px、一なでの比較場面は640×560の基準面で準備します。",
+      "editHint": "「触りながら調整」で毛の反応・指幅・濃淡を変え、そのままなでられます。まっさら／一度なでた跡から何度でも試し、設定を分岐して比べてください。"
     }
   ],
   "builds": [
@@ -1378,6 +1436,108 @@
         {
           "path": "prototypes/ametsugi/style.css",
           "sha256": "12367e0341181e1307ad4beb43ddc0af69175d6b460205ec9a98f825036c5f13"
+        },
+        {
+          "path": "bridge-client-v05.js",
+          "sha256": "3f0a312fd0ec8d342b1746f374ef7e6355816189f2a719b55ac0c6c6351bba54"
+        }
+      ]
+    },
+    {
+      "id": "nadeato-a",
+      "project": "nadeato",
+      "title": "なで跡 · Touch Comparison",
+      "version": "0.5.1",
+      "runtime": "feel-bridge/1",
+      "url": "prototypes/nadeato/nadeato-a/index.html",
+      "source": "prototypes/nadeato/nadeato-a/app.js",
+      "initial": true,
+      "derivedFrom": null,
+      "config": {
+        "followDelay": 0,
+        "resistance": 0,
+        "fingerWidth": 54,
+        "contrast": 1
+      },
+      "ranges": {
+        "followDelay": {
+          "min": 0,
+          "max": 0.35
+        },
+        "resistance": {
+          "min": 0,
+          "max": 1
+        },
+        "fingerWidth": {
+          "min": 24,
+          "max": 96
+        },
+        "contrast": {
+          "min": 0.4,
+          "max": 1.8
+        }
+      },
+      "parameters": [
+        {
+          "id": "followDelay",
+          "label": "毛が指に追いつくまで",
+          "type": "range",
+          "apply": "live"
+        },
+        {
+          "id": "resistance",
+          "label": "なで跡のつきにくさ",
+          "type": "range",
+          "apply": "live"
+        },
+        {
+          "id": "fingerWidth",
+          "label": "指が触れる幅",
+          "type": "range",
+          "apply": "live"
+        },
+        {
+          "id": "contrast",
+          "label": "毛の向きによる明暗",
+          "type": "range",
+          "apply": "live"
+        }
+      ],
+      "parts": [
+        {
+          "id": "response",
+          "label": "毛の追従と抵抗の反応",
+          "anchor": "Material.dose / Material.step"
+        },
+        {
+          "id": "brush",
+          "label": "指幅と入力のサンプリング",
+          "anchor": "Material.beginStroke / moveStroke"
+        },
+        {
+          "id": "shade",
+          "label": "向きによる濃淡",
+          "anchor": "Renderer.drawTile"
+        }
+      ],
+      "codeHash": "af4de48d87da4bed8255334650f35cf3ad183de6ae71b375c24aeb51d20bf1bf",
+      "htmlHash": "a2ca43b10e5e7e64800b1267b03dad962bb00af25654f308a888b3957ed8e0c3",
+      "dependencies": [
+        {
+          "path": "prototypes/nadeato/nadeato-a/parameters.js",
+          "sha256": "0a37265dd705def11e098a9d0cbe191b0078e6813a2e144aeb4012d37cb6609c"
+        },
+        {
+          "path": "prototypes/nadeato/nadeato-a/model.js",
+          "sha256": "e6d2b7f82647f2d068a3be673dbcb742f0bbc023d7e5bdfc662ec40ba12e0db7"
+        },
+        {
+          "path": "prototypes/nadeato/nadeato-a/renderer.js",
+          "sha256": "7362b798b80626f0afc2232f6a9352a537492d0b94ff760ed75400e8f2703e82"
+        },
+        {
+          "path": "prototypes/nadeato/nadeato-a/style.css",
+          "sha256": "ffe1c4454bea9d327014910c9b8c335b175252b535b5e8337de24b88321f6cee"
         },
         {
           "path": "bridge-client-v05.js",
