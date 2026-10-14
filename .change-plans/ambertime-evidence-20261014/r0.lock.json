@@ -1,0 +1,95 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1258456f93a79d231210db6c4057ed745b6909c6c14ec8ba740e21704234d869",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-evidence-20261014",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Record verified AmberTime live-browser results and screenshot without modifying gameplay",
+    "planLevel": "lite",
+    "classes": [
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "4ea33ceccbc5c6585cf53a6f772f65514cc887f6",
+    "canonicalSources": [
+      "AmberTime PR #365 and merged runtime",
+      "Live browser observations 2026-10-14",
+      "works/ambertime/VERIFICATION.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-evidence-20261014/r0.lock.json",
+      "works/ambertime/VERIFICATION.md",
+      "works/ambertime/browser-check.jpg"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/style.css",
+      "works/ambertime/parameters.mjs",
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Record actual browser play loop, price response, cask change, save/resume and reset checks",
+      "Preserve one observed screenshot; record mobile and subjective play limits"
+    ],
+    "ownerDecisions": [
+      "2026-10-14 current user instruction explicitly authorizes autonomous design, implementation, tests, browser verification, PR and Staging merge, with no Production changes"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS 2026-10-14 useful delegation and independent review",
+      "CHANGE-PLAN normal route with lock before implementation",
+      "Work lifecycle active staging-only; no town/search/Production registration"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-results-already-observed"
+    ],
+    "impactChecks": [],
+    "impactExclusions": [],
+    "rollback": "Revert only this verification record PR",
+    "outOfScope": [
+      "Gameplay changes",
+      "Production",
+      "Shared files"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad Safari and author subjective enjoyment"
+    ],
+    "problem": "Keep final verification evidence alongside game design",
+    "currentContract": "New isolated work plus existing active lifecycle/LAB generator",
+    "whyExistingIsInsufficient": "Codea version is reference only; web work does not exist",
+    "design": "Documentation and one captured screenshot only",
+    "alternativesRejected": [
+      "Direct Lua port",
+      "shared Engine modifications",
+      "new market/events/expansion systems"
+    ],
+    "migration": "No prior Web AmberTime save; version 1 validates before loading",
+    "compatibility": "Modern browsers; localStorage failure keeps session playable and shows warning",
+    "boundaryCases": [
+      "Observed vs unverified claims"
+    ],
+    "testPlan": [
+      "Documentation-only diff, unchanged runtime SHA256, required CI"
+    ],
+    "promotionRisk": "Staging only; never promote active work"
+  }
+}
