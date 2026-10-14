@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#e9e5da">
+<title>まき戻る糸</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="back" href="../../lab/#room-bench" aria-label="試作作業台へ戻る">‹</a>
+<main aria-label="まき戻る糸">
+<svg id="tool" viewBox="0 0 360 580" aria-label="木の糸巻きとつまみ">
+<defs>
+  <radialGradient id="wood" cx="35%" cy="26%"><stop stop-color="#d8b78a"/><stop offset="1" stop-color="#b58e61"/></radialGradient>
+  <linearGradient id="edge" x2="0" y2="1"><stop stop-color="#c1a174"/><stop offset="1" stop-color="#99764e"/></linearGradient>
+  <filter id="shadow" x="-50%" y="-50%" width="200%" height="220%"><feGaussianBlur stdDeviation="5"/></filter>
+</defs>
+<ellipse cx="164" cy="222" rx="61" ry="50" fill="#746a58" opacity=".15" filter="url(#shadow)"/>
+<path id="thread-shadow" d="M 210 200 V 280" stroke="#777763" stroke-width="4" opacity=".10" fill="none" transform="translate(2 4)"/>
+<path id="thread" d="M 210 200 V 280" stroke="#8c6955" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+<circle cx="160" cy="204" r="59" fill="url(#edge)"/>
+<g id="reel">
+  <circle cx="160" cy="200" r="58" fill="url(#wood)" stroke="#a8875e" stroke-width="1"/>
+  <circle cx="160" cy="200" r="49" fill="none" stroke="#99724e" opacity=".55"/>
+  <circle cx="160" cy="200" r="44" fill="none" stroke="#eee0c4" opacity=".48"/>
+  <circle cx="160" cy="200" r="38" fill="none" stroke="#987958" opacity=".18"/>
+  <path d="M 125 168 Q 151 158 181 169 M 118 181 Q 152 171 192 182 M 121 217 Q 160 230 198 215 M 132 238 Q 152 242 175 235" fill="none" stroke="#866642" stroke-width="1" opacity=".2"/>
+  <circle cx="187" cy="172" r="5" fill="#8d704d" opacity=".8"/>
+  <circle cx="186" cy="171" r="3" fill="#765b3d"/>
+</g>
+<circle cx="160" cy="200" r="10" fill="#aa875b" stroke="#e3c9a3" stroke-width="2"/>
+<circle cx="160" cy="200" r="3" fill="#715c42"/>
+<g id="knob" transform="translate(210 280)" role="slider" tabindex="0" aria-label="糸のつまみ。下へ引いて離す" aria-valuemin="0" aria-valuemax="200" aria-valuenow="0" aria-orientation="vertical">
+  <rect class="hit" x="-32" y="-30" width="64" height="60" rx="24" fill="transparent"/>
+  <ellipse cx="2" cy="14" rx="25" ry="9" fill="#746a58" opacity=".16" filter="url(#shadow)"/>
+  <rect x="-24" y="-13" width="48" height="30" rx="12" fill="#9b7851"/>
+  <rect x="-24" y="-16" width="48" height="29" rx="12" fill="url(#wood)" stroke="#ab885e"/>
+  <path d="M -14 -6 Q 0 -10 14 -6 M -14 4 Q 0 1 14 4" stroke="#96724a" opacity=".3" fill="none"/>
+  <circle cy="-3" r="3" fill="#86674a"/>
+  <path d="M 0 -17 V -5" stroke="#8c6955" stroke-width="2.6" stroke-linecap="round"/>
+</g>
+</svg>
+</main>
+<script type="module" src="app.mjs"></script>
+</body>
+</html>

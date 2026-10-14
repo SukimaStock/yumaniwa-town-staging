@@ -289,6 +289,13 @@
       "path": "works/ambertime",
       "status": "active",
       "title": "AmberTime — 時間を育てる蒸留所"
+    },
+    {
+      "id": "rewinding-thread",
+      "path": "works/rewinding-thread",
+      "status": "active",
+      "title": "まき戻る糸",
+      "theme": "つまみを引くと糸巻きが回り、離すと静かに巻き戻る"
     }
   ]
 }
