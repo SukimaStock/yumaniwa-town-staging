@@ -1,0 +1,138 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7269cf2f08219e9e70ac65fd8d976b51ff223161f358db8d5b99017e3f5729a9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "lab-connection-rule-20261014",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Make LAB connection and generation part of every new staging work/tool task, and show unassigned playable prototypes on the visible bench.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "49018c81ef54fca67b0aebf7a0d43e46e5e9ad98",
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "data/lab-rooms.json",
+      "data/work-lifecycle.json",
+      "tools/lab-renderer.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/lab-connection-rule-20261014/r0.lock.json",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "tools/lab-renderer.cjs",
+      "tests/test-work-lifecycle.cjs"
+    ],
+    "conditionalPaths": [
+      {
+        "path": "lab/index.html",
+        "condition": "Only if existing generator output changes after fallback visibility change."
+      }
+    ],
+    "forbiddenPaths": [
+      "works/**",
+      "engine/**",
+      ".github/**",
+      "tools/change-**",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "data/works.js",
+      "main.js",
+      "index.html",
+      "style.css",
+      "lab/lab.js",
+      "lab/lab.css",
+      "lab/lab-finish.css",
+      "w/**",
+      "en/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Add explicit AI authoring rule: register new works/tools, assign existing rooms or visible default bench, generate/check LAB in the same scoped task and PR.",
+      "Document new work/tool and freeze update procedure and preserve staging-only and light-path safety boundaries.",
+      "Change only unassigned playable active/candidate fallback from stored to visible bench, retain explicit placements/omissions/frozen/released handling.",
+      "Update existing meaningful fallback regression to assert visible placement and preserve candidate state."
+    ],
+    "ownerDecisions": [
+      "User 2026-10-14 approved rule-making after the stated proposal for automatic discovery, visible default bench and same-task LAB updates; earlier LAB task authorized staging merge."
+    ],
+    "hqDecisions": [
+      "Keep existing discovery/placement/generation contracts. No scheduled bots, workflows, write permissions or automatic independent merge system. This is an AI authoring rule plus visible generator fallback. Do not claim event-driven unattended regeneration.",
+      "When LAB/registry differences are required, use the existing ordinary Plan Lock scope; do not silently expand the isolated-work fast path."
+    ],
+    "rulesApplied": [
+      "Existing lifecycle state is authoritative",
+      "Explicit room placement and omission win",
+      "No automatic Production promotion",
+      "Change OS Full floor and trusted base checks"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Inspect generated LAB remains identical for the current explicitly placed collection."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this rule/fallback PR.",
+    "outOfScope": [
+      "Production",
+      "Bots and scheduled tasks",
+      "Workflow or permission changes",
+      "Individual work content",
+      "Lifecycle state changes",
+      "Fast-path scope expansion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical device checks",
+      "Future creators must execute the documented steps; no unattended event-driven updater introduced"
+    ],
+    "alternativesRejected": [
+      "Add new rooms or runtime",
+      "Change individual works or lifecycle states",
+      "Edit generated HTML directly"
+    ],
+    "boundaryCases": [
+      "Unassigned playable active/candidate is visible",
+      "Explicit stored entry remains stored",
+      "Frozen stays in Archive",
+      "Released work not implicitly added",
+      "Omitted alias stays omitted",
+      "Current generated collection unchanged"
+    ],
+    "testPlan": [
+      "Run existing lifecycle tests and --check",
+      "Run Change OS regression tests",
+      "Scope Risk Impact and trusted static checks",
+      "Inspect exact diff and required CI"
+    ],
+    "problem": "Authors must ask for LAB connection separately, and newly discovered playable works fall into a collapsed shelf.",
+    "currentContract": "Existing discovery finds work folders; lifecycle supplies identity/state, room config assigns explicit placement, generator/check verifies static LAB. AI tasks follow AGENTS and OPERATIONS.",
+    "whyExistingIsInsufficient": "Creation tasks do not require LAB refresh explicitly; unassigned entries are hard to find.",
+    "design": "Require same-task registration and regenerate/check, preserving existing Plan boundaries; render unassigned active/candidate works as visible bench entries.",
+    "migration": "No data migration.",
+    "compatibility": "Existing room IDs, URLs, explicit placements, archives and generation CLI stay compatible.",
+    "promotionRisk": "Staging only."
+  }
+}

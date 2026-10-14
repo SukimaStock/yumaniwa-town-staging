@@ -53,8 +53,8 @@ function readRooms(root, works, raw = JSON.parse(fs.readFileSync(path.join(root,
       assertEntry(root, work.path + '/');
       archive.machines.push({ work, title: work.title, href: work.path + '/', status: work.status });
     } else if (!assigned.has(work.id) && !raw.omit.includes(work.id) && ['active', 'candidate'].includes(work.status) && fs.existsSync(path.join(root, work.path, 'index.html'))) {
-      // Future small experiments get a place, without making them releases.
-      bench.machines.push({ work, title: work.title, href: work.path + '/', status: work.status, stored: true, note: work.theme });
+      // New unassigned playable experiments stay visible, without making them releases.
+      bench.machines.push({ work, title: work.title, href: work.path + '/', status: work.status, stored: false, note: work.theme });
     }
   }
   return rooms;

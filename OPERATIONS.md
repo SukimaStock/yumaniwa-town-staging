@@ -193,6 +193,21 @@ ChatGPTがGitHub上のstagingを修正した後にローカル制作を再開す
 5. 「同期確認済み」
 6. 次の編集を開始する。mainへmerge済みなら新しい作業branchを準備し、fast-path対象外ならPlan Lockを作る
 
+## 新作・制作ツールのLAB接続
+
+新しいものを作る作業は、LABから触れられる入口を整えるところまで含む。別の更新依頼は不要。配置正本を変更する前に必要なscopeを固定し、作品とLABを同じ作業PRへ含める。共有台帳・LABを触る場合は既存の通常Plan Lockルートを使い、隔離軽量ルートの対象を拡張しない。
+
+1. 最新main、Lifecycle、`data/lab-rooms.json` を確認する。既存配置・除外・URL別名を優先する。
+2. 新しいworkは `data/work-lifecycle.json` に登録する。既定はactive / staging-only。作品名は制作依頼・既存作品の名前を使う。
+3. 研究室が明確なら `data/lab-rooms.json` にwork IDと短い説明を登録する。制作ツールはTool Garage、凍結試作は既存のArchive。分類未指定の遊べるactive/candidate workはgeneratorがPrototype Benchの通常一覧へ自動追加するため、重ねて配置を複製しない。
+4. `tools/<id>/` のWeb制作ツールは実在するindex.htmlを確認してTool Garageへ登録する。Web版がない道具は環境を明記する。素材、模型の追加や作品内の比較buildは既存入口から辿る。
+5. `node tools/work-lifecycle.cjs --write-lab`、続けて `node tools/work-lifecycle.cjs --check` と `node --test tests/test-work-lifecycle.cjs` を実行する。生成HTMLを直接編集しない。
+6. 重複・欠落・入口リンク・戻る動線を確認し、作品とLABの差分を同じPRで検査する。完了報告に接続先を短く記す。作者実機を確認していなければ未確認として残す。
+
+作品を更新した場合は、入口・名称・説明・探索状態に変更があるときにLABを再生成する。個別作品の小変更でLABに差分がない場合は、接続確認のためだけに共有ファイルを変更しない。
+
+これは制作担当AIが新作追加と同時に実行する運用であり、mainの更新を監視する常駐処理ではない。`--check` は生成漏れを検出するが、ファイルを自動修復しない。分類未指定のactive/candidateを見つけても、その発見から凍結・公開判断を行わない。
+
 ## Change Plan Lock / Risk Gate
 
 現在のstaging/mainは全変更をPRで取り込む。軽いCONTENT / PLACEMENTのPlanまで一律Fullにはしない。

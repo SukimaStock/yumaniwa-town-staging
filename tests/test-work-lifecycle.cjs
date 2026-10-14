@@ -235,7 +235,7 @@ test('LAB refuses duplicate placements, copied lifecycle fields, unsafe tool URL
   const missing = works.map(work => work.id === 'motion-lab' ? { ...work, path: 'works/missing-motion' } : work);
   assert.throws(() => lab.readRooms(ROOT, missing), /Web entry missing/);
 });
-test('new unassigned playable prototypes go to the back bench; candidates do not become releases', t => {
+test('new unassigned playable prototypes stay visible on the bench; candidates do not become releases', t => {
   const root = temp(t), works = lifecycle.listWorks(ROOT, lifecycle.readRegistry(ROOT));
   for (const work of works) if (fs.existsSync(path.join(ROOT, work.path, 'index.html'))) put(root, work.path + '/index.html', 'entry');
   put(root, 'index.html', 'town'); put(root, 'tools/map-factory/index.html', 'tool'); put(root, 'tools/audio-factory/index.html', 'tool');
@@ -244,7 +244,7 @@ test('new unassigned playable prototypes go to the back bench; candidates do not
   }
   const raw = JSON.parse(fs.readFileSync(path.join(ROOT, lab.ROOM_FILE), 'utf8'));
   const rooms = lab.readRooms(root, works, raw), bench = rooms.find(room => room.id === 'bench');
-  for (const id of ['new-motion', 'new-candidate']) assert.equal(bench.machines.find(machine => machine.work.id === id).stored, true);
+  for (const id of ['new-motion', 'new-candidate']) assert.equal(bench.machines.find(machine => machine.work.id === id).stored, false);
   assert.equal(bench.machines.find(machine => machine.work.id === 'new-candidate').status, 'candidate');
   assert.ok(!rooms.some(room => room.machines.some(machine => machine.work?.id === 'other-release')));
   assert.equal(lab.STATUS_LABELS.candidate, '公開候補');
