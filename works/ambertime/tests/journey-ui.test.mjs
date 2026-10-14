@@ -45,7 +45,7 @@ test('old0.3 watching, decision and finished fixtures retain their full state on
  }
 });
 test('free bottle previews cost and never commits on open/cancel or a second click',async()=>{
- const e=await boot();e.click('taste-button');const before=e.text();e.click('taste-bottle');assert.equal(e.active().length,0);assert.equal(e.text(),before);assert(e.node('bottle-quote').textContent.includes('費用'));
+ const e=await boot();e.click('taste-button');const before=e.text();e.click('taste-bottle');assert.equal(e.active().length,0);assert.equal(e.text(),before);assert(e.node('bottle-quote').textContent.includes('費用'));assert.equal(e.node('time-status').textContent,'瓶詰めする量を確かめる。');
  e.click('cancel-bottle');assert.equal(e.node('tasting-panel').hidden,false);assert.equal(e.text(),before);e.click('taste-bottle');e.click('confirm-bottle');const finished=e.text();assert.equal(e.state().phase,'finished');assert.equal(e.active().length,0);assert.equal(e.state().result.samples.length,1);e.click('confirm-bottle');assert.equal(e.text(),finished);e.next();assert.equal(e.state().round,2);assert.equal(e.state().records.length,1);assert.equal(e.active().length,1);
 });
 test('hidden, BFCache and initially hidden pages require foreground resume',async()=>{
@@ -65,4 +65,11 @@ test('corrupt/future/read-failed saves remain untouched until reset consent',asy
 test('observation never displays full flavor and records carry actual tasting memories',async()=>{
  const e=await boot();assert.equal(e.node('tasting-panel').hidden,true);assert(!e.node('change').textContent.includes('刺激'));
  e.click('taste-button');e.click('end-tasting');e.click('skip');e.click('taste-button');e.click('taste-bottle');e.click('confirm-bottle');assert(e.node('result').innerHTML.includes('初めて試飲'));assert(e.node('records-body').innerHTML.includes('試飲と判断'));assert(e.state().result.samples.length>=2);
+});
+
+test('consecutive same-event casks display their own bottle counts',async()=>{
+ const e=await boot({search:'?preview=1&seed=20261017'});e.click('skip');assert(e.node('decision').innerHTML.includes('51本'));e.choice('bottle');e.next();e.click('skip');assert(e.node('decision').innerHTML.includes('52本'));assert(!e.node('decision').innerHTML.includes('51本'));
+});
+test('BFCache bottle cancel requires explicit resume without visibility event',async()=>{
+ const e=await boot();e.click('open-bottle');assert.equal(e.active().length,0);e.pagehide();e.pageshow();e.click('cancel-bottle');assert.equal(e.active().length,0);assert.equal(e.node('toggle-time').textContent,'続きを見守る');e.click('toggle-time');assert.equal(e.active().length,1);
 });
