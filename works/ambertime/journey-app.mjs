@@ -32,7 +32,7 @@ function renderRecord(r,history=false){
   const f=formatRecord(r);
   const decisions=(f.choices??[]).map(c=>`<li><time>${esc(age(c.age))}</time>${esc(c.text)}</li>`).join('');
   if(history)return `<article class="record-history"><h3>${esc(f.name)}</h3><p>${esc(typeof f.age==='number'?age(f.age):f.age)} · ${esc(f.bottles)}本</p><p>${(f.taste??[]).map(esc).join(' · ')}</p><ul class="record-choices">${decisions}</ul></article>`;
-  return `<h2>${esc(f.name)}</h2><div class="bottle">${bottleArt(r.profile?.wood??r.wood??.4)}</div><p>${esc(typeof f.age==='number'?age(f.age):f.age)} · ${esc(f.bottles)}本</p><p class="finish-taste">${(f.taste??[]).map(esc).join(' · ')}</p><ul class="record-choices">${decisions}</ul><p class="yield">${esc(f.sold)}本を販売 · ${money(f.revenue)}<br>蒸発 ${Number(f.evaporated??0).toFixed(1)} L · 維持費 ${money(f.upkeep??0)}</p><button type="button" id="next-barrel">別の樽を預かる</button>`;
+  return `<h2>${esc(f.name)}</h2><div class="bottle">${bottleArt(r.profile?.wood??r.wood??.4)}</div><p>${esc(typeof f.age==='number'?age(f.age):f.age)} · ${esc(f.bottles)}本</p><p class="finish-taste">${(f.taste??[]).map(esc).join(' · ')}</p><ul class="record-choices">${decisions}</ul><p class="yield">瓶詰め翌月 · ${esc(f.sold)}本販売 · ${money(f.revenue)}<br>蒸発 ${Number(f.evaporated??0).toFixed(1)} L · 維持費 ${money(f.upkeep??0)}</p><button type="button" id="next-barrel">別の樽を預かる</button>`;
 }
 function render(animate=false){
   if(!journey)return;
@@ -56,7 +56,8 @@ function render(animate=false){
   if($('time-status').textContent!==timeStatus)$('time-status').textContent=timeStatus;
   $('decision').hidden=journey.phase!=='choice';$('result').hidden=journey.phase!=='finished';
   if(journey.phase==='choice'&&pending&&(renderedPhase!=='choice'||renderedPending!==pending.id)){
-    $('decision').innerHTML=`<h2>${esc(pending.title)}</h2><p>${esc(pending.text)}</p><div class="options">${pending.options.map(op=>{const q=op.id==='bottle'?bottleQuote(journey.core,c.id):null;const hint=q?`${q.count}本 · 瓶詰め費用 ${money(q.cost)}`:op.hint;return `<button type="button" class="choice" data-choice="${esc(op.id)}" data-stage="${esc(pending.id)}">${esc(op.label)}${hint?`<span>${esc(hint)}</span>`:''}</button>`;}).join('')}</div>`;
+    const title=pending.id==='arrival'&&journey.intent==='wood'&&o.wood<JOURNEY_PARAMETERS.woodGoal?'まだ淡い樽香':pending.title;
+    $('decision').innerHTML=`<h2>${esc(title)}</h2><p>${esc(pending.text)}</p><div class="options">${pending.options.map(op=>{const q=op.id==='bottle'?bottleQuote(journey.core,c.id):null;const hint=q?`${q.count}本 · 瓶詰め費用 ${money(q.cost)}`:op.hint;return `<button type="button" class="choice" data-choice="${esc(op.id)}" data-stage="${esc(pending.id)}">${esc(op.label)}${hint?`<span>${esc(hint)}</span>`:''}</button>`;}).join('')}</div>`;
     renderedPending=pending.id;
   }
   if(journey.phase==='finished'&&renderedPhase!=='finished'){
