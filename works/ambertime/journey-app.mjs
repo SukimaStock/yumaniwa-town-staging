@@ -67,7 +67,7 @@ function render(motion=''){
  $('tasting-panel').hidden=!tasting||bottleOpen||finished;
  if(tasting)renderTasting();
  $('decision').hidden=!pending||tasting||bottleOpen||finished;
- const key=JSON.stringify(pending);
+ const key=JSON.stringify([drawKey,pending]);
  if(pending&&decisionKey!==key){
   const title=journey.rules==='legacy'&&pending.id==='arrival'&&journey.intent==='wood'&&o.wood<JOURNEY_PARAMETERS.woodGoal?'まだ淡い樽香':pending.title;
   $('decision').innerHTML=`<h2>${esc(title)}</h2><p>${esc(journey.rules==='legacy'?'引き継いだ樽の節目です。試飲してから決めることもできます。':pending.text)}</p><div class="options">${pending.options.map(op=>{const q=op.id==='bottle'?bottleQuote(journey.core,c.id):null;return `<button class="choice" type="button" data-choice="${esc(op.id)}" data-event="${esc(pending.id)}">${esc(op.label)}${q?`<span>${q.count}本 · 費用 ${money(q.cost)}</span>`:op.hint?`<span>${esc(op.hint)}</span>`:''}</button>`;}).join('')}</div>`;decisionKey=key;
@@ -77,7 +77,7 @@ function render(motion=''){
  $('result').hidden=!finished;
  const rk=finished?JSON.stringify(journey.result):'';
  if(finished&&resultKey!==rk){$('result').innerHTML=renderRecord(journey.result);resultKey=rk;}
- const status=finished?'この樽の記録を残しました。':tasting?'試飲中 · 時間を止めています。':bottleOpen?'瓶詰めする量を確かめる。':pending?'時間を止めています。':paused?'時間は止まっています。':'時間が流れています。';
+ const status=finished?'この樽の記録を残しました。':bottleOpen?'瓶詰めする量を確かめる。':tasting?'試飲中 · 時間を止めています。':pending?'時間を止めています。':paused?'時間は止まっています。':'時間が流れています。';
  if($('time-status').textContent!==status)$('time-status').textContent=status;
  $('ledger-body').innerHTML=`<p>資金 ${money(journey.core.cash)} · 維持費累計 ${money(journey.core.totals.upkeep)}</p>${finished?`<p>瓶詰め翌月 · ${journey.result.sold??0}本販売 · ${money(journey.result.revenue??0)}</p>`:''}`;
  $('records').hidden=!journey.records.length;
@@ -111,7 +111,7 @@ $('decision').addEventListener('click',event=>{
 $('result').addEventListener('click',event=>{if(event.target.closest('#next-barrel')&&journey?.phase==='finished'){paused=document.hidden;bottleOpen=false;act(nextJourney);}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){paused=true;tasteWasPaused=true;bottleWasPaused=true;stopClock();}render();});
 window.addEventListener('pagehide',stopClock);
-window.addEventListener('pageshow',e=>{if(e.persisted){paused=true;tasteWasPaused=true;stopClock();render();}});
+window.addEventListener('pageshow',e=>{if(e.persisted){paused=true;tasteWasPaused=true;bottleWasPaused=true;stopClock();render();}});
 $('reset').addEventListener('click',()=>{
  if(!confirm('この進行と一本の記録を初期化しますか？以前の蒸留所の保存は残ります。'))return;
  stopClock();journey=newJourney(initialSeed);paused=document.hidden;bottleOpen=false;tasteWasPaused=true;canSave=!preview;roundDrawn=null;decisionKey='';resultKey='';notice('');persist();render();schedule();
