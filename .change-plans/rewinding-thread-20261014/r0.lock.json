@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "92477907af7695e6e06227717bab3b5980b288d14ef866a88bb417b314b304e5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "rewinding-thread-20261014",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "選択B まき戻る糸の独立試作とactive台帳・生成LAB追加",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "b713014d938f89ae6bd06fa023fb76ea318c6132",
+    "canonicalSources": [
+      "works/rewinding-thread",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/rewinding-thread-20261014/r0.lock.json",
+      "works/rewinding-thread/**",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/town-maps.js"
+    ],
+    "expectedChanges": [
+      "つまみを引く長さに応じて糸巻きが回転、保持中は固定、離すと戻り最後に減速、途中再つかみ",
+      "active staging-only台帳と既存LAB generatorによるPrototype Bench入口",
+      "作品内制作記録と既存Git/PR履歴に狙い・実現・残件・次の試みを記録"
+    ],
+    "ownerDecisions": [
+      "2026-10-14 21:22 UTC message_id Sentinel_5e56310373c48191962cf4e453ff01c1: B明示選択。branch/commit/draft PR/CI/安全なStagingマージ許可。Production・既存作品・共通Engine・町登録・保存・外部権限禁止。"
+    ],
+    "hqDecisions": [
+      "AI設計照合: lifecycle JSONと生成LABはunknown-code floorのためFull。既存schema/generatorをそのまま使い契約・共有処理は変更しない。作者による追加承認を意味しない。"
+    ],
+    "rulesApplied": [
+      "AGENTS Work lifecycle active default",
+      "CHANGE-PLAN normal locked route; not lightweight"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-pull-hold-release-deceleration-regrab-resize-cancel",
+      "published-entry-lab-return"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "当該新規work、台帳の当該項目とLAB生成差分を同じ単位でrevert",
+    "outOfScope": [
+      "production",
+      "町登録",
+      "既存作品",
+      "共有Engine",
+      "外部権限",
+      "保存"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone/iPad Safari",
+      "作者の触感判断"
+    ],
+    "problem": "引き出して離すだけの糸巻きの手触り",
+    "currentContract": "単独worksとactive台帳、既存LAB generator",
+    "whyExistingIsInsufficient": "新作が存在しない",
+    "design": "独立SVGとPointer Events。糸の長さを回転とつまみに直接対応させ、速度上限と終端の指数減衰で静かに着座。外部依存・保存・音なし。",
+    "alternativesRejected": [
+      "町やEngine変更",
+      "3D化",
+      "ゲーム化"
+    ],
+    "migration": "既存データ変更なし",
+    "compatibility": "Pointer Eventsとcapture、画面相対座標、単一pointer、resize/cancel/blur対応",
+    "boundaryCases": [
+      "短い引き出し",
+      "最大長",
+      "保持",
+      "再つかみ",
+      "cancel/lost capture",
+      "resize",
+      "複数指"
+    ],
+    "testPlan": [
+      "既存lifecycle/node testブラウザ基盤を利用",
+      "作品の引く/保持/解放/減速/再つかみ/resize/cancelとフレームレート独立性",
+      "scope/risk/impact/trusted static、公開URLとPages exact SHA"
+    ],
+    "promotionRisk": "staging only"
+  }
+}
