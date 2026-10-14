@@ -1,0 +1,6416 @@
+{
+  "modelVersion": 1,
+  "months": 120,
+  "startingCash": 4000,
+  "method": "All policies use the same seed, attempted 3-month production cadence, four slots, cost+180 bottling+6-month upkeep reserve. Prices fixed by policy; no oracle peak/price optimizer. Estimated inventory is analytical only, not realized profit or a UI forecast.",
+  "runs": [
+    {
+      "policy": "早期販売型",
+      "seed": 1,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16840,
+      "minCash": 2479,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3169
+        },
+        {
+          "month": 24,
+          "cash": 4681
+        },
+        {
+          "month": 36,
+          "cash": 6130
+        },
+        {
+          "month": 48,
+          "cash": 7768
+        },
+        {
+          "month": 60,
+          "cash": 9259
+        },
+        {
+          "month": 72,
+          "cash": 10834
+        },
+        {
+          "month": 84,
+          "cash": 12178
+        },
+        {
+          "month": 96,
+          "cash": 13816
+        },
+        {
+          "month": 108,
+          "cash": 15265
+        },
+        {
+          "month": 120,
+          "cash": 16840
+        }
+      ],
+      "revenue": 37737,
+      "upkeep": 3825,
+      "productionCosts": 21072,
+      "batches": 40,
+      "bottlesSold": 1797,
+      "evaporatedLitres": 18.253892299637506,
+      "remainingLitres": 68.02867949632935,
+      "unsoldBottles": 27,
+      "estimatedUnsoldValue": 1610,
+      "key": "A",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 18.32014561806425,
+        "averageRemainingLitres": 33.93993232115877,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.90315848033291,
+          "value": 19.204263273725243,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 33.98086106919252,
+          "value": 17.232156047569156,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 7,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16777,
+      "minCash": 2479,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3169
+        },
+        {
+          "month": 24,
+          "cash": 4723
+        },
+        {
+          "month": 36,
+          "cash": 6193
+        },
+        {
+          "month": 48,
+          "cash": 7705
+        },
+        {
+          "month": 60,
+          "cash": 9217
+        },
+        {
+          "month": 72,
+          "cash": 10729
+        },
+        {
+          "month": 84,
+          "cash": 12304
+        },
+        {
+          "month": 96,
+          "cash": 13816
+        },
+        {
+          "month": 108,
+          "cash": 15265
+        },
+        {
+          "month": 120,
+          "cash": 16777
+        }
+      ],
+      "revenue": 37674,
+      "upkeep": 3825,
+      "productionCosts": 21072,
+      "batches": 40,
+      "bottlesSold": 1794,
+      "evaporatedLitres": 18.14812805056512,
+      "remainingLitres": 68.09540511907252,
+      "unsoldBottles": 30,
+      "estimatedUnsoldValue": 1692,
+      "key": "A",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 18.197654682680902,
+        "averageRemainingLitres": 33.940959653430575,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.84863649217892,
+          "value": 19.418254840176587,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 34.0327057766058,
+          "value": 16.60641670198875,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 42,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16777,
+      "minCash": 2479,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3106
+        },
+        {
+          "month": 24,
+          "cash": 4618
+        },
+        {
+          "month": 36,
+          "cash": 6193
+        },
+        {
+          "month": 48,
+          "cash": 7705
+        },
+        {
+          "month": 60,
+          "cash": 9280
+        },
+        {
+          "month": 72,
+          "cash": 10771
+        },
+        {
+          "month": 84,
+          "cash": 12304
+        },
+        {
+          "month": 96,
+          "cash": 13816
+        },
+        {
+          "month": 108,
+          "cash": 15265
+        },
+        {
+          "month": 120,
+          "cash": 16777
+        }
+      ],
+      "revenue": 37674,
+      "upkeep": 3825,
+      "productionCosts": 21072,
+      "batches": 40,
+      "bottlesSold": 1794,
+      "evaporatedLitres": 18.38153529343908,
+      "remainingLitres": 68.10352997393869,
+      "unsoldBottles": 30,
+      "estimatedUnsoldValue": 1740,
+      "key": "A",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 17.99364903943214,
+        "averageRemainingLitres": 33.93460354559533,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.83723649268955,
+          "value": 20.220445095362106,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 34.03855327811789,
+          "value": 16.43537727668676,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 81,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16819,
+      "minCash": 2479,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3169
+        },
+        {
+          "month": 24,
+          "cash": 4681
+        },
+        {
+          "month": 36,
+          "cash": 6193
+        },
+        {
+          "month": 48,
+          "cash": 7768
+        },
+        {
+          "month": 60,
+          "cash": 9091
+        },
+        {
+          "month": 72,
+          "cash": 10729
+        },
+        {
+          "month": 84,
+          "cash": 12346
+        },
+        {
+          "month": 96,
+          "cash": 13753
+        },
+        {
+          "month": 108,
+          "cash": 15202
+        },
+        {
+          "month": 120,
+          "cash": 16819
+        }
+      ],
+      "revenue": 37716,
+      "upkeep": 3825,
+      "productionCosts": 21072,
+      "batches": 40,
+      "bottlesSold": 1796,
+      "evaporatedLitres": 18.11823766422647,
+      "remainingLitres": 68.07237472581798,
+      "unsoldBottles": 28,
+      "estimatedUnsoldValue": 1636,
+      "key": "A",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 18.089705480415585,
+        "averageRemainingLitres": 33.942352305525155,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.88919999101334,
+          "value": 19.620462785323063,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 33.98262599383698,
+          "value": 17.12171815584058,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 2026,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16714,
+      "minCash": 2479,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3169
+        },
+        {
+          "month": 24,
+          "cash": 4618
+        },
+        {
+          "month": 36,
+          "cash": 6298
+        },
+        {
+          "month": 48,
+          "cash": 7747
+        },
+        {
+          "month": 60,
+          "cash": 9154
+        },
+        {
+          "month": 72,
+          "cash": 10792
+        },
+        {
+          "month": 84,
+          "cash": 12346
+        },
+        {
+          "month": 96,
+          "cash": 13795
+        },
+        {
+          "month": 108,
+          "cash": 15328
+        },
+        {
+          "month": 120,
+          "cash": 16714
+        }
+      ],
+      "revenue": 37611,
+      "upkeep": 3825,
+      "productionCosts": 21072,
+      "batches": 40,
+      "bottlesSold": 1791,
+      "evaporatedLitres": 18.311068928124776,
+      "remainingLitres": 68.03963592709516,
+      "unsoldBottles": 33,
+      "estimatedUnsoldValue": 1732,
+      "key": "A",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 18.23956097695709,
+        "averageRemainingLitres": 33.938139345915275,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.83015582371135,
+          "value": 20.072083265567635,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 34.035312570973865,
+          "value": 15.401950645568382,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 20261014,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16714,
+      "minCash": 2479,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3232
+        },
+        {
+          "month": 24,
+          "cash": 4681
+        },
+        {
+          "month": 36,
+          "cash": 6193
+        },
+        {
+          "month": 48,
+          "cash": 7684
+        },
+        {
+          "month": 60,
+          "cash": 9280
+        },
+        {
+          "month": 72,
+          "cash": 10666
+        },
+        {
+          "month": 84,
+          "cash": 12241
+        },
+        {
+          "month": 96,
+          "cash": 13753
+        },
+        {
+          "month": 108,
+          "cash": 15202
+        },
+        {
+          "month": 120,
+          "cash": 16714
+        }
+      ],
+      "revenue": 37611,
+      "upkeep": 3825,
+      "productionCosts": 21072,
+      "batches": 40,
+      "bottlesSold": 1791,
+      "evaporatedLitres": 18.276754849491603,
+      "remainingLitres": 68.09691081186767,
+      "unsoldBottles": 33,
+      "estimatedUnsoldValue": 1761,
+      "key": "A",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 18.188743778200156,
+        "averageRemainingLitres": 33.93753511417477,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.887218496120916,
+          "value": 20.03733451167988,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 33.991117049888,
+          "value": 15.99841553011324,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 123456789,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16777,
+      "minCash": 2479,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3232
+        },
+        {
+          "month": 24,
+          "cash": 4744
+        },
+        {
+          "month": 36,
+          "cash": 6193
+        },
+        {
+          "month": 48,
+          "cash": 7810
+        },
+        {
+          "month": 60,
+          "cash": 9280
+        },
+        {
+          "month": 72,
+          "cash": 10729
+        },
+        {
+          "month": 84,
+          "cash": 12304
+        },
+        {
+          "month": 96,
+          "cash": 13753
+        },
+        {
+          "month": 108,
+          "cash": 15265
+        },
+        {
+          "month": 120,
+          "cash": 16777
+        }
+      ],
+      "revenue": 37674,
+      "upkeep": 3825,
+      "productionCosts": 21072,
+      "batches": 40,
+      "bottlesSold": 1794,
+      "evaporatedLitres": 18.401429690911883,
+      "remainingLitres": 68.0751955596418,
+      "unsoldBottles": 30,
+      "estimatedUnsoldValue": 1768,
+      "key": "A",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 18.08086717060243,
+        "averageRemainingLitres": 33.93482565130122,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.833843983984984,
+          "value": 19.535582069943374,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 33.981723161862824,
+          "value": 16.327690429892797,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 987654321,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16714,
+      "minCash": 2479,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3232
+        },
+        {
+          "month": 24,
+          "cash": 4744
+        },
+        {
+          "month": 36,
+          "cash": 6193
+        },
+        {
+          "month": 48,
+          "cash": 7705
+        },
+        {
+          "month": 60,
+          "cash": 9217
+        },
+        {
+          "month": 72,
+          "cash": 10855
+        },
+        {
+          "month": 84,
+          "cash": 12304
+        },
+        {
+          "month": 96,
+          "cash": 13690
+        },
+        {
+          "month": 108,
+          "cash": 15265
+        },
+        {
+          "month": 120,
+          "cash": 16714
+        }
+      ],
+      "revenue": 37611,
+      "upkeep": 3825,
+      "productionCosts": 21072,
+      "batches": 40,
+      "bottlesSold": 1791,
+      "evaporatedLitres": 18.603546779388275,
+      "remainingLitres": 68.05205008829495,
+      "unsoldBottles": 33,
+      "estimatedUnsoldValue": 1752,
+      "key": "A",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 18.225208942086898,
+        "averageRemainingLitres": 33.93011587190307,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.87286683912567,
+          "value": 19.964805367216975,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 34.001195954465395,
+          "value": 15.57507700359532,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 1,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16975,
+      "minCash": 463,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2026
+        },
+        {
+          "month": 24,
+          "cash": 1522
+        },
+        {
+          "month": 36,
+          "cash": 1018
+        },
+        {
+          "month": 48,
+          "cash": 7054
+        },
+        {
+          "month": 60,
+          "cash": 6550
+        },
+        {
+          "month": 72,
+          "cash": 6046
+        },
+        {
+          "month": 84,
+          "cash": 12037
+        },
+        {
+          "month": 96,
+          "cash": 11533
+        },
+        {
+          "month": 108,
+          "cash": 11029
+        },
+        {
+          "month": 120,
+          "cash": 16975
+        }
+      ],
+      "revenue": 25776,
+      "upkeep": 4950,
+      "productionCosts": 7851,
+      "batches": 16,
+      "bottlesSold": 537,
+      "evaporatedLitres": 34.372270099975445,
+      "remainingLitres": 135.20577775152304,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3664,
+      "key": "B",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 60.143064345787785,
+        "averageRemainingLitres": 31.735162679041792,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 31.52453909519114,
+          "value": 61.30170049904324,
+          "bottles": 45,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 32.10525507126644,
+          "value": 59.06412323263666,
+          "bottles": 45,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 7,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16930,
+      "minCash": 466,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2026
+        },
+        {
+          "month": 24,
+          "cash": 1522
+        },
+        {
+          "month": 36,
+          "cash": 1018
+        },
+        {
+          "month": 48,
+          "cash": 7009
+        },
+        {
+          "month": 60,
+          "cash": 6505
+        },
+        {
+          "month": 72,
+          "cash": 6001
+        },
+        {
+          "month": 84,
+          "cash": 11947
+        },
+        {
+          "month": 96,
+          "cash": 11443
+        },
+        {
+          "month": 108,
+          "cash": 10939
+        },
+        {
+          "month": 120,
+          "cash": 16930
+        }
+      ],
+      "revenue": 25728,
+      "upkeep": 4950,
+      "productionCosts": 7848,
+      "batches": 16,
+      "bottlesSold": 536,
+      "evaporatedLitres": 34.52399175170006,
+      "remainingLitres": 135.25352295084116,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3543,
+      "key": "B",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 60.22417789542868,
+        "averageRemainingLitres": 31.718540441454895,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 31.221578804473957,
+          "value": 60.112662671076244,
+          "bottles": 44,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 32.273638670207916,
+          "value": 59.207451704063,
+          "bottles": 46,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 42,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16885,
+      "minCash": 466,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2026
+        },
+        {
+          "month": 24,
+          "cash": 1522
+        },
+        {
+          "month": 36,
+          "cash": 1018
+        },
+        {
+          "month": 48,
+          "cash": 7009
+        },
+        {
+          "month": 60,
+          "cash": 6505
+        },
+        {
+          "month": 72,
+          "cash": 6001
+        },
+        {
+          "month": 84,
+          "cash": 11947
+        },
+        {
+          "month": 96,
+          "cash": 11443
+        },
+        {
+          "month": 108,
+          "cash": 10939
+        },
+        {
+          "month": 120,
+          "cash": 16885
+        }
+      ],
+      "revenue": 25680,
+      "upkeep": 4950,
+      "productionCosts": 7845,
+      "batches": 16,
+      "bottlesSold": 535,
+      "evaporatedLitres": 34.98642776377425,
+      "remainingLitres": 135.19388823271393,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3563,
+      "key": "B",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 60.090564670242145,
+        "averageRemainingLitres": 31.684973666959312,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 31.158540560698633,
+          "value": 61.92036242136378,
+          "bottles": 44,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 31.989977921566968,
+          "value": 57.5756393400398,
+          "bottles": 45,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 81,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16975,
+      "minCash": 466,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2026
+        },
+        {
+          "month": 24,
+          "cash": 1522
+        },
+        {
+          "month": 36,
+          "cash": 1018
+        },
+        {
+          "month": 48,
+          "cash": 7009
+        },
+        {
+          "month": 60,
+          "cash": 6505
+        },
+        {
+          "month": 72,
+          "cash": 6001
+        },
+        {
+          "month": 84,
+          "cash": 11947
+        },
+        {
+          "month": 96,
+          "cash": 11443
+        },
+        {
+          "month": 108,
+          "cash": 10939
+        },
+        {
+          "month": 120,
+          "cash": 16975
+        }
+      ],
+      "revenue": 25776,
+      "upkeep": 4950,
+      "productionCosts": 7851,
+      "batches": 16,
+      "bottlesSold": 537,
+      "evaporatedLitres": 33.97106806256524,
+      "remainingLitres": 135.12174803906214,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3656,
+      "key": "B",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 60.25990093360122,
+        "averageRemainingLitres": 31.775598658197712,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 31.446744172282827,
+          "value": 61.59072008422405,
+          "bottles": 44,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 32.16022340722915,
+          "value": 58.89263625238754,
+          "bottles": 45,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 2026,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16975,
+      "minCash": 466,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2026
+        },
+        {
+          "month": 24,
+          "cash": 1522
+        },
+        {
+          "month": 36,
+          "cash": 1018
+        },
+        {
+          "month": 48,
+          "cash": 6964
+        },
+        {
+          "month": 60,
+          "cash": 6460
+        },
+        {
+          "month": 72,
+          "cash": 5956
+        },
+        {
+          "month": 84,
+          "cash": 11947
+        },
+        {
+          "month": 96,
+          "cash": 11443
+        },
+        {
+          "month": 108,
+          "cash": 10939
+        },
+        {
+          "month": 120,
+          "cash": 16975
+        }
+      ],
+      "revenue": 25776,
+      "upkeep": 4950,
+      "productionCosts": 7851,
+      "batches": 16,
+      "bottlesSold": 537,
+      "evaporatedLitres": 34.431434236037674,
+      "remainingLitres": 135.17633354221093,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3660,
+      "key": "B",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 60.4450627792963,
+        "averageRemainingLitres": 31.73268601847928,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 31.119440217526353,
+          "value": 62.02654036657067,
+          "bottles": 44,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 32.21542897657191,
+          "value": 59.69795074005463,
+          "bottles": 46,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 20261014,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16975,
+      "minCash": 466,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2026
+        },
+        {
+          "month": 24,
+          "cash": 1522
+        },
+        {
+          "month": 36,
+          "cash": 1018
+        },
+        {
+          "month": 48,
+          "cash": 6964
+        },
+        {
+          "month": 60,
+          "cash": 6460
+        },
+        {
+          "month": 72,
+          "cash": 5956
+        },
+        {
+          "month": 84,
+          "cash": 11947
+        },
+        {
+          "month": 96,
+          "cash": 11443
+        },
+        {
+          "month": 108,
+          "cash": 10939
+        },
+        {
+          "month": 120,
+          "cash": 16975
+        }
+      ],
+      "revenue": 25776,
+      "upkeep": 4950,
+      "productionCosts": 7851,
+      "batches": 16,
+      "bottlesSold": 537,
+      "evaporatedLitres": 34.25936408574264,
+      "remainingLitres": 135.29132708855425,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3582,
+      "key": "B",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 60.27213749374235,
+        "averageRemainingLitres": 31.737442402141923,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 31.43571367489869,
+          "value": 62.00419664076017,
+          "bottles": 44,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 32.23789840195087,
+          "value": 58.62189976257897,
+          "bottles": 46,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 123456789,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16975,
+      "minCash": 466,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2026
+        },
+        {
+          "month": 24,
+          "cash": 1522
+        },
+        {
+          "month": 36,
+          "cash": 1018
+        },
+        {
+          "month": 48,
+          "cash": 7009
+        },
+        {
+          "month": 60,
+          "cash": 6505
+        },
+        {
+          "month": 72,
+          "cash": 6001
+        },
+        {
+          "month": 84,
+          "cash": 11947
+        },
+        {
+          "month": 96,
+          "cash": 11443
+        },
+        {
+          "month": 108,
+          "cash": 10939
+        },
+        {
+          "month": 120,
+          "cash": 16975
+        }
+      ],
+      "revenue": 25776,
+      "upkeep": 4950,
+      "productionCosts": 7851,
+      "batches": 16,
+      "bottlesSold": 537,
+      "evaporatedLitres": 34.447442900108896,
+      "remainingLitres": 135.24495182438613,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3585,
+      "key": "B",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 60.455308022109904,
+        "averageRemainingLitres": 31.725633772958748,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 31.139801596252163,
+          "value": 62.24755706880974,
+          "bottles": 44,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 32.0160649223516,
+          "value": 58.9419230061823,
+          "bottles": 45,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 987654321,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16840,
+      "minCash": 466,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2026
+        },
+        {
+          "month": 24,
+          "cash": 1522
+        },
+        {
+          "month": 36,
+          "cash": 1018
+        },
+        {
+          "month": 48,
+          "cash": 6964
+        },
+        {
+          "month": 60,
+          "cash": 6460
+        },
+        {
+          "month": 72,
+          "cash": 5956
+        },
+        {
+          "month": 84,
+          "cash": 11902
+        },
+        {
+          "month": 96,
+          "cash": 11398
+        },
+        {
+          "month": 108,
+          "cash": 10894
+        },
+        {
+          "month": 120,
+          "cash": 16840
+        }
+      ],
+      "revenue": 25632,
+      "upkeep": 4950,
+      "productionCosts": 7842,
+      "batches": 16,
+      "bottlesSold": 534,
+      "evaporatedLitres": 34.79914148767347,
+      "remainingLitres": 135.20419253940017,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3542,
+      "key": "B",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 60.37009430193189,
+        "averageRemainingLitres": 31.699722164410527,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 31.355917717161923,
+          "value": 61.846486627666735,
+          "bottles": 44,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 32.19643554851317,
+          "value": 58.66985855583951,
+          "bottles": 45,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 1,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16513,
+      "minCash": 2203,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2920
+        },
+        {
+          "month": 24,
+          "cash": 2959
+        },
+        {
+          "month": 36,
+          "cash": 2959
+        },
+        {
+          "month": 48,
+          "cash": 6118
+        },
+        {
+          "month": 60,
+          "cash": 7834
+        },
+        {
+          "month": 72,
+          "cash": 9643
+        },
+        {
+          "month": 84,
+          "cash": 11059
+        },
+        {
+          "month": 96,
+          "cash": 12679
+        },
+        {
+          "month": 108,
+          "cash": 16354
+        },
+        {
+          "month": 120,
+          "cash": 16513
+        }
+      ],
+      "revenue": 29520,
+      "upkeep": 4830,
+      "productionCosts": 12177,
+      "batches": 24,
+      "bottlesSold": 939,
+      "evaporatedLitres": 29.442014480157646,
+      "remainingLitres": 132.63276986377238,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 6910,
+      "key": "C",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 35.27956044316716,
+        "averageRemainingLitres": 33.176260782803496,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.90315848033291,
+          "value": 19.204263273725243,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.89898485199051,
+          "value": 20.712654126000146,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 7,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16513,
+      "minCash": 2203,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2920
+        },
+        {
+          "month": 24,
+          "cash": 2959
+        },
+        {
+          "month": 36,
+          "cash": 2959
+        },
+        {
+          "month": 48,
+          "cash": 6118
+        },
+        {
+          "month": 60,
+          "cash": 7834
+        },
+        {
+          "month": 72,
+          "cash": 9580
+        },
+        {
+          "month": 84,
+          "cash": 11059
+        },
+        {
+          "month": 96,
+          "cash": 12724
+        },
+        {
+          "month": 108,
+          "cash": 16402
+        },
+        {
+          "month": 120,
+          "cash": 16513
+        }
+      ],
+      "revenue": 29520,
+      "upkeep": 4830,
+      "productionCosts": 12177,
+      "batches": 24,
+      "bottlesSold": 939,
+      "evaporatedLitres": 29.335141689050367,
+      "remainingLitres": 132.7011475203772,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 6801,
+      "key": "C",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 35.35411323565475,
+        "averageRemainingLitres": 33.17818553952862,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.84863649217892,
+          "value": 19.418254840176587,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.839948269358544,
+          "value": 19.357372876238635,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 42,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16423,
+      "minCash": 2203,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2920
+        },
+        {
+          "month": 24,
+          "cash": 2959
+        },
+        {
+          "month": 36,
+          "cash": 2959
+        },
+        {
+          "month": 48,
+          "cash": 6103
+        },
+        {
+          "month": 60,
+          "cash": 7834
+        },
+        {
+          "month": 72,
+          "cash": 9580
+        },
+        {
+          "month": 84,
+          "cash": 11059
+        },
+        {
+          "month": 96,
+          "cash": 12679
+        },
+        {
+          "month": 108,
+          "cash": 16312
+        },
+        {
+          "month": 120,
+          "cash": 16423
+        }
+      ],
+      "revenue": 29424,
+      "upkeep": 4830,
+      "productionCosts": 12171,
+      "batches": 24,
+      "bottlesSold": 937,
+      "evaporatedLitres": 29.85200371228131,
+      "remainingLitres": 132.48024950106992,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 6816,
+      "key": "C",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 35.04874217373924,
+        "averageRemainingLitres": 33.16338733933243,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.83723649268955,
+          "value": 20.220445095362106,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.83028568661081,
+          "value": 18.465380070723757,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 81,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16513,
+      "minCash": 2203,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2920
+        },
+        {
+          "month": 24,
+          "cash": 2959
+        },
+        {
+          "month": 36,
+          "cash": 2959
+        },
+        {
+          "month": 48,
+          "cash": 6118
+        },
+        {
+          "month": 60,
+          "cash": 7834
+        },
+        {
+          "month": 72,
+          "cash": 9643
+        },
+        {
+          "month": 84,
+          "cash": 11104
+        },
+        {
+          "month": 96,
+          "cash": 12724
+        },
+        {
+          "month": 108,
+          "cash": 16366
+        },
+        {
+          "month": 120,
+          "cash": 16513
+        }
+      ],
+      "revenue": 29520,
+      "upkeep": 4830,
+      "productionCosts": 12177,
+      "batches": 24,
+      "bottlesSold": 939,
+      "evaporatedLitres": 29.113665718026823,
+      "remainingLitres": 132.76790501999437,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 6705,
+      "key": "C",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 35.21534028490761,
+        "averageRemainingLitres": 33.185921463098936,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.88919999101334,
+          "value": 19.620462785323063,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.87610773125776,
+          "value": 20.200744539520862,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 2026,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16468,
+      "minCash": 2203,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2920
+        },
+        {
+          "month": 24,
+          "cash": 2959
+        },
+        {
+          "month": 36,
+          "cash": 2959
+        },
+        {
+          "month": 48,
+          "cash": 6073
+        },
+        {
+          "month": 60,
+          "cash": 7789
+        },
+        {
+          "month": 72,
+          "cash": 9598
+        },
+        {
+          "month": 84,
+          "cash": 11014
+        },
+        {
+          "month": 96,
+          "cash": 12679
+        },
+        {
+          "month": 108,
+          "cash": 16342
+        },
+        {
+          "month": 120,
+          "cash": 16468
+        }
+      ],
+      "revenue": 29472,
+      "upkeep": 4830,
+      "productionCosts": 12174,
+      "batches": 24,
+      "bottlesSold": 938,
+      "evaporatedLitres": 29.50055546241757,
+      "remainingLitres": 132.7093086224074,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 6845,
+      "key": "C",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 35.27289171285393,
+        "averageRemainingLitres": 33.16950679575875,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.83015582371135,
+          "value": 20.072083265567635,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.83421097487381,
+          "value": 19.182553420046005,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 20261014,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16468,
+      "minCash": 2203,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2920
+        },
+        {
+          "month": 24,
+          "cash": 2959
+        },
+        {
+          "month": 36,
+          "cash": 2959
+        },
+        {
+          "month": 48,
+          "cash": 6058
+        },
+        {
+          "month": 60,
+          "cash": 7834
+        },
+        {
+          "month": 72,
+          "cash": 9517
+        },
+        {
+          "month": 84,
+          "cash": 11059
+        },
+        {
+          "month": 96,
+          "cash": 12724
+        },
+        {
+          "month": 108,
+          "cash": 16330
+        },
+        {
+          "month": 120,
+          "cash": 16468
+        }
+      ],
+      "revenue": 29472,
+      "upkeep": 4830,
+      "productionCosts": 12174,
+      "batches": 24,
+      "bottlesSold": 938,
+      "evaporatedLitres": 29.584714943680943,
+      "remainingLitres": 132.59148355994313,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 6838,
+      "key": "C",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 35.39011570241536,
+        "averageRemainingLitres": 33.171190074818796,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.887218496120916,
+          "value": 20.03733451167988,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.8318647915399,
+          "value": 20.29447690415843,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 123456789,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16558,
+      "minCash": 2203,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2920
+        },
+        {
+          "month": 24,
+          "cash": 2959
+        },
+        {
+          "month": 36,
+          "cash": 2959
+        },
+        {
+          "month": 48,
+          "cash": 6097
+        },
+        {
+          "month": 60,
+          "cash": 7834
+        },
+        {
+          "month": 72,
+          "cash": 9517
+        },
+        {
+          "month": 84,
+          "cash": 11104
+        },
+        {
+          "month": 96,
+          "cash": 12724
+        },
+        {
+          "month": 108,
+          "cash": 16399
+        },
+        {
+          "month": 120,
+          "cash": 16558
+        }
+      ],
+      "revenue": 29568,
+      "upkeep": 4830,
+      "productionCosts": 12180,
+      "batches": 24,
+      "bottlesSold": 940,
+      "evaporatedLitres": 29.734539609107152,
+      "remainingLitres": 132.45420205713538,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 6750,
+      "key": "C",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 35.19006146870769,
+        "averageRemainingLitres": 33.17056291668787,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.833843983984984,
+          "value": 19.535582069943374,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.83490524753514,
+          "value": 20.197941379252136,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 987654321,
+      "months": 120,
+      "cut": 0.65,
+      "type": "alternate",
+      "cash": 16423,
+      "minCash": 2203,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2920
+        },
+        {
+          "month": 24,
+          "cash": 2959
+        },
+        {
+          "month": 36,
+          "cash": 2959
+        },
+        {
+          "month": 48,
+          "cash": 6073
+        },
+        {
+          "month": 60,
+          "cash": 7789
+        },
+        {
+          "month": 72,
+          "cash": 9535
+        },
+        {
+          "month": 84,
+          "cash": 11014
+        },
+        {
+          "month": 96,
+          "cash": 12634
+        },
+        {
+          "month": 108,
+          "cash": 16297
+        },
+        {
+          "month": 120,
+          "cash": 16423
+        }
+      ],
+      "revenue": 29424,
+      "upkeep": 4830,
+      "productionCosts": 12171,
+      "batches": 24,
+      "bottlesSold": 937,
+      "evaporatedLitres": 29.823537726345318,
+      "remainingLitres": 132.51377381514146,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 6908,
+      "key": "C",
+      "scenario": "標準",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 35.37901474241709,
+        "averageRemainingLitres": 33.16313442292566,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.87286683912567,
+          "value": 19.964805367216975,
+          "bottles": 48,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 33.85911029775094,
+          "value": 20.340373454137683,
+          "bottles": 48,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 1,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 19310,
+      "minCash": 1729,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2314
+        },
+        {
+          "month": 24,
+          "cash": 3664
+        },
+        {
+          "month": 36,
+          "cash": 6043
+        },
+        {
+          "month": 48,
+          "cash": 8002
+        },
+        {
+          "month": 60,
+          "cash": 9919
+        },
+        {
+          "month": 72,
+          "cash": 11626
+        },
+        {
+          "month": 84,
+          "cash": 13354
+        },
+        {
+          "month": 96,
+          "cash": 15124
+        },
+        {
+          "month": 108,
+          "cash": 17188
+        },
+        {
+          "month": 120,
+          "cash": 19310
+        }
+      ],
+      "revenue": 42210,
+      "upkeep": 3830,
+      "productionCosts": 23070,
+      "batches": 40,
+      "bottlesSold": 2010,
+      "evaporatedLitres": 24.08639550719768,
+      "remainingLitres": 77.43832418545037,
+      "unsoldBottles": 80,
+      "estimatedUnsoldValue": 2586,
+      "key": "A",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 15.348989785690426,
+        "averageRemainingLitres": 38.59145474493031,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.63383175665844,
+          "value": 14.449153824665828,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.5476371082119,
+          "value": 15.772966589012116,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 7,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 19040,
+      "minCash": 1792,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2377
+        },
+        {
+          "month": 24,
+          "cash": 3937
+        },
+        {
+          "month": 36,
+          "cash": 6064
+        },
+        {
+          "month": 48,
+          "cash": 7666
+        },
+        {
+          "month": 60,
+          "cash": 9688
+        },
+        {
+          "month": 72,
+          "cash": 11584
+        },
+        {
+          "month": 84,
+          "cash": 13354
+        },
+        {
+          "month": 96,
+          "cash": 15605
+        },
+        {
+          "month": 108,
+          "cash": 17186
+        },
+        {
+          "month": 120,
+          "cash": 19040
+        }
+      ],
+      "revenue": 41937,
+      "upkeep": 3830,
+      "productionCosts": 23067,
+      "batches": 40,
+      "bottlesSold": 1997,
+      "evaporatedLitres": 23.929796327813904,
+      "remainingLitres": 77.51982505320724,
+      "unsoldBottles": 92,
+      "estimatedUnsoldValue": 2886,
+      "key": "A",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 15.170271733367748,
+        "averageRemainingLitres": 38.593431016288925,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.57170204922714,
+          "value": 14.765300697155535,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.62819662853519,
+          "value": 14.761609787720422,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 42,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 18932,
+      "minCash": 1963,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2566
+        },
+        {
+          "month": 24,
+          "cash": 3076
+        },
+        {
+          "month": 36,
+          "cash": 5240
+        },
+        {
+          "month": 48,
+          "cash": 7661
+        },
+        {
+          "month": 60,
+          "cash": 9767
+        },
+        {
+          "month": 72,
+          "cash": 11117
+        },
+        {
+          "month": 84,
+          "cash": 12824
+        },
+        {
+          "month": 96,
+          "cash": 15203
+        },
+        {
+          "month": 108,
+          "cash": 16973
+        },
+        {
+          "month": 120,
+          "cash": 18932
+        }
+      ],
+      "revenue": 41832,
+      "upkeep": 3830,
+      "productionCosts": 23070,
+      "batches": 40,
+      "bottlesSold": 1992,
+      "evaporatedLitres": 24.248819864936053,
+      "remainingLitres": 77.52087307011752,
+      "unsoldBottles": 98,
+      "estimatedUnsoldValue": 3093,
+      "key": "A",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 14.8025871924554,
+        "averageRemainingLitres": 38.585008080656486,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.558711352134615,
+          "value": 16.13763418132563,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.63728521070488,
+          "value": 14.60097575661192,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 81,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 19408,
+      "minCash": 1918,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2503
+        },
+        {
+          "month": 24,
+          "cash": 3601
+        },
+        {
+          "month": 36,
+          "cash": 5539
+        },
+        {
+          "month": 48,
+          "cash": 7603
+        },
+        {
+          "month": 60,
+          "cash": 9541
+        },
+        {
+          "month": 72,
+          "cash": 10597
+        },
+        {
+          "month": 84,
+          "cash": 12892
+        },
+        {
+          "month": 96,
+          "cash": 15049
+        },
+        {
+          "month": 108,
+          "cash": 17050
+        },
+        {
+          "month": 120,
+          "cash": 19408
+        }
+      ],
+      "revenue": 42315,
+      "upkeep": 3840,
+      "productionCosts": 23067,
+      "batches": 40,
+      "bottlesSold": 2015,
+      "evaporatedLitres": 24.093017357949435,
+      "remainingLitres": 77.48850109440706,
+      "unsoldBottles": 74,
+      "estimatedUnsoldValue": 2457,
+      "key": "A",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 15.120594257717082,
+        "averageRemainingLitres": 38.58996004072747,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.617925571154736,
+          "value": 15.14123898273379,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.550378935804225,
+          "value": 15.512782835709157,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 2026,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 19325,
+      "minCash": 1981,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2566
+        },
+        {
+          "month": 24,
+          "cash": 3286
+        },
+        {
+          "month": 36,
+          "cash": 5434
+        },
+        {
+          "month": 48,
+          "cash": 7637
+        },
+        {
+          "month": 60,
+          "cash": 9575
+        },
+        {
+          "month": 72,
+          "cash": 10316
+        },
+        {
+          "month": 84,
+          "cash": 12683
+        },
+        {
+          "month": 96,
+          "cash": 15134
+        },
+        {
+          "month": 108,
+          "cash": 17450
+        },
+        {
+          "month": 120,
+          "cash": 19325
+        }
+      ],
+      "revenue": 42273,
+      "upkeep": 3890,
+      "productionCosts": 23058,
+      "batches": 40,
+      "bottlesSold": 2013,
+      "evaporatedLitres": 25.33548974656236,
+      "remainingLitres": 77.45207056924538,
+      "unsoldBottles": 73,
+      "estimatedUnsoldValue": 2418,
+      "key": "A",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 16.291997715766843,
+        "averageRemainingLitres": 38.55822209695243,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.55064268283387,
+          "value": 15.82032747005539,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.63224822520934,
+          "value": 12.613814819560591,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 20261014,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 19063,
+      "minCash": 2095,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2755
+        },
+        {
+          "month": 24,
+          "cash": 3790
+        },
+        {
+          "month": 36,
+          "cash": 5749
+        },
+        {
+          "month": 48,
+          "cash": 7519
+        },
+        {
+          "month": 60,
+          "cash": 9541
+        },
+        {
+          "month": 72,
+          "cash": 11941
+        },
+        {
+          "month": 84,
+          "cash": 13417
+        },
+        {
+          "month": 96,
+          "cash": 15271
+        },
+        {
+          "month": 108,
+          "cash": 17545
+        },
+        {
+          "month": 120,
+          "cash": 19063
+        }
+      ],
+      "revenue": 41958,
+      "upkeep": 3825,
+      "productionCosts": 23070,
+      "batches": 40,
+      "bottlesSold": 1998,
+      "evaporatedLitres": 24.033713418816347,
+      "remainingLitres": 77.51068084750636,
+      "unsoldBottles": 92,
+      "estimatedUnsoldValue": 2896,
+      "key": "A",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 15.052719940038926,
+        "averageRemainingLitres": 38.5909369929915,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.6156675886029,
+          "value": 15.748705149769352,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.56357048671842,
+          "value": 13.809538686604794,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 123456789,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 19394,
+      "minCash": 1918,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2503
+        },
+        {
+          "month": 24,
+          "cash": 3727
+        },
+        {
+          "month": 36,
+          "cash": 5854
+        },
+        {
+          "month": 48,
+          "cash": 7309
+        },
+        {
+          "month": 60,
+          "cash": 8953
+        },
+        {
+          "month": 72,
+          "cash": 11285
+        },
+        {
+          "month": 84,
+          "cash": 13097
+        },
+        {
+          "month": 96,
+          "cash": 14699
+        },
+        {
+          "month": 108,
+          "cash": 17036
+        },
+        {
+          "month": 120,
+          "cash": 19394
+        }
+      ],
+      "revenue": 42294,
+      "upkeep": 3830,
+      "productionCosts": 23070,
+      "batches": 40,
+      "bottlesSold": 2014,
+      "evaporatedLitres": 24.288726978668258,
+      "remainingLitres": 77.49414315209498,
+      "unsoldBottles": 76,
+      "estimatedUnsoldValue": 2688,
+      "key": "A",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 14.907909940333989,
+        "averageRemainingLitres": 38.58466131234834,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.554845470122416,
+          "value": 14.77329013704195,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.548976372078386,
+          "value": 14.353098141352385,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 987654321,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 18811,
+      "minCash": 2032,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2629
+        },
+        {
+          "month": 24,
+          "cash": 4231
+        },
+        {
+          "month": 36,
+          "cash": 6211
+        },
+        {
+          "month": 48,
+          "cash": 7666
+        },
+        {
+          "month": 60,
+          "cash": 9436
+        },
+        {
+          "month": 72,
+          "cash": 11815
+        },
+        {
+          "month": 84,
+          "cash": 13942
+        },
+        {
+          "month": 96,
+          "cash": 15355
+        },
+        {
+          "month": 108,
+          "cash": 16873
+        },
+        {
+          "month": 120,
+          "cash": 18811
+        }
+      ],
+      "revenue": 41706,
+      "upkeep": 3825,
+      "productionCosts": 23070,
+      "batches": 40,
+      "bottlesSold": 1986,
+      "evaporatedLitres": 24.436158098160902,
+      "remainingLitres": 77.46230380047356,
+      "unsoldBottles": 104,
+      "estimatedUnsoldValue": 3118,
+      "key": "A",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 15.09173617812325,
+        "averageRemainingLitres": 38.58161942372014,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.59931337481763,
+          "value": 15.657837297341722,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.579230207153536,
+          "value": 12.974341995798646,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 1,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 17830,
+      "minCash": 745,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 1906
+        },
+        {
+          "month": 24,
+          "cash": 1402
+        },
+        {
+          "month": 36,
+          "cash": 898
+        },
+        {
+          "month": 48,
+          "cash": 8329
+        },
+        {
+          "month": 60,
+          "cash": 7405
+        },
+        {
+          "month": 72,
+          "cash": 6901
+        },
+        {
+          "month": 84,
+          "cash": 11932
+        },
+        {
+          "month": 96,
+          "cash": 13258
+        },
+        {
+          "month": 108,
+          "cash": 12754
+        },
+        {
+          "month": 120,
+          "cash": 17830
+        }
+      ],
+      "revenue": 26688,
+      "upkeep": 4890,
+      "productionCosts": 7968,
+      "batches": 15,
+      "bottlesSold": 556,
+      "evaporatedLitres": 43.82615362663309,
+      "remainingLitres": 151.4315430735775,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 5203,
+      "key": "B",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 11,
+        "averageValue": 61.48255385409996,
+        "averageRemainingLitres": 35.703845754526306,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.92331199219456,
+          "value": 60.943686446999834,
+          "bottles": 51,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.66341237955085,
+          "value": 61.78006811595545,
+          "bottles": 50,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 7,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 17785,
+      "minCash": 748,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 1906
+        },
+        {
+          "month": 24,
+          "cash": 1402
+        },
+        {
+          "month": 36,
+          "cash": 898
+        },
+        {
+          "month": 48,
+          "cash": 8284
+        },
+        {
+          "month": 60,
+          "cash": 7360
+        },
+        {
+          "month": 72,
+          "cash": 6856
+        },
+        {
+          "month": 84,
+          "cash": 11887
+        },
+        {
+          "month": 96,
+          "cash": 13213
+        },
+        {
+          "month": 108,
+          "cash": 12709
+        },
+        {
+          "month": 120,
+          "cash": 17785
+        }
+      ],
+      "revenue": 26640,
+      "upkeep": 4890,
+      "productionCosts": 7965,
+      "batches": 15,
+      "bottlesSold": 555,
+      "evaporatedLitres": 43.92401836412011,
+      "remainingLitres": 151.72999430409422,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 5100,
+      "key": "B",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 11,
+        "averageValue": 61.20661084505013,
+        "averageRemainingLitres": 35.66781703016233,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.57807817254008,
+          "value": 59.85091671105628,
+          "bottles": 50,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.76301776455592,
+          "value": 61.735903666602404,
+          "bottles": 51,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 42,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 17695,
+      "minCash": 748,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 1906
+        },
+        {
+          "month": 24,
+          "cash": 1402
+        },
+        {
+          "month": 36,
+          "cash": 898
+        },
+        {
+          "month": 48,
+          "cash": 8239
+        },
+        {
+          "month": 60,
+          "cash": 7315
+        },
+        {
+          "month": 72,
+          "cash": 6811
+        },
+        {
+          "month": 84,
+          "cash": 11797
+        },
+        {
+          "month": 96,
+          "cash": 13168
+        },
+        {
+          "month": 108,
+          "cash": 12664
+        },
+        {
+          "month": 120,
+          "cash": 17695
+        }
+      ],
+      "revenue": 26544,
+      "upkeep": 4890,
+      "productionCosts": 7959,
+      "batches": 15,
+      "bottlesSold": 553,
+      "evaporatedLitres": 44.4630989926931,
+      "remainingLitres": 151.22669223203283,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 5134,
+      "key": "B",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 11,
+        "averageValue": 61.0598689760265,
+        "averageRemainingLitres": 35.66456443411583,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.50624389474964,
+          "value": 61.80260206540232,
+          "bottles": 50,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.65860060182905,
+          "value": 61.99985679393369,
+          "bottles": 50,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 81,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 17920,
+      "minCash": 745,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 1906
+        },
+        {
+          "month": 24,
+          "cash": 1402
+        },
+        {
+          "month": 36,
+          "cash": 898
+        },
+        {
+          "month": 48,
+          "cash": 8329
+        },
+        {
+          "month": 60,
+          "cash": 7405
+        },
+        {
+          "month": 72,
+          "cash": 6901
+        },
+        {
+          "month": 84,
+          "cash": 11977
+        },
+        {
+          "month": 96,
+          "cash": 13303
+        },
+        {
+          "month": 108,
+          "cash": 12799
+        },
+        {
+          "month": 120,
+          "cash": 17920
+        }
+      ],
+      "revenue": 26784,
+      "upkeep": 4890,
+      "productionCosts": 7974,
+      "batches": 15,
+      "bottlesSold": 558,
+      "evaporatedLitres": 43.180306359141085,
+      "remainingLitres": 151.44067862076088,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 5207,
+      "key": "B",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 11,
+        "averageValue": 60.95483339003989,
+        "averageRemainingLitres": 35.76172863819073,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.834661963764134,
+          "value": 61.32922992865477,
+          "bottles": 51,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.78403684855518,
+          "value": 59.95736945312461,
+          "bottles": 51,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 2026,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 17830,
+      "minCash": 748,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 1906
+        },
+        {
+          "month": 24,
+          "cash": 1402
+        },
+        {
+          "month": 36,
+          "cash": 898
+        },
+        {
+          "month": 48,
+          "cash": 8239
+        },
+        {
+          "month": 60,
+          "cash": 7315
+        },
+        {
+          "month": 72,
+          "cash": 6811
+        },
+        {
+          "month": 84,
+          "cash": 11887
+        },
+        {
+          "month": 96,
+          "cash": 13213
+        },
+        {
+          "month": 108,
+          "cash": 12709
+        },
+        {
+          "month": 120,
+          "cash": 17830
+        }
+      ],
+      "revenue": 26688,
+      "upkeep": 4890,
+      "productionCosts": 7968,
+      "batches": 15,
+      "bottlesSold": 556,
+      "evaporatedLitres": 43.87730030204848,
+      "remainingLitres": 151.56919787115305,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 5178,
+      "key": "B",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 11,
+        "averageValue": 61.257042007366266,
+        "averageRemainingLitres": 35.6866819842544,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.46168768973932,
+          "value": 61.7034427180622,
+          "bottles": 50,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.93871079897324,
+          "value": 61.91374696131156,
+          "bottles": 51,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 20261014,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 17785,
+      "minCash": 745,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 1906
+        },
+        {
+          "month": 24,
+          "cash": 1402
+        },
+        {
+          "month": 36,
+          "cash": 898
+        },
+        {
+          "month": 48,
+          "cash": 8284
+        },
+        {
+          "month": 60,
+          "cash": 7360
+        },
+        {
+          "month": 72,
+          "cash": 6856
+        },
+        {
+          "month": 84,
+          "cash": 11887
+        },
+        {
+          "month": 96,
+          "cash": 13213
+        },
+        {
+          "month": 108,
+          "cash": 12709
+        },
+        {
+          "month": 120,
+          "cash": 17785
+        }
+      ],
+      "revenue": 26640,
+      "upkeep": 4890,
+      "productionCosts": 7965,
+      "batches": 15,
+      "bottlesSold": 555,
+      "evaporatedLitres": 43.611016858801335,
+      "remainingLitres": 151.69307862003257,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 5198,
+      "key": "B",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 11,
+        "averageValue": 61.22689861737897,
+        "averageRemainingLitres": 35.699627683742385,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.8220923272101,
+          "value": 61.666109675525,
+          "bottles": 51,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.94498990515601,
+          "value": 61.2542941988169,
+          "bottles": 51,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 123456789,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 17785,
+      "minCash": 748,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 1906
+        },
+        {
+          "month": 24,
+          "cash": 1402
+        },
+        {
+          "month": 36,
+          "cash": 898
+        },
+        {
+          "month": 48,
+          "cash": 8284
+        },
+        {
+          "month": 60,
+          "cash": 7360
+        },
+        {
+          "month": 72,
+          "cash": 6856
+        },
+        {
+          "month": 84,
+          "cash": 11842
+        },
+        {
+          "month": 96,
+          "cash": 13168
+        },
+        {
+          "month": 108,
+          "cash": 12664
+        },
+        {
+          "month": 120,
+          "cash": 17785
+        }
+      ],
+      "revenue": 26640,
+      "upkeep": 4890,
+      "productionCosts": 7965,
+      "batches": 15,
+      "bottlesSold": 555,
+      "evaporatedLitres": 43.918992372783066,
+      "remainingLitres": 151.32213402621502,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 5205,
+      "key": "B",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 11,
+        "averageValue": 61.31131937984549,
+        "averageRemainingLitres": 35.70535214554563,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.48489019107806,
+          "value": 61.52945662120647,
+          "bottles": 50,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.82889474809818,
+          "value": 60.96468377526875,
+          "bottles": 51,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 987654321,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 17830,
+      "minCash": 745,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 1906
+        },
+        {
+          "month": 24,
+          "cash": 1402
+        },
+        {
+          "month": 36,
+          "cash": 898
+        },
+        {
+          "month": 48,
+          "cash": 8329
+        },
+        {
+          "month": 60,
+          "cash": 7405
+        },
+        {
+          "month": 72,
+          "cash": 6901
+        },
+        {
+          "month": 84,
+          "cash": 11932
+        },
+        {
+          "month": 96,
+          "cash": 13258
+        },
+        {
+          "month": 108,
+          "cash": 12754
+        },
+        {
+          "month": 120,
+          "cash": 17830
+        }
+      ],
+      "revenue": 26688,
+      "upkeep": 4890,
+      "productionCosts": 7968,
+      "batches": 15,
+      "bottlesSold": 556,
+      "evaporatedLitres": 44.30525938544714,
+      "remainingLitres": 151.54529142904576,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 5107,
+      "key": "B",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 11,
+        "averageValue": 61.47661602609808,
+        "averageRemainingLitres": 35.64994992595519,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.73116204978918,
+          "value": 61.58891713183264,
+          "bottles": 51,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "bourbon",
+          "remainingLitres": 35.43947817938291,
+          "value": 60.25460995998554,
+          "bottles": 50,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 1,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 18877,
+      "minCash": 1582,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2275
+        },
+        {
+          "month": 24,
+          "cash": 2758
+        },
+        {
+          "month": 36,
+          "cash": 3223
+        },
+        {
+          "month": 48,
+          "cash": 6568
+        },
+        {
+          "month": 60,
+          "cash": 8380
+        },
+        {
+          "month": 72,
+          "cash": 10504
+        },
+        {
+          "month": 84,
+          "cash": 12757
+        },
+        {
+          "month": 96,
+          "cash": 14563
+        },
+        {
+          "month": 108,
+          "cash": 18100
+        },
+        {
+          "month": 120,
+          "cash": 18877
+        }
+      ],
+      "revenue": 32979,
+      "upkeep": 4830,
+      "productionCosts": 13272,
+      "batches": 24,
+      "bottlesSold": 1051,
+      "evaporatedLitres": 42.84854424240899,
+      "remainingLitres": 149.11705463338868,
+      "unsoldBottles": 13,
+      "estimatedUnsoldValue": 8544,
+      "key": "C",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.872800710926384,
+        "averageRemainingLitres": 37.441720056210116,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.63383175665844,
+          "value": 14.449153824665828,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.62907576157059,
+          "value": 16.867608757563367,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 7,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 18544,
+      "minCash": 1330,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2275
+        },
+        {
+          "month": 24,
+          "cash": 2359
+        },
+        {
+          "month": 36,
+          "cash": 3223
+        },
+        {
+          "month": 48,
+          "cash": 6505
+        },
+        {
+          "month": 60,
+          "cash": 8380
+        },
+        {
+          "month": 72,
+          "cash": 10189
+        },
+        {
+          "month": 84,
+          "cash": 12505
+        },
+        {
+          "month": 96,
+          "cash": 14713
+        },
+        {
+          "month": 108,
+          "cash": 18583
+        },
+        {
+          "month": 120,
+          "cash": 18544
+        }
+      ],
+      "revenue": 32649,
+      "upkeep": 4830,
+      "productionCosts": 13275,
+      "batches": 24,
+      "bottlesSold": 1034,
+      "evaporatedLitres": 42.65088834839136,
+      "remainingLitres": 149.22160546682775,
+      "unsoldBottles": 31,
+      "estimatedUnsoldValue": 8773,
+      "key": "C",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.540788215634265,
+        "averageRemainingLitres": 37.446375309239045,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.57170204922714,
+          "value": 14.765300697155535,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.561801516245794,
+          "value": 14.482692653595963,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 42,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 18202,
+      "minCash": 1477,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2527
+        },
+        {
+          "month": 24,
+          "cash": 2107
+        },
+        {
+          "month": 36,
+          "cash": 2824
+        },
+        {
+          "month": 48,
+          "cash": 6421
+        },
+        {
+          "month": 60,
+          "cash": 8338
+        },
+        {
+          "month": 72,
+          "cash": 10444
+        },
+        {
+          "month": 84,
+          "cash": 12550
+        },
+        {
+          "month": 96,
+          "cash": 14713
+        },
+        {
+          "month": 108,
+          "cash": 18031
+        },
+        {
+          "month": 120,
+          "cash": 18202
+        }
+      ],
+      "revenue": 32301,
+      "upkeep": 4830,
+      "productionCosts": 13269,
+      "batches": 24,
+      "bottlesSold": 1020,
+      "evaporatedLitres": 43.429809024555055,
+      "remainingLitres": 148.8847919368501,
+      "unsoldBottles": 43,
+      "estimatedUnsoldValue": 9074,
+      "key": "C",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.1491005454442,
+        "averageRemainingLitres": 37.42426995192975,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.558711352134615,
+          "value": 16.13763418132563,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.55079066613791,
+          "value": 12.811123447969937,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 81,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 18229,
+      "minCash": 1270,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2401
+        },
+        {
+          "month": 24,
+          "cash": 1855
+        },
+        {
+          "month": 36,
+          "cash": 2929
+        },
+        {
+          "month": 48,
+          "cash": 6613
+        },
+        {
+          "month": 60,
+          "cash": 8425
+        },
+        {
+          "month": 72,
+          "cash": 10402
+        },
+        {
+          "month": 84,
+          "cash": 12802
+        },
+        {
+          "month": 96,
+          "cash": 14653
+        },
+        {
+          "month": 108,
+          "cash": 18163
+        },
+        {
+          "month": 120,
+          "cash": 18229
+        }
+      ],
+      "revenue": 32334,
+      "upkeep": 4830,
+      "productionCosts": 13275,
+      "batches": 24,
+      "bottlesSold": 1019,
+      "evaporatedLitres": 42.330850867427394,
+      "remainingLitres": 149.32429463900382,
+      "unsoldBottles": 46,
+      "estimatedUnsoldValue": 9023,
+      "key": "C",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.25365480658343,
+        "averageRemainingLitres": 37.45724272467844,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.617925571154736,
+          "value": 15.14123898273379,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.60300648445653,
+          "value": 15.940294908991733,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 2026,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 18250,
+      "minCash": 1729,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2527
+        },
+        {
+          "month": 24,
+          "cash": 2380
+        },
+        {
+          "month": 36,
+          "cash": 3202
+        },
+        {
+          "month": 48,
+          "cash": 6547
+        },
+        {
+          "month": 60,
+          "cash": 8506
+        },
+        {
+          "month": 72,
+          "cash": 10315
+        },
+        {
+          "month": 84,
+          "cash": 12757
+        },
+        {
+          "month": 96,
+          "cash": 13936
+        },
+        {
+          "month": 108,
+          "cash": 17617
+        },
+        {
+          "month": 120,
+          "cash": 18250
+        }
+      ],
+      "revenue": 32355,
+      "upkeep": 4830,
+      "productionCosts": 13275,
+      "batches": 24,
+      "bottlesSold": 1020,
+      "evaporatedLitres": 42.894100684594356,
+      "remainingLitres": 149.23586094749035,
+      "unsoldBottles": 45,
+      "estimatedUnsoldValue": 9143,
+      "key": "C",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.27372906228717,
+        "averageRemainingLitres": 37.43350191839576,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.55064268283387,
+          "value": 15.82032747005539,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.555263669042255,
+          "value": 14.450682222494326,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 20261014,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 18706,
+      "minCash": 1477,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2527
+        },
+        {
+          "month": 24,
+          "cash": 2359
+        },
+        {
+          "month": 36,
+          "cash": 2824
+        },
+        {
+          "month": 48,
+          "cash": 6439
+        },
+        {
+          "month": 60,
+          "cash": 8254
+        },
+        {
+          "month": 72,
+          "cash": 10420
+        },
+        {
+          "month": 84,
+          "cash": 12505
+        },
+        {
+          "month": 96,
+          "cash": 14608
+        },
+        {
+          "month": 108,
+          "cash": 18070
+        },
+        {
+          "month": 120,
+          "cash": 18706
+        }
+      ],
+      "revenue": 32805,
+      "upkeep": 4830,
+      "productionCosts": 13269,
+      "batches": 24,
+      "bottlesSold": 1044,
+      "evaporatedLitres": 43.06615730082753,
+      "remainingLitres": 149.05448928111184,
+      "unsoldBottles": 19,
+      "estimatedUnsoldValue": 8647,
+      "key": "C",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.50302373105013,
+        "averageRemainingLitres": 37.43396767090304,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.6156675886029,
+          "value": 15.748705149769352,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.55259011128965,
+          "value": 16.050408434964872,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 123456789,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 18751,
+      "minCash": 1456,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2275
+        },
+        {
+          "month": 24,
+          "cash": 2233
+        },
+        {
+          "month": 36,
+          "cash": 3055
+        },
+        {
+          "month": 48,
+          "cash": 6505
+        },
+        {
+          "month": 60,
+          "cash": 8002
+        },
+        {
+          "month": 72,
+          "cash": 9916
+        },
+        {
+          "month": 84,
+          "cash": 12232
+        },
+        {
+          "month": 96,
+          "cash": 14122
+        },
+        {
+          "month": 108,
+          "cash": 18142
+        },
+        {
+          "month": 120,
+          "cash": 18751
+        }
+      ],
+      "revenue": 32853,
+      "upkeep": 4830,
+      "productionCosts": 13272,
+      "batches": 24,
+      "bottlesSold": 1045,
+      "evaporatedLitres": 43.24079059392977,
+      "remainingLitres": 148.84530581361787,
+      "unsoldBottles": 19,
+      "estimatedUnsoldValue": 8535,
+      "key": "C",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.19219242771378,
+        "averageRemainingLitres": 37.43569517962263,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.554845470122416,
+          "value": 14.77329013704195,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.55605481695866,
+          "value": 16.02343701296617,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 987654321,
+      "months": 120,
+      "cut": 0.95,
+      "type": "bourbon",
+      "cash": 18499,
+      "minCash": 1603,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2401
+        },
+        {
+          "month": 24,
+          "cash": 2359
+        },
+        {
+          "month": 36,
+          "cash": 3223
+        },
+        {
+          "month": 48,
+          "cash": 6442
+        },
+        {
+          "month": 60,
+          "cash": 8317
+        },
+        {
+          "month": 72,
+          "cash": 10042
+        },
+        {
+          "month": 84,
+          "cash": 12757
+        },
+        {
+          "month": 96,
+          "cash": 14713
+        },
+        {
+          "month": 108,
+          "cash": 18433
+        },
+        {
+          "month": 120,
+          "cash": 18499
+        }
+      ],
+      "revenue": 32601,
+      "upkeep": 4830,
+      "productionCosts": 13272,
+      "batches": 24,
+      "bottlesSold": 1033,
+      "evaporatedLitres": 43.379055710517896,
+      "remainingLitres": 148.93381294535288,
+      "unsoldBottles": 31,
+      "estimatedUnsoldValue": 8991,
+      "key": "C",
+      "scenario": "広い抽出・バーボン樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.65003091639598,
+        "averageRemainingLitres": 37.42435656720647,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.59931337481763,
+          "value": 15.657837297341722,
+          "bottles": 55,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "bourbon",
+          "remainingLitres": 38.583637316041774,
+          "value": 16.223110882911698,
+          "bottles": 55,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 1,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11083,
+      "minCash": 2632,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3523
+        },
+        {
+          "month": 24,
+          "cash": 4363
+        },
+        {
+          "month": 36,
+          "cash": 5203
+        },
+        {
+          "month": 48,
+          "cash": 6043
+        },
+        {
+          "month": 60,
+          "cash": 6883
+        },
+        {
+          "month": 72,
+          "cash": 7723
+        },
+        {
+          "month": 84,
+          "cash": 8563
+        },
+        {
+          "month": 96,
+          "cash": 9403
+        },
+        {
+          "month": 108,
+          "cash": 10243
+        },
+        {
+          "month": 120,
+          "cash": 11083
+        }
+      ],
+      "revenue": 29526,
+      "upkeep": 3825,
+      "productionCosts": 18618,
+      "batches": 40,
+      "bottlesSold": 1406,
+      "evaporatedLitres": 11.826442155303262,
+      "remainingLitres": 52.325996787755045,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 1224,
+      "key": "A",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 22.242864581073814,
+        "averageRemainingLitres": 26.10125160676163,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.120905490921082,
+          "value": 22.083552661573158,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.07833523914775,
+          "value": 22.296586142574967,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 7,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11083,
+      "minCash": 2632,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3523
+        },
+        {
+          "month": 24,
+          "cash": 4363
+        },
+        {
+          "month": 36,
+          "cash": 5203
+        },
+        {
+          "month": 48,
+          "cash": 6043
+        },
+        {
+          "month": 60,
+          "cash": 6883
+        },
+        {
+          "month": 72,
+          "cash": 7723
+        },
+        {
+          "month": 84,
+          "cash": 8563
+        },
+        {
+          "month": 96,
+          "cash": 9403
+        },
+        {
+          "month": 108,
+          "cash": 10243
+        },
+        {
+          "month": 120,
+          "cash": 11083
+        }
+      ],
+      "revenue": 29526,
+      "upkeep": 3825,
+      "productionCosts": 18618,
+      "batches": 40,
+      "bottlesSold": 1406,
+      "evaporatedLitres": 11.748210192527687,
+      "remainingLitres": 52.366229714477726,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 1213,
+      "key": "A",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 22.230640837770814,
+        "averageRemainingLitres": 26.102251581394597,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.09022270584753,
+          "value": 22.143140631784686,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.11812303786027,
+          "value": 22.185305310915837,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 42,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11083,
+      "minCash": 2632,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3523
+        },
+        {
+          "month": 24,
+          "cash": 4363
+        },
+        {
+          "month": 36,
+          "cash": 5203
+        },
+        {
+          "month": 48,
+          "cash": 6043
+        },
+        {
+          "month": 60,
+          "cash": 6883
+        },
+        {
+          "month": 72,
+          "cash": 7723
+        },
+        {
+          "month": 84,
+          "cash": 8563
+        },
+        {
+          "month": 96,
+          "cash": 9403
+        },
+        {
+          "month": 108,
+          "cash": 10243
+        },
+        {
+          "month": 120,
+          "cash": 11083
+        }
+      ],
+      "revenue": 29526,
+      "upkeep": 3825,
+      "productionCosts": 18618,
+      "batches": 40,
+      "bottlesSold": 1406,
+      "evaporatedLitres": 11.906580716107975,
+      "remainingLitres": 52.36677645189667,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 1226,
+      "key": "A",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 22.177968279926358,
+        "averageRemainingLitres": 26.0980695482104,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.0838058401801,
+          "value": 22.29244061287091,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.122610655299777,
+          "value": 22.186953356078874,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 81,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11083,
+      "minCash": 2632,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3523
+        },
+        {
+          "month": 24,
+          "cash": 4363
+        },
+        {
+          "month": 36,
+          "cash": 5203
+        },
+        {
+          "month": 48,
+          "cash": 6043
+        },
+        {
+          "month": 60,
+          "cash": 6883
+        },
+        {
+          "month": 72,
+          "cash": 7702
+        },
+        {
+          "month": 84,
+          "cash": 8563
+        },
+        {
+          "month": 96,
+          "cash": 9403
+        },
+        {
+          "month": 108,
+          "cash": 10243
+        },
+        {
+          "month": 120,
+          "cash": 11083
+        }
+      ],
+      "revenue": 29526,
+      "upkeep": 3825,
+      "productionCosts": 18618,
+      "batches": 40,
+      "bottlesSold": 1406,
+      "evaporatedLitres": 11.729999744691987,
+      "remainingLitres": 52.350779753698006,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 1217,
+      "key": "A",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 22.190943622662115,
+        "averageRemainingLitres": 26.103137381621316,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.113051270721705,
+          "value": 22.16700704846543,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.07968971620047,
+          "value": 22.212509297405447,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 2026,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11062,
+      "minCash": 2632,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3523
+        },
+        {
+          "month": 24,
+          "cash": 4363
+        },
+        {
+          "month": 36,
+          "cash": 5203
+        },
+        {
+          "month": 48,
+          "cash": 6043
+        },
+        {
+          "month": 60,
+          "cash": 6883
+        },
+        {
+          "month": 72,
+          "cash": 7723
+        },
+        {
+          "month": 84,
+          "cash": 8563
+        },
+        {
+          "month": 96,
+          "cash": 9403
+        },
+        {
+          "month": 108,
+          "cash": 10243
+        },
+        {
+          "month": 120,
+          "cash": 11062
+        }
+      ],
+      "revenue": 29505,
+      "upkeep": 3825,
+      "productionCosts": 18618,
+      "batches": 40,
+      "bottlesSold": 1405,
+      "evaporatedLitres": 11.838189797326113,
+      "remainingLitres": 52.33278206334792,
+      "unsoldBottles": 1,
+      "estimatedUnsoldValue": 1246,
+      "key": "A",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 22.228206062295627,
+        "averageRemainingLitres": 26.10076389840331,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.0798200074593,
+          "value": 22.281665465687986,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.12012360097994,
+          "value": 21.917174606559595,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 20261014,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11083,
+      "minCash": 2632,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3523
+        },
+        {
+          "month": 24,
+          "cash": 4363
+        },
+        {
+          "month": 36,
+          "cash": 5203
+        },
+        {
+          "month": 48,
+          "cash": 6043
+        },
+        {
+          "month": 60,
+          "cash": 6883
+        },
+        {
+          "month": 72,
+          "cash": 7723
+        },
+        {
+          "month": 84,
+          "cash": 8563
+        },
+        {
+          "month": 96,
+          "cash": 9403
+        },
+        {
+          "month": 108,
+          "cash": 10243
+        },
+        {
+          "month": 120,
+          "cash": 11083
+        }
+      ],
+      "revenue": 29526,
+      "upkeep": 3825,
+      "productionCosts": 18618,
+      "batches": 40,
+      "bottlesSold": 1406,
+      "evaporatedLitres": 11.848810984928324,
+      "remainingLitres": 52.36175260979416,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 1211,
+      "key": "A",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 22.227951147569986,
+        "averageRemainingLitres": 26.099722010665197,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.111936256092775,
+          "value": 22.279616381514145,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.086206108053588,
+          "value": 22.091521030947924,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 123456789,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11083,
+      "minCash": 2632,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3523
+        },
+        {
+          "month": 24,
+          "cash": 4363
+        },
+        {
+          "month": 36,
+          "cash": 5203
+        },
+        {
+          "month": 48,
+          "cash": 6043
+        },
+        {
+          "month": 60,
+          "cash": 6883
+        },
+        {
+          "month": 72,
+          "cash": 7723
+        },
+        {
+          "month": 84,
+          "cash": 8563
+        },
+        {
+          "month": 96,
+          "cash": 9403
+        },
+        {
+          "month": 108,
+          "cash": 10243
+        },
+        {
+          "month": 120,
+          "cash": 11083
+        }
+      ],
+      "revenue": 29526,
+      "upkeep": 3825,
+      "productionCosts": 18618,
+      "batches": 40,
+      "bottlesSold": 1406,
+      "evaporatedLitres": 11.926034053889602,
+      "remainingLitres": 52.35355680025121,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 1231,
+      "key": "A",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 22.19393268452058,
+        "averageRemainingLitres": 26.09790550383839,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.081896160945817,
+          "value": 22.194757079385656,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.078996845150535,
+          "value": 22.13238003673464,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "早期販売型",
+      "seed": 987654321,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11083,
+      "minCash": 2632,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 3523
+        },
+        {
+          "month": 24,
+          "cash": 4363
+        },
+        {
+          "month": 36,
+          "cash": 5203
+        },
+        {
+          "month": 48,
+          "cash": 6043
+        },
+        {
+          "month": 60,
+          "cash": 6883
+        },
+        {
+          "month": 72,
+          "cash": 7723
+        },
+        {
+          "month": 84,
+          "cash": 8563
+        },
+        {
+          "month": 96,
+          "cash": 9403
+        },
+        {
+          "month": 108,
+          "cash": 10243
+        },
+        {
+          "month": 120,
+          "cash": 11083
+        }
+      ],
+      "revenue": 29526,
+      "upkeep": 3825,
+      "productionCosts": 18618,
+      "batches": 40,
+      "bottlesSold": 1406,
+      "evaporatedLitres": 12.04757095261595,
+      "remainingLitres": 52.33785279270195,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 1227,
+      "key": "A",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 38,
+        "averageValue": 22.236248189456845,
+        "averageRemainingLitres": 26.09512042775479,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.103859942336406,
+          "value": 22.257283463786205,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.093941081333906,
+          "value": 21.971781429113044,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 1,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 12190,
+      "minCash": 673,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2146
+        },
+        {
+          "month": 24,
+          "cash": 1642
+        },
+        {
+          "month": 36,
+          "cash": 1138
+        },
+        {
+          "month": 48,
+          "cash": 5494
+        },
+        {
+          "month": 60,
+          "cash": 4990
+        },
+        {
+          "month": 72,
+          "cash": 4486
+        },
+        {
+          "month": 84,
+          "cash": 8842
+        },
+        {
+          "month": 96,
+          "cash": 8338
+        },
+        {
+          "month": 108,
+          "cash": 7834
+        },
+        {
+          "month": 120,
+          "cash": 12190
+        }
+      ],
+      "revenue": 20160,
+      "upkeep": 4950,
+      "productionCosts": 7020,
+      "batches": 16,
+      "bottlesSold": 420,
+      "evaporatedLitres": 22.41440716768412,
+      "remainingLitres": 104.10407707164711,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3128,
+      "key": "B",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 50.97695408268737,
+        "averageRemainingLitres": 24.656792980055727,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.769071836629227,
+          "value": 50.811171596509716,
+          "bottles": 35,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.638916682599827,
+          "value": 51.45294144911014,
+          "bottles": 35,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 7,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 12190,
+      "minCash": 673,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2146
+        },
+        {
+          "month": 24,
+          "cash": 1642
+        },
+        {
+          "month": 36,
+          "cash": 1138
+        },
+        {
+          "month": 48,
+          "cash": 5494
+        },
+        {
+          "month": 60,
+          "cash": 4990
+        },
+        {
+          "month": 72,
+          "cash": 4486
+        },
+        {
+          "month": 84,
+          "cash": 8842
+        },
+        {
+          "month": 96,
+          "cash": 8338
+        },
+        {
+          "month": 108,
+          "cash": 7834
+        },
+        {
+          "month": 120,
+          "cash": 12190
+        }
+      ],
+      "revenue": 20160,
+      "upkeep": 4950,
+      "productionCosts": 7020,
+      "batches": 16,
+      "bottlesSold": 420,
+      "evaporatedLitres": 22.460952954085155,
+      "remainingLitres": 104.12796505714326,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3106,
+      "key": "B",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 51.34416835962404,
+        "averageRemainingLitres": 24.650923499064294,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.595014511897027,
+          "value": 51.22314986293789,
+          "bottles": 35,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.768141305043265,
+          "value": 51.889088303344415,
+          "bottles": 35,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 42,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 12190,
+      "minCash": 673,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2146
+        },
+        {
+          "month": 24,
+          "cash": 1642
+        },
+        {
+          "month": 36,
+          "cash": 1138
+        },
+        {
+          "month": 48,
+          "cash": 5494
+        },
+        {
+          "month": 60,
+          "cash": 4990
+        },
+        {
+          "month": 72,
+          "cash": 4486
+        },
+        {
+          "month": 84,
+          "cash": 8842
+        },
+        {
+          "month": 96,
+          "cash": 8338
+        },
+        {
+          "month": 108,
+          "cash": 7834
+        },
+        {
+          "month": 120,
+          "cash": 12190
+        }
+      ],
+      "revenue": 20160,
+      "upkeep": 4950,
+      "productionCosts": 7020,
+      "batches": 16,
+      "bottlesSold": 420,
+      "evaporatedLitres": 22.742502520033806,
+      "remainingLitres": 104.08196707495301,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3110,
+      "key": "B",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 51.25656218218868,
+        "averageRemainingLitres": 24.631294200417766,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.55874209747866,
+          "value": 50.55955613041123,
+          "bottles": 35,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.550448172365336,
+          "value": 50.32520381020262,
+          "bottles": 35,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 81,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 12190,
+      "minCash": 673,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2146
+        },
+        {
+          "month": 24,
+          "cash": 1642
+        },
+        {
+          "month": 36,
+          "cash": 1138
+        },
+        {
+          "month": 48,
+          "cash": 5494
+        },
+        {
+          "month": 60,
+          "cash": 4990
+        },
+        {
+          "month": 72,
+          "cash": 4486
+        },
+        {
+          "month": 84,
+          "cash": 8842
+        },
+        {
+          "month": 96,
+          "cash": 8338
+        },
+        {
+          "month": 108,
+          "cash": 7834
+        },
+        {
+          "month": 120,
+          "cash": 12190
+        }
+      ],
+      "revenue": 20160,
+      "upkeep": 4950,
+      "productionCosts": 7020,
+      "batches": 16,
+      "bottlesSold": 420,
+      "evaporatedLitres": 22.108453743545944,
+      "remainingLitres": 104.04659388539388,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3123,
+      "key": "B",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 51.343854155532206,
+        "averageRemainingLitres": 24.687079364255013,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.724418967487722,
+          "value": 50.68476236545091,
+          "bottles": 35,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.68110168461771,
+          "value": 51.86198962413518,
+          "bottles": 35,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 2026,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 12190,
+      "minCash": 673,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2146
+        },
+        {
+          "month": 24,
+          "cash": 1642
+        },
+        {
+          "month": 36,
+          "cash": 1138
+        },
+        {
+          "month": 48,
+          "cash": 5494
+        },
+        {
+          "month": 60,
+          "cash": 4990
+        },
+        {
+          "month": 72,
+          "cash": 4486
+        },
+        {
+          "month": 84,
+          "cash": 8842
+        },
+        {
+          "month": 96,
+          "cash": 8338
+        },
+        {
+          "month": 108,
+          "cash": 7834
+        },
+        {
+          "month": 120,
+          "cash": 12190
+        }
+      ],
+      "revenue": 20160,
+      "upkeep": 4950,
+      "productionCosts": 7020,
+      "batches": 16,
+      "bottlesSold": 420,
+      "evaporatedLitres": 22.446093432361543,
+      "remainingLitres": 104.0830258947714,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3145,
+      "key": "B",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 51.3749359118082,
+        "averageRemainingLitres": 24.65590672273892,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.536233959424386,
+          "value": 51.012936371210515,
+          "bottles": 35,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.723468749462146,
+          "value": 51.93586407828165,
+          "bottles": 35,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 20261014,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 12190,
+      "minCash": 673,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2146
+        },
+        {
+          "month": 24,
+          "cash": 1642
+        },
+        {
+          "month": 36,
+          "cash": 1138
+        },
+        {
+          "month": 48,
+          "cash": 5494
+        },
+        {
+          "month": 60,
+          "cash": 4990
+        },
+        {
+          "month": 72,
+          "cash": 4486
+        },
+        {
+          "month": 84,
+          "cash": 8842
+        },
+        {
+          "month": 96,
+          "cash": 8338
+        },
+        {
+          "month": 108,
+          "cash": 7834
+        },
+        {
+          "month": 120,
+          "cash": 12190
+        }
+      ],
+      "revenue": 20160,
+      "upkeep": 4950,
+      "productionCosts": 7020,
+      "batches": 16,
+      "bottlesSold": 420,
+      "evaporatedLitres": 22.305129424475947,
+      "remainingLitres": 104.13487618093168,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3118,
+      "key": "B",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 51.33790056908808,
+        "averageRemainingLitres": 24.663332866216027,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.71808531941365,
+          "value": 51.164660273009936,
+          "bottles": 35,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.74071272707857,
+          "value": 51.53289366276022,
+          "bottles": 35,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 123456789,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 12190,
+      "minCash": 673,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2146
+        },
+        {
+          "month": 24,
+          "cash": 1642
+        },
+        {
+          "month": 36,
+          "cash": 1138
+        },
+        {
+          "month": 48,
+          "cash": 5494
+        },
+        {
+          "month": 60,
+          "cash": 4990
+        },
+        {
+          "month": 72,
+          "cash": 4486
+        },
+        {
+          "month": 84,
+          "cash": 8842
+        },
+        {
+          "month": 96,
+          "cash": 8338
+        },
+        {
+          "month": 108,
+          "cash": 7834
+        },
+        {
+          "month": 120,
+          "cash": 12190
+        }
+      ],
+      "revenue": 20160,
+      "upkeep": 4950,
+      "productionCosts": 7020,
+      "batches": 16,
+      "bottlesSold": 420,
+      "evaporatedLitres": 22.45471895062814,
+      "remainingLitres": 104.1238023609844,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3116,
+      "key": "B",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 51.29672287291313,
+        "averageRemainingLitres": 24.651789890698954,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.547955925367688,
+          "value": 51.1607598124358,
+          "bottles": 35,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.570468428781457,
+          "value": 51.43277108040897,
+          "bottles": 35,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "長期熟成型",
+      "seed": 987654321,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 12190,
+      "minCash": 673,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2146
+        },
+        {
+          "month": 24,
+          "cash": 1642
+        },
+        {
+          "month": 36,
+          "cash": 1138
+        },
+        {
+          "month": 48,
+          "cash": 5494
+        },
+        {
+          "month": 60,
+          "cash": 4990
+        },
+        {
+          "month": 72,
+          "cash": 4486
+        },
+        {
+          "month": 84,
+          "cash": 8842
+        },
+        {
+          "month": 96,
+          "cash": 8338
+        },
+        {
+          "month": 108,
+          "cash": 7834
+        },
+        {
+          "month": 120,
+          "cash": 12190
+        }
+      ],
+      "revenue": 20160,
+      "upkeep": 4950,
+      "productionCosts": 7020,
+      "batches": 16,
+      "bottlesSold": 420,
+      "evaporatedLitres": 22.655259213751602,
+      "remainingLitres": 104.09200595088514,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 3111,
+      "key": "B",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 12,
+        "averageValue": 51.38691228270358,
+        "averageRemainingLitres": 24.637727902946935,
+        "first": {
+          "month": 36,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.67224956562591,
+          "value": 51.077167301886455,
+          "bottles": 35,
+          "price": 30
+        },
+        "last": {
+          "month": 117,
+          "age": 36,
+          "type": "refill",
+          "remainingLitres": 24.70889239769614,
+          "value": 51.25829695429723,
+          "bottles": 35,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 1,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11122,
+      "minCash": 1816,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2842
+        },
+        {
+          "month": 24,
+          "cash": 2605
+        },
+        {
+          "month": 36,
+          "cash": 2407
+        },
+        {
+          "month": 48,
+          "cash": 4924
+        },
+        {
+          "month": 60,
+          "cash": 5671
+        },
+        {
+          "month": 72,
+          "cash": 7009
+        },
+        {
+          "month": 84,
+          "cash": 7720
+        },
+        {
+          "month": 96,
+          "cash": 8752
+        },
+        {
+          "month": 108,
+          "cash": 11590
+        },
+        {
+          "month": 120,
+          "cash": 11122
+        }
+      ],
+      "revenue": 22764,
+      "upkeep": 4830,
+      "productionCosts": 10812,
+      "batches": 24,
+      "bottlesSold": 724,
+      "evaporatedLitres": 21.29226774490452,
+      "remainingLitres": 101.78793966289506,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 4946,
+      "key": "C",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.72178277420021,
+        "averageRemainingLitres": 25.52598962961002,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.120905490921082,
+          "value": 22.083552661573158,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.11855713273725,
+          "value": 22.42713948615943,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 7,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11122,
+      "minCash": 1816,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2842
+        },
+        {
+          "month": 24,
+          "cash": 2605
+        },
+        {
+          "month": 36,
+          "cash": 2407
+        },
+        {
+          "month": 48,
+          "cash": 4924
+        },
+        {
+          "month": 60,
+          "cash": 5671
+        },
+        {
+          "month": 72,
+          "cash": 7009
+        },
+        {
+          "month": 84,
+          "cash": 7720
+        },
+        {
+          "month": 96,
+          "cash": 8752
+        },
+        {
+          "month": 108,
+          "cash": 11590
+        },
+        {
+          "month": 120,
+          "cash": 11122
+        }
+      ],
+      "revenue": 22764,
+      "upkeep": 4830,
+      "productionCosts": 10812,
+      "batches": 24,
+      "bottlesSold": 724,
+      "evaporatedLitres": 21.191667946885634,
+      "remainingLitres": 101.84041553889412,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 4927,
+      "key": "C",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.90110928313047,
+        "averageRemainingLitres": 25.52839582571101,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.09022270584753,
+          "value": 22.143140631784686,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.085332297156825,
+          "value": 22.155813886029097,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 42,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11122,
+      "minCash": 1816,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2842
+        },
+        {
+          "month": 24,
+          "cash": 2605
+        },
+        {
+          "month": 36,
+          "cash": 2407
+        },
+        {
+          "month": 48,
+          "cash": 4924
+        },
+        {
+          "month": 60,
+          "cash": 5671
+        },
+        {
+          "month": 72,
+          "cash": 7009
+        },
+        {
+          "month": 84,
+          "cash": 7720
+        },
+        {
+          "month": 96,
+          "cash": 8752
+        },
+        {
+          "month": 108,
+          "cash": 11590
+        },
+        {
+          "month": 120,
+          "cash": 11122
+        }
+      ],
+      "revenue": 22764,
+      "upkeep": 4830,
+      "productionCosts": 10812,
+      "batches": 24,
+      "bottlesSold": 724,
+      "evaporatedLitres": 21.583752858256368,
+      "remainingLitres": 101.6708891519839,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 4916,
+      "key": "C",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.80578741262219,
+        "averageRemainingLitres": 25.517267899487983,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.0838058401801,
+          "value": 22.29244061287091,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.07989311125065,
+          "value": 21.97205589198154,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 81,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11122,
+      "minCash": 1816,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2842
+        },
+        {
+          "month": 24,
+          "cash": 2605
+        },
+        {
+          "month": 36,
+          "cash": 2407
+        },
+        {
+          "month": 48,
+          "cash": 4924
+        },
+        {
+          "month": 60,
+          "cash": 5671
+        },
+        {
+          "month": 72,
+          "cash": 7009
+        },
+        {
+          "month": 84,
+          "cash": 7720
+        },
+        {
+          "month": 96,
+          "cash": 8752
+        },
+        {
+          "month": 108,
+          "cash": 11590
+        },
+        {
+          "month": 120,
+          "cash": 11122
+        }
+      ],
+      "revenue": 22764,
+      "upkeep": 4830,
+      "productionCosts": 10812,
+      "batches": 24,
+      "bottlesSold": 724,
+      "evaporatedLitres": 21.03130261500086,
+      "remainingLitres": 101.89164803860034,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 4912,
+      "key": "C",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.876143561061916,
+        "averageRemainingLitres": 25.53385246731994,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.113051270721705,
+          "value": 22.16700704846543,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.10568380326603,
+          "value": 22.324323865129656,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 2026,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11122,
+      "minCash": 1816,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2842
+        },
+        {
+          "month": 24,
+          "cash": 2605
+        },
+        {
+          "month": 36,
+          "cash": 2407
+        },
+        {
+          "month": 48,
+          "cash": 4930
+        },
+        {
+          "month": 60,
+          "cash": 5671
+        },
+        {
+          "month": 72,
+          "cash": 7009
+        },
+        {
+          "month": 84,
+          "cash": 7720
+        },
+        {
+          "month": 96,
+          "cash": 8752
+        },
+        {
+          "month": 108,
+          "cash": 11590
+        },
+        {
+          "month": 120,
+          "cash": 11122
+        }
+      ],
+      "revenue": 22764,
+      "upkeep": 4830,
+      "productionCosts": 10812,
+      "batches": 24,
+      "bottlesSold": 724,
+      "evaporatedLitres": 21.31502234065807,
+      "remainingLitres": 101.8466787102196,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 4977,
+      "key": "C",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.92967893032118,
+        "averageRemainingLitres": 25.521914947456118,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.0798200074593,
+          "value": 22.281665465687986,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.082102746097082,
+          "value": 22.059870721996678,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 20261014,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11122,
+      "minCash": 1816,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2842
+        },
+        {
+          "month": 24,
+          "cash": 2605
+        },
+        {
+          "month": 36,
+          "cash": 2407
+        },
+        {
+          "month": 48,
+          "cash": 4930
+        },
+        {
+          "month": 60,
+          "cash": 5671
+        },
+        {
+          "month": 72,
+          "cash": 6988
+        },
+        {
+          "month": 84,
+          "cash": 7720
+        },
+        {
+          "month": 96,
+          "cash": 8752
+        },
+        {
+          "month": 108,
+          "cash": 11590
+        },
+        {
+          "month": 120,
+          "cash": 11122
+        }
+      ],
+      "revenue": 22764,
+      "upkeep": 4830,
+      "productionCosts": 10812,
+      "batches": 24,
+      "bottlesSold": 724,
+      "evaporatedLitres": 21.402041271465492,
+      "remainingLitres": 101.7562548250726,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 4946,
+      "key": "C",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.96230295124644,
+        "averageRemainingLitres": 25.522085195173094,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.111936256092775,
+          "value": 22.279616381514145,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.080782032584075,
+          "value": 22.357218359545875,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 123456789,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11122,
+      "minCash": 1816,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2842
+        },
+        {
+          "month": 24,
+          "cash": 2605
+        },
+        {
+          "month": 36,
+          "cash": 2407
+        },
+        {
+          "month": 48,
+          "cash": 4924
+        },
+        {
+          "month": 60,
+          "cash": 5671
+        },
+        {
+          "month": 72,
+          "cash": 7009
+        },
+        {
+          "month": 84,
+          "cash": 7720
+        },
+        {
+          "month": 96,
+          "cash": 8752
+        },
+        {
+          "month": 108,
+          "cash": 11590
+        },
+        {
+          "month": 120,
+          "cash": 11122
+        }
+      ],
+      "revenue": 22764,
+      "upkeep": 4830,
+      "productionCosts": 10812,
+      "batches": 24,
+      "bottlesSold": 724,
+      "evaporatedLitres": 21.488579096702416,
+      "remainingLitres": 101.65089925315041,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 4898,
+      "key": "C",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.849577038937966,
+        "averageRemainingLitres": 25.523026082507357,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.081896160945817,
+          "value": 22.194757079385656,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.08249356211303,
+          "value": 22.303771665057678,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    },
+    {
+      "policy": "バランス型",
+      "seed": 987654321,
+      "months": 120,
+      "cut": 0.15,
+      "type": "refill",
+      "cash": 11122,
+      "minCash": 1816,
+      "cashByYear": [
+        {
+          "month": 0,
+          "cash": 4000
+        },
+        {
+          "month": 12,
+          "cash": 2842
+        },
+        {
+          "month": 24,
+          "cash": 2605
+        },
+        {
+          "month": 36,
+          "cash": 2407
+        },
+        {
+          "month": 48,
+          "cash": 4924
+        },
+        {
+          "month": 60,
+          "cash": 5671
+        },
+        {
+          "month": 72,
+          "cash": 6988
+        },
+        {
+          "month": 84,
+          "cash": 7720
+        },
+        {
+          "month": 96,
+          "cash": 8752
+        },
+        {
+          "month": 108,
+          "cash": 11596
+        },
+        {
+          "month": 120,
+          "cash": 11122
+        }
+      ],
+      "revenue": 22764,
+      "upkeep": 4830,
+      "productionCosts": 10812,
+      "batches": 24,
+      "bottlesSold": 724,
+      "evaporatedLitres": 21.556906048038158,
+      "remainingLitres": 101.69661711394576,
+      "unsoldBottles": 0,
+      "estimatedUnsoldValue": 4972,
+      "key": "C",
+      "scenario": "狭い抽出・リフィル樽",
+      "harvestSummary": {
+        "count": 20,
+        "averageValue": 33.90635262178859,
+        "averageRemainingLitres": 25.517323841900804,
+        "first": {
+          "month": 6,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.103859942336406,
+          "value": 22.257283463786205,
+          "bottles": 37,
+          "price": 30
+        },
+        "last": {
+          "month": 114,
+          "age": 6,
+          "type": "refill",
+          "remainingLitres": 26.09611780450852,
+          "value": 22.355267676058563,
+          "bottles": 37,
+          "price": 30
+        }
+      }
+    }
+  ]
+}
