@@ -1,0 +1,122 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9fc7a841c9d8f62b463693fac4530b43a7eeee64162a4f9279e3f1c2a5be1d06",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v04-browser-polish-20261014",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.4 browser evidence and quote/cache/BFCache UI fixes",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "214504e7d6c0da4bb8c2cc86a560fe563b9bd49f",
+    "canonicalSources": [
+      "Current AmberTime0.4 request",
+      "PR377 review comments",
+      "Published 214504e7d6c0da4bb8c2cc86a560fe563b9bd49f",
+      "works/ambertime/journey-app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v04-browser-polish-20261014/r0.lock.json",
+      "works/ambertime/journey-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/journey-ui.test.mjs",
+      "works/ambertime/VERIFICATION-V04.md",
+      "works/ambertime/visual-review/v04/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "tools/**",
+      ".github/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Correct consecutive same-event bottle quote display cache using barrel identity",
+      "Preserve bottle dialog pause state on BFCache restoration",
+      "Show bottle confirmation status before tasting status",
+      "Record exact public browser three-cask play and CSS viewport screenshots; no physical device or human interest claims"
+    ],
+    "ownerDecisions": [
+      "User0.4 explicitly authorizes free tasting, character/state/history driven events, minimum real intervention, compatible versioned saves, Staging merge/publish; no Production"
+    ],
+    "hqDecisions": [
+      "Work-local versioned save facade within requested compatibility work: original key preserved, v1 rules retained rather than reinterpret current cask; no shared contract change"
+    ],
+    "rulesApplied": [
+      "AGENTS 2026-10-14 useful delegation and independent review",
+      "CHANGE-PLAN normal route with lock before implementation",
+      "Work lifecycle active staging-only; no town/search/Production registration"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "published-three-cask-tasting",
+      "pc-mobile-viewport",
+      "published-same-event-quote"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work-only PR; v1 player saves remain valid",
+    "outOfScope": [
+      "Production",
+      "Other games and Engine",
+      "Expansion/events/missions/new markets",
+      "Pixel art or large animation system",
+      "Automatic reset of existing player data"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad Safari",
+      "Human user test and repeated-play interest"
+    ],
+    "problem": "0.1 exposes calculations before players can develop interest in a barrel",
+    "currentContract": "Version1 one-barrel0.3 saves with exact replay; legacy economy key untouched",
+    "whyExistingIsInsufficient": "Continuous flavor display removes tasting; same ordered four events repeat for every cask",
+    "design": "Single barrel free tasting pause, nonlinear state-driven events, one real cooling intervention; versioned facade keeps0.3 rules for current saves and next cask starts0.4",
+    "alternativesRejected": [
+      "Direct Lua port",
+      "shared Engine modifications",
+      "new market/events/expansion systems"
+    ],
+    "migration": "No model, saved data or save validator changes; UI-only fixes.",
+    "compatibility": "Same modelVersion/SAVE_VERSION/key, modern DOM/SVG/Pointer Events, prefers-reduced-motion",
+    "boundaryCases": [
+      "Tasting duringwatch/choice/pause and reload",
+      "Same-month repeat no comparisonerasure",
+      "Manual bottle atanytime stale/double actions",
+      "Cool once physicaleffects",
+      "Eventunique/cooldown/finiteend",
+      "Version1current andoldrecords preserved",
+      "Savedtrialhistory/choices replay",
+      "Storage unavailable/corrupt/future",
+      "320/390/844/1280"
+    ],
+    "testPlan": [
+      "Full67 Node regression",
+      "Scope/Risk/Impact",
+      "Public same-event quotes 51/52 and trial bottle status",
+      "Existing300 seeded balance unchanged"
+    ],
+    "promotionRisk": "Staging only; never promote active work"
+  }
+}
