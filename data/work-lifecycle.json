@@ -276,6 +276,13 @@
       "title": "湯間庭町観光協会 · 触れる小さな机",
       "theme": "古い受付机に置かれた道具を触って過ごす",
       "candidateDecision": "Owner 2026-10-13: completed Staging 0.5 is accepted as the candidate to prepare the requested Production PR; no merge or deployment approval."
+    },
+    {
+      "id": "nadeato",
+      "path": "works/nadeato",
+      "status": "active",
+      "title": "なで跡",
+      "theme": "短い毛をなで、向きの濃淡で指の跡を残す"
     }
   ]
 }
