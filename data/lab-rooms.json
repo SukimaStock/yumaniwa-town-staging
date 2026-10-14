@@ -9,8 +9,8 @@
     },
     {
       "id": "touch", "number": "02", "title": "Touch Lab", "subtitle": "3D触感研究室",
-      "description": "立体を押す、回す、つまむ、引っ張る。",
-      "machines": [{"work": "sukima-3d-lab", "title": "SukimaStock 3D · Touch Lab", "note": "柔らかい多面体と、指を離したあとの余韻。"}]
+      "description": "小さな立体を眺め、押す、回す。扉や引き出しのパーツも指で動かせます。",
+      "machines": [{"work": "sukima-3d-lab", "title": "SukimaStock 3D · Touch Lab", "note": "町の道具や植物を集めたローポリの展示室。模型を選んで、形や動くパーツを触ってみる。"}]
     },
     {
       "id": "pumpoko", "number": "03", "title": "PUMPOKO研究室", "subtitle": "植物運動・ゲーム物理研究室",
@@ -36,6 +36,11 @@
       "id": "bench", "number": "05", "title": "Prototype Bench", "subtitle": "試作作業台",
       "description": "作りかけのゲームや小さな試作を置いています。",
       "machines": [
+        {"work": "ametsugi", "note": "雨どいを傾け、一粒の水を次へ渡す。"},
+        {"work": "ambertime", "note": "樽を選び、時間を進め、味見して瓶に詰める。"},
+        {"work": "nadeato", "note": "短い毛をなで、向きの濃淡で指の跡を残す。"},
+        {"work": "tsumatta-tsubu", "note": "小さく横へずらすと、支え合っていた粒がほどけて落ちる。"},
+        {"work": "yumaniwa-tourist-desk", "note": "受付机の模型や道具を触りながら、町の施設や作品を探す。"},
         {"work": "orbit-02", "note": "宇宙を漂い、拾ったEchoをHOMEへ持ち帰る試作。"},
         {"work": "coffee-factory", "note": "準備して、注いで、一杯を完成させる抽出タイマー。"},
         {"work": "unpushable-button", "stored": true, "entryOptional": true, "note": "押したいのに、押せない。"},
@@ -54,6 +59,7 @@
       "description": "素材を作り、整え、作品へ組み込むための道具。",
       "trait": "制作機材",
       "machines": [
+        {"work": "feel-studio", "title": "Feel Studio · 0.4", "note": "作品を動かしたまま設定を調整する。雨つぎなどの試作を比較し、分岐して次の案を作る。"},
         {"title": "Map Factory", "href": "tools/map-factory/", "note": "町に置く素材を作り、組み合わせる。"},
         {"title": "Yumaniwa Cleaner", "environment": "Codeaで使用 · Web版なし", "note": "画像を整え、町に置く素材へ仕上げる。"},
         {"title": "Yumaniwa Desk", "environment": "Pythonistaで使用 · Web版なし", "note": "素材や配置を、制作データへ安全に反映する。"},
