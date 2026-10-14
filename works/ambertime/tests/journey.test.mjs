@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {newJourney,tick,choose,nextJourney,currentCask,choiceView,observation,serializeJourney,restoreJourney} from '../journey.mjs';
+import {newJourney,tick,choose,nextJourney,currentCask,choiceView,observation,serializeJourney,restoreJourney} from '../journey-v03.mjs';
 import {newGame,distill,fillCask,advanceMonth,bottle,bottleQuote} from '../model.mjs';
 import {PARAMETERS as P} from '../parameters.mjs';
 const clone=s=>structuredClone(s);
