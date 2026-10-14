@@ -1,0 +1,128 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7fd5c110091686c741fdc6b58cb76d9854df89bdb9e8528d5426bfb0415e3aa9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "feel-scene-replay-20261014",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "fb2d89fd072cfc46e9283432e5b1fd686e7686d9",
+    "change": "Feel Studio Scene Replay: one work-defined first-roof scene in a protected new Ametsugi build.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "works/feel-studio/**"
+    ],
+    "allowedPaths": [
+      ".change-plans/feel-scene-replay-20261014/r0.lock.json",
+      "works/feel-studio/prototypes/ametsugi/ametsugi-c/**",
+      "works/feel-studio/bridge-client-v05.js",
+      "works/feel-studio/bridge-host-v05.js",
+      "works/feel-studio/records-v05.js",
+      "works/feel-studio/studio-v05.js",
+      "works/feel-studio/studio-v05.css",
+      "works/feel-studio/index.html",
+      "works/feel-studio/catalog.json",
+      "works/feel-studio/README.md",
+      "works/feel-studio/SCENE-REPLAY.md",
+      "works/feel-studio/VALIDATION-V05.md",
+      "works/feel-studio/tests/scene-replay-v05.cjs",
+      "works/feel-studio/tests/scene-replay-browser.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ametsugi/**",
+      "engine/**",
+      "works/sukima-3d-lab/**",
+      "works/motion-lab/**",
+      "works/pumpoko/**",
+      "works/pumpoko-02/**",
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "lab/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "New immutable Ametsugi C retains B config and physical rules, exposes one auto-start scene",
+      "Versioned optional scene hooks and validated bounded declarations/acknowledgements",
+      "Studio scene replay keeps LIVE panel open, reports differences and legacy non-support",
+      "workspace/request version-2 optional scene context only; no physical snapshot saved",
+      "Regression, meaningful browser checks and author-device trial instructions"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-14: はい、実装に進んでください。 Refers to preceding six-part design and minimal Scene Replay; authorized Staging implementation under AGENTS, no Production."
+    ],
+    "hqDecisions": [
+      "Design and independent review completed before implementation: optional scene capability, work-owned start recipe, config outside scene context, runId/nonce/mount guard, no forced config matching, protected new build/client."
+    ],
+    "rulesApplied": [
+      "AGENTS: existing works protected; isolated Feel Studio trial in Staging only",
+      "Existing Plan Lock and high-risk checks remain enabled; do not treat CI as author device QA."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Local and published browser scene starts, LIVE editing, condition differences, branch/restore/legacy cases",
+      "Phone/landscape viewport, hidden frame, repeated start and standalone"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this Feel Studio-only PR. Old entries/dependencies/workspaces preserved.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Production, canonical works/ametsugi, Engine, other works",
+      "Memo/direct editor/mixer/automatic Work communication",
+      "Full snapshot/input replay/timeline"
+    ],
+    "unverified": [
+      "Physical iPhone/iPad Safari",
+      "Audio listening and author adoption"
+    ],
+    "problem": "Replaying a comparison requires touching the gutter to start; no explicit scene recipe or start acknowledgement.",
+    "currentContract": "Feel Bridge 1 with optional state/edit hooks; immutable builds, sandbox, hash verification and workspace/2.",
+    "whyExistingIsInsufficient": "Ordinary try only resets; cannot declare/start a work-authored scene or verify its conditions.",
+    "design": "New versioned Studio/Records/host/client use optional getTestScenes/startTestScene; C starts first-roof from current settings with no snapshot. Scene choice saved outside config. Current-panel replay and supported-pair replay acknowledge actual conditions.",
+    "migration": "Keep v2 keys and schemas; absent optional extension means normal start; never mutate old nodes or builds.",
+    "compatibility": "Old builds/client hashes and all old dependencies untouched. C is explicitly added for saved desks. Unsupported scene comparison remains normal try.",
+    "promotionRisk": "Staging trial only; author decides whether to keep or expand.",
+    "alternativesRejected": [
+      "Do not modify old client dependencies",
+      "Do not make all config messages reset",
+      "Do not silently rewrite old saved nodes"
+    ],
+    "boundaryCases": [
+      "Different angle/wait and tuning values",
+      "Hidden mobile frame pause and independent starts",
+      "Rapid replay/switch and stale ack or config",
+      "Unknown scene/contract and malformed optional context",
+      "Legacy workspace and old build pair",
+      "Standalone C without Bridge"
+    ],
+    "testPlan": [
+      "Recipe initial fields and repeated setup equality",
+      "Config unchanged and parameter effects meaningful",
+      "Atomic rejection, source/nonce/run guards",
+      "Old workspace, new optional context save/restore/request",
+      "Old all-build hashes and legacy suites",
+      "Playwright desktop/phone/landscape actual pointer, slider, save and non-support"
+    ]
+  }
+}
