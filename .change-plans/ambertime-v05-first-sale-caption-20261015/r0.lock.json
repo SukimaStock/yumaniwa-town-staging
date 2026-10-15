@@ -1,0 +1,105 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8de652dd2d4dda7bfebae540554a259eb6a3844295a9ee8ae6c5679386f3d44a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v05-first-sale-caption-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.5 clarify first sales month after listing and record final public verification",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "d3838527b6d975024ac1ad8841c29649905182f0",
+    "canonicalSources": [
+      "Public QA of mergedPR394 atd3838527b6d975024ac1ad8841c29649905182f0",
+      "User0.5 required minimal fixes and final public verification"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v05-first-sale-caption-20261015/r0.lock.json",
+      "works/ambertime/distillery-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/distillery-ui.test.mjs",
+      "works/ambertime/VERIFICATION-V05.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "tools/**",
+      ".github/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Only first-sale waiting caption after listing; app cache identifier",
+      "Append actual post-deployment evidence and honest browser limits"
+    ],
+    "ownerDecisions": [
+      "User0.5 explicitly requests own distillation, economic continuity, staged minimal changes, necessary versioned compatibility and independent comparison, Staging merge; no Production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Existing user authorization for necessary public QA fixes and Staging publication",
+      "No model, parameter, save or protected shared files changed",
+      "Plan locked before edits"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "public-first-sale-caption",
+      "public-existing-05-restore"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only these view changes; no saved data changes",
+    "outOfScope": [
+      "Production",
+      "Other games and Engine",
+      "Expansion/events/missions/new markets",
+      "Pixel art or large animation system",
+      "Automatic reset of existing player data"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Human enjoyment/attachment/tasting intent",
+      "Physical iPhone Safari and finger feel"
+    ],
+    "problem": "Published brand-new product listed at month0 still says sales start after listing",
+    "currentContract": "Listing is separate and first real sales occur nextmonth",
+    "whyExistingIsInsufficient": "The existing fallback text implies listing is still pending",
+    "design": "Display next-month sales text when no lastMonth exists; no model/save change",
+    "alternativesRejected": [
+      "Change model or save format",
+      "Broader visual redesign"
+    ],
+    "migration": "None; model and save readers unchanged",
+    "compatibility": "Exact existing0.5 saves and0.4 readers remain unchanged",
+    "boundaryCases": [
+      "Listing at month0",
+      "Restored existing sold records",
+      "Bottled vs selling caption"
+    ],
+    "testPlan": [
+      "Full91 regressions with month0listing assertion",
+      "Scope/Risk/Impact and CI",
+      "Post-deploy actual listing and monthly sales"
+    ],
+    "promotionRisk": "Staging only; never promote active work"
+  }
+}
