@@ -1,0 +1,81 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "15846466b0733e70708d4a76cf13c4f13046af1b8cf514d031f80598577f4aff",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-native-start-audio-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Make trusted native Start retry blocked lifecycle audio through public unlock gesture API",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "172029ccde101f590ff261fb23efdf62d16595ce",
+    "canonicalSources": [
+      "works/pumpoko/app.js",
+      "works/pumpoko/tests/harness.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-native-start-audio-20261015/r0.lock.json",
+      "works/pumpoko/app.js",
+      "works/pumpoko/tests/review-runtime.test.cjs",
+      "works/pumpoko/tests/start-audio.test.cjs",
+      "works/pumpoko/START-AUDIO-REVIEW.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "works/pumpoko-01/**",
+      "works/pumpoko-02/**"
+    ],
+    "expectedChanges": [
+      "After existing trusted/visible/enabled beginMusic gate call public SSE.audio.unlock() before music resume/play",
+      "Real Engine integration regression covers blocked lifecycle pending resume then native Start; rejects synthetic/hidden/paused/muted; late old request does not duplicate BGM",
+      "Update prior exact inverse-diff assertion only to remove one expressly approved unlock line; new fresh-base assertion permits only this line"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes technical investigation, minimal staging fixes, PR and safe staging merge; Production excluded"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Released work requires locked plan before implementation",
+      "Latest canonical directory used; no old PR reopening"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Real PUMPOKO app/Engine harness: native button retry, negative policy cases and retained player identity"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Robust Engine unlock gesture tri-state fix #385"
+    ],
+    "rollback": "Revert isolated staging PR",
+    "outOfScope": [
+      "Shared Engine, normal control and visual behavior, saved keys, Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari audio rendering and iPhone/iPad",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
