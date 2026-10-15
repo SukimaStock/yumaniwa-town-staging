@@ -1,0 +1,127 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c65efd5a0cd3b35154aeae4816b58b7b2846e8efbf2ac8c313feb31acb9909b2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "github-review-triage-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Keep technical GitHub reviews in AI triage and human-only tasks in ToDo; record 13 verified repairs and external automation update.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "23932ecbd2c41d54be2b163ef6e524e29b3bb5be",
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      ".change-plans/touch-debug-panels-20261015/r0.lock.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/github-review-triage-20261015/r0.lock.json",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "docs/verification/github-review-triage-20261015.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "lab/**",
+      "w/**",
+      "en/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Document live-code triage and AI handling of technical repairs in authorized staging scope.",
+      "Limit human ToDo to subjective/device/production/identity-dependent work.",
+      "Record actual changed external automation and six technical ToDo reconciliation separately from repo policy.",
+      "Record per-review final status, PR and verification limitations.",
+      "Append a truthful retrospective erratum for copied optional Touch Lab plan descriptions in #389; keep the original immutable lock and all runtime bytes unchanged."
+    ],
+    "ownerDecisions": [
+      "User task 2026-10-15 explicitly requests GitHub review triage, safe Staging fixes/merges, existing automation and six ToDo cleanup; Production forbidden."
+    ],
+    "hqDecisions": [
+      "Keep existing safety gates/approval scopes unchanged. Triage does not grant unsupervised code writes to read-only automation. Existing external ToDo update task prompt was changed and read back, no new automation. Existing sources remain authoritative.",
+      "Independent review approved a retrospective audit clarification for #389 copied supplementary fields; core Standard/WORK scope was correct. Do not rewrite historical lock or imply the corrected narrative existed before implementation."
+    ],
+    "rulesApplied": [
+      "Preserve user edits and real completion criteria",
+      "Change OS Full risk floor, trusted base checks",
+      "Staging only",
+      "No false browser or physical-device PASS"
+    ],
+    "staticChecks": [
+      "change-operations-regression",
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Inspect precise policy additions preserve all existing authority and Plan safety contracts.",
+      "Read back saved external automation prompt with unchanged schedule.",
+      "Read back guarded six-item ToDo edit; preserve unrelated tasks and real-device checks."
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert repository policy PR. Restore only new policy portion of existing automation if explicitly requested; preserve original schedule and unrelated user edits.",
+    "outOfScope": [
+      "Production",
+      "Runtime/visual/physics changes",
+      "New automated code-write or merge permissions",
+      "Unrelated ToDo changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Future automation executions have not yet run with the new prompt; saved configuration is verified.",
+      "Physical Safari/iPhone/iPad checks remain unverified, not implied by CI."
+    ],
+    "alternativesRejected": [
+      "Convert P1/P2 blindly into human tasks",
+      "Add new bot/task dashboard",
+      "Grant read-only scheduled job code write permissions"
+    ],
+    "boundaryCases": [
+      "Old resolved review",
+      "False positive",
+      "Unreproduced review",
+      "Repairable technical bug",
+      "Subjective creative choice",
+      "Physical test",
+      "Production release approval",
+      "Concurrent ToDo edit"
+    ],
+    "testPlan": [
+      "Scope -> Risk -> Impact against exact remote candidate SHA",
+      "Trusted base static check and existing Change OS suites",
+      "PR CI incl trusted target gate",
+      "Saved external prompt and guarded Page readback"
+    ],
+    "problem": "Technical automated reviews are being mechanically added to human weekly ToDo. Touch Lab also has contradictory copied supplementary plan narrative that needs an honest retrospective correction.",
+    "currentContract": "GitHub reviews inform AI code changes; an external read-only ToDo updater reads GitHub and writes checklist items.",
+    "whyExistingIsInsufficient": "No explicit boundary prevents technical severity labels from becoming human tasks.",
+    "design": "Live-main triage, autonomous authorized technical fixes, short verified proposals, human-only checklist. Preserve historical locks and clarify the Touch Lab audit narrative with exact observed evidence and unverified limits.",
+    "migration": "No data/schema migration; six existing technical items are reconciled using actual completion evidence.",
+    "compatibility": "All existing gate, staging/production and human creative decision boundaries retained.",
+    "promotionRisk": "Staging only; Production unchanged."
+  }
+}
