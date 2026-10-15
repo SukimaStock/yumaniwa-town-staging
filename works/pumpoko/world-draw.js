@@ -205,7 +205,12 @@
       if(q){c.translate(b.x,b.y-b.r);c.scale(1+q*.6,1-q);c.translate(-b.x,-b.y+b.r);}
       (b.kind==='pumpkin'?A.pumpkin:A.rutabaga)(c,b);c.restore();
     };
-    for(const b of free)fruit(b);
+    for(const b of free){
+      c.save();
+      // Only failed crossings below their floor need terrain occlusion.
+      if(b.y<W.curve(b.layer,b.x,course).y)air(c,left,right,Math.max(1100,camera.y+1000/z),surface,spaces);
+      fruit(b);c.restore();
+    }
     for(const [h,bodies]of groups){
       if(!bodies.length)continue;
       bodies.sort((a,b)=>h.direction*(b.y-a.y));

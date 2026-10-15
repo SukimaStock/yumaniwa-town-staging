@@ -76,7 +76,7 @@
       const doc=root.document;ui={title:doc.getElementById('title'),controls:doc.getElementById('title-controls'),start:doc.getElementById('start'),rest:doc.getElementById('rest'),status:doc.getElementById('status'),wait:doc.getElementById('audio-wait'),silent:doc.getElementById('continue-silent')};
       root.SSE.audio.preload();
       root.SSE.audio.preload('pumpoko').then(()=>{if(musicStatus!=='loading')return;musicStatus=root.SSE.audio.resourceState('pumpoko').status==='ready'?'ready':'failed';sync();}).catch(()=>{if(musicStatus==='loading'){musicStatus='failed';sync();}});
-      ui.silent?.addEventListener('click',()=>{musicStatus='silent';root.SSE.audio.setEnabled(false);sync();});
+      ui.silent?.addEventListener('click',()=>{musicStatus='silent';root.SSE.audio.setEnabled(false);label();sync();});
       const canvas=doc.getElementById('gameCanvas');
       canvas.addEventListener('contextmenu',event=>event.preventDefault());
       canvas.addEventListener('selectstart',event=>event.preventDefault());
