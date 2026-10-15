@@ -102,3 +102,53 @@ test('pending preparation resume does not suppress a native gesture or synchrono
   const m=h.start();assert.equal(h.resumes.length,2);assert.equal(m.plays,1);
   await h.recover();assert.equal(m.paused,false);assert.equal(m.plays,1);preserved(h,m);
 });
+
+// A work that only starts its BGM once relies entirely on autoAudio thereafter.
+test('trusted gesture replaces a never-settling lifecycle resume and its queued BGM',async()=>{
+  const h=harness(),m=h.start();await tick();h.hidden();await tick();h.visible();
+  assert.equal(h.resumes.length,1);assert.equal(m.plays,1);
+  h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});
+  assert.equal(h.resumes.length,2);
+  h.resumes[1].resolve();await tick();assert.equal(m.plays,2);assert.equal(m.paused,false);preserved(h,m);
+  // Completion of the obsolete native request and repeated gestures cannot replay.
+  h.resumes[0].resolve();await tick();h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});await tick();
+  assert.equal(m.plays,2);assert.equal(h.a.lifecyclePausedMusic.size,0);
+});
+for(const mode of ['reject','throw','still-suspended'])test('gesture alone restores retained BGM intent after lifecycle resume '+mode,async()=>{
+  const options={stillSuspended:mode==='still-suspended'},h=harness(options),m=h.start();await tick();h.hidden();await tick();
+  const nativeResume=h.a.ctx.resume.bind(h.a.ctx);
+  if(mode==='throw')h.a.ctx.resume=()=>{throw new Error('denied');};
+  h.visible();
+  if(mode==='reject')h.resumes[0].reject(new Error('denied'));
+  if(mode==='still-suspended')h.resumes[0].resolve();
+  await tick();assert.equal(m.plays,1);assert.equal(h.a.lifecyclePausedMusic.has('song'),true);
+  options.stillSuspended=false;h.a.ctx.resume=nativeResume;h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});
+  h.resumes.at(-1).resolve();await tick();assert.equal(m.plays,2);preserved(h,m);
+});
+for(const action of ['mute','pause','stop','reconfigure'])test(action+' clears retained failed-recovery intent before a later gesture',async()=>{
+  const h=harness(),m=h.start();await tick();h.hidden();await tick();h.visible();h.resumes[0].reject(new Error('denied'));await tick();
+  if(action==='mute')h.a.setEnabled(false);if(action==='pause')h.a.pauseMusic();if(action==='stop')h.a.stopMusic({reset:false});if(action==='reconfigure')h.a.configure({music:{song:'new.mp3'}});
+  h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});await h.recover();assert.equal(m.plays,1);assert.equal(m.paused,true);assert.equal(h.a.lifecyclePausedMusic.size,0);
+});
+test('repeated trusted gestures coalesce native recovery and do not duplicate pending media play',async()=>{
+  const d=deferred(),h=harness(),m=h.start();await tick();h.hidden();await tick();h.visible();
+  for(let i=0;i<5;i++)h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});
+  assert.equal(h.resumes.length,2);h.resumes[1].resolve();await tick();assert.equal(m.plays,2);
+  h.hidden();await tick();h.visible();m.play=()=>{m.plays++;return d.promise;};
+  h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});h.resumes.at(-1).resolve();await tick();assert.equal(m.plays,3);
+  for(let i=0;i<5;i++)h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});await tick();assert.equal(m.plays,3);
+  m.paused=false;d.resolve();await tick();assert.equal(h.a.lifecyclePausedMusic.size,0);
+});
+test('trusted gesture recovers an interrupted context while untrusted events preserve pending recovery',async()=>{
+  const h=harness(),m=h.start();await tick();h.hidden();await tick();h.visible();
+  h.w.SSE.input.userGesture({isTrusted:false,target:h.doc});assert.equal(h.resumes.length,1);
+  h.a.ctx.state='interrupted';h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});assert.equal(h.resumes.length,2);
+  h.resumes[1].resolve();await tick();assert.equal(m.plays,2);preserved(h,m);
+});
+test('programmatic request after failed recovery remains replaceable by the next trusted gesture',async()=>{
+  const h=harness(),m=h.start();await tick();h.hidden();await tick();h.visible();h.resumes[0].reject(new Error('denied'));await tick();
+  h.a.resumeMusic('song');assert.equal(h.resumes.length,2);
+  h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});assert.equal(h.resumes.length,3);
+  h.resumes[2].resolve();await tick();assert.equal(m.plays,2);preserved(h,m);
+  h.resumes[1].resolve();await tick();assert.equal(m.plays,2);
+});
