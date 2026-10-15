@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8bac81542526ca8dec503a100099277f41d79be39a53d333c371ea2c3ffedeb0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v06-design-records-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.6 design-only Codea UI audit, hierarchy, static wireframes and parallel-state migration roadmap",
+    "planLevel": "standard",
+    "classes": [
+      "CONTENT",
+      "ASSET",
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "a071bc1e71b5a5d2d96837f3d325159d89bc14c4",
+    "canonicalSources": [
+      "Current user AmberTime0.6 design-only request",
+      "Drive SukimaStock Code/AmberTime.txt and original note PDF",
+      "Same original public note screenshot assets supplement missing PDF images",
+      "Web0.1-0.5 git history at current base"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v06-design-records-20261015/r0.lock.json",
+      "works/ambertime/design/v06/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.html",
+      "works/ambertime/*.css",
+      "works/ambertime/tests/**",
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Evidence-based old/new comparison with facts and proposals separated",
+      "Three mobile static room wireframes, decision overlays and tablet/desktop adaptation",
+      "Shared one-month transaction, per-cask notes/decision queue and protected save migration proposal",
+      "Small first implementation boundary, staged validation, open decisions and no runtime changes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "article-screenshot-audit",
+      "wireframe-layout-review",
+      "independent-design-review",
+      "markdown-links",
+      "svg-xml-and-raster-review",
+      "runtime-byte-equality"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only design assets/documents; runtime and every save reader/key remain byte-identical",
+    "outOfScope": [
+      "All runtime and saved-data modifications",
+      "Implementing new UI or new model",
+      "Production",
+      "Shared Engine or other works",
+      "Pixel art"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Original Codea execution and actual historical touch behavior",
+      "Human preference for proposed timing and layout",
+      "Physical iPhone/iPad touch testing"
+    ],
+    "rulesApplied": [
+      "Design only as explicitly requested",
+      "Normal Plan Lock before documentation/assets because multiple new design files",
+      "No LAB entry or game route for static design documents",
+      "Risk floor classifies SVG under works as WORK; fresh correct lock before final revision, no checker bypass",
+      "Only registered trusted static IDs; node-syntax is N/A without changed executable JS. Independent document/XML/byte checks are separate evidence. Supersedes unmergedPR397; no gate edits."
+    ]
+  }
+}
