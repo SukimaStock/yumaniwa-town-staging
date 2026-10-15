@@ -2201,7 +2201,7 @@
       }
     },
 
-    ensureContext(gesture) {
+    ensureContext(gesture, preparation = !gesture) {
       const AudioContextClass = root.AudioContext || root.webkitAudioContext;
       if (!AudioContextClass) return null;
 
@@ -2212,7 +2212,7 @@
 
       if (this.ctx.state === "suspended") {
         // Output policy is independent of whether source data can be prepared.
-        this.resumeContext(gesture, !gesture);
+        this.resumeContext(gesture, preparation);
       }
 
       return this.ctx;
@@ -2404,7 +2404,7 @@
         Object.keys(this.bufferDefinitions).length > 0 ||
         Object.keys(this.musicDefinitions).length > 0;
 
-      if (needsContext) this.ensureContext(gesture === true);
+      if (needsContext) this.ensureContext(attempt, gesture !== true);
 
       // Legacy HTMLAudio pools still need a gesture unlock on iOS.
       for (const pool of Object.values(this.pools)) {

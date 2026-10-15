@@ -186,3 +186,9 @@ for(const first of ['unknown','programmatic'])test('first-ever '+first+' unlock 
   h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});assert.equal(h.resumes.length,2);
   const m=h.start();h.resumes[1].resolve();await tick();assert.equal(m.plays,1);assert.equal(m.paused,false);preserved(h,m);
 });
+test('first public no-argument unlock replaces a pending preparation resume without requiring a second control click',async()=>{
+  const h=harness({initialSuspended:true});await h.a.preload();assert.equal(h.resumes.length,1);
+  h.a.unlock();assert.equal(h.resumes.length,2);assert.equal(h.a.contextResumeNeedsGesture,true);
+  const m=h.start();h.resumes[1].resolve();await tick();assert.equal(m.plays,1);assert.equal(m.paused,false);preserved(h,m);
+  h.resumes[0].resolve();await tick();assert.equal(m.plays,1);
+});

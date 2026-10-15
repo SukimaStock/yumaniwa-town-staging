@@ -12,16 +12,16 @@ Keep three provenance states using the existing resume/preparation flags:
 - Explicit `false`: internal `play`/`playMusic`/`resumeMusic` polling. Pending recovery coalesces.
 - Omitted: legacy caller with unknown activation. Attempt native resume synchronously (preserving native control callers), but keep the resulting promise gesture-retryable. An unknown call never supersedes a pending known-trusted resume.
 
-The first-context path uses `ensureContext(gesture === true)` so even a first-ever unknown/programmatic unlock cannot claim observed activation. There is no dependency on `navigator.userActivation` or work-specific patch. Media request tokens, BGM intent, mute/pause/stop/reconfigure and no-duplicate rules remain.
+The first-context path forwards both attempt and provenance through `ensureContext(attempt, gesture !== true)`, preserving its previous defaults for other callers. A first public control call can replace pending preload recovery synchronously, while unknown/programmatic activation stays retryable. There is no dependency on `navigator.userActivation` or work-specific patch. Media request tokens, BGM intent, mute/pause/stop/reconfigure and no-duplicate rules remain.
 
 ## Reproduction and attempts
 
 1. PR #384 restored public attempts with a true default. Its two public-control tests passed, but review found timer-driven legacy calls could consume activation. That PR was not merged.
-2. This replacement distinguishes known/unknown activation, reusing the existing preparation flag to retain retryability. First implementation passes all cases; no further correction needed.
+2. This replacement distinguishes known/unknown activation, reusing the existing preparation flag to retain retryability. The first implementation passed 158 tests, but independent review found that first public unlock after preload still coalesced instead of retrying. One correction forwards both attempt and provenance through `ensureContext`; a permanent test now covers this first-click case.
 
-Seven new lifecycle cases cover direct no-argument controls, failed recovery followed by polling and direct unlock, unknown timer followed by explicit/omitted activation, unknown timer while known-trusted recovery remains pending, and first-ever unknown/programmatic unlock. The preload/initial-media case now explicitly delivers trusted Engine input before claiming gesture-driven recovery.
+Eight new lifecycle cases cover direct no-argument controls, failed recovery followed by polling and direct unlock, unknown timer followed by explicit/omitted activation, unknown timer while known-trusted recovery remains pending, and first-ever unknown/programmatic unlock, plus the first public unlock with an already pending preload. The preload/initial-media case now explicitly delivers trusted Engine input before claiming gesture-driven recovery.
 
-Against actual merged PR #381 Engine, the expanded lifecycle suite fails six cases (32 pass). Against actual unmerged PR #384 Engine, it fails four timer/initial-context cases (34 pass). Against this implementation: **158/158 relevant JS tests PASS**, including **38 lifecycle tests**.
+Against actual merged PR #381 Engine, the expanded lifecycle suite fails six cases (32 pass). Against actual unmerged PR #384 Engine, it fails four timer/initial-context cases (34 pass). Against this implementation: **159/159 relevant JS tests PASS**, including **39 lifecycle tests**.
 
 Commands:
 
