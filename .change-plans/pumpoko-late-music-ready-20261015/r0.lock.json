@@ -1,0 +1,83 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ee47a4915d040e8684a9d492742ef2f649ab303605399f3f17b295b0890bab1b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-late-music-ready-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Recover the music start gate after media preload timed out but the retained BGM became playable",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "96df238d86cbb01e4d888eb32c64ea9a5ed5b1f9",
+    "canonicalSources": [
+      "works/pumpoko/app.js",
+      "works/pumpoko/tests/harness.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-late-music-ready-20261015/r0.lock.json",
+      "works/pumpoko/app.js",
+      "works/pumpoko/tests/music-gate.test.cjs",
+      "works/pumpoko/tests/start-audio.test.cjs",
+      "works/pumpoko/tests/review-runtime.test.cjs",
+      "works/pumpoko/AUDIO-AUDIT-20261015.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "works/pumpoko-01/**",
+      "works/pumpoko-02/**"
+    ],
+    "expectedChanges": [
+      "Re-evaluate playable retained media after timeout, hide stale fallback and recheck before disabling sound",
+      "Preserve explicit mute for actual failure, existing sound setting, all music/SE assets and game timing",
+      "Add real Engine controlled timeout/late-media regressions and update exact historical guards only through reviewed inverse patch"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes technical investigation, minimal staging fixes, PR and safe staging merge; Production excluded"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Released work requires locked plan before implementation",
+      "Latest canonical directory used; no old PR reopening"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Public itch embedded build identification and Chrome interaction",
+      "Real Engine timeout, late readiness, active stream, error, mute/re-enable, title reset harness"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Existing #168, #203, #382, #385, #386 reviewed without duplication"
+    ],
+    "rollback": "Revert isolated staging PR",
+    "outOfScope": [
+      "Shared Engine, normal control and visual behavior, saved keys, Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad Safari, Edge, Firefox and actual audible output",
+      "Production/itch upload requires separate approval; formal verificationState UNVERIFIED"
+    ]
+  }
+}
