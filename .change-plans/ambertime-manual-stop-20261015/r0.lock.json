@@ -1,0 +1,81 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d05b0671139b454bd3a27f0f02e10e13ed2f83040befe491e0e5f9513afee273",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-manual-stop-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime parallel extraction cap should wait for explicit stop while replaying old automatic-completion saves",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "864b35d8195582c2b089ac329e09848be84e3a76",
+    "canonicalSources": [
+      "Current user report of unexpected completed extraction",
+      "Current parallel.mjs, parallel-app.mjs, distillery.mjs and parallel regression tests"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-manual-stop-20261015/r0.lock.json",
+      "works/ambertime/parallel.mjs",
+      "works/ambertime/parallel-app.mjs",
+      "works/ambertime/tests/parallel.test.mjs",
+      "works/ambertime/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs"
+    ],
+    "expectedChanges": [
+      "Stop collection at progress 99 and require explicit stop click",
+      "Replay historical auto-stop at progress 100 without altering saved data",
+      "Clarify cap UX and update module cache key",
+      "Test fresh, capped and legacy save states"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "parallel-regression",
+      "fresh-start-browser-check",
+      "existing-save-check"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this PR; untouched existing save keys/strings continue to work using previous engine",
+    "outOfScope": [
+      "Economic changes",
+      "New product types",
+      "New save keys or save migrations",
+      "Other works",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPhone Safari touch behavior",
+      "Long-term economic balance"
+    ],
+    "rulesApplied": [
+      "Protected branch and Plan Lock before implementation",
+      "Preserve old save replay and active parallel economy",
+      "Only current AmberTime work paths changed"
+    ]
+  }
+}
