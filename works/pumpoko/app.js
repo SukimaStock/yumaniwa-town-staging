@@ -87,6 +87,7 @@
       });
       const beginMusic=event=>{
         if(event.isTrusted!==true||doc.hidden||root.SSE.lifecycle?.paused||!root.SSE.audio.enabled)return;
+        root.SSE.audio.unlock();
         if(root.SSE.audio.currentMusic==='pumpoko')root.SSE.audio.resumeMusic('pumpoko');
         else root.SSE.audio.playMusic('pumpoko',{restart:false});
       };
