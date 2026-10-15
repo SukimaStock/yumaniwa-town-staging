@@ -1,4 +1,4 @@
-import * as D from './parallel.mjs?v=0.6-parallel';
+import * as D from './parallel.mjs?v=0.6-manual-stop';
 import {PARALLEL_PARAMETERS as T} from './parallel-parameters.mjs?v=0.6-playability';
 import {PARAMETERS as P} from './parameters.mjs';
 import {ageLabel,monthLabel} from './model.mjs';
