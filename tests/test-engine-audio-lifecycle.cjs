@@ -152,3 +152,16 @@ test('programmatic request after failed recovery remains replaceable by the next
   h.resumes[2].resolve();await tick();assert.equal(m.plays,2);preserved(h,m);
   h.resumes[1].resolve();await tick();assert.equal(m.plays,2);
 });
+test('public no-argument unlock from a direct control replaces pending lifecycle resume',async()=>{
+  const h=harness(),m=h.start();await tick();h.hidden();await tick();h.visible();
+  // Existing native DOM controls call unlock() directly, outside SSE.input.
+  h.a.unlock();assert.equal(h.resumes.length,2);h.resumes[1].resolve();await tick();
+  assert.equal(m.plays,2);preserved(h,m);h.a.unlock();await tick();assert.equal(m.plays,2);
+  h.resumes[0].resolve();await tick();assert.equal(m.plays,2);
+});
+test('public no-argument unlock replaces a programmatic retry after lifecycle failure',async()=>{
+  const h=harness(),m=h.start();await tick();h.hidden();await tick();h.visible();h.resumes[0].reject(new Error('denied'));await tick();
+  h.a.resumeMusic('song');assert.equal(h.resumes.length,2);
+  h.a.unlock();assert.equal(h.resumes.length,3);h.resumes[2].resolve();await tick();
+  assert.equal(m.plays,2);preserved(h,m);h.resumes[1].resolve();await tick();assert.equal(m.plays,2);
+});

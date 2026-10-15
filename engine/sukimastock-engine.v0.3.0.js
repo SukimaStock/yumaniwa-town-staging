@@ -2377,7 +2377,9 @@
       return true;
     },
 
-    unlock(gesture = false) {
+    // Public unlock() is an explicit gesture API used by native work controls.
+    // Internal playback polling passes false so it cannot consume activation retries.
+    unlock(gesture = true) {
       if (this.unlocked) {
         if (this.ctx && this.ctx.state !== "running" && (!this.contextResumePromise || gesture)) {
           this.resumeContext(gesture);
@@ -2702,7 +2704,7 @@
       const opts = options || {};
       if (!this.cooldownAllows(name, definition, opts)) return false;
 
-      this.unlock();
+      this.unlock(false);
 
       let item = pool.find((candidate) => candidate.paused || candidate.ended);
       if (!item) item = pool[0];
@@ -2801,7 +2803,7 @@
       const player = this.createMusicPlayer(name, definition);
       if (!player) return false;
 
-      this.unlock();
+      this.unlock(false);
       if (this.ctx) this.wireMusicPlayer(player);
 
       const previous = this.currentMusic && this.currentMusic !== name
@@ -2913,7 +2915,7 @@
       const player = target ? this.musicPlayers[target] : null;
       if (!player) return false;
 
-      this.unlock();
+      this.unlock(false);
       if (this.ctx) this.wireMusicPlayer(player);
       else this.applyFallbackMusicVolume(player);
 
