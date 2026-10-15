@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "66715ff56cbe5b8bffafebbeed9af7726d5ef7f55dbce3c9a9027fd69ecad487",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "classes": [
+      "WORK"
+    ],
+    "environment": "staging",
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-v06-playability-20261015",
+    "change": "Small parallel-mode display, glass stability, six-second tempo and extraction completion fixes",
+    "planLevel": "standard",
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "b3d79bcfbaa8aac320f0a439a45ebc6e51e1c09c",
+    "canonicalSources": [
+      "Current user minimal playability request",
+      "works/ambertime/parallel-app.mjs and existing parallel replay contract"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v06-playability-20261015/r0.lock.json",
+      "works/ambertime/parallel-app.mjs",
+      "works/ambertime/parallel-parameters.mjs",
+      "works/ambertime/parallel.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/parallel-ui.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/model.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/parallel.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/distillery*.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/legacy.html",
+      "works/ambertime/v04.html",
+      "works/ambertime/v05.html",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "data/**"
+    ],
+    "expectedChanges": [
+      "UI-only live cask numbering; raw IDs remain in selectors/replay only; no historical relabel persisted",
+      "Cache glass SVG, scope pour animation to tasting instead of persistent motion marker",
+      "Six-second real-time month only, no chemistry/economic/event/save changes; existing three-month skip remains bounded",
+      "Distill-room flow shows extraction fraction and freezes at stop; shared aging/sales clock continues; primary fill action",
+      "Cache references and focused regressions"
+    ],
+    "manualChecks": [
+      "node-all-ambertime-tests",
+      "independent-review",
+      "PC-and-iPhone-public-browser",
+      "staging-pages-and-save-resume"
+    ],
+    "rollback": "Revert this UI/tempo commit; all existing saved operation replay remains unchanged",
+    "outOfScope": [
+      "Production",
+      "New features or schema/migration",
+      "Chemistry/economic/event thresholds",
+      "Previously exhausted iframe vertical scroll investigation"
+    ],
+    "unverified": [
+      "Physical iPhone/Safari and human play feel",
+      "Five-to-ten-minute human completion target is estimate, not enforced deadline"
+    ],
+    "rulesApplied": [
+      "Standard work-local fixes; no save/runtime contract change",
+      "Six files exceed active-small-change route, lock before implementation",
+      "Existing authorized Staging workflow; public QA after CI-safe merge because local preview unavailable"
+    ],
+    "ownerDecisions": [
+      "User requests these four minimal fixes and Staging merge"
+    ],
+    "hqDecisions": []
+  }
+}

@@ -5,12 +5,13 @@ const OLD=['sukimastock.ambertime.v1','sukimastock.ambertime.journey.v1','sukima
 let imports=0;
 async function boot({text=null,search='',readFails=false,consent=false}={}){
  const nodes=new Map(),timers=new Map(),events=new Map(),wevents=new Map(),writes=[],reads=[],storage=new Map(OLD.map(k=>[k,'preserve '+k]));if(text!==null)storage.set(KEY,text);let next=0,writeFails=false;
- const node=id=>{if(!nodes.has(id))nodes.set(id,{id,hidden:true,textContent:'',innerHTML:'',dataset:{},disabled:false,open:false,style:{setProperty(){}},classList:{toggle(){}},setAttribute(){},events:new Map(),addEventListener(t,fn){this.events.set(t,fn);},showModal(){this.open=true;},close(){this.open=false;}});return nodes.get(id);};
+ const node=id=>{if(!nodes.has(id))nodes.set(id,{id,hidden:true,textContent:'',innerHTML:'',dataset:{},disabled:false,open:false,style:{values:{},setProperty(k,v){this.values[k]=v;}},classList:{toggle(){}},setAttribute(){},events:new Map(),addEventListener(t,fn){this.events.set(t,fn);},showModal(){this.open=true;},close(){this.open=false;}});return nodes.get(id);};
  const nav=['distill','warehouse','sales'].map(r=>Object.assign(node('nav-'+r),{dataset:{room:r}}));
  globalThis.document={hidden:false,getElementById:node,querySelectorAll:()=>nav,body:node('body'),addEventListener:(t,f)=>events.set(t,f)};
  globalThis.window={addEventListener:(t,f)=>wevents.set(t,f)};globalThis.location={search};globalThis.confirm=()=>consent;
  globalThis.localStorage={getItem:k=>{reads.push(k);if(readFails)throw Error('denied');return storage.get(k)??null;},setItem:(k,v)=>{if(writeFails)throw Error('quota');writes.push({k,v});storage.set(k,v);}};
  globalThis.setTimeout=(fn,ms)=>{const id=++next;timers.set(id,{fn,ms});return id;};globalThis.clearTimeout=id=>timers.delete(id);
+ for(const id of ['glass']){const n=node(id);let html='';n.htmlWrites=0;Object.defineProperty(n,'innerHTML',{get:()=>html,set:v=>{html=v;n.htmlWrites++;}});}
  await import('../parallel-app.mjs?test='+imports++);
  const data=(id,dataset={})=>node(id).events.get('click')({target:{closest:()=>({dataset})}}),click=id=>data(id),fire=()=>{const t=[...timers.entries()][0];assert(t,'clock expected');timers.delete(t[0]);t[1].fn();};
  const e={node,data,click,fire,timers,writes,reads,storage,state:()=>JSON.parse(storage.get(KEY)),text:()=>storage.get(KEY),failWrites:v=>writeFails=v,
@@ -45,4 +46,19 @@ test('invalid/read-failed saves remain intact; quota and competing-tab writes st
 });
 test('stale product and fill actions cannot target another modal or duplicate a cask',async()=>{
  const e=await boot();e.collect();e.fill('bourbon');const saved=e.text();e.action('fill','refill');assert.equal(e.text(),saved);e.click('open-bottle');e.action('price',1,{tier:'high'});e.action('list',1);assert.equal(e.text(),saved);e.action('bottle',999);assert.equal(e.text(),saved);
+});
+
+test('live display ranks stay sequential while actions, samples and saved IDs stay stable',async()=>{
+ const e=await boot();e.collect();e.fill('refill');e.month();e.room('distill');e.collect();e.fill('bourbon');const [a,b]=e.state().core.casks.map(c=>c.id);assert.deepEqual([a,b],[2,4]);
+ assert(e.node('cask-rack').innerHTML.includes('<strong>樽1</strong>'));assert(e.node('cask-rack').innerHTML.includes('<strong>樽2</strong>'));assert(e.node('cask-kind').textContent.startsWith('樽2 ·'));
+ e.data('cask-rack',{caskId:a});e.click('open-bottle');e.action('bottle',a);assert(e.node('work-notice').textContent.startsWith('樽1を'));assert(e.node('cask-rack').innerHTML.includes('<strong>樽1</strong>'));assert(!e.node('cask-rack').innerHTML.includes('<strong>樽2</strong>'));assert.equal(e.state().core.casks[0].id,b);assert(!e.node('records-body').innerHTML.includes(' · 樽 '+a));
+ const r=await boot({text:e.text()});assert.equal(r.state().core.casks[0].id,b);assert(r.node('cask-kind').textContent.startsWith('樽1 ·'));
+});
+test('glass SVG survives tasting and 100ms renders instead of restarting the pour',async()=>{
+ const e=await boot();e.collect(30);e.fill('refill');const writes=e.node('glass').htmlWrites;e.click('glass-button');assert.equal(e.node('glass').htmlWrites,writes);assert.notEqual(e.node('body').dataset.motion,'pour');e.click('glass-button');e.click('end-tasting');for(let i=0;i<10;i++)e.fire();assert.equal(e.node('glass').htmlWrites,writes);
+ e.month();assert.equal(e.node('glass').htmlWrites,writes+1);e.click('glass-button');assert.equal(e.node('glass').htmlWrites,writes+1);assert.equal(e.state().notesById[e.state().tastingId].samples.length,2);
+});
+test('six-second month and completed extraction mark coexist with continuing cask aging',async()=>{
+ const e=await boot();e.collect(30);e.fill('refill');const start=e.state().core.month;for(let i=0;i<30;i++)e.fire();assert.equal(e.state().core.month,start+1);assert.equal(e.node('time-status').textContent,'自動進行 · 約6秒で1か月');
+ e.room('distill');e.collect(30);assert.equal(e.state().still.phase,'filling');assert.equal(e.node('body').style.values['--month-progress'],0.3);const month=e.state().core.month,age=e.state().core.casks[0].age,progress=e.state().still.distillation.progress;e.month();assert.equal(e.state().core.month,month+1);assert.equal(e.state().core.casks[0].age,age+1);assert.equal(e.state().still.distillation.progress,progress);assert.equal(e.node('body').style.values['--month-progress'],0.3);assert.equal(e.node('open-fill').hidden,false);assert.equal(e.node('distill-caption').textContent,'抽出完了。樽を選んで詰めます。');
 });
