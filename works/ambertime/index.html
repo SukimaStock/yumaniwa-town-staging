@@ -1,19 +1,19 @@
 <!doctype html><html lang="ja"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#172124">
-<title>AmberTime — 時間を育てる蒸留所</title><link rel="stylesheet" href="./distillery.css?v=0.5"><script type="module" src="./distillery-app.mjs?v=0.5.2"></script></head>
+<title>AmberTime — 時間を育てる蒸留所</title><link rel="stylesheet" href="./distillery.css?v=0.6"><script type="module" src="./distillery-app.mjs?v=0.6"></script></head>
 <body><div class="page">
-<header><div><h1>AmberTime</h1><span class="edition">0.5 · Distill & Decide</span></div><div class="wallet"><span>所持金</span><strong id="cash"></strong><span id="calendar"></span></div></header>
+<header><div><h1>AmberTime</h1><span class="edition">0.6 · Tasting</span></div><div class="wallet"><span>所持金</span><strong id="cash"></strong><span id="calendar"></span></div></header>
 <p id="storage-notice" role="status" hidden></p><p id="old-progress" class="quiet" hidden>0.4の進行と記録は残っています。<a href="./v04.html">続きを開く</a></p>
 <main id="game" hidden>
 <section id="hero" class="workplace warehouse" aria-label="ウイスキーを仕込む作業場">
 <div class="stamp"><span id="cask-kind"></span><strong id="age"></strong></div>
-<div class="objects"><div id="still" class="still"></div><div id="barrel" class="barrel" hidden></div><button id="glass-button" class="glass-button" aria-label="グラスで試飲する" type="button" hidden><span id="glass" class="glass"></span></button><div id="bottle-object" class="bottle" hidden></div></div>
+<div class="objects"><div id="still" class="still"></div><div id="barrel" class="barrel" hidden></div><button id="glass-button" class="glass-button" aria-label="グラスで試飲する" type="button" hidden><span id="glass" class="glass"></span></button><section id="tasting-panel" class="tasting-panel" aria-label="試飲" role="region" hidden><h2 id="taste-date"></h2><div id="taste-current"></div><div id="taste-previous" class="taste-previous" hidden></div><div class="free-actions"><button id="end-tasting" type="button">試飲を終える</button><button id="taste-bottle" type="button">瓶詰めを考える</button></div></section><div id="bottle-object" class="bottle" hidden></div></div>
 <div class="amount"><span id="amount"></span><span id="loss"></span></div><p id="change" class="change"></p><p id="last-taste" class="quiet"></p>
 </section>
 <section id="distillation-panel" aria-label="蒸留" hidden><p id="distill-caption" class="process-caption"></p><button id="start-distill" type="button"></button><button id="stop-distill" type="button" hidden>抽出を終える</button><p id="distill-direction" class="quiet"></p></section>
 <section id="fill-panel" aria-label="樽詰め" hidden><h2>この原酒を、どちらの樽へ</h2><div id="cask-options" class="cask-options"></div></section>
 <div id="free-actions" class="free-actions" hidden><button id="taste-button" class="taste-button" type="button">試飲する</button><button id="open-bottle" type="button">瓶詰めを考える</button></div>
-<section id="tasting-panel" class="tasting-panel" aria-label="試飲" hidden><h2 id="taste-date"></h2><div id="taste-current"></div><div id="taste-previous" class="taste-previous" hidden></div><div class="free-actions"><button id="end-tasting" type="button">樽を見る</button><button id="taste-bottle" type="button">瓶詰めを考える</button></div></section>
+
 <section id="decision" class="decision" aria-live="polite" hidden></section>
 <section id="bottle-tray" class="bottle-tray" aria-label="瓶詰めの確認" hidden><h2>今の風味を瓶に残す</h2><p id="bottle-taste"></p><p id="bottle-quote"></p><p id="bottle-wait" class="quiet"></p><div class="free-actions"><button id="confirm-bottle" type="button">瓶詰めする</button><button id="cancel-bottle" type="button">樽へ戻る</button></div></section>
 <section id="result" class="result" hidden></section>

@@ -25,7 +25,7 @@ test('start is paid, self-stopped raw spirit fills one cask and starts a single 
  const e=await boot();assert.equal(e.state().phase,'ready');assert.equal(e.active(2200).length,0);e.collect(51);assert.equal(e.state().phase,'filling');assert.equal(e.state().core.cash,3740);assert.equal(e.state().batch.cut,0.3);e.fill('refill');assert.equal(e.state().core.cash,3640);assert.equal(e.state().core.casks[0].cut,0.3);assert.equal(e.active(2200).length,1);assert.equal(e.node('time-status').textContent,'熟成中 · 約2秒で1か月');
 });
 test('visible collection stops on tasting and stale callbacks cannot age the glass',async()=>{
- const e=await boot();e.collect();e.fill('bourbon');e.fire(2200);const stale=e.active(2200)[0][1].fn;e.click('taste-button');stale();assert.equal(e.state().core.month,1);assert.equal(e.active(2200).length,0);assert.equal(e.node('tasting-panel').hidden,false);e.click('end-tasting');e.fire(2200);e.click('glass-button');assert.equal(e.state().samples.length,2);assert(e.node('taste-previous').innerHTML.includes('前回'));e.click('glass-button');assert.equal(e.state().samples.length,2);
+ const e=await boot();e.collect();e.fill('bourbon');e.fire(2200);const stale=e.active(2200)[0][1].fn;e.click('taste-button');stale();assert.equal(e.state().core.month,1);assert.equal(e.active(2200).length,0);assert.equal(e.node('tasting-panel').hidden,false);e.click('end-tasting');e.fire(2200);e.click('glass-button');assert.equal(e.state().samples.length,2);assert(e.node('taste-previous').textContent.includes('前回'));e.click('glass-button');assert.equal(e.state().samples.length,2);
 });
 test('three-month advance is animated, bounded, respects pause and stops at a decision',async()=>{
  const e=await boot();e.collect(100);e.fill('refill');e.click('toggle-time');e.click('skip');assert.equal(e.active(450).length,1);e.fire(450);e.fire(450);e.fire(450);assert.equal(e.state().core.month,3);assert.equal(e.active(450).length,0);assert.equal(e.active(2200).length,0);assert.equal(e.node('toggle-time').textContent,'時間を進める');e.click('skip');for(let i=0;i<3&&e.active(450).length;i++)e.fire(450);assert.equal(e.state().phase,'choice');assert.equal(e.state().core.month,6);assert.equal(e.active(2200).length,0);
@@ -62,4 +62,11 @@ test('reset during the short bottling handover clears the visual phase too',asyn
 
 test('listing a newly bottled spirit explains that the first sales happen next month',async()=>{
  const e=await boot();e.collect(40);e.fill('refill');e.click('open-bottle');e.click('confirm-bottle');e.fire(650);assert.equal(e.state().core.month,0);assert.equal(e.node('sales-result').textContent,'今回の一本は、まだ販売していません。');e.click('list-bottles');assert.equal(e.node('sales-result').textContent,'次の1か月から販売します。');assert.equal(e.state().core.totals.revenue,0);e.fire(2200);assert(e.node('sales-result').textContent.startsWith('前月 '));assert(e.state().core.totals.revenue>0);
+});
+
+test('barrel-side tasting is concise, full samples stay in ledger, and a retired timer never resumes',async()=>{
+ const e=await boot();e.collect();e.fill('bourbon');e.fire(2200);const stale=e.active(2200)[0][1].fn;e.click('glass-button');
+ assert(!e.node('taste-current').innerHTML.includes('舌に強い刺激が残る'));assert(e.node('ledger-body').innerHTML.includes('この樽の試飲'));
+ e.click('end-tasting');const month=e.state().core.month;stale();assert.equal(e.state().core.month,month);assert.equal(e.active(2200).length,1);
+ e.click('toggle-time');e.click('glass-button');e.click('glass-button');e.click('end-tasting');assert.equal(e.active(2200).length,0);
 });
