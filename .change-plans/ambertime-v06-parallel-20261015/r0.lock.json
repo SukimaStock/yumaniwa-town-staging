@@ -1,0 +1,132 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f2456dc7e8d5b106d7bfa94ba5167ef444985bdd5e09944671a7a058231413d5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v06-parallel-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime concurrent still, up to4 casks and listed sales with protected new save and three-room UI",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "8f757a1dca4fb3aa5439e0b50f99a9b6ab02e691",
+    "canonicalSources": [
+      "Current user parallel distillery implementation request",
+      "works/ambertime/design/v06/DESIGN.md roadmap3-4",
+      "Existing monthly boundary and 0.5 frozen mechanics"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v06-parallel-20261015/r0.lock.json",
+      "works/ambertime/parallel*.mjs",
+      "works/ambertime/parallel.css",
+      "works/ambertime/index.html",
+      "works/ambertime/v05.html",
+      "works/ambertime/model.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/tests/**",
+      "works/ambertime/design/v06/PARALLEL.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/distillery*.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/legacy.html",
+      "works/ambertime/v04.html",
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "New parallel controller with shared core, ID-keyed cask notes and decisions, single still state and explicit listed product status",
+      "Single monthly transaction, listed sales filter optional defaults preserve old APIs; same fees/chemistry; 12s month preserves 10s distillation",
+      "New version1 parallel save key; no automatic migration or oldkey writes; v05.html retains old app and save continuation",
+      "Three room navigation with direct objects and selected-only detail, barrel-side tasting, decision/quote/price/fill dialogs and one clock dispatcher",
+      "Deterministic 2cask complete loop plus4cap, simultaneous events, wrongIDs, stale requests, funds, room-independent results, blocked saves, old checkpoints, browser desktop/mobile"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "node-all-ambertime-regression",
+      "two-cask-six-step-play-and-four-cap",
+      "save-replay-each-stage-old-keys-protected",
+      "independent-review",
+      "public-browser-PC-and-iPhone-layout",
+      "public-pages-build-and-main-state"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert parallel UI entry/controller; use retained v05.html and original keys. New key stays separate; never reset or overwrite old raw data.",
+    "outOfScope": [
+      "Production",
+      "Automatic oldsave migration or merging generations",
+      "Staff, automation, research, contest, expansion",
+      "New chemistry or market model",
+      "Shared Engine changes",
+      "Reopening previously3-attempt iframe scroll issue"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Human feel and physical iPhone/Safari interaction",
+      "Automatic oldsave migration deliberately excluded"
+    ],
+    "rulesApplied": [
+      "Full WORK plan before newsave contract; AI HQ review records concrete technical boundary, not invented author adoption",
+      "User permits independent new storage if old protected; no migration forced",
+      "Delegate model vs UI with independent final review; preserve prior mechanics",
+      "Public browser QA uses existing Staging publication workflow after safe CI and review; local preview unavailable; no Production"
+    ],
+    "hqDecisions": [
+      "AI contract review within explicit user scope: new sukimastock.ambertime.parallel.v1 key/version1; old readers/keys retained; no forced conversion or merging balances",
+      "Reuse existing model chemistry and character observations; additive listedProductIds option with old defaults; shared state only one core; sorted decision queue",
+      "Adopt12s per month only for new parallel mode to keep 100x100ms still ritual within about1month; retain old flat maintenance12/4 and price tiers; numerical comparison before tuning"
+    ],
+    "ownerDecisions": [
+      "User explicitly requests max4 independently aging casks, shared time/cash, three-room movement, preservation of prior UI and safe legacy saves, Staging merge only"
+    ],
+    "problem": "Current controller has one global phase and observes only first cask; bottling prevents other work",
+    "currentContract": "Version3 distillery save replays one exclusive batch; existing core/monthly updates all casks and sales by default",
+    "whyExistingIsInsufficient": "Adding casks into current top-level tasting/pending fields risks ID loss and replay invalidation",
+    "design": "New work-local parallel controller with core once, still independent, cask notes keyed by ID, explicit listed products and shared pause reasons",
+    "migration": "No automatic conversion. New parallel key only; old0.5 entry/readers/keys remain intact and accessible",
+    "compatibility": "Default core/monthly APIs retain byte-identical behavior; strict oldsave checkpoint regression; no writes to old keys",
+    "promotionRisk": "Staging only; no Production promotion",
+    "alternativesRejected": [
+      "Mutate oldsave schema in place: breaks replay and safe return",
+      "One cask tick per cask: duplicates global sales/fees",
+      "Auto merge balances from different generations: manufactures money"
+    ],
+    "boundaryCases": [
+      "Two cask decisions same month while still collecting",
+      "Unlisted bottle while older products sell",
+      "Low funds with products, four occupied casks, full shelf",
+      "Tasting to bottling cancel and background resume",
+      "Blocked/corrupt/future new save and intact old keys"
+    ],
+    "testPlan": [
+      "All existing AmberTime tests and fixed oldsave checkpoint strings",
+      "Parallel deterministic loop A/B then productA+B aging+reinvestment",
+      "Room-independent shared update and stale callback tests",
+      "Save/replay at still progress, midmonth, both pending, tasting, unlisted and sold states",
+      "Public PC/390/320 operation and layout after safe Staging merge"
+    ]
+  }
+}

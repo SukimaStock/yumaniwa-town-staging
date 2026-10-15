@@ -93,7 +93,8 @@ export function setPrice(state,productId,price) {
   requireThat(state.products.some(p=>p.id===productId),'商品がありません。');
   const s=copy(state); s.products.find(p=>p.id===productId).price=round(price); return s;
 }
-export function advanceMonth(state) {
+export function advanceMonth(state,{listedProductIds}={}) {
+  if(listedProductIds!==undefined) requireThat(Array.isArray(listedProductIds)&&new Set(listedProductIds).size===listedProductIds.length&&listedProductIds.every(id=>state.products.some(p=>p.id===id)),'販売する商品の識別値が不正です。');
   const s=copy(state); s.month++; let evaporated=0;
   s.casks=s.casks.map(c=>{const after=ageCask(c); evaporated+=c.litres-after.litres;
     if(after.age%3===0) { after.history.push({month:s.month,text:tasting(after)}); after.history=after.history.slice(-12); } return after;});
@@ -102,7 +103,7 @@ export function advanceMonth(state) {
     note(s,`樽${c.id}は天使の分け前で瓶1本未満になり、貯蔵庫を片づけた。`);return false;});
   // A small local shelf: all products share customers. High prices slow turnover.
   // Characterful spirit keeps its niche even if rough; maturity is not the sole signal.
-  const stocked=s.products.filter(p=>p.stock>0);
+  const stocked=s.products.filter(p=>p.stock>0&&(listedProductIds===undefined||listedProductIds.includes(p.id)));
   const desire=p=>Math.min(p.stock, (p.age<6?16:10+6*p.character)*(0.80+0.20*p.character)*Math.exp(P.priceElasticity*(1-p.price/marketValue(p))));
   const wishes=stocked.map(desire),sum=wishes.reduce((a,b)=>a+b,0),scale=Math.min(1,P.monthlyCustomers/Math.max(sum,1));
   let revenue=0,bottles=0; const sales=[];

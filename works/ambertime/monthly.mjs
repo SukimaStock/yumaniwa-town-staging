@@ -1,13 +1,13 @@
 // Step 1 boundary only. No room, storage key, migration or economic rule lives
 // here. Products passed to this foundation are the existing listed inventory.
-import {advanceMonth,validateState} from './model.mjs';
+import {advanceMonth,validateState} from './model.mjs?v=0.6-parallel';
 import {CHARACTER_PARAMETERS as C,observeCharacterMonth} from './character.mjs?v=0.6';
 const copy=x=>structuredClone(x);
 const assert=(ok,message)=>{if(!ok)throw new Error(message);};
 
-export function advanceCoreMonth(core,expectedMonth=core.month) {
+export function advanceCoreMonth(core,expectedMonth=core.month,options={}) {
   assert(Number.isInteger(expectedMonth)&&expectedMonth===core.month,'月次処理の対象月が一致しません。');
-  return advanceMonth(core);
+  return advanceMonth(core,options);
 }
 
 export function createCaskNotes(cask) {
@@ -35,14 +35,14 @@ function requestBottling(j) {
   j.pending={id:'bottle-ready',title:'この樽を瓶へ移す',text:'',options:[{id:'bottle',label:'瓶詰めを確かめる'}]};
 }
 
-export function advanceMonthly(state,{expectedMonth,paused=false}={}) {
+export function advanceMonthly(state,{expectedMonth,paused=false,listedProductIds}={}) {
   validateState(state.core);
   // Reject stale callbacks even while paused; they must never become a later
   // second transaction when the pause is removed.
   assert(Number.isInteger(expectedMonth)&&expectedMonth===state.core.month,'月次処理の対象月が一致しません。');
   checkedNotes(state.core,state.notesById);
   if(paused||Object.values(state.notesById).some(n=>n.view==='tasting'||n.pending!==null))return state;
-  const core=advanceCoreMonth(state.core,expectedMonth),notesById={},decisions=[];
+  const core=advanceCoreMonth(state.core,expectedMonth,{listedProductIds}),notesById={},decisions=[];
   for(const before of [...state.core.casks].sort((a,b)=>a.id-b.id)) {
     const cask=core.casks.find(c=>c.id===before.id);
     // Existing chemistry can retire a barrel below one bottle; do not create

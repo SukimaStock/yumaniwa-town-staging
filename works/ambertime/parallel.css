@@ -1,0 +1,108 @@
+@import url('./distillery.css?v=0.6.3');
+
+/* Room navigation changes the view, never the distillery clock. */
+.page{max-width:760px}
+header .wallet{max-width:48%;margin:0;border:0;padding:0;justify-content:flex-end;gap:2px 10px;text-align:right}
+header .wallet>span:first-child{font-size:11px}
+header #calendar{width:100%;font-size:12px}
+.room-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:20px 0 0;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.room-nav button{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:4px 7px;min-height:48px;padding:8px 4px;background:none;font-size:14px;border-color:transparent}
+.room-nav button[aria-pressed=true],.room-nav button[aria-current=true]{background:#2b3830;border-color:#68715c}
+.room-nav small{font-size:11px;color:var(--quiet);font-variant-numeric:tabular-nums}
+.room{min-width:0;padding-top:13px}
+.room>h2{font-size:14px;font-weight:400;color:var(--quiet);text-align:center;margin-bottom:10px}
+.empty-room{text-align:center;min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--quiet);font-size:14px}
+#cask-rack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 10px;max-width:420px;margin:0 auto 14px}
+#cask-rack button{min-width:0;background:none;border:1px solid transparent;padding:4px 8px 7px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px}
+#cask-rack button[aria-pressed=true]{border-color:#8f805a;background:#26332d}
+#cask-rack button>svg,#cask-rack button .barrel{display:block;width:132px;max-width:100%;height:132px;margin:0}
+#cask-rack button svg{max-width:100%;height:132px}
+#cask-rack small{color:var(--quiet);font-size:11px}
+#selected-cask{min-width:0}
+#hero{margin-top:4px;background:radial-gradient(ellipse at 45% 60%,#29332b 0,transparent 65%)}
+body[data-room=warehouse] #hero .objects{height:295px;display:block;padding:0}
+body[data-room=warehouse] #hero #barrel{display:block;position:absolute;left:4%;bottom:12px;width:210px;max-width:45%;opacity:1;margin:0}
+body[data-room=warehouse] #hero #glass-button{display:block;position:absolute;left:15%;right:auto;bottom:10px;width:70px;max-width:24%;min-height:70px;margin:0}
+body[data-room=warehouse] #hero #glass{width:100%;max-width:100%;margin:0}
+#hero #tasting-panel{width:49%;top:0;max-width:240px}
+#hero #tasting-panel .free-actions{display:grid}
+#hero #tasting-panel p{overflow-wrap:anywhere}
+#hero .amount{flex-wrap:wrap;gap:4px 13px;font-size:13px}
+#hero #change{font-size:12px;min-height:20px}
+#hero #last-taste{font-size:12px;min-height:20px}
+#free-actions{margin:10px auto 0}
+.still-workplace{max-width:440px;margin:auto;text-align:center}
+#room-distill #still{display:block;width:390px;height:260px;max-width:100%;margin:0 auto}
+#collection{display:block;min-height:28px;font-size:18px;color:var(--ink);font-variant-numeric:tabular-nums}
+#distill-direction{min-height:42px;font-size:12px}
+.distill-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:13px auto 0;max-width:430px}
+.distill-actions button{flex:1;min-width:125px;font-size:14px}
+#product-shelf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px;max-width:520px;margin:auto;padding-top:8px}
+#product-shelf button{min-width:0;background:#152023;border-width:0 0 4px;border-color:#515545;border-radius:0;padding:10px 7px 12px;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:13px;box-shadow:0 3px 0 #101c1d}
+#product-shelf button:hover{background:#1d2b29}
+#product-shelf button>svg,#product-shelf button .bottle{display:block;width:58px;max-width:100%;height:144px;margin:0 auto 6px}
+#product-shelf button svg{max-width:100%;max-height:144px}
+#product-shelf strong{font-size:13px;font-weight:500;overflow-wrap:anywhere}
+#product-shelf small{color:var(--quiet);font-size:12px}
+#sales-result{min-height:23px;margin:14px auto 0;max-width:520px;text-align:center}
+#time-flow{border-top:1px solid #374238;padding-top:14px;margin-top:20px}
+#time-flow .time-controls{display:flex}
+#action-dialog{color:var(--ink);background:#1c2928;border:1px solid #7b7e64;border-radius:6px;width:min(440px,calc(100% - 28px));max-height:calc(100dvh - 36px);padding:20px;overflow-y:auto;box-shadow:0 14px 60px #0006}
+#action-dialog::backdrop{background:#080e10b8}
+.dialog-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+#dialog-title{font-size:18px;font-weight:400;min-width:0}
+#close-dialog{min-width:44px;min-height:44px;padding:4px 8px;margin:-8px -8px 0 0;font-size:20px;background:none;border-color:transparent}
+#dialog-body{font-size:14px;line-height:1.7}
+#dialog-body p{margin:8px 0}
+#dialog-body strong{font-weight:500}
+#dialog-body .quote{font-size:18px}
+#dialog-body dl{display:grid;grid-template-columns:1fr auto;gap:7px 14px;margin:12px 0}
+#dialog-body dt{color:var(--quiet)}
+#dialog-body dd{margin:0;font-variant-numeric:tabular-nums;text-align:right}
+#dialog-body .bottle{width:74px;margin:12px auto}
+#dialog-body .cask-options{margin:12px auto}
+#dialog-actions{display:grid;gap:8px;margin-top:18px}
+#dialog-actions button{width:100%;min-height:46px;text-align:left;font-size:14px}
+#dialog-actions button span{display:block;color:var(--quiet);font-size:12px;margin-top:2px}
+#dialog-actions button.primary span{color:#405044}
+#dialog-body .price-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+#dialog-body .price-options button{min-width:0;padding:8px 4px;font-size:13px}
+#storage-notice{margin-top:12px}#recovery button{margin-top:10px}
+.sample-history li{display:block}.sample-history p{margin:4px 0}.record-history{overflow-wrap:anywhere}
+footer a{min-height:44px;display:inline-flex;align-items:center}
+@media(min-width:650px){.room{padding-top:18px}.room-nav{margin-top:23px}#cask-rack{max-width:540px;grid-template-columns:repeat(4,minmax(0,1fr))}#hero{max-width:540px;margin-left:auto;margin-right:auto}#product-shelf{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:430px){
+ .page{padding-left:17px;padding-right:17px}.room-nav{gap:3px;margin-top:14px}.room-nav button{font-size:13px;gap:1px 5px}.room-nav small{font-size:10px}
+ header .wallet{gap:0 6px}header .wallet>span:first-child{display:none}header .wallet strong{font-size:15px}
+ .room{padding-top:9px}.room>h2{margin-bottom:7px;font-size:12px}
+ #cask-rack{gap:5px 8px;margin-bottom:10px}#cask-rack button>svg,#cask-rack button .barrel,#cask-rack button svg{width:110px;height:110px}
+ body[data-room=warehouse] #hero .objects{height:360px}
+ body[data-room=warehouse] #hero #barrel{left:0;bottom:70px;width:165px;max-width:46%}
+ body[data-room=warehouse] #hero #glass-button{left:12%;bottom:8px;width:65px}
+ #hero #tasting-panel{width:51%;padding-left:9px;top:7px}
+ #room-distill #still{height:230px;width:345px}
+ #product-shelf button>svg,#product-shelf button .bottle{height:125px;width:50px}
+ #action-dialog{padding:17px}#dialog-title{font-size:17px}
+ #time-flow{margin-top:16px}
+}
+@media(max-width:350px){
+ .page{padding-left:13px;padding-right:13px}.room-nav button{font-size:12px}#hero #tasting-panel{padding-left:8px}#hero #tasting-panel p{font-size:12px}#hero #tasting-panel h2{font-size:13px}
+ #cask-rack button{padding-left:3px;padding-right:3px}#hero #tasting-panel button{font-size:11px}
+ #room-distill #still{height:205px}#dialog-body{font-size:13px}
+}
+/* Small selectable objects leave room for the selected barrel and its glass. */
+#cask-rack{grid-template-columns:repeat(4,minmax(0,1fr));max-width:460px;gap:5px}
+#cask-rack button{padding:3px 2px 6px}
+#cask-rack button>span{display:block;width:64px;max-width:100%}
+#cask-rack button svg{display:block;width:100%;height:auto;max-height:72px}
+#cask-rack button strong{font-size:12px}
+#product-shelf button>span{display:block;width:58px;max-width:100%}
+#product-shelf button svg{display:block;width:100%;height:135px}
+.modal-bottle{width:70px;margin:10px auto}.modal-bottle svg{display:block;width:100%;height:150px}
+.fill-art{display:block;width:75px;margin:0 auto 6px}.fill-art svg{display:block;width:100%;height:82px}
+#dialog-actions .price-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0}
+#dialog-actions .price-options button{font-size:13px;text-align:center;min-width:0;padding:8px 3px}
+#dialog-actions small{display:block;color:var(--quiet);font-size:12px}
+#dialog-body>button{min-height:44px;font-size:13px}
+#work-notice{max-width:470px;margin:12px auto 0;text-align:center;font-size:12px;min-height:20px}
+@media(max-width:350px){#cask-rack small{font-size:10px}#cask-rack button>span{width:53px}}
