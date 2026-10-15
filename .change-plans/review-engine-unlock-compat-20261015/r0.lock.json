@@ -1,0 +1,107 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f2f09bac4f6c08a2e832b021ce61eb9c21d8a6d9799c85bbed4e456a3f4d94f6",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "review-engine-unlock-compat-20261015",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "af98f9d7d5dd74d77fc6aa12685ef53b70bf6cc4",
+    "change": "Preserve legacy public unlock attempts without treating unknown activation as proven gestures",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "engine/sukimastock-engine.v0.3.0.js",
+      "tests/test-engine-audio-lifecycle.cjs",
+      "PR 381 review 4281565845",
+      "works/engine-canary/app.js:114 and works/ametsugi/app.mjs:58 public caller evidence",
+      "PR 384 review 4281679954 and works/morning-thread/sketch.js automatic tone caller"
+    ],
+    "allowedPaths": [
+      "engine/sukimastock-engine.v0.3.0.js",
+      "tests/test-engine-audio-lifecycle.cjs",
+      "docs/verification/review-engine-unlock-compat-20261015.md",
+      ".change-plans/review-engine-unlock-compat-20261015/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Distinguish known trusted true, internal false and omitted unknown unlock attempts",
+      "Omitted legacy calls attempt native recovery but keep promises gesture-retryable",
+      "Never replace a pending proven-gesture request from programmatic or omitted calls",
+      "Preserve all original Engine lifecycle cancellation and media coalescing guarantees"
+    ],
+    "ownerDecisions": [
+      "User request 2026-10-15 explicitly authorizes minimal technical Staging fixes, tests, PR and safe merge; excludes Production"
+    ],
+    "hqDecisions": [
+      "AI compatibility review and independent reviewer agree on three provenance states: known trusted, known programmatic and unknown legacy. Unknown caller attempts recovery without claiming user activation. Existing API and work files remain compatible."
+    ],
+    "rulesApplied": [
+      "AGENTS.md technical delegation and independent review",
+      "CHANGE-PLAN Full locked-before-implementation",
+      "No native Safari success inferred from deterministic mocks"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Read exact Engine diff and deterministic lifecycle trace",
+      "Native Safari/iPhone sound and activation UNVERIFIED"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this API compatibility follow-up; no data migration",
+    "promotion": "none; Staging only",
+    "unverified": [
+      "Native Safari/iOS audio rendering and activation"
+    ],
+    "problem": "PR 381 false public default breaks native controls; unmerged PR 384 true default also allows timer-driven legacy callers to consume a later trusted retry.",
+    "currentContract": "Public unlock() is called synchronously in direct work click handlers; internal programmatic playback also uses it.",
+    "whyExistingIsInsufficient": "Engine trusted input boolean does not reach direct work DOM controls.",
+    "design": "Use existing preparation flag to keep unknown legacy native resume attempts retryable. Public omitted activation is permitted to attempt recovery, explicit false internal polling coalesces, explicit true Engine trusted input coalesces only other trusted pending requests. No navigator feature dependency.",
+    "alternativesRejected": [
+      "New audio manager",
+      "Automatic repeated background retries",
+      "Changing work-specific audio APIs"
+    ],
+    "migration": "None",
+    "compatibility": "Existing localStorage, API, track time/loop/rate, gain routing, mute and cancellation are unchanged.",
+    "boundaryCases": [
+      "Direct no-argument unlock after never-settling lifecycle resume",
+      "Repeated no-argument unlock does not duplicate BGM",
+      "Programmatic resumeMusic after failed recovery remains retryable",
+      "Native DOM controls bypass Engine input event path",
+      "Timer noarg unlock followed by trusted gesture",
+      "Timer noarg unlock followed by direct noarg click",
+      "Unknown noarg must not supersede known trusted pending request"
+    ],
+    "testPlan": [
+      "New direct unlock pending lifecycle recovery and failed lifecycle then programmatic recovery regression",
+      "All 151 existing Engine tests plus new tests",
+      "Scope Risk Impact syntax gates exact SHA",
+      "Independent API compatibility review",
+      "Unknown timer call cannot poison later explicit or omitted recovery",
+      "Unknown timer during known-trusted pending recovery must coalesce"
+    ],
+    "promotionRisk": "No Production changes"
+  }
+}
