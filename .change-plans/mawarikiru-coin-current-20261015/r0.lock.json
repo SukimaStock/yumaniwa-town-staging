@@ -1,0 +1,113 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9dddbc9d025dfeef9e8589ea2205183b44830d8e77e7a597d2680c98d1ff6da3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "mawarikiru-coin-current-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "選択A まわりきる硬貨の独立試作とactive台帳・生成LAB接続",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "5610001e739a61764f4800abd32241740493780b",
+    "canonicalSources": [
+      "works/mawarikiru-coin",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/mawarikiru-coin-current-20261015/r0.lock.json",
+      "works/mawarikiru-coin/**",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/town-maps.js"
+    ],
+    "expectedChanges": [
+      "短いフリックで回転し、傾き・終端の細かい首振りから接地静止。停止後も同じ面から再開",
+      "active staging-onlyと既存generatorによるPrototype Bench接続",
+      "作品内の制作・検証記録"
+    ],
+    "ownerDecisions": [
+      "2026-10-15 18:37 UTC Sentinel_391a4f9403248191914ab631f352d005: A明示選択。今回の委任はbranch/commit/draft PR/CI/安全Staging mergeを許可。Production・既存作品・共通Engine・町登録・保存・外部権限は対象外。"
+    ],
+    "hqDecisions": [
+      "AI設計照合: lifecycle JSONと生成LABはunknown-code floorのためFull。既存schema/generatorをそのまま使い契約・共有処理は変更しない。作者による追加承認を意味しない。"
+    ],
+    "rulesApplied": [
+      "AGENTS Work lifecycle active default",
+      "CHANGE-PLAN normal locked route; not lightweight"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-flick-slow-fast-tilt-terminal-rest-repeat-cancel-resize-long-time",
+      "published-entry-lab-return"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "当該新規work、台帳の当該項目とLAB生成差分を同じ単位でrevert",
+    "outOfScope": [
+      "production",
+      "町登録",
+      "既存作品",
+      "共有Engine",
+      "外部権限",
+      "保存"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone/iPad Safari",
+      "作者の触感判断"
+    ],
+    "problem": "止まりそうでまだ回る硬貨の小さな動きを触る",
+    "currentContract": "単独worksとactive台帳、既存LAB generator",
+    "whyExistingIsInsufficient": "新作が存在しない",
+    "design": "作品内Canvasの投影円盤。時間正規化した減衰と終端の加速する歳差・小刻みな揺れを近似。外部依存・音・保存なし。",
+    "alternativesRejected": [
+      "町やEngine変更",
+      "3D化",
+      "ゲーム化"
+    ],
+    "migration": "既存データ変更なし",
+    "compatibility": "Pointer Events、単一pointer/capture、CSSサイズ独立座標、resize/cancel/blurで入力破棄",
+    "boundaryCases": [
+      "短い/速い/遅い払い",
+      "停止後再開",
+      "連続操作",
+      "cancel/lost capture",
+      "resize/向き変更",
+      "長時間/非表示"
+    ],
+    "testPlan": [
+      "既存lifecycle回帰",
+      "作品内Node状態/入力境界とブラウザ描画検証",
+      "Scope/Risk/Impact/CI/Pages exact SHAと公開URL"
+    ],
+    "promotionRisk": "staging only"
+  }
+}

@@ -1,0 +1,5 @@
+:root{color-scheme:light;background:#d9ded7;color:#5e675e;font-family:serif}
+*{box-sizing:border-box}body{margin:0;overflow:hidden;width:100%;height:100svh;background:radial-gradient(ellipse at 48% 40%,#edf0e8 0%,#d9ded7 65%,#c6cec6 100%)}
+h1{position:absolute;top:max(34px,env(safe-area-inset-top));left:0;width:100%;margin:0;text-align:center;font-size:13px;font-weight:400;letter-spacing:.22em;pointer-events:none}
+.back{position:absolute;z-index:2;top:max(20px,env(safe-area-inset-top));left:max(16px,env(safe-area-inset-left));width:44px;height:44px;text-align:center;line-height:40px;font:28px/40px serif;color:#677064;text-decoration:none}
+canvas{display:block;width:100%;height:100%;touch-action:none;-webkit-tap-highlight-color:transparent;user-select:none;outline:none}canvas:focus-visible{outline:2px solid #8a947d;outline-offset:-8px}
