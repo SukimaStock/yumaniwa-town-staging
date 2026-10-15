@@ -1,0 +1,81 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "57a0e55b8fb832d903c1fce106a7efc1dbcc79fe892d4efdddf220aa785d032c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko01-review-audit-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Restore historical PUMPOKO 01 regression fixtures and exact authorized Builder audit",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "a2e94a6901fc5d852bbe21cc506a5fce567fe352",
+    "canonicalSources": [
+      "works/pumpoko-01/fixtures/canonical-baseline.json",
+      "works/pumpoko-01/test-arrival-camera.cjs",
+      "works/pumpoko-01/test-migration.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko01-review-audit-20261015/r0.lock.json",
+      "works/pumpoko-01/fixtures/canonical-baseline.json",
+      "works/pumpoko-01/test-arrival-camera.cjs",
+      "works/pumpoko-01/test-migration.cjs",
+      "works/pumpoko-01/REVIEW-20261015.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "works/pumpoko/**",
+      "works/pumpoko-02/**"
+    ],
+    "expectedChanges": [
+      "Reconstruct old stageData from exact historical migration Git commit without altering original hashes",
+      "Derive arrival positions and camera from current END geometry",
+      "Compare authorized Builder bytes to exact import commit, preserve complete historical migration proof and save-key invariants"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes technical investigation, minimal staging fixes, PR and safe staging merge; Production excluded"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Released work requires locked plan before implementation",
+      "Latest canonical directory used; no old PR reopening"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Historical Git snapshot provenance and complete migrated tree audit"
+    ],
+    "impactChecks": [
+      "work.regression",
+      "work.runtime",
+      "runtime.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Full Git checkout containing migration and authorized import commits"
+    ],
+    "rollback": "Revert isolated staging PR",
+    "outOfScope": [
+      "All game runtime and assets, old valid historical evidence, shared files, Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical devices (no gameplay changed)"
+    ]
+  }
+}

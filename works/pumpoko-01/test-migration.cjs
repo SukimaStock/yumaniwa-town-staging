@@ -38,6 +38,11 @@ test('current protected gameplay, Builder, assets, save keys and historical evid
    const {stageData,...historical}=JSON.parse(after);assert.deepEqual(historical,JSON.parse(before),rel);
    const context={module:{exports:{}}};vm.runInNewContext(git('show',migration+':works/pumpoko/stage-data.js').toString(),context);
    assert.deepEqual(stageData,JSON.parse(JSON.stringify(context.module.exports)),rel+' historical stageData');
+  }else if(rel==='builder/builder.js'){
+   // PR #179 intentionally migrated gestures. Pin its accepted import bytes
+   // instead of exempting the Builder from the historical audit.
+   const accepted='d536a7e82c6eecf1488358be20f840770e213bc8';
+   assert.deepEqual(after,git('show',accepted+':works/pumpoko/'+rel),rel+' authorized gesture import');
   }else assert.deepEqual(after,before,rel);
  }
  assert.match(read('works/pumpoko-01/sketch.js'),/storageKey: "kotsu-koro\.sound"/);
