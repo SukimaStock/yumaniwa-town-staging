@@ -31,7 +31,7 @@ for(const condition of ['synthetic','hidden','paused','muted'])test(condition+' 
  assert.equal(unlocks,0);assert.equal(f.resumes,1);assert.equal(media.plays,plays);assert.equal(media.paused,true);
 });
 test('native Start fix changes only one authorized runtime line from the current base',()=>{
- const source=fs.readFileSync(path.join(repo,'works/pumpoko/app.js'),'utf8'),line='        root.SSE.audio.unlock();\n';
+ const source=require('./music-gate.test.cjs').undoMusicRepair(fs.readFileSync(path.join(repo,'works/pumpoko/app.js'),'utf8')),line='        root.SSE.audio.unlock();\n';
  assert.equal(source.split(line).length,2,'one explicit beginMusic unlock insertion');
  const before=cp.execFileSync('git',['show','172029ccde101f590ff261fb23efdf62d16595ce:works/pumpoko/app.js'],{cwd:repo,encoding:'utf8'});
  assert.equal(source.replace(line,''),before,'all other app behavior stays exact');
