@@ -20,9 +20,9 @@ const coolOption={id:'cool',label:'涼しい棚へ移す',hint:'木の移りと�
 function prompt(j,id,title,text,waitLabel,cool=false) {
   j.phase='choice';j.pending={id,title,text,options:[bottleOption,{id:'wait',label:waitLabel},...(cool&&!j.cooled?[coolOption]:[])]};j.seen.push(id);j.lastEventAge=caskOf(j).age;
 }
-function detect(j) {
+function detect(j,onFinish=finishCharacterMutable) {
   const c=caskOf(j);
-  if(j.targetAge!==null&&c.age>=j.targetAge){finishCharacterMutable(j);return;}
+  if(j.targetAge!==null&&c.age>=j.targetAge){onFinish(j);return;}
   // Finite ending is a safety boundary, never a projected optimum age.
   if(c.age>=CHARACTER_PARAMETERS.maxAge||j.choices.length>=CHARACTER_PARAMETERS.maxDecisions-1&&c.age>=j.lastEventAge+CHARACTER_PARAMETERS.finalObservationMonths) {
     j.phase='choice';j.pending={id:'last',title:'この樽を手放すとき',text:`残量 ${c.litres.toFixed(1)} L。ここまでの変化を、一本に残せます。`,options:[bottleOption,{id:'last',label:'あと3か月だけ見守って瓶詰めする'}]};j.seen.push('last');j.lastEventAge=c.age;return;
@@ -37,9 +37,9 @@ function detect(j) {
   else if(unseen('rounded')&&unseen('fruit')&&c.roughness<=CHARACTER_PARAMETERS.softGoal)prompt(j,'rounded','口当たりが変わる頃','仕込みから時間が経ちました。今の口当たりを、試飲で確かめられます。','丸さがどう変わるか見守る');
   else if(unseen('loss')&&c.litres/c.initialLitres<=CHARACTER_PARAMETERS.remainingGoal&&c.wood<CHARACTER_PARAMETERS.woodThreat)prompt(j,'loss','少しずつ、減っていく','樽詰めした量から、1割ほど減りました。これからも時間とともに減っていきます。','減少を承知で、もう少し待つ');
 }
-export function tickCharacter(j) {
+export function tickCharacter(j,onFinish=finishCharacterMutable) {
   if(j.phase!=='watching'||j.view==='tasting')return j;
-  const s=copy(j);s.core=advanceMonth(s.core);s.peakCharacter=Math.max(s.peakCharacter,caskOf(s).character);detect(s);return s;
+  const s=copy(j);s.core=advanceMonth(s.core);s.peakCharacter=Math.max(s.peakCharacter,caskOf(s).character);detect(s,onFinish);return s;
 }
 export function sampleCharacter(j) {
   assert(j.phase!=='finished','完成した一本は記録から見返せます。');
