@@ -1,0 +1,72 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2321db58a1f328eccd53055438d71fcfc0a68f61e6170bededf93a76d96d8fb4",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-review-evidence-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Replace unreachable AmberTime independent-review evidence with reachable exact-SHA reproduction",
+    "planLevel": "lite",
+    "classes": [
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "0fffc4befaa7d6d1f8e5b0859a1d7779188b9c69",
+    "canonicalSources": [
+      "works/ambertime/VERIFICATION-V04.md",
+      "works/ambertime/tests/journey-ui.test.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-review-evidence-20261015/r0.lock.json",
+      "works/ambertime/VERIFICATION-V04.md",
+      "works/ambertime/REVIEW-379-REPRODUCTION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "lab/**",
+      "tools/**",
+      ".github/**",
+      "works/ambertime/journey-app.mjs",
+      "works/ambertime/journey.mjs"
+    ],
+    "expectedChanges": [
+      "Mark unreachable historical review as non-reproducible rather than verified",
+      "Preserve exact reachable commit reproduction commands and 12 individual test results with independent confirmation",
+      "No application, model, save, layout or public URL changes"
+    ],
+    "ownerDecisions": [],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS: preserve evidence, never mark unobserved checks PASS",
+      "CHANGE-PLAN: CONTENT/Lite lock required because targeted classifier signals evidence prose"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Review reachable commit and current AmberTime source equality; exact-SHA Node UI 12 and whole-work 67 tests; independent second UI run"
+    ],
+    "impactChecks": [],
+    "impactExclusions": [],
+    "rollback": "Revert this documentation-only PR",
+    "outOfScope": [
+      "Production",
+      "Game/runtime/save changes",
+      "New browser or physical-device verification claims"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Historical unreachable local commit contents",
+      "Physical iPhone/iPad and Safari"
+    ]
+  }
+}
