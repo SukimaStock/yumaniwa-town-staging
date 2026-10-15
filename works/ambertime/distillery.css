@@ -1,0 +1,192 @@
+@import url('./journey.css');
+
+/* 0.5 lives alongside the original journey. This sheet is never loaded by v04. */
+:root{--bg:#172124;--ink:#e7ddbd;--quiet:#b0b5a5;--line:#4b554b;--amber:#d3ad68;--collection:0;--month-progress:0}
+body{min-width:280px}
+.page{width:min(100%,700px);padding:20px 26px calc(30px + env(safe-area-inset-bottom))}
+button{min-height:46px;touch-action:manipulation}
+button,a,summary{-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
+button[aria-pressed=true]{border-color:#c6a264;background:#364033;color:#edddb5}
+button.primary,.primary{background:#cfc29d;border-color:#cfc29d;color:#273028;font-weight:500}
+button.primary:hover{background:#ded0a7}
+button:disabled{cursor:default}
+input,select{font:inherit;font-size:16px;color:var(--ink);background:#1c2b2b;border:1px solid #68715c;border-radius:3px;min-height:46px;padding:8px 10px;max-width:100%}
+input[type=range]{padding:0;accent-color:var(--amber);width:100%;cursor:pointer}
+header{align-items:center;gap:12px}
+header h1{font-family:Georgia,"Times New Roman",serif;font-size:27px;font-weight:400;letter-spacing:.04em}
+header .edition{font-size:11px;margin-top:3px}
+header a{font-size:12px}
+.wallet{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 18px;margin-top:16px;padding:10px 0;border-top:1px solid #465045;border-bottom:1px solid #465045;font-size:13px;color:var(--quiet);font-variant-numeric:tabular-nums}
+.wallet strong{color:var(--ink);font-weight:500;font-size:16px}
+.wallet small{color:var(--quiet);font-size:11px}
+.wallet p{font-size:12px}
+.workplace{position:relative;margin:18px auto 0;text-align:center}
+.workplace h2{font-size:16px;font-weight:500}
+.workplace .warehouse{margin-top:0;background:none}
+#hero{position:relative;text-align:center;min-width:0}
+#hero .stamp{font-size:13px;gap:14px;flex-wrap:wrap;min-height:24px}
+#hero .objects{height:267px;padding:0 12px 9px;position:relative;gap:0;overflow:visible;isolation:isolate}
+#hero .objects::after{content:"";position:absolute;bottom:8px;left:8%;right:8%;height:1px;background:#465044;z-index:-1}
+#still{display:block;width:390px;max-width:100%;height:260px;flex-shrink:0;margin:0 auto}
+#still svg{display:block;width:100%;height:100%;overflow:visible}
+.receiver-liquid{transform-box:view-box;transform-origin:286px 220px;transform:scaleY(clamp(0,var(--collection),1));transition:transform .18s linear}
+.distill-stream,.still-steam{opacity:0}
+body[data-phase=distilling] .distill-stream{opacity:.8;animation:distill-fall .8s linear infinite}
+body[data-phase=distilling] .still-steam{opacity:.25;animation:still-warm 2.8s ease-in-out infinite}
+#hero #barrel{width:225px;max-width:70%;margin:0;transform-origin:50% 88%}
+#hero #glass-button{width:78px;max-width:26%;min-height:78px;margin:0 -15px 0 -12px;align-self:flex-end;border:0;background:none;padding:0}
+#hero #glass-button:hover{background:none;filter:brightness(1.13)}
+#hero #glass{display:block;width:100%;max-width:100%;margin:0}
+#hero #bottle-object{width:90px;max-width:32%;height:auto;margin:0 auto;flex-shrink:0;transform-origin:50% 95%}
+#hero #bottle-object svg{display:block;width:100%}
+body[data-phase=ready] #barrel,body[data-phase=ready] #glass-button,body[data-phase=ready] #bottle-object,body[data-phase=distilling] #barrel,body[data-phase=distilling] #glass-button,body[data-phase=distilling] #bottle-object{display:none}
+body[data-phase=filling] #hero .objects{height:202px}
+body[data-phase=filling] #still{height:195px;width:292px}
+body[data-phase=filling] #barrel,body[data-phase=filling] #glass-button,body[data-phase=filling] #bottle-object{display:none}
+body[data-phase=watching] #still,body[data-phase=choice] #still{display:none}
+body[data-phase=watching] #bottle-object,body[data-phase=choice] #bottle-object{display:none}
+body[data-phase=bottled] #still,body[data-phase=selling] #still,body[data-phase=bottled] #barrel,body[data-phase=selling] #barrel,body[data-phase=bottled] #glass-button,body[data-phase=selling] #glass-button{display:none}
+body[data-phase=bottled] #hero .objects,body[data-phase=selling] #hero .objects{height:225px}
+body[data-phase=bottled] #hero #bottle-object,body[data-phase=selling] #hero #bottle-object{width:89px;margin-bottom:4px}
+.process-caption{min-height:24px;text-align:center;color:var(--quiet);font-size:13px;max-width:460px;margin:8px auto 0;line-height:1.7}
+.process-caption strong{color:var(--ink);font-weight:500}
+#distillation-panel,#fill-panel{max-width:470px;margin:16px auto 0;text-align:center}
+#distillation-panel h2,#fill-panel h2{font-size:16px;margin-bottom:8px}
+#distillation-panel p,#fill-panel p{font-size:13px;color:var(--quiet);margin:7px 0}
+#distillation-panel button{min-width:170px;margin:10px 4px 0}
+#distillation-panel .collection,#collection,#collection-label{font-size:17px;color:var(--ink);font-variant-numeric:tabular-nums}
+#distillation-panel .distill-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+#distillation-panel .distill-actions button{flex:1;min-width:130px;margin:10px 0 0}
+.cask-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px auto 12px;max-width:430px}
+.cask-options button{padding:11px 10px 13px;background:none;border-color:#56614e;display:flex;flex-direction:column;align-items:center;min-width:0;font-size:14px}
+.cask-options button:hover{background:#2b3830}
+.cask-options button[aria-pressed=true]{background:#303a2f;border-color:var(--amber)}
+.cask-options button>svg,.cask-options .barrel,.cask-options .cask-art,.cask-options .barrel-art{width:85px;max-width:100%;height:96px;margin:0 auto 8px;flex-shrink:0}
+.cask-options .barrel svg,.cask-options .cask-art svg,.cask-options .barrel-art svg{display:block;width:100%;height:100%}
+.cask-options strong{font-size:14px;font-weight:500}
+.cask-options span,.cask-options small{font-size:12px;color:var(--quiet);display:block;margin-top:3px}
+#fill-panel>button,#fill-panel .primary{min-width:210px;margin-top:9px}
+#time-flow{max-width:430px;margin:14px auto 0}
+#time-flow .flow-line{height:2px;background:#303e37;overflow:hidden;position:relative}
+#time-flow .flow-line::after{content:"";display:block;height:100%;width:100%;background:#a39364;transform:scaleX(clamp(0,var(--month-progress),1));transform-origin:left;transition:transform .16s linear;opacity:.7}
+#time-flow p,#time-flow .time-status{color:var(--quiet);font-size:12px;margin-top:7px;min-height:20px}
+#time-flow .time-controls{margin-top:10px;gap:10px;flex-wrap:wrap}
+#time-flow button{font-size:13px;min-height:46px}
+.free-actions{max-width:470px;margin:13px auto 0;gap:10px}
+.free-actions button{font-size:13px;padding:10px 12px}
+.free-actions .taste-button{border-color:#9c8458}
+#tasting-panel,#bottle-tray,.decision{max-width:470px;text-align:left;margin:18px auto 0;padding-top:16px;border-top:1px solid var(--line)}
+#tasting-panel h2,#bottle-tray h2,.decision h2{font-size:16px;font-weight:500}
+#tasting-panel p,#bottle-tray p,.decision p{font-size:14px;line-height:1.75}
+#tasting-panel .quiet,.decision .quiet,#bottle-tray .quiet{font-size:13px;color:var(--quiet)}
+.taste-previous{margin-top:13px;padding-left:12px;border-left:2px solid #786d4d}
+.taste-previous h3{font-size:13px;color:var(--quiet)}
+.taste-previous p,.taste-previous li{font-size:13px}
+.taste-previous ul{padding-left:18px;margin:8px 0}
+.decision .choice{min-height:55px;padding:10px 14px;font-size:14px}
+.decision .choice span{font-size:12px;line-height:1.65}
+#bottle-tray button{margin:9px 6px 0 0}
+#bottle-tray .bottle-actions{display:flex;gap:10px;margin-top:13px}
+#bottle-tray .bottle-actions button{flex:1;min-width:0;margin:0}
+#bottle-tray .quote{font-variant-numeric:tabular-nums}
+#bottle-tray .quote strong{font-size:19px;color:#dbc797;font-weight:500}
+#result{max-width:470px;margin:16px auto 0;text-align:center;padding-top:17px;border-top:1px solid var(--line)}
+#result h2{font-size:18px}
+#result p{font-size:14px;margin-top:8px;line-height:1.75}
+#result .yield{font-size:13px;color:var(--quiet)}
+#result>button{margin-top:17px;min-width:210px}
+#result details{text-align:left;margin-top:16px}
+#result summary{font-size:13px;padding:10px 0;min-height:46px;color:var(--quiet);cursor:pointer}
+#sales-panel{max-width:520px;margin:23px auto 0;text-align:left}
+#sales-panel h2{font-size:16px;font-weight:500}
+#sales-panel>p{font-size:13px;color:var(--quiet);margin:8px 0}
+#sales-panel>button{margin:12px 8px 0 0}
+#shelf{margin:12px 0 0}
+.shelf-product{padding:12px 0 16px;margin-bottom:15px;border-bottom:1px solid #414c42;min-width:0}
+.shelf-product h3{font-size:14px;font-weight:500}
+.shelf-product p{font-size:13px;line-height:1.7;margin-top:5px}
+.shelf-product .shelf-bottles,.shelf-product .bottles{display:flex;justify-content:center;align-items:flex-end;gap:12px;min-height:110px;margin:9px 0 12px;padding:10px 8px 0;border-bottom:4px solid #515545;box-shadow:0 3px 0 #101c1d;background:#152023}
+.shelf-product .shelf-bottles>svg,.shelf-product .bottles>svg,.shelf-product .shelf-bottle{display:block;width:37px;max-width:15%;height:87px;flex:0 1 37px}
+.shelf-product .shelf-bottle svg{display:block;width:100%;height:100%}
+.shelf-product .stock{font-size:14px;font-variant-numeric:tabular-nums}
+.shelf-product small{font-size:12px;color:var(--quiet)}
+.shelf-product .price-options,.shelf-product .price-choices{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.shelf-product .price-options button,.shelf-product .price-choices button{flex:1;min-width:0;min-height:46px;font-size:12px;padding:8px 7px}
+.shelf-product .sold-note{color:#c9b684;font-size:12px}
+.is-tasting #hero .objects{height:190px}
+.is-tasting #hero #barrel{width:158px;opacity:.88}
+.is-tasting #hero #glass-button{width:94px;max-width:33%;margin:0 0 0 8px}
+.is-tasting #hero #glass{width:100%}
+/* Root applies this class only for the short bottle handover, then removes it. */
+.is-bottling #hero .objects{position:relative}
+.is-bottling #hero #barrel{display:block!important;animation:cask-handover .6s ease-out both}
+.is-bottling #hero #glass-button{opacity:0}
+.is-bottling #hero #bottle-object{display:block!important;position:absolute;left:50%;bottom:16px;margin-left:-44px;animation:bottle-handover .6s ease-out both}
+.ledger,.records{font-size:13px;margin-top:23px}
+footer{font-size:12px;margin-top:25px;gap:5px 22px}
+footer details{min-width:160px}
+footer p{font-size:12px}
+#storage-notice,#recovery{font-size:13px}
+[hidden]{display:none!important}
+@keyframes distill-fall{to{stroke-dashoffset:-18}}
+@keyframes still-warm{50%{transform:translateY(-2px);opacity:.12}}
+@keyframes cask-handover{0%,20%{opacity:1;transform:translateX(0)}100%{opacity:0;transform:translateX(-16px)}}
+@keyframes bottle-handover{0%,22%{opacity:0;transform:translateY(5px)}100%{opacity:1;transform:translateY(0)}}
+@media(max-width:430px){
+  .page{padding:15px 18px calc(24px + env(safe-area-inset-bottom))}
+  header h1{font-size:25px}header .edition{font-size:10px}header a{font-size:11px}
+  .wallet{margin-top:12px;font-size:12px;gap:4px 10px;padding:9px 0}.wallet strong{font-size:15px}.wallet small{font-size:10px}
+  .workplace{margin-top:13px}#hero .stamp{font-size:12px;gap:12px}
+  #hero .objects{height:228px;padding:0 5px 7px}
+  #still{height:220px;width:330px}
+  #hero #barrel{width:207px;max-width:70%}
+  #hero #glass-button{width:69px;max-width:26%;min-height:72px;margin-left:-12px;margin-right:-7px}
+  body[data-phase=filling] #hero .objects{height:172px}body[data-phase=filling] #still{height:168px;width:252px}
+  body[data-phase=bottled] #hero .objects,body[data-phase=selling] #hero .objects{height:201px}
+  body[data-phase=bottled] #hero #bottle-object,body[data-phase=selling] #hero #bottle-object{width:80px}
+  .process-caption{font-size:12px;margin-top:6px;min-height:22px}
+  #distillation-panel,#fill-panel{margin-top:13px}#distillation-panel p,#fill-panel p{font-size:12px;line-height:1.75}
+  #distillation-panel h2,#fill-panel h2{font-size:15px}
+  #distillation-panel button{font-size:14px;min-width:160px}
+  .cask-options{gap:10px;margin-top:12px}.cask-options button{padding:9px 7px 11px;font-size:13px}
+  .cask-options button>svg,.cask-options .barrel,.cask-options .cask-art,.cask-options .barrel-art{height:86px;width:77px;margin-bottom:5px}
+  .cask-options strong{font-size:13px}.cask-options span,.cask-options small{font-size:11px}
+  #time-flow{margin-top:12px}.time-controls{gap:8px}#time-flow button{font-size:12px;padding:9px 12px}
+  .free-actions{gap:8px;margin-top:11px}.free-actions button{font-size:13px;padding:9px 8px}
+  #tasting-panel,#bottle-tray,.decision{margin-top:15px;padding-top:13px}
+  #tasting-panel p,#bottle-tray p,.decision p{font-size:13px}
+  .decision .choice{font-size:13px;padding:10px 12px}.decision .choice span{font-size:11px}
+  .is-tasting #hero .objects{height:162px}.is-tasting #hero #barrel{width:136px}.is-tasting #hero #glass-button{width:83px;margin-left:7px}
+  #result{margin-top:14px;padding-top:14px}#result p{font-size:13px}#result h2{font-size:17px}
+  #sales-panel{margin-top:20px}.shelf-product .shelf-bottles,.shelf-product .bottles{gap:8px;min-height:102px}.shelf-product .shelf-bottles>svg,.shelf-product .bottles>svg,.shelf-product .shelf-bottle{height:80px;width:34px;flex-basis:34px}
+  .shelf-product .price-options,.shelf-product .price-choices{gap:6px}.shelf-product .price-options button,.shelf-product .price-choices button{font-size:11px}
+  .is-bottling #hero #bottle-object{margin-left:-40px}
+}
+@media(max-width:350px){
+  .page{padding-left:14px;padding-right:14px}header h1{font-size:23px}.wallet{font-size:11px}
+  #hero .objects{height:205px}#still{height:200px;width:300px}#hero #barrel{width:190px}#hero #glass-button{width:64px}
+  .process-caption{font-size:12px}.cask-options{gap:8px}.cask-options button{padding-left:5px;padding-right:5px}.cask-options strong{font-size:12px}
+  #time-flow button{padding:9px 8px}.free-actions button{font-size:12px}
+  .shelf-product .shelf-bottles,.shelf-product .bottles{gap:6px}.shelf-product .price-options button,.shelf-product .price-choices button{font-size:11px;padding-left:4px;padding-right:4px}
+}
+@media(max-height:600px) and (min-width:500px){
+  .page{padding-top:11px}header h1{font-size:24px}.wallet{margin-top:8px}.workplace{margin-top:10px}
+  #hero .objects{height:170px}#still{height:165px;width:248px}#hero #barrel{width:150px}#hero #glass-button{width:60px;min-height:62px}
+  body[data-phase=bottled] #hero .objects,body[data-phase=selling] #hero .objects{height:163px}body[data-phase=bottled] #hero #bottle-object,body[data-phase=selling] #hero #bottle-object{width:65px}
+  .is-tasting #hero .objects{height:145px}.is-tasting #hero #barrel{width:123px}.is-tasting #hero #glass-button{width:74px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .is-bottling #hero #barrel{display:none!important}.is-bottling #hero #bottle-object{position:static;margin:0 auto;opacity:1}
+  body[data-phase=distilling] .still-steam{opacity:.2}
+}
+
+/* Time advances on this line only while an actual month callback is active. */
+body[data-time=running]:not([data-phase=distilling]) #time-flow .flow-line::after{animation:month-flow var(--month-duration,2200ms) linear infinite}
+body[data-time=paused] .distill-stream,body[data-time=paused] .still-steam{animation-play-state:paused;opacity:.15}
+.price-options{display:flex;gap:8px;margin:12px 0}
+.price-options button{flex:1;min-width:0;padding:9px 7px;font-size:14px}
+.price-options button span{display:block;color:var(--quiet);font-size:12px}
+#bottle-tray p{margin-top:8px}
+@keyframes month-flow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
