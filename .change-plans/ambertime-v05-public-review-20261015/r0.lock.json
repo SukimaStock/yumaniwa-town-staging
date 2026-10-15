@@ -1,0 +1,107 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c77db35a79f039b475a97a98f323e105826f54e16ecd82a649fc35cfa4405abb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v05-public-review-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.5 public playtest: separate pre-shelf and selling visuals; preserve model and saves",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "94190510ca971ec1c9975d777b3a53d17b2d099b",
+    "canonicalSources": [
+      "Public0.5 play at94190510ca971ec1c9975d777b3a53d17b2d099b",
+      "User AmberTime0.5 sections5,9,11,12"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v05-public-review-20261015/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/distillery-app.mjs",
+      "works/ambertime/tests/distillery-ui.test.mjs",
+      "works/ambertime/VERIFICATION-V05.md",
+      "works/ambertime/visual-review/v05/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "tools/**",
+      ".github/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Keep bottled products off selling shelf until explicit list action; stage-specific heading and receipt",
+      "Record actual public PC/mobile and two-batch play, compatibility and limitations with screenshots"
+    ],
+    "ownerDecisions": [
+      "User0.5 explicitly requests own distillation, economic continuity, staged minimal changes, necessary versioned compatibility and independent comparison, Staging merge; no Production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Existing user authorization for necessary public QA fixes and Staging publication",
+      "No model, parameter, save or protected shared files changed",
+      "Plan locked before edits"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "public-two-batch-loop",
+      "public-phone-layout",
+      "old-progress-resume"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only these view changes; no saved data changes",
+    "outOfScope": [
+      "Production",
+      "Other games and Engine",
+      "Expansion/events/missions/new markets",
+      "Pixel art or large animation system",
+      "Automatic reset of existing player data"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Human enjoyment/attachment/tasting intent",
+      "Physical iPhone Safari and finger feel"
+    ],
+    "problem": "Public play shows new bottles on shelf before list action and previous aging receipt beside unsold bottles",
+    "currentContract": "Published0.5 separate bottled and selling phases; existing old saves/readers untouched",
+    "whyExistingIsInsufficient": "View currently draws both phases as a selling shelf",
+    "design": "View-only phase filter and factual labels; preserve every model action and saved byte",
+    "alternativesRejected": [
+      "Change model or save format",
+      "Broader visual redesign"
+    ],
+    "migration": "None; model and save readers unchanged",
+    "compatibility": "Exact existing0.5 saves and0.4 readers remain unchanged",
+    "boundaryCases": [
+      "bottled vs selling with old inventory",
+      "public 320/390/844/1280 layouts",
+      "resume existing0.5 and0.4 progress"
+    ],
+    "testPlan": [
+      "Full91 regression tests plus focused shelf stage assertions",
+      "Scope/Risk/Impact and CI",
+      "Public desktop/mobile and two consecutive paid batches"
+    ],
+    "promotionRisk": "Staging only; never promote active work"
+  }
+}
