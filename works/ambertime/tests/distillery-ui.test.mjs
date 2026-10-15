@@ -59,3 +59,7 @@ test('stale event buttons and duplicate filling cannot change the current barrel
 test('reset during the short bottling handover clears the visual phase too',async()=>{
  const e=await boot({consent:true});e.collect();e.fill('refill');e.click('open-bottle');e.click('confirm-bottle');assert(e.node('body').classes.has('is-bottling'));e.click('reset');assert.equal(e.state().phase,'ready');assert(!e.node('body').classes.has('is-bottling'));assert.equal(e.active(650).length,0);
 });
+
+test('listing a newly bottled spirit explains that the first sales happen next month',async()=>{
+ const e=await boot();e.collect(40);e.fill('refill');e.click('open-bottle');e.click('confirm-bottle');e.fire(650);assert.equal(e.state().core.month,0);assert.equal(e.node('sales-result').textContent,'今回の一本は、まだ販売していません。');e.click('list-bottles');assert.equal(e.node('sales-result').textContent,'次の1か月から販売します。');assert.equal(e.state().core.totals.revenue,0);e.fire(2200);assert(e.node('sales-result').textContent.startsWith('前月 '));assert(e.state().core.totals.revenue>0);
+});

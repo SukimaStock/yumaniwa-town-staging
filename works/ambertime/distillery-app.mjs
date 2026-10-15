@@ -68,7 +68,7 @@ function renderShelf(){
  $('sales-caption').textContent=game.phase==='bottled'?'瓶の中では熟成を止めます。価格を決めて、販売棚へ。':liveStock()>0?'低めなら早く、高めならゆっくり売れます。':'棚の一本を売り終えました。';
  $('list-bottles').hidden=game.phase!=='bottled';
  const last=game.core.lastMonth;
- $('sales-result').textContent=game.phase==='bottled'?'今回の一本は、まだ販売していません。':last?'前月 '+last.bottles+'本販売 · 売上 '+money(last.revenue)+' · 維持費 '+money(last.upkeep):'販売は、棚に並べてから。';
+ $('sales-result').textContent=game.phase==='bottled'?'今回の一本は、まだ販売していません。':last?'前月 '+last.bottles+'本販売 · 売上 '+money(last.revenue)+' · 維持費 '+money(last.upkeep):'次の1か月から販売します。';
  $('next-batch').hidden=game.phase!=='selling';
  const minimum=D.canStart(game).minimum;$('next-batch').disabled=game.core.cash<minimum;$('next-batch').textContent=game.core.cash<minimum?'次の仕込みに '+money(minimum)+' 必要':'次の仕込みへ';
 }
