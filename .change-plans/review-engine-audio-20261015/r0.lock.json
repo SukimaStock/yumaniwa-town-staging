@@ -1,0 +1,103 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "246aa010f0d19a0266f31e724181366ca39785915276ecbc2cd79362db38f198",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "review-engine-audio-20261015",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "b00d1161ffc3ffa1e653f3a448ea8f7decc24fd2",
+    "change": "Repair PR 168 lifecycle audio gesture recovery and retain BGM playback intent without changing public contracts",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "engine/sukimastock-engine.v0.3.0.js",
+      "tests/test-engine-audio-lifecycle.cjs",
+      "PR 168 review comments 4207684503 and 4207684515"
+    ],
+    "allowedPaths": [
+      "engine/sukimastock-engine.v0.3.0.js",
+      "tests/test-engine-audio-lifecycle.cjs",
+      "docs/verification/review-engine-audio-20261015.md",
+      ".change-plans/review-engine-audio-20261015/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Every non-gesture context resume remains retryable from activation",
+      "Preserve lifecycle music intent until playback succeeds or an explicit cancellation removes it",
+      "Rebind pending lifecycle playback to a replacement context resume without duplicate media starts",
+      "Add deterministic regressions for pending, rejected and still-suspended recovery plus explicit cancellation"
+    ],
+    "ownerDecisions": [
+      "User request 2026-10-15 explicitly authorizes minimal technical Staging fixes, tests, PR and safe merge; excludes Production"
+    ],
+    "hqDecisions": [
+      "AI technical design review: keep public Engine audio API, media identity, position, storage and sound settings; make non-gesture resume retryable, retain existing lifecycle set until successful playback, rebind pending requests on gesture recovery using existing cancellation tokens. No new shared contract or authored behavior."
+    ],
+    "rulesApplied": [
+      "AGENTS.md technical delegation and independent review",
+      "CHANGE-PLAN Full locked-before-implementation",
+      "No native Safari success inferred from deterministic mocks"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Read exact Engine diff and deterministic lifecycle trace",
+      "Native Safari/iPhone sound and activation UNVERIFIED"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this Engine-only PR including tests; no stored data migration",
+    "promotion": "none; Staging only",
+    "unverified": [
+      "Native Safari/iOS audio rendering and activation"
+    ],
+    "problem": "Current lifecycle resumes reuse a pending non-gesture promise and clear restore intent before playback succeeds.",
+    "currentContract": "Lifecycle pauses preserve track identity and position and automatic recovery should restore once; explicit mute/pause/stop cancels.",
+    "whyExistingIsInsufficient": "Preparation-only flag misses lifecycle resumes; eager set clearing loses automatic recovery.",
+    "design": "Non-gesture resumes are retryable; a valid gesture unlock rebinds retained lifecycle tracks to the latest context promise. Remove retained intent only on successful media playback; keep existing tokens for cancellation.",
+    "alternativesRejected": [
+      "New audio manager",
+      "Automatic repeated background retries",
+      "Changing work-specific audio APIs"
+    ],
+    "migration": "None",
+    "compatibility": "Existing localStorage, API, track time/loop/rate, gain routing, mute and cancellation are unchanged.",
+    "boundaryCases": [
+      "Never-settling lifecycle native resume",
+      "Rejected resume",
+      "Resolved but suspended",
+      "Interrupted context",
+      "Late stale resume",
+      "Hide/mute/pause/stop/reconfigure during recovery",
+      "Repeated gestures and pending media play"
+    ],
+    "testPlan": [
+      "Existing Engine audio lifecycle/assets/input/diagnostics suites",
+      "New lifecycle-only work recovery on trusted gestures",
+      "Assert no extra native resume or duplicate media starts",
+      "Scope then Risk then Impact gate"
+    ],
+    "promotionRisk": "No Production changes"
+  }
+}

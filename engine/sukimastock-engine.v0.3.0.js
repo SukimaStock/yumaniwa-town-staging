@@ -2227,8 +2227,8 @@
       if (this.contextSuspendPromise) {
         return this.contextSuspendPromise.then(() => this.resumeContext(gesture, preparation));
       }
-      // Preparation may call resume outside activation and leave it pending under
-      // autoplay policy. Preserve the native resume call on the next user gesture.
+      // Any non-gesture resume (including lifecycle recovery) may stay pending
+      // under autoplay policy. Preserve the native call on the next gesture.
       if (this.contextResumePromise && (!gesture || !this.contextResumeNeedsGesture)) return this.contextResumePromise;
       if (ctx.state === "running") return null;
       if (ctx.state === "closed" || typeof ctx.resume !== "function") return Promise.resolve(false);
@@ -2243,7 +2243,7 @@
         if (this.contextResumePromise === pending) { this.contextResumePromise = null; this.contextResumeNeedsGesture = false; }
       });
       this.contextResumePromise = pending;
-      this.contextResumeNeedsGesture = !!preparation;
+      this.contextResumeNeedsGesture = !gesture;
       return pending;
     },
 
@@ -2266,17 +2266,20 @@
       const mustWait = player.started || this.lifecycleContextWasRunning;
       player.playRequested = true;
       const current = () => player.playToken === token && this.musicPlayers[player.name] === player;
-      const finish = () => { if (current()) player.playRequested = false; };
+      const finish = () => { if (current()) { player.playRequested = false; player.playResumePromise = null; } };
       const start = () => {
         if (!current() || !this.enabled || this.lifecycleAudioPaused ||
             (mustWait && player.source && ctx && ctx.state !== "running")) { finish(); return false; }
         // A pending request or repeated work gesture cannot start a second copy.
-        if (!player.audio.paused && !player.audio.ended) { finish(); return true; }
+        if (!player.audio.paused && !player.audio.ended) { this.lifecyclePausedMusic.delete(player.name); finish(); return true; }
         try {
           player.started = true;
           const promise = player.audio.play();
-          if (promise?.then) Promise.resolve(promise).then(finish, finish);
-          else finish();
+          if (promise?.then) Promise.resolve(promise).then(() => {
+            if (current() && !player.audio.paused) this.lifecyclePausedMusic.delete(player.name);
+            finish();
+          }, finish);
+          else { this.lifecyclePausedMusic.delete(player.name); finish(); }
           return true;
         } catch (_error) { finish(); return false; }
       };
@@ -2284,8 +2287,12 @@
       // Every restart after interruption waits for context recovery instead.
       const ready = player.source && mustWait
         ? this.resumeContext() : null;
+      player.playResumePromise = ready;
       if (ready) {
-        ready.then((ok) => { if (ok === false) finish(); else start(); });
+        ready.then((ok) => {
+          if (current()) player.playResumePromise = null;
+          if (ok === false) finish(); else start();
+        });
         return true; // Request accepted; output/autoplay success is not guaranteed.
       }
       return start();
@@ -2294,6 +2301,7 @@
     cancelMusicPlayback(player) {
       player.playToken += 1;
       player.playRequested = false;
+      player.playResumePromise = null;
     },
 
     ensureBuses() {
@@ -2369,10 +2377,21 @@
       return true;
     },
 
-    unlock() {
+    unlock(gesture = false) {
       if (this.unlocked) {
-        if (this.ctx?.state === "suspended") {
-          this.resumeContext(true);
+        if (this.ctx && this.ctx.state !== "running" && (!this.contextResumePromise || gesture)) {
+          this.resumeContext(gesture);
+        }
+        // A replacement resume must also replace playback waiting on the old,
+        // possibly never-settling promise. Explicit pause/stop/mute remove intent.
+        if (gesture && !this.lifecycleAudioPaused && this.enabled) {
+          for (const name of this.lifecyclePausedMusic) {
+            const player = this.musicPlayers[name];
+            if (!player) continue;
+            if (player.playRequested && player.playResumePromise &&
+                player.playResumePromise !== this.contextResumePromise) this.cancelMusicPlayback(player);
+            this.requestMusicPlayback(player);
+          }
         }
         return;
       }
@@ -2923,7 +2942,6 @@
     resumeFromLifecycle() {
       this.lifecycleAudioPaused = false;
       const names = Array.from(this.lifecyclePausedMusic);
-      this.lifecyclePausedMusic.clear();
       if (!this.enabled) return false;
       if (this.lifecycleContextWasRunning || names.length > 0) this.resumeContext();
       for (const name of names) {
@@ -5186,7 +5204,7 @@
 
     userGesture(event) {
       if (event?.isTrusted !== true || this.isEditable(event)) return;
-      try { audio.unlock(); } catch (_error) {}
+      try { audio.unlock(true); } catch (_error) {}
       // unlock() is once-only; a later valid gesture must still resume a suspended context.
       if (audio.ctx?.state === "suspended") {
         audio.resumeContext(true);
