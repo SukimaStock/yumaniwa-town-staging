@@ -10,8 +10,8 @@
     ramp:[[-500,360,-.65],[-270,160,-.85],[-50,65,0],[180,60,0],[330,120,.8],[500,350,.7]],
     steps:[[-500,210,0],[-280,65,-.6],[-100,100,.55],[85,65,-.45],[260,180,.65],[500,240,0]],
     bigU:[[-500,310,-.4],[-360,240,-.85],[-160,95,-.55],[0,48,0],[160,95,.55],[360,240,.85],[500,310,.4]],
-    softWaves:[[-500,200,-.3],[-345,92,-.35],[-190,105,.32],[-50,152,.08],[100,92,-.25],[250,125,.35],[400,102,-.15],[500,150,.2]],
-    doubleBounce:[[-500,230,-.4],[-320,92,-.55],[-170,90,.20],[-45,155,.4],[90,95,-.32],[240,170,.42],[390,120,-.26],[500,170,.15]],
+    softWaves:[[-500,200,-.3],[-345,92,-.35],[-190,105,.32],[-50,152,.08],[100,92,-.25],[250,125,.35],[400,102,-.15],[500,150,.55]],
+    doubleBounce:[[-500,230,-.4],[-320,92,-.55],[-170,90,.20],[-45,155,.4],[90,95,-.32],[240,170,.42],[390,120,-.26],[500,170,.6]],
     halfpipe:[[-500,310,-.3],[-370,185,-1.0],[-170,60,-.45],[0,43,0],[170,60,.45],[370,185,1.0],[500,310,.3]]
   };
   const chainPoints={
@@ -131,6 +131,7 @@
   };
   let kind='pumpkin',terrain='bowl',mode='single',feedback='retry',course,state,activePointer=null,pointerSource=null,axis=0;
   let failedAt=null,fallCount=0,crossed=false,retreated=false;
+  let steeringKeys=new Set(),clickDirection=0,clickUntil=0;
   let keys=new Set(),canvasSize={width:0,height:0,dpr:1},lastTime=0,view=null;
   const byId=id=>doc.getElementById(id);
   function points(){return mode==='risk'?bdVariants.long:mode==='variant'?bdVariants[terrain]:mode==='order'?orderPoints[terrain]:mode==='chain'?chainPoints[terrain]:terrainPoints[terrain]}
@@ -149,7 +150,7 @@
       if(ground.distance<body.r){body.x=ground.x+ground.nx*body.r;body.y=ground.y+ground.ny*body.r}
     }
   };
-  function release(){activePointer=null;pointerSource=null;axis=0;keys.clear();if(state)P.clearInput(state)}
+  function release(){activePointer=null;pointerSource=null;axis=0;keys.clear();steeringKeys.clear();clickDirection=0;clickUntil=0;if(state)P.clearInput(state)}
   function reset(){
     release();
     fallCount=0;crossed=false;failedAt=null;retreated=false;
@@ -313,6 +314,8 @@
   }
   function currentAxis(){
     if(activePointer!==null)return axis;
+    if(steeringKeys.size)return Number(steeringKeys.has(1))-Number(steeringKeys.has(-1));
+    if(state.time<clickUntil)return clickDirection;
     return Number(keys.has('ArrowRight')||keys.has('KeyD'))-Number(keys.has('ArrowLeft')||keys.has('KeyA'));
   }
   function simulate(dt){
@@ -356,6 +359,21 @@
     button.addEventListener('pointerdown',event=>startPointer(event,direction,id));
     for(const type of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(type,endPointer);
     button.addEventListener('contextmenu',event=>event.preventDefault());
+    // Native activation stays useful for keyboards and synthesized AT clicks.
+    // Prevent the native key click so releasing Space does not add another pulse.
+    button.addEventListener('keydown',event=>{
+      if(!['Enter','Space'].includes(event.code)&&!['Enter',' '].includes(event.key))return;
+      event.preventDefault();steeringKeys.add(direction);
+    });
+    button.addEventListener('keyup',event=>{
+      if(!['Enter','Space'].includes(event.code)&&!['Enter',' '].includes(event.key))return;
+      event.preventDefault();steeringKeys.delete(direction);
+    });
+    button.addEventListener('blur',()=>{steeringKeys.delete(direction);clickUntil=0});
+    button.addEventListener('click',event=>{
+      if(event.detail>0||activePointer!==null)return;
+      clickDirection=direction;clickUntil=state.time+.18;
+    });
   }
   for(const type of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(type,endPointer);
   for(const type of ['contextmenu','selectstart','dragstart'])canvas.addEventListener(type,event=>event.preventDefault());
@@ -386,6 +404,24 @@
   for(const b of doc.querySelectorAll('[data-feedback]'))b.addEventListener('click',()=>{feedback=b.dataset.feedback;for(const item of doc.querySelectorAll('[data-feedback]'))item.classList.toggle('active',item===b)});
   for(const b of doc.querySelectorAll('[data-terrain]'))b.addEventListener('click',()=>{if(!terrainPoints[b.dataset.terrain])return;mode='single';terrain=b.dataset.terrain;reset()});
   byId('reset').addEventListener('click',reset);
+  const saveKey='pumpoko-feel-lab-terrains-v1';
+  function readEvaluations(){
+    const items=JSON.parse(root.localStorage.getItem(saveKey)||'[]');
+    if(!Array.isArray(items))throw Error('Invalid saved evaluations');
+    return items;
+  }
+  function showEvaluations(){
+    try{
+      const items=readEvaluations();
+      // Read older saved entries without migrating or overwriting their snapshots.
+      // textContent preserves authored notes without treating them as markup.
+      byId('saved-results').textContent=items.length?items.map((entry,index)=>
+        (index+1)+' / '+items.length+' · '+(entry?.at||'日時なし')+'\n'+
+        (entry?.kind==='pumpkin'?'ROLL · カボチャ':entry?.kind==='rutabaga'?'BOUNCE · ルタバガ':'キャラクター未記録')+' · '+
+        ((entry?.mode==='risk'?riskLabels:entry?.mode==='variant'?variantLabels:entry?.mode==='order'?orderParts:entry?.mode==='chain'?chainDescriptions:descriptions)[entry?.terrain]||entry?.terrain||'地形未記録')+'\n'+
+        ({retry:'もう一回！',good:'良い瞬間',lost:'勢いが切れた'}[entry?.feedback]||'感触未記録')+'\n'+(entry?.note||'メモなし')).join('\n\n'):'まだ記録はありません。';
+    }catch(_){byId('saved-results').textContent='保存した記録を読み込めません。保存データは変更していません。'}
+  }
   byId('save').addEventListener('click',()=>{
     const entry={kind,mode,terrain,feedback,points:points().map(p=>p.slice()),
       ...(mode==='order'?{sourceCourses:orderSpecs[terrain].slice(),junctionX:orderJoinX}:{}),
@@ -397,15 +433,15 @@
         baseline:'order:bd'}:{}),
       note:byId('memo').value.trim(),at:new Date().toISOString()};
     try{
-      const key='pumpoko-feel-lab-terrains-v1';
-      const items=JSON.parse(root.localStorage.getItem(key)||'[]');
-      items.push(entry);root.localStorage.setItem(key,JSON.stringify(items.slice(-50)));
+      const items=readEvaluations();
+      items.push(entry);root.localStorage.setItem(saveKey,JSON.stringify(items.slice(-50)));
+      showEvaluations();
       byId('saved').textContent='地形とメモをこの端末に保存しました（'+Math.min(50,items.length)+'件）';
     }catch(_){byId('saved').textContent='保存できません。メモをコピーしてください。'}
   });
   root.addEventListener('resize',resize);
   if(root.ResizeObserver)new root.ResizeObserver(resize).observe(canvas.parentElement);
-  resize();reset();
+  resize();reset();showEvaluations();
   if(new URLSearchParams(root.location.search).get('dev')==='1'){
     root.FeelLabProbe=()=>({kind,terrain,mode,feedback,parts:mode==='risk'?['rhythm','breath']:mode==='order'?orderSpecs[terrain]:mode==='variant'?(terrain==='repeat'?['rhythm','breath','rhythm']:['rhythm','breath']):null,axis:currentAxis(),x:state[kind].x,y:state[kind].y,
       vx:state[kind].vx,vy:state[kind].vy,time:state.time,gap:activeGap()?{...activeGap()}:null,fallCount,crossed,failedAt,retreated,view:{...view},
