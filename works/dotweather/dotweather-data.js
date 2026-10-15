@@ -52,7 +52,7 @@
   }
 
   function finite(value, fallback) {
-    const number = Number(value);
+    const number = value === null || value === "" || typeof value === "boolean" ? NaN : Number(value);
     return Number.isFinite(number) ? number : fallback;
   }
 
@@ -111,7 +111,7 @@
     const latitude = finite(raw.latitude, NaN);
     const longitude = finite(raw.longitude, NaN);
     const name = String(raw.name || "").trim();
-    if (!name || !Number.isFinite(latitude) || !Number.isFinite(longitude)) return null;
+    if (!name || !Number.isFinite(latitude) || !Number.isFinite(longitude) || Math.abs(latitude) > 90 || Math.abs(longitude) > 180) return null;
 
     const geocodingId = raw.geocodingId ?? raw.openMeteoId ?? raw.id;
     const rawId = String(raw.id || "");
@@ -226,7 +226,7 @@
     if ([71, 73, 75, 77].includes(code)) return { key: "snow", label: code === 71 ? "LIGHT SNOW" : code === 75 ? "HEAVY SNOW" : "SNOW" };
     if ([80, 81, 82].includes(code)) return { key: "rain", label: code === 80 ? "RAIN SHOWERS" : "HEAVY SHOWERS" };
     if (code === 85 || code === 86) return { key: "snow", label: "SNOW SHOWERS" };
-    if ([95, 96, 99].includes(code)) return { key: "thunder", label: "THUNDERSTORM" };
+    if ([95, 96, 97, 99].includes(code)) return { key: "thunder", label: "THUNDERSTORM" };
     return { key: "cloudy", label: "CLOUDY" };
   }
 
@@ -283,8 +283,72 @@
     return result.length > 0 ? result : city.daily;
   }
 
+  const validNumber = (value) => typeof value === "number" && Number.isFinite(value);
+  const validTime = (value) => validNumber(value) && value > 0;
+  const validCode = (value) => [0, 1, 2, 3, 45, 48, 51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 71, 73, 75, 77, 80, 81, 82, 85, 86, 95, 96, 97, 99].includes(value);
+
+  function validatePayload(payload) {
+    const current = payload?.current;
+    if (!current || !validTime(current.time) || !validCode(current.weather_code)) return false;
+    if (!["temperature_2m", "apparent_temperature", "wind_speed_10m", "wind_direction_10m"].every((key) => validNumber(current[key]))) return false;
+    if (![0, 1].includes(current.is_day) || !validNumber(payload.utc_offset_seconds)) return false;
+    for (const [group, fields, minimum] of [
+      [payload.hourly, ["time", "temperature_2m", "weather_code"], 12],
+      [payload.daily, ["time", "temperature_2m_max", "temperature_2m_min", "weather_code"], 5],
+    ]) {
+      if (!group || !fields.every((key) => Array.isArray(group[key]) && group[key].length === group.time?.length) || group.time.length < minimum) return false;
+      if (!group.time.every(validTime) || !group.weather_code.every(validCode)) return false;
+      if (!fields.filter((key) => key !== "time" && key !== "weather_code").every((key) => group[key].every(validNumber))) return false;
+    }
+    // Never fall back to the demo series for a purported live forecast.
+    return payload.hourly.time.filter((time) => time >= current.time - 1800).length >= 10;
+  }
+
+  function validCachedForecast(forecast) {
+    if (!forecast || forecast.dataSource !== "open-meteo" || !validTime(forecast.updatedAt)) return false;
+    const age = Date.now() - forecast.updatedAt;
+    if (age < 0 || age > MAX_CACHE_AGE_MS) return false;
+    if (!["temp", "high", "low", "timezone"].every((key) => validNumber(forecast[key]))) return false;
+    if (!WEATHER_LABELS[forecast.weather] || typeof forecast.description !== "string" || !["day", "night", "dawn", "dusk"].includes(forecast.timeOfDay)) return false;
+    return ["hourly", "daily"].every((key) => Array.isArray(forecast[key]) && forecast[key].length >= (key === "hourly" ? 4 : 5) && forecast[key].every((item) =>
+      item && validTime(item.dt) && WEATHER_LABELS[item.weather] && (key === "hourly" ? validNumber(item.temp) : validNumber(item.high) && validNumber(item.low))));
+  }
+
+  // The deadline includes body consumption, even without AbortController support.
+  async function fetchJson(url, timeoutMs) {
+    const controller = typeof root.AbortController === "function" ? new root.AbortController() : null;
+    let timeout;
+    const deadline = new Promise((_, reject) => {
+      timeout = root.setTimeout(() => {
+        const error = new Error("Request timed out.");
+        error.dotWeather = { type: "timeout" };
+        reject(error);
+        controller?.abort();
+      }, timeoutMs);
+    });
+    try {
+      return await Promise.race([deadline, (async () => {
+        let response;
+        try {
+          response = await root.fetch(url, { method: "GET", mode: "cors", cache: "no-store", signal: controller?.signal });
+        } catch (error) {
+          error.dotWeather = { type: controller?.signal?.aborted ? "timeout" : "network" };
+          throw error;
+        }
+        if (!response?.ok) {
+          const error = new Error("Request failed.");
+          const retryAfter = Number(response?.headers?.get?.("Retry-After"));
+          error.dotWeather = { type: "http", httpStatus: response?.status || 0, retryAfterMs: Number.isFinite(retryAfter) ? Math.max(0, retryAfter * 1000) : 0 };
+          throw error;
+        }
+        try { return await response.json(); }
+        catch (error) { error.dotWeather = { type: controller?.signal?.aborted ? "timeout" : "parse" }; throw error; }
+      })()]);
+    } finally { root.clearTimeout(timeout); }
+  }
+
   function normalizeForecast(city, payload, updatedAt) {
-    if (!payload || payload.error) throw new Error(payload?.reason || "Invalid forecast response.");
+    if (!payload || payload.error || !validatePayload(payload)) throw new Error("Invalid forecast response.");
     const current = payload.current || {};
     const daily = payload.daily || {};
     const currentTime = finite(current.time, Math.floor(updatedAt / 1000));
@@ -437,21 +501,7 @@
         language: "en",
         format: "json",
       });
-      const controller = typeof root.AbortController === "function" ? new root.AbortController() : null;
-      const timeout = root.setTimeout(() => controller?.abort(), GEOCODING_TIMEOUT_MS);
-      let response;
-      try {
-        response = await root.fetch(GEOCODING_ENDPOINT + "?" + params.toString(), {
-          method: "GET",
-          mode: "cors",
-          cache: "no-store",
-          signal: controller?.signal,
-        });
-      } finally {
-        root.clearTimeout(timeout);
-      }
-      if (!response || !response.ok) throw new Error("City search failed: " + (response?.status || "network"));
-      const json = await response.json();
+      const json = await fetchJson(GEOCODING_ENDPOINT + "?" + params.toString(), GEOCODING_TIMEOUT_MS);
       if (json?.error) throw new Error(json.reason || "City search failed.");
       const results = Array.isArray(json?.results) ? json.results : [];
       return results.map((item) => normalizeLocation({
@@ -484,22 +534,22 @@
       if (!cache || cache.version !== CACHE_VERSION || !cache.forecasts) {
         return { applied: 0, updatedAt: 0, stale: true };
       }
-      const age = Date.now() - finite(cache.updatedAt, 0);
-      if (age < 0 || age > MAX_CACHE_AGE_MS) {
-        return { applied: 0, updatedAt: 0, stale: true };
-      }
-
       let applied = 0;
+      let oldest = Infinity;
       for (const [id, forecast] of Object.entries(cache.forecasts)) {
-        if (applyForecast(byId.get(id), forecast)) applied += 1;
+        if (validCachedForecast(forecast) && applyForecast(byId.get(id), forecast)) {
+          applied += 1;
+          oldest = Math.min(oldest, forecast.updatedAt);
+        }
       }
       liveCityCount = applied;
-      lastUpdatedAt = finite(cache.updatedAt, 0);
+      lastUpdatedAt = applied ? oldest : 0;
+      const age = Date.now() - lastUpdatedAt;
       return { applied, updatedAt: lastUpdatedAt, stale: age >= REFRESH_INTERVAL_MS };
     },
 
     hasLiveData() {
-      return liveCityCount > 0;
+      return catalog.some((city) => validCachedForecast(city));
     },
 
     getLastUpdatedAt() {
@@ -509,6 +559,15 @@
     needsRefresh(updatedAt) {
       const timestamp = finite(updatedAt, lastUpdatedAt);
       return !timestamp || Date.now() - timestamp >= REFRESH_INTERVAL_MS;
+    },
+
+    cityDataState(city) {
+      if (!validCachedForecast(city)) return "unavailable";
+      return Date.now() - city.updatedAt >= REFRESH_INTERVAL_MS ? "cached" : "live";
+    },
+
+    needsRefreshForIds(ids) {
+      return this.citiesForIds(ids).some((city) => this.cityDataState(city) !== "live");
     },
 
     async refreshForecasts(ids) {
@@ -528,38 +587,12 @@
       if (cities.length === 0) throw diagnosticError("no_cities", "No cities to update.");
       if (typeof root.fetch !== "function") throw diagnosticError("fetch_unavailable", "Fetch API is unavailable.");
 
-      const controller = typeof root.AbortController === "function" ? new root.AbortController() : null;
-      const timeout = root.setTimeout(() => controller?.abort(), REQUEST_TIMEOUT_MS);
-      let response;
-      try {
-        response = await root.fetch(buildForecastUrl(cities), {
-          method: "GET",
-          mode: "cors",
-          cache: "no-store",
-          signal: controller?.signal,
-        });
-      } catch (error) {
-        const isAbort = error?.name === "AbortError" || controller?.signal?.aborted;
-        throw diagnosticError(
-          isAbort ? "timeout" : "network",
-          isAbort ? "Forecast request timed out." : "Forecast network request failed.",
-          { originalName: String(error?.name || "") }
-        );
-      } finally {
-        root.clearTimeout(timeout);
-      }
-
-      if (!response || !response.ok) {
-        throw diagnosticError("http", "Forecast request failed: " + (response?.status || "network"), {
-          httpStatus: response?.status || 0,
-        });
-      }
-
       let json;
       try {
-        json = await response.json();
-      } catch (_error) {
-        throw diagnosticError("parse", "Forecast response could not be parsed.");
+        json = await fetchJson(buildForecastUrl(cities), REQUEST_TIMEOUT_MS);
+      } catch (error) {
+        const diagnostic = error?.dotWeather || { type: "network" };
+        throw diagnosticError(diagnostic.type, "Forecast request failed.", diagnostic);
       }
 
       const payloads = cities.length === 1 ? [json] : json;

@@ -70,6 +70,13 @@
       this.weatherErrorUntil = 0;
       this.weatherRequest = null;
       this.autoRefreshTimer = 0;
+      this.nextWeatherAttemptAt = 0;
+      this.weatherFailures = 0;
+      this.weatherSucceeded = false;
+      this.weatherFollowup = false;
+      this.resumeWeather = () => {
+        if (this.context && root.document?.visibilityState !== "hidden") this.refreshWeather({ reason: "resume" });
+      };
       this.searchQuery = "";
       this.searchResults = [];
       this.searchStatus = "idle";
@@ -97,11 +104,20 @@
       this.transition.oldSky = null;
       this.transitioning = false;
       this.saveCityState();
+      root.addEventListener?.("online", this.resumeWeather);
+      root.document?.addEventListener?.("visibilitychange", this.resumeWeather);
+      const cached = this.cities.filter((city) => DotWeatherData.cityDataState(city) !== "unavailable");
+      if (cached.length) SSE.analytics.track("Weather Cache Display", {
+        city_count: cached.length,
+        display_state: DotWeatherData.cityDataState(this.getCity()),
+      }, { interactive: false });
       this.refreshWeather({ force: false });
     }
 
     leave() {
       this.context = null;
+      root.removeEventListener?.("online", this.resumeWeather);
+      root.document?.removeEventListener?.("visibilitychange", this.resumeWeather);
       this.dragging = false;
       this.closeCitySearch(true);
     }
@@ -111,11 +127,16 @@
     }
 
     getDisplayCity() {
-      return this.getCity();
+      const city = this.getCity();
+      const state = DotWeatherData.cityDataState(city);
+      if (state === "live") return city;
+      if (state === "cached") return { ...city, description: "CACHED " + this.formatUpdateTime(city.updatedAt) };
+      return { ...city, description: "UNAVAILABLE", temp: NaN, high: NaN, low: NaN, hourly: [], daily: [] };
     }
 
     formatTemperature(value) {
-      const celsius = Number(value) || 0;
+      if (!Number.isFinite(value)) return "--";
+      const celsius = value;
       const display = this.temperatureUnit === "F" ? (celsius * 9) / 5 + 32 : celsius;
       return String(Math.round(display)) + "°";
     }
@@ -145,16 +166,20 @@
     getUpdateValue() {
       if (this.weatherStatus === "loading") return "...";
       if (this.weatherStatus === "error" && Date.now() < this.weatherErrorUntil) return "FAILED";
-      return this.formatUpdateTime(this.weatherUpdatedAt);
+      return this.formatUpdateTime(DotWeatherData.cityDataState(this.getCity()) === "unavailable" ? 0 : this.getCity().updatedAt);
     }
 
     async refreshWeather(options) {
       const opts = options || {};
-      if (this.weatherRequest) return this.weatherRequest;
-      if (!opts.force && !DotWeatherData.needsRefresh(this.weatherUpdatedAt)) return null;
+      if (this.weatherRequest) {
+        if (opts.reason === "city_add") this.weatherFollowup = true;
+        return this.weatherRequest;
+      }
+      if (!opts.force && (Date.now() < this.nextWeatherAttemptAt || (!this.weatherFailures && !DotWeatherData.needsRefreshForIds(this.cityIds)))) return null;
 
       const refreshSource = opts.reason || (opts.force ? "manual" : "auto");
       const requestStartedAt = Date.now();
+      const requestedIds = this.cityIds.slice();
       const hasCustomCities = this.cities.some((city) => !!city?.isCustom);
       const durationBucket = (durationMs) => {
         const ms = Math.max(0, Number(durationMs) || 0);
@@ -172,50 +197,70 @@
       }
 
       this.weatherStatus = "loading";
-      const activeId = this.getCity()?.id;
-      const request = DotWeatherData.refreshForecasts(this.cityIds)
+      let stage = "fetch";
+      const safeTone = (success) => {
+        if (!opts.force) return;
+        try {
+          SSE.audio.tone(success
+            ? { frequency: 390, endFrequency: 520, duration: 0.07, volume: 0.018 }
+            : { frequency: 260, endFrequency: 190, duration: 0.09, volume: 0.018 });
+        } catch (error) { root.console?.warn?.("DotWeather refresh tone failed", error); }
+      };
+      const request = DotWeatherData.refreshForecasts(requestedIds)
         .then((result) => {
-          this.weatherUpdatedAt = result.updatedAt;
-          this.weatherStatus = "live";
-          this.weatherErrorUntil = 0;
+          stage = "display";
+          const activeId = this.getCity()?.id;
           this.refreshCities();
           const activeIndex = this.cityIds.indexOf(activeId);
           this.cityIndex = activeIndex >= 0 ? activeIndex : 0;
           this.world.setCity(this.getCity());
+          this.weatherUpdatedAt = result.updatedAt;
+          this.weatherStatus = "live";
+          this.weatherErrorUntil = 0;
+          this.nextWeatherAttemptAt = 0;
 
           SSE.analytics.track("Weather Load Success", {
             source: refreshSource,
-            city_count: this.cityIds.length,
+            city_count: requestedIds.length,
             has_custom_cities: hasCustomCities,
             duration: durationBucket(result.durationMs ?? (Date.now() - requestStartedAt)),
+            outcome: this.weatherFailures ? "recovered" : (this.weatherSucceeded ? "refresh" : "initial"),
+            failed_attempts: Math.min(this.weatherFailures, 100),
+            display_state: DotWeatherData.cityDataState(this.getCity()),
           }, { interactive: false });
-
-          if (opts.force) {
-            SSE.audio.tone({ frequency: 390, endFrequency: 520, duration: 0.07, volume: 0.018 });
-          }
+          this.weatherFailures = 0;
+          this.weatherSucceeded = true;
+          safeTone(true);
           return result;
         })
         .catch((error) => {
           this.weatherStatus = "error";
           this.weatherErrorUntil = Date.now() + 3000;
+          this.weatherFailures += 1;
           const diagnostic = error?.dotWeather || {};
+          this.nextWeatherAttemptAt = Date.now() + Math.max(60000, Math.min(diagnostic.retryAfterMs || 0, 30 * 60000));
           SSE.analytics.track("Weather Load Error", {
             source: refreshSource,
-            city_count: this.cityIds.length,
+            city_count: requestedIds.length,
             has_cached_data: DotWeatherData.hasLiveData(),
             has_custom_cities: hasCustomCities,
-            error_type: diagnostic.type || "unknown",
+            error_type: stage === "display" ? "display" : (diagnostic.type || "unknown"),
+            stage,
+            display_state: DotWeatherData.cityDataState(this.getCity()),
             http_status: diagnostic.httpStatus ? String(diagnostic.httpStatus) : "none",
             duration: durationBucket(diagnostic.durationMs ?? (Date.now() - requestStartedAt)),
             online: typeof navigator === "undefined" ? "unknown" : (navigator.onLine ? "yes" : "no"),
           }, { interactive: false });
-          if (opts.force) {
-            SSE.audio.tone({ frequency: 260, endFrequency: 190, duration: 0.09, volume: 0.018 });
-          }
+          safeTone(false);
           return null;
         })
         .finally(() => {
           this.weatherRequest = null;
+          // A city added during a request was absent from its snapshot. Fetch it
+          // next, without overlapping requests or restoring the old selection.
+          const changed = this.weatherFollowup || this.cityIds.some((id) => !requestedIds.includes(id));
+          this.weatherFollowup = false;
+          if (changed && this.context) this.refreshWeather({ reason: "city_change" });
         });
 
       this.weatherRequest = request;
@@ -246,7 +291,7 @@
       this.autoRefreshTimer += dt;
       if (this.autoRefreshTimer >= 60) {
         this.autoRefreshTimer = 0;
-        if (!this.weatherRequest && DotWeatherData.needsRefresh(this.weatherUpdatedAt)) {
+        if (!this.weatherRequest && (this.weatherFailures || DotWeatherData.needsRefreshForIds(this.cityIds))) {
           this.refreshWeather({ force: false });
         }
       }
@@ -315,7 +360,7 @@
         align: "center",
       });
 
-      DotWeatherPixel.drawText(city.description, 180, 558, {
+      DotWeatherPixel.drawText(this.getDisplayCity().description, 180, 558, {
         scale: 2,
         spacing: 4,
         color: colors.accent,
@@ -507,9 +552,10 @@
         });
       });
 
-      const sourceLabel = DotWeatherData.hasLiveData()
-        ? "WEATHER DATA: OPEN-METEO"
-        : (this.weatherStatus === "loading" ? "CONNECTING TO OPEN-METEO" : "WEATHER DATA: DEMO");
+      const displayState = DotWeatherData.cityDataState(this.getCity());
+      const sourceLabel = displayState === "live" ? "WEATHER DATA: OPEN-METEO"
+        : (displayState === "cached" ? "CACHED OPEN-METEO DATA"
+          : (this.weatherStatus === "loading" ? "CONNECTING TO OPEN-METEO" : "WEATHER DATA: UNAVAILABLE"));
       DotWeatherPixel.drawText(sourceLabel, 180, frame.y + 34, {
         scale: 1,
         color: colors.sub,
