@@ -97,7 +97,21 @@ test('low funds roll back one whole month and allow bottling/listing to escape',
 test('waiting with unfilled spirit cannot spend its cask and bottle reserve',()=>{
  let s=P.newDistillery(117);while(s.core.cash>560)s=P.tickDistillery(s);
  s=P.startDistillation(s);for(let i=0;i<100;i++)s=P.distillStep(s);
- assert.equal(s.still.phase,'filling');for(let i=0;i<20;i++)s=P.tickDistillery(s);
+ assert.equal(s.still.phase,'distilling');assert.equal(s.still.distillation.progress,99);
+ s=P.stopDistillation(s);assert.equal(s.still.phase,'filling');for(let i=0;i<20;i++)s=P.tickDistillery(s);
  assert.equal(s.still.phase,'filling');assert.equal(P.tickDistillery(s),s);restore(s);
  s=P.fillBarrel(s,'refill');assert.ok(s.core.cash>=P.quote(s,s.core.casks[0].id).cost);restore(s);
+});
+
+// A new batch must not complete without the player's extraction decision.
+test('extraction at the maximum waits for the player and remains saveable',()=>{
+ let s=P.startDistillation(P.newDistillery(411));
+ for(let i=0;i<130;i++)s=P.distillStep(s);
+ assert.equal(s.still.phase,'distilling');
+ assert.equal(s.still.distillation.progress,99);
+ assert.equal(s.operations.filter(o=>o.key==='stop').length,0);
+ restore(s);
+ s=P.stopDistillation(s);
+ assert.equal(s.still.phase,'filling');
+ restore(s);
 });
