@@ -2243,7 +2243,7 @@
         if (this.contextResumePromise === pending) { this.contextResumePromise = null; this.contextResumeNeedsGesture = false; }
       });
       this.contextResumePromise = pending;
-      this.contextResumeNeedsGesture = !gesture;
+      this.contextResumeNeedsGesture = !gesture || preparation;
       return pending;
     },
 
@@ -2377,14 +2377,17 @@
       return true;
     },
 
-    unlock(gesture = false) {
+    // true: observed Engine gesture; false: internal polling; omitted: legacy
+    // caller with unknown activation. Unknown attempts must remain retryable.
+    unlock(gesture) {
+      const attempt = gesture !== false;
       if (this.unlocked) {
-        if (this.ctx && this.ctx.state !== "running" && (!this.contextResumePromise || gesture)) {
-          this.resumeContext(gesture);
+        if (this.ctx && this.ctx.state !== "running" && (!this.contextResumePromise || attempt)) {
+          this.resumeContext(attempt, gesture === undefined);
         }
         // A replacement resume must also replace playback waiting on the old,
         // possibly never-settling promise. Explicit pause/stop/mute remove intent.
-        if (gesture && !this.lifecycleAudioPaused && this.enabled) {
+        if (attempt && !this.lifecycleAudioPaused && this.enabled) {
           for (const name of this.lifecyclePausedMusic) {
             const player = this.musicPlayers[name];
             if (!player) continue;
@@ -2401,7 +2404,7 @@
         Object.keys(this.bufferDefinitions).length > 0 ||
         Object.keys(this.musicDefinitions).length > 0;
 
-      if (needsContext) this.ensureContext(true);
+      if (needsContext) this.ensureContext(gesture === true);
 
       // Legacy HTMLAudio pools still need a gesture unlock on iOS.
       for (const pool of Object.values(this.pools)) {
@@ -2702,7 +2705,7 @@
       const opts = options || {};
       if (!this.cooldownAllows(name, definition, opts)) return false;
 
-      this.unlock();
+      this.unlock(false);
 
       let item = pool.find((candidate) => candidate.paused || candidate.ended);
       if (!item) item = pool[0];
@@ -2801,7 +2804,7 @@
       const player = this.createMusicPlayer(name, definition);
       if (!player) return false;
 
-      this.unlock();
+      this.unlock(false);
       if (this.ctx) this.wireMusicPlayer(player);
 
       const previous = this.currentMusic && this.currentMusic !== name
@@ -2913,7 +2916,7 @@
       const player = target ? this.musicPlayers[target] : null;
       if (!player) return false;
 
-      this.unlock();
+      this.unlock(false);
       if (this.ctx) this.wireMusicPlayer(player);
       else this.applyFallbackMusicVolume(player);
 

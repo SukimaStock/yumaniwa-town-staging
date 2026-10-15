@@ -99,6 +99,7 @@ test('real CoffeeFactory lifecycle callback and frame ensurePlaying share Engine
 
 test('pending preparation resume does not suppress a native gesture or synchronous initial media play',async()=>{
   const h=harness({initialSuspended:true});await h.a.preload();assert.equal(h.resumes.length,1);
+  h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});
   const m=h.start();assert.equal(h.resumes.length,2);assert.equal(m.plays,1);
   await h.recover();assert.equal(m.paused,false);assert.equal(m.plays,1);preserved(h,m);
 });
@@ -151,4 +152,37 @@ test('programmatic request after failed recovery remains replaceable by the next
   h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});assert.equal(h.resumes.length,3);
   h.resumes[2].resolve();await tick();assert.equal(m.plays,2);preserved(h,m);
   h.resumes[1].resolve();await tick();assert.equal(m.plays,2);
+});
+test('public no-argument unlock from a direct control replaces pending lifecycle resume',async()=>{
+  const h=harness(),m=h.start();await tick();h.hidden();await tick();h.visible();
+  // Existing native DOM controls call unlock() directly, outside SSE.input.
+  h.a.unlock();assert.equal(h.resumes.length,2);h.resumes[1].resolve();await tick();
+  assert.equal(m.plays,2);preserved(h,m);h.a.unlock();await tick();assert.equal(m.plays,2);
+  h.resumes[0].resolve();await tick();assert.equal(m.plays,2);
+});
+test('public no-argument unlock replaces a programmatic retry after lifecycle failure',async()=>{
+  const h=harness(),m=h.start();await tick();h.hidden();await tick();h.visible();h.resumes[0].reject(new Error('denied'));await tick();
+  h.a.resumeMusic('song');assert.equal(h.resumes.length,2);
+  h.a.unlock();assert.equal(h.resumes.length,3);h.resumes[2].resolve();await tick();
+  assert.equal(m.plays,2);preserved(h,m);h.resumes[1].resolve();await tick();assert.equal(m.plays,2);
+});
+
+for(const next of ['explicit','omitted'])test('unknown timer unlock cannot consume a later '+next+' activation retry',async()=>{
+  const h=harness(),m=h.start();await tick();h.hidden();await tick();h.visible();
+  h.a.unlock();assert.equal(h.resumes.length,2);assert.equal(h.a.contextResumeNeedsGesture,true);
+  if(next==='explicit')h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});else h.a.unlock();
+  assert.equal(h.resumes.length,3);h.resumes[2].resolve();await tick();assert.equal(m.plays,2);preserved(h,m);
+  h.resumes[1].resolve();h.resumes[0].resolve();await tick();assert.equal(m.plays,2);
+});
+test('unknown timer unlock never replaces a pending known-trusted resume',async()=>{
+  const h=harness(),m=h.start();await tick();h.hidden();await tick();h.visible();h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});
+  assert.equal(h.resumes.length,2);for(let i=0;i<5;i++)h.a.unlock();assert.equal(h.resumes.length,2);assert.equal(h.a.contextResumeNeedsGesture,false);
+  h.resumes[1].resolve();await tick();assert.equal(m.plays,2);preserved(h,m);
+});
+for(const first of ['unknown','programmatic'])test('first-ever '+first+' unlock remains retryable by trusted activation',async()=>{
+  const h=harness({initialSuspended:true});
+  if(first==='unknown')h.a.unlock();else h.a.unlock(false);
+  assert.equal(h.resumes.length,1);assert.equal(h.a.contextResumeNeedsGesture,true);
+  h.w.SSE.input.userGesture({isTrusted:true,target:h.doc});assert.equal(h.resumes.length,2);
+  const m=h.start();h.resumes[1].resolve();await tick();assert.equal(m.plays,1);assert.equal(m.paused,false);preserved(h,m);
 });
