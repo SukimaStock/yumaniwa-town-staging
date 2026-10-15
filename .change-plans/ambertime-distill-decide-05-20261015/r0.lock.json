@@ -1,0 +1,131 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "cc4717b593c9d60787f08333fc63ee0c463170e908c5067e3f80894d869caa3f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-distill-decide-05-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.5 self distillation, explicit time, separate bottling/sales and continuous wallet",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "a502d437c92b4595227c1dcbfe23a542c9acb13e",
+    "canonicalSources": [
+      "Current user AmberTime0.5 sections2,4,5,6,8,9",
+      "Drive SukimaStock/Code/AmberTime.txt id1cAtwEtLj0DoMbrw7XOwI0XdcA2dopTFi",
+      "Drive SukimaStock/note AmberTime article id1OOOp4tyGNoD0IvcCwAitXIUOe5lLV5HH",
+      "works/ambertime/model.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/journey-app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-distill-decide-05-20261015/r0.lock.json",
+      "works/ambertime/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "tools/**",
+      ".github/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Record focused seven-element comparison before code",
+      "Step2 paid short distillation with one actual cut decision and two cask options; explicit stopped/running clock with bounded multi-month advance stopping at decisions",
+      "Step3 keep one continuous core cash/month/totals/products between batches, real bottling cost and sales before next investment; bottle moment distinct from sale",
+      "Reuse0.4 tasting/curves/state events through small compatible hooks, preserve old physics and exact replay",
+      "Versioned0.5 work-local save key protects original economy and0.3/0.4 keys; v04.html uses frozen existing module paths; old records remain accessible without reinterpretation",
+      "Seeded A/B/C multi-batch balance, meaningful tests, independent review, PC/mobile public QA and Staging merge"
+    ],
+    "ownerDecisions": [
+      "User0.5 explicitly requests own distillation, economic continuity, staged minimal changes, necessary versioned compatibility and independent comparison, Staging merge; no Production"
+    ],
+    "hqDecisions": [
+      "Work-local design: a separate versioned0.5 key prevents reinterpretation of0.4 one-shot wallets and exact-replay saves. Existing key values and readers remain untouched; no shared save or Engine contract change. User section9 permits independent comparison and safe versioned save changes."
+    ],
+    "rulesApplied": [
+      "AGENTS required useful delegation and independent review",
+      "Full work-local Plan Lock precedes all repository edits",
+      "Existing active LAB Prototype Bench entry unchanged",
+      "Managed preview boundary: no local server/browser install; public QA after safe Staging CI merge when local control-browser absent"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "self-distillation-and-fill",
+      "two-consecutive-batches-and-sales",
+      "clock-tasting-skip-controls",
+      "pc-mobile-public",
+      "independent-save-and-economic-review"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert work-only0.5 PR; original oldkeys and reader bytes remain valid. New versioned0.5 value remains untouched for later recovery.",
+    "outOfScope": [
+      "Production",
+      "Other games and Engine",
+      "Expansion/events/missions/new markets",
+      "Pixel art or large animation system",
+      "Automatic reset of existing player data"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Human enjoyment/attachment/tasting intent",
+      "Physical iPhone Safari and finger feel"
+    ],
+    "problem": "User play: unclear auto time/skip, no reason to bottle now, no self-produced spirit, no proceeds for next batch",
+    "currentContract": "0.4 version2 exact-replayed single cask save at journey.v1; oldeconomy v1 separatekey; per-round reset currently discards continuous economy",
+    "whyExistingIsInsufficient": "Existing automatic prefilled cask and finish+one sale month do not support paid player distillation and ongoing wallet/products",
+    "design": "One continuous core plus distill/fill/watch/bottle/sale presentation; one cut and two casks, free tasting, explicit time, bounded skip with event stop. Versioned separate work-local save and existing oldreader path.",
+    "alternativesRejected": [
+      "Full legacy restoration",
+      "Reinterpret old one-shot cash as continuous economy",
+      "Erase or overwrite old saves",
+      "Unbounded instant skip",
+      "Shared Engine/UI changes",
+      "New markets/facilities/missions"
+    ],
+    "migration": "Old keys never written or deleted by0.5. Versioned0.5 validated independently; existing0.4 index retained asv04.html with unchanged imports; oldeconomy legacy.html retained. Explicit old-progress link lets user continue without lossy forced migration.",
+    "compatibility": "Original model/parameters and journey validators retained. Optional aging hooks must keep old default behavior identical; no imported0.4 one-shot wallet changes.",
+    "boundaryCases": [
+      "reload during distill/fill/taste/bottle/sales",
+      "hidden and BFCache clocks",
+      "stale/double actions",
+      "bounded fast forward stops at event and before reserved bottling funds exhausted",
+      "insufficient next batch funds while existing stock sells",
+      "no inventory/cash reset",
+      "repeated batches products cap and ledger growth",
+      "corrupt/future old/new saves unchanged",
+      "320/390/844/1280"
+    ],
+    "testPlan": [
+      "Freeze old regression output and oldsave key behavior",
+      "Step2 phase/cut/tasting/event/clock tests beforeStep3 integration",
+      "Step3 real cost/revenue/bottle/sale continuity and lowfund safeguards",
+      "A early/B late/C character multi-batch same seeds and horizon",
+      "Full regression and independent current-save audit",
+      "Scope/Risk/Impact/CI; actual public PC/mobile play and exact deployed-source note"
+    ],
+    "promotionRisk": "Staging only; never promote active work"
+  }
+}
