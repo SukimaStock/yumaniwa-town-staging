@@ -1,0 +1,87 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "da9af04f03321ff6bf5be139764e0168dd84b51afce9a6eae1735edd5e778824",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "dotweather-load-audit-20261015",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Validate forecast/cache integrity, bound complete requests, recover on resume, distinguish acquisition/display and recovery telemetry",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "45c58257604a214718a919c6732f9154e6020078",
+    "canonicalSources": [
+      "works/dotweather/dotweather-data.js",
+      "works/dotweather/dotweather-ui.js",
+      "Drive Analytics export 1_moGkTkHIslLk86t6NxPVxHo-ul3TVwv",
+      "Open-Meteo forecast API documentation"
+    ],
+    "allowedPaths": [
+      ".change-plans/dotweather-load-audit-20261015/r0.lock.json",
+      "works/dotweather/dotweather-data.js",
+      "works/dotweather/dotweather-ui.js",
+      "works/dotweather/index.html",
+      "works/dotweather/tests/**",
+      "works/dotweather/AUDIT-20261015.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "town-analytics.js",
+      "sw.js"
+    ],
+    "expectedChanges": [
+      "Reject missing/null current and forecast data instead of publishing demo as live; validate individual cached forecasts and age",
+      "Keep existing API, storage keys and refresh policy; timeout covers headers and body; recheck selected cities after in-flight membership changes",
+      "Use existing condition/update/source text to mark unavailable or stale weather without new UI surfaces; resume/online recovery and bounded retries",
+      "Preserve failure events; add stage/display state and initial/recovery outcomes plus cache-use event, without location or identifiers",
+      "Regression tests and reproducible audit record including limits"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-15 explicitly authorizes safe minimal DotWeather fixes, work-local measurement improvements, PR review and Staging merge only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md useful independent audit/review; no shared Engine or analytics-system changes",
+      "Released work uses normal locked Standard WORK route"
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "dotweather-regression",
+      "scope-risk-impact"
+    ],
+    "manualChecks": [
+      "desktop-chrome",
+      "mobile-webkit-emulation",
+      "live-api-and-public-staging"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert work-local implementation commit; unchanged storage keys remain compatible; no Production change",
+    "outOfScope": [
+      "API replacement",
+      "Shared Engine or analytics architecture",
+      "Production writes",
+      "New warning or loading surfaces"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari",
+      "Historical per-event causes and cross-event users unavailable from aggregate export"
+    ]
+  }
+}
