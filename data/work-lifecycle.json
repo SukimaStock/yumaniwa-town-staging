@@ -296,6 +296,12 @@
       "status": "active",
       "title": "まき戻る糸",
       "theme": "つまみを引くと糸巻きが回り、離すと静かに巻き戻る"
+    },
+    {
+      "id": "pumpoko-feel-lab",
+      "path": "works/pumpoko-feel-lab",
+      "status": "active",
+      "title": "PUMPOKO · FEEL LAB"
     }
   ]
 }

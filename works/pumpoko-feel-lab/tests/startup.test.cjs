@@ -9,7 +9,7 @@ const { pathToFileURL, fileURLToPath } = require('node:url');
 
 // Load the real page's scripts, in HTML order. Loading physics directly would
 // miss a broken entry-point URL even when every model test still passes.
-function lab() {
+function lab(initialStorage = []) {
   const entry = path.resolve(__dirname, '../index.html');
   const html = fs.readFileSync(entry, 'utf8');
   class Target {
@@ -59,7 +59,7 @@ function lab() {
   canvas.parentElement = new Target('MAIN');
   canvas.getContext = () => ctx;
   canvas.getBoundingClientRect = () => ({ left: 0, top: 0, width: 390, height: 300 });
-  const raf = new Map(), storage = new Map();
+  const raf = new Map(), storage = new Map(initialStorage);
   let serial = 0, now = 100;
   const root = new Target('WINDOW');
   Object.assign(root, {
@@ -190,4 +190,100 @@ test('existing local-save key and experiment data survive the entry-point repair
   assert.equal(entry.risk.gap.b - entry.risk.gap.a, 110);
   assert.ok(entry.points.length > 0);
   assert.match(h.ids.get('saved').textContent, /1件/);
+});
+
+
+test('native steering buttons hold with Enter/Space and AT clicks have a finite pulse', () => {
+  const h = lab();
+  for (const [id, direction, code] of [['left-control', -1, 'Enter'], ['right-control', 1, 'Space']]) {
+    const button = h.ids.get(id);
+    button.emit('keydown', {code});
+    assert.equal(h.probe().axis, direction);
+    h.frames(.3);
+    button.emit('keyup', {code});
+    assert.equal(h.probe().axis, 0);
+    button.emit('click', {detail: 0});
+    assert.equal(h.probe().axis, direction);
+    h.frames(.3);
+    assert.equal(h.probe().axis, 0, 'AT activation never leaves steering held');
+    button.emit('click', {detail: 1});
+    assert.equal(h.probe().axis, 0, 'pointer click does not add another pulse');
+    button.emit('keydown', {code});
+    button.emit('blur');
+    assert.equal(h.probe().axis, 0);
+    button.emit('keydown', {code});
+    h.root.emit('blur');
+    assert.equal(h.probe().axis, 0);
+    button.emit('click', {detail: 0});
+    h.ids.get('reset').emit('click');
+    assert.equal(h.probe().axis, 0);
+  }
+});
+
+test('saved evaluations remain visible after reload without rewriting old records', () => {
+  const key = 'pumpoko-feel-lab-terrains-v1';
+  const entry = {kind:'pumpkin', terrain:'bowl', note:'<img src=x onerror=alert(1)>', points:[[1,2,3]], at:'2026-10-10'};
+  const data = JSON.stringify([entry]);
+  const h = lab([[key,data]]);
+  assert.match(h.ids.get('saved-results').textContent, /2026-10-10/);
+  assert.ok(h.ids.get('saved-results').textContent.includes(entry.note));
+  assert.equal(h.storage.get(key), data, 'read does not migrate saved snapshots');
+  h.ids.get('memo').value = 'another record';
+  h.ids.get('save').emit('click');
+  assert.equal(JSON.stringify(JSON.parse(h.storage.get(key))[0]), JSON.stringify(entry));
+  assert.match(h.ids.get('saved-results').textContent, /another record/);
+  const again = lab([[key,h.storage.get(key)]]);
+  assert.match(again.ids.get('saved-results').textContent, /another record/);
+  assert.match(lab([[key,'{broken']]).ids.get('saved-results').textContent, /読み込めません/);
+  assert.match(lab().ids.get('saved-results').textContent, /まだ記録/);
+});
+
+test('softWaves and doubleBounce radius offsets are regular and resolve to their authored contact', () => {
+  const h = lab(), W = h.root.FruitLabWorld;
+  for (const terrain of ['softWaves', 'doubleBounce']) {
+    h.select('terrain',terrain);
+    h.ids.get('save').emit('click');
+    const points = JSON.parse(h.storage.get('pumpoko-feel-lab-terrains-v1')).at(-1).points;
+    const course = {curves:{surface:points}};
+    for (const r of [36,32]) {
+      for (let x = -499; x < 500; x += .25) {
+        const f = W.curve('surface',x,course);
+        assert.ok(1-r*f.curvature/(1+f.slope*f.slope)**1.5 > .1, terrain+' offset is unfolded');
+        const body = {layer:'surface',x:f.x+f.nx*r,y:f.y+f.ny*r,r};
+        const contact = W.contact(body,course);
+        assert.ok(Math.abs(contact.x-x)<.06, terrain+' contact returns original surface point');
+        assert.ok(Math.abs(contact.distance-r)<1e-5, terrain+' respects fruit radius');
+      }
+    }
+  }
+});
+
+test('terminal-bank traces stay finite with stable contact and bounded speed for both fruits', () => {
+  const h = lab(), P = h.root.FruitLabPhysics, W = h.root.FruitLabWorld;
+  for (const terrain of ['softWaves', 'doubleBounce']) {
+    h.select('terrain',terrain);
+    h.ids.get('save').emit('click');
+    const points=JSON.parse(h.storage.get('pumpoko-feel-lab-terrains-v1')).at(-1).points;
+    const course={curves:{surface:points}};
+    const geometry={contact:b=>W.contact(b,course),frame:x=>W.curve('surface',x,course),constrain(b){
+      const x=Math.max(-500+15+b.r,Math.min(500-15-b.r,b.x));
+      if(x===b.x)return;
+      b.x=x;b.vx*=-.25;
+      const f=W.contact(b,course);
+      if(f.distance<b.r){b.x=f.x+f.nx*b.r;b.y=f.y+f.ny*b.r}
+    }};
+    for(const kind of ['pumpkin','rutabaga']){
+      const s=P.create(kind,P.defaults()),b=s[kind],f=W.curve('surface',360,course);
+      Object.assign(b,{layer:'surface',x:f.x+b.r*f.nx,y:f.y+b.r*f.ny,
+        vx:100*f.tx,vy:100*f.ty,grounded:true});
+      for(let i=0;i<1200;i++){
+        const x=b.x,y=b.y;s.time+=P.STEP;
+        P.integrate(s,b,.7,P.STEP,geometry);
+        for(const v of [b.x,b.y,b.vx,b.vy])assert.ok(Number.isFinite(v));
+        assert.ok(Math.hypot(b.vx,b.vy)<620,'existing velocity cap respected');
+        assert.ok(Math.hypot(b.x-x,b.y-y)<2,'no contact snap at terminal bank');
+        assert.ok(b.r-W.contact(b,course).distance<1e-5,'body remains above support');
+      }
+    }
+  }
 });

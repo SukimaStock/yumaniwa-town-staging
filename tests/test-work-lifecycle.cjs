@@ -205,7 +205,11 @@ test('LAB has seven rooms, unique project placements, current statuses and check
   assert.equal(placed.filter(machine => machine.work.id === 'sukima-3d-lab').length, 1);
   assert.ok(!placed.some(machine => ['pumpoko-02', 'kotsu-koro'].includes(machine.work.id)));
   const feel = placed.find(machine => machine.work.id === 'pumpoko-feel-lab');
-  assert.equal(feel.status, 'active'); assert.equal(feel.work.implicitDefault, true);
+  assert.equal(feel.status, 'active');
+  const feelEntry = data.works.find(work => work.id === 'pumpoko-feel-lab');
+  assert.ok(feelEntry, 'existing Feel Lab is explicitly registered in the canonical ledger');
+  assert.equal(feelEntry.path, 'works/pumpoko-feel-lab');
+  assert.equal(feel.work.implicitDefault, undefined, 'registered work does not rely on fallback');
   for (const machine of machines.filter(machine => machine.href)) {
     const file = machine.href === '?dev=1' ? 'index.html' : machine.href + 'index.html';
     assert.ok(fs.existsSync(path.join(ROOT, file)), file);
