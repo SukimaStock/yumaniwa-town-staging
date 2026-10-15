@@ -1,0 +1,111 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "06edb8f6c04e821b75035c3cfb55d28f25cb9ce4865e6ccf377f438acab48c10",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "touch-debug-panels-20261015",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "a502d437c92b4595227c1dcbfe23a542c9acb13e",
+    "change": "Restore simultaneous Motion and Manipulation debug updates and non-overlapping panels for supported combined specimens.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "works/sukima-3d-lab/app.js",
+      "works/sukima-3d-lab/debug.js",
+      "works/sukima-3d-lab/style.css",
+      "PR #295 discussion_r4248932992"
+    ],
+    "allowedPaths": [
+      ".change-plans/touch-debug-panels-20261015/r0.lock.json",
+      "works/sukima-3d-lab/app.js",
+      "works/sukima-3d-lab/debug.js",
+      "works/sukima-3d-lab/style.css",
+      "works/sukima-3d-lab/index.html",
+      "works/sukima-3d-lab/tests/combined-debug.test.mjs",
+      "works/sukima-3d-lab/tests/combined-debug-fixture.html",
+      "works/sukima-3d-lab/DEBUG-REVIEW-20261015.md",
+      "works/sukima-3d-lab/tests/cache.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "main.js",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Aggregate active panel update handlers without overwriting Motion when Manipulation exists",
+      "Stack debug panels within a single bounded scrollable host",
+      "Exercise supported mixed behavior fixture with actual session/panel logic; leave object definitions, production and normal exhibit untouched",
+      "Use isolated date query URLs for changed app/debug/CSS and validate cache graph without changing unchanged 0.7.1 engine graph"
+    ],
+    "ownerDecisions": [
+      "User instruction 2026-10-15 authorizes current-review verification, minimal Staging fixes, tests, PR and safe merge; Production excluded."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK / Standard locked before implementation; no shared runtime change",
+      "Existing active work, no schema, save, normal exhibition or manipulation changes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Combined fixture validates both live outputs, motion pause/reset, non-overlapping desktop and narrow landscape panels",
+      "Physical iPhone/iPad feel remains UNVERIFIED; no normal interaction changes"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this debug-only Staging PR.",
+    "promotion": "none; staging-only",
+    "outOfScope": [
+      "Production",
+      "Object definitions, normal exhibition and physics changes",
+      "Shared Engine, data registries, other works"
+    ],
+    "unverified": [
+      "Physical device touch feel and Safari GPU rendering"
+    ],
+    "problem": "Author observed that the twenty-model whole-desk layout feels cluttered and too small on iPhone.",
+    "currentContract": "A single shared 3D desk with existing direct model mechanisms, fixed camera and audio is already implemented.",
+    "whyExistingIsInsufficient": "Whole-desk fit and twenty small props weaken touch targets and reception use.",
+    "design": "Retain scene assembly and renderer, author a smaller working group around stamp and map, closer portrait crop, and nearby-miss ray samples with per-object boundaries.",
+    "migration": "No saved state or URLs change. Remove twelve layout references only, never collection definitions.",
+    "compatibility": "Keep the eight original definitions, axes, ranges, fan motion and SSE audio; only work-local composition/input improves.",
+    "promotionRisk": "Staging only.",
+    "alternativesRejected": [
+      "Increasing model count",
+      "Remote whole-desk view",
+      "Adding explanatory panels"
+    ],
+    "boundaryCases": [
+      "Portrait small touch targets",
+      "Partially cropped tabletop but visible objects",
+      "Nearest direct hit must beat enlarged neighbouring targets",
+      "Pointer capture and cancel",
+      "Reading plate map follows hinge and remains non-pickable overlay"
+    ],
+    "testPlan": [
+      "Updated scene tests and source loading count",
+      "Four key models visible projected size improves >=1.5x on iPhone",
+      "Four sizes independent exact and expanded picks",
+      "Offscreen GLES comparison",
+      "Existing manipulation/motion/audio regressions",
+      "Scope Risk Impact and related trusted CI"
+    ]
+  }
+}
