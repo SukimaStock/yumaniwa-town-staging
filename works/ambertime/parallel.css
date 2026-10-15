@@ -106,3 +106,10 @@ footer a{min-height:44px;display:inline-flex;align-items:center}
 #dialog-body>button{min-height:44px;font-size:13px}
 #work-notice{max-width:470px;margin:12px auto 0;text-align:center;font-size:12px;min-height:20px}
 @media(max-width:350px){#cask-rack small{font-size:10px}#cask-rack button>span{width:53px}}
+
+/* The shared dispatcher owns progress; filling keeps the final extraction mark. */
+body[data-room] #time-flow .flow-line::after{animation:none}
+body[data-room=distill][data-phase=filling] #open-fill{border-color:var(--amber);color:var(--ink)}
+/* Keep the SVG alive. Pour only when the barrel-side tasting opens. */
+body[data-room].is-tasting #glass .sample-liquid{animation:pour .45s ease-out;transform-box:view-box;transform-origin:48px 81px}
+@media(prefers-reduced-motion:reduce){body[data-room].is-tasting #glass .sample-liquid{animation:none}}
