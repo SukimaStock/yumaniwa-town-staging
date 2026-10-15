@@ -1,0 +1,117 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "cd5ccf421b66b7ba010fc2d8c8e0e5bd7cd7099e933d665a82686464ba6da5b1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-feel-review-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Repair four verified Feel Lab reviews while preserving existing experiments and saved evaluations",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "aa37b6a5419828f3adacdb5d51cae5af8878b15d",
+    "canonicalSources": [
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-feel-review-20261015/r0.lock.json",
+      "works/pumpoko-feel-lab/app.js",
+      "works/pumpoko-feel-lab/index.html",
+      "works/pumpoko-feel-lab/tests/startup.test.cjs",
+      "works/pumpoko-feel-lab/REVIEW-20261015.md",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/pumpoko/**",
+      "works/feel-studio/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "production"
+    ],
+    "expectedChanges": [
+      "Register existing Feel Lab active identity and regenerate LAB without new placement",
+      "Read existing localStorage evaluation entries in a collapsed accessible history; preserve key, schema, retention and terrain snapshots",
+      "Enable held Enter/Space steering and finite synthesized-click steering; preserve pointer and arrow input and cancellation",
+      "Only soften terminal tangents on softWaves/doubleBounce until radius-offset contact is regular; preserve other 22 courses and physics"
+    ],
+    "ownerDecisions": [
+      "Owner task 2026-10-15 authorizes these technical repairs and safe Staging merge; no creative or Production change"
+    ],
+    "hqDecisions": [
+      "Technical review: preserve existing storage key/schema; native details/pre textContent renders records safely without load or replay or migration; steering finite click pulse uses simulation time and clears on reset/blur/hidden; terrain fix work-local only, shared world and physics unchanged"
+    ],
+    "rulesApplied": [
+      "Plan-only lock first",
+      "AGENTS scoped parallel work",
+      "Existing Lifecycle/LAB generation"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Browser keyboard hold/release and synthetic click steering, pointer regression",
+      "Browser existing saved notes readable after reload and malicious note treated as text",
+      "All 24 courses for both characters finite; geometry contact/velocity/stability before after"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Unchanged PUMPOKO physics.js/world.js/draw.js"
+    ],
+    "rollback": "Revert isolated Staging PR; saved localStorage schema unchanged",
+    "outOfScope": [
+      "Feel Studio",
+      "Physics constants",
+      "Other terrain experiments",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad feel",
+      "Formal verificationState UNVERIFIED"
+    ],
+    "problem": "Four current technical review defects",
+    "currentContract": "Existing per-work experiments, native steering buttons, saved records and explicit lifecycle entries",
+    "whyExistingIsInsufficient": "Pointer-only buttons, append-only storage UI, implicit lifecycle fallback and folded radius offsets",
+    "design": "Minimal local correction described in expectedChanges",
+    "alternativesRejected": [
+      "Shared physics changes",
+      "Save schema migration",
+      "Changing all courses"
+    ],
+    "migration": "None",
+    "compatibility": "Existing saved arrays and terrain snapshots preserved; read only history",
+    "boundaryCases": [
+      "No storage",
+      "Malformed records",
+      "Keyboard release or blur",
+      "Pointer plus keyboard",
+      "Both radii"
+    ],
+    "testPlan": [
+      "Real entry-point VM regression, dense contact scan, fixed-step physics trace comparison and browser where available"
+    ],
+    "promotionRisk": "No Production changes"
+  }
+}
