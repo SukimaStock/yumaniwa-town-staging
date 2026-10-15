@@ -1,0 +1,101 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a13028ba5c890a1ad67d5682c7abb7d52b6acc40c53f8563e1c29f8c04eb76cb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "review-engine-unlock-api-20261015",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "baseSha": "af98f9d7d5dd74d77fc6aa12685ef53b70bf6cc4",
+    "change": "Preserve no-argument public audio unlock gesture semantics and distinguish internal programmatic calls",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "canonicalSources": [
+      "engine/sukimastock-engine.v0.3.0.js",
+      "tests/test-engine-audio-lifecycle.cjs",
+      "PR 381 review 4281565845",
+      "works/engine-canary/app.js:114 and works/ametsugi/app.mjs:58 public caller evidence"
+    ],
+    "allowedPaths": [
+      "engine/sukimastock-engine.v0.3.0.js",
+      "tests/test-engine-audio-lifecycle.cjs",
+      "docs/verification/review-engine-unlock-api-20261015.md",
+      ".change-plans/review-engine-unlock-api-20261015/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Restore public unlock() no-argument gesture behavior for direct DOM controls",
+      "Mark internal play/playMusic/resumeMusic unlock calls non-gesture",
+      "Keep all earlier audio intent, cancellation and no-duplicate guarantees",
+      "Add direct public unlock recovery regressions"
+    ],
+    "ownerDecisions": [
+      "User request 2026-10-15 explicitly authorizes minimal technical Staging fixes, tests, PR and safe merge; excludes Production"
+    ],
+    "hqDecisions": [
+      "AI compatibility design review: restore preexisting public unlock() activation semantics, explicitly identify internal programmatic callers. Existing work files, controls, audio settings, storage and lifecycle contracts unchanged."
+    ],
+    "rulesApplied": [
+      "AGENTS.md technical delegation and independent review",
+      "CHANGE-PLAN Full locked-before-implementation",
+      "No native Safari success inferred from deterministic mocks"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Read exact Engine diff and deterministic lifecycle trace",
+      "Native Safari/iPhone sound and activation UNVERIFIED"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this API compatibility follow-up; no data migration",
+    "promotion": "none; Staging only",
+    "unverified": [
+      "Native Safari/iOS audio rendering and activation"
+    ],
+    "problem": "PR 381 default false unintentionally changed preexisting public no-argument unlock API used by native DOM controls.",
+    "currentContract": "Public unlock() is called synchronously in direct work click handlers; internal programmatic playback also uses it.",
+    "whyExistingIsInsufficient": "Engine trusted input boolean does not reach direct work DOM controls.",
+    "design": "Default optional gesture to true for public compatibility, pass false explicitly at all three internal playback callers. Preserve first-unlock behavior and lifecycle token recovery.",
+    "alternativesRejected": [
+      "New audio manager",
+      "Automatic repeated background retries",
+      "Changing work-specific audio APIs"
+    ],
+    "migration": "None",
+    "compatibility": "Existing localStorage, API, track time/loop/rate, gain routing, mute and cancellation are unchanged.",
+    "boundaryCases": [
+      "Direct no-argument unlock after never-settling lifecycle resume",
+      "Repeated no-argument unlock does not duplicate BGM",
+      "Programmatic resumeMusic after failed recovery remains retryable",
+      "Native DOM controls bypass Engine input event path"
+    ],
+    "testPlan": [
+      "New direct unlock pending lifecycle recovery and failed lifecycle then programmatic recovery regression",
+      "All 151 existing Engine tests plus new tests",
+      "Scope Risk Impact syntax gates exact SHA",
+      "Independent API compatibility review"
+    ],
+    "promotionRisk": "No Production changes"
+  }
+}
