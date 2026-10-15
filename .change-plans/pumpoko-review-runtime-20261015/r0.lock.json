@@ -1,0 +1,82 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "da05e59d0ee0e7e2034595673f29627d8e39d33318b3329575850b4c94092aeb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "pumpoko-review-runtime-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Repair failed-jump terrain occlusion and silent continuation sound button state on current canonical PUMPOKO",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "bfe4ff78c9afa612f7a5eaff33a192ebdc9b2168",
+    "canonicalSources": [
+      "works/pumpoko/world-draw.js",
+      "works/pumpoko/app.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/pumpoko-review-runtime-20261015/r0.lock.json",
+      "works/pumpoko/world-draw.js",
+      "works/pumpoko/app.js",
+      "works/pumpoko/tests/review-runtime.test.cjs",
+      "works/pumpoko/REVIEW-20261015.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**",
+      "works/pumpoko-01/**",
+      "works/pumpoko-02/**"
+    ],
+    "expectedChanges": [
+      "Clip free fruits to existing shared air/gap union so solid banks occlude failed jumps; preserve physics and socket clipping",
+      "Refresh sound button visible and accessible state when silent continuation disables audio",
+      "Behavioral regression and exact base proof permit only these two runtime changes"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes technical investigation, minimal staging fixes, PR and safe staging merge; Production excluded"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Released work requires locked plan before implementation",
+      "Latest canonical directory used; no old PR reopening"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Native Canvas failed-jump rendering before/after on all 16 gaps",
+      "VM UI fallback and sound toggle state"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Engine 0.3.0 unchanged"
+    ],
+    "rollback": "Revert isolated staging PR",
+    "outOfScope": [
+      "Gameplay physics, audio Engine, saved keys, normal control and Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/iPad rendering and audio",
+      "Formal verificationState remains UNVERIFIED"
+    ]
+  }
+}
