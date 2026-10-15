@@ -55,7 +55,7 @@ function recordMarkup(r){
  return '<h2>'+esc(r.name??'この樽の一本')+'</h2><p>'+esc(ageLabel(r.age))+' · '+r.bottles+'本</p><p class="finish-taste">'+(r.taste??[]).map(esc).join(' · ')+'</p><p class="record-description">'+esc(direction)+'を、'+(r.type==='refill'?'リフィル樽':'バーボン樽')+'で育てました。</p><ul class="memories">'+memories.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul><details><summary>蒸留・試飲・判断の記録</summary><p>抽出範囲 '+Math.round((r.cut??0)*100)+'% · 蒸発 '+Number(r.evaporated??0).toFixed(1)+' L</p><ul class="sample-history">'+trials+'</ul><ul class="record-choices">'+choices+'</ul></details>';
 }
 function renderShelf(){
- const current=game.core.products.find(p=>p.id===game.currentProductId),products=game.core.products.filter(p=>p.stock>0||p.id===game.currentProductId);
+ const current=game.core.products.find(p=>p.id===game.currentProductId),products=game.core.products.filter(p=>(p.stock>0||p.id===game.currentProductId)&&!(game.phase==='bottled'&&p.id===game.currentProductId));
  const key=JSON.stringify([products,game.selectedPrice,game.phase]);
  if(key!==shelfKey){
   $('shelf').innerHTML=products.map(p=>'<div class="shelf-product"><div class="shelf-bottles" aria-hidden="true">'+Array.from({length:Math.min(6,p.stock)},()=>'<span class="shelf-bottle">'+bottleArt(p.wood)+'</span>').join('')+'</div><p>'+esc(ageLabel(p.age))+'の一本 · 残り'+p.stock+'本 · '+unitMoney(p.price)+'/本</p></div>').join('');
@@ -64,10 +64,11 @@ function renderShelf(){
  const pk=JSON.stringify([game.currentProductId,game.selectedPrice]);
  if(current&&priceKey!==pk){const prices=D.salePrices(game);$('price-options').innerHTML=['low','standard','high'].map((tier,i)=>'<button type="button" data-tier="'+tier+'" aria-pressed="'+(game.selectedPrice===tier)+'">'+['低め','標準','高め'][i]+'<span>'+unitMoney(prices[tier])+'/本</span></button>').join('');priceKey=pk;}
  $('price-options').hidden=!current||current.stock===0;
+ $('sales-title').textContent=game.phase==='bottled'?'販売棚に並べる':'販売棚';
  $('sales-caption').textContent=game.phase==='bottled'?'瓶の中では熟成を止めます。価格を決めて、販売棚へ。':liveStock()>0?'低めなら早く、高めならゆっくり売れます。':'棚の一本を売り終えました。';
  $('list-bottles').hidden=game.phase!=='bottled';
  const last=game.core.lastMonth;
- $('sales-result').textContent=last?'前月 '+last.bottles+'本販売 · 売上 '+money(last.revenue)+' · 維持費 '+money(last.upkeep):'販売は、棚に並べてから。';
+ $('sales-result').textContent=game.phase==='bottled'?'今回の一本は、まだ販売していません。':last?'前月 '+last.bottles+'本販売 · 売上 '+money(last.revenue)+' · 維持費 '+money(last.upkeep):'販売は、棚に並べてから。';
  $('next-batch').hidden=game.phase!=='selling';
  const minimum=D.canStart(game).minimum;$('next-batch').disabled=game.core.cash<minimum;$('next-batch').textContent=game.core.cash<minimum?'次の仕込みに '+money(minimum)+' 必要':'次の仕込みへ';
 }
@@ -124,7 +125,7 @@ function render(){
  $('toggle-time').textContent=paused?'時間を進める':'時間を止める';
  $('time-status').textContent=quoteOpen?'瓶詰めを考えています · 時間は停止中':tasting?'試飲中 · 時間は停止中':phase==='choice'?'判断を待っています · 時間は停止中':paused?'時間は停止中':phase==='distilling'?'蒸留中 · 自分で抽出を止めます':jump>0?'3か月を順に進めています':['selling','ready'].includes(phase)?'販売中 · 約2秒で1か月':'熟成中 · 約2秒で1か月';
  const last=game.core.lastMonth;$('time-change').textContent=jump>0?(jumpTotal-jump)+' / '+jumpTotal+'か月':last&&aging?'前月の維持費 '+money(last.upkeep)+(last.revenue?' · 棚の売上 '+money(last.revenue):''):'';
- $('ledger-body').innerHTML='<p>蒸留 '+money(P.distillationCost)+' · 維持費累計 '+money(game.core.totals.upkeep)+' · 売上累計 '+money(game.core.totals.revenue)+'</p><p>棚に '+liveStock()+'本 · 仕込み '+game.round+'回目</p>';
+ $('ledger-body').innerHTML='<p>蒸留 '+money(P.distillationCost)+' · 維持費累計 '+money(game.core.totals.upkeep)+' · 売上累計 '+money(game.core.totals.revenue)+'</p><p>瓶在庫 '+liveStock()+'本 · 仕込み '+game.round+'回目</p>';
  $('records').hidden=!game.records.length;
  const rk=JSON.stringify(game.records.map(r=>[r.productId,r.samples,r.choices]));if(rk!==recordKey){$('records-body').innerHTML=game.records.slice().reverse().map(r=>'<article class="record-history">'+recordMarkup(r)+'<p id="record-sale-'+r.productId+'"></p></article>').join('');recordKey=rk;}
  for(const r of game.records)$('record-sale-'+r.productId).textContent='販売 '+(r.sold??0)+'本 · 売上 '+money(r.revenue??0);

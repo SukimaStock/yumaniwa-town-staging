@@ -1,6 +1,6 @@
 <!doctype html><html lang="ja"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#172124">
-<title>AmberTime — 時間を育てる蒸留所</title><link rel="stylesheet" href="./distillery.css?v=0.5"><script type="module" src="./distillery-app.mjs?v=0.5"></script></head>
+<title>AmberTime — 時間を育てる蒸留所</title><link rel="stylesheet" href="./distillery.css?v=0.5"><script type="module" src="./distillery-app.mjs?v=0.5.1"></script></head>
 <body><div class="page">
 <header><div><h1>AmberTime</h1><span class="edition">0.5 · Distill & Decide</span></div><div class="wallet"><span>所持金</span><strong id="cash"></strong><span id="calendar"></span></div></header>
 <p id="storage-notice" role="status" hidden></p><p id="old-progress" class="quiet" hidden>0.4の進行と記録は残っています。<a href="./v04.html">続きを開く</a></p>
@@ -17,7 +17,7 @@
 <section id="decision" class="decision" aria-live="polite" hidden></section>
 <section id="bottle-tray" class="bottle-tray" aria-label="瓶詰めの確認" hidden><h2>今の風味を瓶に残す</h2><p id="bottle-taste"></p><p id="bottle-quote"></p><p id="bottle-wait" class="quiet"></p><div class="free-actions"><button id="confirm-bottle" type="button">瓶詰めする</button><button id="cancel-bottle" type="button">樽へ戻る</button></div></section>
 <section id="result" class="result" hidden></section>
-<section id="sales-panel" aria-label="販売棚" hidden><h2>販売棚に並べる</h2><p id="sales-caption" class="process-caption"></p><div id="price-options" class="price-options" aria-label="今回の一本の価格"></div><button id="list-bottles" type="button">この価格で棚に並べる</button><div id="shelf" class="shelf"></div><p id="sales-result" class="quiet" role="status"></p><button id="next-batch" type="button">次の仕込みへ</button></section>
+<section id="sales-panel" aria-label="販売棚" hidden><h2 id="sales-title">販売棚に並べる</h2><p id="sales-caption" class="process-caption"></p><div id="price-options" class="price-options" aria-label="今回の一本の価格"></div><button id="list-bottles" type="button">この価格で棚に並べる</button><div id="shelf" class="shelf"></div><p id="sales-result" class="quiet" role="status"></p><button id="next-batch" type="button">次の仕込みへ</button></section>
 <div id="time-flow" hidden><div class="flow-line" aria-hidden="true"></div><p id="time-status" class="time-status" role="status"></p><div id="time-controls" class="time-controls"><button id="toggle-time" type="button">時間を止める</button><button id="skip" type="button">3か月進める</button></div><p id="time-change" class="quiet" role="status"></p></div>
 <details id="ledger" class="ledger"><summary>仕込みの帳面</summary><div id="ledger-body"></div></details>
 <details id="records" class="records" hidden><summary>これまでの一本</summary><div id="records-body"></div></details>
