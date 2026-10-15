@@ -7,7 +7,7 @@ const original=f=>cp.execFileSync('git',['show',BASE+':works/pumpoko/'+f],{encod
 function oldDraw(w){return Function('window',original('world-draw.js')+';return window.PumpokoWorldDraw;')(w);}
 function pixels(w,draw,world,view){const canvas=createCanvas(390,740),c=canvas.getContext('2d');c.fillStyle=w.PumpokoMaterial.air;c.fillRect(0,0,390,740);c.translate(0,740);c.scale(1,-1);draw(c,world,view);return Buffer.from(c.getImageData(0,0,390,740).data);}
 test('only authorized runtime edits differ from the current canonical baseline',()=>{
- assert.equal(source('app.js').replace('        root.SSE.audio.unlock();\n','').replace("setEnabled(false);label();sync();","setEnabled(false);sync();"),original('app.js'));
+ assert.equal(require('./music-gate.test.cjs').undoMusicRepair(source('app.js')).replace('        root.SSE.audio.unlock();\n','').replace("setEnabled(false);label();sync();","setEnabled(false);sync();"),original('app.js'));
  assert.equal(source('world-draw.js').replace('    for(const b of free){\n      c.save();\n      // Only failed crossings below their floor need terrain occlusion.\n      if(b.y<W.curve(b.layer,b.x,course).y)air(c,left,right,Math.max(1100,camera.y+1000/z),surface,spaces);\n      fruit(b);c.restore();\n    }','    for(const b of free)fruit(b);'),original('world-draw.js'));
  for(const f of ['physics.js','world.js','courses.js','story.js','draw.js','material.js','opening.js','opening-draw.js','prologue.js','title-draw.js','index.html','style.css'])assert.equal(source(f),original(f),f);
 });
