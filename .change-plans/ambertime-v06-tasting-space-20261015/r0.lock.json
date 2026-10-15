@@ -1,0 +1,77 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6251196d2a3038c8517a66edaaa0ef9f17f5a9131d39a50b45e97f03d6efc0d9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v06-tasting-space-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Preserve control layout space during tasting to prevent vertical scroll clamping",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "ed44f51f8a83c7a90036707b77c2e45647d865ea",
+    "canonicalSources": [
+      "Authorized PR399 public QA and user merge approval",
+      "Observed PR401 fixes width but hidden controls cause viewport scroll clamp by56px"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v06-tasting-space-20261015/r0.lock.json",
+      "works/ambertime/distillery.css",
+      "works/ambertime/index.html",
+      "works/ambertime/design/v06/IMPLEMENTATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/distillery-parameters.mjs",
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Preserve hidden free actions, time controls and existing choice space during tasting; still hide them visually and accessibly",
+      "Update CSS cache reference and document second observed geometry correction"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "public-browser-pc-390-320",
+      "barrel-geometry-before-after",
+      "two-cask-sales-and-stale-request-fixture"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert CSS/index cache reference only; saves unaffected",
+    "outOfScope": [
+      "Game logic and save changes",
+      "Production",
+      "Other works and shared Engine"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Human enjoyment or physical iPhone touch evaluation",
+      "Production excluded"
+    ],
+    "rulesApplied": [
+      "Second bounded correction for same observed geometry issue; at most3 attempts",
+      "Standard locked WORK path; no runtime or save change"
+    ]
+  }
+}
