@@ -2,6 +2,8 @@
 
 /* 0.5 lives alongside the original journey. This sheet is never loaded by v04. */
 :root{--bg:#172124;--ink:#e7ddbd;--quiet:#b0b5a5;--line:#4b554b;--amber:#d3ad68;--collection:0;--month-progress:0}
+/* Keep the barrel still when tasting hides the page scrollbar. */
+html{scrollbar-gutter:stable}
 body{min-width:280px}
 .page{width:min(100%,700px);padding:20px 26px calc(30px + env(safe-area-inset-bottom))}
 button{min-height:46px;touch-action:manipulation}
