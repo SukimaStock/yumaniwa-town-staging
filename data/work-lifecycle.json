@@ -302,6 +302,13 @@
       "path": "works/pumpoko-feel-lab",
       "status": "active",
       "title": "PUMPOKO · FEEL LAB"
+    },
+    {
+      "id": "mawarikiru-coin",
+      "path": "works/mawarikiru-coin",
+      "status": "active",
+      "title": "まわりきる硬貨",
+      "theme": "短く払うと回り、傾きながら細かく揺れて、最後にぺたりと寝る"
     }
   ]
 }
