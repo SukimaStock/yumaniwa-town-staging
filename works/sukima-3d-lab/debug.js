@@ -1,3 +1,4 @@
+import {createManipulationPanel} from './manipulation-debug.js?v=0.7.1';
 import {FEEL_PROFILES,DEFAULT_FEEL} from './engine/response.js?v=0.7.1';
 // UI only. The normal app calls this factory exclusively when ?debug is present.
 export function createDebugPanel(body,input,host,readGlError=()=> '未使用') {
@@ -28,4 +29,19 @@ export function createDebugPanel(body,input,host,readGlError=()=> '未使用') {
   output.textContent=`${body.feel} · ${body.mesh.faces?.length??'—'} faces / ${body.mesh.triangles.length} triangles · DPR ${Math.min(2,devicePixelRatio)}\n${input.pointer?.mode??'idle'} · face ${body.pull?.face??body.pressure?.face??'—'} · speed ${Math.hypot(...body.velocity).toFixed(2)} · GL ${readGlError()}${body.shapeLimits?`\nshape cap · press ${body.shapeLimits.pressDepth} / pull ${body.shapeLimits.maxPull}`:''}`;
  };
  update();return {element:panel,update};
+}
+
+// One owner for all active debug panels; a supported specimen can have both
+// authored Motion and user Manipulation on different rigid parts.
+export function createDebugPanels(session,input,host,onChange,readGlError){
+ const stack=document.createElement('div');stack.className='debug-stack';host.append(stack);
+ const panels=[];
+ if(session.body.touchEnabled)panels.push(createDebugPanel(session.body,input,stack,readGlError));
+ if(session.motion){
+  const panel=document.createElement('div'),output=document.createElement('output');panel.className='debug';panel.append(output);stack.append(panel);
+  panels.push({update(){output.textContent=`MOTION ${session.motion.playing?'PLAY':'PAUSE'} / ${session.motion.time.toFixed(2)}s\n${session.motion.tracks.map(t=>`${t.part}: ${t.type}`).join('\n')}`;}});
+ }
+ if(session.manipulation)panels.push(createManipulationPanel(session.manipulation,input,stack,onChange));
+ const update=()=>{for(const panel of panels)panel.update();};
+ update();return {update};
 }

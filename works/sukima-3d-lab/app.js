@@ -1,14 +1,13 @@
 import {pickMesh} from './engine/geometry.js?v=0.7.1';
 import {Camera} from './engine/camera.js?v=0.7.1';
 import {SpecimenSession} from './engine/session.js?v=0.7.1';
-import {createDebugPanel} from './debug.js?v=0.7.1';
+import {createDebugPanels} from './debug.js?v=debug-20261015';
 import {PointerInput} from './engine/interaction.js?v=0.7.1';
 import {Renderer} from './engine/renderer.js?v=0.7.1';
 import {AnimationLoop} from './engine/loop.js?v=0.7.1';
 import {loadCollection} from './collection.js?v=0.7.1';
 import {previewSvg,previewRaster} from './preview.js?v=0.7.1';
 import {manipulationMapping} from './engine/manipulation-mapping.js?v=0.7.1';
-import {createManipulationPanel} from './manipulation-debug.js?v=0.7.1';
 const canvas=document.querySelector('#solid'),notice=document.querySelector('#notice'),hint=document.querySelector('#hint');
 const collectionView=document.querySelector('#collection-view'),touchView=document.querySelector('#touch-view'),grid=document.querySelector('#collection-grid'),status=document.querySelector('#collection-status');
 const session=new SpecimenSession(),camera=new Camera(),debugHost=document.querySelector('#debug-host');
@@ -54,12 +53,7 @@ function show(index){
  if(contextLost){canvas.hidden=true;message('描画を一時停止しました。');}
  motionButton.disabled=!renderer||contextLost;
  if(debugMode){
-  if(session.body.touchEnabled)debug=createDebugPanel(session.body,input,debugHost,()=>renderer?renderer.gl.getError():'非対応');
-  if(session.motion){
-   const panel=document.createElement('div'),output=document.createElement('output');panel.className='debug';panel.append(output);debugHost.append(panel);
-   debug={update(){output.textContent=`MOTION ${session.motion.playing?'PLAY':'PAUSE'} / ${session.motion.time.toFixed(2)}s\n${session.motion.tracks.map(t=>`${t.part}: ${t.type}`).join('\n')}`;}};debug.update();
-  }
-  if(controls)debug=createManipulationPanel(session.manipulation,input,debugHost,resize);
+  debug=createDebugPanels(session,input,debugHost,resize,()=>renderer?renderer.gl.getError():'非対応');
   window.touchLab={body:session.body,mesh:session.mesh,motion:session.motion,manipulation:session.manipulation,camera,pick,renderer,input,loop};
  }
  resize();resume();if(!canvas.hidden)canvas.focus({preventScroll:true});else document.querySelector('#back').focus({preventScroll:true});

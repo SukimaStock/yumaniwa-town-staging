@@ -1,0 +1,25 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Motion + Manipulation · debug regression fixture</title>
+<link rel="stylesheet" href="../style.css?v=debug-20261015">
+<style>#controls{position:absolute;top:16px;left:16px;display:flex;gap:12px;flex-wrap:wrap;max-width:45%}#controls button{padding:8px}</style>
+<main><div id="controls"><button id="play">Motion pause/play</button><button id="move">Manipulate leaf</button><button id="reset">Reset</button><button id="reopen">Reopen</button></div><div id="debug-host"></div></main>
+<script type="module">
+import {SpecimenSession} from '../engine/session.js?v=0.7.1';
+import {createDebugPanels} from '../debug.js?v=debug-20261015';
+const definition=await (await fetch('../objects/door.json')).json();
+// Use two different parts, as supported by the current schema; never register
+// or modify a gallery specimen just to exercise this debug-only combination.
+definition.behaviors.motion={version:1,tracks:[{part:'lintel',type:'spin',axis:[0,1,0],pivot:[0,0,0],speed:.2,initialAngle:0}]};
+const session=new SpecimenSession(),host=document.querySelector('#debug-host');
+let debug;
+function reopen(){host.replaceChildren();session.select(definition);debug=createDebugPanels(session,{pointer:null,cancel(){}},host,()=>{});}
+reopen();
+document.querySelector('#play').onclick=()=>{session.motion.setPlaying(!session.motion.playing);debug.update();};
+document.querySelector('#move').onclick=()=>{const c=session.manipulation.controls[0];session.manipulation.grab(c.part);session.manipulation.moveBy(c.part,-.1,1/60);session.manipulation.release();debug.update();};
+document.querySelector('#reset').onclick=()=>{session.resetPose();debug.update();};
+document.querySelector('#reopen').onclick=reopen;
+let previous;
+function frame(time){if(previous!==undefined)session.step(Math.min(.05,(time-previous)/1000));previous=time;debug.update();requestAnimationFrame(frame);}
+requestAnimationFrame(frame);
+window.fixture={session,get debug(){return debug;}};
+</script></html>
