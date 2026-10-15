@@ -1,0 +1,91 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6cb57b92674961aafdec089094ce8030d6a53ca77a03c6835148cb275308e1a5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v06-foundation-tasting-20261015",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime v06 roadmap steps 1-2: shared monthly boundary and barrel-side tasting",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "acff4c14e404e04bf37712c9697712f45f659520",
+    "canonicalSources": [
+      "Current user implementation request",
+      "works/ambertime/design/v06/DESIGN.md",
+      "Existing model, character and distillery controllers"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v06-foundation-tasting-20261015/r0.lock.json",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/distillery-app.mjs",
+      "works/ambertime/distillery.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tasting-view.mjs",
+      "works/ambertime/tests/**",
+      "works/ambertime/design/v06/IMPLEMENTATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/distillery-parameters.mjs",
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Extract observation-only cask detection preserving old defaults; one monthly boundary updates two casks and sales once, rejects stale month requests",
+      "Current distillery uses same monthly boundary preserving 0.5 save replay and economic outputs",
+      "Tasting stays beside barrel, concise flavor/change; full samples in ledger; pause/resume and stale timer guards",
+      "Deterministic regression, historical save checkpoints, independent review, public desktop/mobile browser QA and work-local implementation record"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "node-regression-and-old-save-checkpoints",
+      "independent-review",
+      "public-browser-pc-and-phone",
+      "two-cask-sales-fixture",
+      "save-key-and-schema-preservation"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this work-local PR; existing save keys/schema and operation outputs remain compatible",
+    "outOfScope": [
+      "New persisted multi-cask schema or migration",
+      "Three-room gameplay UI",
+      "Economic/aging parameter changes",
+      "Production",
+      "Shared Engine or other works"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Human enjoyment or physical iPhone touch evaluation",
+      "Production excluded"
+    ],
+    "rulesApplied": [
+      "User authorizes roadmap steps 1 and 2 through safe Staging merge",
+      "Standard WORK plan; no save format or shared contract migration",
+      "Independent review and trusted static node-syntax; preserve legacy routes"
+    ]
+  }
+}

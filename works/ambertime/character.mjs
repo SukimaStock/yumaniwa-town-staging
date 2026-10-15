@@ -39,7 +39,14 @@ function detect(j,onFinish=finishCharacterMutable) {
 }
 export function tickCharacter(j,onFinish=finishCharacterMutable) {
   if(j.phase!=='watching'||j.view==='tasting')return j;
-  const s=copy(j);s.core=advanceMonth(s.core);s.peakCharacter=Math.max(s.peakCharacter,caskOf(s).character);detect(s,onFinish);return s;
+  const s=copy(j);s.core=advanceMonth(s.core);return observeCharacterMonth(s,onFinish);
+}
+// Observe an already-aged barrel. This does not advance the shared clock.
+// Multi-barrel callers must supply a decision-only onFinish callback: the
+// legacy default deliberately preserves its original bottling/month behavior.
+export function observeCharacterMonth(j,onFinish=finishCharacterMutable) {
+  if(j.phase!=='watching'||j.view==='tasting')return j;
+  const s=copy(j);s.peakCharacter=Math.max(s.peakCharacter,caskOf(s).character);detect(s,onFinish);return s;
 }
 export function sampleCharacter(j) {
   assert(j.phase!=='finished','完成した一本は記録から見返せます。');

@@ -190,3 +190,22 @@ body[data-time=paused] .distill-stream,body[data-time=paused] .still-steam{anima
 .price-options button span{display:block;color:var(--quiet);font-size:12px}
 #bottle-tray p{margin-top:8px}
 @keyframes month-flow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* v06: tasting belongs to the object area, with a stable barrel position. */
+body:is([data-phase=watching],[data-phase=choice]) #hero .objects{height:290px;display:block;padding:0}
+body:is([data-phase=watching],[data-phase=choice]) #hero #barrel{position:absolute;left:4%;bottom:12px;width:210px;max-width:45%;opacity:1}
+body:is([data-phase=watching],[data-phase=choice]) #hero #glass-button{position:absolute;left:15%;right:auto;bottom:10px;width:70px;max-width:24%;min-height:70px;margin:0}
+#hero #tasting-panel{position:absolute;right:0;top:0;width:49%;max-width:240px;margin:0;padding:10px 0 8px 12px;border-top:0;border-left:1px solid var(--line);text-align:left;background:var(--bg)}
+#hero #tasting-panel h2{font-size:14px;margin:0 0 8px}
+#hero #tasting-panel p{font-size:13px;line-height:1.5;margin:5px 0}
+#taste-current span{display:block;font-size:11px;color:var(--quiet)}
+#hero #taste-previous{font-size:12px;line-height:1.6;border:0;padding:0;margin:8px 0;color:var(--quiet)}
+#hero #tasting-panel .free-actions{display:grid;gap:6px;margin-top:8px}
+#hero #tasting-panel button{min-height:44px;padding:8px 4px;font-size:12px}
+.sample-history{padding-left:20px}.sample-history li{margin:12px 0}.sample-history time{color:var(--amber)}
+@media(max-width:430px){
+ body:is([data-phase=watching],[data-phase=choice]) #hero .objects{height:360px}
+ body:is([data-phase=watching],[data-phase=choice]) #hero #barrel{left:0;bottom:70px;width:165px;max-width:46%}
+ body:is([data-phase=watching],[data-phase=choice]) #hero #glass-button{left:12%;right:auto;bottom:8px;width:65px}
+ #hero #tasting-panel{width:51%;padding-left:9px;top:7px}
+}

@@ -1,4 +1,5 @@
-import * as D from './distillery.mjs?v=0.5';
+import {shortTaste,shortChange} from './tasting-view.mjs?v=0.6';
+import * as D from './distillery.mjs?v=0.6';
 import {PARAMETERS as P} from './parameters.mjs';
 import {ageLabel,monthLabel,marketValue} from './model.mjs';
 import {barrel,glass,bottleArt} from './art.mjs?v=0.5';
@@ -11,10 +12,11 @@ const unitMoney=n=>'£'+Number(n).toFixed(2);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const query=new URLSearchParams(location.search),preview=query.get('preview')==='1';
 const chosenSeed=Number(query.get('seed')),seed=preview&&Number.isInteger(chosenSeed)&&chosenSeed>0&&chosenSeed<=4294967295?chosenSeed:20261015;
+let clockGeneration=0;
 let game=null,paused=true,timer=null,canSave=!preview,quoteOpen=false,quoteWasPaused=true,tasteWasPaused=true,jump=0,jumpTotal=0,jumpWasPaused=true,animation=null,animating=false,lastPhase='',barrelKey='',recordKey='',fillKey='',shelfKey='',resultKey='',priceKey='';
 $('still').innerHTML=stillArt();
 function notice(text){$('storage-notice').textContent=text;$('storage-notice').hidden=!text;}
-function stopClock(){if(timer!==null){clearTimeout(timer);timer=null;}}
+function stopClock(){clockGeneration++;if(timer!==null){clearTimeout(timer);timer=null;}}
 function persist(){
  if(preview){$('save-status').textContent='試遊中 · 保存しません';return;}
  if(!canSave||!game)return;
@@ -25,12 +27,13 @@ const liveStock=()=>game.core.products.reduce((n,p)=>n+p.stock,0);
 const monthAllowed=()=>game&&game.view!=='tasting'&&!quoteOpen&&!animating&&(['watching','selling'].includes(game.phase)||game.phase==='ready'&&liveStock()>0);
 function schedule(){
  stopClock();if(!game||paused||document.hidden||quoteOpen||animating||game.view==='tasting')return;
+ const generation=clockGeneration,expectedMonth=game.core.month;
  const distilling=game.phase==='distilling';if(!distilling&&!monthAllowed())return;
  timer=setTimeout(()=>{
-  timer=null;if(paused||document.hidden||quoteOpen||animating||game.view==='tasting')return;
+  if(generation!==clockGeneration)return;timer=null;if(paused||document.hidden||quoteOpen||animating||game.view==='tasting')return;
   if(distilling){if(game.phase!=='distilling')return;game=D.distillStep(game);if(game.phase!=='distilling'||game.distillation.progress%5===0)persist();render();}
   else{
-   if(!monthAllowed())return;const before=game.core.month;game=D.tickDistillery(game);if(game.core.month===before&&game.phase!=='choice'){paused=true;notice('維持費を残せないため、時間を止めています。販売価格と帳面を確かめられます。');}persist();render();
+   if(!monthAllowed())return;const before=game.core.month;game=D.tickDistillery(game,expectedMonth);if(game.core.month===before&&game.phase!=='choice'){paused=true;notice('維持費を残せないため、時間を止めています。販売価格と帳面を確かめられます。');}persist();render();
    if(jump>0){jump--;if(!monthAllowed()||jump===0){jump=0;paused=jumpWasPaused;render();}}
    if(game.core.month!==before){document.body.dataset.motion='month';}
    if(game.phase==='selling'&&liveStock()===0){paused=true;render();}
@@ -43,9 +46,9 @@ function sampleText(s){return (s?.text??[]).join(' · ');}
 function renderTasting(){
  const c=D.comparison(game);if(!c.current)return;
  $('taste-date').textContent=ageLabel(c.current.age)+'の試飲';
- $('taste-current').innerHTML=c.current.text.map((t,i)=>'<p><span>'+['口当たり','香り','余韻'][i]+'</span>'+esc(t)+'</p>').join('');
- $('taste-previous').hidden=!c.previous;
- if(c.previous)$('taste-previous').innerHTML='<h3>前回 · '+esc(ageLabel(c.previous.age))+'</h3><p>'+esc(sampleText(c.previous))+'</p><ul>'+c.lines.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul>';
+ $('taste-current').innerHTML=shortTaste(c.current).map((t,i)=>'<p><span>'+['口当たり','香り','余韻'][i]+'</span>'+esc(t)+'</p>').join('');
+ $('taste-previous').hidden=false;
+ $('taste-previous').textContent=(c.previous?'前回 '+ageLabel(c.previous.age)+'から：':'')+shortChange(c.current,c.previous);
 }
 function recordMarkup(r){
  const direction=r.cut<0.3?'狭めに切り上げた原酒':r.cut>0.7?'広く集めた原酒':'ほどよい範囲で集めた原酒';
@@ -126,12 +129,13 @@ function render(){
  $('time-status').textContent=quoteOpen?'瓶詰めを考えています · 時間は停止中':tasting?'試飲中 · 時間は停止中':phase==='choice'?'判断を待っています · 時間は停止中':paused?'時間は停止中':phase==='distilling'?'蒸留中 · 自分で抽出を止めます':jump>0?'3か月を順に進めています':['selling','ready'].includes(phase)?'販売中 · 約2秒で1か月':'熟成中 · 約2秒で1か月';
  const last=game.core.lastMonth;$('time-change').textContent=jump>0?(jumpTotal-jump)+' / '+jumpTotal+'か月':last&&aging?'前月の維持費 '+money(last.upkeep)+(last.revenue?' · 棚の売上 '+money(last.revenue):''):'';
  $('ledger-body').innerHTML='<p>蒸留 '+money(P.distillationCost)+' · 維持費累計 '+money(game.core.totals.upkeep)+' · 売上累計 '+money(game.core.totals.revenue)+'</p><p>瓶在庫 '+liveStock()+'本 · 仕込み '+game.round+'回目</p>';
+ if(game.samples.length)$('ledger-body').innerHTML+='<h3>この樽の試飲</h3><ol class="sample-history">'+game.samples.map((s,i)=>'<li><time>'+esc(ageLabel(s.age))+'</time><p>'+esc(sampleText(s))+'</p>'+(i?'<p class="quiet">'+esc(shortChange(s,game.samples[i-1]))+'</p>':'')+'</li>').join('')+'</ol>';
  $('records').hidden=!game.records.length;
  const rk=JSON.stringify(game.records.map(r=>[r.productId,r.samples,r.choices]));if(rk!==recordKey){$('records-body').innerHTML=game.records.slice().reverse().map(r=>'<article class="record-history">'+recordMarkup(r)+'<p id="record-sale-'+r.productId+'"></p></article>').join('');recordKey=rk;}
  for(const r of game.records)$('record-sale-'+r.productId).textContent='販売 '+(r.sold??0)+'本 · 売上 '+money(r.revenue??0);
  if(phase!==lastPhase){document.body.dataset.motion=phase;lastPhase=phase;}
 }
-function taste(){if(!game||!['watching','choice'].includes(game.phase)||quoteOpen||animating)return;tasteWasPaused=paused;jump=0;act(D.sampleDistillery);document.body.dataset.motion='pour';}
+function taste(){if(!game||game.view==='tasting'||!['watching','choice'].includes(game.phase)||quoteOpen||animating)return;tasteWasPaused=paused;jump=0;act(D.sampleDistillery);document.body.dataset.motion='pour';}
 function openQuote(){if(!game||!['watching','choice'].includes(game.phase)||animating)return;quoteWasPaused=paused;jump=0;stopClock();quoteOpen=true;render();}
 $('start-distill').addEventListener('click',()=>{if(game?.phase!=='ready')return;paused=false;act(D.startDistillation);});
 $('stop-distill').addEventListener('click',()=>{if(game?.phase!=='distilling')return;act(D.stopDistillation);});
