@@ -212,5 +212,5 @@ body:is([data-phase=watching],[data-phase=choice]) #hero #glass-button{position:
  #hero #tasting-panel{width:51%;padding-left:9px;top:7px}
 }
 /* Keep scroll position when tasting temporarily hides ordinary controls. */
-body.is-tasting #free-actions[hidden],body.is-tasting #time-controls[hidden]{display:flex!important;visibility:hidden;pointer-events:none}
+body.is-tasting #free-actions[hidden],body.is-tasting[data-phase=watching] #time-controls[hidden]{display:flex!important;visibility:hidden;pointer-events:none}
 body.is-tasting[data-phase=choice] #decision[hidden]{display:block!important;visibility:hidden;pointer-events:none}
