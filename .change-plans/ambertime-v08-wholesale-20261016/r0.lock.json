@@ -1,0 +1,131 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6ee6a06bc1e9e34db249e7a8010aff85abc4850a72fd26681485861ea92f241d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v08-wholesale-20261016",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "One-cask behaviour-weighted wholesale offers, fixed contracts and atomic monthly shipment; separate v08 replay/key",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "71f90a0ee9de9757d355852e69020182f68315f6",
+    "canonicalSources": [
+      "User AmberTime0.8 request",
+      "works/ambertime/design/v06",
+      "works/ambertime/economy.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v08-wholesale-20261016/r0.lock.json",
+      "works/ambertime/wholesale.mjs",
+      "works/ambertime/wholesale-parameters.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/v08-app.mjs",
+      "works/ambertime/v08.css",
+      "works/ambertime/index.html",
+      "works/ambertime/v07.html",
+      "works/ambertime/tests/wholesale*.mjs",
+      "works/ambertime/design/v08/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "works/ambertime/v07-app.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/legacy.html",
+      "works/ambertime/v06.html",
+      "works/ambertime/v05.html",
+      "works/ambertime/v04.html"
+    ],
+    "expectedChanges": [
+      "One activecask contract; ledger-weighted independentseeded offers with cooldown and termsvariation; no reputation ladder",
+      "Fixed perbottle wholesale price; bottlingfee paid from proceeds; targetage auto ship atomic beforefunds check; no shelf demand; isolated othercask events and sales",
+      "V08 version3/replay/key; oldv07 route untouched; no silent migration; oldallgenerations preserved",
+      "Existing UI/taste/clock reused; offer decisionmodal and concise selectedcask contract/cancellation; short shipment notice and record",
+      "Multi-seed longrun regularvswholesale frequency/accounting/replay; PC/iPhone UI and independentreview"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "all-ambertime-regression",
+      "multi-seed-wholesale-240months",
+      "contract-boundaries-and-old-replay",
+      "PC-iPhone-offer-trial-cancel-shipment",
+      "staging-Pages"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Restore index to v07.html entry; v08 key remains separate. Optional shared helpers default to prior behaviour.",
+    "outOfScope": [
+      "Production",
+      "Staff/research/newproducts/reputationlevels",
+      "Large economic retuning",
+      "Oldsave migration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Human fun and physical Safari"
+    ],
+    "rulesApplied": [
+      "Full WORK locked before implementation due new economic replay contract",
+      "AGENTS permits necessary independent review",
+      "User explicitly authorizes new version/key and stagingmerge"
+    ],
+    "hqDecisions": [
+      "Separate version3 replay and sukimastock.ambertime.wholesale.v3 key; v07 executable route preserved without migration",
+      "Atomic shipment after one chemistry/sales month before reserve check; optional shared bottling defaults unchanged",
+      "Bottlingfees deducted from proceeds; no penalty cancellation; one-off onecask delivery percontract; no guarantee recurring orders"
+    ],
+    "ownerDecisions": [
+      "User current0.8 request authorizes wholesale scope, modal contract, seededhistoryweighted offers, separatekey, stagingonly"
+    ],
+    "problem": "External relationships absent; wholesale must add delegation without dominating retail",
+    "currentContract": "V07 operationreplay,economy.v2, shared monthly allfacilities",
+    "whyExistingIsInsufficient": "Changed monthly offers/randomness/settlement cannot share old exact replay",
+    "design": "Worklocal v08 wrapper around stable ritual/monthly; deterministic private offer RNG and completedrecord ledger",
+    "migration": "None; all old keys preserved; explicit v07 link",
+    "compatibility": "Olddefaults preserved and alloldtests run; v08 own strictreplay",
+    "promotionRisk": "Stagingonly",
+    "alternativesRejected": [
+      "Random unlock unrelatedhistory",
+      "Inplace old save repricing",
+      "Wholesale occupying retail shelf",
+      "Fee prepayment causing lowcash deadlock"
+    ],
+    "boundaryCases": [
+      "Duecontract andotherdecision same month",
+      "Manualpause/modal/hidden/save",
+      "Fullshelf/lowcash/full4casks",
+      "Stale expectedmonth and replaytampering",
+      "Cancel anddecline cooldown"
+    ],
+    "testPlan": [
+      "Atleast12seeds240months",
+      "Allold150tests",
+      "Ship cash/totals/record conservation and replay",
+      "ActualbrowserPC390px offerthroughshipment/cancel"
+    ]
+  }
+}
