@@ -36,7 +36,7 @@ function schedule(){
    elapsed+=jump?T.monthMs/5:T.distillStepMs;
    if(elapsed>=T.monthMs){const before=game.core.month;game=D.tickDistillery(game,expectedMonth);elapsed=0;if(game.core.month===before&&!game.decisions.length){runtimeHalted=true;message('資金を残して停止しています。樽詰めや販売を確かめられます。');}if(game.core.month!==before){const ship=game.trade.lastShipment;if(ship&&ship.month===game.core.month&&shipmentKey!==ship.productId){shipmentKey=ship.productId;message('卸売出荷 '+ship.bottles+'本 · 入金 '+money(ship.net));document.body.classList.add('just-shipped');setTimeout(()=>document.body.classList.remove('just-shipped'),1200);}else message('');}if(jump>0)jump--;save();}
    else if(wasDistilling&&(game.still.phase!=='distilling'||game.still.distillation.progress%5===0))save();
-   if(game.decisions.length||game.trade.offer)jump=0;
+   if(game.decisions.length||game.trade.offer||!hasMonthlyWork())jump=0;
    render();schedule();
   }catch(e){runtimeHalted=true;jump=0;storageNotice(e.message);render();}
  },T.distillStepMs);
