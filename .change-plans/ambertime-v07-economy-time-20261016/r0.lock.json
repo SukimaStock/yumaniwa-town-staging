@@ -1,0 +1,137 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "337861c66a8576d4cccb2629fb504023d6e0492d615da4fc75eb77f6c548931e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v07-economy-time-20261016",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Versioned economy and automatic clock intent with upper time display",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "8bcc713e84abdaeac08ee525ed4fb7f2a71d849c",
+    "canonicalSources": [
+      "User AmberTime0.7 request",
+      "works/ambertime/design/v06/DESIGN.md",
+      "Latest0.6 manual-stop PR413"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v07-economy-time-20261016/r0.lock.json",
+      "works/ambertime/economy*.mjs",
+      "works/ambertime/v07-app.mjs",
+      "works/ambertime/v07.css",
+      "works/ambertime/index.html",
+      "works/ambertime/v06.html",
+      "works/ambertime/tests/economy*.mjs",
+      "works/ambertime/tests/v07*.mjs",
+      "works/ambertime/design/v07/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/parallel*.mjs",
+      "works/ambertime/parallel.css",
+      "works/ambertime/model.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/distillery*.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/legacy.html",
+      "works/ambertime/v04.html",
+      "works/ambertime/v05.html",
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css"
+    ],
+    "expectedChanges": [
+      "Fixed economy chosen by multi-seed early/long/parallel/recovery simulations before UI integration; reuse chemistry and ritual",
+      "New version2 replay and economy.v2 key with version1 session envelope for manualpause intent; no oldkey writes or migration; v06 continuation",
+      "Default auto; manualintent separate from modal/tasting/queue/hidden/storage blockers; one dispatcher without offline catchup; three-month boost preserves intent",
+      "Compact sticky global date/cash/monthline/status/controls; separate extraction marker nearstill; short change notices",
+      "Economy conservation/recovery/replay and controller pause/queue/hidden/stale regressions plus PC/iPhone QA"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "all-ambertime-regression",
+      "seeded-four-policy-120-and240month-economy",
+      "cash-reserve-and-oldsave-compatibility",
+      "clock-intent-controller-and-independent-review",
+      "public-PC-iPhone-browser-and-Pages"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Restore0.6 entry; frozenv06.html and originalparallel.v1 key remain intact. New economy.v2 data remainsseparate.",
+    "outOfScope": [
+      "Production",
+      "Newsideproducts staff research automation contests",
+      "Chemistry or event threshold rewrite",
+      "Oldsave migration or capitalmerging",
+      "SharedEngine changes",
+      "Previouslyexhaustediframeverticalscrollissue"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Human economic fun and physicaliPhone/Safari",
+      "Automaticoldsave migration excluded"
+    ],
+    "rulesApplied": [
+      "Full WORK neweconomic/sessioncontract locked beforeimplementation",
+      "Userauthorizes parameters chosen fromcomparison and safe savesplit",
+      "Independentmodelresearch andclock/finalreview; rootUI",
+      "ExistingStagingpublicationworkflow aftersafeCI/review; publicQA thenminimalfixes"
+    ],
+    "hqDecisions": [
+      "AItechnicaldecision withinuserrequest: economyversion2/replay plus separate sukimastock.ambertime.economy.v2 key; version1 session envelope game+manualpause; no automaticmigration",
+      "Frozen0.6 modules/parameters/readers retained via v06.html; adapterreuseoldchemistry with fixed ownfees/market/upkeep beforemonthlycommit",
+      "Comparefixedcandidates andrecordchosenvalues; no dynamicdifficulty/hiddenwealthexpropriation/newproducts",
+      "Manualpause onlyexplicitintent; modal/hidden/queue/fault temporary; returnrespectsintent withoutcatchup"
+    ],
+    "ownerDecisions": [
+      "Userrequests economic tuning/auto clock/upperdisplay/safeStagingmergeonly"
+    ],
+    "problem": "Flat12 upkeep and4000capital erase cashchoices; transientUIoverwritesmanualintent; lowerclockmissed",
+    "currentContract": "Parallelv1 operationreplay andmanualextraction99 with forcedpauseafterevents",
+    "whyExistingIsInsufficient": "Changingreplayeconomyinplace invalidates oldvalid cash/sales snapshots",
+    "design": "Newworklocaleconomyadapter/replay, fixedselectedprofile, frozenv06route, v07sessionclockintent andstickytime",
+    "migration": "None. Newkeyonly. Alloldgenerationscontinueviaoldentries.",
+    "compatibility": "Oldmodules/keys unchanged; alloldfixtures; strictnewreplay andintentvalidation; chemistryreused",
+    "promotionRisk": "Staging only; no Production promotion",
+    "alternativesRejected": [
+      "Inplaceoldparameters breakreplay",
+      "Mergeoldcapital manufacturesmoney",
+      "Newsideproducts tomaskimbalance",
+      "Onepausedflag forintentandmodal"
+    ],
+    "boundaryCases": [
+      "Fourcasks/raw/listedandunlisted reserve",
+      "Lowcashrecoverywithandwithoutstock",
+      "Multiplequeueddecisionsandbottleone",
+      "Manualpause acrossmodal/background/reload",
+      "Corruptfutureorblockedstorage"
+    ],
+    "testPlan": [
+      "Atleast4seeds 120and240month early/long/parallel/recovery vsoldbaseline andcandidates; cashassets/revenue/fees/mincash/forcedsales",
+      "Cashconservation andphasebyphase deterministicreplay plusoldtests",
+      "Auto/manual modality, queue, hiddenreturn, storagefault,retry andstalecallback",
+      "PublicPC/390/320 stickyclock andfrozenextraction aftersafeStagingmerge"
+    ]
+  }
+}
