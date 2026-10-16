@@ -1,0 +1,13 @@
+// Reproducible browser/test checkpoints made only with public actions.
+// Clocked distillation: 60 collection frames per shared month (100ms / 6s).
+import * as D from '../../trade.mjs';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {fileURLToPath} from 'node:url';
+export function judgments(s){while(s.decisions.length){const d=s.decisions[0];assert.notEqual(d.eventId,'funds','QA policy must retain its bookings');const o=d.pending.options.find(x=>x.id==='wait')??d.pending.options.find(x=>x.id==='last');assert(o,'QA checkpoint stops before a forced bottling');s=D.chooseDistillery(s,d.caskId,o.id);}return s;}
+function advance(s,target){while(s.core.month<target){s=judgments(s);if(s.trade.offer)s=D.declineOffer(s);const month=s.core.month;s=D.tickDistillery(s);assert.equal(s.core.month,month+1);}return judgments(s);}
+function batch(s,type='refill'){s=D.startDistillation(s);for(let i=1;i<=80;i++){s=D.distillStep(s);if(i%60===0){s=D.tickDistillery(s);s=judgments(s);if(s.trade.offer)s=D.declineOffer(s);}}s=D.stopDistillation(s);return D.fillBarrel(s,type);}
+export function initialOffer(){let s=batch(D.newDistillery(42));s=advance(s,7);s=D.bottleNow(s,s.core.casks[0].id);s=D.listBottles(s,s.result.productId);s=batch(s);for(let i=0;i<30&&!s.trade.offer;i++){s=judgments(s);s=D.tickDistillery(s);}assert(s.trade.offer?.kind==='initial');D.serializeDistillery(s);return s;}
+export function twoDue(){let s=initialOffer(),term=s.trade.offer.terms.find(x=>x.targetAge===30);assert(term);const a=s.core.casks[0];s=D.acceptOffer(s,a.id,term.id);s=advance(s,a.filledMonth+5);s=batch(s,'bourbon');const b=s.core.casks.at(-1),short=s.trade.relationship.terms.find(x=>x.targetAge===24);assert(short);assert.equal(b.filledMonth-a.filledMonth,6);s=D.assignCask(s,b.id,short.id);s=advance(s,a.filledMonth+29);assert.equal(s.trade.contracts.length,2);assert.equal(s.trade.contracts.filter(k=>D.currentCask(s,k.caskId).age===k.targetAge-1).length,2);D.serializeDistillery(s);return s;}
+export function proposal(){let s=twoDue();for(let i=0;i<100;i++){s=judgments(s);if(s.trade.offer){assert.equal(s.trade.offer.kind,'terms');D.serializeDistillery(s);return s;}if(D.canStart(s).ok&&s.core.casks.length<2)s=batch(s);else s=D.tickDistillery(s);}throw Error('No repeated terms offer in QA policy');}
+if(process.argv[1]===fileURLToPath(import.meta.url)){for(const [name,create]of Object.entries({initial:initialOffer,due:twoDue,proposal})){const s=create();fs.writeFileSync(new URL(`../../tests/fixtures/v09-${name}.json`,import.meta.url),D.serializeDistillery(s)+'\n');console.log(name,s.core.month,s.core.cash,s.trade.contracts.length,s.trade.relationship?.deliveries);}}
