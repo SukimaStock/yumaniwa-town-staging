@@ -1,0 +1,19 @@
+@import url('./parallel.css?v=0.6-playability');
+/* A shared clock remains visible; objects keep the rest of the page. */
+.clock-dock{position:sticky;top:0;z-index:5;background:var(--bg);padding-top:7px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.clock-dock header{margin:0}.clock-dock h1{font-size:24px}
+.clock-dock #time-flow{border:0;margin:7px auto 0;padding:0;max-width:none}
+.clock-dock .flow-line{margin:0}.clock-dock #time-status{margin:4px 0;font-size:12px;min-height:18px;text-align:center}
+.clock-dock #time-controls{margin:0 auto;gap:8px;max-width:430px;display:flex}
+.clock-dock #time-controls button{min-height:44px;padding:6px 10px;font-size:12px;flex:1}
+.clock-dock #time-controls[hidden]{display:flex!important;visibility:hidden}
+.clock-dock #time-change{display:none}
+.clock-dock #work-notice{margin:0 auto;font-size:12px;min-height:0;line-height:1.4}
+.clock-dock #work-notice:empty{display:none}
+.extraction-progress{height:3px;max-width:260px;margin:3px auto 8px;background:#354039;overflow:hidden}
+.extraction-progress span{height:100%;display:block;background:var(--amber);transform-origin:left;transform:scaleX(var(--extraction-progress,0));transition:transform .15s linear}
+.room-nav{margin-top:10px}
+@media(max-width:430px){.page{padding-top:6px}.clock-dock h1{font-size:23px}.clock-dock .edition{font-size:10px}.clock-dock #time-controls{gap:6px}.clock-dock{padding-top:5px;padding-bottom:6px}}
+@media(prefers-reduced-motion:reduce){.extraction-progress span{transition:none}}
+
+.clock-dock #monthly-cost{display:block;width:100%;font-size:11px;color:var(--quiet)}
