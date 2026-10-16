@@ -23,3 +23,9 @@ exact SHA・最終ブラウザ結果・独立レビュー・Scope/Risk/Impactと
 
 独立静的レビューと独立Node/Lifecycle実行で重大指摘なし。スマートフォン縦画面の深い押し込み／浮上と横画面静止をスクリーンショット目視。
 リモートbranch push成功をls-remoteのSHA一致で確認。draft PR作成もGitHub GraphQL 403 Forbiddenで拒否。PR/CI/Pages確認・mergeは未実施。想定配信URLへのcurlはCONNECT tunnel 403で内容未確認。拒否は迂回しない。
+
+### ローカル最終結果
+
+実装・検査SHA `8f67b392e13c6e3f1a47a043849f13386b8fb0d2`：Chromium 390×844 / 820×1180 / 844×390 / 1280×900 / 320×568 の全5画面でPASS。マウス／CDPタッチ、浅い・深い押し込み、離す、浮上・減衰、再つかみ時の位置一致、touchCancel、各20回反復、ドラッグ中resize、キーボード、60秒経過、LAB往復、横溢れ・JS例外なしを確認。iOS実機の代用ではない。
+同SHAでScope → Risk → Impact、base固定registry/risk-policy/executorによるTrusted StaticがPASS。静止時描画抑制の追加差分も独立静的レビュー済み。
+この後の追記は検証記録のみ。リモートAPIの403が解消するまでPR・CI・merge・Pagesは保留し、復旧の新しい証拠がある時点で再開する。
