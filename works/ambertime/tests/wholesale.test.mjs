@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import * as D from '../wholesale.mjs';
+import * as D from '../wholesale-v08.mjs';
 import * as E from '../economy.mjs';
 import {run} from '../design/v08/simulate.mjs';
 const clone=x=>structuredClone(x),round=x=>Math.round(x*100)/100;
