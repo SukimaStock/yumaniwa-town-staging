@@ -309,6 +309,13 @@
       "status": "active",
       "title": "まわりきる硬貨",
       "theme": "短く払うと回り、傾きながら細かく揺れて、最後にぺたりと寝る"
+    },
+    {
+      "id": "shizumete-ukasu",
+      "path": "works/shizumete-ukasu",
+      "status": "active",
+      "title": "沈めて浮かす",
+      "theme": "浮きを沈めて離すと、水面を抜けて小さく上下に揺れる"
     }
   ]
 }
