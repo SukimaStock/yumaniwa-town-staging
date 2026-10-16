@@ -1,0 +1,99 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "022f0cb5dc4f9d0b4b3a375e7ee4da239f226c6efc85258d997ebc7940fd61d3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "environment": "staging",
+    "conditionalPaths": [],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-v07-direct-flow-20261016",
+    "change": "Direct barrel filling at extraction limit and automatic pricing after bottling",
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "8bac904239d1c015256ce9bb0554f257daf8e59d",
+    "canonicalSources": [
+      "User direct-flow request 2026-10-16",
+      "works/ambertime/v07-app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v07-direct-flow-20261016/r0.lock.json",
+      "works/ambertime/v07-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/v07-ui.test.mjs"
+    ],
+    "forbiddenPaths": [
+      "works/ambertime/economy*.mjs",
+      "works/ambertime/parallel*.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/v06.html",
+      "works/ambertime/legacy.html",
+      "works/ambertime/v04.html",
+      "works/ambertime/v05.html",
+      "data/**",
+      "engine/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "At existing extraction limit show only barrel-fill action; clicking it commits existing stop99 then opens cask selection in one operation",
+      "After bottling move to sales and open product pricing automatically; queue pricing behind pending cask decisions without losing products",
+      "Keep manual stop before limit, time intent, deterministic game/save contracts and economics unchanged",
+      "Bump only entry module query for latest UI delivery and add scoped regressions"
+    ],
+    "manualChecks": [
+      "all-ambertime-regression",
+      "max-extraction-old-save-and-price-queue",
+      "independent-diff-review",
+      "public-PC-iPhone-and-Pages"
+    ],
+    "rollback": "Revert only these UI/test/module-query changes; all save contracts unchanged",
+    "outOfScope": [
+      "Production",
+      "Economics and chemistry",
+      "Save migration or new storage fields",
+      "Old versions and shared Engine",
+      "Previously exhausted iframe vertical-scroll issue"
+    ],
+    "unverified": [
+      "Human touch and physical iPhone/Safari"
+    ],
+    "rulesApplied": [
+      "Standard WORK path for script-query delivery change; locked before implementation",
+      "Small UI patch and relevant regressions; public browser QA after safe Staging merge"
+    ],
+    "ownerDecisions": [
+      "User explicitly requests direct fill and automatic post-bottle pricing, Staging merge"
+    ],
+    "testPlan": [
+      "Max extraction and paused/restored limit show one fill action; exact stop99 logged once",
+      "Automatic pricing, pending judgments, multiple bottled products, cancel/list and manual intent",
+      "Full existing regression plus PC/iPhone browser interaction"
+    ],
+    "boundaryCases": [
+      "Paused save at extraction limit",
+      "Several same-month cask decisions and bottled products",
+      "Cancelled pricing remains manually accessible",
+      "Save failure and existing old generations unchanged"
+    ]
+  }
+}

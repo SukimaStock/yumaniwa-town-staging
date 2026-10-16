@@ -37,7 +37,7 @@ test('two decisions hold every facility until the last choice, then one auto clo
  const m=await boot({text:session(queued(),true)});choose(m);choose(m);assert.equal(m.timers.size,0);assert.equal(m.intent(),true);
 });
 test('bottling and price modals keep intent; listing resumes sale alongside remaining cask',async()=>{
- const e=await boot();e.collect(30);e.fill('refill');e.month();e.room('distill');e.collect(30);e.fill('bourbon');const a=e.state().core.casks[0].id;e.data('cask-rack',{caskId:a});e.click('open-bottle');e.action('bottle',a);assert.equal(e.timers.size,0);const p=e.state().result.productId;e.action('to-sales',p);assert.equal(e.timers.size,1);e.data('product-shelf',{productId:p});assert.equal(e.timers.size,0);e.action('price',p,{tier:'high'});assert.equal(e.timers.size,0);e.action('list',p);assert.equal(e.timers.size,1);const age=e.state().core.casks[0].age;e.month();assert.equal(e.state().core.casks[0].age,age+1);assert(e.state().core.totals.revenue>0);e.data('product-shelf',{productId:p});e.action('cancel');assert.equal(e.timers.size,1);
+ const e=await boot();e.collect(30);e.fill('refill');e.month();e.room('distill');e.collect(30);e.fill('bourbon');const a=e.state().core.casks[0].id;e.data('cask-rack',{caskId:a});e.click('open-bottle');e.action('bottle',a);assert.equal(e.timers.size,0);const p=e.state().result.productId;assert.equal(e.node('body').dataset.room,'sales');assert.match(e.node('dialog-actions').innerHTML,/data-action="price"/);assert.equal(e.timers.size,0);e.action('price',p,{tier:'high'});assert.equal(e.timers.size,0);e.action('list',p);assert.equal(e.timers.size,1);const age=e.state().core.casks[0].age;e.month();assert.equal(e.state().core.casks[0].age,age+1);assert(e.state().core.totals.revenue>0);e.data('product-shelf',{productId:p});e.action('cancel');assert.equal(e.timers.size,1);
  e.click('toggle-time');e.data('product-shelf',{productId:p});e.action('cancel');assert.equal(e.timers.size,0);assert.equal(e.intent(),true);
 });
 test('hidden return preserves partial month and intent with no catch-up or stale callback',async()=>{
@@ -64,4 +64,25 @@ test('all old keys survive new economy reset, preview and invalid session recove
 
 test('tasting interrupts a paused three-month boost and leaves manual stop intact',async()=>{
  const e=await boot();e.collect(30);e.fill('refill');e.click('toggle-time');e.click('skip');e.fire();e.click('glass-button');assert.equal(e.timers.size,0);e.click('end-tasting');assert.equal(e.timers.size,0);assert.equal(e.intent(),true);
+});
+
+
+test('extraction limit replaces stop with one fill action and commits stop99 once',async()=>{
+ const e=await boot();e.click('start-distill');for(let i=0;i<110;i++)e.fire();
+ assert.equal(e.node('stop-distill').hidden,true);assert.equal(e.node('open-fill').hidden,false);assert.equal(e.node('start-distill').hidden,true);assert.equal(e.node('body').style.values['--extraction-progress'],0.99);assert.equal(e.node('body').dataset.phase,'filling');
+ e.click('open-fill');assert.equal(e.state().still.phase,'filling');assert.equal(e.state().still.distillation.progress,99);assert.deepEqual(e.state().operations.filter(o=>o.key==='stop').map(o=>o.value),[99]);assert.equal(e.node('dialog-title').textContent,'原酒を樽に詰める');assert.equal(e.timers.size,0);
+ e.click('open-fill');assert.equal(e.state().operations.filter(o=>o.key==='stop').length,1);e.action('fill','refill');assert.equal(e.state().core.casks.length,1);assert.deepEqual(D.restoreDistillery(D.serializeDistillery(e.state())),e.state());
+});
+test('a paused saved extraction at the limit can go straight to filling without resuming time',async()=>{
+ let s=D.startDistillation(D.newDistillery(42));for(let i=0;i<99;i++)s=D.distillStep(s);
+ const e=await boot({text:session(s,true)});assert.equal(e.timers.size,0);assert.equal(e.node('stop-distill').hidden,true);assert.equal(e.node('open-fill').hidden,false);e.click('open-fill');e.action('fill','bourbon');assert.equal(e.state().core.casks.length,1);assert.equal(e.intent(),true);assert.equal(e.timers.size,0);
+});
+test('bottled products wait behind cask judgments then receive automatic FIFO pricing',async()=>{
+ const e=await boot({text:session(queued())});const ids=e.state().core.casks.map(c=>c.id),products=[];
+ for(const id of ids){e.action('quote',id);e.action('bottle',id);products.push(e.state().result.productId);assert.equal(e.timers.size,0);}
+ assert.equal(e.state().decisions.length,0);assert.equal(e.node('body').dataset.room,'sales');assert.match(e.node('dialog-actions').innerHTML,new RegExp('data-action="price" data-id="'+products[0]+'"'));
+ e.action('list',products[0]);assert.equal(e.timers.size,0);assert.match(e.node('dialog-actions').innerHTML,new RegExp('data-action="price" data-id="'+products[1]+'"'));e.action('list',products[1]);assert.equal(e.timers.size,1);assert.ok(products.every(id=>e.state().productsById[id].listed));
+});
+test('automatic price dialog may be cancelled without listing or overriding manual stop',async()=>{
+ const e=await boot();e.collect(30);e.fill('refill');e.click('toggle-time');e.click('open-bottle');const id=e.state().core.casks[0].id;e.action('bottle',id);const p=e.state().result.productId;assert.equal(e.node('body').dataset.room,'sales');assert.equal(e.timers.size,0);e.action('cancel');assert.equal(e.state().productsById[p].listed,false);assert.equal(e.node('action-dialog').open,false);assert.equal(e.intent(),true);assert.equal(e.timers.size,0);e.data('product-shelf',{productId:p});e.action('price',p,{tier:'high'});e.action('list',p);assert.equal(e.timers.size,0);assert.equal(e.intent(),true);
 });

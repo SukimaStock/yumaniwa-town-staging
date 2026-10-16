@@ -10,6 +10,8 @@ const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const query=new URLSearchParams(location.search),preview=query.get('preview')==='1',chosenSeed=Number(query.get('seed')),seed=preview&&Number.isInteger(chosenSeed)&&chosenSeed>0&&chosenSeed<=4294967295?chosenSeed:20261015;
 let game=null,room='distill',selectedCaskId=null,selectedProductId=null,userPaused=false,runtimeHalted=false,modal=null,timer=null,generation=0,elapsed=0,jump=0,canSave=!preview,lastSavedText=null;
 let rackKey='',shelfKey='',barrelKey='',glassKey='',ledgerKey='',recordKey='';
+const pricingQueue=[];
+const atExtractionLimit=()=>game?.still.phase==='distilling'&&game.still.distillation.progress>=T.distillMax-1;
 $('still').innerHTML=stillArt();
 const message=t=>{$('work-notice').textContent=t;};
 function storageNotice(t){$('storage-notice').textContent=t;$('storage-notice').hidden=!t;}
@@ -29,7 +31,7 @@ function schedule(){
   if(token!==generation)return;timer=null;if(blocked())return;
   try{
    const wasDistilling=game.still.phase==='distilling';
-   if(wasDistilling){const before=game.still.distillation.progress;game=D.distillStep(game);if(before<T.distillMax-1&&game.still.distillation.progress>=T.distillMax-1)message('抽出の上限です。蒸留室で「抽出を終える」を押してください。');}
+   if(wasDistilling){const before=game.still.distillation.progress;game=D.distillStep(game);if(before<T.distillMax-1&&game.still.distillation.progress>=T.distillMax-1)message('抽出がいっぱいになりました。樽に詰められます。');}
    elapsed+=jump?T.monthMs/5:T.distillStepMs;
    if(elapsed>=T.monthMs){const before=game.core.month;game=D.tickDistillery(game,expectedMonth);elapsed=0;if(game.core.month===before&&!game.decisions.length){runtimeHalted=true;message('資金を残して停止しています。樽詰めや販売を確かめられます。');}if(game.core.month!==before)message('');if(jump>0)jump--;save();}
    else if(wasDistilling&&(game.still.phase!=='distilling'||game.still.distillation.progress%5===0))save();
@@ -52,6 +54,7 @@ function quoteModal(id){if(!D.currentCask(game,id))return;stopClock();modal={kin
 function syncModal(){
  const dialog=$('action-dialog');
  if(!modal&&game.tastingId===null&&game.decisions.length){const d=game.decisions[0];modal={kind:'decision',id:d.caskId};selectedCaskId=d.caskId;}
+ if(!modal&&game.tastingId===null&&!game.decisions.length&&pricingQueue.length){const productId=pricingQueue.shift();selectedProductId=productId;room='sales';modal={kind:'product',id:productId};}
  if(!modal){if(dialog.open)dialog.close();return;}
  const {kind,id}=modal,c=D.currentCask(game,id);let title='',body='',actions='';
  if(kind==='decision'){
@@ -71,9 +74,6 @@ function syncModal(){
   const prices=D.salePrices(game,id),record=game.records.find(r=>r.productId===id);title=record?.name??'この一本';
   body='<div class="modal-bottle">'+bottleArt(p.wood)+'</div><p>'+ageLabel(p.age)+' · 残り '+p.stock+'本</p><p class="quiet">販売 '+p.sold+'本 · 売上 '+money(p.revenue)+'</p>'+(p.age<6?'<p class="quiet">若い原酒 · 少しずつ販売</p>':'')+(prices.low===prices.standard?'<p class="quiet">最低価格 '+unit(prices.low)+'/本</p>':'');
   actions='<div class="price-options">'+['low','standard','high'].map((tier,i)=>button(['低め','標準','高め'][i]+'<span>'+unit(prices[tier])+'/本</span>','price',id,'data-tier="'+tier+'" aria-pressed="'+(meta.selectedPrice===tier)+'"')).join('')+'</div>'+(meta.listed?button('戻る','cancel'):button('この価格で販売する','list',id));
- }else if(kind==='finish'){
-  const r=game.records.find(x=>x.productId===id);title=r.name;body='<div class="modal-bottle">'+bottleArt(r.profile.wood)+'</div><p>'+ageLabel(r.age)+' · '+r.bottles+'本</p><p>'+r.taste.map(esc).join(' · ')+'</p>';
-  actions=button('販売室へ','to-sales',id)+button('樽を見る','to-warehouse');
  }
  $('dialog-title').textContent=title;$('dialog-body').innerHTML=body;$('dialog-actions').innerHTML=actions;$('close-dialog').hidden=kind==='decision';
  if(!dialog.open)dialog.showModal();
@@ -83,20 +83,20 @@ function render(){
  if(!D.currentCask(game,selectedCaskId))selectedCaskId=game.core.casks[0]?.id??null;
  if(game.tastingId!==null){selectedCaskId=game.tastingId;room='warehouse';}
  syncModal();
- const phase=game.still.phase,tasting=game.tastingId!==null;
- document.body.dataset.room=room;document.body.dataset.phase=room==='distill'?phase:room==='warehouse'?'watching':'selling';document.body.dataset.time=blocked()||!hasMonthlyWork()?'paused':'running';document.body.classList.toggle('is-tasting',tasting&&!modal);
+ const phase=game.still.phase,tasting=game.tastingId!==null,atLimit=atExtractionLimit();
+ document.body.dataset.room=room;document.body.dataset.phase=room==='distill'?(atLimit?'filling':phase):room==='warehouse'?'watching':'selling';document.body.dataset.time=blocked()||!hasMonthlyWork()?'paused':'running';document.body.classList.toggle('is-tasting',tasting&&!modal);
  document.body.style.setProperty('--month-duration',T.monthMs+'ms');document.body.style.setProperty('--month-progress',elapsed/T.monthMs);document.body.style.setProperty('--extraction-progress',(game.still.distillation?.progress??0)/T.distillMax);$('extraction-progress').hidden=phase==='ready';document.body.style.setProperty('--collection',game.still.distillation?.litres/40||0);
  $('game').hidden=false;$('time-flow').hidden=false;$('recovery').hidden=canSave||preview;
  $('cash').textContent=money(game.core.cash);$('calendar').textContent=monthLabel(game.core.month);$('monthly-cost').textContent='維持費 '+money(D.upkeep(game))+'/月';
  for(const name of ['distill','warehouse','sales'])$('room-'+name).hidden=room!==name;
  for(const b of document.querySelectorAll('[data-room]'))b.setAttribute('aria-pressed',String(b.dataset.room===room));
- $('nav-still').textContent=phase==='distilling'?(game.still.distillation.progress>=T.distillMax-1?'抽出停止待ち':'蒸留中'):phase==='filling'?'樽詰め待ち':'待機';$('nav-casks').textContent=game.core.casks.length+'樽';$('nav-stock').textContent=listedStock()+'本';
- $('start-distill').hidden=phase!=='ready';$('stop-distill').hidden=phase!=='distilling';$('open-fill').hidden=phase!=='filling';
+ $('nav-still').textContent=phase==='distilling'?(atLimit?'樽詰め待ち':'蒸留中'):phase==='filling'?'樽詰め待ち':'待機';$('nav-casks').textContent=game.core.casks.length+'樽';$('nav-stock').textContent=listedStock()+'本';
+ $('start-distill').hidden=phase!=='ready';$('stop-distill').hidden=phase!=='distilling'||atLimit;$('open-fill').hidden=phase!=='filling'&&!atLimit;
  const start=D.canStart(game);$('start-distill').disabled=!start.ok;$('start-distill').textContent='蒸留を始める '+money(P.distillationCost);
  $('stop-distill').disabled=(game.still.distillation?.progress??0)<T.minimumStop;
  $('collection').textContent=game.still.distillation?game.still.distillation.litres.toFixed(1)+' L':'';
- $('distill-caption').textContent=phase==='ready'?(start.ok?'原酒を集め、抽出の終わりを決めます。':start.reason):phase==='filling'?'抽出完了。樽を選んで詰めます。':'原酒を集めています。';
- $('distill-direction').textContent=phase==='distilling'?game.still.distillation.progress>=T.distillMax-1?'抽出の上限です。ここで終えて樽詰めへ。':game.still.distillation.progress<T.minimumStop?'最初の原酒が集まるまで少し待ちます。':game.still.distillation.progress<70?'少量で切り上げるか、もう少し集めるか。':'量と穀物の個性が増してきました。':phase==='ready'&&start.ok?'早めなら少量で穏やかに。続けると量と個性が増えます。':'';
+ $('distill-caption').textContent=phase==='ready'?(start.ok?'原酒を集め、抽出の終わりを決めます。':start.reason):phase==='filling'||atLimit?'抽出完了。樽を選んで詰めます。':'原酒を集めています。';
+ $('distill-direction').textContent=phase==='distilling'&&!atLimit?game.still.distillation.progress<T.minimumStop?'最初の原酒が集まるまで少し待ちます。':game.still.distillation.progress<70?'少量で切り上げるか、もう少し集めるか。':'量と穀物の個性が増してきました。':phase==='ready'&&start.ok?'早めなら少量で穏やかに。続けると量と個性が増えます。':'';
  const rk=JSON.stringify([game.core.casks.map(c=>[c.id,c.age,c.litres]),selectedCaskId]);
  if(rk!==rackKey){$('cask-rack').innerHTML=game.core.casks.map(c=>'<button type="button" data-cask-id="'+c.id+'" aria-pressed="'+(selectedCaskId===c.id)+'"><span aria-hidden="true">'+barrel(c.type)+'</span><strong>'+caskName(c.id)+'</strong><small>'+ageLabel(c.age)+'</small><small>'+c.litres.toFixed(1)+' L</small></button>').join('');rackKey=rk;}
  $('warehouse-empty').hidden=game.core.casks.length>0;$('selected-cask').hidden=selectedCaskId===null;
@@ -108,9 +108,9 @@ function render(){
  }
  const sk=JSON.stringify([game.core.products,game.productsById]);if(sk!==shelfKey){$('product-shelf').innerHTML=game.core.products.filter(p=>p.stock>0).map(p=>'<button type="button" data-product-id="'+p.id+'"><span aria-hidden="true">'+bottleArt(p.wood)+'</span><strong>'+esc(game.records.find(r=>r.productId===p.id)?.name??'この一本')+'</strong><small>'+ageLabel(p.age)+' · '+p.stock+'本</small><small>'+unit(p.price)+'/本 · '+(game.productsById[p.id]?.listed?'販売中':'未陳列')+'</small></button>').join('');shelfKey=sk;}
  $('sales-empty').hidden=game.core.products.some(p=>p.stock>0);const last=game.core.lastMonth;$('sales-result').textContent=last?'前月 '+last.bottles+'本 · 売上 '+money(last.revenue):'';
- $('toggle-time').textContent=(!preview&&!canSave)?'保存待ち':(userPaused&&jump===0)||runtimeHalted?(phase==='distilling'?'蒸留を再開する':'時間を進める'):'時間を止める';$('time-controls').hidden=tasting||!!modal;
+ $('toggle-time').textContent=(!preview&&!canSave)?'保存待ち':(userPaused&&jump===0)||runtimeHalted?(phase==='distilling'&&!atLimit?'蒸留を再開する':'時間を進める'):'時間を止める';$('time-controls').hidden=tasting||!!modal;
  $('toggle-time').disabled=!hasMonthlyWork()||(!preview&&!canSave);$('skip').disabled=!hasMonthlyWork()||phase==='distilling'||jump>0||(!preview&&!canSave);
- $('time-status').textContent=(!preview&&!canSave)?'保存を確認するまで停止中':modal?'判断中 · 時間は停止中':tasting?'試飲中 · 時間は停止中':document.hidden?'画面を離れています':runtimeHalted?'資金を残して停止中':userPaused&&jump===0?'時間は停止中':!hasMonthlyWork()?(phase==='filling'?'抽出完了 · 樽に詰められます':'作業を待っています'):phase==='distilling'?'蒸留中 · 熟成・販売も進みます':room==='distill'&&phase==='filling'?'抽出完了 · 熟成・販売は進行中':jump?'3か月を順に進めています':'自動進行 · 約'+T.monthMs/1000+'秒で1か月';
+ $('time-status').textContent=(!preview&&!canSave)?'保存を確認するまで停止中':modal?'判断中 · 時間は停止中':tasting?'試飲中 · 時間は停止中':document.hidden?'画面を離れています':runtimeHalted?'資金を残して停止中':userPaused&&jump===0?'時間は停止中':!hasMonthlyWork()?(phase==='filling'?'抽出完了 · 樽に詰められます':'作業を待っています'):phase==='distilling'?(atLimit?'樽詰め待ち · 熟成・販売は進行中':'蒸留中 · 熟成・販売も進みます'):room==='distill'&&phase==='filling'?'抽出完了 · 熟成・販売は進行中':jump?'3か月を順に進めています':'自動進行 · 約'+T.monthMs/1000+'秒で1か月';
  $('time-change').textContent=last?'前月 維持費 '+money(last.upkeep)+(last.revenue?' · 売上 '+money(last.revenue):''):'';
  const lk=JSON.stringify([game.core.totals,game.notesById]);if(lk!==ledgerKey){$('ledger-body').innerHTML='<p>売上累計 '+money(game.core.totals.revenue)+' · 維持費累計 '+money(game.core.totals.upkeep)+'</p>'+game.core.casks.map(c=>'<h3>'+esc(caskLabel(c))+'</h3><ol class="sample-history">'+game.notesById[c.id].samples.map((s,i,all)=>'<li><time>'+ageLabel(s.age)+'</time><p>'+s.text.map(esc).join(' · ')+'</p>'+(i?'<p>'+esc(shortChange(s,all[i-1]))+'</p>':'')+'</li>').join('')+'</ol>').join('');ledgerKey=lk;}
  const recordState=JSON.stringify(game.records.map(r=>[r.productId,r.samples,r.choices]));if(recordState!==recordKey){$('records-body').innerHTML=game.records.slice().reverse().map(r=>'<article><h3>'+esc(r.name)+'</h3><p>'+ageLabel(r.age)+' · '+r.bottles+'本</p><p id="record-sale-'+r.productId+'"></p><p>'+r.taste.map(esc).join(' · ')+'</p><details><summary>蒸留・試飲・判断</summary><p>'+esc(r.description)+'</p>'+r.samples.map(s=>'<p>'+ageLabel(s.age)+' · '+s.text.map(esc).join(' · ')+'</p>').join('')+r.choices.map(c=>'<p>'+ageLabel(c.age)+' · '+esc(c.text)+'</p>').join('')+'</details></article>').join('');recordKey=recordState;}$('records').hidden=!game.records.length;for(const r of game.records)$('record-sale-'+r.productId).textContent='販売 '+r.sold+'本 · 売上 '+money(r.revenue);
@@ -120,7 +120,7 @@ $('go-distill').addEventListener('click',()=>selectRoom('distill'));
 $('cask-rack').addEventListener('click',e=>{const b=e.target.closest('[data-cask-id]');if(!b||modal||!D.currentCask(game,Number(b.dataset.caskId)))return;stopClock();endTaste();selectedCaskId=Number(b.dataset.caskId);save();render();schedule();});
 $('product-shelf').addEventListener('click',e=>{const b=e.target.closest('[data-product-id]');if(b){selectedProductId=Number(b.dataset.productId);openModal('product',selectedProductId);}});
 $('start-distill').addEventListener('click',()=>{if(!game||!D.canStart(game).ok||modal)return;message('');act(D.startDistillation);});
-$('stop-distill').addEventListener('click',()=>{if(game?.still.phase==='distilling'&&game.still.distillation.progress>=T.minimumStop&&!modal)act(D.stopDistillation);});$('open-fill').addEventListener('click',()=>openModal('fill'));
+$('stop-distill').addEventListener('click',()=>{if(game?.still.phase==='distilling'&&game.still.distillation.progress>=T.minimumStop&&!modal)act(D.stopDistillation);});$('open-fill').addEventListener('click',()=>{if(atExtractionLimit()&&!modal)act(D.stopDistillation,()=>{modal={kind:'fill'};jump=0;});else openModal('fill');});
 $('taste-button').addEventListener('click',()=>trial(selectedCaskId));$('glass-button').addEventListener('click',()=>{if(game?.tastingId===null)trial(selectedCaskId);});
 $('end-tasting').addEventListener('click',()=>act(D.endTasting));$('open-bottle').addEventListener('click',()=>quoteModal(selectedCaskId));$('taste-bottle').addEventListener('click',()=>quoteModal(selectedCaskId));
 $('toggle-time').addEventListener('click',()=>{if(jump>0){jump=0;userPaused=true;}else if(runtimeHalted){runtimeHalted=false;}else userPaused=!userPaused;save();render();schedule();});
@@ -136,16 +136,14 @@ function handleModal(e){
  if(a==='list'){if(kind!=='product'||modal.id!==id)return;act(s=>D.listBottles(s,id),()=>{modal=null;message('販売を始めました。売上は次の月から。');});return;}
  if(a==='bottle'){
   if(kind!=='quote'||modal.id!==id)return;const label=caskName(id);
-  act(s=>D.bottleNow(D.endTasting(s),id),()=>{message(label+'を'+game.result.bottles+'本に瓶詰めしました。');modal=game.decisions.length?null:{kind:'finish',id:game.result.productId};});return;
+  act(s=>D.bottleNow(D.endTasting(s),id),()=>{message(label+'を'+game.result.bottles+'本に瓶詰めしました。');pricingQueue.push(game.result.productId);selectedProductId=game.result.productId;room='sales';modal=null;});return;
  }
- if(a==='to-sales'){modal=null;room='sales';selectedProductId=id;render();schedule();return;}
- if(a==='to-warehouse'){modal=null;room='warehouse';render();schedule();}
 }
 function suspend(){jump=0;stopClock();save();if(game)render();}
 function resume(){if(game){render();schedule();}}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)suspend();else resume();});window.addEventListener('pagehide',suspend);window.addEventListener('pageshow',e=>{if(e.persisted)resume();});
 window.addEventListener('storage',e=>{if(!preview&&e.key===SAVE_KEY){canSave=false;suspend();storageNotice('別の画面で保存が変わりました。再読み込みしてください。');}});
-$('reset').addEventListener('click',()=>{if(!confirm('0.7の進行を新しくしますか？以前の保存は残ります。'))return;stopClock();try{lastSavedText=preview?null:localStorage.getItem(SAVE_KEY);}catch{storageNotice('保存を確認できないため初期化していません。');return;}game=D.newDistillery(seed);room='distill';selectedCaskId=null;modal=null;userPaused=false;runtimeHalted=false;elapsed=0;jump=0;glassKey='';canSave=!preview;storageNotice('');save();render();});
+$('reset').addEventListener('click',()=>{if(!confirm('0.7の進行を新しくしますか？以前の保存は残ります。'))return;stopClock();try{lastSavedText=preview?null:localStorage.getItem(SAVE_KEY);}catch{storageNotice('保存を確認できないため初期化していません。');return;}game=D.newDistillery(seed);pricingQueue.length=0;room='distill';selectedCaskId=null;modal=null;userPaused=false;runtimeHalted=false;elapsed=0;jump=0;glassKey='';canSave=!preview;storageNotice('');save();render();});
 $('retry-save').addEventListener('click',()=>{if(!game){boot();return;}canSave=!preview;if(save()){storageNotice('');$('recovery').hidden=true;}render();schedule();});
 function boot(){
  if(preview){game=D.newDistillery(seed);save();render();schedule();return;}
