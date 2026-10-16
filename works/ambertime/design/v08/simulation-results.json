@@ -1,0 +1,6234 @@
+[
+  {
+    "seed": 1,
+    "policy": "accept",
+    "month": 240,
+    "cash": 6267.77,
+    "revenue": 20870.77,
+    "costs": 11659,
+    "upkeep": 4544,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 31,
+    "offers": 8,
+    "declines": 0,
+    "contracts": 8,
+    "cancelled": 0,
+    "shipped": [
+      {
+        "month": 44,
+        "caskId": 8,
+        "productId": 17,
+        "partner": "港の仕入れ店",
+        "bottles": 44,
+        "gross": 748,
+        "cost": 132,
+        "net": 616
+      },
+      {
+        "month": 75,
+        "caskId": 19,
+        "productId": 26,
+        "partner": "川沿いの酒販店",
+        "bottles": 44,
+        "gross": 777.92,
+        "cost": 132,
+        "net": 645.92
+      },
+      {
+        "month": 111,
+        "caskId": 37,
+        "productId": 41,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 674.1,
+        "cost": 135,
+        "net": 539.1
+      },
+      {
+        "month": 149,
+        "caskId": 49,
+        "productId": 56,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 739.35,
+        "cost": 135,
+        "net": 604.35
+      },
+      {
+        "month": 168,
+        "caskId": 58,
+        "productId": 65,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 648,
+        "cost": 135,
+        "net": 513
+      },
+      {
+        "month": 198,
+        "caskId": 70,
+        "productId": 77,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 609.3,
+        "cost": 135,
+        "net": 474.3
+      },
+      {
+        "month": 217,
+        "caskId": 79,
+        "productId": 83,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 674.1,
+        "cost": 135,
+        "net": 539.1
+      }
+    ],
+    "offered": [
+      {
+        "id": 1,
+        "month": 23,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 57,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 103,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 135,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 160,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 183,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 211,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 231,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1476,
+        "revenue": 2176,
+        "costs": 1628,
+        "upkeep": 672
+      },
+      {
+        "month": 60,
+        "cash": 2039,
+        "revenue": 4380,
+        "costs": 2813,
+        "upkeep": 1128
+      },
+      {
+        "month": 120,
+        "cash": 3624.02,
+        "revenue": 10184.02,
+        "costs": 5896,
+        "upkeep": 2264
+      },
+      {
+        "month": 240,
+        "cash": 6267.77,
+        "revenue": 20870.77,
+        "costs": 11659,
+        "upkeep": 4544
+      }
+    ]
+  },
+  {
+    "seed": 2,
+    "policy": "accept",
+    "month": 240,
+    "cash": 6791.32,
+    "revenue": 22154.32,
+    "costs": 12435,
+    "upkeep": 4528,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 33,
+    "offers": 8,
+    "declines": 0,
+    "contracts": 8,
+    "cancelled": 0,
+    "shipped": [
+      {
+        "month": 38,
+        "caskId": 8,
+        "productId": 14,
+        "partner": "川沿いの酒販店",
+        "bottles": 45,
+        "gross": 711,
+        "cost": 135,
+        "net": 576
+      },
+      {
+        "month": 64,
+        "caskId": 22,
+        "productId": 26,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 594,
+        "cost": 135,
+        "net": 459
+      },
+      {
+        "month": 102,
+        "caskId": 34,
+        "productId": 41,
+        "partner": "港の仕入れ店",
+        "bottles": 44,
+        "gross": 695.2,
+        "cost": 132,
+        "net": 563.2
+      },
+      {
+        "month": 127,
+        "caskId": 43,
+        "productId": 50,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 739.35,
+        "cost": 135,
+        "net": 604.35
+      },
+      {
+        "month": 152,
+        "caskId": 52,
+        "productId": 59,
+        "partner": "町の卸売商",
+        "bottles": 44,
+        "gross": 722.92,
+        "cost": 132,
+        "net": 590.92
+      },
+      {
+        "month": 171,
+        "caskId": 61,
+        "productId": 67,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 609.3,
+        "cost": 135,
+        "net": 474.3
+      },
+      {
+        "month": 196,
+        "caskId": 74,
+        "productId": 77,
+        "partner": "港の仕入れ店",
+        "bottles": 46,
+        "gross": 607.2,
+        "cost": 138,
+        "net": 469.2
+      },
+      {
+        "month": 234,
+        "caskId": 86,
+        "productId": 92,
+        "partner": "川沿いの酒販店",
+        "bottles": 45,
+        "gross": 739.35,
+        "cost": 135,
+        "net": 604.35
+      }
+    ],
+    "offered": [
+      {
+        "id": 1,
+        "month": 20,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 53,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 81,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 115,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 137,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 165,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 185,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 213,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1476,
+        "revenue": 2176,
+        "costs": 1628,
+        "upkeep": 672
+      },
+      {
+        "month": 60,
+        "cash": 2385,
+        "revenue": 5079,
+        "costs": 3174,
+        "upkeep": 1120
+      },
+      {
+        "month": 120,
+        "cash": 3548.2,
+        "revenue": 10464.2,
+        "costs": 6260,
+        "upkeep": 2256
+      },
+      {
+        "month": 240,
+        "cash": 6791.32,
+        "revenue": 22154.32,
+        "costs": 12435,
+        "upkeep": 4528
+      }
+    ]
+  },
+  {
+    "seed": 3,
+    "policy": "accept",
+    "month": 240,
+    "cash": 6549.08,
+    "revenue": 21915.08,
+    "costs": 12438,
+    "upkeep": 4528,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 33,
+    "offers": 8,
+    "declines": 0,
+    "contracts": 8,
+    "cancelled": 0,
+    "shipped": [
+      {
+        "month": 32,
+        "caskId": 8,
+        "productId": 14,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 609.3,
+        "cost": 135,
+        "net": 474.3
+      },
+      {
+        "month": 53,
+        "caskId": 19,
+        "productId": 23,
+        "partner": "川沿いの酒販店",
+        "bottles": 46,
+        "gross": 607.2,
+        "cost": 138,
+        "net": 469.2
+      },
+      {
+        "month": 83,
+        "caskId": 28,
+        "productId": 35,
+        "partner": "港の仕入れ店",
+        "bottles": 44,
+        "gross": 653.4,
+        "cost": 132,
+        "net": 521.4
+      },
+      {
+        "month": 111,
+        "caskId": 40,
+        "productId": 47,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 609.3,
+        "cost": 135,
+        "net": 474.3
+      },
+      {
+        "month": 128,
+        "caskId": 46,
+        "productId": 53,
+        "partner": "川沿いの酒販店",
+        "bottles": 45,
+        "gross": 674.1,
+        "cost": 135,
+        "net": 539.1
+      },
+      {
+        "month": 162,
+        "caskId": 58,
+        "productId": 65,
+        "partner": "町の卸売商",
+        "bottles": 44,
+        "gross": 695.2,
+        "cost": 132,
+        "net": 563.2
+      },
+      {
+        "month": 198,
+        "caskId": 70,
+        "productId": 77,
+        "partner": "町の卸売商",
+        "bottles": 43,
+        "gross": 731,
+        "cost": 129,
+        "net": 602
+      },
+      {
+        "month": 224,
+        "caskId": 85,
+        "productId": 89,
+        "partner": "港の仕入れ店",
+        "bottles": 46,
+        "gross": 631.58,
+        "cost": 138,
+        "net": 493.58
+      }
+    ],
+    "offered": [
+      {
+        "id": 1,
+        "month": 16,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 46,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 67,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 102,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 122,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 145,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 176,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 217,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1678.3,
+        "revenue": 2785.3,
+        "costs": 2043,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2195.5,
+        "revenue": 5296.5,
+        "costs": 3589,
+        "upkeep": 1112
+      },
+      {
+        "month": 120,
+        "cash": 3576.2,
+        "revenue": 10495.2,
+        "costs": 6263,
+        "upkeep": 2256
+      },
+      {
+        "month": 240,
+        "cash": 6549.08,
+        "revenue": 21915.08,
+        "costs": 12438,
+        "upkeep": 4528
+      }
+    ]
+  },
+  {
+    "seed": 4,
+    "policy": "accept",
+    "month": 240,
+    "cash": 6449.08,
+    "revenue": 21038.08,
+    "costs": 11653,
+    "upkeep": 4536,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 31,
+    "offers": 6,
+    "declines": 0,
+    "contracts": 6,
+    "cancelled": 0,
+    "shipped": [
+      {
+        "month": 44,
+        "caskId": 8,
+        "productId": 17,
+        "partner": "町の卸売商",
+        "bottles": 44,
+        "gross": 777.92,
+        "cost": 132,
+        "net": 645.92
+      },
+      {
+        "month": 78,
+        "caskId": 22,
+        "productId": 29,
+        "partner": "川沿いの酒販店",
+        "bottles": 44,
+        "gross": 722.92,
+        "cost": 132,
+        "net": 590.92
+      },
+      {
+        "month": 122,
+        "caskId": 37,
+        "productId": 44,
+        "partner": "川沿いの酒販店",
+        "bottles": 44,
+        "gross": 703.12,
+        "cost": 132,
+        "net": 571.12
+      },
+      {
+        "month": 166,
+        "caskId": 53,
+        "productId": 62,
+        "partner": "川沿いの酒販店",
+        "bottles": 43,
+        "gross": 731,
+        "cost": 129,
+        "net": 602
+      },
+      {
+        "month": 206,
+        "caskId": 67,
+        "productId": 76,
+        "partner": "川沿いの酒販店",
+        "bottles": 44,
+        "gross": 703.12,
+        "cost": 132,
+        "net": 571.12
+      },
+      {
+        "month": 237,
+        "caskId": 83,
+        "productId": 89,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 648,
+        "cost": 135,
+        "net": 513
+      }
+    ],
+    "offered": [
+      {
+        "id": 1,
+        "month": 26,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 64,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 98,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 137,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 184,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 221,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1476,
+        "revenue": 2176,
+        "costs": 1628,
+        "upkeep": 672
+      },
+      {
+        "month": 60,
+        "cash": 2390.92,
+        "revenue": 5081.92,
+        "costs": 3171,
+        "upkeep": 1120
+      },
+      {
+        "month": 120,
+        "cash": 3344.84,
+        "revenue": 9500.84,
+        "costs": 5484,
+        "upkeep": 2272
+      },
+      {
+        "month": 240,
+        "cash": 6449.08,
+        "revenue": 21038.08,
+        "costs": 11653,
+        "upkeep": 4536
+      }
+    ]
+  },
+  {
+    "seed": 5,
+    "policy": "accept",
+    "month": 240,
+    "cash": 7164.24,
+    "revenue": 22934.24,
+    "costs": 12850,
+    "upkeep": 4520,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 34,
+    "offers": 6,
+    "declines": 0,
+    "contracts": 6,
+    "cancelled": 0,
+    "shipped": [
+      {
+        "month": 32,
+        "caskId": 8,
+        "productId": 14,
+        "partner": "川沿いの酒販店",
+        "bottles": 45,
+        "gross": 648,
+        "cost": 135,
+        "net": 513
+      },
+      {
+        "month": 76,
+        "caskId": 22,
+        "productId": 29,
+        "partner": "港の仕入れ店",
+        "bottles": 43,
+        "gross": 731,
+        "cost": 129,
+        "net": 602
+      },
+      {
+        "month": 133,
+        "caskId": 43,
+        "productId": 53,
+        "partner": "港の仕入れ店",
+        "bottles": 44,
+        "gross": 703.12,
+        "cost": 132,
+        "net": 571.12
+      },
+      {
+        "month": 195,
+        "caskId": 70,
+        "productId": 77,
+        "partner": "港の仕入れ店",
+        "bottles": 44,
+        "gross": 722.92,
+        "cost": 132,
+        "net": 590.92
+      },
+      {
+        "month": 221,
+        "caskId": 85,
+        "productId": 89,
+        "partner": "川沿いの酒販店",
+        "bottles": 46,
+        "gross": 607.2,
+        "cost": 138,
+        "net": 469.2
+      },
+      {
+        "month": 237,
+        "caskId": 94,
+        "productId": 98,
+        "partner": "川沿いの酒販店",
+        "bottles": 45,
+        "gross": 594,
+        "cost": 135,
+        "net": 459
+      }
+    ],
+    "offered": [
+      {
+        "id": 1,
+        "month": 17,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 56,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 109,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 181,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 213,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 233,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1717,
+        "revenue": 2824,
+        "costs": 2043,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2322,
+        "revenue": 5016,
+        "costs": 3174,
+        "upkeep": 1120
+      },
+      {
+        "month": 120,
+        "cash": 3650,
+        "revenue": 10563,
+        "costs": 6257,
+        "upkeep": 2256
+      },
+      {
+        "month": 240,
+        "cash": 7164.24,
+        "revenue": 22934.24,
+        "costs": 12850,
+        "upkeep": 4520
+      }
+    ]
+  },
+  {
+    "seed": 6,
+    "policy": "accept",
+    "month": 240,
+    "cash": 6459.73,
+    "revenue": 21056.73,
+    "costs": 11653,
+    "upkeep": 4544,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 31,
+    "offers": 7,
+    "declines": 0,
+    "contracts": 7,
+    "cancelled": 0,
+    "shipped": [
+      {
+        "month": 38,
+        "caskId": 8,
+        "productId": 14,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 739.35,
+        "cost": 135,
+        "net": 604.35
+      },
+      {
+        "month": 76,
+        "caskId": 22,
+        "productId": 29,
+        "partner": "港の仕入れ店",
+        "bottles": 44,
+        "gross": 722.92,
+        "cost": 132,
+        "net": 590.92
+      },
+      {
+        "month": 114,
+        "caskId": 37,
+        "productId": 44,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 739.35,
+        "cost": 135,
+        "net": 604.35
+      },
+      {
+        "month": 137,
+        "caskId": 49,
+        "productId": 53,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 648,
+        "cost": 135,
+        "net": 513
+      },
+      {
+        "month": 181,
+        "caskId": 61,
+        "productId": 71,
+        "partner": "町の卸売商",
+        "bottles": 44,
+        "gross": 777.92,
+        "cost": 132,
+        "net": 645.92
+      },
+      {
+        "month": 212,
+        "caskId": 73,
+        "productId": 80,
+        "partner": "港の仕入れ店",
+        "bottles": 44,
+        "gross": 703.12,
+        "cost": 132,
+        "net": 571.12
+      },
+      {
+        "month": 237,
+        "caskId": 82,
+        "productId": 89,
+        "partner": "港の仕入れ店",
+        "bottles": 44,
+        "gross": 722.92,
+        "cost": 132,
+        "net": 590.92
+      }
+    ],
+    "offered": [
+      {
+        "id": 1,
+        "month": 22,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 60,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 93,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 130,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 161,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 193,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 223,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1476,
+        "revenue": 2176,
+        "costs": 1628,
+        "upkeep": 672
+      },
+      {
+        "month": 60,
+        "cash": 2413.35,
+        "revenue": 5107.35,
+        "costs": 3174,
+        "upkeep": 1120
+      },
+      {
+        "month": 120,
+        "cash": 3736.77,
+        "revenue": 10652.77,
+        "costs": 6260,
+        "upkeep": 2256
+      },
+      {
+        "month": 240,
+        "cash": 6459.73,
+        "revenue": 21056.73,
+        "costs": 11653,
+        "upkeep": 4544
+      }
+    ]
+  },
+  {
+    "seed": 7,
+    "policy": "accept",
+    "month": 240,
+    "cash": 6410.89,
+    "revenue": 21426.89,
+    "costs": 12080,
+    "upkeep": 4536,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 32,
+    "offers": 8,
+    "declines": 0,
+    "contracts": 8,
+    "cancelled": 0,
+    "shipped": [
+      {
+        "month": 38,
+        "caskId": 8,
+        "productId": 14,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 739.35,
+        "cost": 135,
+        "net": 604.35
+      },
+      {
+        "month": 57,
+        "caskId": 16,
+        "productId": 23,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 648,
+        "cost": 135,
+        "net": 513
+      },
+      {
+        "month": 82,
+        "caskId": 25,
+        "productId": 32,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 711,
+        "cost": 135,
+        "net": 576
+      },
+      {
+        "month": 118,
+        "caskId": 43,
+        "productId": 47,
+        "partner": "港の仕入れ店",
+        "bottles": 46,
+        "gross": 631.58,
+        "cost": 138,
+        "net": 493.58
+      },
+      {
+        "month": 150,
+        "caskId": 55,
+        "productId": 62,
+        "partner": "川沿いの酒販店",
+        "bottles": 45,
+        "gross": 674.1,
+        "cost": 135,
+        "net": 539.1
+      },
+      {
+        "month": 191,
+        "caskId": 67,
+        "productId": 77,
+        "partner": "町の卸売商",
+        "bottles": 44,
+        "gross": 748,
+        "cost": 132,
+        "net": 616
+      },
+      {
+        "month": 217,
+        "caskId": 85,
+        "productId": 89,
+        "partner": "町の卸売商",
+        "bottles": 46,
+        "gross": 570.86,
+        "cost": 138,
+        "net": 432.86
+      }
+    ],
+    "offered": [
+      {
+        "id": 1,
+        "month": 18,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 48,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 69,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 109,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 135,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 164,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 213,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 229,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1476,
+        "revenue": 2176,
+        "costs": 1628,
+        "upkeep": 672
+      },
+      {
+        "month": 60,
+        "cash": 2341.35,
+        "revenue": 5035.35,
+        "costs": 3174,
+        "upkeep": 1120
+      },
+      {
+        "month": 120,
+        "cash": 3810.93,
+        "revenue": 10729.93,
+        "costs": 6263,
+        "upkeep": 2256
+      },
+      {
+        "month": 240,
+        "cash": 6410.89,
+        "revenue": 21426.89,
+        "costs": 12080,
+        "upkeep": 4536
+      }
+    ]
+  },
+  {
+    "seed": 8,
+    "policy": "accept",
+    "month": 240,
+    "cash": 5835.46,
+    "revenue": 20088.46,
+    "costs": 11301,
+    "upkeep": 4552,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 30,
+    "offers": 8,
+    "declines": 0,
+    "contracts": 8,
+    "cancelled": 0,
+    "shipped": [
+      {
+        "month": 38,
+        "caskId": 8,
+        "productId": 14,
+        "partner": "川沿いの酒販店",
+        "bottles": 45,
+        "gross": 739.35,
+        "cost": 135,
+        "net": 604.35
+      },
+      {
+        "month": 69,
+        "caskId": 16,
+        "productId": 26,
+        "partner": "町の卸売商",
+        "bottles": 43,
+        "gross": 760.24,
+        "cost": 129,
+        "net": 631.24
+      },
+      {
+        "month": 91,
+        "caskId": 25,
+        "productId": 32,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 668.25,
+        "cost": 135,
+        "net": 533.25
+      },
+      {
+        "month": 104,
+        "caskId": 34,
+        "productId": 38,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 594,
+        "cost": 135,
+        "net": 459
+      },
+      {
+        "month": 142,
+        "caskId": 46,
+        "productId": 53,
+        "partner": "川沿いの酒販店",
+        "bottles": 44,
+        "gross": 653.4,
+        "cost": 132,
+        "net": 521.4
+      },
+      {
+        "month": 174,
+        "caskId": 61,
+        "productId": 67,
+        "partner": "川沿いの酒販店",
+        "bottles": 45,
+        "gross": 674.1,
+        "cost": 135,
+        "net": 539.1
+      },
+      {
+        "month": 204,
+        "caskId": 68,
+        "productId": 77,
+        "partner": "川沿いの酒販店",
+        "bottles": 44,
+        "gross": 703.12,
+        "cost": 132,
+        "net": 571.12
+      }
+    ],
+    "offered": [
+      {
+        "id": 1,
+        "month": 19,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 48,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 79,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 101,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 125,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 161,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 184,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 219,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1476,
+        "revenue": 2176,
+        "costs": 1628,
+        "upkeep": 672
+      },
+      {
+        "month": 60,
+        "cash": 2040.35,
+        "revenue": 4387.35,
+        "costs": 2819,
+        "upkeep": 1128
+      },
+      {
+        "month": 120,
+        "cash": 3430.84,
+        "revenue": 9993.84,
+        "costs": 5899,
+        "upkeep": 2264
+      },
+      {
+        "month": 240,
+        "cash": 5835.46,
+        "revenue": 20088.46,
+        "costs": 11301,
+        "upkeep": 4552
+      }
+    ]
+  },
+  {
+    "seed": 9,
+    "policy": "accept",
+    "month": 240,
+    "cash": 6337.89,
+    "revenue": 21347.89,
+    "costs": 12074,
+    "upkeep": 4536,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 32,
+    "offers": 8,
+    "declines": 0,
+    "contracts": 8,
+    "cancelled": 0,
+    "shipped": [
+      {
+        "month": 38,
+        "caskId": 8,
+        "productId": 14,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 739.35,
+        "cost": 135,
+        "net": 604.35
+      },
+      {
+        "month": 63,
+        "caskId": 16,
+        "productId": 23,
+        "partner": "町の卸売商",
+        "bottles": 44,
+        "gross": 695.2,
+        "cost": 132,
+        "net": 563.2
+      },
+      {
+        "month": 101,
+        "caskId": 31,
+        "productId": 38,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 711,
+        "cost": 135,
+        "net": 576
+      },
+      {
+        "month": 114,
+        "caskId": 40,
+        "productId": 44,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 558.45,
+        "cost": 135,
+        "net": 423.45
+      },
+      {
+        "month": 143,
+        "caskId": 49,
+        "productId": 56,
+        "partner": "川沿いの酒販店",
+        "bottles": 45,
+        "gross": 668.25,
+        "cost": 135,
+        "net": 533.25
+      },
+      {
+        "month": 168,
+        "caskId": 58,
+        "productId": 65,
+        "partner": "町の卸売商",
+        "bottles": 44,
+        "gross": 695.2,
+        "cost": 132,
+        "net": 563.2
+      },
+      {
+        "month": 198,
+        "caskId": 70,
+        "productId": 77,
+        "partner": "川沿いの酒販店",
+        "bottles": 45,
+        "gross": 609.3,
+        "cost": 135,
+        "net": 474.3
+      },
+      {
+        "month": 238,
+        "caskId": 82,
+        "productId": 91,
+        "partner": "港の仕入れ店",
+        "bottles": 43,
+        "gross": 687.14,
+        "cost": 129,
+        "net": 558.14
+      }
+    ],
+    "offered": [
+      {
+        "id": 1,
+        "month": 17,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 48,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 84,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 111,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 129,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 155,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 184,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 219,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1476,
+        "revenue": 2176,
+        "costs": 1628,
+        "upkeep": 672
+      },
+      {
+        "month": 60,
+        "cash": 2040.35,
+        "revenue": 4387.35,
+        "costs": 2819,
+        "upkeep": 1128
+      },
+      {
+        "month": 120,
+        "cash": 3516,
+        "revenue": 10432,
+        "costs": 6260,
+        "upkeep": 2256
+      },
+      {
+        "month": 240,
+        "cash": 6337.89,
+        "revenue": 21347.89,
+        "costs": 12074,
+        "upkeep": 4536
+      }
+    ]
+  },
+  {
+    "seed": 10,
+    "policy": "accept",
+    "month": 240,
+    "cash": 6762.52,
+    "revenue": 22131.52,
+    "costs": 12441,
+    "upkeep": 4528,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 33,
+    "offers": 7,
+    "declines": 0,
+    "contracts": 7,
+    "cancelled": 0,
+    "shipped": [
+      {
+        "month": 38,
+        "caskId": 8,
+        "productId": 14,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 739.35,
+        "cost": 135,
+        "net": 604.35
+      },
+      {
+        "month": 76,
+        "caskId": 22,
+        "productId": 29,
+        "partner": "港の仕入れ店",
+        "bottles": 44,
+        "gross": 695.2,
+        "cost": 132,
+        "net": 563.2
+      },
+      {
+        "month": 108,
+        "caskId": 37,
+        "productId": 44,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 648,
+        "cost": 135,
+        "net": 513
+      },
+      {
+        "month": 149,
+        "caskId": 49,
+        "productId": 59,
+        "partner": "港の仕入れ店",
+        "bottles": 44,
+        "gross": 703.12,
+        "cost": 132,
+        "net": 571.12
+      },
+      {
+        "month": 179,
+        "caskId": 64,
+        "productId": 71,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 674.1,
+        "cost": 135,
+        "net": 539.1
+      },
+      {
+        "month": 207,
+        "caskId": 76,
+        "productId": 83,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 609.3,
+        "cost": 135,
+        "net": 474.3
+      },
+      {
+        "month": 231,
+        "caskId": 88,
+        "productId": 92,
+        "partner": "川沿いの酒販店",
+        "bottles": 45,
+        "gross": 558.45,
+        "cost": 135,
+        "net": 423.45
+      }
+    ],
+    "offered": [
+      {
+        "id": 1,
+        "month": 21,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 54,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 94,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 125,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 168,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 195,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 221,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1476,
+        "revenue": 2176,
+        "costs": 1628,
+        "upkeep": 672
+      },
+      {
+        "month": 60,
+        "cash": 2413.35,
+        "revenue": 5107.35,
+        "costs": 3174,
+        "upkeep": 1120
+      },
+      {
+        "month": 120,
+        "cash": 3627.55,
+        "revenue": 10546.55,
+        "costs": 6263,
+        "upkeep": 2256
+      },
+      {
+        "month": 240,
+        "cash": 6762.52,
+        "revenue": 22131.52,
+        "costs": 12441,
+        "upkeep": 4528
+      }
+    ]
+  },
+  {
+    "seed": 42,
+    "policy": "accept",
+    "month": 240,
+    "cash": 6597.28,
+    "revenue": 21604.28,
+    "costs": 12071,
+    "upkeep": 4536,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 32,
+    "offers": 7,
+    "declines": 0,
+    "contracts": 7,
+    "cancelled": 0,
+    "shipped": [
+      {
+        "month": 44,
+        "caskId": 8,
+        "productId": 17,
+        "partner": "港の仕入れ店",
+        "bottles": 44,
+        "gross": 777.92,
+        "cost": 132,
+        "net": 645.92
+      },
+      {
+        "month": 63,
+        "caskId": 19,
+        "productId": 23,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 674.1,
+        "cost": 135,
+        "net": 539.1
+      },
+      {
+        "month": 94,
+        "caskId": 25,
+        "productId": 35,
+        "partner": "町の卸売商",
+        "bottles": 44,
+        "gross": 777.92,
+        "cost": 132,
+        "net": 645.92
+      },
+      {
+        "month": 118,
+        "caskId": 40,
+        "productId": 44,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 594,
+        "cost": 135,
+        "net": 459
+      },
+      {
+        "month": 144,
+        "caskId": 52,
+        "productId": 56,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 617.85,
+        "cost": 135,
+        "net": 482.85
+      },
+      {
+        "month": 188,
+        "caskId": 64,
+        "productId": 74,
+        "partner": "町の卸売商",
+        "bottles": 43,
+        "gross": 687.14,
+        "cost": 129,
+        "net": 558.14
+      },
+      {
+        "month": 236,
+        "caskId": 85,
+        "productId": 92,
+        "partner": "川沿いの酒販店",
+        "bottles": 45,
+        "gross": 739.35,
+        "cost": 135,
+        "net": 604.35
+      }
+    ],
+    "offered": [
+      {
+        "id": 1,
+        "month": 16,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 57,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 73,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 114,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 137,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 160,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 215,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1476,
+        "revenue": 2176,
+        "costs": 1628,
+        "upkeep": 672
+      },
+      {
+        "month": 60,
+        "cash": 2068.92,
+        "revenue": 4409.92,
+        "costs": 2813,
+        "upkeep": 1128
+      },
+      {
+        "month": 120,
+        "cash": 3527.94,
+        "revenue": 10087.94,
+        "costs": 5896,
+        "upkeep": 2264
+      },
+      {
+        "month": 240,
+        "cash": 6597.28,
+        "revenue": 21604.28,
+        "costs": 12071,
+        "upkeep": 4536
+      }
+    ]
+  },
+  {
+    "seed": 20261016,
+    "policy": "accept",
+    "month": 240,
+    "cash": 6613.72,
+    "revenue": 21973.72,
+    "costs": 12432,
+    "upkeep": 4528,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 33,
+    "offers": 9,
+    "declines": 0,
+    "contracts": 9,
+    "cancelled": 0,
+    "shipped": [
+      {
+        "month": 32,
+        "caskId": 8,
+        "productId": 14,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 648,
+        "cost": 135,
+        "net": 513
+      },
+      {
+        "month": 59,
+        "caskId": 19,
+        "productId": 25,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 648,
+        "cost": 135,
+        "net": 513
+      },
+      {
+        "month": 84,
+        "caskId": 32,
+        "productId": 35,
+        "partner": "川沿いの酒販店",
+        "bottles": 46,
+        "gross": 631.58,
+        "cost": 138,
+        "net": 493.58
+      },
+      {
+        "month": 109,
+        "caskId": 38,
+        "productId": 44,
+        "partner": "港の仕入れ店",
+        "bottles": 45,
+        "gross": 739.35,
+        "cost": 135,
+        "net": 604.35
+      },
+      {
+        "month": 143,
+        "caskId": 55,
+        "productId": 59,
+        "partner": "川沿いの酒販店",
+        "bottles": 45,
+        "gross": 674.1,
+        "cost": 135,
+        "net": 539.1
+      },
+      {
+        "month": 161,
+        "caskId": 64,
+        "productId": 68,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 558.45,
+        "cost": 135,
+        "net": 423.45
+      },
+      {
+        "month": 187,
+        "caskId": 76,
+        "productId": 80,
+        "partner": "町の卸売商",
+        "bottles": 45,
+        "gross": 594,
+        "cost": 135,
+        "net": 459
+      },
+      {
+        "month": 218,
+        "caskId": 82,
+        "productId": 89,
+        "partner": "町の卸売商",
+        "bottles": 43,
+        "gross": 760.24,
+        "cost": 129,
+        "net": 631.24
+      }
+    ],
+    "offered": [
+      {
+        "id": 1,
+        "month": 20,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 47,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 74,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 97,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 137,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 155,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 180,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 198,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 229,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1717,
+        "revenue": 2824,
+        "costs": 2043,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2438,
+        "revenue": 5376,
+        "costs": 3426,
+        "upkeep": 1112
+      },
+      {
+        "month": 120,
+        "cash": 3734.93,
+        "revenue": 10650.93,
+        "costs": 6260,
+        "upkeep": 2256
+      },
+      {
+        "month": 240,
+        "cash": 6613.72,
+        "revenue": 21973.72,
+        "costs": 12432,
+        "upkeep": 4528
+      }
+    ]
+  },
+  {
+    "seed": 1,
+    "policy": "decline",
+    "month": 240,
+    "cash": 8906,
+    "revenue": 26208,
+    "costs": 14414,
+    "upkeep": 4488,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 38,
+    "offers": 14,
+    "declines": 14,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 23,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 36,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 65,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 88,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 99,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 114,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 126,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 140,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 149,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 170,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 185,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 205,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 219,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 14,
+        "month": 236,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1802,
+        "revenue": 2912,
+        "costs": 2046,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2720,
+        "revenue": 5824,
+        "costs": 3592,
+        "upkeep": 1112
+      },
+      {
+        "month": 120,
+        "cash": 4551,
+        "revenue": 12640,
+        "costs": 7457,
+        "upkeep": 2232
+      },
+      {
+        "month": 240,
+        "cash": 8906,
+        "revenue": 26208,
+        "costs": 14414,
+        "upkeep": 4488
+      }
+    ]
+  },
+  {
+    "seed": 2,
+    "policy": "decline",
+    "month": 240,
+    "cash": 8906,
+    "revenue": 26208,
+    "costs": 14414,
+    "upkeep": 4488,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 38,
+    "offers": 15,
+    "declines": 15,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 20,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 35,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 54,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 67,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 78,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 93,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 106,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 123,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 140,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 155,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 173,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 189,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 201,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 14,
+        "month": 214,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 15,
+        "month": 234,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1802,
+        "revenue": 2912,
+        "costs": 2046,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2720,
+        "revenue": 5824,
+        "costs": 3592,
+        "upkeep": 1112
+      },
+      {
+        "month": 120,
+        "cash": 4551,
+        "revenue": 12640,
+        "costs": 7457,
+        "upkeep": 2232
+      },
+      {
+        "month": 240,
+        "cash": 8906,
+        "revenue": 26208,
+        "costs": 14414,
+        "upkeep": 4488
+      }
+    ]
+  },
+  {
+    "seed": 3,
+    "policy": "decline",
+    "month": 240,
+    "cash": 8906,
+    "revenue": 26208,
+    "costs": 14414,
+    "upkeep": 4488,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 38,
+    "offers": 15,
+    "declines": 15,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 16,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 30,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 43,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 62,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 72,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 88,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 102,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 122,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 138,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 157,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 179,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 194,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 208,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 14,
+        "month": 225,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 15,
+        "month": 239,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1802,
+        "revenue": 2912,
+        "costs": 2046,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2720,
+        "revenue": 5824,
+        "costs": 3592,
+        "upkeep": 1112
+      },
+      {
+        "month": 120,
+        "cash": 4551,
+        "revenue": 12640,
+        "costs": 7457,
+        "upkeep": 2232
+      },
+      {
+        "month": 240,
+        "cash": 8906,
+        "revenue": 26208,
+        "costs": 14414,
+        "upkeep": 4488
+      }
+    ]
+  },
+  {
+    "seed": 4,
+    "policy": "decline",
+    "month": 240,
+    "cash": 8906,
+    "revenue": 26208,
+    "costs": 14414,
+    "upkeep": 4488,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 38,
+    "offers": 13,
+    "declines": 13,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 26,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 46,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 65,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 81,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 98,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 113,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 127,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 151,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 166,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 183,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 201,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 219,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 229,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1802,
+        "revenue": 2912,
+        "costs": 2046,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2720,
+        "revenue": 5824,
+        "costs": 3592,
+        "upkeep": 1112
+      },
+      {
+        "month": 120,
+        "cash": 4551,
+        "revenue": 12640,
+        "costs": 7457,
+        "upkeep": 2232
+      },
+      {
+        "month": 240,
+        "cash": 8906,
+        "revenue": 26208,
+        "costs": 14414,
+        "upkeep": 4488
+      }
+    ]
+  },
+  {
+    "seed": 5,
+    "policy": "decline",
+    "month": 240,
+    "cash": 8908.7,
+    "revenue": 26210.7,
+    "costs": 14414,
+    "upkeep": 4488,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 38,
+    "offers": 10,
+    "declines": 10,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 17,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 42,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 73,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 124,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 140,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 152,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 177,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 193,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 213,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 238,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1802,
+        "revenue": 2912,
+        "costs": 2046,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2720,
+        "revenue": 5824,
+        "costs": 3592,
+        "upkeep": 1112
+      },
+      {
+        "month": 120,
+        "cash": 4551,
+        "revenue": 12640,
+        "costs": 7457,
+        "upkeep": 2232
+      },
+      {
+        "month": 240,
+        "cash": 8908.7,
+        "revenue": 26210.7,
+        "costs": 14414,
+        "upkeep": 4488
+      }
+    ]
+  },
+  {
+    "seed": 6,
+    "policy": "decline",
+    "month": 240,
+    "cash": 8912.3,
+    "revenue": 26214.3,
+    "costs": 14414,
+    "upkeep": 4488,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 38,
+    "offers": 14,
+    "declines": 14,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 22,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 43,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 60,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 75,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 98,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 110,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 121,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 137,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 149,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 171,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 186,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 198,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 219,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 14,
+        "month": 235,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1802,
+        "revenue": 2912,
+        "costs": 2046,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2720,
+        "revenue": 5824,
+        "costs": 3592,
+        "upkeep": 1112
+      },
+      {
+        "month": 120,
+        "cash": 4554.15,
+        "revenue": 12643.15,
+        "costs": 7457,
+        "upkeep": 2232
+      },
+      {
+        "month": 240,
+        "cash": 8912.3,
+        "revenue": 26214.3,
+        "costs": 14414,
+        "upkeep": 4488
+      }
+    ]
+  },
+  {
+    "seed": 7,
+    "policy": "decline",
+    "month": 240,
+    "cash": 8906,
+    "revenue": 26208,
+    "costs": 14414,
+    "upkeep": 4488,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 38,
+    "offers": 16,
+    "declines": 16,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 18,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 28,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 41,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 67,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 82,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 96,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 120,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 132,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 145,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 161,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 177,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 190,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 207,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 14,
+        "month": 216,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 15,
+        "month": 226,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 16,
+        "month": 236,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1802,
+        "revenue": 2912,
+        "costs": 2046,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2720,
+        "revenue": 5824,
+        "costs": 3592,
+        "upkeep": 1112
+      },
+      {
+        "month": 120,
+        "cash": 4551,
+        "revenue": 12640,
+        "costs": 7457,
+        "upkeep": 2232
+      },
+      {
+        "month": 240,
+        "cash": 8906,
+        "revenue": 26208,
+        "costs": 14414,
+        "upkeep": 4488
+      }
+    ]
+  },
+  {
+    "seed": 8,
+    "policy": "decline",
+    "month": 240,
+    "cash": 8906,
+    "revenue": 26208,
+    "costs": 14414,
+    "upkeep": 4488,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 38,
+    "offers": 15,
+    "declines": 15,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 19,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 29,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 41,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 52,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 73,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 92,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 102,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 117,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 146,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 158,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 167,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 193,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 205,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 14,
+        "month": 219,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 15,
+        "month": 229,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1802,
+        "revenue": 2912,
+        "costs": 2046,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2720,
+        "revenue": 5824,
+        "costs": 3592,
+        "upkeep": 1112
+      },
+      {
+        "month": 120,
+        "cash": 4551,
+        "revenue": 12640,
+        "costs": 7457,
+        "upkeep": 2232
+      },
+      {
+        "month": 240,
+        "cash": 8906,
+        "revenue": 26208,
+        "costs": 14414,
+        "upkeep": 4488
+      }
+    ]
+  },
+  {
+    "seed": 9,
+    "policy": "decline",
+    "month": 240,
+    "cash": 8906,
+    "revenue": 26208,
+    "costs": 14414,
+    "upkeep": 4488,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 38,
+    "offers": 16,
+    "declines": 16,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 17,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 28,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 48,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 58,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 73,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 85,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 99,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 120,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 132,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 145,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 160,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 176,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 187,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 14,
+        "month": 200,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 15,
+        "month": 216,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 16,
+        "month": 239,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1802,
+        "revenue": 2912,
+        "costs": 2046,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2720,
+        "revenue": 5824,
+        "costs": 3592,
+        "upkeep": 1112
+      },
+      {
+        "month": 120,
+        "cash": 4551,
+        "revenue": 12640,
+        "costs": 7457,
+        "upkeep": 2232
+      },
+      {
+        "month": 240,
+        "cash": 8906,
+        "revenue": 26208,
+        "costs": 14414,
+        "upkeep": 4488
+      }
+    ]
+  },
+  {
+    "seed": 10,
+    "policy": "decline",
+    "month": 240,
+    "cash": 8919.45,
+    "revenue": 26224.45,
+    "costs": 14417,
+    "upkeep": 4488,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 38,
+    "offers": 15,
+    "declines": 15,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 21,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 35,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 54,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 72,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 93,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 109,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 122,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 137,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 150,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 162,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 178,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 195,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 207,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 14,
+        "month": 220,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 15,
+        "month": 231,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1802,
+        "revenue": 2912,
+        "costs": 2046,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2720,
+        "revenue": 5824,
+        "costs": 3592,
+        "upkeep": 1112
+      },
+      {
+        "month": 120,
+        "cash": 4564,
+        "revenue": 12656,
+        "costs": 7460,
+        "upkeep": 2232
+      },
+      {
+        "month": 240,
+        "cash": 8919.45,
+        "revenue": 26224.45,
+        "costs": 14417,
+        "upkeep": 4488
+      }
+    ]
+  },
+  {
+    "seed": 42,
+    "policy": "decline",
+    "month": 240,
+    "cash": 8906,
+    "revenue": 26208,
+    "costs": 14414,
+    "upkeep": 4488,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 38,
+    "offers": 16,
+    "declines": 16,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 16,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 29,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 39,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 59,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 80,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 95,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 120,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 132,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 145,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 158,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 168,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 184,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 193,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 14,
+        "month": 214,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 15,
+        "month": 226,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      },
+      {
+        "id": 16,
+        "month": 239,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1802,
+        "revenue": 2912,
+        "costs": 2046,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2720,
+        "revenue": 5824,
+        "costs": 3592,
+        "upkeep": 1112
+      },
+      {
+        "month": 120,
+        "cash": 4551,
+        "revenue": 12640,
+        "costs": 7457,
+        "upkeep": 2232
+      },
+      {
+        "month": 240,
+        "cash": 8906,
+        "revenue": 26208,
+        "costs": 14414,
+        "upkeep": 4488
+      }
+    ]
+  },
+  {
+    "seed": 20261016,
+    "policy": "decline",
+    "month": 240,
+    "cash": 8906,
+    "revenue": 26208,
+    "costs": 14414,
+    "upkeep": 4488,
+    "minCash": 463,
+    "maxCasks": 2,
+    "started": 38,
+    "offers": 14,
+    "declines": 14,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 20,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 35,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 51,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 63,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 93,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 106,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 125,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 136,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 147,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 160,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 175,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 195,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 209,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 14,
+        "month": 227,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 884,
+        "revenue": 0,
+        "costs": 500,
+        "upkeep": 216
+      },
+      {
+        "month": 36,
+        "cash": 1802,
+        "revenue": 2912,
+        "costs": 2046,
+        "upkeep": 664
+      },
+      {
+        "month": 60,
+        "cash": 2720,
+        "revenue": 5824,
+        "costs": 3592,
+        "upkeep": 1112
+      },
+      {
+        "month": 120,
+        "cash": 4551,
+        "revenue": 12640,
+        "costs": 7457,
+        "upkeep": 2232
+      },
+      {
+        "month": 240,
+        "cash": 8906,
+        "revenue": 26208,
+        "costs": 14414,
+        "upkeep": 4488
+      }
+    ]
+  },
+  {
+    "seed": 1,
+    "policy": "expand",
+    "month": 240,
+    "cash": 15709.1,
+    "revenue": 41532.1,
+    "costs": 19423,
+    "upkeep": 8000,
+    "minCash": 422,
+    "maxCasks": 4,
+    "started": 52,
+    "offers": 12,
+    "declines": 12,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 24,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 63,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 76,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 93,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 105,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 119,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 142,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 159,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 178,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 193,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 212,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 235,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 562,
+        "revenue": 336,
+        "costs": 1078,
+        "upkeep": 296
+      },
+      {
+        "month": 36,
+        "cash": 1394.7,
+        "revenue": 3285.7,
+        "costs": 2483,
+        "upkeep": 1008
+      },
+      {
+        "month": 60,
+        "cash": 2499.71,
+        "revenue": 7009.71,
+        "costs": 4278,
+        "upkeep": 1832
+      },
+      {
+        "month": 120,
+        "cash": 6547.45,
+        "revenue": 18842.45,
+        "costs": 10023,
+        "upkeep": 3872
+      },
+      {
+        "month": 240,
+        "cash": 15709.1,
+        "revenue": 41532.1,
+        "costs": 19423,
+        "upkeep": 8000
+      }
+    ]
+  },
+  {
+    "seed": 2,
+    "policy": "expand",
+    "month": 240,
+    "cash": 15672.95,
+    "revenue": 41490.95,
+    "costs": 19426,
+    "upkeep": 7992,
+    "minCash": 455,
+    "maxCasks": 4,
+    "started": 52,
+    "offers": 14,
+    "declines": 14,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 20,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 40,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 53,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 63,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 78,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 92,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 117,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 133,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 151,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 169,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 181,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 196,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 215,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 14,
+        "month": 230,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 615,
+        "revenue": 384,
+        "costs": 1081,
+        "upkeep": 288
+      },
+      {
+        "month": 36,
+        "cash": 1426.05,
+        "revenue": 3312.05,
+        "costs": 2486,
+        "upkeep": 1000
+      },
+      {
+        "month": 60,
+        "cash": 2541.28,
+        "revenue": 7046.28,
+        "costs": 4281,
+        "upkeep": 1824
+      },
+      {
+        "month": 120,
+        "cash": 6558.77,
+        "revenue": 18848.77,
+        "costs": 10026,
+        "upkeep": 3864
+      },
+      {
+        "month": 240,
+        "cash": 15672.95,
+        "revenue": 41490.95,
+        "costs": 19426,
+        "upkeep": 7992
+      }
+    ]
+  },
+  {
+    "seed": 3,
+    "policy": "expand",
+    "month": 240,
+    "cash": 15668.6,
+    "revenue": 41491.6,
+    "costs": 19423,
+    "upkeep": 8000,
+    "minCash": 422,
+    "maxCasks": 4,
+    "started": 52,
+    "offers": 11,
+    "declines": 11,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 11,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 23,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 35,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 57,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 67,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 83,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 113,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 175,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 193,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 212,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 228,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 562,
+        "revenue": 336,
+        "costs": 1078,
+        "upkeep": 296
+      },
+      {
+        "month": 36,
+        "cash": 1404.15,
+        "revenue": 3295.15,
+        "costs": 2483,
+        "upkeep": 1008
+      },
+      {
+        "month": 60,
+        "cash": 2521.97,
+        "revenue": 7031.97,
+        "costs": 4278,
+        "upkeep": 1832
+      },
+      {
+        "month": 120,
+        "cash": 6558.49,
+        "revenue": 18853.49,
+        "costs": 10023,
+        "upkeep": 3872
+      },
+      {
+        "month": 240,
+        "cash": 15668.6,
+        "revenue": 41491.6,
+        "costs": 19423,
+        "upkeep": 8000
+      }
+    ]
+  },
+  {
+    "seed": 4,
+    "policy": "expand",
+    "month": 240,
+    "cash": 15795.8,
+    "revenue": 41613.8,
+    "costs": 19426,
+    "upkeep": 7992,
+    "minCash": 455,
+    "maxCasks": 4,
+    "started": 52,
+    "offers": 12,
+    "declines": 12,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 20,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 41,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 63,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 78,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 97,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 113,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 154,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 167,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 184,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 202,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 212,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 235,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 615,
+        "revenue": 384,
+        "costs": 1081,
+        "upkeep": 288
+      },
+      {
+        "month": 36,
+        "cash": 1435.95,
+        "revenue": 3321.95,
+        "costs": 2486,
+        "upkeep": 1000
+      },
+      {
+        "month": 60,
+        "cash": 2538.24,
+        "revenue": 7043.24,
+        "costs": 4281,
+        "upkeep": 1824
+      },
+      {
+        "month": 120,
+        "cash": 6628.64,
+        "revenue": 18918.64,
+        "costs": 10026,
+        "upkeep": 3864
+      },
+      {
+        "month": 240,
+        "cash": 15795.8,
+        "revenue": 41613.8,
+        "costs": 19426,
+        "upkeep": 7992
+      }
+    ]
+  },
+  {
+    "seed": 5,
+    "policy": "expand",
+    "month": 240,
+    "cash": 15873.35,
+    "revenue": 41696.35,
+    "costs": 19423,
+    "upkeep": 8000,
+    "minCash": 422,
+    "maxCasks": 4,
+    "started": 52,
+    "offers": 9,
+    "declines": 9,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 11,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 58,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 110,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 126,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 138,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 162,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 192,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 220,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 238,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 562,
+        "revenue": 336,
+        "costs": 1078,
+        "upkeep": 296
+      },
+      {
+        "month": 36,
+        "cash": 1383,
+        "revenue": 3274,
+        "costs": 2483,
+        "upkeep": 1008
+      },
+      {
+        "month": 60,
+        "cash": 2489.93,
+        "revenue": 6999.93,
+        "costs": 4278,
+        "upkeep": 1832
+      },
+      {
+        "month": 120,
+        "cash": 6533.24,
+        "revenue": 18828.24,
+        "costs": 10023,
+        "upkeep": 3872
+      },
+      {
+        "month": 240,
+        "cash": 15873.35,
+        "revenue": 41696.35,
+        "costs": 19423,
+        "upkeep": 8000
+      }
+    ]
+  },
+  {
+    "seed": 6,
+    "policy": "expand",
+    "month": 240,
+    "cash": 15686.6,
+    "revenue": 41509.6,
+    "costs": 19423,
+    "upkeep": 8000,
+    "minCash": 422,
+    "maxCasks": 4,
+    "started": 52,
+    "offers": 11,
+    "declines": 11,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 21,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 48,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 63,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 88,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 100,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 139,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 155,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 168,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 192,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 215,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 233,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 562,
+        "revenue": 336,
+        "costs": 1078,
+        "upkeep": 296
+      },
+      {
+        "month": 36,
+        "cash": 1379.85,
+        "revenue": 3270.85,
+        "costs": 2483,
+        "upkeep": 1008
+      },
+      {
+        "month": 60,
+        "cash": 2490.63,
+        "revenue": 7000.63,
+        "costs": 4278,
+        "upkeep": 1832
+      },
+      {
+        "month": 120,
+        "cash": 6557.01,
+        "revenue": 18852.01,
+        "costs": 10023,
+        "upkeep": 3872
+      },
+      {
+        "month": 240,
+        "cash": 15686.6,
+        "revenue": 41509.6,
+        "costs": 19423,
+        "upkeep": 8000
+      }
+    ]
+  },
+  {
+    "seed": 7,
+    "policy": "expand",
+    "month": 240,
+    "cash": 15777.05,
+    "revenue": 41600.05,
+    "costs": 19423,
+    "upkeep": 8000,
+    "minCash": 422,
+    "maxCasks": 4,
+    "started": 52,
+    "offers": 14,
+    "declines": 14,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 10,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 21,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 33,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 62,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 78,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 96,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 123,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 138,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 153,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 172,
+        "partner": "町の卸売商",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 198,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 214,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 223,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 14,
+        "month": 237,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 562,
+        "revenue": 336,
+        "costs": 1078,
+        "upkeep": 296
+      },
+      {
+        "month": 36,
+        "cash": 1404.15,
+        "revenue": 3295.15,
+        "costs": 2483,
+        "upkeep": 1008
+      },
+      {
+        "month": 60,
+        "cash": 2507.59,
+        "revenue": 7017.59,
+        "costs": 4278,
+        "upkeep": 1832
+      },
+      {
+        "month": 120,
+        "cash": 6530.34,
+        "revenue": 18825.34,
+        "costs": 10023,
+        "upkeep": 3872
+      },
+      {
+        "month": 240,
+        "cash": 15777.05,
+        "revenue": 41600.05,
+        "costs": 19423,
+        "upkeep": 8000
+      }
+    ]
+  },
+  {
+    "seed": 8,
+    "policy": "expand",
+    "month": 240,
+    "cash": 15773,
+    "revenue": 41596,
+    "costs": 19423,
+    "upkeep": 8000,
+    "minCash": 422,
+    "maxCasks": 4,
+    "started": 52,
+    "offers": 13,
+    "declines": 13,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 16,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 29,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 39,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 64,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 85,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 97,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 114,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 145,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 157,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 166,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 194,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 207,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 220,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 562,
+        "revenue": 336,
+        "costs": 1078,
+        "upkeep": 296
+      },
+      {
+        "month": 36,
+        "cash": 1402.8,
+        "revenue": 3293.8,
+        "costs": 2483,
+        "upkeep": 1008
+      },
+      {
+        "month": 60,
+        "cash": 2519.95,
+        "revenue": 7029.95,
+        "costs": 4278,
+        "upkeep": 1832
+      },
+      {
+        "month": 120,
+        "cash": 6596.65,
+        "revenue": 18891.65,
+        "costs": 10023,
+        "upkeep": 3872
+      },
+      {
+        "month": 240,
+        "cash": 15773,
+        "revenue": 41596,
+        "costs": 19423,
+        "upkeep": 8000
+      }
+    ]
+  },
+  {
+    "seed": 9,
+    "policy": "expand",
+    "month": 240,
+    "cash": 15841.7,
+    "revenue": 41659.7,
+    "costs": 19426,
+    "upkeep": 7992,
+    "minCash": 455,
+    "maxCasks": 4,
+    "started": 52,
+    "offers": 12,
+    "declines": 12,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 9,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 33,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 46,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 60,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 77,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 99,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 118,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 12.41,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 133,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 152,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 163,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 179,
+        "partner": "川沿いの酒販店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 212,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 615,
+        "revenue": 384,
+        "costs": 1081,
+        "upkeep": 288
+      },
+      {
+        "month": 36,
+        "cash": 1430.55,
+        "revenue": 3316.55,
+        "costs": 2486,
+        "upkeep": 1000
+      },
+      {
+        "month": 60,
+        "cash": 2578.81,
+        "revenue": 7083.81,
+        "costs": 4281,
+        "upkeep": 1824
+      },
+      {
+        "month": 120,
+        "cash": 6642.2,
+        "revenue": 18932.2,
+        "costs": 10026,
+        "upkeep": 3864
+      },
+      {
+        "month": 240,
+        "cash": 15841.7,
+        "revenue": 41659.7,
+        "costs": 19426,
+        "upkeep": 7992
+      }
+    ]
+  },
+  {
+    "seed": 10,
+    "policy": "expand",
+    "month": 240,
+    "cash": 15723.5,
+    "revenue": 41546.5,
+    "costs": 19423,
+    "upkeep": 8000,
+    "minCash": 422,
+    "maxCasks": 4,
+    "started": 52,
+    "offers": 13,
+    "declines": 13,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 20,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 35,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 66,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 85,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 101,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 115,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 132,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 156,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 181,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 197,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 210,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 221,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 235,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 562,
+        "revenue": 336,
+        "costs": 1078,
+        "upkeep": 296
+      },
+      {
+        "month": 36,
+        "cash": 1403.25,
+        "revenue": 3294.25,
+        "costs": 2483,
+        "upkeep": 1008
+      },
+      {
+        "month": 60,
+        "cash": 2523.06,
+        "revenue": 7033.06,
+        "costs": 4278,
+        "upkeep": 1832
+      },
+      {
+        "month": 120,
+        "cash": 6558.63,
+        "revenue": 18853.63,
+        "costs": 10023,
+        "upkeep": 3872
+      },
+      {
+        "month": 240,
+        "cash": 15723.5,
+        "revenue": 41546.5,
+        "costs": 19423,
+        "upkeep": 8000
+      }
+    ]
+  },
+  {
+    "seed": 42,
+    "policy": "expand",
+    "month": 240,
+    "cash": 15660.95,
+    "revenue": 41483.95,
+    "costs": 19423,
+    "upkeep": 8000,
+    "minCash": 422,
+    "maxCasks": 4,
+    "started": 52,
+    "offers": 14,
+    "declines": 14,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 21,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 44,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 63,
+        "partner": "港の仕入れ店",
+        "targetAge": 12,
+        "unitPrice": 13.73,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 80,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 106,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 117,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 130,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 143,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 153,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 172,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 182,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 12,
+        "month": 200,
+        "partner": "町の卸売商",
+        "targetAge": 12,
+        "unitPrice": 13.2,
+        "bottlingFee": 3
+      },
+      {
+        "id": 13,
+        "month": 212,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 14.85,
+        "bottlingFee": 3
+      },
+      {
+        "id": 14,
+        "month": 226,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 562,
+        "revenue": 336,
+        "costs": 1078,
+        "upkeep": 296
+      },
+      {
+        "month": 36,
+        "cash": 1397.85,
+        "revenue": 3288.85,
+        "costs": 2483,
+        "upkeep": 1008
+      },
+      {
+        "month": 60,
+        "cash": 2516.75,
+        "revenue": 7026.75,
+        "costs": 4278,
+        "upkeep": 1832
+      },
+      {
+        "month": 120,
+        "cash": 6514.7,
+        "revenue": 18809.7,
+        "costs": 10023,
+        "upkeep": 3872
+      },
+      {
+        "month": 240,
+        "cash": 15660.95,
+        "revenue": 41483.95,
+        "costs": 19423,
+        "upkeep": 8000
+      }
+    ]
+  },
+  {
+    "seed": 20261016,
+    "policy": "expand",
+    "month": 240,
+    "cash": 15771.65,
+    "revenue": 41594.65,
+    "costs": 19423,
+    "upkeep": 8000,
+    "minCash": 422,
+    "maxCasks": 4,
+    "started": 52,
+    "offers": 11,
+    "declines": 11,
+    "contracts": 0,
+    "cancelled": 0,
+    "shipped": [],
+    "offered": [
+      {
+        "id": 1,
+        "month": 19,
+        "partner": "港の仕入れ店",
+        "targetAge": 24,
+        "unitPrice": 15.8,
+        "bottlingFee": 3
+      },
+      {
+        "id": 2,
+        "month": 37,
+        "partner": "川沿いの酒販店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 3,
+        "month": 49,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 4,
+        "month": 79,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      },
+      {
+        "id": 5,
+        "month": 94,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 13.54,
+        "bottlingFee": 3
+      },
+      {
+        "id": 6,
+        "month": 115,
+        "partner": "町の卸売商",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 7,
+        "month": 126,
+        "partner": "町の卸売商",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 8,
+        "month": 154,
+        "partner": "港の仕入れ店",
+        "targetAge": 18,
+        "unitPrice": 14.4,
+        "bottlingFee": 3
+      },
+      {
+        "id": 9,
+        "month": 176,
+        "partner": "港の仕入れ店",
+        "targetAge": 30,
+        "unitPrice": 15.98,
+        "bottlingFee": 3
+      },
+      {
+        "id": 10,
+        "month": 196,
+        "partner": "川沿いの酒販店",
+        "targetAge": 30,
+        "unitPrice": 17.68,
+        "bottlingFee": 3
+      },
+      {
+        "id": 11,
+        "month": 213,
+        "partner": "川沿いの酒販店",
+        "targetAge": 24,
+        "unitPrice": 16.43,
+        "bottlingFee": 3
+      }
+    ],
+    "blocked": 0,
+    "maxOfferQueue": 1,
+    "snapshots": [
+      {
+        "month": 12,
+        "cash": 562,
+        "revenue": 336,
+        "costs": 1078,
+        "upkeep": 296
+      },
+      {
+        "month": 36,
+        "cash": 1427.1,
+        "revenue": 3318.1,
+        "costs": 2483,
+        "upkeep": 1008
+      },
+      {
+        "month": 60,
+        "cash": 2575.54,
+        "revenue": 7085.54,
+        "costs": 4278,
+        "upkeep": 1832
+      },
+      {
+        "month": 120,
+        "cash": 6629.05,
+        "revenue": 18924.05,
+        "costs": 10023,
+        "upkeep": 3872
+      },
+      {
+        "month": 240,
+        "cash": 15771.65,
+        "revenue": 41594.65,
+        "costs": 19423,
+        "upkeep": 8000
+      }
+    ]
+  }
+]

@@ -72,10 +72,10 @@ export function bottleQuote(state,sourceId=null) {
   const count=Math.floor((source.litres+1e-9)/P.bottleLitres);
   return {count,cost:count*P.bottlingCost};
 }
-export function bottle(state,sourceId=null,count=null) {
+export function bottle(state,sourceId=null,count=null,{directSale=false}={}) {
   const q=bottleQuote(state,sourceId); count??=q.count;
   requireThat(Number.isInteger(count)&&count>=1&&count<=q.count,'瓶詰め本数が不正です。');
-  requireThat(state.products.filter(p=>p.stock>0).length<P.maxProducts,'販売棚の8商品が埋まっています。');
+  requireThat(directSale||state.products.filter(p=>p.stock>0).length<P.maxProducts,'販売棚の8商品が埋まっています。');
   const s=copy(state),source=sourceId===null?s.spirit:s.casks.find(c=>c.id===sourceId); pay(s,count*P.bottlingCost);
   const product={id:id(s),sourceId:source.id,batchId:source.batchId??source.id,batchMonth:source.batchMonth,bottledMonth:s.month,
     type:source.type??'newmake',age:source.age,cut:source.cut,roughness:source.roughness,character:source.character,wood:source.wood,

@@ -1,0 +1,9 @@
+@import url('./v07.css?v=0.7');
+.offer-casks{display:flex;gap:8px;overflow:auto;margin:12px 0}
+.offer-casks button{flex:1;min-width:95px;font-size:12px;padding:10px 8px}
+.offer-casks .fill-art{display:block;max-width:80px;margin:auto}
+.offer-casks [aria-pressed=true]{border-color:var(--amber);background:#3b3327}
+.contract-info{display:block;margin:4px auto 12px;min-height:44px;font-size:12px}
+.just-shipped #work-notice{animation:shipment 1.2s ease-out}
+@keyframes shipment{from{color:var(--amber);transform:translateY(3px)}to{transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.just-shipped #work-notice{animation:none}}
