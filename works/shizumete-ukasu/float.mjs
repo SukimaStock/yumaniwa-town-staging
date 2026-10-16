@@ -2,10 +2,10 @@ import { createFloat, grab, drag, release, step } from './model.mjs';
 const canvas = document.querySelector('canvas'), ctx = canvas.getContext('2d');
 const bob = createFloat();
 let width, height, scale, surface, pointer = null, offset = 0, keyHeld = false, previousTime = 0;
-let waves = [];
+let waves = [], needsPaint = true;
 function end() {
   const id = pointer; pointer = null; keyHeld = false;
-  release(bob);
+  release(bob); needsPaint = true;
   if (id !== null && canvas.hasPointerCapture(id)) canvas.releasePointerCapture(id);
 }
 function resize() {
@@ -82,6 +82,7 @@ function render(dt) {
 function frame(time) {
   const dt = previousTime ? Math.min((time - previousTime) / 1000, .05) : 0; previousTime = time;
   if (!document.hidden) {
+    const active = bob.held || bob.y !== 0 || bob.v !== 0 || waves.length > 0;
     const before = bob.y;
     if (keyHeld) drag(bob, bob.y + dt * 85);
     step(bob, dt);
@@ -89,7 +90,8 @@ function frame(time) {
       waves.push({age: 0, strength: Math.min(.3, Math.abs(bob.v) / 900)});
       if (waves.length > 8) waves.shift();
     }
-    render(dt);
+    if (active || needsPaint) render(dt);
+    needsPaint = false;
   }
   requestAnimationFrame(frame);
 }
