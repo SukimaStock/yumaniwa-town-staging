@@ -17,3 +17,6 @@
 @media(prefers-reduced-motion:reduce){.extraction-progress span{transition:none}}
 
 .clock-dock #monthly-cost{display:block;width:100%;font-size:11px;color:var(--quiet)}
+/* Override the older higher-specificity looping animation: the dispatcher owns
+   the line in every room, including partial-month pause and resume. */
+body[data-room][data-time] .clock-dock #time-flow .flow-line::after{animation:none}
