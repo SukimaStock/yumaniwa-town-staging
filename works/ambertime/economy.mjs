@@ -1,4 +1,4 @@
-import * as M from './model.mjs?v=0.6-parallel';
+import * as M from './model.mjs?v=0.8-direct-sale';
 import * as D from './distillery.mjs?v=0.6';
 import {mixSeed,sampleCharacter,endCharacterTasting,chooseCharacter,comparisons,sampleOf,profile} from './character.mjs?v=0.6';
 import {advanceMonthly,createCaskNotes} from './monthly.mjs?v=0.6-parallel';
