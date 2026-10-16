@@ -1,4 +1,4 @@
-import * as D from '../../wholesale.mjs';
+import * as D from '../../wholesale-v08.mjs';
 import {pathToFileURL} from 'node:url';
 import fs from 'node:fs';
 const round=x=>Math.round(x*100)/100;

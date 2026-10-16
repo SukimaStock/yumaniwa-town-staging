@@ -1,0 +1,15 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AmberTime 0.8.1 検証用</title>
+<style>body{margin:12px;background:#28251f;color:#eee;font:14px system-ui}button{padding:10px;margin:3px}iframe{display:block;border:1px solid #aaa;width:390px;height:844px;max-width:100%}p{max-width:55em}</style>
+<p>検証用・保存はこのページ内のメモリのみ。通常プレイの保存にはアクセスしません。</p>
+<button id="funds">旧保存・資金判断</button><button id="normal">契約樽の通常判断</button><button id="reload">保存から再開</button><button id="phone">iPhone 390</button><button id="pc">PC 1280</button><p id="status"></p><iframe id="game" title="検証用 AmberTime"></iframe>
+<script type="module">
+import * as D from '../../wholesale.mjs';
+const root=new URL('../../',location.href),frame=document.querySelector('#game'),status=document.querySelector('#status'),key='sukimastock.ambertime.wholesale.v4',oldkey='sukimastock.ambertime.wholesale.v3';
+let memory=new Map();
+const old=await (await fetch(new URL('tests/fixtures/v08-legal-funds.json',root))).json(),markup=await (await fetch(new URL('index.html',root))).text();
+window.testStorage={getItem:k=>memory.get(k)??null,setItem:(k,v)=>memory.set(k,v)};
+function mount(){frame.srcdoc=markup.replace('<head>',`<head><base href="${root}"><script>Object.defineProperty(window,'localStorage',{value:parent.testStorage});<\/script>`);status.textContent='検証データを表示。元の0.8保存は保持しています。';}
+document.querySelector('#funds').onclick=()=>{memory=new Map([[oldkey,JSON.stringify({version:1,game:old,userPaused:false})]]);mount();};
+document.querySelector('#normal').onclick=()=>{let s=D.restoreDistillery(JSON.stringify(old)),id=s.decisions[0].caskId;s=D.bottleNow(s,id);s=D.listBottles(s,s.result.productId);for(let i=0;i<30&&!s.decisions.some(d=>d.caskId===s.trade.contract?.caskId);i++){while(s.decisions.length){const d=s.decisions[0];s=D.chooseDistillery(s,d.caskId,'wait');}s=D.tickDistillery(s);}memory=new Map([[key,JSON.stringify({version:1,game:s,userPaused:false})]]);mount();};
+document.querySelector('#reload').onclick=mount;document.querySelector('#phone').onclick=()=>frame.style.width='390px';document.querySelector('#pc').onclick=()=>frame.style.width='1280px';
+</script></html>
