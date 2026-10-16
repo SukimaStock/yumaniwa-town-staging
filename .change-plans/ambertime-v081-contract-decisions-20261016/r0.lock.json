@@ -1,0 +1,141 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "fa9c3746565ca9eb2463d2fc88a5989b00fc9dcba9e65e0b3df8af31f58b4ec6",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v081-contract-decisions-20261016",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Restore contracted cask aging choices with safe funds recovery and v08 save migration; audit fullwarehouse without redesign",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "2505964ebda3a49f38f9b524a64efd7f3156baac",
+    "canonicalSources": [
+      "User AmberTime0.8.1 currentrequest",
+      "HEAD2505964 currentruntime",
+      "Legal v08 seed42 funds states54/55ops"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v081-contract-decisions-20261016/r0.lock.json",
+      "works/ambertime/wholesale.mjs",
+      "works/ambertime/wholesale-v08.mjs",
+      "works/ambertime/v08-app.mjs",
+      "works/ambertime/v08-legacy-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/v08.html",
+      "works/ambertime/tests/wholesale.test.mjs",
+      "works/ambertime/tests/wholesale-ui.test.mjs",
+      "works/ambertime/tests/wholesale-v081*.mjs",
+      "works/ambertime/tests/fixtures/v08*.json",
+      "works/ambertime/design/v08/simulate.mjs",
+      "works/ambertime/design/v081/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/wholesale-parameters.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/v07-app.mjs",
+      "works/ambertime/legacy.html",
+      "works/ambertime/v07.html",
+      "works/ambertime/v06.html",
+      "works/ambertime/v05.html",
+      "works/ambertime/v04.html"
+    ],
+    "expectedChanges": [
+      "Keep ordinary contracted cask aging pending until choice; clear only shipping cask on due settlement; separate manual bottle cancellation from contract conditions",
+      "Funds recovery selects affordable noncontracted casks before contracted; display clear need and shipping schedule, no unconditional wait or economic retune",
+      "Freeze exact v08 execution and UI continuation; newv4 origin checkpoint validatesold state/preservesold operations and allhistory; separate v4 key and safe import fromoldkeywithoutwrites",
+      "Regress old funds/trial saves and new decisions/clock/monthly/replay; full4warehouse audit 12seeds120months with waiting/actions recorded, no newfeatures",
+      "PC/iPhone publicbrowser validation; safeCImerge andPages; preserve allold routes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "all-ambertime-tests",
+      "legal-v08-reproductions-and-v4-migration",
+      "contract-and-funds-state-regressions",
+      "full4warehouse120months12seeds",
+      "PC-iPhone-browser",
+      "independent-review-and-Pages"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Restore v08.html entry; v3 data kept unchanged and v4 stored separately. Alloriginallegacy routes unchanged.",
+    "outOfScope": [
+      "Production",
+      "Newjobs/staff/equipment/4caskcapchange",
+      "Automaticcaskmode or silentlyskip ordinaryevents",
+      "Economicparameterretuning"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Humanfun andphysicalSafari"
+    ],
+    "rulesApplied": [
+      "FullWORK locked beforeimplementation for changedmonthly/replay contract",
+      "AGENTS necessary independentdiagnosis/review",
+      "Noautoagingmode/forcedskipping/newjobs/cap/econchanges"
+    ],
+    "hqDecisions": [
+      "Freeze v08 execution with unchanged parameters; v4 snapshots retain validated v3 origin+alloldops, then newops; no in-place replay changes",
+      "Importvalidoldkey onlyifnewkey absent, write v4only; preserveoldrawkey; corruption/faultstopswithoutoverwrites",
+      "Ordinary contract events retained; funds reserve unchanged and noncontracted recoup first; due shipment beforefund check"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes v081 minimumbugfix/safemigration/warehouseauditor proposal/stagingmerge"
+    ],
+    "problem": "Contract events erased and funds targets oldest contracted cask, trapping trial in cancellation-only judgment",
+    "currentContract": "V3strictoperationreplay and wholesale.v3 originalkey",
+    "whyExistingIsInsufficient": "Changingmonth in-place breaks allold exactreplay",
+    "design": "V4validatedorigin import, normalcontract events plus noncontractfunds recovery",
+    "migration": "Frozenv3strictrestore first; preservedorigin and oldkey; currentstate+newoperations in v4",
+    "compatibility": "Runalloldtests onfrozenv3 plusnewv4 tests; oldtimeline andrawdata unchanged",
+    "promotionRisk": "Stagingonly",
+    "alternativesRejected": [
+      "Random unlock unrelatedhistory",
+      "Inplace old save repricing",
+      "Wholesale occupying retail shelf",
+      "Fee prepayment causing lowcash deadlock"
+    ],
+    "boundaryCases": [
+      "Migratedpendingfunds/trial/partialstill",
+      "Shippingmonthnormal event+funds",
+      "Full4shelf and lowfunds",
+      "Multiplequeues and manualstop",
+      "Corruptoldsave preserved"
+    ],
+    "testPlan": [
+      "Reproduce andrecordlegal0.8failure",
+      "Oldfixtures exactrestore and v3origin tamperreject",
+      "Contracttrial/wait/othercask/funds/due/replay/cancel",
+      "12seedwarehouse120monthaudit",
+      "ActualPC/iPhoneQA aftersafeCI"
+    ]
+  }
+}
