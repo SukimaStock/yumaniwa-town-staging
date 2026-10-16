@@ -1,4 +1,4 @@
-import * as D from './parallel.mjs?v=0.6-parallel';
+import * as D from './parallel.mjs?v=0.6-manual-stop';
 import {PARALLEL_PARAMETERS as T} from './parallel-parameters.mjs?v=0.6-playability';
 import {PARAMETERS as P} from './parameters.mjs';
 import {ageLabel,monthLabel} from './model.mjs';
@@ -30,7 +30,7 @@ function schedule(){
   if(token!==generation)return;timer=null;if(blocked())return;
   try{
    const wasDistilling=game.still.phase==='distilling';
-   if(wasDistilling){game=D.distillStep(game);if(game.still.phase==='filling')message('原酒が集まりました。蒸留室で樽に詰められます。');}
+   if(wasDistilling){const before=game.still.distillation.progress;game=D.distillStep(game);if(before<T.distillMax-1&&game.still.distillation.progress>=T.distillMax-1)message('抽出の上限です。蒸留室で「抽出を終える」を押してください。');}
    elapsed+=jump?T.monthMs/5:T.distillStepMs;
    if(elapsed>=T.monthMs){const before=game.core.month;game=D.tickDistillery(game,expectedMonth);elapsed=0;if(game.core.month===before){userPaused=true;message('資金を残すため、時間を止めました。');}if(jump>0){jump--;if(jump===0){userPaused=jumpPaused;}}save();}
    else if(wasDistilling&&(game.still.phase!=='distilling'||game.still.distillation.progress%5===0))save();
@@ -91,13 +91,13 @@ function render(){
  $('cash').textContent=money(game.core.cash);$('calendar').textContent=monthLabel(game.core.month);
  for(const name of ['distill','warehouse','sales'])$('room-'+name).hidden=room!==name;
  for(const b of document.querySelectorAll('[data-room]'))b.setAttribute('aria-pressed',String(b.dataset.room===room));
- $('nav-still').textContent=phase==='distilling'?'蒸留中':phase==='filling'?'樽詰め待ち':'待機';$('nav-casks').textContent=game.core.casks.length+'樽';$('nav-stock').textContent=listedStock()+'本';
+ $('nav-still').textContent=phase==='distilling'?(game.still.distillation.progress>=T.distillMax-1?'抽出停止待ち':'蒸留中'):phase==='filling'?'樽詰め待ち':'待機';$('nav-casks').textContent=game.core.casks.length+'樽';$('nav-stock').textContent=listedStock()+'本';
  $('start-distill').hidden=phase!=='ready';$('stop-distill').hidden=phase!=='distilling';$('open-fill').hidden=phase!=='filling';
  const start=D.canStart(game);$('start-distill').disabled=!start.ok;$('start-distill').textContent='蒸留を始める '+money(P.distillationCost);
  $('stop-distill').disabled=(game.still.distillation?.progress??0)<T.minimumStop;
  $('collection').textContent=game.still.distillation?game.still.distillation.litres.toFixed(1)+' L':'';
  $('distill-caption').textContent=phase==='ready'?(start.ok?'原酒を集め、抽出の終わりを決めます。':start.reason):phase==='filling'?'抽出完了。樽を選んで詰めます。':'原酒を集めています。';
- $('distill-direction').textContent=phase==='distilling'?game.still.distillation.progress<T.minimumStop?'最初の原酒が集まるまで少し待ちます。':game.still.distillation.progress<70?'少量で切り上げるか、もう少し集めるか。':'量と穀物の個性が増してきました。':phase==='ready'&&start.ok?'早めなら少量で穏やかに。続けると量と個性が増えます。':'';
+ $('distill-direction').textContent=phase==='distilling'?game.still.distillation.progress>=T.distillMax-1?'抽出の上限です。ここで終えて樽詰めへ。':game.still.distillation.progress<T.minimumStop?'最初の原酒が集まるまで少し待ちます。':game.still.distillation.progress<70?'少量で切り上げるか、もう少し集めるか。':'量と穀物の個性が増してきました。':phase==='ready'&&start.ok?'早めなら少量で穏やかに。続けると量と個性が増えます。':'';
  const rk=JSON.stringify([game.core.casks.map(c=>[c.id,c.age,c.litres]),selectedCaskId]);
  if(rk!==rackKey){$('cask-rack').innerHTML=game.core.casks.map(c=>'<button type="button" data-cask-id="'+c.id+'" aria-pressed="'+(selectedCaskId===c.id)+'"><span aria-hidden="true">'+barrel(c.type)+'</span><strong>'+caskName(c.id)+'</strong><small>'+ageLabel(c.age)+'</small><small>'+c.litres.toFixed(1)+' L</small></button>').join('');rackKey=rk;}
  $('warehouse-empty').hidden=game.core.casks.length>0;$('selected-cask').hidden=selectedCaskId===null;

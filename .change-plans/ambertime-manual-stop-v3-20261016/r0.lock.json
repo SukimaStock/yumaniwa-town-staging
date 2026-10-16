@@ -1,0 +1,83 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c964b0823f2e36260760386eeaa58b18184d597c1d593d9ff41112670aa759f7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-manual-stop-v3-20261016",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Keep AmberTime distillation active until player explicitly stops collection; preserve old automatic-stop saves",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "864b35d8195582c2b089ac329e09848be84e3a76",
+    "canonicalSources": [
+      "works/ambertime/parallel.mjs",
+      "works/ambertime/parallel-app.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/tests/parallel.test.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-manual-stop-v3-20261016/r0.lock.json",
+      "works/ambertime/parallel.mjs",
+      "works/ambertime/parallel-app.mjs",
+      "works/ambertime/tests/parallel.test.mjs",
+      "works/ambertime/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/parameters.mjs"
+    ],
+    "expectedChanges": [
+      "Explicit player-controlled extraction stop at progress 99",
+      "Backward-compatible replay of previous automatic stop at progress 100",
+      "Clear UI at collection limit and cache refresh",
+      "Cover manual stop and saved-history tests"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "parallel-regression",
+      "initial-state-check",
+      "prior-save-check"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated AmberTime UI/runtime diff without deleting saved progress",
+    "outOfScope": [
+      "Economy tuning",
+      "New product types",
+      "Save schema changes",
+      "Other works",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual iPhone Safari interactions",
+      "Long-term economics"
+    ],
+    "rulesApplied": [
+      "Protected branch and immutable Plan Lock before implementation",
+      "Existing save replay untouched",
+      "No shared runtime changes"
+    ]
+  }
+}
