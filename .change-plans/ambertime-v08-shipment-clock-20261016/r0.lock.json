@@ -1,0 +1,105 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1a3d994c4a36f466eef568d9f8506dff66e015f2721ebc3c62184332204f6911",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v08-shipment-clock-20261016",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Clear unfinished three-month boost when last wholesale job ships",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "ee70b26eb051901c3df59315a7ca14159f7e39ff",
+    "canonicalSources": [
+      "PR416 approvedwholesale scope",
+      "User AmberTime0.8 request"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v08-shipment-clock-20261016/r0.lock.json",
+      "works/ambertime/v08-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/wholesale-ui.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "works/ambertime/v07-app.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/legacy.html",
+      "works/ambertime/v06.html",
+      "works/ambertime/v05.html",
+      "works/ambertime/v04.html"
+    ],
+    "expectedChanges": [
+      "Clear transient boost when no monthly work remains after shipment",
+      "Regression: manually paused distill room ships last cask during boost; next still stays paused",
+      "Version entry query for new controller bytes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "165-regression-tests",
+      "PC-iPhone-browser-shipment-and-pause"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Restore previous controller condition and entryquery",
+    "outOfScope": [
+      "Production",
+      "Any other code or parameter changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Human fun and physical Safari"
+    ],
+    "rulesApplied": [
+      "Full WORK Plan because targetfile exposes shared function dependency; do not weaken gate"
+    ],
+    "hqDecisions": [
+      "Transient jump reset only; manual userPaused intent and model/monthly unchanged"
+    ],
+    "ownerDecisions": [
+      "Userauthorizes safeStagingv08 implementation andfixes"
+    ],
+    "problem": "Final shipment can leave jump remaining with no timer, affecting next distillation in same room",
+    "currentContract": "V07 operationreplay,economy.v2, shared monthly allfacilities",
+    "whyExistingIsInsufficient": "Changed monthly offers/randomness/settlement cannot share old exact replay",
+    "design": "Clear jump when monthly work ends",
+    "migration": "None",
+    "compatibility": "Model/operations/save unchanged",
+    "promotionRisk": "Stagingonly",
+    "alternativesRejected": [
+      "Random unlock unrelatedhistory",
+      "Inplace old save repricing",
+      "Wholesale occupying retail shelf",
+      "Fee prepayment causing lowcash deadlock"
+    ],
+    "boundaryCases": [
+      "Cached old model and full shelf directSale"
+    ],
+    "testPlan": [
+      "Reproduce controller failure before fix, then all165tests and publicQA"
+    ]
+  }
+}
