@@ -1,0 +1,7 @@
+@import './v08.css?v=0.8';
+.trade-info{width:100%;margin:0 0 1rem;text-align:left;}
+.trade-terms{display:flex;gap:.5rem;flex-wrap:wrap;margin:.75rem 0;}
+.trade-terms button{flex:1;min-width:125px;}
+.trade-terms small{display:block;font-size:.8em;margin-top:.25rem;}
+.trade-terms [aria-pressed="true"]{border-color:var(--amber,#d5a96a);background:#40372b;}
+#assign-wholesale{margin-bottom:.5rem;}
