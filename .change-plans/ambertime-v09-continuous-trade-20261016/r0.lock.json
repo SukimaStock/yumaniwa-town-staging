@@ -1,0 +1,146 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f82ab941f15558cd1888d07be39f4089ceb6aa0e95b913faab96c101b26ff46a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v09-continuous-trade-20261016",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Persistent one-company wholesale route with explicit multi-cask bookings and preserved aging choices",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "4fb5dcb32ef402aeb9887de7fa711cd330ddcd3d",
+    "canonicalSources": [
+      "User AmberTime0.9 currentrequest",
+      "Staging4fb5dcb v081 execution and save contract",
+      "Independent design review v09_design_review"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v09-continuous-trade-20261016/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/v081.html",
+      "works/ambertime/v09-app.mjs",
+      "works/ambertime/v09.css",
+      "works/ambertime/trade.mjs",
+      "works/ambertime/trade-parameters.mjs",
+      "works/ambertime/tests/v09*.mjs",
+      "works/ambertime/tests/fixtures/v09*.json",
+      "works/ambertime/design/v09/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/wholesale*.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/v08-app.mjs",
+      "works/ambertime/v08-legacy-app.mjs",
+      "works/ambertime/v08.css",
+      "works/ambertime/v07-app.mjs",
+      "works/ambertime/legacy.html",
+      "works/ambertime/v08.html",
+      "works/ambertime/v07.html",
+      "works/ambertime/v06.html",
+      "works/ambertime/v05.html",
+      "works/ambertime/v04.html"
+    ],
+    "expectedChanges": [
+      "One persistent partner; explicit per-cask locked terms; max4 slots unchanged; multi shipments once per month plus normal retail",
+      "Pause blocks new bookings only; free single unassign keeps others; explicit relationship end clears bookings; ordinary aging and tasting unaffected",
+      "Small optional existingpartner proposals driven by wholesale deliveries+seed; bounded term menu; oldbookings not repriced",
+      "Newv5 execution andkey; validated v4origin with oldops and nestedv3 retained; import onlyifnewabsent; invalid/faultstop; alloldengines/UI preserved",
+      "Current three rooms minimal panels/modals, tasting nexttocask; ledger tradehistory; newfill can explicitlybook",
+      "Regression plus 12seed240month retail/mixed/wholesale comparisons, PC/iPhone publicbrowser and safeStagingmerge"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "all-ambertime-tests",
+      "v4-v3-origin-save-migration-and-tamper",
+      "multiple-deliveries-and-judgment-regressions",
+      "12seed240month-economic-comparison",
+      "PC-iPhone-browser",
+      "independent-review-and-Pages"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Restore v081.html entry; original v4/v3 keys unchanged, v5 remains separate. Legacy runtime byteexact.",
+    "outOfScope": [
+      "Production",
+      "Staff/equipment/capchange/largeeconomyredesign",
+      "Autofill-allcasks/autoaging/silentjudgmentskip",
+      "Multiple-companymanagement"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Humanfun andphysicalSafari"
+    ],
+    "rulesApplied": [
+      "FullWORK locked beforeimplementation for changedmonthly/replay contract",
+      "AGENTS necessary independentdiagnosis/review",
+      "Noautoagingmode/forcedskipping/newjobs/cap/econchanges"
+    ],
+    "hqDecisions": [
+      "V5contains strictlyvalidated v4origin; old v4/v3 engines and keys unchanged. Newops onlynewlogic, recursion bounded by frozenreaders.",
+      "Relationship active/paused separatefrom per-cask locked bookings; pausehonors existingbooking; end explicitlyclearsall; cancelone free and independent.",
+      "Same-month stableID shipmentloop, shared upkeep once, allfee+cash+records exact. Keep conservative existing reserve; nonbooked recoveryfirst, earliestshipment visible.",
+      "Initialoffer two existing age/priceoptions with sharedfixedfactor; one explicitcask onaccept. Repeatproposal add/replace oneboundedfutureterm only; no retroactivechanges."
+    ],
+    "ownerDecisions": [
+      "User authorizes continuouswholesale route, explicitmultiplebookings, tests and Stagingmerge, noProduction."
+    ],
+    "problem": "Singlecask offer expires after shipment, prevents sustained delegated sales.",
+    "currentContract": "V4strictreplay with v3origin, wholesale.v4 originalkey; singlecontract.",
+    "whyExistingIsInsufficient": "Persistent relationship and multicask booking change monthlyRNG andreplay; cannot rewrite oldcontract in-place.",
+    "design": "Onepartner+boundedterms+explicitbookingarray; currentchemistry/retail; optionaldeliverybasedproposals.",
+    "migration": "Frozen v081strictrestore then translate onecontract into partner+onebooking, preservedoldorigin andoldrawkey.",
+    "compatibility": "Old180tests unchanged; new v5 strictreplay and nestedorigin limits/tamper/fault.",
+    "promotionRisk": "Stagingonly",
+    "alternativesRejected": [
+      "Autofill allcasks",
+      "Rewrite oldreplay",
+      "Remove ordinarymaturity judgments",
+      "Largeeconomyretuning",
+      "Shipmentblockingretailshelf"
+    ],
+    "boundaryCases": [
+      "Same month2to4shipments plus retail+events+funds",
+      "Cancelone; pausedue; endall; nextbooking",
+      "Newterm retains lockedoldprices",
+      "Full4tofree and lowcash reserve",
+      "Oldoffer/trial/partialstill/funds migration",
+      "Quota/corrupt/currentkey precedence and manualstop"
+    ],
+    "testPlan": [
+      "Run allold180regressions unchanged",
+      "New model/UItests for all10usercases and negativeactions",
+      "12seed240month retail/mixed/wholesale, cash+inventory+replay separate",
+      "BrowserPC/iPhone accept/book/cancel/trial/wait/pause/resume/end/multidelivery/save",
+      "ExacttreeCI and Pages"
+    ]
+  }
+}
