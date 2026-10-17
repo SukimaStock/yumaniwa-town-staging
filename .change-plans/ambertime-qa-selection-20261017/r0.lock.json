@@ -1,0 +1,81 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "47eebfa6f94fbaa7a18b6798feaabdfd07cd7c434f1441407836e18ea6233284",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-qa-selection-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Invalidate stale QA fixture state on failure or superseded request",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "e14ee78f526063a11e38aee9a45046ed636f9329",
+    "canonicalSources": [
+      "PR425 P2 stale fixture selection finding",
+      "Existing isolated public-operation QA page"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-qa-selection-20261017/r0.lock.json",
+      "works/ambertime/design/partners/browser-check.html",
+      "works/ambertime/design/partners/VERIFICATION.md",
+      "works/ambertime/tests/partners-browser-check.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/partners-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/trade.mjs",
+      "tools/**",
+      "data/**",
+      "engine/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Clear isolated memory and iframe at fixture loading/failure; disable reload unless valid checkpoint is ready",
+      "Only latest pending fixture request may mount; rejectHTTPfailures explicitly; never change playerlocalStorage or game source",
+      "Regression for failedfetch/replay aftersuccess and out-of-order requests; report separately fromgameplay"
+    ],
+    "ownerDecisions": [
+      "Current user authorizes technical testing and safe Staging development; Production untouched"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS technical review findings handled within current Staging task",
+      "No change to save contracts, only QA memory lifecycle"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "QA-failure-and-race-regressions",
+      "PC-iPhone-public-QA",
+      "independent-review"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert QA page/test/doc only, no player data or game source affected",
+    "outOfScope": [
+      "Production",
+      "Game economy/UI/save changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Humanfun",
+      "PhysicalSafari"
+    ]
+  }
+}
