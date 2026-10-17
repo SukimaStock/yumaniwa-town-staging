@@ -28,14 +28,14 @@ function rebuildDecisions(s){s.decisions=s.core.casks.slice().sort((a,b)=>a.id-b
 function syncSales(s){s.records=s.records.map(r=>{const p=s.core.products.find(p=>p.id===r.productId);return p?{...r,sold:p.sold,revenue:p.revenue}:r;});if(s.result)s.result=s.records.find(r=>r.productId===s.result.productId)??s.result;}
 export const marketValue=p=>Math.max(P.minimumMarketValue,M.marketValue(p)*P.marketMultiplier);
 export const upkeep=s=>P.baseMaintenance+P.perCaskMaintenance*s.core.casks.length;
-export function economicMonthly(s,expectedMonth){
+export function economicMonthly(s,expectedMonth,retailFactors=null){
  const before=s.core;
  // Reuse the one global chemistry/event transaction. Sales are calculated below
  // with this contract's actual prices and a shared young-spirit allowance.
  const j=advanceMonthly(clone(s),{expectedMonth,listedProductIds:[]});
  const stocked=j.core.products.filter(p=>p.stock>0&&s.productsById[p.id]?.listed);
  const youngCount=stocked.filter(p=>p.age<P.youngDemandMonths).length;
- const wishes=stocked.map(p=>Math.min(p.stock,(p.age<P.youngDemandMonths?P.youngDemand/youngCount:10+6*p.character)*(0.80+0.20*p.character)*Math.exp(CORE.priceElasticity*(1-p.price/marketValue(p)))));
+ const wishes=stocked.map(p=>Math.min(p.stock,(p.age<P.youngDemandMonths?P.youngDemand/youngCount:10+6*p.character)*(0.80+0.20*p.character)*Math.exp(CORE.priceElasticity*(1-p.price/marketValue(p)))*(retailFactors?.get(p.id)??1)));
  const sum=wishes.reduce((a,b)=>a+b,0),scale=Math.min(1,CORE.monthlyCustomers/Math.max(sum,1));
  const quotas=wishes.map(w=>w*scale),counts=quotas.map(Math.floor),target=Math.floor(quotas.reduce((a,b)=>a+b,0)+1e-9);
  let remaining=target-counts.reduce((a,b)=>a+b,0);
