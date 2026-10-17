@@ -1,0 +1,132 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "cd417eca354e819e458ad049b70bb497760a81d5e4aa9c0fd7efd5009f8f4ba5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v014-aroma-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime 0.14 adopt frozen A extraction with recorded v11 boundary",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "47a54c47b068df4b7e29218c49473231ced5b01d",
+    "canonicalSources": [
+      "User0.14 A adoption request",
+      "PR437 frozen models.mjs A hash f321c7fd03a5012934b974853cf67a5bf6cefb556ee8a89bdc3523e9cdeb5e26",
+      "Current v10 usual batch save and exact operation replay"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v014-aroma-20261017/r0.lock.json",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/aroma-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/v013.html",
+      "works/ambertime/tests/aroma*.mjs",
+      "works/ambertime/design/aroma/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "tools/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/usual-app.mjs",
+      "works/ambertime/brand-reputation.mjs"
+    ],
+    "expectedChanges": [
+      "New pure production A kernel copies frozen volume-weighted curve exactly; existing baseline model unchanged",
+      "Recorded v11 enable-aroma boundary carries partial progress; all old prefix and inflight manual/auto retain legacy; all future starts A",
+      "Usual recipe position/type retained, old queued reservation starts A only after boundary; old active completes legacy, one-shot unchanged",
+      "New v11 storage key and app entry; v013 archive and old v10 storage untouched; existing preview/final UI reused",
+      "8seeds all70 positions exact oracle; manual/auto equality; save/tamper/oldfixture/parallel/aging/retail/trade/brand regressions; long simulation and PC/phone QA"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "PC-iPhone-browser",
+      "long-simulation",
+      "old-save-protection",
+      "published-source-match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Restore index entry to v013 and old usual-app; old v10 key never overwritten. Keep v11 data intact for review.",
+    "outOfScope": [
+      "Production",
+      "B",
+      "Curve tuning",
+      "Economic or aging adjustments",
+      "Large UI changes",
+      "New model features"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari",
+      "Humanfun",
+      "Cross-runtime floating-point portability remains unresolved"
+    ],
+    "rulesApplied": [
+      "FullWORK lock before edits",
+      "AGENTS necessary independent review",
+      "Latest user authorizes Staging implementation and merge"
+    ],
+    "hqDecisions": [],
+    "ownerDecisions": [
+      "User explicitly adopts A for0.14, authorizes versioned old-save protection, tests and Staging merge only"
+    ],
+    "problem": "Monotonic aroma gives little choice; adopt approved A without rewriting past whisky",
+    "currentContract": "v10 usual-batch, base model frozen; operation-prefix replay and unrecorded trailing progress",
+    "whyExistingIsInsufficient": "Changing baseline globally would rewrite historic distillation; explicit version boundary required",
+    "design": "Version11/rulesaroma-distillation is next usual/care/brand mode. New starts tagged aroma-a/1; old inflight untagged stayslegacy. stop overrides only aroma via pure A kernel; preview same selector. No economy/aging changes.",
+    "migration": "New v11 key reads and validates old session, enables with recorded current progress, preserves elapsed/pause, recipeposition/type. Old storage untouched. Active legacy finisheslegacy; future starts including queued recipe useA. Maxoperations/corrupt saves remain protected.",
+    "compatibility": "v013 entry retains oldapp/key and old constructors. Existing strict replay preserved; A mode adds operation only; no oldparam changes.",
+    "promotionRisk": "Staging only",
+    "alternativesRejected": [
+      "Mutate global previewDistillation",
+      "Retag inflight old spirit asA",
+      "Discard old histories",
+      "Overwrite v10 key",
+      "Change economy to favorA"
+    ],
+    "boundaryCases": [
+      "minimum30 initial24L",
+      "99 explicit stop",
+      "manual and active/queuedusual migration",
+      "partialprogress and monthly boundary",
+      "paused/tasting/modal migrations",
+      "same recipe position newmodel only futurestarts",
+      "maxoperations/corruptsave/quota/multitab",
+      "new/old casks coexist",
+      "brand/rating/wholesale/order regressions"
+    ],
+    "testPlan": [
+      "8seeds x70 exactfrozenA oracle andbaseline stimulus/yield",
+      "oldv3-v10fixtures and mixedversion operation replay tampertests",
+      "manual/auto exact same RNG; one-shot/funds/parallel tests",
+      "multi-seed long simulations; cost/time/yield/order/economy unchanged connections",
+      "PC/phone realbrowser preview/final/pause/reload/migration Storageprotection",
+      "Scope Risk Impact trustedstatic CI publishedsourcehash"
+    ]
+  }
+}
