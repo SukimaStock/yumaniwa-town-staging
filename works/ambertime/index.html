@@ -6,8 +6,8 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#172124">
 <title>AmberTime — 時間を育てる蒸留所</title>
-<link rel="stylesheet" href="./usual.css?v=0.13">
-<script type="module" src="./usual-app.mjs?v=0.13"></script>
+<link rel="stylesheet" href="./usual.css?v=0.13-spirit-1">
+<script type="module" src="./usual-app.mjs?v=0.13-spirit-1"></script>
 </head>
 <body data-room="distill"><div class="page">
 <div class="clock-dock"><header>
@@ -32,9 +32,17 @@
 <h2>蒸留室</h2>
 <div class="still-workplace">
 <div id="still" class="still" aria-hidden="true"></div>
-<p id="distill-caption" class="process-caption"></p>
-<p id="collection"></p><div id="extraction-progress" class="extraction-progress" aria-hidden="true" hidden><span></span></div>
-<p id="distill-direction" class="quiet"></p>
+<p id="distill-caption" class="process-caption" hidden></p>
+<p id="collection" hidden></p><div id="extraction-progress" class="extraction-progress" aria-hidden="true" hidden><span></span></div>
+<p id="distill-direction" class="quiet" hidden></p>
+<section id="spirit-readout" class="spirit-readout" aria-label="原酒の個性" hidden>
+<div class="spirit-heading"><span id="spirit-kind"></span><span id="spirit-volume"></span></div>
+<p id="spirit-phrase"></p>
+<div id="spirit-gauges">
+<div class="spirit-axis"><span id="roughness-label">刺激</span><div id="spirit-roughness" class="flavor-meter" role="meter" aria-labelledby="roughness-label" aria-valuemin="0" aria-valuemax="1"><span></span></div></div>
+<div class="spirit-axis"><span id="character-label">原酒の香り</span><div id="spirit-character" class="flavor-meter" role="meter" aria-labelledby="character-label" aria-valuemin="0" aria-valuemax="1"><span></span></div></div>
+</div>
+</section>
 <div class="distill-actions">
 <button id="start-distill" type="button">自分で蒸留する</button>
 <button id="stop-distill" type="button" hidden>抽出を終える</button>

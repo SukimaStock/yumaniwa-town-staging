@@ -1,0 +1,58 @@
+{
+  "seed": 20261015,
+  "maximums": {
+    "roughness": 1,
+    "character": 1,
+    "wood": 1.35
+  },
+  "minimumStop": 30,
+  "cutFormula": "(progress - 30) / 70",
+  "beforeMinimum": "No flavor prediction; only collected litres.",
+  "rows": [
+    {
+      "progress": 30,
+      "cut": 0,
+      "roughness": 0.21175401558838786,
+      "character": 0.28875547580234706,
+      "litres": 24,
+      "phrase": "香りは控えめで、刺激は穏やか。",
+      "confirmedMatches": true
+    },
+    {
+      "progress": 50,
+      "cut": 0.2857142857142857,
+      "roughness": 0.3987575618222888,
+      "character": 0.45375860483225966,
+      "litres": 28.57,
+      "phrase": "軽い果実と穀物が香り、口当たりに角がある。",
+      "confirmedMatches": true
+    },
+    {
+      "progress": 70,
+      "cut": 0.5714285714285714,
+      "roughness": 0.5857611080561897,
+      "character": 0.6187617338621723,
+      "litres": 33.14,
+      "phrase": "果実と穀物が香り、口当たりに角がある。",
+      "confirmedMatches": true
+    },
+    {
+      "progress": 90,
+      "cut": 0.8571428571428571,
+      "roughness": 0.7727646542900907,
+      "character": 0.7837648628920849,
+      "litres": 37.71,
+      "phrase": "果実と穀物が香り、刺激は強い。",
+      "confirmedMatches": true
+    },
+    {
+      "progress": 99,
+      "cut": 0.9857142857142858,
+      "roughness": 0.8569162500953462,
+      "character": 0.8580162709555456,
+      "litres": 39.77,
+      "phrase": "熟した果実と穀物が香り、刺激は強い。",
+      "confirmedMatches": true
+    }
+  ]
+}
