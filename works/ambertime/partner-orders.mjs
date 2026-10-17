@@ -76,7 +76,8 @@ export function reconcileTradeHistory(s){
   for(const h of old.trade?.history??[])if(h.kind==='accepted'&&h.partner===r.partner&&(h.relationshipId===r.id||h.relationshipId===undefined&&h.id===r.id))take(h.acceptedMonth??h.month);
   const k=old.trade?.contract;if(k?.partner===r.partner&&k.id===r.id)take(k.acceptedMonth);
  }
- if(start===r.startedMonth)return s;
+ // Optional metadata repair must not make a valid full ledger unreadable.
+ if(start===r.startedMonth||s.operations.length>=P.maxOperations)return s;
  const j=clone(s);j.trade.relationship.startedMonth=start;return action(j,'reconcile-trade-start');
 }
 function reserve(s){return s.core.casks.reduce((n,c)=>n+M.bottleQuote(s.core,c.id).cost,0)+(s.core.spirit?Math.min(...Object.values(C.casks).map(c=>c.cost))+Math.floor((s.still.phase==='distilling'?C.baseLitres+C.extraLitres:s.core.spirit.litres)/C.bottleLitres)*C.bottlingCost:0);}
