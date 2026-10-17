@@ -1,0 +1,111 @@
+{
+  "browser": "Chromium",
+  "clock": "Controlled clock executes real 100ms application timers",
+  "physicalSafari": false,
+  "humanFun": false,
+  "checks": [
+    {
+      "all70BrowserNodeCoefficientsExact": true,
+      "newUnagedChromeSaveNodeStrictReplay": true
+    },
+    {
+      "crossRuntimeSameRawAt65": true,
+      "crossRuntimeAgedDifferences": [
+        {
+          "path": ".core.casks.0.roughness",
+          "browser": 0.806846771409871,
+          "node": 0.8068467714098712
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "minimumStop": true,
+      "aroma": [
+        0.23100438064187764,
+        0.6321952599032211,
+        0.5430433497509858
+      ],
+      "aromaDeclines": true,
+      "exactPreviewFinal": true,
+      "pauseReload": true,
+      "oneShotA": true,
+      "parallelAging": true,
+      "noHorizontalOverflow": true,
+      "reserveHeight": 46.75,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "minimumStop": true,
+      "aroma": [
+        0.23100438064187764,
+        0.6321952599032211,
+        0.5430433497509858
+      ],
+      "aromaDeclines": true,
+      "exactPreviewFinal": true,
+      "pauseReload": true,
+      "oneShotA": true,
+      "parallelAging": true,
+      "noHorizontalOverflow": true,
+      "reserveHeight": 46.75,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 667,
+      "minimumStop": true,
+      "aroma": [
+        0.23100438064187764,
+        0.6321952599032211,
+        0.5430433497509858
+      ],
+      "aromaDeclines": true,
+      "exactPreviewFinal": true,
+      "pauseReload": true,
+      "oneShotA": true,
+      "parallelAging": true,
+      "noHorizontalOverflow": true,
+      "reserveHeight": 46.75,
+      "errors": []
+    },
+    {
+      "migration": "partial",
+      "oldBytesUntouched": true,
+      "elapsedPausePreserved": true,
+      "inflightLegacy": true,
+      "queuedFutureA": false
+    },
+    {
+      "migration": "queued",
+      "oldBytesUntouched": true,
+      "elapsedPausePreserved": true,
+      "inflightLegacy": true,
+      "queuedFutureA": true
+    },
+    {
+      "migration": "active",
+      "oldBytesUntouched": true,
+      "elapsedPausePreserved": true,
+      "inflightLegacy": true,
+      "queuedFutureA": false
+    },
+    {
+      "corruptNewSavePreserved": true,
+      "noLegacyFallback": true
+    },
+    {
+      "previewNoStorageAccess": true
+    },
+    {
+      "multiTabEventStopsWithoutOverwrite": true
+    },
+    {
+      "quotaMigrationOldBytesUntouched": true,
+      "newKeyNotPartiallyWritten": true
+    }
+  ]
+}
