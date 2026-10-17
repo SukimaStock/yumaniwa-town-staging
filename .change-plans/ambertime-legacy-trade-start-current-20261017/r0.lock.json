@@ -1,0 +1,145 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3a0cbae15d741d94002d3faa56c8737c316344e1c3f829f653afde915249a298",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-legacy-trade-start-current-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Record deterministic legacy relationship-date reconciliation after strict restore",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "63613724ee7ca54e3e1902ef3cb3da15e040d432",
+    "canonicalSources": [
+      "PR424 P2 legacyacceptancedatefinding",
+      "Source wholesale.mjs acceptedrecord shape",
+      "Independent partner_design_review append-only-operation design review",
+      "Public Chrome floating-point diagnostic and iframegeometry",
+      "Fresh base after unrelated PR426 search UTM; zero AmberTime overlap"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-legacy-trade-start-current-20261017/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/partners-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/design/partners/replay.mjs",
+      "works/ambertime/design/partners/browser-check.html",
+      "works/ambertime/design/partners/VERIFICATION.md",
+      "works/ambertime/design/partners/source-sha256.json",
+      "works/ambertime/tests/partners-history.test.mjs",
+      "works/ambertime/tests/partners-ui.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/wholesale*.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/v08-app.mjs",
+      "works/ambertime/v08-legacy-app.mjs",
+      "works/ambertime/v08.css",
+      "works/ambertime/v07-app.mjs",
+      "works/ambertime/legacy.html",
+      "works/ambertime/v08.html",
+      "works/ambertime/v07.html",
+      "works/ambertime/v06.html",
+      "works/ambertime/v05.html",
+      "works/ambertime/v04.html",
+      "works/ambertime/trade.mjs",
+      "works/ambertime/trade-parameters.mjs",
+      "works/ambertime/v09-app.mjs",
+      "works/ambertime/v09.css"
+    ],
+    "expectedChanges": [
+      "Keep upgraded and all oldoperations semantics unchanged; reconcileTradeHistory derivesmatchinglegacyacceptance date and records new explicit no-payload operation, startedMonth only",
+      "UI afterstrictrestore calls idempotentreconciler and persists verifiednewaction through normalCAS, oldkeys unchanged, pause/trial/partialstill maintained",
+      "Cachequeries0.10.1 forchangedapp/engine; QA imports matchingversion; PC/phoneharness sets exactiframewidth without outerviewportcap"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "all-ambertime-regressions",
+      "legacy-v4-v5-v6-history-date-replay",
+      "PC-iPhone-browser",
+      "scope-risk-impact-Pages"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "No oldkeys changed; correction is explicit operation, revertingnewopcode requireskeepingreader; preferforwardfix, never deletecurrentdata.",
+    "outOfScope": [
+      "Production",
+      "Staff/equipment/capchange/largeeconomyredesign",
+      "Allcask automaticassignment or removal of meaningful decisions",
+      "Multiplecompanies or multiple special types"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Humanfun andphysicalSafari"
+    ],
+    "rulesApplied": [
+      "FullWORK lock before implementation",
+      "AGENTS necessary independent review",
+      "Latest user authorizes notification instead of redundant wait confirmation only"
+    ],
+    "hqDecisions": [
+      "Independent partner_design_review approved explicit correctionaction instead of changing upgraded oldv6 replay; matchkindaccepted+partner+relationshipID/legacyid, integerdateearlieronly, noRNG/cash/booking edits, no-evidence/secondcall no-op",
+      "Strictvalidate originalsave beforecorrection; oldv6sameoriginaloperationhistory stillvalid; newop accounts for correction reproducibly; keep oldv5keys. Correctexistingv6 throughnormalvalidatedCASwrite only.",
+      "QA publicfloatingdifference0.21288448947760094 vs0.2128844894776005 isnotnormalizedinengine. Testnativebrowser viaQAonly, keep portabilitylimitation visible. FixQA exactwidthcontrols to actuallyuse1280 on narrowhost."
+    ],
+    "ownerDecisions": [
+      "Latest user explicitly requests phase1 implementation/test then one partner special experiment; preserve saves and Production."
+    ],
+    "problem": "Old legacy acceptance record id/acceptedMonth notrecognized, delays special eligibility afterimport; changingorigin reconstruction wouldinvalidateexistingv6",
+    "currentContract": "V5 continuous relationship+locked per-cask assignments; strict replay nested old origins.",
+    "whyExistingIsInsufficient": "Changed offers, probability and decision normalization change deterministic execution.",
+    "design": "Add one deterministic repair operation aftervalidation, no replacement ofoldcontract; backward-compatible optionalopcode.",
+    "migration": "Oldv6 strictlyrestore first, appendnewoperation onlywhen matchinghistoryprovesearlierstart; current saveCAS; leave oldkeys intact",
+    "compatibility": "Existinggameoperations/upgraded function unchanged; new action only modifiesstartdate and preserves replay prefix",
+    "promotionRisk": "Stagingonly",
+    "alternativesRejected": [
+      "Rewrite v5 in place",
+      "Global reputation system",
+      "Autoaccept orders",
+      "Automatically sell failed order at lowerprice",
+      "Hidden future score for recipes"
+    ],
+    "boundaryCases": [
+      "Legacy id andacceptedMonth",
+      "trimmedhistory ancestor contract",
+      "unrelatedsameidpartner",
+      "noevidence",
+      "newnativev6 unchanged",
+      "tasting/partialstill",
+      "savequota andcorruptoriginal"
+    ],
+    "testPlan": [
+      "Oldv6fixturestrictserialize beforecorrection; correction/replay/idempotence; ignorewrongpartner/id/dates",
+      "Trial/partialstill/manualpause survive UIboot/correction/quota/corruptstop",
+      "All230oldtests plus new tests; sourcehashes; publicPC/phone"
+    ]
+  }
+}
