@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "088126ee7c69b43ab53c9719bebe7c5cee03853048bc36058013fd60c746ffa9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "tilt-to-hold-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "選択B「傾けて止める」の独立試作、active台帳と生成LAB接続",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "f31baa73693be830d4a27e5e6418477653fdf510",
+    "canonicalSources": [
+      "works/tilt-to-hold",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/tilt-to-hold-20261017/r0.lock.json",
+      "works/tilt-to-hold/**",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/town-maps.js",
+      "works/mawarikiru-coin/**",
+      "works/rewinding-thread/**",
+      "works/nadeato/**"
+    ],
+    "expectedChanges": [
+      "輪のつまみを上下になぞって角度を変え、滑走途中の停止と再開を反復",
+      "active staging-only、既存Prototype Benchへ生成接続",
+      "短い制作記録と操作検証"
+    ],
+    "ownerDecisions": [
+      "2026-10-17 18:32UTC Sentinel_564fb6af789c819194029bbc11190253: B。委任元01a11875-47fb-73f8-b86d-cf31e84fa0c8でbranch/commit/draft PR/CI/安全なStaging merge許可。Production・共有システム・保存・外部権限変更禁止。"
+    ],
+    "hqDecisions": [
+      "AI設計照合: lifecycle JSONと生成LABはunknown-code floorのためFull。既存schema/generatorをそのまま使い契約・共有処理は変更しない。作者による追加承認を意味しない。"
+    ],
+    "rulesApplied": [
+      "AGENTS Work lifecycle active default",
+      "CHANGE-PLAN normal locked route; not lightweight"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-touch-mouse-slide-stop-regrab-edge-cancel-repeat-resize",
+      "published-entry-lab-return"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "当該新規work、台帳の当該項目とLAB生成差分を同じ単位でrevert",
+    "outOfScope": [
+      "production",
+      "町登録",
+      "既存作品",
+      "共有Engine",
+      "外部権限",
+      "保存"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone/iPad Safari",
+      "作者の触感判断"
+    ],
+    "problem": "落ちている輪を少しの傾きで止める感覚",
+    "currentContract": "単独worksとactive台帳、既存LAB generator",
+    "whyExistingIsInsufficient": "新作が存在しない",
+    "design": "SVGの棒と輪。角度の閾値とヒステリシスで摩擦を近似、滑走速度に上限。つまみの相対pointer移動で角度のみ変更、離しても角度保持。ばね復元なし。初期は停止。",
+    "alternativesRejected": [
+      "町やEngine変更",
+      "3D化",
+      "ゲーム化"
+    ],
+    "migration": "既存データ変更なし",
+    "compatibility": "Pointer Eventsとcapture、相対移動。cancel/blur/resizeで入力を解放し停止。外部依存なし。",
+    "boundaryCases": [
+      "滑走と停止",
+      "再つかみ・単一pointer",
+      "端・再試行",
+      "cancel/lost capture/blur/非表示",
+      "resize・反復"
+    ],
+    "testPlan": [
+      "Lifecycle回帰",
+      "作品操作ブラウザテストと独立レビュー",
+      "Scope/Risk/Impact/CI/Pages exact SHA・実URL"
+    ],
+    "promotionRisk": "staging only"
+  }
+}
