@@ -316,6 +316,13 @@
       "status": "active",
       "title": "沈めて浮かす",
       "theme": "浮きを沈めて離すと、水面を抜けて小さく上下に揺れる"
+    },
+    {
+      "id": "tilt-to-hold",
+      "path": "works/tilt-to-hold",
+      "status": "active",
+      "title": "傾けて止める",
+      "theme": "棒を滑る輪を、つまみの小さな傾きで止める"
     }
   ]
 }
