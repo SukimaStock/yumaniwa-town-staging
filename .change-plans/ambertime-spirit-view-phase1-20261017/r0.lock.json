@@ -1,0 +1,132 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7eecbd08b72d0cf9786200c680d60de8df0f8aebedf11a16adaf1e96c6a09248",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-spirit-view-phase1-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime Phase 1 read-only raw-spirit individuality visualization",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "d9fdb71d66210acbfb9977ef389ff63539723cc2",
+    "canonicalSources": [
+      "User raw-spirit individuality Phase 1 request",
+      "0.13 usual-app display and clock",
+      "distillery stopDistillation calculation",
+      "model previewDistillation and tasting taxonomy"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-spirit-view-phase1-20261017/r0.lock.json",
+      "works/ambertime/spirit-view.mjs",
+      "works/ambertime/usual-app.mjs",
+      "works/ambertime/usual.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/spirit*.mjs",
+      "works/ambertime/design/spirit/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/trade*.mjs",
+      "works/ambertime/wholesale*.mjs",
+      "works/ambertime/brand-reputation.mjs"
+    ],
+    "expectedChanges": [
+      "Pure forecast from existing progress/cut and already-drawn variation; read actual spirit after stop, no taste before minimumStop",
+      "Two neutral fixed-scale roughness and character gauges, brief natural phrase and litres near existing still; reuse collection display and retire visible extraction progress to avoid redundant bars",
+      "Transient confirmed newborn-cask readout for automatic fill, captured before any monthly aging, no new persistent state",
+      "Keep clock/control/save/automation/economics behavior byte-identical; position/seed matrix and PC/iPhone interaction tests"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "PC-iPhone-browser",
+      "position-matrix",
+      "published-source-match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert display module/app/CSS/index changes; unchanged v10 saves remain usable.",
+    "outOfScope": [
+      "Production",
+      "Extraction or random variation changes",
+      "Aging/tasting/price/demand/wholesale/reputation changes",
+      "New recipes or automation changes",
+      "Warehouse three-gauge UI",
+      "Scores/ranks/optimal cuts"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari",
+      "Humanfun",
+      "Cross-runtime floating-point portability remains unresolved"
+    ],
+    "rulesApplied": [
+      "FullWORK lock before edits",
+      "AGENTS necessary independent review",
+      "Latest user authorizes Staging implementation and merge"
+    ],
+    "hqDecisions": [],
+    "ownerDecisions": [
+      "User explicitly requests two flavor gauges and one short phrase with unchanged calculations and saves; authorizes safe Staging merge only"
+    ],
+    "problem": "Extraction position gives insufficient information about the individuality of the resulting raw spirit",
+    "currentContract": "0.13 real extraction steps and exact v10 replay; cut30..99 normalized by70; stop uses preview plus saved variation; auto fill is atomic",
+    "whyExistingIsInsufficient": "Existing collection/progress and prose do not expose the actual current stop profile",
+    "design": "A pure presentation projection and fixed per-axis metadata; roughness/character0..1. Before30 show collection only. Confirmed values come from actual raw spirit or newborn cask snapshot. No persisted display fields.",
+    "migration": "None; same v10 key/session/game shape and operation history",
+    "compatibility": "Game model and all rules files untouched, UI-only snapshot cleared on new distillation/reset; read-only display does not consume random numbers",
+    "promotionRisk": "Staging only",
+    "alternativesRejected": [
+      "Change extraction equations",
+      "Treat increased values as quality",
+      "Stretch each gauge to the current batch min/max",
+      "Use placeholder core.spirit during collection",
+      "Read original result from an aged cask",
+      "Persist redundant display values"
+    ],
+    "boundaryCases": [
+      "progress0/29/30/50/70/90/99",
+      "multiple seed variations",
+      "manual stop/filling",
+      "auto completion at monthly boundary",
+      "pause/resume/reload",
+      "repeated render no state mutation",
+      "concurrent aging/sales",
+      "iPhone still/gauges/stop visible"
+    ],
+    "testPlan": [
+      "Read-only seed/position matrix: forecast equals actual stop and phrases agree with tasting",
+      "UI state projection no RNG/save/op changes; existing usual UI plus wholesale/brand/reputation regressions",
+      "Real PC/iPhone browser: collecting, early/late forecast, confirmed/fill, auto result, pause/reload and visibility bounds",
+      "Exact changed-path/syntax/risk/impact/lifecycle checks"
+    ]
+  }
+}
