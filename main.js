@@ -7688,6 +7688,14 @@ function buildNoteRackSelection() {
 
     if (!articles.length) return slots;
 
+    // 湯間庭新報0.1: 町のはじまりの一枚を、既存4枠とは別に貼る。
+    for (var archiveIndex = 0; archiveIndex < articles.length; archiveIndex++) {
+        if (articles[archiveIndex].archivePage) {
+            add(articles[archiveIndex], "町のはじまり", "archive");
+            break;
+        }
+    }
+
     // 1. 町の現在地。
     add(articles[0], "最新", "latest");
 
@@ -7721,8 +7729,9 @@ window.openNoteArticleFromRack = function(articleId) {
 
     recordShinpoArticleOpen(article);
 
-    // カードを選んだ瞬間だけ、正式なnote記事へ進む。
-    window.open(article.url, "_blank");
+    // 保存版だけは町の紙面を開く。それ以外は従来どおりnoteへ進む。
+    var target = article.archivePage ? new URL(article.archivePage, window.location.href).href : article.url;
+    window.open(target, "_blank");
 };
 
 function renderNoteRackCard(slot) {
@@ -7734,6 +7743,19 @@ function renderNoteRackCard(slot) {
     var slotLabel = escapeNoteRackHtml(slot.label);
     var slotKind = escapeNoteRackHtml(slot.kind || "");
     var html = '';
+
+    // 町のはじまりの一枚だけ、noteの埋め込みではなく新聞の切り抜きにする。
+    if (article.archivePage) {
+        html += '<article class="note-rack-card shinpo-archive-card" data-rack-kind="' + slotKind + '">';
+        html += '<div class="shinpo-archive-paper"><div class="shinpo-archive-mast">湯 間 庭 新 報　・　記 録</div>';
+        html += '<div class="shinpo-archive-date">' + escapeNoteRackHtml(date) + '</div>';
+        html += '<div class="shinpo-archive-headline">' + title + '</div>';
+        html += '<div class="shinpo-archive-teaser">棚ではなく、「場所」が欲しかった。</div></div>';
+        html += '<div class="note-rack-card-footer"><span class="note-rack-card-slot">' + slotLabel + '</span><span class="note-rack-card-cta">新聞を広げる ↗</span></div>';
+        html += '<button class="note-rack-card-open" type="button" aria-label="' + title + 'を湯間庭新報で読む" onclick="openNoteArticleFromRack(\\'' + articleId + '\\')"></button>';
+        html += '</article>';
+        return html;
+    }
 
     // URL形式が例外的な記事だけは、棚の中でタイトル札として残す。
     if (!embedUrl) {
