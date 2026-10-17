@@ -1,0 +1,141 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9276ff77c095e55470415421a87c0d89c269fe1f471b598f0834ef50c74f4a09",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-usual-v10-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime 0.13 one-shot usual batch using latest manual extraction and cask",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "8c4cc199c6858837f0e09d0b282058f1549f5478",
+    "canonicalSources": [
+      "User AmberTime 0.13 request",
+      "partner-orders v9 exact replay",
+      "economy/distillery extraction and reserve",
+      "reputation-app clock/session"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-usual-v10-20261017/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/usual-app.mjs",
+      "works/ambertime/usual.css",
+      "works/ambertime/index.html",
+      "works/ambertime/v012.html",
+      "works/ambertime/tests/usual*.mjs",
+      "works/ambertime/tests/wholesale-care-ui.test.mjs",
+      "works/ambertime/design/usual/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/reputation-app.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/trade*.mjs",
+      "works/ambertime/wholesale*.mjs"
+    ],
+    "expectedChanges": [
+      "Recorded v10 enable boundary and isolated v10 key preserve v9/earlier replay and raw saves; retain v012 entry",
+      "Latest successful manual fill records extraction position and cask; immutable one-shot queued/active reservation",
+      "Explicit reserve/start/complete/cancel operations use existing start/step/stop/fill with chosen-cask funding premium held during monthly processing",
+      "Unblocked real clock starts after complete monthly settlement; pause/modal and manual conflict guarded; persist submonth elapsed in v10 session",
+      "Minimal existing distillation-room controls, tests, finite multi-seed long simulation, desktop and iPhone viewport QA"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "multi-seed-simulation",
+      "PC-iPhone-browser",
+      "published-source-match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Restore index to v012 entry; retain all v9 and v10 saves/readers.",
+    "outOfScope": [
+      "Production",
+      "Recipe lists/staff/unlimited automation",
+      "Automatic care/wholesale/retail assignment",
+      "Economy/extraction parameter changes",
+      "Shared runtime/other works"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari",
+      "Humanfun",
+      "Cross-runtime floating-point portability remains unresolved"
+    ],
+    "rulesApplied": [
+      "FullWORK lock before edits",
+      "AGENTS necessary independent review",
+      "Latest user authorizes Staging implementation and merge"
+    ],
+    "hqDecisions": [
+      "AI technical design under authorized save separation: new recorded v10 boundary, one latest manual recipe, queued/active snapshot and atomic completion; old versions unchanged. Active chosen-cask premium protected by monthly reserve. New session preserves elapsed within month; old imports initialize elapsed to zero."
+    ],
+    "ownerDecisions": [
+      "User authorizes one-shot automation, minimal UI, safe version separation, tests and Staging merge; Production prohibited"
+    ],
+    "problem": "Repeated distillation requires watching extraction despite wanting to focus on aging or sales",
+    "currentContract": "v9 strict replay with unrecorded extraction ticks and recorded month progress; 4 casks and bottle reserve; UI clock pause/modal guards",
+    "whyExistingIsInsufficient": "No reusable manual recipe or one-shot reservation, and changing historic actions would invalidate replay",
+    "design": "v10 latest manual recipe; reserve snapshot; unblocked clock begins and incrementally extracts; recorded atomic completion makes normal cask; no automatic sales assignment",
+    "migration": "Strict restore previous version, replay latest successful manual stop/fill as recipe, append enable-usual boundary; write separate v10 session key only",
+    "compatibility": "v6-v9 actions remain exact; v012 entry remains; existing casks, contracts, brands, releases and sales unchanged at activation",
+    "promotionRisk": "Staging only",
+    "alternativesRejected": [
+      "Instant cask creation",
+      "Infinite continuous production",
+      "Mutate old histories",
+      "Start from render or while paused",
+      "Charge again on restore",
+      "Couple manufacturing to wholesale"
+    ],
+    "boundaryCases": [
+      "first manual fill",
+      "new manual recipe replaces old",
+      "expensive cask premium",
+      "four full casks",
+      "same-month multiple shipments and empty rack",
+      "insufficient funds",
+      "same-month start limit",
+      "paused/modal/hidden",
+      "manual/auto conflict",
+      "cancel queued only",
+      "partial progress at month boundary/reload",
+      "atomic completion reload",
+      "special orders and reputation"
+    ],
+    "testPlan": [
+      "All AmberTime regressions",
+      "Dedicated reservation/recipe/funds/replay tests",
+      "UI clock pause/modal/storage and submonth restoration tests",
+      "Finite multiple-seed long paired manual vs automatic simulation of cost/production/months including simultaneous wholesale shipments",
+      "Real browser PC and iPhone viewport manual fill, reserve, cancel, auto completion and reload; physical Safari unverified"
+    ]
+  }
+}
