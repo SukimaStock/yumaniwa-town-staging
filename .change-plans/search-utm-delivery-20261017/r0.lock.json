@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8dce5b01a288d698e063b99d24b175705258181ce155a7e6b826525cce0d32be",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "search-utm-delivery-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Preserve five standard campaign UTM fields through existing Search/Share introduction links",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "5a5231d495fbc308f276ebfcc4e50905086e593f",
+    "canonicalSources": [
+      "tools/generate-work-search-pages.cjs",
+      "data/works.js",
+      "data/work-search-meta.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/search-utm-delivery-20261017/r0.lock.json",
+      "tools/generate-work-search-pages.cjs",
+      "tests/test-work-search-campaigns.cjs",
+      "docs/verification/search-utm-delivery-20261017.md",
+      "w/diorama-calendar/index.html",
+      "w/rainy-window/index.html",
+      "w/rojiura-masala/index.html",
+      "w/dotweather/index.html",
+      "w/junkissa-dive/index.html",
+      "w/pumpoko/index.html",
+      "w/yakitori-wars/index.html",
+      "w/coffee-factory/index.html",
+      "w/steamclock/index.html",
+      "w/orbit/index.html",
+      "w/midnight-cola/index.html",
+      "en/w/diorama-calendar/index.html",
+      "en/w/rainy-window/index.html",
+      "en/w/rojiura-masala/index.html",
+      "en/w/dotweather/index.html",
+      "en/w/junkissa-dive/index.html",
+      "en/w/pumpoko/index.html",
+      "en/w/yakitori-wars/index.html",
+      "en/w/steamclock/index.html",
+      "en/w/orbit/index.html",
+      "en/w/midnight-cola/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "engine/**",
+      "works/**",
+      "data/**",
+      "sitemap.xml",
+      "assets/**",
+      ".github/**",
+      "tools/change-**"
+    ],
+    "expectedChanges": [
+      "Carry only utm_source, utm_medium, utm_campaign, utm_content, utm_term through existing play, town and language anchors; preserve fixed work identity and current open=1 shortcut.",
+      "Regenerate existing JA/EN staging pages only, no copy/UI/schema/OGP/robots changes."
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes clear technical delivery fixes, tests, PR and staging merge; production and new UI excluded."
+    ],
+    "hqDecisions": [
+      "Existing campaign attribution repair uses only existing links and URL fields; no new analytics scheme, event, cookie, runtime, or UI."
+    ],
+    "rulesApplied": [
+      "AGENTS.md and Plan Lock first commit",
+      "Only existing generated pages, staging noindex and production canonical retained"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "search-campaign-regression",
+      "release-validator-regression",
+      "desktop-mobile-browser"
+    ],
+    "impactChecks": [
+      "search.generated-pages",
+      "search.sitemap",
+      "search.structured-data",
+      "search.validator",
+      "search.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "dependencies": [
+      "Staging exact baseline f956aa8d68d9b9ae0f7401fe22521e8e3cf00fc5",
+      "10-work published target set (not CoffeeFactory)",
+      "Stable existing work IDs, launch URLs, and noindex staging preview contract",
+      "PUMPOKO build-itch.py exact <title>PUMPOKO 02</title> source input; exporter rewrites ZIP title to PUMPOKO"
+    ],
+    "rollback": "Revert implementation commit and regenerate previous generator output.",
+    "outOfScope": [
+      "Production",
+      "SNS changes",
+      "Game/runtime changes",
+      "New analytics/return UI"
+    ],
+    "promotion": "staging only",
+    "unverified": [
+      "Physical iPhone and SNS in-app browsers",
+      "External Plausible campaign reporting until separate production publication"
+    ],
+    "alternativesRejected": [
+      "Do not add analytics script, cookies, persistent storage, new links or new UI."
+    ],
+    "boundaryCases": [
+      "JA/EN, all generated pages, absent/empty/duplicate/Unicode UTMs, arbitrary work/open/place overrides, open=1 shortcut, no JavaScript"
+    ],
+    "testPlan": [
+      "Node VM regression across generated JA/EN pages",
+      "Existing release-validator and lifecycle tests",
+      "Playwright desktop and iPhone emulation: unchanged layout and URL attribution"
+    ],
+    "problem": "Ordinary introduction links discard standard campaign fields before first measured town page.",
+    "currentContract": "Generated localized pages have fixed play/town/language links and opt-in open=1 redirect.",
+    "whyExistingIsInsufficient": "Only open=1 preserves query parameters; ordinary CTA and language navigation discard campaigns.",
+    "design": "At DOMContentLoaded, copy allowlisted nonempty campaign values into existing anchors using URLSearchParams; leave routing and arbitrary query parameters unchanged.",
+    "migration": "None",
+    "compatibility": "Keep JS-free links functional, existing redirect semantics, fixed work ID and existing anchors.",
+    "promotionRisk": "No production change. Later promotion requires separate instruction."
+  }
+}
