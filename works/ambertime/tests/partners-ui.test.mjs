@@ -79,3 +79,20 @@ test('successful special shipment retains displayed record facts and ordinary re
 
 test('boot records legacy acceptance date correction only after strict restore, preserving old raw key and pause',async()=>{const old=V09.restoreDistillery(fs.readFileSync(new URL('./fixtures/v08-legal-funds.json',import.meta.url),'utf8')),text=session(old,true),e=await boot({v5:text});assert.equal(e.state().trade.relationship.startedMonth,16);assert.equal(e.state().operations.at(-1).key,'reconcile-trade-start');assert.equal(e.storage.get('sukimastock.ambertime.wholesale.v5'),text);assert.equal(e.intent(),true);assert.equal(e.clock(),0);const reopened=await boot({text:e.text()});assert.equal(reopened.state().operations.filter(o=>o.key==='reconcile-trade-start').length,1);});
 test('existing v6 correction writes are checked and quota/corrupt failures never replace the original',async()=>{const game=D.restoreDistillery(fs.readFileSync(new URL('./fixtures/v08-legal-funds.json',import.meta.url),'utf8')),text=session(game,false);const e=await boot({text});assert.equal(e.state().trade.relationship.startedMonth,16);assert.equal(e.intent(),false);const quota=await boot({text,initialWriteFails:true});assert.equal(quota.text(),text);assert.equal(quota.writes.length,0);assert.equal(quota.clock(),0);assert.equal(quota.node('recovery').hidden,false);const bad=JSON.parse(text);bad.game.core.cash++;const corrupt=await boot({text:JSON.stringify(bad)});assert.equal(corrupt.writes.length,0);assert.equal(corrupt.clock(),0);assert.equal(corrupt.node('recovery').hidden,false);});
+
+import {PARALLEL_PARAMETERS as CAP} from '../economy-parameters.mjs';
+test('valid full legacy-derived ledger boots without correction, rewriting or loss of pause intent',async()=>{
+ let s=D.restoreDistillery(fs.readFileSync(new URL('./fixtures/v08-legal-funds.json',import.meta.url),'utf8'));
+ // Repeated pause/resume has a bounded 120-entry history. Build that suffix
+ // with public actions; the strict reader then verifies all 12,000 actions.
+ for(let i=0;i<120;i++)s=i%2?D.resumeTrade(s):D.pauseTrade(s);
+ s.operations=Array.from({length:CAP.maxOperations},(_,i)=>({key:i%2?'resume-trade':'pause-trade'}));
+ const encoded=D.serializeDistillery(s);assert.deepEqual(D.restoreDistillery(encoded),s);
+ for(const paused of [false,true]){
+  const text=session(s,paused),e=await boot({text});assert.equal(e.text(),text);assert.equal(e.writes.length,0);
+  assert.equal(e.node('recovery').hidden,true);assert.equal(e.state().trade.relationship.startedMonth,26);
+  assert.equal(e.state().operations.length,CAP.maxOperations);assert.equal(e.intent(),paused);
+  assert.equal(e.node('action-dialog').open,true);assert.equal(e.clock(),0); // Existing funds judgment, not a load failure.
+ }
+ const over=structuredClone(s);over.operations.push({key:'pause-trade'});assert.throws(()=>D.restoreDistillery(JSON.stringify(over)));
+});

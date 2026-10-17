@@ -4,7 +4,7 @@
 <button data-fixture="offer">特別注文の申し出</button><button data-fixture="accepted">受注・樽未指定</button><button data-fixture="assigned">特別注文の樽</button><button data-fixture="due">成功する出荷の前月</button><button data-fixture="unmet">風味が未達</button><button id="legacy">0.9の申し出</button><button id="reload" disabled>保存から再開</button><button id="phone">iPhone 390</button><button id="pc">PC 1280</button><label><input id="paused" type="checkbox" checked>手動停止で開く</label><p id="status"></p><p id="diagnostic"></p><iframe id="game" title="検証用 AmberTime"></iframe>
 <script type="module">
 import {replayCheckpoint,firstDifference} from './replay.mjs';
-import * as D from '../../partner-orders.mjs?v=0.10.1';
+import * as D from '../../partner-orders.mjs?v=0.10.2';
 import * as V09 from '../../trade.mjs?v=0.9';
 const root=new URL('../../',location.href),frame=document.querySelector('#game'),key='sukimastock.ambertime.wholesale.v6';let memory=new Map(),selection=0,ready=false;
 window.qaStorage={getItem:k=>memory.get(k)??null,setItem:(k,v)=>memory.set(k,v)};
