@@ -43,6 +43,7 @@ var NOTE_ARTICLES = [
         id: "note-n21f2389ac91d",
         title: "ゲームジャムでカボチャを転がした",
         url: "https://note.com/hamamah/n/n21f2389ac91d",
+        publishedAt: "2026-10-17",
         featured: false
     },
 
