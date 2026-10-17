@@ -68,6 +68,25 @@
   <script>
     (function () {
       var params=new URLSearchParams(window.location.search);
+      // Keep campaign attribution until the visitor reaches the measured town page.
+      // Routing parameters belong to each existing link, never to the incoming URL.
+      document.addEventListener("DOMContentLoaded", function () {
+        var campaignKeys=["utm_source","utm_medium","utm_campaign","utm_content","utm_term"];
+        if (!campaignKeys.some(function (key) { return !!params.get(key); })) return;
+        var links=document.querySelectorAll(".actions a, .language a");
+        for (var i=0;i<links.length;i++) {
+          var target=new URL(links[i].getAttribute("href"),window.location.href);
+          var changed=false;
+          campaignKeys.forEach(function (key) {
+            var value=params.get(key);
+            if (value) {
+              target.searchParams.set(key,value);
+              changed=true;
+            }
+          });
+          if (changed) links[i].setAttribute("href",target.href);
+        }
+      });
       if (params.get("open")!=="1") return;
       params.delete("open");
       params.delete("work");
