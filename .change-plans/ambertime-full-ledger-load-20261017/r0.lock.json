@@ -1,0 +1,139 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "26121ed642075b07fedfbbd7eef6edcc6df29c3258b502a049693e9d0046bdb8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-full-ledger-load-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Keep valid full-ledger saves loadable when optional date reconciliation cannot append",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "19c19df3aff72d8f2b6f8207255f0a83330065ef",
+    "canonicalSources": [
+      "PR427 P2 4301705903",
+      "partner-orders validate accepts maxOperations; reconciliation appends",
+      "Current user resume instruction; preserve existing saves"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-full-ledger-load-20261017/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/partners-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/design/partners/replay.mjs",
+      "works/ambertime/design/partners/VERIFICATION.md",
+      "works/ambertime/design/partners/source-sha256.json",
+      "works/ambertime/tests/partners-history.test.mjs",
+      "works/ambertime/tests/partners-ui.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/wholesale*.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/v08-app.mjs",
+      "works/ambertime/v08-legacy-app.mjs",
+      "works/ambertime/v08.css",
+      "works/ambertime/v07-app.mjs",
+      "works/ambertime/legacy.html",
+      "works/ambertime/v08.html",
+      "works/ambertime/v07.html",
+      "works/ambertime/v06.html",
+      "works/ambertime/v05.html",
+      "works/ambertime/v04.html",
+      "works/ambertime/trade.mjs",
+      "works/ambertime/trade-parameters.mjs",
+      "works/ambertime/v09-app.mjs",
+      "works/ambertime/v09.css"
+    ],
+    "expectedChanges": [
+      "Skip optional date correction at valid ledger capacity, keeping original state and replay untouched; append with one slot remaining",
+      "Regression exact-cap legal replay and UI load, near-cap correction; cache versions for changed source; source hashes"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "PC-iPhone-existing-UI-unchanged",
+      "published-source-match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert guard only reintroduces full-ledger boot defect; prefer forward fix. No save data rewritten.",
+    "outOfScope": [
+      "Production",
+      "Staff/equipment/capchange/largeeconomyredesign",
+      "Allcask automaticassignment or removal of meaningful decisions",
+      "Multiplecompanies or multiple special types"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari",
+      "Humanfun",
+      "Cross-runtime floating-point portability remains unresolved"
+    ],
+    "rulesApplied": [
+      "FullWORK lock before implementation",
+      "AGENTS necessary independent review",
+      "Latest user authorizes notification instead of redundant wait confirmation only"
+    ],
+    "hqDecisions": [
+      "Minimal compatibility correction: defer optional metadata update without ledger room rather than rewrite past data or relax maxOperations/strict validation. Independently review before merge."
+    ],
+    "ownerDecisions": [
+      "User resume and prior explicit Staging safe merge authorization; no Production"
+    ],
+    "problem": "Automatic reconciliation makes a strictly valid maxOperations save unreadable at boot",
+    "currentContract": "Immutable replay prefix, optional explicit correction opcode, maxOperations inclusive",
+    "whyExistingIsInsufficient": "Boot correction tries to append operation12001 after valid restore",
+    "design": "Capacity guard before correction; return identical original state, no hidden state change or operation deletion",
+    "migration": "None; full saves unchanged, earlier recorded correction operations still replay",
+    "compatibility": "Only previously throwing optional reconciliation at full cap now no-op; at max-1 existing behavior preserved",
+    "promotionRisk": "Stagingonly",
+    "alternativesRejected": [
+      "Rewrite v5 in place",
+      "Global reputation system",
+      "Autoaccept orders",
+      "Automatically sell failed order at lowerprice",
+      "Hidden future score for recipes"
+    ],
+    "boundaryCases": [
+      "max-1 corrected to max",
+      "exact max affected legacy state",
+      "exact max tasting/manual pause",
+      "corrupt/overlimit rejected",
+      "existing correction replay"
+    ],
+    "testPlan": [
+      "Reproduce before fix",
+      "Strict legal full-ledger replay and unchanged raw storage on boot",
+      "Near-cap correction replay",
+      "All AmberTime tests; Scope Risk Impact; CI Pages"
+    ]
+  }
+}
