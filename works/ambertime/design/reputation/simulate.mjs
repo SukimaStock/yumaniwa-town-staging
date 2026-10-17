@@ -3,13 +3,31 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
+import {spawn} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
 import * as D from '../../partner-orders.mjs';
 import * as E from '../../economy.mjs';
 import {PARALLEL_PARAMETERS as P,ECONOMY_PARAMETERS as C} from '../../economy-parameters.mjs';
 import {REPUTATION,brandStats,brandReputation,retailReputationFactors} from '../../brand-reputation.mjs';
 import {fill,release} from '../../tests/brands-helpers.mjs';
 
-const SEEDS=[1,2,3,4,5,6,7,8,9,10,42,20261017];
+const ALL_SEEDS=[1,2,3,4,5,6,7,8,9,10,42,20261017];
+const argument=name=>{const i=process.argv.indexOf(name);return i<0?null:process.argv[i+1];};
+const seedArgument=argument('--seed'),mergeDirectory=argument('--merge');
+if(seedArgument!==null)assert(ALL_SEEDS.includes(Number(seedArgument)),'Unknown calibration seed');
+const SEEDS=seedArgument===null?ALL_SEEDS:[Number(seedArgument)];
+const outputPath=argument('--output')??fileURLToPath(new URL('./results.json',import.meta.url));
+// The default remains the entire original matrix. Separate processes only
+// partition independent seeds; economics, policy and replay are unchanged.
+if(seedArgument===null&&mergeDirectory===null){
+ const directory=fs.mkdtempSync('/tmp/amber-reputation-'),active=new Set();let cursor=0;
+ const execute=args=>new Promise((resolve,reject)=>{const child=spawn(process.execPath,[fileURLToPath(import.meta.url),...args],{stdio:['ignore','ignore','inherit']});active.add(child);child.once('error',reject);child.once('exit',code=>{active.delete(child);code===0?resolve():reject(Error('Simulation child failed: '+code));});});
+ try{
+  await Promise.all(Array.from({length:8},async()=>{while(cursor<ALL_SEEDS.length){const seed=ALL_SEEDS[cursor++];await execute(['--seed',String(seed),'--output',directory+'/seed-'+seed+'.json']);console.error(JSON.stringify({event:'seed-complete',seed}));}}));
+  await execute(['--merge',directory,'--output',outputPath]);
+ }catch(error){for(const child of active)child.kill('SIGTERM');throw error;}
+ process.exit(0);
+}
 const CAPS=[0,0.12,0.15,0.18],round=n=>Math.round(n*100)/100||0,mean=a=>round(a.reduce((n,x)=>n+x,0)/Math.max(1,a.length));
 const demandIntegrated=/economicMonthly\(s,expectedMonth,/.test(fs.readFileSync(new URL('../../partner-orders.mjs',import.meta.url),'utf8'));
 const clone=x=>structuredClone(x);
@@ -100,19 +118,33 @@ function longRun(seed,policy,reputation,months=240){
   for(const b of s.brands)maxBonus=Math.max(maxBonus,brandReputation(s,b.id).bonus);
   assert.equal(round(s.core.cash-1600-s.core.totals.revenue+s.core.totals.costs+s.core.totals.upkeep),0);
   if(s.core.month%12===0)monthly.push({month:s.core.month,sold:s.core.totals.bottlesSold,revenue:s.core.totals.revenue,stock:s.core.products.reduce((n,p)=>n+p.stock,0),cash:s.core.cash,releases:s.releases.length});
+  if(s.core.month%24===0)console.error(JSON.stringify({event:'month',seed,policy,reputation,month:s.core.month}));
  }
- assert.equal(s.core.month,months);const raw=D.serializeDistillery(s);assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);
+ assert.equal(s.core.month,months);console.error(JSON.stringify({event:'replay-start',seed,policy,reputation}));const raw=D.serializeDistillery(s);assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);
  const totals=s.brands.map(b=>brandStats(s,b.id));
  assert.equal(totals.reduce((n,b)=>n+b.sold,0),s.core.totals.bottlesSold);assert.equal(round(totals.reduce((n,b)=>n+b.revenue,0)),s.core.totals.revenue);
  return {seed,policy,reputation,months:s.core.month,releases:s.releases.length,sold:s.core.totals.bottlesSold,revenue:s.core.totals.revenue,stock:s.core.products.reduce((n,p)=>n+p.stock,0),cash:s.core.cash,minCash,completed:completed.size,meanClearanceMonths:mean([...completed.values()]),maxReputationBonus:round(maxBonus*100)/100,strictReplay:true,cashErrorCents:0,monthly};
 }
 
-const calibration=[];for(const seed of SEEDS)for(const scenario of CASES)for(const cap of CAPS)calibration.push(calibrate(seed,scenario,cap));
-const summaries=CASES.flatMap(scenario=>CAPS.map(cap=>{const rows=calibration.filter(r=>r.case===scenario.name&&r.cap===cap);return {case:scenario.name,cap,meanFirstMonthBottles:mean(rows.map(r=>r.firstMonth.reduce((n,p)=>n+p.sold,0))),meanFirstMonthByLot:scenario.lots.map((_,i)=>mean(rows.map(r=>r.firstMonth[i].sold))),meanFirstMonthRevenue:mean(rows.map(r=>r.firstMonth.reduce((n,p)=>n+p.revenue,0))),meanThreeMonthBottles:mean(rows.map(r=>r.snapshots.find(x=>x.month===3).sold)),meanThreeMonthRevenue:mean(rows.map(r=>r.snapshots.find(x=>x.month===3).revenue)),meanClearanceMonths:mean(rows.flatMap(r=>r.clearanceMonths.filter(x=>x!==null))),uncompletedLots:rows.flatMap(r=>r.clearanceMonths).filter(x=>x===null).length,meanFinalRevenue:mean(rows.map(r=>r.revenue)),meanFinalStock:mean(rows.map(r=>r.remainingStock.reduce((a,b)=>a+b,0)))};}));
 const integrated=typeof D.enableReputation==='function'&&demandIntegrated;
-const longRuns=[];if(integrated)for(const seed of SEEDS)for(const policy of ['same-brand','high-price','alternating-brands'])for(const reputation of [false,true])longRuns.push(longRun(seed,policy,reputation));
+const calibration=[],longRuns=[],parts=[];
+if(mergeDirectory){
+ for(const seed of ALL_SEEDS){const part=JSON.parse(fs.readFileSync(mergeDirectory+'/seed-'+seed+'.json','utf8'));assert.deepEqual(part.method.seeds,[seed]);assert.equal(part.calibration.length,32);assert.equal(part.longRuns.length,6);parts.push(part);calibration.push(...part.calibration);longRuns.push(...part.longRuns);}
+}else{
+ for(const seed of SEEDS)for(const scenario of CASES)for(const cap of CAPS)calibration.push(calibrate(seed,scenario,cap));
+ console.error(JSON.stringify({event:'calibration-complete',seeds:SEEDS,runs:calibration.length}));
+ if(integrated)for(const seed of SEEDS)for(const policy of ['same-brand','high-price','alternating-brands'])for(const reputation of [false,true]){
+  console.error(JSON.stringify({event:'run-start',seed,policy,reputation}));longRuns.push(longRun(seed,policy,reputation));console.error(JSON.stringify({event:'run-complete',seed,policy,reputation}));
+ }
+}
+const summaries=CASES.flatMap(scenario=>CAPS.map(cap=>{const rows=calibration.filter(r=>r.case===scenario.name&&r.cap===cap);return {case:scenario.name,cap,meanFirstMonthBottles:mean(rows.map(r=>r.firstMonth.reduce((n,p)=>n+p.sold,0))),meanFirstMonthByLot:scenario.lots.map((_,i)=>mean(rows.map(r=>r.firstMonth[i].sold))),meanFirstMonthRevenue:mean(rows.map(r=>r.firstMonth.reduce((n,p)=>n+p.revenue,0))),meanThreeMonthBottles:mean(rows.map(r=>r.snapshots.find(x=>x.month===3).sold)),meanThreeMonthRevenue:mean(rows.map(r=>r.snapshots.find(x=>x.month===3).revenue)),meanClearanceMonths:mean(rows.flatMap(r=>r.clearanceMonths.filter(x=>x!==null))),uncompletedLots:rows.flatMap(r=>r.clearanceMonths).filter(x=>x===null).length,meanFinalRevenue:mean(rows.map(r=>r.revenue)),meanFinalStock:mean(rows.map(r=>r.remainingStock.reduce((a,b)=>a+b,0)))};}));
 const longSummary=['same-brand','high-price','alternating-brands'].flatMap(policy=>[false,true].map(reputation=>{const rows=longRuns.filter(r=>r.policy===policy&&r.reputation===reputation);return rows.length?{policy,reputation,runs:rows.length,meanReleases:mean(rows.map(r=>r.releases)),meanSold:mean(rows.map(r=>r.sold)),meanRevenue:mean(rows.map(r=>r.revenue)),meanStock:mean(rows.map(r=>r.stock)),meanClearanceMonths:mean(rows.map(r=>r.meanClearanceMonths)),meanCash:mean(rows.map(r=>r.cash)),allReplayExact:rows.every(r=>r.strictReplay)}:null;})).filter(Boolean);
 const sources=Object.fromEntries(['partner-orders.mjs','economy.mjs','brand-reputation.mjs','design/reputation/simulate.mjs'].map(p=>[p,createHash('sha256').update(fs.readFileSync(new URL('../../'+p,import.meta.url))).digest('hex')]));
+for(const part of parts)assert.deepEqual(part.method.sourceSha256,sources,'All partitions must use the current identical sources');
+assert.equal(new Set(calibration.map(r=>[r.seed,r.case,r.cap].join(':'))).size,calibration.length);
+assert.equal(new Set(longRuns.map(r=>[r.seed,r.policy,r.reputation].join(':'))).size,longRuns.length);
+assert.equal(calibration.length,SEEDS.length*32);if(integrated)assert.equal(longRuns.length,SEEDS.length*6);
+for(const r of longRuns){assert.equal(r.months,240);assert.equal(r.strictReplay,true);assert.equal(r.cashErrorCents,0);}
 const output={method:{seeds:SEEDS,caps:CAPS,calibration:'Controlled synthetic retail boundaries, not legal saves. Product prototype from public actions. Every monthly baseline allocation is cross-checked against actual E.economicMonthly; candidate formula applies before stock cap and shared 24-customer allocation.',calibrationMonths:120,longRun:'Public-action only, age6 two-cask policies, 240 months; paired unchanged v8 and v9; strict full operation restore; identical seed and policy, sale-dependent affordability may alter later scheduling.',longRunIntegrated:integrated,selected:REPUTATION,scope:'Staging AmberTime only; no wholesale price or special-order changes',sourceSha256:sources},calibrationSummary:summaries,calibration,longSummary,longRuns};
-fs.writeFileSync(new URL('./results.json',import.meta.url),JSON.stringify(output,null,2)+'\n');
+fs.writeFileSync(outputPath,JSON.stringify(output,null,2)+'\n');
 console.log(JSON.stringify({calibrationRuns:calibration.length,calibrationSummary:summaries,longRunIntegrated:integrated,longRuns:longRuns.length,longSummary},null,2));
