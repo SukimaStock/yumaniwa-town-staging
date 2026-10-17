@@ -1,4 +1,4 @@
-import * as D from './partner-orders.mjs?v=0.10';
+import * as D from './partner-orders.mjs?v=0.10.1';
 import {PARALLEL_PARAMETERS as T,ECONOMY_PARAMETERS as P} from './economy-parameters.mjs?v=0.7';
 import {ageLabel,monthLabel} from './model.mjs';
 import {barrel,glass,bottleArt} from './art.mjs?v=0.5';
@@ -216,7 +216,7 @@ $('reset').addEventListener('click',()=>{if(!confirm('0.10の進行を新しく�
 $('retry-save').addEventListener('click',()=>{if(!game){boot();return;}canSave=!preview;if(save()){storageNotice('');$('recovery').hidden=true;}render();schedule();});
 function boot(){
  if(preview){game=D.newDistillery(seed);save();render();schedule();return;}
- try{lastSavedText=localStorage.getItem(SAVE_KEY);if(lastSavedText===null){let oldText=null;for(const key of LEGACY_KEYS){oldText=localStorage.getItem(key);if(oldText!==null)break;}if(oldText===null){game=D.newDistillery(seed);userPaused=false;}else{const old=JSON.parse(oldText);if(old.version!==1||typeof old.userPaused!=='boolean'||Object.keys(old).length!==3||![3,4,5].includes(old.game?.version))throw Error('legacy');game=D.restoreDistillery(JSON.stringify(old.game));userPaused=old.userPaused;}}else{const session=JSON.parse(lastSavedText);if(session.version!==1||typeof session.userPaused!=='boolean'||Object.keys(session).length!==3||session.game?.version!==6)throw Error('session');game=D.restoreDistillery(JSON.stringify(session.game));userPaused=session.userPaused;}selectedCaskId=game.tastingId??game.core.casks[0]?.id??null;room=selectedCaskId!==null?'warehouse':'distill';canSave=true;if(lastSavedText===null)save();render();schedule();}
+ try{lastSavedText=localStorage.getItem(SAVE_KEY);if(lastSavedText===null){let oldText=null;for(const key of LEGACY_KEYS){oldText=localStorage.getItem(key);if(oldText!==null)break;}if(oldText===null){game=D.newDistillery(seed);userPaused=false;}else{const old=JSON.parse(oldText);if(old.version!==1||typeof old.userPaused!=='boolean'||Object.keys(old).length!==3||![3,4,5].includes(old.game?.version))throw Error('legacy');game=D.restoreDistillery(JSON.stringify(old.game));userPaused=old.userPaused;}}else{const session=JSON.parse(lastSavedText);if(session.version!==1||typeof session.userPaused!=='boolean'||Object.keys(session).length!==3||session.game?.version!==6)throw Error('session');game=D.restoreDistillery(JSON.stringify(session.game));userPaused=session.userPaused;}const beforeCorrection=game;game=D.reconcileTradeHistory(game);const corrected=game!==beforeCorrection;selectedCaskId=game.tastingId??game.core.casks[0]?.id??null;room=selectedCaskId!==null?'warehouse':'distill';canSave=true;if(lastSavedText===null||corrected)save();render();schedule();}
  catch{canSave=false;game=null;stopClock();$('game').hidden=true;$('recovery').hidden=false;storageNotice('この保存は開けません。元の記録を残して停止しています。');}
 }
 boot();

@@ -1,6 +1,6 @@
 // QA only: run native checkpoints through the same public player actions.
 // This does not import, repair or alter real browser saves.
-import * as Current from '../../partner-orders.mjs?v=0.10';
+import * as Current from '../../partner-orders.mjs?v=0.10.1';
 export function replayCheckpoint(source,D=Current){
  if(source.origin!==null)throw Error('検証用の新規蒸留所の操作履歴だけを扱います。');
  let s=D.newDistillery(source.seed);
@@ -24,6 +24,7 @@ export function replayCheckpoint(source,D=Current){
  case 'pause-trade':s=D.pauseTrade(s);break;
  case 'resume-trade':s=D.resumeTrade(s);break;
  case 'end-trade':s=D.endTrade(s);break;
+ case 'reconcile-trade-start':s=D.reconcileTradeHistory(s);break;
  default:throw Error('検証用の未対応操作 '+o.key);
  }}
  s=D.endTasting(s);if(source.still.phase==='distilling')progress(source.still.distillation.progress);
