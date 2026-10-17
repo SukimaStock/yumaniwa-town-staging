@@ -1,0 +1,97 @@
+{
+  "sourceHashes": {
+    "index.html": "2251334c3b357f237ace1268d2e2198dfc96fc7dabaad8699219b27d21777d75",
+    "shop-app.mjs": "55d4099d149b0a6761804d9d67b30986f91a2e62fad65f22b1af7eee805493fd",
+    "shop.css": "a40cb8fca5fd72042dc3f094c47c2e34e306a86c0f036a0dad0c59e5bd580a90",
+    "shop-model.mjs": "be1eb733e4aee85dbea0f7e5d6aefab03feb0b7bb1b9ab32590259f1fea3139a",
+    "partner-orders.mjs": "0db1569c7cb641e349053089cbd664b421b49c9e593e81899f41dcfc57c89fe2",
+    "brand-reputation.mjs": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec",
+    "tests/shop-browser.mjs": "5bc4e1d361f3e86a1eb84b7c3d7b39a730f7c24afc27f5667b4729f6db4a91ae"
+  },
+  "browser": "Chromium",
+  "clock": "Controlled real 100ms application timers; fixtures constructed through public operations in browser for strict same-runtime replay",
+  "physicalSafari": false,
+  "humanFun": false,
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "passiveInvitation": true,
+      "escapedBrandName": true,
+      "acceptNoInventoryTransfer": true,
+      "twoFiveDeliveriesExact": true,
+      "monthlyCap": true,
+      "retailReputationUnchanged": true,
+      "strictReload": true,
+      "offerHeight": 48,
+      "deliveryHeight": 46,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "passiveInvitation": true,
+      "escapedBrandName": true,
+      "acceptNoInventoryTransfer": true,
+      "twoFiveDeliveriesExact": true,
+      "monthlyCap": true,
+      "retailReputationUnchanged": true,
+      "strictReload": true,
+      "offerHeight": 48,
+      "deliveryHeight": 46,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 667,
+      "passiveInvitation": true,
+      "escapedBrandName": true,
+      "acceptNoInventoryTransfer": true,
+      "twoFiveDeliveriesExact": true,
+      "monthlyCap": true,
+      "retailReputationUnchanged": true,
+      "strictReload": true,
+      "offerHeight": 48,
+      "deliveryHeight": 46,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "declineThroughUI": true,
+      "noRelationOrDelivery": true
+    },
+    {
+      "pendingDoesNotPauseMonthOrSales": true,
+      "usualOneShotWithPending": true,
+      "shopOfferRetained": true
+    },
+    {
+      "v11MigrationElapsedPausePartialA": true,
+      "oldBytesUntouched": true,
+      "continuedExtraction": true
+    },
+    {
+      "corruptV12Preserved": true
+    },
+    {
+      "multiTabStopsWithoutOverwrite": true
+    },
+    {
+      "tenBottleUIExact": true,
+      "relationSurvivesStockout": true,
+      "reissueDeliveryWithoutNewContract": true
+    },
+    {
+      "declineFutureReofferVisible": true
+    },
+    {
+      "quotaMigrationOldBytesUntouched": true,
+      "newKeyNotPartiallyWritten": true
+    },
+    {
+      "v014ArchiveLoadsOldKeyWithoutTouchingV12": true
+    }
+  ]
+}
