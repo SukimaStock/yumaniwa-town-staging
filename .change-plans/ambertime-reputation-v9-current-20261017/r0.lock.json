@@ -1,0 +1,137 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "bd7b96bde6c242c8ec6979e92f4baf1f413aef277210237a1ac32c5cf9903616",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-reputation-v9-current-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime 0.12 recent brand selection, durable retail statistics and modest reputation demand",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "8444d98cc348c8046f59366cff6d05cfbef075c6",
+    "canonicalSources": [
+      "User AmberTime0.12 request",
+      "partner-orders.mjs v8 releases and exact opcode replay",
+      "economy.mjs shared retail demand allocation"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-reputation-v9-current-20261017/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/reputation-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/v011.html",
+      "works/ambertime/tests/reputation*.mjs",
+      "works/ambertime/design/reputation/**",
+      "works/ambertime/tests/wholesale-care-ui.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "works/ambertime/brands-app.mjs",
+      "works/ambertime/partner-parameters.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/trade*.mjs",
+      "works/ambertime/wholesale*.mjs"
+    ],
+    "expectedChanges": [
+      "Explicit v9 enable-reputation operation preserves preactivation sales replay; isolated v9 key imports v8 without rewriting it and retains v011 entry",
+      "Default selection follows latest release chronology; draft new identity survives selector changes",
+      "Derive statistics and bounded reputation from retail releases only; apply optional demand factor before existing stock/customer allocation without altering price or wholesale",
+      "Calibrate before demand integration using multiple-seed comparisons; full regressions, strict replay and desktop/iPhone viewport operation verification",
+      "Update old entry-point assertion to verify both current reputation app and preserved v011 brands app; keep wholesale behavior assertions"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "multi-seed-simulation",
+      "PC-iPhone-browser",
+      "published-source-match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Restore index to v011 entry; keep v8 and v9 keys and readers intact.",
+    "outOfScope": [
+      "Production",
+      "Price automation",
+      "Marketing unlocks customer management",
+      "SharedEngine/otherworks",
+      "Wholesale/order price or conditions"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari",
+      "Humanfun",
+      "Cross-runtime floating-point portability remains unresolved"
+    ],
+    "rulesApplied": [
+      "FullWORK lock before edits",
+      "AGENTS necessary independent review",
+      "Latest user authorizes Staging implementation and merge"
+    ],
+    "hqDecisions": [
+      "AI technical design within user authorized save separation: recorded v9 boundary preserves all pre-v9 replay. Reputation is derived and never a second persisted tally. Existing demand allocator accepts optional multiplier only at v9 boundary."
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes minimal reputation design, bounded simulated demand correction, safe save separation, Staging merge; Production prohibited"
+    ],
+    "problem": "Repeat self-retail brands have no cumulative summary or modest demand benefit",
+    "currentContract": "v8 strict opcode replay; persistent releases; transient products/records; brand-free wholesale",
+    "whyExistingIsInsufficient": "Changing historic demand breaks exact replay and existing UI always defaults to newbrand",
+    "design": "Pure release aggregation; bounded diminishing returns from sold bottles and sold releases; new v9 execution mode; latest release default",
+    "migration": "Strict restore existing v8 or older key then recorded activation into isolated v9 key; never overwrite originals",
+    "compatibility": "Default economics identical for all earlier contracts; v011 entry stays available; existing brands and releases unchanged at migration",
+    "promotionRisk": "Stagingonly",
+    "alternativesRejected": [
+      "Mutate v8 demand history",
+      "Persist redundant reputation counters",
+      "Bonus for unsold bottling",
+      "Increase global customer pool",
+      "Wholesale reputation"
+    ],
+    "boundaryCases": [
+      "new brand",
+      "recent re-release of older brand",
+      "draft switches",
+      "unsold batches",
+      "multiple simultaneous brands/releases",
+      "high price",
+      "different flavors",
+      "stock cap",
+      "soldout/pruning",
+      "save and cold replay",
+      "wholesale/orders",
+      "invalid saves"
+    ],
+    "testPlan": [
+      "All AmberTime generation regression tests",
+      "Reputation aggregation, monotonicity, bounds, chronology, v8 migration and cold replay",
+      "Multi-seed long simulation with and without correction: sales speed, revenue, stock, prices, flavors, competition",
+      "Real browser desktop and iPhone viewport controls; physical iPhone unverified"
+    ]
+  }
+}
