@@ -1,0 +1,55 @@
+{
+  "browser": "Chromium",
+  "clock": "Playwright controlled time executes every real application 100 ms timer",
+  "physicalIPhone": false,
+  "checks": [
+    {
+      "fullRackWaitThenWholesaleAndRefill": true,
+      "noAutomaticWholesaleAssignment": true,
+      "width": 1280,
+      "height": 844,
+      "firstManual": true,
+      "recipe": {
+        "stopAt": 40,
+        "type": "refill"
+      },
+      "pauseAndModalAndTastingBlock": true,
+      "queuedCancel": true,
+      "oneShot": true,
+      "realExtractionTicks": 40,
+      "activeStrictReload": true,
+      "completedStrictReload": true,
+      "retainedRoom": "warehouse",
+      "noHorizontalOverflow": true,
+      "minimumReserveButtonHeight": 46.75,
+      "pageErrors": [],
+      "finalCash": 1108,
+      "finalMonth": 3,
+      "casks": 2
+    },
+    {
+      "fullRackWaitThenWholesaleAndRefill": true,
+      "noAutomaticWholesaleAssignment": true,
+      "width": 390,
+      "height": 844,
+      "firstManual": true,
+      "recipe": {
+        "stopAt": 40,
+        "type": "refill"
+      },
+      "pauseAndModalAndTastingBlock": true,
+      "queuedCancel": true,
+      "oneShot": true,
+      "realExtractionTicks": 40,
+      "activeStrictReload": true,
+      "completedStrictReload": true,
+      "retainedRoom": "warehouse",
+      "noHorizontalOverflow": true,
+      "minimumReserveButtonHeight": 46.75,
+      "pageErrors": [],
+      "finalCash": 1108,
+      "finalMonth": 3,
+      "casks": 2
+    }
+  ]
+}

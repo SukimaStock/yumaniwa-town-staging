@@ -1,0 +1,53 @@
+import {createServer} from 'node:http';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+const {chromium}=createRequire(import.meta.url)('playwright');
+const root=path.resolve(new URL('../../../../',import.meta.url).pathname),output=new URL('./',import.meta.url);
+const server=createServer(async(req,res)=>{try{const file=path.join(root,decodeURIComponent(new URL(req.url,'http://localhost').pathname));if(!file.startsWith(root+path.sep))throw Error('path');const data=await fs.readFile(file);res.writeHead(200,{'Content-Type':({'.mjs':'text/javascript','.html':'text/html','.css':'text/css','.json':'application/json','.svg':'image/svg+xml'})[path.extname(file)]??'application/octet-stream'});res.end(data);}catch{res.writeHead(404);res.end();}});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));
+let browser;const checks=[];
+try{
+ browser=await chromium.launch({headless:true,executablePath:process.env.AMBERTIME_CHROME??'/tmp/audit-chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+ for(const width of [1280,390]){
+  console.log('browser width '+width);
+  const context=await browser.newContext({viewport:{width:width===390?430:1400,height:1000},hasTouch:width===390,isMobile:width===390}),page=await context.newPage(),errors=[];
+  page.on('pageerror',e=>errors.push(e.message));await page.clock.install({time:new Date('2026-10-17T12:00:00Z')});await page.clock.pauseAt(new Date('2026-10-17T12:00:01Z'));
+  await page.goto(`http://127.0.0.1:${server.address().port}/works/ambertime/design/usual/browser-check.html`);
+  await page.locator(width===390?'#phone':'#pc').click();await page.locator('#new').click();
+  const f=page.frameLocator('#game'),state=()=>page.evaluate(()=>JSON.parse(window.qaStorage.getItem('sukimastock.ambertime.wholesale.v10')));
+  await f.locator('#game').waitFor({state:'visible'});assert.equal((await state()).game.usual.recipe,null);assert.equal(await f.locator('#reserve-usual').isDisabled(),true);
+  await f.locator('#start-distill').click();await page.clock.runFor(4000);assert.equal((await state()).game.still.distillation.progress,40);
+  await page.screenshot({path:new URL(`manual-${width}.png`,output).pathname,fullPage:true});
+  await f.locator('#stop-distill').click();await f.locator('#open-fill').click();await f.locator('[data-action="fill"][data-id="refill"]').click();
+  assert.deepEqual((await state()).game.usual.recipe,{stopAt:40,type:'refill'});assert.equal((await state()).game.core.casks.length,1);
+  await f.locator('#toggle-time').click();await f.locator('#room-nav [data-room="distill"]').click();await f.locator('#reserve-usual').click();
+  assert.equal((await state()).game.usual.reservation.status,'queued');assert.equal(await f.locator('#start-distill').isDisabled(),true);
+  await page.clock.runFor(1200);assert.equal((await state()).game.still.phase,'ready');
+  await f.locator('#cancel-usual').click();assert.equal((await state()).game.usual.reservation,null);await f.locator('#reserve-usual').click();
+  await page.screenshot({path:new URL(`queued-${width}.png`,output).pathname,fullPage:true});
+  await f.locator('.usual-batch').screenshot({path:new URL(`queued-panel-${width}.png`,output).pathname});
+  const targetSize=await f.locator('#cancel-usual').boundingBox();assert.ok(targetSize.height>=44);
+  await f.locator('#toggle-time').click();await f.locator('#room-nav [data-room="warehouse"]').click();await f.locator('#open-bottle').click();
+  const beforeModal=await state();await page.clock.runFor(3000);assert.deepEqual(await state(),beforeModal);await f.locator('#close-dialog').click();
+  await f.locator('#taste-button').click();const beforeTaste=await state();await page.clock.runFor(1500);assert.deepEqual(await state(),beforeTaste);await f.locator('#end-tasting').click();
+  await page.clock.runFor(3000);await f.locator('#toggle-time').click();let active=await state();assert.equal(active.game.usual.reservation.status,'active');assert.equal(active.game.still.distillation.progress,10);assert.equal(active.elapsed,1000);
+  await page.screenshot({path:new URL(`active-${width}.png`,output).pathname,fullPage:true});
+  await page.locator('#reload').click();await f.locator('#game').waitFor({state:'visible'});assert.equal(await f.locator('#storage-notice').isVisible(),false);assert.deepEqual(await state(),active);
+  await page.clock.runFor(1000);assert.deepEqual(await state(),active);await f.locator('#toggle-time').click();await page.clock.runFor(3000);
+  const complete=await state();assert.equal(complete.game.usual.reservation,null);assert.equal(complete.game.core.casks.length,2);assert.equal(complete.game.still.phase,'ready');assert.equal(await f.locator('#room-warehouse').isVisible(),true);assert.match(await f.locator('#work-notice').innerText(),/いつもの仕込みを一樽/);
+  assert.equal(complete.game.operations.filter(o=>o.key==='start-usual').length,1);assert.equal(complete.game.operations.filter(o=>o.key==='complete-usual').length,1);
+  await page.clock.runFor(8000);await f.locator('#toggle-time').click();assert.equal((await state()).game.core.casks.length,2);assert.equal((await state()).game.usual.reservation,null);
+  const final=await state();await page.locator('#reload').click();await f.locator('#game').waitFor({state:'visible'});assert.deepEqual(await state(),final);
+  await f.locator('#room-nav [data-room="distill"]').click();assert.match(await f.locator('#usual-recipe').innerText(),/抽出位置 40.*リフィル樽.*£120.*£100/);
+  assert.equal(await page.locator('#game').evaluate(frame=>frame.contentDocument.documentElement.scrollWidth>frame.contentWindow.innerWidth),false);
+  await page.screenshot({path:new URL(`complete-${width}.png`,output).pathname,fullPage:true});assert.deepEqual(errors,[]);
+  await page.locator('#full').click();await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('4樽のうち'));await f.locator('#game').waitFor({state:'visible'});assert.equal((await state()).game.core.casks.length,4);await f.locator('#room-nav [data-room="distill"]').click();await f.locator('#reserve-usual').click();assert.equal((await state()).game.usual.reservation.status,'queued');
+  await f.locator('#toggle-time').click();await page.clock.runFor(6000);assert.equal((await state()).game.core.casks.length,3);assert.equal((await state()).game.usual.reservation.status,'queued');assert.equal((await state()).game.trade.lastShipments.length,1);await page.clock.runFor(4000);assert.equal((await state()).game.usual.reservation,null);assert.equal((await state()).game.core.casks.length,4);assert.equal((await state()).game.trade.contracts.length,3);await f.locator('#toggle-time').click();assert.equal(await f.locator('#storage-notice').isVisible(),false);
+  await f.locator('.usual-batch').screenshot({path:new URL(`shipped-panel-${width}.png`,output).pathname});
+  assert.deepEqual(errors,[]);
+  checks.push({fullRackWaitThenWholesaleAndRefill:true,noAutomaticWholesaleAssignment:true,width,height:844,firstManual:true,recipe:{stopAt:40,type:'refill'},pauseAndModalAndTastingBlock:true,queuedCancel:true,oneShot:true,realExtractionTicks:40,activeStrictReload:true,completedStrictReload:true,retainedRoom:'warehouse',noHorizontalOverflow:true,minimumReserveButtonHeight:targetSize.height,pageErrors:errors,finalCash:final.game.core.cash,finalMonth:final.game.core.month,casks:final.game.core.casks.length});await context.close();
+ }
+ await fs.writeFile(new URL('./browser-results.json',output),JSON.stringify({browser:'Chromium',clock:'Playwright controlled time executes every real application 100 ms timer',physicalIPhone:false,checks},null,2)+'\n');console.log(JSON.stringify(checks));
+}finally{await browser?.close();await new Promise(r=>server.close(r));}
