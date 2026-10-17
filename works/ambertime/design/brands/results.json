@@ -1,0 +1,1258 @@
+{
+  "scope": "12 seeds x 3 successive retail releases, same brand; no economy parameter changes",
+  "sources": {
+    "partner-orders.mjs": "53f56d0e06ac80b3e6f2c85a8377b9dd74d2363e5a9aaee59c1acc4627910fbd",
+    "economy.mjs": "5e965389e76a11c650af58b1e5aab7e422b837a6ee42df5a94a80a438f541496",
+    "economy-parameters.mjs": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32"
+  },
+  "runs": [
+    {
+      "seed": 1,
+      "cycles": [
+        {
+          "month": 18,
+          "cash": 1741,
+          "revenue": 592,
+          "costs": 331,
+          "upkeep": 120,
+          "release": {
+            "id": 1,
+            "brandId": 1,
+            "productId": 3,
+            "caskId": 2,
+            "batchId": 1,
+            "bottledMonth": 6,
+            "age": 6,
+            "bottles": 37,
+            "price": 16,
+            "sold": 37,
+            "revenue": 592,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "淡い樽香",
+            "profile": {
+              "roughness": 0.23417275803376042,
+              "character": 0.4466558293756762,
+              "wood": 0.06016467714022936,
+              "litres": 25.973142768980836
+            },
+            "type": "refill",
+            "cut": 0.14285714285714285
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 36,
+          "cash": 2098.8,
+          "revenue": 1484.8,
+          "costs": 746,
+          "upkeep": 240,
+          "release": {
+            "id": 2,
+            "brandId": 1,
+            "productId": 6,
+            "caskId": 5,
+            "batchId": 4,
+            "bottledMonth": 24,
+            "age": 6,
+            "bottles": 45,
+            "price": 19.84,
+            "sold": 45,
+            "revenue": 892.8,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.39194631780045264,
+              "character": 0.6674213311632279,
+              "wood": 0.09741032883011858,
+              "litres": 31.50161867603567
+            },
+            "type": "bourbon",
+            "cut": 0.5
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 54,
+          "cash": 2447.8,
+          "revenue": 2332.8,
+          "costs": 1125,
+          "upkeep": 360,
+          "release": {
+            "id": 3,
+            "brandId": 1,
+            "productId": 9,
+            "caskId": 8,
+            "batchId": 7,
+            "bottledMonth": 42,
+            "age": 6,
+            "bottles": 53,
+            "price": 16,
+            "sold": 53,
+            "revenue": 848,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.6627387981447822,
+              "character": 0.9144252601512672,
+              "wood": 0.05935102966324981,
+              "litres": 37.26337848233247
+            },
+            "type": "refill",
+            "cut": 0.8571428571428571
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "cycles": [
+        {
+          "month": 18,
+          "cash": 1741,
+          "revenue": 592,
+          "costs": 331,
+          "upkeep": 120,
+          "release": {
+            "id": 1,
+            "brandId": 1,
+            "productId": 3,
+            "caskId": 2,
+            "batchId": 1,
+            "bottledMonth": 6,
+            "age": 6,
+            "bottles": 37,
+            "price": 16,
+            "sold": 37,
+            "revenue": 592,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "淡い樽香",
+            "profile": {
+              "roughness": 0.23608782266143769,
+              "character": 0.4476964734998265,
+              "wood": 0.05983112724056862,
+              "litres": 26.014722305437868
+            },
+            "type": "refill",
+            "cut": 0.14285714285714285
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 36,
+          "cash": 2081.96,
+          "revenue": 1464.96,
+          "costs": 743,
+          "upkeep": 240,
+          "release": {
+            "id": 2,
+            "brandId": 1,
+            "productId": 6,
+            "caskId": 5,
+            "batchId": 4,
+            "bottledMonth": 24,
+            "age": 6,
+            "bottles": 44,
+            "price": 19.84,
+            "sold": 44,
+            "revenue": 872.96,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.38466742917562147,
+              "character": 0.6652018637989762,
+              "wood": 0.10340789793796078,
+              "litres": 31.483419054647058
+            },
+            "type": "bourbon",
+            "cut": 0.5
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 54,
+          "cash": 2430.96,
+          "revenue": 2312.96,
+          "costs": 1122,
+          "upkeep": 360,
+          "release": {
+            "id": 3,
+            "brandId": 1,
+            "productId": 9,
+            "caskId": 8,
+            "batchId": 7,
+            "bottledMonth": 42,
+            "age": 6,
+            "bottles": 53,
+            "price": 16,
+            "sold": 53,
+            "revenue": 848,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.6341435521232582,
+              "character": 0.8865038984656698,
+              "wood": 0.05610854274440733,
+              "litres": 37.27991306725602
+            },
+            "type": "refill",
+            "cut": 0.8571428571428571
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "cycles": [
+        {
+          "month": 18,
+          "cash": 1741,
+          "revenue": 592,
+          "costs": 331,
+          "upkeep": 120,
+          "release": {
+            "id": 1,
+            "brandId": 1,
+            "productId": 3,
+            "caskId": 2,
+            "batchId": 1,
+            "bottledMonth": 6,
+            "age": 6,
+            "bottles": 37,
+            "price": 16,
+            "sold": 37,
+            "revenue": 592,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "淡い樽香",
+            "profile": {
+              "roughness": 0.2575798009995691,
+              "character": 0.46773433067257103,
+              "wood": 0.06001384374480099,
+              "litres": 25.998608998798446
+            },
+            "type": "refill",
+            "cut": 0.14285714285714285
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 36,
+          "cash": 2098.8,
+          "revenue": 1484.8,
+          "costs": 746,
+          "upkeep": 240,
+          "release": {
+            "id": 2,
+            "brandId": 1,
+            "productId": 6,
+            "caskId": 5,
+            "batchId": 4,
+            "bottledMonth": 24,
+            "age": 6,
+            "bottles": 45,
+            "price": 19.84,
+            "sold": 45,
+            "revenue": 892.8,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.40942287323244436,
+              "character": 0.6992159105015102,
+              "wood": 0.11468119042991431,
+              "litres": 31.508032704611693
+            },
+            "type": "bourbon",
+            "cut": 0.5
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 54,
+          "cash": 2447.8,
+          "revenue": 2332.8,
+          "costs": 1125,
+          "upkeep": 360,
+          "release": {
+            "id": 3,
+            "brandId": 1,
+            "productId": 9,
+            "caskId": 8,
+            "batchId": 7,
+            "bottledMonth": 42,
+            "age": 6,
+            "bottles": 53,
+            "price": 16,
+            "sold": 53,
+            "revenue": 848,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.6427051728851163,
+              "character": 0.886023694078501,
+              "wood": 0.059293180611983604,
+              "litres": 37.273234534220954
+            },
+            "type": "refill",
+            "cut": 0.8571428571428571
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        }
+      ]
+    },
+    {
+      "seed": 4,
+      "cycles": [
+        {
+          "month": 18,
+          "cash": 1741,
+          "revenue": 592,
+          "costs": 331,
+          "upkeep": 120,
+          "release": {
+            "id": 1,
+            "brandId": 1,
+            "productId": 3,
+            "caskId": 2,
+            "batchId": 1,
+            "bottledMonth": 6,
+            "age": 6,
+            "bottles": 37,
+            "price": 16,
+            "sold": 37,
+            "revenue": 592,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "淡い樽香",
+            "profile": {
+              "roughness": 0.24107032896021988,
+              "character": 0.4540708860537435,
+              "wood": 0.05858651824118884,
+              "litres": 26.008785927004833
+            },
+            "type": "refill",
+            "cut": 0.14285714285714285
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 36,
+          "cash": 2081.96,
+          "revenue": 1464.96,
+          "costs": 743,
+          "upkeep": 240,
+          "release": {
+            "id": 2,
+            "brandId": 1,
+            "productId": 6,
+            "caskId": 5,
+            "batchId": 4,
+            "bottledMonth": 24,
+            "age": 6,
+            "bottles": 44,
+            "price": 19.84,
+            "sold": 44,
+            "revenue": 872.96,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.41168832803072736,
+              "character": 0.7104362285059992,
+              "wood": 0.10427748585943614,
+              "litres": 31.495052012776668
+            },
+            "type": "bourbon",
+            "cut": 0.5
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 54,
+          "cash": 2430.96,
+          "revenue": 2312.96,
+          "costs": 1122,
+          "upkeep": 360,
+          "release": {
+            "id": 3,
+            "brandId": 1,
+            "productId": 9,
+            "caskId": 8,
+            "batchId": 7,
+            "bottledMonth": 42,
+            "age": 6,
+            "bottles": 53,
+            "price": 16,
+            "sold": 53,
+            "revenue": 848,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.6532455940807907,
+              "character": 0.936679804683992,
+              "wood": 0.05790285790753733,
+              "litres": 37.264479424225755
+            },
+            "type": "refill",
+            "cut": 0.8571428571428571
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        }
+      ]
+    },
+    {
+      "seed": 5,
+      "cycles": [
+        {
+          "month": 18,
+          "cash": 1741,
+          "revenue": 592,
+          "costs": 331,
+          "upkeep": 120,
+          "release": {
+            "id": 1,
+            "brandId": 1,
+            "productId": 3,
+            "caskId": 2,
+            "batchId": 1,
+            "bottledMonth": 6,
+            "age": 6,
+            "bottles": 37,
+            "price": 16,
+            "sold": 37,
+            "revenue": 592,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "淡い樽香",
+            "profile": {
+              "roughness": 0.2529224899122554,
+              "character": 0.45268668190556177,
+              "wood": 0.059558310023033016,
+              "litres": 26.004913378062714
+            },
+            "type": "refill",
+            "cut": 0.14285714285714285
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 36,
+          "cash": 2081.96,
+          "revenue": 1464.96,
+          "costs": 743,
+          "upkeep": 240,
+          "release": {
+            "id": 2,
+            "brandId": 1,
+            "productId": 6,
+            "caskId": 5,
+            "batchId": 4,
+            "bottledMonth": 24,
+            "age": 6,
+            "bottles": 44,
+            "price": 19.84,
+            "sold": 44,
+            "revenue": 872.96,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.39981191859637105,
+              "character": 0.6757096022960845,
+              "wood": 0.10514476520474438,
+              "litres": 31.482365120213263
+            },
+            "type": "bourbon",
+            "cut": 0.5
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 54,
+          "cash": 2430.96,
+          "revenue": 2312.96,
+          "costs": 1122,
+          "upkeep": 360,
+          "release": {
+            "id": 3,
+            "brandId": 1,
+            "productId": 9,
+            "caskId": 8,
+            "batchId": 7,
+            "bottledMonth": 42,
+            "age": 6,
+            "bottles": 53,
+            "price": 16,
+            "sold": 53,
+            "revenue": 848,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.6558935901781084,
+              "character": 0.9023067014493412,
+              "wood": 0.05021251492358521,
+              "litres": 37.27725086444866
+            },
+            "type": "refill",
+            "cut": 0.8571428571428571
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        }
+      ]
+    },
+    {
+      "seed": 6,
+      "cycles": [
+        {
+          "month": 18,
+          "cash": 1741,
+          "revenue": 592,
+          "costs": 331,
+          "upkeep": 120,
+          "release": {
+            "id": 1,
+            "brandId": 1,
+            "productId": 3,
+            "caskId": 2,
+            "batchId": 1,
+            "bottledMonth": 6,
+            "age": 6,
+            "bottles": 37,
+            "price": 16,
+            "sold": 37,
+            "revenue": 592,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "淡い樽香",
+            "profile": {
+              "roughness": 0.2461260697472228,
+              "character": 0.45900009975482564,
+              "wood": 0.050303766239966796,
+              "litres": 25.98179220509676
+            },
+            "type": "refill",
+            "cut": 0.14285714285714285
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 36,
+          "cash": 2081.96,
+          "revenue": 1464.96,
+          "costs": 743,
+          "upkeep": 240,
+          "release": {
+            "id": 2,
+            "brandId": 1,
+            "productId": 6,
+            "caskId": 5,
+            "batchId": 4,
+            "bottledMonth": 24,
+            "age": 6,
+            "bottles": 44,
+            "price": 19.84,
+            "sold": 44,
+            "revenue": 872.96,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.39473864537576,
+              "character": 0.6759584392306509,
+              "wood": 0.1002040104051363,
+              "litres": 31.468217623364918
+            },
+            "type": "bourbon",
+            "cut": 0.5
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 54,
+          "cash": 2430.96,
+          "revenue": 2312.96,
+          "costs": 1122,
+          "upkeep": 360,
+          "release": {
+            "id": 3,
+            "brandId": 1,
+            "productId": 9,
+            "caskId": 8,
+            "batchId": 7,
+            "bottledMonth": 42,
+            "age": 6,
+            "bottles": 53,
+            "price": 16,
+            "sold": 53,
+            "revenue": 848,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.6470720529897351,
+              "character": 0.9030688525482844,
+              "wood": 0.05056506407100666,
+              "litres": 37.30016641602292
+            },
+            "type": "refill",
+            "cut": 0.8571428571428571
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        }
+      ]
+    },
+    {
+      "seed": 7,
+      "cycles": [
+        {
+          "month": 18,
+          "cash": 1741,
+          "revenue": 592,
+          "costs": 331,
+          "upkeep": 120,
+          "release": {
+            "id": 1,
+            "brandId": 1,
+            "productId": 3,
+            "caskId": 2,
+            "batchId": 1,
+            "bottledMonth": 6,
+            "age": 6,
+            "bottles": 37,
+            "price": 16,
+            "sold": 37,
+            "revenue": 592,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "淡い樽香",
+            "profile": {
+              "roughness": 0.2683578894638841,
+              "character": 0.4753052381735427,
+              "wood": 0.05309949839801419,
+              "litres": 25.9948655061094
+            },
+            "type": "refill",
+            "cut": 0.14285714285714285
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 36,
+          "cash": 2081.96,
+          "revenue": 1464.96,
+          "costs": 743,
+          "upkeep": 240,
+          "release": {
+            "id": 2,
+            "brandId": 1,
+            "productId": 6,
+            "caskId": 5,
+            "batchId": 4,
+            "bottledMonth": 24,
+            "age": 6,
+            "bottles": 44,
+            "price": 19.84,
+            "sold": 44,
+            "revenue": 872.96,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.36331612976375416,
+              "character": 0.6663568775278631,
+              "wood": 0.12512593107792702,
+              "litres": 31.46848918758907
+            },
+            "type": "bourbon",
+            "cut": 0.5
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 54,
+          "cash": 2430.96,
+          "revenue": 2312.96,
+          "costs": 1122,
+          "upkeep": 360,
+          "release": {
+            "id": 3,
+            "brandId": 1,
+            "productId": 9,
+            "caskId": 8,
+            "batchId": 7,
+            "bottledMonth": 42,
+            "age": 6,
+            "bottles": 53,
+            "price": 16,
+            "sold": 53,
+            "revenue": 848,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.6336912668342042,
+              "character": 0.8853871485861649,
+              "wood": 0.05360175950052353,
+              "litres": 37.290809846609655
+            },
+            "type": "refill",
+            "cut": 0.8571428571428571
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        }
+      ]
+    },
+    {
+      "seed": 8,
+      "cycles": [
+        {
+          "month": 18,
+          "cash": 1741,
+          "revenue": 592,
+          "costs": 331,
+          "upkeep": 120,
+          "release": {
+            "id": 1,
+            "brandId": 1,
+            "productId": 3,
+            "caskId": 2,
+            "batchId": 1,
+            "bottledMonth": 6,
+            "age": 6,
+            "bottles": 37,
+            "price": 16,
+            "sold": 37,
+            "revenue": 592,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "淡い樽香",
+            "profile": {
+              "roughness": 0.25991687159092336,
+              "character": 0.4674527827557841,
+              "wood": 0.053161047735106076,
+              "litres": 25.991649197422298
+            },
+            "type": "refill",
+            "cut": 0.14285714285714285
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 36,
+          "cash": 2098.8,
+          "revenue": 1484.8,
+          "costs": 746,
+          "upkeep": 240,
+          "release": {
+            "id": 2,
+            "brandId": 1,
+            "productId": 6,
+            "caskId": 5,
+            "batchId": 4,
+            "bottledMonth": 24,
+            "age": 6,
+            "bottles": 45,
+            "price": 19.84,
+            "sold": 45,
+            "revenue": 892.8,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.37143952931929336,
+              "character": 0.6649163715836706,
+              "wood": 0.11125884527215908,
+              "litres": 31.52182072888867
+            },
+            "type": "bourbon",
+            "cut": 0.5
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 54,
+          "cash": 2447.8,
+          "revenue": 2332.8,
+          "costs": 1125,
+          "upkeep": 360,
+          "release": {
+            "id": 3,
+            "brandId": 1,
+            "productId": 9,
+            "caskId": 8,
+            "batchId": 7,
+            "bottledMonth": 42,
+            "age": 6,
+            "bottles": 53,
+            "price": 16,
+            "sold": 53,
+            "revenue": 848,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.616313589663011,
+              "character": 0.8894207683649278,
+              "wood": 0.049023796845093205,
+              "litres": 37.28123241211214
+            },
+            "type": "refill",
+            "cut": 0.8571428571428571
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        }
+      ]
+    },
+    {
+      "seed": 9,
+      "cycles": [
+        {
+          "month": 18,
+          "cash": 1741,
+          "revenue": 592,
+          "costs": 331,
+          "upkeep": 120,
+          "release": {
+            "id": 1,
+            "brandId": 1,
+            "productId": 3,
+            "caskId": 2,
+            "batchId": 1,
+            "bottledMonth": 6,
+            "age": 6,
+            "bottles": 37,
+            "price": 16,
+            "sold": 37,
+            "revenue": 592,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "淡い樽香",
+            "profile": {
+              "roughness": 0.25402301209971645,
+              "character": 0.4684510502238491,
+              "wood": 0.0490269393949175,
+              "litres": 26.002529201659936
+            },
+            "type": "refill",
+            "cut": 0.14285714285714285
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 36,
+          "cash": 2098.8,
+          "revenue": 1484.8,
+          "costs": 746,
+          "upkeep": 240,
+          "release": {
+            "id": 2,
+            "brandId": 1,
+            "productId": 6,
+            "caskId": 5,
+            "batchId": 4,
+            "bottledMonth": 24,
+            "age": 6,
+            "bottles": 45,
+            "price": 19.84,
+            "sold": 45,
+            "revenue": 892.8,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.4145408803847912,
+              "character": 0.7114999288764897,
+              "wood": 0.11479572855682874,
+              "litres": 31.540499789670243
+            },
+            "type": "bourbon",
+            "cut": 0.5
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 54,
+          "cash": 2447.8,
+          "revenue": 2332.8,
+          "costs": 1125,
+          "upkeep": 360,
+          "release": {
+            "id": 3,
+            "brandId": 1,
+            "productId": 9,
+            "caskId": 8,
+            "batchId": 7,
+            "bottledMonth": 42,
+            "age": 6,
+            "bottles": 53,
+            "price": 16,
+            "sold": 53,
+            "revenue": 848,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.6787802691787271,
+              "character": 0.9386281204630053,
+              "wood": 0.05134618102169859,
+              "litres": 37.28959672679861
+            },
+            "type": "refill",
+            "cut": 0.8571428571428571
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        }
+      ]
+    },
+    {
+      "seed": 10,
+      "cycles": [
+        {
+          "month": 18,
+          "cash": 1741,
+          "revenue": 592,
+          "costs": 331,
+          "upkeep": 120,
+          "release": {
+            "id": 1,
+            "brandId": 1,
+            "productId": 3,
+            "caskId": 2,
+            "batchId": 1,
+            "bottledMonth": 6,
+            "age": 6,
+            "bottles": 37,
+            "price": 16,
+            "sold": 37,
+            "revenue": 592,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "淡い樽香",
+            "profile": {
+              "roughness": 0.2559215152634674,
+              "character": 0.45975088073585973,
+              "wood": 0.0463482196452438,
+              "litres": 26.001011696618317
+            },
+            "type": "refill",
+            "cut": 0.14285714285714285
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 36,
+          "cash": 2081.96,
+          "revenue": 1464.96,
+          "costs": 743,
+          "upkeep": 240,
+          "release": {
+            "id": 2,
+            "brandId": 1,
+            "productId": 6,
+            "caskId": 5,
+            "batchId": 4,
+            "bottledMonth": 24,
+            "age": 6,
+            "bottles": 44,
+            "price": 19.84,
+            "sold": 44,
+            "revenue": 872.96,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.4017389928412209,
+              "character": 0.6714174593349101,
+              "wood": 0.1123978317804763,
+              "litres": 31.469409771038322
+            },
+            "type": "bourbon",
+            "cut": 0.5
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 54,
+          "cash": 2430.96,
+          "revenue": 2312.96,
+          "costs": 1122,
+          "upkeep": 360,
+          "release": {
+            "id": 3,
+            "brandId": 1,
+            "productId": 9,
+            "caskId": 8,
+            "batchId": 7,
+            "bottledMonth": 42,
+            "age": 6,
+            "bottles": 53,
+            "price": 16,
+            "sold": 53,
+            "revenue": 848,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.612535912695802,
+              "character": 0.8886500483290256,
+              "wood": 0.057369996903170475,
+              "litres": 37.27902955007134
+            },
+            "type": "refill",
+            "cut": 0.8571428571428571
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "cycles": [
+        {
+          "month": 18,
+          "cash": 1741,
+          "revenue": 592,
+          "costs": 331,
+          "upkeep": 120,
+          "release": {
+            "id": 1,
+            "brandId": 1,
+            "productId": 3,
+            "caskId": 2,
+            "batchId": 1,
+            "bottledMonth": 6,
+            "age": 6,
+            "bottles": 37,
+            "price": 16,
+            "sold": 37,
+            "revenue": 592,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "淡い樽香",
+            "profile": {
+              "roughness": 0.25151990903455995,
+              "character": 0.4719797956252337,
+              "wood": 0.05456507251633423,
+              "litres": 25.995385207511706
+            },
+            "type": "refill",
+            "cut": 0.14285714285714285
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 36,
+          "cash": 2081.96,
+          "revenue": 1464.96,
+          "costs": 743,
+          "upkeep": 240,
+          "release": {
+            "id": 2,
+            "brandId": 1,
+            "productId": 6,
+            "caskId": 5,
+            "batchId": 4,
+            "bottledMonth": 24,
+            "age": 6,
+            "bottles": 44,
+            "price": 19.84,
+            "sold": 44,
+            "revenue": 872.96,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.37704925363773617,
+              "character": 0.6682281705697182,
+              "wood": 0.11486706863200699,
+              "litres": 31.476624171675386
+            },
+            "type": "bourbon",
+            "cut": 0.5
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 54,
+          "cash": 2430.96,
+          "revenue": 2312.96,
+          "costs": 1122,
+          "upkeep": 360,
+          "release": {
+            "id": 3,
+            "brandId": 1,
+            "productId": 9,
+            "caskId": 8,
+            "batchId": 7,
+            "bottledMonth": 42,
+            "age": 6,
+            "bottles": 53,
+            "price": 16,
+            "sold": 53,
+            "revenue": 848,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.6386193536316166,
+              "character": 0.8952495357917719,
+              "wood": 0.054814332842855085,
+              "litres": 37.28029624237929
+            },
+            "type": "refill",
+            "cut": 0.8571428571428571
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        }
+      ]
+    },
+    {
+      "seed": 20261017,
+      "cycles": [
+        {
+          "month": 18,
+          "cash": 1741,
+          "revenue": 592,
+          "costs": 331,
+          "upkeep": 120,
+          "release": {
+            "id": 1,
+            "brandId": 1,
+            "productId": 3,
+            "caskId": 2,
+            "batchId": 1,
+            "bottledMonth": 6,
+            "age": 6,
+            "bottles": 37,
+            "price": 16,
+            "sold": 37,
+            "revenue": 592,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "淡い樽香",
+            "profile": {
+              "roughness": 0.2434165963604602,
+              "character": 0.4610338922625274,
+              "wood": 0.06025794737403169,
+              "litres": 26.00550850412236
+            },
+            "type": "refill",
+            "cut": 0.14285714285714285
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 36,
+          "cash": 2098.8,
+          "revenue": 1484.8,
+          "costs": 746,
+          "upkeep": 240,
+          "release": {
+            "id": 2,
+            "brandId": 1,
+            "productId": 6,
+            "caskId": 5,
+            "batchId": 4,
+            "bottledMonth": 24,
+            "age": 6,
+            "bottles": 45,
+            "price": 19.84,
+            "sold": 45,
+            "revenue": 892.8,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.39781004909824713,
+              "character": 0.7123893827681544,
+              "wood": 0.10068938881708824,
+              "litres": 31.5006459784667
+            },
+            "type": "bourbon",
+            "cut": 0.5
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        },
+        {
+          "month": 54,
+          "cash": 2447.8,
+          "revenue": 2332.8,
+          "costs": 1125,
+          "upkeep": 360,
+          "release": {
+            "id": 3,
+            "brandId": 1,
+            "productId": 9,
+            "caskId": 8,
+            "batchId": 7,
+            "bottledMonth": 42,
+            "age": 6,
+            "bottles": 53,
+            "price": 16,
+            "sold": 53,
+            "revenue": 848,
+            "status": "sold-out",
+            "listed": true,
+            "flavorName": "若い穀物",
+            "profile": {
+              "roughness": 0.6650347328771863,
+              "character": 0.9182767232799469,
+              "wood": 0.05978287654069844,
+              "litres": 37.26824812069878
+            },
+            "type": "refill",
+            "cut": 0.8571428571428571
+          },
+          "strictRestore": true,
+          "cashErrorCents": 0
+        }
+      ]
+    }
+  ]
+}
