@@ -1,0 +1,119 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "32914be856bc32daddf970ecd6abef41a2e26d88071da2ebe9f441205b8951e2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-paper-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "湯間庭新報0.1の既存UIを維持しつつ、2026年7月の町の誕生記事を新聞紙面としてStagingに追加する",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "7c1846102d2b2897db064cf65f213556ef155200",
+    "canonicalSources": [
+      "data/notes.js",
+      "main.js",
+      "style.css",
+      "index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-paper-20261017/r0.lock.json",
+      "data/notes.js",
+      "index.html",
+      "main.js",
+      "shinpo/town-beginning/index.html",
+      "style.css"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "works/**",
+      "data/work-lifecycle.json",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "既存noteカード4枚を維持し、町の始まりの固定新聞切り抜きを追加",
+      "元note記事抜粋とその後の町を静的HTMLで読む",
+      "Staging noindex、canonical、OGP、既存リンク及びキャッシュ更新"
+    ],
+    "ownerDecisions": [
+      "2026-10-17 ユーザー指示: 湯間庭新報0.1をStagingで実装する。続いて『解消、マージお願いします』とPRのブロック解消とStagingマージを明示承認。Productionは変更しない。"
+    ],
+    "hqDecisions": [
+      "共有runtime main.jsとroot style.css/index.htmlを含むため軽量隔離を適用せず、変更前Plan Lockを先頭に置き、Scope/Risk/ImpactとTrusted Staticの通常ゲートで審査する。これは制作物の視覚承認やProduction公開許可ではない。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN v0.2 normal Plan Lock route",
+      "Change PR Gate trusted-base",
+      "Staging only; no Production promotion"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Staging実URLの紙面表示と縦スクロール",
+      "iPhone Safariの紙面読みやすさと戻り導線"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "surface.shared",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "PRの追加した新聞ページと既存5ファイルの当該差分をまとめてrevert。既存ラックは前のnoteリンク方式へ復元。",
+    "outOfScope": [
+      "Production",
+      "既存worksの変更",
+      "SEO公開sitemap登録",
+      "Engineとデータ保存契約の変更",
+      "全記事移植"
+    ],
+    "promotion": "Staging-only。Production昇格は別途指示・SEO生成/公開承認手続きが必要",
+    "unverified": [
+      "iPhone/iPad実機での指操作",
+      "2026年7月当時の画像は原稿から未取り込み"
+    ],
+    "problem": "過去の制作記事と町の作品・場所との接続が外部noteだけで完結し、町内で過去記録が読めない。",
+    "currentContract": "既存湯間庭新報は4件のnoteカードを表示し、タップでnoteへ外部遷移する。",
+    "whyExistingIsInsufficient": "作品の最初の発想を紙面として残し、検索から独立URLで読める体験を提供できない。",
+    "design": "固定1枚を既存ラックの外に追加し、タップで同一originの独立した新聞ページを開く。掲示板来訪時だけ切り抜きのプレビューを表示、再タップで紙が広がる。原稿抜粋・町の説明・現在の紹介画像・note出典リンクを表示。モーション軽減設定に従い静的HTMLを基礎とする。",
+    "alternativesRejected": [
+      "note記事全件のコピー",
+      "既存新聞ラックの全面置換",
+      "共有ランタイム以外への大規模展開",
+      "Productionへ同時公開"
+    ],
+    "migration": "永続データ変更なし。既存記事urlを保持し、代表記事だけarchivePage属性を追加。",
+    "compatibility": "既存note4枠とnoteへの外部導線を維持し、HTMLはCSSで軽量に表示する。ポップアップで既存画面を破壊しない。",
+    "boundaryCases": [
+      "検索から直接ページを開いた場合は紙面を直表示",
+      "既存ラックから開いたときのみ切り抜き演出",
+      "iPhone縦スクロールと閉じるリンク",
+      "prefers-reduced-motionで動きを無効化",
+      "Staging noindexとProduction canonicalを分離"
+    ],
+    "testPlan": [
+      "JS構文及びRelease Validator Tests",
+      "Change PR Gate / Scope / Risk / Impact / Change Verification",
+      "既存noteカード数と代表記事の案内リンクの回帰",
+      "Staging実URLとモバイル表示を確認"
+    ],
+    "promotionRisk": "Staging only; noindex維持。Productionのsitemapと索引登録は別承認。"
+  }
+}
