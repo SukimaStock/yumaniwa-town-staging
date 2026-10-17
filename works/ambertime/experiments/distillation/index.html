@@ -1,0 +1,24 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#172124"><title>AmberTime · 蒸留モデル比較</title><link rel="stylesheet" href="./style.css?v=1"><script type="module" src="./app.mjs?v=1"></script></head>
+<body><main>
+<header><div><p class="eyebrow">AmberTime · 比較実験</p><h1>原酒を選ぶ</h1></div><a href="../../">蒸留所へ</a></header>
+<p class="intro">同じ仕込みから、3つの抽出を試します。</p>
+<nav id="models" aria-label="抽出モデル"><button data-model="current" aria-pressed="true">現行</button><button data-model="a" aria-pressed="false">案A <small>香りの山</small></button><button data-model="b" aria-pressed="false">案B <small>香りの構成</small></button></nav>
+<section class="workplace" aria-label="抽出を試す">
+<p id="model-detail" class="quiet"></p><div id="still" aria-hidden="true"></div>
+<div class="readout"><div class="readout-heading"><span id="phase">仕込み前</span><span id="volume">0.0 L</span></div><p id="phrase">抽出を始め、好きなところで止めます。</p>
+<div id="gauges" class="gauges" hidden>
+<div class="axis"><span id="rough-label">刺激</span><div id="rough" class="meter" role="meter" aria-labelledby="rough-label" aria-valuemin="0" aria-valuemax="1"><span></span></div></div>
+<div class="axis"><span id="aroma-label">原酒の香り</span><div id="aroma" class="meter" role="meter" aria-labelledby="aroma-label" aria-valuemin="0" aria-valuemax="1"><span></span></div></div></div>
+<p id="fraction" class="quiet fraction" hidden></p></div>
+<div class="actions"><button id="start" class="primary">抽出を始める</button><button id="stop" class="primary" hidden>ここで止める</button><button id="pause" hidden>一時停止</button></div>
+<button id="retry" class="retry">同じ条件でもう一度</button><p id="notice" class="quiet notice" role="status"></p>
+</section>
+<details id="comparison"><summary>同じ位置で3案を比べる</summary>
+<div class="positions" aria-label="比較する位置の例"><button data-position="30">早め · 30</button><button data-position="65">中頃 · 65</button><button data-position="99">遅め · 99</button></div>
+<form id="compare-form" class="settings"><label>抽出位置<input id="position" type="number" inputmode="numeric" min="30" max="99" step="1" value="65" required></label><label>樽<select id="cask"><option value="bourbon">バーボン樽</option><option value="refill">リフィル樽</option></select></label><label>熟成<select id="age"><option value="0">蒸留直後</option><option value="12">12か月</option><option value="24">24か月</option><option value="36">36か月</option></select></label><button type="submit">この条件で比べる</button></form>
+<p id="compare-context" class="quiet"></p><div id="cards" class="cards"></div><p id="wood-note" class="quiet" hidden></p>
+<details id="mixture"><summary>案B · 留分と集めた原酒の内訳</summary><p class="quiet">香りモデル内の比率です。実際の成分割合ではありません。</p><div id="mixture-table"></div><p id="mixture-note" class="quiet"></p></details>
+</details>
+<details id="conditions"><summary>開始条件</summary><form id="seed-form" class="settings"><label>シード<input id="seed" type="number" inputmode="numeric" min="1" max="4294967295" step="1" value="20261015" required></label><button type="submit">この条件で始める</button></form><p id="conditions-text" class="quiet"></p></details>
+<footer><p>本編の進行・保存とは独立した実験です。</p><a href="./report.html">設計と数値比較</a> · <a href="./curves.svg">抽出曲線</a> · <a href="../../../../lab/">研究所へ</a></footer>
+</main></body></html>

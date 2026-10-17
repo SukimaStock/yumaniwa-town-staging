@@ -1,0 +1,6041 @@
+{
+  "modelHash": "f321c7fd03a5012934b974853cf67a5bf6cefb556ee8a89bdc3523e9cdeb5e26",
+  "seed": 20261015,
+  "models": [
+    {
+      "modelId": "current",
+      "points": [
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 30,
+          "phase": "forecast",
+          "cut": 0,
+          "litres": 24,
+          "roughness": 0.21175401558838786,
+          "character": 0.28875547580234706,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 31,
+          "phase": "forecast",
+          "cut": 0.014285714285714285,
+          "litres": 24.23,
+          "roughness": 0.22110419290008287,
+          "character": 0.2970056322538427,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 32,
+          "phase": "forecast",
+          "cut": 0.02857142857142857,
+          "litres": 24.46,
+          "roughness": 0.23045437021177795,
+          "character": 0.3052557887053383,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 33,
+          "phase": "forecast",
+          "cut": 0.04285714285714286,
+          "litres": 24.69,
+          "roughness": 0.239804547523473,
+          "character": 0.31350594515683394,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 34,
+          "phase": "forecast",
+          "cut": 0.05714285714285714,
+          "litres": 24.91,
+          "roughness": 0.249154724835168,
+          "character": 0.32175610160832957,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 35,
+          "phase": "forecast",
+          "cut": 0.07142857142857142,
+          "litres": 25.14,
+          "roughness": 0.25850490214686306,
+          "character": 0.3300062580598252,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 36,
+          "phase": "forecast",
+          "cut": 0.08571428571428572,
+          "litres": 25.37,
+          "roughness": 0.26785507945855813,
+          "character": 0.3382564145113208,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 37,
+          "phase": "forecast",
+          "cut": 0.1,
+          "litres": 25.6,
+          "roughness": 0.2772052567702532,
+          "character": 0.34650657096281645,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 38,
+          "phase": "forecast",
+          "cut": 0.11428571428571428,
+          "litres": 25.83,
+          "roughness": 0.2865554340819482,
+          "character": 0.3547567274143121,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 39,
+          "phase": "forecast",
+          "cut": 0.12857142857142856,
+          "litres": 26.06,
+          "roughness": 0.2959056113936433,
+          "character": 0.3630068838658077,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 40,
+          "phase": "forecast",
+          "cut": 0.14285714285714285,
+          "litres": 26.29,
+          "roughness": 0.30525578870533837,
+          "character": 0.37125704031730333,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 41,
+          "phase": "forecast",
+          "cut": 0.15714285714285714,
+          "litres": 26.51,
+          "roughness": 0.31460596601703333,
+          "character": 0.37950719676879896,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 42,
+          "phase": "forecast",
+          "cut": 0.17142857142857143,
+          "litres": 26.74,
+          "roughness": 0.3239561433287284,
+          "character": 0.38775735322029464,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 43,
+          "phase": "forecast",
+          "cut": 0.18571428571428572,
+          "litres": 26.97,
+          "roughness": 0.3333063206404235,
+          "character": 0.39600750967179027,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 44,
+          "phase": "forecast",
+          "cut": 0.2,
+          "litres": 27.2,
+          "roughness": 0.3426564979521185,
+          "character": 0.4042576661232859,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 45,
+          "phase": "forecast",
+          "cut": 0.21428571428571427,
+          "litres": 27.43,
+          "roughness": 0.3520066752638136,
+          "character": 0.41250782257478147,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 46,
+          "phase": "forecast",
+          "cut": 0.22857142857142856,
+          "litres": 27.66,
+          "roughness": 0.36135685257550865,
+          "character": 0.4207579790262771,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 47,
+          "phase": "forecast",
+          "cut": 0.24285714285714285,
+          "litres": 27.89,
+          "roughness": 0.3707070298872036,
+          "character": 0.4290081354777728,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 48,
+          "phase": "forecast",
+          "cut": 0.2571428571428571,
+          "litres": 28.11,
+          "roughness": 0.3800572071988987,
+          "character": 0.4372582919292684,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 49,
+          "phase": "forecast",
+          "cut": 0.2714285714285714,
+          "litres": 28.34,
+          "roughness": 0.38940738451059376,
+          "character": 0.44550844838076403,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 50,
+          "phase": "forecast",
+          "cut": 0.2857142857142857,
+          "litres": 28.57,
+          "roughness": 0.3987575618222888,
+          "character": 0.45375860483225966,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 51,
+          "phase": "forecast",
+          "cut": 0.3,
+          "litres": 28.8,
+          "roughness": 0.4081077391339839,
+          "character": 0.4620087612837553,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 52,
+          "phase": "forecast",
+          "cut": 0.3142857142857143,
+          "litres": 29.03,
+          "roughness": 0.4174579164456789,
+          "character": 0.4702589177352509,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 53,
+          "phase": "forecast",
+          "cut": 0.32857142857142857,
+          "litres": 29.26,
+          "roughness": 0.42680809375737394,
+          "character": 0.47850907418674654,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 54,
+          "phase": "forecast",
+          "cut": 0.34285714285714286,
+          "litres": 29.49,
+          "roughness": 0.436158271069069,
+          "character": 0.48675923063824217,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 55,
+          "phase": "forecast",
+          "cut": 0.35714285714285715,
+          "litres": 29.71,
+          "roughness": 0.44550844838076403,
+          "character": 0.4950093870897378,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 56,
+          "phase": "forecast",
+          "cut": 0.37142857142857144,
+          "litres": 29.94,
+          "roughness": 0.45485862569245916,
+          "character": 0.5032595435412335,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 57,
+          "phase": "forecast",
+          "cut": 0.38571428571428573,
+          "litres": 30.17,
+          "roughness": 0.4642088030041542,
+          "character": 0.511509699992729,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 58,
+          "phase": "forecast",
+          "cut": 0.4,
+          "litres": 30.4,
+          "roughness": 0.4735589803158492,
+          "character": 0.5197598564442247,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 59,
+          "phase": "forecast",
+          "cut": 0.4142857142857143,
+          "litres": 30.63,
+          "roughness": 0.48290915762754427,
+          "character": 0.5280100128957204,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 60,
+          "phase": "forecast",
+          "cut": 0.42857142857142855,
+          "litres": 30.86,
+          "roughness": 0.4922593349392393,
+          "character": 0.536260169347216,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 61,
+          "phase": "forecast",
+          "cut": 0.44285714285714284,
+          "litres": 31.09,
+          "roughness": 0.5016095122509343,
+          "character": 0.5445103257987115,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 62,
+          "phase": "forecast",
+          "cut": 0.45714285714285713,
+          "litres": 31.31,
+          "roughness": 0.5109596895626294,
+          "character": 0.5527604822502072,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 63,
+          "phase": "forecast",
+          "cut": 0.4714285714285714,
+          "litres": 31.54,
+          "roughness": 0.5203098668743245,
+          "character": 0.5610106387017029,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 64,
+          "phase": "forecast",
+          "cut": 0.4857142857142857,
+          "litres": 31.77,
+          "roughness": 0.5296600441860194,
+          "character": 0.5692607951531985,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 65,
+          "phase": "forecast",
+          "cut": 0.5,
+          "litres": 32,
+          "roughness": 0.5390102214977146,
+          "character": 0.5775109516046941,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 66,
+          "phase": "forecast",
+          "cut": 0.5142857142857142,
+          "litres": 32.23,
+          "roughness": 0.5483603988094096,
+          "character": 0.5857611080561897,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 67,
+          "phase": "forecast",
+          "cut": 0.5285714285714286,
+          "litres": 32.46,
+          "roughness": 0.5577105761211046,
+          "character": 0.5940112645076854,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 68,
+          "phase": "forecast",
+          "cut": 0.5428571428571428,
+          "litres": 32.69,
+          "roughness": 0.5670607534327997,
+          "character": 0.602261420959181,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 69,
+          "phase": "forecast",
+          "cut": 0.5571428571428572,
+          "litres": 32.91,
+          "roughness": 0.5764109307444947,
+          "character": 0.6105115774106767,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 70,
+          "phase": "forecast",
+          "cut": 0.5714285714285714,
+          "litres": 33.14,
+          "roughness": 0.5857611080561897,
+          "character": 0.6187617338621723,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 71,
+          "phase": "forecast",
+          "cut": 0.5857142857142857,
+          "litres": 33.37,
+          "roughness": 0.5951112853678848,
+          "character": 0.627011890313668,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 72,
+          "phase": "forecast",
+          "cut": 0.6,
+          "litres": 33.6,
+          "roughness": 0.6044614626795799,
+          "character": 0.6352620467651635,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 73,
+          "phase": "forecast",
+          "cut": 0.6142857142857143,
+          "litres": 33.83,
+          "roughness": 0.613811639991275,
+          "character": 0.6435122032166591,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 74,
+          "phase": "forecast",
+          "cut": 0.6285714285714286,
+          "litres": 34.06,
+          "roughness": 0.6231618173029699,
+          "character": 0.6517623596681547,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 75,
+          "phase": "forecast",
+          "cut": 0.6428571428571429,
+          "litres": 34.29,
+          "roughness": 0.6325119946146651,
+          "character": 0.6600125161196504,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 76,
+          "phase": "forecast",
+          "cut": 0.6571428571428571,
+          "litres": 34.51,
+          "roughness": 0.6418621719263601,
+          "character": 0.668262672571146,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 77,
+          "phase": "forecast",
+          "cut": 0.6714285714285714,
+          "litres": 34.74,
+          "roughness": 0.6512123492380552,
+          "character": 0.6765128290226416,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 78,
+          "phase": "forecast",
+          "cut": 0.6857142857142857,
+          "litres": 34.97,
+          "roughness": 0.6605625265497501,
+          "character": 0.6847629854741373,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 79,
+          "phase": "forecast",
+          "cut": 0.7,
+          "litres": 35.2,
+          "roughness": 0.6699127038614452,
+          "character": 0.6930131419256329,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 80,
+          "phase": "forecast",
+          "cut": 0.7142857142857143,
+          "litres": 35.43,
+          "roughness": 0.6792628811731403,
+          "character": 0.7012632983771285,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 81,
+          "phase": "forecast",
+          "cut": 0.7285714285714285,
+          "litres": 35.66,
+          "roughness": 0.6886130584848352,
+          "character": 0.7095134548286242,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 82,
+          "phase": "forecast",
+          "cut": 0.7428571428571429,
+          "litres": 35.89,
+          "roughness": 0.6979632357965304,
+          "character": 0.7177636112801199,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 83,
+          "phase": "forecast",
+          "cut": 0.7571428571428571,
+          "litres": 36.11,
+          "roughness": 0.7073134131082254,
+          "character": 0.7260137677316154,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 84,
+          "phase": "forecast",
+          "cut": 0.7714285714285715,
+          "litres": 36.34,
+          "roughness": 0.7166635904199204,
+          "character": 0.7342639241831111,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 85,
+          "phase": "forecast",
+          "cut": 0.7857142857142857,
+          "litres": 36.57,
+          "roughness": 0.7260137677316155,
+          "character": 0.7425140806346067,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 86,
+          "phase": "forecast",
+          "cut": 0.8,
+          "litres": 36.8,
+          "roughness": 0.7353639450433105,
+          "character": 0.7507642370861024,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 87,
+          "phase": "forecast",
+          "cut": 0.8142857142857143,
+          "litres": 37.03,
+          "roughness": 0.7447141223550056,
+          "character": 0.7590143935375979,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 88,
+          "phase": "forecast",
+          "cut": 0.8285714285714286,
+          "litres": 37.26,
+          "roughness": 0.7540642996667006,
+          "character": 0.7672645499890937,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 89,
+          "phase": "forecast",
+          "cut": 0.8428571428571429,
+          "litres": 37.49,
+          "roughness": 0.7634144769783957,
+          "character": 0.7755147064405892,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 90,
+          "phase": "forecast",
+          "cut": 0.8571428571428571,
+          "litres": 37.71,
+          "roughness": 0.7727646542900907,
+          "character": 0.7837648628920849,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 91,
+          "phase": "forecast",
+          "cut": 0.8714285714285714,
+          "litres": 37.94,
+          "roughness": 0.7821148316017857,
+          "character": 0.7920150193435804,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 92,
+          "phase": "forecast",
+          "cut": 0.8857142857142857,
+          "litres": 38.17,
+          "roughness": 0.7914650089134808,
+          "character": 0.8002651757950762,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "熟した果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 93,
+          "phase": "forecast",
+          "cut": 0.9,
+          "litres": 38.4,
+          "roughness": 0.8008151862251759,
+          "character": 0.8085153322465718,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "熟した果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 94,
+          "phase": "forecast",
+          "cut": 0.9142857142857143,
+          "litres": 38.63,
+          "roughness": 0.810165363536871,
+          "character": 0.8167654886980673,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "熟した果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 95,
+          "phase": "forecast",
+          "cut": 0.9285714285714286,
+          "litres": 38.86,
+          "roughness": 0.8195155408485659,
+          "character": 0.825015645149563,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "熟した果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 96,
+          "phase": "forecast",
+          "cut": 0.9428571428571428,
+          "litres": 39.09,
+          "roughness": 0.828865718160261,
+          "character": 0.8332658016010586,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "熟した果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 97,
+          "phase": "forecast",
+          "cut": 0.9571428571428572,
+          "litres": 39.31,
+          "roughness": 0.8382158954719561,
+          "character": 0.8415159580525543,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "熟した果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 98,
+          "phase": "forecast",
+          "cut": 0.9714285714285714,
+          "litres": 39.54,
+          "roughness": 0.847566072783651,
+          "character": 0.8497661145040498,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "熟した果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "current",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 99,
+          "phase": "forecast",
+          "cut": 0.9857142857142858,
+          "litres": 39.77,
+          "roughness": 0.8569162500953462,
+          "character": 0.8580162709555456,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": null,
+          "instant": null,
+          "phrase": "熟した果実と穀物が香り、刺激は強い。"
+        }
+      ]
+    },
+    {
+      "modelId": "a",
+      "points": [
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 30,
+          "phase": "forecast",
+          "cut": 0,
+          "litres": 24,
+          "roughness": 0.21175401558838786,
+          "character": 0.23100438064187764,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 5.544105135405063
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.36683072837544795
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 31,
+          "phase": "forecast",
+          "cut": 0.014285714285714285,
+          "litres": 24.23,
+          "roughness": 0.22110419290008287,
+          "character": 0.23248436095278915,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 5.633096065886082
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.43941693405731086
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 32,
+          "phase": "forecast",
+          "cut": 0.02857142857142857,
+          "litres": 24.46,
+          "roughness": 0.23045437021177795,
+          "character": 0.2346573362107919,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 5.7397184437159705
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.5263439344664764
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 33,
+          "phase": "forecast",
+          "cut": 0.04285714285714286,
+          "litres": 24.69,
+          "roughness": 0.239804547523473,
+          "character": 0.23763819820438206,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 5.867287113666194
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.6288293973538394
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 34,
+          "phase": "forecast",
+          "cut": 0.05714285714285714,
+          "litres": 24.91,
+          "roughness": 0.249154724835168,
+          "character": 0.24137850290636495,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 6.012738507397551
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.7477389427517942
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 35,
+          "phase": "forecast",
+          "cut": 0.07142857142857142,
+          "litres": 25.14,
+          "roughness": 0.25850490214686306,
+          "character": 0.2463398487715843,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 6.19298379811763
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.8834537161855955
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 36,
+          "phase": "forecast",
+          "cut": 0.08571428571428572,
+          "litres": 25.37,
+          "roughness": 0.26785507945855813,
+          "character": 0.25246821429318034,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 6.405118596617985
+          },
+          "instant": {
+            "components": {
+              "aroma": 1.0357408730318296
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 37,
+          "phase": "forecast",
+          "cut": 0.1,
+          "litres": 25.6,
+          "roughness": 0.2772052567702532,
+          "character": 0.2598718593955295,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 6.652719600525556
+          },
+          "instant": {
+            "components": {
+              "aroma": 1.2036383235143266
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 38,
+          "phase": "forecast",
+          "cut": 0.11428571428571428,
+          "litres": 25.83,
+          "roughness": 0.2865554340819482,
+          "character": 0.2686434887389139,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 6.939061314126146
+          },
+          "instant": {
+            "components": {
+              "aroma": 1.3853661656588134
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 39,
+          "phase": "forecast",
+          "cut": 0.12857142857142856,
+          "litres": 26.06,
+          "roughness": 0.2959056113936433,
+          "character": 0.27885374871506396,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 7.266928691514566
+          },
+          "instant": {
+            "components": {
+              "aroma": 1.5782771810087335
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "香りは控えめで、刺激は穏やか。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 40,
+          "phase": "forecast",
+          "cut": 0.14285714285714285,
+          "litres": 26.29,
+          "roughness": 0.30525578870533837,
+          "character": 0.2905448526985767,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 7.6384241774455806
+          },
+          "instant": {
+            "components": {
+              "aroma": 1.7788573655385778
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "香りは控えめで、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 41,
+          "phase": "forecast",
+          "cut": 0.15714285714285714,
+          "litres": 26.51,
+          "roughness": 0.31460596601703333,
+          "character": 0.3031564960486558,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 8.036678710249866
+          },
+          "instant": {
+            "components": {
+              "aroma": 1.9827846361923052
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "香りは控えめで、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 42,
+          "phase": "forecast",
+          "cut": 0.17142857142857143,
+          "litres": 26.74,
+          "roughness": 0.3239561433287284,
+          "character": 0.31780459859040927,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 8.498094966307544
+          },
+          "instant": {
+            "components": {
+              "aroma": 2.185049689274805
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "香りは控えめで、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 43,
+          "phase": "forecast",
+          "cut": 0.18571428571428572,
+          "litres": 26.97,
+          "roughness": 0.3333063206404235,
+          "character": 0.3338375747501439,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 9.003599391011381
+          },
+          "instant": {
+            "components": {
+              "aroma": 2.380137781070404
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "香りは控えめで、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 44,
+          "phase": "forecast",
+          "cut": 0.2,
+          "litres": 27.2,
+          "roughness": 0.3426564979521185,
+          "character": 0.3511384342494691,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 9.55096541158556
+          },
+          "instant": {
+            "components": {
+              "aroma": 2.562264424894804
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 45,
+          "phase": "forecast",
+          "cut": 0.21428571428571427,
+          "litres": 27.43,
+          "roughness": 0.3520066752638136,
+          "character": 0.3695472576570403,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 10.136681277532615
+          },
+          "instant": {
+            "components": {
+              "aroma": 2.7256522617954535
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 46,
+          "phase": "forecast",
+          "cut": 0.22857142857142856,
+          "litres": 27.66,
+          "roughness": 0.36135685257550865,
+          "character": 0.38886423110254814,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 10.755984632296482
+          },
+          "instant": {
+            "components": {
+              "aroma": 2.8648313418931743
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 47,
+          "phase": "forecast",
+          "cut": 0.24285714285714285,
+          "litres": 27.89,
+          "roughness": 0.3707070298872036,
+          "character": 0.4088549373045919,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 11.402964201425068
+          },
+          "instant": {
+            "components": {
+              "aroma": 2.9749414065384
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 48,
+          "phase": "forecast",
+          "cut": 0.2571428571428571,
+          "litres": 28.11,
+          "roughness": 0.3800572071988987,
+          "character": 0.428377564832825,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 12.04169334745071
+          },
+          "instant": {
+            "components": {
+              "aroma": 3.052013028456288
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 49,
+          "phase": "forecast",
+          "cut": 0.2714285714285714,
+          "litres": 28.34,
+          "roughness": 0.38940738451059376,
+          "character": 0.44892685721717673,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 12.72258713353479
+          },
+          "instant": {
+            "components": {
+              "aroma": 3.0932049859207615
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 50,
+          "phase": "forecast",
+          "cut": 0.2857142857142857,
+          "litres": 28.57,
+          "roughness": 0.3987575618222888,
+          "character": 0.46932004897797513,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 13.40847379930075
+          },
+          "instant": {
+            "components": {
+              "aroma": 3.0969780914165628
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 51,
+          "phase": "forecast",
+          "cut": 0.3,
+          "litres": 28.8,
+          "roughness": 0.4081077391339839,
+          "character": 0.4892717948447216,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 14.091027691527982
+          },
+          "instant": {
+            "components": {
+              "aroma": 3.063190648706832
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 52,
+          "phase": "forecast",
+          "cut": 0.3142857142857143,
+          "litres": 29.03,
+          "roughness": 0.4174579164456789,
+          "character": 0.5085100967499656,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 14.762048108651502
+          },
+          "instant": {
+            "components": {
+              "aroma": 2.993107284658275
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 53,
+          "phase": "forecast",
+          "cut": 0.32857142857142857,
+          "litres": 29.26,
+          "roughness": 0.42680809375737394,
+          "character": 0.5267861761115346,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 15.4137635130235
+          },
+          "instant": {
+            "components": {
+              "aroma": 2.8893203883577505
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 54,
+          "phase": "forecast",
+          "cut": 0.34285714285714286,
+          "litres": 29.49,
+          "roughness": 0.436158271069069,
+          "character": 0.5438829853652104,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 16.039109238420053
+          },
+          "instant": {
+            "components": {
+              "aroma": 2.755590961625587
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 55,
+          "phase": "forecast",
+          "cut": 0.35714285714285715,
+          "litres": 29.71,
+          "roughness": 0.44550844838076403,
+          "character": 0.5589426465075604,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 16.60618602773962
+          },
+          "instant": {
+            "components": {
+              "aroma": 2.5966225020709044
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 56,
+          "phase": "forecast",
+          "cut": 0.37142857142857144,
+          "litres": 29.94,
+          "roughness": 0.45485862569245916,
+          "character": 0.5731978589811407,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 17.161543897895353
+          },
+          "instant": {
+            "components": {
+              "aroma": 2.4177868642654956
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 57,
+          "phase": "forecast",
+          "cut": 0.38571428571428573,
+          "litres": 30.17,
+          "roughness": 0.4642088030041542,
+          "character": 0.5858680761343661,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 17.675639856973824
+          },
+          "instant": {
+            "components": {
+              "aroma": 2.224824337431077
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 58,
+          "phase": "forecast",
+          "cut": 0.4,
+          "litres": 30.4,
+          "roughness": 0.4735589803158492,
+          "character": 0.5969075886167654,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 18.145990693949667
+          },
+          "instant": {
+            "components": {
+              "aroma": 2.023541165289864
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 59,
+          "phase": "forecast",
+          "cut": 0.4142857142857143,
+          "litres": 30.63,
+          "roughness": 0.48290915762754427,
+          "character": 0.6063134012385688,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 18.57137947993736
+          },
+          "instant": {
+            "components": {
+              "aroma": 1.8195264318253956
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 60,
+          "phase": "forecast",
+          "cut": 0.42857142857142855,
+          "litres": 30.86,
+          "roughness": 0.4922593349392393,
+          "character": 0.6141211766835853,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 18.951779512455445
+          },
+          "instant": {
+            "components": {
+              "aroma": 1.6179069347579524
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 61,
+          "phase": "forecast",
+          "cut": 0.44285714285714284,
+          "litres": 31.09,
+          "roughness": 0.5016095122509343,
+          "character": 0.6203997916994338,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 19.288229523935396
+          },
+          "instant": {
+            "components": {
+              "aroma": 1.4231538728246624
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 62,
+          "phase": "forecast",
+          "cut": 0.45714285714285713,
+          "litres": 31.31,
+          "roughness": 0.5109596895626294,
+          "character": 0.6250357957163339,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 19.569870763878413
+          },
+          "instant": {
+            "components": {
+              "aroma": 1.238949524415606
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 63,
+          "phase": "forecast",
+          "cut": 0.4714285714285714,
+          "litres": 31.54,
+          "roughness": 0.5203098668743245,
+          "character": 0.6285659749202657,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 19.82497084898518
+          },
+          "instant": {
+            "components": {
+              "aroma": 1.068116274685455
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 64,
+          "phase": "forecast",
+          "cut": 0.4857142857142857,
+          "litres": 31.77,
+          "roughness": 0.5296600441860194,
+          "character": 0.6309071395891928,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 20.043919824748656
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.9126049854113905
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 65,
+          "phase": "forecast",
+          "cut": 0.5,
+          "litres": 32,
+          "roughness": 0.5390102214977146,
+          "character": 0.6321952599032211,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 20.230248316903076
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.7735352999396417
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 66,
+          "phase": "forecast",
+          "cut": 0.5142857142857142,
+          "litres": 32.23,
+          "roughness": 0.5483603988094096,
+          "character": 0.6325674847027514,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 20.387650031969674
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.6512773632053895
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 67,
+          "phase": "forecast",
+          "cut": 0.5285714285714286,
+          "litres": 32.46,
+          "roughness": 0.5577105761211046,
+          "character": 0.6321573533392232,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 20.51982768939118
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.5455627496551324
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 68,
+          "phase": "forecast",
+          "cut": 0.5428571428571428,
+          "litres": 32.69,
+          "roughness": 0.5670607534327997,
+          "character": 0.6310910243272574,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 20.630365585258044
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.4556120831741216
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 69,
+          "phase": "forecast",
+          "cut": 0.5571428571428572,
+          "litres": 32.91,
+          "roughness": 0.5764109307444947,
+          "character": 0.6295539234791864,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 20.71861962170002
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.3802677075095884
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 70,
+          "phase": "forecast",
+          "cut": 0.5714285714285714,
+          "litres": 33.14,
+          "roughness": 0.5857611080561897,
+          "character": 0.6275103823278142,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 20.79569407034376
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.31812152790293285
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 71,
+          "phase": "forecast",
+          "cut": 0.5857142857142857,
+          "litres": 33.37,
+          "roughness": 0.5951112853678848,
+          "character": 0.6251222628254557,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 20.860329910485454
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.2676304532516075
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、口当たりに角がある。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 72,
+          "phase": "forecast",
+          "cut": 0.6,
+          "litres": 33.6,
+          "roughness": 0.6044614626795799,
+          "character": 0.622468224203912,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 20.914932333251446
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.22721438580847783
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 73,
+          "phase": "forecast",
+          "cut": 0.6142857142857143,
+          "litres": 33.83,
+          "roughness": 0.613811639991275,
+          "character": 0.6196145435642917,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 20.961560008779987
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.19533413925249515
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 74,
+          "phase": "forecast",
+          "cut": 0.6285714285714286,
+          "litres": 34.06,
+          "roughness": 0.6231618173029699,
+          "character": 0.6166159972317194,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.001940865712367
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.17054879368949344
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 75,
+          "phase": "forecast",
+          "cut": 0.6428571428571429,
+          "litres": 34.29,
+          "roughness": 0.6325119946146651,
+          "character": 0.6135170133829748,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.037498388902204
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.15155367776294815
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 76,
+          "phase": "forecast",
+          "cut": 0.6571428571428571,
+          "litres": 34.51,
+          "roughness": 0.6418621719263601,
+          "character": 0.6104896564342204,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.067998043544943
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.1372013440838728
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 77,
+          "phase": "forecast",
+          "cut": 0.6714285714285714,
+          "litres": 34.74,
+          "roughness": 0.6512123492380552,
+          "character": 0.6072863695256066,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.097128477319572
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.12650858388303848
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 78,
+          "phase": "forecast",
+          "cut": 0.6857142857142857,
+          "litres": 34.97,
+          "roughness": 0.6605625265497501,
+          "character": 0.604066901743705,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.124219553977365
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.11865277032126356
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 79,
+          "phase": "forecast",
+          "cut": 0.7,
+          "litres": 35.2,
+          "roughness": 0.6699127038614452,
+          "character": 0.6008472207973912,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.14982217206817
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.11296071842228222
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 80,
+          "phase": "forecast",
+          "cut": 0.7142857142857143,
+          "litres": 35.43,
+          "roughness": 0.6792628811731403,
+          "character": 0.5976391000828037,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.174353315933732
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10889290650478352
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 81,
+          "phase": "forecast",
+          "cut": 0.7285714285714285,
+          "litres": 35.66,
+          "roughness": 0.6886130584848352,
+          "character": 0.5944510283436168,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.198123670733374
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10602541959439207
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 82,
+          "phase": "forecast",
+          "cut": 0.7428571428571429,
+          "litres": 35.89,
+          "roughness": 0.6979632357965304,
+          "character": 0.5912889707690715,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.221361160901978
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10403143611956688
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 83,
+          "phase": "forecast",
+          "cut": 0.7571428571428571,
+          "litres": 36.11,
+          "roughness": 0.7073134131082254,
+          "character": 0.5882923330381901,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.243236146009043
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10266355204846118
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 84,
+          "phase": "forecast",
+          "cut": 0.7714285714285715,
+          "litres": 36.34,
+          "roughness": 0.7166635904199204,
+          "character": 0.5851913721426976,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.26585446366563
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10173776686110488
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 85,
+          "phase": "forecast",
+          "cut": 0.7857142857142857,
+          "litres": 36.57,
+          "roughness": 0.7260137677316155,
+          "character": 0.5821248011902317,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.288303979526773
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10111956871065125
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 86,
+          "phase": "forecast",
+          "cut": 0.8,
+          "litres": 36.8,
+          "roughness": 0.7353639450433105,
+          "character": 0.5790935184652632,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.310641479521685
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10071226058476086
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 87,
+          "phase": "forecast",
+          "cut": 0.8142857142857143,
+          "litres": 37.03,
+          "roughness": 0.7447141223550056,
+          "character": 0.5760979107118712,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.332905633660594
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10044746182489417
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 88,
+          "phase": "forecast",
+          "cut": 0.8285714285714286,
+          "litres": 37.26,
+          "roughness": 0.7540642996667006,
+          "character": 0.5731380139049472,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.355122398098334
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10027758882920916
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 89,
+          "phase": "forecast",
+          "cut": 0.8428571428571429,
+          "litres": 37.49,
+          "roughness": 0.7634144769783957,
+          "character": 0.5702136289031003,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.377308947577234
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10017005010284091
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 90,
+          "phase": "forecast",
+          "cut": 0.8571428571428571,
+          "litres": 37.71,
+          "roughness": 0.7727646542900907,
+          "character": 0.5674492887829801,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.398512680006178
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10010286810293353
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 91,
+          "phase": "forecast",
+          "cut": 0.8714285714285714,
+          "litres": 37.94,
+          "roughness": 0.7821148316017857,
+          "character": 0.5645932634132275,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.42066841389785
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10006144881054067
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 92,
+          "phase": "forecast",
+          "cut": 0.8857142857142857,
+          "litres": 38.17,
+          "roughness": 0.7914650089134808,
+          "character": 0.5617714674867258,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.442816913968322
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10003624725714055
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 93,
+          "phase": "forecast",
+          "cut": 0.9,
+          "litres": 38.4,
+          "roughness": 0.8008151862251759,
+          "character": 0.5589833603930644,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.464961039093673
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10002111376749816
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 94,
+          "phase": "forecast",
+          "cut": 0.9142857142857143,
+          "litres": 38.63,
+          "roughness": 0.810165363536871,
+          "character": 0.5562283860420211,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.48710255280328
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.1000121446565939
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 95,
+          "phase": "forecast",
+          "cut": 0.9285714285714286,
+          "litres": 38.86,
+          "roughness": 0.8195155408485659,
+          "character": 0.5535059837375969,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.50924252804301
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10000689816632076
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 96,
+          "phase": "forecast",
+          "cut": 0.9428571428571428,
+          "litres": 39.09,
+          "roughness": 0.828865718160261,
+          "character": 0.5508155950037692,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.531381608697345
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10000386910932957
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 97,
+          "phase": "forecast",
+          "cut": 0.9571428571428572,
+          "litres": 39.31,
+          "roughness": 0.8382158954719561,
+          "character": 0.5482716262914635,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.552557629517434
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10000214297576816
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 98,
+          "phase": "forecast",
+          "cut": 0.9714285714285714,
+          "litres": 39.54,
+          "roughness": 0.847566072783651,
+          "character": 0.5456422839119368,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.57469590587798
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10000117206699581
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、刺激は強い。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "a",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 99,
+          "phase": "forecast",
+          "cut": 0.9857142857142858,
+          "litres": 39.77,
+          "roughness": 0.8569162500953462,
+          "character": 0.5430433497509858,
+          "wood": 0,
+          "components": null,
+          "composition": null,
+          "componentMass": {
+            "aroma": 21.596834019596706
+          },
+          "instant": {
+            "components": {
+              "aroma": 0.10000063301868807
+            },
+            "composition": null,
+            "phrase": "香りを含む留分。"
+          },
+          "phrase": "軽い果実と穀物が香り、刺激は強い。"
+        }
+      ]
+    },
+    {
+      "modelId": "b",
+      "points": [
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 30,
+          "phase": "forecast",
+          "cut": 0,
+          "litres": 24,
+          "roughness": 0.21175401558838786,
+          "character": 0.27431770201222966,
+          "wood": 0,
+          "components": {
+            "light": 0.23100438064187764,
+            "fruit": 0.03850073010697961,
+            "grain": 0.004812591263372451
+          },
+          "composition": {
+            "light": 0.8421052631578947,
+            "fruit": 0.14035087719298245,
+            "grain": 0.017543859649122806
+          },
+          "componentMass": {
+            "light": 5.544105135405063,
+            "fruit": 0.9240175225675106,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.15,
+              "fruit": 0.25315201152694383,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.37206809270744534,
+              "fruit": 0.6279319072925548,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 31,
+          "phase": "forecast",
+          "cut": 0.014285714285714285,
+          "litres": 24.23,
+          "roughness": 0.22110419290008287,
+          "character": 0.2755879210484,
+          "wood": 0,
+          "components": {
+            "light": 0.23014366679747023,
+            "fruit": 0.04067734585964054,
+            "grain": 0.004766908391289262
+          },
+          "composition": {
+            "light": 0.8351007036953965,
+            "fruit": 0.1476020636350626,
+            "grain": 0.017297232669540967
+          },
+          "componentMass": {
+            "light": 5.5763810465027035,
+            "fruit": 0.9856120901790903,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.14166887054923047,
+              "fruit": 0.3045013707550305,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.3175220071493314,
+              "fruit": 0.6824779928506686,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 32,
+          "phase": "forecast",
+          "cut": 0.02857142857142857,
+          "litres": 24.46,
+          "roughness": 0.23045437021177795,
+          "character": 0.2772586248712499,
+          "wood": 0,
+          "components": {
+            "light": 0.22922585141634116,
+            "fruit": 0.0433106888138237,
+            "grain": 0.004722084641084988
+          },
+          "composition": {
+            "light": 0.8267582352858686,
+            "fruit": 0.15621042928397924,
+            "grain": 0.017031335430152172
+          },
+          "componentMass": {
+            "light": 5.606864325643705,
+            "fruit": 1.0593794483861279,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.13380045921796416,
+              "fruit": 0.36319065178113663,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.269221030832896,
+              "fruit": 0.730778969167104,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 33,
+          "phase": "forecast",
+          "cut": 0.04285714285714286,
+          "litres": 24.69,
+          "roughness": 0.239804547523473,
+          "character": 0.2793900616553005,
+          "wood": 0,
+          "components": {
+            "light": 0.22825656286569407,
+            "fruit": 0.046455402786328225,
+            "grain": 0.004678096003278202
+          },
+          "composition": {
+            "light": 0.8169816832901783,
+            "fruit": 0.16627435675805433,
+            "grain": 0.016743959951767494
+          },
+          "componentMass": {
+            "light": 5.635654537153987,
+            "fruit": 1.146983894794444,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.1263690662425157,
+              "fruit": 0.42955384561384313,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.22731400981574823,
+              "fruit": 0.7726859901842517,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 34,
+          "phase": "forecast",
+          "cut": 0.05714285714285714,
+          "litres": 24.91,
+          "roughness": 0.249154724835168,
+          "character": 0.28192806837015194,
+          "wood": 0,
+          "components": {
+            "light": 0.2272847647662254,
+            "fruit": 0.05000652358301364,
+            "grain": 0.004636780020912838
+          },
+          "composition": {
+            "light": 0.8061799808730514,
+            "fruit": 0.17737334161903512,
+            "grain": 0.016446677507913364
+          },
+          "componentMass": {
+            "light": 5.661663490326674,
+            "fruit": 1.2456625024528698,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.11935041924625392,
+              "fruit": 0.5037767281310602,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.1915346165683666,
+              "fruit": 0.8084653834316334,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 35,
+          "phase": "forecast",
+          "cut": 0.07142857142857142,
+          "litres": 25.14,
+          "roughness": 0.25850490214686306,
+          "character": 0.2851621618079209,
+          "wood": 0,
+          "components": {
+            "light": 0.2262269072050012,
+            "fruit": 0.05434089540160957,
+            "grain": 0.004594359201310215
+          },
+          "composition": {
+            "light": 0.7933272274649913,
+            "fruit": 0.19056138113517465,
+            "grain": 0.01611139139983402
+          },
+          "componentMass": {
+            "light": 5.6873444471337296,
+            "fruit": 1.3661301103964647,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.11272159396129289,
+              "fruit": 0.5858630817222871,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.16135709511662621,
+              "fruit": 0.8386429048833738,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 36,
+          "phase": "forecast",
+          "cut": 0.08571428571428572,
+          "litres": 25.37,
+          "roughness": 0.26785507945855813,
+          "character": 0.28903131223932876,
+          "wood": 0,
+          "components": {
+            "light": 0.2251320087282981,
+            "fruit": 0.059346595969803274,
+            "grain": 0.004552707541227387
+          },
+          "composition": {
+            "light": 0.7789190969796392,
+            "fruit": 0.2053292963658625,
+            "grain": 0.0157516066544983
+          },
+          "componentMass": {
+            "light": 5.711599061436924,
+            "fruit": 1.5056231397539093,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.10646093935336882,
+              "fruit": 0.675603206573852,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.13612814231132916,
+              "fruit": 0.8638718576886708,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 37,
+          "phase": "forecast",
+          "cut": 0.1,
+          "litres": 25.6,
+          "roughness": 0.2772052567702532,
+          "character": 0.29358591959828645,
+          "wood": 0,
+          "components": {
+            "light": 0.22400416224726016,
+            "fruit": 0.06506995304161456,
+            "grain": 0.004511804309411673
+          },
+          "composition": {
+            "light": 0.7629935473532418,
+            "fruit": 0.22163853474529627,
+            "grain": 0.015367917901461945
+          },
+          "componentMass": {
+            "light": 5.734506553529861,
+            "fruit": 1.6657907978653328,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.10054800690534589,
+              "fruit": 0.7725468264600289,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.11516275559412034,
+              "fruit": 0.8848372444058796,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 38,
+          "phase": "forecast",
+          "cut": 0.11428571428571428,
+          "litres": 25.83,
+          "roughness": 0.2865554340819482,
+          "character": 0.2988694521691045,
+          "wood": 0,
+          "components": {
+            "light": 0.22284714455062618,
+            "fruit": 0.07155067810547254,
+            "grain": 0.0044716295130057615
+          },
+          "composition": {
+            "light": 0.7456337304909174,
+            "fruit": 0.23940445430665216,
+            "grain": 0.01496181520243043
+          },
+          "componentMass": {
+            "light": 5.756141743742674,
+            "fruit": 1.8481540154643554,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.0949634838283772,
+              "fruit": 0.8759825677621788,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.09780510840207106,
+              "fruit": 0.902194891597929,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 39,
+          "phase": "forecast",
+          "cut": 0.12857142857142856,
+          "litres": 26.06,
+          "roughness": 0.2959056113936433,
+          "character": 0.3049164866793862,
+          "wood": 0,
+          "components": {
+            "light": 0.22166443963237864,
+            "fruit": 0.0788198831820445,
+            "grain": 0.004432163864963117
+          },
+          "composition": {
+            "light": 0.7269677085891865,
+            "fruit": 0.25849662653670175,
+            "grain": 0.014535664874111747
+          },
+          "componentMass": {
+            "light": 5.776575296819787,
+            "fruit": 2.0540461557240794,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.0896891299825754,
+              "fruit": 0.984926119543353,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.08346162035402176,
+              "fruit": 0.9165383796459782,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 40,
+          "phase": "forecast",
+          "cut": 0.14285714285714285,
+          "litres": 26.29,
+          "roughness": 0.30525578870533837,
+          "character": 0.31175079430090985,
+          "wood": 0,
+          "components": {
+            "light": 0.22045926027861304,
+            "fruit": 0.08689814526912303,
+            "grain": 0.004393388753173785
+          },
+          "composition": {
+            "light": 0.7071650315213636,
+            "fruit": 0.2787423379753981,
+            "grain": 0.014092630503238347
+          },
+          "componentMass": {
+            "light": 5.795873952724737,
+            "fruit": 2.284552239125244,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.08470771830116389,
+              "fruit": 1.0981189498502568,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.07161465038114946,
+              "fruit": 0.9283853496188504,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 41,
+          "phase": "forecast",
+          "cut": 0.15714285714285714,
+          "litres": 26.51,
+          "roughness": 0.31460596601703333,
+          "character": 0.3190544588651462,
+          "wood": 0,
+          "components": {
+            "light": 0.2192873736481626,
+            "fruit": 0.09541015612151249,
+            "grain": 0.004356929095471098
+          },
+          "composition": {
+            "light": 0.6873038992407505,
+            "fruit": 0.2990403470958518,
+            "grain": 0.013655753663397724
+          },
+          "componentMass": {
+            "light": 5.8133082754127905,
+            "fruit": 2.5293232387812963,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.08000297852352178,
+              "fruit": 1.2140390538459394,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.061824095757563605,
+              "fruit": 0.9381759042424365,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 42,
+          "phase": "forecast",
+          "cut": 0.17142857142857143,
+          "litres": 26.74,
+          "roughness": 0.3239561433287284,
+          "character": 0.3274887388238724,
+          "wood": 0,
+          "components": {
+            "light": 0.21804497889162058,
+            "fruit": 0.10512430629272534,
+            "grain": 0.004319453639526508
+          },
+          "composition": {
+            "light": 0.6658090891146272,
+            "fruit": 0.321001285938148,
+            "grain": 0.013189624947224718
+          },
+          "componentMass": {
+            "light": 5.830522735561934,
+            "fruit": 2.811023950267476,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.07555954405334449,
+              "fruit": 1.3309246518456836,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.05372228445485421,
+              "fruit": 0.9462777155451457,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 43,
+          "phase": "forecast",
+          "cut": 0.18571428571428572,
+          "litres": 26.97,
+          "roughness": 0.3333063206404235,
+          "character": 0.3367004562035901,
+          "wood": 0,
+          "components": {
+            "light": 0.21678832368328618,
+            "fruit": 0.11562951515579013,
+            "grain": 0.004282617364513861
+          },
+          "composition": {
+            "light": 0.6438610928171786,
+            "fruit": 0.34341953812463294,
+            "grain": 0.012719369058188393
+          },
+          "componentMass": {
+            "light": 5.846781089738228,
+            "fruit": 3.1185280237516597,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.07136290176834759,
+              "fruit": 1.4468110639562728,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.0470057472855466,
+              "fruit": 0.9529942527144535,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 44,
+          "phase": "forecast",
+          "cut": 0.2,
+          "litres": 27.2,
+          "roughness": 0.3426564979521185,
+          "character": 0.34665517464878054,
+          "wood": 0,
+          "components": {
+            "light": 0.215519722091637,
+            "fruit": 0.12688904850122668,
+            "grain": 0.004246404055916869
+          },
+          "composition": {
+            "light": 0.6217121158222848,
+            "fruit": 0.36603823563224297,
+            "grain": 0.012249648545472266
+          },
+          "componentMass": {
+            "light": 5.8621364408925265,
+            "fruit": 3.4513821192333656,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.06739934461758323,
+              "fruit": 1.559580201699321,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.04142605527534711,
+              "fruit": 0.958573944724653,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 45,
+          "phase": "forecast",
+          "cut": 0.21428571428571427,
+          "litres": 27.43,
+          "roughness": 0.3520066752638136,
+          "character": 0.35730199251226524,
+          "wood": 0,
+          "components": {
+            "light": 0.2142413030474651,
+            "fruit": 0.1388498914217473,
+            "grain": 0.004210798043052819
+          },
+          "composition": {
+            "light": 0.5996084755673753,
+            "fruit": 0.38860654105359055,
+            "grain": 0.011784983379034119
+          },
+          "componentMass": {
+            "light": 5.876638942591968,
+            "fruit": 3.808652521698529,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.06365592685154249,
+              "fruit": 1.6670212873958665,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.0367809354208338,
+              "fruit": 0.9632190645791663,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 46,
+          "phase": "forecast",
+          "cut": 0.22857142857142856,
+          "litres": 27.66,
+          "roughness": 0.36135685257550865,
+          "character": 0.36857376547093185,
+          "wood": 0,
+          "components": {
+            "light": 0.2129550239635318,
+            "fruit": 0.1514429573309381,
+            "grain": 0.004175784176461997
+          },
+          "composition": {
+            "light": 0.5777812853593532,
+            "fruit": 0.4108891394845678,
+            "grain": 0.011329575156079108
+          },
+          "componentMass": {
+            "light": 5.89033596283129,
+            "fruit": 4.188912199773747,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.06012042173881639,
+              "fruit": 1.7669006000610212,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.03290625615220917,
+              "fruit": 0.9670937438477908,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 47,
+          "phase": "forecast",
+          "cut": 0.24285714285714285,
+          "litres": 27.89,
+          "roughness": 0.3707070298872036,
+          "character": 0.38038789776448145,
+          "wood": 0,
+          "components": {
+            "light": 0.2116626833541026,
+            "fruit": 0.16458386660396299,
+            "grain": 0.004141347806415878
+          },
+          "composition": {
+            "light": 0.5564390575989204,
+            "fruit": 0.4326737721447323,
+            "grain": 0.010887170256347134
+          },
+          "componentMass": {
+            "light": 5.903272238745922,
+            "fruit": 4.590244039584528,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.05678128163121013,
+              "fruit": 1.8570373172504795,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.0296691032600422,
+              "fruit": 0.9703308967399579,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りに、果実が少し重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 48,
+          "phase": "forecast",
+          "cut": 0.2571428571428571,
+          "litres": 28.11,
+          "roughness": 0.3800572071988987,
+          "character": 0.3921188406923403,
+          "wood": 0,
+          "components": {
+            "light": 0.210421871744318,
+            "fruit": 0.17758803297075662,
+            "grain": 0.0041089359772657
+          },
+          "composition": {
+            "light": 0.5366278023590729,
+            "fruit": 0.4528933949136447,
+            "grain": 0.010478802727282377
+          },
+          "componentMass": {
+            "light": 5.914958814732779,
+            "fruit": 4.991999606807968,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.053627600246875386,
+              "fruit": 1.935381939325222,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.026961962313369538,
+              "fruit": 0.9730380376866304,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りと果実が重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 49,
+          "phase": "forecast",
+          "cut": 0.2714285714285714,
+          "litres": 28.34,
+          "roughness": 0.38940738451059376,
+          "character": 0.40472418791022785,
+          "wood": 0,
+          "components": {
+            "light": 0.20912131307171605,
+            "fruit": 0.19152728590693313,
+            "grain": 0.0040755889315786465
+          },
+          "composition": {
+            "light": 0.5167008034570482,
+            "fruit": 0.4732291561220352,
+            "grain": 0.010070040420916616
+          },
+          "componentMass": {
+            "light": 5.926498012452433,
+            "fruit": 5.427883282602485,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.0506490770482698,
+              "fruit": 2.0000934018640133,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.024697921640134037,
+              "fruit": 0.9753020783598659,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りと果実が重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 50,
+          "phase": "forecast",
+          "cut": 0.2857142857142857,
+          "litres": 28.57,
+          "roughness": 0.3987575618222888,
+          "character": 0.41754761253298295,
+          "wood": 0,
+          "components": {
+            "light": 0.20781926192412847,
+            "fruit": 0.20568557180868158,
+            "grain": 0.0040427788001728675
+          },
+          "composition": {
+            "light": 0.49771392695416844,
+            "fruit": 0.4926038747076636,
+            "grain": 0.00968219833816801
+          },
+          "componentMass": {
+            "light": 5.937396313172351,
+            "fruit": 5.876436786574033,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.04783598359859557,
+              "fruit": 2.0496108458114803,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.022806768175405823,
+              "fruit": 0.9771932318245942,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りと果実が重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 51,
+          "phase": "forecast",
+          "cut": 0.3,
+          "litres": 28.8,
+          "roughness": 0.4081077391339839,
+          "character": 0.43046341335721283,
+          "wood": 0,
+          "components": {
+            "light": 0.2065169900300345,
+            "fruit": 0.21993593060770136,
+            "grain": 0.004010492719477042
+          },
+          "composition": {
+            "light": 0.47975503520588353,
+            "fruit": 0.5109282781837516,
+            "grain": 0.009316686610364727
+          },
+          "componentMass": {
+            "light": 5.947689312864994,
+            "fruit": 6.334154801501799,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.045179131786830314,
+              "fruit": 2.0827161473536315,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.02123183985119789,
+              "fruit": 0.9787681601488021,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りと果実が重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 52,
+          "phase": "forecast",
+          "cut": 0.3142857142857143,
+          "litres": 29.03,
+          "roughness": 0.4174579164456789,
+          "character": 0.443341985116186,
+          "wood": 0,
+          "components": {
+            "light": 0.20521566071208394,
+            "fruit": 0.23414760617051822,
+            "grain": 0.003978718233583838
+          },
+          "composition": {
+            "light": 0.46288343446268315,
+            "fruit": 0.5281421882683984,
+            "grain": 0.008974377268918352
+          },
+          "componentMass": {
+            "light": 5.957410630471797,
+            "fruit": 6.797305007130144,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.04266984381756725,
+              "fruit": 2.0985837127497047,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.01992750633697625,
+              "fruit": 0.9800724936630236,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りと果実が重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 53,
+          "phase": "forecast",
+          "cut": 0.32857142857142857,
+          "litres": 29.26,
+          "roughness": 0.42680809375737394,
+          "character": 0.45605308555213403,
+          "wood": 0,
+          "components": {
+            "light": 0.20391633690051847,
+            "fruit": 0.24818930537338804,
+            "grain": 0.003947443278227574
+          },
+          "composition": {
+            "light": 0.44713289606108286,
+            "fruit": 0.5442114377384606,
+            "grain": 0.008655666200456656
+          },
+          "componentMass": {
+            "light": 5.9665920177091705,
+            "fruit": 7.262019075225334,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.04029992386764545,
+              "fruit": 2.0968146968275687,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.01885716539365384,
+              "fruit": 0.9811428346063461,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りと果実が重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 54,
+          "phase": "forecast",
+          "cut": 0.34285714285714286,
+          "litres": 29.49,
+          "roughness": 0.436158271069069,
+          "character": 0.4684691413139897,
+          "wood": 0,
+          "components": {
+            "light": 0.20261998856479466,
+            "fruit": 0.26193249658368345,
+            "grain": 0.003916656165511659
+          },
+          "composition": {
+            "light": 0.43251512361406386,
+            "fruit": 0.5591243338867524,
+            "grain": 0.0083605424991836
+          },
+          "componentMass": {
+            "light": 5.975263462775794,
+            "fruit": 7.724389324252823,
+            "grain": 0.11550219032093882
+          },
+          "instant": {
+            "components": {
+              "light": 0.03806163131699537,
+              "fruit": 2.077453665155684,
+              "grain": 0
+            },
+            "composition": {
+              "light": 0.017991659706010032,
+              "fruit": 0.98200834029399,
+              "grain": 0
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りと果実が重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 55,
+          "phase": "forecast",
+          "cut": 0.35714285714285715,
+          "litres": 29.71,
+          "roughness": 0.44550844838076403,
+          "character": 0.47995190969884094,
+          "wood": 0,
+          "components": {
+            "light": 0.20138327865800418,
+            "fruit": 0.27467967711452235,
+            "grain": 0.0038889539263144385
+          },
+          "composition": {
+            "light": 0.4195905351941774,
+            "fruit": 0.5723066656550604,
+            "grain": 0.008102799150762145
+          },
+          "componentMass": {
+            "light": 5.983097208929304,
+            "fruit": 8.16073320707246,
+            "grain": 0.11554082115080197
+          },
+          "instant": {
+            "components": {
+              "light": 0.03594765546626637,
+              "fruit": 2.040986728099337,
+              "grain": 0.0010966688262606726
+            },
+            "composition": {
+              "light": 0.017298901970155715,
+              "fruit": 0.9821733538342038,
+              "grain": 0.0005277441956405706
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りと果実が重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 56,
+          "phase": "forecast",
+          "cut": 0.37142857142857144,
+          "litres": 29.94,
+          "roughness": 0.45485862569245916,
+          "character": 0.4914641990746035,
+          "wood": 0,
+          "components": {
+            "light": 0.20009459467187563,
+            "fruit": 0.2874757648275353,
+            "grain": 0.0038938395751925317
+          },
+          "composition": {
+            "light": 0.4071397164811625,
+            "fruit": 0.5849373471533315,
+            "grain": 0.007922936365506155
+          },
+          "componentMass": {
+            "light": 5.990832164475957,
+            "fruit": 8.607024398936407,
+            "grain": 0.11658155688126441
+          },
+          "instant": {
+            "components": {
+              "light": 0.033951091658658845,
+              "fruit": 1.9883212558324161,
+              "grain": 0.009712099125364464
+            },
+            "composition": {
+              "light": 0.016708342288344055,
+              "fruit": 0.9785120447862045,
+              "grain": 0.004779612925451557
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りと果実が重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 57,
+          "phase": "forecast",
+          "cut": 0.38571428571428573,
+          "litres": 30.17,
+          "roughness": 0.4642088030041542,
+          "character": 0.5024382884212152,
+          "wood": 0,
+          "components": {
+            "light": 0.19881131965251053,
+            "fruit": 0.29963471418292836,
+            "grain": 0.003992254585776287
+          },
+          "composition": {
+            "light": 0.3956930119263495,
+            "fruit": 0.5963612270164649,
+            "grain": 0.007945761057185616
+          },
+          "componentMass": {
+            "light": 5.998137513916243,
+            "fruit": 9.03997932689895,
+            "grain": 0.12044632085287058
+          },
+          "instant": {
+            "components": {
+              "light": 0.03206541872797066,
+              "fruit": 1.920748356065213,
+              "grain": 0.026539385595508103
+            },
+            "composition": {
+              "light": 0.01619994823039759,
+              "fruit": 0.9703919414199079,
+              "grain": 0.013408110349694483
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "軽い香りと果実が重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 58,
+          "phase": "forecast",
+          "cut": 0.4,
+          "litres": 30.4,
+          "roughness": 0.4735589803158492,
+          "character": 0.5128426103965145,
+          "wood": 0,
+          "components": {
+            "light": 0.19753411572184412,
+            "fruit": 0.31106815146730016,
+            "grain": 0.004240343207370185
+          },
+          "composition": {
+            "light": 0.3851749283647018,
+            "fruit": 0.6065567586647912,
+            "grain": 0.008268312970507032
+          },
+          "componentMass": {
+            "light": 6.0050371179440605,
+            "fruit": 9.456471804605924,
+            "grain": 0.12890643350405365
+          },
+          "instant": {
+            "components": {
+              "light": 0.030284477699198308,
+              "fruit": 1.8398902806670578,
+              "grain": 0.0511574074074075
+            },
+            "composition": {
+              "light": 0.015762229061003434,
+              "fruit": 0.9576117620069033,
+              "grain": 0.026626008932093177
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 59,
+          "phase": "forecast",
+          "cut": 0.4142857142857143,
+          "litres": 30.63,
+          "roughness": 0.48290915762754427,
+          "character": 0.5226561887268143,
+          "wood": 0,
+          "components": {
+            "light": 0.19626358184818088,
+            "fruit": 0.32170308719591223,
+            "grain": 0.004689519682721212
+          },
+          "composition": {
+            "light": 0.3755118299206925,
+            "fruit": 0.6155156948960615,
+            "grain": 0.008972475183245869
+          },
+          "componentMass": {
+            "light": 6.0115535120097805,
+            "fruit": 9.853765560810793,
+            "grain": 0.14363998788175072
+          },
+          "instant": {
+            "components": {
+              "light": 0.028602451672125214,
+              "fruit": 1.7476357514496326,
+              "grain": 0.08314504373177856
+            },
+            "composition": {
+              "light": 0.01538276292449473,
+              "fruit": 0.9399007732305839,
+              "grain": 0.044716463844921304
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 60,
+          "phase": "forecast",
+          "cut": 0.42857142857142855,
+          "litres": 30.86,
+          "roughness": 0.4922593349392393,
+          "character": 0.5318698989963374,
+          "wood": 0,
+          "components": {
+            "light": 0.19500025858475073,
+            "fruit": 0.3314829958995516,
+            "grain": 0.005386644512035066
+          },
+          "composition": {
+            "light": 0.3666314994563991,
+            "fruit": 0.6232407521558844,
+            "grain": 0.010127748387716446
+          },
+          "componentMass": {
+            "light": 6.017707979925407,
+            "fruit": 10.229565253460162,
+            "grain": 0.1662318496414021
+          },
+          "instant": {
+            "components": {
+              "light": 0.02701384682219286,
+              "fruit": 1.6460668015354905,
+              "grain": 0.12208117373933702
+            },
+            "composition": {
+              "light": 0.015048140223167517,
+              "fruit": 0.9169461946403449,
+              "grain": 0.06800566513648768
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 61,
+          "phase": "forecast",
+          "cut": 0.44285714285714284,
+          "litres": 31.09,
+          "roughness": 0.5016095122509343,
+          "character": 0.5404871338535511,
+          "wood": 0,
+          "components": {
+            "light": 0.19374463246644144,
+            "fruit": 0.34036830849399446,
+            "grain": 0.006374192893115205
+          },
+          "composition": {
+            "light": 0.35846298705592855,
+            "fruit": 0.6297435908737462,
+            "grain": 0.01179342207032506
+          },
+          "componentMass": {
+            "light": 6.023520623381664,
+            "fruit": 10.582050711078287,
+            "grain": 0.19817365704695172
+          },
+          "instant": {
+            "components": {
+              "light": 0.025513474456599874,
+              "fruit": 1.5373810787225146,
+              "grain": 0.16754467660079908
+            },
+            "composition": {
+              "light": 0.014743929759292854,
+              "fruit": 0.8884340185225961,
+              "grain": 0.09682205171811108
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 62,
+          "phase": "forecast",
+          "cut": 0.45714285714285713,
+          "litres": 31.31,
+          "roughness": 0.5109596895626294,
+          "character": 0.5481769166868634,
+          "wood": 0,
+          "components": {
+            "light": 0.19255099777910942,
+            "fruit": 0.3479923281416346,
+            "grain": 0.007633590766119416
+          },
+          "composition": {
+            "light": 0.3512570338475248,
+            "fruit": 0.6348175516854518,
+            "grain": 0.013925414467023191
+          },
+          "componentMass": {
+            "light": 6.028771740463916,
+            "fruit": 10.89563979411458,
+            "grain": 0.23900772688719893
+          },
+          "instant": {
+            "components": {
+              "light": 0.024096434067020972,
+              "fruit": 1.4238136350422788,
+              "grain": 0.21911443148688053
+            },
+            "composition": {
+              "light": 0.014454756998714376,
+              "fruit": 0.8541048044183385,
+              "grain": 0.13144043858294727
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 63,
+          "phase": "forecast",
+          "cut": 0.4714285714285714,
+          "litres": 31.54,
+          "roughness": 0.5203098668743245,
+          "character": 0.5556662192572387,
+          "wood": 0,
+          "components": {
+            "light": 0.19131124401464902,
+            "fruit": 0.35504135980789114,
+            "grain": 0.009313615434698498
+          },
+          "composition": {
+            "light": 0.34429165816553603,
+            "fruit": 0.638947172787427,
+            "grain": 0.016761169047036988
+          },
+          "componentMass": {
+            "light": 6.0339566362220305,
+            "fruit": 11.198004488340887,
+            "grain": 0.2937514308103906
+          },
+          "instant": {
+            "components": {
+              "light": 0.02275809732359241,
+              "fruit": 1.3075620390858178,
+              "grain": 0.2763693175682973
+            },
+            "composition": {
+              "light": 0.014164589969299802,
+              "fruit": 0.8138237515959695,
+              "grain": 0.17201165843473065
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 64,
+          "phase": "forecast",
+          "cut": 0.4857142857142857,
+          "litres": 31.77,
+          "roughness": 0.5296600441860194,
+          "character": 0.5626422664180274,
+          "wood": 0,
+          "components": {
+            "light": 0.19008037640526126,
+            "fruit": 0.3611750272232686,
+            "grain": 0.011386862789497425
+          },
+          "composition": {
+            "light": 0.3378352245297493,
+            "fruit": 0.6419265824493281,
+            "grain": 0.020238193020922654
+          },
+          "componentMass": {
+            "light": 6.03885355839515,
+            "fruit": 11.474530614883244,
+            "grain": 0.3617606308223332
+          },
+          "instant": {
+            "components": {
+              "light": 0.021494092957885347,
+              "fruit": 1.190718222585579,
+              "grain": 0.33888821401576513
+            },
+            "composition": {
+              "light": 0.01385731778712837,
+              "fruit": 0.7676602514757319,
+              "grain": 0.21848243073713974
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 65,
+          "phase": "forecast",
+          "cut": 0.5,
+          "litres": 32,
+          "roughness": 0.5390102214977146,
+          "character": 0.5691542659802511,
+          "wood": 0,
+          "components": {
+            "light": 0.18885870316514705,
+            "fruit": 0.3664157485769483,
+            "grain": 0.013879814238155761
+          },
+          "composition": {
+            "light": 0.3318233991269077,
+            "fruit": 0.6437898659089774,
+            "grain": 0.024386734964114937
+          },
+          "componentMass": {
+            "light": 6.043478501284706,
+            "fruit": 11.725303954462346,
+            "grain": 0.44415405562098437
+          },
+          "instant": {
+            "components": {
+              "light": 0.020300292485491905,
+              "fruit": 1.075209855693211,
+              "grain": 0.40625000000000017
+            },
+            "composition": {
+              "light": 0.013517666259896154,
+              "fruit": 0.7159664324540763,
+              "grain": 0.27051590128602754
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 66,
+          "phase": "forecast",
+          "cut": 0.5142857142857142,
+          "litres": 32.23,
+          "roughness": 0.5483603988094096,
+          "character": 0.5752596393161651,
+          "wood": 0,
+          "components": {
+            "light": 0.18764649614814843,
+            "fruit": 0.3707978404527574,
+            "grain": 0.016815302715259214
+          },
+          "composition": {
+            "light": 0.32619444042904105,
+            "fruit": 0.6445747539207516,
+            "grain": 0.02923080565020738
+          },
+          "componentMass": {
+            "light": 6.047846570854824,
+            "fruit": 11.950814397792369,
+            "grain": 0.5419572065128044
+          },
+          "instant": {
+            "components": {
+              "light": 0.01917279672159113,
+              "fruit": 0.9627532943151061,
+              "grain": 0.47803355469171793
+            },
+            "composition": {
+              "light": 0.01313241552784514,
+              "fruit": 0.6594382914157612,
+              "grain": 0.3274292930563937
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 67,
+          "phase": "forecast",
+          "cut": 0.5285714285714286,
+          "litres": 32.46,
+          "roughness": 0.5577105761211046,
+          "character": 0.5810221664070888,
+          "wood": 0,
+          "components": {
+            "light": 0.18644399365592582,
+            "fruit": 0.3743655308099195,
+            "grain": 0.02021264194124346
+          },
+          "composition": {
+            "light": 0.3208896397341495,
+            "fruit": 0.6443222865745593,
+            "grain": 0.034788073691291194
+          },
+          "componentMass": {
+            "light": 6.051972034071353,
+            "fruit": 12.151905130089988,
+            "grain": 0.6561023574127628
+          },
+          "instant": {
+            "components": {
+              "light": 0.018107923045452022,
+              "fruit": 0.8548193221700878,
+              "grain": 0.5538177572616351
+            },
+            "composition": {
+              "light": 0.01269177254100227,
+              "fruit": 0.599139524362037,
+              "grain": 0.3881687030969608
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 68,
+          "phase": "forecast",
+          "cut": 0.5428571428571428,
+          "litres": 32.69,
+          "roughness": 0.5670607534327997,
+          "character": 0.5865100217862077,
+          "wood": 0,
+          "components": {
+            "light": 0.1852514030437608,
+            "fruit": 0.37717086851778114,
+            "grain": 0.024087750224665666
+          },
+          "composition": {
+            "light": 0.3158537725912686,
+            "fruit": 0.6430765963198938,
+            "grain": 0.04106963108883763
+          },
+          "componentMass": {
+            "light": 6.05586836550054,
+            "fruit": 12.329715691846264,
+            "grain": 0.7874285548443206
+          },
+          "instant": {
+            "components": {
+              "light": 0.017102193372277138,
+              "fruit": 0.7526120846492791,
+              "grain": 0.6331814868804664
+            },
+            "composition": {
+              "light": 0.01219063725199252,
+              "fruit": 0.5364704231620808,
+              "grain": 0.4513389395859267
+            },
+            "phrase": "果実の香りが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 69,
+          "phase": "forecast",
+          "cut": 0.5571428571428572,
+          "litres": 32.91,
+          "roughness": 0.5764109307444947,
+          "character": 0.5915656010441163,
+          "wood": 0,
+          "components": {
+            "light": 0.18411997248692963,
+            "fruit": 0.37918089582164666,
+            "grain": 0.028264732735540064
+          },
+          "composition": {
+            "light": 0.3112418507126799,
+            "fruit": 0.6409786085472016,
+            "grain": 0.04777954074011853
+          },
+          "componentMass": {
+            "light": 6.059388294544854,
+            "fruit": 12.47884328149039,
+            "grain": 0.9301923543266234
+          },
+          "instant": {
+            "components": {
+              "light": 0.016152322793100245,
+              "fruit": 0.6570608404617144,
+              "grain": 0.7157036227189292
+            },
+            "composition": {
+              "light": 0.011629438823274175,
+              "fruit": 0.4730743030087733,
+              "grain": 0.5152962581679525
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 70,
+          "phase": "forecast",
+          "cut": 0.5714285714285714,
+          "litres": 33.14,
+          "roughness": 0.5857611080561897,
+          "character": 0.5967195203126725,
+          "wood": 0,
+          "components": {
+            "light": 0.18294700766771643,
+            "fruit": 0.38063959548062853,
+            "grain": 0.03313291716432747
+          },
+          "composition": {
+            "light": 0.3065879386212384,
+            "fruit": 0.6378869511109322,
+            "grain": 0.055525110267829525
+          },
+          "componentMass": {
+            "light": 6.062863834108123,
+            "fruit": 12.614396194228028,
+            "grain": 1.0980248748258126
+          },
+          "instant": {
+            "components": {
+              "light": 0.015255208845634026,
+              "fruit": 0.5688234897879736,
+              "grain": 0.8009630439477379
+            },
+            "composition": {
+              "light": 0.011014259264996893,
+              "fruit": 0.4106905028925984,
+              "grain": 0.5782952378424047
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 71,
+          "phase": "forecast",
+          "cut": 0.5857142857142857,
+          "litres": 33.37,
+          "roughness": 0.5951112853678848,
+          "character": 0.6018102035676666,
+          "wood": 0,
+          "components": {
+            "light": 0.1817844273061025,
+            "fruit": 0.3815182480302776,
+            "grain": 0.03850752823128638
+          },
+          "composition": {
+            "light": 0.30206272048636507,
+            "fruit": 0.6339511124413503,
+            "grain": 0.06398616707228472
+          },
+          "componentMass": {
+            "light": 6.06614633920464,
+            "fruit": 12.731263936770363,
+            "grain": 1.2849962170780265
+          },
+          "instant": {
+            "components": {
+              "light": 0.014407921381024015,
+              "fruit": 0.48830031028560883,
+              "grain": 0.8885386297376097
+            },
+            "composition": {
+              "light": 0.010356121390621871,
+              "fruit": 0.3509803499522345,
+              "grain": 0.6386635286571438
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 72,
+          "phase": "forecast",
+          "cut": 0.6,
+          "litres": 33.6,
+          "roughness": 0.6044614626795799,
+          "character": 0.6069046325597688,
+          "wood": 0,
+          "components": {
+            "light": 0.180632337236169,
+            "fruit": 0.3818802560961963,
+            "grain": 0.04439203922740351
+          },
+          "composition": {
+            "light": 0.2976288654682168,
+            "fruit": 0.6292261347314533,
+            "grain": 0.07314499980032976
+          },
+          "componentMass": {
+            "light": 6.069246531135279,
+            "fruit": 12.831176604832196,
+            "grain": 1.491572518040758
+          },
+          "instant": {
+            "components": {
+              "light": 0.013607692993411876,
+              "fruit": 0.4156559658633635,
+              "grain": 0.9780092592592593
+            },
+            "composition": {
+              "light": 0.009669547973415824,
+              "fruit": 0.2953627263855945,
+              "grain": 0.6949677256409897
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 73,
+          "phase": "forecast",
+          "cut": 0.6142857142857143,
+          "litres": 33.83,
+          "roughness": 0.613811639991275,
+          "character": 0.6120655761659358,
+          "wood": 0,
+          "components": {
+            "light": 0.1794908228120191,
+            "fruit": 0.38178768012660425,
+            "grain": 0.0507870732273125
+          },
+          "composition": {
+            "light": 0.29325423582285853,
+            "fruit": 0.6237692413910542,
+            "grain": 0.08297652278608741
+          },
+          "componentMass": {
+            "light": 6.072174535730607,
+            "fruit": 12.915877218683022,
+            "grain": 1.7181266872799816
+          },
+          "instant": {
+            "components": {
+              "light": 0.012851909981048916,
+              "fruit": 0.3508476536679279,
+              "grain": 1.0689538116834039
+            },
+            "composition": {
+              "light": 0.008970704430209593,
+              "fruit": 0.2448936076994409,
+              "grain": 0.7461356878703495
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 74,
+          "phase": "forecast",
+          "cut": 0.6285714285714286,
+          "litres": 34.06,
+          "roughness": 0.6231618173029699,
+          "character": 0.6173504879174574,
+          "wood": 0,
+          "components": {
+            "light": 0.17835995057028267,
+            "fruit": 0.3813000380233285,
+            "grain": 0.057690499323846164
+          },
+          "composition": {
+            "light": 0.2889119779785939,
+            "fruit": 0.6176394859743111,
+            "grain": 0.09344853604709494
+          },
+          "componentMass": {
+            "light": 6.074939916423828,
+            "fruit": 12.98707929507457,
+            "grain": 1.9649384069702005
+          },
+          "instant": {
+            "components": {
+              "light": 0.012138103809437216,
+              "fruit": 0.2936572144730144,
+              "grain": 1.160951166180758
+            },
+            "composition": {
+              "light": 0.008275529505618308,
+              "fruit": 0.20020993238002213,
+              "grain": 0.7915145381143596
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 75,
+          "phase": "forecast",
+          "cut": 0.6428571428571429,
+          "litres": 34.29,
+          "roughness": 0.6325119946146651,
+          "character": 0.6228106623178039,
+          "wood": 0,
+          "components": {
+            "light": 0.17723976977214376,
+            "fruit": 0.38047336755603073,
+            "grain": 0.06509752498962941
+          },
+          "composition": {
+            "light": 0.28458050013553393,
+            "fruit": 0.6108973249431706,
+            "grain": 0.10452217492129551
+          },
+          "componentMass": {
+            "light": 6.07755170548681,
+            "fruit": 13.046431773496293,
+            "grain": 2.2321941318943925
+          },
+          "instant": {
+            "components": {
+              "light": 0.011463943048615213,
+              "fruit": 0.24372513159550965,
+              "grain": 1.2535802019220392
+            },
+            "composition": {
+              "light": 0.007598208173158333,
+              "fruit": 0.16153903408625087,
+              "grain": 0.8308627577405907
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 76,
+          "phase": "forecast",
+          "cut": 0.6571428571428571,
+          "litres": 34.51,
+          "roughness": 0.6418621719263601,
+          "character": 0.6282452624987587,
+          "wood": 0,
+          "components": {
+            "light": 0.17617824353769446,
+            "fruit": 0.37940766363914896,
+            "grain": 0.07265935532191524
+          },
+          "composition": {
+            "light": 0.28042908407612954,
+            "fruit": 0.6039164738467067,
+            "grain": 0.11565444207716379
+          },
+          "componentMass": {
+            "light": 6.079911184485836,
+            "fruit": 13.093358472187031,
+            "grain": 2.507474352159295
+          },
+          "instant": {
+            "components": {
+              "light": 0.010827225758253463,
+              "fruit": 0.20058455642388756,
+              "grain": 1.3464197980779615
+            },
+            "composition": {
+              "light": 0.006950190184516416,
+              "fruit": 0.12875882025090096,
+              "grain": 0.8642909895645826
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実が前に出る、ふくらみのある香り。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 77,
+          "phase": "forecast",
+          "cut": 0.6714285714285714,
+          "litres": 34.74,
+          "roughness": 0.6512123492380552,
+          "character": 0.6341858244524813,
+          "wood": 0,
+          "components": {
+            "light": 0.17507889776413024,
+            "fruit": 0.3780532553488447,
+            "grain": 0.08105367133950633
+          },
+          "composition": {
+            "light": 0.2760687656733467,
+            "fruit": 0.5961237870228866,
+            "grain": 0.1278074473037667
+          },
+          "componentMass": {
+            "light": 6.082240908325885,
+            "fruit": 13.133570090818864,
+            "grain": 2.81580454233445
+          },
+          "instant": {
+            "components": {
+              "light": 0.010225872295688693,
+              "fruit": 0.16369379280126317,
+              "grain": 1.439048833819242
+            },
+            "composition": {
+              "light": 0.006339784256518208,
+              "fruit": 0.10148604446475822,
+              "grain": 0.8921741712787236
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "軽い香りと果実が重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 78,
+          "phase": "forecast",
+          "cut": 0.6857142857142857,
+          "litres": 34.97,
+          "roughness": 0.6605625265497501,
+          "character": 0.6404138625993654,
+          "wood": 0,
+          "components": {
+            "light": 0.173990312762176,
+            "fruit": 0.37650136688770197,
+            "grain": 0.08992218294948744
+          },
+          "composition": {
+            "light": 0.2716841763168111,
+            "fruit": 0.5879032120877689,
+            "grain": 0.14041261159542012
+          },
+          "componentMass": {
+            "light": 6.084441237293294,
+            "fruit": 13.166252800062937,
+            "grain": 3.1445787377435757
+          },
+          "instant": {
+            "components": {
+              "light": 0.00965791852340589,
+              "fruit": 0.13246601475154182,
+              "grain": 1.531046188316597
+            },
+            "composition": {
+              "light": 0.00577222746137681,
+              "fruit": 0.07917067908524338,
+              "grain": 0.9150570934533798
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "軽い香りと果実が重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 79,
+          "phase": "forecast",
+          "cut": 0.7,
+          "litres": 35.2,
+          "roughness": 0.6699127038614452,
+          "character": 0.6469523630648639,
+          "wood": 0,
+          "components": {
+            "light": 0.17291248176394763,
+            "fruit": 0.3747895834712656,
+            "grain": 0.09925029782965057
+          },
+          "composition": {
+            "light": 0.2672723551774265,
+            "fruit": 0.5793155800463302,
+            "grain": 0.1534120647762433
+          },
+          "componentMass": {
+            "light": 6.086519358090957,
+            "fruit": 13.192593338188551,
+            "grain": 3.4936104836037005
+          },
+          "instant": {
+            "components": {
+              "light": 0.009121509393782696,
+              "fruit": 0.10629535096310641,
+              "grain": 1.621990740740741
+            },
+            "composition": {
+              "light": 0.005250068773740867,
+              "fruit": 0.061180433938445376,
+              "grain": 0.9335694972878138
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 80,
+          "phase": "forecast",
+          "cut": 0.7142857142857143,
+          "litres": 35.43,
+          "roughness": 0.6792628811731403,
+          "character": 0.6538172855326477,
+          "wood": 0,
+          "components": {
+            "light": 0.17184538691126422,
+            "fruit": 0.3729507273614255,
+            "grain": 0.10902117125995799
+          },
+          "composition": {
+            "light": 0.26283396097621725,
+            "fruit": 0.5704204150209831,
+            "grain": 0.16674562400279966
+          },
+          "componentMass": {
+            "light": 6.0884820582660915,
+            "fruit": 13.213644270415305,
+            "grain": 3.8626200977403116
+          },
+          "instant": {
+            "components": {
+              "light": 0.008614892890142603,
+              "fruit": 0.08457881768278429,
+              "grain": 1.7114613702623909
+            },
+            "composition": {
+              "light": 0.004773706056979621,
+              "fruit": 0.04686702660302013,
+              "grain": 0.9483592673400003
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 81,
+          "phase": "forecast",
+          "cut": 0.7285714285714285,
+          "litres": 35.66,
+          "roughness": 0.6886130584848352,
+          "character": 0.6610178652160854,
+          "wood": 0,
+          "components": {
+            "light": 0.17078900023498816,
+            "fruit": 0.3710130862209336,
+            "grain": 0.11921577876016363
+          },
+          "composition": {
+            "light": 0.25837274485638534,
+            "fruit": 0.5612754295220904,
+            "grain": 0.18035182562152421
+          },
+          "componentMass": {
+            "light": 6.090335748379677,
+            "fruit": 13.230326654638493,
+            "grain": 4.251234670587435
+          },
+          "instant": {
+            "components": {
+              "light": 0.008136414304327324,
+              "fruit": 0.06673389747674663,
+              "grain": 1.7990369560522619
+            },
+            "composition": {
+              "light": 0.004341951410293037,
+              "fruit": 0.03561216641947615,
+              "grain": 0.9600458821702308
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 82,
+          "phase": "forecast",
+          "cut": 0.7428571428571429,
+          "litres": 35.89,
+          "roughness": 0.6979632357965304,
+          "character": 0.6685569982943936,
+          "wood": 0,
+          "components": {
+            "light": 0.16974328456240206,
+            "fruit": 0.36900072779753623,
+            "grain": 0.1298129859344553
+          },
+          "composition": {
+            "light": 0.2538950081974267,
+            "fruit": 0.5519360783581982,
+            "grain": 0.19416891344437504
+          },
+          "componentMass": {
+            "light": 6.09208648294461,
+            "fruit": 13.243436120653575,
+            "grain": 4.658988065187601
+          },
+          "instant": {
+            "components": {
+              "light": 0.007684510832097697,
+              "fruit": 0.05221182935295833,
+              "grain": 1.8842963772810715
+            },
+            "composition": {
+              "light": 0.00395254583718066,
+              "fruit": 0.02685527462576147,
+              "grain": 0.9691921795370578
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 83,
+          "phase": "forecast",
+          "cut": 0.7571428571428571,
+          "litres": 36.11,
+          "roughness": 0.7073134131082254,
+          "character": 0.676091389965566,
+          "wood": 0,
+          "components": {
+            "light": 0.16875292409348813,
+            "fruit": 0.3670231873831521,
+            "grain": 0.14031527848892558
+          },
+          "composition": {
+            "light": 0.24960075900697826,
+            "fruit": 0.5428603186350962,
+            "grain": 0.20753892235792565
+          },
+          "componentMass": {
+            "light": 6.093668089015857,
+            "fruit": 13.253207296405623,
+            "grain": 5.066784706235103
+          },
+          "instant": {
+            "components": {
+              "light": 0.007257706468710722,
+              "fruit": 0.04050688716667733,
+              "grain": 1.966818513119534
+            },
+            "composition": {
+              "light": 0.003602584795025603,
+              "fruit": 0.020106833533378315,
+              "grain": 0.9762905816715962
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 84,
+          "phase": "forecast",
+          "cut": 0.7714285714285715,
+          "litres": 36.34,
+          "roughness": 0.7166635904199204,
+          "character": 0.6842975998344477,
+          "wood": 0,
+          "components": {
+            "light": 0.1677278412109953,
+            "fruit": 0.3649174629739506,
+            "grain": 0.15165229564950178
+          },
+          "composition": {
+            "light": 0.24510949804817922,
+            "fruit": 0.5332730424047011,
+            "grain": 0.22161745954711964
+          },
+          "componentMass": {
+            "light": 6.095229749607569,
+            "fruit": 13.261100604473366,
+            "grain": 5.511044423902895
+          },
+          "instant": {
+            "components": {
+              "light": 0.00685460718800061,
+              "fruit": 0.031162075163549692,
+              "grain": 2.046182242738366
+            },
+            "composition": {
+              "light": 0.003288844987627508,
+              "fruit": 0.01495158393395933,
+              "grain": 0.9817595710784132
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 85,
+          "phase": "forecast",
+          "cut": 0.7857142857142857,
+          "litres": 36.57,
+          "roughness": 0.7260137677316155,
+          "character": 0.6928175660198383,
+          "wood": 0,
+          "components": {
+            "light": 0.16671328067329222,
+            "fruit": 0.3627877639327567,
+            "grain": 0.16331652141378938
+          },
+          "composition": {
+            "light": 0.24063085125142242,
+            "fruit": 0.5236411166895393,
+            "grain": 0.23572803205903842
+          },
+          "componentMass": {
+            "light": 6.096704674222297,
+            "fruit": 13.267148527020913,
+            "grain": 5.9724851881022785
+          },
+          "instant": {
+            "components": {
+              "light": 0.00647389638921789,
+              "fruit": 0.02377176407981538,
+              "grain": 2.1219664453082823
+            },
+            "composition": {
+              "light": 0.0030080196890629935,
+              "fruit": 0.0110452701274207,
+              "grain": 0.9859467101835164
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 86,
+          "phase": "forecast",
+          "cut": 0.8,
+          "litres": 36.8,
+          "roughness": 0.7353639450433105,
+          "character": 0.701633403366053,
+          "wood": 0,
+          "components": {
+            "light": 0.1657091760937787,
+            "fruit": 0.36064520682907325,
+            "grain": 0.175279020443201
+          },
+          "composition": {
+            "light": 0.23617629277454122,
+            "fruit": 0.5140080348211687,
+            "grain": 0.2498156724042901
+          },
+          "componentMass": {
+            "light": 6.098097680251055,
+            "fruit": 13.271743611309894,
+            "grain": 6.4502679523097965
+          },
+          "instant": {
+            "components": {
+              "light": 0.0061143305967549305,
+              "fruit": 0.017981834344043223,
+              "grain": 2.1937500000000005
+            },
+            "composition": {
+              "light": 0.0027568776831363964,
+              "fruit": 0.008107791526885823,
+              "grain": 0.9891353307899778
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 87,
+          "phase": "forecast",
+          "cut": 0.8142857142857143,
+          "litres": 37.03,
+          "roughness": 0.7447141223550056,
+          "character": 0.7107231790928337,
+          "wood": 0,
+          "components": {
+            "light": 0.16471545550966252,
+            "fruit": 0.35849866491154014,
+            "grain": 0.18750905867163106
+          },
+          "composition": {
+            "light": 0.2317575398622923,
+            "fruit": 0.5044139201554217,
+            "grain": 0.26382853998228595
+          },
+          "componentMass": {
+            "light": 6.099413317522804,
+            "fruit": 13.27520556167433,
+            "grain": 6.943460442610499
+          },
+          "instant": {
+            "components": {
+              "light": 0.0057747353987124906,
+              "fruit": 0.013487893049428901,
+              "grain": 2.2611117859842347
+            },
+            "composition": {
+              "light": 0.0025323628269833575,
+              "fruit": 0.005914771260396844,
+              "grain": 0.9915528659126198
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 88,
+          "phase": "forecast",
+          "cut": 0.8285714285714286,
+          "litres": 37.26,
+          "roughness": 0.7540642996667006,
+          "character": 0.720061324702743,
+          "wood": 0,
+          "components": {
+            "light": 0.16373204195290073,
+            "fruit": 0.356355123928106,
+            "grain": 0.1999741588217363
+          },
+          "composition": {
+            "light": 0.2273862466096105,
+            "fruit": 0.49489552028810485,
+            "grain": 0.2777182331022847
+          },
+          "componentMass": {
+            "light": 6.10065588316508,
+            "fruit": 13.277791917561228,
+            "grain": 7.451037157697894
+          },
+          "instant": {
+            "components": {
+              "light": 0.005454001611041723,
+              "fruit": 0.010032098207988187,
+              "grain": 2.3236306824317032
+            },
+            "composition": {
+              "light": 0.002331649985339253,
+              "fruit": 0.004288840251205907,
+              "grain": 0.9933795097634548
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 89,
+          "phase": "forecast",
+          "cut": 0.8428571428571429,
+          "litres": 37.49,
+          "roughness": 0.7634144769783957,
+          "character": 0.7296190110291252,
+          "wood": 0,
+          "components": {
+            "light": 0.16275885397810727,
+            "fruit": 0.35422000317334246,
+            "grain": 0.21264015387767554
+          },
+          "composition": {
+            "light": 0.22307375701263105,
+            "fruit": 0.48548625764796927,
+            "grain": 0.29143998533939963
+          },
+          "componentMass": {
+            "light": 6.1018294356392415,
+            "fruit": 13.27970791896861,
+            "grain": 7.971879368874056
+          },
+          "instant": {
+            "components": {
+              "light": 0.005151081654733097,
+              "fruit": 0.007399067282782413,
+              "grain": 2.38088556851312
+            },
+            "composition": {
+              "light": 0.0021521704623927666,
+              "fruit": 0.0030914000442274336,
+              "grain": 0.9947564294933797
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 90,
+          "phase": "forecast",
+          "cut": 0.8571428571428571,
+          "litres": 37.71,
+          "roughness": 0.7727646542900907,
+          "character": 0.7389432396030842,
+          "wood": 0,
+          "components": {
+            "light": 0.1618374335161424,
+            "fruit": 0.35218918610381755,
+            "grain": 0.22491661998312423
+          },
+          "composition": {
+            "light": 0.21901199556690137,
+            "fruit": 0.47661196047072896,
+            "grain": 0.3043760439623697
+          },
+          "componentMass": {
+            "light": 6.10288961789373,
+            "fruit": 13.281054207974961,
+            "grain": 8.481605739563616
+          },
+          "instant": {
+            "components": {
+              "light": 0.004864986134219328,
+              "fruit": 0.005411276409086604,
+              "grain": 2.4324553233992012
+            },
+            "composition": {
+              "light": 0.0019916171560626934,
+              "fruit": 0.0022152562484669017,
+              "grain": 0.9957931265954704
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 91,
+          "phase": "forecast",
+          "cut": 0.8714285714285714,
+          "litres": 37.94,
+          "roughness": 0.7821148316017857,
+          "character": 0.7488472783032858,
+          "wood": 0,
+          "components": {
+            "light": 0.16088393332349651,
+            "fruit": 0.35008116661243555,
+            "grain": 0.23788217836735379
+          },
+          "composition": {
+            "light": 0.21484211532159422,
+            "fruit": 0.4674934085433791,
+            "grain": 0.3176644761350266
+          },
+          "componentMass": {
+            "light": 6.103936430293458,
+            "fruit": 13.282079461275805,
+            "grain": 9.0252498472574
+          },
+          "instant": {
+            "components": {
+              "light": 0.004594780605816794,
+              "fruit": 0.0039242801204775885,
+              "grain": 2.4779188262606633
+            },
+            "composition": {
+              "light": 0.0018479370145798037,
+              "fruit": 0.001578273940007001,
+              "grain": 0.9965737890454132
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 92,
+          "phase": "forecast",
+          "cut": 0.8857142857142857,
+          "litres": 38.17,
+          "roughness": 0.7914650089134808,
+          "character": 0.7588679334961629,
+          "wood": 0,
+          "components": {
+            "light": 0.15994040088627454,
+            "fruit": 0.34799109298198405,
+            "grain": 0.25093643962790424
+          },
+          "composition": {
+            "light": 0.21076183855788558,
+            "fruit": 0.45856607931601795,
+            "grain": 0.3306720821260964
+          },
+          "componentMass": {
+            "light": 6.1049251018290995,
+            "fruit": 13.282820019122331,
+            "grain": 9.578243900597107
+          },
+          "instant": {
+            "components": {
+              "light": 0.004339582525650495,
+              "fruit": 0.002822005283696812,
+              "grain": 2.516854956268222
+            },
+            "composition": {
+              "light": 0.0017193161969690834,
+              "fruit": 0.0011180613258334035,
+              "grain": 0.9971626224771974
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 93,
+          "phase": "forecast",
+          "cut": 0.9,
+          "litres": 38.4,
+          "roughness": 0.8008151862251759,
+          "character": 0.7689662909031781,
+          "wood": 0,
+          "components": {
+            "light": 0.159006741189959,
+            "fruit": 0.3459205845747102,
+            "grain": 0.264038965138509
+          },
+          "composition": {
+            "light": 0.20677985897561252,
+            "fruit": 0.44985142868670386,
+            "grain": 0.34336871233768373
+          },
+          "componentMass": {
+            "light": 6.105858861694426,
+            "fruit": 13.28335044766887,
+            "grain": 10.139096261318747
+          },
+          "instant": {
+            "components": {
+              "light": 0.0040985583670938835,
+              "fruit": 0.002012302121127975,
+              "grain": 2.548842592592593
+            },
+            "composition": {
+              "light": 0.0016041616578774686,
+              "fruit": 0.0007876081338004417,
+              "grain": 0.997608230208322
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 94,
+          "phase": "forecast",
+          "cut": 0.9142857142857143,
+          "litres": 38.63,
+          "roughness": 0.810165363536871,
+          "character": 0.7791014756722834,
+          "wood": 0,
+          "components": {
+            "light": 0.15808285684004636,
+            "fruit": 0.34387075282739826,
+            "grain": 0.2771478660048387
+          },
+          "composition": {
+            "light": 0.2029040654859976,
+            "fruit": 0.441368375705711,
+            "grain": 0.35572755880829127
+          },
+          "componentMass": {
+            "light": 6.10674075973099,
+            "fruit": 13.283727181722394,
+            "grain": 10.706222063766921
+          },
+          "instant": {
+            "components": {
+              "light": 0.0038709208983085932,
+              "fruit": 0.001422872833546717,
+              "grain": 2.573460614404492
+            },
+            "composition": {
+              "light": 0.0015010816408477176,
+              "fruit": 0.0005517674847427677,
+              "grain": 0.9979471508744095
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 95,
+          "phase": "forecast",
+          "cut": 0.9285714285714286,
+          "litres": 38.86,
+          "roughness": 0.8195155408485659,
+          "character": 0.7892308131994018,
+          "wood": 0,
+          "components": {
+            "light": 0.15716864838881942,
+            "fruit": 0.341842318827704,
+            "grain": 0.2902198459828784
+          },
+          "composition": {
+            "light": 0.1991415511917047,
+            "fruit": 0.4331335182440937,
+            "grain": 0.36772493056420164
+          },
+          "componentMass": {
+            "light": 6.107573676389522,
+            "fruit": 13.283992509644579,
+            "grain": 11.277943214894655
+          },
+          "instant": {
+            "components": {
+              "light": 0.003655926610991939,
+              "fruit": 0.000997646148922068,
+              "grain": 2.590287900874636
+            },
+            "composition": {
+              "light": 0.0014088666924234492,
+              "fruit": 0.0003844580538938846,
+              "grain": 0.9982066752536827
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 96,
+          "phase": "forecast",
+          "cut": 0.9428571428571428,
+          "litres": 39.09,
+          "roughness": 0.828865718160261,
+          "character": 0.7993099650604265,
+          "wood": 0,
+          "components": {
+            "light": 0.15626401463642944,
+            "fruit": 0.3398357075418394,
+            "grain": 0.3032102428821577
+          },
+          "composition": {
+            "light": 0.1954986444146435,
+            "fruit": 0.42516135466439275,
+            "grain": 0.37934000092096376
+          },
+          "componentMass": {
+            "light": 6.1083603321380275,
+            "fruit": 13.284177807810503,
+            "grain": 11.852488394263546
+          },
+          "instant": {
+            "components": {
+              "light": 0.003452873291934027,
+              "fruit": 0.0006936246417189894,
+              "grain": 2.5989033311737395
+            },
+            "composition": {
+              "light": 0.001326472222438418,
+              "fruit": 0.0002664661405874197,
+              "grain": 0.9984070616369742
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 97,
+          "phase": "forecast",
+          "cut": 0.9571428571428572,
+          "litres": 39.31,
+          "roughness": 0.8382158954719561,
+          "character": 0.8088624204430992,
+          "wood": 0,
+          "components": {
+            "light": 0.1554075551654964,
+            "fruit": 0.33793692572116696,
+            "grain": 0.31551793955643576
+          },
+          "composition": {
+            "light": 0.19213101169957097,
+            "fruit": 0.4177928374222693,
+            "grain": 0.3900761508781596
+          },
+          "componentMass": {
+            "light": 6.109070993555663,
+            "fruit": 13.284300550099074,
+            "grain": 12.40301020396349
+          },
+          "instant": {
+            "components": {
+              "light": 0.003261097729452646,
+              "fruit": 0.0004782005119809237,
+              "grain": 2.6
+            },
+            "composition": {
+              "light": 0.001252467069823462,
+              "fruit": 0.00018365913680524793,
+              "grain": 0.9985638737933712
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 98,
+          "phase": "forecast",
+          "cut": 0.9714285714285714,
+          "litres": 39.54,
+          "roughness": 0.847566072783651,
+          "character": 0.8187343824147154,
+          "wood": 0,
+          "components": {
+            "light": 0.1545213124150642,
+            "fruit": 0.33597341094393995,
+            "grain": 0.3282396590557112
+          },
+          "composition": {
+            "light": 0.1887319205519748,
+            "fruit": 0.4103570317311514,
+            "grain": 0.40091104771687386
+          },
+          "componentMass": {
+            "light": 6.109772692891639,
+            "fruit": 13.284388668723388,
+            "grain": 12.978596119062821
+          },
+          "instant": {
+            "components": {
+              "light": 0.0030799735472147763,
+              "fruit": 0.0003269136843769002,
+              "grain": 2.6
+            },
+            "composition": {
+              "light": 0.0011830550047019178,
+              "fruit": 0.00012557149094912835,
+              "grain": 0.9986913735043489
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実の香りに、穀物の厚みが重なる。"
+        },
+        {
+          "contract": "ambertime-distillation-comparison/1",
+          "modelId": "b",
+          "seed": 20261015,
+          "batch": 0,
+          "progress": 99,
+          "phase": "forecast",
+          "cut": 0.9857142857142858,
+          "litres": 39.77,
+          "roughness": 0.8569162500953462,
+          "character": 0.8284904733609206,
+          "wood": 0,
+          "components": {
+            "light": 0.15364434043854472,
+            "fruit": 0.33403190023034235,
+            "grain": 0.34081423269203365
+          },
+          "composition": {
+            "light": 0.1854509440709183,
+            "fruit": 0.40318134121118115,
+            "grain": 0.4113677147179006
+          },
+          "componentMass": {
+            "light": 6.1104354192409245,
+            "fruit": 13.284448672160718,
+            "grain": 13.554182034162178
+          },
+          "instant": {
+            "components": {
+              "light": 0.002908909158369495,
+              "fruit": 0.00022161221979326553,
+              "grain": 2.6
+            },
+            "composition": {
+              "light": 0.0011174657338462787,
+              "fruit": 0.0000851329650869517,
+              "grain": 0.9987974013010666
+            },
+            "phrase": "穀物の厚みが中心。"
+          },
+          "phrase": "果実を残して、穀物の厚みが前に出る。"
+        }
+      ]
+    }
+  ]
+}
