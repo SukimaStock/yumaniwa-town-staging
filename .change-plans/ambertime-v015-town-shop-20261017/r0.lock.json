@@ -1,0 +1,144 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f3362d8560aba09d7021d47012945e41df1e6cd0365e864138443c9354b070b2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v015-town-shop-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime 0.15 one optional town-shop stockist for own brands",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "6f80177815109345bcf2f30350178cb479dd63b8",
+    "canonicalSources": [
+      "User0.15 firststockist request",
+      "Current0.14 v11 strictreplay and brand release ledger",
+      "Independent currentprice162condition audit:0.75/0.80/0.85 immediatecash vs24mo revenue",
+      "Existing core stock+sold invariant and retail-only reputation"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v015-town-shop-20261017/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/v014.html",
+      "works/ambertime/tests/shop*.mjs",
+      "works/ambertime/tests/wholesale-care-ui.test.mjs",
+      "works/ambertime/design/shop/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "tools/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/aroma-app.mjs",
+      "works/ambertime/usual-app.mjs"
+    ],
+    "expectedChanges": [
+      "v12 recorded enable-shop partialprogress boundary; v12 key, preserve v11 source key and v014 archive unchanged",
+      "One passive nonblocking town-liquor offer, deterministic40retailbottles+2soldreleases+2brandmonths, global6mo spacing/perdecline12mo; existing offers/tasting/decisions first",
+      "Acceptpersistentbrandrelationwithoutstocktransfer; optionalcompletedbottle deliveries5/10/rest,10perbrandmonthcap, unit0.80*min(currentprice,standard) roundedcents; transactionledger2048max",
+      "Core sold/revenue/totals includeallcashdispositions once tokeepfrozenvalidator; release/record retailfields subtractdurable deliveries, release stocksubtractdelivered, repandoldofferEvidenceexcludechannel",
+      "Small salesbutton and productmodal options, compactbrandshoprelationship/totals/history, noautomaticproduction/obligation/deliverymanagement",
+      "Pricecomparison+multi-seed120mo actualpublicsimulation no-usevsuse, strictsave/replay/oldhashes/prunedproducts/parallelwholesale specialorders andbrowserPCphone",
+      "Update current-entry assertion toshop-app plusv014aroma archive whilekeepingalloldentrychecks"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "PC-iPhone-browser",
+      "price-and-long-simulation",
+      "old-save-protection",
+      "published-source-match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Restore index to v014/aroma-app, leavev12key intact; oldv11key is neverwritten byshopapp.",
+    "outOfScope": [
+      "Production",
+      "Capacity>4",
+      "Newmaps/storemanagement",
+      "Automaticdeliveries/production",
+      "Reputationformula or existingeconomy/agingparameters tuning",
+      "B or newingredients",
+      "Waitingcustomer/reservation systems"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari",
+      "Humanfun",
+      "Cross-runtime floating-point portability remains unresolved"
+    ],
+    "rulesApplied": [
+      "Standard WORK fresh-r0 before implementation includes complete test/UI/model/report paths",
+      "AGENTS necessary independent audit/tests/simulation/review",
+      "User authorizes optionalone-storefeature and stagingmerge only"
+    ],
+    "hqDecisions": [],
+    "ownerDecisions": [
+      "User authorizes one optionaltownshop forselfbrands with research-decidedsmallquantities/discount, versionedsaveprotection, tests andStagingmerge; Productionexcluded"
+    ],
+    "problem": "Brands need an optional first shop destination without more capacity or recurring work",
+    "currentContract": "v11/A fixedtable, core originalStock=stock+sold, releases durable and retail reputation source, trade offers blockexisting flow",
+    "whyExistingIsInsufficient": "Finished branded buyout cannot be a cask wholesale contract or ordinary retail reputationsale; separate ledger and passiveoffer required",
+    "design": "v12 mode inherits A/usual/reputation; pure shop policy/quote helpers. Shop offer passive, neverglobal blocker oridlework. Newdeliveryopcode changescorecash/stock/soldonce; ledger derivesretail mirrors and relations remainafterproductpruning.",
+    "migration": "Newv12key validates oldv11envelope2 preservingelapsed/pause; oldv10andearliervalidenvelopes retained. enable-shop records currentunloggedprogress; old prefixes unchanged. Corrupt/quota/conflicts halt preservingrawkeys. v014 archiveoldaromaappfrozen.",
+    "compatibility": "No core/aging/economy/partnerparameters changes; exactJSONreplayunchanged; oldmodes see no shop fields. brandStats subtract optionaldelivered fromstockonly. ExistingtradeofferEvidence retailonly.",
+    "promotionRisk": "Staging only",
+    "alternativesRejected": [
+      "Count shopunitsasretailreputation",
+      "OnlydecrementstockbreakingfrozenMvalidator",
+      "Automaticstocktransfer onacceptance",
+      "Shopblockingmonthlyprogress",
+      "Mutateoldsavekeys",
+      "Unboundedbulkdeliveries/high-pricearbitrage",
+      "Validatorweakening"
+    ],
+    "boundaryCases": [
+      "firstlaunchnosales",
+      "twosoldreleases/declinecooldown",
+      "nonblockingoffersandregulartradepriority",
+      "acceptnostockchange",
+      "5/10/rest/insufficient/perbrandmonthcap",
+      "allchannelcashandstockconservation",
+      "reputationandwholesaleofferevidenceexcluded",
+      "samebrandmultiplereleases/multiplebrands",
+      "soldout/prunedproductdurablehistory",
+      "oldv3-v11/partialA/activeusual/tasting migration",
+      "quota/conflict/logcapacity",
+      "simultaneouswholesale/special shipment",
+      "PCphonecurrentandlegacyentry"
+    ],
+    "testPlan": [
+      "Independent publicAPImodel/replay/accounting tests and oldsavehashfixtures",
+      "Existing+experimental fullregressions; currententryassertupdatedwithoutdroppingarchives",
+      "162conditionratecomparison, bounded8seeds120months use/no-use actualpublicpolicy cash/stock/profit comparison",
+      "PC1280/phone390 actualbuttonflow offeracceptdecline/deliver/reissue/history/priority/reload/storageprotection",
+      "Protectedsourcehashes, ScopeRiskImpacttrustedstatic/CI/exactpublished17+sourcefiles"
+    ]
+  }
+}
