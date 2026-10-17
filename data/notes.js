@@ -40,6 +40,14 @@ var SHINPO_RACK = {
 var NOTE_ARTICLES = [
     // [NOTES:ADD_NEWEST_HERE]
     {
+        id: "note-n21f2389ac91d",
+        title: "ゲームジャムでカボチャを転がした",
+        url: "https://note.com/hamamah/n/n21f2389ac91d",
+        publishedAt: "2026-10-17",
+        featured: false
+    },
+
+    {
         id: "note-20261009-n308001a6a00a",
         title: "昔の自分ともう一度ゲームを作る",
         url: "https://note.com/hamamah/n/n308001a6a00a",

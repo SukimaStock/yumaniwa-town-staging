@@ -1,0 +1,67 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e68a9f106a9199e74d4acbfe0b5be3a0da1356f930c6eb42431ca0e9e870fae4",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "note-pumpkin-jam-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Add the owner-requested pumpkin game jam note to the bulletin",
+    "planLevel": "lite",
+    "classes": [
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging-production",
+    "baseSha": "41ebf8fdc6d539627ca559abd24040cf08b71326",
+    "canonicalSources": [
+      "data/notes.js"
+    ],
+    "allowedPaths": [
+      "data/notes.js",
+      ".change-plans/note-pumpkin-jam-20261017/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "engine/**",
+      "works/**",
+      "data/works.js",
+      "data/work-lifecycle.json"
+    ],
+    "expectedChanges": [
+      "Prepend one article using supplied share-metadata title and canonical note URL; populate publication date only after source confirmation; preserve existing entries and runtime"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "bulletin-entry-and-link"
+    ],
+    "impactChecks": [],
+    "impactExclusions": [],
+    "ownerDecisions": [
+      "2026-10-17 owner request: Note記事を更新しました！ 湯間庭町に追加してください; supplied URL n21f2389ac91d. Source thread 01a11875-47fb-73f8-b86d-cf31e84fa0c8."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Existing note data schema; separate article-only production branch"
+    ],
+    "rollback": "Revert only this article addition",
+    "outOfScope": [
+      "Other works, runtime, layouts, publication of staging experiments"
+    ],
+    "promotion": "Article-only production PR after staging checks and source metadata confirmation. No merge while date or bulletin verification is pending.",
+    "unverified": [
+      "Original article title and publication date: normal web open inaccessible; curl CONNECT 403. Share title supplied by parent only.",
+      "Bulletin browser rendering, external embed card, physical iPhone interaction"
+    ]
+  }
+}
