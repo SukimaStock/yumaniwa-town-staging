@@ -1,0 +1,122 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "078694ade415850c37043ae769f73c7dbac65d56d611e2b74672c131f1f5da33",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-original-fulltext-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "湯間庭新報0.1の要約を原文全文・掲載画像へ復元し、掲示板からワンタップで読み始める。",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "ASSET",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "fbb831a440c249b57aed505a05c127df8a761d33",
+    "canonicalSources": [
+      "Google Drive SukimaStock/note 2026-07-17 原稿PDF",
+      "https://note.com/hamamah/n/nad06ba5e60a2",
+      "shinpo/town-beginning/index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-original-fulltext-20261017/r0.lock.json",
+      "shinpo/town-beginning/index.html",
+      "assets/shinpo/town-beginning-cover.bmp"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/notes.js",
+      "index.html",
+      "main.js",
+      "style.css",
+      "data/work-lifecycle.json",
+      "sitemap.xml",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "works/**"
+    ],
+    "expectedChanges": [
+      "原文本文・段落・リンクカードの順序を復元",
+      "当時の見出し画像をPDFから抽出して紙面に掲載（取得不能ならnote原図）",
+      "掲示板の新聞カード1タップで同一の本文ページを表示",
+      "本文の外に町内回遊リンクと元note出典を配置"
+    ],
+    "ownerDecisions": [
+      "2026-10-17: ユーザーは元note記事の全文・画像を原文のまま掲載し、記事を湯間庭町に置く方針を明示。実装開始を指示。PDFから画像を取得できない場合は公開noteからの取得を許可。Stagingのみ。"
+    ],
+    "hqDecisions": [
+      "既存rootランタイムを触らず独立静的HTMLと正本画像の変更に限定。新規HTMLはunknown-code floorを持つためFull PlanとHQ Reviewで検証。CIは実機触感やProductionの承認ではない。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN v0.2 normal Plan Lock route",
+      "Change PR Gate trusted-base",
+      "Staging only; no Production promotion"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhoneでの本文スクロール・ワンタップ・戻り導線",
+      "原文の欠落・差し替えなし",
+      "画像の表示と元位置の確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "記事ページと今回追加した画像を同時にrevertし、以前の表示に戻す。",
+    "outOfScope": [
+      "Production",
+      "既存4件のnoteラック変更",
+      "町の共通UI変更",
+      "記事本文の要約・書き直し",
+      "SEO sitemap公開登録",
+      "他の記事"
+    ],
+    "promotion": "Staging only; Production not authorized",
+    "unverified": [
+      "実機iPhone Safariでの読み心地"
+    ],
+    "problem": "掲示板の紙面が原文ではなく要約記事で、本文まで2タップ必要。記事が町の資産にならない。",
+    "currentContract": "記事固定カードは既にあり、クリックで同一originの新聞プレビューを表示し、2タップ目で要約記事を読む。",
+    "whyExistingIsInsufficient": "原文内容・本来の画像・文章のリズムを欠き、ユーザーが意図する湯間庭町中心の回遊と逆行する。",
+    "design": "新聞のCSS・押しピンは維持。リンクは既存の?from=boardのまま、本文を初期表示し軽い開きのアニメーションを1回のみ。PDF原稿全文を改稿せず段落を保ち、画像とリンクカードを原位置に置く。現行町への案内・原典リンクは記事の外に明確に分離する。",
+    "alternativesRejected": [
+      "要約記事を継続",
+      "2タップ導線を維持",
+      "元記事画像を別画像へ置換",
+      "noteへ移動させて読ませる"
+    ],
+    "migration": "ユーザーデータ変更なし。記事ページのみ置換",
+    "compatibility": "固定ラックの既存archivePageのURLを維持し、Direct URLは初期表示。外部依存を作らずローカル画像を優先。",
+    "boundaryCases": [
+      "?from=boardと直接URLの両方で本文が初期表示",
+      "原稿内の段落と改行、本文リンクを保持",
+      "画像失敗時は代替テキスト",
+      "reduced-motionでアニメ無効",
+      "iPhoneの日本語折返し"
+    ],
+    "testPlan": [
+      "GitHub Release Validator Tests",
+      "Change PR Gate/Change Verification/Change Operations",
+      "原文段落一致レビュー",
+      "iPhone読書・戻りの最終確認"
+    ],
+    "promotionRisk": "Staging noindex; Productionへの移行は別途承認"
+  }
+}
