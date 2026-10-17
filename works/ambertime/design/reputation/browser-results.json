@@ -1,0 +1,30 @@
+{
+  "browser": "Chromium",
+  "physicalIPhone": false,
+  "checks": [
+    {
+      "width": 1280,
+      "firstDefault": "new",
+      "repeatDefault": 1,
+      "draftPreserved": true,
+      "repeatIdentity": true,
+      "ledger": true,
+      "noHorizontalOverflow": true,
+      "strictReload": true,
+      "wholesaleNoBrand": true,
+      "pageErrors": []
+    },
+    {
+      "width": 390,
+      "firstDefault": "new",
+      "repeatDefault": 1,
+      "draftPreserved": true,
+      "repeatIdentity": true,
+      "ledger": true,
+      "noHorizontalOverflow": true,
+      "strictReload": true,
+      "wholesaleNoBrand": true,
+      "pageErrors": []
+    }
+  ]
+}
