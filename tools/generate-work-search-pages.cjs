@@ -220,6 +220,8 @@ function buildSitemap(ids, standalone=[]) {
     lines.push('  <url><loc>'+PROD_BASE+'/en/w/'+id+'/</loc></url>');
   }
   for (const page of standalone) lines.push('  <url><loc>'+page.url+'</loc></url>');
+  // 新報の固定保存版。ステージングではnoindexで公開し、Production移行時に索引対象とする。
+  lines.push('  <url><loc>'+PROD_BASE+'/shinpo/town-beginning/</loc></url>');
   lines.push('</urlset>','');
   return lines.join('\n');
 }
