@@ -1,0 +1,34 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>AmberTime 卸売樽の観察検証</title>
+<style>body{margin:12px;background:#28251f;color:#eee;font:14px system-ui}button,label{padding:10px;margin:3px;display:inline-block;min-height:44px}iframe{display:block;border:1px solid #aaa;width:390px;height:844px;max-width:none}p{max-width:70em}</style>
+<p>検証用。通常の保存には触れず、このページ内のメモリだけを使います。</p>
+<button data-case="four">4樽の通常卸売</button><button data-case="mixed">3樽卸売・1樽通常</button><button data-case="old">旧保存の判断から移行</button><button data-case="unmet">特別注文の未達</button><button id="reload" disabled>保存から再開</button><button id="phone">iPhone 390</button><button id="pc">PC 1280</button><label><input id="paused" type="checkbox">手動停止で開く</label><p id="status"></p><iframe id="game" title="検証用 AmberTime"></iframe>
+<script type="module">
+import * as D from '../../partner-orders.mjs?v=0.10.3';
+import {replayCheckpoint} from '../partners/replay.mjs';
+const root=new URL('../../',location.href),frame=document.querySelector('#game'),status=document.querySelector('#status'),reload=document.querySelector('#reload');
+let memory=new Map(),ready=false,selection=0,markup='';
+window.qaStorage={getItem:k=>memory.get(k)??null,setItem:(k,v)=>memory.set(k,v)};
+async function response(path,json=false){const r=await fetch(new URL(path,root),{cache:'no-store'});if(!r.ok)throw Error(path+' HTTP '+r.status);return json?r.json():r.text();}
+function mount(){if(!ready)return;frame.srcdoc=markup.replace('<head>',`<head><base href="${root}"><script>Object.defineProperty(window,'localStorage',{value:parent.qaStorage});<\/script>`);}
+function fill(s){s=D.startDistillation(s);while(s.still.distillation.progress<99)s=D.distillStep(s);return D.fillBarrel(D.stopDistillation(s),'bourbon');}
+async function setup(kind){const token=++selection;ready=false;reload.disabled=true;memory=new Map();frame.srcdoc='';status.textContent='公開操作から状態を作成中です。';
+ try{
+  const [html,source]=await Promise.all([response('index.html'),response('tests/fixtures/partners-'+(kind==='unmet'?'unmet':'accepted')+'.json',true)]);if(token!==selection)return;
+  // Browser-native public-operation replay avoids importing Node float results.
+  let s=replayCheckpoint(source,D);if(kind!=='old')s=D.enablePromisedCare(s);
+  if(kind!=='unmet'){
+   s=fill(s);const first=s.core.casks.at(-1).id;s=D.assignCask(s,first,s.trade.relationship.terms[0].id);
+   if(kind==='old'){for(let i=0;i<6;i++)s=D.tickDistillery(s);if(!s.decisions.some(d=>d.caskId===first&&d.pending.options.some(o=>o.id==='cool')))throw Error('旧版の判断を再現できません。');}
+   else{
+    s=D.tickDistillery(s);s=fill(s);const second=s.core.casks.at(-1).id;if(kind==='four')s=D.assignCask(s,second,s.trade.relationship.terms[0].id);
+    for(let i=0;i<5;i++){if(s.trade.offer)s=D.declineOffer(s);if(s.decisions.length)throw Error('予定外の判断 '+s.decisions[0].eventId);s=D.tickDistillery(s);}
+   }
+  }
+  D.serializeDistillery(s);if(token!==selection)return;markup=html;const key=kind==='old'?'sukimastock.ambertime.wholesale.v6':'sukimastock.ambertime.wholesale.v7';
+  memory=new Map([[key,JSON.stringify({version:1,game:s,userPaused:document.querySelector('#paused').checked})]]);ready=true;reload.disabled=false;
+  status.textContent=(kind==='old'?'旧v6の実際の判断を新画面で移行。':'ブラウザ内の正規操作・厳密保存で検証。')+' '+s.core.casks.length+'樽 · 月 '+s.core.month+' · 判断 '+s.decisions.length;mount();
+ }catch(e){if(token!==selection)return;ready=false;memory=new Map();frame.srcdoc='';reload.disabled=true;status.textContent='検証停止：'+e.message;}
+}
+for(const b of document.querySelectorAll('[data-case]'))b.onclick=()=>setup(b.dataset.case);
+reload.onclick=mount;document.querySelector('#phone').onclick=()=>{frame.style.width='390px';};document.querySelector('#pc').onclick=()=>{frame.style.width='1280px';};
+</script></html>

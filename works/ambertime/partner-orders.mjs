@@ -13,6 +13,31 @@ const assert=(ok,msg)=>{if(!ok)throw Error(msg);};
 const blocked=s=>s.tastingId!==null||s.decisions.length>0||s.trade.offer!==null;
 function action(s,key,value){s.operations.push({key,...(value===undefined?{}:{value})});assert(s.operations.length<=P.maxOperations,'帳面がいっぱいです。');return s;}
 export function newDistillery(seed=20261015){const s=E.newDistillery(seed);return {...s,version:T.version,rules:T.rules,trade:{rng:mixSeed(seed^0x57a1e),nextOfferMonth:6,nextProposalMonth:0,offerSerial:0,bookingSerial:0,offer:null,relationship:null,contracts:[],history:[],lastShipment:null,lastShipments:[],lastObservations:[],order:null,orderSerial:0},origin:null};}
+// A recorded execution boundary keeps every pre-fix v6 replay unchanged.
+export const PROMISED_CARE=Object.freeze({version:7,rules:'promised-wholesale-care'});
+const careMode=s=>s.version===PROMISED_CARE.version&&s.rules===PROMISED_CARE.rules;
+export function enablePromisedCare(s){
+ if(careMode(s))return s;
+ assert(s.version===T.version&&s.rules===T.rules,'対応していない熟成の保存です。');
+ assert(s.operations.length<P.maxOperations,'帳面がいっぱいです。元の保存は以前の版で開けます。');
+ const j=clone(s);j.version=PROMISED_CARE.version;j.rules=PROMISED_CARE.rules;
+ j.trade.lastObservations=[];observePromisedChanges(j);return action(j,'enable-promised-care');
+}
+export const newPromisedDistillery=seed=>enablePromisedCare(newDistillery(seed));
+export function canCare(s,id){
+ const k=contractFor(s,id),n=s.notesById[id];
+ return !!(careMode(s)&&k&&k.kind!=='special'&&n&&!n.cooled&&!n.pending&&!blocked(s)&&n.observations?.some(o=>o.care?.options?.some(x=>x.id==='cool')));
+}
+export function careForCask(s,id){
+ assert(canCare(s,id),'今はこの樽の手入れをできません。');
+ const j=clone(s),n=j.notesById[id],source=[...n.observations].reverse().find(o=>o.care?.options?.some(x=>x.id==='cool'));
+ // The observed prompt is only a local projection for the existing, explicit
+ // intervention. No unresolved global judgment or fictional wait is created.
+ n.pending=clone(source.care);n.phase='choice';
+ const result=E.chooseDistillery(j,id,'cool');
+ assert(result.operations.length===s.operations.length+1&&result.operations.at(-1).key==='choose','手入れの帳面が不正です。');
+ result.operations[result.operations.length-1]={key:'care',value:id};return result;
+}
 function draw(t){t.rng=(Math.imul(t.rng,1664525)+1013904223)>>>0;return t.rng/4294967296;}
 function rest(s){s.trade.nextOfferMonth=s.core.month+W.cooldownMin+Math.floor(draw(s.trade)*W.cooldownRange);}
 function restProposal(s){s.trade.nextProposalMonth=s.core.month+T.proposalCooldownMin+Math.floor(draw(s.trade)*T.proposalCooldownRange);}
@@ -100,13 +125,15 @@ function upgraded(input){
  return j;
 }
 // These prompts only repeat the already-promised shipment plan. Record an
-// observation, never a fictional player choice. Real interventions and funds
-// protection remain decisions, including old explicit final-bottling plans.
+// observation, never a fictional player choice. In v7 ordinary wholesale,
+// optional care is available separately; important decisions remain queued.
 function observePromisedChanges(s){
  for(const c of s.core.casks){
   const n=s.notesById[c.id],p=n.pending;
-  if(!contractFor(s,c.id)||!p||!['fruit','rounded','loss','wood','fading','rough'].includes(p.id)||p.options.some(o=>o.id==='cool'))continue;
+  const k=contractFor(s,c.id),optional=careMode(s)&&k&&k.kind!=='special';
+  if(!k||!p||!['fruit','rounded','loss','wood','fading','rough'].includes(p.id)||!optional&&p.options.some(o=>o.id==='cool'))continue;
   const note={caskId:c.id,age:c.age,eventId:p.id,title:p.title,text:p.text,month:s.core.month};
+  if(optional&&p.options.some(o=>o.id==='cool'))note.care=clone(p);
   n.observations??=[];n.observations.push(note);s.trade.lastObservations.push(clone(note));n.pending=null;n.phase='watching';
  }
  rebuild(s);
@@ -187,10 +214,10 @@ export function tickDistillery(s,expectedMonth=s.core.month){
  return action(j,'month',{progress:s.still.phase==='distilling'?s.still.distillation.progress:null});
 }
 function progress(s,value){assert(!s.trade.offer||value===s.still.distillation?.progress,'申し出の確認中は蒸留を進めません。');assert(s.still.phase==='distilling'&&Number.isInteger(value)&&value>=s.still.distillation.progress&&value<P.distillMax,'蒸留の進行が不正です。');let j=s;while(j.still.distillation.progress<value){const next=E.distillStep(j);assert(next!==j,'停止中の蒸留です。');j=next;}return j;}
-function apply(s,o){s=E.endTasting(s);switch(o.key){case 'start':return startDistillation(s);case 'stop':assert(Number.isInteger(o.value)&&o.value>=P.minimumStop&&o.value<P.distillMax,'抽出時期が不正です。');return stopDistillation(progress(s,o.value));case 'fill':return fillBarrel(s,o.value);case 'month':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return tickDistillery(s);case 'sample':return sampleDistillery(s,o.value);case 'choose':return chooseDistillery(s,o.value?.id,o.value?.key);case 'bottle':return bottleNow(s,o.value);case 'price':return E.setSalePrice(s,o.value?.tier,o.value?.productId);case 'list':return E.listBottles(s,o.value);case 'decline':return declineOffer(s);case 'accept':return acceptOffer(s,o.value?.id,o.value?.termId);case 'assign':return assignCask(s,o.value?.id,o.value?.termId);case 'unassign':return cancelContract(s,o.value);case 'order-assign':return assignOrder(s,o.value);case 'order-cancel':return cancelOrder(s);case 'pause-trade':return pauseTrade(s);case 'resume-trade':return resumeTrade(s);case 'end-trade':return endTrade(s);case 'reconcile-trade-start':return reconcileTradeHistory(s);default:throw Error('操作の帳面が不正です。');}}
+function apply(s,o){s=E.endTasting(s);switch(o.key){case 'enable-promised-care':return enablePromisedCare(s);case 'care':return careForCask(s,o.value);case 'start':return startDistillation(s);case 'stop':assert(Number.isInteger(o.value)&&o.value>=P.minimumStop&&o.value<P.distillMax,'抽出時期が不正です。');return stopDistillation(progress(s,o.value));case 'fill':return fillBarrel(s,o.value);case 'month':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return tickDistillery(s);case 'sample':return sampleDistillery(s,o.value);case 'choose':return chooseDistillery(s,o.value?.id,o.value?.key);case 'bottle':return bottleNow(s,o.value);case 'price':return E.setSalePrice(s,o.value?.tier,o.value?.productId);case 'list':return E.listBottles(s,o.value);case 'decline':return declineOffer(s);case 'accept':return acceptOffer(s,o.value?.id,o.value?.termId);case 'assign':return assignCask(s,o.value?.id,o.value?.termId);case 'unassign':return cancelContract(s,o.value);case 'order-assign':return assignOrder(s,o.value);case 'order-cancel':return cancelOrder(s);case 'pause-trade':return pauseTrade(s);case 'resume-trade':return resumeTrade(s);case 'end-trade':return endTrade(s);case 'reconcile-trade-start':return reconcileTradeHistory(s);default:throw Error('操作の帳面が不正です。');}}
 let checkpoint=null;
 export function validateDistillery(s){
- assert(s?.version===T.version&&s.rules===T.rules&&Number.isInteger(s.seed)&&s.seed>0&&s.seed<=4294967295&&Array.isArray(s.operations)&&s.operations.length<=P.maxOperations,'対応していない業者別卸売の保存です。');M.restore(M.serialize(s.core));
+ assert(((s?.version===T.version&&s.rules===T.rules)||careMode(s))&&Number.isInteger(s.seed)&&s.seed>0&&s.seed<=4294967295&&Array.isArray(s.operations)&&s.operations.length<=P.maxOperations,'対応していない業者別卸売の保存です。');M.restore(M.serialize(s.core));
  assert(s.origin===null||s.origin?.version===5&&s.origin?.seed===s.seed,'元の0.9保存が不正です。');const originText=JSON.stringify(s.origin);let j=s.origin===null?newDistillery(s.seed):upgraded(s.origin),start=0;
  if(checkpoint&&checkpoint.originText===originText&&checkpoint.seed===s.seed&&s.operations.length>=checkpoint.length&&JSON.stringify(s.operations.slice(0,checkpoint.length))===checkpoint.operations){j=clone(checkpoint.state);start=checkpoint.length;}
  for(let i=start;i<s.operations.length;i++)j=apply(j,s.operations[i]);j=E.endTasting(j);const cache=clone(j);if(s.still?.phase==='distilling')j=progress(j,s.still.distillation?.progress);
