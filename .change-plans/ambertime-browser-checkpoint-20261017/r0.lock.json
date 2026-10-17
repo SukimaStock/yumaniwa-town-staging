@@ -1,0 +1,139 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f48f7342d3cf8209f234aa2efb9438b7b678681f207f9e0355b2d6a6fb951502",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-browser-checkpoint-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Rebuild cross-runtime QA checkpoints through public operations without weakening saves",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "b2d7ce72a00118a7489d193f22155237865a9b2a",
+    "canonicalSources": [
+      "Current user task browser verification",
+      "Public Chrome failure of partners-offer/assigned versus successful v09-initial",
+      "Exact deployed engine/UI/fixture bytes check"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-browser-checkpoint-20261017/r0.lock.json",
+      "works/ambertime/design/partners/browser-check.html",
+      "works/ambertime/design/partners/replay.mjs",
+      "works/ambertime/design/partners/VERIFICATION.md",
+      "works/ambertime/tests/partners-replay.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/wholesale*.mjs",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/parameters.mjs",
+      "works/ambertime/v08-app.mjs",
+      "works/ambertime/v08-legacy-app.mjs",
+      "works/ambertime/v08.css",
+      "works/ambertime/v07-app.mjs",
+      "works/ambertime/legacy.html",
+      "works/ambertime/v08.html",
+      "works/ambertime/v07.html",
+      "works/ambertime/v06.html",
+      "works/ambertime/v05.html",
+      "works/ambertime/v04.html",
+      "works/ambertime/trade.mjs",
+      "works/ambertime/trade-parameters.mjs",
+      "works/ambertime/v09-app.mjs",
+      "works/ambertime/v09.css",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/partner-parameters.mjs",
+      "works/ambertime/partners-app.mjs",
+      "works/ambertime/partners.css",
+      "works/ambertime/index.html"
+    ],
+    "expectedChanges": [
+      "Only QA: show raw restore diagnostic, reconstruct native fixture by public operations inside browser, compare first diff and strictly validate regenerated checkpoint; normal saved games and engine untouched"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "public-operation-replay-test",
+      "PC-iPhone-browser",
+      "final-source-byte-equality"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Restore v09.html entry, old v5 and older keys/runtime untouched; v6 retained separately.",
+    "outOfScope": [
+      "Production",
+      "Staff/equipment/capchange/largeeconomyredesign",
+      "Allcask automaticassignment or removal of meaningful decisions",
+      "Multiplecompanies or multiple special types"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Humanfun andphysicalSafari"
+    ],
+    "rulesApplied": [
+      "FullWORK lock before implementation",
+      "AGENTS necessary independent review",
+      "Latest user authorizes notification instead of redundant wait confirmation only"
+    ],
+    "hqDecisions": [
+      "Candidate public long Node checkpoint rejects in Chrome while shorter oldfixture works; inspect exactdifference via isolated authored QA replay, never loosen production validator or alter user save",
+      "Native origin-null fixture operations can be replayed via public actions; visible QA diagnostic compares fixture with regenerated browser state and validates before iframe mount"
+    ],
+    "ownerDecisions": [
+      "Latest user explicitly requests phase1 implementation/test then one partner special experiment; preserve saves and Production."
+    ],
+    "problem": "Long generated Node QA fixtures rejected by public Chrome; root cause still being measured",
+    "currentContract": "V5 continuous relationship+locked per-cask assignments; strict replay nested old origins.",
+    "whyExistingIsInsufficient": "Changed offers, probability and decision normalization change deterministic execution.",
+    "design": "QA-only public-action replay and first-difference diagnostic; no hidden browser-state access.",
+    "migration": "none",
+    "compatibility": "All engine/UI/save formats unchanged",
+    "promotionRisk": "Stagingonly",
+    "alternativesRejected": [
+      "Rewrite v5 in place",
+      "Global reputation system",
+      "Autoaccept orders",
+      "Automatically sell failed order at lowerprice",
+      "Hidden future score for recipes"
+    ],
+    "boundaryCases": [
+      "Zero casks acceptance",
+      "Concurrent ordinary/special/retail revenue once",
+      "Order unmet+other events",
+      "Save in offered/accepted/assigned/unmet state",
+      "Pause/end/cancel independently",
+      "No fabricated wait choices",
+      "Imported reservations/prices remain exact"
+    ],
+    "testPlan": [
+      "Replay every legal native QA fixture in Node and validate equality",
+      "Public browser show firstdifference and run independently rebuilt checkpoint through actualgame save reader",
+      "All changed scope gates and public Pages"
+    ]
+  }
+}
