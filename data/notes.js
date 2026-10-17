@@ -140,6 +140,7 @@ var NOTE_ARTICLES = [
         id: "note-20260717-153a44e0",
         title: "作品を並べるより、住める場所を作りたかった",
         url: "https://note.com/hamamah/n/nad06ba5e60a2",
+        archivePage: "./shinpo/town-beginning/?from=board",
         publishedAt: "2026-07-17",
         featured: false
     },
