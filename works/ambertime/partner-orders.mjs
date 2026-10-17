@@ -77,22 +77,32 @@ export function enableShop(s){
 export const newShopDistillery=seed=>enableShop(newAromaDistillery(seed));
 const shopProgress=s=>s.still.phase==='distilling'?s.still.distillation.progress:null;
 function shopReady(s){assert(shopMode(s)&&!blocked(s),'先に試飲・樽の判断・卸売の申し出を確認します。');}
+function acceptShopInto(s){
+ const o=s.shop.offer;s.shop.relations.push({shopId:SHOP.id,name:SHOP.name,brandId:o.brandId,startedMonth:s.core.month});s.shop.offer=null;
+}
 export function acceptShop(s){
  shopReady(s);const o=s.shop.offer;assert(o&&!s.shop.relations.some(r=>r.brandId===o.brandId),'今は取扱いを決められません。');
- const j=clone(s);j.shop.relations.push({shopId:SHOP.id,name:SHOP.name,brandId:o.brandId,startedMonth:j.core.month});j.shop.offer=null;
+ const j=clone(s);acceptShopInto(j);
  return action(j,'accept-shop',{progress:shopProgress(s)});
+}
+// Notice is a player-visible UI event, not a change to monthly offer generation.
+// Old v12 offers keep their original shape until this explicit replay boundary.
+export function noticeShopOffer(s){
+ shopReady(s);assert(s.shop.offer,'届いた申し出がありません。');if(s.shop.offer.notified===true)return s;
+ const j=clone(s);j.shop.offer.notified=true;return action(j,'notice-shop',{progress:shopProgress(s)});
 }
 export function declineShop(s){
  shopReady(s);assert(s.shop.offer,'届いた申し出がありません。');const j=clone(s);
  j.shop.declinedUntil[j.shop.offer.brandId]=j.core.month+SHOP.declineGap;j.shop.offer=null;
  return action(j,'decline-shop',{progress:shopProgress(s)});
 }
-export function shopQuote(s,productId){
+function deliveryQuote(s,productId,offered=false){
  const p=s.core.products.find(p=>p.id===productId),r=s.releases?.find(r=>r.productId===productId);
  const used=(s.shop?.deliveries??[]).filter(d=>d.brandId===r?.brandId&&d.month===s.core.month).reduce((n,d)=>n+d.count,0),remaining=Math.max(0,SHOP.monthlyLimit-used);
  const unitPrice=p?round(SHOP.rate*Math.min(p.price,E.salePrices(s,productId).standard)):0;
  let reason='';
- if(!shopMode(s)||!r||!s.shop.relations.some(x=>x.brandId===r.brandId))reason='この銘柄はまだ取扱い前です。';
+ const accepted=!!r&&s.shop?.relations.some(x=>x.brandId===r.brandId),invited=!!r&&s.shop?.offer?.brandId===r.brandId&&!accepted;
+ if(!shopMode(s)||!r||!(offered?invited:accepted))reason='この銘柄はまだ取扱い前です。';
  else if(blocked(s))reason='先に試飲・樽の判断・卸売の申し出を確認します。';
  else if(!p||!s.productsById[productId]?.listed||p.stock<=0)reason='販売棚の在庫から届けられます。';
  else if(s.shop.deliveries.length>=SHOP.maxDeliveries)reason='納品帳がいっぱいです。';
@@ -100,14 +110,27 @@ export function shopQuote(s,productId){
  const quantities=reason?[]:[...new Set([5,10,Math.min(p.stock,remaining)])].filter(n=>n>0&&n<=p.stock&&n<=remaining).sort((a,b)=>a-b);
  return {ok:!reason,reason,unitPrice,quantities,remaining};
 }
-export function deliverShop(s,productId,count){
- const q=shopQuote(s,productId);assert(q.ok&&Number.isInteger(count)&&q.quantities.includes(count),q.reason||'届けられる本数を選びます。');
- const j=clone(s),p=j.core.products.find(p=>p.id===productId),r=j.releases.find(r=>r.productId===productId),revenue=round(q.unitPrice*count);
- const item={id:(j.shop.deliveries.at(-1)?.id??0)+1,month:j.core.month,brandId:r.brandId,releaseId:r.id,productId,count,unitPrice:q.unitPrice,revenue};
+export const shopQuote=(s,productId)=>deliveryQuote(s,productId);
+export const shopOfferQuote=(s,productId)=>deliveryQuote(s,productId,true);
+function deliverShopInto(j,productId,count,unitPrice){
+ const p=j.core.products.find(p=>p.id===productId),r=j.releases.find(r=>r.productId===productId),revenue=round(unitPrice*count);
+ const item={id:(j.shop.deliveries.at(-1)?.id??0)+1,month:j.core.month,brandId:r.brandId,releaseId:r.id,productId,count,unitPrice,revenue};
  j.shop.deliveries.push(item);p.stock-=count;p.sold+=count;p.revenue=round(p.revenue+revenue);
  j.core.cash=round(j.core.cash+revenue);j.core.totals.revenue=round(j.core.totals.revenue+revenue);j.core.totals.bottlesSold+=count;
  syncRecords(j);syncReleases(j);
+}
+export function deliverShop(s,productId,count){
+ const q=shopQuote(s,productId);assert(q.ok&&Number.isInteger(count)&&q.quantities.includes(count),q.reason||'届けられる本数を選びます。');
+ const j=clone(s);deliverShopInto(j,productId,count,q.unitPrice);
  return action(j,'deliver-shop',{productId,count,progress:shopProgress(s)});
+}
+export function acceptShopDelivery(s,productId,count){
+ const q=shopOfferQuote(s,productId);assert(q.ok&&Number.isInteger(count)&&q.quantities.includes(count),q.reason||'届けられる本数を選びます。');
+ assert(s.operations.length<P.maxOperations,'帳面がいっぱいです。');
+ // No intermediate accepted state escapes this transaction. One final action
+ // consumes one ledger slot even when the operation budget has just one left.
+ const j=clone(s);acceptShopInto(j);deliverShopInto(j,productId,count,q.unitPrice);
+ return action(j,'accept-shop-delivery',{productId,count,progress:shopProgress(s)});
 }
 function maybeShopOffer(s){
  if(!shopMode(s)||s.shop.offer||blocked(s)||s.still.phase!=='ready'||s.core.month<s.shop.nextOfferMonth)return;
@@ -397,7 +420,7 @@ export function tickDistillery(s,expectedMonth=s.core.month){
  return action(j,'month',{progress:s.still.phase==='distilling'?s.still.distillation.progress:null});
 }
 function progress(s,value){assert(!s.trade.offer||value===s.still.distillation?.progress,'申し出の確認中は蒸留を進めません。');assert(s.still.phase==='distilling'&&Number.isInteger(value)&&value>=s.still.distillation.progress&&value<P.distillMax,'蒸留の進行が不正です。');let j=s;while(j.still.distillation.progress<value){const next=E.distillStep(j);assert(next!==j,'停止中の蒸留です。');j=next;}return j;}
-function apply(s,o){s=E.endTasting(s);switch(o.key){case 'enable-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableShop(s);case 'accept-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShop(s);case 'decline-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return declineShop(s);case 'deliver-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return deliverShop(s,o.value?.productId,o.value?.count);case 'enable-aroma':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableAroma(s);case 'enable-usual':return enableUsual(s);case 'reserve-usual':return reserveUsual(s);case 'cancel-usual':return cancelUsual(s);case 'start-usual':return beginUsual(s);case 'complete-usual':return completeUsual(progress(s,s.usual?.reservation?.recipe.stopAt));case 'enable-brand-reputation':return enableReputation(s);case 'enable-brands':return enableBrands(s);case 'bottle-branded':return bottleBranded(s,o.value?.id,o.value?.selection);case 'enable-promised-care':return enablePromisedCare(s);case 'care':return careForCask(s,o.value);case 'start':return startDistillation(s);case 'stop':assert(Number.isInteger(o.value)&&o.value>=P.minimumStop&&o.value<P.distillMax,'抽出時期が不正です。');return stopDistillation(progress(s,o.value));case 'fill':return fillBarrel(s,o.value);case 'month':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return tickDistillery(s);case 'sample':return sampleDistillery(s,o.value);case 'choose':return chooseDistillery(s,o.value?.id,o.value?.key);case 'bottle':return bottleNow(s,o.value);case 'price':return setSalePrice(s,o.value?.tier,o.value?.productId);case 'list':return listBottles(s,o.value);case 'decline':return declineOffer(s);case 'accept':return acceptOffer(s,o.value?.id,o.value?.termId);case 'assign':return assignCask(s,o.value?.id,o.value?.termId);case 'unassign':return cancelContract(s,o.value);case 'order-assign':return assignOrder(s,o.value);case 'order-cancel':return cancelOrder(s);case 'pause-trade':return pauseTrade(s);case 'resume-trade':return resumeTrade(s);case 'end-trade':return endTrade(s);case 'reconcile-trade-start':return reconcileTradeHistory(s);default:throw Error('操作の帳面が不正です。');}}
+function apply(s,o){s=E.endTasting(s);switch(o.key){case 'notice-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return noticeShopOffer(s);case 'accept-shop-delivery':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShopDelivery(s,o.value?.productId,o.value?.count);case 'enable-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableShop(s);case 'accept-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShop(s);case 'decline-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return declineShop(s);case 'deliver-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return deliverShop(s,o.value?.productId,o.value?.count);case 'enable-aroma':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableAroma(s);case 'enable-usual':return enableUsual(s);case 'reserve-usual':return reserveUsual(s);case 'cancel-usual':return cancelUsual(s);case 'start-usual':return beginUsual(s);case 'complete-usual':return completeUsual(progress(s,s.usual?.reservation?.recipe.stopAt));case 'enable-brand-reputation':return enableReputation(s);case 'enable-brands':return enableBrands(s);case 'bottle-branded':return bottleBranded(s,o.value?.id,o.value?.selection);case 'enable-promised-care':return enablePromisedCare(s);case 'care':return careForCask(s,o.value);case 'start':return startDistillation(s);case 'stop':assert(Number.isInteger(o.value)&&o.value>=P.minimumStop&&o.value<P.distillMax,'抽出時期が不正です。');return stopDistillation(progress(s,o.value));case 'fill':return fillBarrel(s,o.value);case 'month':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return tickDistillery(s);case 'sample':return sampleDistillery(s,o.value);case 'choose':return chooseDistillery(s,o.value?.id,o.value?.key);case 'bottle':return bottleNow(s,o.value);case 'price':return setSalePrice(s,o.value?.tier,o.value?.productId);case 'list':return listBottles(s,o.value);case 'decline':return declineOffer(s);case 'accept':return acceptOffer(s,o.value?.id,o.value?.termId);case 'assign':return assignCask(s,o.value?.id,o.value?.termId);case 'unassign':return cancelContract(s,o.value);case 'order-assign':return assignOrder(s,o.value);case 'order-cancel':return cancelOrder(s);case 'pause-trade':return pauseTrade(s);case 'resume-trade':return resumeTrade(s);case 'end-trade':return endTrade(s);case 'reconcile-trade-start':return reconcileTradeHistory(s);default:throw Error('操作の帳面が不正です。');}}
 let checkpoint=null;
 export function validateDistillery(s){
  assert(((s?.version===T.version&&s.rules===T.rules)||careMode(s))&&Number.isInteger(s.seed)&&s.seed>0&&s.seed<=4294967295&&Array.isArray(s.operations)&&s.operations.length<=P.maxOperations,'対応していない業者別卸売の保存です。');M.restore(M.serialize(s.core));

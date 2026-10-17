@@ -1,0 +1,112 @@
+{
+  "browser": "Chromium",
+  "clock": "Real 100ms timers under controlled clock; fixtures use browser public model operations",
+  "physicalSafari": false,
+  "humanFun": false,
+  "sourceHashes": {
+    "index.html": "19ff1f9765104c076bde88444a0fb297ab3ee188cb989854a223c2787842a701",
+    "shop-app.mjs": "3285d0f3e51a4322b5305f7999afda00d5d77c654efda60ef135807411d2efe9",
+    "shop.css": "4e30ee376027c23a8de9c67ce95e1e74517075d79def1d225a81659eb2b4fb92",
+    "shop-model.mjs": "be1eb733e4aee85dbea0f7e5d6aefab03feb0b7bb1b9ab32590259f1fea3139a",
+    "partner-orders.mjs": "bfb48b80b630cb2f2506c1b8ad4686596e28d2754f4c0c59011199e57e80b8fc",
+    "tests/shop-flow-browser.mjs": "cbded4b8f2eb0d787fe1e719dfd674c3c80d74055e701bcefc4f576069b58313",
+    "tests/shop-browser.mjs": "6f1c21eede75bd085ef4e4f12fe5100ce889dc0b2eb04534fd7ab5c22c729bf3"
+  },
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "autoNoticeOnce": true,
+      "releaseSelectionCorrectStock": true,
+      "atomicFirstDelivery": true,
+      "pausedIntentPreserved": true,
+      "bothDestinations": true,
+      "repeatDeliveryConfirmation": true,
+      "priceControls": true,
+      "strictReload": true,
+      "deliveryHeight": 70.1875,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "autoNoticeOnce": true,
+      "releaseSelectionCorrectStock": true,
+      "atomicFirstDelivery": true,
+      "pausedIntentPreserved": true,
+      "bothDestinations": true,
+      "repeatDeliveryConfirmation": true,
+      "priceControls": true,
+      "strictReload": true,
+      "deliveryHeight": 90.578125,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 667,
+      "autoNoticeOnce": true,
+      "releaseSelectionCorrectStock": true,
+      "atomicFirstDelivery": true,
+      "pausedIntentPreserved": true,
+      "bothDestinations": true,
+      "repeatDeliveryConfirmation": true,
+      "priceControls": true,
+      "strictReload": true,
+      "deliveryHeight": 90.578125,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "running": false,
+      "deferKeepsPauseIntent": true,
+      "reloadNoRepeatAuto": true,
+      "buttonReopens": true,
+      "relationOnlyNoDelivery": true
+    },
+    {
+      "running": true,
+      "deferKeepsPauseIntent": true,
+      "reloadNoRepeatAuto": true,
+      "buttonReopens": true,
+      "relationOnlyNoDelivery": true
+    },
+    {
+      "zeroStockRelationOnly": true
+    },
+    {
+      "priority": "distilling",
+      "noticeWaitsForExistingWork": true,
+      "appearsWhenSafe": true
+    },
+    {
+      "priority": "filling",
+      "noticeWaitsForExistingWork": true,
+      "appearsWhenSafe": true
+    },
+    {
+      "priority": "tasting",
+      "noticeWaitsForExistingWork": true,
+      "appearsWhenSafe": true
+    },
+    {
+      "priority": "trade",
+      "noticeWaitsForExistingWork": true,
+      "appearsWhenSafe": true
+    },
+    {
+      "quotaBeforeNoticeNoPopupNoDurableMutation": true
+    },
+    {
+      "realMonthlyOfferArrival": true,
+      "autoNoticeAtSafeBoundary": true,
+      "firstDeliveryWithoutManualOfferSearch": true,
+      "runningClockResumesAfterDelivery": true
+    },
+    {
+      "unlistedBottleBothDestinations": true,
+      "priceThenListRetained": true
+    }
+  ]
+}
