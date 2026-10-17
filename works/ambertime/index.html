@@ -6,12 +6,12 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#172124">
 <title>AmberTime — 時間を育てる蒸留所</title>
-<link rel="stylesheet" href="./brands.css?v=0.11">
-<script type="module" src="./reputation-app.mjs?v=0.12"></script>
+<link rel="stylesheet" href="./usual.css?v=0.13">
+<script type="module" src="./usual-app.mjs?v=0.13"></script>
 </head>
 <body data-room="distill"><div class="page">
 <div class="clock-dock"><header>
-<div><h1>AmberTime</h1><span class="edition">0.12 · 小さな蒸留所</span></div>
+<div><h1>AmberTime</h1><span class="edition">0.13 · 小さな蒸留所</span></div>
 <div class="wallet"><span>所持金</span><strong id="cash"></strong><span id="calendar"></span><small id="monthly-cost"></small></div>
 </header><p id="work-notice" class="quiet" role="status"></p>
 <div id="time-flow" hidden>
@@ -36,10 +36,17 @@
 <p id="collection"></p><div id="extraction-progress" class="extraction-progress" aria-hidden="true" hidden><span></span></div>
 <p id="distill-direction" class="quiet"></p>
 <div class="distill-actions">
-<button id="start-distill" type="button">蒸留を始める</button>
+<button id="start-distill" type="button">自分で蒸留する</button>
 <button id="stop-distill" type="button" hidden>抽出を終える</button>
 <button id="open-fill" type="button" hidden>樽に詰める</button>
 </div>
+</div>
+<div class="usual-batch">
+<h3>いつもの仕込み</h3>
+<p id="usual-recipe" class="quiet"></p>
+<button id="reserve-usual" type="button">次の一樽を任せる</button>
+<button id="cancel-usual" type="button" hidden>予約を取り消す</button>
+<p id="usual-status" class="quiet" role="status"></p>
 </div>
 </section>
 <section id="room-warehouse" class="room" aria-label="貯蔵庫" hidden>
@@ -84,7 +91,7 @@
 <a href="../../lab/">研究所へ</a>
 <details><summary>保存・以前の版</summary>
 <p>画面を離れている間は進みません。</p>
-<p><a href="./v011.html">0.11</a> · <a href="./v010-care.html">0.10</a> · <a href="./v010.html">0.10以前の保存</a> · <a href="./v09.html">0.9</a> · <a href="./v081.html">0.8.1</a> · <a href="./v08.html">0.8</a> · <a href="./v07.html">0.7</a> · <a href="./v06.html">0.6</a> · <a href="./v05.html">一樽版</a> · <a href="./v04.html">0.4</a> · <a href="./legacy.html">以前の蒸留所</a></p>
+<p><a href="./v012.html">0.12</a> · <a href="./v011.html">0.11</a> · <a href="./v010-care.html">0.10</a> · <a href="./v010.html">0.10以前の保存</a> · <a href="./v09.html">0.9</a> · <a href="./v081.html">0.8.1</a> · <a href="./v08.html">0.8</a> · <a href="./v07.html">0.7</a> · <a href="./v06.html">0.6</a> · <a href="./v05.html">一樽版</a> · <a href="./v04.html">0.4</a> · <a href="./legacy.html">以前の蒸留所</a></p>
 <p>以前の版の保存は、そのまま残っています。</p>
 <button id="reset" type="button">新しい蒸留所で始める</button><span id="save-status" role="status"></span>
 </details>
