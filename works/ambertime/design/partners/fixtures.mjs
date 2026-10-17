@@ -1,0 +1,15 @@
+// Legal-action checkpoints, shared by regression and browser QA. No state injection.
+import * as D from '../../partner-orders.mjs';
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import {fileURLToPath} from 'node:url';
+export function judgments(s){for(let guard=0;s.decisions.length;guard++){assert(guard<20);const d=s.decisions[0],key=d.pending.options.find(o=>o.id==='wait')?.id??d.pending.options.find(o=>o.id==='last')?.id;assert(key,'QA needs explicit recovery: '+d.eventId);s=D.chooseDistillery(s,d.caskId,key);}return s;}
+export function batch(s,type='bourbon',stop=65){s=D.startDistillation(s);for(let i=1;i<=stop;i++){s=D.distillStep(s);if(i%60===0){s=D.tickDistillery(s);s=judgments(s);if(s.trade.offer)s=D.declineOffer(s);}}return D.fillBarrel(D.stopDistillation(s),type);}
+export function advance(s,target){while(s.core.month<target){s=judgments(s);if(s.trade.offer)s=D.declineOffer(s);const before=s.core.month;s=D.tickDistillery(s);assert.equal(s.core.month,before+1);}return judgments(s);}
+export function initialOffer(seed){let s=batch(D.newDistillery(seed),'refill',83);s=advance(s,s.core.month+6);s=D.bottleNow(s,s.core.casks[0].id);s=D.listBottles(s,s.result.productId);s=batch(s);for(let i=0;i<80&&!s.trade.offer;i++){s=judgments(s);s=D.tickDistillery(s);}assert(s.trade.offer);return s;}
+export function portRelationship(){for(let seed=1;seed<=40;seed++){let s=initialOffer(seed);if(s.trade.offer.partner==='港の仕入れ店')return D.acceptOffer(s);}throw Error('No port seed');}
+export function specialOffer(){let s=portRelationship();for(let guard=0;guard<240;guard++){s=judgments(s);if(s.trade.offer){if(s.trade.offer.kind==='special'){D.serializeDistillery(s);return s;}s=D.declineOffer(s);}for(const c of [...s.core.casks])if(!D.contractFor(s,c.id)&&D.contractCandidates(s,s.trade.relationship.terms[0]).some(x=>x.id===c.id))s=D.assignCask(s,c.id,s.trade.relationship.terms[0].id);if(s.core.casks.length<2&&D.canStart(s).ok)s=batch(s);else{const m=s.core.month;s=D.tickDistillery(s);assert.equal(s.core.month,m+1);}}throw Error('No special order');}
+export function orderAssigned(stop=65){let s=D.acceptOffer(specialOffer());s=judgments(s);if(!D.canStart(s).ok){s=advance(s,s.core.month+1);}s=batch(s,'bourbon',stop);s=D.assignOrder(s,s.core.casks.at(-1).id);D.serializeDistillery(s);return s;}
+export function orderDue(stop=65){let s=orderAssigned(stop),c=D.currentCask(s,s.trade.order.caskId);s=advance(s,c.filledMonth+s.trade.order.targetAge-1);D.serializeDistillery(s);return s;}
+export function unmet(){let s=orderDue(30);s=D.tickDistillery(s);assert.equal(s.trade.order.status,'unmet');D.serializeDistillery(s);return s;}
+if(process.argv[1]===fileURLToPath(import.meta.url)){for(const [name,make]of Object.entries({offer:specialOffer,accepted:()=>D.acceptOffer(specialOffer()),assigned:orderAssigned,due:orderDue,unmet})){const s=make();fs.writeFileSync(new URL(`../../tests/fixtures/partners-${name}.json`,import.meta.url),D.serializeDistillery(s)+'\n');console.log(name,s.seed,s.core.month,s.core.cash,s.trade.order?.status,s.trade.offer?.kind);}}
