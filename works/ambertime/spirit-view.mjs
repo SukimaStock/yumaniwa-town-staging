@@ -1,4 +1,5 @@
-import {previewDistillation,tasting} from './model.mjs';
+import {tasting} from './model.mjs';
+import {previewForDistillation} from './aroma-extraction.mjs';
 import {PARALLEL_PARAMETERS as P} from './economy-parameters.mjs';
 // Absolute model units, never a batch-relative score. Wood's distinct range is
 // reserved for a later aging view; Phase 1 renders only the first two axes.
@@ -32,7 +33,7 @@ export function distillationView(s){
  if(!d||!Number.isInteger(d.progress)||d.progress<0||d.progress>=P.distillMax)return null;
  if(d.progress<P.minimumStop)return {phase:'collecting',litres:d.litres,phrase:'原酒を集めています。',axes:[]};
  if(!Number.isFinite(d.variation)||d.variation<=0)return null;
- const cut=(d.progress-P.minimumStop)/(P.distillMax-P.minimumStop),f=previewDistillation(cut);
+ const f=previewForDistillation(d);
  const profile=spiritProfile({litres:f.litres,roughness:Math.min(1,f.roughness*d.variation),character:Math.min(1,f.character*d.variation)});
  return profile?{phase:'forecast',...profile}:null;
 }

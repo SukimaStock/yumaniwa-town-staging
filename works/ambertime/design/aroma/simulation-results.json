@@ -1,0 +1,1823 @@
+{
+  "method": {
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      42,
+      12345,
+      20261017,
+      4294967295
+    ],
+    "months": 120,
+    "tickMilliseconds": 100,
+    "monthMilliseconds": 6000,
+    "recipes": [
+      {
+        "stopAt": 30,
+        "type": "refill"
+      },
+      {
+        "stopAt": 30,
+        "type": "bourbon"
+      },
+      {
+        "stopAt": 65,
+        "type": "refill"
+      },
+      {
+        "stopAt": 65,
+        "type": "bourbon"
+      },
+      {
+        "stopAt": 99,
+        "type": "refill"
+      },
+      {
+        "stopAt": 99,
+        "type": "bourbon"
+      }
+    ],
+    "policy": "Public actions only. First cask is manually distilled in both arms. Thereafter one arm manually starts/stops/fills; the other explicitly reserves exactly one next cask per production request. Both hold at most two aging casks and bottle at age six to the same brand at standard price. Decisions and offers pause simulation until handled. Each extraction step uses one clock callback; no instant distillation or modified cash. Extra bourbon cost is protected equally in both arms. Non-log runtime state is compared every month.",
+    "limits": "Matched policy, not a claim that automation increases demand or production. One recipe per seed, cycling early30/mid65/late99 and both casks; two repeat-seed recipes. Pauses and UI scheduling are covered by separate tests.",
+    "sourceSha256": {
+      "partner-orders.mjs": "43815b5fbedaaf0e1d4bd865498864a5200362c0965cbe21a8dd51a2191e94fa",
+      "economy.mjs": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+      "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+      "tests/aroma-simulate.mjs": "25c81c55b66713fb49e3f9c7d149bf43822bcbbd3463ddc73f82887b0b17db67",
+      "economy-parameters.mjs": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+      "partner-parameters.mjs": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838",
+      "aroma-extraction.mjs": "ce49442feb779dca821cce4e017eab8b5ec8a32a9d86bc7a76d1e438b0267eb4"
+    },
+    "longRunSourceSha256": {
+      "partner-orders.mjs": "43815b5fbedaaf0e1d4bd865498864a5200362c0965cbe21a8dd51a2191e94fa",
+      "economy.mjs": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+      "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+      "tests/aroma-simulate.mjs": "25c81c55b66713fb49e3f9c7d149bf43822bcbbd3463ddc73f82887b0b17db67",
+      "economy-parameters.mjs": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+      "partner-parameters.mjs": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838",
+      "aroma-extraction.mjs": "ce49442feb779dca821cce4e017eab8b5ec8a32a9d86bc7a76d1e438b0267eb4"
+    },
+    "finalSourceSha256": {
+      "partner-orders.mjs": "43815b5fbedaaf0e1d4bd865498864a5200362c0965cbe21a8dd51a2191e94fa",
+      "economy.mjs": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+      "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+      "tests/aroma-simulate.mjs": "1bce3337588a4cfeeb818a80f0b9d4a42aa49ae0d79d289fc8fd43abb3b17024",
+      "economy-parameters.mjs": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+      "partner-parameters.mjs": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838",
+      "aroma-extraction.mjs": "77bc8d654d551e688b9ade8018bf595a75cc1c3355cd2023aef59c51ad6253ff"
+    }
+  },
+  "runs": [
+    {
+      "seed": 1,
+      "recipe": {
+        "stopAt": 30,
+        "type": "refill"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "gameMilliseconds": 720000,
+      "manual": {
+        "starts": 40,
+        "fills": 40,
+        "extractionTicks": 1200,
+        "manualFills": 40,
+        "automaticFills": 0,
+        "reservations": 0,
+        "distillationCost": 4800,
+        "caskCost": 4000,
+        "bottlingCost": 3762
+      },
+      "usual": {
+        "starts": 40,
+        "fills": 40,
+        "extractionTicks": 1200,
+        "manualFills": 1,
+        "automaticFills": 39,
+        "reservations": 39,
+        "distillationCost": 4800,
+        "caskCost": 4000,
+        "bottlingCost": 3762
+      },
+      "totals": {
+        "revenue": 20064,
+        "costs": 12562,
+        "upkeep": 2392,
+        "evaporated": 10.942627912537745,
+        "bottlesSold": 1254
+      },
+      "stock": 0,
+      "casks": 2,
+      "cash": 6710,
+      "minCash": 850,
+      "crossMonthExtractions": 0,
+      "concurrentAgingTicks": 1131,
+      "concurrentSalesTicks": 1102,
+      "partialReplay": true,
+      "identicalRuntimeAtEveryMonth": true,
+      "cashErrorCents": 0,
+      "replay": [
+        {
+          "month": 60,
+          "manual": "0c2ab7989e05a6b20cadcefc9cf172d062b7cdc9d88536a53563cb8941545055",
+          "usual": "54c362c5aee692e8ae5f85a6d21e15737df80fdc783940959841ff8a9bfaa654"
+        },
+        {
+          "month": 120,
+          "manual": "40261cab461d156cb6544a9d269140fa7bdf2eb4a9814a93a72c47fc35731154",
+          "usual": "22e81fa2bafaa6f4ff942f7235a6188ec4ded58c9e52e0d0588979d3cb1df092"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "produced": 4,
+          "sold": 66,
+          "revenue": 1056,
+          "stock": 0,
+          "casks": 2,
+          "cash": 1346,
+          "costs": 1078,
+          "upkeep": 232
+        },
+        {
+          "month": 24,
+          "produced": 8,
+          "sold": 198,
+          "revenue": 3168,
+          "stock": 0,
+          "casks": 2,
+          "cash": 1942,
+          "costs": 2354,
+          "upkeep": 472
+        },
+        {
+          "month": 36,
+          "produced": 12,
+          "sold": 330,
+          "revenue": 5280,
+          "stock": 0,
+          "casks": 2,
+          "cash": 2538,
+          "costs": 3630,
+          "upkeep": 712
+        },
+        {
+          "month": 48,
+          "produced": 16,
+          "sold": 462,
+          "revenue": 7392,
+          "stock": 0,
+          "casks": 2,
+          "cash": 3134,
+          "costs": 4906,
+          "upkeep": 952
+        },
+        {
+          "month": 60,
+          "produced": 20,
+          "sold": 594,
+          "revenue": 9504,
+          "stock": 0,
+          "casks": 2,
+          "cash": 3730,
+          "costs": 6182,
+          "upkeep": 1192
+        },
+        {
+          "month": 72,
+          "produced": 24,
+          "sold": 726,
+          "revenue": 11616,
+          "stock": 0,
+          "casks": 2,
+          "cash": 4326,
+          "costs": 7458,
+          "upkeep": 1432
+        },
+        {
+          "month": 84,
+          "produced": 28,
+          "sold": 858,
+          "revenue": 13728,
+          "stock": 0,
+          "casks": 2,
+          "cash": 4922,
+          "costs": 8734,
+          "upkeep": 1672
+        },
+        {
+          "month": 96,
+          "produced": 32,
+          "sold": 990,
+          "revenue": 15840,
+          "stock": 0,
+          "casks": 2,
+          "cash": 5518,
+          "costs": 10010,
+          "upkeep": 1912
+        },
+        {
+          "month": 108,
+          "produced": 36,
+          "sold": 1122,
+          "revenue": 17952,
+          "stock": 0,
+          "casks": 2,
+          "cash": 6114,
+          "costs": 11286,
+          "upkeep": 2152
+        },
+        {
+          "month": 120,
+          "produced": 40,
+          "sold": 1254,
+          "revenue": 20064,
+          "stock": 0,
+          "casks": 2,
+          "cash": 6710,
+          "costs": 12562,
+          "upkeep": 2392
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "recipe": {
+        "stopAt": 30,
+        "type": "bourbon"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "gameMilliseconds": 720000,
+      "manual": {
+        "starts": 40,
+        "fills": 40,
+        "extractionTicks": 1200,
+        "manualFills": 40,
+        "automaticFills": 0,
+        "reservations": 0,
+        "distillationCost": 4800,
+        "caskCost": 6400,
+        "bottlingCost": 3762
+      },
+      "usual": {
+        "starts": 40,
+        "fills": 40,
+        "extractionTicks": 1200,
+        "manualFills": 1,
+        "automaticFills": 39,
+        "reservations": 39,
+        "distillationCost": 4800,
+        "caskCost": 6400,
+        "bottlingCost": 3762
+      },
+      "totals": {
+        "revenue": 20064,
+        "costs": 14962,
+        "upkeep": 2392,
+        "evaporated": 14.925927640978777,
+        "bottlesSold": 1254
+      },
+      "stock": 0,
+      "casks": 2,
+      "cash": 4310,
+      "minCash": 610,
+      "crossMonthExtractions": 0,
+      "concurrentAgingTicks": 1131,
+      "concurrentSalesTicks": 1102,
+      "partialReplay": true,
+      "identicalRuntimeAtEveryMonth": true,
+      "cashErrorCents": 0,
+      "replay": [
+        {
+          "month": 60,
+          "manual": "76ba9ffeffb400abc195430b03511d8a39d210351b19cdb0310bfaf3d0e82376",
+          "usual": "6b04606a5bc7a439782c7a555968ff024a0906ee6b59808316cbbcc25d5a173c"
+        },
+        {
+          "month": 120,
+          "manual": "01ac4fc94d184249c0f6b1de919a576408b4b8a7a3de99550df9e9e2bb262996",
+          "usual": "1544a8056d904641bd5d109d817ee7ca9029e699e349ca69967ce155ea4aafb1"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "produced": 4,
+          "sold": 66,
+          "revenue": 1056,
+          "stock": 0,
+          "casks": 2,
+          "cash": 1106,
+          "costs": 1318,
+          "upkeep": 232
+        },
+        {
+          "month": 24,
+          "produced": 8,
+          "sold": 198,
+          "revenue": 3168,
+          "stock": 0,
+          "casks": 2,
+          "cash": 1462,
+          "costs": 2834,
+          "upkeep": 472
+        },
+        {
+          "month": 36,
+          "produced": 12,
+          "sold": 330,
+          "revenue": 5280,
+          "stock": 0,
+          "casks": 2,
+          "cash": 1818,
+          "costs": 4350,
+          "upkeep": 712
+        },
+        {
+          "month": 48,
+          "produced": 16,
+          "sold": 462,
+          "revenue": 7392,
+          "stock": 0,
+          "casks": 2,
+          "cash": 2174,
+          "costs": 5866,
+          "upkeep": 952
+        },
+        {
+          "month": 60,
+          "produced": 20,
+          "sold": 594,
+          "revenue": 9504,
+          "stock": 0,
+          "casks": 2,
+          "cash": 2530,
+          "costs": 7382,
+          "upkeep": 1192
+        },
+        {
+          "month": 72,
+          "produced": 24,
+          "sold": 726,
+          "revenue": 11616,
+          "stock": 0,
+          "casks": 2,
+          "cash": 2886,
+          "costs": 8898,
+          "upkeep": 1432
+        },
+        {
+          "month": 84,
+          "produced": 28,
+          "sold": 858,
+          "revenue": 13728,
+          "stock": 0,
+          "casks": 2,
+          "cash": 3242,
+          "costs": 10414,
+          "upkeep": 1672
+        },
+        {
+          "month": 96,
+          "produced": 32,
+          "sold": 990,
+          "revenue": 15840,
+          "stock": 0,
+          "casks": 2,
+          "cash": 3598,
+          "costs": 11930,
+          "upkeep": 1912
+        },
+        {
+          "month": 108,
+          "produced": 36,
+          "sold": 1122,
+          "revenue": 17952,
+          "stock": 0,
+          "casks": 2,
+          "cash": 3954,
+          "costs": 13446,
+          "upkeep": 2152
+        },
+        {
+          "month": 120,
+          "produced": 40,
+          "sold": 1254,
+          "revenue": 20064,
+          "stock": 0,
+          "casks": 2,
+          "cash": 4310,
+          "costs": 14962,
+          "upkeep": 2392
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "recipe": {
+        "stopAt": 65,
+        "type": "refill"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "gameMilliseconds": 720000,
+      "manual": {
+        "starts": 35,
+        "fills": 34,
+        "extractionTicks": 2270,
+        "manualFills": 34,
+        "automaticFills": 0,
+        "reservations": 0,
+        "distillationCost": 4200,
+        "caskCost": 3400,
+        "bottlingCost": 4455
+      },
+      "usual": {
+        "starts": 35,
+        "fills": 34,
+        "extractionTicks": 2270,
+        "manualFills": 1,
+        "automaticFills": 33,
+        "reservations": 34,
+        "distillationCost": 4200,
+        "caskCost": 3400,
+        "bottlingCost": 4455
+      },
+      "totals": {
+        "revenue": 23280,
+        "costs": 12055,
+        "upkeep": 2112,
+        "evaporated": 12.308851362771218,
+        "bottlesSold": 1455
+      },
+      "stock": 30,
+      "casks": 1,
+      "cash": 10713,
+      "minCash": 985,
+      "crossMonthExtractions": 34,
+      "concurrentAgingTicks": 2108,
+      "concurrentSalesTicks": 2108,
+      "partialReplay": true,
+      "identicalRuntimeAtEveryMonth": true,
+      "cashErrorCents": 0,
+      "replay": [
+        {
+          "month": 60,
+          "manual": "90d935bcfbcd2bab28b4698aaba70f134dbe3f43ade0a968d1608e8600a42aae",
+          "usual": "fd1b1f516446e2eab9bd0fcdda0a4c6c900650b3e09612024c834d1b4e3cd62e"
+        },
+        {
+          "month": 120,
+          "manual": "f52faeef1a006d4e8120e46fe15ce4a15402c6be9da0c09782a9874d6efad61f",
+          "usual": "d315ce7d3ae975878445120a51f7d20213f2143166be0ec83b1a0b8e23ddd24b"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "produced": 4,
+          "sold": 90,
+          "revenue": 1440,
+          "stock": 0,
+          "casks": 2,
+          "cash": 1690,
+          "costs": 1150,
+          "upkeep": 200
+        },
+        {
+          "month": 24,
+          "produced": 8,
+          "sold": 242,
+          "revenue": 3872,
+          "stock": 28,
+          "casks": 2,
+          "cash": 2494,
+          "costs": 2570,
+          "upkeep": 408
+        },
+        {
+          "month": 36,
+          "produced": 10,
+          "sold": 374,
+          "revenue": 5984,
+          "stock": 31,
+          "casks": 1,
+          "cash": 3425,
+          "costs": 3535,
+          "upkeep": 624
+        },
+        {
+          "month": 48,
+          "produced": 14,
+          "sold": 540,
+          "revenue": 8640,
+          "stock": 0,
+          "casks": 2,
+          "cash": 4700,
+          "costs": 4700,
+          "upkeep": 840
+        },
+        {
+          "month": 60,
+          "produced": 18,
+          "sold": 714,
+          "revenue": 11424,
+          "stock": 6,
+          "casks": 2,
+          "cash": 5856,
+          "costs": 6120,
+          "upkeep": 1048
+        },
+        {
+          "month": 72,
+          "produced": 21,
+          "sold": 849,
+          "revenue": 13584,
+          "stock": 51,
+          "casks": 1,
+          "cash": 6488,
+          "costs": 7440,
+          "upkeep": 1256
+        },
+        {
+          "month": 84,
+          "produced": 24,
+          "sold": 990,
+          "revenue": 15840,
+          "stock": 0,
+          "casks": 2,
+          "cash": 7710,
+          "costs": 8250,
+          "upkeep": 1480
+        },
+        {
+          "month": 96,
+          "produced": 28,
+          "sold": 1170,
+          "revenue": 18720,
+          "stock": 0,
+          "casks": 2,
+          "cash": 8962,
+          "costs": 9670,
+          "upkeep": 1688
+        },
+        {
+          "month": 108,
+          "produced": 32,
+          "sold": 1323,
+          "revenue": 21168,
+          "stock": 27,
+          "casks": 2,
+          "cash": 9782,
+          "costs": 11090,
+          "upkeep": 1896
+        },
+        {
+          "month": 120,
+          "produced": 34,
+          "sold": 1455,
+          "revenue": 23280,
+          "stock": 30,
+          "casks": 1,
+          "cash": 10713,
+          "costs": 12055,
+          "upkeep": 2112
+        }
+      ]
+    },
+    {
+      "seed": 4,
+      "recipe": {
+        "stopAt": 65,
+        "type": "bourbon"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "gameMilliseconds": 720000,
+      "manual": {
+        "starts": 35,
+        "fills": 34,
+        "extractionTicks": 2270,
+        "manualFills": 34,
+        "automaticFills": 0,
+        "reservations": 0,
+        "distillationCost": 4200,
+        "caskCost": 5440,
+        "bottlingCost": 4401
+      },
+      "usual": {
+        "starts": 35,
+        "fills": 34,
+        "extractionTicks": 2270,
+        "manualFills": 1,
+        "automaticFills": 33,
+        "reservations": 34,
+        "distillationCost": 4200,
+        "caskCost": 5440,
+        "bottlingCost": 4401
+      },
+      "totals": {
+        "revenue": 23008,
+        "costs": 14041,
+        "upkeep": 2104,
+        "evaporated": 16.867514817527553,
+        "bottlesSold": 1438
+      },
+      "stock": 29,
+      "casks": 1,
+      "cash": 8463,
+      "minCash": 865,
+      "crossMonthExtractions": 34,
+      "concurrentAgingTicks": 2168,
+      "concurrentSalesTicks": 2108,
+      "partialReplay": true,
+      "identicalRuntimeAtEveryMonth": true,
+      "cashErrorCents": 0,
+      "replay": [
+        {
+          "month": 60,
+          "manual": "695a25bcb3d9e4ebe395b363baa112362d6b233e5b4d6596f37e897841fbcfa5",
+          "usual": "2c6e05dad78ffc3fad7856fb44a8cbd50d08e7f99dd82c6ae6feb0e3306aab8a"
+        },
+        {
+          "month": 120,
+          "manual": "609d2ad2bc254a49c5c6af4d82c27581591e160ae39d004cf2218f5eb1844fa4",
+          "usual": "338819ea7350439a8879865f8d59087ad4eca0c3ab01dddb989ea91977094493"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "produced": 4,
+          "sold": 89,
+          "revenue": 1424,
+          "stock": 0,
+          "casks": 2,
+          "cash": 1445,
+          "costs": 1387,
+          "upkeep": 192
+        },
+        {
+          "month": 24,
+          "produced": 7,
+          "sold": 229,
+          "revenue": 3664,
+          "stock": 36,
+          "casks": 1,
+          "cash": 1989,
+          "costs": 2875,
+          "upkeep": 400
+        },
+        {
+          "month": 36,
+          "produced": 10,
+          "sold": 368,
+          "revenue": 5888,
+          "stock": 31,
+          "casks": 1,
+          "cash": 2755,
+          "costs": 4117,
+          "upkeep": 616
+        },
+        {
+          "month": 48,
+          "produced": 14,
+          "sold": 532,
+          "revenue": 8512,
+          "stock": 0,
+          "casks": 2,
+          "cash": 3764,
+          "costs": 5516,
+          "upkeep": 832
+        },
+        {
+          "month": 60,
+          "produced": 18,
+          "sold": 691,
+          "revenue": 11056,
+          "stock": 19,
+          "casks": 2,
+          "cash": 4446,
+          "costs": 7170,
+          "upkeep": 1040
+        },
+        {
+          "month": 72,
+          "produced": 21,
+          "sold": 830,
+          "revenue": 13280,
+          "stock": 14,
+          "casks": 2,
+          "cash": 5212,
+          "costs": 8412,
+          "upkeep": 1256
+        },
+        {
+          "month": 84,
+          "produced": 24,
+          "sold": 977,
+          "revenue": 15632,
+          "stock": 0,
+          "casks": 2,
+          "cash": 6109,
+          "costs": 9651,
+          "upkeep": 1472
+        },
+        {
+          "month": 96,
+          "produced": 28,
+          "sold": 1152,
+          "revenue": 18432,
+          "stock": 3,
+          "casks": 2,
+          "cash": 7047,
+          "costs": 11305,
+          "upkeep": 1680
+        },
+        {
+          "month": 108,
+          "produced": 31,
+          "sold": 1299,
+          "revenue": 20784,
+          "stock": 35,
+          "casks": 1,
+          "cash": 7694,
+          "costs": 12802,
+          "upkeep": 1888
+        },
+        {
+          "month": 120,
+          "produced": 34,
+          "sold": 1438,
+          "revenue": 23008,
+          "stock": 29,
+          "casks": 1,
+          "cash": 8463,
+          "costs": 14041,
+          "upkeep": 2104
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "recipe": {
+        "stopAt": 99,
+        "type": "refill"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "gameMilliseconds": 720000,
+      "manual": {
+        "starts": 35,
+        "fills": 34,
+        "extractionTicks": 3426,
+        "manualFills": 34,
+        "automaticFills": 0,
+        "reservations": 0,
+        "distillationCost": 4200,
+        "caskCost": 3400,
+        "bottlingCost": 5544
+      },
+      "usual": {
+        "starts": 35,
+        "fills": 34,
+        "extractionTicks": 3426,
+        "manualFills": 1,
+        "automaticFills": 33,
+        "reservations": 34,
+        "distillationCost": 4200,
+        "caskCost": 3400,
+        "bottlingCost": 5544
+      },
+      "totals": {
+        "revenue": 28896,
+        "costs": 13144,
+        "upkeep": 2104,
+        "evaporated": 15.245980894670673,
+        "bottlesSold": 1806
+      },
+      "stock": 42,
+      "casks": 1,
+      "cash": 15248,
+      "minCash": 960,
+      "crossMonthExtractions": 35,
+      "concurrentAgingTicks": 3294,
+      "concurrentSalesTicks": 3196,
+      "partialReplay": true,
+      "identicalRuntimeAtEveryMonth": true,
+      "cashErrorCents": 0,
+      "replay": [
+        {
+          "month": 60,
+          "manual": "5126c63addf8aca023cc7b951b9091ef741770af6c59ff2c0497b7211cc1ade3",
+          "usual": "9b9c5f4d9fe704ea5b6209b86983494bd6b3690535309b86d78a2838ee183f02"
+        },
+        {
+          "month": 120,
+          "manual": "789606ac07dd1bc3f5ffed2badd9bebd425ec6f10c0f644b228f02a15ab33aaa",
+          "usual": "58b4c115020e1aa6c9e76a849e1de89efba07dda7c8aedbce652ce08fd0d30b2"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "produced": 4,
+          "sold": 93,
+          "revenue": 1488,
+          "stock": 19,
+          "casks": 2,
+          "cash": 1680,
+          "costs": 1216,
+          "upkeep": 192
+        },
+        {
+          "month": 24,
+          "produced": 7,
+          "sold": 274,
+          "revenue": 4384,
+          "stock": 62,
+          "casks": 1,
+          "cash": 2916,
+          "costs": 2668,
+          "upkeep": 400
+        },
+        {
+          "month": 36,
+          "produced": 10,
+          "sold": 462,
+          "revenue": 7392,
+          "stock": 42,
+          "casks": 1,
+          "cash": 4544,
+          "costs": 3832,
+          "upkeep": 616
+        },
+        {
+          "month": 48,
+          "produced": 14,
+          "sold": 668,
+          "revenue": 10688,
+          "stock": 4,
+          "casks": 2,
+          "cash": 6360,
+          "costs": 5096,
+          "upkeep": 832
+        },
+        {
+          "month": 60,
+          "produced": 18,
+          "sold": 860,
+          "revenue": 13760,
+          "stock": 36,
+          "casks": 2,
+          "cash": 7672,
+          "costs": 6648,
+          "upkeep": 1040
+        },
+        {
+          "month": 72,
+          "produced": 21,
+          "sold": 1036,
+          "revenue": 16576,
+          "stock": 28,
+          "casks": 2,
+          "cash": 9108,
+          "costs": 7812,
+          "upkeep": 1256
+        },
+        {
+          "month": 84,
+          "produced": 24,
+          "sold": 1232,
+          "revenue": 19712,
+          "stock": 0,
+          "casks": 2,
+          "cash": 10864,
+          "costs": 8976,
+          "upkeep": 1472
+        },
+        {
+          "month": 96,
+          "produced": 28,
+          "sold": 1438,
+          "revenue": 23008,
+          "stock": 18,
+          "casks": 2,
+          "cash": 12400,
+          "costs": 10528,
+          "upkeep": 1680
+        },
+        {
+          "month": 108,
+          "produced": 31,
+          "sold": 1620,
+          "revenue": 25920,
+          "stock": 60,
+          "casks": 1,
+          "cash": 13652,
+          "costs": 11980,
+          "upkeep": 1888
+        },
+        {
+          "month": 120,
+          "produced": 34,
+          "sold": 1806,
+          "revenue": 28896,
+          "stock": 42,
+          "casks": 1,
+          "cash": 15248,
+          "costs": 13144,
+          "upkeep": 2104
+        }
+      ]
+    },
+    {
+      "seed": 12345,
+      "recipe": {
+        "stopAt": 99,
+        "type": "bourbon"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "gameMilliseconds": 720000,
+      "manual": {
+        "starts": 35,
+        "fills": 34,
+        "extractionTicks": 3426,
+        "manualFills": 34,
+        "automaticFills": 0,
+        "reservations": 0,
+        "distillationCost": 4200,
+        "caskCost": 5440,
+        "bottlingCost": 5445
+      },
+      "usual": {
+        "starts": 35,
+        "fills": 34,
+        "extractionTicks": 3426,
+        "manualFills": 1,
+        "automaticFills": 33,
+        "reservations": 34,
+        "distillationCost": 4200,
+        "caskCost": 5440,
+        "bottlingCost": 5445
+      },
+      "totals": {
+        "revenue": 28384,
+        "costs": 15085,
+        "upkeep": 2104,
+        "evaporated": 20.83962693515727,
+        "bottlesSold": 1774
+      },
+      "stock": 41,
+      "casks": 1,
+      "cash": 12795,
+      "minCash": 843,
+      "crossMonthExtractions": 35,
+      "concurrentAgingTicks": 3294,
+      "concurrentSalesTicks": 3196,
+      "partialReplay": true,
+      "identicalRuntimeAtEveryMonth": true,
+      "cashErrorCents": 0,
+      "replay": [
+        {
+          "month": 60,
+          "manual": "8cdbee84ca29ce721001512748093a31d3f0eb404416e0401b2984796de27f0a",
+          "usual": "d5da19f804a4c302627dfccbbf36c8012932cc07ce689f8f439b06e6322d97c2"
+        },
+        {
+          "month": 120,
+          "manual": "39a6ae69cf31efa5de3fd636930de6df58549e09c303fbc12123dca5b0efc1c6",
+          "usual": "59951a0dbc46ec0300a76f3a6d62001e074e350c56849655ec2c162cf0a551fc"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "produced": 4,
+          "sold": 92,
+          "revenue": 1472,
+          "stock": 18,
+          "casks": 2,
+          "cash": 1430,
+          "costs": 1450,
+          "upkeep": 192
+        },
+        {
+          "month": 24,
+          "produced": 7,
+          "sold": 270,
+          "revenue": 4320,
+          "stock": 60,
+          "casks": 1,
+          "cash": 2450,
+          "costs": 3070,
+          "upkeep": 400
+        },
+        {
+          "month": 36,
+          "produced": 10,
+          "sold": 454,
+          "revenue": 7264,
+          "stock": 41,
+          "casks": 1,
+          "cash": 3843,
+          "costs": 4405,
+          "upkeep": 616
+        },
+        {
+          "month": 48,
+          "produced": 14,
+          "sold": 657,
+          "revenue": 10512,
+          "stock": 3,
+          "casks": 2,
+          "cash": 5380,
+          "costs": 5900,
+          "upkeep": 832
+        },
+        {
+          "month": 60,
+          "produced": 18,
+          "sold": 846,
+          "revenue": 13536,
+          "stock": 34,
+          "casks": 2,
+          "cash": 6416,
+          "costs": 7680,
+          "upkeep": 1040
+        },
+        {
+          "month": 72,
+          "produced": 21,
+          "sold": 1018,
+          "revenue": 16288,
+          "stock": 27,
+          "casks": 2,
+          "cash": 7617,
+          "costs": 9015,
+          "upkeep": 1256
+        },
+        {
+          "month": 84,
+          "produced": 24,
+          "sold": 1210,
+          "revenue": 19360,
+          "stock": 0,
+          "casks": 2,
+          "cash": 9138,
+          "costs": 10350,
+          "upkeep": 1472
+        },
+        {
+          "month": 96,
+          "produced": 28,
+          "sold": 1413,
+          "revenue": 22608,
+          "stock": 17,
+          "casks": 2,
+          "cash": 10398,
+          "costs": 12130,
+          "upkeep": 1680
+        },
+        {
+          "month": 108,
+          "produced": 31,
+          "sold": 1592,
+          "revenue": 25472,
+          "stock": 58,
+          "casks": 1,
+          "cash": 11434,
+          "costs": 13750,
+          "upkeep": 1888
+        },
+        {
+          "month": 120,
+          "produced": 34,
+          "sold": 1774,
+          "revenue": 28384,
+          "stock": 41,
+          "casks": 1,
+          "cash": 12795,
+          "costs": 15085,
+          "upkeep": 2104
+        }
+      ]
+    },
+    {
+      "seed": 20261017,
+      "recipe": {
+        "stopAt": 30,
+        "type": "refill"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "gameMilliseconds": 720000,
+      "manual": {
+        "starts": 40,
+        "fills": 40,
+        "extractionTicks": 1200,
+        "manualFills": 40,
+        "automaticFills": 0,
+        "reservations": 0,
+        "distillationCost": 4800,
+        "caskCost": 4000,
+        "bottlingCost": 3762
+      },
+      "usual": {
+        "starts": 40,
+        "fills": 40,
+        "extractionTicks": 1200,
+        "manualFills": 1,
+        "automaticFills": 39,
+        "reservations": 39,
+        "distillationCost": 4800,
+        "caskCost": 4000,
+        "bottlingCost": 3762
+      },
+      "totals": {
+        "revenue": 20064,
+        "costs": 12562,
+        "upkeep": 2392,
+        "evaporated": 10.82271237389308,
+        "bottlesSold": 1254
+      },
+      "stock": 0,
+      "casks": 2,
+      "cash": 6710,
+      "minCash": 850,
+      "crossMonthExtractions": 0,
+      "concurrentAgingTicks": 1131,
+      "concurrentSalesTicks": 1102,
+      "partialReplay": true,
+      "identicalRuntimeAtEveryMonth": true,
+      "cashErrorCents": 0,
+      "replay": [
+        {
+          "month": 60,
+          "manual": "2764f803649fae4b314d4fd8d585ad5e47c7b5c7e338e39e889fce2b3c720dfa",
+          "usual": "392f543d066b43050b610f76bdf01a1458069457e1bff3a937bab16758e9d667"
+        },
+        {
+          "month": 120,
+          "manual": "57f12db61d4d140f4a85f9a34b702e4623fa2f4b3e9356de68bbe0348147cbb3",
+          "usual": "cca57a2fe9dbdafab427ecbe72189e2b1f631d84824a55d17306d42db581fcaa"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "produced": 4,
+          "sold": 66,
+          "revenue": 1056,
+          "stock": 0,
+          "casks": 2,
+          "cash": 1346,
+          "costs": 1078,
+          "upkeep": 232
+        },
+        {
+          "month": 24,
+          "produced": 8,
+          "sold": 198,
+          "revenue": 3168,
+          "stock": 0,
+          "casks": 2,
+          "cash": 1942,
+          "costs": 2354,
+          "upkeep": 472
+        },
+        {
+          "month": 36,
+          "produced": 12,
+          "sold": 330,
+          "revenue": 5280,
+          "stock": 0,
+          "casks": 2,
+          "cash": 2538,
+          "costs": 3630,
+          "upkeep": 712
+        },
+        {
+          "month": 48,
+          "produced": 16,
+          "sold": 462,
+          "revenue": 7392,
+          "stock": 0,
+          "casks": 2,
+          "cash": 3134,
+          "costs": 4906,
+          "upkeep": 952
+        },
+        {
+          "month": 60,
+          "produced": 20,
+          "sold": 594,
+          "revenue": 9504,
+          "stock": 0,
+          "casks": 2,
+          "cash": 3730,
+          "costs": 6182,
+          "upkeep": 1192
+        },
+        {
+          "month": 72,
+          "produced": 24,
+          "sold": 726,
+          "revenue": 11616,
+          "stock": 0,
+          "casks": 2,
+          "cash": 4326,
+          "costs": 7458,
+          "upkeep": 1432
+        },
+        {
+          "month": 84,
+          "produced": 28,
+          "sold": 858,
+          "revenue": 13728,
+          "stock": 0,
+          "casks": 2,
+          "cash": 4922,
+          "costs": 8734,
+          "upkeep": 1672
+        },
+        {
+          "month": 96,
+          "produced": 32,
+          "sold": 990,
+          "revenue": 15840,
+          "stock": 0,
+          "casks": 2,
+          "cash": 5518,
+          "costs": 10010,
+          "upkeep": 1912
+        },
+        {
+          "month": 108,
+          "produced": 36,
+          "sold": 1122,
+          "revenue": 17952,
+          "stock": 0,
+          "casks": 2,
+          "cash": 6114,
+          "costs": 11286,
+          "upkeep": 2152
+        },
+        {
+          "month": 120,
+          "produced": 40,
+          "sold": 1254,
+          "revenue": 20064,
+          "stock": 0,
+          "casks": 2,
+          "cash": 6710,
+          "costs": 12562,
+          "upkeep": 2392
+        }
+      ]
+    },
+    {
+      "seed": 4294967295,
+      "recipe": {
+        "stopAt": 30,
+        "type": "bourbon"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "gameMilliseconds": 720000,
+      "manual": {
+        "starts": 40,
+        "fills": 40,
+        "extractionTicks": 1200,
+        "manualFills": 40,
+        "automaticFills": 0,
+        "reservations": 0,
+        "distillationCost": 4800,
+        "caskCost": 6400,
+        "bottlingCost": 3762
+      },
+      "usual": {
+        "starts": 40,
+        "fills": 40,
+        "extractionTicks": 1200,
+        "manualFills": 1,
+        "automaticFills": 39,
+        "reservations": 39,
+        "distillationCost": 4800,
+        "caskCost": 6400,
+        "bottlingCost": 3762
+      },
+      "totals": {
+        "revenue": 20064,
+        "costs": 14962,
+        "upkeep": 2392,
+        "evaporated": 14.75911914584696,
+        "bottlesSold": 1254
+      },
+      "stock": 0,
+      "casks": 2,
+      "cash": 4310,
+      "minCash": 610,
+      "crossMonthExtractions": 0,
+      "concurrentAgingTicks": 1131,
+      "concurrentSalesTicks": 1102,
+      "partialReplay": true,
+      "identicalRuntimeAtEveryMonth": true,
+      "cashErrorCents": 0,
+      "replay": [
+        {
+          "month": 60,
+          "manual": "b6a44920f1079c3fd57fe8752d916e94451fab123006624467cdfb3437047dc4",
+          "usual": "ea0b7c3443eb7bf4d8f17ace328217dd3f070028eabd7417ca165fcd88dee07b"
+        },
+        {
+          "month": 120,
+          "manual": "c14dcb310e025a72a93638ee178f4930aca344d811445bc3452714f7b3ea7e24",
+          "usual": "d96b29c611b4f01170bf453bce488e96a952a739d6ac78f3924814cb8504e924"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "produced": 4,
+          "sold": 66,
+          "revenue": 1056,
+          "stock": 0,
+          "casks": 2,
+          "cash": 1106,
+          "costs": 1318,
+          "upkeep": 232
+        },
+        {
+          "month": 24,
+          "produced": 8,
+          "sold": 198,
+          "revenue": 3168,
+          "stock": 0,
+          "casks": 2,
+          "cash": 1462,
+          "costs": 2834,
+          "upkeep": 472
+        },
+        {
+          "month": 36,
+          "produced": 12,
+          "sold": 330,
+          "revenue": 5280,
+          "stock": 0,
+          "casks": 2,
+          "cash": 1818,
+          "costs": 4350,
+          "upkeep": 712
+        },
+        {
+          "month": 48,
+          "produced": 16,
+          "sold": 462,
+          "revenue": 7392,
+          "stock": 0,
+          "casks": 2,
+          "cash": 2174,
+          "costs": 5866,
+          "upkeep": 952
+        },
+        {
+          "month": 60,
+          "produced": 20,
+          "sold": 594,
+          "revenue": 9504,
+          "stock": 0,
+          "casks": 2,
+          "cash": 2530,
+          "costs": 7382,
+          "upkeep": 1192
+        },
+        {
+          "month": 72,
+          "produced": 24,
+          "sold": 726,
+          "revenue": 11616,
+          "stock": 0,
+          "casks": 2,
+          "cash": 2886,
+          "costs": 8898,
+          "upkeep": 1432
+        },
+        {
+          "month": 84,
+          "produced": 28,
+          "sold": 858,
+          "revenue": 13728,
+          "stock": 0,
+          "casks": 2,
+          "cash": 3242,
+          "costs": 10414,
+          "upkeep": 1672
+        },
+        {
+          "month": 96,
+          "produced": 32,
+          "sold": 990,
+          "revenue": 15840,
+          "stock": 0,
+          "casks": 2,
+          "cash": 3598,
+          "costs": 11930,
+          "upkeep": 1912
+        },
+        {
+          "month": 108,
+          "produced": 36,
+          "sold": 1122,
+          "revenue": 17952,
+          "stock": 0,
+          "casks": 2,
+          "cash": 3954,
+          "costs": 13446,
+          "upkeep": 2152
+        },
+        {
+          "month": 120,
+          "produced": 40,
+          "sold": 1254,
+          "revenue": 20064,
+          "stock": 0,
+          "casks": 2,
+          "cash": 4310,
+          "costs": 14962,
+          "upkeep": 2392
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "pairedRuns": 8,
+    "totalSimulatedMonths": 1920,
+    "allMonthlyRuntimeEqual": true,
+    "allReplayExact": true,
+    "allCashErrorCents": 0,
+    "meanProduced": 37,
+    "meanSold": 1436.13,
+    "meanRevenue": 22978,
+    "meanStock": 17.75,
+    "meanCash": 8657.38,
+    "manualMinusUsual": {
+      "production": 0,
+      "extractionTicks": 0,
+      "costs": 0,
+      "revenue": 0,
+      "stock": 0,
+      "cash": 0
+    },
+    "totalAutomaticFills": 288,
+    "totalConcurrentAgingTicks": 15388,
+    "totalConcurrentSalesTicks": 15016
+  },
+  "integration": {
+    "method": "Public D start/step/stop/fill: first-batch profiles match frozen experimental A exactly. Existing pure M.ageCask then ages actual generated casks through36 months. Special counts are taste eligibility at24 only, not offer probability; £ quote is existing E.marketValue, not guaranteed sale.",
+    "seeds": [
+      20261015,
+      1,
+      2,
+      42,
+      314159,
+      8675309,
+      123456789,
+      4294967295
+    ],
+    "exactProfiles": 560,
+    "special24": {
+      "eligible": {
+        "bourbon": 359,
+        "refill": 213
+      },
+      "denominatorPerType": 560
+    },
+    "samples": [
+      {
+        "seed": 20261015,
+        "position": 30,
+        "type": "bourbon",
+        "age": 0,
+        "roughness": 0.21175401558838786,
+        "character": 0.23100438064187764,
+        "wood": 0,
+        "litres": 24
+      },
+      {
+        "seed": 20261015,
+        "position": 30,
+        "type": "bourbon",
+        "age": 12,
+        "roughness": 0.10731829052911267,
+        "character": 0.35428610052111403,
+        "wood": 0.24108017184494113,
+        "litres": 23.277400865409493,
+        "marketValue": 16,
+        "specialEligible": false
+      },
+      {
+        "seed": 20261015,
+        "position": 30,
+        "type": "bourbon",
+        "age": 24,
+        "roughness": 0.05438959658020584,
+        "character": 0.4257375075343528,
+        "wood": 0.4647244489128465,
+        "litres": 22.576557960373606,
+        "marketValue": 19.54049325563033,
+        "specialEligible": false
+      },
+      {
+        "seed": 20261015,
+        "position": 30,
+        "type": "bourbon",
+        "age": 36,
+        "roughness": 0.027564995692463515,
+        "character": 0.46541874507951403,
+        "wood": 0.6721938657564512,
+        "litres": 21.89681624186533,
+        "marketValue": 21.717878094423476,
+        "specialEligible": false
+      },
+      {
+        "seed": 20261015,
+        "position": 30,
+        "type": "refill",
+        "age": 0,
+        "roughness": 0.21175401558838786,
+        "character": 0.23100438064187764,
+        "wood": 0,
+        "litres": 24
+      },
+      {
+        "seed": 20261015,
+        "position": 30,
+        "type": "refill",
+        "age": 12,
+        "roughness": 0.13785297199617602,
+        "character": 0.35428610052111403,
+        "wood": 0.1162648292707801,
+        "litres": 23.469958710902027,
+        "marketValue": 16,
+        "specialEligible": false
+      },
+      {
+        "seed": 20261015,
+        "position": 30,
+        "type": "refill",
+        "age": 24,
+        "roughness": 0.08974300598444282,
+        "character": 0.4257375075343528,
+        "wood": 0.22847440538395114,
+        "litres": 22.95162341214358,
+        "marketValue": 18.159517541480543,
+        "specialEligible": false
+      },
+      {
+        "seed": 20261015,
+        "position": 30,
+        "type": "refill",
+        "age": 36,
+        "roughness": 0.0584231664105664,
+        "character": 0.4671491910278387,
+        "wood": 0.3367701733343188,
+        "litres": 22.44473557629925,
+        "marketValue": 21.315670853459395,
+        "specialEligible": false
+      },
+      {
+        "seed": 20261015,
+        "position": 65,
+        "type": "bourbon",
+        "age": 0,
+        "roughness": 0.5390102214977146,
+        "character": 0.6321952599032211,
+        "wood": 0,
+        "litres": 32
+      },
+      {
+        "seed": 20261015,
+        "position": 65,
+        "type": "bourbon",
+        "age": 12,
+        "roughness": 0.28850752066218527,
+        "character": 0.7883521050835872,
+        "wood": 0.24108017184494113,
+        "litres": 31.03653448721266,
+        "marketValue": 16,
+        "specialEligible": false
+      },
+      {
+        "seed": 20261015,
+        "position": 65,
+        "type": "bourbon",
+        "age": 24,
+        "roughness": 0.1544248813081074,
+        "character": 0.8788572206336898,
+        "wood": 0.4647244489128465,
+        "litres": 30.10207728049814,
+        "marketValue": 23.573426727013413,
+        "specialEligible": true
+      },
+      {
+        "seed": 20261015,
+        "position": 65,
+        "type": "bourbon",
+        "age": 36,
+        "roughness": 0.08265657655054914,
+        "character": 0.9295815737771139,
+        "wood": 0.6721938657564512,
+        "litres": 29.19575498915378,
+        "marketValue": 26.80696420231525,
+        "specialEligible": false
+      },
+      {
+        "seed": 20261015,
+        "position": 65,
+        "type": "refill",
+        "age": 0,
+        "roughness": 0.5390102214977146,
+        "character": 0.6321952599032211,
+        "wood": 0,
+        "litres": 32
+      },
+      {
+        "seed": 20261015,
+        "position": 65,
+        "type": "refill",
+        "age": 12,
+        "roughness": 0.3632129282222733,
+        "character": 0.7883521050835872,
+        "wood": 0.1162648292707801,
+        "litres": 31.2932782812027,
+        "marketValue": 16,
+        "specialEligible": false
+      },
+      {
+        "seed": 20261015,
+        "position": 65,
+        "type": "refill",
+        "age": 24,
+        "roughness": 0.24475163172458986,
+        "character": 0.8788572206336898,
+        "wood": 0.22847440538395114,
+        "litres": 30.602164549524765,
+        "marketValue": 21.643678900427417,
+        "specialEligible": true
+      },
+      {
+        "seed": 20261015,
+        "position": 65,
+        "type": "refill",
+        "age": 36,
+        "roughness": 0.16492629137691528,
+        "character": 0.9313120197254385,
+        "wood": 0.3367701733343188,
+        "litres": 29.926314101732327,
+        "marketValue": 25.957575097640177,
+        "specialEligible": false
+      },
+      {
+        "seed": 20261015,
+        "position": 99,
+        "type": "bourbon",
+        "age": 0,
+        "roughness": 0.8569162500953462,
+        "character": 0.5430433497509858,
+        "wood": 0,
+        "litres": 39.77
+      },
+      {
+        "seed": 20261015,
+        "position": 99,
+        "type": "bourbon",
+        "age": 12,
+        "roughness": 0.4836585883957287,
+        "character": 0.7311360309381638,
+        "wood": 0.24108017184494113,
+        "litres": 38.57259301738899,
+        "marketValue": 16,
+        "specialEligible": false
+      },
+      {
+        "seed": 20261015,
+        "position": 99,
+        "type": "bourbon",
+        "age": 24,
+        "roughness": 0.2729854056366894,
+        "character": 0.8401504633526484,
+        "wood": 0.4647244489128465,
+        "litres": 37.41123792016911,
+        "marketValue": 22.07352803486259,
+        "specialEligible": true
+      },
+      {
+        "seed": 20261015,
+        "position": 99,
+        "type": "bourbon",
+        "age": 36,
+        "roughness": 0.15407775955723313,
+        "character": 0.9016024145058136,
+        "wood": 0.6721938657564512,
+        "litres": 36.28484924745769,
+        "marketValue": 25.875911081439593,
+        "specialEligible": false
+      },
+      {
+        "seed": 20261015,
+        "position": 99,
+        "type": "refill",
+        "age": 0,
+        "roughness": 0.8569162500953462,
+        "character": 0.5430433497509858,
+        "wood": 0,
+        "litres": 39.77
+      },
+      {
+        "seed": 20261015,
+        "position": 99,
+        "type": "refill",
+        "age": 12,
+        "roughness": 0.5971102136670152,
+        "character": 0.7311360309381638,
+        "wood": 0.1162648292707801,
+        "litres": 38.89167741385722,
+        "marketValue": 16,
+        "specialEligible": false
+      },
+      {
+        "seed": 20261015,
+        "position": 99,
+        "type": "refill",
+        "age": 24,
+        "roughness": 0.41607404133810916,
+        "character": 0.8401504633526484,
+        "wood": 0.22847440538395114,
+        "litres": 38.03275262920623,
+        "marketValue": 19.42240100621239,
+        "specialEligible": false
+      },
+      {
+        "seed": 20261015,
+        "position": 99,
+        "type": "refill",
+        "age": 36,
+        "roughness": 0.28992571875845935,
+        "character": 0.9033328604541382,
+        "wood": 0.3367701733343188,
+        "litres": 37.19279724455918,
+        "marketValue": 24.49506612481787,
+        "specialEligible": false
+      }
+    ]
+  },
+  "shipmentBoundary": {
+    "method": "Legal previous-version partners-accepted fixture, migrated via enableAroma; no cash or state fabrication; two new A bourbon casks.",
+    "shipmentMonth": 135,
+    "shipments": [
+      {
+        "month": 135,
+        "caskId": 39,
+        "productId": 44,
+        "partner": "港の仕入れ店",
+        "bottles": 42,
+        "gross": 1096.2,
+        "cost": 126,
+        "net": 970.2,
+        "orderId": 1,
+        "outcome": "fulfilled"
+      },
+      {
+        "month": 135,
+        "caskId": 41,
+        "productId": 45,
+        "partner": "港の仕入れ店",
+        "bottles": 43,
+        "gross": 644.14,
+        "cost": 129,
+        "net": 515.14
+      }
+    ],
+    "afterShipmentCasks": 0,
+    "resumedMonth": 136,
+    "extractionTicks": 65,
+    "produced": 1,
+    "reservation": null,
+    "productionCost": 280,
+    "concurrentMaintenance": 4,
+    "replayExact": true
+  },
+  "unchangedSourceSha256": {
+    "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+    "economy.mjs": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+    "economy-parameters.mjs": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+    "partner-parameters.mjs": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838",
+    "brand-reputation.mjs": "7bd67d2bb41f9c69272a71fb6b57caf4b8065cfbc2835d3b245e9857ab6f8563"
+  }
+}

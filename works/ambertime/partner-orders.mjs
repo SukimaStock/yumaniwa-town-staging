@@ -6,6 +6,7 @@ import {mixSeed} from './character.mjs?v=0.6';
 import {PARALLEL_PARAMETERS as P,ECONOMY_PARAMETERS as C} from './economy-parameters.mjs';
 import {WHOLESALE as W} from './wholesale-parameters.mjs';
 import {PARTNER_ORDERS as T,PARTNERS,SPECIAL_ORDER} from './partner-parameters.mjs';
+import {AROMA_MODEL,aromaPreview} from './aroma-extraction.mjs?v=0.14';
 import {retailReputationFactors} from './brand-reputation.mjs?v=0.12';
 export {SPECIAL_ORDER} from './partner-parameters.mjs';
 export {currentCask,upkeep,observation,comparison,quote,salePrices,marketValue,endTasting} from './economy.mjs?v=0.12';
@@ -22,7 +23,9 @@ const brandMode=s=>s.version===RETAIL_BRANDS.version&&s.rules===RETAIL_BRANDS.ru
 export const BRAND_REPUTATION=Object.freeze({version:9,rules:'retail-brand-reputation'});
 const reputationMode=s=>s.version===BRAND_REPUTATION.version&&s.rules===BRAND_REPUTATION.rules||usualMode(s);
 export const USUAL_BATCH=Object.freeze({version:10,rules:'usual-batch'});
-const usualMode=s=>s.version===USUAL_BATCH.version&&s.rules===USUAL_BATCH.rules;
+const usualMode=s=>s.version===USUAL_BATCH.version&&s.rules===USUAL_BATCH.rules||aromaMode(s);
+export const AROMA_DISTILLATION=Object.freeze({version:11,rules:'aroma-distillation'});
+const aromaMode=s=>s.version===AROMA_DISTILLATION.version&&s.rules===AROMA_DISTILLATION.rules;
 export const BRAND_BOTTLES=Object.freeze([{id:'round',name:'丸瓶'},{id:'slender',name:'細瓶'}].map(Object.freeze));
 export const BRAND_LABELS=Object.freeze([{id:'cream',name:'生成り'},{id:'dark',name:'墨色'}].map(Object.freeze));
 export const defaultBrand=s=>({name:'AmberTime '+((s.brands?.length??0)+1),bottle:BRAND_BOTTLES[0].id,label:BRAND_LABELS[0].id});
@@ -53,6 +56,22 @@ export function enableUsual(s){
  j.usual={recipe:latestManualRecipe(s),reservation:null};return action(j,'enable-usual');
 }
 export const newUsualDistillery=seed=>enableUsual(newReputationDistillery(seed));
+export function enableAroma(s){
+ if(aromaMode(s))return s;
+ const usual=enableUsual(s);
+ assert(usual.operations.length<P.maxOperations,'帳面がいっぱいです。元の保存は以前の版で開けます。');
+ const j=clone(usual);j.version=AROMA_DISTILLATION.version;j.rules=AROMA_DISTILLATION.rules;
+ return action(j,'enable-aroma',{progress:j.still.phase==='distilling'?j.still.distillation.progress:null});
+}
+export const newAromaDistillery=seed=>enableAroma(newUsualDistillery(seed));
+function startWithModel(s){
+ const j=E.startDistillation(s);if(aromaMode(s))j.still.distillation.model=AROMA_MODEL;return j;
+}
+function stopWithModel(s){
+ const j=E.stopDistillation(s);
+ if(s.still.distillation.model===AROMA_MODEL)j.core.spirit.character=Math.min(1,aromaPreview(s.still.distillation.progress).character*s.still.distillation.variation);
+ return j;
+}
 const caskPremium=recipe=>C.casks[recipe.type].cost-Math.min(...Object.values(C.casks).map(c=>c.cost));
 export function usualQuote(s){
  const recipe=s.usual?.reservation?.recipe??s.usual?.recipe;if(!recipe)return null;
@@ -85,12 +104,12 @@ export function usualNeedsClock(s){
 }
 export function beginUsual(s){
  const c=canBeginUsual(s);assert(c.ok,c.reason);
- const j=E.startDistillation(s);j.operations.pop();j.usual.reservation.status='active';return action(j,'start-usual');
+ const j=startWithModel(s);j.operations.pop();j.usual.reservation.status='active';return action(j,'start-usual');
 }
 function completeUsual(s){
  const r=s.usual?.reservation;
  assert(usualMode(s)&&r?.status==='active'&&!blocked(s)&&s.still.phase==='distilling'&&s.still.distillation.progress===r.recipe.stopAt,'いつもの仕込みはまだ抽出中です。');
- let j=E.stopDistillation(s);j.operations.pop();j=E.fillBarrel(j,r.recipe.type);j.operations.pop();
+ let j=stopWithModel(s);j.operations.pop();j=E.fillBarrel(j,r.recipe.type);j.operations.pop();
  for(const n of Object.values(j.notesById))n.observations??=[];
  j.usual.reservation=null;return action(j,'complete-usual');
 }
@@ -172,9 +191,9 @@ function maybeOffer(s){
 }
 function readyForTrade(s){assert(s.tastingId===null,'試飲を終えてから取引を決めます。');assert(!s.trade.offer,'届いた申し出を先に確認します。');}
 export function canStart(s){const c=E.canStart(s);if(usualMode(s)&&s.usual.reservation)return {...c,ok:false,reason:s.usual.reservation.status==='queued'?'予約を取り消すと自分で蒸留できます。':'いつもの仕込みを進めています。'};return s.trade.offer?{...c,ok:false,reason:'届いた申し出を確認します。'}:c;}
-export function startDistillation(s){assert(!s.trade.offer,'申し出を確認してから仕込みます。');assert(!usualMode(s)||!s.usual.reservation,'予約を取り消してから自分で蒸留します。');return E.startDistillation(s);}
+export function startDistillation(s){assert(!s.trade.offer,'申し出を確認してから仕込みます。');assert(!usualMode(s)||!s.usual.reservation,'予約を取り消してから自分で蒸留します。');return startWithModel(s);}
 export function distillStep(s){const j=s.trade.offer?s:E.distillStep(s);return usualMode(j)&&j.usual.reservation?.status==='active'&&!blocked(j)&&j.still.distillation.progress===j.usual.reservation.recipe.stopAt?completeUsual(j):j;}
-export function stopDistillation(s){assert(!usualMode(s)||s.usual.reservation?.status!=='active','いつもの仕込みは抽出の終了まで任せます。');assert(!s.trade.offer,'申し出を確認します。');return E.stopDistillation(s);}
+export function stopDistillation(s){assert(!usualMode(s)||s.usual.reservation?.status!=='active','いつもの仕込みは抽出の終了まで任せます。');assert(!s.trade.offer,'申し出を確認します。');return stopWithModel(s);}
 export function fillBarrel(s,type){assert(!usualMode(s)||!s.usual.reservation,'いつもの仕込みが進行中です。');assert(!s.trade.offer,'申し出を確認します。');const j=E.fillBarrel(s,type);for(const n of Object.values(j.notesById))n.observations??=[];if(usualMode(j))j.usual.recipe={stopAt:s.still.distillation.progress,type};return j;}
 export function sampleDistillery(s,id){assert(!s.trade.offer,'申し出を確認してから試飲します。');return E.sampleDistillery(s,id);}
 export function chooseDistillery(s,id,key){assert(!s.trade.offer,'申し出を確認します。');if(s.notesById[id]?.pending?.id==='order-unmet')return resolveUnmet(s,id,key);return E.chooseDistillery(s,id,key);}
@@ -321,7 +340,7 @@ export function tickDistillery(s,expectedMonth=s.core.month){
  return action(j,'month',{progress:s.still.phase==='distilling'?s.still.distillation.progress:null});
 }
 function progress(s,value){assert(!s.trade.offer||value===s.still.distillation?.progress,'申し出の確認中は蒸留を進めません。');assert(s.still.phase==='distilling'&&Number.isInteger(value)&&value>=s.still.distillation.progress&&value<P.distillMax,'蒸留の進行が不正です。');let j=s;while(j.still.distillation.progress<value){const next=E.distillStep(j);assert(next!==j,'停止中の蒸留です。');j=next;}return j;}
-function apply(s,o){s=E.endTasting(s);switch(o.key){case 'enable-usual':return enableUsual(s);case 'reserve-usual':return reserveUsual(s);case 'cancel-usual':return cancelUsual(s);case 'start-usual':return beginUsual(s);case 'complete-usual':return completeUsual(progress(s,s.usual?.reservation?.recipe.stopAt));case 'enable-brand-reputation':return enableReputation(s);case 'enable-brands':return enableBrands(s);case 'bottle-branded':return bottleBranded(s,o.value?.id,o.value?.selection);case 'enable-promised-care':return enablePromisedCare(s);case 'care':return careForCask(s,o.value);case 'start':return startDistillation(s);case 'stop':assert(Number.isInteger(o.value)&&o.value>=P.minimumStop&&o.value<P.distillMax,'抽出時期が不正です。');return stopDistillation(progress(s,o.value));case 'fill':return fillBarrel(s,o.value);case 'month':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return tickDistillery(s);case 'sample':return sampleDistillery(s,o.value);case 'choose':return chooseDistillery(s,o.value?.id,o.value?.key);case 'bottle':return bottleNow(s,o.value);case 'price':return setSalePrice(s,o.value?.tier,o.value?.productId);case 'list':return listBottles(s,o.value);case 'decline':return declineOffer(s);case 'accept':return acceptOffer(s,o.value?.id,o.value?.termId);case 'assign':return assignCask(s,o.value?.id,o.value?.termId);case 'unassign':return cancelContract(s,o.value);case 'order-assign':return assignOrder(s,o.value);case 'order-cancel':return cancelOrder(s);case 'pause-trade':return pauseTrade(s);case 'resume-trade':return resumeTrade(s);case 'end-trade':return endTrade(s);case 'reconcile-trade-start':return reconcileTradeHistory(s);default:throw Error('操作の帳面が不正です。');}}
+function apply(s,o){s=E.endTasting(s);switch(o.key){case 'enable-aroma':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableAroma(s);case 'enable-usual':return enableUsual(s);case 'reserve-usual':return reserveUsual(s);case 'cancel-usual':return cancelUsual(s);case 'start-usual':return beginUsual(s);case 'complete-usual':return completeUsual(progress(s,s.usual?.reservation?.recipe.stopAt));case 'enable-brand-reputation':return enableReputation(s);case 'enable-brands':return enableBrands(s);case 'bottle-branded':return bottleBranded(s,o.value?.id,o.value?.selection);case 'enable-promised-care':return enablePromisedCare(s);case 'care':return careForCask(s,o.value);case 'start':return startDistillation(s);case 'stop':assert(Number.isInteger(o.value)&&o.value>=P.minimumStop&&o.value<P.distillMax,'抽出時期が不正です。');return stopDistillation(progress(s,o.value));case 'fill':return fillBarrel(s,o.value);case 'month':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return tickDistillery(s);case 'sample':return sampleDistillery(s,o.value);case 'choose':return chooseDistillery(s,o.value?.id,o.value?.key);case 'bottle':return bottleNow(s,o.value);case 'price':return setSalePrice(s,o.value?.tier,o.value?.productId);case 'list':return listBottles(s,o.value);case 'decline':return declineOffer(s);case 'accept':return acceptOffer(s,o.value?.id,o.value?.termId);case 'assign':return assignCask(s,o.value?.id,o.value?.termId);case 'unassign':return cancelContract(s,o.value);case 'order-assign':return assignOrder(s,o.value);case 'order-cancel':return cancelOrder(s);case 'pause-trade':return pauseTrade(s);case 'resume-trade':return resumeTrade(s);case 'end-trade':return endTrade(s);case 'reconcile-trade-start':return reconcileTradeHistory(s);default:throw Error('操作の帳面が不正です。');}}
 let checkpoint=null;
 export function validateDistillery(s){
  assert(((s?.version===T.version&&s.rules===T.rules)||careMode(s))&&Number.isInteger(s.seed)&&s.seed>0&&s.seed<=4294967295&&Array.isArray(s.operations)&&s.operations.length<=P.maxOperations,'対応していない業者別卸売の保存です。');M.restore(M.serialize(s.core));
