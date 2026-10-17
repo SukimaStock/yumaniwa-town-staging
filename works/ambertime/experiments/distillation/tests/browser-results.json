@@ -1,0 +1,149 @@
+{
+  "browser": "Chromium",
+  "clock": "Application timers (100 ms) advanced by Playwright controlled time",
+  "physicalIPhone": false,
+  "humanPlaytest": false,
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "minimumSafe": true,
+      "freePositionStop": 50,
+      "pauseAndResume": true,
+      "sameSeedRetry": true,
+      "modelSwitchCancelsOldTimer": true,
+      "explicitStopAt99": true,
+      "comparisonCases": 24,
+      "instantAndCollectedDiffer": true,
+      "invalidSeedSafe": true,
+      "positionEditAppliedOnAgeChange": true,
+      "mainStorageCalls": 0,
+      "mainSaveSentinel": "unchanged",
+      "naturalViewportBounds": {
+        "still": {
+          "top": 249.125,
+          "bottom": 499.125,
+          "width": 375,
+          "height": 250
+        },
+        "gauges": {
+          "top": 601.171875,
+          "bottom": 655.359375,
+          "width": 360,
+          "height": 54.1875
+        },
+        "stop": {
+          "top": 689.359375,
+          "bottom": 735.359375,
+          "width": 118,
+          "height": 46
+        },
+        "pause": {
+          "top": 689.359375,
+          "bottom": 735.359375,
+          "width": 58,
+          "height": 46
+        }
+      },
+      "allTouchTargetsAtLeast44": true,
+      "noHorizontalOverflow": true,
+      "reportMobileOverflowSafe": true,
+      "localLinks200": 8,
+      "pageErrors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "minimumSafe": true,
+      "freePositionStop": 50,
+      "pauseAndResume": true,
+      "sameSeedRetry": true,
+      "modelSwitchCancelsOldTimer": true,
+      "explicitStopAt99": true,
+      "comparisonCases": 24,
+      "instantAndCollectedDiffer": true,
+      "invalidSeedSafe": true,
+      "positionEditAppliedOnAgeChange": true,
+      "mainStorageCalls": 0,
+      "mainSaveSentinel": "unchanged",
+      "naturalViewportBounds": {
+        "still": {
+          "top": 210.375,
+          "bottom": 415.375,
+          "width": 308,
+          "height": 205
+        },
+        "gauges": {
+          "top": 517.421875,
+          "bottom": 571.609375,
+          "width": 356,
+          "height": 54.1875
+        },
+        "stop": {
+          "top": 605.609375,
+          "bottom": 651.609375,
+          "width": 118,
+          "height": 46
+        },
+        "pause": {
+          "top": 605.609375,
+          "bottom": 651.609375,
+          "width": 58,
+          "height": 46
+        }
+      },
+      "allTouchTargetsAtLeast44": true,
+      "noHorizontalOverflow": true,
+      "reportMobileOverflowSafe": true,
+      "localLinks200": 8,
+      "pageErrors": []
+    },
+    {
+      "width": 390,
+      "height": 667,
+      "minimumSafe": true,
+      "freePositionStop": 50,
+      "pauseAndResume": true,
+      "sameSeedRetry": true,
+      "modelSwitchCancelsOldTimer": true,
+      "explicitStopAt99": true,
+      "comparisonCases": 24,
+      "instantAndCollectedDiffer": true,
+      "invalidSeedSafe": true,
+      "positionEditAppliedOnAgeChange": true,
+      "mainStorageCalls": 0,
+      "mainSaveSentinel": "unchanged",
+      "naturalViewportBounds": {
+        "still": {
+          "top": 204.375,
+          "bottom": 369.375,
+          "width": 248,
+          "height": 165
+        },
+        "gauges": {
+          "top": 471.421875,
+          "bottom": 525.609375,
+          "width": 356,
+          "height": 54.1875
+        },
+        "stop": {
+          "top": 559.609375,
+          "bottom": 605.609375,
+          "width": 118,
+          "height": 46
+        },
+        "pause": {
+          "top": 559.609375,
+          "bottom": 605.609375,
+          "width": 58,
+          "height": 46
+        }
+      },
+      "allTouchTargetsAtLeast44": true,
+      "noHorizontalOverflow": true,
+      "reportMobileOverflowSafe": true,
+      "localLinks200": 8,
+      "pageErrors": []
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "fc32d05d76f3b94ac142bcf83ec095ad28ffd5a87c1e687c4a9a57a7a240b930",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-distillation-models-phase2-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime isolated Phase2 distillation model comparison experiment",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "bf11ff656c25be0817d4372c1f9a0417cdcaa252",
+    "canonicalSources": [
+      "User Phase2 comparison experiment request",
+      "0.13 current extraction/ageCask/economy/partner-orders",
+      "Feel Studio SCENE-REPLAY.md repeatable initial conditions",
+      "2023 Journal Institute Brewing experimental congener fraction study doi10.58430/jib.v129i3.28"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-distillation-models-phase2-20261017/r0.lock.json",
+      "works/ambertime/experiments/distillation/**",
+      "works/ambertime/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "works/feel-studio/**",
+      "works/ambertime/usual-app.mjs",
+      "works/ambertime/usual.css",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/tests/**"
+    ],
+    "expectedChanges": [
+      "Independent three-model prototype and no-save in-memory repeatable recipe; same seed and100ms steps, manualstop30..99, compare same position and early/middle/late",
+      "Current model exact control; A volume-weighted aroma hump; B volume-weighted light/fruit/grain mixture including initial24L; all share current quantity/stimulus, variation and costs",
+      "Experiment-only adapter reuses current ageCask and current economicMonthly, prices and actual specialcriteria; B composition sidecar with explicit conservation hypothesis rather than hidden scalar advantage",
+      "Multiple-seed position/cask/12-24-36mo analysis; source curves, separate composition and instantaneous fraction diagnostics, financial/brand/recipe consequences and limits",
+      "Existing mainindex receives one comparison link inside footer details to connect existing LAB AmberTime entry; no main runtime changes; LAB regeneration should be identical"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "PC-iPhone-browser",
+      "multi-seed-analysis",
+      "source-isolation",
+      "published-source-match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Remove experiment footer link and experiment folder; main game/save untouched.",
+    "outOfScope": [
+      "Production",
+      "Main game logic or save changes",
+      "Economy or aging parameter tuning",
+      "Feel Studio architecture/catalog changes",
+      "Ranks/scores/optimal stop indicators",
+      "New ingredients/equipment/brand systems"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari",
+      "Humanfun",
+      "Cross-runtime floating-point portability remains unresolved"
+    ],
+    "rulesApplied": [
+      "FullWORK lock before edits",
+      "AGENTS necessary independent review",
+      "Latest user authorizes Staging implementation and merge"
+    ],
+    "hqDecisions": [],
+    "ownerDecisions": [
+      "User explicitly authorizes three-model experiment, isolated experimental aging connections, analyses, PC/iPhone QA and Staging merge only"
+    ],
+    "problem": "Current raw aroma/stimulus/volume rise together and offer insufficient stopping motivation",
+    "currentContract": "Main0.13+Phase1 exactv10 replay; initial24L atstop30;99limit; ageCask and economicMonthly existingscalarcontracts",
+    "whyExistingIsInsufficient": "Need compare candidate aroma shapes and mixtures through aging/economics without adopting any candidate into player saves",
+    "design": "Independent recipecontract with fixedseed,batch andmodel, no localStorage; reusable current scalarchemistry/demand through isolated adapter. Keep yield andstimulus identical tocontrol to isolate aroma. A/B integrate nonnegative aroma loads by collectedvolume including first24L; B sidecar retains composition through aging/bottling.",
+    "migration": "None; no main save reader/writer or operation contract changes",
+    "compatibility": "No experiment imported bymain. ExistingLAB→AmberTime footer→experiment connection and backlink; actualmain model files byteunchanged.",
+    "promotionRisk": "Staging only",
+    "alternativesRejected": [
+      "Replace main extraction in place",
+      "Use instantaneous B fraction as collected result",
+      "Ignore first24L",
+      "Tune economy/aging for candidate wins",
+      "Treat new sidecar as recognized by current pricing/orders",
+      "Large Feel Studio refactor",
+      "New lifecycle identity or sharedLAB validator exception"
+    ],
+    "boundaryCases": [
+      "minimumstop30 initial24L",
+      "all legalpositions30..99",
+      "same recipe/reseed/batchvariation",
+      "mixture mass balance and gridconvergence",
+      "A peakwithoutscore/maxmarker",
+      "B lightfruitgrain wording atsimilar scalar values",
+      "birth/12/24/36mo bothcasks",
+      "char saturation at1",
+      "retail vswholesale vs24moorder",
+      "brand re-release and usual recipe sidecar retention",
+      "timepause/tabhidden/retry cancellation",
+      "PC/iPhone touches"
+    ],
+    "testPlan": [
+      "Independent baseline/massbalance/smoothness/reproducibility/seed andagingadapter tests",
+      "Bounded8seeds xall70legalpositions summary plus30/65/99 xbothcasks x0/12/24/36mo detail; no candidateparameter changes after economic results without documented revision",
+      "Current retailprices actualeconomicMonthly sharedcustomer caps andfixedprice/standardprice comparisons; wholesale andstrict24mo criteria; exactcostledger",
+      "PC/iPhone realtimers: model switch, start/stop/retry/same-position compare, seedvalidations, tabpause andno mainstorage reads/writes",
+      "Mainfile digest isolation, trustedgates, LAB regenerate/check andpublishedsource match"
+    ]
+  }
+}
