@@ -6,7 +6,7 @@ export function releaseStats(releases){
  let cents=0;
  for(const r of releases){
   totals.sold+=r.sold;cents+=Math.round(r.revenue*100);
-  const stock=r.bottles-r.sold;totals.stock+=stock;
+  const stock=r.bottles-r.sold-(r.delivered??0);totals.stock+=stock;
   if(r.status==='sold-out')totals.soldOut++;
   if(r.listed)totals.sellingStock+=stock;
   // A token sale cannot give a full release's continuity contribution.

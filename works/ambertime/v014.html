@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#172124">
+<title>AmberTime — 時間を育てる蒸留所</title>
+<link rel="stylesheet" href="./usual.css?v=0.13-spirit-1">
+<script type="module" src="./aroma-app.mjs?v=0.14"></script>
+</head>
+<body data-room="distill"><div class="page">
+<div class="clock-dock"><header>
+<div><h1>AmberTime</h1><span class="edition">0.14 · 小さな蒸留所</span></div>
+<div class="wallet"><span>所持金</span><strong id="cash"></strong><span id="calendar"></span><small id="monthly-cost"></small></div>
+</header><p id="work-notice" class="quiet" role="status"></p>
+<div id="time-flow" hidden>
+<div class="flow-line" aria-hidden="true"></div>
+<p id="time-status" class="time-status" role="status"></p>
+<div id="time-controls" class="time-controls"><button id="toggle-time" type="button">時間を進める</button><button id="skip" type="button">3か月進める</button></div>
+<p id="time-change" class="quiet" role="status"></p>
+</div>
+</div>
+<p id="storage-notice" role="status" hidden></p>
+<main id="game" hidden>
+<nav id="room-nav" class="room-nav" aria-label="蒸留所の部屋">
+<button type="button" data-room="distill" aria-pressed="true">蒸留室 <small id="nav-still"></small></button>
+<button type="button" data-room="warehouse" aria-pressed="false">貯蔵庫 <small id="nav-casks"></small></button>
+<button type="button" data-room="sales" aria-pressed="false">販売室 <small id="nav-stock"></small></button>
+</nav>
+<section id="room-distill" class="room" aria-label="蒸留室">
+<h2>蒸留室</h2>
+<div class="still-workplace">
+<div id="still" class="still" aria-hidden="true"></div>
+<p id="distill-caption" class="process-caption" hidden></p>
+<p id="collection" hidden></p><div id="extraction-progress" class="extraction-progress" aria-hidden="true" hidden><span></span></div>
+<p id="distill-direction" class="quiet" hidden></p>
+<section id="spirit-readout" class="spirit-readout" aria-label="原酒の個性" hidden>
+<div class="spirit-heading"><span id="spirit-kind"></span><span id="spirit-volume"></span></div>
+<p id="spirit-phrase"></p>
+<div id="spirit-gauges">
+<div class="spirit-axis"><span id="roughness-label">刺激</span><div id="spirit-roughness" class="flavor-meter" role="meter" aria-labelledby="roughness-label" aria-valuemin="0" aria-valuemax="1"><span></span></div></div>
+<div class="spirit-axis"><span id="character-label">原酒の香り</span><div id="spirit-character" class="flavor-meter" role="meter" aria-labelledby="character-label" aria-valuemin="0" aria-valuemax="1"><span></span></div></div>
+</div>
+</section>
+<div class="distill-actions">
+<button id="start-distill" type="button">自分で蒸留する</button>
+<button id="stop-distill" type="button" hidden>抽出を終える</button>
+<button id="open-fill" type="button" hidden>樽に詰める</button>
+</div>
+</div>
+<div class="usual-batch">
+<h3>いつもの仕込み</h3>
+<p id="usual-recipe" class="quiet"></p>
+<button id="reserve-usual" type="button">次の一樽を任せる</button>
+<button id="cancel-usual" type="button" hidden>予約を取り消す</button>
+<p id="usual-status" class="quiet" role="status"></p>
+</div>
+</section>
+<section id="room-warehouse" class="room" aria-label="貯蔵庫" hidden>
+<h2>貯蔵庫</h2>
+<div id="cask-rack" aria-label="熟成中の樽"></div>
+<div id="warehouse-empty" class="empty-room"><p>まだ樽はありません。</p><button id="go-distill" type="button">原酒を仕込む</button></div>
+<div id="selected-cask" hidden>
+<section id="hero" class="workplace warehouse" aria-label="選んだ樽">
+<div class="stamp"><span id="cask-kind"></span><strong id="age"></strong></div>
+<div class="objects">
+<div id="barrel" class="barrel" aria-hidden="true"></div>
+<button id="glass-button" class="glass-button" aria-label="この樽を試飲する" type="button"><span id="glass" class="glass" aria-hidden="true"></span></button>
+<section id="tasting-panel" class="tasting-panel" aria-label="試飲" role="region" hidden>
+<h2 id="taste-date"></h2><div id="taste-current"></div><div id="taste-previous" class="taste-previous" hidden></div>
+<div class="free-actions"><button id="end-tasting" type="button">試飲を終える</button><button id="taste-bottle" type="button">瓶詰めを考える</button></div>
+</section>
+</div>
+<div class="amount"><span id="amount"></span><span id="loss"></span></div>
+<p id="change" class="change"></p><p id="last-taste" class="quiet"></p>
+</section>
+<button id="assign-wholesale" class="contract-info" type="button" hidden>卸売へ指定</button>
+<button id="contract-info" class="contract-info" type="button" hidden></button>
+<div id="free-actions" class="free-actions"><button id="taste-button" class="taste-button" type="button">試飲する</button><button id="open-bottle" type="button">瓶詰めを考える</button></div>
+</div>
+</section>
+<section id="room-sales" class="room" aria-label="販売室" hidden>
+<h2>販売室</h2>
+<button id="trade-info" class="trade-info" type="button" hidden></button>
+<div id="product-shelf" aria-label="商品の棚"></div>
+<p id="sales-empty" class="empty-room">瓶詰めした商品が、ここに並びます。</p>
+<p id="sales-result" class="quiet" role="status"></p>
+</section>
+<details id="ledger" class="ledger"><summary>蒸留所の帳面</summary><div id="ledger-body"></div></details>
+<details id="records" class="records" hidden><summary>これまでの一本</summary><div id="records-body"></div></details>
+</main>
+<section id="recovery" hidden><p>元の保存を残したまま、進行を止めています。</p><button id="retry-save" type="button">保存を再確認する</button></section>
+<dialog id="action-dialog" aria-labelledby="dialog-title">
+<div class="dialog-heading"><h2 id="dialog-title"></h2><button id="close-dialog" type="button" aria-label="閉じる">×</button></div>
+<div id="dialog-body"></div><div id="dialog-actions"></div>
+</dialog>
+<footer>
+<a href="../../lab/">研究所へ</a>
+<details><summary>保存・以前の版</summary>
+<p>画面を離れている間は進みません。</p>
+<p><a href="./experiments/distillation/">蒸留モデル比較（実験）</a></p>
+<p><a href="./v013.html">0.13</a> · <a href="./v012.html">0.12</a> · <a href="./v011.html">0.11</a> · <a href="./v010-care.html">0.10</a> · <a href="./v010.html">0.10以前の保存</a> · <a href="./v09.html">0.9</a> · <a href="./v081.html">0.8.1</a> · <a href="./v08.html">0.8</a> · <a href="./v07.html">0.7</a> · <a href="./v06.html">0.6</a> · <a href="./v05.html">一樽版</a> · <a href="./v04.html">0.4</a> · <a href="./legacy.html">以前の蒸留所</a></p>
+<p>以前の版の保存は、そのまま残っています。</p>
+<button id="reset" type="button">新しい蒸留所で始める</button><span id="save-status" role="status"></span>
+</details>
+</footer>
+<noscript>JavaScriptを有効にしてください。</noscript>
+</div></body>
+</html>

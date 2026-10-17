@@ -1,0 +1,3 @@
+@import url('./usual.css?v=0.13-spirit-1');
+.shop-invitation{display:block;width:100%;min-height:48px;margin:0 0 18px;text-align:left;border-color:var(--muted,#8e957e)}
+.shop-delivery{margin:18px 0 4px;padding:14px 0;border-top:1px solid #4c594d}.shop-delivery h3{margin:0 0 8px;font-size:1rem}.shop-delivery p{margin:8px 0}.shop-delivery>div{display:flex;flex-wrap:wrap;gap:8px}.shop-delivery button{flex:1;min-height:46px}.shop-relation{margin-top:14px;color:#c8c4a2}.shop-history summary{min-height:44px;padding:10px 0}.shop-history p{margin:6px 0}

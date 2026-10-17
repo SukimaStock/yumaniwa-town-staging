@@ -1,0 +1,7008 @@
+{
+  "method": {
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      42,
+      12345,
+      20261017,
+      4294967295
+    ],
+    "months": 120,
+    "tickMilliseconds": 100,
+    "monthMilliseconds": 6000,
+    "policy": "Public operations only; same seed and recipe in each pair, at most two aging casks (capacity remains four), bottle at six months to the same repeat brand and standard retail price. Both arms share production requests and only start when both can safely fund the same cask. First fill manual; subsequent one-shot usual reservations explicitly renewed per request. Existing trade offers declined equally. No-shop declines passive shop offers; shop accepts and explicitly delivers up to 10 bottles per brand per month. One monthly demand pool is retained; deliveries never become retail reputation. No new production starts after 120 months; any already-running extraction finishes on its original clock, and the fixed remaining cohort is separately liquidated.",
+    "limits": "A specified repeat-brand player policy, not an optimization or human preference verdict. Counterfactual retailer customer demand is abstract buyout, not a simulated second sales shelf. No-shop is not forced to accept or deliver. Terminal liquidation distinguishes discounted lifetime receipts from inventory timing. Physical Safari and subjective interest are outside this simulation.",
+    "sourceSha256": {
+      "partner-orders.mjs": "0db1569c7cb641e349053089cbd664b421b49c9e593e81899f41dcfc57c89fe2",
+      "shop-model.mjs": "be1eb733e4aee85dbea0f7e5d6aefab03feb0b7bb1b9ab32590259f1fea3139a",
+      "brand-reputation.mjs": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec",
+      "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+      "economy.mjs": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+      "economy-parameters.mjs": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+      "aroma-extraction.mjs": "77bc8d654d551e688b9ade8018bf595a75cc1c3355cd2023aef59c51ad6253ff",
+      "tests/shop-simulate.mjs": "b8f77683d075b00118d4706299b79146bf0ceac9887c6766ff460aa650799732"
+    }
+  },
+  "runs": [
+    {
+      "seed": 1,
+      "recipe": {
+        "stopAt": 30,
+        "type": "refill"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "matchedProduction": true,
+      "blockedProductionRequests": 0,
+      "minCash": 850,
+      "parallelAgingTicks": 1131,
+      "parallelSalesTicks": 1102,
+      "partialReplay": true,
+      "replay": [
+        {
+          "month": 60,
+          "noShop": "97c4d36f603b3517c7241fd8394fdda57ec7fc82d50523299ddd83be8f5b071f",
+          "shop": "71639d465b4b69bf312f7e9385d6cef32afb9fe5b9b4d87d6339924b76cf997e"
+        },
+        {
+          "month": 120,
+          "noShop": "3d1669b734db31c31a6851178af51adc0a479973705baccb5da49e3c1c183e65",
+          "shop": "639d308f85d77aa407f83e2c1c5e5f4a644d272aa6b6e5ac76add911b5e2db42"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "noShop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 66,
+            "shopDelivered": 0,
+            "sold": 66,
+            "retailRevenue": 1056,
+            "shopRevenue": 0,
+            "revenue": 1056,
+            "costs": 1078,
+            "upkeep": 232,
+            "profit": -254,
+            "cash": 1346,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.022540983606557378
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 120,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 1,
+            "tradeDeclines": 0,
+            "automaticFills": 3
+          },
+          "shop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 56,
+            "shopDelivered": 10,
+            "sold": 66,
+            "retailRevenue": 896,
+            "shopRevenue": 128,
+            "revenue": 1024,
+            "costs": 1078,
+            "upkeep": 232,
+            "profit": -286,
+            "cash": 1314,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.019573544433094996
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 120,
+            "deliveries": 3,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 0,
+            "automaticFills": 3
+          }
+        },
+        {
+          "month": 24,
+          "noShop": {
+            "month": 24,
+            "produced": 8,
+            "retailSold": 198,
+            "shopDelivered": 0,
+            "sold": 198,
+            "retailRevenue": 3168,
+            "shopRevenue": 0,
+            "revenue": 3168,
+            "costs": 2354,
+            "upkeep": 472,
+            "profit": 342,
+            "cash": 1942,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.05367469879518072
+              }
+            ],
+            "starts": 8,
+            "fills": 8,
+            "extractionTicks": 240,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 2,
+            "tradeDeclines": 1,
+            "automaticFills": 7
+          },
+          "shop": {
+            "month": 24,
+            "produced": 8,
+            "retailSold": 122,
+            "shopDelivered": 76,
+            "sold": 198,
+            "retailRevenue": 1952,
+            "shopRevenue": 972.8,
+            "revenue": 2924.8,
+            "costs": 2354,
+            "upkeep": 472,
+            "profit": 98.8,
+            "cash": 1698.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.0379891112764874
+              }
+            ],
+            "starts": 8,
+            "fills": 8,
+            "extractionTicks": 240,
+            "deliveries": 11,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 1,
+            "automaticFills": 7
+          }
+        },
+        {
+          "month": 36,
+          "noShop": {
+            "month": 36,
+            "produced": 12,
+            "retailSold": 330,
+            "shopDelivered": 0,
+            "sold": 330,
+            "retailRevenue": 5280,
+            "shopRevenue": 0,
+            "revenue": 5280,
+            "costs": 3630,
+            "upkeep": 712,
+            "profit": 938,
+            "cash": 2538,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 10,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.07295918367346939
+              }
+            ],
+            "starts": 12,
+            "fills": 12,
+            "extractionTicks": 360,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 3,
+            "tradeDeclines": 1,
+            "automaticFills": 11
+          },
+          "shop": {
+            "month": 36,
+            "produced": 12,
+            "retailSold": 188,
+            "shopDelivered": 142,
+            "sold": 330,
+            "retailRevenue": 3008,
+            "shopRevenue": 1817.6,
+            "revenue": 4825.6,
+            "costs": 3630,
+            "upkeep": 712,
+            "profit": 483.6,
+            "cash": 2083.6,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 10,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.05215829252714498
+              }
+            ],
+            "starts": 12,
+            "fills": 12,
+            "extractionTicks": 360,
+            "deliveries": 19,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 1,
+            "automaticFills": 11
+          }
+        },
+        {
+          "month": 48,
+          "noShop": {
+            "month": 48,
+            "produced": 16,
+            "retailSold": 462,
+            "shopDelivered": 0,
+            "sold": 462,
+            "retailRevenue": 7392,
+            "shopRevenue": 0,
+            "revenue": 7392,
+            "costs": 4906,
+            "upkeep": 952,
+            "profit": 1534,
+            "cash": 3134,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 14,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08589238845144356
+              }
+            ],
+            "starts": 16,
+            "fills": 16,
+            "extractionTicks": 480,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 4,
+            "tradeDeclines": 2,
+            "automaticFills": 15
+          },
+          "shop": {
+            "month": 48,
+            "produced": 16,
+            "retailSold": 254,
+            "shopDelivered": 208,
+            "sold": 462,
+            "retailRevenue": 4064,
+            "shopRevenue": 2662.4,
+            "revenue": 6726.4,
+            "costs": 4906,
+            "upkeep": 952,
+            "profit": 868.4,
+            "cash": 2468.4,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 14,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.06325604741404275
+              }
+            ],
+            "starts": 16,
+            "fills": 16,
+            "extractionTicks": 480,
+            "deliveries": 27,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 2,
+            "automaticFills": 15
+          }
+        },
+        {
+          "month": 60,
+          "noShop": {
+            "month": 60,
+            "produced": 20,
+            "retailSold": 594,
+            "shopDelivered": 0,
+            "sold": 594,
+            "retailRevenue": 9504,
+            "shopRevenue": 0,
+            "revenue": 9504,
+            "costs": 6182,
+            "upkeep": 1192,
+            "profit": 2130,
+            "cash": 3730,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 18,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09513422818791946
+              }
+            ],
+            "starts": 20,
+            "fills": 20,
+            "extractionTicks": 600,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 5,
+            "tradeDeclines": 2,
+            "automaticFills": 19
+          },
+          "shop": {
+            "month": 60,
+            "produced": 20,
+            "retailSold": 320,
+            "shopDelivered": 274,
+            "sold": 594,
+            "retailRevenue": 5120,
+            "shopRevenue": 3507.2,
+            "revenue": 8627.2,
+            "costs": 6182,
+            "upkeep": 1192,
+            "profit": 1253.2,
+            "cash": 2853.2,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 18,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.0721407624633431
+              }
+            ],
+            "starts": 20,
+            "fills": 20,
+            "extractionTicks": 600,
+            "deliveries": 35,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 2,
+            "automaticFills": 19
+          }
+        },
+        {
+          "month": 72,
+          "noShop": {
+            "month": 72,
+            "produced": 24,
+            "retailSold": 726,
+            "shopDelivered": 0,
+            "sold": 726,
+            "retailRevenue": 11616,
+            "shopRevenue": 0,
+            "revenue": 11616,
+            "costs": 7458,
+            "upkeep": 1432,
+            "profit": 2726,
+            "cash": 4326,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10205802968960864
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 720,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 6,
+            "tradeDeclines": 3,
+            "automaticFills": 23
+          },
+          "shop": {
+            "month": 72,
+            "produced": 24,
+            "retailSold": 386,
+            "shopDelivered": 340,
+            "sold": 726,
+            "retailRevenue": 6176,
+            "shopRevenue": 4352,
+            "revenue": 10528,
+            "costs": 7458,
+            "upkeep": 1432,
+            "profit": 1638,
+            "cash": 3238,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.07939824151004275
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 720,
+            "deliveries": 43,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 23
+          }
+        },
+        {
+          "month": 84,
+          "noShop": {
+            "month": 84,
+            "produced": 28,
+            "retailSold": 858,
+            "shopDelivered": 0,
+            "sold": 858,
+            "retailRevenue": 13728,
+            "shopRevenue": 0,
+            "revenue": 13728,
+            "costs": 8734,
+            "upkeep": 1672,
+            "profit": 3322,
+            "cash": 4922,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10743523316062176
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 840,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 7,
+            "tradeDeclines": 3,
+            "automaticFills": 27
+          },
+          "shop": {
+            "month": 84,
+            "produced": 28,
+            "retailSold": 456,
+            "shopDelivered": 402,
+            "sold": 858,
+            "retailRevenue": 7296,
+            "shopRevenue": 5145.6,
+            "revenue": 12441.6,
+            "costs": 8734,
+            "upkeep": 1672,
+            "profit": 2035.6,
+            "cash": 3635.6,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08576388888888889
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 840,
+            "deliveries": 51,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 27
+          }
+        },
+        {
+          "month": 96,
+          "noShop": {
+            "month": 96,
+            "produced": 32,
+            "retailSold": 990,
+            "shopDelivered": 0,
+            "sold": 990,
+            "retailRevenue": 15840,
+            "shopRevenue": 0,
+            "revenue": 15840,
+            "costs": 10010,
+            "upkeep": 1912,
+            "profit": 3918,
+            "cash": 5518,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11173050615595076
+              }
+            ],
+            "starts": 32,
+            "fills": 32,
+            "extractionTicks": 960,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 8,
+            "tradeDeclines": 3,
+            "automaticFills": 31
+          },
+          "shop": {
+            "month": 96,
+            "produced": 32,
+            "retailSold": 526,
+            "shopDelivered": 464,
+            "sold": 990,
+            "retailRevenue": 8416,
+            "shopRevenue": 5939.2,
+            "revenue": 14355.2,
+            "costs": 10010,
+            "upkeep": 1912,
+            "profit": 2433.2,
+            "cash": 4033.2,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.0910846408143989
+              }
+            ],
+            "starts": 32,
+            "fills": 32,
+            "extractionTicks": 960,
+            "deliveries": 59,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 31
+          }
+        },
+        {
+          "month": 108,
+          "noShop": {
+            "month": 108,
+            "produced": 36,
+            "retailSold": 1122,
+            "shopDelivered": 0,
+            "sold": 1122,
+            "retailRevenue": 17952,
+            "shopRevenue": 0,
+            "revenue": 17952,
+            "costs": 11286,
+            "upkeep": 2152,
+            "profit": 4514,
+            "cash": 6114,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 34,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.1152398401065956
+              }
+            ],
+            "starts": 36,
+            "fills": 36,
+            "extractionTicks": 1080,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 9,
+            "tradeDeclines": 4,
+            "automaticFills": 35
+          },
+          "shop": {
+            "month": 108,
+            "produced": 36,
+            "retailSold": 596,
+            "shopDelivered": 526,
+            "sold": 1122,
+            "retailRevenue": 9536,
+            "shopRevenue": 6732.8,
+            "revenue": 16268.8,
+            "costs": 11286,
+            "upkeep": 2152,
+            "profit": 2830.8,
+            "cash": 4430.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 34,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09559619413407822
+              }
+            ],
+            "starts": 36,
+            "fills": 36,
+            "extractionTicks": 1080,
+            "deliveries": 67,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 4,
+            "automaticFills": 35
+          }
+        },
+        {
+          "month": 120,
+          "noShop": {
+            "month": 120,
+            "produced": 40,
+            "retailSold": 1254,
+            "shopDelivered": 0,
+            "sold": 1254,
+            "retailRevenue": 20064,
+            "shopRevenue": 0,
+            "revenue": 20064,
+            "costs": 12562,
+            "upkeep": 2392,
+            "profit": 5110,
+            "cash": 6710,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 38,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11816050744622172
+              }
+            ],
+            "starts": 40,
+            "fills": 40,
+            "extractionTicks": 1200,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 10,
+            "tradeDeclines": 5,
+            "automaticFills": 39
+          },
+          "shop": {
+            "month": 120,
+            "produced": 40,
+            "retailSold": 666,
+            "shopDelivered": 588,
+            "sold": 1254,
+            "retailRevenue": 10656,
+            "shopRevenue": 7526.4,
+            "revenue": 18182.4,
+            "costs": 12562,
+            "upkeep": 2392,
+            "profit": 3228.4,
+            "cash": 4828.4,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 38,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09946896780617324
+              }
+            ],
+            "starts": 40,
+            "fills": 40,
+            "extractionTicks": 1200,
+            "deliveries": 75,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 5,
+            "automaticFills": 39
+          }
+        }
+      ],
+      "horizon": {
+        "noShop": {
+          "month": 120,
+          "produced": 40,
+          "retailSold": 1254,
+          "shopDelivered": 0,
+          "sold": 1254,
+          "retailRevenue": 20064,
+          "shopRevenue": 0,
+          "revenue": 20064,
+          "costs": 12661,
+          "upkeep": 2392,
+          "profit": 5011,
+          "cash": 6611,
+          "stock": 33,
+          "casks": 1,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 39,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.11816050744622172
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 10,
+          "tradeDeclines": 5,
+          "automaticFills": 39
+        },
+        "shop": {
+          "month": 120,
+          "produced": 40,
+          "retailSold": 666,
+          "shopDelivered": 598,
+          "sold": 1264,
+          "retailRevenue": 10656,
+          "shopRevenue": 7654.4,
+          "revenue": 18310.4,
+          "costs": 12661,
+          "upkeep": 2392,
+          "profit": 3257.4,
+          "cash": 4857.4,
+          "stock": 23,
+          "casks": 1,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 39,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.09946896780617324
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 76,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 5,
+          "automaticFills": 39
+        }
+      },
+      "liquidation": {
+        "noShop": {
+          "month": 124,
+          "produced": 40,
+          "retailSold": 1320,
+          "shopDelivered": 0,
+          "sold": 1320,
+          "retailRevenue": 21120,
+          "shopRevenue": 0,
+          "revenue": 21120,
+          "costs": 12760,
+          "upkeep": 2416,
+          "profit": 5944,
+          "cash": 7544,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 40,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.11944444444444442
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 10,
+          "tradeDeclines": 5,
+          "automaticFills": 39
+        },
+        "shop": {
+          "month": 123,
+          "produced": 40,
+          "retailSold": 701,
+          "shopDelivered": 619,
+          "sold": 1320,
+          "retailRevenue": 11216,
+          "shopRevenue": 7923.2,
+          "revenue": 19139.2,
+          "costs": 12760,
+          "upkeep": 2412,
+          "profit": 3967.2,
+          "cash": 5567.2,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 40,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.10120652794221613
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 79,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 5,
+          "automaticFills": 39
+        },
+        "calendarMonths": 4,
+        "clockTicks": 240,
+        "replay": {
+          "noShop": "5bccdab4f43f9d3c93bce3c6a02c6252eda70bf832351f3fb1cbdee352d1aa15",
+          "shop": "3fc4b757f2548c12fe042364d8d3ef590eb23a5763d899d226db3e0ede8a7ae5"
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "recipe": {
+        "stopAt": 30,
+        "type": "bourbon"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "matchedProduction": true,
+      "blockedProductionRequests": 0,
+      "minCash": 610,
+      "parallelAgingTicks": 1131,
+      "parallelSalesTicks": 1102,
+      "partialReplay": true,
+      "replay": [
+        {
+          "month": 60,
+          "noShop": "c6f255129a6b83a25f0cbc500633af4136f8ad344b79ad23a2a418f01a7fffca",
+          "shop": "91ef5d949b7915b6cfba6b452d334e4d5f7d7f02df5e65280d8fe8ae6139f35d"
+        },
+        {
+          "month": 120,
+          "noShop": "456d0dfec5b747d2816d32ced531ee6f17d9e69968d752aaecc2f574ee98c688",
+          "shop": "35fbfa66f8c37c5d2de06b1b7913072dfaa78769fdfd8a798f1b289b5f389e42"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "noShop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 66,
+            "shopDelivered": 0,
+            "sold": 66,
+            "retailRevenue": 1056,
+            "shopRevenue": 0,
+            "revenue": 1056,
+            "costs": 1318,
+            "upkeep": 232,
+            "profit": -494,
+            "cash": 1106,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.022540983606557378
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 120,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 1,
+            "tradeDeclines": 0,
+            "automaticFills": 3
+          },
+          "shop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 56,
+            "shopDelivered": 10,
+            "sold": 66,
+            "retailRevenue": 896,
+            "shopRevenue": 128,
+            "revenue": 1024,
+            "costs": 1318,
+            "upkeep": 232,
+            "profit": -526,
+            "cash": 1074,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.019573544433094996
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 120,
+            "deliveries": 3,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 0,
+            "automaticFills": 3
+          }
+        },
+        {
+          "month": 24,
+          "noShop": {
+            "month": 24,
+            "produced": 8,
+            "retailSold": 198,
+            "shopDelivered": 0,
+            "sold": 198,
+            "retailRevenue": 3168,
+            "shopRevenue": 0,
+            "revenue": 3168,
+            "costs": 2834,
+            "upkeep": 472,
+            "profit": -138,
+            "cash": 1462,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.05367469879518072
+              }
+            ],
+            "starts": 8,
+            "fills": 8,
+            "extractionTicks": 240,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 2,
+            "tradeDeclines": 1,
+            "automaticFills": 7
+          },
+          "shop": {
+            "month": 24,
+            "produced": 8,
+            "retailSold": 122,
+            "shopDelivered": 76,
+            "sold": 198,
+            "retailRevenue": 1952,
+            "shopRevenue": 972.8,
+            "revenue": 2924.8,
+            "costs": 2834,
+            "upkeep": 472,
+            "profit": -381.2,
+            "cash": 1218.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.0379891112764874
+              }
+            ],
+            "starts": 8,
+            "fills": 8,
+            "extractionTicks": 240,
+            "deliveries": 11,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 1,
+            "automaticFills": 7
+          }
+        },
+        {
+          "month": 36,
+          "noShop": {
+            "month": 36,
+            "produced": 12,
+            "retailSold": 330,
+            "shopDelivered": 0,
+            "sold": 330,
+            "retailRevenue": 5280,
+            "shopRevenue": 0,
+            "revenue": 5280,
+            "costs": 4350,
+            "upkeep": 712,
+            "profit": 218,
+            "cash": 1818,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 10,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.07295918367346939
+              }
+            ],
+            "starts": 12,
+            "fills": 12,
+            "extractionTicks": 360,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 3,
+            "tradeDeclines": 2,
+            "automaticFills": 11
+          },
+          "shop": {
+            "month": 36,
+            "produced": 12,
+            "retailSold": 188,
+            "shopDelivered": 142,
+            "sold": 330,
+            "retailRevenue": 3008,
+            "shopRevenue": 1817.6,
+            "revenue": 4825.6,
+            "costs": 4350,
+            "upkeep": 712,
+            "profit": -236.4,
+            "cash": 1363.6,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 10,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.05215829252714498
+              }
+            ],
+            "starts": 12,
+            "fills": 12,
+            "extractionTicks": 360,
+            "deliveries": 19,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 2,
+            "automaticFills": 11
+          }
+        },
+        {
+          "month": 48,
+          "noShop": {
+            "month": 48,
+            "produced": 16,
+            "retailSold": 462,
+            "shopDelivered": 0,
+            "sold": 462,
+            "retailRevenue": 7392,
+            "shopRevenue": 0,
+            "revenue": 7392,
+            "costs": 5866,
+            "upkeep": 952,
+            "profit": 574,
+            "cash": 2174,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 14,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08589238845144356
+              }
+            ],
+            "starts": 16,
+            "fills": 16,
+            "extractionTicks": 480,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 4,
+            "tradeDeclines": 2,
+            "automaticFills": 15
+          },
+          "shop": {
+            "month": 48,
+            "produced": 16,
+            "retailSold": 254,
+            "shopDelivered": 208,
+            "sold": 462,
+            "retailRevenue": 4064,
+            "shopRevenue": 2662.4,
+            "revenue": 6726.4,
+            "costs": 5866,
+            "upkeep": 952,
+            "profit": -91.6,
+            "cash": 1508.4,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 14,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.06325604741404275
+              }
+            ],
+            "starts": 16,
+            "fills": 16,
+            "extractionTicks": 480,
+            "deliveries": 27,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 2,
+            "automaticFills": 15
+          }
+        },
+        {
+          "month": 60,
+          "noShop": {
+            "month": 60,
+            "produced": 20,
+            "retailSold": 594,
+            "shopDelivered": 0,
+            "sold": 594,
+            "retailRevenue": 9504,
+            "shopRevenue": 0,
+            "revenue": 9504,
+            "costs": 7382,
+            "upkeep": 1192,
+            "profit": 930,
+            "cash": 2530,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 18,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09513422818791946
+              }
+            ],
+            "starts": 20,
+            "fills": 20,
+            "extractionTicks": 600,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 5,
+            "tradeDeclines": 3,
+            "automaticFills": 19
+          },
+          "shop": {
+            "month": 60,
+            "produced": 20,
+            "retailSold": 320,
+            "shopDelivered": 274,
+            "sold": 594,
+            "retailRevenue": 5120,
+            "shopRevenue": 3507.2,
+            "revenue": 8627.2,
+            "costs": 7382,
+            "upkeep": 1192,
+            "profit": 53.2,
+            "cash": 1653.2,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 18,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.0721407624633431
+              }
+            ],
+            "starts": 20,
+            "fills": 20,
+            "extractionTicks": 600,
+            "deliveries": 35,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 19
+          }
+        },
+        {
+          "month": 72,
+          "noShop": {
+            "month": 72,
+            "produced": 24,
+            "retailSold": 726,
+            "shopDelivered": 0,
+            "sold": 726,
+            "retailRevenue": 11616,
+            "shopRevenue": 0,
+            "revenue": 11616,
+            "costs": 8898,
+            "upkeep": 1432,
+            "profit": 1286,
+            "cash": 2886,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10205802968960864
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 720,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 6,
+            "tradeDeclines": 4,
+            "automaticFills": 23
+          },
+          "shop": {
+            "month": 72,
+            "produced": 24,
+            "retailSold": 388,
+            "shopDelivered": 338,
+            "sold": 726,
+            "retailRevenue": 6208,
+            "shopRevenue": 4326.4,
+            "revenue": 10534.4,
+            "costs": 8898,
+            "upkeep": 1432,
+            "profit": 204.4,
+            "cash": 1804.4,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.0795973722761399
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 720,
+            "deliveries": 43,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 4,
+            "automaticFills": 23
+          }
+        },
+        {
+          "month": 84,
+          "noShop": {
+            "month": 84,
+            "produced": 28,
+            "retailSold": 858,
+            "shopDelivered": 0,
+            "sold": 858,
+            "retailRevenue": 13728,
+            "shopRevenue": 0,
+            "revenue": 13728,
+            "costs": 10414,
+            "upkeep": 1672,
+            "profit": 1642,
+            "cash": 3242,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10743523316062176
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 840,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 7,
+            "tradeDeclines": 5,
+            "automaticFills": 27
+          },
+          "shop": {
+            "month": 84,
+            "produced": 28,
+            "retailSold": 458,
+            "shopDelivered": 400,
+            "sold": 858,
+            "retailRevenue": 7328,
+            "shopRevenue": 5120,
+            "revenue": 12448,
+            "costs": 10414,
+            "upkeep": 1672,
+            "profit": 362,
+            "cash": 1962,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08592909769836848
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 840,
+            "deliveries": 51,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 5,
+            "automaticFills": 27
+          }
+        },
+        {
+          "month": 96,
+          "noShop": {
+            "month": 96,
+            "produced": 32,
+            "retailSold": 990,
+            "shopDelivered": 0,
+            "sold": 990,
+            "retailRevenue": 15840,
+            "shopRevenue": 0,
+            "revenue": 15840,
+            "costs": 11930,
+            "upkeep": 1912,
+            "profit": 1998,
+            "cash": 3598,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11173050615595076
+              }
+            ],
+            "starts": 32,
+            "fills": 32,
+            "extractionTicks": 960,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 8,
+            "tradeDeclines": 5,
+            "automaticFills": 31
+          },
+          "shop": {
+            "month": 96,
+            "produced": 32,
+            "retailSold": 528,
+            "shopDelivered": 462,
+            "sold": 990,
+            "retailRevenue": 8448,
+            "shopRevenue": 5913.6,
+            "revenue": 14361.6,
+            "costs": 11930,
+            "upkeep": 1912,
+            "profit": 519.6,
+            "cash": 2119.6,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09122383252818035
+              }
+            ],
+            "starts": 32,
+            "fills": 32,
+            "extractionTicks": 960,
+            "deliveries": 59,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 5,
+            "automaticFills": 31
+          }
+        },
+        {
+          "month": 108,
+          "noShop": {
+            "month": 108,
+            "produced": 36,
+            "retailSold": 1122,
+            "shopDelivered": 0,
+            "sold": 1122,
+            "retailRevenue": 17952,
+            "shopRevenue": 0,
+            "revenue": 17952,
+            "costs": 13446,
+            "upkeep": 2152,
+            "profit": 2354,
+            "cash": 3954,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 34,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.1152398401065956
+              }
+            ],
+            "starts": 36,
+            "fills": 36,
+            "extractionTicks": 1080,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 9,
+            "tradeDeclines": 6,
+            "automaticFills": 35
+          },
+          "shop": {
+            "month": 108,
+            "produced": 36,
+            "retailSold": 598,
+            "shopDelivered": 524,
+            "sold": 1122,
+            "retailRevenue": 9568,
+            "shopRevenue": 6707.2,
+            "revenue": 16275.2,
+            "costs": 13446,
+            "upkeep": 2152,
+            "profit": 677.2,
+            "cash": 2277.2,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 34,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09571502131012279
+              }
+            ],
+            "starts": 36,
+            "fills": 36,
+            "extractionTicks": 1080,
+            "deliveries": 67,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 6,
+            "automaticFills": 35
+          }
+        },
+        {
+          "month": 120,
+          "noShop": {
+            "month": 120,
+            "produced": 40,
+            "retailSold": 1254,
+            "shopDelivered": 0,
+            "sold": 1254,
+            "retailRevenue": 20064,
+            "shopRevenue": 0,
+            "revenue": 20064,
+            "costs": 14962,
+            "upkeep": 2392,
+            "profit": 2710,
+            "cash": 4310,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 38,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11816050744622172
+              }
+            ],
+            "starts": 40,
+            "fills": 40,
+            "extractionTicks": 1200,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 10,
+            "tradeDeclines": 7,
+            "automaticFills": 39
+          },
+          "shop": {
+            "month": 120,
+            "produced": 40,
+            "retailSold": 668,
+            "shopDelivered": 586,
+            "sold": 1254,
+            "retailRevenue": 10688,
+            "shopRevenue": 7500.8,
+            "revenue": 18188.8,
+            "costs": 14962,
+            "upkeep": 2392,
+            "profit": 834.8,
+            "cash": 2434.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 38,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09957156940890212
+              }
+            ],
+            "starts": 40,
+            "fills": 40,
+            "extractionTicks": 1200,
+            "deliveries": 75,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 7,
+            "automaticFills": 39
+          }
+        }
+      ],
+      "horizon": {
+        "noShop": {
+          "month": 120,
+          "produced": 40,
+          "retailSold": 1254,
+          "shopDelivered": 0,
+          "sold": 1254,
+          "retailRevenue": 20064,
+          "shopRevenue": 0,
+          "revenue": 20064,
+          "costs": 15061,
+          "upkeep": 2392,
+          "profit": 2611,
+          "cash": 4211,
+          "stock": 33,
+          "casks": 1,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 39,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.11816050744622172
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 10,
+          "tradeDeclines": 7,
+          "automaticFills": 39
+        },
+        "shop": {
+          "month": 120,
+          "produced": 40,
+          "retailSold": 668,
+          "shopDelivered": 596,
+          "sold": 1264,
+          "retailRevenue": 10688,
+          "shopRevenue": 7628.8,
+          "revenue": 18316.8,
+          "costs": 15061,
+          "upkeep": 2392,
+          "profit": 863.8,
+          "cash": 2463.8,
+          "stock": 23,
+          "casks": 1,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 39,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.09957156940890212
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 76,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 7,
+          "automaticFills": 39
+        }
+      },
+      "liquidation": {
+        "noShop": {
+          "month": 124,
+          "produced": 40,
+          "retailSold": 1320,
+          "shopDelivered": 0,
+          "sold": 1320,
+          "retailRevenue": 21120,
+          "shopRevenue": 0,
+          "revenue": 21120,
+          "costs": 15160,
+          "upkeep": 2416,
+          "profit": 3544,
+          "cash": 5144,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 40,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.11944444444444442
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 10,
+          "tradeDeclines": 7,
+          "automaticFills": 39
+        },
+        "shop": {
+          "month": 123,
+          "produced": 40,
+          "retailSold": 703,
+          "shopDelivered": 617,
+          "sold": 1320,
+          "retailRevenue": 11248,
+          "shopRevenue": 7897.6,
+          "revenue": 19145.6,
+          "costs": 15160,
+          "upkeep": 2412,
+          "profit": 1573.6,
+          "cash": 3173.6,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 40,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.10130222939928694
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 79,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 7,
+          "automaticFills": 39
+        },
+        "calendarMonths": 4,
+        "clockTicks": 240,
+        "replay": {
+          "noShop": "effa78b232889f8883c517e26dd5c85a1e225b152abd65cf4a2678c4baf18cf5",
+          "shop": "8d7f3ff9ef15cc015cb2789d95ae1bd6d42ec622052550267f6f71166241bd55"
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "recipe": {
+        "stopAt": 65,
+        "type": "refill"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "matchedProduction": true,
+      "blockedProductionRequests": 0,
+      "minCash": 985,
+      "parallelAgingTicks": 2108,
+      "parallelSalesTicks": 2108,
+      "partialReplay": true,
+      "replay": [
+        {
+          "month": 60,
+          "noShop": "e7cf5f4834b387e717c5c833586e471a95c89c6f7a62bcdd1be51059717e6938",
+          "shop": "05434beae4d44ac44b9b3a3b6efe67b6749e043a079d9c2b8bc339d5e4b03997"
+        },
+        {
+          "month": 120,
+          "noShop": "55575b792eb3e04dbc0bf349786c1aa4f797f7d3418103e161bdeef3d3a4853d",
+          "shop": "df0034b2325a3fea9d038a8282835bae41a9089df38ad7435f60dfdda6226cec"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "noShop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 90,
+            "shopDelivered": 0,
+            "sold": 90,
+            "retailRevenue": 1440,
+            "shopRevenue": 0,
+            "revenue": 1440,
+            "costs": 1150,
+            "upkeep": 200,
+            "profit": 90,
+            "cash": 1690,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.028846153846153848
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 260,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 1,
+            "tradeDeclines": 1,
+            "automaticFills": 3
+          },
+          "shop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 83,
+            "shopDelivered": 7,
+            "sold": 90,
+            "retailRevenue": 1328,
+            "shopRevenue": 89.6,
+            "revenue": 1417.6,
+            "costs": 1150,
+            "upkeep": 200,
+            "profit": 67.6,
+            "cash": 1667.6,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.027088772845953003
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 260,
+            "deliveries": 2,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 1,
+            "automaticFills": 3
+          }
+        },
+        {
+          "month": 24,
+          "noShop": {
+            "month": 24,
+            "produced": 8,
+            "retailSold": 242,
+            "shopDelivered": 0,
+            "sold": 242,
+            "retailRevenue": 3872,
+            "shopRevenue": 0,
+            "revenue": 3872,
+            "costs": 2570,
+            "upkeep": 408,
+            "profit": 894,
+            "cash": 2494,
+            "stock": 28,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.06014007078846298
+              }
+            ],
+            "starts": 8,
+            "fills": 8,
+            "extractionTicks": 520,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 1,
+            "tradeDeclines": 2,
+            "automaticFills": 7
+          },
+          "shop": {
+            "month": 24,
+            "produced": 8,
+            "retailSold": 186,
+            "shopDelivered": 76,
+            "sold": 262,
+            "retailRevenue": 2976,
+            "shopRevenue": 972.8,
+            "revenue": 3948.8,
+            "costs": 2570,
+            "upkeep": 408,
+            "profit": 970.8,
+            "cash": 2570.8,
+            "stock": 8,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.0513218165161628
+              }
+            ],
+            "starts": 8,
+            "fills": 8,
+            "extractionTicks": 520,
+            "deliveries": 14,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 2,
+            "automaticFills": 7
+          }
+        },
+        {
+          "month": 36,
+          "noShop": {
+            "month": 36,
+            "produced": 10,
+            "retailSold": 374,
+            "shopDelivered": 0,
+            "sold": 374,
+            "retailRevenue": 5984,
+            "shopRevenue": 0,
+            "revenue": 5984,
+            "costs": 3535,
+            "upkeep": 624,
+            "profit": 1825,
+            "cash": 3425,
+            "stock": 31,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 9,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.07655786350148368
+              }
+            ],
+            "starts": 11,
+            "fills": 10,
+            "extractionTicks": 710,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 2,
+            "tradeDeclines": 3,
+            "automaticFills": 9
+          },
+          "shop": {
+            "month": 36,
+            "produced": 10,
+            "retailSold": 252,
+            "shopDelivered": 132,
+            "sold": 384,
+            "retailRevenue": 4032,
+            "shopRevenue": 1689.6,
+            "revenue": 5721.6,
+            "costs": 3535,
+            "upkeep": 624,
+            "profit": 1562.6,
+            "cash": 3162.6,
+            "stock": 21,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 9,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.06259187741372865
+              }
+            ],
+            "starts": 11,
+            "fills": 10,
+            "extractionTicks": 710,
+            "deliveries": 24,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 9
+          }
+        },
+        {
+          "month": 48,
+          "noShop": {
+            "month": 48,
+            "produced": 14,
+            "retailSold": 540,
+            "shopDelivered": 0,
+            "sold": 540,
+            "retailRevenue": 8640,
+            "shopRevenue": 0,
+            "revenue": 8640,
+            "costs": 4700,
+            "upkeep": 840,
+            "profit": 3100,
+            "cash": 4700,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 12,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09040178571428571
+              }
+            ],
+            "starts": 14,
+            "fills": 14,
+            "extractionTicks": 910,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 3,
+            "tradeDeclines": 4,
+            "automaticFills": 13
+          },
+          "shop": {
+            "month": 48,
+            "produced": 14,
+            "retailSold": 342,
+            "shopDelivered": 198,
+            "sold": 540,
+            "retailRevenue": 5472,
+            "shopRevenue": 2534.4,
+            "revenue": 8006.4,
+            "costs": 4700,
+            "upkeep": 840,
+            "profit": 2466.4,
+            "cash": 4066.4,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 12,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.07444595831647967
+              }
+            ],
+            "starts": 14,
+            "fills": 14,
+            "extractionTicks": 910,
+            "deliveries": 37,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 4,
+            "automaticFills": 13
+          }
+        },
+        {
+          "month": 60,
+          "noShop": {
+            "month": 60,
+            "produced": 18,
+            "retailSold": 714,
+            "shopDelivered": 0,
+            "sold": 714,
+            "retailRevenue": 11424,
+            "shopRevenue": 0,
+            "revenue": 11424,
+            "costs": 6120,
+            "upkeep": 1048,
+            "profit": 4256,
+            "cash": 5856,
+            "stock": 6,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 16,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10034023668639053
+              }
+            ],
+            "starts": 18,
+            "fills": 18,
+            "extractionTicks": 1170,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 4,
+            "tradeDeclines": 4,
+            "automaticFills": 17
+          },
+          "shop": {
+            "month": 60,
+            "produced": 18,
+            "retailSold": 447,
+            "shopDelivered": 273,
+            "sold": 720,
+            "retailRevenue": 7152,
+            "shopRevenue": 3494.4,
+            "revenue": 10646.4,
+            "costs": 6120,
+            "upkeep": 1048,
+            "profit": 3478.4,
+            "cash": 5078.4,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 16,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08480908929836994
+              }
+            ],
+            "starts": 18,
+            "fills": 18,
+            "extractionTicks": 1170,
+            "deliveries": 51,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 4,
+            "automaticFills": 17
+          }
+        },
+        {
+          "month": 72,
+          "noShop": {
+            "month": 72,
+            "produced": 21,
+            "retailSold": 849,
+            "shopDelivered": 0,
+            "sold": 849,
+            "retailRevenue": 13584,
+            "shopRevenue": 0,
+            "revenue": 13584,
+            "costs": 7440,
+            "upkeep": 1256,
+            "profit": 4888,
+            "cash": 6488,
+            "stock": 51,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 55,
+            "releases": 20,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10607862033415884
+              }
+            ],
+            "starts": 22,
+            "fills": 21,
+            "extractionTicks": 1420,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 5,
+            "tradeDeclines": 5,
+            "automaticFills": 20
+          },
+          "shop": {
+            "month": 72,
+            "produced": 21,
+            "retailSold": 538,
+            "shopDelivered": 330,
+            "sold": 868,
+            "retailRevenue": 8608,
+            "shopRevenue": 4224,
+            "revenue": 12832,
+            "costs": 7440,
+            "upkeep": 1256,
+            "profit": 4136,
+            "cash": 5736,
+            "stock": 32,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 55,
+            "releases": 20,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09175107586492023
+              }
+            ],
+            "starts": 22,
+            "fills": 21,
+            "extractionTicks": 1420,
+            "deliveries": 60,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 5,
+            "automaticFills": 20
+          }
+        },
+        {
+          "month": 84,
+          "noShop": {
+            "month": 84,
+            "produced": 24,
+            "retailSold": 990,
+            "shopDelivered": 0,
+            "sold": 990,
+            "retailRevenue": 15840,
+            "shopRevenue": 0,
+            "revenue": 15840,
+            "costs": 8250,
+            "upkeep": 1480,
+            "profit": 6110,
+            "cash": 7710,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11068872987477639
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 1560,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 6,
+            "tradeDeclines": 6,
+            "automaticFills": 23
+          },
+          "shop": {
+            "month": 84,
+            "produced": 24,
+            "retailSold": 607,
+            "shopDelivered": 383,
+            "sold": 990,
+            "retailRevenue": 9712,
+            "shopRevenue": 4902.4,
+            "revenue": 14614.4,
+            "costs": 8250,
+            "upkeep": 1480,
+            "profit": 4884.4,
+            "cash": 6484.4,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09610807983361731
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 1560,
+            "deliveries": 70,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 6,
+            "automaticFills": 23
+          }
+        },
+        {
+          "month": 96,
+          "noShop": {
+            "month": 96,
+            "produced": 28,
+            "retailSold": 1170,
+            "shopDelivered": 0,
+            "sold": 1170,
+            "retailRevenue": 18720,
+            "shopRevenue": 0,
+            "revenue": 18720,
+            "costs": 9670,
+            "upkeep": 1688,
+            "profit": 7362,
+            "cash": 8962,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11540816326530612
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 1820,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 7,
+            "tradeDeclines": 6,
+            "automaticFills": 27
+          },
+          "shop": {
+            "month": 96,
+            "produced": 28,
+            "retailSold": 714,
+            "shopDelivered": 456,
+            "sold": 1170,
+            "retailRevenue": 11424,
+            "shopRevenue": 5836.8,
+            "revenue": 17260.8,
+            "costs": 9670,
+            "upkeep": 1688,
+            "profit": 5902.8,
+            "cash": 7502.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10171422526065418
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 1820,
+            "deliveries": 84,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 6,
+            "automaticFills": 27
+          }
+        },
+        {
+          "month": 108,
+          "noShop": {
+            "month": 108,
+            "produced": 32,
+            "retailSold": 1323,
+            "shopDelivered": 0,
+            "sold": 1323,
+            "retailRevenue": 21168,
+            "shopRevenue": 0,
+            "revenue": 21168,
+            "costs": 11090,
+            "upkeep": 1896,
+            "profit": 8182,
+            "cash": 9782,
+            "stock": 27,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11865600629997047
+              }
+            ],
+            "starts": 32,
+            "fills": 32,
+            "extractionTicks": 2080,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 7,
+            "tradeDeclines": 7,
+            "automaticFills": 31
+          },
+          "shop": {
+            "month": 108,
+            "produced": 32,
+            "retailSold": 819,
+            "shopDelivered": 524,
+            "sold": 1343,
+            "retailRevenue": 13104,
+            "shopRevenue": 6707.2,
+            "revenue": 19811.2,
+            "costs": 11090,
+            "upkeep": 1896,
+            "profit": 6825.2,
+            "cash": 8425.2,
+            "stock": 7,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10618992706369927
+              }
+            ],
+            "starts": 32,
+            "fills": 32,
+            "extractionTicks": 2080,
+            "deliveries": 96,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 7,
+            "automaticFills": 31
+          }
+        },
+        {
+          "month": 120,
+          "noShop": {
+            "month": 120,
+            "produced": 34,
+            "retailSold": 1455,
+            "shopDelivered": 0,
+            "sold": 1455,
+            "retailRevenue": 23280,
+            "shopRevenue": 0,
+            "revenue": 23280,
+            "costs": 12055,
+            "upkeep": 2112,
+            "profit": 9113,
+            "cash": 10713,
+            "stock": 30,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 33,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.12095187917105725
+              }
+            ],
+            "starts": 35,
+            "fills": 34,
+            "extractionTicks": 2270,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 8,
+            "tradeDeclines": 8,
+            "automaticFills": 33
+          },
+          "shop": {
+            "month": 120,
+            "produced": 34,
+            "retailSold": 888,
+            "shopDelivered": 577,
+            "sold": 1465,
+            "retailRevenue": 14208,
+            "shopRevenue": 7385.6,
+            "revenue": 21593.6,
+            "costs": 12055,
+            "upkeep": 2112,
+            "profit": 7426.6,
+            "cash": 9026.6,
+            "stock": 20,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 33,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10870635286878942
+              }
+            ],
+            "starts": 35,
+            "fills": 34,
+            "extractionTicks": 2270,
+            "deliveries": 104,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 8,
+            "automaticFills": 33
+          }
+        }
+      ],
+      "horizon": {
+        "noShop": {
+          "month": 120,
+          "produced": 34,
+          "retailSold": 1455,
+          "shopDelivered": 0,
+          "sold": 1455,
+          "retailRevenue": 23280,
+          "shopRevenue": 0,
+          "revenue": 23280,
+          "costs": 12190,
+          "upkeep": 2112,
+          "profit": 8978,
+          "cash": 10578,
+          "stock": 75,
+          "casks": 0,
+          "extractionPhase": "distilling",
+          "extractionProgress": 60,
+          "releases": 34,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.12095187917105725
+            }
+          ],
+          "starts": 35,
+          "fills": 34,
+          "extractionTicks": 2270,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 8,
+          "tradeDeclines": 8,
+          "automaticFills": 33
+        },
+        "shop": {
+          "month": 120,
+          "produced": 34,
+          "retailSold": 888,
+          "shopDelivered": 587,
+          "sold": 1475,
+          "retailRevenue": 14208,
+          "shopRevenue": 7513.6,
+          "revenue": 21721.6,
+          "costs": 12190,
+          "upkeep": 2112,
+          "profit": 7419.6,
+          "cash": 9019.6,
+          "stock": 55,
+          "casks": 0,
+          "extractionPhase": "distilling",
+          "extractionProgress": 60,
+          "releases": 34,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.10870635286878942
+            }
+          ],
+          "starts": 35,
+          "fills": 34,
+          "extractionTicks": 2270,
+          "deliveries": 105,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 8,
+          "automaticFills": 33
+        }
+      },
+      "liquidation": {
+        "noShop": {
+          "month": 129,
+          "produced": 35,
+          "retailSold": 1575,
+          "shopDelivered": 0,
+          "sold": 1575,
+          "retailRevenue": 25200,
+          "shopRevenue": 0,
+          "revenue": 25200,
+          "costs": 12425,
+          "upkeep": 2196,
+          "profit": 10579,
+          "cash": 12179,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 35,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.12276923076923077
+            }
+          ],
+          "starts": 35,
+          "fills": 35,
+          "extractionTicks": 2275,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 9,
+          "tradeDeclines": 9,
+          "automaticFills": 34
+        },
+        "shop": {
+          "month": 128,
+          "produced": 35,
+          "retailSold": 952,
+          "shopDelivered": 623,
+          "sold": 1575,
+          "retailRevenue": 15232,
+          "shopRevenue": 7974.4,
+          "revenue": 23206.4,
+          "costs": 12425,
+          "upkeep": 2192,
+          "profit": 8589.4,
+          "cash": 10189.4,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 35,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.11079561548043626
+            }
+          ],
+          "starts": 35,
+          "fills": 35,
+          "extractionTicks": 2275,
+          "deliveries": 110,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 9,
+          "automaticFills": 34
+        },
+        "calendarMonths": 9,
+        "clockTicks": 540,
+        "replay": {
+          "noShop": "a322cbd688f11c7009a0969016528c5b97e0b4ca339fb4196327829332756d53",
+          "shop": "fbc3bef3a6d4b7325ae496ab52513582bf1c99065013b6b97c11bde40d5b292f"
+        }
+      }
+    },
+    {
+      "seed": 4,
+      "recipe": {
+        "stopAt": 65,
+        "type": "bourbon"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "matchedProduction": true,
+      "blockedProductionRequests": 0,
+      "minCash": 865,
+      "parallelAgingTicks": 2168,
+      "parallelSalesTicks": 2108,
+      "partialReplay": true,
+      "replay": [
+        {
+          "month": 60,
+          "noShop": "5ac461b28e188a754b258baf466649d6c93df521516156cbd104085685c14883",
+          "shop": "475e9aaa28c06cc06420dc05d719c0dd838a03bdc9a204e2927c2803018d240c"
+        },
+        {
+          "month": 120,
+          "noShop": "f37b75809c7fa60172a918d2e14fb4335fd8b8a4f063d5933993db8d04e19c82",
+          "shop": "d9a7597a98e63306d97908a5d2a86c77e044de49e376ad91e56d1bb6d058d69a"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "noShop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 89,
+            "shopDelivered": 0,
+            "sold": 89,
+            "retailRevenue": 1424,
+            "shopRevenue": 0,
+            "revenue": 1424,
+            "costs": 1387,
+            "upkeep": 192,
+            "profit": -155,
+            "cash": 1445,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.028598971722365044
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 260,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 1,
+            "tradeDeclines": 0,
+            "automaticFills": 3
+          },
+          "shop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 83,
+            "shopDelivered": 6,
+            "sold": 89,
+            "retailRevenue": 1328,
+            "shopRevenue": 76.8,
+            "revenue": 1404.8,
+            "costs": 1387,
+            "upkeep": 192,
+            "profit": -174.2,
+            "cash": 1425.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.027088772845953003
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 260,
+            "deliveries": 2,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 0,
+            "automaticFills": 3
+          }
+        },
+        {
+          "month": 24,
+          "noShop": {
+            "month": 24,
+            "produced": 7,
+            "retailSold": 229,
+            "shopDelivered": 0,
+            "sold": 229,
+            "retailRevenue": 3664,
+            "shopRevenue": 0,
+            "revenue": 3664,
+            "costs": 2875,
+            "upkeep": 400,
+            "profit": 389,
+            "cash": 1989,
+            "stock": 36,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.058025982383461364
+              }
+            ],
+            "starts": 8,
+            "fills": 7,
+            "extractionTicks": 515,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 2,
+            "tradeDeclines": 1,
+            "automaticFills": 6
+          },
+          "shop": {
+            "month": 24,
+            "produced": 7,
+            "retailSold": 169,
+            "shopDelivered": 76,
+            "sold": 245,
+            "retailRevenue": 2704,
+            "shopRevenue": 972.8,
+            "revenue": 3676.8,
+            "costs": 2875,
+            "upkeep": 400,
+            "profit": 401.8,
+            "cash": 2001.8,
+            "stock": 20,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.04795517578594674
+              }
+            ],
+            "starts": 8,
+            "fills": 7,
+            "extractionTicks": 515,
+            "deliveries": 9,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 1,
+            "automaticFills": 6
+          }
+        },
+        {
+          "month": 36,
+          "noShop": {
+            "month": 36,
+            "produced": 10,
+            "retailSold": 368,
+            "shopDelivered": 0,
+            "sold": 368,
+            "retailRevenue": 5888,
+            "shopRevenue": 0,
+            "revenue": 5888,
+            "costs": 4117,
+            "upkeep": 616,
+            "profit": 1155,
+            "cash": 2755,
+            "stock": 31,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 9,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.07600627621761824
+              }
+            ],
+            "starts": 11,
+            "fills": 10,
+            "extractionTicks": 710,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 3,
+            "tradeDeclines": 2,
+            "automaticFills": 9
+          },
+          "shop": {
+            "month": 36,
+            "produced": 10,
+            "retailSold": 242,
+            "shopDelivered": 136,
+            "sold": 378,
+            "retailRevenue": 3872,
+            "shopRevenue": 1740.8,
+            "revenue": 5612.8,
+            "costs": 4117,
+            "upkeep": 616,
+            "profit": 879.8,
+            "cash": 2479.8,
+            "stock": 21,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 9,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.061047252065441
+              }
+            ],
+            "starts": 11,
+            "fills": 10,
+            "extractionTicks": 710,
+            "deliveries": 15,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 2,
+            "automaticFills": 9
+          }
+        },
+        {
+          "month": 48,
+          "noShop": {
+            "month": 48,
+            "produced": 14,
+            "retailSold": 532,
+            "shopDelivered": 0,
+            "sold": 532,
+            "retailRevenue": 8512,
+            "shopRevenue": 0,
+            "revenue": 8512,
+            "costs": 5516,
+            "upkeep": 832,
+            "profit": 2164,
+            "cash": 3764,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 12,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08991887019230768
+              }
+            ],
+            "starts": 14,
+            "fills": 14,
+            "extractionTicks": 910,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 4,
+            "tradeDeclines": 3,
+            "automaticFills": 13
+          },
+          "shop": {
+            "month": 48,
+            "produced": 14,
+            "retailSold": 326,
+            "shopDelivered": 206,
+            "sold": 532,
+            "retailRevenue": 5216,
+            "shopRevenue": 2636.8,
+            "revenue": 7852.8,
+            "costs": 5516,
+            "upkeep": 832,
+            "profit": 1504.8,
+            "cash": 3104.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 12,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.072574943919516
+              }
+            ],
+            "starts": 14,
+            "fills": 14,
+            "extractionTicks": 910,
+            "deliveries": 22,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 13
+          }
+        },
+        {
+          "month": 60,
+          "noShop": {
+            "month": 60,
+            "produced": 18,
+            "retailSold": 691,
+            "shopDelivered": 0,
+            "sold": 691,
+            "retailRevenue": 11056,
+            "shopRevenue": 0,
+            "revenue": 11056,
+            "costs": 7170,
+            "upkeep": 1040,
+            "profit": 2846,
+            "cash": 4446,
+            "stock": 19,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 16,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09932665804319411
+              }
+            ],
+            "starts": 18,
+            "fills": 18,
+            "extractionTicks": 1170,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 4,
+            "tradeDeclines": 4,
+            "automaticFills": 17
+          },
+          "shop": {
+            "month": 60,
+            "produced": 18,
+            "retailSold": 424,
+            "shopDelivered": 286,
+            "sold": 710,
+            "retailRevenue": 6784,
+            "shopRevenue": 3660.8,
+            "revenue": 10444.8,
+            "costs": 7170,
+            "upkeep": 1040,
+            "profit": 2234.8,
+            "cash": 3834.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 16,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08278703301131482
+              }
+            ],
+            "starts": 18,
+            "fills": 18,
+            "extractionTicks": 1170,
+            "deliveries": 30,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 4,
+            "automaticFills": 17
+          }
+        },
+        {
+          "month": 72,
+          "noShop": {
+            "month": 72,
+            "produced": 21,
+            "retailSold": 830,
+            "shopDelivered": 0,
+            "sold": 830,
+            "retailRevenue": 13280,
+            "shopRevenue": 0,
+            "revenue": 13280,
+            "costs": 8412,
+            "upkeep": 1256,
+            "profit": 3612,
+            "cash": 5212,
+            "stock": 14,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 19,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10538668718737977
+              }
+            ],
+            "starts": 21,
+            "fills": 21,
+            "extractionTicks": 1365,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 5,
+            "tradeDeclines": 4,
+            "automaticFills": 20
+          },
+          "shop": {
+            "month": 72,
+            "produced": 21,
+            "retailSold": 498,
+            "shopDelivered": 346,
+            "sold": 844,
+            "retailRevenue": 7968,
+            "shopRevenue": 4428.8,
+            "revenue": 12396.8,
+            "costs": 8412,
+            "upkeep": 1256,
+            "profit": 2728.8,
+            "cash": 4328.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 19,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08888923990648892
+              }
+            ],
+            "starts": 21,
+            "fills": 21,
+            "extractionTicks": 1365,
+            "deliveries": 36,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 4,
+            "automaticFills": 20
+          }
+        },
+        {
+          "month": 84,
+          "noShop": {
+            "month": 84,
+            "produced": 24,
+            "retailSold": 977,
+            "shopDelivered": 0,
+            "sold": 977,
+            "retailRevenue": 15632,
+            "shopRevenue": 0,
+            "revenue": 15632,
+            "costs": 9651,
+            "upkeep": 1472,
+            "profit": 4509,
+            "cash": 6109,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.1103472682368532
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 1560,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 6,
+            "tradeDeclines": 5,
+            "automaticFills": 23
+          },
+          "shop": {
+            "month": 84,
+            "produced": 24,
+            "retailSold": 571,
+            "shopDelivered": 406,
+            "sold": 977,
+            "retailRevenue": 9136,
+            "shopRevenue": 5196.8,
+            "revenue": 14332.8,
+            "costs": 9651,
+            "upkeep": 1472,
+            "profit": 3209.8,
+            "cash": 4809.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09391899324198905
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 1560,
+            "deliveries": 42,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 5,
+            "automaticFills": 23
+          }
+        },
+        {
+          "month": 96,
+          "noShop": {
+            "month": 96,
+            "produced": 28,
+            "retailSold": 1152,
+            "shopDelivered": 0,
+            "sold": 1152,
+            "retailRevenue": 18432,
+            "shopRevenue": 0,
+            "revenue": 18432,
+            "costs": 11305,
+            "upkeep": 1680,
+            "profit": 5447,
+            "cash": 7047,
+            "stock": 3,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.1150413223140496
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 1820,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 7,
+            "tradeDeclines": 6,
+            "automaticFills": 27
+          },
+          "shop": {
+            "month": 96,
+            "produced": 28,
+            "retailSold": 669,
+            "shopDelivered": 486,
+            "sold": 1155,
+            "retailRevenue": 10704,
+            "shopRevenue": 6220.8,
+            "revenue": 16924.8,
+            "costs": 11305,
+            "upkeep": 1680,
+            "profit": 3939.8,
+            "cash": 5539.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09950448229312338
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 1820,
+            "deliveries": 50,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 6,
+            "automaticFills": 27
+          }
+        },
+        {
+          "month": 108,
+          "noShop": {
+            "month": 108,
+            "produced": 31,
+            "retailSold": 1299,
+            "shopDelivered": 0,
+            "sold": 1299,
+            "retailRevenue": 20784,
+            "shopRevenue": 0,
+            "revenue": 20784,
+            "costs": 12802,
+            "upkeep": 1888,
+            "profit": 6094,
+            "cash": 7694,
+            "stock": 35,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11821262291923479
+              }
+            ],
+            "starts": 32,
+            "fills": 31,
+            "extractionTicks": 2075,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 8,
+            "tradeDeclines": 7,
+            "automaticFills": 30
+          },
+          "shop": {
+            "month": 108,
+            "produced": 31,
+            "retailSold": 758,
+            "shopDelivered": 556,
+            "sold": 1314,
+            "retailRevenue": 12128,
+            "shopRevenue": 7116.8,
+            "revenue": 19244.8,
+            "costs": 12802,
+            "upkeep": 1888,
+            "profit": 4554.8,
+            "cash": 6154.8,
+            "stock": 20,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10369614963685204
+              }
+            ],
+            "starts": 32,
+            "fills": 31,
+            "extractionTicks": 2075,
+            "deliveries": 57,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 7,
+            "automaticFills": 30
+          }
+        },
+        {
+          "month": 120,
+          "noShop": {
+            "month": 120,
+            "produced": 34,
+            "retailSold": 1438,
+            "shopDelivered": 0,
+            "sold": 1438,
+            "retailRevenue": 23008,
+            "shopRevenue": 0,
+            "revenue": 23008,
+            "costs": 14041,
+            "upkeep": 2104,
+            "profit": 6863,
+            "cash": 8463,
+            "stock": 29,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 33,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.12070794646657312
+              }
+            ],
+            "starts": 35,
+            "fills": 34,
+            "extractionTicks": 2270,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 9,
+            "tradeDeclines": 8,
+            "automaticFills": 33
+          },
+          "shop": {
+            "month": 120,
+            "produced": 34,
+            "retailSold": 832,
+            "shopDelivered": 616,
+            "sold": 1448,
+            "retailRevenue": 13312,
+            "shopRevenue": 7884.8,
+            "revenue": 21196.8,
+            "costs": 14041,
+            "upkeep": 2104,
+            "profit": 5051.8,
+            "cash": 6651.8,
+            "stock": 19,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 33,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10668715553408621
+              }
+            ],
+            "starts": 35,
+            "fills": 34,
+            "extractionTicks": 2270,
+            "deliveries": 63,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 8,
+            "automaticFills": 33
+          }
+        }
+      ],
+      "horizon": {
+        "noShop": {
+          "month": 120,
+          "produced": 34,
+          "retailSold": 1438,
+          "shopDelivered": 0,
+          "sold": 1438,
+          "retailRevenue": 23008,
+          "shopRevenue": 0,
+          "revenue": 23008,
+          "costs": 14041,
+          "upkeep": 2104,
+          "profit": 6863,
+          "cash": 8463,
+          "stock": 29,
+          "casks": 1,
+          "extractionPhase": "distilling",
+          "extractionProgress": 60,
+          "releases": 33,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.12070794646657312
+            }
+          ],
+          "starts": 35,
+          "fills": 34,
+          "extractionTicks": 2270,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 9,
+          "tradeDeclines": 8,
+          "automaticFills": 33
+        },
+        "shop": {
+          "month": 120,
+          "produced": 34,
+          "retailSold": 832,
+          "shopDelivered": 626,
+          "sold": 1458,
+          "retailRevenue": 13312,
+          "shopRevenue": 8012.8,
+          "revenue": 21324.8,
+          "costs": 14041,
+          "upkeep": 2104,
+          "profit": 5179.8,
+          "cash": 6779.8,
+          "stock": 9,
+          "casks": 1,
+          "extractionPhase": "distilling",
+          "extractionProgress": 60,
+          "releases": 33,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.10668715553408621
+            }
+          ],
+          "starts": 35,
+          "fills": 34,
+          "extractionTicks": 2270,
+          "deliveries": 64,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 8,
+          "automaticFills": 33
+        }
+      },
+      "liquidation": {
+        "noShop": {
+          "month": 129,
+          "produced": 35,
+          "retailSold": 1555,
+          "shopDelivered": 0,
+          "sold": 1555,
+          "retailRevenue": 24880,
+          "shopRevenue": 0,
+          "revenue": 24880,
+          "costs": 14465,
+          "upkeep": 2196,
+          "profit": 8219,
+          "cash": 9819,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 35,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.12251710553597345
+            }
+          ],
+          "starts": 35,
+          "fills": 35,
+          "extractionTicks": 2275,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 10,
+          "tradeDeclines": 8,
+          "automaticFills": 34
+        },
+        "shop": {
+          "month": 128,
+          "produced": 35,
+          "retailSold": 889,
+          "shopDelivered": 666,
+          "sold": 1555,
+          "retailRevenue": 14224,
+          "shopRevenue": 8524.8,
+          "revenue": 22748.8,
+          "costs": 14465,
+          "upkeep": 2192,
+          "profit": 6091.8,
+          "cash": 7691.8,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 35,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.10874070459946399
+            }
+          ],
+          "starts": 35,
+          "fills": 35,
+          "extractionTicks": 2275,
+          "deliveries": 68,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 8,
+          "automaticFills": 34
+        },
+        "calendarMonths": 9,
+        "clockTicks": 540,
+        "replay": {
+          "noShop": "9c183f40c161704665efc951e63adf33796a8bbf26232698e5570fa0ce8bc2f8",
+          "shop": "956884e5d01d80ec8142fac07348b43bdbfeab27d709c3ebb64f97da8b7583b1"
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "recipe": {
+        "stopAt": 99,
+        "type": "refill"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "matchedProduction": true,
+      "blockedProductionRequests": 0,
+      "minCash": 960,
+      "parallelAgingTicks": 3294,
+      "parallelSalesTicks": 3196,
+      "partialReplay": true,
+      "replay": [
+        {
+          "month": 60,
+          "noShop": "a13e0b23303c1814a9c98b36e4d954f9d126238479249ff42884545906480fe5",
+          "shop": "ebd9403714c559468db9fc867e68093d7c58a99a522c13b323aaffa90c92c702"
+        },
+        {
+          "month": 120,
+          "noShop": "9f92edc4690613d22d4c6bba0720b65c5636ee6905e6de5693cb75d2b169cc5a",
+          "shop": "c412d5772675aabc1d51731f23f60ee904db3da0073064e9721e8167d16d1a87"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "noShop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 93,
+            "shopDelivered": 0,
+            "sold": 93,
+            "retailRevenue": 1488,
+            "shopRevenue": 0,
+            "revenue": 1488,
+            "costs": 1216,
+            "upkeep": 192,
+            "profit": 80,
+            "cash": 1680,
+            "stock": 19,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.029580152671755726
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 396,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 1,
+            "tradeDeclines": 1,
+            "automaticFills": 3
+          },
+          "shop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 87,
+            "shopDelivered": 10,
+            "sold": 97,
+            "retailRevenue": 1392,
+            "shopRevenue": 128,
+            "revenue": 1520,
+            "costs": 1216,
+            "upkeep": 192,
+            "profit": 112,
+            "cash": 1712,
+            "stock": 15,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.028100775193798454
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 396,
+            "deliveries": 3,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 1,
+            "automaticFills": 3
+          }
+        },
+        {
+          "month": 24,
+          "noShop": {
+            "month": 24,
+            "produced": 7,
+            "retailSold": 274,
+            "shopDelivered": 0,
+            "sold": 274,
+            "retailRevenue": 4384,
+            "shopRevenue": 0,
+            "revenue": 4384,
+            "costs": 2668,
+            "upkeep": 400,
+            "profit": 1316,
+            "cash": 2916,
+            "stock": 62,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.06398546964193046
+              }
+            ],
+            "starts": 8,
+            "fills": 7,
+            "extractionTicks": 753,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 1,
+            "tradeDeclines": 1,
+            "automaticFills": 6
+          },
+          "shop": {
+            "month": 24,
+            "produced": 7,
+            "retailSold": 193,
+            "shopDelivered": 100,
+            "sold": 293,
+            "retailRevenue": 3088,
+            "shopRevenue": 1280,
+            "revenue": 4368,
+            "costs": 2668,
+            "upkeep": 400,
+            "profit": 1300,
+            "cash": 2900,
+            "stock": 43,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.05231606122072653
+              }
+            ],
+            "starts": 8,
+            "fills": 7,
+            "extractionTicks": 753,
+            "deliveries": 12,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 1,
+            "automaticFills": 6
+          }
+        },
+        {
+          "month": 36,
+          "noShop": {
+            "month": 36,
+            "produced": 10,
+            "retailSold": 462,
+            "shopDelivered": 0,
+            "sold": 462,
+            "retailRevenue": 7392,
+            "shopRevenue": 0,
+            "revenue": 7392,
+            "costs": 3832,
+            "upkeep": 616,
+            "profit": 2944,
+            "cash": 4544,
+            "stock": 42,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 9,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08364983788791107
+              }
+            ],
+            "starts": 11,
+            "fills": 10,
+            "extractionTicks": 1050,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 2,
+            "tradeDeclines": 2,
+            "automaticFills": 9
+          },
+          "shop": {
+            "month": 36,
+            "produced": 10,
+            "retailSold": 292,
+            "shopDelivered": 180,
+            "sold": 472,
+            "retailRevenue": 4672,
+            "shopRevenue": 2304,
+            "revenue": 6976,
+            "costs": 3832,
+            "upkeep": 616,
+            "profit": 2528,
+            "cash": 4128,
+            "stock": 32,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 9,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.06785500970583842
+              }
+            ],
+            "starts": 11,
+            "fills": 10,
+            "extractionTicks": 1050,
+            "deliveries": 20,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 2,
+            "automaticFills": 9
+          }
+        },
+        {
+          "month": 48,
+          "noShop": {
+            "month": 48,
+            "produced": 14,
+            "retailSold": 668,
+            "shopDelivered": 0,
+            "sold": 668,
+            "retailRevenue": 10688,
+            "shopRevenue": 0,
+            "revenue": 10688,
+            "costs": 5096,
+            "upkeep": 832,
+            "profit": 4760,
+            "cash": 6360,
+            "stock": 4,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 12,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09704287190082644
+              }
+            ],
+            "starts": 14,
+            "fills": 14,
+            "extractionTicks": 1386,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 3,
+            "tradeDeclines": 3,
+            "automaticFills": 13
+          },
+          "shop": {
+            "month": 48,
+            "produced": 14,
+            "retailSold": 402,
+            "shopDelivered": 270,
+            "sold": 672,
+            "retailRevenue": 6432,
+            "shopRevenue": 3456,
+            "revenue": 9888,
+            "costs": 5096,
+            "upkeep": 832,
+            "profit": 3960,
+            "cash": 5560,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 12,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08034372236958442
+              }
+            ],
+            "starts": 14,
+            "fills": 14,
+            "extractionTicks": 1386,
+            "deliveries": 33,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 13
+          }
+        },
+        {
+          "month": 60,
+          "noShop": {
+            "month": 60,
+            "produced": 18,
+            "retailSold": 860,
+            "shopDelivered": 0,
+            "sold": 860,
+            "retailRevenue": 13760,
+            "shopRevenue": 0,
+            "revenue": 13760,
+            "costs": 6648,
+            "upkeep": 1040,
+            "profit": 6072,
+            "cash": 7672,
+            "stock": 36,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 16,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10559038662486939
+              }
+            ],
+            "starts": 18,
+            "fills": 18,
+            "extractionTicks": 1782,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 4,
+            "tradeDeclines": 3,
+            "automaticFills": 17
+          },
+          "shop": {
+            "month": 60,
+            "produced": 18,
+            "retailSold": 520,
+            "shopDelivered": 360,
+            "sold": 880,
+            "retailRevenue": 8320,
+            "shopRevenue": 4608,
+            "revenue": 12928,
+            "costs": 6648,
+            "upkeep": 1040,
+            "profit": 5240,
+            "cash": 6840,
+            "stock": 16,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 16,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09016768292682927
+              }
+            ],
+            "starts": 18,
+            "fills": 18,
+            "extractionTicks": 1782,
+            "deliveries": 44,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 17
+          }
+        },
+        {
+          "month": 72,
+          "noShop": {
+            "month": 72,
+            "produced": 21,
+            "retailSold": 1036,
+            "shopDelivered": 0,
+            "sold": 1036,
+            "retailRevenue": 16576,
+            "shopRevenue": 0,
+            "revenue": 16576,
+            "costs": 7812,
+            "upkeep": 1256,
+            "profit": 7508,
+            "cash": 9108,
+            "stock": 28,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 19,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11124538713271132
+              }
+            ],
+            "starts": 21,
+            "fills": 21,
+            "extractionTicks": 2079,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 5,
+            "tradeDeclines": 3,
+            "automaticFills": 20
+          },
+          "shop": {
+            "month": 72,
+            "produced": 21,
+            "retailSold": 616,
+            "shopDelivered": 440,
+            "sold": 1056,
+            "retailRevenue": 9856,
+            "shopRevenue": 5632,
+            "revenue": 15488,
+            "costs": 7812,
+            "upkeep": 1256,
+            "profit": 6420,
+            "cash": 8020,
+            "stock": 8,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 19,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09631583100962804
+              }
+            ],
+            "starts": 21,
+            "fills": 21,
+            "extractionTicks": 2079,
+            "deliveries": 54,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 20
+          }
+        },
+        {
+          "month": 84,
+          "noShop": {
+            "month": 84,
+            "produced": 24,
+            "retailSold": 1232,
+            "shopDelivered": 0,
+            "sold": 1232,
+            "retailRevenue": 19712,
+            "shopRevenue": 0,
+            "revenue": 19712,
+            "costs": 8976,
+            "upkeep": 1472,
+            "profit": 9264,
+            "cash": 10864,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11598714601325567
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 2376,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 6,
+            "tradeDeclines": 4,
+            "automaticFills": 23
+          },
+          "shop": {
+            "month": 84,
+            "produced": 24,
+            "retailSold": 712,
+            "shopDelivered": 520,
+            "sold": 1232,
+            "retailRevenue": 11392,
+            "shopRevenue": 6656,
+            "revenue": 18048,
+            "costs": 8976,
+            "upkeep": 1472,
+            "profit": 7600,
+            "cash": 9200,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10132347994281389
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 2376,
+            "deliveries": 66,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 4,
+            "automaticFills": 23
+          }
+        },
+        {
+          "month": 96,
+          "noShop": {
+            "month": 96,
+            "produced": 28,
+            "retailSold": 1438,
+            "shopDelivered": 0,
+            "sold": 1438,
+            "retailRevenue": 23008,
+            "shopRevenue": 0,
+            "revenue": 23008,
+            "costs": 10528,
+            "upkeep": 1680,
+            "profit": 10800,
+            "cash": 12400,
+            "stock": 18,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.1199712313003452
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 2772,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 7,
+            "tradeDeclines": 4,
+            "automaticFills": 27
+          },
+          "shop": {
+            "month": 96,
+            "produced": 28,
+            "retailSold": 836,
+            "shopDelivered": 620,
+            "sold": 1456,
+            "retailRevenue": 13376,
+            "shopRevenue": 7936,
+            "revenue": 21312,
+            "costs": 10528,
+            "upkeep": 1680,
+            "profit": 9104,
+            "cash": 10704,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10657209385344324
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 2772,
+            "deliveries": 80,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 4,
+            "automaticFills": 27
+          }
+        },
+        {
+          "month": 108,
+          "noShop": {
+            "month": 108,
+            "produced": 31,
+            "retailSold": 1620,
+            "shopDelivered": 0,
+            "sold": 1620,
+            "retailRevenue": 25920,
+            "shopRevenue": 0,
+            "revenue": 25920,
+            "costs": 11980,
+            "upkeep": 1888,
+            "profit": 12052,
+            "cash": 13652,
+            "stock": 60,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.12277320359281436
+              }
+            ],
+            "starts": 32,
+            "fills": 31,
+            "extractionTicks": 3129,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 7,
+            "tradeDeclines": 5,
+            "automaticFills": 30
+          },
+          "shop": {
+            "month": 108,
+            "produced": 31,
+            "retailSold": 940,
+            "shopDelivered": 700,
+            "sold": 1640,
+            "retailRevenue": 15040,
+            "shopRevenue": 8960,
+            "revenue": 24000,
+            "costs": 11980,
+            "upkeep": 1888,
+            "profit": 10132,
+            "cash": 11732,
+            "stock": 40,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11018561716875501
+              }
+            ],
+            "starts": 32,
+            "fills": 31,
+            "extractionTicks": 3129,
+            "deliveries": 92,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 5,
+            "automaticFills": 30
+          }
+        },
+        {
+          "month": 120,
+          "noShop": {
+            "month": 120,
+            "produced": 34,
+            "retailSold": 1806,
+            "shopDelivered": 0,
+            "sold": 1806,
+            "retailRevenue": 28896,
+            "shopRevenue": 0,
+            "revenue": 28896,
+            "costs": 13144,
+            "upkeep": 2104,
+            "profit": 13648,
+            "cash": 15248,
+            "stock": 42,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 33,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.12510507976687135
+              }
+            ],
+            "starts": 35,
+            "fills": 34,
+            "extractionTicks": 3426,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 8,
+            "tradeDeclines": 6,
+            "automaticFills": 33
+          },
+          "shop": {
+            "month": 120,
+            "produced": 34,
+            "retailSold": 1036,
+            "shopDelivered": 780,
+            "sold": 1816,
+            "retailRevenue": 16576,
+            "shopRevenue": 9984,
+            "revenue": 26560,
+            "costs": 13144,
+            "upkeep": 2104,
+            "profit": 11312,
+            "cash": 12912,
+            "stock": 32,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 33,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11301289466521501
+              }
+            ],
+            "starts": 35,
+            "fills": 34,
+            "extractionTicks": 3426,
+            "deliveries": 102,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 6,
+            "automaticFills": 33
+          }
+        }
+      ],
+      "horizon": {
+        "noShop": {
+          "month": 120,
+          "produced": 34,
+          "retailSold": 1806,
+          "shopDelivered": 0,
+          "sold": 1806,
+          "retailRevenue": 28896,
+          "shopRevenue": 0,
+          "revenue": 28896,
+          "costs": 13144,
+          "upkeep": 2104,
+          "profit": 13648,
+          "cash": 15248,
+          "stock": 42,
+          "casks": 1,
+          "extractionPhase": "distilling",
+          "extractionProgress": 60,
+          "releases": 33,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.12510507976687135
+            }
+          ],
+          "starts": 35,
+          "fills": 34,
+          "extractionTicks": 3426,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 8,
+          "tradeDeclines": 6,
+          "automaticFills": 33
+        },
+        "shop": {
+          "month": 120,
+          "produced": 34,
+          "retailSold": 1036,
+          "shopDelivered": 790,
+          "sold": 1826,
+          "retailRevenue": 16576,
+          "shopRevenue": 10112,
+          "revenue": 26688,
+          "costs": 13144,
+          "upkeep": 2104,
+          "profit": 11440,
+          "cash": 13040,
+          "stock": 22,
+          "casks": 1,
+          "extractionPhase": "distilling",
+          "extractionProgress": 60,
+          "releases": 33,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.11301289466521501
+            }
+          ],
+          "starts": 35,
+          "fills": 34,
+          "extractionTicks": 3426,
+          "deliveries": 103,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 6,
+          "automaticFills": 33
+        }
+      },
+      "liquidation": {
+        "noShop": {
+          "month": 130,
+          "produced": 35,
+          "retailSold": 1960,
+          "shopDelivered": 0,
+          "sold": 1960,
+          "retailRevenue": 31360,
+          "shopRevenue": 0,
+          "revenue": 31360,
+          "costs": 13580,
+          "upkeep": 2200,
+          "profit": 15580,
+          "cash": 17180,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 35,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.12675289312457452
+            }
+          ],
+          "starts": 35,
+          "fills": 35,
+          "extractionTicks": 3465,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 9,
+          "tradeDeclines": 7,
+          "automaticFills": 34
+        },
+        "shop": {
+          "month": 128,
+          "produced": 35,
+          "retailSold": 1112,
+          "shopDelivered": 848,
+          "sold": 1960,
+          "retailRevenue": 17792,
+          "shopRevenue": 10854.4,
+          "revenue": 28646.4,
+          "costs": 13580,
+          "upkeep": 2192,
+          "profit": 12874.4,
+          "cash": 14474.4,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 35,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.11498854800795612
+            }
+          ],
+          "starts": 35,
+          "fills": 35,
+          "extractionTicks": 3465,
+          "deliveries": 112,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 6,
+          "automaticFills": 34
+        },
+        "calendarMonths": 10,
+        "clockTicks": 600,
+        "replay": {
+          "noShop": "5dcb6b4ef5e0a15365fc9305a385febc4bfa77d4192b7409f419be7128fd8c22",
+          "shop": "8baca665089e3c66b949065146256b477176403a1e756e76430d64b16be80a51"
+        }
+      }
+    },
+    {
+      "seed": 12345,
+      "recipe": {
+        "stopAt": 99,
+        "type": "bourbon"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "matchedProduction": true,
+      "blockedProductionRequests": 0,
+      "minCash": 843,
+      "parallelAgingTicks": 3294,
+      "parallelSalesTicks": 3196,
+      "partialReplay": true,
+      "replay": [
+        {
+          "month": 60,
+          "noShop": "1d4454a48ed14d73866c2eb38238f200dc74d02fea1ba818d26ac0293008e65e",
+          "shop": "b9079c159157908b916a5a80f04f0bc7d49465521db8904ec6730e42b8e1676b"
+        },
+        {
+          "month": 120,
+          "noShop": "5e3ab4ed74812305c5744c0a792afa0bb09cb3f956f40daf19dbbf40e784086d",
+          "shop": "285bba01ab64dc0acefaf0aa184dc0f84d84ef57be3d8967628c3676204c3467"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "noShop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 92,
+            "shopDelivered": 0,
+            "sold": 92,
+            "retailRevenue": 1472,
+            "shopRevenue": 0,
+            "revenue": 1472,
+            "costs": 1450,
+            "upkeep": 192,
+            "profit": -170,
+            "cash": 1430,
+            "stock": 18,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.029336734693877552
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 396,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 1,
+            "tradeDeclines": 0,
+            "automaticFills": 3
+          },
+          "shop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 87,
+            "shopDelivered": 10,
+            "sold": 97,
+            "retailRevenue": 1392,
+            "shopRevenue": 128,
+            "revenue": 1520,
+            "costs": 1450,
+            "upkeep": 192,
+            "profit": -122,
+            "cash": 1478,
+            "stock": 13,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.028100775193798454
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 396,
+            "deliveries": 2,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 0,
+            "automaticFills": 3
+          }
+        },
+        {
+          "month": 24,
+          "noShop": {
+            "month": 24,
+            "produced": 7,
+            "retailSold": 270,
+            "shopDelivered": 0,
+            "sold": 270,
+            "retailRevenue": 4320,
+            "shopRevenue": 0,
+            "revenue": 4320,
+            "costs": 3070,
+            "upkeep": 400,
+            "profit": 850,
+            "cash": 2450,
+            "stock": 60,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.06349384098544232
+              }
+            ],
+            "starts": 8,
+            "fills": 7,
+            "extractionTicks": 753,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 1,
+            "tradeDeclines": 1,
+            "automaticFills": 6
+          },
+          "shop": {
+            "month": 24,
+            "produced": 7,
+            "retailSold": 189,
+            "shopDelivered": 100,
+            "sold": 289,
+            "retailRevenue": 3024,
+            "shopRevenue": 1280,
+            "revenue": 4304,
+            "costs": 3070,
+            "upkeep": 400,
+            "profit": 834,
+            "cash": 2434,
+            "stock": 41,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.05165086447295036
+              }
+            ],
+            "starts": 8,
+            "fills": 7,
+            "extractionTicks": 753,
+            "deliveries": 15,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 1,
+            "automaticFills": 6
+          }
+        },
+        {
+          "month": 36,
+          "noShop": {
+            "month": 36,
+            "produced": 10,
+            "retailSold": 454,
+            "shopDelivered": 0,
+            "sold": 454,
+            "retailRevenue": 7264,
+            "shopRevenue": 0,
+            "revenue": 7264,
+            "costs": 4405,
+            "upkeep": 616,
+            "profit": 2243,
+            "cash": 3843,
+            "stock": 41,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 9,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08307351877331594
+              }
+            ],
+            "starts": 11,
+            "fills": 10,
+            "extractionTicks": 1050,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 2,
+            "tradeDeclines": 1,
+            "automaticFills": 9
+          },
+          "shop": {
+            "month": 36,
+            "produced": 10,
+            "retailSold": 283,
+            "shopDelivered": 180,
+            "sold": 463,
+            "retailRevenue": 4528,
+            "shopRevenue": 2304,
+            "revenue": 6832,
+            "costs": 4405,
+            "upkeep": 616,
+            "profit": 1811,
+            "cash": 3411,
+            "stock": 32,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 9,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.06676209119892808
+              }
+            ],
+            "starts": 11,
+            "fills": 10,
+            "extractionTicks": 1050,
+            "deliveries": 25,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 1,
+            "automaticFills": 9
+          }
+        },
+        {
+          "month": 48,
+          "noShop": {
+            "month": 48,
+            "produced": 14,
+            "retailSold": 657,
+            "shopDelivered": 0,
+            "sold": 657,
+            "retailRevenue": 10512,
+            "shopRevenue": 0,
+            "revenue": 10512,
+            "costs": 5900,
+            "upkeep": 832,
+            "profit": 3780,
+            "cash": 5380,
+            "stock": 3,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 12,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09654192789968652
+              }
+            ],
+            "starts": 14,
+            "fills": 14,
+            "extractionTicks": 1386,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 3,
+            "tradeDeclines": 2,
+            "automaticFills": 13
+          },
+          "shop": {
+            "month": 48,
+            "produced": 14,
+            "retailSold": 390,
+            "shopDelivered": 270,
+            "sold": 660,
+            "retailRevenue": 6240,
+            "shopRevenue": 3456,
+            "revenue": 9696,
+            "costs": 5900,
+            "upkeep": 832,
+            "profit": 2964,
+            "cash": 4564,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 12,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.07925330812854442
+              }
+            ],
+            "starts": 14,
+            "fills": 14,
+            "extractionTicks": 1386,
+            "deliveries": 38,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 2,
+            "automaticFills": 13
+          }
+        },
+        {
+          "month": 60,
+          "noShop": {
+            "month": 60,
+            "produced": 18,
+            "retailSold": 846,
+            "shopDelivered": 0,
+            "sold": 846,
+            "retailRevenue": 13536,
+            "shopRevenue": 0,
+            "revenue": 13536,
+            "costs": 7680,
+            "upkeep": 1040,
+            "profit": 4816,
+            "cash": 6416,
+            "stock": 34,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 16,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.105140409328891
+              }
+            ],
+            "starts": 18,
+            "fills": 18,
+            "extractionTicks": 1782,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 4,
+            "tradeDeclines": 3,
+            "automaticFills": 17
+          },
+          "shop": {
+            "month": 60,
+            "produced": 18,
+            "retailSold": 506,
+            "shopDelivered": 360,
+            "sold": 866,
+            "retailRevenue": 8096,
+            "shopRevenue": 4608,
+            "revenue": 12704,
+            "costs": 7680,
+            "upkeep": 1040,
+            "profit": 3984,
+            "cash": 5584,
+            "stock": 14,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 16,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08922981485016225
+              }
+            ],
+            "starts": 18,
+            "fills": 18,
+            "extractionTicks": 1782,
+            "deliveries": 51,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 17
+          }
+        },
+        {
+          "month": 72,
+          "noShop": {
+            "month": 72,
+            "produced": 21,
+            "retailSold": 1018,
+            "shopDelivered": 0,
+            "sold": 1018,
+            "retailRevenue": 16288,
+            "shopRevenue": 0,
+            "revenue": 16288,
+            "costs": 9015,
+            "upkeep": 1256,
+            "profit": 6017,
+            "cash": 7617,
+            "stock": 27,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 19,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11080543988425028
+              }
+            ],
+            "starts": 21,
+            "fills": 21,
+            "extractionTicks": 2079,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 5,
+            "tradeDeclines": 3,
+            "automaticFills": 20
+          },
+          "shop": {
+            "month": 72,
+            "produced": 21,
+            "retailSold": 598,
+            "shopDelivered": 440,
+            "sold": 1038,
+            "retailRevenue": 9568,
+            "shopRevenue": 5632,
+            "revenue": 15200,
+            "costs": 9015,
+            "upkeep": 1256,
+            "profit": 4929,
+            "cash": 6529,
+            "stock": 7,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 19,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.0953482486333266
+              }
+            ],
+            "starts": 21,
+            "fills": 21,
+            "extractionTicks": 2079,
+            "deliveries": 61,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 20
+          }
+        },
+        {
+          "month": 84,
+          "noShop": {
+            "month": 84,
+            "produced": 24,
+            "retailSold": 1210,
+            "shopDelivered": 0,
+            "sold": 1210,
+            "retailRevenue": 19360,
+            "shopRevenue": 0,
+            "revenue": 19360,
+            "costs": 10350,
+            "upkeep": 1472,
+            "profit": 7538,
+            "cash": 9138,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11557564951604686
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 2376,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 6,
+            "tradeDeclines": 4,
+            "automaticFills": 23
+          },
+          "shop": {
+            "month": 84,
+            "produced": 24,
+            "retailSold": 690,
+            "shopDelivered": 520,
+            "sold": 1210,
+            "retailRevenue": 11040,
+            "shopRevenue": 6656,
+            "revenue": 17696,
+            "costs": 10350,
+            "upkeep": 1472,
+            "profit": 5874,
+            "cash": 7474,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10035245503159942
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 2376,
+            "deliveries": 73,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 4,
+            "automaticFills": 23
+          }
+        },
+        {
+          "month": 96,
+          "noShop": {
+            "month": 96,
+            "produced": 28,
+            "retailSold": 1413,
+            "shopDelivered": 0,
+            "sold": 1413,
+            "retailRevenue": 22608,
+            "shopRevenue": 0,
+            "revenue": 22608,
+            "costs": 12130,
+            "upkeep": 1680,
+            "profit": 8798,
+            "cash": 10398,
+            "stock": 17,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11960595446584937
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 2772,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 7,
+            "tradeDeclines": 4,
+            "automaticFills": 27
+          },
+          "shop": {
+            "month": 96,
+            "produced": 28,
+            "retailSold": 810,
+            "shopDelivered": 620,
+            "sold": 1430,
+            "retailRevenue": 12960,
+            "shopRevenue": 7936,
+            "revenue": 20896,
+            "costs": 12130,
+            "upkeep": 1680,
+            "profit": 7086,
+            "cash": 8686,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10565878378378378
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 2772,
+            "deliveries": 87,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 4,
+            "automaticFills": 27
+          }
+        },
+        {
+          "month": 108,
+          "noShop": {
+            "month": 108,
+            "produced": 31,
+            "retailSold": 1592,
+            "shopDelivered": 0,
+            "sold": 1592,
+            "retailRevenue": 25472,
+            "shopRevenue": 0,
+            "revenue": 25472,
+            "costs": 13750,
+            "upkeep": 1888,
+            "profit": 9834,
+            "cash": 11434,
+            "stock": 58,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.12243673329873024
+              }
+            ],
+            "starts": 32,
+            "fills": 31,
+            "extractionTicks": 3129,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 7,
+            "tradeDeclines": 5,
+            "automaticFills": 30
+          },
+          "shop": {
+            "month": 108,
+            "produced": 31,
+            "retailSold": 912,
+            "shopDelivered": 700,
+            "sold": 1612,
+            "retailRevenue": 14592,
+            "shopRevenue": 8960,
+            "revenue": 23552,
+            "costs": 13750,
+            "upkeep": 1888,
+            "profit": 7914,
+            "cash": 9514,
+            "stock": 38,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10935869520562014
+              }
+            ],
+            "starts": 32,
+            "fills": 31,
+            "extractionTicks": 3129,
+            "deliveries": 99,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 5,
+            "automaticFills": 30
+          }
+        },
+        {
+          "month": 120,
+          "noShop": {
+            "month": 120,
+            "produced": 34,
+            "retailSold": 1774,
+            "shopDelivered": 0,
+            "sold": 1774,
+            "retailRevenue": 28384,
+            "shopRevenue": 0,
+            "revenue": 28384,
+            "costs": 15085,
+            "upkeep": 2104,
+            "profit": 11195,
+            "cash": 12795,
+            "stock": 41,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 33,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.12478443830554667
+              }
+            ],
+            "starts": 35,
+            "fills": 34,
+            "extractionTicks": 3426,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 8,
+            "tradeDeclines": 5,
+            "automaticFills": 33
+          },
+          "shop": {
+            "month": 120,
+            "produced": 34,
+            "retailSold": 1004,
+            "shopDelivered": 780,
+            "sold": 1784,
+            "retailRevenue": 16064,
+            "shopRevenue": 9984,
+            "revenue": 26048,
+            "costs": 15085,
+            "upkeep": 2104,
+            "profit": 8859,
+            "cash": 10459,
+            "stock": 31,
+            "casks": 1,
+            "extractionPhase": "distilling",
+            "extractionProgress": 60,
+            "releases": 33,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11219733373766591
+              }
+            ],
+            "starts": 35,
+            "fills": 34,
+            "extractionTicks": 3426,
+            "deliveries": 109,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 5,
+            "automaticFills": 33
+          }
+        }
+      ],
+      "horizon": {
+        "noShop": {
+          "month": 120,
+          "produced": 34,
+          "retailSold": 1774,
+          "shopDelivered": 0,
+          "sold": 1774,
+          "retailRevenue": 28384,
+          "shopRevenue": 0,
+          "revenue": 28384,
+          "costs": 15085,
+          "upkeep": 2104,
+          "profit": 11195,
+          "cash": 12795,
+          "stock": 41,
+          "casks": 1,
+          "extractionPhase": "distilling",
+          "extractionProgress": 60,
+          "releases": 33,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.12478443830554667
+            }
+          ],
+          "starts": 35,
+          "fills": 34,
+          "extractionTicks": 3426,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 8,
+          "tradeDeclines": 5,
+          "automaticFills": 33
+        },
+        "shop": {
+          "month": 120,
+          "produced": 34,
+          "retailSold": 1004,
+          "shopDelivered": 790,
+          "sold": 1794,
+          "retailRevenue": 16064,
+          "shopRevenue": 10112,
+          "revenue": 26176,
+          "costs": 15085,
+          "upkeep": 2104,
+          "profit": 8987,
+          "cash": 10587,
+          "stock": 21,
+          "casks": 1,
+          "extractionPhase": "distilling",
+          "extractionProgress": 60,
+          "releases": 33,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.11219733373766591
+            }
+          ],
+          "starts": 35,
+          "fills": 34,
+          "extractionTicks": 3426,
+          "deliveries": 110,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 5,
+          "automaticFills": 33
+        }
+      },
+      "liquidation": {
+        "noShop": {
+          "month": 130,
+          "produced": 35,
+          "retailSold": 1925,
+          "shopDelivered": 0,
+          "sold": 1925,
+          "retailRevenue": 30800,
+          "shopRevenue": 0,
+          "revenue": 30800,
+          "costs": 15575,
+          "upkeep": 2200,
+          "profit": 13025,
+          "cash": 14625,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 35,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.12644770959377702
+            }
+          ],
+          "starts": 35,
+          "fills": 35,
+          "extractionTicks": 3465,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 9,
+          "tradeDeclines": 6,
+          "automaticFills": 34
+        },
+        "shop": {
+          "month": 128,
+          "produced": 35,
+          "retailSold": 1078,
+          "shopDelivered": 847,
+          "sold": 1925,
+          "retailRevenue": 17248,
+          "shopRevenue": 10841.6,
+          "revenue": 28089.6,
+          "costs": 15575,
+          "upkeep": 2192,
+          "profit": 10322.6,
+          "cash": 11922.6,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 35,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.11421202010237128
+            }
+          ],
+          "starts": 35,
+          "fills": 35,
+          "extractionTicks": 3465,
+          "deliveries": 119,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 6,
+          "automaticFills": 34
+        },
+        "calendarMonths": 10,
+        "clockTicks": 600,
+        "replay": {
+          "noShop": "372c716fa6ad175d065ea760ce1e794265ffd1a6eedc64fcdb7add698a3ae191",
+          "shop": "65af7e4015fc004a81b6775f6608380b03baefdb2b76d7779acd0637aba656b2"
+        }
+      }
+    },
+    {
+      "seed": 20261017,
+      "recipe": {
+        "stopAt": 30,
+        "type": "refill"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "matchedProduction": true,
+      "blockedProductionRequests": 0,
+      "minCash": 850,
+      "parallelAgingTicks": 1131,
+      "parallelSalesTicks": 1102,
+      "partialReplay": true,
+      "replay": [
+        {
+          "month": 60,
+          "noShop": "bad6073ac98ee1806f371860e4febb2c0e1091df0987a7a55013362f94d4ebdd",
+          "shop": "a6d0797b2e317022d6495b1306453583f3552176009f28b17f26576a5a08f2a1"
+        },
+        {
+          "month": 120,
+          "noShop": "6535ae32420145700518437428c01dc458b6356c44f8e92e9667f72d19d44b3d",
+          "shop": "158fda3de592536e2ff358c263e19f1fad085ff2411127b5f9e9d6457032022d"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "noShop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 66,
+            "shopDelivered": 0,
+            "sold": 66,
+            "retailRevenue": 1056,
+            "shopRevenue": 0,
+            "revenue": 1056,
+            "costs": 1078,
+            "upkeep": 232,
+            "profit": -254,
+            "cash": 1346,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.022540983606557378
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 120,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 1,
+            "tradeDeclines": 0,
+            "automaticFills": 3
+          },
+          "shop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 56,
+            "shopDelivered": 10,
+            "sold": 66,
+            "retailRevenue": 896,
+            "shopRevenue": 128,
+            "revenue": 1024,
+            "costs": 1078,
+            "upkeep": 232,
+            "profit": -286,
+            "cash": 1314,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.019573544433094996
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 120,
+            "deliveries": 3,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 0,
+            "automaticFills": 3
+          }
+        },
+        {
+          "month": 24,
+          "noShop": {
+            "month": 24,
+            "produced": 8,
+            "retailSold": 198,
+            "shopDelivered": 0,
+            "sold": 198,
+            "retailRevenue": 3168,
+            "shopRevenue": 0,
+            "revenue": 3168,
+            "costs": 2354,
+            "upkeep": 472,
+            "profit": 342,
+            "cash": 1942,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.05367469879518072
+              }
+            ],
+            "starts": 8,
+            "fills": 8,
+            "extractionTicks": 240,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 2,
+            "tradeDeclines": 1,
+            "automaticFills": 7
+          },
+          "shop": {
+            "month": 24,
+            "produced": 8,
+            "retailSold": 122,
+            "shopDelivered": 76,
+            "sold": 198,
+            "retailRevenue": 1952,
+            "shopRevenue": 972.8,
+            "revenue": 2924.8,
+            "costs": 2354,
+            "upkeep": 472,
+            "profit": 98.8,
+            "cash": 1698.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.0379891112764874
+              }
+            ],
+            "starts": 8,
+            "fills": 8,
+            "extractionTicks": 240,
+            "deliveries": 11,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 1,
+            "automaticFills": 7
+          }
+        },
+        {
+          "month": 36,
+          "noShop": {
+            "month": 36,
+            "produced": 12,
+            "retailSold": 330,
+            "shopDelivered": 0,
+            "sold": 330,
+            "retailRevenue": 5280,
+            "shopRevenue": 0,
+            "revenue": 5280,
+            "costs": 3630,
+            "upkeep": 712,
+            "profit": 938,
+            "cash": 2538,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 10,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.07295918367346939
+              }
+            ],
+            "starts": 12,
+            "fills": 12,
+            "extractionTicks": 360,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 3,
+            "tradeDeclines": 1,
+            "automaticFills": 11
+          },
+          "shop": {
+            "month": 36,
+            "produced": 12,
+            "retailSold": 188,
+            "shopDelivered": 142,
+            "sold": 330,
+            "retailRevenue": 3008,
+            "shopRevenue": 1817.6,
+            "revenue": 4825.6,
+            "costs": 3630,
+            "upkeep": 712,
+            "profit": 483.6,
+            "cash": 2083.6,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 10,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.05215829252714498
+              }
+            ],
+            "starts": 12,
+            "fills": 12,
+            "extractionTicks": 360,
+            "deliveries": 19,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 1,
+            "automaticFills": 11
+          }
+        },
+        {
+          "month": 48,
+          "noShop": {
+            "month": 48,
+            "produced": 16,
+            "retailSold": 462,
+            "shopDelivered": 0,
+            "sold": 462,
+            "retailRevenue": 7392,
+            "shopRevenue": 0,
+            "revenue": 7392,
+            "costs": 4906,
+            "upkeep": 952,
+            "profit": 1534,
+            "cash": 3134,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 14,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08589238845144356
+              }
+            ],
+            "starts": 16,
+            "fills": 16,
+            "extractionTicks": 480,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 4,
+            "tradeDeclines": 2,
+            "automaticFills": 15
+          },
+          "shop": {
+            "month": 48,
+            "produced": 16,
+            "retailSold": 254,
+            "shopDelivered": 208,
+            "sold": 462,
+            "retailRevenue": 4064,
+            "shopRevenue": 2662.4,
+            "revenue": 6726.4,
+            "costs": 4906,
+            "upkeep": 952,
+            "profit": 868.4,
+            "cash": 2468.4,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 14,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.06325604741404275
+              }
+            ],
+            "starts": 16,
+            "fills": 16,
+            "extractionTicks": 480,
+            "deliveries": 27,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 2,
+            "automaticFills": 15
+          }
+        },
+        {
+          "month": 60,
+          "noShop": {
+            "month": 60,
+            "produced": 20,
+            "retailSold": 594,
+            "shopDelivered": 0,
+            "sold": 594,
+            "retailRevenue": 9504,
+            "shopRevenue": 0,
+            "revenue": 9504,
+            "costs": 6182,
+            "upkeep": 1192,
+            "profit": 2130,
+            "cash": 3730,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 18,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09513422818791946
+              }
+            ],
+            "starts": 20,
+            "fills": 20,
+            "extractionTicks": 600,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 5,
+            "tradeDeclines": 3,
+            "automaticFills": 19
+          },
+          "shop": {
+            "month": 60,
+            "produced": 20,
+            "retailSold": 320,
+            "shopDelivered": 274,
+            "sold": 594,
+            "retailRevenue": 5120,
+            "shopRevenue": 3507.2,
+            "revenue": 8627.2,
+            "costs": 6182,
+            "upkeep": 1192,
+            "profit": 1253.2,
+            "cash": 2853.2,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 18,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.0721407624633431
+              }
+            ],
+            "starts": 20,
+            "fills": 20,
+            "extractionTicks": 600,
+            "deliveries": 35,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 19
+          }
+        },
+        {
+          "month": 72,
+          "noShop": {
+            "month": 72,
+            "produced": 24,
+            "retailSold": 726,
+            "shopDelivered": 0,
+            "sold": 726,
+            "retailRevenue": 11616,
+            "shopRevenue": 0,
+            "revenue": 11616,
+            "costs": 7458,
+            "upkeep": 1432,
+            "profit": 2726,
+            "cash": 4326,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10205802968960864
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 720,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 6,
+            "tradeDeclines": 3,
+            "automaticFills": 23
+          },
+          "shop": {
+            "month": 72,
+            "produced": 24,
+            "retailSold": 386,
+            "shopDelivered": 340,
+            "sold": 726,
+            "retailRevenue": 6176,
+            "shopRevenue": 4352,
+            "revenue": 10528,
+            "costs": 7458,
+            "upkeep": 1432,
+            "profit": 1638,
+            "cash": 3238,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.07939824151004275
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 720,
+            "deliveries": 43,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 23
+          }
+        },
+        {
+          "month": 84,
+          "noShop": {
+            "month": 84,
+            "produced": 28,
+            "retailSold": 858,
+            "shopDelivered": 0,
+            "sold": 858,
+            "retailRevenue": 13728,
+            "shopRevenue": 0,
+            "revenue": 13728,
+            "costs": 8734,
+            "upkeep": 1672,
+            "profit": 3322,
+            "cash": 4922,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10743523316062176
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 840,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 7,
+            "tradeDeclines": 4,
+            "automaticFills": 27
+          },
+          "shop": {
+            "month": 84,
+            "produced": 28,
+            "retailSold": 456,
+            "shopDelivered": 402,
+            "sold": 858,
+            "retailRevenue": 7296,
+            "shopRevenue": 5145.6,
+            "revenue": 12441.6,
+            "costs": 8734,
+            "upkeep": 1672,
+            "profit": 2035.6,
+            "cash": 3635.6,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08576388888888889
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 840,
+            "deliveries": 51,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 4,
+            "automaticFills": 27
+          }
+        },
+        {
+          "month": 96,
+          "noShop": {
+            "month": 96,
+            "produced": 32,
+            "retailSold": 990,
+            "shopDelivered": 0,
+            "sold": 990,
+            "retailRevenue": 15840,
+            "shopRevenue": 0,
+            "revenue": 15840,
+            "costs": 10010,
+            "upkeep": 1912,
+            "profit": 3918,
+            "cash": 5518,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11173050615595076
+              }
+            ],
+            "starts": 32,
+            "fills": 32,
+            "extractionTicks": 960,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 8,
+            "tradeDeclines": 5,
+            "automaticFills": 31
+          },
+          "shop": {
+            "month": 96,
+            "produced": 32,
+            "retailSold": 526,
+            "shopDelivered": 464,
+            "sold": 990,
+            "retailRevenue": 8416,
+            "shopRevenue": 5939.2,
+            "revenue": 14355.2,
+            "costs": 10010,
+            "upkeep": 1912,
+            "profit": 2433.2,
+            "cash": 4033.2,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.0910846408143989
+              }
+            ],
+            "starts": 32,
+            "fills": 32,
+            "extractionTicks": 960,
+            "deliveries": 59,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 5,
+            "automaticFills": 31
+          }
+        },
+        {
+          "month": 108,
+          "noShop": {
+            "month": 108,
+            "produced": 36,
+            "retailSold": 1122,
+            "shopDelivered": 0,
+            "sold": 1122,
+            "retailRevenue": 17952,
+            "shopRevenue": 0,
+            "revenue": 17952,
+            "costs": 11286,
+            "upkeep": 2152,
+            "profit": 4514,
+            "cash": 6114,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 34,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.1152398401065956
+              }
+            ],
+            "starts": 36,
+            "fills": 36,
+            "extractionTicks": 1080,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 9,
+            "tradeDeclines": 5,
+            "automaticFills": 35
+          },
+          "shop": {
+            "month": 108,
+            "produced": 36,
+            "retailSold": 596,
+            "shopDelivered": 526,
+            "sold": 1122,
+            "retailRevenue": 9536,
+            "shopRevenue": 6732.8,
+            "revenue": 16268.8,
+            "costs": 11286,
+            "upkeep": 2152,
+            "profit": 2830.8,
+            "cash": 4430.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 34,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09559619413407822
+              }
+            ],
+            "starts": 36,
+            "fills": 36,
+            "extractionTicks": 1080,
+            "deliveries": 67,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 5,
+            "automaticFills": 35
+          }
+        },
+        {
+          "month": 120,
+          "noShop": {
+            "month": 120,
+            "produced": 40,
+            "retailSold": 1254,
+            "shopDelivered": 0,
+            "sold": 1254,
+            "retailRevenue": 20064,
+            "shopRevenue": 0,
+            "revenue": 20064,
+            "costs": 12562,
+            "upkeep": 2392,
+            "profit": 5110,
+            "cash": 6710,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 38,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11816050744622172
+              }
+            ],
+            "starts": 40,
+            "fills": 40,
+            "extractionTicks": 1200,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 10,
+            "tradeDeclines": 6,
+            "automaticFills": 39
+          },
+          "shop": {
+            "month": 120,
+            "produced": 40,
+            "retailSold": 666,
+            "shopDelivered": 588,
+            "sold": 1254,
+            "retailRevenue": 10656,
+            "shopRevenue": 7526.4,
+            "revenue": 18182.4,
+            "costs": 12562,
+            "upkeep": 2392,
+            "profit": 3228.4,
+            "cash": 4828.4,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 38,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09946896780617324
+              }
+            ],
+            "starts": 40,
+            "fills": 40,
+            "extractionTicks": 1200,
+            "deliveries": 75,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 6,
+            "automaticFills": 39
+          }
+        }
+      ],
+      "horizon": {
+        "noShop": {
+          "month": 120,
+          "produced": 40,
+          "retailSold": 1254,
+          "shopDelivered": 0,
+          "sold": 1254,
+          "retailRevenue": 20064,
+          "shopRevenue": 0,
+          "revenue": 20064,
+          "costs": 12661,
+          "upkeep": 2392,
+          "profit": 5011,
+          "cash": 6611,
+          "stock": 33,
+          "casks": 1,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 39,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.11816050744622172
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 10,
+          "tradeDeclines": 6,
+          "automaticFills": 39
+        },
+        "shop": {
+          "month": 120,
+          "produced": 40,
+          "retailSold": 666,
+          "shopDelivered": 598,
+          "sold": 1264,
+          "retailRevenue": 10656,
+          "shopRevenue": 7654.4,
+          "revenue": 18310.4,
+          "costs": 12661,
+          "upkeep": 2392,
+          "profit": 3257.4,
+          "cash": 4857.4,
+          "stock": 23,
+          "casks": 1,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 39,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.09946896780617324
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 76,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 6,
+          "automaticFills": 39
+        }
+      },
+      "liquidation": {
+        "noShop": {
+          "month": 124,
+          "produced": 40,
+          "retailSold": 1320,
+          "shopDelivered": 0,
+          "sold": 1320,
+          "retailRevenue": 21120,
+          "shopRevenue": 0,
+          "revenue": 21120,
+          "costs": 12760,
+          "upkeep": 2416,
+          "profit": 5944,
+          "cash": 7544,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 40,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.11944444444444442
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 10,
+          "tradeDeclines": 6,
+          "automaticFills": 39
+        },
+        "shop": {
+          "month": 123,
+          "produced": 40,
+          "retailSold": 701,
+          "shopDelivered": 619,
+          "sold": 1320,
+          "retailRevenue": 11216,
+          "shopRevenue": 7923.2,
+          "revenue": 19139.2,
+          "costs": 12760,
+          "upkeep": 2412,
+          "profit": 3967.2,
+          "cash": 5567.2,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 40,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.10120652794221613
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 79,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 6,
+          "automaticFills": 39
+        },
+        "calendarMonths": 4,
+        "clockTicks": 240,
+        "replay": {
+          "noShop": "2aa994509eee6ef3b34bcbac667223079bec3cb6ee712d6dc29d318d6c599139",
+          "shop": "f631e84bcc28efa1e424598df6e297f9305dc845e45d4dccd1146c411283f95b"
+        }
+      }
+    },
+    {
+      "seed": 4294967295,
+      "recipe": {
+        "stopAt": 30,
+        "type": "bourbon"
+      },
+      "months": 120,
+      "clockTicks": 7200,
+      "matchedProduction": true,
+      "blockedProductionRequests": 0,
+      "minCash": 610,
+      "parallelAgingTicks": 1131,
+      "parallelSalesTicks": 1102,
+      "partialReplay": true,
+      "replay": [
+        {
+          "month": 60,
+          "noShop": "112e4977b633aa8d92f22bee8c844733da4d86d14e957b24fcc2ff7d8e76e5f1",
+          "shop": "e034f893090f6cd93bc435b4a1580d26183fb5ff2b6092d4a501ccdaa12c536f"
+        },
+        {
+          "month": 120,
+          "noShop": "2ff9ee0466712564b0e99b9fc2ad422900e7334a8b01055f2c2ecf486b4e159f",
+          "shop": "a76560e08c6913c93ada9ba536e66c5b6b9aa28ff31b3712f5ede1ca0be920d3"
+        }
+      ],
+      "monthly": [
+        {
+          "month": 12,
+          "noShop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 66,
+            "shopDelivered": 0,
+            "sold": 66,
+            "retailRevenue": 1056,
+            "shopRevenue": 0,
+            "revenue": 1056,
+            "costs": 1318,
+            "upkeep": 232,
+            "profit": -494,
+            "cash": 1106,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.022540983606557378
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 120,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 1,
+            "tradeDeclines": 0,
+            "automaticFills": 3
+          },
+          "shop": {
+            "month": 12,
+            "produced": 4,
+            "retailSold": 56,
+            "shopDelivered": 10,
+            "sold": 66,
+            "retailRevenue": 896,
+            "shopRevenue": 128,
+            "revenue": 1024,
+            "costs": 1318,
+            "upkeep": 232,
+            "profit": -526,
+            "cash": 1074,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 2,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.019573544433094996
+              }
+            ],
+            "starts": 4,
+            "fills": 4,
+            "extractionTicks": 120,
+            "deliveries": 3,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 0,
+            "automaticFills": 3
+          }
+        },
+        {
+          "month": 24,
+          "noShop": {
+            "month": 24,
+            "produced": 8,
+            "retailSold": 198,
+            "shopDelivered": 0,
+            "sold": 198,
+            "retailRevenue": 3168,
+            "shopRevenue": 0,
+            "revenue": 3168,
+            "costs": 2834,
+            "upkeep": 472,
+            "profit": -138,
+            "cash": 1462,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.05367469879518072
+              }
+            ],
+            "starts": 8,
+            "fills": 8,
+            "extractionTicks": 240,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 2,
+            "tradeDeclines": 0,
+            "automaticFills": 7
+          },
+          "shop": {
+            "month": 24,
+            "produced": 8,
+            "retailSold": 122,
+            "shopDelivered": 76,
+            "sold": 198,
+            "retailRevenue": 1952,
+            "shopRevenue": 972.8,
+            "revenue": 2924.8,
+            "costs": 2834,
+            "upkeep": 472,
+            "profit": -381.2,
+            "cash": 1218.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 6,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.0379891112764874
+              }
+            ],
+            "starts": 8,
+            "fills": 8,
+            "extractionTicks": 240,
+            "deliveries": 11,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 0,
+            "automaticFills": 7
+          }
+        },
+        {
+          "month": 36,
+          "noShop": {
+            "month": 36,
+            "produced": 12,
+            "retailSold": 330,
+            "shopDelivered": 0,
+            "sold": 330,
+            "retailRevenue": 5280,
+            "shopRevenue": 0,
+            "revenue": 5280,
+            "costs": 4350,
+            "upkeep": 712,
+            "profit": 218,
+            "cash": 1818,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 10,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.07295918367346939
+              }
+            ],
+            "starts": 12,
+            "fills": 12,
+            "extractionTicks": 360,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 3,
+            "tradeDeclines": 1,
+            "automaticFills": 11
+          },
+          "shop": {
+            "month": 36,
+            "produced": 12,
+            "retailSold": 188,
+            "shopDelivered": 142,
+            "sold": 330,
+            "retailRevenue": 3008,
+            "shopRevenue": 1817.6,
+            "revenue": 4825.6,
+            "costs": 4350,
+            "upkeep": 712,
+            "profit": -236.4,
+            "cash": 1363.6,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 10,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.05215829252714498
+              }
+            ],
+            "starts": 12,
+            "fills": 12,
+            "extractionTicks": 360,
+            "deliveries": 19,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 1,
+            "automaticFills": 11
+          }
+        },
+        {
+          "month": 48,
+          "noShop": {
+            "month": 48,
+            "produced": 16,
+            "retailSold": 462,
+            "shopDelivered": 0,
+            "sold": 462,
+            "retailRevenue": 7392,
+            "shopRevenue": 0,
+            "revenue": 7392,
+            "costs": 5866,
+            "upkeep": 952,
+            "profit": 574,
+            "cash": 2174,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 14,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.08589238845144356
+              }
+            ],
+            "starts": 16,
+            "fills": 16,
+            "extractionTicks": 480,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 4,
+            "tradeDeclines": 2,
+            "automaticFills": 15
+          },
+          "shop": {
+            "month": 48,
+            "produced": 16,
+            "retailSold": 254,
+            "shopDelivered": 208,
+            "sold": 462,
+            "retailRevenue": 4064,
+            "shopRevenue": 2662.4,
+            "revenue": 6726.4,
+            "costs": 5866,
+            "upkeep": 952,
+            "profit": -91.6,
+            "cash": 1508.4,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 14,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.06325604741404275
+              }
+            ],
+            "starts": 16,
+            "fills": 16,
+            "extractionTicks": 480,
+            "deliveries": 27,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 2,
+            "automaticFills": 15
+          }
+        },
+        {
+          "month": 60,
+          "noShop": {
+            "month": 60,
+            "produced": 20,
+            "retailSold": 594,
+            "shopDelivered": 0,
+            "sold": 594,
+            "retailRevenue": 9504,
+            "shopRevenue": 0,
+            "revenue": 9504,
+            "costs": 7382,
+            "upkeep": 1192,
+            "profit": 930,
+            "cash": 2530,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 18,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09513422818791946
+              }
+            ],
+            "starts": 20,
+            "fills": 20,
+            "extractionTicks": 600,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 5,
+            "tradeDeclines": 3,
+            "automaticFills": 19
+          },
+          "shop": {
+            "month": 60,
+            "produced": 20,
+            "retailSold": 320,
+            "shopDelivered": 274,
+            "sold": 594,
+            "retailRevenue": 5120,
+            "shopRevenue": 3507.2,
+            "revenue": 8627.2,
+            "costs": 7382,
+            "upkeep": 1192,
+            "profit": 53.2,
+            "cash": 1653.2,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 18,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.0721407624633431
+              }
+            ],
+            "starts": 20,
+            "fills": 20,
+            "extractionTicks": 600,
+            "deliveries": 35,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 19
+          }
+        },
+        {
+          "month": 72,
+          "noShop": {
+            "month": 72,
+            "produced": 24,
+            "retailSold": 726,
+            "shopDelivered": 0,
+            "sold": 726,
+            "retailRevenue": 11616,
+            "shopRevenue": 0,
+            "revenue": 11616,
+            "costs": 8898,
+            "upkeep": 1432,
+            "profit": 1286,
+            "cash": 2886,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10205802968960864
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 720,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 6,
+            "tradeDeclines": 3,
+            "automaticFills": 23
+          },
+          "shop": {
+            "month": 72,
+            "produced": 24,
+            "retailSold": 390,
+            "shopDelivered": 336,
+            "sold": 726,
+            "retailRevenue": 6240,
+            "shopRevenue": 4300.8,
+            "revenue": 10540.8,
+            "costs": 8898,
+            "upkeep": 1432,
+            "profit": 210.8,
+            "cash": 1810.8,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 22,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.07979539641943734
+              }
+            ],
+            "starts": 24,
+            "fills": 24,
+            "extractionTicks": 720,
+            "deliveries": 43,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 3,
+            "automaticFills": 23
+          }
+        },
+        {
+          "month": 84,
+          "noShop": {
+            "month": 84,
+            "produced": 28,
+            "retailSold": 858,
+            "shopDelivered": 0,
+            "sold": 858,
+            "retailRevenue": 13728,
+            "shopRevenue": 0,
+            "revenue": 13728,
+            "costs": 10414,
+            "upkeep": 1672,
+            "profit": 1642,
+            "cash": 3242,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.10743523316062176
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 840,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 7,
+            "tradeDeclines": 4,
+            "automaticFills": 27
+          },
+          "shop": {
+            "month": 84,
+            "produced": 28,
+            "retailSold": 460,
+            "shopDelivered": 398,
+            "sold": 858,
+            "retailRevenue": 7360,
+            "shopRevenue": 5094.4,
+            "revenue": 12454.4,
+            "costs": 10414,
+            "upkeep": 1672,
+            "profit": 368.4,
+            "cash": 1968.4,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 26,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.0860934664246824
+              }
+            ],
+            "starts": 28,
+            "fills": 28,
+            "extractionTicks": 840,
+            "deliveries": 51,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 4,
+            "automaticFills": 27
+          }
+        },
+        {
+          "month": 96,
+          "noShop": {
+            "month": 96,
+            "produced": 32,
+            "retailSold": 990,
+            "shopDelivered": 0,
+            "sold": 990,
+            "retailRevenue": 15840,
+            "shopRevenue": 0,
+            "revenue": 15840,
+            "costs": 11930,
+            "upkeep": 1912,
+            "profit": 1998,
+            "cash": 3598,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11173050615595076
+              }
+            ],
+            "starts": 32,
+            "fills": 32,
+            "extractionTicks": 960,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 8,
+            "tradeDeclines": 5,
+            "automaticFills": 31
+          },
+          "shop": {
+            "month": 96,
+            "produced": 32,
+            "retailSold": 530,
+            "shopDelivered": 460,
+            "sold": 990,
+            "retailRevenue": 8480,
+            "shopRevenue": 5888,
+            "revenue": 14368,
+            "costs": 11930,
+            "upkeep": 1912,
+            "profit": 526,
+            "cash": 2126,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 30,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09136237256719183
+              }
+            ],
+            "starts": 32,
+            "fills": 32,
+            "extractionTicks": 960,
+            "deliveries": 59,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 5,
+            "automaticFills": 31
+          }
+        },
+        {
+          "month": 108,
+          "noShop": {
+            "month": 108,
+            "produced": 36,
+            "retailSold": 1122,
+            "shopDelivered": 0,
+            "sold": 1122,
+            "retailRevenue": 17952,
+            "shopRevenue": 0,
+            "revenue": 17952,
+            "costs": 13446,
+            "upkeep": 2152,
+            "profit": 2354,
+            "cash": 3954,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 34,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.1152398401065956
+              }
+            ],
+            "starts": 36,
+            "fills": 36,
+            "extractionTicks": 1080,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 9,
+            "tradeDeclines": 6,
+            "automaticFills": 35
+          },
+          "shop": {
+            "month": 108,
+            "produced": 36,
+            "retailSold": 600,
+            "shopDelivered": 522,
+            "sold": 1122,
+            "retailRevenue": 9600,
+            "shopRevenue": 6681.6,
+            "revenue": 16281.6,
+            "costs": 13446,
+            "upkeep": 2152,
+            "profit": 683.6,
+            "cash": 2283.6,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 34,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09583333333333333
+              }
+            ],
+            "starts": 36,
+            "fills": 36,
+            "extractionTicks": 1080,
+            "deliveries": 67,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 6,
+            "automaticFills": 35
+          }
+        },
+        {
+          "month": 120,
+          "noShop": {
+            "month": 120,
+            "produced": 40,
+            "retailSold": 1254,
+            "shopDelivered": 0,
+            "sold": 1254,
+            "retailRevenue": 20064,
+            "shopRevenue": 0,
+            "revenue": 20064,
+            "costs": 14962,
+            "upkeep": 2392,
+            "profit": 2710,
+            "cash": 4310,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 38,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.11816050744622172
+              }
+            ],
+            "starts": 40,
+            "fills": 40,
+            "extractionTicks": 1200,
+            "deliveries": 0,
+            "accepts": 0,
+            "declines": 10,
+            "tradeDeclines": 6,
+            "automaticFills": 39
+          },
+          "shop": {
+            "month": 120,
+            "produced": 40,
+            "retailSold": 670,
+            "shopDelivered": 584,
+            "sold": 1254,
+            "retailRevenue": 10720,
+            "shopRevenue": 7475.2,
+            "revenue": 18195.2,
+            "costs": 14962,
+            "upkeep": 2392,
+            "profit": 841.2,
+            "cash": 2441.2,
+            "stock": 0,
+            "casks": 2,
+            "extractionPhase": "ready",
+            "extractionProgress": null,
+            "releases": 38,
+            "reputation": [
+              {
+                "brandId": 1,
+                "bonus": 0.09967375701422419
+              }
+            ],
+            "starts": 40,
+            "fills": 40,
+            "extractionTicks": 1200,
+            "deliveries": 75,
+            "accepts": 1,
+            "declines": 0,
+            "tradeDeclines": 6,
+            "automaticFills": 39
+          }
+        }
+      ],
+      "horizon": {
+        "noShop": {
+          "month": 120,
+          "produced": 40,
+          "retailSold": 1254,
+          "shopDelivered": 0,
+          "sold": 1254,
+          "retailRevenue": 20064,
+          "shopRevenue": 0,
+          "revenue": 20064,
+          "costs": 15061,
+          "upkeep": 2392,
+          "profit": 2611,
+          "cash": 4211,
+          "stock": 33,
+          "casks": 1,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 39,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.11816050744622172
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 10,
+          "tradeDeclines": 6,
+          "automaticFills": 39
+        },
+        "shop": {
+          "month": 120,
+          "produced": 40,
+          "retailSold": 670,
+          "shopDelivered": 594,
+          "sold": 1264,
+          "retailRevenue": 10720,
+          "shopRevenue": 7603.2,
+          "revenue": 18323.2,
+          "costs": 15061,
+          "upkeep": 2392,
+          "profit": 870.2,
+          "cash": 2470.2,
+          "stock": 23,
+          "casks": 1,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 39,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.09967375701422419
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 76,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 6,
+          "automaticFills": 39
+        }
+      },
+      "liquidation": {
+        "noShop": {
+          "month": 124,
+          "produced": 40,
+          "retailSold": 1320,
+          "shopDelivered": 0,
+          "sold": 1320,
+          "retailRevenue": 21120,
+          "shopRevenue": 0,
+          "revenue": 21120,
+          "costs": 15160,
+          "upkeep": 2416,
+          "profit": 3544,
+          "cash": 5144,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 40,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.11944444444444442
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 0,
+          "accepts": 0,
+          "declines": 10,
+          "tradeDeclines": 7,
+          "automaticFills": 39
+        },
+        "shop": {
+          "month": 123,
+          "produced": 40,
+          "retailSold": 705,
+          "shopDelivered": 615,
+          "sold": 1320,
+          "retailRevenue": 11280,
+          "shopRevenue": 7872,
+          "revenue": 19152,
+          "costs": 15160,
+          "upkeep": 2412,
+          "profit": 1580,
+          "cash": 3180,
+          "stock": 0,
+          "casks": 0,
+          "extractionPhase": "ready",
+          "extractionProgress": null,
+          "releases": 40,
+          "reputation": [
+            {
+              "brandId": 1,
+              "bonus": 0.10139755766621439
+            }
+          ],
+          "starts": 40,
+          "fills": 40,
+          "extractionTicks": 1200,
+          "deliveries": 79,
+          "accepts": 1,
+          "declines": 0,
+          "tradeDeclines": 7,
+          "automaticFills": 39
+        },
+        "calendarMonths": 4,
+        "clockTicks": 240,
+        "replay": {
+          "noShop": "51c5cb311de4cd4ff5c00efafaf5b4402effbb5c8d2fd26d594faf0f017f1554",
+          "shop": "fb3af8804c13474d8b14d5d0d4c22e34373c8fb4103083412b762cac95938124"
+        }
+      }
+    }
+  ],
+  "summary": {
+    "pairs": 8,
+    "totalSimulatedMonths": 1920,
+    "horizon": {
+      "noShop": {
+        "produced": 37,
+        "sold": 1436.13,
+        "retailSold": 1436.13,
+        "shopDelivered": 0,
+        "revenue": 22978,
+        "costs": 13738,
+        "upkeep": 2249,
+        "profit": 6991,
+        "cash": 8591,
+        "stock": 39.88
+      },
+      "shop": {
+        "produced": 37,
+        "sold": 1451.13,
+        "retailSold": 803.75,
+        "shopDelivered": 647.38,
+        "revenue": 21146.4,
+        "costs": 13738,
+        "upkeep": 2249,
+        "profit": 5159.4,
+        "cash": 6759.4,
+        "stock": 24.88
+      },
+      "shopMinusNoShop": {
+        "produced": 0,
+        "sold": 15,
+        "retailSold": -632.37,
+        "shopDelivered": 647.38,
+        "revenue": -1831.6,
+        "costs": 0,
+        "upkeep": 0,
+        "profit": -1831.6,
+        "cash": -1831.6,
+        "stock": -15
+      }
+    },
+    "liquidation": {
+      "noShop": {
+        "produced": 37.5,
+        "sold": 1536.88,
+        "retailSold": 1536.88,
+        "shopDelivered": 0,
+        "revenue": 24590,
+        "costs": 13985.63,
+        "upkeep": 2307,
+        "profit": 8297.38,
+        "cash": 9897.38,
+        "stock": 0
+      },
+      "shop": {
+        "produced": 37.5,
+        "sold": 1536.88,
+        "retailSold": 855.13,
+        "shopDelivered": 681.75,
+        "revenue": 22408.4,
+        "costs": 13985.63,
+        "upkeep": 2302,
+        "profit": 6120.78,
+        "cash": 7720.77,
+        "stock": 0
+      },
+      "shopMinusNoShop": {
+        "produced": 0,
+        "sold": 0,
+        "retailSold": -681.75,
+        "shopDelivered": 681.75,
+        "revenue": -2181.6,
+        "costs": 0,
+        "upkeep": -5,
+        "profit": -2176.6,
+        "cash": -2176.6,
+        "stock": 0
+      }
+    },
+    "allReplayExact": true,
+    "allAccountingExact": true,
+    "capacityNeverAboveFour": true,
+    "sameProductionAndExtractionTime": true,
+    "totalBlockedProductionRequests": 0,
+    "allNoShopLiquidationRevenueHigher": true,
+    "allNoShopLiquidationProfitHigher": true,
+    "totalConcurrentAgingTicks": 15388,
+    "totalConcurrentSalesTicks": 15016
+  }
+}
