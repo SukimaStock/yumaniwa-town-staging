@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1018d6c71b082163e7cf2ebb78a0230a7b17c779cc884d0e13b8619348038aa0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v0151-delivery-flow-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime 0.15.1 safe one-time shop invitation and atomic first delivery",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "945174ec09aa38128aa679869551d9a65317ae4e",
+    "canonicalSources": [
+      "User0.15.1 deliveryflow request",
+      "0.15 v12 strictreplay/shop ledger and existing modalclock",
+      "Current shop-price/limit/reputation invariants"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v0151-delivery-flow-20261017/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/shop-flow*.mjs",
+      "works/ambertime/tests/shop-browser.mjs",
+      "works/ambertime/design/shop-flow/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "tools/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/experiments/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/aroma-app.mjs",
+      "works/ambertime/usual-app.mjs"
+    ],
+    "expectedChanges": [
+      "Persist one-time offer-noticed action with partialprogress; unmodified v12prefixes restore exactly, same save key/envelope and strictvalidator",
+      "Atomic accept+delivery opcode reuses existing ledger/price/cap accounting on a clone; one operation budget, no intermediate state",
+      "Offer previews support correct samebrand release/stock/quantities/unit/cash/remnant; relationship-only remains available including zerostock",
+      "Safe automatic shop modal after tasting/decisions/pricing/wholesale/manual distilling/filling; defer preservesoffer and resumes prior pause intent; never auto repeats across reload",
+      "Product modal grouped own shelf price/listing and townshop delivery as distinct destinations; short confirmation with brandname",
+      "Regression/coldoldsave/atomicfailure/clockpriority/defer/reload/browser PCiphone tests and concise report; update old browser harness assertions for intentionally replaced flow"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "PC-iPhone continuous offer to firstdelivery",
+      "old-save and cold replay",
+      "published-source-match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert app/UI/model transaction changes together; preserve v12 key/export. Old prefixes remain readable; new opcode histories need current reader.",
+    "outOfScope": [
+      "Production",
+      "Economy/price/limit/reputation tuning",
+      "More stores/capacity",
+      "Distillation/aging/timeparameter changes",
+      "New logistics or recurring delivery management"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari",
+      "Human touch/fun",
+      "Preexisting cross-runtime floating-point portability"
+    ],
+    "rulesApplied": [
+      "Standard WORK locked fresh r0 before edits",
+      "AGENTS necessary independent tests/browser/review delegation",
+      "User explicitly authorizes safe Staging merge only"
+    ],
+    "hqDecisions": [],
+    "ownerDecisions": [
+      "User authorizes safe once automaticoffer, atomicselectedquantity or laterrelationship, grouped destinationmodal and Stagingmerge; Productionexcluded"
+    ],
+    "problem": "Shop invitation and first delivery are undiscoverable and disconnected",
+    "currentContract": "v12 same save key and strict recorded shop operations; passive offer; existing modal clock preserves userPaused",
+    "whyExistingIsInsufficient": "User must discover salesbutton then bottle; accept does not expose nextaction",
+    "design": "One durable notice opcode per offer, safe UI eligibility, candidate release selector and immediatequantity choice, atomicaccept-delivery clone action, destination sections. No price/limit or rep changes.",
+    "migration": "Keep v12 envelope2 and key, restore old prefixes byte-exact; new fields only via new replayable notice operation. Existing accepted relations never reoffered. No save validator relaxation.",
+    "compatibility": "Reuse v12 accounting and old opcodes; frozen core/economy/A/usual/rep parameters unchanged. No new capacity/channel or data sources.",
+    "promotionRisk": "Staging only",
+    "alternativesRejected": [
+      "Autoaccept or automaticallydeliver",
+      "Repeated modal after later/reload",
+      "Interrupt active distillation/tasting/judgment",
+      "Two separately persisted accept/deliver calls",
+      "New dashboard or logistics",
+      "Economic/rep tuning",
+      "Weaken validation"
+    ],
+    "boundaryCases": [
+      "unseen/seen offer acrossreload",
+      "manual andauto extracting/filling",
+      "tasting/decision/trade/pricing precedence",
+      "running/paused/hidden",
+      "close/defer/decline/relationshiponly",
+      "5/10/remainder/zero inventory",
+      "multiple brand/releases selected",
+      "atomic invalidquantity/product/operationlimit failure",
+      "oldv12pre-notice/accepted delivered and v3-v11",
+      "quota/conflict",
+      "reissue/stockout",
+      "retail-price/list unchanged"
+    ],
+    "testPlan": [
+      "PublicAPI atomic success/failure and one operation replay cold process",
+      "Pre0.15.1v12 bytes and older regression preserved",
+      "UI clock: actual automaticnotice deferral and priorities, reload exactlyonce, all actions resume pauseintent",
+      "Chromium1280/390x844/667 actual continuous auto invitation to selection andfirstdelivery, pricing/listing/reissue",
+      "Full existing+experimental tests, sourcehashprotection and ScopeRiskImpacttrustedstatic/CI/publishedchecks"
+    ]
+  }
+}
