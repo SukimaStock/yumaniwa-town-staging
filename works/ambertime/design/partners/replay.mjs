@@ -1,6 +1,6 @@
 // QA only: run native checkpoints through the same public player actions.
 // This does not import, repair or alter real browser saves.
-import * as Current from '../../partner-orders.mjs?v=0.10.1';
+import * as Current from '../../partner-orders.mjs?v=0.10.2';
 export function replayCheckpoint(source,D=Current){
  if(source.origin!==null)throw Error('検証用の新規蒸留所の操作履歴だけを扱います。');
  let s=D.newDistillery(source.seed);
