@@ -1,0 +1,137 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f8e62ee9fe65581ed2c58e00e75c58ea32f078b31e9e0d668eba21419172993e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-wholesale-care-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Observe normal wholesale maturity prompts without forced wait or care decisions",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "2c473613a95a88b3457da642221764ca0e4fabaa",
+    "canonicalSources": [
+      "Latest user AmberTime0.10 minimal wholesale maturity fix",
+      "Legal v6 accepted→wide99bourbon→normalbooking→month116 rough/cool pending; strict replay45851bytes",
+      "Independent care_review conditional v7activation and care guards"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-wholesale-care-20261017/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/wholesale-care-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/v010.html",
+      "works/ambertime/design/wholesale-care/**",
+      "works/ambertime/tests/wholesale-care.test.mjs",
+      "works/ambertime/tests/wholesale-care-ui.test.mjs",
+      "works/ambertime/tests/wholesale-care-helpers.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "works/ambertime/partners-app.mjs",
+      "works/ambertime/partner-parameters.mjs",
+      "works/ambertime/economy*.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/trade*.mjs",
+      "works/ambertime/wholesale.mjs",
+      "works/ambertime/wholesale-parameters.mjs"
+    ],
+    "expectedChanges": [
+      "Version7 activation opcode with unchanged v6 replay branch, newv7 savekey and preserved oldUI/rawkeys; strict restore before activation",
+      "Normalwholesale ordinary maturity inclcool as observations, no wait choice, safe pending/queue clear; special/funds/last exceptions remain",
+      "Optional manual cool from selected cask reuses actual existing intervention; no economy or largeUI change",
+      "Multi-cask legal histories, boundary funds/order tests, multiple seeds longsim and PC/iPhone browser QA"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "multi-seed-simulation",
+      "PC-iPhone-browser",
+      "published-source-match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Switch index to v010.html oldapp; retain newkey and reader, never delete neworold saves.",
+    "outOfScope": [
+      "Production",
+      "Staff/equipment/capchange/largeeconomyredesign",
+      "Allcask automaticassignment or removal of meaningful decisions",
+      "Multiplecompanies or multiple special types"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari",
+      "Humanfun",
+      "Cross-runtime floating-point portability remains unresolved"
+    ],
+    "rulesApplied": [
+      "FullWORK lock before implementation",
+      "AGENTS necessary independent review",
+      "Latest user authorizes notification instead of redundant wait confirmation only"
+    ],
+    "hqDecisions": [
+      "care_review approved smaller conditional v7activation opcode in existing engine: v6 newGame/upgraded semantics unchanged; validator replay beginsv6 then recorded activation setsv7rules. Oldrawkey preserved, old app/entry retained; fullv6 migration refused without deleting anything, v7activation idempotent.",
+      "Care uses existing actual E.choose on a temporary original observedprompt, onlyafter v7normalcontract and no actual pending/decisions/offer/tasting, notcooled. Replace appended opcode withcare. No fabricated wait, no hidden funds clearing."
+    ],
+    "ownerDecisions": [
+      "Latest user explicitly authorizes removing all redundant ordinary wholesale prompts incloptionalcare, safeversionseparation, tests and Staging merge; Production excluded"
+    ],
+    "problem": "cool-option exclusion leaves forced ordinary maturity queue on normal wholesale casks",
+    "currentContract": "v6 strict replay and v6key; pending mature prompts can block global month",
+    "whyExistingIsInsufficient": "Removing condition unconditionally changes old monthly replays and removes optionalcare entry",
+    "design": "Conditional v7 behavior entered by explicit recorded activation; observational normalbookings only, optional real care action",
+    "migration": "Strictrestore v6/origins then activation into separatev7key. Oldraws retained. Capacity migration failure preserves original and oldentry; nativev7 starts withactivation.",
+    "compatibility": "Old v6 operations/upgraded behavior unchanged; v7 replay driven by explicit opcode, key separated",
+    "promotionRisk": "Stagingonly",
+    "alternativesRejected": [
+      "Rewrite v5 in place",
+      "Global reputation system",
+      "Autoaccept orders",
+      "Automatically sell failed order at lowerprice",
+      "Hidden future score for recipes"
+    ],
+    "boundaryCases": [
+      "fourbooked",
+      "3booked1manual",
+      "same-monthcoolprompts",
+      "tastingmanualpause",
+      "cancel futuredecision",
+      "multi shipments",
+      "funds",
+      "order-unmet",
+      "fullledger",
+      "corruptnewkey",
+      "stale save"
+    ],
+    "testPlan": [
+      "Old241 regressions unchanged",
+      "New legal multi-cask replay plus injected transaction boundaries explicitly labeled",
+      "10+seed longrun with public choices no future knowledge",
+      "PC/iPhone isolated QA and publication byte match"
+    ]
+  }
+}
