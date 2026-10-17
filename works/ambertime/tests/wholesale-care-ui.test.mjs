@@ -60,5 +60,5 @@ test('v7 preserves important funds modal and denies optional care while judgment
 });
 test('v7 creation and reset use separate save key; previous app and entry stay available',async()=>{
  const e=await boot({consent:true});assert.equal(e.state().version,7);assert.equal(e.state().operations[0].key,'enable-promised-care');e.click('reset');assert.equal(e.state().version,7);
- const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8'),old=fs.readFileSync(new URL('../v010.html',import.meta.url),'utf8');assert.match(html,/wholesale-care-app/);assert.match(html,/v010.html/);assert.match(old,/partners-app.mjs/);assert.doesNotMatch(old,/wholesale-care-app/);
+ const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8'),old=fs.readFileSync(new URL('../v010.html',import.meta.url),'utf8');assert.match(html,/brands-app/);assert.match(html,/v010-care.html/);assert.match(fs.readFileSync(new URL('../v010-care.html',import.meta.url),'utf8'),/wholesale-care-app/);assert.match(html,/v010.html/);assert.match(old,/partners-app.mjs/);assert.doesNotMatch(old,/wholesale-care-app/);
 });

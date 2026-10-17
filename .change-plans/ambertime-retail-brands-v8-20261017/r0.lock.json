@@ -1,0 +1,135 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "011fe3909e349f18aa06a5358a54d5cca1bf3edfb24b4b08c65501b6addf58e8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-retail-brands-v8-20261017",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Persistent self-retail brands with separate release history",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "320dc624d7d98dee2c791977e1a0eb45c4be2673",
+    "canonicalSources": [
+      "Latest user AmberTime0.11 request",
+      "Current partner-orders v7 strict replay, economy manual bottling and retail stock"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-retail-brands-v8-20261017/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/retail-brands.mjs",
+      "works/ambertime/brands-app.mjs",
+      "works/ambertime/brands.css",
+      "works/ambertime/brand-art.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/v010-care.html",
+      "works/ambertime/tests/brands*.mjs",
+      "works/ambertime/design/brands/**",
+      "works/ambertime/tests/wholesale-care-ui.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "engine/**",
+      "tools/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "works/ambertime/partners-app.mjs",
+      "works/ambertime/partner-parameters.mjs",
+      "works/ambertime/economy*.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/monthly.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/trade*.mjs",
+      "works/ambertime/wholesale.mjs",
+      "works/ambertime/wholesale-parameters.mjs"
+    ],
+    "expectedChanges": [
+      "Explicit v8 brand activation with v6/v7 replay and savekeys retained",
+      "Atomic manual retail bottling creates/selects brand and release; no wholesale branding",
+      "Compact bottle/label defaults and existing brand selector; persistent release history in existing ledger",
+      "Sales/price/inventory sync and replay/capacity regression; multi-seed continuation and PC/iPhone QA"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "multi-seed-simulation",
+      "PC-iPhone-browser",
+      "published-source-match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Restore old index entry to wholesale-care-app; retain all new and older saves/readers.",
+    "outOfScope": [
+      "Production",
+      "Reputation/demand/pricebonuses",
+      "SharedEngine/otherworks",
+      "Economic parameter changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari",
+      "Humanfun",
+      "Cross-runtime floating-point portability remains unresolved"
+    ],
+    "rulesApplied": [
+      "FullWORK lock before edits",
+      "AGENTS necessary independent review",
+      "Latest user authorizes Staging implementation and merge"
+    ],
+    "hqDecisions": [
+      "Preserve exact v7 replay by explicit activation opcode and isolated v8 savekey. Stable brand and release identities remain separate from transient shelf/limitedrecords. New registry has explicit safe capacity boundaries; no silent brand/history deletion."
+    ],
+    "ownerDecisions": [
+      "Latest user authorizes persistent retail brands, default selections, reusable identity, safe save separation and Staging merge only"
+    ],
+    "problem": "Retail bottle identity disappears after transient inventory and records clear",
+    "currentContract": "v7 replay and key must remain exact; wholesale bypasses manual retail flow",
+    "whyExistingIsInsufficient": "Transient products/limited records cannot retain reusable brand identity",
+    "design": "Persistent brand registry and release registry, atomic manual branded bottling only",
+    "migration": "Strict restore legacy then explicit brand activation into v8 key; originals and old entry retained. No invented oldbrandassociation.",
+    "compatibility": "Older opcode replay behavior unchanged",
+    "promotionRisk": "Stagingonly",
+    "alternativesRejected": [
+      "Brandpricebonuses",
+      "Automaticwholesalebranding",
+      "Silentlydeleteoldbrands"
+    ],
+    "boundaryCases": [
+      "defaults",
+      "existingbrand",
+      "soldout",
+      "multiple releases",
+      "pruning",
+      "save/reload",
+      "oldreplay",
+      "fullledger",
+      "wholesalebypass",
+      "invalidselection",
+      "pausedintent"
+    ],
+    "testPlan": [
+      "All current260 regression tests unchanged",
+      "Brand atomic/state/replay/sales tests",
+      "Multi-seed continued retail and wholesale publicactions",
+      "PC/iPhone isolatedQA and publishedsourcecheck"
+    ]
+  }
+}
