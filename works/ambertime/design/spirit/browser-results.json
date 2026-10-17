@@ -1,0 +1,247 @@
+{
+  "browser": "Chromium",
+  "clock": "Real application 100 ms timers with Playwright controlled time",
+  "physicalIPhone": false,
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "monthlyBoundaryAutoNewborn": true,
+      "positions": [
+        {
+          "progress": 30,
+          "stopTop": 733.40625,
+          "kind": "今止めた場合の見込み",
+          "phrase": "香りは控えめで、刺激は穏やか。",
+          "litres": "24.0 L",
+          "values": [
+            0.21175401558838786,
+            0.28875547580234706
+          ],
+          "gaugesHidden": false
+        },
+        {
+          "progress": 50,
+          "stopTop": 733.40625,
+          "kind": "今止めた場合の見込み",
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。",
+          "litres": "28.6 L",
+          "values": [
+            0.3987575618222888,
+            0.45375860483225966
+          ],
+          "gaugesHidden": false
+        },
+        {
+          "progress": 70,
+          "stopTop": 733.40625,
+          "kind": "今止めた場合の見込み",
+          "phrase": "果実と穀物が香り、口当たりに角がある。",
+          "litres": "33.1 L",
+          "values": [
+            0.5857611080561897,
+            0.6187617338621723
+          ],
+          "gaugesHidden": false
+        },
+        {
+          "progress": 90,
+          "stopTop": 733.40625,
+          "kind": "今止めた場合の見込み",
+          "phrase": "果実と穀物が香り、刺激は強い。",
+          "litres": "37.7 L",
+          "values": [
+            0.7727646542900907,
+            0.7837648628920849
+          ],
+          "gaugesHidden": false
+        },
+        {
+          "progress": 99,
+          "stopTop": 750.203125,
+          "kind": "今止めた場合の見込み",
+          "phrase": "熟した果実と穀物が香り、刺激は強い。",
+          "litres": "39.8 L",
+          "values": [
+            0.8569162500953462,
+            0.8580162709555456
+          ],
+          "gaugesHidden": false
+        }
+      ],
+      "belowMinimumNoGauges": true,
+      "forecastMatchesModel": true,
+      "confirmedMatchesSpirit": true,
+      "manualStopAt30WithoutModal": true,
+      "pauseAndPartialReload": true,
+      "renderPure": true,
+      "noExtraConfirmation": true,
+      "automaticMatchesNewborn": true,
+      "automaticReadoutRetainsUnagedValues": true,
+      "minimumThresholdDoesNotMoveStop": true,
+      "noHorizontalOverflow": true,
+      "stillGaugesAndStopFitTogether": true,
+      "pageErrors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "monthlyBoundaryAutoNewborn": null,
+      "positions": [
+        {
+          "progress": 30,
+          "stopTop": 632.28125,
+          "kind": "今止めた場合の見込み",
+          "phrase": "香りは控えめで、刺激は穏やか。",
+          "litres": "24.0 L",
+          "values": [
+            0.21175401558838786,
+            0.28875547580234706
+          ],
+          "gaugesHidden": false
+        },
+        {
+          "progress": 50,
+          "stopTop": 632.28125,
+          "kind": "今止めた場合の見込み",
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。",
+          "litres": "28.6 L",
+          "values": [
+            0.3987575618222888,
+            0.45375860483225966
+          ],
+          "gaugesHidden": false
+        },
+        {
+          "progress": 70,
+          "stopTop": 632.28125,
+          "kind": "今止めた場合の見込み",
+          "phrase": "果実と穀物が香り、口当たりに角がある。",
+          "litres": "33.1 L",
+          "values": [
+            0.5857611080561897,
+            0.6187617338621723
+          ],
+          "gaugesHidden": false
+        },
+        {
+          "progress": 90,
+          "stopTop": 632.28125,
+          "kind": "今止めた場合の見込み",
+          "phrase": "果実と穀物が香り、刺激は強い。",
+          "litres": "37.7 L",
+          "values": [
+            0.7727646542900907,
+            0.7837648628920849
+          ],
+          "gaugesHidden": false
+        },
+        {
+          "progress": 99,
+          "stopTop": 649.078125,
+          "kind": "今止めた場合の見込み",
+          "phrase": "熟した果実と穀物が香り、刺激は強い。",
+          "litres": "39.8 L",
+          "values": [
+            0.8569162500953462,
+            0.8580162709555456
+          ],
+          "gaugesHidden": false
+        }
+      ],
+      "belowMinimumNoGauges": true,
+      "forecastMatchesModel": true,
+      "confirmedMatchesSpirit": true,
+      "manualStopAt30WithoutModal": true,
+      "pauseAndPartialReload": true,
+      "renderPure": true,
+      "noExtraConfirmation": true,
+      "automaticMatchesNewborn": true,
+      "automaticReadoutRetainsUnagedValues": true,
+      "minimumThresholdDoesNotMoveStop": true,
+      "noHorizontalOverflow": true,
+      "stillGaugesAndStopFitTogether": true,
+      "pageErrors": []
+    },
+    {
+      "width": 390,
+      "height": 667,
+      "monthlyBoundaryAutoNewborn": null,
+      "positions": [
+        {
+          "progress": 30,
+          "stopTop": 612.28125,
+          "kind": "今止めた場合の見込み",
+          "phrase": "香りは控えめで、刺激は穏やか。",
+          "litres": "24.0 L",
+          "values": [
+            0.21175401558838786,
+            0.28875547580234706
+          ],
+          "gaugesHidden": false
+        },
+        {
+          "progress": 50,
+          "stopTop": 612.28125,
+          "kind": "今止めた場合の見込み",
+          "phrase": "軽い果実と穀物が香り、口当たりに角がある。",
+          "litres": "28.6 L",
+          "values": [
+            0.3987575618222888,
+            0.45375860483225966
+          ],
+          "gaugesHidden": false
+        },
+        {
+          "progress": 70,
+          "stopTop": 612.28125,
+          "kind": "今止めた場合の見込み",
+          "phrase": "果実と穀物が香り、口当たりに角がある。",
+          "litres": "33.1 L",
+          "values": [
+            0.5857611080561897,
+            0.6187617338621723
+          ],
+          "gaugesHidden": false
+        },
+        {
+          "progress": 90,
+          "stopTop": 612.28125,
+          "kind": "今止めた場合の見込み",
+          "phrase": "果実と穀物が香り、刺激は強い。",
+          "litres": "37.7 L",
+          "values": [
+            0.7727646542900907,
+            0.7837648628920849
+          ],
+          "gaugesHidden": false
+        },
+        {
+          "progress": 99,
+          "stopTop": 629.078125,
+          "kind": "今止めた場合の見込み",
+          "phrase": "熟した果実と穀物が香り、刺激は強い。",
+          "litres": "39.8 L",
+          "values": [
+            0.8569162500953462,
+            0.8580162709555456
+          ],
+          "gaugesHidden": false
+        }
+      ],
+      "belowMinimumNoGauges": true,
+      "forecastMatchesModel": true,
+      "confirmedMatchesSpirit": true,
+      "manualStopAt30WithoutModal": true,
+      "pauseAndPartialReload": true,
+      "renderPure": true,
+      "noExtraConfirmation": true,
+      "automaticMatchesNewborn": true,
+      "automaticReadoutRetainsUnagedValues": true,
+      "minimumThresholdDoesNotMoveStop": true,
+      "noHorizontalOverflow": true,
+      "stillGaugesAndStopFitTogether": true,
+      "pageErrors": []
+    }
+  ]
+}

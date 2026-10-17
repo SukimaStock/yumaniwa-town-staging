@@ -1,0 +1,12 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>AmberTime 原酒の個性の検証</title>
+<style>body{margin:12px;background:#28251f;color:#eee;font:14px system-ui}button{padding:10px;margin:3px;min-height:44px}iframe{display:block;border:1px solid #aaa;width:390px;height:844px;max-width:none}p{max-width:65em}</style>
+<p>検証専用。公開操作で作成した状態を、このページ内のメモリだけに保存します。</p><button id="new">初回の蒸留</button><button id="reload" disabled>保存から再開</button><button id="phone">iPhone 390</button><button id="pc">PC 1280</button><p id="status"></p><iframe id="game" title="検証用 AmberTime"></iframe>
+<script type="module">
+import * as D from '../../partner-orders.mjs?v=0.13';
+
+const root=new URL('../../',location.href),frame=document.querySelector('#game');let memory=new Map(),markup='';
+window.qaStorage={getItem:k=>memory.get(k)??null,setItem:(k,v)=>memory.set(k,v)};
+function mount(){frame.srcdoc=markup.replace('<head>',`<head><base href="${root}"><script>Object.defineProperty(window,'localStorage',{value:parent.qaStorage});<\/script>`);}
+document.querySelector('#new').onclick=async()=>{try{const response=await fetch(new URL('index.html',root));if(!response.ok)throw Error('HTTP '+response.status);markup=await response.text();const s=D.newUsualDistillery(20261015);D.serializeDistillery(s);memory=new Map([['sukimastock.ambertime.wholesale.v10',JSON.stringify({version:2,game:s,userPaused:false,elapsed:0})]]);mount();document.querySelector('#reload').disabled=false;document.querySelector('#status').textContent='正規操作・厳密保存。初回の蒸留から確認します。';}catch(e){document.querySelector('#status').textContent='検証停止：'+e.message;}};
+document.querySelector('#reload').onclick=mount;document.querySelector('#phone').onclick=()=>{frame.style.width='390px';};document.querySelector('#pc').onclick=()=>{frame.style.width='1280px';};
+</script></html>
