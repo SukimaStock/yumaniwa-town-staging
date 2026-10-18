@@ -1,0 +1,143 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3d7fd9ef34aad306bb16f3aa3c72cb550bd459c2d29d300703927246701f3e8d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-approved-gifs-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "承認された別note記事のGIF3点でX動画箇所を画像アニメーションへ置換",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM",
+      "ASSET"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "368120c12761c965e6967a5e560ab438f5d91f5e",
+    "canonicalSources": [
+      "ユーザー指示: こっちの記事にgifがあるので、それに置き換えてください",
+      "https:/note.com/hamamah/n/nca6b0ef9db94",
+      "親の正規ブラウザ取得済み3 animated WEBPとSHA256/frame証跡",
+      "data/shinpo/31beb527cad14b72a2afdc57f4b986b4.json",
+      "data/notes.js",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-approved-gifs-20261018/r0.lock.json",
+      "data/shinpo/31beb527cad14b72a2afdc57f4b986b4.json",
+      "shinpo/game-app-in-between/index.html",
+      "assets/shinpo/game-app-in-between/cow-suction.webp",
+      "assets/shinpo/game-app-in-between/faucet-ghost.webp",
+      "assets/shinpo/game-app-in-between/tofu-tower.webp",
+      "tests/test-shinpo-migrate.cjs",
+      "tests/test-shinpo-source-media.cjs",
+      "tools/SHINPO-MIGRATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/notes.js",
+      "tools/shinpo-migrate.cjs",
+      "tools/shinpo-template.html",
+      "shinpo/town-beginning/**",
+      "shinpo/board-game-making/**",
+      "works/**",
+      "engines/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "sitemap.xml",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "CHANGE-*.md"
+    ],
+    "expectedChanges": [
+      "牛吸い→蛇口おばけ→豆腐タワーの3箇所へ承認済み別記事GIFを表示。提供記事の順序と混同しない",
+      "元本文・正規X投稿リンクを保持。画面上へ新しい副題/説明/captionを作らない。必要な代替テキストは既存作品名だけ",
+      "制作データに別記事からの承認済み置換、取得URL、元動画との区別、対応作品、SHA256/寸法/framesを記録",
+      "既存静的templateで生成。iframe/script/動画エンジンを追加しない。不要となる不足記録は承認済み代替完了と明確に区別して更新"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 ユーザー: こっちの記事にgifがあるので、それに置き換えてください。出典note nca6b0ef9db94。親が3素材の作品対応/全frameを取得検証済み。Staging PR/CI/安全merge/Pages許可。Production禁止。"
+    ],
+    "hqDecisions": [
+      "SYSTEM/full/ASSET。本文段落/元投稿リンク/cover/4枠/遷移は不変。親の正規GitHub転送を受けてbytesを検証する。CDN/Library失敗は再試行しない。",
+      "表現監査: 新しい説明や詩的コピーは不要。原文を保持し、可視の追加文は作らず、承認済み置換の証跡は制作データへ限定する。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN single initial r0; official create/verify",
+      "Staging only",
+      "EXPRESSION-AUDIT.md 制作前/中/完成前6点"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "各作品GIFの対応と再生確認",
+      "追加文章なし、原文と出典維持、操作発見性/アクセシビリティ/SEO保持",
+      "親で公開URLの表示と動きを確認"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "本GIF置換PRのみrevert。原画像復元PR457とサブタイトル除去PR454は保持。",
+    "outOfScope": [
+      "Production",
+      "他2記事/画像変更",
+      "共通runtime/カード/4枠",
+      "本文要約/創作文",
+      "X元動画取得",
+      "外部権限変更"
+    ],
+    "promotion": "Staging-only; Productionは別指示",
+    "unverified": [
+      "3画像bytesは親が取得済み、専用branchへ正規GitHub転送後にcloudで検証",
+      "実機iPhone/iPad",
+      "公開URLは親で確認"
+    ],
+    "problem": "X動画3件は町内で再生できない。作者が別記事のGIFによる置換を明示承認した",
+    "currentContract": "静的記事のX正規投稿リンク3件、iframe/scriptなし。元のX動画実体は未取得。",
+    "whyExistingIsInsufficient": "リンクのみでは記事内で作品の動きが見られない",
+    "design": "取得済みanimated WEBP3点を画像として既存各投稿箇所に配置。元X動画の復元とは称さず、別記事GIFへの承認済み置換をsourceデータに記録。",
+    "alternativesRejected": [
+      "元動画と同一であるとの偽装",
+      "静止化",
+      "iframe/script/動画エンジン",
+      "新しい副題/説明",
+      "ユーザーへの素材再依頼"
+    ],
+    "migration": "記事ID/URL/本文/投稿リンク/見出しcoverを保持",
+    "compatibility": "静的画像要素のみ。4枠/本文1クリック/戻る/既存他記事は不変",
+    "boundaryCases": [
+      "cow63/faucet48/tofu120frames",
+      "全点480x1040",
+      "提供元順と表示先順の相違",
+      "元リンク保持",
+      "追加サブタイトルなし",
+      "mobile/desktop画像再生"
+    ],
+    "testPlan": [
+      "SHA256/bytes/WEBP/480x1040/63,48,120frames一致",
+      "作品と投稿箇所の対応順確認",
+      "元本文/投稿リンク保持/生成一致/再生成差分ゼロ",
+      "既存11tests更新とGIF回帰",
+      "表現監査6点/ブラウザmobileとdesktop再生/戻る",
+      "Scope/Risk/Impact/必須CI/独立レビュー/Staging Pages"
+    ],
+    "promotionRisk": "Staging noindex only"
+  }
+}
