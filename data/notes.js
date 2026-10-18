@@ -49,6 +49,8 @@ var NOTE_ARTICLES = [
 
     {
         id: "note-20261009-n308001a6a00a",
+        archivePage: "./shinpo/orbit-remaking/",
+        archiveThumbnail: "./assets/shinpo/orbit-remaking/cover.png",
         title: "昔の自分ともう一度ゲームを作る",
         url: "https://note.com/hamamah/n/n308001a6a00a",
         publishedAt: "2026-10-09",
