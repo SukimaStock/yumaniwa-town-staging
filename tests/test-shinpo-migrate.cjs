@@ -20,7 +20,12 @@ test('existing three articles preserve ordered content, links, images, metadata 
   const sourceLinks = a.slug === 'town-beginning' ? { '../../w/yakitori-wars/':'https://sukimastock.itch.io/yakitori-wars', '../../w/midnight-cola/':'https://sukimastock.itch.io/midnight-cola' } : a.slug === 'game-app-in-between' ? { 'https://pic.twitter.com/LawEbLaWw9':'https://x.com/sukimastock/status/2053552847078170744', 'https://pic.twitter.com/8UypJUbbc4M':'https://x.com/sukimastock/status/2056457725253427457', 'https://pic.twitter.com/7sO1Ecec4M':'https://x.com/sukimastock/status/2054447396487102904' } : {};
   for(const [from,to] of Object.entries(sourceLinks)) old=old.replaceAll('href="'+from+'"','href="'+to+'"');
   if(a.slug==='town-beginning') old=old.replace('<a class="source-preview" href="../../">','<a class="source-preview" href="https://sukimastock.github.io/yumaniwa-town/">');
-  // Only insignificant inter-tag whitespace differs: even existing local original links remain untouched.
+  // Explicit owner correction on 2026-10-18 is limited to these source links.
+  if(a.slug==='town-beginning') {
+   old=old.replace(/<a href="https:\/\/sukimastock\.itch\.io\/[^"]+">([^<]+)<\/a>/g,'$1');
+   old=old.replace(/<a class="source-preview" href="https:\/\/sukimastock\.itch\.io\/[^"]+" target="_blank" rel="noopener noreferrer">(.*?)<\/a>/g,'<div class="source-preview">$1</div>');
+  }
+  if(a.slug==='board-game-making')old=old.replace('href="https://sukimastock.itch.io/yakitori-wars" target="_blank" rel="noopener noreferrer"','href="../../w/yakitori-wars/"').replace('sukimastock.itch.io ↗','湯間庭町 ↗');
   const withoutRestoredMedia=generated.replace(/<figure><img src="\.\.\/\.\.\/assets\/shinpo\/(?:board-game-making\/body-[1-5]|town-beginning\/town-animation|game-app-in-between\/(?:cow-suction|faucet-ghost|tofu-tower))\.webp"[^>]*>(?:<figcaption>[^<]*<\/figcaption>)?<\/figure>/g,'');
   old=old.replace(/<aside class="media-note"[\s\S]*?<\/aside>/g,'');
   assert.equal(compact(withoutRestoredMedia),compact(old),a.slug);

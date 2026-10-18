@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5e6ab52f72d8b957f613e0068a9d47972c6c482c6a45551a5cec410936d1ab3e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-owner-links-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "明示指示による町の記事itchリンク解除とボードゲーム記事の町内リンク化",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "0a654a88ba48dec022cf9aaeab370b7742e9a1a9",
+    "canonicalSources": [
+      "2026-10-18 user: 作品を並べるより〜でitchへのリンクがあるので削除、ボードゲーム〜でitchへのリンクがあるのは湯間庭内に修正",
+      "data/works.js yakitori-wars entry and canonical itch URL",
+      "w/yakitori-wars/index.html",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-owner-links-20261018/r0.lock.json",
+      "data/shinpo/note-20260717-153a44e0.json",
+      "data/shinpo/95d48e6613ce4037907364809ee3359f.json",
+      "shinpo/town-beginning/index.html",
+      "shinpo/board-game-making/index.html",
+      "tests/test-shinpo-migrate.cjs",
+      "tests/test-shinpo-source-media.cjs",
+      "tools/SHINPO-MIGRATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/notes.js",
+      "tools/shinpo-migrate.cjs",
+      "tools/shinpo-template.html",
+      "shinpo/game-app-in-between/**",
+      "assets/**",
+      "works/**",
+      "engines/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "sitemap.xml",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "CHANGE-*.md"
+    ],
+    "expectedChanges": [
+      "町の記事のitchアンカー3件を解除。作品名と周囲原文を保持。previewは非リンク要素へ変換",
+      "ボードゲーム記事のYakitori Wars itchリンク1件を実在する../../w/yakitori-wars/へ置換。リンク先表示のみ湯間庭町へ修正し、新しい文章なし",
+      "生成元からHTML再生成。明示的な原典との差異をsourceデータと回帰に限定して記録"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 user explicit link removal/internal replacement instruction; Staging branch/PR/CI/safe merge authorized, Production prohibited"
+    ],
+    "hqDecisions": [
+      "SYSTEM/full/HQ Review for unknown-code HTML. Exact existing work mapping confirmed by data/works.js and w/yakitori-wars/index.html. No runtime changes.",
+      "表現監査: 新しいコピー/副題/説明不要。リンク対象以外の原文とSEO/操作性保持"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN single initial r0; official create/verify",
+      "Staging only",
+      "EXPRESSION-AUDIT.md 制作前/中/完成前6点"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "町の記事itch hrefゼロ、本文名保持",
+      "board町内Yakitori Wars到達と戻る、mobile/desktop",
+      "表現監査6点、画像と本文維持"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "このリンク修正PRのみrevert。GIF/原画像/サブタイトル除去は保持",
+    "outOfScope": [
+      "Production",
+      "画像/GIFの変更",
+      "共通runtime/カード/4枠",
+      "作品内容",
+      "外部権限変更"
+    ],
+    "promotion": "Staging-only; Productionは別指示",
+    "unverified": [
+      "実機iPhone/iPad",
+      "公開URLの目視は親で確認"
+    ],
+    "problem": "作者が町の記事itchリンク削除とboard記事の町内導線を明示指定",
+    "currentContract": "元記事リンクを原典に保持。最新の作者指示で今回4件のみ例外とする",
+    "whyExistingIsInsufficient": "既存itch外部遷移が今回の作者意図と異なる",
+    "design": "正本記事ブロック内の対象4アンカーだけ修正。town非リンク化、board既存町内作品紹介へ。generatorでHTML同期",
+    "alternativesRejected": [
+      "推測slug",
+      "別作品へ置換",
+      "原文段落削除",
+      "副題/説明追加",
+      "既存GIF Lock変更"
+    ],
+    "migration": "記事ID/URL/本文/画像を保持",
+    "compatibility": "静的HTMLリンクのみ。既存4枠/1クリック/戻る/画像不変",
+    "boundaryCases": [
+      "town本文2アンカーとpreview1件",
+      "boardpreview1件",
+      "原noteリンク維持",
+      "GIF/本文画像維持"
+    ],
+    "testPlan": [
+      "原文テキスト/画像/metadata/CSSを保持、明示リンク変更のみ",
+      "生成一致/再生成差分ゼロ/dry-run一致/再開/4枠既存回帰",
+      "町内リンク実在/ブラウザー到達・戻る mobile desktop",
+      "Scope/Risk/Impact/必須CI/独立レビュー/Pages"
+    ],
+    "promotionRisk": "Staging noindex only"
+  }
+}

@@ -18,7 +18,15 @@
         "height": 854,
         "frames": 69
       }
-    ]
+    ],
+    "ownerLinkCorrection": {
+      "authorization": "2026-10-18 explicit owner instruction: remove itch links in town-beginning; change board-game-making itch link to the corresponding town work. Overrides original-link preservation only for these links.",
+      "changes": [
+        "yakitori-wars inline: unlink",
+        "midnight-cola inline: unlink",
+        "yakitori-wars preview: unlink"
+      ]
+    }
   },
   "description": "2026年7月17日に書いた、湯間庭町が生まれた頃の記録。作品を並べるだけでなく、作品が住める場所を作りたかった。",
   "ogDescription": "2026年7月17日に書いた湯間庭町の誕生記録を、原文のまま読める新聞紙面。",
@@ -64,11 +72,11 @@
     },
     {
       "origin": "source",
-      "html": "<p>最近は、作るものの幅が広がってきた。<br>「<a href=\"https://sukimastock.itch.io/yakitori-wars\">Yakitori Wars</a>」「<a href=\"https://sukimastock.itch.io/midnight-cola\">真夜中コーラ</a>」のようなゲームや、<br>「#触れるらくがき」のようなゲーム未満、アプリ未満のもの。<br>そしてこれまでに作ったアプリについてのnote記事。</p>"
+      "html": "<p>最近は、作るものの幅が広がってきた。<br>「Yakitori Wars」「真夜中コーラ」のようなゲームや、<br>「#触れるらくがき」のようなゲーム未満、アプリ未満のもの。<br>そしてこれまでに作ったアプリについてのnote記事。</p>"
     },
     {
       "origin": "source",
-      "html": "<a class=\"source-preview\" href=\"https://sukimastock.itch.io/yakitori-wars\" target=\"_blank\" rel=\"noopener noreferrer\"><strong>YAKITORI WARS by SukimaStock</strong><small>The perfect moment lasts only a second.<br>sukimastock.itch.io ↗</small></a>"
+      "html": "<div class=\"source-preview\"><strong>YAKITORI WARS by SukimaStock</strong><small>The perfect moment lasts only a second.<br>sukimastock.itch.io ↗</small></div>"
     },
     {
       "origin": "source",

@@ -62,3 +62,5 @@ node tools/shinpo-migrate.cjs dry-run --id <ID> --slug <URL名> \
 ゲーム未満記事は本文静止画0、X投稿3件。元noteで確認した正規投稿URLへリンクし、原動画実体は未取得。cloudからpublish.twitter.comのoEmbed取得はTunnel403で拒否。既存の静的fragment契約はscript/iframeを禁止しているため、無断で埋込runtimeを追加せず、動画を別画像に置き換えない。その後2026-10-18の明示指示で別note `nca6b0ef9db94` の取得済みGIF（animated WEBP）を牛吸い→蛇口おばけ→豆腐タワーの順で各投稿直前へ追加した。source.approvedReplacementsへ承認・別原典・hash・寸法・frame数・配置を記録。元X投稿リンクは維持し、元動画そのものの復元とはしない。実機iPhone/iPadはUNVERIFIED。ブラウザー表示と実機の触感を区別する。
 
 このツールのテストはこの変更のCIに自動接続していない。必須ゲートを弱めず、上記コマンドを記事追加ごとに実行担当が実行する。保護workflowを変更する場合は別途Authorization → Transitionの現行手順を使う。
+
+2026-10-18の作者明示指示に限る例外: town-beginningのitchリンク3件は作品名と原文を残して解除。board-game-makingのitchリンク1件は既存正本で対応を確認した `../../w/yakitori-wars/` に変更。source.ownerLinkCorrectionに承認と対象を記録。将来の原典リンクを自動置換する規則ではない。
