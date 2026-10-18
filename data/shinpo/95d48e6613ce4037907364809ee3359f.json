@@ -62,7 +62,13 @@
         "height": 1920,
         "frames": 1
       }
-    ]
+    ],
+    "ownerLinkCorrection": {
+      "authorization": "2026-10-18 explicit owner instruction: remove itch links in town-beginning; change board-game-making itch link to the corresponding town work. Overrides original-link preservation only for these links.",
+      "changes": [
+        "https://sukimastock.itch.io/yakitori-wars -> ../../w/yakitori-wars/; verified data/works.js ID, external URL and existing w page; destination label updated"
+      ]
+    }
   },
   "description": "「ボードゲームの作り方」が分からなかったので、アプリで再現してみた。はままぁが2026-05-22に公開した制作記録の原文を、湯間庭町の新聞で読む。",
   "ogDescription": "「ボードゲームの作り方」が分からなかったので、アプリで再現してみた — 過去記事を湯間庭町の中でそのまま読む。",
@@ -196,7 +202,7 @@
     },
     {
       "origin": "source",
-      "html": "<a class=\"source-preview\" href=\"https://sukimastock.itch.io/yakitori-wars\" target=\"_blank\" rel=\"noopener noreferrer\"><strong>YAKITORI WARS by SukimaStock</strong><small>The perfect moment lasts only a second.<br>sukimastock.itch.io ↗</small></a>"
+      "html": "<a class=\"source-preview\" href=\"../../w/yakitori-wars/\"><strong>YAKITORI WARS by SukimaStock</strong><small>The perfect moment lasts only a second.<br>湯間庭町 ↗</small></a>"
     }
   ],
   "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../w/yakitori-wars/\">YAKITORI WARSを見に行く ↗</a><a href=\"../town-beginning/\">町のはじまりを読む ↗</a><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「「ボードゲームの作り方」が分からなかったので、アプリで再現してみた」（note、2026-05-22）。<a href=\"https://note.com/hamamah/n/n0ca130319cac\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>",

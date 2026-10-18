@@ -34,7 +34,7 @@ test('six source media bytes retain dimensions, frames, provenance and exact ins
 test('source external links and three canonical X posts are retained without injected embeds',()=>{
  const town=tool.load('note-20260717-153a44e0'),game=tool.load('31beb527cad14b72a2afdc57f4b986b4');
  const body=town.blocks.map(b=>b.html).join('\n');
- for(const url of ['https://sukimastock.itch.io/yakitori-wars','https://sukimastock.itch.io/midnight-cola','https://sukimastock.github.io/yumaniwa-town/'])assert(body.includes('href="'+url+'"'));
+ for(const url of ['https://sukimastock.github.io/yumaniwa-town/'])assert(body.includes('href="'+url+'"'));
  assert(town.afterword.includes('../../?place=shinpo_board'));
  const citations=game.blocks.filter(b=>b.html.includes('video-citation'));assert.equal(citations.length,3);
  ['2053552847078170744','2056457725253427457','2054447396487102904'].forEach((id,i)=>assert(citations[i].html.includes('href="https://x.com/sukimastock/status/'+id+'"')));
@@ -54,4 +54,15 @@ test('approved substitutes preserve animated bytes and cow/faucet/tofu positions
   const pos=a.blocks.findIndex(b=>b.html===m.before);assert(pos>0);assert(a.blocks[pos-1].html.includes('src="../../'+m.path+'"'));
   assert(!a.blocks[pos-1].html.includes('figcaption'));assert(a.blocks[pos-1].html.includes('alt="'+m.work+'"'));
  });
+});
+
+test('owner-requested link corrections keep work names and target the verified town work',()=>{
+ const town=tool.load('note-20260717-153a44e0'),board=tool.load('95d48e6613ce4037907364809ee3359f');
+ const t=town.blocks.map(b=>b.html).join(''),b=board.blocks.map(b=>b.html).join('');
+ assert(!/href="https:\/\/sukimastock\.itch\.io/.test(t));assert(t.includes('「Yakitori Wars」「真夜中コーラ」'));
+ assert(t.includes('<div class="source-preview"><strong>YAKITORI WARS by SukimaStock</strong>'));
+ assert(!b.includes('https://sukimastock.itch.io/'));assert(b.includes('href="../../w/yakitori-wars/"'));assert(b.includes('湯間庭町 ↗'));
+ assert(fs.existsSync(path.join(root,'w/yakitori-wars/index.html')));
+ assert(fs.readFileSync(path.join(root,'w/yakitori-wars/index.html'),'utf8').includes('?work=yakitori-wars'));
+ assert.equal(town.source.ownerLinkCorrection.changes.length,3);assert.equal(board.source.ownerLinkCorrection.changes.length,1);
 });
