@@ -166,6 +166,8 @@ var NOTE_ARTICLES = [
     },
     {
         id: "ea784083edc146d298ba5b7c33a1b7f1",
+        archivePage: "./shinpo/yakitori-remake/",
+        archiveThumbnail: "./assets/shinpo/yakitori-remake/cover.png",
         title: "ゲームの中の焼き鳥を、焼き直した",
         url: "https://note.com/hamamah/n/n8a34c550580a",
         publish_date: "2026-06-19",

@@ -1,0 +1,280 @@
+{
+  "id": "ea784083edc146d298ba5b7c33a1b7f1",
+  "slug": "yakitori-remake",
+  "source": {
+    "reference": "Drive PDF 10CkozxiRzeENZDY5Xb9uyZTwyxE_O2Xh; https://note.com/hamamah/n/n8a34c550580a",
+    "verification": "2026-10-18 Drive PDF and full original public note DOM compared: text, ordered paragraphs/headings, 7 original body images, captions, header, 2 link cards and original thumbnails. No missing media. Same-work play links use town under user section 6.",
+    "missingMedia": [],
+    "media": [
+      {
+        "path": "assets/shinpo/yakitori-remake/cover.png",
+        "position": "header",
+        "caption": "",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/284781991/rectangle_large_type_2_28352ae1712d1b75406308f672772d64.png",
+        "width": 1280,
+        "height": 670,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "2ec94cf0ea00b14949908c95b669f3878236e76ea4db998ae9198cddf70a8bfa"
+      },
+      {
+        "path": "assets/shinpo/yakitori-remake/image-1.png",
+        "position": 1,
+        "caption": "色だけではなく見た目の変更焼け具合でコントラストも変えている",
+        "sourceUrl": "https://assets.st-note.com/img/1781629409-C5402hqb9VNpGRMBFjumHLvS.png",
+        "width": 1200,
+        "height": 900,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "2fcf7ad510d0134c7e292eb7923173b223b5298b73ea3b70aa648b74cb934750",
+        "after": "今回のアップデートは、ルールを大きく変えたり、派手な新機能を足すというより、画面の中の焼き鳥を、もう少し美味しそうに焼き直すためのもの。旧バージョンでも、ゲームとしては成立していた。ただ、今見るとまだ少しだけ記号的だったので、今回はそこを作り直した。焼き鳥と炭火をドット絵で描き直し、生、焼けた状態、焦げた状態をしっかり分ける。状況が変わる瞬間には、音も入れた。ただ色が変わるのではなく、肉が焼け、脂が照り、焦げていく。"
+      },
+      {
+        "path": "assets/shinpo/yakitori-remake/image-2.png",
+        "position": 2,
+        "caption": "焼き台を繋げた木札で串を置ける場所を示した",
+        "sourceUrl": "https://assets.st-note.com/img/1781629947-N9E4tgDZAbLrp6xXSicmQPRY.png",
+        "width": 1200,
+        "height": 900,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "edbf4d3655ec625fd33993711a3061b754a9012e156b88edcdaa646d14dbd921",
+        "after": "実は、この見えづらかった部分こそが、面白さに繋がるものだったのかもしれない。"
+      },
+      {
+        "path": "assets/shinpo/yakitori-remake/image-3.png",
+        "position": 3,
+        "caption": "串の提供肉を差し出す代わりに相手の焼けた串も奪える",
+        "sourceUrl": "https://assets.st-note.com/img/1781629947-rA8yCRU0vDd35WjNoQzuEOPx.png",
+        "width": 1200,
+        "height": 900,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "0628cd1ec83ec31bc7ca219a9523c63b08b6bfdb34d4d7619c7a734547cd06f1",
+        "after": "実は、この見えづらかった部分こそが、面白さに繋がるものだったのかもしれない。"
+      },
+      {
+        "path": "assets/shinpo/yakitori-remake/image-4.png",
+        "position": 4,
+        "caption": "うちわで仰ぐ焼きを早めたり焦がしたりできる",
+        "sourceUrl": "https://assets.st-note.com/img/1781630474-iV0IEsn4U53vcpAelOzNwLFk.png",
+        "width": 1200,
+        "height": 900,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "c66382a21503a3ed4fcfd9c2b7b1918133703e83ffbf73592e1565aef635abd1",
+        "after": "相手の串を奪うには手持ちの肉が必要なので、肉は材料であると同時に、駆け引きに使う資源でもある。理不尽に奪うだけではなく、相手の手持ちの肉が増えるリスクもある。手持ちの肉は最後まで残せば得点にもなる。"
+      },
+      {
+        "path": "assets/shinpo/yakitori-remake/image-5.png",
+        "position": 5,
+        "caption": "点数は低いが取れるように",
+        "sourceUrl": "https://assets.st-note.com/img/1781630231-Mt4WLhEgNjdulnIyrZk9p51V.png",
+        "width": 1129,
+        "height": 1920,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "85a7cdf8dbaac6c6d701f19390701007ea3555541a46504f938c15ec81a771d0",
+        "after": "強火の串にも小さな判断が生まれた。"
+      },
+      {
+        "path": "assets/shinpo/yakitori-remake/image-6.png",
+        "position": 6,
+        "caption": "今日の注文：焦げててもいいよ(+1点)※通常はペナルティ",
+        "sourceUrl": "https://assets.st-note.com/img/1781630277-JCK51Rc4TlnujvUWdEVISk9t.png",
+        "width": 1169,
+        "height": 373,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "7972be69aa0d4cb8294c32ded95c6241e15708c6d4a85d6d7eae0555d20265a7",
+        "after": "さらに、客からの注文が来るようにした。「強火が好き！」「焦げててもいいよ。」「相手の串を取っちゃえ。」これらに応えると得点が上がるため、毎回同じ焼き方をするゲームではなくなった。ただ画面に合わせて焼けた串を取るのではなく、今日の客が何を求めているのかを見る。"
+      },
+      {
+        "path": "assets/shinpo/yakitori-remake/image-7.png",
+        "position": 7,
+        "caption": "今日の注文：相手の串を取っちゃえ(+3点)",
+        "sourceUrl": "https://assets.st-note.com/img/1781631215-g6jwYJRIDfhp4zKWOPMB3TGa.png",
+        "width": 1169,
+        "height": 337,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "af66ddfecb6db5d63d8a7a9263c95671202e51dcd90d544aa1f4e076f05771c9",
+        "after": "さらに、客からの注文が来るようにした。「強火が好き！」「焦げててもいいよ。」「相手の串を取っちゃえ。」これらに応えると得点が上がるため、毎回同じ焼き方をするゲームではなくなった。ただ画面に合わせて焼けた串を取るのではなく、今日の客が何を求めているのかを見る。"
+      },
+      {
+        "path": "assets/shinpo/yakitori-remake/card-1.png",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/ext/3e60c092c643b8051ff956837d9c124a4b71d3137815f4d1820af677419d.png?x-type=ogp",
+        "position": "final work link card",
+        "caption": "",
+        "sha256": "6d716133f1ffa4623f33b418cbf3e2a1b663536b9c13a484fab11405f51736dd",
+        "format": "PNG",
+        "width": 630,
+        "height": 500,
+        "frames": 1
+      },
+      {
+        "path": "assets/shinpo/yakitori-remake/note-card.jpg",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/272307166/rectangle_large_type_2_a50d94544b949b87cad6854a4517597d.png?fit=bounds&format=jpeg&quality=85&width=300",
+        "position": "earlier note source-preview after first paragraph",
+        "caption": "",
+        "sha256": "addb2009df4f8c82bf0eba140a479bbe6e9da2cad3e13fa37d3bf346ec947a60",
+        "format": "JPEG",
+        "width": 300,
+        "height": 157,
+        "frames": 1
+      }
+    ],
+    "linkRewrites": [
+      {
+        "from": "https://sukimastock.itch.io/yakitori-wars",
+        "to": "../../w/yakitori-wars/",
+        "reason": "game opening links, not jam submission context"
+      },
+      {
+        "from": "https://note.com/embed/notes/n0ca130319cac",
+        "to": "https://note.com/hamamah/n/n0ca130319cac",
+        "reason": "note preview represented by static source-preview preserving source destination"
+      }
+    ],
+    "rights": "Author-owned article/game/header/screenshots; original author work and note link-card thumbnails. No substitute/third-party body images."
+  },
+  "cover": "<figure><img src=\"../../assets/shinpo/yakitori-remake/cover.png\" alt=\"ゲームの中の焼き鳥を、焼き直したの元掲載画像\" fetchpriority=\"high\"></figure>",
+  "navDate": "2026年06月19日",
+  "displayDate": "2026年6月19日",
+  "backnumber": true,
+  "blocks": [
+    {
+      "origin": "source",
+      "html": "<p>以前作成したゲーム、<br/>「<a href=\"../../w/yakitori-wars/\">Yakitori Wars</a>」をアップデートしました。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n0ca130319cac\"><img alt=\"\" height=\"157\" src=\"../../assets/shinpo/yakitori-remake/note-card.jpg\" width=\"300\"/><strong>「ボードゲームの作り方」が分からなかったので、アプリで再現してみた</strong><small>「ボードゲームの作り方」について読んだことがありました。『自分だけのボードゲームを作ろう』という本です。リソースの管理やジレンマの設計など、少し難しいですが、書いてある仕組みはなんとなく分かりました。ただ、オセロや人生ゲームぐらいしか遊んだ経験がなく、「なぜそれが面白いのか」までは、よく分からないままでした…</small></a></div></div></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>前回の記事を書いたあと、<br/>嬉しいことにフォロワーさんに遊んでもらい、<br/>コメントまでいただくことができました。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><strong>「焼き鳥美味しそうでシンプルなゲーム性でとっつきやすくて楽しい・・・！」<br/>「初心者にとってかなり親切な設計だと思います。 とても楽しく遊ばせていただきました。」</strong></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>人から感想をもらえるのはありがたい。しみじみと感じた。<br/><br/>そして、私が密かに目指していた、<br/>「説明書がなくても遊べるゲーム」にも少しだけ近づけている気がした。<br/></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>おいしさアップデート</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>今回のアップデートは、<br/>ルールを大きく変えたり、派手な新機能を足すというより、<br/>画面の中の焼き鳥を、もう少し美味しそうに焼き直すためのもの。<br/><br/>旧バージョンでも、ゲームとしては成立していた。<br/>ただ、今見るとまだ少しだけ記号的だったので、今回はそこを作り直した。<br/><br/>焼き鳥と炭火をドット絵で描き直し、<br/>生、焼けた状態、焦げた状態をしっかり分ける。<br/><br/>状況が変わる瞬間には、音も入れた。<br/><br/>ただ色が変わるのではなく、<br/>肉が焼け、脂が照り、焦げていく。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"465\" src=\"../../assets/shinpo/yakitori-remake/image-1.png\" width=\"620\"/><figcaption>色だけではなく見た目の変更<br/>焼け具合でコントラストも変えている</figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>ルールが変わったように見えた</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>更に、今回のアップデート後、<br/>フォロワーさんからのコメントで、嬉しい発見があった。<br/><br/>以前は陣取りゲームのように感じていたこと。<br/>今回は相手の焼けた串を奪ったり、焦がしたり出来ることに気づき、<br/>ルールもアップデートされたように感じたこと。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>実は、これらは以前から変えていないルールだった。<br/><br/>遊びながら発見してもらえればいいと思っていたが、<br/>今回のアップデートにあわせ、少しだけ画面を分かりやすくした。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>・焼き場はプレイヤーごとに分かれておらず、お互い共有していること。<br/>・場所を所有するのではなく、それぞれが串を置いているだけということ。<br/>・串が今どのような状態にあり、行動すると次にどう変わるのか。<br/><br/>これらが一目で分かるように意識した。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>実は、この見えづらかった部分こそが、<br/>面白さに繋がるものだったのかもしれない。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"465\" src=\"../../assets/shinpo/yakitori-remake/image-2.png\" width=\"620\"/><figcaption>焼き台を繋げた<br/>木札で串を置ける場所を示した</figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"465\" src=\"../../assets/shinpo/yakitori-remake/image-3.png\" width=\"620\"/><figcaption>串の提供<br/>肉を差し出す代わりに相手の焼けた串も奪える</figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>相手の串を奪うには手持ちの肉が必要なので、<br/>肉は材料であると同時に、駆け引きに使う資源でもある。<br/>理不尽に奪うだけではなく、相手の手持ちの肉が増えるリスクもある。<br/>手持ちの肉は最後まで残せば得点にもなる。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"465\" src=\"../../assets/shinpo/yakitori-remake/image-4.png\" width=\"620\"/><figcaption>うちわで仰ぐ<br/>焼きを早めたり焦がしたりできる</figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>「強火」でも取れる焼き加減に</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>焼き加減も少し調整した。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>強火で完璧な焼き加減を狙うのは難しい。<br/>その代わり、完璧に焼ける前の<br/>「まあ、食べられる」タイミングで見切って取れるようにした。<br/><br/>完璧になるまで待つのか。<br/>相手に取られる前に早めに取るのか。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>強火の串にも小さな判断が生まれた。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"1054\" src=\"../../assets/shinpo/yakitori-remake/image-5.png\" width=\"620\"/><figcaption>点数は低いが取れるように</figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>「今日の注文」で、焼き方に意味が出た</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>さらに、客からの注文が来るようにした。<br/>「強火が好き！」<br/>「焦げててもいいよ。」<br/>「相手の串を取っちゃえ。」<br/><br/>これらに応えると得点が上がるため、<br/>毎回同じ焼き方をするゲームではなくなった。<br/><br/>ただ画面に合わせて焼けた串を取るのではなく、<br/>今日の客が何を求めているのかを見る。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"197\" src=\"../../assets/shinpo/yakitori-remake/image-6.png\" width=\"620\"/><figcaption>今日の注文：焦げててもいいよ(+1点)<br/>※通常はペナルティ</figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"178\" src=\"../../assets/shinpo/yakitori-remake/image-7.png\" width=\"620\"/><figcaption>今日の注文：相手の串を取っちゃえ(+3点)</figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>これらのアップデートひとつひとつの変更は小さいが、<br/>重なっていくとゲームの手触りが少し変わる。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>敵AIの仕組みも作り直していないが、<br/>もともと盤面の状況を見て行動を選ぶ仕組みだったため、<br/>注文や焼き加減の変更とも自然にかみ合った。<br/><br/>以前は適当に遊んでも勝てることがあったが、<br/>今回はそれが少なくなった気がした。<br/></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>パッと見では、ただ焼き鳥を焼くだけに見えるかもしれない。<br/><br/>でも実は、相手の焼き加減を見たり、焼けた串を奪ったり、<br/>うちわで相手の邪魔をしたりする、ちょっとした駆け引きゲームでもある。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>今回のアップデートで、もともとあったものが少し姿を見せた。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>Yakitori Wars がほんの少しだけ、<br/>「ゲーム」から「焼き鳥屋」に近づいたような気がしている。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><div><div><span><a class=\"source-preview\" href=\"../../w/yakitori-wars/\"><img alt=\"\" height=\"500\" src=\"../../assets/shinpo/yakitori-remake/card-1.png\" width=\"630\"/><strong>YAKITORI WARS by SukimaStock</strong><small>The perfect moment lasts only a second.</small></a></span></div></div></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><br/></p>"
+    }
+  ],
+  "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「ゲームの中の焼き鳥を、焼き直した」（note、2026-06-19）。<a href=\"https://note.com/hamamah/n/n8a34c550580a\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>"
+}
