@@ -127,6 +127,8 @@ var NOTE_ARTICLES = [
     },
     {
         id: "note-20260731-n6565e030d711",
+        archivePage: "./shinpo/making-like-craft/",
+        archiveThumbnail: "./assets/shinpo/making-like-craft/cover.jpg",
         title: "アプリを作っていたはずが、工作の時間に戻っていた",
         url: "https://note.com/hamamah/n/n6565e030d711",
         publish_date: "2026-07-31",
