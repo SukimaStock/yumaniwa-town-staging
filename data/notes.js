@@ -296,6 +296,8 @@ var NOTE_ARTICLES = [
     },
     {
         id: "5b5f9715572b4d8a894c06b220c9139c",
+        archivePage: "./shinpo/weather-air/",
+        archiveThumbnail: "./assets/shinpo/weather-air/cover.png",
         title: "正確な天気よりも外の空気が知りたい",
         url: "https://note.com/hamamah/n/n165c5c836b4a",
         publish_date: "2026-03-28"

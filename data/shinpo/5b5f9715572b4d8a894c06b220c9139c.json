@@ -1,0 +1,256 @@
+{
+  "id": "5b5f9715572b4d8a894c06b220c9139c",
+  "slug": "weather-air",
+  "source": {
+    "reference": "Drive PDF 10xd26D5evSV9pL_wUXFs75FQw_YwkyOF; https://note.com/hamamah/n/n165c5c836b4a",
+    "verification": "2026-10-18 Drive PDF and full public note DOM: original text/order/headings/br27, body figures4 including GIF166frames, header, 3 note cards original title/excerpt/cover. All8 media acquired. No substantive source discrepancy. Date same day; PDF printed clock differs by timezone.",
+    "missingMedia": [],
+    "media": [
+      {
+        "path": "assets/shinpo/weather-air/cover.png",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/262830129/rectangle_large_type_2_c6546dfd0a4de4eb9d60062b5de5e030.png",
+        "width": 1280,
+        "height": 670,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "ba11dc05a7be91d32b496547e4f8676495d4e924b65c4bec40c627c4e9afe2b1",
+        "position": "header",
+        "caption": ""
+      },
+      {
+        "path": "assets/shinpo/weather-air/figure-1.gif",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/262829814/picture_pc_218f35529f5f61ad6c91adf3d2d102bf.gif",
+        "width": 480,
+        "height": 1040,
+        "frames": 166,
+        "format": "GIF",
+        "sha256": "604cb72fef12e897f9fde59a0c94ebad036f8338a7d0cabc1fa8c37af9671312",
+        "position": 1,
+        "caption": "",
+        "after": "天気を数値ではなく、ドットの風景として眺めてみたくなりました。"
+      },
+      {
+        "path": "assets/shinpo/weather-air/figure-2.png",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/259458608/picture_pc_8daa16d4ee185e84d91d9950e75644f2.png",
+        "width": 1169,
+        "height": 449,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "90570cbba9687cbff5fc295aebfb2e7846a1deb9284bce594359fd8925eaaedb",
+        "position": 2,
+        "caption": "",
+        "after": "画面の下にある街のシルエットは、固定の画像ではありません。"
+      },
+      {
+        "path": "assets/shinpo/weather-air/figure-3.png",
+        "sourceUrl": "https://assets.st-note.com/img/1774693485-r2D9RUfoAblc7TWdPS3tBXuE.png",
+        "width": 1170,
+        "height": 2532,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "020801d7cb34588ac750c24ebc3271904ebc835b04b8d1e4528fcdf63c200a8b",
+        "position": 3,
+        "caption": "",
+        "after": "ビルの窓も、時間と天気に合わせて変化します。夜になると明かりが灯りますが、厚い雲や嵐の日は昼間でも街が暗くなるので、窓の明かりが少し増えるようにしています。"
+      },
+      {
+        "path": "assets/shinpo/weather-air/figure-4.png",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/262830867/picture_pc_73f82b268c951af84afa72a9d77386d9.png",
+        "width": 887,
+        "height": 1920,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "b9123fb666ea2f1b4ed04f6b1d9173e5c7f52d3b578ab986dcb24388b9bb71f1",
+        "position": 4,
+        "caption": "",
+        "after": "昼は鳥が飛び、夜はコウモリが飛び、時には流れ星が流れることもあります。"
+      },
+      {
+        "path": "assets/shinpo/weather-air/preview-nb376b9a8c54d.png",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/248976138/rectangle_large_type_2_27a336a9cefafec73068cc9615a3ea48.png",
+        "width": 1280,
+        "height": 670,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "05f64b35e2cc65933959255697eeaba90544154bd60fe482e44f253f2dc6b01e",
+        "position": "link-card nb376b9a8c54d",
+        "caption": ""
+      },
+      {
+        "path": "assets/shinpo/weather-air/preview-n55f12e684c13.jpg",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/248979550/rectangle_large_type_2_15ab93adaf35b8f280b8e8107cd0f3be.jpg",
+        "width": 1280,
+        "height": 670,
+        "frames": 1,
+        "format": "JPEG",
+        "sha256": "6011eb8d40942d11e75529384128ec3c9fc76cfade6514a1eeb5e9c94278e74f",
+        "position": "link-card n55f12e684c13",
+        "caption": ""
+      },
+      {
+        "path": "assets/shinpo/weather-air/preview-n3e720e82c744.png",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/258015240/rectangle_large_type_2_90857cb683aa66267c09485d6a8bc61a.png",
+        "width": 1280,
+        "height": 670,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "719299acadbc12c43e437099e71b8ea9595ce87a13d1157efe99ccb8c763ff53",
+        "position": "link-card n3e720e82c744",
+        "caption": ""
+      }
+    ],
+    "rights": "Original author article/screenshots/GIF/header and author note preview covers. No replacement or third-party body material.",
+    "edition": "Original article describes the private iPhone/Codea app in March 2026. Body remains historical; existing afterword explicitly links current town Web edition, not an identical historical build."
+  },
+  "cover": "<figure><img src=\"../../assets/shinpo/weather-air/cover.png\" alt=\"正確な天気よりも外の空気が知りたいの元掲載画像\" fetchpriority=\"high\"></figure>",
+  "navDate": "2026年03月28日",
+  "displayDate": "2026年3月28日",
+  "backnumber": true,
+  "blocks": [
+    {
+      "origin": "source",
+      "html": "<p>昔からドット絵が好きです。<br/><br/>限られた色と形の中で表現される世界や、<br/>見る側に少し想像を委ねる余白に魅力を感じています。<br/><br/>この空気感をそのまま動かしてみたいと思い、<br/>ドット絵で空と街を描く天気アプリ<strong>「DotWeather」</strong>を作りました。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>実用的な天気アプリを作ろうとして始めたというより、<br/>景色を時間や天気に合わせて動かしてみたいという動機のほうが近いです。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>雲が流れ、空の色がゆっくり変わる。<br/>その下に、街のシルエットが静かに残る。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>天気を数値ではなく、ドットの風景として眺めてみたくなりました。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"1040\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/figure-1.gif\" width=\"480\"/></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>ただの絵ではない街</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>画面の下にある街のシルエットは、固定の画像ではありません。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"449\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/figure-2.png\" width=\"1169\"/></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>都市の名前をもとにして、<br/>その街並みを自動で描いています。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>「Tokyo」を選べば毎回同じ街が描かれ、<br/>「London」を選べば、全く違う街並みになります。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>ちょっとした遊び心ですが、<br/>こういう仕組みを作るのが好きです。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>ビルの窓も、時間と天気に合わせて変化します。<br/><br/>夜になると明かりが灯りますが、<br/>厚い雲や嵐の日は昼間でも街が暗くなるので、<br/>窓の明かりが少し増えるようにしています。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"2532\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/figure-3.png\" width=\"1170\"/></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>月のドット</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>このアプリを作るとき、最初に手をつけたのは「月」でした。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>空に浮かぶ月は、何枚かの画像を切り替えているわけではありません。<br/>現在の時刻から月齢を計算して、<br/>光っている部分と影の部分をドット単位で描き分けています。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>影の部分も、完全な黒にはしていません。<br/>暗い色を市松模様のように、ほんの少しだけ残しています。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>昼は鳥が飛び、夜はコウモリが飛び、<br/>時には流れ星が流れることもあります。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"1920\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/figure-4.png\" width=\"887\"/></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>主役はあくまで風景</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>裏側ではそんな計算をしていますが、<br/>主役はあくまでも風景です。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>中央に気温だけを表示して、<br/>あとは空と街がその日の雰囲気を作る。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>詳しい天気予報を見るなら、<br/>もっと優秀なアプリはいくらでもあります。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>それでも「DotWeather」 を開いてしまうのは、<br/>たまに開いたときの画面の空気感が<br/>自分の感覚に心地よく合っているからです。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>天気予報を確認するというより、<br/>天気をぼんやり眺めるためのアプリ。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>それくらいの距離感で、<br/>いまも iPhoneの中に静かに残っています。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>【20 / 21】</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<hr/>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>これは、誰かに見せるためでも、リリースするためでもなく、ただ自分のために作った、私のiPhoneの中だけにある秘密のアプリたちの記録です。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><a class=\"source-preview\" href=\"https://note.com/hamamah/n/nb376b9a8c54d?sub_rt=share_pw\"><strong>公開予定もないアプリを21個作っていた話</strong><img alt=\"\" height=\"670\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/preview-nb376b9a8c54d.png\" width=\"1280\"/><small>最近、暇さえあればアプリを作ることばかり考えています。昔想像していた、パソコンの黒い画面に向かってキーボードをひたすらカタカタするのではなく、スマホを片手に、寝転がりながら。作ること自体が楽しすぎて、誰かに見せる予定もリリースする予定もなかったんですが、気づいたら作りかけのものも含め、半年で手元に21個の自…</small></a></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<hr/>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>「時間」を眺めたい夜にはこちら▼</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n55f12e684c13\"><strong>時間を「確認」しないために作った、SteamClockという時計（自作アプリ）</strong><img alt=\"\" height=\"670\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/preview-n55f12e684c13.jpg\" width=\"1280\"/><small>一番正確で分かりやすい時計を求めた場合、今はスマホのロック画面が最適だと思います。ただ、自分の中では、子供の頃に祖父の家にあった古時計をスマホの中に再現してみたい気持ちがありました。アプリ作成を始めた当初、初めて完成させたのがこの「SteamClock」でした。時計を動かしてみたい、歯車も動かしてみたい、つ…</small></a></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>今日の「日付」だけを見たい日にはこちら▼</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n3e720e82c744\"><strong>「予定を書かないカレンダー」毎日使うアプリを自分専用に作る</strong><img alt=\"\" height=\"670\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/preview-n3e720e82c744.png\" width=\"1280\"/><small>毎日使うアプリほど、「これでいいのかな」と思いながら、なんとなく使い続けている気がします。英語学習アプリは機能が多すぎるし、カレンダーは情報でぎっしり。ToDoリストは終わらないタスクを無機質に突きつけてくる。どれも便利です。でも、どこか落ち着かない。今回紹介するのは、新しいことを始めるためのアプリではなく…</small></a></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><br/></p>"
+    }
+  ],
+  "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../w/dotweather/\">DotWeather（現在のWeb版）↗</a><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「正確な天気よりも外の空気が知りたい」（note、2026-03-28）。<a href=\"https://note.com/hamamah/n/n165c5c836b4a\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>"
+}
