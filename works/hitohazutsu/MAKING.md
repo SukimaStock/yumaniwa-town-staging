@@ -27,3 +27,7 @@
 親からの継続指示により、PR #498 後の `0052717f1452ce3f3e04d50d3dc64d3a6e409a68` へ移行。先行branchの完成コードと重複する変更はなく、作品の再実装なし。新しい実装前Lock commitは `8383950a2aeb493da059398e8231e90396b362a5`、digestは `f4fece5bb13cfa41a8747d547a7105d0d62f107e4a6aae7fa486e3646bb0d1b4`。旧 `a5750811cebd6cdaae6ba8bb2b87d3fbaf8ad226` の実装・操作テストをそのまま移し、LABだけ既存generatorで再生成した。親の接続済みGitHub connectorでは旧branchのopen PRが0件と確認済み。環境内の認証・ネットワーク設定は変更せず、PR・CI・merge・公開確認は親へ委任。
 
 Lifecycle/Prototype BenchはAGENTS.md「新作・制作ツールのLAB接続」とOPERATIONS.md同節が要求するstaging探索用の入口。町の作品登録正本 `data/works.js` や町画面・配置は変更しておらず、自動的な町への設置とは異なる。
+
+最新baseでの再検証ではlostpointercapture直後の即時assertも同じ非同期配信待ち不足を検出したため、data-held解除をwaitForFunctionで待つようテストのみ修正（同じテスト同期問題の3回目）。作品コードは不変。
+
+現在の再検証結果：上記3回目の待機追加後も、lostpointercaptureテスト（releasePointerCapture(1)後のdata-held解除待ち）が30秒timeout。同期問題という仮説は未解決で、作品側か固定pointer IDを使うテスト側かの切り分け中。追加自動修正はAGENTSの同一問題3回上限により停止。最新branchのブラウザ回帰全体をPASSとして扱わず、解消までmergeを推奨しない。先行SHAでの成功記録と、この最新実行での失敗を区別する。

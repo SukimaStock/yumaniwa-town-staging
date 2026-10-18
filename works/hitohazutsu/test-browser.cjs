@@ -38,7 +38,7 @@ const assert = require('node:assert/strict');
  await touch({type:'touchMove',touchPoints:[{x:p.x,y:830}]});assert.equal(await y(),482);
  await touch({type:'touchMove',touchPoints:[{x:p.x,y:800}]});assert.ok(await y()<482);
  await touch({type:'touchEnd',touchPoints:[]});await holds();
- p=await grab();await h.evaluate(el=>el.releasePointerCapture(1));await page.mouse.move(p.x,p.y-2);assert.equal(await h.getAttribute('data-held'),null);await page.mouse.up();await holds();
+ p=await grab();await h.evaluate(el=>el.releasePointerCapture(1));await page.mouse.move(p.x,p.y-2);await page.waitForFunction(()=>!document.querySelector('#handle').hasAttribute('data-held'));assert.equal(await h.getAttribute('data-held'),null);await page.mouse.up();await holds();
  p=await grab();await h.dispatchEvent('pointercancel',{pointerId:1});assert.equal(await h.getAttribute('data-held'),null);await page.mouse.up();await holds();
  p=await grab();await page.evaluate(()=>window.dispatchEvent(new Event('blur')));assert.equal(await h.getAttribute('data-held'),null);await page.mouse.up();await holds();
  p=await grab();await page.setViewportSize({width:844,height:390});await page.waitForFunction(()=>!document.querySelector('#handle').hasAttribute('data-held'));assert.equal(await h.getAttribute('data-held'),null);await page.mouse.up();await holds();p=await pos();assert.ok(p.y>0&&p.y<390);await page.screenshot({path:'/tmp/hitohazutsu-landscape.png'});
