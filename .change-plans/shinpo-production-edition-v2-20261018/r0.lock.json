@@ -1,0 +1,106 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b7af42b18b0639083e7394440b907d884d4d326445866e136510110880542da3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-production-edition-v2-20261018",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "本番記事案内から未公開AmberTimeのリンクだけ省略する環境別afterword",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "6eb9b676f68ada4fd9601cde7a9e8dbd43c56f66",
+    "canonicalSources": [
+      "data/shinpo/note-20260807-n845da26b1b0b.json",
+      "tools/shinpo-migrate.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-production-edition-v2-20261018/r0.lock.json",
+      "tools/shinpo-migrate.cjs",
+      "data/shinpo/note-20260807-n845da26b1b0b.json",
+      "tests/test-shinpo-migrate.cjs",
+      "tools/SHINPO-MIGRATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/**",
+      "engines/**",
+      "assets/**",
+      ".github/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Optional afterwordProduction selected before validation/render/catalog",
+      "Remove only unpublished current-Web AmberTime anchor from production guidance",
+      "Staging body and guidance unchanged; source note citations unchanged"
+    ],
+    "ownerDecisions": [
+      "Production promotion authorized; do not publish unpublished AmberTime; minimal staging preparation delegated"
+    ],
+    "hqDecisions": [
+      "Existing build-time environment edition; no canonical or runtime contract changes"
+    ],
+    "rulesApplied": [
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md: no subtitle/copy, original body unchanged",
+      "CHANGE-PLAN full initial lock before implementation"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Compare staging and production afterword and exact source body"
+    ],
+    "impactChecks": [
+      "runtime.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this local implementation only",
+    "outOfScope": [
+      "Remote mutations",
+      "Production deployment",
+      "Work runtime",
+      "Source prose or media edits"
+    ],
+    "promotion": "Local staging preparation only; no remote writes",
+    "unverified": [
+      "Physical Safari/iPhone/iPad and Google canonical adoption are not inferred from CI"
+    ],
+    "problem": "Historical article guidance links unpublished AmberTime current Web edition",
+    "currentContract": "Staging afterword keeps available staging works; Production must link only published works",
+    "whyExistingIsInsufficient": "One shared afterword fails production file validation for unpublished AmberTime",
+    "design": "Optional production-only afterword data chosen before validating and rendering; no blind runtime rewrites",
+    "alternativesRejected": [
+      "Publish AmberTime without authorization",
+      "Change source prose",
+      "Strip work links globally"
+    ],
+    "migration": "No routing/save migration",
+    "compatibility": "Optional field defaults to existing guidance; source blocks and staging HTML preserved",
+    "boundaryCases": [
+      "No override",
+      "Invalid override",
+      "Staging retains AmberTime",
+      "Production omits only AmberTime"
+    ],
+    "testPlan": [
+      "node --test tests/test-shinpo-migrate.cjs",
+      "Staging generated output check",
+      "Source blocks byte-equivalent"
+    ],
+    "promotionRisk": "Production deployment remains parent responsibility"
+  }
+}
