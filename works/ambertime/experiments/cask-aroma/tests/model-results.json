@@ -1,0 +1,322 @@
+{
+  "modelVersion": 1,
+  "fixedRaw": {
+    "spirit": 0.68,
+    "vanilla": 0,
+    "dried": 0,
+    "woody": 0,
+    "wood": 0,
+    "roughness": 0.62,
+    "litres": 32
+  },
+  "testedHalfYearStates": 63,
+  "note": "ゲーム試作の決定的な仮説曲線。実在する樽の測定値や科学的な回帰式ではない。香り画像は原酒・バニラ・ドライフルーツ・木の香りのうち0.10以上、上位3個まで。木の香りは独立の抽出曲線を持ち、木の渋み・刺激とは別に計算する。",
+  "samples": [
+    {
+      "caskId": "bourbon",
+      "age": 0,
+      "profile": {
+        "spirit": 0.68,
+        "vanilla": 0,
+        "dried": 0,
+        "woody": 0,
+        "wood": 0,
+        "roughness": 0.62,
+        "litres": 32
+      },
+      "shownAromas": [
+        "spirit"
+      ]
+    },
+    {
+      "caskId": "sherry",
+      "age": 0,
+      "profile": {
+        "spirit": 0.68,
+        "vanilla": 0,
+        "dried": 0,
+        "woody": 0,
+        "wood": 0,
+        "roughness": 0.62,
+        "litres": 32
+      },
+      "shownAromas": [
+        "spirit"
+      ]
+    },
+    {
+      "caskId": "refill",
+      "age": 0,
+      "profile": {
+        "spirit": 0.68,
+        "vanilla": 0,
+        "dried": 0,
+        "woody": 0,
+        "wood": 0,
+        "roughness": 0.62,
+        "litres": 32
+      },
+      "shownAromas": [
+        "spirit"
+      ]
+    },
+    {
+      "caskId": "bourbon",
+      "age": 6,
+      "profile": {
+        "spirit": 0.6403998828372892,
+        "vanilla": 0.21339922015598609,
+        "dried": 0,
+        "woody": 0.030582668392035762,
+        "wood": 0.06667331992179804,
+        "roughness": 0.44841515027550227,
+        "litres": 31.523582067298005
+      },
+      "shownAromas": [
+        "spirit",
+        "vanilla"
+      ]
+    },
+    {
+      "caskId": "sherry",
+      "age": 6,
+      "profile": {
+        "spirit": 0.6327610091516199,
+        "vanilla": 0.028822457040795377,
+        "dried": 0.20175719928556762,
+        "woody": 0.02463982258040264,
+        "wood": 0.08056874390487534,
+        "roughness": 0.47329528648884894,
+        "litres": 31.46689065715268
+      },
+      "shownAromas": [
+        "spirit",
+        "dried"
+      ]
+    },
+    {
+      "caskId": "refill",
+      "age": 6,
+      "profile": {
+        "spirit": 0.6638742826353784,
+        "vanilla": 0.022766458581030834,
+        "dried": 0,
+        "woody": 0.010398795197386766,
+        "wood": 0.026638758475663216,
+        "roughness": 0.502562232501516,
+        "litres": 31.599329524849807
+      },
+      "shownAromas": [
+        "spirit"
+      ]
+    },
+    {
+      "caskId": "bourbon",
+      "age": 12,
+      "profile": {
+        "spirit": 0.6031058969676671,
+        "vanilla": 0.3570454351745285,
+        "dried": 0,
+        "woody": 0.05676710707814914,
+        "wood": 0.12890130825420165,
+        "roughness": 0.32431636612355047,
+        "litres": 31.05425707355226
+      },
+      "shownAromas": [
+        "spirit",
+        "vanilla"
+      ]
+    },
+    {
+      "caskId": "sherry",
+      "age": 12,
+      "profile": {
+        "spirit": 0.5888036686802595,
+        "vanilla": 0.049422696299176866,
+        "dried": 0.3459588740942381,
+        "woody": 0.04604918386598429,
+        "wood": 0.15464616531534126,
+        "roughness": 0.3613039164718736,
+        "litres": 30.94266273841258
+      },
+      "shownAromas": [
+        "spirit",
+        "dried"
+      ]
+    },
+    {
+      "caskId": "refill",
+      "age": 12,
+      "profile": {
+        "spirit": 0.6481309752127032,
+        "vanilla": 0.041615572614292946,
+        "dried": 0,
+        "woody": 0.019816578283275484,
+        "wood": 0.05256789349820168,
+        "roughness": 0.40736902828533517,
+        "litres": 31.203675825626398
+      },
+      "shownAromas": [
+        "spirit"
+      ]
+    },
+    {
+      "caskId": "bourbon",
+      "age": 36,
+      "profile": {
+        "spirit": 0.4744199017283011,
+        "vanilla": 0.5717567201202527,
+        "dried": 0,
+        "woody": 0.12818413143219284,
+        "wood": 0.3389990487340875,
+        "roughness": 0.08874077488890549,
+        "litres": 29.245797928679302
+      },
+      "shownAromas": [
+        "vanilla",
+        "spirit",
+        "woody"
+      ]
+    },
+    {
+      "caskId": "sherry",
+      "age": 36,
+      "profile": {
+        "spirit": 0.4414623761459003,
+        "vanilla": 0.0853846149620902,
+        "dried": 0.5976923047346314,
+        "woody": 0.10659439470226041,
+        "wood": 0.3958906171441353,
+        "roughness": 0.12269719343184111,
+        "litres": 28.93164280231383
+      },
+      "shownAromas": [
+        "dried",
+        "spirit",
+        "woody"
+      ]
+    },
+    {
+      "caskId": "refill",
+      "age": 36,
+      "profile": {
+        "spirit": 0.5888036686802595,
+        "vanilla": 0.08887893391875748,
+        "dried": 0,
+        "woody": 0.049289798134305784,
+        "wood": 0.14955879545976702,
+        "roughness": 0.1758654964298576,
+        "litres": 29.669984230310064
+      },
+      "shownAromas": [
+        "spirit"
+      ]
+    },
+    {
+      "caskId": "bourbon",
+      "age": 72,
+      "profile": {
+        "spirit": 0.33099153405278076,
+        "vanilla": 0.5533810154713774,
+        "dried": 0,
+        "woody": 0.17455772324526056,
+        "wood": 0.5630777424255589,
+        "roughness": 0.01270149214174742,
+        "litres": 26.728646765160704
+      },
+      "shownAromas": [
+        "vanilla",
+        "spirit",
+        "woody"
+      ]
+    },
+    {
+      "caskId": "sherry",
+      "age": 72,
+      "profile": {
+        "spirit": 0.28660151404762396,
+        "vanilla": 0.08818103087997602,
+        "dried": 0.6172672161598322,
+        "woody": 0.14960896269357177,
+        "wood": 0.6350518535455063,
+        "roughness": 0.024281614961371992,
+        "litres": 26.15749860127118
+      },
+      "shownAromas": [
+        "dried",
+        "spirit",
+        "woody"
+      ]
+    },
+    {
+      "caskId": "refill",
+      "age": 72,
+      "profile": {
+        "spirit": 0.509837882722548,
+        "vanilla": 0.11308680325318352,
+        "dried": 0,
+        "woody": 0.07572329387785025,
+        "wood": 0.2767497576201575,
+        "roughness": 0.04988495618471009,
+        "litres": 27.509623882089
+      },
+      "shownAromas": [
+        "spirit",
+        "vanilla"
+      ]
+    },
+    {
+      "caskId": "bourbon",
+      "age": 120,
+      "profile": {
+        "spirit": 0.20481206410029743,
+        "vanilla": 0.4539252902164682,
+        "dried": 0,
+        "woody": 0.18705925195134754,
+        "wood": 0.7484214469402435,
+        "roughness": 0.0009509626211811679,
+        "litres": 23.706183061814972
+      },
+      "shownAromas": [
+        "vanilla",
+        "spirit",
+        "woody"
+      ]
+    },
+    {
+      "caskId": "sherry",
+      "age": 120,
+      "profile": {
+        "spirit": 0.16111087590384282,
+        "vanilla": 0.07578743759295546,
+        "dried": 0.5305120631506883,
+        "woody": 0.165096078080213,
+        "wood": 0.81362602396059,
+        "roughness": 0.0028002801844198557,
+        "litres": 22.867939386113832
+      },
+      "shownAromas": [
+        "dried",
+        "woody",
+        "spirit"
+      ]
+    },
+    {
+      "caskId": "refill",
+      "age": 120,
+      "profile": {
+        "spirit": 0.4207727064281758,
+        "vanilla": 0.1132969257188317,
+        "dried": 0,
+        "woody": 0.09158614473444801,
+        "wood": 0.41725174762601025,
+        "roughness": 0.009297257628696176,
+        "litres": 24.871831618206276
+      },
+      "shownAromas": [
+        "spirit",
+        "vanilla"
+      ]
+    }
+  ]
+}
