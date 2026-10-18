@@ -173,3 +173,48 @@ test('connection edit preserves all source prose and asset references; only the 
   }
  }
 });
+
+
+test('production guidance edition omits only unpublished AmberTime while preserving historical source',()=>{
+ const a=tool.load('note-20260807-n845da26b1b0b'),m=tool.metadata(a.id);
+ const anchor='<a href="../../works/ambertime/">AmberTime（現在のWeb版）↗</a>';
+ assert(a.afterword.includes(anchor));
+ assert.equal(a.afterwordProduction,a.afterword.replace(anchor,''));
+ const original=JSON.stringify(a.blocks),stage=tool.render(a,m),production=tool.render(a,m,'production');
+ assert(stage.includes(anchor));assert(!production.includes(anchor));
+ assert.equal(tool.edition(a,'staging'),a);
+ assert.equal(tool.edition({...a,afterwordProduction:undefined},'production').afterword,a.afterword);
+ assert.equal(tool.edition(a,'production').afterword,a.afterwordProduction);
+ assert.equal(JSON.stringify(a.blocks),original);
+ assert(stage.includes(a.blocks.map(b=>b.html).join('\n')));
+ assert(production.includes(a.blocks.map(b=>b.html).join('\n')));
+ assert(production.includes(m.url));
+ assert.throws(()=>tool.edition({...a,afterwordProduction:'<script>bad()</script>'},'production'),/Active content/);
+ const all=tool.articleCatalog();
+ assert.equal(tool.articleCatalog({env:'production',publishedArticles:all.map(a=>a.id)}).length,all.length);
+});
+
+
+test('production outputs validate the selected guidance without an unpublished work directory',()=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'shinpo-production-edition-'));
+ try {
+  const copy=p=>{const target=path.join(dir,p);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(path.join(root,p),target);};
+  for(const p of ['tools/shinpo-migrate.cjs','tools/site-environment.cjs','tools/shinpo-template.html','tools/shinpo-index-template.html','data/notes.js'])copy(p);
+  for(const p of fs.readdirSync(path.join(root,'data/shinpo')))copy('data/shinpo/'+p);
+  const all=tool.articleCatalog();
+  for(const row of all){
+   fs.mkdirSync(path.join(dir,'shinpo',row.slug),{recursive:true});
+   const a=tool.edition(tool.load(row.id),'production');
+   for(const url of tool.load(row.id).cover.concat(a.blocks.map(b=>b.html).join(''),a.afterword).matchAll(/(?:href|src)="([^"#]*)"/g)){
+    const u=url[1];if(/^https?:/.test(u))continue;
+    const target=path.resolve(dir,'shinpo',a.slug,u.split(/[?#]/)[0]);
+    if(target===dir || target.startsWith(path.join(dir,'shinpo')))continue;
+    fs.mkdirSync(path.dirname(target),{recursive:true});
+    if(u.split(/[?#]/)[0].endsWith('/'))fs.mkdirSync(target,{recursive:true});else fs.writeFileSync(target,'fixture');
+   }
+  }
+  assert(!fs.existsSync(path.join(dir,'works/ambertime')));
+  const result=cp.execFileSync(process.execPath,['-e',"const t=require('./tools/shinpo-migrate.cjs');const ids=t.notes().filter(a=>a.archivePage).map(a=>a.id).join(',');const o=t.outputs({env:'production','published-articles':ids});console.log(JSON.stringify([...o.keys()]));"],{cwd:dir,encoding:'utf8'});
+  assert.equal(JSON.parse(result).length,all.length+1);
+ } finally {fs.rmSync(dir,{recursive:true,force:true});}
+});

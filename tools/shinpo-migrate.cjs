@@ -61,13 +61,19 @@ function validate(a, m, pending = false, root=ROOT) {
     assert(fs.existsSync(resolved), 'Missing local link/image: '+url);
   }
 }
+function edition(a, env = 'staging') {
+  siteEnvironment(env);
+  if (env !== 'production' || a.afterwordProduction === undefined) return a;
+  safeFragment(a.afterwordProduction);
+  return {...a, afterword:a.afterwordProduction};
+}
 function articleCatalog(options = {}) {
   const root = path.resolve(options.root || ROOT);
   const env = options.env || 'staging';
   siteEnvironment(env);
   const selected = options.publishedArticles || [];
   assert(Array.isArray(selected) && new Set(selected).size === selected.length, 'Duplicate or invalid published article IDs');
-  const all = files(root).map(f=>JSON.parse(read(f,root)));
+  const all = files(root).map(f=>edition(JSON.parse(read(f,root)),env));
   if (options.extra) {
     const i = all.findIndex(a=>a.id===options.extra.id);
     if(i<0) all.push(options.extra); else all[i]=options.extra;
@@ -106,6 +112,7 @@ function renderIndex(catalog, env = 'staging') {
   return read('tools/shinpo-index-template.html').replace(/\{\{(\w+)\}\}/g,(_,k)=>{assert(k in values,'Unknown index field '+k);return values[k];});
 }
 function render(a, m, env = 'staging') {
+  a = edition(a,env);
   validate(a,m,true);
   const site = siteEnvironment(env);
   const img = a.cover.match(/src="\.\.\/\.\.\/(assets\/shinpo\/[^"?]+)"/);
@@ -140,7 +147,7 @@ function outputs(o) {
   const out = new Map();
   for(const id of ids) {
     const a = o.body ? prospective(o) : load(id), m = metadata(id);
-    validate(a,m,!!o.body);
+    validate(edition(a,env),m,!!o.body);
     if(o.body) {
       assert(exists('data/shinpo/'+id+'.json') || !exists('shinpo/'+a.slug+'/index.html'), 'Unregistered existing HTML: inspect before import');
       const p = 'data/shinpo/'+id+'.json', data = JSON.stringify(a,null,2)+'\n';
@@ -242,5 +249,5 @@ function main(argv) {
   else result={usage:'node tools/shinpo-migrate.cjs inspect|dry-run|plan|import|generate|check|resume [--id ID] [--lock PATH]',guide:'tools/SHINPO-MIGRATION.md'};
   console.log(JSON.stringify(result,null,2));
 }
-module.exports={notes,metadata,load,render,renderIndex,articleCatalog,validate,outputs,summary,guard,plan,resume,inspect,main};
+module.exports={notes,metadata,load,edition,render,renderIndex,articleCatalog,validate,outputs,summary,guard,plan,resume,inspect,main};
 if(require.main===module) {try {main(process.argv.slice(2));} catch(e) { console.error(e.message);process.exitCode=1; }}
