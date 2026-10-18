@@ -1,0 +1,245 @@
+{
+  "browser": "153.0.8010.0",
+  "fixtures": "Public operations generated in Chromium and strict serialized/replayed there. Raw fixture cache only reuses those exact native strings between viewport contexts; no Node-generated save imports.",
+  "timingNotes": "Long fixtureAndFirstReadMs includes public career generation, validation, reload and worker projection; not just UI rendering latency.",
+  "physicalSafari": false,
+  "humanFun": false,
+  "sourceHashes": {
+    "index.html": "dd6cd5e54bd3e9ff82d99f0ca1aa7e2b7db645292349a74a99cb81be45f31f56",
+    "shop-app.mjs": "7c9197a4dead9b0063eff5ac90eff69433f96ee10abcd6f7c890ae63c2a4e6e4",
+    "shop.css": "ae7e835dc1420f1d7b70ed70c8439de056bfc34eb55baf1df899c8d9dcd47be9",
+    "partner-orders.mjs": "9b960cf34d55c78c932d45f2169b446d7a64f318e7c2e823ca996f055a5e664f",
+    "comparison-model.mjs": "c34e04c87bfc3b2c64beb1c564d4a977652818136c0959e560f29ed3228b2107",
+    "comparison-worker.mjs": "6a12207e80e064ddb7d4bc506d7e43fdf7fbf70dbe5bd91e97418265c2a84dd9",
+    "recipe-book.mjs": "4c613e30e87ec30e215b7b18355d57cefec37694314d341716c43f4583daf65b"
+  },
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "firstManualOptionalNameOmitted": true,
+      "exactRecipeSaved": true,
+      "savingNoProductionMutation": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "caskPairExactFacts": true,
+      "differenceTextAndHighlight": true,
+      "clearChangeCloseReadOnly": true,
+      "manualPausePreserved": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "caskReleaseMixed": true,
+      "sameAndCrossBrandReleases": true,
+      "storedSellingSoldOut": true,
+      "retailPeriodAndActualPrices": true,
+      "allThreeShopChannelsExact": true,
+      "productExactReturn": true,
+      "comparisonReadOnly": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "multipleRecipesSelectable": true,
+      "bookComparisonExactReturn": true,
+      "selectedNotLatestUsualExecuted": true,
+      "reservationSnapshotImmutable": true,
+      "recipesAndSelectionReloadExact": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "newManualDoesNotOverwriteSaved": true,
+      "selectedManualReferenceSeparate": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "kind": "queued",
+      "readAndClosePreserveCoreTastingQueuePause": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "kind": "tasting",
+      "readAndClosePreserveCoreTastingQueuePause": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "pendingDecisionPriorityPreserved": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "generationInheritsBookAndSelected": true,
+      "finalBatchProvenanceInComparison": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "historyReleases": 15,
+      "comparisonNodes": 166,
+      "fixtureAndFirstReadMs": 5285,
+      "historicalSourcesSurvivePruning": true,
+      "boundedComparisonTable": true,
+      "longReadOnly": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "v16RawPreserved": true,
+      "legacyUsualUnchanged": true,
+      "v0171ArchiveOpens": true,
+      "saveKeysIndependent": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "firstManualOptionalNameOmitted": true,
+      "exactRecipeSaved": true,
+      "savingNoProductionMutation": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "caskPairExactFacts": true,
+      "differenceTextAndHighlight": true,
+      "clearChangeCloseReadOnly": true,
+      "manualPausePreserved": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "caskReleaseMixed": true,
+      "sameAndCrossBrandReleases": true,
+      "storedSellingSoldOut": true,
+      "retailPeriodAndActualPrices": true,
+      "allThreeShopChannelsExact": true,
+      "productExactReturn": true,
+      "comparisonReadOnly": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "multipleRecipesSelectable": true,
+      "bookComparisonExactReturn": true,
+      "selectedNotLatestUsualExecuted": true,
+      "reservationSnapshotImmutable": true,
+      "recipesAndSelectionReloadExact": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "newManualDoesNotOverwriteSaved": true,
+      "selectedManualReferenceSeparate": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "kind": "queued",
+      "readAndClosePreserveCoreTastingQueuePause": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "kind": "tasting",
+      "readAndClosePreserveCoreTastingQueuePause": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "pendingDecisionPriorityPreserved": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "generationInheritsBookAndSelected": true,
+      "finalBatchProvenanceInComparison": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "historyReleases": 15,
+      "comparisonNodes": 166,
+      "fixtureAndFirstReadMs": 2274,
+      "historicalSourcesSurvivePruning": true,
+      "boundedComparisonTable": true,
+      "longReadOnly": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "v16RawPreserved": true,
+      "legacyUsualUnchanged": true,
+      "v0171ArchiveOpens": true,
+      "saveKeysIndependent": true
+    }
+  ],
+  "fullSuiteSourceHashes": {
+    "index.html": "dd6cd5e54bd3e9ff82d99f0ca1aa7e2b7db645292349a74a99cb81be45f31f56",
+    "shop-app.mjs": "08c89600acfc83133bc32bfbee38e43e28b12e27502750975b762e5479073ed9",
+    "shop.css": "ae7e835dc1420f1d7b70ed70c8439de056bfc34eb55baf1df899c8d9dcd47be9",
+    "partner-orders.mjs": "9b960cf34d55c78c932d45f2169b446d7a64f318e7c2e823ca996f055a5e664f",
+    "comparison-model.mjs": "c34e04c87bfc3b2c64beb1c564d4a977652818136c0959e560f29ed3228b2107",
+    "comparison-worker.mjs": "6a12207e80e064ddb7d4bc506d7e43fdf7fbf70dbe5bd91e97418265c2a84dd9",
+    "recipe-book.mjs": "4c613e30e87ec30e215b7b18355d57cefec37694314d341716c43f4583daf65b"
+  },
+  "focusedSourceHashes": {
+    "index.html": "dd6cd5e54bd3e9ff82d99f0ca1aa7e2b7db645292349a74a99cb81be45f31f56",
+    "shop-app.mjs": "7c9197a4dead9b0063eff5ac90eff69433f96ee10abcd6f7c890ae63c2a4e6e4",
+    "shop.css": "ae7e835dc1420f1d7b70ed70c8439de056bfc34eb55baf1df899c8d9dcd47be9",
+    "partner-orders.mjs": "9b960cf34d55c78c932d45f2169b446d7a64f318e7c2e823ca996f055a5e664f",
+    "comparison-model.mjs": "c34e04c87bfc3b2c64beb1c564d4a977652818136c0959e560f29ed3228b2107",
+    "comparison-worker.mjs": "6a12207e80e064ddb7d4bc506d7e43fdf7fbf70dbe5bd91e97418265c2a84dd9",
+    "recipe-book.mjs": "4c613e30e87ec30e215b7b18355d57cefec37694314d341716c43f4583daf65b"
+  },
+  "focusedDelta": "Flavor row now uses existing model.tasting output adapted to the existing shortTaste sample shape. Full22 behavioral groups preceded this presentation fix; focused PC/phone cask and release comparisons validate exact flavor text after it.",
+  "focusedChecks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "caskPairExactFacts": true,
+      "flavorTextMatchesExistingTasting": true,
+      "differenceTextAndHighlight": true,
+      "clearChangeCloseReadOnly": true,
+      "manualPausePreserved": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "caskReleaseMixed": true,
+      "flavorTextMatchesExistingTasting": true,
+      "sameAndCrossBrandReleases": true,
+      "storedSellingSoldOut": true,
+      "retailPeriodAndActualPrices": true,
+      "allThreeShopChannelsExact": true,
+      "productExactReturn": true,
+      "comparisonReadOnly": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "caskPairExactFacts": true,
+      "flavorTextMatchesExistingTasting": true,
+      "differenceTextAndHighlight": true,
+      "clearChangeCloseReadOnly": true,
+      "manualPausePreserved": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "caskReleaseMixed": true,
+      "flavorTextMatchesExistingTasting": true,
+      "sameAndCrossBrandReleases": true,
+      "storedSellingSoldOut": true,
+      "retailPeriodAndActualPrices": true,
+      "allThreeShopChannelsExact": true,
+      "productExactReturn": true,
+      "comparisonReadOnly": true
+    }
+  ]
+}

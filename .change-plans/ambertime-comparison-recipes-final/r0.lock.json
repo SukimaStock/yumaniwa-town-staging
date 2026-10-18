@@ -1,0 +1,157 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c8d10636010888b50af64f664b46c9c8988ef3a37076014db6fa5766466044c2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-comparison-recipes-final",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.18 read-only two-work comparisons and persistent manual recipe book using ordinary usual reservations",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "e0d6d5618ac4900cfd7ac649b2fd70bf4da6931d",
+    "canonicalSources": [
+      "User comparison andrecipe firststage request",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/design/generations/REPORT.md",
+      "EXPRESSION-AUDIT.md",
+      "Drive original AmberTime.txt 1cAtwEtLj0DoMbrw7XOwI0XdcA2dopTFi",
+      "Drive original introduction PDF 1OOOp4tyGNoD0IvcCwAitXIUOe5lLV5HH"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-comparison-recipes-final/r0.lock.json",
+      "works/ambertime/recipe-book.mjs",
+      "works/ambertime/comparison-model.mjs",
+      "works/ambertime/comparison-worker.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/bottle-storage.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/v0171.html",
+      "works/ambertime/shop-v0171-app.mjs",
+      "works/ambertime/shop-v0171.css",
+      "works/ambertime/tests/comparison*.mjs",
+      "works/ambertime/tests/recipe*.mjs",
+      "works/ambertime/design/comparison/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "tools/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/work-context.mjs",
+      "works/ambertime/experiments/**"
+    ],
+    "expectedChanges": [
+      "UI0.18/modelv17 recipe-book boundary: strict v16/older replay unchanged, new savekey and exact0.17.1app/CSS archive preserveoldraw; no chemistry/economy formula edits",
+      "recipeBook entriescap64, selectedId null latestmanual fallback; stable recipe-caskId identity, optionalname<=40, exactmanualfill source batch/cask/opindex/month/generation|null, one source once; no persistent duplicate manualledger",
+      "Transient replay manualFill context captured from exact public fill transaction only, cached with strictvalidationcheckpoint; coldrecipe-save dispatch uses context O(1) notnestedreplay; public readers exactprefix fastpath immutablecopy",
+      "selectRecipe(savedID|null) retains queued/active snapshot; reserveUsual capturesselected stopAt/type only usingexistingbudget/conditions; latermanualfill updateslatestusualrecipe but neversavedentries/selection; no manualautostop",
+      "Opaque createProjectionReplay(state,observer,previousToken) caches private replaystate/context aftercommittedoperations; exactseed/origin/operationprefix resume, cold index-1reset, sameops no callback, detachedfacts, no persistentcheckpoint or validationweakening",
+      "comparisonChoices cheap currentcasks+durablereleases; worker enriches exactoperationfacts with cancellableclose, oneaccumulator/token suffixupdates and boundedDOM; samebrand/crossbrand cask/release/mixed choices, ephemeralUI only",
+      "Comparison covers actual known source, cask/profilestate, bottledfacts, firstlisting/exposure/realfirst-last sales, actualpricechanges and retail/shops/wholesale separately; currentprice neverretroactive, no elapsed-as-saleperiod, no profits/score/winner/recommendations, missinglegacyexplicitnull",
+      "Existingthree rooms smallcompare/recipeentry controls, two labeled selectors easyclear/change/back, samemodalclockpause/tasting/reservation/decision state preserved, 0.17.1 exactbrandstorevisibility maintained",
+      "Regression oldfingerprints/coreestate sameactions equal withbookfields omitted, strictforgery/coldreplay/activeextraction/queuedusual/generations/pruning/partiallegacy, longworkerprefixperformance, PCphone browsers and independentreview"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "PC1280 phone390 actualChromium publicfixtures: cask/cask release/release mixed, store/salesstates, recipe save/select/reserve/reload/generation/source links",
+      "Modal exact return/manualpause/tasting/pendingjudgments/reservation invariants and boundedlongUI",
+      "Codea source inspection and short factualexpression audit sixpoints; no newillustrations/ranks/interpretations",
+      "Published sourcehashes and protected numeric/generationparameter hashes"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert0.18entry/extensions; preservedv16raw opensv0171.html. Keepv17raw; no backwardconversion.",
+    "outOfScope": [
+      "Production",
+      "Chemistry/aging/economy/price/demand/reputation/storeconditions/generationthresholds/capacity changes",
+      "Employment/salaries/personabilities",
+      "Shopcomments/reorders",
+      "Trialdistillation/newroutes/materials/casks/blends",
+      "Profit or qualityscores/optimalplay recommendations",
+      "Sharedengine/eventsystem",
+      "Existingcrossruntime floatingpoint portabiltyfix"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhone Safari; human comparisonreadability/pacing/authoradoption; existingcrossruntime strictnumericconstraint"
+    ],
+    "rulesApplied": [
+      "Full WORK versionedsaveextension withinexistingstrictreplay; no sharedcontracts",
+      "AGENTS useful separate backend/projection/UI/tests/browser and independentreview withownedpaths",
+      "EXPRESSION-AUDIT: existinglabels/actualfacts, no explanationcards/emotionalcopy/automaticjudgment",
+      "Codea inspected: lastDistillPreset restore, manual settings checkpoint and perchannel SalesLedger; use referenceidea only no originalparameters/ranks/employment/trial/profit migration",
+      "Integration lock on latestmain after original preimplementation lock dc99d22; work-only commit transferred byte-for-byte; intervening main PR485 only shinpo migration tool/data/tests/docs, no AmberTime or trusted gate changes."
+    ],
+    "ownerDecisions": [
+      "User explicitly requests comparison pluspersistentmanualrecipes, existingusualreservation selection, oldsave/generationprotection, necessaryversionseparation and ChangeOS/tests/PR/Stagingmerge/deployment. NoProduction."
+    ],
+    "hqDecisions": [
+      "Minimal v17book overgenerations mode, entryref bystablecask andexactmanualfillop; cap64/optional40charname/duplicate-source no-op; select nullreturnslatestmanual, existingreservation capturesimmutable recipe. Firstgeneration unknown beforegenerationboundary remainsnull notinvented.",
+      "No duplicateproduction/sales ledger. Detachedtransientreplaycontext + opaqueprojectioncontinuation reuseexistingexactapply withseed/origin/prefix checks; validationstaysstrict oldnewopcodecompatible; cache is notsave data. Initialfullhistory optionalworker, laterupdates suffix; recipes publicresolve usesvalidatedprefix toavoidmainthreadfullreplaynormally.",
+      "Comparisonstate ephemeral modal with cheapinitialchoices, currentvaluesfromsnapshot, actuallisting/exposure/transactionsfromoperationreplay; missingfacts explicit, no profit/score. Existingmodalqueue prioritizeswork; return preserveschosen source context/timeintent.",
+      "UI0.18 version chosenfor feature, executionv17/savekeyv17 isolated from0.17.1v16; oldraw/archive preserved; generations dates/thresholds originalvalues."
+    ],
+    "problem": "Players cannot compare two production/results or persist/select an earlier manual recipe; latestmanual automatically replaces usual recipe.",
+    "currentContract": "v16 generations strictoperationreplay with actualIDs, v15storage, finite64? recipesabsent, currentcasks4/release512, records12/archive24 pruned, usual immutable queued/active snapshots, optionalworkerhistory.",
+    "whyExistingIsInsufficient": "Durable release totals lack actualsalesperiod/pricehistory and prunedbatchdetails; no manualrecipebook orselectedsource exists. Fullreplayeverycomparison or nestedrecipe replay would freeze longplay.",
+    "design": "Smallv17recipebook + factualread-onlycomparisonprojection, exactreplaycontext/cursor; preserve existing core engine and reserveexecute semantics. Namesoptional, manualsourceonly, sourcefactsmissing honest. UIonly ephemeral selection, boundedDOM, backgroundfullinitial history thenprefixupdate.",
+    "migration": "Restore originalv16/older strictly beforeloggedenable-recipe-book progressboundary; maintainoriginalestate/IDs/ops, preserve oldrawkey and exact0.17.1UI/CSS. Newrecipe-save/select operations recordprogress. Oldoriginpre-v6 facts unavailable => null.",
+    "compatibility": "All existing constructors/modes retainoriginalsemantics. Extend puremodechain with recipeBookMode and consistent cachequeries. No opcode/schema weakening/numeric tolerance. Protected formulas/4casks/prices/generationthresholds unchanged.",
+    "promotionRisk": "Staging only; no Production/shared paths.",
+    "alternativesRejected": [
+      "Duplicatepersistentproductionandsalesledgers",
+      "Reconstruct IDs using a second handmadeengine",
+      "Infer stopAt fromnormalizedcut or datefromage",
+      "Use currentprice forallpast sales or bottledelapsedasexposure",
+      "Profitwithoutcomplete costallocation",
+      "Savedrecipe automaticallyoverwrite/latestmanualorautostopmanual",
+      "Nestedfullreplay foreachrecipeopcode",
+      "Scores/winners/optimalrecipe/rank/employmentextras"
+    ],
+    "boundaryCases": [
+      "Firstmanualfill, pastmanualafterrecordpruning, automaticfillsrejected, duplicate/stalesource/name64cap",
+      "Queued/activeusualselection/noreservationmutation, partialmanualprogress",
+      "Same/crossbrand two casks/two releases/mixed; soldout andstored; pricechanged mid-sale; shopdeliveries vs retail; wholesale no freeprofit",
+      "Legacyoriginmissingdates/stop/period and coldstrictnewsave tampering",
+      "Firstlastmanual andhandover preservingbook/source/currentestate, 100+year operationlimits/cacheperformance",
+      "Modalclose exactsource/tasting/noqueuechanges/timeintent, phone andlongchoicesDOM"
+    ],
+    "testPlan": [
+      "Targetednewrecipe/comparison model tests incl coldsubprocess/forgery/knownmissing andsameactionv16-v17 estateequality",
+      "Full existingNode503regression afterintegration",
+      "Long120yearpublicoperationsusingexistingpolicy + sourcepruning/selectedrecipes atmultiple generations; snapshot/savevolume andonefull+suffixcomparison timing",
+      "PCphone browser user11checks nativeChromium +oldkeyarchive/modal/provenance controls, independentread-onlyreview",
+      "ScopeRiskImpact trustedstatic requiredCI exacthead anddeployedsourceproof"
+    ]
+  }
+}

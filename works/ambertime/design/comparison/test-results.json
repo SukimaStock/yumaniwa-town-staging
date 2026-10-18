@@ -1,0 +1,36 @@
+{
+  "baseSha": "6eb9b676f68ada4fd9601cde7a9e8dbd43c56f66",
+  "command": "cd works/ambertime && npm test",
+  "tests": 525,
+  "pass": 525,
+  "fail": 0,
+  "durationMs": 113498.057485,
+  "newRecipeTests": 11,
+  "newComparisonTests": 11,
+  "sourceHashes": {
+    "partner-orders.mjs": "9b960cf34d55c78c932d45f2169b446d7a64f318e7c2e823ca996f055a5e664f",
+    "recipe-book.mjs": "4c613e30e87ec30e215b7b18355d57cefec37694314d341716c43f4583daf65b",
+    "comparison-model.mjs": "c34e04c87bfc3b2c64beb1c564d4a977652818136c0959e560f29ed3228b2107",
+    "comparison-worker.mjs": "6a12207e80e064ddb7d4bc506d7e43fdf7fbf70dbe5bd91e97418265c2a84dd9",
+    "generations.mjs": "7568034c18ea408d7707a8a0bf861086c6a0346c772482248d67b1975dfd5fab",
+    "bottle-storage.mjs": "d35b98697d2c8dc04687af96444feec72a3982440cf1e0957537e0c405563b7d",
+    "shop-model.mjs": "de3d0ed989b205df39fd43535c01ac8666c451fed9055214f5124e7b8bbc4ef1",
+    "department-projects.mjs": "20a8f4aa3e28bcd41d548475f22de69b841a4c7e4c6e339facdc0a68e462a07a",
+    "distillery-history.mjs": "52107fbb17bdf16aed73e6c9df86ca6300770aeec6d9f81644cbee6d177ce526",
+    "history-worker.mjs": "d6e32893a1848b77ed102f5abcca3ad7d6f4e9b4e2e4dae380e7b36a5a2b78d0"
+  },
+  "protectedSourceHashes": {
+    "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+    "economy.mjs": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+    "parameters.mjs": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822",
+    "economy-parameters.mjs": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+    "partner-parameters.mjs": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838",
+    "aroma-extraction.mjs": "77bc8d654d551e688b9ade8018bf595a75cc1c3355cd2023aef59c51ad6253ff",
+    "brand-reputation.mjs": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec"
+  },
+  "protectedSourcesEqualBase": true,
+  "generationConstantsEqualBase": true,
+  "archiveAppAndCssEqualBase": true,
+  "independentReview": "Backend/projection/UI no blocker; independently ran18 targeted tests; longartifacts scope and timings crosschecked.",
+  "physicalSafari": false
+}

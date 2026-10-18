@@ -1,6 +1,7 @@
+import {recipesMode} from './recipe-book.mjs?v=0.18';
 // Work-local execution boundary; chemistry, money and estate remain unchanged.
 export const GENERATIONS=Object.freeze({version:16,rules:'distillery-generations',lateMonths:300,hardMonths:360,graceMonths:12,brandMonths:120,shopMonths:120,matureMonths:36});
-export const generationMode=s=>s?.version===GENERATIONS.version&&s.rules===GENERATIONS.rules;
+export const generationMode=s=>s?.version===GENERATIONS.version&&s.rules===GENERATIONS.rules||recipesMode(s);
 export const newGeneration=(id,startedMonth)=>({id,startedMonth,phase:'working',fixedMonth:null,trigger:null,lastBatchId:null,lastCaskId:null,lastStatus:'pending',noticedPhase:null,reason:null});
 export function generationStatus(s){
  if(!generationMode(s))return null;const a=s.generations.active;
