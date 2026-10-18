@@ -1,0 +1,138 @@
+{
+  "id": "note-20260904-ddca9fa0",
+  "slug": "first-public-app",
+  "source": {
+    "reference": "https://note.com/hamamah/n/n4e18da793516",
+    "verification": "Public original HTML received 2026-10-18; original prose/order/references retained. All original images visually inspected and SHA256/dimensions/single frames verified against supplied originals. Vimeo/X retained as visible external references, not embedded players; playback unverified. Migrated related-note hrefs point to local articles; canonical note attribution retained. Current Web guidance is outside historical prose.",
+    "missingMedia": [
+      "Video binaries not supplied; original external references retained, playback unverified"
+    ]
+  },
+  "cover": "<figure><img src=\"../../assets/shinpo/first-public-app/cover.jpg\" alt=\"星空の下に並ぶDotWeatherの街並み\" width=\"1280\" height=\"670\" fetchpriority=\"high\"></figure>",
+  "navDate": "2026年09月04日",
+  "displayDate": "2026年9月4日",
+  "backnumber": true,
+  "blocks": [
+    {
+      "origin": "source",
+      "html": "<p id=\"0b483b82-2687-49d0-be98-2f6de7abc63b\">iPhoneの画面を整理していて、ふと気がついた。<br/><br/>生活の役に立つ立派なアプリやツールより、<br/>自分で作ったアプリの方を開くことが増えていた。<br/><br/>誰かに見せるためでも、公開するためでもない。<br/>ただ、自分が触りたくて作ったものだった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<div><section aria-label=\"目次\"><details open=\"\"><summary><h2>目次</h2></summary><ol><li><a href=\"#9d636a64-60b6-49b1-b8ca-b4c99d6b206d\" id=\"toc_item_9d636a64-60b6-49b1-b8ca-b4c99d6b206d\">『SteamClock』</a></li><li><a href=\"#4b407806-dbf3-4acc-b98d-ddac8268db1f\" id=\"toc_item_4b407806-dbf3-4acc-b98d-ddac8268db1f\">『CoffeeFactory』</a></li><li><a href=\"#0de27e05-098f-4c54-88fd-dd54acc1c5ee\" id=\"toc_item_0de27e05-098f-4c54-88fd-dd54acc1c5ee\">『ChordDrift』</a></li><li><a href=\"#2f8a64f7-51d5-40cf-af99-cce28c0a4f54\" id=\"toc_item_2f8a64f7-51d5-40cf-af99-cce28c0a4f54\">『DotWeather』を公開した</a></li></ol></details></section></div>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"9d636a64-60b6-49b1-b8ca-b4c99d6b206d\">『SteamClock』</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"c41585c2-90b9-4ff4-b335-fb01681944fc\">蒸気が噴き出し、ニキシー管がぼんやり光る。<br/><br/>時間を確認するだけならスマホの画面で十分だが、<br/>わざわざ歯車を回し、煙を出し、光らせる。<br/><br/>ただ時間が流れるのを眺めるための時計になった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><a href=\"https://note.com/hamamah/n/n55f12e684c13\">時間を「確認」しないために作った、SteamClockという時計（自作アプリ）</a></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"4b407806-dbf3-4acc-b98d-ddac8268db1f\">『CoffeeFactory』</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"62bcea80-13e9-4ca2-8cc7-b5ccd996c625\">コーヒーができるまで、<br/>小さな工場でトラックやこびとたちが待っている。<br/><br/>数字が減るだけのタイマーより、<br/>待ち時間そのものを楽しめるものにしたかった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><a href=\"../coffee-factory/\">コーヒーが落ちるまでの、静かな時間「CoffeeFactory」（自作アプリ）</a></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"0de27e05-098f-4c54-88fd-dd54acc1c5ee\">『ChordDrift』</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"464664d8-0914-43ca-9638-b87b3e2e3d57\">ローマ数字と色だけが、宇宙船のレーダーのように並ぶ。<br/>音楽の理屈を理解する前に、ただ音の間を漂ってみたかった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><a href=\"https://note.com/hamamah/n/n7eb02ffd7581\">音楽知識ゼロ。コード進行で漂う音の宇宙「ChordDrift」（自作アプリ）</a></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"9d380fdf-19b8-4f9a-899e-9d1ff223a98c\"><br/>どれも、目的を最短で達成するための道具ではなかった。<br/>気がつくとあえて操作を絞り、どこかに「余白」を残していた。<br/><br/>たまに開いて少し眺める。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"63cc0b2e-93a5-42e4-9648-c5f17b68d49e\">現実から少しだけ離れて一息つくための、<br/>小さな茶室のような場所だった。<br/></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<h2 id=\"2f8a64f7-51d5-40cf-af99-cce28c0a4f54\">『DotWeather』を公開した</h2>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"0fc235ae-604e-4eb0-866d-adf19c6b20ab\"><br/>最近、その中のひとつだった『DotWeather』を、<br/>初めてWebアプリとして公開した。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><a href=\"../weather-air/\">正確な天気よりも外の空気が知りたい</a></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"46aa47d0-7796-45d2-8c78-766607171a43\"><blockquote><p id=\"17cfdd97-4909-4675-b7bd-773f563c8faf\">アプリへのアクセスはこちらから<br/><a href=\"https://sukimastock.github.io/yumaniwa-town/?work=dotweather\" rel=\"noopener nofollow\" target=\"_blank\">https://sukimastock.github.io/yumaniwa-town/?work=dotweather</a></p></blockquote><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"78A398D6-951E-4318-BB37-35BF278E680C\">今日の天気を、小さな街の景色として眺める。<br/>それだけのアプリだった。<br/><br/>公開後は、風や雲が実際の風向きや強さに合わせて動くようにした。<br/>雨の降り方や、虹など、空の表現も少しずつ増やした。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"BA8D3AA1-5122-409D-A1ED-66F976DB932B\"><a href=\"https://assets.st-note.com/img/1788516315-ArPZ8kLhF2V4o1GtbumOKEYD.png?width=4000&amp;height=4000&amp;fit=bounds&amp;format=jpg&amp;quality=90\" rel=\"noopener\" target=\"_blank\"><img alt=\"バンコクの天気と時間別予報\" decoding=\"async\" height=\"1920\" loading=\"lazy\" src=\"../../assets/shinpo/first-public-app/body-1.png\" width=\"1112\"/></a><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"00E25CC8-7213-427F-9D7E-90CCEFB36E93\"><a href=\"https://assets.st-note.com/img/1788516315-EnTZJAtHLdBaqu9mj6F3fCP1.png?width=4000&amp;height=4000&amp;fit=bounds&amp;format=jpg&amp;quality=90\" rel=\"noopener\" target=\"_blank\"><img alt=\"東京の霧雨と時間別予報\" decoding=\"async\" height=\"1920\" loading=\"lazy\" src=\"../../assets/shinpo/first-public-app/body-2.png\" width=\"1106\"/></a><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"a07ce919-e76a-4640-8080-1416e25ae896\">すると、「雑談配信で置いておきたい」という反応をもらった。<br/>自分としては想定外の使い方だったが、なるほどと思った。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"70df2dec-c7ff-4a85-a3cb-4695290b15a2\">そこで「もしかすると、予報すらいらないのでは」と思い、<br/>予報を消し、都市名と現在の天気、景色だけを残した<br/>【Ambient mode】を追加した。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"C0915E69-CA76-41CE-BFF5-582294AE5564\"><a href=\"https://assets.st-note.com/img/1788516348-CRQaEGSvbmUdKMoNIVX9nLsx.png?width=4000&amp;height=4000&amp;fit=bounds&amp;format=jpg&amp;quality=90\" rel=\"noopener\" target=\"_blank\"><img alt=\"東京の霧雨を表示したAmbient mode\" decoding=\"async\" height=\"1920\" loading=\"lazy\" src=\"../../assets/shinpo/first-public-app/body-3.png\" width=\"1118\"/></a><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"3D066D29-EB0D-41DC-B93D-8035080E280C\"><a href=\"https://assets.st-note.com/img/1788516348-jqRYTcknwQBxZHFiKXJfMzlb.png?width=4000&amp;height=4000&amp;fit=bounds&amp;format=jpg&amp;quality=90\" rel=\"noopener\" target=\"_blank\"><img alt=\"シカゴの夜空を表示したAmbient mode\" decoding=\"async\" height=\"1920\" loading=\"lazy\" src=\"../../assets/shinpo/first-public-app/body-4.png\" width=\"1122\"/></a><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"5cf620a3-a388-4a31-a026-2d33dc7b877a\"><br/>空の表現を足したことが、逆に情報を減らすことに繋がった。<br/>少しずつ「空を眺めるアプリ」に近づいている気がする。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"f182f438-9725-4928-8b3c-6a41d9d2f8e2\">自分専用アプリだったときには、自分の使い方しか知らなかった。<br/>外に出してみると、自分では思いつかなかった見方を教えてもらえた。<br/></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"d22c59a0-5143-4518-80fa-17de115d4797\">自分が触りたくて作ったものを、そっと外に置いてみる。<br/>その扉を少しだけ開けてみた。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"4B71E0F8-B6E1-4EB6-82AF-603D6522350B\"><blockquote><p>『DotWeather』を、この度Webアプリとして移植しました！☀️☔️<br/>iPhoneでもAndroidでもPCでもご利用いただけます！<br/><br/>都市名横の&lt; &gt;で都市切り替え、<br/>右上の☰からメニューが開きます。<br/><br/>「CITIES 」から都市の追加・削除や並び替えもできます。<br/><br/>こちらからどうぞ↓<a href=\"https://t.co/te9hZEOYyx\">https://t.co/te9hZEOYyx</a><a href=\"https://x.com/hashtag/%E5%80%8B%E4%BA%BA%E9%96%8B%E7%99%BA?src=hash&amp;ref_src=twsrc%5Etfw\">#個人開発</a> <a href=\"https://t.co/YMWNDHqaES\">https://t.co/YMWNDHqaES</a></p>— はままぁ (@sukimastock) <a href=\"https://x.com/sukimastock/status/2085378509803749678?ref_src=twsrc%5Etfw\">August 6, 2026</a></blockquote><p><a href=\"https://twitter.com/sukimastock/status/2085378509803749678?s=46\" rel=\"noopener noreferrer\" target=\"_blank\">元のX投稿を開く ↗</a></p></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"bda3b874-e6bb-4457-82c0-6640ef20144a\"><div><div><span><div><a href=\"https://sukimastock.github.io/yumaniwa-town/w/dotweather/\" rel=\"noopener nofollow\" target=\"_blank\"><strong>DotWeather｜湯間庭町</strong><em>世界の空を、静かなドットで眺める天気アプリ。天気や時間の変化をピクセルの景色で楽しめます。</em><em>sukimastock.github.io</em></a></div></span></div></div></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"8b8f86d1-3db4-4a19-8d13-b8172b33829a\"><br/></p>"
+    }
+  ],
+  "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../w/coffee-factory/\">CoffeeFactory（現在のWeb版）↗</a><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「自分専用だったアプリを、初めて外に出した」（note、2026-09-04）。<a href=\"https://note.com/hamamah/n/n4e18da793516\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>"
+}

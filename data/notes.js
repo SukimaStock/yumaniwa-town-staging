@@ -87,6 +87,8 @@ var NOTE_ARTICLES = [
 
     {
         id: "note-20260904-ddca9fa0",
+        archiveThumbnail: "./assets/shinpo/first-public-app/cover.jpg",
+        archivePage: "./shinpo/first-public-app/",
         title: "自分専用だったアプリを、初めて外に出した",
         url: "https://note.com/hamamah/n/n4e18da793516",
         publishedAt: "2026-09-04",
@@ -272,6 +274,8 @@ var NOTE_ARTICLES = [
     },
     {
         id: "a6e80d044f734d4693d0926541fcba22",
+        archiveThumbnail: "./assets/shinpo/coffee-factory/cover.png",
+        archivePage: "./shinpo/coffee-factory/",
         title: "コーヒーが落ちるまでの、静かな時間「CoffeeFactory」（自作アプリ）",
         url: "https://note.com/hamamah/n/ndd00e6f70f55",
         publish_date: "2026-02-09",
