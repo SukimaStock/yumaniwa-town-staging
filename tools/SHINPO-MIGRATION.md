@@ -59,6 +59,6 @@ node tools/shinpo-migrate.cjs dry-run --id <ID> --slug <URL名> \
 
 2026-10-18の原note再照合で、ボードゲーム記事の本文画像は5点（前半2点も欠落していた）、町のはじまりには本文アニメーション1点の欠落が判明した。親の正規ブラウザ取得→GitHub共有の実bytesを復元し、各記事データのsource.mediaへ原URL・位置・caption・SHA256・寸法・frame数を保持。見出しcoverとは別に扱う。アニメーションは480×854の69frames WEBPのまま。本文外部リンクも原典へ戻した。
 
-ゲーム未満記事は本文静止画0、X投稿3件。元noteで確認した正規投稿URLへリンクし、原動画実体は未取得。cloudからpublish.twitter.comのoEmbed取得はTunnel403で拒否。既存の静的fragment契約はscript/iframeを禁止しているため、無断で埋込runtimeを追加せず、動画を別画像に置き換えない。投稿リンク先で動画を読む構成であり、町内動画再生の復元完了とはしない。実機iPhone/iPadはUNVERIFIED。ブラウザー表示と実機の触感を区別する。
+ゲーム未満記事は本文静止画0、X投稿3件。元noteで確認した正規投稿URLへリンクし、原動画実体は未取得。cloudからpublish.twitter.comのoEmbed取得はTunnel403で拒否。既存の静的fragment契約はscript/iframeを禁止しているため、無断で埋込runtimeを追加せず、動画を別画像に置き換えない。その後2026-10-18の明示指示で別note `nca6b0ef9db94` の取得済みGIF（animated WEBP）を牛吸い→蛇口おばけ→豆腐タワーの順で各投稿直前へ追加した。source.approvedReplacementsへ承認・別原典・hash・寸法・frame数・配置を記録。元X投稿リンクは維持し、元動画そのものの復元とはしない。実機iPhone/iPadはUNVERIFIED。ブラウザー表示と実機の触感を区別する。
 
 このツールのテストはこの変更のCIに自動接続していない。必須ゲートを弱めず、上記コマンドを記事追加ごとに実行担当が実行する。保護workflowを変更する場合は別途Authorization → Transitionの現行手順を使う。

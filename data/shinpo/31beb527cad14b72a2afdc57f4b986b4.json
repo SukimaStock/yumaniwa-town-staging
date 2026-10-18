@@ -7,7 +7,46 @@
     "missingMedia": [
       "3 original videos"
     ],
-    "legacyLinks": "Preserve existing links verbatim; this does not authorize replacing source links in future articles."
+    "legacyLinks": "Preserve existing links verbatim; this does not authorize replacing source links in future articles.",
+    "approvedReplacements": {
+      "authorization": "2026-10-18 user explicitly requested GIFs from this other note in place of unavailable X videos. These are approved substitutes, not recovered original videos.",
+      "reference": "https://note.com/hamamah/n/nca6b0ef9db94",
+      "media": [
+        {
+          "path": "assets/shinpo/game-app-in-between/cow-suction.webp",
+          "work": "牛吸い",
+          "sourceUrl": "https://assets.st-note.com/img/1782987953-xAhgdsqjeOzp0GtP497Iw2rb.gif?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+          "sha256": "58f623a2cedd787d66fdeab85964632a9bf143de99d6829c20e4661d22f188eb",
+          "width": 480,
+          "height": 1040,
+          "frames": 63,
+          "bytes": 903740,
+          "before": "<div class=\"video-citation\"><strong>#001 牛吸い #触れるらくがき</strong><br>pic.twitter.com/LawEbLaWw9<br><small>— はままぁ (@sukimastock) May 10, 2026</small><a href=\"https://x.com/sukimastock/status/2053552847078170744\" target=\"_blank\" rel=\"noopener noreferrer\">当時の投稿を見る ↗</a></div>"
+        },
+        {
+          "path": "assets/shinpo/game-app-in-between/faucet-ghost.webp",
+          "work": "蛇口おばけ",
+          "sourceUrl": "https://assets.st-note.com/img/1782987966-Ajxa9Y1mi38Z6sGL0zRQSXNc.gif?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+          "sha256": "18eee80e561f648bb5ab816f6852a73ea82ee2503cbca47baeec28aeeba1b1ac",
+          "width": 480,
+          "height": 1040,
+          "frames": 48,
+          "bytes": 271334,
+          "before": "<div class=\"video-citation\"><strong>#010 蛇口おばけ #触れるらくがき</strong><br>pic.twitter.com/8UypJUbbc4M<br><small>— はままぁ (@sukimastock) May 18, 2026</small><a href=\"https://x.com/sukimastock/status/2056457725253427457\" target=\"_blank\" rel=\"noopener noreferrer\">当時の投稿を見る ↗</a></div>"
+        },
+        {
+          "path": "assets/shinpo/game-app-in-between/tofu-tower.webp",
+          "work": "豆腐タワー",
+          "sourceUrl": "https://assets.st-note.com/img/1782987649-W7PcuCG3h1TQeBOkd5g0zfX2.gif?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+          "sha256": "016eef0f0856df612d00126eb4009c168db0c284ae1c23c44587bb6d94b4ccce",
+          "width": 480,
+          "height": 1040,
+          "frames": 120,
+          "bytes": 341368,
+          "before": "<div class=\"video-citation\"><strong>#003 豆腐タワー #触れるらくがき</strong><br>pic.twitter.com/7sO1Ecec4M<br><small>— はままぁ (@sukimastock) May 13, 2026</small><a href=\"https://x.com/sukimastock/status/2054447396487102904\" target=\"_blank\" rel=\"noopener noreferrer\">当時の投稿を見る ↗</a></div>"
+        }
+      ]
+    }
   },
   "description": "ゲーム未満、アプリ未満の心地よさ。はままぁが2026-06-12に公開した制作記録の原文を、湯間庭町の新聞で読む。",
   "ogDescription": "ゲーム未満、アプリ未満の心地よさ — 過去記事を湯間庭町の中でそのまま読む。",
@@ -73,6 +112,10 @@
     },
     {
       "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/game-app-in-between/cow-suction.webp\" width=\"480\" height=\"1040\" alt=\"牛吸い\" loading=\"lazy\"></figure>"
+    },
+    {
+      "origin": "source",
       "html": "<div class=\"video-citation\"><strong>#001 牛吸い #触れるらくがき</strong><br>pic.twitter.com/LawEbLaWw9<br><small>— はままぁ (@sukimastock) May 10, 2026</small><a href=\"https://x.com/sukimastock/status/2053552847078170744\" target=\"_blank\" rel=\"noopener noreferrer\">当時の投稿を見る ↗</a></div>"
     },
     {
@@ -109,7 +152,15 @@
     },
     {
       "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/game-app-in-between/faucet-ghost.webp\" width=\"480\" height=\"1040\" alt=\"蛇口おばけ\" loading=\"lazy\"></figure>"
+    },
+    {
+      "origin": "source",
       "html": "<div class=\"video-citation\"><strong>#010 蛇口おばけ #触れるらくがき</strong><br>pic.twitter.com/8UypJUbbc4M<br><small>— はままぁ (@sukimastock) May 18, 2026</small><a href=\"https://x.com/sukimastock/status/2056457725253427457\" target=\"_blank\" rel=\"noopener noreferrer\">当時の投稿を見る ↗</a></div>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/game-app-in-between/tofu-tower.webp\" width=\"480\" height=\"1040\" alt=\"豆腐タワー\" loading=\"lazy\"></figure>"
     },
     {
       "origin": "source",

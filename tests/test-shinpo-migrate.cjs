@@ -21,7 +21,7 @@ test('existing three articles preserve ordered content, links, images, metadata 
   for(const [from,to] of Object.entries(sourceLinks)) old=old.replaceAll('href="'+from+'"','href="'+to+'"');
   if(a.slug==='town-beginning') old=old.replace('<a class="source-preview" href="../../">','<a class="source-preview" href="https://sukimastock.github.io/yumaniwa-town/">');
   // Only insignificant inter-tag whitespace differs: even existing local original links remain untouched.
-  const withoutRestoredMedia=generated.replace(/<figure><img src="\.\.\/\.\.\/assets\/shinpo\/(?:board-game-making\/body-[1-5]|town-beginning\/town-animation)\.webp"[^>]*>(?:<figcaption>[^<]*<\/figcaption>)?<\/figure>/g,'');
+  const withoutRestoredMedia=generated.replace(/<figure><img src="\.\.\/\.\.\/assets\/shinpo\/(?:board-game-making\/body-[1-5]|town-beginning\/town-animation|game-app-in-between\/(?:cow-suction|faucet-ghost|tofu-tower))\.webp"[^>]*>(?:<figcaption>[^<]*<\/figcaption>)?<\/figure>/g,'');
   old=old.replace(/<aside class="media-note"[\s\S]*?<\/aside>/g,'');
   assert.equal(compact(withoutRestoredMedia),compact(old),a.slug);
   assert.equal(generated,fs.readFileSync(path.join(root,'shinpo',a.slug,'index.html'),'utf8'));
