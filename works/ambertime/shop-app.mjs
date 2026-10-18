@@ -9,6 +9,7 @@ import {barrel,glass,bottleArt} from './art.mjs?v=0.5';
 import {brandArt} from './brand-art.mjs?v=0.11';
 import {stillArt} from './distillery-art.mjs?v=0.5';
 import {shortTaste,shortChange} from './tasting-view.mjs?v=0.6';
+import {flavorTypeView} from './flavor-types.mjs?v=0.19-flavor';
 import {FLAVOR_AXES,flavorMeter} from './flavor-view.mjs?v=0.18-tasting';
 import {nearbyCasks,previousRelease,releasePair,sourceDetails} from './nearby-comparison.mjs?v=0.19staff';
 export const SAVE_KEY='sukimastock.ambertime.wholesale.v18';
@@ -85,6 +86,7 @@ function compareFact(label,a,b){return '<section class="nearby-fact"><h3>'+esc(l
 function caskComparisonView(){
  const items=nearbyCasks(game),pair=[items.find(c=>c.caskId===modal.baseId),items.find(c=>c.caskId===modal.otherId)];if(pair.some(x=>!x)||pair[0].caskId===pair[1].caskId)return '';
  let out='<div class="nearby-pair">'+pair.map((c,i)=>'<article><span class="nearby-art">'+barrel(c.type)+'</span><strong>'+['今見ている樽','比べる樽'][i]+'</strong>'+caskIdentity(c)+'</article>').join('')+'</div>';
+ out+=compareFact('風味',...pair.map(c=>flavorTypeView(c.profile)||'記録なし'));
  out+=compareFact('熟成期間',...pair.map(c=>ageLabel(c.age)));
  for(const {label,key} of FLAVOR_AXES)out+=compareFact(label,...pair.map(c=>flavorMeter(c.profile,key)));
  out+=compareFact('残量',...pair.map(c=>finiteText(c.litres,n=>n.toFixed(1)+' L')));
@@ -364,6 +366,7 @@ function syncModal(){
   const prices=D.salePrices(game,id),record=game.records.find(r=>r.productId===id);title=(brandFor(id)?.name??record?.name??'この一本')+(releaseTag(id)?' · '+releaseTag(id):'');
   const release=releaseFor(id);
   body='<div class="product-overview"><div class="modal-bottle">'+productArt(p)+'</div><p>'+ageLabel(p.age)+' · 在庫 '+p.stock+'本<br>'+provenanceTag(release?.caskId)+'<span class="product-state">'+(p.stock===0?'完売':meta.listed?'販売中':'保管中')+'</span></p></div>'+(deliveryNotice?'<p class="delivery-confirmation" role="status">'+esc(deliveryNotice)+'</p>':'');
+  body+=flavorTypeView(release?.profile)+('<div class="bottle-flavor">'+FLAVOR_AXES.map(({label,key})=>'<section><h3>'+esc(label)+'</h3>'+flavorMeter(release?.profile,key)+'</section>').join('')+'</div>');
   body+='<section class="sales-destination" data-destination="shelf"><h3>自家販売</h3><p>'+unit(p.price)+'/本 · '+(p.stock===0?'完売':meta.listed?'販売中':'保管中')+'</p><div class="price-options">'+['low','standard','high'].map((tier,i)=>button(['低め','標準','高め'][i]+'<span>'+unit(prices[tier])+'/本</span>','price',id,'data-tier="'+tier+'" aria-pressed="'+(meta.selectedPrice===tier)+'"')).join('')+'</div>'+(meta.listed?'':button('自家販売を始める','list',id,p.stock>0?'':'disabled'))+'<p class="quiet">自家販売 '+(release?.sold??p.sold)+'本 · 売上 '+money(release?.revenue??p.revenue)+'</p></section>';
   for(const shop of SHOPS){
    const stockist=D.shopBrandStats(game,release?.brandId,shop.id),invitation=shopOffers().find(o=>o.brandId===release?.brandId&&o.shopId===shop.id);
@@ -443,7 +446,7 @@ function render(){
   if(tasting){
    const comp=D.comparison(game,c.id),previous=comp.previous?.profile,hasPrevious=FLAVOR_AXES.some(({key})=>Number.isFinite(previous?.[key])&&previous[key]>=0&&previous[key]<=1.35);
    $('taste-date').textContent=ageLabel(comp.current.age)+'の試飲';
-   $('taste-current').innerHTML=FLAVOR_AXES.map(({label,key})=>'<section class="tasting-flavor"><h3>'+esc(label)+'</h3>'+flavorMeter(comp.current.profile,key,{previousProfile:previous,previousLabel:comp.previous?'前回 '+ageLabel(comp.previous.age):'前回'})+'</section>').join('');
+   $('taste-current').innerHTML=flavorTypeView(comp.current.profile)+FLAVOR_AXES.map(({label,key})=>'<section class="tasting-flavor"><h3>'+esc(label)+'</h3>'+flavorMeter(comp.current.profile,key,{previousProfile:previous,previousLabel:comp.previous?'前回 '+ageLabel(comp.previous.age):'前回'})+'</section>').join('');
    $('taste-previous').hidden=!comp.previous;$('taste-previous').textContent=hasPrevious?'縦線：前回 '+ageLabel(comp.previous.age):comp.previous?'前回の風味は記録なし':'';
   }
  }

@@ -1,0 +1,137 @@
+{
+  "browser": "153.0.8010.0",
+  "physicalSafari": false,
+  "fixtures": "Public newStaffDistillery / fill / advance / bottleBranded operations. No forged profile, balances or ledger.",
+  "sourceHashes": {
+    "index.html": "c5f5939b0f20529395fdbbadcdbe4d5ead894afc9f166ee522b3bc7c07ae2b11",
+    "shop-app.mjs": "d57ffb06f61dc2c8a7c7fedbad4b0920288fadbe370a32f881b2f9284f4247e4",
+    "shop.css": "2c5e8f5971e7eb3a1ffc3e15ccbf9014c4d3b5f1bad90dad899cf28652541016",
+    "flavor-types.mjs": "233eb1c504d676e7c0426436c34b7664436f0b3e6853430fb7fab2ee312d11f9"
+  },
+  "screenshots": {
+    "390-tasting.png": "0eec8758ea3f46370d4ebd998bf480a7b2d31587531bfd4b69177b620d66d55c",
+    "390-comparison.png": "4e969ad27598ce65b03c96fd7291d24944b000b9c168871916044a4be1764f71",
+    "390-bottle.png": "256770fe054761cd301d3f4cd1ff8d1883ddafe9e720e4e81690db4cfb72cd71",
+    "390-tasting-irish.png": "39b9ae2b8fcb04e5c73c12a49f8940f8fee5817ca65ea0ab21793a41176f7cfb",
+    "360-tasting.png": "a0fc1b524090b779001e814ae3a0e1bc1c4a95979c6c6994ba8e2131dd643fc6",
+    "360-tasting-actions.png": "2c4c002c4b92f8c2b36b26fce13a4a8fd85ef558863737fe53293c7c88d3aee9",
+    "360-comparison.png": "8d91586932beeefdd5211076095312673849370f1358d9d3a4d9ec15f6d9130c",
+    "360-bottle.png": "9b69e6187ab9f014d296b87366220f41d58a43237f69b50f129ab59b2710cecd",
+    "1280-tasting.png": "db0352e09aafefbc3d2a286c478f27729c1c67ae3546d304d42467bea12add26",
+    "1280-comparison.png": "000fbf51fc1ecb7c7b25e3579f74a12daf54e3c5464fe49fa43dfddc34484506",
+    "1280-bottle.png": "97d7141d4bdfd9c14a75b0a1fe22f09a40aa39d87a543db787064d760e15e2b1"
+  },
+  "checks": [
+    {
+      "width": 390,
+      "height": 844,
+      "tastingType": "dry-wood",
+      "tastingThreeMeters": true,
+      "previousMarkersDistinct": true,
+      "comparisonTwoTypesSixMeters": true,
+      "bottleThreeMeters": true,
+      "bottleTypeStableAfterTwoMonths": true,
+      "displayOpenCloseNoMutation": true,
+      "strictReloadExact": true,
+      "tastingGeometry": {
+        "left": 17,
+        "right": 373,
+        "top": 307.75,
+        "bottom": 756,
+        "overflow": false,
+        "viewport": 390
+      },
+      "comparisonGeometry": {
+        "left": 18,
+        "right": 372,
+        "top": 49.921875,
+        "bottom": 794.0625,
+        "overflow": false,
+        "viewport": 390
+      },
+      "bottleGeometry": {
+        "left": 18,
+        "right": 372,
+        "top": 18,
+        "bottom": 826,
+        "overflow": false,
+        "viewport": 390
+      },
+      "errors": []
+    },
+    {
+      "width": 360,
+      "height": 740,
+      "tastingType": "dry-wood",
+      "tastingThreeMeters": true,
+      "previousMarkersDistinct": true,
+      "comparisonTwoTypesSixMeters": true,
+      "bottleThreeMeters": true,
+      "bottleTypeStableAfterTwoMonths": true,
+      "displayOpenCloseNoMutation": true,
+      "strictReloadExact": true,
+      "tastingGeometry": {
+        "left": 17,
+        "right": 343,
+        "top": 307.75,
+        "bottom": 756,
+        "overflow": false,
+        "viewport": 360
+      },
+      "comparisonGeometry": {
+        "left": 18,
+        "right": 342,
+        "top": 18,
+        "bottom": 722,
+        "overflow": false,
+        "viewport": 360
+      },
+      "bottleGeometry": {
+        "left": 18,
+        "right": 342,
+        "top": 18,
+        "bottom": 722,
+        "overflow": false,
+        "viewport": 360
+      },
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "tastingType": "dry-wood",
+      "tastingThreeMeters": true,
+      "previousMarkersDistinct": true,
+      "comparisonTwoTypesSixMeters": true,
+      "bottleThreeMeters": true,
+      "bottleTypeStableAfterTwoMonths": true,
+      "displayOpenCloseNoMutation": true,
+      "strictReloadExact": true,
+      "tastingGeometry": {
+        "left": 662.5,
+        "right": 902.5,
+        "top": 196.6875,
+        "bottom": 696.28125,
+        "overflow": false,
+        "viewport": 1280
+      },
+      "comparisonGeometry": {
+        "left": 412.5,
+        "right": 852.5,
+        "top": 74.921875,
+        "bottom": 825.0625,
+        "overflow": false,
+        "viewport": 1280
+      },
+      "bottleGeometry": {
+        "left": 412.5,
+        "right": 852.5,
+        "top": 18,
+        "bottom": 882,
+        "overflow": false,
+        "viewport": 1280
+      },
+      "errors": []
+    }
+  ]
+}

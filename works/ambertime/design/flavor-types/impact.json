@@ -1,0 +1,364 @@
+{
+  "schema": "yumaniwa-impact-check-report/0.2",
+  "change": "Presentation-only deterministic flavor interpretation in tasting, cask comparison and bottle details",
+  "planLevel": "standard",
+  "classes": [
+    "WORK"
+  ],
+  "baseSha": "b3fbe067551b23db7004ebe26fcf364dacc83ea8",
+  "target": "worktree",
+  "headSha": "90f088077f39d2b0f24891be2831c78e3aa60eed",
+  "changedPaths": [
+    ".change-plans/ambertime-flavor-types/r0.lock.json",
+    "works/ambertime/design/flavor-types/REPORT.md",
+    "works/ambertime/design/flavor-types/browser/1280-bottle.png",
+    "works/ambertime/design/flavor-types/browser/1280-comparison.png",
+    "works/ambertime/design/flavor-types/browser/1280-tasting.png",
+    "works/ambertime/design/flavor-types/browser/360-bottle.png",
+    "works/ambertime/design/flavor-types/browser/360-comparison.png",
+    "works/ambertime/design/flavor-types/browser/360-tasting-actions.png",
+    "works/ambertime/design/flavor-types/browser/360-tasting.png",
+    "works/ambertime/design/flavor-types/browser/390-bottle.png",
+    "works/ambertime/design/flavor-types/browser/390-comparison.png",
+    "works/ambertime/design/flavor-types/browser/390-tasting-irish.png",
+    "works/ambertime/design/flavor-types/browser/390-tasting.png",
+    "works/ambertime/design/flavor-types/browser/README.md",
+    "works/ambertime/design/flavor-types/browser/browser-results.json",
+    "works/ambertime/design/flavor-types/delegated.json",
+    "works/ambertime/design/flavor-types/delegated.mjs",
+    "works/ambertime/design/flavor-types/distribution.json",
+    "works/ambertime/design/flavor-types/distribution.mjs",
+    "works/ambertime/design/flavor-types/impact.json",
+    "works/ambertime/design/flavor-types/risk.json",
+    "works/ambertime/design/flavor-types/scope.json",
+    "works/ambertime/flavor-types.mjs",
+    "works/ambertime/index.html",
+    "works/ambertime/shop-app.mjs",
+    "works/ambertime/shop.css",
+    "works/ambertime/tests/flavor-types-browser.mjs",
+    "works/ambertime/tests/flavor-types.test.mjs"
+  ],
+  "executablePaths": [],
+  "coveredPaths": [
+    "works/ambertime/design/flavor-types/browser/browser-results.json",
+    "works/ambertime/design/flavor-types/delegated.json",
+    "works/ambertime/design/flavor-types/delegated.mjs",
+    "works/ambertime/design/flavor-types/distribution.json",
+    "works/ambertime/design/flavor-types/distribution.mjs",
+    "works/ambertime/design/flavor-types/impact.json",
+    "works/ambertime/design/flavor-types/risk.json",
+    "works/ambertime/design/flavor-types/scope.json",
+    "works/ambertime/flavor-types.mjs",
+    "works/ambertime/index.html",
+    "works/ambertime/shop-app.mjs",
+    "works/ambertime/shop.css",
+    "works/ambertime/tests/flavor-types-browser.mjs",
+    "works/ambertime/tests/flavor-types.test.mjs"
+  ],
+  "uncoveredPaths": [
+    ".change-plans/ambertime-flavor-types/r0.lock.json",
+    "works/ambertime/design/flavor-types/REPORT.md",
+    "works/ambertime/design/flavor-types/browser/1280-bottle.png",
+    "works/ambertime/design/flavor-types/browser/1280-comparison.png",
+    "works/ambertime/design/flavor-types/browser/1280-tasting.png",
+    "works/ambertime/design/flavor-types/browser/360-bottle.png",
+    "works/ambertime/design/flavor-types/browser/360-comparison.png",
+    "works/ambertime/design/flavor-types/browser/360-tasting-actions.png",
+    "works/ambertime/design/flavor-types/browser/360-tasting.png",
+    "works/ambertime/design/flavor-types/browser/390-bottle.png",
+    "works/ambertime/design/flavor-types/browser/390-comparison.png",
+    "works/ambertime/design/flavor-types/browser/390-tasting-irish.png",
+    "works/ambertime/design/flavor-types/browser/390-tasting.png",
+    "works/ambertime/design/flavor-types/browser/README.md"
+  ],
+  "requiredImpacts": [
+    {
+      "id": "work.regression",
+      "description": "Required by high-risk profile work-runtime",
+      "descriptions": [
+        "Required by high-risk profile work-runtime"
+      ],
+      "rules": [],
+      "profiles": [
+        "work-runtime"
+      ],
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/browser-results.json",
+        "works/ambertime/design/flavor-types/delegated.json",
+        "works/ambertime/design/flavor-types/delegated.mjs",
+        "works/ambertime/design/flavor-types/distribution.json",
+        "works/ambertime/design/flavor-types/distribution.mjs",
+        "works/ambertime/design/flavor-types/impact.json",
+        "works/ambertime/design/flavor-types/risk.json",
+        "works/ambertime/design/flavor-types/scope.json",
+        "works/ambertime/flavor-types.mjs",
+        "works/ambertime/index.html",
+        "works/ambertime/shop-app.mjs",
+        "works/ambertime/shop.css",
+        "works/ambertime/tests/flavor-types-browser.mjs",
+        "works/ambertime/tests/flavor-types.test.mjs"
+      ],
+      "core": false
+    },
+    {
+      "id": "work.runtime",
+      "description": "Required by high-risk profile work-runtime",
+      "descriptions": [
+        "Required by high-risk profile work-runtime"
+      ],
+      "rules": [],
+      "profiles": [
+        "work-runtime"
+      ],
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/browser-results.json",
+        "works/ambertime/design/flavor-types/delegated.json",
+        "works/ambertime/design/flavor-types/delegated.mjs",
+        "works/ambertime/design/flavor-types/distribution.json",
+        "works/ambertime/design/flavor-types/distribution.mjs",
+        "works/ambertime/design/flavor-types/impact.json",
+        "works/ambertime/design/flavor-types/risk.json",
+        "works/ambertime/design/flavor-types/scope.json",
+        "works/ambertime/flavor-types.mjs",
+        "works/ambertime/index.html",
+        "works/ambertime/shop-app.mjs",
+        "works/ambertime/shop.css",
+        "works/ambertime/tests/flavor-types-browser.mjs",
+        "works/ambertime/tests/flavor-types.test.mjs"
+      ],
+      "core": true
+    }
+  ],
+  "results": [
+    {
+      "status": "PASS",
+      "check": "impact.declared",
+      "impact": "work.regression",
+      "description": "Required by high-risk profile work-runtime",
+      "descriptions": [
+        "Required by high-risk profile work-runtime"
+      ],
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/browser-results.json",
+        "works/ambertime/design/flavor-types/delegated.json",
+        "works/ambertime/design/flavor-types/delegated.mjs",
+        "works/ambertime/design/flavor-types/distribution.json",
+        "works/ambertime/design/flavor-types/distribution.mjs",
+        "works/ambertime/design/flavor-types/impact.json",
+        "works/ambertime/design/flavor-types/risk.json",
+        "works/ambertime/design/flavor-types/scope.json",
+        "works/ambertime/flavor-types.mjs",
+        "works/ambertime/index.html",
+        "works/ambertime/shop-app.mjs",
+        "works/ambertime/shop.css",
+        "works/ambertime/tests/flavor-types-browser.mjs",
+        "works/ambertime/tests/flavor-types.test.mjs"
+      ],
+      "rules": [],
+      "profiles": [
+        "work-runtime"
+      ],
+      "detail": "impact is declared in impactChecks"
+    },
+    {
+      "status": "PASS",
+      "check": "impact.declared",
+      "impact": "work.runtime",
+      "description": "Required by high-risk profile work-runtime",
+      "descriptions": [
+        "Required by high-risk profile work-runtime"
+      ],
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/browser-results.json",
+        "works/ambertime/design/flavor-types/delegated.json",
+        "works/ambertime/design/flavor-types/delegated.mjs",
+        "works/ambertime/design/flavor-types/distribution.json",
+        "works/ambertime/design/flavor-types/distribution.mjs",
+        "works/ambertime/design/flavor-types/impact.json",
+        "works/ambertime/design/flavor-types/risk.json",
+        "works/ambertime/design/flavor-types/scope.json",
+        "works/ambertime/flavor-types.mjs",
+        "works/ambertime/index.html",
+        "works/ambertime/shop-app.mjs",
+        "works/ambertime/shop.css",
+        "works/ambertime/tests/flavor-types-browser.mjs",
+        "works/ambertime/tests/flavor-types.test.mjs"
+      ],
+      "rules": [],
+      "profiles": [
+        "work-runtime"
+      ],
+      "detail": "impact is declared in impactChecks"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        ".change-plans/ambertime-flavor-types/r0.lock.json"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/flavor-types/REPORT.md"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/1280-bottle.png"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/1280-comparison.png"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/1280-tasting.png"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/360-bottle.png"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/360-comparison.png"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/360-tasting-actions.png"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/360-tasting.png"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/390-bottle.png"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/390-comparison.png"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/390-tasting-irish.png"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/390-tasting.png"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/flavor-types/browser/README.md"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    }
+  ],
+  "impactOk": true,
+  "exitCode": 0
+}

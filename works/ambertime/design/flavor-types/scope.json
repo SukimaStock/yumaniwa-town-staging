@@ -1,0 +1,225 @@
+{
+  "schema": "yumaniwa-scope-guard-report/0.2",
+  "change": "Presentation-only deterministic flavor interpretation in tasting, cask comparison and bottle details",
+  "planLevel": "standard",
+  "classes": [
+    "WORK"
+  ],
+  "baseSha": "b3fbe067551b23db7004ebe26fcf364dacc83ea8",
+  "target": "worktree",
+  "headSha": "90f088077f39d2b0f24891be2831c78e3aa60eed",
+  "changedPaths": [
+    ".change-plans/ambertime-flavor-types/r0.lock.json",
+    "works/ambertime/design/flavor-types/REPORT.md",
+    "works/ambertime/design/flavor-types/browser/1280-bottle.png",
+    "works/ambertime/design/flavor-types/browser/1280-comparison.png",
+    "works/ambertime/design/flavor-types/browser/1280-tasting.png",
+    "works/ambertime/design/flavor-types/browser/360-bottle.png",
+    "works/ambertime/design/flavor-types/browser/360-comparison.png",
+    "works/ambertime/design/flavor-types/browser/360-tasting-actions.png",
+    "works/ambertime/design/flavor-types/browser/360-tasting.png",
+    "works/ambertime/design/flavor-types/browser/390-bottle.png",
+    "works/ambertime/design/flavor-types/browser/390-comparison.png",
+    "works/ambertime/design/flavor-types/browser/390-tasting-irish.png",
+    "works/ambertime/design/flavor-types/browser/390-tasting.png",
+    "works/ambertime/design/flavor-types/browser/README.md",
+    "works/ambertime/design/flavor-types/browser/browser-results.json",
+    "works/ambertime/design/flavor-types/delegated.json",
+    "works/ambertime/design/flavor-types/delegated.mjs",
+    "works/ambertime/design/flavor-types/distribution.json",
+    "works/ambertime/design/flavor-types/distribution.mjs",
+    "works/ambertime/design/flavor-types/scope.json",
+    "works/ambertime/flavor-types.mjs",
+    "works/ambertime/index.html",
+    "works/ambertime/shop-app.mjs",
+    "works/ambertime/shop.css",
+    "works/ambertime/tests/flavor-types-browser.mjs",
+    "works/ambertime/tests/flavor-types.test.mjs"
+  ],
+  "results": [
+    {
+      "status": "PASS",
+      "path": ".change-plans/ambertime-flavor-types/r0.lock.json",
+      "check": "scope.allowed",
+      "pattern": ".change-plans/ambertime-flavor-types/r0.lock.json",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/REPORT.md",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/browser/1280-bottle.png",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/browser/1280-comparison.png",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/browser/1280-tasting.png",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/browser/360-bottle.png",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/browser/360-comparison.png",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/browser/360-tasting-actions.png",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/browser/360-tasting.png",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/browser/390-bottle.png",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/browser/390-comparison.png",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/browser/390-tasting-irish.png",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/browser/390-tasting.png",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/browser/README.md",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/browser/browser-results.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/delegated.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/delegated.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/distribution.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/distribution.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/flavor-types/scope.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/flavor-types/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/flavor-types.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/flavor-types.mjs",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/index.html",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/index.html",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/shop-app.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/shop-app.mjs",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/shop.css",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/shop.css",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/tests/flavor-types-browser.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/tests/flavor-types*.mjs",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/tests/flavor-types.test.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/tests/flavor-types*.mjs",
+      "detail": "changed path is within allowedPaths"
+    }
+  ],
+  "scopeOk": true,
+  "exitCode": 0
+}
