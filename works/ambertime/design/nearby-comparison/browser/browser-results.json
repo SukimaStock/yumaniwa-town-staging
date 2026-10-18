@@ -1,0 +1,385 @@
+{
+  "browser": "153.0.8010.0",
+  "fixtures": "Generated through public operations in native Chromium, then strict serialized and restored. No injected game state.",
+  "physicalSafari": false,
+  "humanReadability": false,
+  "sourceHashes": {
+    "index.html": "42379725acc2a81da759cf56438b0b9d812407d245ce147994d1762442e45db2",
+    "shop-app.mjs": "9e50edfe64572c5765e2be12eb987f0f09698b42f0c56c02c33dbcce05f48f6a",
+    "shop.css": "80312bf80490ef28e033e1ad2f835173e8c9f53bf42e5e3bea522fc5e6c39377",
+    "partner-orders.mjs": "d4ae340d2d05041b6ef6a0bb7484754a31b885dcdc21b141c2f35951684544ff",
+    "nearby-comparison.mjs": "800b7802e5a637b07ffc7510379502e6433dc0e01f3ea1f5b4c41f0f29e7428d",
+    "recipe-book.mjs": "4c613e30e87ec30e215b7b18355d57cefec37694314d341716c43f4583daf65b"
+  },
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "noOtherCaskNoEmptyPicker": true,
+      "firstManualRecipeStillSavable": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "oneOtherDirect": true,
+      "anchoredCask": true,
+      "fiveRelevantFacts": true,
+      "canonicalMetersExactUnclipped": true,
+      "noUniversalSelectorOrTable": true,
+      "closeExactCaskAndPause": true,
+      "firstDisplayMs": 30,
+      "redisplayMs": 30,
+      "layout": {
+        "scrollHeight": 673,
+        "clientHeight": 673
+      }
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "threePictorialCandidatesSelfExcluded": true,
+      "identicalConditionPositionLabels": true,
+      "anchorFixedDuringSwitch": true,
+      "switchMs": 66
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "kind": "mixed",
+      "oneActionSameBrandImmediatePrevious": true,
+      "firstReleaseActionAbsent": true,
+      "soldOutHistoryComparable": true,
+      "retailAndShopCountsSeparate": true,
+      "actualRetailExposureNotElapsed": true,
+      "actualPriceHistoryNotCurrentPrice": true,
+      "storedOrSellingState": true,
+      "exactProductAndHistoryReturn": true,
+      "firstDisplayMs": 47,
+      "layout": {
+        "scrollHeight": 713,
+        "clientHeight": 713
+      }
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "kind": "selling",
+      "oneActionSameBrandImmediatePrevious": true,
+      "firstReleaseActionAbsent": true,
+      "soldOutHistoryComparable": true,
+      "retailAndShopCountsSeparate": true,
+      "actualRetailExposureNotElapsed": true,
+      "actualPriceHistoryNotCurrentPrice": true,
+      "storedOrSellingState": true,
+      "exactProductAndHistoryReturn": true,
+      "firstDisplayMs": 46,
+      "layout": {
+        "scrollHeight": 713,
+        "clientHeight": 713
+      }
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "recipeSourceCompact": true,
+      "selectedRecipeExecutesUnchanged": true,
+      "reservationImmutable": true,
+      "recipeReloadExact": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "kind": "queued",
+      "compareReadOnlyAcrossClock": true,
+      "closePreservesTastingQueuePause": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "kind": "tasting",
+      "compareReadOnlyAcrossClock": true,
+      "closePreservesTastingQueuePause": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "legacyOriginNoInventedReleaseComparison": true,
+      "legacyRecordsAndSavePreserved": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "pendingJudgmentPriorityPreserved": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "generationInheritsRecipeAndReleaseReference": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "noOtherCaskNoEmptyPicker": true,
+      "firstManualRecipeStillSavable": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "oneOtherDirect": true,
+      "anchoredCask": true,
+      "fiveRelevantFacts": true,
+      "canonicalMetersExactUnclipped": true,
+      "noUniversalSelectorOrTable": true,
+      "closeExactCaskAndPause": true,
+      "firstDisplayMs": 34,
+      "redisplayMs": 31,
+      "layout": {
+        "scrollHeight": 667,
+        "clientHeight": 667
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "threePictorialCandidatesSelfExcluded": true,
+      "identicalConditionPositionLabels": true,
+      "anchorFixedDuringSwitch": true,
+      "switchMs": 62
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "kind": "mixed",
+      "oneActionSameBrandImmediatePrevious": true,
+      "firstReleaseActionAbsent": true,
+      "soldOutHistoryComparable": true,
+      "retailAndShopCountsSeparate": true,
+      "actualRetailExposureNotElapsed": true,
+      "actualPriceHistoryNotCurrentPrice": true,
+      "storedOrSellingState": true,
+      "exactProductAndHistoryReturn": true,
+      "firstDisplayMs": 44,
+      "layout": {
+        "scrollHeight": 707,
+        "clientHeight": 707
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "kind": "selling",
+      "oneActionSameBrandImmediatePrevious": true,
+      "firstReleaseActionAbsent": true,
+      "soldOutHistoryComparable": true,
+      "retailAndShopCountsSeparate": true,
+      "actualRetailExposureNotElapsed": true,
+      "actualPriceHistoryNotCurrentPrice": true,
+      "storedOrSellingState": true,
+      "exactProductAndHistoryReturn": true,
+      "firstDisplayMs": 46,
+      "layout": {
+        "scrollHeight": 707,
+        "clientHeight": 707
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "recipeSourceCompact": true,
+      "selectedRecipeExecutesUnchanged": true,
+      "reservationImmutable": true,
+      "recipeReloadExact": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "kind": "queued",
+      "compareReadOnlyAcrossClock": true,
+      "closePreservesTastingQueuePause": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "kind": "tasting",
+      "compareReadOnlyAcrossClock": true,
+      "closePreservesTastingQueuePause": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "legacyOriginNoInventedReleaseComparison": true,
+      "legacyRecordsAndSavePreserved": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "pendingJudgmentPriorityPreserved": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "generationInheritsRecipeAndReleaseReference": true
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "noOtherCaskNoEmptyPicker": true,
+      "firstManualRecipeStillSavable": true
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "oneOtherDirect": true,
+      "anchoredCask": true,
+      "fiveRelevantFacts": true,
+      "canonicalMetersExactUnclipped": true,
+      "noUniversalSelectorOrTable": true,
+      "closeExactCaskAndPause": true,
+      "firstDisplayMs": 43,
+      "redisplayMs": 45,
+      "layout": {
+        "scrollHeight": 667,
+        "clientHeight": 667
+      }
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "threePictorialCandidatesSelfExcluded": true,
+      "identicalConditionPositionLabels": true,
+      "anchorFixedDuringSwitch": true,
+      "switchMs": 63
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "kind": "mixed",
+      "oneActionSameBrandImmediatePrevious": true,
+      "firstReleaseActionAbsent": true,
+      "soldOutHistoryComparable": true,
+      "retailAndShopCountsSeparate": true,
+      "actualRetailExposureNotElapsed": true,
+      "actualPriceHistoryNotCurrentPrice": true,
+      "storedOrSellingState": true,
+      "exactProductAndHistoryReturn": true,
+      "firstDisplayMs": 49,
+      "layout": {
+        "scrollHeight": 707,
+        "clientHeight": 706
+      }
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "kind": "selling",
+      "oneActionSameBrandImmediatePrevious": true,
+      "firstReleaseActionAbsent": true,
+      "soldOutHistoryComparable": true,
+      "retailAndShopCountsSeparate": true,
+      "actualRetailExposureNotElapsed": true,
+      "actualPriceHistoryNotCurrentPrice": true,
+      "storedOrSellingState": true,
+      "exactProductAndHistoryReturn": true,
+      "firstDisplayMs": 47,
+      "layout": {
+        "scrollHeight": 707,
+        "clientHeight": 706
+      }
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "recipeSourceCompact": true,
+      "selectedRecipeExecutesUnchanged": true,
+      "reservationImmutable": true,
+      "recipeReloadExact": true
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "kind": "queued",
+      "compareReadOnlyAcrossClock": true,
+      "closePreservesTastingQueuePause": true
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "kind": "tasting",
+      "compareReadOnlyAcrossClock": true,
+      "closePreservesTastingQueuePause": true
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "legacyOriginNoInventedReleaseComparison": true,
+      "legacyRecordsAndSavePreserved": true
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "pendingJudgmentPriorityPreserved": true
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "generationInheritsRecipeAndReleaseReference": true
+    }
+  ],
+  "performanceChecks": [
+    {
+      "publicPlayMs": 7252.70000000298,
+      "serializationMs": 6657.29999999702,
+      "strictRestoreMs": 15.299999997019768,
+      "month": 360,
+      "casks": [
+        195,
+        197,
+        200,
+        206
+      ],
+      "releases": 48,
+      "completedGenerations": 1,
+      "operations": 910,
+      "buildAndStrictMs": 13941.819263000001,
+      "appLoadStrictMs": 6733.268166000002,
+      "caskFirstMs": 27.200000002980232,
+      "caskPairFirstMs": 31.799999997019768,
+      "caskChangePickerMs": 32.100000001490116,
+      "caskSwitchMs": 32.099999994039536,
+      "caskReopenMs": 22.200000002980232,
+      "caskPairReopenMs": 31.700000002980232,
+      "releaseFirstMs": 19.799999997019768,
+      "releaseReopenMs": 23.400000005960464,
+      "comparisonReadOnly": true
+    },
+    {
+      "publicPlayMs": 65541,
+      "serializationMs": 62350.70000000298,
+      "strictRestoreMs": 34.20000000298023,
+      "month": 1440,
+      "casks": [
+        749,
+        758,
+        762,
+        764
+      ],
+      "releases": 163,
+      "completedGenerations": 4,
+      "operations": 3487,
+      "buildAndStrictMs": 127953.74232299998,
+      "appLoadStrictMs": 64750.418194,
+      "caskFirstMs": 42,
+      "caskPairFirstMs": 28.700000002980232,
+      "caskChangePickerMs": 26.100000001490116,
+      "caskSwitchMs": 31.799999997019768,
+      "caskReopenMs": 36.399999998509884,
+      "caskPairReopenMs": 21.600000001490116,
+      "releaseFirstMs": 56,
+      "releaseReopenMs": 28.600000001490116,
+      "comparisonReadOnly": true
+    }
+  ],
+  "policySourceSha256": "a6accb95e6e72bcbc30d9fb2934272069c416c50afedd8b3d465f240a706a3c0",
+  "policyFunctionSha256": "5ed2ed719aa99e02871fd3db31665d4de797922365b009717ed397fc305e787b",
+  "timingMethod": "Performance careers execute unchanged buildGenerationGame policy via public operations entirely in native Chromium. Strict serialize/restore and app reload are measured separately. UI timings measure synthetic DOM click through two requestAnimationFrame callbacks, including browser scheduling; they are not physical iPhone timings."
+}

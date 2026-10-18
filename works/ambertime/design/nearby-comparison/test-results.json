@@ -1,0 +1,29 @@
+{
+  "base": "0e0a526b2f03efc392243810c41031320665cf4c",
+  "command": "cd works/ambertime && npm test",
+  "tests": 538,
+  "pass": 538,
+  "fail": 0,
+  "durationMs": 108829.928368,
+  "newReadModelTests": 13,
+  "existingTests": 525,
+  "logSha256": "55dcce1cd46e88aae00aaaadada76b1e132a72cc9a62514c6fc714e6f083736b",
+  "testedSources": {
+    "partner-orders.mjs": "d4ae340d2d05041b6ef6a0bb7484754a31b885dcdc21b141c2f35951684544ff",
+    "nearby-comparison.mjs": "800b7802e5a637b07ffc7510379502e6433dc0e01f3ea1f5b4c41f0f29e7428d",
+    "tests/nearby-comparison.test.mjs": "315dbf53ae6e5f9e06bd611d10e7255b5dd891a4de8fd6f7ca8d36cacf20f10e"
+  },
+  "protectedByteIdentical": [
+    "model.mjs",
+    "economy.mjs",
+    "parameters.mjs",
+    "economy-parameters.mjs",
+    "partner-parameters.mjs",
+    "aroma-extraction.mjs",
+    "brand-reputation.mjs",
+    "generations.mjs",
+    "recipe-book.mjs"
+  ],
+  "saveContract": "v17 same fields/key/operations; transient read context only",
+  "physicalSafari": false
+}
