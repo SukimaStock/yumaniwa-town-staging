@@ -1,0 +1,141 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "658f4dec04580794e7f00abfd2f5224a733928f0dadbe2da910cafa0a80246cb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v0152-cross-audit-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime 0.15.2 cross-audit of cask identity, inventory and queued decisions",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "9907ffac1a19672b1acfc0da7881c809abd45e69",
+    "canonicalSources": [
+      "User0.15.2 cross-audit request",
+      "Current0.15.1 model/store/modal contracts",
+      "Read-only publicops audit seed42: cask2/4 renumber; deferred stock32/6/0 and reissue45->40",
+      "Current boot loses ephemeral pricing queue but preserves unlisted stock"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v0152-cross-audit-20261018/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/work-context.mjs",
+      "works/ambertime/tests/cross*.mjs",
+      "works/ambertime/design/cross-audit/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "tools/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/*-app.mjs.old",
+      "works/ambertime/experiments/**",
+      "works/ambertime/design/shop/**",
+      "works/ambertime/design/shop-flow/**"
+    ],
+    "expectedChanges": [
+      "Pure UI cask stable serial from existing immutableID, shown consistently rack/dialog/current and completed tasting records, no saved new labels",
+      "Consistent durable perbrand release ordinal on shelf/product/history; no ordinal derived from live inventory",
+      "Restore transient pending price queue at boot from existing unlisted in-stock products; skip stale listed/soldout queue IDs; keep judgment-pricing-trade-shop priority",
+      "Small dialog target/context and otherwaitingcount whenmultiple, retain event contents/options and pause intent",
+      "Shopoffer short continuedretailsales warning and nextrelease guidance whenempty, no reservation or demand/price/cap change",
+      "Publicoperation regression, multi-seed longparallelfourcask aging/shipments/shopinventory, strict cold replay and actualPCphone continuousmodal cases"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "PC-iPhone actual parallelmodal-flow",
+      "longsimulation and inventory cases",
+      "savebytecompatibility",
+      "published-source-match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert UI/helper/entry only; savedgame/model operations unchanged so existing v12 readers remain valid.",
+    "outOfScope": [
+      "Production",
+      "Chemistry/aging/demand/economicparameters",
+      "New save format",
+      "Fourcask limit changes",
+      "New inventoryreservation/logistics/stores",
+      "Usualbatch or trade/rep model changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicalSafari",
+      "Human touch/fun",
+      "Preexisting cross-runtime aged floating-point portability"
+    ],
+    "rulesApplied": [
+      "Standard WORK locked fresh r0 before runtime edits",
+      "AGENTS independent read-only audits, simulation/tests/browser and finalreview",
+      "User authorizes confirmedbug minimalfix and Stagingmerge only"
+    ],
+    "hqDecisions": [],
+    "ownerDecisions": [
+      "User0.15.2 authorizes stablecaskidentification/minimalmodalcontext/continuedsales clarity and safeStagingmerge; Productionexcluded"
+    ],
+    "problem": "Live rack renumbers casks and product release identity is absent; pending price prompt lost on reload; deferral does not explain continued retail",
+    "currentContract": "Immutable cask IDs and durable brand releases, strict v12 saves, decisions saved but pricingQueue ephemeral, unchanged monthly retail/nohold",
+    "whyExistingIsInsufficient": "Parallel objects need clear stable labels and queued work recovery; no model fault demonstrated",
+    "design": "UI-only helper uses serial IDs and durable perbrand release index, unlistedproducts derive boot queue, concise context/waiting count, continuedsales note. Core input/operations never rewritten.",
+    "migration": "No key/schema/modelversion/operation changes; reconstruct displaywork from existing state only, preserve exact game bytes and paused/elapsed intent.",
+    "compatibility": "All protected chemistry/economics/reputation/shop/usual/trade/save readers byteunchanged. Labels may have gaps because explicit serial is fixed rather than rackposition.",
+    "promotionRisk": "Staging only",
+    "alternativesRejected": [
+      "Inventory reservation",
+      "Sequential renumber by live rack",
+      "Persist brandnew identity map",
+      "Rewrite oldhistory/IDs",
+      "Suppress or batch-away judgments",
+      "New dashboard",
+      "Economy/price/rep/time tuning"
+    ],
+    "boundaryCases": [
+      "4parallelcasks",
+      "bottle/remove/add/simultaneouswholesale shipments",
+      "current and historical cask identity afterreload/pruning",
+      "samebrandmultiplereleases and soldout ones",
+      "defer stock32->6->0, zeroaccept/reissue/delivery",
+      "four same-month maturity decisions",
+      "bottle while moredecisions await then reload",
+      "wholesale/special/shop offers and sourcecontext",
+      "running/paused continuousmodal restore",
+      "stale queueids skip",
+      "strict JSON and original raw save failure protection",
+      "PC/390phone layouts"
+    ],
+    "testPlan": [
+      "Independent publicAPI invariants and pure UI identity helper tests",
+      "Multiseed120month fourcask and channel parallel simulation with sourcehash + exact replay checkpoints",
+      "Real Chromium PC1280 and phone390x844/667 serialidentities/eventsequence/reload/retaildeferral/reissue",
+      "Full existing+experiment model/UI regressions, oldv3-v12 strict prefixes preserved",
+      "Protectedsourcehash ScopeRiskImpacttrustedstatic CI publishedfiles"
+    ]
+  }
+}
