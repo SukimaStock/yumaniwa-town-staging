@@ -11,14 +11,15 @@ const finite = (value, fallback = 0) => typeof value === 'number' && Number.isFi
 function aromaShape(key) {
   switch (key) {
     case 'spirit':
-      return `<path d="M22 16C12 10 5 19 8 30C11 39 20 41 25 33C30 41 39 34 39 25C39 17 31 12 25 16" fill="#ba9d61" stroke-width="2.2"/><path d="M24 17Q22 10 28 7M27 10Q34 5 37 11Q31 15 27 10" fill="#8e9d75" stroke-width="2"/><path d="M11 40L22 26M12 34L9 28M16 31L17 24M17 35L23 34" fill="none" stroke="#eee0b3" stroke-width="2.8"/>`;
+      return `<path d="M17 18C7 12 2 23 6 33C9 42 16 43 21 37C27 42 34 35 33 27C32 18 25 14 20 18Z" fill="#ba9d61" stroke-width="3"/><path d="M19 18L20 9Q27 5 31 10Q28 16 20 13" fill="#8e9d75" stroke-width="3"/><path d="M29 42L40 16" fill="none" stroke="${cream}" stroke-width="3.5"/><path d="M38 23Q29 23 32 16Q40 14 38 23ZM35 31Q26 29 29 23Q37 23 35 31ZM38 31Q38 23 44 24Q47 31 38 31Z" fill="${cream}" stroke-width="2.5"/>`;
     case 'vanilla':
-      return `<path d="M10 41Q29 28 28 7Q22 25 8 36Q5 41 10 41Z" fill="#746047" stroke-width="2"/><path d="M17 42Q36 28 34 11Q29 28 16 37Q12 42 17 42Z" fill="#96754e" stroke-width="2"/><path d="M32 18Q24 14 27 8Q31 5 35 11Q36 3 41 6Q46 10 40 15Q48 17 43 22Q38 25 36 19Q33 27 28 23Q25 20 32 18Z" fill="${cream}" stroke-width="1.8"/><circle cx="36" cy="16" r="3" fill="${gold}" stroke-width="1.5"/>`;
+      return `<path d="M6 42Q25 28 25 10L30 9Q31 30 11 45Z" fill="#746047" stroke-width="3"/><path d="M18 44Q35 30 35 16L40 14Q43 32 23 46Z" fill="#96754e" stroke-width="3"/><path d="M34 12C25 14 25 4 32 5C34 -1 42 2 40 8C48 8 47 17 40 16C40 24 31 23 32 16C24 20 24 11 34 12Z" fill="${cream}" stroke-width="2.7"/><circle cx="36" cy="12" r="3.5" fill="${gold}" stroke-width="2"/>`;
     case 'dried':
-      return `<path d="M8 15Q19 6 28 15L31 28Q23 41 11 32Q5 25 8 15Z" fill="#8e6258" stroke-width="2.1"/><path d="M11 17Q19 11 25 17L27 27Q21 35 13 29Z" fill="#c29572" stroke-width="1.7"/><path d="M15 19L18 25L23 19M19 28L20 31" fill="none" stroke="#8e6258" stroke-width="1.8"/><path d="M30 22Q36 15 41 23Q46 33 38 39Q29 42 27 33Z" fill="#70524d" stroke-width="2.1"/><path d="M34 24L32 30L35 35M39 26L37 31L39 34" fill="none" stroke="#bb9275" stroke-width="1.7"/>`;
+      return `<path d="M7 5L17 4L23 11L21 22L13 27L4 22L2 13Z" fill="#8e6258" stroke-width="3"/><path d="M9 10L14 14L10 21" fill="none" stroke="${cream}" stroke-width="3"/><path d="M29 8L39 6L45 14L44 24L35 29L27 24L25 15Z" fill="#70524d" stroke-width="3"/><path d="M36 12L32 18L37 23" fill="none" stroke="#c29572" stroke-width="3"/><path d="M18 25L27 23L34 30L32 41L24 46L15 42L12 33Z" fill="#a37960" stroke-width="3"/><path d="M23 29L20 35L25 40" fill="none" stroke="${cream}" stroke-width="3"/>`;
     case 'woody':
     case 'wood':
-      return `<path d="M8 15L30 7L41 17V34L19 42L8 32Z" fill="#ab865a" stroke-width="2.1"/><path d="M8 15L19 25L41 17M19 25V42" fill="none" stroke-width="2"/><path d="M12 18L17 22M12 24L16 28M12 30L16 34M24 28L36 24M24 34L32 31M29 37L37 34" fill="none" stroke="#745c43" stroke-width="1.7"/><path d="M19 13L26 12L32 15L26 18Z" fill="none" stroke="#e1c28c" stroke-width="1.7"/>`;
+    case 'woodtexture':
+      return `<path d="M12 14L30 5Q42 6 45 19L42 31L25 43Z" fill="#ab865a" stroke-width="3"/><path d="M28 10L37 17M29 35L39 28" fill="none" stroke="#745c43" stroke-width="3"/><ellipse cx="17" cy="29" rx="13" ry="16" transform="rotate(-22 17 29)" fill="#dfc28c" stroke-width="3"/><ellipse cx="17" cy="29" rx="7" ry="10" transform="rotate(-22 17 29)" fill="none" stroke="#745c43" stroke-width="3"/><path d="M17 26L19 31" fill="none" stroke="#745c43" stroke-width="3"/>`;
     default:
       return '';
   }
