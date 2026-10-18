@@ -158,7 +158,11 @@ test('connection edit preserves all source prose and asset references; only the 
  const imageAttributes=s=>s.replace(/<img\b[^>]*>/g,tag=>tag.replace(/\s(?:width|height|alt)="[^"]*"/g,''));
  for(const row of tool.articleCatalog()){
   const a=tool.load(row.id),old=JSON.parse(git(root,'show',before+':data/shinpo/'+row.id+'.json'));
-  assert.equal(a.afterword,old.afterword,row.slug+' attribution and guidance');
+  // 2026-10-18 owner requested connection to the now-published CoffeeFactory Web edition.
+  const expectedGuidance=row.slug==='leftover-details'
+   ? old.afterword.replace('<div class="links">','<div class="links"><a href="../../w/coffee-factory/">CoffeeFactory（現在のWeb版）↗</a>')
+   : old.afterword;
+  assert.equal(a.afterword,expectedGuidance,row.slug+' attribution and guidance');
   assert.equal(imageAttributes(a.cover),imageAttributes(old.cover),row.slug+' cover');
   assert.equal(a.blocks.length,old.blocks.length);
   a.blocks.forEach((b,i)=>{
