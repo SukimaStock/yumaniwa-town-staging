@@ -71,9 +71,11 @@
     {
       "id": "coffee-factory",
       "path": "works/coffee-factory",
-      "status": "candidate",
+      "status": "released",
       "title": "CoffeeFactory",
-      "candidateDecision": "Owner 2026-10-18T13:19+02:00: current CoffeeFactory works on device; prepare current version as release candidate and unmerged Production PR. No merge/deploy authorization."
+      "candidateDecision": "Owner 2026-10-18T13:19+02:00: current CoffeeFactory works on device; prepare current version as release candidate and unmerged Production PR. No merge/deploy authorization.",
+      "productionInstruction": "User 2026-10-18T14:24+02:00: では本番反映お願いします (CoffeeFactory PR #64).",
+      "releaseEvidence": "Production PR #64 merged cbbce433984f4616e42f8f11bce8ede69ebeaae6; exact-merge Pages39127199936, Safety39127200145, PUMPOKO audit39127200164 all success. 34 public files HTTP200 and exact candidate bytes, including both supplied images, JA/EN pages, runtime/audio/shared Engine. Browser/device and external analytics remain UNVERIFIED; not Release Complete."
     },
     {
       "id": "pumpoko",
