@@ -1,0 +1,134 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "75f7b41c6b55d33b5548d4542189b27cde7926cf11041ca5b157d2447414bb07",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-two-articles-complete-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "湯間庭新報に原文全文と当時の見出し画像を持つバックナンバー2本を追加し、カード表示の固定文言を記事ごとに直す",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "ASSET",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "cd1664e60f659afee6159447b3b6805f42d99630",
+    "canonicalSources": [
+      "Google Drive SukimaStock/note/ゲーム未満、アプリ未満の心地よさ｜はままぁ.pdf",
+      "Google Drive SukimaStock/note/「ボードゲームの作り方」が分からなかったので、アプリで再現してみた｜はままぁ.pdf",
+      "data/notes.js",
+      "main.js",
+      "shinpo/town-beginning/index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-two-articles-complete-20261018/r0.lock.json",
+      "main.js",
+      "data/notes.js",
+      "shinpo/town-beginning/index.html",
+      "shinpo/game-app-in-between/index.html",
+      "shinpo/board-game-making/index.html",
+      "assets/shinpo/backnumber/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "index.html",
+      "style.css",
+      "sitemap.xml",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "works/**",
+      "data/work-lifecycle.json"
+    ],
+    "expectedChanges": [
+      "2026年6月12日と5月22日の元記事の全文・段落・リンクを保存",
+      "PDFの見出し画像2点を1280x670のまま保存",
+      "元画像・動画がPDFで失われている箇所では勝手に補完せず元出典を残す",
+      "既存notes記事を町内で開くarchivePageを設定、main.jsのカードの固定紹介文を記事別の原文抜粋にする",
+      "2026年7月17日の固定新聞と既存4枠を保持し、関連記事の町内回遊を追加",
+      "noindexのStaging静的ページとOGPを用意"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 ユーザー『他の記事も移植していきましょう』『再開してください』。既定方針は原文・原画像の忠実復元、掲示板から1回で読む、SukimaStockの本拠地は湯間庭町。Productionは変更しない。"
+    ],
+    "hqDecisions": [
+      "共通main.jsのカード表示と新規HTML・画像アセットを含むFull Plan。既存処理への影響を最小限とし、原文と出典照合を優先。作者による画面の最終確認は別途行う。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN v0.2 Plan Lock before changes",
+      "Change PR Gate trusted base",
+      "Staging only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "元の全文/画像/埋め込みリンクの順序を突合",
+      "iPhoneで1タップと縦スクロール、関連記事からの戻り確認"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "runtime.mobile-desktop",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "今回追加した新聞2本・画像・notes.jsのarchivePage・main.jsの紹介文・town-beginningの関連記事案内をまとめてrevert",
+    "outOfScope": [
+      "Production",
+      "検索サイトマップ公開登録",
+      "作品やEngine",
+      "note原稿の編集",
+      "全記事一括移植"
+    ],
+    "promotion": "Staging-only; Productionは別指示",
+    "unverified": [
+      "iPhone実機の最終確認",
+      "一部原動画・記事中の画像はPDF化時に欠落しているため補完せず元noteリンクのみ"
+    ],
+    "problem": "過去記事が町内で全文を読めず、移植後は別記事にも誤った固定の文章が表示される。",
+    "currentContract": "最初の記事のみ町内で原文全文を読む。カードの紹介文は最初の記事に固定されている。",
+    "whyExistingIsInsufficient": "複数記事へ拡張すると内容不一致のカードが発生し、町内回遊が成り立たない。",
+    "design": "静的HTML新聞2本を元原稿どおりに作り、PDFの見出し画像と元SNS参照を配置。existing note_rackは固定新聞1枚・ほかの4枚を維持。main.jsの紹介文だけarticle.archiveTeaserで設定可能にし、元の1枚は既存文言を保持。記事末尾に町内回遊を配置。",
+    "alternativesRejected": [
+      "全文要約",
+      "AIがサブタイトルを追加",
+      "異なる文章をカードに使う",
+      "元画像の創作",
+      "複数回タップ",
+      "Production一括公開"
+    ],
+    "migration": "既存記事URL・IDは維持し、archivePageとarchiveTeaserだけ追加。永続データの移行なし。",
+    "compatibility": "既存の固定新聞記事が引き続き最も新しいarchivePageとして選ばれる。埋め込みnoteカード4枚は従来どおり。",
+    "boundaryCases": [
+      "本文1タップ",
+      "元媒体の動画が未取得でも捏造しない",
+      "狭い画面で表示が崩れない",
+      "prefers-reduced-motion",
+      "日付と検索meta",
+      "別記事の紹介文を正しく出す"
+    ],
+    "testPlan": [
+      "Release Validator",
+      "Change Operations Tests",
+      "Change PR Gateとtrusted evidence",
+      "記事原典との照合",
+      "GitHub PagesのStaging URL確認"
+    ],
+    "promotionRisk": "Staging noindex only"
+  }
+}
