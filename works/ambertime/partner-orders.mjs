@@ -561,3 +561,17 @@ export function validateDistillery(s){
 }
 export function serializeDistillery(s){validateDistillery(s);return JSON.stringify(s);}
 export function restoreDistillery(text){assert(typeof text==='string'&&text.length<P.maxSaveBytes*4+16384,'保存が大きすぎます。');let s;try{s=JSON.parse(text);}catch{throw Error('帳面を読み取れません。');}if([3,4,5].includes(s?.version))return upgraded(s);validateDistillery(s);return s;}
+
+// Read-only history projection. Replay the same operations without consulting or
+// updating validation checkpoints. Observers receive detached facts, never the
+// replay state or its (potentially large) operation/origin arrays.
+export function replayDistilleryOperations(s,observer){
+ assert(typeof observer==='function'&&Array.isArray(s?.operations),'操作の帳面を確認します。');
+ const snapshot=state=>{const {operations,origin,...facts}=state;return clone(facts);};
+ let j=s.origin===null?newDistillery(s.seed):upgraded(s.origin);
+ observer({index:-1,operation:null,before:null,after:snapshot(j)});
+ for(let index=0;index<s.operations.length;index++){
+  const before=snapshot(j),operation=clone(s.operations[index]);j=apply(j,operation);
+  observer({index,operation,before,after:snapshot(j)});
+ }
+}

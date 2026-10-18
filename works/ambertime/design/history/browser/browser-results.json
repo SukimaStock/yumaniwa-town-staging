@@ -1,0 +1,187 @@
+{
+  "browser": "153.0.8010.0",
+  "fixtures": "Public operations only, strict replay, controlled clock; read-only timeline checked against exact projection IDs/dates. Long fixture uses the same public 480-month simulation policy generated in Chromium, not a Node state injected into Chromium.",
+  "physicalSafari": false,
+  "humanFun": false,
+  "sourceHashes": {
+    "shop-app.mjs": "05249213388b8ff6f1ead4fb95f7301e672cbc0e57a57ef7451bb1f3ecf07d5f",
+    "distillery-history.mjs": "8d0203c61f51a34632d293d9b9d1150676941bd8094ca7afef5dcc78f184937f",
+    "history-worker.mjs": "214a8210f66a87eb3aa7d685ad46ebc5bf049465f3c8f3e7a0f41301730948c7"
+  },
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "paused": false,
+      "reloadSameHistory": true,
+      "stableEventIdsDatesOrder": true,
+      "brandLinkExact": true,
+      "shopSummaryExact": true,
+      "departmentAdoptionOnce": true,
+      "readOnlyRawSave": true,
+      "lazyYears": true,
+      "timeRestored": true,
+      "strictReload": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "paused": true,
+      "reloadSameHistory": true,
+      "stableEventIdsDatesOrder": true,
+      "brandLinkExact": true,
+      "shopSummaryExact": true,
+      "departmentAdoptionOnce": true,
+      "readOnlyRawSave": true,
+      "lazyYears": true,
+      "timeRestored": true,
+      "strictReload": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "loadingClose": true,
+      "staleResponseNoReopen": true,
+      "staleResponseNoMutation": true,
+      "reopenAfterStale": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "offerModalPriorityPreserved": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "caskModalPriorityPreserved": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "paused": false,
+      "reloadSameHistory": true,
+      "stableEventIdsDatesOrder": true,
+      "brandLinkExact": true,
+      "shopSummaryExact": true,
+      "departmentAdoptionOnce": true,
+      "readOnlyRawSave": true,
+      "lazyYears": true,
+      "timeRestored": true,
+      "strictReload": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "paused": true,
+      "reloadSameHistory": true,
+      "stableEventIdsDatesOrder": true,
+      "brandLinkExact": true,
+      "shopSummaryExact": true,
+      "departmentAdoptionOnce": true,
+      "readOnlyRawSave": true,
+      "lazyYears": true,
+      "timeRestored": true,
+      "strictReload": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "loadingClose": true,
+      "staleResponseNoReopen": true,
+      "staleResponseNoMutation": true,
+      "reopenAfterStale": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "offerModalPriorityPreserved": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "caskModalPriorityPreserved": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "months": 480,
+      "firstLoadingCloseMs": 44,
+      "cachedReopenMs": 97,
+      "fixtureLoadMs": 46287,
+      "workerAndInitialRenderMs": 13190,
+      "annualExpandMs": 28,
+      "annualHeaders": 40,
+      "initialDialogNodes": 129,
+      "renderedEvents": 12,
+      "expandedDialogNodes": 182,
+      "domBounded": true,
+      "longSaveReadOnly": true,
+      "localStorageActualWrite": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "months": 480,
+      "firstLoadingCloseMs": 44,
+      "cachedReopenMs": 105,
+      "fixtureLoadMs": 21739,
+      "workerAndInitialRenderMs": 12836,
+      "annualExpandMs": 29,
+      "annualHeaders": 40,
+      "initialDialogNodes": 129,
+      "renderedEvents": 12,
+      "expandedDialogNodes": 182,
+      "domBounded": true,
+      "longSaveReadOnly": true,
+      "localStorageActualWrite": true
+    }
+  ],
+  "timingNotes": {
+    "fixtureLoadMs": "Test setup only: native public-policy generation, diagnostic replay, multiple strict validation passes, localStorage insertion and page reload. Not normal history UI latency.",
+    "workerAndInitialRenderMs": "Wall time from reopening after the first loading close until the first visible history, including uncached worker replay and rendering.",
+    "firstLoadingCloseMs": "Wall time for closing the first uncached history request while the worker is still building.",
+    "cachedReopenMs": "Wall time from reopening unchanged history after the first result was ready until its first visible render; worker cache reused.",
+    "annualExpandMs": "Wall time for selecting one year and rendering its bounded event rows, including automation overhead."
+  },
+  "fullSuiteSourceHashes": {
+    "shop-app.mjs": "c6ba68b7ae8c6872d221b4e37e9d38ca8623cd385f3acdbac9ba4b40cb9ad674",
+    "distillery-history.mjs": "8d0203c61f51a34632d293d9b9d1150676941bd8094ca7afef5dcc78f184937f",
+    "history-worker.mjs": "214a8210f66a87eb3aa7d685ad46ebc5bf049465f3c8f3e7a0f41301730948c7"
+  },
+  "focusedSourceHashes": {
+    "shop-app.mjs": "05249213388b8ff6f1ead4fb95f7301e672cbc0e57a57ef7451bb1f3ecf07d5f",
+    "distillery-history.mjs": "8d0203c61f51a34632d293d9b9d1150676941bd8094ca7afef5dcc78f184937f",
+    "history-worker.mjs": "214a8210f66a87eb3aa7d685ad46ebc5bf049465f3c8f3e7a0f41301730948c7"
+  },
+  "labelOnlyDelta": "One UI text line now displays exact stopAt as 抽出位置 n / 100 rather than the normalized cut percentage. Full 12-group behavior run preceded this text-only delta; focused PC/phone checks follow it.",
+  "focusedChecks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "months": 480,
+      "exactStopPositions": [
+        40,
+        65,
+        90
+      ],
+      "scale": 100,
+      "normalizedCutNotDisplayedAsRecipe": true,
+      "profileAndCaskTypePreserved": true,
+      "rawSaveUnchanged": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "months": 480,
+      "exactStopPositions": [
+        40,
+        65,
+        90
+      ],
+      "scale": 100,
+      "normalizedCutNotDisplayedAsRecipe": true,
+      "profileAndCaskTypePreserved": true,
+      "rawSaveUnchanged": true
+    }
+  ]
+}
