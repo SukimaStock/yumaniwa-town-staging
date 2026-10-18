@@ -1,0 +1,140 @@
+{
+  "browser": "153.0.8010.0",
+  "environmentFont": "Noto Sans JP Regular installed in /root/.local/share/fonts for missing Japanese fallback; app CSS unchanged.",
+  "fixtures": "Public operations only; strict serialization/replay. Controlled clock.",
+  "physicalSafari": false,
+  "humanFun": false,
+  "sourceHashes": {
+    "shop-app.mjs": "0ff6d56ae2af300d0dbc67688fa13cf67cdea0ce53c9055443cf2e0ae8710ddd",
+    "partner-orders.mjs": "dc4d269a0d1145192582b3f36e9c21c0f8f7c0c8a700f4adca39c2552bbe7875",
+    "department-projects.mjs": "0fa1f592f3c9b0a19be790721406fba42f4c014126131d89c30067f826ea8d42"
+  },
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "fourCaskStableLabels": true,
+      "continuousJudgment": true,
+      "reloadPendingPrice": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "paused": false,
+      "offerDetails": true,
+      "fiveOnly": true,
+      "completion": true,
+      "nextMonthNoRepeat": true,
+      "timeResumes": true,
+      "manualPausePreserved": true,
+      "strictReload": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "paused": true,
+      "offerDetails": true,
+      "fiveOnly": true,
+      "completion": true,
+      "nextMonthNoRepeat": true,
+      "timeResumes": false,
+      "manualPausePreserved": true,
+      "strictReload": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "cancelInterest": true,
+      "zeroStockInterest": true,
+      "noDeliveryObligation": true,
+      "interestDoesNotPause": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "nextReleaseCanFulfill": true,
+      "staleSelectionRejected": true,
+      "historyRecorded": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "multipleQueue": true,
+      "deferPreservesIdentity": true,
+      "acceptFollowsQueue": true,
+      "declineNoReputationLoss": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "archivedV016Entrance": true,
+      "bothRawKeysRetained": true,
+      "v13RawPreserved": true,
+      "oldHistoryAndRelationsPreserved": true,
+      "noRetroactiveAdoption": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "fourCaskStableLabels": true,
+      "continuousJudgment": true,
+      "reloadPendingPrice": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "paused": false,
+      "offerDetails": true,
+      "fiveOnly": true,
+      "completion": true,
+      "nextMonthNoRepeat": true,
+      "timeResumes": true,
+      "manualPausePreserved": true,
+      "strictReload": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "paused": true,
+      "offerDetails": true,
+      "fiveOnly": true,
+      "completion": true,
+      "nextMonthNoRepeat": true,
+      "timeResumes": false,
+      "manualPausePreserved": true,
+      "strictReload": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "cancelInterest": true,
+      "zeroStockInterest": true,
+      "noDeliveryObligation": true,
+      "interestDoesNotPause": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "nextReleaseCanFulfill": true,
+      "staleSelectionRejected": true,
+      "historyRecorded": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "multipleQueue": true,
+      "deferPreservesIdentity": true,
+      "acceptFollowsQueue": true,
+      "declineNoReputationLoss": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "archivedV016Entrance": true,
+      "bothRawKeysRetained": true,
+      "v13RawPreserved": true,
+      "oldHistoryAndRelationsPreserved": true,
+      "noRetroactiveAdoption": true
+    }
+  ]
+}

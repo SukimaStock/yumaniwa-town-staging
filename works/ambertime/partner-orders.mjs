@@ -7,8 +7,10 @@ import {PARALLEL_PARAMETERS as P,ECONOMY_PARAMETERS as C} from './economy-parame
 import {WHOLESALE as W} from './wholesale-parameters.mjs';
 import {PARTNER_ORDERS as T,PARTNERS,SPECIAL_ORDER} from './partner-parameters.mjs';
 import {AROMA_MODEL,aromaPreview} from './aroma-extraction.mjs?v=0.14';
-import {SHOP,STOCKISTS,SHOPS,stockistsMode,shopMode,deliveryTotals,shopEvidence,shopProductCondition} from './shop-model.mjs?v=0.16';
-export {SHOP,STOCKISTS,SHOPS,stockistsMode,shopProductCondition,shopBrandStats,shopEvidence} from './shop-model.mjs?v=0.16';
+import {SHOP,STOCKISTS,SHOPS,stockistsMode,shopMode,deliveryTotals,shopEvidence,shopProductCondition} from './shop-model.mjs?v=0.16.2';
+export {SHOP,STOCKISTS,SHOPS,stockistsMode,shopProductCondition,shopBrandStats,shopEvidence} from './shop-model.mjs?v=0.16.2';
+import {DEPARTMENT,departmentMode,departmentReleaseEligible,departmentUsedRelease,departmentSource,departmentSelection} from './department-projects.mjs?v=0.16.2';
+export {DEPARTMENT,departmentMode,departmentInterests,departmentAdoptions,departmentStatus} from './department-projects.mjs?v=0.16.2';
 import {brandReputation,retailReputationFactors} from './brand-reputation.mjs?v=0.12';
 export {SPECIAL_ORDER} from './partner-parameters.mjs';
 export {currentCask,upkeep,observation,comparison,quote,salePrices,marketValue,endTasting} from './economy.mjs?v=0.12';
@@ -84,12 +86,40 @@ export function enableStockists(s){
  return action(j,'enable-stockists',{progress:shopProgress(s)});
 }
 export const newStockistsDistillery=seed=>enableStockists(newShopDistillery(seed));
+export function enableDepartment(s){
+ if(departmentMode(s))return s;
+ const old=enableStockists(s);assert(old.operations.length<P.maxOperations,'帳面がいっぱいです。');
+ const j=clone(old);j.version=DEPARTMENT.version;j.rules=DEPARTMENT.rules;j.department={interests:[],adoptions:[],seenSources:[]};
+ // Existing continuous offers become finite consultations, without inventing adoptions.
+ for(const o of [j.shop.offer,...j.shop.pendingOffers])if(o?.shopId==='department'){
+  const source=departmentSource(j,o.brandId);if(source){decorateDepartmentOffer(o,source);j.department.seenSources.push(source.id);}
+ }
+ // A legacy offer whose qualifying release was already delivered cannot select it again.
+ const keep=o=>o?.shopId!=='department'||!!o.selectionId;
+ j.shop.pendingOffers=j.shop.pendingOffers.filter(keep);if(j.shop.offer&&!keep(j.shop.offer))nextStockistOffer(j);
+ return action(j,'enable-department',{progress:shopProgress(s)});
+}
+export const newDepartmentDistillery=seed=>enableDepartment(newStockistsDistillery(seed));
+function decorateDepartmentOffer(o,r){Object.assign(o,{projectId:DEPARTMENT.projectId,projectName:DEPARTMENT.projectName,sourceReleaseId:r.id,selectionId:`department-selection-${o.id}`});}
+function acceptDepartmentInto(s){
+ const o=s.shop.offer;assert(o?.shopId==='department'&&o.selectionId&&!s.department.interests.some(x=>x.brandId===o.brandId),'この相談は終了しました。');
+ s.department.interests.push(clone(o));
+ if(!s.shop.relations.some(r=>r.brandId===o.brandId&&r.shopId==='department'))s.shop.relations.push({shopId:'department',name:o.name,brandId:o.brandId,startedMonth:s.core.month});
+ nextStockistOffer(s);
+}
+export function cancelDepartmentInterest(s,selectionId){
+ shopReady(s);assert(departmentMode(s)&&s.department.interests.some(x=>x.selectionId===selectionId),'この相談は終了しました。');
+ const j=clone(s),o=j.department.interests.find(x=>x.selectionId===selectionId);j.department.interests=j.department.interests.filter(x=>x.selectionId!==selectionId);
+ j.shop.declinedUntil[`department:${o.brandId}`]=j.core.month+SHOP.declineGap;
+ return action(j,'department-cancel',{selectionId,progress:shopProgress(s)});
+}
 function stockistOffer(s,shopId,offerId){
  const o=s.shop.offer;
  assert(o&&o.shopId===shopId&&o.id===offerId,'この申し出は変わりました。もう一度確認します。');return o;
 }
 function nextStockistOffer(s){s.shop.offer=s.shop.pendingOffers.shift()??null;}
 function acceptStockistInto(s){
+ if(departmentMode(s)&&s.shop.offer?.shopId==='department')return acceptDepartmentInto(s);
  const o=s.shop.offer;assert(!s.shop.relations.some(r=>r.brandId===o.brandId&&r.shopId===o.shopId),'この店ではすでに取扱中です。');
  s.shop.relations.push({shopId:o.shopId,name:o.name,brandId:o.brandId,startedMonth:s.core.month});nextStockistOffer(s);
 }
@@ -134,6 +164,7 @@ function deliveryQuote(s,productId,offered=false){
 export const shopQuote=(s,productId,shopId=SHOP.id)=>stockistsMode(s)?stockistQuote(s,productId,shopId):deliveryQuote(s,productId);
 export const shopOfferQuote=(s,productId,shopId=SHOP.id)=>stockistsMode(s)?stockistQuote(s,productId,shopId,true):deliveryQuote(s,productId,true);
 function stockistQuote(s,productId,shopId,offered=false){
+ if(departmentMode(s)&&shopId==='department')return departmentQuote(s,productId,offered);
  const store=SHOPS.find(x=>x.id===shopId),p=s.core.products.find(p=>p.id===productId),r=s.releases.find(r=>r.productId===productId);
  // Each store shares its monthly receiving capacity across all brands.
  const used=s.shop.deliveries.filter(d=>(d.shopId??SHOP.id)===shopId&&d.month===s.core.month).reduce((n,d)=>n+d.count,0);
@@ -151,18 +182,33 @@ function stockistQuote(s,productId,shopId,offered=false){
  const quantities=reason?[]:[...new Set([...candidates,Math.min(p.stock,remaining)])].filter(n=>n>=store.minQuantity&&n<=p.stock&&n<=remaining).sort((a,b)=>a-b);
  return {shopId,ok:!reason,reason,unitPrice,quantities,remaining};
 }
+function departmentQuote(s,productId,offered=false){
+ const p=s.core.products.find(x=>x.id===productId),r=s.releases.find(x=>x.productId===productId),o=r?departmentSelection(s,r.brandId,offered):null;
+ const unitPrice=p?round(E.salePrices(s,productId).standard*1.4):0;let reason='';
+ if(!o)reason=departmentUsedRelease(s,r?.id)?'今回の企画は完了しました。':'限定取扱いの相談を確認します。';
+ else if(blocked(s))reason='先に試飲・樽の判断・卸売の申し出を確認します。';
+ else if(!r||!departmentReleaseEligible(r)||shopProductCondition(s,productId,'department'))reason=shopProductCondition(s,productId,'department')||'対象の発売回を選びます。';
+ else if(departmentUsedRelease(s,r.id))reason='今回の企画は完了しました。';
+ else if(!p||!s.productsById[productId]?.listed||p.stock<5)reason='5本以上の在庫が必要です。';
+ else if(s.shop.deliveries.length>=SHOP.maxDeliveries)reason='納品帳がいっぱいです。';
+ return {shopId:'department',ok:!reason,reason,unitPrice,quantities:reason?[]:[5],remaining:reason?0:5,selectionId:o?.selectionId,sourceReleaseId:o?.sourceReleaseId,releaseId:r?.id,projectId:DEPARTMENT.projectId};
+}
 function deliverShopInto(j,productId,count,unitPrice,shopId){
  const p=j.core.products.find(p=>p.id===productId),r=j.releases.find(r=>r.productId===productId),revenue=round(unitPrice*count);
+ const selection=departmentMode(j)&&shopId==='department'?departmentSelection(j,r.brandId):null;
+ if(departmentMode(j)&&shopId==='department')assert(selection&&count===5&&!departmentUsedRelease(j,r.id),'この企画は完了しました。');
  const item={id:(j.shop.deliveries.at(-1)?.id??0)+1,month:j.core.month,brandId:r.brandId,releaseId:r.id,productId,count,unitPrice,revenue};
  if(stockistsMode(j))item.shopId=shopId;
+ if(selection){Object.assign(item,{projectId:selection.projectId,selectionId:selection.selectionId,sourceReleaseId:selection.sourceReleaseId});j.department.adoptions.push({id:selection.selectionId,selectionId:selection.selectionId,projectId:selection.projectId,projectName:selection.projectName,brandId:r.brandId,sourceReleaseId:selection.sourceReleaseId,releaseId:r.id,month:j.core.month,count,revenue,unitPrice,deliveryId:item.id});j.department.interests=j.department.interests.filter(x=>x.selectionId!==selection.selectionId);}
  j.shop.deliveries.push(item);p.stock-=count;p.sold+=count;p.revenue=round(p.revenue+revenue);
  j.core.cash=round(j.core.cash+revenue);j.core.totals.revenue=round(j.core.totals.revenue+revenue);j.core.totals.bottlesSold+=count;
  syncRecords(j);syncReleases(j);
 }
-export function deliverShop(s,productId,count,shopId){
+export function deliverShop(s,productId,count,shopId,selectionId){
+ if(departmentMode(s)&&shopId==='department')assert(typeof selectionId==='string'&&shopQuote(s,productId,shopId).selectionId===selectionId,'この相談は変わりました。もう一度確認します。');
  if(stockistsMode(s)){
   const q=shopQuote(s,productId,shopId);assert(typeof shopId==='string'&&q.ok&&Number.isInteger(count)&&q.quantities.includes(count),q.reason||'届けられる本数を選びます。');
-  const j=clone(s);deliverShopInto(j,productId,count,q.unitPrice,shopId);return action(j,'stockist-deliver',{productId,count,shopId,progress:shopProgress(s)});
+  const j=clone(s);deliverShopInto(j,productId,count,q.unitPrice,shopId);return action(j,'stockist-deliver',{productId,count,shopId,...(departmentMode(s)&&shopId==='department'?{selectionId}:{}),progress:shopProgress(s)});
  }
  const q=shopQuote(s,productId);assert(q.ok&&Number.isInteger(count)&&q.quantities.includes(count),q.reason||'届けられる本数を選びます。');
  const j=clone(s);deliverShopInto(j,productId,count,q.unitPrice);
@@ -193,6 +239,7 @@ function maybeStockistOffers(s){
  if(blocked(s)||s.still.phase!=='ready'||s.core.month<s.shop.nextOfferMonth)return;
  // Queue one opportunity per store. A deferred active offer never discards others.
  for(const store of SHOPS){
+  if(departmentMode(s)&&store.id==='department'){maybeDepartmentOffer(s,store);continue;}
   if([s.shop.offer,...s.shop.pendingOffers].some(o=>o?.shopId===store.id))continue;
   const b=s.brands.find(b=>!s.shop.relations.some(r=>r.brandId===b.id&&r.shopId===store.id)&&s.core.month>=(s.shop.declinedUntil[`${store.id}:${b.id}`]??0)&&shopEvidence(s,b.id,store.id).eligible&&brandReputation(s,b.id).bonus>0);
   if(!b)continue;
@@ -200,6 +247,12 @@ function maybeStockistOffers(s){
   if(!s.shop.offer)s.shop.offer=offer;else s.shop.pendingOffers.push(offer);
   s.shop.nextOfferMonth=s.core.month+SHOP.offerGap;
  }
+}
+function maybeDepartmentOffer(s,store){
+ if([s.shop.offer,...s.shop.pendingOffers].some(o=>o?.shopId==='department'))return;
+ const b=s.brands.find(b=>!s.department.interests.some(o=>o.brandId===b.id)&&s.core.month>=(s.shop.declinedUntil[`department:${b.id}`]??0)&&shopEvidence(s,b.id,'department').eligible&&brandReputation(s,b.id).bonus>0&&departmentSource(s,b.id));
+ if(!b)return;const source=departmentSource(s,b.id),offer={id:++s.shop.offerSerial,shopId:'department',name:store.name,brandId:b.id,month:s.core.month};decorateDepartmentOffer(offer,source);s.department.seenSources.push(source.id);
+ if(!s.shop.offer)s.shop.offer=offer;else s.shop.pendingOffers.push(offer);s.shop.nextOfferMonth=s.core.month+SHOP.offerGap;
 }
 // The core's sold counter includes every paid bottle to preserve stock+sold.
 // Its retail ledgers subtract deliveries once; only these feed reputation and
@@ -483,7 +536,7 @@ export function tickDistillery(s,expectedMonth=s.core.month){
  return action(j,'month',{progress:s.still.phase==='distilling'?s.still.distillation.progress:null});
 }
 function progress(s,value){assert(!s.trade.offer||value===s.still.distillation?.progress,'申し出の確認中は蒸留を進めません。');assert(s.still.phase==='distilling'&&Number.isInteger(value)&&value>=s.still.distillation.progress&&value<P.distillMax,'蒸留の進行が不正です。');let j=s;while(j.still.distillation.progress<value){const next=E.distillStep(j);assert(next!==j,'停止中の蒸留です。');j=next;}return j;}
-function apply(s,o){s=E.endTasting(s);switch(o.key){case 'enable-stockists':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableStockists(s);case 'stockist-notice':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return noticeShopOffer(s,o.value?.shopId,o.value?.offerId);case 'stockist-accept':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShop(s,o.value?.shopId,o.value?.offerId);case 'stockist-decline':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return declineShop(s,o.value?.shopId,o.value?.offerId);case 'stockist-deliver':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return deliverShop(s,o.value?.productId,o.value?.count,o.value?.shopId);case 'stockist-accept-delivery':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShopDelivery(s,o.value?.productId,o.value?.count,o.value?.shopId,o.value?.offerId);case 'notice-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return noticeShopOffer(s);case 'accept-shop-delivery':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShopDelivery(s,o.value?.productId,o.value?.count);case 'enable-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableShop(s);case 'accept-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShop(s);case 'decline-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return declineShop(s);case 'deliver-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return deliverShop(s,o.value?.productId,o.value?.count);case 'enable-aroma':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableAroma(s);case 'enable-usual':return enableUsual(s);case 'reserve-usual':return reserveUsual(s);case 'cancel-usual':return cancelUsual(s);case 'start-usual':return beginUsual(s);case 'complete-usual':return completeUsual(progress(s,s.usual?.reservation?.recipe.stopAt));case 'enable-brand-reputation':return enableReputation(s);case 'enable-brands':return enableBrands(s);case 'bottle-branded':return bottleBranded(s,o.value?.id,o.value?.selection);case 'enable-promised-care':return enablePromisedCare(s);case 'care':return careForCask(s,o.value);case 'start':return startDistillation(s);case 'stop':assert(Number.isInteger(o.value)&&o.value>=P.minimumStop&&o.value<P.distillMax,'抽出時期が不正です。');return stopDistillation(progress(s,o.value));case 'fill':return fillBarrel(s,o.value);case 'month':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return tickDistillery(s);case 'sample':return sampleDistillery(s,o.value);case 'choose':return chooseDistillery(s,o.value?.id,o.value?.key);case 'bottle':return bottleNow(s,o.value);case 'price':return setSalePrice(s,o.value?.tier,o.value?.productId);case 'list':return listBottles(s,o.value);case 'decline':return declineOffer(s);case 'accept':return acceptOffer(s,o.value?.id,o.value?.termId);case 'assign':return assignCask(s,o.value?.id,o.value?.termId);case 'unassign':return cancelContract(s,o.value);case 'order-assign':return assignOrder(s,o.value);case 'order-cancel':return cancelOrder(s);case 'pause-trade':return pauseTrade(s);case 'resume-trade':return resumeTrade(s);case 'end-trade':return endTrade(s);case 'reconcile-trade-start':return reconcileTradeHistory(s);default:throw Error('操作の帳面が不正です。');}}
+function apply(s,o){s=E.endTasting(s);switch(o.key){case 'enable-department':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableDepartment(s);case 'department-cancel':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return cancelDepartmentInterest(s,o.value?.selectionId);case 'enable-stockists':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableStockists(s);case 'stockist-notice':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return noticeShopOffer(s,o.value?.shopId,o.value?.offerId);case 'stockist-accept':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShop(s,o.value?.shopId,o.value?.offerId);case 'stockist-decline':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return declineShop(s,o.value?.shopId,o.value?.offerId);case 'stockist-deliver':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return deliverShop(s,o.value?.productId,o.value?.count,o.value?.shopId,o.value?.selectionId);case 'stockist-accept-delivery':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShopDelivery(s,o.value?.productId,o.value?.count,o.value?.shopId,o.value?.offerId);case 'notice-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return noticeShopOffer(s);case 'accept-shop-delivery':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShopDelivery(s,o.value?.productId,o.value?.count);case 'enable-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableShop(s);case 'accept-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return acceptShop(s);case 'decline-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return declineShop(s);case 'deliver-shop':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return deliverShop(s,o.value?.productId,o.value?.count);case 'enable-aroma':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return enableAroma(s);case 'enable-usual':return enableUsual(s);case 'reserve-usual':return reserveUsual(s);case 'cancel-usual':return cancelUsual(s);case 'start-usual':return beginUsual(s);case 'complete-usual':return completeUsual(progress(s,s.usual?.reservation?.recipe.stopAt));case 'enable-brand-reputation':return enableReputation(s);case 'enable-brands':return enableBrands(s);case 'bottle-branded':return bottleBranded(s,o.value?.id,o.value?.selection);case 'enable-promised-care':return enablePromisedCare(s);case 'care':return careForCask(s,o.value);case 'start':return startDistillation(s);case 'stop':assert(Number.isInteger(o.value)&&o.value>=P.minimumStop&&o.value<P.distillMax,'抽出時期が不正です。');return stopDistillation(progress(s,o.value));case 'fill':return fillBarrel(s,o.value);case 'month':if(o.value?.progress!==null)s=progress(s,o.value?.progress);return tickDistillery(s);case 'sample':return sampleDistillery(s,o.value);case 'choose':return chooseDistillery(s,o.value?.id,o.value?.key);case 'bottle':return bottleNow(s,o.value);case 'price':return setSalePrice(s,o.value?.tier,o.value?.productId);case 'list':return listBottles(s,o.value);case 'decline':return declineOffer(s);case 'accept':return acceptOffer(s,o.value?.id,o.value?.termId);case 'assign':return assignCask(s,o.value?.id,o.value?.termId);case 'unassign':return cancelContract(s,o.value);case 'order-assign':return assignOrder(s,o.value);case 'order-cancel':return cancelOrder(s);case 'pause-trade':return pauseTrade(s);case 'resume-trade':return resumeTrade(s);case 'end-trade':return endTrade(s);case 'reconcile-trade-start':return reconcileTradeHistory(s);default:throw Error('操作の帳面が不正です。');}}
 let checkpoint=null;
 export function validateDistillery(s){
  assert(((s?.version===T.version&&s.rules===T.rules)||careMode(s))&&Number.isInteger(s.seed)&&s.seed>0&&s.seed<=4294967295&&Array.isArray(s.operations)&&s.operations.length<=P.maxOperations,'対応していない業者別卸売の保存です。');M.restore(M.serialize(s.core));
