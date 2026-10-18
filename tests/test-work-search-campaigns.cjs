@@ -45,3 +45,33 @@ for (const work of readWorks(root).filter(w=>metadata[w.id])) for(const locale o
     assert.equal(target.hash,'#chapter');
   });
 }
+
+test('environment metadata and selected Japanese article links preserve work navigation',()=>{
+  const {siteEnvironment}=require('../tools/site-environment.cjs');
+  const {buildSitemap,parseArgs}=require('../tools/generate-work-search-pages.cjs');
+  assert.throws(()=>siteEnvironment('preview'),/Unknown site environment/);
+  const work=readWorks(root).find(w=>w.id==='orbit');
+  const article={id:'note-20261009-n308001a6a00a',slug:'orbit-remaking',title:'昔の自分ともう一度ゲームを作る',url:'shinpo/orbit-remaking/'};
+  const meta={...metadata.orbit,articleIds:[article.id]};
+  for(const env of ['staging','production'])for(const locale of ['ja','en']) {
+    const html=buildPage('orbit',work,meta,locale,env,[article]);
+    const base=siteEnvironment(env).base;
+    assert(html.includes('href="'+base+(locale==='en'?'/en':'')+'/w/orbit/"'));
+    assert(html.includes('content="'+base+'/assets/works/orbit/'));
+    assert(html.includes('href="'+base+'/en/w/orbit/"'));
+    assert(html.includes('"url": "'+base+'/"'));
+    assert(html.includes('content="'+siteEnvironment(env).robots+'"'));
+    assert(html.includes('href="'+(locale==='en'?'../../../':'../../')+article.url+'"'));
+    assert(html.includes(article.title));
+    if(locale==='en')assert(html.includes('Japanese articles'));
+  }
+  assert(!buildPage('orbit',work,meta,'ja','production',[]).includes(article.title));
+  const empty=buildSitemap(['orbit'],[{url:'https://sukimastock.github.io/yumaniwa-town/works/yumaniwa-tourist-desk/'}],[article],'staging');
+  assert.equal(empty,null);
+  const production=buildSitemap(['orbit'],[{url:'https://sukimastock.github.io/yumaniwa-town/works/yumaniwa-tourist-desk/'}],[article],'production');
+  assert(production.includes('/works/yumaniwa-tourist-desk/'));
+  assert(production.includes('/shinpo/</loc>'));
+  assert(production.includes('/shinpo/orbit-remaking/</loc>'));
+  assert(!buildSitemap(['orbit']).includes('/shinpo/'));
+  assert.deepEqual(parseArgs(['node','tool','--env','production','--published','orbit','--articles',article.id,'--check']).articles,[article.id]);
+});

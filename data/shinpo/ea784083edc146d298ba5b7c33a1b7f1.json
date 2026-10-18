@@ -136,9 +136,20 @@
         "reason": "note preview represented by static source-preview preserving source destination"
       }
     ],
-    "rights": "Author-owned article/game/header/screenshots; original author work and note link-card thumbnails. No substitute/third-party body images."
+    "rights": "Author-owned article/game/header/screenshots; original author work and note link-card thumbnails. No substitute/third-party body images.",
+    "connectionAuditCorrection": {
+      "authority": "2026-10-18 owner-authorized connection and SEO improvements following read-only audit",
+      "changes": [
+        {
+          "from": "https://note.com/hamamah/n/n0ca130319cac",
+          "to": "../board-game-making/",
+          "scope": "Article body link only; separate note attribution retained."
+        }
+      ],
+      "preserved": "Original prose, captions, media bytes and source attribution; historical/external reference links otherwise unchanged."
+    }
   },
-  "cover": "<figure><img src=\"../../assets/shinpo/yakitori-remake/cover.png\" alt=\"ゲームの中の焼き鳥を、焼き直したの元掲載画像\" fetchpriority=\"high\"></figure>",
+  "cover": "<figure><img src=\"../../assets/shinpo/yakitori-remake/cover.png\" alt=\"ゲームの中の焼き鳥を、焼き直したの元掲載画像\" fetchpriority=\"high\" width=\"1280\" height=\"670\"></figure>",
   "navDate": "2026年06月19日",
   "displayDate": "2026年6月19日",
   "backnumber": true,
@@ -149,7 +160,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n0ca130319cac\"><img alt=\"\" height=\"157\" src=\"../../assets/shinpo/yakitori-remake/note-card.jpg\" width=\"300\"/><strong>「ボードゲームの作り方」が分からなかったので、アプリで再現してみた</strong><small>「ボードゲームの作り方」について読んだことがありました。『自分だけのボードゲームを作ろう』という本です。リソースの管理やジレンマの設計など、少し難しいですが、書いてある仕組みはなんとなく分かりました。ただ、オセロや人生ゲームぐらいしか遊んだ経験がなく、「なぜそれが面白いのか」までは、よく分からないままでした…</small></a></div></div></figure>"
+      "html": "<figure><div><div><a class=\"source-preview\" href=\"../board-game-making/\"><img alt=\"\" height=\"157\" src=\"../../assets/shinpo/yakitori-remake/note-card.jpg\" width=\"300\"/><strong>「ボードゲームの作り方」が分からなかったので、アプリで再現してみた</strong><small>「ボードゲームの作り方」について読んだことがありました。『自分だけのボードゲームを作ろう』という本です。リソースの管理やジレンマの設計など、少し難しいですが、書いてある仕組みはなんとなく分かりました。ただ、オセロや人生ゲームぐらいしか遊んだ経験がなく、「なぜそれが面白いのか」までは、よく分からないままでした…</small></a></div></div></figure>"
     },
     {
       "origin": "source",
@@ -173,7 +184,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"465\" src=\"../../assets/shinpo/yakitori-remake/image-1.png\" width=\"620\"/><figcaption>色だけではなく見た目の変更<br/>焼け具合でコントラストも変えている</figcaption></figure>"
+      "html": "<figure><img alt=\"焼き鳥と材料を並べた初期のゲーム画面\" height=\"900\" src=\"../../assets/shinpo/yakitori-remake/image-1.png\" width=\"1200\"/><figcaption>色だけではなく見た目の変更<br/>焼け具合でコントラストも変えている</figcaption></figure>"
     },
     {
       "origin": "source",
@@ -197,11 +208,11 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"465\" src=\"../../assets/shinpo/yakitori-remake/image-2.png\" width=\"620\"/><figcaption>焼き台を繋げた<br/>木札で串を置ける場所を示した</figcaption></figure>"
+      "html": "<figure><img alt=\"初期画面から焼き鳥を大きく見せる画面への変更\" height=\"900\" src=\"../../assets/shinpo/yakitori-remake/image-2.png\" width=\"1200\"/><figcaption>焼き台を繋げた<br/>木札で串を置ける場所を示した</figcaption></figure>"
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"465\" src=\"../../assets/shinpo/yakitori-remake/image-3.png\" width=\"620\"/><figcaption>串の提供<br/>肉を差し出す代わりに相手の焼けた串も奪える</figcaption></figure>"
+      "html": "<figure><img alt=\"空の焼き台と焼き鳥を載せた焼き台の比較\" height=\"900\" src=\"../../assets/shinpo/yakitori-remake/image-3.png\" width=\"1200\"/><figcaption>串の提供<br/>肉を差し出す代わりに相手の焼けた串も奪える</figcaption></figure>"
     },
     {
       "origin": "source",
@@ -209,7 +220,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"465\" src=\"../../assets/shinpo/yakitori-remake/image-4.png\" width=\"620\"/><figcaption>うちわで仰ぐ<br/>焼きを早めたり焦がしたりできる</figcaption></figure>"
+      "html": "<figure><img alt=\"材料を積んだ串を見せる画面への変更\" height=\"900\" src=\"../../assets/shinpo/yakitori-remake/image-4.png\" width=\"1200\"/><figcaption>うちわで仰ぐ<br/>焼きを早めたり焦がしたりできる</figcaption></figure>"
     },
     {
       "origin": "source",
@@ -229,7 +240,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"1054\" src=\"../../assets/shinpo/yakitori-remake/image-5.png\" width=\"620\"/><figcaption>点数は低いが取れるように</figcaption></figure>"
+      "html": "<figure><img alt=\"焼き鳥と火加減を表示する改良後のゲーム画面\" height=\"1920\" src=\"../../assets/shinpo/yakitori-remake/image-5.png\" width=\"1129\"/><figcaption>点数は低いが取れるように</figcaption></figure>"
     },
     {
       "origin": "source",
@@ -241,11 +252,11 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"197\" src=\"../../assets/shinpo/yakitori-remake/image-6.png\" width=\"620\"/><figcaption>今日の注文：焦げててもいいよ(+1点)<br/>※通常はペナルティ</figcaption></figure>"
+      "html": "<figure><img alt=\"焦がす注文を示すBURNT OKの表示\" height=\"373\" src=\"../../assets/shinpo/yakitori-remake/image-6.png\" width=\"1169\"/><figcaption>今日の注文：焦げててもいいよ(+1点)<br/>※通常はペナルティ</figcaption></figure>"
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"178\" src=\"../../assets/shinpo/yakitori-remake/image-7.png\" width=\"620\"/><figcaption>今日の注文：相手の串を取っちゃえ(+3点)</figcaption></figure>"
+      "html": "<figure><img alt=\"盗む注文を示すSTEAL OKの表示\" height=\"337\" src=\"../../assets/shinpo/yakitori-remake/image-7.png\" width=\"1169\"/><figcaption>今日の注文：相手の串を取っちゃえ(+3点)</figcaption></figure>"
     },
     {
       "origin": "source",

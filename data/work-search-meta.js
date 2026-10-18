@@ -23,6 +23,7 @@ var WORK_SEARCH_META_SCHEMA = 1;
 var WORK_SEARCH_META = {
 
     "pumpoko": {
+        "articleIds": ["note-n21f2389ac91d"],
         "schemaType": "VideoGame",
         "alternateNames": [],
         "ja": {
@@ -49,6 +50,7 @@ var WORK_SEARCH_META = {
         }
     },
     "orbit": {
+        "articleIds": ["note-20261009-n308001a6a00a"],
         "schemaType": "VideoGame",
         "alternateNames": [
             "ORBIT"
@@ -139,6 +141,7 @@ var WORK_SEARCH_META = {
         }
     },
     "rojiura-masala": {
+        "articleIds": ["note-20260917-c12ade65"],
         "schemaType": "VideoGame",
         "alternateNames": [
             "路地裏マサラ",
@@ -230,6 +233,7 @@ var WORK_SEARCH_META = {
         }
     },
     "dotweather": {
+        "articleIds": ["5b5f9715572b4d8a894c06b220c9139c"],
         "schemaType": "SoftwareApplication",
         "alternateNames": [],
         "ja": {
@@ -365,6 +369,7 @@ var WORK_SEARCH_META = {
         }
     },
     "yakitori-wars": {
+        "articleIds": ["95d48e6613ce4037907364809ee3359f", "ea784083edc146d298ba5b7c33a1b7f1"],
         "schemaType": "VideoGame",
         "alternateNames": [
             "やきとり屋 ゆまど"
@@ -411,6 +416,7 @@ var WORK_SEARCH_META = {
         }
     },
     "rainy-window": {
+        "articleIds": ["3fbab1d8a9b14123bfdb1461a94e8098"],
         "schemaType": "CreativeWork",
         "alternateNames": [],
         "ja": {

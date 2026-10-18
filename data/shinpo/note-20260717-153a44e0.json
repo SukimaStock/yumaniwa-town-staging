@@ -26,6 +26,17 @@
         "midnight-cola inline: unlink",
         "yakitori-wars preview: unlink"
       ]
+    },
+    "connectionAuditCorrection": {
+      "authority": "2026-10-18 owner-authorized connection and SEO improvements following read-only audit",
+      "changes": [
+        {
+          "from": "https://sukimastock.github.io/yumaniwa-town/",
+          "to": "../../",
+          "scope": "Article body link only; separate note attribution retained."
+        }
+      ],
+      "preserved": "Original prose, captions, media bytes and source attribution; historical/external reference links otherwise unchanged."
     }
   },
   "description": "2026年7月17日に書いた、湯間庭町が生まれた頃の記録。作品を並べるだけでなく、作品が住める場所を作りたかった。",
@@ -136,7 +147,7 @@
     },
     {
       "origin": "source",
-      "html": "<a class=\"source-preview\" href=\"https://sukimastock.github.io/yumaniwa-town/\"><strong>湯間庭町｜つくったものが集まる町</strong><small>自分専用アプリ記事、触れるらくがき、夜の工房、焼き鳥屋台。少しずつ作ってきたものを、ひとつの町として歩ける場所にしました。<br>sukimastock.github.io ↗</small></a>"
+      "html": "<a class=\"source-preview\" href=\"../../\"><strong>湯間庭町｜つくったものが集まる町</strong><small>自分専用アプリ記事、触れるらくがき、夜の工房、焼き鳥屋台。少しずつ作ってきたものを、ひとつの町として歩ける場所にしました。<br>sukimastock.github.io ↗</small></a>"
     }
   ],
   "afterword": "<aside class=\"afterword\" aria-label=\"記事の外側にある町内案内\">\n<h2>この町をもう少し歩く</h2>\n<div class=\"links\"><a href=\"../game-app-in-between/\">ゲーム未満、アプリ未満の心地よさ ↗</a><a href=\"../board-game-making/\">ボードゲームをアプリで再現してみた記録 ↗</a><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">湯間庭町を歩く ↗</a></div>\n<div class=\"source\">原典：はままぁ「作品を並べるより、住める場所を作りたかった」（note、2026年7月17日）。<a href=\"https://note.com/hamamah/n/nad06ba5e60a2\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div>\n</aside>",

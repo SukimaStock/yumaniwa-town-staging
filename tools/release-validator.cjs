@@ -7,6 +7,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const { validateSceneData } = require('../town-scene-validation.js');
 const { buildPage: buildSearchPage, buildSitemap: buildSearchSitemap } = require('./generate-work-search-pages.cjs');
+const {siteEnvironment}=require('./site-environment.cjs');
 const BASE = 'https://sukimastock.github.io/yumaniwa-town/';
 const { readRegistry, assertPublication, assertProductionSnapshot } = require('./work-lifecycle.cjs');
 const ID = /^[a-z0-9][a-z0-9-]*$/;
@@ -65,7 +66,7 @@ function readWorkGuideMeta(root) {
         meta: c.WORK_GUIDE_META
     }));
 }
-function searchOgp(id, meta) {
+function searchOgp(id, meta, base=BASE) {
     const ogp = meta && meta.ogp || {};
     const file = ogp.file || 'ogp.jpg';
     const mime = ogp.mime || 'image/jpeg';
@@ -73,7 +74,7 @@ function searchOgp(id, meta) {
     const height = Number(ogp.height || 630);
     const version = ogp.version === undefined ? 1 : ogp.version;
     const suffix = version === null || version === '' ? '' : '?v=' + encodeURIComponent(String(version));
-    return { file, mime, width, height, url: BASE + 'assets/works/' + id + '/' + file + suffix };
+    return { file, mime, width, height, url: base + 'assets/works/' + id + '/' + file + suffix };
 }
 function readTownReleaseSignals(root) {
     const c = context();
@@ -87,10 +88,11 @@ function readTownReleaseSignals(root) {
     if (!c.GHOST_DIALOGUE || typeof c.GHOST_DIALOGUE !== 'object' || !c.GHOST_DIALOGUE.works || typeof c.GHOST_DIALOGUE.works !== 'object') throw new Error('data/ghost-dialogue.js must define GHOST_DIALOGUE.works');
     return JSON.parse(JSON.stringify({ updates: c.TOWN_UPDATES, ghostWorks: c.GHOST_DIALOGUE.works }));
 }
-function local(root, url, base = BASE) {
+function local(root, url, base = BASE, env = 'production') {
+    const siteBase=siteEnvironment(env).base+'/';
     const u = new URL(url, base);
-    if (u.origin !== new URL(BASE).origin || !u.pathname.startsWith(new URL(BASE).pathname)) throw new Error('not a local production URL: ' + url);
-    const rel = decodeURIComponent(u.pathname.slice(new URL(BASE).pathname.length));
+    if (u.origin !== new URL(siteBase).origin || !u.pathname.startsWith(new URL(siteBase).pathname)) throw new Error('not a local '+env+' URL: ' + url);
+    const rel = decodeURIComponent(u.pathname.slice(new URL(siteBase).pathname.length));
     const file = path.resolve(root, rel);
     const prefix = fs.realpathSync(root) + path.sep;
     if (!(file + path.sep).startsWith(path.resolve(root) + path.sep)) throw new Error('path escapes root');
@@ -143,18 +145,19 @@ function redirectProbe(page, search) {
     if (callbacks.length) throw new Error('timer loop cannot be verified');
     return redirects;
 }
-function reachablePages(root) {
-    const seen = new Set(), queue = [BASE];
+function reachablePages(root, env='production') {
+    const base=siteEnvironment(env).base+'/';
+    const seen = new Set(), queue = [base];
     while (queue.length && seen.size < 500) {
         const url = queue.shift();
         if (seen.has(url)) continue;
         seen.add(url);
         let f;
-        try { f = local(root, url); if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, 'index.html'); } catch { continue; }
+        try { f = local(root, url, base, env); if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, 'index.html'); } catch { continue; }
         if (!f.endsWith('.html') || !fs.existsSync(f)) continue;
         for (const a of html(fs.readFileSync(f, 'utf8')).tags('a')) {
             if (!a.href || /(?:^|\s)nofollow(?:\s|$)/i.test(a.rel || '')) continue;
-            try { const u = new URL(a.href, url); if (u.origin === new URL(BASE).origin && u.pathname.startsWith(new URL(BASE).pathname) && !u.search) { u.hash = ''; queue.push(u.href); } } catch {}
+            try { const u = new URL(a.href, url); if (u.origin === new URL(base).origin && u.pathname.startsWith(new URL(base).pathname) && !u.search) { u.hash = ''; queue.push(u.href); } } catch {}
         }
     }
     return seen;
@@ -169,6 +172,13 @@ function validate(options) {
         releaseComplete: false, readiness: 'UNVERIFIED',
         summary: Object.fromEntries(['PASS','FAIL','WARNING','HQ_REQUIRED','EXTERNAL_CHECK_REQUIRED'].map(s => [s, results.filter(r => r.status === s).length])) });
     if (!['staging','production'].includes(options.env)) { add('FAIL','*','input.environment','specify --env staging|production'); return done(); }
+    const searchBase=siteEnvironment(options.env).base+'/';
+    let articles=[];
+    try {
+        const {articleCatalog}=require('./shinpo-migrate.cjs');
+        if(fs.existsSync(path.join(root,'data/shinpo'))) articles=articleCatalog({env:options.env,publishedArticles:options.articles || [],root});
+        else if(options.articles?.length)throw new Error('Selected articles require data/shinpo');
+    } catch(error) {add('FAIL','*','articles.selection',error.message);}
     let works, searchMeta = {}, guideData = { moods: [], featured: [], meta: {} }, guideReadOk = true, townSignals = { updates: [], ghostWorks: {} }, published = options.published;
     try {
         works = readWorks(root);
@@ -251,7 +261,8 @@ function validate(options) {
     try{standalone=readStandalonePages(root);if(options.env==='production')for(const page of standalone)validateStandaloneHtml(root,page);}catch(error){add('FAIL','*','standalone.publication',error.message);}
     let sitemap = [];
     const sm = path.join(root, 'sitemap.xml');
-    if (!fs.existsSync(sm)) add(options.env === 'production' ? 'FAIL' : 'WARNING','*','sitemap.file','sitemap.xml missing; staging is not a production candidate');
+    if (!fs.existsSync(sm)) add(options.env === 'production' ? 'FAIL' : 'PASS','*','sitemap.file',options.env==='production'?'production sitemap.xml missing':'staging intentionally has no sitemap');
+    else if(options.env==='staging') add('FAIL','*','sitemap.environment','staging noindex pages must not have a sitemap');
     else {
         const xml = fs.readFileSync(sm,'utf8').replace(/<!--[\s\S]*?-->/g,'');
         if (!/<urlset\b/.test(xml) || !/<\/urlset>/.test(xml)) add('FAIL','*','sitemap.xml','expected XML urlset');
@@ -273,12 +284,40 @@ function validate(options) {
                 if (m) {
                     const expected = locale === 'ja' ? BASE + 'w/' + m[1] + '/' : BASE + 'en/w/' + m[1] + '/';
                     check(published.includes(m[1]) && url === expected, m[1], 'sitemap.membership','sitemap work URL must be canonical and in explicit publication set: ' + url);
-                } else if (url !== BASE && !standalone.some(page=>page.url===url)) add('HQ_REQUIRED','*','sitemap.nonwork','non-work URL outside current root/w and en/w policy: ' + url);
+                } else if (url !== BASE && !standalone.some(page=>page.url===url) && !(articles.length && url===BASE+'shinpo/') && !articles.some(article=>url===BASE+article.url.replace(/^\.?\//,''))) add('HQ_REQUIRED','*','sitemap.nonwork','non-work URL outside current root/w and en/w policy: ' + url);
             } catch { add('FAIL','*','sitemap.url','invalid URL: ' + url); }
         }
-        if (published) check(fs.readFileSync(sm,'utf8') === buildSearchSitemap(published,standalone),'*','sitemap.generated','sitemap.xml must exactly match Search/Share generator output for the explicit publication set');
+        if (published) check(fs.readFileSync(sm,'utf8') === buildSearchSitemap(published,standalone,articles,options.env),'*','sitemap.generated','sitemap.xml must exactly match Search/Share generator output for the explicit publication set');
     }
-    const reachable = reachablePages(root);
+    if(articles.length) {
+        const expectedUrls=new Set(articles.map(a=>searchBase+a.url.replace(/^\.?\//,'')));
+        for(const item of [{url:'shinpo/',title:null},...articles]) {
+            const canonical=searchBase+item.url.replace(/^\.?\//,'');
+            try {
+                const file=path.join(local(root,canonical,searchBase,options.env),'index.html');
+                check(fs.existsSync(file),'*','articles.file','selected article/index exists: '+canonical);
+                if(!fs.existsSync(file))continue;
+                const parsed=html(fs.readFileSync(file,'utf8'));
+                const canonicals=parsed.tags('link').filter(a=>(a.rel || '').toLowerCase()==='canonical');
+                check(canonicals.length===1 && canonicals[0].href===canonical,'*','articles.canonical','article/index canonical matches environment: '+canonical);
+                const robots=parsed.meta('robots').join(',').toLowerCase().split(/[\s,]+/);
+                check(options.env==='production'?robots.includes('index') && robots.includes('follow') && !robots.some(x=>['noindex','nofollow','none'].includes(x)):robots.includes('noindex'),'*','articles.robots','article/index robots match environment');
+                if(item.title) {
+                    check(parsed.meta('og:url').length===1 && parsed.meta('og:url')[0]===canonical,'*','articles.og-url','article OGP URL matches canonical');
+                    const image=parsed.meta('og:image');
+                    check(image.length===1,'*','articles.og-image','one article OGP image required');
+                    if(image.length===1) {
+                        const imageFile=local(root,image[0],searchBase,options.env);
+                        check(image[0].startsWith(searchBase+'assets/shinpo/') && fs.existsSync(imageFile) && fs.statSync(imageFile).isFile(),'*','articles.og-image','article OGP image belongs to current environment and exists');
+                    }
+                } else {
+                    const links=parsed.tags('a').map(a=>new URL(a.href,canonical).href).filter(url=>url.startsWith(searchBase+'shinpo/') && url!==canonical);
+                    check(links.length===expectedUrls.size && new Set(links).size===expectedUrls.size && links.every(url=>expectedUrls.has(url)),'*','articles.index-selection','article index contains exactly selected articles');
+                }
+            }catch(error){add('FAIL','*','articles.metadata',error.message);}
+        }
+    }
+    const reachable = reachablePages(root,options.env);
     let scenes, objects, sceneError;
     try {
         if (!fs.existsSync(path.join(root, 'data/world-objects.js'))) throw new Error('legacy/no world-object basis; generation-crossing policy is unresolved');
@@ -289,7 +328,7 @@ function validate(options) {
     for (const id of ids) {
         const matches = works.filter(w => w.id === id);
         if (matches.length !== 1) { add('FAIL',id,'metadata.identity','expected exactly one WORKS entry'); continue; }
-        const w = matches[0], canonical = BASE + 'w/' + id + '/', enCanonical = BASE + 'en/w/' + id + '/';
+        const w = matches[0], canonical = searchBase + 'w/' + id + '/', enCanonical = searchBase + 'en/w/' + id + '/';
         if (options.env === 'production' && published && !published.includes(id)) add('FAIL',id,'release.selected','selected ID is not authorized in publication set');
         for (const key of ['title','description','venue','kind','status','launch','frameMode']) check(typeof w[key] === 'string' && !!w[key].trim(),id,'metadata.' + key,'nonempty ' + key + ' required');
         check(w.status === 'open',id,'metadata.status-open','release target must be open');
@@ -325,7 +364,7 @@ function validate(options) {
             if (!['VideoGame','SoftwareApplication','CreativeWork'].includes(meta.schemaType || '')) add('HQ_REQUIRED',id,'search.schema-type','unknown schemaType: '+String(meta.schemaType || ''));
             check(Array.isArray(meta.alternateNames) && meta.alternateNames.every(v => typeof v === 'string' && !!v.trim()),id,'search.metadata-source','alternateNames must be a string array');
 
-            const ogpContract = searchOgp(id, meta);
+            const ogpContract = searchOgp(id, meta,searchBase);
             for (const locale of ['ja','en']) {
                 const data = meta[locale];
                 check(!!data && typeof data === 'object',id,'search.locale-'+locale,'metadata locale required: '+locale);
@@ -347,7 +386,7 @@ function validate(options) {
                 }
 
                 const actualSource = fs.readFileSync(localeFile,'utf8');
-                const expectedSource = buildSearchPage(id,w,meta,locale,options.env);
+                const expectedSource = buildSearchPage(id,w,meta,locale,options.env,articles);
                 check(actualSource === expectedSource,id,'search.generated-'+locale,'generated '+locale+' page must exactly match metadata + generator');
 
                 const localized = html(actualSource);
@@ -405,8 +444,8 @@ function validate(options) {
                 if (structured && meta.schemaType === 'SoftwareApplication') check(structured.operatingSystem === 'Web Browser',id,'search.structured-data',locale+' SoftwareApplication must declare Web Browser OS');
 
                 const linksLocalized = localized.tags('a').map(a => { try { return new URL(a.href,localeCanonical).href; } catch { return ''; } });
-                check(linksLocalized.includes(BASE+'?work='+id),id,'search.localized-links',locale+' page requires static town launch link');
-                check(linksLocalized.includes(BASE),id,'search.localized-links',locale+' page requires static town root link');
+                check(linksLocalized.includes(searchBase+'?work='+id),id,'search.localized-links',locale+' page requires static town launch link');
+                check(linksLocalized.includes(searchBase),id,'search.localized-links',locale+' page requires static town root link');
                 check(linksLocalized.includes(locale === 'ja' ? enCanonical : canonical),id,'search.localized-links',locale+' page requires static language-switch link');
 
                 try {
@@ -415,7 +454,7 @@ function validate(options) {
                     const compatibility = redirectProbe(localized,'?open=1');
                     check(compatibility.length === 1 && compatibility.every(value => {
                         const u = new URL(value,localeCanonical);
-                        return u.origin + u.pathname === BASE && u.searchParams.getAll('work').length === 1 && u.searchParams.get('work') === id;
+                        return u.origin + u.pathname === searchBase && u.searchParams.getAll('work').length === 1 && u.searchParams.get('work') === id;
                     }),id,'search.localized-open-shortcut',locale+' open=1 must target this work in town shell');
                 } catch(e) { add('HQ_REQUIRED',id,'search.localized-script-review',locale+' redirect behavior UNVERIFIED: '+e.message); }
 
@@ -433,8 +472,8 @@ function validate(options) {
             check(page.elements('h1').some(s => text(s)),id,'search.h1','nonempty h1 required');
             check(page.elements('p').some(s => text(s.replace(/<a\b[^>]*>[\s\S]*?<\/a>/gi,''))),id,'search.body','introductory paragraph required, not just a launch link');
             const links = page.tags('a').map(a => { try { return new URL(a.href,canonical).href; } catch { return ''; } });
-            check(links.includes(BASE+'?work='+id),id,'search.launch-link','static town launch link required');
-            check(links.includes(BASE),id,'search.town-link','static town root link required');
+            check(links.includes(searchBase+'?work='+id),id,'search.launch-link','static town launch link required');
+            check(links.includes(searchBase),id,'search.town-link','static town root link required');
             const canons = page.tags('link').filter(a => (a.rel || '').toLowerCase() === 'canonical');
             check(canons.length === 1 && canons[0].href === canonical,id,'search.canonical','canonical must equal '+canonical);
             check(single('og:url') === canonical,id,'search.og-url','og:url must equal canonical');
@@ -446,7 +485,7 @@ function validate(options) {
             try {
                 const normal = redirectProbe(page,''); check(!normal.length,id,'search.redirect','ordinary visit must not redirect'+(normal.length?': '+normal.join(', '):''));
                 const compatibility = redirectProbe(page,'?open=1');
-                if (compatibility.length) check(compatibility.every(value => { const u = new URL(value,canonical); return u.origin + u.pathname === BASE && u.searchParams.getAll('work').length === 1 && u.searchParams.get('work') === id; }),id,'search.open-shortcut','open=1 shortcut must target this work in town shell');
+                if (compatibility.length) check(compatibility.every(value => { const u = new URL(value,canonical); return u.origin + u.pathname === searchBase && u.searchParams.getAll('work').length === 1 && u.searchParams.get('work') === id; }),id,'search.open-shortcut','open=1 shortcut must target this work in town shell');
             } catch(e) { add('HQ_REQUIRED',id,'search.script-review','redirect behavior UNVERIFIED: '+e.message); }
             if (/\bon\w+\s*=/i.test(page.markup)) add('HQ_REQUIRED',id,'search.inline-handler','inline HTML event handler needs redirect review');
             const image = single('og:image'), twitter = single('twitter:image');
@@ -454,8 +493,8 @@ function validate(options) {
             const card = single('twitter:card'); check(['summary','summary_large_image'].includes(card),id,'share.card','supported X card required');
             check(image === twitter && !!image,id,'ogp.same-image','OGP and X image must reference the same adopted image');
             if (image) try {
-                const u = new URL(image); const f = local(root,image);
-                check(u.href.startsWith(BASE+'assets/works/'+id+'/'),id,'ogp.identity','image URL belongs to assets/works/'+id+'/');
+                const u = new URL(image); const f = local(root,image,searchBase,options.env);
+                check(u.href.startsWith(searchBase+'assets/works/'+id+'/'),id,'ogp.identity','image URL belongs to assets/works/'+id+'/');
                 check(fs.existsSync(f) && fs.statSync(f).isFile(),id,'ogp.file','declared image file exists');
                 if (fs.existsSync(f) && fs.statSync(f).isFile()) {
                     const info = imageInfo(fs.readFileSync(f));
@@ -470,7 +509,7 @@ function validate(options) {
             } catch(e) { add('FAIL',id,'ogp.url',e.message); }
             check(reachable.has(canonical),id,'search.discovery','static followable link path from root to '+canonical+' required');
         }
-        if (options.env === 'production' || fs.existsSync(sm)) {
+        if (options.env === 'production') {
             check(sitemap.includes(canonical),id,'sitemap.inclusion','Japanese canonical URL must be in sitemap: '+canonical);
             check(sitemap.includes(enCanonical),id,'sitemap.inclusion-en','English canonical URL must be in sitemap: '+enCanonical);
         }
@@ -478,13 +517,13 @@ function validate(options) {
             const links = []; const c = context({ location:{search:'?work='+id}, document:{createElement:()=>({}),head:{appendChild:l=>links.push(l)}} });
             run(fs.readFileSync(path.join(root,'work-install-meta.js'),'utf8'),c,'work-install-meta.js');
             const manifestLinks = links.filter(l=>l.rel==='manifest');
-            check(manifestLinks.length===1 && new URL(manifestLinks[0].href,BASE).href === canonical+'manifest.webmanifest',id,'install.contract','existing install script must resolve this work manifest');
+            check(manifestLinks.length===1 && new URL(manifestLinks[0].href,BASE).href === BASE+'w/'+id+'/manifest.webmanifest',id,'install.contract','existing install script must resolve this work manifest');
             const mf = path.join(root,'w',id,'manifest.webmanifest'); const m = JSON.parse(fs.readFileSync(mf,'utf8'));
-            for (const key of ['id','start_url']) check(new URL(m[key] || '',canonical).href === BASE+'?work='+id,id,'manifest.'+key,key+' must resolve to town work URL');
-            check(new URL(m.scope || '',canonical).href === BASE,id,'manifest.scope','scope must resolve to town root');
+            for (const key of ['id','start_url']) check(new URL(m[key] || '',BASE+'w/'+id+'/').href === BASE+'?work='+id,id,'manifest.'+key,key+' must resolve to town work URL');
+            check(new URL(m.scope || '',BASE+'w/'+id+'/').href === BASE,id,'manifest.scope','scope must resolve to town root');
             const icons = links.filter(l=>l.rel==='apple-touch-icon');
             if (!icons.length) add('PASS',id,'install.iconless','existing install script applies iconless exception; no PWA requirement added');
-            for (const icon of [...icons.map(l=>({src:l.href,base:BASE})), ...(m.icons || []).map(l=>({...l,base:canonical}))]) {
+            for (const icon of [...icons.map(l=>({src:l.href,base:BASE})), ...(m.icons || []).map(l=>({...l,base:BASE+'w/'+id+'/'}))]) {
                 const f=local(root,icon.src,icon.base); check(new URL(icon.src,icon.base).pathname.startsWith(new URL('assets/works/'+id+'/',BASE).pathname),id,'install.icon-identity','icon must belong to this work'); check(fs.existsSync(f) && fs.statSync(f).isFile(),id,'install.icon','icon exists: '+icon.src);
             }
             if (icons.length) check(Array.isArray(m.icons) && m.icons.length>0,id,'manifest.icons','non-iconless work requires manifest icons');
@@ -530,12 +569,12 @@ function validate(options) {
 }
 function parseArgs(argv) {
     const o = {}; const list = s => s.split(',').map(x=>x.trim()).filter(Boolean);
-    const fields = {'--root':'root','--env':'env','--ids':'ids','--published':'published','--production-root':'productionRoot','--physical':'physical','--promote':'promote','--production-instruction':'productionInstruction'};
+    const fields = {'--root':'root','--env':'env','--ids':'ids','--published':'published','--articles':'articles','--production-root':'productionRoot','--physical':'physical','--promote':'promote','--production-instruction':'productionInstruction'};
     for (let i=0;i<argv.length;i++) {
         const a=argv[i];
         if (['--help','--json','--all-production'].includes(a)) { o[a==='--all-production'?'allProduction':a.slice(2)] = true; continue; }
         if (!fields[a] || !argv[i+1] || argv[i+1].startsWith('--') || o[fields[a]]!==undefined) throw new Error('unknown, repeated or incomplete option: '+a);
-        o[fields[a]] = ['--ids','--published','--physical','--promote'].includes(a)?list(argv[++i]):argv[++i];
+        o[fields[a]] = ['--ids','--published','--articles','--physical','--promote'].includes(a)?list(argv[++i]):argv[++i];
     }
     return o;
 }

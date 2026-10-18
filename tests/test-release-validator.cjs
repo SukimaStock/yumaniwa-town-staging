@@ -65,7 +65,8 @@ function regenerateSearch(c,env='production') {
     const meta=readWorkSearchMeta(c.root)[c.id];
     put(c.root,'w/'+c.id+'/index.html',buildPage(c.id,work,meta,'ja',env));
     put(c.root,'en/w/'+c.id+'/index.html',buildPage(c.id,work,meta,'en',env));
-    put(c.root,'sitemap.xml',buildSitemap(c.options.published || [c.id]));
+    const map=env==='staging'?null:buildSitemap(c.options.published || [c.id],[],[],env);
+    if(map===null)fs.rmSync(path.join(c.root,'sitemap.xml'),{force:true});else put(c.root,'sitemap.xml',map);
 }
 function has(r,status,check) { assert.ok(r.results.some(x=>x.status===status && x.check===check),status+' '+check+'\n'+JSON.stringify(r.results.filter(x=>x.status!=='PASS'))); }
 function clean(r) { assert.equal(r.exitCode,0,JSON.stringify(r.results.filter(x=>['FAIL','HQ_REQUIRED'].includes(x.status)))); }
@@ -246,7 +247,7 @@ test('Published PUMPOKO retains noindex staging previews and user-approved image
     assert.match(meta.en.imageAlt,/logo/);
     for (const [locale,file] of [['ja','w/pumpoko/index.html'],['en','en/w/pumpoko/index.html']]) {
         const page=fs.readFileSync(path.join(REPO,file),'utf8');
-        assert.equal(page,buildPage(id,work,meta,locale,'staging'),file+' must match canonical Search/Share generator');
+        assert.equal(page,buildPage(id,work,meta,locale,'staging',require('../tools/shinpo-migrate.cjs').articleCatalog({env:'staging',root:REPO})),file+' must match canonical Search/Share generator');
         assert.match(page,/<meta name="robots" content="noindex,nofollow">/);
         assert.match(page,/<meta property="og:image:width" content="1200">/);
         assert.match(page,/<meta property="og:image:height" content="630">/);
@@ -265,12 +266,47 @@ test('Published PUMPOKO retains noindex staging previews and user-approved image
     assert.equal(m.icons[0].src,'../../assets/works/pumpoko/icon.png');
     assert.equal(m.icons[0].sizes,'1024x1024');
     assert.equal(m.icons[0].type,'image/png');
-    const sitemap=fs.readFileSync(path.join(REPO,'sitemap.xml'),'utf8');
+    assert.equal(fs.existsSync(path.join(REPO,'sitemap.xml')),false,'noindex staging intentionally has no sitemap');
     const lifecycle=JSON.parse(fs.readFileSync(path.join(REPO,'data/work-lifecycle.json'),'utf8'));
     const released=lifecycle.works.find(w=>w.id===id);
     assert.equal(released.status,'released','ledger records the existing authorized production release');
     assert.ok(released.productionInstruction && released.releaseEvidence,'release keeps separate instruction and evidence');
-    for (const localePath of ['w/pumpoko/','en/w/pumpoko/']) {
-        assert.ok(sitemap.includes('<loc>https://sukimastock.github.io/yumaniwa-town/'+localePath+'</loc>'),'published locale is included: '+localePath);
-    }
+
+});
+
+test('staging metadata cannot point at production and staging sitemap must stay absent',t=>{
+    const c=candidate(t); regenerateSearch(c,'staging');
+    clean(validate({...c.options,env:'staging'}));
+    page(c,s=>s.replaceAll('https://sukimastock.github.io/yumaniwa-town-staging/','https://sukimastock.github.io/yumaniwa-town/'));
+    const r=validate({...c.options,env:'staging'});
+    has(r,'FAIL','search.locale-canonical');has(r,'FAIL','search.localized-metadata');has(r,'FAIL','ogp.url');
+    put(c.root,'sitemap.xml',buildSitemap([c.id]));
+    has(validate({...c.options,env:'staging'}),'FAIL','sitemap.environment');
+});
+test('production article selection controls work links, index, sitemap, canonical and OGP',t=>{
+    const c=candidate(t);
+    const articleTool=require('../tools/shinpo-migrate.cjs');
+    const id='5b5f9715572b4d8a894c06b220c9139c';
+    const data=articleTool.load(id),note=articleTool.metadata(id);
+    put(c.root,'data/notes.js','var NOTE_ARTICLES = '+JSON.stringify([note],null,2)+';\n');
+    put(c.root,'data/shinpo/'+id+'.json',JSON.stringify(data));
+    fs.cpSync(path.join(REPO,'assets/shinpo/weather-air'),path.join(c.root,'assets/shinpo/weather-air'),{recursive:true});
+    const selected=articleTool.articleCatalog({env:'production',publishedArticles:[id],root:c.root});
+    put(c.root,'shinpo/weather-air/index.html',articleTool.render(data,note,'production'));
+    put(c.root,'shinpo/index.html',articleTool.renderIndex(selected,'production'));
+    const work=readWorks(c.root)[0],meta=readWorkSearchMeta(c.root)[c.id];
+    for(const locale of ['ja','en'])put(c.root,(locale==='ja'?'w/':'en/w/')+c.id+'/index.html',buildPage(c.id,work,meta,locale,'production',selected));
+    put(c.root,'sitemap.xml',buildSitemap([c.id],[],selected,'production'));
+    clean(validate({...c.options,articles:[id]}));
+    const unselected=validate(c.options);
+    has(unselected,'FAIL','sitemap.generated');has(unselected,'HQ_REQUIRED','sitemap.nonwork');has(unselected,'FAIL','search.generated-ja');
+    mutate(c,'shinpo/index.html',s=>s.replace('</main>','<a href="unknown/">Unselected</a></main>'));
+    has(validate({...c.options,articles:[id]}),'FAIL','articles.index-selection');
+    put(c.root,'shinpo/index.html',articleTool.renderIndex(selected,'production'));
+    mutate(c,'shinpo/weather-air/index.html',s=>s.replace('rel="canonical" href="'+BASE,'rel="canonical" href="https://sukimastock.github.io/yumaniwa-town-staging/'));
+    has(validate({...c.options,articles:[id]}),'FAIL','articles.canonical');
+    put(c.root,'shinpo/weather-air/index.html',articleTool.render(data,note,'production'));
+    mutate(c,'shinpo/weather-air/index.html',s=>s.replace('property="og:image" content="'+BASE,'property="og:image" content="https://sukimastock.github.io/yumaniwa-town-staging/'));
+    has(validate({...c.options,articles:[id]}),'FAIL','articles.metadata');
+    has(validate({...c.options,articles:['not-a-real-article']}),'FAIL','articles.selection');
 });

@@ -212,7 +212,7 @@
       "captionsExact": true
     }
   },
-  "cover": "<figure><img src=\"../../assets/shinpo/no-right-answer/cover.jpg\" alt=\"正解のないゲームを探していたの元掲載画像\" fetchpriority=\"high\"></figure>",
+  "cover": "<figure><img src=\"../../assets/shinpo/no-right-answer/cover.jpg\" alt=\"正解のないゲームを探していたの元掲載画像\" fetchpriority=\"high\" width=\"1280\" height=\"670\"></figure>",
   "navDate": "2026年08月07日",
   "displayDate": "2026年8月7日",
   "backnumber": true,
@@ -235,7 +235,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"6464C13E-D7E3-4C37-93D0-93679128AA36\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n419616ae3a94\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-1.jpg\"/><strong>ただ「気持ちいい」を磨く夜。目的のない自作アプリ</strong><small>アプリ開発では、「不満を解決する」とか「明確なゴールを設定する」とか、そういう話をよく聞きます。もちろん、それは正しいと思います。でも、自分専用のアプリを作っていると、たまにそこから外れたくなります。役に立つかどうかより、触った瞬間に気持ちいいかどうか。今回は、目的よりもその感覚だけを追い求めて作った2つの…</small></a></div></div></figure>"
+      "html": "<figure id=\"6464C13E-D7E3-4C37-93D0-93679128AA36\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n419616ae3a94\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-1.jpg\" width=\"300\" height=\"157\"/><strong>ただ「気持ちいい」を磨く夜。目的のない自作アプリ</strong><small>アプリ開発では、「不満を解決する」とか「明確なゴールを設定する」とか、そういう話をよく聞きます。もちろん、それは正しいと思います。でも、自分専用のアプリを作っていると、たまにそこから外れたくなります。役に立つかどうかより、触った瞬間に気持ちいいかどうか。今回は、目的よりもその感覚だけを追い求めて作った2つの…</small></a></div></div></figure>"
     },
     {
       "origin": "source",
@@ -247,7 +247,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"536F9BA8-C2D0-4440-8A54-536FD78BB468\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/nd470320454fd\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-2.jpg\"/><strong>歯車の仕組みが少し見えてきた</strong><small>回り続ける歯車の上で、タイミングを見計らって、次の歯車へ飛び移る。ただそれだけです。その「ただそれだけ」を、自分の指が納得する形にするまでに、かなり時間がかかりました。整然と噛み合い、決められた速度で回り続けるその姿は、機能美の塊でありながら、どこか残酷でもあります。私たちが社会の一員として日々を過ごす、あ…</small></a></div></div></figure>"
+      "html": "<figure id=\"536F9BA8-C2D0-4440-8A54-536FD78BB468\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/nd470320454fd\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-2.jpg\" width=\"300\" height=\"157\"/><strong>歯車の仕組みが少し見えてきた</strong><small>回り続ける歯車の上で、タイミングを見計らって、次の歯車へ飛び移る。ただそれだけです。その「ただそれだけ」を、自分の指が納得する形にするまでに、かなり時間がかかりました。整然と噛み合い、決められた速度で回り続けるその姿は、機能美の塊でありながら、どこか残酷でもあります。私たちが社会の一員として日々を過ごす、あ…</small></a></div></div></figure>"
     },
     {
       "origin": "source",
@@ -259,7 +259,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"B2006BB0-3F06-48B7-AD5D-38E4FD6F8DC7\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/nfcaa7634b41e\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-3.jpg\"/><strong>誰に何を売るか考えている</strong><small>戦場の外れに、小さな道具屋があります。そこで店を営んでいるのは、勇者ではなく、ひとりの店主です。「The Demon of Theseus」店主と客の取引ゲームです。引き際のヒリヒリ感店にやってくる客は様々です。旅を続ける勇者、さまようゴブリン、盗賊など。彼らとの取引は、「じゃんけん」と「ブラックジャック」…</small></a></div></div></figure>"
+      "html": "<figure id=\"B2006BB0-3F06-48B7-AD5D-38E4FD6F8DC7\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/nfcaa7634b41e\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-3.jpg\" width=\"300\" height=\"157\"/><strong>誰に何を売るか考えている</strong><small>戦場の外れに、小さな道具屋があります。そこで店を営んでいるのは、勇者ではなく、ひとりの店主です。「The Demon of Theseus」店主と客の取引ゲームです。引き際のヒリヒリ感店にやってくる客は様々です。旅を続ける勇者、さまようゴブリン、盗賊など。彼らとの取引は、「じゃんけん」と「ブラックジャック」…</small></a></div></div></figure>"
     },
     {
       "origin": "source",
@@ -275,7 +275,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"54302160-24D5-47D0-AC7F-149521F6C854\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/nd9c9a6fd9233\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-4.jpg\"/><strong>どうしても保存できない思い出がある</strong><small>模写を諦めた日記憶の中に染み付いている、「ぷよぷよ」のあの独特な気持ちよさを、自分の手元で再現することに挑戦していました。実際に作り始めてみると、本家の挙動がいかに細部まで計算されているかに気づかされます。ぷよが着地した瞬間の弾み。ぷよ同士の吸い付き。連鎖がつながるテンポ。それらを一つずつ実装していく作業は…</small></a></div></div></figure>"
+      "html": "<figure id=\"54302160-24D5-47D0-AC7F-149521F6C854\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/nd9c9a6fd9233\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-4.jpg\" width=\"300\" height=\"157\"/><strong>どうしても保存できない思い出がある</strong><small>模写を諦めた日記憶の中に染み付いている、「ぷよぷよ」のあの独特な気持ちよさを、自分の手元で再現することに挑戦していました。実際に作り始めてみると、本家の挙動がいかに細部まで計算されているかに気づかされます。ぷよが着地した瞬間の弾み。ぷよ同士の吸い付き。連鎖がつながるテンポ。それらを一つずつ実装していく作業は…</small></a></div></div></figure>"
     },
     {
       "origin": "source",
@@ -287,7 +287,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"CD2C3926-EF5A-4490-8709-F71D137918A5\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/nfcaa7634b41e\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-5.jpg\"/><strong>誰に何を売るか考えている</strong><small>戦場の外れに、小さな道具屋があります。そこで店を営んでいるのは、勇者ではなく、ひとりの店主です。「The Demon of Theseus」店主と客の取引ゲームです。引き際のヒリヒリ感店にやってくる客は様々です。旅を続ける勇者、さまようゴブリン、盗賊など。彼らとの取引は、「じゃんけん」と「ブラックジャック」…</small></a></div></div></figure>"
+      "html": "<figure id=\"CD2C3926-EF5A-4490-8709-F71D137918A5\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/nfcaa7634b41e\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-5.jpg\" width=\"300\" height=\"157\"/><strong>誰に何を売るか考えている</strong><small>戦場の外れに、小さな道具屋があります。そこで店を営んでいるのは、勇者ではなく、ひとりの店主です。「The Demon of Theseus」店主と客の取引ゲームです。引き際のヒリヒリ感店にやってくる客は様々です。旅を続ける勇者、さまようゴブリン、盗賊など。彼らとの取引は、「じゃんけん」と「ブラックジャック」…</small></a></div></div></figure>"
     },
     {
       "origin": "source",
@@ -299,7 +299,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"F7AA8820-FAC4-4A0A-B400-1B163D445359\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n0d370010316b\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-6.jpg\"/><strong>言葉がずっと回っている夜に</strong><small>宇宙の浮遊感を、iPhoneの中に閉じ込めてみたい。そんな動機から作り始めたのが、この「ORBIT」です。目的はシンプルです。広大な宇宙を漂い、資源を集めて壊れた基地を修復すること。開発で最も時間を費やしたのは、ゲームのシステムよりも無重力の「触り心地」でした。摩擦を削り、宇宙を漂う宇宙空間の慣性を表現する…</small></a></div></div></figure>"
+      "html": "<figure id=\"F7AA8820-FAC4-4A0A-B400-1B163D445359\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n0d370010316b\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-6.jpg\" width=\"300\" height=\"157\"/><strong>言葉がずっと回っている夜に</strong><small>宇宙の浮遊感を、iPhoneの中に閉じ込めてみたい。そんな動機から作り始めたのが、この「ORBIT」です。目的はシンプルです。広大な宇宙を漂い、資源を集めて壊れた基地を修復すること。開発で最も時間を費やしたのは、ゲームのシステムよりも無重力の「触り心地」でした。摩擦を削り、宇宙を漂う宇宙空間の慣性を表現する…</small></a></div></div></figure>"
     },
     {
       "origin": "source",
@@ -315,7 +315,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"F228A2FE-E4DB-407F-A79A-0F3097A46C07\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/na359e1f383de\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-7.jpg\"/><strong>ゲームジャムで、コーラをすごろくにした</strong><small>Ultimate AI-Powered Game Jam #1に参加して、『真夜中コーラ』というゲームを作った。生成AIの利用が必須で、72時間以内にゲームを作るというもの。最初に発表されたテーマは「COLA」だった。そこからクラフトコーラを作るゲームを思いついた。ただ、材料を選んで混ぜるだけでは、あまりゲ…</small></a></div></div></figure>"
+      "html": "<figure id=\"F228A2FE-E4DB-407F-A79A-0F3097A46C07\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/na359e1f383de\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-7.jpg\" width=\"300\" height=\"157\"/><strong>ゲームジャムで、コーラをすごろくにした</strong><small>Ultimate AI-Powered Game Jam #1に参加して、『真夜中コーラ』というゲームを作った。生成AIの利用が必須で、72時間以内にゲームを作るというもの。最初に発表されたテーマは「COLA」だった。そこからクラフトコーラを作るゲームを思いついた。ただ、材料を選んで混ぜるだけでは、あまりゲ…</small></a></div></div></figure>"
     }
   ],
   "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../w/orbit/\">ORBIT（現在のWeb版）↗</a><a href=\"../../works/ambertime/\">AmberTime（現在のWeb版）↗</a><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「正解のないゲームを探していた」（note、2026-08-07）。<a href=\"https://note.com/hamamah/n/n845da26b1b0b\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>"

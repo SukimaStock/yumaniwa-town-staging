@@ -155,9 +155,20 @@
         "resolution": "Historical PDF title/description and page9 original profile image extracted; public dynamic updated description not substituted; profile URL unchanged."
       },
       "tocWrapper": "Original TOC nav wrapper becomes div to avoid existing shared header-nav styles. Labels/details/list/order/heading IDs/targets remain original."
+    },
+    "connectionAuditCorrection": {
+      "authority": "2026-10-18 owner-authorized connection and SEO improvements following read-only audit",
+      "changes": [
+        {
+          "from": "https://note.com/hamamah/n/n16f7a42c0b6a",
+          "to": "../game-app-in-between/",
+          "scope": "Article body link only; separate note attribution retained."
+        }
+      ],
+      "preserved": "Original prose, captions, media bytes and source attribution; historical/external reference links otherwise unchanged."
     }
   },
-  "cover": "<figure><img src=\"../../assets/shinpo/touch-doodles/cover.png\" alt=\"ひねる、積む、なぞる。触れるらくがきの話の元掲載画像\" fetchpriority=\"high\"></figure>",
+  "cover": "<figure><img src=\"../../assets/shinpo/touch-doodles/cover.png\" alt=\"ひねる、積む、なぞる。触れるらくがきの話の元掲載画像\" fetchpriority=\"high\" width=\"1280\" height=\"670\"></figure>",
   "navDate": "2026年07月02日",
   "displayDate": "2026年7月2日",
   "backnumber": true,
@@ -168,7 +179,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"4b629530-edc5-444c-8281-631202a6cf3a\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n16f7a42c0b6a\"><img alt=\"\" src=\"../../assets/shinpo/touch-doodles/card-1.jpg\"/><strong>ゲーム未満、アプリ未満の心地よさ</strong><small>「公開予定もないアプリを21個作っていた話」を書いてから、気づけば4か月以上経っていた。始めた当初よりも、反応をもらえるようになって嬉しい。XやRedditなど、他のSNSの使い方もだんだん分かってきた。その一方で、以前はよく見かけていた方たちが、一人、また一人と静かになっていくのを眺めるのは、少し寂しい…</small></a></div></div></figure>"
+      "html": "<figure id=\"4b629530-edc5-444c-8281-631202a6cf3a\"><div><div><a class=\"source-preview\" href=\"../game-app-in-between/\"><img alt=\"\" src=\"../../assets/shinpo/touch-doodles/card-1.jpg\" width=\"300\" height=\"157\"/><strong>ゲーム未満、アプリ未満の心地よさ</strong><small>「公開予定もないアプリを21個作っていた話」を書いてから、気づけば4か月以上経っていた。始めた当初よりも、反応をもらえるようになって嬉しい。XやRedditなど、他のSNSの使い方もだんだん分かってきた。その一方で、以前はよく見かけていた方たちが、一人、また一人と静かになっていくのを眺めるのは、少し寂しい…</small></a></div></div></figure>"
     },
     {
       "origin": "source",
@@ -192,7 +203,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"F1BC5F71-B99C-4E78-BD14-25933CD12F5C\"><img loading=\"lazy\" alt=\"画像\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-1.gif\" width=\"480\"/><figcaption></figcaption></figure>"
+      "html": "<figure id=\"F1BC5F71-B99C-4E78-BD14-25933CD12F5C\"><img loading=\"lazy\" alt=\"UFOと牛を描いた牛吸いのアニメーション\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-1.gif\" width=\"480\"/><figcaption></figcaption></figure>"
     },
     {
       "origin": "source",
@@ -204,7 +215,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"59FAA339-A75C-42B6-AE1C-08871129FA93\"><img loading=\"lazy\" alt=\"画像\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-2.gif\" width=\"480\"/><figcaption></figcaption></figure>"
+      "html": "<figure id=\"59FAA339-A75C-42B6-AE1C-08871129FA93\"><img loading=\"lazy\" alt=\"白い豆腐を積み上げる豆腐タワーのアニメーション\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-2.gif\" width=\"480\"/><figcaption></figcaption></figure>"
     },
     {
       "origin": "source",
@@ -216,7 +227,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"103B9D03-EAED-464D-8E12-E5E939FD19A8\"><img loading=\"lazy\" alt=\"画像\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-3.gif\" width=\"480\"/><figcaption></figcaption></figure>"
+      "html": "<figure id=\"103B9D03-EAED-464D-8E12-E5E939FD19A8\"><img loading=\"lazy\" alt=\"蛇口おばけのアニメーション\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-3.gif\" width=\"480\"/><figcaption></figcaption></figure>"
     },
     {
       "origin": "source",
@@ -228,7 +239,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"4579B0FE-E340-4382-8A0A-A1CF372CBB87\"><img loading=\"lazy\" alt=\"画像\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-4.gif\" width=\"480\"/><figcaption></figcaption></figure>"
+      "html": "<figure id=\"4579B0FE-E340-4382-8A0A-A1CF372CBB87\"><img loading=\"lazy\" alt=\"雨の窓をなぞるらくがきのアニメーション\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-4.gif\" width=\"480\"/><figcaption></figcaption></figure>"
     },
     {
       "origin": "source",
@@ -240,7 +251,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"D95B519C-D7E9-4F27-9D0F-EBFB79132A4F\"><img loading=\"lazy\" alt=\"画像\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-5.gif\" width=\"480\"/><figcaption></figcaption></figure>"
+      "html": "<figure id=\"D95B519C-D7E9-4F27-9D0F-EBFB79132A4F\"><img loading=\"lazy\" alt=\"バーを引っ張る手動アップデートのアニメーション\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-5.gif\" width=\"480\"/><figcaption></figcaption></figure>"
     },
     {
       "origin": "source",
@@ -252,7 +263,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"11272334-CF4A-4781-9807-98A4BF4F2E0F\"><img loading=\"lazy\" alt=\"画像\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-6.gif\" width=\"480\"/><figcaption></figcaption></figure>"
+      "html": "<figure id=\"11272334-CF4A-4781-9807-98A4BF4F2E0F\"><img loading=\"lazy\" alt=\"通知バッジが増えていくアニメーション\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-6.gif\" width=\"480\"/><figcaption></figcaption></figure>"
     },
     {
       "origin": "source",
@@ -264,7 +275,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure id=\"fee223e1-7ef8-4ba5-b1c7-5cb59151303d\"><img loading=\"lazy\" alt=\"画像\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-7.gif\" width=\"480\"/><figcaption></figcaption></figure>"
+      "html": "<figure id=\"fee223e1-7ef8-4ba5-b1c7-5cb59151303d\"><img loading=\"lazy\" alt=\"線をなぞって道や川を作る地図のアニメーション\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-7.gif\" width=\"480\"/><figcaption></figcaption></figure>"
     },
     {
       "origin": "source",

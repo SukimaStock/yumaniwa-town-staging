@@ -123,7 +123,7 @@
       }
     ]
   },
-  "cover": "<figure><img src=\"../../assets/shinpo/leftover-details/cover.webp\" alt=\"どうでもいい部分が、なぜか残るの元掲載画像\" fetchpriority=\"high\"></figure>",
+  "cover": "<figure><img src=\"../../assets/shinpo/leftover-details/cover.webp\" alt=\"どうでもいい部分が、なぜか残るの元掲載画像\" fetchpriority=\"high\" width=\"1280\" height=\"670\"></figure>",
   "navDate": "2026年04月28日",
   "displayDate": "2026年4月28日",
   "backnumber": true,

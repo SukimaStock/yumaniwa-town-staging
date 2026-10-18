@@ -31,10 +31,14 @@ test('six source media bytes retain dimensions, frames, provenance and exact ins
  assert.deepEqual(board.source.missingMedia,[]);assert.deepEqual(town.source.missingMedia,[]);
  assert(!board.blocks.some(b=>b.origin==='editorial-media-note'));
 });
-test('source external links and three canonical X posts are retained without injected embeds',()=>{
+test('authorized town link stays in environment and three canonical X posts are retained without injected embeds',()=>{
  const town=tool.load('note-20260717-153a44e0'),game=tool.load('31beb527cad14b72a2afdc57f4b986b4');
  const body=town.blocks.map(b=>b.html).join('\n');
- for(const url of ['https://sukimastock.github.io/yumaniwa-town/'])assert(body.includes('href="'+url+'"'));
+ assert(body.includes('href="../../"'));
+ assert(!body.includes('href="https://sukimastock.github.io/yumaniwa-town/"'));
+ assert(body.includes('href="https://sukimastock.github.io/my-portfolio/"'));
+ assert(town.afterword.includes('href="https://note.com/hamamah/n/nad06ba5e60a2"'));
+ assert.deepEqual(town.source.connectionAuditCorrection.changes.map(c=>[c.from,c.to]),[['https://sukimastock.github.io/yumaniwa-town/','../../']]);
  assert(town.afterword.includes('../../?place=shinpo_board'));
  const citations=game.blocks.filter(b=>b.html.includes('video-citation'));assert.equal(citations.length,3);
  ['2053552847078170744','2056457725253427457','2054447396487102904'].forEach((id,i)=>assert(citations[i].html.includes('href="https://x.com/sukimastock/status/'+id+'"')));
