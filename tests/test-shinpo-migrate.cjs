@@ -15,12 +15,18 @@ const compact=s=>s.replace(/>\s+</g,'><').trim();
 test('existing three articles preserve ordered content, links, images, metadata and CSS',()=>{
  for(const m of ['note-20260717-153a44e0','95d48e6613ce4037907364809ee3359f','31beb527cad14b72a2afdc57f4b986b4'].map(tool.metadata)) {
   const a=tool.load(m.id), generated=tool.render(a,m);
-  const old=git(root,'show',baseline+':shinpo/'+a.slug+'/index.html');
+  let old=git(root,'show',baseline+':shinpo/'+a.slug+'/index.html');
+  // Parent rechecked original note on 2026-10-18: restore source links, preserving all other baseline content.
+  const sourceLinks = a.slug === 'town-beginning' ? { '../../w/yakitori-wars/':'https://sukimastock.itch.io/yakitori-wars', '../../w/midnight-cola/':'https://sukimastock.itch.io/midnight-cola' } : a.slug === 'game-app-in-between' ? { 'https://pic.twitter.com/LawEbLaWw9':'https://x.com/sukimastock/status/2053552847078170744', 'https://pic.twitter.com/8UypJUbbc4M':'https://x.com/sukimastock/status/2056457725253427457', 'https://pic.twitter.com/7sO1Ecec4M':'https://x.com/sukimastock/status/2054447396487102904' } : {};
+  for(const [from,to] of Object.entries(sourceLinks)) old=old.replaceAll('href="'+from+'"','href="'+to+'"');
+  if(a.slug==='town-beginning') old=old.replace('<a class="source-preview" href="../../">','<a class="source-preview" href="https://sukimastock.github.io/yumaniwa-town/">');
   // Only insignificant inter-tag whitespace differs: even existing local original links remain untouched.
-  assert.equal(compact(generated),compact(old),a.slug);
+  const withoutRestoredMedia=generated.replace(/<figure><img src="\.\.\/\.\.\/assets\/shinpo\/(?:board-game-making\/body-[1-5]|town-beginning\/town-animation)\.webp"[^>]*>(?:<figcaption>[^<]*<\/figcaption>)?<\/figure>/g,'');
+  old=old.replace(/<aside class="media-note"[\s\S]*?<\/aside>/g,'');
+  assert.equal(compact(withoutRestoredMedia),compact(old),a.slug);
   assert.equal(generated,fs.readFileSync(path.join(root,'shinpo',a.slug,'index.html'),'utf8'));
  }
- assert.equal(tool.load('95d48e6613ce4037907364809ee3359f').blocks.filter(b=>b.origin==='editorial-media-note').length,3);
+ assert.equal(tool.load('95d48e6613ce4037907364809ee3359f').blocks.filter(b=>b.origin==='editorial-media-note').length,0);
  assert.equal(tool.load('31beb527cad14b72a2afdc57f4b986b4').blocks.filter(b=>b.html.includes('video-citation')).length,3);
 });
 test('dry-run is deterministic, read-only, and regeneration is already clean',()=>{

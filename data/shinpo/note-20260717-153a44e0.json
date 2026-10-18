@@ -3,9 +3,22 @@
   "slug": "town-beginning",
   "source": {
     "reference": "Existing migrated HTML at 644ce1e04a999cf575bd6affe2a24e374fe1125e; prior Drive PDF transcription documented in PR 449",
-    "verification": "baseline-preserved; original PDF not re-fetched",
+    "verification": "2026-10-18: parent inspected original note and acquired original media through normal browser access; transferred unchanged via GitHub commit 8e1c1102001e1744cdd9d262dd6b034fb9290500. Cloud verified WEBP bytes, SHA256, dimensions and frame counts; insertion positions/captions follow parent source evidence. No generated replacement media.",
     "missingMedia": [],
-    "legacyLinks": "Preserve existing links verbatim; this does not authorize replacing source links in future articles."
+    "legacyLinks": "Original external body links restored from parent source comparison; town navigation remains outside the original body.",
+    "media": [
+      {
+        "path": "assets/shinpo/town-beginning/town-animation.webp",
+        "sourceUrl": "https://assets.st-note.com/img/1784257318-PgqFhc7XSN9mE2v0k3Gldfrb.gif?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+        "after": "名前は、「湯間庭町（ゆまにわちょう）」。",
+        "caption": "",
+        "sha256": "d66a03f19aa78f7052cbd73761d494b0350f2764dac2e554ef2c7337833625cb",
+        "format": "WEBP",
+        "width": 480,
+        "height": 854,
+        "frames": 69
+      }
+    ]
   },
   "description": "2026年7月17日に書いた、湯間庭町が生まれた頃の記録。作品を並べるだけでなく、作品が住める場所を作りたかった。",
   "ogDescription": "2026年7月17日に書いた湯間庭町の誕生記録を、原文のまま読める新聞紙面。",
@@ -51,7 +64,7 @@
     },
     {
       "origin": "source",
-      "html": "<p>最近は、作るものの幅が広がってきた。<br>「<a href=\"../../w/yakitori-wars/\">Yakitori Wars</a>」「<a href=\"../../w/midnight-cola/\">真夜中コーラ</a>」のようなゲームや、<br>「#触れるらくがき」のようなゲーム未満、アプリ未満のもの。<br>そしてこれまでに作ったアプリについてのnote記事。</p>"
+      "html": "<p>最近は、作るものの幅が広がってきた。<br>「<a href=\"https://sukimastock.itch.io/yakitori-wars\">Yakitori Wars</a>」「<a href=\"https://sukimastock.itch.io/midnight-cola\">真夜中コーラ</a>」のようなゲームや、<br>「#触れるらくがき」のようなゲーム未満、アプリ未満のもの。<br>そしてこれまでに作ったアプリについてのnote記事。</p>"
     },
     {
       "origin": "source",
@@ -91,6 +104,10 @@
     },
     {
       "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/town-beginning/town-animation.webp\" width=\"480\" height=\"854\" alt=\"原記事の本文画像\" loading=\"lazy\" decoding=\"async\"></figure>"
+    },
+    {
+      "origin": "source",
       "html": "<p>湯気のぬくもりと、<br>何もない間や、小さな庭のような余白。<br>そんなものを置いておける名前にした。</p>"
     },
     {
@@ -111,7 +128,7 @@
     },
     {
       "origin": "source",
-      "html": "<a class=\"source-preview\" href=\"../../\"><strong>湯間庭町｜つくったものが集まる町</strong><small>自分専用アプリ記事、触れるらくがき、夜の工房、焼き鳥屋台。少しずつ作ってきたものを、ひとつの町として歩ける場所にしました。<br>sukimastock.github.io ↗</small></a>"
+      "html": "<a class=\"source-preview\" href=\"https://sukimastock.github.io/yumaniwa-town/\"><strong>湯間庭町｜つくったものが集まる町</strong><small>自分専用アプリ記事、触れるらくがき、夜の工房、焼き鳥屋台。少しずつ作ってきたものを、ひとつの町として歩ける場所にしました。<br>sukimastock.github.io ↗</small></a>"
     }
   ],
   "afterword": "<aside class=\"afterword\" aria-label=\"記事の外側にある町内案内\">\n<h2>この町をもう少し歩く</h2>\n<div class=\"links\"><a href=\"../game-app-in-between/\">ゲーム未満、アプリ未満の心地よさ ↗</a><a href=\"../board-game-making/\">ボードゲームをアプリで再現してみた記録 ↗</a><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">湯間庭町を歩く ↗</a></div>\n<div class=\"source\">原典：はままぁ「作品を並べるより、住める場所を作りたかった」（note、2026年7月17日）。<a href=\"https://note.com/hamamah/n/nad06ba5e60a2\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div>\n</aside>",
