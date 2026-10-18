@@ -1,0 +1,140 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e2e574437b4cbec24038dee50a41c40dbe6700f316da310611265b0827ed6940",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-card-thumbnails-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "既存記事ヘッダーを小さな右側サムネイルにしてカード余白を整える",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "3c364f8447d37abfe683fdcf0b0db5b848745aae",
+    "canonicalSources": [
+      "2026-10-18 user: 余白はきになるので、他と合わせてヘッダー画像をサムネイルにしませんか",
+      "親の添付実見: 左見出し/右28%・比率1.9:1、全面画像にせず新聞名日付を省スペースに",
+      "data/shinpo/*.json cover and corresponding article HTML",
+      "assets/shinpo/town-beginning/cover.png",
+      "assets/shinpo/backnumber/board-game-cover.png",
+      "assets/shinpo/backnumber/game-app-cover.png",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-card-thumbnails-20261018/r0.lock.json",
+      "main.js",
+      "style.css",
+      "data/notes.js",
+      "tests/test-shinpo-rack.cjs",
+      "tools/SHINPO-MIGRATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/shinpo/**",
+      "shinpo/**",
+      "assets/**",
+      "tools/shinpo-migrate.cjs",
+      "tools/shinpo-template.html",
+      "works/**",
+      "engines/**",
+      ".github/**",
+      "index.html",
+      "layout-fix.css",
+      "sitemap.xml",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "CHANGE-*.md"
+    ],
+    "expectedChanges": [
+      "3つのnotesレコードへ既存coverの参照archiveThumbnailを追加。ID/title/date/url/archivePage不変",
+      "小新聞名+日付を1行、下に左見出し+右28%横長画像。元比率1280:670で切り取りなし。全幅画像なし",
+      "大きな空白を作る固定のmin-heightを外し自然高に。全文折返し・薄紙色・控えめな装飾/全域buttonを保持",
+      "metadataなし/画像ロード失敗時は画像枠を除き見出し全文の1列へfallback。copy追加なし",
+      "通常の記事追加は既存coverをmetadataへ参照するだけでruntime変更不要と記録"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 user requested existing header thumbnails to match other note cards; parent inspected screenshot and confirmed right28% thumbnail. Staging PR/CI/safe merge/Pages authorized; Production prohibited"
+    ],
+    "hqDecisions": [
+      "SYSTEM/full/HQ Review shared main/style. Candidate selection unchanged; render+existing-record optional metadata only",
+      "表現監査: タイトル/媒体名/日付/既存操作案内のみ。本文ヘッダー/画像bytesは保持し、新副題/説明/広告装飾なし"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN single initial r0; official create/verify",
+      "Staging only",
+      "EXPRESSION-AUDIT.md 制作前/中/完成前6点"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "320/390/768/1280px×3記事、長文折返し/28%横長/比率保持/切取なし",
+      "ロード失敗+metadataなしfallback、keyboard focus/44pxタップ/1クリック本文/戻る",
+      "pickup/4枠/記事内容保持、既存ローカル画面と親確認note配置を比較"
+    ],
+    "impactChecks": [
+      "surface.shared",
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "runtime.mobile-desktop",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "このサムネイルPRだけrevert。カード簡素化/記事/選択修復は保持",
+    "outOfScope": [
+      "Production",
+      "新規画像生成/画像bytes変更",
+      "記事本文/ヘッダー/リンク",
+      "pickup選択/4枠",
+      "note iframe内部",
+      "保存/他作品/外部権限"
+    ],
+    "promotion": "Staging-only; Productionは別指示",
+    "unverified": [
+      "今回添付は親で実見済み。Library転送再試行なし",
+      "実機iPhone/iPad",
+      "公開画面比較は親で補完。cloud直接経路は既知403"
+    ],
+    "problem": "カードの最小高さが見出し下に大きな空白を作り、隣のnoteとの画像配置も異なる",
+    "currentContract": "小新聞名/薄紙色の簡素なカード、全文見出し、既存4枠町内pickup。各本文coverが原画像の正本",
+    "whyExistingIsInsufficient": "テキストだけのカードにiframeと同じ最小高さがあり空白が多い",
+    "design": "archiveThumbnail optional fieldで同じcover参照。上段に小新聞名と日付、下段は左見出し/右28%画像。自然高、object-fit containと1280:670で切り取りを避け、失敗時は画像要素を除去しテキスト1列へ",
+    "alternativesRejected": [
+      "全面大画像",
+      "本文中の別画像",
+      "新画像/副題/説明で埋める",
+      "タイトル省略",
+      "固定高で空白を保持",
+      "広告装飾復活"
+    ],
+    "migration": "3notesに画像参照のみ。将来も記事ごとmetadata追加だけ、従来metadataなしも読める",
+    "compatibility": "画像が読めなくても本文を開ける。画像は見出しと重複する装飾扱いでalt空、buttonの既存aria-label保持",
+    "boundaryCases": [
+      "320/390/768/1280px",
+      "最長日本語タイトル/文字拡大",
+      "3cover原典対応",
+      "画像失敗/metadataなし",
+      "focus-visible/全域tap",
+      "選択と本文無変更"
+    ],
+    "testPlan": [
+      "15既存テスト+cover対応/metadata有無/escapeと画像エラーfallback回帰",
+      "node syntax/Scope→Risk→Impact",
+      "4幅3記事ブラウザーで画像decode/比率/配置/全文/自然伸長",
+      "画像abort時fallbackと1クリック/scroll/back/focus",
+      "独立レビュー/必須CI/exact Pages SHA"
+    ],
+    "promotionRisk": "Staging noindex only"
+  }
+}
