@@ -382,7 +382,6 @@ var NOTE_ARTICLES = [
         title: "「ボードゲームの作り方」が分からなかったので、アプリで再現してみた",
         url: "https://note.com/hamamah/n/n0ca130319cac",
         archivePage: "./shinpo/board-game-making/",
-        archiveTeaser: "理屈で分からないなら、触って確かめてみようと思いました。",
         publish_date: "2026-05-22",
         showInShinpo: true,
         tags: ["game", "making", "app"]
@@ -408,7 +407,6 @@ var NOTE_ARTICLES = [
         title: "ゲーム未満、アプリ未満の心地よさ",
         url: "https://note.com/hamamah/n/n16f7a42c0b6a",
         archivePage: "./shinpo/game-app-in-between/",
-        archiveTeaser: "「ちょっと触りたい」が続いていた。",
         publish_date: "2026-06-12",
         showInShinpo: true,
         tags: ["game", "app", "making", "rakugaki"]

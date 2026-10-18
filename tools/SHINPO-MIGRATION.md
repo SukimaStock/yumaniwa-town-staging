@@ -1,6 +1,6 @@
 # note記事を町内へ移す
 
-この手順はStagingだけ。実行担当AIがCLIとGitを扱い、作者にJSONの記入を求めない。`data/notes.js` のID・title・publishedAt/publish_date・urlが正本。移植は選抜優遇ではなく、通常4枠で選ばれた記事の表示と遷移先だけを変える。
+この手順はStagingだけ。実行担当AIがCLIとGitを扱い、作者にJSONの記入を求めない。`data/notes.js` のID・title・publishedAt/publish_date・urlが正本。移植は選抜優遇ではなく、通常4枠で選ばれた記事の表示と遷移先だけを変える。カード・本文ヘッダーへ追加サブタイトルや抜粋説明を作らない。archiveTeaserは表示しない。原文中の同じ文章は本文として保持する。description/ogDescriptionは画面に表示しないmetadataであり入力必須ではない。未指定時は正本のタイトルだけを使い、新しい要約やコピーを生成しない。
 
 ## 入口
 
