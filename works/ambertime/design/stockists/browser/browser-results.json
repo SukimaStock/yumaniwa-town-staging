@@ -1,0 +1,166 @@
+{
+  "browser": "153.0.8010.0",
+  "fixtures": "All fixture creation and strict replay in Chromium through public operations; no model projection.",
+  "physicalSafari": false,
+  "humanFun": false,
+  "sourceHashes": {
+    "index.html": "27568b322a9f35d21709e99b7449cb751db7db67a0b5b1ee1990ed4ae96c9611",
+    "shop-app.mjs": "186cd35dd6506f95b2b78e0b76a318ad420d33a395b9d0447dc6d4d5cc5e72e6",
+    "shop.css": "c9de07d3f373c8de84f08ec53070c092c11eab8bbcedc75f6d638be81dcd6057",
+    "shop-model.mjs": "51563fde80a25fa5adb269732927ba4f0ff04c15ba4a1735de29a9b68a2fe08c",
+    "partner-orders.mjs": "d2db5fee128dbfde1c979134757c3609168fa7ed809b63281c5d2349293c675a",
+    "tests/stockists-browser.mjs": "ea0d861ff0204dba7fd527cf940c804a73e1fd988dd8a18601dec75dbc636917"
+  },
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "paused": false,
+      "naturalThreeOffers": [
+        "town-liquor",
+        "supermarket",
+        "department"
+      ],
+      "atomicFirstDelivery": true,
+      "stalePriorOfferButtonRejected": true,
+      "laterPreservesQueue": true,
+      "otherOfferAutoFollows": true,
+      "manualPauseRespected": true,
+      "runningResumes": true,
+      "strictReplay": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "paused": true,
+      "naturalThreeOffers": [
+        "town-liquor",
+        "supermarket",
+        "department"
+      ],
+      "atomicFirstDelivery": true,
+      "stalePriorOfferButtonRejected": true,
+      "laterPreservesQueue": true,
+      "otherOfferAutoFollows": true,
+      "manualPauseRespected": true,
+      "runningResumes": true,
+      "strictReplay": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "threeDestinations": true,
+      "deliveries": [
+        1,
+        10,
+        5
+      ],
+      "exactStockCash": true,
+      "noRetailReputationInflation": true,
+      "departmentMonthlyCap": true,
+      "retailPriceStillEditable": true,
+      "strictReload": true,
+      "touchTargets44": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "youngIndividualOne": true,
+      "ineligibleRelatedStoresVisible": true,
+      "ageReasons": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "multipleReleaseSelection": true,
+      "onlyChosenSkuReduced": true,
+      "decliningOtherShopsPreservesExistingRelation": true,
+      "queueDrainsWithoutLoss": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "legacyV12RawUnchanged": true,
+      "oldDeliveryLedgerUnchanged": true,
+      "oldRelationshipRetained": true,
+      "noDuplicateOffer": true,
+      "strictV13Replay": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "paused": false,
+      "naturalThreeOffers": [
+        "town-liquor",
+        "supermarket",
+        "department"
+      ],
+      "atomicFirstDelivery": true,
+      "stalePriorOfferButtonRejected": true,
+      "laterPreservesQueue": true,
+      "otherOfferAutoFollows": true,
+      "manualPauseRespected": true,
+      "runningResumes": true,
+      "strictReplay": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "paused": true,
+      "naturalThreeOffers": [
+        "town-liquor",
+        "supermarket",
+        "department"
+      ],
+      "atomicFirstDelivery": true,
+      "stalePriorOfferButtonRejected": true,
+      "laterPreservesQueue": true,
+      "otherOfferAutoFollows": true,
+      "manualPauseRespected": true,
+      "runningResumes": true,
+      "strictReplay": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "threeDestinations": true,
+      "deliveries": [
+        1,
+        10,
+        5
+      ],
+      "exactStockCash": true,
+      "noRetailReputationInflation": true,
+      "departmentMonthlyCap": true,
+      "retailPriceStillEditable": true,
+      "strictReload": true,
+      "touchTargets44": true,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "youngIndividualOne": true,
+      "ineligibleRelatedStoresVisible": true,
+      "ageReasons": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "multipleReleaseSelection": true,
+      "onlyChosenSkuReduced": true,
+      "decliningOtherShopsPreservesExistingRelation": true,
+      "queueDrainsWithoutLoss": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "legacyV12RawUnchanged": true,
+      "oldDeliveryLedgerUnchanged": true,
+      "oldRelationshipRetained": true,
+      "noDuplicateOffer": true,
+      "strictV13Replay": true
+    }
+  ]
+}
