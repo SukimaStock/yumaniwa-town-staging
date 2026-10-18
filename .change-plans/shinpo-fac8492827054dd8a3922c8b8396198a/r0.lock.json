@@ -1,0 +1,127 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9a792b9f2c00d24c75c98699eff276b74ba0294844037e409bb861443d35583b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-fac8492827054dd8a3922c8b8396198a",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "原典を保持してnote記事 fac8492827054dd8a3922c8b8396198a を町内の通常4枠から読む",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM",
+      "ASSET"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "b777e39197a53664f82f13acd1a9d2b87ca7af9b",
+    "canonicalSources": [
+      "data/notes.js",
+      "tools/shinpo-template.html",
+      "https:/note.com/hamamah/n/n1c68d15e4d91",
+      "Parent browser original CDN bytes: eight WEBP images, five animations with 64/54/46/129/57 frames; no transcoding"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-fac8492827054dd8a3922c8b8396198a/r0.lock.json",
+      "data/shinpo/fac8492827054dd8a3922c8b8396198a.json",
+      "data/notes.js",
+      "shinpo/leftover-details/index.html",
+      "assets/shinpo/leftover-details/cover.webp",
+      "assets/shinpo/leftover-details/body-1.webp",
+      "assets/shinpo/leftover-details/body-2.webp",
+      "assets/shinpo/leftover-details/body-3.webp",
+      "assets/shinpo/leftover-details/body-4.webp",
+      "assets/shinpo/leftover-details/body-5.webp",
+      "assets/shinpo/leftover-details/body-6.webp",
+      "assets/shinpo/leftover-details/card-1.webp"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/**",
+      ".github/**",
+      "engines/**",
+      "sitemap.xml",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "ID単位の順序付き原文ブロック、取得原画像、該当notesレコード、生成HTMLのみ",
+      "既存記事/4枠選抜を変更せず町内案内を本文の外に置く",
+      "Preserve original WEBP bytes and animation; eight assets have truthful .webp paths, including source link-card n05dba4e45d7b thumbnail"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 delegated user approval: finish remaining leftover-details article and verified safe Staging merge; preserve source text and all original media. Production unchanged."
+    ],
+    "hqDecisions": [
+      "既存静的テンプレート内。unknown-code SYSTEM/full。原典完全性は人が証拠を照合し未取得を記録する。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN single initial r0; official create/verify",
+      "Staging only",
+      "User section6 authorizes verified same-work town play links; source note/citation and historical edition retained",
+      "Expression audit: preserve author original; no invented subtitle,summary,copy",
+      "Fresh r0 after PR479 advanced main; original branch preserved; no missing material placeholders",
+      "Fresh isolated r0 before implementation: actual CDN WEBP format replaces prior planned suffixes; previous lock branches remain untouched"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "原典と全文/順序/外部リンク/画像を照合",
+      "mobile/desktopで本文1クリック、スクロール、戻る"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "runtime.mobile-desktop"
+    ],
+    "impactExclusions": [],
+    "rollback": "この記事追加PRのみrevert。既存記事/保存/Productionは不変。",
+    "outOfScope": [
+      "Production",
+      "既存記事変更",
+      "共通runtime",
+      "CMS/DB",
+      "外部権限"
+    ],
+    "promotion": "Staging only",
+    "unverified": [
+      "原典照合は別途証拠が必要",
+      "iPhone/iPad実機未確認"
+    ],
+    "problem": "既存note記事を町内本文として読む",
+    "currentContract": "notesのID/title/date/urlが正本。移植済みはarchivePageへ1クリック。",
+    "whyExistingIsInsufficient": "対象記事本文が未移植",
+    "design": "既存template/CLIで静的生成。原典と町内案内を分離。",
+    "alternativesRejected": [
+      "固定枠",
+      "原文要約/画像創作",
+      "CMS"
+    ],
+    "migration": "ID/原note URL保持、archivePageのみ登録",
+    "compatibility": "元の4枠と他記事を保持",
+    "boundaryCases": [
+      "同じIDの再実行",
+      "未取得media",
+      "中断再開",
+      "base進行"
+    ],
+    "testPlan": [
+      "node tools/shinpo-migrate.cjs check",
+      "node tests/test-shinpo-rack.cjs",
+      "node tests/test-shinpo-migrate.cjs",
+      "Scope/Risk/Impact、必須CI、レビュー、Pages"
+    ],
+    "promotionRisk": "Productionは変更しない"
+  }
+}
