@@ -1,0 +1,130 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d7d8fe782931dd54e7eb2ad003dcbdb386790637c2dbe42bc8bb72a5630dc815",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-backnumber-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "湯間庭新報に過去のnote記事2本の全文と元の見出し画像をStagingに追加する",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "ASSET",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "cd1664e60f659afee6159447b3b6805f42d99630",
+    "canonicalSources": [
+      "Google Drive SukimaStock/note/ゲーム未満、アプリ未満の心地よさ｜はままぁ.pdf",
+      "Google Drive SukimaStock/note/正解のないゲームを探していた｜はままぁ.pdf",
+      "data/notes.js",
+      "shinpo/town-beginning/index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-backnumber-20261018/r0.lock.json",
+      "data/notes.js",
+      "shinpo/town-beginning/index.html",
+      "shinpo/game-app-in-between/index.html",
+      "shinpo/seeking-a-game-without-right-answer/index.html",
+      "assets/shinpo/backnumber/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "sitemap.xml",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "works/**",
+      "data/work-lifecycle.json"
+    ],
+    "expectedChanges": [
+      "原文2本の全文・句読点・改行を保持した静的紙面を作成",
+      "PDF見出し画像を保存し原記事の掲載順に置く",
+      "各記事のX投稿などは元の所在を明示し、欠落した画像や動画を創作しない",
+      "既存note記事データに紙面リンクを追加し、町の誕生記事からバックナンバーへのリンクを追加",
+      "記事本文と別の位置に町内回遊と出典noteリンク",
+      "Staging noindexとProduction canonicalを維持"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 ユーザーの『他の記事も移植していきましょう』『再開してください』の承認。前提は原文全文・元画像・町内で完結する読書、要約・追加サブタイトルなし。Production変更不可。"
+    ],
+    "hqDecisions": [
+      "未知HTMLと画像アセットを追加するFull Plan。既存ランタイムは変更せず、原典との差異・画像の真偽・リンクの移動先を明示して検証する。外部動画などの取得不可素材は捏造しない。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN v0.2 normal Plan Lock route",
+      "trusted base Change PR Gate",
+      "Staging-only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "原文PDFの全文とリンク位置の突合",
+      "iPhone Safariで新聞の縦スクロールと1タップ開封を確認",
+      "画像表示と拡大縮小を確認"
+    ],
+    "impactChecks": [
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "今回追加した2記事と画像を除去し、notes.jsとtown-beginning紙面への最小差分をrevert。既存4件のnoteカードに戻す。",
+    "outOfScope": [
+      "Production",
+      "sitemap生成・公開",
+      "全記事一括移植",
+      "ゲーム・Engine",
+      "SNS投稿の改変",
+      "既存の記事本文"
+    ],
+    "promotion": "none; Staging only; Production公開は別指示",
+    "unverified": [
+      "iPhone/iPad実機での最終触感評価",
+      "PDFに残らないX動画のページ内再生は元リンクとして保持"
+    ],
+    "problem": "過去note記事が町内で全文を読めず、作品からの回遊がnote側に向かっている。",
+    "currentContract": "町内固定記事1本は原文全文・画像を掲載、その他はnoteカードから外部遷移する。",
+    "whyExistingIsInsufficient": "制作思想と過去の作品の文章が町内に保存されておらず、バックナンバーを歩いて読めない。",
+    "design": "記事ごとに独立静的HTMLを設置し、元の見出し画像と本文全文を紙面にする。既存と同じ静かな新聞CSS、1タップ直読みに統一。日付は原文の公開日。原文末尾の後に町内へのリンクと出典欄。最初の新聞から2記事を案内する。",
+    "alternativesRejected": [
+      "全文ではなく要約にする",
+      "本文を書き換える",
+      "未確認の画像を作る",
+      "外部noteへのメイン誘導",
+      "全記事一括公開"
+    ],
+    "migration": "既存NOTE_ARTICLESの元urlとidは保持、追加紙面へのarchivePageを記録。保存データ変更なし。",
+    "compatibility": "静的HTMLと既存のpaper CSS設計をページ単位で再現し、既存のmain.js、index.html、style.cssを変更しない。",
+    "boundaryCases": [
+      "検索から記事へ直接来ても本文全文が読める",
+      "クリックは1回で本文へ",
+      "X投稿は元の位置でリンクを保つ",
+      "iPhoneの狭い画面で文字と画像が溢れない",
+      "画像読み込み失敗時は代替説明が残る",
+      "Stagingはnoindex"
+    ],
+    "testPlan": [
+      "GitHub CI Release Validator / Change Operations / Trusted PR Gate",
+      "画像の寸法・バイナリ存在・HTML参照の確認",
+      "原文段落と本文の照合",
+      "Staging URL配信の確認"
+    ],
+    "promotionRisk": "Staging-only noindex; independent Production deployment requires explicit release decision"
+  }
+}
