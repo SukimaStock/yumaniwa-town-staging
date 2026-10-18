@@ -1,0 +1,240 @@
+{
+  "browser": "153.0.8010.0",
+  "physicalSafari": false,
+  "screenReader": false,
+  "fixtures": "Public game operations; strict serialize/restore; no forged balances or game state.",
+  "sourceHashes": {
+    "index.html": "bea9a12f2d34e6316be7678e91b4deaa7b9741fef84ee580525d98e29cee487f",
+    "shop-app.mjs": "adfc9a12bb309e9060d5b3f4b8f50534c4d348ebd6c9101ed4eb7dd7f402eaea",
+    "shop.css": "803846002f64a581a2d7f4a0ac2effc25400967c0209d34561bc28b16ad4d9ea",
+    "partner-orders.mjs": "478389e22041eaa00d170a794a9f2fc920298d10c9f1700653ce382d598c3aa8",
+    "distiller.mjs": "0b3b4f831bd369a0c25ebbcebc49f189a185f1df6b3a565d59add2436ebd6a99",
+    "flavor-view.mjs": "bc1ecbaef2926a1e257d8cef3d5092e509dcb264a92029e7843ec786ab62f23c",
+    "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+    "economy.mjs": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a"
+  },
+  "screenshots": {
+    "legacy-active.png": "f77ab5d4c7b47ff5c4d101e61783ee0a85783cfc5ddfc2343ee750ade8c0325b",
+    "legacy-queued.png": "09ee99080a72a6c2ce2ffe7b2518e42cb53df84e83dc3c0524f04c068921de81",
+    "legacy.png": "264fe27eedb149efe0c79738095e532fd3d589dcbbbc9bbeaea79179c1ee1edd",
+    "pc-bottle-source.png": "e0e0e138555c4942b256b12b60007cc4a09eb45ebc8fe61a0fa22285305901ea",
+    "pc-completed.png": "ad5531a193cdccb826f4f41aa505e1a2717305916e8feecf9a81c26dd1317a18",
+    "pc-hire.png": "12c7aa6192515dd8f41eff3cbc8566a43d7cfc61150b35e4d57871c0b22438dc",
+    "pc-queued.png": "3b562434e8a8777144a0b8f8383345634a5f317b6e077f12fe38db785bd50514",
+    "pc-recipes.png": "1ccd5203625ce8d41503b04116c64f9f5ca7b3d39f2ff2b9862c56b577f4a0c5",
+    "pc-request.png": "201c85a8bc723a58054c30bbffd2eec4c5cbdec14a033a0a34e6ede69cc6059f",
+    "pc-working.png": "6640dd870739fb39ac4f58eb07091276d72a806aa856d8ebc77c329871b80d91",
+    "phone-bottle-source.png": "29d5aa140f9da60c437780826c80a295ad232e43f13ef3474c56a810d7833fea",
+    "phone-completed.png": "b1b94afd6cc9755c5a95d5e062608e546eeebf8e1fb6f0d64290c66161f9fc5c",
+    "phone-full-wait.png": "bdc3fd23182488be2420d663ae936fd74fa5fcd5e49caa882e032d1eeb43e5ba",
+    "phone-hire.png": "e1d38b49a8d0f7684f4998decb5566e08db6d13fc4fb08111685dc2c5bfb3f32",
+    "phone-plan.png": "be8aee60cc38aa601fd7ec56b8b79ccfa3f9f231f1a83622c1ef2998e4d9a279",
+    "phone-queued.png": "2b55deb129fe86593963111700c67dc8b5e3269bdb5591234b72663d9f498383",
+    "phone-recipes.png": "35fa3e6b995dcffb4039b2e88e5560a912570d8eaa997834cd12f48fe8a3e1d8",
+    "phone-request.png": "305a0699343b050117a8005c1e4f734e606ed8780981349d6f6c7cf44259dff6",
+    "phone-short-bottle-source.png": "e6cd6019447ae903e9c12cd4192d767df71f5c3886335ff2812f1a295cd2dd25",
+    "phone-short-completed.png": "7ff7dde86bb26d3cec6a190cded7eecc598eca58e31ea393cc819fb5751f99ac",
+    "phone-short-hire.png": "c21981fad3027b5d706354b934524c1e9042c5a3d08305026b6ccd317be15867",
+    "phone-short-queued.png": "724407bbdd9b474e6ce7fea2d27c97a3aaca1711ea0c85dfa15ff2eb1112a741",
+    "phone-short-recipes.png": "4e237d5831bac038f15bda727248f124afd97e35c93bac6f6f6735fbfb748d25",
+    "phone-short-request.png": "47e182275a4ad8ef6c0d0eb8b8e4959e6754e9954d7e7279f22f40bd1fd3a123",
+    "phone-short-tasting-previous.png": "cc4c507c81807160773306124f9a15703fcc8078b0ecd108a06c0c81d12a5d91",
+    "phone-short-working.png": "5cee4710c05b0ceec37f221f9c3919774a06850b13ce2134898ceba80cff5907",
+    "phone-working.png": "31912880d9cd34dfcfe760127664530ae312fc82f474fdcf9816399d307c6a92"
+  },
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "newGameManualFillThenHire": true,
+      "hireCost": 40,
+      "noHireBeforeManualFill": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "caskDirectRequestWithSourceArt": true,
+      "savedRecipeNotRequired": true,
+      "queueSnapshotCorrect": true,
+      "noChargeUntilStart": true,
+      "startSalaryChargedOnce": true,
+      "singleStillRunning": true,
+      "exactSaveReload": true,
+      "oneCaskCompletesNoContinuousProduction": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "bottleDirectSourceHasBrandReleaseArt": true,
+      "backReturnsProduct": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "recipeSourceArt": true,
+      "selectionCannotChangeQueue": true,
+      "cancelQueuedNoSalary": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "newGameManualFillThenHire": true,
+      "hireCost": 40,
+      "noHireBeforeManualFill": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "caskDirectRequestWithSourceArt": true,
+      "savedRecipeNotRequired": true,
+      "queueSnapshotCorrect": true,
+      "noChargeUntilStart": true,
+      "startSalaryChargedOnce": true,
+      "singleStillRunning": true,
+      "exactSaveReload": true,
+      "oneCaskCompletesNoContinuousProduction": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "bottleDirectSourceHasBrandReleaseArt": true,
+      "backReturnsProduct": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "recipeSourceArt": true,
+      "selectionCannotChangeQueue": true,
+      "cancelQueuedNoSalary": true
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "newGameManualFillThenHire": true,
+      "hireCost": 40,
+      "noHireBeforeManualFill": true
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "caskDirectRequestWithSourceArt": true,
+      "savedRecipeNotRequired": true,
+      "queueSnapshotCorrect": true,
+      "noChargeUntilStart": true,
+      "startSalaryChargedOnce": true,
+      "singleStillRunning": true,
+      "exactSaveReload": true,
+      "oneCaskCompletesNoContinuousProduction": true
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "bottleDirectSourceHasBrandReleaseArt": true,
+      "backReturnsProduct": true
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "recipeSourceArt": true,
+      "selectionCannotChangeQueue": true,
+      "cancelQueuedNoSalary": true
+    },
+    {
+      "fourFullCasksQueueWaits": true,
+      "noSalaryWhileWaiting": true,
+      "normalUpkeepOnly": 36,
+      "cancelAfterWaiting": true
+    },
+    {
+      "requestFromTastingBackReturnsSameTasting": true,
+      "modalStopsTime": true,
+      "noSampleReservationOrEconomicMutationFromOpenClose": true
+    },
+    {
+      "recentTastingThreeAxesAndPreviousTicks": true,
+      "highWoodAndAromaDecreaseReal": true,
+      "sameMonthPreviousPreserved": true,
+      "compareRoundtripExactState": true,
+      "phone744AllTastingControlsVisible": true,
+      "buttons": [
+        {
+          "id": "compare-tasting",
+          "bottom": 715.5
+        },
+        {
+          "id": "end-tasting",
+          "bottom": 663.5
+        },
+        {
+          "id": "taste-bottle",
+          "bottom": 663.5
+        },
+        {
+          "id": "staff-tasting",
+          "bottom": 715.5
+        }
+      ]
+    },
+    {
+      "kind": "legacy",
+      "oldV17PreservedVerbatim": true,
+      "noRetroactiveCharge": true,
+      "legacyAccessRetained": true,
+      "reservationOrActivePreserved": true,
+      "strictReloadExact": true
+    },
+    {
+      "kind": "legacy-queued",
+      "oldV17PreservedVerbatim": true,
+      "noRetroactiveCharge": true,
+      "legacyAccessRetained": true,
+      "reservationOrActivePreserved": true,
+      "strictReloadExact": true
+    },
+    {
+      "kind": "legacy-active",
+      "oldV17PreservedVerbatim": true,
+      "noRetroactiveCharge": true,
+      "legacyAccessRetained": true,
+      "reservationOrActivePreserved": true,
+      "strictReloadExact": true
+    },
+    {
+      "longSaveUI": true,
+      "months": 1440,
+      "nativeBrowserCareer": true,
+      "startupActions": [
+        {
+          "action": "defer-existing-shop-offer",
+          "title": "町の酒店から"
+        }
+      ],
+      "fixtureSHA256": "e3fc81696159c6727916c53ed02ab9c3bd5ed646c08bdbba7e0addac2b051fc3",
+      "coldLoadMs": 37265.872576999995,
+      "timings": [
+        {
+          "label": "first",
+          "caskId": 560,
+          "openMs": 136.99094599999808,
+          "closeMs": 73.80508700000064
+        },
+        {
+          "label": "reopen",
+          "caskId": 560,
+          "openMs": 135.25530000000435,
+          "closeMs": 67.46842499999912
+        },
+        {
+          "label": "different-cask",
+          "caskId": 569,
+          "openMs": 140.80242699999508,
+          "closeMs": 59.52361199999723
+        }
+      ],
+      "sourceArtLoaded": true,
+      "backUsable": true,
+      "openCloseDoesNotMutateGame": true,
+      "physicalSafari": false
+    }
+  ]
+}

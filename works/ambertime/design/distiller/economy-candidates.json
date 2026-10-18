@@ -1,0 +1,398 @@
+[
+  {
+    "seed": 1,
+    "policy": "delegated",
+    "hire": 20,
+    "perJob": 8,
+    "total": 884,
+    "endCash": 25674,
+    "minCash": 586
+  },
+  {
+    "seed": 1,
+    "policy": "delegated",
+    "hire": 20,
+    "perJob": 12,
+    "total": 1316,
+    "endCash": 25242,
+    "minCash": 574
+  },
+  {
+    "seed": 1,
+    "policy": "delegated",
+    "hire": 20,
+    "perJob": 24,
+    "total": 2612,
+    "endCash": 23946,
+    "minCash": 538
+  },
+  {
+    "seed": 1,
+    "policy": "delegated",
+    "hire": 40,
+    "perJob": 8,
+    "total": 904,
+    "endCash": 25654,
+    "minCash": 566
+  },
+  {
+    "seed": 1,
+    "policy": "delegated",
+    "hire": 40,
+    "perJob": 12,
+    "total": 1336,
+    "endCash": 25222,
+    "minCash": 554
+  },
+  {
+    "seed": 1,
+    "policy": "delegated",
+    "hire": 40,
+    "perJob": 24,
+    "total": 2632,
+    "endCash": 23926,
+    "minCash": 518
+  },
+  {
+    "seed": 1,
+    "policy": "delegated",
+    "hire": 80,
+    "perJob": 8,
+    "total": 944,
+    "endCash": 25614,
+    "minCash": 526
+  },
+  {
+    "seed": 1,
+    "policy": "delegated",
+    "hire": 80,
+    "perJob": 12,
+    "total": 1376,
+    "endCash": 25182,
+    "minCash": 514
+  },
+  {
+    "seed": 1,
+    "policy": "delegated",
+    "hire": 80,
+    "perJob": 24,
+    "total": 2672,
+    "endCash": 23886,
+    "minCash": 478
+  },
+  {
+    "seed": 1,
+    "policy": "delegated",
+    "hire": 40,
+    "monthly": 1,
+    "total": 400,
+    "endCash": 26158,
+    "minCash": 582
+  },
+  {
+    "seed": 1,
+    "policy": "delegated",
+    "hire": 40,
+    "monthly": 4,
+    "total": 1480,
+    "endCash": 25078,
+    "minCash": 558
+  },
+  {
+    "seed": 1,
+    "policy": "long-aging",
+    "hire": 20,
+    "perJob": 8,
+    "total": 436,
+    "endCash": 16333.759999999998,
+    "minCash": 586
+  },
+  {
+    "seed": 1,
+    "policy": "long-aging",
+    "hire": 20,
+    "perJob": 12,
+    "total": 644,
+    "endCash": 16125.759999999998,
+    "minCash": 574
+  },
+  {
+    "seed": 1,
+    "policy": "long-aging",
+    "hire": 20,
+    "perJob": 24,
+    "total": 1268,
+    "endCash": 15501.759999999998,
+    "minCash": 538
+  },
+  {
+    "seed": 1,
+    "policy": "long-aging",
+    "hire": 40,
+    "perJob": 8,
+    "total": 456,
+    "endCash": 16313.759999999998,
+    "minCash": 566
+  },
+  {
+    "seed": 1,
+    "policy": "long-aging",
+    "hire": 40,
+    "perJob": 12,
+    "total": 664,
+    "endCash": 16105.759999999998,
+    "minCash": 554
+  },
+  {
+    "seed": 1,
+    "policy": "long-aging",
+    "hire": 40,
+    "perJob": 24,
+    "total": 1288,
+    "endCash": 15481.759999999998,
+    "minCash": 518
+  },
+  {
+    "seed": 1,
+    "policy": "long-aging",
+    "hire": 80,
+    "perJob": 8,
+    "total": 496,
+    "endCash": 16273.759999999998,
+    "minCash": 526
+  },
+  {
+    "seed": 1,
+    "policy": "long-aging",
+    "hire": 80,
+    "perJob": 12,
+    "total": 704,
+    "endCash": 16065.759999999998,
+    "minCash": 514
+  },
+  {
+    "seed": 1,
+    "policy": "long-aging",
+    "hire": 80,
+    "perJob": 24,
+    "total": 1328,
+    "endCash": 15441.759999999998,
+    "minCash": 478
+  },
+  {
+    "seed": 1,
+    "policy": "long-aging",
+    "hire": 40,
+    "monthly": 1,
+    "total": 400,
+    "endCash": 16369.759999999998,
+    "minCash": 582
+  },
+  {
+    "seed": 1,
+    "policy": "long-aging",
+    "hire": 40,
+    "monthly": 4,
+    "total": 1480,
+    "endCash": 15289.759999999998,
+    "minCash": 558
+  },
+  {
+    "seed": 42,
+    "policy": "delegated",
+    "hire": 20,
+    "perJob": 8,
+    "total": 884,
+    "endCash": 25674,
+    "minCash": 586
+  },
+  {
+    "seed": 42,
+    "policy": "delegated",
+    "hire": 20,
+    "perJob": 12,
+    "total": 1316,
+    "endCash": 25242,
+    "minCash": 574
+  },
+  {
+    "seed": 42,
+    "policy": "delegated",
+    "hire": 20,
+    "perJob": 24,
+    "total": 2612,
+    "endCash": 23946,
+    "minCash": 538
+  },
+  {
+    "seed": 42,
+    "policy": "delegated",
+    "hire": 40,
+    "perJob": 8,
+    "total": 904,
+    "endCash": 25654,
+    "minCash": 566
+  },
+  {
+    "seed": 42,
+    "policy": "delegated",
+    "hire": 40,
+    "perJob": 12,
+    "total": 1336,
+    "endCash": 25222,
+    "minCash": 554
+  },
+  {
+    "seed": 42,
+    "policy": "delegated",
+    "hire": 40,
+    "perJob": 24,
+    "total": 2632,
+    "endCash": 23926,
+    "minCash": 518
+  },
+  {
+    "seed": 42,
+    "policy": "delegated",
+    "hire": 80,
+    "perJob": 8,
+    "total": 944,
+    "endCash": 25614,
+    "minCash": 526
+  },
+  {
+    "seed": 42,
+    "policy": "delegated",
+    "hire": 80,
+    "perJob": 12,
+    "total": 1376,
+    "endCash": 25182,
+    "minCash": 514
+  },
+  {
+    "seed": 42,
+    "policy": "delegated",
+    "hire": 80,
+    "perJob": 24,
+    "total": 2672,
+    "endCash": 23886,
+    "minCash": 478
+  },
+  {
+    "seed": 42,
+    "policy": "delegated",
+    "hire": 40,
+    "monthly": 1,
+    "total": 400,
+    "endCash": 26158,
+    "minCash": 582
+  },
+  {
+    "seed": 42,
+    "policy": "delegated",
+    "hire": 40,
+    "monthly": 4,
+    "total": 1480,
+    "endCash": 25078,
+    "minCash": 558
+  },
+  {
+    "seed": 42,
+    "policy": "long-aging",
+    "hire": 20,
+    "perJob": 8,
+    "total": 436,
+    "endCash": 16348.45,
+    "minCash": 586
+  },
+  {
+    "seed": 42,
+    "policy": "long-aging",
+    "hire": 20,
+    "perJob": 12,
+    "total": 644,
+    "endCash": 16140.45,
+    "minCash": 574
+  },
+  {
+    "seed": 42,
+    "policy": "long-aging",
+    "hire": 20,
+    "perJob": 24,
+    "total": 1268,
+    "endCash": 15516.45,
+    "minCash": 538
+  },
+  {
+    "seed": 42,
+    "policy": "long-aging",
+    "hire": 40,
+    "perJob": 8,
+    "total": 456,
+    "endCash": 16328.45,
+    "minCash": 566
+  },
+  {
+    "seed": 42,
+    "policy": "long-aging",
+    "hire": 40,
+    "perJob": 12,
+    "total": 664,
+    "endCash": 16120.45,
+    "minCash": 554
+  },
+  {
+    "seed": 42,
+    "policy": "long-aging",
+    "hire": 40,
+    "perJob": 24,
+    "total": 1288,
+    "endCash": 15496.45,
+    "minCash": 518
+  },
+  {
+    "seed": 42,
+    "policy": "long-aging",
+    "hire": 80,
+    "perJob": 8,
+    "total": 496,
+    "endCash": 16288.45,
+    "minCash": 526
+  },
+  {
+    "seed": 42,
+    "policy": "long-aging",
+    "hire": 80,
+    "perJob": 12,
+    "total": 704,
+    "endCash": 16080.45,
+    "minCash": 514
+  },
+  {
+    "seed": 42,
+    "policy": "long-aging",
+    "hire": 80,
+    "perJob": 24,
+    "total": 1328,
+    "endCash": 15456.45,
+    "minCash": 478
+  },
+  {
+    "seed": 42,
+    "policy": "long-aging",
+    "hire": 40,
+    "monthly": 1,
+    "total": 400,
+    "endCash": 16384.45,
+    "minCash": 582
+  },
+  {
+    "seed": 42,
+    "policy": "long-aging",
+    "hire": 40,
+    "monthly": 4,
+    "total": 1480,
+    "endCash": 15304.45,
+    "minCash": 558
+  }
+]

@@ -1,9 +1,9 @@
-import {nearbyComparisonFacts} from './partner-orders.mjs?v=0.18-nearby';
+import {nearbyComparisonFacts} from './partner-orders.mjs?v=0.19staff';
 
 // Targeted views over an exact validated snapshot. No persistent ledger or replay.
 const copy=x=>structuredClone(x),round=x=>Math.round(x*100)/100;
 const profile=c=>({roughness:c.roughness,character:c.character,wood:c.wood});
-const sourceFields=(state,caskId,f)=>({caskId,batchId:f?.batchId??null,distilledMonth:f?.distilledMonth??null,filledMonth:f?.filledMonth??null,stopAt:f?.stopAt??null,manual:f?.manual??null,manualSource:copy(f?.manualSource??null),finalGeneration:[...(state.generations?.completed??[]),...(state.generations?.active?[state.generations.active]:[])].find(x=>x.lastCaskId===caskId)?.id??null});
+const sourceFields=(state,caskId,f)=>({caskId,batchId:f?.batchId??null,distilledMonth:f?.distilledMonth??null,filledMonth:f?.filledMonth??null,stopAt:f?.stopAt??null,manual:f?.manual??null,manualSource:copy(f?.manualSource??null),commissionedFrom:copy(f?.commissionedFrom??null),finalGeneration:[...(state.generations?.completed??[]),...(state.generations?.active?[state.generations.active]:[])].find(x=>x.lastCaskId===caskId)?.id??null});
 export function nearbyCasks(state){
  const ids=state.core.casks.map(c=>c.id),facts=nearbyComparisonFacts(state,{caskIds:ids}),fills=new Map(facts.casks.map(x=>[x.caskId,x]));
  return state.core.casks.map((c,i)=>({key:`cask:${c.id}`,kind:'cask',label:`樽 ${c.id}`,position:i+1,...sourceFields(state,c.id,fills.get(c.id)),batchId:c.batchId,type:c.type,age:c.age,profile:profile(c),litres:c.litres,initialLitres:c.initialLitres,filledMonth:c.filledMonth,status:'aging'}));
