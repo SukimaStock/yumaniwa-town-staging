@@ -7743,7 +7743,7 @@ function renderNoteRackCard(slot) {
     // 選ばれた移植済み記事は、noteの埋め込みではなく新聞の切り抜きにする。
     if (article.archivePage) {
         html += '<article class="note-rack-card shinpo-archive-card" data-rack-kind="' + slotKind + '">';
-        html += '<div class="shinpo-archive-paper"><div class="shinpo-archive-mast">湯 間 庭 新 報　・　記 録</div>';
+        html += '<div class="shinpo-archive-paper"><div class="shinpo-archive-mast">湯間庭新報</div>';
         html += '<div class="shinpo-archive-date">' + escapeNoteRackHtml(date) + '</div>';
         html += '<div class="shinpo-archive-headline">' + title + '</div>';
         html += '</div>';
