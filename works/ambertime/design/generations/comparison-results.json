@@ -1,0 +1,1314 @@
+{
+  "method": {
+    "base": "55030ccb1f764bcf63ad4373a12aac9130095388",
+    "sourceVersion": 15,
+    "sourceMonths": 480,
+    "sourceSeed": 1,
+    "sourceSha256": "56c13f4e710f84a6cca2abe5722410f47f654678d1371e21af0701d28ac5497f",
+    "scope": "Offline chronology only. No proposed generation state is injected into the old play. Per-brand/shop relationship age uses existing startedMonth. Raw clock excludes all UI pauses and human decision time.",
+    "adopted": {
+      "lateYears": 25,
+      "deadlineYears": 30,
+      "graceMonths": 12
+    },
+    "reason": "This policy already offers a meaningful old-brand rerelease at year25, without requiring a particular flavour or long maturation. A year35 deadline only lengthens the fallback wait; later generation pacing needs human playtesting.",
+    "limits": "One pre-generation 40-year policy/seed. These observations do not predict all strategies or prove enjoyment. Fullslots, queuedusual and obligations require separate state-boundary tests. A12monthgrace cannot guarantee a sparecask or maturewhisky."
+  },
+  "candidates": [
+    {
+      "lateYears": 25,
+      "deadlineYears": 30,
+      "graceMonths": 12,
+      "lateActiveMinutes": 30,
+      "deadlineActiveMinutes": 36,
+      "graceActiveSeconds": 72,
+      "firstObservedTriggerMonth": 300,
+      "firstObservedTriggerReason": "brand-rerelease-10yr",
+      "firstObservedTriggerId": "bottling:177",
+      "wouldUseDeadlineOnSource": false
+    },
+    {
+      "lateYears": 25,
+      "deadlineYears": 35,
+      "graceMonths": 12,
+      "lateActiveMinutes": 30,
+      "deadlineActiveMinutes": 42,
+      "graceActiveSeconds": 72,
+      "firstObservedTriggerMonth": 300,
+      "firstObservedTriggerReason": "brand-rerelease-10yr",
+      "firstObservedTriggerId": "bottling:177",
+      "wouldUseDeadlineOnSource": false
+    },
+    {
+      "lateYears": 30,
+      "deadlineYears": 35,
+      "graceMonths": 12,
+      "lateActiveMinutes": 36,
+      "deadlineActiveMinutes": 42,
+      "graceActiveSeconds": 72,
+      "firstObservedTriggerMonth": 361,
+      "firstObservedTriggerReason": "store-relationship-10yr-delivery",
+      "firstObservedTriggerId": "shop-delivery:82",
+      "wouldUseDeadlineOnSource": false
+    }
+  ],
+  "firstByReason": {
+    "300": {
+      "brand-rerelease-10yr": {
+        "id": "bottling:177",
+        "month": 300,
+        "reason": "brand-rerelease-10yr",
+        "kind": "bottling",
+        "brandId": 3,
+        "releaseId": 42,
+        "age": 12
+      },
+      "bottling-36mo": {
+        "id": "bottling:189",
+        "month": 333,
+        "reason": "bottling-36mo",
+        "kind": "bottling",
+        "brandId": 2,
+        "releaseId": 45,
+        "age": 36
+      },
+      "store-relationship-10yr-delivery": {
+        "id": "shop-delivery:69",
+        "month": 302,
+        "reason": "store-relationship-10yr-delivery",
+        "kind": "shop-delivery",
+        "brandId": 3,
+        "releaseId": 42,
+        "shopId": "supermarket"
+      }
+    },
+    "360": {
+      "brand-rerelease-10yr": {
+        "id": "bottling:209",
+        "month": 362,
+        "reason": "brand-rerelease-10yr",
+        "kind": "bottling",
+        "brandId": 3,
+        "releaseId": 49,
+        "age": 24
+      },
+      "bottling-36mo": {
+        "id": "bottling:213",
+        "month": 375,
+        "reason": "bottling-36mo",
+        "kind": "bottling",
+        "brandId": 1,
+        "releaseId": 50,
+        "age": 36
+      },
+      "store-relationship-10yr-delivery": {
+        "id": "shop-delivery:82",
+        "month": 361,
+        "reason": "store-relationship-10yr-delivery",
+        "kind": "shop-delivery",
+        "brandId": 3,
+        "releaseId": 48,
+        "shopId": "supermarket"
+      }
+    }
+  },
+  "triggers": [
+    {
+      "id": "bottling:57",
+      "month": 77,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 17,
+      "age": 36
+    },
+    {
+      "id": "bottling:69",
+      "month": 99,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 20,
+      "age": 36
+    },
+    {
+      "id": "bottling:81",
+      "month": 123,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 23,
+      "age": 36
+    },
+    {
+      "id": "bottling:90",
+      "month": 136,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 24,
+      "age": 12
+    },
+    {
+      "id": "bottling:93",
+      "month": 147,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 25,
+      "age": 36
+    },
+    {
+      "id": "bottling:93",
+      "month": 147,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 25,
+      "age": 36
+    },
+    {
+      "id": "bottling:97",
+      "month": 155,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 26,
+      "age": 24
+    },
+    {
+      "id": "shop-delivery:32",
+      "month": 157,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 26,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:102",
+      "month": 160,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 27,
+      "age": 12
+    },
+    {
+      "id": "shop-delivery:34",
+      "month": 162,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 27,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "shop-delivery:36",
+      "month": 163,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 27,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:105",
+      "month": 170,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 28,
+      "age": 36
+    },
+    {
+      "id": "bottling:105",
+      "month": 170,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 28,
+      "age": 36
+    },
+    {
+      "id": "shop-delivery:38",
+      "month": 172,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 1,
+      "releaseId": 28,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:114",
+      "month": 182,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 29,
+      "age": 12
+    },
+    {
+      "id": "shop-delivery:39",
+      "month": 184,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 1,
+      "releaseId": 29,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "bottling:117",
+      "month": 193,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 30,
+      "age": 36
+    },
+    {
+      "id": "bottling:117",
+      "month": 193,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 30,
+      "age": 36
+    },
+    {
+      "id": "shop-delivery:40",
+      "month": 195,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 2,
+      "releaseId": 30,
+      "shopId": "department"
+    },
+    {
+      "id": "shop-delivery:41",
+      "month": 195,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 30,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:42",
+      "month": 195,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 30,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "shop-delivery:43",
+      "month": 196,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 30,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:126",
+      "month": 206,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 31,
+      "age": 12
+    },
+    {
+      "id": "shop-delivery:44",
+      "month": 208,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 31,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "bottling:129",
+      "month": 217,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 32,
+      "age": 36
+    },
+    {
+      "id": "bottling:129",
+      "month": 217,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 32,
+      "age": 36
+    },
+    {
+      "id": "shop-delivery:45",
+      "month": 219,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 3,
+      "releaseId": 32,
+      "shopId": "department"
+    },
+    {
+      "id": "shop-delivery:46",
+      "month": 219,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 32,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "bottling:133",
+      "month": 225,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 33,
+      "age": 24
+    },
+    {
+      "id": "shop-delivery:47",
+      "month": 227,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 33,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:48",
+      "month": 227,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 33,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "shop-delivery:49",
+      "month": 228,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 33,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:50",
+      "month": 228,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 33,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:138",
+      "month": 230,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 34,
+      "age": 12
+    },
+    {
+      "id": "shop-delivery:51",
+      "month": 232,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 34,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:52",
+      "month": 232,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 34,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:141",
+      "month": 240,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 35,
+      "age": 36
+    },
+    {
+      "id": "bottling:141",
+      "month": 240,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 35,
+      "age": 36
+    },
+    {
+      "id": "shop-delivery:53",
+      "month": 242,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 1,
+      "releaseId": 35,
+      "shopId": "department"
+    },
+    {
+      "id": "shop-delivery:54",
+      "month": 242,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 1,
+      "releaseId": 35,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:150",
+      "month": 252,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 36,
+      "age": 12
+    },
+    {
+      "id": "shop-delivery:55",
+      "month": 254,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 1,
+      "releaseId": 36,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:56",
+      "month": 254,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 1,
+      "releaseId": 36,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "shop-delivery:57",
+      "month": 255,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 1,
+      "releaseId": 36,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:153",
+      "month": 263,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 37,
+      "age": 36
+    },
+    {
+      "id": "bottling:153",
+      "month": 263,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 37,
+      "age": 36
+    },
+    {
+      "id": "shop-delivery:58",
+      "month": 265,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 2,
+      "releaseId": 37,
+      "shopId": "department"
+    },
+    {
+      "id": "shop-delivery:59",
+      "month": 265,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 37,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:159",
+      "month": 274,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 38,
+      "age": 24
+    },
+    {
+      "id": "bottling:162",
+      "month": 276,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 39,
+      "age": 12
+    },
+    {
+      "id": "shop-delivery:60",
+      "month": 276,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 2,
+      "releaseId": 38,
+      "shopId": "department"
+    },
+    {
+      "id": "shop-delivery:61",
+      "month": 276,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 38,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "shop-delivery:62",
+      "month": 278,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 39,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:63",
+      "month": 278,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 39,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "shop-delivery:64",
+      "month": 279,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 39,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "bottling:165",
+      "month": 287,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 40,
+      "age": 36
+    },
+    {
+      "id": "bottling:165",
+      "month": 287,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 40,
+      "age": 36
+    },
+    {
+      "id": "shop-delivery:65",
+      "month": 289,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 3,
+      "releaseId": 40,
+      "shopId": "department"
+    },
+    {
+      "id": "shop-delivery:66",
+      "month": 289,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 40,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "bottling:169",
+      "month": 295,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 41,
+      "age": 24
+    },
+    {
+      "id": "shop-delivery:67",
+      "month": 297,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 41,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:68",
+      "month": 297,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 41,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:177",
+      "month": 300,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 42,
+      "age": 12
+    },
+    {
+      "id": "shop-delivery:69",
+      "month": 302,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 42,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:70",
+      "month": 302,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 42,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "shop-delivery:71",
+      "month": 303,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 42,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:72",
+      "month": 303,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 42,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:180",
+      "month": 312,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 43,
+      "age": 12
+    },
+    {
+      "id": "shop-delivery:73",
+      "month": 314,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 1,
+      "releaseId": 43,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "bottling:186",
+      "month": 319,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 44,
+      "age": 24
+    },
+    {
+      "id": "shop-delivery:74",
+      "month": 321,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 1,
+      "releaseId": 44,
+      "shopId": "department"
+    },
+    {
+      "id": "shop-delivery:75",
+      "month": 321,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 1,
+      "releaseId": 44,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:189",
+      "month": 333,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 45,
+      "age": 36
+    },
+    {
+      "id": "bottling:189",
+      "month": 333,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 45,
+      "age": 36
+    },
+    {
+      "id": "shop-delivery:76",
+      "month": 335,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 45,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:77",
+      "month": 335,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 45,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "shop-delivery:78",
+      "month": 336,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 45,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "bottling:193",
+      "month": 337,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 46,
+      "age": 24
+    },
+    {
+      "id": "shop-delivery:79",
+      "month": 339,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 2,
+      "releaseId": 46,
+      "shopId": "department"
+    },
+    {
+      "id": "shop-delivery:80",
+      "month": 339,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 46,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:201",
+      "month": 346,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 47,
+      "age": 12
+    },
+    {
+      "id": "shop-delivery:81",
+      "month": 348,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 47,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "bottling:204",
+      "month": 359,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 48,
+      "age": 12
+    },
+    {
+      "id": "shop-delivery:82",
+      "month": 361,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 48,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:83",
+      "month": 361,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 48,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:209",
+      "month": 362,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 49,
+      "age": 24
+    },
+    {
+      "id": "shop-delivery:84",
+      "month": 362,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 48,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:85",
+      "month": 362,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 48,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "shop-delivery:86",
+      "month": 364,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 49,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "bottling:213",
+      "month": 375,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 50,
+      "age": 36
+    },
+    {
+      "id": "bottling:213",
+      "month": 375,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 50,
+      "age": 36
+    },
+    {
+      "id": "shop-delivery:87",
+      "month": 377,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 1,
+      "releaseId": 50,
+      "shopId": "department"
+    },
+    {
+      "id": "shop-delivery:88",
+      "month": 377,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 1,
+      "releaseId": 50,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:219",
+      "month": 383,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 51,
+      "age": 24
+    },
+    {
+      "id": "shop-delivery:89",
+      "month": 385,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 1,
+      "releaseId": 51,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:90",
+      "month": 385,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 1,
+      "releaseId": 51,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "shop-delivery:91",
+      "month": 386,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 1,
+      "releaseId": 51,
+      "shopId": "department"
+    },
+    {
+      "id": "bottling:222",
+      "month": 387,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 52,
+      "age": 12
+    },
+    {
+      "id": "shop-delivery:92",
+      "month": 389,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 1,
+      "releaseId": 52,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "bottling:225",
+      "month": 398,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 53,
+      "age": 36
+    },
+    {
+      "id": "bottling:225",
+      "month": 398,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 53,
+      "age": 36
+    },
+    {
+      "id": "shop-delivery:93",
+      "month": 400,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 2,
+      "releaseId": 53,
+      "shopId": "department"
+    },
+    {
+      "id": "shop-delivery:94",
+      "month": 400,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 53,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:234",
+      "month": 411,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 54,
+      "age": 12
+    },
+    {
+      "id": "shop-delivery:95",
+      "month": 413,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 54,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:96",
+      "month": 413,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 54,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "shop-delivery:97",
+      "month": 414,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 54,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "bottling:237",
+      "month": 420,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 55,
+      "age": 36
+    },
+    {
+      "id": "bottling:237",
+      "month": 420,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 55,
+      "age": 36
+    },
+    {
+      "id": "shop-delivery:98",
+      "month": 422,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 3,
+      "releaseId": 55,
+      "shopId": "department"
+    },
+    {
+      "id": "shop-delivery:99",
+      "month": 422,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 55,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "bottling:241",
+      "month": 430,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 56,
+      "age": 24
+    },
+    {
+      "id": "shop-delivery:100",
+      "month": 432,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 56,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "bottling:246",
+      "month": 433,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 3,
+      "releaseId": 57,
+      "age": 12
+    },
+    {
+      "id": "shop-delivery:101",
+      "month": 435,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 57,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:102",
+      "month": 435,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 57,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "shop-delivery:103",
+      "month": 436,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 57,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:104",
+      "month": 436,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 3,
+      "releaseId": 57,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:249",
+      "month": 443,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 58,
+      "age": 36
+    },
+    {
+      "id": "bottling:249",
+      "month": 443,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 58,
+      "age": 36
+    },
+    {
+      "id": "shop-delivery:105",
+      "month": 445,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 1,
+      "releaseId": 58,
+      "shopId": "department"
+    },
+    {
+      "id": "shop-delivery:106",
+      "month": 445,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 1,
+      "releaseId": 58,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:257",
+      "month": 455,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 1,
+      "releaseId": 59,
+      "age": 12
+    },
+    {
+      "id": "shop-delivery:107",
+      "month": 457,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 1,
+      "releaseId": 59,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "bottling:261",
+      "month": 468,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 60,
+      "age": 36
+    },
+    {
+      "id": "bottling:261",
+      "month": 468,
+      "reason": "bottling-36mo",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 60,
+      "age": 36
+    },
+    {
+      "id": "shop-delivery:108",
+      "month": 470,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 2,
+      "releaseId": 60,
+      "shopId": "department"
+    },
+    {
+      "id": "shop-delivery:109",
+      "month": 470,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 60,
+      "shopId": "supermarket"
+    },
+    {
+      "id": "shop-delivery:110",
+      "month": 470,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 60,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "shop-delivery:111",
+      "month": 471,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 60,
+      "shopId": "town-liquor"
+    },
+    {
+      "id": "bottling:267",
+      "month": 477,
+      "reason": "brand-rerelease-10yr",
+      "kind": "bottling",
+      "brandId": 2,
+      "releaseId": 61,
+      "age": 24
+    },
+    {
+      "id": "shop-delivery:112",
+      "month": 479,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "department-adoption",
+      "brandId": 2,
+      "releaseId": 61,
+      "shopId": "department"
+    },
+    {
+      "id": "shop-delivery:113",
+      "month": 479,
+      "reason": "store-relationship-10yr-delivery",
+      "kind": "shop-delivery",
+      "brandId": 2,
+      "releaseId": 61,
+      "shopId": "town-liquor"
+    }
+  ]
+}

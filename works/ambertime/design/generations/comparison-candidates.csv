@@ -1,0 +1,4 @@
+"lateYears","deadlineYears","graceMonths","lateActiveMinutes","deadlineActiveMinutes","graceActiveSeconds","firstObservedTriggerMonth","firstObservedTriggerReason","firstObservedTriggerId","wouldUseDeadlineOnSource"
+"25","30","12","30","36","72","300","brand-rerelease-10yr","bottling:177","false"
+"25","35","12","30","42","72","300","brand-rerelease-10yr","bottling:177","false"
+"30","35","12","36","42","72","361","store-relationship-10yr-delivery","shop-delivery:82","false"

@@ -1,0 +1,167 @@
+{
+  "browser": "153.0.8010.0",
+  "fixtures": "Public operations generated in Chromium, strict serialization/replay. Legacy career advances actual monthly transactions to300/360; four-cask fixture funded by additional actual releases.",
+  "physicalSafari": false,
+  "humanFun": false,
+  "sourceHashes": {
+    "shop-app.mjs": "6ab1639bfb55cf57a89df9c6491bc27892dd434c301795c443c1f5abb0d80b3f",
+    "partner-orders.mjs": "d5f49bc09ac28d27fc182200de39e79c6405e5456625c24c0c10c4840807ab19",
+    "generations.mjs": "49b00f8e848ad9ab4aa2c38ee0b27f25744c08edab9c768bbb9eaceb54e9c6a0"
+  },
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "noEarlyNormalNotice": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "paused": false,
+      "oneFactualNotice": true,
+      "noticeReloadNoDuplicate": true,
+      "queuedUsualHeld": true,
+      "manualFinalCut": 40,
+      "reviewAfterFill": true,
+      "reviewEscapeHeld": true,
+      "reviewReloadExact": true,
+      "oneHandover": true,
+      "estatePreserved": true,
+      "timeIntentPreserved": true,
+      "optionalHistoryReturnsReview": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "paused": true,
+      "oneFactualNotice": true,
+      "noticeReloadNoDuplicate": true,
+      "queuedUsualHeld": true,
+      "manualFinalCut": 65,
+      "reviewAfterFill": true,
+      "reviewEscapeHeld": true,
+      "reviewReloadExact": true,
+      "oneHandover": true,
+      "estatePreserved": true,
+      "timeIntentPreserved": true,
+      "optionalHistoryReturnsReview": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "causalBrandReleaseNotice": true,
+      "immediateProductBeforeNotice": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "caskDecisionBeforeGenerationNotice": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "shopOfferBeforeGenerationNotice": true,
+      "offerQueuePreserved": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "fullFourTwelveActualMonths": true,
+      "noForcedBottling": true,
+      "noFinalCaskInvented": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "provenanceInSecondGeneration": true,
+      "caskBottleReleaseProvenance": true,
+      "storedBottleFlowMaintained": true,
+      "provenanceReloadExact": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "v15RawPreserved": true,
+      "oldEstatePreserved": true,
+      "v0164ArchiveOpens": true,
+      "keysIndependent": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "noEarlyNormalNotice": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "paused": false,
+      "oneFactualNotice": true,
+      "noticeReloadNoDuplicate": true,
+      "queuedUsualHeld": true,
+      "manualFinalCut": 40,
+      "reviewAfterFill": true,
+      "reviewEscapeHeld": true,
+      "reviewReloadExact": true,
+      "oneHandover": true,
+      "estatePreserved": true,
+      "timeIntentPreserved": true,
+      "optionalHistoryReturnsReview": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "paused": true,
+      "oneFactualNotice": true,
+      "noticeReloadNoDuplicate": true,
+      "queuedUsualHeld": true,
+      "manualFinalCut": 65,
+      "reviewAfterFill": true,
+      "reviewEscapeHeld": true,
+      "reviewReloadExact": true,
+      "oneHandover": true,
+      "estatePreserved": true,
+      "timeIntentPreserved": true,
+      "optionalHistoryReturnsReview": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "causalBrandReleaseNotice": true,
+      "immediateProductBeforeNotice": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "caskDecisionBeforeGenerationNotice": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "shopOfferBeforeGenerationNotice": true,
+      "offerQueuePreserved": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "fullFourTwelveActualMonths": true,
+      "noForcedBottling": true,
+      "noFinalCaskInvented": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "provenanceInSecondGeneration": true,
+      "caskBottleReleaseProvenance": true,
+      "storedBottleFlowMaintained": true,
+      "provenanceReloadExact": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "v15RawPreserved": true,
+      "oldEstatePreserved": true,
+      "v0164ArchiveOpens": true,
+      "keysIndependent": true
+    }
+  ]
+}

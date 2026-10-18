@@ -1,0 +1,27 @@
+@import url('./usual.css?v=0.13-spirit-1');
+.shop-invitation{display:block;width:100%;min-height:48px;margin:0 0 18px;text-align:left;border-color:var(--muted,#8e957e)}
+.shop-delivery{margin:18px 0 4px;padding:14px 0;border-top:1px solid #4c594d}.shop-delivery h3{margin:0 0 8px;font-size:1rem}.shop-delivery p{margin:8px 0}.shop-delivery>div{display:flex;flex-wrap:wrap;gap:8px}.shop-delivery button{flex:1;min-height:46px}.shop-relation{margin-top:14px;color:#c8c4a2}.shop-history summary{min-height:44px;padding:10px 0}.shop-history p{margin:6px 0}
+
+.sales-destination{margin:16px 0 0;padding:12px 0 0;border-top:1px solid #4c594d}.sales-destination h3{margin:0 0 6px;font-size:1rem}.sales-destination>button{width:100%;min-height:46px}.delivery-options{display:flex;flex-wrap:wrap;gap:8px}.delivery-options button{flex:1;min-height:56px;text-align:left}.delivery-options small{display:block;font-size:12px;color:var(--quiet);margin-top:4px}.product-overview{display:flex;align-items:center;gap:22px}.product-overview .modal-bottle{width:48px;margin:0}.product-overview .modal-bottle svg{height:100px}.delivery-confirmation{padding:8px 0;color:var(--ink)}#shop-release{display:block;width:100%;min-height:44px;margin:6px 0 10px;background:var(--panel,#23312d);color:inherit;border:1px solid #6c745c;border-radius:5px;padding:8px;font:inherit}#action-dialog:has(#shop-release) #dialog-body>label{font-size:13px}.sales-destination .price-options{margin:8px 0}.sales-destination .price-options button{min-height:52px}
+
+#dialog-context{margin:0 0 12px;font-size:13px}.dialog-heading h2{overflow-wrap:anywhere}.shop-deferral{margin-top:14px}
+
+/* Each release stays a bottle on the shelf; details belong to its dialog. */
+#product-shelf{max-width:620px;gap:24px 16px;padding:20px 4px 10px}
+#product-shelf button{padding:12px 8px 14px;gap:7px;background:transparent;border-bottom:3px solid #515545;box-shadow:none;min-height:240px}
+#product-shelf button>span{width:76px;height:158px;display:flex;align-items:flex-end;justify-content:center}
+#product-shelf button svg{width:76px;height:158px;max-height:none}
+#product-shelf button:hover,#product-shelf button:focus-visible{background:#1d2b29}
+#product-shelf button[aria-pressed="true"]{border-color:#b3a778}
+#product-shelf strong{font-size:15px;line-height:1.4}
+#product-shelf small{line-height:1.5}
+.product-overview{min-height:146px;gap:26px;padding:8px 10px}
+.product-overview .modal-bottle{width:72px;flex:0 0 72px}
+.product-overview .modal-bottle svg{height:145px}
+.product-overview p{line-height:1.9}
+.product-state{color:var(--quiet);font-size:14px}
+#action-dialog:has(.product-overview) #dialog-actions{margin-top:18px}
+@media(max-width:420px){#product-shelf{gap:20px 10px}#product-shelf button{min-height:224px;padding-left:4px;padding-right:4px}#product-shelf button>span,#product-shelf button svg{height:144px;width:68px}.product-overview{gap:20px;padding-left:4px;padding-right:4px}.delivery-options button{min-width:100px}}
+
+.history-entry{display:block;min-height:44px;margin:22px 0 8px;padding:8px 12px;font-size:14px;background:transparent}
+.history-elapsed{margin:6px 0 18px}.history-coverage{font-size:13px;line-height:1.7}.history-year{border-top:1px solid #4c594d}.history-year h3{margin:0;font-size:1rem}.history-year h3 button{width:100%;min-height:48px;background:transparent;text-align:left;border:0;padding:12px 4px}.history-year h3 button::after{content:'＋';float:right}.history-year h3 button[aria-expanded="true"]::after{content:'−'}.history-events{padding:0;list-style:none}.history-events li{padding:12px 0 16px;border-top:1px solid #35433d}.history-events time{font-size:12px;color:var(--quiet)}.history-events p{line-height:1.8;margin:6px 0}.history-links{display:flex;flex-wrap:wrap;gap:8px}.history-links button{min-height:44px;padding:8px 10px;font-size:13px;background:transparent}.history-pagination{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.history-pagination button{min-height:44px;font-size:13px}.history-pagination span{font-size:12px}.history-shop-brand{padding:4px 0 16px;border-bottom:1px solid #4c594d}.history-shop-brand h3{font-size:1rem}.history-shop-brand p{line-height:1.7}
