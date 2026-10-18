@@ -1,0 +1,141 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3094c27e3d409762f6ea5f7d507870e495390b12c936e78db2fb563216c354b8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-nearby-comparison-final",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.18 comparison UI anchored to current cask or immediate previous same-brand release; reuse exact verified facts without repeated full projection",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "3392045c4c0749724a70b401109fe125eecc9576",
+    "canonicalSources": [
+      "User nearby comparison redesign request",
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/design/comparison/REPORT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/model.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-nearby-comparison-final/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/nearby*.mjs",
+      "works/ambertime/design/nearby-comparison/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "tools/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/work-context.mjs",
+      "works/ambertime/experiments/**"
+    ],
+    "expectedChanges": [
+      "Anchor cask comparison to currentcask; max3 other currentcasks selected through existingpictures, oneother direct, zeroother noentry, no self/mixed/globalA-Bselection; return exactparent/tasting/selection/timeintent",
+      "Samebrand immediate previous durable release compare from product/brandhistory; hide firstrelease, show soldout andstored/selling truth, actualretailcount vs knowneligible denominator and shopdeliveries separately, actualactiveperiod and exactpricechanges, shortmanufacturingconditions",
+      "Replace longmixedtable with twoexistingcask/bottleart and concise5caskmetrics/4releasefacts. Fixedcommon0..1.35flavorbar domain, exactfraction widths andaccessiblevalues, shortcanonicaldescriptors only; no decimal/prose duplication, no qualityscores/profit/winner",
+      "Extend existing ephemeral replaycontext with exactrequested fillfacts/retailreceipts gathered during alreadyrequired validation, no persistentledger or savedata/operations changes; resetonexistingseed/origin/prefix mismatch; detached targetedreader validatesstrictly and uses warmcheckpoint/suffix",
+      "Pure nearbyreader builds currentcasks or requestedreleasepair only, no fullcomparison Worker. Preserve oldfullprojection API for historicaltests but remove genericUI; recipebook/source detail uses compact factual source display and samevalidatedcontext, no overwrittenentries/reservations",
+      "Read-only comparison/cache state never enters save. Preserve v17 savekey/schema/strictreplay/legacycompatibility/generations/chemistry/economy/4casks/shops; querycachefingerprint only",
+      "Preimplementation390x844concrete phone mocks inspected for information/steps; actualscreens verified PC/phone inclnooverflow/longtable, canonicalflavorboundedscales, missingorigin vsnotyetlisted, existingback/timeintent andperformance onegeneration/120year"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Concretepreimplementation iPhone390cask/release layouts andoperationcount",
+      "PC1280 andphone390 currentcasks pictures/selfexclusion/currentfixed, directpreviousrelease, salesstates/prices/period/shopcount/missinghistory",
+      "Modalparent/time/tasting/queuedusual/decision/currentcaskread-only, recipe save/select/reserve andcoldrestore",
+      "Onegeneration and120year coldvalidatedload separatelyfrominitialcompare/switch/reopen timings; publishedsourcehashverification",
+      "Expressionaudit sixpoints andindependenttechnicalreview; no addedauthorapproval"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revertthis scopedUI/readcontext change; samev17savedata opensprevious0.18 with no conversion.",
+    "outOfScope": [
+      "Production",
+      "Savedataschema/version/key/opcodes andpersistentledgers",
+      "Chemistry/aging/economy/price/demand/reputation/storeconditions/generationthresholds/capacity changes",
+      "Employment/shopcomments/reorders/newroutes/materials/blends",
+      "Profit/qualityscore/winner/optimalrecommendations",
+      "Sharedruntime/ChangeOS",
+      "Existingcrossruntimefloatingpoint portabilityfix"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari andauthorreadability/adoption",
+      "Existingcoldstrictrestore andcrossruntimefloatingpoint constraint separatelyreported"
+    ],
+    "rulesApplied": [
+      "FullWORK for multi-file UI/read-onlycontext extension; stagingonly",
+      "AGENTS permitsuseful ownedpath delegation andindependentreview; no overlappingedits",
+      "Expressionaudit before/while/after: art+shortactualfacts, no generic dashboard/explanatorycards/emotionalcopy",
+      "Concrete390width scratchmock created andrenderedbeforeimplementation; finalcaskpartnerchooser separated fromcomparison when needed toreduceheight",
+      "Integration on latestmain after original preimplementation lock d7a1368 and remote implementation checkpoint a01a93a6d68978c25e0ee09e9fd6e8084d7b95fa; intervening PR492 only CoffeeFactory articles/assets/search metadata, no AmberTime, AGENTS, ChangeOS, expression or trusted gate changes. Transfer exact tested work-only commits."
+    ],
+    "ownerDecisions": [
+      "User explicitly requests contextual two-cask and immediate previoussamebrand release UI, concretephone designthenautonomousimplementation, no savedata/calculation/balance changes, tests/PR/Stagingmerge/publicverification. Production forbidden."
+    ],
+    "hqDecisions": [
+      "Reuse existingstrictvalidation replaycontext only for transient exact receipts/fillfacts; no newpersistentfields/opcodes/saveversion/key. APIstrictvalidationusesmatchedcheckpoint andsuffix; oldcorevalidation unchanged. This avoids secondcoldallhistory projection, not firststrictrestorecost.",
+      "Unknown origin receipts remain incomplete, unknownexposure/pricehistory not invented. Future/notlisted is not missinghistory. Retaildenominatoronly when fullchannelcoverage, no retail/shops conflation.",
+      "All threeflavorbars fixedcommon0..1.35domain, rawfraction width andaccessibleactualvalue, shortexistingtasting descriptors; no round-tointeger/clamp1/no pairrelative scale.",
+      "NormalUI caskbasefixed andothercurrentcaskonly; releasebasefixed andprevioussamebrandonly. Savedrecipe source references use compact read-only detail ratherthan retaining old24rowtable. No manualautostop/reservations changes."
+    ],
+    "problem": "Generic A/Bnumber selection, 24mixedrows andfullhistory replay make comparison difficult in ordinaryphoneplay.",
+    "currentContract": "v17strict replay/manualrecipebook max64 andsavedselection; comparisonWorker rebuildsallhistory andallowsmixedglobalchoices; savedreleases and IDs durable.",
+    "whyExistingIsInsufficient": "Current UI requires remembering numberedobjects and readingirrelevantmanufacturing/salesrows; eachinitialcomparison repeatsfullhistory despitealreadyrequiredsavevalidation.",
+    "design": "Anchored pictorialcask comparison anddirectsamebrandpreviousrelease, compactfacts withtransientvalidatedtargetcontext.",
+    "migration": "None. Samev17raw/savekey/opcodes/strictvalidation; allnewcomparison state/caches transient. Missingoldoriginfacts remainunknown.",
+    "compatibility": "Protected7formulafiles/generationthresholds/4casks/storeconditions unchanged; manualrecipebook andqueuedrecipe snapshots preserved. No strictnumeric tolerance orpartialvalidation.",
+    "promotionRisk": "Staging only; no Production/shared paths.",
+    "alternativesRejected": [
+      "Oldglobalcomparison hiddenbehinddetail",
+      "Counting monthoperations as saleperiod despitefailedmonths",
+      "Currentprice appliedtopastsales",
+      "Unvalidatedoperation-onlyfabricatedsalesreceipts",
+      "Secondpersistentfactsledger",
+      "Pairrelativeflavorbars orwoodclamp1",
+      "Changinggenerations orsaveformat tosolveUI"
+    ],
+    "boundaryCases": [
+      "0/1/3othercasks sameconditions andselfcomparison",
+      "Firstrelease/samebrandprevious vsotherbrand andprunedsoldout",
+      "stored/selling/soldout/departments/deliveries/changedprices/originmissingperiod",
+      "Recipe source afterpruning/nextgeneration/selection/queuedreservation",
+      "Manualpause/tasting/decision/closing/reopening and120year first/switch/reopen"
+    ],
+    "testPlan": [
+      "Newtargetedreadertests truthfulpriceperiod/counts/origin/duplicates/previousbrand/source/strictread-onlydetachedcontext",
+      "Full525existingNode regressions plusnewtests; no engine/protectedformula edits",
+      "Publicoperationfixtures onegeneration/120year warmtarget performance +coldrestoremeasuredseparately; no fabricatedhistory",
+      "PC+iPhonewidth browsercases user10checks +recipe/modal/regression; exactsourcehashes/screenshots",
+      "ScopeRiskImpact trustedstatic requiredCI exacthead; PR/Stagingmerge/Pages/sourcehashproof"
+    ]
+  }
+}
