@@ -1,0 +1,7358 @@
+{
+  "pairedManufacturing": [
+    {
+      "seed": 1,
+      "pairedReleaseSignaturesIdentical": true,
+      "releases": 44,
+      "fills": 47
+    },
+    {
+      "seed": 2,
+      "pairedReleaseSignaturesIdentical": true,
+      "releases": 44,
+      "fills": 47
+    },
+    {
+      "seed": 3,
+      "pairedReleaseSignaturesIdentical": true,
+      "releases": 44,
+      "fills": 47
+    },
+    {
+      "seed": 4,
+      "pairedReleaseSignaturesIdentical": true,
+      "releases": 44,
+      "fills": 47
+    },
+    {
+      "seed": 42,
+      "pairedReleaseSignaturesIdentical": true,
+      "releases": 44,
+      "fills": 47
+    },
+    {
+      "seed": 12345,
+      "pairedReleaseSignaturesIdentical": true,
+      "releases": 44,
+      "fills": 47
+    },
+    {
+      "seed": 20261017,
+      "pairedReleaseSignaturesIdentical": true,
+      "releases": 44,
+      "fills": 47
+    },
+    {
+      "seed": 4294967295,
+      "pairedReleaseSignaturesIdentical": true,
+      "releases": 44,
+      "fills": 47
+    }
+  ],
+  "diagnostics": [
+    {
+      "policy": "original",
+      "model": "A",
+      "releaseCohort": {
+        "note": "Calm24 is the shared A-reference funnel for all models, not full C-project eligibility. Offer inclusion is ever-overlap of live candidate product IDs with release cohorts, not same-time offer probability.",
+        "all": 264,
+        "age24": 16,
+        "age24Pct": 6.06,
+        "calmOf24": 16,
+        "calmOf24Pct": 100,
+        "stock5EverAmongCalm24": 16,
+        "stock5AtBottlingAmongCalm24": 16,
+        "eligibleBrandEvidenceWhileStocked": 8,
+        "allBrands": 8,
+        "eligibleBrandEvidenceWhileStockedPct": 100,
+        "finalBrandsMeeting40_2": 8,
+        "finalBrands": 8,
+        "qualifyingReleaseCohorts": 16,
+        "qualifyingReleaseCohortsEverIncludedInOffer": 6,
+        "qualifyingReleaseCohortsEverIncludedInOfferPct": 37.5,
+        "qualifyingBrandCohorts": 8,
+        "qualifyingBrandsEverOffered": 6,
+        "modelSpecificEligibleBrandCohortsWhileStocked": 8,
+        "modelSpecificEligibleBrandCohortsEverOffered": 6
+      },
+      "offerTiming": {
+        "offers": 6,
+        "stocksAtGeneration": [
+          {
+            "seed": 1,
+            "offerId": 3,
+            "month": 64,
+            "stock": 11,
+            "matching": 11
+          },
+          {
+            "seed": 2,
+            "offerId": 3,
+            "month": 64,
+            "stock": 10,
+            "matching": 10
+          },
+          {
+            "seed": 3,
+            "offerId": 3,
+            "month": 64,
+            "stock": 11,
+            "matching": 11
+          },
+          {
+            "seed": 4,
+            "offerId": 3,
+            "month": 64,
+            "stock": 10,
+            "matching": 10
+          },
+          {
+            "seed": 12345,
+            "offerId": 3,
+            "month": 64,
+            "stock": 11,
+            "matching": 11
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 3,
+            "month": 64,
+            "stock": 11,
+            "matching": 11
+          }
+        ],
+        "stocksAtReceipt": [
+          {
+            "seed": 1,
+            "offerId": 3,
+            "month": 64,
+            "stock": 11,
+            "matching": 11
+          },
+          {
+            "seed": 2,
+            "offerId": 3,
+            "month": 64,
+            "stock": 10,
+            "matching": 10
+          },
+          {
+            "seed": 3,
+            "offerId": 3,
+            "month": 64,
+            "stock": 11,
+            "matching": 11
+          },
+          {
+            "seed": 4,
+            "offerId": 3,
+            "month": 64,
+            "stock": 54,
+            "matching": 10
+          },
+          {
+            "seed": 12345,
+            "offerId": 3,
+            "month": 64,
+            "stock": 55,
+            "matching": 11
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 3,
+            "month": 64,
+            "stock": 11,
+            "matching": 11
+          }
+        ],
+        "zeroMatchingStockAtGeneration": 0,
+        "underFiveMatchingAtGeneration": 0,
+        "zeroMatchingStockAtReceipt": 0,
+        "underFiveMatchingAtReceipt": 0,
+        "depletedOriginalCandidateCohortBeforeFirstDelivery": 0,
+        "depletionEvents": [],
+        "acceptedWithoutDelivery": 0,
+        "unfulfilledOfferReasons": [],
+        "waitMonthsToFirstDelivery": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "nonAdditiveGateExposure": {
+        "candidateProductMonths": 24,
+        "globalCooldown": 4,
+        "stillNotReady": 14,
+        "decisions": 0,
+        "tradeOffer": 0,
+        "queuedDepartment": 0,
+        "brandDeclinedCooldown": 0,
+        "note": "Monthly stock-positive snapshots; overlapping states, not additive attribution or lost sales."
+      },
+      "capacity": {
+        "eligibleStockProductMonthsCapped": 12,
+        "uniqueReleasesExposed": 12,
+        "stockBottleMonthExposure": 161,
+        "fiveBottleLotMonthExposure": 30,
+        "note": "Repeated stock can occur across months. These are capacity exposures, never permanently lost bottle counts; no demand/reservation obligation exists."
+      },
+      "competition": {
+        "actualOtherStoreDeliveriesOfCalm24": 18,
+        "actualBottlesOfCalm24ToOtherStores": 161,
+        "uniqueReleases": 12,
+        "note": "Actual distinct bottle allocations, not proof that department would otherwise have bought them."
+      },
+      "quoteFailureProductMonths": {
+        "今月の納品を終えました。": 12,
+        "熟成が24か月未満です。": 102
+      },
+      "selectedBrands": [
+        {
+          "seed": 1,
+          "brandId": 1,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 2,
+          "brandId": 1,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 3,
+          "brandId": 1,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 4,
+          "brandId": 1,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 12345,
+          "brandId": 1,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 4294967295,
+          "brandId": 1,
+          "actions": 2,
+          "bottles": 10
+        }
+      ],
+      "sourceReuse": {
+        "applicable": false,
+        "note": "A uses live-stock evidence; no historical sourceReleaseIds exist."
+      },
+      "brandConcentration": [
+        {
+          "seed": 1,
+          "selectedBrands": 1,
+          "topBrandBottlePct": 100
+        },
+        {
+          "seed": 2,
+          "selectedBrands": 1,
+          "topBrandBottlePct": 100
+        },
+        {
+          "seed": 3,
+          "selectedBrands": 1,
+          "topBrandBottlePct": 100
+        },
+        {
+          "seed": 4,
+          "selectedBrands": 1,
+          "topBrandBottlePct": 100
+        },
+        {
+          "seed": 42,
+          "selectedBrands": 0,
+          "topBrandBottlePct": null
+        },
+        {
+          "seed": 12345,
+          "selectedBrands": 1,
+          "topBrandBottlePct": 100
+        },
+        {
+          "seed": 20261017,
+          "selectedBrands": 0,
+          "topBrandBottlePct": null
+        },
+        {
+          "seed": 4294967295,
+          "selectedBrands": 1,
+          "topBrandBottlePct": 100
+        }
+      ],
+      "projectCuts": {
+        "calm": {
+          "early": 0,
+          "middle": 12,
+          "late": 0
+        }
+      },
+      "cutAndAge": {
+        "early": 0,
+        "middle": 12,
+        "late": 0
+      }
+    },
+    {
+      "policy": "diverse",
+      "model": "A",
+      "releaseCohort": {
+        "note": "Calm24 is the shared A-reference funnel for all models, not full C-project eligibility. Offer inclusion is ever-overlap of live candidate product IDs with release cohorts, not same-time offer probability.",
+        "all": 352,
+        "age24": 184,
+        "age24Pct": 52.27,
+        "calmOf24": 144,
+        "calmOf24Pct": 78.26,
+        "stock5EverAmongCalm24": 144,
+        "stock5AtBottlingAmongCalm24": 144,
+        "eligibleBrandEvidenceWhileStocked": 24,
+        "allBrands": 24,
+        "eligibleBrandEvidenceWhileStockedPct": 100,
+        "finalBrandsMeeting40_2": 24,
+        "finalBrands": 24,
+        "qualifyingReleaseCohorts": 144,
+        "qualifyingReleaseCohortsEverIncludedInOffer": 23,
+        "qualifyingReleaseCohortsEverIncludedInOfferPct": 15.97,
+        "qualifyingBrandCohorts": 24,
+        "qualifyingBrandsEverOffered": 23,
+        "modelSpecificEligibleBrandCohortsWhileStocked": 24,
+        "modelSpecificEligibleBrandCohortsEverOffered": 23
+      },
+      "offerTiming": {
+        "offers": 23,
+        "stocksAtGeneration": [
+          {
+            "seed": 1,
+            "offerId": 6,
+            "month": 64,
+            "stock": 15,
+            "matching": 15
+          },
+          {
+            "seed": 1,
+            "offerId": 8,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 2,
+            "offerId": 6,
+            "month": 64,
+            "stock": 15,
+            "matching": 15
+          },
+          {
+            "seed": 2,
+            "offerId": 8,
+            "month": 79,
+            "stock": 6,
+            "matching": 6
+          },
+          {
+            "seed": 2,
+            "offerId": 9,
+            "month": 100,
+            "stock": 21,
+            "matching": 21
+          },
+          {
+            "seed": 3,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 3,
+            "offerId": 8,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 3,
+            "offerId": 9,
+            "month": 141,
+            "stock": 25,
+            "matching": 25
+          },
+          {
+            "seed": 4,
+            "offerId": 6,
+            "month": 65,
+            "stock": 1,
+            "matching": 1
+          },
+          {
+            "seed": 4,
+            "offerId": 8,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 4,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 42,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 42,
+            "offerId": 8,
+            "month": 79,
+            "stock": 6,
+            "matching": 6
+          },
+          {
+            "seed": 42,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 12345,
+            "offerId": 5,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 12345,
+            "offerId": 7,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 12345,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 20261017,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 20261017,
+            "offerId": 8,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 20261017,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 8,
+            "month": 79,
+            "stock": 6,
+            "matching": 6
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          }
+        ],
+        "stocksAtReceipt": [
+          {
+            "seed": 1,
+            "offerId": 6,
+            "month": 64,
+            "stock": 15,
+            "matching": 15
+          },
+          {
+            "seed": 1,
+            "offerId": 8,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 2,
+            "offerId": 6,
+            "month": 64,
+            "stock": 15,
+            "matching": 15
+          },
+          {
+            "seed": 2,
+            "offerId": 8,
+            "month": 79,
+            "stock": 6,
+            "matching": 6
+          },
+          {
+            "seed": 2,
+            "offerId": 9,
+            "month": 100,
+            "stock": 21,
+            "matching": 21
+          },
+          {
+            "seed": 3,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 3,
+            "offerId": 8,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 3,
+            "offerId": 9,
+            "month": 141,
+            "stock": 25,
+            "matching": 25
+          },
+          {
+            "seed": 4,
+            "offerId": 6,
+            "month": 65,
+            "stock": 1,
+            "matching": 1
+          },
+          {
+            "seed": 4,
+            "offerId": 8,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 4,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 42,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 42,
+            "offerId": 8,
+            "month": 79,
+            "stock": 6,
+            "matching": 6
+          },
+          {
+            "seed": 42,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 12345,
+            "offerId": 5,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 12345,
+            "offerId": 7,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 12345,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 20261017,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 20261017,
+            "offerId": 8,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 20261017,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 8,
+            "month": 79,
+            "stock": 6,
+            "matching": 6
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          }
+        ],
+        "zeroMatchingStockAtGeneration": 0,
+        "underFiveMatchingAtGeneration": 1,
+        "zeroMatchingStockAtReceipt": 0,
+        "underFiveMatchingAtReceipt": 1,
+        "depletedOriginalCandidateCohortBeforeFirstDelivery": 1,
+        "depletionEvents": [
+          {
+            "seed": 4,
+            "offerId": 6,
+            "month": 65,
+            "retail": 0,
+            "otherStores": 1,
+            "deliveryEventually": 92
+          }
+        ],
+        "acceptedWithoutDelivery": 0,
+        "unfulfilledOfferReasons": [],
+        "waitMonthsToFirstDelivery": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          27,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "nonAdditiveGateExposure": {
+        "candidateProductMonths": 54,
+        "globalCooldown": 9,
+        "stillNotReady": 27,
+        "decisions": 0,
+        "tradeOffer": 0,
+        "queuedDepartment": 0,
+        "brandDeclinedCooldown": 0,
+        "note": "Monthly stock-positive snapshots; overlapping states, not additive attribution or lost sales."
+      },
+      "capacity": {
+        "eligibleStockProductMonthsCapped": 115,
+        "uniqueReleasesExposed": 115,
+        "stockBottleMonthExposure": 2315,
+        "fiveBottleLotMonthExposure": 417,
+        "note": "Repeated stock can occur across months. These are capacity exposures, never permanently lost bottle counts; no demand/reservation obligation exists."
+      },
+      "competition": {
+        "actualOtherStoreDeliveriesOfCalm24": 202,
+        "actualBottlesOfCalm24ToOtherStores": 2640,
+        "uniqueReleases": 136,
+        "note": "Actual distinct bottle allocations, not proof that department would otherwise have bought them."
+      },
+      "quoteFailureProductMonths": {
+        "今月の納品を終えました。": 133,
+        "熟成が24か月未満です。": 57,
+        "この店では刺激の穏やかな銘柄を扱います。": 35,
+        "5本以上必要です。": 1
+      },
+      "selectedBrands": [
+        {
+          "seed": 1,
+          "brandId": 2,
+          "actions": 7,
+          "bottles": 35
+        },
+        {
+          "seed": 1,
+          "brandId": 1,
+          "actions": 7,
+          "bottles": 35
+        },
+        {
+          "seed": 2,
+          "brandId": 2,
+          "actions": 7,
+          "bottles": 35
+        },
+        {
+          "seed": 2,
+          "brandId": 3,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 2,
+          "brandId": 1,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 3,
+          "brandId": 2,
+          "actions": 7,
+          "bottles": 35
+        },
+        {
+          "seed": 3,
+          "brandId": 3,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 3,
+          "brandId": 1,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 4,
+          "brandId": 3,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 4,
+          "brandId": 2,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 4,
+          "brandId": 1,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 42,
+          "brandId": 2,
+          "actions": 7,
+          "bottles": 35
+        },
+        {
+          "seed": 42,
+          "brandId": 3,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 42,
+          "brandId": 1,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 12345,
+          "brandId": 2,
+          "actions": 7,
+          "bottles": 35
+        },
+        {
+          "seed": 12345,
+          "brandId": 3,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 12345,
+          "brandId": 1,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 20261017,
+          "brandId": 2,
+          "actions": 7,
+          "bottles": 35
+        },
+        {
+          "seed": 20261017,
+          "brandId": 3,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 20261017,
+          "brandId": 1,
+          "actions": 7,
+          "bottles": 35
+        },
+        {
+          "seed": 4294967295,
+          "brandId": 2,
+          "actions": 7,
+          "bottles": 35
+        },
+        {
+          "seed": 4294967295,
+          "brandId": 3,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 4294967295,
+          "brandId": 1,
+          "actions": 6,
+          "bottles": 30
+        }
+      ],
+      "sourceReuse": {
+        "applicable": false,
+        "note": "A uses live-stock evidence; no historical sourceReleaseIds exist."
+      },
+      "brandConcentration": [
+        {
+          "seed": 1,
+          "selectedBrands": 2,
+          "topBrandBottlePct": 50
+        },
+        {
+          "seed": 2,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 43.75
+        },
+        {
+          "seed": 3,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 46.67
+        },
+        {
+          "seed": 4,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 40
+        },
+        {
+          "seed": 42,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 43.75
+        },
+        {
+          "seed": 12345,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 43.75
+        },
+        {
+          "seed": 20261017,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 41.18
+        },
+        {
+          "seed": 4294967295,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 43.75
+        }
+      ],
+      "projectCuts": {
+        "calm": {
+          "early": 49,
+          "middle": 55,
+          "late": 21
+        }
+      },
+      "cutAndAge": {
+        "early": 49,
+        "middle": 55,
+        "late": 21
+      }
+    },
+    {
+      "policy": "diverse",
+      "model": "B",
+      "releaseCohort": {
+        "note": "Calm24 is the shared A-reference funnel for all models, not full C-project eligibility. Offer inclusion is ever-overlap of live candidate product IDs with release cohorts, not same-time offer probability.",
+        "all": 352,
+        "age24": 184,
+        "age24Pct": 52.27,
+        "calmOf24": 144,
+        "calmOf24Pct": 78.26,
+        "stock5EverAmongCalm24": 144,
+        "stock5AtBottlingAmongCalm24": 144,
+        "eligibleBrandEvidenceWhileStocked": 24,
+        "allBrands": 24,
+        "eligibleBrandEvidenceWhileStockedPct": 100,
+        "finalBrandsMeeting40_2": 24,
+        "finalBrands": 24,
+        "qualifyingReleaseCohorts": 144,
+        "qualifyingReleaseCohortsEverIncludedInOffer": 135,
+        "qualifyingReleaseCohortsEverIncludedInOfferPct": 93.75,
+        "qualifyingBrandCohorts": 24,
+        "qualifyingBrandsEverOffered": 24,
+        "modelSpecificEligibleBrandCohortsWhileStocked": 24,
+        "modelSpecificEligibleBrandCohortsEverOffered": 24
+      },
+      "offerTiming": {
+        "offers": 111,
+        "stocksAtGeneration": [
+          {
+            "seed": 1,
+            "offerId": 6,
+            "month": 64,
+            "stock": 15,
+            "matching": 15
+          },
+          {
+            "seed": 1,
+            "offerId": 7,
+            "month": 70,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 8,
+            "month": 76,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 9,
+            "month": 83,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 10,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 11,
+            "month": 113,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 12,
+            "month": 141,
+            "stock": 31,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 14,
+            "month": 156,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 15,
+            "month": 163,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 19,
+            "month": 228,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 6,
+            "month": 64,
+            "stock": 15,
+            "matching": 15
+          },
+          {
+            "seed": 2,
+            "offerId": 7,
+            "month": 70,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 8,
+            "month": 76,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 9,
+            "month": 83,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 10,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 11,
+            "month": 113,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 12,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 13,
+            "month": 153,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 15,
+            "month": 163,
+            "stock": 26,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 19,
+            "month": 230,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 3,
+            "offerId": 7,
+            "month": 70,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 8,
+            "month": 76,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 9,
+            "month": 82,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 11,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 12,
+            "month": 113,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 13,
+            "month": 141,
+            "stock": 31,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 14,
+            "month": 153,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 15,
+            "month": 161,
+            "stock": 36,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 19,
+            "month": 228,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 6,
+            "month": 65,
+            "stock": 1,
+            "matching": 1
+          },
+          {
+            "seed": 4,
+            "offerId": 7,
+            "month": 71,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 9,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 4,
+            "offerId": 10,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 11,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 12,
+            "month": 113,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 13,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 14,
+            "month": 153,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 15,
+            "month": 161,
+            "stock": 36,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 19,
+            "month": 228,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 42,
+            "offerId": 7,
+            "month": 70,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 8,
+            "month": 76,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 9,
+            "month": 82,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 11,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 12,
+            "month": 115,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 13,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 14,
+            "month": 153,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 15,
+            "month": 161,
+            "stock": 35,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 19,
+            "month": 229,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 5,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 12345,
+            "offerId": 6,
+            "month": 70,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 8,
+            "month": 79,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 9,
+            "month": 86,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 11,
+            "month": 106,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 12,
+            "month": 114,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 13,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 14,
+            "month": 153,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 15,
+            "month": 161,
+            "stock": 35,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 18,
+            "month": 212,
+            "stock": 29,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 19,
+            "month": 228,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 20261017,
+            "offerId": 7,
+            "month": 70,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 8,
+            "month": 76,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 9,
+            "month": 82,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 11,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 12,
+            "month": 113,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 13,
+            "month": 141,
+            "stock": 31,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 14,
+            "month": 153,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 15,
+            "month": 163,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 18,
+            "month": 213,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 19,
+            "month": 228,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 7,
+            "month": 70,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 9,
+            "month": 79,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 10,
+            "month": 86,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 11,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 12,
+            "month": 114,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 13,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 14,
+            "month": 153,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 15,
+            "month": 161,
+            "stock": 36,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 19,
+            "month": 229,
+            "stock": 0,
+            "matching": 0
+          }
+        ],
+        "stocksAtReceipt": [
+          {
+            "seed": 1,
+            "offerId": 6,
+            "month": 64,
+            "stock": 15,
+            "matching": 15
+          },
+          {
+            "seed": 1,
+            "offerId": 7,
+            "month": 70,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 8,
+            "month": 76,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 9,
+            "month": 83,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 10,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 11,
+            "month": 113,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 12,
+            "month": 141,
+            "stock": 31,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 14,
+            "month": 156,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 15,
+            "month": 163,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 19,
+            "month": 228,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 6,
+            "month": 64,
+            "stock": 15,
+            "matching": 15
+          },
+          {
+            "seed": 2,
+            "offerId": 7,
+            "month": 70,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 8,
+            "month": 76,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 9,
+            "month": 83,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 10,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 11,
+            "month": 113,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 12,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 13,
+            "month": 153,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 15,
+            "month": 163,
+            "stock": 26,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 19,
+            "month": 230,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 3,
+            "offerId": 7,
+            "month": 70,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 8,
+            "month": 76,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 9,
+            "month": 82,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 11,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 12,
+            "month": 113,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 13,
+            "month": 141,
+            "stock": 31,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 14,
+            "month": 153,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 15,
+            "month": 161,
+            "stock": 36,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 19,
+            "month": 228,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 6,
+            "month": 65,
+            "stock": 1,
+            "matching": 1
+          },
+          {
+            "seed": 4,
+            "offerId": 7,
+            "month": 71,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 9,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 4,
+            "offerId": 10,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 11,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 12,
+            "month": 113,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 13,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 14,
+            "month": 153,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 15,
+            "month": 161,
+            "stock": 36,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 19,
+            "month": 228,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 42,
+            "offerId": 7,
+            "month": 70,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 8,
+            "month": 76,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 9,
+            "month": 82,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 11,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 12,
+            "month": 115,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 13,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 14,
+            "month": 153,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 15,
+            "month": 161,
+            "stock": 35,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 19,
+            "month": 229,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 5,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 12345,
+            "offerId": 6,
+            "month": 70,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 8,
+            "month": 79,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 9,
+            "month": 86,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 11,
+            "month": 106,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 12,
+            "month": 114,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 13,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 14,
+            "month": 153,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 15,
+            "month": 161,
+            "stock": 35,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 18,
+            "month": 212,
+            "stock": 29,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 19,
+            "month": 228,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 20261017,
+            "offerId": 7,
+            "month": 70,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 8,
+            "month": 76,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 9,
+            "month": 82,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 11,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 12,
+            "month": 113,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 13,
+            "month": 141,
+            "stock": 31,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 14,
+            "month": 153,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 15,
+            "month": 163,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 18,
+            "month": 213,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 19,
+            "month": 228,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 7,
+            "month": 70,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 9,
+            "month": 79,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 10,
+            "month": 86,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 11,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 12,
+            "month": 114,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 13,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 14,
+            "month": 153,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 15,
+            "month": 161,
+            "stock": 36,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 16,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 17,
+            "month": 190,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 19,
+            "month": 229,
+            "stock": 0,
+            "matching": 0
+          }
+        ],
+        "zeroMatchingStockAtGeneration": 102,
+        "underFiveMatchingAtGeneration": 103,
+        "zeroMatchingStockAtReceipt": 102,
+        "underFiveMatchingAtReceipt": 103,
+        "depletedOriginalCandidateCohortBeforeFirstDelivery": 1,
+        "depletionEvents": [
+          {
+            "seed": 4,
+            "offerId": 6,
+            "month": 65,
+            "retail": 0,
+            "otherStores": 1,
+            "deliveryEventually": 92
+          }
+        ],
+        "acceptedWithoutDelivery": 23,
+        "unfulfilledOfferReasons": [
+          {
+            "seed": 1,
+            "offerId": 18,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 211
+          },
+          {
+            "seed": 1,
+            "offerId": 19,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 228
+          },
+          {
+            "seed": 1,
+            "offerId": 20,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 238
+          },
+          {
+            "seed": 2,
+            "offerId": 18,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 211
+          },
+          {
+            "seed": 2,
+            "offerId": 19,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 230
+          },
+          {
+            "seed": 2,
+            "offerId": 20,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 238
+          },
+          {
+            "seed": 3,
+            "offerId": 18,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 211
+          },
+          {
+            "seed": 3,
+            "offerId": 19,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 228
+          },
+          {
+            "seed": 3,
+            "offerId": 20,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 238
+          },
+          {
+            "seed": 4,
+            "offerId": 18,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 211
+          },
+          {
+            "seed": 4,
+            "offerId": 19,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 228
+          },
+          {
+            "seed": 4,
+            "offerId": 20,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 238
+          },
+          {
+            "seed": 42,
+            "offerId": 18,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 211
+          },
+          {
+            "seed": 42,
+            "offerId": 19,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 229
+          },
+          {
+            "seed": 42,
+            "offerId": 20,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 238
+          },
+          {
+            "seed": 12345,
+            "offerId": 18,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 212
+          },
+          {
+            "seed": 12345,
+            "offerId": 19,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 228
+          },
+          {
+            "seed": 12345,
+            "offerId": 20,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 238
+          },
+          {
+            "seed": 20261017,
+            "offerId": 18,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 213
+          },
+          {
+            "seed": 20261017,
+            "offerId": 19,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 228
+          },
+          {
+            "seed": 20261017,
+            "offerId": 20,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 238
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 18,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 211
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 19,
+            "project": "calm",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 229
+          }
+        ],
+        "waitMonthsToFirstDelivery": [
+          0,
+          30,
+          16,
+          66,
+          24,
+          28,
+          26,
+          21,
+          63,
+          20,
+          26,
+          0,
+          30,
+          16,
+          66,
+          24,
+          28,
+          27,
+          24,
+          63,
+          20,
+          26,
+          0,
+          30,
+          16,
+          67,
+          24,
+          28,
+          26,
+          24,
+          65,
+          20,
+          26,
+          27,
+          29,
+          0,
+          56,
+          24,
+          28,
+          27,
+          24,
+          65,
+          20,
+          26,
+          0,
+          30,
+          16,
+          67,
+          24,
+          26,
+          27,
+          24,
+          65,
+          20,
+          26,
+          0,
+          30,
+          13,
+          63,
+          22,
+          27,
+          27,
+          24,
+          65,
+          20,
+          26,
+          0,
+          30,
+          16,
+          67,
+          24,
+          28,
+          26,
+          24,
+          63,
+          20,
+          26,
+          0,
+          30,
+          13,
+          63,
+          24,
+          27,
+          27,
+          24,
+          65,
+          20,
+          26
+        ]
+      },
+      "nonAdditiveGateExposure": {
+        "candidateProductMonths": 81,
+        "globalCooldown": 31,
+        "stillNotReady": 59,
+        "decisions": 0,
+        "tradeOffer": 0,
+        "queuedDepartment": 0,
+        "brandDeclinedCooldown": 39,
+        "note": "Monthly stock-positive snapshots; overlapping states, not additive attribution or lost sales."
+      },
+      "capacity": {
+        "eligibleStockProductMonthsCapped": 0,
+        "uniqueReleasesExposed": 0,
+        "stockBottleMonthExposure": 0,
+        "fiveBottleLotMonthExposure": 0,
+        "note": "Repeated stock can occur across months. These are capacity exposures, never permanently lost bottle counts; no demand/reservation obligation exists."
+      },
+      "competition": {
+        "actualOtherStoreDeliveriesOfCalm24": 214,
+        "actualBottlesOfCalm24ToOtherStores": 2792,
+        "uniqueReleases": 136,
+        "note": "Actual distinct bottle allocations, not proof that department would otherwise have bought them."
+      },
+      "quoteFailureProductMonths": {
+        "企画の条件に合いません。": 77,
+        "今月の納品を終えました。": 10,
+        "5本以上必要です。": 1
+      },
+      "selectedBrands": [
+        {
+          "seed": 1,
+          "brandId": 2,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 1,
+          "brandId": 1,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 1,
+          "brandId": 3,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 2,
+          "brandId": 2,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 2,
+          "brandId": 1,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 2,
+          "brandId": 3,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 3,
+          "brandId": 2,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 3,
+          "brandId": 1,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 3,
+          "brandId": 3,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 4,
+          "brandId": 3,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 4,
+          "brandId": 2,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 4,
+          "brandId": 1,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 42,
+          "brandId": 2,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 42,
+          "brandId": 1,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 42,
+          "brandId": 3,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 12345,
+          "brandId": 2,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 12345,
+          "brandId": 1,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 12345,
+          "brandId": 3,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 20261017,
+          "brandId": 2,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 20261017,
+          "brandId": 1,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 20261017,
+          "brandId": 3,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 4294967295,
+          "brandId": 2,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 4294967295,
+          "brandId": 1,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 4294967295,
+          "brandId": 3,
+          "actions": 2,
+          "bottles": 10
+        }
+      ],
+      "sourceReuse": {
+        "applicable": true,
+        "note": "Repeated historically eligible source sets; does not mean repeated delivered release or selected achievement.",
+        "uniqueHistoricalReleaseCohorts": 135,
+        "offersEntirelyReusingPreviouslyEligibleSource": 8,
+        "offersWithNoNewHistoricalSource": 8,
+        "events": [
+          {
+            "seed": 1,
+            "offerId": 6,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 7,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 8,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 1,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 10,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 11,
+            "historicalMatches": 3,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 12,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 14,
+            "historicalMatches": 4,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 15,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 16,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 17,
+            "historicalMatches": 6,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 18,
+            "historicalMatches": 7,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 19,
+            "historicalMatches": 7,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 20,
+            "historicalMatches": 3,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 6,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 7,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 8,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 2,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 10,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 11,
+            "historicalMatches": 3,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 12,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 13,
+            "historicalMatches": 4,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 15,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 16,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 17,
+            "historicalMatches": 6,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 18,
+            "historicalMatches": 7,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 19,
+            "historicalMatches": 7,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 20,
+            "historicalMatches": 3,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 6,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 7,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 8,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 3,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 11,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 12,
+            "historicalMatches": 3,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 13,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 14,
+            "historicalMatches": 4,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 15,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 16,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 17,
+            "historicalMatches": 6,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 18,
+            "historicalMatches": 7,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 19,
+            "historicalMatches": 7,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 20,
+            "historicalMatches": 3,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 6,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 7,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 10,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 4,
+            "offerId": 11,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 12,
+            "historicalMatches": 3,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 13,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 14,
+            "historicalMatches": 4,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 15,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 16,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 17,
+            "historicalMatches": 6,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 18,
+            "historicalMatches": 7,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 19,
+            "historicalMatches": 7,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 20,
+            "historicalMatches": 3,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 6,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 7,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 8,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 42,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 11,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 12,
+            "historicalMatches": 3,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 13,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 14,
+            "historicalMatches": 4,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 15,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 16,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 17,
+            "historicalMatches": 6,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 18,
+            "historicalMatches": 7,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 19,
+            "historicalMatches": 7,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 20,
+            "historicalMatches": 3,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 5,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 6,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 8,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 12345,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 11,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 12,
+            "historicalMatches": 3,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 13,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 14,
+            "historicalMatches": 4,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 15,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 16,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 17,
+            "historicalMatches": 6,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 18,
+            "historicalMatches": 7,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 19,
+            "historicalMatches": 7,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 20,
+            "historicalMatches": 3,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 6,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 7,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 8,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 20261017,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 11,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 12,
+            "historicalMatches": 3,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 13,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 14,
+            "historicalMatches": 4,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 15,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 16,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 17,
+            "historicalMatches": 6,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 18,
+            "historicalMatches": 7,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 19,
+            "historicalMatches": 7,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 20,
+            "historicalMatches": 3,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 6,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 7,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 10,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 11,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 12,
+            "historicalMatches": 3,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 13,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 14,
+            "historicalMatches": 4,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 15,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 16,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 17,
+            "historicalMatches": 6,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 18,
+            "historicalMatches": 7,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 19,
+            "historicalMatches": 7,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          }
+        ]
+      },
+      "brandConcentration": [
+        {
+          "seed": 1,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 45.45
+        },
+        {
+          "seed": 2,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 45.45
+        },
+        {
+          "seed": 3,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 45.45
+        },
+        {
+          "seed": 4,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 36.36
+        },
+        {
+          "seed": 42,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 45.45
+        },
+        {
+          "seed": 12345,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 45.45
+        },
+        {
+          "seed": 20261017,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 45.45
+        },
+        {
+          "seed": 4294967295,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 45.45
+        }
+      ],
+      "projectCuts": {
+        "calm": {
+          "early": 32,
+          "middle": 39,
+          "late": 17
+        }
+      },
+      "cutAndAge": {
+        "early": 32,
+        "middle": 39,
+        "late": 17
+      }
+    },
+    {
+      "policy": "diverse",
+      "model": "C",
+      "releaseCohort": {
+        "note": "Calm24 is the shared A-reference funnel for all models, not full C-project eligibility. Offer inclusion is ever-overlap of live candidate product IDs with release cohorts, not same-time offer probability.",
+        "all": 352,
+        "age24": 184,
+        "age24Pct": 52.27,
+        "calmOf24": 144,
+        "calmOf24Pct": 78.26,
+        "stock5EverAmongCalm24": 144,
+        "stock5AtBottlingAmongCalm24": 144,
+        "eligibleBrandEvidenceWhileStocked": 24,
+        "allBrands": 24,
+        "eligibleBrandEvidenceWhileStockedPct": 100,
+        "finalBrandsMeeting40_2": 24,
+        "finalBrands": 24,
+        "qualifyingReleaseCohorts": 144,
+        "qualifyingReleaseCohortsEverIncludedInOffer": 83,
+        "qualifyingReleaseCohortsEverIncludedInOfferPct": 57.64,
+        "qualifyingBrandCohorts": 24,
+        "qualifyingBrandsEverOffered": 24,
+        "modelSpecificEligibleBrandCohortsWhileStocked": 24,
+        "modelSpecificEligibleBrandCohortsEverOffered": 24
+      },
+      "offerTiming": {
+        "offers": 105,
+        "stocksAtGeneration": [
+          {
+            "seed": 1,
+            "offerId": 6,
+            "month": 64,
+            "stock": 15,
+            "matching": 15
+          },
+          {
+            "seed": 1,
+            "offerId": 7,
+            "month": 80,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 8,
+            "month": 86,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 9,
+            "month": 96,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 10,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 12,
+            "month": 123,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 13,
+            "month": 141,
+            "stock": 31,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 14,
+            "month": 161,
+            "stock": 35,
+            "matching": 35
+          },
+          {
+            "seed": 1,
+            "offerId": 15,
+            "month": 174,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 16,
+            "month": 180,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 17,
+            "month": 192,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 19,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 7,
+            "month": 79,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 2,
+            "offerId": 8,
+            "month": 85,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 9,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 10,
+            "month": 99,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 11,
+            "month": 106,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 12,
+            "month": 120,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 13,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 14,
+            "month": 163,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 15,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 16,
+            "month": 192,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 17,
+            "month": 204,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 3,
+            "offerId": 8,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 3,
+            "offerId": 9,
+            "month": 86,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 10,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 11,
+            "month": 99,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 12,
+            "month": 106,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 13,
+            "month": 121,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 14,
+            "month": 129,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 15,
+            "month": 141,
+            "stock": 31,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 16,
+            "month": 161,
+            "stock": 36,
+            "matching": 36
+          },
+          {
+            "seed": 3,
+            "offerId": 17,
+            "month": 174,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 18,
+            "month": 180,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 19,
+            "month": 192,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 20,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 21,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 7,
+            "month": 79,
+            "stock": 17,
+            "matching": 17
+          },
+          {
+            "seed": 4,
+            "offerId": 8,
+            "month": 86,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 9,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 10,
+            "month": 99,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 11,
+            "month": 106,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 12,
+            "month": 120,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 13,
+            "month": 129,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 14,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 15,
+            "month": 161,
+            "stock": 36,
+            "matching": 36
+          },
+          {
+            "seed": 4,
+            "offerId": 16,
+            "month": 175,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 17,
+            "month": 183,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 18,
+            "month": 192,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 19,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 42,
+            "offerId": 8,
+            "month": 79,
+            "stock": 6,
+            "matching": 6
+          },
+          {
+            "seed": 42,
+            "offerId": 9,
+            "month": 85,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 10,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 11,
+            "month": 99,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 12,
+            "month": 106,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 13,
+            "month": 120,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 14,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 15,
+            "month": 161,
+            "stock": 35,
+            "matching": 35
+          },
+          {
+            "seed": 42,
+            "offerId": 16,
+            "month": 174,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 17,
+            "month": 180,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 18,
+            "month": 192,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 19,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 6,
+            "month": 79,
+            "stock": 17,
+            "matching": 17
+          },
+          {
+            "seed": 12345,
+            "offerId": 7,
+            "month": 86,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 8,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 9,
+            "month": 99,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 10,
+            "month": 106,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 11,
+            "month": 120,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 12,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 13,
+            "month": 161,
+            "stock": 35,
+            "matching": 35
+          },
+          {
+            "seed": 12345,
+            "offerId": 14,
+            "month": 174,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 15,
+            "month": 181,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 17,
+            "month": 196,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 18,
+            "month": 212,
+            "stock": 29,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 19,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 7,
+            "month": 79,
+            "stock": 17,
+            "matching": 17
+          },
+          {
+            "seed": 20261017,
+            "offerId": 8,
+            "month": 85,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 9,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 10,
+            "month": 99,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 11,
+            "month": 107,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 12,
+            "month": 121,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 13,
+            "month": 141,
+            "stock": 31,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 14,
+            "month": 163,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 15,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 16,
+            "month": 192,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 17,
+            "month": 204,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 18,
+            "month": 213,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 7,
+            "month": 79,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 8,
+            "month": 86,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 9,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 10,
+            "month": 99,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 11,
+            "month": 106,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 12,
+            "month": 120,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 13,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 14,
+            "month": 161,
+            "stock": 36,
+            "matching": 36
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 15,
+            "month": 174,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 16,
+            "month": 180,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 17,
+            "month": 192,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          }
+        ],
+        "stocksAtReceipt": [
+          {
+            "seed": 1,
+            "offerId": 6,
+            "month": 64,
+            "stock": 15,
+            "matching": 15
+          },
+          {
+            "seed": 1,
+            "offerId": 7,
+            "month": 80,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 8,
+            "month": 86,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 9,
+            "month": 96,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 10,
+            "month": 104,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 12,
+            "month": 123,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 13,
+            "month": 141,
+            "stock": 31,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 14,
+            "month": 161,
+            "stock": 35,
+            "matching": 35
+          },
+          {
+            "seed": 1,
+            "offerId": 15,
+            "month": 174,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 16,
+            "month": 180,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 17,
+            "month": 192,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 19,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 7,
+            "month": 79,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 2,
+            "offerId": 8,
+            "month": 85,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 9,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 10,
+            "month": 99,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 11,
+            "month": 106,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 12,
+            "month": 120,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 13,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 14,
+            "month": 163,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 15,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 16,
+            "month": 192,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 17,
+            "month": 204,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 3,
+            "offerId": 8,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 3,
+            "offerId": 9,
+            "month": 86,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 10,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 11,
+            "month": 99,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 12,
+            "month": 106,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 13,
+            "month": 121,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 14,
+            "month": 129,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 15,
+            "month": 141,
+            "stock": 31,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 16,
+            "month": 161,
+            "stock": 36,
+            "matching": 36
+          },
+          {
+            "seed": 3,
+            "offerId": 17,
+            "month": 174,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 18,
+            "month": 180,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 19,
+            "month": 192,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 20,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 21,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 7,
+            "month": 79,
+            "stock": 17,
+            "matching": 17
+          },
+          {
+            "seed": 4,
+            "offerId": 8,
+            "month": 86,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 9,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 10,
+            "month": 99,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 11,
+            "month": 106,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 12,
+            "month": 120,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 13,
+            "month": 129,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 14,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 15,
+            "month": 161,
+            "stock": 36,
+            "matching": 36
+          },
+          {
+            "seed": 4,
+            "offerId": 16,
+            "month": 175,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 17,
+            "month": 183,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 18,
+            "month": 192,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 19,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 42,
+            "offerId": 8,
+            "month": 79,
+            "stock": 6,
+            "matching": 6
+          },
+          {
+            "seed": 42,
+            "offerId": 9,
+            "month": 85,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 10,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 11,
+            "month": 99,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 12,
+            "month": 106,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 13,
+            "month": 120,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 14,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 15,
+            "month": 161,
+            "stock": 35,
+            "matching": 35
+          },
+          {
+            "seed": 42,
+            "offerId": 16,
+            "month": 174,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 17,
+            "month": 180,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 18,
+            "month": 192,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 19,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 20,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 6,
+            "month": 79,
+            "stock": 17,
+            "matching": 17
+          },
+          {
+            "seed": 12345,
+            "offerId": 7,
+            "month": 86,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 8,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 9,
+            "month": 99,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 10,
+            "month": 106,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 11,
+            "month": 120,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 12,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 13,
+            "month": 161,
+            "stock": 35,
+            "matching": 35
+          },
+          {
+            "seed": 12345,
+            "offerId": 14,
+            "month": 174,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 15,
+            "month": 181,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 17,
+            "month": 196,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 18,
+            "month": 212,
+            "stock": 29,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 19,
+            "month": 238,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 7,
+            "month": 79,
+            "stock": 17,
+            "matching": 17
+          },
+          {
+            "seed": 20261017,
+            "offerId": 8,
+            "month": 85,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 9,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 10,
+            "month": 99,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 11,
+            "month": 107,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 12,
+            "month": 121,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 13,
+            "month": 141,
+            "stock": 31,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 14,
+            "month": 163,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 15,
+            "month": 179,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 16,
+            "month": 192,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 17,
+            "month": 204,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 18,
+            "month": 213,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 7,
+            "month": 79,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 8,
+            "month": 86,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 9,
+            "month": 93,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 10,
+            "month": 99,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 11,
+            "month": 106,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 12,
+            "month": 120,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 13,
+            "month": 140,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 14,
+            "month": 161,
+            "stock": 36,
+            "matching": 36
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 15,
+            "month": 174,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 16,
+            "month": 180,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 17,
+            "month": 192,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 18,
+            "month": 211,
+            "stock": 0,
+            "matching": 0
+          }
+        ],
+        "zeroMatchingStockAtGeneration": 89,
+        "underFiveMatchingAtGeneration": 89,
+        "zeroMatchingStockAtReceipt": 89,
+        "underFiveMatchingAtReceipt": 89,
+        "depletedOriginalCandidateCohortBeforeFirstDelivery": 0,
+        "depletionEvents": [],
+        "acceptedWithoutDelivery": 13,
+        "unfulfilledOfferReasons": [
+          {
+            "seed": 1,
+            "offerId": 18,
+            "project": "strong",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 211
+          },
+          {
+            "seed": 1,
+            "offerId": 19,
+            "project": "aroma",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 238
+          },
+          {
+            "seed": 2,
+            "offerId": 18,
+            "project": "strong",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 211
+          },
+          {
+            "seed": 3,
+            "offerId": 20,
+            "project": "strong",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 211
+          },
+          {
+            "seed": 3,
+            "offerId": 21,
+            "project": "aroma",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 238
+          },
+          {
+            "seed": 4,
+            "offerId": 19,
+            "project": "strong",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 211
+          },
+          {
+            "seed": 4,
+            "offerId": 20,
+            "project": "aroma",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 238
+          },
+          {
+            "seed": 42,
+            "offerId": 19,
+            "project": "strong",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 211
+          },
+          {
+            "seed": 42,
+            "offerId": 20,
+            "project": "aroma",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 238
+          },
+          {
+            "seed": 12345,
+            "offerId": 18,
+            "project": "strong",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 212
+          },
+          {
+            "seed": 12345,
+            "offerId": 19,
+            "project": "aroma",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 0,
+            "acceptedMonth": 238
+          },
+          {
+            "seed": 20261017,
+            "offerId": 18,
+            "project": "strong",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 213
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 18,
+            "project": "strong",
+            "matchingAtOffer": 0,
+            "depletedBeforeDelivery": false,
+            "finalBrandStock": 43,
+            "acceptedMonth": 211
+          }
+        ],
+        "waitMonthsToFirstDelivery": [
+          0,
+          69,
+          6,
+          4,
+          24,
+          54,
+          26,
+          0,
+          52,
+          19,
+          24,
+          0,
+          7,
+          56,
+          1,
+          22,
+          57,
+          27,
+          29,
+          20,
+          24,
+          31,
+          0,
+          0,
+          6,
+          24,
+          1,
+          22,
+          56,
+          20,
+          26,
+          0,
+          52,
+          19,
+          24,
+          0,
+          6,
+          24,
+          1,
+          22,
+          57,
+          20,
+          27,
+          0,
+          51,
+          16,
+          24,
+          0,
+          0,
+          7,
+          56,
+          1,
+          22,
+          57,
+          27,
+          0,
+          52,
+          19,
+          24,
+          0,
+          6,
+          56,
+          1,
+          22,
+          57,
+          27,
+          0,
+          52,
+          18,
+          20,
+          0,
+          7,
+          56,
+          1,
+          21,
+          56,
+          26,
+          29,
+          20,
+          24,
+          31,
+          0,
+          6,
+          56,
+          1,
+          22,
+          57,
+          27,
+          0,
+          52,
+          19,
+          24
+        ]
+      },
+      "nonAdditiveGateExposure": {
+        "candidateProductMonths": 92,
+        "globalCooldown": 43,
+        "stillNotReady": 57,
+        "decisions": 0,
+        "tradeOffer": 0,
+        "queuedDepartment": 0,
+        "brandDeclinedCooldown": 37,
+        "note": "Monthly stock-positive snapshots; overlapping states, not additive attribution or lost sales."
+      },
+      "capacity": {
+        "eligibleStockProductMonthsCapped": 0,
+        "uniqueReleasesExposed": 0,
+        "stockBottleMonthExposure": 0,
+        "fiveBottleLotMonthExposure": 0,
+        "note": "Repeated stock can occur across months. These are capacity exposures, never permanently lost bottle counts; no demand/reservation obligation exists."
+      },
+      "competition": {
+        "actualOtherStoreDeliveriesOfCalm24": 200,
+        "actualBottlesOfCalm24ToOtherStores": 2645,
+        "uniqueReleases": 126,
+        "note": "Actual distinct bottle allocations, not proof that department would otherwise have bought them."
+      },
+      "quoteFailureProductMonths": {
+        "企画の条件に合いません。": 54,
+        "今月の納品を終えました。": 1
+      },
+      "selectedBrands": [
+        {
+          "seed": 1,
+          "brandId": 2,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 1,
+          "brandId": 1,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 1,
+          "brandId": 3,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 2,
+          "brandId": 3,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 2,
+          "brandId": 2,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 2,
+          "brandId": 1,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 3,
+          "brandId": 2,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 3,
+          "brandId": 3,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 3,
+          "brandId": 1,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 4,
+          "brandId": 3,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 4,
+          "brandId": 2,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 4,
+          "brandId": 1,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 42,
+          "brandId": 2,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 42,
+          "brandId": 3,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 42,
+          "brandId": 1,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 12345,
+          "brandId": 3,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 12345,
+          "brandId": 2,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 12345,
+          "brandId": 1,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 20261017,
+          "brandId": 3,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 20261017,
+          "brandId": 2,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 20261017,
+          "brandId": 1,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 4294967295,
+          "brandId": 3,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 4294967295,
+          "brandId": 2,
+          "actions": 4,
+          "bottles": 20
+        },
+        {
+          "seed": 4294967295,
+          "brandId": 1,
+          "actions": 3,
+          "bottles": 15
+        }
+      ],
+      "sourceReuse": {
+        "applicable": true,
+        "note": "Repeated historically eligible source sets; does not mean repeated delivered release or selected achievement.",
+        "uniqueHistoricalReleaseCohorts": 135,
+        "offersEntirelyReusingPreviouslyEligibleSource": 19,
+        "offersWithNoNewHistoricalSource": 19,
+        "events": [
+          {
+            "seed": 1,
+            "offerId": 6,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 7,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 8,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 1,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 10,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 12,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 13,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 14,
+            "historicalMatches": 3,
+            "newSourceMatches": 3,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 15,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 16,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 17,
+            "historicalMatches": 6,
+            "newSourceMatches": 4,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 1,
+            "offerId": 18,
+            "historicalMatches": 2,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 1,
+            "offerId": 19,
+            "historicalMatches": 4,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 7,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 8,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 2,
+            "offerId": 10,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 11,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 12,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 13,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 14,
+            "historicalMatches": 3,
+            "newSourceMatches": 3,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 15,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 2,
+            "offerId": 16,
+            "historicalMatches": 6,
+            "newSourceMatches": 4,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 17,
+            "historicalMatches": 4,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 2,
+            "offerId": 18,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 6,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 8,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 3,
+            "offerId": 10,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 11,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 12,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 13,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 14,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 3,
+            "offerId": 15,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 16,
+            "historicalMatches": 3,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 17,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 18,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 19,
+            "historicalMatches": 6,
+            "newSourceMatches": 4,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 3,
+            "offerId": 20,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 3,
+            "offerId": 21,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 7,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 8,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 4,
+            "offerId": 10,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 11,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 12,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 13,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 4,
+            "offerId": 14,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 15,
+            "historicalMatches": 3,
+            "newSourceMatches": 3,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 16,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 17,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 18,
+            "historicalMatches": 6,
+            "newSourceMatches": 4,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4,
+            "offerId": 19,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 4,
+            "offerId": 20,
+            "historicalMatches": 5,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 6,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 8,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 42,
+            "offerId": 10,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 42,
+            "offerId": 11,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 12,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 13,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 14,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 15,
+            "historicalMatches": 3,
+            "newSourceMatches": 3,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 16,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 17,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 18,
+            "historicalMatches": 6,
+            "newSourceMatches": 4,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 42,
+            "offerId": 19,
+            "historicalMatches": 2,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 42,
+            "offerId": 20,
+            "historicalMatches": 5,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 6,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 7,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 8,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 12345,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 10,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 11,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 12,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 13,
+            "historicalMatches": 3,
+            "newSourceMatches": 3,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 14,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 15,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 17,
+            "historicalMatches": 6,
+            "newSourceMatches": 4,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 12345,
+            "offerId": 18,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 12345,
+            "offerId": 19,
+            "historicalMatches": 4,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 7,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 8,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 20261017,
+            "offerId": 10,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 11,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 12,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 13,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 14,
+            "historicalMatches": 3,
+            "newSourceMatches": 3,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 15,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 20261017,
+            "offerId": 16,
+            "historicalMatches": 6,
+            "newSourceMatches": 4,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 17,
+            "historicalMatches": 4,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 20261017,
+            "offerId": 18,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 7,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 8,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 9,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 10,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 11,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 12,
+            "historicalMatches": 1,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 13,
+            "historicalMatches": 4,
+            "newSourceMatches": 2,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 14,
+            "historicalMatches": 3,
+            "newSourceMatches": 3,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 15,
+            "historicalMatches": 2,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 16,
+            "historicalMatches": 5,
+            "newSourceMatches": 1,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 17,
+            "historicalMatches": 6,
+            "newSourceMatches": 4,
+            "allSourcesPreviouslyEligible": false
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 18,
+            "historicalMatches": 1,
+            "newSourceMatches": 0,
+            "allSourcesPreviouslyEligible": true
+          }
+        ]
+      },
+      "brandConcentration": [
+        {
+          "seed": 1,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 45.45
+        },
+        {
+          "seed": 2,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 36.36
+        },
+        {
+          "seed": 3,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 38.46
+        },
+        {
+          "seed": 4,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 41.67
+        },
+        {
+          "seed": 42,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 41.67
+        },
+        {
+          "seed": 12345,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 36.36
+        },
+        {
+          "seed": 20261017,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 36.36
+        },
+        {
+          "seed": 4294967295,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 36.36
+        }
+      ],
+      "projectCuts": {
+        "strong": {
+          "early": 0,
+          "middle": 3,
+          "late": 10
+        },
+        "aroma": {
+          "early": 0,
+          "middle": 22,
+          "late": 7
+        },
+        "calm": {
+          "early": 16,
+          "middle": 8,
+          "late": 0
+        },
+        "long": {
+          "early": 8,
+          "middle": 2,
+          "late": 16
+        }
+      },
+      "cutAndAge": {
+        "early": 24,
+        "middle": 35,
+        "late": 33
+      }
+    },
+    {
+      "policy": "diverse-delay",
+      "model": "A",
+      "releaseCohort": {
+        "note": "Calm24 is the shared A-reference funnel for all models, not full C-project eligibility. Offer inclusion is ever-overlap of live candidate product IDs with release cohorts, not same-time offer probability.",
+        "all": 352,
+        "age24": 184,
+        "age24Pct": 52.27,
+        "calmOf24": 144,
+        "calmOf24Pct": 78.26,
+        "stock5EverAmongCalm24": 144,
+        "stock5AtBottlingAmongCalm24": 144,
+        "eligibleBrandEvidenceWhileStocked": 24,
+        "allBrands": 24,
+        "eligibleBrandEvidenceWhileStockedPct": 100,
+        "finalBrandsMeeting40_2": 24,
+        "finalBrands": 24,
+        "qualifyingReleaseCohorts": 144,
+        "qualifyingReleaseCohortsEverIncludedInOffer": 23,
+        "qualifyingReleaseCohortsEverIncludedInOfferPct": 15.97,
+        "qualifyingBrandCohorts": 24,
+        "qualifyingBrandsEverOffered": 23,
+        "modelSpecificEligibleBrandCohortsWhileStocked": 24,
+        "modelSpecificEligibleBrandCohortsEverOffered": 23
+      },
+      "offerTiming": {
+        "offers": 23,
+        "stocksAtGeneration": [
+          {
+            "seed": 1,
+            "offerId": 6,
+            "month": 64,
+            "stock": 15,
+            "matching": 15
+          },
+          {
+            "seed": 1,
+            "offerId": 8,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 2,
+            "offerId": 6,
+            "month": 64,
+            "stock": 15,
+            "matching": 15
+          },
+          {
+            "seed": 2,
+            "offerId": 8,
+            "month": 79,
+            "stock": 6,
+            "matching": 6
+          },
+          {
+            "seed": 2,
+            "offerId": 9,
+            "month": 100,
+            "stock": 21,
+            "matching": 21
+          },
+          {
+            "seed": 3,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 3,
+            "offerId": 8,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 3,
+            "offerId": 9,
+            "month": 141,
+            "stock": 25,
+            "matching": 25
+          },
+          {
+            "seed": 4,
+            "offerId": 6,
+            "month": 65,
+            "stock": 1,
+            "matching": 1
+          },
+          {
+            "seed": 4,
+            "offerId": 8,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 4,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 42,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 42,
+            "offerId": 8,
+            "month": 79,
+            "stock": 6,
+            "matching": 6
+          },
+          {
+            "seed": 42,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 12345,
+            "offerId": 5,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 12345,
+            "offerId": 7,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 12345,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 20261017,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 20261017,
+            "offerId": 8,
+            "month": 79,
+            "stock": 7,
+            "matching": 7
+          },
+          {
+            "seed": 20261017,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 6,
+            "month": 64,
+            "stock": 16,
+            "matching": 16
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 8,
+            "month": 79,
+            "stock": 6,
+            "matching": 6
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          }
+        ],
+        "stocksAtReceipt": [
+          {
+            "seed": 1,
+            "offerId": 6,
+            "month": 66,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 1,
+            "offerId": 8,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 2,
+            "offerId": 6,
+            "month": 66,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 8,
+            "month": 81,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 2,
+            "offerId": 9,
+            "month": 100,
+            "stock": 21,
+            "matching": 21
+          },
+          {
+            "seed": 3,
+            "offerId": 6,
+            "month": 66,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 8,
+            "month": 81,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 3,
+            "offerId": 9,
+            "month": 141,
+            "stock": 25,
+            "matching": 25
+          },
+          {
+            "seed": 4,
+            "offerId": 6,
+            "month": 67,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 8,
+            "month": 81,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 42,
+            "offerId": 6,
+            "month": 66,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 8,
+            "month": 81,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 42,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 12345,
+            "offerId": 5,
+            "month": 66,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 7,
+            "month": 81,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 12345,
+            "offerId": 9,
+            "month": 102,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 6,
+            "month": 66,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 8,
+            "month": 81,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 20261017,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 6,
+            "month": 66,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 8,
+            "month": 81,
+            "stock": 0,
+            "matching": 0
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 9,
+            "month": 100,
+            "stock": 22,
+            "matching": 22
+          }
+        ],
+        "zeroMatchingStockAtGeneration": 0,
+        "underFiveMatchingAtGeneration": 1,
+        "zeroMatchingStockAtReceipt": 16,
+        "underFiveMatchingAtReceipt": 16,
+        "depletedOriginalCandidateCohortBeforeFirstDelivery": 23,
+        "depletionEvents": [
+          {
+            "seed": 1,
+            "offerId": 6,
+            "month": 65,
+            "retail": 15,
+            "otherStores": 0,
+            "deliveryEventually": 92
+          },
+          {
+            "seed": 1,
+            "offerId": 8,
+            "month": 100,
+            "retail": 0,
+            "otherStores": 22,
+            "deliveryEventually": 111
+          },
+          {
+            "seed": 2,
+            "offerId": 6,
+            "month": 65,
+            "retail": 15,
+            "otherStores": 0,
+            "deliveryEventually": 92
+          },
+          {
+            "seed": 2,
+            "offerId": 8,
+            "month": 79,
+            "retail": 0,
+            "otherStores": 6,
+            "deliveryEventually": 149
+          },
+          {
+            "seed": 2,
+            "offerId": 9,
+            "month": 100,
+            "retail": 0,
+            "otherStores": 21,
+            "deliveryEventually": 111
+          },
+          {
+            "seed": 3,
+            "offerId": 6,
+            "month": 66,
+            "retail": 16,
+            "otherStores": 0,
+            "deliveryEventually": 92
+          },
+          {
+            "seed": 3,
+            "offerId": 8,
+            "month": 79,
+            "retail": 0,
+            "otherStores": 7,
+            "deliveryEventually": 149
+          },
+          {
+            "seed": 3,
+            "offerId": 9,
+            "month": 142,
+            "retail": 12,
+            "otherStores": 13,
+            "deliveryEventually": 177
+          },
+          {
+            "seed": 4,
+            "offerId": 6,
+            "month": 66,
+            "retail": 1,
+            "otherStores": 0,
+            "deliveryEventually": 92
+          },
+          {
+            "seed": 4,
+            "offerId": 8,
+            "month": 79,
+            "retail": 0,
+            "otherStores": 7,
+            "deliveryEventually": 149
+          },
+          {
+            "seed": 4,
+            "offerId": 9,
+            "month": 100,
+            "retail": 0,
+            "otherStores": 22,
+            "deliveryEventually": 111
+          },
+          {
+            "seed": 42,
+            "offerId": 6,
+            "month": 66,
+            "retail": 16,
+            "otherStores": 0,
+            "deliveryEventually": 92
+          },
+          {
+            "seed": 42,
+            "offerId": 8,
+            "month": 79,
+            "retail": 0,
+            "otherStores": 6,
+            "deliveryEventually": 149
+          },
+          {
+            "seed": 42,
+            "offerId": 9,
+            "month": 100,
+            "retail": 0,
+            "otherStores": 22,
+            "deliveryEventually": 111
+          },
+          {
+            "seed": 12345,
+            "offerId": 5,
+            "month": 66,
+            "retail": 16,
+            "otherStores": 0,
+            "deliveryEventually": 92
+          },
+          {
+            "seed": 12345,
+            "offerId": 7,
+            "month": 79,
+            "retail": 0,
+            "otherStores": 7,
+            "deliveryEventually": 149
+          },
+          {
+            "seed": 12345,
+            "offerId": 9,
+            "month": 101,
+            "retail": 12,
+            "otherStores": 10,
+            "deliveryEventually": 111
+          },
+          {
+            "seed": 20261017,
+            "offerId": 6,
+            "month": 66,
+            "retail": 16,
+            "otherStores": 0,
+            "deliveryEventually": 92
+          },
+          {
+            "seed": 20261017,
+            "offerId": 8,
+            "month": 79,
+            "retail": 0,
+            "otherStores": 7,
+            "deliveryEventually": 149
+          },
+          {
+            "seed": 20261017,
+            "offerId": 9,
+            "month": 100,
+            "retail": 0,
+            "otherStores": 22,
+            "deliveryEventually": 111
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 6,
+            "month": 66,
+            "retail": 16,
+            "otherStores": 0,
+            "deliveryEventually": 92
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 8,
+            "month": 79,
+            "retail": 0,
+            "otherStores": 6,
+            "deliveryEventually": 149
+          },
+          {
+            "seed": 4294967295,
+            "offerId": 9,
+            "month": 100,
+            "retail": 0,
+            "otherStores": 22,
+            "deliveryEventually": 111
+          }
+        ],
+        "acceptedWithoutDelivery": 0,
+        "unfulfilledOfferReasons": [],
+        "waitMonthsToFirstDelivery": [
+          28,
+          11,
+          28,
+          70,
+          11,
+          28,
+          70,
+          36,
+          27,
+          70,
+          11,
+          28,
+          70,
+          11,
+          28,
+          70,
+          11,
+          28,
+          70,
+          11,
+          28,
+          70,
+          11
+        ]
+      },
+      "nonAdditiveGateExposure": {
+        "candidateProductMonths": 71,
+        "globalCooldown": 26,
+        "stillNotReady": 28,
+        "decisions": 0,
+        "tradeOffer": 0,
+        "queuedDepartment": 26,
+        "brandDeclinedCooldown": 0,
+        "note": "Monthly stock-positive snapshots; overlapping states, not additive attribution or lost sales."
+      },
+      "capacity": {
+        "eligibleStockProductMonthsCapped": 100,
+        "uniqueReleasesExposed": 100,
+        "stockBottleMonthExposure": 2100,
+        "fiveBottleLotMonthExposure": 378,
+        "note": "Repeated stock can occur across months. These are capacity exposures, never permanently lost bottle counts; no demand/reservation obligation exists."
+      },
+      "competition": {
+        "actualOtherStoreDeliveriesOfCalm24": 191,
+        "actualBottlesOfCalm24ToOtherStores": 2534,
+        "uniqueReleases": 127,
+        "note": "Actual distinct bottle allocations, not proof that department would otherwise have bought them."
+      },
+      "quoteFailureProductMonths": {
+        "今月の納品を終えました。": 109,
+        "熟成が24か月未満です。": 57,
+        "この店では刺激の穏やかな銘柄を扱います。": 35
+      },
+      "selectedBrands": [
+        {
+          "seed": 1,
+          "brandId": 2,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 1,
+          "brandId": 1,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 2,
+          "brandId": 2,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 2,
+          "brandId": 1,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 2,
+          "brandId": 3,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 3,
+          "brandId": 2,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 3,
+          "brandId": 3,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 3,
+          "brandId": 1,
+          "actions": 3,
+          "bottles": 15
+        },
+        {
+          "seed": 4,
+          "brandId": 2,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 4,
+          "brandId": 1,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 4,
+          "brandId": 3,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 42,
+          "brandId": 2,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 42,
+          "brandId": 1,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 42,
+          "brandId": 3,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 12345,
+          "brandId": 2,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 12345,
+          "brandId": 1,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 12345,
+          "brandId": 3,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 20261017,
+          "brandId": 2,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 20261017,
+          "brandId": 1,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 20261017,
+          "brandId": 3,
+          "actions": 2,
+          "bottles": 10
+        },
+        {
+          "seed": 4294967295,
+          "brandId": 2,
+          "actions": 6,
+          "bottles": 30
+        },
+        {
+          "seed": 4294967295,
+          "brandId": 1,
+          "actions": 5,
+          "bottles": 25
+        },
+        {
+          "seed": 4294967295,
+          "brandId": 3,
+          "actions": 2,
+          "bottles": 10
+        }
+      ],
+      "sourceReuse": {
+        "applicable": false,
+        "note": "A uses live-stock evidence; no historical sourceReleaseIds exist."
+      },
+      "brandConcentration": [
+        {
+          "seed": 1,
+          "selectedBrands": 2,
+          "topBrandBottlePct": 50
+        },
+        {
+          "seed": 2,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 46.15
+        },
+        {
+          "seed": 3,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 54.55
+        },
+        {
+          "seed": 4,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 46.15
+        },
+        {
+          "seed": 42,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 46.15
+        },
+        {
+          "seed": 12345,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 46.15
+        },
+        {
+          "seed": 20261017,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 42.86
+        },
+        {
+          "seed": 4294967295,
+          "selectedBrands": 3,
+          "topBrandBottlePct": 46.15
+        }
+      ],
+      "projectCuts": {
+        "calm": {
+          "early": 40,
+          "middle": 48,
+          "late": 14
+        }
+      },
+      "cutAndAge": {
+        "early": 40,
+        "middle": 48,
+        "late": 14
+      }
+    }
+  ]
+}
