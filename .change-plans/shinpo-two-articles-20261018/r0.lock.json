@@ -1,0 +1,126 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ea60edede56a32869fd9ff03feae9106e2520486cfae45fabadab322f9eaeeb9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-two-articles-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "湯間庭新報に原文全文とPDFの元画像を保持した過去記事2本を追加する",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "ASSET",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "cd1664e60f659afee6159447b3b6805f42d99630",
+    "canonicalSources": [
+      "Google Drive SukimaStock/note/ゲーム未満、アプリ未満の心地よさ｜はままぁ.pdf",
+      "Google Drive SukimaStock/note/「ボードゲームの作り方」が分からなかったので、アプリで再現してみた｜はままぁ.pdf",
+      "data/notes.js",
+      "shinpo/town-beginning/index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-two-articles-20261018/r0.lock.json",
+      "data/notes.js",
+      "shinpo/town-beginning/index.html",
+      "shinpo/game-app-in-between/index.html",
+      "shinpo/board-game-making/index.html",
+      "assets/shinpo/backnumber/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "sitemap.xml",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "works/**",
+      "data/work-lifecycle.json"
+    ],
+    "expectedChanges": [
+      "2026年6月12日と5月22日の原文全文・改行・元埋め込みリンクを保存",
+      "元PDFの見出し画像を1280x670で保存",
+      "X埋め込みは確認できる出典ポストへのリンクを当初の掲載位置に置き、欠けた映像を捏造しない",
+      "既存note記事にarchivePageを付け、最初の新聞からバックナンバーを町内回遊できるようにする",
+      "Staging noindex、canonical、OGP維持"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 ユーザー『他の記事も移植していきましょう』『再開してください』。先行する方針はnoteと同一原文全文、元画像、1回タップで町内読書、Productionは無変更。"
+    ],
+    "hqDecisions": [
+      "新規HTMLとアセットを含むためFull Plan、未知コード・アセットのリスク評価を適用。既存の共通コードは無変更。原典素材はPDFを優先し、原画像・動画を確認できなければ元出典へのリンクを残し代替創作しない。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN v0.2 immutable r0 before implementation",
+      "Change PR Gate trusted base",
+      "Staging only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "元PDFの全文・段落と元画像の一致確認",
+      "iPhoneのワンタップ・縦スクロール・町内回遊確認"
+    ],
+    "impactChecks": [
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "risk.high-risk-review",
+      "runtime.regression",
+      "runtime.mobile-desktop"
+    ],
+    "impactExclusions": [],
+    "rollback": "このPRの2つの紙面と画像、notes.jsのarchivePage、town-beginningの関連記事導線のみrevert。",
+    "outOfScope": [
+      "Production",
+      "sitemap公開登録",
+      "ほかの作品・Engine",
+      "全記事の自動移植",
+      "SNS原投稿の編集"
+    ],
+    "promotion": "Staging only、Productionは別承認",
+    "unverified": [
+      "iPhone実機の最終操作感",
+      "PDFに残らない一部SNS動画とスクリーンショットはリンクによる出典保持"
+    ],
+    "problem": "note内に置いた過去記事の全文が湯間庭町内で読めず、外部へ離れる構造がある。",
+    "currentContract": "最初の新聞1本のみ全文で読め、ほかはnote外部遷移",
+    "whyExistingIsInsufficient": "自作ゲームの制作背景と触れるらくがきの過去記事が町内回遊につながらない。",
+    "design": "既存静的新聞テンプレートを踏襲した記事個別HTML2件、PDF元画像、本文とリンクを原文順に掲載。記事末尾の独立欄から町内を回遊。既存の最初の一枚を固定維持するため新規2件はいずれも2026年7月17日より前の公開日を選ぶ。",
+    "alternativesRejected": [
+      "独自要約",
+      "新しいサブタイトル",
+      "素材の創作",
+      "2回タップ",
+      "全記事一括公開"
+    ],
+    "migration": "既存note URL/idを維持し、2件にarchivePageを追加。保存データ移行なし。",
+    "compatibility": "main.jsの既存archivePage処理と4件のnote枠を維持。7月17日の記事が引き続き固定新聞1枚。iPhone小画面とreduced-motionに対応。",
+    "boundaryCases": [
+      "検索直アクセスで全文表示",
+      "写真未ロード時のalt説明",
+      "X投稿リンクの有効性",
+      "同一サイト内の関連記事から作品へ進める",
+      "Staging noindex"
+    ],
+    "testPlan": [
+      "GitHub Release ValidatorとChange Operations、Change PR Gate",
+      "全文・画像・リンクの照合",
+      "Stagingの紙面へのHTTPアクセスとモバイル確認"
+    ],
+    "promotionRisk": "Stagingでの閲覧試作のみ。Productionへの索引登録は明示指示を待つ。"
+  }
+}
