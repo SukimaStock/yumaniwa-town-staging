@@ -1,0 +1,197 @@
+{
+  "id": "fac8492827054dd8a3922c8b8396198a",
+  "slug": "leftover-details",
+  "source": {
+    "reference": "https://note.com/hamamah/n/n1c68d15e4d91",
+    "verifiedAt": "2026-10-18T09:25:00Z",
+    "verification": "Parent browser verified public note DOM: 16 source blocks, original paragraph breaks, six body media, cover and closing link card. Eight CDN-served WEBP files retained without conversion, including five animations (64/54/46/129/57 frames). Source note links are related articles, retained unchanged. Local SHA256, bytes, dimensions and frame counts match all eight manifest records. Six descriptive alt values only improved after direct image inspection; seven offscreen images use native lazy loading.",
+    "missingMedia": [],
+    "media": [
+      {
+        "path": "assets/shinpo/leftover-details/cover.webp",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/269593409/rectangle_large_type_2_f75da2970b158e2d4cdbc3a03849185b.png?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+        "position": "cover",
+        "caption": null,
+        "width": 1280,
+        "height": 670,
+        "frames": 1,
+        "duration_ms": 0,
+        "format": "WEBP",
+        "bytes": 65630,
+        "sha256": "dbd3c6ecd82f57e74009810531efba85604642634bef9a1f519ef642e24030f8",
+        "after": ""
+      },
+      {
+        "path": "assets/shinpo/leftover-details/body-1.webp",
+        "sourceUrl": "https://assets.st-note.com/img/1776623710-KD81dI7H5pglq6cbA3LoTCW9.gif?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+        "position": 2,
+        "caption": "",
+        "width": 480,
+        "height": 480,
+        "frames": 64,
+        "duration_ms": 4300,
+        "format": "WEBP",
+        "bytes": 1483342,
+        "sha256": "9a5a99f5ee252632d587f4f2c875e80aff2018acced3fc22ac9f195bd1bfb2e1",
+        "after": "どうでもいいはずなのに、\nなぜか残っているものがあります。\n\n自分専用アプリを作っていると、そんな部分ばかり増えていきます。\n\nバグを直したり、新しい機能を追加したりするよりも、\nそういうところを触っている時間の方が長くなります。\n\n\nたとえば、「CoffeeFactory」というアプリでは、\nコーヒーの杯数を変えると、トラックの見た目が変わります。\n\n杯数を増やすと少しだけ重そうに見えるのが、\n何となく気に入っています。\n"
+      },
+      {
+        "path": "assets/shinpo/leftover-details/body-2.webp",
+        "sourceUrl": "https://assets.st-note.com/img/1776623998-41pZkSF5MKEeiuUlbojRgHY9.gif?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+        "position": 4,
+        "caption": "",
+        "width": 480,
+        "height": 1040,
+        "frames": 54,
+        "duration_ms": 3630,
+        "format": "WEBP",
+        "bytes": 1155984,
+        "sha256": "d9bd2347ee518df2726f6ade31b796aacb219c7fc5fac8471bd0a91f24ebbb57",
+        "after": "「TapMaster」では、\nできるだけ文字を使わないUIにこだわりました。\n\nゲームモードはビールの銘柄で、\nステージ選択はグラスの種類で表現しています。\n結果的にその方がしっくり来ました。\n"
+      },
+      {
+        "path": "assets/shinpo/leftover-details/body-3.webp",
+        "sourceUrl": "https://assets.st-note.com/img/1776624101-DZX3oRNJKp6QB9FemOuk8SIV.gif?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+        "position": 6,
+        "caption": "",
+        "width": 640,
+        "height": 480,
+        "frames": 46,
+        "duration_ms": 3070,
+        "format": "WEBP",
+        "bytes": 405670,
+        "sha256": "1d2437c5a97572fd36b66f3abaa651726a41a77e4d8bb618403ab5efc149ef79",
+        "after": "\n「AmberTime」では、\nたまにネズミが現れて、棚を走り回ります。\n\nゲームの進行には関係ありませんが、そこに生活が続いている気配がします。\n"
+      },
+      {
+        "path": "assets/shinpo/leftover-details/body-4.webp",
+        "sourceUrl": "https://assets.st-note.com/img/1776624323-4Nzi0yQSKbjguVc5mosIDCBG.gif?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+        "position": 8,
+        "caption": "",
+        "width": 480,
+        "height": 480,
+        "frames": 129,
+        "duration_ms": 8600,
+        "format": "WEBP",
+        "bytes": 1435398,
+        "sha256": "920cbb6161d7b69227f8171363aecf1c15cdd31f93081d05309f746cb21fdfa8",
+        "after": "「ORBIT」は、基地を修復するとき、\n簡単なミニゲームを挟んでいます。\n\nボタンひとつで終わらせることもできますが、\n少しずつ直している感触が残る方がしっくりきました。\n"
+      },
+      {
+        "path": "assets/shinpo/leftover-details/body-5.webp",
+        "sourceUrl": "https://assets.st-note.com/img/1776624474-H74JUuig10FjRpOfQDMALrl3.gif?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+        "position": 10,
+        "caption": "",
+        "width": 480,
+        "height": 1040,
+        "frames": 57,
+        "duration_ms": 3800,
+        "format": "WEBP",
+        "bytes": 2863484,
+        "sha256": "56763bae24271f3b1e35bd3479483c99a87ad9e25f1ee44e0055200709d57565",
+        "after": "「ChordDrift」では、\n特定のコード進行をなぞると「小室進行」「カノン進行」などと名前が表示されます。\n\n気づいたときに、ちょっとだけ嬉しくなります。\n"
+      },
+      {
+        "path": "assets/shinpo/leftover-details/body-6.webp",
+        "sourceUrl": "https://assets.st-note.com/img/1776624642-jLyTulWRw5VhKdnY78XzJCOU.png?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+        "position": 12,
+        "caption": "",
+        "width": 887,
+        "height": 1920,
+        "frames": 1,
+        "duration_ms": 0,
+        "format": "WEBP",
+        "bytes": 313816,
+        "sha256": "4979350802c3f0c9982b71bbbc06b3a5d9a06743237dddae6e791e4ee924d6e9",
+        "after": "「SteamClock」には、\nスクリーンショット用の特別なモードがあります。\n\n表示される時間は、10時8分42秒。\n時計がきれいに見える配置とされています。\n"
+      },
+      {
+        "path": "assets/shinpo/leftover-details/card-1.webp",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/259719203/rectangle_large_type_2_31f646d879de3f371da9b8ec0a9c1645.png?fit=bounds&format=jpeg&quality=85&width=300",
+        "position": 16,
+        "caption": "",
+        "width": 300,
+        "height": 157,
+        "frames": 1,
+        "duration_ms": 0,
+        "format": "WEBP",
+        "bytes": 8278,
+        "sha256": "03a8c986eaa982b73331220a27c493a6d1cab8a3898ee0f4e6d3e2ca60a1975a",
+        "after": "ちゃんとした部分はあとからいくらでも直せますが、こういう部分だけはなぜか消せずに残っています。",
+        "card_title": "自分専用アプリを21個つくって、最後に残ったもの。―正解を出さない時間",
+        "card_destination": "https://note.com/hamamah/n/n05dba4e45d7b?sub_rt=share_b"
+      }
+    ]
+  },
+  "cover": "<figure><img src=\"../../assets/shinpo/leftover-details/cover.webp\" alt=\"どうでもいい部分が、なぜか残るの元掲載画像\" fetchpriority=\"high\"></figure>",
+  "navDate": "2026年04月28日",
+  "displayDate": "2026年4月28日",
+  "backnumber": true,
+  "blocks": [
+    {
+      "origin": "source",
+      "html": "<p>どうでもいいはずなのに、<br>なぜか残っているものがあります。<br><br>自分専用アプリを作っていると、そんな部分ばかり増えていきます。<br><br>バグを直したり、新しい機能を追加したりするよりも、<br>そういうところを触っている時間の方が長くなります。<br><br><br>たとえば、「<a href=\"https://note.com/hamamah/n/ndd00e6f70f55\" target=\"_blank\" rel=\"noopener nofollow\">CoffeeFactory</a>」というアプリでは、<br>コーヒーの杯数を変えると、トラックの見た目が変わります。<br><br>杯数を増やすと少しだけ重そうに見えるのが、<br>何となく気に入っています。<br></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/leftover-details/body-1.webp\" width=\"480\" height=\"480\" alt=\"CoffeeFactoryの工場とコーヒー・水のトラック\" loading=\"lazy\"></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>「<a href=\"https://note.com/hamamah/n/n472b459f12cf\" target=\"_blank\" rel=\"noopener nofollow\">TapMaster</a>」では、<br>できるだけ文字を使わないUIにこだわりました。<br><br>ゲームモードはビールの銘柄で、<br>ステージ選択はグラスの種類で表現しています。<br>結果的にその方がしっくり来ました。<br></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/leftover-details/body-2.webp\" width=\"480\" height=\"1040\" alt=\"TapMasterのビールサーバーとグラス\" loading=\"lazy\"></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><br>「<a href=\"https://note.com/hamamah/n/n2123726a637c\" target=\"_blank\" rel=\"noopener nofollow\">AmberTime</a>」では、<br>たまにネズミが現れて、棚を走り回ります。<br><br>ゲームの進行には関係ありませんが、そこに生活が続いている気配がします。<br></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/leftover-details/body-3.webp\" width=\"640\" height=\"480\" alt=\"AmberTimeの棚と操作アイコン\" loading=\"lazy\"></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>「<a href=\"https://note.com/hamamah/n/n0d370010316b\" target=\"_blank\" rel=\"noopener nofollow\">ORBIT</a>」は、基地を修復するとき、<br>簡単なミニゲームを挟んでいます。<br><br>ボタンひとつで終わらせることもできますが、<br>少しずつ直している感触が残る方がしっくりきました。<br></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/leftover-details/body-4.webp\" width=\"480\" height=\"480\" alt=\"ORBITのノードをつなぐ修復ミニゲーム\" loading=\"lazy\"></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>「<a href=\"https://note.com/hamamah/n/n7eb02ffd7581\" target=\"_blank\" rel=\"noopener nofollow\">ChordDrift</a>」では、<br>特定のコード進行をなぞると「小室進行」「カノン進行」などと名前が表示されます。<br><br>気づいたときに、ちょっとだけ嬉しくなります。<br></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/leftover-details/body-5.webp\" width=\"480\" height=\"1040\" alt=\"ChordDriftのコード選択画面\" loading=\"lazy\"></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>「<a href=\"https://note.com/hamamah/n/n55f12e684c13\" target=\"_blank\" rel=\"noopener nofollow\">SteamClock</a>」には、<br>スクリーンショット用の特別なモードがあります。<br><br>表示される時間は、10時8分42秒。<br>時計がきれいに見える配置とされています。<br></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/leftover-details/body-6.webp\" width=\"887\" height=\"1920\" alt=\"SteamClockの歯車とアナログ時計\" loading=\"lazy\"></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><br>こういうことばかりしていると、<br>「そこじゃないでしょ」と言われそうな気もします。効率を考えれば、無駄なことばかりです。<br><br>でも、ずっと触っていると、そんなところばかりが残っていきます。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>ちゃんとした部分はあとからいくらでも直せますが、こういう部分だけはなぜか消せずに残っています。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<hr>"
+    },
+    {
+      "origin": "source",
+      "html": "<a class=\"source-preview\" href=\"https://note.com/hamamah/n/n05dba4e45d7b?sub_rt=share_b\" target=\"_blank\" rel=\"noopener noreferrer\"><img src=\"../../assets/shinpo/leftover-details/card-1.webp\" width=\"300\" height=\"157\" alt=\"\" loading=\"lazy\"><strong>自分専用アプリを21個つくって、最後に残ったもの。―正解を出さない時間</strong><small>はじめに 公開する予定もないのに、自分専用のアプリを２１個作っていた。そのすべての記事を書き終えた。並んだアイコンを眺めながら、この静かな連載は、誰にも届かないのではないかと、少しだけ心が揺れた。 皆が競ってアプリを公開している時代に、自分専用アプリの話なんて、興味を持つ人がいるだろうか。しかし考えてみれば…</small></a>"
+    }
+  ],
+  "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「どうでもいい部分が、なぜか残る」（note、2026-04-28）。<a href=\"https://note.com/hamamah/n/n1c68d15e4d91\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>"
+}
