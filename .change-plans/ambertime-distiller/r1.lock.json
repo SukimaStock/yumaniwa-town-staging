@@ -1,0 +1,151 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "80cd29fcb0e348763c104efada3d52ba44611752cdc2496d547be2a47ea27cff",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-distiller",
+    "revision": 1,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime: hire one distiller and commission one batch directly from a verified source; explicit v18 replay boundary",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "139c37f27b447682f6fd907fbbbc556c482e851b",
+    "canonicalSources": [
+      "User staff/direct-source request and explicit save-migration authorization",
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/recipe-book.mjs",
+      "works/ambertime/generations.mjs",
+      "Google Drive AmberTime.txt 1cAtwEtLj0DoMbrw7XOwI0XdcA2dopTFi (read hire/monthlysalary/buffs; not ported)",
+      "works/ambertime/design/tasting-display/REPORT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-distiller/r0.lock.json",
+      "works/ambertime/distiller.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/recipe-book.mjs",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/staff*.mjs",
+      "works/ambertime/design/distiller/**",
+      ".change-plans/ambertime-distiller/r1.lock.json",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/bottle-storage.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "tools/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/character.mjs",
+      "works/ambertime/flavor-view.mjs",
+      "works/ambertime/tasting-view.mjs",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/shop-v*",
+      "works/ambertime/experiments/**"
+    ],
+    "expectedChanges": [
+      "One employed distiller unlock after first manual fill; manual still available; one shared still; idle/queued/active, no repeated solicitation",
+      "Direct source cask/bottle confirmation uses existing art, exact cut/type/source identity and costs; saved recipe optional and never silently selected/saved; saved list retains source art links",
+      "Reuse usual reservation, immutable snapshot, wait capacity/funds, cancel beforestart, one job only; wage charged once at start with protected production/bottle minimum",
+      "Compare economical hire/jobwage alternatives incl idle monthly burden; choose rates via reproducible matched-seed generation policies, no idle wage and no need payrollpause if job-based chosen",
+      "New v18 worklocal replay boundary and storagekey preserving v17 key; old raw replay unchanged; migrated legacy delegation access remains, nohire fee until explicit hire; pending/running legacy jobs keep no wage",
+      "Validated cached source lookup and one-hop source snapshot/provenance, delegated reorders and future generations; no recursive history reconstruction",
+      "Existing final-manual-batch/generation conditions, tasting/flavor/comparison/recipes/economic formulas and trade flows protected",
+      "Preimplementation390px HTML screen proposal; targeted unit/migration/coldreplay/financial/generation tests and 30year policies; PC/phone browser source screens, independent review, exact gates and public proof",
+      "Only dependency cache-query strings may change in generations/bottle-storage/department-projects/shop-model/distillery-history/history-worker; algorithms/constants unchanged. Ensure warm previous cache cannot use stale version17 predicates or old replay for version18."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "PC/iPhone390px hire/source request/recipe/queued/active/completed screens and nooverflow",
+      "No inherited oldreservation fees; oldkey retained; newkey strictsave reload",
+      "Direct source nofavorite mutation; paidrequest source picture and prices visible before action",
+      "Finalbatch and queuedjob priority, tasting/comparison sharedscale unchanged",
+      "Public deployed hashes and expressionaudit, no realSafari claims"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert scoped feature; original v17 storage remains untouched; v18 should be retained separately and not read by old runtime.",
+    "outOfScope": [
+      "Production",
+      "Shared town/engine/ChangeOS changes",
+      "Chemistry/aging/demand/price/generation thresholds/4casks",
+      "Staff abilities/ranks/multipleworkers/continuousproduction",
+      "Automatic aging/bottling/sales",
+      "Recursive source ancestry or new generic event engine"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "PhysicaliPhoneSafari/screenreaderdevice andauthorreadability/adoption"
+    ],
+    "rulesApplied": [
+      "Full WORK because explicit work-local save migration, owner authorizes separating saveversion if needed; no shared persistence contract change",
+      "AGENTS delegation: isolated backend/UI/testing/economic owners plus independent review",
+      "Expressionaudit: existing art small person/work indicator, source shortfact and costs only; no biographies"
+    ],
+    "ownerDecisions": [
+      "User expressly authorizes one distiller hire and fee design autonomously after economic comparisons, direct job separately from favorite recipe, explicit oldsave migration, necessary saveversion separation, PR/Stagingmerge/public verification; Production forbidden."
+    ],
+    "hqDecisions": [
+      "Work-local v18 replay and separate key follow existing v17 boundary pattern; specific migration explicitly requested by user, no shared save/runtime change."
+    ],
+    "problem": "Current usual automation lacks person, direct-source choice and explicit one-job costs.",
+    "currentContract": "v17 exact operation replay, snapshot usual reservation, cached targeted cask facts; max4casks; final batch manual.",
+    "whyExistingIsInsufficient": "One-off jobs require source verification and immutable provenance without favorite creation; hiring needs recorded paid boundary while keeping old delegation.",
+    "design": "Version18 distiller policy/state + usual queue reuse; job-based salary candidates; verified source confirmation and single-hop retained origin.",
+    "migration": "Keep all old replay branches unchanged; enable-staff logged v18 boundary with legacy access true for migrated games and false for new. Old queued/active metadata unchanged; only newly commissioned paid reservations carry salary/source. Original v17 key remains.",
+    "compatibility": "Same production functions and RNG; old operations exact; one person is persistent role across generations. Same query URLs for checkpoint readers.",
+    "promotionRisk": "Staging only; no Production/shared paths.",
+    "alternativesRejected": [
+      "Silent hire or retroactive pay",
+      "Idle insolvency from unbounded monthlypay",
+      "Qualitybuffs/fixedcut override/continuousproduction",
+      "Require favorite save for oneoff",
+      "Recursive source traversal",
+      "Fullhistory reconstruction to openrequest"
+    ],
+    "boundaryCases": [
+      "First manual unlock/newunhired",
+      "Old unqueued/queued/active migration and hire while oldjob exists",
+      "Paidqueue source immutability/savedrecipe64 limit",
+      "Funds/capacitywait/cancel/sharedstill/doublecharge",
+      "Delegatedsource re-request/recordtrim/generation/finalbatch",
+      "Longhistory first/switch/reopen and phonewidth"
+    ],
+    "testPlan": [
+      "Existing547 tests unchanged plus staff unit/strictreplay/migration/fees/recipes/generation tests",
+      "Matchedseeds manual/delegated/longage generation operating policies, candidate price comparison and idle burden",
+      "PC/iPhone real browser hire/directrequest/recipe/queue/active/completion/reload",
+      "Independent code review then exact ScopeRiskImpact/static/requiredCI/PR/Pages/publichashes"
+    ],
+    "previousPlanDigest": "d4227e9671278d89f4c6ef5a351010b3864f7767b3d6447ca91f71918cab81ae",
+    "revisionReason": "Warm browser cache audit requires URL-only import refresh through version-mode and history dependency chain; no generation/trade/formula changes."
+  }
+}
