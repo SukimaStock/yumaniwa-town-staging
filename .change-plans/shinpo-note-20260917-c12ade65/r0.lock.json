@@ -1,0 +1,120 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "785e3b2a81ab0eb07aacfc9a0d0dc46e87968c847cd1851574d27fd2f305b82c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-note-20260917-c12ade65",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "原典を保持してnote記事 note-20260917-c12ade65 を町内の通常4枠から読む",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM",
+      "ASSET"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "fbf494b1d05fd606afc688681215c8a9cbfcdf85",
+    "canonicalSources": [
+      "data/notes.js",
+      "tools/shinpo-template.html",
+      "Drive PDF 1aERiIyYsEx2ciTFySXb76Ydev4ixblCc and https:/note.com/hamamah/n/na42fdcfeabf2"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-note-20260917-c12ade65/r0.lock.json",
+      "data/shinpo/note-20260917-c12ade65.json",
+      "data/notes.js",
+      "shinpo/curry-delivery/index.html",
+      "assets/shinpo/curry-delivery/cover.png",
+      "assets/shinpo/curry-delivery/image-1.png",
+      "assets/shinpo/curry-delivery/image-2.png",
+      "assets/shinpo/curry-delivery/image-3.png",
+      "assets/shinpo/curry-delivery/card-1.jpeg"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/**",
+      ".github/**",
+      "engines/**",
+      "sitemap.xml",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "ID単位の順序付き原文ブロック、取得原画像、該当notesレコード、生成HTMLのみ",
+      "既存記事/4枠選抜を変更せず町内案内を本文の外に置く"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 user: 作品関連記事の順次移植; first 3 articles, full source/media preservation, same-work town links, safe Staging merge"
+    ],
+    "hqDecisions": [
+      "既存静的テンプレート内。unknown-code SYSTEM/full。原典完全性は人が証拠を照合し未取得を記録する。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN single initial r0; official create/verify",
+      "Staging only",
+      "2026-10-18 user section 6 authorizes verified same-work play links to town; preserve all visible original text and historic jam references",
+      "Expression audit: retain author original, add no subtitle/summary"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "原典と全文/順序/外部リンク/画像を照合",
+      "mobile/desktopで本文1クリック、スクロール、戻る"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "runtime.mobile-desktop"
+    ],
+    "impactExclusions": [],
+    "rollback": "この記事追加PRのみrevert。既存記事/保存/Productionは不変。",
+    "outOfScope": [
+      "Production",
+      "既存記事変更",
+      "共通runtime",
+      "CMS/DB",
+      "外部権限"
+    ],
+    "promotion": "Staging only",
+    "unverified": [
+      "原典照合は別途証拠が必要",
+      "iPhone/iPad実機未確認"
+    ],
+    "problem": "既存note記事を町内本文として読む",
+    "currentContract": "notesのID/title/date/urlが正本。移植済みはarchivePageへ1クリック。",
+    "whyExistingIsInsufficient": "対象記事本文が未移植",
+    "design": "既存template/CLIで静的生成。原典と町内案内を分離。",
+    "alternativesRejected": [
+      "固定枠",
+      "原典の要約/画像創作",
+      "CMS"
+    ],
+    "migration": "ID/原note URL保持、archivePageのみ登録",
+    "compatibility": "元の4枠と他記事を保持",
+    "boundaryCases": [
+      "同じIDの再実行",
+      "未取得media",
+      "中断再開",
+      "base進行"
+    ],
+    "testPlan": [
+      "node tools/shinpo-migrate.cjs check",
+      "node tests/test-shinpo-rack.cjs",
+      "node tests/test-shinpo-migrate.cjs",
+      "Scope/Risk/Impact、必須CI、レビュー、Pages"
+    ],
+    "promotionRisk": "Productionは変更しない"
+  }
+}

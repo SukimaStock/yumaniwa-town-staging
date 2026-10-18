@@ -1,0 +1,149 @@
+{
+  "id": "note-20260917-c12ade65",
+  "slug": "curry-delivery",
+  "source": {
+    "reference": "Drive PDF 1aERiIyYsEx2ciTFySXb76Ydev4ixblCc; https://note.com/hamamah/n/na42fdcfeabf2",
+    "verification": "2026-10-18 full public note DOM against Drive PDF; exact text, order, headings, 3 figures, captions, link-card image/text, title/date. Original acquired bytes preserved, no missing media.",
+    "missingMedia": [],
+    "media": [
+      {
+        "path": "assets/shinpo/curry-delivery/cover.png",
+        "position": "header",
+        "caption": "",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/314719949/rectangle_large_type_2_447d163969a4a00e0301b404007e9a26.png",
+        "width": 1280,
+        "height": 670,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "2c06ba67b9400db523e4145d861608587e2087090db8cee385cbfe9f533dd268"
+      },
+      {
+        "path": "assets/shinpo/curry-delivery/image-1.png",
+        "position": 1,
+        "caption": "",
+        "sourceUrl": "https://assets.st-note.com/img/1789651824-sSckbUzMR60rHyxlDYLjg9Nt.png",
+        "width": 1052,
+        "height": 1708,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "4f429f3f05610d771da6899a6aeccac6cf875e4aebcebcae1a95902756841625",
+        "after": "Ultimate AI-Powered Game Jam #3に参加して、『路地裏マサラ』というゲームを作った。テーマは「CURRY」と「PEPPER」。路地裏の小さなカレー屋から、冷める前に街を走って配達を続ける。自転車を避けたり、猫に邪魔されたりしながら、道に落ちている唐辛子を集める。"
+      },
+      {
+        "path": "assets/shinpo/curry-delivery/image-2.png",
+        "position": 2,
+        "caption": "",
+        "sourceUrl": "https://assets.st-note.com/img/1789651903-LxEOiUmfgcIHsnMJ1tkoyqjC.png",
+        "width": 1100,
+        "height": 1920,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "e57336003d81358ed9d0d1f0ef69bfecf3ba4f5611e83826c58b03ef0ed83ffd",
+        "after": "ここ最近、ドット絵をよく触っていた。DotWeatherのような小さな画面を作りながら、「一度、ちゃんとドット絵のアクションゲームを作ってみたい」と思うようになっていた。特に好きなのは、子供の頃に遊んだような、単純操作を何度も繰り返すゲームだった。そんなとき、ちょうどゲームジャムのテーマに「CURRY」と「PEPPER」が来た。ただ、カレーや唐辛子を置くだけにはしたくなかった。そこで考えたのが、「カレーは冷める」ということだった。店で料理を受け取って、街を走る。冷める前に届けて、また店に戻る。これなら、街を何度も往復することに自然な理由ができる。唐辛子を集めて、熱いうちにカレーを届けると、急に「MASALA RUSH」が始まる。静かな夜の路地で、いきなりBGMが変わり、街ごと踊り出す。その少し馬鹿っぽい感じが好きだった。"
+      },
+      {
+        "path": "assets/shinpo/curry-delivery/image-3.png",
+        "position": 3,
+        "caption": "",
+        "sourceUrl": "https://assets.st-note.com/img/1789651935-eR8pK4tSkmv7Y2ZQFOjcPoqz.png",
+        "width": 720,
+        "height": 1280,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "d7fc5db15fd6d08b8786cab40f01696dbe8bea0c280e3872ac4240186eea0559",
+        "after": "もう一つ考えたのが、ゲームの最後だった。普通なら、配達数や売上だけが並ぶスコア画面になる。でも、カレー屋で一晩働いたなら、「今日もお疲れ」と最後に何か食べさせてもらいたくなった。そこで、結果画面を「今夜のまかない」にした。どんな働き方をしたかによって、最後に出てくる料理が変わる。ゲームを終えたあとに残るのが、数字だけではなく料理のドット絵。このゲームには合っている気がした。"
+      },
+      {
+        "path": "assets/shinpo/curry-delivery/card-1.jpeg",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/ext/018a8249922015629637c9a0798194299a44a307607290d98ea057ec1921.jpeg?x-type=ogp",
+        "position": "final work link card",
+        "caption": "",
+        "sha256": "006fd2cac913bfb79edd8999d7f9396284bbd9f4af4cbeae6a2d4c09ec915465",
+        "format": "JPEG",
+        "width": 1200,
+        "height": 630,
+        "frames": 1
+      }
+    ],
+    "linkRewrites": [
+      {
+        "from": "https://sukimastock.github.io/yumaniwa-town/?work=dotweather",
+        "to": "../../w/dotweather/",
+        "reason": "same registered work"
+      },
+      {
+        "from": "https://sukimastock.github.io/yumaniwa-town/w/rojiura-masala",
+        "to": "../../w/rojiura-masala/",
+        "reason": "same registered work"
+      }
+    ],
+    "rights": "Author-owned article, game screenshots and original header. Link-card thumbnail is original author town work OGP; no third-party replacement."
+  },
+  "cover": "<figure><img src=\"../../assets/shinpo/curry-delivery/cover.png\" alt=\"ゲームジャムで、カレーを配達したの元掲載画像\" fetchpriority=\"high\"></figure>",
+  "navDate": "2026年09月17日",
+  "displayDate": "2026年9月17日",
+  "backnumber": true,
+  "blocks": [
+    {
+      "origin": "source",
+      "html": "<p>Ultimate AI-Powered Game Jam #3に参加して、<br/>『路地裏マサラ』というゲームを作った。<br/><br/>テーマは「CURRY」と「PEPPER」。<br/><br/>路地裏の小さなカレー屋から、<br/>冷める前に街を走って配達を続ける。<br/><br/>自転車を避けたり、猫に邪魔されたりしながら、<br/>道に落ちている唐辛子を集める。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"1006\" src=\"../../assets/shinpo/curry-delivery/image-1.png\" width=\"620\"/><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>カレーは冷める</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>ここ最近、ドット絵をよく触っていた。<br/><a href=\"../../w/dotweather/\">DotWeather</a>のような小さな画面を作りながら、<br/><br/>「一度、ちゃんとドット絵のアクションゲームを作ってみたい」<br/>と思うようになっていた。<br/><br/>特に好きなのは、子供の頃に遊んだような、<br/>単純操作を何度も繰り返すゲームだった。<br/><br/>そんなとき、<br/>ちょうどゲームジャムのテーマに<br/>「CURRY」と「PEPPER」が来た。<br/><br/>ただ、カレーや唐辛子を置くだけにはしたくなかった。<br/>そこで考えたのが、「カレーは冷める」ということだった。<br/><br/>店で料理を受け取って、街を走る。<br/>冷める前に届けて、また店に戻る。<br/><br/>これなら、街を何度も往復することに自然な理由ができる。<br/><br/>唐辛子を集めて、熱いうちにカレーを届けると、<br/>急に「MASALA RUSH」が始まる。<br/>静かな夜の路地で、いきなりBGMが変わり、街ごと踊り出す。<br/><br/>その少し馬鹿っぽい感じが好きだった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"1082\" src=\"../../assets/shinpo/curry-delivery/image-2.png\" width=\"620\"/><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>一晩働いたら、何か食べたい</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>もう一つ考えたのが、ゲームの最後だった。<br/>普通なら、配達数や売上だけが並ぶスコア画面になる。<br/><br/>でも、カレー屋で一晩働いたなら、<br/>「今日もお疲れ」と最後に何か食べさせてもらいたくなった。<br/><br/>そこで、結果画面を「今夜のまかない」にした。<br/>どんな働き方をしたかによって、最後に出てくる料理が変わる。<br/><br/>ゲームを終えたあとに残るのが、<br/>数字だけではなく料理のドット絵。<br/>このゲームには合っている気がした。<br/></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"1102\" src=\"../../assets/shinpo/curry-delivery/image-3.png\" width=\"620\"/><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>自分が作ったゲームがどんなものか</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>完成して公開すると、いろいろなコメントをもらった。<br/><br/>「パックマンみたい」<br/>「ゲームボーイっぽい」<br/>「アーケード筐体で遊びたい」<br/><br/>狭い街を先を読んで走って、同じ場所を何度も往復する。<br/>自分が昔好きだったゲームの感触が残っていたようで嬉しかった。<br/><br/>ほかにも、<br/>「刺激の強いゲームが多い中で、自分のペースで夜を走れるのが落ち着く」と言ってくれた人がいた。<br/><br/>一方、「MASALA RUSHが爽快」「猫が一緒に踊るのが楽しい」という声もあった。<br/><br/>静かな時間と、急に騒がしくなる時間。<br/>自分が好きで入れたものが、思っていた以上にちゃんと伝わっていた。<br/></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>『路地裏マサラ』を作っている間、<br/>見ていたのは細かいことばかりだった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>少しクセのある、滑るような操作感。<br/>急に街中が踊りだす演出。<br/>唐辛子の並べ方。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>一つずつ「こっちの方が好き」という方へ寄せていった。<br/><br/>この積み重ねが、それぞれの記憶の中の<br/>レトロゲームと紐付いたのであれば嬉しい。<br/><br/>そして結果発表では、22作品中2位だった。<br/>テーマに沿っていることが評価されたようだ。<br/><br/>CURRYとPEPPERを、どう無理なく一つのゲームにするか。<br/>そこを一番悩んだので、この結果は嬉しかった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><div><div><span><a class=\"source-preview\" href=\"../../w/rojiura-masala/\"><img alt=\"\" height=\"630\" src=\"../../assets/shinpo/curry-delivery/card-1.jpeg\" width=\"1200\"/><strong>路地裏マサラ - ROJIURA MASALA｜湯間庭町</strong><small>夜の路地を走って、冷める前にカレーを届ける配達ゲーム。</small></a></span></div></div></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><br/></p>"
+    }
+  ],
+  "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「ゲームジャムで、カレーを配達した」（note、2026-09-17）。<a href=\"https://note.com/hamamah/n/na42fdcfeabf2\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>"
+}
