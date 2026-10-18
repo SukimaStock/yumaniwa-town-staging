@@ -119,6 +119,8 @@ var NOTE_ARTICLES = [
 
     {
         id: "note-20260807-n845da26b1b0b",
+        archivePage: "./shinpo/no-right-answer/",
+        archiveThumbnail: "./assets/shinpo/no-right-answer/cover.jpg",
         title: "正解のないゲームを探していた",
         url: "https://note.com/hamamah/n/n845da26b1b0b",
         publish_date: "2026-08-07",

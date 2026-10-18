@@ -1,0 +1,322 @@
+{
+  "id": "note-20260807-n845da26b1b0b",
+  "slug": "no-right-answer",
+  "source": {
+    "reference": "https://note.com/hamamah/n/n845da26b1b0b; author-provided archived PDF",
+    "verification": "2026-10-18 full archived PDF/public note comparison: prose/paragraph/headings/order/line breaks/captions/links exact; all8 original media obtained. See sourceComparison. No missing media.",
+    "missingMedia": [],
+    "media": [
+      {
+        "path": "assets/shinpo/no-right-answer/cover.jpg",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/301307062/rectangle_large_type_2_a399c104d75c627b436353533f34ae6b.jpg",
+        "position": "header",
+        "caption": "",
+        "after": "",
+        "width": 1280,
+        "height": 670,
+        "frames": 1,
+        "format": "JPEG",
+        "sha256": "e951e231214af07d44d85a8a09dd7c457371fe3943e5dca5f09fb8b9cc8d9dd0",
+        "bytes": 116670
+      },
+      {
+        "path": "assets/shinpo/no-right-answer/card-1.jpg",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/258035042/rectangle_large_type_2_2da3066808f6c6a7ed12410c13fbaaed.png?fit=bounds&format=jpeg&quality=85&width=300",
+        "position": "note preview 1",
+        "caption": "",
+        "after": "n419616ae3a94",
+        "width": 300,
+        "height": 157,
+        "frames": 1,
+        "format": "JPEG",
+        "sha256": "379290efa0c83c1e6a9c3a6ffc51828b390c6d96621195620541a90c8a5f9e8f",
+        "bytes": 8137
+      },
+      {
+        "path": "assets/shinpo/no-right-answer/card-2.jpg",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/259460195/rectangle_large_type_2_fbc76f03734de31439990113269f2710.png?fit=bounds&format=jpeg&quality=85&width=300",
+        "position": "note preview 2",
+        "caption": "",
+        "after": "nd470320454fd",
+        "width": 300,
+        "height": 157,
+        "frames": 1,
+        "format": "JPEG",
+        "sha256": "38c73b925a6b243bb4297c9cab64425d27ac592e8e21782883808644a420193d",
+        "bytes": 4617
+      },
+      {
+        "path": "assets/shinpo/no-right-answer/card-3.jpg",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/259459240/rectangle_large_type_2_35ae71814b05bdb4ab82b6fcf95c753c.png?fit=bounds&format=jpeg&quality=85&width=300",
+        "position": "note preview 3",
+        "caption": "",
+        "after": "nfcaa7634b41e",
+        "width": 300,
+        "height": 157,
+        "frames": 1,
+        "format": "JPEG",
+        "sha256": "1ba73629f3e6edc145225795ad4cb6fa324904f66c3b7ae40529d00d129c5044",
+        "bytes": 11285
+      },
+      {
+        "path": "assets/shinpo/no-right-answer/card-4.jpg",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/259460552/rectangle_large_type_2_3e40b01522c04236e52f5d1c47e137bf.png?fit=bounds&format=jpeg&quality=85&width=300",
+        "position": "note preview 4",
+        "caption": "",
+        "after": "nd9c9a6fd9233",
+        "width": 300,
+        "height": 157,
+        "frames": 1,
+        "format": "JPEG",
+        "sha256": "659299445130f35845b6cda69522e6fb08ff1ac366d24117c0bddd4b1c046a75",
+        "bytes": 7421
+      },
+      {
+        "path": "assets/shinpo/no-right-answer/card-5.jpg",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/259459240/rectangle_large_type_2_35ae71814b05bdb4ab82b6fcf95c753c.png?fit=bounds&format=jpeg&quality=85&width=300",
+        "position": "note preview 5",
+        "caption": "",
+        "after": "nfcaa7634b41e",
+        "width": 300,
+        "height": 157,
+        "frames": 1,
+        "format": "JPEG",
+        "sha256": "1ba73629f3e6edc145225795ad4cb6fa324904f66c3b7ae40529d00d129c5044",
+        "bytes": 11285
+      },
+      {
+        "path": "assets/shinpo/no-right-answer/card-6.jpg",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/259461267/rectangle_large_type_2_7d34a79353b527d9f895f70d3692db08.png?fit=bounds&format=jpeg&quality=85&width=300",
+        "position": "note preview 6",
+        "caption": "",
+        "after": "n0d370010316b",
+        "width": 300,
+        "height": 157,
+        "frames": 1,
+        "format": "JPEG",
+        "sha256": "46b13dbcff262b0709a5882da9c3f38d5c4a6c2b6df8d45a4a1a77a9ad463d6c",
+        "bytes": 4615
+      },
+      {
+        "path": "assets/shinpo/no-right-answer/card-7.jpg",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/292770869/rectangle_large_type_2_372b1fe52d95b3328ae6f62afe086394.png?fit=bounds&format=jpeg&quality=85&width=300",
+        "position": "note preview 7",
+        "caption": "",
+        "after": "na359e1f383de",
+        "width": 300,
+        "height": 157,
+        "frames": 1,
+        "format": "JPEG",
+        "sha256": "a69eae2c25f9decde8e7bdd6ee249066c9e1dc73e8893ce1da63546729f993f8",
+        "bytes": 7178
+      }
+    ],
+    "rights": "Author original header and app/game illustrations/GIFs; original note preview thumbnails. No substitute/AI images.",
+    "edition": "Historical Codea editions preserved. Current Web versions linked only in existing afterword with explicit labels.",
+    "linkRewrites": [],
+    "sourceComparison": {
+      "proseExact": true,
+      "originalBr": 71,
+      "importBr": 71,
+      "headings": [
+        {
+          "tag": "h2",
+          "text": "目次",
+          "id": null
+        },
+        {
+          "tag": "h3",
+          "text": "『FlipCoin』",
+          "id": "3034875B-62A8-41C0-BB51-02DFB1F1D577"
+        },
+        {
+          "tag": "h3",
+          "text": "『GearHopper』",
+          "id": "04393FFF-7BE1-4FEE-AF84-69AA0F66A5EE"
+        },
+        {
+          "tag": "h3",
+          "text": "『AmberTime』",
+          "id": "B272618B-FA62-4156-ABFC-16A6295DE577"
+        },
+        {
+          "tag": "h3",
+          "text": "『LogicCore』",
+          "id": "9AF61209-60D3-4142-8933-DD253084DB37"
+        },
+        {
+          "tag": "h3",
+          "text": "『The Demon of Theseus』",
+          "id": "EEC723C4-15E7-4C00-BCF1-60123ABC697D"
+        },
+        {
+          "tag": "h3",
+          "text": "『ORBIT』",
+          "id": "14B47EEA-0C25-4991-B4F9-B128AC13E00B"
+        },
+        {
+          "tag": "h3",
+          "text": "振り返ってみて",
+          "id": "1560367B-5506-47CD-BA8E-A800793BA9D1"
+        }
+      ],
+      "sourceLinks": [
+        "#3034875B-62A8-41C0-BB51-02DFB1F1D577",
+        "#04393FFF-7BE1-4FEE-AF84-69AA0F66A5EE",
+        "#B272618B-FA62-4156-ABFC-16A6295DE577",
+        "#9AF61209-60D3-4142-8933-DD253084DB37",
+        "#EEC723C4-15E7-4C00-BCF1-60123ABC697D",
+        "#14B47EEA-0C25-4991-B4F9-B128AC13E00B",
+        "#1560367B-5506-47CD-BA8E-A800793BA9D1",
+        "https://note.com/hamamah/n/n419616ae3a94",
+        "https://note.com/hamamah/n/nd470320454fd",
+        "https://note.com/hamamah/n/nfcaa7634b41e",
+        "https://note.com/hamamah/n/nd9c9a6fd9233",
+        "https://note.com/hamamah/n/nfcaa7634b41e",
+        "https://note.com/hamamah/n/n0d370010316b",
+        "https://note.com/hamamah/n/na359e1f383de"
+      ],
+      "importLinks": [
+        "#3034875B-62A8-41C0-BB51-02DFB1F1D577",
+        "#04393FFF-7BE1-4FEE-AF84-69AA0F66A5EE",
+        "#B272618B-FA62-4156-ABFC-16A6295DE577",
+        "#9AF61209-60D3-4142-8933-DD253084DB37",
+        "#EEC723C4-15E7-4C00-BCF1-60123ABC697D",
+        "#14B47EEA-0C25-4991-B4F9-B128AC13E00B",
+        "#1560367B-5506-47CD-BA8E-A800793BA9D1",
+        "https://note.com/hamamah/n/n419616ae3a94",
+        "https://note.com/hamamah/n/nd470320454fd",
+        "https://note.com/hamamah/n/nfcaa7634b41e",
+        "https://note.com/hamamah/n/nd9c9a6fd9233",
+        "https://note.com/hamamah/n/nfcaa7634b41e",
+        "https://note.com/hamamah/n/n0d370010316b",
+        "https://note.com/hamamah/n/na359e1f383de"
+      ],
+      "missingMedia": [],
+      "drivePdf": "Author-provided archived PDF",
+      "driveComparison": "Fetched readable PDF text corroborates body wording and order; PDF paginated TOC/header and line wraps excluded. Public note DOM supplies media and embed previews.",
+      "version": "Historical Codea articles; note citations remain unchanged. No new inline current-work links.",
+      "mediaCount": 8,
+      "totalBytes": 171208,
+      "tocWrapper": "nav->div aria-label=目次 only, avoiding global header nav CSS; visible TOC text/order/anchors unchanged",
+      "sourceInconsistency": "Original nfcaa7634b41e note preview reused for AmberTime and The Demon sections, title 誰に何を売るか考えている. Preserved exactly without correcting.",
+      "linkCardinality": {
+        "originalAnchorsIncludingHiddenFallback": 14,
+        "originalNoteAnchors": 7,
+        "importNoteAnchors": 7,
+        "originalNoteEmbeds": 7,
+        "staticNotePreviews": 7,
+        "lightboxImageLinksUnwrapped": 0
+      },
+      "drivePdfParagraphHeadingContainment": true,
+      "captionsExact": true
+    }
+  },
+  "cover": "<figure><img src=\"../../assets/shinpo/no-right-answer/cover.jpg\" alt=\"正解のないゲームを探していたの元掲載画像\" fetchpriority=\"high\"></figure>",
+  "navDate": "2026年08月07日",
+  "displayDate": "2026年8月7日",
+  "backnumber": true,
+  "blocks": [
+    {
+      "origin": "source",
+      "html": "<p id=\"385d09b5-cca1-427e-87e8-7034bf69df6b\">仕事を終えた夜、ソファに深く沈み込み、<br/>いつものようにiPhoneを開く。<br/><br/>画面には、これまでに作りためてきた、<br/>自分専用アプリのアイコンが並んでいる。<br/><br/>便利さを競うわけでも、<br/>誰かの困りごとを解決するわけでもない。<br/><br/>ただ、自分が触りたいもの、<br/>自分の気持ちが少し落ち着くものを探しているうちに、<br/>いつの間にかゲームらしいものになっていた。<br/><br/>今回は、そんな自分専用のゲームを振り返ってみたい。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<div><div aria-label=\"目次\"><details open=\"\"><summary><h2>目次</h2></summary><ol><li><a href=\"#3034875B-62A8-41C0-BB51-02DFB1F1D577\" id=\"toc_item_3034875B-62A8-41C0-BB51-02DFB1F1D577\">『FlipCoin』</a></li><li><a href=\"#04393FFF-7BE1-4FEE-AF84-69AA0F66A5EE\" id=\"toc_item_04393FFF-7BE1-4FEE-AF84-69AA0F66A5EE\">『GearHopper』</a></li><li><a href=\"#B272618B-FA62-4156-ABFC-16A6295DE577\" id=\"toc_item_B272618B-FA62-4156-ABFC-16A6295DE577\">『AmberTime』</a></li><li><a href=\"#9AF61209-60D3-4142-8933-DD253084DB37\" id=\"toc_item_9AF61209-60D3-4142-8933-DD253084DB37\">『LogicCore』</a></li><li><a href=\"#EEC723C4-15E7-4C00-BCF1-60123ABC697D\" id=\"toc_item_EEC723C4-15E7-4C00-BCF1-60123ABC697D\">『The Demon of Theseus』</a></li><li><a href=\"#14B47EEA-0C25-4991-B4F9-B128AC13E00B\" id=\"toc_item_14B47EEA-0C25-4991-B4F9-B128AC13E00B\">『ORBIT』</a></li><li><a href=\"#1560367B-5506-47CD-BA8E-A800793BA9D1\" id=\"toc_item_1560367B-5506-47CD-BA8E-A800793BA9D1\">振り返ってみて</a></li></ol></details></div></div>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"3034875B-62A8-41C0-BB51-02DFB1F1D577\">『FlipCoin』</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"3E54677A-990F-4EF0-934F-CEC2ACAFD11F\">指でコインを引っ張り、弾くだけのゲーム。<br/><br/>重力をなくし、衝突したときの跳ね返りを大げさにした。<br/>コインが連鎖し、光の尾や波紋が画面いっぱいに広がる。<br/><br/>ゴールやスコアよりも、<br/>弾いた後に起きる予測不能な光景を眺めていた。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"6464C13E-D7E3-4C37-93D0-93679128AA36\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n419616ae3a94\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-1.jpg\"/><strong>ただ「気持ちいい」を磨く夜。目的のない自作アプリ</strong><small>アプリ開発では、「不満を解決する」とか「明確なゴールを設定する」とか、そういう話をよく聞きます。もちろん、それは正しいと思います。でも、自分専用のアプリを作っていると、たまにそこから外れたくなります。役に立つかどうかより、触った瞬間に気持ちいいかどうか。今回は、目的よりもその感覚だけを追い求めて作った2つの…</small></a></div></div></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"04393FFF-7BE1-4FEE-AF84-69AA0F66A5EE\">『GearHopper』</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"DD76A2F5-15EC-4E9D-87DD-6FEE0AE5E553\">回転する歯車から歯車へ小さなキャラクターを飛び移らせるゲーム。<br/><br/>物理的に正しいジャンプより、自分が気持ち良いと思える高さや、滞空時間を何度も調整した。<br/><br/>ゲームが進むと、真っ暗だった背景に巨大な街の夜景が少しずつ浮かび上がる。<br/><br/>回しているのか、回されているのか。<br/>そんな感覚を閉じ込めた。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"536F9BA8-C2D0-4440-8A54-536FD78BB468\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/nd470320454fd\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-2.jpg\"/><strong>歯車の仕組みが少し見えてきた</strong><small>回り続ける歯車の上で、タイミングを見計らって、次の歯車へ飛び移る。ただそれだけです。その「ただそれだけ」を、自分の指が納得する形にするまでに、かなり時間がかかりました。整然と噛み合い、決められた速度で回り続けるその姿は、機能美の塊でありながら、どこか残酷でもあります。私たちが社会の一員として日々を過ごす、あ…</small></a></div></div></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"B272618B-FA62-4156-ABFC-16A6295DE577\">『AmberTime』</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"0387200E-58A3-4B11-BECF-C5989EFDA14B\">ウイスキーの樽に原酒を入れ、時間を待ちながら熟成を待つゲーム。<br/><br/>効率よく利益を出す最適解を見つけても、繰り返しているとただの作業になってしまった。<br/><br/>ウイスキーが蒸発していく「天使の分け前」や、棚の間を走るネズミなど、<br/>本来は邪魔になってしまうものも取り入れたことで、少しだけ生活の気配が生まれた。<br/><br/>攻略するのではなく、その空間や時間を眺めるゲームになった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"B2006BB0-3F06-48B7-AD5D-38E4FD6F8DC7\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/nfcaa7634b41e\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-3.jpg\"/><strong>誰に何を売るか考えている</strong><small>戦場の外れに、小さな道具屋があります。そこで店を営んでいるのは、勇者ではなく、ひとりの店主です。「The Demon of Theseus」店主と客の取引ゲームです。引き際のヒリヒリ感店にやってくる客は様々です。旅を続ける勇者、さまようゴブリン、盗賊など。彼らとの取引は、「じゃんけん」と「ブラックジャック」…</small></a></div></div></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"9AF61209-60D3-4142-8933-DD253084DB37\">『LogicCore』</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"B5FF63EB-4BFB-47A9-8B22-4C58764F6538\">名作落ちものパズルの感触を再現しようとしたが、<br/>完成された本家の感触にならず、忠実な再現は諦めた。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"EA7D1954-2594-4FBD-A18D-E6265EBBC03E\">そこから、落ちてくるものを論理回路の断片に変え、<br/>すべてをきれいに片付けるのではなく、壊れかけたシステムを動かし続けるゲームになった。<br/>再現を諦めたことで、ようやく自分が触りたいものが見えてきた。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"54302160-24D5-47D0-AC7F-149521F6C854\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/nd9c9a6fd9233\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-4.jpg\"/><strong>どうしても保存できない思い出がある</strong><small>模写を諦めた日記憶の中に染み付いている、「ぷよぷよ」のあの独特な気持ちよさを、自分の手元で再現することに挑戦していました。実際に作り始めてみると、本家の挙動がいかに細部まで計算されているかに気づかされます。ぷよが着地した瞬間の弾み。ぷよ同士の吸い付き。連鎖がつながるテンポ。それらを一つずつ実装していく作業は…</small></a></div></div></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"EEC723C4-15E7-4C00-BCF1-60123ABC697D\">『The Demon of Theseus』</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"383A049F-B5EB-4AF8-8295-B5FB020FC8A1\">戦場の外れにある道具屋の店主になるゲーム。<br/><br/>単に利益を求めるだけでなく、取引に危うさを足した。<br/>強い武器を売れば儲かるが、世界のバランスが傾いてしまうかもしれない。<br/><br/>経営の正解と世界にとっての正解がずれていく、<br/>引き際と後味を確かめるゲームになった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"CD2C3926-EF5A-4490-8709-F71D137918A5\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/nfcaa7634b41e\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-5.jpg\"/><strong>誰に何を売るか考えている</strong><small>戦場の外れに、小さな道具屋があります。そこで店を営んでいるのは、勇者ではなく、ひとりの店主です。「The Demon of Theseus」店主と客の取引ゲームです。引き際のヒリヒリ感店にやってくる客は様々です。旅を続ける勇者、さまようゴブリン、盗賊など。彼らとの取引は、「じゃんけん」と「ブラックジャック」…</small></a></div></div></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"14B47EEA-0C25-4991-B4F9-B128AC13E00B\">『ORBIT』</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"0C57BB1C-F882-4185-A4ED-43943A4DF170\">宇宙の浮遊感を手元で触るため、加速を鈍くし、思った場所で止まれない操作感にした。<br/><br/>壊れた基地を修復すると、<br/>管理AIも少しずつ言葉を取り戻していく。<br/><br/>基地を直しているのか。<br/>AIの記憶を取り戻しているのか。<br/>それとも、自分自身を修復しているのか。<br/><br/>曖昧なまま、宇宙を漂い続けるゲームになった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"F7AA8820-FAC4-4A0A-B400-1B163D445359\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n0d370010316b\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-6.jpg\"/><strong>言葉がずっと回っている夜に</strong><small>宇宙の浮遊感を、iPhoneの中に閉じ込めてみたい。そんな動機から作り始めたのが、この「ORBIT」です。目的はシンプルです。広大な宇宙を漂い、資源を集めて壊れた基地を修復すること。開発で最も時間を費やしたのは、ゲームのシステムよりも無重力の「触り心地」でした。摩擦を削り、宇宙を漂う宇宙空間の慣性を表現する…</small></a></div></div></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"1560367B-5506-47CD-BA8E-A800793BA9D1\">振り返ってみて</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"E82C4905-2659-4F7B-ACE7-7800AB8D23D6\">どのゲームも、<br/>最初からルールを考えて作ったものではなかった。<br/><br/>コインを弾く。<br/>歯車を回す。<br/>樽を置く。<br/>宇宙船を漂わせる。<br/><br/>先に動くものを作り、<br/>触りながら要素を足したり、削ったりしていった。<br/><br/>思い通りにならない動き。<br/>少し危うい選択。<br/>何も起きない待ち時間。<br/>意味のない光や揺れ。<br/><br/>ゲームの正解を作っていたのではなく、<br/>自分がもう一度触りたくなる瞬間を探していたのだと思う。<br/></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"CA807EDF-AA3D-4C15-BD40-0DB23AC0F00E\">最近作成した、『真夜中コーラ』も、<br/>「一番良いコーラ」ではなく、<br/>「その日の気分を表すようなコーラ」ができれば。そんな気持ちでつくっていた。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"F228A2FE-E4DB-407F-A79A-0F3097A46C07\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/na359e1f383de\"><img alt=\"\" src=\"../../assets/shinpo/no-right-answer/card-7.jpg\"/><strong>ゲームジャムで、コーラをすごろくにした</strong><small>Ultimate AI-Powered Game Jam #1に参加して、『真夜中コーラ』というゲームを作った。生成AIの利用が必須で、72時間以内にゲームを作るというもの。最初に発表されたテーマは「COLA」だった。そこからクラフトコーラを作るゲームを思いついた。ただ、材料を選んで混ぜるだけでは、あまりゲ…</small></a></div></div></figure>"
+    }
+  ],
+  "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../w/orbit/\">ORBIT（現在のWeb版）↗</a><a href=\"../../works/ambertime/\">AmberTime（現在のWeb版）↗</a><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「正解のないゲームを探していた」（note、2026-08-07）。<a href=\"https://note.com/hamamah/n/n845da26b1b0b\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>"
+}
