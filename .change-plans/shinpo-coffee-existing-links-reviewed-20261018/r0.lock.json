@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "865383476616539f04791bb8bd862868d3b11b5fdedcf70f6bc05dd23228f47a",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-coffee-existing-links-reviewed-20261018",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Connect released CoffeeFactory introduction to its existing historical article",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM",
+      "ASSET"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "5df3db002c9771756f01247a5c06cc8d6279bea9",
+    "canonicalSources": [
+      "data/works.js",
+      "data/work-lifecycle.json",
+      "data/work-search-meta.js",
+      "data/shinpo/fac8492827054dd8a3922c8b8396198a.json",
+      "https:/github.com/SukimaStock/yumaniwa-town/pull/64",
+      "https:/note.com/hamamah/n/ndd00e6f70f55",
+      "https:/note.com/hamamah/n/n4e18da793516"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-coffee-existing-links-reviewed-20261018/r0.lock.json",
+      "data/shinpo/fac8492827054dd8a3922c8b8396198a.json",
+      "shinpo/leftover-details/index.html",
+      "shinpo/index.html",
+      "data/work-search-meta.js",
+      "w/coffee-factory/index.html",
+      "en/w/coffee-factory/index.html",
+      "tests/test-shinpo-migrate.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/**",
+      ".github/**",
+      "engines/**",
+      "sitemap.xml",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "Add current Web CoffeeFactory link outside historical source prose in existing leftover-details afterword",
+      "Add existing article ID to CoffeeFactory articleIds and generate JA/EN introduction pages",
+      "Keep existing notes, archive listing, pickup behavior, original article prose and all media unchanged",
+      "Update exact historical-guidance regression expectation only for authorized CoffeeFactory link; preserve all source/prose/asset assertions."
+    ],
+    "ownerDecisions": [
+      "2026-10-18 user: CoffeeFactory is published, continue related note migration and mutual connections in Staging only. Delegated scope includes existing related articles, canonical current Web version links, no Production edits."
+    ],
+    "hqDecisions": [
+      "既存静的テンプレート内。unknown-code SYSTEM/full。原典完全性は人が証拠を照合し未取得を記録する。"
+    ],
+    "rulesApplied": [
+      "Fresh official Plan Lock before implementation",
+      "Preserve historical source separately from current Web guidance",
+      "Use current environment-specific generators",
+      "Expression audit no new copy beyond existing link pattern",
+      "Replacement fresh r0 after first attempt found missing Search impacts and stale exact guidance expectation; do not edit prior Lock. Attempt 1 failed, attempt 2 corrects declaration/test."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Historical source blocks unchanged",
+      "JA/EN introduction -> article -> current Web introduction navigation",
+      "Staging canonical and robots noindex,nofollow",
+      "390/1280px related link rendering"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "runtime.mobile-desktop",
+      "search.generated-pages",
+      "search.localized-copy",
+      "search.sitemap",
+      "search.structured-data",
+      "search.validator"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this PR only.",
+    "outOfScope": [
+      "Production",
+      "shared runtime/engine",
+      "new articles until original source/media recovered",
+      "other works",
+      "new summary or subtitle"
+    ],
+    "promotion": "Staging only",
+    "unverified": [
+      "New article raw HTML/media blocked by source HTTP403; Drive primary PDF is an older editor draft, not public source",
+      "Public Pages HTTP403 in this environment",
+      "Physical iPhone/iPad unverified"
+    ],
+    "problem": "Published CoffeeFactory and the migrated article mentioning it are not mutually linked.",
+    "currentContract": "Existing articleIds generates JA/EN related article links; afterword holds current Web work links separately from historical prose.",
+    "whyExistingIsInsufficient": "CoffeeFactory articleIds is absent; historical article has no current Web work link. New source articles cannot yet be migrated without their original media.",
+    "design": "Reuse articleIds and afterword current Web link pattern, retaining historical note source and old-app details.",
+    "alternativesRejected": [
+      "固定枠",
+      "原文要約/画像創作",
+      "CMS"
+    ],
+    "migration": "Metadata/link-only update; no new article, runtime or image changes.",
+    "compatibility": "元の4枠と他記事を保持",
+    "boundaryCases": [
+      "同じIDの再実行",
+      "未取得media",
+      "中断再開",
+      "base進行"
+    ],
+    "testPlan": [
+      "Shinpo generation check",
+      "Work-search generation check",
+      "Existing shinpo and search regressions",
+      "Scope Risk Impact",
+      "Independent review",
+      "Required CI and exact SHA Pages"
+    ],
+    "promotionRisk": "Productionは変更しない"
+  }
+}
