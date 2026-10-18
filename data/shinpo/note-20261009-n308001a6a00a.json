@@ -50,6 +50,22 @@
       "missingMedia": [],
       "driveArchive": "PDF 1YheAP73tgJ8w3G2wY7pagqa-v67r3-HG compared; substantive prose matches",
       "version": "ORBIT Web jam4, not ORBIT02"
+    },
+    "ownerThumbnailCorrection": {
+      "authority": "2026-10-18 explicit owner request: fix ORBIT broken thumbnail.",
+      "cause": "Original source card used note_empty_ogp.svg, a valid image-placeholder SVG rather than a game thumbnail. Header and archiveThumbnail share intact cover.png.",
+      "fromPath": "assets/shinpo/orbit-remaking/card-1.svg",
+      "to": {
+        "path": "assets/works/orbit/ogp.jpg",
+        "sha256": "18c0d014d96534c84bd159284726b03e9c7e7c117e67c15fac7fadf75fa3c324",
+        "width": 1200,
+        "height": 630,
+        "format": "JPEG",
+        "canonicalPage": "w/orbit/index.html"
+      },
+      "href": "../../w/orbit/",
+      "scope": "Only work-card image element; original source placeholder and its provenance retained. Article prose, header and rack thumbnail unchanged.",
+      "screenshotStatus": "Two owner JPEG attachments resolved in Library but materialization failed; screenshot target not visually verified."
     }
   },
   "cover": "<figure><img src=\"../../assets/shinpo/orbit-remaking/cover.png\" alt=\"昔の自分ともう一度ゲームを作るの元掲載画像\" fetchpriority=\"high\"></figure>",
@@ -123,7 +139,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><div><div><span><a class=\"source-preview\" href=\"../../w/orbit/\"><img alt=\"\" src=\"../../assets/shinpo/orbit-remaking/card-1.svg\"/><strong>ORBIT — Silent Reboot</strong></a></span></div></div></figure>"
+      "html": "<figure><div><div><span><a class=\"source-preview\" href=\"../../w/orbit/\"><img alt=\"宇宙を漂う小型宇宙船を描いたORBIT — Silent Rebootの画面\" src=\"../../assets/works/orbit/ogp.jpg\" width=\"1200\" height=\"630\" loading=\"lazy\"/><strong>ORBIT — Silent Reboot</strong></a></span></div></div></figure>"
     },
     {
       "origin": "source",
