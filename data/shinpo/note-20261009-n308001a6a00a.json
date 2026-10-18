@@ -1,0 +1,134 @@
+{
+  "id": "note-20261009-n308001a6a00a",
+  "slug": "orbit-remaking",
+  "source": {
+    "reference": "Drive PDF 1YheAP73tgJ8w3G2wY7pagqa-v67r3-HG; https://note.com/hamamah/n/n308001a6a00a",
+    "verification": "2026-10-18 Drive PDF and public note compared:18 ordered blocks, original prose/headings/94br, original header and actual original work-card placeholder SVG. Full media obtained; no source copy invented.",
+    "missingMedia": [],
+    "media": [
+      {
+        "path": "assets/shinpo/orbit-remaking/cover.png",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/322533440/rectangle_large_type_2_517ebd44eb1a9990a416cf7aa96a59b6.png",
+        "position": "header",
+        "caption": "",
+        "after": "",
+        "width": 1280,
+        "height": 670,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "7fe364c6e89f660745c45a1de6c7111b4a4faf124452cccef1fd7629813e5044"
+      },
+      {
+        "path": "assets/shinpo/orbit-remaking/card-1.svg",
+        "sourceUrl": "https://assets.st-note.com/poc-image/manual/production/note_empty_ogp.svg",
+        "position": "work link card",
+        "caption": "",
+        "after": "",
+        "width": 1280,
+        "height": 670,
+        "frames": 1,
+        "format": "SVG",
+        "sha256": "55675a013103315f7ae96119c16b6d9cf68ee83826df2ac98a57c416576f4c26"
+      }
+    ],
+    "rights": "Original author article/header, note original card placeholder SVG retained as source media, no substituted game OGP.",
+    "edition": "Web/jam#4 ORBIT Silent Reboot; corresponds to registered orbit, not orbit-02. Historical Codea comparison retained verbatim.",
+    "linkRewrites": [
+      {
+        "from": "https://sukimastock.github.io/yumaniwa-town/works/orbit",
+        "to": "../../w/orbit/",
+        "reason": "same verified registered work, play/open link"
+      }
+    ],
+    "sourceComparison": {
+      "proseExact": true,
+      "proseBlocks": 17,
+      "originalBr": 94,
+      "importBr": 94,
+      "originalBodyFigures": 1,
+      "importFigures": 1,
+      "missingMedia": [],
+      "driveArchive": "PDF 1YheAP73tgJ8w3G2wY7pagqa-v67r3-HG compared; substantive prose matches",
+      "version": "ORBIT Web jam4, not ORBIT02"
+    }
+  },
+  "cover": "<figure><img src=\"../../assets/shinpo/orbit-remaking/cover.png\" alt=\"昔の自分ともう一度ゲームを作るの元掲載画像\" fetchpriority=\"high\"></figure>",
+  "navDate": "2026年10月09日",
+  "displayDate": "2026年10月9日",
+  "backnumber": true,
+  "blocks": [
+    {
+      "origin": "source",
+      "html": "<p>以前作成した自作ゲーム、<br/>『ORBIT』をWeb版として作り直した。<br/><br/>最初に始めたのは、<br/>当時のコードをAIと一緒に解読することだった。<br/><br/>当時のコードはとんでもなく長くなっていて、<br/>途中で仕組みを足したり、似た処理がいくつも残っていたりした。<br/><br/>そこで、<br/>「このゲームは何だったのか」<br/>「何を残して、何を捨てるべきなのか」を<br/>一度整理してから、Webへ移すことにした。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>ちゃんと動く。でも何か違う</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>ちょうどその頃開催されたゲームジャムのテーマが、<br/>「ヒューマノイド」と「共生」だった。<br/><br/>『ORBIT』は、人間とAIが一緒に宇宙を漂うゲーム。<br/>今なら外に出せるかもしれない。<br/>そう思って移植を始めた。<br/><br/>古いコードにあったクエストやショップ、<br/>細かなアクションなどを削ぎ落としていく。<br/><br/>Web版はちゃんと動いた。<br/>見た目も以前より整理されている。<br/><br/>それなのに、なぜか『ORBIT』らしくなかった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>原作をもう一度遊ぶ</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>特に引っかかっていたのが、マップや基地だった。<br/><br/>AIの分析では、<br/>「不要」と判断されていた。<br/>確かに、機能だけで言えば省くこともできる。<br/><br/>でも、自分の中でどうしても腑に落ちない。<br/>何度調整しても、しっくり来なかった。<br/><br/>そこで、昔の『ORBIT』そのものを起動して遊んでみた。<br/><br/>「ああ、こっちの方がしっくりくる」<br/>ということが何度もあった。<br/><br/>マップはただの便利機能ではなく、<br/>宇宙船を表現するために必要だった。<br/><br/>基地も、メニューを開くだけの場所ではない。<br/><br/>無事に帰ってきて、ターミナルにつなぐ。<br/>基地を修理して、また宇宙へ出る。<br/><br/>その一連の動作まで含めて、<br/>「帰る場所」になっていた。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>冗長だからいらないわけではない</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>今回、一番大きな発見だったのは、<br/><br/>コードとして冗長なものと、<br/>作品として余分なものは全く違う<br/><br/>ということだった。<br/><br/>古いコードだけを見ると、<br/>似た仕組みが重なっていたり、処理が長くなっている。<br/>そんなものは、つい綺麗に一本化したくなる。<br/><br/>でも完成したゲームを触ると、そこには理由があった。<br/><br/>何度も遊んで、位置を少し動かして、<br/>派手すぎたものを小さくして、<br/>削って削って、残ったものだった。<br/><br/>コードには、試行錯誤の跡が残っている。<br/>画面には、試行錯誤の結果が残っている。<br/><br/>コードばかり見ていると、その違いを見落としてしまった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><br/></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>昔の自分と一緒に作る</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>考えてみれば、昔の自分も今と変わっていなかった。<br/><br/>一度作って触ってみる。<br/>少し足してみる。また削る。<br/>ちょっと位置を変える。<br/><br/>最近の制作でもずっと同じことをしている。<br/><br/>『ORBIT』を移植していたはずなのに、<br/>「自分は昔から同じように作っていたんだな」<br/>ということまで分かってきた。<br/><br/>最初は、昔の作品を今の技術で綺麗に清書するつもりだった。<br/>でも実際にやっていたのは、<br/><br/>なぜここにあったのか。<br/>なぜこの大きさだったのか。<br/><br/>原作は、昔の自分がなぜそうしたのかを考えるための証拠だった。<br/></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>Web版をゲームジャムに出したあと、<br/>遊んでくれた人から、</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>「静かで孤独な雰囲気こそが、ORBITの中心だ」</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>というコメントをもらった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>自分が原作を触り直しながら<br/>「これは残したい」と思っていたものを、<br/>初めて遊んだ人も感じてくれたらしい。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>そう考えると今回の移植は、<br/>昔の作品を作り直したというより、</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>昔の自分と、<br/>もう一度一緒に『ORBIT』を作っていた時間だったのかもしれない。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><div><div><span><a class=\"source-preview\" href=\"../../w/orbit/\"><img alt=\"\" src=\"../../assets/shinpo/orbit-remaking/card-1.svg\"/><strong>ORBIT — Silent Reboot</strong></a></span></div></div></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><br/></p>"
+    }
+  ],
+  "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「昔の自分ともう一度ゲームを作る」（note、2026-10-09）。<a href=\"https://note.com/hamamah/n/n308001a6a00a\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>"
+}
