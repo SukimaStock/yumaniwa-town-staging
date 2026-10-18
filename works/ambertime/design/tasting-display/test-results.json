@@ -1,0 +1,33 @@
+{
+  "base": "a8eb629dc101eccfd87d6d377428c33f6b42aaac",
+  "command": "cd works/ambertime && npm test",
+  "tests": 547,
+  "pass": 547,
+  "fail": 0,
+  "durationMs": 100064.928245,
+  "newTests": 9,
+  "existingTests": 538,
+  "logSha256": "2e9f6ff157c9260288484439a9cf443ad9e5316bf15f134330a3cea44e3531af",
+  "testedSources": {
+    "flavor-view.mjs": "bc1ecbaef2926a1e257d8cef3d5092e509dcb264a92029e7843ec786ab62f23c",
+    "tests/tasting-flavor.test.mjs": "e0b912561876309833a23b7e382ddc14f6f42b512e00f105b6d6622fbd812d3e"
+  },
+  "protectedByteIdentical": [
+    "model.mjs",
+    "economy.mjs",
+    "parameters.mjs",
+    "economy-parameters.mjs",
+    "partner-parameters.mjs",
+    "character.mjs",
+    "tasting-view.mjs",
+    "recipe-book.mjs",
+    "generations.mjs",
+    "partner-orders.mjs",
+    "nearby-comparison.mjs",
+    "brand-reputation.mjs",
+    "aroma-extraction.mjs"
+  ],
+  "saveContract": "v17 unchanged; no backend/schema/key/opcode/sample changes",
+  "physicalSafari": false,
+  "deviceScreenReader": false
+}

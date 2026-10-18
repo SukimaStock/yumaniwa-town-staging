@@ -1,0 +1,748 @@
+{
+  "browser": "153.0.8010.0",
+  "fixtures": "Actual game fixtures are native Chromium public operations and strict serialize/restore. The separately labelled marker edge DOM fixture exercises only the pure flavor rendering helper and is not a game history.",
+  "physicalSafari": false,
+  "humanReadability": false,
+  "sourceHashes": {
+    "index.html": "26e7b46b7e72a04a35c16fd6b8acc40b4001a696c310f4e493c3491ccde102e4",
+    "shop-app.mjs": "1bf8b7e2594d89ebcf12649488898636ac9af9850d9286e08dfed9d5e29307c1",
+    "shop.css": "241dbbe2b2b129ef9186f3d26f0f8a54dd2fbb3f7ffffa50abaeb0c97451dd72",
+    "flavor-view.mjs": "bc1ecbaef2926a1e257d8cef3d5092e509dcb264a92029e7843ec786ab62f23c",
+    "tasting-view.mjs": "33d183ec36f9b2c06cad4289c6e80f3a2529ad4effd599852f22e12dee356c0d",
+    "partner-orders.mjs": "d4ae340d2d05041b6ef6a0bb7484754a31b885dcdc21b141c2f35951684544ff",
+    "economy.mjs": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+    "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1"
+  },
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "kind": "first",
+      "oneCaskWithoutComparison": true,
+      "threeCanonicalFlavorBars": true,
+      "previousMarkerExact": false,
+      "sameMonthSampleDoesNotReplacePrevious": true,
+      "manualPausePreserved": true,
+      "highWoodAndAromaLossObserved": false,
+      "geometry": {
+        "glass": {
+          "x": 443.5,
+          "y": 566.9375,
+          "right": 513.5,
+          "bottom": 645.6875,
+          "width": 70,
+          "height": 78.75
+        },
+        "panel": {
+          "x": 662.5,
+          "y": 250.6875,
+          "right": 902.5,
+          "bottom": 588.59375,
+          "width": 240,
+          "height": 337.90625
+        },
+        "end": {
+          "x": 675.5,
+          "y": 536.59375,
+          "right": 785,
+          "bottom": 580.59375,
+          "width": 109.5,
+          "height": 44
+        },
+        "bottle": {
+          "x": 793,
+          "y": 536.59375,
+          "right": 902.5,
+          "bottom": 580.59375,
+          "width": 109.5,
+          "height": 44
+        },
+        "barrel": {
+          "x": 384.09375,
+          "y": 412.6875,
+          "right": 594.09375,
+          "bottom": 643.6875,
+          "width": 210,
+          "height": 231
+        },
+        "headerBottom": 165.125,
+        "glassHitVisible": true,
+        "glassPanelOverlap": false,
+        "controlsOverlap": false,
+        "viewportHeight": 900
+      }
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "kind": "previous",
+      "oneCaskWithoutComparison": true,
+      "threeCanonicalFlavorBars": true,
+      "previousMarkerExact": true,
+      "sameMonthSampleDoesNotReplacePrevious": true,
+      "manualPausePreserved": true,
+      "highWoodAndAromaLossObserved": false,
+      "geometry": {
+        "glass": {
+          "x": 443.5,
+          "y": 566.9375,
+          "right": 513.5,
+          "bottom": 645.6875,
+          "width": 70,
+          "height": 78.75
+        },
+        "panel": {
+          "x": 662.5,
+          "y": 250.6875,
+          "right": 902.5,
+          "bottom": 615.78125,
+          "width": 240,
+          "height": 365.09375
+        },
+        "end": {
+          "x": 675.5,
+          "y": 563.78125,
+          "right": 785,
+          "bottom": 607.78125,
+          "width": 109.5,
+          "height": 44
+        },
+        "bottle": {
+          "x": 793,
+          "y": 563.78125,
+          "right": 902.5,
+          "bottom": 607.78125,
+          "width": 109.5,
+          "height": 44
+        },
+        "barrel": {
+          "x": 384.09375,
+          "y": 412.6875,
+          "right": 594.09375,
+          "bottom": 643.6875,
+          "width": 210,
+          "height": 231
+        },
+        "headerBottom": 165.125,
+        "glassHitVisible": true,
+        "glassPanelOverlap": false,
+        "controlsOverlap": false,
+        "viewportHeight": 900
+      }
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "kind": "high",
+      "oneCaskWithoutComparison": true,
+      "threeCanonicalFlavorBars": true,
+      "previousMarkerExact": true,
+      "sameMonthSampleDoesNotReplacePrevious": true,
+      "manualPausePreserved": true,
+      "highWoodAndAromaLossObserved": true,
+      "geometry": {
+        "glass": {
+          "x": 443.5,
+          "y": 566.9375,
+          "right": 513.5,
+          "bottom": 645.6875,
+          "width": 70,
+          "height": 78.75
+        },
+        "panel": {
+          "x": 662.5,
+          "y": 250.6875,
+          "right": 902.5,
+          "bottom": 615.78125,
+          "width": 240,
+          "height": 365.09375
+        },
+        "end": {
+          "x": 675.5,
+          "y": 563.78125,
+          "right": 785,
+          "bottom": 607.78125,
+          "width": 109.5,
+          "height": 44
+        },
+        "bottle": {
+          "x": 793,
+          "y": 563.78125,
+          "right": 902.5,
+          "bottom": 607.78125,
+          "width": 109.5,
+          "height": 44
+        },
+        "barrel": {
+          "x": 384.09375,
+          "y": 412.6875,
+          "right": 594.09375,
+          "bottom": 643.6875,
+          "width": 210,
+          "height": 231
+        },
+        "headerBottom": 165.125,
+        "glassHitVisible": true,
+        "glassPanelOverlap": false,
+        "controlsOverlap": false,
+        "viewportHeight": 900
+      }
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "distillationLegacyMeterGeometryUnchanged": true,
+      "legacy": [
+        {
+          "trackClass": "flavor-meter",
+          "height": "7px",
+          "marginTop": "0px",
+          "overflow": "hidden",
+          "isolation": "auto",
+          "fillHeight": "5px",
+          "transform": "matrix(0.216448, 0, 0, 1, 0, 0)",
+          "fillRatio": "0.25850490214686306"
+        },
+        {
+          "trackClass": "flavor-meter",
+          "height": "7px",
+          "marginTop": "0px",
+          "overflow": "hidden",
+          "isolation": "auto",
+          "fillHeight": "5px",
+          "transform": "matrix(0.232115, 0, 0, 1, 0, 0)",
+          "fillRatio": "0.2463398487715843"
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "comparisonAndTastingSameScaleValues": true,
+      "compareReturnExactTasting": true,
+      "samplesReservationManualPausePreserved": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "tastingStopsAutomaticTime": true,
+      "endResumesPriorAutomaticTime": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "kind": "first",
+      "oneCaskWithoutComparison": true,
+      "threeCanonicalFlavorBars": true,
+      "previousMarkerExact": false,
+      "sameMonthSampleDoesNotReplacePrevious": true,
+      "manualPausePreserved": true,
+      "highWoodAndAromaLossObserved": false,
+      "geometry": {
+        "glass": {
+          "x": 222,
+          "y": 226.75,
+          "right": 287,
+          "bottom": 299.875,
+          "width": 65,
+          "height": 73.125
+        },
+        "panel": {
+          "x": 17,
+          "y": 307.75,
+          "right": 373,
+          "bottom": 646.3125,
+          "width": 356,
+          "height": 338.5625
+        },
+        "end": {
+          "x": 17,
+          "y": 592.3125,
+          "right": 191,
+          "bottom": 636.3125,
+          "width": 174,
+          "height": 44
+        },
+        "bottle": {
+          "x": 199,
+          "y": 592.3125,
+          "right": 373,
+          "bottom": 636.3125,
+          "width": 174,
+          "height": 44
+        },
+        "barrel": {
+          "x": 90,
+          "y": 187.75,
+          "right": 210,
+          "bottom": 319.75,
+          "width": 120,
+          "height": 132
+        },
+        "headerBottom": 155.484375,
+        "glassHitVisible": true,
+        "glassPanelOverlap": false,
+        "controlsOverlap": false,
+        "viewportHeight": 844
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "kind": "previous",
+      "oneCaskWithoutComparison": true,
+      "threeCanonicalFlavorBars": true,
+      "previousMarkerExact": true,
+      "sameMonthSampleDoesNotReplacePrevious": true,
+      "manualPausePreserved": true,
+      "highWoodAndAromaLossObserved": false,
+      "geometry": {
+        "glass": {
+          "x": 222,
+          "y": 226.75,
+          "right": 287,
+          "bottom": 299.875,
+          "width": 65,
+          "height": 73.125
+        },
+        "panel": {
+          "x": 17,
+          "y": 307.75,
+          "right": 373,
+          "bottom": 673.5,
+          "width": 356,
+          "height": 365.75
+        },
+        "end": {
+          "x": 17,
+          "y": 619.5,
+          "right": 191,
+          "bottom": 663.5,
+          "width": 174,
+          "height": 44
+        },
+        "bottle": {
+          "x": 199,
+          "y": 619.5,
+          "right": 373,
+          "bottom": 663.5,
+          "width": 174,
+          "height": 44
+        },
+        "barrel": {
+          "x": 90,
+          "y": 187.75,
+          "right": 210,
+          "bottom": 319.75,
+          "width": 120,
+          "height": 132
+        },
+        "headerBottom": 155.484375,
+        "glassHitVisible": true,
+        "glassPanelOverlap": false,
+        "controlsOverlap": false,
+        "viewportHeight": 844
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "kind": "high",
+      "oneCaskWithoutComparison": true,
+      "threeCanonicalFlavorBars": true,
+      "previousMarkerExact": true,
+      "sameMonthSampleDoesNotReplacePrevious": true,
+      "manualPausePreserved": true,
+      "highWoodAndAromaLossObserved": true,
+      "geometry": {
+        "glass": {
+          "x": 222,
+          "y": 226.75,
+          "right": 287,
+          "bottom": 299.875,
+          "width": 65,
+          "height": 73.125
+        },
+        "panel": {
+          "x": 17,
+          "y": 307.75,
+          "right": 373,
+          "bottom": 673.5,
+          "width": 356,
+          "height": 365.75
+        },
+        "end": {
+          "x": 17,
+          "y": 619.5,
+          "right": 191,
+          "bottom": 663.5,
+          "width": 174,
+          "height": 44
+        },
+        "bottle": {
+          "x": 199,
+          "y": 619.5,
+          "right": 373,
+          "bottom": 663.5,
+          "width": 174,
+          "height": 44
+        },
+        "barrel": {
+          "x": 90,
+          "y": 187.75,
+          "right": 210,
+          "bottom": 319.75,
+          "width": 120,
+          "height": 132
+        },
+        "headerBottom": 155.484375,
+        "glassHitVisible": true,
+        "glassPanelOverlap": false,
+        "controlsOverlap": false,
+        "viewportHeight": 844
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "distillationLegacyMeterGeometryUnchanged": true,
+      "legacy": [
+        {
+          "trackClass": "flavor-meter",
+          "height": "7px",
+          "marginTop": "0px",
+          "overflow": "hidden",
+          "isolation": "auto",
+          "fillHeight": "5px",
+          "transform": "matrix(0.223456, 0, 0, 1, 0, 0)",
+          "fillRatio": "0.25850490214686306"
+        },
+        {
+          "trackClass": "flavor-meter",
+          "height": "7px",
+          "marginTop": "0px",
+          "overflow": "hidden",
+          "isolation": "auto",
+          "fillHeight": "5px",
+          "transform": "matrix(0.234485, 0, 0, 1, 0, 0)",
+          "fillRatio": "0.2463398487715843"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "comparisonAndTastingSameScaleValues": true,
+      "compareReturnExactTasting": true,
+      "samplesReservationManualPausePreserved": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "tastingStopsAutomaticTime": true,
+      "endResumesPriorAutomaticTime": true
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "kind": "first",
+      "oneCaskWithoutComparison": true,
+      "threeCanonicalFlavorBars": true,
+      "previousMarkerExact": false,
+      "sameMonthSampleDoesNotReplacePrevious": true,
+      "manualPausePreserved": true,
+      "highWoodAndAromaLossObserved": false,
+      "geometry": {
+        "glass": {
+          "x": 222,
+          "y": 226.75,
+          "right": 287,
+          "bottom": 299.875,
+          "width": 65,
+          "height": 73.125
+        },
+        "panel": {
+          "x": 17,
+          "y": 307.75,
+          "right": 373,
+          "bottom": 646.3125,
+          "width": 356,
+          "height": 338.5625
+        },
+        "end": {
+          "x": 17,
+          "y": 592.3125,
+          "right": 191,
+          "bottom": 636.3125,
+          "width": 174,
+          "height": 44
+        },
+        "bottle": {
+          "x": 199,
+          "y": 592.3125,
+          "right": 373,
+          "bottom": 636.3125,
+          "width": 174,
+          "height": 44
+        },
+        "barrel": {
+          "x": 90,
+          "y": 187.75,
+          "right": 210,
+          "bottom": 319.75,
+          "width": 120,
+          "height": 132
+        },
+        "headerBottom": 155.484375,
+        "glassHitVisible": true,
+        "glassPanelOverlap": false,
+        "controlsOverlap": false,
+        "viewportHeight": 744
+      }
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "kind": "previous",
+      "oneCaskWithoutComparison": true,
+      "threeCanonicalFlavorBars": true,
+      "previousMarkerExact": true,
+      "sameMonthSampleDoesNotReplacePrevious": true,
+      "manualPausePreserved": true,
+      "highWoodAndAromaLossObserved": false,
+      "geometry": {
+        "glass": {
+          "x": 222,
+          "y": 226.75,
+          "right": 287,
+          "bottom": 299.875,
+          "width": 65,
+          "height": 73.125
+        },
+        "panel": {
+          "x": 17,
+          "y": 307.75,
+          "right": 373,
+          "bottom": 673.5,
+          "width": 356,
+          "height": 365.75
+        },
+        "end": {
+          "x": 17,
+          "y": 619.5,
+          "right": 191,
+          "bottom": 663.5,
+          "width": 174,
+          "height": 44
+        },
+        "bottle": {
+          "x": 199,
+          "y": 619.5,
+          "right": 373,
+          "bottom": 663.5,
+          "width": 174,
+          "height": 44
+        },
+        "barrel": {
+          "x": 90,
+          "y": 187.75,
+          "right": 210,
+          "bottom": 319.75,
+          "width": 120,
+          "height": 132
+        },
+        "headerBottom": 155.484375,
+        "glassHitVisible": true,
+        "glassPanelOverlap": false,
+        "controlsOverlap": false,
+        "viewportHeight": 744
+      }
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "kind": "high",
+      "oneCaskWithoutComparison": true,
+      "threeCanonicalFlavorBars": true,
+      "previousMarkerExact": true,
+      "sameMonthSampleDoesNotReplacePrevious": true,
+      "manualPausePreserved": true,
+      "highWoodAndAromaLossObserved": true,
+      "geometry": {
+        "glass": {
+          "x": 222,
+          "y": 226.75,
+          "right": 287,
+          "bottom": 299.875,
+          "width": 65,
+          "height": 73.125
+        },
+        "panel": {
+          "x": 17,
+          "y": 307.75,
+          "right": 373,
+          "bottom": 673.5,
+          "width": 356,
+          "height": 365.75
+        },
+        "end": {
+          "x": 17,
+          "y": 619.5,
+          "right": 191,
+          "bottom": 663.5,
+          "width": 174,
+          "height": 44
+        },
+        "bottle": {
+          "x": 199,
+          "y": 619.5,
+          "right": 373,
+          "bottom": 663.5,
+          "width": 174,
+          "height": 44
+        },
+        "barrel": {
+          "x": 90,
+          "y": 187.75,
+          "right": 210,
+          "bottom": 319.75,
+          "width": 120,
+          "height": 132
+        },
+        "headerBottom": 155.484375,
+        "glassHitVisible": true,
+        "glassPanelOverlap": false,
+        "controlsOverlap": false,
+        "viewportHeight": 744
+      }
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "distillationLegacyMeterGeometryUnchanged": true,
+      "legacy": [
+        {
+          "trackClass": "flavor-meter",
+          "height": "7px",
+          "marginTop": "0px",
+          "overflow": "hidden",
+          "isolation": "auto",
+          "fillHeight": "5px",
+          "transform": "matrix(0.225789, 0, 0, 1, 0, 0)",
+          "fillRatio": "0.25850490214686306"
+        },
+        {
+          "trackClass": "flavor-meter",
+          "height": "7px",
+          "marginTop": "0px",
+          "overflow": "hidden",
+          "isolation": "auto",
+          "fillHeight": "5px",
+          "transform": "matrix(0.23397, 0, 0, 1, 0, 0)",
+          "fillRatio": "0.2463398487715843"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "comparisonAndTastingSameScaleValues": true,
+      "compareReturnExactTasting": true,
+      "samplesReservationManualPausePreserved": true
+    },
+    {
+      "width": 390,
+      "height": 744,
+      "tastingStopsAutomaticTime": true,
+      "endResumesPriorAutomaticTime": true
+    },
+    {
+      "purePresentationFixture": true,
+      "noGameStateOrHistoryInjected": true,
+      "markerOutsideFillVisible": true,
+      "equalPositionAndEndpointsVisible": true,
+      "edgeGeometry": [
+        {
+          "track": {
+            "left": 20,
+            "right": 370,
+            "top": 108.828125,
+            "bottom": 117.828125
+          },
+          "fillRight": 71.84375,
+          "mark": {
+            "left": 252.328125,
+            "right": 254.328125,
+            "top": 102.828125,
+            "bottom": 118.828125
+          },
+          "markerZ": "2",
+          "computedWidth": "2px",
+          "computedHeight": "16px",
+          "computedTransform": "matrix(1, 0, 0, 1, -1, 0)",
+          "aria": "現在 0.2、丸さが出てきた。前回 0.9、前回より減少"
+        },
+        {
+          "track": {
+            "left": 20,
+            "right": 370,
+            "top": 174.21875,
+            "bottom": 183.21875
+          },
+          "fillRight": 149.625,
+          "mark": {
+            "left": 148.625,
+            "right": 150.625,
+            "top": 168.21875,
+            "bottom": 184.21875
+          },
+          "markerZ": "2",
+          "computedWidth": "2px",
+          "computedHeight": "16px",
+          "computedTransform": "matrix(1, 0, 0, 1, -1, 0)",
+          "aria": "現在 0.5、まだ角がある。前回 0.5、前回と同じ"
+        },
+        {
+          "track": {
+            "left": 20,
+            "right": 370,
+            "top": 239.609375,
+            "bottom": 248.609375
+          },
+          "fillRight": 20,
+          "mark": {
+            "left": 369,
+            "right": 371,
+            "top": 233.609375,
+            "bottom": 249.609375
+          },
+          "markerZ": "2",
+          "computedWidth": "2px",
+          "computedHeight": "16px",
+          "computedTransform": "matrix(1, 0, 0, 1, -1, 0)",
+          "aria": "現在 0、やわらかい。前回 1.35、前回より減少"
+        },
+        {
+          "track": {
+            "left": 20,
+            "right": 370,
+            "top": 305,
+            "bottom": 314
+          },
+          "fillRight": 370,
+          "mark": {
+            "left": 19,
+            "right": 21,
+            "top": 299,
+            "bottom": 315
+          },
+          "markerZ": "2",
+          "computedWidth": "2px",
+          "computedHeight": "16px",
+          "computedTransform": "matrix(1, 0, 0, 1, -1, 0)",
+          "aria": "現在 1.35、強い刺激。前回 0、前回より増加"
+        }
+      ]
+    }
+  ]
+}
