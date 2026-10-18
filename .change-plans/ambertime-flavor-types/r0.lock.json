@@ -1,0 +1,87 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6f7fabdcae738455f1facdb6ce150f016ce73004304088dc1fe261c59d38463c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "conditionalPaths": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-flavor-types",
+    "revision": 0,
+    "change": "Presentation-only deterministic flavor interpretation in tasting, cask comparison and bottle details",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "b3fbe067551b23db7004ebe26fcf364dacc83ea8",
+    "canonicalSources": [
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/model.mjs",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/flavor-view.mjs",
+      "User flavor types request 2026-10-18"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-flavor-types/r0.lock.json",
+      "works/ambertime/flavor-types.mjs",
+      "works/ambertime/flavor-view.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/flavor-types*.mjs",
+      "works/ambertime/design/flavor-types/**"
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/aroma-extraction.mjs"
+    ],
+    "expectedChanges": [
+      "Pure deterministic three-axis type; conservative optional whisky association grounded in primary sources; no score, random draws, save changes or economics",
+      "Common current profile interpretation in tasting/comparison and immutable release profile in bottle details; missing legacy profile omitted",
+      "Reachable manual/delegated distribution and boundaries; existing phrases remain coherent",
+      "Expression audit: short type and optional one line only; phone geometry and regression checks"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "390px and 360px tasting/comparison/product screenshots; no overlap or overflow",
+      "Primary sources and reachable profile distribution; no physical Safari claim"
+    ],
+    "rollback": "Revert scoped presentation changes; no stored fields added or changed.",
+    "outOfScope": [
+      "Production",
+      "Economics, distillation, aging, RNG, saves, stores, staff or generations",
+      "New store abstraction or future data"
+    ],
+    "unverified": [
+      "Physical iPhone Safari, screen reader and author adoption"
+    ],
+    "rulesApplied": [
+      "Existing WORK presentation scope; standard locked plan requested explicitly",
+      "AGENTS independent read-only research/distribution and final independent review",
+      "Expression audit before/during/final: necessary labels only"
+    ],
+    "ownerDecisions": [
+      "User explicitly authorizes rules design, implementation, PR, Staging merge and public proof; no Production"
+    ],
+    "hqDecisions": []
+  }
+}
