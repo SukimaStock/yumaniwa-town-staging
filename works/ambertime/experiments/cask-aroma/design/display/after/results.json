@@ -1,0 +1,180 @@
+{
+  "browser": "153.0.8010.0",
+  "physicalSafari": false,
+  "method": "DOM touch taps at 360/390 CSS px and 1x viewport. Actual player-created 1-year bottles; no manufactured whiskey profiles. Details opened only for checks, closed in pair screenshots.",
+  "sourceHashes": {
+    "index.html": "ba753698b7426134d41993f6dfd9ca176b5ea776fa284d203e57fd0f7e1d1447",
+    "app.mjs": "18020ee0dc8df447080c8d89cf8ab02d9b46afcb2c62f781ba05a4e48aba2f73",
+    "model.mjs": "fa4430da8b1fbdd8b2020efe6d5e75aea672d5381f35e5cb8dc49aaf236a4aff",
+    "art.mjs": "d0257f5e5091da37bcbf8e6ab41649915c424fcffeac4e3354af2dc7ed5f320e",
+    "style.css": "41c6119c654f496ab36906d651717456dc35fde742c1c44fcfbd4c35ff0c4b11",
+    "aroma-view.mjs": "96e43b5d80a91864f7d43c6a1095240cc94d13e65988bc256ea9d00c1c1db13c"
+  },
+  "screenshotHashes": {
+    "360-completion.png": "580c1a426c72ce84b9afb322b391ed3a7488a9185c4899fecc39724320edc036",
+    "360-source-change.png": "f7f6acadc301e29c774e09ce5a832c046ae7f7de2670928ca876b79515d32641",
+    "360-bourbon-oloroso.png": "a5824e9b72f138f79b03e85227c951cfd6fd70496b91c79ebbc2eb54ffe59db5",
+    "360-bourbon-refill.png": "0ebd62d2f88745dfd6fc2ee7384419a472ea01b47e03b6502654de86a3110fb7",
+    "360-switch-to-oloroso.png": "7320c88516944b7674f9e362c45dc3a509eac97ac60cbe10011117b5fc454297",
+    "360-36months.png": "72e9e5d2cf9b8e5064b03793b45d485e9b31d767b76cd77bb2a09551c39aa484",
+    "360-120months.png": "d8e6e2bc3811c884235f3bc18fb230a2b80f7e56df625bf1ec06785d88c20e90",
+    "390-completion.png": "98e4cb83f9cd083bc7ac1debd82268c4a82c549eece45112d19d0a8714dc5905",
+    "390-source-change.png": "f445ba0d24d737ade3236b30cb81fe7b892da0749fdd98d4b7318c5229da1568",
+    "390-bourbon-oloroso.png": "1975ee3c020b32b0f5d2972aa1dd9a48b203eec97ecc024ae297b03b8891a878",
+    "390-bourbon-refill.png": "24f8705c729e206a2f21e64113699d091e43c3fb10a4b020999988ba7b20c089",
+    "390-switch-to-oloroso.png": "6df1ceb0f1a9f89ad7a3b02bf7e37ad805cd728f9bb442e6c06b8b13b2c3d7d4",
+    "390-36months.png": "c3ab81cc9a31c42ffdac664081a4ca5167f54f0a4e86960ceba2c5bb0fe913ba",
+    "390-120months.png": "05ab49fc1d6a4d17f94ba174398ea983d28434a65bd9b9ab567cd4ce28baccd4"
+  },
+  "checks": [
+    {
+      "width": 360,
+      "height": 740,
+      "realTapLoop": true,
+      "pairOnly": true,
+      "fixedReferenceSwitchDoesNotChangeSave": true,
+      "actualTopTwo": true,
+      "aromasAtLeast76px": true,
+      "rawUnnormalisedStrengthScale": true,
+      "sharedAromaQuietLabel": true,
+      "refillShowsSpirit": true,
+      "noDuplicateCompletion": true,
+      "shelfCollapsed": true,
+      "sevenDetailAxes": true,
+      "existingV1SaveExactReload": true,
+      "referenceChain": true,
+      "delegateFlow": true,
+      "initial36And120Months": true,
+      "mainKeysUntouched": true,
+      "ownSaveKeyOnly": true,
+      "noExternalOrMainRuntimeRequests": true,
+      "geometry": {
+        "pageOverflow": false,
+        "smallButtons": [],
+        "overflowLabels": [],
+        "activeAnimations": 0
+      },
+      "errors": [],
+      "profilesAt12Months": [
+        {
+          "cask": "bourbon",
+          "profile": {
+            "spirit": 0.6031058969676671,
+            "vanilla": 0.3570454351745285,
+            "dried": 0,
+            "woody": 0.056767107078149165,
+            "wood": 0.12890130825420165,
+            "roughness": 0.32431636612355047,
+            "litres": 31.05425707355226
+          }
+        },
+        {
+          "cask": "sherry",
+          "profile": {
+            "spirit": 0.5888036686802595,
+            "vanilla": 0.049422696299176866,
+            "dried": 0.3459588740942381,
+            "woody": 0.046049183865984264,
+            "wood": 0.15464616531534126,
+            "roughness": 0.3613039164718736,
+            "litres": 30.94266273841258
+          }
+        },
+        {
+          "cask": "refill",
+          "profile": {
+            "spirit": 0.6481309752127032,
+            "vanilla": 0.041615572614292946,
+            "dried": 0,
+            "woody": 0.019816578283275484,
+            "wood": 0.05256789349820168,
+            "roughness": 0.40736902828533517,
+            "litres": 31.203675825626398
+          }
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "realTapLoop": true,
+      "pairOnly": true,
+      "fixedReferenceSwitchDoesNotChangeSave": true,
+      "actualTopTwo": true,
+      "aromasAtLeast76px": true,
+      "rawUnnormalisedStrengthScale": true,
+      "sharedAromaQuietLabel": true,
+      "refillShowsSpirit": true,
+      "noDuplicateCompletion": true,
+      "shelfCollapsed": true,
+      "sevenDetailAxes": true,
+      "existingV1SaveExactReload": true,
+      "referenceChain": true,
+      "delegateFlow": true,
+      "initial36And120Months": true,
+      "mainKeysUntouched": true,
+      "ownSaveKeyOnly": true,
+      "noExternalOrMainRuntimeRequests": true,
+      "geometry": {
+        "pageOverflow": false,
+        "smallButtons": [],
+        "overflowLabels": [],
+        "activeAnimations": 0
+      },
+      "errors": [],
+      "profilesAt12Months": [
+        {
+          "cask": "bourbon",
+          "profile": {
+            "spirit": 0.6031058969676671,
+            "vanilla": 0.3570454351745285,
+            "dried": 0,
+            "woody": 0.056767107078149165,
+            "wood": 0.12890130825420165,
+            "roughness": 0.32431636612355047,
+            "litres": 31.05425707355226
+          }
+        },
+        {
+          "cask": "sherry",
+          "profile": {
+            "spirit": 0.5888036686802595,
+            "vanilla": 0.049422696299176866,
+            "dried": 0.3459588740942381,
+            "woody": 0.046049183865984264,
+            "wood": 0.15464616531534126,
+            "roughness": 0.3613039164718736,
+            "litres": 30.94266273841258
+          }
+        },
+        {
+          "cask": "refill",
+          "profile": {
+            "spirit": 0.6481309752127032,
+            "vanilla": 0.041615572614292946,
+            "dried": 0,
+            "woody": 0.019816578283275484,
+            "wood": 0.05256789349820168,
+            "roughness": 0.40736902828533517,
+            "litres": 31.203675825626398
+          }
+        }
+      ]
+    },
+    {
+      "recovery": "corrupt",
+      "noAutoOverwrite": true,
+      "unsavedFlowWorks": true
+    },
+    {
+      "recovery": "missing-fields",
+      "noAutoOverwrite": true,
+      "unsavedFlowWorks": true
+    },
+    {
+      "recovery": "quota",
+      "noAutoOverwrite": true,
+      "unsavedFlowWorks": true
+    }
+  ]
+}

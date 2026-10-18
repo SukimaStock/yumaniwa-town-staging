@@ -1,0 +1,100 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e73cce7839156a3676337c21fc799a57ba147b24e0933672ddaad59d086ceb78",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "conditionalPaths": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-aroma-display",
+    "revision": 0,
+    "change": "Presentation-only larger aroma pictures and pinned two-bottle comparison within isolated cask experiment",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "1a3a71c8889bcc4b5072350c325e9aac0fcbf80a",
+    "canonicalSources": [
+      "User display-improvement request and inline three screenshots 2026-10-18",
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "Current isolated trial at main1a3a71c8, model.mjs unchanged"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-aroma-display/r0.lock.json",
+      "works/ambertime/experiments/cask-aroma/app.mjs",
+      "works/ambertime/experiments/cask-aroma/art.mjs",
+      "works/ambertime/experiments/cask-aroma/style.css",
+      "works/ambertime/experiments/cask-aroma/index.html",
+      "works/ambertime/experiments/cask-aroma/aroma-view.mjs",
+      "works/ambertime/experiments/cask-aroma/tests/display*.mjs",
+      "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+      "works/ambertime/experiments/cask-aroma/design/display/**",
+      "works/ambertime/experiments/cask-aroma/REPORT.md"
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "lab/**",
+      ".github/**",
+      "works/ambertime/index.html",
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/experiments/cask-aroma/model.mjs",
+      "works/ambertime/experiments/cask-aroma/tests/model*",
+      "works/ambertime/experiments/distillation/**"
+    ],
+    "expectedChanges": [
+      "Use actual same profile major-aroma thresholds with max2 primary pictures; no model or save schema edits; large readable silhouettes outside bottles and short normal-font labels",
+      "Fixed reference + switchable single partner instead of3columns; common aroma quieter position/style without altering value; 0..1 fixed strength cues with no normalized/exaggerated differences",
+      "Single result or pair result directly after bottling; collapse shelf and detailed textures/volume to remove vertical repetition; keep severe roughness/bitterness short cue",
+      "Cask selection retains3 illustrated buttons, large qualitative tendency and compact source bottle context; full longspec in details, never result guarantee",
+      "Independent experiment save key/schema/sourceIDs remain exactly same; compare switching pureview and guards preserve active cask; no main integration or Production",
+      "Before/after360390 actual viewport screens, real public operation cycle and independent review; expressionaudit no decorativecopy"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "360390 nonzoom screenshot silhouettes vanilla/driedfruit clear, two fixed pair, refill rawspirit visible, no tinycolor-only cue",
+      "Sameactualprofiles major2, suppressednonzero detailed, same-aroma difference true0..1 width, tinyclosevalues not overemphasized",
+      "Bottle→source→change→sameage→two compare; switch partner keepsreference and savedstate; reloadlegacy trial saves exact",
+      "Main and experiment model unchangedbytes; corruptedsave/quota/keyisolation and activeuseguard; touch/keyboard/reducedmotion",
+      "Final exact ScopeRiskImpact/CI and deployed hashes plus publiccycle; realSafari/enjoyment unverified"
+    ],
+    "rollback": "Revert scoped presentation changes; same model and isolated save remain readable with previous UI.",
+    "outOfScope": [
+      "Production",
+      "Main runtime/html/save/economy/employee/shops",
+      "Manufacturing/aging coefficients or model code",
+      "New ingredients/rewards/contests",
+      "Global pixel conversion"
+    ],
+    "unverified": [
+      "Physical iPhone Safari and author judgment of desire to experiment"
+    ],
+    "rulesApplied": [
+      "Standard locked WORK scope: more than4files and significant reversible display changes",
+      "AGENTS independent pureview/art ownership and final review; main owns app/layout",
+      "Expressionaudit remove duplicate composition/result/shelf text; details for peripheralinformation; actual labels only"
+    ],
+    "ownerDecisions": [
+      "User expressly requests autonomous display/flow improvement, necessary verification, PR and Staging reflection/public proof, preserving main/model/save; no Production"
+    ],
+    "hqDecisions": []
+  }
+}
