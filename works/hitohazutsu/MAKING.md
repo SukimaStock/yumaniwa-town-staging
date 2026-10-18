@@ -17,7 +17,7 @@
 - 最新mainのLifecycle・works内にファスナー／ひと歯／zipperの既存作なし。GitHub open PR一覧は `gh pr list --repo SukimaStock/yumaniwa-town-staging --state open --limit 100` が `Post https://api.github.com/graphql: Forbidden`。リモート進行中作業との重複確認は未完。アクセス拒否を別経路で回避していない。
 - Scope → Risk → Impact PASS、syntax PASS。Lifecycle --checkおよび既存回帰24件PASS。正式verificationStateはUNVERIFIED。
 - ローカルChromium/Playwright: `node works/hitohazutsu/test-browser.cjs`。マウス・CDPタッチ、ゆっくり一歯ずつ・速い移動・両端・逆戻し・保持・連続操作・cancel・画面外release・blur・resize・keyboard・reduced motion・LAB往復。390×844、844×390、768×1024、1366×768、320×568。CDPは指相当の合成入力であり実機ではない。
-- テスト初回のresize即時assertは、resizeイベント前の読取りで失敗。テストをイベント完了待ちへ修正（1回）。アプリ変更なし。Risk CLIの初回誤記を既存 `change-risk-check.cjs` に訂正。
+- テスト初回のresize即時assertは、resizeイベント前の読取りで失敗。テストをイベント完了待ちへ修正（1回）。アプリ変更なし。追加したタッチ両端検証もCDPのイベント配信待ち不足を検出し、描画フレーム待ちへ修正（同じテスト同期問題の2回目）。アプリ変更なし。Risk CLIの初回誤記を既存 `change-risk-check.cjs` に訂正。
 - 別agentのread-only独立レビュー: P1/P2相当欠陥なし。マウス両端・逆戻し・保持、CDPタッチ・cancel、resize、keyboard、reduced motionを別途実測し描画確認。実装ファイルはその後変更なし。
 - 表現監査6項目を実施。画面は物体とLABへの戻り口、支援技術向け操作案内、必要な検索用title/descriptionのみ。副題・説明カード・詩的コピー・音・スコアなし。
 - 未確認: iPhone/iPad実機Safari、VoiceOver実操作、作者の触感・採否、リモートPR重複、CI、Pages、公開URL。公開・merge成功やRelease Completeとは扱わない。最終commitと外部反映状態は最終報告を参照。
