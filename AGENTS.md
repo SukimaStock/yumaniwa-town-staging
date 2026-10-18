@@ -12,6 +12,16 @@ repository変更前の実行範囲は [CHANGE-PLAN.md](CHANGE-PLAN.md) で固定
 Release完成判定の唯一の正本は [RELEASE-WORKFLOW.md](RELEASE-WORKFLOW.md)。
 配置の契約は `tools/SCENE-DATA-CONTRACT.md` と `YUMANIWA-PIXEL-STANDARD.md` を参照する。
 
+## 全新規制作の表現監査（2026-10-18）
+
+新しいゲーム・アプリ・Webページ・UI・作品紹介文・noteは、生成前に独立共通基準 [EXPRESSION-AUDIT.md](EXPRESSION-AUDIT.md) を読む。Google Driveの共通基準を原典、既存の観察ログを実例集として扱う。
+
+- **制作前**：文章・装飾の必要性を先に判断し、理由のない副題・詩的コピー・説明カード・結論は初期状態で置かない。既存の計画に短く含める。
+- **制作中**：ボタンとの重複、独り言、詩的な句読点・改行、架空の感情・意図、定型セクションの自動付加を確認してAI側で削る。本人の自然な言葉を理由なく整えない。
+- **完成前**：共通基準の6点を通常の検証と同時に確認し、操作発見性・アクセシビリティ・SEOの必要情報が保たれることを確認する。既存PR／報告へ結果と未確認を短く残す。
+
+短文・比喩・擬音などを一律禁止しない。作品ごとの演出と必要な案内は採用できる。新しい承認工程・常設台帳は作らず、Change OS / Plan Lock / Scope / Risk / Impactと作者の採否・実機確認・Production判断を維持する。詳細手順は [OPERATIONS.mdの表現監査](OPERATIONS.md#新規制作の表現監査) を参照する。note単独にも共通基準を適用でき、repository作業を要求しない。
+
 ## 制作を守る優先原則（2026-10-11）
 
 1. **新しい作品は試しやすく。** 既存の `works/<id>/`、町、Engine、公開URLに影響しない試作は、その作品の指示範囲で実装・試行・修正を進める。staging-onlyとproduction公開は別判断。独立した試作のために町全体を変更しない。
