@@ -1,0 +1,145 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d533aea2a4657a0558d010d8afdd6da9cddcdd824621ac22fcbc66e19167d8d6",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-original-media-current-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "親が確認取得した原典の本文画像5枚/アニメーション1点と原文リンク/X正規URLを復元",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM",
+      "ASSET"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "d5a06b9351e58a44dda9bc70c07083340f4dde36",
+    "canonicalSources": [
+      "親の正規ブラウザ取得証跡: note.com/hamamah/n/n0ca130319cac 本文図版5点と順序/caption",
+      "親の正規ブラウザ取得証跡: note.com/hamamah/n/nad06ba5e60a2 アニメーション480x854/69framesと本文外部リンク",
+      "親の正規ブラウザ取得証跡: note.com/hamamah/n/n16f7a42c0b6a X投稿3件の正規URL",
+      "data/notes.js",
+      "data/shinpo/*.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-original-media-current-20261018/r0.lock.json",
+      "data/shinpo/note-20260717-153a44e0.json",
+      "data/shinpo/95d48e6613ce4037907364809ee3359f.json",
+      "data/shinpo/31beb527cad14b72a2afdc57f4b986b4.json",
+      "shinpo/town-beginning/index.html",
+      "shinpo/board-game-making/index.html",
+      "shinpo/game-app-in-between/index.html",
+      "assets/shinpo/board-game-making/body-1.webp",
+      "assets/shinpo/board-game-making/body-2.webp",
+      "assets/shinpo/board-game-making/body-3.webp",
+      "assets/shinpo/board-game-making/body-4.webp",
+      "assets/shinpo/board-game-making/body-5.webp",
+      "assets/shinpo/town-beginning/town-animation.webp",
+      "tests/test-shinpo-migrate.cjs",
+      "tests/test-shinpo-source-media.cjs",
+      "tools/SHINPO-MIGRATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "data/notes.js",
+      "tools/shinpo-migrate.cjs",
+      "tools/shinpo-template.html",
+      "works/**",
+      "engines/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "sitemap.xml",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "CHANGE-*.md"
+    ],
+    "expectedChanges": [
+      "原典の5画像を指定段落直後に復元し、最後の3図の原captionを保持。誤った不足3枚注記を除去し原典証跡をデータへ保存",
+      "town-beginningの原アニメーションを指定段落直後に復元し静止化しない。本文3リンクを原典URLへ戻す。掲示板への戻りは別領域で維持",
+      "X投稿3件の正規URLを使用。動画は創作/別画像置換しない。直接動画取得または埋込の利用可能性を調査し、取得不可なら残件を明記",
+      "既存静的generatorで再生成し画像順序/caption/原文リンク/画像bytesとアニメーションframesを検証"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 本委任: ちゃんと最後までやってくださいね。足りないなら私に言ってください。親が元noteと6画像を実取得照合済み。サブタイトル除去完了後に別PlanでStaging補完を許可。Production禁止。"
+    ],
+    "hqDecisions": [
+      "SYSTEM/full/ASSET、unknown-codeとassetの影響を宣言。静的生成と原画像のみ。取得拒否は回避せず正規ファイル共有を待つ。外部動画runtime追加は行わず、取得できた原典リンクを保持して残件を明記する。",
+      "PR456でmainが進行したためfresh r0 replacement。PR455のリンク/6画像commitを再利用。6画像のWEBP/dimensions/69framesをcloudで確認済み。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN v0.2 Plan Lock before changes",
+      "Change PR Gate trusted base",
+      "Staging only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "親照合済み6素材と受領bytesを照合",
+      "原図版順序/caption/animation再生",
+      "本文外部リンクと戻る保持",
+      "X動画実体/埋込取得可否を記録"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "本補完PRのみrevert。サブタイトル除去PR454は保持。",
+    "outOfScope": [
+      "Production",
+      "共通runtime/4枠/カード変更",
+      "新たな本文要約",
+      "画像生成",
+      "外部権限変更"
+    ],
+    "promotion": "Staging-only; Productionは別指示",
+    "unverified": [
+      "X動画実体/埋込の取得",
+      "実機iPhone/iPad",
+      "公開URLのcloudアクセスはTunnel403、親で配信後に確認"
+    ],
+    "problem": "以前のPDF移植で本文画像/アニメーションが欠落し、本文リンクも町内URLへ置換されていた",
+    "currentContract": "既存3記事は静的template/IDブロックから生成。サブタイトル除去済み。",
+    "whyExistingIsInsufficient": "取得不足記録が実原典の5枚/animationと不一致。本文の原典忠実性に不足。",
+    "design": "親の照合済み原画像を正規共有から受領し形式/寸法/frameを検証。既存順序付きブロックへ原図版を配置し原captionと外部URLを保持。動画は取得不可なら正規投稿参照を残す。",
+    "alternativesRejected": [
+      "生成画像で補完",
+      "アニメ静止化",
+      "カード追加文",
+      "権限/通信拒否回避",
+      "外部埋込runtimeの無断追加"
+    ],
+    "migration": "既存記事ID/URL/原文段落/coverを保持。欠落図版と原典リンクのみ補完。",
+    "compatibility": "4枠/カード/本文遷移/戻る/保存は不変",
+    "boundaryCases": [
+      "5画像の指定位置/caption3件",
+      "animation WEBP480x854/69frames",
+      "3記事の原文リンク",
+      "media未取得時の明示",
+      "CDN拒否時の正規共有待ち"
+    ],
+    "testPlan": [
+      "既存回帰/追加source media tests",
+      "画像magic/dimensions/frame数/hash",
+      "原文段落順/図版順/caption/リンク一致",
+      "生成checkとScope/Risk/Impact",
+      "mobile/desktopスクロール/戻るとanimation",
+      "CI/独立レビュー/Staging Pages"
+    ],
+    "promotionRisk": "Staging noindex only"
+  }
+}
