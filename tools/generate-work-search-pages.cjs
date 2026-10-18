@@ -8,7 +8,7 @@ const { readRegistry, assertPublication, assertProductionSnapshot } = require('.
 
 const {readStandalonePages,validateStandaloneHtml}=require('./standalone-pages.cjs');
 
-const PROD_BASE = 'https://sukimastock.github.io/yumaniwa-town';
+const {siteEnvironment}=require('./site-environment.cjs');
 
 const DEFAULT_THEME = {
   theme:'#0a0a0a', bg:'#0a0a0a', fg:'#f4efe5', p:'#c9c1b4',
@@ -30,11 +30,12 @@ const THEMES = {
 };
 
 function parseArgs(argv) {
-  const out = { env:'', published:[], promote:[], productionInstruction:'', mode:'' };
+  const out = { env:'', published:[], articles:[], promote:[], productionInstruction:'', mode:'' };
   for (let i=2;i<argv.length;i++) {
     const arg=argv[i];
     if (arg==='--env') out.env=argv[++i]||'';
     else if (arg==='--published') out.published=String(argv[++i]||'').split(',').map(v=>v.trim()).filter(Boolean);
+    else if (arg==='--articles') out.articles=String(argv[++i]||'').split(',').map(v=>v.trim()).filter(Boolean);
     else if (arg==='--promote') out.promote=String(argv[++i]||'').split(',').map(v=>v.trim()).filter(Boolean);
     else if (arg==='--production-instruction') out.productionInstruction=argv[++i]||'';
     else if (arg==='--write') out.mode='write';
@@ -70,13 +71,14 @@ function heading(work, localeData, locale) {
   return localeData.shareTitle.replace(/\s*\|\s*Yumaniwa Town\s*$/,'');
 }
 
-function buildPage(id, work, meta, locale, env) {
+function buildPage(id, work, meta, locale, env, articles=[]) {
+  const {base,robots}=siteEnvironment(env);
   const data=meta[locale];
   const ja=locale==='ja';
   const prefix=ja?'../..':'../../..';
-  const canonical=ja ? PROD_BASE+'/w/'+id+'/' : PROD_BASE+'/en/w/'+id+'/';
-  const jaUrl=PROD_BASE+'/w/'+id+'/';
-  const enUrl=PROD_BASE+'/en/w/'+id+'/';
+  const canonical=ja ? base+'/w/'+id+'/' : base+'/en/w/'+id+'/';
+  const jaUrl=base+'/w/'+id+'/';
+  const enUrl=base+'/en/w/'+id+'/';
   const ogp=meta.ogp || {};
   const ogpFile=ogp.file || 'ogp.jpg';
   const ogpMime=ogp.mime || 'image/jpeg';
@@ -84,12 +86,11 @@ function buildPage(id, work, meta, locale, env) {
   const ogpHeight=Number(ogp.height || 630);
   const ogpVersion=ogp.version === undefined ? 1 : ogp.version;
   const versionSuffix=ogpVersion === null || ogpVersion === '' ? '' : '?v='+encodeURIComponent(String(ogpVersion));
-  const image=PROD_BASE+'/assets/works/'+id+'/'+ogpFile+versionSuffix;
+  const image=base+'/assets/works/'+id+'/'+ogpFile+versionSuffix;
   const relImage=prefix+'/assets/works/'+id+'/'+ogpFile+versionSuffix;
   const play=prefix+'/?work='+id;
   const town=prefix+'/';
   const langLink=ja ? '../../en/w/'+id+'/' : '../../../w/'+id+'/';
-  const robots=env==='production' ? 'index,follow,max-image-preview:large' : 'noindex,nofollow';
   const theme=THEMES[id]||DEFAULT_THEME;
   const h1=heading(work,data,locale);
   const schemaName=ja
@@ -109,7 +110,7 @@ function buildPage(id, work, meta, locale, env) {
     isPartOf:{
       '@type':'WebSite',
       name:ja?'湯間庭町':'Yumaniwa Town',
-      url:PROD_BASE+'/'
+      url:base+'/'
     }
   };
   if (Array.isArray(meta.alternateNames) && meta.alternateNames.length) schema.alternateName=meta.alternateNames;
@@ -120,6 +121,9 @@ function buildPage(id, work, meta, locale, env) {
   const note=ja
     ? (id==='orbit' ? 'ORBIT — Silent Reboot / 湯間庭町の作品' : '湯間庭町にある作品のひとつです。')
     : 'A work in Yumaniwa Town.';
+
+  const related=articles.filter(article=>(meta.articleIds || []).includes(article.id));
+  const articleLinks=related.length ? '<p class="articles">'+(ja?'制作記事':'Japanese articles')+'： '+related.map(article=>'<a lang="ja" href="'+esc(prefix+'/'+article.url.replace(/^\.?\//,''))+'">'+esc(article.title)+'</a>').join(' / ')+'</p>' : '';
 
   return `<!doctype html>
 <html lang="${ja?'ja':'en'}">
@@ -157,7 +161,7 @@ ${jsonScript(schema)}
   </script>
   <style>
     :root{color-scheme:dark;--bg:${theme.bg};--fg:${theme.fg};--p:${theme.p};--play-bg:${theme.playBg};--play-fg:${theme.playFg};--border:${theme.border};--town:${theme.town};--note:${theme.note}}
-    *{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}.card{width:min(680px,100%);padding:24px}img{display:block;width:100%;height:auto;border-radius:16px}h1{margin:22px 0 10px;font-size:clamp(28px,7vw,42px);line-height:1.2}p{margin:0;color:var(--p);font-size:16px;line-height:1.8}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}a{display:inline-block;padding:13px 18px;border-radius:999px;text-decoration:none;font-weight:700}.play{background:var(--play-bg);color:var(--play-fg)}.town{border:1px solid var(--border);color:var(--town)}.note{margin-top:18px;font-size:13px;color:var(--note)}.language{margin-top:12px;font-size:13px}.language a{padding:0;color:var(--town);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+    *{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}.card{width:min(680px,100%);padding:24px}img{display:block;width:100%;height:auto;border-radius:16px}h1{margin:22px 0 10px;font-size:clamp(28px,7vw,42px);line-height:1.2}p{margin:0;color:var(--p);font-size:16px;line-height:1.8}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}a{display:inline-block;padding:13px 18px;border-radius:999px;text-decoration:none;font-weight:700}.play{background:var(--play-bg);color:var(--play-fg)}.town{border:1px solid var(--border);color:var(--town)}.note{margin-top:18px;font-size:13px;color:var(--note)}.articles{margin-top:14px;font-size:13px}.articles a{padding:4px 0;border-radius:0;color:var(--town);font-weight:400;text-decoration:underline;text-underline-offset:3px}.language{margin-top:12px;font-size:13px}.language a{padding:0;color:var(--town);font-weight:600;text-decoration:underline;text-underline-offset:3px}
   </style>
   <script>
     (function () {
@@ -197,7 +201,7 @@ ${jsonScript(schema)}
     <img src="${relImage}" alt="${esc(data.imageAlt)}">
     <h1>${esc(h1)}</h1>
     <p>${esc(data.body)}</p>
-    <div class="actions">
+${articleLinks ? '    '+articleLinks+'\n' : ''}    <div class="actions">
       <a class="play" href="${play}">${ja?'湯間庭町で開く':'Open in Yumaniwa Town'}</a>
       <a class="town" href="${town}">${ja?'湯間庭町へ':'Back to Yumaniwa Town'}</a>
     </div>
@@ -209,17 +213,24 @@ ${jsonScript(schema)}
 `;
 }
 
-function buildSitemap(ids, standalone=[]) {
+function buildSitemap(ids, standalone=[], articles=[], env='production') {
+  const {base}=siteEnvironment(env);
+  // noindex staging has no indexable URLs; omit the sitemap rather than emit an invalid empty urlset.
+  if(env==='staging')return null;
   const lines=[
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-    '  <url><loc>'+PROD_BASE+'/</loc></url>'
+    '  <url><loc>'+base+'/</loc></url>'
   ];
   for (const id of ids) {
-    lines.push('  <url><loc>'+PROD_BASE+'/w/'+id+'/</loc></url>');
-    lines.push('  <url><loc>'+PROD_BASE+'/en/w/'+id+'/</loc></url>');
+    lines.push('  <url><loc>'+base+'/w/'+id+'/</loc></url>');
+    lines.push('  <url><loc>'+base+'/en/w/'+id+'/</loc></url>');
   }
   for (const page of standalone) lines.push('  <url><loc>'+page.url+'</loc></url>');
+  if(articles.length) {
+    lines.push('  <url><loc>'+base+'/shinpo/</loc></url>');
+    for(const article of articles)lines.push('  <url><loc>'+base+'/'+esc(article.url.replace(/^\.?\//,''))+'</loc></url>');
+  }
   lines.push('</urlset>','');
   return lines.join('\n');
 }
@@ -227,6 +238,12 @@ function buildSitemap(ids, standalone=[]) {
 function ensureDir(file) { fs.mkdirSync(path.dirname(file),{recursive:true}); }
 
 function compareOrWrite(file, expected, mode, mismatches) {
+  if(expected===null) {
+    if(fs.existsSync(file)) {
+      if(mode==='write')fs.unlinkSync(file);else mismatches.push(path.relative(process.cwd(),file));
+    }
+    return;
+  }
   if (mode==='write') {
     ensureDir(file);
     fs.writeFileSync(file,expected,'utf8');
@@ -240,6 +257,8 @@ function compareOrWrite(file, expected, mode, mismatches) {
 function main() {
   const args=parseArgs(process.argv);
   const root=process.cwd();
+  const {articleCatalog}=require('./shinpo-migrate.cjs');
+  const articles=fs.existsSync(path.join(root,'data/notes.js')) ? articleCatalog({env:args.env,publishedArticles:args.articles,root}) : [];
   const standalone=readStandalonePages(root);
   if(args.env==='production')for(const page of standalone)validateStandaloneHtml(root,page);
   if (args.env==='production') {
@@ -265,10 +284,10 @@ function main() {
   const mismatches=[];
   for (const id of args.published) {
     const work=byId.get(id);
-    compareOrWrite(path.join(root,'w',id,'index.html'),buildPage(id,work,meta[id],'ja',args.env),args.mode,mismatches);
-    compareOrWrite(path.join(root,'en','w',id,'index.html'),buildPage(id,work,meta[id],'en',args.env),args.mode,mismatches);
+    compareOrWrite(path.join(root,'w',id,'index.html'),buildPage(id,work,meta[id],'ja',args.env,articles),args.mode,mismatches);
+    compareOrWrite(path.join(root,'en','w',id,'index.html'),buildPage(id,work,meta[id],'en',args.env,articles),args.mode,mismatches);
   }
-  compareOrWrite(path.join(root,'sitemap.xml'),buildSitemap(args.published,standalone),args.mode,mismatches);
+  compareOrWrite(path.join(root,'sitemap.xml'),buildSitemap(args.published,standalone,articles,args.env),args.mode,mismatches);
 
   if (args.mode==='check' && mismatches.length) {
     console.error('Generated Search/Share files are out of date:');

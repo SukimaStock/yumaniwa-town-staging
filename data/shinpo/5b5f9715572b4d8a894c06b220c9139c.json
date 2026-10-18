@@ -155,7 +155,7 @@
       "scope": "Only closing circulation after 【20 / 21】. Source media records remain historical provenance; removed preview files retained unchanged."
     }
   },
-  "cover": "<figure><img src=\"../../assets/shinpo/weather-air/cover.png\" alt=\"正確な天気よりも外の空気が知りたいの元掲載画像\" fetchpriority=\"high\"></figure>",
+  "cover": "<figure><img src=\"../../assets/shinpo/weather-air/cover.png\" alt=\"正確な天気よりも外の空気が知りたいの元掲載画像\" fetchpriority=\"high\" width=\"1280\" height=\"670\"></figure>",
   "navDate": "2026年03月28日",
   "displayDate": "2026年3月28日",
   "backnumber": true,
@@ -178,7 +178,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"1040\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/figure-1.gif\" width=\"480\"/></figure>"
+      "html": "<figure><img alt=\"ドット絵の空と街並みが動くDotWeatherの画面\" height=\"1040\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/figure-1.gif\" width=\"480\"/></figure>"
     },
     {
       "origin": "source",
@@ -190,7 +190,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"449\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/figure-2.png\" width=\"1169\"/></figure>"
+      "html": "<figure><img alt=\"建物の高さと窓の明かりが異なる街のシルエット\" height=\"449\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/figure-2.png\" width=\"1169\"/></figure>"
     },
     {
       "origin": "source",
@@ -210,7 +210,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"2532\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/figure-3.png\" width=\"1170\"/></figure>"
+      "html": "<figure><img alt=\"紫色の空と気温4度を表示するDotWeatherの画面\" height=\"2532\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/figure-3.png\" width=\"1170\"/></figure>"
     },
     {
       "origin": "source",
@@ -234,7 +234,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"1920\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/figure-4.png\" width=\"887\"/></figure>"
+      "html": "<figure><img alt=\"月の出た夜空と気温1度を表示するDotWeatherの画面\" height=\"1920\" loading=\"lazy\" src=\"../../assets/shinpo/weather-air/figure-4.png\" width=\"887\"/></figure>"
     },
     {
       "origin": "source",

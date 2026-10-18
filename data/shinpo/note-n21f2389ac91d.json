@@ -100,7 +100,7 @@
       "version": "PUMPOKO pumpkin+rutabaga jam5 matches current works/pumpoko/ index aria and PUMPOKO02 h1"
     }
   },
-  "cover": "<figure><img src=\"../../assets/shinpo/pumpkin-jam/cover.png\" alt=\"ゲームジャムでカボチャを転がしたの元掲載画像\" fetchpriority=\"high\"></figure>",
+  "cover": "<figure><img src=\"../../assets/shinpo/pumpkin-jam/cover.png\" alt=\"ゲームジャムでカボチャを転がしたの元掲載画像\" fetchpriority=\"high\" width=\"1280\" height=\"670\"></figure>",
   "navDate": "2026年10月17日",
   "displayDate": "2026年10月17日",
   "backnumber": true,
@@ -111,7 +111,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"1059\" src=\"../../assets/shinpo/pumpkin-jam/body-1.png\" width=\"620\"/><figcaption></figcaption></figure>"
+      "html": "<figure><img alt=\"PUMPOKOのタイトルとカボチャの断面\" height=\"1920\" src=\"../../assets/shinpo/pumpkin-jam/body-1.png\" width=\"1124\"/><figcaption></figcaption></figure>"
     },
     {
       "origin": "source",
@@ -127,11 +127,11 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"1059\" src=\"../../assets/shinpo/pumpkin-jam/body-2.png\" width=\"620\"/><figcaption></figcaption></figure>"
+      "html": "<figure><img alt=\"地上の坂道を転がるカボチャ\" height=\"1920\" src=\"../../assets/shinpo/pumpkin-jam/body-2.png\" width=\"1124\"/><figcaption></figcaption></figure>"
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"1061\" src=\"../../assets/shinpo/pumpkin-jam/body-3.png\" width=\"620\"/><figcaption></figcaption></figure>"
+      "html": "<figure><img alt=\"地下の坂道を跳ねるルタバガ\" height=\"1920\" src=\"../../assets/shinpo/pumpkin-jam/body-3.png\" width=\"1121\"/><figcaption></figcaption></figure>"
     },
     {
       "origin": "source",
@@ -143,7 +143,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"1066\" src=\"../../assets/shinpo/pumpkin-jam/body-4.png\" width=\"620\"/><figcaption></figcaption></figure>"
+      "html": "<figure><img alt=\"PUMPOKOの地形と操作設定を試す実験画面\" height=\"1920\" src=\"../../assets/shinpo/pumpkin-jam/body-4.png\" width=\"1116\"/><figcaption></figcaption></figure>"
     },
     {
       "origin": "source",
@@ -159,7 +159,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><div><div><span><a class=\"source-preview\" href=\"../../w/pumpoko/\"><img alt=\"\" src=\"../../assets/shinpo/pumpkin-jam/card-1.jpeg\"/><strong>PUMPOKO｜湯間庭町</strong><small>地上をころころ、地下をぽよん。カボチャとルタバガの旅。</small></a></span></div></div></figure>"
+      "html": "<figure><div><div><span><a class=\"source-preview\" href=\"../../w/pumpoko/\"><img alt=\"\" src=\"../../assets/shinpo/pumpkin-jam/card-1.jpeg\" width=\"1200\" height=\"630\"/><strong>PUMPOKO｜湯間庭町</strong><small>地上をころころ、地下をぽよん。カボチャとルタバガの旅。</small></a></span></div></div></figure>"
     }
   ],
   "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「ゲームジャムでカボチャを転がした」（note、2026-10-17）。<a href=\"https://note.com/hamamah/n/n21f2389ac91d\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>"

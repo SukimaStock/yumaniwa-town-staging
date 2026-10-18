@@ -79,7 +79,7 @@
     ],
     "rights": "Author-owned article, game screenshots and original header. Link-card thumbnail is original author town work OGP; no third-party replacement."
   },
-  "cover": "<figure><img src=\"../../assets/shinpo/curry-delivery/cover.png\" alt=\"ゲームジャムで、カレーを配達したの元掲載画像\" fetchpriority=\"high\"></figure>",
+  "cover": "<figure><img src=\"../../assets/shinpo/curry-delivery/cover.png\" alt=\"ゲームジャムで、カレーを配達したの元掲載画像\" fetchpriority=\"high\" width=\"1280\" height=\"670\"></figure>",
   "navDate": "2026年09月17日",
   "displayDate": "2026年9月17日",
   "backnumber": true,
@@ -90,7 +90,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"1006\" src=\"../../assets/shinpo/curry-delivery/image-1.png\" width=\"620\"/><figcaption></figcaption></figure>"
+      "html": "<figure><img alt=\"路地裏マサラのタイトル画面\" height=\"1708\" src=\"../../assets/shinpo/curry-delivery/image-1.png\" width=\"1052\"/><figcaption></figcaption></figure>"
     },
     {
       "origin": "source",
@@ -102,7 +102,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"1082\" src=\"../../assets/shinpo/curry-delivery/image-2.png\" width=\"620\"/><figcaption></figcaption></figure>"
+      "html": "<figure><img alt=\"夜の路地でカレーを配達するゲーム画面\" height=\"1920\" src=\"../../assets/shinpo/curry-delivery/image-2.png\" width=\"1100\"/><figcaption></figcaption></figure>"
     },
     {
       "origin": "source",
@@ -114,7 +114,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><img alt=\"画像\" height=\"1102\" src=\"../../assets/shinpo/curry-delivery/image-3.png\" width=\"620\"/><figcaption></figcaption></figure>"
+      "html": "<figure><img alt=\"カレーと売上を表示する配達結果画面\" height=\"1280\" src=\"../../assets/shinpo/curry-delivery/image-3.png\" width=\"720\"/><figcaption></figcaption></figure>"
     },
     {
       "origin": "source",

@@ -63,9 +63,25 @@
       "drivePdf": "1FP_OvuxPPptCvRu43su_JbknViPOSBkH original prose compared; embed previews come from public original embed DOM",
       "links": "Original note source destinations preserved; no play links added; static preview replacement removes embed runtime only",
       "version": "Historical Codea Yakitori Wars and touch sketches; current web edition only via separate minimal afterword by integrating parent."
+    },
+    "connectionAuditCorrection": {
+      "authority": "2026-10-18 owner-authorized connection and SEO improvements following read-only audit",
+      "changes": [
+        {
+          "from": "https://note.com/hamamah/n/n0ca130319cac",
+          "to": "../board-game-making/",
+          "scope": "Article body link only; separate note attribution retained."
+        },
+        {
+          "from": "https://note.com/hamamah/n/nca6b0ef9db94",
+          "to": "../touch-doodles/",
+          "scope": "Article body link only; separate note attribution retained."
+        }
+      ],
+      "preserved": "Original prose, captions, media bytes and source attribution; historical/external reference links otherwise unchanged."
     }
   },
-  "cover": "<figure><img src=\"../../assets/shinpo/making-like-craft/cover.jpg\" alt=\"アプリを作っていたはずが、工作の時間に戻っていたの元掲載画像\" fetchpriority=\"high\"></figure>",
+  "cover": "<figure><img src=\"../../assets/shinpo/making-like-craft/cover.jpg\" alt=\"アプリを作っていたはずが、工作の時間に戻っていたの元掲載画像\" fetchpriority=\"high\" width=\"1280\" height=\"670\"></figure>",
   "navDate": "2026年07月31日",
   "displayDate": "2026年7月31日",
   "backnumber": true,
@@ -88,7 +104,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n05dba4e45d7b\"><img alt=\"\" src=\"../../assets/shinpo/making-like-craft/card-1.jpg\"/><strong>自分専用アプリを21個つくって、最後に残ったもの。―正解を出さない時間</strong><small>はじめに 公開する予定もないのに、自分専用のアプリを２１個作っていた。そのすべての記事を書き終えた。並んだアイコンを眺めながら、この静かな連載は、誰にも届かないのではないかと、少しだけ心が揺れた。 皆が競ってアプリを公開している時代に、自分専用アプリの話なんて、興味を持つ人がいるだろうか。しかし考えてみれば…</small></a></div></div></figure>"
+      "html": "<figure><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n05dba4e45d7b\"><img alt=\"\" src=\"../../assets/shinpo/making-like-craft/card-1.jpg\" width=\"300\" height=\"157\"/><strong>自分専用アプリを21個つくって、最後に残ったもの。―正解を出さない時間</strong><small>はじめに 公開する予定もないのに、自分専用のアプリを２１個作っていた。そのすべての記事を書き終えた。並んだアイコンを眺めながら、この静かな連載は、誰にも届かないのではないかと、少しだけ心が揺れた。 皆が競ってアプリを公開している時代に、自分専用アプリの話なんて、興味を持つ人がいるだろうか。しかし考えてみれば…</small></a></div></div></figure>"
     },
     {
       "origin": "source",
@@ -96,7 +112,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n0ca130319cac\"><img alt=\"\" src=\"../../assets/shinpo/making-like-craft/card-2.jpg\"/><strong>「ボードゲームの作り方」が分からなかったので、アプリで再現してみた</strong><small>「ボードゲームの作り方」について読んだことがありました。『自分だけのボードゲームを作ろう』という本です。リソースの管理やジレンマの設計など、少し難しいですが、書いてある仕組みはなんとなく分かりました。ただ、オセロや人生ゲームぐらいしか遊んだ経験がなく、「なぜそれが面白いのか」までは、よく分からないままでした…</small></a></div></div></figure>"
+      "html": "<figure><div><div><a class=\"source-preview\" href=\"../board-game-making/\"><img alt=\"\" src=\"../../assets/shinpo/making-like-craft/card-2.jpg\" width=\"300\" height=\"157\"/><strong>「ボードゲームの作り方」が分からなかったので、アプリで再現してみた</strong><small>「ボードゲームの作り方」について読んだことがありました。『自分だけのボードゲームを作ろう』という本です。リソースの管理やジレンマの設計など、少し難しいですが、書いてある仕組みはなんとなく分かりました。ただ、オセロや人生ゲームぐらいしか遊んだ経験がなく、「なぜそれが面白いのか」までは、よく分からないままでした…</small></a></div></div></figure>"
     },
     {
       "origin": "source",
@@ -104,7 +120,7 @@
     },
     {
       "origin": "source",
-      "html": "<figure><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/nca6b0ef9db94\"><img alt=\"\" src=\"../../assets/shinpo/making-like-craft/card-3.jpg\"/><strong>ひねる、積む、なぞる。触れるらくがきの話</strong><small>最近、ゲーム未満、アプリ未満の「#触れるらくがき」をつくっています。                                        画面を傾ける、なぞる、ひっぱる、ただ触る。それだけのものです。何かの役に立つわけではないけど、触ったときに少しだけ気持ちいいようなものを作りたいと…</small></a></div></div></figure>"
+      "html": "<figure><div><div><a class=\"source-preview\" href=\"../touch-doodles/\"><img alt=\"\" src=\"../../assets/shinpo/making-like-craft/card-3.jpg\" width=\"300\" height=\"157\"/><strong>ひねる、積む、なぞる。触れるらくがきの話</strong><small>最近、ゲーム未満、アプリ未満の「#触れるらくがき」をつくっています。                                        画面を傾ける、なぞる、ひっぱる、ただ触る。それだけのものです。何かの役に立つわけではないけど、触ったときに少しだけ気持ちいいようなものを作りたいと…</small></a></div></div></figure>"
     },
     {
       "origin": "source",

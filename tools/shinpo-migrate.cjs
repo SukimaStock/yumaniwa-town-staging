@@ -5,17 +5,18 @@ const path = require('node:path');
 const vm = require('node:vm');
 const crypto = require('node:crypto');
 const cp = require('node:child_process');
+const {siteEnvironment} = require('./site-environment.cjs');
 const ROOT = path.resolve(__dirname, '..');
 const REPO = 'SukimaStock/yumaniwa-town-staging';
-const read = p => fs.readFileSync(path.resolve(ROOT, p), 'utf8');
-const exists = p => fs.existsSync(path.resolve(ROOT, p));
+const read = (p, root=ROOT) => fs.readFileSync(path.resolve(root, p), 'utf8');
+const exists = (p, root=ROOT) => fs.existsSync(path.resolve(root, p));
 const digest = s => crypto.createHash('sha256').update(s).digest('hex'); // Content only; never Plan digests.
 const git = (...args) => cp.execFileSync('git', args, {cwd: ROOT, encoding:'utf8'}).trim();
 const escape = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const assert = (ok, why) => { if (!ok) throw new Error(why); };
 function slug(s) { assert(/^[a-z0-9][a-z0-9-]{1,79}$/.test(s || ''), 'Invalid ID/slug'); return s; }
-function notes() {
-  const source = read('data/notes.js');
+function notes(root=ROOT) {
+  const source = read('data/notes.js',root);
   const start = source.indexOf('var NOTE_ARTICLES = [');
   const end = source.indexOf('\n];', start);
   assert(start >= 0 && end > start, 'Cannot locate canonical NOTE_ARTICLES');
@@ -26,13 +27,13 @@ function notes() {
   return rows;
 }
 function metadata(id) { const a = notes().find(a=>a.id === id); assert(a, 'Unknown canonical article ID: '+id); return a; }
-function files() { return exists('data/shinpo') ? fs.readdirSync(path.join(ROOT,'data/shinpo')).filter(f=>f.endsWith('.json')).sort().map(f=>'data/shinpo/'+f) : []; }
+function files(root=ROOT) { return exists('data/shinpo',root) ? fs.readdirSync(path.join(root,'data/shinpo')).filter(f=>f.endsWith('.json')).sort().map(f=>'data/shinpo/'+f) : []; }
 function load(id) { return JSON.parse(read('data/shinpo/'+slug(id)+'.json')); }
 function links(html) { return [...html.matchAll(/(?:href|src)="([^"]*)"/g)].map(m=>m[1]); }
 function safeFragment(html) {
   assert(typeof html === 'string' && !/<\/?(?:script|iframe|object|embed|style|link|meta|base|form)\b|\son\w+\s*=|javascript:|data:text\/html/i.test(html), 'Active content is not allowed in article fragments');
 }
-function validate(a, m, pending = false) {
+function validate(a, m, pending = false, root=ROOT) {
   slug(a.id); slug(a.slug);
   assert(a.id === m.id, 'ID mismatch');
   assert(a.source && a.source.reference && a.source.verification && Array.isArray(a.source.missingMedia), 'Source reference, verification and missing media are required');
@@ -47,24 +48,69 @@ function validate(a, m, pending = false) {
   const visibleDate=s=>String(s).replace(/(\d+)年(\d+)月(\d+)日/,(_,y,mo,d)=>y+'-'+mo.padStart(2,'0')+'-'+d.padStart(2,'0'));
   assert(visibleDate(a.navDate)===date && visibleDate(a.displayDate)===date,'Stale visible date: reconcile with canonical notes metadata');
   assert(a.afterword.includes(escape(m.title)) && (a.afterword.includes(date) || a.afterword.includes(a.displayDate)), 'Stale canonical attribution: reconcile title/date with notes');
-  for (const f of files()) {
-    const other = JSON.parse(read(f));
+  for (const f of files(root)) {
+    const other = JSON.parse(read(f,root));
     assert(other.id === a.id || other.slug !== a.slug, 'Slug already belongs to another ID');
   }
-  for (const row of notes()) assert(row.id === a.id || row.archivePage !== './shinpo/'+a.slug+'/', 'URL already registered to another ID');
+  for (const row of notes(root)) assert(row.id === a.id || row.archivePage !== './shinpo/'+a.slug+'/', 'URL already registered to another ID');
   for (const url of links(a.cover + a.blocks.map(b=>b.html).join('') + a.afterword)) {
     assert(!/^(?:javascript|data):/i.test(url), 'Unsafe link');
     if (/^https?:\/\//.test(url) || url.startsWith('#')) continue;
-    const resolved = path.resolve(ROOT,'shinpo',a.slug,url.split(/[?#]/)[0]);
-    assert((resolved === ROOT || resolved.startsWith(ROOT+path.sep)), 'Link outside repository');
+    const resolved = path.resolve(root,'shinpo',a.slug,url.split(/[?#]/)[0]);
+    assert((resolved === root || resolved.startsWith(root+path.sep)), 'Link outside repository');
     assert(fs.existsSync(resolved), 'Missing local link/image: '+url);
   }
 }
-function render(a, m) {
+function articleCatalog(options = {}) {
+  const root = path.resolve(options.root || ROOT);
+  const env = options.env || 'staging';
+  siteEnvironment(env);
+  const selected = options.publishedArticles || [];
+  assert(Array.isArray(selected) && new Set(selected).size === selected.length, 'Duplicate or invalid published article IDs');
+  const all = files(root).map(f=>JSON.parse(read(f,root)));
+  if (options.extra) {
+    const i = all.findIndex(a=>a.id===options.extra.id);
+    if(i<0) all.push(options.extra); else all[i]=options.extra;
+  }
+  const rows = all.map(a=>{
+    const m = notes(root).find(m=>m.id===a.id);
+    assert(m,'Unknown canonical article ID: '+a.id);
+    validate(a,m,options.extra?.id===a.id,root);
+    return {id:a.id,slug:a.slug,title:m.title,date:m.publishedAt || m.publish_date,url:'shinpo/'+a.slug+'/'};
+  });
+  const ids = new Set(rows.map(a=>a.id));
+  for(const m of notes(root).filter(m=>m.archivePage)) assert(ids.has(m.id), 'Registered article has no canonical data: '+m.id);
+  for(const id of selected) assert(ids.has(id), 'Unknown published article: '+id);
+  assert(new Set(rows.map(a=>a.slug)).size===rows.length,'Duplicate archive slug');
+  if(env==='production') {
+    const selectedSlugs=new Set(rows.filter(a=>selected.includes(a.id)).map(a=>a.slug));
+    for(const a of all.filter(a=>selected.includes(a.id))) {
+      for(const match of (a.cover+a.blocks.map(b=>b.html).join('')+a.afterword).matchAll(/href="([^"]*)"/g)) {
+        const href=match[1];
+        if(/^(?:https?:\/\/|#)/.test(href))continue;
+        const resolved=path.resolve(root,'shinpo',a.slug,href.split(/[?#]/)[0]);
+        const rel=path.relative(path.join(root,'shinpo'),resolved).replaceAll(path.sep,'/');
+        if(rel && !rel.startsWith('..')) {
+          const target=rel.replace(/\/index\.html$/,'').replace(/\/$/,'');
+          assert(selectedSlugs.has(target),'Unselected article link from '+a.slug+': '+href+'; explicitly include the linked article');
+        }
+      }
+    }
+  }
+  return rows.filter(a=>env==='staging' || selected.includes(a.id)).sort((a,b)=>b.date.localeCompare(a.date) || a.id.localeCompare(b.id));
+}
+function renderIndex(catalog, env = 'staging') {
+  const site = siteEnvironment(env);
+  const entries = catalog.map(a=>'<li><time datetime="'+escape(a.date)+'">'+escape(a.date)+'</time><a href="./'+escape(a.slug)+'/">'+escape(a.title)+'</a></li>').join('\n');
+  const values={robots:site.robots,canonical:site.base+'/shinpo/',entries};
+  return read('tools/shinpo-index-template.html').replace(/\{\{(\w+)\}\}/g,(_,k)=>{assert(k in values,'Unknown index field '+k);return values[k];});
+}
+function render(a, m, env = 'staging') {
   validate(a,m,true);
+  const site = siteEnvironment(env);
   const img = a.cover.match(/src="\.\.\/\.\.\/(assets\/shinpo\/[^"?]+)"/);
   assert(img,'Cover must use an acquired local assets/shinpo image');
-  const values = {title:escape(m.title), date:escape(m.publishedAt || m.publish_date), description:escape(a.description || m.title), ogDescription:escape(a.ogDescription || m.title), canonical:'https://sukimastock.github.io/yumaniwa-town/shinpo/'+a.slug+'/', ogImage:'https://sukimastock.github.io/yumaniwa-town/'+img[1], navDate:escape(a.navDate), displayDate:escape(a.displayDate), cover:a.cover, body:a.blocks.map(b=>b.html).join('\n'), afterword:a.afterword};
+  const values = {title:escape(m.title), date:escape(m.publishedAt || m.publish_date), description:escape(a.description || m.title), ogDescription:escape(a.ogDescription || m.title), robots:site.robots, canonical:site.base+'/shinpo/'+a.slug+'/', ogImage:site.base+'/'+img[1], navDate:escape(a.navDate), displayDate:escape(a.displayDate), cover:a.cover, body:a.blocks.map(b=>b.html).join('\n'), afterword:a.afterword};
   return read('tools/shinpo-template.html').replace(/\{\{#backnumber\}\}([\s\S]*?)\{\{\/backnumber\}\}/g,(_,css)=>a.backnumber ? css : '').replace(/\{\{(\w+)\}\}/g,(_,k)=>{assert(k in values,'Unknown template field '+k);return values[k];});
 }
 function prospective(o) {
@@ -86,7 +132,11 @@ function registration(a, m) {
   return source.replace(needle,needle+'\n        archivePage: "./shinpo/'+a.slug+'/",');
 }
 function outputs(o) {
-  const ids = o.id ? [slug(o.id)] : files().map(f=>path.basename(f,'.json'));
+  const env = o.env || 'staging';
+  const publishedArticles = o['published-articles'] ? o['published-articles'].split(',').map(s=>s.trim()).filter(Boolean) : [];
+  const catalog = articleCatalog({env,publishedArticles,...(o.body ? {extra:prospective(o)} : {})});
+  const ids = o.id ? [slug(o.id)] : catalog.map(a=>a.id);
+  if(env==='production') for(const id of ids) assert(publishedArticles.includes(id),'Production article must be explicitly selected: '+id);
   const out = new Map();
   for(const id of ids) {
     const a = o.body ? prospective(o) : load(id), m = metadata(id);
@@ -97,8 +147,9 @@ function outputs(o) {
       assert(!exists(p) || read(p) === data, 'ID already imported with different data; review existing source instead of duplicating');
       out.set(p,data); out.set('data/notes.js',registration(a,m));
     }
-    out.set('shinpo/'+a.slug+'/index.html',render(a,m));
+    out.set('shinpo/'+a.slug+'/index.html',render(a,m,env));
   }
+  out.set('shinpo/index.html',renderIndex(catalog,env));
   return out;
 }
 function summary(out) { return [...out].map(([p,s])=>({path:p,sha256:digest(s),status:exists(p) ? (read(p)===s ? 'unchanged':'update'):'create'})); }
@@ -140,7 +191,7 @@ function plan(o) {
   const base=git('rev-parse','origin/main');
   assert(git('rev-parse','HEAD')===base && !git('status','--porcelain'),'Prepare Plan on a clean latest-main branch before editing');
   const lockPath='.change-plans/'+changeId+'/r0.lock.json';
-  const allowed=[lockPath,'data/shinpo/'+o.id+'.json','data/notes.js','shinpo/'+name+'/index.html'];
+  const allowed=[lockPath,'data/shinpo/'+o.id+'.json','data/notes.js','shinpo/'+name+'/index.html','shinpo/index.html'];
   const assets=[o.cover,...(o.assets ? o.assets.split(',') : [])].filter(Boolean);
   for(const asset of assets) { assert(/^assets\/shinpo\/[\w./-]+$/.test(asset) && !asset.includes('..'),'Invalid asset path'); if(!allowed.includes(asset)) allowed.push(asset); }
   return {schema:'yumaniwa-change-plan/0.2',changeId,revision:0,status:'READY',repository:REPO,change:'原典を保持してnote記事 '+m.id+' を町内の通常4枠から読む',planLevel:'full',classes:assets.length?['CONTENT','SYSTEM','ASSET']:['CONTENT','SYSTEM'],authority:['Standard','HQ Review'],environment:'staging',baseSha:base,canonicalSources:['data/notes.js','tools/shinpo-template.html',o['source-ref'] || '原典は取得/照合してから実装'],allowedPaths:allowed,conditionalPaths:[],forbiddenPaths:['main.js','index.html','style.css','works/**','.github/**','engines/**','sitemap.xml','tools/**'],expectedChanges:['ID単位の順序付き原文ブロック、取得原画像、該当notesレコード、生成HTMLのみ','既存記事/4枠選抜を変更せず町内案内を本文の外に置く'],ownerDecisions:[o.authority],hqDecisions:['既存静的テンプレート内。unknown-code SYSTEM/full。原典完全性は人が証拠を照合し未取得を記録する。'],rulesApplied:['CHANGE-PLAN single initial r0; official create/verify','Staging only'],staticChecks:['node-syntax'],manualChecks:['原典と全文/順序/外部リンク/画像を照合','mobile/desktopで本文1クリック、スクロール、戻る'],impactChecks:['risk.high-risk-review','runtime.regression',...(assets.length?['asset.file','asset.rendering','asset.cache']:[])],impactExclusions:[],rollback:'この記事追加PRのみrevert。既存記事/保存/Productionは不変。',outOfScope:['Production','既存記事変更','共通runtime','CMS/DB','外部権限'],promotion:'Staging only',unverified:['原典照合は別途証拠が必要','iPhone/iPad実機未確認'],problem:'既存note記事を町内本文として読む',currentContract:'notesのID/title/date/urlが正本。移植済みはarchivePageへ1クリック。',whyExistingIsInsufficient:'対象記事本文が未移植',design:'既存template/CLIで静的生成。原典と町内案内を分離。',alternativesRejected:['固定枠','原典の要約/リンク置換/画像創作','CMS'],migration:'ID/原note URL保持、archivePageのみ登録',compatibility:'元の4枠と他記事を保持',boundaryCases:['同じIDの再実行','未取得media','中断再開','base進行'],testPlan:['node tools/shinpo-migrate.cjs check','node tests/test-shinpo-rack.cjs','node tests/test-shinpo-migrate.cjs','Scope/Risk/Impact、必須CI、レビュー、Pages'],promotionRisk:'Productionは変更しない'};
@@ -183,6 +234,7 @@ function main(argv) {
     } else result=p;
   } else if(['dry-run','check','generate','import'].includes(command)) {
     assert(command!=='import' || o.body,'import requires --body');
+    assert(!['generate','import'].includes(command) || !o.env || o.env==='staging', 'Production outputs are read-only here; use the separately authorized release workflow');
     const out=outputs(o), changes=summary(out);
     if(command==='check') assert(changes.every(x=>x.status==='unchanged'),'Generated HTML differs: '+changes.filter(x=>x.status!=='unchanged').map(x=>x.path).join(', '));
     result=['generate','import'].includes(command)?writeOutputs(out,o.lock):changes;
@@ -190,5 +242,5 @@ function main(argv) {
   else result={usage:'node tools/shinpo-migrate.cjs inspect|dry-run|plan|import|generate|check|resume [--id ID] [--lock PATH]',guide:'tools/SHINPO-MIGRATION.md'};
   console.log(JSON.stringify(result,null,2));
 }
-module.exports={notes,metadata,load,render,validate,outputs,summary,guard,plan,resume,inspect,main};
+module.exports={notes,metadata,load,render,renderIndex,articleCatalog,validate,outputs,summary,guard,plan,resume,inspect,main};
 if(require.main===module) {try {main(process.argv.slice(2));} catch(e) { console.error(e.message);process.exitCode=1; }}

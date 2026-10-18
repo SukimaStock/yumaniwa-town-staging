@@ -7805,6 +7805,7 @@ window.renderNoteCardRack = function(dest) {
         html += '</div>';
     }
 
+    html += '<p style="margin:16px 0 0;text-align:right"><a href="./shinpo/" style="color:inherit;font:13px/1.6 sans-serif;text-underline-offset:3px">バックナンバー</a></p>';
     html += '</div>';
     return html;
 };
