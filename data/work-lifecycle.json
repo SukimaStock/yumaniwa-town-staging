@@ -326,6 +326,13 @@
       "status": "active",
       "title": "傾けて止める",
       "theme": "棒を滑る輪を、つまみの小さな傾きで止める"
+    },
+    {
+      "id": "hitohazutsu",
+      "path": "works/hitohazutsu",
+      "status": "active",
+      "title": "ひと歯ずつ閉じる",
+      "theme": "引き手を上下に動かし、ファスナーを一歯ずつ開け閉めする"
     }
   ]
 }
