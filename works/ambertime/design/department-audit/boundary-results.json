@@ -1,0 +1,103 @@
+{
+  "schema": "ambertime-department-boundary/1",
+  "scope": "Independent diagnostic only; not long-run simulation. No game or save modification.",
+  "fixture": {
+    "seed": 42,
+    "offerMonth": 61,
+    "productId": 12,
+    "age": 24
+  },
+  "checks": {
+    "stockMinimum": {
+      "type": "synthetic quote-only projections; never saves",
+      "rows": [
+        {
+          "stock": 1,
+          "evidenceEligible": true,
+          "quoteOk": false,
+          "reason": "5本以上必要です。",
+          "quantities": []
+        },
+        {
+          "stock": 2,
+          "evidenceEligible": true,
+          "quoteOk": false,
+          "reason": "5本以上必要です。",
+          "quantities": []
+        },
+        {
+          "stock": 3,
+          "evidenceEligible": true,
+          "quoteOk": false,
+          "reason": "5本以上必要です。",
+          "quantities": []
+        },
+        {
+          "stock": 4,
+          "evidenceEligible": true,
+          "quoteOk": false,
+          "reason": "5本以上必要です。",
+          "quantities": []
+        },
+        {
+          "stock": 5,
+          "evidenceEligible": true,
+          "quoteOk": true,
+          "reason": "",
+          "quantities": [
+            5
+          ]
+        }
+      ]
+    },
+    "acceptWithoutDelivery": {
+      "type": "public operations",
+      "deliveries": 0,
+      "coreUnchanged": true
+    },
+    "monthlyCap": {
+      "type": "public operation plus separately labeled quote-only counterfactual",
+      "stockBefore": 36,
+      "delivered": 5,
+      "stockAfter": 31,
+      "remaining": 0,
+      "reason": "今月の納品を終えました。",
+      "counterfactualQuoteWithoutCurrentMonthLedger": true,
+      "oneNextLegalLotCounterfactuallyBlocked": 5,
+      "remainingInventoryNotAllCountedAsLost": 31,
+      "note": "Five is one additional lot at this instant, NOT observed permanently lost demand. Later retail/other stores may sell it."
+    },
+    "staleIds": {
+      "type": "public operations",
+      "rejectedWithoutMutation": [
+        "accept",
+        "decline",
+        "notice",
+        "accept-deliver"
+      ]
+    },
+    "declineCooldown": {
+      "type": "public operation and configuration/code boundary",
+      "declinedMonth": 61,
+      "declinedUntil": 73,
+      "months": 12,
+      "predicate": "month >= declinedUntil; exact reoffer is NOT guaranteed: safe point, global cooldown, stock, evidence and queue still apply"
+    },
+    "historicalRetention": {
+      "type": "natural public operations with exact replay",
+      "productPruned": true,
+      "releaseRetained": true,
+      "profile": {
+        "roughness": 0.23627799786296555,
+        "character": 0.8963279293366021,
+        "wood": 0.18961659095435787,
+        "litres": 30.509601078499752
+      },
+      "age": 24,
+      "cut": 0.5,
+      "barrel": "refill",
+      "note": "Release ledger survives product pruning; stored profile is immutable historical evidence, not a live product or delivery right."
+    }
+  },
+  "allAssertionsPassed": true
+}
