@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>{{title}}｜湯間庭新報</title>
+<meta name="description" content="{{description}}">
+<meta name="robots" content="noindex,nofollow"><link rel="canonical" href="{{canonical}}">
+<meta property="og:type" content="article"><meta property="og:site_name" content="湯間庭町｜湯間庭新報">
+<meta property="og:title" content="{{title}}"><meta property="og:description" content="{{ogDescription}}">
+<meta property="og:url" content="{{canonical}}"><meta property="og:image" content="{{ogImage}}"><meta name="twitter:card" content="summary_large_image"><meta property="article:published_time" content="{{date}}">
+<style>
+:root{color-scheme:light;--ink:#302a23;--paper:#f4f0e2}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:repeating-linear-gradient(90deg,#504031 0 27px,#544437 27px 54px);min-height:100svh;font-family:"Yu Mincho","Hiragino Mincho ProN",serif}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,#0000 0 26px,#21180e1c 27px 28px)}
+main{position:relative;width:min(100%,800px);margin:auto;padding:24px 14px 72px}
+nav{display:flex;align-items:center;justify-content:space-between;color:#eee5d4;gap:12px;font:12px/1.5 system-ui,sans-serif;margin:0 0 24px}
+nav a{color:inherit;text-decoration:underline;text-underline-offset:4px;padding:8px}
+.paper{width:min(100%,640px);margin:auto;background:var(--paper);padding:clamp(24px,6vw,52px);position:relative;box-shadow:5px 10px 0 #22180d7a,0 18px 56px #130e0a7d;animation:lift .46s cubic-bezier(.2,.7,.3,1) both}
+.paper::after{content:"";position:absolute;top:-9px;left:50%;width:17px;height:17px;border-radius:50%;background:radial-gradient(circle at 35% 27%,#f9d7b6,#af6846 45%,#72371f 83%);box-shadow:1px 3px 3px #0006}
+.paper::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,#0000 0 4px,#655b4106 5px 6px)}
+@keyframes lift{from{opacity:.75;transform:translateY(18px) scale(.982) rotate(-.6deg)}to{opacity:1;transform:none}}
+.mast{text-align:center;border-top:2px solid var(--ink);border-bottom:3px double var(--ink);padding:9px 4px;font-size:12px;letter-spacing:.3em}
+.date{text-align:right;font:12px system-ui,sans-serif;color:#5d5346;margin:17px 0}
+h1{font-size:clamp(25px,6vw,39px);line-height:1.47;font-weight:700;letter-spacing:.015em;margin:0 0 28px}
+p{font-size:16px;line-height:2.02;letter-spacing:.015em;margin:22px 0;overflow-wrap:anywhere}
+figure{margin:26px 0 28px}figure img{display:block;width:100%;height:auto;border:1px solid #b4aa97}
+.paper a{color:#3d4136;text-decoration:underline;text-underline-offset:4px}
+.paper a:focus-visible,nav a:focus-visible,.afterword a:focus-visible{outline:2px solid #b77d42;outline-offset:3px}
+.source-preview{margin:20px 0 26px;display:block;padding:15px 17px;text-decoration:none!important;color:var(--ink)!important;border:1px solid #b2a690;background:#eee6d2;line-height:1.6}
+.source-preview strong{display:block;font:600 15px/1.5 system-ui,sans-serif}
+.source-preview small{display:block;font:12px/1.6 system-ui,sans-serif;color:#655c4d;margin-top:5px}
+.source-preview:hover{background:#e8ddc5}
+.afterword{width:min(100%,640px);margin:22px auto 0;padding:22px 25px;background:#eee7d8;box-shadow:3px 5px 0 #2118107d}
+.afterword h2{font:600 15px/1.7 system-ui,sans-serif;margin:0 0 13px;color:#403a32}
+.afterword .links{display:flex;flex-wrap:wrap;gap:11px}
+.afterword a{display:inline-flex;align-items:center;padding:10px 12px;color:#352f28;text-decoration:none;border:1px solid #918674;background:#f4eee2;font:13px/1.6 system-ui,sans-serif}
+.afterword .source{margin-top:18px;font:12px/1.8 system-ui,sans-serif;color:#665d4e}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.paper{animation:none}}{{#backnumber}}
+
+
+.article-kicker{font-size:13px;color:#625748}
+.paper .entry-heading{font-size:18px;margin:30px 0 12px;border-bottom:1px solid #bcb09d;padding-bottom:6px}
+.paper .video-citation,.paper .media-note{padding:14px 16px;margin:23px 0;border:1px solid #b5a892;background:#eee5d1;font:13px/1.8 system-ui,sans-serif}
+.paper .video-citation a,.paper .media-note a{display:block;margin-top:6px}
+.paper .media-note{background:#f3ede2;border-style:dashed}
+.afterword .links a{min-height:44px}{{/backnumber}}
+</style></head><body><main>
+<nav aria-label="町内移動"><span>湯間庭新報 / {{navDate}}</span><a href="../../?place=shinpo_board">掲示板に戻る ↗</a></nav>
+<article class="paper" aria-labelledby="article-title"><div class="mast">湯 間 庭 新 報</div>
+{{cover}}
+<h1 id="article-title">{{title}}</h1><div class="date">はままぁ　{{displayDate}}</div>
+{{body}}
+</article>
+{{afterword}}
+</main></body></html>

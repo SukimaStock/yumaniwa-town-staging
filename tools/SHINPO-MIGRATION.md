@@ -1,0 +1,62 @@
+# note記事を町内へ移す
+
+この手順はStagingだけ。実行担当AIがCLIとGitを扱い、作者にJSONの記入を求めない。`data/notes.js` のID・title・publishedAt/publish_date・urlが正本。移植は選抜優遇ではなく、通常4枠で選ばれた記事の表示と遷移先だけを変える。
+
+## 入口
+
+`node tools/shinpo-migrate.cjs` の `inspect / dry-run / plan / import / generate / check / resume` を使う。Node標準ライブラリだけで実行できる。ネットワーク取得・PR作成・merge・公開は行わない。既存のGit/PR運用で照合・レビューする。
+
+- `inspect --id <ID>`: notesの正本、既存URL、原典参照、未取得媒体を表示。
+- `inspect --id <ID> --source /tmp/original.html`: 取得済み原典のテキスト包含とリンク一覧を照合。これは補助であり、全文・順序・画像の一致を認証しない。PDFは実行担当が抽出テキスト/リンクと原画像を別途目視照合する。
+- `dry-run [--id <ID>]`: 予定出力の内容hashと差分だけ表示。ファイル、Git、ネットワークを変更しない。
+- `check`: 登録済み全記事の正本・原画像/ローカルリンク存在・生成一致を確認。
+- `generate --lock <path> [--id <ID>]`: 正式Lockを確認して静的HTMLを再生成。同入力の再実行は差分ゼロ。
+- `resume --lock <path> [--pr-state /tmp/prs.json]`: branch/HEAD/保存状態/Lock/生成途中を表示。PR結果は正規GitHub照会のsnapshotを実行担当AIが用意する。取得失敗を空配列で代用しない。
+
+## 次の1記事
+
+1. 最新mainをfetchし、open/closed/merged PRと既存 `archivePage` を照合する。同じIDが済んでいれば再実装しない。新規branchを最新mainから作る。原典と素材はまずrepository外へ取得する。
+2. `inspect` でIDを確認。原典の段落・リンクカード・画像・動画参照を元の順序のまま `/tmp/body.html` へ準備する。**1行を1つの完結したHTMLブロック**にし、段落内改行は `<br>` を使う。元の外部リンクを町内リンクに置換しない。取得できない媒体は作らず、元位置の `aside.media-note` と `--missing` に明記。町内案内は自動生成される本文外の `.afterword` に限定する。
+3. まだrepositoryを編集せず、実行担当が次を用意する。`--authority` は今回の実際の指示の参照であり、文字列自体が承認を作るわけではない。追加の原画像がある場合は **実装前** に `--assets` で全pathを列挙する。
+
+```sh
+node tools/shinpo-migrate.cjs plan --id <既存ID> --slug <新しいURL名> \
+  --cover assets/shinpo/<記事名>/cover.png \
+  --assets assets/shinpo/<記事名>/figure-1.png,assets/shinpo/<記事名>/figure-2.png \
+  --source-ref '<取得原典の参照>' --authority '<今回のStaging指示>' \
+  --lock .change-plans/shinpo-<既存ID>/r0.lock.json
+```
+
+`plan` はSYSTEM / Full / HQ Review、unknown-code、必要なASSET影響を宣言し、公式 `change-plan-lock.cjs create/verify` を呼ぶ。独自Plan digestは計算しない。出力Planを読み、scope/素材/未決判断を確認する。Lockだけを初回commitとしてpushする。CLIはGit commitを代行しない。
+
+4. Lock後に取得できた原画像を宣言済みpathへ置く。実行担当が原典照合結果を記録し、同じ引数でdry-runを2回実行する（出力が一致すること）。
+
+```sh
+node tools/shinpo-migrate.cjs dry-run --id <ID> --slug <URL名> \
+  --body /tmp/body.html --cover assets/shinpo/<記事名>/cover.png \
+  --source-ref '<原典参照>' --verification '<照合した証拠/不足>' --missing '<未取得媒体。複数は|区切り>'
+```
+
+5. 同じ引数で `dry-run` を `import` へ変え、`--lock <正式Lock path>` を追加する。データ、該当notesレコードのarchivePage、生成HTMLだけを更新する。既存IDに異なる入力を上書きせず停止する。訂正は既存データをレビューしてから編集し、同じLock範囲で `generate` する。通常の追加ではmain.js、template、既存記事の編集は不要。
+6. `check`、`node --test tests/test-shinpo-migrate.cjs tests/test-shinpo-rack.cjs`、公式Scope → Risk → Impact、必要なブラウザー検査を行う。原典の全文・リンク・順序・画像照合は必ず別途行う。生成HTMLは手で直さない。
+7. commit/push、既存PR照会、draft PR、必須 `plan-risk-gate` / `trusted-mechanical-evidence` と関連CI、レビュー確認後に許可済みStaging merge。exact merge SHA、Pages run、実URLを確認する。CI成功を実機/原典の確認とみなさない。
+
+新規notesレコード自体が必要な場合は、最初のPlan前にID・タイトル・日付・原note URLを原典で確認し、通常のmetadata登録のPlanで扱う。このツールは未登録IDや架空のmetadataを生成しない。
+
+## 中断から戻る
+
+進捗は既存PRまたはcommit本文に「目的、base/HEAD、Lock、完了/不足、次のコマンド、検証SHA、問題別の修正回数」を短く残す。追加の全体台帳は作らない。
+
+- Lock直後: 正式Lockと単独初回commitを確認し、未実施のimportから続行。
+- JSONだけ保存 / notes登録途中 / HTML未生成: `resume` が `needsRegistration`、`create`、または `needs-review` を示す。同じ原典入力でimportを再実行。部分書込を隠さない。原典の一時ファイルが失われた場合は同じ原典を再取得・照合する。
+- PR作成後または作成結果不明: **まず既存PRを照会する**。CLIにPR作成機能はなく、失敗・タイムアウトで再作成しない。snapshotは配列で、`number / head（branch名）/ state / merged / head_sha / base_sha` を正規照会結果から実行担当が渡す。snapshotだけを最新状態の証明にしない。closedはmergedではない。
+- merged: 実main/merge SHA、CI、Pagesを照合し、既存実装を作り直さない。
+- mainが進んだ: CLIの`origin/main`は**最後にfetchしたローカルref**。必ず実remoteと照合する。通常PR Gateのexact baseが合わない場合、旧Lockを編集せず最新mainから新branch・公式fresh r0単独初回commitを準備し、実装差分だけ再利用する。旧PRを参照して正規の置換PRとして扱う。盲目的な重複PR作成とは区別する。
+
+## 既存3記事の証拠と限界
+
+基準は `644ce1e04a999cf575bd6affe2a24e374fe1125e` のHTMLとPR443/447/449/451。今回の抽出は既存HTMLの本文・順序・属性・画像・CSSを保持したもので、Drive PDFの再取得・再認証ではない。旧移植時からある町内本文リンクも保持し、将来の原典リンク置換の前例にしない。
+
+ボードゲーム記事の途中画像3点と、ゲーム未満記事の動画3点は未取得のまま。推測画像・要約を追加しない。実機iPhone/iPadはUNVERIFIED。ブラウザーのモバイル表示確認と実機の触感を区別する。
+
+このツールのテストはこの変更のCIに自動接続していない。必須ゲートを弱めず、上記コマンドを記事追加ごとに実行担当が実行する。保護workflowを変更する場合は別途Authorization → Transitionの現行手順を使う。
