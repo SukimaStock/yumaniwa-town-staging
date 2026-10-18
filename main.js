@@ -7691,15 +7691,19 @@ function buildNoteRackSelection() {
     // 1. 町の現在地。
     add(articles[0], "最新", "latest");
 
-    // 2. 直近の記事群から一枚。featured / pickup を付ければ、今後はその候補を優先できる。
+    // 2. 未選択の町内紙面から一枚。なければ従来のfeatured / pickup・直近記事へ戻る。
+    var localPool = [];
     var featuredPool = [];
     for (var i = 1; i < articles.length; i++) {
+        if (articles[i].archivePage && !usedIds[getNoteRackArticleId(articles[i])]) {
+            localPool.push(articles[i]);
+        }
         if (articles[i].featured === true || articles[i].pickup === true) {
             featuredPool.push(articles[i]);
         }
     }
     var recentPool = articles.slice(1, Math.min(articles.length, 10));
-    add(pickRandomNoteRackArticle(featuredPool.length ? featuredPool : recentPool, usedIds), "今のピックアップ", "pickup");
+    add(pickRandomNoteRackArticle(localPool.length ? localPool : (featuredPool.length ? featuredPool : recentPool), usedIds), "今のピックアップ", "pickup");
 
     // 3. 古い紙面も含め、毎回ふらりと違う一枚。
     add(pickRandomNoteRackArticle(articles, usedIds), "ふらりと一枚", "random");
