@@ -1,0 +1,1268 @@
+{
+  "method": {
+    "base": "9907ffac1a19672b1acfc0da7881c809abd45e69",
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      42,
+      12345,
+      20261017,
+      4294967295
+    ],
+    "monthsPerSeed": 120,
+    "tickMilliseconds": 100,
+    "monthMilliseconds": 6000,
+    "policy": "Fresh start; manual first refill extraction at65, each later one-shot usual reservation explicitly renewed. Bootstrap with up to2 casks bottled at6months until month36, then up to4 casks with18month retail target. Explicit tasting/queued judgments resolved, offers accepted, some casks allocated to regular wholesale and special orders when eligible. Shop offers deferred3months before acceptance, latest eligible release explicitly delivered at most once per month. No cash, age, stock or demand injection.",
+    "limits": "Deterministic player policy and regression, not an optimal strategy or human feel verdict. Four-cask route is distinct from isolated legacy-fixture special/same-month shipment scenarios. No production/economic changes: audited source SHA256 equals 0.15.1 before and after the run.",
+    "sourceSha256": {
+      "partner-orders.mjs": "bfb48b80b630cb2f2506c1b8ad4686596e28d2754f4c0c59011199e57e80b8fc",
+      "shop-model.mjs": "be1eb733e4aee85dbea0f7e5d6aefab03feb0b7bb1b9ab32590259f1fea3139a",
+      "brand-reputation.mjs": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec",
+      "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+      "economy.mjs": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+      "parameters.mjs": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822",
+      "economy-parameters.mjs": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+      "partner-parameters.mjs": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838",
+      "aroma-extraction.mjs": "77bc8d654d551e688b9ade8018bf595a75cc1c3355cd2023aef59c51ad6253ff"
+    },
+    "baselineSha256": {
+      "partner-orders.mjs": "bfb48b80b630cb2f2506c1b8ad4686596e28d2754f4c0c59011199e57e80b8fc",
+      "shop-model.mjs": "be1eb733e4aee85dbea0f7e5d6aefab03feb0b7bb1b9ab32590259f1fea3139a",
+      "brand-reputation.mjs": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec",
+      "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+      "economy.mjs": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+      "parameters.mjs": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822",
+      "economy-parameters.mjs": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+      "partner-parameters.mjs": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838",
+      "aroma-extraction.mjs": "77bc8d654d551e688b9ade8018bf595a75cc1c3355cd2023aef59c51ad6253ff"
+    }
+  },
+  "runs": [
+    {
+      "seed": 1,
+      "months": 120,
+      "clockTicks": 7200,
+      "maxCasks": 4,
+      "starts": 29,
+      "fills": 29,
+      "automaticFills": 28,
+      "extractionTicks": 1885,
+      "tastingPauses": 16,
+      "judgments": 16,
+      "maxQueue": 2,
+      "wholesaleShipments": 1,
+      "multiShipmentMonths": 0,
+      "specialOffers": 0,
+      "specialFulfilled": 0,
+      "shopDeliveries": 41,
+      "concurrentAgingTicks": 1805,
+      "concurrentSalesTicks": 1615,
+      "minCash": 985,
+      "channels": {
+        "retail": {
+          "bottles": 655,
+          "revenue": 11475.04
+        },
+        "wholesale": {
+          "bottles": 43,
+          "revenue": 731
+        },
+        "shop": {
+          "bottles": 410,
+          "revenue": 5911.4
+        }
+      },
+      "final": {
+        "cash": 6517.44,
+        "stock": 0,
+        "casks": 4,
+        "releases": 24,
+        "relations": 1,
+        "revenue": 18117.44,
+        "costs": 9704,
+        "upkeep": 3496
+      },
+      "monthly": [
+        {
+          "month": 12,
+          "casks": 2,
+          "stock": 0,
+          "cash": 1690,
+          "revenue": 1440,
+          "costs": 1150,
+          "upkeep": 200
+        },
+        {
+          "month": 24,
+          "casks": 2,
+          "stock": 0,
+          "cash": 2750,
+          "revenue": 4128,
+          "costs": 2570,
+          "upkeep": 408
+        },
+        {
+          "month": 36,
+          "casks": 1,
+          "stock": 21,
+          "cash": 3265,
+          "revenue": 5824,
+          "costs": 3535,
+          "upkeep": 624
+        },
+        {
+          "month": 48,
+          "casks": 4,
+          "stock": 0,
+          "cash": 2621,
+          "revenue": 6128,
+          "costs": 4075,
+          "upkeep": 1032
+        },
+        {
+          "month": 60,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3424.12,
+          "revenue": 8395.12,
+          "costs": 5131,
+          "upkeep": 1440
+        },
+        {
+          "month": 72,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3787,
+          "revenue": 9875,
+          "costs": 5832,
+          "upkeep": 1856
+        },
+        {
+          "month": 84,
+          "casks": 4,
+          "stock": 0,
+          "cash": 4592.56,
+          "revenue": 12144.56,
+          "costs": 6888,
+          "upkeep": 2264
+        },
+        {
+          "month": 96,
+          "casks": 4,
+          "stock": 0,
+          "cash": 5376.56,
+          "revenue": 14392.56,
+          "costs": 7944,
+          "upkeep": 2672
+        },
+        {
+          "month": 108,
+          "casks": 4,
+          "stock": 0,
+          "cash": 5753.44,
+          "revenue": 15889.44,
+          "costs": 8648,
+          "upkeep": 3088
+        },
+        {
+          "month": 120,
+          "casks": 4,
+          "stock": 0,
+          "cash": 6517.44,
+          "revenue": 18117.44,
+          "costs": 9704,
+          "upkeep": 3496
+        }
+      ],
+      "replays": [
+        {
+          "month": 60,
+          "sha256": "31a7e983cc8339d416d52795df00599405766b70bd954e6a10a46582932931be"
+        },
+        {
+          "month": 120,
+          "sha256": "8c7a30dfc40245d557e3b086ab3275ac51d988c2dbb1569abf27fe092ff8ee49"
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "months": 120,
+      "clockTicks": 7200,
+      "maxCasks": 4,
+      "starts": 29,
+      "fills": 29,
+      "automaticFills": 28,
+      "extractionTicks": 1885,
+      "tastingPauses": 16,
+      "judgments": 16,
+      "maxQueue": 2,
+      "wholesaleShipments": 1,
+      "multiShipmentMonths": 0,
+      "specialOffers": 0,
+      "specialFulfilled": 0,
+      "shopDeliveries": 41,
+      "concurrentAgingTicks": 1805,
+      "concurrentSalesTicks": 1615,
+      "minCash": 985,
+      "channels": {
+        "retail": {
+          "bottles": 655,
+          "revenue": 11471.92
+        },
+        "wholesale": {
+          "bottles": 43,
+          "revenue": 731
+        },
+        "shop": {
+          "bottles": 410,
+          "revenue": 5909.8
+        }
+      },
+      "final": {
+        "cash": 6512.72,
+        "stock": 0,
+        "casks": 4,
+        "releases": 24,
+        "relations": 1,
+        "revenue": 18112.72,
+        "costs": 9704,
+        "upkeep": 3496
+      },
+      "monthly": [
+        {
+          "month": 12,
+          "casks": 2,
+          "stock": 0,
+          "cash": 1690,
+          "revenue": 1440,
+          "costs": 1150,
+          "upkeep": 200
+        },
+        {
+          "month": 24,
+          "casks": 2,
+          "stock": 0,
+          "cash": 2750,
+          "revenue": 4128,
+          "costs": 2570,
+          "upkeep": 408
+        },
+        {
+          "month": 36,
+          "casks": 1,
+          "stock": 21,
+          "cash": 3265,
+          "revenue": 5824,
+          "costs": 3535,
+          "upkeep": 624
+        },
+        {
+          "month": 48,
+          "casks": 4,
+          "stock": 0,
+          "cash": 2621,
+          "revenue": 6128,
+          "costs": 4075,
+          "upkeep": 1032
+        },
+        {
+          "month": 60,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3401,
+          "revenue": 8372,
+          "costs": 5131,
+          "upkeep": 1440
+        },
+        {
+          "month": 72,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3775.44,
+          "revenue": 9863.44,
+          "costs": 5832,
+          "upkeep": 1856
+        },
+        {
+          "month": 84,
+          "casks": 4,
+          "stock": 0,
+          "cash": 4558.76,
+          "revenue": 12110.76,
+          "costs": 6888,
+          "upkeep": 2264
+        },
+        {
+          "month": 96,
+          "casks": 4,
+          "stock": 0,
+          "cash": 5338.52,
+          "revenue": 14354.52,
+          "costs": 7944,
+          "upkeep": 2672
+        },
+        {
+          "month": 108,
+          "casks": 4,
+          "stock": 0,
+          "cash": 5725.4,
+          "revenue": 15861.4,
+          "costs": 8648,
+          "upkeep": 3088
+        },
+        {
+          "month": 120,
+          "casks": 4,
+          "stock": 0,
+          "cash": 6512.72,
+          "revenue": 18112.72,
+          "costs": 9704,
+          "upkeep": 3496
+        }
+      ],
+      "replays": [
+        {
+          "month": 60,
+          "sha256": "a0d4a22ead6ed6e3df88ad00b6d082da01b0624388f39eee1223f347db90099b"
+        },
+        {
+          "month": 120,
+          "sha256": "d5bf1bd26afe4b93ae8177f60b7234926a456709f8768103dd52537db1df3f7c"
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "months": 120,
+      "clockTicks": 7200,
+      "maxCasks": 4,
+      "starts": 30,
+      "fills": 30,
+      "automaticFills": 29,
+      "extractionTicks": 1950,
+      "tastingPauses": 16,
+      "judgments": 16,
+      "maxQueue": 2,
+      "wholesaleShipments": 2,
+      "multiShipmentMonths": 0,
+      "specialOffers": 0,
+      "specialFulfilled": 0,
+      "shopDeliveries": 41,
+      "concurrentAgingTicks": 1870,
+      "concurrentSalesTicks": 1670,
+      "minCash": 985,
+      "channels": {
+        "retail": {
+          "bottles": 655,
+          "revenue": 11464.72
+        },
+        "wholesale": {
+          "bottles": 88,
+          "revenue": 1161.6
+        },
+        "shop": {
+          "bottles": 410,
+          "revenue": 5904.8
+        }
+      },
+      "final": {
+        "cash": 6584.12,
+        "stock": 0,
+        "casks": 4,
+        "releases": 24,
+        "relations": 1,
+        "revenue": 18531.12,
+        "costs": 10059,
+        "upkeep": 3488
+      },
+      "monthly": [
+        {
+          "month": 12,
+          "casks": 2,
+          "stock": 0,
+          "cash": 1690,
+          "revenue": 1440,
+          "costs": 1150,
+          "upkeep": 200
+        },
+        {
+          "month": 24,
+          "casks": 2,
+          "stock": 0,
+          "cash": 2750,
+          "revenue": 4128,
+          "costs": 2570,
+          "upkeep": 408
+        },
+        {
+          "month": 36,
+          "casks": 1,
+          "stock": 21,
+          "cash": 3265,
+          "revenue": 5824,
+          "costs": 3535,
+          "upkeep": 624
+        },
+        {
+          "month": 48,
+          "casks": 4,
+          "stock": 0,
+          "cash": 2621,
+          "revenue": 6128,
+          "costs": 4075,
+          "upkeep": 1032
+        },
+        {
+          "month": 60,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3637.8,
+          "revenue": 8952.8,
+          "costs": 5483,
+          "upkeep": 1432
+        },
+        {
+          "month": 72,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3835.72,
+          "revenue": 10270.72,
+          "costs": 6187,
+          "upkeep": 1848
+        },
+        {
+          "month": 84,
+          "casks": 4,
+          "stock": 0,
+          "cash": 4620.16,
+          "revenue": 12519.16,
+          "costs": 7243,
+          "upkeep": 2256
+        },
+        {
+          "month": 96,
+          "casks": 4,
+          "stock": 0,
+          "cash": 5416.16,
+          "revenue": 14779.16,
+          "costs": 8299,
+          "upkeep": 2664
+        },
+        {
+          "month": 108,
+          "casks": 4,
+          "stock": 0,
+          "cash": 5791.92,
+          "revenue": 16274.92,
+          "costs": 9003,
+          "upkeep": 3080
+        },
+        {
+          "month": 120,
+          "casks": 4,
+          "stock": 0,
+          "cash": 6584.12,
+          "revenue": 18531.12,
+          "costs": 10059,
+          "upkeep": 3488
+        }
+      ],
+      "replays": [
+        {
+          "month": 60,
+          "sha256": "d677e7b71498b7351895b62669cd156b045bbb5f47b854fd09b3cc46085fd853"
+        },
+        {
+          "month": 120,
+          "sha256": "cfd3dc8cfd5e40ee5c66ac274f5bee584d5312597eed61452fc460259b1f743c"
+        }
+      ]
+    },
+    {
+      "seed": 4,
+      "months": 120,
+      "clockTicks": 7200,
+      "maxCasks": 4,
+      "starts": 29,
+      "fills": 29,
+      "automaticFills": 28,
+      "extractionTicks": 1885,
+      "tastingPauses": 16,
+      "judgments": 16,
+      "maxQueue": 2,
+      "wholesaleShipments": 1,
+      "multiShipmentMonths": 0,
+      "specialOffers": 0,
+      "specialFulfilled": 0,
+      "shopDeliveries": 41,
+      "concurrentAgingTicks": 1805,
+      "concurrentSalesTicks": 1615,
+      "minCash": 985,
+      "channels": {
+        "retail": {
+          "bottles": 655,
+          "revenue": 11501.68
+        },
+        "wholesale": {
+          "bottles": 43,
+          "revenue": 731
+        },
+        "shop": {
+          "bottles": 410,
+          "revenue": 5929.2
+        }
+      },
+      "final": {
+        "cash": 6561.88,
+        "stock": 0,
+        "casks": 4,
+        "releases": 24,
+        "relations": 1,
+        "revenue": 18161.88,
+        "costs": 9704,
+        "upkeep": 3496
+      },
+      "monthly": [
+        {
+          "month": 12,
+          "casks": 2,
+          "stock": 0,
+          "cash": 1690,
+          "revenue": 1440,
+          "costs": 1150,
+          "upkeep": 200
+        },
+        {
+          "month": 24,
+          "casks": 2,
+          "stock": 0,
+          "cash": 2750,
+          "revenue": 4128,
+          "costs": 2570,
+          "upkeep": 408
+        },
+        {
+          "month": 36,
+          "casks": 1,
+          "stock": 21,
+          "cash": 3265,
+          "revenue": 5824,
+          "costs": 3535,
+          "upkeep": 624
+        },
+        {
+          "month": 48,
+          "casks": 4,
+          "stock": 0,
+          "cash": 2621,
+          "revenue": 6128,
+          "costs": 4075,
+          "upkeep": 1032
+        },
+        {
+          "month": 60,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3419,
+          "revenue": 8390,
+          "costs": 5131,
+          "upkeep": 1440
+        },
+        {
+          "month": 72,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3773.44,
+          "revenue": 9861.44,
+          "costs": 5832,
+          "upkeep": 1856
+        },
+        {
+          "month": 84,
+          "casks": 4,
+          "stock": 0,
+          "cash": 4574.32,
+          "revenue": 12126.32,
+          "costs": 6888,
+          "upkeep": 2264
+        },
+        {
+          "month": 96,
+          "casks": 4,
+          "stock": 0,
+          "cash": 5394.56,
+          "revenue": 14410.56,
+          "costs": 7944,
+          "upkeep": 2672
+        },
+        {
+          "month": 108,
+          "casks": 4,
+          "stock": 0,
+          "cash": 5781.44,
+          "revenue": 15917.44,
+          "costs": 8648,
+          "upkeep": 3088
+        },
+        {
+          "month": 120,
+          "casks": 4,
+          "stock": 0,
+          "cash": 6561.88,
+          "revenue": 18161.88,
+          "costs": 9704,
+          "upkeep": 3496
+        }
+      ],
+      "replays": [
+        {
+          "month": 60,
+          "sha256": "d84c1a42cf31b19c1735d1635478a8cac27f4704ce693a2c90ba1a14210b635a"
+        },
+        {
+          "month": 120,
+          "sha256": "5aa75e70d98f8a27d7798c81accde1cd36c770a82497a510a01f136efd59c592"
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "months": 120,
+      "clockTicks": 7200,
+      "maxCasks": 4,
+      "starts": 29,
+      "fills": 29,
+      "automaticFills": 28,
+      "extractionTicks": 1885,
+      "tastingPauses": 16,
+      "judgments": 16,
+      "maxQueue": 1,
+      "wholesaleShipments": 1,
+      "multiShipmentMonths": 0,
+      "specialOffers": 0,
+      "specialFulfilled": 0,
+      "shopDeliveries": 41,
+      "concurrentAgingTicks": 1805,
+      "concurrentSalesTicks": 1615,
+      "minCash": 985,
+      "channels": {
+        "retail": {
+          "bottles": 655,
+          "revenue": 11457.52
+        },
+        "wholesale": {
+          "bottles": 43,
+          "revenue": 731
+        },
+        "shop": {
+          "bottles": 410,
+          "revenue": 5900
+        }
+      },
+      "final": {
+        "cash": 6488.52,
+        "stock": 0,
+        "casks": 4,
+        "releases": 24,
+        "relations": 1,
+        "revenue": 18088.52,
+        "costs": 9704,
+        "upkeep": 3496
+      },
+      "monthly": [
+        {
+          "month": 12,
+          "casks": 2,
+          "stock": 0,
+          "cash": 1690,
+          "revenue": 1440,
+          "costs": 1150,
+          "upkeep": 200
+        },
+        {
+          "month": 24,
+          "casks": 2,
+          "stock": 0,
+          "cash": 2750,
+          "revenue": 4128,
+          "costs": 2570,
+          "upkeep": 408
+        },
+        {
+          "month": 36,
+          "casks": 1,
+          "stock": 21,
+          "cash": 3265,
+          "revenue": 5824,
+          "costs": 3535,
+          "upkeep": 624
+        },
+        {
+          "month": 48,
+          "casks": 4,
+          "stock": 0,
+          "cash": 2621,
+          "revenue": 6128,
+          "costs": 4075,
+          "upkeep": 1032
+        },
+        {
+          "month": 60,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3401,
+          "revenue": 8372,
+          "costs": 5131,
+          "upkeep": 1440
+        },
+        {
+          "month": 72,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3758.56,
+          "revenue": 9846.56,
+          "costs": 5832,
+          "upkeep": 1856
+        },
+        {
+          "month": 84,
+          "casks": 4,
+          "stock": 0,
+          "cash": 4529,
+          "revenue": 12081,
+          "costs": 6888,
+          "upkeep": 2264
+        },
+        {
+          "month": 96,
+          "casks": 4,
+          "stock": 0,
+          "cash": 5307.2,
+          "revenue": 14323.2,
+          "costs": 7944,
+          "upkeep": 2672
+        },
+        {
+          "month": 108,
+          "casks": 4,
+          "stock": 0,
+          "cash": 5702.08,
+          "revenue": 15838.08,
+          "costs": 8648,
+          "upkeep": 3088
+        },
+        {
+          "month": 120,
+          "casks": 4,
+          "stock": 0,
+          "cash": 6488.52,
+          "revenue": 18088.52,
+          "costs": 9704,
+          "upkeep": 3496
+        }
+      ],
+      "replays": [
+        {
+          "month": 60,
+          "sha256": "396f34aff0ca81f875a947398736f6326d9eeab613115ad28659f8995cfdc064"
+        },
+        {
+          "month": 120,
+          "sha256": "ebb99e218e1c6324cb6d005a5e5a71dfa8c54e40c0ad488871aed4c4bf3239ff"
+        }
+      ]
+    },
+    {
+      "seed": 12345,
+      "months": 120,
+      "clockTicks": 7200,
+      "maxCasks": 4,
+      "starts": 29,
+      "fills": 29,
+      "automaticFills": 28,
+      "extractionTicks": 1885,
+      "tastingPauses": 9,
+      "judgments": 9,
+      "maxQueue": 2,
+      "wholesaleShipments": 7,
+      "multiShipmentMonths": 1,
+      "specialOffers": 1,
+      "specialFulfilled": 1,
+      "shopDeliveries": 28,
+      "concurrentAgingTicks": 1805,
+      "concurrentSalesTicks": 1420,
+      "minCash": 985,
+      "channels": {
+        "retail": {
+          "bottles": 521,
+          "revenue": 8967.82
+        },
+        "wholesale": {
+          "bottles": 307,
+          "revenue": 5077.02
+        },
+        "shop": {
+          "bottles": 280,
+          "revenue": 3968.1
+        }
+      },
+      "final": {
+        "cash": 6436.94,
+        "stock": 0,
+        "casks": 4,
+        "releases": 18,
+        "relations": 1,
+        "revenue": 18012.94,
+        "costs": 9704,
+        "upkeep": 3472
+      },
+      "monthly": [
+        {
+          "month": 12,
+          "casks": 2,
+          "stock": 0,
+          "cash": 1690,
+          "revenue": 1440,
+          "costs": 1150,
+          "upkeep": 200
+        },
+        {
+          "month": 24,
+          "casks": 2,
+          "stock": 0,
+          "cash": 2750,
+          "revenue": 4128,
+          "costs": 2570,
+          "upkeep": 408
+        },
+        {
+          "month": 36,
+          "casks": 1,
+          "stock": 21,
+          "cash": 3265,
+          "revenue": 5824,
+          "costs": 3535,
+          "upkeep": 624
+        },
+        {
+          "month": 48,
+          "casks": 4,
+          "stock": 0,
+          "cash": 2621,
+          "revenue": 6128,
+          "costs": 4075,
+          "upkeep": 1032
+        },
+        {
+          "month": 60,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3743.24,
+          "revenue": 9058.24,
+          "costs": 5483,
+          "upkeep": 1432
+        },
+        {
+          "month": 72,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3724.36,
+          "revenue": 9815.36,
+          "costs": 5835,
+          "upkeep": 1856
+        },
+        {
+          "month": 84,
+          "casks": 4,
+          "stock": 0,
+          "cash": 4327.72,
+          "revenue": 11882.72,
+          "costs": 6891,
+          "upkeep": 2264
+        },
+        {
+          "month": 96,
+          "casks": 3,
+          "stock": 0,
+          "cash": 5837.7,
+          "revenue": 15073.7,
+          "costs": 8196,
+          "upkeep": 2640
+        },
+        {
+          "month": 108,
+          "casks": 4,
+          "stock": 0,
+          "cash": 5305.7,
+          "revenue": 15073.7,
+          "costs": 8296,
+          "upkeep": 3072
+        },
+        {
+          "month": 120,
+          "casks": 4,
+          "stock": 0,
+          "cash": 6436.94,
+          "revenue": 18012.94,
+          "costs": 9704,
+          "upkeep": 3472
+        }
+      ],
+      "replays": [
+        {
+          "month": 60,
+          "sha256": "e77806452a4c6e32826ea2916b201e29177a4f6d9bb5bf87adec0d3d518ab820"
+        },
+        {
+          "month": 120,
+          "sha256": "205d5761813bc71198a39ab7073aa300da383efc0277f73b9caf1651e0ebb292"
+        }
+      ]
+    },
+    {
+      "seed": 20261017,
+      "months": 120,
+      "clockTicks": 7200,
+      "maxCasks": 4,
+      "starts": 29,
+      "fills": 29,
+      "automaticFills": 28,
+      "extractionTicks": 1885,
+      "tastingPauses": 16,
+      "judgments": 16,
+      "maxQueue": 2,
+      "wholesaleShipments": 1,
+      "multiShipmentMonths": 0,
+      "specialOffers": 0,
+      "specialFulfilled": 0,
+      "shopDeliveries": 41,
+      "concurrentAgingTicks": 1805,
+      "concurrentSalesTicks": 1615,
+      "minCash": 985,
+      "channels": {
+        "retail": {
+          "bottles": 655,
+          "revenue": 11452.72
+        },
+        "wholesale": {
+          "bottles": 43,
+          "revenue": 731
+        },
+        "shop": {
+          "bottles": 410,
+          "revenue": 5896.4
+        }
+      },
+      "final": {
+        "cash": 6480.12,
+        "stock": 0,
+        "casks": 4,
+        "releases": 24,
+        "relations": 1,
+        "revenue": 18080.12,
+        "costs": 9704,
+        "upkeep": 3496
+      },
+      "monthly": [
+        {
+          "month": 12,
+          "casks": 2,
+          "stock": 0,
+          "cash": 1690,
+          "revenue": 1440,
+          "costs": 1150,
+          "upkeep": 200
+        },
+        {
+          "month": 24,
+          "casks": 2,
+          "stock": 0,
+          "cash": 2750,
+          "revenue": 4128,
+          "costs": 2570,
+          "upkeep": 408
+        },
+        {
+          "month": 36,
+          "casks": 1,
+          "stock": 21,
+          "cash": 3265,
+          "revenue": 5824,
+          "costs": 3535,
+          "upkeep": 624
+        },
+        {
+          "month": 48,
+          "casks": 4,
+          "stock": 0,
+          "cash": 2621,
+          "revenue": 6128,
+          "costs": 4075,
+          "upkeep": 1032
+        },
+        {
+          "month": 60,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3418.32,
+          "revenue": 8389.32,
+          "costs": 5131,
+          "upkeep": 1440
+        },
+        {
+          "month": 72,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3789.44,
+          "revenue": 9877.44,
+          "costs": 5832,
+          "upkeep": 1856
+        },
+        {
+          "month": 84,
+          "casks": 4,
+          "stock": 0,
+          "cash": 4554.56,
+          "revenue": 12106.56,
+          "costs": 6888,
+          "upkeep": 2264
+        },
+        {
+          "month": 96,
+          "casks": 4,
+          "stock": 0,
+          "cash": 5326.56,
+          "revenue": 14342.56,
+          "costs": 7944,
+          "upkeep": 2672
+        },
+        {
+          "month": 108,
+          "casks": 4,
+          "stock": 0,
+          "cash": 5702.12,
+          "revenue": 15838.12,
+          "costs": 8648,
+          "upkeep": 3088
+        },
+        {
+          "month": 120,
+          "casks": 4,
+          "stock": 0,
+          "cash": 6480.12,
+          "revenue": 18080.12,
+          "costs": 9704,
+          "upkeep": 3496
+        }
+      ],
+      "replays": [
+        {
+          "month": 60,
+          "sha256": "8b25a1e2300759841937441af67ea963e326049f108083886d1a80f0e8387fb7"
+        },
+        {
+          "month": 120,
+          "sha256": "f38e2214a71cbcef9c7cc02d11fdf8a710dd493f832df74175980643f2930d46"
+        }
+      ]
+    },
+    {
+      "seed": 4294967295,
+      "months": 120,
+      "clockTicks": 7200,
+      "maxCasks": 4,
+      "starts": 29,
+      "fills": 29,
+      "automaticFills": 28,
+      "extractionTicks": 1885,
+      "tastingPauses": 9,
+      "judgments": 9,
+      "maxQueue": 2,
+      "wholesaleShipments": 7,
+      "multiShipmentMonths": 1,
+      "specialOffers": 1,
+      "specialFulfilled": 1,
+      "shopDeliveries": 28,
+      "concurrentAgingTicks": 1805,
+      "concurrentSalesTicks": 1420,
+      "minCash": 985,
+      "channels": {
+        "retail": {
+          "bottles": 521,
+          "revenue": 8956.6
+        },
+        "wholesale": {
+          "bottles": 307,
+          "revenue": 5077.02
+        },
+        "shop": {
+          "bottles": 280,
+          "revenue": 3956.8
+        }
+      },
+      "final": {
+        "cash": 6414.42,
+        "stock": 0,
+        "casks": 4,
+        "releases": 18,
+        "relations": 1,
+        "revenue": 17990.42,
+        "costs": 9704,
+        "upkeep": 3472
+      },
+      "monthly": [
+        {
+          "month": 12,
+          "casks": 2,
+          "stock": 0,
+          "cash": 1690,
+          "revenue": 1440,
+          "costs": 1150,
+          "upkeep": 200
+        },
+        {
+          "month": 24,
+          "casks": 2,
+          "stock": 0,
+          "cash": 2750,
+          "revenue": 4128,
+          "costs": 2570,
+          "upkeep": 408
+        },
+        {
+          "month": 36,
+          "casks": 1,
+          "stock": 21,
+          "cash": 3265,
+          "revenue": 5824,
+          "costs": 3535,
+          "upkeep": 624
+        },
+        {
+          "month": 48,
+          "casks": 4,
+          "stock": 0,
+          "cash": 2621,
+          "revenue": 6128,
+          "costs": 4075,
+          "upkeep": 1032
+        },
+        {
+          "month": 60,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3722.12,
+          "revenue": 9037.12,
+          "costs": 5483,
+          "upkeep": 1432
+        },
+        {
+          "month": 72,
+          "casks": 4,
+          "stock": 0,
+          "cash": 3695.24,
+          "revenue": 9786.24,
+          "costs": 5835,
+          "upkeep": 1856
+        },
+        {
+          "month": 84,
+          "casks": 4,
+          "stock": 0,
+          "cash": 4298.6,
+          "revenue": 11853.6,
+          "costs": 6891,
+          "upkeep": 2264
+        },
+        {
+          "month": 96,
+          "casks": 3,
+          "stock": 0,
+          "cash": 5820.58,
+          "revenue": 15056.58,
+          "costs": 8196,
+          "upkeep": 2640
+        },
+        {
+          "month": 108,
+          "casks": 4,
+          "stock": 0,
+          "cash": 5288.58,
+          "revenue": 15056.58,
+          "costs": 8296,
+          "upkeep": 3072
+        },
+        {
+          "month": 120,
+          "casks": 4,
+          "stock": 0,
+          "cash": 6414.42,
+          "revenue": 17990.42,
+          "costs": 9704,
+          "upkeep": 3472
+        }
+      ],
+      "replays": [
+        {
+          "month": 60,
+          "sha256": "2f2e4d98cd62359babfdd3e79f586ddd26b46b772c4ed441a00bd1b9a3e1755b"
+        },
+        {
+          "month": 120,
+          "sha256": "ab6b59882b39431398270938103c7b4da85705647a0e81d3f4bf05e5a1f4f766"
+        }
+      ]
+    }
+  ],
+  "inventory": {
+    "initialMonth": 14,
+    "initialStock": 32,
+    "stockAfterTwoDeferredMonths": 6,
+    "soldOutOfferRetained": true,
+    "unseenOfferSurvivesStockout": true,
+    "acceptedRelationSurvivesStockout": true,
+    "zeroStockAcceptance": true,
+    "reissueDelivery": 5,
+    "reissueRemaining": 40,
+    "chosenReleaseId": 3,
+    "otherProductUnchanged": true,
+    "shortRemainder": 4,
+    "replayExact": true
+  },
+  "orders": {
+    "provenance": "Checked-in legally replayable legacy operation histories, migrated with enableShop. Separate targeted scenarios, not claimed as part of each fresh-seed route.",
+    "specialFulfilled": true,
+    "specialBottles": 42,
+    "specialUnitPrice": 26.1,
+    "monthRevenue": 1096.2,
+    "unmetExplicitFallback": true,
+    "simultaneousRegularShipments": 2,
+    "simultaneousMonth": 38,
+    "replayExact": true
+  },
+  "summary": {
+    "seeds": 8,
+    "totalMonths": 960,
+    "totalClockTicks": 57600,
+    "allReachedFourCasks": true,
+    "allAccountingAndReplayExact": true,
+    "allModelSourcesUnchanged": true,
+    "totalProduced": 233,
+    "totalAutomaticFills": 225,
+    "totalTastingPauses": 114,
+    "totalWholesaleShipments": 21,
+    "totalShopDeliveryActions": 302,
+    "totalSpecialOffers": 2,
+    "totalSpecialFulfilled": 2,
+    "totalMultiShipmentMonths": 2,
+    "maxQueuedJudgments": 2,
+    "finalCashRange": [
+      6414.42,
+      6584.12
+    ],
+    "minimumCash": 985
+  }
+}
