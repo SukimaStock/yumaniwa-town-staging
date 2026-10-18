@@ -1,0 +1,120 @@
+{
+  "browser": "153.0.8010.0",
+  "environmentFont": "Noto Sans JP installed in browser environment; no app font asset added.",
+  "fixtures": "Public operations only, strict serialization/replay, controlled clock.",
+  "physicalSafari": false,
+  "humanFun": false,
+  "sourceHashes": {
+    "shop-app.mjs": "356d85e403ba509f8cea098d5e32e6957448e20887fbbf7d6937711b0ea59d1d",
+    "partner-orders.mjs": "e6ff6684f244727dbd30d3791de4b84c7edadf9913883f9fd50525b3d663497d",
+    "bottle-storage.mjs": "3cb54cfd7670ed0ea528250fb3c24912f592f5bd2e57743323112e893aa8bad5"
+  },
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "immediateExactRelease": true,
+      "otherThreeCaskJudgmentsPreserved": true,
+      "storageNotMandatoryModalOnReload": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "paused": false,
+      "storedCanDeliver": true,
+      "sequentialShopsSameDetail": true,
+      "liveStockCash": true,
+      "departmentFinite": true,
+      "storedNoMonthlySale": true,
+      "storedClockContinues": true,
+      "manualPausePreserved": true,
+      "storedOnlyNoCasksClock": true,
+      "retailLeftovers": true,
+      "multipleReleases": true,
+      "strictReload": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "paused": true,
+      "storedCanDeliver": true,
+      "sequentialShopsSameDetail": true,
+      "liveStockCash": true,
+      "departmentFinite": true,
+      "storedNoMonthlySale": true,
+      "storedClockContinues": false,
+      "manualPausePreserved": true,
+      "storedOnlyNoCasksClock": true,
+      "retailLeftovers": true,
+      "multipleReleases": true,
+      "strictReload": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "consultationLaterReturnsSameBottle": true,
+      "consultationAcceptReturnsSameBottle": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "oldListedStatesPreserved": true,
+      "v14RawPreserved": true,
+      "archiveV0162Opens": true,
+      "departmentHistoryPreserved": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "immediateExactRelease": true,
+      "otherThreeCaskJudgmentsPreserved": true,
+      "storageNotMandatoryModalOnReload": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "paused": false,
+      "storedCanDeliver": true,
+      "sequentialShopsSameDetail": true,
+      "liveStockCash": true,
+      "departmentFinite": true,
+      "storedNoMonthlySale": true,
+      "storedClockContinues": true,
+      "manualPausePreserved": true,
+      "storedOnlyNoCasksClock": true,
+      "retailLeftovers": true,
+      "multipleReleases": true,
+      "strictReload": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "paused": true,
+      "storedCanDeliver": true,
+      "sequentialShopsSameDetail": true,
+      "liveStockCash": true,
+      "departmentFinite": true,
+      "storedNoMonthlySale": true,
+      "storedClockContinues": false,
+      "manualPausePreserved": true,
+      "storedOnlyNoCasksClock": true,
+      "retailLeftovers": true,
+      "multipleReleases": true,
+      "strictReload": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "consultationLaterReturnsSameBottle": true,
+      "consultationAcceptReturnsSameBottle": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "oldListedStatesPreserved": true,
+      "v14RawPreserved": true,
+      "archiveV0162Opens": true,
+      "departmentHistoryPreserved": true
+    }
+  ]
+}

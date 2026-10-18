@@ -1,0 +1,134 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "54eb51e6d21146d019cb9117b974a0295458a31ab28ab0e0ffe8b7503755ae2e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v0163-bottles",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.16.3 bottling completion, optional retail and bottle-centered sales room",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "f82ce764cd62b51367d8dc25a8792d1bb9bafa30",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "User0.16.3 request",
+      "works/ambertime/design/department-limited/REPORT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v0163-bottles/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/bottle-storage.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/work-context.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/v0162.html",
+      "works/ambertime/shop-v0162-app.mjs",
+      "works/ambertime/shop-v0162.css",
+      "works/ambertime/tests/bottle*.mjs",
+      "works/ambertime/tests/*ui.test.mjs",
+      "works/ambertime/design/bottles/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "tools/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/experiments/**"
+    ],
+    "expectedChanges": [
+      "v15 explicit replay boundary and separate save key, preserve legacy v14 and earlier exact replay",
+      "Reuse listed false as stored, true as retail; allow eligible stored deliveries without changing numeric conditions or demand",
+      "Shared exact-product detail after bottling and shelf tap with sequential deliveries; bottle-first per-release shelf",
+      "Stored inventory does not create mandatory pricing modal or unintended clock pause; preserve cask/offer identity and manual pause",
+      "Tests, long mixed-storage simulations, desktop/phone browser and independent review"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "PC-iPhone-size browser flow and timer return",
+      "strict save replay and oldraw preservation",
+      "long paired simulation accounting",
+      "published source match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert entry and v15 UI extension; preserved v14 raw remains accessible through v0162.html; retain v15 raw",
+    "outOfScope": [
+      "Production",
+      "Chemistry or aging changes",
+      "Town/super conditions or reputation changes",
+      "New flavored projects",
+      "Production capacity",
+      "Shared runtime"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and human enjoyment"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN full work-local save boundary",
+      "EXPRESSION-AUDIT: concise state facts in existing modal/history only",
+      "AGENTS explicit useful delegation and independent review"
+    ],
+    "ownerDecisions": [
+      "User0.16.3 explicitly authorizes bottling/retail separation, bottle room, save version separation, tests and safe Staging PR merge; Production excluded."
+    ],
+    "hqDecisions": [
+      "Use existing strict operation replay with logged v15 storage enable boundary and separate save key. Reuse listed, no duplicate sales state. Preserve old semantics through v14; extend shop eligibility only for v15 and retain all shop evidence/conditions. Archive v0162 UI. No shared persistence changes."
+    ],
+    "problem": "Bottling currently forces retail listing before delivery and shelf mixes detailed controls.",
+    "currentContract": "v14 strict replay, listed governs retail, shared stock, finite department selections and durable brand/release ledgers.",
+    "whyExistingIsInsufficient": "Unlisted bottles are treated as mandatory pricing work and rejected by partner delivery despite being finished goods.",
+    "design": "Work-local v15 separates optional listing from bottled eligibility using existing state; exact product shared modal supports sequential allocation, brief shelf state, version-gated legacy behavior.",
+    "migration": "Strictly restore v14 and older then logged enable-bottle-storage; preserve old raw key and archived entry; selling remains selling, stock/prices/relations/adoptions unchanged.",
+    "compatibility": "Pre-v15 opcodes replay original behavior; no relaxed validation or backward conversion; v14 archive retains historical UI.",
+    "promotionRisk": "Staging only, no Production or shared paths",
+    "alternativesRejected": [
+      "Duplicate storage state",
+      "Changing old opcode semantics",
+      "Mandatory retail or allocation wizard",
+      "Demand/chemistry/shop-price changes"
+    ],
+    "boundaryCases": [
+      "Stored stock monthly unchanged and deliveries atomic",
+      "Stored then retail, listed then delivery, sequential shops",
+      "Insufficient stock/month cap/finite department",
+      "Same brand multiple releases",
+      "Immediate post-bottle detail with other cask decisions",
+      "Close/reload stored without forced modal; manual pause and automatic resume",
+      "Exact legacy migration and cold operation replay"
+    ],
+    "testPlan": [
+      "Full existing Node suite plus storage/delivery/replay boundary tests",
+      "8seed120-240month mixed stored/retail/delivery simulation with accounting and cold replay",
+      "Chromium PC1280 and phone390 flows, archived v0162 compatibility",
+      "Independent review, Change OS exact SHA gates, required CI and deployed source match"
+    ]
+  }
+}
