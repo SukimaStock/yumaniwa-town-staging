@@ -1,0 +1,131 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "98e4e1c51ff00aa51f98c1c1be3a243fe1d0d0e72077ddbaf01dbbfe6b7df17b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-local-pickup-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "既存ピックアップ枠で未選択の町内全文記事を抽選",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "f3f8ad6e994eee02f41440e7cb62fae8d75b16ea",
+    "canonicalSources": [
+      "2026-10-18 user adopted: ピックアップ枠にするのが良いですね",
+      "main.js buildNoteRackSelection",
+      "data/notes.js archivePage",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-local-pickup-20261018/r0.lock.json",
+      "main.js",
+      "tests/test-shinpo-rack.cjs",
+      "tools/SHINPO-MIGRATION.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "shinpo/**",
+      "assets/**",
+      "tools/shinpo-migrate.cjs",
+      "tools/shinpo-template.html",
+      "works/**",
+      "engines/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "sitemap.xml",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "CHANGE-*.md"
+    ],
+    "expectedChanges": [
+      "latestを選択後、未選択archivePage記事から既存pickup枠へ1本抽選",
+      "対象なしはfeatured/pickup優先、なければ次の9本という旧方式を維持",
+      "random/recommended/history/render/open動作・既存ラベル・4枠を保持。記事固定や5枠目なし",
+      "現行仕様に合わせ回帰と移植文書を更新"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 user accepted proposed existing pickup slot for one random town full-text article; latest/random/recommendation retained. Staging branch/PR/CI/safe merge/Pages authorized. Production prohibited."
+    ],
+    "hqDecisions": [
+      "SYSTEM/full/HQ Review for shared main.js. Pool selection only; recommendation/history/navigation/rendering unchanged.",
+      "表現監査: 可視文言・副題・装飾追加なし。記事本文/画像/リンクは本人確認済みで不変。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN single initial r0; official create/verify",
+      "Staging only",
+      "EXPRESSION-AUDIT.md 制作前/中/完成前6点"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "mobile/desktop掲示板4枠、pickup町内記事、1クリック本文、スクロール、戻る",
+      "原文/画像/リンクは差分ゼロ",
+      "実機と公開URL確認の可否を区別"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "runtime.mobile-desktop",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "このPRのみrevert。既存記事修復PR459/460は保持。保存構造/キー変更なし",
+    "outOfScope": [
+      "Production",
+      "記事本文/画像/リンク",
+      "推薦全面変更",
+      "保存/Engine/他作品/外部権限"
+    ],
+    "promotion": "Staging-only; Productionは別指示",
+    "unverified": [
+      "実機iPhone/iPad",
+      "cloud公開URL接続は既存制限あり。不可なら親の公開確認へ引継ぎ"
+    ],
+    "problem": "町内全文3記事は従来ピックアップ候補の直近9本に入らず、掲示板でほとんど表示されない",
+    "currentContract": "latest/pickup/random/recommended-or-welcomeの4枠、usedIds重複防止、archivePageで町内本文へ",
+    "whyExistingIsInsufficient": "記事数51に対し町内3本が古く、従来ピックアップから選ばれない",
+    "design": "最新を選択後archivePageの未選択候補poolを作り既存random pickerへ渡す。空なら旧featured/recent poolを使う。残り2枠の方式は変更しない",
+    "alternativesRejected": [
+      "特定記事固定",
+      "5枠目追加",
+      "推薦全面変更",
+      "新しい管理機構",
+      "追加文言/副題",
+      "記事再修復"
+    ],
+    "migration": "データ・記事URL・履歴形式・表示ラベルは変更しない",
+    "compatibility": "通常4枠と0〜3件fallback、最新が町内なら重複しない。町内対象0なら同seed/historyで旧挙動一致",
+    "boundaryCases": [
+      "町内0/1/3本",
+      "最新が町内で他町内なし/あり",
+      "historyあり/なし/unknown/storage unavailable",
+      "全候補0〜3件",
+      "全町内各記事が選ばれる",
+      "実51記事の古い町内3件"
+    ],
+    "testPlan": [
+      "旧main比較: archive候補なしでID/role/乱数消費一致",
+      "同seed/history再現性、4枠重複なし、latest保持、町内pickup各候補抽選",
+      "0〜3件fallback/最新町内/町内0,1,3/履歴ありなし",
+      "既存記事生成/本文媒体リンク回帰テスト",
+      "mobile/desktop 4枠と本文1クリック/scroll/back",
+      "Scope→Risk→Impact、node syntax、独立レビュー、必須CI、exact Pages SHA"
+    ],
+    "promotionRisk": "Staging noindex only"
+  }
+}
