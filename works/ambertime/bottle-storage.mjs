@@ -1,4 +1,4 @@
-import {generationMode} from './generations.mjs?v=0.17';
+import {generationMode} from './generations.mjs?v=0.18';
 // An explicit execution boundary keeps v14 and earlier operation replay unchanged.
 // Bottled inventory reuses listed: false is storage, true is retail.
 export const BOTTLE_STORAGE=Object.freeze({version:15,rules:'bottle-storage'});

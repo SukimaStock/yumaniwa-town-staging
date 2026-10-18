@@ -1,0 +1,151 @@
+{
+  "method": {
+    "base": "6eb9b676f68ada4fd9601cde7a9e8dbd43c56f66",
+    "seed": 1,
+    "sourceMode": "strictly-restored previously observed public v16 seed1 1440month source",
+    "baselineMonths": 1440,
+    "upgradeVersion": 17,
+    "finalMonth": 1441,
+    "chemistry": {
+      "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+      "economy.mjs": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+      "parameters.mjs": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822",
+      "economy-parameters.mjs": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+      "partner-parameters.mjs": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838",
+      "aroma-extraction.mjs": "77bc8d654d551e688b9ade8018bf595a75cc1c3355cd2023aef59c51ad6253ff",
+      "brand-reputation.mjs": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec"
+    },
+    "scope": "Actual 120-year v16 public play, then recipe-book upgrade, save two pruned old manual sources, select them, compare full history, then one actual v17 month. Not120years played entirely under v17. No state injection, no tolerance weakening. Initial comparison projection only once at120years; shortfixture cold equality covers incremental semantics.",
+    "limits": "One observed manufacturing policy/seed. Timings shared-machine observations, not human playtime or device guarantees. UTF16 codeunit restore bound and browserlocalStorage quota are different."
+  },
+  "baseline": {
+    "sha256": "1e12aaf00f19b047279df339bf118f1f4f99f598cbfcdddb0e862cd01294290b",
+    "months": 1440,
+    "completedGenerations": 4,
+    "activeGeneration": 5,
+    "brands": 3,
+    "relations": 9,
+    "releases": 163,
+    "deliveries": 343,
+    "adoptions": 70
+  },
+  "savedRecipes": [
+    {
+      "entry": {
+        "id": "recipe-2",
+        "name": "創業時の抽出",
+        "stopAt": 40,
+        "type": "bourbon",
+        "source": {
+          "caskId": 2,
+          "batchId": 1,
+          "operationIndex": 12,
+          "filledMonth": 0,
+          "generationId": 1
+        }
+      },
+      "actualSource": {
+        "caskId": 2,
+        "batchId": 1,
+        "stopAt": 40,
+        "type": "bourbon",
+        "operationIndex": 12,
+        "filledMonth": 0,
+        "generationId": 1
+      },
+      "sourceAbsentFromShortRecords": true,
+      "sourceAbsentFromArchive": true
+    },
+    {
+      "entry": {
+        "id": "recipe-4",
+        "name": "次の抽出",
+        "stopAt": 65,
+        "type": "refill",
+        "source": {
+          "caskId": 4,
+          "batchId": 3,
+          "operationIndex": 17,
+          "filledMonth": 2,
+          "generationId": 1
+        }
+      },
+      "actualSource": {
+        "caskId": 4,
+        "batchId": 3,
+        "stopAt": 65,
+        "type": "refill",
+        "operationIndex": 17,
+        "filledMonth": 2,
+        "generationId": 1
+      },
+      "sourceAbsentFromShortRecords": true,
+      "sourceAbsentFromArchive": true
+    }
+  ],
+  "observations": {
+    "manualSources": 256,
+    "prunedSources": 228,
+    "estateUnchangedOnUpgradeAndSelection": true,
+    "monthOutcomeEqualsOldModel": true,
+    "initialFacts": {
+      "items": 256,
+      "casks": 4,
+      "releases": 252,
+      "manualSources": 256,
+      "totalSold": 10860,
+      "totalRevenue": 204769.81,
+      "priceChanges": 252,
+      "historicalReleasesCovered": true,
+      "allChannelsMatch": true
+    },
+    "monthlyFacts": {
+      "items": 256,
+      "casks": 4,
+      "releases": 252,
+      "manualSources": 256,
+      "totalSold": 10860,
+      "totalRevenue": 204769.81,
+      "priceChanges": 252,
+      "historicalReleasesCovered": true,
+      "allChannelsMatch": true
+    },
+    "shortFixture": {
+      "month": 15,
+      "items": 1,
+      "pricePeriods": 3,
+      "warmEqualsCold": true,
+      "originalRawBytes": 8926
+    },
+    "coldRestoreEqual": true,
+    "coldRecipeBookEqual": true
+  },
+  "timingsMs": {
+    "baselineValidation": 69214.53,
+    "manualSourceLookup": 9.89,
+    "initialProjection": 89551.06,
+    "identicalProjection": 30.44,
+    "recipeSuffixProjection": 49.13,
+    "oneMonthProjection": 43.76,
+    "suffixSerialization": 62.84,
+    "coldFinalRestore": 76231.9
+  },
+  "capacity": {
+    "brands": 3,
+    "brandsRemaining": 125,
+    "operations": 3493,
+    "operationsRemaining": 8507,
+    "releases": 163,
+    "releasesRemaining": 349,
+    "deliveries": 343,
+    "deliveriesRemaining": 1705,
+    "recipes": 2,
+    "recipesRemaining": 62,
+    "codeUnits": 396409,
+    "utf8Bytes": 425809,
+    "utf16Bytes": 792818,
+    "restoreExclusiveCodeUnitLimit": 6016384,
+    "restoreRemainingCodeUnits": 5619975
+  },
+  "stateSha256": "380dd7d26e9c5380e72c387d63891c51e2eca29c17f4b332cdae66e4754f340f"
+}

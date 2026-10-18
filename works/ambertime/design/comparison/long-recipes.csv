@@ -1,0 +1,3 @@
+"entry","actualSource","sourceAbsentFromShortRecords","sourceAbsentFromArchive"
+"{""id"":""recipe-2"",""name"":""創業時の抽出"",""stopAt"":40,""type"":""bourbon"",""source"":{""caskId"":2,""batchId"":1,""operationIndex"":12,""filledMonth"":0,""generationId"":1}}","{""caskId"":2,""batchId"":1,""stopAt"":40,""type"":""bourbon"",""operationIndex"":12,""filledMonth"":0,""generationId"":1}","true","true"
+"{""id"":""recipe-4"",""name"":""次の抽出"",""stopAt"":65,""type"":""refill"",""source"":{""caskId"":4,""batchId"":3,""operationIndex"":17,""filledMonth"":2,""generationId"":1}}","{""caskId"":4,""batchId"":3,""stopAt"":65,""type"":""refill"",""operationIndex"":17,""filledMonth"":2,""generationId"":1}","true","true"
