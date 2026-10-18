@@ -38,7 +38,7 @@ node tools/shinpo-migrate.cjs dry-run --id <ID> --slug <URL名> \
 ```
 
 5. 同じ引数で `dry-run` を `import` へ変え、`--lock <正式Lock path>` を追加する。データ、該当notesレコードのarchivePage、生成HTMLだけを更新する。既存IDに異なる入力を上書きせず停止する。訂正は既存データをレビューしてから編集し、同じLock範囲で `generate` する。通常の追加ではmain.js、template、既存記事の編集は不要。
-6. `check`、`node --test tests/test-shinpo-migrate.cjs tests/test-shinpo-rack.cjs`、公式Scope → Risk → Impact、必要なブラウザー検査を行う。原典の全文・リンク・順序・画像照合は必ず別途行う。生成HTMLは手で直さない。
+6. `check`、`node --test tests/test-shinpo-migrate.cjs tests/test-shinpo-rack.cjs tests/test-shinpo-source-media.cjs`、公式Scope → Risk → Impact、必要なブラウザー検査を行う。原典の全文・リンク・順序・画像照合は必ず別途行う。生成HTMLは手で直さない。
 7. commit/push、既存PR照会、draft PR、必須 `plan-risk-gate` / `trusted-mechanical-evidence` と関連CI、レビュー確認後に許可済みStaging merge。exact merge SHA、Pages run、実URLを確認する。CI成功を実機/原典の確認とみなさない。
 
 新規notesレコード自体が必要な場合は、最初のPlan前にID・タイトル・日付・原note URLを原典で確認し、通常のmetadata登録のPlanで扱う。このツールは未登録IDや架空のmetadataを生成しない。
@@ -57,6 +57,8 @@ node tools/shinpo-migrate.cjs dry-run --id <ID> --slug <URL名> \
 
 基準は `644ce1e04a999cf575bd6affe2a24e374fe1125e` のHTMLとPR443/447/449/451。今回の抽出は既存HTMLの本文・順序・属性・画像・CSSを保持したもので、Drive PDFの再取得・再認証ではない。旧移植時からある町内本文リンクも保持し、将来の原典リンク置換の前例にしない。
 
-ボードゲーム記事の途中画像3点と、ゲーム未満記事の動画3点は未取得のまま。推測画像・要約を追加しない。実機iPhone/iPadはUNVERIFIED。ブラウザーのモバイル表示確認と実機の触感を区別する。
+2026-10-18の原note再照合で、ボードゲーム記事の本文画像は5点（前半2点も欠落していた）、町のはじまりには本文アニメーション1点の欠落が判明した。親の正規ブラウザ取得→GitHub共有の実bytesを復元し、各記事データのsource.mediaへ原URL・位置・caption・SHA256・寸法・frame数を保持。見出しcoverとは別に扱う。アニメーションは480×854の69frames WEBPのまま。本文外部リンクも原典へ戻した。
+
+ゲーム未満記事は本文静止画0、X投稿3件。元noteで確認した正規投稿URLへリンクし、原動画実体は未取得。cloudからpublish.twitter.comのoEmbed取得はTunnel403で拒否。既存の静的fragment契約はscript/iframeを禁止しているため、無断で埋込runtimeを追加せず、動画を別画像に置き換えない。投稿リンク先で動画を読む構成であり、町内動画再生の復元完了とはしない。実機iPhone/iPadはUNVERIFIED。ブラウザー表示と実機の触感を区別する。
 
 このツールのテストはこの変更のCIに自動接続していない。必須ゲートを弱めず、上記コマンドを記事追加ごとに実行担当が実行する。保護workflowを変更する場合は別途Authorization → Transitionの現行手順を使う。

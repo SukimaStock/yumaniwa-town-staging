@@ -21,10 +21,12 @@ test('existing three articles preserve ordered content, links, images, metadata 
   for(const [from,to] of Object.entries(sourceLinks)) old=old.replaceAll('href="'+from+'"','href="'+to+'"');
   if(a.slug==='town-beginning') old=old.replace('<a class="source-preview" href="../../">','<a class="source-preview" href="https://sukimastock.github.io/yumaniwa-town/">');
   // Only insignificant inter-tag whitespace differs: even existing local original links remain untouched.
-  assert.equal(compact(generated),compact(old),a.slug);
+  const withoutRestoredMedia=generated.replace(/<figure><img src="\.\.\/\.\.\/assets\/shinpo\/(?:board-game-making\/body-[1-5]|town-beginning\/town-animation)\.webp"[^>]*>(?:<figcaption>[^<]*<\/figcaption>)?<\/figure>/g,'');
+  old=old.replace(/<aside class="media-note"[\s\S]*?<\/aside>/g,'');
+  assert.equal(compact(withoutRestoredMedia),compact(old),a.slug);
   assert.equal(generated,fs.readFileSync(path.join(root,'shinpo',a.slug,'index.html'),'utf8'));
  }
- assert.equal(tool.load('95d48e6613ce4037907364809ee3359f').blocks.filter(b=>b.origin==='editorial-media-note').length,3);
+ assert.equal(tool.load('95d48e6613ce4037907364809ee3359f').blocks.filter(b=>b.origin==='editorial-media-note').length,0);
  assert.equal(tool.load('31beb527cad14b72a2afdc57f4b986b4').blocks.filter(b=>b.html.includes('video-citation')).length,3);
 });
 test('dry-run is deterministic, read-only, and regeneration is already clean',()=>{

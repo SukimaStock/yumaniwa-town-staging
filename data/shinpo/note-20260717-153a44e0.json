@@ -3,11 +3,22 @@
   "slug": "town-beginning",
   "source": {
     "reference": "Existing migrated HTML at 644ce1e04a999cf575bd6affe2a24e374fe1125e; prior Drive PDF transcription documented in PR 449",
-    "verification": "2026-10-18 parent browser compared original note and confirmed original body link URLs; animation file awaiting authorized share after cloud CDN Tunnel403.",
-    "missingMedia": [
-      "1 original animated image; parent acquired 480x854 / 69 frames, cloud file pending"
-    ],
-    "legacyLinks": "Preserve existing links verbatim; this does not authorize replacing source links in future articles."
+    "verification": "2026-10-18: parent inspected original note and acquired original media through normal browser access; transferred unchanged via GitHub commit 8e1c1102001e1744cdd9d262dd6b034fb9290500. Cloud verified WEBP bytes, SHA256, dimensions and frame counts; insertion positions/captions follow parent source evidence. No generated replacement media.",
+    "missingMedia": [],
+    "legacyLinks": "Original external body links restored from parent source comparison; town navigation remains outside the original body.",
+    "media": [
+      {
+        "path": "assets/shinpo/town-beginning/town-animation.webp",
+        "sourceUrl": "https://assets.st-note.com/img/1784257318-PgqFhc7XSN9mE2v0k3Gldfrb.gif?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+        "after": "名前は、「湯間庭町（ゆまにわちょう）」。",
+        "caption": "",
+        "sha256": "d66a03f19aa78f7052cbd73761d494b0350f2764dac2e554ef2c7337833625cb",
+        "format": "WEBP",
+        "width": 480,
+        "height": 854,
+        "frames": 69
+      }
+    ]
   },
   "description": "2026年7月17日に書いた、湯間庭町が生まれた頃の記録。作品を並べるだけでなく、作品が住める場所を作りたかった。",
   "ogDescription": "2026年7月17日に書いた湯間庭町の誕生記録を、原文のまま読める新聞紙面。",
@@ -90,6 +101,10 @@
     {
       "origin": "source",
       "html": "<p>ここまで来たら、後は早かった。<br>すぐに歩けるRPG風のサイトを作り始めた。<br>名前は、「湯間庭町（ゆまにわちょう）」。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/town-beginning/town-animation.webp\" width=\"480\" height=\"854\" alt=\"原記事の本文画像\" loading=\"lazy\" decoding=\"async\"></figure>"
     },
     {
       "origin": "source",

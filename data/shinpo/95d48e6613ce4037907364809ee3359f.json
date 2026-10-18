@@ -3,11 +3,66 @@
   "slug": "board-game-making",
   "source": {
     "reference": "Existing migrated HTML at 644ce1e04a999cf575bd6affe2a24e374fe1125e; prior Drive PDF transcription documented in PR 451",
-    "verification": "baseline-preserved; original PDF not re-fetched",
-    "missingMedia": [
-      "3 original in-body images"
-    ],
-    "legacyLinks": "Preserve existing links verbatim; this does not authorize replacing source links in future articles."
+    "verification": "2026-10-18: parent inspected original note and acquired original media through normal browser access; transferred unchanged via GitHub commit 8e1c1102001e1744cdd9d262dd6b034fb9290500. Cloud verified WEBP bytes, SHA256, dimensions and frame counts; insertion positions/captions follow parent source evidence. No generated replacement media.",
+    "missingMedia": [],
+    "legacyLinks": "Original external body links restored from parent source comparison; town navigation remains outside the original body.",
+    "media": [
+      {
+        "path": "assets/shinpo/board-game-making/body-1.webp",
+        "sourceUrl": "https://assets.st-note.com/img/1777693276-Jlh0KDSnf5NsjuqgHEOiQwIe.png?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+        "after": "資源が増えるようにし、電線を引けるようにする。",
+        "caption": "",
+        "sha256": "1a720343d2bfec982bd9c0aba98382b55afbbf22a9eab9f939fdc9dbf7959c09",
+        "format": "WEBP",
+        "width": 887,
+        "height": 1920,
+        "frames": 1
+      },
+      {
+        "path": "assets/shinpo/board-game-making/body-2.webp",
+        "sourceUrl": "https://assets.st-note.com/img/1777693331-rMQzA72gx3EvSwocbuOdlymh.png?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+        "after": "すると、急に情報が頭に入ってくるようになりました。",
+        "caption": "",
+        "sha256": "61cca8f020c8e28e5b5032c1530e44be41af7d6e61c9b99d86ec2e4f87ca0610",
+        "format": "WEBP",
+        "width": 887,
+        "height": 1920,
+        "frames": 1
+      },
+      {
+        "path": "assets/shinpo/board-game-making/body-3.webp",
+        "sourceUrl": "https://assets.st-note.com/img/1777693367-bmD6rhFZqxWLE9YASou4K7JO.png?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+        "after": "手触りとして繋がらないものは、だいたい消えていきました。",
+        "caption": "プロトタイプ",
+        "sha256": "cccb0989306579f5b235b6c64ec23e8345ecdd780c684e9cc2fdcb67d47f0879",
+        "format": "WEBP",
+        "width": 887,
+        "height": 1920,
+        "frames": 1
+      },
+      {
+        "path": "assets/shinpo/board-game-making/body-4.webp",
+        "sourceUrl": "https://assets.st-note.com/img/1777693453-PRulHnVh0qTgZUxQL9yBerdG.png?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+        "after": "なぜか「二人で焼き鳥を焼き合う」謎のゲームでした。",
+        "caption": "ドット化一段階目",
+        "sha256": "959d85d130321ee420480c20bc10fab4575185bac65604b29c4f9b82a500b883",
+        "format": "WEBP",
+        "width": 887,
+        "height": 1920,
+        "frames": 1
+      },
+      {
+        "path": "assets/shinpo/board-game-making/body-5.webp",
+        "sourceUrl": "https://assets.st-note.com/img/1777693539-xg3qvHczfaPBpENr1mFXLjZo.png?width=4000&height=4000&fit=bounds&format=jpg&quality=90",
+        "after": "「自分が触っていて納得出来るもの」だったようです。",
+        "caption": "ドット化二段階目",
+        "sha256": "16f8b22d30a6a1b6d08fa688de80d2c3cce71017e2715a7bd3bb4ef94c9b187d",
+        "format": "WEBP",
+        "width": 887,
+        "height": 1920,
+        "frames": 1
+      }
+    ]
   },
   "description": "「ボードゲームの作り方」が分からなかったので、アプリで再現してみた。はままぁが2026-05-22に公開した制作記録の原文を、湯間庭町の新聞で読む。",
   "ogDescription": "「ボードゲームの作り方」が分からなかったので、アプリで再現してみた — 過去記事を湯間庭町の中でそのまま読む。",
@@ -41,6 +96,10 @@
     },
     {
       "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/board-game-making/body-1.webp\" width=\"887\" height=\"1920\" alt=\"原記事の本文画像\" loading=\"lazy\" decoding=\"async\"></figure>"
+    },
+    {
+      "origin": "source",
       "html": "<p>一応、遊べる状態にはなりました。<br>でも、まだよく分かりません。</p>"
     },
     {
@@ -58,6 +117,10 @@
     {
       "origin": "source",
       "html": "<p>そこで、文字や数字をやめて、記号と色に置き換えてみました。<br>すると、急に情報が頭に入ってくるようになりました。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/board-game-making/body-2.webp\" width=\"887\" height=\"1920\" alt=\"原記事の本文画像\" loading=\"lazy\" decoding=\"async\"></figure>"
     },
     {
       "origin": "source",
@@ -96,16 +159,16 @@
       "html": "<p>手触りとして繋がらないものは、だいたい消えていきました。</p>"
     },
     {
-      "origin": "editorial-media-note",
-      "html": "<aside class=\"media-note\" aria-label=\"原記事の図版\"><strong>プロトタイプ</strong><div>原記事の図版はPDFに画像データが残っていないため、ここでは別の画像に置き換えていません。</div><a href=\"https://note.com/hamamah/n/n0ca130319cac\" target=\"_blank\" rel=\"noopener noreferrer\">元の掲載画像を見る ↗</a></aside>"
+      "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/board-game-making/body-3.webp\" width=\"887\" height=\"1920\" alt=\"プロトタイプ\" loading=\"lazy\" decoding=\"async\"><figcaption>プロトタイプ</figcaption></figure>"
     },
     {
       "origin": "source",
       "html": "<p>そうやってそぎ落としていった結果、<br>最終的に残ったのは、<br>なぜか「二人で焼き鳥を焼き合う」謎のゲームでした。</p>"
     },
     {
-      "origin": "editorial-media-note",
-      "html": "<aside class=\"media-note\" aria-label=\"原記事の図版\"><strong>ドット化一段階目</strong><div>原記事の図版はPDFに画像データが残っていないため、ここでは別の画像に置き換えていません。</div><a href=\"https://note.com/hamamah/n/n0ca130319cac\" target=\"_blank\" rel=\"noopener noreferrer\">元の掲載画像を見る ↗</a></aside>"
+      "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/board-game-making/body-4.webp\" width=\"887\" height=\"1920\" alt=\"ドット化一段階目\" loading=\"lazy\" decoding=\"async\"><figcaption>ドット化一段階目</figcaption></figure>"
     },
     {
       "origin": "source",
@@ -116,8 +179,8 @@
       "html": "<p>理屈通りに「正しいボードゲーム」を作ろうとしていましたが、<br>私が本当に欲しかったのは、<br>「自分が触っていて納得出来るもの」だったようです。</p>"
     },
     {
-      "origin": "editorial-media-note",
-      "html": "<aside class=\"media-note\" aria-label=\"原記事の図版\"><strong>ドット化二段階目</strong><div>原記事の図版はPDFに画像データが残っていないため、ここでは別の画像に置き換えていません。</div><a href=\"https://note.com/hamamah/n/n0ca130319cac\" target=\"_blank\" rel=\"noopener noreferrer\">元の掲載画像を見る ↗</a></aside>"
+      "origin": "source",
+      "html": "<figure><img src=\"../../assets/shinpo/board-game-making/body-5.webp\" width=\"887\" height=\"1920\" alt=\"ドット化二段階目\" loading=\"lazy\" decoding=\"async\"><figcaption>ドット化二段階目</figcaption></figure>"
     },
     {
       "origin": "source",
