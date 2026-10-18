@@ -1,0 +1,140 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "07ee1af8af45acea8af527636e0a285d1c5ddeafb80124929c773d36c0f4281d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "coffee-release-final-candidate-20261018",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Prepare CoffeeFactory-only release candidate and unmerged Production PR; preserve app behavior",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "ASSET",
+      "CONTENT",
+      "PLACEMENT"
+    ],
+    "authority": [
+      "Standard",
+      "Rule / Skill",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "a57db6242c08a242a0228c5e93539ad7d426a886",
+    "canonicalSources": [
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/work-lifecycle.json",
+      "RELEASE-WORKFLOW.md",
+      "EXPRESSION-AUDIT.md",
+      "Staging a57db6242c08a242a0228c5e93539ad7d426a886 CoffeeFactory runtime and existing physical exhibit"
+    ],
+    "allowedPaths": [
+      "data/work-lifecycle.json",
+      "data/work-search-meta.js",
+      "assets/works/coffee-factory/icon.png",
+      "w/coffee-factory/index.html",
+      "en/w/coffee-factory/index.html",
+      "lab/index.html",
+      "release-candidates/coffee-factory-20261018.md",
+      "index.html",
+      ".change-plans/coffee-release-final-candidate-20261018/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "engine/**",
+      ".github/**",
+      "developer-access.js",
+      "work-install-meta.js",
+      "works/ambertime/**",
+      "works/orbit-02/**"
+    ],
+    "expectedChanges": [
+      "Record owner candidate decision and reported successful current app device operation",
+      "Reuse exact existing cup artwork as reviewable Search/Guide image, accurate alt, no new artwork or app UI",
+      "Regenerate CoffeeFactory JA/EN noindex previews and LAB; retain Prototype Bench until released",
+      "Record selected files, exclusions, validation limits and rollback in existing release-candidates area",
+      "Add one static CoffeeFactory introduction link to existing root work links, preserving noindex and all runtime"
+    ],
+    "ownerDecisions": [
+      "2026-10-18T13:19+02:00 user: はい、問題なく動作していました。本番反映に向けて整理してください。 Followed by お願いします after proposal to prepare unmerged Production PR. This authorizes candidate/preparation only, not merge/deploy."
+    ],
+    "hqDecisions": [
+      "No new launch/frame/venue/storage/analytics/Engine contract. Existing soft phone frame and physical Coffee exhibit reused exactly. Full plan due root cache and generated surfaces; authority labels are not additional user approval."
+    ],
+    "rulesApplied": [
+      "Existing RELEASE-WORKFLOW selective candidate preparation",
+      "EXPRESSION-AUDIT: reuse existing concise copy; no app text or decorative additions",
+      "Existing iconless CoffeeFactory install contract retained",
+      "Existing image reuse is provisional for review; no claim of final artwork approval"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "User-reported current app operation (not a new exact-SHA comprehensive device test)",
+      "Review source dependencies, copy parity, actual image and explicit exclusions",
+      "Browser QA unavailable: managed environment without control-browser; retain UNVERIFIED"
+    ],
+    "impactChecks": [
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "risk.high-risk-review",
+      "runtime.regression",
+      "search.generated-pages",
+      "search.sitemap",
+      "search.localized-copy",
+      "search.structured-data",
+      "search.validator",
+      "surface.shared"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this candidate/preparation PR; preserve app storage and all other works. Production PR remains unmerged.",
+    "outOfScope": [
+      "Production main merge/deploy",
+      "New app features, restyling, Engine migration",
+      "Social posting, external analytics/Search Console configuration",
+      "LAB removal before release"
+    ],
+    "promotion": "Preparation and unmerged PR only. Any productionInstruction CLI argument must explicitly state preparation-only; it is not authorization to merge/deploy.",
+    "unverified": [
+      "Cloud browser QA unavailable",
+      "Production device/audio background resume boundary",
+      "Plausible external goals and ingestion",
+      "Final owner artwork selection and OGP card cropping"
+    ],
+    "problem": "CoffeeFactory is implemented on staging but absent from production.",
+    "currentContract": "Existing embedded soft 360x640 work; exact v0.2 Engine already in Production; setup only storage; no work SW.",
+    "whyExistingIsInsufficient": "Missing production runtime, town registration, Search/Guide image and publication entry.",
+    "design": "Select existing app and authored exhibit, reuse existing schemas and generators. Keep shared code unchanged.",
+    "alternativesRejected": [
+      "Whole staging promotion",
+      "Engine upgrade as part of release",
+      "New feature/design or authoring tools in runtime bundle"
+    ],
+    "migration": "Additive publication preparation; preserve IDs, URLs, storage keys and ten existing works.",
+    "compatibility": "No common Engine/runtime change; authoring sound lab and unused artifacts excluded.",
+    "boundaryCases": [
+      "hidden/resume audio",
+      "pause while hidden",
+      "reload resets in-progress brew intentionally",
+      "new setup persistence",
+      "town return/reentry",
+      "11-work publication with 12 articles and standalone desk"
+    ],
+    "testPlan": [
+      "Scope then Risk then Impact",
+      "Coffee deterministic recipe clock and dependency smoke",
+      "Release Validator on staging and actual production candidate",
+      "Existing guide and production regressions",
+      "Independent read-only release review",
+      "Required GitHub CI at exact head"
+    ],
+    "promotionRisk": "Known old v0.2 audio-recovery race remains to assess; no release-ready or live claim. Review non-landscape reused image crop before final release."
+  }
+}

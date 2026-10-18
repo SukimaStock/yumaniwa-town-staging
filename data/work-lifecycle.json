@@ -71,8 +71,9 @@
     {
       "id": "coffee-factory",
       "path": "works/coffee-factory",
-      "status": "active",
-      "title": "CoffeeFactory"
+      "status": "candidate",
+      "title": "CoffeeFactory",
+      "candidateDecision": "Owner 2026-10-18T13:19+02:00: current CoffeeFactory works on device; prepare current version as release candidate and unmerged Production PR. No merge/deploy authorization."
     },
     {
       "id": "pumpoko",

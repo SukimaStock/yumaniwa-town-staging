@@ -461,47 +461,54 @@ var WORK_SEARCH_META = {
         }
     },
     "coffee-factory": {
-        "schemaType": "SoftwareApplication",
-        "alternateNames": [],
-        "ja": {
-            "pageTitle": "CoffeeFactory｜ハンドドリップを楽しむコーヒー抽出タイマー｜湯間庭町",
-            "metaDescription": "豆を選び、準備し、注ぎ、一杯を完成させるコーヒー抽出タイマー。小さな工場のこびと達と一緒に、抽出の時間を楽しめます。",
-            "body": "豆を選び、準備し、注ぎ、一杯を完成させるまでを一緒に進めるコーヒー抽出タイマーです。小さな工場で働くこびと達を眺めながら、ハンドドリップの工程と待つ時間そのものを楽しめます。",
-            "shareTitle": "CoffeeFactory｜湯間庭町",
-            "shareDescription": "こびと達と一緒に、一杯を淹れるコーヒー抽出タイマー。",
-            "imageAlt": "小さな工場のこびと達とコーヒーを淹れるCoffeeFactoryの画面",
-            "genres": [
-                "コーヒー",
-                "抽出タイマー"
-            ],
-            "terms": [
-                "コーヒー抽出タイマー",
-                "ハンドドリップ",
-                "コーヒータイマー",
-                "4:6メソッド",
-                "ドリップコーヒー"
-            ]
-        },
-        "en": {
-            "pageTitle": "CoffeeFactory | A Pour-Over Coffee Brewing Timer | Yumaniwa Town",
-            "metaDescription": "A pour-over coffee brewing timer that guides you through beans, preparation, pouring and finishing a cup alongside a tiny animated factory.",
-            "body": "CoffeeFactory is a brewing timer that follows the process from choosing beans and preparing the setup to pouring and finishing a cup. Tiny workers move around the factory as you brew, turning the practical timing of pour-over coffee into something to watch as well as use.",
-            "shareTitle": "CoffeeFactory | Yumaniwa Town",
-            "shareDescription": "A coffee brewing timer set inside a tiny animated factory.",
-            "imageAlt": "Tiny workers preparing coffee inside the CoffeeFactory brewing timer",
-            "genres": [
-                "Coffee",
-                "Brewing Timer"
-            ],
-            "terms": [
-                "coffee brewing timer",
-                "pour-over timer",
-                "coffee timer",
-                "4:6 method",
-                "hand drip coffee"
-            ]
-        }
+    "schemaType": "SoftwareApplication",
+    "alternateNames": [],
+    "ja": {
+        "pageTitle": "CoffeeFactory｜ハンドドリップを楽しむコーヒー抽出タイマー｜湯間庭町",
+        "metaDescription": "豆を選び、準備し、注ぎ、一杯を完成させるコーヒー抽出タイマー。小さな工場のこびと達と一緒に、抽出の時間を楽しめます。",
+        "body": "豆を選び、準備し、注ぎ、一杯を完成させるまでを一緒に進めるコーヒー抽出タイマーです。小さな工場で働くこびと達を眺めながら、ハンドドリップの工程と待つ時間そのものを楽しめます。",
+        "shareTitle": "CoffeeFactory｜湯間庭町",
+        "shareDescription": "こびと達と一緒に、一杯を淹れるコーヒー抽出タイマー。",
+        "imageAlt": "CoffeeFactoryのコーヒーカップと湯気のイラスト",
+        "genres": [
+            "コーヒー",
+            "抽出タイマー"
+        ],
+        "terms": [
+            "コーヒー抽出タイマー",
+            "ハンドドリップ",
+            "コーヒータイマー",
+            "4:6メソッド",
+            "ドリップコーヒー"
+        ]
+    },
+    "en": {
+        "pageTitle": "CoffeeFactory | A Pour-Over Coffee Brewing Timer | Yumaniwa Town",
+        "metaDescription": "A pour-over coffee brewing timer that guides you through beans, preparation, pouring and finishing a cup alongside a tiny animated factory.",
+        "body": "CoffeeFactory is a brewing timer that follows the process from choosing beans and preparing the setup to pouring and finishing a cup. Tiny workers move around the factory as you brew, turning the practical timing of pour-over coffee into something to watch as well as use.",
+        "shareTitle": "CoffeeFactory | Yumaniwa Town",
+        "shareDescription": "A coffee brewing timer set inside a tiny animated factory.",
+        "imageAlt": "A steaming coffee cup illustration from CoffeeFactory",
+        "genres": [
+            "Coffee",
+            "Brewing Timer"
+        ],
+        "terms": [
+            "coffee brewing timer",
+            "pour-over timer",
+            "coffee timer",
+            "4:6 method",
+            "hand drip coffee"
+        ]
+    },
+    "ogp": {
+        "file": "icon.png",
+        "mime": "image/png",
+        "width": 473,
+        "height": 512,
+        "version": "20261018-candidate"
     }
+}
 };
 
 function getWorkSearchMeta(workId) {
