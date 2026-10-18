@@ -1,0 +1,137 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ac9093012498fbda7ad9f99b10bd44c3cf8c9a45e0541951cb2f821e3201e26f",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-repeatable-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "既存4枠へ戻し、原文を保持する静的生成と再開可能な記事移植入口を追加",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "644ce1e04a999cf575bd6affe2a24e374fe1125e",
+    "canonicalSources": [
+      "data/notes.js",
+      "shinpo/town-beginning/index.html",
+      "shinpo/board-game-making/index.html",
+      "shinpo/game-app-in-between/index.html",
+      "data/shinpo/*.json",
+      "tools/shinpo-template.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-repeatable-20261018/r0.lock.json",
+      "main.js",
+      "data/shinpo/*.json",
+      "tools/shinpo-template.html",
+      "tools/shinpo-migrate.cjs",
+      "tools/SHINPO-MIGRATION.md",
+      "tests/test-shinpo-migrate.cjs",
+      "tests/test-shinpo-rack.cjs",
+      "shinpo/town-beginning/index.html",
+      "shinpo/board-game-making/index.html",
+      "shinpo/game-app-in-between/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "works/**",
+      "engines/**",
+      "index.html",
+      "style.css",
+      "data/notes.js",
+      "assets/**",
+      "sitemap.xml",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "CHANGE-*.md"
+    ],
+    "expectedChanges": [
+      "archivePage先行追加ループのみ削除。候補/乱数/履歴が同じなら通常4枠のID/役割はarchivePageによらない",
+      "既存3記事をID単位の順序付きHTMLブロックと原典/町内補足の区分へ抽出。本文/画像/既存リンク/URL/外観は保持",
+      "共通静的テンプレート。次の記事はデータ/取得原画像/notesレコード/生成HTML/事前Lockだけで完結",
+      "inspect/dry-run/plan/import/generate/check/resumeの単一CLI。公式create/verifyを使用。自動PR/公開なし。再開では既存PR照会を必須とし結果不明時は停止"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 本委任: 設計説明後のよろしく、および元の4枠の中に組み込まれるイメージへの訂正。安全なStaging branch/commit/draft PR/CI/レビュー後merge/Pages確認まで許可。Production禁止。"
+    ],
+    "hqDecisions": [
+      "既存main/PR443,447,449,451を照合。元の4枠へ戻す。静的ビルドのみ、DB/CMS/runtime追加なし。未知コードはSYSTEM/full。原典の完全性は自動認証せず既存欠落を明記。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN v0.2 Plan Lock before changes",
+      "Change PR Gate trusted base",
+      "Staging only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "既存3記事の本文/リンク/画像/外観回帰、モバイル/PC、1クリック本文/スクロール/戻る",
+      "原典不足と実機iPhone/iPad未確認を区別"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "runtime.mobile-desktop",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "このPRの実装差分をrevert。既存記事URL/画像/保存キーを変更しない。",
+    "outOfScope": [
+      "Production",
+      "検索サイトマップ公開登録",
+      "作品やEngine",
+      "note原稿の編集",
+      "全記事一括移植"
+    ],
+    "promotion": "Staging-only; Productionは別指示",
+    "unverified": [
+      "原典PDF/現行noteの完全照合は取得状況に依存。既存HTMLと既存PR証拠を区別",
+      "既存未取得画像3点/動画3点を保持",
+      "実機iPhone/iPad未確認"
+    ],
+    "problem": "記事追加のたび手書きHTMLとPlan不備により中断し、archivePage特別枠が意図に反する。",
+    "currentContract": "notes ID/metadataと既存静的新聞3記事。公式Lock単独初回commit。",
+    "whyExistingIsInsufficient": "追加ループは移植済みを優遇。共通テンプレートと照合/再開入口がない。",
+    "design": "Node標準ライブラリのCLI。静的templateとID別順序付きブロック、原典ref/未取得media記録。dry-run/checkはread-only。書込は既存正式単独Lockを検証し冪等更新。Plan準備はJSONを利用者に書かせずCLIが作り公式create/verifyへ渡す。Git/PR運用は既存手順で行う。",
+    "alternativesRejected": [
+      "管理画面/DB/CMS/runtime追加",
+      "Plan digest独自実装",
+      "原典リンクの置換",
+      "固定枠",
+      "原画像/動画の創作",
+      "自動公開bot"
+    ],
+    "migration": "既存3記事本文/画像/リンクを保持してデータ抽出。既存ID/URL/保存キー不変。",
+    "compatibility": "未移植はnote、移植済みは町内本文への1クリックを維持。4枠候補fallback保持。",
+    "boundaryCases": [
+      "0〜3候補と4件重複なし",
+      "7/17より新しいarchivePage",
+      "Lock直後/生成途中/PR作成後再開",
+      "PR作成不明時照会",
+      "base進行とfresh r0の例外",
+      "同入力dry-run2回と再生成差分ゼロ"
+    ],
+    "testPlan": [
+      "node tests/test-shinpo-rack.cjs",
+      "node tests/test-shinpo-migrate.cjs",
+      "公式Scope→Risk→Impactとtrusted CI",
+      "既存HTML本文/画像/リンク/CSS回帰",
+      "ブラウザモバイル/PC操作",
+      "Staging Pages exact merge SHA確認"
+    ],
+    "promotionRisk": "Staging noindex only"
+  }
+}

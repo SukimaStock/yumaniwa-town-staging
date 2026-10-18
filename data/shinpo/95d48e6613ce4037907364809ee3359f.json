@@ -1,0 +1,141 @@
+{
+  "id": "95d48e6613ce4037907364809ee3359f",
+  "slug": "board-game-making",
+  "source": {
+    "reference": "Existing migrated HTML at 644ce1e04a999cf575bd6affe2a24e374fe1125e; prior Drive PDF transcription documented in PR 451",
+    "verification": "baseline-preserved; original PDF not re-fetched",
+    "missingMedia": [
+      "3 original in-body images"
+    ],
+    "legacyLinks": "Preserve existing links verbatim; this does not authorize replacing source links in future articles."
+  },
+  "description": "「ボードゲームの作り方」が分からなかったので、アプリで再現してみた。はままぁが2026-05-22に公開した制作記録の原文を、湯間庭町の新聞で読む。",
+  "ogDescription": "「ボードゲームの作り方」が分からなかったので、アプリで再現してみた — 過去記事を湯間庭町の中でそのまま読む。",
+  "cover": "<figure><img src=\"../../assets/shinpo/backnumber/board-game-cover.png\" width=\"1280\" height=\"670\" alt=\"「ボードゲームの作り方」が分からなかったので、アプリで再現してみたの元note掲載見出し画像\" fetchpriority=\"high\"></figure>",
+  "navDate": "2026年05月22日",
+  "displayDate": "2026年5月22日",
+  "blocks": [
+    {
+      "origin": "source",
+      "html": "<p>「ボードゲームの作り方」について読んだことがありました。<br>『自分だけのボードゲームを作ろう』という本です。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>リソースの管理やジレンマの設計など、<br>少し難しいですが、書いてある仕組みはなんとなく分かりました。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>ただ、オセロや人生ゲームぐらいしか遊んだ経験がなく、<br>「なぜそれが面白いのか」までは、よく分からないままでした。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>最近、自作アプリばかり作っています。<br>理屈で分からないなら、触って確かめてみようと思いました。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>いつものように、ソファ上でiPhoneを開き、<br>盤面やボタンを並べていきます。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>見よう見まねでルールを入れて、<br>資源が増えるようにし、電線を引けるようにする。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>一応、遊べる状態にはなりました。<br>でも、まだよく分かりません。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>「動く」だけで、どこが面白いのかしっくりこないままでした。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>分からないので、今度は全部見えるようにしてみます。<br>数字も状態も、画面に出していく。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>確かに分かりやすくはなりました。<br>でも今度は触っても楽しくありません。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>そこで、文字や数字をやめて、記号と色に置き換えてみました。<br>すると、急に情報が頭に入ってくるようになりました。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>ここで一度、「できた」と思いました。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>しかし、遊んでみても、まだ少しだけ引っかかる。選んだ結果がしっくりこない。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>見た目は整っているのに、<br>どこかで引っかかっている感じがします。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>ここで、方針を変えることにしました。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>「これを、現実の紙とコマだけで遊べるか」<br>それを基準にしてみました。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>画面の中では、いくらでも複雑な計算ができますが、<br>実際に人間が一度に見られるもの、<br>手で管理出来るものはそんなに多くありません。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>自分で分かりにくいと思ったところを、ひとつずつ削っていきます。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>なぜその操作を選ぶのか。<br>なぜその強さなのか。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>手触りとして繋がらないものは、だいたい消えていきました。</p>"
+    },
+    {
+      "origin": "editorial-media-note",
+      "html": "<aside class=\"media-note\" aria-label=\"原記事の図版\"><strong>プロトタイプ</strong><div>原記事の図版はPDFに画像データが残っていないため、ここでは別の画像に置き換えていません。</div><a href=\"https://note.com/hamamah/n/n0ca130319cac\" target=\"_blank\" rel=\"noopener noreferrer\">元の掲載画像を見る ↗</a></aside>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>そうやってそぎ落としていった結果、<br>最終的に残ったのは、<br>なぜか「二人で焼き鳥を焼き合う」謎のゲームでした。</p>"
+    },
+    {
+      "origin": "editorial-media-note",
+      "html": "<aside class=\"media-note\" aria-label=\"原記事の図版\"><strong>ドット化一段階目</strong><div>原記事の図版はPDFに画像データが残っていないため、ここでは別の画像に置き換えていません。</div><a href=\"https://note.com/hamamah/n/n0ca130319cac\" target=\"_blank\" rel=\"noopener noreferrer\">元の掲載画像を見る ↗</a></aside>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>これまでプログラムのために手は動かしていたけど、<br>「面白さ」に触れることができていなかったのかもしれません。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>理屈通りに「正しいボードゲーム」を作ろうとしていましたが、<br>私が本当に欲しかったのは、<br>「自分が触っていて納得出来るもの」だったようです。</p>"
+    },
+    {
+      "origin": "editorial-media-note",
+      "html": "<aside class=\"media-note\" aria-label=\"原記事の図版\"><strong>ドット化二段階目</strong><div>原記事の図版はPDFに画像データが残っていないため、ここでは別の画像に置き換えていません。</div><a href=\"https://note.com/hamamah/n/n0ca130319cac\" target=\"_blank\" rel=\"noopener noreferrer\">元の掲載画像を見る ↗</a></aside>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>つい先日、アプリを出すのが怖いという記事を書いたばかりですが、今回はこれをWeb版として置いてみることにしました。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>まだ完成とは言えないので、勇気を出して少しだけ外に出してみます。<br>ここから育てていくつもりです。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>ちょうどいい焼き加減は、<br>まだ自分でも分かっていません。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<a class=\"source-preview\" href=\"https://sukimastock.itch.io/yakitori-wars\" target=\"_blank\" rel=\"noopener noreferrer\"><strong>YAKITORI WARS by SukimaStock</strong><small>The perfect moment lasts only a second.<br>sukimastock.itch.io ↗</small></a>"
+    }
+  ],
+  "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../w/yakitori-wars/\">YAKITORI WARSを見に行く ↗</a><a href=\"../town-beginning/\">町のはじまりを読む ↗</a><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「「ボードゲームの作り方」が分からなかったので、アプリで再現してみた」（note、2026-05-22）。<a href=\"https://note.com/hamamah/n/n0ca130319cac\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>",
+  "backnumber": true
+}

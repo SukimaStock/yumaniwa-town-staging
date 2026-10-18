@@ -1,0 +1,121 @@
+{
+  "id": "31beb527cad14b72a2afdc57f4b986b4",
+  "slug": "game-app-in-between",
+  "source": {
+    "reference": "Existing migrated HTML at 644ce1e04a999cf575bd6affe2a24e374fe1125e; prior Drive PDF transcription documented in PR 451",
+    "verification": "baseline-preserved; original PDF not re-fetched",
+    "missingMedia": [
+      "3 original videos"
+    ],
+    "legacyLinks": "Preserve existing links verbatim; this does not authorize replacing source links in future articles."
+  },
+  "description": "ゲーム未満、アプリ未満の心地よさ。はままぁが2026-06-12に公開した制作記録の原文を、湯間庭町の新聞で読む。",
+  "ogDescription": "ゲーム未満、アプリ未満の心地よさ — 過去記事を湯間庭町の中でそのまま読む。",
+  "cover": "<figure><img src=\"../../assets/shinpo/backnumber/game-app-cover.png\" width=\"1280\" height=\"670\" alt=\"ゲーム未満、アプリ未満の心地よさの元note掲載見出し画像\" fetchpriority=\"high\"></figure>",
+  "navDate": "2026年06月12日",
+  "displayDate": "2026年6月12日",
+  "blocks": [
+    {
+      "origin": "source",
+      "html": "<p>「公開予定もないアプリを21個作っていた話」を書いてから、気づけば4か月以上経っていた。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>始めた当初よりも、反応をもらえるようになって嬉しい。<br>XやRedditなど、他のSNSの使い方もだんだん分かってきた。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>その一方で、以前はよく見かけていた方たちが、<br>一人、また一人と静かになっていくのを眺めるのは、少し寂しい。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>SNSのスピードなのか、少しお休み中なのか、<br>理由はまだよく分からない。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>ただ、その横で、<br>自分は相変わらずソファに寝転びながらiPhoneを触っていた。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>どうやら私のスタンスは、<br>思いのほか「継続向き」だったらしい。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>最初から、何かを継続するつもりがあったわけではない。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>「ちゃんとしよう」とか「続けよう」と決めてしまうと、<br>急に止まってしまう感じがあった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>仕事で疲れた夜に、誰かの役に立つものをつくり出そうとしても、<br>きっと良いものは生まれなかったと思う。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>なぜ続いたのか。<br>努力というよりも、癖に近いようなものかもしれない。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>便利だからではなく、<br>完成させたいからでもなく、<br>「ちょっと触りたい」が続いていた。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<h2 class=\"entry-heading\">触れるらくがき</h2>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>最近は、アプリをつくるのではなく、<br>「#触れるらくがき」というものをつくり始めた。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>UFOが牛の黒い模様だけを吸い取るとか、<br>蛇口からおばけが顔を出すだけとか、<br>豆腐がぷるぷるするタワーとか。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<div class=\"video-citation\"><strong>#001 牛吸い #触れるらくがき</strong><br>pic.twitter.com/LawEbLaWw9<br><small>— はままぁ (@sukimastock) May 10, 2026</small><a href=\"https://pic.twitter.com/LawEbLaWw9\" target=\"_blank\" rel=\"noopener noreferrer\">当時の投稿を見る ↗</a></div>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>バズりそうなものでも、役に立つものでもない。<br>「触ると少し反応する落書き」ぐらいのもの。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>ゲーム未満、アプリ未満。<br>でも、なぜか触りたくなる。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>その曖昧な距離感が今はかなり気に入っている。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>このくだらない断片を重ねていくと、<br>いつか、子供の頃に触っていた「音のなる絵本」<br>みたいなものに繋がっていくのかもしれない。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>そうなるといいな、とは密かに思っている。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>ただ、今は目の前のおばけが出てくるタイミングを微調整しているだけで十分だ。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>以前より、人にアプリを見せることも怖くなくなってきた。<br>見せることで、自分の中だけでは分からなかった面白さも見えてくる。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>今日もまた、静かになった部屋の片隅で、iPhoneを片手に楽しんでいる。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<div class=\"video-citation\"><strong>#010 蛇口おばけ #触れるらくがき</strong><br>pic.twitter.com/8UypJUbbc4M<br><small>— はままぁ (@sukimastock) May 18, 2026</small><a href=\"https://pic.twitter.com/8UypJUbbc4M\" target=\"_blank\" rel=\"noopener noreferrer\">当時の投稿を見る ↗</a></div>"
+    },
+    {
+      "origin": "source",
+      "html": "<div class=\"video-citation\"><strong>#003 豆腐タワー #触れるらくがき</strong><br>pic.twitter.com/7sO1Ecec4M<br><small>— はままぁ (@sukimastock) May 13, 2026</small><a href=\"https://pic.twitter.com/7sO1Ecec4M\" target=\"_blank\" rel=\"noopener noreferrer\">当時の投稿を見る ↗</a></div>"
+    }
+  ],
+  "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../?place=leisure_center_map\">「ひねる、積む、なぞる」の原点へ ↗</a><a href=\"../town-beginning/\">町のはじまりを読む ↗</a><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「ゲーム未満、アプリ未満の心地よさ」（note、2026-06-12）。<a href=\"https://note.com/hamamah/n/n16f7a42c0b6a\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>",
+  "backnumber": true
+}

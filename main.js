@@ -7688,14 +7688,6 @@ function buildNoteRackSelection() {
 
     if (!articles.length) return slots;
 
-    // 湯間庭新報0.1: 町のはじまりの一枚を、既存4枠とは別に貼る。
-    for (var archiveIndex = 0; archiveIndex < articles.length; archiveIndex++) {
-        if (articles[archiveIndex].archivePage) {
-            add(articles[archiveIndex], "町のはじまり", "archive");
-            break;
-        }
-    }
-
     // 1. 町の現在地。
     add(articles[0], "最新", "latest");
 
@@ -7744,7 +7736,7 @@ function renderNoteRackCard(slot) {
     var slotKind = escapeNoteRackHtml(slot.kind || "");
     var html = '';
 
-    // 町のはじまりの一枚だけ、noteの埋め込みではなく新聞の切り抜きにする。
+    // 選ばれた移植済み記事は、noteの埋め込みではなく新聞の切り抜きにする。
     if (article.archivePage) {
         html += '<article class="note-rack-card shinpo-archive-card" data-rack-kind="' + slotKind + '">';
         html += '<div class="shinpo-archive-paper"><div class="shinpo-archive-mast">湯 間 庭 新 報　・　記 録</div>';
