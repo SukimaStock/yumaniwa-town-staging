@@ -3,8 +3,10 @@
   "slug": "town-beginning",
   "source": {
     "reference": "Existing migrated HTML at 644ce1e04a999cf575bd6affe2a24e374fe1125e; prior Drive PDF transcription documented in PR 449",
-    "verification": "baseline-preserved; original PDF not re-fetched",
-    "missingMedia": [],
+    "verification": "2026-10-18 parent browser compared original note and confirmed original body link URLs; animation file awaiting authorized share after cloud CDN Tunnel403.",
+    "missingMedia": [
+      "1 original animated image; parent acquired 480x854 / 69 frames, cloud file pending"
+    ],
     "legacyLinks": "Preserve existing links verbatim; this does not authorize replacing source links in future articles."
   },
   "description": "2026年7月17日に書いた、湯間庭町が生まれた頃の記録。作品を並べるだけでなく、作品が住める場所を作りたかった。",
@@ -51,7 +53,7 @@
     },
     {
       "origin": "source",
-      "html": "<p>最近は、作るものの幅が広がってきた。<br>「<a href=\"../../w/yakitori-wars/\">Yakitori Wars</a>」「<a href=\"../../w/midnight-cola/\">真夜中コーラ</a>」のようなゲームや、<br>「#触れるらくがき」のようなゲーム未満、アプリ未満のもの。<br>そしてこれまでに作ったアプリについてのnote記事。</p>"
+      "html": "<p>最近は、作るものの幅が広がってきた。<br>「<a href=\"https://sukimastock.itch.io/yakitori-wars\">Yakitori Wars</a>」「<a href=\"https://sukimastock.itch.io/midnight-cola\">真夜中コーラ</a>」のようなゲームや、<br>「#触れるらくがき」のようなゲーム未満、アプリ未満のもの。<br>そしてこれまでに作ったアプリについてのnote記事。</p>"
     },
     {
       "origin": "source",
@@ -111,7 +113,7 @@
     },
     {
       "origin": "source",
-      "html": "<a class=\"source-preview\" href=\"../../\"><strong>湯間庭町｜つくったものが集まる町</strong><small>自分専用アプリ記事、触れるらくがき、夜の工房、焼き鳥屋台。少しずつ作ってきたものを、ひとつの町として歩ける場所にしました。<br>sukimastock.github.io ↗</small></a>"
+      "html": "<a class=\"source-preview\" href=\"https://sukimastock.github.io/yumaniwa-town/\"><strong>湯間庭町｜つくったものが集まる町</strong><small>自分専用アプリ記事、触れるらくがき、夜の工房、焼き鳥屋台。少しずつ作ってきたものを、ひとつの町として歩ける場所にしました。<br>sukimastock.github.io ↗</small></a>"
     }
   ],
   "afterword": "<aside class=\"afterword\" aria-label=\"記事の外側にある町内案内\">\n<h2>この町をもう少し歩く</h2>\n<div class=\"links\"><a href=\"../game-app-in-between/\">ゲーム未満、アプリ未満の心地よさ ↗</a><a href=\"../board-game-making/\">ボードゲームをアプリで再現してみた記録 ↗</a><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">湯間庭町を歩く ↗</a></div>\n<div class=\"source\">原典：はままぁ「作品を並べるより、住める場所を作りたかった」（note、2026年7月17日）。<a href=\"https://note.com/hamamah/n/nad06ba5e60a2\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div>\n</aside>",
