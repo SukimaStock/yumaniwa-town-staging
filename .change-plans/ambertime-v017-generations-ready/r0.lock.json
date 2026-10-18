@@ -1,0 +1,154 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "8c002b979648eba928a86afe8233a5269422b1c47815910089b13de4a348fadc",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v017-generations-ready",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.17 bounded generational succession and one ordinary final manual batch",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "e75b6c8f4465cd9e74184abbef683ba93715f914",
+    "canonicalSources": [
+      "User0.17 request",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/design/history/REPORT.md",
+      "works/ambertime/tests/history-simulate.mjs",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v017-generations-ready/r0.lock.json",
+      "works/ambertime/generations.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/bottle-storage.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/v0164.html",
+      "works/ambertime/shop-v0164-app.mjs",
+      "works/ambertime/shop-v0164.css",
+      "works/ambertime/tests/generation*.mjs",
+      "works/ambertime/tests/*ui.test.mjs",
+      "works/ambertime/design/generations/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "tools/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/work-context.mjs",
+      "works/ambertime/experiments/**"
+    ],
+    "expectedChanges": [
+      "v16 logged enable-generations boundary separate UI save key and preserved v15 raw/archive; old constructors/opcodes exact replay unchanged",
+      "Minimal current/completed generation records with accession/handover actualmonths, actualtrigger, finalbatch/cask/status; first tenure from foundingmonth0, later from actualhandover; no retroactive pastgenerations",
+      "Candidate comparison before adoption: late25y/hard30y vs25/35 vs30/35 with12mo bounded opportunity; qualified actualoldbrandrerelease/maturebottle/longshopdelivery or deadline, no score/RNG/bonuses",
+      "Exactly one finalmanual ordinary distillation after decision; keep costs/chemistry/4casks/capacity, normal aging/bottling/store/wholesale continue, lastfill leads brief mandatoryreview then guarded idempotenthandover",
+      "Fullslots/products/cash or unfinishedexisting/finalbatch have bounded truthful fallback; noforcedbottling/disposal/fabricatedfill/month. Fundedidle calendar canprogress; existingfinancialprotection preserved; reproduciblystalledpostlate/finalattempt canreviewwithoutfakeelapsedmonth",
+      "Queued usualreservation retained and deferred through finalstage, activeusualbatch completesoriginalrecipe then manualfinal; no automatic finalbatch",
+      "Caskprovenance via authoritative generationrecord IDs, survive bottling/release/sellout, enrich existingtimeline with tenure boundaries and inheritfacts withoutduplicateeventledger",
+      "Small existingmodal/visual flow, no gameplaybonus or emotionalcopy, preserve bottle/immediate-detail and cask/offer/modal/time intent",
+      "Focused model/legacy/coldsave tests, PCphone browsers,100+year actualplay repeatedgenerations/fullslots/queuedauto/contracts/deadline/fallback, independentreview and exactSHA gates"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "PC-iPhone-size generation notice/finalmanual/review/handover/provenance",
+      "modal priority/manualpause/auto return and bottle/cask identity",
+      "legacy strict migration/archive preservation and partialdistillation replay",
+      "candidateyearcomparison and100+year realplay invariants",
+      "published source match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert v16 entry/extension and open preserved v15 raw through v0164.html; retain v16 raw, no backward conversion.",
+    "outOfScope": [
+      "Production",
+      "Chemistry/aging/price/demand/reputation/shopconditions changes",
+      "Capacity beyond4casks or existingproductcap",
+      "New equipment/people/skills/family/bonuses",
+      "Disaster/closure/endings",
+      "Crossruntime floatingpoint compatibility fix",
+      "Shared runtime or eventengine"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari, humanattachment/appropriate pacing; crossruntime existing floatingpoint strictsave portability remains constrained"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN Full work-local versioned save boundary",
+      "EXPRESSION-AUDIT: actual shortcause/date/cask only, no sentiment/rank/bonus",
+      "AGENTS useful implementation/testing delegation plus independentreview",
+      "Initialreadonly candidatecomparison: 25yfirstactualoldbrandrerelease atmonth300;30yfirstlongshopdelivery361; raw6sec/month clock30/36/42minutes for25/30/35years",
+      "Fresh integration lock before transferring implementation fae4c5ab from original pre-implementation lock ce619552: new main differs only unrelated newspaper assets/articles/notes; AmberTime, AGENTS, Change OS and trusted tools unchanged from audited55030ccb. All work source and evidence transfer byte-exact."
+    ],
+    "ownerDecisions": [
+      "User0.17 explicitly authorizes bounded generational succession, finalordinarymanualbatch, truthfulfullslotfallback, minimal saveseparation whenneeded, comparisons/tests/PR and safeStagingmerge. NoProduction or formula/bonus changes."
+    ],
+    "hqDecisions": [
+      "Use existing strict replay with logged v16 boundary, separate savekey and v15archive, minimal generationactive/completed facts. Firstgeneration counts from founding0 as user contrasts latergenerations accession; old-overdue saves get currentdated decision after upgrade, not fabricatedoldgenerations. Tentative25/30/12 from readonly480mo event/time comparison; validate fullactual100year beforefinaladoption. Guard publicatomicboundaries only; no changed chemistry/economy formulas. Carry currentestate and reservations verbatim acrosshand-over exceptoriginalactiveusualcompletion."
+    ],
+    "problem": "Distillery facts now persist but one operator can continue forever; no finalordinarybatch or successor provenance exists.",
+    "currentContract": "v15 strict operation replay,4casks plus8liveproducts/casks capacity, queued/activeusual reservations, immutable wholesalecontracts, finite department selections, worker-derived factualhistory.",
+    "whyExistingIsInsufficient": "Existing state cannot distinguish currenttenure, fixedsuccession, one finalmanualbatch or inheritedfinalcask; an unbounded retirementmodal or waitingforfreeslot would permit indefinite avoidance.",
+    "design": "Work-local v16 current/completedgeneration state, deterministic real-event/deadline reconciliation at committed transactions, bounded finalmanualopportunity and truthfulfallback, O(1)shortreview plus optional existingtimeline. Estate is never reset, time neverrewound, nexttenure starts sameactualmonth (model has monthly precision). Queuedauto resumesnexttenure; activeauto finishesoriginal then finalmanual.",
+    "migration": "Strictrestore v15/older then logged enable-generations(progress); preserve old raw/archive and all existing estate/contracts/IDs. First tenure starts0, overdue decisions are recorded at current actualmonth. No oldactions replay with newrules before enable. v16 no backwardconversion.",
+    "compatibility": "Original constructors/modes keepoldsemantics throughv15; modechain extended explicitly forv16 with all nested cachequery refs. No relaxed JSONvalidation or numeric changes. Generationfacts add no asset/reputation bonuses.",
+    "promotionRisk": "Staging only; Production and shared paths untouched",
+    "alternativesRejected": [
+      "Retirementbutton or repeateddeclinableoffers",
+      "Capacityoverride/forceddisposal/forcedbottling/freefinalbatch",
+      "Automaticusual-only finalexperience",
+      "Resetestate or newgenerationbonuses",
+      "Guessingpastgenerations in oldsave",
+      "Clockmonths fabricated whenfinanciallystalled",
+      "Duplicate provenance fields across everyproduct/release"
+    ],
+    "boundaryCases": [
+      "First→second→third and100+years",
+      "Firstmigrationalreadyoverdeadline vs newtenurestart",
+      "Fourexistingcasks/fullproducts/insufficientfunds/noeventdeadline",
+      "Queuedvsactiveusual and partialmanualextraction atnotice/fallback/handover",
+      "Exactonefinalnewmanualbatch and inheritedunfinishedstill truthfullyrecorded",
+      "Wholesale/specialorder and dueatomicshipment acrosshandover",
+      "Double/stalehandover IDs and fulloperationledger atomicreject",
+      "Lastcask→bottle→release→soldout stableprovenance",
+      "Existingproductdetail andpendingcasks/offers priorities, manualpause andreload",
+      "Finite storeselection and stock/cash equations unchanged"
+    ],
+    "testPlan": [
+      "Read-only existing480mo event/time candidatecomparison then independentactual v16 validation",
+      "Full existingNode regression plus generationtransition/legacy/provenance/atomicity/coldreplay tests",
+      "Actual100+year public-operation multigenerationplay andfullslot/auto/contract/noevent/lowfundsstall scenarios; storage/operationheadroom",
+      "PC1280 and phone390 nativeChromium publicfixtures incl archiveoldkey, interruptedsequence/reload, pendingmodal/time; no crossruntime toleranceweakening",
+      "Independent source/evidence review and ScopeRiskImpact trustedstatic requiredCI/deployedsourcechecks"
+    ]
+  }
+}
