@@ -41,6 +41,8 @@ var NOTE_ARTICLES = [
     // [NOTES:ADD_NEWEST_HERE]
     {
         id: "note-n21f2389ac91d",
+        archivePage: "./shinpo/pumpkin-jam/",
+        archiveThumbnail: "./assets/shinpo/pumpkin-jam/cover.png",
         title: "ゲームジャムでカボチャを転がした",
         url: "https://note.com/hamamah/n/n21f2389ac91d",
         publishedAt: "2026-10-17",

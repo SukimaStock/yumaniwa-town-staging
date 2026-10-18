@@ -1,0 +1,166 @@
+{
+  "id": "note-n21f2389ac91d",
+  "slug": "pumpkin-jam",
+  "source": {
+    "reference": "https://note.com/hamamah/n/n21f2389ac91d; Drive SukimaStock/note folder checked 2026-10-18: archival PDF not present",
+    "verification": "2026-10-18 full public original note title/date and14 ordered blocks,57br,4 original screenshots,header and source card compared; all6 media acquired. Drive folder inventory has no archival PDF for10/17, explicitly recorded, not fabricated. No missing source media.",
+    "missingMedia": [],
+    "media": [
+      {
+        "path": "assets/shinpo/pumpkin-jam/cover.png",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/325361976/rectangle_large_type_2_1d8995f8b42a60951c1837b05d6e686d.png",
+        "position": "header",
+        "caption": "",
+        "after": "",
+        "width": 1280,
+        "height": 670,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "18466ed0968fd19c5911d0aada3b9860e981a37315abd24e223db3a8fadb667e"
+      },
+      {
+        "path": "assets/shinpo/pumpkin-jam/body-1.png",
+        "sourceUrl": "https://assets.st-note.com/img/1792224520-75HSkxYWsVrO4N10pmnE2UFv.png",
+        "position": 1,
+        "caption": "",
+        "after": "Ultimate AI-Powered Game Jam #5に参加して、『PUMPOKO』というゲームを作った。",
+        "width": 1124,
+        "height": 1920,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "8b35c8e2db9275059dfc0f12881a588e686d3e6dce40614cea8d177212949bb0"
+      },
+      {
+        "path": "assets/shinpo/pumpkin-jam/body-2.png",
+        "sourceUrl": "https://assets.st-note.com/img/1792224495-3h8ZuBvdbEWiPqyX6kp12JaT.png",
+        "position": 2,
+        "caption": "",
+        "after": "最初に試したのは、二つの野菜を動かしてみることだった。カボチャは地上をころころ転がる。坂道で勢いをつけ、谷を飛び越える。ルタバガは地下をぽよんぽよん跳ねる。着地のタイミングでタップすると、さらに高く跳ねる。同じ左右の操作なのに、かなり感触が違う。どちらも気に入ったので、二つをバトンタッチさせたくなった。カボチャで進んだ先に、ルタバガが詰まった穴がある。勢いよくぶつかると、ルタバガが「スポッ」と押し出され、今度はカボチャが穴に収まる。次はルタバガの番。ルタバガで進んだ先にも同じような穴があり、今度はカボチャに交代する。これを繰り返すことで、地上と地下を行き来するゲームになった。",
+        "width": 1124,
+        "height": 1920,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "8fca6b66104947b89eb57d67c924bea7fe11d88449f294063937680de9bcb207"
+      },
+      {
+        "path": "assets/shinpo/pumpkin-jam/body-3.png",
+        "sourceUrl": "https://assets.st-note.com/img/1792224495-6mheLJ9ZX8OtGS1firaYFdvj.png",
+        "position": 3,
+        "caption": "",
+        "after": "最初に試したのは、二つの野菜を動かしてみることだった。カボチャは地上をころころ転がる。坂道で勢いをつけ、谷を飛び越える。ルタバガは地下をぽよんぽよん跳ねる。着地のタイミングでタップすると、さらに高く跳ねる。同じ左右の操作なのに、かなり感触が違う。どちらも気に入ったので、二つをバトンタッチさせたくなった。カボチャで進んだ先に、ルタバガが詰まった穴がある。勢いよくぶつかると、ルタバガが「スポッ」と押し出され、今度はカボチャが穴に収まる。次はルタバガの番。ルタバガで進んだ先にも同じような穴があり、今度はカボチャに交代する。これを繰り返すことで、地上と地下を行き来するゲームになった。",
+        "width": 1121,
+        "height": 1920,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "6cbfc1beecb789d9bfbb467d3ce1690aed4f509e57c351f418641265207a262b"
+      },
+      {
+        "path": "assets/shinpo/pumpkin-jam/body-4.png",
+        "sourceUrl": "https://assets.st-note.com/img/1792224467-IHogBjxznGshFdiAMUX9y2wJ.png",
+        "position": 4,
+        "caption": "",
+        "after": "基本の仕組みはできた。ただ、実際に遊んでみると、ほとんど失敗せず最後まで進んでしまった。動きは楽しくても、もう少し難所も欲しい。「惜しい！」と思えるような地形を作りたくなった。そこで、ステージを試すための仕組みを作った。深い谷や連続する坂道、助走をつける斜面などを並べ、実際にカボチャとルタバガを動かしてみる。何も考えず進むと落ちてしまうが、一度戻って助走をつければ飛び越えられるバランスを調整した。ゲームを作るために実験室をつくるという、この作業自体もかなり楽しかった。",
+        "width": 1116,
+        "height": 1920,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "64282c576df4327073c7cd4ce9a358db8952903ae75134d73dace17fbcd5d083"
+      },
+      {
+        "path": "assets/shinpo/pumpkin-jam/card-1.jpeg",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/ext/e8485feef5a531f0e80a25006a63845b780a44bfaa18dab087798a9b7418.jpeg?x-type=ogp",
+        "position": "work link card",
+        "caption": "",
+        "after": "",
+        "width": 1200,
+        "height": 630,
+        "frames": 1,
+        "format": "JPEG",
+        "sha256": "92b1b7e6be267c43bf921399e41361df83df78b640e9a3e71b901cefc081e8bc"
+      }
+    ],
+    "rights": "Original author article/game screenshots/header/work-card OGP; no third-party replacements.",
+    "edition": "Game Jam#5 pumpkin+rutabaga version; original source play card links w/pumpoko, current canonical work code identifies PUMPOKO02. Does not link old pumpkin-only pumpoko-01.",
+    "linkRewrites": [
+      {
+        "from": "https://sukimastock.github.io/yumaniwa-town/w/pumpoko/",
+        "to": "../../w/pumpoko/",
+        "reason": "same verified registered work, play/open link"
+      }
+    ],
+    "sourceComparison": {
+      "proseExact": true,
+      "proseBlocks": 9,
+      "originalBr": 57,
+      "importBr": 57,
+      "originalBodyFigures": 5,
+      "importFigures": 5,
+      "missingMedia": [],
+      "driveArchive": "No matching 2026-10-17 PDF in latest supplied Drive note folder listing; public original full text/images used; no archival PDF fabricated or Drive write performed.",
+      "version": "PUMPOKO pumpkin+rutabaga jam5 matches current works/pumpoko/ index aria and PUMPOKO02 h1"
+    }
+  },
+  "cover": "<figure><img src=\"../../assets/shinpo/pumpkin-jam/cover.png\" alt=\"ゲームジャムでカボチャを転がしたの元掲載画像\" fetchpriority=\"high\"></figure>",
+  "navDate": "2026年10月17日",
+  "displayDate": "2026年10月17日",
+  "backnumber": true,
+  "blocks": [
+    {
+      "origin": "source",
+      "html": "<p>Ultimate AI-Powered Game Jam #5に参加して、<br/>『PUMPOKO』というゲームを作った。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"1059\" src=\"../../assets/shinpo/pumpkin-jam/body-1.png\" width=\"620\"/><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p><br/>今回のテーマは<br/>「PUMPKIN（カボチャ）」と「RUTABAGA（ルタバガ）」。<br/>ルタバガは、スウェーデンカブとも呼ばれる根菜らしい。<br/></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>転がるカボチャ、跳ねるルタバガ</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>最初に試したのは、二つの野菜を動かしてみることだった。<br/><br/>カボチャは地上をころころ転がる。<br/>坂道で勢いをつけ、谷を飛び越える。<br/><br/>ルタバガは地下をぽよんぽよん跳ねる。<br/>着地のタイミングでタップすると、さらに高く跳ねる。<br/><br/>同じ左右の操作なのに、かなり感触が違う。<br/>どちらも気に入ったので、二つをバトンタッチさせたくなった。<br/><br/>カボチャで進んだ先に、ルタバガが詰まった穴がある。<br/>勢いよくぶつかると、ルタバガが「スポッ」と押し出され、<br/>今度はカボチャが穴に収まる。<br/><br/>次はルタバガの番。<br/>ルタバガで進んだ先にも同じような穴があり、<br/>今度はカボチャに交代する。<br/><br/>これを繰り返すことで、<br/>地上と地下を行き来するゲームになった。<br/></p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"1059\" src=\"../../assets/shinpo/pumpkin-jam/body-2.png\" width=\"620\"/><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"1061\" src=\"../../assets/shinpo/pumpkin-jam/body-3.png\" width=\"620\"/><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>ゲームを作るための実験室</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>基本の仕組みはできた。<br/><br/>ただ、実際に遊んでみると、ほとんど失敗せず最後まで進んでしまった。<br/><br/>動きは楽しくても、もう少し難所も欲しい。<br/>「惜しい！」と思えるような地形を作りたくなった。<br/><br/>そこで、ステージを試すための仕組みを作った。<br/><br/>深い谷や連続する坂道、助走をつける斜面などを並べ、<br/>実際にカボチャとルタバガを動かしてみる。<br/><br/>何も考えず進むと落ちてしまうが、<br/>一度戻って助走をつければ飛び越えられるバランスを調整した。<br/><br/>ゲームを作るために実験室をつくるという、この作業自体もかなり楽しかった。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><img alt=\"画像\" height=\"1066\" src=\"../../assets/shinpo/pumpkin-jam/body-4.png\" width=\"620\"/><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3>カボチャの中から始まる</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>もう一つ時間をかけたのが、ゲームの始まりと終わりだった。<br/><br/>タイトル画面には、半分に切ったカボチャがある。<br/><br/>指で動かすと、中の種が少しずつ外れていく。<br/>全部外れると、カメラがそのままカボチャの中へ入る。<br/><br/>落ちた種は地面に根付き、芽を出し、カボチャに育つ。<br/>そのうちの一つが転がり始めると、いつの間にかもうゲームが始まっている。<br/><br/>最後はカボチャ自身が地形のくぼみに「スポッ」と収まるようにした。<br/>そこから地上と地下を少し眺め、そのままタイトルへ戻る。<br/><br/>公開すると、BGMやシームレスな体験を褒めてもらうことができた。<br/>アイデアは良かったと思うが、ステージ作りには課題があるので、まだまだ育てていきたい。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p>これまでゲームジャムで作ってきたものとは一味違うゲームが作れたような気がしている。<br/>ここで終わりではなく、色んなステージを増やしたり、変わった形の野菜を増やしたり、<br/>色んな遊びも出来るかもしれない。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure><div><div><span><a class=\"source-preview\" href=\"../../w/pumpoko/\"><img alt=\"\" src=\"../../assets/shinpo/pumpkin-jam/card-1.jpeg\"/><strong>PUMPOKO｜湯間庭町</strong><small>地上をころころ、地下をぽよん。カボチャとルタバガの旅。</small></a></span></div></div></figure>"
+    }
+  ],
+  "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「ゲームジャムでカボチャを転がした」（note、2026-10-17）。<a href=\"https://note.com/hamamah/n/n21f2389ac91d\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>"
+}
