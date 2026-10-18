@@ -1,0 +1,99 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b269ca5fab71878028630d03091aaebbd602514ec5f14a3ebeca925c81f666c5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "coffee-released-staging-20261018",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Record verified CoffeeFactory production deployment as released; no runtime changes",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "64d6bb7fc857f35326c3335c169bd5942bea9492",
+    "canonicalSources": [
+      "data/work-lifecycle.json",
+      "RELEASE-WORKFLOW.md",
+      "Production PR #64 deployment evidence"
+    ],
+    "allowedPaths": [
+      "data/work-lifecycle.json",
+      ".change-plans/coffee-released-staging-20261018/r0.lock.json",
+      "lab/index.html",
+      "release-candidates/coffee-factory-20261018.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "engine/**",
+      "works/**",
+      "assets/**",
+      "data/works.js",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Only CoffeeFactory candidate->released, retain historical candidate decision and record separate 14:24 production instruction with actual Pages/public-byte evidence",
+      "Regenerate LAB from existing registry only and update existing release handoff record"
+    ],
+    "ownerDecisions": [
+      "User 2026-10-18T14:24+02:00: では本番反映お願いします (CoffeeFactory PR #64)."
+    ],
+    "hqDecisions": [
+      "Metadata only under existing lifecycle contract; Full risk floor for JSON/HTML, no contract or shared behavior change. Implement release status only after exact deployed evidence."
+    ],
+    "rulesApplied": [
+      "AGENTS.md",
+      "RELEASE-WORKFLOW.md",
+      "CHANGE-PLAN.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Exact merge Pages success and public file byte parity before status update"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert metadata PR only; rollback actual release separately through PR64 revert if needed",
+    "outOfScope": [
+      "Runtime/Engine/audio changes",
+      "Social posting/external settings",
+      "Automatic release complete"
+    ],
+    "promotion": "User-authorized post-deployment evidence metadata; no additional work publication",
+    "unverified": [
+      "Browser/device and external analytics remain unverified"
+    ],
+    "problem": "Registry must reflect the now authorized verified deployment",
+    "currentContract": "Candidate->released requires separate instruction and release evidence",
+    "whyExistingIsInsufficient": "Candidate status is historical once deployment is confirmed",
+    "design": "Narrow registry metadata and generated LAB only",
+    "alternativesRejected": [
+      "Mark released before Pages/live evidence",
+      "Mix runtime fixes"
+    ],
+    "migration": "No save/runtime changes",
+    "compatibility": "All app files remain byte-identical",
+    "boundaryCases": [
+      "Candidate decision remains distinct from production instruction",
+      "No Release Complete assertion"
+    ],
+    "testPlan": [
+      "Scope Risk Impact",
+      "Lifecycle/LAB and existing production regressions",
+      "Exact SHA CI"
+    ],
+    "promotionRisk": "Release records alone do not prove browser functionality; retain explicit unknowns"
+  }
+}
