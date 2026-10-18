@@ -1,0 +1,148 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "84c89c72890fab93d06ac66b67c188a5faca7231e16c0c32f06c7c9e1712a74b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-connections-seo-v2-20261018",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "湯間庭新報の静的バックナンバー・作品記事接続・環境別SEOと画像属性",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "99f0c7eda2aa33251e379ef20df6855e8bf0c215",
+    "canonicalSources": [
+      "data/notes.js",
+      "data/shinpo",
+      "data/work-search-meta.js",
+      "tools/shinpo-migrate.cjs",
+      "tools/shinpo-template.html",
+      "tools/generate-work-search-pages.cjs",
+      "tools/SHINPO-MIGRATION.md",
+      "2026-10-18 user implementation instruction and preceding audit"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-connections-seo-v2-20261018/r0.lock.json",
+      "main.js",
+      "data/shinpo/*.json",
+      "data/work-search-meta.js",
+      "tools/site-environment.cjs",
+      "tools/shinpo-migrate.cjs",
+      "tools/shinpo-template.html",
+      "tools/shinpo-index-template.html",
+      "tools/generate-work-search-pages.cjs",
+      "tools/SHINPO-MIGRATION.md",
+      "tests/test-shinpo-*.cjs",
+      "tests/test-work-search-campaigns.cjs",
+      "shinpo/index.html",
+      "shinpo/*/index.html",
+      "w/*/index.html",
+      "en/w/*/index.html",
+      "sitemap.xml",
+      "tools/release-validator.cjs",
+      "tests/test-release-validator.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "engines/**",
+      ".github/**",
+      "data/works.js",
+      "data/work-lifecycle.json",
+      "assets/**",
+      "style.css",
+      "index.html",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "CHANGE-*.md"
+    ],
+    "expectedChanges": [
+      "控えめなバックナンバーリンクと静的一覧、記事から一覧へ戻る",
+      "対応作品紹介だけに日本語制作記事1～2件（英語は日本語記事と明示）",
+      "移植済み同一記事4hrefと町カード1hrefだけ修正、原典引用保持",
+      "環境別canonical/OGP/robots、staging sitemapはnoindexページを掲載せずproduction記事は明示選別",
+      "全71媒体の実寸属性・汎用altを内容に合わせ補う。媒体bytes/frames不変",
+      "既存生成・原典保護・移植再開テストを維持し最小回帰を追加",
+      "既存release validatorを環境別URLと明示選別記事へ対応。productionガード、static discovery、OGP実ファイル照合を維持"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 user explicitly authorizes backnumber link/static listing, selected work links, five narrow href fixes, environment SEO and image attributes, draft PR/review/CI/safe staging merge/Pages; no Production or external service mutation"
+    ],
+    "hqDecisions": [
+      "Build-time only environment config; production writes require explicit instruction plus selected article IDs; preserve existing work publication/lifecycle guards; no new facility/registry/runtime patch",
+      "既存validator固定production baseと新environment policyを整合するためfresh r0で検証器と回帰をscopeに含める。旧Lockは編集しない"
+    ],
+    "rulesApplied": [
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md: no subtitle/copy, original body unchanged",
+      "CHANGE-PLAN full initial lock before implementation"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "All articles/backnumber/board/work links and original attributions",
+      "320/390px equivalent and desktop image/animation/overflow checks",
+      "Exact SHA Pages and live navigation"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "risk.high-risk-review",
+      "asset.rendering",
+      "asset.cache",
+      "runtime.mobile-desktop"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this PR; asset bytes and work runtime remain unchanged",
+    "outOfScope": [
+      "Production mutation",
+      "Search Console submission",
+      "external settings",
+      "new games or work mechanics",
+      "new permanent audit ledger"
+    ],
+    "promotion": "Staging only; future production generation is explicit selection and instruction, no deployment now",
+    "unverified": [
+      "Physical Safari/iPhone/iPad and Google canonical adoption are not inferred from CI"
+    ],
+    "problem": "抽選だけの入口、作品から記事への入口不足、環境固定SEOと画像領域予約不足",
+    "currentContract": "notes/article JSON and existing generators own content; four rack slots and source prose/media protected",
+    "whyExistingIsInsufficient": "No static all-article list; no work-to-article links; source has four identical-note escapes and one unintended environment escape",
+    "design": "Generate a plain date/title backnumber from registered article data, reuse work search metadata for small article ID references, relative navigation, environment-aware absolute metadata, explicit production article selection",
+    "alternativesRejected": [
+      "new facility or fifth slot",
+      "global external link replacement",
+      "automatic production publication",
+      "CMS/search/filter system"
+    ],
+    "migration": "Existing IDs/URLs/dates/source media and work entrypoints retained; additive build-time navigation and narrow attributes",
+    "compatibility": "No save, engine, game mechanics, source media bytes or rack selection changes",
+    "boundaryCases": [
+      "new article import updates index",
+      "duplicate/missing article ids",
+      "unpublished production article selection",
+      "unknown environment",
+      "historical versus current edition",
+      "animated lazy media",
+      "narrow long title"
+    ],
+    "testPlan": [
+      "shinpo check and all related tests",
+      "work search generation/campaign tests",
+      "Scope then Risk then Impact",
+      "independent review and required CI",
+      "live Pages desktop and browser mobile equivalent"
+    ],
+    "promotionRisk": "Do not copy staging noindex/empty sitemap into production; production needs selected article ids and self canonical after explicit authorization"
+  }
+}
