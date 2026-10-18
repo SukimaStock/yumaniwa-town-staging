@@ -1,0 +1,2948 @@
+{
+  "method": {
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      42,
+      12345,
+      20261017,
+      4294967295
+    ],
+    "sourceSha256": {
+      "app.mjs": "73bc837d978359d43674d426ef901ae2ba54045fca78af75e642ad75e9324026",
+      "aroma-app.mjs": "dfc8f1ea2434e7e68b0cf86d5fb3df5bda6961f27082adc9305458f6140335f6",
+      "aroma-extraction.mjs": "77bc8d654d551e688b9ade8018bf595a75cc1c3355cd2023aef59c51ad6253ff",
+      "art.mjs": "904ce38936ff24becae40dbaf58a6284012a2b5f65cda508bbaa40cae29ff2d5",
+      "brand-art.mjs": "3abc4d111eb6728abf8f106cba88f41c2d0fe1d1820c3e9fff6cf9217974582b",
+      "brand-reputation.mjs": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec",
+      "brands-app.mjs": "429d2ec4e835313a267cfc66f3f9e59ad10cd9959e6ffacdea2d1d1319a53987",
+      "character.mjs": "599b0e0fda18ad9df83066da92f00fd4d7a599b8d00f00656b6df8ace2d0e728",
+      "distillery-app.mjs": "5d4d993b85faecf3012402cadb6f41c17163f0e3cedee4f5662ded0563df57b4",
+      "distillery-art.mjs": "3e2cd644f5379742c5d024c204c96581f96afcf0115b12831592d1a36c38d0dc",
+      "distillery-parameters.mjs": "0154c14c4784a7383d12e11db36424f35cc454272b21ff105759be11e1284710",
+      "distillery.mjs": "d5a9b4904de5c7da59371594f0113b3a3cb873920162aefc1958537ab06c897e",
+      "economy-parameters.mjs": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+      "economy.mjs": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+      "journey-app.mjs": "d63869c591d68b64295836063bbd38f67f7f1239a4c03a6c2ad36c2d8bc2ea56",
+      "journey-v03.mjs": "0dbc6bde9dbf22e554978cdd61d2c23b20f05386b04e13701ed7225593eb3ddc",
+      "journey.mjs": "894339a32307b96d0bdadfac70b951fff74802e5086ea2fd3db7222194c1b874",
+      "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+      "monthly.mjs": "2a0d41bca56d1d3b2daa9a917a83ca1770f311e3f8901ad4e3388de8edadbcfc",
+      "opening-balance.mjs": "0b5bac746b908d46e35bd1755efd273404ed836cfa39db82c149bda814488f17",
+      "opening.mjs": "879aea5d133c14fab4a0b53f058f032dc16a5dfe6f03d43b4d051d087c38f566",
+      "parallel-app.mjs": "1eef4a808276fe5f51327cfcfa8ac703f5d6683245ad27644aea958837f2461f",
+      "parallel-parameters.mjs": "af05f0504c0788fbf9f9d1432f2a65c71f3f0d043971b2d1475eee076dc13f3f",
+      "parallel.mjs": "c087f8c71b3d9f606fd63775c2b956681ad3923485c093283bbd6edf8e7465c7",
+      "parameters.mjs": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822",
+      "partner-orders.mjs": "d2db5fee128dbfde1c979134757c3609168fa7ed809b63281c5d2349293c675a",
+      "partner-parameters.mjs": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838",
+      "partners-app.mjs": "e6a2fcca91822a6414a087616fc9cf43059545b110ef88772e0ea1b98aa23572",
+      "reputation-app.mjs": "c1ac94273397c415249aa3e0177ea87bed85d66e172cdb42cae9493bae5e48ef",
+      "shop-app.mjs": "186cd35dd6506f95b2b78e0b76a318ad420d33a395b9d0447dc6d4d5cc5e72e6",
+      "shop-model.mjs": "51563fde80a25fa5adb269732927ba4f0ff04c15ba4a1735de29a9b68a2fe08c",
+      "shop-v0152-app.mjs": "d1d9c7538b423c75b4e134bb05d8880b7d4c40dc22c2695a31796c910973fa2c",
+      "simulate-character.mjs": "866877a732fae2891965a1704b7b2056eb4b76fee2c03900ef4b26aacdbd59e7",
+      "simulate-distillery.mjs": "945c387176109855aeee573a005437c328b40eb6fa0311393576ac6e6fb91fcb",
+      "simulate.mjs": "c77af57ce019f532b71152f362c2a6edb163505705448db0499af76ee63fc240",
+      "spirit-view.mjs": "96397c8f775aa803ec2714060377eeb3a438d1294256672f6269216a2d5f1f8d",
+      "tasting-view.mjs": "33d183ec36f9b2c06cad4289c6e80f3a2529ad4effd599852f22e12dee356c0d",
+      "trade-parameters.mjs": "f21fbc530d05c6c7e76eac5ec2bb73eff7e4de71ea117f3eb789cb0b0fdb766c",
+      "trade.mjs": "2f257e01275080054c09fdcae5363a852ee906f2f7a524b0824cbd6389f17fc5",
+      "usual-app.mjs": "6ceff034e987a543000fbba743837145512401a184bd976c87abfebf00295501",
+      "v07-app.mjs": "74274bb8c88aaa85a799ed0b228819aaad7a66e56d9d90d566ec2562805448d2",
+      "v08-app.mjs": "cd8ca8243cc91e4a97906ae20a9b6c103edede2b26db224c72500edc440e3dec",
+      "v08-legacy-app.mjs": "2e2a4e0a8e96589f041ec26271896698efb6b4d4af81b510f6ab9f4f8d01fdeb",
+      "v09-app.mjs": "3681e4a1404b2821cb455cb63fb66ebd1b3b60c49450a48a7b63279176a31803",
+      "wholesale-care-app.mjs": "f55a8893e5057754f326d2adaac7748de1ab45f47c44ae08cfb01e3f28180fc9",
+      "wholesale-parameters.mjs": "4177e6dcdc6c50653b3807a44bb999d2eaa0276de3dcb6a5c5bd9d307af2ccd1",
+      "wholesale-v08.mjs": "2bfb120e7c0f323e86c040b8b19203df88f4ce6ed2b1c2d7937f39ef76867cfb",
+      "wholesale.mjs": "eb6cb1c89e8eae527fc4737f9be3a4155cc2b656116c6e4c34ca45cd6dbf3622",
+      "work-context.mjs": "beaeabe3fb400f8da056b0fb07ac29d34dbd6cfb42b40a150a144caf2136860d"
+    },
+    "runtimeSourcesUnchanged": true,
+    "initialCash": 1600,
+    "maxCasks": 4,
+    "thresholds": {
+      "strong": 0.25,
+      "aroma": 0.88
+    },
+    "calibrationProfileCount": 352,
+    "calibrationMatureCount": 184,
+    "calibrationStrongOriginal40Count": 1,
+    "calibrationRanges": {
+      "matureRoughness": [
+        0.026289148963485214,
+        0.403139682211477
+      ],
+      "aroma": [
+        0.42251420714586047,
+        0.9770926387955776
+      ]
+    },
+    "original120ReproductionExact": true
+  },
+  "summary": [
+    {
+      "policy": "original",
+      "model": "A",
+      "seeds": 8,
+      "months": 120,
+      "departmentOffers": 6,
+      "successfulOffers": 6,
+      "departmentActions": 12,
+      "departmentBottles": 60,
+      "individualBottles": 1457,
+      "supermarketBottles": 2920,
+      "retailBottles": 7207,
+      "cashTotal": 56908.85,
+      "realizedNetTotal": 44108.85,
+      "finalStock": 0,
+      "acceptedWithoutDelivery": 0,
+      "zeroStockAtReceipt": 0,
+      "firstDeliveryMonths": [
+        64,
+        64,
+        64,
+        64,
+        null,
+        64,
+        null,
+        64
+      ],
+      "departmentCutCounts": {
+        "early": 0,
+        "middle": 12,
+        "late": 0
+      },
+      "departmentAgeCounts": {
+        "24": 12
+      },
+      "departmentProjects": {
+        "calm": 12
+      }
+    },
+    {
+      "policy": "diverse",
+      "model": "A",
+      "seeds": 8,
+      "months": 240,
+      "departmentOffers": 23,
+      "successfulOffers": 23,
+      "departmentActions": 125,
+      "departmentBottles": 625,
+      "individualBottles": 1494,
+      "supermarketBottles": 4119,
+      "retailBottles": 8756,
+      "cashTotal": 96995.39,
+      "realizedNetTotal": 84195.39,
+      "finalStock": 344,
+      "acceptedWithoutDelivery": 0,
+      "zeroStockAtReceipt": 0,
+      "firstDeliveryMonths": [
+        64,
+        64,
+        64,
+        79,
+        64,
+        64,
+        64,
+        64
+      ],
+      "departmentCutCounts": {
+        "early": 49,
+        "middle": 55,
+        "late": 21
+      },
+      "departmentAgeCounts": {
+        "24": 73,
+        "36": 52
+      },
+      "departmentProjects": {
+        "calm": 125
+      }
+    },
+    {
+      "policy": "diverse",
+      "model": "B",
+      "seeds": 8,
+      "months": 240,
+      "departmentOffers": 111,
+      "successfulOffers": 88,
+      "departmentActions": 88,
+      "departmentBottles": 440,
+      "individualBottles": 1726,
+      "supermarketBottles": 3938,
+      "retailBottles": 8890,
+      "cashTotal": 94481.98,
+      "realizedNetTotal": 81681.98,
+      "finalStock": 344,
+      "acceptedWithoutDelivery": 23,
+      "zeroStockAtReceipt": 92,
+      "firstDeliveryMonths": [
+        64,
+        64,
+        64,
+        79,
+        64,
+        64,
+        64,
+        64
+      ],
+      "departmentCutCounts": {
+        "early": 32,
+        "middle": 39,
+        "late": 17
+      },
+      "departmentAgeCounts": {
+        "24": 39,
+        "36": 49
+      },
+      "departmentProjects": {
+        "calm": 88
+      }
+    },
+    {
+      "policy": "diverse",
+      "model": "C",
+      "seeds": 8,
+      "months": 240,
+      "departmentOffers": 105,
+      "successfulOffers": 92,
+      "departmentActions": 92,
+      "departmentBottles": 460,
+      "individualBottles": 1570,
+      "supermarketBottles": 4009,
+      "retailBottles": 8955,
+      "cashTotal": 95408.05,
+      "realizedNetTotal": 82608.05,
+      "finalStock": 344,
+      "acceptedWithoutDelivery": 13,
+      "zeroStockAtReceipt": 85,
+      "firstDeliveryMonths": [
+        64,
+        79,
+        64,
+        79,
+        64,
+        79,
+        79,
+        79
+      ],
+      "departmentCutCounts": {
+        "early": 24,
+        "middle": 35,
+        "late": 33
+      },
+      "departmentAgeCounts": {
+        "24": 39,
+        "36": 53
+      },
+      "departmentProjects": {
+        "strong": 13,
+        "aroma": 29,
+        "calm": 24,
+        "long": 26
+      }
+    },
+    {
+      "policy": "diverse-delay",
+      "model": "A",
+      "seeds": 8,
+      "months": 240,
+      "departmentOffers": 23,
+      "successfulOffers": 23,
+      "departmentActions": 102,
+      "departmentBottles": 510,
+      "individualBottles": 1532,
+      "supermarketBottles": 3965,
+      "retailBottles": 8987,
+      "cashTotal": 95695.59,
+      "realizedNetTotal": 82895.59,
+      "finalStock": 344,
+      "acceptedWithoutDelivery": 0,
+      "zeroStockAtReceipt": 16,
+      "firstDeliveryMonths": [
+        92,
+        92,
+        92,
+        92,
+        92,
+        92,
+        92,
+        92
+      ],
+      "departmentCutCounts": {
+        "early": 40,
+        "middle": 48,
+        "late": 14
+      },
+      "departmentAgeCounts": {
+        "24": 64,
+        "36": 38
+      },
+      "departmentProjects": {
+        "calm": 102
+      }
+    }
+  ],
+  "runs": [
+    {
+      "model": "A",
+      "policy": "original",
+      "seed": 1,
+      "months": 120,
+      "delay": 0,
+      "fills": 36,
+      "starts": 37,
+      "maxCasks": 4,
+      "brands": 1,
+      "releases": 33,
+      "retailBottles": 883,
+      "retailRevenue": 14526.62,
+      "shops": {
+        "town-liquor": {
+          "actions": 22,
+          "bottles": 183,
+          "revenue": 2399.84
+        },
+        "supermarket": {
+          "actions": 19,
+          "bottles": 380,
+          "revenue": 6259.2
+        },
+        "department": {
+          "actions": 2,
+          "bottles": 10,
+          "revenue": 336.85
+        }
+      },
+      "departmentOffers": 1,
+      "departmentSuccessfulOffers": 1,
+      "firstDepartmentMonth": 64,
+      "cash": 7138.51,
+      "stock": 0,
+      "revenue": 23522.51,
+      "costs": 14568,
+      "upkeep": 3416,
+      "realizedNet": 5538.51,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "巡る季節",
+          "sold": 883,
+          "soldReleases": 33,
+          "age": 113,
+          "eligible": false,
+          "bonus": 0.10789964848657063
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "original",
+      "seed": 2,
+      "months": 120,
+      "delay": 0,
+      "fills": 36,
+      "starts": 37,
+      "maxCasks": 4,
+      "brands": 1,
+      "releases": 33,
+      "retailBottles": 884,
+      "retailRevenue": 14544.5,
+      "shops": {
+        "town-liquor": {
+          "actions": 22,
+          "bottles": 181,
+          "revenue": 2364.27
+        },
+        "supermarket": {
+          "actions": 19,
+          "bottles": 380,
+          "revenue": 6255.6
+        },
+        "department": {
+          "actions": 2,
+          "bottles": 10,
+          "revenue": 334.4
+        }
+      },
+      "departmentOffers": 1,
+      "departmentSuccessfulOffers": 1,
+      "firstDepartmentMonth": 64,
+      "cash": 7117.77,
+      "stock": 0,
+      "revenue": 23498.77,
+      "costs": 14565,
+      "upkeep": 3416,
+      "realizedNet": 5517.77,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "巡る季節",
+          "sold": 884,
+          "soldReleases": 33,
+          "age": 113,
+          "eligible": false,
+          "bonus": 0.10793061047746658
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "original",
+      "seed": 3,
+      "months": 120,
+      "delay": 0,
+      "fills": 36,
+      "starts": 37,
+      "maxCasks": 4,
+      "brands": 1,
+      "releases": 33,
+      "retailBottles": 902,
+      "retailRevenue": 14829.55,
+      "shops": {
+        "town-liquor": {
+          "actions": 23,
+          "bottles": 186,
+          "revenue": 2435.28
+        },
+        "supermarket": {
+          "actions": 18,
+          "bottles": 360,
+          "revenue": 5932
+        },
+        "department": {
+          "actions": 2,
+          "bottles": 10,
+          "revenue": 332.3
+        }
+      },
+      "departmentOffers": 1,
+      "departmentSuccessfulOffers": 1,
+      "firstDepartmentMonth": 64,
+      "cash": 7139.13,
+      "stock": 0,
+      "revenue": 23529.13,
+      "costs": 14574,
+      "upkeep": 3416,
+      "realizedNet": 5539.13,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "巡る季節",
+          "sold": 902,
+          "soldReleases": 33,
+          "age": 113,
+          "eligible": false,
+          "bonus": 0.10855661678933687
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "original",
+      "seed": 4,
+      "months": 120,
+      "delay": 0,
+      "fills": 36,
+      "starts": 37,
+      "maxCasks": 4,
+      "brands": 1,
+      "releases": 33,
+      "retailBottles": 895,
+      "retailRevenue": 14738.88,
+      "shops": {
+        "town-liquor": {
+          "actions": 23,
+          "bottles": 187,
+          "revenue": 2447.78
+        },
+        "supermarket": {
+          "actions": 18,
+          "bottles": 360,
+          "revenue": 5963.2
+        },
+        "department": {
+          "actions": 2,
+          "bottles": 10,
+          "revenue": 336.8
+        }
+      },
+      "departmentOffers": 1,
+      "departmentSuccessfulOffers": 1,
+      "firstDepartmentMonth": 64,
+      "cash": 7114.66,
+      "stock": 0,
+      "revenue": 23486.66,
+      "costs": 14556,
+      "upkeep": 3416,
+      "realizedNet": 5514.66,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "巡る季節",
+          "sold": 895,
+          "soldReleases": 33,
+          "age": 113,
+          "eligible": false,
+          "bonus": 0.10833561361001795
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "original",
+      "seed": 42,
+      "months": 120,
+      "delay": 0,
+      "fills": 36,
+      "starts": 37,
+      "maxCasks": 4,
+      "brands": 1,
+      "releases": 33,
+      "retailBottles": 938,
+      "retailRevenue": 15675.03,
+      "shops": {
+        "town-liquor": {
+          "actions": 21,
+          "bottles": 177,
+          "revenue": 2276
+        },
+        "supermarket": {
+          "actions": 17,
+          "bottles": 340,
+          "revenue": 5468.2
+        },
+        "department": {
+          "actions": 0,
+          "bottles": 0,
+          "revenue": 0
+        }
+      },
+      "departmentOffers": 0,
+      "departmentSuccessfulOffers": 0,
+      "firstDepartmentMonth": null,
+      "cash": 7038.23,
+      "stock": 0,
+      "revenue": 23419.23,
+      "costs": 14565,
+      "upkeep": 3416,
+      "realizedNet": 5438.23,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "巡る季節",
+          "sold": 938,
+          "soldReleases": 33,
+          "age": 113,
+          "eligible": false,
+          "bonus": 0.1096818632327856
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "original",
+      "seed": 12345,
+      "months": 120,
+      "delay": 0,
+      "fills": 36,
+      "starts": 37,
+      "maxCasks": 4,
+      "brands": 1,
+      "releases": 33,
+      "retailBottles": 899,
+      "retailRevenue": 14784.07,
+      "shops": {
+        "town-liquor": {
+          "actions": 23,
+          "bottles": 186,
+          "revenue": 2434.01
+        },
+        "supermarket": {
+          "actions": 18,
+          "bottles": 360,
+          "revenue": 5940.4
+        },
+        "department": {
+          "actions": 2,
+          "bottles": 10,
+          "revenue": 335
+        }
+      },
+      "departmentOffers": 1,
+      "departmentSuccessfulOffers": 1,
+      "firstDepartmentMonth": 64,
+      "cash": 7112.48,
+      "stock": 0,
+      "revenue": 23493.48,
+      "costs": 14565,
+      "upkeep": 3416,
+      "realizedNet": 5512.48,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "巡る季節",
+          "sold": 899,
+          "soldReleases": 33,
+          "age": 113,
+          "eligible": false,
+          "bonus": 0.1084662782449194
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "original",
+      "seed": 20261017,
+      "months": 120,
+      "delay": 0,
+      "fills": 36,
+      "starts": 37,
+      "maxCasks": 4,
+      "brands": 1,
+      "releases": 33,
+      "retailBottles": 922,
+      "retailRevenue": 15459.74,
+      "shops": {
+        "town-liquor": {
+          "actions": 20,
+          "bottles": 174,
+          "revenue": 2235.52
+        },
+        "supermarket": {
+          "actions": 18,
+          "bottles": 360,
+          "revenue": 5779.2
+        },
+        "department": {
+          "actions": 0,
+          "bottles": 0,
+          "revenue": 0
+        }
+      },
+      "departmentOffers": 0,
+      "departmentSuccessfulOffers": 0,
+      "firstDepartmentMonth": null,
+      "cash": 7090.46,
+      "stock": 0,
+      "revenue": 23474.46,
+      "costs": 14568,
+      "upkeep": 3416,
+      "realizedNet": 5490.46,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "巡る季節",
+          "sold": 922,
+          "soldReleases": 33,
+          "age": 113,
+          "eligible": false,
+          "bonus": 0.1091427549556624
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "original",
+      "seed": 4294967295,
+      "months": 120,
+      "delay": 0,
+      "fills": 36,
+      "starts": 37,
+      "maxCasks": 4,
+      "brands": 1,
+      "releases": 33,
+      "retailBottles": 884,
+      "retailRevenue": 14547.05,
+      "shops": {
+        "town-liquor": {
+          "actions": 22,
+          "bottles": 183,
+          "revenue": 2394.46
+        },
+        "supermarket": {
+          "actions": 19,
+          "bottles": 380,
+          "revenue": 6265
+        },
+        "department": {
+          "actions": 2,
+          "bottles": 10,
+          "revenue": 338.1
+        }
+      },
+      "departmentOffers": 1,
+      "departmentSuccessfulOffers": 1,
+      "firstDepartmentMonth": 64,
+      "cash": 7157.61,
+      "stock": 0,
+      "revenue": 23544.61,
+      "costs": 14571,
+      "upkeep": 3416,
+      "realizedNet": 5557.61,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "巡る季節",
+          "sold": 884,
+          "soldReleases": 33,
+          "age": 113,
+          "eligible": false,
+          "bonus": 0.10792569203586153
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse",
+      "seed": 1,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1095,
+      "retailRevenue": 19980.47,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 191,
+          "revenue": 2992.58
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 519,
+          "revenue": 10606.01
+        },
+        "department": {
+          "actions": 14,
+          "bottles": 70,
+          "revenue": 2124.1
+        }
+      },
+      "departmentOffers": 2,
+      "departmentSuccessfulOffers": 2,
+      "firstDepartmentMonth": 64,
+      "cash": 11993.16,
+      "stock": 43,
+      "revenue": 35703.16,
+      "costs": 17534,
+      "upkeep": 7776,
+      "realizedNet": 10393.16,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 286,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.06741334750150836
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 358,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07576767669440193
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 451,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.084426343675657
+        }
+      ]
+    },
+    {
+      "model": "B",
+      "policy": "diverse",
+      "seed": 1,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1139,
+      "retailRevenue": 20912.41,
+      "shops": {
+        "town-liquor": {
+          "actions": 31,
+          "bottles": 239,
+          "revenue": 3724.86
+        },
+        "supermarket": {
+          "actions": 23,
+          "bottles": 442,
+          "revenue": 8986.52
+        },
+        "department": {
+          "actions": 11,
+          "bottles": 55,
+          "revenue": 1805.1
+        }
+      },
+      "departmentOffers": 14,
+      "departmentSuccessfulOffers": 11,
+      "firstDepartmentMonth": 64,
+      "cash": 11718.89,
+      "stock": 43,
+      "revenue": 35428.89,
+      "costs": 17534,
+      "upkeep": 7776,
+      "realizedNet": 10118.89,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 286,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.06741334750150836
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 361,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07609753999039227
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 492,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08773258904837852
+        }
+      ]
+    },
+    {
+      "model": "C",
+      "policy": "diverse",
+      "seed": 1,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1108,
+      "retailRevenue": 20170.02,
+      "shops": {
+        "town-liquor": {
+          "actions": 28,
+          "bottles": 218,
+          "revenue": 3369.76
+        },
+        "supermarket": {
+          "actions": 26,
+          "bottles": 494,
+          "revenue": 10165.28
+        },
+        "department": {
+          "actions": 11,
+          "bottles": 55,
+          "revenue": 1815.7
+        }
+      },
+      "departmentOffers": 13,
+      "departmentSuccessfulOffers": 11,
+      "firstDepartmentMonth": 64,
+      "cash": 11810.76,
+      "stock": 43,
+      "revenue": 35520.76,
+      "costs": 17534,
+      "upkeep": 7776,
+      "realizedNet": 10210.76,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 286,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.06741334750150836
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 361,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07609753999039227
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 461,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08524662340653236
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse",
+      "seed": 2,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1092,
+      "retailRevenue": 19854.45,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 185,
+          "revenue": 2823.17
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 516,
+          "revenue": 10597.93
+        },
+        "department": {
+          "actions": 16,
+          "bottles": 80,
+          "revenue": 2561.25
+        }
+      },
+      "departmentOffers": 3,
+      "departmentSuccessfulOffers": 3,
+      "firstDepartmentMonth": 64,
+      "cash": 12132.8,
+      "stock": 43,
+      "revenue": 35836.8,
+      "costs": 17528,
+      "upkeep": 7776,
+      "realizedNet": 10532.8,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 274,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.0657496985635485
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 371,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07718977913768359
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 447,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08406607402124353
+        }
+      ]
+    },
+    {
+      "model": "B",
+      "policy": "diverse",
+      "seed": 2,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1155,
+      "retailRevenue": 21179.75,
+      "shops": {
+        "town-liquor": {
+          "actions": 32,
+          "bottles": 243,
+          "revenue": 3792.86
+        },
+        "supermarket": {
+          "actions": 22,
+          "bottles": 420,
+          "revenue": 8599.93
+        },
+        "department": {
+          "actions": 11,
+          "bottles": 55,
+          "revenue": 1806.15
+        }
+      },
+      "departmentOffers": 14,
+      "departmentSuccessfulOffers": 11,
+      "firstDepartmentMonth": 64,
+      "cash": 11674.69,
+      "stock": 43,
+      "revenue": 35378.69,
+      "costs": 17528,
+      "upkeep": 7776,
+      "realizedNet": 10074.69,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 274,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.0657496985635485
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 374,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07750728228023847
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 507,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08886313200559741
+        }
+      ]
+    },
+    {
+      "model": "C",
+      "policy": "diverse",
+      "seed": 2,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1123,
+      "retailRevenue": 20492.74,
+      "shops": {
+        "town-liquor": {
+          "actions": 25,
+          "bottles": 183,
+          "revenue": 2785.68
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 512,
+          "revenue": 10549.59
+        },
+        "department": {
+          "actions": 11,
+          "bottles": 55,
+          "revenue": 1800.8
+        }
+      },
+      "departmentOffers": 12,
+      "departmentSuccessfulOffers": 11,
+      "firstDepartmentMonth": 79,
+      "cash": 11924.81,
+      "stock": 43,
+      "revenue": 35628.81,
+      "costs": 17528,
+      "upkeep": 7776,
+      "realizedNet": 10324.81,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 297,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.06880832735104092
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 386,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07858148185382527
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 440,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08344739589374783
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse",
+      "seed": 3,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1087,
+      "retailRevenue": 19781.3,
+      "shops": {
+        "town-liquor": {
+          "actions": 28,
+          "bottles": 189,
+          "revenue": 2902.92
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 523,
+          "revenue": 10689.27
+        },
+        "department": {
+          "actions": 15,
+          "bottles": 75,
+          "revenue": 2390.95
+        }
+      },
+      "departmentOffers": 3,
+      "departmentSuccessfulOffers": 3,
+      "firstDepartmentMonth": 64,
+      "cash": 12057.44,
+      "stock": 43,
+      "revenue": 35764.44,
+      "costs": 17531,
+      "upkeep": 7776,
+      "realizedNet": 10457.44,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 285,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.06729247006291861
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 355,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07543489430416912
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 447,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08406607402124353
+        }
+      ]
+    },
+    {
+      "model": "B",
+      "policy": "diverse",
+      "seed": 3,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1096,
+      "retailRevenue": 19959.95,
+      "shops": {
+        "town-liquor": {
+          "actions": 28,
+          "bottles": 210,
+          "revenue": 3265.7
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 513,
+          "revenue": 10478.64
+        },
+        "department": {
+          "actions": 11,
+          "bottles": 55,
+          "revenue": 1800.9
+        }
+      },
+      "departmentOffers": 14,
+      "departmentSuccessfulOffers": 11,
+      "firstDepartmentMonth": 64,
+      "cash": 11798.19,
+      "stock": 43,
+      "revenue": 35505.19,
+      "costs": 17531,
+      "upkeep": 7776,
+      "realizedNet": 10198.19,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 285,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.06729247006291861
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 355,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07543489430416912
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 456,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08484489231377199
+        }
+      ]
+    },
+    {
+      "model": "C",
+      "policy": "diverse",
+      "seed": 3,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1077,
+      "retailRevenue": 19575.7,
+      "shops": {
+        "town-liquor": {
+          "actions": 27,
+          "bottles": 197,
+          "revenue": 3040.29
+        },
+        "supermarket": {
+          "actions": 28,
+          "bottles": 535,
+          "revenue": 10898.96
+        },
+        "department": {
+          "actions": 13,
+          "bottles": 65,
+          "revenue": 2144.8
+        }
+      },
+      "departmentOffers": 15,
+      "departmentSuccessfulOffers": 13,
+      "firstDepartmentMonth": 64,
+      "cash": 11952.75,
+      "stock": 43,
+      "revenue": 35659.75,
+      "costs": 17531,
+      "upkeep": 7776,
+      "realizedNet": 10352.75,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 285,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.06729247006291861
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 355,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07543489430416912
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 437,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08317869712892438
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse",
+      "seed": 4,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1105,
+      "retailRevenue": 20155.97,
+      "shops": {
+        "town-liquor": {
+          "actions": 27,
+          "bottles": 187,
+          "revenue": 2866.59
+        },
+        "supermarket": {
+          "actions": 26,
+          "bottles": 507,
+          "revenue": 10404.2
+        },
+        "department": {
+          "actions": 15,
+          "bottles": 75,
+          "revenue": 2410.45
+        }
+      },
+      "departmentOffers": 3,
+      "departmentSuccessfulOffers": 3,
+      "firstDepartmentMonth": 79,
+      "cash": 12130.21,
+      "stock": 43,
+      "revenue": 35837.21,
+      "costs": 17531,
+      "upkeep": 7776,
+      "realizedNet": 10530.21,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 274,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.0657496985635485
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 384,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07838952219257822
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 447,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08406607402124353
+        }
+      ]
+    },
+    {
+      "model": "B",
+      "policy": "diverse",
+      "seed": 4,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1105,
+      "retailRevenue": 20155.97,
+      "shops": {
+        "town-liquor": {
+          "actions": 29,
+          "bottles": 203,
+          "revenue": 3132.13
+        },
+        "supermarket": {
+          "actions": 26,
+          "bottles": 511,
+          "revenue": 10478.54
+        },
+        "department": {
+          "actions": 11,
+          "bottles": 55,
+          "revenue": 1841.7
+        }
+      },
+      "departmentOffers": 14,
+      "departmentSuccessfulOffers": 11,
+      "firstDepartmentMonth": 79,
+      "cash": 11901.34,
+      "stock": 43,
+      "revenue": 35608.34,
+      "costs": 17531,
+      "upkeep": 7776,
+      "realizedNet": 10301.34,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 274,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.0657496985635485
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 384,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07838952219257822
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 447,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08406607402124353
+        }
+      ]
+    },
+    {
+      "model": "C",
+      "policy": "diverse",
+      "seed": 4,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1119,
+      "retailRevenue": 20404.72,
+      "shops": {
+        "town-liquor": {
+          "actions": 25,
+          "bottles": 181,
+          "revenue": 2737.84
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 514,
+          "revenue": 10612.14
+        },
+        "department": {
+          "actions": 12,
+          "bottles": 60,
+          "revenue": 1996.4
+        }
+      },
+      "departmentOffers": 14,
+      "departmentSuccessfulOffers": 12,
+      "firstDepartmentMonth": 79,
+      "cash": 12044.1,
+      "stock": 43,
+      "revenue": 35751.1,
+      "costs": 17531,
+      "upkeep": 7776,
+      "realizedNet": 10444.1,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 297,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.06880832735104092
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 385,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07847892630091828
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 437,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08317869712892438
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse",
+      "seed": 42,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1090,
+      "retailRevenue": 19818.33,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 184,
+          "revenue": 2794.95
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 519,
+          "revenue": 10670.01
+        },
+        "department": {
+          "actions": 16,
+          "bottles": 80,
+          "revenue": 2563.9
+        }
+      },
+      "departmentOffers": 3,
+      "departmentSuccessfulOffers": 3,
+      "firstDepartmentMonth": 64,
+      "cash": 12143.19,
+      "stock": 43,
+      "revenue": 35847.19,
+      "costs": 17528,
+      "upkeep": 7776,
+      "realizedNet": 10543.19,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 273,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.06562406379730944
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 370,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07706998649444195
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 447,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08406607402124353
+        }
+      ]
+    },
+    {
+      "model": "B",
+      "policy": "diverse",
+      "seed": 42,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1099,
+      "retailRevenue": 19998.06,
+      "shops": {
+        "town-liquor": {
+          "actions": 28,
+          "bottles": 205,
+          "revenue": 3167.7
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 514,
+          "revenue": 10565.02
+        },
+        "department": {
+          "actions": 11,
+          "bottles": 55,
+          "revenue": 1806.9
+        }
+      },
+      "departmentOffers": 14,
+      "departmentSuccessfulOffers": 11,
+      "firstDepartmentMonth": 64,
+      "cash": 11833.68,
+      "stock": 43,
+      "revenue": 35537.68,
+      "costs": 17528,
+      "upkeep": 7776,
+      "realizedNet": 10233.68,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 273,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.06562406379730944
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 370,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07706998649444195
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 456,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08484489231377199
+        }
+      ]
+    },
+    {
+      "model": "C",
+      "policy": "diverse",
+      "seed": 42,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1085,
+      "retailRevenue": 19714.88,
+      "shops": {
+        "town-liquor": {
+          "actions": 28,
+          "bottles": 194,
+          "revenue": 2994.85
+        },
+        "supermarket": {
+          "actions": 28,
+          "bottles": 534,
+          "revenue": 10920.75
+        },
+        "department": {
+          "actions": 12,
+          "bottles": 60,
+          "revenue": 2007.85
+        }
+      },
+      "departmentOffers": 14,
+      "departmentSuccessfulOffers": 12,
+      "firstDepartmentMonth": 64,
+      "cash": 11934.33,
+      "stock": 43,
+      "revenue": 35638.33,
+      "costs": 17528,
+      "upkeep": 7776,
+      "realizedNet": 10334.33,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 273,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.06562406379730944
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 370,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07706998649444195
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 442,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08362533692722371
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse",
+      "seed": 12345,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1104,
+      "retailRevenue": 20087.58,
+      "shops": {
+        "town-liquor": {
+          "actions": 27,
+          "bottles": 193,
+          "revenue": 2946.2
+        },
+        "supermarket": {
+          "actions": 26,
+          "bottles": 498,
+          "revenue": 10276.34
+        },
+        "department": {
+          "actions": 16,
+          "bottles": 80,
+          "revenue": 2569.15
+        }
+      },
+      "departmentOffers": 3,
+      "departmentSuccessfulOffers": 3,
+      "firstDepartmentMonth": 64,
+      "cash": 12169.27,
+      "stock": 43,
+      "revenue": 35879.27,
+      "costs": 17534,
+      "upkeep": 7776,
+      "realizedNet": 10569.27,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 285,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.06729247006291861
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 372,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07726934523809524
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 447,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08406607402124353
+        }
+      ]
+    },
+    {
+      "model": "B",
+      "policy": "diverse",
+      "seed": 12345,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1104,
+      "retailRevenue": 20087.58,
+      "shops": {
+        "town-liquor": {
+          "actions": 29,
+          "bottles": 214,
+          "revenue": 3321.21
+        },
+        "supermarket": {
+          "actions": 26,
+          "bottles": 502,
+          "revenue": 10350.52
+        },
+        "department": {
+          "actions": 11,
+          "bottles": 55,
+          "revenue": 1809
+        }
+      },
+      "departmentOffers": 14,
+      "departmentSuccessfulOffers": 11,
+      "firstDepartmentMonth": 64,
+      "cash": 11858.31,
+      "stock": 43,
+      "revenue": 35568.31,
+      "costs": 17534,
+      "upkeep": 7776,
+      "realizedNet": 10258.31,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 285,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.06729247006291861
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 372,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07726934523809524
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 447,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08406607402124353
+        }
+      ]
+    },
+    {
+      "model": "C",
+      "policy": "diverse",
+      "seed": 12345,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1195,
+      "retailRevenue": 21843.54,
+      "shops": {
+        "town-liquor": {
+          "actions": 31,
+          "bottles": 235,
+          "revenue": 3590.87
+        },
+        "supermarket": {
+          "actions": 20,
+          "bottles": 390,
+          "revenue": 8224.88
+        },
+        "department": {
+          "actions": 11,
+          "bottles": 55,
+          "revenue": 1854.5
+        }
+      },
+      "departmentOffers": 13,
+      "departmentSuccessfulOffers": 11,
+      "firstDepartmentMonth": 79,
+      "cash": 11803.79,
+      "stock": 43,
+      "revenue": 35513.79,
+      "costs": 17534,
+      "upkeep": 7776,
+      "realizedNet": 10203.79,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 369,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.07731607496034622
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 384,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07834900476248627
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 442,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08362533692722371
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse",
+      "seed": 20261017,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1091,
+      "retailRevenue": 19871.32,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 181,
+          "revenue": 2770.16
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 519,
+          "revenue": 10604.48
+        },
+        "department": {
+          "actions": 17,
+          "bottles": 85,
+          "revenue": 2698.55
+        }
+      },
+      "departmentOffers": 3,
+      "departmentSuccessfulOffers": 3,
+      "firstDepartmentMonth": 64,
+      "cash": 12231.51,
+      "stock": 43,
+      "revenue": 35944.51,
+      "costs": 17537,
+      "upkeep": 7776,
+      "realizedNet": 10631.51,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 286,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.06741334750150836
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 358,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07576767669440193
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 447,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08406607402124353
+        }
+      ]
+    },
+    {
+      "model": "B",
+      "policy": "diverse",
+      "seed": 20261017,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1100,
+      "retailRevenue": 20051.32,
+      "shops": {
+        "town-liquor": {
+          "actions": 28,
+          "bottles": 207,
+          "revenue": 3216.16
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 514,
+          "revenue": 10498.86
+        },
+        "department": {
+          "actions": 11,
+          "bottles": 55,
+          "revenue": 1813.8
+        }
+      },
+      "departmentOffers": 14,
+      "departmentSuccessfulOffers": 11,
+      "firstDepartmentMonth": 64,
+      "cash": 11867.14,
+      "stock": 43,
+      "revenue": 35580.14,
+      "costs": 17537,
+      "upkeep": 7776,
+      "realizedNet": 10267.14,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 286,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.06741334750150836
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 358,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07576767669440193
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 456,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08484489231377199
+        }
+      ]
+    },
+    {
+      "model": "C",
+      "policy": "diverse",
+      "seed": 20261017,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1122,
+      "retailRevenue": 20504.42,
+      "shops": {
+        "town-liquor": {
+          "actions": 24,
+          "bottles": 182,
+          "revenue": 2751.32
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 517,
+          "revenue": 10630.23
+        },
+        "department": {
+          "actions": 11,
+          "bottles": 55,
+          "revenue": 1809.1
+        }
+      },
+      "departmentOffers": 12,
+      "departmentSuccessfulOffers": 11,
+      "firstDepartmentMonth": 79,
+      "cash": 11982.07,
+      "stock": 43,
+      "revenue": 35695.07,
+      "costs": 17537,
+      "upkeep": 7776,
+      "realizedNet": 10382.07,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 309,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.07035711183630926
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 374,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07731728240538906
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 439,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08335806888122571
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse",
+      "seed": 4294967295,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1092,
+      "retailRevenue": 19839.89,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 184,
+          "revenue": 2801.72
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 518,
+          "revenue": 10638.95
+        },
+        "department": {
+          "actions": 16,
+          "bottles": 80,
+          "revenue": 2564.25
+        }
+      },
+      "departmentOffers": 3,
+      "departmentSuccessfulOffers": 3,
+      "firstDepartmentMonth": 64,
+      "cash": 12137.81,
+      "stock": 43,
+      "revenue": 35844.81,
+      "costs": 17531,
+      "upkeep": 7776,
+      "realizedNet": 10537.81,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 274,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.0657496985635485
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 373,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07737526980978623
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 445,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08391461044028548
+        }
+      ]
+    },
+    {
+      "model": "B",
+      "policy": "diverse",
+      "seed": 4294967295,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1092,
+      "retailRevenue": 19839.89,
+      "shops": {
+        "town-liquor": {
+          "actions": 28,
+          "bottles": 205,
+          "revenue": 3172.45
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 522,
+          "revenue": 10713.85
+        },
+        "department": {
+          "actions": 11,
+          "bottles": 55,
+          "revenue": 1810.55
+        }
+      },
+      "departmentOffers": 13,
+      "departmentSuccessfulOffers": 11,
+      "firstDepartmentMonth": 64,
+      "cash": 11829.74,
+      "stock": 43,
+      "revenue": 35536.74,
+      "costs": 17531,
+      "upkeep": 7776,
+      "realizedNet": 10229.74,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 274,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.0657496985635485
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 373,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07737526980978623
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 445,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08391461044028548
+        }
+      ]
+    },
+    {
+      "model": "C",
+      "policy": "diverse",
+      "seed": 4294967295,
+      "months": 240,
+      "delay": 0,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1126,
+      "retailRevenue": 20514.26,
+      "shops": {
+        "town-liquor": {
+          "actions": 25,
+          "bottles": 180,
+          "revenue": 2719.4
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 513,
+          "revenue": 10574.83
+        },
+        "department": {
+          "actions": 11,
+          "bottles": 55,
+          "revenue": 1853.95
+        }
+      },
+      "departmentOffers": 12,
+      "departmentSuccessfulOffers": 11,
+      "firstDepartmentMonth": 79,
+      "cash": 11955.44,
+      "stock": 43,
+      "revenue": 35662.44,
+      "costs": 17531,
+      "upkeep": 7776,
+      "realizedNet": 10355.44,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 297,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": true,
+          "bonus": 0.06880832735104092
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 389,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07886080078827179
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 440,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": true,
+          "bonus": 0.08347193347193348
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse-delay",
+      "seed": 1,
+      "months": 240,
+      "delay": 2,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1132,
+      "retailRevenue": 20733.11,
+      "shops": {
+        "town-liquor": {
+          "actions": 27,
+          "bottles": 200,
+          "revenue": 3144.66
+        },
+        "supermarket": {
+          "actions": 25,
+          "bottles": 483,
+          "revenue": 9888.56
+        },
+        "department": {
+          "actions": 12,
+          "bottles": 60,
+          "revenue": 1808.65
+        }
+      },
+      "departmentOffers": 2,
+      "departmentSuccessfulOffers": 2,
+      "firstDepartmentMonth": 92,
+      "cash": 11864.98,
+      "stock": 43,
+      "revenue": 35574.98,
+      "costs": 17534,
+      "upkeep": 7776,
+      "realizedNet": 10264.98,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 298,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.06901393391441207
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 373,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07721109083657746
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 461,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08526970618471857
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse-delay",
+      "seed": 2,
+      "months": 240,
+      "delay": 2,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1119,
+      "retailRevenue": 20410.53,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 188,
+          "revenue": 2902.97
+        },
+        "supermarket": {
+          "actions": 26,
+          "bottles": 501,
+          "revenue": 10301.18
+        },
+        "department": {
+          "actions": 13,
+          "bottles": 65,
+          "revenue": 2058.55
+        }
+      },
+      "departmentOffers": 3,
+      "departmentSuccessfulOffers": 3,
+      "firstDepartmentMonth": 92,
+      "cash": 11969.23,
+      "stock": 43,
+      "revenue": 35673.23,
+      "costs": 17528,
+      "upkeep": 7776,
+      "realizedNet": 10369.23,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 286,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.06741334750150836
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 386,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07858148185382527
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 447,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08406607402124353
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse-delay",
+      "seed": 3,
+      "months": 240,
+      "delay": 2,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1116,
+      "retailRevenue": 20377.58,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 187,
+          "revenue": 2902.24
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 516,
+          "revenue": 10521.64
+        },
+        "department": {
+          "actions": 11,
+          "bottles": 55,
+          "revenue": 1792
+        }
+      },
+      "departmentOffers": 3,
+      "departmentSuccessfulOffers": 3,
+      "firstDepartmentMonth": 92,
+      "cash": 11886.46,
+      "stock": 43,
+      "revenue": 35593.46,
+      "costs": 17531,
+      "upkeep": 7776,
+      "realizedNet": 10286.46,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 297,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.06889755683789793
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 372,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.0771045918367347
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 447,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08406607402124353
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse-delay",
+      "seed": 4,
+      "months": 240,
+      "delay": 2,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1129,
+      "retailRevenue": 20608.62,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 190,
+          "revenue": 2950.13
+        },
+        "supermarket": {
+          "actions": 25,
+          "bottles": 490,
+          "revenue": 10097.56
+        },
+        "department": {
+          "actions": 13,
+          "bottles": 65,
+          "revenue": 2059.9
+        }
+      },
+      "departmentOffers": 3,
+      "departmentSuccessfulOffers": 3,
+      "firstDepartmentMonth": 92,
+      "cash": 12009.21,
+      "stock": 43,
+      "revenue": 35716.21,
+      "costs": 17531,
+      "upkeep": 7776,
+      "realizedNet": 10409.21,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 297,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.06880832735104092
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 385,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07847892630091828
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 447,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08406607402124353
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse-delay",
+      "seed": 42,
+      "months": 240,
+      "delay": 2,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1119,
+      "retailRevenue": 20414.93,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 187,
+          "revenue": 2876.36
+        },
+        "supermarket": {
+          "actions": 26,
+          "bottles": 502,
+          "revenue": 10330.12
+        },
+        "department": {
+          "actions": 13,
+          "bottles": 65,
+          "revenue": 2062
+        }
+      },
+      "departmentOffers": 3,
+      "departmentSuccessfulOffers": 3,
+      "firstDepartmentMonth": 92,
+      "cash": 11979.41,
+      "stock": 43,
+      "revenue": 35683.41,
+      "costs": 17528,
+      "upkeep": 7776,
+      "realizedNet": 10379.41,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 285,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.06729247006291861
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 387,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07867038096672187
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 447,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08406607402124353
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse-delay",
+      "seed": 12345,
+      "months": 240,
+      "delay": 2,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1133,
+      "retailRevenue": 20738.04,
+      "shops": {
+        "town-liquor": {
+          "actions": 27,
+          "bottles": 207,
+          "revenue": 3225.9
+        },
+        "supermarket": {
+          "actions": 24,
+          "bottles": 470,
+          "revenue": 9638.78
+        },
+        "department": {
+          "actions": 13,
+          "bottles": 65,
+          "revenue": 2061.65
+        }
+      },
+      "departmentOffers": 3,
+      "departmentSuccessfulOffers": 3,
+      "firstDepartmentMonth": 92,
+      "cash": 11954.37,
+      "stock": 43,
+      "revenue": 35664.37,
+      "costs": 17534,
+      "upkeep": 7776,
+      "realizedNet": 10354.37,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 298,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.06902856460309877
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 388,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07875902165196472
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 447,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08406607402124353
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse-delay",
+      "seed": 20261017,
+      "months": 240,
+      "delay": 2,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1119,
+      "retailRevenue": 20447.88,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 185,
+          "revenue": 2870.42
+        },
+        "supermarket": {
+          "actions": 26,
+          "bottles": 502,
+          "revenue": 10263.58
+        },
+        "department": {
+          "actions": 14,
+          "bottles": 70,
+          "revenue": 2193.15
+        }
+      },
+      "departmentOffers": 3,
+      "departmentSuccessfulOffers": 3,
+      "firstDepartmentMonth": 92,
+      "cash": 12062.03,
+      "stock": 43,
+      "revenue": 35775.03,
+      "costs": 17537,
+      "upkeep": 7776,
+      "realizedNet": 10462.03,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 298,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.06901393391441207
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 374,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07731728240538906
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 447,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08406607402124353
+        }
+      ]
+    },
+    {
+      "model": "A",
+      "policy": "diverse-delay",
+      "seed": 4294967295,
+      "months": 240,
+      "delay": 2,
+      "fills": 47,
+      "starts": 47,
+      "maxCasks": 4,
+      "brands": 3,
+      "releases": 44,
+      "retailBottles": 1120,
+      "retailRevenue": 20411.37,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 188,
+          "revenue": 2900.7
+        },
+        "supermarket": {
+          "actions": 26,
+          "bottles": 501,
+          "revenue": 10301.58
+        },
+        "department": {
+          "actions": 13,
+          "bottles": 65,
+          "revenue": 2063.25
+        }
+      },
+      "departmentOffers": 3,
+      "departmentSuccessfulOffers": 3,
+      "firstDepartmentMonth": 92,
+      "cash": 11969.9,
+      "stock": 43,
+      "revenue": 35676.9,
+      "costs": 17531,
+      "upkeep": 7776,
+      "realizedNet": 10369.9,
+      "accountingExact": true,
+      "brandEvidence": [
+        {
+          "brandId": 1,
+          "name": "朝霞",
+          "sold": 286,
+          "soldReleases": 14,
+          "age": 234,
+          "eligible": false,
+          "bonus": 0.06741334750150836
+        },
+        {
+          "brandId": 2,
+          "name": "川霧",
+          "sold": 389,
+          "soldReleases": 14,
+          "age": 232,
+          "eligible": true,
+          "bonus": 0.07886080078827179
+        },
+        {
+          "brandId": 3,
+          "name": "石蔵",
+          "sold": 445,
+          "soldReleases": 15,
+          "age": 227,
+          "eligible": false,
+          "bonus": 0.08391461044028548
+        }
+      ]
+    }
+  ]
+}
