@@ -461,6 +461,7 @@ var WORK_SEARCH_META = {
         }
     },
     "coffee-factory": {
+    "articleIds": ["fac8492827054dd8a3922c8b8396198a"],
     "schemaType": "SoftwareApplication",
     "alternateNames": [],
     "ja": {
