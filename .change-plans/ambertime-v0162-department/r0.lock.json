@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "abbf8f7ad290a5a9fe26a52e37a9a6452ef2222581ba8dc53a64192b4c2fb868",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v0162-department",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.16.2 finite department selections and provenance with strict legacy replay",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "f3f8ad6e994eee02f41440e7cb62fae8d75b16ea",
+    "canonicalSources": [
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "User0.16.2 request",
+      "audit/ambertime-0161-department comparison report and scripts"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v0162-department/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/v016.html",
+      "works/ambertime/shop-v016-app.mjs",
+      "works/ambertime/shop-v016.css",
+      "works/ambertime/tests/department*.mjs",
+      "works/ambertime/tests/*ui.test.mjs",
+      "works/ambertime/design/department-limited/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "tools/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/work-context.mjs",
+      "works/ambertime/experiments/**"
+    ],
+    "expectedChanges": [
+      "v14 opt-in strict operation boundary and separate UI save key; old versions replay unchanged",
+      "Department only finite5 per selection, stable selected-whisky project and source/actualrelease identities, bounded optional interests, no duplicate release adoption",
+      "Historical release based proposals, preserved existing relations and ledgers; other stores unchanged",
+      "Existing offer/product modal and brand history with brief facts; preserve priority, cask IDs and time pause intent",
+      "Model tests, legacy compatibility, long paired simulation and desktop/phone browser observations plus independent review"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "PC-iPhone-size browser flow and timer return",
+      "strict save replay and oldraw preservation",
+      "long paired simulation accounting",
+      "published source match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert new entry/UI and v14 extension; reopen preserved v13 raw via v016.html, leave v14 raw intact",
+    "outOfScope": [
+      "Production",
+      "Chemistry or aging changes",
+      "Town/super conditions or reputation changes",
+      "New flavored projects",
+      "Production capacity",
+      "Shared runtime"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and human enjoyment"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN full work-local save boundary",
+      "EXPRESSION-AUDIT: concise state facts in existing modal/history only",
+      "AGENTS explicit useful delegation and independent review"
+    ],
+    "ownerDecisions": [
+      "User0.16.2 authorizes finite department5 and optional interest, durable provenance, explicit version separation and safe Staging PR merge."
+    ],
+    "hqDecisions": [
+      "Use existing strict operation replay architecture with a logged v14 enable boundary and separate local save key; v13 constructors/opcodes remain legacy semantics. One interest per brand/project, stable project type and selection/release linkage, no obligations or reputation boost. No new shared persistence mechanism."
+    ],
+    "problem": "Department continuous monthly buyer has no finite selection or lasting adopted-release provenance.",
+    "currentContract": "v13 strict replay with shared product stock, shop relations/delivery ledger separate from actual retail evidence.",
+    "whyExistingIsInsufficient": "Existing permanent relation and monthly cap cannot express one selection complete at5 and optional historical interest.",
+    "design": "Work-local v14 extends same replay/atomic delivery flow with finite selection identity, bounded interest and adoption record, explicit legacy branch; existing UI surfaces only.",
+    "migration": "Exact restore v13 and older before enable-department operation; keep old storage key raw and old entry; retain relations and deliveries without synthesizing adoption events.",
+    "compatibility": "Legacy actions route old semantics even while replaying pre-upgrade operations; old UI archived, v14 explicitly enabled; no backward conversion.",
+    "promotionRisk": "Staging only, no Production or shared paths",
+    "alternativesRejected": [
+      "Changing v13 opcode semantics",
+      "Historical adoptions synthesized from old deliveries",
+      "Inventories reserved or mandatory production",
+      "Unlimited pending proposals",
+      "New management screen or flavor categories"
+    ],
+    "boundaryCases": [
+      "age24 rough0.30 stock5 boundaries",
+      "same initiative/release duplicate and stale click",
+      "next release opportunity after completion",
+      "zero stock interest decline/cancel and queues",
+      "old accepted department relations and delivery ledgers",
+      "old v3-v13 replays and in-progress usual batch",
+      "four cask sequential decisions",
+      "month pause restore PC/phone"
+    ],
+    "testPlan": [
+      "Existing full Node regression",
+      "Department finite selection/interest/atomicity/replay tests",
+      "8seed120-240mo paired actual v14 vs v13 with frozen chemistry/accounting",
+      "Real Chromium PC1280/phone390 public-operation fixtures and save reload",
+      "Independent review and trusted exact-SHA gate plus CI/source check"
+    ]
+  }
+}
