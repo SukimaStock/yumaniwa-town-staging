@@ -1,0 +1,283 @@
+{
+  "id": "3fbab1d8a9b14123bfdb1461a94e8098",
+  "slug": "touch-doodles",
+  "source": {
+    "reference": "https://note.com/hamamah/n/nca6b0ef9db94; author-provided archived PDF",
+    "verification": "2026-10-18 full Drive PDF/public note compared:20prose blocks,14br,7 animated GIFs unchanged with63/120/48/111/91/105/98frames,original header and closing cards. Historical X profile title/excerpt/avatar restored from Drive PDF page9 object57 because current dynamic description differs; explicitly recorded, not inferred or substituted. All10 media acquired.",
+    "missingMedia": [],
+    "media": [
+      {
+        "path": "assets/shinpo/touch-doodles/cover.png",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/290923243/rectangle_large_type_2_0aca467a379a69d8b240137b5d6a2888.png",
+        "position": "header",
+        "caption": "",
+        "width": 1280,
+        "height": 670,
+        "frames": 1,
+        "format": "PNG",
+        "sha256": "0b2e34c832cd7a0126306bc92147ff366391ee110149b1c66c83e678562287a7",
+        "bytes": 154289
+      },
+      {
+        "path": "assets/shinpo/touch-doodles/body-1.gif",
+        "sourceUrl": "https://assets.st-note.com/img/1782987953-xAhgdsqjeOzp0GtP497Iw2rb.gif",
+        "position": 1,
+        "caption": "",
+        "after": "牛がUFOに連れ去られるというモチーフは定番ですが、「もし、宇宙人が牛そのものではなく、牛の模様だけが欲しかったとしたら…」という妄想から生まれました。あえてアナログな質感を残しています。",
+        "width": 480,
+        "height": 1040,
+        "frames": 63,
+        "format": "GIF",
+        "sha256": "ff8cbd06042174692e933914b41c208f91cf8df726f09e9b948e478695b90377",
+        "bytes": 1699515
+      },
+      {
+        "path": "assets/shinpo/touch-doodles/body-2.gif",
+        "sourceUrl": "https://assets.st-note.com/img/1782987649-W7PcuCG3h1TQeBOkd5g0zfX2.gif",
+        "position": 2,
+        "caption": "",
+        "after": "豆腐のぷるぷる感と、生姜、ねぎ、鰹節のような調味料の素材感をプログラムの中でどう作れるだろうという好奇心から始まりました。それぞれの調味料ごとの動きや積もっていくバランスを調整するのが楽しかったです。",
+        "width": 480,
+        "height": 1040,
+        "frames": 120,
+        "format": "GIF",
+        "sha256": "bd126d60f63663cac5c3539b8f2bea8224e2154b21308e9108a8f502028ed92f",
+        "bytes": 588234
+      },
+      {
+        "path": "assets/shinpo/touch-doodles/body-3.gif",
+        "sourceUrl": "https://assets.st-note.com/img/1782987966-Ajxa9Y1mi38Z6sGL0zRQSXNc.gif",
+        "position": 3,
+        "caption": "",
+        "after": "蛇口をひねっておばけが出てきたら面白いな、という発想をそのまま形にしてみました。ひねるとすぐに出てくるのではなく、一瞬間があってひょこっと出てくる感じがかわいいです。閉じるとすぐに引っ込みます。",
+        "width": 480,
+        "height": 1040,
+        "frames": 48,
+        "format": "GIF",
+        "sha256": "927ce518f75f61240a55b314c19323e0919f29c49f84db333bd8e9640566d794",
+        "bytes": 300630
+      },
+      {
+        "path": "assets/shinpo/touch-doodles/body-4.gif",
+        "sourceUrl": "https://assets.st-note.com/img/1782987978-p1FC0BjyLuQmwoMl7OfTAeqg.gif",
+        "position": 4,
+        "caption": "",
+        "after": "雨の日に曇った窓に落書きするのが好きでした。書き終わりに雨粒が集まり、つーっと垂れていくあの感じが好きです。なんとなく相合い傘を書いてみたくなりました。",
+        "width": 480,
+        "height": 1040,
+        "frames": 111,
+        "format": "GIF",
+        "sha256": "f5015d011c7586e6554e282bff60192151e53093d2ea6b63af6ae2b3450c142f",
+        "bytes": 874839
+      },
+      {
+        "path": "assets/shinpo/touch-doodles/body-5.gif",
+        "sourceUrl": "https://assets.st-note.com/img/1782988059-UIBlzD9TaX80FA4tL1qNEH5n.gif",
+        "position": 5,
+        "caption": "",
+        "after": "世の中のアプリが寝ている間に自動更新される中、自分で一生懸命バーを引っ張らないといけないシステムがあったら嫌だな、と思い作ってみました。やっぱり嫌でした。",
+        "width": 480,
+        "height": 1040,
+        "frames": 91,
+        "format": "GIF",
+        "sha256": "28282f70da0ffc63548a9533632d57d82fd2e6f0d55f499a6dec7a4d05e11e7b",
+        "bytes": 464282
+      },
+      {
+        "path": "assets/shinpo/touch-doodles/body-6.gif",
+        "sourceUrl": "https://assets.st-note.com/img/1782988104-wWTD8E2SgoemcQnxGF3ZrRX7.gif",
+        "position": 6,
+        "caption": "",
+        "after": "通知バッジが付くとどうしてもアプリを起動したくなりますが、アプリを起動しないためにはどうしようと考えたところ、通知自体が増えればいいのではないかという結論に至りました。画面が埋まっていくのが怖いです。",
+        "width": 480,
+        "height": 1040,
+        "frames": 105,
+        "format": "GIF",
+        "sha256": "402b2e3c0195a7be98285f0a72b0964f276116694b7cb11fe959f18c2f8d0020",
+        "bytes": 2574418
+      },
+      {
+        "path": "assets/shinpo/touch-doodles/body-7.gif",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/290828936/picture_pc_7bd4832d90d077a92f07a8a26407bc85.gif",
+        "position": 7,
+        "caption": "",
+        "after": "落書きのように画面をなぞるだけで、自分だけのマップがつくれたら面白いなと思って作ってみました。道が出来たり、川が出来たり、いつの間にか街のようになっていきます。触っているだけでワクワクします。",
+        "width": 480,
+        "height": 1040,
+        "frames": 98,
+        "format": "GIF",
+        "sha256": "1861411ef367b87ed42d56d87030d21aa97fb2af1abb4268a4648d6bba6f380c",
+        "bytes": 1879245
+      },
+      {
+        "path": "assets/shinpo/touch-doodles/card-1.jpg",
+        "sourceUrl": "https://assets.st-note.com/production/uploads/images/284790684/rectangle_large_type_2_ce0ca518e27497dc52a231ecd044eeeb.png?fit=bounds&format=jpeg&quality=85&width=300",
+        "position": "note preview n16f7a42c0b6a",
+        "caption": "",
+        "width": 300,
+        "height": 157,
+        "frames": 1,
+        "format": "JPEG",
+        "sha256": "a309870294fed8ef62e6c2f8c6693c5179f5882fac8723cd6cbff41ce7f7a146",
+        "bytes": 6633
+      },
+      {
+        "path": "assets/shinpo/touch-doodles/profile-historical.png",
+        "sourceUrl": "https://note.com/hamamah/n/nca6b0ef9db94",
+        "position": "closing X profile card after よければ、Xの方も覗いてみてください。",
+        "caption": "",
+        "sha256": "c5effff9eb7584fdd389a20f1fb9251a6356b15f82f7f24cd1ca3b94c1b3774a",
+        "format": "PNG",
+        "width": 200,
+        "height": 200,
+        "frames": 1,
+        "extraction": "Original PDF page9 image object57, pdfimages index006; historical profile image, not current dynamic thumbnail. Archived PDF source retained privately; public article is provenance entry point.",
+        "bytes": 15645
+      }
+    ],
+    "rights": "Original author doodles/GIF/header/avatar; original article card thumbnail. Historical avatar extracted from source Drive PDF image object57, no substitute/AI generation.",
+    "edition": "Seven historical iPhone/Codea doodles not all current registered town works. Rain-on-window section corresponds rainy-window; separate afterword labels currentWeb only; no guessing links for other six.",
+    "linkRewrites": [],
+    "sourceComparison": {
+      "proseExact": true,
+      "blocks": 20,
+      "originalBr": 14,
+      "importBr": 14,
+      "missingMedia": [],
+      "drivePdf": "Author-provided archived PDF: original prose compared; note preview from actual public embed DOM",
+      "links": "Original note source destinations preserved; no play links added; static preview replacement removes embed runtime only",
+      "version": "Section4 window corresponds rain-window concept; other six original sketches are not all registered. No body play links added.",
+      "totalBytes": 8557730,
+      "dynamicDifference": {
+        "location": "closing X profile card",
+        "pdfHistoricalDescription": "自分専用アプリ開発｜noteで開発記録｜ コーヒー工場タイマー／焼き鳥ゲーム／#触れるらくがき アプリ一覧：https://t.co/dsTsYYLEBV",
+        "currentPublicDescription": "役に立ったり、立たなかったりするものを作ってます。 DotWeather／真夜中コーラ／湯間庭町 https://t.co/A0Ib3EBXz4",
+        "resolution": "Historical PDF title/description and page9 original profile image extracted; public dynamic updated description not substituted; profile URL unchanged."
+      },
+      "tocWrapper": "Original TOC nav wrapper becomes div to avoid existing shared header-nav styles. Labels/details/list/order/heading IDs/targets remain original."
+    }
+  },
+  "cover": "<figure><img src=\"../../assets/shinpo/touch-doodles/cover.png\" alt=\"ひねる、積む、なぞる。触れるらくがきの話の元掲載画像\" fetchpriority=\"high\"></figure>",
+  "navDate": "2026年07月02日",
+  "displayDate": "2026年7月2日",
+  "backnumber": true,
+  "blocks": [
+    {
+      "origin": "source",
+      "html": "<p id=\"1c52fa45-9a4c-4992-a467-60792c9f78fb\">最近、ゲーム未満、アプリ未満の<br/>「#触れるらくがき」をつくっています。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"4b629530-edc5-444c-8281-631202a6cf3a\"><div><div><a class=\"source-preview\" href=\"https://note.com/hamamah/n/n16f7a42c0b6a\"><img alt=\"\" src=\"../../assets/shinpo/touch-doodles/card-1.jpg\"/><strong>ゲーム未満、アプリ未満の心地よさ</strong><small>「公開予定もないアプリを21個作っていた話」を書いてから、気づけば4か月以上経っていた。始めた当初よりも、反応をもらえるようになって嬉しい。XやRedditなど、他のSNSの使い方もだんだん分かってきた。その一方で、以前はよく見かけていた方たちが、一人、また一人と静かになっていくのを眺めるのは、少し寂しい…</small></a></div></div></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"1178845e-378f-4fd8-8285-af3fb48ed640\">画面を傾ける、なぞる、ひっぱる、ただ触る。<br/>それだけのものです。<br/>何かの役に立つわけではないけど、触ったときに少しだけ気持ちいいようなものを作りたいと思っています。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"849d7156-3e32-4aa1-ba0e-9da583a830f9\">その中から、私が気に入っているものをいくつかお見せしたいと思います。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<div><div><details><summary><h2>目次</h2></summary><ol><li><a href=\"#76eebbec-ed1d-4b4b-af40-da299c1919cd\" id=\"toc_item_76eebbec-ed1d-4b4b-af40-da299c1919cd\">１．牛吸い【吸う】</a></li><li><a href=\"#28dccf33-92dc-43bc-bab4-19cf3a71f028\" id=\"toc_item_28dccf33-92dc-43bc-bab4-19cf3a71f028\">２．豆腐タワー【積む】</a></li><li><a href=\"#b44e3735-7ffc-48e6-ab54-7e1d6c50a333\" id=\"toc_item_b44e3735-7ffc-48e6-ab54-7e1d6c50a333\">３．蛇口おばけ【ひねる】</a></li><li><a href=\"#a2db2f9a-2f35-403a-96d5-a341c1c9fbfb\" id=\"toc_item_a2db2f9a-2f35-403a-96d5-a341c1c9fbfb\">４．窓【書く】</a></li><li><a href=\"#11c769e8-e35c-48ff-bb94-cf2f7c154d56\" id=\"toc_item_11c769e8-e35c-48ff-bb94-cf2f7c154d56\">５．手動アップデート【引っ張る】</a></li><li><a href=\"#49d0962e-fc40-4087-ba03-a0f39e1e16ad\" id=\"toc_item_49d0962e-fc40-4087-ba03-a0f39e1e16ad\">６．増殖通知【増える】</a></li><li><a href=\"#03b7b5ac-5844-4347-889a-6f691cfb58df\" id=\"toc_item_03b7b5ac-5844-4347-889a-6f691cfb58df\">７．なぞる地図【なぞる】</a></li></ol></details></div></div>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"76eebbec-ed1d-4b4b-af40-da299c1919cd\">１．牛吸い【吸う】</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"ad811af2-2bd6-460f-9ef5-54e904a5d583\">牛がUFOに連れ去られるというモチーフは定番ですが、<br/>「もし、宇宙人が牛そのものではなく、牛の模様だけが欲しかったとしたら…」という妄想から生まれました。<br/>あえてアナログな質感を残しています。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"F1BC5F71-B99C-4E78-BD14-25933CD12F5C\"><img alt=\"画像\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-1.gif\" width=\"480\"/><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"28dccf33-92dc-43bc-bab4-19cf3a71f028\">２．豆腐タワー【積む】</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"8da8070c-5125-48a6-8f3a-4729a756f095\">豆腐のぷるぷる感と、生姜、ねぎ、鰹節のような調味料の素材感をプログラムの中でどう作れるだろうという好奇心から始まりました。<br/>それぞれの調味料ごとの動きや積もっていくバランスを調整するのが楽しかったです。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"59FAA339-A75C-42B6-AE1C-08871129FA93\"><img alt=\"画像\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-2.gif\" width=\"480\"/><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"b44e3735-7ffc-48e6-ab54-7e1d6c50a333\">３．蛇口おばけ【ひねる】</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"52499991-0d9c-4385-9a73-b00fbe419407\">蛇口をひねっておばけが出てきたら面白いな、という発想をそのまま形にしてみました。ひねるとすぐに出てくるのではなく、一瞬間があってひょこっと出てくる感じがかわいいです。<br/>閉じるとすぐに引っ込みます。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"103B9D03-EAED-464D-8E12-E5E939FD19A8\"><img alt=\"画像\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-3.gif\" width=\"480\"/><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"a2db2f9a-2f35-403a-96d5-a341c1c9fbfb\">４．窓【書く】</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"d69b51cf-ad12-4c30-8b0c-719e11ad5608\">雨の日に曇った窓に落書きするのが好きでした。書き終わりに雨粒が集まり、つーっと垂れていくあの感じが好きです。<br/>なんとなく相合い傘を書いてみたくなりました。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"4579B0FE-E340-4382-8A0A-A1CF372CBB87\"><img alt=\"画像\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-4.gif\" width=\"480\"/><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"11c769e8-e35c-48ff-bb94-cf2f7c154d56\">５．手動アップデート【引っ張る】</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"7d9576ac-bbb3-4f53-bad4-0687a47078cf\">世の中のアプリが寝ている間に自動更新される中、自分で一生懸命バーを引っ張らないといけないシステムがあったら嫌だな、と思い作ってみました。<br/>やっぱり嫌でした。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"D95B519C-D7E9-4F27-9D0F-EBFB79132A4F\"><img alt=\"画像\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-5.gif\" width=\"480\"/><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"49d0962e-fc40-4087-ba03-a0f39e1e16ad\">６．増殖通知【増える】</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"9372dab7-7ca0-4cfd-bd5a-db1c5cbb6dc0\">通知バッジが付くとどうしてもアプリを起動したくなりますが、アプリを起動しないためにはどうしようと考えたところ、通知自体が増えればいいのではないかという結論に至りました。<br/>画面が埋まっていくのが怖いです。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"11272334-CF4A-4781-9807-98A4BF4F2E0F\"><img alt=\"画像\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-6.gif\" width=\"480\"/><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<h3 id=\"03b7b5ac-5844-4347-889a-6f691cfb58df\">７．なぞる地図【なぞる】</h3>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"93e3a190-0661-4f98-b877-531129cc03ff\">落書きのように画面をなぞるだけで、自分だけのマップがつくれたら面白いなと思って作ってみました。<br/>道が出来たり、川が出来たり、いつの間にか街のようになっていきます。<br/>触っているだけでワクワクします。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"fee223e1-7ef8-4ba5-b1c7-5cb59151303d\"><img alt=\"画像\" height=\"1040\" src=\"../../assets/shinpo/touch-doodles/body-7.gif\" width=\"480\"/><figcaption></figcaption></figure>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"f596146b-71de-476b-9006-00e7d9ab517a\">これから何処に向かうのか、まだ分かりません。<br/>いつか、こういう手触りを集めていった先に、何かが繋がっていく気がしています。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<p id=\"7880553c-3916-4fc1-9ada-3c7afbc3dc17\">また増えたらまとめてみます。<br/>よければ、Xの方も覗いてみてください。</p>"
+    },
+    {
+      "origin": "source",
+      "html": "<figure id=\"B042E07E-D7D0-4595-A7E0-B4BFC2683844\"><a class=\"source-preview\" href=\"https://twitter.com/sukimastock\"><img alt=\"\" height=\"200\" src=\"../../assets/shinpo/touch-doodles/profile-historical.png\" width=\"200\"/><strong>はままぁ (@sukimastock) on X</strong><small>自分専用アプリ開発｜noteで開発記録｜ コーヒー工場タイマー／焼き鳥ゲーム／#触れるらくがき アプリ一覧：https://t.co/dsTsYYLEBV</small></a></figure>"
+    }
+  ],
+  "afterword": "<aside class=\"afterword\" aria-label=\"記事本文の外側にある町内案内\"><h2>この町をもう少し歩く</h2><div class=\"links\"><a href=\"../../w/rainy-window/\">雨の日の窓（現在のWeb版）↗</a><a href=\"../../?place=shinpo_board\">ほかの新聞を読む ↗</a><a href=\"../../\">町を歩く ↗</a></div><div class=\"source\">原典：はままぁ「ひねる、積む、なぞる。触れるらくがきの話」（note、2026-07-02）。<a href=\"https://note.com/hamamah/n/nca6b0ef9db94\" target=\"_blank\" rel=\"noopener noreferrer\">note版を開く ↗</a></div></aside>"
+}
