@@ -1,0 +1,156 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "caa131f114a88d8ddee290905ed9e8815c5ec0580993d8409b68eb7e6df49152",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-coffee-two-originals-20261018",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "原典を保持してCoffeeFactory主題記事と初公開振り返り記事をStagingへ移植",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM",
+      "ASSET"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "0e0a526b2f03efc392243810c41031320665cf4c",
+    "canonicalSources": [
+      "data/notes.js",
+      "tools/shinpo-template.html",
+      "data/work-search-meta.js",
+      "https:/note.com/hamamah/n/ndd00e6f70f55",
+      "https:/note.com/hamamah/n/n4e18da793516"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-coffee-two-originals-20261018/r0.lock.json",
+      "data/shinpo/a6e80d044f734d4693d0926541fcba22.json",
+      "data/shinpo/note-20260904-ddca9fa0.json",
+      "data/notes.js",
+      "shinpo/coffee-factory/index.html",
+      "shinpo/first-public-app/index.html",
+      "shinpo/index.html",
+      "data/work-search-meta.js",
+      "w/coffee-factory/index.html",
+      "en/w/coffee-factory/index.html",
+      "data/shinpo/fac8492827054dd8a3922c8b8396198a.json",
+      "shinpo/leftover-details/index.html",
+      "tests/test-shinpo-migrate.cjs",
+      "tests/test-shinpo-source-media.cjs",
+      "assets/shinpo/coffee-factory/cover.png",
+      "assets/shinpo/coffee-factory/body-1.png",
+      "assets/shinpo/coffee-factory/body-2.png",
+      "assets/shinpo/coffee-factory/body-3.png",
+      "assets/shinpo/coffee-factory/body-4.png",
+      "assets/shinpo/coffee-factory/body-5.png",
+      "assets/shinpo/first-public-app/cover.jpg",
+      "assets/shinpo/first-public-app/body-1.png",
+      "assets/shinpo/first-public-app/body-2.png",
+      "assets/shinpo/first-public-app/body-3.png",
+      "assets/shinpo/first-public-app/body-4.png"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/**",
+      ".github/**",
+      "engines/**",
+      "sitemap.xml",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "Import exactly two articles using canonical JSON and existing template/CLI; preserve titles, paragraphs, captions, original image bytes and ordered media references.",
+      "Register archivePage/archiveThumbnail for the two existing notes IDs and regenerate backnumbers; retain existing four slots/pickup behavior.",
+      "Add the two articles to CoffeeFactory introduction articleIds and regenerate JA/EN pages; retain PR491 connections.",
+      "Connect migrated related note links to local articles only within these new articles and the existing leftover-details article; keep note attribution and historical external references. Existing leftover-details prose and images remain unchanged.",
+      "Only original 11 article images are added: CoffeeFactory cover+5 body PNG, first-public-app cover JPEG+4 body PNG. No ZIP, private transfer data, or Library IDs in repository.",
+      "Keep current Web links outside historical prose in afterword. Preserve Vimeo 1173872748 and original X references using the existing static reference contract; no iframe/script/runtime extension and no fabricated video playback evidence.",
+      "Use narrowly scoped regression expectations if authorized related-link substitutions affect exact historical fixtures; retain all other preservation assertions."
+    ],
+    "ownerDecisions": [
+      "2026-10-18 parent delegation: proceed with the two recovered original articles in Staging, retaining PR491 connections; use dedicated branch and official Lock before 11-image GitHub transfer; do not create PR or merge before receiving materials. Production prohibited."
+    ],
+    "hqDecisions": [
+      "既存静的テンプレート内。unknown-code SYSTEM/full。原典完全性は人が証拠を照合し未取得を記録する。"
+    ],
+    "rulesApplied": [
+      "Fresh official r0 Lock before implementation, committed alone",
+      "Existing canonical migration and environment-specific generators",
+      "Expression audit: original prose unchanged, no invented subtitle/summary/promotion",
+      "No Library retry, no private transfer metadata or source ZIP committed",
+      "Source-media visual/content/hash/order verification before import; source body and manifest will be supplied separately"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Compare full text, block order, captions, original external references against supplied source",
+      "View all 11 original images and verify bytes, positions, single-frame metadata",
+      "390/1280px intro/article/backnumber/card/back navigation and all image decoding",
+      "Check original attribution, Staging canonical/noindex and current-Web afterword separation",
+      "Record Vimeo/X reference presence separately from unverified playback"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache",
+      "runtime.mobile-desktop",
+      "search.generated-pages",
+      "search.localized-copy",
+      "search.sitemap",
+      "search.structured-data",
+      "search.validator"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this two-article PR only; preserve PR491 and previous migrations.",
+    "outOfScope": [
+      "Production",
+      "shared runtime/engine/tools/workflows",
+      "other works and unrelated articles",
+      "video binary download or fabricated video assets",
+      "private transfer metadata and source ZIP publication",
+      "new subtitle/summary/promotional prose"
+    ],
+    "promotion": "Staging only",
+    "unverified": [
+      "Article bodies and ordered manifests not yet received in this executor; implementation waits for them",
+      "11 original image bytes not yet received; visually inspect and verify hashes before import",
+      "Vimeo/X playback and video binaries not verified",
+      "Public HTTP/physical iPhone/iPad remain unverified until actually observed"
+    ],
+    "problem": "Two original CoffeeFactory-related note articles are not yet available within the town.",
+    "currentContract": "Existing articleIds generates JA/EN related article links; afterword holds current Web work links separately from historical prose.",
+    "whyExistingIsInsufficient": "Only the existing leftover-details article is connected; both requested new articles remain external.",
+    "design": "Reuse canonical static article import, notes archive metadata, existing backnumber and work articleIds generation; current Web links stay outside historical source prose.",
+    "alternativesRejected": [
+      "固定枠",
+      "原文要約/画像創作",
+      "CMS"
+    ],
+    "migration": "Preserve existing note IDs/dates/titles/source URLs; add two articles and original images; narrowly replace related links only for migrated targets.",
+    "compatibility": "元の4枠と他記事を保持",
+    "boundaryCases": [
+      "同じIDの再実行",
+      "未取得media",
+      "中断再開",
+      "base進行"
+    ],
+    "testPlan": [
+      "node tools/shinpo-migrate.cjs check",
+      "Existing shinpo-migrate/rack/source-media and work-search-campaigns tests",
+      "CoffeeFactory JA/EN generator consistency",
+      "Scope → Risk → Impact; independent review; required CI",
+      "390/1280px navigation and image checks; exact merge SHA Pages; real public display separately reported"
+    ],
+    "promotionRisk": "Productionは変更しない"
+  }
+}
