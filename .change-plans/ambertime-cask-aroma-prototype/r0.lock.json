@@ -1,0 +1,90 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ca61582c8c43836cc4fa68a43bb1ae938c682ef5cafe895e5cc49213d65a3487",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "conditionalPaths": [],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "promotion": "none",
+    "changeId": "ambertime-cask-aroma-prototype",
+    "revision": 0,
+    "change": "Isolated cask/aroma experiment: three directional casks, pictorial tasting, immutable bottles and reference-based retry",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "baseSha": "9113f40ef40dd0e31f25e4d777c45077b07f9e8e",
+    "canonicalSources": [
+      "User isolated cask-aroma prototype request 2026-10-18",
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "OPERATIONS.md",
+      "works/ambertime/experiments/distillation",
+      "works/ambertime/art.mjs",
+      "Primary-source research recorded in experiment REPORT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-cask-aroma-prototype/r0.lock.json",
+      "works/ambertime/experiments/cask-aroma/**",
+      "works/ambertime/index.html"
+    ],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "lab/**",
+      ".github/**",
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/experiments/distillation/**"
+    ],
+    "expectedChanges": [
+      "Fixed shared newmake; isolated pure model with spirit/vanilla/driedfruit/bitterwood/roughness/litres and three distinctly directional casks; no main imports or calculation edits",
+      "Tap cask into workbench, half-year steps and match reference age, tap glass to reveal top2-3 aroma tokens from actual values; details disclose omitted aromas",
+      "Immutable bottle shelf with bottle/tokens/cask/months/source reference; reuse chosen bottle then change only cask; side-by-side reference and result",
+      "One-job delegate chooses a different cask without quality/economic bonus; chosen cask visible before maturation; same paths as manual",
+      "Dedicated experiment save key and strict validation, no main storage access; no auto-reset on invalid data; reload retained bottles/source links",
+      "Phone-first original SVG component art compatible with existing palette; no stock/generated/copyright art reproduction, no rank/objectives/rewards",
+      "One optional experiment link in existing footer; existing LAB→AmberTime→experiment connection; no independent work identity or new LAB registration for nested experiment"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "390/360px selection/tasting/reference→caskchange→nextbottle screenshots and same-age three-cask comparison",
+      "Initial/intermediate/long profiles, icons/meters/caption consistency and narrow touch reachability",
+      "Native browser manual/delegated flow, save reload/corruptsave/mainsave unchanged, keyboard/reducedmotion",
+      "Expression audit and public deployed file hash verification; no physical Safari or enjoyment claim"
+    ],
+    "rollback": "Remove experiment and its single footer link; dedicated experiment key remains separate from main.",
+    "outOfScope": [
+      "Production",
+      "Main runtime/save/calculations/balance/public assets",
+      "Economy/employmentfees/shops/advisers/contests/rewards/peat/blending/finishing/newrawmaterial choices"
+    ],
+    "unverified": [
+      "Physical iPhone Safari and author judgment of desire to experiment"
+    ],
+    "rulesApplied": [
+      "Existing nested experiments pattern, no new work identity; existing LAB connection via AmberTime and one footer experiment link",
+      "Standard WORK scoped plan locked before implementation; independent model owner/mainUI and independent final review under AGENTS",
+      "Expression audit: short names and actions; visible top aromas plus expandable detail; no external goals or score"
+    ],
+    "ownerDecisions": [
+      "User authorizes independent prototype design, separate prototype save, original artwork, tests, PR, safe Staging merge and public verification; no main feature integration/Production"
+    ],
+    "hqDecisions": []
+  }
+}

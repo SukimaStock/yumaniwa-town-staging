@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#182523"><title>AmberTime · 樽と香りの試作</title><link rel="stylesheet" href="./style.css?v=1"><script type="module" src="./app.mjs?v=1"></script></head>
+<body><main>
+<header><div><span class="eyebrow">AmberTime · 独立試作</span><h1>樽と香り</h1></div><a href="../../">蒸留所へ</a></header>
+<p class="common">原酒は共通。樽を変えて試します。</p>
+<section id="recovery" hidden><p>試作の保存を読み込めませんでした。元の保存は残っています。</p><button id="try-unsaved">保存せず試す</button><button id="clear-broken">試作の保存を消して始める</button></section>
+<p id="storage-message" class="quiet" role="status"></p>
+<div id="experiment" hidden>
+<section id="reference" class="reference" aria-label="元の一本" hidden></section>
+<section id="workspace" aria-label="仕込み台"></section>
+<section id="comparison" class="comparison" aria-label="残した一本を比較" hidden></section>
+<section id="shelf-section" class="shelf-section" hidden><div class="section-line"><h2>残した一本</h2><button id="new-batch" class="text-button">樽を選ぶ</button></div><div id="shelf" class="shelf" aria-label="ボトルの棚"></div></section>
+</div>
+<p id="notice" class="notice" role="status" aria-live="polite"></p>
+<footer><p>本編の進行・保存とは独立しています。</p><a href="./REPORT.md">モデルと参考資料</a> · <a href="../../../../lab/">研究所へ</a><details><summary>試作の保存</summary><p id="save-state"></p><button id="reset">この試作だけを最初から</button></details></footer>
+<noscript>JavaScriptを有効にしてください。</noscript>
+</main></body></html>

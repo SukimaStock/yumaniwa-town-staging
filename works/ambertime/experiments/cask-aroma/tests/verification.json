@@ -1,0 +1,703 @@
+{
+  "baseSha": "9113f40ef40dd0e31f25e4d777c45077b07f9e8e",
+  "mainPreservation": {
+    "base": "9113f40ef40dd0e31f25e4d777c45077b07f9e8e",
+    "existingFilesChecked": 565,
+    "changedExistingPaths": [
+      "works/ambertime/index.html"
+    ],
+    "mainCalculationsAndRuntimeByteIdentical": true
+  },
+  "unitRegression": {
+    "mainPassed": 564,
+    "finalPrototypePassed": 18,
+    "fullInitialRunPassed": 581,
+    "fullInitialDurationMs": 109944.420487,
+    "finalPrototypeRerun": true
+  },
+  "gates": {
+    "scope": {
+      "schema": "yumaniwa-scope-guard-report/0.2",
+      "change": "Isolated cask/aroma experiment: three directional casks, pictorial tasting, immutable bottles and reference-based retry",
+      "planLevel": "standard",
+      "classes": [
+        "WORK"
+      ],
+      "baseSha": "9113f40ef40dd0e31f25e4d777c45077b07f9e8e",
+      "target": "worktree",
+      "headSha": "e79fb9e706a3c31719d49a6a065ddb159cb959e1",
+      "changedPaths": [
+        ".change-plans/ambertime-cask-aroma-prototype/r0.lock.json",
+        "works/ambertime/experiments/cask-aroma/REPORT.md",
+        "works/ambertime/experiments/cask-aroma/app.mjs",
+        "works/ambertime/experiments/cask-aroma/art.mjs",
+        "works/ambertime/experiments/cask-aroma/index.html",
+        "works/ambertime/experiments/cask-aroma/model.mjs",
+        "works/ambertime/experiments/cask-aroma/style.css",
+        "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-completion.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-delegate-selected.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-selection.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-shelf.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-source-change.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-source-next-comparison.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-120months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-12months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-36months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-initial.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-three-casks-same-12months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/results.json",
+        "works/ambertime/experiments/cask-aroma/tests/model-results.json",
+        "works/ambertime/experiments/cask-aroma/tests/model.test.mjs",
+        "works/ambertime/index.html"
+      ],
+      "results": [
+        {
+          "status": "PASS",
+          "path": ".change-plans/ambertime-cask-aroma-prototype/r0.lock.json",
+          "check": "scope.allowed",
+          "pattern": ".change-plans/ambertime-cask-aroma-prototype/r0.lock.json",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/REPORT.md",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/app.mjs",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/art.mjs",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/index.html",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/model.mjs",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/style.css",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/browser/390-completion.png",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/browser/390-delegate-selected.png",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/browser/390-selection.png",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/browser/390-shelf.png",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/browser/390-source-change.png",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/browser/390-source-next-comparison.png",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-120months.png",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-12months.png",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-36months.png",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-initial.png",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/browser/390-three-casks-same-12months.png",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/browser/results.json",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/model-results.json",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/experiments/cask-aroma/tests/model.test.mjs",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/experiments/cask-aroma/**",
+          "detail": "changed path is within allowedPaths"
+        },
+        {
+          "status": "PASS",
+          "path": "works/ambertime/index.html",
+          "check": "scope.allowed",
+          "pattern": "works/ambertime/index.html",
+          "detail": "changed path is within allowedPaths"
+        }
+      ],
+      "scopeOk": true,
+      "exitCode": 0
+    },
+    "risk": {
+      "schema": "yumaniwa-risk-check-report/0.2",
+      "change": "Isolated cask/aroma experiment: three directional casks, pictorial tasting, immutable bottles and reference-based retry",
+      "repository": "SukimaStock/yumaniwa-town-staging",
+      "expectedRepository": "SukimaStock/yumaniwa-town-staging",
+      "baseSha": "9113f40ef40dd0e31f25e4d777c45077b07f9e8e",
+      "target": "worktree",
+      "headSha": "e79fb9e706a3c31719d49a6a065ddb159cb959e1",
+      "changedPaths": [
+        ".change-plans/ambertime-cask-aroma-prototype/r0.lock.json",
+        "works/ambertime/experiments/cask-aroma/REPORT.md",
+        "works/ambertime/experiments/cask-aroma/app.mjs",
+        "works/ambertime/experiments/cask-aroma/art.mjs",
+        "works/ambertime/experiments/cask-aroma/index.html",
+        "works/ambertime/experiments/cask-aroma/model.mjs",
+        "works/ambertime/experiments/cask-aroma/style.css",
+        "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+        "works/ambertime/experiments/cask-aroma/tests/browser/360-tasting-12months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-completion.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-delegate-selected.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-selection.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-shelf.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-source-change.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-source-next-comparison.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-120months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-12months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-36months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-initial.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-three-casks-same-12months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/results.json",
+        "works/ambertime/experiments/cask-aroma/tests/model-results.json",
+        "works/ambertime/experiments/cask-aroma/tests/model.test.mjs",
+        "works/ambertime/index.html"
+      ],
+      "executablePaths": [],
+      "profiles": [
+        {
+          "id": "work-runtime",
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/app.mjs",
+            "works/ambertime/experiments/cask-aroma/art.mjs",
+            "works/ambertime/experiments/cask-aroma/index.html",
+            "works/ambertime/experiments/cask-aroma/model.mjs",
+            "works/ambertime/experiments/cask-aroma/style.css",
+            "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+            "works/ambertime/experiments/cask-aroma/tests/browser/results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model-results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model.test.mjs",
+            "works/ambertime/index.html"
+          ],
+          "reason": "Work-local runtime can change a work without changing the town shared runtime."
+        }
+      ],
+      "results": [
+        {
+          "status": "PASS",
+          "check": "risk.repository",
+          "profile": "repository",
+          "paths": [],
+          "detail": "repository identity matches SukimaStock/yumaniwa-town-staging"
+        },
+        {
+          "status": "PASS",
+          "check": "risk.plan-level",
+          "profile": "work-runtime",
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/app.mjs",
+            "works/ambertime/experiments/cask-aroma/art.mjs",
+            "works/ambertime/experiments/cask-aroma/index.html",
+            "works/ambertime/experiments/cask-aroma/model.mjs",
+            "works/ambertime/experiments/cask-aroma/style.css",
+            "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+            "works/ambertime/experiments/cask-aroma/tests/browser/results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model-results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model.test.mjs",
+            "works/ambertime/index.html"
+          ],
+          "detail": "planLevel standard satisfies standard"
+        },
+        {
+          "status": "PASS",
+          "check": "risk.class",
+          "profile": "work-runtime",
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/app.mjs",
+            "works/ambertime/experiments/cask-aroma/art.mjs",
+            "works/ambertime/experiments/cask-aroma/index.html",
+            "works/ambertime/experiments/cask-aroma/model.mjs",
+            "works/ambertime/experiments/cask-aroma/style.css",
+            "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+            "works/ambertime/experiments/cask-aroma/tests/browser/results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model-results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model.test.mjs",
+            "works/ambertime/index.html"
+          ],
+          "detail": "required class WORK declared"
+        },
+        {
+          "status": "PASS",
+          "check": "risk.impact",
+          "profile": "work-runtime",
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/app.mjs",
+            "works/ambertime/experiments/cask-aroma/art.mjs",
+            "works/ambertime/experiments/cask-aroma/index.html",
+            "works/ambertime/experiments/cask-aroma/model.mjs",
+            "works/ambertime/experiments/cask-aroma/style.css",
+            "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+            "works/ambertime/experiments/cask-aroma/tests/browser/results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model-results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model.test.mjs",
+            "works/ambertime/index.html"
+          ],
+          "impact": "work.runtime",
+          "detail": "required impact is declared for checking"
+        },
+        {
+          "status": "PASS",
+          "check": "risk.impact",
+          "profile": "work-runtime",
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/app.mjs",
+            "works/ambertime/experiments/cask-aroma/art.mjs",
+            "works/ambertime/experiments/cask-aroma/index.html",
+            "works/ambertime/experiments/cask-aroma/model.mjs",
+            "works/ambertime/experiments/cask-aroma/style.css",
+            "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+            "works/ambertime/experiments/cask-aroma/tests/browser/results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model-results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model.test.mjs",
+            "works/ambertime/index.html"
+          ],
+          "impact": "work.regression",
+          "detail": "required impact is declared for checking"
+        }
+      ],
+      "riskOk": true,
+      "exitCode": 0
+    },
+    "impact": {
+      "schema": "yumaniwa-impact-check-report/0.2",
+      "change": "Isolated cask/aroma experiment: three directional casks, pictorial tasting, immutable bottles and reference-based retry",
+      "planLevel": "standard",
+      "classes": [
+        "WORK"
+      ],
+      "baseSha": "9113f40ef40dd0e31f25e4d777c45077b07f9e8e",
+      "target": "worktree",
+      "headSha": "e79fb9e706a3c31719d49a6a065ddb159cb959e1",
+      "changedPaths": [
+        ".change-plans/ambertime-cask-aroma-prototype/r0.lock.json",
+        "works/ambertime/experiments/cask-aroma/REPORT.md",
+        "works/ambertime/experiments/cask-aroma/app.mjs",
+        "works/ambertime/experiments/cask-aroma/art.mjs",
+        "works/ambertime/experiments/cask-aroma/index.html",
+        "works/ambertime/experiments/cask-aroma/model.mjs",
+        "works/ambertime/experiments/cask-aroma/style.css",
+        "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+        "works/ambertime/experiments/cask-aroma/tests/browser/360-tasting-12months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-completion.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-delegate-selected.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-selection.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-shelf.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-source-change.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-source-next-comparison.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-120months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-12months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-36months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-initial.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-three-casks-same-12months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/results.json",
+        "works/ambertime/experiments/cask-aroma/tests/model-results.json",
+        "works/ambertime/experiments/cask-aroma/tests/model.test.mjs",
+        "works/ambertime/index.html"
+      ],
+      "executablePaths": [],
+      "coveredPaths": [
+        "works/ambertime/experiments/cask-aroma/app.mjs",
+        "works/ambertime/experiments/cask-aroma/art.mjs",
+        "works/ambertime/experiments/cask-aroma/index.html",
+        "works/ambertime/experiments/cask-aroma/model.mjs",
+        "works/ambertime/experiments/cask-aroma/style.css",
+        "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+        "works/ambertime/experiments/cask-aroma/tests/browser/results.json",
+        "works/ambertime/experiments/cask-aroma/tests/model-results.json",
+        "works/ambertime/experiments/cask-aroma/tests/model.test.mjs",
+        "works/ambertime/index.html"
+      ],
+      "uncoveredPaths": [
+        ".change-plans/ambertime-cask-aroma-prototype/r0.lock.json",
+        "works/ambertime/experiments/cask-aroma/REPORT.md",
+        "works/ambertime/experiments/cask-aroma/tests/browser/360-tasting-12months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-completion.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-delegate-selected.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-selection.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-shelf.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-source-change.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-source-next-comparison.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-120months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-12months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-36months.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-initial.png",
+        "works/ambertime/experiments/cask-aroma/tests/browser/390-three-casks-same-12months.png"
+      ],
+      "requiredImpacts": [
+        {
+          "id": "work.regression",
+          "description": "Required by high-risk profile work-runtime",
+          "descriptions": [
+            "Required by high-risk profile work-runtime"
+          ],
+          "rules": [],
+          "profiles": [
+            "work-runtime"
+          ],
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/app.mjs",
+            "works/ambertime/experiments/cask-aroma/art.mjs",
+            "works/ambertime/experiments/cask-aroma/index.html",
+            "works/ambertime/experiments/cask-aroma/model.mjs",
+            "works/ambertime/experiments/cask-aroma/style.css",
+            "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+            "works/ambertime/experiments/cask-aroma/tests/browser/results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model-results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model.test.mjs",
+            "works/ambertime/index.html"
+          ],
+          "core": false
+        },
+        {
+          "id": "work.runtime",
+          "description": "Required by high-risk profile work-runtime",
+          "descriptions": [
+            "Required by high-risk profile work-runtime"
+          ],
+          "rules": [],
+          "profiles": [
+            "work-runtime"
+          ],
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/app.mjs",
+            "works/ambertime/experiments/cask-aroma/art.mjs",
+            "works/ambertime/experiments/cask-aroma/index.html",
+            "works/ambertime/experiments/cask-aroma/model.mjs",
+            "works/ambertime/experiments/cask-aroma/style.css",
+            "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+            "works/ambertime/experiments/cask-aroma/tests/browser/results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model-results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model.test.mjs",
+            "works/ambertime/index.html"
+          ],
+          "core": true
+        }
+      ],
+      "results": [
+        {
+          "status": "PASS",
+          "check": "impact.declared",
+          "impact": "work.regression",
+          "description": "Required by high-risk profile work-runtime",
+          "descriptions": [
+            "Required by high-risk profile work-runtime"
+          ],
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/app.mjs",
+            "works/ambertime/experiments/cask-aroma/art.mjs",
+            "works/ambertime/experiments/cask-aroma/index.html",
+            "works/ambertime/experiments/cask-aroma/model.mjs",
+            "works/ambertime/experiments/cask-aroma/style.css",
+            "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+            "works/ambertime/experiments/cask-aroma/tests/browser/results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model-results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model.test.mjs",
+            "works/ambertime/index.html"
+          ],
+          "rules": [],
+          "profiles": [
+            "work-runtime"
+          ],
+          "detail": "impact is declared in impactChecks"
+        },
+        {
+          "status": "PASS",
+          "check": "impact.declared",
+          "impact": "work.runtime",
+          "description": "Required by high-risk profile work-runtime",
+          "descriptions": [
+            "Required by high-risk profile work-runtime"
+          ],
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/app.mjs",
+            "works/ambertime/experiments/cask-aroma/art.mjs",
+            "works/ambertime/experiments/cask-aroma/index.html",
+            "works/ambertime/experiments/cask-aroma/model.mjs",
+            "works/ambertime/experiments/cask-aroma/style.css",
+            "works/ambertime/experiments/cask-aroma/tests/browser.mjs",
+            "works/ambertime/experiments/cask-aroma/tests/browser/results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model-results.json",
+            "works/ambertime/experiments/cask-aroma/tests/model.test.mjs",
+            "works/ambertime/index.html"
+          ],
+          "rules": [],
+          "profiles": [
+            "work-runtime"
+          ],
+          "detail": "impact is declared in impactChecks"
+        },
+        {
+          "status": "INFO",
+          "check": "impact.no-rule",
+          "impact": null,
+          "description": null,
+          "paths": [
+            ".change-plans/ambertime-cask-aroma-prototype/r0.lock.json"
+          ],
+          "rules": [],
+          "profiles": [],
+          "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+        },
+        {
+          "status": "INFO",
+          "check": "impact.no-rule",
+          "impact": null,
+          "description": null,
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/REPORT.md"
+          ],
+          "rules": [],
+          "profiles": [],
+          "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+        },
+        {
+          "status": "INFO",
+          "check": "impact.no-rule",
+          "impact": null,
+          "description": null,
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/tests/browser/360-tasting-12months.png"
+          ],
+          "rules": [],
+          "profiles": [],
+          "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+        },
+        {
+          "status": "INFO",
+          "check": "impact.no-rule",
+          "impact": null,
+          "description": null,
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/tests/browser/390-completion.png"
+          ],
+          "rules": [],
+          "profiles": [],
+          "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+        },
+        {
+          "status": "INFO",
+          "check": "impact.no-rule",
+          "impact": null,
+          "description": null,
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/tests/browser/390-delegate-selected.png"
+          ],
+          "rules": [],
+          "profiles": [],
+          "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+        },
+        {
+          "status": "INFO",
+          "check": "impact.no-rule",
+          "impact": null,
+          "description": null,
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/tests/browser/390-selection.png"
+          ],
+          "rules": [],
+          "profiles": [],
+          "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+        },
+        {
+          "status": "INFO",
+          "check": "impact.no-rule",
+          "impact": null,
+          "description": null,
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/tests/browser/390-shelf.png"
+          ],
+          "rules": [],
+          "profiles": [],
+          "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+        },
+        {
+          "status": "INFO",
+          "check": "impact.no-rule",
+          "impact": null,
+          "description": null,
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/tests/browser/390-source-change.png"
+          ],
+          "rules": [],
+          "profiles": [],
+          "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+        },
+        {
+          "status": "INFO",
+          "check": "impact.no-rule",
+          "impact": null,
+          "description": null,
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/tests/browser/390-source-next-comparison.png"
+          ],
+          "rules": [],
+          "profiles": [],
+          "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+        },
+        {
+          "status": "INFO",
+          "check": "impact.no-rule",
+          "impact": null,
+          "description": null,
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-120months.png"
+          ],
+          "rules": [],
+          "profiles": [],
+          "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+        },
+        {
+          "status": "INFO",
+          "check": "impact.no-rule",
+          "impact": null,
+          "description": null,
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-12months.png"
+          ],
+          "rules": [],
+          "profiles": [],
+          "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+        },
+        {
+          "status": "INFO",
+          "check": "impact.no-rule",
+          "impact": null,
+          "description": null,
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-36months.png"
+          ],
+          "rules": [],
+          "profiles": [],
+          "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+        },
+        {
+          "status": "INFO",
+          "check": "impact.no-rule",
+          "impact": null,
+          "description": null,
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/tests/browser/390-tasting-initial.png"
+          ],
+          "rules": [],
+          "profiles": [],
+          "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+        },
+        {
+          "status": "INFO",
+          "check": "impact.no-rule",
+          "impact": null,
+          "description": null,
+          "paths": [
+            "works/ambertime/experiments/cask-aroma/tests/browser/390-three-casks-same-12months.png"
+          ],
+          "rules": [],
+          "profiles": [],
+          "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+        }
+      ],
+      "impactOk": true,
+      "exitCode": 0
+    }
+  },
+  "independentReview": "No remaining blockers after preserving active cask, start focus and separate woody aroma",
+  "physicalSafari": false,
+  "subjectiveEnjoyment": "Unverified"
+}

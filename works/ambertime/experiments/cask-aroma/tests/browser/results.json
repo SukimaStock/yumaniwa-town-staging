@@ -1,0 +1,240 @@
+{
+  "browser": "153.0.8010.0",
+  "physicalSafari": false,
+  "method": "Real DOM taps/clicks only for happy path; no fixture-created whiskey profiles. Local Chromium viewport and touch emulation, not physical Safari.",
+  "sourceHashes": {
+    "index.html": "a43f88b576f8f2ed3d6da10aa498385435c10fd076fe7a2bfc0adf057542ac84",
+    "app.mjs": "c20da0987b0ace4cab451c8f761c7af1db5a658071db2826c2b62d85c108865f",
+    "model.mjs": "fa4430da8b1fbdd8b2020efe6d5e75aea672d5381f35e5cb8dc49aaf236a4aff",
+    "art.mjs": "8b9dc52f6d54755b5fddd4a779bb254efd83347a50a7a6401b24ab8422d7ceb6",
+    "style.css": "03e0c9d240d2138bce70b80425c17048a8434bff7420fca251848e6b15c75f6b"
+  },
+  "screenshotHashes": {
+    "390-selection.png": "f85a4c23e39326ff5e07f252659313fc2a8b7a2f8d725a75ce96553c886d1745",
+    "390-tasting-initial.png": "d630d683e053747b9027403ea4a7a53af7a20020b9d1690c9e128c7536293e0b",
+    "390-tasting-12months.png": "988e940f29b9474144f0a7c035e03a8bd82ae1269e7cae1ec46a5ca2031dfea8",
+    "390-completion.png": "d3dd7134629f68c6f2db02594e60aff42cde3f971b1892bf7bc68d8148443e08",
+    "390-source-change.png": "0d4f5ade982f736ef2d15b0b634fba0ce7cc2624194b6191dc09cc196cfd2f5e",
+    "390-source-next-comparison.png": "bff8fb90b810771a153f73d22e25cfc935533572e089eb1ef8444ac698ff5383",
+    "390-three-casks-same-12months.png": "ffebbb16cf0145855640913970b2cd683f54fbebb93bab8da5da159c124bbea0",
+    "390-shelf.png": "aad736f7d5bf1984e288699ddf9aee402746fedea9ffd046ebefde136e065dd7",
+    "390-delegate-selected.png": "474c9253bec81ce062e5656e989e467337cc29b9867902a1b7eabb1736103a1c",
+    "390-tasting-36months.png": "1182145d17f84db3cf03619505273e052e7505660df57436a0bec3c2d71798a1",
+    "390-tasting-120months.png": "30663c22c2a82783d2da7bfb3fabb73a3df520ef3867b485c2c79b78b571d28a",
+    "360-tasting-12months.png": "58ecadd02477e17265e5baa9f2c664fb48bc9876885ae265d7b1d4df624565b9",
+    "360-source-next-comparison.png": "634bce04eb5febdccfb8130ef1ab6c01e213b9e2e7e24b7df615b0bd501f2925",
+    "360-three-casks-same-12months.png": "3c83a15784b73f27af5f247e134fa52b769801a1517bd6771075d6b1e75b2947",
+    "1280-tasting-12months.png": "770d87b11342e4549c3a00fc21e26a1390e7a24615f957e117913799bd88cdbb",
+    "1280-source-next-comparison.png": "07bac1ec4fc8191940e5cd740c5ab4b416e77b56917f5f33f321865fb8980ee2",
+    "1280-three-casks-same-12months.png": "8c91091f4853437df530310210328847731db47bb24345ef80458763401d042f"
+  },
+  "checks": [
+    {
+      "width": 390,
+      "height": 844,
+      "realTapActions": true,
+      "threeAt12Months": [
+        {
+          "cask": "bourbon",
+          "profile": {
+            "spirit": 0.6031058969676671,
+            "vanilla": 0.3570454351745285,
+            "dried": 0,
+            "woody": 0.056767107078149165,
+            "wood": 0.12890130825420165,
+            "roughness": 0.32431636612355047,
+            "litres": 31.05425707355226
+          }
+        },
+        {
+          "cask": "sherry",
+          "profile": {
+            "spirit": 0.5888036686802595,
+            "vanilla": 0.049422696299176866,
+            "dried": 0.3459588740942381,
+            "woody": 0.046049183865984264,
+            "wood": 0.15464616531534126,
+            "roughness": 0.3613039164718736,
+            "litres": 30.94266273841258
+          }
+        },
+        {
+          "cask": "refill",
+          "profile": {
+            "spirit": 0.6481309752127032,
+            "vanilla": 0.041615572614292946,
+            "dried": 0,
+            "woody": 0.019816578283275484,
+            "wood": 0.05256789349820168,
+            "roughness": 0.40736902828533517,
+            "litres": 31.203675825626398
+          }
+        }
+      ],
+      "sameCaskDelegationNoBonus": true,
+      "referenceChainAndImmutableBottles": true,
+      "strictReloadExact": true,
+      "initialIntermediateLongAromasMetersValid": true,
+      "isolatedMatchMayRewind": true,
+      "onlyOwnStorageKey": true,
+      "mainV18V17Untouched": true,
+      "noExternalAPIOrMainModule": true,
+      "keyboardFocus": true,
+      "startAndDelegateKeyboardFocusWorkspace": true,
+      "ongoingCaskUseGuard": true,
+      "sevenAxesSeparateWoodyAromaFromBitterWood": true,
+      "threeColumnButtonsSingleLine44px": true,
+      "reducedMotion": true,
+      "geometry": {
+        "pageOverflow": false,
+        "smallButtons": [],
+        "pieceOverlap": false,
+        "activeAnimations": 0
+      },
+      "errors": []
+    },
+    {
+      "width": 360,
+      "height": 740,
+      "realTapActions": true,
+      "threeAt12Months": [
+        {
+          "cask": "bourbon",
+          "profile": {
+            "spirit": 0.6031058969676671,
+            "vanilla": 0.3570454351745285,
+            "dried": 0,
+            "woody": 0.056767107078149165,
+            "wood": 0.12890130825420165,
+            "roughness": 0.32431636612355047,
+            "litres": 31.05425707355226
+          }
+        },
+        {
+          "cask": "sherry",
+          "profile": {
+            "spirit": 0.5888036686802595,
+            "vanilla": 0.049422696299176866,
+            "dried": 0.3459588740942381,
+            "woody": 0.046049183865984264,
+            "wood": 0.15464616531534126,
+            "roughness": 0.3613039164718736,
+            "litres": 30.94266273841258
+          }
+        },
+        {
+          "cask": "refill",
+          "profile": {
+            "spirit": 0.6481309752127032,
+            "vanilla": 0.041615572614292946,
+            "dried": 0,
+            "woody": 0.019816578283275484,
+            "wood": 0.05256789349820168,
+            "roughness": 0.40736902828533517,
+            "litres": 31.203675825626398
+          }
+        }
+      ],
+      "sameCaskDelegationNoBonus": true,
+      "referenceChainAndImmutableBottles": true,
+      "strictReloadExact": true,
+      "initialIntermediateLongAromasMetersValid": true,
+      "isolatedMatchMayRewind": true,
+      "onlyOwnStorageKey": true,
+      "mainV18V17Untouched": true,
+      "noExternalAPIOrMainModule": true,
+      "keyboardFocus": true,
+      "startAndDelegateKeyboardFocusWorkspace": true,
+      "ongoingCaskUseGuard": true,
+      "sevenAxesSeparateWoodyAromaFromBitterWood": true,
+      "threeColumnButtonsSingleLine44px": true,
+      "reducedMotion": true,
+      "geometry": {
+        "pageOverflow": false,
+        "smallButtons": [],
+        "pieceOverlap": false,
+        "activeAnimations": 0
+      },
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "realTapActions": false,
+      "threeAt12Months": [
+        {
+          "cask": "bourbon",
+          "profile": {
+            "spirit": 0.6031058969676671,
+            "vanilla": 0.3570454351745285,
+            "dried": 0,
+            "woody": 0.056767107078149165,
+            "wood": 0.12890130825420165,
+            "roughness": 0.32431636612355047,
+            "litres": 31.05425707355226
+          }
+        },
+        {
+          "cask": "sherry",
+          "profile": {
+            "spirit": 0.5888036686802595,
+            "vanilla": 0.049422696299176866,
+            "dried": 0.3459588740942381,
+            "woody": 0.046049183865984264,
+            "wood": 0.15464616531534126,
+            "roughness": 0.3613039164718736,
+            "litres": 30.94266273841258
+          }
+        },
+        {
+          "cask": "refill",
+          "profile": {
+            "spirit": 0.6481309752127032,
+            "vanilla": 0.041615572614292946,
+            "dried": 0,
+            "woody": 0.019816578283275484,
+            "wood": 0.05256789349820168,
+            "roughness": 0.40736902828533517,
+            "litres": 31.203675825626398
+          }
+        }
+      ],
+      "sameCaskDelegationNoBonus": true,
+      "referenceChainAndImmutableBottles": true,
+      "strictReloadExact": true,
+      "initialIntermediateLongAromasMetersValid": true,
+      "isolatedMatchMayRewind": true,
+      "onlyOwnStorageKey": true,
+      "mainV18V17Untouched": true,
+      "noExternalAPIOrMainModule": true,
+      "keyboardFocus": true,
+      "startAndDelegateKeyboardFocusWorkspace": true,
+      "ongoingCaskUseGuard": true,
+      "sevenAxesSeparateWoodyAromaFromBitterWood": true,
+      "threeColumnButtonsSingleLine44px": true,
+      "reducedMotion": true,
+      "geometry": {
+        "pageOverflow": false,
+        "smallButtons": [],
+        "pieceOverlap": false,
+        "activeAnimations": 0
+      },
+      "errors": []
+    },
+    {
+      "recovery": "corrupt",
+      "noAutoOverwrite": true,
+      "unsavedFlowWorks": true
+    },
+    {
+      "recovery": "missing-fields",
+      "noAutoOverwrite": true,
+      "unsavedFlowWorks": true
+    },
+    {
+      "recovery": "quota",
+      "noAutoOverwrite": true,
+      "unsavedFlowWorks": true
+    }
+  ]
+}
