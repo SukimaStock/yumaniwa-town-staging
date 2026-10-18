@@ -1,4 +1,5 @@
-import {replayDistilleryOperations} from './partner-orders.mjs?v=0.16.4';
+import {replayDistilleryOperations} from './partner-orders.mjs?v=0.17';
+import {generationMode} from './generations.mjs?v=0.17';
 
 // This is a disposable view projection, not a second saved event ledger.
 const copy=x=>structuredClone(x);
@@ -6,9 +7,12 @@ const dated=x=>Number.isInteger(x)&&x>=0;
 const ids=r=>Object.fromEntries(['brandId','releaseId','productId','caskId','batchId','shopId'].filter(k=>r?.[k]!==undefined).map(k=>[k,r[k]]));
 export function buildDistilleryHistory(state){
  const events=new Map(),firstSales=new Set(),firstDistillations=new Set();
+ const eras=generationMode(state)?[...state.generations.completed,state.generations.active]:[];
+ let actor=eras.length?1:undefined;
+ const finalEra=caskId=>eras.find(r=>r.lastCaskId!==null&&r.lastCaskId===caskId);
  const brand=id=>state.brands?.find(b=>b.id===id);
  const release=id=>state.releases?.find(r=>r.productId===id);
- const add=e=>{if(dated(e.month)&&!events.has(e.id))events.set(e.id,copy(e));};
+ const add=e=>{if(dated(e.month)&&!events.has(e.id)){const final=finalEra(e.caskId);events.set(e.id,copy({...((actor!==undefined)?{generationNumber:actor}:{}),...e,...(final&&(e.kind==='fill'||e.kind==='bottling')?{finalGeneration:final.id}:{})}));}};
  const named=r=>({...ids(r),...(r?.brandId!==undefined?{brandName:brand(r.brandId)?.name??r.name}: {})});
  const addBottle=(r,month=r.bottledMonth)=>{
   const rel=release(r.productId),n=rel?state.releases.filter(x=>x.brandId===rel.brandId&&x.id<=rel.id).length:undefined;
@@ -47,6 +51,7 @@ export function buildDistilleryHistory(state){
  }}
  replayDistilleryOperations(state,({operation,before,after})=>{
   if(!operation)return;
+  if(eras.length)actor=before.generations?.active.id??after.generations?.active.id??1;
   const key=operation.key;
   if(key==='stop'||key==='complete-usual'){
    const c=key==='complete-usual'?after.core.casks.find(c=>!before.core.casks.some(x=>x.id===c.id)):after.core.spirit;
@@ -64,11 +69,30 @@ export function buildDistilleryHistory(state){
   for(const r of after.shop?.relations??[])if(!before.shop?.relations?.some(x=>x.brandId===r.brandId&&x.shopId===r.shopId))addShopRelation(r);
   for(const d of after.shop?.deliveries??[])if(!before.shop?.deliveries?.some(x=>x.id===d.id))addDelivery(d,after.department?.adoptions);
   if(key==='accept'||key==='order-cancel'||key==='end-trade'||key==='choose')for(const h of after.trade.history)if(!before.trade.history.some(x=>JSON.stringify(x)===JSON.stringify(h)))addTrade(h);
+  if(eras.length){
+   const a=after.generations?.active,b=before.generations?.active;
+   if(a?.trigger&&(!b?.trigger||a.id!==b.id))addGenerationDecision(a);
+   for(const r of after.generations?.completed??[])if(!before.generations?.completed.some(x=>x.id===r.id))addHandover(r);
+  }
  });
+ function addGenerationDecision(r){
+  const t=r.trigger;if(!t)return;
+  const source=t.deliveryId!==undefined?events.get(`shop-delivery:${t.deliveryId}`):t.productId!==undefined?events.get(`bottling:${t.productId}`):null;
+  if(source){source.generationTrigger=r.id;return;}
+  add({id:`generation-fixed:${r.id}`,kind:'generation-fixed',month:t.month,generationId:r.id,generationNumber:r.id,trigger:copy(t)});
+ }
+ function addHandover(r){add({id:`generation-handover:${r.id}`,kind:'generation-handover',month:r.endedMonth,generationId:r.id,generationNumber:r.id,nextGeneration:r.id+1,startedMonth:r.startedMonth,lastCaskId:r.lastCaskId,lastStatus:r.lastStatus,trigger:copy(r.trigger),reason:r.reason,...(r.lastCaskId!==null?{caskId:r.lastCaskId}:{})});}
+ if(eras.length){
+  // Founding belongs to the first tenure; later accession is the same handover,
+  // rather than a second duplicate event. Transaction order owns same-month facts.
+  add({id:'generation-start:1',kind:'generation-start',month:0,startedMonth:0,generationId:1,generationNumber:1});
+  for(const r of eras){if(r.trigger)addGenerationDecision(r);if(Number.isInteger(r.endedMonth))addHandover(r);}
+  actor=1;
+ }
  // Durable current records also cover dated origin facts that outlive their
  // source, without replacing the more precise replay-derived event.
  durable(state);
- const list=[...events.values()].sort((a,b)=>a.month-b.month);
+ const list=[...events.values()].sort((a,b)=>a.month-b.month||(a.kind==='generation-start'?-1:b.kind==='generation-start'?1:0));
  const shops=(state.shop?.relations??[]).map(r=>{
   const shopId=r.shopId??'town-liquor',ds=(state.shop.deliveries??[]).filter(d=>d.brandId===r.brandId&&(d.shopId??'town-liquor')===shopId);
   return {shopId,brandId:r.brandId,brandName:brand(r.brandId)?.name,startedMonth:r.startedMonth,deliveries:ds.length,bottles:ds.reduce((n,d)=>n+d.count,0),revenue:ds.reduce((n,d)=>n+Math.round(d.revenue*100),0)/100,firstDeliveryMonth:ds.length?Math.min(...ds.map(d=>d.month)):null,lastDeliveryMonth:ds.length?Math.max(...ds.map(d=>d.month)):null,adoptions:(state.department?.adoptions??[]).filter(a=>a.brandId===r.brandId&&shopId==='department').length};
