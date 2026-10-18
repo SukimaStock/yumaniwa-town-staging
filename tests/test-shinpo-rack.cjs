@@ -162,3 +162,22 @@ test('migrated cards never render an added subtitle, even with legacy teaser met
         }
     }
 });
+
+
+test('card thumbnails reference the exact existing article header images', () => {
+    const tool=require('../tools/shinpo-migrate.cjs');
+    for(const a of tool.notes().filter(a=>a.archivePage && a.archiveThumbnail)) {
+        const article=tool.load(a.id),src=article.cover.match(/src="([^"]+)"/)[1];
+        const cover=new URL(src,'https://example.test/'+a.archivePage.slice(2)).pathname;
+        assert.equal(new URL(a.archiveThumbnail,'https://example.test/').pathname,cover);
+        assert(fs.existsSync(path.join(__dirname,'..',a.archiveThumbnail)));
+        const f=fixture([a]),html=f.context.renderNoteRackCard({article:a,label:'今のピックアップ',kind:'pickup'});
+        assert(html.includes('src="'+a.archiveThumbnail+'"'));assert(html.includes('alt=""'));assert(html.includes('has-thumbnail'));
+        const handler=html.match(/onerror="([^"]+)"/)[1];let removed=false,cleared=false;
+        vm.runInNewContext('(function(){'+handler+'}).call(image)',{image:{parentNode:{classList:{remove(name){assert.equal(name,'has-thumbnail');cleared=true;}}},remove(){removed=true;}}});
+        assert(removed&&cleared);
+        const noImage={...a};delete noImage.archiveThumbnail;
+        const fallback=f.context.renderNoteRackCard({article:noImage,label:'今のピックアップ',kind:'pickup'});
+        assert(!fallback.includes('<img'));assert(!fallback.includes('has-thumbnail'));assert(fallback.includes(a.title));
+    }
+});

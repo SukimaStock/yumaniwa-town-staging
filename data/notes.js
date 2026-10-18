@@ -141,6 +141,7 @@ var NOTE_ARTICLES = [
         title: "作品を並べるより、住める場所を作りたかった",
         url: "https://note.com/hamamah/n/nad06ba5e60a2",
         archivePage: "./shinpo/town-beginning/",
+        archiveThumbnail: "./assets/shinpo/town-beginning/cover.png",
         publishedAt: "2026-07-17",
         featured: false
     },
@@ -382,6 +383,7 @@ var NOTE_ARTICLES = [
         title: "「ボードゲームの作り方」が分からなかったので、アプリで再現してみた",
         url: "https://note.com/hamamah/n/n0ca130319cac",
         archivePage: "./shinpo/board-game-making/",
+        archiveThumbnail: "./assets/shinpo/backnumber/board-game-cover.png",
         publish_date: "2026-05-22",
         showInShinpo: true,
         tags: ["game", "making", "app"]
@@ -407,6 +409,7 @@ var NOTE_ARTICLES = [
         title: "ゲーム未満、アプリ未満の心地よさ",
         url: "https://note.com/hamamah/n/n16f7a42c0b6a",
         archivePage: "./shinpo/game-app-in-between/",
+        archiveThumbnail: "./assets/shinpo/backnumber/game-app-cover.png",
         publish_date: "2026-06-12",
         showInShinpo: true,
         tags: ["game", "app", "making", "rakugaki"]

@@ -1736,7 +1736,6 @@ body {
     color: #352e25;
     padding: 16px;
     box-sizing: border-box;
-    min-height: clamp(208px, 53vw, 318px);
     font-family: system-ui, sans-serif;
 }
 .shinpo-archive-mast {
@@ -1744,7 +1743,11 @@ body {
     font-size: 11px;
     line-height: 1.5;
 }
-.shinpo-archive-date { color: #6b6255; font-size: 11px; margin: 8px 0; }
+.shinpo-archive-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; margin-bottom: 12px; }
+.shinpo-archive-date { color: #6b6255; font-size: 11px; line-height: 1.5; }
+.shinpo-archive-content { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start; }
+.shinpo-archive-content.has-thumbnail { grid-template-columns: minmax(0, 1fr) 28%; }
+.shinpo-archive-thumbnail { display: block; width: 100%; height: auto; aspect-ratio: 1280 / 670; object-fit: contain; }
 .shinpo-archive-headline {
     font-size: 19px;
     font-weight: 700;
