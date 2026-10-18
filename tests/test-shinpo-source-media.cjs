@@ -38,5 +38,20 @@ test('source external links and three canonical X posts are retained without inj
  assert(town.afterword.includes('../../?place=shinpo_board'));
  const citations=game.blocks.filter(b=>b.html.includes('video-citation'));assert.equal(citations.length,3);
  ['2053552847078170744','2056457725253427457','2054447396487102904'].forEach((id,i)=>assert(citations[i].html.includes('href="https://x.com/sukimastock/status/'+id+'"')));
- assert(!game.blocks.some(b=>/<(?:img|iframe|script|video)\b/.test(b.html)));
+ assert(!game.blocks.some(b=>/<(?:iframe|script|video)\b/.test(b.html)));
+});
+
+test('approved substitutes preserve animated bytes and cow/faucet/tofu positions without changing X citations',()=>{
+ const a=tool.load('31beb527cad14b72a2afdc57f4b986b4'),r=a.source.approvedReplacements;
+ assert.equal(r.reference,'https://note.com/hamamah/n/nca6b0ef9db94');
+ assert.deepEqual(a.source.missingMedia,['3 original videos']);
+ const expected=[['cow-suction',63,903740,'58f623a2cedd787d66fdeab85964632a9bf143de99d6829c20e4661d22f188eb'],['faucet-ghost',48,271334,'18eee80e561f648bb5ab816f6852a73ea82ee2503cbca47baeec28aeeba1b1ac'],['tofu-tower',120,341368,'016eef0f0856df612d00126eb4009c168db0c284ae1c23c44587bb6d94b4ccce']];
+ assert.equal(r.media.length,3);assert.equal(a.blocks.filter(b=>b.html.startsWith('<figure>')).length,3);
+ r.media.forEach((m,i)=>{const [slug,frames,size,hash]=expected[i],bytes=fs.readFileSync(path.join(root,m.path));
+  assert.equal(m.path,'assets/shinpo/game-app-in-between/'+slug+'.webp');assert.equal(bytes.length,size);
+  assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),hash);assert.equal(m.sha256,hash);
+  assert.deepEqual(webp(bytes),{width:480,height:1040,frames});
+  const pos=a.blocks.findIndex(b=>b.html===m.before);assert(pos>0);assert(a.blocks[pos-1].html.includes('src="../../'+m.path+'"'));
+  assert(!a.blocks[pos-1].html.includes('figcaption'));assert(a.blocks[pos-1].html.includes('alt="'+m.work+'"'));
+ });
 });
