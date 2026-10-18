@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "73d9d8c15f8b8d8b84046afd6c46a95333f06db19ee822a1fe8c3ce526af5984",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "expression-audit-v01-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Integrate Drive expression audit v0.1 into every new creation flow without new approval or ledger.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "d36e98f4ab26ce545099a409b73ad625b30ec7ad",
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "Google Drive: 11yoi9xYy6Dtz3Zf9NBdTd126IYdrzDBjSnh9UlrxOBg",
+      "Google Drive: 1PYjEEk2wKBsvUKPRBBj6ASrDLNogXQywea5pMrUgy1E"
+    ],
+    "allowedPaths": [
+      ".change-plans/expression-audit-v01-20261018/r0.lock.json",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "data/**",
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "tests/**",
+      "index.html",
+      "style.css",
+      "w/**",
+      "en/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Keep standalone source-linked common standard including note.",
+      "Require pre/during/final lightweight self-audit through existing authoring flow.",
+      "Preserve usability accessibility SEO and existing gates."
+    ],
+    "ownerDecisions": [
+      "User 2026-10-18 explicitly requests formal integration, PR and Staging merge; Production prohibited."
+    ],
+    "hqDecisions": [
+      "Documentation-only integration; no runtime, gate implementation, workflow, external automation or approval changes."
+    ],
+    "rulesApplied": [
+      "Existing lifecycle state is authoritative",
+      "Explicit room placement and omission win",
+      "No automatic Production promotion",
+      "Change OS Full floor and trusted base checks"
+    ],
+    "staticChecks": [
+      "change-operations-regression"
+    ],
+    "manualChecks": [
+      "Trace next new game/app/page/UI/description and note from entry through all three audit phases; compare source and observation examples."
+    ],
+    "impactChecks": [
+      "os.previous-gate",
+      "os.regression",
+      "os.provenance"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this documentation PR.",
+    "outOfScope": [
+      "Production",
+      "Existing work rewrites",
+      "External automation settings",
+      "New approvals or ledgers"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Future author compliance and actual future creation results"
+    ],
+    "alternativesRejected": [
+      "Add new rooms or runtime",
+      "Change individual works or lifecycle states",
+      "Edit generated HTML directly"
+    ],
+    "boundaryCases": [
+      "Necessary operation help, accessibility and SEO remain",
+      "No blanket word bans",
+      "Note usable without repository workflow"
+    ],
+    "testPlan": [
+      "Scope then Risk then Impact",
+      "Existing Change Operations regressions",
+      "Manual next-task trace and source comparison"
+    ],
+    "problem": "New creation can regress to unnecessary copy before final review.",
+    "currentContract": "AGENTS and OPERATIONS govern new Staging creation under Change OS.",
+    "whyExistingIsInsufficient": "No shared expression standard linked before generation.",
+    "design": "Independent common standard with three short self-audits embedded in existing workflow.",
+    "migration": "None.",
+    "compatibility": "Existing gates and runtime unchanged.",
+    "promotionRisk": "No Production changes."
+  }
+}
