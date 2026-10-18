@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5731a6b154746b11d7689e4b24c189b4bb5e4d1cbf811a4ed83060bb49c1eccf",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-remove-subtitles-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "移植記事カードの追加サブタイトルを削除し、今後の生成で追加コピーを要求しない",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "8d5f5cb7fbf163bd5d7348fbede7191d3d593845",
+    "canonicalSources": [
+      "data/notes.js",
+      "main.js",
+      "tools/shinpo-migrate.cjs",
+      "tools/shinpo-template.html",
+      "既存3記事の本文HTML"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-remove-subtitles-20261018/r0.lock.json",
+      "main.js",
+      "data/notes.js",
+      "tools/shinpo-migrate.cjs",
+      "tools/SHINPO-MIGRATION.md",
+      "tests/test-shinpo-rack.cjs",
+      "tests/test-shinpo-migrate.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "shinpo/**",
+      "data/shinpo/**",
+      "assets/**",
+      "works/**",
+      "engines/**",
+      ".github/**",
+      "index.html",
+      "style.css",
+      "sitemap.xml",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "CHANGE-*.md"
+    ],
+    "expectedChanges": [
+      "カードのarchiveTeaser表示と固定fallbackを除去。notesの不要なarchiveTeaser2件を削除",
+      "既存本文ヘッダーに追加サブタイトルがないことを確認し、本文/画像/動画/HTMLは変更しない",
+      "生成metadataの追加定型文をやめ、description/ogDescription未指定時は正本タイトルを使用。サブタイトル入力を要求しない",
+      "4枠/遷移/本文保持/追加サブタイトル非表示を回帰検査"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 ユーザー: また勝手にサブタイトルがつけられました。削除してください。親が画像確認しカード文言を特定。本委任でStaging PR/CI/安全merge/公開確認を許可。画像調査は親で別途。"
+    ],
+    "hqDecisions": [
+      "共有runtimeと生成ツールの局所削除。SYSTEM/full。表示文のみ除去、原文本文・画像・4枠選抜・遷移・Productionは変更しない。"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN v0.2 Plan Lock before changes",
+      "Change PR Gate trusted base",
+      "Staging only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "既存3記事カードに追加文なし",
+      "本文ヘッダーに創作サブタイトルなし、原文段落は保持",
+      "モバイル/PC、1クリック本文と戻る"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "runtime.mobile-desktop",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "このPRの局所差分のみrevert",
+    "outOfScope": [
+      "Production",
+      "画像/動画差替",
+      "原典調査",
+      "本文編集",
+      "作品/Engine/保存/外部権限"
+    ],
+    "promotion": "Staging-only; Productionは別指示",
+    "unverified": [
+      "実機iPhone/iPad",
+      "公開URLは環境の通信制限で取得不可の場合は別途未確認記録"
+    ],
+    "problem": "カードに原典から抜き出した文章が追加サブタイトルとして表示され、作者の依頼に反する",
+    "currentContract": "archiveTeaserまたは固定文を全移植カードへ表示。本文ヘッダーは原題/著者/日付のみ。",
+    "whyExistingIsInsufficient": "前回はカード表示も保存したため不要な追加文が残った",
+    "design": "カードのteaser DOM生成を削除しnotesの2値を除去。生成metadataの説明は任意とし未指定は原題のみ。本文テンプレートは既に追加サブタイトルを持たないため不変。",
+    "alternativesRejected": [
+      "別の要約に置換",
+      "本文段落の削除",
+      "画像差替",
+      "4枠選抜変更"
+    ],
+    "migration": "既存ID/URL/記事本文/保存キー不変",
+    "compatibility": "4枠と本文1クリック保持。旧archiveTeaser値があっても表示しない",
+    "boundaryCases": [
+      "archiveTeaserあり/なし",
+      "3移植記事",
+      "本文中に同一文があっても保存",
+      "metadata説明省略",
+      "モバイル/PC"
+    ],
+    "testPlan": [
+      "既存7テストと追加サブタイトル非表示テスト",
+      "既存3記事生成一致",
+      "Scope/Risk/Impact",
+      "ブラウザ390/1280幅のカード/本文/遷移",
+      "必須CI/独立レビュー/Pages"
+    ],
+    "promotionRisk": "Staging noindex only"
+  }
+}
