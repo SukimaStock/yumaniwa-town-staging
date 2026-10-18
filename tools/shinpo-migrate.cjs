@@ -64,7 +64,7 @@ function render(a, m) {
   validate(a,m,true);
   const img = a.cover.match(/src="\.\.\/\.\.\/(assets\/shinpo\/[^"?]+)"/);
   assert(img,'Cover must use an acquired local assets/shinpo image');
-  const values = {title:escape(m.title), date:escape(m.publishedAt || m.publish_date), description:escape(a.description), ogDescription:escape(a.ogDescription), canonical:'https://sukimastock.github.io/yumaniwa-town/shinpo/'+a.slug+'/', ogImage:'https://sukimastock.github.io/yumaniwa-town/'+img[1], navDate:escape(a.navDate), displayDate:escape(a.displayDate), cover:a.cover, body:a.blocks.map(b=>b.html).join('\n'), afterword:a.afterword};
+  const values = {title:escape(m.title), date:escape(m.publishedAt || m.publish_date), description:escape(a.description || m.title), ogDescription:escape(a.ogDescription || m.title), canonical:'https://sukimastock.github.io/yumaniwa-town/shinpo/'+a.slug+'/', ogImage:'https://sukimastock.github.io/yumaniwa-town/'+img[1], navDate:escape(a.navDate), displayDate:escape(a.displayDate), cover:a.cover, body:a.blocks.map(b=>b.html).join('\n'), afterword:a.afterword};
   return read('tools/shinpo-template.html').replace(/\{\{#backnumber\}\}([\s\S]*?)\{\{\/backnumber\}\}/g,(_,css)=>a.backnumber ? css : '').replace(/\{\{(\w+)\}\}/g,(_,k)=>{assert(k in values,'Unknown template field '+k);return values[k];});
 }
 function prospective(o) {
@@ -75,7 +75,7 @@ function prospective(o) {
   const body = fs.readFileSync(o.body,'utf8').trim();
   // One top-level block per nonempty line; preparer supplies original HTML, never inferred prose.
   const blocks = body.split(/\r?\n/).filter(s=>s.trim()).map(html=>({origin: html.includes('class="media-note"') ? 'editorial-media-note' : 'source', html}));
-  const a = {id,slug:name,source:{reference:o['source-ref'],verification:o.verification || 'UNVERIFIED: compare original before merge',missingMedia:o.missing ? o.missing.split('|') : []},description:m.title+'。はままぁの制作記録。',ogDescription:m.title,cover:'<figure><img src="../../'+o.cover+'" alt="'+escape(o['cover-alt'] || m.title+'の元掲載画像')+'" fetchpriority="high"></figure>',navDate:`${y}年${mo}月${d}日`,displayDate:`${y}年${Number(mo)}月${Number(d)}日`,backnumber:true,blocks,afterword:'<aside class="afterword" aria-label="記事本文の外側にある町内案内"><h2>この町をもう少し歩く</h2><div class="links"><a href="../../?place=shinpo_board">ほかの新聞を読む ↗</a><a href="../../">町を歩く ↗</a></div><div class="source">原典：はままぁ「'+escape(m.title)+'」（note、'+date+'）。<a href="'+escape(m.url)+'" target="_blank" rel="noopener noreferrer">note版を開く ↗</a></div></aside>'};
+  const a = {id,slug:name,source:{reference:o['source-ref'],verification:o.verification || 'UNVERIFIED: compare original before merge',missingMedia:o.missing ? o.missing.split('|') : []},cover:'<figure><img src="../../'+o.cover+'" alt="'+escape(o['cover-alt'] || m.title+'の元掲載画像')+'" fetchpriority="high"></figure>',navDate:`${y}年${mo}月${d}日`,displayDate:`${y}年${Number(mo)}月${Number(d)}日`,backnumber:true,blocks,afterword:'<aside class="afterword" aria-label="記事本文の外側にある町内案内"><h2>この町をもう少し歩く</h2><div class="links"><a href="../../?place=shinpo_board">ほかの新聞を読む ↗</a><a href="../../">町を歩く ↗</a></div><div class="source">原典：はままぁ「'+escape(m.title)+'」（note、'+date+'）。<a href="'+escape(m.url)+'" target="_blank" rel="noopener noreferrer">note版を開く ↗</a></div></aside>'};
   return a;
 }
 function registration(a, m) {

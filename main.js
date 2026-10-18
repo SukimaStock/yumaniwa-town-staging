@@ -7742,7 +7742,7 @@ function renderNoteRackCard(slot) {
         html += '<div class="shinpo-archive-paper"><div class="shinpo-archive-mast">湯 間 庭 新 報　・　記 録</div>';
         html += '<div class="shinpo-archive-date">' + escapeNoteRackHtml(date) + '</div>';
         html += '<div class="shinpo-archive-headline">' + title + '</div>';
-        html += '<div class="shinpo-archive-teaser">' + escapeNoteRackHtml(article.archiveTeaser || '棚ではなく、「場所」が欲しかった。') + '</div></div>';
+        html += '</div>';
         html += '<div class="note-rack-card-footer"><span class="note-rack-card-slot">' + slotLabel + '</span><span class="note-rack-card-cta">新聞を広げる ↗</span></div>';
         html += '<button class="note-rack-card-open" type="button" aria-label="' + title + 'を湯間庭新報で読む" onclick="openNoteArticleFromRack(\'' + articleId + '\')"></button>';
         html += '</article>';

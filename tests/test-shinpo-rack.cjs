@@ -116,3 +116,21 @@ test('one card activation opens the selected internal or note destination once',
         }
     }
 });
+
+test('migrated cards never render an added subtitle, even with legacy teaser metadata', () => {
+    const articles = require('../tools/shinpo-migrate.cjs').notes().filter(a => a.archivePage);
+    assert.equal(articles.length >= 3, true);
+    for (const original of articles) {
+        assert.equal(original.archiveTeaser, undefined);
+        for (const teaser of [undefined, 'UNREQUESTED SUBTITLE']) {
+            const article = {...original, archiveTeaser: teaser};
+            const f = fixture([article]);
+            const html = f.context.renderNoteRackCard({article, label:'最新', kind:'latest'});
+            assert(!html.includes('shinpo-archive-teaser'));
+            assert(!html.includes('UNREQUESTED SUBTITLE'));
+            assert(!html.includes('棚ではなく、「場所」が欲しかった。'));
+            assert(html.includes(original.title));
+            assert.equal([...html.matchAll(/onclick=/g)].length, 1);
+        }
+    }
+});

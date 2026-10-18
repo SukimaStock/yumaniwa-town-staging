@@ -78,3 +78,17 @@ test('isolated next-article flow: official lock, interrupted import, idempotence
   } finally {fs.rmSync(body,{force:true});}
  } finally {fs.rmSync(dir,{recursive:true,force:true});}
 });
+
+test('article headers have no added subtitle and metadata descriptions are optional',()=>{
+ for(const id of ['note-20260717-153a44e0','95d48e6613ce4037907364809ee3359f','31beb527cad14b72a2afdc57f4b986b4']) {
+  const a=tool.load(id),m=tool.metadata(id);
+  delete a.description;delete a.ogDescription;
+  const html=tool.render(a,m);
+  assert(html.includes('<meta name="description" content="'+m.title+'">'));
+  assert(html.includes('<meta property="og:description" content="'+m.title+'">'));
+  const header=html.split('<article class="paper"')[1].split('<p>')[0];
+  assert(!/class="(?:article-kicker|[^\"]*subtitle|[^\"]*teaser)"/.test(header));
+  assert(!header.includes('はままぁの制作記録。'));
+  assert(html.includes(a.blocks.map(b=>b.html).join('\n')));
+ }
+});
