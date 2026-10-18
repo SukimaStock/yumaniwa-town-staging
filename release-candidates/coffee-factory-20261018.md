@@ -19,11 +19,11 @@ Shared `engine/sukimastock-engine.v0.2.0.js` already exists byte-identically in 
 
 Exclude sound-lab.html, migration documentation, unused OGGs/sound icons, all other prototypes, LAB and its registry, other work runtime/engine versions and staging-only UI. Copy only CoffeeFactory entries into Production-owned works/search/guide/ghost/update/lifecycle data. Preserve existing artwork and authored metadata. The historical 2026-09-18 installation record describes Staging; do not treat it as a Production deployment date.
 
-## Image and copy proposal
+## Owner supplied images (2026-10-18)
 
-Use the existing app cup PNG byte-for-byte as `assets/works/coffee-factory/icon.png`, declared accurately as PNG 473×512 through existing Search metadata override. Alt describes the cup. No generated promotional artwork or app redesign. This is a reviewable image candidate, not final Owner artwork approval. Its portrait ratio causes a recommended-card-size warning: review actual social crop before final release. CoffeeFactory's existing iconless home-screen contract remains unchanged; no new installation/offline support is promised.
+Owner supplied the final image files and corrected the intended destination to match the other work folders. Save original bytes as assets/works/coffee-factory/icon.png (PNG1024×1024) and ogp.jpg (JPEG1200×630). Search/Share uses ogp.jpg with accurate image alt. The earlier separate Library folder was a routing error and is not the canonical project asset location. No crop, resizing or image generation is applied. Existing iconless home-screen contract remains unchanged; this change does not add installation/offline support.
 
-Existing Japanese/English descriptions, guide classification and resident dialogue are reused. Expression audit: no new slogan/subtitle, duplicate instruction, invented author emotion or app decoration. Search metadata and necessary accessibility descriptions remain.
+Checks must run on the repository diff and generated image references; an unrelated save receipt does not satisfy that check. App UI and original Japanese/English prose remain unchanged.
 
 ## Checks and limits
 
@@ -38,4 +38,4 @@ LAB remains Prototype Bench while candidate: release has not occurred. Update it
 
 ## Next step and rollback
 
-Review the unmerged Production diff, image proposal and audio recovery boundary before requesting publication. Production generation uses an explicit preparation-only instruction reference; its CLI acceptance does not authorize deployment. If this candidate changes, recheck affected contracts and regressions. Revert only this preparation PR; preserve all other works and storage. After separate release authorization: merge exact reviewed Production head, verify Safety/Pages/live routes, then update candidate → released with actual evidence. External announcement is an author handoff, not an automatic SNS post.
+Review the unmerged Production diff and audio recovery boundary before requesting publication. Production generation uses an explicit preparation-only instruction reference; its CLI acceptance does not authorize deployment. If this candidate changes, recheck affected contracts and regressions. Revert only this preparation PR; preserve all other works and storage. After separate release authorization: merge exact reviewed Production head, verify Safety/Pages/live routes, then update candidate → released with actual evidence. External announcement is an author handoff, not an automatic SNS post.
