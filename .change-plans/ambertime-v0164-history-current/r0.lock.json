@@ -1,0 +1,137 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a601c678c9da9e40cc3a39ed65d8a4fd3f56802d94719d686be815d54b116b04",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v0164-history-current",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime0.16.4 factual distillery history from existing operation and durable records",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "abd23d038b22028b45df335fcef5b3eddd2df6fb",
+    "canonicalSources": [
+      "User0.16.4 request",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/department-projects.mjs",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v0164-history-current/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/history-worker.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/shop.css",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/history*.mjs",
+      "works/ambertime/design/history/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "lab/**",
+      "tools/**",
+      "engine/**",
+      ".github/**",
+      "works/ambertime/model.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/*parameters.mjs",
+      "works/ambertime/brand-reputation.mjs",
+      "works/ambertime/aroma-extraction.mjs",
+      "works/ambertime/shop-model.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/bottle-storage.mjs",
+      "works/ambertime/work-context.mjs",
+      "works/ambertime/experiments/**"
+    ],
+    "expectedChanges": [
+      "Audit durable records versus capped records and exact replay facts, document old-origin gaps and concrete capacity",
+      "Read-only operation replay observer using unchanged operation dispatcher; transient factual projection with stable IDs/dates/order and deduplication; no new save fields/version/ledger",
+      "Small existing-modal timeline entry, year groups/lazy bounded event display, factual store summaries and brand links, existing bottle room and clock intent preserved",
+      "Worker-based replay and ephemeral cache avoid main-thread blocking, stale worker response ignored, no gameplay mutations",
+      "Fact/replay/legacy tests plus10/20/40year actual play capacity/performance measurements and PCphone browser independent review"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "independent-review",
+      "PC-iPhone-size timeline and brand/store navigation",
+      "clock auto/manual pause return and queued modal preservation",
+      "10-20-40year performance and save limits",
+      "published source match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert timeline entry/view/projection/observer; v15 saves remain unchanged and readable in0.16.3 without conversion.",
+    "outOfScope": [
+      "Production",
+      "Any gameplay calculations or prices/demand/shop conditions/reputation",
+      "Save schema or storage key change",
+      "New events or relationship scores",
+      "Ending or flashback",
+      "Generic event engine",
+      "Shared paths"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and human enjoyment"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN full work-local read-only replay contract",
+      "EXPRESSION-AUDIT: short dated facts only, no emotional copy or redundant decoration",
+      "AGENTS requested useful delegation and independent review",
+      "Fresh r0 after newspaper PR469: AmberTime and governing contracts are byte-identical to original ab73d863 base; reapply work-only implementation after lock."
+    ],
+    "ownerDecisions": [
+      "User0.16.4 authorizes factual history view with existing data reuse, no scores/fiction/new ledger, tests and safe Staging PR merge; Production excluded."
+    ],
+    "hqDecisions": [
+      "Read-only work-local projection reuses exact private operation dispatch and durable facts; does not alter save or opcode semantics. Worker and transient cache hold derived facts only; no new persistent event system. Missing origin history stays explicitly partial."
+    ],
+    "problem": "Existing histories are fragmented and some view ledgers are bounded; players cannot review distillery-wide dated facts.",
+    "currentContract": "v15 strict replay operations with nested legacy origins; durable brands/releases/shop/adoption ledgers, capped bottle records and wholesale display history.",
+    "whyExistingIsInsufficient": "First retail-sale dates and earlier distillation/fill/special transactions are not all present in durable display records; opcode month counting would be inaccurate for rolled-back/funds decisions.",
+    "design": "Replay original operations into isolated derived history facts, consolidate same transaction/release/adoption, group chronological facts by year. Use small existing modal from sales/records, links to brand and store facts, worker loading and bounded lazy display. No valuations.",
+    "migration": "None: v15 storage/raw and old operation histories unchanged. Exact replay where supported; older origin durable records provide only known dates and explicit coverage limits.",
+    "compatibility": "No new constructor, version, opcode or save fields; legacy/current strict serialization remains byte-identical. Reconstructed events never affect gameplay or trigger offers.",
+    "promotionRisk": "Staging only, no Production or shared paths",
+    "alternativesRejected": [
+      "Duplicate persistent event ledger",
+      "Heuristic month counting or inferred first-sale dates",
+      "Success/importance rankings",
+      "Generic event engine or large management screen",
+      "Relaxing save limits or validation"
+    ],
+    "boundaryCases": [
+      "Multiple facts same month stablecausalorder",
+      "Brand/release/product/cask/shop ID mappings and soldout/pruned records",
+      "Department adoption+delivery onefact",
+      "Rollback month opcode and automated usual fills",
+      "Capped tradehistory and oldnestedorigins explicitpartialcoverage",
+      "10/20/40year record and operation caps",
+      "Close while worker running/stale response and clock/manualpause/queueddecisions"
+    ],
+    "testPlan": [
+      "Existing full Node regression and focused exact event/identity/date/dedup/legacy/coldreplay tests",
+      "10/20/40year real public-operation fixtures, multiplebrands/repeatedshops/special/dept, rawbytes/operationheadroom/replay/render timings",
+      "PC1280 and phone390 Chromium lazytimeline/brand/storelinks/close/reload/timepause/staleworker checks",
+      "Independent review and exact-SHA Scope Risk Impact trusted static requiredCI/deployedsourcecheck"
+    ]
+  }
+}
