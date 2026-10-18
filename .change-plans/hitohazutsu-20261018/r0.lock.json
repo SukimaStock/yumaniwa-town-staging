@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "20dcb08e7b8cd2fa9235e511c815341335010ab229f66b3f0e091930671145a6",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "hitohazutsu-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "選択B「ひと歯ずつ閉じる」の独立ファスナー試作、active台帳・生成LAB接続",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "1a3a71c8889bcc4b5072350c325e9aac0fcbf80a",
+    "canonicalSources": [
+      "works/hitohazutsu",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/hitohazutsu-20261018/r0.lock.json",
+      "works/hitohazutsu/**",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "data/works.js",
+      "data/town-maps.js",
+      "works/mawarikiru-coin/**",
+      "works/rewinding-thread/**",
+      "works/nadeato/**"
+    ],
+    "expectedChanges": [
+      "一本指とマウスで引き手を上下に動かす。歯が順次噛み合い布端が寄る。逆戻し・途中保持・引き手だけの減衰揺れ",
+      "active staging-onlyで既存Prototype Benchへ生成接続",
+      "画面は物体とLABへのリンクだけ。必要な操作支援はアクセシブルなsliderに集約。制作記録はMAKING.md"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 18:54UTC Sentinel_9b3799d702c881919140c014708b98e4: B。委任元01a11875-47fb-73f8-b86d-cf31e84fa0c8。branch/commit/draft PR/レビュー/CI/安全なStaging mergeと配信許可。Production・共有システム・保存・外部権限変更禁止。"
+    ],
+    "hqDecisions": [
+      "AI設計照合: lifecycle JSONと生成LABはunknown-code floorのためFull。既存schema/generatorをそのまま使い契約・共有処理は変更しない。作者による追加承認を意味しない。"
+    ],
+    "rulesApplied": [
+      "AGENTS Work lifecycle active default",
+      "CHANGE-PLAN normal locked route; not lightweight"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "browser-touch-mouse-endpoints-reverse-hold-cancel-outside-resize-repeat",
+      "local-lab-return-expression-audit",
+      "published-entry"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "当該新規work、台帳の当該項目とLAB生成差分を同じ単位でrevert",
+    "outOfScope": [
+      "production",
+      "町登録",
+      "既存作品",
+      "共有Engine",
+      "外部権限",
+      "保存"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "実機iPhone/iPad Safari",
+      "作者の触感判断"
+    ],
+    "problem": "一歯ずつ閉じていく細かな刻みと、途中で戻せる手触り",
+    "currentContract": "単独worksとactive台帳、既存LAB generator",
+    "whyExistingIsInsufficient": "新作が存在しない",
+    "design": "SVGの左右の布・歯とスライダー。連続した相対pointer移動を弱い周期抵抗へ写像し歯を順次かみ合わせる。閉鎖位置は離した瞬間に保持、装飾の引き手のみ減衰回転。64px以上の操作領域、keyboard、reduced motion。",
+    "alternativesRejected": [
+      "町やEngine変更",
+      "3D化",
+      "ゲーム化"
+    ],
+    "migration": "既存データ変更なし",
+    "compatibility": "Pointer Eventsとcapture、相対移動。cancel/blur/resizeで入力を解放し停止。外部依存なし。",
+    "boundaryCases": [
+      "slow one-tooth / fast / reverse / endpoints / hold",
+      "single pointer / extra touch / outside release",
+      "cancel/lost capture/blur/hidden/resize",
+      "keyboard / reduced motion"
+    ],
+    "testPlan": [
+      "Lifecycle回帰",
+      "作品操作ブラウザテストと独立レビュー",
+      "Scope/Risk/Impact/CI/Pages exact SHA・実URL"
+    ],
+    "promotionRisk": "staging only"
+  }
+}
