@@ -366,6 +366,8 @@ var NOTE_ARTICLES = [
     },
     {
         id: "fac8492827054dd8a3922c8b8396198a",
+        archiveThumbnail: "./assets/shinpo/leftover-details/cover.webp",
+        archivePage: "./shinpo/leftover-details/",
         title: "どうでもいい部分が、なぜか残る",
         url: "https://note.com/hamamah/n/n1c68d15e4d91",
         publish_date: "2026-04-28"
