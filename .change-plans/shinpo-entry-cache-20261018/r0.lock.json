@@ -1,0 +1,112 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "b8d84d542fab28eaa96fecffd96337fa32d1b539c5236dcd502028c60442b4d4",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-entry-cache-20261018",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Refresh main.js cache key so the deployed backnumber entry is visible",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "772ea5deecbee5e4da8a208252519cbc789e19d9",
+    "canonicalSources": [
+      "index.html",
+      "main.js",
+      "PR483 deployed772ea5de"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-entry-cache-20261018/r0.lock.json",
+      "index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "style.css",
+      "works/**",
+      "engines/**",
+      "assets/**",
+      "data/**",
+      "tools/**",
+      "tests/**",
+      ".github/**",
+      "sitemap.xml"
+    ],
+    "expectedChanges": [
+      "Only main.js script rev changes from shinpo-thumbnails-20261018 to shinpo-connected-reading-20261018"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 user explicitly authorizes backnumber link/static listing, selected work links, five narrow href fixes, environment SEO and image attributes, draft PR/review/CI/safe staging merge/Pages; no Production or external service mutation"
+    ],
+    "hqDecisions": [
+      "Build-time only environment config; production writes require explicit instruction plus selected article IDs; preserve existing work publication/lifecycle guards; no new facility/registry/runtime patch",
+      "既存validator固定production baseと新environment policyを整合するためfresh r0で検証器と回帰をscopeに含める。旧Lockは編集しない"
+    ],
+    "rulesApplied": [
+      "AGENTS.md",
+      "EXPRESSION-AUDIT.md: no subtitle/copy, original body unchanged",
+      "CHANGE-PLAN full initial lock before implementation"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Live board shows backnumber after Pages",
+      "Board list article work roundtrip"
+    ],
+    "impactChecks": [
+      "surface.shared",
+      "runtime.regression",
+      "runtime.mobile-desktop",
+      "runtime.rollback",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this PR; asset bytes and work runtime remain unchanged",
+    "outOfScope": [
+      "Production",
+      "runtime/layout edits",
+      "new metadata or article changes"
+    ],
+    "promotion": "Staging only; future production generation is explicit selection and instruction, no deployment now",
+    "unverified": [
+      "Physical Safari/iPhone/iPad and Google canonical adoption are not inferred from CI"
+    ],
+    "problem": "Live deployed backnumbers are present but existing main.js query cache retains old rack without entry",
+    "currentContract": "Existing root script rev is the cache invalidation mechanism",
+    "whyExistingIsInsufficient": "main.js content changed in PR483 but root script rev still identifies previous thumbnail build",
+    "design": "Change only the known script query token; no runtime or layout code",
+    "alternativesRejected": [
+      "new facility or fifth slot",
+      "global external link replacement",
+      "automatic production publication",
+      "CMS/search/filter system"
+    ],
+    "migration": "No routing/save migration",
+    "compatibility": "No save, engine, game mechanics, source media bytes or rack selection changes",
+    "boundaryCases": [
+      "new article import updates index",
+      "duplicate/missing article ids",
+      "unpublished production article selection",
+      "unknown environment",
+      "historical versus current edition",
+      "animated lazy media",
+      "narrow long title"
+    ],
+    "testPlan": [
+      "Exact one-token HTML diff",
+      "Scope Risk Impact",
+      "requiredCI",
+      "exactSHA Pages and live board entry"
+    ],
+    "promotionRisk": "Do not copy staging noindex/empty sitemap into production; production needs selected article ids and self canonical after explicit authorization"
+  }
+}
