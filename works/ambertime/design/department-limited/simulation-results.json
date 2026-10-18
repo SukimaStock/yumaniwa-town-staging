@@ -1,0 +1,775 @@
+{
+  "method": {
+    "base": "f3f8ad6e",
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      42,
+      12345,
+      20261017,
+      4294967295
+    ],
+    "months": 240,
+    "initialCash": 1600,
+    "maxCasks": 4,
+    "chemistry": {
+      "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+      "economy.mjs": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+      "parameters.mjs": "e8c08c0887936c70e8049d99c3509a8907896cf2d0848ddf13a5d810db50b822",
+      "economy-parameters.mjs": "fc024e9bf6f5f78d5aadd6e0ec26d7a3d6eaaeb9de4d8b599f39b74c72a25e32",
+      "partner-parameters.mjs": "57da9dba103d6560bb25c4dc76e596b3cc295f1f5bb9ecec48af51e253184838",
+      "aroma-extraction.mjs": "77bc8d654d551e688b9ade8018bf595a75cc1c3355cd2023aef59c51ad6253ff",
+      "brand-reputation.mjs": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec"
+    },
+    "policy": "Same manual cut40/65/90, alternating bourbon/refill; three brands by cut. Bootstrap2casks6months untilmonth36, then4casks12/24/36/24. Standard retail prices; wait one month after bottling; store deliveries frommonth48 prioritize department, supermarket, town; mature stock retained until first department relation; existing obligations declined. All actions public APIs; no state injection. Real v13 and v14 replay models.",
+    "limitations": "Deterministic allocation policy; not optimized or human enjoyment. Money/inventory changes may affect production; signature comparison reports any divergence. Observed offers count enqueue-visible offers, not hidden random attempts."
+  },
+  "summary": [
+    {
+      "model": "v13",
+      "seeds": 8,
+      "months": 240,
+      "offers": 23,
+      "departmentActions": 125,
+      "departmentBottles": 625,
+      "townBottles": 1494,
+      "supermarketBottles": 4119,
+      "retailBottles": 8756,
+      "cash": 96995.39,
+      "net": 84195.39,
+      "stock": 344,
+      "firstMonths": [
+        64,
+        64,
+        64,
+        79,
+        64,
+        64,
+        64,
+        64
+      ],
+      "cuts": {
+        "40": 49,
+        "65": 55,
+        "90": 21
+      },
+      "ages": {
+        "24": 73,
+        "36": 52
+      },
+      "maxInterests": 0
+    },
+    {
+      "model": "v14",
+      "seeds": 8,
+      "months": 240,
+      "offers": 80,
+      "departmentActions": 77,
+      "departmentBottles": 385,
+      "townBottles": 1689,
+      "supermarketBottles": 4148,
+      "retailBottles": 8772,
+      "cash": 93990.44,
+      "net": 81190.44,
+      "stock": 344,
+      "firstMonths": [
+        64,
+        64,
+        64,
+        79,
+        64,
+        64,
+        64,
+        64
+      ],
+      "cuts": {
+        "40": 31,
+        "65": 31,
+        "90": 15
+      },
+      "ages": {
+        "24": 39,
+        "36": 38
+      },
+      "maxInterests": 3
+    }
+  ],
+  "runs": [
+    {
+      "seed": 1,
+      "model": "v13",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 652,
+      "maxOffers": 2,
+      "maxInterests": 0,
+      "offers": 2,
+      "firstDepartmentMonth": 64,
+      "retailBottles": 1095,
+      "retailRevenue": 19980.47,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 191,
+          "revenue": 2992.58
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 519,
+          "revenue": 10606.01
+        },
+        "department": {
+          "actions": 14,
+          "bottles": 70,
+          "revenue": 2124.1
+        }
+      },
+      "cash": 11993.16,
+      "stock": 43,
+      "revenue": 35703.16,
+      "costs": 17534,
+      "upkeep": 7776,
+      "net": 10393.16,
+      "releaseSignature": "1b523f5034c784ebd805c3a3be41e36e96de1623cc0aab638719d160d671325c",
+      "coldReplaySha256": "56a0187dbc927cad346618b64b316aba91a2e53dac2a4416df7201f95e9dbbfb"
+    },
+    {
+      "seed": 1,
+      "model": "v14",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 659,
+      "maxOffers": 2,
+      "maxInterests": 3,
+      "offers": 10,
+      "firstDepartmentMonth": 64,
+      "retailBottles": 1093,
+      "retailRevenue": 19925.79,
+      "shops": {
+        "town-liquor": {
+          "actions": 30,
+          "bottles": 217,
+          "revenue": 3426.25
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 525,
+          "revenue": 10731.05
+        },
+        "department": {
+          "actions": 8,
+          "bottles": 40,
+          "revenue": 1266.55
+        }
+      },
+      "cash": 11639.64,
+      "stock": 43,
+      "revenue": 35349.64,
+      "costs": 17534,
+      "upkeep": 7776,
+      "net": 10039.64,
+      "releaseSignature": "1b523f5034c784ebd805c3a3be41e36e96de1623cc0aab638719d160d671325c",
+      "coldReplaySha256": "227ec243fa3d0c642f77124606cb2ac6bcdf73a725249a5c35b95fffa889f60f"
+    },
+    {
+      "seed": 2,
+      "model": "v13",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 657,
+      "maxOffers": 2,
+      "maxInterests": 0,
+      "offers": 3,
+      "firstDepartmentMonth": 64,
+      "retailBottles": 1092,
+      "retailRevenue": 19854.45,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 185,
+          "revenue": 2823.17
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 516,
+          "revenue": 10597.93
+        },
+        "department": {
+          "actions": 16,
+          "bottles": 80,
+          "revenue": 2561.25
+        }
+      },
+      "cash": 12132.8,
+      "stock": 43,
+      "revenue": 35836.8,
+      "costs": 17528,
+      "upkeep": 7776,
+      "net": 10532.8,
+      "releaseSignature": "f58b200746a3ffb9330c8889a2d55f5546e1518ca839a2a309bbd2547c701901",
+      "coldReplaySha256": "06379ffae9df81f83a0fe889afdd660d7de8683bcf3706377b2fa6e3da9aea2a"
+    },
+    {
+      "seed": 2,
+      "model": "v14",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 662,
+      "maxOffers": 2,
+      "maxInterests": 3,
+      "offers": 10,
+      "firstDepartmentMonth": 64,
+      "retailBottles": 1095,
+      "retailRevenue": 19934.76,
+      "shops": {
+        "town-liquor": {
+          "actions": 29,
+          "bottles": 208,
+          "revenue": 3240.08
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 520,
+          "revenue": 10672.53
+        },
+        "department": {
+          "actions": 10,
+          "bottles": 50,
+          "revenue": 1614.85
+        }
+      },
+      "cash": 11758.22,
+      "stock": 43,
+      "revenue": 35462.22,
+      "costs": 17528,
+      "upkeep": 7776,
+      "net": 10158.22,
+      "releaseSignature": "f58b200746a3ffb9330c8889a2d55f5546e1518ca839a2a309bbd2547c701901",
+      "coldReplaySha256": "f9315f5543faeed01ad90834679a833ff565c7e37285d7de0a128685f4c0d9ef"
+    },
+    {
+      "seed": 3,
+      "model": "v13",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 654,
+      "maxOffers": 2,
+      "maxInterests": 0,
+      "offers": 3,
+      "firstDepartmentMonth": 64,
+      "retailBottles": 1087,
+      "retailRevenue": 19781.3,
+      "shops": {
+        "town-liquor": {
+          "actions": 28,
+          "bottles": 189,
+          "revenue": 2902.92
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 523,
+          "revenue": 10689.27
+        },
+        "department": {
+          "actions": 15,
+          "bottles": 75,
+          "revenue": 2390.95
+        }
+      },
+      "cash": 12057.44,
+      "stock": 43,
+      "revenue": 35764.44,
+      "costs": 17531,
+      "upkeep": 7776,
+      "net": 10457.44,
+      "releaseSignature": "53d8c432fc2dbee9a600b1ca3a09f8ed565362aa39415b6ede51da7ffbeb05db",
+      "coldReplaySha256": "caa342c6def01fc415c5b41f5acf6a96f0c7ad932c65a3573c4a59eeb7c72911"
+    },
+    {
+      "seed": 3,
+      "model": "v14",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 658,
+      "maxOffers": 2,
+      "maxInterests": 3,
+      "offers": 10,
+      "firstDepartmentMonth": 64,
+      "retailBottles": 1089,
+      "retailRevenue": 19834.46,
+      "shops": {
+        "town-liquor": {
+          "actions": 29,
+          "bottles": 213,
+          "revenue": 3335.23
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 522,
+          "revenue": 10657.29
+        },
+        "department": {
+          "actions": 10,
+          "bottles": 50,
+          "revenue": 1604.7
+        }
+      },
+      "cash": 11724.68,
+      "stock": 43,
+      "revenue": 35431.68,
+      "costs": 17531,
+      "upkeep": 7776,
+      "net": 10124.68,
+      "releaseSignature": "53d8c432fc2dbee9a600b1ca3a09f8ed565362aa39415b6ede51da7ffbeb05db",
+      "coldReplaySha256": "b5ae060e913b027632af799fa41d1fb53370047f92ecc1d3bdc6e0ca87afd612"
+    },
+    {
+      "seed": 4,
+      "model": "v13",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 657,
+      "maxOffers": 2,
+      "maxInterests": 0,
+      "offers": 3,
+      "firstDepartmentMonth": 79,
+      "retailBottles": 1105,
+      "retailRevenue": 20155.97,
+      "shops": {
+        "town-liquor": {
+          "actions": 27,
+          "bottles": 187,
+          "revenue": 2866.59
+        },
+        "supermarket": {
+          "actions": 26,
+          "bottles": 507,
+          "revenue": 10404.2
+        },
+        "department": {
+          "actions": 15,
+          "bottles": 75,
+          "revenue": 2410.45
+        }
+      },
+      "cash": 12130.21,
+      "stock": 43,
+      "revenue": 35837.21,
+      "costs": 17531,
+      "upkeep": 7776,
+      "net": 10530.21,
+      "releaseSignature": "f5bb8a2469576c2e4200ec149e184f5eda120a3b530c93c636f090db8e387161",
+      "coldReplaySha256": "4132e206026fc092e705ef4ea29b3d2a50c7b5b95331ae731677356188b69512"
+    },
+    {
+      "seed": 4,
+      "model": "v14",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 662,
+      "maxOffers": 2,
+      "maxInterests": 3,
+      "offers": 10,
+      "firstDepartmentMonth": 79,
+      "retailBottles": 1108,
+      "retailRevenue": 20236.73,
+      "shops": {
+        "town-liquor": {
+          "actions": 30,
+          "bottles": 210,
+          "revenue": 3283.11
+        },
+        "supermarket": {
+          "actions": 26,
+          "bottles": 511,
+          "revenue": 10478.54
+        },
+        "department": {
+          "actions": 9,
+          "bottles": 45,
+          "revenue": 1464.45
+        }
+      },
+      "cash": 11755.83,
+      "stock": 43,
+      "revenue": 35462.83,
+      "costs": 17531,
+      "upkeep": 7776,
+      "net": 10155.83,
+      "releaseSignature": "f5bb8a2469576c2e4200ec149e184f5eda120a3b530c93c636f090db8e387161",
+      "coldReplaySha256": "62eda03a315e4ec06ff0dace43bf3bdbdee89faab79d999df42d014806175318"
+    },
+    {
+      "seed": 42,
+      "model": "v13",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 654,
+      "maxOffers": 2,
+      "maxInterests": 0,
+      "offers": 3,
+      "firstDepartmentMonth": 64,
+      "retailBottles": 1090,
+      "retailRevenue": 19818.33,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 184,
+          "revenue": 2794.95
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 519,
+          "revenue": 10670.01
+        },
+        "department": {
+          "actions": 16,
+          "bottles": 80,
+          "revenue": 2563.9
+        }
+      },
+      "cash": 12143.19,
+      "stock": 43,
+      "revenue": 35847.19,
+      "costs": 17528,
+      "upkeep": 7776,
+      "net": 10543.19,
+      "releaseSignature": "19d2cc1aed3cf07f1feba245a25096bd9578006950447a7c3f2582937570b0ff",
+      "coldReplaySha256": "6626237780723d2116780c51836ed330c8fcdf179961958cac6d8c1997ce2262"
+    },
+    {
+      "seed": 42,
+      "model": "v14",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 659,
+      "maxOffers": 2,
+      "maxInterests": 3,
+      "offers": 10,
+      "firstDepartmentMonth": 64,
+      "retailBottles": 1092,
+      "retailRevenue": 19872.27,
+      "shops": {
+        "town-liquor": {
+          "actions": 29,
+          "bottles": 208,
+          "revenue": 3236.04
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 523,
+          "revenue": 10744.75
+        },
+        "department": {
+          "actions": 10,
+          "bottles": 50,
+          "revenue": 1611.9
+        }
+      },
+      "cash": 11760.96,
+      "stock": 43,
+      "revenue": 35464.96,
+      "costs": 17528,
+      "upkeep": 7776,
+      "net": 10160.96,
+      "releaseSignature": "19d2cc1aed3cf07f1feba245a25096bd9578006950447a7c3f2582937570b0ff",
+      "coldReplaySha256": "2edba19ea4d362dea30c2fce6dd246a02f0b798396287dd1c4658adf664befdf"
+    },
+    {
+      "seed": 12345,
+      "model": "v13",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 654,
+      "maxOffers": 2,
+      "maxInterests": 0,
+      "offers": 3,
+      "firstDepartmentMonth": 64,
+      "retailBottles": 1104,
+      "retailRevenue": 20087.58,
+      "shops": {
+        "town-liquor": {
+          "actions": 27,
+          "bottles": 193,
+          "revenue": 2946.2
+        },
+        "supermarket": {
+          "actions": 26,
+          "bottles": 498,
+          "revenue": 10276.34
+        },
+        "department": {
+          "actions": 16,
+          "bottles": 80,
+          "revenue": 2569.15
+        }
+      },
+      "cash": 12169.27,
+      "stock": 43,
+      "revenue": 35879.27,
+      "costs": 17534,
+      "upkeep": 7776,
+      "net": 10569.27,
+      "releaseSignature": "c989dbe915b6e41df3831a859752e09ea8984510f7284c1724b4fd2df8bee2df",
+      "coldReplaySha256": "70ee88f15a0a9ac7c73df83727477cc50b1f782650cdd5df15392ae82b659008"
+    },
+    {
+      "seed": 12345,
+      "model": "v14",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 659,
+      "maxOffers": 2,
+      "maxInterests": 3,
+      "offers": 10,
+      "firstDepartmentMonth": 64,
+      "retailBottles": 1106,
+      "retailRevenue": 20141.62,
+      "shops": {
+        "town-liquor": {
+          "actions": 30,
+          "bottles": 217,
+          "revenue": 3384.47
+        },
+        "supermarket": {
+          "actions": 26,
+          "bottles": 502,
+          "revenue": 10350.52
+        },
+        "department": {
+          "actions": 10,
+          "bottles": 50,
+          "revenue": 1622.7
+        }
+      },
+      "cash": 11789.31,
+      "stock": 43,
+      "revenue": 35499.31,
+      "costs": 17534,
+      "upkeep": 7776,
+      "net": 10189.31,
+      "releaseSignature": "c989dbe915b6e41df3831a859752e09ea8984510f7284c1724b4fd2df8bee2df",
+      "coldReplaySha256": "5ad0519802f0739feff36c908fd9eb2a6f95956513bd0025d4a0dfbf0cd937f3"
+    },
+    {
+      "seed": 20261017,
+      "model": "v13",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 654,
+      "maxOffers": 2,
+      "maxInterests": 0,
+      "offers": 3,
+      "firstDepartmentMonth": 64,
+      "retailBottles": 1091,
+      "retailRevenue": 19871.32,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 181,
+          "revenue": 2770.16
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 519,
+          "revenue": 10604.48
+        },
+        "department": {
+          "actions": 17,
+          "bottles": 85,
+          "revenue": 2698.55
+        }
+      },
+      "cash": 12231.51,
+      "stock": 43,
+      "revenue": 35944.51,
+      "costs": 17537,
+      "upkeep": 7776,
+      "net": 10631.51,
+      "releaseSignature": "6074cee0297f0734551c38e1a9b7ad70cc9865067db15de15f57fbda34e059a5",
+      "coldReplaySha256": "ac3fafa91591d3a23afe7245911cc4788c751f95f7e5fd60d931a7cbddafbd1c"
+    },
+    {
+      "seed": 20261017,
+      "model": "v14",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 658,
+      "maxOffers": 2,
+      "maxInterests": 3,
+      "offers": 10,
+      "firstDepartmentMonth": 64,
+      "retailBottles": 1094,
+      "retailRevenue": 19951.33,
+      "shops": {
+        "town-liquor": {
+          "actions": 29,
+          "bottles": 209,
+          "revenue": 3262.84
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 523,
+          "revenue": 10678.86
+        },
+        "department": {
+          "actions": 10,
+          "bottles": 50,
+          "revenue": 1620.2
+        }
+      },
+      "cash": 11800.23,
+      "stock": 43,
+      "revenue": 35513.23,
+      "costs": 17537,
+      "upkeep": 7776,
+      "net": 10200.23,
+      "releaseSignature": "6074cee0297f0734551c38e1a9b7ad70cc9865067db15de15f57fbda34e059a5",
+      "coldReplaySha256": "1b78839d732d98171ef5c7f44a4b738cdc2c8071e07cfc8b67ff7dafb2b8c7fa"
+    },
+    {
+      "seed": 4294967295,
+      "model": "v13",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 656,
+      "maxOffers": 2,
+      "maxInterests": 0,
+      "offers": 3,
+      "firstDepartmentMonth": 64,
+      "retailBottles": 1092,
+      "retailRevenue": 19839.89,
+      "shops": {
+        "town-liquor": {
+          "actions": 26,
+          "bottles": 184,
+          "revenue": 2801.72
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 518,
+          "revenue": 10638.95
+        },
+        "department": {
+          "actions": 16,
+          "bottles": 80,
+          "revenue": 2564.25
+        }
+      },
+      "cash": 12137.81,
+      "stock": 43,
+      "revenue": 35844.81,
+      "costs": 17531,
+      "upkeep": 7776,
+      "net": 10537.81,
+      "releaseSignature": "49168798a9baa3f3acda14d98963511cab95e29a76ddb663a2354640bfd1ba9c",
+      "coldReplaySha256": "f21e9362356315b173a7725bc9c4c1da69dc13ddbe925aa057a52a552d9125fb"
+    },
+    {
+      "seed": 4294967295,
+      "model": "v14",
+      "months": 240,
+      "fills": 47,
+      "releases": 44,
+      "maxCasks": 4,
+      "operations": 661,
+      "maxOffers": 2,
+      "maxInterests": 3,
+      "offers": 10,
+      "firstDepartmentMonth": 64,
+      "retailBottles": 1095,
+      "retailRevenue": 19921.01,
+      "shops": {
+        "town-liquor": {
+          "actions": 29,
+          "bottles": 207,
+          "revenue": 3220.21
+        },
+        "supermarket": {
+          "actions": 27,
+          "bottles": 522,
+          "revenue": 10713.85
+        },
+        "department": {
+          "actions": 10,
+          "bottles": 50,
+          "revenue": 1613.5
+        }
+      },
+      "cash": 11761.57,
+      "stock": 43,
+      "revenue": 35468.57,
+      "costs": 17531,
+      "upkeep": 7776,
+      "net": 10161.57,
+      "releaseSignature": "49168798a9baa3f3acda14d98963511cab95e29a76ddb663a2354640bfd1ba9c",
+      "coldReplaySha256": "50fc003ac5b198c863085668482d5f2c5cd7be3c66848514d2f4f5c39070c242"
+    }
+  ],
+  "pairedReleaseSignatures": [
+    {
+      "seed": 1,
+      "equal": true
+    },
+    {
+      "seed": 2,
+      "equal": true
+    },
+    {
+      "seed": 3,
+      "equal": true
+    },
+    {
+      "seed": 4,
+      "equal": true
+    },
+    {
+      "seed": 42,
+      "equal": true
+    },
+    {
+      "seed": 12345,
+      "equal": true
+    },
+    {
+      "seed": 20261017,
+      "equal": true
+    },
+    {
+      "seed": 4294967295,
+      "equal": true
+    }
+  ]
+}
