@@ -1,0 +1,113 @@
+{
+  "browser": "153.0.8010.0",
+  "fixtures": "Public operations generated natively in Chromium; strict serializer and operation replay. Clock frozen, user paused; no injected relations, dates or numerical projection.",
+  "physicalSafari": false,
+  "humanFun": false,
+  "sourceHashes": {
+    "index.html": "5bce43cf4c38cda407fa56badc5d71a7889051d136472626a965c62aa419aa90",
+    "shop-app.mjs": "92b909c2e6d4b0285e6f6a7a59b80b5b013797a08f138efdd7788271d9547caa",
+    "partner-orders.mjs": "d5f49bc09ac28d27fc182200de39e79c6405e5456625c24c0c10c4840807ab19",
+    "shop-model.mjs": "c8bb789119cb4106001024271a9afc96eb3a593674ad16b353bb99f8e3c2704e",
+    "generations.mjs": "49b00f8e848ad9ab4aa2c38ee0b27f25744c08edab9c768bbb9eaceb54e9c6a0"
+  },
+  "checks": [
+    {
+      "width": 1280,
+      "height": 900,
+      "newBrandOnlyRetail": true,
+      "retailStartRetained": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "pendingOffersHiddenFromBottle": true,
+      "newOtherBrandIndependent": true,
+      "deferredOfferReopensFromSales": true,
+      "acceptDeliveryAddsExactRelation": true,
+      "acceptOnlyAddsRelationNoDelivery": true,
+      "departmentHiddenUntilAccepted": true,
+      "departmentInterestThenFive": true,
+      "completionNoRepeat": true,
+      "allThreeOfferIdsProcessedOnce": true,
+      "adoptionHistoryPreserved": true,
+      "v16ReloadExact": true,
+      "exactTownDepartmentAccounting": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "sameBrandYoungReleaseKeepsRelations": true,
+      "ineligibleReasonRetained": true,
+      "storedEligibleTownDeliveryRetained": true,
+      "exactQuoteReasonShown": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "departmentPendingNotShown": true,
+      "departmentAcceptDeliveryFive": true,
+      "adoptedRelationVisible": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "declinedShopsHidden": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "secondGenerationInheritedRelations": true,
+      "finalBatchProvenanceRetained": true,
+      "viewingDoesNotMutateStoreState": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "newBrandOnlyRetail": true,
+      "retailStartRetained": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "pendingOffersHiddenFromBottle": true,
+      "newOtherBrandIndependent": true,
+      "deferredOfferReopensFromSales": true,
+      "acceptDeliveryAddsExactRelation": true,
+      "acceptOnlyAddsRelationNoDelivery": true,
+      "departmentHiddenUntilAccepted": true,
+      "departmentInterestThenFive": true,
+      "completionNoRepeat": true,
+      "allThreeOfferIdsProcessedOnce": true,
+      "adoptionHistoryPreserved": true,
+      "v16ReloadExact": true,
+      "exactTownDepartmentAccounting": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "sameBrandYoungReleaseKeepsRelations": true,
+      "ineligibleReasonRetained": true,
+      "storedEligibleTownDeliveryRetained": true,
+      "exactQuoteReasonShown": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "departmentPendingNotShown": true,
+      "departmentAcceptDeliveryFive": true,
+      "adoptedRelationVisible": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "declinedShopsHidden": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "secondGenerationInheritedRelations": true,
+      "finalBatchProvenanceRetained": true,
+      "viewingDoesNotMutateStoreState": true
+    }
+  ]
+}

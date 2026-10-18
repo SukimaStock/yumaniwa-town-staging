@@ -270,11 +270,10 @@ function syncModal(){
   body+='<section class="sales-destination" data-destination="shelf"><h3>自家販売</h3><p>'+unit(p.price)+'/本 · '+(p.stock===0?'完売':meta.listed?'販売中':'保管中')+'</p><div class="price-options">'+['low','standard','high'].map((tier,i)=>button(['低め','標準','高め'][i]+'<span>'+unit(prices[tier])+'/本</span>','price',id,'data-tier="'+tier+'" aria-pressed="'+(meta.selectedPrice===tier)+'"')).join('')+'</div>'+(meta.listed?'':button('自家販売を始める','list',id,p.stock>0?'':'disabled'))+'<p class="quiet">自家販売 '+(release?.sold??p.sold)+'本 · 売上 '+money(release?.revenue??p.revenue)+'</p></section>';
   for(const shop of SHOPS){
    const stockist=D.shopBrandStats(game,release?.brandId,shop.id),invitation=shopOffers().find(o=>o.brandId===release?.brandId&&o.shopId===shop.id);
+   if(!stockist)continue;
    if(shop.id==='department'){body+=departmentDestination(p,release,invitation);continue;}
    body+='<section class="sales-destination shop-delivery" data-destination="'+esc(shop.id)+'"><h3>'+esc(shop.name)+'</h3><p class="quiet">'+esc(shopTerms(shop.id))+'</p>';
-   if(stockist){const q=D.shopQuote(game,id,shop.id);body+='<p class="quiet">取扱中 · 納品時に買取</p><p>'+unit(q.unitPrice)+'/本 · 今月あと'+q.remaining+'本</p>'+(q.ok?deliveryButtons(p,q,'shop-deliver'):'<p class="quiet">'+esc(q.reason)+'</p>');}
-   else if(invitation)body+='<p>取扱いの相談 · '+unit(D.shopOfferQuote(game,id,shop.id).unitPrice)+'/本</p>'+button('取扱いの申し出を確認する','shop-open-offer','',invitation===game.shop.offer?'':'disabled')+(invitation===game.shop.offer?'':'<p class="quiet">先の申し出から順に確認できます。</p>');
-   else{const q=D.shopQuote(game,id,shop.id);body+='<p>申し出待ち · '+unit(q.unitPrice)+'/本</p><p class="quiet">'+esc(q.reason)+'</p>';}
+   const q=D.shopQuote(game,id,shop.id);body+='<p class="quiet">取扱中 · 納品時に買取</p><p>'+unit(q.unitPrice)+'/本 · 今月あと'+q.remaining+'本</p>'+(q.ok?deliveryButtons(p,q,'shop-deliver'):'<p class="quiet">'+esc(q.reason)+'</p>');
    body+='</section>';
   }
   actions=(meta.listed||p.stock===0?button('閉じる','cancel'):button('手元に保管する','store')+button('あとで決める','product-later'));

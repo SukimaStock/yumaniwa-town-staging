@@ -1,0 +1,28 @@
+{
+  "baseSha": "3a50c4852af0422cc028a6c007d04182cd5c5a26",
+  "command": "cd works/ambertime && npm test",
+  "tests": 503,
+  "pass": 503,
+  "fail": 0,
+  "durationMs": 106475.254656,
+  "sourceHashes": {
+    "shop-app.mjs": "92b909c2e6d4b0285e6f6a7a59b80b5b013797a08f138efdd7788271d9547caa",
+    "index.html": "5bce43cf4c38cda407fa56badc5d71a7889051d136472626a965c62aa419aa90"
+  },
+  "protectedSourceHashes": {
+    "partner-orders.mjs": "d5f49bc09ac28d27fc182200de39e79c6405e5456625c24c0c10c4840807ab19",
+    "generations.mjs": "49b00f8e848ad9ab4aa2c38ee0b27f25744c08edab9c768bbb9eaceb54e9c6a0",
+    "distillery-history.mjs": "963c2b0ee1dad3c8b5f965702055563d499f25d8c514870c8d2c3184363c8bdd",
+    "history-worker.mjs": "23675ab636ed1c4317152a6b78771bd62839d238871fef5f9099993b935c3561",
+    "shop-model.mjs": "c8bb789119cb4106001024271a9afc96eb3a593674ad16b353bb99f8e3c2704e",
+    "department-projects.mjs": "7402bfd6b88559905405af642a472ca9abe6e2e18f5c3b5bca181f0447741f3a",
+    "bottle-storage.mjs": "1527984862ee8c78940e19cb2ab0a731b9879b7e6d382fb33a5c99b8a9537376",
+    "economy.mjs": "afa97b3631c078362caa336ebf57152e0013eff7dda781c61efa1b89b970440a",
+    "model.mjs": "53e73398202961ff4bab147c48c86148466e488cac6619bb5a4a7f5fc4dcb2e1",
+    "brand-reputation.mjs": "adb3b110fae728e92f0025e7ef2e7c352f7a508caa9d13cea235e85b505aecec",
+    "work-context.mjs": "beaeabe3fb400f8da056b0fb07ac29d34dbd6cfb42b40a150a144caf2136860d"
+  },
+  "protectedSourcesEqualBase": true,
+  "independentReview": "Exact brand-store relation guard; offer modal and sales-tab queue intact; department accepted interest/completion paths preserved. No blocker.",
+  "physicalSafari": false
+}
