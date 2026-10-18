@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "dad44d3df989f4bf4150f733784894c23d0defe9f36468792b1cb1ab29b69d4d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "shinpo-card-unify-current-20261018",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "町内記事カードを既存noteカードの寸法と文字組みに揃える",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "461691b511a6062ed97fd8cbec08e3f504e4cab6",
+    "canonicalSources": [
+      "2026-10-18 user approved: 高さと余白/見出しを隣に揃え、額縁/画鋲/傾きを外し、薄い紙色と小さな湯間庭新報のみ残す",
+      "style.css note rack and archive styles",
+      "main.js renderNoteRackCard",
+      "Library libfile_675edd031eb48191b49483a1b5425d45 (materialize attempted once: download failed; parent inspected)",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/shinpo-card-unify-current-20261018/r0.lock.json",
+      "style.css",
+      "main.js"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/**",
+      "shinpo/**",
+      "assets/**",
+      "tools/**",
+      "tests/**",
+      "works/**",
+      "engines/**",
+      ".github/**",
+      "index.html",
+      "layout-fix.css",
+      "sitemap.xml",
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "EXPRESSION-AUDIT.md",
+      "CHANGE-*.md"
+    ],
+    "expectedChanges": [
+      "町内カード専用の外padding/額縁色、内側影/回転/画鋲/二重罫線/hover移動を除去",
+      "紙色を薄く維持。本文領域はnote iframeと同じ基準min-height、box-sizingで余白を内包。長文は伸びて全文表示、固定高切捨てなし",
+      "見出しを19px程度の通常sans文字組みへ、余白16px程度に。mastは小さな湯間庭新報のみ",
+      "共通noteカードの外形/iframeは変更せず、町内footerを共通外形へ。町内focus-visibleを紙上で見える色に"
+    ],
+    "ownerDecisions": [
+      "2026-10-18 user はい、お願いします accepted proposed card simplification. Staging PR/CI/safe merge/Pages authorized; Production prohibited"
+    ],
+    "hqDecisions": [
+      "SYSTEM/full/HQ Review。CSS変更はshinpo-archive専用セレクタへ限定、main変更はmast文字列のみ。pickup/本文/画像/リンク/既存外部noteは不変",
+      "表現監査: 副題/宣伝コピーなし。必要なタイトル/日付/小さな媒体名と既存操作案内のみ。記事を開いた後の新聞表現は保持"
+    ],
+    "rulesApplied": [
+      "CHANGE-PLAN single initial r0; official create/verify",
+      "Staging only",
+      "EXPRESSION-AUDIT.md 制作前/中/完成前6点"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "320/390/768/1280pxで3記事タイトル全文/サイズ/横幅/タッチ領域/フォーカス",
+      "1クリック本文、scroll/back、pickup保持",
+      "参照画像download失敗と公開URL制限/実機未確認は区別"
+    ],
+    "impactChecks": [
+      "surface.shared",
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.rollback",
+      "runtime.mobile-desktop"
+    ],
+    "impactExclusions": [],
+    "rollback": "このカード見た目PRのみrevert。pickup/記事修復は保持",
+    "outOfScope": [
+      "Production",
+      "記事本文/画像/リンク/新聞CSS",
+      "pickup選択",
+      "note iframe内部",
+      "共有Engine/保存/他作品/外部権限"
+    ],
+    "promotion": "Staging-only; Productionは別指示",
+    "unverified": [
+      "Library原画像はサポート経路で一度download failed。親の確認済み所見を使用",
+      "実機iPhone/iPad",
+      "公開直接確認は既存cloud403制限あり"
+    ],
+    "problem": "町内カードの二重余白/大きい明朝見出し/額縁/画鋲/回転が狭幅で場所を取り広告のように目立つ",
+    "currentContract": "既存4枠と町内pickup、本文新聞表現。カードは全域buttonで開く",
+    "whyExistingIsInsufficient": "町内専用装飾と文字サイズが隣のnoteカードと不揃い",
+    "design": "町内カード専用CSSを簡素化。共通カード外枠とfooterを継承、内側は薄紙色/16px余白/19pxsans。noteと同じ基準のmin-heightにし内容超過時は自然に伸長。媒体名だけ小さく残す",
+    "alternativesRejected": [
+      "タイトル省略/固定高クリップ",
+      "iframe内部変更",
+      "新コピー/副題",
+      "記事本文の新聞表現変更",
+      "pickup/推薦変更"
+    ],
+    "migration": "URL/記事metadata/データ/保存/選択契約変更なし",
+    "compatibility": "全域タップとkeyboard focusを保持。外部note表示CSSは不変",
+    "boundaryCases": [
+      "320/390/768/1280px",
+      "3記事の最長タイトル",
+      "拡大文字で自然伸長",
+      "focus-visible/タッチ領域",
+      "1クリック本文/戻る"
+    ],
+    "testPlan": [
+      "15既存テストとnode syntax",
+      "CSS/main差分限定、記事/画像/リンク/選択変更ゼロ",
+      "ローカルChromium4幅の全タイトル可視/overflowなし/同幅・基準高さ・操作",
+      "表現監査6点、Scope→Risk→Impact、独立レビュー、必須CI、exact Pages SHA"
+    ],
+    "promotionRisk": "Staging noindex only"
+  }
+}
