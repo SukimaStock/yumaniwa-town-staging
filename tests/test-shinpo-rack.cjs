@@ -5,6 +5,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const { test } = require('node:test');
+const cp = require('node:child_process');
+const baselineMain = cp.execFileSync('git', ['show', 'f3f8ad6e994eee02f41440e7cb62fae8d75b16ea:main.js'], {cwd:path.join(__dirname,'..'),encoding:'utf8'});
+const baselineSource = baselineMain.slice(baselineMain.indexOf('function getSortedNoteArticlesForRack()'),baselineMain.indexOf('window.renderNoteCardRack ='));
 
 // Exercise the actual rack functions without booting unrelated town scenes.
 const main = fs.readFileSync(path.join(__dirname, '..', 'main.js'), 'utf8');
@@ -14,7 +17,7 @@ assert(start >= 0 && end > start, 'rack source boundaries must exist');
 const source = main.slice(start, end);
 const plain = value => JSON.parse(JSON.stringify(value));
 
-function fixture(articles, seed = 1, history = [], storageThrows = false) {
+function fixture(articles, seed = 1, history = [], storageThrows = false, rackSource = source) {
     let state = seed >>> 0;
     const math = Object.create(Math);
     math.random = () => {
@@ -38,7 +41,7 @@ function fixture(articles, seed = 1, history = [], storageThrows = false) {
             open: (...args) => opens.push(args)
         }
     });
-    vm.runInContext(source, context, { filename: 'main.js:rack' });
+    vm.runInContext(rackSource, context, { filename: 'main.js:rack' });
     context.openNoteArticleFromRack = context.window.openNoteArticleFromRack;
     return { context, opens, history: () => JSON.parse(stored),
         select: () => plain(context.buildNoteRackSelection()).map(slot => ({ id: slot.article.id, kind: slot.kind, label: slot.label })) };
@@ -51,27 +54,52 @@ const candidates = Array.from({ length: 12 }, (_, i) => ({
     featured: i === 4, themes: [i % 2 ? 'game' : 'app']
 }));
 
-test('archivePage never changes selected IDs, roles or random consumption', () => {
-    const histories = [[], [{ id: 'article-7' }], [{ id: 'article-2' }, { id: 'article-9' }], [{ id: 'unknown' }]];
-    for (const history of histories) {
-        for (const seed of [0, 1, 17, 20261018, 0xffffffff]) {
-            for (const indexes of [[0], [3, 8], candidates.map((_, i) => i)]) {
-                const migrated = candidates.map((article, i) => indexes.includes(i)
-                    ? { ...article, archivePage: './shinpo/article-' + i + '/' } : article);
-                const before = fixture(candidates, seed, history);
-                const after = fixture(migrated, seed, history);
-                // A second opening also detects changes to random consumption.
-                for (let opening = 0; opening < 2; opening++) {
-                    const expected = before.select();
-                    assert.deepEqual(after.select(), expected);
-                    assert.equal(expected.length, 4);
-                    assert.equal(new Set(expected.map(slot => slot.id)).size, 4);
-                    assert.deepEqual(expected.slice(0, 3).map(slot => slot.kind), ['latest', 'pickup', 'random']);
-                    assert(['welcome', 'recommended'].includes(expected[3].kind));
-                }
+test('without unused local articles, old featured/recent behavior and random consumption are unchanged', () => {
+    for (const history of [[], [{id:'article-7'}], [{id:'unknown'}]]) {
+        for (const seed of [0,1,17,20261018,0xffffffff]) {
+            for (const list of [candidates, candidates.map(a=>({...a,featured:false})), candidates.map((a,i)=>({...a,archivePage:i===0?'./shinpo/latest/':''}))]) {
+                const now=fixture(list,seed,history),old=fixture(list,seed,history,false,baselineSource);
+                for(let opening=0;opening<3;opening++)assert.deepEqual(now.select(),old.select());
             }
         }
     }
+});
+
+test('pickup draws each unused local article with or without history and keeps four distinct roles', () => {
+    for(const indexes of [[],[11],[3,8,11],[0],[0,8,11]]) {
+        const articles=candidates.map((a,i)=>({...a,...(indexes.includes(i)?{archivePage:'./shinpo/'+i+'/'}:{})}));
+        const expected=indexes.filter(i=>i!==0).map(i=>'article-'+i),seen=new Set();
+        for(const history of [[],[{id:'article-7'}],[{id:'unknown'}]]) {
+            for(let i=0;i<100;i++) {
+                const seed=Math.imul(i+1,2654435761)>>>0;
+                const f=fixture(articles,seed,history),slots=f.select();
+                assert.deepEqual(slots,fixture(articles,seed,history).select());
+                assert.equal(slots.length,4);assert.equal(new Set(slots.map(s=>s.id)).size,4);
+                assert.equal(slots[0].id,'article-0');assert.deepEqual(slots.slice(0,3).map(s=>s.kind),['latest','pickup','random']);
+                assert.equal(slots[3].kind,history.length?'recommended':'welcome');
+                if(expected.length){assert(expected.includes(slots[1].id));seen.add(slots[1].id);}
+            }
+        }
+        assert.deepEqual([...seen].sort(),expected.sort());
+    }
+});
+
+test('51-article regression snapshot: old local articles are eligible and all are selected', () => {
+    // Pin only this historical regression case; future article additions need no test edits.
+    const data=cp.execFileSync('git',['show','f3f8ad6e994eee02f41440e7cb62fae8d75b16ea:data/notes.js'],{cwd:path.join(__dirname,'..'),encoding:'utf8'});
+    const start=data.indexOf('var NOTE_ARTICLES = ['),box={};
+    vm.runInNewContext(data.slice(start,data.indexOf('\n];',start)+3),box);
+    const articles=plain(box.NOTE_ARTICLES);
+    const sorted=fixture(articles).context.getSortedNoteArticlesForRack();
+    const locals=sorted.filter(a=>a.archivePage).map(a=>a.id),seen=new Set();
+    assert.equal(articles.length,51);assert.equal(locals.length,3);
+    assert(locals.every(id=>sorted.findIndex(a=>a.id===id)>=10));
+    for(const history of [[],[{id:locals[0]}]])for(let i=0;i<100;i++) {
+        const slots=fixture(articles,Math.imul(i+1,2654435761)>>>0,history).select();
+        assert.equal(slots[0].id,sorted[0].id);assert.equal(slots.length,4);assert.equal(new Set(slots.map(s=>s.id)).size,4);
+        assert(locals.includes(slots[1].id));seen.add(slots[1].id);
+    }
+    assert.deepEqual([...seen].sort(),Array.from(locals).sort());
 });
 
 test('zero through three candidates retain the existing smaller-rack fallback', () => {
